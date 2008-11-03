@@ -26,6 +26,17 @@ namespace nGREP
 			}
 		}
 
+		private bool isAllSizes = true;
+
+		public bool IsAllSizes
+		{
+			get { return isAllSizes; }
+			set { 
+				isAllSizes = value;
+				changeState();
+			}
+		}
+
 		private bool isSearching = false;
 
 		public bool IsSearching
@@ -34,6 +45,18 @@ namespace nGREP
 			set
 			{
 				isSearching = value;
+				changeState();
+			}
+		}
+
+		private bool isReplacing = false;
+
+		public bool IsReplacing
+		{
+			get { return isReplacing; }
+			set
+			{
+				isReplacing = value;
 				changeState();
 			}
 		}
@@ -51,20 +74,33 @@ namespace nGREP
 				btnReplace.Enabled = false;
 			}
 
-			if (IsSearching)
+			if (IsAllSizes)
 			{
-				btnSearch.Text = "Cancel";
+				tbFileSizeFrom.Enabled = false;
+				tbFileSizeTo.Enabled = false;
 			}
 			else
 			{
-				btnSearch.Text = "Search";
+				tbFileSizeFrom.Enabled = true;
+				tbFileSizeTo.Enabled = true;
+			}
+
+			if (IsSearching)
+			{
+				btnSearch.Enabled = false;
+				btnCancel.Enabled = true;
+			}
+			else
+			{
+				btnSearch.Enabled = true;
+				btnCancel.Enabled = false;
 			}
 		}
 
 		public MainForm()
 		{
 			InitializeComponent();
-
+			restoreSettings();
 		}
 
 		private void MainForm_Load(object sender, EventArgs e)
@@ -92,14 +128,17 @@ namespace nGREP
 		{
 			if (!IsSearching)
 			{
-				Regex searchPattern = new Regex(tbSearchFor.Text);
 				lblStatus.Text = "Searching...";
 				IsSearching = true;
 				barProgressBar.Value = 0;
 				tvSearchResult.Nodes.Clear();
-				workerSearcher.RunWorkerAsync(searchPattern);
+				workerSearcher.RunWorkerAsync();
 			}
-			else
+		}
+
+		private void btnCancel_Click(object sender, EventArgs e)
+		{
+			if (IsSearching || IsReplacing)
 			{
 				GrepCore.CancelProcess = true;
 			}
@@ -109,10 +148,24 @@ namespace nGREP
 		{
 			if (!workerSearcher.CancellationPending)
 			{
-				string[] files = FileUtils.GetFileList(tbFolderName.Text, tbFilePattern.Text, cbIncludeSubfolders.Checked, cbIncludeHiddenFolders.Checked);
+				int sizeFrom = 0;
+				int sizeTo = 0;
+				if (!IsAllSizes)
+				{
+					sizeFrom = FileUtils.ParseInt(tbFileSizeFrom.Text, 0);
+					sizeTo = FileUtils.ParseInt(tbFileSizeTo.Text, 0);
+				}
+				string[] files = FileUtils.GetFileList(tbFolderName.Text, tbFilePattern.Text, cbIncludeSubfolders.Checked, 
+					cbIncludeHiddenFolders.Checked, sizeFrom, sizeTo);
+				Regex searchPattern = new Regex(tbSearchFor.Text);
 				GrepCore grep = new GrepCore();
 				grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
-				GrepSearchResult[] results = grep.Search(files, (Regex)e.Argument);
+				GrepSearchResult[] results = null;
+				if (rbRegexSearch.Checked)
+					results = grep.Search(files, searchPattern);
+				else
+					results = grep.Search(files, tbSearchFor.Text);
+
 				grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
 				searchResults = new List<GrepSearchResult>(results);
 			}
@@ -125,28 +178,52 @@ namespace nGREP
 
 		private void searchProgressChanged(object sender, ProgressChangedEventArgs e)
 		{
-			GrepCore.ProgressStatus progress = (GrepCore.ProgressStatus)e.UserState;
-			barProgressBar.Value = e.ProgressPercentage;
-			lblStatus.Text = "(" + progress.ProcessedFiles + " of " + progress.TotalFiles + ")";
+			if (!GrepCore.CancelProcess)
+			{
+				GrepCore.ProgressStatus progress = (GrepCore.ProgressStatus)e.UserState;
+				barProgressBar.Value = e.ProgressPercentage;
+				lblStatus.Text = "(" + progress.ProcessedFiles + " of " + progress.TotalFiles + ")";
+			}
 		}
 
 		private void searchComplete(object sender, RunWorkerCompletedEventArgs e)
 		{
 			if (!e.Cancelled)
 			{
-				lblStatus.Text = "Search Complete - " + searchResults.Count + " files found.";				
+				lblStatus.Text = "Search Complete - " + searchResults.Count + " files found.";
 			}
 			else
 			{
 				lblStatus.Text = "Search Canceled";
 			}
+			barProgressBar.Value = 0;
 			IsSearching = false;
 			populateResults();
 		}
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
+			GrepCore.CancelProcess = true;
+			if (workerSearcher.IsBusy)
+				workerSearcher.CancelAsync();
+			populateSettings();
 			Properties.Settings.Default.Save();
+		}
+
+		private void populateSettings()
+		{
+			Properties.Settings.Default.SearchRegex = rbRegexSearch.Checked;
+			Properties.Settings.Default.SearchText = rbTextSearch.Checked;
+			Properties.Settings.Default.FilterAllSizes = rbFilterAllSizes.Checked;
+			Properties.Settings.Default.FilterSpecificSize = rbFilterSpecificSize.Checked;
+		}
+
+		private void restoreSettings()
+		{
+			rbRegexSearch.Checked =Properties.Settings.Default.SearchRegex;
+			rbTextSearch.Checked = Properties.Settings.Default.SearchText;
+			rbFilterAllSizes.Checked = Properties.Settings.Default.FilterAllSizes;
+			rbFilterSpecificSize.Checked = Properties.Settings.Default.FilterSpecificSize;
 		}
 
 		private void populateResults()
@@ -168,6 +245,20 @@ namespace nGREP
 					node.Nodes.Add(line.LineNumber + ":" + lineSummary);
 				}
 			}
+		}
+
+		private void formKeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Escape)
+				Close();
+		}
+
+		private void rbFilterSizes_CheckedChanged(object sender, EventArgs e)
+		{
+			if (rbFilterAllSizes.Checked)
+				IsAllSizes = true;
+			else
+				IsAllSizes = false;
 		}
 	}
 }

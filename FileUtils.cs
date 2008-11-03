@@ -67,25 +67,41 @@ namespace nGREP
 		/// </summary>
 		/// <param name="pathToFolder"></param>
 		/// <param name="namePattern">File name pattern. (E.g. *.cs)</param>
+		/// <param name="includeSubfolders"></param>
+		/// <param name="includeHidden"></param>
+		/// <param name="sizeFrom"></param>
+		/// <param name="sizeTo"></param>
 		/// <returns></returns>
-		public static string[] GetFileList(string pathToFolder, string namePattern, bool includeSubfolders, bool includeHidden)
+		public static string[] GetFileList(string pathToFolder, string namePattern, bool includeSubfolders, bool includeHidden, int sizeFrom, int sizeTo)
 		{
 			if (!Directory.Exists(pathToFolder))
 				return new string[0];
 
 			DirectoryInfo di = new DirectoryInfo(pathToFolder);
 			List<string> fileMatch = new List<string>();
-			recursiveFileSearch(pathToFolder, namePattern, includeSubfolders, includeHidden, fileMatch);
+			recursiveFileSearch(pathToFolder, namePattern, includeSubfolders, includeHidden, sizeFrom, sizeTo, fileMatch);
 			
 			return fileMatch.ToArray();
 		}
 
-		private static void recursiveFileSearch(string pathToFolder, string namePattern, bool includeSubfolders, bool includeHidden, List<string> files)
+		private static void recursiveFileSearch(string pathToFolder, string namePattern, bool includeSubfolders, bool includeHidden, int sizeFrom, int sizeTo, List<string> files)
 		{
 			DirectoryInfo di = new DirectoryInfo(pathToFolder);
 			FileInfo[] fileMatch = di.GetFiles(namePattern, SearchOption.TopDirectoryOnly);
 			for (int i = 0; i < fileMatch.Length; i++)
 			{
+				if (sizeFrom > 0 || sizeTo > 0) 
+				{
+					long sizeKB = fileMatch[i].Length / 1000;
+					if (sizeFrom > 0 && sizeKB < sizeFrom) 
+					{
+						continue;
+					}
+					if (sizeTo > 0 && sizeKB > sizeTo)
+					{
+						continue;
+					}
+				} 
 				files.Add(fileMatch[i].FullName);
 			}
 			if (includeSubfolders)
@@ -98,10 +114,28 @@ namespace nGREP
 					}
 					else
 					{
-						recursiveFileSearch(subDir.FullName, namePattern, includeSubfolders, includeHidden, files);
+						recursiveFileSearch(subDir.FullName, namePattern, includeSubfolders, includeHidden, sizeFrom, sizeTo, files);
 					}
 				}
 			}
+		}
+
+		public static int ParseInt(string value)
+		{
+			return ParseInt(value, int.MinValue);
+		}
+
+		public static int ParseInt(string value, int defaultValue)
+		{
+			if (value != null && value.Length != 0)
+			{
+				int output;
+				if (int.TryParse(value, out output))
+				{
+					return output;
+				}
+			}
+			return defaultValue;
 		}
 	}
 }

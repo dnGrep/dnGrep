@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using NLog;
 
 namespace nGREP
 {
 	static class Program
 	{
+		private static Logger logger = LogManager.GetCurrentClassLogger();
+
 		/// <summary>
 		/// The main entry point for the application.
 		/// </summary>
@@ -14,7 +17,14 @@ namespace nGREP
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new MainForm());
+			try
+			{
+				Application.Run(new MainForm());
+			}
+			catch (Exception ex)
+			{
+				logger.LogException(LogLevel.Error, ex.Message, ex);
+			}
 		}
 	}
 }

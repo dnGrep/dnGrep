@@ -94,5 +94,77 @@ namespace nGREP.Properties {
                 this["IncludeHidden"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SearchRegex {
+            get {
+                return ((bool)(this["SearchRegex"]));
+            }
+            set {
+                this["SearchRegex"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SearchText {
+            get {
+                return ((bool)(this["SearchText"]));
+            }
+            set {
+                this["SearchText"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FilterAllSizes {
+            get {
+                return ((bool)(this["FilterAllSizes"]));
+            }
+            set {
+                this["FilterAllSizes"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool FilterSpecificSize {
+            get {
+                return ((bool)(this["FilterSpecificSize"]));
+            }
+            set {
+                this["FilterSpecificSize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SizeFrom {
+            get {
+                return ((string)(this["SizeFrom"]));
+            }
+            set {
+                this["SizeFrom"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SizeTo {
+            get {
+                return ((string)(this["SizeTo"]));
+            }
+            set {
+                this["SizeTo"] = value;
+            }
+        }
     }
 }

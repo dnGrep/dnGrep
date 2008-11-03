@@ -31,6 +31,8 @@ namespace nGREP
 			get { return GrepCore.cancelProcess; }
 			set { GrepCore.cancelProcess = value; }
 		}
+
+		private delegate bool doSearch(string text, string searchText, Regex searchPattern);
 		
 		/// <summary>
 		/// Searches folder for files whose content matches regex
@@ -39,6 +41,32 @@ namespace nGREP
 		/// <param name="searchRegex">Regex pattern</param>
 		/// <returns>List of results</returns>
 		public GrepSearchResult[] Search(string[] files, Regex searchRegex)
+		{
+			return search(files, null, searchRegex, new doSearch(doRegexSearch));
+		}
+
+		/// <summary>
+		/// Searches folder for files whose content matches text
+		/// </summary>
+		/// <param name="files">Files to search in. If one of the files does not exist or is open, it is skipped.</param>
+		/// <param name="searchText">Text</param>
+		/// <returns></returns>
+		public GrepSearchResult[] Search(string[] files, string searchText)
+		{
+			return search(files, searchText, null, new doSearch(doTextSearchCaseInsensitive));
+		}
+
+		private bool doTextSearchCaseInsensitive(string text, string searchText, Regex searchPattern)
+		{
+			return text.Contains(searchText);
+		}
+
+		private bool doRegexSearch(string text, string searchText, Regex searchPattern)
+		{
+			return searchPattern.IsMatch(text);
+		}
+
+		private GrepSearchResult[] search(string[] files, string searchText, Regex searchRegex, doSearch searchMethod)
 		{
 			if (files == null || files.Length == 0)
 				return new GrepSearchResult[0];
@@ -53,7 +81,7 @@ namespace nGREP
 			{
 				try
 				{
-					processedFiles ++;
+					processedFiles++;
 					using (StreamReader readStream = new StreamReader(File.OpenRead(file)))
 					{
 						string line = null;
@@ -66,7 +94,7 @@ namespace nGREP
 								return searchResults.ToArray();
 							}
 
-							if (searchRegex.IsMatch(line))
+							if (searchMethod(line, searchText, searchRegex))
 							{
 								lines.Add(new GrepSearchResult.GrepLine(counter, line));
 							}
