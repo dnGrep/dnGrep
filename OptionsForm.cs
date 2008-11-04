@@ -124,5 +124,11 @@ namespace nGREP
 				}
 			}
 		}
+
+		private void formKeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.KeyCode == Keys.Escape)
+				Close();
+		}
 	}
 }

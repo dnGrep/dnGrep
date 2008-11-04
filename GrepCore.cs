@@ -32,7 +32,8 @@ namespace nGREP
 			set { GrepCore.cancelProcess = value; }
 		}
 
-		private delegate bool doSearch(string text, string searchText, Regex searchPattern);
+		private delegate bool doSearch(string text, string searchPattern);
+		private delegate string doReplace(string text, string searchPattern, string replacePattern);
 		
 		/// <summary>
 		/// Searches folder for files whose content matches regex
@@ -40,9 +41,9 @@ namespace nGREP
 		/// <param name="files">Files to search in. If one of the files does not exist or is open, it is skipped.</param>
 		/// <param name="searchRegex">Regex pattern</param>
 		/// <returns>List of results</returns>
-		public GrepSearchResult[] Search(string[] files, Regex searchRegex)
+		public GrepSearchResult[] SearchRegex(string[] files, string searchRegex)
 		{
-			return search(files, null, searchRegex, new doSearch(doRegexSearch));
+			return search(files, searchRegex, new doSearch(doRegexSearch));
 		}
 
 		/// <summary>
@@ -51,22 +52,50 @@ namespace nGREP
 		/// <param name="files">Files to search in. If one of the files does not exist or is open, it is skipped.</param>
 		/// <param name="searchText">Text</param>
 		/// <returns></returns>
-		public GrepSearchResult[] Search(string[] files, string searchText)
+		public GrepSearchResult[] SearchText(string[] files, string searchText)
 		{
-			return search(files, searchText, null, new doSearch(doTextSearchCaseInsensitive));
+			return search(files, searchText, new doSearch(doTextSearchCaseInsensitive));
 		}
 
-		private bool doTextSearchCaseInsensitive(string text, string searchText, Regex searchPattern)
+		public void ReplaceRegex(string[] files, string baseFolder, string searchRegex, string replaceRegex)
+		{
+			string tempFolder = FileUtils.FixFolderName(Path.GetTempPath()) + "nGREP\\";
+			if (Directory.Exists(tempFolder))
+				Directory.Delete(tempFolder, true);
+			Directory.CreateDirectory(tempFolder);
+			replace(files, baseFolder, tempFolder, searchRegex, replaceRegex, new doSearch(doRegexSearch), new doReplace(doRegexReplace));
+		}
+
+		public void ReplaceText(string[] files, string baseFolder, string searchText, string replaceText)
+		{
+			string tempFolder = FileUtils.FixFolderName(Path.GetTempPath()) + "nGREP\\";
+			if (Directory.Exists(tempFolder))
+				Directory.Delete(tempFolder, true);
+			Directory.CreateDirectory(tempFolder);
+			replace(files, baseFolder, tempFolder, searchText, replaceText, new doSearch(doTextSearchCaseInsensitive), new doReplace(doTextReplaceCaseInsensitive));
+		}
+
+		private bool doTextSearchCaseInsensitive(string text, string searchText)
 		{
 			return text.Contains(searchText);
 		}
 
-		private bool doRegexSearch(string text, string searchText, Regex searchPattern)
+		private bool doRegexSearch(string text, string searchPattern)
 		{
-			return searchPattern.IsMatch(text);
+			return Regex.IsMatch(text, searchPattern);
 		}
 
-		private GrepSearchResult[] search(string[] files, string searchText, Regex searchRegex, doSearch searchMethod)
+		private string doTextReplaceCaseInsensitive(string text, string searchText, string replaceText)
+		{
+			return text.Replace(searchText, replaceText);
+		}
+
+		private string doRegexReplace(string text, string searchPattern, string replacePattern)
+		{
+			return Regex.Replace(text, searchPattern, replacePattern);
+		}
+
+		private GrepSearchResult[] search(string[] files, string searchPattern, doSearch searchMethod)
 		{
 			if (files == null || files.Length == 0)
 				return new GrepSearchResult[0];
@@ -94,7 +123,7 @@ namespace nGREP
 								return searchResults.ToArray();
 							}
 
-							if (searchMethod(line, searchText, searchRegex))
+							if (searchMethod(line, searchPattern))
 							{
 								lines.Add(new GrepSearchResult.GrepLine(counter, line));
 							}
@@ -114,6 +143,81 @@ namespace nGREP
 				}
 			}
 			return searchResults.ToArray();
+		}
+
+		private void replace(string[] files, string baseFolder, string tempFolder, string searchPattern, string replacePattern, doSearch searchMethod, doReplace replaceMethod)
+		{
+			if (files == null || files.Length == 0 || !Directory.Exists(tempFolder) || !Directory.Exists(baseFolder))
+				return;
+
+			baseFolder = FileUtils.FixFolderName(baseFolder);
+			tempFolder = FileUtils.FixFolderName(tempFolder);
+
+			int totalFiles = files.Length;
+			int processedFiles = 0;
+			GrepCore.CancelProcess = false;
+
+			foreach (string file in files)
+			{
+				string tempFileName = file.Replace(baseFolder, tempFolder);
+				try
+				{
+					processedFiles++;
+					// Copy file					
+					FileUtils.CopyFile(file, tempFileName, true);
+					File.Delete(file);
+
+					using (StreamReader readStream = new StreamReader(File.OpenRead(tempFileName)))
+					using (StreamWriter writeStream = new StreamWriter(File.OpenWrite(file)))
+					{
+						string line = null;
+						int counter = 1;
+
+						while ((line = readStream.ReadLine()) != null)
+						{
+							if (GrepCore.CancelProcess)
+							{
+								break;
+							}
+
+							if (searchMethod(line, searchPattern))
+							{
+								line = replaceMethod(line, searchPattern, replacePattern);
+							}
+							writeStream.WriteLine(line);
+							counter++;
+						}
+
+						if (!GrepCore.CancelProcess && ProcessedFile != null)
+							ProcessedFile(this, new ProgressStatus(totalFiles, processedFiles));
+					}
+
+					if (GrepCore.CancelProcess)
+					{
+						// Replace the file
+						File.Delete(file);
+						FileUtils.CopyFile(tempFileName, file, true);
+						break;
+					}
+				}
+				catch (Exception ex)
+				{
+					logger.LogException(LogLevel.Error, ex.Message, ex);
+					try
+					{
+						// Replace the file
+						if (File.Exists(tempFileName) && File.Exists(file))
+						{
+							File.Delete(file);
+							FileUtils.CopyFile(tempFileName, file, true);
+						}
+					}
+					catch (Exception ex2)
+					{
+						// DO NOTHING
+					}
+				}
+			}
 		}
 	}
 }

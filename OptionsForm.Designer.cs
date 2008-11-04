@@ -31,9 +31,9 @@ namespace nGREP
 			this.grShell = new System.Windows.Forms.GroupBox();
 			this.cbRegisterShell = new System.Windows.Forms.CheckBox();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.rbSpecificEditor = new System.Windows.Forms.RadioButton();
 			this.label1 = new System.Windows.Forms.Label();
 			this.tbEditorPath = new System.Windows.Forms.TextBox();
+			this.rbSpecificEditor = new System.Windows.Forms.RadioButton();
 			this.rbDefaultEditor = new System.Windows.Forms.RadioButton();
 			this.grShell.SuspendLayout();
 			this.groupBox1.SuspendLayout();
@@ -46,7 +46,7 @@ namespace nGREP
 			this.grShell.Controls.Add(this.cbRegisterShell);
 			this.grShell.Location = new System.Drawing.Point(3, 5);
 			this.grShell.Name = "grShell";
-			this.grShell.Size = new System.Drawing.Size(411, 47);
+			this.grShell.Size = new System.Drawing.Size(446, 47);
 			this.grShell.TabIndex = 0;
 			this.grShell.TabStop = false;
 			this.grShell.Text = "Shell integration";
@@ -72,10 +72,31 @@ namespace nGREP
 			this.groupBox1.Controls.Add(this.rbDefaultEditor);
 			this.groupBox1.Location = new System.Drawing.Point(3, 58);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(411, 103);
+			this.groupBox1.Size = new System.Drawing.Size(446, 103);
 			this.groupBox1.TabIndex = 1;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Editor";
+			// 
+			// label1
+			// 
+			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.label1.Location = new System.Drawing.Point(105, 64);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(332, 32);
+			this.label1.TabIndex = 3;
+			this.label1.Text = "(use %file and %line keywords to specify file location and line number)";
+			// 
+			// tbEditorPath
+			// 
+			this.tbEditorPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.tbEditorPath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "CustomEditor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.tbEditorPath.Location = new System.Drawing.Point(108, 41);
+			this.tbEditorPath.Name = "tbEditorPath";
+			this.tbEditorPath.Size = new System.Drawing.Size(330, 20);
+			this.tbEditorPath.TabIndex = 2;
+			this.tbEditorPath.Text = global::nGREP.Properties.Settings.Default.CustomEditor;
 			// 
 			// rbSpecificEditor
 			// 
@@ -87,27 +108,6 @@ namespace nGREP
 			this.rbSpecificEditor.TabStop = true;
 			this.rbSpecificEditor.Text = "Custom editor:";
 			this.rbSpecificEditor.UseVisualStyleBackColor = true;
-			// 
-			// label1
-			// 
-			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.label1.Location = new System.Drawing.Point(105, 64);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(297, 32);
-			this.label1.TabIndex = 3;
-			this.label1.Text = "(use %file and %line keywords to specify file location and line number)";
-			// 
-			// tbEditorPath
-			// 
-			this.tbEditorPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.tbEditorPath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "CustomEditor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.tbEditorPath.Location = new System.Drawing.Point(108, 41);
-			this.tbEditorPath.Name = "tbEditorPath";
-			this.tbEditorPath.Size = new System.Drawing.Size(295, 20);
-			this.tbEditorPath.TabIndex = 2;
-			this.tbEditorPath.Text = global::nGREP.Properties.Settings.Default.CustomEditor;
 			// 
 			// rbDefaultEditor
 			// 
@@ -125,16 +125,18 @@ namespace nGREP
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(417, 165);
+			this.ClientSize = new System.Drawing.Size(450, 176);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.grShell);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
-			this.MaximumSize = new System.Drawing.Size(500, 189);
-			this.MinimumSize = new System.Drawing.Size(200, 189);
+			this.KeyPreview = true;
+			this.MaximumSize = new System.Drawing.Size(500, 200);
+			this.MinimumSize = new System.Drawing.Size(200, 200);
 			this.Name = "OptionsForm";
 			this.Text = "Options";
 			this.Load += new System.EventHandler(this.OptionsForm_Load);
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OptionsForm_FormClosing);
+			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.formKeyDown);
 			this.grShell.ResumeLayout(false);
 			this.grShell.PerformLayout();
 			this.groupBox1.ResumeLayout(false);

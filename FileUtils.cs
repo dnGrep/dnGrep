@@ -60,6 +60,13 @@ namespace nGREP
 			File.Copy(sourcePath, destinationPath, overWrite);
 		}
 
+		public static string FixFolderName(string name)
+		{
+			if (name != null && name.Length > 1 && name[name.Length - 1] != Path.DirectorySeparatorChar)
+				name += Path.DirectorySeparatorChar;
+			return name;
+		}
+
 		/// <summary>
 		/// Searches folder and it's subfolders for files that match pattern and
 		/// returns array of strings that contain full paths to the files.
