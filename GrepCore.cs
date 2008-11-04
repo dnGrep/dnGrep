@@ -57,22 +57,22 @@ namespace nGREP
 			return search(files, searchText, new doSearch(doTextSearchCaseInsensitive));
 		}
 
-		public void ReplaceRegex(string[] files, string baseFolder, string searchRegex, string replaceRegex)
+		public int ReplaceRegex(string[] files, string baseFolder, string searchRegex, string replaceRegex)
 		{
 			string tempFolder = FileUtils.FixFolderName(Path.GetTempPath()) + "nGREP\\";
 			if (Directory.Exists(tempFolder))
 				Directory.Delete(tempFolder, true);
 			Directory.CreateDirectory(tempFolder);
-			replace(files, baseFolder, tempFolder, searchRegex, replaceRegex, new doSearch(doRegexSearch), new doReplace(doRegexReplace));
+			return replace(files, baseFolder, tempFolder, searchRegex, replaceRegex, new doSearch(doRegexSearch), new doReplace(doRegexReplace));
 		}
 
-		public void ReplaceText(string[] files, string baseFolder, string searchText, string replaceText)
+		public int ReplaceText(string[] files, string baseFolder, string searchText, string replaceText)
 		{
 			string tempFolder = FileUtils.FixFolderName(Path.GetTempPath()) + "nGREP\\";
 			if (Directory.Exists(tempFolder))
 				Directory.Delete(tempFolder, true);
 			Directory.CreateDirectory(tempFolder);
-			replace(files, baseFolder, tempFolder, searchText, replaceText, new doSearch(doTextSearchCaseInsensitive), new doReplace(doTextReplaceCaseInsensitive));
+			return replace(files, baseFolder, tempFolder, searchText, replaceText, new doSearch(doTextSearchCaseInsensitive), new doReplace(doTextReplaceCaseInsensitive));
 		}
 
 		private bool doTextSearchCaseInsensitive(string text, string searchText)
@@ -145,10 +145,10 @@ namespace nGREP
 			return searchResults.ToArray();
 		}
 
-		private void replace(string[] files, string baseFolder, string tempFolder, string searchPattern, string replacePattern, doSearch searchMethod, doReplace replaceMethod)
+		private int replace(string[] files, string baseFolder, string tempFolder, string searchPattern, string replacePattern, doSearch searchMethod, doReplace replaceMethod)
 		{
 			if (files == null || files.Length == 0 || !Directory.Exists(tempFolder) || !Directory.Exists(baseFolder))
-				return;
+				return 0;
 
 			baseFolder = FileUtils.FixFolderName(baseFolder);
 			tempFolder = FileUtils.FixFolderName(tempFolder);
@@ -216,8 +216,10 @@ namespace nGREP
 					{
 						// DO NOTHING
 					}
+					return -1;
 				}
 			}
+			return processedFiles;
 		}
 	}
 }

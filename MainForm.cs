@@ -196,7 +196,7 @@ namespace nGREP
 			}
 		}
 
-		private void doSearch(object sender, DoWorkEventArgs e)
+		private void doSearchReplace(object sender, DoWorkEventArgs e)
 		{
 			if (!workerSearchReplace.CancellationPending)
 			{
@@ -224,6 +224,7 @@ namespace nGREP
 
 					grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
 					searchResults = new List<GrepSearchResult>(results);
+					e.Result = results.Length;
 				}
 				else
 				{					
@@ -236,9 +237,9 @@ namespace nGREP
 					}
 
 					if (rbRegexSearch.Checked)
-						grep.ReplaceRegex(files.ToArray(), tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text);
+						e.Result = grep.ReplaceRegex(files.ToArray(), tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text);
 					else
-						grep.ReplaceText(files.ToArray(), tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text);
+						e.Result = grep.ReplaceText(files.ToArray(), tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text);
 
 					grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
 				}
@@ -266,7 +267,7 @@ namespace nGREP
 			{
 				if (!e.Cancelled)
 				{
-					lblStatus.Text = "Search Complete - " + searchResults.Count + " files found.";
+					lblStatus.Text = "Search Complete - " + (int)e.Result + " files found.";
 				}
 				else
 				{
@@ -278,13 +279,20 @@ namespace nGREP
 					FilesFound = true;
 				else
 					FilesFound = false;
-				populateResults();
 			}
 			else if (IsReplacing)
 			{
 				if (!e.Cancelled)
 				{
-					lblStatus.Text = "Replace Complete.";
+					if (((int)e.Result) == -1)
+					{
+						lblStatus.Text = "Replace Failed.";
+						MessageBox.Show("Replace failed! See error log.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+					else
+					{
+						lblStatus.Text = "Replace Complete - " + (int)e.Result + " files replaced.";
+					}
 				}
 				else
 				{
@@ -292,7 +300,10 @@ namespace nGREP
 				}
 				barProgressBar.Value = 0;
 				IsReplacing = false;
+				searchResults.Clear();
+				FilesFound = false;
 			}
+			populateResults();
 		}
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)

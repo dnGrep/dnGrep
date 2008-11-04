@@ -391,7 +391,7 @@ namespace nGREP
 			// 
 			this.workerSearchReplace.WorkerReportsProgress = true;
 			this.workerSearchReplace.WorkerSupportsCancellation = true;
-			this.workerSearchReplace.DoWork += new System.ComponentModel.DoWorkEventHandler(this.doSearch);
+			this.workerSearchReplace.DoWork += new System.ComponentModel.DoWorkEventHandler(this.doSearchReplace);
 			this.workerSearchReplace.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.searchComplete);
 			this.workerSearchReplace.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.searchProgressChanged);
 			// 
