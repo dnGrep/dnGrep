@@ -14,7 +14,9 @@ namespace nGREP
 	public partial class MainForm : Form
 	{
 		List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
-
+		private const string SEARCH_KEY = "search";
+		private const string REPLACE_KEY = "replace";
+		
 		#region States
 
 		private bool folderSelected = false;
@@ -176,13 +178,13 @@ namespace nGREP
 
 		private void btnSearch_Click(object sender, EventArgs e)
 		{
-			if (!IsSearching)
+			if (!IsSearching && !workerSearchReplace.IsBusy)
 			{
 				lblStatus.Text = "Searching...";
 				IsSearching = true;
 				barProgressBar.Value = 0;
 				tvSearchResult.Nodes.Clear();
-				workerSearcher.RunWorkerAsync();
+				workerSearchReplace.RunWorkerAsync(SEARCH_KEY);
 			}
 		}
 
@@ -196,36 +198,56 @@ namespace nGREP
 
 		private void doSearch(object sender, DoWorkEventArgs e)
 		{
-			if (!workerSearcher.CancellationPending && !workerReplace.IsBusy)
+			if (!workerSearchReplace.CancellationPending)
 			{
-				int sizeFrom = 0;
-				int sizeTo = 0;
-				if (!IsAllSizes)
+				if (e.Argument == SEARCH_KEY)
 				{
-					sizeFrom = FileUtils.ParseInt(tbFileSizeFrom.Text, 0);
-					sizeTo = FileUtils.ParseInt(tbFileSizeTo.Text, 0);
-				}
-				string filePattern = "*.*";
-				if (!string.IsNullOrEmpty(tbFilePattern.Text))
-					filePattern = tbFilePattern.Text;
-				string[] files = FileUtils.GetFileList(tbFolderName.Text, filePattern, cbIncludeSubfolders.Checked, 
-					cbIncludeHiddenFolders.Checked, sizeFrom, sizeTo);
-				GrepCore grep = new GrepCore();
-				grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
-				GrepSearchResult[] results = null;
-				if (rbRegexSearch.Checked)
-					results = grep.SearchRegex(files, tbSearchFor.Text);
-				else
-					results = grep.SearchText(files, tbSearchFor.Text);
+					int sizeFrom = 0;
+					int sizeTo = 0;
+					if (!IsAllSizes)
+					{
+						sizeFrom = FileUtils.ParseInt(tbFileSizeFrom.Text, 0);
+						sizeTo = FileUtils.ParseInt(tbFileSizeTo.Text, 0);
+					}
+					string filePattern = "*.*";
+					if (!string.IsNullOrEmpty(tbFilePattern.Text))
+						filePattern = tbFilePattern.Text;
+					string[] files = FileUtils.GetFileList(tbFolderName.Text, filePattern, cbIncludeSubfolders.Checked,
+						cbIncludeHiddenFolders.Checked, sizeFrom, sizeTo);
+					GrepCore grep = new GrepCore();
+					grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
+					GrepSearchResult[] results = null;
+					if (rbRegexSearch.Checked)
+						results = grep.SearchRegex(files, tbSearchFor.Text);
+					else
+						results = grep.SearchText(files, tbSearchFor.Text);
 
-				grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
-				searchResults = new List<GrepSearchResult>(results);
+					grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
+					searchResults = new List<GrepSearchResult>(results);
+				}
+				else
+				{					
+					GrepCore grep = new GrepCore();
+					grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
+					List<string> files = new List<string>();
+					foreach (GrepSearchResult result in searchResults)
+					{
+						files.Add(result.FileName);
+					}
+
+					if (rbRegexSearch.Checked)
+						grep.ReplaceRegex(files.ToArray(), tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text);
+					else
+						grep.ReplaceText(files.ToArray(), tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text);
+
+					grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
+				}
 			}
 		}
 
 		void grep_ProcessedFile(object sender, GrepCore.ProgressStatus progress)
 		{
-			workerSearcher.ReportProgress((int)(progress.ProcessedFiles * 100 / progress.TotalFiles), progress);
+			workerSearchReplace.ReportProgress((int)(progress.ProcessedFiles * 100 / progress.TotalFiles), progress);
 		}
 
 		private void searchProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -240,28 +262,44 @@ namespace nGREP
 
 		private void searchComplete(object sender, RunWorkerCompletedEventArgs e)
 		{
-			if (!e.Cancelled)
+			if (IsSearching)
 			{
-				lblStatus.Text = "Search Complete - " + searchResults.Count + " files found.";
+				if (!e.Cancelled)
+				{
+					lblStatus.Text = "Search Complete - " + searchResults.Count + " files found.";
+				}
+				else
+				{
+					lblStatus.Text = "Search Canceled";
+				}
+				barProgressBar.Value = 0;
+				IsSearching = false;
+				if (searchResults.Count > 0)
+					FilesFound = true;
+				else
+					FilesFound = false;
+				populateResults();
 			}
-			else
+			else if (IsReplacing)
 			{
-				lblStatus.Text = "Search Canceled";
+				if (!e.Cancelled)
+				{
+					lblStatus.Text = "Replace Complete.";
+				}
+				else
+				{
+					lblStatus.Text = "Replace Canceled";
+				}
+				barProgressBar.Value = 0;
+				IsReplacing = false;
 			}
-			barProgressBar.Value = 0;
-			IsSearching = false;
-			if (searchResults.Count > 0)
-				FilesFound = true;
-			else
-				FilesFound = false;
-			populateResults();
 		}
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
 			GrepCore.CancelProcess = true;
-			if (workerSearcher.IsBusy)
-				workerSearcher.CancelAsync();
+			if (workerSearchReplace.IsBusy)
+				workerSearchReplace.CancelAsync();
 			populateSettings();
 			Properties.Settings.Default.Save();
 		}
@@ -386,58 +424,13 @@ namespace nGREP
 
 		private void btnReplace_Click(object sender, EventArgs e)
 		{
-			if (!IsReplacing && !IsSearching)
+			if (!IsReplacing && !IsSearching && !workerSearchReplace.IsBusy)
 			{
 				lblStatus.Text = "Replacing...";
 				IsReplacing = true;
 				barProgressBar.Value = 0;
 				tvSearchResult.Nodes.Clear();
-				workerReplace.RunWorkerAsync();
-			}
-		}
-
-		private void doReplace(object sender, DoWorkEventArgs e)
-		{
-			if (!workerReplace.CancellationPending && !workerSearcher.IsBusy)
-			{
-				GrepCore grep = new GrepCore();
-				grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
-				List<string> files = new List<string>();
-				foreach (GrepSearchResult result in searchResults)
-				{
-					files.Add(result.FileName);
-				}
-				
-				if (rbRegexSearch.Checked)
-					grep.ReplaceRegex(files.ToArray(), tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text);
-				else
-					grep.ReplaceText(files.ToArray(), tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text);
-
-				grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
-			}
-		}
-
-		private void replaceComplete(object sender, RunWorkerCompletedEventArgs e)
-		{
-			if (!e.Cancelled)
-			{
-				lblStatus.Text = "Replace Complete.";
-			}
-			else
-			{
-				lblStatus.Text = "Replace Canceled";
-			}
-			barProgressBar.Value = 0;
-			IsReplacing = false;
-		}
-
-		private void replaceProgressChanged(object sender, ProgressChangedEventArgs e)
-		{
-			if (!GrepCore.CancelProcess)
-			{
-				GrepCore.ProgressStatus progress = (GrepCore.ProgressStatus)e.UserState;
-				barProgressBar.Value = e.ProgressPercentage;
-				lblStatus.Text = "(" + progress.ProcessedFiles + " of " + progress.TotalFiles + ")";
+				workerSearchReplace.RunWorkerAsync(REPLACE_KEY);
 			}
 		}
 

@@ -58,13 +58,12 @@ namespace nGREP
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.barProgressBar = new System.Windows.Forms.ToolStripProgressBar();
 			this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
-			this.workerSearcher = new System.ComponentModel.BackgroundWorker();
+			this.workerSearchReplace = new System.ComponentModel.BackgroundWorker();
 			this.folderSelectDialog = new System.Windows.Forms.FolderBrowserDialog();
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.workerReplace = new System.ComponentModel.BackgroundWorker();
 			this.label6 = new System.Windows.Forms.Label();
 			this.gbSearchIn.SuspendLayout();
 			this.gbSearchFor.SuspendLayout();
@@ -388,13 +387,13 @@ namespace nGREP
 			this.lblStatus.Name = "lblStatus";
 			this.lblStatus.Size = new System.Drawing.Size(0, 17);
 			// 
-			// workerSearcher
+			// workerSearchReplace
 			// 
-			this.workerSearcher.WorkerReportsProgress = true;
-			this.workerSearcher.WorkerSupportsCancellation = true;
-			this.workerSearcher.DoWork += new System.ComponentModel.DoWorkEventHandler(this.doSearch);
-			this.workerSearcher.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.searchComplete);
-			this.workerSearcher.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.searchProgressChanged);
+			this.workerSearchReplace.WorkerReportsProgress = true;
+			this.workerSearchReplace.WorkerSupportsCancellation = true;
+			this.workerSearchReplace.DoWork += new System.ComponentModel.DoWorkEventHandler(this.doSearch);
+			this.workerSearchReplace.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.searchComplete);
+			this.workerSearchReplace.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.searchProgressChanged);
 			// 
 			// btnCancel
 			// 
@@ -432,14 +431,6 @@ namespace nGREP
 			this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
 			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
 			this.aboutToolStripMenuItem.Text = "&About...";
-			// 
-			// workerReplace
-			// 
-			this.workerReplace.WorkerReportsProgress = true;
-			this.workerReplace.WorkerSupportsCancellation = true;
-			this.workerReplace.DoWork += new System.ComponentModel.DoWorkEventHandler(this.doReplace);
-			this.workerReplace.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.replaceComplete);
-			this.workerReplace.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.replaceProgressChanged);
 			// 
 			// label6
 			// 
@@ -522,14 +513,13 @@ namespace nGREP
 		private System.Windows.Forms.StatusStrip statusStrip1;
 		private System.Windows.Forms.ToolStripProgressBar barProgressBar;
 		private System.Windows.Forms.ToolStripStatusLabel lblStatus;
-		private System.ComponentModel.BackgroundWorker workerSearcher;
+		private System.ComponentModel.BackgroundWorker workerSearchReplace;
 		private System.Windows.Forms.Button btnCancel;
 		private System.Windows.Forms.MenuStrip menuStrip1;
 		private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
 		private System.Windows.Forms.ContextMenuStrip tvContextMenu;
 		private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
-		private System.ComponentModel.BackgroundWorker workerReplace;
 		private System.Windows.Forms.Label label6;
 	}
 }
