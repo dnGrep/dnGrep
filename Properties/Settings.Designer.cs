@@ -166,5 +166,29 @@ namespace nGREP.Properties {
                 this["SizeTo"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CustomEditor {
+            get {
+                return ((string)(this["CustomEditor"]));
+            }
+            set {
+                this["CustomEditor"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UseCustomEditor {
+            get {
+                return ((bool)(this["UseCustomEditor"]));
+            }
+            set {
+                this["UseCustomEditor"] = value;
+            }
+        }
     }
 }

@@ -13,10 +13,17 @@ namespace nGREP
 		/// The main entry point for the application.
 		/// </summary>
 		[STAThread]
-		static void Main()
+		static void Main(string[] args)
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
+//#if DEBUG
+//            System.Diagnostics.Debugger.Break();
+//#endif
+			if (args != null && args.Length > 0)
+			{
+				Properties.Settings.Default.SearchFolder = args[0];
+			}
 			try
 			{
 				Application.Run(new MainForm());

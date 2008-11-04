@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace nGREP
 {
@@ -155,7 +156,10 @@ namespace nGREP
 					sizeFrom = FileUtils.ParseInt(tbFileSizeFrom.Text, 0);
 					sizeTo = FileUtils.ParseInt(tbFileSizeTo.Text, 0);
 				}
-				string[] files = FileUtils.GetFileList(tbFolderName.Text, tbFilePattern.Text, cbIncludeSubfolders.Checked, 
+				string filePattern = "*.*";
+				if (!string.IsNullOrEmpty(tbFilePattern.Text))
+					filePattern = tbFilePattern.Text;
+				string[] files = FileUtils.GetFileList(tbFolderName.Text, filePattern, cbIncludeSubfolders.Checked, 
 					cbIncludeHiddenFolders.Checked, sizeFrom, sizeTo);
 				Regex searchPattern = new Regex(tbSearchFor.Text);
 				GrepCore grep = new GrepCore();
@@ -234,6 +238,7 @@ namespace nGREP
 			foreach (GrepSearchResult result in searchResults)
 			{
 				TreeNode node = new TreeNode(Path.GetFileName(result.FileName));
+				node.Tag = result.FileName;
 				tvSearchResult.Nodes.Add(node);
 				foreach (GrepSearchResult.GrepLine line in result.SearchResults)
 				{
@@ -242,7 +247,9 @@ namespace nGREP
 						lineSummary = "<none>";
 					else if (lineSummary.Length > 100)
 						lineSummary = lineSummary.Substring(0, 100) + "...";
-					node.Nodes.Add(line.LineNumber + ":" + lineSummary);
+					TreeNode lineNode = new TreeNode(line.LineNumber + ":" + lineSummary);
+					lineNode.Tag = line.LineNumber;
+					node.Nodes.Add(lineNode);
 				}
 			}
 		}
@@ -259,6 +266,90 @@ namespace nGREP
 				IsAllSizes = true;
 			else
 				IsAllSizes = false;
+		}
+
+		private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			OptionsForm options = new OptionsForm();
+			options.ShowDialog();
+		}
+
+		private void openToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			TreeNode selectedNode = tvSearchResult.SelectedNode;
+			if (selectedNode != null)
+			{
+				// Line was selected
+				int lineNumber = 0;
+				if (selectedNode.Parent != null)
+				{
+					if (selectedNode.Tag != null && selectedNode.Tag is int)
+					{
+						lineNumber = (int)selectedNode.Tag;
+					}
+					selectedNode = selectedNode.Parent;
+				}
+				if (selectedNode != null && selectedNode.Tag != null)
+				{
+					if (!Properties.Settings.Default.UseCustomEditor)
+						System.Diagnostics.Process.Start(@"" + (string)selectedNode.Tag + "");
+					else
+					{
+						ProcessStartInfo info = new ProcessStartInfo("cmd.exe");
+						info.UseShellExecute = false;
+						info.CreateNoWindow = true;
+						info.Arguments = "/C " + Properties.Settings.Default.CustomEditor.Replace("%file", "\"" + (string)selectedNode.Tag + "\"").Replace("%line", lineNumber.ToString());
+						System.Diagnostics.Process.Start(info);
+						//System.Diagnostics.Process.Start(@"" + OptionsForm.GetEditorPath((string)selectedNode.Tag, lineNumber) + "");
+					}
+				}
+			}
+		}
+
+		private void tvSearchResult_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+		{
+			if (e.Button == MouseButtons.Right)
+				tvSearchResult.SelectedNode = e.Node;
+		}
+
+		private void doReplace(object sender, DoWorkEventArgs e)
+		{
+			if (!workerSearcher.CancellationPending)
+			{
+				int sizeFrom = 0;
+				int sizeTo = 0;
+				if (!IsAllSizes)
+				{
+					sizeFrom = FileUtils.ParseInt(tbFileSizeFrom.Text, 0);
+					sizeTo = FileUtils.ParseInt(tbFileSizeTo.Text, 0);
+				}
+				string filePattern = "*.*";
+				if (!string.IsNullOrEmpty(tbFilePattern.Text))
+					filePattern = tbFilePattern.Text;
+				string[] files = FileUtils.GetFileList(tbFolderName.Text, filePattern, cbIncludeSubfolders.Checked,
+					cbIncludeHiddenFolders.Checked, sizeFrom, sizeTo);
+				Regex searchPattern = new Regex(tbSearchFor.Text);
+				GrepCore grep = new GrepCore();
+				grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
+				GrepSearchResult[] results = null;
+				if (rbRegexSearch.Checked)
+					results = grep.Search(files, searchPattern);
+				else
+					results = grep.Search(files, tbSearchFor.Text);
+
+				grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
+				searchResults = new List<GrepSearchResult>(results);
+			}
+		}
+
+		private void replaceProgressChanged(object sender, ProgressChangedEventArgs e)
+		{
+
+		}
+
+		private void replaceComplete(object sender, RunWorkerCompletedEventArgs e)
+		{
+
 		}
 	}
 }

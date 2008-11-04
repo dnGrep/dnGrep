@@ -28,12 +28,10 @@ namespace nGREP
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			this.gbSearchIn = new System.Windows.Forms.GroupBox();
 			this.btnSelectFolder = new System.Windows.Forms.Button();
-			this.tbFolderName = new System.Windows.Forms.TextBox();
 			this.gbSearchFor = new System.Windows.Forms.GroupBox();
-			this.tbReplaceWith = new System.Windows.Forms.TextBox();
-			this.tbSearchFor = new System.Windows.Forms.TextBox();
 			this.label2 = new System.Windows.Forms.Label();
 			this.rbTextSearch = new System.Windows.Forms.RadioButton();
 			this.rbRegexSearch = new System.Windows.Forms.RadioButton();
@@ -42,26 +40,37 @@ namespace nGREP
 			this.gbFilter = new System.Windows.Forms.GroupBox();
 			this.label5 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
-			this.tbFileSizeTo = new System.Windows.Forms.TextBox();
-			this.tbFileSizeFrom = new System.Windows.Forms.TextBox();
 			this.rbFilterSpecificSize = new System.Windows.Forms.RadioButton();
 			this.rbFilterAllSizes = new System.Windows.Forms.RadioButton();
-			this.cbIncludeHiddenFolders = new System.Windows.Forms.CheckBox();
-			this.cbIncludeSubfolders = new System.Windows.Forms.CheckBox();
-			this.tbFilePattern = new System.Windows.Forms.TextBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.btnReplace = new System.Windows.Forms.Button();
 			this.tvSearchResult = new System.Windows.Forms.TreeView();
+			this.tvContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.barProgressBar = new System.Windows.Forms.ToolStripProgressBar();
 			this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
 			this.workerSearcher = new System.ComponentModel.BackgroundWorker();
 			this.folderSelectDialog = new System.Windows.Forms.FolderBrowserDialog();
 			this.btnCancel = new System.Windows.Forms.Button();
+			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+			this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.tbFileSizeTo = new System.Windows.Forms.TextBox();
+			this.tbFileSizeFrom = new System.Windows.Forms.TextBox();
+			this.cbIncludeHiddenFolders = new System.Windows.Forms.CheckBox();
+			this.cbIncludeSubfolders = new System.Windows.Forms.CheckBox();
+			this.tbFilePattern = new System.Windows.Forms.TextBox();
+			this.tbReplaceWith = new System.Windows.Forms.TextBox();
+			this.tbSearchFor = new System.Windows.Forms.TextBox();
+			this.tbFolderName = new System.Windows.Forms.TextBox();
+			this.workerReplace = new System.ComponentModel.BackgroundWorker();
 			this.gbSearchIn.SuspendLayout();
 			this.gbSearchFor.SuspendLayout();
 			this.gbFilter.SuspendLayout();
+			this.tvContextMenu.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
+			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// gbSearchIn
@@ -70,9 +79,9 @@ namespace nGREP
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.gbSearchIn.Controls.Add(this.btnSelectFolder);
 			this.gbSearchIn.Controls.Add(this.tbFolderName);
-			this.gbSearchIn.Location = new System.Drawing.Point(6, 3);
+			this.gbSearchIn.Location = new System.Drawing.Point(6, 26);
 			this.gbSearchIn.Name = "gbSearchIn";
-			this.gbSearchIn.Size = new System.Drawing.Size(473, 52);
+			this.gbSearchIn.Size = new System.Drawing.Size(488, 52);
 			this.gbSearchIn.TabIndex = 2;
 			this.gbSearchIn.TabStop = false;
 			this.gbSearchIn.Text = "Search in";
@@ -80,25 +89,13 @@ namespace nGREP
 			// btnSelectFolder
 			// 
 			this.btnSelectFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnSelectFolder.Location = new System.Drawing.Point(423, 17);
+			this.btnSelectFolder.Location = new System.Drawing.Point(438, 17);
 			this.btnSelectFolder.Name = "btnSelectFolder";
 			this.btnSelectFolder.Size = new System.Drawing.Size(42, 23);
 			this.btnSelectFolder.TabIndex = 0;
 			this.btnSelectFolder.Text = "...";
 			this.btnSelectFolder.UseVisualStyleBackColor = true;
 			this.btnSelectFolder.Click += new System.EventHandler(this.btnSelectFolder_Click);
-			// 
-			// tbFolderName
-			// 
-			this.tbFolderName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.tbFolderName.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "SearchFolder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.tbFolderName.Location = new System.Drawing.Point(6, 19);
-			this.tbFolderName.Name = "tbFolderName";
-			this.tbFolderName.ReadOnly = true;
-			this.tbFolderName.Size = new System.Drawing.Size(411, 20);
-			this.tbFolderName.TabIndex = 0;
-			this.tbFolderName.Text = global::nGREP.Properties.Settings.Default.SearchFolder;
 			// 
 			// gbSearchFor
 			// 
@@ -110,34 +107,12 @@ namespace nGREP
 			this.gbSearchFor.Controls.Add(this.rbTextSearch);
 			this.gbSearchFor.Controls.Add(this.rbRegexSearch);
 			this.gbSearchFor.Controls.Add(this.label1);
-			this.gbSearchFor.Location = new System.Drawing.Point(6, 61);
+			this.gbSearchFor.Location = new System.Drawing.Point(6, 84);
 			this.gbSearchFor.Name = "gbSearchFor";
-			this.gbSearchFor.Size = new System.Drawing.Size(473, 125);
+			this.gbSearchFor.Size = new System.Drawing.Size(488, 125);
 			this.gbSearchFor.TabIndex = 0;
 			this.gbSearchFor.TabStop = false;
 			this.gbSearchFor.Text = "Search";
-			// 
-			// tbReplaceWith
-			// 
-			this.tbReplaceWith.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.tbReplaceWith.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "ReplaceWith", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.tbReplaceWith.Location = new System.Drawing.Point(6, 92);
-			this.tbReplaceWith.Name = "tbReplaceWith";
-			this.tbReplaceWith.Size = new System.Drawing.Size(459, 20);
-			this.tbReplaceWith.TabIndex = 1;
-			this.tbReplaceWith.Text = global::nGREP.Properties.Settings.Default.ReplaceWith;
-			// 
-			// tbSearchFor
-			// 
-			this.tbSearchFor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.tbSearchFor.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "SearchFor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.tbSearchFor.Location = new System.Drawing.Point(6, 53);
-			this.tbSearchFor.Name = "tbSearchFor";
-			this.tbSearchFor.Size = new System.Drawing.Size(459, 20);
-			this.tbSearchFor.TabIndex = 0;
-			this.tbSearchFor.Text = global::nGREP.Properties.Settings.Default.SearchFor;
 			// 
 			// label2
 			// 
@@ -182,7 +157,7 @@ namespace nGREP
 			// btnSearch
 			// 
 			this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnSearch.Location = new System.Drawing.Point(323, 300);
+			this.btnSearch.Location = new System.Drawing.Point(338, 323);
 			this.btnSearch.Name = "btnSearch";
 			this.btnSearch.Size = new System.Drawing.Size(75, 23);
 			this.btnSearch.TabIndex = 3;
@@ -204,9 +179,9 @@ namespace nGREP
 			this.gbFilter.Controls.Add(this.cbIncludeSubfolders);
 			this.gbFilter.Controls.Add(this.tbFilePattern);
 			this.gbFilter.Controls.Add(this.label3);
-			this.gbFilter.Location = new System.Drawing.Point(6, 192);
+			this.gbFilter.Location = new System.Drawing.Point(6, 215);
 			this.gbFilter.Name = "gbFilter";
-			this.gbFilter.Size = new System.Drawing.Size(473, 102);
+			this.gbFilter.Size = new System.Drawing.Size(488, 102);
 			this.gbFilter.TabIndex = 1;
 			this.gbFilter.TabStop = false;
 			this.gbFilter.Text = "Filter";
@@ -228,24 +203,6 @@ namespace nGREP
 			this.label4.Size = new System.Drawing.Size(16, 13);
 			this.label4.TabIndex = 8;
 			this.label4.Text = "to";
-			// 
-			// tbFileSizeTo
-			// 
-			this.tbFileSizeTo.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "SizeTo", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.tbFileSizeTo.Location = new System.Drawing.Point(141, 34);
-			this.tbFileSizeTo.Name = "tbFileSizeTo";
-			this.tbFileSizeTo.Size = new System.Drawing.Size(47, 20);
-			this.tbFileSizeTo.TabIndex = 5;
-			this.tbFileSizeTo.Text = global::nGREP.Properties.Settings.Default.SizeTo;
-			// 
-			// tbFileSizeFrom
-			// 
-			this.tbFileSizeFrom.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "SizeFrom", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.tbFileSizeFrom.Location = new System.Drawing.Point(67, 34);
-			this.tbFileSizeFrom.Name = "tbFileSizeFrom";
-			this.tbFileSizeFrom.Size = new System.Drawing.Size(47, 20);
-			this.tbFileSizeFrom.TabIndex = 4;
-			this.tbFileSizeFrom.Text = global::nGREP.Properties.Settings.Default.SizeFrom;
 			// 
 			// rbFilterSpecificSize
 			// 
@@ -270,6 +227,137 @@ namespace nGREP
 			this.rbFilterAllSizes.Text = "All sizes";
 			this.rbFilterAllSizes.UseVisualStyleBackColor = true;
 			this.rbFilterAllSizes.CheckedChanged += new System.EventHandler(this.rbFilterSizes_CheckedChanged);
+			// 
+			// label3
+			// 
+			this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.label3.AutoSize = true;
+			this.label3.Location = new System.Drawing.Point(259, 17);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(84, 13);
+			this.label3.TabIndex = 0;
+			this.label3.Text = "Files that match:";
+			// 
+			// btnReplace
+			// 
+			this.btnReplace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnReplace.Location = new System.Drawing.Point(257, 323);
+			this.btnReplace.Name = "btnReplace";
+			this.btnReplace.Size = new System.Drawing.Size(75, 23);
+			this.btnReplace.TabIndex = 4;
+			this.btnReplace.Text = "Replace";
+			this.btnReplace.UseVisualStyleBackColor = true;
+			// 
+			// tvSearchResult
+			// 
+			this.tvSearchResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+						| System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.tvSearchResult.ContextMenuStrip = this.tvContextMenu;
+			this.tvSearchResult.Location = new System.Drawing.Point(6, 356);
+			this.tvSearchResult.Name = "tvSearchResult";
+			this.tvSearchResult.ShowLines = false;
+			this.tvSearchResult.Size = new System.Drawing.Size(487, 113);
+			this.tvSearchResult.TabIndex = 6;
+			this.tvSearchResult.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvSearchResult_NodeMouseClick);
+			// 
+			// tvContextMenu
+			// 
+			this.tvContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openToolStripMenuItem});
+			this.tvContextMenu.Name = "tvContextMenu";
+			this.tvContextMenu.ShowImageMargin = false;
+			this.tvContextMenu.Size = new System.Drawing.Size(87, 26);
+			// 
+			// openToolStripMenuItem
+			// 
+			this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+			this.openToolStripMenuItem.Size = new System.Drawing.Size(86, 22);
+			this.openToolStripMenuItem.Text = "&Open";
+			this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+			// 
+			// statusStrip1
+			// 
+			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.barProgressBar,
+            this.lblStatus});
+			this.statusStrip1.Location = new System.Drawing.Point(0, 472);
+			this.statusStrip1.Name = "statusStrip1";
+			this.statusStrip1.Size = new System.Drawing.Size(498, 22);
+			this.statusStrip1.TabIndex = 7;
+			this.statusStrip1.Text = "statusStrip1";
+			// 
+			// barProgressBar
+			// 
+			this.barProgressBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+			this.barProgressBar.Name = "barProgressBar";
+			this.barProgressBar.Size = new System.Drawing.Size(150, 16);
+			// 
+			// lblStatus
+			// 
+			this.lblStatus.Name = "lblStatus";
+			this.lblStatus.Size = new System.Drawing.Size(0, 17);
+			// 
+			// workerSearcher
+			// 
+			this.workerSearcher.WorkerReportsProgress = true;
+			this.workerSearcher.WorkerSupportsCancellation = true;
+			this.workerSearcher.DoWork += new System.ComponentModel.DoWorkEventHandler(this.doSearch);
+			this.workerSearcher.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.searchComplete);
+			this.workerSearcher.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.searchProgressChanged);
+			// 
+			// btnCancel
+			// 
+			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnCancel.Location = new System.Drawing.Point(419, 323);
+			this.btnCancel.Name = "btnCancel";
+			this.btnCancel.Size = new System.Drawing.Size(75, 23);
+			this.btnCancel.TabIndex = 5;
+			this.btnCancel.Text = "Cancel";
+			this.btnCancel.UseVisualStyleBackColor = true;
+			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+			// 
+			// menuStrip1
+			// 
+			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.optionsToolStripMenuItem,
+            this.aboutToolStripMenuItem});
+			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+			this.menuStrip1.Name = "menuStrip1";
+			this.menuStrip1.Size = new System.Drawing.Size(498, 24);
+			this.menuStrip1.TabIndex = 9;
+			this.menuStrip1.Text = "topMenuStrip";
+			// 
+			// optionsToolStripMenuItem
+			// 
+			this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+			this.optionsToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
+			this.optionsToolStripMenuItem.Text = "&Options";
+			this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
+			// 
+			// aboutToolStripMenuItem
+			// 
+			this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+			this.aboutToolStripMenuItem.Text = "&About";
+			// 
+			// tbFileSizeTo
+			// 
+			this.tbFileSizeTo.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "SizeTo", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.tbFileSizeTo.Location = new System.Drawing.Point(141, 34);
+			this.tbFileSizeTo.Name = "tbFileSizeTo";
+			this.tbFileSizeTo.Size = new System.Drawing.Size(47, 20);
+			this.tbFileSizeTo.TabIndex = 5;
+			this.tbFileSizeTo.Text = global::nGREP.Properties.Settings.Default.SizeTo;
+			// 
+			// tbFileSizeFrom
+			// 
+			this.tbFileSizeFrom.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "SizeFrom", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.tbFileSizeFrom.Location = new System.Drawing.Point(67, 34);
+			this.tbFileSizeFrom.Name = "tbFileSizeFrom";
+			this.tbFileSizeFrom.Size = new System.Drawing.Size(47, 20);
+			this.tbFileSizeFrom.TabIndex = 4;
+			this.tbFileSizeFrom.Text = global::nGREP.Properties.Settings.Default.SizeFrom;
 			// 
 			// cbIncludeHiddenFolders
 			// 
@@ -299,91 +387,63 @@ namespace nGREP
 			// 
 			this.tbFilePattern.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.tbFilePattern.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "FilePattern", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.tbFilePattern.Location = new System.Drawing.Point(334, 14);
+			this.tbFilePattern.Location = new System.Drawing.Point(349, 14);
 			this.tbFilePattern.Name = "tbFilePattern";
 			this.tbFilePattern.Size = new System.Drawing.Size(131, 20);
 			this.tbFilePattern.TabIndex = 6;
 			this.tbFilePattern.Text = global::nGREP.Properties.Settings.Default.FilePattern;
 			// 
-			// label3
+			// tbReplaceWith
 			// 
-			this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(244, 17);
-			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(84, 13);
-			this.label3.TabIndex = 0;
-			this.label3.Text = "Files that match:";
-			// 
-			// btnReplace
-			// 
-			this.btnReplace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnReplace.Location = new System.Drawing.Point(242, 300);
-			this.btnReplace.Name = "btnReplace";
-			this.btnReplace.Size = new System.Drawing.Size(75, 23);
-			this.btnReplace.TabIndex = 4;
-			this.btnReplace.Text = "Replace";
-			this.btnReplace.UseVisualStyleBackColor = true;
-			// 
-			// tvSearchResult
-			// 
-			this.tvSearchResult.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-						| System.Windows.Forms.AnchorStyles.Left)
+			this.tbReplaceWith.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.tvSearchResult.Location = new System.Drawing.Point(6, 329);
-			this.tvSearchResult.Name = "tvSearchResult";
-			this.tvSearchResult.Size = new System.Drawing.Size(472, 81);
-			this.tvSearchResult.TabIndex = 6;
+			this.tbReplaceWith.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "ReplaceWith", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.tbReplaceWith.Location = new System.Drawing.Point(6, 92);
+			this.tbReplaceWith.Name = "tbReplaceWith";
+			this.tbReplaceWith.Size = new System.Drawing.Size(474, 20);
+			this.tbReplaceWith.TabIndex = 1;
+			this.tbReplaceWith.Text = global::nGREP.Properties.Settings.Default.ReplaceWith;
 			// 
-			// statusStrip1
+			// tbSearchFor
 			// 
-			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.barProgressBar,
-            this.lblStatus});
-			this.statusStrip1.Location = new System.Drawing.Point(0, 413);
-			this.statusStrip1.Name = "statusStrip1";
-			this.statusStrip1.Size = new System.Drawing.Size(483, 22);
-			this.statusStrip1.TabIndex = 7;
-			this.statusStrip1.Text = "statusStrip1";
+			this.tbSearchFor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.tbSearchFor.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "SearchFor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.tbSearchFor.Location = new System.Drawing.Point(6, 53);
+			this.tbSearchFor.Name = "tbSearchFor";
+			this.tbSearchFor.Size = new System.Drawing.Size(474, 20);
+			this.tbSearchFor.TabIndex = 0;
+			this.tbSearchFor.Text = global::nGREP.Properties.Settings.Default.SearchFor;
 			// 
-			// barProgressBar
+			// tbFolderName
 			// 
-			this.barProgressBar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-			this.barProgressBar.Name = "barProgressBar";
-			this.barProgressBar.Size = new System.Drawing.Size(150, 16);
+			this.tbFolderName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.tbFolderName.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "SearchFolder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.tbFolderName.Location = new System.Drawing.Point(6, 19);
+			this.tbFolderName.Name = "tbFolderName";
+			this.tbFolderName.ReadOnly = true;
+			this.tbFolderName.Size = new System.Drawing.Size(426, 20);
+			this.tbFolderName.TabIndex = 0;
+			this.tbFolderName.Text = global::nGREP.Properties.Settings.Default.SearchFolder;
 			// 
-			// lblStatus
+			// workerReplace
 			// 
-			this.lblStatus.Name = "lblStatus";
-			this.lblStatus.Size = new System.Drawing.Size(0, 17);
-			// 
-			// workerSearcher
-			// 
-			this.workerSearcher.WorkerReportsProgress = true;
-			this.workerSearcher.WorkerSupportsCancellation = true;
-			this.workerSearcher.DoWork += new System.ComponentModel.DoWorkEventHandler(this.doSearch);
-			this.workerSearcher.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.searchComplete);
-			this.workerSearcher.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.searchProgressChanged);
-			// 
-			// btnCancel
-			// 
-			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnCancel.Location = new System.Drawing.Point(404, 300);
-			this.btnCancel.Name = "btnCancel";
-			this.btnCancel.Size = new System.Drawing.Size(75, 23);
-			this.btnCancel.TabIndex = 5;
-			this.btnCancel.Text = "Cancel";
-			this.btnCancel.UseVisualStyleBackColor = true;
-			this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+			this.workerReplace.WorkerReportsProgress = true;
+			this.workerReplace.WorkerSupportsCancellation = true;
+			this.workerReplace.DoWork += new System.ComponentModel.DoWorkEventHandler(this.doReplace);
+			this.workerReplace.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.replaceComplete);
+			this.workerReplace.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.replaceProgressChanged);
 			// 
 			// MainForm
 			// 
 			this.AcceptButton = this.btnSearch;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(483, 435);
+			this.ClientSize = new System.Drawing.Size(498, 494);
 			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.statusStrip1);
+			this.Controls.Add(this.menuStrip1);
 			this.Controls.Add(this.tvSearchResult);
 			this.Controls.Add(this.btnReplace);
 			this.Controls.Add(this.gbFilter);
@@ -392,6 +452,7 @@ namespace nGREP
 			this.Controls.Add(this.gbSearchIn);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
 			this.KeyPreview = true;
+			this.MainMenuStrip = this.menuStrip1;
 			this.MinimumSize = new System.Drawing.Size(356, 407);
 			this.Name = "MainForm";
 			this.Text = "nGREP";
@@ -404,8 +465,11 @@ namespace nGREP
 			this.gbSearchFor.PerformLayout();
 			this.gbFilter.ResumeLayout(false);
 			this.gbFilter.PerformLayout();
+			this.tvContextMenu.ResumeLayout(false);
 			this.statusStrip1.ResumeLayout(false);
 			this.statusStrip1.PerformLayout();
+			this.menuStrip1.ResumeLayout(false);
+			this.menuStrip1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -443,6 +507,12 @@ namespace nGREP
 		private System.Windows.Forms.ToolStripStatusLabel lblStatus;
 		private System.ComponentModel.BackgroundWorker workerSearcher;
 		private System.Windows.Forms.Button btnCancel;
+		private System.Windows.Forms.MenuStrip menuStrip1;
+		private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+		private System.Windows.Forms.ContextMenuStrip tvContextMenu;
+		private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+		private System.ComponentModel.BackgroundWorker workerReplace;
 	}
 }
 
