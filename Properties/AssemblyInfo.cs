@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("nGREP")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("BAH")]
+[assembly: AssemblyCompany("Denis Stankovski")]
 [assembly: AssemblyProduct("nGREP")]
-[assembly: AssemblyCopyright("Copyright © BAH 2008")]
+[assembly: AssemblyCopyright("Copyright, 2008")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -29,5 +29,5 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion("0.8.1.*")]
+[assembly: AssemblyFileVersion("0.8.1.0")]

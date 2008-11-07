@@ -496,17 +496,26 @@ namespace nGREP
 
 		private void undoToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			DialogResult response = MessageBox.Show("Undo will revert modified file(s) back to their original state. Any changes made to the file(s) after the replace will be overwritten. Are you sure you want to procede?", "Undo", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button3);
-			if (response == DialogResult.Yes)
+			if (CanUndo)
 			{
-				GrepCore core = new GrepCore();
-				bool result = core.Undo(undoFolder);
-				if (result)
-					MessageBox.Show("Files have been successfully reverted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-				else
-					MessageBox.Show("There was an error reverting files. Please examine the error log.", "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
-				CanUndo = false;
+				DialogResult response = MessageBox.Show("Undo will revert modified file(s) back to their original state. Any changes made to the file(s) after the replace will be overwritten. Are you sure you want to procede?", "Undo", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button3);
+				if (response == DialogResult.Yes)
+				{
+					GrepCore core = new GrepCore();
+					bool result = core.Undo(undoFolder);
+					if (result)
+						MessageBox.Show("Files have been successfully reverted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					else
+						MessageBox.Show("There was an error reverting files. Please examine the error log.", "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					CanUndo = false;
+				}
 			}
+		}
+
+		private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			AboutForm about = new AboutForm();
+			about.ShowDialog();
 		}
 	}
 }

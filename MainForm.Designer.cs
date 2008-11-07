@@ -32,7 +32,10 @@ namespace nGREP
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.gbSearchIn = new System.Windows.Forms.GroupBox();
 			this.btnSelectFolder = new System.Windows.Forms.Button();
+			this.tbFolderName = new System.Windows.Forms.TextBox();
 			this.gbSearchFor = new System.Windows.Forms.GroupBox();
+			this.tbReplaceWith = new System.Windows.Forms.TextBox();
+			this.tbSearchFor = new System.Windows.Forms.TextBox();
 			this.label2 = new System.Windows.Forms.Label();
 			this.rbTextSearch = new System.Windows.Forms.RadioButton();
 			this.rbRegexSearch = new System.Windows.Forms.RadioButton();
@@ -41,8 +44,13 @@ namespace nGREP
 			this.gbFilter = new System.Windows.Forms.GroupBox();
 			this.label5 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
+			this.tbFileSizeTo = new System.Windows.Forms.TextBox();
+			this.tbFileSizeFrom = new System.Windows.Forms.TextBox();
 			this.rbFilterSpecificSize = new System.Windows.Forms.RadioButton();
 			this.rbFilterAllSizes = new System.Windows.Forms.RadioButton();
+			this.cbIncludeHiddenFolders = new System.Windows.Forms.CheckBox();
+			this.cbIncludeSubfolders = new System.Windows.Forms.CheckBox();
+			this.tbFilePattern = new System.Windows.Forms.TextBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.btnReplace = new System.Windows.Forms.Button();
 			this.tvSearchResult = new System.Windows.Forms.TreeView();
@@ -57,16 +65,9 @@ namespace nGREP
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.label6 = new System.Windows.Forms.Label();
-			this.tbFileSizeTo = new System.Windows.Forms.TextBox();
-			this.tbFileSizeFrom = new System.Windows.Forms.TextBox();
-			this.cbIncludeHiddenFolders = new System.Windows.Forms.CheckBox();
-			this.cbIncludeSubfolders = new System.Windows.Forms.CheckBox();
-			this.tbFilePattern = new System.Windows.Forms.TextBox();
-			this.tbReplaceWith = new System.Windows.Forms.TextBox();
-			this.tbSearchFor = new System.Windows.Forms.TextBox();
-			this.tbFolderName = new System.Windows.Forms.TextBox();
 			this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.label6 = new System.Windows.Forms.Label();
+			this.toolTip = new System.Windows.Forms.ToolTip(this.components);
 			this.gbSearchIn.SuspendLayout();
 			this.gbSearchFor.SuspendLayout();
 			this.gbFilter.SuspendLayout();
@@ -99,6 +100,18 @@ namespace nGREP
 			this.btnSelectFolder.UseVisualStyleBackColor = true;
 			this.btnSelectFolder.Click += new System.EventHandler(this.btnSelectFolder_Click);
 			// 
+			// tbFolderName
+			// 
+			this.tbFolderName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.tbFolderName.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "SearchFolder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.tbFolderName.Location = new System.Drawing.Point(6, 19);
+			this.tbFolderName.Name = "tbFolderName";
+			this.tbFolderName.ReadOnly = true;
+			this.tbFolderName.Size = new System.Drawing.Size(426, 20);
+			this.tbFolderName.TabIndex = 0;
+			this.tbFolderName.Text = global::nGREP.Properties.Settings.Default.SearchFolder;
+			// 
 			// gbSearchFor
 			// 
 			this.gbSearchFor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
@@ -115,6 +128,33 @@ namespace nGREP
 			this.gbSearchFor.TabIndex = 0;
 			this.gbSearchFor.TabStop = false;
 			this.gbSearchFor.Text = "Search";
+			// 
+			// tbReplaceWith
+			// 
+			this.tbReplaceWith.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.tbReplaceWith.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "ReplaceWith", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.tbReplaceWith.Location = new System.Drawing.Point(6, 92);
+			this.tbReplaceWith.Name = "tbReplaceWith";
+			this.tbReplaceWith.Size = new System.Drawing.Size(474, 20);
+			this.tbReplaceWith.TabIndex = 1;
+			this.tbReplaceWith.Text = global::nGREP.Properties.Settings.Default.ReplaceWith;
+			this.tbReplaceWith.TextChanged += new System.EventHandler(this.textBoxTextChanged);
+			// 
+			// tbSearchFor
+			// 
+			this.tbSearchFor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.tbSearchFor.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "SearchFor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.tbSearchFor.Location = new System.Drawing.Point(6, 53);
+			this.tbSearchFor.Name = "tbSearchFor";
+			this.tbSearchFor.Size = new System.Drawing.Size(474, 20);
+			this.tbSearchFor.TabIndex = 0;
+			this.tbSearchFor.Text = global::nGREP.Properties.Settings.Default.SearchFor;
+			this.toolTip.SetToolTip(this.tbSearchFor, ". matches all characters\r\n\\w matches alpha-numerics\r\n\\d matches digits\r\n\\s matche" +
+					"s space\r\n* matches any number of characters\r\n{1,3} matches 1 to 3 characters\r\nFo" +
+					"r more Regex patterns Google \"Regex\"");
+			this.tbSearchFor.TextChanged += new System.EventHandler(this.textBoxTextChanged);
 			// 
 			// label2
 			// 
@@ -206,6 +246,24 @@ namespace nGREP
 			this.label4.TabIndex = 8;
 			this.label4.Text = "to";
 			// 
+			// tbFileSizeTo
+			// 
+			this.tbFileSizeTo.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "SizeTo", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.tbFileSizeTo.Location = new System.Drawing.Point(141, 34);
+			this.tbFileSizeTo.Name = "tbFileSizeTo";
+			this.tbFileSizeTo.Size = new System.Drawing.Size(47, 20);
+			this.tbFileSizeTo.TabIndex = 5;
+			this.tbFileSizeTo.Text = global::nGREP.Properties.Settings.Default.SizeTo;
+			// 
+			// tbFileSizeFrom
+			// 
+			this.tbFileSizeFrom.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "SizeFrom", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.tbFileSizeFrom.Location = new System.Drawing.Point(67, 34);
+			this.tbFileSizeFrom.Name = "tbFileSizeFrom";
+			this.tbFileSizeFrom.Size = new System.Drawing.Size(47, 20);
+			this.tbFileSizeFrom.TabIndex = 4;
+			this.tbFileSizeFrom.Text = global::nGREP.Properties.Settings.Default.SizeFrom;
+			// 
 			// rbFilterSpecificSize
 			// 
 			this.rbFilterSpecificSize.AutoSize = true;
@@ -229,6 +287,41 @@ namespace nGREP
 			this.rbFilterAllSizes.Text = "All sizes";
 			this.rbFilterAllSizes.UseVisualStyleBackColor = true;
 			this.rbFilterAllSizes.CheckedChanged += new System.EventHandler(this.rbFilterSizes_CheckedChanged);
+			// 
+			// cbIncludeHiddenFolders
+			// 
+			this.cbIncludeHiddenFolders.AutoSize = true;
+			this.cbIncludeHiddenFolders.Checked = global::nGREP.Properties.Settings.Default.IncludeHidden;
+			this.cbIncludeHiddenFolders.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::nGREP.Properties.Settings.Default, "IncludeHidden", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.cbIncludeHiddenFolders.Location = new System.Drawing.Point(6, 79);
+			this.cbIncludeHiddenFolders.Name = "cbIncludeHiddenFolders";
+			this.cbIncludeHiddenFolders.Size = new System.Drawing.Size(130, 17);
+			this.cbIncludeHiddenFolders.TabIndex = 3;
+			this.cbIncludeHiddenFolders.Text = "Include hidden folders";
+			this.cbIncludeHiddenFolders.UseVisualStyleBackColor = true;
+			// 
+			// cbIncludeSubfolders
+			// 
+			this.cbIncludeSubfolders.AutoSize = true;
+			this.cbIncludeSubfolders.Checked = global::nGREP.Properties.Settings.Default.IncludeSubfolder;
+			this.cbIncludeSubfolders.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.cbIncludeSubfolders.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::nGREP.Properties.Settings.Default, "IncludeSubfolder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.cbIncludeSubfolders.Location = new System.Drawing.Point(6, 60);
+			this.cbIncludeSubfolders.Name = "cbIncludeSubfolders";
+			this.cbIncludeSubfolders.Size = new System.Drawing.Size(112, 17);
+			this.cbIncludeSubfolders.TabIndex = 2;
+			this.cbIncludeSubfolders.Text = "Include subfolders";
+			this.cbIncludeSubfolders.UseVisualStyleBackColor = true;
+			// 
+			// tbFilePattern
+			// 
+			this.tbFilePattern.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.tbFilePattern.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "FilePattern", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.tbFilePattern.Location = new System.Drawing.Point(349, 14);
+			this.tbFilePattern.Name = "tbFilePattern";
+			this.tbFilePattern.Size = new System.Drawing.Size(131, 20);
+			this.tbFilePattern.TabIndex = 6;
+			this.tbFilePattern.Text = global::nGREP.Properties.Settings.Default.FilePattern;
 			// 
 			// label3
 			// 
@@ -340,6 +433,7 @@ namespace nGREP
 			this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
 			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
 			this.aboutToolStripMenuItem.Text = "&About...";
+			this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
 			// 
 			// optionsToolStripMenuItem
 			// 
@@ -347,6 +441,13 @@ namespace nGREP
 			this.optionsToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
 			this.optionsToolStripMenuItem.Text = "&Options...";
 			this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
+			// 
+			// undoToolStripMenuItem
+			// 
+			this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
+			this.undoToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+			this.undoToolStripMenuItem.Text = "&Undo";
+			this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
 			// 
 			// label6
 			// 
@@ -357,102 +458,6 @@ namespace nGREP
 			this.label6.Size = new System.Drawing.Size(64, 18);
 			this.label6.TabIndex = 10;
 			this.label6.Text = "nGREP";
-			// 
-			// tbFileSizeTo
-			// 
-			this.tbFileSizeTo.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "SizeTo", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.tbFileSizeTo.Location = new System.Drawing.Point(141, 34);
-			this.tbFileSizeTo.Name = "tbFileSizeTo";
-			this.tbFileSizeTo.Size = new System.Drawing.Size(47, 20);
-			this.tbFileSizeTo.TabIndex = 5;
-			this.tbFileSizeTo.Text = global::nGREP.Properties.Settings.Default.SizeTo;
-			// 
-			// tbFileSizeFrom
-			// 
-			this.tbFileSizeFrom.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "SizeFrom", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.tbFileSizeFrom.Location = new System.Drawing.Point(67, 34);
-			this.tbFileSizeFrom.Name = "tbFileSizeFrom";
-			this.tbFileSizeFrom.Size = new System.Drawing.Size(47, 20);
-			this.tbFileSizeFrom.TabIndex = 4;
-			this.tbFileSizeFrom.Text = global::nGREP.Properties.Settings.Default.SizeFrom;
-			// 
-			// cbIncludeHiddenFolders
-			// 
-			this.cbIncludeHiddenFolders.AutoSize = true;
-			this.cbIncludeHiddenFolders.Checked = global::nGREP.Properties.Settings.Default.IncludeHidden;
-			this.cbIncludeHiddenFolders.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::nGREP.Properties.Settings.Default, "IncludeHidden", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.cbIncludeHiddenFolders.Location = new System.Drawing.Point(6, 79);
-			this.cbIncludeHiddenFolders.Name = "cbIncludeHiddenFolders";
-			this.cbIncludeHiddenFolders.Size = new System.Drawing.Size(130, 17);
-			this.cbIncludeHiddenFolders.TabIndex = 3;
-			this.cbIncludeHiddenFolders.Text = "Include hidden folders";
-			this.cbIncludeHiddenFolders.UseVisualStyleBackColor = true;
-			// 
-			// cbIncludeSubfolders
-			// 
-			this.cbIncludeSubfolders.AutoSize = true;
-			this.cbIncludeSubfolders.Checked = global::nGREP.Properties.Settings.Default.IncludeSubfolder;
-			this.cbIncludeSubfolders.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.cbIncludeSubfolders.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::nGREP.Properties.Settings.Default, "IncludeSubfolder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.cbIncludeSubfolders.Location = new System.Drawing.Point(6, 60);
-			this.cbIncludeSubfolders.Name = "cbIncludeSubfolders";
-			this.cbIncludeSubfolders.Size = new System.Drawing.Size(112, 17);
-			this.cbIncludeSubfolders.TabIndex = 2;
-			this.cbIncludeSubfolders.Text = "Include subfolders";
-			this.cbIncludeSubfolders.UseVisualStyleBackColor = true;
-			// 
-			// tbFilePattern
-			// 
-			this.tbFilePattern.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.tbFilePattern.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "FilePattern", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.tbFilePattern.Location = new System.Drawing.Point(349, 14);
-			this.tbFilePattern.Name = "tbFilePattern";
-			this.tbFilePattern.Size = new System.Drawing.Size(131, 20);
-			this.tbFilePattern.TabIndex = 6;
-			this.tbFilePattern.Text = global::nGREP.Properties.Settings.Default.FilePattern;
-			// 
-			// tbReplaceWith
-			// 
-			this.tbReplaceWith.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.tbReplaceWith.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "ReplaceWith", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.tbReplaceWith.Location = new System.Drawing.Point(6, 92);
-			this.tbReplaceWith.Name = "tbReplaceWith";
-			this.tbReplaceWith.Size = new System.Drawing.Size(474, 20);
-			this.tbReplaceWith.TabIndex = 1;
-			this.tbReplaceWith.Text = global::nGREP.Properties.Settings.Default.ReplaceWith;
-			this.tbReplaceWith.TextChanged += new System.EventHandler(this.textBoxTextChanged);
-			// 
-			// tbSearchFor
-			// 
-			this.tbSearchFor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.tbSearchFor.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "SearchFor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.tbSearchFor.Location = new System.Drawing.Point(6, 53);
-			this.tbSearchFor.Name = "tbSearchFor";
-			this.tbSearchFor.Size = new System.Drawing.Size(474, 20);
-			this.tbSearchFor.TabIndex = 0;
-			this.tbSearchFor.Text = global::nGREP.Properties.Settings.Default.SearchFor;
-			this.tbSearchFor.TextChanged += new System.EventHandler(this.textBoxTextChanged);
-			// 
-			// tbFolderName
-			// 
-			this.tbFolderName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.tbFolderName.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "SearchFolder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.tbFolderName.Location = new System.Drawing.Point(6, 19);
-			this.tbFolderName.Name = "tbFolderName";
-			this.tbFolderName.ReadOnly = true;
-			this.tbFolderName.Size = new System.Drawing.Size(426, 20);
-			this.tbFolderName.TabIndex = 0;
-			this.tbFolderName.Text = global::nGREP.Properties.Settings.Default.SearchFolder;
-			// 
-			// undoToolStripMenuItem
-			// 
-			this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-			this.undoToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-			this.undoToolStripMenuItem.Text = "&Undo";
-			this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
 			// 
 			// MainForm
 			// 
@@ -535,6 +540,7 @@ namespace nGREP
 		private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
 		private System.Windows.Forms.Label label6;
 		private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
+		private System.Windows.Forms.ToolTip toolTip;
 	}
 }
 
