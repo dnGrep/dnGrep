@@ -168,7 +168,7 @@ namespace nGREP
 					btnSearch.Enabled = true;
 				else
 					btnSearch.Enabled = false;
-				if (FilesFound && SearchPatternEntered && ReplacePatternEntered)
+				if (FilesFound && SearchPatternEntered)
 					btnReplace.Enabled = true;
 				else
 					btnReplace.Enabled = false;
@@ -474,6 +474,11 @@ namespace nGREP
 		{
 			if (!IsReplacing && !IsSearching && !workerSearchReplace.IsBusy)
 			{
+				if (!ReplacePatternEntered)
+				{
+					if (MessageBox.Show("Are you sure you want to replace search pattern with empty string?", "Replace", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) != DialogResult.Yes)
+						return;
+				}
 				lblStatus.Text = "Replacing...";
 				IsReplacing = true;
 				CanUndo = false;
