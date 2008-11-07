@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace nGREP
 {
-	public class FileUtils
+	public class Utils
 	{
 		/// <summary>
 		/// Copies the folder recursively. Uses includePattern to avoid unnecessary objects
@@ -143,6 +144,20 @@ namespace nGREP
 				}
 			}
 			return defaultValue;
+		}
+
+		public static void OpenFile(string fileName, int line)
+		{
+			if (!Properties.Settings.Default.UseCustomEditor)
+				System.Diagnostics.Process.Start(@"" + fileName + "");
+			else
+			{
+				ProcessStartInfo info = new ProcessStartInfo("cmd.exe");
+				info.UseShellExecute = false;
+				info.CreateNoWindow = true;
+				info.Arguments = "/C " + Properties.Settings.Default.CustomEditor.Replace("%file", "\"" + fileName + "\"").Replace("%line", line.ToString());
+				System.Diagnostics.Process.Start(info);
+			}
 		}
 	}
 }

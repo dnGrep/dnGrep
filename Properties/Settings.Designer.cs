@@ -73,7 +73,7 @@ namespace nGREP.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool IncludeSubfolder {
             get {
                 return ((bool)(this["IncludeSubfolder"]));
@@ -97,7 +97,7 @@ namespace nGREP.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool SearchRegex {
             get {
                 return ((bool)(this["SearchRegex"]));
@@ -145,7 +145,7 @@ namespace nGREP.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public string SizeFrom {
             get {
                 return ((string)(this["SizeFrom"]));
@@ -157,7 +157,7 @@ namespace nGREP.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("1000")]
         public string SizeTo {
             get {
                 return ((string)(this["SizeTo"]));

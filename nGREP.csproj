@@ -9,6 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>nGREP</RootNamespace>
     <AssemblyName>nGREP</AssemblyName>
+    <ApplicationIcon>nGREP.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -42,7 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileIcons.cs" />
-    <Compile Include="FileUtils.cs" />
+    <Compile Include="Utils.cs" />
     <Compile Include="GrepCore.cs" />
     <Compile Include="GrepSearchResult.cs" />
     <Compile Include="MainForm.cs">
@@ -93,6 +94,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\line-icon.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="nGREP.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

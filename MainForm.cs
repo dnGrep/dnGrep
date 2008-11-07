@@ -96,19 +96,47 @@ namespace nGREP
 			}
 		}
 
+		private bool canUndo = false;
+		private string undoFolder = "";
+
+		public bool CanUndo
+		{
+			get { return canUndo; }
+			set {
+				if (value && Directory.Exists(undoFolder))
+					canUndo = value;
+				else
+					canUndo = false;
+				changeState();
+			}
+		}
+
 		private void changeState()
 		{
 			if (FolderSelected)
 			{
 				if (!IsSearching && !IsReplacing && SearchPatternEntered)
 					btnSearch.Enabled = true;
+				else
+					btnSearch.Enabled = false;
 				if (FilesFound && !IsSearching && !IsReplacing && SearchPatternEntered && ReplacePatternEntered)
 					btnReplace.Enabled = true;
+				else
+					btnReplace.Enabled = false;
 			}
 			else
 			{
 				btnSearch.Enabled = false;
 				btnReplace.Enabled = false;
+			}
+
+			if (CanUndo)
+			{
+				undoToolStripMenuItem.Enabled = true;
+			}
+			else
+			{
+				undoToolStripMenuItem.Enabled = false;
 			}
 
 			if (IsAllSizes)
@@ -138,8 +166,12 @@ namespace nGREP
 			{
 				if (SearchPatternEntered)
 					btnSearch.Enabled = true;
+				else
+					btnSearch.Enabled = false;
 				if (FilesFound && SearchPatternEntered && ReplacePatternEntered)
 					btnReplace.Enabled = true;
+				else
+					btnReplace.Enabled = false;
 				btnCancel.Enabled = false;
 			}
 		}
@@ -206,13 +238,13 @@ namespace nGREP
 					int sizeTo = 0;
 					if (!IsAllSizes)
 					{
-						sizeFrom = FileUtils.ParseInt(tbFileSizeFrom.Text, 0);
-						sizeTo = FileUtils.ParseInt(tbFileSizeTo.Text, 0);
+						sizeFrom = Utils.ParseInt(tbFileSizeFrom.Text, 0);
+						sizeTo = Utils.ParseInt(tbFileSizeTo.Text, 0);
 					}
 					string filePattern = "*.*";
 					if (!string.IsNullOrEmpty(tbFilePattern.Text))
 						filePattern = tbFilePattern.Text;
-					string[] files = FileUtils.GetFileList(tbFolderName.Text, filePattern, cbIncludeSubfolders.Checked,
+					string[] files = Utils.GetFileList(tbFolderName.Text, filePattern, cbIncludeSubfolders.Checked,
 						cbIncludeHiddenFolders.Checked, sizeFrom, sizeTo);
 					GrepCore grep = new GrepCore();
 					grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
@@ -292,6 +324,7 @@ namespace nGREP
 					else
 					{
 						lblStatus.Text = "Replace Complete - " + (int)e.Result + " files replaced.";
+						CanUndo = true;
 					}
 				}
 				else
@@ -416,12 +449,7 @@ namespace nGREP
 						System.Diagnostics.Process.Start(@"" + (string)selectedNode.Tag + "");
 					else
 					{
-						ProcessStartInfo info = new ProcessStartInfo("cmd.exe");
-						info.UseShellExecute = false;
-						info.CreateNoWindow = true;
-						info.Arguments = "/C " + Properties.Settings.Default.CustomEditor.Replace("%file", "\"" + (string)selectedNode.Tag + "\"").Replace("%line", lineNumber.ToString());
-						System.Diagnostics.Process.Start(info);
-						//System.Diagnostics.Process.Start(@"" + OptionsForm.GetEditorPath((string)selectedNode.Tag, lineNumber) + "");
+						Utils.OpenFile((string)selectedNode.Tag, lineNumber);
 					}
 				}
 			}
@@ -433,12 +461,23 @@ namespace nGREP
 				tvSearchResult.SelectedNode = e.Node;
 		}
 
+		private void tvSearchResult_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
+		{
+			TreeNode selectedNode = tvSearchResult.SelectedNode;
+			if (selectedNode != null && selectedNode.Nodes.Count == 0)
+			{
+				openToolStripMenuItem_Click(tvContextMenu, null);
+			}
+		}
+
 		private void btnReplace_Click(object sender, EventArgs e)
 		{
 			if (!IsReplacing && !IsSearching && !workerSearchReplace.IsBusy)
 			{
 				lblStatus.Text = "Replacing...";
 				IsReplacing = true;
+				CanUndo = false;
+				undoFolder = tbFolderName.Text;
 				barProgressBar.Value = 0;
 				tvSearchResult.Nodes.Clear();
 				workerSearchReplace.RunWorkerAsync(REPLACE_KEY);
@@ -452,6 +491,21 @@ namespace nGREP
 			if (sender == tbSearchFor)
 			{
 				FilesFound = false;
+			}
+		}
+
+		private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			DialogResult response = MessageBox.Show("Undo will revert modified file(s) back to their original state. Any changes made to the file(s) after the replace will be overwritten. Are you sure you want to procede?", "Undo", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button3);
+			if (response == DialogResult.Yes)
+			{
+				GrepCore core = new GrepCore();
+				bool result = core.Undo(undoFolder);
+				if (result)
+					MessageBox.Show("Files have been successfully reverted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				else
+					MessageBox.Show("There was an error reverting files. Please examine the error log.", "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				CanUndo = false;
 			}
 		}
 	}

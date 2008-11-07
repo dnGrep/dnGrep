@@ -28,6 +28,7 @@ namespace nGREP
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OptionsForm));
 			this.grShell = new System.Windows.Forms.GroupBox();
 			this.cbRegisterShell = new System.Windows.Forms.CheckBox();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -129,6 +130,7 @@ namespace nGREP
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.grShell);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.KeyPreview = true;
 			this.MaximumSize = new System.Drawing.Size(500, 200);
 			this.MinimumSize = new System.Drawing.Size(200, 200);

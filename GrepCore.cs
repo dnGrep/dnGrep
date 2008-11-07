@@ -59,7 +59,7 @@ namespace nGREP
 
 		public int ReplaceRegex(string[] files, string baseFolder, string searchRegex, string replaceRegex)
 		{
-			string tempFolder = FileUtils.FixFolderName(Path.GetTempPath()) + "nGREP\\";
+			string tempFolder = Utils.FixFolderName(Path.GetTempPath()) + "nGREP\\";
 			if (Directory.Exists(tempFolder))
 				Directory.Delete(tempFolder, true);
 			Directory.CreateDirectory(tempFolder);
@@ -68,11 +68,31 @@ namespace nGREP
 
 		public int ReplaceText(string[] files, string baseFolder, string searchText, string replaceText)
 		{
-			string tempFolder = FileUtils.FixFolderName(Path.GetTempPath()) + "nGREP\\";
+			string tempFolder = Utils.FixFolderName(Path.GetTempPath()) + "nGREP\\";
 			if (Directory.Exists(tempFolder))
 				Directory.Delete(tempFolder, true);
 			Directory.CreateDirectory(tempFolder);
 			return replace(files, baseFolder, tempFolder, searchText, replaceText, new doSearch(doTextSearchCaseInsensitive), new doReplace(doTextReplaceCaseInsensitive));
+		}
+
+		public bool Undo(string folderPath)
+		{
+			string tempFolder = Utils.FixFolderName(Path.GetTempPath()) + "nGREP\\";
+			if (!Directory.Exists(tempFolder))
+			{
+				logger.Error("Failed to undo replacement as temporary directory was removed.");
+				return false;
+			}
+			try
+			{
+				Utils.CopyFiles(tempFolder, folderPath, null, null);
+				return true;
+			}
+			catch (Exception ex)
+			{
+				logger.LogException(LogLevel.Error, "Failed to undo replacement", ex);
+				return false;
+			}
 		}
 
 		private bool doTextSearchCaseInsensitive(string text, string searchText)
@@ -150,8 +170,8 @@ namespace nGREP
 			if (files == null || files.Length == 0 || !Directory.Exists(tempFolder) || !Directory.Exists(baseFolder))
 				return 0;
 
-			baseFolder = FileUtils.FixFolderName(baseFolder);
-			tempFolder = FileUtils.FixFolderName(tempFolder);
+			baseFolder = Utils.FixFolderName(baseFolder);
+			tempFolder = Utils.FixFolderName(tempFolder);
 
 			int totalFiles = files.Length;
 			int processedFiles = 0;
@@ -164,7 +184,7 @@ namespace nGREP
 				{
 					processedFiles++;
 					// Copy file					
-					FileUtils.CopyFile(file, tempFileName, true);
+					Utils.CopyFile(file, tempFileName, true);
 					File.Delete(file);
 
 					using (StreamReader readStream = new StreamReader(File.OpenRead(tempFileName)))
@@ -196,7 +216,7 @@ namespace nGREP
 					{
 						// Replace the file
 						File.Delete(file);
-						FileUtils.CopyFile(tempFileName, file, true);
+						Utils.CopyFile(tempFileName, file, true);
 						break;
 					}
 				}
@@ -209,7 +229,7 @@ namespace nGREP
 						if (File.Exists(tempFileName) && File.Exists(file))
 						{
 							File.Delete(file);
-							FileUtils.CopyFile(tempFileName, file, true);
+							Utils.CopyFile(tempFileName, file, true);
 						}
 					}
 					catch (Exception ex2)
