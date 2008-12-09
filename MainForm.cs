@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using NLog;
 
 namespace nGREP
 {
@@ -16,6 +17,7 @@ namespace nGREP
 		List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
 		private const string SEARCH_KEY = "search";
 		private const string REPLACE_KEY = "replace";
+		private static Logger logger = LogManager.GetCurrentClassLogger();
 		
 		#region States
 
@@ -96,6 +98,18 @@ namespace nGREP
 			}
 		}
 
+		private bool isPlainText = false;
+
+		public bool IsPlainText
+		{
+			get { return isPlainText; }
+			set
+			{
+				isPlainText = value;
+				changeState();
+			}
+		}
+
 		private bool canUndo = false;
 		private string undoFolder = "";
 
@@ -137,6 +151,15 @@ namespace nGREP
 			else
 			{
 				undoToolStripMenuItem.Enabled = false;
+			}
+
+			if (IsPlainText)
+			{
+				cbCaseSensitive.Enabled = true;
+			}
+			else
+			{
+				cbCaseSensitive.Enabled = false;
 			}
 
 			if (IsAllSizes)
@@ -193,6 +216,7 @@ namespace nGREP
 			}
 			SearchPatternEntered = !string.IsNullOrEmpty(tbSearchFor.Text);
 			ReplacePatternEntered = !string.IsNullOrEmpty(tbReplaceWith.Text);
+			IsPlainText = rbTextSearch.Checked;
 
 			changeState();
 		}
@@ -230,51 +254,59 @@ namespace nGREP
 
 		private void doSearchReplace(object sender, DoWorkEventArgs e)
 		{
-			if (!workerSearchReplace.CancellationPending)
+			try
 			{
-				if (e.Argument == SEARCH_KEY)
+				if (!workerSearchReplace.CancellationPending)
 				{
-					int sizeFrom = 0;
-					int sizeTo = 0;
-					if (!IsAllSizes)
+					if (e.Argument == SEARCH_KEY)
 					{
-						sizeFrom = Utils.ParseInt(tbFileSizeFrom.Text, 0);
-						sizeTo = Utils.ParseInt(tbFileSizeTo.Text, 0);
-					}
-					string filePattern = "*.*";
-					if (!string.IsNullOrEmpty(tbFilePattern.Text))
-						filePattern = tbFilePattern.Text;
-					string[] files = Utils.GetFileList(tbFolderName.Text, filePattern, cbIncludeSubfolders.Checked,
-						cbIncludeHiddenFolders.Checked, sizeFrom, sizeTo);
-					GrepCore grep = new GrepCore();
-					grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
-					GrepSearchResult[] results = null;
-					if (rbRegexSearch.Checked)
-						results = grep.SearchRegex(files, tbSearchFor.Text);
-					else
-						results = grep.SearchText(files, tbSearchFor.Text);
+						int sizeFrom = 0;
+						int sizeTo = 0;
+						if (!IsAllSizes)
+						{
+							sizeFrom = Utils.ParseInt(tbFileSizeFrom.Text, 0);
+							sizeTo = Utils.ParseInt(tbFileSizeTo.Text, 0);
+						}
+						string filePattern = "*.*";
+						if (!string.IsNullOrEmpty(tbFilePattern.Text))
+							filePattern = tbFilePattern.Text;
+						string[] files = Utils.GetFileList(tbFolderName.Text, filePattern, cbIncludeSubfolders.Checked,
+							cbIncludeHiddenFolders.Checked, sizeFrom, sizeTo);
+						GrepCore grep = new GrepCore();
+						grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
+						GrepSearchResult[] results = null;
+						if (rbRegexSearch.Checked)
+							results = grep.SearchRegex(files, tbSearchFor.Text);
+						else
+							results = grep.SearchText(files, tbSearchFor.Text, cbCaseSensitive.Checked);
 
-					grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
-					searchResults = new List<GrepSearchResult>(results);
-					e.Result = results.Length;
-				}
-				else
-				{					
-					GrepCore grep = new GrepCore();
-					grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
-					List<string> files = new List<string>();
-					foreach (GrepSearchResult result in searchResults)
+						grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
+						searchResults = new List<GrepSearchResult>(results);
+						e.Result = results.Length;
+					}
+					else
 					{
-						files.Add(result.FileName);
+						GrepCore grep = new GrepCore();
+						grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
+						List<string> files = new List<string>();
+						foreach (GrepSearchResult result in searchResults)
+						{
+							files.Add(result.FileName);
+						}
+
+						if (rbRegexSearch.Checked)
+							e.Result = grep.ReplaceRegex(files.ToArray(), tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text);
+						else
+							e.Result = grep.ReplaceText(files.ToArray(), tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text, cbCaseSensitive.Checked);
+
+						grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
 					}
-
-					if (rbRegexSearch.Checked)
-						e.Result = grep.ReplaceRegex(files.ToArray(), tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text);
-					else
-						e.Result = grep.ReplaceText(files.ToArray(), tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text);
-
-					grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
 				}
+			}
+			catch (Exception ex)
+			{
+				logger.LogException(LogLevel.Error, ex.Message, ex);
+				MessageBox.Show("Replace failed! See error log.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
@@ -316,7 +348,7 @@ namespace nGREP
 			{
 				if (!e.Cancelled)
 				{
-					if (((int)e.Result) == -1)
+					if (e.Result == null || ((int)e.Result) == -1)
 					{
 						lblStatus.Text = "Replace Failed.";
 						MessageBox.Show("Replace failed! See error log.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -521,6 +553,19 @@ namespace nGREP
 		{
 			AboutForm about = new AboutForm();
 			about.ShowDialog();
+		}
+
+		private void regexText_CheckedChanged(object sender, EventArgs e)
+		{
+			if (sender == rbTextSearch)
+				IsPlainText = rbTextSearch.Checked;
+
+			FilesFound = false;
+		}
+
+		private void cbCaseSensitive_CheckedChanged(object sender, EventArgs e)
+		{
+			FilesFound = false;
 		}
 	}
 }

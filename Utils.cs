@@ -61,6 +61,31 @@ namespace nGREP
 			File.Copy(sourcePath, destinationPath, overWrite);
 		}
 
+		/// <summary>
+		/// Deletes files even if they are read only
+		/// </summary>
+		/// <param name="path"></param>
+		public static void DeleteFile(string path)
+		{
+			File.SetAttributes(path, FileAttributes.Normal);
+			File.Delete(path);
+		}
+
+		/// <summary>
+		/// Deletes folder even if it contains read only files
+		/// </summary>
+		/// <param name="path"></param>
+		public static void DeleteFolder(string path)
+		{
+			string[] files = GetFileList(path, "*.*", true, true, 0, 0);
+			foreach (string file in files)
+			{
+				File.SetAttributes(file, FileAttributes.Normal);
+				File.Delete(file);
+			}
+			Directory.Delete(path, true);
+		}
+
 		public static string FixFolderName(string name)
 		{
 			if (name != null && name.Length > 1 && name[name.Length - 1] != Path.DirectorySeparatorChar)
@@ -87,7 +112,11 @@ namespace nGREP
 
 			DirectoryInfo di = new DirectoryInfo(pathToFolder);
 			List<string> fileMatch = new List<string>();
-			recursiveFileSearch(pathToFolder, namePattern, includeSubfolders, includeHidden, sizeFrom, sizeTo, fileMatch);
+			string[] namePatterns = namePattern.Split(';');
+			foreach (string pattern in namePatterns)
+			{
+				recursiveFileSearch(pathToFolder, pattern.Trim(), includeSubfolders, includeHidden, sizeFrom, sizeTo, fileMatch);
+			}
 			
 			return fileMatch.ToArray();
 		}

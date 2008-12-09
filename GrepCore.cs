@@ -52,27 +52,33 @@ namespace nGREP
 		/// <param name="files">Files to search in. If one of the files does not exist or is open, it is skipped.</param>
 		/// <param name="searchText">Text</param>
 		/// <returns></returns>
-		public GrepSearchResult[] SearchText(string[] files, string searchText)
+		public GrepSearchResult[] SearchText(string[] files, string searchText, bool isCaseSensitive)
 		{
-			return search(files, searchText, new doSearch(doTextSearchCaseInsensitive));
+			if (isCaseSensitive)
+				return search(files, searchText, new doSearch(doTextSearchCaseSensitive));
+			else
+				return search(files, searchText, new doSearch(doTextSearchCaseInsensitive));
 		}
 
 		public int ReplaceRegex(string[] files, string baseFolder, string searchRegex, string replaceRegex)
 		{
 			string tempFolder = Utils.FixFolderName(Path.GetTempPath()) + "nGREP\\";
 			if (Directory.Exists(tempFolder))
-				Directory.Delete(tempFolder, true);
+				Utils.DeleteFolder(tempFolder);
 			Directory.CreateDirectory(tempFolder);
 			return replace(files, baseFolder, tempFolder, searchRegex, replaceRegex, new doSearch(doRegexSearch), new doReplace(doRegexReplace));
 		}
 
-		public int ReplaceText(string[] files, string baseFolder, string searchText, string replaceText)
+		public int ReplaceText(string[] files, string baseFolder, string searchText, string replaceText, bool isCaseSensitive)
 		{
 			string tempFolder = Utils.FixFolderName(Path.GetTempPath()) + "nGREP\\";
 			if (Directory.Exists(tempFolder))
-				Directory.Delete(tempFolder, true);
+				Utils.DeleteFolder(tempFolder);
 			Directory.CreateDirectory(tempFolder);
-			return replace(files, baseFolder, tempFolder, searchText, replaceText, new doSearch(doTextSearchCaseInsensitive), new doReplace(doTextReplaceCaseInsensitive));
+			if (isCaseSensitive)
+				return replace(files, baseFolder, tempFolder, searchText, replaceText, new doSearch(doTextSearchCaseSensitive), new doReplace(doTextReplaceCaseSensitive));
+			else
+				return replace(files, baseFolder, tempFolder, searchText, replaceText, new doSearch(doTextSearchCaseInsensitive), new doReplace(doTextReplaceCaseInsensitive));
 		}
 
 		public bool Undo(string folderPath)
@@ -97,6 +103,11 @@ namespace nGREP
 
 		private bool doTextSearchCaseInsensitive(string text, string searchText)
 		{
+			return text.ToLower().Contains(searchText.ToLower());
+		}
+
+		private bool doTextSearchCaseSensitive(string text, string searchText)
+		{
 			return text.Contains(searchText);
 		}
 
@@ -105,9 +116,33 @@ namespace nGREP
 			return Regex.IsMatch(text, searchPattern);
 		}
 
-		private string doTextReplaceCaseInsensitive(string text, string searchText, string replaceText)
+		private string doTextReplaceCaseSensitive(string text, string searchText, string replaceText)
 		{
 			return text.Replace(searchText, replaceText);
+		}
+		
+		private string doTextReplaceCaseInsensitive(string text, string searchText, string replaceText)
+		{
+			int count, position0, position1;
+			count = position0 = position1 = 0;
+			string upperString = text.ToUpper();
+			string upperPattern = searchText.ToUpper();
+			int inc = (text.Length / searchText.Length) *
+					  (replaceText.Length - searchText.Length);
+			char[] chars = new char[text.Length + Math.Max(0, inc)];
+			while ((position1 = upperString.IndexOf(upperPattern,
+											  position0)) != -1)
+			{
+				for (int i = position0; i < position1; ++i)
+					chars[count++] = text[i];
+				for (int i = 0; i < replaceText.Length; ++i)
+					chars[count++] = replaceText[i];
+				position0 = position1 + searchText.Length;
+			}
+			if (position0 == 0) return text;
+			for (int i = position0; i < text.Length; ++i)
+				chars[count++] = text[i];
+			return new string(chars, 0, count);
 		}
 
 		private string doRegexReplace(string text, string searchPattern, string replacePattern)
@@ -185,7 +220,7 @@ namespace nGREP
 					processedFiles++;
 					// Copy file					
 					Utils.CopyFile(file, tempFileName, true);
-					File.Delete(file);
+					Utils.DeleteFile(file);
 
 					using (StreamReader readStream = new StreamReader(File.OpenRead(tempFileName)))
 					using (StreamWriter writeStream = new StreamWriter(File.OpenWrite(file)))
@@ -212,10 +247,12 @@ namespace nGREP
 							ProcessedFile(this, new ProgressStatus(totalFiles, processedFiles));
 					}
 
+					File.SetAttributes(file, File.GetAttributes(tempFileName));
+
 					if (GrepCore.CancelProcess)
 					{
 						// Replace the file
-						File.Delete(file);
+						Utils.DeleteFile(file);
 						Utils.CopyFile(tempFileName, file, true);
 						break;
 					}
@@ -228,7 +265,7 @@ namespace nGREP
 						// Replace the file
 						if (File.Exists(tempFileName) && File.Exists(file))
 						{
-							File.Delete(file);
+							Utils.DeleteFile(file);
 							Utils.CopyFile(tempFileName, file, true);
 						}
 					}
