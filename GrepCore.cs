@@ -222,8 +222,10 @@ namespace nGREP
 					Utils.CopyFile(file, tempFileName, true);
 					Utils.DeleteFile(file);
 
-					using (StreamReader readStream = new StreamReader(File.OpenRead(tempFileName)))
-					using (StreamWriter writeStream = new StreamWriter(File.OpenWrite(file)))
+					Encoding encoding = Utils.GetFileEncoding(tempFileName);
+
+					using (StreamReader readStream = new StreamReader(File.OpenRead(tempFileName), encoding))
+					using (StreamWriter writeStream = new StreamWriter(File.OpenWrite(file), encoding))
 					{
 						string line = null;
 						int counter = 1;
