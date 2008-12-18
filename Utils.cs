@@ -4,6 +4,7 @@ using System.Text;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace nGREP
 {
@@ -218,5 +219,11 @@ namespace nGREP
 				System.Diagnostics.Process.Start(info);
 			}
 		}
+
+		public static string GetCurrentPath()
+		{
+			Assembly thisAssembly = Assembly.GetAssembly(typeof(Utils));
+			return Path.GetDirectoryName(thisAssembly.Location);
+		} 
 	}
 }

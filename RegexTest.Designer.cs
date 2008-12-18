@@ -42,7 +42,7 @@ namespace nGREP
 			this.label3 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
 			this.btnDone = new System.Windows.Forms.Button();
-			this.btnReplaceHelp = new System.Windows.Forms.Button();
+			this.btnHelp = new System.Windows.Forms.Button();
 			this.groupBox1.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.SuspendLayout();
@@ -54,7 +54,7 @@ namespace nGREP
 			this.tbReplaceWith.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "ReplaceWith", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
 			this.tbReplaceWith.Location = new System.Drawing.Point(12, 64);
 			this.tbReplaceWith.Name = "tbReplaceWith";
-			this.tbReplaceWith.Size = new System.Drawing.Size(522, 20);
+			this.tbReplaceWith.Size = new System.Drawing.Size(550, 20);
 			this.tbReplaceWith.TabIndex = 1;
 			this.tbReplaceWith.Text = global::nGREP.Properties.Settings.Default.ReplaceWith;
 			// 
@@ -193,15 +193,15 @@ namespace nGREP
 			this.btnDone.Text = "Done";
 			this.btnDone.UseVisualStyleBackColor = true;
 			// 
-			// btnReplaceHelp
+			// btnHelp
 			// 
-			this.btnReplaceHelp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnReplaceHelp.Location = new System.Drawing.Point(540, 62);
-			this.btnReplaceHelp.Name = "btnReplaceHelp";
-			this.btnReplaceHelp.Size = new System.Drawing.Size(24, 23);
-			this.btnReplaceHelp.TabIndex = 8;
-			this.btnReplaceHelp.Text = "?";
-			this.btnReplaceHelp.UseVisualStyleBackColor = true;
+			this.btnHelp.Location = new System.Drawing.Point(12, 90);
+			this.btnHelp.Name = "btnHelp";
+			this.btnHelp.Size = new System.Drawing.Size(75, 23);
+			this.btnHelp.TabIndex = 8;
+			this.btnHelp.Text = "Help";
+			this.btnHelp.UseVisualStyleBackColor = true;
+			this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
 			// 
 			// RegexTest
 			// 
@@ -209,7 +209,7 @@ namespace nGREP
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(574, 456);
-			this.Controls.Add(this.btnReplaceHelp);
+			this.Controls.Add(this.btnHelp);
 			this.Controls.Add(this.btnDone);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.btnReplace);
@@ -247,6 +247,6 @@ namespace nGREP
 		private System.Windows.Forms.TextBox tbOutputText;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Button btnDone;
-		private System.Windows.Forms.Button btnReplaceHelp;
+		private System.Windows.Forms.Button btnHelp;
 	}
 }

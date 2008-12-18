@@ -113,6 +113,9 @@
     <None Include="Resources\na-icon.gif" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Doc\regular-expressions-cheat-sheet-v2.pdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\line-icon.gif" />
   </ItemGroup>
   <ItemGroup>

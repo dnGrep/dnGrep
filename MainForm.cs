@@ -572,8 +572,15 @@ namespace nGREP
 
 		private void btnTest_Click(object sender, EventArgs e)
 		{
-			RegexTest rTest = new RegexTest(tbSearchFor.Text, tbReplaceWith.Text);
-			rTest.Show();			
+			try
+			{
+				RegexTest rTest = new RegexTest(tbSearchFor.Text, tbReplaceWith.Text);
+				rTest.Show();
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("There was an error running regex test. Please examine the error log.", "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
 		}
 	}
 }

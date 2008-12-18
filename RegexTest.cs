@@ -64,5 +64,17 @@ namespace nGREP
 				tbOutputText.Text = "Error: " + ex.Message;
 			}
 		}
+
+		private void btnHelp_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				System.Diagnostics.Process.Start(Utils.GetCurrentPath() + "\\Doc\\regular-expressions-cheat-sheet-v2.pdf");
+			}
+			catch (Exception ex)
+			{
+				tbOutputText.Text = "Error. Could not open help file: " + ex.Message;
+			}
+		}
 	}
 }
