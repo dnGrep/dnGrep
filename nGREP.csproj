@@ -49,6 +49,12 @@
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FileIcons.cs" />
+    <Compile Include="RegexTest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegexTest.Designer.cs">
+      <DependentUpon>RegexTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utils.cs" />
     <Compile Include="GrepCore.cs" />
     <Compile Include="GrepSearchResult.cs" />
@@ -82,6 +88,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RegexTest.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>RegexTest.cs</DependentUpon>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

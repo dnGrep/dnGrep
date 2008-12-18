@@ -156,10 +156,12 @@ namespace nGREP
 			if (IsPlainText)
 			{
 				cbCaseSensitive.Enabled = true;
+				btnTest.Enabled = false;
 			}
 			else
 			{
 				cbCaseSensitive.Enabled = false;
+				btnTest.Enabled = true;
 			}
 
 			if (IsAllSizes)
@@ -566,6 +568,12 @@ namespace nGREP
 		private void cbCaseSensitive_CheckedChanged(object sender, EventArgs e)
 		{
 			FilesFound = false;
+		}
+
+		private void btnTest_Click(object sender, EventArgs e)
+		{
+			RegexTest rTest = new RegexTest(tbSearchFor.Text, tbReplaceWith.Text);
+			rTest.Show();			
 		}
 	}
 }
