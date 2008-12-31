@@ -43,36 +43,40 @@ namespace nGREP
 			this.label4 = new System.Windows.Forms.Label();
 			this.btnDone = new System.Windows.Forms.Button();
 			this.btnHelp = new System.Windows.Forms.Button();
+			this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
 			this.groupBox1.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
+			this.tableLayoutPanel2.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tbReplaceWith
 			// 
-			this.tbReplaceWith.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
 			this.tbReplaceWith.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "ReplaceWith", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.tbReplaceWith.Location = new System.Drawing.Point(12, 64);
+			this.tbReplaceWith.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tbReplaceWith.Location = new System.Drawing.Point(284, 21);
+			this.tbReplaceWith.Multiline = true;
 			this.tbReplaceWith.Name = "tbReplaceWith";
-			this.tbReplaceWith.Size = new System.Drawing.Size(550, 20);
+			this.tbReplaceWith.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+			this.tbReplaceWith.Size = new System.Drawing.Size(276, 85);
 			this.tbReplaceWith.TabIndex = 1;
 			this.tbReplaceWith.Text = global::nGREP.Properties.Settings.Default.ReplaceWith;
 			// 
 			// tbSearchFor
 			// 
-			this.tbSearchFor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
 			this.tbSearchFor.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "SearchFor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.tbSearchFor.Location = new System.Drawing.Point(12, 25);
+			this.tbSearchFor.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tbSearchFor.Location = new System.Drawing.Point(3, 21);
+			this.tbSearchFor.Multiline = true;
 			this.tbSearchFor.Name = "tbSearchFor";
-			this.tbSearchFor.Size = new System.Drawing.Size(550, 20);
+			this.tbSearchFor.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+			this.tbSearchFor.Size = new System.Drawing.Size(275, 85);
 			this.tbSearchFor.TabIndex = 0;
 			this.tbSearchFor.Text = global::nGREP.Properties.Settings.Default.SearchFor;
 			// 
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(12, 48);
+			this.label2.Location = new System.Drawing.Point(284, 0);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(72, 13);
 			this.label2.TabIndex = 7;
@@ -81,7 +85,7 @@ namespace nGREP
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(12, 9);
+			this.label1.Location = new System.Drawing.Point(3, 0);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(59, 13);
 			this.label1.TabIndex = 4;
@@ -94,13 +98,13 @@ namespace nGREP
 			this.tbInputText.Multiline = true;
 			this.tbInputText.Name = "tbInputText";
 			this.tbInputText.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.tbInputText.Size = new System.Drawing.Size(544, 112);
+			this.tbInputText.Size = new System.Drawing.Size(551, 114);
 			this.tbInputText.TabIndex = 0;
 			// 
 			// btnReplace
 			// 
 			this.btnReplace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnReplace.Location = new System.Drawing.Point(406, 90);
+			this.btnReplace.Location = new System.Drawing.Point(413, 118);
 			this.btnReplace.Name = "btnReplace";
 			this.btnReplace.Size = new System.Drawing.Size(75, 23);
 			this.btnReplace.TabIndex = 2;
@@ -111,7 +115,7 @@ namespace nGREP
 			// btnSearch
 			// 
 			this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnSearch.Location = new System.Drawing.Point(487, 90);
+			this.btnSearch.Location = new System.Drawing.Point(494, 118);
 			this.btnSearch.Name = "btnSearch";
 			this.btnSearch.Size = new System.Drawing.Size(75, 23);
 			this.btnSearch.TabIndex = 3;
@@ -125,9 +129,9 @@ namespace nGREP
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.groupBox1.Controls.Add(this.tableLayoutPanel1);
-			this.groupBox1.Location = new System.Drawing.Point(8, 119);
+			this.groupBox1.Location = new System.Drawing.Point(8, 146);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(556, 296);
+			this.groupBox1.Size = new System.Drawing.Size(563, 300);
 			this.groupBox1.TabIndex = 4;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Regex test:";
@@ -149,18 +153,18 @@ namespace nGREP
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(550, 277);
+			this.tableLayoutPanel1.Size = new System.Drawing.Size(557, 281);
 			this.tableLayoutPanel1.TabIndex = 14;
 			// 
 			// tbOutputText
 			// 
 			this.tbOutputText.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tbOutputText.Location = new System.Drawing.Point(3, 161);
+			this.tbOutputText.Location = new System.Drawing.Point(3, 163);
 			this.tbOutputText.Multiline = true;
 			this.tbOutputText.Name = "tbOutputText";
 			this.tbOutputText.ReadOnly = true;
 			this.tbOutputText.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.tbOutputText.Size = new System.Drawing.Size(544, 113);
+			this.tbOutputText.Size = new System.Drawing.Size(551, 115);
 			this.tbOutputText.TabIndex = 1;
 			// 
 			// label3
@@ -168,7 +172,7 @@ namespace nGREP
 			this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.label3.Location = new System.Drawing.Point(3, 0);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(544, 20);
+			this.label3.Size = new System.Drawing.Size(551, 20);
 			this.label3.TabIndex = 13;
 			this.label3.Text = "Sample input text:";
 			this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -176,9 +180,9 @@ namespace nGREP
 			// label4
 			// 
 			this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label4.Location = new System.Drawing.Point(3, 138);
+			this.label4.Location = new System.Drawing.Point(3, 140);
 			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(544, 20);
+			this.label4.Size = new System.Drawing.Size(551, 20);
 			this.label4.TabIndex = 14;
 			this.label4.Text = "Output text:";
 			this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -186,16 +190,17 @@ namespace nGREP
 			// btnDone
 			// 
 			this.btnDone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnDone.Location = new System.Drawing.Point(489, 424);
+			this.btnDone.Location = new System.Drawing.Point(496, 455);
 			this.btnDone.Name = "btnDone";
 			this.btnDone.Size = new System.Drawing.Size(75, 23);
 			this.btnDone.TabIndex = 5;
 			this.btnDone.Text = "Done";
 			this.btnDone.UseVisualStyleBackColor = true;
+			this.btnDone.Click += new System.EventHandler(this.btnDone_Click);
 			// 
 			// btnHelp
 			// 
-			this.btnHelp.Location = new System.Drawing.Point(12, 90);
+			this.btnHelp.Location = new System.Drawing.Point(12, 118);
 			this.btnHelp.Name = "btnHelp";
 			this.btnHelp.Size = new System.Drawing.Size(75, 23);
 			this.btnHelp.TabIndex = 8;
@@ -203,21 +208,38 @@ namespace nGREP
 			this.btnHelp.UseVisualStyleBackColor = true;
 			this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
 			// 
+			// tableLayoutPanel2
+			// 
+			this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+						| System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.tableLayoutPanel2.ColumnCount = 2;
+			this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
+			this.tableLayoutPanel2.Controls.Add(this.label2, 1, 0);
+			this.tableLayoutPanel2.Controls.Add(this.tbReplaceWith, 1, 1);
+			this.tableLayoutPanel2.Controls.Add(this.tbSearchFor, 0, 1);
+			this.tableLayoutPanel2.Location = new System.Drawing.Point(8, 3);
+			this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+			this.tableLayoutPanel2.RowCount = 2;
+			this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 18F));
+			this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+			this.tableLayoutPanel2.Size = new System.Drawing.Size(563, 109);
+			this.tableLayoutPanel2.TabIndex = 9;
+			// 
 			// RegexTest
 			// 
 			this.AcceptButton = this.btnDone;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(574, 456);
+			this.ClientSize = new System.Drawing.Size(581, 487);
+			this.Controls.Add(this.tableLayoutPanel2);
 			this.Controls.Add(this.btnHelp);
 			this.Controls.Add(this.btnDone);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.btnReplace);
 			this.Controls.Add(this.btnSearch);
-			this.Controls.Add(this.tbReplaceWith);
-			this.Controls.Add(this.tbSearchFor);
-			this.Controls.Add(this.label2);
-			this.Controls.Add(this.label1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.KeyPreview = true;
@@ -227,8 +249,9 @@ namespace nGREP
 			this.groupBox1.ResumeLayout(false);
 			this.tableLayoutPanel1.ResumeLayout(false);
 			this.tableLayoutPanel1.PerformLayout();
+			this.tableLayoutPanel2.ResumeLayout(false);
+			this.tableLayoutPanel2.PerformLayout();
 			this.ResumeLayout(false);
-			this.PerformLayout();
 
 		}
 
@@ -248,5 +271,6 @@ namespace nGREP
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Button btnDone;
 		private System.Windows.Forms.Button btnHelp;
+		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
 	}
 }

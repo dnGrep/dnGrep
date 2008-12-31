@@ -100,10 +100,10 @@ namespace nGREP
 
 			// *** Detect byte order mark if any - otherwise assume default
 			byte[] buffer = new byte[5];
-			FileStream file = new FileStream(srcFile, FileMode.Open);
-			file.Read(buffer, 0, 5);
-			file.Close();
-
+			using (FileStream readStream = new FileStream(srcFile, FileMode.Open, FileAccess.Read, FileShare.Read))
+			{
+				readStream.Read(buffer, 0, 5);
+			}
 			if (buffer[0] == 0xef && buffer[1] == 0xbb && buffer[2] == 0xbf)
 				enc = Encoding.UTF8;
 			else if (buffer[0] == 0xfe && buffer[1] == 0xff)
@@ -112,7 +112,6 @@ namespace nGREP
 				enc = Encoding.UTF32;
 			else if (buffer[0] == 0x2b && buffer[1] == 0x2f && buffer[2] == 0x76)
 				enc = Encoding.UTF7;
-
 			return enc;
 		}
 
@@ -224,6 +223,53 @@ namespace nGREP
 		{
 			Assembly thisAssembly = Assembly.GetAssembly(typeof(Utils));
 			return Path.GetDirectoryName(thisAssembly.Location);
-		} 
+		}
+
+		public static string[] GetReadOnlyFiles(List<GrepSearchResult> results)
+		{
+			List<string> files = new List<string>();
+			foreach (GrepSearchResult result in results)
+			{
+				if (!files.Contains(result.FileName))
+				{
+					if ((File.GetAttributes(result.FileName) & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
+					{
+						files.Add(result.FileName);
+					}
+				}
+			}
+			return files.ToArray();
+		}
+
+		/// <summary>
+		/// Returns line and line number from a multiline string based on character index
+		/// </summary>
+		/// <param name="body">Multiline string</param>
+		/// <param name="index">Index of any character in the line</param>
+		/// <param name="lineNumber">Return parameter - 0-based line number or -1 if index is outside text length</param>
+		/// <returns>Line of text or null if index is outside text length</returns>
+		public static string GetLine(string body, int index, out int lineNumber)
+		{
+			if (body == null || index < 0 || index > body.Length)
+			{
+				lineNumber = -1;
+				return null;
+			}
+
+			string subBody1 = body.Substring(0, index);
+			string[] lines1 = subBody1.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+			string subBody2 = body.Substring(index);
+			string[] lines2 = subBody2.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+			lineNumber = lines1.Length;
+			return lines1[lines1.Length - 1] + lines2[0];
+		}
+	}
+
+	public class KeyValueComparer : IComparer<KeyValuePair<string, int>>
+	{
+		public int Compare(KeyValuePair<string, int> x, KeyValuePair<string, int> y)
+		{
+			return x.Key.CompareTo(y.Key);
+		}
 	}
 }

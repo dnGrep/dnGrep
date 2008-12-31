@@ -202,5 +202,17 @@ namespace nGREP.Properties {
                 this["CaseSensitive"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Multiline {
+            get {
+                return ((bool)(this["Multiline"]));
+            }
+            set {
+                this["Multiline"] = value;
+            }
+        }
     }
 }

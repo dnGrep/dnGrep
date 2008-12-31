@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("nGREP")]
-[assembly: AssemblyDescription("This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.")]
+[assembly: AssemblyTitle("Tests")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Denis Stankovski")]
-[assembly: AssemblyProduct("nGREP")]
-[assembly: AssemblyCopyright("Copyright, 2008")]
+[assembly: AssemblyCompany("BAH")]
+[assembly: AssemblyProduct("Tests")]
+[assembly: AssemblyCopyright("Copyright © BAH 2008")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("6b3239fc-566a-4a9d-bfd1-2052be85fe46")]
+[assembly: Guid("24f8f663-60bb-4639-9b08-3940f26c404c")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -29,5 +29,7 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("0.9.0.*")]
-[assembly: AssemblyFileVersion("0.9.0.0")]
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

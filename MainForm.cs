@@ -15,11 +15,21 @@ namespace nGREP
 	public partial class MainForm : Form
 	{
 		List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
+		List<KeyValuePair<string, int>> encodings = new List<KeyValuePair<string, int>>();
 		private const string SEARCH_KEY = "search";
 		private const string REPLACE_KEY = "replace";
 		private static Logger logger = LogManager.GetCurrentClassLogger();
+		private DateTime timer = DateTime.Now;
 		
 		#region States
+
+		private int codePage = -1;
+
+		public int CodePage
+		{
+			get { return codePage; }
+			set { codePage = value; }
+		}
 
 		private bool folderSelected = false;
 
@@ -219,6 +229,7 @@ namespace nGREP
 			SearchPatternEntered = !string.IsNullOrEmpty(tbSearchFor.Text);
 			ReplacePatternEntered = !string.IsNullOrEmpty(tbReplaceWith.Text);
 			IsPlainText = rbTextSearch.Checked;
+			populateEncodings();
 
 			changeState();
 		}
@@ -226,6 +237,12 @@ namespace nGREP
 		private void btnSelectFolder_Click(object sender, EventArgs e)
 		{
 			folderSelectDialog.SelectedPath = tbFolderName.Text;
+			if (tbFolderName.Text == "")
+			{
+				string clipboard = Clipboard.GetText();
+				if (Path.IsPathRooted(clipboard))
+					folderSelectDialog.SelectedPath = clipboard;
+			}
 			if (folderSelectDialog.ShowDialog() == DialogResult.OK &&
 				Directory.Exists(folderSelectDialog.SelectedPath))
 			{
@@ -260,6 +277,7 @@ namespace nGREP
 			{
 				if (!workerSearchReplace.CancellationPending)
 				{
+					timer = DateTime.Now;
 					if (e.Argument == SEARCH_KEY)
 					{
 						int sizeFrom = 0;
@@ -269,6 +287,7 @@ namespace nGREP
 							sizeFrom = Utils.ParseInt(tbFileSizeFrom.Text, 0);
 							sizeTo = Utils.ParseInt(tbFileSizeTo.Text, 0);
 						}
+						
 						string filePattern = "*.*";
 						if (!string.IsNullOrEmpty(tbFilePattern.Text))
 							filePattern = tbFilePattern.Text;
@@ -278,9 +297,9 @@ namespace nGREP
 						grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
 						GrepSearchResult[] results = null;
 						if (rbRegexSearch.Checked)
-							results = grep.SearchRegex(files, tbSearchFor.Text);
+							results = grep.SearchRegex(files, tbSearchFor.Text, cbMultiline.Checked, CodePage);
 						else
-							results = grep.SearchText(files, tbSearchFor.Text, cbCaseSensitive.Checked);
+							results = grep.SearchText(files, tbSearchFor.Text, cbCaseSensitive.Checked, cbMultiline.Checked, CodePage);
 
 						grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
 						searchResults = new List<GrepSearchResult>(results);
@@ -297,9 +316,9 @@ namespace nGREP
 						}
 
 						if (rbRegexSearch.Checked)
-							e.Result = grep.ReplaceRegex(files.ToArray(), tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text);
+							e.Result = grep.ReplaceRegex(files.ToArray(), tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text, cbMultiline.Checked, CodePage);
 						else
-							e.Result = grep.ReplaceText(files.ToArray(), tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text, cbCaseSensitive.Checked);
+							e.Result = grep.ReplaceText(files.ToArray(), tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text, cbCaseSensitive.Checked, cbMultiline.Checked, CodePage);
 
 						grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
 					}
@@ -333,7 +352,8 @@ namespace nGREP
 			{
 				if (!e.Cancelled)
 				{
-					lblStatus.Text = "Search Complete - " + (int)e.Result + " files found.";
+					TimeSpan duration = DateTime.Now.Subtract(timer);
+					lblStatus.Text = "Search Complete - " + (int)e.Result + " files found in " + duration.TotalMilliseconds + "ms.";
 				}
 				else
 				{
@@ -442,6 +462,27 @@ namespace nGREP
 			}			
 		}
 
+		private void populateEncodings()
+		{
+			KeyValuePair<string, int> defaultValue = new KeyValuePair<string,int>("Auto detection (default)",-1);
+			
+			foreach (EncodingInfo ei in Encoding.GetEncodings())
+			{
+				Encoding e = ei.GetEncoding();
+				encodings.Add(new KeyValuePair<string, int>(e.EncodingName, e.CodePage));
+			}
+
+			encodings.Sort(new KeyValueComparer());
+
+			encodings.Insert(0,defaultValue);
+
+			cbEncoding.DataSource = encodings;
+			cbEncoding.ValueMember = "Value";
+			cbEncoding.DisplayMember = "Key";
+
+			cbEncoding.SelectedIndex = 0;
+		}
+
 		private void formKeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.KeyCode == Keys.Escape)
@@ -513,6 +554,17 @@ namespace nGREP
 					if (MessageBox.Show("Are you sure you want to replace search pattern with empty string?", "Replace", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) != DialogResult.Yes)
 						return;
 				}
+				string[] roFiles = Utils.GetReadOnlyFiles(searchResults);
+				if (roFiles.Length > 0)
+				{
+					StringBuilder sb = new StringBuilder("Some of the files are read only. If you continue, the application will 'force-replace' values in these files.\nWould you like to continue?\n\n");
+					foreach (string fileName in roFiles)
+					{
+						sb.AppendLine(" - " + new FileInfo(fileName).Name);
+					}
+					if (MessageBox.Show(sb.ToString(), "Replace", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) != DialogResult.Yes)
+						return;
+				}
 				lblStatus.Text = "Replacing...";
 				IsReplacing = true;
 				CanUndo = false;
@@ -581,6 +633,12 @@ namespace nGREP
 			{
 				MessageBox.Show("There was an error running regex test. Please examine the error log.", "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
+		}
+
+		private void cbEncoding_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			if (cbEncoding.SelectedValue != null && cbEncoding.SelectedValue is int)
+				CodePage = (int)cbEncoding.SelectedValue;
 		}
 	}
 }

@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nGREP", "nGREP.csproj", "{6E9E3A4B-2338-421D-AC57-9939A9A6E6AA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{77AB22A5-8227-494A-8DD2-1EF5E786263D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{6E9E3A4B-2338-421D-AC57-9939A9A6E6AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E9E3A4B-2338-421D-AC57-9939A9A6E6AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E9E3A4B-2338-421D-AC57-9939A9A6E6AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77AB22A5-8227-494A-8DD2-1EF5E786263D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77AB22A5-8227-494A-8DD2-1EF5E786263D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77AB22A5-8227-494A-8DD2-1EF5E786263D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77AB22A5-8227-494A-8DD2-1EF5E786263D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

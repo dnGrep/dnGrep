@@ -76,5 +76,10 @@ namespace nGREP
 				tbOutputText.Text = "Error. Could not open help file: " + ex.Message;
 			}
 		}
+
+		private void btnDone_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
 	}
 }
