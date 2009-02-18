@@ -148,7 +148,20 @@ namespace dnGREP
 
 		private void changeState()
 		{
-			tbSearchFor.Multiline = IsMultiline;
+			if (IsMultiline)
+			{
+				tbSearchFor.Multiline = true;
+				tbReplaceWith.Multiline = true;
+				splitContainer.SplitterDistance = 180;
+				splitContainer.IsSplitterFixed = false;
+			}
+			else
+			{
+				tbSearchFor.Multiline = false;
+				tbReplaceWith.Multiline = false;
+				splitContainer.SplitterDistance = 134;
+				splitContainer.IsSplitterFixed = true;
+			}			
 
 			if (FolderSelected)
 			{
@@ -534,12 +547,7 @@ namespace dnGREP
 				}
 				if (selectedNode != null && selectedNode.Tag != null)
 				{
-					if (!Properties.Settings.Default.UseCustomEditor)
-						System.Diagnostics.Process.Start(@"" + (string)selectedNode.Tag + "");
-					else
-					{
-						Utils.OpenFile((string)selectedNode.Tag, lineNumber);
-					}
+					Utils.OpenFile((string)selectedNode.Tag, lineNumber);
 				}
 			}
 		}

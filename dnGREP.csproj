@@ -74,7 +74,6 @@
     <Compile Include="RegexTest.Designer.cs">
       <DependentUpon>RegexTest.cs</DependentUpon>
     </Compile>
-    <Compile Include="Settings.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="GrepCore.cs" />
     <Compile Include="GrepSearchResult.cs" />
@@ -151,9 +150,6 @@
     <None Include="Resources\OpenSelectedItemHS.png" />
     <None Include="Resources\NewDocumentHS.png" />
     <None Include="Resources\openHS.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <WebReferences Include="Web References\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

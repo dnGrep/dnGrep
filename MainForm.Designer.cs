@@ -36,9 +36,7 @@ namespace dnGREP
 			this.gbSearchFor = new System.Windows.Forms.GroupBox();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
 			this.tbSearchFor = new System.Windows.Forms.TextBox();
-			this.tbReplaceWith = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
-			this.label2 = new System.Windows.Forms.Label();
 			this.cbMultiline = new System.Windows.Forms.CheckBox();
 			this.btnTest = new System.Windows.Forms.Button();
 			this.cbCaseSensitive = new System.Windows.Forms.CheckBox();
@@ -78,6 +76,9 @@ namespace dnGREP
 			this.bookmarkMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.openToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+			this.label2 = new System.Windows.Forms.Label();
+			this.tbReplaceWith = new System.Windows.Forms.TextBox();
+			this.splitContainer = new System.Windows.Forms.SplitContainer();
 			this.gbSearchIn.SuspendLayout();
 			this.gbSearchFor.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
@@ -86,6 +87,9 @@ namespace dnGREP
 			this.statusStrip1.SuspendLayout();
 			this.menuStrip1.SuspendLayout();
 			this.bookmarkMenu.SuspendLayout();
+			this.splitContainer.Panel1.SuspendLayout();
+			this.splitContainer.Panel2.SuspendLayout();
+			this.splitContainer.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// gbSearchIn
@@ -96,7 +100,7 @@ namespace dnGREP
 			this.gbSearchIn.Controls.Add(this.tbFolderName);
 			this.gbSearchIn.Location = new System.Drawing.Point(6, 24);
 			this.gbSearchIn.Name = "gbSearchIn";
-			this.gbSearchIn.Size = new System.Drawing.Size(469, 54);
+			this.gbSearchIn.Size = new System.Drawing.Size(507, 54);
 			this.gbSearchIn.TabIndex = 2;
 			this.gbSearchIn.TabStop = false;
 			this.gbSearchIn.Text = "Search in";
@@ -104,7 +108,7 @@ namespace dnGREP
 			// btnSelectFolder
 			// 
 			this.btnSelectFolder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnSelectFolder.Location = new System.Drawing.Point(419, 17);
+			this.btnSelectFolder.Location = new System.Drawing.Point(457, 17);
 			this.btnSelectFolder.Name = "btnSelectFolder";
 			this.btnSelectFolder.Size = new System.Drawing.Size(42, 23);
 			this.btnSelectFolder.TabIndex = 0;
@@ -120,13 +124,14 @@ namespace dnGREP
 			this.tbFolderName.Location = new System.Drawing.Point(6, 19);
 			this.tbFolderName.Name = "tbFolderName";
 			this.tbFolderName.ReadOnly = true;
-			this.tbFolderName.Size = new System.Drawing.Size(407, 20);
+			this.tbFolderName.Size = new System.Drawing.Size(445, 20);
 			this.tbFolderName.TabIndex = 0;
 			this.tbFolderName.Text = global::dnGREP.Properties.Settings.Default.SearchFolder;
 			// 
 			// gbSearchFor
 			// 
-			this.gbSearchFor.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+			this.gbSearchFor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.gbSearchFor.Controls.Add(this.tableLayoutPanel1);
 			this.gbSearchFor.Controls.Add(this.cbMultiline);
@@ -134,9 +139,9 @@ namespace dnGREP
 			this.gbSearchFor.Controls.Add(this.cbCaseSensitive);
 			this.gbSearchFor.Controls.Add(this.rbTextSearch);
 			this.gbSearchFor.Controls.Add(this.rbRegexSearch);
-			this.gbSearchFor.Location = new System.Drawing.Point(6, 84);
+			this.gbSearchFor.Location = new System.Drawing.Point(6, 0);
 			this.gbSearchFor.Name = "gbSearchFor";
-			this.gbSearchFor.Size = new System.Drawing.Size(469, 126);
+			this.gbSearchFor.Size = new System.Drawing.Size(506, 160);
 			this.gbSearchFor.TabIndex = 0;
 			this.gbSearchFor.TabStop = false;
 			this.gbSearchFor.Text = "Search";
@@ -146,30 +151,31 @@ namespace dnGREP
 			this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
-			this.tableLayoutPanel1.ColumnCount = 2;
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.tableLayoutPanel1.ColumnCount = 1;
+			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.tableLayoutPanel1.Controls.Add(this.tbSearchFor, 0, 1);
-			this.tableLayoutPanel1.Controls.Add(this.tbReplaceWith, 1, 1);
+			this.tableLayoutPanel1.Controls.Add(this.tbReplaceWith, 0, 3);
 			this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
-			this.tableLayoutPanel1.Controls.Add(this.label2, 1, 0);
+			this.tableLayoutPanel1.Controls.Add(this.label2, 0, 2);
 			this.tableLayoutPanel1.Location = new System.Drawing.Point(2, 40);
 			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-			this.tableLayoutPanel1.RowCount = 2;
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 18F));
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(465, 83);
+			this.tableLayoutPanel1.RowCount = 4;
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 16F));
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 16F));
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+			this.tableLayoutPanel1.Size = new System.Drawing.Size(498, 118);
 			this.tableLayoutPanel1.TabIndex = 7;
 			// 
 			// tbSearchFor
 			// 
 			this.tbSearchFor.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "SearchFor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
 			this.tbSearchFor.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tbSearchFor.Location = new System.Drawing.Point(3, 21);
+			this.tbSearchFor.Location = new System.Drawing.Point(3, 19);
 			this.tbSearchFor.Multiline = true;
 			this.tbSearchFor.Name = "tbSearchFor";
 			this.tbSearchFor.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.tbSearchFor.Size = new System.Drawing.Size(226, 59);
+			this.tbSearchFor.Size = new System.Drawing.Size(492, 37);
 			this.tbSearchFor.TabIndex = 0;
 			this.tbSearchFor.Text = global::dnGREP.Properties.Settings.Default.SearchFor;
 			this.toolTip.SetToolTip(this.tbSearchFor, ". matches all characters\r\n\\w matches alpha-numerics\r\n\\d matches digits\r\n\\s matche" +
@@ -177,38 +183,15 @@ namespace dnGREP
 					"r more Regex patterns Google \"Regex\"");
 			this.tbSearchFor.TextChanged += new System.EventHandler(this.textBoxTextChanged);
 			// 
-			// tbReplaceWith
-			// 
-			this.tbReplaceWith.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "ReplaceWith", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.tbReplaceWith.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tbReplaceWith.Location = new System.Drawing.Point(235, 21);
-			this.tbReplaceWith.Multiline = true;
-			this.tbReplaceWith.Name = "tbReplaceWith";
-			this.tbReplaceWith.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.tbReplaceWith.Size = new System.Drawing.Size(227, 59);
-			this.tbReplaceWith.TabIndex = 1;
-			this.tbReplaceWith.Text = global::dnGREP.Properties.Settings.Default.ReplaceWith;
-			this.tbReplaceWith.TextChanged += new System.EventHandler(this.textBoxTextChanged);
-			// 
 			// label1
 			// 
 			this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.label1.Location = new System.Drawing.Point(3, 0);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(226, 18);
+			this.label1.Size = new System.Drawing.Size(492, 16);
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Search for:";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// label2
-			// 
-			this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label2.Location = new System.Drawing.Point(235, 0);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(227, 18);
-			this.label2.TabIndex = 3;
-			this.label2.Text = "Replace with:";
-			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// cbMultiline
 			// 
@@ -226,7 +209,7 @@ namespace dnGREP
 			// btnTest
 			// 
 			this.btnTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnTest.Location = new System.Drawing.Point(396, 17);
+			this.btnTest.Location = new System.Drawing.Point(433, 17);
 			this.btnTest.Name = "btnTest";
 			this.btnTest.Size = new System.Drawing.Size(67, 23);
 			this.btnTest.TabIndex = 5;
@@ -275,7 +258,7 @@ namespace dnGREP
 			// btnSearch
 			// 
 			this.btnSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnSearch.Location = new System.Drawing.Point(319, 324);
+			this.btnSearch.Location = new System.Drawing.Point(356, 107);
 			this.btnSearch.Name = "btnSearch";
 			this.btnSearch.Size = new System.Drawing.Size(75, 23);
 			this.btnSearch.TabIndex = 3;
@@ -299,9 +282,9 @@ namespace dnGREP
 			this.gbFilter.Controls.Add(this.cbIncludeSubfolders);
 			this.gbFilter.Controls.Add(this.tbFilePattern);
 			this.gbFilter.Controls.Add(this.label3);
-			this.gbFilter.Location = new System.Drawing.Point(6, 216);
+			this.gbFilter.Location = new System.Drawing.Point(6, -1);
 			this.gbFilter.Name = "gbFilter";
-			this.gbFilter.Size = new System.Drawing.Size(469, 102);
+			this.gbFilter.Size = new System.Drawing.Size(507, 103);
 			this.gbFilter.TabIndex = 1;
 			this.gbFilter.TabStop = false;
 			this.gbFilter.Text = "Filter";
@@ -315,7 +298,7 @@ namespace dnGREP
 			this.cbEncoding.FormattingEnabled = true;
 			this.cbEncoding.Location = new System.Drawing.Point(327, 42);
 			this.cbEncoding.Name = "cbEncoding";
-			this.cbEncoding.Size = new System.Drawing.Size(134, 21);
+			this.cbEncoding.Size = new System.Drawing.Size(172, 21);
 			this.cbEncoding.TabIndex = 11;
 			this.cbEncoding.ValueMember = "Auto detection (default)";
 			this.cbEncoding.SelectedIndexChanged += new System.EventHandler(this.cbEncoding_SelectedIndexChanged);
@@ -421,7 +404,7 @@ namespace dnGREP
 			this.tbFilePattern.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "FilePattern", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
 			this.tbFilePattern.Location = new System.Drawing.Point(327, 14);
 			this.tbFilePattern.Name = "tbFilePattern";
-			this.tbFilePattern.Size = new System.Drawing.Size(134, 20);
+			this.tbFilePattern.Size = new System.Drawing.Size(172, 20);
 			this.tbFilePattern.TabIndex = 6;
 			this.tbFilePattern.Text = global::dnGREP.Properties.Settings.Default.FilePattern;
 			// 
@@ -437,7 +420,7 @@ namespace dnGREP
 			// btnReplace
 			// 
 			this.btnReplace.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnReplace.Location = new System.Drawing.Point(238, 324);
+			this.btnReplace.Location = new System.Drawing.Point(275, 107);
 			this.btnReplace.Name = "btnReplace";
 			this.btnReplace.Size = new System.Drawing.Size(75, 23);
 			this.btnReplace.TabIndex = 4;
@@ -451,10 +434,10 @@ namespace dnGREP
 						| System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.tvSearchResult.ContextMenuStrip = this.tvContextMenu;
-			this.tvSearchResult.Location = new System.Drawing.Point(6, 353);
+			this.tvSearchResult.Location = new System.Drawing.Point(4, 136);
 			this.tvSearchResult.Name = "tvSearchResult";
 			this.tvSearchResult.ShowLines = false;
-			this.tvSearchResult.Size = new System.Drawing.Size(469, 62);
+			this.tvSearchResult.Size = new System.Drawing.Size(507, 56);
 			this.tvSearchResult.TabIndex = 6;
 			this.tvSearchResult.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvSearchResult_NodeMouseDoubleClick);
 			this.tvSearchResult.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvSearchResult_NodeMouseClick);
@@ -479,9 +462,9 @@ namespace dnGREP
 			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.barProgressBar,
             this.lblStatus});
-			this.statusStrip1.Location = new System.Drawing.Point(0, 418);
+			this.statusStrip1.Location = new System.Drawing.Point(0, 439);
 			this.statusStrip1.Name = "statusStrip1";
-			this.statusStrip1.Size = new System.Drawing.Size(479, 22);
+			this.statusStrip1.Size = new System.Drawing.Size(517, 22);
 			this.statusStrip1.TabIndex = 7;
 			this.statusStrip1.Text = "statusStrip1";
 			// 
@@ -507,7 +490,7 @@ namespace dnGREP
 			// btnCancel
 			// 
 			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnCancel.Location = new System.Drawing.Point(400, 324);
+			this.btnCancel.Location = new System.Drawing.Point(437, 107);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(75, 23);
 			this.btnCancel.TabIndex = 5;
@@ -525,7 +508,7 @@ namespace dnGREP
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
 			this.menuStrip1.Name = "menuStrip1";
 			this.menuStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-			this.menuStrip1.Size = new System.Drawing.Size(479, 24);
+			this.menuStrip1.Size = new System.Drawing.Size(517, 24);
 			this.menuStrip1.TabIndex = 9;
 			this.menuStrip1.Text = "topMenuStrip";
 			// 
@@ -556,7 +539,7 @@ namespace dnGREP
 			this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label6.Location = new System.Drawing.Point(6, 3);
 			this.label6.Name = "label6";
-			this.label6.Size = new System.Drawing.Size(64, 18);
+			this.label6.Size = new System.Drawing.Size(73, 18);
 			this.label6.TabIndex = 10;
 			this.label6.Text = "dnGREP";
 			// 
@@ -564,7 +547,7 @@ namespace dnGREP
 			// 
 			this.btnBookmark.AutoSize = true;
 			this.btnBookmark.ContextMenuStrip = this.bookmarkMenu;
-			this.btnBookmark.Location = new System.Drawing.Point(6, 324);
+			this.btnBookmark.Location = new System.Drawing.Point(5, 107);
 			this.btnBookmark.Name = "btnBookmark";
 			this.btnBookmark.Size = new System.Drawing.Size(83, 23);
 			this.btnBookmark.SplitMenuStrip = this.bookmarkMenu;
@@ -579,13 +562,13 @@ namespace dnGREP
             this.addToolStripMenuItem,
             this.openToolStripMenuItem1});
 			this.bookmarkMenu.Name = "bookmarkMenu";
-			this.bookmarkMenu.Size = new System.Drawing.Size(153, 70);
+			this.bookmarkMenu.Size = new System.Drawing.Size(124, 48);
 			// 
 			// addToolStripMenuItem
 			// 
 			this.addToolStripMenuItem.Image = global::dnGREP.Properties.Resources.NewDocumentHS;
 			this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-			this.addToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.addToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
 			this.addToolStripMenuItem.Text = "Add";
 			this.addToolStripMenuItem.Click += new System.EventHandler(this.addToolStripMenuItem_Click);
 			// 
@@ -593,26 +576,70 @@ namespace dnGREP
 			// 
 			this.openToolStripMenuItem1.Image = global::dnGREP.Properties.Resources.openHS;
 			this.openToolStripMenuItem1.Name = "openToolStripMenuItem1";
-			this.openToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+			this.openToolStripMenuItem1.Size = new System.Drawing.Size(123, 22);
 			this.openToolStripMenuItem1.Text = "Open...";
 			this.openToolStripMenuItem1.Click += new System.EventHandler(this.openToolStripMenuItem1_Click);
+			// 
+			// label2
+			// 
+			this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.label2.Location = new System.Drawing.Point(3, 59);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(492, 16);
+			this.label2.TabIndex = 3;
+			this.label2.Text = "Replace with:";
+			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// tbReplaceWith
+			// 
+			this.tbReplaceWith.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "ReplaceWith", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.tbReplaceWith.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tbReplaceWith.Location = new System.Drawing.Point(3, 78);
+			this.tbReplaceWith.Multiline = true;
+			this.tbReplaceWith.Name = "tbReplaceWith";
+			this.tbReplaceWith.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+			this.tbReplaceWith.Size = new System.Drawing.Size(492, 37);
+			this.tbReplaceWith.TabIndex = 1;
+			this.tbReplaceWith.Text = global::dnGREP.Properties.Settings.Default.ReplaceWith;
+			this.tbReplaceWith.TextChanged += new System.EventHandler(this.textBoxTextChanged);
+			// 
+			// splitContainer
+			// 
+			this.splitContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+						| System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.splitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+			this.splitContainer.Location = new System.Drawing.Point(0, 79);
+			this.splitContainer.Name = "splitContainer";
+			this.splitContainer.Orientation = System.Windows.Forms.Orientation.Horizontal;
+			// 
+			// splitContainer.Panel1
+			// 
+			this.splitContainer.Panel1.Controls.Add(this.gbSearchFor);
+			// 
+			// splitContainer.Panel2
+			// 
+			this.splitContainer.Panel2.Controls.Add(this.gbFilter);
+			this.splitContainer.Panel2.Controls.Add(this.btnCancel);
+			this.splitContainer.Panel2.Controls.Add(this.btnBookmark);
+			this.splitContainer.Panel2.Controls.Add(this.btnSearch);
+			this.splitContainer.Panel2.Controls.Add(this.btnReplace);
+			this.splitContainer.Panel2.Controls.Add(this.tvSearchResult);
+			this.splitContainer.Size = new System.Drawing.Size(516, 357);
+			this.splitContainer.SplitterDistance = 163;
+			this.splitContainer.SplitterWidth = 2;
+			this.splitContainer.TabIndex = 12;
 			// 
 			// MainForm
 			// 
 			this.AcceptButton = this.btnSearch;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(479, 440);
-			this.Controls.Add(this.btnBookmark);
+			this.ClientSize = new System.Drawing.Size(517, 461);
 			this.Controls.Add(this.label6);
 			this.Controls.Add(this.statusStrip1);
-			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.menuStrip1);
-			this.Controls.Add(this.tvSearchResult);
-			this.Controls.Add(this.gbFilter);
-			this.Controls.Add(this.btnReplace);
-			this.Controls.Add(this.btnSearch);
-			this.Controls.Add(this.gbSearchFor);
+			this.Controls.Add(this.splitContainer);
 			this.Controls.Add(this.gbSearchIn);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -638,6 +665,10 @@ namespace dnGREP
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
 			this.bookmarkMenu.ResumeLayout(false);
+			this.splitContainer.Panel1.ResumeLayout(false);
+			this.splitContainer.Panel2.ResumeLayout(false);
+			this.splitContainer.Panel2.PerformLayout();
+			this.splitContainer.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -654,9 +685,7 @@ namespace dnGREP
 		private System.Windows.Forms.RadioButton rbTextSearch;
 		private System.Windows.Forms.RadioButton rbRegexSearch;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.TextBox tbReplaceWith;
 		private System.Windows.Forms.TextBox tbSearchFor;
-		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.GroupBox gbFilter;
 		private System.Windows.Forms.CheckBox cbIncludeHiddenFolders;
 		private System.Windows.Forms.CheckBox cbIncludeSubfolders;
@@ -693,6 +722,9 @@ namespace dnGREP
 		private System.Windows.Forms.ContextMenuStrip bookmarkMenu;
 		private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem1;
+		private System.Windows.Forms.TextBox tbReplaceWith;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.SplitContainer splitContainer;
 	}
 }
 
