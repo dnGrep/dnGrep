@@ -29,14 +29,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NLog, Version=1.0.0.505, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL" />
+    <Reference Include="NLog, Version=1.0.0.505, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependencies\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="NLog.XmlLayout, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Sandbox\CHITA\branches\StatelessCHITA\CHITA_2_1\Support\bin\NLog.XmlLayout.dll</HintPath>
+      <HintPath>Dependencies\NLog.XmlLayout.dll</HintPath>
     </Reference>
     <Reference Include="SplitButton, Version=2.0.3.9876, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>C:\Documents and Settings\528046\Desktop\C# Samples\SplitButton\bin\Release\SplitButton.dll</HintPath>
+      <HintPath>Dependencies\SplitButton.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
