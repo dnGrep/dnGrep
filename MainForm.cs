@@ -135,8 +135,21 @@ namespace nGREP
 			}
 		}
 
+		private bool isMultiline = false;
+
+		public bool IsMultiline
+		{
+			get { return isMultiline; }
+			set { 
+				isMultiline = value;
+				changeState();
+			}
+		}
+
 		private void changeState()
 		{
+			tbSearchFor.Multiline = IsMultiline;
+
 			if (FolderSelected)
 			{
 				if (!IsSearching && !IsReplacing && SearchPatternEntered)
@@ -229,6 +242,7 @@ namespace nGREP
 			SearchPatternEntered = !string.IsNullOrEmpty(tbSearchFor.Text);
 			ReplacePatternEntered = !string.IsNullOrEmpty(tbReplaceWith.Text);
 			IsPlainText = rbTextSearch.Checked;
+			IsMultiline = cbMultiline.Checked;
 			populateEncodings();
 
 			changeState();
@@ -639,6 +653,37 @@ namespace nGREP
 		{
 			if (cbEncoding.SelectedValue != null && cbEncoding.SelectedValue is int)
 				CodePage = (int)cbEncoding.SelectedValue;
+		}
+
+		private void cbMultiline_CheckedChanged(object sender, EventArgs e)
+		{
+			IsMultiline = cbMultiline.Checked;
+		}
+
+		private void openToolStripMenuItem1_Click(object sender, EventArgs e)
+		{
+			BookmarksForm form = new BookmarksForm();
+			form.Show();
+		}
+
+		private void btnBookmark_Click(object sender, EventArgs e)
+		{
+			BookmarkDetails bookmarkEditForm = new BookmarkDetails(CreateOrEdit.Create);
+			Bookmark newBookmark = new Bookmark(tbSearchFor.Text, tbReplaceWith.Text, tbFilePattern.Text, "");
+			bookmarkEditForm.Bookmark = newBookmark;
+			if (bookmarkEditForm.ShowDialog() == DialogResult.OK)
+			{
+				if (!BookmarkLibrary.Instance.Bookmarks.Contains(newBookmark))
+				{
+					BookmarkLibrary.Instance.Bookmarks.Add(newBookmark);
+					BookmarkLibrary.Save();
+				}
+			}			
+		}
+
+		private void addToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			btnBookmark_Click(this, null);
 		}
 	}
 }

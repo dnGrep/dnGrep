@@ -28,6 +28,7 @@ namespace nGREP
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RegexTest));
 			this.tbReplaceWith = new System.Windows.Forms.TextBox();
 			this.tbSearchFor = new System.Windows.Forms.TextBox();
@@ -42,11 +43,15 @@ namespace nGREP
 			this.label3 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
 			this.btnDone = new System.Windows.Forms.Button();
-			this.btnHelp = new System.Windows.Forms.Button();
 			this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+			this.btnHelp = new wyDay.Controls.SplitButton();
+			this.menuHelp = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.cheatsheetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.regexLookupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.groupBox1.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.tableLayoutPanel2.SuspendLayout();
+			this.menuHelp.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tbReplaceWith
@@ -198,16 +203,6 @@ namespace nGREP
 			this.btnDone.UseVisualStyleBackColor = true;
 			this.btnDone.Click += new System.EventHandler(this.btnDone_Click);
 			// 
-			// btnHelp
-			// 
-			this.btnHelp.Location = new System.Drawing.Point(12, 118);
-			this.btnHelp.Name = "btnHelp";
-			this.btnHelp.Size = new System.Drawing.Size(75, 23);
-			this.btnHelp.TabIndex = 8;
-			this.btnHelp.Text = "Help";
-			this.btnHelp.UseVisualStyleBackColor = true;
-			this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
-			// 
 			// tableLayoutPanel2
 			// 
 			this.tableLayoutPanel2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -228,14 +223,48 @@ namespace nGREP
 			this.tableLayoutPanel2.Size = new System.Drawing.Size(563, 109);
 			this.tableLayoutPanel2.TabIndex = 9;
 			// 
+			// btnHelp
+			// 
+			this.btnHelp.AutoSize = true;
+			this.btnHelp.ContextMenuStrip = this.menuHelp;
+			this.btnHelp.Location = new System.Drawing.Point(8, 118);
+			this.btnHelp.Name = "btnHelp";
+			this.btnHelp.Size = new System.Drawing.Size(75, 23);
+			this.btnHelp.SplitMenuStrip = this.menuHelp;
+			this.btnHelp.TabIndex = 10;
+			this.btnHelp.Text = "Help";
+			this.btnHelp.UseVisualStyleBackColor = true;
+			this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
+			// 
+			// menuHelp
+			// 
+			this.menuHelp.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cheatsheetToolStripMenuItem,
+            this.regexLookupToolStripMenuItem});
+			this.menuHelp.Name = "menuHelp";
+			this.menuHelp.Size = new System.Drawing.Size(153, 70);
+			// 
+			// cheatsheetToolStripMenuItem
+			// 
+			this.cheatsheetToolStripMenuItem.Name = "cheatsheetToolStripMenuItem";
+			this.cheatsheetToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.cheatsheetToolStripMenuItem.Text = "Cheat-sheet";
+			this.cheatsheetToolStripMenuItem.Click += new System.EventHandler(this.btnHelp_Click);
+			// 
+			// regexLookupToolStripMenuItem
+			// 
+			this.regexLookupToolStripMenuItem.Name = "regexLookupToolStripMenuItem";
+			this.regexLookupToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.regexLookupToolStripMenuItem.Text = "Regex lookup";
+			// 
 			// RegexTest
 			// 
 			this.AcceptButton = this.btnDone;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(581, 487);
-			this.Controls.Add(this.tableLayoutPanel2);
 			this.Controls.Add(this.btnHelp);
+			this.Controls.Add(this.tableLayoutPanel2);
 			this.Controls.Add(this.btnDone);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.btnReplace);
@@ -251,7 +280,9 @@ namespace nGREP
 			this.tableLayoutPanel1.PerformLayout();
 			this.tableLayoutPanel2.ResumeLayout(false);
 			this.tableLayoutPanel2.PerformLayout();
+			this.menuHelp.ResumeLayout(false);
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
@@ -270,7 +301,10 @@ namespace nGREP
 		private System.Windows.Forms.TextBox tbOutputText;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.Button btnDone;
-		private System.Windows.Forms.Button btnHelp;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+		private wyDay.Controls.SplitButton btnHelp;
+		private System.Windows.Forms.ContextMenuStrip menuHelp;
+		private System.Windows.Forms.ToolStripMenuItem cheatsheetToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem regexLookupToolStripMenuItem;
 	}
 }

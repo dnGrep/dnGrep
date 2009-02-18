@@ -34,10 +34,16 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Sandbox\CHITA\branches\StatelessCHITA\CHITA_2_1\Support\bin\NLog.XmlLayout.dll</HintPath>
     </Reference>
+    <Reference Include="SplitButton, Version=2.0.3.9876, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Documents and Settings\528046\Desktop\C# Samples\SplitButton\bin\Release\SplitButton.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -47,6 +53,19 @@
     </Compile>
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BookmarkDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BookmarkDetails.Designer.cs">
+      <DependentUpon>BookmarkDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BookmarkLibrary.cs" />
+    <Compile Include="BookmarksForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BookmarksForm.Designer.cs">
+      <DependentUpon>BookmarksForm.cs</DependentUpon>
     </Compile>
     <Compile Include="FileIcons.cs" />
     <Compile Include="RegexTest.cs">
@@ -75,6 +94,14 @@
     <EmbeddedResource Include="AboutForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BookmarkDetails.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>BookmarkDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BookmarksForm.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>BookmarksForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <SubType>Designer</SubType>
@@ -120,6 +147,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="nGREP.ico" />
+    <None Include="Resources\OpenSelectedItemHS.png" />
+    <None Include="Resources\NewDocumentHS.png" />
+    <None Include="Resources\openHS.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -36,6 +36,7 @@ namespace nGREP
 			this.tbEditorPath = new System.Windows.Forms.TextBox();
 			this.rbSpecificEditor = new System.Windows.Forms.RadioButton();
 			this.rbDefaultEditor = new System.Windows.Forms.RadioButton();
+			this.btnClose = new System.Windows.Forms.Button();
 			this.grShell.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
@@ -47,7 +48,7 @@ namespace nGREP
 			this.grShell.Controls.Add(this.cbRegisterShell);
 			this.grShell.Location = new System.Drawing.Point(3, 5);
 			this.grShell.Name = "grShell";
-			this.grShell.Size = new System.Drawing.Size(446, 47);
+			this.grShell.Size = new System.Drawing.Size(368, 47);
 			this.grShell.TabIndex = 0;
 			this.grShell.TabStop = false;
 			this.grShell.Text = "Shell integration";
@@ -73,7 +74,7 @@ namespace nGREP
 			this.groupBox1.Controls.Add(this.rbDefaultEditor);
 			this.groupBox1.Location = new System.Drawing.Point(3, 58);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(446, 103);
+			this.groupBox1.Size = new System.Drawing.Size(368, 103);
 			this.groupBox1.TabIndex = 1;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Editor";
@@ -84,7 +85,7 @@ namespace nGREP
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.label1.Location = new System.Drawing.Point(105, 64);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(332, 32);
+			this.label1.Size = new System.Drawing.Size(254, 32);
 			this.label1.TabIndex = 3;
 			this.label1.Text = "(use %file and %line keywords to specify file location and line number)";
 			// 
@@ -95,7 +96,7 @@ namespace nGREP
 			this.tbEditorPath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "CustomEditor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
 			this.tbEditorPath.Location = new System.Drawing.Point(108, 41);
 			this.tbEditorPath.Name = "tbEditorPath";
-			this.tbEditorPath.Size = new System.Drawing.Size(330, 20);
+			this.tbEditorPath.Size = new System.Drawing.Size(252, 20);
 			this.tbEditorPath.TabIndex = 2;
 			this.tbEditorPath.Text = global::nGREP.Properties.Settings.Default.CustomEditor;
 			// 
@@ -122,19 +123,33 @@ namespace nGREP
 			this.rbDefaultEditor.UseVisualStyleBackColor = true;
 			this.rbDefaultEditor.CheckedChanged += new System.EventHandler(this.rbEditorCheckedChanged);
 			// 
+			// btnClose
+			// 
+			this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.btnClose.Location = new System.Drawing.Point(283, 169);
+			this.btnClose.Name = "btnClose";
+			this.btnClose.Size = new System.Drawing.Size(75, 23);
+			this.btnClose.TabIndex = 2;
+			this.btnClose.Text = "Close";
+			this.btnClose.UseVisualStyleBackColor = true;
+			// 
 			// OptionsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(450, 176);
+			this.CancelButton = this.btnClose;
+			this.ClientSize = new System.Drawing.Size(372, 197);
+			this.Controls.Add(this.btnClose);
 			this.Controls.Add(this.groupBox1);
 			this.Controls.Add(this.grShell);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.KeyPreview = true;
-			this.MaximumSize = new System.Drawing.Size(500, 200);
-			this.MinimumSize = new System.Drawing.Size(200, 200);
+			this.MaximumSize = new System.Drawing.Size(500, 221);
+			this.MinimumSize = new System.Drawing.Size(200, 221);
 			this.Name = "OptionsForm";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Options";
 			this.Load += new System.EventHandler(this.OptionsForm_Load);
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OptionsForm_FormClosing);
@@ -156,5 +171,6 @@ namespace nGREP
 		private System.Windows.Forms.TextBox tbEditorPath;
 		private System.Windows.Forms.RadioButton rbSpecificEditor;
 		private System.Windows.Forms.RadioButton rbDefaultEditor;
+		private System.Windows.Forms.Button btnClose;
 	}
 }
