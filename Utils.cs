@@ -211,11 +211,24 @@ namespace dnGREP
 				System.Diagnostics.Process.Start(@"" + fileName + "");
 			else
 			{
-				ProcessStartInfo info = new ProcessStartInfo("cmd.exe");
+				ProcessStartInfo info = new ProcessStartInfo(Properties.Settings.Default.CustomEditor);
 				info.UseShellExecute = false;
 				info.CreateNoWindow = true;
-				info.Arguments = "/C " + Properties.Settings.Default.CustomEditor.Replace("%file", "\"" + fileName + "\"").Replace("%line", line.ToString());
+				info.Arguments = Properties.Settings.Default.CustomEditorArgs.Replace("%file", "\"" + fileName + "\"").Replace("%line", line.ToString());
+				//StreamReader stdoutreader;
+				//string stdoutline;
+				//StringBuilder output;
+				//info.RedirectStandardError = true;
 				System.Diagnostics.Process.Start(info);
+				//stdoutreader = process.StandardError;
+				//output = new StringBuilder();
+				//while ((stdoutline = stdoutreader.ReadLine()) != null)
+				//{
+				//    output.AppendLine(stdoutline);
+				//}
+				//stdoutreader.Close();
+				//stdoutreader = null;
+				//stdoutline = output.ToString();
 			}
 		}
 

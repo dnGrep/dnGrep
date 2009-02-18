@@ -29,6 +29,7 @@ namespace dnGREP
 				rbDefaultEditor.Checked = false;
 				tbEditorPath.Enabled = true;
 				btnBrowse.Enabled = true;
+				tbEditorArgs.Enabled = true;
 			}
 			else
 			{
@@ -36,6 +37,7 @@ namespace dnGREP
 				rbDefaultEditor.Checked = true;
 				tbEditorPath.Enabled = false;
 				btnBrowse.Enabled = false;
+				tbEditorArgs.Enabled = false;
 			}
 		}
 

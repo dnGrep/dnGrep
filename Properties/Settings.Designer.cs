@@ -214,5 +214,17 @@ namespace dnGREP.Properties {
                 this["Multiline"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CustomEditorArgs {
+            get {
+                return ((string)(this["CustomEditorArgs"]));
+            }
+            set {
+                this["CustomEditorArgs"] = value;
+            }
+        }
     }
 }
