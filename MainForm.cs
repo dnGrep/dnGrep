@@ -9,6 +9,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
 using NLog;
+using System.Reflection;
 
 namespace dnGREP
 {
@@ -20,6 +21,7 @@ namespace dnGREP
 		private const string REPLACE_KEY = "replace";
 		private static Logger logger = LogManager.GetCurrentClassLogger();
 		private DateTime timer = DateTime.Now;
+		CurrentPublishedVersionExtractor ve = new CurrentPublishedVersionExtractor();
 		
 		#region States
 
@@ -239,6 +241,49 @@ namespace dnGREP
 
 		#endregion
 
+		#region Check version
+		private void checkVersion()
+		{
+			try
+			{
+				DateTime lastCheck = Properties.Settings.Default.LastCheckedVersion;
+				TimeSpan duration = DateTime.Now.Subtract(lastCheck);
+				if (duration.TotalDays > 5)
+				{
+					ve.StartWebRequest();
+					Properties.Settings.Default.LastCheckedVersion = DateTime.Now;
+				}
+			}
+			catch (Exception ex)
+			{
+				logger.LogException(LogLevel.Error, ex.Message, ex);
+			}
+		}
+
+		void ve_RetrievedVersion(object sender, CurrentPublishedVersionExtractor.PackageVersion version)
+		{
+			try
+			{
+
+				if (version.Version != null)
+				{
+					string currentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+					if (!currentVersion.StartsWith(version.Version))
+					{
+						if (MessageBox.Show("New version of dnGREP (" + version.Version + ") is available for download.\nWould you like to download it now?", "New version", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information) == DialogResult.Yes)
+						{
+							System.Diagnostics.Process.Start("http://code.google.com/p/dngrep/");
+						}
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				logger.LogException(LogLevel.Error, ex.Message, ex);
+			}
+		}
+		#endregion
+
 		public MainForm()
 		{
 			InitializeComponent();
@@ -257,6 +302,8 @@ namespace dnGREP
 			IsPlainText = rbTextSearch.Checked;
 			IsMultiline = cbMultiline.Checked;
 			populateEncodings();
+			ve.RetrievedVersion += new CurrentPublishedVersionExtractor.VersionExtractorHandler(ve_RetrievedVersion);
+			checkVersion();
 
 			changeState();
 		}

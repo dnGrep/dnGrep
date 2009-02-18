@@ -226,5 +226,16 @@ namespace dnGREP.Properties {
                 this["CustomEditorArgs"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.DateTime LastCheckedVersion {
+            get {
+                return ((global::System.DateTime)(this["LastCheckedVersion"]));
+            }
+            set {
+                this["LastCheckedVersion"] = value;
+            }
+        }
     }
 }

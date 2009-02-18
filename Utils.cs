@@ -5,6 +5,8 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
 using System.Reflection;
+using System.Net;
+using System.Xml;
 
 namespace dnGREP
 {
@@ -232,6 +234,7 @@ namespace dnGREP
 			}
 		}
 
+		
 		public static string GetCurrentPath()
 		{
 			Assembly thisAssembly = Assembly.GetAssembly(typeof(Utils));
