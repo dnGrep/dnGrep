@@ -7,8 +7,8 @@
     <ProjectGuid>{6E9E3A4B-2338-421D-AC57-9939A9A6E6AA}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>nGREP</RootNamespace>
-    <AssemblyName>nGREP</AssemblyName>
+    <RootNamespace>dnGREP</RootNamespace>
+    <AssemblyName>dnGREP</AssemblyName>
     <ApplicationIcon>nGREP.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

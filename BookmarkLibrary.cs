@@ -9,7 +9,7 @@ using System.Xml;
 using NLog;
 using System.Data;
 
-namespace nGREP
+namespace dnGREP
 {
 	public class BookmarkLibrary
 	{

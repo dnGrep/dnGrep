@@ -10,7 +10,7 @@ using System.Text.RegularExpressions;
 using System.Diagnostics;
 using NLog;
 
-namespace nGREP
+namespace dnGREP
 {
 	public partial class MainForm : Form
 	{

@@ -5,7 +5,7 @@ using System.IO;
 using NLog;
 using System.Text.RegularExpressions;
 
-namespace nGREP
+namespace dnGREP
 {
 	internal class GrepCore
 	{
@@ -76,7 +76,7 @@ namespace nGREP
 
 		public int ReplaceRegex(string[] files, string baseFolder, string searchRegex, string replaceRegex, bool isMultiline, int codePage)
 		{
-			string tempFolder = Utils.FixFolderName(Path.GetTempPath()) + "nGREP\\";
+			string tempFolder = Utils.FixFolderName(Path.GetTempPath()) + "dnGREP\\";
 			if (Directory.Exists(tempFolder))
 				Utils.DeleteFolder(tempFolder);
 			Directory.CreateDirectory(tempFolder);
@@ -88,7 +88,7 @@ namespace nGREP
 
 		public int ReplaceText(string[] files, string baseFolder, string searchText, string replaceText, bool isCaseSensitive, bool isMultiline, int codePage)
 		{
-			string tempFolder = Utils.FixFolderName(Path.GetTempPath()) + "nGREP\\";
+			string tempFolder = Utils.FixFolderName(Path.GetTempPath()) + "dnGREP\\";
 			if (Directory.Exists(tempFolder))
 				Utils.DeleteFolder(tempFolder);
 			Directory.CreateDirectory(tempFolder);
@@ -110,7 +110,7 @@ namespace nGREP
 
 		public bool Undo(string folderPath)
 		{
-			string tempFolder = Utils.FixFolderName(Path.GetTempPath()) + "nGREP\\";
+			string tempFolder = Utils.FixFolderName(Path.GetTempPath()) + "dnGREP\\";
 			if (!Directory.Exists(tempFolder))
 			{
 				logger.Error("Failed to undo replacement as temporary directory was removed.");

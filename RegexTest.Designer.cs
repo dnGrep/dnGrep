@@ -1,4 +1,4 @@
-namespace nGREP
+namespace dnGREP
 {
 	partial class RegexTest
 	{
@@ -56,7 +56,7 @@ namespace nGREP
 			// 
 			// tbReplaceWith
 			// 
-			this.tbReplaceWith.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "ReplaceWith", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.tbReplaceWith.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "ReplaceWith", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
 			this.tbReplaceWith.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tbReplaceWith.Location = new System.Drawing.Point(284, 21);
 			this.tbReplaceWith.Multiline = true;
@@ -64,11 +64,11 @@ namespace nGREP
 			this.tbReplaceWith.ScrollBars = System.Windows.Forms.ScrollBars.Both;
 			this.tbReplaceWith.Size = new System.Drawing.Size(276, 85);
 			this.tbReplaceWith.TabIndex = 1;
-			this.tbReplaceWith.Text = global::nGREP.Properties.Settings.Default.ReplaceWith;
+			this.tbReplaceWith.Text = global::dnGREP.Properties.Settings.Default.ReplaceWith;
 			// 
 			// tbSearchFor
 			// 
-			this.tbSearchFor.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::nGREP.Properties.Settings.Default, "SearchFor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.tbSearchFor.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "SearchFor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
 			this.tbSearchFor.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tbSearchFor.Location = new System.Drawing.Point(3, 21);
 			this.tbSearchFor.Multiline = true;
@@ -76,7 +76,7 @@ namespace nGREP
 			this.tbSearchFor.ScrollBars = System.Windows.Forms.ScrollBars.Both;
 			this.tbSearchFor.Size = new System.Drawing.Size(275, 85);
 			this.tbSearchFor.TabIndex = 0;
-			this.tbSearchFor.Text = global::nGREP.Properties.Settings.Default.SearchFor;
+			this.tbSearchFor.Text = global::dnGREP.Properties.Settings.Default.SearchFor;
 			// 
 			// label2
 			// 

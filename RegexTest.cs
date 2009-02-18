@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 
-namespace nGREP
+namespace dnGREP
 {
 	public partial class RegexTest : Form
 	{

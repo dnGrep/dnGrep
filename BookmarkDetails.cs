@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace nGREP
+namespace dnGREP
 {
 	public partial class BookmarkDetails : Form
 	{

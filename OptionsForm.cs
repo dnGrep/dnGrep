@@ -7,16 +7,18 @@ using System.Text;
 using System.Windows.Forms;
 using Microsoft.Win32;
 
-namespace nGREP
+namespace dnGREP
 {
 	public partial class OptionsForm : Form
 	{
-		private static string SHELL_KEY_NAME = "nGREP";
-		private static string SHELL_MENU_TEXT = "nGREP...";
+		private static string SHELL_KEY_NAME = "dnGREP";
+		private static string OLD_SHELL_KEY_NAME = "nGREP";
+		private static string SHELL_MENU_TEXT = "dnGREP...";
 		
 		public OptionsForm()
 		{
 			InitializeComponent();
+			oldShellUnregister();
 		}
 
 		private void changeState()
@@ -26,12 +28,14 @@ namespace nGREP
 				rbSpecificEditor.Checked = true;
 				rbDefaultEditor.Checked = false;
 				tbEditorPath.Enabled = true;
+				btnBrowse.Enabled = true;
 			}
 			else
 			{
 				rbSpecificEditor.Checked = false;
 				rbDefaultEditor.Checked = true;
 				tbEditorPath.Enabled = false;
+				btnBrowse.Enabled = false;
 			}
 		}
 
@@ -70,6 +74,15 @@ namespace nGREP
 			string regPath = string.Format(@"Directory\shell\{0}", SHELL_KEY_NAME);
 
 			Registry.ClassesRoot.DeleteSubKeyTree(regPath);
+		}
+
+		private void oldShellUnregister()
+		{
+			string regPath = string.Format(@"Directory\shell\{0}", OLD_SHELL_KEY_NAME);
+			if (Registry.ClassesRoot.OpenSubKey(regPath) != null)
+			{
+				Registry.ClassesRoot.DeleteSubKeyTree(regPath);
+			}
 		}
 
 		private void OptionsForm_Load(object sender, EventArgs e)
@@ -129,6 +142,14 @@ namespace nGREP
 		{
 			if (e.KeyCode == Keys.Escape)
 				Close();
+		}
+
+		private void btnBrowse_Click(object sender, EventArgs e)
+		{
+			if (openFileDialog.ShowDialog() == DialogResult.OK)
+			{
+				tbEditorPath.Text = openFileDialog.FileName;
+			}
 		}
 	}
 }

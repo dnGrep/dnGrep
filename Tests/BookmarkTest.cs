@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using MbUnit.Framework;
-using nGREP;
+using dnGREP;
 
 namespace Tests
 {

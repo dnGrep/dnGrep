@@ -6,7 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace nGREP
+namespace dnGREP
 {
 	public partial class BookmarksForm : Form
 	{
@@ -130,9 +130,15 @@ namespace nGREP
 		private void doSearch(object sender, EventArgs e)
 		{
 			typeTimer.Stop();
-			copyOfBookmarks = BookmarkLibrary.Instance.GetDataTable();
+			
 			if (string.IsNullOrEmpty(textSearch.Text.Trim()))
+			{
+				refreshGrid();
 				return;
+			}
+
+			copyOfBookmarks = BookmarkLibrary.Instance.GetDataTable();
+			
 			for (int i = copyOfBookmarks.Rows.Count - 1; i >= 0; i--)
 			{
 				DataRow row = copyOfBookmarks.Rows[i];

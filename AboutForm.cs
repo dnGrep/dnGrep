@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Reflection;
 
-namespace nGREP
+namespace dnGREP
 {
 	partial class AboutForm : Form
 	{

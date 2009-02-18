@@ -8,7 +8,7 @@ using Microsoft.Win32;
 using System.Reflection;
 using System.IO;
 
-namespace nGREP
+namespace dnGREP
 {
 	public class FileIcons
 	{

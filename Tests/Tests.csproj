@@ -40,9 +40,9 @@
     <Compile Include="UtilsTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\nGREP.csproj">
+    <ProjectReference Include="..\dnGREP.csproj">
       <Project>{6E9E3A4B-2338-421D-AC57-9939A9A6E6AA}</Project>
-      <Name>nGREP</Name>
+      <Name>dnGREP</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

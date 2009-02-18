@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using System.Diagnostics;
 using System.Reflection;
 
-namespace nGREP
+namespace dnGREP
 {
 	public class Utils
 	{

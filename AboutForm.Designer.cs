@@ -1,4 +1,4 @@
-namespace nGREP
+namespace dnGREP
 {
 	partial class AboutForm
 	{
