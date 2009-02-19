@@ -21,7 +21,7 @@ namespace dnGREP
 		private const string REPLACE_KEY = "replace";
 		private static Logger logger = LogManager.GetCurrentClassLogger();
 		private DateTime timer = DateTime.Now;
-		CurrentPublishedVersionExtractor ve = new CurrentPublishedVersionExtractor();
+		PublishedVersionExtractor ve = new PublishedVersionExtractor();
 		
 		#region States
 
@@ -246,12 +246,15 @@ namespace dnGREP
 		{
 			try
 			{
-				DateTime lastCheck = Properties.Settings.Default.LastCheckedVersion;
-				TimeSpan duration = DateTime.Now.Subtract(lastCheck);
-				if (duration.TotalDays > 5)
+				if (Properties.Settings.Default.EnableUpdateChecking)
 				{
-					ve.StartWebRequest();
-					Properties.Settings.Default.LastCheckedVersion = DateTime.Now;
+					DateTime lastCheck = Properties.Settings.Default.LastCheckedVersion;
+					TimeSpan duration = DateTime.Now.Subtract(lastCheck);
+					if (duration.TotalDays >= Utils.ParseInt(Properties.Settings.Default.UpdateCheckInterval, 99))
+					{
+						ve.StartWebRequest();
+						Properties.Settings.Default.LastCheckedVersion = DateTime.Now;
+					}
 				}
 			}
 			catch (Exception ex)
@@ -260,15 +263,14 @@ namespace dnGREP
 			}
 		}
 
-		void ve_RetrievedVersion(object sender, CurrentPublishedVersionExtractor.PackageVersion version)
+		void ve_RetrievedVersion(object sender, PublishedVersionExtractor.PackageVersion version)
 		{
 			try
 			{
-
 				if (version.Version != null)
 				{
 					string currentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-					if (!currentVersion.StartsWith(version.Version))
+					if (PublishedVersionExtractor.IsUpdateNeeded(currentVersion, version.Version))
 					{
 						if (MessageBox.Show("New version of dnGREP (" + version.Version + ") is available for download.\nWould you like to download it now?", "New version", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information) == DialogResult.Yes)
 						{
@@ -302,7 +304,7 @@ namespace dnGREP
 			IsPlainText = rbTextSearch.Checked;
 			IsMultiline = cbMultiline.Checked;
 			populateEncodings();
-			ve.RetrievedVersion += new CurrentPublishedVersionExtractor.VersionExtractorHandler(ve_RetrievedVersion);
+			ve.RetrievedVersion += new PublishedVersionExtractor.VersionExtractorHandler(ve_RetrievedVersion);
 			checkVersion();
 
 			changeState();

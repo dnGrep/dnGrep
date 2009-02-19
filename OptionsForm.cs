@@ -23,6 +23,14 @@ namespace dnGREP
 
 		private void changeState()
 		{
+			if (Properties.Settings.Default.EnableUpdateChecking)
+			{
+				tbUpdateInterval.Enabled = true;
+			}
+			else
+			{
+				tbUpdateInterval.Enabled = false;
+			}
 			if (Properties.Settings.Default.UseCustomEditor)
 			{
 				rbSpecificEditor.Checked = true;
@@ -90,6 +98,7 @@ namespace dnGREP
 		private void OptionsForm_Load(object sender, EventArgs e)
 		{
 			cbRegisterShell.Checked = isShellRegistered();
+			cbCheckForUpdates.Checked = Properties.Settings.Default.EnableUpdateChecking;
 			changeState();
 		}
 		
@@ -152,6 +161,14 @@ namespace dnGREP
 			{
 				tbEditorPath.Text = openFileDialog.FileName;
 			}
+		}
+
+		private void cbCheckForUpdates_CheckedChanged(object sender, EventArgs e)
+		{
+			Properties.Settings.Default.EnableUpdateChecking = cbCheckForUpdates.Checked;
+			if (tbUpdateInterval.Text.Trim() == "")
+				tbUpdateInterval.Text = "1";
+			changeState();
 		}
 	}
 }

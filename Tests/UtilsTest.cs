@@ -21,5 +21,21 @@ namespace Tests
 			Assert.AreEqual(returnedLine, line);
 			Assert.AreEqual(returnedLineNumber, lineNumber);
 		}
+
+		[RowTest]
+		[Row("0.9.1", "0.9.2", true)]
+		[Row("0.9.1", "0.9.2.5556", true)]
+		[Row("0.9.1.5554", "0.9.1.5556", true)]
+		[Row("0.9.0.5557", "0.9.1.5550", true)]
+		[Row("0.9.1", "0.9.0.5556", false)]
+		[Row("0.9.5.5000", "0.9.0.5556", false)]
+		[Row(null, "0.9.0.5556", false)]
+		[Row("0.9.5.5000", "", false)]
+		[Row("0.9.5.5000", null, false)]
+		[Row("xyz", "abc", false)]
+		public void CompareVersions(string v1, string v2, bool result)
+		{
+			Assert.IsTrue(PublishedVersionExtractor.IsUpdateNeeded(v1, v2) == result);
+		}
 	}
 }

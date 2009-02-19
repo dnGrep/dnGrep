@@ -237,5 +237,29 @@ namespace dnGREP.Properties {
                 this["LastCheckedVersion"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string UpdateCheckInterval {
+            get {
+                return ((string)(this["UpdateCheckInterval"]));
+            }
+            set {
+                this["UpdateCheckInterval"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EnableUpdateChecking {
+            get {
+                return ((bool)(this["EnableUpdateChecking"]));
+            }
+            set {
+                this["EnableUpdateChecking"] = value;
+            }
+        }
     }
 }

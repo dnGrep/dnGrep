@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace dnGREP
 {
-	public class CurrentPublishedVersionExtractor
+	public class PublishedVersionExtractor
 	{
 		HttpWebRequest webRequest;
 		public delegate void VersionExtractorHandler(object sender, PackageVersion files);
@@ -53,7 +53,7 @@ namespace dnGREP
 				if (nodes.Count != 2)
 					return null;
 				XmlNode node = nodes[1];
-				Regex versionRe = new Regex(@"dnGREP\s(?<version>[\d\.]+)\.zip");
+				Regex versionRe = new Regex(@"d?nGREP\s+(?<version>[\d\.]+)\.\w+");
 				if (!versionRe.IsMatch(node.InnerText))
 					return null;
 				return versionRe.Match(node.InnerText).Groups["version"].Value;
@@ -61,6 +61,31 @@ namespace dnGREP
 			else
 			{
 				return null;
+			}
+		}
+
+		public static bool IsUpdateNeeded(string currentVersion, string publishedVersion)
+		{
+			if (string.IsNullOrEmpty(currentVersion) ||
+				string.IsNullOrEmpty(publishedVersion))
+			{
+				return false;
+			}
+			else
+			{
+				try
+				{
+					Version cVersion = new Version(currentVersion);
+					Version pVersion = new Version(publishedVersion);
+					if (cVersion.CompareTo(pVersion) < 0)
+						return true;
+					else
+						return false;
+				}
+				catch (Exception ex)
+				{
+					return false;
+				}
 			}
 		}
 	}

@@ -199,6 +199,7 @@ namespace dnGREP
 			if (value != null && value.Length != 0)
 			{
 				int output;
+				value = value.Trim();
 				if (int.TryParse(value, out output))
 				{
 					return output;
