@@ -513,7 +513,13 @@ namespace dnGREP
 
 			foreach (GrepSearchResult result in searchResults)
 			{
-				TreeNode node = new TreeNode(Path.GetFileName(result.FileName));
+				string displayedName = Path.GetFileName(result.FileName);
+				if (Properties.Settings.Default.ShowFilePathInResults &&
+					result.FileName.Contains(tbFolderName.Text + "\\"))
+				{
+					displayedName = result.FileName.Substring(tbFolderName.Text.Length + 1);
+				}
+				TreeNode node = new TreeNode(displayedName);
 				node.Tag = result.FileName;
 				tvSearchResult.Nodes.Add(node);				
 				string ext = Path.GetExtension(result.FileName);

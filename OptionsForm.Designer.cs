@@ -41,13 +41,16 @@ namespace dnGREP
 			this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
 			this.grUpdate = new System.Windows.Forms.GroupBox();
 			this.label3 = new System.Windows.Forms.Label();
-			this.tbUpdateInterval = new System.Windows.Forms.MaskedTextBox();
 			this.cbCheckForUpdates = new System.Windows.Forms.CheckBox();
+			this.grUI = new System.Windows.Forms.GroupBox();
+			this.cbShowPath = new System.Windows.Forms.CheckBox();
+			this.tbUpdateInterval = new System.Windows.Forms.MaskedTextBox();
 			this.tbEditorArgs = new System.Windows.Forms.TextBox();
 			this.tbEditorPath = new System.Windows.Forms.TextBox();
 			this.grShell.SuspendLayout();
 			this.grEditor.SuspendLayout();
 			this.grUpdate.SuspendLayout();
+			this.grUI.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// grShell
@@ -84,7 +87,7 @@ namespace dnGREP
 			this.grEditor.Controls.Add(this.tbEditorPath);
 			this.grEditor.Controls.Add(this.rbSpecificEditor);
 			this.grEditor.Controls.Add(this.rbDefaultEditor);
-			this.grEditor.Location = new System.Drawing.Point(2, 101);
+			this.grEditor.Location = new System.Drawing.Point(2, 149);
 			this.grEditor.Name = "grEditor";
 			this.grEditor.Size = new System.Drawing.Size(484, 118);
 			this.grEditor.TabIndex = 1;
@@ -148,7 +151,7 @@ namespace dnGREP
 			// 
 			this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnClose.Location = new System.Drawing.Point(411, 225);
+			this.btnClose.Location = new System.Drawing.Point(411, 270);
 			this.btnClose.Name = "btnClose";
 			this.btnClose.Size = new System.Drawing.Size(75, 23);
 			this.btnClose.TabIndex = 0;
@@ -182,17 +185,6 @@ namespace dnGREP
 			this.label3.TabIndex = 2;
 			this.label3.Text = "days";
 			// 
-			// tbUpdateInterval
-			// 
-			this.tbUpdateInterval.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "UpdateCheckInterval", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.tbUpdateInterval.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
-			this.tbUpdateInterval.Location = new System.Drawing.Point(194, 17);
-			this.tbUpdateInterval.Mask = "000";
-			this.tbUpdateInterval.Name = "tbUpdateInterval";
-			this.tbUpdateInterval.Size = new System.Drawing.Size(40, 20);
-			this.tbUpdateInterval.TabIndex = 1;
-			this.tbUpdateInterval.Text = global::dnGREP.Properties.Settings.Default.UpdateCheckInterval;
-			// 
 			// cbCheckForUpdates
 			// 
 			this.cbCheckForUpdates.AutoSize = true;
@@ -203,6 +195,40 @@ namespace dnGREP
 			this.cbCheckForUpdates.Text = "Enable automatic checking every ";
 			this.cbCheckForUpdates.UseVisualStyleBackColor = true;
 			this.cbCheckForUpdates.CheckedChanged += new System.EventHandler(this.cbCheckForUpdates_CheckedChanged);
+			// 
+			// grUI
+			// 
+			this.grUI.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.grUI.Controls.Add(this.cbShowPath);
+			this.grUI.Location = new System.Drawing.Point(2, 101);
+			this.grUI.Name = "grUI";
+			this.grUI.Size = new System.Drawing.Size(484, 47);
+			this.grUI.TabIndex = 2;
+			this.grUI.TabStop = false;
+			this.grUI.Text = "User interface";
+			// 
+			// cbShowPath
+			// 
+			this.cbShowPath.AutoSize = true;
+			this.cbShowPath.Location = new System.Drawing.Point(9, 19);
+			this.cbShowPath.Name = "cbShowPath";
+			this.cbShowPath.Size = new System.Drawing.Size(165, 17);
+			this.cbShowPath.TabIndex = 0;
+			this.cbShowPath.Text = "Show file path is results panel";
+			this.cbShowPath.UseVisualStyleBackColor = true;
+			this.cbShowPath.CheckedChanged += new System.EventHandler(this.cbShowPath_CheckedChanged);
+			// 
+			// tbUpdateInterval
+			// 
+			this.tbUpdateInterval.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "UpdateCheckInterval", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.tbUpdateInterval.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
+			this.tbUpdateInterval.Location = new System.Drawing.Point(194, 17);
+			this.tbUpdateInterval.Mask = "000";
+			this.tbUpdateInterval.Name = "tbUpdateInterval";
+			this.tbUpdateInterval.Size = new System.Drawing.Size(40, 20);
+			this.tbUpdateInterval.TabIndex = 1;
+			this.tbUpdateInterval.Text = global::dnGREP.Properties.Settings.Default.UpdateCheckInterval;
 			// 
 			// tbEditorArgs
 			// 
@@ -231,7 +257,8 @@ namespace dnGREP
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.btnClose;
-			this.ClientSize = new System.Drawing.Size(488, 252);
+			this.ClientSize = new System.Drawing.Size(488, 297);
+			this.Controls.Add(this.grUI);
 			this.Controls.Add(this.grUpdate);
 			this.Controls.Add(this.btnClose);
 			this.Controls.Add(this.grEditor);
@@ -251,6 +278,8 @@ namespace dnGREP
 			this.grEditor.PerformLayout();
 			this.grUpdate.ResumeLayout(false);
 			this.grUpdate.PerformLayout();
+			this.grUI.ResumeLayout(false);
+			this.grUI.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -273,5 +302,7 @@ namespace dnGREP
 		private System.Windows.Forms.CheckBox cbCheckForUpdates;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.MaskedTextBox tbUpdateInterval;
+		private System.Windows.Forms.GroupBox grUI;
+		private System.Windows.Forms.CheckBox cbShowPath;
 	}
 }

@@ -261,5 +261,17 @@ namespace dnGREP.Properties {
                 this["EnableUpdateChecking"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowFilePathInResults {
+            get {
+                return ((bool)(this["ShowFilePathInResults"]));
+            }
+            set {
+                this["ShowFilePathInResults"] = value;
+            }
+        }
     }
 }

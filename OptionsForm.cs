@@ -99,6 +99,7 @@ namespace dnGREP
 		{
 			cbRegisterShell.Checked = isShellRegistered();
 			cbCheckForUpdates.Checked = Properties.Settings.Default.EnableUpdateChecking;
+			cbShowPath.Checked = Properties.Settings.Default.ShowFilePathInResults;
 			changeState();
 		}
 		
@@ -169,6 +170,11 @@ namespace dnGREP
 			if (tbUpdateInterval.Text.Trim() == "")
 				tbUpdateInterval.Text = "1";
 			changeState();
+		}
+
+		private void cbShowPath_CheckedChanged(object sender, EventArgs e)
+		{
+			Properties.Settings.Default.ShowFilePathInResults = cbShowPath.Checked;
 		}
 	}
 }
