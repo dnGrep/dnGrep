@@ -36,7 +36,9 @@ namespace dnGREP
 			this.gbSearchFor = new System.Windows.Forms.GroupBox();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
 			this.tbSearchFor = new System.Windows.Forms.TextBox();
+			this.tbReplaceWith = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
 			this.cbMultiline = new System.Windows.Forms.CheckBox();
 			this.btnTest = new System.Windows.Forms.Button();
 			this.cbCaseSensitive = new System.Windows.Forms.CheckBox();
@@ -76,9 +78,8 @@ namespace dnGREP
 			this.bookmarkMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.openToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-			this.label2 = new System.Windows.Forms.Label();
-			this.tbReplaceWith = new System.Windows.Forms.TextBox();
 			this.splitContainer = new System.Windows.Forms.SplitContainer();
+			this.openContainingFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.gbSearchIn.SuspendLayout();
 			this.gbSearchFor.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
@@ -169,6 +170,7 @@ namespace dnGREP
 			// 
 			// tbSearchFor
 			// 
+			this.tbSearchFor.AcceptsReturn = true;
 			this.tbSearchFor.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "SearchFor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
 			this.tbSearchFor.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tbSearchFor.Location = new System.Drawing.Point(3, 19);
@@ -183,6 +185,20 @@ namespace dnGREP
 					"r more Regex patterns Google \"Regex\"");
 			this.tbSearchFor.TextChanged += new System.EventHandler(this.textBoxTextChanged);
 			// 
+			// tbReplaceWith
+			// 
+			this.tbReplaceWith.AcceptsReturn = true;
+			this.tbReplaceWith.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "ReplaceWith", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.tbReplaceWith.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tbReplaceWith.Location = new System.Drawing.Point(3, 78);
+			this.tbReplaceWith.Multiline = true;
+			this.tbReplaceWith.Name = "tbReplaceWith";
+			this.tbReplaceWith.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+			this.tbReplaceWith.Size = new System.Drawing.Size(492, 37);
+			this.tbReplaceWith.TabIndex = 1;
+			this.tbReplaceWith.Text = global::dnGREP.Properties.Settings.Default.ReplaceWith;
+			this.tbReplaceWith.TextChanged += new System.EventHandler(this.textBoxTextChanged);
+			// 
 			// label1
 			// 
 			this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -192,6 +208,16 @@ namespace dnGREP
 			this.label1.TabIndex = 0;
 			this.label1.Text = "Search for:";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// label2
+			// 
+			this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.label2.Location = new System.Drawing.Point(3, 59);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(492, 16);
+			this.label2.TabIndex = 3;
+			this.label2.Text = "Replace with:";
+			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// cbMultiline
 			// 
@@ -445,15 +471,16 @@ namespace dnGREP
 			// tvContextMenu
 			// 
 			this.tvContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openToolStripMenuItem});
+            this.openToolStripMenuItem,
+            this.openContainingFolderToolStripMenuItem});
 			this.tvContextMenu.Name = "tvContextMenu";
-			this.tvContextMenu.Size = new System.Drawing.Size(112, 26);
+			this.tvContextMenu.Size = new System.Drawing.Size(195, 70);
 			// 
 			// openToolStripMenuItem
 			// 
 			this.openToolStripMenuItem.Image = global::dnGREP.Properties.Resources.OpenSelectedItemHS;
 			this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-			this.openToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
+			this.openToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
 			this.openToolStripMenuItem.Text = "&Open";
 			this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
 			// 
@@ -580,29 +607,6 @@ namespace dnGREP
 			this.openToolStripMenuItem1.Text = "Open...";
 			this.openToolStripMenuItem1.Click += new System.EventHandler(this.openToolStripMenuItem1_Click);
 			// 
-			// label2
-			// 
-			this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.label2.Location = new System.Drawing.Point(3, 59);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(492, 16);
-			this.label2.TabIndex = 3;
-			this.label2.Text = "Replace with:";
-			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// tbReplaceWith
-			// 
-			this.tbReplaceWith.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "ReplaceWith", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.tbReplaceWith.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tbReplaceWith.Location = new System.Drawing.Point(3, 78);
-			this.tbReplaceWith.Multiline = true;
-			this.tbReplaceWith.Name = "tbReplaceWith";
-			this.tbReplaceWith.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.tbReplaceWith.Size = new System.Drawing.Size(492, 37);
-			this.tbReplaceWith.TabIndex = 1;
-			this.tbReplaceWith.Text = global::dnGREP.Properties.Settings.Default.ReplaceWith;
-			this.tbReplaceWith.TextChanged += new System.EventHandler(this.textBoxTextChanged);
-			// 
 			// splitContainer
 			// 
 			this.splitContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -629,6 +633,14 @@ namespace dnGREP
 			this.splitContainer.SplitterDistance = 163;
 			this.splitContainer.SplitterWidth = 2;
 			this.splitContainer.TabIndex = 12;
+			// 
+			// openContainingFolderToolStripMenuItem
+			// 
+			this.openContainingFolderToolStripMenuItem.Image = global::dnGREP.Properties.Resources.openHS;
+			this.openContainingFolderToolStripMenuItem.Name = "openContainingFolderToolStripMenuItem";
+			this.openContainingFolderToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+			this.openContainingFolderToolStripMenuItem.Text = "Open containing &folder";
+			this.openContainingFolderToolStripMenuItem.Click += new System.EventHandler(this.openContainingFolderToolStripMenuItem_Click);
 			// 
 			// MainForm
 			// 
@@ -725,6 +737,7 @@ namespace dnGREP
 		private System.Windows.Forms.TextBox tbReplaceWith;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.SplitContainer splitContainer;
+		private System.Windows.Forms.ToolStripMenuItem openContainingFolderToolStripMenuItem;
 	}
 }
 

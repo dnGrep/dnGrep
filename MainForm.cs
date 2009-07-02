@@ -585,28 +585,6 @@ namespace dnGREP
 			options.ShowDialog();
 		}
 
-		private void openToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			TreeNode selectedNode = tvSearchResult.SelectedNode;
-			if (selectedNode != null)
-			{
-				// Line was selected
-				int lineNumber = 0;
-				if (selectedNode.Parent != null)
-				{
-					if (selectedNode.Tag != null && selectedNode.Tag is int)
-					{
-						lineNumber = (int)selectedNode.Tag;
-					}
-					selectedNode = selectedNode.Parent;
-				}
-				if (selectedNode != null && selectedNode.Tag != null)
-				{
-					Utils.OpenFile((string)selectedNode.Tag, lineNumber);
-				}
-			}
-		}
-
 		private void tvSearchResult_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
 		{
 			if (e.Button == MouseButtons.Right)
@@ -747,6 +725,50 @@ namespace dnGREP
 		private void addToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			btnBookmark_Click(this, null);
+		}
+
+		private void openToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			TreeNode selectedNode = tvSearchResult.SelectedNode;
+			if (selectedNode != null)
+			{
+				// Line was selected
+				int lineNumber = 0;
+				if (selectedNode.Parent != null)
+				{
+					if (selectedNode.Tag != null && selectedNode.Tag is int)
+					{
+						lineNumber = (int)selectedNode.Tag;
+					}
+					selectedNode = selectedNode.Parent;
+				}
+				if (selectedNode != null && selectedNode.Tag != null)
+				{
+					Utils.OpenFile((string)selectedNode.Tag, lineNumber);
+				}
+			}
+		}
+
+		private void openContainingFolderToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			TreeNode selectedNode = tvSearchResult.SelectedNode;
+			if (selectedNode != null)
+			{
+				// Line was selected
+				int lineNumber = 0;
+				if (selectedNode.Parent != null)
+				{
+					if (selectedNode.Tag != null && selectedNode.Tag is int)
+					{
+						lineNumber = (int)selectedNode.Tag;
+					}
+					selectedNode = selectedNode.Parent;
+				}
+				if (selectedNode != null && selectedNode.Tag != null)
+				{
+					Utils.OpenContainingFolder((string)selectedNode.Tag, lineNumber);
+				}
+			}
 		}
 	}
 }

@@ -218,21 +218,13 @@ namespace dnGREP
 				info.UseShellExecute = false;
 				info.CreateNoWindow = true;
 				info.Arguments = Properties.Settings.Default.CustomEditorArgs.Replace("%file", "\"" + fileName + "\"").Replace("%line", line.ToString());
-				//StreamReader stdoutreader;
-				//string stdoutline;
-				//StringBuilder output;
-				//info.RedirectStandardError = true;
 				System.Diagnostics.Process.Start(info);
-				//stdoutreader = process.StandardError;
-				//output = new StringBuilder();
-				//while ((stdoutline = stdoutreader.ReadLine()) != null)
-				//{
-				//    output.AppendLine(stdoutline);
-				//}
-				//stdoutreader.Close();
-				//stdoutreader = null;
-				//stdoutline = output.ToString();
 			}
+		}
+
+		public static void OpenContainingFolder(string fileName, int line)
+		{
+			System.Diagnostics.Process.Start(@"" + Path.GetDirectoryName(fileName) + "");
 		}
 
 		

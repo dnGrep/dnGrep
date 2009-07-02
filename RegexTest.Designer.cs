@@ -56,6 +56,7 @@ namespace dnGREP
 			// 
 			// tbReplaceWith
 			// 
+			this.tbReplaceWith.AcceptsReturn = true;
 			this.tbReplaceWith.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "ReplaceWith", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
 			this.tbReplaceWith.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tbReplaceWith.Location = new System.Drawing.Point(284, 21);
@@ -68,6 +69,7 @@ namespace dnGREP
 			// 
 			// tbSearchFor
 			// 
+			this.tbSearchFor.AcceptsReturn = true;
 			this.tbSearchFor.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "SearchFor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
 			this.tbSearchFor.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tbSearchFor.Location = new System.Drawing.Point(3, 21);
@@ -242,19 +244,19 @@ namespace dnGREP
             this.cheatsheetToolStripMenuItem,
             this.regexLookupToolStripMenuItem});
 			this.menuHelp.Name = "menuHelp";
-			this.menuHelp.Size = new System.Drawing.Size(153, 70);
+			this.menuHelp.Size = new System.Drawing.Size(151, 48);
 			// 
 			// cheatsheetToolStripMenuItem
 			// 
 			this.cheatsheetToolStripMenuItem.Name = "cheatsheetToolStripMenuItem";
-			this.cheatsheetToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.cheatsheetToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
 			this.cheatsheetToolStripMenuItem.Text = "Cheat-sheet";
 			this.cheatsheetToolStripMenuItem.Click += new System.EventHandler(this.btnHelp_Click);
 			// 
 			// regexLookupToolStripMenuItem
 			// 
 			this.regexLookupToolStripMenuItem.Name = "regexLookupToolStripMenuItem";
-			this.regexLookupToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.regexLookupToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
 			this.regexLookupToolStripMenuItem.Text = "Regex lookup";
 			// 
 			// RegexTest
