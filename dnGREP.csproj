@@ -78,6 +78,7 @@
     <Compile Include="RegexTest.Designer.cs">
       <DependentUpon>RegexTest.cs</DependentUpon>
     </Compile>
+    <Compile Include="Settings.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="GrepCore.cs" />
     <Compile Include="GrepSearchResult.cs" />

@@ -33,6 +33,14 @@ namespace dnGREP
 			set { codePage = value; }
 		}
 
+		private bool doSearchInResults = false;
+
+		public bool DoSearchInResults
+		{
+			get { return doSearchInResults; }
+			set { doSearchInResults = value; }
+		}
+
 		private bool folderSelected = false;
 
 		public bool FolderSelected
@@ -150,6 +158,9 @@ namespace dnGREP
 
 		private void changeState()
 		{
+			//tbSearchFor
+			//tbReplaceWith
+			//splitContainer
 			if (IsMultiline)
 			{
 				tbSearchFor.Multiline = true;
@@ -165,23 +176,51 @@ namespace dnGREP
 				splitContainer.IsSplitterFixed = true;
 			}			
 
-			if (FolderSelected)
+			// btnSearch
+			// searchInResultsToolStripMenuItem
+			if (FolderSelected && !IsSearching && !IsReplacing && SearchPatternEntered)
 			{
-				if (!IsSearching && !IsReplacing && SearchPatternEntered)
-					btnSearch.Enabled = true;
-				else
-					btnSearch.Enabled = false;
-				if (FilesFound && !IsSearching && !IsReplacing && SearchPatternEntered && ReplacePatternEntered)
-					btnReplace.Enabled = true;
-				else
-					btnReplace.Enabled = false;
-			}
-			else
-			{
+				btnSearch.Enabled = true;
+				searchInResultsToolStripMenuItem.Enabled = true;
+			} else {
 				btnSearch.Enabled = false;
+				searchInResultsToolStripMenuItem.Enabled = false;
+			}
+
+			//btnSearch.ShowAdvance
+			if (searchResults.Count > 0)
+			{
+				btnSearch.ShowSplit = true;
+			}
+			else 
+			{
+				btnSearch.ShowSplit = false;
+			}
+
+			// btnReplace
+			if (FolderSelected && FilesFound && !IsSearching && !IsReplacing 
+				&& SearchPatternEntered && ReplacePatternEntered)
+			{
+				btnReplace.Enabled = true;
+			} else {
 				btnReplace.Enabled = false;
 			}
 
+			//btnCancel
+			if (IsSearching)
+			{
+				btnCancel.Enabled = true;
+			}
+			else if (IsReplacing)
+			{
+				btnCancel.Enabled = true;
+			}
+			else
+			{
+				btnCancel.Enabled = false;
+			}
+
+			//undoToolStripMenuItem
 			if (CanUndo)
 			{
 				undoToolStripMenuItem.Enabled = true;
@@ -191,17 +230,39 @@ namespace dnGREP
 				undoToolStripMenuItem.Enabled = false;
 			}
 
+			//cbCaseSensitive
 			if (IsPlainText)
 			{
 				cbCaseSensitive.Enabled = true;
-				btnTest.Enabled = false;
 			}
 			else
 			{
 				cbCaseSensitive.Enabled = false;
-				btnTest.Enabled = true;
 			}
 
+			//btnTest
+			if (!IsPlainText &&
+				!rbXPathSearch.Checked)
+			{
+				btnTest.Enabled = true;
+			}
+			else
+			{
+				btnTest.Enabled = false;
+			}
+
+			//cbMultiline
+			if (rbXPathSearch.Checked)
+			{
+				cbMultiline.Enabled = false;
+			} 
+			else 
+			{
+				cbMultiline.Enabled = true;
+			}
+
+			//tbFileSizeFrom
+			//tbFileSizeTo
 			if (IsAllSizes)
 			{
 				tbFileSizeFrom.Enabled = false;
@@ -213,29 +274,26 @@ namespace dnGREP
 				tbFileSizeTo.Enabled = true;
 			}
 
-			if (IsSearching)
+			//copyFilesToolStripMenuItem
+			//moveFilesToolStripMenuItem
+			//deleteFilesToolStripMenuItem
+			//saveAsCSVToolStripMenuItem
+			//btnOtherActions
+			if (FilesFound)
 			{
-				btnSearch.Enabled = false;
-				btnReplace.Enabled = false;
-				btnCancel.Enabled = true;
-			}
-			else if (IsReplacing)
-			{
-				btnSearch.Enabled = false;
-				btnReplace.Enabled = false;
-				btnCancel.Enabled = true;
+				copyFilesToolStripMenuItem.Enabled = true;
+				moveFilesToolStripMenuItem.Enabled = true;
+				deleteFilesToolStripMenuItem.Enabled = true;
+				saveAsCSVToolStripMenuItem.Enabled = true;
+				btnOtherActions.Enabled = true;
 			}
 			else
 			{
-				if (SearchPatternEntered)
-					btnSearch.Enabled = true;
-				else
-					btnSearch.Enabled = false;
-				if (FilesFound && SearchPatternEntered)
-					btnReplace.Enabled = true;
-				else
-					btnReplace.Enabled = false;
-				btnCancel.Enabled = false;
+				copyFilesToolStripMenuItem.Enabled = false;
+				moveFilesToolStripMenuItem.Enabled = false;
+				deleteFilesToolStripMenuItem.Enabled = false;
+				saveAsCSVToolStripMenuItem.Enabled = false;
+				btnOtherActions.Enabled = false;
 			}
 		}
 
@@ -316,8 +374,15 @@ namespace dnGREP
 			if (tbFolderName.Text == "")
 			{
 				string clipboard = Clipboard.GetText();
-				if (Path.IsPathRooted(clipboard))
-					folderSelectDialog.SelectedPath = clipboard;
+				try
+				{
+					if (Path.IsPathRooted(clipboard))
+						folderSelectDialog.SelectedPath = clipboard;
+				}
+				catch (Exception ex)
+				{
+					// Ignore
+				}
 			}
 			if (folderSelectDialog.ShowDialog() == DialogResult.OK &&
 				Directory.Exists(folderSelectDialog.SelectedPath))
@@ -329,6 +394,20 @@ namespace dnGREP
 
 		private void btnSearch_Click(object sender, EventArgs e)
 		{
+			DoSearchInResults = false;
+			if (!IsSearching && !workerSearchReplace.IsBusy)
+			{
+				lblStatus.Text = "Searching...";
+				IsSearching = true;
+				barProgressBar.Value = 0;
+				tvSearchResult.Nodes.Clear();
+				workerSearchReplace.RunWorkerAsync(SEARCH_KEY);
+			}
+		}
+
+		private void searchInResultsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			DoSearchInResults = true;
 			if (!IsSearching && !workerSearchReplace.IsBusy)
 			{
 				lblStatus.Text = "Searching...";
@@ -365,16 +444,42 @@ namespace dnGREP
 						}
 						
 						string filePattern = "*.*";
+						if (rbFileRegex.Checked)
+							filePattern = ".*";
+
 						if (!string.IsNullOrEmpty(tbFilePattern.Text))
 							filePattern = tbFilePattern.Text;
-						string[] files = Utils.GetFileList(tbFolderName.Text, filePattern, cbIncludeSubfolders.Checked,
-							cbIncludeHiddenFolders.Checked, sizeFrom, sizeTo);
+
+						if (rbFileAsterisk.Checked)
+							filePattern = filePattern.Replace("\\", "");													
+
+						string[] files;
+
+						if (DoSearchInResults)
+						{
+							List<string> filesFromSearch = new List<string>();
+							foreach (GrepSearchResult result in searchResults)
+							{
+								if (!filesFromSearch.Contains(result.FileName))
+								{
+									filesFromSearch.Add(result.FileName);
+								}
+							}
+							files = filesFromSearch.ToArray();
+						}
+						else
+						{
+							files = Utils.GetFileList(tbFolderName.Text, filePattern, rbFileRegex.Checked, cbIncludeSubfolders.Checked,
+								cbIncludeHiddenFolders.Checked, sizeFrom, sizeTo);
+						}
 						GrepCore grep = new GrepCore();
 						grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
 						GrepSearchResult[] results = null;
 						if (rbRegexSearch.Checked)
 							results = grep.SearchRegex(files, tbSearchFor.Text, cbMultiline.Checked, CodePage);
-						else
+						else if (rbXPathSearch.Checked)
+							results = grep.SearchXPath(files, tbSearchFor.Text, CodePage);
+						else 
 							results = grep.SearchText(files, tbSearchFor.Text, cbCaseSensitive.Checked, cbMultiline.Checked, CodePage);
 
 						grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
@@ -393,6 +498,8 @@ namespace dnGREP
 
 						if (rbRegexSearch.Checked)
 							e.Result = grep.ReplaceRegex(files.ToArray(), tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text, cbMultiline.Checked, CodePage);
+						else if (rbXPathSearch.Checked)
+							e.Result = grep.ReplaceXPath(files.ToArray(), tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text, CodePage);
 						else
 							e.Result = grep.ReplaceText(files.ToArray(), tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text, cbCaseSensitive.Checked, cbMultiline.Checked, CodePage);
 
@@ -403,7 +510,10 @@ namespace dnGREP
 			catch (Exception ex)
 			{
 				logger.LogException(LogLevel.Error, ex.Message, ex);
-				MessageBox.Show("Replace failed! See error log.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				if (e.Argument == SEARCH_KEY)
+					MessageBox.Show("Search failed! See error log.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				else
+					MessageBox.Show("Replace failed! See error log.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			}
 		}
 
@@ -482,14 +592,21 @@ namespace dnGREP
 		{
 			Properties.Settings.Default.SearchRegex = rbRegexSearch.Checked;
 			Properties.Settings.Default.SearchText = rbTextSearch.Checked;
+			Properties.Settings.Default.SearchXPath = rbXPathSearch.Checked;
+			Properties.Settings.Default.FileSearchRegex = rbFileRegex.Checked;
+			Properties.Settings.Default.FileSearchAsterisk = rbFileAsterisk.Checked;
 			Properties.Settings.Default.FilterAllSizes = rbFilterAllSizes.Checked;
 			Properties.Settings.Default.FilterSpecificSize = rbFilterSpecificSize.Checked;
 		}
 
 		private void restoreSettings()
 		{
+
 			rbRegexSearch.Checked =Properties.Settings.Default.SearchRegex;
 			rbTextSearch.Checked = Properties.Settings.Default.SearchText;
+			rbXPathSearch.Checked = Properties.Settings.Default.SearchXPath;
+			rbFileRegex.Checked = Properties.Settings.Default.FileSearchRegex;
+			rbFileAsterisk.Checked = Properties.Settings.Default.FileSearchAsterisk;
 			rbFilterAllSizes.Checked = Properties.Settings.Default.FilterAllSizes;
 			rbFilterSpecificSize.Checked = Properties.Settings.Default.FilterSpecificSize;
 		}
@@ -534,7 +651,8 @@ namespace dnGREP
 						lineSummary = "<none>";
 					else if (lineSummary.Length > 100)
 						lineSummary = lineSummary.Substring(0, 100) + "...";
-					TreeNode lineNode = new TreeNode(line.LineNumber + ": " + lineSummary);
+					string lineNumber = (line.LineNumber == -1 ? "" : line.LineNumber + ": ");
+					TreeNode lineNode = new TreeNode(lineNumber + lineSummary);
 					lineNode.ImageKey = "%line%";
 					lineNode.SelectedImageKey = lineNode.ImageKey;
 					lineNode.StateImageKey = lineNode.ImageKey;
@@ -748,6 +866,113 @@ namespace dnGREP
 				}
 			}
 		}
+
+		#region Advance actions
+		private void copyFilesToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (FilesFound) {
+				if (folderSelectDialog.ShowDialog() == DialogResult.OK)
+				{
+					try
+					{
+						if (!Utils.CanCopyFiles(searchResults, folderSelectDialog.SelectedPath))
+						{
+							MessageBox.Show("Attention, some of the files are located in the selected directory.\nPlease select another directory and try again.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+							return;
+						}
+
+						Utils.CopyFiles(searchResults, folderSelectDialog.SelectedPath, true);
+						MessageBox.Show("Files have been successfully copied.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					}
+					catch (Exception ex)
+					{
+						MessageBox.Show("There was an error copying files. Please examine the error log.", "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+					CanUndo = false;
+				}
+			}
+		}
+
+		private void moveFilesToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (FilesFound)
+			{
+				if (folderSelectDialog.ShowDialog() == DialogResult.OK)
+				{
+					try
+					{
+						if (!Utils.CanCopyFiles(searchResults, folderSelectDialog.SelectedPath))
+						{
+							MessageBox.Show("Attention, some of the files are located in the selected directory.\nPlease select another directory and try again.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+							return;
+						}
+
+						Utils.CopyFiles(searchResults, folderSelectDialog.SelectedPath, true);
+						Utils.DeleteFiles(searchResults);
+						MessageBox.Show("Files have been successfully moved.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					}
+					catch (Exception ex)
+					{
+						MessageBox.Show("There was an error moving files. Please examine the error log.", "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+					CanUndo = false;
+					searchResults = new List<GrepSearchResult>();
+					populateResults();
+					FilesFound = false;
+				}
+			}
+		}
+
+		private void deleteFilesToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (FilesFound)
+			{
+				try
+				{
+					if (MessageBox.Show("Attention, you are about to delete files found during search.\nAre you sure you want to procede?", "Attention", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning) != DialogResult.Yes)
+					{
+						return;
+					}
+
+					Utils.DeleteFiles(searchResults);
+					MessageBox.Show("Files have been successfully deleted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show("There was an error deleting files. Please examine the error log.", "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+				}
+				CanUndo = false;
+				searchResults = new List<GrepSearchResult>();
+				populateResults();
+				FilesFound = false;
+			}
+		}
+
+		private void saveAsCSVToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (FilesFound)
+			{
+				saveFileDialog.InitialDirectory = folderSelectDialog.SelectedPath;
+				if (saveFileDialog.ShowDialog() == DialogResult.OK)
+				{
+					try
+					{
+						Utils.SaveResultsAsCSV(searchResults, saveFileDialog.FileName);
+						MessageBox.Show("CSV file has been successfully created.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					}
+					catch (Exception ex)
+					{
+						MessageBox.Show("There was an error creating a CSV file. Please examine the error log.", "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
+				}
+			}
+		}
+
+		private void btnOtherActions_Click(object sender, EventArgs e)
+		{
+			otherMenu.Show(btnOtherActions, new Point(0, btnOtherActions.Height));
+		}
+		#endregion
 
 		private void openContainingFolderToolStripMenuItem_Click(object sender, EventArgs e)
 		{

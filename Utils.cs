@@ -48,6 +48,104 @@ namespace dnGREP
 		}
 
 		/// <summary>
+		/// Copies file based on search results. If folder does not exist, creates it.
+		/// </summary>
+		/// <param name="source"></param>
+		/// <param name="destinationDirectory"></param>
+		/// <param name="overWrite"></param>
+		public static void CopyFiles(List<GrepSearchResult> source, string destinationDirectory, bool overWrite)
+		{
+			if (destinationDirectory[destinationDirectory.Length - 1] != Path.DirectorySeparatorChar)
+				destinationDirectory += Path.DirectorySeparatorChar;
+
+			if (!Directory.Exists(destinationDirectory)) Directory.CreateDirectory(destinationDirectory);
+
+			List<string> files = new List<string>();
+
+			foreach (GrepSearchResult result in source)
+			{
+				if (!files.Contains(result.FileName))
+				{
+					files.Add(result.FileName);
+					FileInfo sourceFileInfo = new FileInfo(result.FileName);
+					FileInfo destinationFileInfo = new FileInfo(destinationDirectory + Path.GetFileName(result.FileName));
+					if (sourceFileInfo.FullName != destinationFileInfo.FullName)
+						sourceFileInfo.CopyTo(destinationFileInfo.FullName, true);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Returns true if destinationDirectory is not included in source files
+		/// </summary>
+		/// <param name="source"></param>
+		/// <param name="destinationDirectory"></param>
+		/// <returns></returns>
+		public static bool CanCopyFiles(List<GrepSearchResult> source, string destinationDirectory)
+		{
+			if (destinationDirectory[destinationDirectory.Length - 1] != Path.DirectorySeparatorChar)
+				destinationDirectory += Path.DirectorySeparatorChar;
+
+			if (!Directory.Exists(destinationDirectory)) Directory.CreateDirectory(destinationDirectory);
+
+			List<string> files = new List<string>();
+
+			foreach (GrepSearchResult result in source)
+			{
+				if (!files.Contains(result.FileName))
+				{
+					files.Add(result.FileName);
+					FileInfo sourceFileInfo = new FileInfo(result.FileName);
+					FileInfo destinationFileInfo = new FileInfo(destinationDirectory + Path.GetFileName(result.FileName));
+					if (sourceFileInfo.FullName == destinationFileInfo.FullName)
+						return false;
+				}
+			}
+
+			return true;
+		}
+
+		/// <summary>
+		/// Creates a CSV file from search results
+		/// </summary>
+		/// <param name="source"></param>
+		/// <param name="destinationPath"></param>
+		public static void SaveResultsAsCSV(List<GrepSearchResult> source, string destinationPath)
+		{
+			if (File.Exists(destinationPath))
+				File.Delete(destinationPath);
+
+			StringBuilder sb = new StringBuilder();
+			sb.AppendLine("File Name,Line Number,String");
+			foreach (GrepSearchResult result in source)
+			{
+				foreach (GrepSearchResult.GrepLine line in result.SearchResults)
+				{
+					sb.AppendLine("\"" + result.FileName + "\"," + line.LineNumber + ",\"" + line.LineText + "\"");
+				}
+			}
+			File.WriteAllText(destinationPath, sb.ToString());
+		}
+
+		/// <summary>
+		/// Deletes file based on search results. 
+		/// </summary>
+		/// <param name="source"></param>
+		public static void DeleteFiles(List<GrepSearchResult> source)
+		{
+			List<string> files = new List<string>();
+
+			foreach (GrepSearchResult result in source)
+			{
+				if (!files.Contains(result.FileName))
+				{
+					files.Add(result.FileName);
+					File.Delete(result.FileName);
+				}
+			}
+		}
+
+		/// <summary>
 		/// Copies file. If folder does not exist, creates it.
 		/// </summary>
 		/// <param name="sourcePath"></param>
@@ -80,7 +178,7 @@ namespace dnGREP
 		/// <param name="path"></param>
 		public static void DeleteFolder(string path)
 		{
-			string[] files = GetFileList(path, "*.*", true, true, 0, 0);
+			string[] files = GetFileList(path, "*.*", true, true, true, 0, 0);
 			foreach (string file in files)
 			{
 				File.SetAttributes(file, FileAttributes.Normal);
@@ -131,13 +229,14 @@ namespace dnGREP
 		/// If no files found returns 0 length array.
 		/// </summary>
 		/// <param name="pathToFolder"></param>
-		/// <param name="namePattern">File name pattern. (E.g. *.cs)</param>
+		/// <param name="namePattern">File name pattern. (E.g. *.cs) or regex</param>
+		/// <param name="isRegex">Whether to use regex as search pattern. Otherwise use asterisks</param>
 		/// <param name="includeSubfolders"></param>
 		/// <param name="includeHidden"></param>
 		/// <param name="sizeFrom"></param>
 		/// <param name="sizeTo"></param>
 		/// <returns></returns>
-		public static string[] GetFileList(string pathToFolder, string namePattern, bool includeSubfolders, bool includeHidden, int sizeFrom, int sizeTo)
+		public static string[] GetFileList(string pathToFolder, string namePattern, bool isRegex, bool includeSubfolders, bool includeHidden, int sizeFrom, int sizeTo)
 		{
 			if (!Directory.Exists(pathToFolder))
 				return new string[0];
@@ -147,16 +246,31 @@ namespace dnGREP
 			string[] namePatterns = namePattern.Split(';');
 			foreach (string pattern in namePatterns)
 			{
-				recursiveFileSearch(pathToFolder, pattern.Trim(), includeSubfolders, includeHidden, sizeFrom, sizeTo, fileMatch);
+				recursiveFileSearch(pathToFolder, pattern.Trim(), isRegex, includeSubfolders, includeHidden, sizeFrom, sizeTo, fileMatch);
 			}
 			
 			return fileMatch.ToArray();
 		}
 
-		private static void recursiveFileSearch(string pathToFolder, string namePattern, bool includeSubfolders, bool includeHidden, int sizeFrom, int sizeTo, List<string> files)
+		private static void recursiveFileSearch(string pathToFolder, string namePattern, bool isRegex, bool includeSubfolders, bool includeHidden, int sizeFrom, int sizeTo, List<string> files)
 		{
 			DirectoryInfo di = new DirectoryInfo(pathToFolder);
-			FileInfo[] fileMatch = di.GetFiles(namePattern, SearchOption.TopDirectoryOnly);
+			FileInfo[] fileMatch;
+			if (isRegex)
+			{
+				List<FileInfo> tempFileList = new List<FileInfo>();
+				foreach (FileInfo fileInDirectory in di.GetFiles())
+				{
+					if (Regex.IsMatch(fileInDirectory.Name, namePattern))
+						tempFileList.Add(fileInDirectory);
+				}
+
+				fileMatch = tempFileList.ToArray();
+			}
+			else
+			{
+				fileMatch = di.GetFiles(namePattern, SearchOption.TopDirectoryOnly);
+			}
 			for (int i = 0; i < fileMatch.Length; i++)
 			{
 				if (sizeFrom > 0 || sizeTo > 0) 
@@ -183,7 +297,7 @@ namespace dnGREP
 					}
 					else
 					{
-						recursiveFileSearch(subDir.FullName, namePattern, includeSubfolders, includeHidden, sizeFrom, sizeTo, files);
+						recursiveFileSearch(subDir.FullName, namePattern, isRegex, includeSubfolders, includeHidden, sizeFrom, sizeTo, files);
 					}
 				}
 			}
