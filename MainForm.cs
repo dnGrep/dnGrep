@@ -473,6 +473,10 @@ namespace dnGREP
 								cbIncludeHiddenFolders.Checked, sizeFrom, sizeTo);
 						}
 						GrepCore grep = new GrepCore();
+						grep.ShowLinesInContext = Properties.Settings.Default.ShowLinesInContext;
+						grep.LinesBefore = Properties.Settings.Default.ContextLinesBefore;
+						grep.LinesAfter = Properties.Settings.Default.ContextLinesAfter;
+
 						grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
 						GrepSearchResult[] results = null;
 						if (rbRegexSearch.Checked)
@@ -489,6 +493,10 @@ namespace dnGREP
 					else
 					{
 						GrepCore grep = new GrepCore();
+						grep.ShowLinesInContext = Properties.Settings.Default.ShowLinesInContext;
+						grep.LinesBefore = Properties.Settings.Default.ContextLinesBefore;
+						grep.LinesAfter = Properties.Settings.Default.ContextLinesAfter;
+
 						grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
 						List<string> files = new List<string>();
 						foreach (GrepSearchResult result in searchResults)
@@ -771,6 +779,10 @@ namespace dnGREP
 				if (response == DialogResult.Yes)
 				{
 					GrepCore core = new GrepCore();
+					core.ShowLinesInContext = Properties.Settings.Default.ShowLinesInContext;
+					core.LinesBefore = Properties.Settings.Default.ContextLinesBefore;
+					core.LinesAfter = Properties.Settings.Default.ContextLinesAfter;
+
 					bool result = core.Undo(undoFolder);
 					if (result)
 						MessageBox.Show("Files have been successfully reverted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);

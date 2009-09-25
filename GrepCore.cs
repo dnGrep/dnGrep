@@ -11,6 +11,28 @@ namespace dnGREP
 {
 	internal class GrepCore
 	{
+		private bool showLinesInContext = false;
+
+		public bool ShowLinesInContext
+		{
+			get { return showLinesInContext; }
+			set { showLinesInContext = value; }
+		}
+		private int linesBefore = 0;
+
+		public int LinesBefore
+		{
+			get { return linesBefore; }
+			set { linesBefore = value; }
+		}
+		private int linesAfter = 0;
+
+		public int LinesAfter
+		{
+			get { return linesAfter; }
+			set { linesAfter = value; }
+		}
+		
 		private static Logger logger = LogManager.GetCurrentClassLogger();
 		private List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
 		public delegate void SearchProgressHandler(object sender, ProgressStatus files);
@@ -214,10 +236,10 @@ namespace dnGREP
 				if (lineNumber != -1)
 				{
 					results.Add(new GrepSearchResult.GrepLine(lineNumber, line, false));
-					if (Properties.Settings.Default.ShowLinesInContext)
+					if (showLinesInContext)
 					{
-						results.AddRange(Utils.GetContextLines(text, Properties.Settings.Default.ContextLinesBefore,
-							Properties.Settings.Default.ContextLinesAfter, lineNumber));
+						results.AddRange(Utils.GetContextLines(text, linesBefore,
+							linesAfter, lineNumber));
 					}
 				}
 			}
@@ -234,10 +256,10 @@ namespace dnGREP
 				if (lineNumber != -1)
 				{
 					results.Add(new GrepSearchResult.GrepLine(lineNumber, line, false));
-					if (Properties.Settings.Default.ShowLinesInContext)
+					if (showLinesInContext)
 					{
-						results.AddRange(Utils.GetContextLines(text, Properties.Settings.Default.ContextLinesBefore,
-							Properties.Settings.Default.ContextLinesAfter, lineNumber));
+						results.AddRange(Utils.GetContextLines(text, linesBefore,
+							linesAfter, lineNumber));
 					}
 				}
 			}
@@ -257,10 +279,10 @@ namespace dnGREP
 					if (lineNumber != -1)
 					{
 						results.Add(new GrepSearchResult.GrepLine(lineNumber, line, false));
-						if (Properties.Settings.Default.ShowLinesInContext)
+						if (showLinesInContext)
 						{
-							results.AddRange(Utils.GetContextLines(text, Properties.Settings.Default.ContextLinesBefore,
-								Properties.Settings.Default.ContextLinesAfter, lineNumber));
+							results.AddRange(Utils.GetContextLines(text, linesBefore,
+								linesAfter, lineNumber));
 						}
 					}
 					index ++;
@@ -283,10 +305,10 @@ namespace dnGREP
 					if (lineNumber != -1)
 					{
 						results.Add(new GrepSearchResult.GrepLine(lineNumber, line, false));
-						if (Properties.Settings.Default.ShowLinesInContext)
+						if (showLinesInContext)
 						{
-							results.AddRange(Utils.GetContextLines(text, Properties.Settings.Default.ContextLinesBefore,
-								Properties.Settings.Default.ContextLinesAfter, lineNumber));
+							results.AddRange(Utils.GetContextLines(text, linesBefore,
+								linesAfter, lineNumber));
 						}
 					}
 					index++;
@@ -399,16 +421,16 @@ namespace dnGREP
 							}
 
 							// Collecting context lines
-							if (Properties.Settings.Default.ShowLinesInContext)
+							if (showLinesInContext)
 							{
-								if (preContextLines.Count > Properties.Settings.Default.ContextLinesBefore)
+								if (preContextLines.Count > linesBefore)
 									preContextLines.Dequeue();
 
 								preContextLines.Enqueue(new GrepSearchResult.GrepLine(counter, line, true));
 
 								if (collectPostContextLines)
 								{
-									if (postContextLines.Count < Properties.Settings.Default.ContextLinesAfter)
+									if (postContextLines.Count < linesAfter)
 									{
 										postContextLines.Enqueue(new GrepSearchResult.GrepLine(counter, line, true));
 									}
