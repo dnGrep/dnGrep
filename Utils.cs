@@ -386,6 +386,65 @@ namespace dnGREP
 			lineNumber = lines1.Length;
 			return lines1[lines1.Length - 1] + lines2[0];
 		}
+
+		/// <summary>
+		/// Returns a list of GrepLines by line numbers provided in the input parameter
+		/// </summary>
+		/// <param name="body"></param>
+		/// <param name="linesBefore"></param>
+		/// <param name="linesAfter"></param>
+		/// <param name="foundLine"></param>
+		/// <returns></returns>
+		public static List<GrepSearchResult.GrepLine> GetContextLines(string body, int linesBefore, int linesAfter, int foundLine)
+		{
+			List<GrepSearchResult.GrepLine> result = new List<GrepSearchResult.GrepLine>();
+			List<int> lineNumbers = new List<int>();
+			string[] lines = body.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+			for (int i = foundLine - linesBefore - 1; i <= foundLine + linesAfter - 1; i++)
+			{
+				if (i >= 0 && i < lines.Length - 1 && (i + 1) != foundLine)
+					result.Add(new GrepSearchResult.GrepLine(i + 1, lines[i], true));
+			}
+			return result;
+		}
+
+		/// <summary>
+		/// Returns number of matches
+		/// </summary>
+		/// <param name="result"></param>
+		/// <returns></returns>
+		public static int MatchCount(GrepSearchResult result)
+		{
+			int counter = 0;
+			foreach (GrepSearchResult.GrepLine line in result.SearchResults)
+			{
+				if (!line.IsContext)
+					counter++;
+			}
+			return counter;
+		}
+
+		/// <summary>
+		/// Sorts and removes dupes
+		/// </summary>
+		/// <param name="results"></param>
+		public static void CleanResults(ref List<GrepSearchResult.GrepLine> results)
+		{
+			results.Sort();
+			for (int i = results.Count - 1; i >= 0; i -- )
+			{
+				for (int j = 0; j < results.Count; j ++ )
+				{
+					if (i < results.Count && 
+						results[i].LineNumber == results[j].LineNumber && i != j)
+					{
+						if (results[i].IsContext || 
+							(results[i].IsContext == results[j].IsContext && results[i].IsContext == false))
+							results.RemoveAt(i);
+					}
+				}
+			}
+		}
 	}
 
 	public class KeyValueComparer : IComparer<KeyValuePair<string, int>>

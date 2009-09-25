@@ -231,13 +231,13 @@ namespace dnGREP
 			}
 
 			//cbCaseSensitive
-			if (IsPlainText)
+			if (rbXPathSearch.Checked)
 			{
-				cbCaseSensitive.Enabled = true;
+				cbCaseSensitive.Enabled = false;
 			}
 			else
 			{
-				cbCaseSensitive.Enabled = false;
+				cbCaseSensitive.Enabled = true;
 			}
 
 			//btnTest
@@ -476,7 +476,7 @@ namespace dnGREP
 						grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
 						GrepSearchResult[] results = null;
 						if (rbRegexSearch.Checked)
-							results = grep.SearchRegex(files, tbSearchFor.Text, cbMultiline.Checked, CodePage);
+							results = grep.SearchRegex(files, tbSearchFor.Text, cbCaseSensitive.Checked, cbMultiline.Checked, CodePage);
 						else if (rbXPathSearch.Checked)
 							results = grep.SearchXPath(files, tbSearchFor.Text, CodePage);
 						else 
@@ -497,7 +497,7 @@ namespace dnGREP
 						}
 
 						if (rbRegexSearch.Checked)
-							e.Result = grep.ReplaceRegex(files.ToArray(), tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text, cbMultiline.Checked, CodePage);
+							e.Result = grep.ReplaceRegex(files.ToArray(), tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text, cbCaseSensitive.Checked, cbMultiline.Checked, CodePage);
 						else if (rbXPathSearch.Checked)
 							e.Result = grep.ReplaceXPath(files.ToArray(), tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text, CodePage);
 						else
@@ -636,6 +636,7 @@ namespace dnGREP
 				{
 					displayedName = result.FileName.Substring(tbFolderName.Text.Length + 1);
 				}
+				displayedName = string.Format("{0} ({1})", displayedName, Utils.MatchCount(result));
 				TreeNode node = new TreeNode(displayedName);
 				node.Tag = result.FileName;
 				tvSearchResult.Nodes.Add(node);				
@@ -648,7 +649,7 @@ namespace dnGREP
 				{
 					string lineSummary = line.LineText.Replace("\n", "").Replace("\t", "").Replace("\r", "").Trim();
 					if (lineSummary.Length == 0)
-						lineSummary = "<none>";
+						lineSummary = " ";
 					else if (lineSummary.Length > 100)
 						lineSummary = lineSummary.Substring(0, 100) + "...";
 					string lineNumber = (line.LineNumber == -1 ? "" : line.LineNumber + ": ");
@@ -657,6 +658,10 @@ namespace dnGREP
 					lineNode.SelectedImageKey = lineNode.ImageKey;
 					lineNode.StateImageKey = lineNode.ImageKey;
 					lineNode.Tag = line.LineNumber;
+					if (!line.IsContext && Properties.Settings.Default.ShowLinesInContext)
+					{
+						lineNode.ForeColor = Color.Red;
+					}
 					node.Nodes.Add(lineNode);
 				}
 			}			
@@ -865,6 +870,12 @@ namespace dnGREP
 					Utils.OpenFile((string)selectedNode.Tag, lineNumber);
 				}
 			}
+		}
+
+
+		private void expandAllToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			tvSearchResult.ExpandAll();
 		}
 
 		#region Advance actions

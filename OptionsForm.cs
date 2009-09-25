@@ -31,6 +31,16 @@ namespace dnGREP
 			{
 				tbUpdateInterval.Enabled = false;
 			}
+			if (Properties.Settings.Default.ShowLinesInContext)
+			{
+				tbLinesAfter.Enabled = true;
+				tbLinesBefore.Enabled = true;
+			}
+			else
+			{
+				tbLinesAfter.Enabled = false;
+				tbLinesBefore.Enabled = false;
+			}
 			if (Properties.Settings.Default.UseCustomEditor)
 			{
 				rbSpecificEditor.Checked = true;
@@ -100,6 +110,9 @@ namespace dnGREP
 			cbRegisterShell.Checked = isShellRegistered();
 			cbCheckForUpdates.Checked = Properties.Settings.Default.EnableUpdateChecking;
 			cbShowPath.Checked = Properties.Settings.Default.ShowFilePathInResults;
+			cbShowContext.Checked = Properties.Settings.Default.ShowLinesInContext;
+			tbLinesBefore.Text = Properties.Settings.Default.ContextLinesBefore.ToString();
+			tbLinesAfter.Text = Properties.Settings.Default.ContextLinesAfter.ToString();
 			changeState();
 		}
 		
@@ -127,6 +140,8 @@ namespace dnGREP
 
 		private void OptionsForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
+			Properties.Settings.Default.ContextLinesBefore = int.Parse(tbLinesBefore.Text);
+			Properties.Settings.Default.ContextLinesAfter = int.Parse(tbLinesAfter.Text);
 			Properties.Settings.Default.Save();
 		}
 
@@ -175,6 +190,12 @@ namespace dnGREP
 		private void cbShowPath_CheckedChanged(object sender, EventArgs e)
 		{
 			Properties.Settings.Default.ShowFilePathInResults = cbShowPath.Checked;
+		}
+
+		private void cbShowContext_CheckedChanged(object sender, EventArgs e)
+		{
+			Properties.Settings.Default.ShowLinesInContext = cbShowContext.Checked;
+			changeState();
 		}
 	}
 }

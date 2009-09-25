@@ -309,5 +309,41 @@ namespace dnGREP.Properties {
                 this["FileSearchAsterisk"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShowLinesInContext {
+            get {
+                return ((bool)(this["ShowLinesInContext"]));
+            }
+            set {
+                this["ShowLinesInContext"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int ContextLinesBefore {
+            get {
+                return ((int)(this["ContextLinesBefore"]));
+            }
+            set {
+                this["ContextLinesBefore"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int ContextLinesAfter {
+            get {
+                return ((int)(this["ContextLinesAfter"]));
+            }
+            set {
+                this["ContextLinesAfter"] = value;
+            }
+        }
     }
 }

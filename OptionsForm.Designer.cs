@@ -44,6 +44,11 @@ namespace dnGREP
 			this.cbCheckForUpdates = new System.Windows.Forms.CheckBox();
 			this.grUI = new System.Windows.Forms.GroupBox();
 			this.cbShowPath = new System.Windows.Forms.CheckBox();
+			this.cbShowContext = new System.Windows.Forms.CheckBox();
+			this.label4 = new System.Windows.Forms.Label();
+			this.label5 = new System.Windows.Forms.Label();
+			this.tbLinesAfter = new System.Windows.Forms.MaskedTextBox();
+			this.tbLinesBefore = new System.Windows.Forms.MaskedTextBox();
 			this.tbUpdateInterval = new System.Windows.Forms.MaskedTextBox();
 			this.tbEditorArgs = new System.Windows.Forms.TextBox();
 			this.tbEditorPath = new System.Windows.Forms.TextBox();
@@ -60,7 +65,7 @@ namespace dnGREP
 			this.grShell.Controls.Add(this.cbRegisterShell);
 			this.grShell.Location = new System.Drawing.Point(3, 5);
 			this.grShell.Name = "grShell";
-			this.grShell.Size = new System.Drawing.Size(484, 47);
+			this.grShell.Size = new System.Drawing.Size(486, 47);
 			this.grShell.TabIndex = 0;
 			this.grShell.TabStop = false;
 			this.grShell.Text = "Shell integration";
@@ -87,9 +92,9 @@ namespace dnGREP
 			this.grEditor.Controls.Add(this.tbEditorPath);
 			this.grEditor.Controls.Add(this.rbSpecificEditor);
 			this.grEditor.Controls.Add(this.rbDefaultEditor);
-			this.grEditor.Location = new System.Drawing.Point(2, 149);
+			this.grEditor.Location = new System.Drawing.Point(2, 171);
 			this.grEditor.Name = "grEditor";
-			this.grEditor.Size = new System.Drawing.Size(484, 118);
+			this.grEditor.Size = new System.Drawing.Size(486, 118);
 			this.grEditor.TabIndex = 1;
 			this.grEditor.TabStop = false;
 			this.grEditor.Text = "Editor";
@@ -106,7 +111,7 @@ namespace dnGREP
 			// btnBrowse
 			// 
 			this.btnBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnBrowse.Location = new System.Drawing.Point(445, 39);
+			this.btnBrowse.Location = new System.Drawing.Point(447, 39);
 			this.btnBrowse.Name = "btnBrowse";
 			this.btnBrowse.Size = new System.Drawing.Size(30, 23);
 			this.btnBrowse.TabIndex = 3;
@@ -120,7 +125,7 @@ namespace dnGREP
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.label1.Location = new System.Drawing.Point(105, 95);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(370, 21);
+			this.label1.Size = new System.Drawing.Size(372, 21);
 			this.label1.TabIndex = 3;
 			this.label1.Text = "(use %file and %line keywords to specify file location and line number)";
 			// 
@@ -151,7 +156,7 @@ namespace dnGREP
 			// 
 			this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnClose.Location = new System.Drawing.Point(411, 270);
+			this.btnClose.Location = new System.Drawing.Point(413, 299);
 			this.btnClose.Name = "btnClose";
 			this.btnClose.Size = new System.Drawing.Size(75, 23);
 			this.btnClose.TabIndex = 0;
@@ -171,7 +176,7 @@ namespace dnGREP
 			this.grUpdate.Controls.Add(this.cbCheckForUpdates);
 			this.grUpdate.Location = new System.Drawing.Point(3, 53);
 			this.grUpdate.Name = "grUpdate";
-			this.grUpdate.Size = new System.Drawing.Size(484, 47);
+			this.grUpdate.Size = new System.Drawing.Size(486, 47);
 			this.grUpdate.TabIndex = 1;
 			this.grUpdate.TabStop = false;
 			this.grUpdate.Text = "Checking for updates";
@@ -200,10 +205,15 @@ namespace dnGREP
 			// 
 			this.grUI.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
+			this.grUI.Controls.Add(this.tbLinesAfter);
+			this.grUI.Controls.Add(this.label5);
+			this.grUI.Controls.Add(this.tbLinesBefore);
+			this.grUI.Controls.Add(this.label4);
+			this.grUI.Controls.Add(this.cbShowContext);
 			this.grUI.Controls.Add(this.cbShowPath);
 			this.grUI.Location = new System.Drawing.Point(2, 101);
 			this.grUI.Name = "grUI";
-			this.grUI.Size = new System.Drawing.Size(484, 47);
+			this.grUI.Size = new System.Drawing.Size(486, 69);
 			this.grUI.TabIndex = 2;
 			this.grUI.TabStop = false;
 			this.grUI.Text = "User interface";
@@ -218,6 +228,53 @@ namespace dnGREP
 			this.cbShowPath.Text = "Show file path is results panel";
 			this.cbShowPath.UseVisualStyleBackColor = true;
 			this.cbShowPath.CheckedChanged += new System.EventHandler(this.cbShowPath_CheckedChanged);
+			// 
+			// cbShowContext
+			// 
+			this.cbShowContext.AutoSize = true;
+			this.cbShowContext.Location = new System.Drawing.Point(9, 42);
+			this.cbShowContext.Name = "cbShowContext";
+			this.cbShowContext.Size = new System.Drawing.Size(154, 17);
+			this.cbShowContext.TabIndex = 1;
+			this.cbShowContext.Text = "Show result lines in context";
+			this.cbShowContext.UseVisualStyleBackColor = true;
+			this.cbShowContext.CheckedChanged += new System.EventHandler(this.cbShowContext_CheckedChanged);
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Location = new System.Drawing.Point(240, 42);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(61, 13);
+			this.label4.TabIndex = 4;
+			this.label4.Text = "lines before";
+			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.Location = new System.Drawing.Point(356, 43);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(52, 13);
+			this.label5.TabIndex = 6;
+			this.label5.Text = "lines after";
+			// 
+			// tbLinesAfter
+			// 
+			this.tbLinesAfter.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
+			this.tbLinesAfter.Location = new System.Drawing.Point(311, 40);
+			this.tbLinesAfter.Mask = "000";
+			this.tbLinesAfter.Name = "tbLinesAfter";
+			this.tbLinesAfter.Size = new System.Drawing.Size(40, 20);
+			this.tbLinesAfter.TabIndex = 5;
+			// 
+			// tbLinesBefore
+			// 
+			this.tbLinesBefore.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
+			this.tbLinesBefore.Location = new System.Drawing.Point(195, 39);
+			this.tbLinesBefore.Mask = "000";
+			this.tbLinesBefore.Name = "tbLinesBefore";
+			this.tbLinesBefore.Size = new System.Drawing.Size(40, 20);
+			this.tbLinesBefore.TabIndex = 3;
 			// 
 			// tbUpdateInterval
 			// 
@@ -237,7 +294,7 @@ namespace dnGREP
 			this.tbEditorArgs.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "CustomEditorArgs", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
 			this.tbEditorArgs.Location = new System.Drawing.Point(168, 68);
 			this.tbEditorArgs.Name = "tbEditorArgs";
-			this.tbEditorArgs.Size = new System.Drawing.Size(271, 20);
+			this.tbEditorArgs.Size = new System.Drawing.Size(273, 20);
 			this.tbEditorArgs.TabIndex = 4;
 			this.tbEditorArgs.Text = global::dnGREP.Properties.Settings.Default.CustomEditorArgs;
 			// 
@@ -248,7 +305,7 @@ namespace dnGREP
 			this.tbEditorPath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "CustomEditor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
 			this.tbEditorPath.Location = new System.Drawing.Point(108, 41);
 			this.tbEditorPath.Name = "tbEditorPath";
-			this.tbEditorPath.Size = new System.Drawing.Size(331, 20);
+			this.tbEditorPath.Size = new System.Drawing.Size(333, 20);
 			this.tbEditorPath.TabIndex = 2;
 			this.tbEditorPath.Text = global::dnGREP.Properties.Settings.Default.CustomEditor;
 			// 
@@ -257,7 +314,7 @@ namespace dnGREP
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.btnClose;
-			this.ClientSize = new System.Drawing.Size(488, 297);
+			this.ClientSize = new System.Drawing.Size(490, 326);
 			this.Controls.Add(this.grUI);
 			this.Controls.Add(this.grUpdate);
 			this.Controls.Add(this.btnClose);
@@ -304,5 +361,10 @@ namespace dnGREP
 		private System.Windows.Forms.MaskedTextBox tbUpdateInterval;
 		private System.Windows.Forms.GroupBox grUI;
 		private System.Windows.Forms.CheckBox cbShowPath;
+		private System.Windows.Forms.MaskedTextBox tbLinesAfter;
+		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.MaskedTextBox tbLinesBefore;
+		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.CheckBox cbShowContext;
 	}
 }

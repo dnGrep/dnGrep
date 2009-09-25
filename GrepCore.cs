@@ -44,12 +44,22 @@ namespace dnGREP
 		/// <param name="files">Files to search in. If one of the files does not exist or is open, it is skipped.</param>
 		/// <param name="searchRegex">Regex pattern</param>
 		/// <returns>List of results</returns>
-		public GrepSearchResult[] SearchRegex(string[] files, string searchRegex, bool isMultiline, int codePage)
+		public GrepSearchResult[] SearchRegex(string[] files, string searchRegex, bool isCaseSensitive, bool isMultiline, int codePage)
 		{
-			if (isMultiline)
-				return searchMultiline(files, searchRegex, new doSearchMultiline(doRegexSearchMultiline), codePage);
+			if (isCaseSensitive)
+			{
+				if (isMultiline)
+					return searchMultiline(files, searchRegex, new doSearchMultiline(doRegexSearchCaseSensitiveMultiline), codePage);
+				else
+					return search(files, searchRegex, new doSearch(doRegexSearchCaseSensitive), codePage);
+			}
 			else
-				return search(files, searchRegex, new doSearch(doRegexSearch), codePage);
+			{
+				if (isMultiline)
+					return searchMultiline(files, searchRegex, new doSearchMultiline(doRegexSearchCaseInsensitiveMultiline), codePage);
+				else
+					return search(files, searchRegex, new doSearch(doRegexSearchCaseInsensitive), codePage);
+			}
 		}
 
 		public GrepSearchResult[] SearchXPath(string[] files, string searchXPath, int codePage)
@@ -81,16 +91,26 @@ namespace dnGREP
 			}
 		}
 
-		public int ReplaceRegex(string[] files, string baseFolder, string searchRegex, string replaceRegex, bool isMultiline, int codePage)
+		public int ReplaceRegex(string[] files, string baseFolder, string searchRegex, string replaceRegex, bool isCaseSensitive, bool isMultiline, int codePage)
 		{
 			string tempFolder = Utils.FixFolderName(Path.GetTempPath()) + "dnGREP\\";
 			if (Directory.Exists(tempFolder))
 				Utils.DeleteFolder(tempFolder);
 			Directory.CreateDirectory(tempFolder);
-			if (isMultiline)
-				return replaceMultiline(files, baseFolder, tempFolder, searchRegex, replaceRegex, new doSearchMultiline(doRegexSearchMultiline), new doReplace(doRegexReplace), codePage);
+			if (isCaseSensitive)
+			{
+				if (isMultiline)
+					return replaceMultiline(files, baseFolder, tempFolder, searchRegex, replaceRegex, new doSearchMultiline(doRegexSearchCaseSensitiveMultiline), new doReplace(doRegexReplaceCaseSensitive), codePage);
+				else
+					return replace(files, baseFolder, tempFolder, searchRegex, replaceRegex, new doSearch(doRegexSearchCaseSensitive), new doReplace(doRegexReplaceCaseSensitive), codePage);
+			}
 			else
-				return replace(files, baseFolder, tempFolder, searchRegex, replaceRegex, new doSearch(doRegexSearch), new doReplace(doRegexReplace), codePage);
+			{
+				if (isMultiline)
+					return replaceMultiline(files, baseFolder, tempFolder, searchRegex, replaceRegex, new doSearchMultiline(doRegexSearchCaseInsensitiveMultiline), new doReplace(doRegexReplaceCaseInsensitive), codePage);
+				else
+					return replace(files, baseFolder, tempFolder, searchRegex, replaceRegex, new doSearch(doRegexSearchCaseInsensitive), new doReplace(doRegexReplaceCaseInsensitive), codePage);
+			}
 		}
 
 		public int ReplaceXPath(string[] files, string baseFolder, string searchXPath, string replaceText, int codePage)
@@ -154,7 +174,12 @@ namespace dnGREP
 			return text.Contains(searchText);
 		}
 
-		private bool doRegexSearch(string text, string searchPattern)
+		private bool doRegexSearchCaseInsensitive(string text, string searchPattern)
+		{
+			return Regex.IsMatch(text, searchPattern, RegexOptions.IgnoreCase);
+		}
+
+		private bool doRegexSearchCaseSensitive(string text, string searchPattern)
 		{
 			return Regex.IsMatch(text, searchPattern);
 		}
@@ -172,22 +197,49 @@ namespace dnGREP
 				foreach (XmlNode xmlNode in xmlNodes)
 				{
 					line = xmlNode.OuterXml;
-					results.Add(new GrepSearchResult.GrepLine(-1, line));
+					results.Add(new GrepSearchResult.GrepLine(-1, line, false));
 				}
 			}
 
 			return results;
 		}
 
-		private List<GrepSearchResult.GrepLine> doRegexSearchMultiline(string text, string searchPattern)
+		private List<GrepSearchResult.GrepLine> doRegexSearchCaseSensitiveMultiline(string text, string searchPattern)
 		{
 			List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
-			foreach(Match match in Regex.Matches(text, searchPattern)) 
+			foreach(Match match in Regex.Matches(text, searchPattern, RegexOptions.Multiline)) 
 			{
 				int lineNumber = -1;
 				string line = Utils.GetLine(text, match.Index, out lineNumber);
 				if (lineNumber != -1)
-					results.Add(new GrepSearchResult.GrepLine(lineNumber, line));
+				{
+					results.Add(new GrepSearchResult.GrepLine(lineNumber, line, false));
+					if (Properties.Settings.Default.ShowLinesInContext)
+					{
+						results.AddRange(Utils.GetContextLines(text, Properties.Settings.Default.ContextLinesBefore,
+							Properties.Settings.Default.ContextLinesAfter, lineNumber));
+					}
+				}
+			}
+			return results;
+		}
+
+		private List<GrepSearchResult.GrepLine> doRegexSearchCaseInsensitiveMultiline(string text, string searchPattern)
+		{
+			List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
+			foreach (Match match in Regex.Matches(text, searchPattern, RegexOptions.IgnoreCase | RegexOptions.Multiline))
+			{
+				int lineNumber = -1;
+				string line = Utils.GetLine(text, match.Index, out lineNumber);
+				if (lineNumber != -1)
+				{
+					results.Add(new GrepSearchResult.GrepLine(lineNumber, line, false));
+					if (Properties.Settings.Default.ShowLinesInContext)
+					{
+						results.AddRange(Utils.GetContextLines(text, Properties.Settings.Default.ContextLinesBefore,
+							Properties.Settings.Default.ContextLinesAfter, lineNumber));
+					}
+				}
 			}
 			return results;
 		}
@@ -203,7 +255,14 @@ namespace dnGREP
 					int lineNumber = -1;
 					string line = Utils.GetLine(text, index, out lineNumber);
 					if (lineNumber != -1)
-						results.Add(new GrepSearchResult.GrepLine(lineNumber, line));
+					{
+						results.Add(new GrepSearchResult.GrepLine(lineNumber, line, false));
+						if (Properties.Settings.Default.ShowLinesInContext)
+						{
+							results.AddRange(Utils.GetContextLines(text, Properties.Settings.Default.ContextLinesBefore,
+								Properties.Settings.Default.ContextLinesAfter, lineNumber));
+						}
+					}
 					index ++;
 				}
 			}
@@ -222,7 +281,14 @@ namespace dnGREP
 					int lineNumber = -1;
 					string line = Utils.GetLine(text, index, out lineNumber);
 					if (lineNumber != -1)
-						results.Add(new GrepSearchResult.GrepLine(lineNumber, line));
+					{
+						results.Add(new GrepSearchResult.GrepLine(lineNumber, line, false));
+						if (Properties.Settings.Default.ShowLinesInContext)
+						{
+							results.AddRange(Utils.GetContextLines(text, Properties.Settings.Default.ContextLinesBefore,
+								Properties.Settings.Default.ContextLinesAfter, lineNumber));
+						}
+					}
 					index++;
 				}
 			}
@@ -258,7 +324,12 @@ namespace dnGREP
 			return new string(chars, 0, count);
 		}
 
-		private string doRegexReplace(string text, string searchPattern, string replacePattern)
+		private string doRegexReplaceCaseInsensitive(string text, string searchPattern, string replacePattern)
+		{
+			return Regex.Replace(text, searchPattern, replacePattern, RegexOptions.IgnoreCase);
+		}
+
+		private string doRegexReplaceCaseSensitive(string text, string searchPattern, string replacePattern)
 		{
 			return Regex.Replace(text, searchPattern, replacePattern);
 		}
@@ -317,6 +388,9 @@ namespace dnGREP
 						string line = null;
 						int counter = 1;
 						List<GrepSearchResult.GrepLine> lines = new List<GrepSearchResult.GrepLine>();
+						Queue<GrepSearchResult.GrepLine> preContextLines = new Queue<GrepSearchResult.GrepLine>();
+						Queue<GrepSearchResult.GrepLine> postContextLines = new Queue<GrepSearchResult.GrepLine>();
+						bool collectPostContextLines = false;
 						while ((line = readStream.ReadLine()) != null)
 						{
 							if (GrepCore.CancelProcess)
@@ -324,12 +398,41 @@ namespace dnGREP
 								return searchResults.ToArray();
 							}
 
+							// Collecting context lines
+							if (Properties.Settings.Default.ShowLinesInContext)
+							{
+								if (preContextLines.Count > Properties.Settings.Default.ContextLinesBefore)
+									preContextLines.Dequeue();
+
+								preContextLines.Enqueue(new GrepSearchResult.GrepLine(counter, line, true));
+
+								if (collectPostContextLines)
+								{
+									if (postContextLines.Count < Properties.Settings.Default.ContextLinesAfter)
+									{
+										postContextLines.Enqueue(new GrepSearchResult.GrepLine(counter, line, true));
+									}
+									else
+									{
+										collectPostContextLines = false;
+										lines.AddRange(postContextLines);
+										postContextLines.Clear();
+									}
+								}
+							}
+
 							if (searchMethod(line, searchPattern))
 							{
-								lines.Add(new GrepSearchResult.GrepLine(counter, line));
+								lines.Add(new GrepSearchResult.GrepLine(counter, line, false));
+								lines.AddRange(preContextLines);
+								preContextLines.Clear();
+								postContextLines.Clear();
+								collectPostContextLines = true;
 							}
 							counter++;
 						}
+						lines.AddRange(postContextLines);
+						Utils.CleanResults(ref lines);
 						if (lines.Count > 0)
 						{
 							searchResults.Add(new GrepSearchResult(file, lines));
@@ -374,6 +477,7 @@ namespace dnGREP
 						List<GrepSearchResult.GrepLine> lines = new List<GrepSearchResult.GrepLine>();
 						string fileBody = readStream.ReadToEnd();
 						lines = searchMethod(fileBody, searchPattern);
+						Utils.CleanResults(ref lines);
 						if (lines.Count > 0)
 						{
 							searchResults.Add(new GrepSearchResult(file, lines));
