@@ -37,5 +37,61 @@ namespace Tests
 		{
 			Assert.IsTrue(PublishedVersionExtractor.IsUpdateNeeded(v1, v2) == result);
 		}
+
+		[Test]
+		public void GetLines_Returns_Correct_Line()
+		{
+			string text = "Hello world" + Environment.NewLine + "My tests are good" + Environment.NewLine + "How about yours?";
+			List<int> lineNumbers = new List<int>();
+			List<string> lines = Utils.GetLines(text, 3, 2, out lineNumbers);
+			Assert.AreEqual(lines.Count, 1);
+			Assert.AreEqual(lines[0], "Hello world");
+			Assert.AreEqual(lineNumbers.Count, 1);
+			Assert.AreEqual(lineNumbers[0], 1);
+
+			lines = Utils.GetLines(text, 14, 2, out lineNumbers);
+			Assert.AreEqual(lines.Count, 1);
+			Assert.AreEqual(lines[0], "My tests are good");
+			Assert.AreEqual(lineNumbers.Count, 1);
+			Assert.AreEqual(lineNumbers[0], 2);
+
+			lines = Utils.GetLines(text, 3, 11, out lineNumbers);
+			Assert.AreEqual(lines.Count, 2);
+			Assert.AreEqual(lines[0], "Hello world");
+			Assert.AreEqual(lines[1], "My tests are good");
+			Assert.AreEqual(lineNumbers.Count, 2);
+			Assert.AreEqual(lineNumbers[0], 1);
+			Assert.AreEqual(lineNumbers[1], 2);
+
+			lines = Utils.GetLines(text, 3, 30, out lineNumbers);
+			Assert.AreEqual(lines.Count, 3);
+			Assert.AreEqual(lines[0], "Hello world");
+			Assert.AreEqual(lines[1], "My tests are good");
+			Assert.AreEqual(lines[2], "How about yours?");
+			Assert.AreEqual(lineNumbers.Count, 3);
+			Assert.AreEqual(lineNumbers[0], 1);
+			Assert.AreEqual(lineNumbers[1], 2);
+			Assert.AreEqual(lineNumbers[2], 3);
+
+			lines = Utils.GetLines("test", 2, 2, out lineNumbers);
+			Assert.AreEqual(lines.Count, 1);
+			Assert.AreEqual(lines[0], "test");
+			Assert.AreEqual(lineNumbers.Count, 1);
+			Assert.AreEqual(lineNumbers[0], 1);
+
+			lines = Utils.GetLines("test", 0, 2, out lineNumbers);
+			Assert.AreEqual(lines.Count, 1);
+			Assert.AreEqual(lines[0], "test");
+			Assert.AreEqual(lineNumbers.Count, 1);
+			Assert.AreEqual(lineNumbers[0], 1);
+
+			lines = Utils.GetLines("test", 10, 2, out lineNumbers);
+			Assert.IsNull(lines);
+			Assert.IsNull(lineNumbers);
+
+			lines = Utils.GetLines("test", 2, 10, out lineNumbers);
+			Assert.IsNull(lines);
+			Assert.IsNull(lineNumbers);
+		}
 	}
 }

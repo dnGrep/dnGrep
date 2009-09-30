@@ -231,15 +231,18 @@ namespace dnGREP
 			List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
 			foreach(Match match in Regex.Matches(text, searchPattern, RegexOptions.Multiline)) 
 			{
-				int lineNumber = -1;
-				string line = Utils.GetLine(text, match.Index, out lineNumber);
-				if (lineNumber != -1)
+				List<int> lineNumbers = new List<int>();
+				List<string> lines = Utils.GetLines(text, match.Index, match.Length, out lineNumbers);
+				if (lineNumbers != null)
 				{
-					results.Add(new GrepSearchResult.GrepLine(lineNumber, line, false));
-					if (showLinesInContext)
+					for (int i = 0; i < lineNumbers.Count; i++)
 					{
-						results.AddRange(Utils.GetContextLines(text, linesBefore,
-							linesAfter, lineNumber));
+						results.Add(new GrepSearchResult.GrepLine(lineNumbers[i], lines[i], false));
+						if (showLinesInContext)
+						{
+							results.AddRange(Utils.GetContextLines(text, linesBefore,
+								linesAfter, lineNumbers[i]));
+						}
 					}
 				}
 			}
@@ -251,15 +254,18 @@ namespace dnGREP
 			List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
 			foreach (Match match in Regex.Matches(text, searchPattern, RegexOptions.IgnoreCase | RegexOptions.Multiline))
 			{
-				int lineNumber = -1;
-				string line = Utils.GetLine(text, match.Index, out lineNumber);
-				if (lineNumber != -1)
+				List<int> lineNumbers = new List<int>();
+				List<string> lines = Utils.GetLines(text, match.Index, match.Length, out lineNumbers);
+				if (lineNumbers != null)
 				{
-					results.Add(new GrepSearchResult.GrepLine(lineNumber, line, false));
-					if (showLinesInContext)
+					for (int i = 0; i < lineNumbers.Count; i++)
 					{
-						results.AddRange(Utils.GetContextLines(text, linesBefore,
-							linesAfter, lineNumber));
+						results.Add(new GrepSearchResult.GrepLine(lineNumbers[i], lines[i], false));
+						if (showLinesInContext)
+						{
+							results.AddRange(Utils.GetContextLines(text, linesBefore,
+								linesAfter, lineNumbers[i]));
+						}
 					}
 				}
 			}
@@ -274,15 +280,18 @@ namespace dnGREP
 				index = text.IndexOf(searchText, index, StringComparison.InvariantCultureIgnoreCase);
 				if (index >= 0)
 				{
-					int lineNumber = -1;
-					string line = Utils.GetLine(text, index, out lineNumber);
-					if (lineNumber != -1)
+					List<int> lineNumbers = new List<int>();
+					List<string> lines = Utils.GetLines(text, index, searchText.Length, out lineNumbers);
+					if (lineNumbers != null)
 					{
-						results.Add(new GrepSearchResult.GrepLine(lineNumber, line, false));
-						if (showLinesInContext)
+						for (int i = 0; i < lineNumbers.Count; i++)
 						{
-							results.AddRange(Utils.GetContextLines(text, linesBefore,
-								linesAfter, lineNumber));
+							results.Add(new GrepSearchResult.GrepLine(lineNumbers[i], lines[i], false));
+							if (showLinesInContext)
+							{
+								results.AddRange(Utils.GetContextLines(text, linesBefore,
+									linesAfter, lineNumbers[i]));
+							}
 						}
 					}
 					index ++;
@@ -300,15 +309,18 @@ namespace dnGREP
 				index = text.IndexOf(searchText, index, StringComparison.InvariantCulture);
 				if (index >= 0)
 				{
-					int lineNumber = -1;
-					string line = Utils.GetLine(text, index, out lineNumber);
-					if (lineNumber != -1)
+					List<int> lineNumbers = new List<int>();
+					List<string> lines = Utils.GetLines(text, index, searchText.Length, out lineNumbers);
+					if (lineNumbers != null)
 					{
-						results.Add(new GrepSearchResult.GrepLine(lineNumber, line, false));
-						if (showLinesInContext)
+						for (int i = 0; i < lineNumbers.Count; i++)
 						{
-							results.AddRange(Utils.GetContextLines(text, linesBefore,
-								linesAfter, lineNumber));
+							results.Add(new GrepSearchResult.GrepLine(lineNumbers[i], lines[i], false));
+							if (showLinesInContext)
+							{
+								results.AddRange(Utils.GetContextLines(text, linesBefore,
+									linesAfter, lineNumbers[i]));
+							}
 						}
 					}
 					index++;

@@ -369,7 +369,7 @@ namespace dnGREP
 		/// </summary>
 		/// <param name="body">Multiline string</param>
 		/// <param name="index">Index of any character in the line</param>
-		/// <param name="lineNumber">Return parameter - 0-based line number or -1 if index is outside text length</param>
+		/// <param name="lineNumber">Return parameter - 1-based line number or -1 if index is outside text length</param>
 		/// <returns>Line of text or null if index is outside text length</returns>
 		public static string GetLine(string body, int index, out int lineNumber)
 		{
@@ -385,6 +385,58 @@ namespace dnGREP
 			string[] lines2 = subBody2.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
 			lineNumber = lines1.Length;
 			return lines1[lines1.Length - 1] + lines2[0];
+		}
+
+		/// <summary>
+		/// Returns lines and line numbers from a multiline string based on character index and length
+		/// </summary>
+		/// <param name="body">Multiline string</param>
+		/// <param name="index">Index of any character in the line</param>
+		/// <param name="length">Length of a line</param>
+		/// <param name="lineNumbers">Return parameter - 1-based line numbers or null if index is outside text length</param>
+		/// <returns>Line of text or null if index is outside text length</returns>
+		public static List<string> GetLines(string body, int index, int length, out List<int> lineNumbers)
+		{
+			List<string> result = new List<string>();
+			lineNumbers = new List<int>();
+			if (body == null || index < 0 || index > body.Length || index + length > body.Length)
+			{
+				lineNumbers = null;
+				return null;
+			}
+
+			string subBody1 = body.Substring(0, index);
+			string[] lines1 = subBody1.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+			string subBody2 = body.Substring(index, length);
+			string[] lines2 = subBody2.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+			string subBody3 = body.Substring(index + length);
+			string[] lines3 = subBody3.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+			for (int i = 0; i < lines2.Length; i++)
+			{
+				string line = "";
+				lineNumbers.Add(lines1.Length + i);
+				if (i == 0)
+				{
+					if (lines2.Length == 1 && lines3.Length > 0)
+						line = lines1[lines1.Length - 1] + lines2[0] + lines3[0];
+					else
+						line = lines1[lines1.Length - 1] + lines2[0];
+				}
+				else if (i == lines2.Length - 1)
+				{
+					if (lines3.Length > 0)
+						line = lines2[lines2.Length - 1] + lines3[0];
+					else
+						line = lines2[lines2.Length - 1];					
+				}
+				else
+				{
+					line = lines2[i];
+				}
+				result.Add(line);
+			}
+
+			return result;
 		}
 
 		/// <summary>

@@ -27,7 +27,12 @@ namespace dnGREP
 		{
 			try
 			{
-				Regex regex = new Regex(tbSearchFor.Text);
+				RegexOptions options = RegexOptions.Singleline;
+				if (cbMultiline.Checked)
+					options = RegexOptions.Multiline;
+				if (cbCaseSensitive.Checked)
+					options = options | RegexOptions.IgnoreCase;
+				Regex regex = new Regex(tbSearchFor.Text, options);
 				StringBuilder sb = new StringBuilder();
 				foreach (Match match in regex.Matches(tbInputText.Text))
 				{
@@ -54,7 +59,12 @@ namespace dnGREP
 		{
 			try
 			{
-				Regex search = new Regex(tbSearchFor.Text);
+				RegexOptions options = RegexOptions.Singleline;
+				if (cbMultiline.Checked)
+					options = RegexOptions.Multiline;
+				if (cbCaseSensitive.Checked)
+					options = options | RegexOptions.IgnoreCase;
+				Regex search = new Regex(tbSearchFor.Text, options);
 				string replace = tbReplaceWith.Text;
 
 				tbOutputText.Text = search.Replace(tbInputText.Text, replace);
