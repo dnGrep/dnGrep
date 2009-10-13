@@ -7,11 +7,14 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Net;
 using System.Xml;
+using NLog;
 
 namespace dnGREP
 {
 	public class Utils
 	{
+		private static Logger logger = LogManager.GetCurrentClassLogger();
+
 		/// <summary>
 		/// Copies the folder recursively. Uses includePattern to avoid unnecessary objects
 		/// </summary>
@@ -256,50 +259,57 @@ namespace dnGREP
 		{
 			DirectoryInfo di = new DirectoryInfo(pathToFolder);
 			FileInfo[] fileMatch;
-			if (isRegex)
+			try
 			{
-				List<FileInfo> tempFileList = new List<FileInfo>();
-				foreach (FileInfo fileInDirectory in di.GetFiles())
+				if (isRegex)
 				{
-					if (Regex.IsMatch(fileInDirectory.Name, namePattern))
-						tempFileList.Add(fileInDirectory);
-				}
+					List<FileInfo> tempFileList = new List<FileInfo>();
+					foreach (FileInfo fileInDirectory in di.GetFiles())
+					{
+						if (Regex.IsMatch(fileInDirectory.Name, namePattern))
+							tempFileList.Add(fileInDirectory);
+					}
 
-				fileMatch = tempFileList.ToArray();
-			}
-			else
-			{
-				fileMatch = di.GetFiles(namePattern, SearchOption.TopDirectoryOnly);
-			}
-			for (int i = 0; i < fileMatch.Length; i++)
-			{
-				if (sizeFrom > 0 || sizeTo > 0) 
+					fileMatch = tempFileList.ToArray();
+				}
+				else
 				{
-					long sizeKB = fileMatch[i].Length / 1000;
-					if (sizeFrom > 0 && sizeKB < sizeFrom) 
-					{
-						continue;
-					}
-					if (sizeTo > 0 && sizeKB > sizeTo)
-					{
-						continue;
-					}
-				} 
-				files.Add(fileMatch[i].FullName);
-			}
-			if (includeSubfolders)
-			{
-				foreach (DirectoryInfo subDir in di.GetDirectories())
+					fileMatch = di.GetFiles(namePattern, SearchOption.TopDirectoryOnly);
+				}
+				for (int i = 0; i < fileMatch.Length; i++)
 				{
-					if (((subDir.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden) && !includeHidden)
+					if (sizeFrom > 0 || sizeTo > 0)
 					{
-						continue;
+						long sizeKB = fileMatch[i].Length / 1000;
+						if (sizeFrom > 0 && sizeKB < sizeFrom)
+						{
+							continue;
+						}
+						if (sizeTo > 0 && sizeKB > sizeTo)
+						{
+							continue;
+						}
 					}
-					else
+					files.Add(fileMatch[i].FullName);
+				}
+				if (includeSubfolders)
+				{
+					foreach (DirectoryInfo subDir in di.GetDirectories())
 					{
-						recursiveFileSearch(subDir.FullName, namePattern, isRegex, includeSubfolders, includeHidden, sizeFrom, sizeTo, files);
+						if (((subDir.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden) && !includeHidden)
+						{
+							continue;
+						}
+						else
+						{
+							recursiveFileSearch(subDir.FullName, namePattern, isRegex, includeSubfolders, includeHidden, sizeFrom, sizeTo, files);
+						}
 					}
 				}
+			}
+			catch (Exception ex)
+			{
+				logger.LogException(LogLevel.Error, ex.Message, ex);
 			}
 		}
 
