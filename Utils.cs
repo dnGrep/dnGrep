@@ -26,8 +26,7 @@ namespace dnGREP
 		{
 			String[] files;
 
-			if (destinationDirectory[destinationDirectory.Length - 1] != Path.DirectorySeparatorChar)
-				destinationDirectory += Path.DirectorySeparatorChar;
+			destinationDirectory = FixFolderName(destinationDirectory);
 
 			if (!Directory.Exists(destinationDirectory)) Directory.CreateDirectory(destinationDirectory);
 
@@ -35,10 +34,10 @@ namespace dnGREP
 
 			foreach (string element in files)
 			{
-				if (!string.IsNullOrEmpty(includePattern) && !Regex.IsMatch(element, includePattern))
+				if (!string.IsNullOrEmpty(includePattern) && File.Exists(element) && !Regex.IsMatch(element, includePattern))
 					continue;
 
-				if (!string.IsNullOrEmpty(excludePattern) && Regex.IsMatch(element, excludePattern))
+				if (!string.IsNullOrEmpty(excludePattern) && File.Exists(element) && Regex.IsMatch(element, excludePattern))
 					continue;
 
 				// Sub directories
@@ -46,7 +45,7 @@ namespace dnGREP
 					CopyFiles(element, destinationDirectory + Path.GetFileName(element), includePattern, excludePattern);
 				// Files in directory
 				else
-					File.Copy(element, destinationDirectory + Path.GetFileName(element), true);
+					CopyFile(element, destinationDirectory + Path.GetFileName(element), true);
 			}
 		}
 
@@ -58,8 +57,7 @@ namespace dnGREP
 		/// <param name="overWrite"></param>
 		public static void CopyFiles(List<GrepSearchResult> source, string destinationDirectory, bool overWrite)
 		{
-			if (destinationDirectory[destinationDirectory.Length - 1] != Path.DirectorySeparatorChar)
-				destinationDirectory += Path.DirectorySeparatorChar;
+			destinationDirectory = FixFolderName(destinationDirectory);
 
 			if (!Directory.Exists(destinationDirectory)) Directory.CreateDirectory(destinationDirectory);
 
@@ -73,7 +71,7 @@ namespace dnGREP
 					FileInfo sourceFileInfo = new FileInfo(result.FileName);
 					FileInfo destinationFileInfo = new FileInfo(destinationDirectory + Path.GetFileName(result.FileName));
 					if (sourceFileInfo.FullName != destinationFileInfo.FullName)
-						sourceFileInfo.CopyTo(destinationFileInfo.FullName, true);
+						CopyFile(sourceFileInfo.FullName, destinationFileInfo.FullName, overWrite);
 				}
 			}
 		}
@@ -86,10 +84,10 @@ namespace dnGREP
 		/// <returns></returns>
 		public static bool CanCopyFiles(List<GrepSearchResult> source, string destinationDirectory)
 		{
-			if (destinationDirectory[destinationDirectory.Length - 1] != Path.DirectorySeparatorChar)
-				destinationDirectory += Path.DirectorySeparatorChar;
+			if (destinationDirectory == null || source == null || source.Count == 0)
+				return false;
 
-			if (!Directory.Exists(destinationDirectory)) Directory.CreateDirectory(destinationDirectory);
+			destinationDirectory = FixFolderName(destinationDirectory);
 
 			List<string> files = new List<string>();
 
@@ -124,7 +122,8 @@ namespace dnGREP
 			{
 				foreach (GrepSearchResult.GrepLine line in result.SearchResults)
 				{
-					sb.AppendLine("\"" + result.FileName + "\"," + line.LineNumber + ",\"" + line.LineText + "\"");
+					if (!line.IsContext)
+						sb.AppendLine("\"" + result.FileName + "\"," + line.LineNumber + ",\"" + line.LineText + "\"");
 				}
 			}
 			File.WriteAllText(destinationPath, sb.ToString());
@@ -143,7 +142,7 @@ namespace dnGREP
 				if (!files.Contains(result.FileName))
 				{
 					files.Add(result.FileName);
-					File.Delete(result.FileName);
+					DeleteFile(result.FileName);
 				}
 			}
 		}
@@ -171,8 +170,10 @@ namespace dnGREP
 		/// <param name="path"></param>
 		public static void DeleteFile(string path)
 		{
-			File.SetAttributes(path, FileAttributes.Normal);
-			File.Delete(path);
+			if (File.Exists(path)) {
+				File.SetAttributes(path, FileAttributes.Normal);
+				File.Delete(path);
+			}
 		}
 
 		/// <summary>
@@ -218,7 +219,11 @@ namespace dnGREP
 			return enc;
 		}
 
-
+		/// <summary>
+		/// Add DirectorySeparatorChar to the end of the folder path if does not exist
+		/// </summary>
+		/// <param name="name">Folder path</param>
+		/// <returns></returns>
 		public static string FixFolderName(string name)
 		{
 			if (name != null && name.Length > 1 && name[name.Length - 1] != Path.DirectorySeparatorChar)
@@ -232,16 +237,16 @@ namespace dnGREP
 		/// If no files found returns 0 length array.
 		/// </summary>
 		/// <param name="pathToFolder"></param>
-		/// <param name="namePattern">File name pattern. (E.g. *.cs) or regex</param>
+		/// <param name="namePattern">File name pattern. (E.g. *.cs) or regex. If null returns empty array. If empty string returns all files.</param>
 		/// <param name="isRegex">Whether to use regex as search pattern. Otherwise use asterisks</param>
-		/// <param name="includeSubfolders"></param>
-		/// <param name="includeHidden"></param>
-		/// <param name="sizeFrom"></param>
-		/// <param name="sizeTo"></param>
+		/// <param name="includeSubfolders">Include sub folders</param>
+		/// <param name="includeHidden">Include hidden folders</param>
+		/// <param name="sizeFrom">Size in KB</param>
+		/// <param name="sizeTo">Size in KB</param>
 		/// <returns></returns>
 		public static string[] GetFileList(string pathToFolder, string namePattern, bool isRegex, bool includeSubfolders, bool includeHidden, int sizeFrom, int sizeTo)
 		{
-			if (!Directory.Exists(pathToFolder))
+			if (!Directory.Exists(pathToFolder) || namePattern == null)
 				return new string[0];
 
 			DirectoryInfo di = new DirectoryInfo(pathToFolder);
@@ -313,11 +318,22 @@ namespace dnGREP
 			}
 		}
 
+		/// <summary>
+		/// Parses text into int
+		/// </summary>
+		/// <param name="value">String. May include null, empty srting or text with spaces before or after.</param>
+		/// <returns>Attempts to parse string. Otherwise returns int.MinValue</returns>
 		public static int ParseInt(string value)
 		{
 			return ParseInt(value, int.MinValue);
 		}
 
+		/// <summary>
+		/// Parses text into int
+		/// </summary>
+		/// <param name="value">String. May include null, empty srting or text with spaces before or after.</param>
+		/// <param name="defaultValue">Default value if fails to parse.</param>
+		/// <returns>Attempts to parse string. Otherwise returns defaultValue</returns>
 		public static int ParseInt(string value, int defaultValue)
 		{
 			if (value != null && value.Length != 0)
@@ -332,32 +348,56 @@ namespace dnGREP
 			return defaultValue;
 		}
 
-		public static void OpenFile(string fileName, int line)
+		/// <summary>
+		/// Open file using either default editor or the one provided via customEditor parameter
+		/// </summary>
+		/// <param name="fileName">File to open</param>
+		/// <param name="line">Line number</param>
+		/// <param name="useCustomEditor">True if customEditor parameter is provided</param>
+		/// <param name="customEditor">Custom editor path</param>
+		/// <param name="customEditorArgs">Arguments for custom editor</param>
+		public static void OpenFile(string fileName, int line, bool useCustomEditor, string customEditor, string customEditorArgs)
 		{
-			if (!Properties.Settings.Default.UseCustomEditor)
+			if (!useCustomEditor || customEditor == null || customEditor.Trim() == "")
 				System.Diagnostics.Process.Start(@"" + fileName + "");
 			else
 			{
-				ProcessStartInfo info = new ProcessStartInfo(Properties.Settings.Default.CustomEditor);
+				ProcessStartInfo info = new ProcessStartInfo(customEditor);
 				info.UseShellExecute = false;
 				info.CreateNoWindow = true;
-				info.Arguments = Properties.Settings.Default.CustomEditorArgs.Replace("%file", "\"" + fileName + "\"").Replace("%line", line.ToString());
+				if (customEditorArgs == null)
+					customEditorArgs = "";
+				info.Arguments = customEditorArgs.Replace("%file", "\"" + fileName + "\"").Replace("%line", line.ToString());
 				System.Diagnostics.Process.Start(info);
 			}
 		}
 
+		/// <summary>
+		/// Open folder in explorer
+		/// </summary>
+		/// <param name="fileName"></param>
+		/// <param name="line"></param>
 		public static void OpenContainingFolder(string fileName, int line)
 		{
 			System.Diagnostics.Process.Start(@"" + Path.GetDirectoryName(fileName) + "");
 		}
 
 		
+		/// <summary>
+		/// Returns current path of DLL
+		/// </summary>
+		/// <returns></returns>
 		public static string GetCurrentPath()
 		{
 			Assembly thisAssembly = Assembly.GetAssembly(typeof(Utils));
 			return Path.GetDirectoryName(thisAssembly.Location);
 		}
 
+		/// <summary>
+		/// Returns read only files
+		/// </summary>
+		/// <param name="results"></param>
+		/// <returns></returns>
 		public static string[] GetReadOnlyFiles(List<GrepSearchResult> results)
 		{
 			List<string> files = new List<string>();

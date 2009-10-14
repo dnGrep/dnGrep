@@ -7,7 +7,7 @@ using dnGREP;
 namespace Tests
 {
 	[TestFixture]
-	public class BookmarkTest
+	public class BookmarkTest : TestBase
 	{
 		[Test]
 		public void Test()

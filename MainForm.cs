@@ -879,7 +879,7 @@ namespace dnGREP
 				}
 				if (selectedNode != null && selectedNode.Tag != null)
 				{
-					Utils.OpenFile((string)selectedNode.Tag, lineNumber);
+					Utils.OpenFile((string)selectedNode.Tag, lineNumber, Properties.Settings.Default.UseCustomEditor, Properties.Settings.Default.CustomEditor, Properties.Settings.Default.CustomEditorArgs);
 				}
 			}
 		}
