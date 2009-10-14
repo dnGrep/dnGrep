@@ -181,7 +181,7 @@ namespace dnGREP
 		/// <param name="path"></param>
 		public static void DeleteFolder(string path)
 		{
-			string[] files = GetFileList(path, "*.*", true, true, true, 0, 0);
+			string[] files = GetFileList(path, "*.*", false, true, true, 0, 0);
 			foreach (string file in files)
 			{
 				File.SetAttributes(file, FileAttributes.Normal);
