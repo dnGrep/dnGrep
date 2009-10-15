@@ -518,10 +518,13 @@ namespace dnGREP
 		public static int MatchCount(GrepSearchResult result)
 		{
 			int counter = 0;
-			foreach (GrepSearchResult.GrepLine line in result.SearchResults)
+			if (result != null && result.SearchResults != null)
 			{
-				if (!line.IsContext)
-					counter++;
+				foreach (GrepSearchResult.GrepLine line in result.SearchResults)
+				{
+					if (!line.IsContext)
+						counter++;
+				}
 			}
 			return counter;
 		}

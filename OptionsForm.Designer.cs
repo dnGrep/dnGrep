@@ -33,25 +33,26 @@ namespace dnGREP
 			this.cbRegisterShell = new System.Windows.Forms.CheckBox();
 			this.grEditor = new System.Windows.Forms.GroupBox();
 			this.label2 = new System.Windows.Forms.Label();
+			this.tbEditorArgs = new System.Windows.Forms.TextBox();
 			this.btnBrowse = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
+			this.tbEditorPath = new System.Windows.Forms.TextBox();
 			this.rbSpecificEditor = new System.Windows.Forms.RadioButton();
 			this.rbDefaultEditor = new System.Windows.Forms.RadioButton();
 			this.btnClose = new System.Windows.Forms.Button();
 			this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
 			this.grUpdate = new System.Windows.Forms.GroupBox();
+			this.tbUpdateInterval = new System.Windows.Forms.MaskedTextBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.cbCheckForUpdates = new System.Windows.Forms.CheckBox();
 			this.grUI = new System.Windows.Forms.GroupBox();
-			this.cbShowPath = new System.Windows.Forms.CheckBox();
-			this.cbShowContext = new System.Windows.Forms.CheckBox();
-			this.label4 = new System.Windows.Forms.Label();
-			this.label5 = new System.Windows.Forms.Label();
 			this.tbLinesAfter = new System.Windows.Forms.MaskedTextBox();
+			this.label5 = new System.Windows.Forms.Label();
 			this.tbLinesBefore = new System.Windows.Forms.MaskedTextBox();
-			this.tbUpdateInterval = new System.Windows.Forms.MaskedTextBox();
-			this.tbEditorArgs = new System.Windows.Forms.TextBox();
-			this.tbEditorPath = new System.Windows.Forms.TextBox();
+			this.label4 = new System.Windows.Forms.Label();
+			this.cbShowContext = new System.Windows.Forms.CheckBox();
+			this.cbShowPath = new System.Windows.Forms.CheckBox();
+			this.cbSearchFileNameOnly = new System.Windows.Forms.CheckBox();
 			this.grShell.SuspendLayout();
 			this.grEditor.SuspendLayout();
 			this.grUpdate.SuspendLayout();
@@ -92,7 +93,7 @@ namespace dnGREP
 			this.grEditor.Controls.Add(this.tbEditorPath);
 			this.grEditor.Controls.Add(this.rbSpecificEditor);
 			this.grEditor.Controls.Add(this.rbDefaultEditor);
-			this.grEditor.Location = new System.Drawing.Point(2, 171);
+			this.grEditor.Location = new System.Drawing.Point(2, 189);
 			this.grEditor.Name = "grEditor";
 			this.grEditor.Size = new System.Drawing.Size(486, 118);
 			this.grEditor.TabIndex = 1;
@@ -107,6 +108,17 @@ namespace dnGREP
 			this.label2.Size = new System.Drawing.Size(57, 13);
 			this.label2.TabIndex = 6;
 			this.label2.Text = "Arguments";
+			// 
+			// tbEditorArgs
+			// 
+			this.tbEditorArgs.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.tbEditorArgs.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "CustomEditorArgs", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.tbEditorArgs.Location = new System.Drawing.Point(168, 68);
+			this.tbEditorArgs.Name = "tbEditorArgs";
+			this.tbEditorArgs.Size = new System.Drawing.Size(273, 20);
+			this.tbEditorArgs.TabIndex = 4;
+			this.tbEditorArgs.Text = global::dnGREP.Properties.Settings.Default.CustomEditorArgs;
 			// 
 			// btnBrowse
 			// 
@@ -128,6 +140,17 @@ namespace dnGREP
 			this.label1.Size = new System.Drawing.Size(372, 21);
 			this.label1.TabIndex = 3;
 			this.label1.Text = "(use %file and %line keywords to specify file location and line number)";
+			// 
+			// tbEditorPath
+			// 
+			this.tbEditorPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.tbEditorPath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "CustomEditor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.tbEditorPath.Location = new System.Drawing.Point(108, 41);
+			this.tbEditorPath.Name = "tbEditorPath";
+			this.tbEditorPath.Size = new System.Drawing.Size(333, 20);
+			this.tbEditorPath.TabIndex = 2;
+			this.tbEditorPath.Text = global::dnGREP.Properties.Settings.Default.CustomEditor;
 			// 
 			// rbSpecificEditor
 			// 
@@ -156,7 +179,7 @@ namespace dnGREP
 			// 
 			this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnClose.Location = new System.Drawing.Point(413, 299);
+			this.btnClose.Location = new System.Drawing.Point(413, 313);
 			this.btnClose.Name = "btnClose";
 			this.btnClose.Size = new System.Drawing.Size(75, 23);
 			this.btnClose.TabIndex = 0;
@@ -180,6 +203,17 @@ namespace dnGREP
 			this.grUpdate.TabIndex = 1;
 			this.grUpdate.TabStop = false;
 			this.grUpdate.Text = "Checking for updates";
+			// 
+			// tbUpdateInterval
+			// 
+			this.tbUpdateInterval.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "UpdateCheckInterval", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.tbUpdateInterval.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
+			this.tbUpdateInterval.Location = new System.Drawing.Point(194, 17);
+			this.tbUpdateInterval.Mask = "000";
+			this.tbUpdateInterval.Name = "tbUpdateInterval";
+			this.tbUpdateInterval.Size = new System.Drawing.Size(40, 20);
+			this.tbUpdateInterval.TabIndex = 1;
+			this.tbUpdateInterval.Text = global::dnGREP.Properties.Settings.Default.UpdateCheckInterval;
 			// 
 			// label3
 			// 
@@ -205,6 +239,7 @@ namespace dnGREP
 			// 
 			this.grUI.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
+			this.grUI.Controls.Add(this.cbSearchFileNameOnly);
 			this.grUI.Controls.Add(this.tbLinesAfter);
 			this.grUI.Controls.Add(this.label5);
 			this.grUI.Controls.Add(this.tbLinesBefore);
@@ -213,21 +248,46 @@ namespace dnGREP
 			this.grUI.Controls.Add(this.cbShowPath);
 			this.grUI.Location = new System.Drawing.Point(2, 101);
 			this.grUI.Name = "grUI";
-			this.grUI.Size = new System.Drawing.Size(486, 69);
+			this.grUI.Size = new System.Drawing.Size(486, 87);
 			this.grUI.TabIndex = 2;
 			this.grUI.TabStop = false;
 			this.grUI.Text = "User interface";
 			// 
-			// cbShowPath
+			// tbLinesAfter
 			// 
-			this.cbShowPath.AutoSize = true;
-			this.cbShowPath.Location = new System.Drawing.Point(9, 19);
-			this.cbShowPath.Name = "cbShowPath";
-			this.cbShowPath.Size = new System.Drawing.Size(165, 17);
-			this.cbShowPath.TabIndex = 0;
-			this.cbShowPath.Text = "Show file path is results panel";
-			this.cbShowPath.UseVisualStyleBackColor = true;
-			this.cbShowPath.CheckedChanged += new System.EventHandler(this.cbShowPath_CheckedChanged);
+			this.tbLinesAfter.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
+			this.tbLinesAfter.Location = new System.Drawing.Point(311, 40);
+			this.tbLinesAfter.Mask = "000";
+			this.tbLinesAfter.Name = "tbLinesAfter";
+			this.tbLinesAfter.Size = new System.Drawing.Size(40, 20);
+			this.tbLinesAfter.TabIndex = 5;
+			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.Location = new System.Drawing.Point(356, 43);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(52, 13);
+			this.label5.TabIndex = 6;
+			this.label5.Text = "lines after";
+			// 
+			// tbLinesBefore
+			// 
+			this.tbLinesBefore.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
+			this.tbLinesBefore.Location = new System.Drawing.Point(195, 39);
+			this.tbLinesBefore.Mask = "000";
+			this.tbLinesBefore.Name = "tbLinesBefore";
+			this.tbLinesBefore.Size = new System.Drawing.Size(40, 20);
+			this.tbLinesBefore.TabIndex = 3;
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Location = new System.Drawing.Point(240, 42);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(61, 13);
+			this.label4.TabIndex = 4;
+			this.label4.Text = "lines before";
 			// 
 			// cbShowContext
 			// 
@@ -240,81 +300,33 @@ namespace dnGREP
 			this.cbShowContext.UseVisualStyleBackColor = true;
 			this.cbShowContext.CheckedChanged += new System.EventHandler(this.cbShowContext_CheckedChanged);
 			// 
-			// label4
+			// cbShowPath
 			// 
-			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(240, 42);
-			this.label4.Name = "label4";
-			this.label4.Size = new System.Drawing.Size(61, 13);
-			this.label4.TabIndex = 4;
-			this.label4.Text = "lines before";
+			this.cbShowPath.AutoSize = true;
+			this.cbShowPath.Location = new System.Drawing.Point(9, 19);
+			this.cbShowPath.Name = "cbShowPath";
+			this.cbShowPath.Size = new System.Drawing.Size(165, 17);
+			this.cbShowPath.TabIndex = 0;
+			this.cbShowPath.Text = "Show file path is results panel";
+			this.cbShowPath.UseVisualStyleBackColor = true;
+			this.cbShowPath.CheckedChanged += new System.EventHandler(this.cbShowPath_CheckedChanged);
 			// 
-			// label5
+			// cbSearchFileNameOnly
 			// 
-			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(356, 43);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(52, 13);
-			this.label5.TabIndex = 6;
-			this.label5.Text = "lines after";
-			// 
-			// tbLinesAfter
-			// 
-			this.tbLinesAfter.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
-			this.tbLinesAfter.Location = new System.Drawing.Point(311, 40);
-			this.tbLinesAfter.Mask = "000";
-			this.tbLinesAfter.Name = "tbLinesAfter";
-			this.tbLinesAfter.Size = new System.Drawing.Size(40, 20);
-			this.tbLinesAfter.TabIndex = 5;
-			// 
-			// tbLinesBefore
-			// 
-			this.tbLinesBefore.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
-			this.tbLinesBefore.Location = new System.Drawing.Point(195, 39);
-			this.tbLinesBefore.Mask = "000";
-			this.tbLinesBefore.Name = "tbLinesBefore";
-			this.tbLinesBefore.Size = new System.Drawing.Size(40, 20);
-			this.tbLinesBefore.TabIndex = 3;
-			// 
-			// tbUpdateInterval
-			// 
-			this.tbUpdateInterval.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "UpdateCheckInterval", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.tbUpdateInterval.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
-			this.tbUpdateInterval.Location = new System.Drawing.Point(194, 17);
-			this.tbUpdateInterval.Mask = "000";
-			this.tbUpdateInterval.Name = "tbUpdateInterval";
-			this.tbUpdateInterval.Size = new System.Drawing.Size(40, 20);
-			this.tbUpdateInterval.TabIndex = 1;
-			this.tbUpdateInterval.Text = global::dnGREP.Properties.Settings.Default.UpdateCheckInterval;
-			// 
-			// tbEditorArgs
-			// 
-			this.tbEditorArgs.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.tbEditorArgs.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "CustomEditorArgs", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.tbEditorArgs.Location = new System.Drawing.Point(168, 68);
-			this.tbEditorArgs.Name = "tbEditorArgs";
-			this.tbEditorArgs.Size = new System.Drawing.Size(273, 20);
-			this.tbEditorArgs.TabIndex = 4;
-			this.tbEditorArgs.Text = global::dnGREP.Properties.Settings.Default.CustomEditorArgs;
-			// 
-			// tbEditorPath
-			// 
-			this.tbEditorPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.tbEditorPath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "CustomEditor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.tbEditorPath.Location = new System.Drawing.Point(108, 41);
-			this.tbEditorPath.Name = "tbEditorPath";
-			this.tbEditorPath.Size = new System.Drawing.Size(333, 20);
-			this.tbEditorPath.TabIndex = 2;
-			this.tbEditorPath.Text = global::dnGREP.Properties.Settings.Default.CustomEditor;
+			this.cbSearchFileNameOnly.AutoSize = true;
+			this.cbSearchFileNameOnly.Location = new System.Drawing.Point(9, 65);
+			this.cbSearchFileNameOnly.Name = "cbSearchFileNameOnly";
+			this.cbSearchFileNameOnly.Size = new System.Drawing.Size(348, 17);
+			this.cbSearchFileNameOnly.TabIndex = 7;
+			this.cbSearchFileNameOnly.Text = "Allow searching for file name pattern only when \"search for\" is empty";
+			this.cbSearchFileNameOnly.UseVisualStyleBackColor = true;
 			// 
 			// OptionsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.btnClose;
-			this.ClientSize = new System.Drawing.Size(490, 326);
+			this.ClientSize = new System.Drawing.Size(490, 340);
 			this.Controls.Add(this.grUI);
 			this.Controls.Add(this.grUpdate);
 			this.Controls.Add(this.btnClose);
@@ -366,5 +378,6 @@ namespace dnGREP
 		private System.Windows.Forms.MaskedTextBox tbLinesBefore;
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.CheckBox cbShowContext;
+		private System.Windows.Forms.CheckBox cbSearchFileNameOnly;
 	}
 }

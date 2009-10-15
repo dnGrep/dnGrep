@@ -68,6 +68,16 @@ namespace dnGREP
 		/// <returns>List of results</returns>
 		public GrepSearchResult[] SearchRegex(string[] files, string searchRegex, bool isCaseSensitive, bool isMultiline, int codePage)
 		{
+			if (searchRegex == null || searchRegex.Trim() == "")
+			{
+				searchResults = new List<GrepSearchResult>();
+				foreach (string file in files)
+				{
+					searchResults.Add(new GrepSearchResult(file, null));
+				}
+				return searchResults.ToArray();
+			}
+
 			if (isCaseSensitive)
 			{
 				if (isMultiline)
@@ -86,7 +96,19 @@ namespace dnGREP
 
 		public GrepSearchResult[] SearchXPath(string[] files, string searchXPath, int codePage)
 		{
-			return searchMultiline(files, searchXPath, new doSearchMultiline(doXPathSearch), codePage);
+			if (searchXPath == null || searchXPath.Trim() == "")
+			{
+				searchResults = new List<GrepSearchResult>();
+				foreach (string file in files)
+				{
+					searchResults.Add(new GrepSearchResult(file, null));
+				}
+				return searchResults.ToArray();
+			}
+			else
+			{
+				return searchMultiline(files, searchXPath, new doSearchMultiline(doXPathSearch), codePage);
+			}
 		}
 
 		/// <summary>
@@ -97,6 +119,16 @@ namespace dnGREP
 		/// <returns></returns>
 		public GrepSearchResult[] SearchText(string[] files, string searchText, bool isCaseSensitive, bool isMultiline, int codePage)
 		{
+			if (searchText == null || searchText.Trim() == "")
+			{
+				searchResults = new List<GrepSearchResult>();
+				foreach (string file in files)
+				{
+					searchResults.Add(new GrepSearchResult(file, null));
+				}
+				return searchResults.ToArray();
+			}
+
 			if (isCaseSensitive)
 			{
 				if (isMultiline)

@@ -178,7 +178,8 @@ namespace dnGREP
 
 			// btnSearch
 			// searchInResultsToolStripMenuItem
-			if (FolderSelected && !IsSearching && !IsReplacing && SearchPatternEntered)
+			if (FolderSelected && !IsSearching && !IsReplacing && 
+				(SearchPatternEntered || Properties.Settings.Default.AllowSearchingForFileNamePattern))
 			{
 				btnSearch.Enabled = true;
 				searchInResultsToolStripMenuItem.Enabled = true;
@@ -644,7 +645,10 @@ namespace dnGREP
 				{
 					displayedName = result.FileName.Substring(tbFolderName.Text.Length + 1);
 				}
-				displayedName = string.Format("{0} ({1})", displayedName, Utils.MatchCount(result));
+				int lineCount = Utils.MatchCount(result);
+				if (lineCount > 0)
+					displayedName = string.Format("{0} ({1})", displayedName, lineCount);
+				
 				TreeNode node = new TreeNode(displayedName);
 				node.Tag = result.FileName;
 				tvSearchResult.Nodes.Add(node);				
@@ -653,24 +657,27 @@ namespace dnGREP
 				node.ImageKey = ext;
 				node.SelectedImageKey = node.ImageKey;
 				node.StateImageKey = node.ImageKey;
-				foreach (GrepSearchResult.GrepLine line in result.SearchResults)
+				if (result.SearchResults != null)
 				{
-					string lineSummary = line.LineText.Replace("\n", "").Replace("\t", "").Replace("\r", "").Trim();
-					if (lineSummary.Length == 0)
-						lineSummary = " ";
-					else if (lineSummary.Length > 100)
-						lineSummary = lineSummary.Substring(0, 100) + "...";
-					string lineNumber = (line.LineNumber == -1 ? "" : line.LineNumber + ": ");
-					TreeNode lineNode = new TreeNode(lineNumber + lineSummary);
-					lineNode.ImageKey = "%line%";
-					lineNode.SelectedImageKey = lineNode.ImageKey;
-					lineNode.StateImageKey = lineNode.ImageKey;
-					lineNode.Tag = line.LineNumber;
-					if (!line.IsContext && Properties.Settings.Default.ShowLinesInContext)
+					foreach (GrepSearchResult.GrepLine line in result.SearchResults)
 					{
-						lineNode.ForeColor = Color.Red;
+						string lineSummary = line.LineText.Replace("\n", "").Replace("\t", "").Replace("\r", "").Trim();
+						if (lineSummary.Length == 0)
+							lineSummary = " ";
+						else if (lineSummary.Length > 100)
+							lineSummary = lineSummary.Substring(0, 100) + "...";
+						string lineNumber = (line.LineNumber == -1 ? "" : line.LineNumber + ": ");
+						TreeNode lineNode = new TreeNode(lineNumber + lineSummary);
+						lineNode.ImageKey = "%line%";
+						lineNode.SelectedImageKey = lineNode.ImageKey;
+						lineNode.StateImageKey = lineNode.ImageKey;
+						lineNode.Tag = line.LineNumber;
+						if (!line.IsContext && Properties.Settings.Default.ShowLinesInContext)
+						{
+							lineNode.ForeColor = Color.Red;
+						}
+						node.Nodes.Add(lineNode);
 					}
-					node.Nodes.Add(lineNode);
 				}
 			}			
 		}
@@ -714,6 +721,7 @@ namespace dnGREP
 		{
 			OptionsForm options = new OptionsForm();
 			options.ShowDialog();
+			changeState();
 		}
 
 		private void tvSearchResult_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)

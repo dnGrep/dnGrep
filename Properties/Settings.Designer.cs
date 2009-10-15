@@ -345,5 +345,17 @@ namespace dnGREP.Properties {
                 this["ContextLinesAfter"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AllowSearchingForFileNamePattern {
+            get {
+                return ((bool)(this["AllowSearchingForFileNamePattern"]));
+            }
+            set {
+                this["AllowSearchingForFileNamePattern"] = value;
+            }
+        }
     }
 }
