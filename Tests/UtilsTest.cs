@@ -137,13 +137,19 @@ namespace Tests
 			Assert.AreEqual(Directory.GetFiles(destinationFolder + "\\123").Length, numberOfFiles);
 		}
 
-		[RowTest]
-		[Row(null, null, 5)]
-		[Row(".*\\.txt", null, 3)]
-		public void TestCopyFilesWithSubFolders(string includePattern, string excludePattern, int numberOfFiles)
+		[Test]
+		public void TestCopyFilesWithSubFolders()
 		{
-			Utils.CopyFiles(sourceFolder + "\\TestCase2", destinationFolder, includePattern, excludePattern);
-			Assert.AreEqual(Directory.GetFiles(destinationFolder, "*.*", SearchOption.AllDirectories).Length, numberOfFiles);
+			Utils.CopyFiles(sourceFolder + "\\TestCase3", destinationFolder + "\\TestCase3", ".*", null);
+			Assert.AreEqual(Directory.GetFiles(destinationFolder, "*.*", SearchOption.AllDirectories).Length, 4);
+			Assert.IsTrue(Directory.Exists(destinationFolder + "\\TestCase3\\SubFolder"));
+			Utils.DeleteFolder(destinationFolder + "\\TestCase3");
+			List<GrepSearchResult> source = new List<GrepSearchResult>();
+			source.Add(new GrepSearchResult(sourceFolder + "\\TestCase3\\SubFolder\\test-file-plain-hidden.txt", null));
+			source.Add(new GrepSearchResult(sourceFolder + "\\TestCase3\\test-file-code.cs", null));
+			Utils.CopyFiles(source, sourceFolder + "\\TestCase3", destinationFolder + "\\TestCase3", true);
+			Assert.AreEqual(Directory.GetFiles(destinationFolder, "*.*", SearchOption.AllDirectories).Length, 2);
+			Assert.IsTrue(Directory.Exists(destinationFolder + "\\TestCase3\\SubFolder"));			
 		}
 
 		[Test]
@@ -152,22 +158,22 @@ namespace Tests
 			List<GrepSearchResult> source = new List<GrepSearchResult>();
 			source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-code.cs", null));
 			source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-plain.txt", null));
-			Utils.CopyFiles(source, destinationFolder, false);
-			Assert.AreEqual(Directory.GetFiles(destinationFolder).Length, 2);
+			Utils.CopyFiles(source, sourceFolder, destinationFolder, false);
+			Assert.AreEqual(Directory.GetFiles(destinationFolder + "\\TestCase1").Length, 2);
 			source.Add(new GrepSearchResult(sourceFolder + "\\issue-10.txt", null));
-			Utils.CopyFiles(source, destinationFolder, true);
-			Assert.AreEqual(Directory.GetFiles(destinationFolder).Length, 3);
+			Utils.CopyFiles(source, sourceFolder, destinationFolder, true);
+			Assert.AreEqual(Directory.GetFiles(destinationFolder, "*.*", SearchOption.AllDirectories).Length, 3);
 			try
 			{
-				Utils.CopyFiles(source, destinationFolder, false);
+				Utils.CopyFiles(source, sourceFolder, destinationFolder, false);
 				Assert.Fail("Not supposed to get here");
 			}
 			catch (IOException ex)
 			{
 				//OK
 			}
-			Assert.AreEqual(Directory.GetFiles(destinationFolder).Length, 3);
-			Utils.CopyFiles(source, destinationFolder + "\\123", false);
+			Assert.AreEqual(Directory.GetFiles(destinationFolder, "*.*", SearchOption.AllDirectories).Length, 3);
+			Utils.CopyFiles(source, sourceFolder, destinationFolder + "\\123", false);
 			Assert.AreEqual(Directory.GetFiles(destinationFolder, "*.*", SearchOption.AllDirectories).Length, 6);
 		}
 
@@ -215,18 +221,18 @@ namespace Tests
 			List<GrepSearchResult> source = new List<GrepSearchResult>();
 			source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-code.cs", null));
 			source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-plain.txt", null));
-			Utils.CopyFiles(source, destinationFolder, false);
-			Assert.AreEqual(Directory.GetFiles(destinationFolder).Length, 2);
+			Utils.CopyFiles(source, sourceFolder, destinationFolder, false);
+			Assert.AreEqual(Directory.GetFiles(destinationFolder + "\\TestCase1\\").Length, 2);
 			List<GrepSearchResult> source2 = new List<GrepSearchResult>();
 			source2.Add(new GrepSearchResult(destinationFolder + "\\TestCase1\\test-file-code.cs", null));
 			Utils.DeleteFiles(source2);
-			Assert.AreEqual(Directory.GetFiles(destinationFolder).Length, 2);
+			Assert.AreEqual(Directory.GetFiles(destinationFolder + "\\TestCase1\\").Length, 1);
 			source2.Add(new GrepSearchResult(destinationFolder + "\\test-file-code.cs", null));
 			Utils.DeleteFiles(source2);
-			Assert.AreEqual(Directory.GetFiles(destinationFolder).Length, 1);
-			source2.Add(new GrepSearchResult(destinationFolder + "\\test-file-plain.txt", null));
+			Assert.AreEqual(Directory.GetFiles(destinationFolder + "\\TestCase1\\").Length, 1);
+			source2.Add(new GrepSearchResult(destinationFolder + "\\TestCase1\\test-file-plain.txt", null));
 			Utils.DeleteFiles(source2);
-			Assert.AreEqual(Directory.GetFiles(destinationFolder).Length, 0);
+			Assert.AreEqual(Directory.GetFiles(destinationFolder + "\\TestCase1\\").Length, 0);
 		}
 
 		[Test]
@@ -242,9 +248,9 @@ namespace Tests
 			List<GrepSearchResult> source = new List<GrepSearchResult>();
 			source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-code.cs", null));
 			source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-plain.txt", null));
-			Utils.CopyFiles(source, destinationFolder, false);
-			Assert.AreEqual(Directory.GetFiles(destinationFolder).Length, 2);
-			File.SetAttributes(destinationFolder + "\\test-file-code.cs", FileAttributes.ReadOnly);
+			Utils.CopyFiles(source, sourceFolder, destinationFolder, false);
+			Assert.AreEqual(Directory.GetFiles(destinationFolder + "\\TestCase1").Length, 2);
+			File.SetAttributes(destinationFolder + "\\TestCase1\\test-file-code.cs", FileAttributes.ReadOnly);
 			Utils.DeleteFolder(destinationFolder);
 			Assert.IsFalse(Directory.Exists(destinationFolder));
 		}

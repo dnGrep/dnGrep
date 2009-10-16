@@ -53,10 +53,12 @@ namespace dnGREP
 		/// Copies file based on search results. If folder does not exist, creates it.
 		/// </summary>
 		/// <param name="source"></param>
+		/// <param name="sourceDirectory"></param>
 		/// <param name="destinationDirectory"></param>
 		/// <param name="overWrite"></param>
-		public static void CopyFiles(List<GrepSearchResult> source, string destinationDirectory, bool overWrite)
+		public static void CopyFiles(List<GrepSearchResult> source, string sourceDirectory, string destinationDirectory, bool overWrite)
 		{
+			sourceDirectory = FixFolderName(sourceDirectory);
 			destinationDirectory = FixFolderName(destinationDirectory);
 
 			if (!Directory.Exists(destinationDirectory)) Directory.CreateDirectory(destinationDirectory);
@@ -65,11 +67,11 @@ namespace dnGREP
 
 			foreach (GrepSearchResult result in source)
 			{
-				if (!files.Contains(result.FileName))
+				if (!files.Contains(result.FileName) && result.FileName.Contains(sourceDirectory))
 				{
 					files.Add(result.FileName);
 					FileInfo sourceFileInfo = new FileInfo(result.FileName);
-					FileInfo destinationFileInfo = new FileInfo(destinationDirectory + Path.GetFileName(result.FileName));
+					FileInfo destinationFileInfo = new FileInfo(destinationDirectory + result.FileName.Substring(sourceDirectory.Length));
 					if (sourceFileInfo.FullName != destinationFileInfo.FullName)
 						CopyFile(sourceFileInfo.FullName, destinationFileInfo.FullName, overWrite);
 				}

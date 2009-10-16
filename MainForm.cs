@@ -912,7 +912,7 @@ namespace dnGREP
 							return;
 						}
 
-						Utils.CopyFiles(searchResults, folderSelectDialog.SelectedPath, true);
+						Utils.CopyFiles(searchResults, tbFolderName.Text, folderSelectDialog.SelectedPath, true);
 						MessageBox.Show("Files have been successfully copied.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 					}
 					catch (Exception ex)
@@ -938,7 +938,7 @@ namespace dnGREP
 							return;
 						}
 
-						Utils.CopyFiles(searchResults, folderSelectDialog.SelectedPath, true);
+						Utils.CopyFiles(searchResults, tbFolderName.Text, folderSelectDialog.SelectedPath, true);
 						Utils.DeleteFiles(searchResults);
 						MessageBox.Show("Files have been successfully moved.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 					}
