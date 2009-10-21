@@ -9,7 +9,7 @@ using System.Xml.XPath;
 
 namespace dnGREP
 {
-	internal class GrepCore
+	public class GrepCore
 	{
 		private bool showLinesInContext = false;
 
@@ -68,6 +68,9 @@ namespace dnGREP
 		/// <returns>List of results</returns>
 		public GrepSearchResult[] SearchRegex(string[] files, string searchRegex, bool isCaseSensitive, bool isMultiline, int codePage)
 		{
+			if (files == null || files.Length == 0)
+				return null;
+
 			if (searchRegex == null || searchRegex.Trim() == "")
 			{
 				searchResults = new List<GrepSearchResult>();
@@ -96,6 +99,9 @@ namespace dnGREP
 
 		public GrepSearchResult[] SearchXPath(string[] files, string searchXPath, int codePage)
 		{
+			if (files == null || files.Length == 0)
+				return null;
+
 			if (searchXPath == null || searchXPath.Trim() == "")
 			{
 				searchResults = new List<GrepSearchResult>();
@@ -119,6 +125,9 @@ namespace dnGREP
 		/// <returns></returns>
 		public GrepSearchResult[] SearchText(string[] files, string searchText, bool isCaseSensitive, bool isMultiline, int codePage)
 		{
+			if (files == null || files.Length == 0)
+				return null;
+
 			if (searchText == null || searchText.Trim() == "")
 			{
 				searchResults = new List<GrepSearchResult>();

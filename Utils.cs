@@ -248,7 +248,7 @@ namespace dnGREP
 		/// <returns></returns>
 		public static string[] GetFileList(string pathToFolder, string namePattern, bool isRegex, bool includeSubfolders, bool includeHidden, int sizeFrom, int sizeTo)
 		{
-			if (!Directory.Exists(pathToFolder) || namePattern == null)
+			if (string.IsNullOrEmpty(pathToFolder) || !Directory.Exists(pathToFolder) || namePattern == null)
 				return new string[0];
 
 			DirectoryInfo di = new DirectoryInfo(pathToFolder);
@@ -403,6 +403,9 @@ namespace dnGREP
 		public static string[] GetReadOnlyFiles(List<GrepSearchResult> results)
 		{
 			List<string> files = new List<string>();
+			if (results == null || results.Count == 0)
+				return files.ToArray();
+
 			foreach (GrepSearchResult result in results)
 			{
 				if (!files.Contains(result.FileName))
@@ -492,21 +495,24 @@ namespace dnGREP
 		}
 
 		/// <summary>
-		/// Returns a list of GrepLines by line numbers provided in the input parameter
+		/// Returns a list of context GrepLines by line numbers provided in the input parameter. Matched line is not returned.
 		/// </summary>
 		/// <param name="body"></param>
 		/// <param name="linesBefore"></param>
 		/// <param name="linesAfter"></param>
-		/// <param name="foundLine"></param>
+		/// <param name="foundLine">1 based line number</param>
 		/// <returns></returns>
 		public static List<GrepSearchResult.GrepLine> GetContextLines(string body, int linesBefore, int linesAfter, int foundLine)
 		{
 			List<GrepSearchResult.GrepLine> result = new List<GrepSearchResult.GrepLine>();
+			if (body == null || body.Trim() == "")
+				return result;
+
 			List<int> lineNumbers = new List<int>();
 			string[] lines = body.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
 			for (int i = foundLine - linesBefore - 1; i <= foundLine + linesAfter - 1; i++)
 			{
-				if (i >= 0 && i < lines.Length - 1 && (i + 1) != foundLine)
+				if (i >= 0 && i < lines.Length && (i + 1) != foundLine)
 					result.Add(new GrepSearchResult.GrepLine(i + 1, lines[i], true));
 			}
 			return result;
@@ -537,6 +543,9 @@ namespace dnGREP
 		/// <param name="results"></param>
 		public static void CleanResults(ref List<GrepSearchResult.GrepLine> results)
 		{
+			if (results == null || results.Count == 0)
+				return;
+
 			results.Sort();
 			for (int i = results.Count - 1; i >= 0; i -- )
 			{

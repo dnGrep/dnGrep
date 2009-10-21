@@ -19,11 +19,26 @@ namespace Tests
 			sourceFolder = GetDllPath() + "\\Files";
 		}
 
+		[SetUp]
+		public void CreateTempFolder()
+		{
+			destinationFolder = Path.GetTempPath() + Guid.NewGuid().ToString();
+			Directory.CreateDirectory(destinationFolder);
+		}
+
+		[TearDown]
+		public void DeleteTempFolder()
+		{
+			if (Directory.Exists(destinationFolder))
+				Utils.DeleteFolder(destinationFolder);
+		}
+
 		[RowTest]
 		[Row("Hello world", "Hello world", 2, 1)]
 		[Row("Hi", "Hi", 2, 1)]
 		[Row("Hi\r\n\r\nWorld", "", 4, 2)]
 		[Row("Hi\r\n\r\nWorld", "World", 6, 3)]
+		[Row(null, null, 6, -1)]
 		public void TestGetLine(string body, string line, int index, int lineNumber)
 		{
 			int returnedLineNumber = -1;
@@ -31,6 +46,84 @@ namespace Tests
 			Assert.AreEqual(returnedLine, line);
 			Assert.AreEqual(returnedLineNumber, lineNumber);
 		}
+
+		[Test]
+		public void TestGetContextLines()
+		{
+			string test = "Hi\r\nmy\r\nWorld\r\nMy name is Denis\r\nfor\r\nloop";
+			List<GrepSearchResult.GrepLine> lines = Utils.GetContextLines(test, 2, 2, 3);
+			Assert.AreEqual(lines[0].LineNumber, 1);
+			Assert.AreEqual(lines[0].LineText, "Hi");
+			Assert.AreEqual(lines[0].IsContext, true);
+			Assert.AreEqual(lines[2].LineNumber, 4);
+			Assert.AreEqual(lines[2].LineText, "My name is Denis");
+			Assert.AreEqual(lines[2].IsContext, true);
+			Assert.AreEqual(lines[3].LineNumber, 5);
+			Assert.AreEqual(lines[3].LineText, "for");
+			Assert.AreEqual(lines[3].IsContext, true);
+
+			Assert.AreEqual(lines.Count, 4);
+
+			lines = Utils.GetContextLines(test, 0, 0, 3);
+			Assert.AreEqual(lines.Count, 0);
+
+			lines = Utils.GetContextLines(null, 0, 0, 3);
+			Assert.AreEqual(lines.Count, 0);
+
+			lines = Utils.GetContextLines(test, 10, 0, 2);
+			Assert.AreEqual(lines[0].LineNumber, 1);
+			Assert.AreEqual(lines[0].LineText, "Hi");
+			Assert.AreEqual(lines[0].IsContext, true);
+			Assert.AreEqual(lines.Count, 1);
+
+			lines = Utils.GetContextLines(test, 1, 10, 5);
+			Assert.AreEqual(lines[0].LineNumber, 4);
+			Assert.AreEqual(lines[0].LineText, "My name is Denis");
+			Assert.AreEqual(lines[0].IsContext, true);
+			Assert.AreEqual(lines[1].LineNumber, 6);
+			Assert.AreEqual(lines[1].LineText, "loop");
+			Assert.AreEqual(lines[1].IsContext, true);
+			Assert.AreEqual(lines.Count, 2);
+		}
+
+		[Test]
+		public void TestMatchCount()
+		{
+			GrepSearchResult result = new GrepSearchResult("test.txt", new List<GrepSearchResult.GrepLine>());
+			result.SearchResults.Add(new GrepSearchResult.GrepLine(1, "test", true));
+			result.SearchResults.Add(new GrepSearchResult.GrepLine(2, "test2", false));
+			result.SearchResults.Add(new GrepSearchResult.GrepLine(3, "test3", false));
+			result.SearchResults.Add(new GrepSearchResult.GrepLine(1, "test1", false));
+			Assert.AreEqual(Utils.MatchCount(result), 3);
+			Assert.AreEqual(Utils.MatchCount(null), 0);
+			result = new GrepSearchResult("test.txt", new List<GrepSearchResult.GrepLine>());
+			Assert.AreEqual(Utils.MatchCount(result), 0);
+			result = new GrepSearchResult("test.txt", null);
+			Assert.AreEqual(Utils.MatchCount(result), 0);
+		}
+
+		[Test]
+		public void TestCleanResults()
+		{
+			List<GrepSearchResult.GrepLine> results =  new List<GrepSearchResult.GrepLine>();
+			results.Add(new GrepSearchResult.GrepLine(1, "test", true));
+			results.Add(new GrepSearchResult.GrepLine(3, "test3", false));
+			results.Add(new GrepSearchResult.GrepLine(2, "test2", false));
+			results.Add(new GrepSearchResult.GrepLine(1, "test1", false));
+			Utils.CleanResults(ref results);
+
+			Assert.AreEqual(results.Count, 3);
+			Assert.AreEqual(results[0].IsContext, false);
+			Assert.AreEqual(results[0].LineNumber, 1);
+			Assert.AreEqual(results[2].IsContext, false);
+			Assert.AreEqual(results[2].LineNumber, 3);
+
+			results = null;
+			Utils.CleanResults(ref results);
+			results = new List<GrepSearchResult.GrepLine>();
+			Utils.CleanResults(ref results);
+		}
+		
 
 		[RowTest]
 		[Row("0.9.1", "0.9.2", true)]
@@ -102,20 +195,6 @@ namespace Tests
 			lines = Utils.GetLines("test", 2, 10, out lineNumbers);
 			Assert.IsNull(lines);
 			Assert.IsNull(lineNumbers);
-		}
-
-		[SetUp]
-		public void CreateTempFolder()
-		{
-			destinationFolder = Path.GetTempPath() + Guid.NewGuid().ToString();
-			Directory.CreateDirectory(destinationFolder);
-		}
-
-		[TearDown]
-		public void DeleteTempFolder()
-		{
-			if (Directory.Exists(destinationFolder))
-				Directory.Delete(destinationFolder, true);
 		}
 
 		[RowTest]
@@ -290,6 +369,27 @@ namespace Tests
 				Assert.AreEqual(Utils.ParseInt(text, defaultValue), result);
 			else
 				Assert.AreEqual(Utils.ParseInt(text), result);
+		}
+
+		[Test]
+		public void GetReadOnlyFilesTest()
+		{			
+			List<GrepSearchResult> source = new List<GrepSearchResult>();
+			source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-code.cs", null));
+			source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-plain.txt", null));
+
+			List<GrepSearchResult> destination = new List<GrepSearchResult>();
+			destination.Add(new GrepSearchResult(destinationFolder + "\\TestCase1\\test-file-code.cs", null));
+			destination.Add(new GrepSearchResult(destinationFolder + "\\TestCase1\\test-file-plain.txt", null));
+
+			Utils.CopyFiles(source, sourceFolder + "\\TestCase1", destinationFolder + "\\TestCase1", true);
+			File.SetAttributes(destinationFolder + "\\TestCase1\\test-file-code.cs", FileAttributes.ReadOnly);
+			Assert.AreEqual(Utils.GetReadOnlyFiles(destination).Length, 1);
+			File.SetAttributes(destinationFolder + "\\TestCase1\\test-file-plain.txt", FileAttributes.ReadOnly);
+			Assert.AreEqual(Utils.GetReadOnlyFiles(destination).Length, 2);
+
+			Assert.AreEqual(Utils.GetReadOnlyFiles(null).Length, 0);
+			Assert.AreEqual(Utils.GetReadOnlyFiles(new List<GrepSearchResult>()).Length, 0);
 		}
 	}
 }
