@@ -59,41 +59,45 @@ namespace dnGREP
 			}
 		}
 
-		private bool isShellRegistered()
+		private bool isShellRegistered(string location)
 		{
-			string regPath = string.Format(@"Directory\shell\{0}",
-									   SHELL_KEY_NAME);
-
+			string regPath = string.Format(@"{0}\shell\{1}",
+									   location, SHELL_KEY_NAME);
 			return Registry.ClassesRoot.OpenSubKey(regPath) != null;
 		}
 
-		private void shellRegister()
+		private void shellRegister(string location)
 		{
-			string regPath = string.Format(@"Directory\shell\{0}", SHELL_KEY_NAME);
-
-			// add context menu to the registry
-
-			using (RegistryKey key =
-				   Registry.ClassesRoot.CreateSubKey(regPath))
+			if (!isShellRegistered(location))
 			{
-				key.SetValue(null, SHELL_MENU_TEXT);
-			}
+				string regPath = string.Format(@"{0}\shell\{1}", location, SHELL_KEY_NAME);
 
-			// add command that is invoked to the registry
-			string menuCommand = string.Format("\"{0}\" \"%1\"",
-								   Application.ExecutablePath);
-			using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(
-				string.Format(@"{0}\command", regPath)))
-			{
-				key.SetValue(null, menuCommand);
+				// add context menu to the registry
+
+				using (RegistryKey key =
+					   Registry.ClassesRoot.CreateSubKey(regPath))
+				{
+					key.SetValue(null, SHELL_MENU_TEXT);
+				}
+
+				// add command that is invoked to the registry
+				string menuCommand = string.Format("\"{0}\" \"%1\"",
+									   Application.ExecutablePath);
+				using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(
+					string.Format(@"{0}\command", regPath)))
+				{
+					key.SetValue(null, menuCommand);
+				}
 			}
 		}
 
-		private void shellUnregister()
+		private void shellUnregister(string location)
 		{
-			string regPath = string.Format(@"Directory\shell\{0}", SHELL_KEY_NAME);
-
-			Registry.ClassesRoot.DeleteSubKeyTree(regPath);
+			if (isShellRegistered(location))
+			{
+				string regPath = string.Format(@"{0}\shell\{1}", location, SHELL_KEY_NAME);
+				Registry.ClassesRoot.DeleteSubKeyTree(regPath);
+			}
 		}
 
 		private void oldShellUnregister()
@@ -107,7 +111,7 @@ namespace dnGREP
 
 		private void OptionsForm_Load(object sender, EventArgs e)
 		{
-			cbRegisterShell.Checked = isShellRegistered();
+			cbRegisterShell.Checked = isShellRegistered("Directory");
 			cbCheckForUpdates.Checked = Properties.Settings.Default.EnableUpdateChecking;
 			cbShowPath.Checked = Properties.Settings.Default.ShowFilePathInResults;
 			cbShowContext.Checked = Properties.Settings.Default.ShowLinesInContext;
@@ -119,13 +123,15 @@ namespace dnGREP
 		
 		private void cbRegisterShell_CheckedChanged(object sender, EventArgs e)
 		{
-			if (cbRegisterShell.Checked && !isShellRegistered())
+			if (cbRegisterShell.Checked)
 			{
-				shellRegister();
+				shellRegister("Directory");
+				shellRegister("Drive");
 			}
-			else if (!cbRegisterShell.Checked && isShellRegistered())
+			else if (!cbRegisterShell.Checked)
 			{
-				shellUnregister();
+				shellUnregister("Directory");
+				shellUnregister("Drive");
 			}
 		}
 
