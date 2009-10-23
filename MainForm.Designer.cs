@@ -32,12 +32,17 @@ namespace dnGREP
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.gbSearchIn = new System.Windows.Forms.GroupBox();
 			this.btnSelectFolder = new System.Windows.Forms.Button();
+			this.tbFolderName = new System.Windows.Forms.TextBox();
 			this.gbSearchFor = new System.Windows.Forms.GroupBox();
 			this.rbXPathSearch = new System.Windows.Forms.RadioButton();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+			this.tbSearchFor = new System.Windows.Forms.TextBox();
+			this.tbReplaceWith = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
+			this.cbMultiline = new System.Windows.Forms.CheckBox();
 			this.btnTest = new System.Windows.Forms.Button();
+			this.cbCaseSensitive = new System.Windows.Forms.CheckBox();
 			this.rbTextSearch = new System.Windows.Forms.RadioButton();
 			this.rbRegexSearch = new System.Windows.Forms.RadioButton();
 			this.btnSearch = new wyDay.Controls.SplitButton();
@@ -51,14 +56,21 @@ namespace dnGREP
 			this.label7 = new System.Windows.Forms.Label();
 			this.label5 = new System.Windows.Forms.Label();
 			this.label4 = new System.Windows.Forms.Label();
+			this.tbFileSizeTo = new System.Windows.Forms.TextBox();
+			this.tbFileSizeFrom = new System.Windows.Forms.TextBox();
 			this.rbFilterSpecificSize = new System.Windows.Forms.RadioButton();
 			this.rbFilterAllSizes = new System.Windows.Forms.RadioButton();
+			this.cbIncludeHiddenFolders = new System.Windows.Forms.CheckBox();
+			this.cbIncludeSubfolders = new System.Windows.Forms.CheckBox();
+			this.tbFilePattern = new System.Windows.Forms.TextBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.btnReplace = new System.Windows.Forms.Button();
 			this.tvSearchResult = new System.Windows.Forms.TreeView();
 			this.tvContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.openContainingFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+			this.expandAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.barProgressBar = new System.Windows.Forms.ToolStripProgressBar();
 			this.lblStatus = new System.Windows.Forms.ToolStripStatusLabel();
@@ -66,7 +78,10 @@ namespace dnGREP
 			this.folderSelectDialog = new System.Windows.Forms.FolderBrowserDialog();
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.parentHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.helpMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
 			this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.label6 = new System.Windows.Forms.Label();
@@ -84,18 +99,7 @@ namespace dnGREP
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.saveAsCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-			this.tbSearchFor = new System.Windows.Forms.TextBox();
-			this.tbReplaceWith = new System.Windows.Forms.TextBox();
-			this.cbMultiline = new System.Windows.Forms.CheckBox();
-			this.cbCaseSensitive = new System.Windows.Forms.CheckBox();
-			this.tbFileSizeTo = new System.Windows.Forms.TextBox();
-			this.tbFileSizeFrom = new System.Windows.Forms.TextBox();
-			this.cbIncludeHiddenFolders = new System.Windows.Forms.CheckBox();
-			this.cbIncludeSubfolders = new System.Windows.Forms.CheckBox();
-			this.tbFilePattern = new System.Windows.Forms.TextBox();
-			this.tbFolderName = new System.Windows.Forms.TextBox();
-			this.expandAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+			this.helpProvider = new System.Windows.Forms.HelpProvider();
 			this.gbSearchIn.SuspendLayout();
 			this.gbSearchFor.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
@@ -105,6 +109,7 @@ namespace dnGREP
 			this.tvContextMenu.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
 			this.menuStrip1.SuspendLayout();
+			this.helpMenu.SuspendLayout();
 			this.bookmarkMenu.SuspendLayout();
 			this.splitContainer.Panel1.SuspendLayout();
 			this.splitContainer.Panel2.SuspendLayout();
@@ -135,6 +140,18 @@ namespace dnGREP
 			this.btnSelectFolder.Text = "...";
 			this.btnSelectFolder.UseVisualStyleBackColor = true;
 			this.btnSelectFolder.Click += new System.EventHandler(this.btnSelectFolder_Click);
+			// 
+			// tbFolderName
+			// 
+			this.tbFolderName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.tbFolderName.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "SearchFolder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.tbFolderName.Location = new System.Drawing.Point(6, 19);
+			this.tbFolderName.Name = "tbFolderName";
+			this.tbFolderName.ReadOnly = true;
+			this.tbFolderName.Size = new System.Drawing.Size(426, 20);
+			this.tbFolderName.TabIndex = 0;
+			this.tbFolderName.Text = global::dnGREP.Properties.Settings.Default.SearchFolder;
 			// 
 			// gbSearchFor
 			// 
@@ -188,6 +205,42 @@ namespace dnGREP
 			this.tableLayoutPanel1.Size = new System.Drawing.Size(479, 118);
 			this.tableLayoutPanel1.TabIndex = 7;
 			// 
+			// tbSearchFor
+			// 
+			this.tbSearchFor.AcceptsReturn = true;
+			this.tbSearchFor.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "SearchFor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.tbSearchFor.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.helpProvider.SetHelpKeyword(this.tbSearchFor, "regular-expressions.html");
+			this.helpProvider.SetHelpNavigator(this.tbSearchFor, System.Windows.Forms.HelpNavigator.Topic);
+			this.helpProvider.SetHelpString(this.tbSearchFor, "");
+			this.tbSearchFor.Location = new System.Drawing.Point(3, 19);
+			this.tbSearchFor.Multiline = true;
+			this.tbSearchFor.Name = "tbSearchFor";
+			this.tbSearchFor.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+			this.helpProvider.SetShowHelp(this.tbSearchFor, true);
+			this.tbSearchFor.Size = new System.Drawing.Size(473, 37);
+			this.tbSearchFor.TabIndex = 0;
+			this.tbSearchFor.Text = global::dnGREP.Properties.Settings.Default.SearchFor;
+			this.toolTip.SetToolTip(this.tbSearchFor, ". matches all characters\r\n\\w matches alpha-numerics\r\n\\d matches digits\r\n\\s matche" +
+					"s space\r\n* matches any number of characters\r\n{1,3} matches 1 to 3 characters\r\nFo" +
+					"r more Regex patterns Google \"Regex\"");
+			this.tbSearchFor.TextChanged += new System.EventHandler(this.textBoxTextChanged);
+			this.tbSearchFor.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.onHelpRequested);
+			// 
+			// tbReplaceWith
+			// 
+			this.tbReplaceWith.AcceptsReturn = true;
+			this.tbReplaceWith.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "ReplaceWith", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.tbReplaceWith.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tbReplaceWith.Location = new System.Drawing.Point(3, 78);
+			this.tbReplaceWith.Multiline = true;
+			this.tbReplaceWith.Name = "tbReplaceWith";
+			this.tbReplaceWith.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+			this.tbReplaceWith.Size = new System.Drawing.Size(473, 37);
+			this.tbReplaceWith.TabIndex = 1;
+			this.tbReplaceWith.Text = global::dnGREP.Properties.Settings.Default.ReplaceWith;
+			this.tbReplaceWith.TextChanged += new System.EventHandler(this.textBoxTextChanged);
+			// 
 			// label1
 			// 
 			this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -208,6 +261,19 @@ namespace dnGREP
 			this.label2.Text = "Replace with:";
 			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
+			// cbMultiline
+			// 
+			this.cbMultiline.AutoSize = true;
+			this.cbMultiline.Checked = global::dnGREP.Properties.Settings.Default.Multiline;
+			this.cbMultiline.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::dnGREP.Properties.Settings.Default, "Multiline", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.cbMultiline.Location = new System.Drawing.Point(279, 17);
+			this.cbMultiline.Name = "cbMultiline";
+			this.cbMultiline.Size = new System.Drawing.Size(103, 17);
+			this.cbMultiline.TabIndex = 4;
+			this.cbMultiline.Text = "Multiline (slower)";
+			this.cbMultiline.UseVisualStyleBackColor = true;
+			this.cbMultiline.CheckedChanged += new System.EventHandler(this.cbMultiline_CheckedChanged);
+			// 
 			// btnTest
 			// 
 			this.btnTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -218,6 +284,20 @@ namespace dnGREP
 			this.btnTest.Text = "Test";
 			this.btnTest.UseVisualStyleBackColor = true;
 			this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
+			// 
+			// cbCaseSensitive
+			// 
+			this.cbCaseSensitive.AutoSize = true;
+			this.cbCaseSensitive.Checked = global::dnGREP.Properties.Settings.Default.CaseSensitive;
+			this.cbCaseSensitive.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.cbCaseSensitive.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::dnGREP.Properties.Settings.Default, "CaseSensitive", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.cbCaseSensitive.Location = new System.Drawing.Point(179, 17);
+			this.cbCaseSensitive.Name = "cbCaseSensitive";
+			this.cbCaseSensitive.Size = new System.Drawing.Size(94, 17);
+			this.cbCaseSensitive.TabIndex = 3;
+			this.cbCaseSensitive.Text = "Case sensitive";
+			this.cbCaseSensitive.UseVisualStyleBackColor = true;
+			this.cbCaseSensitive.CheckedChanged += new System.EventHandler(this.cbCaseSensitive_CheckedChanged);
 			// 
 			// rbTextSearch
 			// 
@@ -371,6 +451,24 @@ namespace dnGREP
 			this.label4.TabIndex = 8;
 			this.label4.Text = "to";
 			// 
+			// tbFileSizeTo
+			// 
+			this.tbFileSizeTo.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "SizeTo", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.tbFileSizeTo.Location = new System.Drawing.Point(141, 34);
+			this.tbFileSizeTo.Name = "tbFileSizeTo";
+			this.tbFileSizeTo.Size = new System.Drawing.Size(47, 20);
+			this.tbFileSizeTo.TabIndex = 5;
+			this.tbFileSizeTo.Text = global::dnGREP.Properties.Settings.Default.SizeTo;
+			// 
+			// tbFileSizeFrom
+			// 
+			this.tbFileSizeFrom.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "SizeFrom", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.tbFileSizeFrom.Location = new System.Drawing.Point(67, 34);
+			this.tbFileSizeFrom.Name = "tbFileSizeFrom";
+			this.tbFileSizeFrom.Size = new System.Drawing.Size(47, 20);
+			this.tbFileSizeFrom.TabIndex = 4;
+			this.tbFileSizeFrom.Text = global::dnGREP.Properties.Settings.Default.SizeFrom;
+			// 
 			// rbFilterSpecificSize
 			// 
 			this.rbFilterSpecificSize.AutoSize = true;
@@ -392,6 +490,45 @@ namespace dnGREP
 			this.rbFilterAllSizes.Text = "All sizes";
 			this.rbFilterAllSizes.UseVisualStyleBackColor = true;
 			this.rbFilterAllSizes.CheckedChanged += new System.EventHandler(this.rbFilterSizes_CheckedChanged);
+			// 
+			// cbIncludeHiddenFolders
+			// 
+			this.cbIncludeHiddenFolders.AutoSize = true;
+			this.cbIncludeHiddenFolders.Checked = global::dnGREP.Properties.Settings.Default.IncludeHidden;
+			this.cbIncludeHiddenFolders.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::dnGREP.Properties.Settings.Default, "IncludeHidden", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.cbIncludeHiddenFolders.Location = new System.Drawing.Point(6, 79);
+			this.cbIncludeHiddenFolders.Name = "cbIncludeHiddenFolders";
+			this.cbIncludeHiddenFolders.Size = new System.Drawing.Size(130, 17);
+			this.cbIncludeHiddenFolders.TabIndex = 3;
+			this.cbIncludeHiddenFolders.Text = "Include hidden folders";
+			this.cbIncludeHiddenFolders.UseVisualStyleBackColor = true;
+			// 
+			// cbIncludeSubfolders
+			// 
+			this.cbIncludeSubfolders.AutoSize = true;
+			this.cbIncludeSubfolders.Checked = global::dnGREP.Properties.Settings.Default.IncludeSubfolder;
+			this.cbIncludeSubfolders.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.cbIncludeSubfolders.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::dnGREP.Properties.Settings.Default, "IncludeSubfolder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.cbIncludeSubfolders.Location = new System.Drawing.Point(6, 60);
+			this.cbIncludeSubfolders.Name = "cbIncludeSubfolders";
+			this.cbIncludeSubfolders.Size = new System.Drawing.Size(112, 17);
+			this.cbIncludeSubfolders.TabIndex = 2;
+			this.cbIncludeSubfolders.Text = "Include subfolders";
+			this.cbIncludeSubfolders.UseVisualStyleBackColor = true;
+			// 
+			// tbFilePattern
+			// 
+			this.tbFilePattern.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+						| System.Windows.Forms.AnchorStyles.Right)));
+			this.tbFilePattern.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "FilePattern", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.helpProvider.SetHelpKeyword(this.tbFilePattern, "searchreplace.html");
+			this.helpProvider.SetHelpNavigator(this.tbFilePattern, System.Windows.Forms.HelpNavigator.Topic);
+			this.tbFilePattern.Location = new System.Drawing.Point(327, 14);
+			this.tbFilePattern.Name = "tbFilePattern";
+			this.helpProvider.SetShowHelp(this.tbFilePattern, true);
+			this.tbFilePattern.Size = new System.Drawing.Size(153, 20);
+			this.tbFilePattern.TabIndex = 7;
+			this.tbFilePattern.Text = global::dnGREP.Properties.Settings.Default.FilePattern;
 			// 
 			// label3
 			// 
@@ -435,7 +572,7 @@ namespace dnGREP
             this.toolStripSeparator2,
             this.expandAllToolStripMenuItem});
 			this.tvContextMenu.Name = "tvContextMenu";
-			this.tvContextMenu.Size = new System.Drawing.Size(195, 98);
+			this.tvContextMenu.Size = new System.Drawing.Size(195, 76);
 			// 
 			// openToolStripMenuItem
 			// 
@@ -452,6 +589,18 @@ namespace dnGREP
 			this.openContainingFolderToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
 			this.openContainingFolderToolStripMenuItem.Text = "Open containing &folder";
 			this.openContainingFolderToolStripMenuItem.Click += new System.EventHandler(this.openContainingFolderToolStripMenuItem_Click);
+			// 
+			// toolStripSeparator2
+			// 
+			this.toolStripSeparator2.Name = "toolStripSeparator2";
+			this.toolStripSeparator2.Size = new System.Drawing.Size(191, 6);
+			// 
+			// expandAllToolStripMenuItem
+			// 
+			this.expandAllToolStripMenuItem.Name = "expandAllToolStripMenuItem";
+			this.expandAllToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+			this.expandAllToolStripMenuItem.Text = "Expand all";
+			this.expandAllToolStripMenuItem.Click += new System.EventHandler(this.expandAllToolStripMenuItem_Click);
 			// 
 			// statusStrip1
 			// 
@@ -497,8 +646,9 @@ namespace dnGREP
 			// menuStrip1
 			// 
 			this.menuStrip1.BackColor = System.Drawing.SystemColors.ButtonFace;
+			this.menuStrip1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
 			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem,
+            this.parentHelpToolStripMenuItem,
             this.optionsToolStripMenuItem,
             this.undoToolStripMenuItem});
 			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -508,12 +658,37 @@ namespace dnGREP
 			this.menuStrip1.TabIndex = 9;
 			this.menuStrip1.Text = "topMenuStrip";
 			// 
-			// aboutToolStripMenuItem
+			// parentHelpToolStripMenuItem
 			// 
-			this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-			this.aboutToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
-			this.aboutToolStripMenuItem.Text = "&About...";
-			this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+			this.parentHelpToolStripMenuItem.DropDown = this.helpMenu;
+			this.parentHelpToolStripMenuItem.Name = "parentHelpToolStripMenuItem";
+			this.parentHelpToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+			this.parentHelpToolStripMenuItem.Text = "&Help";
+			// 
+			// helpMenu
+			// 
+			this.helpMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem1,
+            this.toolStripMenuItem2});
+			this.helpMenu.Name = "otherMenu";
+			this.helpMenu.OwnerItem = this.parentHelpToolStripMenuItem;
+			this.helpMenu.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+			this.helpMenu.ShowImageMargin = false;
+			this.helpMenu.Size = new System.Drawing.Size(102, 48);
+			// 
+			// toolStripMenuItem1
+			// 
+			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(101, 22);
+			this.toolStripMenuItem1.Text = "&Help";
+			this.toolStripMenuItem1.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
+			// 
+			// toolStripMenuItem2
+			// 
+			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+			this.toolStripMenuItem2.Size = new System.Drawing.Size(101, 22);
+			this.toolStripMenuItem2.Text = "&About...";
+			this.toolStripMenuItem2.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
 			// 
 			// optionsToolStripMenuItem
 			// 
@@ -668,141 +843,9 @@ namespace dnGREP
 			this.saveFileDialog.DefaultExt = "csv";
 			this.saveFileDialog.Filter = "CSV file|*.csv";
 			// 
-			// tbSearchFor
+			// helpProvider
 			// 
-			this.tbSearchFor.AcceptsReturn = true;
-			this.tbSearchFor.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "SearchFor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.tbSearchFor.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tbSearchFor.Location = new System.Drawing.Point(3, 19);
-			this.tbSearchFor.Multiline = true;
-			this.tbSearchFor.Name = "tbSearchFor";
-			this.tbSearchFor.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.tbSearchFor.Size = new System.Drawing.Size(473, 37);
-			this.tbSearchFor.TabIndex = 0;
-			this.tbSearchFor.Text = global::dnGREP.Properties.Settings.Default.SearchFor;
-			this.toolTip.SetToolTip(this.tbSearchFor, ". matches all characters\r\n\\w matches alpha-numerics\r\n\\d matches digits\r\n\\s matche" +
-					"s space\r\n* matches any number of characters\r\n{1,3} matches 1 to 3 characters\r\nFo" +
-					"r more Regex patterns Google \"Regex\"");
-			this.tbSearchFor.TextChanged += new System.EventHandler(this.textBoxTextChanged);
-			// 
-			// tbReplaceWith
-			// 
-			this.tbReplaceWith.AcceptsReturn = true;
-			this.tbReplaceWith.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "ReplaceWith", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.tbReplaceWith.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tbReplaceWith.Location = new System.Drawing.Point(3, 78);
-			this.tbReplaceWith.Multiline = true;
-			this.tbReplaceWith.Name = "tbReplaceWith";
-			this.tbReplaceWith.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.tbReplaceWith.Size = new System.Drawing.Size(473, 37);
-			this.tbReplaceWith.TabIndex = 1;
-			this.tbReplaceWith.Text = global::dnGREP.Properties.Settings.Default.ReplaceWith;
-			this.tbReplaceWith.TextChanged += new System.EventHandler(this.textBoxTextChanged);
-			// 
-			// cbMultiline
-			// 
-			this.cbMultiline.AutoSize = true;
-			this.cbMultiline.Checked = global::dnGREP.Properties.Settings.Default.Multiline;
-			this.cbMultiline.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::dnGREP.Properties.Settings.Default, "Multiline", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.cbMultiline.Location = new System.Drawing.Point(279, 17);
-			this.cbMultiline.Name = "cbMultiline";
-			this.cbMultiline.Size = new System.Drawing.Size(103, 17);
-			this.cbMultiline.TabIndex = 4;
-			this.cbMultiline.Text = "Multiline (slower)";
-			this.cbMultiline.UseVisualStyleBackColor = true;
-			this.cbMultiline.CheckedChanged += new System.EventHandler(this.cbMultiline_CheckedChanged);
-			// 
-			// cbCaseSensitive
-			// 
-			this.cbCaseSensitive.AutoSize = true;
-			this.cbCaseSensitive.Checked = global::dnGREP.Properties.Settings.Default.CaseSensitive;
-			this.cbCaseSensitive.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.cbCaseSensitive.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::dnGREP.Properties.Settings.Default, "CaseSensitive", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.cbCaseSensitive.Location = new System.Drawing.Point(179, 17);
-			this.cbCaseSensitive.Name = "cbCaseSensitive";
-			this.cbCaseSensitive.Size = new System.Drawing.Size(94, 17);
-			this.cbCaseSensitive.TabIndex = 3;
-			this.cbCaseSensitive.Text = "Case sensitive";
-			this.cbCaseSensitive.UseVisualStyleBackColor = true;
-			this.cbCaseSensitive.CheckedChanged += new System.EventHandler(this.cbCaseSensitive_CheckedChanged);
-			// 
-			// tbFileSizeTo
-			// 
-			this.tbFileSizeTo.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "SizeTo", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.tbFileSizeTo.Location = new System.Drawing.Point(141, 34);
-			this.tbFileSizeTo.Name = "tbFileSizeTo";
-			this.tbFileSizeTo.Size = new System.Drawing.Size(47, 20);
-			this.tbFileSizeTo.TabIndex = 5;
-			this.tbFileSizeTo.Text = global::dnGREP.Properties.Settings.Default.SizeTo;
-			// 
-			// tbFileSizeFrom
-			// 
-			this.tbFileSizeFrom.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "SizeFrom", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.tbFileSizeFrom.Location = new System.Drawing.Point(67, 34);
-			this.tbFileSizeFrom.Name = "tbFileSizeFrom";
-			this.tbFileSizeFrom.Size = new System.Drawing.Size(47, 20);
-			this.tbFileSizeFrom.TabIndex = 4;
-			this.tbFileSizeFrom.Text = global::dnGREP.Properties.Settings.Default.SizeFrom;
-			// 
-			// cbIncludeHiddenFolders
-			// 
-			this.cbIncludeHiddenFolders.AutoSize = true;
-			this.cbIncludeHiddenFolders.Checked = global::dnGREP.Properties.Settings.Default.IncludeHidden;
-			this.cbIncludeHiddenFolders.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::dnGREP.Properties.Settings.Default, "IncludeHidden", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.cbIncludeHiddenFolders.Location = new System.Drawing.Point(6, 79);
-			this.cbIncludeHiddenFolders.Name = "cbIncludeHiddenFolders";
-			this.cbIncludeHiddenFolders.Size = new System.Drawing.Size(130, 17);
-			this.cbIncludeHiddenFolders.TabIndex = 3;
-			this.cbIncludeHiddenFolders.Text = "Include hidden folders";
-			this.cbIncludeHiddenFolders.UseVisualStyleBackColor = true;
-			// 
-			// cbIncludeSubfolders
-			// 
-			this.cbIncludeSubfolders.AutoSize = true;
-			this.cbIncludeSubfolders.Checked = global::dnGREP.Properties.Settings.Default.IncludeSubfolder;
-			this.cbIncludeSubfolders.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.cbIncludeSubfolders.DataBindings.Add(new System.Windows.Forms.Binding("Checked", global::dnGREP.Properties.Settings.Default, "IncludeSubfolder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.cbIncludeSubfolders.Location = new System.Drawing.Point(6, 60);
-			this.cbIncludeSubfolders.Name = "cbIncludeSubfolders";
-			this.cbIncludeSubfolders.Size = new System.Drawing.Size(112, 17);
-			this.cbIncludeSubfolders.TabIndex = 2;
-			this.cbIncludeSubfolders.Text = "Include subfolders";
-			this.cbIncludeSubfolders.UseVisualStyleBackColor = true;
-			// 
-			// tbFilePattern
-			// 
-			this.tbFilePattern.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.tbFilePattern.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "FilePattern", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.tbFilePattern.Location = new System.Drawing.Point(327, 14);
-			this.tbFilePattern.Name = "tbFilePattern";
-			this.tbFilePattern.Size = new System.Drawing.Size(153, 20);
-			this.tbFilePattern.TabIndex = 7;
-			this.tbFilePattern.Text = global::dnGREP.Properties.Settings.Default.FilePattern;
-			// 
-			// tbFolderName
-			// 
-			this.tbFolderName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-						| System.Windows.Forms.AnchorStyles.Right)));
-			this.tbFolderName.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "SearchFolder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-			this.tbFolderName.Location = new System.Drawing.Point(6, 19);
-			this.tbFolderName.Name = "tbFolderName";
-			this.tbFolderName.ReadOnly = true;
-			this.tbFolderName.Size = new System.Drawing.Size(426, 20);
-			this.tbFolderName.TabIndex = 0;
-			this.tbFolderName.Text = global::dnGREP.Properties.Settings.Default.SearchFolder;
-			// 
-			// expandAllToolStripMenuItem
-			// 
-			this.expandAllToolStripMenuItem.Name = "expandAllToolStripMenuItem";
-			this.expandAllToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
-			this.expandAllToolStripMenuItem.Text = "Expand all";
-			this.expandAllToolStripMenuItem.Click += new System.EventHandler(this.expandAllToolStripMenuItem_Click);
-			// 
-			// toolStripSeparator2
-			// 
-			this.toolStripSeparator2.Name = "toolStripSeparator2";
-			this.toolStripSeparator2.Size = new System.Drawing.Size(191, 6);
+			this.helpProvider.HelpNamespace = "Doc\\dnGREP.chm";
 			// 
 			// MainForm
 			// 
@@ -816,11 +859,14 @@ namespace dnGREP
 			this.Controls.Add(this.splitContainer);
 			this.Controls.Add(this.gbSearchIn);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+			this.helpProvider.SetHelpKeyword(this, "search-window.html");
+			this.helpProvider.SetHelpNavigator(this, System.Windows.Forms.HelpNavigator.Topic);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.KeyPreview = true;
 			this.MainMenuStrip = this.menuStrip1;
 			this.MinimumSize = new System.Drawing.Size(506, 450);
 			this.Name = "MainForm";
+			this.helpProvider.SetShowHelp(this, true);
 			this.Text = "dnGREP";
 			this.Load += new System.EventHandler(this.MainForm_Load);
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
@@ -841,6 +887,7 @@ namespace dnGREP
 			this.statusStrip1.PerformLayout();
 			this.menuStrip1.ResumeLayout(false);
 			this.menuStrip1.PerformLayout();
+			this.helpMenu.ResumeLayout(false);
 			this.bookmarkMenu.ResumeLayout(false);
 			this.splitContainer.Panel1.ResumeLayout(false);
 			this.splitContainer.Panel2.ResumeLayout(false);
@@ -884,7 +931,7 @@ namespace dnGREP
 		private System.Windows.Forms.Button btnCancel;
 		private System.Windows.Forms.MenuStrip menuStrip1;
 		private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem parentHelpToolStripMenuItem;
 		private System.Windows.Forms.ContextMenuStrip tvContextMenu;
 		private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
 		private System.Windows.Forms.Label label6;
@@ -920,6 +967,10 @@ namespace dnGREP
 		private System.Windows.Forms.Panel fileSearchPanel;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
 		private System.Windows.Forms.ToolStripMenuItem expandAllToolStripMenuItem;
+		private System.Windows.Forms.HelpProvider helpProvider;
+		private System.Windows.Forms.ContextMenuStrip helpMenu;
+		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
 	}
 }
 

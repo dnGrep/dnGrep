@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="no"?>
+<SubstitutionPatterns>
+  <LanguagePatterns Language="English">
+    <Pattern ID="1" Text="{you/s/he}" IsLegacy="True">
+      <Substitution Type="1" Text="you" />
+      <Substitution Type="6" Text="he" />
+      <Substitution Type="7" Text="she" />
+    </Pattern>
+    <Pattern ID="2" Text="{you/he/she}" IsLegacy="True">
+      <Substitution Type="1" Text="you" />
+      <Substitution Type="6" Text="he" />
+      <Substitution Type="7" Text="she" />
+    </Pattern>    
+  </LanguagePatterns>
+</SubstitutionPatterns>

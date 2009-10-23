@@ -43,6 +43,7 @@ namespace dnGREP
 			this.btnDelete = new System.Windows.Forms.Button();
 			this.btnClose = new System.Windows.Forms.Button();
 			this.typeTimer = new System.Windows.Forms.Timer(this.components);
+			this.helpProvider = new System.Windows.Forms.HelpProvider();
 			((System.ComponentModel.ISupportInitialize)(this.gridBookmarks)).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -184,6 +185,10 @@ namespace dnGREP
 			this.typeTimer.Interval = 500;
 			this.typeTimer.Tick += new System.EventHandler(this.doSearch);
 			// 
+			// helpProvider
+			// 
+			this.helpProvider.HelpNamespace = "Doc\\dnGREP.chm";
+			// 
 			// BookmarksForm
 			// 
 			this.AcceptButton = this.btnUse;
@@ -200,8 +205,11 @@ namespace dnGREP
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.gridBookmarks);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
+			this.helpProvider.SetHelpKeyword(this, "bookmarks.html");
+			this.helpProvider.SetHelpNavigator(this, System.Windows.Forms.HelpNavigator.Topic);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "BookmarksForm";
+			this.helpProvider.SetShowHelp(this, true);
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Bookmarks";
 			this.Load += new System.EventHandler(this.BookmarksForm_Load);
@@ -228,5 +236,6 @@ namespace dnGREP
 		private System.Windows.Forms.Button btnDelete;
 		private System.Windows.Forms.Button btnClose;
 		private System.Windows.Forms.Timer typeTimer;
+		private System.Windows.Forms.HelpProvider helpProvider;
 	}
 }

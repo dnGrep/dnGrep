@@ -39,6 +39,7 @@ namespace dnGREP
 			this.tbDescription = new System.Windows.Forms.TextBox();
 			this.btnCreateOrEdit = new System.Windows.Forms.Button();
 			this.btnCancel = new System.Windows.Forms.Button();
+			this.helpProvider = new System.Windows.Forms.HelpProvider();
 			this.SuspendLayout();
 			// 
 			// label1
@@ -134,6 +135,10 @@ namespace dnGREP
 			this.btnCancel.Text = "Cancel";
 			this.btnCancel.UseVisualStyleBackColor = true;
 			// 
+			// helpProvider
+			// 
+			this.helpProvider.HelpNamespace = "Doc\\dnGREP.chm";
+			// 
 			// BookmarkDetails
 			// 
 			this.AcceptButton = this.btnCreateOrEdit;
@@ -152,8 +157,11 @@ namespace dnGREP
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+			this.helpProvider.SetHelpKeyword(this, "bookmarks.html");
+			this.helpProvider.SetHelpNavigator(this, System.Windows.Forms.HelpNavigator.Topic);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "BookmarkDetails";
+			this.helpProvider.SetShowHelp(this, true);
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Bookmark details...";
 			this.Load += new System.EventHandler(this.BookmarkDetails_Load);
@@ -175,5 +183,6 @@ namespace dnGREP
 		private System.Windows.Forms.TextBox tbDescription;
 		private System.Windows.Forms.Button btnCreateOrEdit;
 		private System.Windows.Forms.Button btnCancel;
+		private System.Windows.Forms.HelpProvider helpProvider;
 	}
 }

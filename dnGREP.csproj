@@ -152,6 +152,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="nGREP.ico" />
+    <None Include="Doc\dnGREP.chm">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\OpenSelectedItemHS.png" />
     <None Include="Resources\NewDocumentHS.png" />
     <None Include="Resources\openHS.png" />

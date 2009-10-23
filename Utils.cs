@@ -555,7 +555,8 @@ namespace dnGREP
 						results[i].LineNumber == results[j].LineNumber && i != j)
 					{
 						if (results[i].IsContext || 
-							(results[i].IsContext == results[j].IsContext && results[i].IsContext == false))
+							(results[i].IsContext == results[j].IsContext &&
+							results[i].IsContext == false && results[i].LineNumber != -1))
 							results.RemoveAt(i);
 					}
 				}

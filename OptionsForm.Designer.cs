@@ -46,13 +46,14 @@ namespace dnGREP
 			this.label3 = new System.Windows.Forms.Label();
 			this.cbCheckForUpdates = new System.Windows.Forms.CheckBox();
 			this.grUI = new System.Windows.Forms.GroupBox();
+			this.cbSearchFileNameOnly = new System.Windows.Forms.CheckBox();
 			this.tbLinesAfter = new System.Windows.Forms.MaskedTextBox();
 			this.label5 = new System.Windows.Forms.Label();
 			this.tbLinesBefore = new System.Windows.Forms.MaskedTextBox();
 			this.label4 = new System.Windows.Forms.Label();
 			this.cbShowContext = new System.Windows.Forms.CheckBox();
 			this.cbShowPath = new System.Windows.Forms.CheckBox();
-			this.cbSearchFileNameOnly = new System.Windows.Forms.CheckBox();
+			this.helpProvider = new System.Windows.Forms.HelpProvider();
 			this.grShell.SuspendLayout();
 			this.grEditor.SuspendLayout();
 			this.grUpdate.SuspendLayout();
@@ -74,8 +75,11 @@ namespace dnGREP
 			// cbRegisterShell
 			// 
 			this.cbRegisterShell.AutoSize = true;
+			this.helpProvider.SetHelpKeyword(this.cbRegisterShell, "shell-integration.html");
+			this.helpProvider.SetHelpNavigator(this.cbRegisterShell, System.Windows.Forms.HelpNavigator.Topic);
 			this.cbRegisterShell.Location = new System.Drawing.Point(9, 19);
 			this.cbRegisterShell.Name = "cbRegisterShell";
+			this.helpProvider.SetShowHelp(this.cbRegisterShell, true);
 			this.cbRegisterShell.Size = new System.Drawing.Size(199, 17);
 			this.cbRegisterShell.TabIndex = 0;
 			this.cbRegisterShell.Text = "Enable Windows Explorer integration";
@@ -114,8 +118,11 @@ namespace dnGREP
 			this.tbEditorArgs.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.tbEditorArgs.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "CustomEditorArgs", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.helpProvider.SetHelpKeyword(this.tbEditorArgs, "custom-editor-integration.html");
+			this.helpProvider.SetHelpNavigator(this.tbEditorArgs, System.Windows.Forms.HelpNavigator.Topic);
 			this.tbEditorArgs.Location = new System.Drawing.Point(168, 68);
 			this.tbEditorArgs.Name = "tbEditorArgs";
+			this.helpProvider.SetShowHelp(this.tbEditorArgs, true);
 			this.tbEditorArgs.Size = new System.Drawing.Size(273, 20);
 			this.tbEditorArgs.TabIndex = 4;
 			this.tbEditorArgs.Text = global::dnGREP.Properties.Settings.Default.CustomEditorArgs;
@@ -123,8 +130,11 @@ namespace dnGREP
 			// btnBrowse
 			// 
 			this.btnBrowse.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.helpProvider.SetHelpKeyword(this.btnBrowse, "custom-editor-integration.html");
+			this.helpProvider.SetHelpNavigator(this.btnBrowse, System.Windows.Forms.HelpNavigator.Topic);
 			this.btnBrowse.Location = new System.Drawing.Point(447, 39);
 			this.btnBrowse.Name = "btnBrowse";
+			this.helpProvider.SetShowHelp(this.btnBrowse, true);
 			this.btnBrowse.Size = new System.Drawing.Size(30, 23);
 			this.btnBrowse.TabIndex = 3;
 			this.btnBrowse.Text = "...";
@@ -146,8 +156,11 @@ namespace dnGREP
 			this.tbEditorPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
 			this.tbEditorPath.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "CustomEditor", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.helpProvider.SetHelpKeyword(this.tbEditorPath, "custom-editor-integration.html");
+			this.helpProvider.SetHelpNavigator(this.tbEditorPath, System.Windows.Forms.HelpNavigator.Topic);
 			this.tbEditorPath.Location = new System.Drawing.Point(108, 41);
 			this.tbEditorPath.Name = "tbEditorPath";
+			this.helpProvider.SetShowHelp(this.tbEditorPath, true);
 			this.tbEditorPath.Size = new System.Drawing.Size(333, 20);
 			this.tbEditorPath.TabIndex = 2;
 			this.tbEditorPath.Text = global::dnGREP.Properties.Settings.Default.CustomEditor;
@@ -155,8 +168,11 @@ namespace dnGREP
 			// rbSpecificEditor
 			// 
 			this.rbSpecificEditor.AutoSize = true;
+			this.helpProvider.SetHelpKeyword(this.rbSpecificEditor, "custom-editor-integration.html");
+			this.helpProvider.SetHelpNavigator(this.rbSpecificEditor, System.Windows.Forms.HelpNavigator.Topic);
 			this.rbSpecificEditor.Location = new System.Drawing.Point(9, 42);
 			this.rbSpecificEditor.Name = "rbSpecificEditor";
+			this.helpProvider.SetShowHelp(this.rbSpecificEditor, true);
 			this.rbSpecificEditor.Size = new System.Drawing.Size(92, 17);
 			this.rbSpecificEditor.TabIndex = 1;
 			this.rbSpecificEditor.TabStop = true;
@@ -166,8 +182,11 @@ namespace dnGREP
 			// rbDefaultEditor
 			// 
 			this.rbDefaultEditor.AutoSize = true;
+			this.helpProvider.SetHelpKeyword(this.rbDefaultEditor, "custom-editor-integration.html");
+			this.helpProvider.SetHelpNavigator(this.rbDefaultEditor, System.Windows.Forms.HelpNavigator.Topic);
 			this.rbDefaultEditor.Location = new System.Drawing.Point(9, 19);
 			this.rbDefaultEditor.Name = "rbDefaultEditor";
+			this.helpProvider.SetShowHelp(this.rbDefaultEditor, true);
 			this.rbDefaultEditor.Size = new System.Drawing.Size(143, 17);
 			this.rbDefaultEditor.TabIndex = 0;
 			this.rbDefaultEditor.TabStop = true;
@@ -207,10 +226,13 @@ namespace dnGREP
 			// tbUpdateInterval
 			// 
 			this.tbUpdateInterval.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "UpdateCheckInterval", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+			this.helpProvider.SetHelpKeyword(this.tbUpdateInterval, "automatic-update-notification.html");
+			this.helpProvider.SetHelpNavigator(this.tbUpdateInterval, System.Windows.Forms.HelpNavigator.Topic);
 			this.tbUpdateInterval.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
 			this.tbUpdateInterval.Location = new System.Drawing.Point(194, 17);
 			this.tbUpdateInterval.Mask = "000";
 			this.tbUpdateInterval.Name = "tbUpdateInterval";
+			this.helpProvider.SetShowHelp(this.tbUpdateInterval, true);
 			this.tbUpdateInterval.Size = new System.Drawing.Size(40, 20);
 			this.tbUpdateInterval.TabIndex = 1;
 			this.tbUpdateInterval.Text = global::dnGREP.Properties.Settings.Default.UpdateCheckInterval;
@@ -227,8 +249,11 @@ namespace dnGREP
 			// cbCheckForUpdates
 			// 
 			this.cbCheckForUpdates.AutoSize = true;
+			this.helpProvider.SetHelpKeyword(this.cbCheckForUpdates, "automatic-update-notification.html");
+			this.helpProvider.SetHelpNavigator(this.cbCheckForUpdates, System.Windows.Forms.HelpNavigator.Topic);
 			this.cbCheckForUpdates.Location = new System.Drawing.Point(9, 19);
 			this.cbCheckForUpdates.Name = "cbCheckForUpdates";
+			this.helpProvider.SetShowHelp(this.cbCheckForUpdates, true);
 			this.cbCheckForUpdates.Size = new System.Drawing.Size(187, 17);
 			this.cbCheckForUpdates.TabIndex = 0;
 			this.cbCheckForUpdates.Text = "Enable automatic checking every ";
@@ -253,12 +278,28 @@ namespace dnGREP
 			this.grUI.TabStop = false;
 			this.grUI.Text = "User interface";
 			// 
+			// cbSearchFileNameOnly
+			// 
+			this.cbSearchFileNameOnly.AutoSize = true;
+			this.helpProvider.SetHelpKeyword(this.cbSearchFileNameOnly, "result-panel-customization.html");
+			this.helpProvider.SetHelpNavigator(this.cbSearchFileNameOnly, System.Windows.Forms.HelpNavigator.Topic);
+			this.cbSearchFileNameOnly.Location = new System.Drawing.Point(9, 65);
+			this.cbSearchFileNameOnly.Name = "cbSearchFileNameOnly";
+			this.helpProvider.SetShowHelp(this.cbSearchFileNameOnly, true);
+			this.cbSearchFileNameOnly.Size = new System.Drawing.Size(348, 17);
+			this.cbSearchFileNameOnly.TabIndex = 7;
+			this.cbSearchFileNameOnly.Text = "Allow searching for file name pattern only when \"search for\" is empty";
+			this.cbSearchFileNameOnly.UseVisualStyleBackColor = true;
+			// 
 			// tbLinesAfter
 			// 
+			this.helpProvider.SetHelpKeyword(this.tbLinesAfter, "result-panel-customization.html");
+			this.helpProvider.SetHelpNavigator(this.tbLinesAfter, System.Windows.Forms.HelpNavigator.Topic);
 			this.tbLinesAfter.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
 			this.tbLinesAfter.Location = new System.Drawing.Point(311, 40);
 			this.tbLinesAfter.Mask = "000";
 			this.tbLinesAfter.Name = "tbLinesAfter";
+			this.helpProvider.SetShowHelp(this.tbLinesAfter, true);
 			this.tbLinesAfter.Size = new System.Drawing.Size(40, 20);
 			this.tbLinesAfter.TabIndex = 5;
 			// 
@@ -273,10 +314,13 @@ namespace dnGREP
 			// 
 			// tbLinesBefore
 			// 
+			this.helpProvider.SetHelpKeyword(this.tbLinesBefore, "result-panel-customization.html");
+			this.helpProvider.SetHelpNavigator(this.tbLinesBefore, System.Windows.Forms.HelpNavigator.Topic);
 			this.tbLinesBefore.InsertKeyMode = System.Windows.Forms.InsertKeyMode.Overwrite;
 			this.tbLinesBefore.Location = new System.Drawing.Point(195, 39);
 			this.tbLinesBefore.Mask = "000";
 			this.tbLinesBefore.Name = "tbLinesBefore";
+			this.helpProvider.SetShowHelp(this.tbLinesBefore, true);
 			this.tbLinesBefore.Size = new System.Drawing.Size(40, 20);
 			this.tbLinesBefore.TabIndex = 3;
 			// 
@@ -292,8 +336,11 @@ namespace dnGREP
 			// cbShowContext
 			// 
 			this.cbShowContext.AutoSize = true;
+			this.helpProvider.SetHelpKeyword(this.cbShowContext, "result-panel-customization.html");
+			this.helpProvider.SetHelpNavigator(this.cbShowContext, System.Windows.Forms.HelpNavigator.Topic);
 			this.cbShowContext.Location = new System.Drawing.Point(9, 42);
 			this.cbShowContext.Name = "cbShowContext";
+			this.helpProvider.SetShowHelp(this.cbShowContext, true);
 			this.cbShowContext.Size = new System.Drawing.Size(154, 17);
 			this.cbShowContext.TabIndex = 1;
 			this.cbShowContext.Text = "Show result lines in context";
@@ -303,23 +350,20 @@ namespace dnGREP
 			// cbShowPath
 			// 
 			this.cbShowPath.AutoSize = true;
+			this.helpProvider.SetHelpKeyword(this.cbShowPath, "result-panel-customization.html");
+			this.helpProvider.SetHelpNavigator(this.cbShowPath, System.Windows.Forms.HelpNavigator.Topic);
 			this.cbShowPath.Location = new System.Drawing.Point(9, 19);
 			this.cbShowPath.Name = "cbShowPath";
+			this.helpProvider.SetShowHelp(this.cbShowPath, true);
 			this.cbShowPath.Size = new System.Drawing.Size(165, 17);
 			this.cbShowPath.TabIndex = 0;
 			this.cbShowPath.Text = "Show file path is results panel";
 			this.cbShowPath.UseVisualStyleBackColor = true;
 			this.cbShowPath.CheckedChanged += new System.EventHandler(this.cbShowPath_CheckedChanged);
 			// 
-			// cbSearchFileNameOnly
+			// helpProvider
 			// 
-			this.cbSearchFileNameOnly.AutoSize = true;
-			this.cbSearchFileNameOnly.Location = new System.Drawing.Point(9, 65);
-			this.cbSearchFileNameOnly.Name = "cbSearchFileNameOnly";
-			this.cbSearchFileNameOnly.Size = new System.Drawing.Size(348, 17);
-			this.cbSearchFileNameOnly.TabIndex = 7;
-			this.cbSearchFileNameOnly.Text = "Allow searching for file name pattern only when \"search for\" is empty";
-			this.cbSearchFileNameOnly.UseVisualStyleBackColor = true;
+			this.helpProvider.HelpNamespace = "Doc\\dnGREP.chm";
 			// 
 			// OptionsForm
 			// 
@@ -333,9 +377,12 @@ namespace dnGREP
 			this.Controls.Add(this.grEditor);
 			this.Controls.Add(this.grShell);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+			this.helpProvider.SetHelpKeyword(this, "Options.html");
+			this.helpProvider.SetHelpNavigator(this, System.Windows.Forms.HelpNavigator.Topic);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.KeyPreview = true;
 			this.Name = "OptionsForm";
+			this.helpProvider.SetShowHelp(this, true);
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Options";
 			this.Load += new System.EventHandler(this.OptionsForm_Load);
@@ -379,5 +426,6 @@ namespace dnGREP
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.CheckBox cbShowContext;
 		private System.Windows.Forms.CheckBox cbSearchFileNameOnly;
+		private System.Windows.Forms.HelpProvider helpProvider;
 	}
 }

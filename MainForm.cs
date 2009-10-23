@@ -807,6 +807,16 @@ namespace dnGREP
 			about.ShowDialog();
 		}
 
+		private void onHelpRequested(object sender, HelpEventArgs hlpevent)
+		{
+			hlpevent.Handled = false;
+		}
+
+		private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			Help.ShowHelp(this, helpProvider.HelpNamespace);
+		}
+
 		private void regexText_CheckedChanged(object sender, EventArgs e)
 		{
 			if (sender == rbTextSearch)

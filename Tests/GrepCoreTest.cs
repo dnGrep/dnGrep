@@ -162,5 +162,16 @@ namespace Tests
 			Assert.IsNull(core.SearchText(null, "string", false, true, -1));
 			Assert.IsNull(core.SearchText(new string[] { }, "string", false, true, -1));
 		}
+
+		[Test]
+		public void TestSearchXPathReturnsCorrectNumber()
+		{
+			Utils.CopyFiles(sourceFolder + "\\TestCase4", destinationFolder + "\\TestCase4", null, null);
+			GrepCore core = new GrepCore();
+			core.ShowLinesInContext = false;
+			GrepSearchResult[] results = core.SearchXPath(Directory.GetFiles(destinationFolder + "\\TestCase4", "app.config"), "//setting", -1);
+			Assert.AreEqual(results.Length, 1);
+			Assert.AreEqual(results[0].SearchResults.Count, 28);
+		}
 	}
 }
