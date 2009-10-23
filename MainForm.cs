@@ -200,7 +200,7 @@ namespace dnGREP
 
 			// btnReplace
 			if (FolderSelected && FilesFound && !IsSearching && !IsReplacing 
-				&& SearchPatternEntered && ReplacePatternEntered)
+				&& SearchPatternEntered)
 			{
 				btnReplace.Enabled = true;
 			} else {
