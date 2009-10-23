@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dnGREP", "dnGREP.csproj", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{77AB22A5-8227-494A-8DD2-1EF5E786263D}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{D9995CCB-7746-4950-B13E-CDE2BB87CBC2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,8 @@ Global
 		{77AB22A5-8227-494A-8DD2-1EF5E786263D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77AB22A5-8227-494A-8DD2-1EF5E786263D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77AB22A5-8227-494A-8DD2-1EF5E786263D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9995CCB-7746-4950-B13E-CDE2BB87CBC2}.Debug|Any CPU.ActiveCfg = Debug
+		{D9995CCB-7746-4950-B13E-CDE2BB87CBC2}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

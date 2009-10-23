@@ -50,13 +50,19 @@ namespace dnGREP
 			{				
 				XmlNamespaceManager nsManager = new XmlNamespaceManager(doc.NameTable);
 				XmlNodeList nodes = doc.GetElementsByTagName("title");
-				if (nodes.Count != 2)
-					return null;
-				XmlNode node = nodes[1];
-				Regex versionRe = new Regex(@"d?nGREP\s+(?<version>[\d\.]+)\.\w+");
-				if (!versionRe.IsMatch(node.InnerText))
-					return null;
-				return versionRe.Match(node.InnerText).Groups["version"].Value;
+				Version version = new Version();
+				foreach (XmlNode node in nodes)
+				{
+					Regex versionRe = new Regex(@"d?nGREP\s+(?<version>[\d\.]+)\.\w+");
+
+					if (versionRe.IsMatch(node.InnerText))
+					{
+						Version tempVersion = new Version(versionRe.Match(node.InnerText).Groups["version"].Value);
+						if (version == null || version.CompareTo(tempVersion) < 0)
+							version = tempVersion;
+					}
+				}
+				return version.ToString();
 			}
 			else
 			{
