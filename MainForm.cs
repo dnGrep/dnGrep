@@ -488,8 +488,16 @@ namespace dnGREP
 							results = grep.SearchText(files, tbSearchFor.Text, cbCaseSensitive.Checked, cbMultiline.Checked, CodePage);
 
 						grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
-						searchResults = new List<GrepSearchResult>(results);
-						e.Result = results.Length;
+						if (results != null)
+						{
+							searchResults = new List<GrepSearchResult>(results);
+							e.Result = results.Length;
+						}
+						else
+						{
+							searchResults = new List<GrepSearchResult>();
+							e.Result = 0;
+						}						
 					}
 					else
 					{
