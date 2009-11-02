@@ -462,9 +462,9 @@ namespace dnGREP
 							List<string> filesFromSearch = new List<string>();
 							foreach (GrepSearchResult result in searchResults)
 							{
-								if (!filesFromSearch.Contains(result.FileName))
+								if (!filesFromSearch.Contains(result.FileNameReal))
 								{
-									filesFromSearch.Add(result.FileName);
+									filesFromSearch.Add(result.FileNameReal);
 								}
 							}
 							files = filesFromSearch.ToArray();
@@ -511,7 +511,8 @@ namespace dnGREP
 						List<string> files = new List<string>();
 						foreach (GrepSearchResult result in searchResults)
 						{
-							files.Add(result.FileName);
+							if (!result.ReadOnly)
+								files.Add(result.FileNameReal);
 						}
 
 						if (rbRegexSearch.Checked)
@@ -639,33 +640,44 @@ namespace dnGREP
 			// Populate icon list
 			foreach (GrepSearchResult result in searchResults)
 			{
-				string ext = Path.GetExtension(result.FileName);
+				string ext = Path.GetExtension(result.FileNameDisplayed);
 				if (!tempExtensionList.Contains(ext))
 					tempExtensionList.Add(ext);
 			}
 			FileIcons.LoadImageList(tempExtensionList.ToArray());
 			tvSearchResult.ImageList = FileIcons.SmallIconList;
 
+			List<string> roFiles = Utils.GetReadOnlyFiles(searchResults);
+
 			foreach (GrepSearchResult result in searchResults)
 			{
-				string displayedName = Path.GetFileName(result.FileName);
+				bool isFileReadOnly = roFiles.Contains(result.FileNameReal);
+
+				string displayedName = Path.GetFileName(result.FileNameDisplayed);
 				if (Properties.Settings.Default.ShowFilePathInResults &&
-					result.FileName.Contains(tbFolderName.Text + "\\"))
+					result.FileNameDisplayed.Contains(tbFolderName.Text + "\\"))
 				{
-					displayedName = result.FileName.Substring(tbFolderName.Text.Length + 1);
+					displayedName = result.FileNameDisplayed.Substring(tbFolderName.Text.Length + 1);
 				}
 				int lineCount = Utils.MatchCount(result);
 				if (lineCount > 0)
 					displayedName = string.Format("{0} ({1})", displayedName, lineCount);
-				
+				if (isFileReadOnly)
+					displayedName = displayedName + " [read-only]";
+
 				TreeNode node = new TreeNode(displayedName);
-				node.Tag = result.FileName;
+				node.Tag = result.FileNameReal;
 				tvSearchResult.Nodes.Add(node);				
-				string ext = Path.GetExtension(result.FileName);
+				string ext = Path.GetExtension(result.FileNameDisplayed);
 
 				node.ImageKey = ext;
 				node.SelectedImageKey = node.ImageKey;
 				node.StateImageKey = node.ImageKey;
+				if (isFileReadOnly)
+				{
+					node.ForeColor = Color.DarkGray;
+				}
+
 				if (result.SearchResults != null)
 				{
 					foreach (GrepSearchResult.GrepLine line in result.SearchResults)
@@ -757,10 +769,10 @@ namespace dnGREP
 					if (MessageBox.Show("Are you sure you want to replace search pattern with empty string?", "Replace", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question) != DialogResult.Yes)
 						return;
 				}
-				string[] roFiles = Utils.GetReadOnlyFiles(searchResults);
-				if (roFiles.Length > 0)
+				List<string> roFiles = Utils.GetReadOnlyFiles(searchResults);
+				if (roFiles.Count > 0)
 				{
-					StringBuilder sb = new StringBuilder("Some of the files are read only. If you continue, the application will 'force-replace' values in these files.\nWould you like to continue?\n\n");
+					StringBuilder sb = new StringBuilder("Some of the files can not be modified. If you continue, these files will be skipped.\nWould you like to continue?\n\n");
 					foreach (string fileName in roFiles)
 					{
 						sb.AppendLine(" - " + new FileInfo(fileName).Name);

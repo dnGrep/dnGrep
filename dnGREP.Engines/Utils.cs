@@ -67,11 +67,11 @@ namespace dnGREP.Common
 
 			foreach (GrepSearchResult result in source)
 			{
-				if (!files.Contains(result.FileName) && result.FileName.Contains(sourceDirectory))
+				if (!files.Contains(result.FileNameReal) && result.FileNameDisplayed.Contains(sourceDirectory))
 				{
-					files.Add(result.FileName);
-					FileInfo sourceFileInfo = new FileInfo(result.FileName);
-					FileInfo destinationFileInfo = new FileInfo(destinationDirectory + result.FileName.Substring(sourceDirectory.Length));
+					files.Add(result.FileNameReal);
+					FileInfo sourceFileInfo = new FileInfo(result.FileNameReal);
+					FileInfo destinationFileInfo = new FileInfo(destinationDirectory + result.FileNameReal.Substring(sourceDirectory.Length));
 					if (sourceFileInfo.FullName != destinationFileInfo.FullName)
 						CopyFile(sourceFileInfo.FullName, destinationFileInfo.FullName, overWrite);
 				}
@@ -95,11 +95,11 @@ namespace dnGREP.Common
 
 			foreach (GrepSearchResult result in source)
 			{
-				if (!files.Contains(result.FileName))
+				if (!files.Contains(result.FileNameReal))
 				{
-					files.Add(result.FileName);
-					FileInfo sourceFileInfo = new FileInfo(result.FileName);
-					FileInfo destinationFileInfo = new FileInfo(destinationDirectory + Path.GetFileName(result.FileName));
+					files.Add(result.FileNameReal);
+					FileInfo sourceFileInfo = new FileInfo(result.FileNameReal);
+					FileInfo destinationFileInfo = new FileInfo(destinationDirectory + Path.GetFileName(result.FileNameReal));
 					if (sourceFileInfo.FullName == destinationFileInfo.FullName)
 						return false;
 				}
@@ -125,7 +125,7 @@ namespace dnGREP.Common
 				foreach (GrepSearchResult.GrepLine line in result.SearchResults)
 				{
 					if (!line.IsContext)
-						sb.AppendLine("\"" + result.FileName + "\"," + line.LineNumber + ",\"" + line.LineText + "\"");
+						sb.AppendLine("\"" + result.FileNameDisplayed + "\"," + line.LineNumber + ",\"" + line.LineText + "\"");
 				}
 			}
 			File.WriteAllText(destinationPath, sb.ToString());
@@ -141,10 +141,10 @@ namespace dnGREP.Common
 
 			foreach (GrepSearchResult result in source)
 			{
-				if (!files.Contains(result.FileName))
+				if (!files.Contains(result.FileNameReal))
 				{
-					files.Add(result.FileName);
-					DeleteFile(result.FileName);
+					files.Add(result.FileNameReal);
+					DeleteFile(result.FileNameReal);
 				}
 			}
 		}
@@ -386,12 +386,22 @@ namespace dnGREP.Common
 
 		
 		/// <summary>
-		/// Returns current path of DLL
+		/// Returns current path of DLL without trailing slash
 		/// </summary>
 		/// <returns></returns>
 		public static string GetCurrentPath()
 		{
-			Assembly thisAssembly = Assembly.GetAssembly(typeof(Utils));
+			return GetCurrentPath(typeof(Utils));
+		}
+
+		/// <summary>
+		/// Returns current path of DLL without trailing slash
+		/// </summary>
+		/// <param name="type">Type to check</param>
+		/// <returns></returns>
+		public static string GetCurrentPath(Type type)
+		{
+			Assembly thisAssembly = Assembly.GetAssembly(type);
 			return Path.GetDirectoryName(thisAssembly.Location);
 		}
 
@@ -400,23 +410,23 @@ namespace dnGREP.Common
 		/// </summary>
 		/// <param name="results"></param>
 		/// <returns></returns>
-		public static string[] GetReadOnlyFiles(List<GrepSearchResult> results)
+		public static List<string> GetReadOnlyFiles(List<GrepSearchResult> results)
 		{
 			List<string> files = new List<string>();
 			if (results == null || results.Count == 0)
-				return files.ToArray();
+				return files;
 
 			foreach (GrepSearchResult result in results)
 			{
-				if (!files.Contains(result.FileName))
+				if (!files.Contains(result.FileNameReal))
 				{
-					if ((File.GetAttributes(result.FileName) & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
+					if ((File.GetAttributes(result.FileNameReal) & FileAttributes.ReadOnly) == FileAttributes.ReadOnly || result.ReadOnly)
 					{
-						files.Add(result.FileName);
+						files.Add(result.FileNameReal);
 					}
 				}
 			}
-			return files.ToArray();
+			return files;
 		}
 
 		/// <summary>

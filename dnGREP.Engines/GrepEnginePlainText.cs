@@ -9,21 +9,9 @@ namespace dnGREP.Engines
 {
 	public class GrepEnginePlainText : GrepEngineBase, IGrepEngine
 	{
-		private bool showLinesInContext = false;
-		private int linesBefore = 0;
-		private int linesAfter = 0;
 		private static Logger logger = LogManager.GetCurrentClassLogger();
 
-		public GrepEnginePlainText(bool showLinesInContext, int linesBefore, int linesAfter):
-			base(showLinesInContext, linesBefore, linesAfter)
-		{}
-
-		public void Initialize(bool showLinesInContext, int linesBefore, int linesAfter)
-		{
-			this.showLinesInContext = showLinesInContext;
-			this.linesBefore = linesBefore;
-			this.linesAfter = linesAfter;
-		}
+		public GrepEnginePlainText() : base() { }
 
 		public bool IsSearchOnly
 		{
@@ -35,9 +23,9 @@ namespace dnGREP.Engines
 			get { return "Basic engine for searching plain text file"; }
 		}
 
-		public string[] SupportedFileExtensions
+		public List<string> SupportedFileExtensions
 		{
-			get { return new string[] { "*" }; }
+			get { return new List<string>(new string[] { "*" }); }
 		}
 
 		public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, bool isCaseSensitive, bool isMultiline, Encoding encoding)

@@ -88,7 +88,7 @@ namespace dnGREP
 			{
 				try
 				{
-					IGrepEngine engine = GrepEngineFactory.GetEngine(file, showLinesInContext, linesBefore, linesAfter);
+					IGrepEngine engine = GrepEngineFactory.GetSearchEngine(file, showLinesInContext, linesBefore, linesAfter);
 
 					processedFiles++;
 
@@ -150,7 +150,7 @@ namespace dnGREP
 			foreach (string file in files)
 			{
 				string tempFileName = file.Replace(baseFolder, tempFolder);
-				IGrepEngine engine = GrepEngineFactory.GetEngine(file, showLinesInContext, linesBefore, linesAfter);
+				IGrepEngine engine = GrepEngineFactory.GetReplaceEngine(file, showLinesInContext, linesBefore, linesAfter);
 
 				try
 				{

@@ -385,12 +385,12 @@ namespace Tests
 
 			Utils.CopyFiles(source, sourceFolder + "\\TestCase1", destinationFolder + "\\TestCase1", true);
 			File.SetAttributes(destinationFolder + "\\TestCase1\\test-file-code.cs", FileAttributes.ReadOnly);
-			Assert.AreEqual(Utils.GetReadOnlyFiles(destination).Length, 1);
+			Assert.AreEqual(Utils.GetReadOnlyFiles(destination).Count, 1);
 			File.SetAttributes(destinationFolder + "\\TestCase1\\test-file-plain.txt", FileAttributes.ReadOnly);
-			Assert.AreEqual(Utils.GetReadOnlyFiles(destination).Length, 2);
+			Assert.AreEqual(Utils.GetReadOnlyFiles(destination).Count, 2);
 
-			Assert.AreEqual(Utils.GetReadOnlyFiles(null).Length, 0);
-			Assert.AreEqual(Utils.GetReadOnlyFiles(new List<GrepSearchResult>()).Length, 0);
+			Assert.AreEqual(Utils.GetReadOnlyFiles(null).Count, 0);
+			Assert.AreEqual(Utils.GetReadOnlyFiles(new List<GrepSearchResult>()).Count, 0);
 		}
 	}
 }

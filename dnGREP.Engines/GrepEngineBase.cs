@@ -10,9 +10,11 @@ namespace dnGREP.Engines
 {
 	public class GrepEngineBase
 	{
-		private bool showLinesInContext = false;
-		private int linesBefore = 0;
-		private int linesAfter = 0;
+		protected bool showLinesInContext = false;
+		protected int linesBefore = 0;
+		protected int linesAfter = 0;
+
+		public GrepEngineBase() { }
 
 		public GrepEngineBase(bool showLinesInContext, int linesBefore, int linesAfter)
 		{
@@ -21,27 +23,34 @@ namespace dnGREP.Engines
 			this.linesAfter = linesAfter;
 		}
 
-		public bool doTextSearchCaseInsensitive(string text, string searchText)
+		public virtual void Initialize(bool showLinesInContext, int linesBefore, int linesAfter)
+		{
+			this.showLinesInContext = showLinesInContext;
+			this.linesBefore = linesBefore;
+			this.linesAfter = linesAfter;
+		}
+
+		protected bool doTextSearchCaseInsensitive(string text, string searchText)
 		{
 			return text.ToLower().Contains(searchText.ToLower());
 		}
 
-		public bool doTextSearchCaseSensitive(string text, string searchText)
+		protected bool doTextSearchCaseSensitive(string text, string searchText)
 		{
 			return text.Contains(searchText);
 		}
 
-		public bool doRegexSearchCaseInsensitive(string text, string searchPattern)
+		protected bool doRegexSearchCaseInsensitive(string text, string searchPattern)
 		{
 			return Regex.IsMatch(text, searchPattern, RegexOptions.IgnoreCase);
 		}
 
-		public bool doRegexSearchCaseSensitive(string text, string searchPattern)
+		protected bool doRegexSearchCaseSensitive(string text, string searchPattern)
 		{
 			return Regex.IsMatch(text, searchPattern);
 		}
 
-		public List<GrepSearchResult.GrepLine> doXPathSearch(string text, string searchXPath)
+		protected List<GrepSearchResult.GrepLine> doXPathSearch(string text, string searchXPath)
 		{
 			List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
 			// Check if file is an XML file
@@ -61,7 +70,7 @@ namespace dnGREP.Engines
 			return results;
 		}
 
-		public List<GrepSearchResult.GrepLine> doRegexSearchCaseSensitiveMultiline(string text, string searchPattern)
+		protected List<GrepSearchResult.GrepLine> doRegexSearchCaseSensitiveMultiline(string text, string searchPattern)
 		{
 			List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
 			foreach (Match match in Regex.Matches(text, searchPattern, RegexOptions.Multiline))
@@ -84,7 +93,7 @@ namespace dnGREP.Engines
 			return results;
 		}
 
-		public List<GrepSearchResult.GrepLine> doRegexSearchCaseInsensitiveMultiline(string text, string searchPattern)
+		protected List<GrepSearchResult.GrepLine> doRegexSearchCaseInsensitiveMultiline(string text, string searchPattern)
 		{
 			List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
 			foreach (Match match in Regex.Matches(text, searchPattern, RegexOptions.IgnoreCase | RegexOptions.Multiline))
@@ -107,7 +116,7 @@ namespace dnGREP.Engines
 			return results;
 		}
 
-		public List<GrepSearchResult.GrepLine> doTextSearchCaseInsensitiveMultiline(string text, string searchText)
+		protected List<GrepSearchResult.GrepLine> doTextSearchCaseInsensitiveMultiline(string text, string searchText)
 		{
 			List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
 			int index = 0;
@@ -136,7 +145,7 @@ namespace dnGREP.Engines
 			return results;
 		}
 
-		public List<GrepSearchResult.GrepLine> doTextSearchCaseSensitiveMultiline(string text, string searchText)
+		protected List<GrepSearchResult.GrepLine> doTextSearchCaseSensitiveMultiline(string text, string searchText)
 		{
 			List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
 			int index = 0;
@@ -165,12 +174,12 @@ namespace dnGREP.Engines
 			return results;
 		}
 
-		public string doTextReplaceCaseSensitive(string text, string searchText, string replaceText)
+		protected string doTextReplaceCaseSensitive(string text, string searchText, string replaceText)
 		{
 			return text.Replace(searchText, replaceText);
 		}
 
-		public string doTextReplaceCaseInsensitive(string text, string searchText, string replaceText)
+		protected string doTextReplaceCaseInsensitive(string text, string searchText, string replaceText)
 		{
 			int count, position0, position1;
 			count = position0 = position1 = 0;
@@ -194,7 +203,7 @@ namespace dnGREP.Engines
 			return new string(chars, 0, count);
 		}
 
-		public string doRegexReplaceCaseInsensitive(string text, string searchPattern, string replacePattern)
+		protected string doRegexReplaceCaseInsensitive(string text, string searchPattern, string replacePattern)
 		{
 			return Regex.Replace(text, searchPattern, replacePattern, RegexOptions.IgnoreCase);
 		}
@@ -204,14 +213,14 @@ namespace dnGREP.Engines
 			return Regex.Replace(text, searchPattern, replacePattern);
 		}
 
-		public string doXPathReplace(string text, string searchXPath, string replaceText)
+		protected string doXPathReplace(string text, string searchXPath, string replaceText)
 		{
 			if (text.Length > 5 && text.Substring(0, 5).ToLower() == "<?xml")
 			{
 				XmlDocument xmlDoc = new XmlDocument();
 				xmlDoc.LoadXml(text);
 				XmlNodeList xmlNodes = xmlDoc.SelectNodes(searchXPath);
-				string line = "";
+
 				foreach (XmlNode xmlNode in xmlNodes)
 				{
 					xmlNode.InnerXml = replaceText;

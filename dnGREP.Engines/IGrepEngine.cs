@@ -23,7 +23,7 @@ namespace dnGREP.Engines
 		/// <summary>
 		/// List of file extensions that the engine will work with
 		/// </summary>
-		string[] SupportedFileExtensions { get;}
+		List<string> SupportedFileExtensions { get;}
 
 		List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, bool isCaseSensitive, bool isMultiline, Encoding encoding);
 

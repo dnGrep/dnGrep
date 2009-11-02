@@ -17,11 +17,41 @@ namespace dnGREP.Common
 
 		private string fileName;
 
-		public string FileName
+		public string FileNameDisplayed
 		{
 			get { return fileName; }
 			set { fileName = value; }
 		}
+
+		private string fileNameToOpen = null;
+
+		/// <summary>
+		/// Use this property if FileNameDisplayed is not the same as FileNameReal.
+		/// If null, FileNameDisplayed is used.
+		/// </summary>
+		/// <example>
+		/// Files in archive have the following FileNameDisplayed "c:\path-to-archive\archive.zip\file1.txt" while
+		/// FileNameReal is ""c:\path-to-archive\archive.zip". 
+		/// </example>
+		public string FileNameReal
+		{
+			get {
+				if (fileNameToOpen == null)
+					return fileName;
+				else
+					return fileNameToOpen;
+			}
+			set { fileNameToOpen = value; }
+		}
+
+		private bool readOnly = false;
+
+		public bool ReadOnly
+		{
+			get { return readOnly; }
+			set { readOnly = value; }
+		}
+
 		private List<GrepLine> searchResults = new List<GrepLine>();
 
 		public List<GrepLine> SearchResults

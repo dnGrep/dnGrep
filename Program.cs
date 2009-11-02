@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using NLog;
+using dnGREP.Common;
 
 namespace dnGREP
 {
@@ -17,6 +18,8 @@ namespace dnGREP
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
+			AppDomain.CurrentDomain.AppendPrivatePath(Utils.GetCurrentPath() + "\\Plugins");
+			
 //#if DEBUG
 //            System.Diagnostics.Debugger.Break();
 //#endif
