@@ -4,6 +4,7 @@ using System.Text;
 using MbUnit.Framework;
 using dnGREP;
 using System.IO;
+using dnGREP.Common;
 
 namespace Tests
 {

@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Diagnostics;
 using NLog;
 using System.Reflection;
+using dnGREP.Common;
 
 namespace dnGREP
 {
@@ -479,19 +480,19 @@ namespace dnGREP
 						grep.LinesAfter = Properties.Settings.Default.ContextLinesAfter;
 
 						grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
-						GrepSearchResult[] results = null;
+						List<GrepSearchResult> results = null;
 						if (rbRegexSearch.Checked)
-							results = grep.SearchRegex(files, tbSearchFor.Text, cbCaseSensitive.Checked, cbMultiline.Checked, CodePage);
+							results = grep.Search(files, SearchType.Regex, tbSearchFor.Text, cbCaseSensitive.Checked, cbMultiline.Checked, CodePage);
 						else if (rbXPathSearch.Checked)
-							results = grep.SearchXPath(files, tbSearchFor.Text, CodePage);
-						else 
-							results = grep.SearchText(files, tbSearchFor.Text, cbCaseSensitive.Checked, cbMultiline.Checked, CodePage);
+							results = grep.Search(files, SearchType.XPath, tbSearchFor.Text, true, true, CodePage);
+						else
+							results = grep.Search(files, SearchType.PlainText, tbSearchFor.Text, cbCaseSensitive.Checked, cbMultiline.Checked, CodePage);
 
 						grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
 						if (results != null)
 						{
 							searchResults = new List<GrepSearchResult>(results);
-							e.Result = results.Length;
+							e.Result = results.Count;
 						}
 						else
 						{
@@ -514,11 +515,11 @@ namespace dnGREP
 						}
 
 						if (rbRegexSearch.Checked)
-							e.Result = grep.ReplaceRegex(files.ToArray(), tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text, cbCaseSensitive.Checked, cbMultiline.Checked, CodePage);
+							e.Result = grep.Replace(files.ToArray(), SearchType.Regex, tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text, cbCaseSensitive.Checked, cbMultiline.Checked, CodePage);
 						else if (rbXPathSearch.Checked)
-							e.Result = grep.ReplaceXPath(files.ToArray(), tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text, CodePage);
+							e.Result = grep.Replace(files.ToArray(), SearchType.XPath, tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text, true, true, CodePage);
 						else
-							e.Result = grep.ReplaceText(files.ToArray(), tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text, cbCaseSensitive.Checked, cbMultiline.Checked, CodePage);
+							e.Result = grep.Replace(files.ToArray(), SearchType.PlainText, tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text, cbCaseSensitive.Checked, cbMultiline.Checked, CodePage);
 
 						grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
 					}

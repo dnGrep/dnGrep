@@ -8,6 +8,7 @@ using System.Xml.Serialization;
 using System.Xml;
 using NLog;
 using System.Data;
+using dnGREP.Common;
 
 namespace dnGREP
 {

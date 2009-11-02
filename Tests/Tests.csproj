@@ -52,6 +52,10 @@
       <Project>{6E9E3A4B-2338-421D-AC57-9939A9A6E6AA}</Project>
       <Name>dnGREP</Name>
     </ProjectReference>
+    <ProjectReference Include="..\dnGREP.Engines\dnGREP.Engines.csproj">
+      <Project>{DB68B5D3-5E4B-47D0-AA86-83D7C181A1E4}</Project>
+      <Name>dnGREP.Engines</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Files\TestCase1\test-file-code.cs">

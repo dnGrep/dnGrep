@@ -9,7 +9,7 @@ using System.Net;
 using System.Xml;
 using NLog;
 
-namespace dnGREP
+namespace dnGREP.Common
 {
 	public class Utils
 	{
