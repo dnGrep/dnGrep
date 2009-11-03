@@ -351,6 +351,47 @@ namespace dnGREP.Common
 		}
 
 		/// <summary>
+		/// Parses text into bool
+		/// </summary>
+		/// <param name="value">String. May include null, empty srting or text with spaces before or after.
+		/// Text may be in the format of True/False, Yes/No, Y/N, On/Off, 1/0</param>
+		/// <returns></returns>
+		public static bool ParseBoolean(string value)
+		{
+			return ParseBoolean(value, false);
+		}
+
+		/// <summary>
+		/// Parses text into bool
+		/// </summary>
+		/// <param name="value">String. May include null, empty srting or text with spaces before or after.
+		/// Text may be in the format of True/False, Yes/No, Y/N, On/Off, 1/0</param>
+		/// <param name="defaultValue">Default value</param>
+		/// <returns></returns>
+		public static bool ParseBoolean(string value, bool defaultValue)
+		{
+			if (value != null && value.Length != 0)
+			{
+				switch (value.Trim().ToLower())
+				{
+					case "true":
+					case "yes":
+					case "y":
+					case "on":
+					case "1":
+						return true;
+					case "false":
+					case "no":
+					case "n":
+					case "off":
+					case "0":
+						return false;
+				}
+			}
+			return defaultValue;
+		}
+
+		/// <summary>
 		/// Open file using either default editor or the one provided via customEditor parameter
 		/// </summary>
 		/// <param name="fileName">File to open</param>

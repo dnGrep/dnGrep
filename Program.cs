@@ -18,7 +18,6 @@ namespace dnGREP
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			AppDomain.CurrentDomain.AppendPrivatePath(Utils.GetCurrentPath() + "\\Plugins");
 			
 //#if DEBUG
 //            System.Diagnostics.Debugger.Break();

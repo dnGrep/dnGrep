@@ -9,28 +9,22 @@ namespace dnGREP.Engines
 {
 	public class GrepEngineFactory
 	{
-		private static Dictionary<string, IGrepEngine> fileTypeEngines = new Dictionary<string, IGrepEngine>();
-		private static List<IGrepEngine> engines = null;
+		private static Dictionary<string, GrepPlugin> fileTypeEngines = new Dictionary<string, GrepPlugin>();
+		private static List<GrepPlugin> plugings = null;
 
-		private static void loadAssemblies(bool showLinesInContext, int linesBefore, int linesAfter) 
+		private static void loadPlugins() 
 		{
-			if (engines == null)
+			if (plugings == null)
 			{
-				engines = new List<IGrepEngine>();
-				foreach (string assemblyFile in Directory.GetFiles(Utils.GetCurrentPath() + "\\Plugins", "*.dll", SearchOption.AllDirectories))
+				plugings = new List<GrepPlugin>();
+				foreach (string pluginFile in Directory.GetFiles(Utils.GetCurrentPath() + "\\Plugins", "*.plugin", SearchOption.AllDirectories))
 				{
 					try
 					{
-						Assembly assembly = Assembly.LoadFile(assemblyFile);
-						Type[] types = assembly.GetTypes();
-						foreach (Type type in types)
+						GrepPlugin plugin = new GrepPlugin(pluginFile);
+						if (plugin.LoadPluginSettings())
 						{
-							if (type.GetInterface("IGrepEngine") != null)
-							{
-								IGrepEngine engine = (IGrepEngine)Activator.CreateInstance(type);
-								engines.Add(engine);
-								break;
-							}
+							plugings.Add(plugin);
 						}
 					}
 					catch (Exception ex)
@@ -43,7 +37,7 @@ namespace dnGREP.Engines
 
 		public static IGrepEngine GetSearchEngine(string fileName, bool showLinesInContext, int linesBefore, int linesAfter)
 		{
-			loadAssemblies(showLinesInContext, linesBefore, linesAfter);
+			loadPlugins();
 
 			string fileExtension = Path.GetExtension(fileName);
 			if (fileExtension.Length > 1)
@@ -51,21 +45,21 @@ namespace dnGREP.Engines
 
 			if (!fileTypeEngines.ContainsKey(fileExtension)) 
 			{
-				foreach (IGrepEngine engine in engines)
+				foreach (GrepPlugin plugin in plugings)
 				{
-					if (engine.SupportedFileExtensions.Contains(fileExtension))
+					if (plugin.Extensions.Contains(fileExtension))
 					{
-						fileTypeEngines[fileExtension] = engine;
+						fileTypeEngines[fileExtension] = plugin;
 					}
 				}
 			}
 			GrepEnginePlainText plainTextEngine = new GrepEnginePlainText();
 			plainTextEngine.Initialize(showLinesInContext, linesBefore, linesAfter);
 
-			if (fileTypeEngines.ContainsKey(fileExtension))
+			if (fileTypeEngines.ContainsKey(fileExtension) && fileTypeEngines[fileExtension].Enabled)
 			{
-				fileTypeEngines[fileExtension].Initialize(showLinesInContext, linesBefore, linesAfter);
-				return fileTypeEngines[fileExtension];
+				fileTypeEngines[fileExtension].Engine.Initialize(showLinesInContext, linesBefore, linesAfter);
+				return fileTypeEngines[fileExtension].Engine;
 			}
 			else
 				return plainTextEngine;
@@ -73,7 +67,7 @@ namespace dnGREP.Engines
 
 		public static IGrepEngine GetReplaceEngine(string fileName, bool showLinesInContext, int linesBefore, int linesAfter)
 		{
-			loadAssemblies(showLinesInContext, linesBefore, linesAfter);
+			loadPlugins();
 
 			string fileExtension = Path.GetExtension(fileName);
 			if (fileExtension.Length > 1)
@@ -81,21 +75,21 @@ namespace dnGREP.Engines
 
 			if (!fileTypeEngines.ContainsKey(fileExtension))
 			{
-				foreach (IGrepEngine engine in engines)
+				foreach (GrepPlugin plugin in plugings)
 				{
-					if (engine.SupportedFileExtensions.Contains(fileExtension))
+					if (plugin.Extensions.Contains(fileExtension))
 					{
-						fileTypeEngines[fileExtension] = engine;
+						fileTypeEngines[fileExtension] = plugin;
 					}
 				}
 			}
 			GrepEnginePlainText plainTextEngine = new GrepEnginePlainText();
 			plainTextEngine.Initialize(showLinesInContext, linesBefore, linesAfter);
 
-			if (fileTypeEngines.ContainsKey(fileExtension) && !fileTypeEngines[fileExtension].IsSearchOnly)
+			if (fileTypeEngines.ContainsKey(fileExtension) && fileTypeEngines[fileExtension].Enabled && !fileTypeEngines[fileExtension].Engine.IsSearchOnly)
 			{
-				fileTypeEngines[fileExtension].Initialize(showLinesInContext, linesBefore, linesAfter);
-				return fileTypeEngines[fileExtension];
+				fileTypeEngines[fileExtension].Engine.Initialize(showLinesInContext, linesBefore, linesAfter);
+				return fileTypeEngines[fileExtension].Engine;
 			}
 			else
 				return plainTextEngine;
