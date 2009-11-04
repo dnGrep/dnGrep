@@ -155,7 +155,9 @@ namespace dnGREP.Engines.Word
 				Utils.CleanResults(ref lines);
 				if (lines.Count > 0)
 				{
-					searchResults.Add(new GrepSearchResult(file, lines));
+					GrepSearchResult result = new GrepSearchResult(file, lines);
+					result.ReadOnly = true;
+					searchResults.Add(result);
 				}
 				closeDocument(wordDocument);
 			}
