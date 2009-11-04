@@ -87,6 +87,16 @@ namespace Tests
 			Assert.AreEqual(lines.Count, 2);
 		}
 
+		[RowTest]
+		[Row("hello\rworld", "hello\r\nworld")]
+		[Row("hello\nworld", "hello\r\nworld")]
+		[Row("hello\rworld\r", "hello\r\nworld\r")]
+		public void TestCleanLineBreaks(string input, string output)
+		{
+			string result = Utils.CleanLineBreaks(input);
+			Assert.AreEqual(result, output);
+		}
+
 		[Test]
 		public void TestMatchCount()
 		{

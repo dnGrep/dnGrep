@@ -589,6 +589,20 @@ namespace dnGREP.Common
 		}
 
 		/// <summary>
+		/// Replaces unix-style linebreaks with \r\n
+		/// </summary>
+		/// <param name="text"></param>
+		/// <returns></returns>
+		public static string CleanLineBreaks(string text)
+		{
+			if (string.IsNullOrEmpty(text))
+				return text;
+			string textTemp = Regex.Replace(text, "(\r)([^\n])", "\r\n$2");
+			textTemp = Regex.Replace(textTemp, "([^\r])(\n)", "$1\r\n");
+			return textTemp;
+		}
+
+		/// <summary>
 		/// Sorts and removes dupes
 		/// </summary>
 		/// <param name="results"></param>
