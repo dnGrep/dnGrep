@@ -599,6 +599,7 @@ namespace dnGREP.Common
 				return text;
 			string textTemp = Regex.Replace(text, "(\r)([^\n])", "\r\n$2");
 			textTemp = Regex.Replace(textTemp, "([^\r])(\n)", "$1\r\n");
+			textTemp = Regex.Replace(textTemp, "(\v)", "\r\n");
 			return textTemp;
 		}
 
