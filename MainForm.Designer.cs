@@ -214,6 +214,7 @@ namespace dnGREP
 			this.helpProvider.SetHelpNavigator(this.tbSearchFor, System.Windows.Forms.HelpNavigator.Topic);
 			this.helpProvider.SetHelpString(this.tbSearchFor, "");
 			this.tbSearchFor.Location = new System.Drawing.Point(3, 19);
+			this.tbSearchFor.MaxLength = 327670;
 			this.tbSearchFor.Multiline = true;
 			this.tbSearchFor.Name = "tbSearchFor";
 			this.tbSearchFor.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -233,6 +234,7 @@ namespace dnGREP
 			this.tbReplaceWith.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "ReplaceWith", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
 			this.tbReplaceWith.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tbReplaceWith.Location = new System.Drawing.Point(3, 78);
+			this.tbReplaceWith.MaxLength = 327670;
 			this.tbReplaceWith.Multiline = true;
 			this.tbReplaceWith.Name = "tbReplaceWith";
 			this.tbReplaceWith.ScrollBars = System.Windows.Forms.ScrollBars.Both;
