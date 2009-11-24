@@ -16,13 +16,14 @@ namespace dnGREP
 {
 	public partial class MainForm : Form
 	{
-		List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
-		List<KeyValuePair<string, int>> encodings = new List<KeyValuePair<string, int>>();
+		private List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
+		private List<KeyValuePair<string, int>> encodings = new List<KeyValuePair<string, int>>();
 		private const string SEARCH_KEY = "search";
 		private const string REPLACE_KEY = "replace";
 		private static Logger logger = LogManager.GetCurrentClassLogger();
 		private DateTime timer = DateTime.Now;
-		PublishedVersionExtractor ve = new PublishedVersionExtractor();
+		private PublishedVersionExtractor ve = new PublishedVersionExtractor();
+		private List<string> treeViewExtensionList = new List<string>();
 		
 		#region States
 
@@ -490,6 +491,7 @@ namespace dnGREP
 						grep.ShowLinesInContext = Properties.Settings.Default.ShowLinesInContext;
 						grep.LinesBefore = Properties.Settings.Default.ContextLinesBefore;
 						grep.LinesAfter = Properties.Settings.Default.ContextLinesAfter;
+						grep.PreviewFilesDuringSearch = Properties.Settings.Default.PreviewResults;
 
 						grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
 						List<GrepSearchResult> results = null;
@@ -518,6 +520,7 @@ namespace dnGREP
 						grep.ShowLinesInContext = Properties.Settings.Default.ShowLinesInContext;
 						grep.LinesBefore = Properties.Settings.Default.ContextLinesBefore;
 						grep.LinesAfter = Properties.Settings.Default.ContextLinesAfter;
+						grep.PreviewFilesDuringSearch = Properties.Settings.Default.PreviewResults;
 
 						grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
 						List<string> files = new List<string>();
@@ -560,6 +563,14 @@ namespace dnGREP
 				GrepCore.ProgressStatus progress = (GrepCore.ProgressStatus)e.UserState;
 				barProgressBar.Value = e.ProgressPercentage;
 				lblStatus.Text = "(" + progress.ProcessedFiles + " of " + progress.TotalFiles + ")";
+				if (progress.SearchResults != null)
+				{
+					searchResults.AddRange(progress.SearchResults);
+					for (int i = 0; i < progress.SearchResults.Count; i++)
+					{
+						appendResults(progress.SearchResults[i]);
+					}
+				}
 			}
 		}
 
@@ -607,7 +618,8 @@ namespace dnGREP
 				searchResults.Clear();
 				FilesFound = false;
 			}
-			populateResults();
+			if (!Properties.Settings.Default.PreviewResults)
+				populateResults();
 		}
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -642,76 +654,78 @@ namespace dnGREP
 			rbFilterSpecificSize.Checked = Properties.Settings.Default.FilterSpecificSize;
 		}
 
-		private void populateResults()
+		private void appendResults(GrepSearchResult result)
 		{
-			tvSearchResult.Nodes.Clear();
-			List<string> tempExtensionList = new List<string>();
-			if (searchResults == null)
+			if (result == null)
 				return;
 
 			// Populate icon list
-			foreach (GrepSearchResult result in searchResults)
+			string ext = Path.GetExtension(result.FileNameDisplayed);
+			if (!treeViewExtensionList.Contains(ext)) {
+				treeViewExtensionList.Add(ext);
+				FileIcons.LoadImageList(treeViewExtensionList.ToArray());
+				tvSearchResult.ImageList = FileIcons.SmallIconList;
+			}			
+
+			bool isFileReadOnly = Utils.IsReadOnly(result);
+			string displayedName = Path.GetFileName(result.FileNameDisplayed);
+			if (Properties.Settings.Default.ShowFilePathInResults &&
+				result.FileNameDisplayed.Contains(tbFolderName.Text + "\\"))
 			{
-				string ext = Path.GetExtension(result.FileNameDisplayed);
-				if (!tempExtensionList.Contains(ext))
-					tempExtensionList.Add(ext);
+				displayedName = result.FileNameDisplayed.Substring(tbFolderName.Text.Length + 1);
 			}
-			FileIcons.LoadImageList(tempExtensionList.ToArray());
-			tvSearchResult.ImageList = FileIcons.SmallIconList;
+			int lineCount = Utils.MatchCount(result);
+			if (lineCount > 0)
+				displayedName = string.Format("{0} ({1})", displayedName, lineCount);
+			if (isFileReadOnly)
+				displayedName = displayedName + " [read-only]";
 
-			List<string> roFiles = Utils.GetReadOnlyFiles(searchResults);
-
-			foreach (GrepSearchResult result in searchResults)
+			TreeNode node = new TreeNode(displayedName);
+			node.Tag = result.FileNameReal;
+			tvSearchResult.Nodes.Add(node);
+			
+			node.ImageKey = ext;
+			node.SelectedImageKey = node.ImageKey;
+			node.StateImageKey = node.ImageKey;
+			if (isFileReadOnly)
 			{
-				bool isFileReadOnly = roFiles.Contains(result.FileNameReal);
+				node.ForeColor = Color.DarkGray;
+			}
 
-				string displayedName = Path.GetFileName(result.FileNameDisplayed);
-				if (Properties.Settings.Default.ShowFilePathInResults &&
-					result.FileNameDisplayed.Contains(tbFolderName.Text + "\\"))
+			if (result.SearchResults != null)
+			{
+				for (int i = 0; i < result.SearchResults.Count; i++ )
 				{
-					displayedName = result.FileNameDisplayed.Substring(tbFolderName.Text.Length + 1);
-				}
-				int lineCount = Utils.MatchCount(result);
-				if (lineCount > 0)
-					displayedName = string.Format("{0} ({1})", displayedName, lineCount);
-				if (isFileReadOnly)
-					displayedName = displayedName + " [read-only]";
-
-				TreeNode node = new TreeNode(displayedName);
-				node.Tag = result.FileNameReal;
-				tvSearchResult.Nodes.Add(node);				
-				string ext = Path.GetExtension(result.FileNameDisplayed);
-
-				node.ImageKey = ext;
-				node.SelectedImageKey = node.ImageKey;
-				node.StateImageKey = node.ImageKey;
-				if (isFileReadOnly)
-				{
-					node.ForeColor = Color.DarkGray;
-				}
-
-				if (result.SearchResults != null)
-				{
-					foreach (GrepSearchResult.GrepLine line in result.SearchResults)
+					GrepSearchResult.GrepLine line = result.SearchResults[i];
+					string lineSummary = line.LineText.Replace("\n", "").Replace("\t", "").Replace("\r", "").Trim();
+					if (lineSummary.Length == 0)
+						lineSummary = " ";
+					else if (lineSummary.Length > 100)
+						lineSummary = lineSummary.Substring(0, 100) + "...";
+					string lineNumber = (line.LineNumber == -1 ? "" : line.LineNumber + ": ");
+					TreeNode lineNode = new TreeNode(lineNumber + lineSummary);
+					lineNode.ImageKey = "%line%";
+					lineNode.SelectedImageKey = lineNode.ImageKey;
+					lineNode.StateImageKey = lineNode.ImageKey;
+					lineNode.Tag = line.LineNumber;
+					if (!line.IsContext && Properties.Settings.Default.ShowLinesInContext)
 					{
-						string lineSummary = line.LineText.Replace("\n", "").Replace("\t", "").Replace("\r", "").Trim();
-						if (lineSummary.Length == 0)
-							lineSummary = " ";
-						else if (lineSummary.Length > 100)
-							lineSummary = lineSummary.Substring(0, 100) + "...";
-						string lineNumber = (line.LineNumber == -1 ? "" : line.LineNumber + ": ");
-						TreeNode lineNode = new TreeNode(lineNumber + lineSummary);
-						lineNode.ImageKey = "%line%";
-						lineNode.SelectedImageKey = lineNode.ImageKey;
-						lineNode.StateImageKey = lineNode.ImageKey;
-						lineNode.Tag = line.LineNumber;
-						if (!line.IsContext && Properties.Settings.Default.ShowLinesInContext)
-						{
-							lineNode.ForeColor = Color.Red;
-						}
-						node.Nodes.Add(lineNode);
+						lineNode.ForeColor = Color.Red;
 					}
+					node.Nodes.Add(lineNode);
 				}
+			}
+		}
+
+		private void populateResults()
+		{
+			tvSearchResult.Nodes.Clear();
+			if (searchResults == null)
+				return;
+
+			for (int i = 0; i < searchResults.Count; i++ )
+			{
+				appendResults(searchResults[i]);
 			}			
 		}
 
@@ -823,6 +837,7 @@ namespace dnGREP
 					core.ShowLinesInContext = Properties.Settings.Default.ShowLinesInContext;
 					core.LinesBefore = Properties.Settings.Default.ContextLinesBefore;
 					core.LinesAfter = Properties.Settings.Default.ContextLinesAfter;
+					core.PreviewFilesDuringSearch = Properties.Settings.Default.PreviewResults;
 
 					bool result = core.Undo(undoFolder);
 					if (result)

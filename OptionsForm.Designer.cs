@@ -54,6 +54,7 @@ namespace dnGREP
 			this.cbShowContext = new System.Windows.Forms.CheckBox();
 			this.cbShowPath = new System.Windows.Forms.CheckBox();
 			this.helpProvider = new System.Windows.Forms.HelpProvider();
+			this.cbPreviewResults = new System.Windows.Forms.CheckBox();
 			this.grShell.SuspendLayout();
 			this.grEditor.SuspendLayout();
 			this.grUpdate.SuspendLayout();
@@ -97,7 +98,7 @@ namespace dnGREP
 			this.grEditor.Controls.Add(this.tbEditorPath);
 			this.grEditor.Controls.Add(this.rbSpecificEditor);
 			this.grEditor.Controls.Add(this.rbDefaultEditor);
-			this.grEditor.Location = new System.Drawing.Point(2, 189);
+			this.grEditor.Location = new System.Drawing.Point(2, 216);
 			this.grEditor.Name = "grEditor";
 			this.grEditor.Size = new System.Drawing.Size(486, 118);
 			this.grEditor.TabIndex = 1;
@@ -198,7 +199,7 @@ namespace dnGREP
 			// 
 			this.btnClose.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnClose.Location = new System.Drawing.Point(413, 313);
+			this.btnClose.Location = new System.Drawing.Point(413, 345);
 			this.btnClose.Name = "btnClose";
 			this.btnClose.Size = new System.Drawing.Size(75, 23);
 			this.btnClose.TabIndex = 0;
@@ -264,6 +265,7 @@ namespace dnGREP
 			// 
 			this.grUI.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 						| System.Windows.Forms.AnchorStyles.Right)));
+			this.grUI.Controls.Add(this.cbPreviewResults);
 			this.grUI.Controls.Add(this.cbSearchFileNameOnly);
 			this.grUI.Controls.Add(this.tbLinesAfter);
 			this.grUI.Controls.Add(this.label5);
@@ -273,7 +275,7 @@ namespace dnGREP
 			this.grUI.Controls.Add(this.cbShowPath);
 			this.grUI.Location = new System.Drawing.Point(2, 101);
 			this.grUI.Name = "grUI";
-			this.grUI.Size = new System.Drawing.Size(486, 87);
+			this.grUI.Size = new System.Drawing.Size(486, 109);
 			this.grUI.TabIndex = 2;
 			this.grUI.TabStop = false;
 			this.grUI.Text = "User interface";
@@ -365,12 +367,25 @@ namespace dnGREP
 			// 
 			this.helpProvider.HelpNamespace = "Doc\\dnGREP.chm";
 			// 
+			// cbPreviewResults
+			// 
+			this.cbPreviewResults.AutoSize = true;
+			this.helpProvider.SetHelpKeyword(this.cbPreviewResults, "result-panel-customization.html");
+			this.helpProvider.SetHelpNavigator(this.cbPreviewResults, System.Windows.Forms.HelpNavigator.Topic);
+			this.cbPreviewResults.Location = new System.Drawing.Point(9, 88);
+			this.cbPreviewResults.Name = "cbPreviewResults";
+			this.helpProvider.SetShowHelp(this.cbPreviewResults, true);
+			this.cbPreviewResults.Size = new System.Drawing.Size(203, 17);
+			this.cbPreviewResults.TabIndex = 8;
+			this.cbPreviewResults.Text = "Preview results during search (slower)";
+			this.cbPreviewResults.UseVisualStyleBackColor = true;
+			// 
 			// OptionsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.btnClose;
-			this.ClientSize = new System.Drawing.Size(490, 340);
+			this.ClientSize = new System.Drawing.Size(490, 372);
 			this.Controls.Add(this.grUI);
 			this.Controls.Add(this.grUpdate);
 			this.Controls.Add(this.btnClose);
@@ -427,5 +442,6 @@ namespace dnGREP
 		private System.Windows.Forms.CheckBox cbShowContext;
 		private System.Windows.Forms.CheckBox cbSearchFileNameOnly;
 		private System.Windows.Forms.HelpProvider helpProvider;
+		private System.Windows.Forms.CheckBox cbPreviewResults;
 	}
 }

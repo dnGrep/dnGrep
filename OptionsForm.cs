@@ -118,6 +118,7 @@ namespace dnGREP
 			tbLinesBefore.Text = Properties.Settings.Default.ContextLinesBefore.ToString();
 			tbLinesAfter.Text = Properties.Settings.Default.ContextLinesAfter.ToString();
 			cbSearchFileNameOnly.Checked = Properties.Settings.Default.AllowSearchingForFileNamePattern;
+			cbPreviewResults.Checked = Properties.Settings.Default.PreviewResults;
 			changeState();
 		}
 		
@@ -150,6 +151,7 @@ namespace dnGREP
 			Properties.Settings.Default.ContextLinesBefore = int.Parse(tbLinesBefore.Text);
 			Properties.Settings.Default.ContextLinesAfter = int.Parse(tbLinesAfter.Text);
 			Properties.Settings.Default.AllowSearchingForFileNamePattern = cbSearchFileNameOnly.Checked;
+			Properties.Settings.Default.PreviewResults = cbPreviewResults.Checked;
 			Properties.Settings.Default.Save();
 		}
 

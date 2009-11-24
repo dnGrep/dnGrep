@@ -23,14 +23,14 @@ namespace dnGREP
 		{
 			try
 			{
-				smallIconList.Images.Clear();
 				smallIconList.ImageSize = new Size(16, 16);
 				smallIconList.ColorDepth = ColorDepth.Depth32Bit;
 				foreach (string extension in extensions)
 				{
-					Icon smallIcon = IconHandler.IconFromExtension(extension, IconSize.Small);
 					if (!FileIcons.SmallIconList.Images.ContainsKey(extension))
 					{
+						Icon smallIcon = IconHandler.IconFromExtension(extension, IconSize.Small);
+
 						if (smallIcon != null)
 							FileIcons.SmallIconList.Images.Add(extension, smallIcon.ToBitmap());
 						else

@@ -461,13 +461,21 @@ namespace dnGREP.Common
 			{
 				if (!files.Contains(result.FileNameReal))
 				{
-					if ((File.GetAttributes(result.FileNameReal) & FileAttributes.ReadOnly) == FileAttributes.ReadOnly || result.ReadOnly)
+					if (IsReadOnly(result))
 					{
 						files.Add(result.FileNameReal);
 					}
 				}
 			}
 			return files;
+		}
+
+		public static bool IsReadOnly(GrepSearchResult result)
+		{
+			if ((File.GetAttributes(result.FileNameReal) & FileAttributes.ReadOnly) == FileAttributes.ReadOnly || result.ReadOnly)
+				return true;
+			else
+				return false;			
 		}
 
 		/// <summary>

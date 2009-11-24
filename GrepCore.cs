@@ -34,6 +34,14 @@ namespace dnGREP
 			get { return linesAfter; }
 			set { linesAfter = value; }
 		}
+
+		private bool previewFilesDuringSearch = false;
+
+		public bool PreviewFilesDuringSearch
+		{
+			get { return previewFilesDuringSearch; }
+			set { previewFilesDuringSearch = value; }
+		}
 		
 		private static Logger logger = LogManager.GetCurrentClassLogger();
 		private List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
@@ -41,13 +49,15 @@ namespace dnGREP
 		public event SearchProgressHandler ProcessedFile;
 		public class ProgressStatus
 		{
-			public ProgressStatus(int total, int processed)
+			public ProgressStatus(int total, int processed, List<GrepSearchResult> results)
 			{
 				TotalFiles = total;
 				ProcessedFiles = processed;
+				SearchResults = results;
 			}
 			public int TotalFiles;
 			public int ProcessedFiles;
+			public List<GrepSearchResult> SearchResults;
 		}
 
 		private static bool cancelProcess = false;
@@ -114,7 +124,12 @@ namespace dnGREP
 						}
 
 						if (ProcessedFile != null)
-							ProcessedFile(this, new ProgressStatus(totalFiles, processedFiles));
+						{
+							if (PreviewFilesDuringSearch)
+								ProcessedFile(this, new ProgressStatus(totalFiles, processedFiles, fileSearchResults));
+							else
+								ProcessedFile(this, new ProgressStatus(totalFiles, processedFiles, null));
+						}
 
 					}
 					catch (Exception ex)
@@ -186,7 +201,7 @@ namespace dnGREP
 						}
 
 						if (!GrepCore.CancelProcess && ProcessedFile != null)
-							ProcessedFile(this, new ProgressStatus(totalFiles, processedFiles));
+							ProcessedFile(this, new ProgressStatus(totalFiles, processedFiles, null));
 
 
 						File.SetAttributes(file, File.GetAttributes(tempFileName));
