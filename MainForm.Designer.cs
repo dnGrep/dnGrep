@@ -148,10 +148,10 @@ namespace dnGREP
 			this.tbFolderName.DataBindings.Add(new System.Windows.Forms.Binding("Text", global::dnGREP.Properties.Settings.Default, "SearchFolder", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
 			this.tbFolderName.Location = new System.Drawing.Point(6, 19);
 			this.tbFolderName.Name = "tbFolderName";
-			this.tbFolderName.ReadOnly = true;
 			this.tbFolderName.Size = new System.Drawing.Size(426, 20);
 			this.tbFolderName.TabIndex = 0;
 			this.tbFolderName.Text = global::dnGREP.Properties.Settings.Default.SearchFolder;
+			this.tbFolderName.TextChanged += new System.EventHandler(this.tbFolderName_TextChanged);
 			// 
 			// gbSearchFor
 			// 

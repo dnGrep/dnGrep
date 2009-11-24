@@ -394,6 +394,18 @@ namespace dnGREP
 			}
 		}
 
+		private void tbFolderName_TextChanged(object sender, EventArgs e)
+		{
+			if (Directory.Exists(tbFolderName.Text))
+			{
+				FolderSelected = true;
+			}
+			else
+			{
+				FolderSelected = false;
+			}
+		}
+
 		private void btnSearch_Click(object sender, EventArgs e)
 		{
 			DoSearchInResults = false;
@@ -1056,6 +1068,6 @@ namespace dnGREP
 					Utils.OpenContainingFolder((string)selectedNode.Tag, lineNumber);
 				}
 			}
-		}
+		}		
 	}
 }
