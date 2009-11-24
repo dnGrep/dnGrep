@@ -136,6 +136,11 @@ namespace dnGREP.Engines
 				return replace(sourceFile, destinationFile, searchPattern, replacePattern, searchMethod, replaceMethod, encoding);
 		}
 
+		public void Unload()
+		{
+			// Do nothing
+		}
+
 		#region Actual Implementation
 
 		private List<GrepSearchResult> search(string file, string searchPattern, SearchDelegates.DoSearch searchMethod, Encoding encoding)

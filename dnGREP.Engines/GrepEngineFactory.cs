@@ -94,5 +94,13 @@ namespace dnGREP.Engines
 			else
 				return plainTextEngine;
 		}
+
+		public static void UnloadEngines()
+		{
+			foreach (string key in fileTypeEngines.Keys)
+			{
+				fileTypeEngines[key].Engine.Unload();
+			}
+		}
 	}
 }

@@ -70,6 +70,11 @@ namespace dnGREP.Engines.Archive
 			return searchResults;
 		}
 
+		public void Unload()
+		{
+			//Do nothing
+		}
+
 		public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, bool isCaseSensitive, bool isMultiline, Encoding encoding)
 		{
 			throw new Exception("The method or operation is not supported.");

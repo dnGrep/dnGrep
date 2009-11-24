@@ -28,5 +28,10 @@ namespace dnGREP.Engines
 		List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, bool isCaseSensitive, bool isMultiline, Encoding encoding);
 
 		bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, bool isCaseSensitive, bool isMultiline, Encoding encoding);
+	
+		/// <summary>
+		/// Method gets called when search/replace process is complete
+		/// </summary>
+		void Unload();
 	}
 }

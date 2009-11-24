@@ -68,4 +68,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(TargetPath)" "$(SolutionDir)$(OutDir)Plugins\ArchiveSearch" /Y</PostBuildEvent>
+  </PropertyGroup>
 </Project>

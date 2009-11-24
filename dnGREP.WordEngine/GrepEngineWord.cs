@@ -54,7 +54,7 @@ namespace dnGREP.Engines.Word
 		/// </history>
 		public void Dispose()
 		{
-
+			Unload();
 			if (wordType != null && wordApplication != null)
 			{
 				// Close the application.
@@ -126,7 +126,6 @@ namespace dnGREP.Engines.Word
 			}
 
 			List<GrepSearchResult> result = searchMultiline(file, searchPattern, searchMethodMultiline);
-			unload();
 			return result;
 		}
 
@@ -217,7 +216,7 @@ namespace dnGREP.Engines.Word
 		/// <summary>
 		/// Unloads Microsoft Word.
 		/// </summary>
-		private void unload()
+		public void Unload()
 		{
 			if (wordType != null && wordApplication != null)
 			{

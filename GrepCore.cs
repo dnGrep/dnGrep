@@ -84,41 +84,48 @@ namespace dnGREP
 			int processedFiles = 0;
 			GrepCore.CancelProcess = false;
 
-			foreach (string file in files)
+			try
 			{
-				try
+				foreach (string file in files)
 				{
-					IGrepEngine engine = GrepEngineFactory.GetSearchEngine(file, showLinesInContext, linesBefore, linesAfter);
-
-					processedFiles++;
-
-					Encoding encoding = null;
-					if (codePage == -1)
-						encoding = Utils.GetFileEncoding(file);
-					else
-						encoding = Encoding.GetEncoding(codePage);
-
-					
-					if (GrepCore.CancelProcess)
+					try
 					{
-						return searchResults;
+						IGrepEngine engine = GrepEngineFactory.GetSearchEngine(file, showLinesInContext, linesBefore, linesAfter);
+
+						processedFiles++;
+
+						Encoding encoding = null;
+						if (codePage == -1)
+							encoding = Utils.GetFileEncoding(file);
+						else
+							encoding = Encoding.GetEncoding(codePage);
+
+
+						if (GrepCore.CancelProcess)
+						{
+							return searchResults;
+						}
+
+						List<GrepSearchResult> fileSearchResults = engine.Search(file, searchPattern, searchType, isCaseSensitive, isMultiline, encoding);
+
+						if (fileSearchResults != null)
+						{
+							searchResults.AddRange(fileSearchResults);
+						}
+
+						if (ProcessedFile != null)
+							ProcessedFile(this, new ProgressStatus(totalFiles, processedFiles));
+
 					}
-
-					List<GrepSearchResult> fileSearchResults = engine.Search(file, searchPattern, searchType, isCaseSensitive, isMultiline, encoding);
-
-					if (fileSearchResults != null)
+					catch (Exception ex)
 					{
-						searchResults.AddRange(fileSearchResults);
+						logger.LogException(LogLevel.Error, ex.Message, ex);
 					}
-
-					if (ProcessedFile != null)
-						ProcessedFile(this, new ProgressStatus(totalFiles, processedFiles));
-					
 				}
-				catch (Exception ex)
-				{
-					logger.LogException(LogLevel.Error, ex.Message, ex);
-				}
+			}
+			finally
+			{
+				GrepEngineFactory.UnloadEngines();
 			}
 
 			for (int i = 0; i < searchResults.Count; i++)
@@ -147,67 +154,74 @@ namespace dnGREP
 			int processedFiles = 0;
 			GrepCore.CancelProcess = false;
 
-			foreach (string file in files)
+			try
 			{
-				string tempFileName = file.Replace(baseFolder, tempFolder);
-				IGrepEngine engine = GrepEngineFactory.GetReplaceEngine(file, showLinesInContext, linesBefore, linesAfter);
-
-				try
+				foreach (string file in files)
 				{
-					processedFiles++;
-					// Copy file					
-					Utils.CopyFile(file, tempFileName, true);
-					Utils.DeleteFile(file);
+					string tempFileName = file.Replace(baseFolder, tempFolder);
+					IGrepEngine engine = GrepEngineFactory.GetReplaceEngine(file, showLinesInContext, linesBefore, linesAfter);
 
-					Encoding encoding = null;
-					if (codePage == -1)
-						encoding = Utils.GetFileEncoding(tempFileName);
-					else
-						encoding = Encoding.GetEncoding(codePage);
-
-
-					if (GrepCore.CancelProcess)
-					{
-						break;
-					}
-
-					if (!engine.Replace(tempFileName, file, searchPattern, replacePattern, searchType, isCaseSensitive, isMultiline, encoding))
-					{
-						throw new ApplicationException("Replace failed for file: " + file);
-					}
-					
-					if (!GrepCore.CancelProcess && ProcessedFile != null)
-						ProcessedFile(this, new ProgressStatus(totalFiles, processedFiles));
-
-
-					File.SetAttributes(file, File.GetAttributes(tempFileName));
-
-					if (GrepCore.CancelProcess)
-					{
-						// Replace the file
-						Utils.DeleteFile(file);
-						Utils.CopyFile(tempFileName, file, true);
-						break;
-					}
-				}
-				catch (Exception ex)
-				{
-					logger.LogException(LogLevel.Error, ex.Message, ex);
 					try
 					{
-						// Replace the file
-						if (File.Exists(tempFileName) && File.Exists(file))
+						processedFiles++;
+						// Copy file					
+						Utils.CopyFile(file, tempFileName, true);
+						Utils.DeleteFile(file);
+
+						Encoding encoding = null;
+						if (codePage == -1)
+							encoding = Utils.GetFileEncoding(tempFileName);
+						else
+							encoding = Encoding.GetEncoding(codePage);
+
+
+						if (GrepCore.CancelProcess)
 						{
+							break;
+						}
+
+						if (!engine.Replace(tempFileName, file, searchPattern, replacePattern, searchType, isCaseSensitive, isMultiline, encoding))
+						{
+							throw new ApplicationException("Replace failed for file: " + file);
+						}
+
+						if (!GrepCore.CancelProcess && ProcessedFile != null)
+							ProcessedFile(this, new ProgressStatus(totalFiles, processedFiles));
+
+
+						File.SetAttributes(file, File.GetAttributes(tempFileName));
+
+						if (GrepCore.CancelProcess)
+						{
+							// Replace the file
 							Utils.DeleteFile(file);
 							Utils.CopyFile(tempFileName, file, true);
+							break;
 						}
 					}
-					catch (Exception ex2)
+					catch (Exception ex)
 					{
-						// DO NOTHING
+						logger.LogException(LogLevel.Error, ex.Message, ex);
+						try
+						{
+							// Replace the file
+							if (File.Exists(tempFileName) && File.Exists(file))
+							{
+								Utils.DeleteFile(file);
+								Utils.CopyFile(tempFileName, file, true);
+							}
+						}
+						catch (Exception ex2)
+						{
+							// DO NOTHING
+						}
+						return -1;
 					}
-					return -1;
 				}
+			}
+			finally
+			{
+				GrepEngineFactory.UnloadEngines();
 			}
 
 			return processedFiles;
