@@ -11,6 +11,7 @@ namespace dnGREP.Engines
 	{
 		private static Dictionary<string, GrepPlugin> fileTypeEngines = new Dictionary<string, GrepPlugin>();
 		private static List<GrepPlugin> plugings = null;
+		private static Dictionary<string, string> failedEngines = new Dictionary<string, string>();
 
 		private static void loadPlugins() 
 		{
@@ -29,7 +30,7 @@ namespace dnGREP.Engines
 					}
 					catch (Exception ex)
 					{
-						//DO NOTHING
+						failedEngines[Path.GetFileNameWithoutExtension(pluginFile)] = ex.Message;
 					}
 				}
 			}
@@ -58,8 +59,16 @@ namespace dnGREP.Engines
 
 			if (fileTypeEngines.ContainsKey(fileExtension) && fileTypeEngines[fileExtension].Enabled)
 			{
-				fileTypeEngines[fileExtension].Engine.Initialize(showLinesInContext, linesBefore, linesAfter);
-				return fileTypeEngines[fileExtension].Engine;
+				if (fileTypeEngines[fileExtension].Engine.FrameworkVersion.CompareTo(plainTextEngine.FrameworkVersion) == 0)
+				{
+					fileTypeEngines[fileExtension].Engine.Initialize(showLinesInContext, linesBefore, linesAfter);
+					return fileTypeEngines[fileExtension].Engine;
+				}
+				else
+				{
+					failedEngines[fileTypeEngines[fileExtension].Engine.GetType().Name] = "Plugin developed under outdated framework. Please update the plugin.";
+					return plainTextEngine;
+				}
 			}
 			else
 				return plainTextEngine;
@@ -88,8 +97,16 @@ namespace dnGREP.Engines
 
 			if (fileTypeEngines.ContainsKey(fileExtension) && fileTypeEngines[fileExtension].Enabled && !fileTypeEngines[fileExtension].Engine.IsSearchOnly)
 			{
-				fileTypeEngines[fileExtension].Engine.Initialize(showLinesInContext, linesBefore, linesAfter);
-				return fileTypeEngines[fileExtension].Engine;
+				if (fileTypeEngines[fileExtension].Engine.FrameworkVersion.CompareTo(plainTextEngine.FrameworkVersion) == 0)
+				{
+					fileTypeEngines[fileExtension].Engine.Initialize(showLinesInContext, linesBefore, linesAfter);
+					return fileTypeEngines[fileExtension].Engine;
+				}
+				else
+				{
+					failedEngines[fileTypeEngines[fileExtension].Engine.GetType().Name] = "Plugin developed under outdated framework. Please update the plugin.";
+					return plainTextEngine;
+				}
 			}
 			else
 				return plainTextEngine;
@@ -101,6 +118,17 @@ namespace dnGREP.Engines
 			{
 				fileTypeEngines[key].Engine.Unload();
 			}
+		}
+
+		public static string GetListOfFailedEngines()
+		{
+			StringBuilder sb = new StringBuilder();
+			foreach (string key in failedEngines.Keys)
+			{
+				sb.AppendFormat("  * {0} ({1})", key, failedEngines[key]);
+			}
+			failedEngines.Clear();
+			return sb.ToString();
 		}
 	}
 }

@@ -79,5 +79,13 @@ namespace dnGREP.Engines.Archive
 		{
 			throw new Exception("The method or operation is not supported.");
 		}
+
+		public Version FrameworkVersion
+		{
+			get
+			{
+				return new Version(1, 1, 0, 0);
+			}
+		}
 	}
 }

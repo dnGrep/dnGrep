@@ -4,6 +4,7 @@ using System.Text;
 using dnGREP.Common;
 using System.IO;
 using NLog;
+using System.Reflection;
 
 namespace dnGREP.Engines
 {
@@ -139,6 +140,14 @@ namespace dnGREP.Engines
 		public void Unload()
 		{
 			// Do nothing
+		}
+
+		public Version FrameworkVersion
+		{
+			get
+			{
+				return Assembly.GetAssembly(typeof(IGrepEngine)).GetName().Version;
+			}
 		}
 
 		#region Actual Implementation

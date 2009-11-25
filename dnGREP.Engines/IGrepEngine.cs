@@ -33,5 +33,10 @@ namespace dnGREP.Engines
 		/// Method gets called when search/replace process is complete
 		/// </summary>
 		void Unload();
+
+		/// <summary>
+		/// Return version of the framework (dgGREP.Engines.dll) that the plugin was compiled against
+		/// </summary>
+		Version FrameworkVersion { get; }
 	}
 }

@@ -176,6 +176,14 @@ namespace dnGREP.Engines.Word
 			throw new Exception("The method or operation is not implemented.");
 		}
 
+		public Version FrameworkVersion
+		{
+			get
+			{
+				return new Version(1,1,0,0);
+			}
+		}
+
 		#region Private Members
 		/// <summary>
 		/// Loads Microsoft Word.

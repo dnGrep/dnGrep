@@ -56,11 +56,11 @@ namespace dnGREP
 				try
 				{
 					if (dialog.FileName != null &&
-						(dialog.FileName.EndsWith("Folder Selection.") ||
-						!File.Exists(dialog.FileName)))
+						(dialog.FileName.EndsWith("Folder Selection.") || !File.Exists(dialog.FileName)) && 
+						!Directory.Exists(dialog.FileName))
 					{
 						return Path.GetDirectoryName(dialog.FileName);
-					}
+					}					
 					else
 					{
 						return dialog.FileName;

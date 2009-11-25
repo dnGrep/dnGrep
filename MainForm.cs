@@ -622,6 +622,12 @@ namespace dnGREP
 			}
 			if (!Properties.Settings.Default.PreviewResults)
 				populateResults();
+
+			string outdatedEngines = dnGREP.Engines.GrepEngineFactory.GetListOfFailedEngines();
+			if (!string.IsNullOrEmpty(outdatedEngines))
+			{
+				MessageBox.Show("The following plugins failed to load:\n\n" + outdatedEngines + "\n\nDefault engine was used instead.", "Plugin Errors", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+			}
 		}
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
