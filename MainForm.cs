@@ -373,31 +373,33 @@ namespace dnGREP
 
 		private void btnSelectFolder_Click(object sender, EventArgs e)
 		{
-			folderSelectDialog.SelectedPath = tbFolderName.Text;
+			fileFolderDialog.Dialog.Multiselect = true;
+			fileFolderDialog.SelectedPath = Utils.GetBaseFolder(tbFolderName.Text);
 			if (tbFolderName.Text == "")
 			{
 				string clipboard = Clipboard.GetText();
 				try
 				{
 					if (Path.IsPathRooted(clipboard))
-						folderSelectDialog.SelectedPath = clipboard;
+						fileFolderDialog.SelectedPath = clipboard;
 				}
 				catch (Exception ex)
 				{
 					// Ignore
 				}
 			}
-			if (folderSelectDialog.ShowDialog() == DialogResult.OK &&
-				Directory.Exists(folderSelectDialog.SelectedPath))
+			if (fileFolderDialog.ShowDialog() == DialogResult.OK)
 			{
-				FolderSelected = true;
-				tbFolderName.Text = folderSelectDialog.SelectedPath;
+				if (fileFolderDialog.SelectedPaths != null) 
+					tbFolderName.Text = fileFolderDialog.SelectedPaths;
+				else
+					tbFolderName.Text = fileFolderDialog.SelectedPath;
 			}
 		}
 
 		private void tbFolderName_TextChanged(object sender, EventArgs e)
 		{
-			if (Directory.Exists(tbFolderName.Text))
+			if (Utils.IsPathValid(tbFolderName.Text))
 			{
 				FolderSelected = true;
 			}
@@ -531,11 +533,11 @@ namespace dnGREP
 						}
 
 						if (rbRegexSearch.Checked)
-							e.Result = grep.Replace(files.ToArray(), SearchType.Regex, tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text, cbCaseSensitive.Checked, cbMultiline.Checked, CodePage);
+							e.Result = grep.Replace(files.ToArray(), SearchType.Regex, Utils.GetBaseFolder(tbFolderName.Text), tbSearchFor.Text, tbReplaceWith.Text, cbCaseSensitive.Checked, cbMultiline.Checked, CodePage);
 						else if (rbXPathSearch.Checked)
-							e.Result = grep.Replace(files.ToArray(), SearchType.XPath, tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text, true, true, CodePage);
+							e.Result = grep.Replace(files.ToArray(), SearchType.XPath, Utils.GetBaseFolder(tbFolderName.Text), tbSearchFor.Text, tbReplaceWith.Text, true, true, CodePage);
 						else
-							e.Result = grep.Replace(files.ToArray(), SearchType.PlainText, tbFolderName.Text, tbSearchFor.Text, tbReplaceWith.Text, cbCaseSensitive.Checked, cbMultiline.Checked, CodePage);
+							e.Result = grep.Replace(files.ToArray(), SearchType.PlainText, Utils.GetBaseFolder(tbFolderName.Text), tbSearchFor.Text, tbReplaceWith.Text, cbCaseSensitive.Checked, cbMultiline.Checked, CodePage);
 
 						grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
 					}
@@ -670,9 +672,9 @@ namespace dnGREP
 			bool isFileReadOnly = Utils.IsReadOnly(result);
 			string displayedName = Path.GetFileName(result.FileNameDisplayed);
 			if (Properties.Settings.Default.ShowFilePathInResults &&
-				result.FileNameDisplayed.Contains(tbFolderName.Text + "\\"))
+				result.FileNameDisplayed.Contains(Utils.GetBaseFolder(tbFolderName.Text) + "\\"))
 			{
-				displayedName = result.FileNameDisplayed.Substring(tbFolderName.Text.Length + 1);
+				displayedName = result.FileNameDisplayed.Substring(Utils.GetBaseFolder(tbFolderName.Text).Length + 1);
 			}
 			int lineCount = Utils.MatchCount(result);
 			if (lineCount > 0)
@@ -809,7 +811,7 @@ namespace dnGREP
 				lblStatus.Text = "Replacing...";
 				IsReplacing = true;
 				CanUndo = false;
-				undoFolder = tbFolderName.Text;
+				undoFolder = Utils.GetBaseFolder(tbFolderName.Text);
 				barProgressBar.Value = 0;
 				tvSearchResult.Nodes.Clear();
 				workerSearchReplace.RunWorkerAsync(REPLACE_KEY);
@@ -970,7 +972,7 @@ namespace dnGREP
 							return;
 						}
 
-						Utils.CopyFiles(searchResults, tbFolderName.Text, folderSelectDialog.SelectedPath, true);
+						Utils.CopyFiles(searchResults, Utils.GetBaseFolder(tbFolderName.Text), folderSelectDialog.SelectedPath, true);
 						MessageBox.Show("Files have been successfully copied.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 					}
 					catch (Exception ex)
@@ -996,7 +998,7 @@ namespace dnGREP
 							return;
 						}
 
-						Utils.CopyFiles(searchResults, tbFolderName.Text, folderSelectDialog.SelectedPath, true);
+						Utils.CopyFiles(searchResults, Utils.GetBaseFolder(tbFolderName.Text), folderSelectDialog.SelectedPath, true);
 						Utils.DeleteFiles(searchResults);
 						MessageBox.Show("Files have been successfully moved.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 					}

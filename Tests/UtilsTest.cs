@@ -97,6 +97,56 @@ namespace Tests
 			Assert.AreEqual(result, output);
 		}
 
+		[RowTest]
+		[Row("\\Files\\TestCase1\\test-file-code.cs", "\\Files\\TestCase1")]
+		[Row("\\Files\\TestCase1", "\\Files\\TestCase1")]
+		[Row("\\Files\\TestCas\\", null)]
+		[Row("\\Files\\TestCase1\\test-file-code.cs;\\Files\\TestCase1\\test-file-plain.txt", "\\Files\\TestCase1")]
+		public void TestGetBaseFolder(string relativePath, string result)
+		{
+			StringBuilder sb = new StringBuilder();
+			string pathToDll = GetDllPath();
+			string[] rPaths = relativePath.Split(';');
+			foreach (string rPath in rPaths)
+				sb.Append(pathToDll + rPath + ";");
+
+			if (result == null)
+				Assert.AreEqual(Utils.GetBaseFolder(sb.ToString()), null);
+			else
+				Assert.AreEqual(Utils.GetBaseFolder(sb.ToString()), pathToDll + result);
+		}
+
+		[RowTest]
+		[Row("\\Files\\TestCase1\\test-file-code.cs", true)]
+		[Row("\\Files\\TestCase1\\test-file-code2.cs", false)]
+		[Row("\\Files\\TestCase1\\", true)]
+		[Row("\\Files\\TestCase1", true)]
+		[Row("\\Files\\TestCas\\", false)]
+		[Row("\\Files\\TestCase1\\test-file-code.cs;\\Files\\TestCase1\\test-file-plain.txt", true)]
+		[Row("\\Files\\TestCase1\\test-file-code.cs;\\Files\\TestCase1\\test-file-plain.txt;\\Files\\TestCase1", true)]
+		[Row("\\Files\\TestCase1\\test11-file-code.cs;\\Files\\TestCase1\\test-file-plain.txt;\\Files\\TestCase1", false)]
+		[Row("\\Files\\TestCase1\\test-file-code.cs;\\Files\\TestCase1\\test-file-plain.txt;\\Files1\\TestCase1", false)]
+		public void TestIsPathValied(string relativePath, bool result)
+		{
+			StringBuilder sb = new StringBuilder();
+			string pathToDll = GetDllPath();
+			string[] rPaths = relativePath.Split(';');
+			foreach (string rPath in rPaths)
+				sb.Append(pathToDll + rPath + ";");
+
+			Assert.AreEqual(Utils.IsPathValid(sb.ToString()), result);
+		}
+
+		[Test]
+		public void TestIsPathValidWithoutCollon()
+		{
+			StringBuilder sb = new StringBuilder();
+			string pathToDll = GetDllPath();
+			sb.Append(pathToDll + "\\Files\\TestCase1");
+
+			Assert.AreEqual(Utils.IsPathValid(sb.ToString()), true);
+		}
+
 		[Test]
 		public void TestMatchCount()
 		{
@@ -359,6 +409,29 @@ namespace Tests
 			DirectoryInfo di = new DirectoryInfo(sourceFolder + "\\TestCase2\\HiddenFolder");
 			di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
 			Assert.AreEqual(Utils.GetFileList(sourceFolder + "\\TestCase2", namePattern, isRegex, includeSubfolders, includeHidden, sizeFrom, sizeTo).Length, result);
+		}
+
+		[Test]
+		public void GetFileListTestWithMultiplePaths()
+		{
+			string dllPath = GetDllPath();
+			string path = sourceFolder + "\\TestCase2;" + sourceFolder + "\\TestCase2\\excel-file.xls";
+			Assert.AreEqual(Utils.GetFileList(path, "*.*", false, false, false, 0, 0).Length, 4);
+
+			path = sourceFolder + "\\TestCase2;" + sourceFolder + "\\TestCase3\\test-file-code.cs";
+			Assert.AreEqual(Utils.GetFileList(path, "*.*", false, false, false, 0, 0).Length, 5);
+
+			path = sourceFolder + "\\TestCase3\\test-file-code.cs;" + sourceFolder + "\\TestCase2";
+			Assert.AreEqual(Utils.GetFileList(path, "*.*", false, false, false, 0, 0).Length, 5);
+
+			path = sourceFolder + "\\TestCase2;" + sourceFolder + "\\TestCase3\\test-file-code.cs;" + sourceFolder + "\\TestCase3\\test-file-plain.txt";
+			Assert.AreEqual(Utils.GetFileList(path, "*.*", false, false, false, 0, 0).Length, 6);
+
+			path = sourceFolder + "\\TestCase3\\test-file-code.cs;" + sourceFolder + "\\TestCase3\\test-file-plain.txt";
+			Assert.AreEqual(Utils.GetFileList(path, "*.*", false, false, false, 0, 0).Length, 2);
+
+			path = sourceFolder + "\\TestCase3\\test-file-code.cs;" + sourceFolder + "\\TestCase3\\test-file-plain.txt;";
+			Assert.AreEqual(Utils.GetFileList(path, "*.*", false, false, false, 0, 0).Length, 2);
 		}
 
 		[Test]

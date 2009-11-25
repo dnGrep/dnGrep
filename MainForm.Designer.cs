@@ -100,6 +100,7 @@ namespace dnGREP
 			this.saveAsCSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
 			this.helpProvider = new System.Windows.Forms.HelpProvider();
+			this.fileFolderDialog = new dnGREP.FileFolderDialog();
 			this.gbSearchIn.SuspendLayout();
 			this.gbSearchFor.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
@@ -973,6 +974,7 @@ namespace dnGREP
 		private System.Windows.Forms.ContextMenuStrip helpMenu;
 		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
 		private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
+		private FileFolderDialog fileFolderDialog;
 	}
 }
 

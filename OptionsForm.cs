@@ -128,11 +128,13 @@ namespace dnGREP
 			{
 				shellRegister("Directory");
 				shellRegister("Drive");
+				shellRegister("*");
 			}
 			else if (!cbRegisterShell.Checked)
 			{
 				shellUnregister("Directory");
 				shellUnregister("Drive");
+				shellUnregister("*");
 			}
 		}
 

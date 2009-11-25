@@ -234,11 +234,58 @@ namespace dnGREP.Common
 		}
 
 		/// <summary>
+		/// Validates whether the path is a valid directory, file, or list of files
+		/// </summary>
+		/// <param name="path">Path to one or many files separated by semi-colon or path to a folder</param>
+		/// <returns>True is all paths are valid, otherwise false</returns>
+		public static bool IsPathValid(string path)
+		{
+			try
+			{
+				string[] paths = path.Split(';');
+				foreach (string subPath in paths)
+				{
+					if (subPath.Trim() != "" && !File.Exists(subPath) && !Directory.Exists(subPath))
+						return false;
+				}
+				return true;
+			}
+			catch (Exception ex)
+			{
+				return false;
+			}
+		}
+
+		/// <summary>
+		/// Returns base folder of one or many files or folders. 
+		/// If multiple files are passed in, takes the first one.
+		/// </summary>
+		/// <param name="path">Path to one or many files separated by semi-colon or path to a folder</param>
+		/// <returns>Base folder path or null if none exists</returns>
+		public static string GetBaseFolder(string path)
+		{
+			try
+			{
+				string[] paths = path.Split(';');
+				if (paths[0].Trim() != "" && File.Exists(paths[0]))
+					return Path.GetDirectoryName(paths[0]);
+				else if (paths[0].Trim() != "" && Directory.Exists(paths[0]))
+					return paths[0];
+				else
+					return null;
+			}
+			catch (Exception ex)
+			{
+				return null;
+			}
+		}
+
+		/// <summary>
 		/// Searches folder and it's subfolders for files that match pattern and
 		/// returns array of strings that contain full paths to the files.
 		/// If no files found returns 0 length array.
 		/// </summary>
-		/// <param name="pathToFolder"></param>
+		/// <param name="path">Path to one or many files separated by semi-colon or path to a folder</param>
 		/// <param name="namePattern">File name pattern. (E.g. *.cs) or regex. If null returns empty array. If empty string returns all files.</param>
 		/// <param name="isRegex">Whether to use regex as search pattern. Otherwise use asterisks</param>
 		/// <param name="includeSubfolders">Include sub folders</param>
@@ -246,20 +293,47 @@ namespace dnGREP.Common
 		/// <param name="sizeFrom">Size in KB</param>
 		/// <param name="sizeTo">Size in KB</param>
 		/// <returns></returns>
-		public static string[] GetFileList(string pathToFolder, string namePattern, bool isRegex, bool includeSubfolders, bool includeHidden, int sizeFrom, int sizeTo)
+		public static string[] GetFileList(string path, string namePattern, bool isRegex, bool includeSubfolders, bool includeHidden, int sizeFrom, int sizeTo)
 		{
-			if (string.IsNullOrEmpty(pathToFolder) || !Directory.Exists(pathToFolder) || namePattern == null)
-				return new string[0];
-
-			DirectoryInfo di = new DirectoryInfo(pathToFolder);
-			List<string> fileMatch = new List<string>();
-			string[] namePatterns = namePattern.Split(';');
-			foreach (string pattern in namePatterns)
+			if (string.IsNullOrEmpty(path) || namePattern == null)
 			{
-				recursiveFileSearch(pathToFolder, pattern.Trim(), isRegex, includeSubfolders, includeHidden, sizeFrom, sizeTo, fileMatch);
+				return new string[0];
 			}
-			
-			return fileMatch.ToArray();
+			else
+			{
+				List<string> fileMatch = new List<string>();
+
+				string[] paths = path.Split(';');
+				foreach (string subPath in paths)
+				{
+					if (subPath.Trim() == "")
+						continue;
+
+					try
+					{
+						DirectoryInfo di = new DirectoryInfo(subPath);
+
+						if (di.Exists)
+						{
+							string[] namePatterns = namePattern.Split(';');
+							foreach (string pattern in namePatterns)
+							{
+								recursiveFileSearch(di.FullName, pattern.Trim(), isRegex, includeSubfolders, includeHidden, sizeFrom, sizeTo, fileMatch);
+							}
+						}
+						else if (File.Exists(subPath))
+						{
+							if (!fileMatch.Contains(subPath))
+								fileMatch.Add(subPath);
+						}
+					}
+					catch (Exception ex)
+					{
+						continue;
+					}
+				}
+				return fileMatch.ToArray();
+			}
 		}
 
 		private static void recursiveFileSearch(string pathToFolder, string namePattern, bool isRegex, bool includeSubfolders, bool includeHidden, int sizeFrom, int sizeTo, List<string> files)
@@ -297,7 +371,8 @@ namespace dnGREP.Common
 							continue;
 						}
 					}
-					files.Add(fileMatch[i].FullName);
+					if (!files.Contains(fileMatch[i].FullName))
+						files.Add(fileMatch[i].FullName);
 				}
 				if (includeSubfolders)
 				{

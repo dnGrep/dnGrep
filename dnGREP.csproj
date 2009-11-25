@@ -70,6 +70,9 @@
     <Compile Include="BookmarksForm.Designer.cs">
       <DependentUpon>BookmarksForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="FileFolderDialog.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="PublishedVersionExtractor.cs" />
     <Compile Include="FileIcons.cs" />
     <Compile Include="RegexTest.cs">
