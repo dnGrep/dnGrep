@@ -665,6 +665,7 @@ namespace dnGREP
 			// 
 			this.parentHelpToolStripMenuItem.DropDown = this.helpMenu;
 			this.parentHelpToolStripMenuItem.Name = "parentHelpToolStripMenuItem";
+			this.parentHelpToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.No;
 			this.parentHelpToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
 			this.parentHelpToolStripMenuItem.Text = "&Help";
 			// 
@@ -674,7 +675,6 @@ namespace dnGREP
             this.toolStripMenuItem1,
             this.toolStripMenuItem2});
 			this.helpMenu.Name = "otherMenu";
-			this.helpMenu.OwnerItem = this.parentHelpToolStripMenuItem;
 			this.helpMenu.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
 			this.helpMenu.ShowImageMargin = false;
 			this.helpMenu.Size = new System.Drawing.Size(102, 48);
@@ -682,6 +682,7 @@ namespace dnGREP
 			// toolStripMenuItem1
 			// 
 			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+			this.toolStripMenuItem1.RightToLeft = System.Windows.Forms.RightToLeft.No;
 			this.toolStripMenuItem1.Size = new System.Drawing.Size(101, 22);
 			this.toolStripMenuItem1.Text = "&Help";
 			this.toolStripMenuItem1.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
@@ -689,6 +690,7 @@ namespace dnGREP
 			// toolStripMenuItem2
 			// 
 			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+			this.toolStripMenuItem2.RightToLeft = System.Windows.Forms.RightToLeft.No;
 			this.toolStripMenuItem2.Size = new System.Drawing.Size(101, 22);
 			this.toolStripMenuItem2.Text = "&About...";
 			this.toolStripMenuItem2.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
@@ -696,6 +698,7 @@ namespace dnGREP
 			// optionsToolStripMenuItem
 			// 
 			this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+			this.optionsToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.No;
 			this.optionsToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
 			this.optionsToolStripMenuItem.Text = "&Options...";
 			this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
@@ -703,6 +706,7 @@ namespace dnGREP
 			// undoToolStripMenuItem
 			// 
 			this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
+			this.undoToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.No;
 			this.undoToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
 			this.undoToolStripMenuItem.Text = "&Undo";
 			this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
@@ -849,6 +853,10 @@ namespace dnGREP
 			// helpProvider
 			// 
 			this.helpProvider.HelpNamespace = "Doc\\dnGREP.chm";
+			// 
+			// fileFolderDialog
+			// 
+			this.fileFolderDialog.SelectedPath = "";
 			// 
 			// MainForm
 			// 
