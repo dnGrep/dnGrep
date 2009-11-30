@@ -25,10 +25,14 @@ namespace dnGREP
 
 		public new DialogResult ShowDialog(IWin32Window owner)
 		{
+			// Set validate names to false otherwise windows will not let you select "Folder Selection."
 			dialog.ValidateNames = false;
+			dialog.CheckFileExists = false;
+			dialog.CheckPathExists = true;
 			
 			try
 			{
+				// Set initial directory (used when dialog.FileName is set from outside)
 				if (dialog.FileName != null && dialog.FileName != "")
 				{
 					if (Directory.Exists(dialog.FileName))
@@ -42,6 +46,7 @@ namespace dnGREP
 				// Do nothing
 			}
 
+			// Always default to Folder Selection.
 			dialog.FileName = "Folder Selection.";
 
 			if (owner == null)
@@ -50,6 +55,10 @@ namespace dnGREP
 				return dialog.ShowDialog(owner);
 		}
 
+		/// <summary>
+		// Helper property. Parses FilePath into either folder path (if Folder Selection. is set)
+		// or returns file path
+		/// </summary>
 		public string SelectedPath
 		{
 			get {
@@ -80,6 +89,9 @@ namespace dnGREP
 			}
 		}
 
+		/// <summary>
+		/// When multiple files are selected returns them as semi-colon seprated string
+		/// </summary>
 		public string SelectedPaths
 		{
 			get {
