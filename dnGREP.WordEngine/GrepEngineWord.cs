@@ -180,8 +180,14 @@ namespace dnGREP.Engines.Word
 		{
 			get
 			{
-				return new Version(1,1,0,0);
+				return new Version(1,2,0,0);
 			}
+		}
+
+		public override void OpenFile(OpenFileArgs args)
+		{
+			args.UseCustomEditor = false;
+			Utils.OpenFile(args);
 		}
 
 		#region Private Members

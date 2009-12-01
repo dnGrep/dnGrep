@@ -1,3 +1,3 @@
-File=dnGREP.Engines.Archive.dll
+File=ArchiveSearch\dnGREP.Engines.Archive.dll
 Enabled=True
-Extensions=zip,rar,7z,chip
+Extensions=zip,rar,7z,gzip,bzip,tar,arj,cab,cpio,deb,dmg,hfs,iso,lzh,lzma,z,rpm,xar

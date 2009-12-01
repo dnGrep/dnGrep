@@ -28,11 +28,16 @@ namespace dnGREP
 			}
 			try
 			{
+				Utils.DeleteTempFolder();
 				Application.Run(new MainForm());
 			}
 			catch (Exception ex)
 			{
 				logger.LogException(LogLevel.Error, ex.Message, ex);
+			}
+			finally
+			{
+				Utils.DeleteTempFolder();
 			}
 		}
 	}

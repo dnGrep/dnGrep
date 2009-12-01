@@ -41,6 +41,7 @@
     <Compile Include="GrepEngineFactory.cs" />
     <Compile Include="GrepEnginePlainText.cs" />
     <Compile Include="GrepPlugin.cs" />
+    <Compile Include="OpenFileArgs.cs" />
     <Compile Include="SearchDelegates.cs" />
     <Compile Include="GrepSearchResult.cs" />
     <Compile Include="IGrepEngine.cs" />

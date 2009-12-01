@@ -41,7 +41,7 @@ namespace dnGREP.Engines.Archive
 			SevenZipExtractor extractor = new SevenZipExtractor(file);
 			GrepEnginePlainText plainTextEngine = new GrepEnginePlainText();
 			plainTextEngine.Initialize(showLinesInContext, linesBefore, linesAfter);
-			string tempFolder = Utils.FixFolderName(Path.GetTempPath()) + "dnGREP-Archive\\";
+			string tempFolder = Utils.FixFolderName(Utils.GetTempFolder()) + "dnGREP-Archive\\";
 			
 			if (Directory.Exists(tempFolder))
 				Utils.DeleteFolder(tempFolder);
@@ -84,8 +84,34 @@ namespace dnGREP.Engines.Archive
 		{
 			get
 			{
-				return new Version(1, 1, 0, 0);
+				return new Version(1, 2, 0, 0);
 			}
+		}
+
+		public override void OpenFile(OpenFileArgs args)
+		{
+			SevenZipExtractor extractor = new SevenZipExtractor(args.SearchResult.FileNameReal);
+			
+			string tempFolder = Utils.FixFolderName(Utils.GetTempFolder()) + "dnGREP-Archive\\" + Utils.GetHash(args.SearchResult.FileNameReal) + "\\";
+
+			if (!Directory.Exists(tempFolder))
+			{
+				Directory.CreateDirectory(tempFolder);
+				try
+				{
+					extractor.ExtractArchive(tempFolder);					
+				}
+				catch (Exception ex)
+				{
+					args.UseBaseEngine = true;
+				}
+			}
+			GrepSearchResult newResult = new GrepSearchResult();
+			newResult.FileNameReal = args.SearchResult.FileNameReal;
+			newResult.FileNameDisplayed = args.SearchResult.FileNameDisplayed;
+			OpenFileArgs newArgs = new OpenFileArgs(newResult, args.LineNumber, args.UseCustomEditor, args.CustomEditor, args.CustomEditorArgs);
+			newArgs.SearchResult.FileNameDisplayed = tempFolder + args.SearchResult.FileNameDisplayed.Substring(args.SearchResult.FileNameReal.Length + 1);
+			Utils.OpenFile(newArgs);
 		}
 	}
 }

@@ -30,6 +30,11 @@ namespace dnGREP.Engines
 			this.linesAfter = linesAfter;
 		}
 
+		public virtual void OpenFile(OpenFileArgs args)
+		{
+			Utils.OpenFile(args);
+		}
+
 		protected bool doTextSearchCaseInsensitive(string text, string searchText)
 		{
 			return text.ToLower().Contains(searchText.ToLower());

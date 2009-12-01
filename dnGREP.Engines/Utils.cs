@@ -474,19 +474,52 @@ namespace dnGREP.Common
 		/// <param name="useCustomEditor">True if customEditor parameter is provided</param>
 		/// <param name="customEditor">Custom editor path</param>
 		/// <param name="customEditorArgs">Arguments for custom editor</param>
-		public static void OpenFile(string fileName, int line, bool useCustomEditor, string customEditor, string customEditorArgs)
+		public static void OpenFile(OpenFileArgs args)
 		{
-			if (!useCustomEditor || customEditor == null || customEditor.Trim() == "")
-				System.Diagnostics.Process.Start(@"" + fileName + "");
+			if (!args.UseCustomEditor || args.CustomEditor == null || args.CustomEditor.Trim() == "")
+				System.Diagnostics.Process.Start(@"" + args.SearchResult.FileNameDisplayed + "");
 			else
 			{
-				ProcessStartInfo info = new ProcessStartInfo(customEditor);
+				ProcessStartInfo info = new ProcessStartInfo(args.CustomEditor);
 				info.UseShellExecute = false;
 				info.CreateNoWindow = true;
-				if (customEditorArgs == null)
-					customEditorArgs = "";
-				info.Arguments = customEditorArgs.Replace("%file", "\"" + fileName + "\"").Replace("%line", line.ToString());
+				if (args.CustomEditorArgs == null)
+					args.CustomEditorArgs = "";
+				info.Arguments = args.CustomEditorArgs.Replace("%file", "\"" + args.SearchResult.FileNameDisplayed + "\"").Replace("%line", args.LineNumber.ToString());
 				System.Diagnostics.Process.Start(info);
+			}
+		}
+
+		/// <summary>
+		/// Returns path to a temp folder used by dnGREP. If folder does not exist
+		/// it gets created.
+		/// </summary>
+		/// <returns></returns>
+		public static string GetTempFolder()
+		{
+			string tempPath = FixFolderName(GetCurrentPath()) + "~dnGREP-Temp\\";
+			if (!Directory.Exists(tempPath))
+			{
+				DirectoryInfo di = Directory.CreateDirectory(tempPath);
+				di.Attributes = FileAttributes.Directory | FileAttributes.Hidden; 
+			}
+			return tempPath;
+		}
+
+		/// <summary>
+		/// Deletes temp folder
+		/// </summary>
+		public static void DeleteTempFolder()
+		{
+			string tempPath = FixFolderName(GetCurrentPath()) + "~dnGREP-Temp\\";
+			try
+			{
+				if (Directory.Exists(tempPath))
+					DeleteFolder(tempPath);
+			}
+			catch (Exception ex)
+			{
+				logger.LogException(LogLevel.Error, "Failed to delete temp folder", ex);
 			}
 		}
 
@@ -710,6 +743,27 @@ namespace dnGREP.Common
 					}
 				}
 			}
+		}
+
+		/// <summary>
+		/// Returns MD5 hash for string
+		/// </summary>
+		/// <param name="input"></param>
+		/// <returns></returns>
+		public static string GetHash(string input)
+		{
+			// step 1, calculate MD5 hash from input
+			System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create();
+			byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
+			byte[] hash = md5.ComputeHash(inputBytes);
+
+			// step 2, convert byte array to hex string
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < hash.Length; i++)
+			{
+				sb.Append(hash[i].ToString("X2"));
+			}
+			return sb.ToString();
 		}
 	}
 

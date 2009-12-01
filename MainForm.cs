@@ -689,7 +689,7 @@ namespace dnGREP
 				displayedName = displayedName + " [read-only]";
 
 			TreeNode node = new TreeNode(displayedName);
-			node.Tag = result.FileNameReal;
+			node.Tag = result;
 			tvSearchResult.Nodes.Add(node);
 			
 			node.ImageKey = ext;
@@ -849,9 +849,14 @@ namespace dnGREP
 
 					bool result = core.Undo(undoFolder);
 					if (result)
+					{
 						MessageBox.Show("Files have been successfully reverted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+						Utils.DeleteTempFolder();
+					}
 					else
+					{
 						MessageBox.Show("There was an error reverting files. Please examine the error log.", "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
+					}
 					CanUndo = false;
 				}
 			}
@@ -953,7 +958,11 @@ namespace dnGREP
 				}
 				if (selectedNode != null && selectedNode.Tag != null)
 				{
-					Utils.OpenFile((string)selectedNode.Tag, lineNumber, Properties.Settings.Default.UseCustomEditor, Properties.Settings.Default.CustomEditor, Properties.Settings.Default.CustomEditorArgs);
+					GrepSearchResult result = (GrepSearchResult)selectedNode.Tag;
+					OpenFileArgs fileArg = new OpenFileArgs(result, lineNumber, Properties.Settings.Default.UseCustomEditor, Properties.Settings.Default.CustomEditor, Properties.Settings.Default.CustomEditorArgs);
+					dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.FileNameReal, false, 0, 0).OpenFile(fileArg);
+					if (fileArg.UseBaseEngine)
+						Utils.OpenFile(new OpenFileArgs(result, lineNumber, Properties.Settings.Default.UseCustomEditor, Properties.Settings.Default.CustomEditor, Properties.Settings.Default.CustomEditorArgs));
 				}
 			}
 		}
@@ -1088,9 +1097,9 @@ namespace dnGREP
 				}
 				if (selectedNode != null && selectedNode.Tag != null)
 				{
-					Utils.OpenContainingFolder((string)selectedNode.Tag, lineNumber);
+					Utils.OpenContainingFolder(((GrepSearchResult)selectedNode.Tag).FileNameReal, lineNumber);
 				}
 			}
-		}		
+		}
 	}
 }

@@ -154,7 +154,7 @@ namespace dnGREP
 
 		public int Replace(string[] files, SearchType searchType, string baseFolder, string searchPattern, string replacePattern, bool isCaseSensitive, bool isMultiline, int codePage)
 		{
-			string tempFolder = Utils.FixFolderName(Path.GetTempPath()) + "dnGREP\\";
+			string tempFolder = Utils.GetTempFolder();
 			if (Directory.Exists(tempFolder))
 				Utils.DeleteFolder(tempFolder);
 			Directory.CreateDirectory(tempFolder);
@@ -244,7 +244,7 @@ namespace dnGREP
 
 		public bool Undo(string folderPath)
 		{
-			string tempFolder = Utils.FixFolderName(Path.GetTempPath()) + "dnGREP\\";
+			string tempFolder = Utils.GetTempFolder();
 			if (!Directory.Exists(tempFolder))
 			{
 				logger.Error("Failed to undo replacement as temporary directory was removed.");
