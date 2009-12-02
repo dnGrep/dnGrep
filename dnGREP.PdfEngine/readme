@@ -1,0 +1,9 @@
+Installation
+======================
+Extract content of "dnGREP PDF Plugin" zip archive on top of dnGREP installation.
+
+Note: to disable the plugin modify file "\Plugins\dnGREP.Engines.Pdf.plugin" and set value of Enabled to False.
+
+Use
+======================
+Whenever one of the PDF files is included in search, its content will be searched by the plugin.

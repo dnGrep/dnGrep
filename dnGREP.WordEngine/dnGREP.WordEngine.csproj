@@ -56,6 +56,11 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="readme">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -65,6 +70,12 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(TargetPath)" "$(SolutionDir)$(OutDir)Plugins\MsWordSearch" /Y</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(TargetPath)" "$(SolutionDir)$(OutDir)Plugins\MsWordSearch" /Y
+REM Start copying release files
+rmdir /S /Q "$(SolutionDir)Release\dnGREP MsWord Plugin X.X.X"
+mkdir "$(SolutionDir)Release\dnGREP MsWord Plugin X.X.X\Plugins\MsWordSearch"
+xcopy "$(TargetDir)readme" "$(SolutionDir)Release\dnGREP MsWord Plugin X.X.X"
+xcopy "$(TargetDir)dnGREP.Engines.MsWord.plugin" "$(SolutionDir)Release\dnGREP MsWord Plugin X.X.X\Plugins"
+xcopy "$(TargetDir)dnGREP.Engines.Word.dll" "$(SolutionDir)Release\dnGREP MsWord Plugin X.X.X\Plugins\MsWordSearch"</PostBuildEvent>
   </PropertyGroup>
 </Project>

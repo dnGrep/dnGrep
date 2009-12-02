@@ -1,0 +1,9 @@
+Installation
+======================
+Extract content of "dnGREP MS Word Plugin" zip archive on top of dnGREP installation.
+
+Note: to disable the plugin modify file "\Plugins\dnGREP.Engines.MsWord.plugin" and set value of Enabled to False.
+
+Use
+======================
+Whenever one of the word documents is included in search, its content will be searched by the plugin.

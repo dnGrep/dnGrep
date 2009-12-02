@@ -54,6 +54,11 @@
       <Name>dnGREP.Engines</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="readme">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -63,6 +68,13 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(TargetPath)" "$(SolutionDir)$(OutDir)Plugins\PdfSearch" /Y</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(TargetPath)" "$(SolutionDir)$(OutDir)Plugins\PdfSearch" /Y
+REM Start copying release files
+rmdir /S /Q "$(SolutionDir)Release\dnGREP PDF Plugin X.X.X"
+mkdir "$(SolutionDir)Release\dnGREP PDF Plugin X.X.X\Plugins\PdfSearch"
+xcopy "$(TargetDir)readme" "$(SolutionDir)Release\dnGREP PDF Plugin X.X.X"
+xcopy "$(TargetDir)dnGREP.Engines.Pdf.plugin" "$(SolutionDir)Release\dnGREP PDF Plugin X.X.X\Plugins"
+xcopy "$(TargetDir)pdftotext.exe" "$(SolutionDir)Release\dnGREP PDF Plugin X.X.X\Plugins\PdfSearch"
+xcopy "$(TargetDir)dnGREP.Engines.Pdf.dll" "$(SolutionDir)Release\dnGREP PDF Plugin X.X.X\Plugins\PdfSearch"</PostBuildEvent>
   </PropertyGroup>
 </Project>
