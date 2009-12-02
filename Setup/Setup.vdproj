@@ -39,12 +39,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_74C26B861FDDE5510A882E9F82F4F768"
-        "OwnerKey" = "8:_A8771CB0F1A2495CA1037D9B2A1BE595"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_89CE9A3AF7B1444492FD6775D6F2FFFA"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -57,6 +51,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_D463812EAD2B01184124A3D294653786"
+        "OwnerKey" = "8:_A8771CB0F1A2495CA1037D9B2A1BE595"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_F32E74A2226F06F8C26F711092B1810C"
         "OwnerKey" = "8:_A8771CB0F1A2495CA1037D9B2A1BE595"
         "MsmSig" = "8:_UNDEFINED"
@@ -64,7 +64,7 @@
         "Entry"
         {
         "MsmKey" = "8:_F32E74A2226F06F8C26F711092B1810C"
-        "OwnerKey" = "8:_74C26B861FDDE5510A882E9F82F4F768"
+        "OwnerKey" = "8:_D463812EAD2B01184124A3D294653786"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -82,7 +82,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_74C26B861FDDE5510A882E9F82F4F768"
+        "OwnerKey" = "8:_D463812EAD2B01184124A3D294653786"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -300,14 +300,34 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_74C26B861FDDE5510A882E9F82F4F768"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_89CE9A3AF7B1444492FD6775D6F2FFFA"
+            {
+            "SourcePath" = "8:C:\\Documents and Settings\\528046\\Desktop\\logo.jpg"
+            "TargetName" = "8:logo.jpg"
+            "Tag" = "8:"
+            "Folder" = "8:_A71D582AD6EC4C4E902EE08E18B3CFAC"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:TRUE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D463812EAD2B01184124A3D294653786"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:dnGREP.Engines, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:dnGREP.Engines, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_74C26B861FDDE5510A882E9F82F4F768"
+                    "_D463812EAD2B01184124A3D294653786"
                     {
                     "Name" = "8:dnGREP.Engines.dll"
                     "Attributes" = "3:512"
@@ -329,26 +349,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_89CE9A3AF7B1444492FD6775D6F2FFFA"
-            {
-            "SourcePath" = "8:C:\\Documents and Settings\\528046\\Desktop\\logo.jpg"
-            "TargetName" = "8:logo.jpg"
-            "Tag" = "8:"
-            "Folder" = "8:_A71D582AD6EC4C4E902EE08E18B3CFAC"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:TRUE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F32E74A2226F06F8C26F711092B1810C"
@@ -390,7 +390,7 @@
         {
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_A71D582AD6EC4C4E902EE08E18B3CFAC"
             {
-            "DefaultLocation" = "8:[ProgramFilesFolder]\\[ProductName]"
+            "DefaultLocation" = "8:[ProgramFilesFolder]\\dnGREP"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -438,7 +438,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:dnGREP 0.12.0"
         "ProductCode" = "8:{EF9BA85D-8A7A-447E-9BEF-EF43EB222EEC}"
-        "PackageCode" = "8:{CBCE6F67-77B7-40C2-95BE-3C3E6D8D2A9C}"
+        "PackageCode" = "8:{71384EC0-ECA5-4E7B-9005-5B2412BAE867}"
         "UpgradeCode" = "8:{8E2E05EE-9E1D-432B-857C-6ED033A5F8AD}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"

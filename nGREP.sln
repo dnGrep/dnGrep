@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dnGREP.ArchiveEngine", "dnG
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dnGREP.WordEngine", "dnGREP.WordEngine\dnGREP.WordEngine.csproj", "{FA9512EF-562C-4DC1-9CF2-7A8FF896D352}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dnGREP.PdfEngine", "dnGREP.PdfEngine\dnGREP.PdfEngine.csproj", "{6B5159A5-C92C-4203-84DE-273FEB30D07B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{FA9512EF-562C-4DC1-9CF2-7A8FF896D352}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA9512EF-562C-4DC1-9CF2-7A8FF896D352}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA9512EF-562C-4DC1-9CF2-7A8FF896D352}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B5159A5-C92C-4203-84DE-273FEB30D07B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B5159A5-C92C-4203-84DE-273FEB30D07B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B5159A5-C92C-4203-84DE-273FEB30D07B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B5159A5-C92C-4203-84DE-273FEB30D07B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

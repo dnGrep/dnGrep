@@ -491,7 +491,7 @@ namespace dnGREP.Common
 		}
 
 		/// <summary>
-		/// Returns path to a temp folder used by dnGREP. If folder does not exist
+		/// Returns path to a temp folder used by dnGREP (including trailing slash). If folder does not exist
 		/// it gets created.
 		/// </summary>
 		/// <returns></returns>

@@ -73,7 +73,7 @@ namespace dnGREP
 		/// </summary>
 		/// <param name="files">Files to search in. If one of the files does not exist or is open, it is skipped.</param>
 		/// <param name="searchRegex">Regex pattern</param>
-		/// <returns>List of results</returns>
+		/// <returns>List of results. If nothing is found returns empty list</returns>
 		public List<GrepSearchResult> Search(string[] files, SearchType searchType, string searchPattern, bool isCaseSensitive, bool isMultiline, int codePage)
 		{
 			List<GrepSearchResult> searchResults = new List<GrepSearchResult>();

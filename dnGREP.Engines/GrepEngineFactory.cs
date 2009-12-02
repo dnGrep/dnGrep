@@ -61,8 +61,15 @@ namespace dnGREP.Engines
 			{
 				if (fileTypeEngines[fileExtension].Engine.FrameworkVersion.CompareTo(plainTextEngine.FrameworkVersion) == 0)
 				{
-					fileTypeEngines[fileExtension].Engine.Initialize(showLinesInContext, linesBefore, linesAfter);
-					return fileTypeEngines[fileExtension].Engine;
+					if (fileTypeEngines[fileExtension].Engine.Initialize(showLinesInContext, linesBefore, linesAfter))
+					{
+						return fileTypeEngines[fileExtension].Engine;
+					}
+					else
+					{
+						failedEngines[fileTypeEngines[fileExtension].Engine.GetType().Name] = "Failed to initialize the plugin. See error log for details.";
+						return plainTextEngine;
+					}
 				}
 				else
 				{
@@ -99,8 +106,15 @@ namespace dnGREP.Engines
 			{
 				if (fileTypeEngines[fileExtension].Engine.FrameworkVersion.CompareTo(plainTextEngine.FrameworkVersion) == 0)
 				{
-					fileTypeEngines[fileExtension].Engine.Initialize(showLinesInContext, linesBefore, linesAfter);
-					return fileTypeEngines[fileExtension].Engine;
+					if (fileTypeEngines[fileExtension].Engine.Initialize(showLinesInContext, linesBefore, linesAfter))
+					{
+						return fileTypeEngines[fileExtension].Engine;
+					}
+					else
+					{
+						failedEngines[fileTypeEngines[fileExtension].Engine.GetType().Name] = "Failed to initialize the plugin. See error log for details.";
+						return plainTextEngine;
+					}
 				}
 				else
 				{

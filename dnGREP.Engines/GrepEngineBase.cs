@@ -18,16 +18,15 @@ namespace dnGREP.Engines
 
 		public GrepEngineBase(bool showLinesInContext, int linesBefore, int linesAfter)
 		{
-			this.showLinesInContext = showLinesInContext;
-			this.linesBefore = linesBefore;
-			this.linesAfter = linesAfter;
+			Initialize(showLinesInContext, linesBefore, linesAfter);
 		}
 
-		public virtual void Initialize(bool showLinesInContext, int linesBefore, int linesAfter)
+		public virtual bool Initialize(bool showLinesInContext, int linesBefore, int linesAfter)
 		{
 			this.showLinesInContext = showLinesInContext;
 			this.linesBefore = linesBefore;
 			this.linesAfter = linesAfter;
+			return true;
 		}
 
 		public virtual void OpenFile(OpenFileArgs args)

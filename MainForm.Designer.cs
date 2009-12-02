@@ -139,6 +139,7 @@ namespace dnGREP
 			this.btnSelectFolder.Size = new System.Drawing.Size(42, 23);
 			this.btnSelectFolder.TabIndex = 0;
 			this.btnSelectFolder.Text = "...";
+			this.toolTip.SetToolTip(this.btnSelectFolder, "Browse for folder or files");
 			this.btnSelectFolder.UseVisualStyleBackColor = true;
 			this.btnSelectFolder.Click += new System.EventHandler(this.btnSelectFolder_Click);
 			// 
@@ -152,6 +153,7 @@ namespace dnGREP
 			this.tbFolderName.Size = new System.Drawing.Size(426, 20);
 			this.tbFolderName.TabIndex = 0;
 			this.tbFolderName.Text = global::dnGREP.Properties.Settings.Default.SearchFolder;
+			this.toolTip.SetToolTip(this.tbFolderName, "Path to search in");
 			this.tbFolderName.TextChanged += new System.EventHandler(this.tbFolderName_TextChanged);
 			// 
 			// gbSearchFor
@@ -182,6 +184,7 @@ namespace dnGREP
 			this.rbXPathSearch.TabIndex = 1;
 			this.rbXPathSearch.TabStop = true;
 			this.rbXPathSearch.Text = "XPath";
+			this.toolTip.SetToolTip(this.rbXPathSearch, "XPath search (XML documents only)");
 			this.rbXPathSearch.UseVisualStyleBackColor = true;
 			this.rbXPathSearch.CheckedChanged += new System.EventHandler(this.regexText_CheckedChanged);
 			// 
@@ -311,6 +314,7 @@ namespace dnGREP
 			this.rbTextSearch.TabIndex = 2;
 			this.rbTextSearch.TabStop = true;
 			this.rbTextSearch.Text = "Text";
+			this.toolTip.SetToolTip(this.rbTextSearch, "Plain text search");
 			this.rbTextSearch.UseVisualStyleBackColor = true;
 			this.rbTextSearch.CheckedChanged += new System.EventHandler(this.regexText_CheckedChanged);
 			// 
@@ -323,6 +327,7 @@ namespace dnGREP
 			this.rbRegexSearch.TabIndex = 0;
 			this.rbRegexSearch.TabStop = true;
 			this.rbRegexSearch.Text = "Regex";
+			this.toolTip.SetToolTip(this.rbRegexSearch, "Regular expression search");
 			this.rbRegexSearch.UseVisualStyleBackColor = true;
 			this.rbRegexSearch.CheckedChanged += new System.EventHandler(this.regexText_CheckedChanged);
 			// 
@@ -675,6 +680,7 @@ namespace dnGREP
             this.toolStripMenuItem1,
             this.toolStripMenuItem2});
 			this.helpMenu.Name = "otherMenu";
+			this.helpMenu.OwnerItem = this.parentHelpToolStripMenuItem;
 			this.helpMenu.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
 			this.helpMenu.ShowImageMargin = false;
 			this.helpMenu.Size = new System.Drawing.Size(102, 48);
@@ -720,6 +726,13 @@ namespace dnGREP
 			this.label6.Size = new System.Drawing.Size(73, 18);
 			this.label6.TabIndex = 10;
 			this.label6.Text = "dnGREP";
+			// 
+			// toolTip
+			// 
+			this.toolTip.AutoPopDelay = 5000;
+			this.toolTip.InitialDelay = 300;
+			this.toolTip.ReshowDelay = 100;
+			this.toolTip.ShowAlways = true;
 			// 
 			// btnBookmark
 			// 

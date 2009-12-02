@@ -41,7 +41,7 @@ namespace dnGREP.Engines.Archive
 			SevenZipExtractor extractor = new SevenZipExtractor(file);
 			GrepEnginePlainText plainTextEngine = new GrepEnginePlainText();
 			plainTextEngine.Initialize(showLinesInContext, linesBefore, linesAfter);
-			string tempFolder = Utils.FixFolderName(Utils.GetTempFolder()) + "dnGREP-Archive\\";
+			string tempFolder = Utils.FixFolderName(Utils.GetTempFolder()) + "dnGREP-Archive\\" + Utils.GetHash(file) + "\\";
 			
 			if (Directory.Exists(tempFolder))
 				Utils.DeleteFolder(tempFolder);
@@ -51,9 +51,8 @@ namespace dnGREP.Engines.Archive
 				extractor.ExtractArchive(tempFolder);
 				foreach (string archiveFileName in Directory.GetFiles(tempFolder, "*.*", SearchOption.AllDirectories))
 				{
-					List<GrepSearchResult> fileResults = plainTextEngine.Search(archiveFileName, searchPattern, searchType, isCaseSensitive, isMultiline, encoding);
-					if (fileResults != null)
-						searchResults.AddRange(fileResults);
+					IGrepEngine engine = GrepEngineFactory.GetSearchEngine(archiveFileName, showLinesInContext, linesBefore, linesAfter);
+					searchResults.AddRange(engine.Search(archiveFileName, searchPattern, searchType, isCaseSensitive, isMultiline, encoding));					
 				}
 
 				foreach (GrepSearchResult result in searchResults)
@@ -63,9 +62,9 @@ namespace dnGREP.Engines.Archive
 					result.ReadOnly = true;
 				}
 			}
-			finally
+			catch (Exception ex)
 			{
-				Utils.DeleteFolder(tempFolder);
+				logger.LogException(LogLevel.Error, "Failed to search inside archive.", ex);
 			}
 			return searchResults;
 		}

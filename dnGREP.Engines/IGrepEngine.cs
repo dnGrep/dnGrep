@@ -8,7 +8,7 @@ namespace dnGREP.Engines
 {
 	public interface IGrepEngine
 	{
-		void Initialize(bool showLinesInContext, int linesBefore, int linesAfter);
+		bool Initialize(bool showLinesInContext, int linesBefore, int linesAfter);
 
 		/// <summary>
 		/// Return true if engine supports search only. Return false is engine supports replace as well.
@@ -25,6 +25,16 @@ namespace dnGREP.Engines
 		/// </summary>
 		List<string> SupportedFileExtensions { get;}
 
+		/// <summary>
+		/// Searches folder for files whose content matches regex
+		/// </summary>
+		/// <param name="file">File to search in</param>
+		/// <param name="searchPattern"></param>
+		/// <param name="searchType"></param>
+		/// <param name="isCaseSensitive"></param>
+		/// <param name="isMultiline"></param>
+		/// <param name="encoding"></param>
+		/// <returns>List of results. If nothing is found returns empty list</returns>
 		List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, bool isCaseSensitive, bool isMultiline, Encoding encoding);
 
 		bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, bool isCaseSensitive, bool isMultiline, Encoding encoding);
