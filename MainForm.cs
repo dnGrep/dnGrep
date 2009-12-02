@@ -620,7 +620,7 @@ namespace dnGREP
 				searchResults.Clear();
 				FilesFound = false;
 			}
-			if (!Properties.Settings.Default.PreviewResults)
+			if (!Properties.Settings.Default.PreviewResults || tvSearchResult.Nodes.Count != searchResults.Count)
 				populateResults();
 
 			string outdatedEngines = dnGREP.Engines.GrepEngineFactory.GetListOfFailedEngines();
