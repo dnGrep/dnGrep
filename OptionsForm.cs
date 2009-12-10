@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using System.Security.Principal;
 
 namespace dnGREP
 {
@@ -14,6 +15,13 @@ namespace dnGREP
 		private static string SHELL_KEY_NAME = "dnGREP";
 		private static string OLD_SHELL_KEY_NAME = "nGREP";
 		private static string SHELL_MENU_TEXT = "dnGREP...";
+		private bool isAdministrator = true;
+
+		public bool IsAdministrator
+		{
+			get { return isAdministrator; }
+			set { isAdministrator = value; changeState(); }
+		}
 		
 		public OptionsForm()
 		{
@@ -23,6 +31,19 @@ namespace dnGREP
 
 		private void changeState()
 		{
+			if (!isAdministrator)
+			{
+				cbRegisterShell.Enabled = false;
+				toolTip.SetToolTip(cbRegisterShell, "To set shell integration run dnGREP as Administrator.");
+				toolTip.SetToolTip(grShell, "To set shell integration run dnGREP as Administrator.");
+			}
+			else
+			{
+				cbRegisterShell.Enabled = true;
+				toolTip.SetToolTip(cbRegisterShell, "Shell integration enables running an application from shell context menu.");
+				toolTip.SetToolTip(grShell, "");
+			}
+
 			if (Properties.Settings.Default.EnableUpdateChecking)
 			{
 				tbUpdateInterval.Enabled = true;
@@ -61,13 +82,27 @@ namespace dnGREP
 
 		private bool isShellRegistered(string location)
 		{
+			if (!isAdministrator)
+				return false;
+
 			string regPath = string.Format(@"{0}\shell\{1}",
 									   location, SHELL_KEY_NAME);
-			return Registry.ClassesRoot.OpenSubKey(regPath) != null;
+			try
+			{
+				return Registry.ClassesRoot.OpenSubKey(regPath) != null;
+			}
+			catch (UnauthorizedAccessException ex)
+			{
+				isAdministrator = false;
+				return false;
+			}
 		}
 
 		private void shellRegister(string location)
 		{
+			if (!isAdministrator)
+				return;
+
 			if (!isShellRegistered(location))
 			{
 				string regPath = string.Format(@"{0}\shell\{1}", location, SHELL_KEY_NAME);
@@ -93,6 +128,9 @@ namespace dnGREP
 
 		private void shellUnregister(string location)
 		{
+			if (!isAdministrator)
+				return;
+
 			if (isShellRegistered(location))
 			{
 				string regPath = string.Format(@"{0}\shell\{1}", location, SHELL_KEY_NAME);
@@ -102,6 +140,9 @@ namespace dnGREP
 
 		private void oldShellUnregister()
 		{
+			if (!isAdministrator)
+				return;
+
 			string regPath = string.Format(@"Directory\shell\{0}", OLD_SHELL_KEY_NAME);
 			if (Registry.ClassesRoot.OpenSubKey(regPath) != null)
 			{
@@ -109,8 +150,24 @@ namespace dnGREP
 			}
 		}
 
+		private void checkIfAdmin()
+		{
+			WindowsIdentity wi = WindowsIdentity.GetCurrent();
+			WindowsPrincipal wp = new WindowsPrincipal(wi);
+
+			if (wp.IsInRole("Administrators"))
+			{
+				isAdministrator = true;
+			}
+			else
+			{
+				isAdministrator = false;
+			}
+		}
+
 		private void OptionsForm_Load(object sender, EventArgs e)
 		{
+			checkIfAdmin();
 			cbRegisterShell.Checked = isShellRegistered("Directory");
 			cbCheckForUpdates.Checked = Properties.Settings.Default.EnableUpdateChecking;
 			cbShowPath.Checked = Properties.Settings.Default.ShowFilePathInResults;

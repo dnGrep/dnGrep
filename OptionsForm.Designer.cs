@@ -28,6 +28,7 @@ namespace dnGREP
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OptionsForm));
 			this.grShell = new System.Windows.Forms.GroupBox();
 			this.cbRegisterShell = new System.Windows.Forms.CheckBox();
@@ -46,6 +47,7 @@ namespace dnGREP
 			this.label3 = new System.Windows.Forms.Label();
 			this.cbCheckForUpdates = new System.Windows.Forms.CheckBox();
 			this.grUI = new System.Windows.Forms.GroupBox();
+			this.cbPreviewResults = new System.Windows.Forms.CheckBox();
 			this.cbSearchFileNameOnly = new System.Windows.Forms.CheckBox();
 			this.tbLinesAfter = new System.Windows.Forms.MaskedTextBox();
 			this.label5 = new System.Windows.Forms.Label();
@@ -54,7 +56,7 @@ namespace dnGREP
 			this.cbShowContext = new System.Windows.Forms.CheckBox();
 			this.cbShowPath = new System.Windows.Forms.CheckBox();
 			this.helpProvider = new System.Windows.Forms.HelpProvider();
-			this.cbPreviewResults = new System.Windows.Forms.CheckBox();
+			this.toolTip = new System.Windows.Forms.ToolTip(this.components);
 			this.grShell.SuspendLayout();
 			this.grEditor.SuspendLayout();
 			this.grUpdate.SuspendLayout();
@@ -84,6 +86,7 @@ namespace dnGREP
 			this.cbRegisterShell.Size = new System.Drawing.Size(199, 17);
 			this.cbRegisterShell.TabIndex = 0;
 			this.cbRegisterShell.Text = "Enable Windows Explorer integration";
+			this.toolTip.SetToolTip(this.cbRegisterShell, "Shell integration enables running an application from shell context menu.");
 			this.cbRegisterShell.UseVisualStyleBackColor = true;
 			this.cbRegisterShell.CheckedChanged += new System.EventHandler(this.cbRegisterShell_CheckedChanged);
 			// 
@@ -280,6 +283,19 @@ namespace dnGREP
 			this.grUI.TabStop = false;
 			this.grUI.Text = "User interface";
 			// 
+			// cbPreviewResults
+			// 
+			this.cbPreviewResults.AutoSize = true;
+			this.helpProvider.SetHelpKeyword(this.cbPreviewResults, "result-panel-customization.html");
+			this.helpProvider.SetHelpNavigator(this.cbPreviewResults, System.Windows.Forms.HelpNavigator.Topic);
+			this.cbPreviewResults.Location = new System.Drawing.Point(9, 88);
+			this.cbPreviewResults.Name = "cbPreviewResults";
+			this.helpProvider.SetShowHelp(this.cbPreviewResults, true);
+			this.cbPreviewResults.Size = new System.Drawing.Size(203, 17);
+			this.cbPreviewResults.TabIndex = 8;
+			this.cbPreviewResults.Text = "Preview results during search (slower)";
+			this.cbPreviewResults.UseVisualStyleBackColor = true;
+			// 
 			// cbSearchFileNameOnly
 			// 
 			this.cbSearchFileNameOnly.AutoSize = true;
@@ -367,18 +383,12 @@ namespace dnGREP
 			// 
 			this.helpProvider.HelpNamespace = "Doc\\dnGREP.chm";
 			// 
-			// cbPreviewResults
+			// toolTip
 			// 
-			this.cbPreviewResults.AutoSize = true;
-			this.helpProvider.SetHelpKeyword(this.cbPreviewResults, "result-panel-customization.html");
-			this.helpProvider.SetHelpNavigator(this.cbPreviewResults, System.Windows.Forms.HelpNavigator.Topic);
-			this.cbPreviewResults.Location = new System.Drawing.Point(9, 88);
-			this.cbPreviewResults.Name = "cbPreviewResults";
-			this.helpProvider.SetShowHelp(this.cbPreviewResults, true);
-			this.cbPreviewResults.Size = new System.Drawing.Size(203, 17);
-			this.cbPreviewResults.TabIndex = 8;
-			this.cbPreviewResults.Text = "Preview results during search (slower)";
-			this.cbPreviewResults.UseVisualStyleBackColor = true;
+			this.toolTip.AutoPopDelay = 5000;
+			this.toolTip.InitialDelay = 300;
+			this.toolTip.ReshowDelay = 100;
+			this.toolTip.ShowAlways = true;
 			// 
 			// OptionsForm
 			// 
@@ -443,5 +453,6 @@ namespace dnGREP
 		private System.Windows.Forms.CheckBox cbSearchFileNameOnly;
 		private System.Windows.Forms.HelpProvider helpProvider;
 		private System.Windows.Forms.CheckBox cbPreviewResults;
+		private System.Windows.Forms.ToolTip toolTip;
 	}
 }
