@@ -31,16 +31,35 @@ namespace dnGREP
 				RegexOptions options = RegexOptions.Singleline;
 				if (cbMultiline.Checked)
 					options = RegexOptions.Multiline;
-				if (cbCaseSensitive.Checked)
+				if (!cbCaseSensitive.Checked)
 					options = options | RegexOptions.IgnoreCase;
-				Regex regex = new Regex(tbSearchFor.Text, options);
-				StringBuilder sb = new StringBuilder();
-				foreach (Match match in regex.Matches(tbInputText.Text))
+
+				if (cbMultiline.Checked)
 				{
-					sb.AppendLine(match.Value);
-					sb.AppendLine("=================================");
+					Regex regex = new Regex(tbSearchFor.Text, options);
+					StringBuilder sb = new StringBuilder();
+					foreach (Match match in regex.Matches(tbInputText.Text))
+					{
+						sb.AppendLine(match.Value);
+						sb.AppendLine("=================================");
+					}
+					tbOutputText.Text = sb.ToString();
 				}
-				tbOutputText.Text = sb.ToString();
+				else
+				{
+					string[] lines = Utils.CleanLineBreaks(tbInputText.Text).Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+					foreach (string line in lines)
+					{
+						Regex regex = new Regex(tbSearchFor.Text, options);
+						StringBuilder sb = new StringBuilder();
+						foreach (Match match in regex.Matches(line))
+						{
+							sb.AppendLine(match.Value);
+							sb.AppendLine("=================================");
+						}
+						tbOutputText.Text = sb.ToString();
+					}
+				}
 			}
 			catch (Exception ex)
 			{
