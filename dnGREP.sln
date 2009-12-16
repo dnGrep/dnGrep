@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dnGREP.PdfEngine", "dnGREP.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dnGREP.Common", "dnGREP.Common\dnGREP.Common.csproj", "{32DF5B77-EE00-4A94-BF4C-19BCBB1940A4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{392E7713-7B14-46BE-87FA-4AA19E92C5D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,5 +58,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6B5159A5-C92C-4203-84DE-273FEB30D07B} = {392E7713-7B14-46BE-87FA-4AA19E92C5D8}
+		{7317511F-A32C-44AE-9C87-1E4806E891FB} = {392E7713-7B14-46BE-87FA-4AA19E92C5D8}
+		{FA9512EF-562C-4DC1-9CF2-7A8FF896D352} = {392E7713-7B14-46BE-87FA-4AA19E92C5D8}
 	EndGlobalSection
 EndGlobal

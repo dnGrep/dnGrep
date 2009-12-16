@@ -184,13 +184,13 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>rmdir /S /Q "$(ProjectDir)Release\dnGREP X.X.X (Standalone)"
-mkdir "$(ProjectDir)Release\dnGREP X.X.X (Standalone)"
-xcopy "$(TargetDir)*.*" "$(ProjectDir)Release\dnGREP X.X.X (Standalone)" /E
-rmdir /S /Q "$(ProjectDir)Release\dnGREP X.X.X (Standalone)\Plugins"
-mkdir "$(ProjectDir)Release\dnGREP X.X.X (Standalone)\Plugins"
-del /Q "$(ProjectDir)Release\dnGREP X.X.X (Standalone)\*.pdb"
-del /Q "$(ProjectDir)Release\dnGREP X.X.X (Standalone)\*vshost*.*"
-del /Q "$(ProjectDir)Release\dnGREP X.X.X (Standalone)\Grep_Error_Log.xml"</PostBuildEvent>
+    <PostBuildEvent>rmdir /S /Q "$(SolutionDir)Release\dnGREP X.X.X (Standalone)"
+mkdir "$(SolutionDir)Release\dnGREP X.X.X (Standalone)"
+xcopy "$(TargetDir)*.*" "$(SolutionDir)Release\dnGREP X.X.X (Standalone)" /E
+rmdir /S /Q "$(SolutionDir)Release\dnGREP X.X.X (Standalone)\Plugins"
+mkdir "$(SolutionDir)Release\dnGREP X.X.X (Standalone)\Plugins"
+del /Q "$(SolutionDir)Release\dnGREP X.X.X (Standalone)\*.pdb"
+del /Q "$(SolutionDir)Release\dnGREP X.X.X (Standalone)\*vshost*.*"
+del /Q "$(SolutionDir)Release\dnGREP X.X.X (Standalone)\Grep_Error_Log.xml"</PostBuildEvent>
   </PropertyGroup>
 </Project>
