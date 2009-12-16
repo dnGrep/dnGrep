@@ -14,7 +14,7 @@ namespace Tests
 		string sourceFolder;
 		string destinationFolder;
 
-		[TestFixtureSetUp]
+        [FixtureSetUp]
 		public void Initialize()
 		{
 			sourceFolder = GetDllPath() + "\\Files";
@@ -34,7 +34,7 @@ namespace Tests
 				Utils.DeleteFolder(destinationFolder);
 		}
 
-		[RowTest]
+		[Test]
 		[Row("Hello world", "Hello world", 2, 1)]
 		[Row("Hi", "Hi", 2, 1)]
 		[Row("Hi\r\n\r\nWorld", "", 4, 2)]
@@ -87,7 +87,7 @@ namespace Tests
 			Assert.AreEqual(lines.Count, 2);
 		}
 
-		[RowTest]
+		[Test]
 		[Row("hello\rworld", "hello\r\nworld")]
 		[Row("hello\nworld", "hello\r\nworld")]
 		[Row("hello\rworld\r", "hello\r\nworld\r")]
@@ -97,7 +97,7 @@ namespace Tests
 			Assert.AreEqual(result, output);
 		}
 
-		[RowTest]
+        [Test]
 		[Row("\\Files\\TestCase1\\test-file-code.cs", "\\Files\\TestCase1")]
 		[Row("\\Files\\TestCase1", "\\Files\\TestCase1")]
 		[Row("\\Files\\TestCas\\", null)]
@@ -116,7 +116,7 @@ namespace Tests
 				Assert.AreEqual(Utils.GetBaseFolder(sb.ToString()), pathToDll + result);
 		}
 
-		[RowTest]
+        [Test]
 		[Row("\\Files\\TestCase1\\test-file-code.cs", true)]
 		[Row("\\Files\\TestCase1\\test-file-code2.cs", false)]
 		[Row("\\Files\\TestCase1\\", true)]
@@ -184,9 +184,9 @@ namespace Tests
 			results = new List<GrepSearchResult.GrepLine>();
 			Utils.CleanResults(ref results);
 		}
-		
 
-		[RowTest]
+
+        [Test]
 		[Row("0.9.1", "0.9.2", true)]
 		[Row("0.9.1", "0.9.2.5556", true)]
 		[Row("0.9.1.5554", "0.9.1.5556", true)]
@@ -258,7 +258,7 @@ namespace Tests
 			Assert.IsNull(lineNumbers);
 		}
 
-		[RowTest]
+        [Test]
 		[Row(null,null,2)]
 		[Row("", "", 2)]
 		[Row(null, ".*\\.cs", 1)]
@@ -269,7 +269,7 @@ namespace Tests
 			Assert.AreEqual(Directory.GetFiles(destinationFolder).Length, numberOfFiles);
 		}
 
-		[RowTest]
+        [Test]
 		[Row(null, null, 2)]
 		public void TestCopyFilesToNonExistingFolder(string includePattern, string excludePattern, int numberOfFiles)
 		{
@@ -395,7 +395,7 @@ namespace Tests
 			Assert.IsFalse(Directory.Exists(destinationFolder));
 		}
 
-		[RowTest]
+        [Test]
 		[Row("*.*", false, true, true, 0, 0, 5)]
 		[Row("*.*", false, true, false, 0, 0, 4)]
 		[Row("*.*", false, true, false, 0, 40, 3)]
@@ -440,7 +440,7 @@ namespace Tests
 			Assert.AreEqual(Utils.GetFileList(sourceFolder + "\\NonExisting", "*.*", false, true, true, 0, 0).Length, 0);
 		}
 
-		[RowTest]
+        [Test]
 		[Row("", 1, 1)]
 		[Row("5", 0, 5)]
 		[Row(" 12", 1, 12)]

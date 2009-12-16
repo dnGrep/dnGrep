@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="dnGREP.WPF">
+</Property><Property Name="Solution File" Value="C:\Documents and Settings\Denis\My Documents\Sandbox\NET\dnGREP\dnGREP.WPF\dnGREP.WPF.sln">
+</Property><Property Name="Date" Value="Monday, December 14, 2009">
+</Property><Property Name="Time" Value="10:08:03 AM">
+</Property></Properties><Event ErrorLevel="0" Project="dnGREP" Source="..\dnGREP.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="dnGREP" Source="..\dnGREP.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="dnGREP" Source="..\dnGREP.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>

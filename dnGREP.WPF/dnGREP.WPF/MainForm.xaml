@@ -1,0 +1,172 @@
+﻿<Window x:Class="dnGREP3._5.Window1"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:splitButton="clr-namespace:Wpf.Controls;assembly=Wpf.SplitButton"
+    Title="dnGREP" Width="487" Background="#DAD0C8" 
+        WindowStyle="ToolWindow" Height="481" MinHeight="460" MinWidth="500">
+    <DockPanel>
+        <StackPanel Margin="3" DockPanel.Dock="Top">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" FontFamily="Microsoft Sans Serif" FontWeight="Bold" FontSize="16">dnGREP</TextBlock>
+                <Menu Grid.Column="1" HorizontalAlignment="Right">
+                    <MenuItem Header="_Undo"/>
+                    <MenuItem Header="_Options..."/>
+                    <MenuItem Header="_Help"/>
+                </Menu>
+            </Grid>
+            <GroupBox Header="Search in">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="48" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" Name="tbFolderName"></TextBox>
+                    <Button Grid.Column="1" Width="42" Height="23" HorizontalAlignment="Right" Name="btnBrowse">...</Button>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Search">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="23"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition  Width="60"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
+                        <RadioButton Name="rbRegex" Margin="3">Regex</RadioButton>
+                        <RadioButton Name="rbXPath" Margin="3">XPath</RadioButton>
+                        <RadioButton Name="rbText" Margin="3">Text</RadioButton>
+                        <RadioButton Name="rbSoundex" Margin="3">Soundex</RadioButton>
+                    </StackPanel>
+                    <Button Grid.Column="1" Grid.Row="0">Test</Button>
+                    <GroupBox Header="Search for:" Grid.Row="1" 
+                              Grid.ColumnSpan="2">
+                        <TextBox></TextBox>
+                    </GroupBox>
+                    <GroupBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" 
+                              Header="Replace with:">
+                        <TextBox />
+                    </GroupBox>
+                    <Expander Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"
+                              Header="Options">
+                        <StackPanel Orientation="Horizontal">
+                           <CheckBox Margin="3">Case sensitive</CheckBox>
+                           <CheckBox Margin="3">Multiline (slower)</CheckBox>
+                           <CheckBox Margin="3">Match dot as newline</CheckBox>
+                        </StackPanel>                    
+                    </Expander>
+                </Grid>            
+            </GroupBox>
+            <GroupBox Header="Filter" Height="100">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="201*" />
+                        <ColumnDefinition Width="242*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <RadioButton Margin="3">All sizes</RadioButton>
+                        <StackPanel Orientation="Horizontal">
+                            <RadioButton Margin="3" VerticalAlignment="Center">Size is</RadioButton>
+                            <TextBox Width="47" Height="20" Margin="3"></TextBox>
+                            <TextBlock Margin="3" VerticalAlignment="Center">to</TextBlock>
+                            <TextBox Width="47" Height="20" Margin="3"></TextBox>
+                            <TextBlock Margin="3" VerticalAlignment="Center">KB</TextBlock>
+                        </StackPanel>
+                        <CheckBox Margin="3">Include subfolders</CheckBox>
+                        <CheckBox Margin="3">Include hidden folders</CheckBox>
+                    </StackPanel>
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="82" />
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Grid.Row="0">Files that match:</TextBlock>
+                        <StackPanel Grid.Column="1" Grid.Row="0" >
+                            <TextBox Height="23"></TextBox>
+                            <StackPanel Orientation="Horizontal">
+                                <RadioButton Margin="3">Regex</RadioButton>
+                                <RadioButton Margin="3">Asterisk pattern</RadioButton>
+                            </StackPanel>
+                        </StackPanel>
+                        <TextBlock Grid.Column="0" Grid.Row="1">Encoding:</TextBlock>
+                        <ComboBox Grid.Column="1" Grid.Row="1" Height="23" 
+                                  Name="comboBox1" VerticalAlignment="Top"/>
+                    </Grid>
+                </Grid>
+            </GroupBox>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="102.97*" />
+                    <ColumnDefinition Width="352.03*" />
+                </Grid.ColumnDefinitions>
+                <splitButton:SplitButton x:Name="test" Content="Bookmark"
+						    Grid.Row="0" Grid.Column="0"
+						    Width="83" 
+						    VerticalAlignment="Top" 
+						    HorizontalAlignment="Left"  
+						    Margin="3" 
+						    Mode="{Binding ElementName=modeSelector, Path=SelectedItem}" 
+						    Placement="{Binding ElementName=placementSelector, Path=SelectedItem}" 
+						    >
+                    <MenuItem Header="Add"/>
+                    <MenuItem Header="Open"/>                    
+                </splitButton:SplitButton>
+                <StackPanel HorizontalAlignment="Right" Grid.Column="1" Orientation="Horizontal">
+                    <splitButton:SplitButton x:Name="btnSearch" Content="Search"
+						        Grid.Row="0" Grid.Column="0"
+						        Width="67" 
+						        VerticalAlignment="Top" 
+						        HorizontalAlignment="Left"  
+						        Margin="3" 
+						        Mode="{Binding ElementName=modeSelector, Path=SelectedItem}" 
+						        Placement="{Binding ElementName=placementSelector, Path=SelectedItem}" 
+						        >
+                        <MenuItem Header="Search in results"/>
+                    </splitButton:SplitButton>
+                    <Button Width="64" Margin="3" Content="Replace"/>
+                    <splitButton:SplitButton x:Name="btnOtherActions" Content=">>"
+						        Grid.Row="0" Grid.Column="0"
+						        Width="43" 
+						        VerticalAlignment="Top" 
+						        HorizontalAlignment="Left"  
+						        Margin="3" 
+						        Mode="{Binding ElementName=modeSelector, Path=SelectedItem}" 
+						        Placement="{Binding ElementName=placementSelector, Path=SelectedItem}" 
+						        >
+                        <MenuItem Header="Copy files..."/>
+                        <MenuItem Header="Move files..."/>
+                        <MenuItem Header="Delete files..."/>
+                        <Separator/>
+                        <MenuItem Header="Save as CSV..."/>
+                    </splitButton:SplitButton>
+                    <Button Width="64" Margin="3" Content="Cancel"/>
+                </StackPanel>
+            </Grid>            
+        </StackPanel>   
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="22" />
+            </Grid.RowDefinitions>
+            <TreeView Grid.Row="0">
+
+            </TreeView>
+            <StatusBar Grid.Row="1">
+                <ProgressBar Name="barProgressBar" Height="18"
+                             Width="150"/>
+            </StatusBar>
+        </Grid>
+    </DockPanel>  
+</Window>

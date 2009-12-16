@@ -14,7 +14,7 @@ namespace Tests
 		string sourceFolder;
 		string destinationFolder;
 
-		[TestFixtureSetUp]
+		[FixtureSetUp]
 		public void Initialize()
 		{
 			sourceFolder = GetDllPath() + "\\Files";
