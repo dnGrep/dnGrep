@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using MbUnit.Framework;
 using dnGREP;
+using dnGREP.Common;
 
 namespace Tests
 {

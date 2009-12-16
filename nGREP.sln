@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual C# Express 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dnGREP", "dnGREP.csproj", "{6E9E3A4B-2338-421D-AC57-9939A9A6E6AA}"
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dnGREP", "dnGREP.GUI\dnGREP.csproj", "{6E9E3A4B-2338-421D-AC57-9939A9A6E6AA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{77AB22A5-8227-494A-8DD2-1EF5E786263D}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dnGREP.WordEngine", "dnGREP.WordEngine\dnGREP.WordEngine.csproj", "{FA9512EF-562C-4DC1-9CF2-7A8FF896D352}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dnGREP.PdfEngine", "dnGREP.PdfEngine\dnGREP.PdfEngine.csproj", "{6B5159A5-C92C-4203-84DE-273FEB30D07B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dnGREP.Common", "dnGREP.Common\dnGREP.Common.csproj", "{32DF5B77-EE00-4A94-BF4C-19BCBB1940A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{6B5159A5-C92C-4203-84DE-273FEB30D07B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6B5159A5-C92C-4203-84DE-273FEB30D07B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6B5159A5-C92C-4203-84DE-273FEB30D07B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32DF5B77-EE00-4A94-BF4C-19BCBB1940A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32DF5B77-EE00-4A94-BF4C-19BCBB1940A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32DF5B77-EE00-4A94-BF4C-19BCBB1940A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32DF5B77-EE00-4A94-BF4C-19BCBB1940A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

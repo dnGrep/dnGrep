@@ -2,8 +2,9 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:splitButton="clr-namespace:Wpf.Controls;assembly=Wpf.SplitButton"
-    Title="dnGREP" Width="487" Background="#DAD0C8" 
-        WindowStyle="ToolWindow" Height="481" MinHeight="460" MinWidth="500">
+    Title="dnGREP" Width="487" WindowStyle="ToolWindow" Height="481" MinHeight="460" 
+    Background="{Binding ElementName=mnuMainMenu, Path=Background}"
+    MinWidth="500" Icon="/dnGREP.WPF;component/nGREP.ico">
     <DockPanel>
         <StackPanel Margin="3" DockPanel.Dock="Top">
             <Grid>
@@ -12,7 +13,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" FontFamily="Microsoft Sans Serif" FontWeight="Bold" FontSize="16">dnGREP</TextBlock>
-                <Menu Grid.Column="1" HorizontalAlignment="Right">
+                <Menu Name="mnuMainMenu" Grid.Column="1" HorizontalAlignment="Right">
                     <MenuItem Header="_Undo"/>
                     <MenuItem Header="_Options..."/>
                     <MenuItem Header="_Help"/>
@@ -46,21 +47,21 @@
                         <RadioButton Name="rbText" Margin="3">Text</RadioButton>
                         <RadioButton Name="rbSoundex" Margin="3">Soundex</RadioButton>
                     </StackPanel>
-                    <Button Grid.Column="1" Grid.Row="0">Test</Button>
+                    <Button Grid.Column="1" Grid.Row="0" Name="btnTest">Test</Button>
                     <GroupBox Header="Search for:" Grid.Row="1" 
-                              Grid.ColumnSpan="2">
-                        <TextBox></TextBox>
+                              Grid.ColumnSpan="2" BorderThickness="0">
+                        <TextBox Name="tbSearchFor" Margin="-5,3,-5,0"></TextBox>
                     </GroupBox>
                     <GroupBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" 
-                              Header="Replace with:">
-                        <TextBox />
+                              Header="Replace with:" BorderThickness="0">
+                        <TextBox Margin="-5,3,-5,0" Name="tbReplaceWith" />
                     </GroupBox>
                     <Expander Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"
-                              Header="Options">
+                              Header="Options" Name="expOptions">
                         <StackPanel Orientation="Horizontal">
-                           <CheckBox Margin="3">Case sensitive</CheckBox>
-                           <CheckBox Margin="3">Multiline (slower)</CheckBox>
-                           <CheckBox Margin="3">Match dot as newline</CheckBox>
+                           <CheckBox Margin="3" Name="cbCaseSensitive">Case sensitive</CheckBox>
+                           <CheckBox Margin="3" Name="cbMultiline">Multiline (slower)</CheckBox>
+                           <CheckBox Margin="3" Name="cbSingleline">Match dot as newline</CheckBox>
                         </StackPanel>                    
                     </Expander>
                 </Grid>            
@@ -72,16 +73,16 @@
                         <ColumnDefinition Width="242*" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0">
-                        <RadioButton Margin="3">All sizes</RadioButton>
+                        <RadioButton Margin="3" Name="rbFilterAllSizes">All sizes</RadioButton>
                         <StackPanel Orientation="Horizontal">
-                            <RadioButton Margin="3" VerticalAlignment="Center">Size is</RadioButton>
-                            <TextBox Width="47" Height="20" Margin="3"></TextBox>
+                            <RadioButton Margin="3" VerticalAlignment="Center" Name="rbFilterSpecificSize">Size is</RadioButton>
+                            <TextBox Width="47" Height="20" Margin="3" Name="tbFileSizeFrom"></TextBox>
                             <TextBlock Margin="3" VerticalAlignment="Center">to</TextBlock>
-                            <TextBox Width="47" Height="20" Margin="3"></TextBox>
+                            <TextBox Width="47" Height="20" Margin="3" Name="tbFileSizeTo"></TextBox>
                             <TextBlock Margin="3" VerticalAlignment="Center">KB</TextBlock>
                         </StackPanel>
-                        <CheckBox Margin="3">Include subfolders</CheckBox>
-                        <CheckBox Margin="3">Include hidden folders</CheckBox>
+                        <CheckBox Margin="3" Name="cbIncludeSubfolders">Include subfolders</CheckBox>
+                        <CheckBox Margin="3" Name="cbIncludeHiddenFolders">Include hidden folders</CheckBox>
                     </StackPanel>
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
@@ -94,15 +95,15 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Grid.Row="0">Files that match:</TextBlock>
                         <StackPanel Grid.Column="1" Grid.Row="0" >
-                            <TextBox Height="23"></TextBox>
+                            <TextBox Height="23" Name="tbFilePattern"></TextBox>
                             <StackPanel Orientation="Horizontal">
-                                <RadioButton Margin="3">Regex</RadioButton>
-                                <RadioButton Margin="3">Asterisk pattern</RadioButton>
+                                <RadioButton Margin="3" Name="rbFileRegex">Regex</RadioButton>
+                                <RadioButton Margin="3" Name="rbFileAsterisk">Asterisk pattern</RadioButton>
                             </StackPanel>
                         </StackPanel>
                         <TextBlock Grid.Column="0" Grid.Row="1">Encoding:</TextBlock>
                         <ComboBox Grid.Column="1" Grid.Row="1" Height="23" 
-                                  Name="comboBox1" VerticalAlignment="Top"/>
+                                  Name="cbEncoding" VerticalAlignment="Top"/>
                     </Grid>
                 </Grid>
             </GroupBox>
@@ -111,7 +112,7 @@
                     <ColumnDefinition Width="102.97*" />
                     <ColumnDefinition Width="352.03*" />
                 </Grid.ColumnDefinitions>
-                <splitButton:SplitButton x:Name="test" Content="Bookmark"
+                <splitButton:SplitButton x:Name="btnBookmark" Content="Bookmark"
 						    Grid.Row="0" Grid.Column="0"
 						    Width="83" 
 						    VerticalAlignment="Top" 
@@ -135,7 +136,7 @@
 						        >
                         <MenuItem Header="Search in results"/>
                     </splitButton:SplitButton>
-                    <Button Width="64" Margin="3" Content="Replace"/>
+                    <Button Width="64" Margin="3" Content="Replace" Name="btnReplace" />
                     <splitButton:SplitButton x:Name="btnOtherActions" Content=">>"
 						        Grid.Row="0" Grid.Column="0"
 						        Width="43" 
@@ -151,21 +152,22 @@
                         <Separator/>
                         <MenuItem Header="Save as CSV..."/>
                     </splitButton:SplitButton>
-                    <Button Width="64" Margin="3" Content="Cancel"/>
+                    <Button Width="64" Margin="3" Content="Cancel" Name="btnCancel" />
                 </StackPanel>
             </Grid>            
         </StackPanel>   
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition />
-                <RowDefinition Height="22" />
+                <RowDefinition Height="25" />
             </Grid.RowDefinitions>
-            <TreeView Grid.Row="0">
+            <TreeView Grid.Row="0" Name="tvSearchResult">
 
             </TreeView>
             <StatusBar Grid.Row="1">
                 <ProgressBar Name="barProgressBar" Height="18"
                              Width="150"/>
+                <TextBlock Name="lblProgressDetails" />
             </StatusBar>
         </Grid>
     </DockPanel>  

@@ -13,8 +13,6 @@
     </FileUpgradeFlags>
     <OldToolsVersion>2.0</OldToolsVersion>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
     <TargetFrameworkSubset>
     </TargetFrameworkSubset>
   </PropertyGroup>
@@ -45,20 +43,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enums.cs" />
+    <Compile Include="GrepCore.cs" />
     <Compile Include="GrepEngineFactory.cs" />
     <Compile Include="GrepEnginePlainText.cs" />
     <Compile Include="GrepPlugin.cs" />
-    <Compile Include="OpenFileArgs.cs" />
-    <Compile Include="SearchDelegates.cs" />
-    <Compile Include="GrepSearchResult.cs" />
     <Compile Include="IGrepEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GrepEngineBase.cs" />
-    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <ProjectReference Include="..\dnGREP.Common\dnGREP.Common.csproj">
+      <Project>{32DF5B77-EE00-4A94-BF4C-19BCBB1940A4}</Project>
+      <Name>dnGREP.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

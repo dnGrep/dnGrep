@@ -5,7 +5,7 @@ using System.Net;
 using System.Xml;
 using System.Text.RegularExpressions;
 
-namespace dnGREP
+namespace dnGREP.Common
 {
 	public class PublishedVersionExtractor
 	{

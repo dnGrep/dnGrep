@@ -60,7 +60,7 @@
     </Reference>
     <Reference Include="Wpf.SplitButton, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\Dependencies\Wpf.SplitButton.dll</HintPath>
+      <HintPath>..\Dependencies\Wpf.SplitButton.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -106,6 +106,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -114,6 +115,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="nGREP.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\nGREP\dnGREP.Common\dnGREP.Common.csproj">
+      <Project>{32DF5B77-EE00-4A94-BF4C-19BCBB1940A4}</Project>
+      <Name>dnGREP.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

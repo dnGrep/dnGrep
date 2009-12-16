@@ -9,7 +9,7 @@ using System.Xml.XPath;
 using dnGREP.Common;
 using dnGREP.Engines;
 
-namespace dnGREP
+namespace dnGREP.Common
 {
 	public class GrepCore
 	{
