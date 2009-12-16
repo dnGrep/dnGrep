@@ -6,7 +6,7 @@ using System.Reflection;
 using System.IO;
 using System.Windows.Forms;
 
-namespace dnGREP
+namespace dnGREP.Common
 {
 	public class FileFolderDialog : CommonDialog
 	{

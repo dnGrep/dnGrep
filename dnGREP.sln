@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dnGREP", "dnGREP.GUI\dnGREP.csproj", "{6E9E3A4B-2338-421D-AC57-9939A9A6E6AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dnGREP", "dnGREP.GUI\dnGREP.GUI.csproj", "{6E9E3A4B-2338-421D-AC57-9939A9A6E6AA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{77AB22A5-8227-494A-8DD2-1EF5E786263D}"
 EndProject

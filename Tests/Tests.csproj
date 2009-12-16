@@ -87,9 +87,9 @@
       <Project>{32DF5B77-EE00-4A94-BF4C-19BCBB1940A4}</Project>
       <Name>dnGREP.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\dnGREP.GUI\dnGREP.csproj">
+    <ProjectReference Include="..\dnGREP.GUI\dnGREP.GUI.csproj">
       <Project>{6E9E3A4B-2338-421D-AC57-9939A9A6E6AA}</Project>
-      <Name>dnGREP</Name>
+      <Name>dnGREP.GUI</Name>
     </ProjectReference>
     <ProjectReference Include="..\dnGREP.Engines\dnGREP.Engines.csproj">
       <Project>{DB68B5D3-5E4B-47D0-AA86-83D7C181A1E4}</Project>

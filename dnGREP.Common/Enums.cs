@@ -8,6 +8,7 @@ namespace dnGREP.Common
 	{
 		PlainText,
 		Regex,
-		XPath
+		XPath,
+		Soundex
 	}
 }

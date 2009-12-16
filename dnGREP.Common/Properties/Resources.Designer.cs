@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace dnGREP.WPF.Properties {
+namespace dnGREP.Common.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace dnGREP.WPF.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("dnGREP.WPF.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("dnGREP.Common.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +57,20 @@ namespace dnGREP.WPF.Properties {
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        internal static System.Drawing.Bitmap line_icon {
+            get {
+                object obj = ResourceManager.GetObject("line_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap na_icon {
+            get {
+                object obj = ResourceManager.GetObject("na_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

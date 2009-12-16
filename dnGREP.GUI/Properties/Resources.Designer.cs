@@ -60,20 +60,6 @@ namespace dnGREP.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap line_icon {
-            get {
-                object obj = ResourceManager.GetObject("line_icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap na_icon {
-            get {
-                object obj = ResourceManager.GetObject("na_icon", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap NewDocumentHS {
             get {
                 object obj = ResourceManager.GetObject("NewDocumentHS", resourceCulture);
