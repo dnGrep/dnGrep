@@ -11,4 +11,23 @@ namespace dnGREP.Common
 		XPath,
 		Soundex
 	}
+
+	public enum FileSearchType
+	{
+		Asterisk,
+		Regex
+	}
+
+	public enum FileSizeFilter
+	{
+		Yes,
+		No
+	}
+
+	public enum GrepOperation
+	{
+		Search,
+		Replace,
+		None
+	}
 }

@@ -242,6 +242,9 @@ namespace dnGREP.Common
 		{
 			try
 			{
+				if (string.IsNullOrEmpty(path))
+					return false;
+
 				string[] paths = path.Split(';');
 				foreach (string subPath in paths)
 				{
@@ -464,6 +467,28 @@ namespace dnGREP.Common
 				}
 			}
 			return defaultValue;
+		}
+
+		/// <summary>
+		/// Parses text into enum
+		/// </summary>
+		/// <typeparam name="T">Type of enum</typeparam>
+		/// <param name="value">Value to parse</param>
+		/// <param name="defaultValue">Default value</param>
+		/// <returns></returns>
+		public static T ParseEnum<T>(string value, T defaultValue)
+		{
+			if (string.IsNullOrEmpty(value))
+				return defaultValue;
+
+			T result = defaultValue;
+			try
+			{
+				result = (T)Enum.Parse(defaultValue.GetType(), value);
+			}
+			catch { }
+
+			return result;
 		}
 
 		/// <summary>

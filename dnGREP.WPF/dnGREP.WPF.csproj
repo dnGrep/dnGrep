@@ -91,7 +91,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EnumBooleanConverter.cs" />
     <Compile Include="HelpProvider.cs" />
+    <Compile Include="MainForm.State.cs" />
+    <Compile Include="OptionsFormState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -105,6 +108,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="SettingBindingExtension.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

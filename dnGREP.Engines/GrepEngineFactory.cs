@@ -18,19 +18,22 @@ namespace dnGREP.Engines
 			if (plugings == null)
 			{
 				plugings = new List<GrepPlugin>();
-				foreach (string pluginFile in Directory.GetFiles(Utils.GetCurrentPath() + "\\Plugins", "*.plugin", SearchOption.AllDirectories))
+				if (Directory.Exists(Utils.GetCurrentPath() + "\\Plugins"))
 				{
-					try
+					foreach (string pluginFile in Directory.GetFiles(Utils.GetCurrentPath() + "\\Plugins", "*.plugin", SearchOption.AllDirectories))
 					{
-						GrepPlugin plugin = new GrepPlugin(pluginFile);
-						if (plugin.LoadPluginSettings())
+						try
 						{
-							plugings.Add(plugin);
+							GrepPlugin plugin = new GrepPlugin(pluginFile);
+							if (plugin.LoadPluginSettings())
+							{
+								plugings.Add(plugin);
+							}
 						}
-					}
-					catch (Exception ex)
-					{
-						failedEngines[Path.GetFileNameWithoutExtension(pluginFile)] = ex.Message;
+						catch (Exception ex)
+						{
+							failedEngines[Path.GetFileNameWithoutExtension(pluginFile)] = ex.Message;
+						}
 					}
 				}
 			}

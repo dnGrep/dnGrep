@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="dnGREP.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="dnGREP.WPF.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="SearchFolder" Type="System.String" Scope="User">
@@ -18,18 +18,6 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="IncludeHidden" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="SearchRegex" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="SearchText" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="FilterAllSizes" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
-    <Setting Name="FilterSpecificSize" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="SizeFrom" Type="System.String" Scope="User">
@@ -65,15 +53,6 @@
     <Setting Name="ShowFilePathInResults" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="SearchXPath" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="FileSearchRegex" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
-    <Setting Name="FileSearchAsterisk" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">True</Value>
-    </Setting>
     <Setting Name="ShowLinesInContext" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
@@ -88,6 +67,18 @@
     </Setting>
     <Setting Name="PreviewResults" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="TypeOfSearch" Type="dnGREP.Common.SearchType" Scope="User">
+      <Value Profile="(Default)">Regex</Value>
+    </Setting>
+    <Setting Name="TypeOfFileSearch" Type="dnGREP.Common.FileSearchType" Scope="User">
+      <Value Profile="(Default)">Asterisk</Value>
+    </Setting>
+    <Setting Name="UseFileSizeFilter" Type="dnGREP.Common.FileSizeFilter" Scope="User">
+      <Value Profile="(Default)">No</Value>
+    </Setting>
+    <Setting Name="Singleline" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

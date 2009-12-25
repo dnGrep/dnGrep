@@ -97,54 +97,6 @@ namespace dnGREP.WPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool SearchRegex {
-            get {
-                return ((bool)(this["SearchRegex"]));
-            }
-            set {
-                this["SearchRegex"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool SearchText {
-            get {
-                return ((bool)(this["SearchText"]));
-            }
-            set {
-                this["SearchText"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool FilterAllSizes {
-            get {
-                return ((bool)(this["FilterAllSizes"]));
-            }
-            set {
-                this["FilterAllSizes"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool FilterSpecificSize {
-            get {
-                return ((bool)(this["FilterSpecificSize"]));
-            }
-            set {
-                this["FilterSpecificSize"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public string SizeFrom {
             get {
@@ -277,42 +229,6 @@ namespace dnGREP.WPF.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool SearchXPath {
-            get {
-                return ((bool)(this["SearchXPath"]));
-            }
-            set {
-                this["SearchXPath"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool FileSearchRegex {
-            get {
-                return ((bool)(this["FileSearchRegex"]));
-            }
-            set {
-                this["FileSearchRegex"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public bool FileSearchAsterisk {
-            get {
-                return ((bool)(this["FileSearchAsterisk"]));
-            }
-            set {
-                this["FileSearchAsterisk"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool ShowLinesInContext {
             get {
                 return ((bool)(this["ShowLinesInContext"]));
@@ -367,6 +283,54 @@ namespace dnGREP.WPF.Properties {
             }
             set {
                 this["PreviewResults"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Regex")]
+        public global::dnGREP.Common.SearchType TypeOfSearch {
+            get {
+                return ((global::dnGREP.Common.SearchType)(this["TypeOfSearch"]));
+            }
+            set {
+                this["TypeOfSearch"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Asterisk")]
+        public global::dnGREP.Common.FileSearchType TypeOfFileSearch {
+            get {
+                return ((global::dnGREP.Common.FileSearchType)(this["TypeOfFileSearch"]));
+            }
+            set {
+                this["TypeOfFileSearch"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("No")]
+        public global::dnGREP.Common.FileSizeFilter UseFileSizeFilter {
+            get {
+                return ((global::dnGREP.Common.FileSizeFilter)(this["UseFileSizeFilter"]));
+            }
+            set {
+                this["UseFileSizeFilter"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Singleline {
+            get {
+                return ((bool)(this["Singleline"]));
+            }
+            set {
+                this["Singleline"] = value;
             }
         }
     }

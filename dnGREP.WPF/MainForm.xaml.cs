@@ -17,6 +17,7 @@ using dnGREP.Engines;
 using NLog;
 using System.IO;
 using System.Reflection;
+using System.Collections.ObjectModel;
 
 namespace dnGREP.WPF
 {
@@ -25,7 +26,7 @@ namespace dnGREP.WPF
     /// </summary>
     public partial class MainForm : Window
     {
-		private List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
+		private ObservableGrepSearchResults searchResults = new ObservableGrepSearchResults();
 		private List<KeyValuePair<string, int>> encodings = new List<KeyValuePair<string, int>>();
 		private const string SEARCH_KEY = "search";
 		private const string REPLACE_KEY = "replace";
@@ -34,29 +35,30 @@ namespace dnGREP.WPF
 		private PublishedVersionExtractor ve = new PublishedVersionExtractor();
 		private List<string> treeViewExtensionList = new List<string>();
 		private FileFolderDialog fileFolderDialog = new FileFolderDialog();
-		private BackgroundWorker workerSearchReplace = new BackgroundWorker();		
-
+		private BackgroundWorker workerSearchReplace = new BackgroundWorker();
+		private MainFormState inputData = new MainFormState();
+		
 		#region States
 
-		private int codePage = -1;
+		private static int codePage = -1;
 
-		public int CodePage
+		public static int CodePage
 		{
 			get { return codePage; }
 			set { codePage = value; }
 		}
 
-		private bool doSearchInResults = false;
+		private static bool doSearchInResults = false;
 
-		public bool DoSearchInResults
+		public static bool DoSearchInResults
 		{
 			get { return doSearchInResults; }
 			set { doSearchInResults = value; }
 		}
 
-		private bool folderSelected = false;
+		private static bool folderSelected = false;
 
-		public bool FolderSelected
+		public static bool FolderSelected
 		{
 			get { return folderSelected; }
 			set
@@ -66,9 +68,9 @@ namespace dnGREP.WPF
 			}
 		}
 
-		private bool searchPatternEntered = false;
+		private static bool searchPatternEntered = false;
 
-		public bool SearchPatternEntered
+		public static bool SearchPatternEntered
 		{
 			get { return searchPatternEntered; }
 			set
@@ -77,9 +79,9 @@ namespace dnGREP.WPF
 				changeState();
 			}
 		}
-		private bool replacePatternEntered = false;
+		private static bool replacePatternEntered = false;
 
-		public bool ReplacePatternEntered
+		public static bool ReplacePatternEntered
 		{
 			get { return replacePatternEntered; }
 			set
@@ -89,9 +91,9 @@ namespace dnGREP.WPF
 			}
 		}
 
-		private bool filesFound = false;
+		private static bool filesFound = false;
 
-		public bool FilesFound
+		public static bool FilesFound
 		{
 			get { return filesFound; }
 			set
@@ -101,9 +103,9 @@ namespace dnGREP.WPF
 			}
 		}
 
-		private bool isAllSizes = true;
+		private static bool isAllSizes = true;
 
-		public bool IsAllSizes
+		public static bool IsAllSizes
 		{
 			get { return isAllSizes; }
 			set
@@ -113,9 +115,9 @@ namespace dnGREP.WPF
 			}
 		}
 
-		private bool isSearching = false;
+		private static bool isSearching = false;
 
-		public bool IsSearching
+		public static bool IsSearching
 		{
 			get { return isSearching; }
 			set
@@ -125,9 +127,9 @@ namespace dnGREP.WPF
 			}
 		}
 
-		private bool isReplacing = false;
+		private static bool isReplacing = false;
 
-		public bool IsReplacing
+		public static bool IsReplacing
 		{
 			get { return isReplacing; }
 			set
@@ -137,9 +139,9 @@ namespace dnGREP.WPF
 			}
 		}
 
-		private bool isPlainText = false;
+		private static bool isPlainText = false;
 
-		public bool IsPlainText
+		public static bool IsPlainText
 		{
 			get { return isPlainText; }
 			set
@@ -149,10 +151,10 @@ namespace dnGREP.WPF
 			}
 		}
 
-		private bool canUndo = false;
-		private string undoFolder = "";
+		private static bool canUndo = false;
+		private static string undoFolder = "";
 
-		public bool CanUndo
+		public static bool CanUndo
 		{
 			get { return canUndo; }
 			set
@@ -165,9 +167,9 @@ namespace dnGREP.WPF
 			}
 		}
 
-		private bool isMultiline = false;
+		private static bool isMultiline = false;
 
-		public bool IsMultiline
+		public static bool IsMultiline
 		{
 			get { return isMultiline; }
 			set
@@ -179,178 +181,178 @@ namespace dnGREP.WPF
 
 		private _screenParameters p = new _screenParameters();
 
-		private void changeState()
+		private static void changeState()
 		{
-			p.codePage = CodePage;
-			p.rbFileAsterisk = rbFileAsterisk.IsChecked == true;
-			p.rbFileRegex = rbFileRegex.IsChecked == true;
-			p.rbFilterAllSizes = rbFilterAllSizes.IsChecked == true;
-			p.rbFilterSpecificSize = rbFilterSpecificSize.IsChecked == true;
-			if (rbRegex.IsChecked == true)
-				p.searchType = SearchType.Regex;
-			else if (rbText.IsChecked == true)
-				p.searchType = SearchType.PlainText;
-			else if (rbXPath.IsChecked == true)
-				p.searchType = SearchType.XPath;
-			else if (rbSoundex.IsChecked == true)
-				p.searchType = SearchType.Soundex;
-			p.tbFilePattern = tbFilePattern.Text;
-			p.tbFileSizeFrom = tbFileSizeFrom.Text;
-			p.tbFileSizeTo = tbFileSizeTo.Text;
-			p.tbFolderName = tbFolderName.Text;
-			p.tbReplaceWith = tbReplaceWith.Text;
-			p.tbSearchFor = tbSearchFor.Text;
-			p.cbIncludeSubfolders = cbIncludeSubfolders.IsChecked == true;
-			p.cbIncludeHiddenFolders = cbIncludeHiddenFolders.IsChecked == true;
-			p.cbCaseSensitive = cbCaseSensitive.IsChecked == true;
-			p.cbMultiline = cbMultiline.IsChecked == true;
+			//p.codePage = CodePage;
+			//p.rbFileAsterisk = rbFileAsterisk.IsChecked == true;
+			//p.rbFileRegex = rbFileRegex.IsChecked == true;
+			//p.rbFilterAllSizes = rbFilterAllSizes.IsChecked == true;
+			//p.rbFilterSpecificSize = rbFilterSpecificSize.IsChecked == true;
+			//if (rbRegex.IsChecked == true)
+			//    p.searchType = SearchType.Regex;
+			//else if (rbText.IsChecked == true)
+			//    p.searchType = SearchType.PlainText;
+			//else if (rbXPath.IsChecked == true)
+			//    p.searchType = SearchType.XPath;
+			//else if (rbSoundex.IsChecked == true)
+			//    p.searchType = SearchType.Soundex;
+			//p.tbFilePattern = tbFilePattern.Text;
+			//p.tbFileSizeFrom = tbFileSizeFrom.Text;
+			//p.tbFileSizeTo = tbFileSizeTo.Text;
+			//p.tbFolderName = tbFolderName.Text;
+			//p.tbReplaceWith = tbReplaceWith.Text;
+			//p.tbSearchFor = tbSearchFor.Text;
+			//p.cbIncludeSubfolders = cbIncludeSubfolders.IsChecked == true;
+			//p.cbIncludeHiddenFolders = cbIncludeHiddenFolders.IsChecked == true;
+			//p.cbCaseSensitive = cbCaseSensitive.IsChecked == true;
+			//p.cbMultiline = cbMultiline.IsChecked == true;
 
-			//tbSearchFor
-			//tbReplaceWith
-			//splitContainer
-			if (IsMultiline)
-			{
-				//TODO
-				//tbSearchFor.Multiline = true;
-				//tbReplaceWith.Multiline = true;
-				//splitContainer.SplitterDistance = 180;
-				//splitContainer.IsSplitterFixed = false;
-			}
-			else
-			{
-				//TODO
-				//tbSearchFor.Multiline = false;
-				//tbReplaceWith.Multiline = false;
-				//splitContainer.SplitterDistance = 134;
-				//splitContainer.IsSplitterFixed = true;
-			}
+			////tbSearchFor
+			////tbReplaceWith
+			////splitContainer
+			//if (IsMultiline)
+			//{
+			//    //TODO
+			//    //tbSearchFor.Multiline = true;
+			//    //tbReplaceWith.Multiline = true;
+			//    //splitContainer.SplitterDistance = 180;
+			//    //splitContainer.IsSplitterFixed = false;
+			//}
+			//else
+			//{
+			//    //TODO
+			//    //tbSearchFor.Multiline = false;
+			//    //tbReplaceWith.Multiline = false;
+			//    //splitContainer.SplitterDistance = 134;
+			//    //splitContainer.IsSplitterFixed = true;
+			//}
 
-			// btnSearch
-			// searchInResultsToolStripMenuItem
-			if (FolderSelected && !IsSearching && !IsReplacing &&
-				(SearchPatternEntered || Properties.Settings.Default.AllowSearchingForFileNamePattern))
-			{
-				btnSearch.IsEnabled = true;
-				searchInResultsToolStripMenuItem.IsEnabled = true;
-			}
-			else
-			{
-				btnSearch.IsEnabled = false;
-				searchInResultsToolStripMenuItem.IsEnabled = false;
-			}
+			//// btnSearch
+			//// searchInResultsToolStripMenuItem
+			//if (FolderSelected && !IsSearching && !IsReplacing &&
+			//    (SearchPatternEntered || Properties.Settings.Default.AllowSearchingForFileNamePattern))
+			//{
+			//    btnSearch.IsEnabled = true;
+			//    searchInResultsToolStripMenuItem.IsEnabled = true;
+			//}
+			//else
+			//{
+			//    btnSearch.IsEnabled = false;
+			//    searchInResultsToolStripMenuItem.IsEnabled = false;
+			//}
 
-			//btnSearch.ShowAdvance
-			if (searchResults.Count > 0)
-			{
-				//TODO
-				//btnSearch.ShowSplit = true;
-			}
-			else
-			{
-				//TODO
-				//btnSearch.ShowSplit = false;
-			}
+			////btnSearch.ShowAdvance
+			//if (searchResults.Count > 0)
+			//{
+			//    //TODO
+			//    //btnSearch.ShowSplit = true;
+			//}
+			//else
+			//{
+			//    //TODO
+			//    //btnSearch.ShowSplit = false;
+			//}
 
-			// btnReplace
-			if (FolderSelected && FilesFound && !IsSearching && !IsReplacing
-				&& SearchPatternEntered)
-			{
-				btnReplace.IsEnabled = true;
-			}
-			else
-			{
-				btnReplace.IsEnabled = false;
-			}
+			//// btnReplace
+			//if (FolderSelected && FilesFound && !IsSearching && !IsReplacing
+			//    && SearchPatternEntered)
+			//{
+			//    btnReplace.IsEnabled = true;
+			//}
+			//else
+			//{
+			//    btnReplace.IsEnabled = false;
+			//}
 
-			//btnCancel
-			if (IsSearching)
-			{
-				btnCancel.IsEnabled = true;
-			}
-			else if (IsReplacing)
-			{
-				btnCancel.IsEnabled = true;
-			}
-			else
-			{
-				btnCancel.IsEnabled = false;
-			}
+			////btnCancel
+			//if (IsSearching)
+			//{
+			//    btnCancel.IsEnabled = true;
+			//}
+			//else if (IsReplacing)
+			//{
+			//    btnCancel.IsEnabled = true;
+			//}
+			//else
+			//{
+			//    btnCancel.IsEnabled = false;
+			//}
 
-			//undoToolStripMenuItem
-			if (CanUndo)
-			{
-				undoToolStripMenuItem.IsEnabled = true;
-			}
-			else
-			{
-				undoToolStripMenuItem.IsEnabled = false;
-			}
+			////undoToolStripMenuItem
+			//if (CanUndo)
+			//{
+			//    undoToolStripMenuItem.IsEnabled = true;
+			//}
+			//else
+			//{
+			//    undoToolStripMenuItem.IsEnabled = false;
+			//}
 
-			//cbCaseSensitive
-			if (rbXPath.IsChecked == true)
-			{
-				cbCaseSensitive.IsEnabled = false;
-			}
-			else
-			{
-				cbCaseSensitive.IsEnabled = true;
-			}
+			////cbCaseSensitive
+			//if (rbXPath.IsChecked == true)
+			//{
+			//    cbCaseSensitive.IsEnabled = false;
+			//}
+			//else
+			//{
+			//    cbCaseSensitive.IsEnabled = true;
+			//}
 
-			//btnTest
-			if (!IsPlainText &&
-				!rbXPath.IsChecked == true)
-			{
-				btnTest.IsEnabled = true;
-			}
-			else
-			{
-				btnTest.IsEnabled = false;
-			}
+			////btnTest
+			//if (!IsPlainText &&
+			//    !rbXPath.IsChecked == true)
+			//{
+			//    btnTest.IsEnabled = true;
+			//}
+			//else
+			//{
+			//    btnTest.IsEnabled = false;
+			//}
 
-			//cbMultiline
-			if (rbXPath.IsChecked == true)
-			{
-				cbMultiline.IsEnabled = false;
-			}
-			else
-			{
-				cbMultiline.IsEnabled = true;
-			}
+			////cbMultiline
+			//if (rbXPath.IsChecked == true)
+			//{
+			//    cbMultiline.IsEnabled = false;
+			//}
+			//else
+			//{
+			//    cbMultiline.IsEnabled = true;
+			//}
 
-			//tbFileSizeFrom
-			//tbFileSizeTo
-			if (IsAllSizes)
-			{
-				tbFileSizeFrom.IsEnabled = false;
-				tbFileSizeTo.IsEnabled = false;
-			}
-			else
-			{
-				tbFileSizeFrom.IsEnabled = true;
-				tbFileSizeTo.IsEnabled = true;
-			}
+			////tbFileSizeFrom
+			////tbFileSizeTo
+			//if (IsAllSizes)
+			//{
+			//    tbFileSizeFrom.IsEnabled = false;
+			//    tbFileSizeTo.IsEnabled = false;
+			//}
+			//else
+			//{
+			//    tbFileSizeFrom.IsEnabled = true;
+			//    tbFileSizeTo.IsEnabled = true;
+			//}
 
-			//copyFilesToolStripMenuItem
-			//moveFilesToolStripMenuItem
-			//deleteFilesToolStripMenuItem
-			//saveAsCSVToolStripMenuItem
-			//btnOtherActions
-			if (FilesFound)
-			{
-				copyFilesToolStripMenuItem.IsEnabled = true;
-				moveFilesToolStripMenuItem.IsEnabled = true;
-				deleteFilesToolStripMenuItem.IsEnabled = true;
-				saveAsCSVToolStripMenuItem.IsEnabled = true;
-				btnOtherActions.IsEnabled = true;
-			}
-			else
-			{
-				copyFilesToolStripMenuItem.IsEnabled = false;
-				moveFilesToolStripMenuItem.IsEnabled = false;
-				deleteFilesToolStripMenuItem.IsEnabled = false;
-				saveAsCSVToolStripMenuItem.IsEnabled = false;
-				btnOtherActions.IsEnabled = false;
-			}
+			////copyFilesToolStripMenuItem
+			////moveFilesToolStripMenuItem
+			////deleteFilesToolStripMenuItem
+			////saveAsCSVToolStripMenuItem
+			////btnOtherActions
+			//if (FilesFound)
+			//{
+			//    copyFilesToolStripMenuItem.IsEnabled = true;
+			//    moveFilesToolStripMenuItem.IsEnabled = true;
+			//    deleteFilesToolStripMenuItem.IsEnabled = true;
+			//    saveAsCSVToolStripMenuItem.IsEnabled = true;
+			//    btnOtherActions.IsEnabled = true;
+			//}
+			//else
+			//{
+			//    copyFilesToolStripMenuItem.IsEnabled = false;
+			//    moveFilesToolStripMenuItem.IsEnabled = false;
+			//    deleteFilesToolStripMenuItem.IsEnabled = false;
+			//    saveAsCSVToolStripMenuItem.IsEnabled = false;
+			//    btnOtherActions.IsEnabled = false;
+			//}
 		}
 
 		#endregion
@@ -423,6 +425,27 @@ namespace dnGREP.WPF
 		}
 		#endregion
 
+		public class ObservableGrepSearchResults : ObservableCollection<GrepSearchResult>
+		{
+			public ObservableGrepSearchResults()
+			{ }
+
+			public ObservableGrepSearchResults(List<GrepSearchResult> list)
+			{
+				AddRange(list);
+			}
+
+			public List<GrepSearchResult> GetList()
+			{
+				return this.ToList<GrepSearchResult>();
+			}
+
+			public void AddRange(List<GrepSearchResult> list)
+			{
+				foreach (var l in list) this.Add(l);
+			}
+		}
+
 		private void winFormControlsInit()
 		{
 			this.workerSearchReplace.WorkerReportsProgress = true;
@@ -436,16 +459,17 @@ namespace dnGREP.WPF
 		{
 			InitializeComponent();
 			winFormControlsInit();
-			restoreSettings();
+			this.DataContext = inputData;
+			tvSearchResult.ItemsSource = searchResults;
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
 			if (!string.IsNullOrEmpty(Properties.Settings.Default.SearchFolder))
 			{
-				tbFolderName.Text = Properties.Settings.Default.SearchFolder;
-				FolderSelected = true;
+				inputData.FileOrFolderPath = Properties.Settings.Default.SearchFolder;
 			}
+
 			SearchPatternEntered = !string.IsNullOrEmpty(tbSearchFor.Text);
 			ReplacePatternEntered = !string.IsNullOrEmpty(tbReplaceWith.Text);
 			IsPlainText = rbText.IsChecked == true;
@@ -477,21 +501,9 @@ namespace dnGREP.WPF
 			if (fileFolderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 			{
 				if (fileFolderDialog.SelectedPaths != null)
-					tbFolderName.Text = fileFolderDialog.SelectedPaths;
+					inputData.FileOrFolderPath = fileFolderDialog.SelectedPaths;
 				else
-					tbFolderName.Text = fileFolderDialog.SelectedPath;
-			}
-		}
-
-		private void tbFolderName_TextChanged(object sender, TextChangedEventArgs e)
-		{
-			if (Utils.IsPathValid(tbFolderName.Text))
-			{
-				FolderSelected = true;
-			}
-			else
-			{
-				FolderSelected = false;
+					inputData.FileOrFolderPath = fileFolderDialog.SelectedPath;
 			}
 		}
 
@@ -504,10 +516,8 @@ namespace dnGREP.WPF
 				lblStatus.Text = "Searching...";
 				IsSearching = true;
 				barProgressBar.Value = 0;
-				//TODO
-				//tvSearchResult.Nodes.Clear();
+				searchResults.Clear();
 				p.key = SEARCH_KEY;
-			
 				workerSearchReplace.RunWorkerAsync(p);
 			}
 		}
@@ -578,7 +588,7 @@ namespace dnGREP.WPF
 						}
 						else
 						{
-							files = Utils.GetFileList(param.tbFolderName, filePattern, param.rbFileRegex, param.cbIncludeSubfolders,
+							files = Utils.GetFileList(inputData.FileOrFolderPath, filePattern, param.rbFileRegex, param.cbIncludeSubfolders,
 								param.cbIncludeHiddenFolders, sizeFrom, sizeTo);
 						}
 						GrepCore grep = new GrepCore();
@@ -599,12 +609,10 @@ namespace dnGREP.WPF
 						grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
 						if (results != null)
 						{
-							searchResults = new List<GrepSearchResult>(results);
 							e.Result = results.Count;
 						}
 						else
 						{
-							searchResults = new List<GrepSearchResult>();
 							e.Result = 0;
 						}
 					}
@@ -732,31 +740,7 @@ namespace dnGREP.WPF
 			GrepCore.CancelProcess = true;
 			if (workerSearchReplace.IsBusy)
 				workerSearchReplace.CancelAsync();
-			populateSettings();
 			Properties.Settings.Default.Save();
-		}
-
-		private void populateSettings()
-		{
-			Properties.Settings.Default.SearchRegex = rbRegex.IsChecked == true;
-			Properties.Settings.Default.SearchText = rbText.IsChecked == true;
-			Properties.Settings.Default.SearchXPath = rbXPath.IsChecked == true;
-			Properties.Settings.Default.FileSearchRegex = rbFileRegex.IsChecked == true;
-			Properties.Settings.Default.FileSearchAsterisk = rbFileAsterisk.IsChecked == true;
-			Properties.Settings.Default.FilterAllSizes = rbFilterAllSizes.IsChecked == true;
-			Properties.Settings.Default.FilterSpecificSize = rbFilterSpecificSize.IsChecked == true;
-		}
-
-		private void restoreSettings()
-		{
-
-			rbRegex.IsChecked = Properties.Settings.Default.SearchRegex;
-			rbText.IsChecked = Properties.Settings.Default.SearchText;
-			rbXPath.IsChecked = Properties.Settings.Default.SearchXPath;
-			rbFileRegex.IsChecked = Properties.Settings.Default.FileSearchRegex;
-			rbFileAsterisk.IsChecked = Properties.Settings.Default.FileSearchAsterisk;
-			rbFilterAllSizes.IsChecked = Properties.Settings.Default.FilterAllSizes;
-			rbFilterSpecificSize.IsChecked = Properties.Settings.Default.FilterSpecificSize;
 		}
 
 		private void appendResults(GrepSearchResult result)
@@ -849,9 +833,9 @@ namespace dnGREP.WPF
 
 			encodings.Insert(0, defaultValue);
 
-			cbEncoding.DataContext = encodings;
-			cbEncoding.DisplayMemberPath = "Value";
-			cbEncoding.SelectedValuePath = "Key";
+			cbEncoding.ItemsSource = encodings;
+			cbEncoding.DisplayMemberPath = "Key";
+			cbEncoding.SelectedValuePath = "Value";
 			cbEncoding.SelectedIndex = 0;
 		}
 
@@ -903,7 +887,7 @@ namespace dnGREP.WPF
 					if (MessageBox.Show("Are you sure you want to replace search pattern with empty string?", "Replace", MessageBoxButton.YesNoCancel, MessageBoxImage.Question) != MessageBoxResult.Yes)
 						return;
 				}
-				List<string> roFiles = Utils.GetReadOnlyFiles(searchResults);
+				List<string> roFiles = Utils.GetReadOnlyFiles(searchResults.GetList());
 				if (roFiles.Count > 0)
 				{
 					StringBuilder sb = new StringBuilder("Some of the files can not be modified. If you continue, these files will be skipped.\nWould you like to continue?\n\n");
@@ -919,8 +903,7 @@ namespace dnGREP.WPF
 				CanUndo = false;
 				undoFolder = Utils.GetBaseFolder(tbFolderName.Text);
 				barProgressBar.Value = 0;
-				//TODO
-				//tvSearchResult.Nodes.Clear();
+				searchResults.Clear();
 				p.key = REPLACE_KEY;
 				workerSearchReplace.RunWorkerAsync(p);
 			}
@@ -928,8 +911,6 @@ namespace dnGREP.WPF
 
 		private void textBoxTextChanged(object sender, TextChangedEventArgs e)
 		{
-			SearchPatternEntered = !string.IsNullOrEmpty(tbSearchFor.Text);
-			ReplacePatternEntered = !string.IsNullOrEmpty(tbReplaceWith.Text);
 			if (sender == tbSearchFor)
 			{
 				FilesFound = false;
@@ -975,14 +956,6 @@ namespace dnGREP.WPF
 		{
 			//TODO
 			//Help.ShowHelp(this, helpProvider.HelpNamespace);
-		}
-
-		private void rbTextSearch_CheckedChanged(object sender, RoutedEventArgs e)
-		{
-			if (sender == rbText)
-				IsPlainText = rbText.IsChecked == true;
-
-			FilesFound = false;
 		}
 
 		private void cbCaseSensitive_CheckedChanged(object sender, RoutedEventArgs e)

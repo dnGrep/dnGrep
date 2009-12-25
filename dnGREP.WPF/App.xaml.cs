@@ -5,12 +5,16 @@ using System.Data;
 using System.Linq;
 using System.Windows;
 
-namespace dnGREP3._5
+namespace dnGREP.WPF
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
     {
+		public void Main(string[] args)
+		{
+			//Nothing
+		}
     }
 }
