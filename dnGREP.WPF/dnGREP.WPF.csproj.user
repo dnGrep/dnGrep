@@ -1,1 +1,8 @@
-﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" />
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <StartArguments>C:\Temp</StartArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <StartArguments>C:\Temp</StartArguments>
+  </PropertyGroup>
+</Project>

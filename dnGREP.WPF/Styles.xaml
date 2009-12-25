@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style x:Key="DefaultStyle">
+        <Setter Property="Control.FontSize" Value="12"/>
+        <Setter Property="Control.FontFamily" Value="Microsoft Sans Serif"/>
+    </Style>
+    <Style TargetType="{x:Type Button}">
+        <Setter Property="Height" Value="23" />
+    </Style>
+    <Style TargetType="{x:Type TextBox}">
+        <Setter Property="Height" Value="23" />
+    </Style>
+    <Style TargetType="{x:Type ComboBox}">
+        <Setter Property="Height" Value="23" />
+    </Style>
+</ResourceDictionary>
