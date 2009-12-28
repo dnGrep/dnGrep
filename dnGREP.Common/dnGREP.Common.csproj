@@ -55,7 +55,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BookmarkDetails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BookmarkDetails.Designer.cs">
+      <DependentUpon>BookmarkDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="BookmarkLibrary.cs" />
+    <Compile Include="BookmarksForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BookmarksForm.Designer.cs">
+      <DependentUpon>BookmarksForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Enums.cs" />
     <Compile Include="FileFolderDialog.cs">
       <SubType>Component</SubType>
@@ -74,6 +86,14 @@
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="BookmarkDetails.resx">
+      <DependentUpon>BookmarkDetails.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BookmarksForm.resx">
+      <DependentUpon>BookmarksForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

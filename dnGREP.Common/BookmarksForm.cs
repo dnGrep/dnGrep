@@ -7,11 +7,43 @@ using System.Text;
 using System.Windows.Forms;
 using dnGREP.Common;
 
-namespace dnGREP
+namespace dnGREP.Common
 {
-	public partial class BookmarksForm : Form
+	public partial class BookmarksForm : Form, INotifyPropertyChanged
 	{
 		DataTable copyOfBookmarks = new DataTable();
+		public event PropertyChangedEventHandler PropertyChanged;
+		// Create the OnPropertyChanged method to raise the event
+		protected void OnPropertyChanged(string name)
+		{
+			PropertyChangedEventHandler handler = PropertyChanged;
+			if (handler != null)
+			{
+				handler(this, new PropertyChangedEventArgs(name));
+			}
+		}
+
+		private string filePattern = "";
+
+		public string FilePattern
+		{
+			get { return filePattern; }
+			set { filePattern = value; OnPropertyChanged("FilePattern"); }
+		}
+		private string searchFor = "";
+
+		public string SearchFor
+		{
+			get { return searchFor; }
+			set { searchFor = value; OnPropertyChanged("SearchFor"); }
+		}
+		private string replaceWith = "";
+
+		public string ReplaceWith
+		{
+			get { return replaceWith; }
+			set { replaceWith = value; OnPropertyChanged("ReplaceWith"); }
+		}
 
 		private void changeState()
 		{
@@ -123,9 +155,9 @@ namespace dnGREP
 			if (gridBookmarks.SelectedRows.Count != 1)
 				return;
 			DataRowView bookmarkRow = (DataRowView)gridBookmarks.SelectedRows[0].DataBoundItem;
-			Properties.Settings.Default.FilePattern = bookmarkRow["FileNames"].ToString();
-			Properties.Settings.Default.SearchFor = bookmarkRow["SearchPattern"].ToString();
-			Properties.Settings.Default.ReplaceWith = bookmarkRow["ReplacePattern"].ToString();
+			FilePattern = bookmarkRow["FileNames"].ToString();
+			SearchFor = bookmarkRow["SearchPattern"].ToString();
+			ReplaceWith = bookmarkRow["ReplacePattern"].ToString();
 		}
 
 		private void doSearch(object sender, EventArgs e)

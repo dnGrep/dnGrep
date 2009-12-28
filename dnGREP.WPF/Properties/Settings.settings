@@ -20,10 +20,10 @@
     <Setting Name="IncludeHidden" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="SizeFrom" Type="System.String" Scope="User">
+    <Setting Name="SizeFrom" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="SizeTo" Type="System.String" Scope="User">
+    <Setting Name="SizeTo" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">1000</Value>
     </Setting>
     <Setting Name="CustomEditor" Type="System.String" Scope="User">

@@ -98,9 +98,9 @@ namespace dnGREP.WPF.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public string SizeFrom {
+        public int SizeFrom {
             get {
-                return ((string)(this["SizeFrom"]));
+                return ((int)(this["SizeFrom"]));
             }
             set {
                 this["SizeFrom"] = value;
@@ -110,9 +110,9 @@ namespace dnGREP.WPF.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("1000")]
-        public string SizeTo {
+        public int SizeTo {
             get {
-                return ((string)(this["SizeTo"]));
+                return ((int)(this["SizeTo"]));
             }
             set {
                 this["SizeTo"] = value;

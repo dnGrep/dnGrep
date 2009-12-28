@@ -10,28 +10,39 @@
     SnapsToDevicePixels="True" ResizeMode="CanResizeWithGrip">
     <!-- Resources -->
     <Window.Resources>
-        <Style x:Key="ExpandedTextbox" TargetType="{x:Type TextBox}">
-            <Setter Property="Height" Value="50"/>
-            <Setter Property="TextWrapping" Value="Wrap"/>
+        <Style x:Key="ExpandedTextbox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource DefaultStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Multiline}" Value="True">
+                    <Setter Property="Height" Value="50"/>
+                    <Setter Property="TextWrapping" Value="Wrap"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Multiline}" Value="False">
+                    <Setter Property="Height" Value="23"/>
+                    <Setter Property="TextWrapping" Value="NoWrap"/>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
         
         <my:EnumBooleanConverter x:Key="ebc" />
         
-        <DataTemplate x:Key="linesTemplate">
-            <TreeViewItem Header="{Binding Path=LineText}" IsHitTestVisible="False" />
-        </DataTemplate>
+        <!--DataTemplate x:Key="linesTemplate">
+            <TreeViewItem IsHitTestVisible="False">
+                <TextBlock Text="{Binding GrepLine.LineText}"/>
+                <my:InlineTextBlock InlineCollection="{Binding Path=FormattedText}"/>
+            </TreeViewItem>
+        </DataTemplate-->
 
-        <HierarchicalDataTemplate x:Key="treeTemplate"
-            ItemsSource="{Binding SearchResults}"
+        <!--HierarchicalDataTemplate x:Key="treeTemplate"
+            ItemsSource="{Binding FormattedLines}"
             ItemTemplate="{StaticResource linesTemplate}">
             <TreeViewItem IsHitTestVisible="False">
                 <TreeViewItem.Header>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Path=FileNameDisplayed}"/>
+                        <TextBlock Text="{Binding Path=Label}"/>
                     </StackPanel>
                 </TreeViewItem.Header>
             </TreeViewItem>
-        </HierarchicalDataTemplate>
+        </HierarchicalDataTemplate-->
     </Window.Resources>
     
     <DockPanel>
@@ -43,7 +54,7 @@
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" FontFamily="Microsoft Sans Serif" FontWeight="Bold" FontSize="16">dnGREP</TextBlock>
                 <Menu Name="mnuMainMenu" Grid.Column="1" HorizontalAlignment="Right" Style="{StaticResource DefaultStyle}">
-                    <MenuItem Name="undoToolStripMenuItem" Header="_Undo" Click="undoToolStripMenuItem_Click"/>
+                    <MenuItem Name="undoToolStripMenuItem" Header="_Undo" IsEnabled="{Binding Path=CanUndo}" Click="undoToolStripMenuItem_Click"/>
                     <MenuItem Header="_Options..."/>
                     <MenuItem Header="_Help" Name="helpToolStripMenuItem" Click="helpToolStripMenuItem_Click" />
                 </Menu>
@@ -79,7 +90,9 @@
                     <Button Grid.Column="1" Grid.Row="0" Name="btnTest" Click="btnTest_Click">Test</Button>
                     <GroupBox Header="Search for:" Grid.Row="1" 
                               Grid.ColumnSpan="2" BorderThickness="0">
-                        <TextBox Name="tbSearchFor" Margin="-5,3,-5,0" Text="{Binding Path=SearchFor, UpdateSourceTrigger=PropertyChanged}" TextChanged="textBoxTextChanged" VerticalScrollBarVisibility="Auto" />
+                        <TextBox Name="tbSearchFor" Margin="-5,3,-5,0" Text="{Binding Path=SearchFor, UpdateSourceTrigger=PropertyChanged}" 
+                                 TextChanged="textBoxTextChanged" VerticalScrollBarVisibility="Auto" 
+                                 Style="{StaticResource ExpandedTextbox}"/>
                     </GroupBox>
                     <GroupBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" 
                               Header="Replace with:" BorderThickness="0">
@@ -91,12 +104,12 @@
                     <Expander Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"
                               Name="expOptions">
                         <Expander.Header>
-                            <WrapPanel><TextBlock>Options</TextBlock><TextBlock Margin="15,0,0,0">[Multiline, Case Sensitive]</TextBlock></WrapPanel>
+                            <WrapPanel><TextBlock>Options</TextBlock><TextBlock Margin="15,0,0,0" Text="{Binding Path=OptionsSummary}"/></WrapPanel>
                         </Expander.Header>
                         <StackPanel Orientation="Horizontal">
-                           <CheckBox Margin="3" Name="cbCaseSensitive" IsChecked="{Binding Path=CaseSensitive}">Case sensitive</CheckBox>
-                           <CheckBox Margin="3" Name="cbMultiline" IsChecked="{Binding Path=Multiline}">Multiline (slower)</CheckBox>
-                           <CheckBox Margin="3" Name="cbSingleline" IsChecked="{Binding Path=Singleline}">Match dot as newline</CheckBox>
+                           <CheckBox Margin="3" Name="cbCaseSensitive" IsChecked="{Binding Path=CaseSensitive}" IsEnabled="{Binding Path=IsCaseSensitiveEnabled}">Case sensitive</CheckBox>
+                           <CheckBox Margin="3" Name="cbMultiline" IsChecked="{Binding Path=Multiline}" IsEnabled="{Binding Path=IsMultilineEnabled}">Multiline (slower)</CheckBox>
+                           <CheckBox Margin="3" Name="cbSingleline" IsChecked="{Binding Path=Singleline}" IsEnabled="{Binding Path=IsSinglelineEnabled}">Match dot as newline</CheckBox>
                         </StackPanel>                    
                     </Expander>
                 </Grid>            
@@ -111,9 +124,25 @@
                         <RadioButton GroupName="NoSizeFilter" Margin="3" Name="rbFilterAllSizes" IsChecked="{Binding Path=UseFileSizeFilter, Converter={StaticResource ebc}, ConverterParameter=No}">All sizes</RadioButton>
                         <StackPanel Orientation="Horizontal">
                             <RadioButton GroupName="SetSizeFilter" Margin="3" VerticalAlignment="Center" Name="rbFilterSpecificSize"  IsChecked="{Binding Path=UseFileSizeFilter, Converter={StaticResource ebc}, ConverterParameter=Yes}">Size is</RadioButton>
-                            <TextBox Width="47" Margin="3" Name="tbFileSizeFrom" IsEnabled="{Binding Path=IsSizeFilterSet}"></TextBox>
+                            <TextBox Width="47" Margin="3" Name="tbFileSizeFrom" IsEnabled="{Binding Path=IsSizeFilterSet}">
+                                <TextBox.Text>
+                                    <Binding Path="SizeFrom" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <ExceptionValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
                             <TextBlock Margin="3" VerticalAlignment="Center">to</TextBlock>
-                            <TextBox Width="47" Margin="3" Name="tbFileSizeTo" IsEnabled="{Binding Path=IsSizeFilterSet}"></TextBox>
+                            <TextBox Width="47" Margin="3" Name="tbFileSizeTo" IsEnabled="{Binding Path=IsSizeFilterSet}">
+                                <TextBox.Text>
+                                    <Binding Path="SizeTo" UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <ExceptionValidationRule />
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
                             <TextBlock Margin="3" VerticalAlignment="Center">KB</TextBlock>
                         </StackPanel>
                         <CheckBox Margin="3" IsChecked="{Binding Path=IncludeSubfolder}" Name="cbIncludeSubfolders">Include subfolders</CheckBox>
@@ -139,7 +168,7 @@
                         <TextBlock Grid.Column="0" Grid.Row="1">Encoding:</TextBlock>
                         <ComboBox Grid.Column="1" Grid.Row="1" 
                                   Name="cbEncoding" VerticalAlignment="Top" 
-                                  SelectionChanged="cbEncoding_SelectionChanged"/>
+                                  SelectedValue="{Binding Path=CodePage}"/>
                     </Grid>
                 </Grid>
             </GroupBox>
@@ -153,26 +182,18 @@
 						    Width="83" 
 						    VerticalAlignment="Top" 
 						    HorizontalAlignment="Left"  
-						    Margin="3" 
-						    Mode="{Binding ElementName=modeSelector, Path=SelectedItem}" 
-						    Placement="{Binding ElementName=placementSelector, Path=SelectedItem}" 
-						    >
-                    <MenuItem Header="Add" Style="{StaticResource DefaultStyle}"/>
-                    <MenuItem Header="Open" Style="{StaticResource DefaultStyle}"/>                    
+						    Margin="3" Click="btnBookmark_Click">
+                    <MenuItem Header="Add" Style="{StaticResource DefaultStyle}" Click="btnBookmark_Click"/>
+                    <MenuItem Header="Open" Style="{StaticResource DefaultStyle}" Click="btnBookmarkOpen_Click"/>                    
                 </splitButton:SplitButton>
                 <StackPanel HorizontalAlignment="Right" Grid.Column="1" Orientation="Horizontal">
                     <splitButton:SplitButton x:Name="btnSearch" Content="Search" IsEnabled="{Binding Path=CanSearch}"
                                 Click="btnSearch_Click"
 						        Grid.Row="0" Grid.Column="0"
-						        Width="67" 
-						        VerticalAlignment="Top" 
-						        HorizontalAlignment="Left"  
-						        Margin="3" 
-						        Mode="{Binding ElementName=modeSelector, Path=SelectedItem}" 
-						        Placement="{Binding ElementName=placementSelector, Path=SelectedItem}" 
-						        >
+						        Width="67" Margin="3" 
+						        Mode="{Binding Path=SearchButtonMode}">
                         <MenuItem Name="searchInResultsToolStripMenuItem" Header="Search in results" 
-                                  IsEnabled="{Binding Path=CanSearchInResults}" Style="{StaticResource DefaultStyle}"/>
+                                  IsEnabled="{Binding Path=CanSearchInResults}" Style="{StaticResource DefaultStyle}" Click="btnSearchInResults_Click" />
                     </splitButton:SplitButton>
                     <Button Width="64" Margin="3" Content="Replace" Name="btnReplace" Click="btnReplace_Click" IsEnabled="{Binding Path=CanReplace}"/>
                     <splitButton:SplitButton x:Name="btnOtherActions" Content=">>"
@@ -180,16 +201,14 @@
 						        Width="43" 
 						        VerticalAlignment="Top" 
 						        HorizontalAlignment="Left"  
-						        Margin="3" 
-						        Mode="{Binding ElementName=modeSelector, Path=SelectedItem}" 
-						        Placement="{Binding ElementName=placementSelector, Path=SelectedItem}">
+						        Margin="3">
                         <MenuItem Name="copyFilesToolStripMenuItem" Header="Copy files..." Style="{StaticResource DefaultStyle}"/>
                         <MenuItem Name="moveFilesToolStripMenuItem" Header="Move files..." Style="{StaticResource DefaultStyle}"/>
                         <MenuItem Name="deleteFilesToolStripMenuItem" Header="Delete files..." Style="{StaticResource DefaultStyle}"/>
                         <Separator/>
                         <MenuItem Name="saveAsCSVToolStripMenuItem" Header="Save as CSV..." Style="{StaticResource DefaultStyle}"/>
                     </splitButton:SplitButton>
-                    <Button Width="64" Margin="3" Content="Cancel" Name="btnCancel" />
+                    <Button Width="64" Margin="3" Content="Cancel" Name="btnCancel" Click="btnCancel_Click"  IsEnabled="{Binding Path=CanCancel}"/>
                 </StackPanel>
             </Grid>            
         </StackPanel>   
@@ -200,9 +219,15 @@
             </Grid.RowDefinitions>
             <TreeView Grid.Row="0" Name="tvSearchResult" 
                       MouseDoubleClick="tvSearchResult_MouseDoubleClick" 
-                      MouseDown="tvSearchResult_MouseDown"
-                      ItemTemplate="{StaticResource treeTemplate}">
-
+                      MouseDown="tvSearchResult_MouseDown">
+                <TreeView.Resources>
+                    <HierarchicalDataTemplate DataType="{x:Type my:FormattedGrepResult}" ItemsSource="{Binding Path=FormattedLines}" >
+                        <TextBlock Text="{Binding Label}"/>
+                    </HierarchicalDataTemplate>
+                    <DataTemplate DataType="{x:Type my:FormattedGrepLine}">
+                        <my:InlineTextBlock InlineCollection="{Binding FormattedText}"/>
+                    </DataTemplate>
+                </TreeView.Resources>
             </TreeView>
             <StatusBar Grid.Row="1" ClipToBounds="False">
                 <ProgressBar Name="barProgressBar" Height="18"

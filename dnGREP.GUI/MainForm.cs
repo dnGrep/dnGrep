@@ -24,6 +24,7 @@ namespace dnGREP
 		private DateTime timer = DateTime.Now;
 		private PublishedVersionExtractor ve = new PublishedVersionExtractor();
 		private List<string> treeViewExtensionList = new List<string>();
+		private BookmarksForm bookmarkForm = new BookmarksForm();
 		
 		#region States
 
@@ -366,9 +367,19 @@ namespace dnGREP
 			IsMultiline = cbMultiline.Checked;
 			populateEncodings();
 			ve.RetrievedVersion += new PublishedVersionExtractor.VersionExtractorHandler(ve_RetrievedVersion);
+			bookmarkForm.PropertyChanged += new PropertyChangedEventHandler(bookmarkForm_PropertyChanged);
 			checkVersion();
-
 			changeState();
+		}
+
+		void bookmarkForm_PropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			if (e.PropertyName == "FilePattern")
+				Properties.Settings.Default.FilePattern = bookmarkForm.FilePattern;
+			else if (e.PropertyName == "SearchFor")
+				Properties.Settings.Default.SearchFor = bookmarkForm.SearchFor;
+			else if (e.PropertyName == "ReplaceWith")
+				Properties.Settings.Default.ReplaceWith = bookmarkForm.ReplaceWith;
 		}
 
 		private void btnSelectFolder_Click(object sender, EventArgs e)
@@ -917,8 +928,7 @@ namespace dnGREP
 
 		private void openToolStripMenuItem1_Click(object sender, EventArgs e)
 		{
-			BookmarksForm form = new BookmarksForm();
-			form.Show();
+			bookmarkForm.Show();
 		}
 
 		private void btnBookmark_Click(object sender, EventArgs e)

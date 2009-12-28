@@ -97,7 +97,9 @@
   <ItemGroup>
     <Compile Include="EnumBooleanConverter.cs" />
     <Compile Include="HelpProvider.cs" />
+    <Compile Include="InlineTextBlock.cs" />
     <Compile Include="MainForm.State.cs" />
+    <Compile Include="ObservableGrepSearchResults.cs" />
     <Compile Include="OptionsFormState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

@@ -65,18 +65,6 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="BookmarkDetails.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BookmarkDetails.Designer.cs">
-      <DependentUpon>BookmarkDetails.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BookmarksForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BookmarksForm.Designer.cs">
-      <DependentUpon>BookmarksForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="RegexTest.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,14 +89,6 @@
     <EmbeddedResource Include="AboutForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>AboutForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BookmarkDetails.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>BookmarkDetails.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BookmarksForm.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>BookmarksForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <SubType>Designer</SubType>

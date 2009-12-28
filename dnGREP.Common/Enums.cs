@@ -27,6 +27,7 @@ namespace dnGREP.Common
 	public enum GrepOperation
 	{
 		Search,
+		SearchInResults,
 		Replace,
 		None
 	}
