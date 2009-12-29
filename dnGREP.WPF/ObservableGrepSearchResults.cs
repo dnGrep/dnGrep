@@ -7,6 +7,10 @@ using dnGREP.Common;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.IO;
+using System.Collections.Specialized;
+using System.Windows.Media.Imaging;
+using System.Windows;
+using System.Runtime.InteropServices;
 
 namespace dnGREP.WPF
 {
@@ -21,9 +25,34 @@ namespace dnGREP.WPF
 		}
 
 		public ObservableGrepSearchResults()
-		{ }
+		{
+            this.CollectionChanged += new NotifyCollectionChangedEventHandler(ObservableGrepSearchResults_CollectionChanged);
+        }
 
-		public ObservableGrepSearchResults(List<GrepSearchResult> list)
+        private Dictionary<string, BitmapSource> icons = new Dictionary<string, BitmapSource>(); 
+
+        void ObservableGrepSearchResults_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null)
+            {
+                foreach (FormattedGrepResult newEntry in e.NewItems.Cast<FormattedGrepResult>())
+                {
+                    string extension = Path.GetExtension(newEntry.GrepResult.FileNameDisplayed);
+                    if (extension.Length <= 1)
+                        extension = ".na";
+                    if (!icons.ContainsKey(extension))
+                    {
+                        System.Drawing.Bitmap bitmapIcon = IconHandler.IconFromExtensionShell(extension, IconSize.Small);
+                        if (bitmapIcon == null)
+                            bitmapIcon = dnGREP.Common.Properties.Resources.na_icon;
+                        icons[extension] = GetBitmapSource(bitmapIcon);
+                    }
+                    newEntry.Icon = icons[extension];
+                }
+            }
+        }
+
+		public ObservableGrepSearchResults(List<GrepSearchResult> list) : this()
 		{
 			AddRange(list);
 		}
@@ -39,6 +68,24 @@ namespace dnGREP.WPF
 		{
 			foreach (var l in list) this.Add(new FormattedGrepResult(l, folderPath));
 		}
+
+        [DllImport("gdi32.dll")]
+        static extern bool DeleteObject(IntPtr hObject);
+        public static BitmapSource GetBitmapSource(System.Drawing.Bitmap source)
+        {
+            IntPtr ip = source.GetHbitmap();
+            try
+            {
+                BitmapSource bs = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(ip,
+                   IntPtr.Zero, Int32Rect.Empty,
+                   System.Windows.Media.Imaging.BitmapSizeOptions.FromEmptyOptions());
+                return bs;
+            }
+            finally
+            {
+                DeleteObject(ip);
+            }
+        }
 	}
 
 	public class FormattedGrepResult
@@ -64,6 +111,14 @@ namespace dnGREP.WPF
 				return label;
 			}
 		}
+
+        private BitmapSource icon;
+
+        public BitmapSource Icon
+        {
+            get { return icon; }
+            set { icon = value; }
+        }
 
 		private List<FormattedGrepLine> formattedLines = new List<FormattedGrepLine>();
 		public List<FormattedGrepLine> FormattedLines

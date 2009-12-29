@@ -7,12 +7,15 @@ using System.Runtime.InteropServices;
 using Microsoft.Win32;
 using System.Reflection;
 using System.IO;
+using System.Drawing.Imaging;
+using NLog;
 
 namespace dnGREP.Common
 {
 	public class FileIcons
 	{
 		private static ImageList smallIconList = new ImageList();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
 		public static ImageList SmallIconList
 		{
@@ -29,12 +32,10 @@ namespace dnGREP.Common
 				{
 					if (!FileIcons.SmallIconList.Images.ContainsKey(extension))
 					{
-						Icon smallIcon = IconHandler.IconFromExtension(extension, IconSize.Small);
-
-						if (smallIcon != null)
-							FileIcons.SmallIconList.Images.Add(extension, smallIcon.ToBitmap());
-						else
-							FileIcons.SmallIconList.Images.Add(extension, Properties.Resources.na_icon);
+						Bitmap smallIcon = IconHandler.IconFromExtension(extension, IconSize.Small);
+                        if (smallIcon == null)
+                            smallIcon = Properties.Resources.na_icon;
+                        FileIcons.SmallIconList.Images.Add(extension, smallIcon);
 					}
 
 				}
@@ -45,6 +46,60 @@ namespace dnGREP.Common
 				// DO NOTHING
 			}
 		}
+
+        public static void StoreIcon(string extension, string path) 
+        {
+            StoreIcon(extension, path, getMimeType(Path.GetExtension(path)));
+        }
+
+        public static void StoreIcon(string extension, string path, string mimeType)
+        {
+            if (!File.Exists(path))
+            {
+                try
+                {
+                    if (!Directory.Exists(Path.GetDirectoryName(path)))
+                        Directory.CreateDirectory(Path.GetDirectoryName(path));
+                    Bitmap image = IconHandler.IconFromExtension(extension, IconSize.Small);
+
+                    System.Drawing.Imaging.Encoder qualityEncoder = System.Drawing.Imaging.Encoder.Quality;
+                    long quality = 100;
+                    EncoderParameter ratio = new EncoderParameter(qualityEncoder, quality);
+                    EncoderParameters codecParams = new EncoderParameters(1);
+                    codecParams.Param[0] = ratio;
+                    ImageCodecInfo mimeCodecInfo = null;
+                    foreach (ImageCodecInfo codecInfo in ImageCodecInfo.GetImageEncoders())
+                    {
+                        if (codecInfo.MimeType == mimeType)
+                        {
+                            mimeCodecInfo = codecInfo;
+                            break;
+                        }
+                    }
+                    if (mimeCodecInfo != null)
+                        image.Save(path, mimeCodecInfo, codecParams); // Save to JPG
+                }
+                catch (Exception ex)
+                {
+                    logger.LogException(LogLevel.Error, "Failed to create icon", ex);
+                }
+            }
+        }
+
+        private static string getMimeType(string sExtension)
+        {
+            string extension = sExtension.ToLower();
+            RegistryKey key = Registry.ClassesRoot.OpenSubKey("MIME\\Database\\Content Type");
+            foreach (string keyName in key.GetSubKeyNames())
+            {
+                RegistryKey temp = key.OpenSubKey(keyName);
+                if (extension.Equals(temp.GetValue("Extension")))
+                {
+                    return keyName;
+                }
+            }
+            return "";
+        }
 	}
 
 	struct SHFILEINFO
@@ -140,7 +195,7 @@ namespace dnGREP.Common
 		}
 
 		//this will look throw the registry to find if the Extension have an icon.
-		public static Icon IconFromExtension(string Extension, IconSize Size)
+		public static Bitmap IconFromExtension(string Extension, IconSize Size)
 		{
 			try
 			{
@@ -166,7 +221,7 @@ namespace dnGREP.Common
 				ExtractIconEx(IconPath[0],
 				  Convert.ToInt16(IconPath[1]), Large, Small, 1);
 
-				return GetManagedIcon(Size == IconSize.Large ? Large[0] : Small[0]);
+                return GetManagedIcon(Size == IconSize.Large ? Large[0] : Small[0]).ToBitmap();
 			}
 			catch (Exception e)
 			{
@@ -176,7 +231,7 @@ namespace dnGREP.Common
 				return null;
 			}
 		}
-		public static Icon IconFromExtensionShell(string Extension, IconSize Size)
+		public static Bitmap IconFromExtensionShell(string Extension, IconSize Size)
 		{
 			try
 			{
@@ -193,7 +248,7 @@ namespace dnGREP.Common
 					(uint)Marshal.SizeOf(TempFileInfo),
 					SHGFI_ICON | SHGFI_USEFILEATTRIBUTES | (uint)Size);
 
-				return GetManagedIcon(TempFileInfo.hIcon);
+				return GetManagedIcon(TempFileInfo.hIcon).ToBitmap();
 			}
 			catch (Exception e)
 			{

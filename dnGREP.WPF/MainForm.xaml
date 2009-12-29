@@ -222,7 +222,7 @@
                       MouseDown="tvSearchResult_MouseDown">
                 <TreeView.Resources>
                     <HierarchicalDataTemplate DataType="{x:Type my:FormattedGrepResult}" ItemsSource="{Binding Path=FormattedLines}" >
-                        <TextBlock Text="{Binding Label}"/>
+                        <WrapPanel><Image Source="{Binding Icon}"/><TextBlock Text="{Binding Label}"/></WrapPanel>
                     </HierarchicalDataTemplate>
                     <DataTemplate DataType="{x:Type my:FormattedGrepLine}">
                         <my:InlineTextBlock InlineCollection="{Binding FormattedText}"/>
