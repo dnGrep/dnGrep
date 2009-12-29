@@ -91,14 +91,14 @@
                     <GroupBox Header="Search for:" Grid.Row="1" 
                               Grid.ColumnSpan="2" BorderThickness="0">
                         <TextBox Name="tbSearchFor" Margin="-5,3,-5,0" Text="{Binding Path=SearchFor, UpdateSourceTrigger=PropertyChanged}" 
-                                 TextChanged="textBoxTextChanged" VerticalScrollBarVisibility="Auto" 
+                                 VerticalScrollBarVisibility="Auto" 
                                  Style="{StaticResource ExpandedTextbox}"/>
                     </GroupBox>
                     <GroupBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" 
                               Header="Replace with:" BorderThickness="0">
                         <TextBox Margin="-5,3,-5,0" Name="tbReplaceWith" 
                                  Text="{Binding Path=ReplaceWith, UpdateSourceTrigger=PropertyChanged}"  
-                                 TextChanged="textBoxTextChanged" VerticalScrollBarVisibility="Auto" 
+                                 VerticalScrollBarVisibility="Auto" 
                                  Style="{StaticResource ExpandedTextbox}"/>
                     </GroupBox>
                     <Expander Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"
@@ -202,11 +202,11 @@
 						        VerticalAlignment="Top" 
 						        HorizontalAlignment="Left"  
 						        Margin="3" IsEnabled="{Binding Path=CanReplace}">
-                        <MenuItem Name="copyFilesToolStripMenuItem" Header="Copy files..." Style="{StaticResource DefaultStyle}"/>
-                        <MenuItem Name="moveFilesToolStripMenuItem" Header="Move files..." Style="{StaticResource DefaultStyle}"/>
-                        <MenuItem Name="deleteFilesToolStripMenuItem" Header="Delete files..." Style="{StaticResource DefaultStyle}"/>
+                        <MenuItem Name="copyFilesToolStripMenuItem" Header="Copy files..." Style="{StaticResource DefaultStyle}" Click="copyFilesToolStripMenuItem_Click"/>
+                        <MenuItem Name="moveFilesToolStripMenuItem" Header="Move files..." Style="{StaticResource DefaultStyle}" Click="moveFilesToolStripMenuItem_Click"/>
+                        <MenuItem Name="deleteFilesToolStripMenuItem" Header="Delete files..." Style="{StaticResource DefaultStyle}" Click="deleteFilesToolStripMenuItem_Click"/>
                         <Separator/>
-                        <MenuItem Name="saveAsCSVToolStripMenuItem" Header="Save as CSV..." Style="{StaticResource DefaultStyle}"/>
+                        <MenuItem Name="saveAsCSVToolStripMenuItem" Header="Save as CSV..." Style="{StaticResource DefaultStyle}" Click="saveAsCSVToolStripMenuItem_Click"/>
                     </splitButton:SplitButton>
                     <Button Width="64" Margin="3" Content="Cancel" Name="btnCancel" Click="btnCancel_Click"  IsEnabled="{Binding Path=CanCancel}"/>
                 </StackPanel>
@@ -222,7 +222,7 @@
                       MouseDown="tvSearchResult_MouseDown">
                 <TreeView.Resources>
                     <HierarchicalDataTemplate DataType="{x:Type my:FormattedGrepResult}" ItemsSource="{Binding Path=FormattedLines}" >
-                        <WrapPanel><Image Source="{Binding Icon}"/><TextBlock Text="{Binding Label}"/></WrapPanel>
+                        <WrapPanel><Image Source="{Binding Icon}"/><TextBlock Text="{Binding Label}" Margin="3,0,0,0"/></WrapPanel>
                     </HierarchicalDataTemplate>
                     <DataTemplate DataType="{x:Type my:FormattedGrepLine}">
                         <my:InlineTextBlock InlineCollection="{Binding FormattedText}"/>

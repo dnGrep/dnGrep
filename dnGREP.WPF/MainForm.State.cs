@@ -1127,6 +1127,12 @@ namespace dnGREP.WPF
 					break;
 			}
 
+            //Files found
+            if (name == "FileOrFolderPath" || name == "SearchFor" || name == "FilePattern")
+            {
+                FilesFound = false;
+            }
+
 			//Can search
 			if (Utils.IsPathValid(FileOrFolderPath) && CurrentGrepOperation == GrepOperation.None &&
 				(!string.IsNullOrEmpty(SearchFor) || Properties.Settings.Default.AllowSearchingForFileNamePattern)) 

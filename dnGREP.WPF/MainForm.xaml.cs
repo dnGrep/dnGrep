@@ -352,10 +352,6 @@ namespace dnGREP.WPF
 				if (progress.SearchResults != null)
 				{
 					inputData.SearchResults.AddRange(progress.SearchResults);
-					for (int i = 0; i < progress.SearchResults.Count; i++)
-					{
-						appendResults(progress.SearchResults[i]);
-					}
 				}
 			}			
 		}
@@ -421,82 +417,6 @@ namespace dnGREP.WPF
 			Properties.Settings.Default.Save();
 		}
 
-		private void appendResults(GrepSearchResult result)
-		{
-			//if (result == null)
-			//    return;
-
-			//// Populate icon list
-			//string ext = System.IO.Path.GetExtension(result.FileNameDisplayed);
-			//if (!treeViewExtensionList.Contains(ext))
-			//{
-			//    treeViewExtensionList.Add(ext);
-			//    FileIcons.LoadImageList(treeViewExtensionList.ToArray());
-			//    tvSearchResult.ImageList = FileIcons.SmallIconList;
-			//}
-
-			//bool isFileReadOnly = Utils.IsReadOnly(result);
-			//string displayedName = Path.GetFileName(result.FileNameDisplayed);
-			//if (Properties.Settings.Default.ShowFilePathInResults &&
-			//    result.FileNameDisplayed.Contains(Utils.GetBaseFolder(tbFolderName.Text) + "\\"))
-			//{
-			//    displayedName = result.FileNameDisplayed.Substring(Utils.GetBaseFolder(tbFolderName.Text).Length + 1);
-			//}
-			//int lineCount = Utils.MatchCount(result);
-			//if (lineCount > 0)
-			//    displayedName = string.Format("{0} ({1})", displayedName, lineCount);
-			//if (isFileReadOnly)
-			//    displayedName = displayedName + " [read-only]";
-
-			//TreeNode node = new TreeNode(displayedName);
-			//node.Tag = result;
-			//tvSearchResult.Nodes.Add(node);
-
-			//node.ImageKey = ext;
-			//node.SelectedImageKey = node.ImageKey;
-			//node.StateImageKey = node.ImageKey;
-			//if (isFileReadOnly)
-			//{
-			//    node.ForeColor = Color.DarkGray;
-			//}
-
-			//if (result.SearchResults != null)
-			//{
-			//    for (int i = 0; i < result.SearchResults.Count; i++)
-			//    {
-			//        GrepSearchResult.GrepLine line = result.SearchResults[i];
-			//        string lineSummary = line.LineText.Replace("\n", "").Replace("\t", "").Replace("\r", "").Trim();
-			//        if (lineSummary.Length == 0)
-			//            lineSummary = " ";
-			//        else if (lineSummary.Length > 100)
-			//            lineSummary = lineSummary.Substring(0, 100) + "...";
-			//        string lineNumber = (line.LineNumber == -1 ? "" : line.LineNumber + ": ");
-			//        TreeNode lineNode = new TreeNode(lineNumber + lineSummary);
-			//        lineNode.ImageKey = "%line%";
-			//        lineNode.SelectedImageKey = lineNode.ImageKey;
-			//        lineNode.StateImageKey = lineNode.ImageKey;
-			//        lineNode.Tag = line.LineNumber;
-			//        if (!line.IsContext && Properties.Settings.Default.ShowLinesInContext)
-			//        {
-			//            lineNode.ForeColor = Color.Red;
-			//        }
-			//        node.Nodes.Add(lineNode);
-			//    }
-			//}
-		}
-
-		private void populateResults()
-		{
-			//tvSearchResult.Nodes.Clear();
-			//if (searchResults == null)
-			//    return;
-
-			//for (int i = 0; i < searchResults.Count; i++)
-			//{
-			//    appendResults(searchResults[i]);
-			//}
-		}
-
 		private void formKeyDown(object sender, KeyEventArgs e)
 		{
 			if (e.Key == Key.Escape)
@@ -526,14 +446,6 @@ namespace dnGREP.WPF
 			//{
 			//    openToolStripMenuItem_Click(tvContextMenu, null);
 			//}
-		}
-
-		private void textBoxTextChanged(object sender, TextChangedEventArgs e)
-		{
-			if (sender == tbSearchFor)
-			{
-				inputData.FilesFound = false;
-			}
 		}
 
 		private void undoToolStripMenuItem_Click(object sender, RoutedEventArgs e)
@@ -617,40 +529,6 @@ namespace dnGREP.WPF
 			}
 		}
 
-		private void addToolStripMenuItem_Click(object sender, RoutedEventArgs e)
-		{
-			//TODO
-			//btnBookmark_Click(this, null);
-		}
-
-		private void openToolStripMenuItem_Click(object sender, RoutedEventArgs e)
-		{
-			//TODO
-			//TreeNode selectedNode = tvSearchResult.SelectedNode;
-			//if (selectedNode != null)
-			//{
-			//    // Line was selected
-			//    int lineNumber = 0;
-			//    if (selectedNode.Parent != null)
-			//    {
-			//        if (selectedNode.Tag != null && selectedNode.Tag is int)
-			//        {
-			//            lineNumber = (int)selectedNode.Tag;
-			//        }
-			//        selectedNode = selectedNode.Parent;
-			//    }
-			//    if (selectedNode != null && selectedNode.Tag != null)
-			//    {
-			//        GrepSearchResult result = (GrepSearchResult)selectedNode.Tag;
-			//        OpenFileArgs fileArg = new OpenFileArgs(result, lineNumber, Properties.Settings.Default.UseCustomEditor, Properties.Settings.Default.CustomEditor, Properties.Settings.Default.CustomEditorArgs);
-			//        dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.FileNameReal, false, 0, 0).OpenFile(fileArg);
-			//        if (fileArg.UseBaseEngine)
-			//            Utils.OpenFile(new OpenFileArgs(result, lineNumber, Properties.Settings.Default.UseCustomEditor, Properties.Settings.Default.CustomEditor, Properties.Settings.Default.CustomEditorArgs));
-			//    }
-			//}
-		}
-
-
 		private void expandAllToolStripMenuItem_Click(object sender, RoutedEventArgs e)
 		{
 			//TODO
@@ -660,86 +538,82 @@ namespace dnGREP.WPF
 		#region Advance actions
 		private void copyFilesToolStripMenuItem_Click(object sender, RoutedEventArgs e)
 		{
-			//TODO
-			//if (FilesFound)
-			//{
-			//    if (folderSelectDialog.ShowDialog() == DialogResult.OK)
-			//    {
-			//        try
-			//        {
-			//            if (!Utils.CanCopyFiles(searchResults, folderSelectDialog.SelectedPath))
-			//            {
-			//                MessageBox.Show("Attention, some of the files are located in the selected directory.\nPlease select another directory and try again.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-			//                return;
-			//            }
+			if (inputData.FilesFound)
+			{
+			    if (fileFolderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			    {
+			        try
+			        {
+                        if (!Utils.CanCopyFiles(inputData.SearchResults.GetList(), Utils.GetBaseFolder(fileFolderDialog.SelectedPath)))
+			            {
+			                MessageBox.Show("Attention, some of the files are located in the selected directory.\nPlease select another directory and try again.", "Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
+			                return;
+			            }
 
-			//            Utils.CopyFiles(searchResults, Utils.GetBaseFolder(tbFolderName.Text), folderSelectDialog.SelectedPath, true);
-			//            MessageBox.Show("Files have been successfully copied.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-			//        }
-			//        catch (Exception ex)
-			//        {
-			//            MessageBox.Show("There was an error copying files. Please examine the error log.", "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			//        }
-			//        CanUndo = false;
-			//    }
-			//}
+                        Utils.CopyFiles(inputData.SearchResults.GetList(), Utils.GetBaseFolder(tbFolderName.Text), Utils.GetBaseFolder(fileFolderDialog.SelectedPath), true);
+                        MessageBox.Show("Files have been successfully copied.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+			        }
+			        catch (Exception ex)
+			        {
+                        MessageBox.Show("There was an error copying files. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+			        }
+			        inputData.CanUndo = false;
+			    }
+			}
 		}
 
 		private void moveFilesToolStripMenuItem_Click(object sender, RoutedEventArgs e)
 		{
-			//TODO
-			//if (FilesFound)
-			//{
-			//    if (folderSelectDialog.ShowDialog() == DialogResult.OK)
-			//    {
-			//        try
-			//        {
-			//            if (!Utils.CanCopyFiles(searchResults, folderSelectDialog.SelectedPath))
-			//            {
-			//                MessageBox.Show("Attention, some of the files are located in the selected directory.\nPlease select another directory and try again.", "Attention", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-			//                return;
-			//            }
+            if (inputData.FilesFound)
+            {
+                if (fileFolderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    try
+                    {
+                        if (!Utils.CanCopyFiles(inputData.SearchResults.GetList(), Utils.GetBaseFolder(fileFolderDialog.SelectedPath)))
+                        {
+                            MessageBox.Show("Attention, some of the files are located in the selected directory.\nPlease select another directory and try again.", 
+                                "Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            return;
+                        }
 
-			//            Utils.CopyFiles(searchResults, Utils.GetBaseFolder(tbFolderName.Text), folderSelectDialog.SelectedPath, true);
-			//            Utils.DeleteFiles(searchResults);
-			//            MessageBox.Show("Files have been successfully moved.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-			//        }
-			//        catch (Exception ex)
-			//        {
-			//            MessageBox.Show("There was an error moving files. Please examine the error log.", "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			//        }
-			//        CanUndo = false;
-			//        searchResults = new List<GrepSearchResult>();
-			//        populateResults();
-			//        FilesFound = false;
-			//    }
-			//}
+                        Utils.CopyFiles(inputData.SearchResults.GetList(), Utils.GetBaseFolder(tbFolderName.Text), inputData.FilePattern, true);
+                        Utils.DeleteFiles(inputData.SearchResults.GetList());
+                        MessageBox.Show("Files have been successfully moved.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("There was an error moving files. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    inputData.CanUndo = false;
+                    inputData.SearchResults.Clear();
+                    inputData.FilesFound = false;
+                }
+            }
 		}
 
 		private void deleteFilesToolStripMenuItem_Click(object sender, RoutedEventArgs e)
 		{
-			//TODO
-			//if (FilesFound)
-			//{
-			//    try
-			//    {
-			//        if (MessageBox.Show("Attention, you are about to delete files found during search.\nAre you sure you want to procede?", "Attention", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning) != DialogResult.Yes)
-			//        {
-			//            return;
-			//        }
+            if (inputData.FilesFound)
+            {
+                try
+                {
+                    if (MessageBox.Show("Attention, you are about to delete files found during search.\nAre you sure you want to procede?", "Attention", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning) !=  MessageBoxResult.Yes)
+                    {
+                        return;
+                    }
 
-			//        Utils.DeleteFiles(searchResults);
-			//        MessageBox.Show("Files have been successfully deleted.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-			//    }
-			//    catch (Exception ex)
-			//    {
-			//        MessageBox.Show("There was an error deleting files. Please examine the error log.", "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			//    }
-			//    CanUndo = false;
-			//    searchResults = new List<GrepSearchResult>();
-			//    populateResults();
-			//    FilesFound = false;
-			//}
+                    Utils.DeleteFiles(inputData.SearchResults.GetList());
+                    MessageBox.Show("Files have been successfully deleted.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("There was an error deleting files. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                inputData.CanUndo = false;
+                inputData.SearchResults.Clear();
+                inputData.FilesFound = false;
+            }
 		}
 
 		private void saveAsCSVToolStripMenuItem_Click(object sender, RoutedEventArgs e)
