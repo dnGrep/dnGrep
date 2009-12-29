@@ -201,7 +201,7 @@
 						        Width="43" 
 						        VerticalAlignment="Top" 
 						        HorizontalAlignment="Left"  
-						        Margin="3">
+						        Margin="3" IsEnabled="{Binding Path=CanReplace}">
                         <MenuItem Name="copyFilesToolStripMenuItem" Header="Copy files..." Style="{StaticResource DefaultStyle}"/>
                         <MenuItem Name="moveFilesToolStripMenuItem" Header="Move files..." Style="{StaticResource DefaultStyle}"/>
                         <MenuItem Name="deleteFilesToolStripMenuItem" Header="Delete files..." Style="{StaticResource DefaultStyle}"/>
