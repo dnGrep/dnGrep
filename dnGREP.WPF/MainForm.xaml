@@ -25,24 +25,6 @@
         
         <my:EnumBooleanConverter x:Key="ebc" />
         
-        <!--DataTemplate x:Key="linesTemplate">
-            <TreeViewItem IsHitTestVisible="False">
-                <TextBlock Text="{Binding GrepLine.LineText}"/>
-                <my:InlineTextBlock InlineCollection="{Binding Path=FormattedText}"/>
-            </TreeViewItem>
-        </DataTemplate-->
-
-        <!--HierarchicalDataTemplate x:Key="treeTemplate"
-            ItemsSource="{Binding FormattedLines}"
-            ItemTemplate="{StaticResource linesTemplate}">
-            <TreeViewItem IsHitTestVisible="False">
-                <TreeViewItem.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Path=Label}"/>
-                    </StackPanel>
-                </TreeViewItem.Header>
-            </TreeViewItem>
-        </HierarchicalDataTemplate-->
     </Window.Resources>
     
     <DockPanel>

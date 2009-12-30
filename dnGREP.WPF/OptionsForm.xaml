@@ -1,0 +1,31 @@
+﻿<Window x:Class="dnGREP.WPF.OptionsForm"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:my="clr-namespace:dnGREP.WPF"
+    Title="Options" Width="367" WindowStyle="ToolWindow" Height="300" MinHeight="300" 
+    Background="{Binding ElementName=tbGeneralTab, Path=Background}"
+    MinWidth="300" Icon="/dnGREP.WPF;component/nGREP.ico">
+    <DockPanel>
+        <TabControl Name="tbMainPanel" DockPanel.Dock="Top" TabStripPlacement="Left">
+            <TabItem Name="tbGeneralTab">
+                <TabItem.Header>
+                    <WrapPanel Orientation="Vertical">
+                        <Image Source="Images\preferences-system.png" Width="32" Height="32"/>
+                        <TextBlock>General</TextBlock>
+                    </WrapPanel>
+                </TabItem.Header>
+                <Grid />
+            </TabItem>
+            <TabItem Name="tbUserInterfaceTab">
+                <TabItem.Header>
+                    <WrapPanel Orientation="Vertical">
+                        <Image Source="Images\applications-graphics.png" Width="32" Height="32"/>
+                        <TextBlock HorizontalAlignment="Center">User</TextBlock>
+                        <TextBlock HorizontalAlignment="Center">Interface</TextBlock>
+                    </WrapPanel>
+                </TabItem.Header>
+                <Grid />
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</Window>
