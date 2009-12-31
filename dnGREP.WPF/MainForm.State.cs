@@ -14,22 +14,27 @@ namespace dnGREP.WPF
 	{
 		public MainFormState()
 		{
-			FileOrFolderPath = Properties.Settings.Default.SearchFolder;
-			SearchFor = Properties.Settings.Default.SearchFor;
-			ReplaceWith = Properties.Settings.Default.ReplaceWith;
-			IncludeHidden = Properties.Settings.Default.IncludeHidden;
-			IncludeSubfolder = Properties.Settings.Default.IncludeSubfolder;
-			TypeOfSearch = Properties.Settings.Default.TypeOfSearch;
-			TypeOfFileSearch = Properties.Settings.Default.TypeOfFileSearch;
-			UseFileSizeFilter = Properties.Settings.Default.UseFileSizeFilter;
-			CaseSensitive = Properties.Settings.Default.CaseSensitive;
-			Multiline = Properties.Settings.Default.Multiline;
-			Singleline = Properties.Settings.Default.Singleline;
-			SizeFrom = Properties.Settings.Default.SizeFrom;
-			SizeTo = Properties.Settings.Default.SizeTo;
+            LoadAppSettings();
 			searchResults.CollectionChanged += new NotifyCollectionChangedEventHandler(searchResults_CollectionChanged);
 			UpdateState("Multiline");
 		}
+
+        public void LoadAppSettings()
+        {
+            FileOrFolderPath = Properties.Settings.Default.SearchFolder;
+            SearchFor = Properties.Settings.Default.SearchFor;
+            ReplaceWith = Properties.Settings.Default.ReplaceWith;
+            IncludeHidden = Properties.Settings.Default.IncludeHidden;
+            IncludeSubfolder = Properties.Settings.Default.IncludeSubfolder;
+            TypeOfSearch = Properties.Settings.Default.TypeOfSearch;
+            TypeOfFileSearch = Properties.Settings.Default.TypeOfFileSearch;
+            UseFileSizeFilter = Properties.Settings.Default.UseFileSizeFilter;
+            CaseSensitive = Properties.Settings.Default.CaseSensitive;
+            Multiline = Properties.Settings.Default.Multiline;
+            Singleline = Properties.Settings.Default.Singleline;
+            SizeFrom = Properties.Settings.Default.SizeFrom;
+            SizeTo = Properties.Settings.Default.SizeTo;
+        }
 
 		void searchResults_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
 		{
@@ -1182,38 +1187,37 @@ namespace dnGREP.WPF
 				CanCancel = false;
 			}
 
-			//IsCaseSensitiveEnabled
+			//Search type specific options
 			if (TypeOfSearch == SearchType.XPath)
 			{
 				IsCaseSensitiveEnabled = false;
-				CaseSensitive = false;
-			}
-			else
-			{
-				IsCaseSensitiveEnabled = true;
-			}
-
-			//IsMultilineEnabled
-			if (TypeOfSearch == SearchType.XPath)
-			{
 				IsMultilineEnabled = false;
-				Multiline = false;
+                IsSinglelineEnabled = false;
+                CaseSensitive = false;
+                Multiline = false;
+                Singleline = false;
 			}
-			else
+			else if (TypeOfSearch == SearchType.PlainText)
 			{
-				IsMultilineEnabled = true;
-			}
-
-			//IsSinglelineAvailable
-			if (TypeOfSearch != SearchType.Regex)
-			{
+                IsCaseSensitiveEnabled = true;
+                IsMultilineEnabled = true;
 				IsSinglelineEnabled = false;
 				Singleline = false;
 			}
-			else
-			{
-				IsSinglelineEnabled = true;
-			}
+			else if (TypeOfSearch == SearchType.Soundex)
+            {
+                IsMultilineEnabled = true;
+                IsCaseSensitiveEnabled = false;
+                IsSinglelineEnabled = false;
+                CaseSensitive = false;
+                Singleline = false;
+            }
+            else if (TypeOfSearch == SearchType.Regex)
+            {
+                IsCaseSensitiveEnabled = true;
+                IsMultilineEnabled = true;
+                IsSinglelineEnabled = true;
+            }
 
 			////btnTest
 			//if (!IsPlainText &&

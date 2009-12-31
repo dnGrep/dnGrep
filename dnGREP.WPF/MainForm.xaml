@@ -22,7 +22,14 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-        
+        <Style x:Key="allExpanded" TargetType="TreeView">
+            <Style.Resources>
+                <Style TargetType="TreeViewItem">
+                    <Setter Property="IsExpanded" Value="True"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+
         <my:EnumBooleanConverter x:Key="ebc" />
         
     </Window.Resources>
@@ -37,7 +44,7 @@
                 <TextBlock Grid.Column="0" FontFamily="Microsoft Sans Serif" FontWeight="Bold" FontSize="16">dnGREP</TextBlock>
                 <Menu Name="mnuMainMenu" Grid.Column="1" HorizontalAlignment="Right" Style="{StaticResource DefaultStyle}">
                     <MenuItem Name="undoToolStripMenuItem" Header="_Undo" IsEnabled="{Binding Path=CanUndo}" Click="undoToolStripMenuItem_Click"/>
-                    <MenuItem Header="_Options..."/>
+                    <MenuItem Header="_Options..." Click="btnOptions_Click"/>
                     <MenuItem Header="_Help" Name="helpToolStripMenuItem" Click="helpToolStripMenuItem_Click" />
                 </Menu>
             </Grid>
@@ -67,7 +74,7 @@
                         <RadioButton GroupName="SearchRegex" Name="rbRegex" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}">Regex</RadioButton>
                         <RadioButton GroupName="SearchXPath" Name="rbXPath" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=XPath}">XPath</RadioButton>
                         <RadioButton GroupName="SearchText" Name="rbText" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=PlainText}">Text</RadioButton>
-                        <RadioButton GroupName="SearchSoundex" Name="rbSoundex" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=Soundex}">Soundex</RadioButton>
+                        <RadioButton GroupName="SearchSoundex" Name="rbSoundex" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=Soundex}">Phonetic</RadioButton>
                     </StackPanel>
                     <Button Grid.Column="1" Grid.Row="0" Name="btnTest" Click="btnTest_Click">Test</Button>
                     <GroupBox Header="Search for:" Grid.Row="1" 
@@ -200,16 +207,29 @@
                 <RowDefinition Height="25" />
             </Grid.RowDefinitions>
             <TreeView Grid.Row="0" Name="tvSearchResult" 
-                      MouseDoubleClick="tvSearchResult_MouseDoubleClick" 
-                      MouseDown="tvSearchResult_MouseDown">
+                      MouseDoubleClick="tvSearchResult_MouseDoubleClick">
+                <TreeView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Open" Click="btnOpenFile_Click"/>
+                        <MenuItem Header="Open containing folder" Click="btnOpenContainingFolder_Click"/>                     
+                        <MenuItem Header="Expand all" Click="btnExpandAll_Click"/>
+                    </ContextMenu>
+                </TreeView.ContextMenu>
                 <TreeView.Resources>
                     <HierarchicalDataTemplate DataType="{x:Type my:FormattedGrepResult}" ItemsSource="{Binding Path=FormattedLines}" >
-                        <WrapPanel><Image Source="{Binding Icon}"/><TextBlock Text="{Binding Label}" Margin="3,0,0,0"/></WrapPanel>
+                        <WrapPanel><Image Source="{Binding Icon}"/><TextBlock Text="{Binding Label}" Margin="3,0,0,0"/></WrapPanel>                        
                     </HierarchicalDataTemplate>
                     <DataTemplate DataType="{x:Type my:FormattedGrepLine}">
                         <my:InlineTextBlock InlineCollection="{Binding FormattedText}"/>
                     </DataTemplate>
                 </TreeView.Resources>
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="TreeViewItem">
+                        <EventSetter
+                        Event="TreeViewItem.MouseRightButtonDown"
+                        Handler="tvSearchResult_MouseDown"/>
+                    </Style>                    
+                </TreeView.ItemContainerStyle>
             </TreeView>
             <StatusBar Grid.Row="1" ClipToBounds="False">
                 <ProgressBar Name="barProgressBar" Height="18"

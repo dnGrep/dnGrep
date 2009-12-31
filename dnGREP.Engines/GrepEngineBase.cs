@@ -13,6 +13,7 @@ namespace dnGREP.Engines
 		protected bool showLinesInContext = false;
 		protected int linesBefore = 0;
 		protected int linesAfter = 0;
+        private GoogleMatch fuzzyMatchEngine = new GoogleMatch();
 
 		public GrepEngineBase() { }
 
@@ -53,6 +54,43 @@ namespace dnGREP.Engines
 		{
 			return Regex.IsMatch(text, searchPattern);
 		}
+
+        protected bool doFuzzySearch(string text, string searchPattern)
+        {
+            return fuzzyMatchEngine.match_main(text, searchPattern, 0) != -1; 
+        }
+
+        protected List<GrepSearchResult.GrepLine> doFuzzySearchMultiline(string text, string searchPattern)
+        {
+            List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
+            int counter = 0;
+            while (counter < text.Length)
+            {
+                int matchLocation = fuzzyMatchEngine.match_main(text.Substring(counter), searchPattern, counter);
+                if (matchLocation == -1)
+                    break;
+
+                int matchLength = fuzzyMatchEngine.match_length(text.Substring(counter), searchPattern, counter);
+
+                List<int> lineNumbers = new List<int>();
+                List<string> lines = Utils.GetLines(text, matchLocation + counter, matchLength, out lineNumbers);
+                if (lineNumbers != null)
+                {
+                    for (int i = 0; i < lineNumbers.Count; i++)
+                    {
+                        results.Add(new GrepSearchResult.GrepLine(lineNumbers[i], lines[i], false));
+                        if (showLinesInContext)
+                        {
+                            results.AddRange(Utils.GetContextLines(text, linesBefore,
+                                linesAfter, lineNumbers[i]));
+                        }
+                    }
+                }
+
+                counter = counter + matchLocation + matchLength;
+            }
+            return results;
+        }
 
 		protected List<GrepSearchResult.GrepLine> doXPathSearch(string text, string searchXPath)
 		{

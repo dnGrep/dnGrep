@@ -158,7 +158,7 @@ namespace dnGREP.WPF
 				for (int i = 0; i < result.SearchResults.Count; i++)
 				{
 					GrepSearchResult.GrepLine line = result.SearchResults[i];
-					formattedLines.Add(new FormattedGrepLine(line));
+					formattedLines.Add(new FormattedGrepLine(line, this));
 				}
 			}
 		}		
@@ -185,8 +185,16 @@ namespace dnGREP.WPF
 			set { style = value; }
 		}
 
-		public FormattedGrepLine(GrepSearchResult.GrepLine line)
+        private FormattedGrepResult parent;
+        public FormattedGrepResult Parent
+        {
+            get { return parent; }
+            set { parent = value; }
+        }
+
+		public FormattedGrepLine(GrepSearchResult.GrepLine line, FormattedGrepResult parent)
 		{
+            Parent = parent;
 			grepLine = line;
 
 			string lineSummary = line.LineText.Replace("\n", "").Replace("\t", "").Replace("\r", "").Trim();

@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GoogleMatch.cs" />
     <Compile Include="GrepCore.cs" />
     <Compile Include="GrepEngineFactory.cs" />
     <Compile Include="GrepEnginePlainText.cs" />

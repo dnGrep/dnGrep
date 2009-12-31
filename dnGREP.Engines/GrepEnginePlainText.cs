@@ -70,6 +70,10 @@ namespace dnGREP.Engines
 				case SearchType.XPath:
 					searchMethodMultiline = doXPathSearch;
 					break;
+                case SearchType.Soundex:
+                    searchMethod = doFuzzySearch;
+                    searchMethodMultiline = doFuzzySearchMultiline;
+                    break;
 			}
 
 			if (isMultiline)

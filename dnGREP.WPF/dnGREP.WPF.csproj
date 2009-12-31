@@ -83,8 +83,8 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="OptionsForm.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles.xaml">
       <SubType>Designer</SubType>

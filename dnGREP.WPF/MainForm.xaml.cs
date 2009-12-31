@@ -37,6 +37,7 @@ namespace dnGREP.WPF
 		private BackgroundWorker workerSearchReplace = new BackgroundWorker();
 		private MainFormState inputData = new MainFormState();
 		private BookmarksForm bookmarkForm = new BookmarksForm();
+        private Style allExpandedStyle = new Style();
 		
 		#region Check version
 		private void checkVersion()
@@ -90,6 +91,7 @@ namespace dnGREP.WPF
 			this.workerSearchReplace.DoWork += new System.ComponentModel.DoWorkEventHandler(this.doSearchReplace);
 			this.workerSearchReplace.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.searchComplete);
 			this.workerSearchReplace.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.searchProgressChanged);
+            allExpandedStyle = FindResource("allExpanded") as Style;
 		}
 
 		private void populateEncodings()
@@ -282,12 +284,7 @@ namespace dnGREP.WPF
 
 						grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
 						List<GrepSearchResult> results = null;
-						if (param.TypeOfSearch == SearchType.Regex)
-							results = grep.Search(files, SearchType.Regex, param.SearchFor, param.CaseSensitive, param.Multiline, param.CodePage);
-						else if (param.TypeOfSearch == SearchType.XPath)
-							results = grep.Search(files, SearchType.XPath, param.SearchFor, true, true, param.CodePage);
-						else if (param.TypeOfSearch == SearchType.PlainText)
-							results = grep.Search(files, SearchType.PlainText, param.SearchFor, param.CaseSensitive, param.Multiline, param.CodePage);
+                        results = grep.Search(files, param.TypeOfSearch, param.SearchFor, param.CaseSensitive, param.Multiline, param.CodePage);
 
 						grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
 						if (results != null)
@@ -315,12 +312,7 @@ namespace dnGREP.WPF
 								files.Add(result.GrepResult.FileNameReal);
 						}
 
-						if (param.TypeOfSearch == SearchType.Regex)
-							e.Result = grep.Replace(files.ToArray(), SearchType.Regex, Utils.GetBaseFolder(param.FileOrFolderPath), param.SearchFor, param.ReplaceWith, param.CaseSensitive, param.Multiline, param.CodePage);
-						else if (param.TypeOfSearch == SearchType.XPath)
-							e.Result = grep.Replace(files.ToArray(), SearchType.XPath, Utils.GetBaseFolder(param.FileOrFolderPath), param.SearchFor, param.ReplaceWith, true, true, param.CodePage);
-						else if (param.TypeOfSearch == SearchType.PlainText)
-							e.Result = grep.Replace(files.ToArray(), SearchType.PlainText, Utils.GetBaseFolder(param.FileOrFolderPath), param.SearchFor, param.ReplaceWith, param.CaseSensitive, param.Multiline, param.CodePage);
+						e.Result = grep.Replace(files.ToArray(), param.TypeOfSearch, Utils.GetBaseFolder(param.FileOrFolderPath), param.SearchFor, param.ReplaceWith, param.CaseSensitive, param.Multiline, param.CodePage);
 
 						grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
 					}
@@ -422,31 +414,6 @@ namespace dnGREP.WPF
 			if (e.Key == Key.Escape)
 				Close();
 		}
-		
-		private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
-		{
-			//TODO
-			//OptionsForm options = new OptionsForm();
-			//options.ShowDialog();
-			//changeState();
-		}
-
-		private void tvSearchResult_MouseDown(object sender, MouseButtonEventArgs e)
-		{
-			//TODO
-			//if (e.RightButton == MouseButtonState.Pressed)
-			//    tvSearchResult.SelectedNode = e.Node;
-		}
-
-		private void tvSearchResult_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-		{
-			//TODO
-			//TreeNode selectedNode = tvSearchResult.SelectedNode;
-			//if (selectedNode != null && selectedNode.Nodes.Count == 0)
-			//{
-			//    openToolStripMenuItem_Click(tvContextMenu, null);
-			//}
-		}
 
 		private void undoToolStripMenuItem_Click(object sender, RoutedEventArgs e)
 		{
@@ -495,6 +462,13 @@ namespace dnGREP.WPF
 			inputData.FilesFound = false;
 		}
 
+        private void btnOptions_Click(object sender, RoutedEventArgs e)
+        {
+            OptionsForm optionsForm = new OptionsForm();
+            optionsForm.Show();
+            inputData.LoadAppSettings();
+        }
+
 		private void btnTest_Click(object sender, RoutedEventArgs e)
 		{
 			//TODO
@@ -527,12 +501,6 @@ namespace dnGREP.WPF
 			        BookmarkLibrary.Save();
 			    }
 			}
-		}
-
-		private void expandAllToolStripMenuItem_Click(object sender, RoutedEventArgs e)
-		{
-			//TODO
-			//tvSearchResult.ExpandAll();
 		}
 
 		#region Advance actions
@@ -644,27 +612,57 @@ namespace dnGREP.WPF
 		}
 		#endregion
 
-		private void openContainingFolderToolStripMenuItem_Click(object sender, RoutedEventArgs e)
-		{
-			//TODO
-			//TreeNode selectedNode = tvSearchResult.SelectedNode;
-			//if (selectedNode != null)
-			//{
-			//    // Line was selected
-			//    int lineNumber = 0;
-			//    if (selectedNode.Parent != null)
-			//    {
-			//        if (selectedNode.Tag != null && selectedNode.Tag is int)
-			//        {
-			//            lineNumber = (int)selectedNode.Tag;
-			//        }
-			//        selectedNode = selectedNode.Parent;
-			//    }
-			//    if (selectedNode != null && selectedNode.Tag != null)
-			//    {
-			//        Utils.OpenContainingFolder(((GrepSearchResult)selectedNode.Tag).FileNameReal, lineNumber);
-			//    }
-			//}
-		}
+        private void tvSearchResult_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            TreeViewItem item = sender as TreeViewItem;
+            if (item != null)
+            {
+                item.Focus();
+                e.Handled = true;
+            }
+        }
+
+        private void tvSearchResult_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (e.Source is TreeView)
+            {
+                btnOpenFile_Click(sender, new RoutedEventArgs(e.RoutedEvent));
+            }
+        }
+
+        private void btnOpenFile_Click(object sender, RoutedEventArgs e)
+        {
+            if (tvSearchResult.SelectedItem is FormattedGrepLine)
+            {
+                FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
+                // Line was selected
+                int lineNumber = selectedNode.GrepLine.LineNumber;
+
+                FormattedGrepResult result = selectedNode.Parent;
+                OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, lineNumber, Properties.Settings.Default.UseCustomEditor, Properties.Settings.Default.CustomEditor, Properties.Settings.Default.CustomEditorArgs);
+                dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, false, 0, 0).OpenFile(fileArg);
+                if (fileArg.UseBaseEngine)
+                    Utils.OpenFile(new OpenFileArgs(result.GrepResult, lineNumber, Properties.Settings.Default.UseCustomEditor, Properties.Settings.Default.CustomEditor, Properties.Settings.Default.CustomEditorArgs));
+            }
+        }
+
+        private void btnOpenContainingFolder_Click(object sender, RoutedEventArgs e)
+        {
+            if (tvSearchResult.SelectedItem is FormattedGrepLine)
+            {
+                FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
+                Utils.OpenContainingFolder(selectedNode.Parent.GrepResult.FileNameReal, selectedNode.GrepLine.LineNumber);
+            }
+            else if (tvSearchResult.SelectedItem is FormattedGrepResult)
+            {
+                FormattedGrepResult selectedNode = (FormattedGrepResult)tvSearchResult.SelectedItem;
+                Utils.OpenContainingFolder(selectedNode.GrepResult.FileNameReal, -1);
+            }
+        }
+
+        private void btnExpandAll_Click(object sender, RoutedEventArgs e)
+        {
+            tvSearchResult.Style = tvSearchResult.Style == allExpandedStyle ? null : allExpandedStyle;
+        }
 	}
 }
