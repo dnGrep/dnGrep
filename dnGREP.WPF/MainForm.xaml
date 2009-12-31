@@ -22,14 +22,7 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-        <Style x:Key="allExpanded" TargetType="TreeView">
-            <Style.Resources>
-                <Style TargetType="TreeViewItem">
-                    <Setter Property="IsExpanded" Value="True"/>
-                </Style>
-            </Style.Resources>
-        </Style>
-
+      
         <my:EnumBooleanConverter x:Key="ebc" />
         
     </Window.Resources>
@@ -190,7 +183,7 @@
 						        Width="43" 
 						        VerticalAlignment="Top" 
 						        HorizontalAlignment="Left"  
-						        Margin="3" IsEnabled="{Binding Path=CanReplace}">
+						        Margin="3" IsEnabled="{Binding Path=CanReplace}" Click="btnOtherActions_Click" >
                         <MenuItem Name="copyFilesToolStripMenuItem" Header="Copy files..." Style="{StaticResource DefaultStyle}" Click="copyFilesToolStripMenuItem_Click"/>
                         <MenuItem Name="moveFilesToolStripMenuItem" Header="Move files..." Style="{StaticResource DefaultStyle}" Click="moveFilesToolStripMenuItem_Click"/>
                         <MenuItem Name="deleteFilesToolStripMenuItem" Header="Delete files..." Style="{StaticResource DefaultStyle}" Click="deleteFilesToolStripMenuItem_Click"/>
@@ -213,6 +206,7 @@
                         <MenuItem Header="Open" Click="btnOpenFile_Click"/>
                         <MenuItem Header="Open containing folder" Click="btnOpenContainingFolder_Click"/>                     
                         <MenuItem Header="Expand all" Click="btnExpandAll_Click"/>
+                        <MenuItem Header="Collapse all" Click="btnCollapseAll_Click"/>
                     </ContextMenu>
                 </TreeView.ContextMenu>
                 <TreeView.Resources>
@@ -220,7 +214,22 @@
                         <WrapPanel><Image Source="{Binding Icon}"/><TextBlock Text="{Binding Label}" Margin="3,0,0,0"/></WrapPanel>                        
                     </HierarchicalDataTemplate>
                     <DataTemplate DataType="{x:Type my:FormattedGrepLine}">
-                        <my:InlineTextBlock InlineCollection="{Binding FormattedText}"/>
+                        <WrapPanel>
+                            <WrapPanel.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}, Path=IsSelected}" Value="True">
+                                            <Setter Property="Background" Value="#FFD2D2D2"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}, Path=IsSelected}" Value="False">
+                                            <Setter Property="Background" Value="#FFE0E0E0"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </WrapPanel.Resources>
+                            <TextBlock Margin="-2,0,0,0" Width="30" Text="{Binding FormattedLineNumber}"/>
+                            <my:InlineTextBlock Margin="3,0,0,0" InlineCollection="{Binding FormattedText}"/>
+                        </WrapPanel>
                     </DataTemplate>
                 </TreeView.Resources>
                 <TreeView.ItemContainerStyle>
@@ -228,6 +237,13 @@
                         <EventSetter
                         Event="TreeViewItem.MouseRightButtonDown"
                         Handler="tvSearchResult_MouseDown"/>
+                        <Setter Property="IsExpanded" Value="{Binding Path=IsExpanded, Mode=TwoWay}"/>
+                        <Setter Property="FontSize" Value="12"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=Style}" Value="Context">
+                                <Setter Property="Foreground" Value="DarkGray"/>
+                            </DataTrigger>
+                        </Style.Triggers>
                     </Style>                    
                 </TreeView.ItemContainerStyle>
             </TreeView>

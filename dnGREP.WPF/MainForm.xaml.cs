@@ -37,8 +37,8 @@ namespace dnGREP.WPF
 		private BackgroundWorker workerSearchReplace = new BackgroundWorker();
 		private MainFormState inputData = new MainFormState();
 		private BookmarksForm bookmarkForm = new BookmarksForm();
-        private Style allExpandedStyle = new Style();
-		
+        private System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog(); 
+        
 		#region Check version
 		private void checkVersion()
 		{
@@ -91,8 +91,8 @@ namespace dnGREP.WPF
 			this.workerSearchReplace.DoWork += new System.ComponentModel.DoWorkEventHandler(this.doSearchReplace);
 			this.workerSearchReplace.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.searchComplete);
 			this.workerSearchReplace.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.searchProgressChanged);
-            allExpandedStyle = FindResource("allExpanded") as Style;
-		}
+            this.saveFileDialog.Filter = "CSV file|*.csv";
+        }
 
 		private void populateEncodings()
 		{
@@ -586,29 +586,27 @@ namespace dnGREP.WPF
 
 		private void saveAsCSVToolStripMenuItem_Click(object sender, RoutedEventArgs e)
 		{
-			//TODO
-			//if (FilesFound)
-			//{
-			//    saveFileDialog.InitialDirectory = folderSelectDialog.SelectedPath;
-			//    if (saveFileDialog.ShowDialog() == DialogResult.OK)
-			//    {
-			//        try
-			//        {
-			//            Utils.SaveResultsAsCSV(searchResults, saveFileDialog.FileName);
-			//            MessageBox.Show("CSV file has been successfully created.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-			//        }
-			//        catch (Exception ex)
-			//        {
-			//            MessageBox.Show("There was an error creating a CSV file. Please examine the error log.", "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			//        }
-			//    }
-			//}
+            if (inputData.FilesFound)
+            {
+                saveFileDialog.InitialDirectory = Utils.GetBaseFolder(inputData.FileOrFolderPath);
+                if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    try
+                    {
+                        Utils.SaveResultsAsCSV(inputData.SearchResults.GetList(), saveFileDialog.FileName);
+                        MessageBox.Show("CSV file has been successfully created.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("There was an error creating a CSV file. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
 		}
 
 		private void btnOtherActions_Click(object sender, RoutedEventArgs e)
 		{
-			//TODO
-			//otherMenu.Show(btnOtherActions, new Point(0, btnOtherActions.Height));
+            btnOtherActions.ContextMenu.IsOpen = true;
 		}
 		#endregion
 
@@ -624,7 +622,7 @@ namespace dnGREP.WPF
 
         private void tvSearchResult_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (e.Source is TreeView)
+            if (tvSearchResult.SelectedItem is FormattedGrepLine)
             {
                 btnOpenFile_Click(sender, new RoutedEventArgs(e.RoutedEvent));
             }
@@ -639,6 +637,16 @@ namespace dnGREP.WPF
                 int lineNumber = selectedNode.GrepLine.LineNumber;
 
                 FormattedGrepResult result = selectedNode.Parent;
+                OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, lineNumber, Properties.Settings.Default.UseCustomEditor, Properties.Settings.Default.CustomEditor, Properties.Settings.Default.CustomEditorArgs);
+                dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, false, 0, 0).OpenFile(fileArg);
+                if (fileArg.UseBaseEngine)
+                    Utils.OpenFile(new OpenFileArgs(result.GrepResult, lineNumber, Properties.Settings.Default.UseCustomEditor, Properties.Settings.Default.CustomEditor, Properties.Settings.Default.CustomEditorArgs));
+            }
+            else if (tvSearchResult.SelectedItem is FormattedGrepResult)
+            {
+                FormattedGrepResult result = (FormattedGrepResult)tvSearchResult.SelectedItem;
+                // Line was selected
+                int lineNumber = 0;
                 OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, lineNumber, Properties.Settings.Default.UseCustomEditor, Properties.Settings.Default.CustomEditor, Properties.Settings.Default.CustomEditorArgs);
                 dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, false, 0, 0).OpenFile(fileArg);
                 if (fileArg.UseBaseEngine)
@@ -662,7 +670,18 @@ namespace dnGREP.WPF
 
         private void btnExpandAll_Click(object sender, RoutedEventArgs e)
         {
-            tvSearchResult.Style = tvSearchResult.Style == allExpandedStyle ? null : allExpandedStyle;
+            foreach (FormattedGrepResult result in tvSearchResult.Items)
+            {
+                result.IsExpanded = true;
+            }
+        }
+
+        private void btnCollapseAll_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (FormattedGrepResult result in tvSearchResult.Items)
+            {
+                result.IsExpanded = false;
+            }
         }
 	}
 }

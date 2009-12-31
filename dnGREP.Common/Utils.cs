@@ -501,18 +501,31 @@ namespace dnGREP.Common
 		/// <param name="customEditorArgs">Arguments for custom editor</param>
 		public static void OpenFile(OpenFileArgs args)
 		{
-			if (!args.UseCustomEditor || args.CustomEditor == null || args.CustomEditor.Trim() == "")
-				System.Diagnostics.Process.Start(@"" + args.SearchResult.FileNameDisplayed + "");
-			else
-			{
-				ProcessStartInfo info = new ProcessStartInfo(args.CustomEditor);
-				info.UseShellExecute = false;
-				info.CreateNoWindow = true;
-				if (args.CustomEditorArgs == null)
-					args.CustomEditorArgs = "";
-				info.Arguments = args.CustomEditorArgs.Replace("%file", "\"" + args.SearchResult.FileNameDisplayed + "\"").Replace("%line", args.LineNumber.ToString());
-				System.Diagnostics.Process.Start(info);
-			}
+            if (!args.UseCustomEditor || args.CustomEditor == null || args.CustomEditor.Trim() == "")
+            {
+                try
+                {
+                    System.Diagnostics.Process.Start(@"" + args.SearchResult.FileNameDisplayed + "");
+                }
+                catch (Exception ex)
+                {
+                    ProcessStartInfo info = new ProcessStartInfo("notepad.exe");
+                    info.UseShellExecute = false;
+                    info.CreateNoWindow = true;
+                    info.Arguments = args.SearchResult.FileNameDisplayed;
+                    System.Diagnostics.Process.Start(info);
+                }
+            }
+            else
+            {
+                ProcessStartInfo info = new ProcessStartInfo(args.CustomEditor);
+                info.UseShellExecute = false;
+                info.CreateNoWindow = true;
+                if (args.CustomEditorArgs == null)
+                    args.CustomEditorArgs = "";
+                info.Arguments = args.CustomEditorArgs.Replace("%file", "\"" + args.SearchResult.FileNameDisplayed + "\"").Replace("%line", args.LineNumber.ToString());
+                System.Diagnostics.Process.Start(info);
+            }
 		}
 
 		/// <summary>

@@ -11,12 +11,13 @@ using System.Collections.Specialized;
 using System.Windows.Media.Imaging;
 using System.Windows;
 using System.Runtime.InteropServices;
+using System.ComponentModel;
 
 namespace dnGREP.WPF
 {
 	public class ObservableGrepSearchResults : ObservableCollection<FormattedGrepResult>
 	{
-		private string folderPath = "";
+        private string folderPath = "";
 
 		public string FolderPath
 		{
@@ -88,7 +89,7 @@ namespace dnGREP.WPF
         }
 	}
 
-	public class FormattedGrepResult
+    public class FormattedGrepResult : INotifyPropertyChanged
 	{
 		private GrepSearchResult grepResult = new GrepSearchResult();
 		public GrepSearchResult GrepResult
@@ -111,6 +112,13 @@ namespace dnGREP.WPF
 				return label;
 			}
 		}
+
+        private bool isExpanded = false;
+        public bool IsExpanded
+        {
+            get { return isExpanded; }
+            set { isExpanded = value; OnPropertyChanged("IsExpanded"); }
+        }
 
         private BitmapSource icon;
 
@@ -161,16 +169,37 @@ namespace dnGREP.WPF
 					formattedLines.Add(new FormattedGrepLine(line, this));
 				}
 			}
-		}		
+		}
+
+        #region PropertyChanged Members
+        // Create the OnPropertyChanged method to raise the event
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
 	}
 
-	public class FormattedGrepLine
+    public class FormattedGrepLine : INotifyPropertyChanged
 	{
 		private GrepSearchResult.GrepLine grepLine;
 		public GrepSearchResult.GrepLine GrepLine
 		{
 			get { return grepLine; }
 		}
+
+        private string formattedLineNumber;
+        public string FormattedLineNumber
+        {
+            get { return formattedLineNumber; }
+        }
 
 		private InlineCollection formattedText;
 		public InlineCollection FormattedText
@@ -202,10 +231,11 @@ namespace dnGREP.WPF
 				lineSummary = " ";
 			else if (lineSummary.Length > 100)
 				lineSummary = lineSummary.Substring(0, 100) + "...";
-			string lineNumber = (line.LineNumber == -1 ? "" : line.LineNumber + ": ");
+            
+            formattedLineNumber = (line.LineNumber == -1 ? "" : line.LineNumber.ToString());
 
-			string fullText = lineNumber + lineSummary;
-			if (!line.IsContext && Properties.Settings.Default.ShowLinesInContext)
+			string fullText = lineSummary;
+			if (line.IsContext)
 			{
 				style = "Context";
 			}
@@ -217,6 +247,21 @@ namespace dnGREP.WPF
 			Run mainRun = new Run(fullText);
 			paragraph.Inlines.Add(mainRun);
 			formattedText = paragraph.Inlines;
-		}
-	}
+        }
+
+        #region PropertyChanged Members
+        // Create the OnPropertyChanged method to raise the event
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
+    }
 }
