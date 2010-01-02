@@ -15,7 +15,6 @@ namespace dnGREP.WPF
 		public MainFormState()
 		{
             LoadAppSettings();
-			searchResults.CollectionChanged += new NotifyCollectionChangedEventHandler(searchResults_CollectionChanged);
 			UpdateState("Multiline");
 		}
 
@@ -36,32 +35,6 @@ namespace dnGREP.WPF
             SizeTo = Properties.Settings.Default.SizeTo;
         }
 
-		void searchResults_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-		{
-			if (searchResults.Count > 0)
-				FilesFound = true;
-            if (e.Action == NotifyCollectionChangedAction.Reset)
-            {
-                ResultFiles.Clear();
-            }
-            else if (e.Action == NotifyCollectionChangedAction.Add)
-            {
-                foreach (FormattedGrepResult result in e.NewItems)
-                {
-                    if (!ResultFiles.Contains(result.GrepResult.FileNameReal))
-                        ResultFiles.Add(result.GrepResult.FileNameReal);
-                }
-            }
-            else if (e.Action == NotifyCollectionChangedAction.Remove)
-            {
-                foreach (FormattedGrepResult result in e.OldItems)
-                {
-                    if (!ResultFiles.Contains(result.GrepResult.FileNameReal))
-                        ResultFiles.Remove(result.GrepResult.FileNameReal);
-                }
-            }
-		}
-
 		private ObservableGrepSearchResults searchResults = new ObservableGrepSearchResults();
 		public ObservableGrepSearchResults SearchResults
 		{
@@ -70,14 +43,6 @@ namespace dnGREP.WPF
 			}
 		}
 
-        private List<string> resultFiles = new List<string>();
-        public List<string> ResultFiles
-        {
-            get
-            {
-                return resultFiles;
-            }
-        }
 
 		/// <summary>
 		/// FileOrFolderPath property

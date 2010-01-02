@@ -176,7 +176,9 @@ namespace dnGREP.WPF
 				lblStatus.Text = "Searching...";
 				barProgressBar.Value = 0;
 				inputData.SearchResults.Clear();
-				workerSearchReplace.RunWorkerAsync(inputData);
+                Dictionary<string, object> workerParames = new Dictionary<string, object>();
+                workerParames["State"] = inputData;
+                workerSearchReplace.RunWorkerAsync(workerParames);
 			}
 		}
 
@@ -187,8 +189,12 @@ namespace dnGREP.WPF
 				inputData.CurrentGrepOperation = GrepOperation.SearchInResults;
 				lblStatus.Text = "Searching...";
 				barProgressBar.Value = 0;
-				inputData.SearchResults.Clear();
-				workerSearchReplace.RunWorkerAsync(inputData);
+                List<string> foundFiles = new List<string>();
+                foreach (FormattedGrepResult n in inputData.SearchResults) foundFiles.Add(n.GrepResult.FileNameReal);
+                Dictionary<string, object> workerParames = new Dictionary<string, object>();
+                workerParames["State"] = inputData;
+                workerParames["Files"] = foundFiles;
+                workerSearchReplace.RunWorkerAsync(workerParames);
 			}
 		}
 
@@ -217,7 +223,13 @@ namespace dnGREP.WPF
 				inputData.CanUndo = false;
 				inputData.UndoFolder = Utils.GetBaseFolder(tbFolderName.Text);
 				barProgressBar.Value = 0;
-				workerSearchReplace.RunWorkerAsync(inputData);
+                List<string> foundFiles = new List<string>();
+                foreach (FormattedGrepResult n in inputData.SearchResults) foundFiles.Add(n.GrepResult.FileNameReal);
+                Dictionary<string, object> workerParames = new Dictionary<string, object>();
+                workerParames["State"] = inputData;
+                workerParames["Files"] = foundFiles;
+                inputData.SearchResults.Clear();
+                workerSearchReplace.RunWorkerAsync(workerParames);
 			}
 		}
 
@@ -236,7 +248,8 @@ namespace dnGREP.WPF
 				if (!workerSearchReplace.CancellationPending)
 				{
 					timer = DateTime.Now;
-					MainFormState param = (MainFormState)e.Argument;
+                    Dictionary<string, object> workerParams = (Dictionary<string, object>)e.Argument;
+                    MainFormState param = (MainFormState)workerParams["State"];
 					if (param.CurrentGrepOperation == GrepOperation.Search || param.CurrentGrepOperation == GrepOperation.SearchInResults)
 					{
 						int sizeFrom = 0;
@@ -261,7 +274,7 @@ namespace dnGREP.WPF
 
 						if (param.CurrentGrepOperation == GrepOperation.SearchInResults)
 						{
-                            files = param.ResultFiles.ToArray();
+                            files = ((List<string>)workerParams["Files"]).ToArray();
 						}
 						else
 						{
@@ -297,8 +310,8 @@ namespace dnGREP.WPF
 						grep.PreviewFilesDuringSearch = Properties.Settings.Default.PreviewResults;
 
 						grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
-                        List<string> files = param.ResultFiles;
-						e.Result = grep.Replace(files.ToArray(), param.TypeOfSearch, Utils.GetBaseFolder(param.FileOrFolderPath), param.SearchFor, param.ReplaceWith, param.CaseSensitive, param.Multiline, param.CodePage);
+                        string[] files = ((List<string>)workerParams["Files"]).ToArray();
+						e.Result = grep.Replace(files, param.TypeOfSearch, Utils.GetBaseFolder(param.FileOrFolderPath), param.SearchFor, param.ReplaceWith, param.CaseSensitive, param.Multiline, param.CodePage);
 
 						grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
 					}
