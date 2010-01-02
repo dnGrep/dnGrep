@@ -255,6 +255,31 @@ namespace dnGREP.Engines
 			return Regex.Replace(text, searchPattern, replacePattern);
 		}
 
+        public string doFuzzyReplace(string text, string searchPattern, string replacePattern)
+        {
+            int counter = 0;
+            StringBuilder result = new StringBuilder();
+            while (counter < text.Length)
+            {
+                int matchLocation = fuzzyMatchEngine.match_main(text.Substring(counter), searchPattern, counter);
+                if (matchLocation == -1)
+                {
+                    result.Append(text.Substring(counter));
+                    break;
+                }
+
+                int matchLength = fuzzyMatchEngine.match_length(text.Substring(counter), searchPattern, counter);
+
+                // Text before match
+                result.Append(text.Substring(counter, matchLocation));
+                // New text
+                result.Append(replacePattern);
+
+                counter = counter + matchLocation + matchLength;
+            }
+            return result.ToString();
+        }
+
 		protected string doXPathReplace(string text, string searchXPath, string replaceText)
 		{
 			if (text.Length > 5 && text.Substring(0, 5).ToLower() == "<?xml")

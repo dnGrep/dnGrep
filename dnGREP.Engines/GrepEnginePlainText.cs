@@ -150,6 +150,11 @@ namespace dnGREP.Engines
 					searchMethodMultiline = doXPathSearch;
 					replaceMethod = doXPathReplace;
 					break;
+                case SearchType.Soundex:
+                    searchMethod = doFuzzySearch;
+                    searchMethodMultiline = doFuzzySearchMultiline;
+                    replaceMethod = doFuzzyReplace;
+                    break;
 			}
 
 			if (isMultiline)
