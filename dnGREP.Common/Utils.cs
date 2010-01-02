@@ -618,7 +618,7 @@ namespace dnGREP.Common
 
 		public static bool IsReadOnly(GrepSearchResult result)
 		{
-			if ((File.GetAttributes(result.FileNameReal) & FileAttributes.ReadOnly) == FileAttributes.ReadOnly || result.ReadOnly)
+			if (File.Exists(result.FileNameReal) && (File.GetAttributes(result.FileNameReal) & FileAttributes.ReadOnly) == FileAttributes.ReadOnly || result.ReadOnly)
 				return true;
 			else
 				return false;			

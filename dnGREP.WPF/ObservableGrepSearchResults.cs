@@ -30,6 +30,12 @@ namespace dnGREP.WPF
             this.CollectionChanged += new NotifyCollectionChangedEventHandler(ObservableGrepSearchResults_CollectionChanged);
         }
 
+        //protected override void ClearItems()
+        //{
+        //    base.ClearItems();
+        //    OnFunctionCalled("Clear");
+        //}
+
         private Dictionary<string, BitmapSource> icons = new Dictionary<string, BitmapSource>(); 
 
         void ObservableGrepSearchResults_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -87,6 +93,22 @@ namespace dnGREP.WPF
                 DeleteObject(ip);
             }
         }
+
+        //#region PropertyChanged Members
+        //// Create the OnPropertyChanged method to raise the event
+        //protected void OnFunctionCalled(string name)
+        //{
+        //    FunctionCallEventHandler handler = FunctionCalled;
+        //    if (handler != null)
+        //    {
+        //        handler(this, new PropertyChangedEventArgs(name));
+        //    }
+        //}
+
+        //public event FunctionCallEventHandler FunctionCalled;
+        //public delegate void FunctionCallEventHandler(object sender, PropertyChangedEventArgs e);
+
+        //#endregion
 	}
 
     public class FormattedGrepResult : INotifyPropertyChanged

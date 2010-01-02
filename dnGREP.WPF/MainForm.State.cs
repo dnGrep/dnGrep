@@ -40,6 +40,26 @@ namespace dnGREP.WPF
 		{
 			if (searchResults.Count > 0)
 				FilesFound = true;
+            if (e.Action == NotifyCollectionChangedAction.Reset)
+            {
+                ResultFiles.Clear();
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                foreach (FormattedGrepResult result in e.NewItems)
+                {
+                    if (!ResultFiles.Contains(result.GrepResult.FileNameReal))
+                        ResultFiles.Add(result.GrepResult.FileNameReal);
+                }
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                foreach (FormattedGrepResult result in e.OldItems)
+                {
+                    if (!ResultFiles.Contains(result.GrepResult.FileNameReal))
+                        ResultFiles.Remove(result.GrepResult.FileNameReal);
+                }
+            }
 		}
 
 		private ObservableGrepSearchResults searchResults = new ObservableGrepSearchResults();
@@ -49,6 +69,15 @@ namespace dnGREP.WPF
 				return searchResults; 
 			}
 		}
+
+        private List<string> resultFiles = new List<string>();
+        public List<string> ResultFiles
+        {
+            get
+            {
+                return resultFiles;
+            }
+        }
 
 		/// <summary>
 		/// FileOrFolderPath property

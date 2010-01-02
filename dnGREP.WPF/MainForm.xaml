@@ -7,7 +7,8 @@
     Background="{Binding ElementName=mnuMainMenu, Path=Background}"
     MinWidth="500" Icon="/dnGREP.WPF;component/nGREP.ico" Closing="MainForm_Closing"
     Loaded="Window_Loaded" KeyDown="formKeyDown" Style="{StaticResource DefaultStyle}" 
-    SnapsToDevicePixels="True" ResizeMode="CanResizeWithGrip">
+    SnapsToDevicePixels="True" ResizeMode="CanResizeWithGrip" AllowDrop="False"
+    my:DiginesisHelpProvider.HelpKeyword="search-window.html" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True">
     <!-- Resources -->
     <Window.Resources>
         <Style x:Key="ExpandedTextbox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource DefaultStyle}">
@@ -15,10 +16,12 @@
                 <DataTrigger Binding="{Binding Path=Multiline}" Value="True">
                     <Setter Property="Height" Value="50"/>
                     <Setter Property="TextWrapping" Value="Wrap"/>
+                    <Setter Property="AcceptsReturn" Value="True"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=Multiline}" Value="False">
                     <Setter Property="Height" Value="23"/>
                     <Setter Property="TextWrapping" Value="NoWrap"/>
+                    <Setter Property="AcceptsReturn" Value="False"/>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
@@ -47,7 +50,7 @@
                         <ColumnDefinition />
                         <ColumnDefinition Width="48" />
                     </Grid.ColumnDefinitions>
-                    <TextBox Grid.Column="0" Name="tbFolderName" Text="{Binding Path=FileOrFolderPath, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBox AllowDrop="True" PreviewDragEnter="OnDragOver" PreviewDragOver="OnDragOver" PreviewDrop="OutputFolderDrop" Grid.Column="0" Name="tbFolderName" Text="{Binding Path=FileOrFolderPath, UpdateSourceTrigger=PropertyChanged}"/>
                     <Button Click="btnBrowse_Click" Grid.Column="1" Width="42" HorizontalAlignment="Right" Name="btnBrowse">...</Button>
                 </Grid>
             </GroupBox>
@@ -73,7 +76,7 @@
                     <GroupBox Header="Search for:" Grid.Row="1" 
                               Grid.ColumnSpan="2" BorderThickness="0">
                         <TextBox Name="tbSearchFor" Margin="-5,3,-5,0" Text="{Binding Path=SearchFor, UpdateSourceTrigger=PropertyChanged}" 
-                                 VerticalScrollBarVisibility="Auto" 
+                                 VerticalScrollBarVisibility="Auto" my:DiginesisHelpProvider.HelpKeyword="regular-expressions.html" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True"
                                  Style="{StaticResource ExpandedTextbox}"/>
                     </GroupBox>
                     <GroupBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" 
@@ -141,7 +144,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="WrapWithOverflow">Files that match:</TextBlock>
                         <StackPanel Grid.Column="1" Grid.Row="0" >
-                            <TextBox Name="tbFilePattern"></TextBox>
+                            <TextBox Name="tbFilePattern" my:DiginesisHelpProvider.HelpKeyword="searchreplace.html" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True"></TextBox>
                             <StackPanel Orientation="Horizontal">
                                 <RadioButton GroupName="FileSearchRegex" Margin="3" Name="rbFileRegex" IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}">Regex</RadioButton>
                                 <RadioButton GroupName="FileSearchAsterisk" Margin="3" Name="rbFileAsterisk" IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Asterisk}">Asterisk pattern</RadioButton>

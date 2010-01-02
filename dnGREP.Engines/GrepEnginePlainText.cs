@@ -29,7 +29,15 @@ namespace dnGREP.Engines
 			get { return new List<string>(new string[] { "*" }); }
 		}
 
-		public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, bool isCaseSensitive, bool isMultiline, Encoding encoding)
+        public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, bool isCaseSensitive, bool isMultiline, Encoding encoding)
+        {
+            using (FileStream fileStream = File.OpenRead(file))
+            {
+                return Search(fileStream, file, searchPattern, searchType, isCaseSensitive, isMultiline, encoding);
+            }
+        }
+
+        public List<GrepSearchResult> Search(Stream input, string fileName, string searchPattern, SearchType searchType, bool isCaseSensitive, bool isMultiline, Encoding encoding)
 		{
 			SearchDelegates.DoSearch searchMethod = doTextSearchCaseSensitive;
 			SearchDelegates.DoSearchMultiline searchMethodMultiline = doTextSearchCaseSensitiveMultiline;
@@ -77,12 +85,21 @@ namespace dnGREP.Engines
 			}
 
 			if (isMultiline)
-				return searchMultiline(file, searchPattern, searchMethodMultiline, encoding);
+				return searchMultiline(input, fileName, searchPattern, searchMethodMultiline, encoding);
 			else
-				return search(file, searchPattern, searchMethod, encoding);
+                return search(input, fileName, searchPattern, searchMethod, encoding);
 		}
 
-		public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, bool isCaseSensitive, bool isMultiline, Encoding encoding)
+        public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, bool isCaseSensitive, bool isMultiline, Encoding encoding)
+        { 
+            using (FileStream readStream = File.OpenRead(sourceFile))
+            using (FileStream writeStream = File.OpenWrite(destinationFile))
+            {
+                return Replace(readStream, writeStream, searchPattern, replacePattern, searchType, isCaseSensitive, isMultiline, encoding);
+            }
+        }
+
+		public bool Replace(Stream readStream, Stream writeStream, string searchPattern, string replacePattern, SearchType searchType, bool isCaseSensitive, bool isMultiline, Encoding encoding)
 		{
 			SearchDelegates.DoSearch searchMethod = doTextSearchCaseSensitive;
 			SearchDelegates.DoSearchMultiline searchMethodMultiline = doTextSearchCaseSensitiveMultiline;
@@ -136,9 +153,9 @@ namespace dnGREP.Engines
 			}
 
 			if (isMultiline)
-				return replaceMultiline(sourceFile, destinationFile, searchPattern, replacePattern, searchMethodMultiline, replaceMethod, encoding);
+                return replaceMultiline(readStream, writeStream, searchPattern, replacePattern, searchMethodMultiline, replaceMethod, encoding);
 			else
-				return replace(sourceFile, destinationFile, searchPattern, replacePattern, searchMethod, replaceMethod, encoding);
+                return replace(readStream, writeStream, searchPattern, replacePattern, searchMethod, replaceMethod, encoding);
 		}
 
 		public void Unload()
@@ -156,11 +173,11 @@ namespace dnGREP.Engines
 
 		#region Actual Implementation
 
-		private List<GrepSearchResult> search(string file, string searchPattern, SearchDelegates.DoSearch searchMethod, Encoding encoding)
+		private List<GrepSearchResult> search(Stream input, string fileName, string searchPattern, SearchDelegates.DoSearch searchMethod, Encoding encoding)
 		{
 			List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
 
-			using (StreamReader readStream = new StreamReader(File.OpenRead(file), encoding))
+            using (StreamReader readStream = new StreamReader(input, encoding))
 			{
 				string line = null;
 				int counter = 1;
@@ -207,17 +224,17 @@ namespace dnGREP.Engines
 				Utils.CleanResults(ref lines);
 				if (lines.Count > 0)
 				{
-					searchResults.Add(new GrepSearchResult(file, lines));
+                    searchResults.Add(new GrepSearchResult(fileName, lines));
 				}
 			}
 			return searchResults;
 		}
 
-		private List<GrepSearchResult> searchMultiline(string file, string searchPattern, SearchDelegates.DoSearchMultiline searchMethod, Encoding encoding)
+        private List<GrepSearchResult> searchMultiline(Stream input, string fileName, string searchPattern, SearchDelegates.DoSearchMultiline searchMethod, Encoding encoding)
 		{
 			List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
 
-			using (StreamReader readStream = new StreamReader(File.OpenRead(file), encoding))
+			using (StreamReader readStream = new StreamReader(input, encoding))
 			{
 				List<GrepSearchResult.GrepLine> lines = new List<GrepSearchResult.GrepLine>();
 				string fileBody = readStream.ReadToEnd();
@@ -225,18 +242,19 @@ namespace dnGREP.Engines
 				Utils.CleanResults(ref lines);
 				if (lines.Count > 0)
 				{
-					searchResults.Add(new GrepSearchResult(file, lines));
+                    searchResults.Add(new GrepSearchResult(fileName, lines));
 				}
 			}
 				
 			return searchResults;
 		}
 
-		private bool replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchDelegates.DoSearch searchMethod, SearchDelegates.DoReplace replaceMethod, Encoding encoding)
+        private bool replace(Stream inputStream, Stream outputStream, string searchPattern, string replacePattern, SearchDelegates.DoSearch searchMethod, SearchDelegates.DoReplace replaceMethod, Encoding encoding)
 		{
-			using (StreamReader readStream = new StreamReader(File.OpenRead(sourceFile), encoding))
-			using (StreamWriter writeStream = new StreamWriter(File.OpenWrite(destinationFile), encoding))
+            using (StreamReader readStream = new StreamReader(inputStream, encoding))
 			{
+                StreamWriter writeStream = new StreamWriter(outputStream, encoding);
+
 				string line = null;
 				int counter = 1;
 
@@ -249,20 +267,25 @@ namespace dnGREP.Engines
 					writeStream.WriteLine(line);
 					counter++;
 				}
+
+                writeStream.Flush();
 			}
 				
 			return true;
 		}
 
-		private bool replaceMultiline(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchDelegates.DoSearchMultiline searchMethod, SearchDelegates.DoReplace replaceMethod, Encoding encoding)
+		private bool replaceMultiline(Stream inputStream, Stream outputStream, string searchPattern, string replacePattern, SearchDelegates.DoSearchMultiline searchMethod, SearchDelegates.DoReplace replaceMethod, Encoding encoding)
 		{
-			using (StreamReader readStream = new StreamReader(File.OpenRead(sourceFile), encoding))
-			using (StreamWriter writeStream = new StreamWriter(File.OpenWrite(destinationFile), encoding))
+            using (StreamReader readStream = new StreamReader(inputStream, encoding))
 			{
+                StreamWriter writeStream = new StreamWriter(outputStream, encoding);
+
 				string fileBody = readStream.ReadToEnd();
 
 				fileBody = replaceMethod(fileBody, searchPattern, replacePattern);
 				writeStream.Write(fileBody);
+
+                writeStream.Flush();
 			}
 
 			return true;

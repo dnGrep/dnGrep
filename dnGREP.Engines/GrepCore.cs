@@ -173,6 +173,9 @@ namespace dnGREP.Common
 			{
 				foreach (string file in files)
 				{
+                    if (!file.Contains(baseFolder))
+                        continue;
+
 					string tempFileName = file.Replace(baseFolder, tempFolder);
 					IGrepEngine engine = GrepEngineFactory.GetReplaceEngine(file, showLinesInContext, linesBefore, linesAfter);
 

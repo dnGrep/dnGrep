@@ -18,6 +18,7 @@ using NLog;
 using System.IO;
 using System.Reflection;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 
 namespace dnGREP.WPF
 {
@@ -27,17 +28,15 @@ namespace dnGREP.WPF
     public partial class MainForm : Window
     {
 		private List<KeyValuePair<string, int>> encodings = new List<KeyValuePair<string, int>>();
-		private const string SEARCH_KEY = "search";
-		private const string REPLACE_KEY = "replace";
 		private static Logger logger = LogManager.GetCurrentClassLogger();
 		private DateTime timer = DateTime.Now;
 		private PublishedVersionExtractor ve = new PublishedVersionExtractor();
-		private List<string> treeViewExtensionList = new List<string>();
 		private FileFolderDialog fileFolderDialog = new FileFolderDialog();
 		private BackgroundWorker workerSearchReplace = new BackgroundWorker();
 		private MainFormState inputData = new MainFormState();
 		private BookmarksForm bookmarkForm = new BookmarksForm();
-        private System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog(); 
+        private System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+        private System.Windows.Forms.HelpProvider helpProvider = new System.Windows.Forms.HelpProvider();
         
 		#region Check version
 		private void checkVersion()
@@ -92,6 +91,8 @@ namespace dnGREP.WPF
 			this.workerSearchReplace.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.searchComplete);
 			this.workerSearchReplace.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.searchProgressChanged);
             this.saveFileDialog.Filter = "CSV file|*.csv";
+            DiginesisHelpProvider.HelpNamespace = "Doc\\dnGREP.chm";
+            DiginesisHelpProvider.ShowHelp = true;
         }
 
 		private void populateEncodings()
@@ -216,7 +217,6 @@ namespace dnGREP.WPF
 				inputData.CanUndo = false;
 				inputData.UndoFolder = Utils.GetBaseFolder(tbFolderName.Text);
 				barProgressBar.Value = 0;
-				inputData.SearchResults.Clear();
 				workerSearchReplace.RunWorkerAsync(inputData);
 			}
 		}
@@ -261,15 +261,7 @@ namespace dnGREP.WPF
 
 						if (param.CurrentGrepOperation == GrepOperation.SearchInResults)
 						{
-							List<string> filesFromSearch = new List<string>();
-							foreach (FormattedGrepResult result in inputData.SearchResults)
-							{
-								if (!filesFromSearch.Contains(result.GrepResult.FileNameReal))
-								{
-									filesFromSearch.Add(result.GrepResult.FileNameReal);
-								}
-							}
-							files = filesFromSearch.ToArray();
+                            files = param.ResultFiles.ToArray();
 						}
 						else
 						{
@@ -305,13 +297,7 @@ namespace dnGREP.WPF
 						grep.PreviewFilesDuringSearch = Properties.Settings.Default.PreviewResults;
 
 						grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
-						List<string> files = new List<string>();
-						foreach (FormattedGrepResult result in param.SearchResults)
-						{
-							if (!result.GrepResult.ReadOnly)
-								files.Add(result.GrepResult.FileNameReal);
-						}
-
+                        List<string> files = param.ResultFiles;
 						e.Result = grep.Replace(files.ToArray(), param.TypeOfSearch, Utils.GetBaseFolder(param.FileOrFolderPath), param.SearchFor, param.ReplaceWith, param.CaseSensitive, param.Multiline, param.CodePage);
 
 						grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
@@ -453,8 +439,7 @@ namespace dnGREP.WPF
 
 		private void helpToolStripMenuItem_Click(object sender, RoutedEventArgs e)
 		{
-			//TODO
-			//Help.ShowHelp(this, helpProvider.HelpNamespace);
+            ApplicationCommands.Help.Execute(null, helpToolStripMenuItem);
 		}
 
 		private void cbCaseSensitive_CheckedChanged(object sender, RoutedEventArgs e)
@@ -471,16 +456,16 @@ namespace dnGREP.WPF
 
 		private void btnTest_Click(object sender, RoutedEventArgs e)
 		{
-			//TODO
-			//try
-			//{
-			//    RegexTest rTest = new RegexTest(tbSearchFor.Text, tbReplaceWith.Text);
-			//    rTest.Show();
-			//}
-			//catch (Exception ex)
-			//{
-			//    MessageBox.Show("There was an error running regex test. Please examine the error log.", "Failure", MessageBoxButtons.OK, MessageBoxIcon.Error);
-			//}
+            try
+            {
+                TestPattern testForm = new TestPattern();
+                testForm.ShowDialog();
+                inputData.LoadAppSettings();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("There was an error running regex test. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 		}
 
 		private void btnBookmarkOpen_Click(object sender, RoutedEventArgs e)
@@ -682,6 +667,30 @@ namespace dnGREP.WPF
             {
                 result.IsExpanded = false;
             }
+        }
+
+        public void OnDragOver(object sender, DragEventArgs e)
+        {
+            e.Effects = DragDropEffects.All;
+            e.Handled = true;
+        }
+
+        private void OutputFolderDrop(object sender, DragEventArgs e)
+        {
+            if (e.Data is System.Windows.DataObject &&
+            ((System.Windows.DataObject)e.Data).ContainsFileDropList())
+            {
+                inputData.FileOrFolderPath = "";
+                StringCollection fileNames = ((System.Windows.DataObject)e.Data).GetFileDropList();
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < fileNames.Count; i++ )
+                {
+                    sb.Append(fileNames[i]);
+                    if (i < (fileNames.Count - 1))
+                        sb.Append(";");
+                }
+                inputData.FileOrFolderPath = sb.ToString();
+            } 
         }
 	}
 }

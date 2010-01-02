@@ -1,0 +1,106 @@
+﻿<Window x:Class="dnGREP.WPF.TestPattern"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:splitButton="clr-namespace:Wpf.Controls;assembly=Wpf.SplitButton"
+    xmlns:my="clr-namespace:dnGREP.WPF"
+    Title="Test" Width="487" WindowStyle="ToolWindow" Height="501" MinHeight="460" 
+    Background="{Binding ElementName=btnSearch, Path=Background}"
+    MinWidth="500" Icon="/dnGREP.WPF;component/nGREP.ico"
+    Loaded="Window_Loaded" Closing="Window_Closing"  KeyDown="formKeyDown" Style="{StaticResource DefaultStyle}" 
+    SnapsToDevicePixels="True" ResizeMode="CanResizeWithGrip">
+    <!-- Resources -->
+    <Window.Resources>
+        <Style x:Key="ExpandedTextbox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource DefaultStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Multiline}" Value="True">
+                    <Setter Property="Height" Value="50"/>
+                    <Setter Property="TextWrapping" Value="Wrap"/>
+                    <Setter Property="AcceptsReturn" Value="True"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Multiline}" Value="False">
+                    <Setter Property="Height" Value="23"/>
+                    <Setter Property="TextWrapping" Value="NoWrap"/>
+                    <Setter Property="AcceptsReturn" Value="False"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <my:EnumBooleanConverter x:Key="ebc" />
+
+    </Window.Resources>
+
+    <DockPanel>
+        <StackPanel Margin="3" DockPanel.Dock="Top">
+            <GroupBox Header="Search">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="23"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
+                        <RadioButton GroupName="SearchRegex" Name="rbRegex" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}">Regex</RadioButton>
+                        <RadioButton GroupName="SearchXPath" Name="rbXPath" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=XPath}">XPath</RadioButton>
+                        <RadioButton GroupName="SearchText" Name="rbText" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=PlainText}">Text</RadioButton>
+                        <RadioButton GroupName="SearchSoundex" Name="rbSoundex" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=Soundex}">Phonetic</RadioButton>
+                    </StackPanel>
+                    <GroupBox Header="Search for:" Grid.Row="1" 
+                              Grid.ColumnSpan="2" BorderThickness="0">
+                        <TextBox Name="tbSearchFor" Margin="-5,3,-5,0" Text="{Binding Path=SearchFor, UpdateSourceTrigger=PropertyChanged}" 
+                                 VerticalScrollBarVisibility="Auto" 
+                                 Style="{StaticResource ExpandedTextbox}"/>
+                    </GroupBox>
+                    <GroupBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" 
+                              Header="Replace with:" BorderThickness="0">
+                        <TextBox Margin="-5,3,-5,0" Name="tbReplaceWith" 
+                                 Text="{Binding Path=ReplaceWith, UpdateSourceTrigger=PropertyChanged}"  
+                                 VerticalScrollBarVisibility="Auto" 
+                                 Style="{StaticResource ExpandedTextbox}"/>
+                    </GroupBox>
+                    <Expander Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"
+                              Name="expOptions">
+                        <Expander.Header>
+                            <WrapPanel>
+                                <TextBlock>Options</TextBlock>
+                                <TextBlock Margin="15,0,0,0" Text="{Binding Path=OptionsSummary}"/>
+                            </WrapPanel>
+                        </Expander.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox Margin="3" Name="cbCaseSensitive" IsChecked="{Binding Path=CaseSensitive}" IsEnabled="{Binding Path=IsCaseSensitiveEnabled}">Case sensitive</CheckBox>
+                            <CheckBox Margin="3" Name="cbMultiline" IsChecked="{Binding Path=Multiline}" IsEnabled="{Binding Path=IsMultilineEnabled}">Multiline (slower)</CheckBox>
+                            <CheckBox Margin="3" Name="cbSingleline" IsChecked="{Binding Path=Singleline}" IsEnabled="{Binding Path=IsSinglelineEnabled}">Match dot as newline</CheckBox>
+                        </StackPanel>
+                    </Expander>
+                </Grid>
+            </GroupBox>
+        </StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25" />
+                <RowDefinition Height="100*"/>
+                <RowDefinition Height="25" />
+                <RowDefinition Height="100*"/>
+                <RowDefinition Height="30" />
+                <RowDefinition Height="25" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" >Sample input text:</Label>
+            <TextBox Grid.Row="1" Margin="5" AcceptsReturn="True"  Height="Auto" Name="tbTestInput" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"> </TextBox>
+            <Label Grid.Row="2" >Output text:</Label>
+            <ScrollViewer Grid.Row="3" Margin="5" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <TextBlock Name="tbTestOutput"></TextBlock>
+            </ScrollViewer>
+            <StackPanel Grid.Row="4" Margin="0,0,3,0"  HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button Width="64" Margin="0,3,0,3" x:Name="btnSearch" Content="Search" IsEnabled="{Binding Path=CanSearch}" Click="btnSearch_Click" IsDefault="True" />
+                <Button Width="64" Margin="3" Content="Replace" Name="btnReplace" Click="btnReplace_Click" IsEnabled="{Binding Path=CanReplace}"/>
+                <Button Width="64" Margin="0,3,0,3" x:Name="btnClose" Content="Close" Click="btnClose_Click" IsCancel="True" />
+            </StackPanel>
+            <StatusBar Grid.Row="5" ClipToBounds="False" BorderThickness="1" BorderBrush="DarkGray">
+                <TextBlock Name="lblStatus">Click Search or Replace to test search pattern</TextBlock>
+            </StatusBar>
+        </Grid>
+    </DockPanel>
+</Window>
