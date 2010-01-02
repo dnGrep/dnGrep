@@ -50,8 +50,8 @@
                         <ColumnDefinition />
                         <ColumnDefinition Width="48" />
                     </Grid.ColumnDefinitions>
-                    <TextBox AllowDrop="True" PreviewDragEnter="OnDragOver" PreviewDragOver="OnDragOver" PreviewDrop="OutputFolderDrop" Grid.Column="0" Name="tbFolderName" Text="{Binding Path=FileOrFolderPath, UpdateSourceTrigger=PropertyChanged}"/>
-                    <Button Click="btnBrowse_Click" Grid.Column="1" Width="42" HorizontalAlignment="Right" Name="btnBrowse">...</Button>
+                    <TextBox AllowDrop="True" PreviewDragEnter="OnDragOver" PreviewDragOver="OnDragOver" PreviewDrop="OutputFolderDrop" Grid.Column="0" Name="tbFolderName" Text="{Binding Path=FileOrFolderPath, UpdateSourceTrigger=PropertyChanged}" ToolTip="Path to search in" />
+                    <Button Click="btnBrowse_Click" Grid.Column="1" Width="42" HorizontalAlignment="Right" Name="btnBrowse" ToolTip="Browse for folder or files">...</Button>
                 </Grid>
             </GroupBox>
             <GroupBox Header="Search">
@@ -67,17 +67,35 @@
                         <ColumnDefinition  Width="60"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
-                        <RadioButton GroupName="SearchRegex" Name="rbRegex" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}">Regex</RadioButton>
-                        <RadioButton GroupName="SearchXPath" Name="rbXPath" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=XPath}">XPath</RadioButton>
-                        <RadioButton GroupName="SearchText" Name="rbText" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=PlainText}">Text</RadioButton>
-                        <RadioButton GroupName="SearchSoundex" Name="rbSoundex" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=Soundex}">Phonetic</RadioButton>
+                        <RadioButton GroupName="SearchRegex" Name="rbRegex" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}" ToolTip="Regular expression search">Regex</RadioButton>
+                        <RadioButton GroupName="SearchXPath" Name="rbXPath" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=XPath}" ToolTip="XPath search (XML documents only)">XPath</RadioButton>
+                        <RadioButton GroupName="SearchText" Name="rbText" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=PlainText}" ToolTip="Plain text search">Text</RadioButton>
+                        <RadioButton GroupName="SearchSoundex" Name="rbSoundex" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=Soundex}" ToolTip="Phonetic search">Phonetic</RadioButton>
                     </StackPanel>
                     <Button Grid.Column="1" Grid.Row="0" Name="btnTest" Click="btnTest_Click">Test</Button>
                     <GroupBox Header="Search for:" Grid.Row="1" 
                               Grid.ColumnSpan="2" BorderThickness="0">
                         <TextBox Name="tbSearchFor" Margin="-5,3,-5,0" Text="{Binding Path=SearchFor, UpdateSourceTrigger=PropertyChanged}" 
                                  VerticalScrollBarVisibility="Auto" my:DiginesisHelpProvider.HelpKeyword="regular-expressions.html" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True"
-                                 Style="{StaticResource ExpandedTextbox}"/>
+                                 Style="{StaticResource ExpandedTextbox}">
+                            <TextBox.ToolTip>
+                                <TextBlock>
+                                    <Run>. matches all characters</Run>
+                                    <LineBreak/>
+                                    <Run>\w matches alpha-numerics</Run>
+                                    <LineBreak/>
+                                    <Run>\d matches digits</Run>
+                                    <LineBreak/>
+                                    <Run>\s matches space</Run>
+                                    <LineBreak/>
+                                    <Run>* matches any number of characters</Run>
+                                    <LineBreak/>
+                                    <Run>{1,3} matches 1 to 3 characters</Run>
+                                    <LineBreak/>
+                                    <Run>For more Regex patterns Google &quot;regex&quot;</Run>
+                                </TextBlock>
+                            </TextBox.ToolTip>
+                        </TextBox>
                     </GroupBox>
                     <GroupBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" 
                               Header="Replace with:" BorderThickness="0">
@@ -146,8 +164,8 @@
                         <StackPanel Grid.Column="1" Grid.Row="0" >
                             <TextBox Name="tbFilePattern" my:DiginesisHelpProvider.HelpKeyword="searchreplace.html" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True"></TextBox>
                             <StackPanel Orientation="Horizontal">
-                                <RadioButton GroupName="FileSearchRegex" Margin="3" Name="rbFileRegex" IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}">Regex</RadioButton>
-                                <RadioButton GroupName="FileSearchAsterisk" Margin="3" Name="rbFileAsterisk" IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Asterisk}">Asterisk pattern</RadioButton>
+                                <RadioButton GroupName="FileSearchRegex" Margin="3" Name="rbFileRegex" IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}" ToolTip="e.g. file[0-9]{1,2}\\.txt">Regex</RadioButton>
+                                <RadioButton GroupName="FileSearchAsterisk" Margin="3" Name="rbFileAsterisk" IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Asterisk}" ToolTip="e.g. file??.*">Asterisk pattern</RadioButton>
                             </StackPanel>
                         </StackPanel>
                         <TextBlock Grid.Column="0" Grid.Row="1">Encoding:</TextBlock>
