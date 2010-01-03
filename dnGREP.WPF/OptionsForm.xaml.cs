@@ -15,6 +15,7 @@ using System.Security.Principal;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using dnGREP.Common;
+using System.Reflection;
 
 namespace dnGREP.WPF
 {
@@ -132,7 +133,7 @@ namespace dnGREP.WPF
 
                 // add command that is invoked to the registry
                 string menuCommand = string.Format("\"{0}\" \"%1\"",
-                                       Utils.GetCurrentPath() + "\\dnGREP.WPF.exe");
+                                       Assembly.GetAssembly(typeof(OptionsForm)).Location);
                 using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(
                     string.Format(@"{0}\command", regPath)))
                 {

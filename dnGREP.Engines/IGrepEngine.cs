@@ -35,9 +35,9 @@ namespace dnGREP.Engines
 		/// <param name="isMultiline"></param>
 		/// <param name="encoding"></param>
 		/// <returns>List of results. If nothing is found returns empty list</returns>
-		List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, bool isCaseSensitive, bool isMultiline, Encoding encoding);
+		List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding);
 
-		bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, bool isCaseSensitive, bool isMultiline, Encoding encoding);
+        bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding);
 	
 		/// <summary>
 		/// Method gets called when search/replace process is complete

@@ -455,6 +455,12 @@ namespace dnGREP.WPF
             ApplicationCommands.Help.Execute(null, helpToolStripMenuItem);
 		}
 
+        private void aboutToolStripMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            AboutForm aboutForm = new AboutForm();
+            aboutForm.ShowDialog();
+        }
+
 		private void cbCaseSensitive_CheckedChanged(object sender, RoutedEventArgs e)
 		{
 			inputData.FilesFound = false;
@@ -679,6 +685,20 @@ namespace dnGREP.WPF
             foreach (FormattedGrepResult result in tvSearchResult.Items)
             {
                 result.IsExpanded = false;
+            }
+        }
+
+        private void btnExclude_Click(object sender, RoutedEventArgs e)
+        {
+            if (tvSearchResult.SelectedItem is FormattedGrepLine)
+            {
+                FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
+                inputData.SearchResults.Remove(selectedNode.Parent);
+            }
+            else if (tvSearchResult.SelectedItem is FormattedGrepResult)
+            {
+                FormattedGrepResult selectedNode = (FormattedGrepResult)tvSearchResult.SelectedItem;
+                inputData.SearchResults.Remove(selectedNode);
             }
         }
 

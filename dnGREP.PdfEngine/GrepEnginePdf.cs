@@ -67,7 +67,7 @@ namespace dnGREP.Engines.Pdf
 			get { return new List<string>(new string[] { "pdf" }); }
 		}
 
-		public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, bool isCaseSensitive, bool isMultiline, Encoding encoding)
+        public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
 		{
 			try
 			{
@@ -77,7 +77,7 @@ namespace dnGREP.Engines.Pdf
 					throw new ApplicationException("pdftotext failed to create text file.");
 
 				IGrepEngine engine = GrepEngineFactory.GetSearchEngine(tempFile, showLinesInContext, linesBefore, linesAfter);
-				List<GrepSearchResult> results = engine.Search(tempFile, searchPattern, searchType, isCaseSensitive, isMultiline, encoding);
+				List<GrepSearchResult> results = engine.Search(tempFile, searchPattern, searchType, searchOptions, encoding);
 				foreach (GrepSearchResult result in results)
 				{
 					result.ReadOnly = true;
@@ -127,7 +127,7 @@ namespace dnGREP.Engines.Pdf
 			}
 		}
 
-		public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, bool isCaseSensitive, bool isMultiline, Encoding encoding)
+        public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
 		{
 			throw new Exception("The method or operation is not implemented.");
 		}

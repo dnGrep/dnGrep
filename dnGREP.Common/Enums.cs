@@ -24,6 +24,15 @@ namespace dnGREP.Common
 		No
 	}
 
+    [Flags]
+    public enum GrepSearchOption
+    {
+        None = 0,
+        CaseSensitive = 1,
+        Multiline = 2,
+        SingleLine = 4
+    }
+
 	public enum GrepOperation
 	{
 		Search,

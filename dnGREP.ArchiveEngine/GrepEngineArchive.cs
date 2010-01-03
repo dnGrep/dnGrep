@@ -35,7 +35,7 @@ namespace dnGREP.Engines.Archive
 		}
 
 
-		public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, bool isCaseSensitive, bool isMultiline, Encoding encoding)
+        public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
 		{
 			List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
 			SevenZipExtractor extractor = new SevenZipExtractor(file);
@@ -52,7 +52,7 @@ namespace dnGREP.Engines.Archive
 				foreach (string archiveFileName in Directory.GetFiles(tempFolder, "*.*", SearchOption.AllDirectories))
 				{
 					IGrepEngine engine = GrepEngineFactory.GetSearchEngine(archiveFileName, showLinesInContext, linesBefore, linesAfter);
-					searchResults.AddRange(engine.Search(archiveFileName, searchPattern, searchType, isCaseSensitive, isMultiline, encoding));					
+					searchResults.AddRange(engine.Search(archiveFileName, searchPattern, searchType, searchOptions, encoding));					
 				}
 
 				foreach (GrepSearchResult result in searchResults)
@@ -74,7 +74,7 @@ namespace dnGREP.Engines.Archive
 			//Do nothing
 		}
 
-		public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, bool isCaseSensitive, bool isMultiline, Encoding encoding)
+        public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
 		{
 			throw new Exception("The method or operation is not supported.");
 		}

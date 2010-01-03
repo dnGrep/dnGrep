@@ -104,6 +104,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="EnumBooleanConverter.cs" />
     <Compile Include="HelpProvider.cs" />
     <Compile Include="InlineTextBlock.cs" />
@@ -112,7 +118,6 @@
     <Compile Include="OptionsForm.xaml.cs">
       <DependentUpon>OptionsForm.xaml</DependentUpon>
     </Compile>
-    <Compile Include="OptionsFormState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -130,6 +135,10 @@
     <Compile Include="TestPattern.xaml.cs">
       <DependentUpon>TestPattern.xaml</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

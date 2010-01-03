@@ -74,7 +74,7 @@ namespace dnGREP.Common
 		/// <param name="files">Files to search in. If one of the files does not exist or is open, it is skipped.</param>
 		/// <param name="searchRegex">Regex pattern</param>
 		/// <returns>List of results. If nothing is found returns empty list</returns>
-		public List<GrepSearchResult> Search(string[] files, SearchType searchType, string searchPattern, bool isCaseSensitive, bool isMultiline, int codePage)
+		public List<GrepSearchResult> Search(string[] files, SearchType searchType, string searchPattern, GrepSearchOption searchOptions, int codePage)
 		{
 			List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
 
@@ -116,7 +116,7 @@ namespace dnGREP.Common
 							return searchResults;
 						}
 
-						List<GrepSearchResult> fileSearchResults = engine.Search(file, searchPattern, searchType, isCaseSensitive, isMultiline, encoding);
+						List<GrepSearchResult> fileSearchResults = engine.Search(file, searchPattern, searchType, searchOptions, encoding);
 
 						if (fileSearchResults != null)
 						{
@@ -152,7 +152,7 @@ namespace dnGREP.Common
 			return searchResults;
 		}
 
-		public int Replace(string[] files, SearchType searchType, string baseFolder, string searchPattern, string replacePattern, bool isCaseSensitive, bool isMultiline, int codePage)
+		public int Replace(string[] files, SearchType searchType, string baseFolder, string searchPattern, string replacePattern, GrepSearchOption searchOptions, int codePage)
 		{
 			string tempFolder = Utils.GetTempFolder();
 			if (Directory.Exists(tempFolder))
@@ -198,7 +198,7 @@ namespace dnGREP.Common
 							break;
 						}
 
-						if (!engine.Replace(tempFileName, file, searchPattern, replacePattern, searchType, isCaseSensitive, isMultiline, encoding))
+						if (!engine.Replace(tempFileName, file, searchPattern, replacePattern, searchType, searchOptions, encoding))
 						{
 							throw new ApplicationException("Replace failed for file: " + file);
 						}

@@ -96,7 +96,7 @@ namespace dnGREP.Engines.Word
 			get { return new List<string> ( new string[] { "doc", "docx" }); }
 		}
 
-		public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, bool isCaseSensitive, bool isMultiline, Encoding encoding)
+        public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
 		{
 			load();
 			SearchDelegates.DoSearchMultiline searchMethodMultiline = doTextSearchCaseSensitiveMultiline;
@@ -104,7 +104,7 @@ namespace dnGREP.Engines.Word
 			{
 				case SearchType.PlainText:
 				case SearchType.XPath:
-					if (isCaseSensitive)
+                    if ((searchOptions & GrepSearchOption.CaseSensitive) == GrepSearchOption.CaseSensitive)
 					{
 						searchMethodMultiline = doTextSearchCaseSensitiveMultiline;
 					}
@@ -114,7 +114,7 @@ namespace dnGREP.Engines.Word
 					}
 					break;
 				case SearchType.Regex:
-					if (isCaseSensitive)
+                    if ((searchOptions & GrepSearchOption.CaseSensitive) == GrepSearchOption.CaseSensitive)
 					{
 						searchMethodMultiline = doRegexSearchCaseSensitiveMultiline;
 					}
@@ -171,7 +171,7 @@ namespace dnGREP.Engines.Word
 			return searchResults;
 		}
 
-		public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, bool isCaseSensitive, bool isMultiline, Encoding encoding)
+        public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
 		{
 			throw new Exception("The method or operation is not implemented.");
 		}
