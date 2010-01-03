@@ -215,11 +215,9 @@ namespace dnGREP.Engines
 						}
 					}
 
-                    List<GrepSearchResult.GrepMatch> matches = searchMethod(line, searchPattern, searchOptions);
-                    if (matches.Count > 0)
+                    if (searchMethod(line, searchPattern, searchOptions))
 					{
-                        foreach (GrepSearchResult.GrepMatch m in matches) m.LineNumber = counter;
-                        lines.Add(new GrepSearchResult.GrepLine(counter, line, false, matches));
+                        lines.Add(new GrepSearchResult.GrepLine(counter, line, false, null));
 						lines.AddRange(preContextLines);
 						preContextLines.Clear();
 						postContextLines.Clear();
@@ -267,8 +265,7 @@ namespace dnGREP.Engines
 
 				while ((line = readStream.ReadLine()) != null)
 				{
-                    List<GrepSearchResult.GrepMatch> matches = searchMethod(line, searchPattern, searchOptions);
-                    if (matches.Count > 0)
+                    if (searchMethod(line, searchPattern, searchOptions))
 					{
                         line = replaceMethod(line, searchPattern, replacePattern, searchOptions);
 					}

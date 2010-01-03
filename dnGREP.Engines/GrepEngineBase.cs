@@ -35,41 +35,17 @@ namespace dnGREP.Engines
 			Utils.OpenFile(args);
 		}
 
-        protected List<GrepSearchResult.GrepMatch> doTextSearchCaseInsensitive(string text, string searchText, GrepSearchOption searchOptions)
+        protected bool doTextSearchCaseInsensitive(string text, string searchText, GrepSearchOption searchOptions)
 		{
-            List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
-            int counter = 0;
-            while (counter < text.Length)
-            {
-                int matchLocation = text.ToLower().IndexOf(searchText.ToLower());
-                if (matchLocation == -1)
-                    break;
-                int matchLength = searchText.Length;
-                matches.Add(new GrepSearchResult.GrepMatch(-1, matchLocation + counter, matchLength));
-                counter = counter + matchLocation + matchLength;
-            }
-
-            return matches;
+			return text.ToLower().Contains(searchText.ToLower());
 		}
 
-        protected List<GrepSearchResult.GrepMatch> doTextSearchCaseSensitive(string text, string searchText, GrepSearchOption searchOptions)
+        protected bool doTextSearchCaseSensitive(string text, string searchText, GrepSearchOption searchOptions)
 		{
-			List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
-            int counter = 0;
-            while (counter < text.Length)
-            {
-                int matchLocation = text.IndexOf(searchText);
-                if (matchLocation == -1)
-                    break;
-                int matchLength = searchText.Length;
-                matches.Add(new GrepSearchResult.GrepMatch(-1, matchLocation + counter, matchLength));
-                counter = counter + matchLocation + matchLength;
-            }
-
-            return matches;
+			return text.Contains(searchText);
 		}
 
-        protected List<GrepSearchResult.GrepMatch> doRegexSearchCaseInsensitive(string text, string searchPattern, GrepSearchOption searchOptions)
+        protected bool doRegexSearchCaseInsensitive(string text, string searchPattern, GrepSearchOption searchOptions)
 		{
             RegexOptions regexOptions = RegexOptions.None;
             if ((searchOptions & GrepSearchOption.CaseSensitive) != GrepSearchOption.CaseSensitive)
@@ -82,7 +58,7 @@ namespace dnGREP.Engines
             return Regex.IsMatch(text, searchPattern, regexOptions);
 		}
 
-        protected List<GrepSearchResult.GrepMatch> doRegexSearchCaseSensitive(string text, string searchPattern, GrepSearchOption searchOptions)
+        protected bool doRegexSearchCaseSensitive(string text, string searchPattern, GrepSearchOption searchOptions)
 		{
             RegexOptions regexOptions = RegexOptions.None;
             if ((searchOptions & GrepSearchOption.CaseSensitive) != GrepSearchOption.CaseSensitive)
@@ -95,7 +71,7 @@ namespace dnGREP.Engines
             return Regex.IsMatch(text, searchPattern, regexOptions);
 		}
 
-        protected List<GrepSearchResult.GrepMatch> doFuzzySearch(string text, string searchPattern, GrepSearchOption searchOptions)
+        protected bool doFuzzySearch(string text, string searchPattern, GrepSearchOption searchOptions)
         {
             return fuzzyMatchEngine.match_main(text, searchPattern, 0) != -1; 
         }
