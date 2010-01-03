@@ -165,7 +165,8 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="WrapWithOverflow">Files that match:</TextBlock>
                         <StackPanel Grid.Column="1" Grid.Row="0" >
-                            <TextBox Name="tbFilePattern" my:DiginesisHelpProvider.HelpKeyword="searchreplace.html" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True"></TextBox>
+                            <TextBox Name="tbFilePattern" my:DiginesisHelpProvider.HelpKeyword="searchreplace.html" my:DiginesisHelpProvider.HelpNavigator="Topic" 
+                                     my:DiginesisHelpProvider.ShowHelp="True" Text="{Binding Path=FilePattern, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                             <StackPanel Orientation="Horizontal">
                                 <RadioButton GroupName="FileSearchRegex" Margin="3" Name="rbFileRegex" IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}" ToolTip="e.g. file[0-9]{1,2}\\.txt">Regex</RadioButton>
                                 <RadioButton GroupName="FileSearchAsterisk" Margin="3" Name="rbFileAsterisk" IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Asterisk}" ToolTip="e.g. file??.*">Asterisk pattern</RadioButton>
@@ -236,7 +237,10 @@
                 </TreeView.ContextMenu>
                 <TreeView.Resources>
                     <HierarchicalDataTemplate DataType="{x:Type my:FormattedGrepResult}" ItemsSource="{Binding Path=FormattedLines}" >
-                        <WrapPanel><Image Source="{Binding Icon}"/><TextBlock Text="{Binding Label}" Margin="3,0,0,0"/></WrapPanel>                        
+                        <WrapPanel>
+                            <Image Source="{Binding Icon}"/>
+                            <TextBlock Text="{Binding Label}" Margin="3,0,0,0"/>
+                        </WrapPanel>                        
                     </HierarchicalDataTemplate>
                     <DataTemplate DataType="{x:Type my:FormattedGrepLine}">
                         <WrapPanel>
@@ -266,6 +270,9 @@
                         <Setter Property="FontSize" Value="12"/>
                         <Style.Triggers>
                             <DataTrigger Binding="{Binding Path=Style}" Value="Context">
+                                <Setter Property="Foreground" Value="DarkGray"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=Style}" Value="ReadOnly">
                                 <Setter Property="Foreground" Value="DarkGray"/>
                             </DataTrigger>
                         </Style.Triggers>

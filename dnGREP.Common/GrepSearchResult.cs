@@ -61,11 +61,15 @@ namespace dnGREP.Common
 
 		public class GrepLine : IComparable<GrepLine>, IComparable
 		{
-			public GrepLine(int number, string text, bool context)
+			public GrepLine(int number, string text, bool context, List<GrepMatch> matches)
 			{
 				lineNumber = number;
 				lineText = text;
 				isContext = context;
+                if (matches == null)
+                    this.matches = new List<GrepMatch>();
+                else
+                    this.matches = matches;
 			}
 
 			private int lineNumber;
@@ -86,6 +90,13 @@ namespace dnGREP.Common
 			{
 				get { return isContext; }
 			}
+
+            private List<GrepMatch> matches;
+
+            public List<GrepMatch> Matches
+            {
+                get { return matches; }
+            }
 
 			public override string ToString()
 			{
@@ -118,5 +129,36 @@ namespace dnGREP.Common
 
 			#endregion
 		}
+
+        public class GrepMatch
+        {
+            public GrepMatch(int line, int from, int length)
+            {
+                lineNumber = line;
+                startLocation = from;
+                this.length = length;
+            }
+
+            private int lineNumber = 0;
+            public int LineNumber
+            {
+                get { return lineNumber; }
+                set { lineNumber = value; }
+            }
+
+            private int startLocation = 0;
+            public int StartLocation
+            {
+                get { return startLocation; }
+                set { startLocation = value; }
+            }
+
+            private int length = 0;
+            public int Length
+            {
+                get { return length; }
+                set { length = value; }
+            }
+        }
 	}
 }

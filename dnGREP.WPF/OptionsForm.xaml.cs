@@ -191,6 +191,8 @@ namespace dnGREP.WPF
             tbLinesBefore.Text = Properties.Settings.Default.ContextLinesBefore.ToString();
             tbLinesAfter.Text = Properties.Settings.Default.ContextLinesAfter.ToString();
             cbSearchFileNameOnly.IsChecked = Properties.Settings.Default.AllowSearchingForFileNamePattern;
+            tbEditorPath.Text = Properties.Settings.Default.CustomEditor;
+            tbEditorArgs.Text = Properties.Settings.Default.CustomEditorArgs;
             changeState();
         }
 
@@ -225,6 +227,8 @@ namespace dnGREP.WPF
             Properties.Settings.Default.ContextLinesBefore = int.Parse(tbLinesBefore.Text);
             Properties.Settings.Default.ContextLinesAfter = int.Parse(tbLinesAfter.Text);
             Properties.Settings.Default.AllowSearchingForFileNamePattern = cbSearchFileNameOnly.IsChecked == true;
+            Properties.Settings.Default.CustomEditor = tbEditorPath.Text;
+            Properties.Settings.Default.CustomEditorArgs = tbEditorArgs.Text;
             Properties.Settings.Default.Save();
         }
 

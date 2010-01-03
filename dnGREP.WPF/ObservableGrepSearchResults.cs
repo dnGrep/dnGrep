@@ -173,8 +173,11 @@ namespace dnGREP.WPF
 			int lineCount = Utils.MatchCount(grepResult);
 			if (lineCount > 0)
 				displayedName = string.Format("{0} ({1})", displayedName, lineCount);
-			if (isFileReadOnly)
-				displayedName = displayedName + " [read-only]";
+            if (isFileReadOnly)
+            {
+                result.ReadOnly = true;
+                displayedName = displayedName + " [read-only]";
+            }
 
 			label = displayedName;
 
@@ -248,27 +251,58 @@ namespace dnGREP.WPF
             Parent = parent;
 			grepLine = line;
 
-			string lineSummary = line.LineText.Replace("\n", "").Replace("\t", "").Replace("\r", "").Trim();
-			if (lineSummary.Length == 0)
-				lineSummary = " ";
-			else if (lineSummary.Length > 100)
-				lineSummary = lineSummary.Substring(0, 100) + "...";
+            //string lineSummary = line.LineText.Replace("\n", "").Replace("\t", "").Replace("\r", "").Trim();
+            //if (lineSummary.Length == 0)
+            //    lineSummary = " ";
+            //else if (lineSummary.Length > 100)
+            //    lineSummary = lineSummary.Substring(0, 100) + "...";
             
             formattedLineNumber = (line.LineNumber == -1 ? "" : line.LineNumber.ToString());
 
-			string fullText = lineSummary;
+			//string fullText = lineSummary;
 			if (line.IsContext)
 			{
 				style = "Context";
 			}
-			
-			Paragraph paragraph = new Paragraph();
-			//Run highlightedRun = new Run("hello ");
-			//highlightedRun.Background = Brushes.Yellow;
-			//paragraph.Inlines.Add(highlightedRun);
-			Run mainRun = new Run(fullText);
-			paragraph.Inlines.Add(mainRun);
-			formattedText = paragraph.Inlines;
+
+            formattedText = formatLine(line);
+        }
+
+        private InlineCollection formatLine(GrepSearchResult.GrepLine line)
+        {
+            Paragraph paragraph = new Paragraph();
+ 
+            if (line.Matches.Count == 0)
+            {
+                Run mainRun = new Run(line.LineText);
+                paragraph.Inlines.Add(mainRun);
+            }
+            else
+            {
+                int counter = 0;
+                string fullLine = line.LineText;
+                foreach (GrepSearchResult.GrepMatch m in line.Matches)
+                {
+                    string regLine = fullLine.Substring(counter, m.StartLocation);
+                    string fmtLine = fullLine.Substring(m.StartLocation, m.Length);
+
+                    Run regularRun = new Run(regLine);
+                    paragraph.Inlines.Add(regularRun);
+
+                    Run highlightedRun = new Run(fmtLine);
+                    highlightedRun.Background = Brushes.Yellow;
+                    paragraph.Inlines.Add(highlightedRun);
+
+                    counter = m.StartLocation + m.Length;
+                }
+                if (counter < fullLine.Length)
+                {
+                    string regLine = fullLine.Substring(counter);
+                    Run regularRun = new Run(regLine);
+                    paragraph.Inlines.Add(regularRun);
+                }
+            }
+            return paragraph.Inlines;
         }
 
         #region PropertyChanged Members

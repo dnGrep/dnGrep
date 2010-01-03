@@ -1211,18 +1211,7 @@ namespace dnGREP.WPF
                 IsCaseSensitiveEnabled = true;
                 IsMultilineEnabled = true;
                 IsSinglelineEnabled = true;
-            }
-
-			////btnTest
-			//if (!IsPlainText &&
-			//    !rbXPath.IsChecked == true)
-			//{
-			//    btnTest.IsEnabled = true;
-			//}
-			//else
-			//{
-			//    btnTest.IsEnabled = false;
-			//}		
+            }	
 		}
 	}
 }

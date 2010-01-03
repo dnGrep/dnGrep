@@ -85,9 +85,9 @@ namespace dnGREP.Engines
 			}
 
             if ((searchOptions & GrepSearchOption.Multiline) == GrepSearchOption.Multiline)
-				return searchMultiline(input, fileName, searchPattern, searchMethodMultiline, encoding);
+                return searchMultiline(input, fileName, searchPattern, searchOptions, searchMethodMultiline, encoding);
 			else
-                return search(input, fileName, searchPattern, searchMethod, encoding);
+                return search(input, fileName, searchPattern, searchOptions, searchMethod, encoding);
 		}
 
         public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
@@ -158,9 +158,9 @@ namespace dnGREP.Engines
 			}
 
             if ((searchOptions & GrepSearchOption.Multiline) == GrepSearchOption.Multiline)
-                return replaceMultiline(readStream, writeStream, searchPattern, replacePattern, searchMethodMultiline, replaceMethod, encoding);
+                return replaceMultiline(readStream, writeStream, searchPattern, replacePattern, searchOptions, searchMethodMultiline, replaceMethod, encoding);
 			else
-                return replace(readStream, writeStream, searchPattern, replacePattern, searchMethod, replaceMethod, encoding);
+                return replace(readStream, writeStream, searchPattern, replacePattern, searchOptions, searchMethod, replaceMethod, encoding);
 		}
 
 		public void Unload()
@@ -178,7 +178,7 @@ namespace dnGREP.Engines
 
 		#region Actual Implementation
 
-		private List<GrepSearchResult> search(Stream input, string fileName, string searchPattern, SearchDelegates.DoSearch searchMethod, Encoding encoding)
+        private List<GrepSearchResult> search(Stream input, string fileName, string searchPattern, GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod, Encoding encoding)
 		{
 			List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
 
@@ -198,13 +198,13 @@ namespace dnGREP.Engines
 						if (preContextLines.Count > linesBefore)
 							preContextLines.Dequeue();
 
-						preContextLines.Enqueue(new GrepSearchResult.GrepLine(counter, line, true));
+                        preContextLines.Enqueue(new GrepSearchResult.GrepLine(counter, line, true, null));
 
 						if (collectPostContextLines)
 						{
 							if (postContextLines.Count < linesAfter)
 							{
-								postContextLines.Enqueue(new GrepSearchResult.GrepLine(counter, line, true));
+                                postContextLines.Enqueue(new GrepSearchResult.GrepLine(counter, line, true, null));
 							}
 							else
 							{
@@ -215,9 +215,11 @@ namespace dnGREP.Engines
 						}
 					}
 
-					if (searchMethod(line, searchPattern))
+                    List<GrepSearchResult.GrepMatch> matches = searchMethod(line, searchPattern, searchOptions);
+                    if (matches.Count > 0)
 					{
-						lines.Add(new GrepSearchResult.GrepLine(counter, line, false));
+                        foreach (GrepSearchResult.GrepMatch m in matches) m.LineNumber = counter;
+                        lines.Add(new GrepSearchResult.GrepLine(counter, line, false, matches));
 						lines.AddRange(preContextLines);
 						preContextLines.Clear();
 						postContextLines.Clear();
@@ -235,7 +237,7 @@ namespace dnGREP.Engines
 			return searchResults;
 		}
 
-        private List<GrepSearchResult> searchMultiline(Stream input, string fileName, string searchPattern, SearchDelegates.DoSearchMultiline searchMethod, Encoding encoding)
+        private List<GrepSearchResult> searchMultiline(Stream input, string fileName, string searchPattern, GrepSearchOption searchOptions, SearchDelegates.DoSearchMultiline searchMethod, Encoding encoding)
 		{
 			List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
 
@@ -243,7 +245,7 @@ namespace dnGREP.Engines
 			{
 				List<GrepSearchResult.GrepLine> lines = new List<GrepSearchResult.GrepLine>();
 				string fileBody = readStream.ReadToEnd();
-				lines = searchMethod(fileBody, searchPattern);
+                lines = searchMethod(fileBody, searchPattern, searchOptions);
 				Utils.CleanResults(ref lines);
 				if (lines.Count > 0)
 				{
@@ -254,7 +256,7 @@ namespace dnGREP.Engines
 			return searchResults;
 		}
 
-        private bool replace(Stream inputStream, Stream outputStream, string searchPattern, string replacePattern, SearchDelegates.DoSearch searchMethod, SearchDelegates.DoReplace replaceMethod, Encoding encoding)
+        private bool replace(Stream inputStream, Stream outputStream, string searchPattern, string replacePattern, GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod, SearchDelegates.DoReplace replaceMethod, Encoding encoding)
 		{
             using (StreamReader readStream = new StreamReader(inputStream, encoding))
 			{
@@ -265,9 +267,10 @@ namespace dnGREP.Engines
 
 				while ((line = readStream.ReadLine()) != null)
 				{
-					if (searchMethod(line, searchPattern))
+                    List<GrepSearchResult.GrepMatch> matches = searchMethod(line, searchPattern, searchOptions);
+                    if (matches.Count > 0)
 					{
-						line = replaceMethod(line, searchPattern, replacePattern);
+                        line = replaceMethod(line, searchPattern, replacePattern, searchOptions);
 					}
 					writeStream.WriteLine(line);
 					counter++;
@@ -279,7 +282,7 @@ namespace dnGREP.Engines
 			return true;
 		}
 
-		private bool replaceMultiline(Stream inputStream, Stream outputStream, string searchPattern, string replacePattern, SearchDelegates.DoSearchMultiline searchMethod, SearchDelegates.DoReplace replaceMethod, Encoding encoding)
+        private bool replaceMultiline(Stream inputStream, Stream outputStream, string searchPattern, string replacePattern, GrepSearchOption searchOptions, SearchDelegates.DoSearchMultiline searchMethod, SearchDelegates.DoReplace replaceMethod, Encoding encoding)
 		{
             using (StreamReader readStream = new StreamReader(inputStream, encoding))
 			{
@@ -287,7 +290,7 @@ namespace dnGREP.Engines
 
 				string fileBody = readStream.ReadToEnd();
 
-				fileBody = replaceMethod(fileBody, searchPattern, replacePattern);
+                fileBody = replaceMethod(fileBody, searchPattern, replacePattern, searchOptions);
 				writeStream.Write(fileBody);
 
                 writeStream.Flush();

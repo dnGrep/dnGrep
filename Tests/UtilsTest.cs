@@ -151,10 +151,10 @@ namespace Tests
 		public void TestMatchCount()
 		{
 			GrepSearchResult result = new GrepSearchResult("test.txt", new List<GrepSearchResult.GrepLine>());
-			result.SearchResults.Add(new GrepSearchResult.GrepLine(1, "test", true));
-			result.SearchResults.Add(new GrepSearchResult.GrepLine(2, "test2", false));
-			result.SearchResults.Add(new GrepSearchResult.GrepLine(3, "test3", false));
-			result.SearchResults.Add(new GrepSearchResult.GrepLine(1, "test1", false));
+            result.SearchResults.Add(new GrepSearchResult.GrepLine(1, "test", true, null));
+            result.SearchResults.Add(new GrepSearchResult.GrepLine(2, "test2", false, null));
+            result.SearchResults.Add(new GrepSearchResult.GrepLine(3, "test3", false, null));
+            result.SearchResults.Add(new GrepSearchResult.GrepLine(1, "test1", false, null));
 			Assert.AreEqual(Utils.MatchCount(result), 3);
 			Assert.AreEqual(Utils.MatchCount(null), 0);
 			result = new GrepSearchResult("test.txt", new List<GrepSearchResult.GrepLine>());
@@ -167,10 +167,10 @@ namespace Tests
 		public void TestCleanResults()
 		{
 			List<GrepSearchResult.GrepLine> results =  new List<GrepSearchResult.GrepLine>();
-			results.Add(new GrepSearchResult.GrepLine(1, "test", true));
-			results.Add(new GrepSearchResult.GrepLine(3, "test3", false));
-			results.Add(new GrepSearchResult.GrepLine(2, "test2", false));
-			results.Add(new GrepSearchResult.GrepLine(1, "test1", false));
+            results.Add(new GrepSearchResult.GrepLine(1, "test", true, null));
+            results.Add(new GrepSearchResult.GrepLine(3, "test3", false, null));
+            results.Add(new GrepSearchResult.GrepLine(2, "test2", false, null));
+            results.Add(new GrepSearchResult.GrepLine(1, "test1", false, null));
 			Utils.CleanResults(ref results);
 
 			Assert.AreEqual(results.Count, 3);
@@ -207,19 +207,20 @@ namespace Tests
 		{
 			string text = "Hello world" + Environment.NewLine + "My tests are good" + Environment.NewLine + "How about yours?";
 			List<int> lineNumbers = new List<int>();
-			List<string> lines = Utils.GetLines(text, 3, 2, out lineNumbers);
+            List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
+			List<string> lines = Utils.GetLines(text, 3, 2, out matches, out lineNumbers);
 			Assert.AreEqual(lines.Count, 1);
 			Assert.AreEqual(lines[0], "Hello world");
 			Assert.AreEqual(lineNumbers.Count, 1);
 			Assert.AreEqual(lineNumbers[0], 1);
 
-			lines = Utils.GetLines(text, 14, 2, out lineNumbers);
+            lines = Utils.GetLines(text, 14, 2, out matches, out lineNumbers);
 			Assert.AreEqual(lines.Count, 1);
 			Assert.AreEqual(lines[0], "My tests are good");
 			Assert.AreEqual(lineNumbers.Count, 1);
 			Assert.AreEqual(lineNumbers[0], 2);
 
-			lines = Utils.GetLines(text, 3, 11, out lineNumbers);
+            lines = Utils.GetLines(text, 3, 11, out matches, out lineNumbers);
 			Assert.AreEqual(lines.Count, 2);
 			Assert.AreEqual(lines[0], "Hello world");
 			Assert.AreEqual(lines[1], "My tests are good");
@@ -227,7 +228,7 @@ namespace Tests
 			Assert.AreEqual(lineNumbers[0], 1);
 			Assert.AreEqual(lineNumbers[1], 2);
 
-			lines = Utils.GetLines(text, 3, 30, out lineNumbers);
+            lines = Utils.GetLines(text, 3, 30, out matches, out lineNumbers);
 			Assert.AreEqual(lines.Count, 3);
 			Assert.AreEqual(lines[0], "Hello world");
 			Assert.AreEqual(lines[1], "My tests are good");
@@ -237,23 +238,23 @@ namespace Tests
 			Assert.AreEqual(lineNumbers[1], 2);
 			Assert.AreEqual(lineNumbers[2], 3);
 
-			lines = Utils.GetLines("test", 2, 2, out lineNumbers);
+            lines = Utils.GetLines("test", 2, 2, out matches, out lineNumbers);
 			Assert.AreEqual(lines.Count, 1);
 			Assert.AreEqual(lines[0], "test");
 			Assert.AreEqual(lineNumbers.Count, 1);
 			Assert.AreEqual(lineNumbers[0], 1);
 
-			lines = Utils.GetLines("test", 0, 2, out lineNumbers);
+            lines = Utils.GetLines("test", 0, 2, out matches, out lineNumbers);
 			Assert.AreEqual(lines.Count, 1);
 			Assert.AreEqual(lines[0], "test");
 			Assert.AreEqual(lineNumbers.Count, 1);
 			Assert.AreEqual(lineNumbers[0], 1);
 
-			lines = Utils.GetLines("test", 10, 2, out lineNumbers);
+            lines = Utils.GetLines("test", 10, 2, out matches, out lineNumbers);
 			Assert.IsNull(lines);
 			Assert.IsNull(lineNumbers);
 
-			lines = Utils.GetLines("test", 2, 10, out lineNumbers);
+            lines = Utils.GetLines("test", 2, 10, out matches, out lineNumbers);
 			Assert.IsNull(lines);
 			Assert.IsNull(lineNumbers);
 		}
@@ -339,12 +340,12 @@ namespace Tests
 			File.WriteAllText(destinationFolder + "\\test.csv", "hello");
 			List<GrepSearchResult> source = new List<GrepSearchResult>();
 			List<GrepSearchResult.GrepLine> lines = new List<GrepSearchResult.GrepLine>();
-			lines.Add(new GrepSearchResult.GrepLine(12, "hello", false));
-			lines.Add(new GrepSearchResult.GrepLine(13, "world", true));
+            lines.Add(new GrepSearchResult.GrepLine(12, "hello", false, null));
+            lines.Add(new GrepSearchResult.GrepLine(13, "world", true, null));
 			List<GrepSearchResult.GrepLine> lines2 = new List<GrepSearchResult.GrepLine>();
-			lines2.Add(new GrepSearchResult.GrepLine(11, "and2", true));
-			lines2.Add(new GrepSearchResult.GrepLine(12, "hello2", false));
-			lines2.Add(new GrepSearchResult.GrepLine(13, "world2", true));
+            lines2.Add(new GrepSearchResult.GrepLine(11, "and2", true, null));
+            lines2.Add(new GrepSearchResult.GrepLine(12, "hello2", false, null));
+            lines2.Add(new GrepSearchResult.GrepLine(13, "world2", true, null));
 			source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-code.cs", lines));
 			source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-plain.txt", lines2));
 			Utils.SaveResultsAsCSV(source, destinationFolder + "\\test.csv");

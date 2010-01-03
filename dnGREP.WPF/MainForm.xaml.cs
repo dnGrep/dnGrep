@@ -224,7 +224,11 @@ namespace dnGREP.WPF
 				inputData.UndoFolder = Utils.GetBaseFolder(tbFolderName.Text);
 				barProgressBar.Value = 0;
                 List<string> foundFiles = new List<string>();
-                foreach (FormattedGrepResult n in inputData.SearchResults) foundFiles.Add(n.GrepResult.FileNameReal);
+                foreach (FormattedGrepResult n in inputData.SearchResults)
+                {
+                    if (!n.GrepResult.ReadOnly)
+                        foundFiles.Add(n.GrepResult.FileNameReal);
+                }
                 Dictionary<string, object> workerParames = new Dictionary<string, object>();
                 workerParames["State"] = inputData;
                 workerParames["Files"] = foundFiles;
@@ -287,9 +291,17 @@ namespace dnGREP.WPF
 						grep.LinesAfter = Properties.Settings.Default.ContextLinesAfter;
 						grep.PreviewFilesDuringSearch = Properties.Settings.Default.PreviewResults;
 
+                        GrepSearchOption searchOptions = GrepSearchOption.None;
+                        if (inputData.Multiline)
+                            searchOptions |= GrepSearchOption.Multiline;
+                        if (inputData.CaseSensitive)
+                            searchOptions |= GrepSearchOption.CaseSensitive;
+                        if (inputData.Singleline)
+                            searchOptions |= GrepSearchOption.SingleLine;
+
 						grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
 						List<GrepSearchResult> results = null;
-                        results = grep.Search(files, param.TypeOfSearch, param.SearchFor, param.CaseSensitive, param.Multiline, param.CodePage);
+                        results = grep.Search(files, param.TypeOfSearch, param.SearchFor, searchOptions, param.CodePage);
 
 						grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
 						if (results != null)
@@ -309,9 +321,17 @@ namespace dnGREP.WPF
 						grep.LinesAfter = Properties.Settings.Default.ContextLinesAfter;
 						grep.PreviewFilesDuringSearch = Properties.Settings.Default.PreviewResults;
 
+                        GrepSearchOption searchOptions = GrepSearchOption.None;
+                        if (inputData.Multiline)
+                            searchOptions |= GrepSearchOption.Multiline;
+                        if (inputData.CaseSensitive)
+                            searchOptions |= GrepSearchOption.CaseSensitive;
+                        if (inputData.Singleline)
+                            searchOptions |= GrepSearchOption.SingleLine;
+
 						grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
                         string[] files = ((List<string>)workerParams["Files"]).ToArray();
-						e.Result = grep.Replace(files, param.TypeOfSearch, Utils.GetBaseFolder(param.FileOrFolderPath), param.SearchFor, param.ReplaceWith, param.CaseSensitive, param.Multiline, param.CodePage);
+                        e.Result = grep.Replace(files, param.TypeOfSearch, Utils.GetBaseFolder(param.FileOrFolderPath), param.SearchFor, param.ReplaceWith, searchOptions, param.CodePage);
 
 						grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
 					}
@@ -365,7 +385,9 @@ namespace dnGREP.WPF
 					lblStatus.Text = "Search Canceled";
 				}
 				barProgressBar.Value = 0;
-				inputData.CurrentGrepOperation = GrepOperation.None;				
+				inputData.CurrentGrepOperation = GrepOperation.None;
+                if (inputData.SearchResults.Count > 0)
+                    inputData.FilesFound = true;
 			}
 			else if (inputData.CurrentGrepOperation == GrepOperation.Replace)
 			{

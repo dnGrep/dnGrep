@@ -35,32 +35,72 @@ namespace dnGREP.Engines
 			Utils.OpenFile(args);
 		}
 
-		protected bool doTextSearchCaseInsensitive(string text, string searchText)
+        protected List<GrepSearchResult.GrepMatch> doTextSearchCaseInsensitive(string text, string searchText, GrepSearchOption searchOptions)
 		{
-			return text.ToLower().Contains(searchText.ToLower());
+            List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
+            int counter = 0;
+            while (counter < text.Length)
+            {
+                int matchLocation = text.ToLower().IndexOf(searchText.ToLower());
+                if (matchLocation == -1)
+                    break;
+                int matchLength = searchText.Length;
+                matches.Add(new GrepSearchResult.GrepMatch(-1, matchLocation + counter, matchLength));
+                counter = counter + matchLocation + matchLength;
+            }
+
+            return matches;
 		}
 
-		protected bool doTextSearchCaseSensitive(string text, string searchText)
+        protected List<GrepSearchResult.GrepMatch> doTextSearchCaseSensitive(string text, string searchText, GrepSearchOption searchOptions)
 		{
-			return text.Contains(searchText);
+			List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
+            int counter = 0;
+            while (counter < text.Length)
+            {
+                int matchLocation = text.IndexOf(searchText);
+                if (matchLocation == -1)
+                    break;
+                int matchLength = searchText.Length;
+                matches.Add(new GrepSearchResult.GrepMatch(-1, matchLocation + counter, matchLength));
+                counter = counter + matchLocation + matchLength;
+            }
+
+            return matches;
 		}
 
-		protected bool doRegexSearchCaseInsensitive(string text, string searchPattern)
+        protected List<GrepSearchResult.GrepMatch> doRegexSearchCaseInsensitive(string text, string searchPattern, GrepSearchOption searchOptions)
 		{
-			return Regex.IsMatch(text, searchPattern, RegexOptions.IgnoreCase);
+            RegexOptions regexOptions = RegexOptions.None;
+            if ((searchOptions & GrepSearchOption.CaseSensitive) != GrepSearchOption.CaseSensitive)
+                regexOptions |= RegexOptions.IgnoreCase;
+            if ((searchOptions & GrepSearchOption.Multiline) == GrepSearchOption.Multiline)
+                regexOptions |= RegexOptions.Multiline;
+            if ((searchOptions & GrepSearchOption.SingleLine) == GrepSearchOption.SingleLine)
+                regexOptions |= RegexOptions.Singleline;
+
+            return Regex.IsMatch(text, searchPattern, regexOptions);
 		}
 
-		protected bool doRegexSearchCaseSensitive(string text, string searchPattern)
+        protected List<GrepSearchResult.GrepMatch> doRegexSearchCaseSensitive(string text, string searchPattern, GrepSearchOption searchOptions)
 		{
-			return Regex.IsMatch(text, searchPattern);
+            RegexOptions regexOptions = RegexOptions.None;
+            if ((searchOptions & GrepSearchOption.CaseSensitive) != GrepSearchOption.CaseSensitive)
+                regexOptions |= RegexOptions.IgnoreCase;
+            if ((searchOptions & GrepSearchOption.Multiline) == GrepSearchOption.Multiline)
+                regexOptions |= RegexOptions.Multiline;
+            if ((searchOptions & GrepSearchOption.SingleLine) == GrepSearchOption.SingleLine)
+                regexOptions |= RegexOptions.Singleline;
+
+            return Regex.IsMatch(text, searchPattern, regexOptions);
 		}
 
-        protected bool doFuzzySearch(string text, string searchPattern)
+        protected List<GrepSearchResult.GrepMatch> doFuzzySearch(string text, string searchPattern, GrepSearchOption searchOptions)
         {
             return fuzzyMatchEngine.match_main(text, searchPattern, 0) != -1; 
         }
 
-        protected List<GrepSearchResult.GrepLine> doFuzzySearchMultiline(string text, string searchPattern)
+        protected List<GrepSearchResult.GrepLine> doFuzzySearchMultiline(string text, string searchPattern, GrepSearchOption searchOptions)
         {
             List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
             int counter = 0;
@@ -73,12 +113,16 @@ namespace dnGREP.Engines
                 int matchLength = fuzzyMatchEngine.match_length(text.Substring(counter), searchPattern, counter);
 
                 List<int> lineNumbers = new List<int>();
-                List<string> lines = Utils.GetLines(text, matchLocation + counter, matchLength, out lineNumbers);
+                List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
+                List<string> lines = Utils.GetLines(text, matchLocation + counter, matchLength, out matches, out lineNumbers);
                 if (lineNumbers != null)
                 {
                     for (int i = 0; i < lineNumbers.Count; i++)
                     {
-                        results.Add(new GrepSearchResult.GrepLine(lineNumbers[i], lines[i], false));
+                        List<GrepSearchResult.GrepMatch> lineMatches = new List<GrepSearchResult.GrepMatch>();
+                        foreach (GrepSearchResult.GrepMatch m in matches) if (m.LineNumber == lineNumbers[i]) lineMatches.Add(m);
+
+                        results.Add(new GrepSearchResult.GrepLine(lineNumbers[i], lines[i], false, lineMatches));
                         if (showLinesInContext)
                         {
                             results.AddRange(Utils.GetContextLines(text, linesBefore,
@@ -92,7 +136,7 @@ namespace dnGREP.Engines
             return results;
         }
 
-		protected List<GrepSearchResult.GrepLine> doXPathSearch(string text, string searchXPath)
+        protected List<GrepSearchResult.GrepLine> doXPathSearch(string text, string searchXPath, GrepSearchOption searchOptions)
 		{
 			List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
 			// Check if file is an XML file
@@ -105,25 +149,37 @@ namespace dnGREP.Engines
 				foreach (XmlNode xmlNode in xmlNodes)
 				{
 					line = xmlNode.OuterXml;
-					results.Add(new GrepSearchResult.GrepLine(-1, line, false));
+                    results.Add(new GrepSearchResult.GrepLine(-1, line, false, null));
 				}
 			}
 
 			return results;
 		}
 
-		protected List<GrepSearchResult.GrepLine> doRegexSearchCaseSensitiveMultiline(string text, string searchPattern)
+        protected List<GrepSearchResult.GrepLine> doRegexSearchCaseSensitiveMultiline(string text, string searchPattern, GrepSearchOption searchOptions)
 		{
+            RegexOptions regexOptions = RegexOptions.None;
+            if ((searchOptions & GrepSearchOption.CaseSensitive) != GrepSearchOption.CaseSensitive)
+                regexOptions |= RegexOptions.IgnoreCase;
+            if ((searchOptions & GrepSearchOption.Multiline) == GrepSearchOption.Multiline)
+                regexOptions |= RegexOptions.Multiline;
+            if ((searchOptions & GrepSearchOption.SingleLine) == GrepSearchOption.SingleLine)
+                regexOptions |= RegexOptions.Singleline;
+
 			List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
-			foreach (Match match in Regex.Matches(text, searchPattern, RegexOptions.Multiline))
+            foreach (Match match in Regex.Matches(text, searchPattern, regexOptions))
 			{
 				List<int> lineNumbers = new List<int>();
-				List<string> lines = Utils.GetLines(text, match.Index, match.Length, out lineNumbers);
+                List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
+                List<string> lines = Utils.GetLines(text, match.Index, match.Length, out matches, out lineNumbers);
 				if (lineNumbers != null)
 				{
 					for (int i = 0; i < lineNumbers.Count; i++)
 					{
-						results.Add(new GrepSearchResult.GrepLine(lineNumbers[i], lines[i], false));
+                        List<GrepSearchResult.GrepMatch> lineMatches = new List<GrepSearchResult.GrepMatch>();
+                        foreach (GrepSearchResult.GrepMatch m in matches) if (m.LineNumber == lineNumbers[i]) lineMatches.Add(m);
+
+                        results.Add(new GrepSearchResult.GrepLine(lineNumbers[i], lines[i], false, lineMatches));
 						if (showLinesInContext)
 						{
 							results.AddRange(Utils.GetContextLines(text, linesBefore,
@@ -135,18 +191,30 @@ namespace dnGREP.Engines
 			return results;
 		}
 
-		protected List<GrepSearchResult.GrepLine> doRegexSearchCaseInsensitiveMultiline(string text, string searchPattern)
+        protected List<GrepSearchResult.GrepLine> doRegexSearchCaseInsensitiveMultiline(string text, string searchPattern, GrepSearchOption searchOptions)
 		{
+            RegexOptions regexOptions = RegexOptions.None;
+            if ((searchOptions & GrepSearchOption.CaseSensitive) != GrepSearchOption.CaseSensitive)
+                regexOptions |= RegexOptions.IgnoreCase;
+            if ((searchOptions & GrepSearchOption.Multiline) == GrepSearchOption.Multiline)
+                regexOptions |= RegexOptions.Multiline;
+            if ((searchOptions & GrepSearchOption.SingleLine) == GrepSearchOption.SingleLine)
+                regexOptions |= RegexOptions.Singleline;
+
 			List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
-			foreach (Match match in Regex.Matches(text, searchPattern, RegexOptions.IgnoreCase | RegexOptions.Multiline))
+            foreach (Match match in Regex.Matches(text, searchPattern, regexOptions))
 			{
 				List<int> lineNumbers = new List<int>();
-				List<string> lines = Utils.GetLines(text, match.Index, match.Length, out lineNumbers);
+                List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
+                List<string> lines = Utils.GetLines(text, match.Index, match.Length, out matches, out lineNumbers);
 				if (lineNumbers != null)
 				{
 					for (int i = 0; i < lineNumbers.Count; i++)
 					{
-						results.Add(new GrepSearchResult.GrepLine(lineNumbers[i], lines[i], false));
+                        List<GrepSearchResult.GrepMatch> lineMatches = new List<GrepSearchResult.GrepMatch>();
+                        foreach (GrepSearchResult.GrepMatch m in matches) if (m.LineNumber == lineNumbers[i]) lineMatches.Add(m);
+
+                        results.Add(new GrepSearchResult.GrepLine(lineNumbers[i], lines[i], false, lineMatches));
 						if (showLinesInContext)
 						{
 							results.AddRange(Utils.GetContextLines(text, linesBefore,
@@ -158,7 +226,7 @@ namespace dnGREP.Engines
 			return results;
 		}
 
-		protected List<GrepSearchResult.GrepLine> doTextSearchCaseInsensitiveMultiline(string text, string searchText)
+        protected List<GrepSearchResult.GrepLine> doTextSearchCaseInsensitiveMultiline(string text, string searchText, GrepSearchOption searchOptions)
 		{
 			List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
 			int index = 0;
@@ -168,12 +236,16 @@ namespace dnGREP.Engines
 				if (index >= 0)
 				{
 					List<int> lineNumbers = new List<int>();
-					List<string> lines = Utils.GetLines(text, index, searchText.Length, out lineNumbers);
+                    List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
+                    List<string> lines = Utils.GetLines(text, index, searchText.Length, out matches, out lineNumbers);
 					if (lineNumbers != null)
 					{
 						for (int i = 0; i < lineNumbers.Count; i++)
 						{
-							results.Add(new GrepSearchResult.GrepLine(lineNumbers[i], lines[i], false));
+                            List<GrepSearchResult.GrepMatch> lineMatches = new List<GrepSearchResult.GrepMatch>();
+                            foreach (GrepSearchResult.GrepMatch m in matches) if (m.LineNumber == lineNumbers[i]) lineMatches.Add(m);
+
+                            results.Add(new GrepSearchResult.GrepLine(lineNumbers[i], lines[i], false, lineMatches));
 							if (showLinesInContext)
 							{
 								results.AddRange(Utils.GetContextLines(text, linesBefore,
@@ -187,7 +259,7 @@ namespace dnGREP.Engines
 			return results;
 		}
 
-		protected List<GrepSearchResult.GrepLine> doTextSearchCaseSensitiveMultiline(string text, string searchText)
+        protected List<GrepSearchResult.GrepLine> doTextSearchCaseSensitiveMultiline(string text, string searchText, GrepSearchOption searchOptions)
 		{
 			List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
 			int index = 0;
@@ -197,12 +269,16 @@ namespace dnGREP.Engines
 				if (index >= 0)
 				{
 					List<int> lineNumbers = new List<int>();
-					List<string> lines = Utils.GetLines(text, index, searchText.Length, out lineNumbers);
+                    List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
+					List<string> lines = Utils.GetLines(text, index, searchText.Length, out matches, out lineNumbers);
 					if (lineNumbers != null)
 					{
 						for (int i = 0; i < lineNumbers.Count; i++)
 						{
-							results.Add(new GrepSearchResult.GrepLine(lineNumbers[i], lines[i], false));
+                            List<GrepSearchResult.GrepMatch> lineMatches = new List<GrepSearchResult.GrepMatch>();
+                            foreach (GrepSearchResult.GrepMatch m in matches) if (m.LineNumber == lineNumbers[i]) lineMatches.Add(m);
+
+                            results.Add(new GrepSearchResult.GrepLine(lineNumbers[i], lines[i], false, lineMatches));
 							if (showLinesInContext)
 							{
 								results.AddRange(Utils.GetContextLines(text, linesBefore,
@@ -216,12 +292,12 @@ namespace dnGREP.Engines
 			return results;
 		}
 
-		protected string doTextReplaceCaseSensitive(string text, string searchText, string replaceText)
+        protected string doTextReplaceCaseSensitive(string text, string searchText, string replaceText, GrepSearchOption searchOptions)
 		{
 			return text.Replace(searchText, replaceText);
 		}
 
-		protected string doTextReplaceCaseInsensitive(string text, string searchText, string replaceText)
+        protected string doTextReplaceCaseInsensitive(string text, string searchText, string replaceText, GrepSearchOption searchOptions)
 		{
 			int count, position0, position1;
 			count = position0 = position1 = 0;
@@ -245,17 +321,33 @@ namespace dnGREP.Engines
 			return new string(chars, 0, count);
 		}
 
-		protected string doRegexReplaceCaseInsensitive(string text, string searchPattern, string replacePattern)
+        protected string doRegexReplaceCaseInsensitive(string text, string searchPattern, string replacePattern, GrepSearchOption searchOptions)
 		{
-			return Regex.Replace(text, searchPattern, replacePattern, RegexOptions.IgnoreCase);
+            RegexOptions regexOptions = RegexOptions.None;
+            if ((searchOptions & GrepSearchOption.CaseSensitive) != GrepSearchOption.CaseSensitive)
+                regexOptions |= RegexOptions.IgnoreCase;
+            if ((searchOptions & GrepSearchOption.Multiline) == GrepSearchOption.Multiline)
+                regexOptions |= RegexOptions.Multiline;
+            if ((searchOptions & GrepSearchOption.SingleLine) == GrepSearchOption.SingleLine)
+                regexOptions |= RegexOptions.Singleline;
+
+            return Regex.Replace(text, searchPattern, replacePattern, regexOptions);
 		}
 
-		public string doRegexReplaceCaseSensitive(string text, string searchPattern, string replacePattern)
+        public string doRegexReplaceCaseSensitive(string text, string searchPattern, string replacePattern, GrepSearchOption searchOptions)
 		{
-			return Regex.Replace(text, searchPattern, replacePattern);
+            RegexOptions regexOptions = RegexOptions.None;
+            if ((searchOptions & GrepSearchOption.CaseSensitive) != GrepSearchOption.CaseSensitive)
+                regexOptions |= RegexOptions.IgnoreCase;
+            if ((searchOptions & GrepSearchOption.Multiline) == GrepSearchOption.Multiline)
+                regexOptions |= RegexOptions.Multiline;
+            if ((searchOptions & GrepSearchOption.SingleLine) == GrepSearchOption.SingleLine)
+                regexOptions |= RegexOptions.Singleline;
+
+            return Regex.Replace(text, searchPattern, replacePattern, regexOptions);
 		}
 
-        public string doFuzzyReplace(string text, string searchPattern, string replacePattern)
+        public string doFuzzyReplace(string text, string searchPattern, string replacePattern, GrepSearchOption searchOptions)
         {
             int counter = 0;
             StringBuilder result = new StringBuilder();
@@ -280,7 +372,7 @@ namespace dnGREP.Engines
             return result.ToString();
         }
 
-		protected string doXPathReplace(string text, string searchXPath, string replaceText)
+        protected string doXPathReplace(string text, string searchXPath, string replaceText, GrepSearchOption searchOptions)
 		{
 			if (text.Length > 5 && text.Substring(0, 5).ToLower() == "<?xml")
 			{

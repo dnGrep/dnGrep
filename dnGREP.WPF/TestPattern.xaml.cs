@@ -52,10 +52,17 @@ namespace dnGREP.WPF
             GrepEnginePlainText engine = new GrepEnginePlainText();
             engine.Initialize(false, 0, 0);
             List<GrepSearchResult> results = new List<GrepSearchResult>();
+            GrepSearchOption searchOptions = GrepSearchOption.None;
+            if (inputData.Multiline)
+                searchOptions |= GrepSearchOption.Multiline;
+            if (inputData.CaseSensitive)
+                searchOptions |= GrepSearchOption.CaseSensitive;
+            if (inputData.Singleline)
+                searchOptions |= GrepSearchOption.SingleLine;
             using (Stream inputStream = new MemoryStream(Encoding.Default.GetBytes(tbTestInput.Text)))
             {
                 results = engine.Search(inputStream, "test.txt", inputData.SearchFor, inputData.TypeOfSearch,
-                    inputData.CaseSensitive, inputData.Multiline, Encoding.Default);
+                    searchOptions, Encoding.Default);
             }
             inputData.SearchResults.Clear();
             inputData.SearchResults.AddRange(results);
@@ -89,12 +96,20 @@ namespace dnGREP.WPF
             engine.Initialize(false, 0, 0);
             List<GrepSearchResult> results = new List<GrepSearchResult>();
 
+            GrepSearchOption searchOptions = GrepSearchOption.None;
+            if (inputData.Multiline)
+                searchOptions |= GrepSearchOption.Multiline;
+            if (inputData.CaseSensitive)
+                searchOptions |= GrepSearchOption.CaseSensitive;
+            if (inputData.Singleline)
+                searchOptions |= GrepSearchOption.SingleLine;
+
             string replacedString = "";
             using (Stream inputStream = new MemoryStream(Encoding.Default.GetBytes(tbTestInput.Text)))
             using (Stream writeStream = new MemoryStream())
             {
                 engine.Replace(inputStream, writeStream, inputData.SearchFor, inputData.ReplaceWith, inputData.TypeOfSearch,
-                    inputData.CaseSensitive, inputData.Multiline, Encoding.Default);
+                    searchOptions, Encoding.Default);
                 writeStream.Position = 0;
                 StreamReader reader = new StreamReader(writeStream);                
                 replacedString = reader.ReadToEnd();

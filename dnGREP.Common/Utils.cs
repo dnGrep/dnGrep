@@ -655,13 +655,15 @@ namespace dnGREP.Common
 		/// <param name="length">Length of a line</param>
 		/// <param name="lineNumbers">Return parameter - 1-based line numbers or null if index is outside text length</param>
 		/// <returns>Line of text or null if index is outside text length</returns>
-		public static List<string> GetLines(string body, int index, int length, out List<int> lineNumbers)
+		public static List<string> GetLines(string body, int index, int length, out List<GrepSearchResult.GrepMatch> matches, out List<int> lineNumbers)
 		{
 			List<string> result = new List<string>();
 			lineNumbers = new List<int>();
+            matches = new List<GrepSearchResult.GrepMatch>();
 			if (body == null || index < 0 || index > body.Length || index + length > body.Length)
 			{
 				lineNumbers = null;
+                matches = null;
 				return null;
 			}
 
@@ -677,21 +679,34 @@ namespace dnGREP.Common
 				lineNumbers.Add(lines1.Length + i);
 				if (i == 0)
 				{
-					if (lines2.Length == 1 && lines3.Length > 0)
-						line = lines1[lines1.Length - 1] + lines2[0] + lines3[0];
-					else
-						line = lines1[lines1.Length - 1] + lines2[0];
+                    if (lines2.Length == 1 && lines3.Length > 0)
+                    {
+                        line = lines1[lines1.Length - 1] + lines2[0] + lines3[0];
+                    }
+                    else
+                    {
+                        line = lines1[lines1.Length - 1] + lines2[0];
+                    }
+
+                    matches.Add(new GrepSearchResult.GrepMatch(lines1.Length + i, index - subBody1.Length + lines1[lines1.Length - 1].Length, lines2[0].Length));
 				}
 				else if (i == lines2.Length - 1)
 				{
-					if (lines3.Length > 0)
-						line = lines2[lines2.Length - 1] + lines3[0];
-					else
-						line = lines2[lines2.Length - 1];					
+                    if (lines3.Length > 0)
+                    {
+                        line = lines2[lines2.Length - 1] + lines3[0];
+                    }
+                    else
+                    {
+                        line = lines2[lines2.Length - 1];
+                    }
+
+                    matches.Add(new GrepSearchResult.GrepMatch(lines1.Length + i, 0, lines2[lines2.Length - 1].Length));
 				}
 				else
 				{
 					line = lines2[i];
+                    matches.Add(new GrepSearchResult.GrepMatch(lines1.Length + i, 0, lines2[i].Length));
 				}
 				result.Add(line);
 			}
@@ -718,7 +733,7 @@ namespace dnGREP.Common
 			for (int i = foundLine - linesBefore - 1; i <= foundLine + linesAfter - 1; i++)
 			{
 				if (i >= 0 && i < lines.Length && (i + 1) != foundLine)
-					result.Add(new GrepSearchResult.GrepLine(i + 1, lines[i], true));
+					result.Add(new GrepSearchResult.GrepLine(i + 1, lines[i], true, null));
 			}
 			return result;
 		}

@@ -6,8 +6,8 @@ namespace dnGREP.Common
 {
 	public class SearchDelegates
 	{
-		public delegate bool DoSearch(string text, string searchPattern);
-		public delegate List<GrepSearchResult.GrepLine> DoSearchMultiline(string text, string searchPattern);
-		public delegate string DoReplace(string text, string searchPattern, string replacePattern);
+		public delegate List<GrepSearchResult.GrepMatch> DoSearch(string text, string searchPattern, GrepSearchOption searchOptions);
+        public delegate List<GrepSearchResult.GrepLine> DoSearchMultiline(string text, string searchPattern, GrepSearchOption searchOptions);
+        public delegate string DoReplace(string text, string searchPattern, string replacePattern, GrepSearchOption searchOptions);
 	}
 }
