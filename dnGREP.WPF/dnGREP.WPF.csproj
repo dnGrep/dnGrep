@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>dnGREP.WPF</RootNamespace>
-    <AssemblyName>dnGREP.WPF</AssemblyName>
+    <AssemblyName>dnGREP</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -20,7 +20,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -132,6 +132,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="SettingBindingExtension.cs" />
+    <Compile Include="TestPattern.State.cs" />
     <Compile Include="TestPattern.xaml.cs">
       <DependentUpon>TestPattern.xaml</DependentUpon>
     </Compile>
@@ -143,13 +144,15 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="..\dnGREP.GUI\Doc\dnGREP.chm">
+      <Link>Doc\dnGREP.chm</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\dnGREP.GUI\Doc\regular-expressions-cheat-sheet-v2.pdf">
+      <Link>Doc\regular-expressions-cheat-sheet-v2.pdf</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="app.config" />
-    <None Include="Doc\dnGREP.chm">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Doc\regular-expressions-cheat-sheet-v2.pdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -181,4 +184,14 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <PostBuildEvent>rmdir /S /Q "$(SolutionDir)Release\dnGREP X.X.X (Standalone)"
+mkdir "$(SolutionDir)Release\dnGREP X.X.X (Standalone)"
+xcopy "$(TargetDir)*.*" "$(SolutionDir)Release\dnGREP X.X.X (Standalone)" /E
+rmdir /S /Q "$(SolutionDir)Release\dnGREP X.X.X (Standalone)\Plugins"
+mkdir "$(SolutionDir)Release\dnGREP X.X.X (Standalone)\Plugins"
+del /Q "$(SolutionDir)Release\dnGREP X.X.X (Standalone)\*.pdb"
+del /Q "$(SolutionDir)Release\dnGREP X.X.X (Standalone)\*vshost*.*"
+del /Q "$(SolutionDir)Release\dnGREP X.X.X (Standalone)\Grep_Error_Log.xml"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

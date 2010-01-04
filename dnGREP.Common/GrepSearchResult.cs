@@ -77,6 +77,7 @@ namespace dnGREP.Common
 			public int LineNumber
 			{
 				get { return lineNumber; }
+				set { lineNumber = value; }
 			}
 			private string lineText;
 
@@ -130,7 +131,7 @@ namespace dnGREP.Common
 			#endregion
 		}
 
-        public class GrepMatch
+		public class GrepMatch : IComparable<GrepMatch>, IComparable
         {
             public GrepMatch(int line, int from, int length)
             {
@@ -158,7 +159,33 @@ namespace dnGREP.Common
             {
                 get { return length; }
                 set { length = value; }
-            }
+			}
+
+			#region IComparable<GrepMatch> Members
+
+			public int CompareTo(GrepMatch other)
+			{
+				if (other == null)
+					return 1;
+				else
+					return startLocation.CompareTo(other.StartLocation);
+			}
+
+			#endregion
+
+			#region IComparable Members
+
+			public int CompareTo(object obj)
+			{
+				if (obj == null)
+					return 1;
+				if (obj is GrepMatch)
+					return startLocation.CompareTo(((GrepMatch)obj).StartLocation);
+				else
+					return 1;
+			}
+
+			#endregion
         }
 	}
 }

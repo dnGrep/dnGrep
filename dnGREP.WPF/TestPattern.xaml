@@ -3,9 +3,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:splitButton="clr-namespace:Wpf.Controls;assembly=Wpf.SplitButton"
     xmlns:my="clr-namespace:dnGREP.WPF"
-    Title="Test" Width="487" WindowStyle="ToolWindow" Height="501" MinHeight="460" 
+    Title="Test" Width="527" WindowStyle="ToolWindow" Height="460" MinHeight="460" 
     Background="{Binding ElementName=btnSearch, Path=Background}"
-    MinWidth="500" Icon="/dnGREP.WPF;component/nGREP.ico"
+    MinWidth="500" Icon="/dnGREP;component/nGREP.ico"
     Loaded="Window_Loaded" Closing="Window_Closing"  KeyDown="formKeyDown" Style="{StaticResource DefaultStyle}" 
     SnapsToDevicePixels="True" ResizeMode="CanResizeWithGrip">
     <!-- Resources -->

@@ -27,13 +27,12 @@ namespace dnGREP.WPF
     public partial class TestPattern : Window
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
-        private MainFormState inputData = new MainFormState();
+		private TestPatternState inputData = new TestPatternState();
 
         public TestPattern()
         {
             InitializeComponent();
             this.DataContext = inputData;
-//            tvSearchResult.ItemsSource = inputData.SearchResults;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

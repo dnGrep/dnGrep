@@ -5,7 +5,7 @@
     Title="Options" Width="453" WindowStyle="ToolWindow" ResizeMode="CanResize" Height="260" MinHeight="260" 
     Background="{Binding ElementName=tbGeneralTab, Path=Background}"
     Loaded="Window_Load" Closing="Window_Closing" KeyDown="Window_KeyDown"
-    MinWidth="453" Icon="/dnGREP.WPF;component/nGREP.ico" WindowStartupLocation="CenterOwner">
+    MinWidth="453" Icon="/dnGREP;component/nGREP.ico" WindowStartupLocation="CenterOwner">
     <Window.Resources>
         
     </Window.Resources>
@@ -76,6 +76,11 @@
                     <CheckBox Margin="3" Name="cbSearchFileNameOnly">
                         <CheckBox.Content>
                             <TextBlock TextWrapping="Wrap">Allow searching for file name pattern only when "search for" is empty</TextBlock>
+                        </CheckBox.Content>
+                    </CheckBox>
+                    <CheckBox Margin="3" Name="cbPreviewResults">
+                        <CheckBox.Content>
+                            <TextBlock TextWrapping="Wrap">Preview results during search</TextBlock>
                         </CheckBox.Content>
                     </CheckBox>
                 </StackPanel>

@@ -99,7 +99,7 @@ namespace dnGREP.Engines.Word
         public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
 		{
 			load();
-			SearchDelegates.DoSearchMultiline searchMethodMultiline = doTextSearchCaseSensitiveMultiline;
+			SearchDelegates.DoSearch searchMethodMultiline = doTextSearchCaseSensitiveMultiline;
 			switch (searchType)
 			{
 				case SearchType.PlainText:
@@ -129,7 +129,7 @@ namespace dnGREP.Engines.Word
 			return result;
 		}
 
-        private List<GrepSearchResult> searchMultiline(string file, string searchPattern, GrepSearchOption searchOptions, SearchDelegates.DoSearchMultiline searchMethod)
+        private List<GrepSearchResult> searchMultiline(string file, string searchPattern, GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod)
 		{
 			List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
 
@@ -150,7 +150,7 @@ namespace dnGREP.Engines.Word
 
 
 				List<GrepSearchResult.GrepLine> lines = new List<GrepSearchResult.GrepLine>();
-				lines = searchMethod(Utils.CleanLineBreaks(text.ToString()), searchPattern, searchOptions);
+				lines = searchMethod(Utils.CleanLineBreaks(text.ToString()), searchPattern, searchOptions, true);
 				Utils.CleanResults(ref lines);
 				if (lines.Count > 0)
 				{

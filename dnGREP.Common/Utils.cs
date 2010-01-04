@@ -789,12 +789,20 @@ namespace dnGREP.Common
 					if (i < results.Count && 
 						results[i].LineNumber == results[j].LineNumber && i != j)
 					{
-						if (results[i].IsContext || 
-							(results[i].IsContext == results[j].IsContext &&
-							results[i].IsContext == false && results[i].LineNumber != -1))
+						if (results[i].IsContext)
 							results.RemoveAt(i);
+						else if (results[i].IsContext == results[j].IsContext && results[i].IsContext == false && results[i].LineNumber != -1)
+						{
+							results[j].Matches.AddRange(results[i].Matches);
+							results.RemoveAt(i);
+						}
 					}
 				}
+			}
+
+			for (int j = 0; j < results.Count; j++)
+			{
+				results[j].Matches.Sort();
 			}
 		}
 

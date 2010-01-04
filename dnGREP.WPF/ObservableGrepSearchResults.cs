@@ -281,9 +281,11 @@ namespace dnGREP.WPF
             {
                 int counter = 0;
                 string fullLine = line.LineText;
-                foreach (GrepSearchResult.GrepMatch m in line.Matches)
+				GrepSearchResult.GrepMatch[] lineMatches = new GrepSearchResult.GrepMatch[line.Matches.Count];
+				line.Matches.CopyTo(lineMatches);
+				foreach (GrepSearchResult.GrepMatch m in lineMatches)
                 {
-                    string regLine = fullLine.Substring(counter, m.StartLocation);
+                    string regLine = fullLine.Substring(counter, m.StartLocation - counter);
                     string fmtLine = fullLine.Substring(m.StartLocation, m.Length);
 
                     Run regularRun = new Run(regLine);

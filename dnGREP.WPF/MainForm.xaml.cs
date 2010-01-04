@@ -178,6 +178,8 @@ namespace dnGREP.WPF
 				inputData.SearchResults.Clear();
                 Dictionary<string, object> workerParames = new Dictionary<string, object>();
                 workerParames["State"] = inputData;
+				if (!Properties.Settings.Default.PreviewResults)
+					tvSearchResult.ItemsSource = null;
                 workerSearchReplace.RunWorkerAsync(workerParames);
 			}
 		}
@@ -194,7 +196,9 @@ namespace dnGREP.WPF
                 Dictionary<string, object> workerParames = new Dictionary<string, object>();
                 workerParames["State"] = inputData;
                 workerParames["Files"] = foundFiles;
-                workerSearchReplace.RunWorkerAsync(workerParames);
+				if (!Properties.Settings.Default.PreviewResults)
+					tvSearchResult.ItemsSource = null;
+				workerSearchReplace.RunWorkerAsync(workerParames);
 			}
 		}
 
@@ -301,17 +305,9 @@ namespace dnGREP.WPF
 
 						grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
 						List<GrepSearchResult> results = null;
-                        results = grep.Search(files, param.TypeOfSearch, param.SearchFor, searchOptions, param.CodePage);
+						e.Result = grep.Search(files, param.TypeOfSearch, param.SearchFor, searchOptions, param.CodePage);
 
 						grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
-						if (results != null)
-						{
-							e.Result = results.Count;
-						}
-						else
-						{
-							e.Result = 0;
-						}
 					}
 					else
 					{
@@ -355,68 +351,91 @@ namespace dnGREP.WPF
 
 		private void searchProgressChanged(object sender, ProgressChangedEventArgs e)
 		{
-			if (!GrepCore.CancelProcess)
+			try
 			{
-				GrepCore.ProgressStatus progress = (GrepCore.ProgressStatus)e.UserState;
-				barProgressBar.Value = e.ProgressPercentage;
-				lblStatus.Text = "(" + progress.ProcessedFiles + " of " + progress.TotalFiles + ")";
-				if (progress.SearchResults != null)
+				if (!GrepCore.CancelProcess)
 				{
-					inputData.SearchResults.AddRange(progress.SearchResults);
+					GrepCore.ProgressStatus progress = (GrepCore.ProgressStatus)e.UserState;
+					barProgressBar.Value = e.ProgressPercentage;
+					lblStatus.Text = "(" + progress.ProcessedFiles + " of " + progress.TotalFiles + ")";
+					if (progress.SearchResults != null)
+					{
+						inputData.SearchResults.AddRange(progress.SearchResults);
+					}
 				}
-			}			
+			}
+			catch (Exception ex)
+			{
+				logger.LogException(LogLevel.Error, ex.Message, ex);
+				MessageBox.Show("Search or replace failed! See error log.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+			}
 		}
 
 		private void searchComplete(object sender, RunWorkerCompletedEventArgs e)
 		{
-			if (inputData.CurrentGrepOperation == GrepOperation.Search || inputData.CurrentGrepOperation == GrepOperation.SearchInResults)
+			try
 			{
-				if (e.Result == null)
+				if (inputData.CurrentGrepOperation == GrepOperation.Search || inputData.CurrentGrepOperation == GrepOperation.SearchInResults)
 				{
-					lblStatus.Text = "Search Failed";
-				} 
-				else if (!e.Cancelled)
-				{
-					TimeSpan duration = DateTime.Now.Subtract(timer);
-					lblStatus.Text = "Search Complete - " + (int)e.Result + " files found in " + duration.TotalMilliseconds + "ms.";
-				}
-				else
-				{
-					lblStatus.Text = "Search Canceled";
-				}
-				barProgressBar.Value = 0;
-				inputData.CurrentGrepOperation = GrepOperation.None;
-                if (inputData.SearchResults.Count > 0)
-                    inputData.FilesFound = true;
-			}
-			else if (inputData.CurrentGrepOperation == GrepOperation.Replace)
-			{
-				if (!e.Cancelled)
-				{
-					if (e.Result == null || ((int)e.Result) == -1)
+					List<GrepSearchResult> results = new List<GrepSearchResult>();
+					if (e.Result == null)
 					{
-						lblStatus.Text = "Replace Failed.";
-						MessageBox.Show("Replace failed! See error log.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+						lblStatus.Text = "Search Failed";
+					}
+					else if (!e.Cancelled)
+					{
+						TimeSpan duration = DateTime.Now.Subtract(timer);
+						results = (List<GrepSearchResult>)e.Result;
+						lblStatus.Text = "Search Complete - " + results.Count + " files found in " + duration.TotalMilliseconds + "ms.";
 					}
 					else
 					{
-						lblStatus.Text = "Replace Complete - " + (int)e.Result + " files replaced.";
-						inputData.CanUndo = true;
+						lblStatus.Text = "Search Canceled";
+					}
+					barProgressBar.Value = 0;
+					inputData.CurrentGrepOperation = GrepOperation.None;
+					if (inputData.SearchResults.Count > 0)
+						inputData.FilesFound = true;
+					if (!Properties.Settings.Default.PreviewResults)
+					{
+						inputData.SearchResults.AddRange(results);
+						tvSearchResult.ItemsSource = inputData.SearchResults;
 					}
 				}
-				else
+				else if (inputData.CurrentGrepOperation == GrepOperation.Replace)
 				{
-					lblStatus.Text = "Replace Canceled";
+					if (!e.Cancelled)
+					{
+						if (e.Result == null || ((int)e.Result) == -1)
+						{
+							lblStatus.Text = "Replace Failed.";
+							MessageBox.Show("Replace failed! See error log.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+						}
+						else
+						{
+							lblStatus.Text = "Replace Complete - " + (int)e.Result + " files replaced.";
+							inputData.CanUndo = true;
+						}
+					}
+					else
+					{
+						lblStatus.Text = "Replace Canceled";
+					}
+					barProgressBar.Value = 0;
+					inputData.CurrentGrepOperation = GrepOperation.None;
+					inputData.SearchResults.Clear();
 				}
-				barProgressBar.Value = 0;
-				inputData.CurrentGrepOperation = GrepOperation.None;
-				inputData.SearchResults.Clear();
-			}
 
-			string outdatedEngines = dnGREP.Engines.GrepEngineFactory.GetListOfFailedEngines();
-			if (!string.IsNullOrEmpty(outdatedEngines))
+				string outdatedEngines = dnGREP.Engines.GrepEngineFactory.GetListOfFailedEngines();
+				if (!string.IsNullOrEmpty(outdatedEngines))
+				{
+					MessageBox.Show("The following plugins failed to load:\n\n" + outdatedEngines + "\n\nDefault engine was used instead.", "Plugin Errors", MessageBoxButton.OK, MessageBoxImage.Warning);
+				}
+			}
+			catch (Exception ex)
 			{
-				MessageBox.Show("The following plugins failed to load:\n\n" + outdatedEngines + "\n\nDefault engine was used instead.", "Plugin Errors", MessageBoxButton.OK, MessageBoxImage.Warning);
+				logger.LogException(LogLevel.Error, ex.Message, ex);
+				MessageBox.Show("Search or replace failed! See error log.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 			}
 
 			inputData.UpdateState("");

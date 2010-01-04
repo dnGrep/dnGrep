@@ -4,8 +4,8 @@
     xmlns:splitButton="clr-namespace:Wpf.Controls;assembly=Wpf.SplitButton"
     xmlns:my="clr-namespace:dnGREP.WPF"
     Title="dnGREP" Width="487" WindowStyle="ToolWindow" Height="501" MinHeight="460" 
-    Background="{Binding ElementName=mnuMainMenu, Path=Background}"
-    MinWidth="500" Icon="/dnGREP.WPF;component/nGREP.ico" Closing="MainForm_Closing"
+    Background="{Binding ElementName=btnTest, Path=Background}"
+    MinWidth="500" Icon="/dnGREP;component/nGREP.ico" Closing="MainForm_Closing"
     Loaded="Window_Loaded" KeyDown="formKeyDown" Style="{StaticResource DefaultStyle}" 
     SnapsToDevicePixels="True" ResizeMode="CanResizeWithGrip" AllowDrop="False"
     my:DiginesisHelpProvider.HelpKeyword="search-window.html" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True">
@@ -32,13 +32,13 @@
     
     <DockPanel>
         <StackPanel Margin="3" DockPanel.Dock="Top">
-            <Grid>
+            <Grid Name="gridTop">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="70" />
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Column="0" FontFamily="Microsoft Sans Serif" FontWeight="Bold" FontSize="16">dnGREP</TextBlock>
-                <Menu Name="mnuMainMenu" Grid.Column="1" HorizontalAlignment="Right" Style="{StaticResource DefaultStyle}">
+                <Menu Background="{Binding ElementName=gridTop, Path=Background}" Name="mnuMainMenu" Grid.Column="1" HorizontalAlignment="Right" Style="{StaticResource DefaultStyle}">
                     <MenuItem Name="undoToolStripMenuItem" Header="_Undo" IsEnabled="{Binding Path=CanUndo}" Click="undoToolStripMenuItem_Click"/>
                     <MenuItem Header="_Options..." Click="btnOptions_Click"/>
                     <MenuItem Header="_Help" Name="helpToolStripMenuItem">

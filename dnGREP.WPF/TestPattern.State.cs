@@ -11,51 +11,35 @@ using System.ComponentModel;
 
 namespace dnGREP.WPF
 {
-	public class MainFormState : INotifyPropertyChanged
+	public class TestPatternState : INotifyPropertyChanged
 	{
-		public MainFormState()
+		public TestPatternState()
 		{
-            LoadAppSettings();
+			LoadAppSettings();
 			UpdateState("Initial");
+			CanSearch = true;
+			CanReplace = true;
+			CanCancel = false;
+			CanSearchInResults = false;
+			SearchButtonMode = "Button";
 		}
 
-        public void LoadAppSettings()
-        {
-            FileOrFolderPath = Properties.Settings.Default.SearchFolder;
-            SearchFor = Properties.Settings.Default.SearchFor;
-            ReplaceWith = Properties.Settings.Default.ReplaceWith;
-            IncludeHidden = Properties.Settings.Default.IncludeHidden;
-            IncludeSubfolder = Properties.Settings.Default.IncludeSubfolder;
-            TypeOfSearch = Properties.Settings.Default.TypeOfSearch;
-            TypeOfFileSearch = Properties.Settings.Default.TypeOfFileSearch;
-			FilePattern = Properties.Settings.Default.FilePattern;
-            UseFileSizeFilter = Properties.Settings.Default.UseFileSizeFilter;
-            CaseSensitive = Properties.Settings.Default.CaseSensitive;
-            Multiline = Properties.Settings.Default.Multiline;
-            Singleline = Properties.Settings.Default.Singleline;
-            SizeFrom = Properties.Settings.Default.SizeFrom;
-            SizeTo = Properties.Settings.Default.SizeTo;
-        }
+		public void LoadAppSettings()
+		{
+			SearchFor = Properties.Settings.Default.SearchFor;
+			ReplaceWith = Properties.Settings.Default.ReplaceWith;
+			TypeOfSearch = Properties.Settings.Default.TypeOfSearch;
+			CaseSensitive = Properties.Settings.Default.CaseSensitive;
+			Multiline = Properties.Settings.Default.Multiline;
+			Singleline = Properties.Settings.Default.Singleline;
+		}
 
 		private ObservableGrepSearchResults searchResults = new ObservableGrepSearchResults();
 		public ObservableGrepSearchResults SearchResults
 		{
-			get {				
-				return searchResults; 
-			}
-		}
-
-		private string _FileOrFolderPath = "";
-		/// <summary>
-		/// FileOrFolderPath property
-		/// </summary>
-		public string FileOrFolderPath
-		{
-			get { return _FileOrFolderPath; }
-			set { 
-				_FileOrFolderPath = value; 
-				Properties.Settings.Default.SearchFolder = value;  
-				UpdateState("FileOrFolderPath"); 
+			get
+			{
+				return searchResults;
 			}
 		}
 
@@ -66,10 +50,11 @@ namespace dnGREP.WPF
 		public string SearchFor
 		{
 			get { return _SearchFor; }
-			set { 
-				_SearchFor = value; 
-				Properties.Settings.Default.SearchFor = value; 
-				UpdateState("SearchFor"); 
+			set
+			{
+				_SearchFor = value;
+				Properties.Settings.Default.SearchFor = value;
+				UpdateState("SearchFor");
 			}
 		}
 
@@ -80,55 +65,11 @@ namespace dnGREP.WPF
 		public string ReplaceWith
 		{
 			get { return _ReplaceWith; }
-			set { 
-				_ReplaceWith = value; 
-				Properties.Settings.Default.ReplaceWith = value; 
-				UpdateState("ReplaceWith"); 
-			}
-		}
-		
-		private string _FilePattern = "";
-		/// <summary>
-		/// FilePattern property
-		/// </summary>
-		public string FilePattern
-		{
-			get { return _FilePattern; }
 			set
 			{
-				_FilePattern = value;
-				Properties.Settings.Default.FilePattern = value;
-				UpdateState("FilePattern");
-			}
-		}
-
-		private bool _IncludeSubfolder = false;
-		/// <summary>
-		/// IncludeSubfolder property
-		/// </summary>
-		public bool IncludeSubfolder
-		{
-			get { return _IncludeSubfolder; }
-			set
-			{
-				_IncludeSubfolder = value;
-				Properties.Settings.Default.IncludeSubfolder = value;
-				UpdateState("IncludeSubfolder");
-			}
-		}
-
-		private bool _IncludeHidden = false;
-		/// <summary>
-		/// IncludeHidden property
-		/// </summary>
-		public bool IncludeHidden
-		{
-			get { return _IncludeHidden; }
-			set
-			{
-				_IncludeHidden = value;
-				Properties.Settings.Default.IncludeHidden = value;
-				UpdateState("IncludeHidden");
+				_ReplaceWith = value;
+				Properties.Settings.Default.ReplaceWith = value;
+				UpdateState("ReplaceWith");
 			}
 		}
 
@@ -144,65 +85,6 @@ namespace dnGREP.WPF
 				_TypeOfSearch = value;
 				Properties.Settings.Default.TypeOfSearch = value;
 				UpdateState("TypeOfSearch");
-			}
-		}
-
-		private FileSearchType _TypeOfFileSearch = FileSearchType.Asterisk;
-		/// <summary>
-		/// TypeOfFileSearch property
-		/// </summary>
-		public FileSearchType TypeOfFileSearch
-		{
-			get { return _TypeOfFileSearch; }
-			set
-			{
-				_TypeOfFileSearch = value;
-				Properties.Settings.Default.TypeOfFileSearch = value;
-				UpdateState("TypeOfFileSearch");
-			}
-		}
-
-		private FileSizeFilter _UseFileSizeFilter = FileSizeFilter.No;
-		/// <summary>
-		/// UseFileSizeFilter property
-		/// </summary>
-		public FileSizeFilter UseFileSizeFilter
-		{
-			get { return _UseFileSizeFilter; }
-			set
-			{
-				_UseFileSizeFilter = value;
-				Properties.Settings.Default.UseFileSizeFilter = value;
-				UpdateState("UseFileSizeFilter");
-			}
-		}
-
-		private int sizeFrom = 0;
-		/// <summary>
-		/// SizeFrom property
-		/// </summary>
-		public int SizeFrom
-		{
-			get { return sizeFrom; }
-			set { 
-				sizeFrom = value;
-				Properties.Settings.Default.SizeFrom =  value;
-				UpdateState("SizeFrom");
-			}
-		}
-
-		private int _SizeTo = 1000;
-		/// <summary>
-		/// SizeTo property
-		/// </summary>
-		public int SizeTo
-		{
-			get { return _SizeTo; }
-			set
-			{
-				_SizeTo = value;
-				Properties.Settings.Default.SizeTo = value;
-				UpdateState("SizeTo");
 			}
 		}
 
@@ -293,17 +175,8 @@ namespace dnGREP.WPF
 			}
 		}
 
-		
+
 		#region Derived properties
-		private bool _IsSizeFilterSet = true;
-		/// <summary>
-		/// IsSizeFilterSet property
-		/// </summary>
-		public bool IsSizeFilterSet
-		{
-			get { return _IsSizeFilterSet; }
-			set { _IsSizeFilterSet = value; UpdateState("IsSizeFilterSet");	}
-		}
 		
 		private bool filesFound = false;
 		public bool FilesFound
@@ -392,53 +265,14 @@ namespace dnGREP.WPF
 			set { _TextBoxStyle = value; UpdateState("TextBoxStyle"); }
 		}
 
-		private int _CodePage = 0;
-		/// <summary>
-		/// CodePage property
-		/// </summary>
-		public int CodePage
-		{
-			get { return _CodePage; }
-			set { _CodePage = value; UpdateState("CodePage"); }
-		}
-
-		private bool _CanUndo = false;
-		/// <summary>
-		/// CanUndo property
-		/// </summary>
-		public bool CanUndo
-		{
-			get { return _CanUndo; }
-			set { _CanUndo = value; UpdateState("CanUndo"); }
-		}
-
-		private string _UndoFolder = "";
-		/// <summary>
-		/// UndoFolder property
-		/// </summary>
-		public string UndoFolder
-		{
-			get { return _UndoFolder; }
-			set { _UndoFolder = value; UpdateState("UndoFolder"); }
-		}
-
 		#endregion
-		public virtual void UpdateState(string name)
+
+		public void UpdateState(string name)
 		{
 			OnPropertyChanged(name);
 
 			switch (name)
 			{
-				case "UseFileSizeFilter":
-					if (UseFileSizeFilter == FileSizeFilter.Yes)
-					{
-						IsSizeFilterSet = true;
-					}
-					else
-					{
-						IsSizeFilterSet = false;
-					}
-					break;
 				case "Initial":
 				case "Multiline":
 				case "Singleline":
@@ -470,75 +304,14 @@ namespace dnGREP.WPF
 						TextBoxStyle = "{StaticResource ExpandedTextbox}";
 					else
 						TextBoxStyle = "";
-					
+
 					break;
 			}
 
-            //Files found
-            if (name == "FileOrFolderPath" || name == "SearchFor" || name == "FilePattern")
-            {
-                FilesFound = false;
-            }
-
-			//Can search
-			if (name == "FileOrFolderPath" || name == "CurrentGrepOperation" || name == "SearchFor")
+			//Files found
+			if (name == "FileOrFolderPath" || name == "SearchFor" || name == "FilePattern")
 			{
-				if (Utils.IsPathValid(FileOrFolderPath) && CurrentGrepOperation == GrepOperation.None &&
-					(!string.IsNullOrEmpty(SearchFor) || Properties.Settings.Default.AllowSearchingForFileNamePattern))
-				{
-					CanSearch = true;
-				}
-				else
-				{
-					CanSearch = false;
-				}
-			}
-
-			//btnSearch.ShowAdvance
-			if (name == "CurrentGrepOperation" || name == "Initial")
-			{
-				if (searchResults.Count > 0)
-				{
-					//TODO
-					CanSearchInResults = true;
-					SearchButtonMode = "Split";
-				}
-				else
-				{
-					//TODO
-					CanSearchInResults = false;
-					SearchButtonMode = "Button";
-				}
-			}
-
-			//searchResults
-			searchResults.FolderPath = FileOrFolderPath;
-
-			// btnReplace
-			if (name == "FileOrFolderPath" || name == "FilesFound" || name == "CurrentGrepOperation" || name == "SearchFor")
-			{
-				if (Utils.IsPathValid(FileOrFolderPath) && FilesFound && CurrentGrepOperation == GrepOperation.None &&
-					!string.IsNullOrEmpty(SearchFor))
-				{
-					CanReplace = true;
-				}
-				else
-				{
-					CanReplace = false;
-				}
-			}
-
-			//btnCancel
-			if (name == "CurrentGrepOperation")
-			{
-				if (CurrentGrepOperation != GrepOperation.None)
-				{
-					CanCancel = true;
-				}
-				else
-				{
-					CanCancel = false;
-				}
+				FilesFound = false;
 			}
 
 			//Search type specific options
