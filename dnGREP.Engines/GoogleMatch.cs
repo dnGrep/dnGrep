@@ -82,7 +82,37 @@ namespace dnGREP.Engines
 
         public int match_length(string text, string pattern, int loc)
         {
-            return pattern.Length;
+			// Case 0: pattern.length = 0 or text.length = 0
+			if (text == null || pattern == null || text.Length == 0 || pattern.Length == 0)
+				return 0;
+			// Case 1: exact match
+			if (loc + pattern.Length < text.Length &&
+				text.Substring(loc, pattern.Length).ToLower() == pattern.ToLower())
+				return pattern.Length;
+			// Case 2: not exact match
+			int counter = 0;
+			double matchIndex = 0;
+			string matchWord = "";
+			NeedlemanWunch nw = new NeedlemanWunch();
+			while (counter < pattern.Length * 2)
+			{
+				if (counter + loc < text.Length) 
+				{
+					counter++;
+					string tempMatchWord = text.Substring(loc, counter);
+					double tempMatchIndex = nw.GetSimilarity(pattern, tempMatchWord);
+					if (tempMatchIndex > matchIndex)
+					{
+						matchIndex = tempMatchIndex;
+						matchWord = tempMatchWord;
+					}
+				} 
+				else 
+				{
+					break;
+				}
+			}
+			return matchWord.Length;
         }
 
         /**

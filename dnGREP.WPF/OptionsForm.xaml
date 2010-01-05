@@ -5,7 +5,8 @@
     Title="Options" Width="453" WindowStyle="ToolWindow" ResizeMode="CanResize" Height="260" MinHeight="260" 
     Background="{Binding ElementName=tbGeneralTab, Path=Background}"
     Loaded="Window_Load" Closing="Window_Closing" KeyDown="Window_KeyDown"
-    MinWidth="453" Icon="/dnGREP;component/nGREP.ico" WindowStartupLocation="CenterOwner">
+    MinWidth="453" Icon="/dnGREP;component/nGREP.ico" WindowStartupLocation="CenterOwner"
+    my:DiginesisHelpProvider.HelpKeyword="options.html" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True">
     <Window.Resources>
         
     </Window.Resources>

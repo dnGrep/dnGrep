@@ -83,7 +83,7 @@ namespace dnGREP.Engines.Archive
 		{
 			get
 			{
-				return new Version(1, 2, 0, 0);
+				return new Version(1, 3, 0, 0);
 			}
 		}
 

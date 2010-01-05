@@ -16,13 +16,13 @@
         "Entry"
         {
         "MsmKey" = "8:_1518F8DBD891EEC79D74812073DAB9EC"
-        "OwnerKey" = "8:_A8771CB0F1A2495CA1037D9B2A1BE595"
+        "OwnerKey" = "8:_B1C125CD77034547A2A93442FC7D61EE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_1AEDBC3885651103119C4B7FB3FFE453"
-        "OwnerKey" = "8:_A8771CB0F1A2495CA1037D9B2A1BE595"
+        "MsmKey" = "8:_481872A402CC46FA8C9BAFBDAA4CC4B5"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -33,79 +33,67 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_5BAD18A8338D439D9630F459836A706F"
+        "MsmKey" = "8:_62E76C30E5984DD5B4CB369F68F62819"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_6DCBBF5A0B39402BBA32717DD6D0EED7"
+        "MsmKey" = "8:_74C26B861FDDE5510A882E9F82F4F768"
+        "OwnerKey" = "8:_B1C125CD77034547A2A93442FC7D61EE"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_7F3002BA2B014FF77490AEC2169B8D9F"
+        "OwnerKey" = "8:_B1C125CD77034547A2A93442FC7D61EE"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_7F3002BA2B014FF77490AEC2169B8D9F"
+        "OwnerKey" = "8:_74C26B861FDDE5510A882E9F82F4F768"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_B1C125CD77034547A2A93442FC7D61EE"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_89CE9A3AF7B1444492FD6775D6F2FFFA"
+        "MsmKey" = "8:_EB6C2556E7124C12A8BF9157D8E2D727"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_A8771CB0F1A2495CA1037D9B2A1BE595"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_C8CD11669E784A71A87B57A1F4B2C8FC"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D463812EAD2B01184124A3D294653786"
-        "OwnerKey" = "8:_A8771CB0F1A2495CA1037D9B2A1BE595"
+        "MsmKey" = "8:_F077A4628F87DD08A7895A9E4092B98B"
+        "OwnerKey" = "8:_B1C125CD77034547A2A93442FC7D61EE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_F32E74A2226F06F8C26F711092B1810C"
-        "OwnerKey" = "8:_A8771CB0F1A2495CA1037D9B2A1BE595"
+        "OwnerKey" = "8:_B1C125CD77034547A2A93442FC7D61EE"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_F32E74A2226F06F8C26F711092B1810C"
-        "OwnerKey" = "8:_D463812EAD2B01184124A3D294653786"
+        "OwnerKey" = "8:_74C26B861FDDE5510A882E9F82F4F768"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_F32E74A2226F06F8C26F711092B1810C"
-        "OwnerKey" = "8:_1518F8DBD891EEC79D74812073DAB9EC"
+        "OwnerKey" = "8:_7F3002BA2B014FF77490AEC2169B8D9F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A8771CB0F1A2495CA1037D9B2A1BE595"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_D463812EAD2B01184124A3D294653786"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_1AEDBC3885651103119C4B7FB3FFE453"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
+        "MsmKey" = "8:_F32E74A2226F06F8C26F711092B1810C"
         "OwnerKey" = "8:_1518F8DBD891EEC79D74812073DAB9EC"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -113,6 +101,36 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_F32E74A2226F06F8C26F711092B1810C"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_B1C125CD77034547A2A93442FC7D61EE"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_74C26B861FDDE5510A882E9F82F4F768"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_7F3002BA2B014FF77490AEC2169B8D9F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_F077A4628F87DD08A7895A9E4092B98B"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_1518F8DBD891EEC79D74812073DAB9EC"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -144,8 +162,13 @@
                 {
                     "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Net.Framework.2.0"
                     {
-                    "Name" = "8:Microsoft .NET Framework 2.0"
+                    "Name" = "8:.NET Framework 2.0 (x86)"
                     "ProductCode" = "8:Microsoft.Net.Framework.2.0"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Net.Framework.3.5.SP1"
+                    {
+                    "Name" = "8:.NET Framework 3.5 SP1"
+                    "ProductCode" = "8:Microsoft.Net.Framework.3.5.SP1"
                     }
                 }
             }
@@ -241,23 +264,12 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_1AEDBC3885651103119C4B7FB3FFE453"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_481872A402CC46FA8C9BAFBDAA4CC4B5"
             {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:SplitButton, Version=2.0.3.9876, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_1AEDBC3885651103119C4B7FB3FFE453"
-                    {
-                    "Name" = "8:SplitButton.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:SplitButton.dll"
-            "TargetName" = "8:"
+            "SourcePath" = "8:..\\dnGREP.GUI\\Doc\\regular-expressions-cheat-sheet-v2.pdf"
+            "TargetName" = "8:regular-expressions-cheat-sheet-v2.pdf"
             "Tag" = "8:"
-            "Folder" = "8:_A71D582AD6EC4C4E902EE08E18B3CFAC"
+            "Folder" = "8:_35D3C54A8EE84BF1BEED2371817B4135"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -269,7 +281,7 @@
             "PackageAs" = "3:1"
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_540239D84F334A30A19F38F1C5FF6E76"
@@ -292,9 +304,9 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_5BAD18A8338D439D9630F459836A706F"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_62E76C30E5984DD5B4CB369F68F62819"
             {
-            "SourcePath" = "8:..\\nGREP.ico"
+            "SourcePath" = "8:..\\dnGREP.GUI\\nGREP.ico"
             "TargetName" = "8:nGREP.ico"
             "Tag" = "8:"
             "Folder" = "8:_A71D582AD6EC4C4E902EE08E18B3CFAC"
@@ -312,30 +324,21 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_6DCBBF5A0B39402BBA32717DD6D0EED7"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_74C26B861FDDE5510A882E9F82F4F768"
             {
-            "SourcePath" = "8:..\\Doc\\dnGREP.chm"
-            "TargetName" = "8:dnGREP.chm"
-            "Tag" = "8:"
-            "Folder" = "8:_894D94E67A1C4F3C929C4F65DA82CF2E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_89CE9A3AF7B1444492FD6775D6F2FFFA"
-            {
-            "SourcePath" = "8:C:\\Documents and Settings\\528046\\Desktop\\logo.jpg"
-            "TargetName" = "8:logo.jpg"
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:dnGREP.Engines, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_74C26B861FDDE5510A882E9F82F4F768"
+                    {
+                    "Name" = "8:dnGREP.Engines.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:dnGREP.Engines.dll"
+            "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A71D582AD6EC4C4E902EE08E18B3CFAC"
             "Condition" = "8:"
@@ -348,16 +351,47 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:TRUE"
-            "IsDependency" = "11:FALSE"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C8CD11669E784A71A87B57A1F4B2C8FC"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_7F3002BA2B014FF77490AEC2169B8D9F"
             {
-            "SourcePath" = "8:..\\Doc\\regular-expressions-cheat-sheet-v2.pdf"
-            "TargetName" = "8:regular-expressions-cheat-sheet-v2.pdf"
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:dnGREP.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_7F3002BA2B014FF77490AEC2169B8D9F"
+                    {
+                    "Name" = "8:dnGREP.Common.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:dnGREP.Common.dll"
+            "TargetName" = "8:"
             "Tag" = "8:"
-            "Folder" = "8:_894D94E67A1C4F3C929C4F65DA82CF2E"
+            "Folder" = "8:_A71D582AD6EC4C4E902EE08E18B3CFAC"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EB6C2556E7124C12A8BF9157D8E2D727"
+            {
+            "SourcePath" = "8:..\\dnGREP.GUI\\Doc\\dnGREP.chm"
+            "TargetName" = "8:dnGREP.chm"
+            "Tag" = "8:"
+            "Folder" = "8:_35D3C54A8EE84BF1BEED2371817B4135"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -372,20 +406,20 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D463812EAD2B01184124A3D294653786"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F077A4628F87DD08A7895A9E4092B98B"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:dnGREP.Engines, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Wpf.SplitButton, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_D463812EAD2B01184124A3D294653786"
+                    "_F077A4628F87DD08A7895A9E4092B98B"
                     {
-                    "Name" = "8:dnGREP.Engines.dll"
+                    "Name" = "8:Wpf.SplitButton.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:dnGREP.Engines.dll"
+            "SourcePath" = "8:Wpf.SplitButton.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A71D582AD6EC4C4E902EE08E18B3CFAC"
@@ -450,24 +484,24 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_3B934783A0D84E638393E6F4B9E6E179"
-                    {
-                    "Name" = "8:Plugins"
-                    "AlwaysCreate" = "11:FALSE"
-                    "Condition" = "8:"
-                    "Transitive" = "11:FALSE"
-                    "Property" = "8:_7A3096FCC9D647E78584EECB3BA22A5B"
-                        "Folders"
-                        {
-                        }
-                    }
-                    "{9EF0B969-E518-4E46-987F-47570745A589}:_894D94E67A1C4F3C929C4F65DA82CF2E"
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_35D3C54A8EE84BF1BEED2371817B4135"
                     {
                     "Name" = "8:Doc"
                     "AlwaysCreate" = "11:FALSE"
                     "Condition" = "8:"
                     "Transitive" = "11:FALSE"
-                    "Property" = "8:_7A654926D7D34DB98CCCE0685BCB0902"
+                    "Property" = "8:_DA18FDF2BDC94E74AA3E6ED6703EE64E"
+                        "Folders"
+                        {
+                        }
+                    }
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_74087185039D4AA39642752E91CF0898"
+                    {
+                    "Name" = "8:Plugins"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_BA44931209D64E6B8FACE15556253404"
                         "Folders"
                         {
                         }
@@ -506,27 +540,28 @@
         "MsiBootstrapper"
         {
         "LangId" = "3:1033"
+        "RequiresElevation" = "11:FALSE"
         }
         "Product"
         {
         "Name" = "8:Microsoft Visual Studio"
-        "ProductName" = "8:dnGREP 0.13.0"
-        "ProductCode" = "8:{DD11E4E6-E9F8-48D4-B90B-A9DE787630DA}"
-        "PackageCode" = "8:{7613CE24-9092-4AD0-B3D7-EA6F4297D632}"
+        "ProductName" = "8:dnGREP 2.0.0"
+        "ProductCode" = "8:{B4EF7088-E6A4-41FE-BE73-08B4E823CE2B}"
+        "PackageCode" = "8:{56B3AE87-C695-4546-A7D2-A00CA0EDA9D3}"
         "UpgradeCode" = "8:{8E2E05EE-9E1D-432B-857C-6ED033A5F8AD}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.13.0"
+        "ProductVersion" = "8:2.0.0"
         "Manufacturer" = "8:Denis Stankovski"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://code.google.com/p/dngrep/"
-        "Title" = "8:dnGREP 0.13.0"
+        "Title" = "8:dnGREP 2.0.0"
         "Subject" = "8:"
         "ARPCONTACT" = "8:Denis Stankovski"
         "Keywords" = "8:"
-        "ARPCOMMENTS" = "8:.NET implementation of GREP tool with GUI. Requires Microsoft .NET 2.0 to run. "
+        "ARPCOMMENTS" = "8:.NET implementation of GREP tool with GUI. Requires Microsoft .NET 3.5 to run. "
         "ARPURLINFOABOUT" = "8:"
         "ARPPRODUCTICON" = "8:"
         "ARPIconIndex" = "3:0"
@@ -775,7 +810,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_036AB55DB41A4C70A2AC7C69095E7FD3"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_7D200D1388E941D08958500A188D7E7F"
             {
             "Name" = "8:dnGREP"
             "Arguments" = "8:"
@@ -783,10 +818,10 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_A8771CB0F1A2495CA1037D9B2A1BE595"
+            "Target" = "8:_B1C125CD77034547A2A93442FC7D61EE"
             "Folder" = "8:_6514C3ECB1964FF18978154C99460413"
             "WorkingFolder" = "8:_A71D582AD6EC4C4E902EE08E18B3CFAC"
-            "Icon" = "8:_5BAD18A8338D439D9630F459836A706F"
+            "Icon" = "8:_62E76C30E5984DD5B4CB369F68F62819"
             "Feature" = "8:"
             }
         }
@@ -1198,9 +1233,9 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_A8771CB0F1A2495CA1037D9B2A1BE595"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_B1C125CD77034547A2A93442FC7D61EE"
             {
-            "SourcePath" = "8:..\\obj\\Release\\dnGREP.exe"
+            "SourcePath" = "8:..\\dnGREP.WPF\\obj\\Debug\\dnGREP.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_A71D582AD6EC4C4E902EE08E18B3CFAC"
@@ -1218,17 +1253,14 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:Release|Any CPU"
+            "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:Built"
-            "OutputProjectGuid" = "8:{6E9E3A4B-2338-421D-AC57-9939A9A6E6AA}"
+            "OutputProjectGuid" = "8:{CBC7AEC0-59FF-4050-B02D-ADB15359CED4}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {
                 }
             }
-        }
-        "VJSharpPlugin"
-        {
         }
     }
 }

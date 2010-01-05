@@ -123,6 +123,9 @@ namespace dnGREP.Engines.Word
 						searchMethodMultiline = doRegexSearchCaseInsensitiveMultiline;
 					}
 					break;
+				case SearchType.Soundex:
+					searchMethodMultiline = doFuzzySearchMultiline;
+					break;
 			}
 
             List<GrepSearchResult> result = searchMultiline(file, searchPattern, searchOptions, searchMethodMultiline);
@@ -180,7 +183,7 @@ namespace dnGREP.Engines.Word
 		{
 			get
 			{
-				return new Version(1,2,0,0);
+				return new Version(1,3,0,0);
 			}
 		}
 

@@ -41,7 +41,7 @@
                 <Menu Background="{Binding ElementName=gridTop, Path=Background}" Name="mnuMainMenu" Grid.Column="1" HorizontalAlignment="Right" Style="{StaticResource DefaultStyle}">
                     <MenuItem Name="undoToolStripMenuItem" Header="_Undo" IsEnabled="{Binding Path=CanUndo}" Click="undoToolStripMenuItem_Click"/>
                     <MenuItem Header="_Options..." Click="btnOptions_Click"/>
-                    <MenuItem Header="_Help" Name="helpToolStripMenuItem">
+                    <MenuItem Header="_About" Name="helpToolStripMenuItem">
                         <MenuItem Click="helpToolStripMenuItem_Click" Header="_Help"></MenuItem>
                         <MenuItem Click="aboutToolStripMenuItem_Click" Header="_About..."></MenuItem>
                     </MenuItem>

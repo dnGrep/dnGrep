@@ -51,6 +51,7 @@
     <Compile Include="IGrepEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GrepEngineBase.cs" />
+    <Compile Include="SimMetrics.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\dnGREP.Common\dnGREP.Common.csproj">

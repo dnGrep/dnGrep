@@ -86,7 +86,7 @@ namespace dnGREP.Engines
                 if (matchLocation == -1)
                     break;
 
-                int matchLength = fuzzyMatchEngine.match_length(text.Substring(counter), searchPattern, counter);
+				int matchLength = fuzzyMatchEngine.match_length(text.Substring(counter), searchPattern, matchLocation);
 
                 List<int> lineNumbers = new List<int>();
                 List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
@@ -336,7 +336,7 @@ namespace dnGREP.Engines
                     break;
                 }
 
-                int matchLength = fuzzyMatchEngine.match_length(text.Substring(counter), searchPattern, counter);
+				int matchLength = fuzzyMatchEngine.match_length(text.Substring(counter), searchPattern, matchLocation);
 
                 // Text before match
                 result.Append(text.Substring(counter, matchLocation));

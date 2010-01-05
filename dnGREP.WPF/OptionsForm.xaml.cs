@@ -31,6 +31,8 @@ namespace dnGREP.WPF
             InitializeComponent();
             oldShellUnregister();
             openFileDialog.Title = "Path to custom editor...";
+			DiginesisHelpProvider.HelpNamespace = "Doc\\dnGREP.chm";
+			DiginesisHelpProvider.ShowHelp = true;
         }
 
         private System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -194,6 +196,7 @@ namespace dnGREP.WPF
             tbEditorPath.Text = Properties.Settings.Default.CustomEditor;
             tbEditorArgs.Text = Properties.Settings.Default.CustomEditorArgs;
 			cbPreviewResults.IsChecked = Properties.Settings.Default.PreviewResults;
+			tbUpdateInterval.Text = Properties.Settings.Default.UpdateCheckInterval;
             changeState();
         }
 
@@ -231,6 +234,7 @@ namespace dnGREP.WPF
             Properties.Settings.Default.CustomEditor = tbEditorPath.Text;
             Properties.Settings.Default.CustomEditorArgs = tbEditorArgs.Text;
 			Properties.Settings.Default.PreviewResults = cbPreviewResults.IsChecked == true;
+			Properties.Settings.Default.UpdateCheckInterval = Utils.ParseInt(tbUpdateInterval.Text, 1).ToString();
             Properties.Settings.Default.Save();
         }
 
