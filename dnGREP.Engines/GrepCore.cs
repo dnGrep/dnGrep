@@ -79,7 +79,7 @@ namespace dnGREP.Common
 			List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
 
 			if (files == null || files.Length == 0)
-				return null;
+				return searchResults;
 
 			if (searchPattern == null || searchPattern.Trim() == "")
 			{

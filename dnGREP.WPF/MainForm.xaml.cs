@@ -667,7 +667,8 @@ namespace dnGREP.WPF
 
         private void tvSearchResult_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (tvSearchResult.SelectedItem is FormattedGrepLine && e.OriginalSource is TextBlock)
+            if (tvSearchResult.SelectedItem is FormattedGrepLine && 
+				e.OriginalSource is TextBlock || e.OriginalSource is Run)
             {
                 btnOpenFile_Click(sender, new RoutedEventArgs(e.RoutedEvent));
             }
