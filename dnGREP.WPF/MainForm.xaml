@@ -214,6 +214,7 @@
                         <MenuItem Name="moveFilesToolStripMenuItem" Header="Move files..." Style="{StaticResource DefaultStyle}" Click="moveFilesToolStripMenuItem_Click"/>
                         <MenuItem Name="deleteFilesToolStripMenuItem" Header="Delete files..." Style="{StaticResource DefaultStyle}" Click="deleteFilesToolStripMenuItem_Click"/>
                         <Separator/>
+                        <MenuItem Name="copyToClipboardToolStripMenuItem" Header="File names to clipboard" Style="{StaticResource DefaultStyle}" Click="copyToClipboardToolStripMenuItem_Click"/>
                         <MenuItem Name="saveAsCSVToolStripMenuItem" Header="Save as CSV..." Style="{StaticResource DefaultStyle}" Click="saveAsCSVToolStripMenuItem_Click"/>
                     </splitButton:SplitButton>
                     <Button Width="64" Margin="3" Content="Cancel" Name="btnCancel" Click="btnCancel_Click"  IsEnabled="{Binding Path=CanCancel}"/>

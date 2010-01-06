@@ -579,6 +579,16 @@ namespace dnGREP.WPF
 			}
 		}
 
+		private void copyToClipboardToolStripMenuItem_Click(object sender, RoutedEventArgs e)
+		{
+			StringBuilder sb = new StringBuilder();
+			foreach (GrepSearchResult result in inputData.SearchResults.GetList())
+			{
+				sb.AppendLine(result.FileNameReal);
+			}
+			Clipboard.SetText(sb.ToString());
+		}
+
 		private void moveFilesToolStripMenuItem_Click(object sender, RoutedEventArgs e)
 		{
             if (inputData.FilesFound)
@@ -770,6 +780,6 @@ namespace dnGREP.WPF
                 }
                 inputData.FileOrFolderPath = sb.ToString();
             } 
-        }
+        }		
 	}
 }
