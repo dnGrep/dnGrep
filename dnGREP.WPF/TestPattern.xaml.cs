@@ -58,6 +58,8 @@ namespace dnGREP.WPF
                 searchOptions |= GrepSearchOption.CaseSensitive;
             if (inputData.Singleline)
                 searchOptions |= GrepSearchOption.SingleLine;
+			if (inputData.WholeWord)
+				searchOptions |= GrepSearchOption.WholeWord;
             using (Stream inputStream = new MemoryStream(Encoding.Default.GetBytes(tbTestInput.Text)))
             {
                 results = engine.Search(inputStream, "test.txt", inputData.SearchFor, inputData.TypeOfSearch,
@@ -102,6 +104,8 @@ namespace dnGREP.WPF
                 searchOptions |= GrepSearchOption.CaseSensitive;
             if (inputData.Singleline)
                 searchOptions |= GrepSearchOption.SingleLine;
+			if (inputData.WholeWord)
+				searchOptions |= GrepSearchOption.WholeWord;
 
             string replacedString = "";
             using (Stream inputStream = new MemoryStream(Encoding.Default.GetBytes(tbTestInput.Text)))

@@ -302,6 +302,8 @@ namespace dnGREP.WPF
                             searchOptions |= GrepSearchOption.CaseSensitive;
                         if (inputData.Singleline)
                             searchOptions |= GrepSearchOption.SingleLine;
+						if (inputData.WholeWord)
+							searchOptions |= GrepSearchOption.WholeWord;
 
 						grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
 						List<GrepSearchResult> results = null;
@@ -324,6 +326,8 @@ namespace dnGREP.WPF
                             searchOptions |= GrepSearchOption.CaseSensitive;
                         if (inputData.Singleline)
                             searchOptions |= GrepSearchOption.SingleLine;
+						if (inputData.WholeWord)
+							searchOptions |= GrepSearchOption.WholeWord;
 
 						grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
                         string[] files = ((List<string>)workerParams["Files"]).ToArray();

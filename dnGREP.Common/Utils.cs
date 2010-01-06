@@ -826,6 +826,88 @@ namespace dnGREP.Common
 			}
 			return sb.ToString();
 		}
+
+		/// <summary>
+		/// Returns true if beginText end with a non-alphanumeric character. Copied from AtroGrep.
+		/// </summary>
+		/// <param name="beginText">Text to test</param>
+		/// <returns></returns>
+		public static bool IsValidBeginText(string beginText)
+		{
+			if (beginText.Equals(string.Empty) ||
+			   beginText.EndsWith(" ") ||
+			   beginText.EndsWith("<") ||
+			   beginText.EndsWith("$") ||
+			   beginText.EndsWith("+") ||
+			   beginText.EndsWith("*") ||
+			   beginText.EndsWith("[") ||
+			   beginText.EndsWith("{") ||
+			   beginText.EndsWith("(") ||
+			   beginText.EndsWith(".") ||
+			   beginText.EndsWith("?") ||
+			   beginText.EndsWith("!") ||
+			   beginText.EndsWith(",") ||
+			   beginText.EndsWith(":") ||
+			   beginText.EndsWith(";") ||
+			   beginText.EndsWith("-") ||
+			   beginText.EndsWith("\\") ||
+			   beginText.EndsWith("/") ||
+			   beginText.EndsWith("'") ||
+			   beginText.EndsWith("\"") ||
+			   beginText.EndsWith(Environment.NewLine) ||
+			   beginText.EndsWith("\r\n") ||
+			   beginText.EndsWith("\r") ||
+			   beginText.EndsWith("\n")
+			   )
+			{
+				return true;
+			}
+
+			return false;
+		}
+
+		/// <summary>
+		/// Returns true if endText starts with a non-alphanumeric character. Copied from AtroGrep.
+		/// </summary>
+		/// <param name="endText"></param>
+		/// <returns></returns>
+		public static bool IsValidEndText(string endText)
+		{
+			if (endText.Equals(string.Empty) ||
+			   endText.StartsWith(" ") ||
+			   endText.StartsWith("<") ||
+			   endText.StartsWith("$") ||
+			   endText.StartsWith("+") ||
+			   endText.StartsWith("*") ||
+			   endText.StartsWith("[") ||
+			   endText.StartsWith("{") ||
+			   endText.StartsWith("(") ||
+			   endText.StartsWith(".") ||
+			   endText.StartsWith("?") ||
+			   endText.StartsWith("!") ||
+			   endText.StartsWith(",") ||
+			   endText.StartsWith(":") ||
+			   endText.StartsWith(";") ||
+			   endText.StartsWith("-") ||
+			   endText.StartsWith(">") ||
+			   endText.StartsWith("]") ||
+			   endText.StartsWith("}") ||
+			   endText.StartsWith(")") ||
+			   endText.StartsWith("\\") ||
+			   endText.StartsWith("/") ||
+			   endText.StartsWith("'") ||
+			   endText.StartsWith("\"") ||
+			   endText.StartsWith(Environment.NewLine) ||
+			   endText.StartsWith("\r\n") ||
+			   endText.StartsWith("\r") ||
+			   endText.StartsWith("\n")
+			   )
+			{
+				return true;
+			}
+
+			return false;
+		}
 	}
 
 	public class KeyValueComparer : IComparer<KeyValuePair<string, int>>

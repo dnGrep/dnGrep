@@ -99,29 +99,22 @@ namespace dnGREP.Engines.Word
         public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
 		{
 			load();
-			SearchDelegates.DoSearch searchMethodMultiline = doTextSearchCaseSensitiveMultiline;
+			SearchDelegates.DoSearch searchMethodMultiline = doTextSearchCaseSensitive;
 			switch (searchType)
 			{
 				case SearchType.PlainText:
 				case SearchType.XPath:
                     if ((searchOptions & GrepSearchOption.CaseSensitive) == GrepSearchOption.CaseSensitive)
 					{
-						searchMethodMultiline = doTextSearchCaseSensitiveMultiline;
+						searchMethodMultiline = doTextSearchCaseSensitive;
 					}
 					else
 					{
-						searchMethodMultiline = doTextSearchCaseInsensitiveMultiline;
+						searchMethodMultiline = doTextSearchCaseInsensitive;
 					}
 					break;
 				case SearchType.Regex:
-                    if ((searchOptions & GrepSearchOption.CaseSensitive) == GrepSearchOption.CaseSensitive)
-					{
-						searchMethodMultiline = doRegexSearchCaseSensitiveMultiline;
-					}
-					else
-					{
-						searchMethodMultiline = doRegexSearchCaseInsensitiveMultiline;
-					}
+                    searchMethodMultiline = doRegexSearch;
 					break;
 				case SearchType.Soundex:
 					searchMethodMultiline = doFuzzySearchMultiline;

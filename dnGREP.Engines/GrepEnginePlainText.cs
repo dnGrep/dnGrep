@@ -39,28 +39,21 @@ namespace dnGREP.Engines
 
         public List<GrepSearchResult> Search(Stream input, string fileName, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
 		{
-			SearchDelegates.DoSearch searchMethod = doTextSearchCaseSensitiveMultiline;
+			SearchDelegates.DoSearch searchMethod = doTextSearchCaseSensitive;
 			switch (searchType)
 			{
 				case SearchType.PlainText:
                     if ((searchOptions & GrepSearchOption.CaseSensitive) == GrepSearchOption.CaseSensitive)
 					{
-						searchMethod = doTextSearchCaseSensitiveMultiline;
+						searchMethod = doTextSearchCaseSensitive;
 					}
 					else
 					{
-						searchMethod = doTextSearchCaseInsensitiveMultiline;
+						searchMethod = doTextSearchCaseInsensitive;
 					}
 					break;
 				case SearchType.Regex:
-                    if ((searchOptions & GrepSearchOption.CaseSensitive) == GrepSearchOption.CaseSensitive)
-					{
-						searchMethod = doRegexSearchCaseSensitiveMultiline;
-					}
-					else
-					{
-						searchMethod = doRegexSearchCaseInsensitiveMultiline;
-					}
+					searchMethod = doRegexSearch;
 					break;
 				case SearchType.XPath:
 					searchMethod = doXPathSearch;
@@ -87,66 +80,34 @@ namespace dnGREP.Engines
 
 		public bool Replace(Stream readStream, Stream writeStream, string searchPattern, string replacePattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
 		{
-			SearchDelegates.DoIsMatch searchMethod = doTextSearchCaseSensitive;
-			SearchDelegates.DoSearch searchMethodMultiline = doTextSearchCaseSensitiveMultiline;
 			SearchDelegates.DoReplace replaceMethod = doTextReplaceCaseSensitive;
 			switch (searchType)
 			{
 				case SearchType.PlainText:
                     if ((searchOptions & GrepSearchOption.CaseSensitive) == GrepSearchOption.CaseSensitive)
 					{
-                        if ((searchOptions & GrepSearchOption.Multiline) == GrepSearchOption.Multiline)
-							searchMethodMultiline = doTextSearchCaseSensitiveMultiline;
-						else
-							searchMethod = doTextSearchCaseSensitive;
-						
 						replaceMethod = doTextReplaceCaseSensitive;
 					}
 					else
 					{
-                        if ((searchOptions & GrepSearchOption.Multiline) == GrepSearchOption.Multiline)
-							searchMethodMultiline = doTextSearchCaseInsensitiveMultiline;
-						else
-							searchMethod = doTextSearchCaseInsensitive;
-
 						replaceMethod = doTextReplaceCaseInsensitive;
 					}
 					break;
 				case SearchType.Regex:
-                    if ((searchOptions & GrepSearchOption.CaseSensitive) == GrepSearchOption.CaseSensitive)
-					{
-                        if ((searchOptions & GrepSearchOption.Multiline) == GrepSearchOption.Multiline)
-							searchMethodMultiline = doRegexSearchCaseSensitiveMultiline;
-						else
-							searchMethod = doRegexSearchCaseSensitive;
-
-						replaceMethod = doRegexReplaceCaseSensitive;
-					}
-					else
-					{
-                        if ((searchOptions & GrepSearchOption.Multiline) == GrepSearchOption.Multiline)
-							searchMethodMultiline = doRegexSearchCaseInsensitiveMultiline;
-						else
-							searchMethod = doRegexSearchCaseInsensitive;
-
-						replaceMethod = doRegexReplaceCaseInsensitive;
-					}
+					replaceMethod = doRegexReplace;
 					break;
 				case SearchType.XPath:
-					searchMethodMultiline = doXPathSearch;
 					replaceMethod = doXPathReplace;
 					break;
                 case SearchType.Soundex:
-                    searchMethod = doFuzzySearch;
-                    searchMethodMultiline = doFuzzySearchMultiline;
                     replaceMethod = doFuzzyReplace;
                     break;
 			}
 
             if ((searchOptions & GrepSearchOption.Multiline) == GrepSearchOption.Multiline)
-                return replaceMultiline(readStream, writeStream, searchPattern, replacePattern, searchOptions, searchMethodMultiline, replaceMethod, encoding);
+                return replaceMultiline(readStream, writeStream, searchPattern, replacePattern, searchOptions, replaceMethod, encoding);
 			else
-                return replace(readStream, writeStream, searchPattern, replacePattern, searchOptions, searchMethod, replaceMethod, encoding);
+				return replace(readStream, writeStream, searchPattern, replacePattern, searchOptions, replaceMethod, encoding);
 		}
 
 		public void Unload()
@@ -246,7 +207,7 @@ namespace dnGREP.Engines
 			return searchResults;
 		}
 
-        private bool replace(Stream inputStream, Stream outputStream, string searchPattern, string replacePattern, GrepSearchOption searchOptions, SearchDelegates.DoIsMatch searchMethod, SearchDelegates.DoReplace replaceMethod, Encoding encoding)
+        private bool replace(Stream inputStream, Stream outputStream, string searchPattern, string replacePattern, GrepSearchOption searchOptions, SearchDelegates.DoReplace replaceMethod, Encoding encoding)
 		{
             using (StreamReader readStream = new StreamReader(inputStream, encoding))
 			{
@@ -257,10 +218,7 @@ namespace dnGREP.Engines
 
 				while ((line = readStream.ReadLine()) != null)
 				{
-                    if (searchMethod(line, searchPattern, searchOptions))
-					{
-                        line = replaceMethod(line, searchPattern, replacePattern, searchOptions);
-					}
+					line = replaceMethod(line, searchPattern, replacePattern, searchOptions);
 					writeStream.WriteLine(line);
 					counter++;
 				}
@@ -271,7 +229,7 @@ namespace dnGREP.Engines
 			return true;
 		}
 
-        private bool replaceMultiline(Stream inputStream, Stream outputStream, string searchPattern, string replacePattern, GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod, SearchDelegates.DoReplace replaceMethod, Encoding encoding)
+        private bool replaceMultiline(Stream inputStream, Stream outputStream, string searchPattern, string replacePattern, GrepSearchOption searchOptions, SearchDelegates.DoReplace replaceMethod, Encoding encoding)
 		{
             using (StreamReader readStream = new StreamReader(inputStream, encoding))
 			{

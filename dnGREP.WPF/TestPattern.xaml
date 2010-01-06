@@ -72,6 +72,7 @@
                         <StackPanel Orientation="Horizontal">
                             <CheckBox Margin="3" Name="cbCaseSensitive" IsChecked="{Binding Path=CaseSensitive}" IsEnabled="{Binding Path=IsCaseSensitiveEnabled}">Case sensitive</CheckBox>
                             <CheckBox Margin="3" Name="cbMultiline" IsChecked="{Binding Path=Multiline}" IsEnabled="{Binding Path=IsMultilineEnabled}">Multiline (slower)</CheckBox>
+                            <CheckBox Margin="3" Name="cbWholeWord" IsChecked="{Binding Path=WholeWord}" IsEnabled="{Binding Path=IsWholeWordEnabled}">Whole word</CheckBox>
                             <CheckBox Margin="3" Name="cbSingleline" IsChecked="{Binding Path=Singleline}" IsEnabled="{Binding Path=IsSinglelineEnabled}">Match dot as newline</CheckBox>
                         </StackPanel>
                     </Expander>

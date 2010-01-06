@@ -32,6 +32,7 @@ namespace dnGREP.WPF
 			CaseSensitive = Properties.Settings.Default.CaseSensitive;
 			Multiline = Properties.Settings.Default.Multiline;
 			Singleline = Properties.Settings.Default.Singleline;
+			WholeWord = Properties.Settings.Default.WholeWord;
 		}
 
 		private ObservableGrepSearchResults searchResults = new ObservableGrepSearchResults();
@@ -175,6 +176,31 @@ namespace dnGREP.WPF
 			}
 		}
 
+		private bool _WholeWord = false;
+		/// <summary>
+		/// WholeWord property
+		/// </summary>
+		public bool WholeWord
+		{
+			get { return _WholeWord; }
+			set
+			{
+				_WholeWord = value;
+				Properties.Settings.Default.WholeWord = value;
+				UpdateState("WholeWord");
+			}
+		}
+
+		private bool _IsWholeWordEnabled = true;
+		/// <summary>
+		/// IsWholeWordEnabled property
+		/// </summary>
+		public bool IsWholeWordEnabled
+		{
+			get { return _IsWholeWordEnabled; }
+			set { _IsWholeWordEnabled = value; UpdateState("IsWholeWordEnabled"); }
+		}
+
 
 		#region Derived properties
 		
@@ -276,12 +302,15 @@ namespace dnGREP.WPF
 				case "Initial":
 				case "Multiline":
 				case "Singleline":
+				case "WholeWord":
 				case "CaseSensitive":
 					List<string> tempList = new List<string>();
 					if (CaseSensitive)
 						tempList.Add("Case sensitive");
 					if (Multiline)
 						tempList.Add("Multiline");
+					if (WholeWord)
+						tempList.Add("Whole word");
 					if (Singleline)
 						tempList.Add("Match dot as new line");
 					OptionsSummary = "[";
@@ -315,6 +344,7 @@ namespace dnGREP.WPF
 			}
 
 			//Search type specific options
+			//Search type specific options
 			if (name == "TypeOfSearch")
 			{
 				if (TypeOfSearch == SearchType.XPath)
@@ -322,15 +352,18 @@ namespace dnGREP.WPF
 					IsCaseSensitiveEnabled = false;
 					IsMultilineEnabled = false;
 					IsSinglelineEnabled = false;
+					IsWholeWordEnabled = false;
 					CaseSensitive = false;
 					Multiline = false;
 					Singleline = false;
+					WholeWord = false;
 				}
 				else if (TypeOfSearch == SearchType.PlainText)
 				{
 					IsCaseSensitiveEnabled = true;
 					IsMultilineEnabled = true;
 					IsSinglelineEnabled = false;
+					IsWholeWordEnabled = true;
 					Singleline = false;
 				}
 				else if (TypeOfSearch == SearchType.Soundex)
@@ -338,6 +371,7 @@ namespace dnGREP.WPF
 					IsMultilineEnabled = true;
 					IsCaseSensitiveEnabled = false;
 					IsSinglelineEnabled = false;
+					IsWholeWordEnabled = true;
 					CaseSensitive = false;
 					Singleline = false;
 				}
@@ -346,6 +380,7 @@ namespace dnGREP.WPF
 					IsCaseSensitiveEnabled = true;
 					IsMultilineEnabled = true;
 					IsSinglelineEnabled = true;
+					IsWholeWordEnabled = true;
 				}
 			}
 		}

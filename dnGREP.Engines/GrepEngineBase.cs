@@ -35,58 +35,30 @@ namespace dnGREP.Engines
 			Utils.OpenFile(args);
 		}
 
-        protected bool doTextSearchCaseInsensitive(string text, string searchText, GrepSearchOption searchOptions)
-		{
-			return text.ToLower().Contains(searchText.ToLower());
-		}
-
-        protected bool doTextSearchCaseSensitive(string text, string searchText, GrepSearchOption searchOptions)
-		{
-			return text.Contains(searchText);
-		}
-
-        protected bool doRegexSearchCaseInsensitive(string text, string searchPattern, GrepSearchOption searchOptions)
-		{
-            RegexOptions regexOptions = RegexOptions.None;
-            if ((searchOptions & GrepSearchOption.CaseSensitive) != GrepSearchOption.CaseSensitive)
-                regexOptions |= RegexOptions.IgnoreCase;
-            if ((searchOptions & GrepSearchOption.Multiline) == GrepSearchOption.Multiline)
-                regexOptions |= RegexOptions.Multiline;
-            if ((searchOptions & GrepSearchOption.SingleLine) == GrepSearchOption.SingleLine)
-                regexOptions |= RegexOptions.Singleline;
-
-            return Regex.IsMatch(text, searchPattern, regexOptions);
-		}
-
-        protected bool doRegexSearchCaseSensitive(string text, string searchPattern, GrepSearchOption searchOptions)
-		{
-            RegexOptions regexOptions = RegexOptions.None;
-            if ((searchOptions & GrepSearchOption.CaseSensitive) != GrepSearchOption.CaseSensitive)
-                regexOptions |= RegexOptions.IgnoreCase;
-            if ((searchOptions & GrepSearchOption.Multiline) == GrepSearchOption.Multiline)
-                regexOptions |= RegexOptions.Multiline;
-            if ((searchOptions & GrepSearchOption.SingleLine) == GrepSearchOption.SingleLine)
-                regexOptions |= RegexOptions.Singleline;
-
-            return Regex.IsMatch(text, searchPattern, regexOptions);
-		}
-
-        protected bool doFuzzySearch(string text, string searchPattern, GrepSearchOption searchOptions)
-        {
-            return fuzzyMatchEngine.match_main(text, searchPattern, 0) != -1; 
-        }
-
-		protected List<GrepSearchResult.GrepLine> doFuzzySearchMultiline(string text, string searchPattern, GrepSearchOption searchOptions, bool includeContext)
+        protected List<GrepSearchResult.GrepLine> doFuzzySearchMultiline(string text, string searchPattern, GrepSearchOption searchOptions, bool includeContext)
         {
             List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
             int counter = 0;
+			bool isWholeWord = (searchOptions & GrepSearchOption.WholeWord) == GrepSearchOption.WholeWord;
             while (counter < text.Length)
             {
                 int matchLocation = fuzzyMatchEngine.match_main(text.Substring(counter), searchPattern, counter);
                 if (matchLocation == -1)
                     break;
 
-				int matchLength = fuzzyMatchEngine.match_length(text.Substring(counter), searchPattern, matchLocation);
+				if (isWholeWord && !Utils.IsValidBeginText(text.Substring(counter).Substring(0, matchLocation)))
+				{
+					counter = counter + matchLocation + searchPattern.Length;
+					continue;
+				}
+
+				int matchLength = fuzzyMatchEngine.match_length(text.Substring(counter), searchPattern, matchLocation, isWholeWord, 0.5);
+
+				if (matchLength == -1)
+				{
+					counter = counter + matchLocation + searchPattern.Length;
+					continue;
+				}
 
                 List<int> lineNumbers = new List<int>();
                 List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
@@ -132,7 +104,7 @@ namespace dnGREP.Engines
 			return results;
 		}
 
-		protected List<GrepSearchResult.GrepLine> doRegexSearchCaseSensitiveMultiline(string text, string searchPattern, GrepSearchOption searchOptions, bool includeContext)
+		protected List<GrepSearchResult.GrepLine> doRegexSearch(string text, string searchPattern, GrepSearchOption searchOptions, bool includeContext)
 		{
             RegexOptions regexOptions = RegexOptions.None;
             if ((searchOptions & GrepSearchOption.CaseSensitive) != GrepSearchOption.CaseSensitive)
@@ -142,9 +114,25 @@ namespace dnGREP.Engines
             if ((searchOptions & GrepSearchOption.SingleLine) == GrepSearchOption.SingleLine)
                 regexOptions |= RegexOptions.Singleline;
 
+			bool isWholeWord = (searchOptions & GrepSearchOption.WholeWord) == GrepSearchOption.WholeWord;
+
+			if (isWholeWord)
+			{
+				if (!searchPattern.Trim().StartsWith("\\b"))
+					searchPattern = "\\b" + searchPattern.Trim();
+				if (!searchPattern.Trim().EndsWith("\\b"))
+					searchPattern = searchPattern.Trim() + "\\b";
+			}
+
 			List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
             foreach (Match match in Regex.Matches(text, searchPattern, regexOptions))
 			{
+				//if (isWholeWord && (!Utils.IsValidBeginText(text.Substring(0, match.Index)) ||
+				//    !Utils.IsValidEndText(text.Substring(match.Index + match.Length))))
+				//{
+				//    continue;
+				//}
+
 				List<int> lineNumbers = new List<int>();
                 List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
                 List<string> lines = Utils.GetLines(text, match.Index, match.Length, out matches, out lineNumbers);
@@ -167,50 +155,24 @@ namespace dnGREP.Engines
 			return results;
 		}
 
-		protected List<GrepSearchResult.GrepLine> doRegexSearchCaseInsensitiveMultiline(string text, string searchPattern, GrepSearchOption searchOptions, bool includeContext)
-		{
-            RegexOptions regexOptions = RegexOptions.None;
-            if ((searchOptions & GrepSearchOption.CaseSensitive) != GrepSearchOption.CaseSensitive)
-                regexOptions |= RegexOptions.IgnoreCase;
-            if ((searchOptions & GrepSearchOption.Multiline) == GrepSearchOption.Multiline)
-                regexOptions |= RegexOptions.Multiline;
-            if ((searchOptions & GrepSearchOption.SingleLine) == GrepSearchOption.SingleLine)
-                regexOptions |= RegexOptions.Singleline;
-
-			List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
-            foreach (Match match in Regex.Matches(text, searchPattern, regexOptions))
-			{
-				List<int> lineNumbers = new List<int>();
-                List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
-                List<string> lines = Utils.GetLines(text, match.Index, match.Length, out matches, out lineNumbers);
-				if (lineNumbers != null)
-				{
-					for (int i = 0; i < lineNumbers.Count; i++)
-					{
-                        List<GrepSearchResult.GrepMatch> lineMatches = new List<GrepSearchResult.GrepMatch>();
-                        foreach (GrepSearchResult.GrepMatch m in matches) if (m.LineNumber == lineNumbers[i]) lineMatches.Add(m);
-
-                        results.Add(new GrepSearchResult.GrepLine(lineNumbers[i], lines[i], false, lineMatches));
-						if (showLinesInContext && includeContext)
-						{
-							results.AddRange(Utils.GetContextLines(text, linesBefore,
-								linesAfter, lineNumbers[i]));
-						}
-					}
-				}
-			}
-			return results;
-		}
-
-        protected List<GrepSearchResult.GrepLine> doTextSearchCaseInsensitiveMultiline(string text, string searchText, GrepSearchOption searchOptions, bool includeContext)
+        protected List<GrepSearchResult.GrepLine> doTextSearchCaseInsensitive(string text, string searchText, GrepSearchOption searchOptions, bool includeContext)
 		{
 			List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
 			int index = 0;
+			bool isWholeWord = (searchOptions & GrepSearchOption.WholeWord) == GrepSearchOption.WholeWord;
+
 			while (index >= 0)
 			{
 				index = text.IndexOf(searchText, index, StringComparison.InvariantCultureIgnoreCase);
 				if (index >= 0)
 				{
+					if (isWholeWord && (!Utils.IsValidBeginText(text.Substring(0, index)) ||
+					!Utils.IsValidEndText(text.Substring(index + searchText.Length))))
+					{
+						index++;
+						continue;
+					}
+
 					List<int> lineNumbers = new List<int>();
                     List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
                     List<string> lines = Utils.GetLines(text, index, searchText.Length, out matches, out lineNumbers);
@@ -235,15 +197,23 @@ namespace dnGREP.Engines
 			return results;
 		}
 
-        protected List<GrepSearchResult.GrepLine> doTextSearchCaseSensitiveMultiline(string text, string searchText, GrepSearchOption searchOptions, bool includeContext)
+        protected List<GrepSearchResult.GrepLine> doTextSearchCaseSensitive(string text, string searchText, GrepSearchOption searchOptions, bool includeContext)
 		{
 			List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
 			int index = 0;
+			bool isWholeWord = (searchOptions & GrepSearchOption.WholeWord) == GrepSearchOption.WholeWord;
 			while (index >= 0)
 			{
 				index = text.IndexOf(searchText, index, StringComparison.InvariantCulture);
 				if (index >= 0)
 				{
+					if (isWholeWord && (!Utils.IsValidBeginText(text.Substring(0, index)) ||
+					!Utils.IsValidEndText(text.Substring(index + searchText.Length))))
+					{
+						index++;
+						continue;
+					}
+
 					List<int> lineNumbers = new List<int>();
                     List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
 					List<string> lines = Utils.GetLines(text, index, searchText.Length, out matches, out lineNumbers);
@@ -270,34 +240,65 @@ namespace dnGREP.Engines
 
         protected string doTextReplaceCaseSensitive(string text, string searchText, string replaceText, GrepSearchOption searchOptions)
 		{
-			return text.Replace(searchText, replaceText);
+			StringBuilder sb = new StringBuilder();
+			int index = 0;
+			int counter = 0;
+			bool isWholeWord = (searchOptions & GrepSearchOption.WholeWord) == GrepSearchOption.WholeWord;
+			while (index >= 0)
+			{
+				index = text.IndexOf(searchText, index, StringComparison.InvariantCulture);
+				if (index >= 0)
+				{
+					if (isWholeWord && (!Utils.IsValidBeginText(text.Substring(0, index)) ||
+					!Utils.IsValidEndText(text.Substring(index + searchText.Length))))
+					{
+						index++;
+						continue;
+					}
+
+					sb.Append(text.Substring(counter, index - counter));
+					sb.Append(replaceText);
+
+					counter = index + searchText.Length;
+			
+					index++;
+				}
+			}
+			sb.Append(text.Substring(counter));
+			return sb.ToString();
 		}
 
         protected string doTextReplaceCaseInsensitive(string text, string searchText, string replaceText, GrepSearchOption searchOptions)
 		{
-			int count, position0, position1;
-			count = position0 = position1 = 0;
-			string upperString = text.ToUpper();
-			string upperPattern = searchText.ToUpper();
-			int inc = (text.Length / searchText.Length) *
-					  (replaceText.Length - searchText.Length);
-			char[] chars = new char[text.Length + Math.Max(0, inc)];
-			while ((position1 = upperString.IndexOf(upperPattern,
-											  position0)) != -1)
+			StringBuilder sb = new StringBuilder();
+			int index = 0;
+			int counter = 0;
+			bool isWholeWord = (searchOptions & GrepSearchOption.WholeWord) == GrepSearchOption.WholeWord;
+			while (index >= 0)
 			{
-				for (int i = position0; i < position1; ++i)
-					chars[count++] = text[i];
-				for (int i = 0; i < replaceText.Length; ++i)
-					chars[count++] = replaceText[i];
-				position0 = position1 + searchText.Length;
+				index = text.ToLowerInvariant().IndexOf(searchText.ToLowerInvariant(), index, StringComparison.InvariantCulture);
+				if (index >= 0)
+				{
+					if (isWholeWord && (!Utils.IsValidBeginText(text.Substring(0, index)) ||
+					!Utils.IsValidEndText(text.Substring(index + searchText.Length))))
+					{
+						index++;
+						continue;
+					}
+
+					sb.Append(text.Substring(counter, index - counter));
+					sb.Append(replaceText);
+
+					counter = index + searchText.Length;
+
+					index++;
+				}
 			}
-			if (position0 == 0) return text;
-			for (int i = position0; i < text.Length; ++i)
-				chars[count++] = text[i];
-			return new string(chars, 0, count);
+			sb.Append(text.Substring(counter));
+			return sb.ToString();
 		}
 
-        protected string doRegexReplaceCaseInsensitive(string text, string searchPattern, string replacePattern, GrepSearchOption searchOptions)
+        protected string doRegexReplace(string text, string searchPattern, string replacePattern, GrepSearchOption searchOptions)
 		{
             RegexOptions regexOptions = RegexOptions.None;
             if ((searchOptions & GrepSearchOption.CaseSensitive) != GrepSearchOption.CaseSensitive)
@@ -307,18 +308,15 @@ namespace dnGREP.Engines
             if ((searchOptions & GrepSearchOption.SingleLine) == GrepSearchOption.SingleLine)
                 regexOptions |= RegexOptions.Singleline;
 
-            return Regex.Replace(text, searchPattern, replacePattern, regexOptions);
-		}
+			bool isWholeWord = (searchOptions & GrepSearchOption.WholeWord) == GrepSearchOption.WholeWord;
 
-        public string doRegexReplaceCaseSensitive(string text, string searchPattern, string replacePattern, GrepSearchOption searchOptions)
-		{
-            RegexOptions regexOptions = RegexOptions.None;
-            if ((searchOptions & GrepSearchOption.CaseSensitive) != GrepSearchOption.CaseSensitive)
-                regexOptions |= RegexOptions.IgnoreCase;
-            if ((searchOptions & GrepSearchOption.Multiline) == GrepSearchOption.Multiline)
-                regexOptions |= RegexOptions.Multiline;
-            if ((searchOptions & GrepSearchOption.SingleLine) == GrepSearchOption.SingleLine)
-                regexOptions |= RegexOptions.Singleline;
+			if (isWholeWord)
+			{
+				if (!searchPattern.Trim().StartsWith("\\b"))
+					searchPattern = "\\b" + searchPattern.Trim();
+				if (!searchPattern.Trim().EndsWith("\\b"))
+					searchPattern = searchPattern.Trim() + "\\b";
+			}
 
             return Regex.Replace(text, searchPattern, replacePattern, regexOptions);
 		}
@@ -327,6 +325,7 @@ namespace dnGREP.Engines
         {
             int counter = 0;
             StringBuilder result = new StringBuilder();
+			bool isWholeWord = (searchOptions & GrepSearchOption.WholeWord) == GrepSearchOption.WholeWord;
             while (counter < text.Length)
             {
                 int matchLocation = fuzzyMatchEngine.match_main(text.Substring(counter), searchPattern, counter);
@@ -336,7 +335,21 @@ namespace dnGREP.Engines
                     break;
                 }
 
-				int matchLength = fuzzyMatchEngine.match_length(text.Substring(counter), searchPattern, matchLocation);
+				if (isWholeWord && !Utils.IsValidBeginText(text.Substring(counter).Substring(0, matchLocation + counter)))
+				{
+					result.Append(text.Substring(counter));
+					counter = counter + matchLocation + searchPattern.Length;
+					continue;
+				}
+
+				int matchLength = fuzzyMatchEngine.match_length(text.Substring(counter), searchPattern, matchLocation, isWholeWord, 0.5);
+
+				if (matchLength == -1)
+				{
+					result.Append(text.Substring(counter));
+					counter = counter + matchLocation + searchPattern.Length;
+					continue;
+				}
 
                 // Text before match
                 result.Append(text.Substring(counter, matchLocation));

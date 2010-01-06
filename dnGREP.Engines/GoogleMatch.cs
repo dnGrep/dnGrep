@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
+using dnGREP.Common;
 
 namespace dnGREP.Engines
 {
@@ -80,7 +81,7 @@ namespace dnGREP.Engines
             }
         }
 
-        public int match_length(string text, string pattern, int loc)
+        public int match_length(string text, string pattern, int loc, bool isWholeWord, double threashold)
         {
 			// Case 0: pattern.length = 0 or text.length = 0
 			if (text == null || pattern == null || text.Length == 0 || pattern.Length == 0)
@@ -88,7 +89,10 @@ namespace dnGREP.Engines
 			// Case 1: exact match
 			if (loc + pattern.Length < text.Length &&
 				text.Substring(loc, pattern.Length).ToLower() == pattern.ToLower())
-				return pattern.Length;
+			{
+				if (!(isWholeWord && loc + pattern.Length < text.Length && !Utils.IsValidEndText(text.Substring(loc, pattern.Length + 1))))
+					return pattern.Length;
+			}
 			// Case 2: not exact match
 			int counter = 0;
 			double matchIndex = 0;
@@ -100,6 +104,11 @@ namespace dnGREP.Engines
 				{
 					counter++;
 					string tempMatchWord = text.Substring(loc, counter);
+					if (isWholeWord && counter + loc < text.Length && !Utils.IsValidEndText(text.Substring(loc + counter)))
+					{
+						continue;
+					}
+
 					double tempMatchIndex = nw.GetSimilarity(pattern, tempMatchWord);
 					if (tempMatchIndex > matchIndex)
 					{
@@ -112,7 +121,10 @@ namespace dnGREP.Engines
 					break;
 				}
 			}
-			return matchWord.Length;
+			if (matchIndex < threashold)
+				return -1;
+			else
+				return matchWord.Length;
         }
 
         /**

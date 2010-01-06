@@ -333,5 +333,17 @@ namespace dnGREP.WPF.Properties {
                 this["Singleline"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool WholeWord {
+            get {
+                return ((bool)(this["WholeWord"]));
+            }
+            set {
+                this["WholeWord"] = value;
+            }
+        }
     }
 }

@@ -30,7 +30,8 @@ namespace dnGREP.Common
         None = 0,
         CaseSensitive = 1,
         Multiline = 2,
-        SingleLine = 4
+        SingleLine = 4,
+		WholeWord = 8
     }
 
 	public enum GrepOperation
