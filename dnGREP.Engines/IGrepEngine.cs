@@ -8,7 +8,7 @@ namespace dnGREP.Engines
 {
 	public interface IGrepEngine
 	{
-		bool Initialize(bool showLinesInContext, int linesBefore, int linesAfter);
+		bool Initialize(GrepEngineInitParams param);
 
 		/// <summary>
 		/// Return true if engine supports search only. Return false is engine supports replace as well.

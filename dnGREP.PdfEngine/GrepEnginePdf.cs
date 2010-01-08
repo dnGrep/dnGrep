@@ -22,13 +22,14 @@ namespace dnGREP.Engines.Pdf
 		private string pathToPdfToText = "";
 
 		#region Initialization and disposal
-		public GrepEnginePdf() : this(false, 0, 0) { }
+		public GrepEnginePdf() : this(new GrepEngineInitParams(false, 0, 0, 0.5)) { }
 
-		public override bool Initialize(bool showLinesInContext, int linesBefore, int linesAfter)
+		public override bool Initialize(GrepEngineInitParams param)
 		{
-			this.showLinesInContext = showLinesInContext;
-			this.linesBefore = linesBefore;
-			this.linesAfter = linesAfter;
+			this.showLinesInContext = param.ShowLinesInContext;
+			this.linesBefore = param.LinesBefore;
+			this.linesAfter = param.LinesAfter;
+			this.fuzzyMatchThreshold = param.FuzzyMatchThreshold;
 			try
 			{
 				// Make sure pdftotext.exe exists
@@ -45,9 +46,9 @@ namespace dnGREP.Engines.Pdf
 			}
 		}
 
-		public GrepEnginePdf(bool showLinesInContext, int linesBefore, int linesAfter)
+		public GrepEnginePdf(GrepEngineInitParams param)
 			:
-			base(showLinesInContext, linesBefore, linesAfter)
+			base(param)
 		{ }
 
 		#endregion
@@ -76,7 +77,7 @@ namespace dnGREP.Engines.Pdf
 				if (!File.Exists(tempFile))
 					throw new ApplicationException("pdftotext failed to create text file.");
 
-				IGrepEngine engine = GrepEngineFactory.GetSearchEngine(tempFile, showLinesInContext, linesBefore, linesAfter);
+				IGrepEngine engine = GrepEngineFactory.GetSearchEngine(tempFile, new GrepEngineInitParams(showLinesInContext, linesBefore, linesAfter, fuzzyMatchThreshold));
 				List<GrepSearchResult> results = engine.Search(tempFile, searchPattern, searchType, searchOptions, encoding);
 				foreach (GrepSearchResult result in results)
 				{
@@ -136,7 +137,7 @@ namespace dnGREP.Engines.Pdf
 		{
 			get
 			{
-				return new Version(1, 3, 0, 0);
+				return new Version(1, 4, 0, 0);
 			}
 		}
 

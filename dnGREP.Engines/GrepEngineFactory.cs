@@ -39,7 +39,7 @@ namespace dnGREP.Engines
 			}
 		}
 
-		public static IGrepEngine GetSearchEngine(string fileName, bool showLinesInContext, int linesBefore, int linesAfter)
+		public static IGrepEngine GetSearchEngine(string fileName, GrepEngineInitParams param)
 		{
 			loadPlugins();
 
@@ -58,13 +58,13 @@ namespace dnGREP.Engines
 				}
 			}
 			GrepEnginePlainText plainTextEngine = new GrepEnginePlainText();
-			plainTextEngine.Initialize(showLinesInContext, linesBefore, linesAfter);
+			plainTextEngine.Initialize(param);
 
 			if (fileTypeEngines.ContainsKey(fileExtension) && fileTypeEngines[fileExtension].Enabled)
 			{
 				if (fileTypeEngines[fileExtension].Engine.FrameworkVersion.CompareTo(plainTextEngine.FrameworkVersion) == 0)
 				{
-					if (fileTypeEngines[fileExtension].Engine.Initialize(showLinesInContext, linesBefore, linesAfter))
+					if (fileTypeEngines[fileExtension].Engine.Initialize(param))
 					{
 						return fileTypeEngines[fileExtension].Engine;
 					}
@@ -84,7 +84,7 @@ namespace dnGREP.Engines
 				return plainTextEngine;
 		}
 
-		public static IGrepEngine GetReplaceEngine(string fileName, bool showLinesInContext, int linesBefore, int linesAfter)
+		public static IGrepEngine GetReplaceEngine(string fileName, GrepEngineInitParams param)
 		{
 			loadPlugins();
 
@@ -103,13 +103,13 @@ namespace dnGREP.Engines
 				}
 			}
 			GrepEnginePlainText plainTextEngine = new GrepEnginePlainText();
-			plainTextEngine.Initialize(showLinesInContext, linesBefore, linesAfter);
+			plainTextEngine.Initialize(param);
 
 			if (fileTypeEngines.ContainsKey(fileExtension) && fileTypeEngines[fileExtension].Enabled && !fileTypeEngines[fileExtension].Engine.IsSearchOnly)
 			{
 				if (fileTypeEngines[fileExtension].Engine.FrameworkVersion.CompareTo(plainTextEngine.FrameworkVersion) == 0)
 				{
-					if (fileTypeEngines[fileExtension].Engine.Initialize(showLinesInContext, linesBefore, linesAfter))
+					if (fileTypeEngines[fileExtension].Engine.Initialize(param))
 					{
 						return fileTypeEngines[fileExtension].Engine;
 					}

@@ -290,9 +290,10 @@ namespace dnGREP.WPF
 								param.IncludeHidden, sizeFrom, sizeTo);
 						}
 						GrepCore grep = new GrepCore();
-						grep.ShowLinesInContext = Properties.Settings.Default.ShowLinesInContext;
-						grep.LinesBefore = Properties.Settings.Default.ContextLinesBefore;
-						grep.LinesAfter = Properties.Settings.Default.ContextLinesAfter;
+						grep.SearchParams.FuzzyMatchThreshold = Properties.Settings.Default.FuzzyMatchThreshold;
+						grep.SearchParams.ShowLinesInContext = Properties.Settings.Default.ShowLinesInContext;
+						grep.SearchParams.LinesBefore = Properties.Settings.Default.ContextLinesBefore;
+						grep.SearchParams.LinesAfter = Properties.Settings.Default.ContextLinesAfter;
 						grep.PreviewFilesDuringSearch = Properties.Settings.Default.PreviewResults;
 
                         GrepSearchOption searchOptions = GrepSearchOption.None;
@@ -314,9 +315,10 @@ namespace dnGREP.WPF
 					else
 					{
 						GrepCore grep = new GrepCore();
-						grep.ShowLinesInContext = Properties.Settings.Default.ShowLinesInContext;
-						grep.LinesBefore = Properties.Settings.Default.ContextLinesBefore;
-						grep.LinesAfter = Properties.Settings.Default.ContextLinesAfter;
+						grep.SearchParams.FuzzyMatchThreshold = Properties.Settings.Default.FuzzyMatchThreshold;
+						grep.SearchParams.ShowLinesInContext = Properties.Settings.Default.ShowLinesInContext;
+						grep.SearchParams.LinesBefore = Properties.Settings.Default.ContextLinesBefore;
+						grep.SearchParams.LinesAfter = Properties.Settings.Default.ContextLinesAfter;
 						grep.PreviewFilesDuringSearch = Properties.Settings.Default.PreviewResults;
 
                         GrepSearchOption searchOptions = GrepSearchOption.None;
@@ -468,11 +470,6 @@ namespace dnGREP.WPF
 				if (response == MessageBoxResult.Yes)
 				{
 					GrepCore core = new GrepCore();
-					core.ShowLinesInContext = Properties.Settings.Default.ShowLinesInContext;
-					core.LinesBefore = Properties.Settings.Default.ContextLinesBefore;
-					core.LinesAfter = Properties.Settings.Default.ContextLinesAfter;
-					core.PreviewFilesDuringSearch = Properties.Settings.Default.PreviewResults;
-
 					bool result = core.Undo(inputData.UndoFolder);
 					if (result)
 					{
@@ -698,7 +695,7 @@ namespace dnGREP.WPF
 
                 FormattedGrepResult result = selectedNode.Parent;
                 OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, lineNumber, Properties.Settings.Default.UseCustomEditor, Properties.Settings.Default.CustomEditor, Properties.Settings.Default.CustomEditorArgs);
-                dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, false, 0, 0).OpenFile(fileArg);
+                dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, new GrepEngineInitParams(false, 0, 0, 0.5)).OpenFile(fileArg);
                 if (fileArg.UseBaseEngine)
                     Utils.OpenFile(new OpenFileArgs(result.GrepResult, lineNumber, Properties.Settings.Default.UseCustomEditor, Properties.Settings.Default.CustomEditor, Properties.Settings.Default.CustomEditorArgs));
             }
@@ -708,7 +705,7 @@ namespace dnGREP.WPF
                 // Line was selected
                 int lineNumber = 0;
                 OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, lineNumber, Properties.Settings.Default.UseCustomEditor, Properties.Settings.Default.CustomEditor, Properties.Settings.Default.CustomEditorArgs);
-                dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, false, 0, 0).OpenFile(fileArg);
+				dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, new GrepEngineInitParams(false, 0, 0, 0.5)).OpenFile(fileArg);
                 if (fileArg.UseBaseEngine)
                     Utils.OpenFile(new OpenFileArgs(result.GrepResult, lineNumber, Properties.Settings.Default.UseCustomEditor, Properties.Settings.Default.CustomEditor, Properties.Settings.Default.CustomEditorArgs));
             }

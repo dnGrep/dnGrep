@@ -13,28 +13,14 @@ namespace dnGREP.Common
 {
 	public class GrepCore
 	{
-		private bool showLinesInContext = false;
+		private GrepEngineInitParams searchParams = new GrepEngineInitParams();
 
-		public bool ShowLinesInContext
+		public GrepEngineInitParams SearchParams
 		{
-			get { return showLinesInContext; }
-			set { showLinesInContext = value; }
+			get { return searchParams; }
+			set { searchParams = value; }
 		}
-		private int linesBefore = 0;
-
-		public int LinesBefore
-		{
-			get { return linesBefore; }
-			set { linesBefore = value; }
-		}
-		private int linesAfter = 0;
-
-		public int LinesAfter
-		{
-			get { return linesAfter; }
-			set { linesAfter = value; }
-		}
-
+		
 		private bool previewFilesDuringSearch = false;
 
 		public bool PreviewFilesDuringSearch
@@ -100,7 +86,7 @@ namespace dnGREP.Common
 				{
 					try
 					{
-						IGrepEngine engine = GrepEngineFactory.GetSearchEngine(file, showLinesInContext, linesBefore, linesAfter);
+						IGrepEngine engine = GrepEngineFactory.GetSearchEngine(file, SearchParams);
 
 						processedFiles++;
 
@@ -177,7 +163,7 @@ namespace dnGREP.Common
                         continue;
 
 					string tempFileName = file.Replace(baseFolder, tempFolder);
-					IGrepEngine engine = GrepEngineFactory.GetReplaceEngine(file, showLinesInContext, linesBefore, linesAfter);
+					IGrepEngine engine = GrepEngineFactory.GetReplaceEngine(file, searchParams);
 
 					try
 					{

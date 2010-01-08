@@ -345,5 +345,17 @@ namespace dnGREP.WPF.Properties {
                 this["WholeWord"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0.5")]
+        public double FuzzyMatchThreshold {
+            get {
+                return ((double)(this["FuzzyMatchThreshold"]));
+            }
+            set {
+                this["FuzzyMatchThreshold"] = value;
+            }
+        }
     }
 }

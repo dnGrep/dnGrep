@@ -86,6 +86,25 @@
                     </CheckBox>
                 </StackPanel>
             </TabItem>
+            <TabItem Name="tbSearchOptionsTab">
+                <TabItem.Header>
+                    <WrapPanel Orientation="Vertical">
+                        <Image Source="Images\system-search.png" Width="32" Height="32"/>
+                        <TextBlock HorizontalAlignment="Center">Search</TextBlock>
+                        <TextBlock HorizontalAlignment="Center">Params</TextBlock>
+                    </WrapPanel>
+                </TabItem.Header>
+                <StackPanel>
+                    <GroupBox Header="Phonetic search">
+                        <WrapPanel>
+                            <Label>Match threshold (from 0 to 1.0)</Label>
+                            <TextBox Name="tbFuzzyMatchThreshold" Width="50" TextChanged="tbFuzzyMatchThreshold_TextChanged"></TextBox>
+                            <Label>0 - match everything; 1.0 - exact match</Label>
+                            <Label Foreground="Red" Visibility="Hidden" Name="lblFuzzyMatchError">Error: Match threshold should be a number between 0 and 1.0</Label>
+                        </WrapPanel>
+                    </GroupBox>
+                </StackPanel>
+            </TabItem>
         </TabControl>
         <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Bottom">
             <Button Width="70" Margin="0,0,5,5" Click="btnSave_Click">Save</Button>

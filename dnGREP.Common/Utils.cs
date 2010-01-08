@@ -429,6 +429,36 @@ namespace dnGREP.Common
 		}
 
 		/// <summary>
+		/// Parses text into double
+		/// </summary>
+		/// <param name="value">String. May include null, empty srting or text with spaces before or after.</param>
+		/// <returns>Attempts to parse string. Otherwise returns double.MinValue</returns>
+		public static double ParseDouble(string value)
+		{
+			return ParseDouble(value, double.MinValue);
+		}
+
+		/// <summary>
+		/// Parses text into double
+		/// </summary>
+		/// <param name="value">String. May include null, empty srting or text with spaces before or after.</param>
+		/// <param name="defaultValue">Default value if fails to parse.</param>
+		/// <returns>Attempts to parse string. Otherwise returns defaultValue</returns>
+		public static double ParseDouble(string value, double defaultValue)
+		{
+			if (value != null && value.Length != 0)
+			{
+				double output;
+				value = value.Trim();
+				if (double.TryParse(value, out output))
+				{
+					return output;
+				}
+			}
+			return defaultValue;
+		}
+
+		/// <summary>
 		/// Parses text into bool
 		/// </summary>
 		/// <param name="value">String. May include null, empty srting or text with spaces before or after.

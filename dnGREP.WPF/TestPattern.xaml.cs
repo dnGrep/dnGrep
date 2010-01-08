@@ -49,7 +49,7 @@ namespace dnGREP.WPF
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {            			
             GrepEnginePlainText engine = new GrepEnginePlainText();
-            engine.Initialize(false, 0, 0);
+            engine.Initialize(new GrepEngineInitParams(false, 0, 0, Properties.Settings.Default.FuzzyMatchThreshold));
             List<GrepSearchResult> results = new List<GrepSearchResult>();
             GrepSearchOption searchOptions = GrepSearchOption.None;
             if (inputData.Multiline)
@@ -94,7 +94,7 @@ namespace dnGREP.WPF
         private void btnReplace_Click(object sender, RoutedEventArgs e)
         {
             GrepEnginePlainText engine = new GrepEnginePlainText();
-            engine.Initialize(false, 0, 0);
+			engine.Initialize(new GrepEngineInitParams(false, 0, 0, 0.5));
             List<GrepSearchResult> results = new List<GrepSearchResult>();
 
             GrepSearchOption searchOptions = GrepSearchOption.None;

@@ -44,10 +44,10 @@ namespace dnGREP.WPF
         public bool IsAdministrator
         {
             get { return isAdministrator; }
-            set { isAdministrator = value; changeState(); }
+			set { isAdministrator = value; UpdateState("IsAdministrator"); }
         }     
 
-        private void changeState()
+        private void UpdateState(string name)
         {
             if (!isAdministrator)
             {
@@ -197,7 +197,8 @@ namespace dnGREP.WPF
             tbEditorArgs.Text = Properties.Settings.Default.CustomEditorArgs;
 			cbPreviewResults.IsChecked = Properties.Settings.Default.PreviewResults;
 			tbUpdateInterval.Text = Properties.Settings.Default.UpdateCheckInterval;
-            changeState();
+			tbFuzzyMatchThreshold.Text = Properties.Settings.Default.FuzzyMatchThreshold.ToString();
+            UpdateState("Initial");
         }
 
         private void cbRegisterShell_CheckedChanged(object sender, RoutedEventArgs e)
@@ -223,7 +224,7 @@ namespace dnGREP.WPF
             else
                 Properties.Settings.Default.UseCustomEditor = true;
 
-            changeState();
+            UpdateState("UseCustomEditor");
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
@@ -235,6 +236,9 @@ namespace dnGREP.WPF
             Properties.Settings.Default.CustomEditorArgs = tbEditorArgs.Text;
 			Properties.Settings.Default.PreviewResults = cbPreviewResults.IsChecked == true;
 			Properties.Settings.Default.UpdateCheckInterval = Utils.ParseInt(tbUpdateInterval.Text, 1).ToString();
+			double threshold = Utils.ParseDouble(tbFuzzyMatchThreshold.Text, 0.5);
+			if (threshold >= 0 && threshold <= 1.0)
+				Properties.Settings.Default.FuzzyMatchThreshold = threshold;
             Properties.Settings.Default.Save();
         }
 
@@ -277,7 +281,7 @@ namespace dnGREP.WPF
             Properties.Settings.Default.EnableUpdateChecking = cbCheckForUpdates.IsChecked == true;
             if (tbUpdateInterval.Text.Trim() == "")
                 tbUpdateInterval.Text = "1";
-            changeState();
+            UpdateState("EnableUpdateChecking");
         }
 
         private void cbShowPath_CheckedChanged(object sender, RoutedEventArgs e)
@@ -288,7 +292,7 @@ namespace dnGREP.WPF
         private void cbShowContext_CheckedChanged(object sender, RoutedEventArgs e)
         {
             Properties.Settings.Default.ShowLinesInContext = cbShowContext.IsChecked == true;
-            changeState();
+            UpdateState("ShowLinesInContext");
         }
 
         // Create the OnPropertyChanged method to raise the event
@@ -305,5 +309,18 @@ namespace dnGREP.WPF
         {
             Close();
         }
+
+		private void tbFuzzyMatchThreshold_TextChanged(object sender, TextChangedEventArgs e)
+		{
+			if (Utils.ParseDouble(tbFuzzyMatchThreshold.Text) < 0 ||
+				Utils.ParseDouble(tbFuzzyMatchThreshold.Text) > 1.0)
+			{
+				lblFuzzyMatchError.Visibility = Visibility.Visible;
+			}
+			else
+			{
+				lblFuzzyMatchError.Visibility = Visibility.Collapsed;
+			}
+		}
     }
 }

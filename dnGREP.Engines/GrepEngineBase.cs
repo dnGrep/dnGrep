@@ -13,20 +13,22 @@ namespace dnGREP.Engines
 		protected bool showLinesInContext = false;
 		protected int linesBefore = 0;
 		protected int linesAfter = 0;
+		protected double fuzzyMatchThreshold = 0.5;
         private GoogleMatch fuzzyMatchEngine = new GoogleMatch();
 
 		public GrepEngineBase() { }
 
-		public GrepEngineBase(bool showLinesInContext, int linesBefore, int linesAfter)
+		public GrepEngineBase(GrepEngineInitParams param)
 		{
-			Initialize(showLinesInContext, linesBefore, linesAfter);
+			Initialize(param);
 		}
 
-		public virtual bool Initialize(bool showLinesInContext, int linesBefore, int linesAfter)
+		public virtual bool Initialize(GrepEngineInitParams param)
 		{
-			this.showLinesInContext = showLinesInContext;
-			this.linesBefore = linesBefore;
-			this.linesAfter = linesAfter;
+			this.showLinesInContext = param.ShowLinesInContext;
+			this.linesBefore = param.LinesBefore;
+			this.linesAfter = param.LinesAfter;
+			this.fuzzyMatchThreshold = param.FuzzyMatchThreshold;
 			return true;
 		}
 
@@ -39,6 +41,7 @@ namespace dnGREP.Engines
         {
             List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
             int counter = 0;
+			fuzzyMatchEngine.Match_Threshold = (float)fuzzyMatchThreshold;
 			bool isWholeWord = (searchOptions & GrepSearchOption.WholeWord) == GrepSearchOption.WholeWord;
             while (counter < text.Length)
             {
@@ -52,7 +55,7 @@ namespace dnGREP.Engines
 					continue;
 				}
 
-				int matchLength = fuzzyMatchEngine.match_length(text.Substring(counter), searchPattern, matchLocation, isWholeWord, 0.5);
+				int matchLength = fuzzyMatchEngine.match_length(text.Substring(counter), searchPattern, matchLocation, isWholeWord, fuzzyMatchThreshold);
 
 				if (matchLength == -1)
 				{
@@ -325,6 +328,7 @@ namespace dnGREP.Engines
         {
             int counter = 0;
             StringBuilder result = new StringBuilder();
+			fuzzyMatchEngine.Match_Threshold = (float)fuzzyMatchThreshold;
 			bool isWholeWord = (searchOptions & GrepSearchOption.WholeWord) == GrepSearchOption.WholeWord;
             while (counter < text.Length)
             {
@@ -342,7 +346,7 @@ namespace dnGREP.Engines
 					continue;
 				}
 
-				int matchLength = fuzzyMatchEngine.match_length(text.Substring(counter), searchPattern, matchLocation, isWholeWord, 0.5);
+				int matchLength = fuzzyMatchEngine.match_length(text.Substring(counter), searchPattern, matchLocation, isWholeWord, fuzzyMatchThreshold);
 
 				if (matchLength == -1)
 				{
@@ -385,6 +389,48 @@ namespace dnGREP.Engines
 				return sb.ToString();
 			}
 			return text;
+		}
+	}
+
+	public class GrepEngineInitParams
+	{
+		public GrepEngineInitParams() { }
+
+		public GrepEngineInitParams(bool showLinesInContext, int linesBefore, int linesAfter, double fuzzyMatchThreshold)
+		{
+			this.showLinesInContext = showLinesInContext;
+			this.linesBefore = linesBefore;
+			this.linesAfter = linesAfter;
+			this.fuzzyMatchThreshold = fuzzyMatchThreshold;
+		}
+
+		private bool showLinesInContext = false;
+
+		public bool ShowLinesInContext
+		{
+			get { return showLinesInContext; }
+			set { showLinesInContext = value; }
+		}
+		private int linesBefore = 0;
+
+		public int LinesBefore
+		{
+			get { return linesBefore; }
+			set { linesBefore = value; }
+		}
+		private int linesAfter = 0;
+
+		public int LinesAfter
+		{
+			get { return linesAfter; }
+			set { linesAfter = value; }
+		}
+		private double fuzzyMatchThreshold = 0.5;
+
+		public double FuzzyMatchThreshold
+		{
+			get { return fuzzyMatchThreshold; }
+			set { fuzzyMatchThreshold = value; }
 		}
 	}
 }
