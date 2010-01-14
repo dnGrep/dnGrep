@@ -4,8 +4,8 @@
     xmlns:splitButton="clr-namespace:Wpf.Controls;assembly=Wpf.SplitButton"
     xmlns:my="clr-namespace:dnGREP.WPF"
     Title="Test" Width="527" WindowStyle="ToolWindow" Height="460" MinHeight="460" 
-    Background="{Binding ElementName=btnSearch, Path=Background}"
     MinWidth="500" Icon="/dnGREP;component/nGREP.ico"
+    Background="{StaticResource GradientBackground}"
     Loaded="Window_Loaded" Closing="Window_Closing"  KeyDown="formKeyDown" Style="{StaticResource DefaultStyle}" 
     SnapsToDevicePixels="True" ResizeMode="CanResizeWithGrip">
     <!-- Resources -->

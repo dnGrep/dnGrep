@@ -196,6 +196,7 @@ namespace dnGREP.WPF
                 Dictionary<string, object> workerParames = new Dictionary<string, object>();
                 workerParames["State"] = inputData;
                 workerParames["Files"] = foundFiles;
+				inputData.SearchResults.Clear();
 				if (!Properties.Settings.Default.PreviewResults)
 					tvSearchResult.ItemsSource = null;
 				workerSearchReplace.RunWorkerAsync(workerParames);
@@ -777,6 +778,14 @@ namespace dnGREP.WPF
                 }
                 inputData.FileOrFolderPath = sb.ToString();
             } 
-        }		
+        }
+
+		private void TextBoxFocus(object sender, RoutedEventArgs e)
+		{
+			if (e.Source is TextBox)
+			{
+				((TextBox)e.Source).SelectAll();
+			}
+		}		
 	}
 }

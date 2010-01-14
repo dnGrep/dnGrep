@@ -4,9 +4,9 @@
     xmlns:splitButton="clr-namespace:Wpf.Controls;assembly=Wpf.SplitButton"
     xmlns:my="clr-namespace:dnGREP.WPF"
     Title="dnGREP" Width="487" WindowStyle="ToolWindow" Height="501" MinHeight="460" 
-    Background="{Binding ElementName=btnTest, Path=Background}"
     MinWidth="500" Icon="/dnGREP;component/nGREP.ico" Closing="MainForm_Closing"
     Loaded="Window_Loaded" KeyDown="formKeyDown" Style="{StaticResource DefaultStyle}" 
+    Background="{StaticResource GradientBackground}"
     SnapsToDevicePixels="True" ResizeMode="CanResizeWithGrip" AllowDrop="False"
     my:DiginesisHelpProvider.HelpKeyword="search-window.html" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True">
     <!-- Resources -->
@@ -53,7 +53,7 @@
                         <ColumnDefinition />
                         <ColumnDefinition Width="48" />
                     </Grid.ColumnDefinitions>
-                    <TextBox AllowDrop="True" PreviewDragEnter="OnDragOver" PreviewDragOver="OnDragOver" PreviewDrop="OutputFolderDrop" Grid.Column="0" Name="tbFolderName" Text="{Binding Path=FileOrFolderPath, UpdateSourceTrigger=PropertyChanged}" ToolTip="Path to search in" />
+                    <TextBox GotFocus="TextBoxFocus" AllowDrop="True" PreviewDragEnter="OnDragOver" PreviewDragOver="OnDragOver" PreviewDrop="OutputFolderDrop" Grid.Column="0" Name="tbFolderName" Text="{Binding Path=FileOrFolderPath, UpdateSourceTrigger=PropertyChanged}" ToolTip="Path to search in" />
                     <Button Click="btnBrowse_Click" Grid.Column="1" Width="42" HorizontalAlignment="Right" Name="btnBrowse" ToolTip="Browse for folder or files">...</Button>
                 </Grid>
             </GroupBox>
@@ -78,7 +78,7 @@
                     <Button Grid.Column="1" Grid.Row="0" Name="btnTest" Click="btnTest_Click">Test</Button>
                     <GroupBox Header="Search for:" Grid.Row="1" 
                               Grid.ColumnSpan="2" BorderThickness="0">
-                        <TextBox Name="tbSearchFor" Margin="-5,3,-5,0" Text="{Binding Path=SearchFor, UpdateSourceTrigger=PropertyChanged}" 
+                        <TextBox GotFocus="TextBoxFocus" Name="tbSearchFor" Margin="-5,3,-5,0" Text="{Binding Path=SearchFor, UpdateSourceTrigger=PropertyChanged}" 
                                  VerticalScrollBarVisibility="Auto" my:DiginesisHelpProvider.HelpKeyword="regular-expressions.html" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True"
                                  Style="{StaticResource ExpandedTextbox}">
                             <TextBox.ToolTip>
@@ -102,7 +102,7 @@
                     </GroupBox>
                     <GroupBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" 
                               Header="Replace with:" BorderThickness="0">
-                        <TextBox Margin="-5,3,-5,0" Name="tbReplaceWith" 
+                        <TextBox GotFocus="TextBoxFocus" Margin="-5,3,-5,0" Name="tbReplaceWith" 
                                  Text="{Binding Path=ReplaceWith, UpdateSourceTrigger=PropertyChanged}"  
                                  VerticalScrollBarVisibility="Auto" 
                                  Style="{StaticResource ExpandedTextbox}"/>
@@ -131,7 +131,7 @@
                         <RadioButton GroupName="NoSizeFilter" Margin="3" Name="rbFilterAllSizes" IsChecked="{Binding Path=UseFileSizeFilter, Converter={StaticResource ebc}, ConverterParameter=No}">All sizes</RadioButton>
                         <StackPanel Orientation="Horizontal">
                             <RadioButton GroupName="SetSizeFilter" Margin="3" VerticalAlignment="Center" Name="rbFilterSpecificSize"  IsChecked="{Binding Path=UseFileSizeFilter, Converter={StaticResource ebc}, ConverterParameter=Yes}">Size is</RadioButton>
-                            <TextBox Width="47" Margin="3" Name="tbFileSizeFrom" IsEnabled="{Binding Path=IsSizeFilterSet}">
+                            <TextBox GotFocus="TextBoxFocus" Width="47" Margin="3" Name="tbFileSizeFrom" IsEnabled="{Binding Path=IsSizeFilterSet}">
                                 <TextBox.Text>
                                     <Binding Path="SizeFrom" UpdateSourceTrigger="PropertyChanged">
                                         <Binding.ValidationRules>
@@ -141,7 +141,7 @@
                                 </TextBox.Text>
                             </TextBox>
                             <TextBlock Margin="3" VerticalAlignment="Center">to</TextBlock>
-                            <TextBox Width="47" Margin="3" Name="tbFileSizeTo" IsEnabled="{Binding Path=IsSizeFilterSet}">
+                            <TextBox GotFocus="TextBoxFocus" Width="47" Margin="3" Name="tbFileSizeTo" IsEnabled="{Binding Path=IsSizeFilterSet}">
                                 <TextBox.Text>
                                     <Binding Path="SizeTo" UpdateSourceTrigger="PropertyChanged">
                                         <Binding.ValidationRules>
@@ -166,7 +166,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="WrapWithOverflow">Files that match:</TextBlock>
                         <StackPanel Grid.Column="1" Grid.Row="0" >
-                            <TextBox Name="tbFilePattern" my:DiginesisHelpProvider.HelpKeyword="searchreplace.html" my:DiginesisHelpProvider.HelpNavigator="Topic" 
+                            <TextBox GotFocus="TextBoxFocus" Name="tbFilePattern" my:DiginesisHelpProvider.HelpKeyword="searchreplace.html" my:DiginesisHelpProvider.HelpNavigator="Topic" 
                                      my:DiginesisHelpProvider.ShowHelp="True" Text="{Binding Path=FilePattern, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                             <StackPanel Orientation="Horizontal">
                                 <RadioButton GroupName="FileSearchRegex" Margin="3" Name="rbFileRegex" IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}" ToolTip="e.g. file[0-9]{1,2}\\.txt">Regex</RadioButton>
@@ -199,7 +199,7 @@
                                 Click="btnSearch_Click"
 						        Grid.Row="0" Grid.Column="0"
 						        Width="67" Margin="3" 
-						        Mode="{Binding Path=SearchButtonMode}">
+						        Mode="{Binding Path=SearchButtonMode}" IsDefault="True">
                         <MenuItem Name="searchInResultsToolStripMenuItem" Header="Search in results" 
                                   IsEnabled="{Binding Path=CanSearchInResults}" Style="{StaticResource DefaultStyle}" Click="btnSearchInResults_Click" />
                     </splitButton:SplitButton>

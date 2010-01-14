@@ -13,4 +13,8 @@
     <Style TargetType="{x:Type ComboBox}">
         <Setter Property="Height" Value="23" />
     </Style>
+    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" x:Key="GradientBackground">
+        <GradientStop Color="White" Offset="0" />
+        <GradientStop Color="{x:Static SystemColors.ControlColor}" Offset="0.8" />
+    </LinearGradientBrush>
 </ResourceDictionary>

@@ -38,7 +38,7 @@ namespace dnGREP.Common
 					if (Directory.Exists(dialog.FileName))
 						dialog.InitialDirectory = dialog.FileName;
 					else
-						dialog.InitialDirectory = Path.GetDirectoryName(dialog.FileName);
+						dialog.InitialDirectory = Utils.GetBaseFolder(dialog.FileName);
 				}
 			}
 			catch (Exception ex)
