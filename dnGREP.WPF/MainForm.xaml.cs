@@ -269,15 +269,25 @@ namespace dnGREP.WPF
 							sizeTo = param.SizeTo;
 						}
 
-						string filePattern = "*.*";
+						string filePatternInclude = "*.*";
 						if (param.TypeOfFileSearch == FileSearchType.Regex)
-							filePattern = ".*";
+							filePatternInclude = ".*";
 
 						if (!string.IsNullOrEmpty(param.FilePattern))
-							filePattern = param.FilePattern;
+							filePatternInclude = param.FilePattern;
 
 						if (param.TypeOfFileSearch == FileSearchType.Asterisk)
-							filePattern = filePattern.Replace("\\", "");
+							filePatternInclude = filePatternInclude.Replace("\\", "");
+
+						string filePatternExclude = "*.*";
+						if (param.TypeOfFileSearch == FileSearchType.Regex)
+							filePatternExclude = ".*";
+
+						if (!string.IsNullOrEmpty(param.FilePatternIgnore))
+							filePatternExclude = param.FilePatternIgnore;
+
+						if (param.TypeOfFileSearch == FileSearchType.Asterisk)
+							filePatternExclude = filePatternExclude.Replace("\\", "");
 
 						string[] files;
 
@@ -287,7 +297,7 @@ namespace dnGREP.WPF
 						}
 						else
 						{
-							files = Utils.GetFileList(inputData.FileOrFolderPath, filePattern, param.TypeOfFileSearch == FileSearchType.Regex, param.IncludeSubfolder,
+							files = Utils.GetFileList(inputData.FileOrFolderPath, filePatternInclude, filePatternExclude, param.TypeOfFileSearch == FileSearchType.Regex, param.IncludeSubfolder,
 								param.IncludeHidden, sizeFrom, sizeTo);
 						}
 						GrepCore grep = new GrepCore();

@@ -96,8 +96,8 @@ namespace Tests
 			Assert.AreEqual(results[0].SearchResults.Count, 6);
 			Assert.AreEqual(results[1].SearchResults.Count, 624);
 
-            Assert.IsNull(core.Search(null, SearchType.Regex, "string", GrepSearchOption.Multiline, -1));
-            Assert.IsNull(core.Search(new string[] { }, SearchType.Regex, "string", GrepSearchOption.Multiline, -1));
+            Assert.IsEmpty(core.Search(null, SearchType.Regex, "string", GrepSearchOption.Multiline, -1));
+			Assert.IsEmpty(core.Search(new string[] { }, SearchType.Regex, "string", GrepSearchOption.Multiline, -1));
 		}
 
 		[Test]
@@ -160,8 +160,8 @@ namespace Tests
 			Assert.AreEqual(results[0].SearchResults.Count, 6);
 			Assert.AreEqual(results[1].SearchResults.Count, 624);
 
-            Assert.IsNull(core.Search(null, SearchType.PlainText, "string", GrepSearchOption.Multiline, -1));
-            Assert.IsNull(core.Search(new string[] { }, SearchType.PlainText, "string", GrepSearchOption.Multiline, -1));
+            Assert.IsEmpty(core.Search(null, SearchType.PlainText, "string", GrepSearchOption.Multiline, -1));
+			Assert.IsEmpty(core.Search(new string[] { }, SearchType.PlainText, "string", GrepSearchOption.Multiline, -1));
 		}
 
 		[Test]

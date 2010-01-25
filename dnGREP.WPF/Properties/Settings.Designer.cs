@@ -357,5 +357,17 @@ namespace dnGREP.WPF.Properties {
                 this["FuzzyMatchThreshold"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string FilePatternIgnore {
+            get {
+                return ((string)(this["FilePatternIgnore"]));
+            }
+            set {
+                this["FilePatternIgnore"] = value;
+            }
+        }
     }
 }

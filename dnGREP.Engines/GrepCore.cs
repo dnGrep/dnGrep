@@ -73,10 +73,14 @@ namespace dnGREP.Common
 				{
 					searchResults.Add(new GrepSearchResult(file, null));
 				}
-				if (PreviewFilesDuringSearch)
-					ProcessedFile(this, new ProgressStatus(searchResults.Count, searchResults.Count, searchResults));
-				else
-					ProcessedFile(this, new ProgressStatus(searchResults.Count, searchResults.Count, null));
+
+				if (ProcessedFile != null)
+				{
+					if (PreviewFilesDuringSearch)
+						ProcessedFile(this, new ProgressStatus(searchResults.Count, searchResults.Count, searchResults));
+					else
+						ProcessedFile(this, new ProgressStatus(searchResults.Count, searchResults.Count, null));
+				}
 
 				return searchResults;
 			}

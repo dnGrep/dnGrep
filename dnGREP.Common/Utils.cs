@@ -184,7 +184,7 @@ namespace dnGREP.Common
 		/// <param name="path"></param>
 		public static void DeleteFolder(string path)
 		{
-			string[] files = GetFileList(path, "*.*", false, true, true, 0, 0);
+			string[] files = GetFileList(path, "*.*", null, false, true, true, 0, 0);
 			foreach (string file in files)
 			{
 				File.SetAttributes(file, FileAttributes.Normal);
@@ -289,22 +289,38 @@ namespace dnGREP.Common
 		/// If no files found returns 0 length array.
 		/// </summary>
 		/// <param name="path">Path to one or many files separated by semi-colon or path to a folder</param>
-		/// <param name="namePattern">File name pattern. (E.g. *.cs) or regex. If null returns empty array. If empty string returns all files.</param>
+		/// <param name="namePatternToInclude">File name pattern. (E.g. *.cs) or regex to include. If null returns empty array. If empty string returns all files.</param>
+		/// <param name="namePatternToExclude">File name pattern. (E.g. *.cs) or regex to exclude. If null or empty is ignored.</param>
 		/// <param name="isRegex">Whether to use regex as search pattern. Otherwise use asterisks</param>
 		/// <param name="includeSubfolders">Include sub folders</param>
 		/// <param name="includeHidden">Include hidden folders</param>
 		/// <param name="sizeFrom">Size in KB</param>
 		/// <param name="sizeTo">Size in KB</param>
 		/// <returns></returns>
-		public static string[] GetFileList(string path, string namePattern, bool isRegex, bool includeSubfolders, bool includeHidden, int sizeFrom, int sizeTo)
+		public static string[] GetFileList(string path, string namePatternToInclude, string namePatternToExclude, bool isRegex, bool includeSubfolders, bool includeHidden, int sizeFrom, int sizeTo)
 		{
-			if (string.IsNullOrEmpty(path) || namePattern == null)
+			if (string.IsNullOrEmpty(path) || namePatternToInclude == null)
 			{
 				return new string[0];
 			}
 			else
 			{
 				List<string> fileMatch = new List<string>();
+				if (namePatternToExclude == null)
+					namePatternToExclude = "";
+
+				if (!isRegex)
+				{
+					string[] excludePaths = namePatternToExclude.Split(';');
+					StringBuilder sb = new StringBuilder();
+					foreach (string exPath in excludePaths)
+					{
+						if (exPath.Trim() == "")
+							continue;
+						sb.Append(wildcardToRegex(exPath) + ";");
+					}
+					namePatternToExclude = sb.ToString();
+				}
 
 				string[] paths = path.Split(';');
 				foreach (string subPath in paths)
@@ -318,10 +334,13 @@ namespace dnGREP.Common
 
 						if (di.Exists)
 						{
-							string[] namePatterns = namePattern.Split(';');
+							string[] namePatterns = namePatternToInclude.Split(';');
 							foreach (string pattern in namePatterns)
 							{
-								recursiveFileSearch(di.FullName, pattern.Trim(), isRegex, includeSubfolders, includeHidden, sizeFrom, sizeTo, fileMatch);
+								string rxPattern = pattern.Trim();
+								if (!isRegex)
+									rxPattern = wildcardToRegex(rxPattern);
+								recursiveFileSearch(di.FullName, rxPattern, namePatternToExclude.Trim(), includeSubfolders, includeHidden, sizeFrom, sizeTo, fileMatch);
 							}
 						}
 						else if (File.Exists(subPath))
@@ -339,27 +358,35 @@ namespace dnGREP.Common
 			}
 		}
 
-		private static void recursiveFileSearch(string pathToFolder, string namePattern, bool isRegex, bool includeSubfolders, bool includeHidden, int sizeFrom, int sizeTo, List<string> files)
+		private static void recursiveFileSearch(string pathToFolder, string namePatternToInclude, string namePatternToExclude, bool includeSubfolders, bool includeHidden, int sizeFrom, int sizeTo, List<string> files)
 		{
 			DirectoryInfo di = new DirectoryInfo(pathToFolder);
 			FileInfo[] fileMatch;
+			string[] excludePattern = namePatternToExclude.Split(';');
+				
 			try
 			{
-				if (isRegex)
+				List<FileInfo> tempFileList = new List<FileInfo>();
+				foreach (FileInfo fileInDirectory in di.GetFiles())
 				{
-					List<FileInfo> tempFileList = new List<FileInfo>();
-					foreach (FileInfo fileInDirectory in di.GetFiles())
+					if (Regex.IsMatch(fileInDirectory.Name, namePatternToInclude))
 					{
-						if (Regex.IsMatch(fileInDirectory.Name, namePattern))
+						bool isExcluded = false;
+						foreach (string subPath in excludePattern)
+						{
+							if (subPath.Trim() == "")
+								continue;
+
+							if (Regex.IsMatch(fileInDirectory.Name, subPath))
+								isExcluded = true;
+						}
+						if (!isExcluded)
 							tempFileList.Add(fileInDirectory);
 					}
+				}
 
-					fileMatch = tempFileList.ToArray();
-				}
-				else
-				{
-					fileMatch = di.GetFiles(namePattern, SearchOption.TopDirectoryOnly);
-				}
+				fileMatch = tempFileList.ToArray();
+				
 				for (int i = 0; i < fileMatch.Length; i++)
 				{
 					if (sizeFrom > 0 || sizeTo > 0)
@@ -387,7 +414,7 @@ namespace dnGREP.Common
 						}
 						else
 						{
-							recursiveFileSearch(subDir.FullName, namePattern, isRegex, includeSubfolders, includeHidden, sizeFrom, sizeTo, files);
+							recursiveFileSearch(subDir.FullName, namePatternToInclude, namePatternToExclude, includeSubfolders, includeHidden, sizeFrom, sizeTo, files);
 						}
 					}
 				}
@@ -397,6 +424,34 @@ namespace dnGREP.Common
 				logger.LogException(LogLevel.Error, ex.Message, ex);
 			}
 		}
+
+		/// <summary>
+		/// Converts unix asterisk based file pattern to regex
+		/// </summary>
+		/// <param name="wildcard">Asterisk based pattern</param>
+		/// <returns>Regeular expression of null is empty</returns>
+		private static string wildcardToRegex(string wildcard)
+		{
+			if (wildcard == null || wildcard == "") return wildcard;
+
+			StringBuilder sb = new StringBuilder();
+
+			char[] chars = wildcard.ToCharArray();
+			sb.Append("^");
+			for (int i = 0; i < chars.Length; ++i)
+			{
+				if (chars[i] == '*')
+					sb.Append(".*");
+				else if (chars[i] == '?')
+					sb.Append(".");
+				else if ("+()^$.{}|\\".IndexOf(chars[i]) != -1)
+					sb.Append('\\').Append(chars[i]); // prefix all metacharacters with backslash
+				else
+					sb.Append(chars[i]);
+			}
+			sb.Append("$");
+			return sb.ToString().ToLowerInvariant();
+		} 
 
 		/// <summary>
 		/// Parses text into int

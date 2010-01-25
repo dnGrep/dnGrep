@@ -29,6 +29,7 @@ namespace dnGREP.WPF
             TypeOfSearch = Properties.Settings.Default.TypeOfSearch;
             TypeOfFileSearch = Properties.Settings.Default.TypeOfFileSearch;
 			FilePattern = Properties.Settings.Default.FilePattern;
+			FilePatternIgnore = Properties.Settings.Default.FilePatternIgnore;
             UseFileSizeFilter = Properties.Settings.Default.UseFileSizeFilter;
             CaseSensitive = Properties.Settings.Default.CaseSensitive;
             Multiline = Properties.Settings.Default.Multiline;
@@ -100,6 +101,21 @@ namespace dnGREP.WPF
 				_FilePattern = value;
 				Properties.Settings.Default.FilePattern = value;
 				UpdateState("FilePattern");
+			}
+		}
+
+		private string _FilePatternIgnore = "";
+		/// <summary>
+		/// FilePatternIgnore property
+		/// </summary>
+		public string FilePatternIgnore
+		{
+			get { return _FilePatternIgnore; }
+			set
+			{
+				_FilePatternIgnore = value;
+				Properties.Settings.Default.FilePatternIgnore = value;
+				UpdateState("FilePatternIgnore");
 			}
 		}
 
@@ -505,7 +521,7 @@ namespace dnGREP.WPF
 			}
 
             //Files found
-            if (name == "FileOrFolderPath" || name == "SearchFor" || name == "FilePattern")
+			if (name == "FileOrFolderPath" || name == "SearchFor" || name == "FilePattern" || name == "FilePatternIgnore")
             {
                 FilesFound = false;
             }

@@ -159,22 +159,27 @@
                         <Grid.RowDefinitions>
                             <RowDefinition />
                             <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="82" />
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="WrapWithOverflow">Files that match:</TextBlock>
-                        <StackPanel Grid.Column="1" Grid.Row="0" >
-                            <TextBox GotFocus="TextBoxFocus" Name="tbFilePattern" my:DiginesisHelpProvider.HelpKeyword="searchreplace.html" my:DiginesisHelpProvider.HelpNavigator="Topic" 
+                        <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="WrapWithOverflow" VerticalAlignment="Center">Files that match:</TextBlock>
+                        <TextBox Grid.Column="1" Grid.Row="0" GotFocus="TextBoxFocus" Name="tbFilePattern" my:DiginesisHelpProvider.HelpKeyword="searchreplace.html" my:DiginesisHelpProvider.HelpNavigator="Topic" 
                                      my:DiginesisHelpProvider.ShowHelp="True" Text="{Binding Path=FilePattern, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        <TextBlock Grid.Column="0" Grid.Row="1" TextWrapping="WrapWithOverflow" VerticalAlignment="Center">Files to ignore:</TextBlock>
+                        <TextBox Grid.Column="1" Grid.Row="1" GotFocus="TextBoxFocus" Name="tbFilePatternIgnore" my:DiginesisHelpProvider.HelpKeyword="searchreplace.html" my:DiginesisHelpProvider.HelpNavigator="Topic" 
+                                     my:DiginesisHelpProvider.ShowHelp="True" Text="{Binding Path=FilePatternIgnore, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        <StackPanel Grid.Column="1" Grid.Row="2" >                            
                             <StackPanel Orientation="Horizontal">
                                 <RadioButton GroupName="FileSearchRegex" Margin="3" Name="rbFileRegex" IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}" ToolTip="e.g. file[0-9]{1,2}\\.txt">Regex</RadioButton>
                                 <RadioButton GroupName="FileSearchAsterisk" Margin="3" Name="rbFileAsterisk" IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Asterisk}" ToolTip="e.g. file??.*">Asterisk pattern</RadioButton>
                             </StackPanel>
                         </StackPanel>
-                        <TextBlock Grid.Column="0" Grid.Row="1">Encoding:</TextBlock>
-                        <ComboBox Grid.Column="1" Grid.Row="1" 
+                        <TextBlock Grid.Column="0" Grid.Row="3" VerticalAlignment="Center">Encoding:</TextBlock>
+                        <ComboBox Grid.Column="1" Grid.Row="3" 
                                   Name="cbEncoding" VerticalAlignment="Top" 
                                   SelectedValue="{Binding Path=CodePage}"/>
                     </Grid>
