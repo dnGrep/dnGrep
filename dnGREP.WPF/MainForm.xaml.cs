@@ -512,7 +512,7 @@ namespace dnGREP.WPF
         private void btnOptions_Click(object sender, RoutedEventArgs e)
         {
             OptionsForm optionsForm = new OptionsForm();
-            optionsForm.Show();
+            optionsForm.ShowDialog();
             inputData.LoadAppSettings();
         }
 
