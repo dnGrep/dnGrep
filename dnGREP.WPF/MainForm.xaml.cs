@@ -279,10 +279,7 @@ namespace dnGREP.WPF
 						if (param.TypeOfFileSearch == FileSearchType.Asterisk)
 							filePatternInclude = filePatternInclude.Replace("\\", "");
 
-						string filePatternExclude = "*.*";
-						if (param.TypeOfFileSearch == FileSearchType.Regex)
-							filePatternExclude = ".*";
-
+						string filePatternExclude = "";
 						if (!string.IsNullOrEmpty(param.FilePatternIgnore))
 							filePatternExclude = param.FilePatternIgnore;
 
