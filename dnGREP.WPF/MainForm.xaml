@@ -25,6 +25,17 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+        
+        <Style x:Key="GrayedOutFilePattern" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource DefaultStyle}">
+            <Style.Setters>
+                <Setter Property="Foreground" Value="Black"/>
+            </Style.Setters>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=FilePatternIgnore}" Value="">
+                    <Setter Property="Foreground" Value="Gray"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
       
         <my:EnumBooleanConverter x:Key="ebc" />
         
@@ -166,10 +177,10 @@
                             <ColumnDefinition Width="82" />
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="WrapWithOverflow" VerticalAlignment="Center">Files that match:</TextBlock>
+                        <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="Black">Files that match:</TextBlock>
                         <TextBox Grid.Column="1" Grid.Row="0" GotFocus="TextBoxFocus" Name="tbFilePattern" my:DiginesisHelpProvider.HelpKeyword="searchreplace.html" my:DiginesisHelpProvider.HelpNavigator="Topic" 
                                      my:DiginesisHelpProvider.ShowHelp="True" Text="{Binding Path=FilePattern, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                        <TextBlock Grid.Column="0" Grid.Row="1" TextWrapping="WrapWithOverflow" VerticalAlignment="Center">Files to ignore:</TextBlock>
+                        <TextBlock Style="{StaticResource GrayedOutFilePattern}" Grid.Column="0" Grid.Row="1" TextWrapping="WrapWithOverflow" VerticalAlignment="Center">Files to ignore:</TextBlock>
                         <TextBox Grid.Column="1" Grid.Row="1" GotFocus="TextBoxFocus" Name="tbFilePatternIgnore" my:DiginesisHelpProvider.HelpKeyword="searchreplace.html" my:DiginesisHelpProvider.HelpNavigator="Topic" 
                                      my:DiginesisHelpProvider.ShowHelp="True" Text="{Binding Path=FilePatternIgnore, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                         <StackPanel Grid.Column="1" Grid.Row="2" >                            
