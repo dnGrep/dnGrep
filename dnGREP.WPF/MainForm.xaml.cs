@@ -295,7 +295,7 @@ namespace dnGREP.WPF
 						else
 						{
 							files = Utils.GetFileList(inputData.FileOrFolderPath, filePatternInclude, filePatternExclude, param.TypeOfFileSearch == FileSearchType.Regex, param.IncludeSubfolder,
-								param.IncludeHidden, sizeFrom, sizeTo);
+								param.IncludeHidden, param.IncludeBinary, sizeFrom, sizeTo);
 						}
 						GrepCore grep = new GrepCore();
 						grep.SearchParams.FuzzyMatchThreshold = Properties.Settings.Default.FuzzyMatchThreshold;

@@ -25,6 +25,7 @@ namespace dnGREP.WPF
             SearchFor = Properties.Settings.Default.SearchFor;
             ReplaceWith = Properties.Settings.Default.ReplaceWith;
             IncludeHidden = Properties.Settings.Default.IncludeHidden;
+			IncludeBinary = Properties.Settings.Default.IncludeBinary;
             IncludeSubfolder = Properties.Settings.Default.IncludeSubfolder;
             TypeOfSearch = Properties.Settings.Default.TypeOfSearch;
             TypeOfFileSearch = Properties.Settings.Default.TypeOfFileSearch;
@@ -146,6 +147,20 @@ namespace dnGREP.WPF
 				_IncludeHidden = value;
 				Properties.Settings.Default.IncludeHidden = value;
 				UpdateState("IncludeHidden");
+			}
+		}
+
+		private bool _IncludeBinary = false;
+		/// <summary>
+		/// IncludeBinary property
+		/// </summary>
+		public bool IncludeBinary
+		{
+			get { return _IncludeBinary; }
+			set { 
+				_IncludeBinary = value;
+				Properties.Settings.Default.IncludeBinary = value;
+				UpdateState("IncludeBinary"); 
 			}
 		}
 

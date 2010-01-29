@@ -184,7 +184,7 @@ namespace dnGREP.Common
 		/// <param name="path"></param>
 		public static void DeleteFolder(string path)
 		{
-			string[] files = GetFileList(path, "*.*", null, false, true, true, 0, 0);
+			string[] files = GetFileList(path, "*.*", null, false, true, true, true, 0, 0);
 			foreach (string file in files)
 			{
 				File.SetAttributes(file, FileAttributes.Normal);
@@ -219,6 +219,31 @@ namespace dnGREP.Common
 			else if (buffer[0] == 0x2b && buffer[1] == 0x2f && buffer[2] == 0x76)
 				enc = Encoding.UTF7;
 			return enc;
+		}
+
+		/// <summary>
+		/// Returns true is file is binary. Algorithm taken from winGrep.
+		/// The function scans first 10KB for 0x0000 sequence
+		/// and if found, assumes the file to be binary
+		/// </summary>
+		/// <param name="filePath">Path to a file</param>
+		/// <returns>True is file is binary otherwise false</returns>
+		public static bool IsBinary(string srcFile)
+		{
+			byte[] buffer = new byte[1024];
+			int count = 0;
+			using (FileStream readStream = new FileStream(srcFile, FileMode.Open, FileAccess.Read, FileShare.Read))
+			{
+				count = readStream.Read(buffer, 0, buffer.Length);
+			}
+			for (int i = 0; i < count - 1; i = i + 2)
+			{
+				if (buffer[i] == 0 && buffer[i + 1] == 0)
+				{
+					return true;
+				}
+			}
+			return false;
 		}
 
 		/// <summary>
@@ -294,10 +319,11 @@ namespace dnGREP.Common
 		/// <param name="isRegex">Whether to use regex as search pattern. Otherwise use asterisks</param>
 		/// <param name="includeSubfolders">Include sub folders</param>
 		/// <param name="includeHidden">Include hidden folders</param>
+		/// <param name="includeBinary">Include binary files</param>
 		/// <param name="sizeFrom">Size in KB</param>
 		/// <param name="sizeTo">Size in KB</param>
 		/// <returns></returns>
-		public static string[] GetFileList(string path, string namePatternToInclude, string namePatternToExclude, bool isRegex, bool includeSubfolders, bool includeHidden, int sizeFrom, int sizeTo)
+		public static string[] GetFileList(string path, string namePatternToInclude, string namePatternToExclude, bool isRegex, bool includeSubfolders, bool includeHidden, bool includeBinary, int sizeFrom, int sizeTo)
 		{
 			if (string.IsNullOrEmpty(path) || namePatternToInclude == null)
 			{
@@ -340,7 +366,7 @@ namespace dnGREP.Common
 								string rxPattern = pattern.Trim();
 								if (!isRegex)
 									rxPattern = wildcardToRegex(rxPattern);
-								recursiveFileSearch(di.FullName, rxPattern, namePatternToExclude.Trim(), includeSubfolders, includeHidden, sizeFrom, sizeTo, fileMatch);
+								recursiveFileSearch(di.FullName, rxPattern, namePatternToExclude.Trim(), includeSubfolders, includeHidden, includeBinary, sizeFrom, sizeTo, fileMatch);
 							}
 						}
 						else if (File.Exists(subPath))
@@ -358,7 +384,7 @@ namespace dnGREP.Common
 			}
 		}
 
-		private static void recursiveFileSearch(string pathToFolder, string namePatternToInclude, string namePatternToExclude, bool includeSubfolders, bool includeHidden, int sizeFrom, int sizeTo, List<string> files)
+		private static void recursiveFileSearch(string pathToFolder, string namePatternToInclude, string namePatternToExclude, bool includeSubfolders, bool includeHidden, bool includeBinary, int sizeFrom, int sizeTo, List<string> files)
 		{
 			DirectoryInfo di = new DirectoryInfo(pathToFolder);
 			FileInfo[] fileMatch;
@@ -401,6 +427,10 @@ namespace dnGREP.Common
 							continue;
 						}
 					}
+
+					if (!includeBinary && IsBinary(fileMatch[i].FullName))
+						continue;
+
 					if (!files.Contains(fileMatch[i].FullName))
 						files.Add(fileMatch[i].FullName);
 				}
@@ -414,7 +444,7 @@ namespace dnGREP.Common
 						}
 						else
 						{
-							recursiveFileSearch(subDir.FullName, namePatternToInclude, namePatternToExclude, includeSubfolders, includeHidden, sizeFrom, sizeTo, files);
+							recursiveFileSearch(subDir.FullName, namePatternToInclude, namePatternToExclude, includeSubfolders, includeHidden, includeBinary, sizeFrom, sizeTo, files);
 						}
 					}
 				}

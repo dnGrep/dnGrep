@@ -8,7 +8,7 @@
     Loaded="Window_Loaded" KeyDown="formKeyDown" Style="{StaticResource DefaultStyle}" 
     Background="{StaticResource GradientBackground}"
     SnapsToDevicePixels="True" ResizeMode="CanResizeWithGrip" AllowDrop="False"
-    my:DiginesisHelpProvider.HelpKeyword="search-window.html" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True">
+    my:DiginesisHelpProvider.HelpKeyword="search-window.html" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True" Name="MainWindow">
     <!-- Resources -->
     <Window.Resources>
         <Style x:Key="ExpandedTextbox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource DefaultStyle}">
@@ -163,8 +163,9 @@
                             </TextBox>
                             <TextBlock Margin="3" VerticalAlignment="Center">KB</TextBlock>
                         </StackPanel>
-                        <CheckBox Margin="3" IsChecked="{Binding Path=IncludeSubfolder}" Name="cbIncludeSubfolders">Include subfolders</CheckBox>
-                        <CheckBox Margin="3" IsChecked="{Binding Path=IncludeHidden}" Name="cbIncludeHiddenFolders">Include hidden folders</CheckBox>
+                        <CheckBox Margin="2" IsChecked="{Binding Path=IncludeSubfolder}" Name="cbIncludeSubfolders">Include subfolders</CheckBox>
+                        <CheckBox Margin="2" IsChecked="{Binding Path=IncludeHidden}" Name="cbIncludeHiddenFolders">Include hidden folders</CheckBox>
+                        <CheckBox Margin="2" IsChecked="{Binding Path=IncludeBinary}" Name="cbIncludeBinary">Include binary files</CheckBox>
                     </StackPanel>
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>

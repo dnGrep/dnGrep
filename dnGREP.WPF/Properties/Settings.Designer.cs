@@ -369,5 +369,17 @@ namespace dnGREP.WPF.Properties {
                 this["FilePatternIgnore"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IncludeBinary {
+            get {
+                return ((bool)(this["IncludeBinary"]));
+            }
+            set {
+                this["IncludeBinary"] = value;
+            }
+        }
     }
 }

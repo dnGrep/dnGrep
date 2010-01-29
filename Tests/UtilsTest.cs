@@ -409,7 +409,7 @@ namespace Tests
 		{
 			DirectoryInfo di = new DirectoryInfo(sourceFolder + "\\TestCase2\\HiddenFolder");
 			di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
-			Assert.AreEqual(Utils.GetFileList(sourceFolder + "\\TestCase2", namePattern, null, isRegex, includeSubfolders, includeHidden, sizeFrom, sizeTo).Length, result);
+			Assert.AreEqual(Utils.GetFileList(sourceFolder + "\\TestCase2", namePattern, null, isRegex, includeSubfolders, includeHidden, true, sizeFrom, sizeTo).Length, result);
 		}
 
 		[Test]
@@ -417,22 +417,22 @@ namespace Tests
 		{
 			string dllPath = GetDllPath();
 			string path = sourceFolder + "\\TestCase2;" + sourceFolder + "\\TestCase2\\excel-file.xls";
-			Assert.AreEqual(Utils.GetFileList(path, "*.*", "", false, false, false, 0, 0).Length, 4);
+			Assert.AreEqual(Utils.GetFileList(path, "*.*", "", false, false, false, true, 0, 0).Length, 4);
 
 			path = sourceFolder + "\\TestCase2;" + sourceFolder + "\\TestCase3\\test-file-code.cs";
-			Assert.AreEqual(Utils.GetFileList(path, "*.*", "", false, false, false, 0, 0).Length, 5);
+			Assert.AreEqual(Utils.GetFileList(path, "*.*", "", false, false, false, true, 0, 0).Length, 5);
 
 			path = sourceFolder + "\\TestCase3\\test-file-code.cs;" + sourceFolder + "\\TestCase2";
-			Assert.AreEqual(Utils.GetFileList(path, "*.*", "", false, false, false, 0, 0).Length, 5);
+			Assert.AreEqual(Utils.GetFileList(path, "*.*", "", false, false, false, true, 0, 0).Length, 5);
 
 			path = sourceFolder + "\\TestCase2;" + sourceFolder + "\\TestCase3\\test-file-code.cs;" + sourceFolder + "\\TestCase3\\test-file-plain.txt";
-			Assert.AreEqual(Utils.GetFileList(path, "*.*", null, false, false, false, 0, 0).Length, 6);
+			Assert.AreEqual(Utils.GetFileList(path, "*.*", null, false, false, false, true, 0, 0).Length, 6);
 
 			path = sourceFolder + "\\TestCase3\\test-file-code.cs;" + sourceFolder + "\\TestCase3\\test-file-plain.txt";
-			Assert.AreEqual(Utils.GetFileList(path, "*.*", null, false, false, false, 0, 0).Length, 2);
+			Assert.AreEqual(Utils.GetFileList(path, "*.*", null, false, false, false, true, 0, 0).Length, 2);
 
 			path = sourceFolder + "\\TestCase3\\test-file-code.cs;" + sourceFolder + "\\TestCase3\\test-file-plain.txt;";
-			Assert.AreEqual(Utils.GetFileList(path, "*.*", null, false, false, false, 0, 0).Length, 2);
+			Assert.AreEqual(Utils.GetFileList(path, "*.*", null, false, false, false, true, 0, 0).Length, 2);
 		}
 
 		[Test]
@@ -440,17 +440,17 @@ namespace Tests
 		{
 			string dllPath = GetDllPath();
 			string path = sourceFolder + "\\TestCase2";
-			Assert.AreEqual(Utils.GetFileList(path, "*.*", "*.xls", false, false, false, 0, 0).Length, 3);
-			Assert.AreEqual(Utils.GetFileList(path, "excel*.*", "*.xls", false, false, false, 0, 0).Length, 0);
-			Assert.AreEqual(Utils.GetFileList(path, "excel*.*", "*.xs", false, false, false, 0, 0).Length, 1);
-			Assert.AreEqual(Utils.GetFileList(path, "t[a-z]st-file-*.*", "*.cs", false, false, false, 0, 0).Length, 2);
-			Assert.AreEqual(Utils.GetFileList(path, "t[ea]st-file-*.*", "*.cs", false, false, false, 0, 0).Length, 2);
+			Assert.AreEqual(Utils.GetFileList(path, "*.*", "*.xls", false, false, false, true, 0, 0).Length, 3);
+			Assert.AreEqual(Utils.GetFileList(path, "excel*.*", "*.xls", false, false, false, true, 0, 0).Length, 0);
+			Assert.AreEqual(Utils.GetFileList(path, "excel*.*", "*.xs", false, false, false, true, 0, 0).Length, 1);
+			Assert.AreEqual(Utils.GetFileList(path, "t[a-z]st-file-*.*", "*.cs", false, false, false, true, 0, 0).Length, 2);
+			Assert.AreEqual(Utils.GetFileList(path, "t[ea]st-file-*.*", "*.cs", false, false, false, true, 0, 0).Length, 2);
 		}
 
 		[Test]
 		public void GetFileListFromNonExistingFolderReturnsEmptyString()
 		{
-			Assert.AreEqual(Utils.GetFileList(sourceFolder + "\\NonExisting", "*.*", null, false, true, true, 0, 0).Length, 0);
+			Assert.AreEqual(Utils.GetFileList(sourceFolder + "\\NonExisting", "*.*", null, false, true, true, true, 0, 0).Length, 0);
 		}
 
         [Test]
@@ -487,6 +487,15 @@ namespace Tests
 
 			Assert.AreEqual(Utils.GetReadOnlyFiles(null).Count, 0);
 			Assert.AreEqual(Utils.GetReadOnlyFiles(new List<GrepSearchResult>()).Count, 0);
+		}
+
+		[Test]
+		[Row("\\TestCase6\\test.rar", true)]
+		[Row("\\TestCase6\\test_file.txt", false)]
+		[Row("\\TestCase5\\big-word-document.doc", true)]
+		public void TestIsBinaryFile(string file, bool isBinary)
+		{
+			Assert.AreEqual<bool>(Utils.IsBinary(sourceFolder + file), isBinary);
 		}
 	}
 }
