@@ -469,6 +469,24 @@ namespace dnGREP.WPF
 				Close();
 		}
 
+
+		private void treeKeyDown(object sender, KeyEventArgs e)
+		{
+			if (e.Key == Key.C && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+			{
+				if (tvSearchResult.SelectedItem is FormattedGrepLine)
+				{
+					FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
+					Clipboard.SetText(selectedNode.GrepLine.LineText);
+				}
+				else if (tvSearchResult.SelectedItem is FormattedGrepResult)
+				{
+					FormattedGrepResult result = (FormattedGrepResult)tvSearchResult.SelectedItem;
+					Clipboard.SetText(result.GrepResult.FileNameDisplayed);
+				}
+			}
+		}	
+
 		private void undoToolStripMenuItem_Click(object sender, RoutedEventArgs e)
 		{
 			if (inputData.CanUndo)
@@ -793,6 +811,7 @@ namespace dnGREP.WPF
 			{
 				((TextBox)e.Source).SelectAll();
 			}
-		}		
+		}
+	
 	}
 }

@@ -8,7 +8,7 @@
     Loaded="Window_Loaded" KeyDown="formKeyDown" Style="{StaticResource DefaultStyle}" 
     Background="{StaticResource GradientBackground}"
     SnapsToDevicePixels="True" ResizeMode="CanResizeWithGrip" AllowDrop="False"
-    my:DiginesisHelpProvider.HelpKeyword="search-window.html" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True" Name="MainWindow">
+    my:DiginesisHelpProvider.HelpKeyword="search-window.html" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True">
     <!-- Resources -->
     <Window.Resources>
         <Style x:Key="ExpandedTextbox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource DefaultStyle}">
@@ -244,7 +244,7 @@
                 <RowDefinition Height="25" />
             </Grid.RowDefinitions>
             <TreeView Grid.Row="0" Name="tvSearchResult" 
-                      MouseDoubleClick="tvSearchResult_MouseDoubleClick">
+                      MouseDoubleClick="tvSearchResult_MouseDoubleClick" PreviewKeyDown="treeKeyDown">
                 <TreeView.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="Open" Click="btnOpenFile_Click"/>
