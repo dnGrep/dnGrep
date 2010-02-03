@@ -37,20 +37,24 @@ namespace dnGREP.WPF
 		private BookmarksForm bookmarkForm = new BookmarksForm();
         private System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
         private System.Windows.Forms.HelpProvider helpProvider = new System.Windows.Forms.HelpProvider();
+		public GrepSettings settings
+		{
+			get { return GrepSettings.Instance; }
+		}
         
 		#region Check version
 		private void checkVersion()
 		{
 			try
 			{
-				if (Properties.Settings.Default.EnableUpdateChecking)
+				if (settings.Get<bool>(GrepSettings.Key.EnableUpdateChecking))
 				{
-					DateTime lastCheck = Properties.Settings.Default.LastCheckedVersion;
+					DateTime lastCheck = settings.Get<DateTime>(GrepSettings.Key.LastCheckedVersion);
 					TimeSpan duration = DateTime.Now.Subtract(lastCheck);
-					if (duration.TotalDays >= Utils.ParseInt(Properties.Settings.Default.UpdateCheckInterval, 99))
+					if (duration.TotalDays >= settings.Get<int>(GrepSettings.Key.UpdateCheckInterval));
 					{
 						ve.StartWebRequest();
-						Properties.Settings.Default.LastCheckedVersion = DateTime.Now;
+						settings.Set<DateTime>(GrepSettings.Key.LastCheckedVersion, DateTime.Now);
 					}
 				}
 			}
@@ -178,7 +182,7 @@ namespace dnGREP.WPF
 				inputData.SearchResults.Clear();
                 Dictionary<string, object> workerParames = new Dictionary<string, object>();
                 workerParames["State"] = inputData;
-				if (!Properties.Settings.Default.PreviewResults)
+				if (!settings.Get<bool>(GrepSettings.Key.PreviewResults))
 					tvSearchResult.ItemsSource = null;
                 workerSearchReplace.RunWorkerAsync(workerParames);
 			}
@@ -197,7 +201,7 @@ namespace dnGREP.WPF
                 workerParames["State"] = inputData;
                 workerParames["Files"] = foundFiles;
 				inputData.SearchResults.Clear();
-				if (!Properties.Settings.Default.PreviewResults)
+				if (!settings.Get<bool>(GrepSettings.Key.PreviewResults))
 					tvSearchResult.ItemsSource = null;
 				workerSearchReplace.RunWorkerAsync(workerParames);
 			}
@@ -298,11 +302,11 @@ namespace dnGREP.WPF
 								param.IncludeHidden, param.IncludeBinary, sizeFrom, sizeTo);
 						}
 						GrepCore grep = new GrepCore();
-						grep.SearchParams.FuzzyMatchThreshold = Properties.Settings.Default.FuzzyMatchThreshold;
-						grep.SearchParams.ShowLinesInContext = Properties.Settings.Default.ShowLinesInContext;
-						grep.SearchParams.LinesBefore = Properties.Settings.Default.ContextLinesBefore;
-						grep.SearchParams.LinesAfter = Properties.Settings.Default.ContextLinesAfter;
-						grep.PreviewFilesDuringSearch = Properties.Settings.Default.PreviewResults;
+						grep.SearchParams.FuzzyMatchThreshold = settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold);
+						grep.SearchParams.ShowLinesInContext = settings.Get<bool>(GrepSettings.Key.ShowLinesInContext);
+						grep.SearchParams.LinesBefore = settings.Get<int>(GrepSettings.Key.ContextLinesBefore);
+						grep.SearchParams.LinesAfter = settings.Get<int>(GrepSettings.Key.ContextLinesAfter);
+						grep.PreviewFilesDuringSearch = settings.Get<bool>(GrepSettings.Key.PreviewResults);
 
                         GrepSearchOption searchOptions = GrepSearchOption.None;
                         if (inputData.Multiline)
@@ -323,11 +327,11 @@ namespace dnGREP.WPF
 					else
 					{
 						GrepCore grep = new GrepCore();
-						grep.SearchParams.FuzzyMatchThreshold = Properties.Settings.Default.FuzzyMatchThreshold;
-						grep.SearchParams.ShowLinesInContext = Properties.Settings.Default.ShowLinesInContext;
-						grep.SearchParams.LinesBefore = Properties.Settings.Default.ContextLinesBefore;
-						grep.SearchParams.LinesAfter = Properties.Settings.Default.ContextLinesAfter;
-						grep.PreviewFilesDuringSearch = Properties.Settings.Default.PreviewResults;
+						grep.SearchParams.FuzzyMatchThreshold = settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold);
+						grep.SearchParams.ShowLinesInContext = settings.Get<bool>(GrepSettings.Key.ShowLinesInContext);
+						grep.SearchParams.LinesBefore = settings.Get<int>(GrepSettings.Key.ContextLinesBefore);
+						grep.SearchParams.LinesAfter = settings.Get<int>(GrepSettings.Key.ContextLinesAfter);
+						grep.PreviewFilesDuringSearch = settings.Get<bool>(GrepSettings.Key.PreviewResults);
 
                         GrepSearchOption searchOptions = GrepSearchOption.None;
                         if (inputData.Multiline)
@@ -410,7 +414,7 @@ namespace dnGREP.WPF
 					inputData.CurrentGrepOperation = GrepOperation.None;
 					if (inputData.SearchResults.Count > 0)
 						inputData.FilesFound = true;
-					if (!Properties.Settings.Default.PreviewResults)
+					if (!settings.Get<bool>(GrepSettings.Key.PreviewResults))
 					{
 						inputData.SearchResults.AddRange(results);
 						tvSearchResult.ItemsSource = inputData.SearchResults;
@@ -460,7 +464,7 @@ namespace dnGREP.WPF
 			GrepCore.CancelProcess = true;
 			if (workerSearchReplace.IsBusy)
 				workerSearchReplace.CancelAsync();
-			Properties.Settings.Default.Save();
+			settings.Save();
 		}
 
 		private void formKeyDown(object sender, KeyEventArgs e)
@@ -720,20 +724,20 @@ namespace dnGREP.WPF
                 int lineNumber = selectedNode.GrepLine.LineNumber;
 
                 FormattedGrepResult result = selectedNode.Parent;
-                OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, lineNumber, Properties.Settings.Default.UseCustomEditor, Properties.Settings.Default.CustomEditor, Properties.Settings.Default.CustomEditorArgs);
+                OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, lineNumber, settings.Get<bool>(GrepSettings.Key.UseCustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
                 dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, new GrepEngineInitParams(false, 0, 0, 0.5)).OpenFile(fileArg);
                 if (fileArg.UseBaseEngine)
-                    Utils.OpenFile(new OpenFileArgs(result.GrepResult, lineNumber, Properties.Settings.Default.UseCustomEditor, Properties.Settings.Default.CustomEditor, Properties.Settings.Default.CustomEditorArgs));
+					Utils.OpenFile(new OpenFileArgs(result.GrepResult, lineNumber, settings.Get<bool>(GrepSettings.Key.UseCustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
             }
             else if (tvSearchResult.SelectedItem is FormattedGrepResult)
             {
                 FormattedGrepResult result = (FormattedGrepResult)tvSearchResult.SelectedItem;
                 // Line was selected
                 int lineNumber = 0;
-                OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, lineNumber, Properties.Settings.Default.UseCustomEditor, Properties.Settings.Default.CustomEditor, Properties.Settings.Default.CustomEditorArgs);
+				OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, lineNumber, settings.Get<bool>(GrepSettings.Key.UseCustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
 				dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, new GrepEngineInitParams(false, 0, 0, 0.5)).OpenFile(fileArg);
                 if (fileArg.UseBaseEngine)
-                    Utils.OpenFile(new OpenFileArgs(result.GrepResult, lineNumber, Properties.Settings.Default.UseCustomEditor, Properties.Settings.Default.CustomEditor, Properties.Settings.Default.CustomEditorArgs));
+					Utils.OpenFile(new OpenFileArgs(result.GrepResult, lineNumber, settings.Get<bool>(GrepSettings.Key.UseCustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
             }
         }
 

@@ -131,7 +131,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="SettingBindingExtension.cs" />
     <Compile Include="TestPattern.State.cs" />
     <Compile Include="TestPattern.xaml.cs">
       <DependentUpon>TestPattern.xaml</DependentUpon>

@@ -35,6 +35,11 @@ namespace dnGREP.WPF
 			DiginesisHelpProvider.ShowHelp = true;
         }
 
+		public GrepSettings settings
+		{
+			get { return GrepSettings.Instance; }
+		}
+
         private System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
         private static string SHELL_KEY_NAME = "dnGREP";
         private static string OLD_SHELL_KEY_NAME = "nGREP";
@@ -62,7 +67,7 @@ namespace dnGREP.WPF
                 grShell.ToolTip = "Shell integration enables running an application from shell context menu.";
             }
 
-            if (Properties.Settings.Default.EnableUpdateChecking)
+            if (settings.Get<bool>(GrepSettings.Key.EnableUpdateChecking))
             {
                 tbUpdateInterval.IsEnabled = true;
             }
@@ -70,7 +75,7 @@ namespace dnGREP.WPF
             {
                 tbUpdateInterval.IsEnabled = false;
             }
-            if (Properties.Settings.Default.ShowLinesInContext)
+            if (settings.Get<bool>(GrepSettings.Key.ShowLinesInContext))
             {
                 tbLinesAfter.IsEnabled = true;
                 tbLinesBefore.IsEnabled = true;
@@ -80,7 +85,7 @@ namespace dnGREP.WPF
                 tbLinesAfter.IsEnabled = false;
                 tbLinesBefore.IsEnabled = false;
             }
-            if (Properties.Settings.Default.UseCustomEditor)
+            if (settings.Get<bool>(GrepSettings.Key.UseCustomEditor))
             {
                 rbSpecificEditor.IsChecked = true;
                 rbDefaultEditor.IsChecked = false;
@@ -187,17 +192,17 @@ namespace dnGREP.WPF
         {
             checkIfAdmin();
             cbRegisterShell.IsChecked = isShellRegistered("Directory");
-            cbCheckForUpdates.IsChecked = Properties.Settings.Default.EnableUpdateChecking;
-            cbShowPath.IsChecked = Properties.Settings.Default.ShowFilePathInResults;
-            cbShowContext.IsChecked = Properties.Settings.Default.ShowLinesInContext;
-            tbLinesBefore.Text = Properties.Settings.Default.ContextLinesBefore.ToString();
-            tbLinesAfter.Text = Properties.Settings.Default.ContextLinesAfter.ToString();
-            cbSearchFileNameOnly.IsChecked = Properties.Settings.Default.AllowSearchingForFileNamePattern;
-            tbEditorPath.Text = Properties.Settings.Default.CustomEditor;
-            tbEditorArgs.Text = Properties.Settings.Default.CustomEditorArgs;
-			cbPreviewResults.IsChecked = Properties.Settings.Default.PreviewResults;
-			tbUpdateInterval.Text = Properties.Settings.Default.UpdateCheckInterval;
-			tbFuzzyMatchThreshold.Text = Properties.Settings.Default.FuzzyMatchThreshold.ToString();
+            cbCheckForUpdates.IsChecked = settings.Get<bool>(GrepSettings.Key.EnableUpdateChecking);
+			cbShowPath.IsChecked = settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults);
+			cbShowContext.IsChecked = settings.Get<bool>(GrepSettings.Key.ShowLinesInContext);
+            tbLinesBefore.Text = settings.Get<int>(GrepSettings.Key.ContextLinesBefore).ToString();
+			tbLinesAfter.Text = settings.Get<int>(GrepSettings.Key.ContextLinesAfter).ToString();
+            cbSearchFileNameOnly.IsChecked = settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern);
+            tbEditorPath.Text = settings.Get<string>(GrepSettings.Key.CustomEditor);
+            tbEditorArgs.Text = settings.Get<string>(GrepSettings.Key.CustomEditorArgs);
+			cbPreviewResults.IsChecked = settings.Get<bool>(GrepSettings.Key.PreviewResults);
+			tbUpdateInterval.Text = settings.Get<int>(GrepSettings.Key.UpdateCheckInterval).ToString();
+			tbFuzzyMatchThreshold.Text = settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold).ToString();
             UpdateState("Initial");
         }
 
@@ -220,39 +225,39 @@ namespace dnGREP.WPF
         private void rbEditorCheckedChanged(object sender, RoutedEventArgs e)
         {
             if (rbDefaultEditor.IsChecked == true)
-                Properties.Settings.Default.UseCustomEditor = false;
+                settings.Set<bool>(GrepSettings.Key.UseCustomEditor, false);
             else
-                Properties.Settings.Default.UseCustomEditor = true;
+				settings.Set<bool>(GrepSettings.Key.UseCustomEditor, true);
 
             UpdateState("UseCustomEditor");
         }
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            Properties.Settings.Default.ContextLinesBefore = int.Parse(tbLinesBefore.Text);
-            Properties.Settings.Default.ContextLinesAfter = int.Parse(tbLinesAfter.Text);
-            Properties.Settings.Default.AllowSearchingForFileNamePattern = cbSearchFileNameOnly.IsChecked == true;
-            Properties.Settings.Default.CustomEditor = tbEditorPath.Text;
-            Properties.Settings.Default.CustomEditorArgs = tbEditorArgs.Text;
-			Properties.Settings.Default.PreviewResults = cbPreviewResults.IsChecked == true;
-			Properties.Settings.Default.UpdateCheckInterval = Utils.ParseInt(tbUpdateInterval.Text, 1).ToString();
+			settings.Set<int>(GrepSettings.Key.ContextLinesBefore, Utils.ParseInt(tbLinesBefore.Text, 0));
+			settings.Set<int>(GrepSettings.Key.ContextLinesAfter, Utils.ParseInt(tbLinesAfter.Text, 0));
+            settings.Set<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern, cbSearchFileNameOnly.IsChecked == true);
+            settings.Set<string>(GrepSettings.Key.CustomEditor, tbEditorPath.Text);
+            settings.Set<string>(GrepSettings.Key.CustomEditorArgs, tbEditorArgs.Text);
+			settings.Set<bool>(GrepSettings.Key.PreviewResults, cbPreviewResults.IsChecked == true);
+			settings.Set<int>(GrepSettings.Key.UpdateCheckInterval, Utils.ParseInt(tbUpdateInterval.Text, 1));
 			double threshold = Utils.ParseDouble(tbFuzzyMatchThreshold.Text, 0.5);
 			if (threshold >= 0 && threshold <= 1.0)
-				Properties.Settings.Default.FuzzyMatchThreshold = threshold;
-            Properties.Settings.Default.Save();
+				settings.Set<double>(GrepSettings.Key.FuzzyMatchThreshold, threshold);
+			settings.Save();
         }
 
         public static string GetEditorPath(string file, int line)
         {
-            if (!Properties.Settings.Default.UseCustomEditor)
+            if (!GrepSettings.Instance.Get<bool>(GrepSettings.Key.UseCustomEditor))
             {
                 return file;
             }
             else
             {
-                if (!string.IsNullOrEmpty(Properties.Settings.Default.CustomEditor))
+                if (!string.IsNullOrEmpty(GrepSettings.Instance.Get<string>(GrepSettings.Key.CustomEditor)))
                 {
-                    string path = Properties.Settings.Default.CustomEditor.Replace("%file", "\"" + file + "\"").Replace("%line", line.ToString());
+                    string path = GrepSettings.Instance.Get<string>(GrepSettings.Key.CustomEditor).Replace("%file", "\"" + file + "\"").Replace("%line", line.ToString());
                     return path;
                 }
                 else
@@ -278,7 +283,7 @@ namespace dnGREP.WPF
 
         private void cbCheckForUpdates_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.EnableUpdateChecking = cbCheckForUpdates.IsChecked == true;
+            settings.Set<bool>(GrepSettings.Key.EnableUpdateChecking, cbCheckForUpdates.IsChecked == true);
             if (tbUpdateInterval.Text.Trim() == "")
                 tbUpdateInterval.Text = "1";
             UpdateState("EnableUpdateChecking");
@@ -286,12 +291,12 @@ namespace dnGREP.WPF
 
         private void cbShowPath_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.ShowFilePathInResults = cbShowPath.IsChecked == true;
+			settings.Set<bool>(GrepSettings.Key.ShowFilePathInResults, cbShowPath.IsChecked == true);
         }
 
         private void cbShowContext_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            Properties.Settings.Default.ShowLinesInContext = cbShowContext.IsChecked == true;
+			settings.Set<bool>(GrepSettings.Key.ShowLinesInContext, cbShowContext.IsChecked == true);
             UpdateState("ShowLinesInContext");
         }
 

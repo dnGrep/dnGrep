@@ -83,6 +83,7 @@
     </Compile>
     <Compile Include="PublishedVersionExtractor.cs" />
     <Compile Include="SearchDelegates.cs" />
+    <Compile Include="GrepApplicationSettings.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>

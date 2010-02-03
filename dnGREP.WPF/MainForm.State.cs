@@ -19,25 +19,31 @@ namespace dnGREP.WPF
 			UpdateState("Initial");
 		}
 
+		public GrepSettings settings
+		{
+			get { return GrepSettings.Instance; }
+		}
+
         public void LoadAppSettings()
         {
-            FileOrFolderPath = Properties.Settings.Default.SearchFolder;
-            SearchFor = Properties.Settings.Default.SearchFor;
-            ReplaceWith = Properties.Settings.Default.ReplaceWith;
-            IncludeHidden = Properties.Settings.Default.IncludeHidden;
-			IncludeBinary = Properties.Settings.Default.IncludeBinary;
-            IncludeSubfolder = Properties.Settings.Default.IncludeSubfolder;
-            TypeOfSearch = Properties.Settings.Default.TypeOfSearch;
-            TypeOfFileSearch = Properties.Settings.Default.TypeOfFileSearch;
-			FilePattern = Properties.Settings.Default.FilePattern;
-			FilePatternIgnore = Properties.Settings.Default.FilePatternIgnore;
-            UseFileSizeFilter = Properties.Settings.Default.UseFileSizeFilter;
-            CaseSensitive = Properties.Settings.Default.CaseSensitive;
-            Multiline = Properties.Settings.Default.Multiline;
-            Singleline = Properties.Settings.Default.Singleline;
-			WholeWord = Properties.Settings.Default.WholeWord;
-            SizeFrom = Properties.Settings.Default.SizeFrom;
-            SizeTo = Properties.Settings.Default.SizeTo;
+            FileOrFolderPath = settings.Get<string>(GrepSettings.Key.SearchFolder);
+            SearchFor = settings.Get<string>(GrepSettings.Key.SearchFor);
+            ReplaceWith = settings.Get<string>(GrepSettings.Key.ReplaceWith);
+            IncludeHidden = settings.Get<bool>(GrepSettings.Key.IncludeHidden);
+			IncludeBinary = settings.Get<bool>(GrepSettings.Key.IncludeBinary);
+			IncludeSubfolder = settings.Get<bool>(GrepSettings.Key.IncludeSubfolder);
+            TypeOfSearch = settings.Get<SearchType>(GrepSettings.Key.TypeOfSearch);
+            TypeOfFileSearch = settings.Get<FileSearchType>(GrepSettings.Key.TypeOfFileSearch);
+			FilePattern = settings.Get<string>(GrepSettings.Key.FilePattern);
+			FilePatternIgnore = settings.Get<string>(GrepSettings.Key.FilePatternIgnore);
+            UseFileSizeFilter = settings.Get<FileSizeFilter>(GrepSettings.Key.UseFileSizeFilter);
+			CaseSensitive = settings.Get<bool>(GrepSettings.Key.CaseSensitive);
+			Multiline = settings.Get<bool>(GrepSettings.Key.Multiline);
+			Singleline = settings.Get<bool>(GrepSettings.Key.Singleline);
+			WholeWord = settings.Get<bool>(GrepSettings.Key.WholeWord);
+            SizeFrom = settings.Get<int>(GrepSettings.Key.SizeFrom);
+            SizeTo = settings.Get<int>(GrepSettings.Key.SizeTo);
+			IsOptionsExpanded = settings.Get<bool>(GrepSettings.Key.IsOptionsExpanded);
         }
 
 		private ObservableGrepSearchResults searchResults = new ObservableGrepSearchResults();
@@ -57,7 +63,7 @@ namespace dnGREP.WPF
 			get { return _FileOrFolderPath; }
 			set { 
 				_FileOrFolderPath = value; 
-				Properties.Settings.Default.SearchFolder = value;  
+				settings.Set<string>(GrepSettings.Key.SearchFolder, value);  
 				UpdateState("FileOrFolderPath"); 
 			}
 		}
@@ -71,7 +77,7 @@ namespace dnGREP.WPF
 			get { return _SearchFor; }
 			set { 
 				_SearchFor = value; 
-				Properties.Settings.Default.SearchFor = value; 
+				settings.Set<string>(GrepSettings.Key.SearchFor, value); 
 				UpdateState("SearchFor"); 
 			}
 		}
@@ -85,8 +91,23 @@ namespace dnGREP.WPF
 			get { return _ReplaceWith; }
 			set { 
 				_ReplaceWith = value; 
-				Properties.Settings.Default.ReplaceWith = value; 
+				settings.Set<string>(GrepSettings.Key.ReplaceWith, value); 
 				UpdateState("ReplaceWith"); 
+			}
+		}
+
+		private bool _IsOptionsExpanded = false;
+		/// <summary>
+		/// IsOptionsExpanded property
+		/// </summary>
+		public bool IsOptionsExpanded
+		{
+			get { return _IsOptionsExpanded; }
+			set
+			{
+				_IsOptionsExpanded = value;
+				settings.Set<bool>(GrepSettings.Key.IsOptionsExpanded, value);
+				UpdateState("IsOptionsExpanded");
 			}
 		}
 		
@@ -100,7 +121,7 @@ namespace dnGREP.WPF
 			set
 			{
 				_FilePattern = value;
-				Properties.Settings.Default.FilePattern = value;
+				settings.Set<string>(GrepSettings.Key.FilePattern, value);
 				UpdateState("FilePattern");
 			}
 		}
@@ -115,7 +136,7 @@ namespace dnGREP.WPF
 			set
 			{
 				_FilePatternIgnore = value;
-				Properties.Settings.Default.FilePatternIgnore = value;
+				settings.Set<string>(GrepSettings.Key.FilePatternIgnore, value);
 				UpdateState("FilePatternIgnore");
 			}
 		}
@@ -130,7 +151,7 @@ namespace dnGREP.WPF
 			set
 			{
 				_IncludeSubfolder = value;
-				Properties.Settings.Default.IncludeSubfolder = value;
+				settings.Set<bool>(GrepSettings.Key.IncludeSubfolder, value);
 				UpdateState("IncludeSubfolder");
 			}
 		}
@@ -145,7 +166,7 @@ namespace dnGREP.WPF
 			set
 			{
 				_IncludeHidden = value;
-				Properties.Settings.Default.IncludeHidden = value;
+				settings.Set<bool>(GrepSettings.Key.IncludeHidden, value);
 				UpdateState("IncludeHidden");
 			}
 		}
@@ -159,7 +180,7 @@ namespace dnGREP.WPF
 			get { return _IncludeBinary; }
 			set { 
 				_IncludeBinary = value;
-				Properties.Settings.Default.IncludeBinary = value;
+				settings.Set<bool>(GrepSettings.Key.IncludeBinary, value);
 				UpdateState("IncludeBinary"); 
 			}
 		}
@@ -174,7 +195,7 @@ namespace dnGREP.WPF
 			set
 			{
 				_TypeOfSearch = value;
-				Properties.Settings.Default.TypeOfSearch = value;
+				settings.Set<SearchType>(GrepSettings.Key.TypeOfSearch, value);
 				UpdateState("TypeOfSearch");
 			}
 		}
@@ -189,7 +210,7 @@ namespace dnGREP.WPF
 			set
 			{
 				_TypeOfFileSearch = value;
-				Properties.Settings.Default.TypeOfFileSearch = value;
+				settings.Set<FileSearchType>(GrepSettings.Key.TypeOfFileSearch, value);
 				UpdateState("TypeOfFileSearch");
 			}
 		}
@@ -204,7 +225,7 @@ namespace dnGREP.WPF
 			set
 			{
 				_UseFileSizeFilter = value;
-				Properties.Settings.Default.UseFileSizeFilter = value;
+				settings.Set<FileSizeFilter>(GrepSettings.Key.UseFileSizeFilter, value);
 				UpdateState("UseFileSizeFilter");
 			}
 		}
@@ -218,7 +239,7 @@ namespace dnGREP.WPF
 			get { return sizeFrom; }
 			set { 
 				sizeFrom = value;
-				Properties.Settings.Default.SizeFrom =  value;
+				settings.Set<int>(GrepSettings.Key.SizeFrom, value);
 				UpdateState("SizeFrom");
 			}
 		}
@@ -233,7 +254,7 @@ namespace dnGREP.WPF
 			set
 			{
 				_SizeTo = value;
-				Properties.Settings.Default.SizeTo = value;
+				settings.Set<int>(GrepSettings.Key.SizeTo, value);
 				UpdateState("SizeTo");
 			}
 		}
@@ -248,7 +269,7 @@ namespace dnGREP.WPF
 			set
 			{
 				_CaseSensitive = value;
-				Properties.Settings.Default.CaseSensitive = value;
+				settings.Set<bool>(GrepSettings.Key.CaseSensitive, value);
 				UpdateState("CaseSensitive");
 			}
 		}
@@ -277,7 +298,7 @@ namespace dnGREP.WPF
 			set
 			{
 				_Multiline = value;
-				Properties.Settings.Default.Multiline = value;
+				settings.Set<bool>(GrepSettings.Key.Multiline, value);
 				UpdateState("Multiline");
 			}
 		}
@@ -306,7 +327,7 @@ namespace dnGREP.WPF
 			set
 			{
 				_Singleline = value;
-				Properties.Settings.Default.Singleline = value;
+				settings.Set<bool>(GrepSettings.Key.Singleline, value);
 				UpdateState("Singleline");
 			}
 		}
@@ -337,7 +358,7 @@ namespace dnGREP.WPF
 			set
 			{
 				_WholeWord = value;
-				Properties.Settings.Default.WholeWord = value;
+				settings.Set<bool>(GrepSettings.Key.WholeWord, value);
 				UpdateState("WholeWord");
 			}
 		}
@@ -545,7 +566,7 @@ namespace dnGREP.WPF
 			if (name == "FileOrFolderPath" || name == "CurrentGrepOperation" || name == "SearchFor")
 			{
 				if (Utils.IsPathValid(FileOrFolderPath) && CurrentGrepOperation == GrepOperation.None &&
-					(!string.IsNullOrEmpty(SearchFor) || Properties.Settings.Default.AllowSearchingForFileNamePattern))
+					(!string.IsNullOrEmpty(SearchFor) || settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern)))
 				{
 					CanSearch = true;
 				}

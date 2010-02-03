@@ -24,15 +24,20 @@ namespace dnGREP.WPF
 			SearchButtonMode = "Button";
 		}
 
+		public GrepSettings settings
+		{
+			get { return GrepSettings.Instance; }
+		}
+
 		public void LoadAppSettings()
 		{
-			SearchFor = Properties.Settings.Default.SearchFor;
-			ReplaceWith = Properties.Settings.Default.ReplaceWith;
-			TypeOfSearch = Properties.Settings.Default.TypeOfSearch;
-			CaseSensitive = Properties.Settings.Default.CaseSensitive;
-			Multiline = Properties.Settings.Default.Multiline;
-			Singleline = Properties.Settings.Default.Singleline;
-			WholeWord = Properties.Settings.Default.WholeWord;
+			SearchFor = settings.Get<string>(GrepSettings.Key.SearchFor);
+			ReplaceWith = settings.Get<string>(GrepSettings.Key.ReplaceWith);
+			TypeOfSearch = settings.Get<SearchType>(GrepSettings.Key.TypeOfSearch);
+			CaseSensitive = settings.Get<bool>(GrepSettings.Key.CaseSensitive);
+			Multiline = settings.Get<bool>(GrepSettings.Key.Multiline);
+			Singleline = settings.Get<bool>(GrepSettings.Key.Singleline);
+			WholeWord = settings.Get<bool>(GrepSettings.Key.WholeWord);
 		}
 
 		private ObservableGrepSearchResults searchResults = new ObservableGrepSearchResults();
@@ -54,7 +59,7 @@ namespace dnGREP.WPF
 			set
 			{
 				_SearchFor = value;
-				Properties.Settings.Default.SearchFor = value;
+				settings.Set<string>(GrepSettings.Key.SearchFor, value);
 				UpdateState("SearchFor");
 			}
 		}
@@ -69,7 +74,7 @@ namespace dnGREP.WPF
 			set
 			{
 				_ReplaceWith = value;
-				Properties.Settings.Default.ReplaceWith = value;
+				settings.Set<string>(GrepSettings.Key.ReplaceWith, value);
 				UpdateState("ReplaceWith");
 			}
 		}
@@ -84,7 +89,7 @@ namespace dnGREP.WPF
 			set
 			{
 				_TypeOfSearch = value;
-				Properties.Settings.Default.TypeOfSearch = value;
+				settings.Set<SearchType>(GrepSettings.Key.TypeOfSearch, value);
 				UpdateState("TypeOfSearch");
 			}
 		}
@@ -99,7 +104,7 @@ namespace dnGREP.WPF
 			set
 			{
 				_CaseSensitive = value;
-				Properties.Settings.Default.CaseSensitive = value;
+				settings.Set<bool>(GrepSettings.Key.CaseSensitive, value);
 				UpdateState("CaseSensitive");
 			}
 		}
@@ -128,7 +133,7 @@ namespace dnGREP.WPF
 			set
 			{
 				_Multiline = value;
-				Properties.Settings.Default.Multiline = value;
+				settings.Set<bool>(GrepSettings.Key.Multiline, value);
 				UpdateState("Multiline");
 			}
 		}
@@ -157,7 +162,7 @@ namespace dnGREP.WPF
 			set
 			{
 				_Singleline = value;
-				Properties.Settings.Default.Singleline = value;
+				settings.Set<bool>(GrepSettings.Key.Singleline, value);
 				UpdateState("Singleline");
 			}
 		}
@@ -186,7 +191,7 @@ namespace dnGREP.WPF
 			set
 			{
 				_WholeWord = value;
-				Properties.Settings.Default.WholeWord = value;
+				settings.Set<bool>(GrepSettings.Key.WholeWord, value);
 				UpdateState("WholeWord");
 			}
 		}

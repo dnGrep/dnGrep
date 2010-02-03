@@ -8,7 +8,7 @@
     Loaded="Window_Loaded" KeyDown="formKeyDown" Style="{StaticResource DefaultStyle}" 
     Background="{StaticResource GradientBackground}"
     SnapsToDevicePixels="True" ResizeMode="CanResizeWithGrip" AllowDrop="False"
-    my:DiginesisHelpProvider.HelpKeyword="search-window.html" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True">
+    my:DiginesisHelpProvider.HelpKeyword="search-window.html" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True" WindowStartupLocation="Manual">
     <!-- Resources -->
     <Window.Resources>
         <Style x:Key="ExpandedTextbox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource DefaultStyle}">
@@ -119,7 +119,7 @@
                                  Style="{StaticResource ExpandedTextbox}"/>
                     </GroupBox>
                     <Expander Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2"
-                              Name="expOptions">
+                              Name="expOptions" IsExpanded="{Binding Path=IsOptionsExpanded}">
                         <Expander.Header>
                             <WrapPanel><TextBlock>Options</TextBlock><TextBlock Margin="15,0,0,0" Text="{Binding Path=OptionsSummary}"/></WrapPanel>
                         </Expander.Header>
