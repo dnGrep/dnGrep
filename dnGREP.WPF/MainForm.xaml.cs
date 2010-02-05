@@ -97,6 +97,12 @@ namespace dnGREP.WPF
             this.saveFileDialog.Filter = "CSV file|*.csv";
             DiginesisHelpProvider.HelpNamespace = "Doc\\dnGREP.chm";
             DiginesisHelpProvider.ShowHelp = true;
+			double width = settings.Get<double>(GrepSettings.Key.MainFormWidth);
+			double height = settings.Get<double>(GrepSettings.Key.MainFormHeight);
+			if (width > 0)
+				Width = width;
+			if (height > 0)
+				Height = height;
         }
 
 		private void populateEncodings()
@@ -185,6 +191,11 @@ namespace dnGREP.WPF
 				if (!settings.Get<bool>(GrepSettings.Key.PreviewResults))
 					tvSearchResult.ItemsSource = null;
                 workerSearchReplace.RunWorkerAsync(workerParames);
+				// Update bookmarks
+				if (!inputData.FastSearchBookmarks.Contains(tbSearchFor.Text))
+				{
+					inputData.FastSearchBookmarks.Insert(0, tbSearchFor.Text);
+				}
 			}
 		}
 
@@ -204,6 +215,11 @@ namespace dnGREP.WPF
 				if (!settings.Get<bool>(GrepSettings.Key.PreviewResults))
 					tvSearchResult.ItemsSource = null;
 				workerSearchReplace.RunWorkerAsync(workerParames);
+				// Update bookmarks
+				if (!inputData.FastSearchBookmarks.Contains(tbSearchFor.Text))
+				{
+					inputData.FastSearchBookmarks.Insert(0, tbSearchFor.Text);
+				}
 			}
 		}
 
@@ -243,6 +259,11 @@ namespace dnGREP.WPF
                 workerParames["Files"] = foundFiles;
                 inputData.SearchResults.Clear();
                 workerSearchReplace.RunWorkerAsync(workerParames);
+				// Update bookmarks
+				if (!inputData.FastReplaceBookmarks.Contains(tbReplaceWith.Text))
+				{
+					inputData.FastReplaceBookmarks.Insert(0, tbReplaceWith.Text);
+				}
 			}
 		}
 
@@ -418,6 +439,7 @@ namespace dnGREP.WPF
 					{
 						inputData.SearchResults.AddRange(results);
 						tvSearchResult.ItemsSource = inputData.SearchResults;
+						inputData.FilesFound = true;
 					}
 				}
 				else if (inputData.CurrentGrepOperation == GrepOperation.Replace)
@@ -464,6 +486,21 @@ namespace dnGREP.WPF
 			GrepCore.CancelProcess = true;
 			if (workerSearchReplace.IsBusy)
 				workerSearchReplace.CancelAsync();
+			settings.Set<double>(GrepSettings.Key.MainFormWidth, Width);
+			settings.Set<double>(GrepSettings.Key.MainFormHeight, Height);
+			//Saving bookmarks
+			List<string> fsb = new List<string>();
+			for (int i = 0; i < inputData.FastSearchBookmarks.Count && i < MainFormState.FastBookmarkCapacity; i++)
+			{
+				fsb.Add(inputData.FastSearchBookmarks[i]);
+			}
+			settings.Set<List<string>>(GrepSettings.Key.FastSearchBookmarks, fsb);
+			List<string> frb = new List<string>();
+			for (int i = 0; i < inputData.FastReplaceBookmarks.Count && i < MainFormState.FastBookmarkCapacity; i++)
+			{
+				frb.Add(inputData.FastReplaceBookmarks[i]);
+			}
+			settings.Set<List<string>>(GrepSettings.Key.FastReplaceBookmarks, frb);
 			settings.Save();
 		}
 
@@ -816,6 +853,16 @@ namespace dnGREP.WPF
 				((TextBox)e.Source).SelectAll();
 			}
 		}
-	
+
+		private void btnSearchFastBookmarks_Click(object sender, RoutedEventArgs e)
+		{
+			cbSearchFastBookmark.IsDropDownOpen = true;
+		}
+
+		private void btnReplaceFastBookmarks_Click(object sender, RoutedEventArgs e)
+		{
+			cbReplaceFastBookmark.IsDropDownOpen = true;
+			tbReplaceWith.SelectAll();
+		}	
 	}
 }

@@ -49,6 +49,10 @@ namespace dnGREP.Common
 			public const string PreviewResults = "PreviewResults";
 			public const string LastCheckedVersion = "LastCheckedVersion";
 			public const string IsOptionsExpanded = "IsOptionsExpanded";
+			public const string MainFormWidth = "MainForm.Width";
+			public const string MainFormHeight = "MainForm.Height";
+			public const string FastSearchBookmarks = "FastSearchBookmarks";
+			public const string FastReplaceBookmarks = "FastReplaceBookmarks";
 		}		
 		
 		private static GrepSettings instance;
@@ -166,7 +170,11 @@ namespace dnGREP.Common
 
 			try
 			{
-				if (typeof(T).IsEnum)
+				if (typeof(T) == typeof(string))
+				{
+					return (T)Convert.ChangeType(value, typeof(string));
+				} 
+				else if (typeof(T).IsEnum)
 				{
 					return (T)Enum.Parse(typeof(T), value);
 				}
@@ -200,7 +208,15 @@ namespace dnGREP.Common
 			if (value == null)
 				return;
 
-			if (!typeof(T).IsPrimitive)
+			if (typeof(T) == typeof(string))
+			{
+				this[key] = value.ToString();
+			}
+			else if (typeof(T).IsEnum)
+			{
+				this[key] = value.ToString();
+			}
+			else if (!typeof(T).IsPrimitive)
 			{
 				using (MemoryStream stream = new MemoryStream())
 				{

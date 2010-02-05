@@ -8,11 +8,14 @@ using System.Collections.Specialized;
 using System.Windows.Threading;
 using System.Threading;
 using System.ComponentModel;
+using System.Collections.ObjectModel;
 
 namespace dnGREP.WPF
 {
 	public class MainFormState : INotifyPropertyChanged
 	{
+		public static int FastBookmarkCapacity = 20;
+
 		public MainFormState()
 		{
             LoadAppSettings();
@@ -44,6 +47,25 @@ namespace dnGREP.WPF
             SizeFrom = settings.Get<int>(GrepSettings.Key.SizeFrom);
             SizeTo = settings.Get<int>(GrepSettings.Key.SizeTo);
 			IsOptionsExpanded = settings.Get<bool>(GrepSettings.Key.IsOptionsExpanded);
+			List<string> fsb = settings.Get<List<string>>(GrepSettings.Key.FastSearchBookmarks);
+			if (fsb != null) 
+			{
+				foreach (string bookmark in fsb)
+				{
+					if (!FastSearchBookmarks.Contains(bookmark))
+						FastSearchBookmarks.Add(bookmark);
+				}
+			}
+
+			List<string> frb = settings.Get<List<string>>(GrepSettings.Key.FastReplaceBookmarks);
+			if (frb != null)
+			{
+				foreach (string bookmark in frb)
+				{
+					if (!FastReplaceBookmarks.Contains(bookmark))
+						FastReplaceBookmarks.Add(bookmark);
+				}
+			}
         }
 
 		private ObservableGrepSearchResults searchResults = new ObservableGrepSearchResults();
@@ -52,6 +74,18 @@ namespace dnGREP.WPF
 			get {				
 				return searchResults; 
 			}
+		}
+
+		private ObservableCollection<string> fastSearchBookmarks = new ObservableCollection<string>();
+		public ObservableCollection<string> FastSearchBookmarks
+		{
+			get { return fastSearchBookmarks; }
+		}
+
+		private ObservableCollection<string> fastReplaceBookmarks = new ObservableCollection<string>();
+		public ObservableCollection<string> FastReplaceBookmarks
+		{
+			get { return fastReplaceBookmarks; }
 		}
 
 		private string _FileOrFolderPath = "";
