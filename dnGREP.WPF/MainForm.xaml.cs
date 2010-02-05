@@ -578,7 +578,15 @@ namespace dnGREP.WPF
         private void btnOptions_Click(object sender, RoutedEventArgs e)
         {
             OptionsForm optionsForm = new OptionsForm();
-            optionsForm.ShowDialog();
+			try
+			{
+				optionsForm.ShowDialog();
+			}
+			catch (Exception ex)
+			{
+				MessageBox.Show("There was an error saving options.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+				logger.LogException(LogLevel.Error, ex.Message, ex);
+			}
             inputData.LoadAppSettings();
         }
 
