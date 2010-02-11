@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:splitButton="clr-namespace:Wpf.Controls;assembly=Wpf.SplitButton"
     xmlns:my="clr-namespace:dnGREP.WPF"
-    Title="dnGREP" Width="487" WindowStyle="ToolWindow" Height="501" MinHeight="460" 
+    Title="dnGREP" Width="487" Height="501" MinHeight="460" 
     MinWidth="500" Icon="/dnGREP;component/nGREP.ico" Closing="MainForm_Closing"
     Loaded="Window_Loaded" KeyDown="formKeyDown" Style="{StaticResource DefaultStyle}" 
     Background="{StaticResource GradientBackground}"
