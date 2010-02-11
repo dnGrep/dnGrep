@@ -175,17 +175,24 @@ namespace dnGREP.WPF
 
         private void checkIfAdmin()
         {
-            WindowsIdentity wi = WindowsIdentity.GetCurrent();
-            WindowsPrincipal wp = new WindowsPrincipal(wi);
+			try
+			{
+				WindowsIdentity wi = WindowsIdentity.GetCurrent();
+				WindowsPrincipal wp = new WindowsPrincipal(wi);
 
-            if (wp.IsInRole("Administrators"))
-            {
-                isAdministrator = true;
-            }
-            else
-            {
-                isAdministrator = false;
-            }
+				if (wp.IsInRole("Administrators"))
+				{
+					isAdministrator = true;
+				}
+				else
+				{
+					isAdministrator = false;
+				}
+			}
+			catch (Exception ex)
+			{
+				isAdministrator = false;
+			}
         }
 
         private void Window_Load(object sender, RoutedEventArgs e)
