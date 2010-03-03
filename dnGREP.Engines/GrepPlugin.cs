@@ -94,7 +94,7 @@ namespace dnGREP.Engines
 					{
 						List<string> domainSearchPaths = new List<string>();
 						if (System.AppDomain.CurrentDomain.RelativeSearchPath != null)
-							domainSearchPaths = new List<string>(System.AppDomain.CurrentDomain.RelativeSearchPath.Split(';'));
+							domainSearchPaths = new List<string>(System.AppDomain.CurrentDomain.RelativeSearchPath.Split(';', ','));
 
 						if (!domainSearchPaths.Contains(Path.GetDirectoryName(tempDllFilePath)))
 							AppDomain.CurrentDomain.AppendPrivatePath(Path.GetDirectoryName(tempDllFilePath));

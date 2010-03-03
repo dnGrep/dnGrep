@@ -270,7 +270,7 @@ namespace dnGREP.Common
 				if (string.IsNullOrEmpty(path))
 					return false;
 
-				string[] paths = path.Split(';');
+				string[] paths = path.Split(';', ',');
 				foreach (string subPath in paths)
 				{
 					if (subPath.Trim() != "" && !File.Exists(subPath) && !Directory.Exists(subPath))
@@ -294,7 +294,7 @@ namespace dnGREP.Common
 		{
 			try
 			{
-				string[] paths = path.Split(';');
+				string[] paths = path.Split(';', ',');
 				if (paths[0].Trim() != "" && File.Exists(paths[0]))
 					return Path.GetDirectoryName(paths[0]);
 				else if (paths[0].Trim() != "" && Directory.Exists(paths[0]))
@@ -337,7 +337,7 @@ namespace dnGREP.Common
 
 				if (!isRegex)
 				{
-					string[] excludePaths = namePatternToExclude.Split(';');
+					string[] excludePaths = namePatternToExclude.Split(';', ',');
 					StringBuilder sb = new StringBuilder();
 					foreach (string exPath in excludePaths)
 					{
@@ -348,7 +348,7 @@ namespace dnGREP.Common
 					namePatternToExclude = sb.ToString();
 				}
 
-				string[] paths = path.Split(';');
+				string[] paths = path.Split(';', ',');
 				foreach (string subPath in paths)
 				{
 					if (subPath.Trim() == "")
@@ -360,7 +360,7 @@ namespace dnGREP.Common
 
 						if (di.Exists)
 						{
-							string[] namePatterns = namePatternToInclude.Split(';');
+							string[] namePatterns = namePatternToInclude.Split(';', ',');
 							foreach (string pattern in namePatterns)
 							{
 								string rxPattern = pattern.Trim();
@@ -388,7 +388,7 @@ namespace dnGREP.Common
 		{
 			DirectoryInfo di = new DirectoryInfo(pathToFolder);
 			FileInfo[] fileMatch;
-			string[] excludePattern = namePatternToExclude.Split(';');
+			string[] excludePattern = namePatternToExclude.Split(';', ',');
 				
 			try
 			{

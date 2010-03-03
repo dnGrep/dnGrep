@@ -134,7 +134,12 @@ namespace Tests
 			foreach (string rPath in rPaths)
 				sb.Append(pathToDll + rPath + ";");
 
-			Assert.AreEqual(Utils.IsPathValid(sb.ToString()), result);
+			Assert.AreEqual(result, Utils.IsPathValid(sb.ToString()));
+
+			foreach (string rPath in rPaths)
+				sb.Append(pathToDll + rPath + ",");
+
+			Assert.AreEqual(result, Utils.IsPathValid(sb.ToString()));
 		}
 
 		[Test]
@@ -432,6 +437,12 @@ namespace Tests
 			Assert.AreEqual(Utils.GetFileList(path, "*.*", null, false, false, false, true, 0, 0).Length, 2);
 
 			path = sourceFolder + "\\TestCase3\\test-file-code.cs;" + sourceFolder + "\\TestCase3\\test-file-plain.txt;";
+			Assert.AreEqual(Utils.GetFileList(path, "*.*", null, false, false, false, true, 0, 0).Length, 2);
+
+			path = sourceFolder + "\\TestCase3\\test-file-code.cs," + sourceFolder + "\\TestCase3\\test-file-plain.txt,";
+			Assert.AreEqual(Utils.GetFileList(path, "*.*", null, false, false, false, true, 0, 0).Length, 2);
+
+			path = sourceFolder + "\\TestCase3\\test-file-code.cs," + sourceFolder + "\\TestCase3\\test-file-plain.txt";
 			Assert.AreEqual(Utils.GetFileList(path, "*.*", null, false, false, false, true, 0, 0).Length, 2);
 		}
 
