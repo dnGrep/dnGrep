@@ -21,7 +21,10 @@ namespace dnGREP.WPF
             Utils.DeleteTempFolder();
             if (e.Args != null && e.Args.Length > 0)
             {
-                GrepSettings.Instance.Set<string>(GrepSettings.Key.SearchFolder, e.Args[0]);
+				string searchPath = e.Args[0];
+				if (searchPath.EndsWith(":\""))
+					searchPath = searchPath.Substring(0, searchPath.Length - 1) + "\\";
+                GrepSettings.Instance.Set<string>(GrepSettings.Key.SearchFolder, searchPath);
             }            
         }
         private void Application_Exit(object sender, ExitEventArgs e)
