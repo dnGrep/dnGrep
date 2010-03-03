@@ -3,6 +3,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     Title="Test" Height="300" Width="300">
+
+    
     <Grid>
         <Border BorderThickness="2" BorderBrush="Black" VerticalAlignment="Top">
         <Grid Height="80" VerticalAlignment="Top">
@@ -28,7 +30,7 @@
                     </TextBox.ContextMenu>
                 </TextBox>
                 <Button Grid.Column="1" Name="button1" HorizontalContentAlignment="Center" VerticalAlignment="Top" Width="auto" Click="button1_Click"
-                        FontFamily="Marlett" FontSize="15" Content="6"></Button>
+                        FontFamily="Marlett" FontSize="15" Content="6" PreviewMouseLeftButtonDown="DragSource_PreviewMouseLeftButtonDown" PreviewMouseMove="DragSource_PreviewMouseMove"></Button>
             </Grid>
         </Border>
     </Grid>

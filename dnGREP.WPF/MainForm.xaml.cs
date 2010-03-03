@@ -838,31 +838,7 @@ namespace dnGREP.WPF
             }
         }
 
-        public void OnDragOver(object sender, DragEventArgs e)
-        {
-            e.Effects = DragDropEffects.All;
-            e.Handled = true;
-        }
-
-        private void OutputFolderDrop(object sender, DragEventArgs e)
-        {
-            if (e.Data is System.Windows.DataObject &&
-            ((System.Windows.DataObject)e.Data).ContainsFileDropList())
-            {
-                inputData.FileOrFolderPath = "";
-                StringCollection fileNames = ((System.Windows.DataObject)e.Data).GetFileDropList();
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < fileNames.Count; i++ )
-                {
-                    sb.Append(fileNames[i]);
-                    if (i < (fileNames.Count - 1))
-                        sb.Append(";");
-                }
-                inputData.FileOrFolderPath = sb.ToString();
-            } 
-        }
-
-		private void TextBoxFocus(object sender, RoutedEventArgs e)
+        private void TextBoxFocus(object sender, RoutedEventArgs e)
 		{
 			if (e.Source is TextBox)
 			{
@@ -879,6 +855,95 @@ namespace dnGREP.WPF
 		{
 			cbReplaceFastBookmark.IsDropDownOpen = true;
 			tbReplaceWith.SelectAll();
-		}	
+		}
+
+		#region DragDropEvents 
+		private static UIElement _draggedElt;
+		private static bool _isMouseDown = false;
+		private static Point _dragStartPoint;
+
+		private void tvSearchResult_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+		{
+			// Make this the new drag source
+			_draggedElt = e.Source as UIElement;
+			_dragStartPoint = e.GetPosition(getTopContainer());
+			_isMouseDown = true;
+		}
+
+		private void tvSearchResult_PreviewMouseMove(object sender, MouseEventArgs e)
+		{
+			if (_isMouseDown && isDragGesture(e.GetPosition(getTopContainer())))
+			{
+				treeDragStarted(sender as UIElement);
+			}
+		}
+
+		private void treeDragStarted(UIElement uiElt)
+		{
+			_isMouseDown = false;
+			Mouse.Capture(uiElt);
+
+			DataObject data = new DataObject();
+			
+			if (tvSearchResult.SelectedItem is FormattedGrepLine)
+			{
+				FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
+				data.SetData(DataFormats.Text, selectedNode.GrepLine.LineText);
+			}
+			else if (tvSearchResult.SelectedItem is FormattedGrepResult)
+			{
+				FormattedGrepResult result = (FormattedGrepResult)tvSearchResult.SelectedItem;
+				StringCollection files = new StringCollection();
+				files.Add(result.GrepResult.FileNameReal);
+				data.SetFileDropList(files);
+			}
+
+
+			DragDropEffects supportedEffects = DragDropEffects.Move | DragDropEffects.Copy;
+			// Perform DragDrop
+			DragDropEffects effects = System.Windows.DragDrop.DoDragDrop(_draggedElt, data, supportedEffects);
+
+			// Clean up
+			Mouse.Capture(null);
+			_draggedElt = null;
+		}
+
+		private bool isDragGesture(Point point)
+		{
+			bool hGesture = Math.Abs(point.X - _dragStartPoint.X) > SystemParameters.MinimumHorizontalDragDistance;
+			bool vGesture = Math.Abs(point.Y - _dragStartPoint.Y) > SystemParameters.MinimumVerticalDragDistance;
+
+			return (hGesture | vGesture);
+		}
+
+		private UIElement getTopContainer()
+		{
+			return Application.Current.MainWindow.Content as UIElement;
+		}
+
+		private void tbFolderName_DragOver(object sender, DragEventArgs e)
+		{
+			e.Effects = DragDropEffects.All;
+			e.Handled = true;
+		}
+
+		private void tbFolderName_Drop(object sender, DragEventArgs e)
+		{
+			if (e.Data is System.Windows.DataObject &&
+			((System.Windows.DataObject)e.Data).ContainsFileDropList())
+			{
+				inputData.FileOrFolderPath = "";
+				StringCollection fileNames = ((System.Windows.DataObject)e.Data).GetFileDropList();
+				StringBuilder sb = new StringBuilder();
+				for (int i = 0; i < fileNames.Count; i++)
+				{
+					sb.Append(fileNames[i]);
+					if (i < (fileNames.Count - 1))
+						sb.Append(";");
+				}
+				inputData.FileOrFolderPath = sb.ToString();
+			}
+		}
+		#endregion
 	}
 }

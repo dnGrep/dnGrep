@@ -75,7 +75,7 @@
                         <ColumnDefinition />
                         <ColumnDefinition Width="48" />
                     </Grid.ColumnDefinitions>
-                    <TextBox GotFocus="TextBoxFocus" AllowDrop="True" PreviewDragEnter="OnDragOver" PreviewDragOver="OnDragOver" PreviewDrop="OutputFolderDrop" Grid.Column="0" Name="tbFolderName" Text="{Binding Path=FileOrFolderPath, UpdateSourceTrigger=PropertyChanged}" ToolTip="Path to search in" />
+                    <TextBox GotFocus="TextBoxFocus" AllowDrop="True" PreviewDragEnter="tbFolderName_DragOver" PreviewDragOver="tbFolderName_DragOver" PreviewDrop="tbFolderName_Drop" Grid.Column="0" Name="tbFolderName" Text="{Binding Path=FileOrFolderPath, UpdateSourceTrigger=PropertyChanged}" ToolTip="Path to search in" />
                     <Button Click="btnBrowse_Click" Grid.Column="1" Width="42" HorizontalAlignment="Right" Name="btnBrowse" ToolTip="Browse for folder or files">...</Button>
                 </Grid>
             </GroupBox>
@@ -322,6 +322,12 @@
                         <EventSetter
                         Event="TreeViewItem.MouseRightButtonDown"
                         Handler="tvSearchResult_MouseDown"/>
+                        <EventSetter
+                        Event="TreeViewItem.PreviewMouseLeftButtonDown"
+                        Handler="tvSearchResult_PreviewMouseLeftButtonDown"/>
+                        <EventSetter
+                        Event="TreeViewItem.PreviewMouseMove"
+                        Handler="tvSearchResult_PreviewMouseMove"/>
                         <Setter Property="IsExpanded" Value="{Binding Path=IsExpanded, Mode=TwoWay}"/>
                         <Setter Property="FontSize" Value="12"/>
                         <Style.Triggers>
