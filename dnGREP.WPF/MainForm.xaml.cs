@@ -375,8 +375,16 @@ namespace dnGREP.WPF
 			catch (Exception ex)
 			{
 				logger.LogException(LogLevel.Error, ex.Message, ex);
-				MainFormState param = (MainFormState)e.Argument;
-				if (param.CurrentGrepOperation == GrepOperation.Search || param.CurrentGrepOperation == GrepOperation.SearchInResults)
+				bool isSearch = true;
+				if (e.Argument is MainFormState)
+				{
+					MainFormState param = (MainFormState)e.Argument;
+					if (param.CurrentGrepOperation == GrepOperation.Search || param.CurrentGrepOperation == GrepOperation.SearchInResults)
+						isSearch = true;
+					else
+						isSearch = false;
+				}
+				if (isSearch)
 					MessageBox.Show("Search failed! See error log.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 				else
 					MessageBox.Show("Replace failed! See error log.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
