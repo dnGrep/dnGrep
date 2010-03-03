@@ -156,16 +156,19 @@ namespace Tests
 		public void TestMatchCount()
 		{
 			GrepSearchResult result = new GrepSearchResult("test.txt", new List<GrepSearchResult.GrepLine>());
-            result.SearchResults.Add(new GrepSearchResult.GrepLine(1, "test", true, null));
+			List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
+			matches.Add(new GrepSearchResult.GrepMatch(1, 2, 3));
+			matches.Add(new GrepSearchResult.GrepMatch(1, 5, 2));
+			result.SearchResults.Add(new GrepSearchResult.GrepLine(1, "test", true, matches));
             result.SearchResults.Add(new GrepSearchResult.GrepLine(2, "test2", false, null));
             result.SearchResults.Add(new GrepSearchResult.GrepLine(3, "test3", false, null));
-            result.SearchResults.Add(new GrepSearchResult.GrepLine(1, "test1", false, null));
-			Assert.AreEqual(Utils.MatchCount(result), 3);
-			Assert.AreEqual(Utils.MatchCount(null), 0);
+			result.SearchResults.Add(new GrepSearchResult.GrepLine(1, "test1", false, matches));
+			Assert.AreEqual(4, Utils.MatchCount(result));
+			Assert.AreEqual(0, Utils.MatchCount(null));
 			result = new GrepSearchResult("test.txt", new List<GrepSearchResult.GrepLine>());
-			Assert.AreEqual(Utils.MatchCount(result), 0);
+			Assert.AreEqual(0, Utils.MatchCount(result));
 			result = new GrepSearchResult("test.txt", null);
-			Assert.AreEqual(Utils.MatchCount(result), 0);
+			Assert.AreEqual(0, Utils.MatchCount(result));
 		}
 
 		[Test]

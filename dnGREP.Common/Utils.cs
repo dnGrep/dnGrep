@@ -866,7 +866,16 @@ namespace dnGREP.Common
 				foreach (GrepSearchResult.GrepLine line in result.SearchResults)
 				{
 					if (!line.IsContext)
-						counter++;
+					{
+						if (line.Matches == null || line.Matches.Count == 0)
+						{
+							counter++;
+						}
+						else
+						{
+							counter += line.Matches.Count;
+						}
+					}
 				}
 			}
 			return counter;
