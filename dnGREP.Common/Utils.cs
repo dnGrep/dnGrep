@@ -961,6 +961,7 @@ namespace dnGREP.Common
 			if (beginText.Equals(string.Empty) ||
 			   beginText.EndsWith(" ") ||
 			   beginText.EndsWith("<") ||
+               beginText.EndsWith(">") ||
 			   beginText.EndsWith("$") ||
 			   beginText.EndsWith("+") ||
 			   beginText.EndsWith("*") ||
