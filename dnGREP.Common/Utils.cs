@@ -7,6 +7,8 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Net;
 using System.Xml;
+using System.Security.Permissions;
+using System.Security;
 using NLog;
 
 namespace dnGREP.Common
@@ -650,7 +652,7 @@ namespace dnGREP.Common
 		/// <returns></returns>
 		public static string GetTempFolder()
 		{
-			string tempPath = FixFolderName(GetCurrentPath()) + "~dnGREP-Temp\\";
+			string tempPath = FixFolderName(GetDataFolderPath()) + "~dnGREP-Temp\\";
 			if (!Directory.Exists(tempPath))
 			{
 				DirectoryInfo di = Directory.CreateDirectory(tempPath);
@@ -664,7 +666,7 @@ namespace dnGREP.Common
 		/// </summary>
 		public static void DeleteTempFolder()
 		{
-			string tempPath = FixFolderName(GetCurrentPath()) + "~dnGREP-Temp\\";
+			string tempPath = FixFolderName(GetDataFolderPath()) + "~dnGREP-Temp\\";
 			try
 			{
 				if (Directory.Exists(tempPath))
@@ -695,6 +697,77 @@ namespace dnGREP.Common
 		{
 			return GetCurrentPath(typeof(Utils));
 		}
+
+		private static bool? canUseCurrentFolder = null;
+		/// <summary>
+		/// Returns path to folder where user has write access to. Either current folder or user APP_DATA.
+		/// </summary>
+		/// <returns></returns>
+		public static string GetDataFolderPath()
+		{
+			string currentFolder = GetCurrentPath(typeof(Utils));
+			if (canUseCurrentFolder == null)
+			{
+				canUseCurrentFolder = hasWriteAccessToFolder(currentFolder);
+			}
+			
+			if (canUseCurrentFolder == true)
+			{
+				return currentFolder;
+			}
+			else
+			{
+				string dataFolder = Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData) + "\\dnGREP";
+				if (!Directory.Exists(dataFolder))
+					Directory.CreateDirectory(dataFolder);
+				return dataFolder;
+			}
+		}
+
+		private static bool hasWriteAccessToFolder(string folderPath)
+		{
+			string filename = FixFolderName(folderPath) + "~temp.dat";
+			bool canAccess = true;
+			//1. Provide early notification that the user does not have permission to write.
+			FileIOPermission writePermission = new FileIOPermission(FileIOPermissionAccess.Write, filename);
+			if (!SecurityManager.IsGranted(writePermission))
+			{
+				//No permission. 
+				canAccess = false;
+			}
+
+			
+			//2. Attempt the action but handle permission changes.
+			if (canAccess)
+			{
+				try
+				{
+					using (FileStream fstream = new FileStream(filename, FileMode.Create))
+					using (TextWriter writer = new StreamWriter(fstream))
+					{
+						writer.WriteLine("sometext");
+					}
+				}
+				catch (UnauthorizedAccessException ex)
+				{
+					//No permission. 
+					canAccess = false;
+				}
+			}
+
+			// Cleanup
+			try
+			{
+				DeleteFile(filename);
+			}
+			catch (Exception ex)
+			{
+				// Ignore
+			}
+
+			return canAccess;
+		}
+
 
 		/// <summary>
 		/// Returns current path of DLL without trailing slash

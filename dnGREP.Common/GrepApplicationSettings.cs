@@ -79,7 +79,7 @@ namespace dnGREP.Common
 		/// </summary>
 		public void Load()
 		{
-			Load(Utils.GetCurrentPath() + "\\" + storageFileName);
+			Load(Utils.GetDataFolderPath() + "\\" + storageFileName);
 		}
 
 		/// <summary>
@@ -115,7 +115,7 @@ namespace dnGREP.Common
 		/// </summary>
 		public void Save()
 		{
-			Save(Utils.GetCurrentPath() + "\\" + storageFileName);
+			Save(Utils.GetDataFolderPath() + "\\" + storageFileName);
 		}
 
 		/// <summary>

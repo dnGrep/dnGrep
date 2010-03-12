@@ -36,13 +36,13 @@ namespace dnGREP.Common
 			{
 				BookmarkEntity bookmarkLib;
 				XmlSerializer serializer = new XmlSerializer(typeof(BookmarkEntity));
-				if (!File.Exists(Utils.GetCurrentPath() + "\\bookmarks.xml"))
+				if (!File.Exists(Utils.GetDataFolderPath() + "\\bookmarks.xml"))
 				{
 					bookmarks = new BookmarkEntity();
 				}
 				else
 				{
-					using (TextReader reader = new StreamReader(Utils.GetCurrentPath() + "\\bookmarks.xml"))
+					using (TextReader reader = new StreamReader(Utils.GetDataFolderPath() + "\\bookmarks.xml"))
 					{
 						bookmarkLib = (BookmarkEntity)serializer.Deserialize(reader);
 						bookmarks = bookmarkLib;
@@ -60,7 +60,7 @@ namespace dnGREP.Common
 			try
 			{
 				XmlSerializer serializer = new XmlSerializer(typeof(BookmarkEntity));
-				using (TextWriter writer = new StreamWriter(Utils.GetCurrentPath() + "\\bookmarks.xml"))
+				using (TextWriter writer = new StreamWriter(Utils.GetDataFolderPath() + "\\bookmarks.xml"))
 				{
 					serializer.Serialize(writer, bookmarks);
 				}
