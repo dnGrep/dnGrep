@@ -271,6 +271,7 @@ namespace dnGREP.WPF
 			if (inputData.CurrentGrepOperation != GrepOperation.None)
 			{
 				GrepCore.CancelProcess = true;
+				Utils.CancelSearch = true;
 			}
 		}
 
@@ -312,6 +313,8 @@ namespace dnGREP.WPF
 
 						string[] files;
 
+						Utils.CancelSearch = false;
+
 						if (param.CurrentGrepOperation == GrepOperation.SearchInResults)
 						{
                             files = ((List<string>)workerParams["Files"]).ToArray();
@@ -321,6 +324,13 @@ namespace dnGREP.WPF
 							files = Utils.GetFileList(inputData.FileOrFolderPath, filePatternInclude, filePatternExclude, param.TypeOfFileSearch == FileSearchType.Regex, param.IncludeSubfolder,
 								param.IncludeHidden, param.IncludeBinary, sizeFrom, sizeTo);
 						}
+
+						if (Utils.CancelSearch)
+						{
+							e.Result = null;
+							return;
+						}
+
 						GrepCore grep = new GrepCore();
 						grep.SearchParams.FuzzyMatchThreshold = settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold);
 						grep.SearchParams.ShowLinesInContext = settings.Get<bool>(GrepSettings.Key.ShowLinesInContext);
@@ -426,7 +436,7 @@ namespace dnGREP.WPF
 					List<GrepSearchResult> results = new List<GrepSearchResult>();
 					if (e.Result == null)
 					{
-						lblStatus.Text = "Search Failed";
+						lblStatus.Text = "Search Canceled or Failed";
 					}
 					else if (!e.Cancelled)
 					{
@@ -484,8 +494,11 @@ namespace dnGREP.WPF
 				logger.LogException(LogLevel.Error, ex.Message, ex);
 				MessageBox.Show("Search or replace failed! See error log.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
 			}
-
-			inputData.UpdateState("");
+			finally
+			{
+				Utils.CancelSearch = false;
+				inputData.UpdateState("");
+			}			
 		}
 
 		private void MainForm_Closing(object sender, CancelEventArgs e)

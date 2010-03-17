@@ -310,6 +310,8 @@ namespace dnGREP.Common
 			}
 		}
 
+		public static bool CancelSearch = false;
+
 		/// <summary>
 		/// Searches folder and it's subfolders for files that match pattern and
 		/// returns array of strings that contain full paths to the files.
@@ -391,7 +393,10 @@ namespace dnGREP.Common
 			DirectoryInfo di = new DirectoryInfo(pathToFolder);
 			FileInfo[] fileMatch;
 			string[] excludePattern = namePatternToExclude.Split(';', ',');
-				
+
+			if (CancelSearch)
+				return;
+			
 			try
 			{
 				List<FileInfo> tempFileList = new List<FileInfo>();
@@ -447,6 +452,9 @@ namespace dnGREP.Common
 						else
 						{
 							recursiveFileSearch(subDir.FullName, namePatternToInclude, namePatternToExclude, includeSubfolders, includeHidden, includeBinary, sizeFrom, sizeTo, files);
+							
+							if (CancelSearch)
+								return;
 						}
 					}
 				}
