@@ -137,7 +137,6 @@ namespace dnGREP.WPF
 			winFormControlsInit();
 			populateEncodings();
 			ve.RetrievedVersion += new PublishedVersionExtractor.VersionExtractorHandler(ve_RetrievedVersion);
-			bookmarkForm.PropertyChanged += new PropertyChangedEventHandler(bookmarkForm_PropertyChanged);
 			checkVersion();
 			inputData.UpdateState("");
 		}
@@ -614,7 +613,16 @@ namespace dnGREP.WPF
 
 		private void btnBookmarkOpen_Click(object sender, RoutedEventArgs e)
 		{
-			bookmarkForm.Show();
+			try
+			{
+				bookmarkForm = new BookmarksForm();
+				bookmarkForm.PropertyChanged += new PropertyChangedEventHandler(bookmarkForm_PropertyChanged);
+				bookmarkForm.ShowDialog();
+			}
+			finally
+			{
+				bookmarkForm.PropertyChanged -= new PropertyChangedEventHandler(bookmarkForm_PropertyChanged);
+			}
 		}
 
 		private void btnBookmark_Click(object sender, RoutedEventArgs e)
