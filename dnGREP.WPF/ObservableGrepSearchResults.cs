@@ -188,9 +188,20 @@ namespace dnGREP.WPF
 
 			if (result.SearchResults != null)
 			{
+				int currentLine = -1;
 				for (int i = 0; i < result.SearchResults.Count; i++)
 				{
 					GrepSearchResult.GrepLine line = result.SearchResults[i];
+					
+					// Adding separator
+					if (formattedLines.Count > 0 && GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext) &&
+						(currentLine != line.LineNumber && currentLine + 1 != line.LineNumber))
+					{
+						GrepSearchResult.GrepLine emptyLine = new GrepSearchResult.GrepLine(-1, "", true, null);
+						formattedLines.Add(new FormattedGrepLine(emptyLine, this));
+					}
+
+					currentLine = line.LineNumber;
 					formattedLines.Add(new FormattedGrepLine(line, this));
 				}
 			}
