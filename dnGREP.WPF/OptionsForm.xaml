@@ -66,7 +66,7 @@
                     </WrapPanel>
                 </TabItem.Header>
                 <StackPanel>
-                    <CheckBox Name="cbShowPath" Margin="3" Checked="cbShowPath_CheckedChanged" Unchecked="cbShowPath_CheckedChanged">Show file path is results panel</CheckBox>
+                    <CheckBox Name="cbShowPath" Margin="3" Checked="cbShowPath_CheckedChanged" Unchecked="cbShowPath_CheckedChanged">Show file path in results panel</CheckBox>
                     <StackPanel Orientation="Horizontal">
                         <CheckBox Margin="3" VerticalAlignment="Center" Name="cbShowContext" Checked="cbShowContext_CheckedChanged" Unchecked="cbShowContext_CheckedChanged">Show result lines in context</CheckBox>
                         <TextBox Width="40" Name="tbLinesBefore"></TextBox>
