@@ -283,12 +283,16 @@
             <TreeView Grid.Row="0" Name="tvSearchResult" 
                       MouseDoubleClick="tvSearchResult_MouseDoubleClick" PreviewKeyDown="treeKeyDown">
                 <TreeView.ContextMenu>
-                    <ContextMenu>
+                    <ContextMenu Opened="tvContexMenuOpening">
                         <MenuItem Header="Open" Click="btnOpenFile_Click"/>
                         <MenuItem Header="Open containing folder" Click="btnOpenContainingFolder_Click"/>                     
+                        <MenuItem Header="Show file properties" Click="btnShowFileProperties_Click"/>
+                        <MenuItem Name="btnCopyFileNameClipboard" Header="File name to clipboard" Click="btnCopyNameToClipboard_Click"/>
+                        <MenuItem Name="btnCopyTreeItemClipboard" Header="Full file path to clipboard" Click="btnCopyTreeItemToClipboard_Click"/>
+                        <Separator/>
                         <MenuItem Header="Exclude from results" Click="btnExclude_Click"/>
                         <MenuItem Header="Expand all" Click="btnExpandAll_Click"/>
-                        <MenuItem Header="Collapse all" Click="btnCollapseAll_Click"/>
+                        <MenuItem Header="Collapse all" Click="btnCollapseAll_Click"/>                        
                     </ContextMenu>
                 </TreeView.ContextMenu>
                 <TreeView.Resources>

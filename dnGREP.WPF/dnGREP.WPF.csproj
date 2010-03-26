@@ -135,6 +135,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="ShellIntegration.cs" />
     <Compile Include="Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>
