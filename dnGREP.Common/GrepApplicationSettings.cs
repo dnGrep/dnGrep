@@ -53,6 +53,8 @@ namespace dnGREP.Common
 			public const string MainFormHeight = "MainForm.Height";
 			public const string FastSearchBookmarks = "FastSearchBookmarks";
 			public const string FastReplaceBookmarks = "FastReplaceBookmarks";
+			public const string FastFileMatchBookmarks = "FastFileMatchBookmarks";
+			public const string FastFileNotMatchBookmarks = "FastFileNotMatchBookmarks";
 		}		
 		
 		private static GrepSettings instance;

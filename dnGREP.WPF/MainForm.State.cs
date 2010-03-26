@@ -66,6 +66,26 @@ namespace dnGREP.WPF
 						FastReplaceBookmarks.Add(bookmark);
 				}
 			}
+
+			List<string> ffmb = settings.Get<List<string>>(GrepSettings.Key.FastFileMatchBookmarks);
+			if (ffmb != null)
+			{
+				foreach (string bookmark in ffmb)
+				{
+					if (!FastFileMatchBookmarks.Contains(bookmark))
+						FastFileMatchBookmarks.Add(bookmark);
+				}
+			}
+
+			List<string> ffnmb = settings.Get<List<string>>(GrepSettings.Key.FastFileNotMatchBookmarks);
+			if (ffnmb != null)
+			{
+				foreach (string bookmark in ffnmb)
+				{
+					if (!FastFileNotMatchBookmarks.Contains(bookmark))
+						FastFileNotMatchBookmarks.Add(bookmark);
+				}
+			}
         }
 
 		private ObservableGrepSearchResults searchResults = new ObservableGrepSearchResults();
@@ -86,6 +106,18 @@ namespace dnGREP.WPF
 		public ObservableCollection<string> FastReplaceBookmarks
 		{
 			get { return fastReplaceBookmarks; }
+		}
+
+		private ObservableCollection<string> fastFileMatchBookmarks = new ObservableCollection<string>();
+		public ObservableCollection<string> FastFileMatchBookmarks
+		{
+			get { return fastFileMatchBookmarks; }
+		}
+
+		private ObservableCollection<string> fastFileNotMatchBookmarks = new ObservableCollection<string>();
+		public ObservableCollection<string> FastFileNotMatchBookmarks
+		{
+			get { return fastFileNotMatchBookmarks; }
 		}
 
 		private string _FileOrFolderPath = "";

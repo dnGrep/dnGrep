@@ -195,6 +195,14 @@ namespace dnGREP.WPF
 				{
 					inputData.FastSearchBookmarks.Insert(0, tbSearchFor.Text);
 				}
+				if (!inputData.FastFileMatchBookmarks.Contains(tbFilePattern.Text))
+				{
+					inputData.FastFileMatchBookmarks.Insert(0, tbFilePattern.Text);
+				}
+				if (!inputData.FastFileNotMatchBookmarks.Contains(tbFilePatternIgnore.Text))
+				{
+					inputData.FastFileNotMatchBookmarks.Insert(0, tbFilePatternIgnore.Text);
+				}
 			}
 		}
 
@@ -218,6 +226,14 @@ namespace dnGREP.WPF
 				if (!inputData.FastSearchBookmarks.Contains(tbSearchFor.Text))
 				{
 					inputData.FastSearchBookmarks.Insert(0, tbSearchFor.Text);
+				}
+				if (!inputData.FastFileMatchBookmarks.Contains(tbFilePattern.Text))
+				{
+					inputData.FastFileMatchBookmarks.Insert(0, tbFilePattern.Text);
+				}
+				if (!inputData.FastFileNotMatchBookmarks.Contains(tbFilePatternIgnore.Text))
+				{
+					inputData.FastFileNotMatchBookmarks.Insert(0, tbFilePatternIgnore.Text);
 				}
 			}
 		}
@@ -262,6 +278,14 @@ namespace dnGREP.WPF
 				if (!inputData.FastReplaceBookmarks.Contains(tbReplaceWith.Text))
 				{
 					inputData.FastReplaceBookmarks.Insert(0, tbReplaceWith.Text);
+				}
+				if (!inputData.FastFileMatchBookmarks.Contains(tbFilePattern.Text))
+				{
+					inputData.FastFileMatchBookmarks.Insert(0, tbFilePattern.Text);
+				}
+				if (!inputData.FastFileNotMatchBookmarks.Contains(tbFilePatternIgnore.Text))
+				{
+					inputData.FastFileNotMatchBookmarks.Insert(0, tbFilePatternIgnore.Text);
 				}
 			}
 		}
@@ -521,6 +545,18 @@ namespace dnGREP.WPF
 				frb.Add(inputData.FastReplaceBookmarks[i]);
 			}
 			settings.Set<List<string>>(GrepSettings.Key.FastReplaceBookmarks, frb);
+			List<string> ffmb = new List<string>();
+			for (int i = 0; i < inputData.FastFileMatchBookmarks.Count && i < MainFormState.FastBookmarkCapacity; i++)
+			{
+				ffmb.Add(inputData.FastFileMatchBookmarks[i]);
+			}
+			settings.Set<List<string>>(GrepSettings.Key.FastFileMatchBookmarks, ffmb);
+			List<string> ffnmb = new List<string>();
+			for (int i = 0; i < inputData.FastFileNotMatchBookmarks.Count && i < MainFormState.FastBookmarkCapacity; i++)
+			{
+				ffnmb.Add(inputData.FastFileNotMatchBookmarks[i]);
+			}
+			settings.Set<List<string>>(GrepSettings.Key.FastFileNotMatchBookmarks, ffnmb);
 			settings.Save();
 		}
 
