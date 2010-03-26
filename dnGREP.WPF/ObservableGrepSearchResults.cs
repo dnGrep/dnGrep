@@ -275,6 +275,10 @@ namespace dnGREP.WPF
 			{
 				style = "Context";
 			}
+			if (line.LineNumber == -1 && line.LineText == "")
+			{
+				style = "Empty";
+			}
 
             formattedText = formatLine(line);
         }

@@ -693,7 +693,7 @@ namespace dnGREP.Common
 		/// <param name="line"></param>
 		public static void OpenContainingFolder(string fileName, int line)
 		{
-			System.Diagnostics.Process.Start(@"" + Path.GetDirectoryName(fileName) + "");
+			System.Diagnostics.Process.Start(@"" + Path.GetDirectoryName(fileName) + "");			
 		}
 
 		

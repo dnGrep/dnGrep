@@ -31,14 +31,21 @@ namespace dnGREP.Common
 		private void finishWebRequest(IAsyncResult result)
 		{
 			XmlDocument response = new XmlDocument();
-			using (HttpWebResponse resp = (HttpWebResponse)webRequest.EndGetResponse(result))
+			try
 			{
-				if (resp.StatusCode == HttpStatusCode.OK)
+				using (HttpWebResponse resp = (HttpWebResponse)webRequest.EndGetResponse(result))
 				{
-					XmlTextReader reader = new XmlTextReader(resp.GetResponseStream());
-					response.Load(reader);
-					reader.Close();
+					if (resp.StatusCode == HttpStatusCode.OK)
+					{
+						XmlTextReader reader = new XmlTextReader(resp.GetResponseStream());
+						response.Load(reader);
+						reader.Close();
+					}
 				}
+			}
+			catch (Exception ex)
+			{
+				RetrievedVersion(this, new PackageVersion("0.0.0.0"));
 			}
 			if (RetrievedVersion != null)
 				RetrievedVersion(this, new PackageVersion(extractVersion(response)));

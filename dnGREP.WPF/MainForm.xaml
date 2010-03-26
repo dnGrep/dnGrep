@@ -313,6 +313,9 @@
                                         <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}, Path=IsSelected}" Value="False">
                                             <Setter Property="Background" Value="#FFE0E0E0"/>
                                         </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=Style}" Value="Empty">
+                                            <Setter Property="Background" Value="White"/>
+                                        </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </WrapPanel.Resources>
