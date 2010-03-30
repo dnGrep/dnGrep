@@ -474,7 +474,6 @@ namespace dnGREP.WPF
 						lblStatus.Text = "Search Canceled";
 					}
 					barProgressBar.Value = 0;
-					inputData.CurrentGrepOperation = GrepOperation.None;
 					if (inputData.SearchResults.Count > 0)
 						inputData.FilesFound = true;
 					if (!settings.Get<bool>(GrepSettings.Key.PreviewResults))
@@ -483,6 +482,7 @@ namespace dnGREP.WPF
 						tvSearchResult.ItemsSource = inputData.SearchResults;
 						inputData.FilesFound = true;
 					}
+					inputData.CurrentGrepOperation = GrepOperation.None;
 				}
 				else if (inputData.CurrentGrepOperation == GrepOperation.Replace)
 				{
