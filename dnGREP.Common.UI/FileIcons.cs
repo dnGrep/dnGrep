@@ -10,7 +10,7 @@ using System.IO;
 using System.Drawing.Imaging;
 using NLog;
 
-namespace dnGREP.Common
+namespace dnGREP.Common.UI
 {
 	public class FileIcons
 	{

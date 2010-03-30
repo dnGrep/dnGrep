@@ -12,6 +12,7 @@ using System.Windows.Media.Imaging;
 using System.Windows;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
+using dnGREP.Common.UI;
 
 namespace dnGREP.WPF
 {

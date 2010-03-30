@@ -1,4 +1,4 @@
-namespace dnGREP.Common
+namespace dnGREP.Common.UI
 {
 	partial class BookmarkDetails
 	{

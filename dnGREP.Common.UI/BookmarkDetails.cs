@@ -7,7 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using dnGREP.Common;
 
-namespace dnGREP.Common
+namespace dnGREP.Common.UI
 {
 	public partial class BookmarkDetails : Form
 	{

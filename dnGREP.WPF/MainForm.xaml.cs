@@ -19,6 +19,7 @@ using System.IO;
 using System.Reflection;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using dnGREP.Common.UI;
 
 namespace dnGREP.WPF
 {
@@ -31,7 +32,7 @@ namespace dnGREP.WPF
 		private static Logger logger = LogManager.GetCurrentClassLogger();
 		private DateTime timer = DateTime.Now;
 		private PublishedVersionExtractor ve = new PublishedVersionExtractor();
-		private FileFolderDialog fileFolderDialog = new FileFolderDialog();
+		private FileFolderDialogWin32 fileFolderDialog = new FileFolderDialogWin32();
 		private BackgroundWorker workerSearchReplace = new BackgroundWorker();
 		private MainFormState inputData = new MainFormState();
 		private BookmarksForm bookmarkForm = new BookmarksForm();
@@ -168,7 +169,7 @@ namespace dnGREP.WPF
 					// Ignore
 				}
 			}
-			if (fileFolderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+			if (fileFolderDialog.ShowDialog() == true)
 			{
 				if (fileFolderDialog.SelectedPaths != null)
 					inputData.FileOrFolderPath = fileFolderDialog.SelectedPaths;
@@ -677,7 +678,7 @@ namespace dnGREP.WPF
 		{
 			if (inputData.FilesFound)
 			{
-			    if (fileFolderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+				if (fileFolderDialog.ShowDialog() == true)
 			    {
 			        try
 			        {
@@ -713,7 +714,7 @@ namespace dnGREP.WPF
 		{
             if (inputData.FilesFound)
             {
-                if (fileFolderDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+				if (fileFolderDialog.ShowDialog() == true)
                 {
                     try
                     {

@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dnGREP.WordEngine", "dnGREP
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{24AA048C-6DBE-4AA2-903D-734A0DFDCAC6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dnGREP.Common.UI", "dnGREP.Common.UI\dnGREP.Common.UI.csproj", "{DA182974-5FD2-4DFB-938D-DCDC2D232547}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,10 @@ Global
 		{24AA048C-6DBE-4AA2-903D-734A0DFDCAC6}.Debug|Any CPU.ActiveCfg = Debug
 		{24AA048C-6DBE-4AA2-903D-734A0DFDCAC6}.Release|Any CPU.ActiveCfg = Release
 		{24AA048C-6DBE-4AA2-903D-734A0DFDCAC6}.Release|Any CPU.Build.0 = Release
+		{DA182974-5FD2-4DFB-938D-DCDC2D232547}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA182974-5FD2-4DFB-938D-DCDC2D232547}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA182974-5FD2-4DFB-938D-DCDC2D232547}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA182974-5FD2-4DFB-938D-DCDC2D232547}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

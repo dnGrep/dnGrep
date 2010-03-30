@@ -170,6 +170,10 @@
     <Resource Include="nGREP.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\dnGREP.Common.UI\dnGREP.Common.UI.csproj">
+      <Project>{DA182974-5FD2-4DFB-938D-DCDC2D232547}</Project>
+      <Name>dnGREP.Common.UI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\dnGREP.Common\dnGREP.Common.csproj">
       <Project>{32DF5B77-EE00-4A94-BF4C-19BCBB1940A4}</Project>
       <Name>dnGREP.Common</Name>
