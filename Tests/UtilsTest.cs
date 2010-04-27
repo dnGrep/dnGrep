@@ -116,6 +116,20 @@ namespace Tests
 				Assert.AreEqual(Utils.GetBaseFolder(sb.ToString()), pathToDll + result);
 		}
 
+		[Test]
+		[Row("\\Files\\TestCase7\\Test;Folder", "\\Files\\TestCase7\\Test;Folder")]
+		[Row("\\Files\\TestCase7\\Test,Folder", "\\Files\\TestCase7\\Test,Folder")]
+		public void TestGetBaseFolderWithColons(string relativePath, string result)
+		{
+			string pathToDll = GetDllPath();
+			relativePath = pathToDll + relativePath;
+
+			if (result == null)
+				Assert.AreEqual(Utils.GetBaseFolder(relativePath), null);
+			else
+				Assert.AreEqual(Utils.GetBaseFolder(relativePath), pathToDll + result);
+		}
+
         [Test]
 		[Row("\\Files\\TestCase1\\test-file-code.cs", true)]
 		[Row("\\Files\\TestCase1\\test-file-code2.cs", false)]
@@ -140,6 +154,18 @@ namespace Tests
 				sb.Append(pathToDll + rPath + ",");
 
 			Assert.AreEqual(result, Utils.IsPathValid(sb.ToString()));
+		}
+
+		[Test]
+		[Row("\\Files\\TestCase7\\Test;Folder\\issue-10.txt", true)]
+		[Row("\\Files\\TestCase7\\Test,Folder\\issue-10.txt", true)]
+		[Row("\\Files\\TestCase1\\test-file-code.cs", true)]
+		public void TestIsPathValiedWithColon(string relativePath, bool result)
+		{
+			string pathToDll = GetDllPath();
+			relativePath = pathToDll + relativePath;
+
+			Assert.AreEqual(result, Utils.IsPathValid(relativePath));
 		}
 
 		[Test]

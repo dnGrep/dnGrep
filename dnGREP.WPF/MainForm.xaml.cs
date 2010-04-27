@@ -35,7 +35,7 @@ namespace dnGREP.WPF
 		private FileFolderDialogWin32 fileFolderDialog = new FileFolderDialogWin32();
 		private BackgroundWorker workerSearchReplace = new BackgroundWorker();
 		private MainFormState inputData = new MainFormState();
-		private BookmarksForm bookmarkForm = new BookmarksForm();
+		private BookmarksForm bookmarkForm;
         private System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
         private System.Windows.Forms.HelpProvider helpProvider = new System.Windows.Forms.HelpProvider();
 		public GrepSettings settings
