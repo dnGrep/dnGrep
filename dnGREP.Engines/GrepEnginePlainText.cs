@@ -63,7 +63,7 @@ namespace dnGREP.Engines
                     break;
 			}
 
-            if ((searchOptions & GrepSearchOption.Multiline) == GrepSearchOption.Multiline)
+			if ((searchOptions & GrepSearchOption.Multiline) == GrepSearchOption.Multiline || searchType == SearchType.XPath)
                 return searchMultiline(input, fileName, searchPattern, searchOptions, searchMethod, encoding);
 			else
 				return search(input, fileName, searchPattern, searchOptions, searchMethod, encoding);

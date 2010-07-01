@@ -234,7 +234,7 @@ namespace dnGREP.Common
 		{
 			byte[] buffer = new byte[1024];
 			int count = 0;
-			using (FileStream readStream = new FileStream(srcFile, FileMode.Open, FileAccess.Read, FileShare.Read))
+			using (FileStream readStream = new FileStream(srcFile, FileMode.Open, FileAccess.Read, FileShare.None))
 			{
 				count = readStream.Read(buffer, 0, buffer.Length);
 			}
@@ -390,8 +390,7 @@ namespace dnGREP.Common
 
 		private static void recursiveFileSearch(string pathToFolder, string namePatternToInclude, string namePatternToExclude, bool includeSubfolders, bool includeHidden, bool includeBinary, int sizeFrom, int sizeTo, List<string> files)
 		{
-			DirectoryInfo di = new DirectoryInfo(pathToFolder);
-			FileInfo[] fileMatch;
+			string[] fileMatch;
 			string[] excludePattern = namePatternToExclude.Split(';', ',');
 
 			if (CancelSearch)
@@ -399,10 +398,10 @@ namespace dnGREP.Common
 			
 			try
 			{
-				List<FileInfo> tempFileList = new List<FileInfo>();
-				foreach (FileInfo fileInDirectory in di.GetFiles())
+				List<string> tempFileList = new List<string>();
+				foreach (string fileInDirectory in Directory.GetFiles(pathToFolder))
 				{
-					if (Regex.IsMatch(fileInDirectory.Name, namePatternToInclude))
+					if (Regex.IsMatch(Path.GetFileName(fileInDirectory), namePatternToInclude, RegexOptions.IgnoreCase))
 					{
 						bool isExcluded = false;
 						foreach (string subPath in excludePattern)
@@ -410,7 +409,7 @@ namespace dnGREP.Common
 							if (subPath.Trim() == "")
 								continue;
 
-							if (Regex.IsMatch(fileInDirectory.Name, subPath))
+							if (Regex.IsMatch(Path.GetFileName(fileInDirectory), subPath, RegexOptions.IgnoreCase))
 								isExcluded = true;
 						}
 						if (!isExcluded)
@@ -424,7 +423,7 @@ namespace dnGREP.Common
 				{
 					if (sizeFrom > 0 || sizeTo > 0)
 					{
-						long sizeKB = fileMatch[i].Length / 1000;
+						long sizeKB = new FileInfo(fileMatch[i]).Length / 1000;
 						if (sizeFrom > 0 && sizeKB < sizeFrom)
 						{
 							continue;
@@ -435,23 +434,24 @@ namespace dnGREP.Common
 						}
 					}
 
-					if (!includeBinary && IsBinary(fileMatch[i].FullName))
+					if (!includeBinary && IsBinary(fileMatch[i]))
 						continue;
 
-					if (!files.Contains(fileMatch[i].FullName))
-						files.Add(fileMatch[i].FullName);
+					if (!files.Contains(fileMatch[i]))
+						files.Add(fileMatch[i]);
 				}
 				if (includeSubfolders)
 				{
-					foreach (DirectoryInfo subDir in di.GetDirectories())
+					foreach (string subDir in Directory.GetDirectories(pathToFolder))
 					{
-						if (((subDir.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden) && !includeHidden)
+						DirectoryInfo dirInfo = new DirectoryInfo(subDir);
+						if (((dirInfo.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden) && !includeHidden)
 						{
 							continue;
 						}
 						else
 						{
-							recursiveFileSearch(subDir.FullName, namePatternToInclude, namePatternToExclude, includeSubfolders, includeHidden, includeBinary, sizeFrom, sizeTo, files);
+							recursiveFileSearch(subDir, namePatternToInclude, namePatternToExclude, includeSubfolders, includeHidden, includeBinary, sizeFrom, sizeTo, files);
 							
 							if (CancelSearch)
 								return;
