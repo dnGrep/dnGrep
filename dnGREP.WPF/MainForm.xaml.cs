@@ -545,6 +545,12 @@ namespace dnGREP.WPF
 				workerSearchReplace.CancelAsync();
 			settings.Set<double>(GrepSettings.Key.MainFormWidth, Width);
 			settings.Set<double>(GrepSettings.Key.MainFormHeight, Height);
+			copyBookmarksToSettings();
+			settings.Save();
+		}
+
+		private void copyBookmarksToSettings()
+		{
 			//Saving bookmarks
 			List<string> fsb = new List<string>();
 			for (int i = 0; i < inputData.FastSearchBookmarks.Count && i < MainFormState.FastBookmarkCapacity; i++)
@@ -576,7 +582,6 @@ namespace dnGREP.WPF
 				fpb.Add(inputData.FastPathBookmarks[i]);
 			}
 			settings.Set<List<string>>(GrepSettings.Key.FastPathBookmarks, fpb);
-			settings.Save();
 		}
 
 		private void formKeyDown(object sender, KeyEventArgs e)
@@ -635,7 +640,14 @@ namespace dnGREP.WPF
 
         private void btnOptions_Click(object sender, RoutedEventArgs e)
         {
-            OptionsForm optionsForm = new OptionsForm();
+			string fileOrFolderPath = inputData.FileOrFolderPath;
+			string searchFor = inputData.SearchFor;
+			string replaceWith = inputData.ReplaceWith;
+			string filePattern = inputData.FilePattern;
+			string filePatternIgnore = inputData.FilePatternIgnore;
+
+			copyBookmarksToSettings();
+			OptionsForm optionsForm = new OptionsForm();
 			try
 			{
 				optionsForm.ShowDialog();
@@ -646,6 +658,12 @@ namespace dnGREP.WPF
 				logger.LogException(LogLevel.Error, ex.Message, ex);
 			}
             inputData.LoadAppSettings();
+
+			inputData.FileOrFolderPath = fileOrFolderPath;
+			inputData.SearchFor = searchFor;
+			inputData.ReplaceWith = replaceWith;
+			inputData.FilePattern = filePattern;
+			inputData.FilePatternIgnore = filePatternIgnore;
         }
 
 		private void btnTest_Click(object sender, RoutedEventArgs e)

@@ -29,6 +29,61 @@ namespace dnGREP.WPF
 
         public void LoadAppSettings()
         {
+			List<string> fsb = settings.Get<List<string>>(GrepSettings.Key.FastSearchBookmarks);
+			FastSearchBookmarks.Clear();
+			if (fsb != null)
+			{
+				foreach (string bookmark in fsb)
+				{
+					if (!FastSearchBookmarks.Contains(bookmark))
+						FastSearchBookmarks.Add(bookmark);
+				}
+			}
+
+			FastReplaceBookmarks.Clear();
+			List<string> frb = settings.Get<List<string>>(GrepSettings.Key.FastReplaceBookmarks);
+			if (frb != null)
+			{
+				foreach (string bookmark in frb)
+				{
+					if (!FastReplaceBookmarks.Contains(bookmark))
+						FastReplaceBookmarks.Add(bookmark);
+				}
+			}
+
+			FastFileMatchBookmarks.Clear();
+			List<string> ffmb = settings.Get<List<string>>(GrepSettings.Key.FastFileMatchBookmarks);
+			if (ffmb != null)
+			{
+				foreach (string bookmark in ffmb)
+				{
+					if (!FastFileMatchBookmarks.Contains(bookmark))
+						FastFileMatchBookmarks.Add(bookmark);
+				}
+			}
+
+			FastFileNotMatchBookmarks.Clear();
+			List<string> ffnmb = settings.Get<List<string>>(GrepSettings.Key.FastFileNotMatchBookmarks);
+			if (ffnmb != null)
+			{
+				foreach (string bookmark in ffnmb)
+				{
+					if (!FastFileNotMatchBookmarks.Contains(bookmark))
+						FastFileNotMatchBookmarks.Add(bookmark);
+				}
+			}
+
+			FastPathBookmarks.Clear();
+			List<string> pb = settings.Get<List<string>>(GrepSettings.Key.FastPathBookmarks);
+			if (pb != null)
+			{
+				foreach (string bookmark in pb)
+				{
+					if (!FastPathBookmarks.Contains(bookmark))
+						FastPathBookmarks.Add(bookmark);
+				}
+			}
+
             FileOrFolderPath = settings.Get<string>(GrepSettings.Key.SearchFolder);
             SearchFor = settings.Get<string>(GrepSettings.Key.SearchFor);
             ReplaceWith = settings.Get<string>(GrepSettings.Key.ReplaceWith);
@@ -46,56 +101,7 @@ namespace dnGREP.WPF
 			WholeWord = settings.Get<bool>(GrepSettings.Key.WholeWord);
             SizeFrom = settings.Get<int>(GrepSettings.Key.SizeFrom);
             SizeTo = settings.Get<int>(GrepSettings.Key.SizeTo);
-			IsOptionsExpanded = settings.Get<bool>(GrepSettings.Key.IsOptionsExpanded);
-			List<string> fsb = settings.Get<List<string>>(GrepSettings.Key.FastSearchBookmarks);
-			if (fsb != null) 
-			{
-				foreach (string bookmark in fsb)
-				{
-					if (!FastSearchBookmarks.Contains(bookmark))
-						FastSearchBookmarks.Add(bookmark);
-				}
-			}
-
-			List<string> frb = settings.Get<List<string>>(GrepSettings.Key.FastReplaceBookmarks);
-			if (frb != null)
-			{
-				foreach (string bookmark in frb)
-				{
-					if (!FastReplaceBookmarks.Contains(bookmark))
-						FastReplaceBookmarks.Add(bookmark);
-				}
-			}
-
-			List<string> ffmb = settings.Get<List<string>>(GrepSettings.Key.FastFileMatchBookmarks);
-			if (ffmb != null)
-			{
-				foreach (string bookmark in ffmb)
-				{
-					if (!FastFileMatchBookmarks.Contains(bookmark))
-						FastFileMatchBookmarks.Add(bookmark);
-				}
-			}
-
-			List<string> ffnmb = settings.Get<List<string>>(GrepSettings.Key.FastFileNotMatchBookmarks);
-			if (ffnmb != null)
-			{
-				foreach (string bookmark in ffnmb)
-				{
-					if (!FastFileNotMatchBookmarks.Contains(bookmark))
-						FastFileNotMatchBookmarks.Add(bookmark);
-				}
-			}
-
-			List<string> pb = settings.Get<List<string>>(GrepSettings.Key.FastPathBookmarks);
-			if (pb != null)
-			{
-				foreach (string bookmark in pb)
-				{
-					if (!FastPathBookmarks.Contains(bookmark))
-						FastPathBookmarks.Add(bookmark);
-				}
-			}
+			IsOptionsExpanded = settings.Get<bool>(GrepSettings.Key.IsOptionsExpanded);			
         }
 
 		private ObservableGrepSearchResults searchResults = new ObservableGrepSearchResults();

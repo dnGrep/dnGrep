@@ -334,5 +334,14 @@ namespace dnGREP.WPF
 				lblFuzzyMatchError.Visibility = Visibility.Collapsed;
 			}
 		}
+
+		private void btnClearPreviousSearches_Click(object sender, RoutedEventArgs e)
+		{
+			settings.Set<List<string>>(GrepSettings.Key.FastFileMatchBookmarks, new List<string>());
+			settings.Set<List<string>>(GrepSettings.Key.FastFileNotMatchBookmarks, new List<string>());
+			settings.Set<List<string>>(GrepSettings.Key.FastPathBookmarks, new List<string>());
+			settings.Set<List<string>>(GrepSettings.Key.FastReplaceBookmarks, new List<string>());
+			settings.Set<List<string>>(GrepSettings.Key.FastSearchBookmarks, new List<string>());
+		}
     }
 }
