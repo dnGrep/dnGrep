@@ -161,8 +161,10 @@ namespace dnGREP.WPF
 		{
 			grepResult = result;
 
-			// Populate icon list
-			// TODO
+			if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ExpandResults))
+			{
+				IsExpanded = true;
+			}
 
 			bool isFileReadOnly = Utils.IsReadOnly(grepResult);
 			string displayedName = Path.GetFileName(grepResult.FileNameDisplayed);

@@ -47,6 +47,7 @@ namespace dnGREP.Common
 			public const string CustomEditorArgs = "CustomEditorArgs";
 			public const string UpdateCheckInterval = "UpdateCheckInterval";
 			public const string PreviewResults = "PreviewResults";
+			public const string ExpandResults = "ExpandResults";
 			public const string LastCheckedVersion = "LastCheckedVersion";
 			public const string IsOptionsExpanded = "IsOptionsExpanded";
 			public const string MainFormWidth = "MainForm.Width";

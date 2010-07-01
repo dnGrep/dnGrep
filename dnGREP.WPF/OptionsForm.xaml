@@ -84,6 +84,11 @@
                             <TextBlock TextWrapping="Wrap">Preview results during search</TextBlock>
                         </CheckBox.Content>
                     </CheckBox>
+                    <CheckBox Margin="3" Name="cbExpandResult">
+                        <CheckBox.Content>
+                            <TextBlock TextWrapping="Wrap">Show results tree expanded</TextBlock>
+                        </CheckBox.Content>
+                    </CheckBox>
                     <Button Height="23" Name="btnClearPreviousSearches" Width="104" HorizontalAlignment="Left" Click="btnClearPreviousSearches_Click">Clear old searches</Button>
                 </StackPanel>
             </TabItem>

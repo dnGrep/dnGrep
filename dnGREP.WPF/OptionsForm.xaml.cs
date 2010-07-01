@@ -208,6 +208,7 @@ namespace dnGREP.WPF
             tbEditorPath.Text = settings.Get<string>(GrepSettings.Key.CustomEditor);
             tbEditorArgs.Text = settings.Get<string>(GrepSettings.Key.CustomEditorArgs);
 			cbPreviewResults.IsChecked = settings.Get<bool>(GrepSettings.Key.PreviewResults);
+			cbExpandResult.IsChecked = settings.Get<bool>(GrepSettings.Key.ExpandResults);
 			tbUpdateInterval.Text = settings.Get<int>(GrepSettings.Key.UpdateCheckInterval).ToString();
 			tbFuzzyMatchThreshold.Text = settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold).ToString();
             UpdateState("Initial");
@@ -247,6 +248,7 @@ namespace dnGREP.WPF
             settings.Set<string>(GrepSettings.Key.CustomEditor, tbEditorPath.Text);
             settings.Set<string>(GrepSettings.Key.CustomEditorArgs, tbEditorArgs.Text);
 			settings.Set<bool>(GrepSettings.Key.PreviewResults, cbPreviewResults.IsChecked == true);
+			settings.Set<bool>(GrepSettings.Key.ExpandResults, cbExpandResult.IsChecked == true);
 			settings.Set<int>(GrepSettings.Key.UpdateCheckInterval, Utils.ParseInt(tbUpdateInterval.Text, 1));
 			double threshold = Utils.ParseDouble(tbFuzzyMatchThreshold.Text, 0.5);
 			if (threshold >= 0 && threshold <= 1.0)
