@@ -55,6 +55,7 @@ namespace dnGREP.Common
 			public const string FastReplaceBookmarks = "FastReplaceBookmarks";
 			public const string FastFileMatchBookmarks = "FastFileMatchBookmarks";
 			public const string FastFileNotMatchBookmarks = "FastFileNotMatchBookmarks";
+			public const string FastPathBookmarks = "FastPathBookmarks";
 		}		
 		
 		private static GrepSettings instance;

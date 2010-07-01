@@ -86,6 +86,16 @@ namespace dnGREP.WPF
 						FastFileNotMatchBookmarks.Add(bookmark);
 				}
 			}
+
+			List<string> pb = settings.Get<List<string>>(GrepSettings.Key.FastPathBookmarks);
+			if (pb != null)
+			{
+				foreach (string bookmark in pb)
+				{
+					if (!FastPathBookmarks.Contains(bookmark))
+						FastPathBookmarks.Add(bookmark);
+				}
+			}
         }
 
 		private ObservableGrepSearchResults searchResults = new ObservableGrepSearchResults();
@@ -119,6 +129,13 @@ namespace dnGREP.WPF
 		{
 			get { return fastFileNotMatchBookmarks; }
 		}
+
+		private ObservableCollection<string> fastPathBookmarks = new ObservableCollection<string>();
+		public ObservableCollection<string> FastPathBookmarks
+		{
+			get { return fastPathBookmarks; }
+		}
+
 
 		private string _FileOrFolderPath = "";
 		/// <summary>

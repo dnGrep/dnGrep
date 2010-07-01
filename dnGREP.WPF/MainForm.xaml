@@ -75,7 +75,8 @@
                         <ColumnDefinition />
                         <ColumnDefinition Width="48" />
                     </Grid.ColumnDefinitions>
-                    <TextBox GotFocus="TextBoxFocus" AllowDrop="True" PreviewDragEnter="tbFolderName_DragOver" PreviewDragOver="tbFolderName_DragOver" PreviewDrop="tbFolderName_Drop" Grid.Column="0" Name="tbFolderName" Text="{Binding Path=FileOrFolderPath, UpdateSourceTrigger=PropertyChanged}" ToolTip="Path to search in" />
+                    <ComboBox AllowDrop="True" IsEditable="True" ItemsSource="{Binding Path=FastPathBookmarks}" PreviewDragEnter="tbFolderName_DragOver" PreviewDragOver="tbFolderName_DragOver" PreviewDrop="tbFolderName_Drop" Grid.Column="0" Name="tbFolderName" 
+                              Text="{Binding Path=FileOrFolderPath, UpdateSourceTrigger=PropertyChanged}" ToolTip="Path to search in"/>
                     <Button Click="btnBrowse_Click" Grid.Column="1" Width="42" HorizontalAlignment="Right" Name="btnBrowse" ToolTip="Browse for folder or files">...</Button>
                 </Grid>
             </GroupBox>

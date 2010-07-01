@@ -204,6 +204,10 @@ namespace dnGREP.WPF
 				{
 					inputData.FastFileNotMatchBookmarks.Insert(0, tbFilePatternIgnore.Text);
 				}
+				if (!inputData.FastPathBookmarks.Contains(tbFolderName.Text))
+				{
+					inputData.FastPathBookmarks.Insert(0, tbFolderName.Text);
+				}
 			}
 		}
 
@@ -235,6 +239,10 @@ namespace dnGREP.WPF
 				if (!inputData.FastFileNotMatchBookmarks.Contains(tbFilePatternIgnore.Text))
 				{
 					inputData.FastFileNotMatchBookmarks.Insert(0, tbFilePatternIgnore.Text);
+				}
+				if (!inputData.FastPathBookmarks.Contains(tbFolderName.Text))
+				{
+					inputData.FastPathBookmarks.Insert(0, tbFolderName.Text);
 				}
 			}
 		}
@@ -287,6 +295,10 @@ namespace dnGREP.WPF
 				if (!inputData.FastFileNotMatchBookmarks.Contains(tbFilePatternIgnore.Text))
 				{
 					inputData.FastFileNotMatchBookmarks.Insert(0, tbFilePatternIgnore.Text);
+				}
+				if (!inputData.FastPathBookmarks.Contains(tbFolderName.Text))
+				{
+					inputData.FastPathBookmarks.Insert(0, tbFolderName.Text);
 				}
 			}
 		}
@@ -558,6 +570,12 @@ namespace dnGREP.WPF
 				ffnmb.Add(inputData.FastFileNotMatchBookmarks[i]);
 			}
 			settings.Set<List<string>>(GrepSettings.Key.FastFileNotMatchBookmarks, ffnmb);
+			List<string> fpb = new List<string>();
+			for (int i = 0; i < inputData.FastPathBookmarks.Count && i < MainFormState.FastBookmarkCapacity; i++)
+			{
+				fpb.Add(inputData.FastPathBookmarks[i]);
+			}
+			settings.Set<List<string>>(GrepSettings.Key.FastPathBookmarks, fpb);
 			settings.Save();
 		}
 
