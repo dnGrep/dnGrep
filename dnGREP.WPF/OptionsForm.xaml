@@ -89,6 +89,11 @@
                             <TextBlock TextWrapping="Wrap">Show results tree expanded</TextBlock>
                         </CheckBox.Content>
                     </CheckBox>
+                    <CheckBox Margin="3" Name="cbClearType" Checked="cbClearType_Checked" Unchecked="cbClearType_Checked">
+                        <CheckBox.Content>
+                            <TextBlock TextWrapping="Wrap">Enable ClearType (smoothes the way application displays text)</TextBlock>
+                        </CheckBox.Content>
+                    </CheckBox>
                     <Button Height="23" Name="btnClearPreviousSearches" Width="104" HorizontalAlignment="Left" Click="btnClearPreviousSearches_Click">Clear old searches</Button>
                 </StackPanel>
             </TabItem>

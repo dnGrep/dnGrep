@@ -8,6 +8,7 @@ using System.Collections.Specialized;
 using System.Windows.Threading;
 using System.Threading;
 using System.ComponentModel;
+using System.Windows.Media;
 
 namespace dnGREP.WPF
 {
@@ -38,6 +39,7 @@ namespace dnGREP.WPF
 			Multiline = settings.Get<bool>(GrepSettings.Key.Multiline);
 			Singleline = settings.Get<bool>(GrepSettings.Key.Singleline);
 			WholeWord = settings.Get<bool>(GrepSettings.Key.WholeWord);
+            TextFormatting = settings.Get<TextFormattingMode>(GrepSettings.Key.TextFormatting);
 		}
 
 		private ObservableGrepSearchResults searchResults = new ObservableGrepSearchResults();
@@ -180,6 +182,21 @@ namespace dnGREP.WPF
 				UpdateState("IsSinglelineEnabled");
 			}
 		}
+
+        private TextFormattingMode _TextFormatting = TextFormattingMode.Display;
+        /// <summary>
+        /// IsOptionsExpanded property
+        /// </summary>
+        public TextFormattingMode TextFormatting
+        {
+            get { return _TextFormatting; }
+            set
+            {
+                _TextFormatting = value;
+                settings.Set<TextFormattingMode>(GrepSettings.Key.TextFormatting, value);
+                UpdateState("TextFormatting");
+            }
+        }
 
 		private bool _WholeWord = false;
 		/// <summary>

@@ -101,6 +101,10 @@ namespace dnGREP.WPF
                 btnBrowse.IsEnabled = false;
                 tbEditorArgs.IsEnabled = false;
             }
+            if (name == "TextFormatting" || name == "Initial")
+            {
+                TextOptions.SetTextFormattingMode(this, settings.Get<TextFormattingMode>(GrepSettings.Key.TextFormatting));
+            }
         }
 
         private bool isShellRegistered(string location)
@@ -209,6 +213,7 @@ namespace dnGREP.WPF
             tbEditorArgs.Text = settings.Get<string>(GrepSettings.Key.CustomEditorArgs);
 			cbPreviewResults.IsChecked = settings.Get<bool>(GrepSettings.Key.PreviewResults);
 			cbExpandResult.IsChecked = settings.Get<bool>(GrepSettings.Key.ExpandResults);
+            cbClearType.IsChecked = settings.Get<TextFormattingMode>(GrepSettings.Key.TextFormatting) == TextFormattingMode.Ideal;
 			tbUpdateInterval.Text = settings.Get<int>(GrepSettings.Key.UpdateCheckInterval).ToString();
 			tbFuzzyMatchThreshold.Text = settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold).ToString();
             UpdateState("Initial");
@@ -240,6 +245,15 @@ namespace dnGREP.WPF
             UpdateState("UseCustomEditor");
         }
 
+        private void cbClearType_Checked(object sender, RoutedEventArgs e)
+        {
+            if (cbClearType.IsChecked == true)
+                settings.Set<TextFormattingMode>(GrepSettings.Key.TextFormatting, TextFormattingMode.Ideal);
+            else
+                settings.Set<TextFormattingMode>(GrepSettings.Key.TextFormatting, TextFormattingMode.Display); 
+            UpdateState("TextFormatting");
+        }
+
         private void Window_Closing(object sender, CancelEventArgs e)
         {
 			settings.Set<int>(GrepSettings.Key.ContextLinesBefore, Utils.ParseInt(tbLinesBefore.Text, 0));
@@ -250,6 +264,7 @@ namespace dnGREP.WPF
 			settings.Set<bool>(GrepSettings.Key.PreviewResults, cbPreviewResults.IsChecked == true);
 			settings.Set<bool>(GrepSettings.Key.ExpandResults, cbExpandResult.IsChecked == true);
 			settings.Set<int>(GrepSettings.Key.UpdateCheckInterval, Utils.ParseInt(tbUpdateInterval.Text, 1));
+            
 			double threshold = Utils.ParseDouble(tbFuzzyMatchThreshold.Text, 0.5);
 			if (threshold >= 0 && threshold <= 1.0)
 				settings.Set<double>(GrepSettings.Key.FuzzyMatchThreshold, threshold);

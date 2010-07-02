@@ -9,6 +9,7 @@ using System.Windows.Threading;
 using System.Threading;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
+using System.Windows.Media;
 
 namespace dnGREP.WPF
 {
@@ -101,6 +102,7 @@ namespace dnGREP.WPF
 			WholeWord = settings.Get<bool>(GrepSettings.Key.WholeWord);
             SizeFrom = settings.Get<int>(GrepSettings.Key.SizeFrom);
             SizeTo = settings.Get<int>(GrepSettings.Key.SizeTo);
+            TextFormatting = settings.Get<TextFormattingMode>(GrepSettings.Key.TextFormatting);
 			IsOptionsExpanded = settings.Get<bool>(GrepSettings.Key.IsOptionsExpanded);			
         }
 
@@ -199,6 +201,21 @@ namespace dnGREP.WPF
 				UpdateState("IsOptionsExpanded");
 			}
 		}
+
+        private TextFormattingMode _TextFormatting = TextFormattingMode.Display;
+        /// <summary>
+        /// IsOptionsExpanded property
+        /// </summary>
+        public TextFormattingMode TextFormatting
+        {
+            get { return _TextFormatting; }
+            set
+            {
+                _TextFormatting = value;
+                settings.Set<TextFormattingMode>(GrepSettings.Key.TextFormatting, value);
+                UpdateState("TextFormatting");
+            }
+        }
 		
 		private string _FilePattern = "";
 		/// <summary>
