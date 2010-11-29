@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dnGREP.Common.UI", "dnGREP.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NLog.XmlLayout", "NLog.XmlLayout\NLog.XmlLayout.csproj", "{1B364890-BBE6-4167-AF65-FE1C01E8C419}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{177DCA75-DAA1-4097-A3AB-EF944566600D}"
+EndProject
 Global
 	GlobalSection(SharpSetup) = preSolution
 		Version = 1.2
@@ -67,5 +69,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{6B5159A5-C92C-4203-84DE-273FEB30D07B} = {177DCA75-DAA1-4097-A3AB-EF944566600D}
+		{DB68B5D3-5E4B-47D0-AA86-83D7C181A1E4} = {177DCA75-DAA1-4097-A3AB-EF944566600D}
+		{FA9512EF-562C-4DC1-9CF2-7A8FF896D352} = {177DCA75-DAA1-4097-A3AB-EF944566600D}
+		{7317511F-A32C-44AE-9C87-1E4806E891FB} = {177DCA75-DAA1-4097-A3AB-EF944566600D}
 	EndGlobalSection
 EndGlobal

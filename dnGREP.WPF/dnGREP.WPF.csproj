@@ -32,9 +32,9 @@
     <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
+    <DebugType>none</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -221,7 +221,14 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>rmdir /S /Q "$(SolutionDir)Release\dnGREP X.X.X (Standalone)"
+    <PostBuildEvent>REM Copy plugins
+rmdir /S /Q "$(TargetDir)Plugins"
+mkdir "$(TargetDir)Plugins"
+xcopy  "$(SolutionDir)Release\dnGREP Archive Plugin X.X.X\Plugins\*.*" "$(TargetDir)Plugins" /E
+xcopy  "$(SolutionDir)Release\dnGREP MsWord Plugin X.X.X\Plugins\*.*" "$(TargetDir)Plugins" /E
+xcopy  "$(SolutionDir)Release\dnGREP PDF Plugin X.X.X\Plugins\*.*" "$(TargetDir)Plugins" /E
+REM Copy to Output Folder
+rmdir /S /Q "$(SolutionDir)Release\dnGREP X.X.X (Standalone)"
 mkdir "$(SolutionDir)Release\dnGREP X.X.X (Standalone)"
 xcopy "$(TargetDir)*.*" "$(SolutionDir)Release\dnGREP X.X.X (Standalone)" /E
 rmdir /S /Q "$(SolutionDir)Release\dnGREP X.X.X (Standalone)\Plugins"

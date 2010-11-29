@@ -89,8 +89,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(TargetPath)" "$(SolutionDir)$(OutDir)Plugins\ArchiveSearch" /Y
-REM Start copying release files
+    <PostBuildEvent>REM Start copying release files
 rmdir /S /Q "$(SolutionDir)Release\dnGREP Archive Plugin X.X.X"
 mkdir "$(SolutionDir)Release\dnGREP Archive Plugin X.X.X\Plugins\ArchiveSearch"
 xcopy "$(TargetDir)readme" "$(SolutionDir)Release\dnGREP Archive Plugin X.X.X"
