@@ -863,27 +863,38 @@ namespace dnGREP.WPF
 
 		private void btnOpenFile_Click(object sender, RoutedEventArgs e)
         {
-            if (tvSearchResult.SelectedItem is FormattedGrepLine)
+            try
             {
-                FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
-                // Line was selected
-                int lineNumber = selectedNode.GrepLine.LineNumber;
+                if (tvSearchResult.SelectedItem is FormattedGrepLine)
+                {
+                    FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
+                    // Line was selected
+                    int lineNumber = selectedNode.GrepLine.LineNumber;
 
-                FormattedGrepResult result = selectedNode.Parent;
-                OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, lineNumber, settings.Get<bool>(GrepSettings.Key.UseCustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
-                dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, new GrepEngineInitParams(false, 0, 0, 0.5)).OpenFile(fileArg);
-                if (fileArg.UseBaseEngine)
-					Utils.OpenFile(new OpenFileArgs(result.GrepResult, lineNumber, settings.Get<bool>(GrepSettings.Key.UseCustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
+                    FormattedGrepResult result = selectedNode.Parent;
+                    OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, lineNumber, settings.Get<bool>(GrepSettings.Key.UseCustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
+                    dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, new GrepEngineInitParams(false, 0, 0, 0.5)).OpenFile(fileArg);
+                    if (fileArg.UseBaseEngine)
+                        Utils.OpenFile(new OpenFileArgs(result.GrepResult, lineNumber, settings.Get<bool>(GrepSettings.Key.UseCustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
+                }
+                else if (tvSearchResult.SelectedItem is FormattedGrepResult)
+                {
+                    FormattedGrepResult result = (FormattedGrepResult)tvSearchResult.SelectedItem;
+                    // Line was selected
+                    int lineNumber = 0;
+                    OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, lineNumber, settings.Get<bool>(GrepSettings.Key.UseCustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
+                    dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, new GrepEngineInitParams(false, 0, 0, 0.5)).OpenFile(fileArg);
+                    if (fileArg.UseBaseEngine)
+                        Utils.OpenFile(new OpenFileArgs(result.GrepResult, lineNumber, settings.Get<bool>(GrepSettings.Key.UseCustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
+                }
             }
-            else if (tvSearchResult.SelectedItem is FormattedGrepResult)
+            catch (Exception ex)
             {
-                FormattedGrepResult result = (FormattedGrepResult)tvSearchResult.SelectedItem;
-                // Line was selected
-                int lineNumber = 0;
-				OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, lineNumber, settings.Get<bool>(GrepSettings.Key.UseCustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
-				dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, new GrepEngineInitParams(false, 0, 0, 0.5)).OpenFile(fileArg);
-                if (fileArg.UseBaseEngine)
-					Utils.OpenFile(new OpenFileArgs(result.GrepResult, lineNumber, settings.Get<bool>(GrepSettings.Key.UseCustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
+                logger.LogException(LogLevel.Error, "Failed to open file.", ex);
+                if (settings.Get<bool>(GrepSettings.Key.UseCustomEditor))
+                    MessageBox.Show("There was an error opening file by custom editor. \nCheck editor path via \"Options..\".", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+                else
+                    MessageBox.Show("There was an error opening file. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
