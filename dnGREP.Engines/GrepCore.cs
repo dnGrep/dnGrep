@@ -67,6 +67,8 @@ namespace dnGREP.Common
 			if (files == null || files.Length == 0)
 				return searchResults;
 
+            GrepCore.CancelProcess = false;
+
 			if (searchPattern == null || searchPattern.Trim() == "")
 			{
 				foreach (string file in files)
@@ -87,8 +89,7 @@ namespace dnGREP.Common
 
 			int totalFiles = files.Length;
 			int processedFiles = 0;
-			GrepCore.CancelProcess = false;
-
+			
 			try
 			{
 				foreach (string file in files)
