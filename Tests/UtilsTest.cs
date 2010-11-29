@@ -438,12 +438,12 @@ namespace Tests
 		[Row(".*\\.txt", true, true, true, 0, 0, 3)]
 		[Row(".*\\.txt", true, false, true, 0, 0, 2)]
 		[Row(null, true, false, true, 0, 0, 0)]
-		[Row("", true, true, true, 0, 0, 5)]
+		[Row("", true, true, true, 0, 0, 0)]
 		public void GetFileListTest(string namePattern, bool isRegex, bool includeSubfolders, bool includeHidden, int sizeFrom, int sizeTo, int result)
 		{
 			DirectoryInfo di = new DirectoryInfo(sourceFolder + "\\TestCase2\\HiddenFolder");
 			di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
-			Assert.AreEqual(Utils.GetFileList(sourceFolder + "\\TestCase2", namePattern, null, isRegex, includeSubfolders, includeHidden, true, sizeFrom, sizeTo).Length, result);
+            Assert.AreEqual(result, Utils.GetFileList(sourceFolder + "\\TestCase2", namePattern, null, isRegex, includeSubfolders, includeHidden, true, sizeFrom, sizeTo).Length);
 		}
 
 		[Test]
@@ -537,5 +537,37 @@ namespace Tests
 		{
 			Assert.AreEqual<bool>(Utils.IsBinary(sourceFolder + file), isBinary);
 		}
+
+        public IEnumerable<object> TestGetPaths_Source()
+        {
+            yield return new object[] { sourceFolder + "\\TestCase5\\big-word-document.doc", 1 };
+            yield return new object[] { sourceFolder + "\\TestCase7;" + sourceFolder + "\\TestCase7", 2 };
+            yield return new object[] { sourceFolder + "\\TestCase5;" + sourceFolder + "\\TestCase7", 2 };
+            yield return new object[] { sourceFolder + "\\TestCase7\\Test,Folder\\;" + sourceFolder + "\\TestCase7", 2 };
+            yield return new object[] { sourceFolder + "\\TestCase7\\Test;Folder\\;" + sourceFolder + "\\TestCase7", 2 };
+            yield return new object[] { sourceFolder + "\\TestCase7\\Test;Folder\\;" + sourceFolder + "\\TestCase7;" + sourceFolder + "\\TestCase7\\Test;Folder\\", 3 };
+            yield return new object[] { null, null };
+            yield return new object[] { "", 0 };
+        }
+
+        [Test, Factory("TestGetPaths_Source")]
+        public void TestGetPathsCount(string source, int? count)
+        {
+            string[] result = Utils.SplitPath(source);
+            if (result == null)
+                Assert.IsNull(count);
+            else
+                Assert.AreEqual(count, result.Length);
+        }
+
+        [Test]
+        public void TestGetPathsContent()
+        {
+            string[] result = Utils.SplitPath(sourceFolder + "\\TestCase7\\Test;Folder\\;" + sourceFolder + "\\TestXXXX;" + sourceFolder + "\\TestCase7\\Test;Fo;lder\\;" + sourceFolder + "\\TestCase7\\Test,Folder\\;");
+            Assert.AreEqual(sourceFolder + "\\TestCase7\\Test;Folder\\", result[0]);
+            Assert.AreEqual(sourceFolder + "\\TestXXXX", result[1]);
+            Assert.AreEqual(sourceFolder + "\\TestCase7\\Test;Fo;lder\\", result[2]);
+            Assert.AreEqual(sourceFolder + "\\TestCase7\\Test,Folder\\", result[3]);
+        }
 	}
 }

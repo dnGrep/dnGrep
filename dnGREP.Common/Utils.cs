@@ -272,7 +272,7 @@ namespace dnGREP.Common
 				if (string.IsNullOrEmpty(path))
 					return false;
 
-				string[] paths = path.Split(';', ',');
+                string[] paths = SplitPath(path);
 				foreach (string subPath in paths)
 				{
 					if (subPath.Trim() != "" && !File.Exists(subPath) && !Directory.Exists(subPath))
@@ -296,7 +296,7 @@ namespace dnGREP.Common
 		{
 			try
 			{
-				string[] paths = path.Split(';', ',');
+                string[] paths = SplitPath(path);
 				if (paths[0].Trim() != "" && File.Exists(paths[0]))
 					return Path.GetDirectoryName(paths[0]);
 				else if (paths[0].Trim() != "" && Directory.Exists(paths[0]))
@@ -309,6 +309,55 @@ namespace dnGREP.Common
 				return null;
 			}
 		}
+
+        /// <summary>
+        /// Splits path into subpaths if ; or , are found in path.
+        /// If folder name contains ; or , returns as one path
+        /// </summary>
+        /// <param name="path">Path to split</param>
+        /// <returns>Array of strings. If path is null, returns null. If path is empty, returns empty array.</returns>
+        public static string[] SplitPath(string path)
+        {
+            if (path == null)
+                return null;
+            else if (path.Trim() == "")
+                return new string[0];
+            
+            List<string> output = new List<string>();
+            string[] paths = path.Split(';',',');
+            int splitterIndex = -1;
+            for (int i = 0; i < paths.Length; i++)
+            {
+                splitterIndex += paths[i].Length + 1;
+                string splitter = (splitterIndex < path.Length ? path[splitterIndex].ToString() : "");
+                StringBuilder sb = new StringBuilder();
+                if (File.Exists(paths[i]) || Directory.Exists(paths[i]))
+                    output.Add(paths[i]);
+                else
+                {
+                    int subSplitterIndex = 0;
+                    bool found = false;
+                    sb.Append(paths[i] + splitter);
+                    for (int j = i + 1; j < paths.Length; j++)
+                    {
+                        subSplitterIndex += paths[j].Length + 1;
+                        sb.Append(paths[j]);
+                        if (File.Exists(sb.ToString()) || Directory.Exists(sb.ToString()))
+                        {
+                            output.Add(sb.ToString());
+                            splitterIndex += subSplitterIndex;
+                            i = j;
+                            found = true;
+                            break;
+                        }
+                        sb.Append(splitterIndex + subSplitterIndex < path.Length ? path[splitterIndex + subSplitterIndex].ToString() : "");
+                    }
+                    if (!found)
+                        output.Add(paths[i]);
+                }
+            }
+            return output.ToArray();
+        }
 
 		public static bool CancelSearch = false;
 
@@ -341,7 +390,7 @@ namespace dnGREP.Common
 
 				if (!isRegex)
 				{
-					string[] excludePaths = namePatternToExclude.Split(';', ',');
+                    string[] excludePaths = SplitPath(namePatternToExclude);
 					StringBuilder sb = new StringBuilder();
 					foreach (string exPath in excludePaths)
 					{
@@ -352,7 +401,7 @@ namespace dnGREP.Common
 					namePatternToExclude = sb.ToString();
 				}
 
-				string[] paths = path.Split(';', ',');
+                string[] paths = SplitPath(path);
 				foreach (string subPath in paths)
 				{
 					if (subPath.Trim() == "")
@@ -364,7 +413,7 @@ namespace dnGREP.Common
 
 						if (di.Exists)
 						{
-							string[] namePatterns = namePatternToInclude.Split(';', ',');
+                            string[] namePatterns = SplitPath(namePatternToInclude);
 							foreach (string pattern in namePatterns)
 							{
 								string rxPattern = pattern.Trim();
@@ -391,7 +440,7 @@ namespace dnGREP.Common
 		private static void recursiveFileSearch(string pathToFolder, string namePatternToInclude, string namePatternToExclude, bool includeSubfolders, bool includeHidden, bool includeBinary, int sizeFrom, int sizeTo, List<string> files)
 		{
 			string[] fileMatch;
-			string[] excludePattern = namePatternToExclude.Split(';', ',');
+            string[] excludePattern = SplitPath(namePatternToExclude);
 
 			if (CancelSearch)
 				return;

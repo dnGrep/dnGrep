@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual C# Express 2010
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dnGREP.WPF", "dnGREP.WPF\dnGREP.WPF.csproj", "{CBC7AEC0-59FF-4050-B02D-ADB15359CED4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dnGREP.Engines", "dnGREP.Engines\dnGREP.Engines.csproj", "{DB68B5D3-5E4B-47D0-AA86-83D7C181A1E4}"
@@ -18,6 +18,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dnGREP.Common.UI", "dnGREP.Common.UI\dnGREP.Common.UI.csproj", "{DA182974-5FD2-4DFB-938D-DCDC2D232547}"
 EndProject
 Global
+	GlobalSection(SharpSetup) = preSolution
+		Version = 1.2
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
