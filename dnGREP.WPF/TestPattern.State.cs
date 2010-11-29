@@ -225,13 +225,6 @@ namespace dnGREP.WPF
 
 
 		#region Derived properties
-		
-		private bool filesFound = false;
-		public bool FilesFound
-		{
-			get { return filesFound; }
-			set { filesFound = value; UpdateState("FilesFound"); }
-		}
 
 		private bool _CanSearch = true;
 		/// <summary>
@@ -357,12 +350,6 @@ namespace dnGREP.WPF
 						TextBoxStyle = "";
 
 					break;
-			}
-
-			//Files found
-			if (name == "FileOrFolderPath" || name == "SearchFor" || name == "FilePattern")
-			{
-				FilesFound = false;
 			}
 
 			//Search type specific options

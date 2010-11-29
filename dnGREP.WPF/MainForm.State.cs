@@ -31,7 +31,9 @@ namespace dnGREP.WPF
         public void LoadAppSettings()
         {
 			List<string> fsb = settings.Get<List<string>>(GrepSettings.Key.FastSearchBookmarks);
-			FastSearchBookmarks.Clear();
+
+            string _searchFor = settings.Get<string>(GrepSettings.Key.SearchFor);
+            FastSearchBookmarks.Clear();
 			if (fsb != null)
 			{
 				foreach (string bookmark in fsb)
@@ -40,7 +42,9 @@ namespace dnGREP.WPF
 						FastSearchBookmarks.Add(bookmark);
 				}
 			}
+            settings[GrepSettings.Key.SearchFor] = _searchFor;
 
+            string _replaceWith = settings.Get<string>(GrepSettings.Key.ReplaceWith);
 			FastReplaceBookmarks.Clear();
 			List<string> frb = settings.Get<List<string>>(GrepSettings.Key.FastReplaceBookmarks);
 			if (frb != null)
@@ -51,8 +55,10 @@ namespace dnGREP.WPF
 						FastReplaceBookmarks.Add(bookmark);
 				}
 			}
+            settings[GrepSettings.Key.ReplaceWith] = _replaceWith;
 
-			FastFileMatchBookmarks.Clear();
+            string _filePattern = settings.Get<string>(GrepSettings.Key.FilePattern);
+            FastFileMatchBookmarks.Clear();
 			List<string> ffmb = settings.Get<List<string>>(GrepSettings.Key.FastFileMatchBookmarks);
 			if (ffmb != null)
 			{
@@ -62,7 +68,9 @@ namespace dnGREP.WPF
 						FastFileMatchBookmarks.Add(bookmark);
 				}
 			}
+            settings[GrepSettings.Key.FilePattern] = _filePattern;
 
+            string _filePatternIgnore = settings.Get<string>(GrepSettings.Key.FilePatternIgnore);
 			FastFileNotMatchBookmarks.Clear();
 			List<string> ffnmb = settings.Get<List<string>>(GrepSettings.Key.FastFileNotMatchBookmarks);
 			if (ffnmb != null)
@@ -73,7 +81,9 @@ namespace dnGREP.WPF
 						FastFileNotMatchBookmarks.Add(bookmark);
 				}
 			}
+            settings[GrepSettings.Key.FilePatternIgnore] = _filePatternIgnore;
 
+            string _fileOrFolderPath = settings.Get<string>(GrepSettings.Key.SearchFolder);
 			FastPathBookmarks.Clear();
 			List<string> pb = settings.Get<List<string>>(GrepSettings.Key.FastPathBookmarks);
 			if (pb != null)
@@ -84,6 +94,7 @@ namespace dnGREP.WPF
 						FastPathBookmarks.Add(bookmark);
 				}
 			}
+            settings[GrepSettings.Key.SearchFolder] = _fileOrFolderPath;
 
             FileOrFolderPath = settings.Get<string>(GrepSettings.Key.SearchFolder);
             SearchFor = settings.Get<string>(GrepSettings.Key.SearchFor);
