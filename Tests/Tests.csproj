@@ -31,7 +31,9 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -59,6 +61,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependencies\MbUnit.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -85,6 +88,10 @@
     <ProjectReference Include="..\dnGREP.Engines\dnGREP.Engines.csproj">
       <Project>{DB68B5D3-5E4B-47D0-AA86-83D7C181A1E4}</Project>
       <Name>dnGREP.Engines</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NLog.XmlLayout\NLog.XmlLayout.csproj">
+      <Project>{1B364890-BBE6-4167-AF65-FE1C01E8C419}</Project>
+      <Name>NLog.XmlLayout</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

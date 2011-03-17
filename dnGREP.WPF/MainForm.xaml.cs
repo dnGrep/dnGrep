@@ -655,7 +655,7 @@ namespace dnGREP.WPF
 			catch (Exception ex)
 			{
 				MessageBox.Show("There was an error saving options.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
-				logger.LogException(LogLevel.Error, ex.Message, ex);
+				logger.LogException(LogLevel.Error, "Error saving options", ex);
 			}
             inputData.LoadAppSettings();
 
@@ -677,6 +677,7 @@ namespace dnGREP.WPF
             catch (Exception ex)
             {
                 MessageBox.Show("There was an error running regex test. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+				logger.LogException(LogLevel.Error, "Error running regex", ex);
             }
 		}
 
@@ -730,6 +731,7 @@ namespace dnGREP.WPF
 			        catch (Exception ex)
 			        {
                         MessageBox.Show("There was an error copying files. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+						logger.LogException(LogLevel.Error, "Error copying files", ex);
 			        }
 			        inputData.CanUndo = false;
 			    }
@@ -761,12 +763,13 @@ namespace dnGREP.WPF
                             return;
                         }
 
-                        Utils.CopyFiles(inputData.SearchResults.GetList(), Utils.GetBaseFolder(tbFolderName.Text), inputData.FilePattern, true);
+                        Utils.CopyFiles(inputData.SearchResults.GetList(), Utils.GetBaseFolder(tbFolderName.Text), Utils.GetBaseFolder(fileFolderDialog.SelectedPath), true);
                         Utils.DeleteFiles(inputData.SearchResults.GetList());
                         MessageBox.Show("Files have been successfully moved.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     catch (Exception ex)
                     {
+						logger.LogException(LogLevel.Error, "Error moving files", ex);
                         MessageBox.Show("There was an error moving files. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     inputData.CanUndo = false;
@@ -793,6 +796,7 @@ namespace dnGREP.WPF
                 catch (Exception ex)
                 {
                     MessageBox.Show("There was an error deleting files. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+					logger.LogException(LogLevel.Error, "Error deleting files", ex);
                 }
                 inputData.CanUndo = false;
                 inputData.SearchResults.Clear();
@@ -815,6 +819,7 @@ namespace dnGREP.WPF
                     catch (Exception ex)
                     {
                         MessageBox.Show("There was an error creating a CSV file. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+						logger.LogException(LogLevel.Error, "Error creating CSV file", ex);
                     }
                 }
             }

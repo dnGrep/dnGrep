@@ -11,7 +11,7 @@ namespace Tests
 	public class BookmarkTest : TestBase
 	{
 		[Test]
-		public void Test()
+		public void TestBookmarks()
 		{
 			BookmarkLibrary.Instance.Bookmarks.Clear();
 			BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark("test1", "test2", "test3", "test4"));

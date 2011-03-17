@@ -993,8 +993,12 @@ namespace dnGREP.Common
 			int counter = 0;
 			if (result != null && result.SearchResults != null)
 			{
-				foreach (GrepSearchResult.GrepLine line in result.SearchResults)
+				for (int i = 0; i < result.SearchResults.Count; i++)
 				{
+					GrepSearchResult.GrepLine line = null;
+					if (result.SearchResults.Count >= i)
+						line = result.SearchResults[i];
+
 					if (!line.IsContext)
 					{
 						if (line.Matches == null || line.Matches.Count == 0)
