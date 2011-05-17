@@ -26,6 +26,7 @@ namespace dnGREP.WPF
 			set { folderPath = value; }
 		}
 
+
 		public ObservableGrepSearchResults()
 		{
             this.CollectionChanged += new NotifyCollectionChangedEventHandler(ObservableGrepSearchResults_CollectionChanged);
@@ -143,6 +144,13 @@ namespace dnGREP.WPF
             set { isExpanded = value; OnPropertyChanged("IsExpanded"); }
         }
 
+		private int lineNumberColumnWidth = 30;
+		public int LineNumberColumnWidth
+		{
+			get { return lineNumberColumnWidth; }
+			set { lineNumberColumnWidth = value; OnPropertyChanged("LineNumberColumnWidth"); }
+		}
+
         private BitmapSource icon;
 
         public BitmapSource Icon
@@ -201,11 +209,19 @@ namespace dnGREP.WPF
 						(currentLine != line.LineNumber && currentLine + 1 != line.LineNumber))
 					{
 						GrepSearchResult.GrepLine emptyLine = new GrepSearchResult.GrepLine(-1, "", true, null);
-						formattedLines.Add(new FormattedGrepLine(emptyLine, this));
+						formattedLines.Add(new FormattedGrepLine(emptyLine, this, 30));
 					}
 
 					currentLine = line.LineNumber;
-					formattedLines.Add(new FormattedGrepLine(line, this));
+					if (currentLine <= 999 && LineNumberColumnWidth < 30)
+						LineNumberColumnWidth = 30;
+					else if (currentLine > 999 && LineNumberColumnWidth < 35)
+						LineNumberColumnWidth = 35;
+					else if (currentLine > 9999 && LineNumberColumnWidth < 47)
+						LineNumberColumnWidth = 47;
+					else if (currentLine > 99999 && LineNumberColumnWidth < 50)
+						LineNumberColumnWidth = 50;
+					formattedLines.Add(new FormattedGrepLine(line, this, LineNumberColumnWidth));
 				}
 			}
 		}
@@ -253,6 +269,19 @@ namespace dnGREP.WPF
 			set { style = value; }
 		}
 
+		private int lineNumberColumnWidth = 30;
+		public int LineNumberColumnWidth
+		{
+			get { return lineNumberColumnWidth; }
+			set { lineNumberColumnWidth = value; OnPropertyChanged("LineNumberColumnWidth"); }
+		}
+
+		void Parent_PropertyChanged(object sender, PropertyChangedEventArgs e)
+		{
+			if (e.PropertyName == "LineNumberColumnWidth")
+				LineNumberColumnWidth = Parent.LineNumberColumnWidth;
+		}
+
         private FormattedGrepResult parent;
         public FormattedGrepResult Parent
         {
@@ -260,17 +289,13 @@ namespace dnGREP.WPF
             set { parent = value; }
         }
 
-		public FormattedGrepLine(GrepSearchResult.GrepLine line, FormattedGrepResult parent)
+		public FormattedGrepLine(GrepSearchResult.GrepLine line, FormattedGrepResult parent, int initialColumnWidth)
 		{
             Parent = parent;
 			grepLine = line;
-
-            //string lineSummary = line.LineText.Replace("\n", "").Replace("\t", "").Replace("\r", "").Trim();
-            //if (lineSummary.Length == 0)
-            //    lineSummary = " ";
-            //else if (lineSummary.Length > 100)
-            //    lineSummary = lineSummary.Substring(0, 100) + "...";
-            
+			Parent.PropertyChanged += new PropertyChangedEventHandler(Parent_PropertyChanged);
+			LineNumberColumnWidth = initialColumnWidth;
+                        
             formattedLineNumber = (line.LineNumber == -1 ? "" : line.LineNumber.ToString());
 
 			//string fullText = lineSummary;

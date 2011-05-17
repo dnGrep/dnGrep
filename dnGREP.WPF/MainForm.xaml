@@ -128,7 +128,7 @@
                                         <LineBreak/>
                                         <Run>{1,3} matches 1 to 3 characters</Run>
                                         <LineBreak/>
-                                        <Run>For more Regex patterns Google &quot;regex&quot;</Run>
+                                        <Run>For more Regex patterns hit F1</Run>
                                     </TextBlock>
                                 </TextBox.ToolTip>
                                 </TextBox>
@@ -148,11 +148,21 @@
                                     </Grid.ColumnDefinitions>
                                     <ComboBox Text="{Binding Path=ReplaceWith}" Name="cbReplaceFastBookmark" BorderThickness="0" VerticalAlignment="Bottom" ItemsSource="{Binding Path=FastReplaceBookmarks}" IsTabStop="False" Height="23" HorizontalAlignment="Left" Width="435">
                                     </ComboBox>
-                                    <TextBox GotFocus="TextBoxFocus" BorderThickness="0" Name="tbReplaceWith" 
+								<TextBox GotFocus="TextBoxFocus" BorderThickness="0" Name="tbReplaceWith" 
                                      Text="{Binding Path=ReplaceWith, UpdateSourceTrigger=PropertyChanged}"  
                                      VerticalScrollBarVisibility="Auto" 
-                                     Style="{StaticResource ExpandedTextbox}"/>
-                                    <Button Grid.Column="1" Name="btnReplaceFastBookmarks" HorizontalContentAlignment="Center" VerticalAlignment="Top" Width="auto" Click="btnReplaceFastBookmarks_Click"
+                                     Style="{StaticResource ExpandedTextbox}">
+									<TextBox.ToolTip>
+										<TextBlock>
+											<Run><![CDATA[$& replaces entire regex]]></Run>
+											<LineBreak/>
+											<Run><![CDATA[$1, $2, $3, etc... inserts the text matched between capturing parentheses into the replacement text]]></Run>
+											<LineBreak/>
+											<Run><![CDATA[$$ inserts a single dollar sign into the replacement text]]></Run>
+										</TextBlock>
+									</TextBox.ToolTip>
+								</TextBox>
+								<Button Grid.Column="1" Name="btnReplaceFastBookmarks" HorizontalContentAlignment="Center" VerticalAlignment="Top" Width="auto" Click="btnReplaceFastBookmarks_Click"
                                     FontFamily="Marlett" FontSize="14" Content="6" IsTabStop="False"></Button>
                                 </Grid>
                             </Border>
@@ -321,7 +331,7 @@
                                     </Style.Triggers>
                                 </Style>
                             </WrapPanel.Resources>
-                            <TextBlock Margin="-2,0,0,0" Width="30" Text="{Binding FormattedLineNumber}"/>
+							<TextBlock Margin="-2,0,0,0" Width="{Binding LineNumberColumnWidth}" Text="{Binding FormattedLineNumber}"/>
                             <my:InlineTextBlock Margin="3,0,0,0" InlineCollection="{Binding FormattedText}"/>
                         </WrapPanel>
                     </DataTemplate>
