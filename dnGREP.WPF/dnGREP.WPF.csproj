@@ -237,6 +237,6 @@ del /Q "$(SolutionDir)Release\dnGREP X.X.X (Standalone)\*.pdb"
 del /Q "$(SolutionDir)Release\dnGREP X.X.X (Standalone)\*.Settings.dat"
 del /Q "$(SolutionDir)Release\dnGREP X.X.X (Standalone)\*vshost*.*"
 del /Q "$(SolutionDir)Release\dnGREP X.X.X (Standalone)\Grep_Error_Log.xml"
-D:\Install\NSIS\makensis.exe "$(SolutionDir)NSIS\dnGREP-setup.nsi"</PostBuildEvent>
+$(SolutionDir)Dependencies\NSIS\makensis.exe "$(SolutionDir)NSIS\dnGREP-setup.nsi"</PostBuildEvent>
   </PropertyGroup>
 </Project>

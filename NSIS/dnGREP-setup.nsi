@@ -5,7 +5,7 @@ Name dnGREP
 
 # General Symbol Definitions
 !define REGKEY "SOFTWARE\$(^Name)"
-!define VERSION 2.4.0
+!define VERSION 2.5.0
 !define COMPANY ""
 !define URL ""
 
