@@ -20,6 +20,7 @@ using System.Reflection;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using dnGREP.Common.UI;
+using System.Text.RegularExpressions;
 
 namespace dnGREP.WPF
 {
@@ -366,6 +367,20 @@ namespace dnGREP.WPF
 						{
 							e.Result = null;
 							return;
+						}
+
+						if (param.TypeOfSearch == SearchType.Regex)
+						{
+							try
+							{
+								Regex pattern = new Regex(param.SearchFor);
+							}
+							catch (ArgumentException regException)
+							{
+								MessageBox.Show("Incorrect pattern: " + regException.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+								e.Result = null;
+								return;
+							}
 						}
 
 						GrepCore grep = new GrepCore();

@@ -62,8 +62,15 @@ namespace dnGREP.WPF
 				searchOptions |= GrepSearchOption.WholeWord;
             using (Stream inputStream = new MemoryStream(Encoding.Default.GetBytes(tbTestInput.Text)))
             {
-                results = engine.Search(inputStream, "test.txt", inputData.SearchFor, inputData.TypeOfSearch,
-                    searchOptions, Encoding.Default);
+				try
+				{
+					results = engine.Search(inputStream, "test.txt", inputData.SearchFor, inputData.TypeOfSearch,
+						searchOptions, Encoding.Default);
+				}
+				catch (ArgumentException ex)
+				{
+					MessageBox.Show("Incorrect pattern: " + ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+				}
             }
             inputData.SearchResults.Clear();
             inputData.SearchResults.AddRange(results);
