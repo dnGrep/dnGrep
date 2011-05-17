@@ -578,6 +578,16 @@ namespace dnGREP.WPF
 			set { _OptionsSummary = value; UpdateState("OptionsSummary"); }
 		}
 
+		private string _WindowTitle = "dnGREP";
+		/// <summary>
+		/// OptionsSummary property
+		/// </summary>
+		public string WindowTitle
+		{
+			get { return _WindowTitle; }
+			set { _WindowTitle = value; UpdateState("WindowTitle"); }
+		}
+
 		private string _TextBoxStyle = "";
 		/// <summary>
 		/// TextBoxStyle property
@@ -678,6 +688,15 @@ namespace dnGREP.WPF
             {
                 FilesFound = false;
             }
+
+			//Change title
+			if (name == "FileOrFolderPath" || name == "SearchFor")
+			{
+				if (string.IsNullOrWhiteSpace(FileOrFolderPath))
+					WindowTitle = "dnGREP";
+				else
+					WindowTitle = string.Format("{0} in \"{1}\" - dnGREP", SearchFor, FileOrFolderPath);
+			}
 
 			//Can search
 			if (name == "FileOrFolderPath" || name == "CurrentGrepOperation" || name == "SearchFor")
