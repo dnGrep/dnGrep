@@ -137,6 +137,25 @@
             Counts by getting the value returned by an existing public "Count" property getter.
             </summary>
         </member>
+        <member name="T:Gallio.Common.Collections.IPropertySetContainer">
+            <summary>
+            Contains a <see cref="T:Gallio.Common.Collections.PropertySet"/>
+            </summary>
+        </member>
+        <member name="M:Gallio.Common.Collections.IPropertySetContainer.AddProperty(System.String,System.String)">
+            <summary>
+            Adds a property key/value pair.
+            </summary>
+            <param name="key">The property key.</param>
+            <param name="value">The property value.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="key"/> or <paramref name="value"/> is null.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown if <paramref name="key"/> is already in the property set.</exception>
+        </member>
+        <member name="P:Gallio.Common.Collections.IPropertySetContainer.Properties">
+            <summary>
+            Gets a read-only collection of configuration properties.
+            </summary>
+        </member>
         <member name="T:Gallio.Common.Comparison">
             <summary>
             Represents the method that compares two objects of the same type.
@@ -1386,8 +1405,8 @@
             <summary>
             Projects each element of a sequence into a new form.
             </summary>
-            <typeparam name="TInput"></typeparam>
-            <typeparam name="TOutput"></typeparam>
+            <typeparam name="TInput">The type of the elements of the input sequence.</typeparam>
+            <typeparam name="TOutput">The type of the elements of the output sequence.</typeparam>
             <param name="enumeration">The input sequence.</param>
             <param name="filter"></param>
             <returns>The output sequence</returns>
@@ -1855,6 +1874,12 @@
             </summary>
             <param name="key">The key.</param>
             <param name="value">The new value, or null to remove the existing value.</param>
+        </member>
+        <member name="M:Gallio.Common.Collections.PropertySet.MergeWith(Gallio.Common.Collections.PropertySet)">
+            <summary>
+            Merges the specified property set into the current set, by exluding the existing keys.
+            </summary>
+            <param name="other">The other proerty set to be merged.</param>
         </member>
         <member name="M:Gallio.Common.Collections.PropertySet.Add(System.Collections.Generic.KeyValuePair{System.String,System.String})">
             <inheritdoc />
@@ -7241,13 +7266,14 @@
             </summary>
             <typeparam name="TNode">The type of the diffable node.</typeparam>
         </member>
-        <member name="M:Gallio.Common.Xml.Diffing.IDiffable`1.Diff(`0,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
+        <member name="M:Gallio.Common.Xml.Diffing.IDiffable`1.Diff(`0,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
             <summary>
             Diffs the current node with an expected prototype, and returns
             a set of differences found.
             </summary>
             <param name="expected">A prototype representing the expected content of the node.</param>
             <param name="path">The path of the parent node.</param>
+            <param name="pathExpected">The path of the parent node of the expected node.</param>
             <param name="options">Comparison options.</param>
             <returns>The resulting diff set describing the differences found.</returns>
             <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="expected"/> or <paramref name="path"/> is null.</exception>
@@ -7322,10 +7348,10 @@
             <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="name"/> or <paramref name="value"/> is null.</exception>
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown if <paramref name="index"/> is negative.</exception>
         </member>
-        <member name="M:Gallio.Common.Xml.NodeAttribute.Diff(Gallio.Common.Xml.INode,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
+        <member name="M:Gallio.Common.Xml.NodeAttribute.Diff(Gallio.Common.Xml.INode,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
             <inheritdoc />
         </member>
-        <member name="M:Gallio.Common.Xml.NodeAttribute.Diff(Gallio.Common.Xml.NodeAttribute,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
+        <member name="M:Gallio.Common.Xml.NodeAttribute.Diff(Gallio.Common.Xml.NodeAttribute,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
             <inheritdoc />
         </member>
         <member name="M:Gallio.Common.Xml.NodeAttribute.AreNamesEqual(System.String,Gallio.Common.Xml.Options)">
@@ -7456,7 +7482,7 @@
             </summary>
             <param name="attributes">An enumeration of attributes.</param>
         </member>
-        <member name="M:Gallio.Common.Xml.NodeAttributeCollection.Diff(Gallio.Common.Xml.NodeAttributeCollection,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
+        <member name="M:Gallio.Common.Xml.NodeAttributeCollection.Diff(Gallio.Common.Xml.NodeAttributeCollection,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
             <inheritdoc />
         </member>
         <member name="M:Gallio.Common.Xml.NodeAttributeCollection.Contains(System.String,System.String,Gallio.Common.Xml.Options)">
@@ -7489,7 +7515,7 @@
             <param name="children">The children nodes.</param>
             <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="children"/> is null.</exception>
         </member>
-        <member name="M:Gallio.Common.Xml.NodeBase.Diff(Gallio.Common.Xml.INode,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
+        <member name="M:Gallio.Common.Xml.NodeBase.Diff(Gallio.Common.Xml.INode,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
             <inheritdoc />
         </member>
         <member name="M:Gallio.Common.Xml.NodeBase.AreNamesEqual(System.String,Gallio.Common.Xml.Options)">
@@ -7522,10 +7548,10 @@
             </summary>
             <param name="attributes">The attributes of the element.</param>
         </member>
-        <member name="M:Gallio.Common.Xml.NodeDeclaration.Diff(Gallio.Common.Xml.INode,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
+        <member name="M:Gallio.Common.Xml.NodeDeclaration.Diff(Gallio.Common.Xml.INode,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
             <inheritdoc />
         </member>
-        <member name="M:Gallio.Common.Xml.NodeDeclaration.Diff(Gallio.Common.Xml.NodeDeclaration,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
+        <member name="M:Gallio.Common.Xml.NodeDeclaration.Diff(Gallio.Common.Xml.NodeDeclaration,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
             <inheritdoc />
         </member>
         <member name="P:Gallio.Common.Xml.NodeDeclaration.Attributes">
@@ -7617,23 +7643,25 @@
             Diffing engine abstract factory.
             </summary>
         </member>
-        <member name="M:Gallio.Common.Xml.Diffing.DiffEngineFactory.ForAttributes(Gallio.Common.Xml.NodeAttributeCollection,Gallio.Common.Xml.NodeAttributeCollection,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
+        <member name="M:Gallio.Common.Xml.Diffing.DiffEngineFactory.ForAttributes(Gallio.Common.Xml.NodeAttributeCollection,Gallio.Common.Xml.NodeAttributeCollection,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
             <summary>
             Makes a diffing engine for collections of attributes.
             </summary>
             <param name="expected">The expected attributes.</param>
             <param name="actual">The actual attributes.</param>
             <param name="path">The current path of the parent node.</param>
+            <param name="pathExpected">The path of the parent node of the parent collection.</param>
             <param name="options">Equality options.</param>
             <returns>The resulting diffing engine.</returns>
         </member>
-        <member name="M:Gallio.Common.Xml.Diffing.DiffEngineFactory.ForElements(Gallio.Common.Xml.NodeCollection,Gallio.Common.Xml.NodeCollection,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
+        <member name="M:Gallio.Common.Xml.Diffing.DiffEngineFactory.ForElements(Gallio.Common.Xml.NodeCollection,Gallio.Common.Xml.NodeCollection,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
             <summary>
             Makes a diffing engine for collections of elements.
             </summary>
             <param name="expected">The expected elements.</param>
             <param name="actual">The actual elements.</param>
             <param name="path">The current path of the parent node.</param>
+            <param name="pathExpected">The path of the parent node of the parent collection.</param>
             <param name="options">Equality options.</param>
             <returns>The resulting diffing engine.</returns>
         </member>
@@ -7740,7 +7768,7 @@
             <param name="root">The root element of the document.</param>
             <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="declaration"/> is null.</exception>
         </member>
-        <member name="M:Gallio.Common.Xml.NodeFragment.Diff(Gallio.Common.Xml.INode,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
+        <member name="M:Gallio.Common.Xml.NodeFragment.Diff(Gallio.Common.Xml.INode,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
             <inheritdoc />
         </member>
         <member name="M:Gallio.Common.Xml.NodeFragment.Diff(Gallio.Common.Xml.NodeFragment,Gallio.Common.Xml.Options)">
@@ -7752,7 +7780,7 @@
             <returns>The resulting diff set describing the differences found.</returns>
             <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="expected"/> is null.</exception>
         </member>
-        <member name="M:Gallio.Common.Xml.NodeFragment.Diff(Gallio.Common.Xml.NodeFragment,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
+        <member name="M:Gallio.Common.Xml.NodeFragment.Diff(Gallio.Common.Xml.NodeFragment,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
             <inheritdoc />
         </member>
         <member name="M:Gallio.Common.Xml.NodeFragment.Find(Gallio.Common.Xml.Paths.IXmlPathStrict)">
@@ -8081,13 +8109,14 @@
             <typeparam name="TCollection">The type of the collection.</typeparam>
             <typeparam name="TItem">The type of the items in the collection.</typeparam>
         </member>
-        <member name="M:Gallio.Common.Xml.Diffing.DiffEngineForOrderedItems`2.#ctor(`0,`0,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options,Gallio.Common.Xml.Diffing.OrderedItemType)">
+        <member name="M:Gallio.Common.Xml.Diffing.DiffEngineForOrderedItems`2.#ctor(`0,`0,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options,Gallio.Common.Xml.Diffing.OrderedItemType)">
             <summary>
             Constructs the diffing engine.
             </summary>
             <param name="expected">The expected object.</param>
             <param name="actual">The actual object.</param>
             <param name="path">The current path of the parent node.</param>
+            <param name="pathExpected">The path of the parent node of the expected collection.</param>
             <param name="options">Equality options.</param>
             <param name="itemType">A type of the diffed items.</param>
         </member>
@@ -8104,13 +8133,14 @@
             Diffing engine for collections of unordered attributes.
             </summary>
         </member>
-        <member name="M:Gallio.Common.Xml.Diffing.DiffEngineForUnorderedAttributes.#ctor(Gallio.Common.Xml.NodeAttributeCollection,Gallio.Common.Xml.NodeAttributeCollection,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
+        <member name="M:Gallio.Common.Xml.Diffing.DiffEngineForUnorderedAttributes.#ctor(Gallio.Common.Xml.NodeAttributeCollection,Gallio.Common.Xml.NodeAttributeCollection,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
             <summary>
             Constructs the diffing engine.
             </summary>
             <param name="expected">The expected object.</param>
             <param name="actual">The actual object.</param>
             <param name="path">The current path of the parent node.</param>
+            <param name="pathExpected">The path of the parent node of the parent collection.</param>
             <param name="options">Equality options.</param>
         </member>
         <member name="M:Gallio.Common.Xml.Diffing.DiffEngineForUnorderedAttributes.Diff">
@@ -8121,13 +8151,14 @@
             Diffing engine for collections of unordered elements.
             </summary>
         </member>
-        <member name="M:Gallio.Common.Xml.Diffing.DiffEngineForUnorderedElements.#ctor(Gallio.Common.Xml.NodeCollection,Gallio.Common.Xml.NodeCollection,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
+        <member name="M:Gallio.Common.Xml.Diffing.DiffEngineForUnorderedElements.#ctor(Gallio.Common.Xml.NodeCollection,Gallio.Common.Xml.NodeCollection,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
             <summary>
             Constructs the diffing engine.
             </summary>
             <param name="expected">The expected object.</param>
             <param name="actual">The actual object.</param>
             <param name="path">The current path of the parent node.</param>
+            <param name="pathExpected">The path of the parent node of the expected collection.</param>
             <param name="options">Equality options.</param>
         </member>
         <member name="M:Gallio.Common.Xml.Diffing.DiffEngineForUnorderedElements.Diff">
@@ -8335,7 +8366,7 @@
             </summary>
             <param name="nodes">An enumeration of nodes.</param>
         </member>
-        <member name="M:Gallio.Common.Xml.NodeCollection.Diff(Gallio.Common.Xml.NodeCollection,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
+        <member name="M:Gallio.Common.Xml.NodeCollection.Diff(Gallio.Common.Xml.NodeCollection,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
             <inheritdoc />
         </member>
         <member name="T:Gallio.Common.Xml.NodeComment">
@@ -8352,10 +8383,10 @@
             <param name="text">The literal content of the comment tag.</param>
             <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="text"/> is null.</exception>
         </member>
-        <member name="M:Gallio.Common.Xml.NodeComment.Diff(Gallio.Common.Xml.INode,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
+        <member name="M:Gallio.Common.Xml.NodeComment.Diff(Gallio.Common.Xml.INode,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
             <inheritdoc />
         </member>
-        <member name="M:Gallio.Common.Xml.NodeComment.Diff(Gallio.Common.Xml.NodeComment,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
+        <member name="M:Gallio.Common.Xml.NodeComment.Diff(Gallio.Common.Xml.NodeComment,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
             <inheritdoc />
         </member>
         <member name="P:Gallio.Common.Xml.NodeComment.Text">
@@ -8377,10 +8408,10 @@
             <param name="text">The literal text content.</param>
             <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="text"/> is null.</exception>
         </member>
-        <member name="M:Gallio.Common.Xml.NodeContent.Diff(Gallio.Common.Xml.INode,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
+        <member name="M:Gallio.Common.Xml.NodeContent.Diff(Gallio.Common.Xml.INode,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
             <inheritdoc />
         </member>
-        <member name="M:Gallio.Common.Xml.NodeContent.Diff(Gallio.Common.Xml.NodeContent,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
+        <member name="M:Gallio.Common.Xml.NodeContent.Diff(Gallio.Common.Xml.NodeContent,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
             <inheritdoc />
         </member>
         <member name="M:Gallio.Common.Xml.NodeContent.AreValuesEqual(System.String,Gallio.Common.Xml.Options)">
@@ -8414,10 +8445,10 @@
             <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="name"/>, <paramref name="attributes"/>, or <paramref name="children"/> is null.</exception>
             <exception cref="T:System.ArgumentException">Thrown if <paramref name="name"/> is empty.</exception>
         </member>
-        <member name="M:Gallio.Common.Xml.NodeElement.Diff(Gallio.Common.Xml.INode,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
+        <member name="M:Gallio.Common.Xml.NodeElement.Diff(Gallio.Common.Xml.INode,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
             <inheritdoc />
         </member>
-        <member name="M:Gallio.Common.Xml.NodeElement.Diff(Gallio.Common.Xml.NodeElement,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
+        <member name="M:Gallio.Common.Xml.NodeElement.Diff(Gallio.Common.Xml.NodeElement,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Paths.IXmlPathStrict,Gallio.Common.Xml.Options)">
             <inheritdoc />
         </member>
         <member name="M:Gallio.Common.Xml.NodeElement.AreNamesEqual(System.String,Gallio.Common.Xml.Options)">
@@ -8504,6 +8535,11 @@
             <example><![CDATA[ 
             "<!-- This is a comment... -->".
             ]]></example>
+        </member>
+        <member name="F:Gallio.Common.Xml.Options.Enclose">
+            <summary>
+            Encloses the XML fragments within a "root" element.
+            </summary>
         </member>
         <member name="T:Gallio.Common.Xml.Parser">
             <summary>
@@ -8839,14 +8875,15 @@
             Gets the default instance.
             </summary>
         </member>
-        <member name="T:Gallio.Framework.Data.Generation.SequentialInt32Generator">
+        <member name="T:Gallio.Framework.Data.Generation.RandomRangeGenerator`1">
             <summary>
-            Generator of sequential <see cref="T:System.Int32"/> values.
+            Generic abstract generator of random values within a given range.
             </summary>
+            <typeparam name="T">The type of the value to generate.</typeparam>
         </member>
-        <member name="T:Gallio.Framework.Data.Generation.SequentialGenerator`1">
+        <member name="T:Gallio.Framework.Data.Generation.RandomGenerator`1">
             <summary>
-            Generic abstract generator of sequential numeric values.
+            Generic abstract generator of random values within a given range.
             </summary>
             <typeparam name="T">The type of the value to generate.</typeparam>
         </member>
@@ -8926,6 +8963,70 @@
             Gets or sets the filter function that can be used
             to reject or accept generated values.
             </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.Generation.RandomGenerator`1.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.Generation.RandomGenerator`1.Verify">
+            <summary>
+            Verifies the properties of the generator.
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.Generation.RandomGenerator`1.Run">
+            <inheritdoc/>
+        </member>
+        <member name="M:Gallio.Framework.Data.Generation.RandomGenerator`1.GetSequence">
+            <summary>
+            Returns the sequence of random values.
+            </summary>
+            <returns>The sequence of values.</returns>
+        </member>
+        <member name="P:Gallio.Framework.Data.Generation.RandomGenerator`1.InnerGenerator">
+            <summary>
+            A general purpose pseudo-random number generator.
+            </summary>
+        </member>
+        <member name="P:Gallio.Framework.Data.Generation.RandomGenerator`1.Seed">
+            <summary>
+            Gets or sets the seed value.
+            </summary>
+        </member>
+        <member name="P:Gallio.Framework.Data.Generation.RandomGenerator`1.Count">
+            <summary>
+            Gets the length of the sequence of values
+            created by the generator.
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.Generation.RandomRangeGenerator`1.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.Generation.RandomRangeGenerator`1.Verify">
+            <inheritdoc/>
+        </member>
+        <member name="P:Gallio.Framework.Data.Generation.RandomRangeGenerator`1.Minimum">
+            <summary>
+            Gets the lower bound of the range.
+            </summary>
+        </member>
+        <member name="P:Gallio.Framework.Data.Generation.RandomRangeGenerator`1.Maximum">
+            <summary>
+            Gets the upper bound of the range.
+            </summary>
+        </member>
+        <member name="T:Gallio.Framework.Data.Generation.SequentialInt32Generator">
+            <summary>
+            Generator of sequential <see cref="T:System.Int32"/> values.
+            </summary>
+        </member>
+        <member name="T:Gallio.Framework.Data.Generation.SequentialGenerator`1">
+            <summary>
+            Generic abstract generator of sequential numeric values.
+            </summary>
+            <typeparam name="T">The type of the value to generate.</typeparam>
         </member>
         <member name="M:Gallio.Framework.Data.Generation.SequentialGenerator`1.#ctor">
             <summary>
@@ -9025,47 +9126,6 @@
         <member name="T:Gallio.Framework.Data.Generation.RandomInt32Generator">
             <summary>
             Generator of random <see cref="T:System.Int32"/> values within a given range.
-            </summary>
-        </member>
-        <member name="T:Gallio.Framework.Data.Generation.RandomGenerator`1">
-            <summary>
-            Generic abstract generator of random values within a given range.
-            </summary>
-            <typeparam name="T">The type of the value to generate.</typeparam>
-        </member>
-        <member name="F:Gallio.Framework.Data.Generation.RandomGenerator`1.InnerGenerator">
-            <summary>
-            A general purpose pseudo-random number generator.
-            </summary>
-        </member>
-        <member name="M:Gallio.Framework.Data.Generation.RandomGenerator`1.#ctor">
-            <summary>
-            Default constructor.
-            </summary>
-        </member>
-        <member name="M:Gallio.Framework.Data.Generation.RandomGenerator`1.Run">
-            <inheritdoc/>
-        </member>
-        <member name="M:Gallio.Framework.Data.Generation.RandomGenerator`1.GetSequence">
-            <summary>
-            Returns the sequence of random values.
-            </summary>
-            <returns>The sequence of values.</returns>
-        </member>
-        <member name="P:Gallio.Framework.Data.Generation.RandomGenerator`1.Minimum">
-            <summary>
-            Gets the lower bound of the range.
-            </summary>
-        </member>
-        <member name="P:Gallio.Framework.Data.Generation.RandomGenerator`1.Maximum">
-            <summary>
-            Gets the upper bound of the range.
-            </summary>
-        </member>
-        <member name="P:Gallio.Framework.Data.Generation.RandomGenerator`1.Count">
-            <summary>
-            Gets the length of the sequence of values
-            created by the generator.
             </summary>
         </member>
         <member name="M:Gallio.Framework.Data.Generation.RandomInt32Generator.#ctor">
@@ -9419,28 +9479,118 @@
             </remarks>
             <typeparam name="T">The searched type.</typeparam>
         </member>
-        <member name="T:MbUnit.Framework.ExtensionPointPatternAttribute">
+        <member name="T:Gallio.Framework.Pattern.CompositePatternAttribute">
             <summary>
-            Base class for all the patterns defining an extension point of the framework.
+            The <see cref="T:Gallio.Framework.Pattern.CompositePatternAttribute"/> class is a base class that can be used to define "composite" patterns. 
             </summary>
             <remarks>
             <para>
-            Extension point attributes act through a static method.
+            A composite pattern is a single pattern that is composed of (and equivelent to) a defined set of "component" patterns.
             </para>
-            </remarks>
-        </member>
-        <member name="T:Gallio.Framework.Pattern.DecoratorPatternAttribute">
-            <summary>
-            A decorator attribute applies contributions to a test component in scope
-            such as a test or test parameter generated by some other pattern attribute.
-            </summary>
-            <remarks>
             <para>
-            Occasionally the order in which decorators are applied is significant so this type provides a <see cref="P:Gallio.Framework.Pattern.DecoratorPatternAttribute.Order"/> 
-            property to specify an explicit ordering when required. All decorators that apply to a given test component 
-            declaration are applied in increasing <see cref="P:Gallio.Framework.Pattern.DecoratorPatternAttribute.Order"/>.
+            Composite patterns allow arbitrary sets of individual <see cref="T:Gallio.Framework.Pattern.IPattern"/>s to be grouped together 
+            and encapsulated so that the entire group can be treated as a single pattern.
+            </para>
+            <para>
+            Grouping patterns that are commonly used together into a composite pattern offers multiple benefits 
+            vs. using the component patterns separately.
+            Benefits of composite patterns include:
+            <list type="bullet">
+            <item>Composite patterns are easier to apply than the equivelent set of component patterns.</item>
+            <item>Composite patterns ensure that the entire set of component patterns is applied consistently.</item>
+            <item>Composite patterns can reduce code duplication (e.g. for declaratively applied <see cref="T:Gallio.Framework.Pattern.PatternAttribute"/>s).</item>
+            <item>
+            Composite patterns encapsulate and centralize the definition of the pattern group.
+            (This makes it easier and safer to maintain test code, 
+            such as when adding, removing, or modifying the component patterns of the composite pattern.)
+            </item>
+            <item>
+            Composite patterns allow meaningful names to be assigned to pattern groups. 
+            (This often improves test code readability, understandability, and maintainability.)
+            </item>
+            </list>
             </para>
             </remarks>
+            <example>
+            <para>
+            This C# example shows a derived class that encapsulates 3 separate <see cref="T:Gallio.Framework.Pattern.PatternAttribute"/>s 
+            as a named composite attribute.
+            <code><![CDATA[
+            /// <summary>
+            /// This attribute composites 3 separate <see cref="MetadataPatternAttribute"/>s into a single attribute.
+            /// </summary>
+            public class SampleCompositePatternAttribute: CompositePatternAttribute
+            {
+                private readonly PatternAttribute[] _componentPatterns = new[]
+                {
+                    new CategoryAttribute("Samples"),
+                    new AuthorAttribute("John"),
+                    new ImportanceAttribute(Importance.Critical)
+                };
+            
+                protected override IEnumerable<IPattern> GetPatterns()
+                {
+                    return _componentPatterns;
+                }
+            }
+            ]]></code>
+            </para>
+            <para>
+            This C# example shows 2 derived classes that each encapsulates multiple separate MbUnit.Framework.CatchExceptionAttributes 
+            as a named composite attribute.
+            <code><![CDATA[
+            /// <summary>
+            /// This attribute composites 4 separate <see cref="MbUnit.Framework.CatchExceptionAttributes"/>s into a single attribute.
+            /// </summary>
+            public class CompositeCatchArgumentExceptionsAttribute : CompositePatternAttribute
+            {
+                //NOTE: The Order properties of the attributes are intentionally different than the array sequence.
+                private readonly PatternAttribute[] _componentPatterns = new PatternAttribute[]
+                {
+                    new CatchExceptionAttribute(typeof(ArgumentNullException)) { StandardOutcome = "TestOutcome.Skipped", Order = 1},
+                    new CatchExceptionAttribute(typeof(ArgumentOutOfRangeException)) { StandardOutcome = "TestOutcome.Passed", Order = 4},
+                    new CatchExceptionAttribute(typeof(ArgumentOutOfRangeException)) { StandardOutcome = "TestOutcome.Ignored", ExceptionMessage = "expectedmessage", Order = 2},
+                    new CatchExceptionAttribute(typeof(ArgumentException)) { StandardOutcome = "TestOutcome.Inconclusive", Order = 3}
+                };
+            
+                protected override IEnumerable<IPattern> GetPatterns()
+                {
+                    return _componentPatterns;
+                }
+            }
+            
+            /// <summary>
+            /// This attribute composites 2 separate <see cref="MbUnit.Framework.CatchExceptionAttributes"/>s into a single attribute.
+            /// </summary>
+            public class CompositeCatchMiscExceptionsAttribute : CompositePatternAttribute
+            {
+                private readonly PatternAttribute[] _componentPatterns = new PatternAttribute[]
+                {
+                    new CatchExceptionAttribute(typeof(InvalidCastException)) { StandardOutcome = "TestOutcome.Ignored", Order = 1},
+                    new CatchExceptionAttribute(typeof(Exception)) { StandardOutcome = "TestOutcome.Pending", ExceptionMessage = "expectedmessage", Order = 2}
+                };
+            
+                protected override IEnumerable<IPattern> GetPatterns()
+                {
+                    return _componentPatterns;
+                }
+            }
+            
+            /// <summary>
+            /// This test illustrates a potential usage scenario for the 2 composite attributes above.
+            /// </summary>
+            [Test]
+            [CompositeCatchArgumentExceptions]
+            [CompositeCatchMiscExceptions]
+            public void ExpectInconclusiveFromFirstOfMultipleCompositeCatchAttributesWhenThrowArgEx()
+            {
+                throw new ArgumentException();
+            }
+            ]]></code>
+            </para>
+            </example>
+            <seealso cref="T:Gallio.Framework.Pattern.IPattern"/>
+            <seealso cref="T:Gallio.Framework.Pattern.PatternAttribute"/>
         </member>
         <member name="T:Gallio.Framework.Pattern.PatternAttribute">
             <summary>
@@ -9630,6 +9780,46 @@
         <member name="P:Gallio.Framework.Pattern.PatternAttribute.IsPrimary">
             <inheritdoc />
         </member>
+        <member name="M:Gallio.Framework.Pattern.CompositePatternAttribute.Process(Gallio.Framework.Pattern.IPatternScope,Gallio.Common.Reflection.ICodeElementInfo)">
+            <inheritdoc />
+        </member>
+        <member name="M:Gallio.Framework.Pattern.CompositePatternAttribute.Consume(Gallio.Framework.Pattern.IPatternScope,Gallio.Common.Reflection.ICodeElementInfo,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Gallio.Framework.Pattern.CompositePatternAttribute.GetPatterns">
+            <summary>
+            Gets a set of individual patterns that are collectively equivelent to the composite pattern represented by the instance.
+            </summary>
+            <remarks>
+            Note to inheritors: A common implementation of this method is to simply return an array containing 
+            programmatically instantiated instances of various Attributes that implement <see cref="T:Gallio.Framework.Pattern.IPattern"/>.
+            See the class documentation for examples of this type of implementation.
+            </remarks>
+            <returns>The set of patterns that collectively define the composite pattern.</returns>
+        </member>
+        <member name="T:MbUnit.Framework.ExtensionPointPatternAttribute">
+            <summary>
+            Base class for all the patterns defining an extension point of the framework.
+            </summary>
+            <remarks>
+            <para>
+            Extension point attributes act through a static method.
+            </para>
+            </remarks>
+        </member>
+        <member name="T:Gallio.Framework.Pattern.DecoratorPatternAttribute">
+            <summary>
+            A decorator attribute applies contributions to a test component in scope
+            such as a test or test parameter generated by some other pattern attribute.
+            </summary>
+            <remarks>
+            <para>
+            Occasionally the order in which decorators are applied is significant so this type provides a <see cref="P:Gallio.Framework.Pattern.DecoratorPatternAttribute.Order"/> 
+            property to specify an explicit ordering when required. All decorators that apply to a given test component 
+            declaration are applied in increasing <see cref="P:Gallio.Framework.Pattern.DecoratorPatternAttribute.Order"/>.
+            </para>
+            </remarks>
+        </member>
         <member name="P:Gallio.Framework.Pattern.DecoratorPatternAttribute.Order">
             <summary>
             Gets or sets the order in which the decorator should be applied.
@@ -9698,6 +9888,98 @@
         <member name="F:Gallio.Framework.Pattern.FixtureMemberInvokerTargets.Method">
             <summary>
             Indicates to find the searched member among the methods.
+            </summary>
+        </member>
+        <member name="T:Gallio.Framework.Data.TestParameterDataBinding">
+            <summary>
+            Describes a data binding that binds to a test parameter.
+            </summary>
+            <remarks>
+            <para>
+            A data set that encomasses multiple tests may use the info in <see cref="P:Gallio.Framework.Data.TestParameterDataBinding.TestParameter"/>
+            to access parameter properties like type or containing fixture.
+            </para>
+            </remarks>
+        </member>
+        <member name="T:Gallio.Framework.Data.DataBinding">
+            <summary>
+            A data binding object describes how a data binding is to take place.
+            </summary>
+            <remarks>
+            <para>
+            This class provides support for optional path-based and index-based lookup.  Subclasses
+            may provide additional properties that are recognized by special kinds of data sets
+            to modify how a bound value is resolved.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataBinding.#ctor(System.Nullable{System.Int32},System.String)">
+            <summary>
+            Creates a new data binding with an optional index and path.
+            </summary>
+            <param name="index">The binding index or null if none. <seealso cref="P:Gallio.Framework.Data.DataBinding.Index"/>.</param>
+            <param name="path">The binding path or null if none. <seealso cref="P:Gallio.Framework.Data.DataBinding.Path"/>.</param>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataBinding.ReplaceIndex(System.Nullable{System.Int32})">
+            <summary>
+            Creates a clone of the data binding with a different index.
+            </summary>
+            <param name="index">The new index.</param>
+            <returns>The cloned binding.</returns>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataBinding.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Gallio.Framework.Data.DataBinding.Equals(Gallio.Framework.Data.DataBinding)">
+            <inheritdoc />
+        </member>
+        <member name="M:Gallio.Framework.Data.DataBinding.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:Gallio.Framework.Data.DataBinding.ToString">
+            <summary>
+            Returns a debug representation of the binding as a string.
+            </summary>
+            <returns>The string representation.</returns>
+        </member>
+        <member name="P:Gallio.Framework.Data.DataBinding.Index">
+            <summary>
+            Gets an optional binding index that describes how to locate the bound value
+            in a data set that is structured as an ordered tuple, such as the ordinal index
+            of a cell in an array.  Null if none.
+            </summary>
+            <remarks>
+            <para>
+            The default binding index for a test parameter may be its ordinal index
+            in the parameter array.  A data set can take advantage of this convention by
+            treating the binding index.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:Gallio.Framework.Data.DataBinding.Path">
+            <summary>
+            Gets an optional binding path that describes how to locate the bound value
+            in the data set, such as a column name or an XPath expression.  Null if none.
+            </summary>
+            <remarks>
+            <para>
+            The default binding path for a test parameter may be the name of the test parameter.
+            A data set can take advantage of this convention by treating the binding path as a
+            case-insensitive name where appropriate.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:Gallio.Framework.Data.TestParameterDataBinding.#ctor(System.Nullable{System.Int32},System.String,Gallio.Model.Tree.TestParameter)">
+            <summary>
+            Creates a new data binding with an optional index, path and a reference to the corresponding <see cref="T:Gallio.Model.Tree.TestParameter"/>.
+            </summary>
+            <param name="index">The binding index or null if none. <seealso cref="P:Gallio.Framework.Data.DataBinding.Index"/>.</param>
+            <param name="path">The binding path or null if none. <seealso cref="P:Gallio.Framework.Data.DataBinding.Path"/>.</param>
+            <param name="testParameter"><see cref="T:Gallio.Model.Tree.TestParameter"/> that this binding corresponds to.</param>
+        </member>
+        <member name="P:Gallio.Framework.Data.TestParameterDataBinding.TestParameter">
+            <summary>
+            Gets the <see cref="T:Gallio.Model.Tree.TestParameter"/> that this binding corresponds to.
             </summary>
         </member>
         <member name="T:Gallio.Framework.Pattern.PatternTestFrameworkExtensionProvider">
@@ -9924,7 +10206,7 @@
             Constructs a generator of random <see cref="T:System.String"/> objects.
             </summary>
         </member>
-        <member name="M:Gallio.Framework.Data.Generation.RandomStringGenerator.Run">
+        <member name="M:Gallio.Framework.Data.Generation.RandomStringGenerator.GetSequence">
             <inheritdoc/>
         </member>
         <member name="M:Gallio.Framework.Data.Generation.RandomStringGenerator.GetNextString">
@@ -9933,18 +10215,12 @@
             </summary>
             <returns>A random string.</returns>
         </member>
-        <member name="P:Gallio.Framework.Data.Generation.RandomStringGenerator.Count">
-            <summary>
-            Gets or sets the length of the sequence of strings
-            created by the generator.
-            </summary>
-        </member>
         <member name="M:Gallio.Framework.Data.Generation.RandomStockStringGenerator.#ctor">
             <summary>
             Constructs a generator of random <see cref="T:System.String"/> objects.
             </summary>
         </member>
-        <member name="M:Gallio.Framework.Data.Generation.RandomStockStringGenerator.Run">
+        <member name="M:Gallio.Framework.Data.Generation.RandomStockStringGenerator.Verify">
             <inheritdoc/>
         </member>
         <member name="M:Gallio.Framework.Data.Generation.RandomStockStringGenerator.GetNextString">
@@ -9964,6 +10240,9 @@
             <summary>
             Constructs a generator of random <see cref="T:System.String"/> objects.
             </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.Generation.RandomRegexLiteStringGenerator.Verify">
+            <inheritdoc/>
         </member>
         <member name="M:Gallio.Framework.Data.Generation.RandomRegexLiteStringGenerator.Run">
             <inheritdoc/>
@@ -10002,16 +10281,12 @@
             Interface for a regular expression composite tree leaf.
             </summary>
         </member>
-        <member name="M:Gallio.Common.Text.RegularExpression.IElement.GetRandomString">
+        <member name="M:Gallio.Common.Text.RegularExpression.IElement.GetRandomString(System.Random)">
             <summary>
             Returns a random string that matches the regular expression element.
             </summary>
+            <param name="random">A random number generator.</param>
             <returns>A random string.</returns>
-        </member>
-        <member name="F:Gallio.Common.Text.RegularExpression.Element.Generator">
-            <summary>
-            A shared built-in generator of random numbers.
-            </summary>
         </member>
         <member name="M:Gallio.Common.Text.RegularExpression.Element.#ctor(Gallio.Common.Text.RegularExpression.Quantifier)">
             <summary>
@@ -10020,13 +10295,14 @@
             <param name="quantifier">A quantifier specifying how many times the element is repeated.</param>
             <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="quantifier"/> is null.</exception>
         </member>
-        <member name="M:Gallio.Common.Text.RegularExpression.Element.GetRandomString">
+        <member name="M:Gallio.Common.Text.RegularExpression.Element.GetRandomString(System.Random)">
             <inheritdoc />
         </member>
-        <member name="M:Gallio.Common.Text.RegularExpression.Element.GetRandomStringImpl">
+        <member name="M:Gallio.Common.Text.RegularExpression.Element.GetRandomStringImpl(System.Random)">
             <summary>
             Returns the random string that matches the regular expression element.
             </summary>
+            <param name="random">A random number generator.</param>
             <returns>A random string.</returns>
         </member>
         <member name="M:Gallio.Common.Text.RegularExpression.ElementSet.#ctor(Gallio.Common.Text.RegularExpression.Quantifier,System.String)">
@@ -10046,7 +10322,7 @@
             <param name="characters">An array of characters to include into the set.</param>
             <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="quantifier"/> or <paramref name="characters"/> are null.</exception>
         </member>
-        <member name="M:Gallio.Common.Text.RegularExpression.ElementSet.GetRandomStringImpl">
+        <member name="M:Gallio.Common.Text.RegularExpression.ElementSet.GetRandomStringImpl(System.Random)">
             <inheritdoc />
         </member>
         <member name="T:Gallio.Common.Text.RegularExpression.ElementEmpty">
@@ -10067,7 +10343,7 @@
             <param name="literal">The invariant literal text.</param>
             <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="quantifier"/> or <paramref name="literal"/> are null.</exception>
         </member>
-        <member name="M:Gallio.Common.Text.RegularExpression.ElementLiteral.GetRandomStringImpl">
+        <member name="M:Gallio.Common.Text.RegularExpression.ElementLiteral.GetRandomStringImpl(System.Random)">
             <inheritdoc />
         </member>
         <member name="M:Gallio.Common.Text.RegularExpression.ElementEmpty.#ctor">
@@ -10093,7 +10369,7 @@
             <param name="children">The child elements.</param>
             <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="quantifier"/> or <paramref name="children"/> are null.</exception>
         </member>
-        <member name="M:Gallio.Common.Text.RegularExpression.ElementGroup.GetRandomStringImpl">
+        <member name="M:Gallio.Common.Text.RegularExpression.ElementGroup.GetRandomStringImpl(System.Random)">
             <inheritdoc />
         </member>
         <member name="T:Gallio.Common.Text.RegularExpression.RegexLiteException">
@@ -10260,10 +10536,11 @@
             <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="pattern"/> is null.</exception>
             <exception cref="T:Gallio.Common.Text.RegularExpression.RegexLiteException">Thrown if <paramref name="pattern"/> is invalid.</exception>
         </member>
-        <member name="M:Gallio.Common.Text.RegularExpression.RegexLite.GetRandomString">
+        <member name="M:Gallio.Common.Text.RegularExpression.RegexLite.GetRandomString(System.Random)">
             <summary>
             Returns the random string that matches the regular expression pattern.
             </summary>
+            <param name="random">A random number generator.</param>
             <returns>A random string that matches the regular expression pattern.</returns>
         </member>
         <member name="P:Gallio.Common.Text.RegularExpression.RegexLite.Root">
@@ -10300,10 +10577,11 @@
             <param name="minimum">The minimum value of the range.</param>
             <param name="maximum">The maximum value of the range.</param>
         </member>
-        <member name="M:Gallio.Common.Text.RegularExpression.Quantifier.GetRandomRepeat">
+        <member name="M:Gallio.Common.Text.RegularExpression.Quantifier.GetRandomRepeat(System.Random)">
             <summary>
             Returns a random number within the range of the quantifier.
             </summary>
+            <param name="random">A random number generator.</param>
             <returns>A random number.</returns>
         </member>
         <member name="P:Gallio.Common.Text.RegularExpression.Quantifier.Minimum">
@@ -12951,6 +13229,88 @@
         <member name="M:Gallio.Runner.Reports.ArchiveReportContainer.Dispose">
             <inheritdoc />
         </member>
+        <member name="T:Gallio.Runner.Reports.DefaultReportMerger">
+            <summary>
+            Default implementation of a report merger.
+            </summary>
+        </member>
+        <member name="T:Gallio.Runner.Reports.IReportMerger">
+            <summary>
+            A report merger provides services for merging several reports together.
+            </summary>
+        </member>
+        <member name="M:Gallio.Runner.Reports.IReportMerger.Merge(Gallio.Runtime.ProgressMonitoring.IProgressMonitor)">
+            <summary>
+            Merges the reports and returns the output merged report.
+            </summary>
+            <param name="progressMonitor">The progress monitor.</param>
+            <returns>The merged report.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="progressMonitor "/> is null.</exception>
+        </member>
+        <member name="M:Gallio.Runner.Reports.DefaultReportMerger.#ctor(System.Collections.Generic.IEnumerable{Gallio.Runner.Reports.Schema.Report})">
+            <summary>
+            Creates a report merger.
+            </summary>
+            <param name="reports">The reports to be merged.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="reports"/> is null.</exception>
+        </member>
+        <member name="M:Gallio.Runner.Reports.DefaultReportMerger.Merge(Gallio.Runtime.ProgressMonitoring.IProgressMonitor)">
+            <inheritdoc />
+        </member>
+        <member name="T:Gallio.Runner.Reports.Preferences.HtmlReportSplitSettings">
+            <summary>
+            Settings for the HTML report automatic splitting.
+            </summary>
+        </member>
+        <member name="M:Gallio.Runner.Reports.Preferences.HtmlReportSplitSettings.#ctor">
+            <summary>
+            Constructs default settings.
+            </summary>
+        </member>
+        <member name="M:Gallio.Runner.Reports.Preferences.HtmlReportSplitSettings.Defaults">
+            <summary>
+            Sets the default values.
+            </summary>
+        </member>
+        <member name="M:Gallio.Runner.Reports.Preferences.HtmlReportSplitSettings.ReadFrom(Gallio.Runtime.Preferences.IPreferenceSet)">
+            <summary>
+            Reads the settings from the specified preference set.
+            </summary>
+            <param name="preferenceSet">The preference set which contains the data to read.</param>
+            <returns>The resulting report settings.</returns>
+        </member>
+        <member name="M:Gallio.Runner.Reports.Preferences.HtmlReportSplitSettings.WriteTo(Gallio.Runtime.Preferences.IPreferenceSet)">
+            <summary>
+            Writes the contents of the settings to the specified preference set.
+            </summary>
+            <param name="preferenceSet">The preference set to write data in.</param>
+        </member>
+        <member name="P:Gallio.Runner.Reports.Preferences.HtmlReportSplitSettings.Enabled">
+            <summary>
+            Indicates whether the splitting option is enabled.
+            </summary>
+        </member>
+        <member name="P:Gallio.Runner.Reports.Preferences.HtmlReportSplitSettings.PageSize">
+            <summary>
+            Gets or sets the number of test steps per report page.
+            </summary>
+        </member>
+        <member name="T:Gallio.Runner.Reports.Preferences.ReportPreferenceManager">
+            <summary>
+            Manager for user preferences about test reporting.
+            </summary>
+        </member>
+        <member name="M:Gallio.Runner.Reports.Preferences.ReportPreferenceManager.#ctor(Gallio.Runtime.Preferences.IPreferenceManager)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="preferenceManager">General-purpose preference manager.</param>
+        </member>
+        <member name="P:Gallio.Runner.Reports.Preferences.ReportPreferenceManager.HtmlReportSplitSettings">
+            <summary>
+            Reads or writes the HTML report split settings.
+            </summary>
+        </member>
         <member name="T:Gallio.Runner.Reports.ReportArchive">
             <summary>
             The type of file archive used to enclose a test report.
@@ -13218,25 +13578,29 @@
         <member name="P:Gallio.Runtime.Extensibility.DefaultExtensionPoints.CustomComparers">
             <inheritdoc />
         </member>
-        <member name="T:Gallio.Runtime.Conversions.FormattingFunc">
+        <member name="T:Gallio.Runtime.Formatting.MemberInfoFormattingRule">
             <summary>
-            Represents a method that displays an object in a readable textual form.
+            A formatting rule for <see cref="T:System.Reflection.MemberInfo"/> and all the derived types but <see cref="T:System.Type"/>.
             </summary>
-            <param name="source">The object to format.</param>
-            <returns>The readable textual representation.</returns>
+            <remarks>
+            <para>
+            Formats values like: "{Type}, {MemberType}: {Name}" with 
+            <list type="bullet">{Type} is the declarative type formatted by <see cref="T:Gallio.Runtime.Formatting.TypeFormattingRule"/>.</list>
+            <list type="bullet">{MemberType} is type of member (See <see cref="T:System.Reflection.MemberTypes"/>).</list>
+            <list type="bullet">{Name} is the name of the member.</list>
+            <example>E.g. "The.Namespace.TheType, Property: MyProperty"</example>
+            </para>
+            </remarks>
         </member>
-        <member name="T:Gallio.Runtime.Conversions.FormattingFunc`1">
+        <member name="T:Gallio.Runtime.Formatting.TypeFormattingRule">
             <summary>
-            Represents a strongly-typed method that displays an object in a readable textual form.
+            A formatting rule for <see cref="T:System.Type"/>.
             </summary>
-            <typeparam name="T">The type of the object to format.</typeparam>
-            <param name="source">The object to format.</param>
-            <returns>The readable textual representation.</returns>
-        </member>
-        <member name="T:Gallio.Runtime.Formatting.CustomFormattingRule">
-            <summary>
-            Formatting rule for custom user formatters.
-            </summary>
+            <remarks>
+            <para>
+            Formats values like: string, MyType.Nested, int[], byte*, similar to C#.
+            </para>
+            </remarks>
         </member>
         <member name="T:Gallio.Runtime.Formatting.IFormattingRule">
             <summary>
@@ -13277,6 +13641,38 @@
             <param name="formatter">The formatter to use for recursive formatting, never null.</param>
             <returns>The formatted string representation of the object or null if the object
             could not be formatted to produce a non-empty string.</returns>
+        </member>
+        <member name="M:Gallio.Runtime.Formatting.TypeFormattingRule.GetPriority(System.Type)">
+            <inheritdoc />
+        </member>
+        <member name="M:Gallio.Runtime.Formatting.TypeFormattingRule.Format(System.Object,Gallio.Runtime.Formatting.IFormatter)">
+            <inheritdoc />
+        </member>
+        <member name="M:Gallio.Runtime.Formatting.MemberInfoFormattingRule.GetPriority(System.Type)">
+            <inheritdoc />
+        </member>
+        <member name="M:Gallio.Runtime.Formatting.MemberInfoFormattingRule.Format(System.Object,Gallio.Runtime.Formatting.IFormatter)">
+            <inheritdoc />
+        </member>
+        <member name="T:Gallio.Runtime.Conversions.FormattingFunc">
+            <summary>
+            Represents a method that displays an object in a readable textual form.
+            </summary>
+            <param name="source">The object to format.</param>
+            <returns>The readable textual representation.</returns>
+        </member>
+        <member name="T:Gallio.Runtime.Conversions.FormattingFunc`1">
+            <summary>
+            Represents a strongly-typed method that displays an object in a readable textual form.
+            </summary>
+            <typeparam name="T">The type of the object to format.</typeparam>
+            <param name="source">The object to format.</param>
+            <returns>The readable textual representation.</returns>
+        </member>
+        <member name="T:Gallio.Runtime.Formatting.CustomFormattingRule">
+            <summary>
+            Formatting rule for custom user formatters.
+            </summary>
         </member>
         <member name="M:Gallio.Runtime.Formatting.CustomFormattingRule.#ctor(Gallio.Runtime.Conversions.FormattingFunc)">
             <summary>
@@ -16480,12 +16876,6 @@
             </summary>
             <param name="genericParameter">The generic parameter, not null.</param>
             <returns>The generic parameter constraints.</returns>
-        </member>
-        <member name="T:Gallio.Common.Reflection.Impl.CecilReflectionPolicy.CustomAttrib">
-            <summary>
-            Hack to provide access to the internal structure of Cecil attributes.
-            The standard interface makes it impossible to extract arrays and types.
-            </summary>
         </member>
         <member name="T:Gallio.Common.Reflection.Impl.ComDebugSymbolResolver">
             <summary>
@@ -19844,7 +20234,7 @@
             The default value of this property is <see cref="F:System.Threading.ApartmentState.Unknown"/>.
             </value>
         </member>
-        <member name="P:Gallio.Framework.Pattern.ITestBuilder.Timeout">
+        <member name="P:Gallio.Framework.Pattern.ITestBuilder.TimeoutFunc">
             <summary>
             Gets or sets the maximum amount of time the whole test including
             its setup, teardown and body should be permitted to run.
@@ -20187,7 +20577,7 @@
         <member name="P:Gallio.Framework.Pattern.DefaultTestBuilder.ApartmentState">
             <inheritdoc />
         </member>
-        <member name="P:Gallio.Framework.Pattern.DefaultTestBuilder.Timeout">
+        <member name="P:Gallio.Framework.Pattern.DefaultTestBuilder.TimeoutFunc">
             <inheritdoc />
         </member>
         <member name="P:Gallio.Framework.Pattern.DefaultTestBuilder.IsTestCase">
@@ -21463,6 +21853,14 @@
             <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="innerFailures"/> is null or
             contains a null.</exception>
         </member>
+        <member name="M:Gallio.Framework.Assertions.AssertionFailureBuilder.If(System.Boolean,System.Action{Gallio.Framework.Assertions.AssertionFailureBuilder})">
+            <summary>
+            Executes an action on the assertion failure builder if the specified condition is true.
+            </summary>
+            <param name="condition">The condition to evaluate.</param>
+            <param name="build">The build action to execute if the condition is true.</param>
+            <returns>The builder, to allow for fluent method chaining.</returns>
+        </member>
         <member name="M:Gallio.Framework.Assertions.AssertionFailureBuilder.ToAssertionFailure">
             <summary>
             Generates an immutable object that describes the failure.
@@ -21636,6 +22034,19 @@
             a common explanation.
             </summary>
             <param name="action">The action to invoke.</param>
+            <param name="explanation">A function that takes an array of inner failures and
+            returns a single outer failure with a common explanation.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="action"/> is null.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="explanation"/> is null.</exception>
+        </member>
+        <member name="M:Gallio.Framework.Assertions.AssertionHelper.Explain(Gallio.Common.Action,Gallio.Framework.Assertions.AssertionFailureBehavior,Gallio.Framework.Assertions.AssertionFailureExplanation)">
+            <summary>
+            Performs an action and combines the possible assertion failures
+            that were observed within the block, into a single outer failure with
+            a common explanation.
+            </summary>
+            <param name="action">The action to invoke.</param>
+            <param name="assertionFailureBehavior">The assertion failure behavior to use while the action runs.</param>
             <param name="explanation">A function that takes an array of inner failures and
             returns a single outer failure with a common explanation.</param>
             <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="action"/> is null.</exception>
@@ -22498,15 +22909,15 @@
             framework supports a given test file.
             </summary>
         </member>
-        <member name="M:Gallio.Model.DefaultTestFrameworkManager.#ctor(Gallio.Runtime.Extensibility.ComponentHandle{Gallio.Model.ITestFramework,Gallio.Model.TestFrameworkTraits}[],Gallio.Runtime.Extensibility.ComponentHandle{Gallio.Model.ITestFramework,Gallio.Model.TestFrameworkTraits},Gallio.Runtime.FileTypes.IFileTypeManager)">
+        <member name="M:Gallio.Model.DefaultTestFrameworkManager.#ctor(Gallio.Runtime.Extensibility.ComponentHandle{Gallio.Model.ITestFramework,Gallio.Model.TestFrameworkTraits}[],Gallio.Runtime.Extensibility.ComponentHandle{Gallio.Model.ITestFramework,Gallio.Model.TestFrameworkTraits},Gallio.Runtime.FileTypes.IFileTypeManager,Gallio.Runtime.Logging.ILogger)">
             <summary>
             Creates a test framework manager.
             </summary>
             <param name="testFrameworkHandles">The test framework handles.</param>
             <param name="fallbackTestFrameworkHandle">The fallback test framework handle.</param>
             <param name="fileTypeManager">The file type manager.</param>
-            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="testFrameworkHandles"/>,
-            <paramref name="fallbackTestFrameworkHandle"/> or <paramref name="fileTypeManager "/>is null.</exception>
+            <param name="logger">The logger.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="testFrameworkHandles"/>, <paramref name="fallbackTestFrameworkHandle"/> or <paramref name="fileTypeManager "/> or <paramref name="logger"/>is null.</exception>
         </member>
         <member name="M:Gallio.Model.DefaultTestFrameworkManager.GetTestDriver(Gallio.Model.TestFrameworkSelector,Gallio.Runtime.Logging.ILogger)">
             <inheritdoc />
@@ -22819,6 +23230,13 @@
             Creates a copy of the test package.
             </summary>
             <returns>The new copy.</returns>
+        </member>
+        <member name="M:Gallio.Model.TestPackage.MergeWith(Gallio.Model.TestPackage)">
+            <summary>
+            Merges the specified package to the current one.
+            </summary>
+            <param name="other">The other package to be merged.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="other"/> is null.</exception>
         </member>
         <member name="M:Gallio.Model.TestPackage.ResetApplicationBaseDirectory">
             <summary>
@@ -24443,12 +24861,13 @@
             <param name="constant">The constant name.</param>
             <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="constant"/> is null.</exception>
         </member>
-        <member name="M:Gallio.Runtime.Extensibility.IPluginLoader.PopulateCatalog(Gallio.Runtime.Extensibility.IPluginCatalog)">
+        <member name="M:Gallio.Runtime.Extensibility.IPluginLoader.PopulateCatalog(Gallio.Runtime.Extensibility.IPluginCatalog,Gallio.Runtime.ProgressMonitoring.IProgressMonitor)">
             <summary>
             Populates a catalog with plugin metadata derived from the currently
             registered plugin data sources.
             </summary>
             <param name="catalog">The plugin catalog to populate.</param>
+            <param name="progressMonitor"></param>
             <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="catalog"/>
             is null.</exception>
         </member>
@@ -24471,15 +24890,16 @@
         <member name="M:Gallio.Runtime.Extensibility.PluginLoader.DefinePreprocessorConstant(System.String)">
             <inheritdoc />
         </member>
-        <member name="M:Gallio.Runtime.Extensibility.PluginLoader.PopulateCatalog(Gallio.Runtime.Extensibility.IPluginCatalog)">
+        <member name="M:Gallio.Runtime.Extensibility.PluginLoader.PopulateCatalog(Gallio.Runtime.Extensibility.IPluginCatalog,Gallio.Runtime.ProgressMonitoring.IProgressMonitor)">
             <inheritdoc />
         </member>
-        <member name="M:Gallio.Runtime.Extensibility.PluginLoader.LoadPlugins(Gallio.Runtime.Extensibility.PluginLoader.PluginCallback)">
+        <member name="M:Gallio.Runtime.Extensibility.PluginLoader.LoadPlugins(Gallio.Runtime.Extensibility.PluginLoader.PluginCallback,Gallio.Runtime.ProgressMonitoring.IProgressMonitor)">
             <summary>
             Loads plugins by recursively searching the plugin paths for *.plugin files.
             </summary>
             <param name="pluginCallback">A function that receives plugin metadata as it
-            becomes available, not null.</param>
+              becomes available, not null.</param>
+            <param name="progressMonitor"></param>
         </member>
         <member name="P:Gallio.Runtime.Extensibility.PluginLoader.InstallationId">
             <inheritdoc />
@@ -24496,7 +24916,7 @@
         </member>
         <member name="T:Gallio.Runtime.Extensibility.PluginLoader.PluginCallback">
             <summary>
-            The plugin callback type used by <see cref="M:Gallio.Runtime.Extensibility.PluginLoader.LoadPlugins(Gallio.Runtime.Extensibility.PluginLoader.PluginCallback)"/>.
+            The plugin callback type used by <see cref="M:Gallio.Runtime.Extensibility.PluginLoader.LoadPlugins(Gallio.Runtime.Extensibility.PluginLoader.PluginCallback,Gallio.Runtime.ProgressMonitoring.IProgressMonitor)"/>.
             </summary>
         </member>
         <member name="M:Gallio.Runtime.Extensibility.CachingPluginLoader.#ctor">
@@ -24509,7 +24929,7 @@
             Clears the plugin cache belonging to the current user.
             </summary>
         </member>
-        <member name="M:Gallio.Runtime.Extensibility.CachingPluginLoader.LoadPlugins(Gallio.Runtime.Extensibility.PluginLoader.PluginCallback)">
+        <member name="M:Gallio.Runtime.Extensibility.CachingPluginLoader.LoadPlugins(Gallio.Runtime.Extensibility.PluginLoader.PluginCallback,Gallio.Runtime.ProgressMonitoring.IProgressMonitor)">
             <inheritdoc />
         </member>
         <member name="T:Gallio.Runtime.Extensibility.ComponentRegistration">
@@ -26567,22 +26987,6 @@
             Creates a stub formatter using only a few built-in formatting rules.
             </summary>
         </member>
-        <member name="T:Gallio.Runtime.Formatting.TypeFormattingRule">
-            <summary>
-            A formatting rule for <see cref="T:System.Type"/>.
-            </summary>
-            <remarks>
-            <para>
-            Formats values like: string, MyType.Nested, int[], byte*, similar to C#.
-            </para>
-            </remarks>
-        </member>
-        <member name="M:Gallio.Runtime.Formatting.TypeFormattingRule.GetPriority(System.Type)">
-            <inheritdoc />
-        </member>
-        <member name="M:Gallio.Runtime.Formatting.TypeFormattingRule.Format(System.Object,Gallio.Runtime.Formatting.IFormatter)">
-            <inheritdoc />
-        </member>
         <member name="T:Gallio.Runtime.Formatting.XPathNavigableFormattingRule">
             <summary>
             A formatting rule for <see cref="T:System.Xml.XPath.IXPathNavigable"/>.
@@ -27268,6 +27672,11 @@
             </summary>
             <param name="flags">Specifies the error checking to be done on the argument.</param>
         </member>
+        <member name="M:Gallio.Runtime.ConsoleSupport.CommandLineArgumentAttribute.GetResourceLookup(System.String)">
+            <summary>
+            Gets or sets a resource to use for localization of strings
+            </summary>
+        </member>
         <member name="P:Gallio.Runtime.ConsoleSupport.CommandLineArgumentAttribute.Flags">
             <summary>
             The error checking to be done on the argument.
@@ -27283,6 +27692,11 @@
             The short name of the argument.
             </summary>
         </member>
+        <member name="P:Gallio.Runtime.ConsoleSupport.CommandLineArgumentAttribute.LocalizedShortName">
+            <summary>
+            The localized short name of the argument.
+            </summary>
+        </member>
         <member name="P:Gallio.Runtime.ConsoleSupport.CommandLineArgumentAttribute.IsDefaultLongName">
             <summary>
             Returns true if the argument did not have an explicit long name specified.
@@ -27293,9 +27707,19 @@
             The long name of the argument.
             </summary>
         </member>
+        <member name="P:Gallio.Runtime.ConsoleSupport.CommandLineArgumentAttribute.LocalizedLongName">
+            <summary>
+            The localized long name of the argument.
+            </summary>
+        </member>
         <member name="P:Gallio.Runtime.ConsoleSupport.CommandLineArgumentAttribute.Description">
             <summary>
             The description of the argument.
+            </summary>
+        </member>
+        <member name="P:Gallio.Runtime.ConsoleSupport.CommandLineArgumentAttribute.LocalizedDescription">
+            <summary>
+            The localized description of the argument.
             </summary>
         </member>
         <member name="P:Gallio.Runtime.ConsoleSupport.CommandLineArgumentAttribute.ValueLabel">
@@ -27303,9 +27727,24 @@
              The description of the argument value.
             </summary>
         </member>
+        <member name="P:Gallio.Runtime.ConsoleSupport.CommandLineArgumentAttribute.LocalizedValueLabel">
+            <summary>
+             The localized description of the argument value.
+            </summary>
+        </member>
         <member name="P:Gallio.Runtime.ConsoleSupport.CommandLineArgumentAttribute.Synonyms">
             <summary>
             Gets or sets an array of additional synonyms that are silently accepted.
+            </summary>
+        </member>
+        <member name="P:Gallio.Runtime.ConsoleSupport.CommandLineArgumentAttribute.LocalizedSynonyms">
+            <summary>
+            Gets an array of localized additional synonyms that are silently accepted.
+            </summary>
+        </member>
+        <member name="P:Gallio.Runtime.ConsoleSupport.CommandLineArgumentAttribute.ResourceType">
+            <summary>
+            Gets or sets a resource to use for internationalization of strings
             </summary>
         </member>
         <member name="T:Gallio.Runtime.ConsoleSupport.CommandLineArgumentFlags">
@@ -30167,74 +30606,6 @@
             or 0 if no lines have been read yet.
             </summary>
         </member>
-        <member name="T:Gallio.Framework.Data.DataBinding">
-            <summary>
-            A data binding object describes how a data binding is to take place.
-            </summary>
-            <remarks>
-            <para>
-            This class provides support for optional path-based and index-based lookup.  Subclasses
-            may provide additional properties that are recognized by special kinds of data sets
-            to modify how a bound value is resolved.
-            </para>
-            </remarks>
-        </member>
-        <member name="M:Gallio.Framework.Data.DataBinding.#ctor(System.Nullable{System.Int32},System.String)">
-            <summary>
-            Creates a new data binding with an optional index and path.
-            </summary>
-            <param name="index">The binding index or null if none. <seealso cref="P:Gallio.Framework.Data.DataBinding.Index"/>.</param>
-            <param name="path">The binding path or null if none. <seealso cref="P:Gallio.Framework.Data.DataBinding.Path"/>.</param>
-        </member>
-        <member name="M:Gallio.Framework.Data.DataBinding.ReplaceIndex(System.Nullable{System.Int32})">
-            <summary>
-            Creates a clone of the data binding with a different index.
-            </summary>
-            <param name="index">The new index.</param>
-            <returns>The cloned binding.</returns>
-        </member>
-        <member name="M:Gallio.Framework.Data.DataBinding.Equals(System.Object)">
-            <inheritdoc />
-        </member>
-        <member name="M:Gallio.Framework.Data.DataBinding.Equals(Gallio.Framework.Data.DataBinding)">
-            <inheritdoc />
-        </member>
-        <member name="M:Gallio.Framework.Data.DataBinding.GetHashCode">
-            <inheritdoc />
-        </member>
-        <member name="M:Gallio.Framework.Data.DataBinding.ToString">
-            <summary>
-            Returns a debug representation of the binding as a string.
-            </summary>
-            <returns>The string representation.</returns>
-        </member>
-        <member name="P:Gallio.Framework.Data.DataBinding.Index">
-            <summary>
-            Gets an optional binding index that describes how to locate the bound value
-            in a data set that is structured as an ordered tuple, such as the ordinal index
-            of a cell in an array.  Null if none.
-            </summary>
-            <remarks>
-            <para>
-            The default binding index for a test parameter may be its ordinal index
-            in the parameter array.  A data set can take advantage of this convention by
-            treating the binding index.
-            </para>
-            </remarks>
-        </member>
-        <member name="P:Gallio.Framework.Data.DataBinding.Path">
-            <summary>
-            Gets an optional binding path that describes how to locate the bound value
-            in the data set, such as a column name or an XPath expression.  Null if none.
-            </summary>
-            <remarks>
-            <para>
-            The default binding path for a test parameter may be the name of the test parameter.
-            A data set can take advantage of this convention by treating the binding path as a
-            case-insensitive name where appropriate.
-            </para>
-            </remarks>
-        </member>
         <member name="T:Gallio.Framework.Data.DataBindingException">
             <summary>
             The type of exception thrown when data binding operations fail.
@@ -32056,9 +32427,9 @@
         <member name="M:Gallio.Framework.Pattern.PatternTest.SetName(System.String)">
             <inheritdoc />
         </member>
-        <member name="P:Gallio.Framework.Pattern.PatternTest.Timeout">
+        <member name="P:Gallio.Framework.Pattern.PatternTest.TimeoutFunc">
             <summary>
-            Gets or sets the maximum amount of time the whole test including
+            Gets or sets a functon that returns the maximum amount of time the whole test including
             its setup, teardown and body should be permitted to run.
             </summary>
             <remarks>
@@ -32067,8 +32438,7 @@
             The timeout may be null to indicate the absence of a timeout.
             </para>
             </remarks>
-            <exception cref="T:System.ArgumentOutOfRangeException">Thrown if <paramref name="value"/>
-            represents a negative time span.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="value"/> is null.</exception>
             <value>The timeout.  Default value is null.</value>
         </member>
         <member name="P:Gallio.Framework.Pattern.PatternTest.ApartmentState">
@@ -37562,12 +37932,121 @@
         <member name="M:Gallio.Runtime.UtilityCommands.ClearCurrentUserPluginCacheUtilityCommand.Execute(Gallio.Runtime.UtilityCommands.UtilityCommandContext,System.Object)">
             <inheritdoc />
         </member>
+        <member name="T:Gallio.Runtime.UtilityCommands.BaseReportTransformationUtilityCommand`1">
+            <summary>
+            A utility command to load an XML test report and save
+            </summary>
+        </member>
+        <member name="M:Gallio.Runtime.UtilityCommands.BaseReportTransformationUtilityCommand`1.Execute(Gallio.Runtime.UtilityCommands.UtilityCommandContext,`0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Gallio.Runtime.UtilityCommands.BaseReportTransformationUtilityCommand`1.ExecuteImpl">
+            <summary>
+            Executes the command.
+            </summary>
+            <returns>True if the execution was successful; otherwise, false.</returns>
+        </member>
+        <member name="M:Gallio.Runtime.UtilityCommands.BaseReportTransformationUtilityCommand`1.LoadReport(System.String,System.String,Gallio.Runner.Reports.Schema.Report@)">
+            <summary>
+            Loads the specified report.
+            </summary>
+            <param name="inputPath"></param>
+            <param name="inputName"></param>
+            <param name="report"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gallio.Runtime.UtilityCommands.BaseReportTransformationUtilityCommand`1.SaveReport(Gallio.Runner.Reports.Schema.Report,Gallio.Runner.Reports.ReportArchive,System.String,System.String,Gallio.Common.Func{System.String},Gallio.Runner.Reports.ReportFormatterOptions)">
+            <summary>
+            Saves the specified report.
+            </summary>
+            <param name="report"></param>
+            <param name="reportArchive"></param>
+            <param name="formatterName"></param>
+            <param name="outputPath"></param>
+            <param name="getOutputName"></param>
+            <param name="options"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gallio.Runtime.UtilityCommands.BaseReportTransformationUtilityCommand`1.ParseOptions(System.String[])">
+            <summary>
+            Parses the key/value array of property strings and build an option bag for the report formatter from them.
+            </summary>
+            <param name="properties">Key/value array of property strings</param>
+            <returns>The report formatter options.</returns>
+        </member>
+        <member name="M:Gallio.Runtime.UtilityCommands.BaseReportTransformationUtilityCommand`1.CaptureFileException``1(Gallio.Common.Func{System.String},Gallio.Common.Func{``0})">
+            <summary>
+            Try-function which executes the specified action and catch any file-related exception.
+            </summary>
+            <typeparam name="T">The type of the result returned by the function.</typeparam>
+            <param name="getErrorMessage">The error message to log.</param>
+            <param name="func"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Gallio.Runtime.UtilityCommands.BaseReportTransformationUtilityCommand`1.Context">
+            <summary>
+            Gets the context of the current utility command.
+            </summary>
+        </member>
+        <member name="P:Gallio.Runtime.UtilityCommands.BaseReportTransformationUtilityCommand`1.Args">
+            <summary>
+            Gets the arguments of the command.
+            </summary>
+        </member>
+        <member name="P:Gallio.Runtime.UtilityCommands.BaseReportTransformationUtilityCommand`1.ReportManager">
+            <summary>
+            Gets the report manager.
+            </summary>
+        </member>
+        <member name="T:Gallio.Runtime.UtilityCommands.MergeReportsUtilityCommand">
+            <summary>
+            A utility command to merge several XML test reports.
+            </summary>
+        </member>
+        <member name="M:Gallio.Runtime.UtilityCommands.MergeReportsUtilityCommand.ExecuteImpl">
+            <inheritdoc />
+        </member>
+        <member name="T:Gallio.Runtime.UtilityCommands.MergeReportsUtilityCommand.Arguments">
+            <summary>
+            The arguments for the command.
+            </summary>
+        </member>
+        <member name="F:Gallio.Runtime.UtilityCommands.MergeReportsUtilityCommand.Arguments.ReportPaths">
+            <summary>
+            The path of the input test reports.
+            </summary>
+        </member>
+        <member name="F:Gallio.Runtime.UtilityCommands.MergeReportsUtilityCommand.Arguments.ReportNameFormat">
+            <summary>
+            The format of the output report name.
+            </summary>
+        </member>
+        <member name="F:Gallio.Runtime.UtilityCommands.MergeReportsUtilityCommand.Arguments.ReportOutput">
+            <summary>
+            The path of the output report (optiona).
+            </summary>
+        </member>
+        <member name="F:Gallio.Runtime.UtilityCommands.MergeReportsUtilityCommand.Arguments.ReportArchive">
+            <summary>
+            Pack the resulting report in a compressed archive (optional).
+            </summary>
+        </member>
+        <member name="F:Gallio.Runtime.UtilityCommands.MergeReportsUtilityCommand.Arguments.ReportType">
+            <summary>
+            The type of the output report.
+            </summary>
+        </member>
+        <member name="F:Gallio.Runtime.UtilityCommands.MergeReportsUtilityCommand.Arguments.ReportFormatterProperties">
+            <summary>
+            Key/Value property for the report formatter.
+            </summary>
+        </member>
         <member name="T:Gallio.Runtime.UtilityCommands.FormatReportUtilityCommand">
             <summary>
             A utility command to load an XML test report and save
             </summary>
         </member>
-        <member name="M:Gallio.Runtime.UtilityCommands.FormatReportUtilityCommand.Execute(Gallio.Runtime.UtilityCommands.UtilityCommandContext,Gallio.Runtime.UtilityCommands.FormatReportUtilityCommand.Arguments)">
+        <member name="M:Gallio.Runtime.UtilityCommands.FormatReportUtilityCommand.ExecuteImpl">
             <inheritdoc />
         </member>
         <member name="T:Gallio.Runtime.UtilityCommands.FormatReportUtilityCommand.Arguments">
@@ -37598,6 +38077,11 @@
         <member name="F:Gallio.Runtime.UtilityCommands.FormatReportUtilityCommand.Arguments.ReportType">
             <summary>
             The type of the output report.
+            </summary>
+        </member>
+        <member name="F:Gallio.Runtime.UtilityCommands.FormatReportUtilityCommand.Arguments.ReportFormatterProperties">
+            <summary>
+            Key/Value property for the report formatter.
             </summary>
         </member>
         <member name="T:Gallio.Runtime.UtilityCommands.ResetInstallationIdElevatedCommand">
@@ -39721,6 +40205,12 @@
             <returns>The merged test, if the test was already present in the tree.</returns>
             <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="test"/> is null.</exception>
         </member>
+        <member name="M:Gallio.Model.Schema.TestModelData.MergeWith(Gallio.Model.Schema.TestModelData)">
+            <summary>
+            Merges the current model with the specified one.
+            </summary>
+            <param name="other">The other model to be merged.</param>
+        </member>
         <member name="P:Gallio.Model.Schema.TestModelData.RootTest">
             <summary>
             Gets or sets the root test in the model.
@@ -39834,6 +40324,14 @@
             <returns>The report writer.</returns>
             <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="report"/> or <paramref name="reportContainer"/> is null.</exception>
         </member>
+        <member name="M:Gallio.Runner.Reports.IReportManager.CreateReportMerger(System.Collections.Generic.IEnumerable{Gallio.Runner.Reports.Schema.Report})">
+            <summary>
+            Returns a report merger for the specified reports.
+            </summary>
+            <param name="reports">The test reports to be merged.</param>
+            <returns>The report merge.r</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="reports"/> is null.</exception>
+        </member>
         <member name="P:Gallio.Runner.Reports.IReportManager.FormatterHandles">
             <summary>
             Gets handles for all registered formatters.
@@ -39856,6 +40354,9 @@
             <inheritdoc />
         </member>
         <member name="M:Gallio.Runner.Reports.DefaultReportManager.CreateReportWriter(Gallio.Runner.Reports.Schema.Report,Gallio.Runner.Reports.IReportContainer)">
+            <inheritdoc />
+        </member>
+        <member name="M:Gallio.Runner.Reports.DefaultReportManager.CreateReportMerger(System.Collections.Generic.IEnumerable{Gallio.Runner.Reports.Schema.Report})">
             <inheritdoc />
         </member>
         <member name="P:Gallio.Runner.Reports.DefaultReportManager.FormatterHandles">
@@ -39885,6 +40386,12 @@
             <summary>
             Creates an empty package run.
             </summary>
+        </member>
+        <member name="M:Gallio.Runner.Reports.Schema.TestPackageRun.MergeWith(Gallio.Runner.Reports.Schema.TestPackageRun)">
+            <summary>
+            Merges the specified package run into the current one.
+            </summary>
+            <param name="other">The other package run to merge.</param>
         </member>
         <member name="P:Gallio.Runner.Reports.Schema.TestPackageRun.StartTime">
             <summary>
@@ -39948,6 +40455,13 @@
             </summary>
             <param name="testStepRun">The test step run.</param>
             <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="testStepRun"/> is null.</exception>
+        </member>
+        <member name="M:Gallio.Runner.Reports.Schema.Statistics.MergeWith(Gallio.Runner.Reports.Schema.Statistics)">
+            <summary>
+            Merges the specified statistics.
+            </summary>
+            <param name="other"></param>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="other"/> is null.</exception>
         </member>
         <member name="M:Gallio.Runner.Reports.Schema.Statistics.AddOutcome(Gallio.Model.TestOutcome)">
             <summary>
@@ -42365,6 +42879,18 @@
             </para>
             </remarks>
         </member>
+        <member name="F:Gallio.Model.MetadataKeys.ExpectedInnerException">
+            <summary>
+            The metadata key for the expected inner exception type which should be the name,
+            full name or assembly-qualified name of the expected inner exception type.
+            </summary>
+            <remarks>
+            <para>
+            May be derived from <c>ExpectedExceptionAttribute</c> in MbUnit
+            or its equivalent.
+            </para>
+            </remarks>
+        </member>
         <member name="F:Gallio.Model.MetadataKeys.ExpectedExceptionMessage">
             <summary>
             The metadata key for the expected exception message.
@@ -42714,6 +43240,14 @@
             Returns the <see cref="P:Gallio.Model.TestOutcome.DisplayName"/> of the outcome.
             </summary>
             <returns>The display name.</returns>
+        </member>
+        <member name="M:Gallio.Model.TestOutcome.GetStandardOutcome(System.String)">
+            <summary>
+            Returns the <see cref="T:Gallio.Model.TestOutcome"/> instance that corresponds to the specified string.
+            </summary>
+            <param name="outcomeName">The name of the <see cref="T:Gallio.Model.TestOutcome"/>. It can be optionally prefixed with "TestOutcome.". Case-sensitive.</param>
+            <returns>Returns the <see cref="T:Gallio.Model.TestOutcome"/> instance that corresponds to the specified string.</returns>
+            <exception cref="T:System.ArgumentException">Thrown if <paramref name="outcomeName"/> is invalid.</exception>
         </member>
         <member name="M:Gallio.Model.TestOutcome.ProvideXmlSchema(System.Xml.Schema.XmlSchemaSet)">
             <summary>
@@ -44100,6 +44634,21 @@
               Looks up a localized string similar to Parameter &apos;{0}&apos; of .
             </summary>
         </member>
+        <member name="P:Gallio.Properties.Resources.CommandLineArgumentAttribute_NoResourceException">
+            <summary>
+              Looks up a localized string similar to Localized attribute strings must supply a resource.
+            </summary>
+        </member>
+        <member name="P:Gallio.Properties.Resources.CommandLineArgumentAttribute_ResourceNotAStringException">
+            <summary>
+              Looks up a localized string similar to Localized attribute string does not point to a string resource.
+            </summary>
+        </member>
+        <member name="P:Gallio.Properties.Resources.CommandLineArgumentAttribute_ResourceNotFoundException">
+            <summary>
+              Looks up a localized string similar to Localized attribute string not found in resource named.
+            </summary>
+        </member>
         <member name="P:Gallio.Properties.Resources.CommandLineArgumentParser_Argument_CollectionArgumentsMustAllowMultipleValues">
             <summary>
               Looks up a localized string similar to Collection arguments must have AllowMultiple flag..
@@ -44230,6 +44779,16 @@
               Looks up a localized string similar to The runtime could not be initialized..
             </summary>
         </member>
+        <member name="P:Gallio.Properties.Resources.ExceptionDescription_DictionaryReadOnly">
+            <summary>
+              Looks up a localized string similar to Dictionary is read-only..
+            </summary>
+        </member>
+        <member name="P:Gallio.Properties.Resources.ExceptionDescription_ZeroOrGreater">
+            <summary>
+              Looks up a localized string similar to Must be greater than or equal to zero..
+            </summary>
+        </member>
         <member name="P:Gallio.Properties.Resources.FilterParser_CannotEscapeCharacter">
             <summary>
               Looks up a localized string similar to Cannot escape character {0}.
@@ -44255,6 +44814,11 @@
               Looks up a localized string similar to The filter expression can&apos;t be empty.
             </summary>
         </member>
+        <member name="P:Gallio.Properties.Resources.FilterParser_FilterExpressionExpected">
+            <summary>
+              Looks up a localized string similar to Simple filter expression expected such as &apos;*&apos; or &apos;Key: value&apos;..
+            </summary>
+        </member>
         <member name="P:Gallio.Properties.Resources.FilterParser_MissingEndDelimiter">
             <summary>
               Looks up a localized string similar to Missing end {0}.
@@ -44268,6 +44832,11 @@
         <member name="P:Gallio.Properties.Resources.FilterParser_RightBracketExpected">
             <summary>
               Looks up a localized string similar to Right bracket expected.
+            </summary>
+        </member>
+        <member name="P:Gallio.Properties.Resources.FilterParser_RulesNotSeperated">
+            <summary>
+              Looks up a localized string similar to Separate inclusion and exclusion rules must be separated by &apos;include&apos; or &apos;exclude&apos;..
             </summary>
         </member>
         <member name="P:Gallio.Properties.Resources.FilterParser_StringLiteralExpected">
@@ -44303,6 +44872,31 @@
         <member name="P:Gallio.Properties.Resources.RootTest_RootTestName">
             <summary>
               Looks up a localized string similar to Root.
+            </summary>
+        </member>
+        <member name="P:Gallio.Properties.Resources.SimpleDiskCache_DiskCacheDirectoryOpenException">
+            <summary>
+              Looks up a localized string similar to Could not open disk cache directory &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Gallio.Properties.Resources.SimpleDiskCache_DiskCacheFileOpenException">
+            <summary>
+              Looks up a localized string similar to Could not open disk cache file &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Gallio.Properties.Resources.SimpleDiskCache_DiskCacheGroupDeleteException">
+            <summary>
+              Looks up a localized string similar to Could not delete the disk cache group from &apos;{0}&apos;..
+            </summary>
+        </member>
+        <member name="P:Gallio.Properties.Resources.SimpleDiskCache_DiskCacheGroupIndeterminateExistance">
+            <summary>
+              Looks up a localized string similar to Could not determine whether the disk cache group from &apos;{0}&apos; exists..
+            </summary>
+        </member>
+        <member name="P:Gallio.Properties.Resources.SimpleDiskCache_PurgeException">
+            <summary>
+              Looks up a localized string similar to Could not purge the cache from location &apos;{0}&apos;..
             </summary>
         </member>
         <member name="P:Gallio.Properties.Resources.ThreadAbortScope_ReentranceException">

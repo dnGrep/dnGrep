@@ -23,168 +23,6 @@
             <param name="info">The serialization info.</param>
             <param name="context">The streaming context.</param>
         </member>
-        <member name="T:MbUnit.Framework.DisableAttribute">
-            <summary>
-            Specifies that a test fixture or a test method is abstract and should not run.
-            </summary>
-            <remarks>
-            <para>
-            The attribute hides the test methods in the current test fixture or a test method itself, 
-            so they can be consumed properly in the desired context from any derived concrete test fixtures.
-            </para>
-            <para>
-            This attribute is not inherited.
-            </para>
-            </remarks>
-        </member>
-        <member name="M:MbUnit.Framework.DisableAttribute.#ctor">
-            <summary>
-            Indicates that this test method/fixture is disabled.
-            </summary>
-        </member>
-        <member name="M:MbUnit.Framework.DisableAttribute.#ctor(System.String)">
-            <summary>
-             Indicates that this test method/fixture is disabled and provides a reason.
-            </summary>
-            <param name="reason">The reason for which the test method/fixture is disabled.</param>
-            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="reason"/> is null.</exception>
-        </member>
-        <member name="M:MbUnit.Framework.DisableAttribute.DecorateTest(Gallio.Framework.Pattern.IPatternScope,Gallio.Common.Reflection.ICodeElementInfo)">
-            <inheritdoc />
-        </member>
-        <member name="P:MbUnit.Framework.DisableAttribute.Reason">
-            <summary>
-            Gets the reason that the test method/fixture is disabled.
-            </summary>
-        </member>
-        <member name="T:MbUnit.Framework.AnnotationAttribute">
-            <summary>
-            Associates an annotation message of the specified type with the code element.
-            </summary>
-            <remarks>
-            <para>
-            An annotation is a message that is associated with code. This is different
-            from the metadata that may be associated with a test because an annotation
-            can apply to code elements that are not tests.
-            </para>
-            <para>
-            For example, if an error occurs while parsing the declarative attribute 
-            structure that defines a test, then the test itself may not be added to
-            the test tree.  Instead, the Pattern Test Framework will associated an
-            error annotation with the point of definition of the test.  This annotation
-            is displayed by the test runner as an error.  Some test runners, such as the
-            ReSharper test runner, will actually highlight the annotated element in the
-            IDE using an error stripe.
-            </para>
-            <para>
-            This attribute makes it possible to add annotations to code elements
-            declaratively.
-            </para>
-            <para>
-            Note: The annotation will only be added if the associated code element is
-            traversed during the normal sequence of test exploration.
-            </para>
-            </remarks>
-        </member>
-        <member name="M:MbUnit.Framework.AnnotationAttribute.#ctor(Gallio.Model.AnnotationType,System.String)">
-            <summary>
-            Associates an annotation message of the specified type with the code element.
-            </summary>
-            <param name="type">The annotation type.</param>
-            <param name="message">The annotation message.</param>
-            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="message"/> is null.</exception>
-        </member>
-        <member name="T:MbUnit.Framework.ApartmentStateAttribute">
-            <summary>
-            Sets the apartment state to be used to run the decorated test and its children
-            unless subsequently overridden.
-            </summary>
-            <remarks>
-            <para>
-            If no apartment state is specified or if it is <see cref="F:System.Threading.ApartmentState.Unknown"/>
-            the test will inherit the apartment state of its parent test.  Consequently if the apartment
-            state is set on the fixture then its tests will use the same apartment state unless overridden.
-            </para>
-            <para>
-            The default apartment state for a test assembly is <see cref="F:System.Threading.ApartmentState.STA"/> and
-            may be overridden by setting <see cref="T:MbUnit.Framework.ApartmentStateAttribute"/> attribute on the assembly.
-            </para>
-            </remarks>
-        </member>
-        <member name="M:MbUnit.Framework.ApartmentStateAttribute.#ctor(System.Threading.ApartmentState)">
-            <summary>
-            Sets the apartment state to be used to run the decorated test and its children
-            unless subsequently overridden.
-            </summary>
-            <remarks>
-            <para>
-            If no apartment state is specified or if it is <see cref="F:System.Threading.ApartmentState.Unknown"/>
-            the test will inherit the apartment state of its parent test.  Consequently if the apartment
-            state is set on the fixture then its tests will use the same apartment state unless overridden. 
-            </para>
-            <para>
-            The default apartment state for a test assembly is <see cref="F:System.Threading.ApartmentState.STA"/> and
-            may be overridden by setting <see cref="T:MbUnit.Framework.ApartmentStateAttribute"/> attribute on the assembly.
-            </para>
-            </remarks>
-            <param name="apartmentState">The apartment state to use.</param>
-        </member>
-        <member name="M:MbUnit.Framework.ApartmentStateAttribute.DecorateTest(Gallio.Framework.Pattern.IPatternScope,Gallio.Common.Reflection.ICodeElementInfo)">
-            <inheritdoc />
-        </member>
-        <member name="P:MbUnit.Framework.ApartmentStateAttribute.ApartmentState">
-            <summary>
-            Gets the apartment state to be used to run the decorated test.
-            </summary>
-        </member>
-        <member name="T:MbUnit.Framework.AssemblyFixtureAttribute">
-            <summary>
-            Declares that a class contains assembly-level setup and teardown methods.
-            </summary>
-            <remarks>
-            <para>
-            The assembly fixture attribute is applied to a class that contains setup and
-            teardown methods that are to be applied at the assembly level.  Conceptually,
-            the <see cref="T:MbUnit.Framework.AssemblyFixtureAttribute"/> adds new behavior to an assembly-level
-            test fixture that contains all of the test fixtures within the assembly.
-            </para>
-            <para>
-            The following attributes are typically used within an assembly fixture:
-            <list type="bullet">
-            <item><see cref="T:MbUnit.Framework.FixtureSetUpAttribute"/>: Performs setup activities before any
-            test fixtures within the assembly are executed.</item>
-            <item><see cref="T:MbUnit.Framework.FixtureTearDownAttribute"/>: Performs teardown activities after all
-            test fixtures within the assembly are executed.</item>
-            <item><see cref="T:MbUnit.Framework.SetUpAttribute"/>: Performs setup activities before each
-            test fixture within the assembly is executed.</item>
-            <item><see cref="T:MbUnit.Framework.TearDownAttribute"/>: Performs teardown activities after each
-            test fixture within the assembly is executed.</item>
-            </list>
-            </para>
-            <para>
-            It is also possible to use other attributes as with an ordinary <see cref="T:MbUnit.Framework.TestFixtureAttribute"/>.
-            An assembly fixture also supports data binding.  When data binding is used on an assembly
-            fixture, it will cause all test fixtures within the assembly to run once for each combination
-            of data values used.
-            </para>
-            <para>
-            The class must have a public default constructor. The class may not be static.
-            </para>
-            <para>
-            There must only be at most one class with an <see cref="T:MbUnit.Framework.AssemblyFixtureAttribute"/>
-            within any given assembly.
-            </para>
-            </remarks>
-        </member>
-        <member name="M:MbUnit.Framework.AssemblyFixtureAttribute.Consume(Gallio.Framework.Pattern.IPatternScope,Gallio.Common.Reflection.ICodeElementInfo,System.Boolean)">
-            <inheritdoc />
-        </member>
-        <member name="M:MbUnit.Framework.AssemblyFixtureAttribute.Validate(Gallio.Framework.Pattern.IPatternScope,Gallio.Common.Reflection.ITypeInfo)">
-            <inheritdoc />
-        </member>
-        <member name="M:MbUnit.Framework.AssemblyFixtureAttribute.SetTestSemantics(Gallio.Framework.Pattern.ITestBuilder,Gallio.Common.Reflection.ITypeInfo)">
-            <inheritdoc />
-        </member>
         <member name="T:MbUnit.Framework.Assert">
             <summary>
             Defines a set of assertions that enable a test to verify the expected
@@ -230,6 +68,358 @@
             its siblings automatically format values in this manner.
             </para>
             </remarks>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.HasAttribute(System.Type,System.Reflection.MemberInfo)">
+            <summary>
+            Verifies that the targeted object is decorated once with the specified <see cref="T:System.Attribute"/>.
+            </summary>
+            <remarks>
+            <para>
+            The assertion returns the instance of the actual attribute found.
+            </para>
+            <para>
+            The assertion fails if the target object is decorated with multiple instances of the searched attribute. If several
+            instances are expected, use <see cref="M:MbUnit.Framework.Assert.HasAttribute(System.Type,System.Reflection.MemberInfo)"/> instead.
+            </para>
+            </remarks>
+            <param name="expectedAttributeType">The type of the searched <see cref="T:System.Attribute"/>.</param>
+            <param name="target">The targeted object to evaluate.</param>
+            <returns>The instance of the actual attribute found.</returns>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="expectedAttributeType"/> or <paramref name="target"/> is null.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.HasAttribute(System.Type,System.Reflection.MemberInfo,System.String,System.Object[])">
+            <summary>
+            Verifies that the targeted object is decorated once with the specified <see cref="T:System.Attribute"/>.
+            </summary>
+            <remarks>
+            <para>
+            The assertion returns the instance of the actual attribute found.
+            </para>
+            <para>
+            The assertion fails if the target object is decorated with multiple instances of the searched attribute. If several
+            instances are expected, use <see cref="M:MbUnit.Framework.Assert.HasAttribute(System.Type,System.Reflection.MemberInfo,System.String,System.Object[])"/> instead.
+            </para>
+            </remarks>
+            <param name="expectedAttributeType">The type of the searched <see cref="T:System.Attribute"/>.</param>
+            <param name="target">The targeted object to evaluate.</param>
+            <param name="messageFormat">The custom assertion message format, or null if none.</param>
+            <param name="messageArgs">The custom assertion message arguments, or null if none.</param>
+            <returns>The instance of the actual attribute found.</returns>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="expectedAttributeType"/> or <paramref name="target"/> is null.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.HasAttribute``1(System.Reflection.MemberInfo)">
+            <summary>
+            Verifies that the targeted type is decorated once with the specified <see cref="T:System.Attribute"/>.
+            </summary>
+            <remarks>
+            <para>
+            The assertion returns the instance of the actual attribute found.
+            </para>
+            <para>
+            The assertion fails if the target object is decorated with multiple instances of the searched attribute. If several
+            instances are expected, use <see cref="M:MbUnit.Framework.Assert.HasAttribute``1(System.Reflection.MemberInfo)"/> instead.
+            </para>
+            </remarks>
+            <typeparam name="TAttribute">The type of the searched <see cref="T:System.Attribute"/>.</typeparam>
+            <param name="target">The target type to evaluate.</param>
+            <returns>The instance of the actual attribute found.</returns>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="target"/> is null.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.HasAttribute``1(System.Reflection.MemberInfo,System.String,System.Object[])">
+            <summary>
+            Verifies that the targeted type is decorated once with the specified <see cref="T:System.Attribute"/>.
+            </summary>
+            <remarks>
+            <para>
+            The assertion returns the instance of the actual attribute found.
+            </para>
+            <para>
+            The assertion fails if the target object is decorated with multiple instances of the searched attribute. If several
+            instances are expected, use <see cref="M:MbUnit.Framework.Assert.HasAttribute``1(System.Reflection.MemberInfo,System.String,System.Object[])"/> instead.
+            </para>
+            </remarks>
+            <typeparam name="TAttribute">The type of the searched <see cref="T:System.Attribute"/>.</typeparam>
+            <param name="target">The target type to evaluate.</param>
+            <param name="messageFormat">The custom assertion message format, or null if none.</param>
+            <param name="messageArgs">The custom assertion message arguments, or null if none.</param>
+            <returns>The instance of the actual attribute found.</returns>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="target"/> is null.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.HasAttribute(System.Type,MbUnit.Framework.Mirror.MemberSet)">
+            <summary>
+            Verifies that the targeted object is decorated once with the specified <see cref="T:System.Attribute"/>.
+            </summary>
+            <remarks>
+            <para>
+            The assertion returns the instance of the actual attribute found.
+            </para>
+            <para>
+            The assertion fails if the target object is decorated with multiple instances of the searched attribute. If several
+            instances are expected, use <see cref="M:MbUnit.Framework.Assert.HasAttribute(System.Type,System.Reflection.MemberInfo)"/> instead.
+            </para>
+            </remarks>
+            <param name="expectedAttributeType">The type of the searched <see cref="T:System.Attribute"/>.</param>
+            <param name="target">The targeted object to evaluate.</param>
+            <returns>The instance of the actual attribute found.</returns>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="expectedAttributeType"/> or <paramref name="target"/> is null.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.HasAttribute(System.Type,MbUnit.Framework.Mirror.MemberSet,System.String,System.Object[])">
+            <summary>
+            Verifies that the targeted object is decorated once with the specified <see cref="T:System.Attribute"/>.
+            </summary>
+            <remarks>
+            <para>
+            The assertion returns the instance of the actual attribute found.
+            </para>
+            <para>
+            The assertion fails if the target object is decorated with multiple instances of the searched attribute. If several
+            instances are expected, use <see cref="M:MbUnit.Framework.Assert.HasAttribute(System.Type,System.Reflection.MemberInfo,System.String,System.Object[])"/> instead.
+            </para>
+            </remarks>
+            <param name="expectedAttributeType">The type of the searched <see cref="T:System.Attribute"/>.</param>
+            <param name="target">The targeted object to evaluate.</param>
+            <param name="messageFormat">The custom assertion message format, or null if none.</param>
+            <param name="messageArgs">The custom assertion message arguments, or null if none.</param>
+            <returns>The instance of the actual attribute found.</returns>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="expectedAttributeType"/> or <paramref name="target"/> is null.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.HasAttribute``1(MbUnit.Framework.Mirror.MemberSet)">
+            <summary>
+            Verifies that the targeted type is decorated once with the specified <see cref="T:System.Attribute"/>.
+            </summary>
+            <remarks>
+            <para>
+            The assertion returns the instance of the actual attribute found.
+            </para>
+            <para>
+            The assertion fails if the target object is decorated with multiple instances of the searched attribute. If several
+            instances are expected, use <see cref="M:MbUnit.Framework.Assert.HasAttribute``1(System.Reflection.MemberInfo)"/> instead.
+            </para>
+            </remarks>
+            <typeparam name="TAttribute">The type of the searched <see cref="T:System.Attribute"/>.</typeparam>
+            <param name="target">The target type to evaluate.</param>
+            <returns>The instance of the actual attribute found.</returns>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="target"/> is null.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.HasAttribute``1(MbUnit.Framework.Mirror.MemberSet,System.String,System.Object[])">
+            <summary>
+            Verifies that the targeted type is decorated once with the specified <see cref="T:System.Attribute"/>.
+            </summary>
+            <remarks>
+            <para>
+            The assertion returns the instance of the actual attribute found.
+            </para>
+            <para>
+            The assertion fails if the target object is decorated with multiple instances of the searched attribute. If several
+            instances are expected, use <see cref="M:MbUnit.Framework.Assert.HasAttribute``1(System.Reflection.MemberInfo,System.String,System.Object[])"/> instead.
+            </para>
+            </remarks>
+            <typeparam name="TAttribute">The type of the searched <see cref="T:System.Attribute"/>.</typeparam>
+            <param name="target">The target type to evaluate.</param>
+            <param name="messageFormat">The custom assertion message format, or null if none.</param>
+            <param name="messageArgs">The custom assertion message arguments, or null if none.</param>
+            <returns>The instance of the actual attribute found.</returns>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="target"/> is null.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.HasAttributes(System.Type,System.Reflection.MemberInfo)">
+            <summary>
+            Verifies that the targeted object is decorated with one or several instances of the specified <see cref="T:System.Attribute"/>.
+            </summary>
+            <param name="expectedAttributeType">The type of the searched <see cref="T:System.Attribute"/>.</param>
+            <param name="target">The targeted object to evaluate.</param>
+            <returns>An array of attribute instances.</returns>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="expectedAttributeType"/> or <paramref name="target"/> is null.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.HasAttributes(System.Type,System.Reflection.MemberInfo,System.String,System.Object[])">
+            <summary>
+            Verifies that the targeted object is decorated with one or several instances of the specified <see cref="T:System.Attribute"/>.
+            </summary>
+            <param name="expectedAttributeType">The type of the searched <see cref="T:System.Attribute"/>.</param>
+            <param name="target">The targeted object to evaluate.</param>
+            <param name="messageFormat">The custom assertion message format, or null if none.</param>
+            <param name="messageArgs">The custom assertion message arguments, or null if none.</param>
+            <returns>An array of attribute instances.</returns>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="expectedAttributeType"/> or <paramref name="target"/> is null.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.HasAttributes``1(System.Reflection.MemberInfo)">
+            <summary>
+            Verifies that the targeted object is decorated with one or several instances of the specified <see cref="T:System.Attribute"/>.
+            </summary>
+            <typeparam name="TAttribute">The type of the searched <see cref="T:System.Attribute"/>.</typeparam>
+            <param name="target">The target type to evaluate.</param>
+            <returns>An array of attribute instances.</returns>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="target"/> is null.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.HasAttributes``1(System.Reflection.MemberInfo,System.String,System.Object[])">
+            <summary>
+            Verifies that the targeted object is decorated with one or several instances of the specified <see cref="T:System.Attribute"/>.
+            </summary>
+            <typeparam name="TAttribute">The type of the searched <see cref="T:System.Attribute"/>.</typeparam>
+            <param name="target">The target type to evaluate.</param>
+            <param name="messageFormat">The custom assertion message format, or null if none.</param>
+            <param name="messageArgs">The custom assertion message arguments, or null if none.</param>
+            <returns>An array of attribute instances.</returns>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="target"/> is null.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.HasAttributes(System.Type,MbUnit.Framework.Mirror.MemberSet)">
+            <summary>
+            Verifies that the targeted object is decorated with one or several instances of the specified <see cref="T:System.Attribute"/>.
+            </summary>
+            <param name="expectedAttributeType">The type of the searched <see cref="T:System.Attribute"/>.</param>
+            <param name="target">The targeted object to evaluate.</param>
+            <returns>An array of attribute instances.</returns>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="expectedAttributeType"/> or <paramref name="target"/> is null.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.HasAttributes(System.Type,MbUnit.Framework.Mirror.MemberSet,System.String,System.Object[])">
+            <summary>
+            Verifies that the targeted object is decorated with one or several instances of the specified <see cref="T:System.Attribute"/>.
+            </summary>
+            <param name="expectedAttributeType">The type of the searched <see cref="T:System.Attribute"/>.</param>
+            <param name="target">The targeted object to evaluate.</param>
+            <param name="messageFormat">The custom assertion message format, or null if none.</param>
+            <param name="messageArgs">The custom assertion message arguments, or null if none.</param>
+            <returns>An array of attribute instances.</returns>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="expectedAttributeType"/> or <paramref name="target"/> is null.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.HasAttributes``1(MbUnit.Framework.Mirror.MemberSet)">
+            <summary>
+            Verifies that the targeted object is decorated with one or several instances of the specified <see cref="T:System.Attribute"/>.
+            </summary>
+            <typeparam name="TAttribute">The type of the searched <see cref="T:System.Attribute"/>.</typeparam>
+            <param name="target">The target type to evaluate.</param>
+            <returns>An array of attribute instances.</returns>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="target"/> is null.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.HasAttributes``1(MbUnit.Framework.Mirror.MemberSet,System.String,System.Object[])">
+            <summary>
+            Verifies that the targeted object is decorated with one or several instances of the specified <see cref="T:System.Attribute"/>.
+            </summary>
+            <typeparam name="TAttribute">The type of the searched <see cref="T:System.Attribute"/>.</typeparam>
+            <param name="target">The target type to evaluate.</param>
+            <param name="messageFormat">The custom assertion message format, or null if none.</param>
+            <param name="messageArgs">The custom assertion message arguments, or null if none.</param>
+            <returns>An array of attribute instances.</returns>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="target"/> is null.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.HasAttributes(System.Type,System.Reflection.MemberInfo,System.Int32)">
+            <summary>
+            Verifies that the targeted object is decorated with the exact number of instances of the specified <see cref="T:System.Attribute"/>.
+            </summary>
+            <param name="expectedAttributeType">The type of the searched <see cref="T:System.Attribute"/>.</param>
+            <param name="target">The targeted object to evaluate.</param>
+            <param name="expectedCount">The expected number of attribute instances to be found.</param>
+            <returns>An array of attribute instances.</returns>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="expectedAttributeType"/> or <paramref name="target"/> is null.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown if <paramref name="expectedCount"/> is less than or equal to zero.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.HasAttributes(System.Type,System.Reflection.MemberInfo,System.Int32,System.String,System.Object[])">
+            <summary>
+            Verifies that the targeted object is decorated with the exact number of instances of the specified <see cref="T:System.Attribute"/>.
+            </summary>
+            <param name="expectedAttributeType">The type of the searched <see cref="T:System.Attribute"/>.</param>
+            <param name="target">The targeted object to evaluate.</param>
+            <param name="expectedCount">The expected number of attribute instances to be found.</param>
+            <param name="messageFormat">The custom assertion message format, or null if none.</param>
+            <param name="messageArgs">The custom assertion message arguments, or null if none.</param>
+            <returns>An array of attribute instances.</returns>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="expectedAttributeType"/> or <paramref name="target"/> is null.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown if <paramref name="expectedCount"/> is less than or equal to zero.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.HasAttributes``1(System.Reflection.MemberInfo,System.Int32)">
+            <summary>
+            Verifies that the targeted object is decorated with the exact number of instances of the specified <see cref="T:System.Attribute"/>.
+            </summary>
+            <typeparam name="TAttribute">The type of the searched <see cref="T:System.Attribute"/>.</typeparam>
+            <param name="target">The target type to evaluate.</param>
+            <param name="expectedCount">The expected number of attribute instances to be found.</param>
+            <returns>An array of attribute instances.</returns>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="target"/> is null.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown if <paramref name="expectedCount"/> is less than or equal to zero.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.HasAttributes``1(System.Reflection.MemberInfo,System.Int32,System.String,System.Object[])">
+            <summary>
+            Verifies that the targeted object is decorated with the exact number of instances of the specified <see cref="T:System.Attribute"/>.
+            </summary>
+            <typeparam name="TAttribute">The type of the searched <see cref="T:System.Attribute"/>.</typeparam>
+            <param name="target">The target type to evaluate.</param>
+            <param name="expectedCount">The expected number of attribute instances to be found.</param>
+            <param name="messageFormat">The custom assertion message format, or null if none.</param>
+            <param name="messageArgs">The custom assertion message arguments, or null if none.</param>
+            <returns>An array of attribute instances.</returns>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="target"/> is null.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown if <paramref name="expectedCount"/> is less than or equal to zero.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.HasAttributes(System.Type,MbUnit.Framework.Mirror.MemberSet,System.Int32)">
+            <summary>
+            Verifies that the targeted object is decorated with the exact number of instances of the specified <see cref="T:System.Attribute"/>.
+            </summary>
+            <param name="expectedAttributeType">The type of the searched <see cref="T:System.Attribute"/>.</param>
+            <param name="target">The targeted object to evaluate.</param>
+            <param name="expectedCount">The expected number of attribute instances to be found.</param>
+            <returns>An array of attribute instances.</returns>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="expectedAttributeType"/> or <paramref name="target"/> is null.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown if <paramref name="expectedCount"/> is less than or equal to zero.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.HasAttributes(System.Type,MbUnit.Framework.Mirror.MemberSet,System.Int32,System.String,System.Object[])">
+            <summary>
+            Verifies that the targeted object is decorated with the exact number of instances of the specified <see cref="T:System.Attribute"/>.
+            </summary>
+            <param name="expectedAttributeType">The type of the searched <see cref="T:System.Attribute"/>.</param>
+            <param name="target">The targeted object to evaluate.</param>
+            <param name="expectedCount">The expected number of attribute instances to be found.</param>
+            <param name="messageFormat">The custom assertion message format, or null if none.</param>
+            <param name="messageArgs">The custom assertion message arguments, or null if none.</param>
+            <returns>An array of attribute instances.</returns>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="expectedAttributeType"/> or <paramref name="target"/> is null.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown if <paramref name="expectedCount"/> is less than or equal to zero.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.HasAttributes``1(MbUnit.Framework.Mirror.MemberSet,System.Int32)">
+            <summary>
+            Verifies that the targeted object is decorated with the exact number of instances of the specified <see cref="T:System.Attribute"/>.
+            </summary>
+            <typeparam name="TAttribute">The type of the searched <see cref="T:System.Attribute"/>.</typeparam>
+            <param name="target">The target type to evaluate.</param>
+            <param name="expectedCount">The expected number of attribute instances to be found.</param>
+            <returns>An array of attribute instances.</returns>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="target"/> is null.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown if <paramref name="expectedCount"/> is less than or equal to zero.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.HasAttributes``1(MbUnit.Framework.Mirror.MemberSet,System.Int32,System.String,System.Object[])">
+            <summary>
+            Verifies that the targeted object is decorated with the exact number of instances of the specified <see cref="T:System.Attribute"/>.
+            </summary>
+            <typeparam name="TAttribute">The type of the searched <see cref="T:System.Attribute"/>.</typeparam>
+            <param name="target">The target type to evaluate.</param>
+            <param name="expectedCount">The expected number of attribute instances to be found.</param>
+            <param name="messageFormat">The custom assertion message format, or null if none.</param>
+            <param name="messageArgs">The custom assertion message arguments, or null if none.</param>
+            <returns>An array of attribute instances.</returns>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="target"/> is null.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown if <paramref name="expectedCount"/> is less than or equal to zero.</exception>
         </member>
         <member name="M:MbUnit.Framework.Assert.Count(System.Int32,System.Collections.IEnumerable)">
             <summary>
@@ -493,6 +683,40 @@
             <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
             <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="expectedSubstring"/> is null.</exception>
         </member>
+        <member name="M:MbUnit.Framework.Assert.Contains(System.String,System.String,System.StringComparison)">
+            <summary>
+            Verifies that a string contains some expected value.
+            </summary>
+            <remarks>
+            <para>
+            This assertion will fail if the string is null.
+            </para>
+            </remarks>
+            <param name="actualValue">The actual value.</param>
+            <param name="expectedSubstring">The expected substring.</param>
+            <param name="comparisonType">One of the <see cref="T:System.StringComparison"/> values that determines how the expected substring is compared to the actual value.</param>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="expectedSubstring"/> is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown if <paramref name="comparisonType"> has invalid value.</paramref></exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.Contains(System.String,System.String,System.StringComparison,System.String,System.Object[])">
+            <summary>
+            Verifies that a string contains some expected value.
+            </summary>
+            <remarks>
+            <para>
+            This assertion will fail if the string is null.
+            </para>
+            </remarks>
+            <param name="actualValue">The actual value.</param>
+            <param name="expectedSubstring">The expected substring.</param>
+            <param name="comparisonType">One of the <see cref="T:System.StringComparison"/> values that determines how the expected substring is compared to the actual value.</param>
+            <param name="messageFormat">The custom assertion message format, or null if none.</param>
+            <param name="messageArgs">The custom assertion message arguments, or null if none.</param>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="expectedSubstring"/> is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown if <paramref name="comparisonType"> has invalid value.</paramref></exception>
+        </member>
         <member name="M:MbUnit.Framework.Assert.DoesNotContain(System.String,System.String)">
             <summary>
             Verifies that a string does not contain some unexpected substring.
@@ -522,6 +746,40 @@
             <param name="messageArgs">The custom assertion message arguments, or null if none.</param>
             <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
             <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="unexpectedSubstring"/> is null.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.DoesNotContain(System.String,System.String,System.StringComparison)">
+            <summary>
+            Verifies that a string does not contain some unexpected substring.
+            </summary>
+            <remarks>
+            <para>
+            This assertion will fail if the string is null.
+            </para>
+            </remarks>
+            <param name="actualValue">The actual value.</param>
+            <param name="unexpectedSubstring">The unexpected substring.</param>
+            <param name="comparisonType">One of the <see cref="T:System.StringComparison"/> values that determines how unexpected text is compared to the actual value.</param>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="unexpectedSubstring"/> is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown if <paramref name="comparisonType"> has invalid value.</paramref></exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.DoesNotContain(System.String,System.String,System.StringComparison,System.String,System.Object[])">
+            <summary>
+            Verifies that a string does not contain some unexpected substring.
+            </summary>
+            <remarks>
+            <para>
+            This assertion will fail if the string is null.
+            </para>
+            </remarks>
+            <param name="actualValue">The actual value.</param>
+            <param name="unexpectedSubstring">The unexpected substring.</param>
+            <param name="comparisonType">One of the <see cref="T:System.StringComparison"/> values that determines how unexpected text is compared to the actual value.</param>
+            <param name="messageFormat">The custom assertion message format, or null if none.</param>
+            <param name="messageArgs">The custom assertion message arguments, or null if none.</param>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="unexpectedSubstring"/> is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown if <paramref name="comparisonType"> has invalid value.</paramref></exception>
         </member>
         <member name="M:MbUnit.Framework.Assert.AreEqual(System.String,System.String,System.StringComparison)">
             <summary>
@@ -889,6 +1147,42 @@
             <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
             <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="expectedText"/> is null.</exception>
         </member>
+        <member name="M:MbUnit.Framework.Assert.StartsWith(System.String,System.String,System.StringComparison)">
+            <summary>
+            Verifies that a string starts with the specified text.
+            </summary>
+            <remarks>
+            <para>
+            This assertion will fail if the string is null.
+            </para>
+            </remarks>
+            <seealso cref="M:System.String.StartsWith(System.String)"/>
+            <param name="actualValue">The actual value.</param>
+            <param name="expectedText">The expected pattern.</param>
+            <param name="comparisonType">One of the <see cref="T:System.StringComparison"/> values that determines how the expected text is compared to the actual value.</param>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="expectedText"/> is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown if <paramref name="comparisonType"> has invalid value.</paramref></exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.StartsWith(System.String,System.String,System.StringComparison,System.String,System.Object[])">
+            <summary>
+            Verifies that a string starts with the specified text.
+            </summary>
+            <remarks>
+            <para>
+            This assertion will fail if the string is null.
+            </para>
+            </remarks>
+            <seealso cref="M:System.String.StartsWith(System.String)"/>
+            <param name="actualValue">The actual value.</param>
+            <param name="expectedText">The expected pattern.</param>
+            <param name="comparisonType">One of the <see cref="T:System.StringComparison"/> values that determines how the expected text is compared to the actual value.</param>
+            <param name="messageFormat">The custom assertion message format, or null if none.</param>
+            <param name="messageArgs">The custom assertion message arguments, or null if none.</param>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="expectedText"/> is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown if <paramref name="comparisonType"> has invalid value.</paramref></exception>
+        </member>
         <member name="M:MbUnit.Framework.Assert.EndsWith(System.String,System.String)">
             <summary>
             Verifies that a string ends with the specified text.
@@ -920,6 +1214,42 @@
             <param name="messageArgs">The custom assertion message arguments, or null if none.</param>
             <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
             <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="expectedText"/> is null.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.EndsWith(System.String,System.String,System.StringComparison)">
+            <summary>
+            Verifies that a string ends with the specified text.
+            </summary>
+            <remarks>
+            <para>
+            This assertion will fail if the string is null.
+            </para>
+            </remarks>
+            <seealso cref="M:System.String.EndsWith(System.String)"/>
+            <param name="actualValue">The actual value.</param>
+            <param name="expectedText">The expected pattern.</param>
+            <param name="comparisonType">One of the <see cref="T:System.StringComparison"/> values that determines how the expected text is compared to the actual value.</param>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="expectedText"/> is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown if <paramref name="comparisonType"> has invalid value.</paramref></exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.EndsWith(System.String,System.String,System.StringComparison,System.String,System.Object[])">
+            <summary>
+            Verifies that a string ends with the specified text.
+            </summary>
+            <remarks>
+            <para>
+            This assertion will fail if the string is null.
+            </para>
+            </remarks>
+            <seealso cref="M:System.String.EndsWith(System.String)"/>
+            <param name="actualValue">The actual value.</param>
+            <param name="expectedText">The expected pattern.</param>
+            <param name="comparisonType">One of the <see cref="T:System.StringComparison"/> values that determines how the expected text is compared to the actual value.</param>
+            <param name="messageFormat">The custom assertion message format, or null if none.</param>
+            <param name="messageArgs">The custom assertion message arguments, or null if none.</param>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="expectedText"/> is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown if <paramref name="comparisonType"> has invalid value.</paramref></exception>
         </member>
         <member name="M:MbUnit.Framework.Assert.AreElementsEqual``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})">
             <summary>
@@ -1326,6 +1656,46 @@
             <param name="messageArgs">The custom assertion message arguments, or null if none.</param>
             <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
         </member>
+        <member name="M:MbUnit.Framework.Assert.ForAll``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary>
+            Verifies that all the elements of the sequence pass the validation.
+            </summary>
+            <typeparam name="T">The type of values in the sequence.</typeparam>
+            <param name="values">The sequence of values to evaluate.</param>
+            <param name="action">The assertion block that validates each element of the sequence.</param>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.ForAll``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0},System.String,System.Object[])">
+            <summary>
+            Verifies that all the elements of the sequence pass the validation.
+            </summary>
+            <typeparam name="T">The type of values in the sequence.</typeparam>
+            <param name="values">The sequence of values to evaluate.</param>
+            <param name="action">The assertion block that validates each element of the sequence.</param>
+            <param name="messageFormat">The custom assertion message format, or null if none.</param>
+            <param name="messageArgs">The custom assertion message arguments, or null if none.</param>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.ForAll``1(System.Collections.Generic.IEnumerable{``0},Gallio.Common.Action{``0,System.Int32})">
+            <summary>
+            Verifies that all the elements of the sequence pass the validation.
+            </summary>
+            <typeparam name="T">The type of values in the sequence.</typeparam>
+            <param name="values">The sequence of values to evaluate.</param>
+            <param name="action">The assertion block that validates each element of the sequence based on the element's value and index.</param>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.ForAll``1(System.Collections.Generic.IEnumerable{``0},Gallio.Common.Action{``0,System.Int32},System.String,System.Object[])">
+            <summary>
+            Verifies that all the elements of the sequence pass the validation.
+            </summary>
+            <typeparam name="T">The type of values in the sequence.</typeparam>
+            <param name="values">The sequence of values to evaluate.</param>
+            <param name="action">The assertion block that validates each element of the sequence based on the element's value and index.</param>
+            <param name="messageFormat">The custom assertion message format, or null if none.</param>
+            <param name="messageArgs">The custom assertion message arguments, or null if none.</param>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+        </member>
         <member name="M:MbUnit.Framework.Assert.Exists``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0})">
             <summary>
             Verifies that at least one element of the sequence meets the specified condition.
@@ -1342,6 +1712,26 @@
             <typeparam name="T">The type of values in the sequence.</typeparam>
             <param name="values">The sequence of values to evaluate.</param>
             <param name="predicate">The condition that must be fulfilled (returns <c>true</c>) by at least one element of the sequence.</param>
+            <param name="messageFormat">The custom assertion message format, or null if none.</param>
+            <param name="messageArgs">The custom assertion message arguments, or null if none.</param>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.DoesNotExist``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0})">
+            <summary>
+            Verifies that none of the elements in the sequence meets the specified condition.
+            </summary>
+            <typeparam name="T">The type of values in the sequence.</typeparam>
+            <param name="values">The sequence of values to evaluate.</param>
+            <param name="predicate">The condition that must not be fulfilled (returns <c>true</c>) by any of the elements of the sequence.</param>
+            <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.DoesNotExist``1(System.Collections.Generic.IEnumerable{``0},System.Predicate{``0},System.String,System.Object[])">
+            <summary>
+            Verifies that none of the elements in the sequence meets the specified condition.
+            </summary>
+            <typeparam name="T">The type of values in the sequence.</typeparam>
+            <param name="values">The sequence of values to evaluate.</param>
+            <param name="predicate">The condition that must not be fulfilled (returns <c>true</c>) by any of the elements of the sequence.</param>
             <param name="messageFormat">The custom assertion message format, or null if none.</param>
             <param name="messageArgs">The custom assertion message arguments, or null if none.</param>
             <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
@@ -3005,6 +3395,24 @@
             <param name="messageArgs">The custom assertion message arguments, or null if none.</param>
             <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
         </member>
+        <member name="M:MbUnit.Framework.Assert.That``1(``0,NHamcrest.IMatcher{``0})">
+            <summary>
+             Asserts that an item satisfies the condition specified by matcher.
+            </summary>
+            <param name="item">The item to test.</param>
+            <param name="matcher">A <see cref="T:NHamcrest.IMatcher`1">matcher</see>.</param>
+            <typeparam name="T">The static type accepted by the matcher.</typeparam>
+        </member>
+        <member name="M:MbUnit.Framework.Assert.That``1(``0,NHamcrest.IMatcher{``0},System.String,System.Object[])">
+            <summary>
+             Asserts that an item satisfies the condition specified by matcher.
+            </summary>
+            <param name="item">The item to test.</param>
+            <param name="matcher">A <see cref="T:NHamcrest.IMatcher`1">matcher</see>.</param>
+            <param name="messageFormat">The custom assertion message format, or null if none.</param>
+            <param name="messageArgs">The custom assertion message arguments, or null if none.</param>
+            <typeparam name="T">The static type accepted by the matcher.</typeparam>
+        </member>
         <member name="P:MbUnit.Framework.Assert.Over">
             <summary>
             Provides methods for composing assertions to map over complex data structures.
@@ -3976,6 +4384,362 @@
             <exception cref="T:Gallio.Framework.Assertions.AssertionException">Thrown if the verification failed unless the current <see cref="P:Gallio.Framework.Assertions.AssertionContext.AssertionFailureBehavior"/> indicates otherwise.</exception>
             <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="actualXml"/>, <paramref name="searchedPath"/>, or <paramref name="options"/> is null.</exception>
         </member>
+        <member name="T:MbUnit.Framework.ExpectedInvalidOperationExceptionAttribute">
+            <summary>
+            Declares that the associated test is expected to throw an <see cref="T:System.InvalidOperationException"/>.
+            </summary>
+            <remarks>
+            <para>
+            The expected contents of the exception message may optionally be specified.
+            </para>
+            </remarks>
+        </member>
+        <member name="T:MbUnit.Framework.ExpectedExceptionAttribute">
+            <summary>
+            Declares that the associated test is expected to throw an exception of
+            a particular type.
+            </summary>
+            <remarks>
+            <para>
+            The expected contents of the exception message may optionally be specified.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:MbUnit.Framework.ExpectedExceptionAttribute.#ctor(System.Type)">
+            <summary>
+            Declares that the associated test is expected to throw an exception of
+            a particular type.
+            </summary>
+            <param name="exceptionType">The expected exception type.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="exceptionType"/> is null.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.ExpectedExceptionAttribute.#ctor(System.Type,System.String)">
+            <summary>
+            Declares that the associated test is expected to throw an exception of
+            a particular type.
+            </summary>
+            <remarks>
+            <para>
+            The expected contents of the exception message may also optionally be specified.
+            </para>
+            </remarks>
+            <param name="exceptionType">The expected exception type.</param>
+            <param name="message">The expected exception message, or null if not specified.
+            May be a substring of the actual exception message.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="exceptionType"/> is null.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.ExpectedExceptionAttribute.#ctor(System.Type,System.String,System.Type)">
+            <summary>
+            Declares that the associated test is expected to throw an exception of
+            a particular type.
+            </summary>
+            <remarks>
+            <para>
+            The expected contents of the exception message may also optionally be specified.
+            </para>
+            </remarks>
+            <param name="exceptionType">The expected exception type.</param>
+            <param name="message">The expected exception message, or null if not specified.
+            May be a substring of the actual exception message.</param>
+            <param name="innerExceptionType">The expected inner exception type, or null if not specified.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="exceptionType"/> is null.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.ExpectedExceptionAttribute.DecorateMethodTest(Gallio.Framework.Pattern.IPatternScope,Gallio.Common.Reflection.IMethodInfo)">
+            <inheritdoc />
+        </member>
+        <member name="P:MbUnit.Framework.ExpectedExceptionAttribute.ExceptionType">
+            <summary>
+            Gets the expected exception type.
+            </summary>
+        </member>
+        <member name="P:MbUnit.Framework.ExpectedExceptionAttribute.Message">
+            <summary>
+            Gets or sets the expected exception message, or null if none specified.
+            May be a substring of the actual exception message.
+            </summary>
+        </member>
+        <member name="P:MbUnit.Framework.ExpectedExceptionAttribute.InnerExceptionType">
+            <summary>
+            Gets or sets expected inner exception type.
+            </summary>
+        </member>
+        <member name="M:MbUnit.Framework.ExpectedInvalidOperationExceptionAttribute.#ctor">
+            <summary>
+            Declares that the associated test is expected to throw an <see cref="T:System.InvalidOperationException"/>.
+            </summary>
+        </member>
+        <member name="M:MbUnit.Framework.ExpectedInvalidOperationExceptionAttribute.#ctor(System.String)">
+            <summary>
+            Declares that the associated test is expected to throw an <see cref="T:System.InvalidOperationException"/>.
+            </summary>
+            <remarks>
+            <para>
+            The expected contents of the exception message may also optionally be specified.
+            </para>
+            </remarks>
+            <param name="message">The expected exception message, or null if not specified.</param>
+        </member>
+        <member name="T:MbUnit.Framework.RandomGenerationDataAttribute">
+            <summary>
+            Provides a column of random values as a data source.
+            </summary>
+        </member>
+        <member name="T:MbUnit.Framework.GenerationDataAttribute">
+            <summary>
+            Provides a column of sequential values as a data source.
+            </summary>
+        </member>
+        <member name="T:MbUnit.Framework.DataAttribute">
+            <summary>
+            An abstract base class for MbUnit attributes that contribute values to data sources
+            along with metadata such a description or expected exception type.
+            </summary>
+            <remarks>
+            <para>
+            You may define a new data source by creating a subclass of this attribute
+            and overriding <see cref="M:Gallio.Framework.Pattern.DataPatternAttribute.PopulateDataSource(Gallio.Framework.Pattern.IPatternScope,Gallio.Framework.Data.DataSource,Gallio.Common.Reflection.ICodeElementInfo)"/>.
+            </para>
+            </remarks>
+            <seealso cref="T:Gallio.Framework.Pattern.DataPatternAttribute"/> for more information about data binding attributes in general.
+        </member>
+        <member name="M:MbUnit.Framework.DataAttribute.GetMetadata">
+            <summary>
+            Gets the metadata for the data source.
+            </summary>
+            <returns>The metadata keys and values.</returns>
+        </member>
+        <member name="P:MbUnit.Framework.DataAttribute.Description">
+            <summary>
+            Gets or sets a description of the values provided by the data source.
+            </summary>
+        </member>
+        <member name="P:MbUnit.Framework.DataAttribute.ExpectedException">
+            <summary>
+            Gets or sets the type of exception that should be thrown when the
+            values provided by the data source are consumed by test.
+            </summary>
+        </member>
+        <member name="P:MbUnit.Framework.DataAttribute.ExpectedExceptionMessage">
+            <summary>
+            Gets or sets the message of the exception that should be thrown when the
+            values provided by the data source are consumed by test.
+            May be a substring of the actual exception message.
+            </summary>
+        </member>
+        <member name="P:MbUnit.Framework.DataAttribute.ExpectedInnerException">
+            <summary>
+            Gets or sets the type of inner exception that should be set in an
+            exception thrown when the values provided by the data source are consumed
+            by test.
+            </summary>
+            <remarks>
+            <para>
+            This value is ignored if the <see cref="P:MbUnit.Framework.DataAttribute.ExpectedException"/> property is not set.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:MbUnit.Framework.GenerationDataAttribute.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:MbUnit.Framework.GenerationDataAttribute.PopulateDataSource(Gallio.Framework.Pattern.IPatternScope,Gallio.Framework.Data.DataSource,Gallio.Common.Reflection.ICodeElementInfo)">
+            <inheritdoc />
+        </member>
+        <member name="M:MbUnit.Framework.GenerationDataAttribute.GetGenerator(Gallio.Framework.Pattern.IPatternScope)">
+            <summary>
+            Returns a generator of random values.
+            </summary>
+            <param name="scope">The containing scope.</param>
+            <returns>A generator.</returns>
+        </member>
+        <member name="M:MbUnit.Framework.RandomGenerationDataAttribute.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:MbUnit.Framework.RandomGenerationDataAttribute.Process(Gallio.Framework.Pattern.IPatternScope,Gallio.Common.Reflection.ICodeElementInfo)">
+            <inheritdoc />
+        </member>
+        <member name="M:MbUnit.Framework.RandomGenerationDataAttribute.GetRandomGeneratorSeed(Gallio.Framework.Pattern.IPatternScope)">
+            <summary>
+            Returns the seed of the inner random number generator.
+            </summary>
+            <param name="scope">The scope.</param>
+            <returns>The seed value.</returns>
+        </member>
+        <member name="P:MbUnit.Framework.RandomGenerationDataAttribute.NullableSeed">
+            <summary>
+            Gets the nullable seed value.
+            </summary>
+        </member>
+        <member name="P:MbUnit.Framework.RandomGenerationDataAttribute.Seed">
+            <summary>
+            Gets or sets the seed value for the random generator.
+            </summary>
+        </member>
+        <member name="T:MbUnit.Framework.DisableAttribute">
+            <summary>
+            Specifies that a test fixture or a test method is abstract and should not run.
+            </summary>
+            <remarks>
+            <para>
+            The attribute hides the test methods in the current test fixture or a test method itself, 
+            so they can be consumed properly in the desired context from any derived concrete test fixtures.
+            </para>
+            <para>
+            This attribute is not inherited.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:MbUnit.Framework.DisableAttribute.#ctor">
+            <summary>
+            Indicates that this test method/fixture is disabled.
+            </summary>
+        </member>
+        <member name="M:MbUnit.Framework.DisableAttribute.#ctor(System.String)">
+            <summary>
+             Indicates that this test method/fixture is disabled and provides a reason.
+            </summary>
+            <param name="reason">The reason for which the test method/fixture is disabled.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="reason"/> is null.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.DisableAttribute.DecorateTest(Gallio.Framework.Pattern.IPatternScope,Gallio.Common.Reflection.ICodeElementInfo)">
+            <inheritdoc />
+        </member>
+        <member name="P:MbUnit.Framework.DisableAttribute.Reason">
+            <summary>
+            Gets the reason that the test method/fixture is disabled.
+            </summary>
+        </member>
+        <member name="T:MbUnit.Framework.AnnotationAttribute">
+            <summary>
+            Associates an annotation message of the specified type with the code element.
+            </summary>
+            <remarks>
+            <para>
+            An annotation is a message that is associated with code. This is different
+            from the metadata that may be associated with a test because an annotation
+            can apply to code elements that are not tests.
+            </para>
+            <para>
+            For example, if an error occurs while parsing the declarative attribute 
+            structure that defines a test, then the test itself may not be added to
+            the test tree.  Instead, the Pattern Test Framework will associated an
+            error annotation with the point of definition of the test.  This annotation
+            is displayed by the test runner as an error.  Some test runners, such as the
+            ReSharper test runner, will actually highlight the annotated element in the
+            IDE using an error stripe.
+            </para>
+            <para>
+            This attribute makes it possible to add annotations to code elements
+            declaratively.
+            </para>
+            <para>
+            Note: The annotation will only be added if the associated code element is
+            traversed during the normal sequence of test exploration.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:MbUnit.Framework.AnnotationAttribute.#ctor(Gallio.Model.AnnotationType,System.String)">
+            <summary>
+            Associates an annotation message of the specified type with the code element.
+            </summary>
+            <param name="type">The annotation type.</param>
+            <param name="message">The annotation message.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="message"/> is null.</exception>
+        </member>
+        <member name="T:MbUnit.Framework.ApartmentStateAttribute">
+            <summary>
+            Sets the apartment state to be used to run the decorated test and its children
+            unless subsequently overridden.
+            </summary>
+            <remarks>
+            <para>
+            If no apartment state is specified or if it is <see cref="F:System.Threading.ApartmentState.Unknown"/>
+            the test will inherit the apartment state of its parent test.  Consequently if the apartment
+            state is set on the fixture then its tests will use the same apartment state unless overridden.
+            </para>
+            <para>
+            The default apartment state for a test assembly is <see cref="F:System.Threading.ApartmentState.STA"/> and
+            may be overridden by setting <see cref="T:MbUnit.Framework.ApartmentStateAttribute"/> attribute on the assembly.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:MbUnit.Framework.ApartmentStateAttribute.#ctor(System.Threading.ApartmentState)">
+            <summary>
+            Sets the apartment state to be used to run the decorated test and its children
+            unless subsequently overridden.
+            </summary>
+            <remarks>
+            <para>
+            If no apartment state is specified or if it is <see cref="F:System.Threading.ApartmentState.Unknown"/>
+            the test will inherit the apartment state of its parent test.  Consequently if the apartment
+            state is set on the fixture then its tests will use the same apartment state unless overridden. 
+            </para>
+            <para>
+            The default apartment state for a test assembly is <see cref="F:System.Threading.ApartmentState.STA"/> and
+            may be overridden by setting <see cref="T:MbUnit.Framework.ApartmentStateAttribute"/> attribute on the assembly.
+            </para>
+            </remarks>
+            <param name="apartmentState">The apartment state to use.</param>
+        </member>
+        <member name="M:MbUnit.Framework.ApartmentStateAttribute.DecorateTest(Gallio.Framework.Pattern.IPatternScope,Gallio.Common.Reflection.ICodeElementInfo)">
+            <inheritdoc />
+        </member>
+        <member name="P:MbUnit.Framework.ApartmentStateAttribute.ApartmentState">
+            <summary>
+            Gets the apartment state to be used to run the decorated test.
+            </summary>
+        </member>
+        <member name="T:MbUnit.Framework.AssemblyFixtureAttribute">
+            <summary>
+            Declares that a class contains assembly-level setup and teardown methods.
+            </summary>
+            <remarks>
+            <para>
+            The assembly fixture attribute is applied to a class that contains setup and
+            teardown methods that are to be applied at the assembly level.  Conceptually,
+            the <see cref="T:MbUnit.Framework.AssemblyFixtureAttribute"/> adds new behavior to an assembly-level
+            test fixture that contains all of the test fixtures within the assembly.
+            </para>
+            <para>
+            The following attributes are typically used within an assembly fixture:
+            <list type="bullet">
+            <item><see cref="T:MbUnit.Framework.FixtureSetUpAttribute"/>: Performs setup activities before any
+            test fixtures within the assembly are executed.</item>
+            <item><see cref="T:MbUnit.Framework.FixtureTearDownAttribute"/>: Performs teardown activities after all
+            test fixtures within the assembly are executed.</item>
+            <item><see cref="T:MbUnit.Framework.SetUpAttribute"/>: Performs setup activities before each
+            test fixture within the assembly is executed.</item>
+            <item><see cref="T:MbUnit.Framework.TearDownAttribute"/>: Performs teardown activities after each
+            test fixture within the assembly is executed.</item>
+            </list>
+            </para>
+            <para>
+            It is also possible to use other attributes as with an ordinary <see cref="T:MbUnit.Framework.TestFixtureAttribute"/>.
+            An assembly fixture also supports data binding.  When data binding is used on an assembly
+            fixture, it will cause all test fixtures within the assembly to run once for each combination
+            of data values used.
+            </para>
+            <para>
+            The class must have a public default constructor. The class may not be static.
+            </para>
+            <para>
+            There must only be at most one class with an <see cref="T:MbUnit.Framework.AssemblyFixtureAttribute"/>
+            within any given assembly.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:MbUnit.Framework.AssemblyFixtureAttribute.Consume(Gallio.Framework.Pattern.IPatternScope,Gallio.Common.Reflection.ICodeElementInfo,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:MbUnit.Framework.AssemblyFixtureAttribute.Validate(Gallio.Framework.Pattern.IPatternScope,Gallio.Common.Reflection.ITypeInfo)">
+            <inheritdoc />
+        </member>
+        <member name="M:MbUnit.Framework.AssemblyFixtureAttribute.SetTestSemantics(Gallio.Framework.Pattern.ITestBuilder,Gallio.Common.Reflection.ITypeInfo)">
+            <inheritdoc />
+        </member>
         <member name="T:MbUnit.Framework.BindAttribute">
             <summary>
             The bind attribute overrides the default binding rules for a test parameter
@@ -4062,43 +4826,6 @@
             }
             ]]></example>
             <seealso cref="T:MbUnit.Framework.RowAttribute"/>
-        </member>
-        <member name="T:MbUnit.Framework.DataAttribute">
-            <summary>
-            An abstract base class for MbUnit attributes that contribute values to data sources
-            along with metadata such a description or expected exception type.
-            </summary>
-            <remarks>
-            <para>
-            You may define a new data source by creating a subclass of this attribute
-            and overriding <see cref="M:Gallio.Framework.Pattern.DataPatternAttribute.PopulateDataSource(Gallio.Framework.Pattern.IPatternScope,Gallio.Framework.Data.DataSource,Gallio.Common.Reflection.ICodeElementInfo)"/>.
-            </para>
-            </remarks>
-            <seealso cref="T:Gallio.Framework.Pattern.DataPatternAttribute"/> for more information about data binding attributes in general.
-        </member>
-        <member name="M:MbUnit.Framework.DataAttribute.GetMetadata">
-            <summary>
-            Gets the metadata for the data source.
-            </summary>
-            <returns>The metadata keys and values.</returns>
-        </member>
-        <member name="P:MbUnit.Framework.DataAttribute.Description">
-            <summary>
-            Gets or sets a description of the values provided by the data source.
-            </summary>
-        </member>
-        <member name="P:MbUnit.Framework.DataAttribute.ExpectedException">
-            <summary>
-            Gets or sets the type of exception that should be thrown when the
-            values provided by the data source are consumed by test.
-            </summary>
-        </member>
-        <member name="P:MbUnit.Framework.DataAttribute.ExpectedExceptionMessage">
-            <summary>
-            Gets or sets the message of the exception that should be thrown when the
-            values provided by the data source are consumed by test.
-            May be a substring of the actual exception message.
-            </summary>
         </member>
         <member name="M:MbUnit.Framework.ColumnAttribute.#ctor(System.Object[])">
             <summary>
@@ -4371,13 +5098,15 @@
             <param name="interfaceType">The interface type.</param>
             <returns>The interface type or null if it is not implemented by the implementation type.</returns>
         </member>
-        <member name="M:MbUnit.Framework.ContractVerifiers.AbstractContract.AssertMethodExists(System.Reflection.MethodInfo,System.String)">
+        <member name="M:MbUnit.Framework.ContractVerifiers.AbstractContract.MethodExists(System.Reflection.MethodInfo,System.String,System.Boolean)">
             <summary>
             Verifies that the specified method info object is not null, indicating that the
             method exists, otherwise raises an assertion failure and describes the expected method signature.
             </summary>
             <param name="method">The method, or null if missing.</param>
             <param name="methodSignature">The expected method signature for diagnostic output.</param>
+            <param name="failsIfNotExists">Thrown a assertion failure exception if the method does not exist.</param>
+            <returns>True if the method exists; otherwise false.</returns>
         </member>
         <member name="P:MbUnit.Framework.ContractVerifiers.AbstractContract.Context">
             <summary>
@@ -4482,7 +5211,7 @@
             Characterizes a poor uniform distribution (less than 30% of deviation probability) 
             </summary>
         </member>
-        <member name="T:MbUnit.Framework.ContractVerifiers.EquivalenceClass`1">
+        <member name="T:MbUnit.Framework.ContractVerifiers.EquivalenceClass">
             <summary>
             Contains a collection of equivalent object instances. 
             </summary>
@@ -4499,9 +5228,8 @@
             the correct implementation of object equality or comparison.
             </para>
             </remarks>
-            <typeparam name="T">The type of equivalent object instances.</typeparam>
         </member>
-        <member name="M:MbUnit.Framework.ContractVerifiers.EquivalenceClass`1.#ctor(`0[])">
+        <member name="M:MbUnit.Framework.ContractVerifiers.EquivalenceClass.#ctor(System.Object[])">
             <summary>
             Constructs a class of equivalent instances.
             </summary>
@@ -4515,18 +5243,13 @@
             </remarks>
             <param name="equivalentInstances">The type of equivalent object instances.</param>
         </member>
-        <member name="M:MbUnit.Framework.ContractVerifiers.EquivalenceClass`1.GetEnumerator">
+        <member name="M:MbUnit.Framework.ContractVerifiers.EquivalenceClass.GetEnumerator">
             <summary>
-            Returns a strongly-typed enumerator that iterates through the collection.
+            Returns an enumerator that iterates through a collection.
             </summary>
-            <returns>A strongly-typed enumerator.</returns>
+            <returns>An enumerator object that can be used to iterate through the collection.</returns>
         </member>
-        <member name="P:MbUnit.Framework.ContractVerifiers.EquivalenceClass`1.EquivalentInstances">
-            <summary>
-            Gets the collection of equivalent instances.
-            </summary>
-        </member>
-        <member name="T:MbUnit.Framework.ContractVerifiers.EquivalenceClassCollection`1">
+        <member name="T:MbUnit.Framework.ContractVerifiers.EquivalenceClassCollection">
             <summary>
             A collection of equivalence classes. 
             </summary>
@@ -4540,7 +5263,7 @@
             Use the default constructor followed by a list initializer to create a 
             collection of equivalence classes which contains a variable number of object instances.
             <code><![CDATA[
-            var collection = new EquivalenceClassCollection<Foo>
+            var collection = new EquivalenceClassCollection
             {
                 { new Foo(1), new Foo("One") },
                 { new Foo(2), new Foo("Two") },
@@ -4552,18 +5275,17 @@
             Use the single-parameter constructor to create a collection of equivalence classes 
             which contains one single object instance each.
             <code><![CDATA[
-            var collection = new EquivalenceClassCollection<Foo>(new Foo(1), new Foo(2), new Foo(3));
+            var collection = new EquivalenceClassCollection(new Foo(1), new Foo(2), new Foo(3));
             ]]></code>
             </para>
             </remarks>
-            <typeparam name="T">The type of equivalent object instances.</typeparam>
         </member>
-        <member name="M:MbUnit.Framework.ContractVerifiers.EquivalenceClassCollection`1.#ctor">
+        <member name="M:MbUnit.Framework.ContractVerifiers.EquivalenceClassCollection.#ctor">
             <summary>
             Constructs an empty collection of equivalence classes.
             </summary>
         </member>
-        <member name="M:MbUnit.Framework.ContractVerifiers.EquivalenceClassCollection`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
+        <member name="M:MbUnit.Framework.ContractVerifiers.EquivalenceClassCollection.#ctor(System.Collections.IEnumerable)">
             <summary>
             Constructs a collection of equivalence classes from the specified distinct object instances.
             </summary>
@@ -4586,22 +5308,29 @@
             </example>
             <param name="distinctInstances">An enumeration of distinct instances.</param>
         </member>
-        <member name="M:MbUnit.Framework.ContractVerifiers.EquivalenceClassCollection`1.Add(`0[])">
+        <member name="M:MbUnit.Framework.ContractVerifiers.EquivalenceClassCollection.Add(System.Object[])">
             <summary>
             Adds to the collection a new equivalence class which contains the specified objects.
             </summary>
             <param name="equivalentInstances">An array of equivalent instances.</param>
         </member>
-        <member name="M:MbUnit.Framework.ContractVerifiers.EquivalenceClassCollection`1.GetEnumerator">
+        <member name="M:MbUnit.Framework.ContractVerifiers.EquivalenceClassCollection.GetEnumerator">
             <summary>
             Returns a strongly-typed enumerator that iterates through the collection.
             </summary>
             <returns>A strongly-typed enumerator.</returns>
         </member>
-        <member name="P:MbUnit.Framework.ContractVerifiers.EquivalenceClassCollection`1.EquivalenceClasses">
+        <member name="P:MbUnit.Framework.ContractVerifiers.EquivalenceClassCollection.Count">
             <summary>
-            Gets the equivalence classes.
+            Gets the number of equivalence classes in the collection.
             </summary>
+        </member>
+        <member name="P:MbUnit.Framework.ContractVerifiers.EquivalenceClassCollection.Item(System.Int32)">
+            <summary>
+            Gets the equivalence class located at the specified index.
+            </summary>
+            <param name="index">The searched index.</param>
+            <returns>The equivalence class at the specified index.</returns>
         </member>
         <member name="T:MbUnit.Framework.DataGenerators">
             <summary>
@@ -4740,6 +5469,39 @@
             <returns>An enumeration of random number values.</returns>
             <exception cref="T:Gallio.Framework.Data.Generation.GenerationException">Thrown if the specified parameters are inconsistent or invalid.</exception>
         </member>
+        <member name="M:MbUnit.Framework.DataGenerators.Random.Numbers(System.Int32,System.Decimal,System.Decimal,System.Int32)">
+            <summary>
+            Returns the an enumeration of random numbers.
+            </summary>
+            <param name="count">The number of strings to generate.</param>
+            <param name="minimum">The lower bound of the range.</param>
+            <param name="maximum">The upper bound of the range.</param>
+            <param name="seed">A seed value to initialize the random number generator.</param>
+            <returns>An enumeration of random number values.</returns>
+            <exception cref="T:Gallio.Framework.Data.Generation.GenerationException">Thrown if the specified parameters are inconsistent or invalid.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.DataGenerators.Random.Numbers(System.Int32,System.Double,System.Double,System.Int32)">
+            <summary>
+            Returns the an enumeration of random numbers.
+            </summary>
+            <param name="count">The number of strings to generate.</param>
+            <param name="minimum">The lower bound of the range.</param>
+            <param name="maximum">The upper bound of the range.</param>
+            <param name="seed">A seed value to initialize the random number generator.</param>
+            <returns>An enumeration of random number values.</returns>
+            <exception cref="T:Gallio.Framework.Data.Generation.GenerationException">Thrown if the specified parameters are inconsistent or invalid.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.DataGenerators.Random.Numbers(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Returns the an enumeration of random numbers.
+            </summary>
+            <param name="count">The number of strings to generate.</param>
+            <param name="minimum">The lower bound of the range.</param>
+            <param name="maximum">The upper bound of the range.</param>
+            <param name="seed">A seed value to initialize the random number generator.</param>
+            <returns>An enumeration of random number values.</returns>
+            <exception cref="T:Gallio.Framework.Data.Generation.GenerationException">Thrown if the specified parameters are inconsistent or invalid.</exception>
+        </member>
         <member name="M:MbUnit.Framework.DataGenerators.Random.Strings(System.Int32,System.String)">
             <summary>
             Returns an enumeration of random strings based on a regular expression filter.
@@ -4755,6 +5517,26 @@
             </summary>
             <param name="count">The number of strings to generate.</param>
             <param name="stock">A stock of preset values.</param>
+            <returns>An enumeration of random string values.</returns>
+            <exception cref="T:Gallio.Framework.Data.Generation.GenerationException">Thrown if the specified parameters are inconsistent or invalid.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.DataGenerators.Random.Strings(System.Int32,System.String,System.Int32)">
+            <summary>
+            Returns an enumeration of random strings based on a regular expression filter.
+            </summary>
+            <param name="count">The number of strings to generate.</param>
+            <param name="regularExpressionPattern">The regular expression filter.</param>
+            <param name="seed">A seed value to initialize the random number generator.</param>
+            <returns>An enumeration of random string values.</returns>
+            <exception cref="T:Gallio.Framework.Data.Generation.GenerationException">Thrown if the specified parameters are inconsistent or invalid.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.DataGenerators.Random.Strings(System.Int32,MbUnit.Framework.RandomStringStock,System.Int32)">
+            <summary>
+            Returns an enumeration of random strings from a pre-existing stock of values.
+            </summary>
+            <param name="count">The number of strings to generate.</param>
+            <param name="stock">A stock of preset values.</param>
+            <param name="seed">A seed value to initialize the random number generator.</param>
             <returns>An enumeration of random string values.</returns>
             <exception cref="T:Gallio.Framework.Data.Generation.GenerationException">Thrown if the specified parameters are inconsistent or invalid.</exception>
         </member>
@@ -4850,7 +5632,7 @@
                 public void ShoppingCartTotalWithSingleItem(string item, decimal unitPrice, decimal quantity)
                 {
                     ShoppingCart shoppingCart = new ShoppingCart();
-                    shoppingCart.Add(item, unitprice, quantity);
+                    shoppingCart.Add(item, unitPrice, quantity);
                     Assert.AreEqual(unitPrice * quantity, shoppingCart.TotalCost);
                 }
             }
@@ -6705,62 +7487,14 @@
             </para>
             </remarks>
         </member>
-        <member name="T:MbUnit.Framework.ExpectedExceptionAttribute">
-            <summary>
-            Declares that the associated test is expected to throw an exception of
-            a particular type.
-            </summary>
-            <remarks>
-            <para>
-            The expected contents of the exception message may optionally be specified.
-            </para>
-            </remarks>
-        </member>
-        <member name="M:MbUnit.Framework.ExpectedExceptionAttribute.#ctor(System.Type)">
-            <summary>
-            Declares that the associated test is expected to throw an exception of
-            a particular type.
-            </summary>
-            <param name="exceptionType">The expected exception type.</param>
-            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="exceptionType"/> is null.</exception>
-        </member>
-        <member name="M:MbUnit.Framework.ExpectedExceptionAttribute.#ctor(System.Type,System.String)">
-            <summary>
-            Declares that the associated test is expected to throw an exception of
-            a particular type.
-            </summary>
-            <remarks>
-            <para>
-            The expected contents of the exception message may also optionally be specified.
-            </para>
-            </remarks>
-            <param name="exceptionType">The expected exception type.</param>
-            <param name="message">The expected exception message, or null if not specified.
-            May be a substring of the actual exception message.</param>
-            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="exceptionType"/> is null.</exception>
-        </member>
-        <member name="M:MbUnit.Framework.ExpectedExceptionAttribute.DecorateMethodTest(Gallio.Framework.Pattern.IPatternScope,Gallio.Common.Reflection.IMethodInfo)">
-            <inheritdoc />
-        </member>
-        <member name="P:MbUnit.Framework.ExpectedExceptionAttribute.ExceptionType">
-            <summary>
-            Gets the expected exception type.
-            </summary>
-        </member>
-        <member name="P:MbUnit.Framework.ExpectedExceptionAttribute.Message">
-            <summary>
-            Gets or sets the expected exception message, or null if none specified.
-            May be a substring of the actual exception message.
-            </summary>
-        </member>
         <member name="M:MbUnit.Framework.ExpectedArgumentExceptionAttribute.#ctor">
             <summary>
-            Declares that the associated test is expected to throw an <see cref="T:System.ArgumentOutOfRangeException"/>.
+            Declares that the associated test is expected to throw an <see cref="T:System.ArgumentException"/>.
             </summary>
         </member>
         <member name="M:MbUnit.Framework.ExpectedArgumentExceptionAttribute.#ctor(System.String)">
             <summary>
-            Declares that the associated test is expected to throw an <see cref="T:System.ArgumentOutOfRangeException"/>.
+            Declares that the associated test is expected to throw an <see cref="T:System.ArgumentException"/>.
             </summary>
             <remarks>
             <para>
@@ -6781,12 +7515,12 @@
         </member>
         <member name="M:MbUnit.Framework.ExpectedArgumentNullExceptionAttribute.#ctor">
             <summary>
-            Declares that the associated test is expected to throw an <see cref="T:System.ArgumentOutOfRangeException"/>.
+            Declares that the associated test is expected to throw an <see cref="T:System.ArgumentNullException"/>.
             </summary>
         </member>
         <member name="M:MbUnit.Framework.ExpectedArgumentNullExceptionAttribute.#ctor(System.String)">
             <summary>
-            Declares that the associated test is expected to throw an <see cref="T:System.ArgumentOutOfRangeException"/>.
+            Declares that the associated test is expected to throw an <see cref="T:System.ArgumentNullException"/>.
             </summary>
             <remarks>
             <para>
@@ -7192,6 +7926,9 @@
             The class must have a public default constructor.  The class may not be static.
             </para>
             </remarks>
+        </member>
+        <member name="M:MbUnit.Framework.TestFixtureAttribute.Validate(Gallio.Framework.Pattern.IPatternScope,Gallio.Common.Reflection.ITypeInfo)">
+            <inheritdoc />
         </member>
         <member name="T:MbUnit.Framework.FixtureSetUpAttribute">
             <summary>
@@ -7783,7 +8520,7 @@
                 {
                     PropertyName = "MyProperty",
                     ValidValues = { 123, 456, 789 },
-                    IncompetentValues =
+                    InvalidValues =
                     {
                         { typeof(ArgumentOutOfRangeException), -100, -999, 1000, 99999 },
                         { typeof(ArgumentException), 666 }
@@ -8676,6 +9413,395 @@
         <member name="M:MbUnit.Framework.BinaryDataAttribute.PopulateDataSource(Gallio.Framework.Pattern.IPatternScope,Gallio.Framework.Data.DataSource,Gallio.Common.Reflection.ICodeElementInfo)">
             <inheritdoc />
         </member>
+        <member name="T:MbUnit.Framework.CatchExceptionAttribute">
+            <summary>
+            Declares that the associated test's <see cref="T:Gallio.Model.TestOutcome"/> should be interpreted as having completed 
+            with a specified <see cref="T:Gallio.Model.TestOutcome"/> if a specified exception is thrown during the test.
+            </summary>
+            <remarks>
+            <para>
+            The expected contents of the detected exception's <see cref="P:System.Exception.Message"/> may optionally be specified.
+            </para>
+            <para>
+            The <see cref="T:Gallio.Model.TestOutcome"/> that is returned when a matching exception is thrown may optionally be specified.
+            By default, the test will be treated as <see cref="P:Gallio.Model.TestOutcome.Error"/> if a matching exception is thrown.
+            </para>
+            </remarks>
+            <example>
+            <para>
+            This C# example shows a test with a <see cref="T:MbUnit.Framework.CatchExceptionAttribute"/> that will 
+            result in a <see cref="P:Gallio.Model.TestOutcome.Error"/> (the default <see cref="P:MbUnit.Framework.CatchExceptionAttribute.Outcome"/>) 
+            if the test throws a <see cref="T:System.NotSupportedException"/>.
+            <code><![CDATA[
+            /// <summary>
+            /// This test will have an outcome of <see cref="TestOutcome.Error"/>.
+            /// </summary>
+            [Test]
+            [CatchException(typeof(NotSupportedException))]
+            public void CatchExceptionExample1()
+            {
+                throw new NotSupportedException();
+            }
+            ]]></code>
+            </para>
+            <para>
+            This C# example shows a test with a <see cref="T:MbUnit.Framework.CatchExceptionAttribute"/> that will 
+            result in a <see cref="P:Gallio.Model.TestOutcome.Pending"/> 
+            if the test throws a <see cref="T:System.NotImplementedException"/>.
+            <code><![CDATA[
+            /// <summary>
+            /// This test will have an outcome of <see cref="TestOutcome.Pending"/>.
+            /// </summary>
+            [Test]
+            [CatchException(typeof(NotImplementedException), StandardOutcome = "TestOutcome.Pending")]
+            public void CatchExceptionExample2()
+            {
+                throw new NotImplementedException();
+            }
+            ]]></code>
+            </para>
+            <para>
+            This C# example shows a test with a <see cref="T:MbUnit.Framework.CatchExceptionAttribute"/> that will 
+            result in a <see cref="P:Gallio.Model.TestOutcome.Passed"/> 
+            if the test throws a <see cref="T:System.NotImplementedException"/> 
+            or if the test doesn't throw any exceptions.
+            <code><![CDATA[
+            /// <summary>
+            /// This test will have an outcome of <see cref="TestOutcome.Passed"/> 
+            /// whether the test throws a <see cref="NotImplementedException"/> or throws no exception.
+            /// </summary>
+            [Test]
+            [CatchException(typeof(NotImplementedException), StandardOutcome = "TestOutcome.Passed")]
+            public void CatchExceptionExample3()
+            {
+                bool randomBool = new Random().Next() % 2 == 0;
+                if (randomBool)
+                    throw new NotImplementedException();
+            }
+            ]]></code>
+            </para>
+            <para>
+            This C# example shows a test with multiple <see cref="T:MbUnit.Framework.CatchExceptionAttribute"/>s that will: 
+            result in a <see cref="T:Gallio.Model.TestOutcome"/> of <see cref="P:Gallio.Model.TestOutcome.Pending"/> 
+            if the test throws a <see cref="T:System.NotImplementedException"/>;
+            result in a <see cref="T:Gallio.Model.TestOutcome"/> with a 
+            <see cref="P:Gallio.Model.TestOutcome.Status"/> of <see cref="F:Gallio.Model.TestStatus.Skipped"/> and a 
+            <see cref="P:Gallio.Model.TestOutcome.Category"/> of <c>"notsupported"</c> 
+            if the test throws a <see cref="T:System.NotSupportedException"/>;
+            result in a <see cref="T:Gallio.Model.TestOutcome"/> with a 
+            <see cref="P:Gallio.Model.TestOutcome.Status"/> of <see cref="F:Gallio.Model.TestStatus.Inconclusive"/> and a 
+            <see cref="P:Gallio.Model.TestOutcome.Category"/> of <c>"deadlock"</c> 
+            if the test throws a <see cref="T:System.TimeoutException"/> 
+            with a <see cref="P:System.Exception.Message"/> that contains the substring <c>"deadlock"</c>;
+            result in a <see cref="T:Gallio.Model.TestOutcome"/> with a 
+            <see cref="P:Gallio.Model.TestOutcome.Status"/> of <see cref="F:Gallio.Model.TestStatus.Inconclusive"/> and a 
+            <see cref="P:Gallio.Model.TestOutcome.Category"/> of <c>"timeout"</c> 
+            if the test throws a <see cref="T:System.TimeoutException"/> 
+            with a <see cref="P:System.Exception.Message"/> that contains the substring <c>"server not responding"</c>;
+            result in a <see cref="T:Gallio.Model.TestOutcome"/> of <see cref="P:Gallio.Model.TestOutcome.Failed"/> 
+            if the test throws any other <see cref="T:System.Exception"/> not listed above;
+            result in a <see cref="T:Gallio.Model.TestOutcome"/> of <see cref="P:Gallio.Model.TestOutcome.Passed"/> 
+            if the test does not throw any <see cref="T:System.Exception"/>s.
+            <code><![CDATA[
+            /// <remarks>
+            /// This test can have any of several outcomes depending on what type of exception is thrown (if any) during test execution.
+            /// </remarks>
+            [Test]
+            [CatchException(typeof(NotSupportedException), OutcomeStatus = TestStatus.Skipped, OutcomeCategory = "notsupported")]
+            [CatchException(typeof(NotImplementedException), StandardOutcome = "TestOutcome.Pending")]
+            [CatchException(typeof(TimeoutException), ExceptionMessage = "deadlock", OutcomeStatus = TestStatus.Inconclusive, OutcomeCategory = "deadlock", Order = 2)]
+            [CatchException(typeof(TimeoutException), ExceptionMessage = "server not responding", OutcomeStatus = TestStatus.Inconclusive, OutcomeCategory = "timeout", Order = 3)]
+            public void CatchExceptionExample4()
+            {
+                //throw new NotSupportedException(); //outcome would be: new TestOutcome(TestStatus.Skipped, "notsupported")
+                throw new NotImplementedException(); //outcome would be: TestOutcome.Pending
+                //throw new TimeoutException("A deadlock occurred."); //outcome would be: new TestOutcome(TestStatus.Inconclusive, "deadlock")
+                //throw new TimeoutException("The server is not responding."); //outcome would be: new TestOutcome(TestStatus.Inconclusive, "timeout")
+                //throw new TimeoutException("Transaction timeout."); //outcome would be: TestOutcome.Failed
+                //throw new TimeoutException(); //outcome would be: TestOutcome.Failed
+                //throw new ArithmeticException(); //outcome would be: TestOutcome.Failed
+                //return; //outcome would be: TestOutcome.Passed
+            }
+            ]]></code>
+            </para>
+            </example>
+        </member>
+        <member name="M:MbUnit.Framework.CatchExceptionAttribute.#ctor(System.Type)">
+            <summary>
+            Declares that the associated test is expected to throw an <see cref="T:System.Exception"/> of
+            a particular type.
+            </summary>
+            <param name="exceptionType">The expected exception type.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="exceptionType"/> is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown if <paramref name="exceptionType"/> is not the <see cref="T:System.Type"/> of an <see cref="T:System.Exception"/>.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.CatchExceptionAttribute.#ctor(System.Type,Gallio.Model.TestStatus)">
+            <summary>
+            Declares that the associated test is expected to throw an <see cref="T:System.Exception"/> of
+            a particular type, and the <see cref="T:Gallio.Model.TestStatus"/> of the <see cref="T:Gallio.Model.TestOutcome"/> 
+            that should be used if/when it does.
+            </summary>
+            <param name="exceptionType">The expected exception type.</param>
+            <param name="outcomeStatus">
+            The <see cref="T:Gallio.Model.TestStatus"/> that will be used to construct the 
+            <see cref="T:Gallio.Model.TestOutcome"/> if a detected exception is handled.
+            </param>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="exceptionType"/> is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown if <paramref name="exceptionType"/> is not the <see cref="T:System.Type"/> of an <see cref="T:System.Exception"/>.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.CatchExceptionAttribute.#ctor(System.Type,Gallio.Model.TestStatus,System.String)">
+            <summary>
+            Declares that the associated test is expected to throw an <see cref="T:System.Exception"/> of
+            a particular type, and the <see cref="T:Gallio.Model.TestOutcome"/> 
+            that should be used if/when it does.
+            </summary>
+            <param name="exceptionType">The expected exception type.</param>
+            <param name="outcomeStatus">
+            The <see cref="T:Gallio.Model.TestStatus"/> that will be used to construct the 
+            <see cref="T:Gallio.Model.TestOutcome"/> if a detected exception is handled.
+            </param>
+            <param name="outcomeCategory">
+            The <see cref="P:Gallio.Model.TestOutcome.Category"/> that will be used to construct the 
+            <see cref="T:Gallio.Model.TestOutcome"/> if a detected exception is handled.
+            </param>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="exceptionType"/> is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown if <paramref name="exceptionType"/> is not the <see cref="T:System.Type"/> of an <see cref="T:System.Exception"/>.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.CatchExceptionAttribute.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:MbUnit.Framework.CatchExceptionAttribute.DecorateTest(Gallio.Framework.Pattern.IPatternScope,Gallio.Common.Reflection.ICodeElementInfo)">
+            <inheritdoc />
+        </member>
+        <member name="M:MbUnit.Framework.CatchExceptionAttribute.ExecuteTestInstanceChainCatchExceptionDecorator(System.Action{Gallio.Framework.Pattern.PatternTestInstanceState},Gallio.Framework.Pattern.PatternTestInstanceState)">
+            <summary>
+            This method does the actual work of catching and handling (or not) <see cref="T:System.Exception"/>s.
+            </summary>
+        </member>
+        <member name="M:MbUnit.Framework.CatchExceptionAttribute.OnInnerActionCompleted(System.Exception,System.Boolean)">
+            <summary>
+            Performs the work of analysing (and either handling or rethrowing) a detected exception.
+            </summary>
+            <remarks>
+            <para>
+            This method could be overridden by inheritors to extend or modify the behavior 
+            associated with detecting <see cref="T:System.Exception"/>s.
+            <para>
+            Theoretically, the <see cref="T:MbUnit.Framework.ExpectedExceptionAttribute"/> could be implemented as a subclass of 
+            <see cref="T:MbUnit.Framework.CatchExceptionAttribute"/> that overrides the behavior of 
+            <see cref="M:MbUnit.Framework.CatchExceptionAttribute.OnInnerActionCompleted(System.Exception,System.Boolean)"/> to always return <c>true</c>.
+            </para>
+            </para>
+            <para>
+            Implementation Note: Normally this method would have a return type of <c>void</c>. 
+            However, since it is not possible rethrow a caught exception using "throw;" 
+            except from directly within the <c>catch</c> block 
+            (i.e. the same method the <c>catch</c> block is declared in),
+            it was necessary to use the returned value to indicate to the calling method whether or not the 
+            detected <see cref="T:System.Exception"/> should be re-thrown.
+            </para>
+            </remarks>
+            <param name="ex">The detected <see cref="T:System.Exception"/>.</param>
+            <param name="isExpected">Indicates whether <paramref name="ex"/> matches the catch-criteria of the instance.</param>
+            <returns>
+            <c>true</c> to indicate that the <see cref="T:Gallio.Model.TestOutcome"/> should be <see cref="P:Gallio.Model.TestOutcome.Passed"/> 
+            (e.g. when <paramref name="isExpected"/> is <c>true</c>).
+            Else <c>false</c> to indicate that the detected exception (if any) was not handled 
+            and should be rethrown (if needed).
+            </returns>
+            <exception cref="T:Gallio.Framework.SilentTestException">
+            Propogated when thrown by <see cref="M:MbUnit.Framework.CatchExceptionAttribute.HandleExpectedException(System.Exception)"/> to indicate that the detected exception was handled, 
+            and that the <see cref="T:Gallio.Model.TestOutcome"/> should be something other than <see cref="P:Gallio.Model.TestOutcome.Passed"/>.
+            </exception>
+        </member>
+        <member name="M:MbUnit.Framework.CatchExceptionAttribute.IsExpectedException(System.Exception)">
+            <summary>
+            Indicates whether a detected <see cref="T:System.Exception"/> (or the lack of one) is expected, 
+            and should be caught and handled (by <see cref="M:MbUnit.Framework.CatchExceptionAttribute.HandleExpectedException(System.Exception)"/>) 
+            based upon the instance's matching properties.
+            </summary>
+            <seealso cref="P:MbUnit.Framework.CatchExceptionAttribute.ExceptionType"/>
+            <seealso cref="P:MbUnit.Framework.CatchExceptionAttribute.ExceptionMessage"/>
+            <seealso cref="M:MbUnit.Framework.CatchExceptionAttribute.OnInnerActionCompleted(System.Exception,System.Boolean)"/>
+        </member>
+        <member name="M:MbUnit.Framework.CatchExceptionAttribute.HandleExpectedException(System.Exception)">
+            <summary>
+            Performs the work of handling a detected exception that matches the catching-criteria.
+            </summary>
+            <remarks>
+            <para>
+            This method could be overridden by inheritors to extend or modify the behavior 
+            associated with handling <see cref="T:System.Exception"/>s that match the configured catching-criteria.
+            </para>
+            </remarks>
+            <param name="ex">The detected <see cref="T:System.Exception"/> that matches the catching-criteria.</param>
+            <exception cref="T:Gallio.Framework.SilentTestException">
+            Thrown to return a non-<see cref="P:Gallio.Model.TestOutcome.Passed"/> outcome back up the call stack.
+            </exception>
+        </member>
+        <member name="P:MbUnit.Framework.CatchExceptionAttribute.ExceptionType">
+            <summary>
+            Gets the type of <see cref="T:System.Exception"/> that is handled.
+            </summary>
+        </member>
+        <member name="P:MbUnit.Framework.CatchExceptionAttribute.ExceptionMessage">
+            <summary>
+            Gets or sets the substring that must be contained in the detected <see cref="T:System.Exception"/>'s <see cref="P:System.Exception.Message"/> for it to be handled, 
+            or <c>null</c> if none specified.
+            </summary>
+        </member>
+        <member name="P:MbUnit.Framework.CatchExceptionAttribute.OutcomeStatus">
+            <summary>
+            Gets or sets the <see cref="P:Gallio.Model.TestOutcome.Category"/> that will be used to construct the 
+            <see cref="T:Gallio.Model.TestOutcome"/> when a detected exception is handled.
+            </summary>
+            <see cref="P:MbUnit.Framework.CatchExceptionAttribute.Outcome"/>
+            <see cref="P:MbUnit.Framework.CatchExceptionAttribute.OutcomeCategory"/>
+        </member>
+        <member name="P:MbUnit.Framework.CatchExceptionAttribute.OutcomeCategory">
+            <summary>
+            Gets or sets the <see cref="P:Gallio.Model.TestOutcome.Category"/> that will be used to construct the 
+            <see cref="T:Gallio.Model.TestOutcome"/> if a detected exception is handled.
+            </summary>
+            <see cref="P:MbUnit.Framework.CatchExceptionAttribute.Outcome"/>
+            <see cref="P:MbUnit.Framework.CatchExceptionAttribute.OutcomeStatus"/>
+        </member>
+        <member name="P:MbUnit.Framework.CatchExceptionAttribute.Outcome">
+            <summary>
+            Gets or sets the <see cref="T:Gallio.Model.TestOutcome"/> that will be used if a matching exception is thrown.
+            Defaults to <see cref="P:Gallio.Model.TestOutcome.Error"/>.
+            </summary>
+        </member>
+        <member name="P:MbUnit.Framework.CatchExceptionAttribute.StandardOutcome">
+            <summary>
+            This is a <see cref="T:System.String"/>-typed alias of the <see cref="P:MbUnit.Framework.CatchExceptionAttribute.Outcome"/> property.
+            </summary>
+        </member>
+        <member name="T:MbUnit.Framework.AssertExceptionAttribute">
+            <summary>
+            Declares that the associated test's <see cref="T:Gallio.Model.TestOutcome"/> should be 
+            <see cref="P:Gallio.Model.TestOutcome.Passed"/> 
+            only if a specified exception is thrown during the test.
+            Otherwise, the test's outcome should be <see cref="P:Gallio.Model.TestOutcome.Failed"/> 
+            </summary>
+            <remarks>
+            <para>
+            The expected contents of the detected exception's <see cref="P:System.Exception.Message"/> may optionally be specified.
+            </para>
+            <para>
+            The <see cref="T:Gallio.Model.TestOutcome"/> that is returned when a matching exception is thrown may optionally be specified.
+            By default, the test will be treated as <see cref="P:Gallio.Model.TestOutcome.Passed"/> if a matching exception is thrown.
+            </para>
+            </remarks>
+            <example>
+            <para>
+            This C# example shows a test with a <see cref="T:MbUnit.Framework.AssertExceptionAttribute"/> that will 
+            result in a <see cref="P:Gallio.Model.TestOutcome.Passed"/> 
+            when the test throws a <see cref="T:System.NotSupportedException"/>.
+            <code><![CDATA[
+            /// <summary>
+            /// This test will have an outcome of <see cref="TestOutcome.Passed"/>.
+            /// </summary>
+            [Test]
+            [AssertException(typeof(NotSupportedException))]
+            public void AssertExceptionExample1()
+            {
+                throw new NotSupportedException();
+            }
+            ]]></code>
+            </para>
+            <para>
+            This C# example shows a test with a <see cref="T:MbUnit.Framework.AssertExceptionAttribute"/> that will 
+            result in a <see cref="P:Gallio.Model.TestOutcome.Failed"/> 
+            unless the test throws a <see cref="T:System.NotSupportedException"/>.
+            <code><![CDATA[
+            /// <summary>
+            /// This test will have an outcome of <see cref="TestOutcome.Failed"/> 
+            /// whether the test throws a <see cref="NotImplementedException"/> or throws no exception.
+            /// </summary>
+            [Test]
+            [AssertException(typeof(NotSupportedException))]
+            public void AssertExceptionExample2()
+            {
+                bool randomBool = new Random().Next() % 2 == 0;
+                if (randomBool)
+                    throw new NotImplementedException();
+            }
+            ]]></code>
+            </para>
+            <para>
+            This C# example shows a test with multiple <see cref="T:MbUnit.Framework.CatchExceptionAttribute"/>s that will: 
+            result in a <see cref="T:Gallio.Model.TestOutcome"/> of <see cref="P:Gallio.Model.TestOutcome.Pending"/> 
+            if the test throws a <see cref="T:System.NotImplementedException"/>;
+            result in a <see cref="T:Gallio.Model.TestOutcome"/> with a 
+            <see cref="P:Gallio.Model.TestOutcome.Status"/> of <see cref="F:Gallio.Model.TestStatus.Skipped"/> and a 
+            <see cref="P:Gallio.Model.TestOutcome.Category"/> of <c>"notsupported"</c> 
+            if the test throws a <see cref="T:System.NotSupportedException"/>;
+            result in a <see cref="T:Gallio.Model.TestOutcome"/> with a 
+            <see cref="P:Gallio.Model.TestOutcome.Status"/> of <see cref="F:Gallio.Model.TestStatus.Inconclusive"/> and a 
+            <see cref="P:Gallio.Model.TestOutcome.Category"/> of <c>"deadlock"</c> 
+            if the test throws a <see cref="T:System.TimeoutException"/> 
+            with a <see cref="P:System.Exception.Message"/> that contains the substring <c>"deadlock"</c>;
+            result in a <see cref="T:Gallio.Model.TestOutcome"/> with a 
+            <see cref="P:Gallio.Model.TestOutcome.Status"/> of <see cref="F:Gallio.Model.TestStatus.Inconclusive"/> and a 
+            <see cref="P:Gallio.Model.TestOutcome.Category"/> of <c>"timeout"</c> 
+            if the test throws a <see cref="T:System.TimeoutException"/> 
+            with a <see cref="P:System.Exception.Message"/> that contains the substring <c>"server not responding"</c>;
+            result in a <see cref="T:Gallio.Model.TestOutcome"/> of <see cref="P:Gallio.Model.TestOutcome.Failed"/> 
+            if the test throws any other <see cref="T:System.Exception"/> not listed above;
+            result in a <see cref="T:Gallio.Model.TestOutcome"/> of <see cref="P:Gallio.Model.TestOutcome.Passed"/> 
+            if the test does not throw any <see cref="T:System.Exception"/>s.
+            <code><![CDATA[
+            /// <remarks>
+            /// This test can have any of several outcomes depending on what type of exception is thrown (if any) during test execution.
+            /// </remarks>
+            [Test]
+            [CatchException(typeof(NotSupportedException), OutcomeStatus = TestStatus.Skipped, OutcomeCategory = "notsupported")]
+            [CatchException(typeof(NotImplementedException), StandardOutcome = "TestOutcome.Pending")]
+            [CatchException(typeof(TimeoutException), ExceptionMessage = "deadlock", OutcomeStatus = TestStatus.Inconclusive, OutcomeCategory = "deadlock", Order = 2)]
+            [CatchException(typeof(TimeoutException), ExceptionMessage = "server not responding", OutcomeStatus = TestStatus.Inconclusive, OutcomeCategory = "timeout", Order = 3)]
+            [AssertException(typeof(ArithmeticException), Order = 4)]
+            public void AssertExceptionExample3()
+            {
+                //throw new NotSupportedException(); //outcome would be: new TestOutcome(TestStatus.Skipped, "notsupported")
+                throw new NotImplementedException(); //outcome would be: TestOutcome.Pending
+                //throw new TimeoutException("A deadlock occurred."); //outcome would be: new TestOutcome(TestStatus.Inconclusive, "deadlock")
+                //throw new TimeoutException("The server is not responding."); //outcome would be: new TestOutcome(TestStatus.Inconclusive, "timeout")
+                //throw new TimeoutException("Transaction timeout."); //outcome would be: TestOutcome.Failed
+                //throw new TimeoutException(); //outcome would be: TestOutcome.Failed
+                //throw new ArithmeticException(); //outcome would be: TestOutcome.Passed
+                //return; //outcome would be: TestOutcome.Failed
+            }
+            ]]></code>
+            </para>
+            </example>
+        </member>
+        <member name="M:MbUnit.Framework.AssertExceptionAttribute.#ctor(System.Type)">
+            <summary>
+            Declares that the associated test is expected to throw an <see cref="T:System.Exception"/> of
+            a particular type.
+            </summary>
+            <param name="exceptionType">The expected exception type.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="exceptionType"/> is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown if <paramref name="exceptionType"/> is not the <see cref="T:System.Type"/> of an <see cref="T:System.Exception"/>.</exception>
+        </member>
+        <member name="M:MbUnit.Framework.AssertExceptionAttribute.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:MbUnit.Framework.AssertExceptionAttribute.OnInnerActionCompleted(System.Exception,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:MbUnit.Framework.AssertExceptionAttribute.HandleUnexpectedException(System.Exception)">
+            <summary>
+            Performs the work of handling a detected exception that does not match the catching-criteria.
+            Also performs any work related to handling the scenario where an exception is not detected.
+            </summary>
+            <param name="ex"><c>null</c>, or the detected <see cref="T:System.Exception"/> that does not match the catching-criteria.</param>
+            <exception cref="T:Gallio.Framework.SilentTestException">
+            Thrown to return a non-<see cref="P:Gallio.Model.TestOutcome.Passed"/> outcome back up the call stack.
+            </exception>
+            <seealso cref="M:MbUnit.Framework.CatchExceptionAttribute.HandleExpectedException(System.Exception)"/>
+        </member>
         <member name="T:MbUnit.Framework.TextDataAttribute">
             <summary>
             Provides text data from resource contents.
@@ -9055,6 +10181,28 @@
             ]]></code>
             </example>
         </member>
+        <member name="P:MbUnit.Framework.CustomXmlOptions.Enclose">
+            <summary>
+            Encloses the XML fragments within a "root" element.
+            </summary>
+            <remarks> 
+            <para>
+            The .NET XML parser (<see cref="T:System.Xml.XmlReader"/>) does not support multiple root elements.
+            This option encloses the multiple elements within a unique root element.
+            </para>
+            </remarks>
+            <example>
+            <code><![CDATA[
+            [Test]
+            public void MyXmlTest()
+            {
+                string expected = "<a/><b/><c/>"; // Multiple root elements!
+                string actual = "<a/><b/><c/>";
+                Assert.Xml.AreEqual(expected, actual, XmlOptions.Custom.EncloseInRootElement); // Pass!
+            }
+            ]]></code>
+            </example>
+        </member>
         <member name="P:MbUnit.Framework.CustomXmlOptions.IgnoreElementsCase">
             <summary>
             Combines the options <see cref="P:MbUnit.Framework.CustomXmlOptions.IgnoreElementsNameCase"/> and <see cref="P:MbUnit.Framework.CustomXmlOptions.IgnoreElementsValueCase"/>
@@ -9159,6 +10307,7 @@
             {
                 [Test]
                 [Impersonate(UserName = "Julius Caesar", Password = "VeniVidiVici")]
+                [Impersonate(UserName = "Marcus Brutus", Password = "EtTuBrute?")]
                 public void MyTest()
                 {
                     // Some test logic here...
@@ -9270,30 +10419,13 @@
             </example>
             <seealso cref="T:MbUnit.Framework.ColumnAttribute"/>
         </member>
-        <member name="T:MbUnit.Framework.GenerationDataAttribute">
-            <summary>
-            Provides a column of sequential values as a data source.
-            </summary>
-        </member>
-        <member name="M:MbUnit.Framework.GenerationDataAttribute.#ctor">
-            <summary>
-            Default constructor.
-            </summary>
-        </member>
-        <member name="M:MbUnit.Framework.GenerationDataAttribute.PopulateDataSource(Gallio.Framework.Pattern.IPatternScope,Gallio.Framework.Data.DataSource,Gallio.Common.Reflection.ICodeElementInfo)">
-            <inheritdoc />
-        </member>
-        <member name="M:MbUnit.Framework.GenerationDataAttribute.GetGenerator(Gallio.Framework.Pattern.IPatternScope)">
-            <summary>
-            Returns a generator of random values.
-            </summary>
-            <param name="scope">The containing scope.</param>
-            <returns>A generator.</returns>
-        </member>
         <member name="M:MbUnit.Framework.RandomStringsAttribute.#ctor">
             <summary>
             Adds a column of random <see cref="T:System.String"/> values.
             </summary>
+        </member>
+        <member name="M:MbUnit.Framework.RandomStringsAttribute.GetRandomGeneratorSeed(Gallio.Framework.Pattern.IPatternScope)">
+            <inheritdoc />
         </member>
         <member name="M:MbUnit.Framework.RandomStringsAttribute.GetGenerator(Gallio.Framework.Pattern.IPatternScope)">
             <inheritdoc />
@@ -9527,6 +10659,9 @@
             </summary>
         </member>
         <member name="M:MbUnit.Framework.RandomNumbersAttribute.GetGenerator(Gallio.Framework.Pattern.IPatternScope)">
+            <inheritdoc />
+        </member>
+        <member name="M:MbUnit.Framework.RandomNumbersAttribute.GetRandomGeneratorSeed(Gallio.Framework.Pattern.IPatternScope)">
             <inheritdoc />
         </member>
         <member name="P:MbUnit.Framework.RandomNumbersAttribute.Minimum">
@@ -11271,7 +12406,7 @@
             the test tree.
             </para>
             <para>
-            Contrast with <see cref="T:MbUnit.Framework.DynamicTestFactoryAttribute"/>.
+            Contrast with <see cref="T:MbUnit.Framework.StaticTestFactoryAttribute"/>.
             </para>
             <para>
             The method to which this attribute is applied must be declared by the
@@ -11318,7 +12453,7 @@
             ]]></code>
             </para>
             </example>
-            <seealso cref="T:MbUnit.Framework.DynamicTestFactoryAttribute"/>
+            <seealso cref="T:MbUnit.Framework.StaticTestFactoryAttribute"/>
             <seealso cref="T:MbUnit.Framework.TestCase"/>
         </member>
         <member name="M:MbUnit.Framework.DynamicTestFactoryAttribute.Execute(Gallio.Framework.Pattern.PatternTestInstanceState)">

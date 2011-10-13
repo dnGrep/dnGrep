@@ -1,0 +1,323 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Gallio40</name>
+    </assembly>
+    <members>
+        <member name="T:Gallio.Framework.Data.DataObjects.DynamicObject">
+            <summary>
+            Original code was copied from MSDN, with complete overhaul performed by Carey's team.
+            Dictionary replaced with a List of KeyValuePair to retain the original ordering.
+            </summary>
+        </member>
+        <member name="F:Gallio.Framework.Data.DataObjects.DynamicObject.storage">
+            <summary>
+            Internal storage of dynamically accessible data
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.DynamicObject.TryGetMember(System.Dynamic.GetMemberBinder,System.Object@)">
+            <summary>
+            Dynamic Get method called by the Dot Net Framework when an attempt is made to access 
+            a property not defined in this class at compile time.
+            If a dynamic property doesn't exists on the object, the result will be NULL.
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.DynamicObject.TryGetMember(System.String,System.Object@)">
+            <summary>
+            Dynamic Get method called by the Dot Net Framework when an attempt is made to access 
+            a property not defined in this class at compile time.
+            If a dynamic property doesn't exists on the object, the result will be NULL.
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.DynamicObject.GetMember(System.String)">
+            <summary>
+            Get method enables late-binding type of behavior when the Member Name is known at 
+            compile time.
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.DynamicObject.TryGetMemberWorker(System.String,System.Object@)">
+            <summary>
+            Retrieve DynamicObject member by name.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.DynamicObject.GetMemberNames">
+            <summary>
+            Returns list of the Member Names
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.DynamicObject.TrySetMember(System.Dynamic.SetMemberBinder,System.Object)">
+            <summary>
+            Dynamic Set method called by the Dot Net Framework when an attempt is made to set
+            a property not defined in this class.
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.DynamicObject.TrySetMember(System.String,System.Object)">
+            <summary>
+            Method allows properties to set by name, which is useful for dynamic situations.
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.DynamicObject.TrySetMemberWorker(System.String,System.Object)">
+            <summary>
+            Worker method does the actual setting of values
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.DynamicObject.MemberNameToCSharpSafe(System.String)">
+            <summary>
+            Translates member names to CSharp-safe names, so they can validly be accessed dynamically
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.DynamicObject.ToString">
+            <summary>
+            Dumps every member
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.DynamicObject.ToStringWithNewLines">
+            <summary>
+            Easy-to-read format dumps one KeyValuePair per line
+            </summary>
+        </member>
+        <member name="P:Gallio.Framework.Data.DataObjects.DynamicObject.Count">
+            <summary>
+            This property returns the number of elements in the inner dictionary.
+            </summary>
+        </member>
+        <member name="T:Gallio.Framework.Data.DataObjects.FlatFileToDataTableBuilder">
+            <summary>
+            Builder class parses comma-separated and tab-delimited files and 
+            returns ADO.NET DataTable objects
+            
+            NOTE: this is wholly dependent upon the extremely useful GenericParsing library 
+            version Version 1.1.1.20400, which was created by Andrew Rissing.
+            
+            http://www.codeproject.com/KB/database/GenericParser.aspx
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.FlatFileToDataTableBuilder.BuildFromCsvFile(System.String)">
+            <summary>
+            Parses CSV file and returns DataTable object with the entire file
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.FlatFileToDataTableBuilder.BuildFromTabFile(System.String)">
+            <summary>
+            Parses tab-delimited file and returns DataTable object with the entire file
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.FlatFileToDataTableBuilder.CsvParserFactory(System.String)">
+            <summary>
+            Centralizes creation of parsers with all the properties for CSV files
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.FlatFileToDataTableBuilder.TabDelimitedParserFactory(System.String)">
+            <summary>
+            Centralizes creation of parsers with all the properties for Tab-delimited fiels
+            </summary>
+        </member>
+        <member name="T:Gallio.Framework.Data.DataObjects.MultipleListEnumerable">
+            <summary>
+            Abstracts Cartesian product List building.
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.MultipleListEnumerable.CartesianYield``1(System.Collections.Generic.List{System.Collections.Generic.List{``0}})">
+            <summary>
+            Returns interface to enumerator of all possible ordered combinations of the Lists of XElements
+            aka the Cartesian Product.
+            </summary>
+            <param name="ListOfNodeLists">List of lists of XElements</param>
+            <returns>Interface to enumerator of XElement arrays. The array will has as many cells as
+            there are lists of XElements.</returns>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.MultipleListEnumerable.CatersianYieldInner``1(System.Collections.Generic.List{System.Collections.Generic.List{``0}},``0[],System.Int32)">
+            <summary>
+            Helper method will incremental traverse the List of Node Lists until the Current Index reaches the 
+            end of the "outer" list.  Recursively calls self to generate all possible combinations of a single
+            element from each list.  Output Array contains the current combination.
+            </summary>
+        </member>
+        <member name="T:Gallio.Framework.Data.DataObjects.TabularDataObjectFactory">
+            <summary>
+            Factory method that cycles through DataTable and emits DynamicObject which contains rows.
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.TabularDataObjectFactory.EmitDynamicObjectFromDataTable(System.Data.DataTable,System.Int32[],System.Int32[],System.String[],System.String[])">
+            <summary>
+            Enumerates through rows of DataTable and returns dynamically-generated object for each row.
+            </summary>
+        </member>
+        <member name="T:Gallio.Framework.Data.DataObjects.XmlDataObject">
+            <summary>
+            DynamicObject derived class for containing an XML Element and all of its child nodes
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.XmlDataObject.#ctor(System.String)">
+            <summary>
+            Constructor requires passing the original Element Name for printing purposes
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.XmlDataObject.IsMany(System.Object)">
+            <summary>
+            Intended usage is for determined XmlDataObjects retrieved from the 
+            XmlDataObject object graph are repeat Elements
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.XmlDataObject.IsOne(System.Object)">
+            <summary>
+            Logical inverse of the IsMany method
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.XmlDataObject.AsList(System.Collections.Generic.List{Gallio.Framework.Data.DataObjects.XmlDataObject})">
+            <summary>
+            Complements the AsList(this List&lt;XmlDataObject&gt;) extension method - enables polymorphic
+            treatment of either a single element, or a sequence of elements.
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.XmlDataObject.AsList(Gallio.Framework.Data.DataObjects.XmlDataObject)">
+            <summary>
+            Complements the AsList(this List&lt;XmlDataObject&gt;) extension method - forces single
+            elements into a List so we can make the assumption that we're always dealing with lists.
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.XmlDataObject.ToString">
+            <summary>
+            Override prints Element Name
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.XmlDataObject.ToStringWithNewLine">
+            <summary>
+            Easy-to-read format dumps one KeyValuePair per line
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.XmlDataObject.ToString(System.Int32)">
+            <summary>
+            Traverses and prints object graph child nodes to maximum Depth.
+            Passing a negative value (Depth &lt; 0) will print the entire object graph. 
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.XmlDataObject.ToString(System.String)">
+            <summary>
+            Prints the root element value (innertext) and all of its attributes
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.XmlDataObject.ToString(System.Int32,System.String)">
+            <summary>
+            Worker method travesers to Depth in the object graph and prints each of the Dynamic Objects
+            </summary>
+            <param name="CurrentIndentation">Indentation of</param>
+            <param name="Depth">Pass the number of levels-deep we'd like to traverse. Pass -1 to print
+            the entire object graph.</param>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.XmlDataObject.DistinctChildNodes">
+            <returns>Enumerable of KeyValuePairs of names and child XmlDataObject</returns>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.XmlDataObject.AttributesAndValue">
+            <returns>Enumerable of KeyValuePairs of names and values</returns>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.XmlDataObject.ListsOfRepeatChildNodes">
+            <returns>Enumerable of KeyValuePairs of names and all the lists of same-named Elements</returns>
+        </member>
+        <member name="P:Gallio.Framework.Data.DataObjects.XmlDataObject.ElementName">
+            <summary>
+            Original name of the XML Element
+            </summary>
+        </member>
+        <member name="T:Gallio.Framework.Data.DataObjects.XmlDataObjectBuilder">
+            <summary>
+            Builder class translates Xml Documents into dynamic XmlDataObject object graphs
+            which can then be conveniently accessed using object property accessors.
+            <remarks>
+            <para>
+            Take the following XML Document:
+            
+            <Adaptive raw="6" ss="75" z="-1.67">
+                <SelfCare raw="6" ss="5" z="-1.67" ae="4">
+                    <question id="SC" answer="a" />
+                    <question id="SC" answer="b" />
+                    <question id="SC" answer="c" />
+                </SelfCare>
+                <PersonalResponsibility raw="" ss="" z="" ae="">Sample Inner Text 123</PersonalResponsibility>
+            </Adaptive>
+            
+            XmlDataObject xmlDataObject = XmlDataObjectBuilder.EmitDataObject(Element);
+            Console.WriteLine(xmlDataObject.Adapative.PersonalResponsibility.Value); // Prints "Sample Inner Text 123"
+            Console.WriteLine(xmlDataObject.Adapative.raw); // Prints "6"
+            Console.WriteLine(xmlDataObject.Adapative.SelfCare.ss); // Prints "5"
+            Console.WriteLine(xmlDataObject.Adapative.SelfCare.question[0].answer); // Prints "a"
+            Console.WriteLine(xmlDataObject.Adapative.SelfCare.question[2].answer); // Prints "c"
+            
+            1.) Elements are accessed by their name
+            2.) The inner text of an Element is accessed by ".Value" after the Element name
+            3.) Attributes like "raw" are accessed as properties
+            4.) Multiple Elements are stored as a List of XmlDataObjects.  This is why in the example
+            "question" elements are accessed by index
+            </para>
+            </remarks>
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.XmlDataObjectBuilder.EmitDataObject(System.String)">
+            <summary>
+            Returns XmlDataObject containing dynamic representation of Xml document starting
+            with Document's root node
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.XmlDataObjectBuilder.EmitDataObject(System.Xml.Linq.XDocument)">
+            <summary>
+            Returns XmlDataObject containing dynamic representation of Xml document starting
+            with Document's root node
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.XmlDataObjectBuilder.EmitDataObject(System.Xml.Linq.XElement)">
+            <summary>
+            Translates the Element and all of its children into a tree structure
+            using nested instances of XmlDataObject's.
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.XmlDataObjectBuilder.UniqueElementNames(System.Xml.Linq.XElement)">
+            <summary>
+            Returns a HashSet with a non-repeating list of all the child Element Names
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.XmlDataObjectBuilder.RemoveAllNamespaces(System.Xml.Linq.XDocument)">
+            <summary>
+            Returns a copy of the original xmlDocument with all the namespaces stripped-off
+            </summary>
+        </member>
+        <member name="T:Gallio.Framework.Data.DataObjects.XmlDataObjectFactory">
+            <summary>
+            Container class for factory method which is consumed by Gallio test framework.
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.XmlDataObjectFactory.SingleDocument(System.Collections.Generic.List{System.Xml.Linq.XElement})">
+            <summary>
+            Returns an IEnumerable which exposes an Enumerator for XmlDataObjects 
+            for each specified Element in its XPath
+            </summary>
+            <param name="ElementList">Location of the Xml file</param>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.XmlDataObjectFactory.MultipleDocuments(System.Collections.Generic.List{System.Collections.Generic.List{System.Xml.Linq.XElement}})">
+            <summary>
+            Returns interface to an Enumerator which traverses the Cartesian Product of one-to-many lists of XElements.
+            Each array of data contains a row of dynamic objects with one XElement from each of the lists of XElements.
+            </summary>
+            <param name="ListOfListsOfNodes">The List of Lists of Elements</param>
+        </member>
+        <member name="T:Gallio.Framework.Data.DataObjects.XmlDataObjectUtility">
+            <summary>
+            Helpful utility methods to aid in working around the XmlDataObject's idiosynracies.
+            </summary>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.XmlDataObjectUtility.FindFirstElementByAttribute(System.Object,System.String,System.String)">
+            <summary>
+            Method for finding an immediate child element that has an attribute with a certain value.
+            </summary>
+            <param name="ChildElements">Either an XmlDataObject or a List of XmlDataObjects</param>
+            <param name="AttributeName">Name of Xml attribute we're querying</param>
+            <param name="AttributeValue">Expect value of the Xml attribute</param>
+            <returns>XmlDataObject Element</returns>
+        </member>
+        <member name="M:Gallio.Framework.Data.DataObjects.XmlDataObjectUtility.ElementValuesToStringList(System.Object)">
+            <summary>
+            Takes sequence (or solitary member) of Elements and dumps the values into string List
+            </summary>
+        </member>
+    </members>
+</doc>
