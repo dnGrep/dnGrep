@@ -187,7 +187,7 @@ namespace Tests
             Assert.AreEqual(results.Count, 1);
             Assert.AreEqual(results[0].SearchResults.Count, 1);
             core.Replace(Directory.GetFiles(destinationFolder + "\\TestCase8", "test.txt"), SearchType.Regex, destinationFolder + "\\TestCase8", "here", "\\n", GrepSearchOption.None, -1);
-            Assert.AreEqual(File.ReadAllText(destinationFolder + "\\TestCase8\\test.txt", Encoding.Unicode).Split('\n').Length, 2);
+            Assert.AreEqual(File.ReadAllText(destinationFolder + "\\TestCase8\\test.txt", Encoding.ASCII).Trim().Split('\n').Length, 2);
         }
 	}
 }

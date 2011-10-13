@@ -1125,6 +1125,16 @@ namespace dnGREP.Common
 			return false;
 		}
 
+        public static string ReplaceSpecialCharacters(string input)
+        {
+            string result = input.Replace("\\t", "\t")
+                                 .Replace("\\n", "\n")
+                                 .Replace("\\0", "\0")
+                                 .Replace("\\b", "\b")
+                                 .Replace("\\r", "\r");
+            return result;
+        }
+
 		/// <summary>
 		/// Returns true if endText starts with a non-alphanumeric character. Copied from AtroGrep.
 		/// </summary>

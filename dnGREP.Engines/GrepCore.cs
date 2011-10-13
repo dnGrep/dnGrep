@@ -160,6 +160,7 @@ namespace dnGREP.Common
 
 			baseFolder = Utils.FixFolderName(baseFolder);
 			tempFolder = Utils.FixFolderName(tempFolder);
+            replacePattern = Utils.ReplaceSpecialCharacters(replacePattern);
 
 			int totalFiles = files.Length;
 			int processedFiles = 0;
