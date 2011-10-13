@@ -1,0 +1,3 @@
+This is my test file, here should be a new line!
+Here is some more text
+And more

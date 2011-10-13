@@ -5,6 +5,8 @@ using MbUnit.Framework;
 using dnGREP;
 using System.IO;
 using dnGREP.Common;
+using System.Data.Linq;
+using System.Collections;
 
 namespace Tests
 {
@@ -174,5 +176,18 @@ namespace Tests
 			Assert.AreEqual(results.Count, 1);
 			Assert.AreEqual(results[0].SearchResults.Count, 28);
 		}
+
+        [Test]
+        public void TestReplaceWithNewLineWorks()
+        {
+            Utils.CopyFiles(sourceFolder + "\\TestCase8", destinationFolder + "\\TestCase8", null, null);
+            GrepCore core = new GrepCore();
+            core.SearchParams.ShowLinesInContext = false;
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase8", "test.txt"), SearchType.Regex, "here", GrepSearchOption.None, -1);
+            Assert.AreEqual(results.Count, 1);
+            Assert.AreEqual(results[0].SearchResults.Count, 1);
+            core.Replace(Directory.GetFiles(destinationFolder + "\\TestCase8", "test.txt"), SearchType.Regex, destinationFolder + "\\TestCase8", "here", "\\n", GrepSearchOption.None, -1);
+            Assert.AreEqual(File.ReadAllText(destinationFolder + "\\TestCase8\\test.txt", Encoding.Unicode).Split('\n').Length, 2);
+        }
 	}
 }
