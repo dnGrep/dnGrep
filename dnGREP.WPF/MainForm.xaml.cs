@@ -89,6 +89,12 @@ namespace dnGREP.WPF
 		}
 		#endregion
 
+        public void UpdateState()
+        {
+            inputData.LoadAppSettings();
+            inputData.UpdateState("");
+        }
+
 		private void winFormControlsInit()
 		{
 			this.workerSearchReplace.WorkerReportsProgress = true;

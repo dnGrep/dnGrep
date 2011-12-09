@@ -42,6 +42,7 @@ namespace dnGREP.WPF
                     if (searchPath.EndsWith(":\""))
                         searchPath = searchPath.Substring(0, searchPath.Length - 1) + "\\";
                     GrepSettings.Instance.Set<string>(GrepSettings.Key.SearchFolder, searchPath);
+                    MainForm.UpdateState();
                 }
                 MainForm.Show();
                 MainForm.Activate();
