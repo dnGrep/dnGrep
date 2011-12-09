@@ -28,19 +28,24 @@ namespace dnGREP.WPF
             base.OnStartup(e);
             Utils.DeleteTempFolder();
             MainForm = new MainForm();
+            ProcessArgs(e.Args, true);
         }
 
         public void ProcessArgs(string[] args, bool firstInstance)
         {
-            if (args != null && args.Length > 0 && args[0] != "/hidden")
+            //Process Command Line Arguments Here
+            if (!firstInstance || !(args != null && args.Length > 0 && args[0] == "/hidden"))
             {
-                string searchPath = args[0];
-                if (searchPath.EndsWith(":\""))
-                    searchPath = searchPath.Substring(0, searchPath.Length - 1) + "\\";
-                GrepSettings.Instance.Set<string>(GrepSettings.Key.SearchFolder, searchPath);
+                if (args != null && args.Length > 0)
+                {
+                    string searchPath = args[0];
+                    if (searchPath.EndsWith(":\""))
+                        searchPath = searchPath.Substring(0, searchPath.Length - 1) + "\\";
+                    GrepSettings.Instance.Set<string>(GrepSettings.Key.SearchFolder, searchPath);
+                }
+                MainForm.Show();
+                MainForm.Activate();
             }
-            MainForm.Show();
-            MainForm.Activate();
         }
 
         protected override void OnExit(ExitEventArgs e)

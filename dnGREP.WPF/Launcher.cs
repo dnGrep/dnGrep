@@ -22,16 +22,7 @@ namespace dnGREP.WPF
         protected override bool OnStartup(StartupEventArgs e)
         {
             App = new dnGrepApp();
-
-            if (e.CommandLine != null && e.CommandLine.Count > 0 && e.CommandLine[0] == "/hidden")
-            {
-                App.Run();
-            }
-            else
-            {
-                App.Run();
-                App.ProcessArgs(e.CommandLine.ToArray(), true);
-            }
+            App.Run();
             return false;
         }
 
