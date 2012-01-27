@@ -10,6 +10,7 @@ namespace dnGREP.Engines
 {
 	public class GrepEngineBase
 	{
+        private string KEYWORD_GUID = "$(guid)";
 		protected bool showLinesInContext = false;
 		protected int linesBefore = 0;
 		protected int linesAfter = 0;
@@ -259,6 +260,9 @@ namespace dnGREP.Engines
 						continue;
 					}
 
+                    if (replaceText.Contains(KEYWORD_GUID))
+                        replaceText = replaceText.Replace(KEYWORD_GUID, Guid.NewGuid().ToString());
+
 					sb.Append(text.Substring(counter, index - counter));
 					sb.Append(replaceText);
 
@@ -288,6 +292,9 @@ namespace dnGREP.Engines
 						index++;
 						continue;
 					}
+
+                    if (replaceText.Contains(KEYWORD_GUID))
+                        replaceText = replaceText.Replace(KEYWORD_GUID, Guid.NewGuid().ToString());
 
 					sb.Append(text.Substring(counter, index - counter));
 					sb.Append(replaceText);
@@ -320,6 +327,9 @@ namespace dnGREP.Engines
 				if (!searchPattern.Trim().EndsWith("\\b"))
 					searchPattern = searchPattern.Trim() + "\\b";
 			}
+
+            if (replacePattern.Contains(KEYWORD_GUID))
+                replacePattern = replacePattern.Replace(KEYWORD_GUID, Guid.NewGuid().ToString());
 
             return Regex.Replace(text, searchPattern, replacePattern, regexOptions);
 		}
@@ -355,6 +365,9 @@ namespace dnGREP.Engines
 					continue;
 				}
 
+                if (replacePattern.Contains(KEYWORD_GUID))
+                    replacePattern = replacePattern.Replace(KEYWORD_GUID, Guid.NewGuid().ToString());
+
                 // Text before match
                 result.Append(text.Substring(counter, matchLocation));
                 // New text
@@ -375,6 +388,9 @@ namespace dnGREP.Engines
 
 				foreach (XmlNode xmlNode in xmlNodes)
 				{
+                    if (replaceText.Contains(KEYWORD_GUID))
+                        replaceText = replaceText.Replace(KEYWORD_GUID, Guid.NewGuid().ToString());
+
 					xmlNode.InnerXml = replaceText;
 				}
 				StringBuilder sb = new StringBuilder();
