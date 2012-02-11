@@ -39,6 +39,68 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>..\bin\Debug\dnGREP.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <PlatformTarget>x86</PlatformTarget>
+    <CodeAnalysisLogFile>..\bin\Release\dnGREP.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>..\bin\Debug\dnGREP.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisLogFile>..\bin\Release\dnGREP.exe.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>false</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>false</CodeAnalysisIgnoreBuiltInRules>
+    <CodeAnalysisFailOnMissingRules>false</CodeAnalysisFailOnMissingRules>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="NLog, Version=1.0.0.505, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
@@ -217,19 +279,19 @@
     <PostBuildEvent>REM Copy plugins
 rmdir /S /Q "$(TargetDir)Plugins"
 mkdir "$(TargetDir)Plugins"
-xcopy  "$(SolutionDir)Release\dnGREP Archive Plugin X.X.X\Plugins\*.*" "$(TargetDir)Plugins" /E
-xcopy  "$(SolutionDir)Release\dnGREP MsWord Plugin X.X.X\Plugins\*.*" "$(TargetDir)Plugins" /E
-xcopy  "$(SolutionDir)Release\dnGREP PDF Plugin X.X.X\Plugins\*.*" "$(TargetDir)Plugins" /E
+xcopy  "$(SolutionDir)Release\$(PlatformName)\dnGREP Archive Plugin X.X.X\Plugins\*.*" "$(TargetDir)Plugins" /E
+xcopy  "$(SolutionDir)Release\$(PlatformName)\dnGREP MsWord Plugin X.X.X\Plugins\*.*" "$(TargetDir)Plugins" /E
+xcopy  "$(SolutionDir)Release\$(PlatformName)\dnGREP PDF Plugin X.X.X\Plugins\*.*" "$(TargetDir)Plugins" /E
 REM Copy to Output Folder
-rmdir /S /Q "$(SolutionDir)Release\dnGREP X.X.X (Standalone)"
-mkdir "$(SolutionDir)Release\dnGREP X.X.X (Standalone)"
-xcopy "$(TargetDir)*.*" "$(SolutionDir)Release\dnGREP X.X.X (Standalone)" /E
-rmdir /S /Q "$(SolutionDir)Release\dnGREP X.X.X (Standalone)\Plugins"
-mkdir "$(SolutionDir)Release\dnGREP X.X.X (Standalone)\Plugins"
-del /Q "$(SolutionDir)Release\dnGREP X.X.X (Standalone)\*.pdb"
-del /Q "$(SolutionDir)Release\dnGREP X.X.X (Standalone)\*.Settings.dat"
-del /Q "$(SolutionDir)Release\dnGREP X.X.X (Standalone)\*vshost*.*"
-del /Q "$(SolutionDir)Release\dnGREP X.X.X (Standalone)\Grep_Error_Log.xml"
-$(SolutionDir)Dependencies\NSIS\makensis.exe "$(SolutionDir)NSIS\dnGREP-setup.nsi"</PostBuildEvent>
+rmdir /S /Q "$(SolutionDir)Release\$(PlatformName)\dnGREP X.X.X (Standalone)"
+mkdir "$(SolutionDir)Release\$(PlatformName)\dnGREP X.X.X (Standalone)"
+xcopy "$(TargetDir)*.*" "$(SolutionDir)Release\$(PlatformName)\dnGREP X.X.X (Standalone)" /E
+rmdir /S /Q "$(SolutionDir)Release\$(PlatformName)\dnGREP X.X.X (Standalone)\Plugins"
+mkdir "$(SolutionDir)Release\$(PlatformName)\dnGREP X.X.X (Standalone)\Plugins"
+del /Q "$(SolutionDir)Release\$(PlatformName)\dnGREP X.X.X (Standalone)\*.pdb"
+del /Q "$(SolutionDir)Release\$(PlatformName)\dnGREP X.X.X (Standalone)\*.Settings.dat"
+del /Q "$(SolutionDir)Release\$(PlatformName)\dnGREP X.X.X (Standalone)\*vshost*.*"
+del /Q "$(SolutionDir)Release\$(PlatformName)\dnGREP X.X.X (Standalone)\Grep_Error_Log.xml"
+$(SolutionDir)Dependencies\NSIS\makensis.exe /DPLATFORM=$(PlatformName) /DVERSION="2.6.0" "$(SolutionDir)NSIS\dnGREP-setup.nsi"</PostBuildEvent>
   </PropertyGroup>
 </Project>

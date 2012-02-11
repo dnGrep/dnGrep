@@ -5,7 +5,12 @@ Name dnGREP
 
 # General Symbol Definitions
 !define REGKEY "SOFTWARE\$(^Name)"
-!define VERSION 2.5.0
+!ifndef VERSION
+	!define VERSION 2.5.0
+!endif
+!ifndef PLATFORM
+	!define PLATFORM "x86"
+!endif
 !define COMPANY ""
 !define URL ""
 
@@ -48,7 +53,7 @@ Var StartMenuGroup
 !insertmacro MUI_LANGUAGE English
 
 # Installer attributes
-OutFile "..\Release\dnGREP ${VERSION} (Setup).exe"
+OutFile "..\Release\${PLATFORM}\dnGREP ${VERSION} (Setup).exe"
 InstallDir "$PROGRAMFILES\$(^Name)"
 CRCCheck on
 XPStyle on
@@ -66,7 +71,7 @@ ShowUninstDetails show
 Section -Main SEC0000
     SetOutPath $INSTDIR
     SetOverwrite on
-    File /r "..\Release\dnGREP X.X.X (Standalone)\*"
+    File /r "..\Release\${PLATFORM}\dnGREP X.X.X (Standalone)\*"
     
     SetOutPath $SMPROGRAMS\$StartMenuGroup
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\$(^Name).lnk" $INSTDIR\$(^Name).exe
@@ -85,21 +90,21 @@ SectionGroup /e Plugins SECGRP0000
     Section "PDF Search" SEC0001
         SetOutPath $INSTDIR\Plugins
         SetOverwrite on
-        File /r "..\Release\dnGREP PDF Plugin X.X.X\Plugins\*"
+        File /r "..\Release\${PLATFORM}\dnGREP PDF Plugin X.X.X\Plugins\*"
         WriteRegStr HKLM "${REGKEY}\Components" "PDF Search" 1
     SectionEnd
 
     Section "Ms Word Search" SEC0002
         SetOutPath $INSTDIR\Plugins
         SetOverwrite on
-        File /r "..\Release\dnGREP MsWord Plugin X.X.X\Plugins\*"
+        File /r "..\Release\${PLATFORM}\dnGREP MsWord Plugin X.X.X\Plugins\*"
         WriteRegStr HKLM "${REGKEY}\Components" "Ms Word Search" 1
     SectionEnd
 
     Section "Archive Search" SEC0003
         SetOutPath $INSTDIR\Plugins
         SetOverwrite on
-        File /r "..\Release\dnGREP Archive Plugin X.X.X\Plugins\*"
+        File /r "..\Release\${PLATFORM}\dnGREP Archive Plugin X.X.X\Plugins\*"
         WriteRegStr HKLM "${REGKEY}\Components" "Archive Search" 1
     SectionEnd
 SectionGroupEnd
@@ -196,6 +201,11 @@ SectionEnd
 Function .onInit
     InitPluginsDir
     Call IsDotNetInstalled
+	${If} ${PLATFORM} == "x64"
+		StrCpy $INSTDIR "$PROGRAMFILES64\$(^Name)"
+	${Else}
+		StrCpy $INSTDIR "$PROGRAMFILES\$(^Name)"
+	${EndIf}
 	
     ReadRegStr $R0 HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" "UninstallString"
     StrCmp $R0 "" checkoldinst askuninst
