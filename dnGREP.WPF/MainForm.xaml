@@ -9,7 +9,8 @@
     Background="{StaticResource GradientBackground}"
     SnapsToDevicePixels="True" ResizeMode="CanResizeWithGrip" AllowDrop="False"
     my:DiginesisHelpProvider.HelpKeyword="search-window.html" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True" 
-    WindowStartupLocation="Manual" TextOptions.TextFormattingMode="{Binding Path=TextFormatting}">
+    WindowStartupLocation="Manual" TextOptions.TextFormattingMode="{Binding Path=TextFormatting}"
+    FocusManager.FocusedElement="{Binding ElementName=tbSearchFor}">
     <!-- Resources -->
     <Window.Resources>
         <Style x:Key="ExpandedTextbox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource DefaultStyle}">
@@ -77,8 +78,8 @@
                         <ColumnDefinition Width="48" />
                     </Grid.ColumnDefinitions>
                     <ComboBox AllowDrop="True" IsEditable="True" ItemsSource="{Binding Path=FastPathBookmarks}" PreviewDragEnter="tbFolderName_DragOver" PreviewDragOver="tbFolderName_DragOver" PreviewDrop="tbFolderName_Drop" Grid.Column="0" Name="tbFolderName" 
-                              Text="{Binding Path=FileOrFolderPath, UpdateSourceTrigger=PropertyChanged}" ToolTip="Path to search in"/>
-                    <Button Click="btnBrowse_Click" Grid.Column="1" Width="42" HorizontalAlignment="Right" Name="btnBrowse" ToolTip="Browse for folder or files">...</Button>
+                              Text="{Binding Path=FileOrFolderPath, UpdateSourceTrigger=PropertyChanged}" ToolTip="Path to search in" TabIndex="3" />
+                    <Button Click="btnBrowse_Click" Grid.Column="1" Width="42" HorizontalAlignment="Right" Name="btnBrowse" ToolTip="Browse for folder or files" TabIndex="4">...</Button>
                 </Grid>
             </GroupBox>
             <GroupBox Header="Search">
@@ -94,12 +95,12 @@
                         <ColumnDefinition  Width="60"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
-                        <RadioButton GroupName="SearchRegex" Name="rbRegex" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}" ToolTip="Regular expression search">Regex</RadioButton>
-                        <RadioButton GroupName="SearchXPath" Name="rbXPath" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=XPath}" ToolTip="XPath search (XML documents only)">XPath</RadioButton>
-                        <RadioButton GroupName="SearchText" Name="rbText" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=PlainText}" ToolTip="Plain text search">Text</RadioButton>
-                        <RadioButton GroupName="SearchSoundex" Name="rbSoundex" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=Soundex}" ToolTip="Phonetic search">Phonetic</RadioButton>
+                        <RadioButton GroupName="SearchRegex" Name="rbRegex" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}" ToolTip="Regular expression search" TabIndex="11">Regex</RadioButton>
+                        <RadioButton GroupName="SearchXPath" Name="rbXPath" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=XPath}" ToolTip="XPath search (XML documents only)" TabIndex="12">XPath</RadioButton>
+                        <RadioButton GroupName="SearchText" Name="rbText" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=PlainText}" ToolTip="Plain text search" TabIndex="13">Text</RadioButton>
+                        <RadioButton GroupName="SearchSoundex" Name="rbSoundex" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=Soundex}" ToolTip="Phonetic search" TabIndex="14">Phonetic</RadioButton>
                     </StackPanel>
-                    <Button Grid.Column="1" Grid.Row="0" Name="btnTest" Click="btnTest_Click">Test</Button>
+                    <Button Grid.Column="1" Grid.Row="0" Name="btnTest" Click="btnTest_Click" TabIndex="15">Test</Button>
                     <GroupBox Header="Search for:" Grid.Row="1" 
                               Grid.ColumnSpan="2" BorderThickness="0">
                         <Border BorderThickness="{Binding BorderThickness, ElementName=tbFilePattern}" BorderBrush="{Binding BorderBrush, ElementName=tbFilePattern}" 
@@ -113,7 +114,7 @@
                                 </ComboBox>
                                 <TextBox BorderThickness="0" GotFocus="TextBoxFocus" Name="tbSearchFor" Text="{Binding Path=SearchFor, UpdateSourceTrigger=PropertyChanged}" 
                                  VerticalScrollBarVisibility="Auto" my:DiginesisHelpProvider.HelpKeyword="regular-expressions.html" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True"
-                                 Style="{StaticResource ExpandedTextbox}">
+                                 Style="{StaticResource ExpandedTextbox}" TabIndex="5">
                                 <TextBox.ToolTip>
                                     <TextBlock>
                                         <Run>. matches all characters</Run>
@@ -151,7 +152,7 @@
 								<TextBox GotFocus="TextBoxFocus" BorderThickness="0" Name="tbReplaceWith" 
                                      Text="{Binding Path=ReplaceWith, UpdateSourceTrigger=PropertyChanged}"  
                                      VerticalScrollBarVisibility="Auto" 
-                                     Style="{StaticResource ExpandedTextbox}">
+                                     Style="{StaticResource ExpandedTextbox}" TabIndex="10">
 									<TextBox.ToolTip>
 										<TextBlock>
 											<Run><![CDATA[$& replaces entire regex]]></Run>
@@ -173,10 +174,10 @@
                             <WrapPanel><TextBlock>Options</TextBlock><TextBlock Margin="15,0,0,0" Text="{Binding Path=OptionsSummary}"/></WrapPanel>
                         </Expander.Header>
                         <StackPanel Orientation="Horizontal">
-                           <CheckBox Margin="3" Name="cbCaseSensitive" IsChecked="{Binding Path=CaseSensitive}" IsEnabled="{Binding Path=IsCaseSensitiveEnabled}">Case sensitive</CheckBox>
-                           <CheckBox Margin="3" Name="cbMultiline" IsChecked="{Binding Path=Multiline}" IsEnabled="{Binding Path=IsMultilineEnabled}">Multiline (slower)</CheckBox>
-                           <CheckBox Margin="3" Name="cbWholeWord" IsChecked="{Binding Path=WholeWord}" IsEnabled="{Binding Path=IsWholeWordEnabled}">Whole word</CheckBox>
-                           <CheckBox Margin="3" Name="cbSingleline" IsChecked="{Binding Path=Singleline}" IsEnabled="{Binding Path=IsSinglelineEnabled}">Match dot as newline</CheckBox>
+                           <CheckBox Margin="3" Name="cbCaseSensitive" IsChecked="{Binding Path=CaseSensitive}" IsEnabled="{Binding Path=IsCaseSensitiveEnabled}" TabIndex="20">Case sensitive</CheckBox>
+                           <CheckBox Margin="3" Name="cbMultiline" IsChecked="{Binding Path=Multiline}" IsEnabled="{Binding Path=IsMultilineEnabled}" TabIndex="21">Multiline (slower)</CheckBox>
+                           <CheckBox Margin="3" Name="cbWholeWord" IsChecked="{Binding Path=WholeWord}" IsEnabled="{Binding Path=IsWholeWordEnabled}" TabIndex="22">Whole word</CheckBox>
+                           <CheckBox Margin="3" Name="cbSingleline" IsChecked="{Binding Path=Singleline}" IsEnabled="{Binding Path=IsSinglelineEnabled}" TabIndex="23">Match dot as newline</CheckBox>
                         </StackPanel>                    
                     </Expander>
                 </Grid>            
@@ -188,10 +189,10 @@
                         <ColumnDefinition Width="242*" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Column="0">
-                        <RadioButton GroupName="NoSizeFilter" Margin="3" Name="rbFilterAllSizes" IsChecked="{Binding Path=UseFileSizeFilter, Converter={StaticResource ebc}, ConverterParameter=No}">All sizes</RadioButton>
+                        <RadioButton GroupName="NoSizeFilter" Margin="3" Name="rbFilterAllSizes" IsChecked="{Binding Path=UseFileSizeFilter, Converter={StaticResource ebc}, ConverterParameter=No}" TabIndex="40">All sizes</RadioButton>
                         <StackPanel Orientation="Horizontal">
-                            <RadioButton GroupName="SetSizeFilter" Margin="3" VerticalAlignment="Center" Name="rbFilterSpecificSize"  IsChecked="{Binding Path=UseFileSizeFilter, Converter={StaticResource ebc}, ConverterParameter=Yes}">Size is</RadioButton>
-                            <TextBox GotFocus="TextBoxFocus" Width="47" Margin="3" Name="tbFileSizeFrom" IsEnabled="{Binding Path=IsSizeFilterSet}">
+                            <RadioButton GroupName="SetSizeFilter" Margin="3" VerticalAlignment="Center" Name="rbFilterSpecificSize"  IsChecked="{Binding Path=UseFileSizeFilter, Converter={StaticResource ebc}, ConverterParameter=Yes}" TabIndex="41">Size is</RadioButton>
+                            <TextBox GotFocus="TextBoxFocus" Width="47" Margin="3" Name="tbFileSizeFrom" IsEnabled="{Binding Path=IsSizeFilterSet}" TabIndex="42">
                                 <TextBox.Text>
                                     <Binding Path="SizeFrom" UpdateSourceTrigger="PropertyChanged">
                                         <Binding.ValidationRules>
@@ -201,7 +202,7 @@
                                 </TextBox.Text>
                             </TextBox>
                             <TextBlock Margin="3" VerticalAlignment="Center">to</TextBlock>
-                            <TextBox GotFocus="TextBoxFocus" Width="47" Margin="3" Name="tbFileSizeTo" IsEnabled="{Binding Path=IsSizeFilterSet}">
+                            <TextBox GotFocus="TextBoxFocus" Width="47" Margin="3" Name="tbFileSizeTo" IsEnabled="{Binding Path=IsSizeFilterSet}" TabIndex="43">
                                 <TextBox.Text>
                                     <Binding Path="SizeTo" UpdateSourceTrigger="PropertyChanged">
                                         <Binding.ValidationRules>
@@ -212,9 +213,9 @@
                             </TextBox>
                             <TextBlock Margin="3" VerticalAlignment="Center">KB</TextBlock>
                         </StackPanel>
-                        <CheckBox Margin="2" IsChecked="{Binding Path=IncludeSubfolder}" Name="cbIncludeSubfolders">Include subfolders</CheckBox>
-                        <CheckBox Margin="2" IsChecked="{Binding Path=IncludeHidden}" Name="cbIncludeHiddenFolders">Include hidden folders</CheckBox>
-                        <CheckBox Margin="2" IsChecked="{Binding Path=IncludeBinary}" Name="cbIncludeBinary">Include binary files</CheckBox>
+                        <CheckBox Margin="2" IsChecked="{Binding Path=IncludeSubfolder}" Name="cbIncludeSubfolders" TabIndex="44">Include subfolders</CheckBox>
+                        <CheckBox Margin="2" IsChecked="{Binding Path=IncludeHidden}" Name="cbIncludeHiddenFolders" TabIndex="45">Include hidden folders</CheckBox>
+                        <CheckBox Margin="2" IsChecked="{Binding Path=IncludeBinary}" Name="cbIncludeBinary" TabIndex="46">Include binary files</CheckBox>
                     </StackPanel>
                     <Grid Grid.Column="1">
                         <Grid.RowDefinitions>
@@ -229,20 +230,20 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="Black">Files that match:</TextBlock>
                         <ComboBox IsEditable="True" ItemsSource="{Binding Path=FastFileMatchBookmarks}" Grid.Column="1" Grid.Row="0" GotFocus="TextBoxFocus" Name="tbFilePattern" my:DiginesisHelpProvider.HelpKeyword="searchreplace.html" my:DiginesisHelpProvider.HelpNavigator="Topic" 
-                                     my:DiginesisHelpProvider.ShowHelp="True" Text="{Binding Path=FilePattern, UpdateSourceTrigger=PropertyChanged}"/>
+                                     my:DiginesisHelpProvider.ShowHelp="True" Text="{Binding Path=FilePattern, UpdateSourceTrigger=PropertyChanged}" TabIndex="50" />
                         <TextBlock Style="{StaticResource GrayedOutFilePattern}" Grid.Column="0" Grid.Row="1" TextWrapping="WrapWithOverflow" VerticalAlignment="Center">Files to ignore:</TextBlock>
                         <ComboBox IsEditable="True" ItemsSource="{Binding Path=FastFileNotMatchBookmarks}" Grid.Column="1" Grid.Row="1" GotFocus="TextBoxFocus" Name="tbFilePatternIgnore" my:DiginesisHelpProvider.HelpKeyword="searchreplace.html" my:DiginesisHelpProvider.HelpNavigator="Topic" 
-                                     my:DiginesisHelpProvider.ShowHelp="True" Text="{Binding Path=FilePatternIgnore, UpdateSourceTrigger=PropertyChanged}"/>
+                                     my:DiginesisHelpProvider.ShowHelp="True" Text="{Binding Path=FilePatternIgnore, UpdateSourceTrigger=PropertyChanged}" TabIndex="51" />
                         <StackPanel Grid.Column="1" Grid.Row="2" >                            
                             <StackPanel Orientation="Horizontal">
-                                <RadioButton GroupName="FileSearchRegex" Margin="3" Name="rbFileRegex" IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}" ToolTip="e.g. file[0-9]{1,2}\\.txt">Regex</RadioButton>
-                                <RadioButton GroupName="FileSearchAsterisk" Margin="3" Name="rbFileAsterisk" IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Asterisk}" ToolTip="e.g. file??.*">Asterisk pattern</RadioButton>
+                                <RadioButton GroupName="FileSearchRegex" Margin="3" Name="rbFileRegex" IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}" ToolTip="e.g. file[0-9]{1,2}\\.txt" TabIndex="52">Regex</RadioButton>
+                                <RadioButton GroupName="FileSearchAsterisk" Margin="3" Name="rbFileAsterisk" IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Asterisk}" ToolTip="e.g. file??.*" TabIndex="53">Asterisk pattern</RadioButton>
                             </StackPanel>
                         </StackPanel>
                         <TextBlock Grid.Column="0" Grid.Row="3" VerticalAlignment="Center">Encoding:</TextBlock>
                         <ComboBox Grid.Column="1" Grid.Row="3" 
                                   Name="cbEncoding" VerticalAlignment="Top" 
-                                  SelectedValue="{Binding Path=CodePage}"/>
+                                  SelectedValue="{Binding Path=CodePage}" TabIndex="54" />
                     </Grid>
                 </Grid>
             </GroupBox>
@@ -256,7 +257,7 @@
 						    Width="83" 
 						    VerticalAlignment="Top" 
 						    HorizontalAlignment="Left"  
-						    Margin="3" Click="btnBookmark_Click">
+						    Margin="3" Click="btnBookmark_Click" TabIndex="54">
                     <MenuItem Header="Add" Style="{StaticResource DefaultStyle}" Click="btnBookmark_Click"/>
                     <MenuItem Header="Open" Style="{StaticResource DefaultStyle}" Click="btnBookmarkOpen_Click"/>                    
                 </splitButton:SplitButton>
@@ -265,17 +266,17 @@
                                 Click="btnSearch_Click"
 						        Grid.Row="0" Grid.Column="0"
 						        Width="67" Margin="3" 
-						        Mode="{Binding Path=SearchButtonMode}" IsDefault="True">
+						        Mode="{Binding Path=SearchButtonMode}" IsDefault="True" TabIndex="50">
                         <MenuItem Name="searchInResultsToolStripMenuItem" Header="Search in results" 
                                   IsEnabled="{Binding Path=CanSearchInResults}" Style="{StaticResource DefaultStyle}" Click="btnSearchInResults_Click" />
                     </splitButton:SplitButton>
-                    <Button Width="64" Margin="3" Content="Replace" Name="btnReplace" Click="btnReplace_Click" IsEnabled="{Binding Path=CanReplace}"/>
+                    <Button Width="64" Margin="3" Content="Replace" Name="btnReplace" Click="btnReplace_Click" IsEnabled="{Binding Path=CanReplace}" TabIndex="51" />
                     <splitButton:SplitButton x:Name="btnOtherActions" Content=">>"
 						        Grid.Row="0" Grid.Column="0"
 						        Width="43" 
 						        VerticalAlignment="Top" 
 						        HorizontalAlignment="Left"  
-						        Margin="3" IsEnabled="{Binding Path=CanReplace}" Click="btnOtherActions_Click" >
+						        Margin="3" IsEnabled="{Binding Path=CanReplace}" Click="btnOtherActions_Click" TabIndex="52">
                         <MenuItem Name="copyFilesToolStripMenuItem" Header="Copy files..." Style="{StaticResource DefaultStyle}" Click="copyFilesToolStripMenuItem_Click"/>
                         <MenuItem Name="moveFilesToolStripMenuItem" Header="Move files..." Style="{StaticResource DefaultStyle}" Click="moveFilesToolStripMenuItem_Click"/>
                         <MenuItem Name="deleteFilesToolStripMenuItem" Header="Delete files..." Style="{StaticResource DefaultStyle}" Click="deleteFilesToolStripMenuItem_Click"/>
@@ -283,7 +284,7 @@
                         <MenuItem Name="copyToClipboardToolStripMenuItem" Header="File names to clipboard" Style="{StaticResource DefaultStyle}" Click="copyToClipboardToolStripMenuItem_Click"/>
                         <MenuItem Name="saveAsCSVToolStripMenuItem" Header="Save as CSV..." Style="{StaticResource DefaultStyle}" Click="saveAsCSVToolStripMenuItem_Click"/>
                     </splitButton:SplitButton>
-                    <Button Width="64" Margin="3" Content="Cancel" Name="btnCancel" Click="btnCancel_Click"  IsEnabled="{Binding Path=CanCancel}"/>
+                    <Button Width="64" Margin="3" Content="Cancel" Name="btnCancel" Click="btnCancel_Click"  IsEnabled="{Binding Path=CanCancel}" TabIndex="53" />
                 </StackPanel>
             </Grid>            
         </StackPanel>   
