@@ -32,3 +32,4 @@ _ReSharper*/
 *.[Pp]ublish.xml
 *.resharper
 *.vsp
+Dependencies/SplitButton/*
