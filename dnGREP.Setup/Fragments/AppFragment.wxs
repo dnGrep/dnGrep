@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <DirectoryRef Id="INSTALLDIR">
+            <Component Id="cmp4F755EB8AEA654DE0F6FB783BD274E79" Guid="{3F5D0301-B24D-4699-B21F-3B8B2AD8DBA7}">
+                <File Id="fil034BCFAE6F96321DDDE7EE6FAD15946A" KeyPath="yes" Source="!(wix.SourcePathApp)\dnGREP.Common.dll" />
+            </Component>
+            <Component Id="cmpD9FA0B07237DE16A4585D46BED20E933" Guid="{85A588F5-5C28-4FD0-B5A1-0D8AF00F6E3F}">
+                <File Id="filED998F02E8D47F0905A9464D56B0F77D" KeyPath="yes" Source="!(wix.SourcePathApp)\dnGREP.Common.UI.dll" />
+            </Component>
+            <Component Id="cmp5D64364BE848D8D880558DFAFA0DE81C" Guid="{AF728CC4-DAC8-459E-AECE-80DBFEA8DED7}">
+                <File Id="fil0A2118AB81362AE13EE6DDBA78E994BC" KeyPath="yes" Source="!(wix.SourcePathApp)\dnGREP.Engines.dll" />
+            </Component>
+            <Component Id="cmpE75E380769873171E1689F576B0BBBD1" Guid="{C1497160-3912-4A7F-974E-89BE01CAB8BF}">
+                <File Id="filE4BA9060B65A733C63D86942A6474C5E" KeyPath="yes" Source="!(wix.SourcePathApp)\dnGREP.exe" />
+            </Component>
+            <Component Id="cmp3C0B9E685307149FAB49326CFDE9664B" Guid="{C9CD67AD-01B3-4B26-951E-5F92FB625EF7}">
+                <File Id="fil9A87CBB83F920A2DCE4E2100C929412F" KeyPath="yes" Source="!(wix.SourcePathApp)\dnGREP.exe.config" />
+            </Component>
+            <Component Id="cmp770B497917674F316826C902746C0409" Guid="{2E08B52D-C74C-45B8-9539-42C8270D7CF7}">
+                <File Id="filB9D0C89E2BE03F54B6210850B37C7B82" KeyPath="yes" Source="!(wix.SourcePathApp)\NLog.dll" />
+            </Component>
+            <Component Id="cmpD2B2D2C054FB83F2A00F0E37E94A059D" Guid="{CED74361-960A-4A55-9172-E2E79EF55E8E}">
+                <File Id="fil77AEE6F35188E9C636FAFA4296491FB7" KeyPath="yes" Source="!(wix.SourcePathApp)\NLog.xml" />
+            </Component>
+            <Component Id="cmp63940A2343725017B4AC8FB8CA506996" Guid="{D5560DDC-ECEE-41D4-A344-93A37B94D0D5}">
+                <File Id="filC4FC895A31BBFCC8353F9AA5703B7601" KeyPath="yes" Source="!(wix.SourcePathApp)\NLog.XmlLayout.dll" />
+            </Component>
+            <Component Id="cmpB46C13BD217959CD183531DABC9F4E34" Guid="{BA5BEB82-5D85-4A28-955A-65C0150C2372}">
+                <File Id="fil506F0FA9EB8157C34EABDA61ECB772CF" KeyPath="yes" Source="!(wix.SourcePathApp)\Wpf.SplitButton.dll" />
+            </Component>
+            <Directory Id="dirEA2A071CC81489CE050DF560254EBA27" Name="Doc">
+                <Component Id="cmp039C70C9F12FE22CAE6761EA665D59B9" Guid="{81F012E7-B62C-412B-A43C-6B5E1589462A}">
+                    <File Id="fil628453020B46150F5189705F297358A7" KeyPath="yes" Source="!(wix.SourcePathApp)\Doc\dnGREP.chm" />
+                </Component>
+                <Component Id="cmp5968CED29C71B90C898DC6EEDD02773B" Guid="{92130932-88BF-4C3E-8B3C-A57B52D2CC1A}">
+                    <File Id="filC1E1BFE65B99BE5CDC6ABB1D53161971" KeyPath="yes" Source="!(wix.SourcePathApp)\Doc\regular-expressions-cheat-sheet-v2.pdf" />
+                </Component>
+            </Directory>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <ComponentGroup Id="dnGREPAppFiles">
+            <ComponentRef Id="cmp4F755EB8AEA654DE0F6FB783BD274E79" />
+            <ComponentRef Id="cmpD9FA0B07237DE16A4585D46BED20E933" />
+            <ComponentRef Id="cmp5D64364BE848D8D880558DFAFA0DE81C" />
+            <ComponentRef Id="cmpE75E380769873171E1689F576B0BBBD1" />
+            <ComponentRef Id="cmp3C0B9E685307149FAB49326CFDE9664B" />
+            <ComponentRef Id="cmp770B497917674F316826C902746C0409" />
+            <ComponentRef Id="cmpD2B2D2C054FB83F2A00F0E37E94A059D" />
+            <ComponentRef Id="cmp63940A2343725017B4AC8FB8CA506996" />
+            <ComponentRef Id="cmpB46C13BD217959CD183531DABC9F4E34" />
+            <ComponentRef Id="cmp039C70C9F12FE22CAE6761EA665D59B9" />
+            <ComponentRef Id="cmp5968CED29C71B90C898DC6EEDD02773B" />
+        </ComponentGroup>
+    </Fragment>
+</Wix>

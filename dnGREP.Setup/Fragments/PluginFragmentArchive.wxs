@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <DirectoryRef Id="PluginsDir">
+            <Component Id="cmp5307D36869D1BC4D4A83B19FD807DFF8" Guid="{CF7A4FA7-46C0-4476-9B7C-AB601B80D6A6}">
+                <File Id="fil7FE597D2763BB9B3543249498DFB9C79" KeyPath="yes" Source="!(wix.SourcePathArchive)\readme" />
+            </Component>
+            <Directory Id="dir9E38D210BA7620F0162857DF8C915014" Name="Plugins">
+                <Component Id="cmp80A2941296E0A4CCC5AFF73028782EC1" Guid="{835A6E0C-2E03-4A0F-B2C5-29A1DD2A6185}">
+                    <File Id="fil827EA94510CA1AA36FADB4DB0F177043" KeyPath="yes" Source="!(wix.SourcePathArchive)\Plugins\dnGREP.Engines.Archive.plugin" />
+                </Component>
+                <Directory Id="dirD72BAC37B0F5C03BD34192D986286F17" Name="ArchiveSearch">
+                    <Component Id="cmp1C77357A7DDE97B5601662F37E16D350" Guid="{9B4419A8-C2BD-49BB-BFBF-072AA9F3B9F7}">
+                        <File Id="fil72F3A35981C112272A8EB0DC64A88AFC" KeyPath="yes" Source="!(wix.SourcePathArchive)\Plugins\ArchiveSearch\7z.dll" />
+                    </Component>
+                    <Component Id="cmp96511F4909D2B16C50E9FB0E8DD38CD6" Guid="{B9F214CC-3A49-466B-8FB7-9BB839657ED7}">
+                        <File Id="fil9ECC02FD52CF700D0D2B0C56688EB132" KeyPath="yes" Source="!(wix.SourcePathArchive)\Plugins\ArchiveSearch\dnGREP.Engines.Archive.dll" />
+                    </Component>
+                    <Component Id="cmpAC3B8CF3828D1A1BB0127F8A0464CD1A" Guid="{E2118E8B-AE79-4805-8B19-D6880AB11B62}">
+                        <File Id="filD3AB9B43DA2F53912882B298D522E492" KeyPath="yes" Source="!(wix.SourcePathArchive)\Plugins\ArchiveSearch\SevenZipSharp.dll" />
+                    </Component>
+                </Directory>
+            </Directory>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <ComponentGroup Id="dnGREPPluginFilesArchive">
+            <ComponentRef Id="cmp5307D36869D1BC4D4A83B19FD807DFF8" />
+            <ComponentRef Id="cmp80A2941296E0A4CCC5AFF73028782EC1" />
+            <ComponentRef Id="cmp1C77357A7DDE97B5601662F37E16D350" />
+            <ComponentRef Id="cmp96511F4909D2B16C50E9FB0E8DD38CD6" />
+            <ComponentRef Id="cmpAC3B8CF3828D1A1BB0127F8A0464CD1A" />
+        </ComponentGroup>
+    </Fragment>
+</Wix>

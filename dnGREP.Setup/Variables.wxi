@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Include>
+  <!-- Guard against multiple inclusion -->
+  <?ifndef appIncludeCommon?>
+    <?define appIncludeCommon=1 ?>
+    <?define SourcePathCore=$(var.SourcePath)\Release\$(var.Platform) ?>
+    <?define SourcePathApp=$(var.SourcePathCore)\dnGREP X.X.X (Standalone)?>
+    <?define SourcePathPdf=$(var.SourcePathCore)\dnGREP PDF Plugin X.X.X?>
+    <?define SourcePathWord=$(var.SourcePathCore)\dnGREP MsWord Plugin X.X.X?>
+    <?define SourcePathArchive=$(var.SourcePathCore)\dnGREP Archive Plugin X.X.X?>
+  <?endif?>
+</Include>

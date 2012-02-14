@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NLog.XmlLayout", "NLog.XmlL
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{177DCA75-DAA1-4097-A3AB-EF944566600D}"
 EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "dnGREP.Setup", "dnGREP.Setup\dnGREP.Setup.wixproj", "{9A5EE640-E3EE-4985-BD96-64B63A1B0062}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -139,6 +141,14 @@ Global
 		{1B364890-BBE6-4167-AF65-FE1C01E8C419}.Release|x64.Build.0 = Release|x64
 		{1B364890-BBE6-4167-AF65-FE1C01E8C419}.Release|x86.ActiveCfg = Release|x86
 		{1B364890-BBE6-4167-AF65-FE1C01E8C419}.Release|x86.Build.0 = Release|x86
+		{9A5EE640-E3EE-4985-BD96-64B63A1B0062}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{9A5EE640-E3EE-4985-BD96-64B63A1B0062}.Debug|x64.ActiveCfg = Debug|x86
+		{9A5EE640-E3EE-4985-BD96-64B63A1B0062}.Debug|x86.ActiveCfg = Debug|x86
+		{9A5EE640-E3EE-4985-BD96-64B63A1B0062}.Debug|x86.Build.0 = Debug|x86
+		{9A5EE640-E3EE-4985-BD96-64B63A1B0062}.Release|Any CPU.ActiveCfg = Release|x86
+		{9A5EE640-E3EE-4985-BD96-64B63A1B0062}.Release|x64.ActiveCfg = Release|x86
+		{9A5EE640-E3EE-4985-BD96-64B63A1B0062}.Release|x86.ActiveCfg = Release|x86
+		{9A5EE640-E3EE-4985-BD96-64B63A1B0062}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

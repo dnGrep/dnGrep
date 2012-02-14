@@ -1,0 +1,5 @@
+C:\Sandbox\dnGrep\Release\x86\dnGREP.Setup.msi
+C:\Sandbox\dnGrep\Release\x86\dnGREP.Setup.wixpdb
+obj\Debug\Product.wixobj
+obj\Debug\Product.Generated.wixobj
+obj\Debug\Fragments\AppFragment.wixobj
