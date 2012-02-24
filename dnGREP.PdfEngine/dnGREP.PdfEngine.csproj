@@ -137,9 +137,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="readme">
+    <None Include="pdf-readme">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

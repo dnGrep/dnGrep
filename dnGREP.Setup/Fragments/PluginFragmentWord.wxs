@@ -2,26 +2,20 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <Fragment>
         <DirectoryRef Id="PluginsDir">
-            <Component Id="cmp5307D36869D1BC4D4A83B19FD807DFF8" Guid="{79252CF3-C653-4DD0-8D02-CF4B4C20ABA7}">
-                <File Id="fil7FE597D2763BB9B3543249498DFB9C79" KeyPath="yes" Source="!(wix.SourcePathWord)\readme" />
+            <Component Id="cmp1D2272A0E3127A92C4AAA52640F7182F" Guid="{A51AB51B-8741-4646-A9E9-D7E2B62F9352}">
+                <File Id="fil984E2E47F22CA8F9300129896E065319" KeyPath="yes" Source="!(wix.SourcePathWord)\dnGREP.Engines.MsWord.plugin" />
             </Component>
-            <Directory Id="dir9E38D210BA7620F0162857DF8C915014" Name="Plugins">
-                <Component Id="cmp84017B58D11A60704F6A94EDA1276C1C" Guid="{3322678D-E75B-4900-97EC-59080967ACD9}">
-                    <File Id="fil3BCAE61B6FEA87A95408257C579F3FCD" KeyPath="yes" Source="!(wix.SourcePathWord)\Plugins\dnGREP.Engines.MsWord.plugin" />
+            <Directory Id="dir0DED0F8EF6A984DA4ADC58A4C00790CB" Name="MsWordSearch">
+                <Component Id="cmp25C874C4477EDD1EC4D7473B66EAF613" Guid="{774F7755-999C-4427-8539-906BCC2BB2DF}">
+                    <File Id="filAD1444D2B53F268F7F7FA38B4335E7AF" KeyPath="yes" Source="!(wix.SourcePathWord)\MsWordSearch\dnGREP.Engines.Word.dll" />
                 </Component>
-                <Directory Id="dir97FBC16B9C03452BB4F4069087668039" Name="MsWordSearch">
-                    <Component Id="cmp8E6ADB3B3D6C2E1292BADC85A869215D" Guid="{A81ABC95-CFDF-42B8-B14F-32597745CEA3}">
-                        <File Id="filA80A76CA7003256DDFCBF627D9055CCF" KeyPath="yes" Source="!(wix.SourcePathWord)\Plugins\MsWordSearch\dnGREP.Engines.Word.dll" />
-                    </Component>
-                </Directory>
             </Directory>
         </DirectoryRef>
     </Fragment>
     <Fragment>
         <ComponentGroup Id="dnGREPPluginFilesWord">
-            <ComponentRef Id="cmp5307D36869D1BC4D4A83B19FD807DFF8" />
-            <ComponentRef Id="cmp84017B58D11A60704F6A94EDA1276C1C" />
-            <ComponentRef Id="cmp8E6ADB3B3D6C2E1292BADC85A869215D" />
+            <ComponentRef Id="cmp1D2272A0E3127A92C4AAA52640F7182F" />
+            <ComponentRef Id="cmp25C874C4477EDD1EC4D7473B66EAF613" />
         </ComponentGroup>
     </Fragment>
 </Wix>

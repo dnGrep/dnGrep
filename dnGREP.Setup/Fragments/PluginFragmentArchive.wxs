@@ -2,34 +2,28 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
     <Fragment>
         <DirectoryRef Id="PluginsDir">
-            <Component Id="cmp5307D36869D1BC4D4A83B19FD807DFF8" Guid="{CF7A4FA7-46C0-4476-9B7C-AB601B80D6A6}">
-                <File Id="fil7FE597D2763BB9B3543249498DFB9C79" KeyPath="yes" Source="!(wix.SourcePathArchive)\readme" />
+            <Component Id="cmp5E7189C83C592884CED821C069CA48F5" Guid="{2390C2B1-22CB-49A5-B86A-1C7B39D060A5}">
+                <File Id="filE6816C5B3D60557F7EFA46D07B60383B" KeyPath="yes" Source="!(wix.SourcePathArchive)\dnGREP.Engines.Archive.plugin" />
             </Component>
-            <Directory Id="dir9E38D210BA7620F0162857DF8C915014" Name="Plugins">
-                <Component Id="cmp80A2941296E0A4CCC5AFF73028782EC1" Guid="{835A6E0C-2E03-4A0F-B2C5-29A1DD2A6185}">
-                    <File Id="fil827EA94510CA1AA36FADB4DB0F177043" KeyPath="yes" Source="!(wix.SourcePathArchive)\Plugins\dnGREP.Engines.Archive.plugin" />
+            <Directory Id="dirC3F7CB3FDF58AF6EC0C27403925EFDB4" Name="ArchiveSearch">
+                <Component Id="cmp076536C5D88900C40C1A61CB5902CCD6" Guid="{812EAD54-66D1-41D5-BCDA-E1F7DE8D0561}">
+                    <File Id="filB6B9C08742F4F91E23D2367C46744F87" KeyPath="yes" Source="!(wix.SourcePathArchive)\ArchiveSearch\7z.dll" />
                 </Component>
-                <Directory Id="dirD72BAC37B0F5C03BD34192D986286F17" Name="ArchiveSearch">
-                    <Component Id="cmp1C77357A7DDE97B5601662F37E16D350" Guid="{9B4419A8-C2BD-49BB-BFBF-072AA9F3B9F7}">
-                        <File Id="fil72F3A35981C112272A8EB0DC64A88AFC" KeyPath="yes" Source="!(wix.SourcePathArchive)\Plugins\ArchiveSearch\7z.dll" />
-                    </Component>
-                    <Component Id="cmp96511F4909D2B16C50E9FB0E8DD38CD6" Guid="{B9F214CC-3A49-466B-8FB7-9BB839657ED7}">
-                        <File Id="fil9ECC02FD52CF700D0D2B0C56688EB132" KeyPath="yes" Source="!(wix.SourcePathArchive)\Plugins\ArchiveSearch\dnGREP.Engines.Archive.dll" />
-                    </Component>
-                    <Component Id="cmpAC3B8CF3828D1A1BB0127F8A0464CD1A" Guid="{E2118E8B-AE79-4805-8B19-D6880AB11B62}">
-                        <File Id="filD3AB9B43DA2F53912882B298D522E492" KeyPath="yes" Source="!(wix.SourcePathArchive)\Plugins\ArchiveSearch\SevenZipSharp.dll" />
-                    </Component>
-                </Directory>
+                <Component Id="cmpE8E4B56478D0B41BD48DEFF41E18A4BD" Guid="{9BEFA2CF-4C69-4EE8-80DC-7ADC9EC7BBE7}">
+                    <File Id="fil0054CBA81971C73574523367596F1A1A" KeyPath="yes" Source="!(wix.SourcePathArchive)\ArchiveSearch\dnGREP.Engines.Archive.dll" />
+                </Component>
+                <Component Id="cmp82E1996CD2019A98453AB5EC8C5DF18A" Guid="{2F816000-9C41-4E00-BB95-9C60420D8F16}">
+                    <File Id="filA791E86462E84AC92A00C1CB329B54F4" KeyPath="yes" Source="!(wix.SourcePathArchive)\ArchiveSearch\SevenZipSharp.dll" />
+                </Component>
             </Directory>
         </DirectoryRef>
     </Fragment>
     <Fragment>
         <ComponentGroup Id="dnGREPPluginFilesArchive">
-            <ComponentRef Id="cmp5307D36869D1BC4D4A83B19FD807DFF8" />
-            <ComponentRef Id="cmp80A2941296E0A4CCC5AFF73028782EC1" />
-            <ComponentRef Id="cmp1C77357A7DDE97B5601662F37E16D350" />
-            <ComponentRef Id="cmp96511F4909D2B16C50E9FB0E8DD38CD6" />
-            <ComponentRef Id="cmpAC3B8CF3828D1A1BB0127F8A0464CD1A" />
+            <ComponentRef Id="cmp5E7189C83C592884CED821C069CA48F5" />
+            <ComponentRef Id="cmp076536C5D88900C40C1A61CB5902CCD6" />
+            <ComponentRef Id="cmpE8E4B56478D0B41BD48DEFF41E18A4BD" />
+            <ComponentRef Id="cmp82E1996CD2019A98453AB5EC8C5DF18A" />
         </ComponentGroup>
     </Fragment>
 </Wix>

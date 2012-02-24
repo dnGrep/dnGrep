@@ -3,12 +3,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <WIX Condition=" '$(WIX)' == '' ">C:\Program Files (x86)\Windows Installer XML v3.5\</WIX>
-    <SourcePath Condition=" '$(SourcePath)' == '' ">C:\Sandbox\dnGrep</SourcePath>
+    <SourcePath Condition=" '$(SourcePath)' == '' ">C:\Sandbox\dnGrep\</SourcePath>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProductVersion>3.5</ProductVersion>
+    <ProductVersion>2.6.0</ProductVersion>
     <ProjectGuid>{9a5ee640-e3ee-4985-bd96-64b63a1b0062}</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>dnGREP.Setup</OutputName>
+    <OutputName>dnGREP $(ProductVersion) ($(Platform))</OutputName>
     <OutputType>Package</OutputType>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
@@ -16,9 +16,8 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>..\Release\$(Platform)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
-    <DefineConstants>Debug;ProductVersion=2.6.0.0;SourcePath=$(SourcePath)</DefineConstants>
-    <WixVariables>
-    </WixVariables>
+    <DefineConstants>Debug;ProductVersion=$(ProductVersion);SourcePath=$(SourcePath)</DefineConstants>
+    <WixVariables>SourcePathApp=$(SourcePath)\Release\$(Platform)\dnGREP X.X.X (Standalone);SourcePathPdf=$(SourcePath)\Release\$(Platform)\dnGREP PDF Plugin X.X.X\Plugins;SourcePathWord=$(SourcePath)\Release\$(Platform)\dnGREP MsWord Plugin X.X.X\Plugins;SourcePathArchive=$(SourcePath)\Release\$(Platform)\dnGREP Archive Plugin X.X.X\Plugins</WixVariables>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
@@ -30,17 +29,27 @@
     <Compile Include="Fragments\PluginFragmentPdf.wxs" />
     <Compile Include="Fragments\PluginFragmentWord.wxs" />
     <Compile Include="Product.wxs" />
-    <Content Include="Variables.wxi" />
+    <Content Include="Conditions.wxi" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Fragments\" />
   </ItemGroup>
+  <ItemGroup>
+    <WixExtension Include="WixUIExtension">
+      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
+      <Name>WixUIExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixNetFxExtension">
+      <HintPath>$(WixExtDir)\WixNetFxExtension.dll</HintPath>
+      <Name>WixNetFxExtension</Name>
+    </WixExtension>
+  </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>
     <PreBuildEvent>"$(WIX)bin\heat.exe" dir "$(SourcePath)\Release\$(Platform)\dnGREP X.X.X (Standalone)" -cg dnGREPAppFiles -gg -scom -sreg -sfrag -srd -dr INSTALLDIR -out "$(ProjectDir)Fragments\AppFragment.wxs" -var wix.SourcePathApp
-"$(WIX)bin\heat.exe" dir "$(SourcePath)\Release\$(Platform)\dnGREP PDF Plugin X.X.X" -cg dnGREPPluginFilesPdf -gg -scom -sreg -sfrag -srd -dr PluginsDir -out "$(ProjectDir)Fragments\PluginFragmentPdf.wxs" -var wix.SourcePathPdf
-"$(WIX)bin\heat.exe" dir "$(SourcePath)\Release\$(Platform)\dnGREP MsWord Plugin X.X.X" -cg dnGREPPluginFilesWord -gg -scom -sreg -sfrag -srd -dr PluginsDir -out "$(ProjectDir)Fragments\PluginFragmentWord.wxs" -var wix.SourcePathWord
-"$(WIX)bin\heat.exe" dir "$(SourcePath)\Release\$(Platform)\dnGREP Archive Plugin X.X.X" -cg dnGREPPluginFilesArchive -gg -scom -sreg -sfrag -srd -dr PluginsDir -out "$(ProjectDir)Fragments\PluginFragmentArchive.wxs" -var wix.SourcePathArchive</PreBuildEvent>
+"$(WIX)bin\heat.exe" dir "$(SourcePath)\Release\$(Platform)\dnGREP PDF Plugin X.X.X\Plugins" -cg dnGREPPluginFilesPdf -gg -scom -sreg -sfrag -srd -dr PluginsDir -out "$(ProjectDir)Fragments\PluginFragmentPdf.wxs" -var wix.SourcePathPdf
+"$(WIX)bin\heat.exe" dir "$(SourcePath)\Release\$(Platform)\dnGREP MsWord Plugin X.X.X\Plugins" -cg dnGREPPluginFilesWord -gg -scom -sreg -sfrag -srd -dr PluginsDir -out "$(ProjectDir)Fragments\PluginFragmentWord.wxs" -var wix.SourcePathWord
+"$(WIX)bin\heat.exe" dir "$(SourcePath)\Release\$(Platform)\dnGREP Archive Plugin X.X.X\Plugins" -cg dnGREPPluginFilesArchive -gg -scom -sreg -sfrag -srd -dr PluginsDir -out "$(ProjectDir)Fragments\PluginFragmentArchive.wxs" -var wix.SourcePathArchive</PreBuildEvent>
   </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.

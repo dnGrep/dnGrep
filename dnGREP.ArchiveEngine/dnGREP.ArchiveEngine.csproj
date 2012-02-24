@@ -143,9 +143,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="readme">
+    <None Include="archive-readme">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

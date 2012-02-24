@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <!-- .NET 4.0 Version Check -->
+  <PropertyRef Id="NETFRAMEWORK40CLIENT"/>
+  <Condition Message="Please ensure that .NET 4.0 is installed before proceeding with installation.">Installed OR NETFRAMEWORK40CLIENT</Condition>
+  <!-- Old NSIS installation -->
+  <Property Id="OLDINSTALLER">
+    <RegistrySearch Id="OldInstaller"
+                    Root="HKLM"
+                    Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\dnGREP"
+                    Name="DisplayName"
+                    Type="raw" />
+  </Property>
+  <Condition Message="A previous version of [OLDINSTALLER] is installed. Please un-install it manually before proceeding.">
+    <![CDATA[OLDINSTALLER <> "dnGREP"]]>
+  </Condition>
+  <Property Id="OLDINSTALLER64">
+    <RegistrySearch Id="OldInstaller64"
+                    Root="HKLM"
+                    Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\dnGREP"
+                    Name="DisplayName"
+                    Win64="yes"
+                    Type="raw" />
+  </Property>
+  <Condition Message="A previous version of [OLDINSTALLER64] is installed. Please un-install it manually before proceeding.">
+    <![CDATA[OLDINSTALLER64 <> "dnGREP"]]>
+  </Condition>
+</Include>

@@ -1,0 +1,209 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Wpf.Controls">
+
+	<Style x:Key="ButtonFocusVisual">
+		<Setter Property="Control.Template">
+			<Setter.Value>
+				<ControlTemplate>
+					<Rectangle SnapsToDevicePixels="true" Margin="2" Stroke="Black" StrokeDashArray="1 2" StrokeThickness="1"/>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<!-- Outer Border Styles for the various Button States-->
+	<Style x:Key="outerBorderNormal" TargetType="{x:Type Border}">
+		<Setter Property="HorizontalAlignment" Value="Stretch"/>
+		<Setter Property="VerticalAlignment" Value="Stretch"/>
+		<Setter Property="BorderThickness" Value="1"/>
+		<Setter Property="CornerRadius" Value="2"/>
+		<Setter Property="SnapsToDevicePixels" Value="True"/>
+		<Setter Property="BorderBrush" Value="Transparent"/>
+		<Setter Property="Background" Value="Transparent"/>
+	</Style>
+	
+	<Style x:Key="outerBorderHover" TargetType="{x:Type Border}" BasedOn="{StaticResource outerBorderNormal}">
+		<Setter Property="BorderBrush" Value="#66000000"/>
+		<Setter Property="Background" Value="Transparent"/>
+	</Style>
+	
+	<Style x:Key="outerBorderPressed" TargetType="{x:Type Border}" BasedOn="{StaticResource outerBorderNormal}">
+		<Setter Property="BorderThickness" Value="2,2,2,1"/>
+		<Setter Property="BorderBrush" Value="#66000000"/>
+		<Setter Property="Background" Value="#33000000"/>
+	</Style>
+	
+	<Style x:Key="outerBorderDefaulted" TargetType="{x:Type Border}" BasedOn="{StaticResource outerBorderNormal}">
+		<Setter Property="BorderBrush" Value="#33000000"/>
+		<Setter Property="Background" Value="Transparent"/>
+	</Style>
+
+	<!-- inner Border Styles for the various Button States-->
+	<Style x:Key="innerBorderNormal" TargetType="{x:Type Border}">
+		<Setter Property="HorizontalAlignment" Value="Stretch"/>
+		<Setter Property="VerticalAlignment" Value="Stretch"/>
+		<Setter Property="BorderThickness" Value="1"/>
+		<Setter Property="CornerRadius" Value="2"/>
+		<Setter Property="SnapsToDevicePixels" Value="True"/>
+		<Setter Property="BorderBrush" Value="Transparent"/>
+		<Setter Property="Background" Value="Transparent"/>
+	</Style>
+	
+	<Style x:Key="innerBorderHover" TargetType="{x:Type Border}" BasedOn="{StaticResource innerBorderNormal}">
+		<Setter Property="BorderBrush">
+			<Setter.Value>
+				<LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+					<GradientStop Color="#00FFFFFF" Offset="0"/>
+					<GradientStop Color="#7FFFFFFF" Offset="0.1"/>
+				</LinearGradientBrush>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="Background">
+			<Setter.Value>
+				<LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+					<GradientStop Color="#66FFFFFF" Offset="0"/>
+					<GradientStop Color="#00FFFFFF" Offset="1"/>
+				</LinearGradientBrush>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	<Style x:Key="innerBorderPressed" TargetType="{x:Type Border}" BasedOn="{StaticResource innerBorderNormal}">
+		<Setter Property="BorderBrush" Value="{x:Null}"/>
+		<Setter Property="Background" Value="{x:Null}"/>
+	</Style>
+	<Style x:Key="innerBorderDefaulted" TargetType="{x:Type Border}" BasedOn="{StaticResource innerBorderPressed}"/>
+
+
+
+	<Style x:Key="{ComponentResourceKey TypeInTargetAssembly={x:Type local:SplitButtonResources}, ResourceId=vistaSplitButtonStyle}" TargetType="{x:Type local:SplitButton}">
+		<Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}"/>
+		<Setter Property="Foreground" Value="White"/>
+        <Setter Property="Background" Value="Transparent"/>
+		<Setter Property="HorizontalContentAlignment" Value="Center"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="Padding" Value="0"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<!-- SplitButton Template -->
+				<ControlTemplate TargetType="{x:Type local:SplitButton}">
+
+					<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*"/>
+							<ColumnDefinition Width="16"/>
+						</Grid.ColumnDefinitions>
+
+						<!-- Button Border-->
+						<Border x:Name="outerBorder1" Grid.ColumnSpan="2" Style="{StaticResource outerBorderNormal}">
+							<Border x:Name="innerBorder1" Style="{StaticResource innerBorderNormal}" Background="Transparent"/>
+						</Border>
+						
+						<!-- Dropdown Button Border-->
+						<Border x:Name="outerBorder2" Margin="-1,0,0,0" Grid.Column="1" Style="{StaticResource outerBorderNormal}">
+							<Border x:Name="innerBorder2" Style="{StaticResource innerBorderNormal}"/>
+						</Border>
+
+						<Border x:Name="Bd" Padding="2,3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+							<ContentPresenter
+								HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+								VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+								Margin="{TemplateBinding Padding}"
+								RecognizesAccessKey="True"
+								/>
+						</Border>
+
+						<Path x:Name="path"
+							Data="M0,0L3,3 6,0z" 
+							Margin="0,1,0,0" 
+							Grid.Column="1"
+							Stroke="{TemplateBinding Foreground}" 
+							Fill="{TemplateBinding Foreground}" 
+							HorizontalAlignment="Center" 
+							VerticalAlignment="Center"
+							/>
+
+						<Button x:Name="PART_DropDown"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							Foreground="{TemplateBinding Foreground}"
+							IsDefault="{TemplateBinding IsDefault}"
+							VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+							Grid.Column="1"
+							Margin="0">
+							<Button.Style>
+								<Style TargetType="{x:Type Button}">
+									<Setter Property="Foreground" Value="White"/>
+									<Setter Property="Template">
+										<Setter.Value>
+											<ControlTemplate TargetType="{x:Type Button}">
+												<Border x:Name="outerBorder" Style="{StaticResource outerBorderNormal}" Background="Transparent">
+													<Border x:Name="innerBorder" Style="{StaticResource innerBorderNormal}" Background="Transparent">
+
+														<Path Data="M0,0L3,3 6,0z" 
+															Margin="0,1,0,0" 
+															Grid.Column="2" 
+															Stroke="{TemplateBinding Foreground}" 
+															Fill="{TemplateBinding Foreground}" 
+															HorizontalAlignment="Center" 
+															VerticalAlignment="Center"/>
+
+													</Border>
+												</Border>
+												<ControlTemplate.Triggers>
+													<Trigger Property="IsPressed" Value="True">
+														<Setter Property="Style" TargetName="outerBorder" Value="{StaticResource outerBorderPressed}"/>
+														<Setter Property="Style" TargetName="innerBorder" Value="{StaticResource innerBorderPressed}"/>
+													</Trigger>
+													<Trigger Property="IsEnabled" Value="false">
+														<Setter Property="Foreground" Value="#ADADAD"/>
+													</Trigger>
+												</ControlTemplate.Triggers>
+											</ControlTemplate>
+										</Setter.Value>
+									</Setter>
+								</Style>
+							</Button.Style>
+						</Button>
+
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsDefault" Value="True">
+							<Setter Property="Style" TargetName="outerBorder1" Value="{StaticResource outerBorderDefaulted}"/>
+							<Setter Property="Style" TargetName="innerBorder1" Value="{StaticResource innerBorderDefaulted}"/>
+							<Setter Property="Style" TargetName="outerBorder2" Value="{StaticResource outerBorderDefaulted}"/>
+							<Setter Property="Style" TargetName="innerBorder2" Value="{StaticResource innerBorderDefaulted}"/>
+						</Trigger>
+						<Trigger Property="IsMouseOver" Value="True">
+							<Setter Property="Style" TargetName="outerBorder1" Value="{StaticResource outerBorderHover}"/>
+							<Setter Property="Style" TargetName="innerBorder1" Value="{StaticResource innerBorderHover}"/>
+							<Setter Property="Style" TargetName="outerBorder2" Value="{StaticResource outerBorderHover}"/>
+							<Setter Property="Style" TargetName="innerBorder2" Value="{StaticResource innerBorderHover}"/>
+						</Trigger>
+						<Trigger Property="IsContextMenuOpen" Value="True">
+							<Setter Property="Style" TargetName="outerBorder1" Value="{StaticResource outerBorderPressed}"/>
+							<Setter Property="Style" TargetName="innerBorder1" Value="{StaticResource innerBorderPressed}"/>
+							<Setter Property="Style" TargetName="outerBorder2" Value="{StaticResource outerBorderPressed}"/>
+							<Setter Property="Style" TargetName="innerBorder2" Value="{StaticResource innerBorderPressed}"/>
+						</Trigger>
+						<Trigger Property="IsEnabled" Value="false">
+							<Setter Property="Foreground" Value="#ADADAD"/>
+						</Trigger>
+						<Trigger Property="Mode" Value="Dropdown">
+							<Setter Property="Visibility" TargetName="PART_DropDown" Value="Collapsed"/>
+							<Setter Property="Visibility" TargetName="outerBorder2" Value="Collapsed"/>
+						</Trigger>
+						<Trigger Property="Mode" Value="Button">
+							<Setter Property="Visibility" TargetName="PART_DropDown" Value="Collapsed"/>
+							<Setter Property="Visibility" TargetName="path" Value="Collapsed"/>
+							<Setter Property="Visibility" TargetName="outerBorder2" Value="Collapsed"/>
+							<Setter Property="Grid.ColumnSpan" TargetName="Bd" Value="2"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+		<Style.Triggers>
+		</Style.Triggers>
+	</Style>
+</ResourceDictionary>
