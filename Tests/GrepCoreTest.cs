@@ -7,6 +7,7 @@ using System.IO;
 using dnGREP.Common;
 using System.Data.Linq;
 using System.Collections;
+using System.Text.RegularExpressions;
 
 namespace Tests
 {
@@ -188,6 +189,33 @@ namespace Tests
             Assert.AreEqual(results[0].SearchResults.Count, 1);
             core.Replace(Directory.GetFiles(destinationFolder + "\\TestCase8", "test.txt"), SearchType.Regex, destinationFolder + "\\TestCase8", "here", "\\n", GrepSearchOption.None, -1);
             Assert.AreEqual(File.ReadAllText(destinationFolder + "\\TestCase8\\test.txt", Encoding.ASCII).Trim().Split('\n').Length, 2);
+        }
+
+        private Regex guidPattern = new Regex("[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}");
+        
+        [Test]
+        [Row(SearchType.Regex)]
+        [Row(SearchType.PlainText)]
+        [Row(SearchType.Soundex)]
+        public void TestReplaceWithPatternRegex(SearchType type)
+        {
+            Utils.CopyFiles(sourceFolder + "\\TestCase9", destinationFolder + "\\TestCase9", null, null);
+            GrepCore core = new GrepCore();
+            core.SearchParams.ShowLinesInContext = false;
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase9", "test.txt"), type, "here", GrepSearchOption.None, -1);
+            Assert.AreEqual(results.Count, 1);
+            Assert.AreEqual(results[0].SearchResults.Count, 6);
+            core.Replace(Directory.GetFiles(destinationFolder + "\\TestCase9", "test.txt"), type, destinationFolder + "\\TestCase9", "here", "$(guid)", GrepSearchOption.None, -1);
+            string fileContent = File.ReadAllText(destinationFolder + "\\TestCase9\\test.txt", Encoding.ASCII).Trim();
+            Assert.AreEqual(6, guidPattern.Matches(fileContent).Count);
+            HashSet<string> uniqueGuids = new HashSet<string>();
+            foreach (Match match in guidPattern.Matches(fileContent))
+            {
+                if (!uniqueGuids.Contains(match.Value))
+                    uniqueGuids.Add(match.Value);
+                else
+                    Assert.Fail("All guides should be unique.");
+            }
         }
 	}
 }

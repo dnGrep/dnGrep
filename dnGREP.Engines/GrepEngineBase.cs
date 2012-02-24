@@ -159,6 +159,14 @@ namespace dnGREP.Engines
 			return results;
 		}
 
+        protected string doPatternReplacement(string replaceText)
+        {
+            if (replaceText.Contains(KEYWORD_GUID))
+                return replaceText.Replace(KEYWORD_GUID, Guid.NewGuid().ToString());
+            else
+                return replaceText;
+        }
+
         protected List<GrepSearchResult.GrepLine> doTextSearchCaseInsensitive(string text, string searchText, GrepSearchOption searchOptions, bool includeContext)
 		{
 			List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
@@ -260,11 +268,8 @@ namespace dnGREP.Engines
 						continue;
 					}
 
-                    if (replaceText.Contains(KEYWORD_GUID))
-                        replaceText = replaceText.Replace(KEYWORD_GUID, Guid.NewGuid().ToString());
-
-					sb.Append(text.Substring(counter, index - counter));
-					sb.Append(replaceText);
+                    sb.Append(text.Substring(counter, index - counter));
+                    sb.Append(doPatternReplacement(replaceText));
 
 					counter = index + searchText.Length;
 			
@@ -293,11 +298,8 @@ namespace dnGREP.Engines
 						continue;
 					}
 
-                    if (replaceText.Contains(KEYWORD_GUID))
-                        replaceText = replaceText.Replace(KEYWORD_GUID, Guid.NewGuid().ToString());
-
-					sb.Append(text.Substring(counter, index - counter));
-					sb.Append(replaceText);
+                    sb.Append(text.Substring(counter, index - counter));
+                    sb.Append(doPatternReplacement(replaceText));
 
 					counter = index + searchText.Length;
 
@@ -328,10 +330,7 @@ namespace dnGREP.Engines
 					searchPattern = searchPattern.Trim() + "\\b";
 			}
 
-            if (replacePattern.Contains(KEYWORD_GUID))
-                replacePattern = replacePattern.Replace(KEYWORD_GUID, Guid.NewGuid().ToString());
-
-            return Regex.Replace(text, searchPattern, replacePattern, regexOptions);
+            return Regex.Replace(text, searchPattern, doPatternReplacement(replacePattern), regexOptions);
 		}
 
         public string doFuzzyReplace(string text, string searchPattern, string replacePattern, GrepSearchOption searchOptions)
@@ -365,13 +364,10 @@ namespace dnGREP.Engines
 					continue;
 				}
 
-                if (replacePattern.Contains(KEYWORD_GUID))
-                    replacePattern = replacePattern.Replace(KEYWORD_GUID, Guid.NewGuid().ToString());
-
                 // Text before match
                 result.Append(text.Substring(counter, matchLocation));
                 // New text
-                result.Append(replacePattern);
+                result.Append(doPatternReplacement(replacePattern));
 
                 counter = counter + matchLocation + matchLength;
             }
@@ -388,10 +384,7 @@ namespace dnGREP.Engines
 
 				foreach (XmlNode xmlNode in xmlNodes)
 				{
-                    if (replaceText.Contains(KEYWORD_GUID))
-                        replaceText = replaceText.Replace(KEYWORD_GUID, Guid.NewGuid().ToString());
-
-					xmlNode.InnerXml = replaceText;
+                    xmlNode.InnerXml = doPatternReplacement(replaceText);
 				}
 				StringBuilder sb = new StringBuilder();
 				StringWriter stringWriter = new StringWriter(sb);
