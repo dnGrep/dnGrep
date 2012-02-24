@@ -9,6 +9,7 @@
                     Root="HKLM"
                     Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\dnGREP"
                     Name="DisplayName"
+                    Win64="no"
                     Type="raw" />
   </Property>
   <Condition Message="A previous version of [OLDINSTALLER] is installed. Please un-install it manually before proceeding.">

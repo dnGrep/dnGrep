@@ -20,6 +20,14 @@
     <!-- Properties -->
     <Property Id="INSTALLLEVEL" Value="3" />
 
+    <?if $(var.Platform) = x64 ?>
+    <?define Win64 = "yes" ?>
+    <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
+    <?else ?>
+    <?define Win64 = "no" ?>
+    <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
+    <?endif ?>
+
     <!-- ========================== UI =============================-->
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
     <Property Id="INSTALL_MODE" Value="Custom" />
@@ -49,7 +57,7 @@
     </Upgrade>
 
 		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramFilesFolder">
+			<Directory Id="$(var.PlatformProgramFilesFolder)">
 				<Directory Id="INSTALLDIR" Name="dnGREP">
           <Directory Id="PluginsDir" Name="Plugins">            
           </Directory>
