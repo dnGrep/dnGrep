@@ -127,7 +127,7 @@ namespace dnGREP.Common
 				foreach (GrepSearchResult.GrepLine line in result.SearchResults)
 				{
 					if (!line.IsContext)
-						sb.AppendLine("\"" + result.FileNameDisplayed + "\"," + line.LineNumber + ",\"" + line.LineText + "\"");
+						sb.AppendLine("\"" + result.FileNameDisplayed + "\"," + line.LineNumber + ",\"" + line.LineText.Replace("\"", "\"\"") + "\"");
 				}
 			}
 			File.WriteAllText(destinationPath, sb.ToString());

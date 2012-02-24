@@ -378,7 +378,7 @@ namespace Tests
             lines.Add(new GrepSearchResult.GrepLine(13, "world", true, null));
 			List<GrepSearchResult.GrepLine> lines2 = new List<GrepSearchResult.GrepLine>();
             lines2.Add(new GrepSearchResult.GrepLine(11, "and2", true, null));
-            lines2.Add(new GrepSearchResult.GrepLine(12, "hello2", false, null));
+            lines2.Add(new GrepSearchResult.GrepLine(12, "hel\"lo2", false, null));
             lines2.Add(new GrepSearchResult.GrepLine(13, "world2", true, null));
 			source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-code.cs", lines));
 			source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-plain.txt", lines2));
@@ -387,7 +387,7 @@ namespace Tests
 			Assert.AreEqual(stringLines.Length, 3, "CSV file should contain only 3 lines");
 			Assert.AreEqual(stringLines[0].Split(',')[0].Trim(), "File Name");
 			Assert.AreEqual(stringLines[1].Split(',')[1].Trim(), "12");
-			Assert.AreEqual(stringLines[2].Split(',')[2].Trim(), "\"hello2\"");
+			Assert.AreEqual(stringLines[2].Split(',')[2].Trim(), "\"hel\"\"lo2\"");
 		}
 
 		[Test]
