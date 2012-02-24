@@ -33,3 +33,8 @@ _ReSharper*/
 *.resharper
 *.vsp
 Dependencies/SplitButton/*
+dnGREP.Setup/Fragments/PluginFragmentWord.wxs
+dnGREP.ArchiveEngine/7z.dll
+dnGREP.Setup/Fragments/AppFragment.wxs
+dnGREP.Setup/Fragments/PluginFragmentArchive.wxs
+dnGREP.Setup/Fragments/PluginFragmentPdf.wxs
