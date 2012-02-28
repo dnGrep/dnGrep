@@ -11,6 +11,7 @@ namespace dnGREP.Engines
 	public class GrepEngineBase
 	{
         private string KEYWORD_GUID = "$(guid)";
+        private string KEYWORD_GUIDX = "$(guidx)";
 		protected bool showLinesInContext = false;
 		protected int linesBefore = 0;
 		protected int linesAfter = 0;
@@ -163,6 +164,8 @@ namespace dnGREP.Engines
         {
             if (replaceText.Contains(KEYWORD_GUID))
                 return replaceText.Replace(KEYWORD_GUID, Guid.NewGuid().ToString());
+            else if (replaceText.Contains(KEYWORD_GUIDX))
+                return replaceText;
             else
                 return replaceText;
         }

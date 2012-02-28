@@ -197,7 +197,7 @@ namespace Tests
         [Row(SearchType.Regex)]
         [Row(SearchType.PlainText)]
         [Row(SearchType.Soundex)]
-        public void TestReplaceWithPatternRegex(SearchType type)
+        public void TestReplaceWithPattern(SearchType type)
         {
             Utils.CopyFiles(sourceFolder + "\\TestCase9", destinationFolder + "\\TestCase9", null, null);
             GrepCore core = new GrepCore();
@@ -216,6 +216,29 @@ namespace Tests
                 else
                     Assert.Fail("All guides should be unique.");
             }
+        }
+
+        [Test]
+        public void TestGuidxReplaceWithPatternRegex()
+        {
+            Utils.CopyFiles(sourceFolder + "\\TestCase9", destinationFolder + "\\TestCase9", null, null);
+            GrepCore core = new GrepCore();
+            core.SearchParams.ShowLinesInContext = false;
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase9", "guidx.txt"), SearchType.Regex, "h\\wre", GrepSearchOption.None, -1);
+            Assert.AreEqual(results.Count, 1);
+            Assert.AreEqual(results[0].SearchResults.Count, 6);
+            core.Replace(Directory.GetFiles(destinationFolder + "\\TestCase9", "guidx.txt"), SearchType.Regex, destinationFolder + "\\TestCase9", "h\\wre", "$(guidx)", GrepSearchOption.None, -1);
+            string fileContent = File.ReadAllText(destinationFolder + "\\TestCase9\\guidx.txt", Encoding.ASCII).Trim();
+            Assert.AreEqual(6, guidPattern.Matches(fileContent).Count);
+            Dictionary<string, int> uniqueGuids = new Dictionary<string, int>();
+            foreach (Match match in guidPattern.Matches(fileContent))
+            {
+                if (!uniqueGuids.ContainsKey(match.Value))
+                    uniqueGuids[match.Value] = 1;
+                else
+                    uniqueGuids[match.Value]++;
+            }
+            Assert.AreEqual(2, uniqueGuids.Keys.Count);
         }
 	}
 }
