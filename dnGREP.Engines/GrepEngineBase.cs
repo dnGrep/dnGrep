@@ -10,7 +10,8 @@ namespace dnGREP.Engines
 {
 	public class GrepEngineBase
 	{
-        private string KEYWORD_GUID = "$(guid)";
+        private string KEYWORD_GUID_LOWER = "$(guid)";
+        private string KEYWORD_GUID_UPPER = "$(GUID)";
         private string KEYWORD_GUIDX = "$(guidx)";
 		protected bool showLinesInContext = false;
 		protected int linesBefore = 0;
@@ -162,8 +163,10 @@ namespace dnGREP.Engines
 
         protected string doPatternReplacement(string replaceText)
         {
-            if (replaceText.Contains(KEYWORD_GUID))
-                return replaceText.Replace(KEYWORD_GUID, Guid.NewGuid().ToString());
+            if (replaceText.Contains(KEYWORD_GUID_LOWER))
+                return replaceText.Replace(KEYWORD_GUID_LOWER, Guid.NewGuid().ToString());
+            if (replaceText.Contains(KEYWORD_GUID_UPPER))
+                return replaceText.Replace(KEYWORD_GUID_UPPER, Guid.NewGuid().ToString().ToUpper());
             else if (replaceText.Contains(KEYWORD_GUIDX))
                 return replaceText;
             else
