@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-    <Fragment>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+  <Fragment>
         <DirectoryRef Id="PluginsDir">
             <Component Id="cmp5E7189C83C592884CED821C069CA48F5" Guid="{4A5F6913-1A41-445F-9934-9514B4DEA7F1}">
                 <File Id="filE6816C5B3D60557F7EFA46D07B60383B" KeyPath="yes" Source="!(wix.SourcePathArchive)\dnGREP.Engines.Archive.plugin" />

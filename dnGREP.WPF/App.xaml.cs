@@ -22,10 +22,21 @@ namespace dnGREP.WPF
             if (e.Args != null && e.Args.Length > 0)
             {
 				string searchPath = e.Args[0];
+                if (searchPath == "/warmUp")
+                {
+                    this.MainWindow.Visibility = Visibility.Hidden;
+                    this.MainWindow.ShowInTaskbar = false;
+                    this.MainWindow.Loaded += new RoutedEventHandler(MainWindow_Loaded);
+                }
 				if (searchPath.EndsWith(":\""))
 					searchPath = searchPath.Substring(0, searchPath.Length - 1) + "\\";
                 GrepSettings.Instance.Set<string>(GrepSettings.Key.SearchFolder, searchPath);
             }            
+        }
+
+        void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.MainWindow.Close();
         }
         private void Application_Exit(object sender, ExitEventArgs e)
         {

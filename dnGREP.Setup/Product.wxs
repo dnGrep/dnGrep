@@ -10,6 +10,9 @@
 
 		<Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
 
+    <!-- Adding variable -->
+    <?include Variables.wxi ?>
+    
     <!-- Perform conditional checks -->
     <?include Conditions.wxi ?>    
 
@@ -22,15 +25,7 @@
 
      <!-- Icon -->
     <Icon Id="nGREP.ico" SourceFile="nGREP.ico"/>
-    <Property Id="ARPPRODUCTICON" Value="nGREP.ico" />
-
-    <?if $(var.Platform) = x64 ?>
-    <?define Win64 = "yes" ?>
-    <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
-    <?else ?>
-    <?define Win64 = "no" ?>
-    <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
-    <?endif ?>
+    <Property Id="ARPPRODUCTICON" Value="nGREP.ico" />    
 
     <!-- ========================== UI =============================-->
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
@@ -74,6 +69,11 @@
 
     <!-- Create shell integration -->
     <DirectoryRef Id="TARGETDIR">
+      <Component Id="Accelerator" Guid="A0299472-2679-4187-87E0-2DD4CB5E07AD">
+        <RegistryKey Root="HKCU" Key="Software\Microsoft\Windows\CurrentVersion\Run" Action="none">
+          <RegistryValue Name="dnGREP" Type="string" Value="&quot;[INSTALLDIR]\dnGREP.exe&quot; /warmUp"/>
+        </RegistryKey>
+      </Component>
       <Component Id="ShellIntegration" Guid="8B727769-A7FF-49D9-B685-8DBDA51F81F7">
         <RegistryKey Root="HKCR" Key="Directory\shell\dnGREP" Action="createAndRemoveOnUninstall">
           <RegistryValue Name="Icon" Type="expandable" Value="[INSTALLDIR]\dnGREP.exe"/>
@@ -131,6 +131,9 @@
       <ComponentRef Id="ApplicationShortcut" />
       <Feature Id="ShellIntegration" Title="Shell integration" AllowAdvertise='no' Absent='allow' Description="Shell integration." Level="2">
         <ComponentRef Id="ShellIntegration"/>
+      </Feature>
+      <Feature Id="AcceleratedStartup" Title="Accelerated startup" AllowAdvertise='no' Absent='allow' Description="Accelerated startup." Level="2">
+        <ComponentRef Id="Accelerator"/>
       </Feature>
       <Feature Id="Plugins" Title="Plugins" Level="2" Display="expand">
         <ComponentRef Id="Dummy"/>

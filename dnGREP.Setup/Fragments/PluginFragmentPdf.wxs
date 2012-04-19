@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-    <Fragment>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+  <Fragment>
         <DirectoryRef Id="PluginsDir">
             <Component Id="cmp9AA615D7B3D8E1C7CD39A7167CE13C73" Guid="{56CB4A0B-BCC9-4ADC-AFA8-7E784DDC6D3C}">
                 <File Id="filA603535621206AF9D1DB6CF622F03212" KeyPath="yes" Source="!(wix.SourcePathPdf)\dnGREP.Engines.Pdf.plugin" />

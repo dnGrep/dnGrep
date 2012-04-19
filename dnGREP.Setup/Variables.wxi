@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <!-- Guard against multiple inclusion -->
+  <?ifndef appIncludeVars?>
+
+  <?define appIncludeVars=1 ?>
+
+  <?if $(var.Platform) = x64 ?>
+  <?define Win64 = "yes" ?>
+  <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
+  <?define NGenPlatform = "32bit" ?>
+  <?else ?>
+  <?define Win64 = "no" ?>
+  <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
+  <?define NGenPlatform = "64bit" ?>
+  <?endif ?>
+
+
+  <?endif?>
+</Include>

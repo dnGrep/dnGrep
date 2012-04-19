@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-    <Fragment>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+  <Fragment>
         <DirectoryRef Id="PluginsDir">
             <Component Id="cmp1D2272A0E3127A92C4AAA52640F7182F" Guid="{F57148D2-B979-4E2A-81CD-8594AABC0260}">
                 <File Id="fil984E2E47F22CA8F9300129896E065319" KeyPath="yes" Source="!(wix.SourcePathWord)\dnGREP.Engines.MsWord.plugin" />
