@@ -112,16 +112,33 @@ namespace dnGREP.WPF
             if (!isAdministrator)
                 return false;
 
-            string regPath = string.Format(@"{0}\shell\{1}",
-                                       location, SHELL_KEY_NAME);
-            try
+            if (location == "here")
             {
-                return Registry.ClassesRoot.OpenSubKey(regPath) != null;
+                string regPath = string.Format(@"SOFTWARE\Classes\Directory\Background\shell\{0}",
+                                           SHELL_KEY_NAME);
+                try
+                {
+                    return Registry.LocalMachine.OpenSubKey(regPath) != null;
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    isAdministrator = false;
+                    return false;
+                }
             }
-            catch (UnauthorizedAccessException ex)
+            else
             {
-                isAdministrator = false;
-                return false;
+                string regPath = string.Format(@"{0}\shell\{1}",
+                                           location, SHELL_KEY_NAME);
+                try
+                {
+                    return Registry.ClassesRoot.OpenSubKey(regPath) != null;
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                    isAdministrator = false;
+                    return false;
+                }
             }
         }
 
@@ -132,24 +149,49 @@ namespace dnGREP.WPF
 
             if (!isShellRegistered(location))
             {
-                string regPath = string.Format(@"{0}\shell\{1}", location, SHELL_KEY_NAME);
 
-                // add context menu to the registry
-
-                using (RegistryKey key =
-                       Registry.ClassesRoot.CreateSubKey(regPath))
+                if (location == "here")
                 {
-                    key.SetValue(null, SHELL_MENU_TEXT);
-                }
+                    string regPath = string.Format(@"SOFTWARE\Classes\Directory\Background\shell\{0}", SHELL_KEY_NAME);
 
-                // add command that is invoked to the registry
-                string menuCommand = string.Format("\"{0}\" \"%1\"",
-                                       Assembly.GetAssembly(typeof(OptionsForm)).Location);
-                using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(
-                    string.Format(@"{0}\command", regPath)))
-                {
-                    key.SetValue(null, menuCommand);
+                    // add context menu to the registry
+                    using (RegistryKey key =
+                           Registry.LocalMachine.CreateSubKey(regPath))
+                    {
+                        key.SetValue(null, SHELL_MENU_TEXT);
+                        key.SetValue("Icon", Assembly.GetAssembly(typeof(OptionsForm)).Location);
+                    }
+
+                    // add command that is invoked to the registry
+                    string menuCommand = string.Format("\"{0}\" \"%V\"",
+                                           Assembly.GetAssembly(typeof(OptionsForm)).Location);
+                    using (RegistryKey key = Registry.LocalMachine.CreateSubKey(
+                        string.Format(@"{0}\command", regPath)))
+                    {
+                        key.SetValue(null, menuCommand);
+                    }
                 }
+                else
+                {
+                    string regPath = string.Format(@"{0}\shell\{1}", location, SHELL_KEY_NAME);
+
+                    // add context menu to the registry
+                    using (RegistryKey key =
+                           Registry.ClassesRoot.CreateSubKey(regPath))
+                    {
+                        key.SetValue(null, SHELL_MENU_TEXT);
+                        key.SetValue("Icon", Assembly.GetAssembly(typeof(OptionsForm)).Location);
+                    }
+
+                    // add command that is invoked to the registry
+                    string menuCommand = string.Format("\"{0}\" \"%1\"",
+                                           Assembly.GetAssembly(typeof(OptionsForm)).Location);
+                    using (RegistryKey key = Registry.ClassesRoot.CreateSubKey(
+                        string.Format(@"{0}\command", regPath)))
+                    {
+                        key.SetValue(null, menuCommand);
+                    }
+                }                
             }
         }
 
@@ -160,8 +202,16 @@ namespace dnGREP.WPF
 
             if (isShellRegistered(location))
             {
-                string regPath = string.Format(@"{0}\shell\{1}", location, SHELL_KEY_NAME);
-                Registry.ClassesRoot.DeleteSubKeyTree(regPath);
+                if (location == "here")
+                {
+                    string regPath = string.Format(@"SOFTWARE\Classes\Directory\Background\shell\{0}", SHELL_KEY_NAME);
+                    Registry.LocalMachine.DeleteSubKeyTree(regPath);
+                }
+                else
+                {
+                    string regPath = string.Format(@"{0}\shell\{1}", location, SHELL_KEY_NAME);
+                    Registry.ClassesRoot.DeleteSubKeyTree(regPath);
+                }
             }
         }
 
@@ -226,12 +276,14 @@ namespace dnGREP.WPF
                 shellRegister("Directory");
                 shellRegister("Drive");
                 shellRegister("*");
+                shellRegister("here");
             }
             else if (!cbRegisterShell.IsChecked == true)
             {
                 shellUnregister("Directory");
                 shellUnregister("Drive");
                 shellUnregister("*");
+                shellUnregister("here");
             }
         }
 
