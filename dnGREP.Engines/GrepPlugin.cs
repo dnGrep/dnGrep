@@ -80,7 +80,7 @@ namespace dnGREP.Engines
 								Extensions.Clear();
 								foreach (string extension in tokens[1].Trim().Split(','))
 								{
-									Extensions.Add(extension.Trim());
+									Extensions.Add(extension.Trim().ToLower());
 								}
 								break;
 						}

@@ -43,7 +43,7 @@ namespace dnGREP.Engines
 		{
 			loadPlugins();
 
-			string fileExtension = Path.GetExtension(fileName);
+			string fileExtension = Path.GetExtension(fileName).ToLower();
 			if (fileExtension.Length > 1)
 				fileExtension = fileExtension.Substring(1);
 
