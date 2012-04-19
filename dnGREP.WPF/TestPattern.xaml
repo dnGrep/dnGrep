@@ -120,7 +120,13 @@
             <TextBox Grid.Row="1" Margin="5" AcceptsReturn="True"  Height="Auto" Name="tbTestInput" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"> </TextBox>
             <Label Grid.Row="2" >Output text:</Label>
             <ScrollViewer Grid.Row="3" Margin="5" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                <TextBlock Name="tbTestOutput"></TextBlock>
+                <TextBlock Name="tbTestOutput">
+                    <TextBlock.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy to clipboard" Click="btnCopyFile_Click"/>
+                        </ContextMenu>
+                    </TextBlock.ContextMenu>
+                </TextBlock>
             </ScrollViewer>
             <StackPanel Grid.Row="4" Margin="0,0,3,0"  HorizontalAlignment="Right" Orientation="Horizontal">
                 <Button Width="64" Margin="0,3,0,3" x:Name="btnSearch" Content="Search" IsEnabled="{Binding Path=CanSearch}" Click="btnSearch_Click" IsDefault="True" />

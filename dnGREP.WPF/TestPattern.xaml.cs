@@ -138,5 +138,10 @@ namespace dnGREP.WPF
         {
             Close();
         }
+
+        private void btnCopyFile_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(tbTestOutput.Text);
+        }
     }
 }
