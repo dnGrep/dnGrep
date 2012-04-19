@@ -4,6 +4,7 @@ using System.Text;
 using System.IO;
 using dnGREP.Common;
 using System.Reflection;
+using NLog;
 
 namespace dnGREP.Engines
 {
@@ -12,6 +13,7 @@ namespace dnGREP.Engines
 		private static Dictionary<string, GrepPlugin> fileTypeEngines = new Dictionary<string, GrepPlugin>();
 		private static List<GrepPlugin> plugings = null;
 		private static Dictionary<string, string> failedEngines = new Dictionary<string, string>();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
 		private static void loadPlugins() 
 		{
@@ -33,6 +35,7 @@ namespace dnGREP.Engines
 						catch (Exception ex)
 						{
 							failedEngines[Path.GetFileNameWithoutExtension(pluginFile)] = ex.Message;
+                            logger.LogException(LogLevel.Error, "Failed to initialize " + Path.GetFileNameWithoutExtension(pluginFile) + " engine.", ex);
 						}
 					}
 				}
