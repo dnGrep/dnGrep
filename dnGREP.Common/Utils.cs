@@ -1116,7 +1116,8 @@ namespace dnGREP.Common
 			   beginText.EndsWith(Environment.NewLine) ||
 			   beginText.EndsWith("\r\n") ||
 			   beginText.EndsWith("\r") ||
-			   beginText.EndsWith("\n")
+			   beginText.EndsWith("\n") ||
+			   beginText.EndsWith("\t")
 			   )
 			{
 				return true;
@@ -1169,7 +1170,8 @@ namespace dnGREP.Common
 			   endText.StartsWith(Environment.NewLine) ||
 			   endText.StartsWith("\r\n") ||
 			   endText.StartsWith("\r") ||
-			   endText.StartsWith("\n")
+			   endText.StartsWith("\n") ||
+               endText.StartsWith("\t")
 			   )
 			{
 				return true;

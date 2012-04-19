@@ -137,6 +137,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookmarkTest.cs" />
+    <Content Include="Files\TestCase10\issue-114.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Files\TestCase2\test-file-code.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

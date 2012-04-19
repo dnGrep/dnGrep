@@ -179,6 +179,28 @@ namespace Tests
 		}
 
         [Test]
+        public void TestSearchWholeWord_Issue_114_Regex()
+        {
+            Utils.CopyFiles(sourceFolder + "\\TestCase10", destinationFolder + "\\TestCase10", null, null);
+            GrepCore core = new GrepCore();
+            core.SearchParams.ShowLinesInContext = false;
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase10", "issue-114.txt"), SearchType.Regex, "protected", GrepSearchOption.WholeWord, -1);
+            Assert.AreEqual(results.Count, 1);
+            Assert.AreEqual(results[0].SearchResults.Count, 1);            
+        }
+
+        [Test]
+        public void TestSearchWholeWord_Issue_114_Plain()
+        {
+            Utils.CopyFiles(sourceFolder + "\\TestCase10", destinationFolder + "\\TestCase10", null, null);
+            GrepCore core = new GrepCore();
+            core.SearchParams.ShowLinesInContext = false;
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase10", "issue-114.txt"), SearchType.PlainText, "protected", GrepSearchOption.WholeWord, -1);
+            Assert.AreEqual(results.Count, 1);
+            Assert.AreEqual(results[0].SearchResults.Count, 1);            
+        }
+
+        [Test]
         public void TestReplaceWithNewLineWorks()
         {
             Utils.CopyFiles(sourceFolder + "\\TestCase8", destinationFolder + "\\TestCase8", null, null);
