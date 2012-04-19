@@ -357,6 +357,9 @@
                             <DataTrigger Binding="{Binding Path=Style}" Value="ReadOnly">
                                 <Setter Property="Foreground" Value="DarkGray"/>
                             </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=Style}" Value="Error">
+                                <Setter Property="Foreground" Value="Red"/>
+                            </DataTrigger>
                         </Style.Triggers>
                     </Style>                    
                 </TreeView.ItemContainerStyle>

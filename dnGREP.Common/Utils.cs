@@ -208,7 +208,7 @@ namespace dnGREP.Common
 
 			// *** Detect byte order mark if any - otherwise assume default
 			byte[] buffer = new byte[5];
-			using (FileStream readStream = new FileStream(srcFile, FileMode.Open, FileAccess.Read, FileShare.Read))
+			using (FileStream readStream = new FileStream(srcFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
 			{
 				readStream.Read(buffer, 0, 5);
 			}

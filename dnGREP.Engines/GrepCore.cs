@@ -131,6 +131,9 @@ namespace dnGREP.Common
 					catch (Exception ex)
 					{
 						logger.LogException(LogLevel.Error, ex.Message, ex);
+                        List<GrepSearchResult.GrepLine> lines = new List<GrepSearchResult.GrepLine>();
+                        lines.Add(new GrepSearchResult.GrepLine(-1, ex.Message, false, null));
+                        searchResults.Add(new GrepSearchResult(file, lines, false));
 					}
 				}
 			}

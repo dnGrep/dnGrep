@@ -175,6 +175,7 @@ namespace dnGREP.WPF
 			}
 
 			bool isFileReadOnly = Utils.IsReadOnly(grepResult);
+            bool isSuccess = grepResult.IsSuccess;
 			string displayedName = Path.GetFileName(grepResult.FileNameDisplayed);
 			if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowFilePathInResults) &&
 				grepResult.FileNameDisplayed.Contains(Utils.GetBaseFolder(folderPath) + "\\"))
@@ -196,6 +197,10 @@ namespace dnGREP.WPF
 			{
 				style = "ReadOnly";
 			}
+            if (!isSuccess)
+            {
+                style = "Error";
+            }
 
 			if (result.SearchResults != null)
 			{

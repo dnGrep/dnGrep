@@ -98,7 +98,7 @@ namespace dnGREP.Common
 				if (!File.Exists(path))
 					return;
 
-				using (FileStream stream = File.OpenRead(path))
+                using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
 				{
 					if (stream == null)
 						return;

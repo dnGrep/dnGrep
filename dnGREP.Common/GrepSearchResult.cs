@@ -7,13 +7,21 @@ namespace dnGREP.Common
 	public class GrepSearchResult
 	{
 		public GrepSearchResult()
-		{}
+		{
+            isSuccess = true;
+        }
 
 		public GrepSearchResult(string file, List<GrepLine> results)
-		{
-			fileName = file;
-			searchResults = results;
+            : this (file, results, true)
+		{			
 		}
+
+        public GrepSearchResult(string file, List<GrepLine> results, bool success)
+        {
+            fileName = file;
+            searchResults = results;
+            isSuccess = success;
+        }
 
 		private string fileName;
 
@@ -58,6 +66,13 @@ namespace dnGREP.Common
 		{
 			get { return searchResults; }
 		}
+
+        private bool isSuccess;
+
+        public bool IsSuccess
+        {
+            get { return isSuccess; }
+        }
 
 		public class GrepLine : IComparable<GrepLine>, IComparable
 		{

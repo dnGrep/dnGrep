@@ -31,7 +31,7 @@ namespace dnGREP.Engines
 
         public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
         {
-            using (FileStream fileStream = File.OpenRead(file))
+            using (FileStream fileStream = File.Open(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
                 return Search(fileStream, file, searchPattern, searchType, searchOptions, encoding);
             }
@@ -70,8 +70,8 @@ namespace dnGREP.Engines
 		}
 
         public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
-        { 
-            using (FileStream readStream = File.OpenRead(sourceFile))
+        {
+            using (FileStream readStream = File.Open(sourceFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             using (FileStream writeStream = File.OpenWrite(destinationFile))
             {
                 return Replace(readStream, writeStream, searchPattern, replacePattern, searchType, searchOptions, encoding);
