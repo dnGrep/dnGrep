@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <DirectoryRef Id="PluginsDir">
+            <Component Id="cmp9AA615D7B3D8E1C7CD39A7167CE13C73" Guid="{56CB4A0B-BCC9-4ADC-AFA8-7E784DDC6D3C}">
+                <File Id="filA603535621206AF9D1DB6CF622F03212" KeyPath="yes" Source="!(wix.SourcePathPdf)\dnGREP.Engines.Pdf.plugin" />
+            </Component>
+            <Directory Id="dirCE1CC9AAB64D16350BEA4FBEF0D45B49" Name="PdfSearch">
+                <Component Id="cmp54DC03A64A74833C6043B9D448415B5E" Guid="{9E4E8F7F-70CB-4AB7-B467-EFC21A9FCEAF}">
+                    <File Id="filBAB3D018AF131200B4A2C23ACBCA5D3D" KeyPath="yes" Source="!(wix.SourcePathPdf)\PdfSearch\dnGREP.Engines.Pdf.dll" />
+                </Component>
+                <Component Id="cmpE05358140C2247E23DD78CDE997F385A" Guid="{AED08456-AEA0-4C1C-AA6F-98A947D0E6F1}">
+                    <File Id="fil807448C27E80D4FD0AA41A0D63C1C0B2" KeyPath="yes" Source="!(wix.SourcePathPdf)\PdfSearch\pdftotext.exe" />
+                </Component>
+            </Directory>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <ComponentGroup Id="dnGREPPluginFilesPdf">
+            <ComponentRef Id="cmp9AA615D7B3D8E1C7CD39A7167CE13C73" />
+            <ComponentRef Id="cmp54DC03A64A74833C6043B9D448415B5E" />
+            <ComponentRef Id="cmpE05358140C2247E23DD78CDE997F385A" />
+        </ComponentGroup>
+    </Fragment>
+</Wix>

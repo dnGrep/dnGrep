@@ -1,0 +1,4 @@
+"$(WIX)bin\heat.exe" dir "$(SourcePath)\Release\$(Platform)\dnGREP X.X.X (Standalone)" -cg dnGREPAppFiles -gg -scom -sreg -sfrag -srd -dr INSTALLDIR -out "$(ProjectDir)Fragments\AppFragment.wxs" -var wix.SourcePathApp
+"$(WIX)bin\heat.exe" dir "$(SourcePath)\Release\$(Platform)\dnGREP PDF Plugin X.X.X\Plugins" -cg dnGREPPluginFilesPdf -gg -scom -sreg -sfrag -srd -dr PluginsDir -out "$(ProjectDir)Fragments\PluginFragmentPdf.wxs" -var wix.SourcePathPdf
+"$(WIX)bin\heat.exe" dir "$(SourcePath)\Release\$(Platform)\dnGREP MsWord Plugin X.X.X\Plugins" -cg dnGREPPluginFilesWord -gg -scom -sreg -sfrag -srd -dr PluginsDir -out "$(ProjectDir)Fragments\PluginFragmentWord.wxs" -var wix.SourcePathWord
+"$(WIX)bin\heat.exe" dir "$(SourcePath)\Release\$(Platform)\dnGREP Archive Plugin X.X.X\Plugins" -cg dnGREPPluginFilesArchive -gg -scom -sreg -sfrag -srd -dr PluginsDir -out "$(ProjectDir)Fragments\PluginFragmentArchive.wxs" -var wix.SourcePathArchive
