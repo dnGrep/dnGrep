@@ -57,13 +57,17 @@ namespace dnGREP.WPF
             if (!isAdministrator)
             {
                 cbRegisterShell.IsEnabled = false;
+                cbRegisterStartup.IsEnabled = false;
                 cbRegisterShell.ToolTip = "To set shell integration run dnGREP as Administrator.";
-                grShell.ToolTip = "To set shell integration run dnGREP as Administrator.";
+                cbRegisterStartup.ToolTip = "To enable startup acceleration run dnGREP as Administrator.";
+                grShell.ToolTip = "To change shell integration and startup acceleration options run dnGREP as Administrator.";
             }
             else
             {
                 cbRegisterShell.IsEnabled = true;
+                cbRegisterStartup.IsEnabled = true;
                 cbRegisterShell.ToolTip = "Shell integration enables running an application from shell context menu.";
+                cbRegisterStartup.ToolTip = "Startup acceleration loads application libraries on machine start to improve application startup time.";
                 grShell.ToolTip = "Shell integration enables running an application from shell context menu.";
             }
 
@@ -227,6 +231,58 @@ namespace dnGREP.WPF
             }
         }
 
+        private bool isStartupRegistered()
+        {
+            if (!isAdministrator)
+                return false;
+
+            string regPath = @"Software\Microsoft\Windows\CurrentVersion\Run";
+            try
+            {
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(regPath))
+                {
+                    return key.GetValue(SHELL_KEY_NAME) != null;
+                }
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                isAdministrator = false;
+                return false;
+            }
+        }
+
+        private void startupRegister()
+        {
+            if (!isAdministrator)
+                return;
+
+            if (!isStartupRegistered())
+            {
+                string regPath = @"Software\Microsoft\Windows\CurrentVersion\Run";
+
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(regPath, true))
+                {
+                    key.SetValue(SHELL_KEY_NAME, string.Format("\"{0}\" /warmUp", Assembly.GetAssembly(typeof(OptionsForm)).Location), RegistryValueKind.ExpandString);
+                }
+            }
+        }
+
+        private void startupUnregister()
+        {
+            if (!isAdministrator)
+                return;
+
+            if (isStartupRegistered())
+            {
+                string regPath = @"Software\Microsoft\Windows\CurrentVersion\Run";
+
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(regPath, true))
+                {
+                    key.DeleteValue(SHELL_KEY_NAME);
+                }
+            }
+        }
+
         private void checkIfAdmin()
         {
 			try
@@ -253,6 +309,7 @@ namespace dnGREP.WPF
         {
             checkIfAdmin();
             cbRegisterShell.IsChecked = isShellRegistered("Directory");
+            cbRegisterStartup.IsChecked = isStartupRegistered();
             cbCheckForUpdates.IsChecked = settings.Get<bool>(GrepSettings.Key.EnableUpdateChecking);
 			cbShowPath.IsChecked = settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults);
 			cbShowContext.IsChecked = settings.Get<bool>(GrepSettings.Key.ShowLinesInContext);
@@ -284,6 +341,18 @@ namespace dnGREP.WPF
                 shellUnregister("Drive");
                 shellUnregister("*");
                 shellUnregister("here");
+            }
+        }
+
+        private void cbRegisterStartup_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (cbRegisterStartup.IsChecked == true)
+            {
+                startupRegister();
+            }
+            else if (!cbRegisterStartup.IsChecked == true)
+            {
+                startupUnregister();
             }
         }
 

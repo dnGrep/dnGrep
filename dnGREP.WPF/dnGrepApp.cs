@@ -28,25 +28,35 @@ namespace dnGREP.WPF
             base.OnStartup(e);
             Utils.DeleteTempFolder();
             MainForm = new MainForm();
-            ProcessArgs(e.Args, true);
+            ProcessArgs(e.Args);
         }
 
-        public void ProcessArgs(string[] args, bool firstInstance)
+        public void ProcessArgs(string[] args)
         {
             //Process Command Line Arguments Here
-            if (!firstInstance || !(args != null && args.Length > 0 && args[0] == "/hidden"))
+            if (args != null && args.Length > 0)
             {
-                if (args != null && args.Length > 0)
+                string searchPath = args[0];
+
+                if (searchPath == "/warmUp")
                 {
-                    string searchPath = args[0];
-                    if (searchPath.EndsWith(":\""))
-                        searchPath = searchPath.Substring(0, searchPath.Length - 1) + "\\";
-                    GrepSettings.Instance.Set<string>(GrepSettings.Key.SearchFolder, searchPath);
-                    MainForm.UpdateState();
+                    MainWindow.Visibility = Visibility.Hidden;
+                    MainWindow.ShowInTaskbar = false;
+                    MainWindow.Loaded += new RoutedEventHandler(MainWindow_Loaded);
                 }
-                MainForm.Show();
-                MainForm.Activate();
+
+                if (searchPath.EndsWith(":\""))
+                    searchPath = searchPath.Substring(0, searchPath.Length - 1) + "\\";
+                GrepSettings.Instance.Set<string>(GrepSettings.Key.SearchFolder, searchPath);
+                MainForm.UpdateState();
             }
+            //MainForm.Show();
+            MainForm.Activate();
+        }
+
+        void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            MainForm.Close();
         }
 
         protected override void OnExit(ExitEventArgs e)

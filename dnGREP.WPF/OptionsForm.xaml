@@ -20,8 +20,11 @@
                     </WrapPanel>
                 </TabItem.Header>
                 <StackPanel>
-                    <GroupBox Header="Shell integration" Name="grShell">
-                        <CheckBox Margin="3" Name="cbRegisterShell" Checked="cbRegisterShell_CheckedChanged" Unchecked="cbRegisterShell_CheckedChanged">Enable Windows Explorer integration</CheckBox>
+                    <GroupBox Header="Startup options" Name="grShell">
+                        <WrapPanel Orientation="Vertical">
+                            <CheckBox Margin="3" Name="cbRegisterShell" Checked="cbRegisterShell_CheckedChanged" Unchecked="cbRegisterShell_CheckedChanged">Enable Windows Explorer integration</CheckBox>
+                            <CheckBox Margin="3" Name="cbRegisterStartup" Checked="cbRegisterStartup_CheckedChanged" Unchecked="cbRegisterStartup_CheckedChanged">Enable startup accelerator</CheckBox>
+                        </WrapPanel>
                     </GroupBox>
                     <GroupBox Header="Checking for updates">
                         <WrapPanel>

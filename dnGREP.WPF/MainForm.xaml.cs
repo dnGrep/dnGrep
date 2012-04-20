@@ -21,6 +21,8 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using dnGREP.Common.UI;
 using System.Text.RegularExpressions;
+using System.Runtime.InteropServices;
+using System.Windows.Interop;
 
 namespace dnGREP.WPF
 {
@@ -39,6 +41,7 @@ namespace dnGREP.WPF
 		private BookmarksForm bookmarkForm;
         private System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
         private System.Windows.Forms.HelpProvider helpProvider = new System.Windows.Forms.HelpProvider();
+        private bool isVisible;
 		public GrepSettings settings
 		{
 			get { return GrepSettings.Instance; }
@@ -89,6 +92,43 @@ namespace dnGREP.WPF
 		}
 		#endregion
 
+        public MainForm()
+            : this (true)
+        {            
+        }
+
+        public MainForm(bool isVisible)
+        {
+            InitializeComponent();
+            this.DataContext = inputData;
+            tvSearchResult.ItemsSource = inputData.SearchResults;
+            this.isVisible = isVisible;
+        }
+
+        [DllImport("user32.dll")]
+        static extern IntPtr SetParent(IntPtr hwnd, IntPtr hwndNewParent);
+
+        private const int HWND_MESSAGE = -3;
+
+        private IntPtr hwnd;
+        private IntPtr oldParent;
+
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+            if (!isVisible)
+            {
+                HwndSource hwndSource = PresentationSource.FromVisual(this) as HwndSource;
+
+                if (hwndSource != null)
+                {
+                    hwnd = hwndSource.Handle;
+                    oldParent = SetParent(hwnd, (IntPtr)HWND_MESSAGE);
+                    Visibility = Visibility.Hidden;
+                }
+            }
+        }
+
         public void UpdateState()
         {
             inputData.LoadAppSettings();
@@ -131,13 +171,6 @@ namespace dnGREP.WPF
 			cbEncoding.DisplayMemberPath = "Key";
 			cbEncoding.SelectedValuePath = "Value";
 			cbEncoding.SelectedIndex = 0;
-		}
-
-		public MainForm()
-		{
-			InitializeComponent();
-			this.DataContext = inputData;
-			tvSearchResult.ItemsSource = inputData.SearchResults;
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)

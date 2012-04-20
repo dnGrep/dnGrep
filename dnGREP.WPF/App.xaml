@@ -1,7 +1,7 @@
 ﻿<Application x:Class="dnGREP.WPF.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    StartupUri="MainForm.xaml" Exit="Application_Exit" Startup="Application_Startup" 
+    Exit="Application_Exit" Startup="Application_Startup" 
              DispatcherUnhandledException="Application_DispatcherUnhandledException">
     <Application.Resources>
         <ResourceDictionary>
