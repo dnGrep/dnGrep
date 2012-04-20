@@ -114,7 +114,12 @@ namespace dnGREP.WPF
             SizeFrom = settings.Get<int>(GrepSettings.Key.SizeFrom);
             SizeTo = settings.Get<int>(GrepSettings.Key.SizeTo);
             TextFormatting = settings.Get<TextFormattingMode>(GrepSettings.Key.TextFormatting);
-			IsOptionsExpanded = settings.Get<bool>(GrepSettings.Key.IsOptionsExpanded);			
+            IsOptionsExpanded = settings.Get<bool>(GrepSettings.Key.IsOptionsExpanded);
+            WindowHeight = settings.Get<int>(GrepSettings.Key.WindowHeight);
+            WindowWidth = settings.Get<int>(GrepSettings.Key.WindowWidth);
+            WindowLeft = settings.Get<int>(GrepSettings.Key.WindowLeft);
+            WindowTop = settings.Get<int>(GrepSettings.Key.WindowTop);
+            WindowState = settings.Get<WindowState>(GrepSettings.Key.WindowState);
         }
 
 		private ObservableGrepSearchResults searchResults = new ObservableGrepSearchResults();
@@ -579,14 +584,84 @@ namespace dnGREP.WPF
 		}
 
 		private string _WindowTitle = "dnGREP";
+
 		/// <summary>
-		/// OptionsSummary property
+        /// WindowTitle property
 		/// </summary>
 		public string WindowTitle
 		{
 			get { return _WindowTitle; }
 			set { _WindowTitle = value; UpdateState("WindowTitle"); }
 		}
+
+        private int _WindowWidth = 487;
+        /// <summary>
+        /// WindowWidth property
+        /// </summary>
+        public int WindowWidth
+        {
+            get { return _WindowWidth; }
+            set { 
+                _WindowWidth = value;
+                settings.Set<int>(GrepSettings.Key.WindowWidth, value); 
+                UpdateState("WindowWidth");
+            }
+        }
+
+        private int _WindowHeight = 501;
+        /// <summary>
+        /// WindowWidth property
+        /// </summary>
+        public int WindowHeight
+        {
+            get { return _WindowHeight; }
+            set { 
+                _WindowHeight = value;
+                settings.Set<int>(GrepSettings.Key.WindowHeight, value); 
+                UpdateState("WindowHeight");
+            }
+        }
+
+        private int _WindowLeft = 300;
+        /// <summary>
+        /// WindowLeft property
+        /// </summary>
+        public int WindowLeft
+        {
+            get { return _WindowLeft; }
+            set { 
+                _WindowLeft = value;
+                settings.Set<int>(GrepSettings.Key.WindowLeft, value); 
+                UpdateState("WindowLeft"); }
+        }
+
+        private int _WindowTop = 300;
+        /// <summary>
+        /// WindowTop property
+        /// </summary>
+        public int WindowTop
+        {
+            get { return _WindowTop; }
+            set { 
+                _WindowTop = value;
+                settings.Set<int>(GrepSettings.Key.WindowTop, value); 
+                UpdateState("WindowTop");
+            }
+        }
+
+        private WindowState _WindowState = WindowState.Normal;
+        /// <summary>
+        /// WindowState property
+        /// </summary>
+        public WindowState WindowState
+        {
+            get { return _WindowState; }
+            set { 
+                _WindowState = value;
+                settings.Set<WindowState>(GrepSettings.Key.WindowState, value); 
+                UpdateState("WindowState");
+            }
+        }
 
 		private string _TextBoxStyle = "";
 		/// <summary>

@@ -58,6 +58,11 @@ namespace dnGREP.Common
 			public const string FastFileNotMatchBookmarks = "FastFileNotMatchBookmarks";
 			public const string FastPathBookmarks = "FastPathBookmarks";
             public const string TextFormatting = "TextFormatting";
+            public const string WindowWidth = "WindowWidth";
+            public const string WindowHeight = "WindowHeight";
+            public const string WindowTop = "WindowTop";
+            public const string WindowLeft = "WindowLeft";
+            public const string WindowState = "WindowState";
         }		
 		
 		private static GrepSettings instance;
