@@ -115,6 +115,8 @@ namespace dnGREP.WPF
             SizeTo = settings.Get<int>(GrepSettings.Key.SizeTo);
             TextFormatting = settings.Get<TextFormattingMode>(GrepSettings.Key.TextFormatting);
             IsOptionsExpanded = settings.Get<bool>(GrepSettings.Key.IsOptionsExpanded);
+            IsFiltersExpanded = settings.Get<bool>(GrepSettings.Key.IsFiltersExpanded);
+            FileFilters = settings.Get<bool>(GrepSettings.Key.FileFilters);
             WindowHeight = settings.Get<int>(GrepSettings.Key.WindowHeight);
             WindowWidth = settings.Get<int>(GrepSettings.Key.WindowWidth);
             WindowLeft = settings.Get<int>(GrepSettings.Key.WindowLeft);
@@ -218,9 +220,39 @@ namespace dnGREP.WPF
 			}
 		}
 
+        private bool _IsFiltersExpanded = false;
+        /// <summary>
+        /// IsFiltersExpanded property
+        /// </summary>
+        public bool IsFiltersExpanded
+        {
+            get { return _IsFiltersExpanded; }
+            set
+            {
+                _IsFiltersExpanded = value;
+                settings.Set<bool>(GrepSettings.Key.IsFiltersExpanded, value);
+                UpdateState("IsFiltersExpanded");
+            }
+        }
+
+        private bool _FileFilters = false;
+        /// <summary>
+        /// FileFilters property
+        /// </summary>
+        public bool FileFilters
+        {
+            get { return _FileFilters; }
+            set
+            {
+                _FileFilters = value;
+                settings.Set<bool>(GrepSettings.Key.FileFilters, value);
+                UpdateState("FileFilters");
+            }
+        }
+
         private TextFormattingMode _TextFormatting = TextFormattingMode.Display;
         /// <summary>
-        /// IsOptionsExpanded property
+        /// TextFormattingMode property
         /// </summary>
         public TextFormattingMode TextFormatting
         {
@@ -583,6 +615,16 @@ namespace dnGREP.WPF
 			set { _OptionsSummary = value; UpdateState("OptionsSummary"); }
 		}
 
+        private string _FileFiltersSummary = "";
+        /// <summary>
+        /// FileFiltersSummary property
+        /// </summary>
+        public string FileFiltersSummary
+        {
+            get { return _FileFiltersSummary; }
+            set { _FileFiltersSummary = value; UpdateState("FileFiltersSummary"); }
+        }
+
 		private string _WindowTitle = "dnGREP";
 
 		/// <summary>
@@ -710,16 +752,6 @@ namespace dnGREP.WPF
 
 			switch (name)
 			{
-				case "UseFileSizeFilter":
-					if (UseFileSizeFilter == FileSizeFilter.Yes)
-					{
-						IsSizeFilterSet = true;
-					}
-					else
-					{
-						IsSizeFilterSet = false;
-					}
-					break;
 				case "Initial":
 				case "Multiline":
 				case "Singleline":
@@ -756,6 +788,35 @@ namespace dnGREP.WPF
 						TextBoxStyle = "";
 					
 					break;
+                case "UseFileSizeFilter":
+                    if (UseFileSizeFilter == FileSizeFilter.Yes)
+                    {
+                        IsSizeFilterSet = true;
+                    }
+                    else
+                    {
+                        IsSizeFilterSet = false;
+                    }
+                    break;
+                case "FileFilters":
+                    if (FileFilters)
+                        FileFiltersSummary = "[Off]";
+                    else
+                        FileFiltersSummary = "[Custom]";
+
+                    // Set all properties to correspond to ON value
+                    if (FileFilters)
+                    {
+                        UseFileSizeFilter = FileSizeFilter.No;
+                        IncludeBinary = true;
+                        IncludeHidden = true;
+                        IncludeSubfolder = true;
+                        FilePattern = "*.*";
+                        FilePatternIgnore = "";
+                        TypeOfFileSearch = FileSearchType.Asterisk;
+                        CodePage = 0;
+                    }
+                    break;
 			}
 
             //Files found

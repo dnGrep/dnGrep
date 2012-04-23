@@ -145,12 +145,6 @@ namespace dnGREP.WPF
             this.saveFileDialog.Filter = "CSV file|*.csv";
             DiginesisHelpProvider.HelpNamespace = "Doc\\dnGREP.chm";
             DiginesisHelpProvider.ShowHelp = true;
-			double width = settings.Get<double>(GrepSettings.Key.MainFormWidth);
-			double height = settings.Get<double>(GrepSettings.Key.MainFormHeight);
-			if (width > 0)
-				Width = width;
-			if (height > 0)
-				Height = height;
         }
 
 		private void populateEncodings()
@@ -597,8 +591,6 @@ namespace dnGREP.WPF
 			GrepCore.CancelProcess = true;
 			if (workerSearchReplace.IsBusy)
 				workerSearchReplace.CancelAsync();
-			settings.Set<double>(GrepSettings.Key.MainFormWidth, Width);
-			settings.Set<double>(GrepSettings.Key.MainFormHeight, Height);
 			copyBookmarksToSettings();
 			settings.Save();
 		}

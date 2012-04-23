@@ -50,8 +50,8 @@ namespace dnGREP.Common
 			public const string ExpandResults = "ExpandResults";
 			public const string LastCheckedVersion = "LastCheckedVersion";
 			public const string IsOptionsExpanded = "IsOptionsExpanded";
-			public const string MainFormWidth = "MainForm.Width";
-			public const string MainFormHeight = "MainForm.Height";
+            public const string IsFiltersExpanded = "IsFiltersExpanded";
+            public const string FileFilters = "FileFilters";
 			public const string FastSearchBookmarks = "FastSearchBookmarks";
 			public const string FastReplaceBookmarks = "FastReplaceBookmarks";
 			public const string FastFileMatchBookmarks = "FastFileMatchBookmarks";
