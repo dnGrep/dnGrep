@@ -18,23 +18,31 @@ namespace dnGREP.WPF
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            Utils.DeleteTempFolder();
-            if (e.Args != null && e.Args.Length > 0)
+            try
             {
-				string searchPath = e.Args[0];
-                if (searchPath == "/warmUp")
+                Utils.DeleteTempFolder();
+                if (e.Args != null && e.Args.Length > 0)
                 {
-                    this.MainWindow = new MainForm(false);
-                    this.MainWindow.Loaded += new RoutedEventHandler(MainWindow_Loaded);
+                    string searchPath = e.Args[0];
+                    if (searchPath == "/warmUp")
+                    {
+                        this.MainWindow = new MainForm(false);
+                        this.MainWindow.Loaded += new RoutedEventHandler(MainWindow_Loaded);
+                    }
+                    if (searchPath.EndsWith(":\""))
+                        searchPath = searchPath.Substring(0, searchPath.Length - 1) + "\\";
+                    GrepSettings.Instance.Set<string>(GrepSettings.Key.SearchFolder, searchPath);
                 }
-				if (searchPath.EndsWith(":\""))
-					searchPath = searchPath.Substring(0, searchPath.Length - 1) + "\\";
-                GrepSettings.Instance.Set<string>(GrepSettings.Key.SearchFolder, searchPath);
-            }
-            if (this.MainWindow == null)
-                this.MainWindow = new MainForm();
+                if (this.MainWindow == null)
+                    this.MainWindow = new MainForm();
 
-            this.MainWindow.Show();            
+                this.MainWindow.Show();
+            }
+            catch (Exception ex)
+            {
+                logger.LogException(LogLevel.Error, ex.Message, ex);
+                MessageBox.Show("Something broke down in the program. See event log for details.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -43,11 +51,21 @@ namespace dnGREP.WPF
         }
         private void Application_Exit(object sender, ExitEventArgs e)
         {
-            Utils.DeleteTempFolder();
+            try
+            {
+                Utils.DeleteTempFolder();
+            }
+            catch (Exception ex)
+            {
+                logger.LogException(LogLevel.Error, ex.Message, ex);
+                MessageBox.Show("Something broke down in the program. See event log for details.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             logger.LogException(LogLevel.Error, e.Exception.Message, e.Exception);
+            MessageBox.Show("Something broke down in the program. See event log for details.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            e.Handled = true;
         }
     }
 }
