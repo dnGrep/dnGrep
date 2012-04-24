@@ -29,7 +29,8 @@ namespace dnGREP.Common
 			public const string FilePattern = "FilePattern";
 			public const string FilePatternIgnore = "FilePatternIgnore";
 			public const string UseFileSizeFilter = "UseFileSizeFilter";
-			public const string CaseSensitive = "CaseSensitive";
+            public const string CaseSensitive = "CaseSensitive";
+            public const string PreviewFileConent = "PreviewFileConent";
 			public const string Multiline = "Multiline";
 			public const string Singleline = "Singleline";
 			public const string WholeWord = "WholeWord";

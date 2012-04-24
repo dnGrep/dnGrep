@@ -1,0 +1,9 @@
+﻿<Window x:Class="dnGREP.WPF.Preview"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
+        Title="Preview" Height="415" Width="593" WindowStyle="ToolWindow" Closing="Window_Closing">
+    <DockPanel>
+        <ae:TextEditor Name="textEditor" FontFamily="Consolas" FontSize="12" ShowLineNumbers="True" />
+    </DockPanel>
+</Window>

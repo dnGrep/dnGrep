@@ -1,0 +1,85 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using ICSharpCode.AvalonEdit.Highlighting;
+using System.IO;
+using dnGREP.Common;
+using Blue.Windows;
+
+namespace dnGREP.WPF
+{
+    /// <summary>
+    /// Interaction logic for Preview.xaml
+    /// </summary>
+    public partial class Preview : Window
+    {
+        private int line;
+        private GrepSearchResult grepResult;
+        private string currentFile;
+        private bool forceClose = false;
+        private StickyWindow _stickyWindow;
+        
+        public Preview()
+        {
+            InitializeComponent();
+            textEditor.Loaded += new RoutedEventHandler(textEditor_Loaded);
+            this.Loaded += new RoutedEventHandler(window_Loaded);
+        }
+
+        void window_Loaded(object sender, RoutedEventArgs e)
+        {
+            _stickyWindow = new StickyWindow(this);
+            _stickyWindow.StickToScreen = true;
+            _stickyWindow.StickToOther = true;
+            _stickyWindow.StickOnResize = true;
+            _stickyWindow.StickOnMove = true;
+        }
+
+        void textEditor_Loaded(object sender, RoutedEventArgs e)
+        {
+            textEditor.ScrollTo(line, 0);
+        }
+
+        public void Show(string pathToFile, GrepSearchResult grepResult, int line)
+        {
+            this.grepResult = grepResult;
+            this.line = line;
+            if (pathToFile != currentFile)
+            {
+                currentFile = pathToFile;
+                textEditor.Load(pathToFile);
+                textEditor.TextArea.TextView.LineTransformers.Clear();
+                textEditor.SyntaxHighlighting = HighlightingManager.Instance.GetDefinitionByExtension(Path.GetExtension(pathToFile));                
+                textEditor.TextArea.TextView.LineTransformers.Add(new PreviewHighlighter(grepResult));
+            }
+            if (textEditor.IsLoaded)
+            {
+                textEditor.ScrollTo(line, 0);
+            }
+            this.Show();
+        }
+
+        public void ForceClose()
+        {
+            forceClose = true;
+            this.Close();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (!forceClose)
+            {
+                this.Hide();
+                e.Cancel = true;
+            }
+        }
+    }
+}

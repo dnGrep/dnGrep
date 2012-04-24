@@ -428,6 +428,21 @@ namespace dnGREP.WPF
 			}
 		}
 
+        private bool _PreviewFileConent = true;
+        /// <summary>
+        /// PreviewFileConent property
+        /// </summary>
+        public bool PreviewFileConent
+        {
+            get { return _PreviewFileConent; }
+            set
+            {
+                _PreviewFileConent = value;
+                settings.Set<bool>(GrepSettings.Key.PreviewFileConent, value);
+                UpdateState("PreviewFileConent");
+            }
+        }
+
 		private bool _IsCaseSensitiveEnabled = true;
 		/// <summary>
 		/// IsCaseSensitiveEnabled property

@@ -23,6 +23,7 @@ using dnGREP.Common.UI;
 using System.Text.RegularExpressions;
 using System.Runtime.InteropServices;
 using System.Windows.Interop;
+using Blue.Windows;
 
 namespace dnGREP.WPF
 {
@@ -42,6 +43,8 @@ namespace dnGREP.WPF
         private System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
         private System.Windows.Forms.HelpProvider helpProvider = new System.Windows.Forms.HelpProvider();
         private bool isVisible;
+        private Preview preview;
+        private StickyWindow _stickyWindow;
 		public GrepSettings settings
 		{
 			get { return GrepSettings.Instance; }
@@ -169,7 +172,13 @@ namespace dnGREP.WPF
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
-			winFormControlsInit();
+            _stickyWindow = new StickyWindow(this);
+            _stickyWindow.StickToScreen = true;
+            _stickyWindow.StickToOther = true;
+            _stickyWindow.StickOnResize = true;
+            _stickyWindow.StickOnMove = true;
+
+            winFormControlsInit();
 			populateEncodings();
 			ve.RetrievedVersion += new PublishedVersionExtractor.VersionExtractorHandler(ve_RetrievedVersion);
 			checkVersion();
@@ -593,6 +602,8 @@ namespace dnGREP.WPF
 				workerSearchReplace.CancelAsync();
 			copyBookmarksToSettings();
 			settings.Save();
+            if (preview != null)
+                preview.ForceClose();
 		}
 
 		private void copyBookmarksToSettings()
@@ -895,6 +906,40 @@ namespace dnGREP.WPF
                 btnOpenFile_Click(sender, new RoutedEventArgs(e.RoutedEvent));
             }
 		}
+
+        private void tvSearchResults_SelectedChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (inputData.PreviewFileConent)
+            {
+                if (tvSearchResult.SelectedItem is FormattedGrepLine || tvSearchResult.SelectedItem is FormattedGrepResult)
+                {
+                    int lineNumber = 0;
+                    FormattedGrepResult result = null;
+                    if (tvSearchResult.SelectedItem is FormattedGrepLine)
+                    {
+                        FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
+                        // Line was selected
+                        lineNumber = selectedNode.GrepLine.LineNumber;
+                        result = selectedNode.Parent;
+                    }
+                    else if (tvSearchResult.SelectedItem is FormattedGrepResult)
+                    {
+                        // File was selected
+                        result = (FormattedGrepResult)tvSearchResult.SelectedItem;
+                        lineNumber = 0;
+                    }
+
+                    if (preview == null)
+                    {
+                        preview = new Preview();
+                        preview.Height = this.ActualHeight;
+                        preview.Left = this.Left + this.ActualWidth;
+                        preview.Top = this.Top;
+                    }
+                    preview.Show(result.GrepResult.FileNameReal, result.GrepResult, lineNumber);
+                }
+            }
+        }
 
 		#region Tree right click events
 
