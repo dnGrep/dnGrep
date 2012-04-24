@@ -863,6 +863,13 @@ namespace dnGREP.WPF
 				}
 			}
 
+            //Set all files if FileOrFolderPath is a file
+            if (name == "FileOrFolderPath")
+            {
+                if (System.IO.File.Exists(FileOrFolderPath))
+                    FileFilters = true;
+            }
+
 			//btnSearch.ShowAdvance
 			if (name == "CurrentGrepOperation" || name == "Initial")
 			{
