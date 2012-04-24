@@ -55,10 +55,22 @@ namespace dnGREP.WPF
             if (pathToFile != currentFile)
             {
                 currentFile = pathToFile;
-                textEditor.Load(pathToFile);
                 textEditor.TextArea.TextView.LineTransformers.Clear();
-                textEditor.SyntaxHighlighting = HighlightingManager.Instance.GetDefinitionByExtension(Path.GetExtension(pathToFile));                
-                textEditor.TextArea.TextView.LineTransformers.Add(new PreviewHighlighter(grepResult));
+                textEditor.SyntaxHighlighting = HighlightingManager.Instance.GetDefinitionByExtension("txt");
+
+                var fileInfo = new FileInfo(pathToFile);
+                // Do not preview files over 1MB or binary
+                if (fileInfo.Length > 1024000 ||
+                    Utils.IsBinary(pathToFile))
+                {
+                    textEditor.Text = "Unabled to preview this file";
+                }
+                else
+                {
+                    textEditor.Load(pathToFile);
+                    textEditor.SyntaxHighlighting = HighlightingManager.Instance.GetDefinitionByExtension(Path.GetExtension(pathToFile));
+                    textEditor.TextArea.TextView.LineTransformers.Add(new PreviewHighlighter(grepResult));
+                }
             }
             if (textEditor.IsLoaded)
             {

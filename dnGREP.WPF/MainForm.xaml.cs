@@ -1208,5 +1208,30 @@ namespace dnGREP.WPF
 			}
 		}
 		#endregion
+
+        private void cbMultiline_Unchecked(object sender, RoutedEventArgs e)
+        {
+            gridMain.RowDefinitions[1].Height = new GridLength(1, GridUnitType.Auto);
+            gridMain.RowDefinitions[3].Height = new GridLength(1, GridUnitType.Star);
+        }
+
+        private void Window_Activated(object sender, EventArgs e)
+        {
+            if (preview != null && preview.IsVisible)
+            {
+                preview.Topmost = true;  // important
+                preview.Topmost = false; // important
+                preview.Focus();         // important
+            }
+        }
+
+        private void Window_StateChanged(object sender, EventArgs e)
+        {
+            if (preview != null && preview.IsVisible)
+            {
+                if (this.WindowState != System.Windows.WindowState.Maximized)
+                    preview.WindowState = this.WindowState;
+            }
+        }
 	}
 }

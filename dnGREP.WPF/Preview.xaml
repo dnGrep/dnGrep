@@ -2,8 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
-        Title="Preview" Height="415" Width="593" WindowStyle="ToolWindow" Closing="Window_Closing">
+        Title="Preview" Height="415" Width="593" WindowStyle="ToolWindow" Closing="Window_Closing" ShowInTaskbar="False">
     <DockPanel>
-        <ae:TextEditor Name="textEditor" FontFamily="Consolas" FontSize="12" ShowLineNumbers="True" />
+        <ae:TextEditor Name="textEditor" FontFamily="Consolas" FontSize="12" ShowLineNumbers="True" IsReadOnly="True" />
     </DockPanel>
 </Window>
