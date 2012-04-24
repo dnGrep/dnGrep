@@ -337,7 +337,7 @@
 						    Width="43" 
 						    VerticalAlignment="Top" 
 						    HorizontalAlignment="Left"  
-						    Margin="3" IsEnabled="{Binding Path=CanReplace}" Click="btnOtherActions_Click" TabIndex="52">
+						    Margin="3" IsEnabled="{Binding Path=CanSearchInResults}" Click="btnOtherActions_Click" TabIndex="52">
                         <MenuItem Name="copyFilesToolStripMenuItem" Header="Copy files..." Style="{StaticResource DefaultStyle}" Click="copyFilesToolStripMenuItem_Click"/>
                         <MenuItem Name="moveFilesToolStripMenuItem" Header="Move files..." Style="{StaticResource DefaultStyle}" Click="moveFilesToolStripMenuItem_Click"/>
                         <MenuItem Name="deleteFilesToolStripMenuItem" Header="Delete files..." Style="{StaticResource DefaultStyle}" Click="deleteFilesToolStripMenuItem_Click"/>

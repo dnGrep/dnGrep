@@ -22,6 +22,8 @@ namespace dnGREP.WPF
         {
             int lineStartOffset = line.Offset;
             string text = CurrentContext.Document.GetText(line);
+            if (result.SearchResults == null)
+                return;
 
             var lineResult = result.SearchResults.Find(sr => sr.LineNumber == line.LineNumber);
 

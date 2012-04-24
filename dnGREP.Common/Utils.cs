@@ -124,11 +124,18 @@ namespace dnGREP.Common
 			sb.AppendLine("File Name,Line Number,String");
 			foreach (GrepSearchResult result in source)
 			{
-				foreach (GrepSearchResult.GrepLine line in result.SearchResults)
-				{
-					if (!line.IsContext)
-						sb.AppendLine("\"" + result.FileNameDisplayed + "\"," + line.LineNumber + ",\"" + line.LineText.Replace("\"", "\"\"") + "\"");
-				}
+                if (result.SearchResults == null)
+                {
+                    sb.AppendLine("\"" + result.FileNameDisplayed + "\"");
+                }
+                else
+                {
+                    foreach (GrepSearchResult.GrepLine line in result.SearchResults)
+                    {
+                        if (!line.IsContext)
+                            sb.AppendLine("\"" + result.FileNameDisplayed + "\"," + line.LineNumber + ",\"" + line.LineText.Replace("\"", "\"\"") + "\"");
+                    }
+                }
 			}
 			File.WriteAllText(destinationPath, sb.ToString());
 		}
