@@ -764,7 +764,7 @@ namespace dnGREP.WPF
 		public virtual void UpdateState(string name)
 		{
 			OnPropertyChanged(name);
-
+            List<string> tempList = null;
 			switch (name)
 			{
 				case "Initial":
@@ -772,7 +772,7 @@ namespace dnGREP.WPF
 				case "Singleline":
 				case "WholeWord":
 				case "CaseSensitive":
-					List<string> tempList = new List<string>();
+					tempList = new List<string>();
 					if (CaseSensitive)
 						tempList.Add("Case sensitive");
 					if (Multiline)
@@ -814,11 +814,6 @@ namespace dnGREP.WPF
                     }
                     break;
                 case "FileFilters":
-                    if (FileFilters)
-                        FileFiltersSummary = "[Off]";
-                    else
-                        FileFiltersSummary = "[Custom]";
-
                     // Set all properties to correspond to ON value
                     if (FileFilters)
                     {
@@ -833,6 +828,39 @@ namespace dnGREP.WPF
                     }
                     break;
 			}
+
+            if (name == "FileFilters" || name == "FilePattern" || name == "IncludeSubfolder" ||
+                name == "IncludeHidden" || name == "IncludeBinary" || name == "UseFileSizeFilter")
+            {
+                if (FileFilters)
+                    FileFiltersSummary = "[Off]";
+                else
+                {
+                    tempList = new List<string>();
+                    if (FilePattern != "*.*")
+                        tempList.Add(FilePattern);
+                    if (!IncludeSubfolder)
+                        tempList.Add("No subfolders");
+                    if (!IncludeHidden)
+                        tempList.Add("No hidden");
+                    if (!IncludeBinary)
+                        tempList.Add("No binary");
+                    if (UseFileSizeFilter == FileSizeFilter.Yes)
+                        tempList.Add("Size");
+                    FileFiltersSummary = "[";
+                    if (tempList.Count > 0)
+                    {
+                        for (int i = 0; i < tempList.Count; i++)
+                        {
+                            FileFiltersSummary += tempList[i];
+                            if (i < tempList.Count - 1)
+                                FileFiltersSummary += ", ";
+                        }
+                    }
+
+                    FileFiltersSummary += "]";
+                }
+            }
 
             //Files found
 			if (name == "FileOrFolderPath" || name == "SearchFor" || name == "FilePattern" || name == "FilePatternIgnore")

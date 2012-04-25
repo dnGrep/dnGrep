@@ -3,10 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:splitButton="clr-namespace:Wpf.Controls;assembly=Wpf.SplitButton"
     xmlns:my="clr-namespace:dnGREP.WPF"
-    Title="{Binding Path=WindowTitle}" Width="{Binding Path=WindowWidth, Mode=TwoWay}" 
-    Height="{Binding Path=WindowHeight, Mode=TwoWay}" MinHeight="460" 
-    Top="{Binding Path=WindowTop, Mode=TwoWay}" 
-    Left="{Binding Path=WindowLeft, Mode=TwoWay}" 
+    Title="{Binding Path=WindowTitle}" MinHeight="460"     
     WindowState="Normal" 
     MinWidth="500" Icon="/dnGREP;component/nGREP.ico" Closing="MainForm_Closing"
     Loaded="Window_Loaded" KeyDown="formKeyDown" Style="{StaticResource DefaultStyle}" 
@@ -322,7 +319,7 @@
                     <MenuItem Header="Open" Style="{StaticResource DefaultStyle}" Click="btnBookmarkOpen_Click"/>
                 </splitButton:SplitButton>
                 <StackPanel HorizontalAlignment="Right" Grid.Column="1" Orientation="Horizontal">
-                    <CheckBox IsChecked="{Binding Path=PreviewFileConent, Mode=TwoWay}" VerticalAlignment="Center" Margin="0 0 5 0" Name="cbPreviewFile">Preview file</CheckBox>
+                    <CheckBox IsChecked="{Binding Path=PreviewFileConent, Mode=TwoWay}" VerticalAlignment="Center" Margin="0 0 5 0" Name="cbPreviewFile" Unchecked="cbPreviewFile_Unchecked">Preview file</CheckBox>
                     <splitButton:SplitButton x:Name="btnSearch" Content="Search" IsEnabled="{Binding Path=CanSearch}"
                             Click="btnSearch_Click"
 						    Grid.Row="0" Grid.Column="0"
@@ -420,7 +417,6 @@
                         Handler="tvSearchResult_PreviewMouseMove"/>
                     <Setter Property="IsExpanded" Value="{Binding Path=IsExpanded, Mode=TwoWay}"/>
                     <Setter Property="FontSize" Value="12"/>
-                    <Setter Property="FontFamily" Value="Consolas"/>
                     <Setter Property="BorderThickness" Value="1.5"/>
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding Path=Style}" Value="Context">

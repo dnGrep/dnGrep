@@ -48,6 +48,14 @@ namespace dnGREP.WPF
             textEditor.ScrollTo(line, 0);
         }
 
+        public void ResetTextEditor()
+        {
+            currentFile = null;
+            textEditor.TextArea.TextView.LineTransformers.Clear();
+            textEditor.Text = "";
+            this.Hide();
+        }
+
         public void Show(string pathToFile, GrepSearchResult grepResult, int line)
         {
             this.grepResult = grepResult;

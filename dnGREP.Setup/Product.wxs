@@ -41,6 +41,8 @@
     <!-- Call DCAS Installer -->
     <CustomAction Id="PreventDowngrading" Error="Newer version of dnGREP is already installed." />
     <CustomAction Id="PreventReInstalling" Error="dnGREP version $(var.ProductVersion) is already installed." />
+    <CustomAction Id="RunWarmUp" Directory="INSTALLDIR" Execute="deferred" Impersonate="no"
+					  ExeCommand="&quot;[INSTALLDIR]dnGREP.exe&quot; /warmUp" Return="check"/>
     <!-- ===========================================================-->
 
     <Upgrade Id="4CF55558-B642-482E-9FBF-06EA5AEC8276">
@@ -154,6 +156,7 @@
       <Custom Action="PreventDowngrading" After="FindRelatedProducts">NEWERFOUND</Custom>
       <Custom Action="PreventReInstalling" After="FindRelatedProducts">SELFFOUND</Custom>
       <RemoveExistingProducts After="InstallInitialize"/>
+      <Custom Action="RunWarmUp" Before="InstallFinalize">NOT REMOVE</Custom>
     </InstallExecuteSequence>
 
     <InstallUISequence>

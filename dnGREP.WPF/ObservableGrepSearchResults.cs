@@ -319,6 +319,7 @@ namespace dnGREP.WPF
         private InlineCollection formatLine(GrepSearchResult.GrepLine line)
         {
             Paragraph paragraph = new Paragraph();
+            var font = new FontFamily("Consolas");
  
             if (line.Matches.Count == 0)
             {
@@ -337,9 +338,11 @@ namespace dnGREP.WPF
                     string fmtLine = fullLine.Substring(m.StartLocation, m.Length);
 
                     Run regularRun = new Run(regLine);
+                    regularRun.FontFamily = font;
                     paragraph.Inlines.Add(regularRun);
 
                     Run highlightedRun = new Run(fmtLine);
+                    highlightedRun.FontFamily = font;
                     highlightedRun.Background = Brushes.Yellow;
                     paragraph.Inlines.Add(highlightedRun);
 
@@ -349,6 +352,7 @@ namespace dnGREP.WPF
                 {
                     string regLine = fullLine.Substring(counter);
                     Run regularRun = new Run(regLine);
+                    regularRun.FontFamily = font;
                     paragraph.Inlines.Add(regularRun);
                 }
             }

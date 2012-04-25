@@ -177,12 +177,18 @@ namespace dnGREP.WPF
             _stickyWindow.StickToOther = true;
             _stickyWindow.StickOnResize = true;
             _stickyWindow.StickOnMove = true;
+            this.Width = inputData.WindowWidth;
+            this.Height = inputData.WindowHeight;
+            this.Top = inputData.WindowTop;
+            this.Left = inputData.WindowLeft;
 
             winFormControlsInit();
 			populateEncodings();
 			ve.RetrievedVersion += new PublishedVersionExtractor.VersionExtractorHandler(ve_RetrievedVersion);
 			checkVersion();
 			inputData.UpdateState("");
+            gridMain.RowDefinitions[1].Height = new GridLength(1, GridUnitType.Auto);
+            gridMain.RowDefinitions[3].Height = new GridLength(1, GridUnitType.Star);
 		}
 
 		void bookmarkForm_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -227,6 +233,8 @@ namespace dnGREP.WPF
 			{
 				inputData.CurrentGrepOperation = GrepOperation.Search;
 				lblStatus.Text = "Searching...";
+                if (preview != null)
+                    preview.ResetTextEditor();
 				barProgressBar.Value = 0;
 				inputData.SearchResults.Clear();
                 Dictionary<string, object> workerParames = new Dictionary<string, object>();
@@ -260,6 +268,8 @@ namespace dnGREP.WPF
 			{
 				inputData.CurrentGrepOperation = GrepOperation.SearchInResults;
 				lblStatus.Text = "Searching...";
+                if (preview != null)
+                    preview.ResetTextEditor();
 				barProgressBar.Value = 0;
                 List<string> foundFiles = new List<string>();
                 foreach (FormattedGrepResult n in inputData.SearchResults) foundFiles.Add(n.GrepResult.FileNameReal);
@@ -311,6 +321,8 @@ namespace dnGREP.WPF
 						return;
 				}
 				lblStatus.Text = "Replacing...";
+                if (preview != null)
+                    preview.ResetTextEditor();
 				inputData.CurrentGrepOperation = GrepOperation.Replace;
 				inputData.CanUndo = false;
 				inputData.UndoFolder = Utils.GetBaseFolder(tbFolderName.Text);
@@ -601,6 +613,10 @@ namespace dnGREP.WPF
 			if (workerSearchReplace.IsBusy)
 				workerSearchReplace.CancelAsync();
 			copyBookmarksToSettings();
+            inputData.WindowWidth = (int)this.ActualWidth;
+            inputData.WindowHeight = (int)this.ActualHeight;
+            inputData.WindowTop = (int)this.Top;
+            inputData.WindowLeft = (int)this.Left;
 			settings.Save();
             if (preview != null)
                 preview.ForceClose();
@@ -1232,6 +1248,12 @@ namespace dnGREP.WPF
                 if (this.WindowState != System.Windows.WindowState.Maximized)
                     preview.WindowState = this.WindowState;
             }
+        }
+
+        private void cbPreviewFile_Unchecked(object sender, RoutedEventArgs e)
+        {
+            if (preview != null)
+                preview.Hide();
         }
 	}
 }

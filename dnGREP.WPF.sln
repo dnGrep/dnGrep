@@ -22,6 +22,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{177DCA75-DAA1-4097-A3AB-EF944566600D}"
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "dnGREP.Setup", "dnGREP.Setup\dnGREP.Setup.wixproj", "{9A5EE640-E3EE-4985-BD96-64B63A1B0062}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CBC7AEC0-59FF-4050-B02D-ADB15359CED4} = {CBC7AEC0-59FF-4050-B02D-ADB15359CED4}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
