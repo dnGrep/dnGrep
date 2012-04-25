@@ -307,7 +307,7 @@
             <Grid Grid.Row="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="97" />
-                    <ColumnDefinition Width="381" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <splitButton:SplitButton x:Name="btnBookmark" Content="Bookmark"
 						Grid.Row="0" Grid.Column="0"
