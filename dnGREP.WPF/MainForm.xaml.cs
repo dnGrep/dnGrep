@@ -617,9 +617,12 @@ namespace dnGREP.WPF
             inputData.WindowHeight = (int)this.ActualHeight;
             inputData.WindowTop = (int)this.Top;
             inputData.WindowLeft = (int)this.Left;
-			settings.Save();
             if (preview != null)
+            {
+                GrepSettings.Instance.Set(GrepSettings.Key.PreviewWindowWidth, preview.ActualWidth);
                 preview.ForceClose();
+            }
+            settings.Save();
 		}
 
 		private void copyBookmarksToSettings()
@@ -950,6 +953,7 @@ namespace dnGREP.WPF
                         preview = new Preview();
                         preview.Height = this.ActualHeight;
                         preview.Left = this.Left + this.ActualWidth;
+                        preview.Width = settings.Get<int>(GrepSettings.Key.PreviewWindowWidth);
                         preview.Top = this.Top;
                     }
                     preview.Show(result.GrepResult.FileNameReal, result.GrepResult, lineNumber);

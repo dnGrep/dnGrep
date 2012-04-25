@@ -65,6 +65,8 @@ namespace dnGREP.Common
 			public const string UpdateCheckInterval = "UpdateCheckInterval";
             [DefaultValue(true)]
 			public const string PreviewResults = "PreviewResults";
+            [DefaultValue(400)]
+            public const string PreviewWindowWidth = "PreviewWindowWidth";
 			public const string ExpandResults = "ExpandResults";
 			public const string LastCheckedVersion = "LastCheckedVersion";
             [DefaultValue(true)]
