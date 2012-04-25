@@ -87,6 +87,13 @@ namespace Tests
 			Assert.AreEqual(lines.Count, 2);
 		}
 
+        [Test]
+        public void TestDefaultSettings()
+        {
+            var type = GrepSettings.Instance.Get<SearchType>(GrepSettings.Key.TypeOfSearch);
+            Assert.AreEqual<SearchType>(type, SearchType.Regex);
+        }
+
 		[Test]
 		[Row("hello\rworld", "hello\r\nworld")]
 		[Row("hello\nworld", "hello\r\nworld")]

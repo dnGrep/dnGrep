@@ -8,6 +8,8 @@ using System.Xml.Serialization;
 using System.Xml;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.ComponentModel;
+using System.Reflection;
 
 namespace dnGREP.Common
 {
@@ -21,13 +23,20 @@ namespace dnGREP.Common
 			public const string SearchFolder = "SearchFolder";
 			public const string SearchFor = "SearchFor";
 			public const string ReplaceWith = "ReplaceWith";
+            [DefaultValue(true)]
 			public const string IncludeHidden = "IncludeHidden";
+            [DefaultValue(true)]
 			public const string IncludeBinary = "IncludeBinary";
+            [DefaultValue(true)]
 			public const string IncludeSubfolder = "IncludeSubfolder";
+            [DefaultValue(SearchType.Regex)]
 			public const string TypeOfSearch = "TypeOfSearch";
+            [DefaultValue(FileSearchType.Asterisk)]
 			public const string TypeOfFileSearch = "TypeOfFileSearch";
+            [DefaultValue("*.*")]
 			public const string FilePattern = "FilePattern";
 			public const string FilePatternIgnore = "FilePatternIgnore";
+            [DefaultValue(FileSizeFilter.No)]
 			public const string UseFileSizeFilter = "UseFileSizeFilter";
             public const string CaseSensitive = "CaseSensitive";
             public const string PreviewFileConent = "PreviewFileConent";
@@ -35,22 +44,32 @@ namespace dnGREP.Common
 			public const string Singleline = "Singleline";
 			public const string WholeWord = "WholeWord";
 			public const string SizeFrom = "SizeFrom";
+            [DefaultValue(100)]
 			public const string SizeTo = "SizeTo";
 			public const string FuzzyMatchThreshold = "FuzzyMatchThreshold";
 			public const string ShowLinesInContext = "ShowLinesInContext";
+            [DefaultValue(2)]
 			public const string ContextLinesBefore = "ContextLinesBefore";
+            [DefaultValue(2)]
 			public const string ContextLinesAfter = "ContextLinesAfter";
+            [DefaultValue(true)]
 			public const string EnableUpdateChecking = "EnableUpdateChecking";
+            [DefaultValue(true)]
 			public const string ShowFilePathInResults = "ShowFilePathInResults";
+            [DefaultValue(true)]
 			public const string AllowSearchingForFileNamePattern = "AllowSearchingForFileNamePattern";
 			public const string UseCustomEditor = "UseCustomEditor";
 			public const string CustomEditor = "CustomEditor";
 			public const string CustomEditorArgs = "CustomEditorArgs";
+            [DefaultValue(10)]
 			public const string UpdateCheckInterval = "UpdateCheckInterval";
+            [DefaultValue(true)]
 			public const string PreviewResults = "PreviewResults";
 			public const string ExpandResults = "ExpandResults";
 			public const string LastCheckedVersion = "LastCheckedVersion";
+            [DefaultValue(true)]
 			public const string IsOptionsExpanded = "IsOptionsExpanded";
+            [DefaultValue(true)]
             public const string IsFiltersExpanded = "IsFiltersExpanded";
             public const string FileFilters = "FileFilters";
 			public const string FastSearchBookmarks = "FastSearchBookmarks";
@@ -60,8 +79,11 @@ namespace dnGREP.Common
 			public const string FastPathBookmarks = "FastPathBookmarks";
             public const string TextFormatting = "TextFormatting";
             public const string WindowWidth = "WindowWidth";
+            [DefaultValue(600)]
             public const string WindowHeight = "WindowHeight";
+            [DefaultValue(100)]
             public const string WindowTop = "WindowTop";
+            [DefaultValue(200)]
             public const string WindowLeft = "WindowLeft";
             public const string WindowState = "WindowState";
         }		
@@ -177,7 +199,7 @@ namespace dnGREP.Common
 			string value = this[key];
 
 			if (value == null)
-				return default(T);
+                return getDefaultValue<T>(key);
 
 			try
 			{
@@ -204,7 +226,7 @@ namespace dnGREP.Common
 			}
 			catch (Exception ex)
 			{
-				return default(T);
+                return getDefaultValue<T>(key);
 			}
 		}
 
@@ -242,7 +264,35 @@ namespace dnGREP.Common
 				this[key] = value.ToString();
 			}
 		}
+
+        private List<FieldInfo> constantKeys;
+        private T getDefaultValue<T>(string key) 
+        {
+            if (constantKeys == null)
+            {
+                constantKeys = new List<FieldInfo>();
+                FieldInfo[] thisObjectProperties = typeof(Key).GetFields();
+                foreach (FieldInfo fi in thisObjectProperties)
+                {
+                    if (fi.IsLiteral)
+                    {
+                        constantKeys.Add(fi);
+                    }
+                }
+            }
+            FieldInfo info = constantKeys.Find(fi => fi.Name == key);
+            if (info == null)
+                return default(T);
+
+            DefaultValueAttribute[] attr = info.GetCustomAttributes(typeof(DefaultValueAttribute), false) as DefaultValueAttribute[];
+            if (attr != null && attr.Length == 1)
+                return (T)attr[0].Value;
+
+            return default(T);
+        }
 	}
+
+    
 
 	/// <summary>
 	/// Serializable generic dictionary 

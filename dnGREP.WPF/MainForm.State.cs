@@ -848,7 +848,11 @@ namespace dnGREP.WPF
                     if (UseFileSizeFilter == FileSizeFilter.Yes)
                         tempList.Add("Size");
                     FileFiltersSummary = "[";
-                    if (tempList.Count > 0)
+                    if (tempList.Count == 0)
+                    {
+                        FileFiltersSummary = "[Off]";
+                    }
+                    else
                     {
                         for (int i = 0; i < tempList.Count; i++)
                         {
