@@ -117,6 +117,7 @@ namespace dnGREP.WPF
             IsOptionsExpanded = settings.Get<bool>(GrepSettings.Key.IsOptionsExpanded);
             IsFiltersExpanded = settings.Get<bool>(GrepSettings.Key.IsFiltersExpanded);
             FileFilters = settings.Get<bool>(GrepSettings.Key.FileFilters);
+            PreviewFileConent = settings.Get<bool>(GrepSettings.Key.PreviewFileConent);
             WindowHeight = settings.Get<int>(GrepSettings.Key.WindowHeight);
             WindowWidth = settings.Get<int>(GrepSettings.Key.WindowWidth);
             WindowLeft = settings.Get<int>(GrepSettings.Key.WindowLeft);
