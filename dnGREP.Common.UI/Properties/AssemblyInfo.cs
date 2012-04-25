@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("dnGREP.Common.UI")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("BAH")]
+[assembly: AssemblyCompany("Denis Stankovski")]
 [assembly: AssemblyProduct("dnGREP.Common.UI")]
-[assembly: AssemblyCopyright("Copyright © BAH 2010")]
+[assembly: AssemblyCopyright("Copyright, 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

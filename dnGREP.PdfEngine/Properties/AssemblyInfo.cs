@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("dnGREP.PdfEngine")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("BAH")]
+[assembly: AssemblyCompany("Denis Stankovski")]
 [assembly: AssemblyProduct("dnGREP.PdfEngine")]
-[assembly: AssemblyCopyright("Copyright © BAH 2009")]
+[assembly: AssemblyCopyright("Copyright, 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion("1.2.0.0")]
-[assembly: AssemblyFileVersion("1.2.0.0")]
+[assembly: AssemblyVersion("1.3.0.0")]
+[assembly: AssemblyFileVersion("1.3.0.0")]

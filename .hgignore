@@ -34,3 +34,4 @@ _ReSharper*/
 *.vsp
 Dependencies/SplitButton/*
 dnGREP.ArchiveEngine/7z.dll
+*.psess
