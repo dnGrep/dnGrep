@@ -59,7 +59,7 @@ namespace dnGREP.WPF
 				{
 					DateTime lastCheck = settings.Get<DateTime>(GrepSettings.Key.LastCheckedVersion);
 					TimeSpan duration = DateTime.Now.Subtract(lastCheck);
-					if (duration.TotalDays >= settings.Get<int>(GrepSettings.Key.UpdateCheckInterval));
+					if (duration.TotalDays >= settings.Get<int>(GrepSettings.Key.UpdateCheckInterval))
 					{
 						ve.StartWebRequest();
 						settings.Set<DateTime>(GrepSettings.Key.LastCheckedVersion, DateTime.Now);
