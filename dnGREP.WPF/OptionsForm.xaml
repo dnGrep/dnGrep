@@ -70,13 +70,6 @@
                 </TabItem.Header>
                 <StackPanel HorizontalAlignment="Stretch">
                     <CheckBox Name="cbShowPath" Margin="3" Checked="cbShowPath_CheckedChanged" Unchecked="cbShowPath_CheckedChanged">Show file path in results panel</CheckBox>
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="3" VerticalAlignment="Center" Name="cbShowContext" Checked="cbShowContext_CheckedChanged" Unchecked="cbShowContext_CheckedChanged">Show result lines in context</CheckBox>
-                        <TextBox Width="40" Name="tbLinesBefore"></TextBox>
-                        <Label VerticalAlignment="Center">before</Label>
-                        <TextBox Width="40" Name="tbLinesAfter"></TextBox>
-                        <Label VerticalAlignment="Center">after</Label>
-                    </StackPanel>
                     <CheckBox Margin="3" Name="cbSearchFileNameOnly">
                         <CheckBox.Content>
                             <TextBlock TextWrapping="Wrap">Allow searching for file name pattern only when "search for" is empty</TextBlock>

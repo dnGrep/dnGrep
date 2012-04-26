@@ -426,6 +426,42 @@ namespace Tests
         }
 
         [Test]
+        public void TestTextReaderReadLine()
+        {
+            string text = "Hello world" + Environment.NewLine + "My tests are good\nHow about \ryours?\n";
+            int lineNumber = 0;
+            using (StringReader reader = new StringReader(text))
+            {
+                while (reader.Peek() > 0)
+                {
+                    lineNumber++;
+                    var line = reader.ReadLine(true);
+                    if (lineNumber == 1)
+                        Assert.AreEqual("Hello world" + Environment.NewLine, line);
+                    if (lineNumber == 2)
+                        Assert.AreEqual("My tests are good\n", line);
+                    if (lineNumber == 3)
+                        Assert.AreEqual("How about \r", line);
+                    if (lineNumber == 4)
+                        Assert.AreEqual("yours?\n", line);
+                }
+            }
+            Assert.AreEqual(lineNumber, 4);
+            text = "Hello world";
+            lineNumber = 0;
+            using (StringReader reader = new StringReader(text))
+            {
+                while (reader.Peek() > 0)
+                {
+                    lineNumber++;
+                    var line = reader.ReadLine(true);
+                    Assert.AreEqual("Hello world", line);
+                }
+            }
+            Assert.AreEqual(lineNumber, 1);
+        }
+
+        [Test]
 		[Row(null,null,2)]
 		[Row("", "", 2)]
 		[Row(null, ".*\\.cs", 1)]
@@ -700,6 +736,21 @@ namespace Tests
             Assert.AreEqual(sourceFolder + "\\TestXXXX", result[1]);
             Assert.AreEqual(sourceFolder + "\\TestCase7\\Test;Fo;lder\\", result[2]);
             Assert.AreEqual(sourceFolder + "\\TestCase7\\Test,Folder\\", result[3]);
+        }
+
+        [Test]
+        public void TestTrimEndOfString()
+        {
+            string text = "test\r\n";
+            Assert.AreEqual("test", text.TrimEndOfLine());
+            text = "test\r";
+            Assert.AreEqual("test", text.TrimEndOfLine());
+            text = "test\n";
+            Assert.AreEqual("test", text.TrimEndOfLine());
+            text = "test";
+            Assert.AreEqual("test", text.TrimEndOfLine());
+            text = "";
+            Assert.AreEqual("", text.TrimEndOfLine());
         }
 	}
 }

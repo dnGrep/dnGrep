@@ -79,16 +79,6 @@ namespace dnGREP.WPF
             {
                 tbUpdateInterval.IsEnabled = false;
             }
-            if (settings.Get<bool>(GrepSettings.Key.ShowLinesInContext))
-            {
-                tbLinesAfter.IsEnabled = true;
-                tbLinesBefore.IsEnabled = true;
-            }
-            else
-            {
-                tbLinesAfter.IsEnabled = false;
-                tbLinesBefore.IsEnabled = false;
-            }
             if (settings.Get<bool>(GrepSettings.Key.UseCustomEditor))
             {
                 rbSpecificEditor.IsChecked = true;
@@ -312,10 +302,7 @@ namespace dnGREP.WPF
             cbRegisterStartup.IsChecked = isStartupRegistered();
             cbCheckForUpdates.IsChecked = settings.Get<bool>(GrepSettings.Key.EnableUpdateChecking);
 			cbShowPath.IsChecked = settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults);
-			cbShowContext.IsChecked = settings.Get<bool>(GrepSettings.Key.ShowLinesInContext);
-            tbLinesBefore.Text = settings.Get<int>(GrepSettings.Key.ContextLinesBefore).ToString();
-			tbLinesAfter.Text = settings.Get<int>(GrepSettings.Key.ContextLinesAfter).ToString();
-            cbSearchFileNameOnly.IsChecked = settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern);
+			cbSearchFileNameOnly.IsChecked = settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern);
             tbEditorPath.Text = settings.Get<string>(GrepSettings.Key.CustomEditor);
             tbEditorArgs.Text = settings.Get<string>(GrepSettings.Key.CustomEditorArgs);
 			cbPreviewResults.IsChecked = settings.Get<bool>(GrepSettings.Key.PreviewResults);
@@ -377,9 +364,7 @@ namespace dnGREP.WPF
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-			settings.Set<int>(GrepSettings.Key.ContextLinesBefore, Utils.ParseInt(tbLinesBefore.Text, 0));
-			settings.Set<int>(GrepSettings.Key.ContextLinesAfter, Utils.ParseInt(tbLinesAfter.Text, 0));
-            settings.Set<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern, cbSearchFileNameOnly.IsChecked == true);
+			settings.Set<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern, cbSearchFileNameOnly.IsChecked == true);
             settings.Set<string>(GrepSettings.Key.CustomEditor, tbEditorPath.Text);
             settings.Set<string>(GrepSettings.Key.CustomEditorArgs, tbEditorArgs.Text);
 			settings.Set<bool>(GrepSettings.Key.PreviewResults, cbPreviewResults.IsChecked == true);
@@ -437,12 +422,6 @@ namespace dnGREP.WPF
         private void cbShowPath_CheckedChanged(object sender, RoutedEventArgs e)
         {
 			settings.Set<bool>(GrepSettings.Key.ShowFilePathInResults, cbShowPath.IsChecked == true);
-        }
-
-        private void cbShowContext_CheckedChanged(object sender, RoutedEventArgs e)
-        {
-			settings.Set<bool>(GrepSettings.Key.ShowLinesInContext, cbShowContext.IsChecked == true);
-            UpdateState("ShowLinesInContext");
         }
 
         // Create the OnPropertyChanged method to raise the event

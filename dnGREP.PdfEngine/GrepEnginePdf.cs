@@ -18,17 +18,13 @@ namespace dnGREP.Engines.Pdf
 	public class GrepEnginePdf : GrepEngineBase, IGrepEngine
 	{
 		private static Logger logger = LogManager.GetCurrentClassLogger();
-		private bool isAvailable;
 		private string pathToPdfToText = "";
 
 		#region Initialization and disposal
-		public GrepEnginePdf() : this(new GrepEngineInitParams(false, 0, 0, 0.5)) { }
+		public GrepEnginePdf() : this(new GrepEngineInitParams(0.5)) { }
 
 		public override bool Initialize(GrepEngineInitParams param)
 		{
-			this.showLinesInContext = param.ShowLinesInContext;
-			this.linesBefore = param.LinesBefore;
-			this.linesAfter = param.LinesAfter;
 			this.fuzzyMatchThreshold = param.FuzzyMatchThreshold;
 			try
 			{
@@ -77,7 +73,7 @@ namespace dnGREP.Engines.Pdf
 				if (!File.Exists(tempFile))
 					throw new ApplicationException("pdftotext failed to create text file.");
 
-				IGrepEngine engine = GrepEngineFactory.GetSearchEngine(tempFile, new GrepEngineInitParams(showLinesInContext, linesBefore, linesAfter, fuzzyMatchThreshold));
+				IGrepEngine engine = GrepEngineFactory.GetSearchEngine(tempFile, new GrepEngineInitParams(fuzzyMatchThreshold));
 				List<GrepSearchResult> results = engine.Search(tempFile, searchPattern, searchType, searchOptions, encoding);
 				foreach (GrepSearchResult result in results)
 				{
@@ -137,7 +133,7 @@ namespace dnGREP.Engines.Pdf
 		{
 			get
 			{
-				return new Version(1, 4, 0, 0);
+				return new Version(2, 6, 0, 0);
 			}
 		}
 

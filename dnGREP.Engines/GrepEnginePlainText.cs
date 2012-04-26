@@ -136,32 +136,8 @@ namespace dnGREP.Engines
 				List<GrepSearchResult.GrepLine> lines = new List<GrepSearchResult.GrepLine>();
 				Queue<GrepSearchResult.GrepLine> preContextLines = new Queue<GrepSearchResult.GrepLine>();
 				Queue<GrepSearchResult.GrepLine> postContextLines = new Queue<GrepSearchResult.GrepLine>();
-				bool collectPostContextLines = false;
 				while ((line = readStream.ReadLine()) != null)
 				{
-					// Collecting context lines
-					if (showLinesInContext)
-					{
-						if (preContextLines.Count > linesBefore)
-							preContextLines.Dequeue();
-
-                        preContextLines.Enqueue(new GrepSearchResult.GrepLine(counter, line, true, null));
-
-						if (collectPostContextLines)
-						{
-							if (postContextLines.Count < linesAfter)
-							{
-                                postContextLines.Enqueue(new GrepSearchResult.GrepLine(counter, line, true, null));
-							}
-							else
-							{
-								collectPostContextLines = false;
-								lines.AddRange(postContextLines);
-								postContextLines.Clear();
-							}
-						}
-					}
-
 					List<GrepSearchResult.GrepLine> results = searchMethod(line, searchPattern, searchOptions, false);
 					if (results.Count > 0)
 					{
@@ -174,12 +150,11 @@ namespace dnGREP.Engines
 						lines.AddRange(preContextLines);
 						preContextLines.Clear();
 						postContextLines.Clear();
-						collectPostContextLines = true;
 					}
 					counter++;
 				}
 				lines.AddRange(postContextLines);
-				Utils.CleanResults(ref lines);
+				//Utils.CleanResults(ref lines);
 				if (lines.Count > 0)
 				{
                     searchResults.Add(new GrepSearchResult(fileName, lines));
@@ -197,7 +172,7 @@ namespace dnGREP.Engines
 				List<GrepSearchResult.GrepLine> lines = new List<GrepSearchResult.GrepLine>();
 				string fileBody = readStream.ReadToEnd();
                 lines = searchMethod(fileBody, searchPattern, searchOptions, true);
-				Utils.CleanResults(ref lines);
+				//Utils.CleanResults(ref lines);
 				if (lines.Count > 0)
 				{
                     searchResults.Add(new GrepSearchResult(fileName, lines));

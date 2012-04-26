@@ -990,13 +990,13 @@ namespace dnGREP.Common
             while (body.Peek() >= 0 && bodyMatches.Count > 0)
             {
                 lineNumber++;
-                string line = body.ReadLine();
+                string line = body.ReadLine(true);
                 bool moreMatches = true;
 
                 while (moreMatches)
                 {
                     // Head of match found
-                    if (bodyMatches[0].StartLocation >= currentIndex && bodyMatches[0].StartLocation <= currentIndex + line.Length && !startMatched)
+                    if (bodyMatches[0].StartLocation >= currentIndex && bodyMatches[0].StartLocation < currentIndex + line.Length && !startMatched)
                     {
                         startMatched = true;
                         moreMatches = true;
@@ -1041,7 +1041,7 @@ namespace dnGREP.Common
                     }
 
                     // Another match on this line
-                    if (bodyMatches.Count > 0 && bodyMatches[0].StartLocation >= currentIndex && bodyMatches[0].StartLocation <= currentIndex + line.Length && !startMatched)
+                    if (bodyMatches.Count > 0 && bodyMatches[0].StartLocation >= currentIndex && bodyMatches[0].StartLocation < currentIndex + line.Length && !startMatched)
                         moreMatches = true;
                     else
                         moreMatches = false;
@@ -1063,15 +1063,9 @@ namespace dnGREP.Common
 
                 if (lastLineNumber != lineNumbers[i])
                 {
-                    results.Add(new GrepSearchResult.GrepLine(lineNumbers[i], lineStrings[i], false, lineMatches));
+                    results.Add(new GrepSearchResult.GrepLine(lineNumbers[i], lineStrings[i].TrimEndOfLine(), false, lineMatches));
                     lastLineNumber = lineNumbers[i];
                 }
-                //if (showLinesInContext && includeContext)
-                //{
-                //    // Fix this one
-                //    results.AddRange(Utils.GetContextLines(text, linesBefore,
-                //        linesAfter, lineNumbers[i]));
-                //}
             }
             return results;
         }
@@ -1305,4 +1299,72 @@ namespace dnGREP.Common
 			return x.Key.CompareTo(y.Key);
 		}
 	}
+
+    public static class TextReaderEx 
+    {
+        public static string TrimEndOfLine(this string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return text;
+            if (text.EndsWith("\r\n"))
+                return text.Substring(0, text.Length - 2);
+            else if (text.EndsWith("\r"))
+                return text.Substring(0, text.Length - 1);
+            else if (text.EndsWith("\n"))
+                return text.Substring(0, text.Length - 1);
+            else
+                return text;
+        }
+
+        public static string ReadLine(this TextReader reader, bool keepEndOfLineCharacters)
+        {
+            if (!keepEndOfLineCharacters)
+                return reader.ReadLine();
+            else
+            {
+                List<char> charList = new List<char>();
+                char[] lastTwoChars = new char[2] { '\0', '\0' };
+                while (true)
+                {
+                    int integer = reader.Peek(); 
+
+                    // Check for the end of the stream before converting to a character
+                    if (integer == -1)
+                        break;
+
+                    // Fill lastTwoChars
+                    lastTwoChars[0] = lastTwoChars[1];
+                    lastTwoChars[1] = (char)integer;
+                    charList.Add((char)integer);
+
+                    // Check for the end of string
+                    if (lastTwoChars[0] == '\r' && lastTwoChars[1] == '\n')
+                    {
+                        reader.Read();
+                        break;
+                    }
+                    else if (lastTwoChars[0] == '\n' && lastTwoChars[1] == '\0')
+                    {
+                        reader.Read();
+                        break;
+                    }
+                    else if (lastTwoChars[0] == '\r' && lastTwoChars[1] == '\0')
+                    {
+                        reader.Read();
+                        break;
+                    }
+                    else if (lastTwoChars[0] == '\n' || lastTwoChars[0] == '\r')
+                    {
+                        charList.RemoveAt(charList.Count - 1);
+                        break;
+                    }
+                    else
+                    {
+                        reader.Read();
+                    }
+                }
+                return new string(charList.ToArray());
+            }
+        }
+    }
 }

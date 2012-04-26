@@ -209,14 +209,6 @@ namespace dnGREP.WPF
 				{
 					GrepSearchResult.GrepLine line = result.SearchResults[i];
 					
-					// Adding separator
-					if (formattedLines.Count > 0 && GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext) &&
-						(currentLine != line.LineNumber && currentLine + 1 != line.LineNumber))
-					{
-						GrepSearchResult.GrepLine emptyLine = new GrepSearchResult.GrepLine(-1, "", true, null);
-						formattedLines.Add(new FormattedGrepLine(emptyLine, this, 30));
-					}
-
 					currentLine = line.LineNumber;
 					if (currentLine <= 999 && LineNumberColumnWidth < 30)
 						LineNumberColumnWidth = 30;
@@ -334,26 +326,44 @@ namespace dnGREP.WPF
 				line.Matches.CopyTo(lineMatches);
 				foreach (GrepSearchResult.GrepMatch m in lineMatches)
                 {
-                    string regLine = fullLine.Substring(counter, m.StartLocation - counter);
-                    string fmtLine = fullLine.Substring(m.StartLocation, m.Length);
+                    try
+                    {
+                        string regLine = fullLine.Substring(counter, m.StartLocation - counter);
+                        string fmtLine = fullLine.Substring(m.StartLocation, m.Length);
 
-                    Run regularRun = new Run(regLine);
-                    regularRun.FontFamily = font;
-                    paragraph.Inlines.Add(regularRun);
+                        Run regularRun = new Run(regLine);
+                        regularRun.FontFamily = font;
+                        paragraph.Inlines.Add(regularRun);
 
-                    Run highlightedRun = new Run(fmtLine);
-                    highlightedRun.FontFamily = font;
-                    highlightedRun.Background = Brushes.Yellow;
-                    paragraph.Inlines.Add(highlightedRun);
+                        Run highlightedRun = new Run(fmtLine);
+                        highlightedRun.FontFamily = font;
+                        highlightedRun.Background = Brushes.Yellow;
+                        paragraph.Inlines.Add(highlightedRun);
+                    }
+                    catch (Exception e)
+                    {
+                        Run regularRun = new Run(fullLine);
+                        regularRun.FontFamily = font;
+                        paragraph.Inlines.Add(regularRun);
+                    }
 
                     counter = m.StartLocation + m.Length;
                 }
                 if (counter < fullLine.Length)
                 {
-                    string regLine = fullLine.Substring(counter);
-                    Run regularRun = new Run(regLine);
-                    regularRun.FontFamily = font;
-                    paragraph.Inlines.Add(regularRun);
+                    try
+                    {
+                        string regLine = fullLine.Substring(counter);
+                        Run regularRun = new Run(regLine);
+                        regularRun.FontFamily = font;
+                        paragraph.Inlines.Add(regularRun);
+                    }
+                    catch (Exception e)
+                    {
+                        Run regularRun = new Run(fullLine);
+                        regularRun.FontFamily = font;
+                        paragraph.Inlines.Add(regularRun);
+                    }
                 }
             }
             return paragraph.Inlines;

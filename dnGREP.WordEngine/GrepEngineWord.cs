@@ -27,7 +27,7 @@ namespace dnGREP.Engines.Word
 		private object MISSING_VALUE = System.Reflection.Missing.Value;
 
 		#region Initialization and disposal
-		public GrepEngineWord() : this(new GrepEngineInitParams(false, 0, 0, 0.5)) { }
+		public GrepEngineWord() : this(new GrepEngineInitParams(0.5)) { }
 
 		public GrepEngineWord(GrepEngineInitParams param)
 			:
@@ -176,7 +176,7 @@ namespace dnGREP.Engines.Word
 		{
 			get
 			{
-				return new Version(1,4,0,0);
+				return new Version(2,6,0,0);
 			}
 		}
 
@@ -220,7 +220,7 @@ namespace dnGREP.Engines.Word
 				logger.LogException(LogLevel.Error, "Failed to load Word and create Document.", ex);
 			}
 
-			base.Initialize(new GrepEngineInitParams(showLinesInContext, linesBefore, linesAfter, fuzzyMatchThreshold));
+			base.Initialize(new GrepEngineInitParams(fuzzyMatchThreshold));
 		}
 
 		/// <summary>

@@ -145,7 +145,7 @@ namespace dnGREP.Common
 			for (int i = 0; i < searchResults.Count; i++)
 			{
 				List<GrepSearchResult.GrepLine> lines = searchResults[i].SearchResults;
-				Utils.CleanResults(ref lines);
+				//Utils.CleanResults(ref lines);
 			}
 
 			return searchResults;
