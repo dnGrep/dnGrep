@@ -966,6 +966,116 @@ namespace dnGREP.Common
 			return result;
 		}
 
+        public static List<GrepSearchResult.GrepLine> GetLinesEx(TextReader body, List<GrepSearchResult.GrepMatch> bodyMatches)
+        {
+            List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
+            List<string> lineStrings = new List<string>();
+            List<int> lineNumbers = new List<int>();
+            List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
+            if (body == null || bodyMatches == null)
+            {
+                return new List<GrepSearchResult.GrepLine>();
+            }
+
+            // Current line
+            int lineNumber = 0;
+            // Current index of character
+            int currentIndex = 0;
+            int startIndex = 0;
+            int tempLinesTotalLength = 0;
+            int startLine = 0;
+            bool startMatched = false;
+            Queue<string> lineQueue = new Queue<string>();
+            
+            while (body.Peek() >= 0 && bodyMatches.Count > 0)
+            {
+                lineNumber++;
+                string line = body.ReadLine();
+                bool moreMatches = true;
+
+                while (moreMatches)
+                {
+                    // Head of match found
+                    if (bodyMatches[0].StartLocation >= currentIndex && bodyMatches[0].StartLocation <= currentIndex + line.Length && !startMatched)
+                    {
+                        startMatched = true;
+                        moreMatches = true;
+                        lineQueue = new Queue<string>();
+                        startLine = lineNumber;
+                        startIndex = bodyMatches[0].StartLocation - currentIndex;
+                        tempLinesTotalLength = 0;
+                    }
+
+                    // Add line to queue
+                    if (startMatched)
+                    {
+                        lineQueue.Enqueue(line);
+                        tempLinesTotalLength += line.Length;
+                    }
+
+                    // Tail of match found
+                    if (bodyMatches[0].StartLocation + bodyMatches[0].Length <= currentIndex + line.Length && startMatched)
+                    {
+                        startMatched = false;
+                        moreMatches = false;
+                        // Start creating matches
+                        for (int i = startLine; i <= lineNumber; i++)
+                        {
+                            lineNumbers.Add(i);
+                            string tempLine = lineQueue.Dequeue();
+                            lineStrings.Add(tempLine);
+                            // First and only line
+                            if (i == startLine && i == lineNumber)
+                                matches.Add(new GrepSearchResult.GrepMatch(i, startIndex, bodyMatches[0].Length));
+                            // First but not last line
+                            else if (i == startLine)
+                                matches.Add(new GrepSearchResult.GrepMatch(i, startIndex, tempLine.Length - startIndex));
+                            // Middle line
+                            else if (i > startLine && i < lineNumber)
+                                matches.Add(new GrepSearchResult.GrepMatch(i, 0, tempLine.Length));
+                            // Last line
+                            else
+                                matches.Add(new GrepSearchResult.GrepMatch(i, 0, bodyMatches[0].Length - tempLinesTotalLength + line.Length));
+                        }
+                        bodyMatches.RemoveAt(0);
+                    }
+
+                    // Another match on this line
+                    if (bodyMatches.Count > 0 && bodyMatches[0].StartLocation >= currentIndex && bodyMatches[0].StartLocation <= currentIndex + line.Length && !startMatched)
+                        moreMatches = true;
+                    else
+                        moreMatches = false;
+                }
+
+                currentIndex += line.Length;                
+            }
+
+            if (lineStrings.Count == 0)
+            {
+                return new List<GrepSearchResult.GrepLine>();
+            }
+
+            int lastLineNumber = -1;
+            for (int i = 0; i < lineNumbers.Count; i++)
+            {
+                List<GrepSearchResult.GrepMatch> lineMatches = new List<GrepSearchResult.GrepMatch>();
+                foreach (GrepSearchResult.GrepMatch m in matches) if (m.LineNumber == lineNumbers[i]) lineMatches.Add(m);
+
+                if (lastLineNumber != lineNumbers[i])
+                {
+                    results.Add(new GrepSearchResult.GrepLine(lineNumbers[i], lineStrings[i], false, lineMatches));
+                    lastLineNumber = lineNumbers[i];
+                }
+                //if (showLinesInContext && includeContext)
+                //{
+                //    // Fix this one
+                //    results.AddRange(Utils.GetContextLines(text, linesBefore,
+                //        linesAfter, lineNumbers[i]));
+                //}
+            }
+            return results;
+        }
+
 		/// <summary>
 		/// Returns a list of context GrepLines by line numbers provided in the input parameter. Matched line is not returned.
 		/// </summary>

@@ -301,6 +301,131 @@ namespace Tests
 		}
 
         [Test]
+        public void GetLinesEx_Returns_Correct_Line()
+        {
+            string text = "Hello world" + Environment.NewLine + "My tests are good" + Environment.NewLine + "How about yours?";
+            List<int> lineNumbers = new List<int>();
+            List<GrepSearchResult.GrepMatch> bodyMatches = new List<GrepSearchResult.GrepMatch>();
+            List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>(); 
+            using (StringReader reader = new StringReader(text))
+            {
+                bodyMatches.Clear();
+                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 3, 2));
+                results = Utils.GetLinesEx(reader, bodyMatches);
+            }
+
+            Assert.AreEqual(results.Count, 1);
+            Assert.AreEqual(results[0].LineText, "Hello world");
+            Assert.AreEqual(results[0].Matches.Count, 1);
+            Assert.AreEqual(results[0].LineNumber, 1);
+
+            using (StringReader reader = new StringReader(text))
+            {
+                bodyMatches.Clear();
+                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 14, 2));
+                results = Utils.GetLinesEx(reader, bodyMatches);
+            }
+
+
+            Assert.AreEqual(results.Count, 1);
+            Assert.AreEqual(results[0].LineText, "My tests are good");
+            Assert.AreEqual(results[0].Matches.Count, 1);
+            Assert.AreEqual(results[0].LineNumber, 2);
+
+            using (StringReader reader = new StringReader(text))
+            {
+                bodyMatches.Clear();
+                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 3, 11));
+                results = Utils.GetLinesEx(reader, bodyMatches);
+            }
+
+            Assert.AreEqual(results.Count, 2);
+            Assert.AreEqual(results[0].LineText, "Hello world");
+            Assert.AreEqual(results[1].LineText, "My tests are good");
+            Assert.AreEqual(results[0].Matches.Count, 1);
+            Assert.AreEqual(results[1].Matches.Count, 1);
+            Assert.AreEqual(results[0].LineNumber, 1);
+            Assert.AreEqual(results[1].LineNumber, 2);
+
+            using (StringReader reader = new StringReader(text))
+            {
+                bodyMatches.Clear();
+                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 3, 30));
+                results = Utils.GetLinesEx(reader, bodyMatches);
+            }
+
+            Assert.AreEqual(results.Count, 3);
+            Assert.AreEqual(results[0].LineText, "Hello world");
+            Assert.AreEqual(results[1].LineText, "My tests are good");
+            Assert.AreEqual(results[2].LineText, "How about yours?");
+            Assert.AreEqual(results[0].Matches.Count, 1);
+            Assert.AreEqual(results[1].Matches.Count, 1);
+            Assert.AreEqual(results[2].Matches.Count, 1);
+            Assert.AreEqual(results[0].LineNumber, 1);
+            Assert.AreEqual(results[1].LineNumber, 2);
+            Assert.AreEqual(results[2].LineNumber, 3);
+
+            using (StringReader reader = new StringReader("test"))
+            {
+                bodyMatches.Clear();
+                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 2, 2));
+                results = Utils.GetLinesEx(reader, bodyMatches);
+            }
+
+            Assert.AreEqual(results.Count, 1);
+            Assert.AreEqual(results[0].LineText, "test");
+            Assert.AreEqual(results[0].Matches.Count, 1);
+            Assert.AreEqual(results[0].LineNumber, 1);
+
+            using (StringReader reader = new StringReader("test"))
+            {
+                bodyMatches.Clear();
+                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 0, 2));
+                results = Utils.GetLinesEx(reader, bodyMatches);
+            }
+
+            Assert.AreEqual(results.Count, 1);
+            Assert.AreEqual(results[0].LineText, "test");
+            Assert.AreEqual(results[0].Matches.Count, 1);
+            Assert.AreEqual(results[0].LineNumber, 1);
+
+            using (StringReader reader = new StringReader("test"))
+            {
+                bodyMatches.Clear();
+                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 10, 2));
+                results = Utils.GetLinesEx(reader, bodyMatches);
+            }
+
+            Assert.IsEmpty(results);
+
+            using (StringReader reader = new StringReader("test"))
+            {
+                bodyMatches.Clear();
+                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 2, 10));
+                results = Utils.GetLinesEx(reader, bodyMatches);
+            }
+
+            Assert.IsEmpty(results);
+
+            using (StringReader reader = new StringReader(text))
+            {
+                bodyMatches.Clear();
+                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 3, 2));
+                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 6, 2));
+                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 14, 2));
+                results = Utils.GetLinesEx(reader, bodyMatches);
+            }
+
+            Assert.AreEqual(results.Count, 2);
+            Assert.AreEqual(results[0].LineText, "Hello world");
+            Assert.AreEqual(results[1].LineText, "My tests are good");
+            Assert.AreEqual(results[0].Matches.Count, 2);
+            Assert.AreEqual(results[1].Matches.Count, 1);
+            Assert.AreEqual(results[0].LineNumber, 1);
+            Assert.AreEqual(results[1].LineNumber, 2);            
+        }
+
+        [Test]
 		[Row(null,null,2)]
 		[Row("", "", 2)]
 		[Row(null, ".*\\.cs", 1)]

@@ -851,7 +851,7 @@ namespace dnGREP.WPF
                     FileFiltersSummary = "[";
                     if (tempList.Count == 0)
                     {
-                        FileFiltersSummary = "[Off]";
+                        FileFiltersSummary += "Off";
                     }
                     else
                     {

@@ -13,6 +13,9 @@ using ICSharpCode.AvalonEdit.Highlighting;
 using System.IO;
 using dnGREP.Common;
 using Blue.Windows;
+using System.Reflection;
+using System.Xml;
+using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 
 namespace dnGREP.WPF
 {
@@ -76,7 +79,17 @@ namespace dnGREP.WPF
                 else
                 {
                     textEditor.Load(pathToFile);
-                    textEditor.SyntaxHighlighting = HighlightingManager.Instance.GetDefinitionByExtension(Path.GetExtension(pathToFile));
+                    string extension = Path.GetExtension(pathToFile);
+                    
+                    if (!string.IsNullOrEmpty(extension))
+                    {
+                        if (extension.ToLower() == ".vbs")
+                            extension = ".vb";
+                        if (extension.ToLower() == ".sql")
+                            textEditor.SyntaxHighlighting = loadHighlightingDefinition("sqlmode.xshd");
+                        else
+                            textEditor.SyntaxHighlighting = HighlightingManager.Instance.GetDefinitionByExtension(extension);
+                    }
                     textEditor.TextArea.TextView.LineTransformers.Add(new PreviewHighlighter(grepResult));
                 }
             }
@@ -85,6 +98,16 @@ namespace dnGREP.WPF
                 textEditor.ScrollTo(line, 0);
             }
             this.Show();
+        }
+
+        private IHighlightingDefinition loadHighlightingDefinition(
+            string resourceName)
+        {
+            var type = typeof(Preview);
+            var fullName = type.Namespace + "." + resourceName;
+            using (var stream = type.Assembly.GetManifestResourceStream(fullName))
+            using (var reader = new XmlTextReader(stream))
+                return HighlightingLoader.Load(reader, HighlightingManager.Instance);
         }
 
         public void ForceClose()

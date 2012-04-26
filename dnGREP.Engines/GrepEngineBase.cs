@@ -46,6 +46,7 @@ namespace dnGREP.Engines
             int counter = 0;
 			fuzzyMatchEngine.Match_Threshold = (float)fuzzyMatchThreshold;
 			bool isWholeWord = (searchOptions & GrepSearchOption.WholeWord) == GrepSearchOption.WholeWord;
+            List<GrepSearchResult.GrepMatch> globalMatches = new List<GrepSearchResult.GrepMatch>();
             while (counter < text.Length)
             {
                 int matchLocation = fuzzyMatchEngine.match_main(text.Substring(counter), searchPattern, counter);
@@ -66,26 +67,16 @@ namespace dnGREP.Engines
 					continue;
 				}
 
-                List<int> lineNumbers = new List<int>();
-                List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
-                List<string> lines = Utils.GetLines(text, matchLocation + counter, matchLength, out matches, out lineNumbers);
-                if (lineNumbers != null)
-                {
-                    for (int i = 0; i < lineNumbers.Count; i++)
-                    {
-                        List<GrepSearchResult.GrepMatch> lineMatches = new List<GrepSearchResult.GrepMatch>();
-                        foreach (GrepSearchResult.GrepMatch m in matches) if (m.LineNumber == lineNumbers[i]) lineMatches.Add(m);
-
-                        results.Add(new GrepSearchResult.GrepLine(lineNumbers[i], lines[i], false, lineMatches));
-						if (showLinesInContext && includeContext)
-                        {
-                            results.AddRange(Utils.GetContextLines(text, linesBefore,
-                                linesAfter, lineNumbers[i]));
-                        }
-                    }
-                }
-
+                globalMatches.Add(new GrepSearchResult.GrepMatch(0, matchLocation + counter, matchLength));
+                
                 counter = counter + matchLocation + matchLength;
+            }
+            if (globalMatches.Count > 0)
+            {
+                using (StringReader reader = new StringReader(text))
+                {
+                    results = Utils.GetLinesEx(reader, globalMatches);
+                }
             }
             return results;
         }
@@ -131,33 +122,15 @@ namespace dnGREP.Engines
 			}
 
 			List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
+            List<GrepSearchResult.GrepMatch> globalMatches = new List<GrepSearchResult.GrepMatch>();
             foreach (Match match in Regex.Matches(text, searchPattern, regexOptions))
 			{
-				//if (isWholeWord && (!Utils.IsValidBeginText(text.Substring(0, match.Index)) ||
-				//    !Utils.IsValidEndText(text.Substring(match.Index + match.Length))))
-				//{
-				//    continue;
-				//}
-
-				List<int> lineNumbers = new List<int>();
-                List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
-                List<string> lines = Utils.GetLines(text, match.Index, match.Length, out matches, out lineNumbers);
-				if (lineNumbers != null)
-				{
-					for (int i = 0; i < lineNumbers.Count; i++)
-					{
-                        List<GrepSearchResult.GrepMatch> lineMatches = new List<GrepSearchResult.GrepMatch>();
-                        foreach (GrepSearchResult.GrepMatch m in matches) if (m.LineNumber == lineNumbers[i]) lineMatches.Add(m);
-
-                        results.Add(new GrepSearchResult.GrepLine(lineNumbers[i], lines[i], false, lineMatches));
-						if (showLinesInContext && includeContext)
-						{
-							results.AddRange(Utils.GetContextLines(text, linesBefore,
-								linesAfter, lineNumbers[i]));
-						}
-					}
-				}
+                globalMatches.Add(new GrepSearchResult.GrepMatch(0, match.Index, match.Length));
 			}
+            using (StringReader reader = new StringReader(text))
+            {
+                results = Utils.GetLinesEx(reader, globalMatches);
+            } 
 			return results;
 		}
 
@@ -178,7 +151,7 @@ namespace dnGREP.Engines
 			List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
 			int index = 0;
 			bool isWholeWord = (searchOptions & GrepSearchOption.WholeWord) == GrepSearchOption.WholeWord;
-
+            List<GrepSearchResult.GrepMatch> globalMatches = new List<GrepSearchResult.GrepMatch>();
 			while (index >= 0)
 			{
 				index = text.IndexOf(searchText, index, StringComparison.InvariantCultureIgnoreCase);
@@ -191,27 +164,19 @@ namespace dnGREP.Engines
 						continue;
 					}
 
-					List<int> lineNumbers = new List<int>();
-                    List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
-                    List<string> lines = Utils.GetLines(text, index, searchText.Length, out matches, out lineNumbers);
-					if (lineNumbers != null)
-					{
-						for (int i = 0; i < lineNumbers.Count; i++)
-						{
-                            List<GrepSearchResult.GrepMatch> lineMatches = new List<GrepSearchResult.GrepMatch>();
-                            foreach (GrepSearchResult.GrepMatch m in matches) if (m.LineNumber == lineNumbers[i]) lineMatches.Add(m);
-
-                            results.Add(new GrepSearchResult.GrepLine(lineNumbers[i], lines[i], false, lineMatches));
-							if (showLinesInContext && includeContext)
-							{
-								results.AddRange(Utils.GetContextLines(text, linesBefore,
-									linesAfter, lineNumbers[i]));
-							}
-						}
-					}
+                    globalMatches.Add(new GrepSearchResult.GrepMatch(0, index, searchText.Length));
 					index++;
 				}
 			}
+
+            if (globalMatches.Count > 0)
+            {
+                using (StringReader reader = new StringReader(text))
+                {
+                    results = Utils.GetLinesEx(reader, globalMatches);
+                }                
+            }
+
 			return results;
 		}
 
@@ -220,6 +185,7 @@ namespace dnGREP.Engines
 			List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
 			int index = 0;
 			bool isWholeWord = (searchOptions & GrepSearchOption.WholeWord) == GrepSearchOption.WholeWord;
+            List<GrepSearchResult.GrepMatch> globalMatches = new List<GrepSearchResult.GrepMatch>();
 			while (index >= 0)
 			{
 				index = text.IndexOf(searchText, index, StringComparison.InvariantCulture);
@@ -232,27 +198,18 @@ namespace dnGREP.Engines
 						continue;
 					}
 
-					List<int> lineNumbers = new List<int>();
-                    List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
-					List<string> lines = Utils.GetLines(text, index, searchText.Length, out matches, out lineNumbers);
-					if (lineNumbers != null)
-					{
-						for (int i = 0; i < lineNumbers.Count; i++)
-						{
-                            List<GrepSearchResult.GrepMatch> lineMatches = new List<GrepSearchResult.GrepMatch>();
-                            foreach (GrepSearchResult.GrepMatch m in matches) if (m.LineNumber == lineNumbers[i]) lineMatches.Add(m);
-
-                            results.Add(new GrepSearchResult.GrepLine(lineNumbers[i], lines[i], false, lineMatches));
-							if (showLinesInContext && includeContext)
-							{
-								results.AddRange(Utils.GetContextLines(text, linesBefore,
-									linesAfter, lineNumbers[i]));
-							}
-						}
-					}
+                    globalMatches.Add(new GrepSearchResult.GrepMatch(0, index, searchText.Length));
 					index++;
 				}
 			}
+
+            if (globalMatches.Count > 0)
+            {
+                using (StringReader reader = new StringReader(text))
+                {
+                    results = Utils.GetLinesEx(reader, globalMatches);
+                }
+            }
 			return results;
 		}
 
