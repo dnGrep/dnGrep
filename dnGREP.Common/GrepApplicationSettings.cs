@@ -60,9 +60,7 @@ namespace dnGREP.Common
 			public const string UpdateCheckInterval = "UpdateCheckInterval";
             [DefaultValue(true)]
 			public const string PreviewResults = "PreviewResults";
-            [DefaultValue(400)]
-            public const string PreviewWindowWidth = "PreviewWindowWidth";
-			public const string ExpandResults = "ExpandResults";
+            public const string ExpandResults = "ExpandResults";
 			public const string LastCheckedVersion = "LastCheckedVersion";
             [DefaultValue(true)]
 			public const string IsOptionsExpanded = "IsOptionsExpanded";
@@ -83,6 +81,12 @@ namespace dnGREP.Common
             [DefaultValue(200)]
             public const string WindowLeft = "WindowLeft";
             public const string WindowState = "WindowState";
+            [DefaultValue(12)]
+            public const string PreviewWindowFont = "PreviewWindowFont";
+            [DefaultValue(false)]
+            public const string PreviewWindowWrap = "PreviewWindowWrap";
+            [DefaultValue(400)]
+            public const string PreviewWindowWidth = "PreviewWindowWidth";
         }		
 		
 		private static GrepSettings instance;

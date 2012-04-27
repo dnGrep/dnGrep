@@ -49,6 +49,8 @@ namespace dnGREP.WPF
         void textEditor_Loaded(object sender, RoutedEventArgs e)
         {
             textEditor.ScrollTo(line, 0);
+            cbWrapText.IsChecked = GrepSettings.Instance.Get<bool?>(GrepSettings.Key.PreviewWindowWrap);
+            zoomSlider.Value = GrepSettings.Instance.Get<int>(GrepSettings.Key.PreviewWindowFont);
         }
 
         public void ResetTextEditor()
@@ -113,6 +115,8 @@ namespace dnGREP.WPF
         public void ForceClose()
         {
             forceClose = true;
+            GrepSettings.Instance.Set<bool?>(GrepSettings.Key.PreviewWindowWrap, cbWrapText.IsChecked);
+            GrepSettings.Instance.Set<int>(GrepSettings.Key.PreviewWindowFont, (int)zoomSlider.Value);
             this.Close();
         }
 
@@ -122,6 +126,29 @@ namespace dnGREP.WPF
             {
                 this.Hide();
                 e.Cancel = true;
+            }
+        }
+
+        protected override void OnPreviewMouseWheel(MouseWheelEventArgs args)
+        {
+            base.OnPreviewMouseWheel(args);
+            if (Keyboard.IsKeyDown(Key.LeftCtrl) ||
+                Keyboard.IsKeyDown(Key.RightCtrl))
+            {
+                zoomSlider.Value += (args.Delta > 0) ? 1 : -1;
+            }
+        }
+
+        protected override void OnPreviewMouseDown(MouseButtonEventArgs args)
+        {
+            base.OnPreviewMouseDown(args);
+            if (Keyboard.IsKeyDown(Key.LeftCtrl) ||
+                Keyboard.IsKeyDown(Key.RightCtrl))
+            {
+                if (args.MiddleButton == MouseButtonState.Pressed)
+                {
+                    zoomSlider.Value = 12;
+                }
             }
         }
     }

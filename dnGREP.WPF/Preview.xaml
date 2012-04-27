@@ -4,6 +4,12 @@
         xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
         Title="Preview" Height="415" Width="593" WindowStyle="ToolWindow" Closing="Window_Closing" ShowInTaskbar="False">
     <DockPanel>
-        <ae:TextEditor Name="textEditor" FontFamily="Consolas" FontSize="12" ShowLineNumbers="True" IsReadOnly="True" />
+        <StatusBar DockPanel.Dock="Bottom" ClipToBounds="False" Grid.Row="4" Name="statusBar">
+            <TextBlock>Zoom:</TextBlock>
+            <Slider Name="zoomSlider" ToolTip="Changes text editor zoom" Value="12" Minimum="9" Maximum="30" Width="200" HorizontalAlignment="Right"/>
+            <CheckBox Name="cbWrapText">Wrap text</CheckBox>
+        </StatusBar>
+        <ae:TextEditor Name="textEditor" FontFamily="Consolas" FontSize="{Binding ElementName=zoomSlider,Path=Value}" ShowLineNumbers="True" 
+                       IsReadOnly="True" WordWrap="{Binding ElementName=cbWrapText,Path=IsChecked}" />
     </DockPanel>
 </Window>
