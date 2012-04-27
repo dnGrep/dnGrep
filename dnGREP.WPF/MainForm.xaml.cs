@@ -1132,12 +1132,14 @@ namespace dnGREP.WPF
 		private void btnSearchFastBookmarks_Click(object sender, RoutedEventArgs e)
 		{
 			cbSearchFastBookmark.IsDropDownOpen = true;
+            cbSearchFastBookmark.Focus();
 		}
 
 		private void btnReplaceFastBookmarks_Click(object sender, RoutedEventArgs e)
 		{
 			cbReplaceFastBookmark.IsDropDownOpen = true;
-			tbReplaceWith.SelectAll();
+            cbReplaceFastBookmark.Focus();
+			tbReplaceWith.SelectAll();            
 		}
 
 		#region DragDropEvents 
