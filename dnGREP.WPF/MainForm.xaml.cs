@@ -235,7 +235,7 @@ namespace dnGREP.WPF
 				lblStatus.Text = "Searching...";
                 if (preview != null)
                     preview.ResetTextEditor();
-				barProgressBar.Value = 0;
+                barProgressBar.IsIndeterminate = true;
 				inputData.SearchResults.Clear();
                 Dictionary<string, object> workerParames = new Dictionary<string, object>();
                 workerParames["State"] = inputData;
@@ -270,7 +270,7 @@ namespace dnGREP.WPF
 				lblStatus.Text = "Searching...";
                 if (preview != null)
                     preview.ResetTextEditor();
-				barProgressBar.Value = 0;
+                barProgressBar.IsIndeterminate = true;
                 List<string> foundFiles = new List<string>();
                 foreach (FormattedGrepResult n in inputData.SearchResults) foundFiles.Add(n.GrepResult.FileNameReal);
                 Dictionary<string, object> workerParames = new Dictionary<string, object>();
@@ -326,7 +326,7 @@ namespace dnGREP.WPF
 				inputData.CurrentGrepOperation = GrepOperation.Replace;
 				inputData.CanUndo = false;
 				inputData.UndoFolder = Utils.GetBaseFolder(tbFolderName.Text);
-				barProgressBar.Value = 0;
+                barProgressBar.IsIndeterminate = true;
                 List<string> foundFiles = new List<string>();
                 foreach (FormattedGrepResult n in inputData.SearchResults)
                 {
@@ -403,17 +403,17 @@ namespace dnGREP.WPF
 						if (param.TypeOfFileSearch == FileSearchType.Asterisk)
 							filePatternExclude = filePatternExclude.Replace("\\", "");
 
-						string[] files;
+						IEnumerable<string> files;
 
 						Utils.CancelSearch = false;
 
 						if (param.CurrentGrepOperation == GrepOperation.SearchInResults)
 						{
-                            files = ((List<string>)workerParams["Files"]).ToArray();
+                            files = (List<string>)workerParams["Files"];
 						}
 						else
 						{
-							files = Utils.GetFileList(inputData.FileOrFolderPath, filePatternInclude, filePatternExclude, param.TypeOfFileSearch == FileSearchType.Regex, param.IncludeSubfolder,
+							files = Utils.GetFileListEx(inputData.FileOrFolderPath, filePatternInclude, filePatternExclude, param.TypeOfFileSearch == FileSearchType.Regex, param.IncludeSubfolder,
 								param.IncludeHidden, param.IncludeBinary, sizeFrom, sizeTo);
 						}
 
@@ -502,7 +502,7 @@ namespace dnGREP.WPF
 
 		void grep_ProcessedFile(object sender, GrepCore.ProgressStatus progress)
 		{
-			workerSearchReplace.ReportProgress((int)(progress.ProcessedFiles * 100 / progress.TotalFiles), progress);
+			workerSearchReplace.ReportProgress((int)progress.ProcessedFiles, progress);
 		}
 
 		private void searchProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -512,12 +512,18 @@ namespace dnGREP.WPF
 				if (!GrepCore.CancelProcess)
 				{
 					GrepCore.ProgressStatus progress = (GrepCore.ProgressStatus)e.UserState;
-					barProgressBar.Value = e.ProgressPercentage;
-					lblStatus.Text = "(" + progress.ProcessedFiles + " of " + progress.TotalFiles + ")";
-					if (progress.SearchResults != null)
-					{
-						inputData.SearchResults.AddRange(progress.SearchResults);
-					}
+                    string result = string.Empty;
+                    if (progress.SearchResults != null)
+                    {
+                        inputData.SearchResults.AddRange(progress.SearchResults);
+                        result = string.Format("Searched {0} files. Found {1} matching files.", progress.ProcessedFiles, inputData.SearchResults.Count);
+                    }
+                    else
+                    {
+                        result = string.Format("Searched {0} files.", progress.ProcessedFiles);
+                    }
+
+                    lblStatus.Text = result;
 				}
 			}
 			catch (Exception ex)
@@ -548,7 +554,7 @@ namespace dnGREP.WPF
 					{
 						lblStatus.Text = "Search Canceled";
 					}
-					barProgressBar.Value = 0;
+                    barProgressBar.IsIndeterminate = false;
 					if (inputData.SearchResults.Count > 0)
 						inputData.FilesFound = true;
 					if (!settings.Get<bool>(GrepSettings.Key.PreviewResults))
@@ -578,7 +584,7 @@ namespace dnGREP.WPF
 					{
 						lblStatus.Text = "Replace Canceled";
 					}
-					barProgressBar.Value = 0;
+                    barProgressBar.IsIndeterminate = false;
 					inputData.CurrentGrepOperation = GrepOperation.None;
 					inputData.SearchResults.Clear();
 				}

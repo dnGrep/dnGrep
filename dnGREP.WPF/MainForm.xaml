@@ -444,7 +444,7 @@
         </TreeView>
         <StatusBar ClipToBounds="False" Grid.Row="4" Name="statusBar">
             <ProgressBar Name="barProgressBar" Height="18"
-                             Width="150"/>
+                             Width="150" IsIndeterminate="False" />
             <TextBlock Name="lblStatus" />
         </StatusBar>
     </Grid>

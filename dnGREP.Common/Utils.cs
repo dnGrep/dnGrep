@@ -9,11 +9,12 @@ using System.Net;
 using System.Xml;
 using System.Security.Permissions;
 using System.Security;
+using System.Linq;
 using NLog;
 
 namespace dnGREP.Common
 {
-	public class Utils
+	public static class Utils
 	{
 		private static Logger logger = LogManager.GetCurrentClassLogger();
 
@@ -239,20 +240,27 @@ namespace dnGREP.Common
 		/// <returns>True is file is binary otherwise false</returns>
 		public static bool IsBinary(string srcFile)
 		{
-			byte[] buffer = new byte[1024];
-			int count = 0;
-			using (FileStream readStream = new FileStream(srcFile, FileMode.Open, FileAccess.Read, FileShare.None))
-			{
-				count = readStream.Read(buffer, 0, buffer.Length);
-			}
-			for (int i = 0; i < count - 1; i = i + 2)
-			{
-				if (buffer[i] == 0 && buffer[i + 1] == 0)
-				{
-					return true;
-				}
-			}
-			return false;
+            try
+            {
+                byte[] buffer = new byte[1024];
+                int count = 0;
+                using (FileStream readStream = new FileStream(srcFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                {
+                    count = readStream.Read(buffer, 0, buffer.Length);
+                }
+                for (int i = 0; i < count - 1; i = i + 2)
+                {
+                    if (buffer[i] == 0 && buffer[i + 1] == 0)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
 		}
 
 		/// <summary>
@@ -326,7 +334,7 @@ namespace dnGREP.Common
         public static string[] SplitPath(string path)
         {
             if (path == null)
-                return null;
+                return new string[0];
             else if (path.Trim() == "")
                 return new string[0];
             
@@ -368,6 +376,131 @@ namespace dnGREP.Common
 
 		public static bool CancelSearch = false;
 
+        /// <summary>
+        /// Iterator based file search
+        /// Searches folder and it's subfolders for files that match pattern and
+        /// returns array of strings that contain full paths to the files.
+        /// If no files found returns 0 length array.
+        /// </summary>
+        /// <param name="path">Path to one or many files separated by semi-colon or path to a folder</param>
+        /// <param name="namePatternToInclude">File name pattern. (E.g. *.cs) or regex to include. If null returns empty array. If empty string returns all files.</param>
+        /// <param name="namePatternToExclude">File name pattern. (E.g. *.cs) or regex to exclude. If null or empty is ignored.</param>
+        /// <param name="isRegex">Whether to use regex as search pattern. Otherwise use asterisks</param>
+        /// <param name="includeSubfolders">Include sub folders</param>
+        /// <param name="includeHidden">Include hidden folders</param>
+        /// <param name="includeBinary">Include binary files</param>
+        /// <param name="sizeFrom">Size in KB</param>
+        /// <param name="sizeTo">Size in KB</param>
+        /// <returns></returns>
+        public static IEnumerable<string> GetFileListEx(string path, string namePatternToInclude, string namePatternToExclude, bool isRegex, bool includeSubfolders, bool includeHidden, bool includeBinary, int sizeFrom, int sizeTo)
+        {
+            if (string.IsNullOrEmpty(path) || namePatternToInclude == null)
+            {
+                yield break;
+            }
+
+            // Hash set to ensure file name uniqueness
+            HashSet<string> matches = new HashSet<string>();
+            List<string> _includePatterns = new List<string>(SplitPath(namePatternToInclude));
+            List<string> _excludePatterns = new List<string>(SplitPath(namePatternToExclude));
+            List<Regex> includeRegexPatterns = new List<Regex>();
+            List<Regex> excludeRegexPatterns = new List<Regex>();
+            if (!isRegex)
+            {
+                foreach (var pattern in _includePatterns) includeRegexPatterns.Add(new Regex(wildcardToRegex(pattern), RegexOptions.Compiled | RegexOptions.IgnoreCase));
+                foreach (var pattern in _excludePatterns) excludeRegexPatterns.Add(new Regex(wildcardToRegex(pattern), RegexOptions.Compiled | RegexOptions.IgnoreCase));
+            }
+            else
+            {
+                foreach (var pattern in _includePatterns) includeRegexPatterns.Add(new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase));
+                foreach (var pattern in _excludePatterns) excludeRegexPatterns.Add(new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase));
+            }
+
+            foreach (var subPath in SplitPath(path))
+            {
+                if (File.Exists(subPath))
+                {
+                    if (!matches.Contains(subPath))
+                    {
+                        matches.Add(subPath);
+                        yield return subPath;
+                    }
+                    continue;
+                }
+                else if (!Directory.Exists(subPath))
+                {
+                    continue;
+                }
+                foreach (var dirPath in (!includeSubfolders ? new string[]{subPath}.AsEnumerable() : 
+                    new string[]{subPath}.AsEnumerable().Concat(Directory.EnumerateDirectories(subPath, "*", SearchOption.AllDirectories))))
+                {
+                    DirectoryInfo dirInfo = null;
+                    if (!includeHidden)
+                    {
+                        if (dirInfo == null)
+                            dirInfo = new DirectoryInfo(dirPath);
+                        if ((dirInfo.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
+                            continue;
+                    }
+                    foreach (var filePath in Directory.EnumerateFiles(dirPath))
+                    {
+                        bool excludeMatch = false;
+                        bool includeMatch = false;
+                        FileInfo fileInfo = null;
+                        if (!includeHidden)
+                        {
+                            if (fileInfo == null)
+                                fileInfo = new FileInfo(filePath);
+                            if ((fileInfo.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
+                                continue;
+                        }
+
+                        if (!includeBinary && IsBinary(filePath))
+                            continue;
+                        if (sizeFrom > 0 || sizeTo > 0)
+                        {
+                            if (fileInfo == null)
+                                fileInfo = new FileInfo(filePath);
+
+                            long sizeKB = fileInfo.Length / 1000;
+                            if (sizeFrom > 0 && sizeKB < sizeFrom)
+                            {
+                                continue;
+                            }
+                            if (sizeTo > 0 && sizeKB > sizeTo)
+                            {
+                                continue;
+                            }
+                        }
+                        foreach (var pattern in includeRegexPatterns)
+                        {
+                            if (pattern.IsMatch(Path.GetFileName(filePath)))
+                            {
+                                includeMatch = true;
+                                break;
+                            }
+                        }
+                        foreach (var pattern in excludeRegexPatterns)
+                        {
+                            if (pattern.IsMatch(Path.GetFileName(filePath)))
+                            {
+                                excludeMatch = true;
+                                break;
+                            }
+                        }
+                        if (excludeMatch || !includeMatch)
+                            continue;
+
+                        if (!matches.Contains(filePath))
+                        {
+                            matches.Add(filePath);
+                            yield return filePath;
+                        }
+                    }
+                }
+            }
+        }        
+
 		/// <summary>
 		/// Searches folder and it's subfolders for files that match pattern and
 		/// returns array of strings that contain full paths to the files.
@@ -382,66 +515,10 @@ namespace dnGREP.Common
 		/// <param name="includeBinary">Include binary files</param>
 		/// <param name="sizeFrom">Size in KB</param>
 		/// <param name="sizeTo">Size in KB</param>
-		/// <returns></returns>
+		/// <returns>List of file or empty list if nothing is found</returns>
 		public static string[] GetFileList(string path, string namePatternToInclude, string namePatternToExclude, bool isRegex, bool includeSubfolders, bool includeHidden, bool includeBinary, int sizeFrom, int sizeTo)
 		{
-			if (string.IsNullOrEmpty(path) || namePatternToInclude == null)
-			{
-				return new string[0];
-			}
-			else
-			{
-				List<string> fileMatch = new List<string>();
-				if (namePatternToExclude == null)
-					namePatternToExclude = "";
-
-				if (!isRegex)
-				{
-                    string[] excludePaths = SplitPath(namePatternToExclude);
-					StringBuilder sb = new StringBuilder();
-					foreach (string exPath in excludePaths)
-					{
-						if (exPath.Trim() == "")
-							continue;
-						sb.Append(wildcardToRegex(exPath) + ";");
-					}
-					namePatternToExclude = sb.ToString();
-				}
-
-                string[] paths = SplitPath(path);
-				foreach (string subPath in paths)
-				{
-					if (subPath.Trim() == "")
-						continue;
-
-					try
-					{
-						DirectoryInfo di = new DirectoryInfo(subPath);
-
-						if (di.Exists)
-						{
-                            string[] namePatterns = SplitPath(namePatternToInclude);
-							foreach (string pattern in namePatterns)
-							{
-								string rxPattern = pattern.Trim();
-								if (!isRegex)
-									rxPattern = wildcardToRegex(rxPattern);
-								recursiveFileSearch(di.FullName, rxPattern, namePatternToExclude.Trim(), includeSubfolders, includeHidden, includeBinary, sizeFrom, sizeTo, fileMatch);
-							}
-						}
-						else if (File.Exists(subPath))
-						{
-							if (!fileMatch.Contains(subPath))
-								fileMatch.Add(subPath);
-						}
-					}
-					catch (Exception ex)
-					{
-						continue;
-					}
-				}
-				return fileMatch.ToArray();
-			}
+            return new List<string>(GetFileListEx(path, namePatternToInclude, namePatternToExclude, isRegex, includeSubfolders, includeHidden, includeBinary, sizeFrom, sizeTo)).ToArray();
 		}
 
 		private static void recursiveFileSearch(string pathToFolder, string namePatternToInclude, string namePatternToExclude, bool includeSubfolders, bool includeHidden, bool includeBinary, int sizeFrom, int sizeTo, List<string> files)

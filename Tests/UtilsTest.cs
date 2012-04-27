@@ -662,6 +662,28 @@ namespace Tests
 		}
 
         [Test]
+        public void GetFileListPerformance()
+        {
+            string path = sourceFolder + @"\..\..\..\..\";
+            DateTime start = DateTime.Now;
+            int size = Utils.GetFileList(path, "*.*", null, false, false, false, true, 0, 0).Length;
+            var duration = DateTime.Now.Subtract(start).Duration().TotalMilliseconds;
+
+            path = sourceFolder + @"..\..\..\";
+            start = DateTime.Now;
+            size = Utils.GetFileList(path, @".*\..*", null, true, true, true, true, 0, 0).Length;
+            duration = DateTime.Now.Subtract(start).Duration().TotalMilliseconds;
+
+            start = DateTime.Now;
+            DirectoryInfo dir = new DirectoryInfo(path);
+            var size2 = dir.GetFiles("*.*", SearchOption.AllDirectories).Length;
+            var duration2 = DateTime.Now.Subtract(start).Duration().TotalMilliseconds;
+            
+            Assert.AreEqual(size, size2);
+            Assert.GreaterThan(duration, duration2);
+        }
+
+        [Test]
 		[Row("", 1, 1)]
 		[Row("5", 0, 5)]
 		[Row(" 12", 1, 12)]
@@ -714,7 +736,7 @@ namespace Tests
             yield return new object[] { sourceFolder + "\\TestCase7\\Test,Folder\\;" + sourceFolder + "\\TestCase7", 2 };
             yield return new object[] { sourceFolder + "\\TestCase7\\Test;Folder\\;" + sourceFolder + "\\TestCase7", 2 };
             yield return new object[] { sourceFolder + "\\TestCase7\\Test;Folder\\;" + sourceFolder + "\\TestCase7;" + sourceFolder + "\\TestCase7\\Test;Folder\\", 3 };
-            yield return new object[] { null, null };
+            yield return new object[] { null, 0 };
             yield return new object[] { "", 0 };
         }
 

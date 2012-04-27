@@ -35,13 +35,11 @@ namespace dnGREP.Common
 		public event SearchProgressHandler ProcessedFile;
 		public class ProgressStatus
 		{
-			public ProgressStatus(int total, int processed, List<GrepSearchResult> results)
+			public ProgressStatus(int processed, List<GrepSearchResult> results)
 			{
-				TotalFiles = total;
 				ProcessedFiles = processed;
 				SearchResults = results;
 			}
-			public int TotalFiles;
 			public int ProcessedFiles;
 			public List<GrepSearchResult> SearchResults;
 		}
@@ -60,11 +58,11 @@ namespace dnGREP.Common
 		/// <param name="files">Files to search in. If one of the files does not exist or is open, it is skipped.</param>
 		/// <param name="searchRegex">Regex pattern</param>
 		/// <returns>List of results. If nothing is found returns empty list</returns>
-		public List<GrepSearchResult> Search(string[] files, SearchType searchType, string searchPattern, GrepSearchOption searchOptions, int codePage)
+		public List<GrepSearchResult> Search(IEnumerable<string> files, SearchType searchType, string searchPattern, GrepSearchOption searchOptions, int codePage)
 		{
 			List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
 
-			if (files == null || files.Length == 0)
+			if (files == null)
 				return searchResults;
 
             GrepCore.CancelProcess = false;
@@ -79,15 +77,14 @@ namespace dnGREP.Common
 				if (ProcessedFile != null)
 				{
 					if (PreviewFilesDuringSearch)
-						ProcessedFile(this, new ProgressStatus(searchResults.Count, searchResults.Count, searchResults));
+						ProcessedFile(this, new ProgressStatus(searchResults.Count, searchResults));
 					else
-						ProcessedFile(this, new ProgressStatus(searchResults.Count, searchResults.Count, null));
+						ProcessedFile(this, new ProgressStatus(searchResults.Count, null));
 				}
 
 				return searchResults;
 			}
 
-			int totalFiles = files.Length;
 			int processedFiles = 0;
 			
 			try
@@ -122,9 +119,9 @@ namespace dnGREP.Common
 						if (ProcessedFile != null)
 						{
 							if (PreviewFilesDuringSearch)
-								ProcessedFile(this, new ProgressStatus(totalFiles, processedFiles, fileSearchResults));
+								ProcessedFile(this, new ProgressStatus(processedFiles, fileSearchResults));
 							else
-								ProcessedFile(this, new ProgressStatus(totalFiles, processedFiles, null));
+								ProcessedFile(this, new ProgressStatus(processedFiles, null));
 						}
 
 					}
@@ -151,21 +148,20 @@ namespace dnGREP.Common
 			return searchResults;
 		}
 
-		public int Replace(string[] files, SearchType searchType, string baseFolder, string searchPattern, string replacePattern, GrepSearchOption searchOptions, int codePage)
+		public int Replace(IEnumerable<string> files, SearchType searchType, string baseFolder, string searchPattern, string replacePattern, GrepSearchOption searchOptions, int codePage)
 		{
 			string tempFolder = Utils.GetTempFolder();
 			if (Directory.Exists(tempFolder))
 				Utils.DeleteFolder(tempFolder);
 			Directory.CreateDirectory(tempFolder);
 
-			if (files == null || files.Length == 0 || !Directory.Exists(tempFolder) || !Directory.Exists(baseFolder))
+			if (files == null || !Directory.Exists(tempFolder) || !Directory.Exists(baseFolder))
 				return 0;
 
 			baseFolder = Utils.FixFolderName(baseFolder);
 			tempFolder = Utils.FixFolderName(tempFolder);
             replacePattern = Utils.ReplaceSpecialCharacters(replacePattern);
 
-			int totalFiles = files.Length;
 			int processedFiles = 0;
 			GrepCore.CancelProcess = false;
 
@@ -204,7 +200,7 @@ namespace dnGREP.Common
 						}
 
 						if (!GrepCore.CancelProcess && ProcessedFile != null)
-							ProcessedFile(this, new ProgressStatus(totalFiles, processedFiles, null));
+							ProcessedFile(this, new ProgressStatus(processedFiles, null));
 
 
 						File.SetAttributes(file, File.GetAttributes(tempFileName));
