@@ -58,8 +58,6 @@ namespace dnGREP.Common
 			public const string CustomEditorArgs = "CustomEditorArgs";
             [DefaultValue(10)]
 			public const string UpdateCheckInterval = "UpdateCheckInterval";
-            [DefaultValue(true)]
-			public const string PreviewResults = "PreviewResults";
             public const string ExpandResults = "ExpandResults";
 			public const string LastCheckedVersion = "LastCheckedVersion";
             [DefaultValue(true)]

@@ -75,11 +75,6 @@
                             <TextBlock TextWrapping="Wrap">Allow searching for file name pattern only when "search for" is empty</TextBlock>
                         </CheckBox.Content>
                     </CheckBox>
-                    <CheckBox Margin="3" Name="cbPreviewResults">
-                        <CheckBox.Content>
-                            <TextBlock TextWrapping="Wrap">Preview results during search</TextBlock>
-                        </CheckBox.Content>
-                    </CheckBox>
                     <CheckBox Margin="3" Name="cbExpandResult">
                         <CheckBox.Content>
                             <TextBlock TextWrapping="Wrap">Show results tree expanded</TextBlock>

@@ -239,9 +239,7 @@ namespace dnGREP.WPF
 				inputData.SearchResults.Clear();
                 Dictionary<string, object> workerParames = new Dictionary<string, object>();
                 workerParames["State"] = inputData;
-				if (!settings.Get<bool>(GrepSettings.Key.PreviewResults))
-					tvSearchResult.ItemsSource = null;
-                workerSearchReplace.RunWorkerAsync(workerParames);
+				workerSearchReplace.RunWorkerAsync(workerParames);
 				// Update bookmarks
 				if (!inputData.FastSearchBookmarks.Contains(tbSearchFor.Text))
 				{
@@ -277,8 +275,6 @@ namespace dnGREP.WPF
                 workerParames["State"] = inputData;
                 workerParames["Files"] = foundFiles;
 				inputData.SearchResults.Clear();
-				if (!settings.Get<bool>(GrepSettings.Key.PreviewResults))
-					tvSearchResult.ItemsSource = null;
 				workerSearchReplace.RunWorkerAsync(workerParames);
 				// Update bookmarks
 				if (!inputData.FastSearchBookmarks.Contains(tbSearchFor.Text))
@@ -439,7 +435,6 @@ namespace dnGREP.WPF
 
 						GrepCore grep = new GrepCore();
 						grep.SearchParams.FuzzyMatchThreshold = settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold);
-						grep.PreviewFilesDuringSearch = settings.Get<bool>(GrepSettings.Key.PreviewResults);
 
                         GrepSearchOption searchOptions = GrepSearchOption.None;
                         if (inputData.Multiline)
@@ -461,7 +456,6 @@ namespace dnGREP.WPF
 					{
 						GrepCore grep = new GrepCore();
 						grep.SearchParams.FuzzyMatchThreshold = settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold);
-						grep.PreviewFilesDuringSearch = settings.Get<bool>(GrepSettings.Key.PreviewResults);
 
                         GrepSearchOption searchOptions = GrepSearchOption.None;
                         if (inputData.Multiline)
@@ -557,12 +551,6 @@ namespace dnGREP.WPF
                     barProgressBar.IsIndeterminate = false;
 					if (inputData.SearchResults.Count > 0)
 						inputData.FilesFound = true;
-					if (!settings.Get<bool>(GrepSettings.Key.PreviewResults))
-					{
-						inputData.SearchResults.AddRange(results);
-						tvSearchResult.ItemsSource = inputData.SearchResults;
-						inputData.FilesFound = true;
-					}
 					inputData.CurrentGrepOperation = GrepOperation.None;
 				}
 				else if (inputData.CurrentGrepOperation == GrepOperation.Replace)

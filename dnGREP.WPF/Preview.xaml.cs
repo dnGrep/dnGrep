@@ -29,10 +29,12 @@ namespace dnGREP.WPF
         private string currentFile;
         private bool forceClose = false;
         private StickyWindow _stickyWindow;
+        private PreviewState inputData = new PreviewState();
         
         public Preview()
         {
             InitializeComponent();
+            this.DataContext = inputData;
             textEditor.Loaded += new RoutedEventHandler(textEditor_Loaded);
             this.Loaded += new RoutedEventHandler(window_Loaded);
         }
@@ -76,23 +78,12 @@ namespace dnGREP.WPF
                 if (fileInfo.Length > 1024000 ||
                     Utils.IsBinary(pathToFile))
                 {
-                    textEditor.Text = "Unabled to preview this file";
+                    inputData.IsLargeOrBinary = System.Windows.Visibility.Visible;
                 }
                 else
                 {
-                    textEditor.Load(pathToFile);
-                    string extension = Path.GetExtension(pathToFile);
-                    
-                    if (!string.IsNullOrEmpty(extension))
-                    {
-                        if (extension.ToLower() == ".vbs")
-                            extension = ".vb";
-                        if (extension.ToLower() == ".sql")
-                            textEditor.SyntaxHighlighting = loadHighlightingDefinition("sqlmode.xshd");
-                        else
-                            textEditor.SyntaxHighlighting = HighlightingManager.Instance.GetDefinitionByExtension(extension);
-                    }
-                    textEditor.TextArea.TextView.LineTransformers.Add(new PreviewHighlighter(grepResult));
+                    inputData.IsLargeOrBinary = System.Windows.Visibility.Collapsed;
+                    loadFile(pathToFile);
                 }
             }
             if (textEditor.IsLoaded)
@@ -100,6 +91,23 @@ namespace dnGREP.WPF
                 textEditor.ScrollTo(line, 0);
             }
             this.Show();
+        }
+
+        private void loadFile(string pathToFile) 
+        {
+            textEditor.Load(pathToFile);
+            string extension = Path.GetExtension(pathToFile);
+
+            if (!string.IsNullOrEmpty(extension))
+            {
+                if (extension.ToLower() == ".vbs")
+                    extension = ".vb";
+                if (extension.ToLower() == ".sql")
+                    textEditor.SyntaxHighlighting = loadHighlightingDefinition("sqlmode.xshd");
+                else
+                    textEditor.SyntaxHighlighting = HighlightingManager.Instance.GetDefinitionByExtension(extension);
+            }
+            textEditor.TextArea.TextView.LineTransformers.Add(new PreviewHighlighter(grepResult));
         }
 
         private IHighlightingDefinition loadHighlightingDefinition(
@@ -150,6 +158,12 @@ namespace dnGREP.WPF
                     zoomSlider.Value = 12;
                 }
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            loadFile(currentFile);
+            inputData.IsLargeOrBinary = System.Windows.Visibility.Collapsed;
         }
     }
 }

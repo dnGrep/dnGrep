@@ -21,14 +21,6 @@ namespace dnGREP.Common
 			set { searchParams = value; }
 		}
 		
-		private bool previewFilesDuringSearch = false;
-
-		public bool PreviewFilesDuringSearch
-		{
-			get { return previewFilesDuringSearch; }
-			set { previewFilesDuringSearch = value; }
-		}
-		
 		private static Logger logger = LogManager.GetCurrentClassLogger();
 		private List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
 		public delegate void SearchProgressHandler(object sender, ProgressStatus files);
@@ -76,10 +68,7 @@ namespace dnGREP.Common
 
 				if (ProcessedFile != null)
 				{
-					if (PreviewFilesDuringSearch)
-						ProcessedFile(this, new ProgressStatus(searchResults.Count, searchResults));
-					else
-						ProcessedFile(this, new ProgressStatus(searchResults.Count, null));
+                    ProcessedFile(this, new ProgressStatus(searchResults.Count, searchResults));
 				}
 
 				return searchResults;
@@ -118,10 +107,7 @@ namespace dnGREP.Common
 
 						if (ProcessedFile != null)
 						{
-							if (PreviewFilesDuringSearch)
-								ProcessedFile(this, new ProgressStatus(processedFiles, fileSearchResults));
-							else
-								ProcessedFile(this, new ProgressStatus(processedFiles, null));
+                            ProcessedFile(this, new ProgressStatus(processedFiles, fileSearchResults));
 						}
 
 					}

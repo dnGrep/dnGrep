@@ -305,7 +305,6 @@ namespace dnGREP.WPF
 			cbSearchFileNameOnly.IsChecked = settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern);
             tbEditorPath.Text = settings.Get<string>(GrepSettings.Key.CustomEditor);
             tbEditorArgs.Text = settings.Get<string>(GrepSettings.Key.CustomEditorArgs);
-			cbPreviewResults.IsChecked = settings.Get<bool>(GrepSettings.Key.PreviewResults);
 			cbExpandResult.IsChecked = settings.Get<bool>(GrepSettings.Key.ExpandResults);
             cbClearType.IsChecked = settings.Get<TextFormattingMode>(GrepSettings.Key.TextFormatting) == TextFormattingMode.Ideal;
 			tbUpdateInterval.Text = settings.Get<int>(GrepSettings.Key.UpdateCheckInterval).ToString();
@@ -367,7 +366,6 @@ namespace dnGREP.WPF
 			settings.Set<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern, cbSearchFileNameOnly.IsChecked == true);
             settings.Set<string>(GrepSettings.Key.CustomEditor, tbEditorPath.Text);
             settings.Set<string>(GrepSettings.Key.CustomEditorArgs, tbEditorArgs.Text);
-			settings.Set<bool>(GrepSettings.Key.PreviewResults, cbPreviewResults.IsChecked == true);
 			settings.Set<bool>(GrepSettings.Key.ExpandResults, cbExpandResult.IsChecked == true);
 			settings.Set<int>(GrepSettings.Key.UpdateCheckInterval, Utils.ParseInt(tbUpdateInterval.Text, 1));
             
