@@ -16,6 +16,7 @@
             <TextBlock>Zoom:</TextBlock>
             <Slider Name="zoomSlider" ToolTip="Changes text editor zoom" Value="12" Minimum="9" Maximum="30" Width="200" HorizontalAlignment="Right"/>
             <CheckBox Name="cbWrapText">Wrap text</CheckBox>
+            <ComboBox Name="cbHighlighter" ItemsSource="{Binding Path=Highlighters}" SelectedValue="{Binding Path=CurrentSyntax}"></ComboBox>
         </StatusBar>
         <ae:TextEditor Name="textEditor" FontFamily="Consolas" FontSize="{Binding ElementName=zoomSlider,Path=Value}" ShowLineNumbers="True" 
                        IsReadOnly="True" WordWrap="{Binding ElementName=cbWrapText,Path=IsChecked}" />

@@ -26,6 +26,7 @@ namespace dnGREP.WPF
     {
         private int line;
         private GrepSearchResult grepResult;
+        private Dictionary<string, IHighlightingDefinition> highlightDefinitions = new Dictionary<string,IHighlightingDefinition>();
         private string currentFile;
         private bool forceClose = false;
         private StickyWindow _stickyWindow;
@@ -34,9 +35,33 @@ namespace dnGREP.WPF
         public Preview()
         {
             InitializeComponent();
+            inputData.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(inputData_PropertyChanged);
+            inputData.Highlighters = new List<string>();
+            foreach (var hl in HighlightingManager.Instance.HighlightingDefinitions)
+            {
+                highlightDefinitions[hl.Name] = hl;
+                inputData.Highlighters.Add(hl.Name);
+            }
+            inputData.Highlighters.Add("SQL");
+            highlightDefinitions["SQL"] = loadHighlightingDefinition("sqlmode.xshd");
+            inputData.Highlighters.Sort();
+            inputData.Highlighters.Insert(0, "None");
+            inputData.CurrentSyntax = "None";
+
             this.DataContext = inputData;
             textEditor.Loaded += new RoutedEventHandler(textEditor_Loaded);
-            this.Loaded += new RoutedEventHandler(window_Loaded);
+            this.Loaded += new RoutedEventHandler(window_Loaded);            
+        }
+
+        void inputData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "CurrentSyntax")
+            {
+                textEditor.TextArea.TextView.LineTransformers.Clear();
+                if (highlightDefinitions.ContainsKey(inputData.CurrentSyntax))
+                    textEditor.SyntaxHighlighting = highlightDefinitions[inputData.CurrentSyntax];
+                textEditor.TextArea.TextView.LineTransformers.Add(new PreviewHighlighter(grepResult));
+            }
         }
 
         void window_Loaded(object sender, RoutedEventArgs e)
@@ -52,7 +77,7 @@ namespace dnGREP.WPF
         {
             textEditor.ScrollTo(line, 0);
             cbWrapText.IsChecked = GrepSettings.Instance.Get<bool?>(GrepSettings.Key.PreviewWindowWrap);
-            zoomSlider.Value = GrepSettings.Instance.Get<int>(GrepSettings.Key.PreviewWindowFont);
+            zoomSlider.Value = GrepSettings.Instance.Get<int>(GrepSettings.Key.PreviewWindowFont);            
         }
 
         public void ResetTextEditor()
@@ -79,6 +104,7 @@ namespace dnGREP.WPF
                     Utils.IsBinary(pathToFile))
                 {
                     inputData.IsLargeOrBinary = System.Windows.Visibility.Visible;
+                    textEditor.Clear();
                 }
                 else
                 {
@@ -102,12 +128,18 @@ namespace dnGREP.WPF
             {
                 if (extension.ToLower() == ".vbs")
                     extension = ".vb";
+
+                IHighlightingDefinition def = null;
                 if (extension.ToLower() == ".sql")
-                    textEditor.SyntaxHighlighting = loadHighlightingDefinition("sqlmode.xshd");
+                    def = loadHighlightingDefinition("sqlmode.xshd");
                 else
-                    textEditor.SyntaxHighlighting = HighlightingManager.Instance.GetDefinitionByExtension(extension);
+                    def = HighlightingManager.Instance.GetDefinitionByExtension(extension);
+
+                if (def != null)
+                    inputData.CurrentSyntax = def.Name;
+                else
+                    inputData.CurrentSyntax = "None";
             }
-            textEditor.TextArea.TextView.LineTransformers.Add(new PreviewHighlighter(grepResult));
         }
 
         private IHighlightingDefinition loadHighlightingDefinition(

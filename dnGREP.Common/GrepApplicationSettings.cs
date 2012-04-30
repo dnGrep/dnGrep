@@ -71,14 +71,6 @@ namespace dnGREP.Common
 			public const string FastFileNotMatchBookmarks = "FastFileNotMatchBookmarks";
 			public const string FastPathBookmarks = "FastPathBookmarks";
             public const string TextFormatting = "TextFormatting";
-            public const string WindowWidth = "WindowWidth";
-            [DefaultValue(600)]
-            public const string WindowHeight = "WindowHeight";
-            [DefaultValue(100)]
-            public const string WindowTop = "WindowTop";
-            [DefaultValue(200)]
-            public const string WindowLeft = "WindowLeft";
-            public const string WindowState = "WindowState";
             [DefaultValue(12)]
             public const string PreviewWindowFont = "PreviewWindowFont";
             [DefaultValue(false)]

@@ -38,7 +38,7 @@ namespace dnGREP.WPF
 		private PublishedVersionExtractor ve = new PublishedVersionExtractor();
 		private FileFolderDialogWin32 fileFolderDialog = new FileFolderDialogWin32();
 		private BackgroundWorker workerSearchReplace = new BackgroundWorker();
-		private MainFormState inputData = new MainFormState();
+        private MainFormState inputData;
 		private BookmarksForm bookmarkForm;
         private System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
         private System.Windows.Forms.HelpProvider helpProvider = new System.Windows.Forms.HelpProvider();
@@ -103,8 +103,10 @@ namespace dnGREP.WPF
         public MainForm(bool isVisible)
         {
             InitializeComponent();
-            this.DataContext = inputData;
-            tvSearchResult.ItemsSource = inputData.SearchResults;
+            this.Width = Properties.Settings.Default.Width;
+            this.Height = Properties.Settings.Default.Height;
+            this.Top = Properties.Settings.Default.Top;
+            this.Left = Properties.Settings.Default.Left;
             this.isVisible = isVisible;
         }
 
@@ -177,11 +179,11 @@ namespace dnGREP.WPF
             _stickyWindow.StickToOther = true;
             _stickyWindow.StickOnResize = true;
             _stickyWindow.StickOnMove = true;
-            this.Width = inputData.WindowWidth;
-            this.Height = inputData.WindowHeight;
-            this.Top = inputData.WindowTop;
-            this.Left = inputData.WindowLeft;
 
+            inputData = new MainFormState();
+            this.DataContext = inputData;
+            tvSearchResult.ItemsSource = inputData.SearchResults;
+            
             winFormControlsInit();
 			populateEncodings();
 			ve.RetrievedVersion += new PublishedVersionExtractor.VersionExtractorHandler(ve_RetrievedVersion);
@@ -601,15 +603,16 @@ namespace dnGREP.WPF
 			if (workerSearchReplace.IsBusy)
 				workerSearchReplace.CancelAsync();
 			copyBookmarksToSettings();
-            inputData.WindowWidth = (int)this.ActualWidth;
-            inputData.WindowHeight = (int)this.ActualHeight;
-            inputData.WindowTop = (int)this.Top;
-            inputData.WindowLeft = (int)this.Left;
+            Properties.Settings.Default.Width = (int)this.ActualWidth;
+            Properties.Settings.Default.Height = (int)this.ActualHeight;
+            Properties.Settings.Default.Top = (int)this.Top;
+            Properties.Settings.Default.Left = (int)this.Left;
             if (preview != null)
             {
                 GrepSettings.Instance.Set(GrepSettings.Key.PreviewWindowWidth, preview.ActualWidth);
                 preview.ForceClose();
             }
+            Properties.Settings.Default.Save();
             settings.Save();
 		}
 

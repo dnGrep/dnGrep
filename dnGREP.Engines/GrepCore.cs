@@ -100,7 +100,7 @@ namespace dnGREP.Common
 
 						List<GrepSearchResult> fileSearchResults = engine.Search(file, searchPattern, searchType, searchOptions, encoding);
 
-						if (fileSearchResults != null)
+						if (fileSearchResults != null && fileSearchResults.Count > 0)
 						{
 							searchResults.AddRange(fileSearchResults);
 						}
@@ -117,6 +117,12 @@ namespace dnGREP.Common
                         List<GrepSearchResult.GrepLine> lines = new List<GrepSearchResult.GrepLine>();
                         lines.Add(new GrepSearchResult.GrepLine(-1, ex.Message, false, null));
                         searchResults.Add(new GrepSearchResult(file, lines, false));
+                        if (ProcessedFile != null)
+                        {
+                            List<GrepSearchResult> _results = new List<GrepSearchResult>();
+                            _results.Add(new GrepSearchResult(file, lines, false));
+                            ProcessedFile(this, new ProgressStatus(processedFiles, _results));
+                        }
 					}
 				}
 			}
