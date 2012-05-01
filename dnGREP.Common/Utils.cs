@@ -515,7 +515,10 @@ namespace dnGREP.Common
         {
             try
             {
-                var enumer = Directory.EnumerateFiles(dirPath);
+                foreach (string path in Directory.EnumerateFiles(dirPath))
+                {
+                    break;
+                }
                 return true;
             }
             catch
