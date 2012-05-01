@@ -16,7 +16,7 @@ namespace dnGREP.Common
 	/// <summary>
 	/// Singleton class used to maintain and persist application settings
 	/// </summary>
-	public class GrepSettings : SerializableDictionary<string, string>
+	public class GrepSettings : SerializableDictionary
 	{
 		public static class Key
 		{
@@ -121,9 +121,9 @@ namespace dnGREP.Common
 				{
 					if (stream == null)
 						return;
-					XmlSerializer serializer = new XmlSerializer(typeof(SerializableDictionary<string, string>));
+					XmlSerializer serializer = new XmlSerializer(typeof(SerializableDictionary));
 					this.Clear();
-					SerializableDictionary<string, string> appData = (SerializableDictionary<string, string>)serializer.Deserialize(stream);
+					SerializableDictionary appData = (SerializableDictionary)serializer.Deserialize(stream);
 					foreach (KeyValuePair<string, string> pair in appData)
 						this[pair.Key] = pair.Value;
 				}
@@ -156,12 +156,13 @@ namespace dnGREP.Common
 				lock (this)
 				{
 					// Create temp file in case save crashes
-					using (FileStream stream = File.OpenWrite(path + "~"))
+                    using (FileStream stream = File.OpenWrite(path + "~"))
+                    using (XmlWriter xmlStream = XmlWriter.Create(stream, new XmlWriterSettings { Indent = false }))
 					{
-						if (stream == null)
+                        if (xmlStream == null)
 							return;
-						XmlSerializer serializer = new XmlSerializer(typeof(SerializableDictionary<string, string>));
-						serializer.Serialize(stream, this);
+						XmlSerializer serializer = new XmlSerializer(typeof(SerializableDictionary));
+                        serializer.Serialize(xmlStream, this);
 					}
 					File.Copy(path + "~", path, true);
 					Utils.DeleteFile(path + "~");
@@ -291,8 +292,7 @@ namespace dnGREP.Common
 	/// <typeparam name="TKey"></typeparam>
 	/// <typeparam name="TValue"></typeparam>
 	[XmlRoot("dictionary")]
-	public class SerializableDictionary<TKey, TValue>
-		: Dictionary<TKey, TValue>, IXmlSerializable
+	public class SerializableDictionary: Dictionary<string, string>, IXmlSerializable
 	{
 		#region IXmlSerializable Members
 		public System.Xml.Schema.XmlSchema GetSchema()
@@ -302,31 +302,17 @@ namespace dnGREP.Common
 		
 		public void ReadXml(System.Xml.XmlReader reader)
 		{
-			XmlSerializer keySerializer = new XmlSerializer(typeof(TKey));
-			XmlSerializer valueSerializer = new XmlSerializer(typeof(TValue));
-
 			bool wasEmpty = reader.IsEmptyElement;
-			reader.Read();
 
 			if (wasEmpty)
 				return;
 
-			while (reader.NodeType != System.Xml.XmlNodeType.EndElement)
+            reader.Read();
+            while (reader.NodeType == XmlNodeType.Element)
 			{
-				reader.ReadStartElement("item");
-
-				reader.ReadStartElement("key");
-				TKey key = (TKey)keySerializer.Deserialize(reader);
-				reader.ReadEndElement();
-
-				reader.ReadStartElement("value");
-				TValue value = (TValue)valueSerializer.Deserialize(reader);
-				reader.ReadEndElement();
-
-				this.Add(key, value);
-
-				reader.ReadEndElement();
-				reader.MoveToContent();
+				string key = reader.GetAttribute("key");
+                string value = reader.ReadElementContentAsString();
+                this[key] = value;
 			}
 			reader.ReadEndElement();
 		}
@@ -335,22 +321,12 @@ namespace dnGREP.Common
 
 		public void WriteXml(System.Xml.XmlWriter writer)
 		{
-			XmlSerializer keySerializer = new XmlSerializer(typeof(TKey));
-			XmlSerializer valueSerializer = new XmlSerializer(typeof(TValue));
-			
-			foreach (TKey key in this.Keys)
+			foreach (var key in this.Keys)
 			{
 				writer.WriteStartElement("item");
-
-				writer.WriteStartElement("key");
-				keySerializer.Serialize(writer, key);
-				writer.WriteEndElement();
-
-				writer.WriteStartElement("value");
-				TValue value = this[key];
-				valueSerializer.Serialize(writer, value);
-				writer.WriteEndElement();
-
+                writer.WriteAttributeString("key", key);
+				string value = this[key];
+                writer.WriteString(value);
 				writer.WriteEndElement();
 			}
 		}
