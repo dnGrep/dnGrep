@@ -479,7 +479,7 @@ namespace dnGREP.Common
                             }
                             foreach (var pattern in includeRegexPatterns)
                             {
-                                if (pattern.IsMatch(Path.GetFileName(filePath)))
+                                if (pattern.IsMatch(filePath))
                                 {
                                     includeMatch = true;
                                     break;
@@ -487,7 +487,7 @@ namespace dnGREP.Common
                             }
                             foreach (var pattern in excludeRegexPatterns)
                             {
-                                if (pattern.IsMatch(Path.GetFileName(filePath)))
+                                if (pattern.IsMatch(filePath))
                                 {
                                     excludeMatch = true;
                                     break;
@@ -633,7 +633,6 @@ namespace dnGREP.Common
 			StringBuilder sb = new StringBuilder();
 
 			char[] chars = wildcard.ToCharArray();
-			sb.Append("^");
 			for (int i = 0; i < chars.Length; ++i)
 			{
 				if (chars[i] == '*')

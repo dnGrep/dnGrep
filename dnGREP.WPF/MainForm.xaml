@@ -284,10 +284,10 @@
                                 <ColumnDefinition Width="82" />
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="Black">Files that match:</TextBlock>
+                            <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="Black">Paths that match:</TextBlock>
                             <ComboBox IsEditable="True" ItemsSource="{Binding Path=FastFileMatchBookmarks}" Grid.Column="1" Grid.Row="0" GotFocus="TextBoxFocus" Name="tbFilePattern" my:DiginesisHelpProvider.HelpKeyword="searchreplace.html" my:DiginesisHelpProvider.HelpNavigator="Topic" 
                                         my:DiginesisHelpProvider.ShowHelp="True" Text="{Binding Path=FilePattern, UpdateSourceTrigger=PropertyChanged}" TabIndex="50"  IsEnabled="{Binding Path=FileFilters, Converter={StaticResource InverseBooleanConverter}}"/>
-                            <TextBlock Style="{StaticResource GrayedOutFilePattern}" Grid.Column="0" Grid.Row="1" TextWrapping="WrapWithOverflow" VerticalAlignment="Center">Files to ignore:</TextBlock>
+                            <TextBlock Style="{StaticResource GrayedOutFilePattern}" Grid.Column="0" Grid.Row="1" TextWrapping="WrapWithOverflow" VerticalAlignment="Center">Paths to ignore:</TextBlock>
                             <ComboBox IsEditable="True" ItemsSource="{Binding Path=FastFileNotMatchBookmarks}" Grid.Column="1" Grid.Row="1" GotFocus="TextBoxFocus" Name="tbFilePatternIgnore" my:DiginesisHelpProvider.HelpKeyword="searchreplace.html" my:DiginesisHelpProvider.HelpNavigator="Topic" 
                                         my:DiginesisHelpProvider.ShowHelp="True" Text="{Binding Path=FilePatternIgnore, UpdateSourceTrigger=PropertyChanged}" TabIndex="51"  IsEnabled="{Binding Path=FileFilters, Converter={StaticResource InverseBooleanConverter}}"/>
                             <StackPanel Grid.Column="1" Grid.Row="2" >
