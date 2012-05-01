@@ -805,7 +805,7 @@ namespace dnGREP.WPF
 				if (string.IsNullOrWhiteSpace(FileOrFolderPath))
 					WindowTitle = "dnGREP";
 				else
-					WindowTitle = string.Format("{0} in \"{1}\" - dnGREP", SearchFor, FileOrFolderPath);
+					WindowTitle = string.Format("{0} in \"{1}\" - dnGREP", (SearchFor == null ? "Empty" : SearchFor.Replace('\n',' ').Replace('\r', ' ')), FileOrFolderPath);
 			}
 
 			//Can search

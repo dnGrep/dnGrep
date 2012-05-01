@@ -170,7 +170,7 @@
                                     </ComboBox>
                                     <TextBox BorderThickness="0" GotFocus="TextBoxFocus" Name="tbSearchFor" Text="{Binding Path=SearchFor, UpdateSourceTrigger=PropertyChanged}" 
                                 VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" my:DiginesisHelpProvider.HelpKeyword="regular-expressions.html" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True"
-                                Style="{StaticResource ExpandedTextbox}" FontFamily="Consolas" FontSize="12" TabIndex="5">
+                                Style="{StaticResource ExpandedTextbox}" FontFamily="Consolas" FontSize="12" TabIndex="5" PreviewKeyDown="tbPreviewKeyDown">
                                         <TextBox.ToolTip>
                                             <TextBlock>
                                     <Run>. matches all characters</Run>
@@ -207,7 +207,7 @@
                                     <TextBox GotFocus="TextBoxFocus" BorderThickness="0" Name="tbReplaceWith" 
                                     Text="{Binding Path=ReplaceWith, UpdateSourceTrigger=PropertyChanged}"  
                                     VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch"
-                                    Style="{StaticResource ExpandedTextbox}" FontFamily="Consolas" FontSize="12" TabIndex="10">
+                                    Style="{StaticResource ExpandedTextbox}" FontFamily="Consolas" FontSize="12" TabIndex="10" PreviewKeyDown="tbPreviewKeyDown">
                                         <TextBox.ToolTip>
                                             <TextBlock>
 										<Run><![CDATA[$& replaces entire regex]]></Run>
