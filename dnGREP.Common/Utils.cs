@@ -11,6 +11,7 @@ using System.Security.Permissions;
 using System.Security;
 using System.Linq;
 using NLog;
+using System.Security.AccessControl;
 
 namespace dnGREP.Common
 {
@@ -442,54 +443,63 @@ namespace dnGREP.Common
                         if (dirInfo.Root.Name != dirInfo.Name && (dirInfo.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
                             continue;
                     }
+                    if (!hasListPermissionOnDir(dirPath))
+                        continue;
                     foreach (var filePath in Directory.EnumerateFiles(dirPath))
                     {
                         bool excludeMatch = false;
                         bool includeMatch = false;
                         FileInfo fileInfo = null;
-                        if (!includeHidden)
+                        try
                         {
-                            if (fileInfo == null)
-                                fileInfo = new FileInfo(filePath);
-                            if ((fileInfo.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
-                                continue;
-                        }
+                            if (!includeHidden)
+                            {
+                                if (fileInfo == null)
+                                    fileInfo = new FileInfo(filePath);
+                                if ((fileInfo.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
+                                    continue;
+                            }
 
-                        if (!includeBinary && IsBinary(filePath))
-                            continue;
-                        if (sizeFrom > 0 || sizeTo > 0)
-                        {
-                            if (fileInfo == null)
-                                fileInfo = new FileInfo(filePath);
+                            if (!includeBinary && IsBinary(filePath))
+                                continue;
+                            if (sizeFrom > 0 || sizeTo > 0)
+                            {
+                                if (fileInfo == null)
+                                    fileInfo = new FileInfo(filePath);
 
-                            long sizeKB = fileInfo.Length / 1000;
-                            if (sizeFrom > 0 && sizeKB < sizeFrom)
+                                long sizeKB = fileInfo.Length / 1000;
+                                if (sizeFrom > 0 && sizeKB < sizeFrom)
+                                {
+                                    continue;
+                                }
+                                if (sizeTo > 0 && sizeKB > sizeTo)
+                                {
+                                    continue;
+                                }
+                            }
+                            foreach (var pattern in includeRegexPatterns)
                             {
+                                if (pattern.IsMatch(Path.GetFileName(filePath)))
+                                {
+                                    includeMatch = true;
+                                    break;
+                                }
+                            }
+                            foreach (var pattern in excludeRegexPatterns)
+                            {
+                                if (pattern.IsMatch(Path.GetFileName(filePath)))
+                                {
+                                    excludeMatch = true;
+                                    break;
+                                }
+                            }
+                            if (excludeMatch || !includeMatch)
                                 continue;
-                            }
-                            if (sizeTo > 0 && sizeKB > sizeTo)
-                            {
-                                continue;
-                            }
                         }
-                        foreach (var pattern in includeRegexPatterns)
+                        catch (Exception ex)
                         {
-                            if (pattern.IsMatch(Path.GetFileName(filePath)))
-                            {
-                                includeMatch = true;
-                                break;
-                            }
+                            logger.LogException(LogLevel.Error, ex.Message, ex);
                         }
-                        foreach (var pattern in excludeRegexPatterns)
-                        {
-                            if (pattern.IsMatch(Path.GetFileName(filePath)))
-                            {
-                                excludeMatch = true;
-                                break;
-                            }
-                        }
-                        if (excludeMatch || !includeMatch)
-                            continue;
 
                         if (!matches.Contains(filePath))
                         {
@@ -499,7 +509,20 @@ namespace dnGREP.Common
                     }
                 }
             }
-        }        
+        }
+
+        public static bool hasListPermissionOnDir(string dirPath)
+        {
+            try
+            {
+                var enumer = Directory.EnumerateFiles(dirPath);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
 		/// <summary>
 		/// Searches folder and it's subfolders for files that match pattern and

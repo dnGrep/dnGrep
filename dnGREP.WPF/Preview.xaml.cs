@@ -109,7 +109,14 @@ namespace dnGREP.WPF
                 else
                 {
                     inputData.IsLargeOrBinary = System.Windows.Visibility.Collapsed;
-                    loadFile(pathToFile);
+                    try
+                    {
+                        loadFile(pathToFile);
+                    }
+                    catch (Exception ex)
+                    {
+                        textEditor.Text = "Error opening the file: " + ex.Message;
+                    }
                 }
             }
             if (textEditor.IsLoaded)
