@@ -439,7 +439,7 @@ namespace dnGREP.Common
                     {
                         if (dirInfo == null)
                             dirInfo = new DirectoryInfo(dirPath);
-                        if ((dirInfo.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
+                        if (dirInfo.Root.Name != dirInfo.Name && (dirInfo.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
                             continue;
                     }
                     foreach (var filePath in Directory.EnumerateFiles(dirPath))
