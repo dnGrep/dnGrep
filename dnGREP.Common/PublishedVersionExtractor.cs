@@ -4,12 +4,14 @@ using System.Text;
 using System.Net;
 using System.Xml;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace dnGREP.Common
 {
 	public class PublishedVersionExtractor
 	{
-		HttpWebRequest webRequest;
+		
 		public delegate void VersionExtractorHandler(object sender, PackageVersion files);
 		public event VersionExtractorHandler RetrievedVersion;
 		public class PackageVersion
@@ -23,32 +25,38 @@ namespace dnGREP.Common
 
 		public void StartWebRequest()
 		{
-			webRequest = (HttpWebRequest)WebRequest.Create("http://code.google.com/feeds/p/dngrep/downloads/basic");
-			webRequest.Method = "GET";
-			webRequest.BeginGetResponse(new AsyncCallback(finishWebRequest), null);
-		}
+            Task.Factory.StartNew<PackageVersion>(() =>
+                {
+                    Thread.Sleep(1000);
+                    HttpWebRequest webRequest;
+                    webRequest = (HttpWebRequest)WebRequest.Create("http://code.google.com/feeds/p/dngrep/downloads/basic");
+                    webRequest.Method = "GET";
+                    var webResponse = webRequest.GetResponse();
 
-		private void finishWebRequest(IAsyncResult result)
-		{
-			XmlDocument response = new XmlDocument();
-			try
-			{
-				using (HttpWebResponse resp = (HttpWebResponse)webRequest.EndGetResponse(result))
-				{
-					if (resp.StatusCode == HttpStatusCode.OK)
-					{
-						XmlTextReader reader = new XmlTextReader(resp.GetResponseStream());
-						response.Load(reader);
-						reader.Close();
-					}
-				}
-			}
-			catch (Exception ex)
-			{
-				RetrievedVersion(this, new PackageVersion("0.0.0.0"));
-			}
-			if (RetrievedVersion != null)
-				RetrievedVersion(this, new PackageVersion(extractVersion(response)));
+                    XmlDocument response = new XmlDocument();
+                    try
+                    {
+                        using (HttpWebResponse resp = webResponse as HttpWebResponse)
+                        {
+                            if (resp.StatusCode == HttpStatusCode.OK)
+                            {
+                                XmlTextReader reader = new XmlTextReader(resp.GetResponseStream());
+                                response.Load(reader);
+                                reader.Close();
+                            }
+                        }
+                        return new PackageVersion(extractVersion(response));
+                    }
+                    catch (Exception ex)
+                    {
+                        return new PackageVersion("0.0.0.0");
+                    }
+                }).ContinueWith(task =>
+                {
+                    var version = task.Result;
+                    if (RetrievedVersion != null)
+                        RetrievedVersion(this, version);
+                });
 		}
 
 		private string extractVersion(XmlDocument doc)
