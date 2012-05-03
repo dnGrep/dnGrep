@@ -24,6 +24,7 @@ using Point=System.Drawing.Point;
 using Size=System.Drawing.Size;
 using System.Windows.Media;
 using System.Diagnostics;
+using Blue.Windows;
 
 namespace StickyWindowLibrary
 {
@@ -31,6 +32,7 @@ namespace StickyWindowLibrary
     {
         private readonly Window _window;
         private Point? _origin;
+        private StickyWindow _sticky;
 
         public WpfFormAdapter(Window window)
         {
@@ -123,6 +125,17 @@ namespace StickyWindowLibrary
             Point resultWpf = toWinPoint(_window.PointToScreen(p));
             Point resultScaled = resultWpf + new Size(pointWin);
             return resultScaled;
+        }
+
+        public StickyWindow StickyWindow
+        {
+            get { return _sticky; }
+            set { _sticky = value; }
+        }
+        
+        public Object Source
+        {
+            get { return _window; }
         }
 
         #endregion

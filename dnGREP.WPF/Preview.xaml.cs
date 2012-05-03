@@ -16,6 +16,7 @@ using Blue.Windows;
 using System.Reflection;
 using System.Xml;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
+using dnGREP.Common.UI;
 
 namespace dnGREP.WPF
 {
@@ -71,6 +72,10 @@ namespace dnGREP.WPF
             _stickyWindow.StickToOther = true;
             _stickyWindow.StickOnResize = true;
             _stickyWindow.StickOnMove = true;
+            _stickyWindow.MoveStuckTogether = false;
+
+            if (!UiUtils.IsOnScreen(this))
+                UiUtils.CenterWindow(this);
         }
 
         void textEditor_Loaded(object sender, RoutedEventArgs e)

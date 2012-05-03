@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
+using Blue.Windows;
 
 namespace StickyWindowLibrary
 {
@@ -30,5 +31,7 @@ namespace StickyWindowLibrary
         bool Capture { get; set; }
         void Activate();
         Point PointToScreen(Point point);
+        StickyWindow StickyWindow { get; set; }
+        object Source { get; }
     }
 }

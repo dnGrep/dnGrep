@@ -107,6 +107,8 @@ namespace dnGREP.WPF
             this.Height = Properties.Settings.Default.Height;
             this.Top = Properties.Settings.Default.Top;
             this.Left = Properties.Settings.Default.Left;
+            if (!UiUtils.IsOnScreen(this))
+                UiUtils.CenterWindow(this);
             this.isVisible = isVisible;
         }
 

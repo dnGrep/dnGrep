@@ -17,12 +17,14 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using Blue.Windows;
 
 namespace StickyWindowLibrary
 {
     public class WinFormAdapter : IFormAdapter
     {
         private readonly Form _form;
+        private StickyWindow _sticky;
 
         public WinFormAdapter(Form form)
         {
@@ -70,6 +72,18 @@ namespace StickyWindowLibrary
             return _form.PointToScreen(point);
         }
 
+        public StickyWindow StickyWindow
+        {
+            get { return _sticky; }
+            set { _sticky = value; }
+        }
+
+        public Object Source
+        {
+            get { return _form; }
+        }
+
         #endregion
+       
     }
 }
