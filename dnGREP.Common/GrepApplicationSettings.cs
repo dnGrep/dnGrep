@@ -75,8 +75,8 @@ namespace dnGREP.Common
             public const string PreviewWindowFont = "PreviewWindowFont";
             [DefaultValue(false)]
             public const string PreviewWindowWrap = "PreviewWindowWrap";
-            [DefaultValue(400)]
-            public const string PreviewWindowWidth = "PreviewWindowWidth";
+            public const string PreviewWindowSize = "PreviewWindowSize";
+            public const string PreviewWindowPosition = "PreviewWindowPosition";
         }		
 		
 		private static GrepSettings instance;

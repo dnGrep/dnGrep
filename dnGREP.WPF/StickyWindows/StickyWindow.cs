@@ -150,6 +150,19 @@ namespace Blue.Windows
         };
         #endregion
 
+        #region StickDir
+        public enum StickDir
+        {
+            None = 0,
+            Top = 2,
+            Bottom = 4,
+            Left = 8,
+            Right = 16,
+            VerticalInside = 32,
+            HorizontalInside = 64
+        };
+        #endregion
+
         #region StuckWindow
         private class StuckWindow
         {
@@ -197,6 +210,14 @@ namespace Blue.Windows
 
         #region Public operations and properties
 
+        /// <summary>
+        /// Distance in pixels betwen two forms or a form and the screen where the sticking should start
+        /// Default value = 20
+        /// </summary>
+        public IFormAdapter OriginalForm
+        {
+            get { return originalForm; }
+        }
         /// <summary>
         /// Distance in pixels betwen two forms or a form and the screen where the sticking should start
         /// Default value = 20
@@ -633,7 +654,7 @@ namespace Blue.Windows
                 {
                     foreach (var sw in GlobalStickyWindows)
                     {
-                        if (sw != this.originalForm && IsStuckTo(sw, true))
+                        if (sw != this.originalForm && IsStuckTo(sw, true) != StickDir.None)
                         {
                             sw.StickyWindow.UnstickMe(this.originalForm);
                         }
@@ -816,7 +837,7 @@ namespace Blue.Windows
             {
                 foreach (var sw in GlobalStickyWindows)
                 {
-                    if (sw != this.originalForm && IsStuckTo(sw, true))
+                    if (sw != this.originalForm && IsStuckTo(sw, true) != StickDir.None)
                     {
                         sw.StickyWindow.UnstickMe(this.originalForm);
                     }
@@ -905,7 +926,7 @@ namespace Blue.Windows
             List<IFormAdapter> windows = new List<IFormAdapter>();
             foreach (IFormAdapter window in GlobalStickyWindows)
             {
-                if (IsStuckTo(window, bInsideStick))
+                if (IsStuckTo(window, bInsideStick) != StickDir.None)
                     windows.Add(window);
             }
             return windows;
@@ -915,74 +936,145 @@ namespace Blue.Windows
         /// 
         /// </summary>
         /// <param name="bInsideStick">Allow snapping on the inside (eg: window to screen)</param>
-        public bool IsStuckTo(IFormAdapter window, bool bInsideStick)
+        public StickDir IsStuckTo(IFormAdapter window, bool bInsideStick)
         {
             int fullStickGap = 2;
             if (window == this.originalForm)
-                return false;
+                return StickDir.None;
 
+            Rectangle fromRect = originalForm.Bounds;
             Rectangle toRect = window.Bounds;
+            StickDir result = StickDir.None;
 
-            if (formRect.Bottom >= (toRect.Top - stickGap) && formRect.Top <= (toRect.Bottom + stickGap))
+            if (fromRect.Bottom >= (toRect.Top - stickGap) && fromRect.Top <= (toRect.Bottom + stickGap))
             {
                 if (bInsideStick)
                 {
-                    if (formRect.Left <= toRect.Left + fullStickGap && formRect.Left >= toRect.Left - fullStickGap)
+                    if (fromRect.Left <= toRect.Left + fullStickGap && fromRect.Left >= toRect.Left - fullStickGap)
                     {
                         // stuck on left
-                        return true;
+                        result = result | StickDir.HorizontalInside | StickDir.Left;
                     }
-                    if (formRect.Right <= toRect.Right + fullStickGap && formRect.Right >= toRect.Right - fullStickGap)
+                    if (fromRect.Right <= toRect.Right + fullStickGap && fromRect.Right >= toRect.Right - fullStickGap)
                     {
                         // stuck on right
-                        return true;
+                        result = result | StickDir.HorizontalInside | StickDir.Right;
                     }
                 }
-                if (formRect.Left + formRect.Width <= toRect.Left + fullStickGap && formRect.Left + formRect.Width >= toRect.Left - fullStickGap)
+                if (fromRect.Left + fromRect.Width <= toRect.Left + fullStickGap && fromRect.Left + fromRect.Width >= toRect.Left - fullStickGap)
                 {
                     // right 2 left
-                    return true;
+                    result = result | StickDir.Left;
                 }
-                if (toRect.Left + toRect.Width <= formRect.Left + fullStickGap && toRect.Left + toRect.Width >= formRect.Left - fullStickGap)
+                if (toRect.Left + toRect.Width <= fromRect.Left + fullStickGap && toRect.Left + toRect.Width >= fromRect.Left - fullStickGap)
                 {
                     // left 2 right
-                    return true;
+                    result = result | StickDir.Right;
                 }
             }
 
-            if (formRect.Right >= (toRect.Left - stickGap) && formRect.Left <= (toRect.Right + stickGap))
+            if (fromRect.Right >= (toRect.Left - stickGap) && fromRect.Left <= (toRect.Right + stickGap))
             {
                 if (bInsideStick)
                 {
-                    if (formRect.Top <= toRect.Top + fullStickGap && formRect.Top >= toRect.Top - fullStickGap)
+                    if (fromRect.Top <= toRect.Top + fullStickGap && fromRect.Top >= toRect.Top - fullStickGap)
                     {
                         // stuck on top
-                        return true;
+                        result = result | StickDir.VerticalInside | StickDir.Top;
                     }
-                    if (formRect.Bottom <= toRect.Bottom + fullStickGap && formRect.Bottom >= toRect.Bottom - fullStickGap)
+                    if (fromRect.Bottom <= toRect.Bottom + fullStickGap && fromRect.Bottom >= toRect.Bottom - fullStickGap)
                     {
                         // stuck on bottom
-                        return true;
+                        result = result | StickDir.VerticalInside | StickDir.Bottom;
                     }
                 }
-                if (formRect.Top + formRect.Height <= toRect.Top + fullStickGap && formRect.Top + formRect.Height >= toRect.Top - fullStickGap)
+                if (fromRect.Top + fromRect.Height <= toRect.Top + fullStickGap && fromRect.Top + fromRect.Height >= toRect.Top - fullStickGap)
                 {
                     // top 2 bottom
-                    return true;
+                    if ((result & StickDir.Top) != StickDir.Top)
+                        result = result | StickDir.Top;
                 }
-                if (toRect.Top + toRect.Height <= formRect.Top + fullStickGap && toRect.Top + toRect.Height >= formRect.Top - fullStickGap)
+                if (toRect.Top + toRect.Height <= fromRect.Top + fullStickGap && toRect.Top + toRect.Height >= fromRect.Top - fullStickGap)
                 {
                     // bottom 2 windows
-                    return true;
+                    if ((result & StickDir.Bottom) != StickDir.Bottom)
+                        result = result | StickDir.Bottom;
                 }
             }
-            return false;
+            return result;
         }
 
         public void UnstickMe(IFormAdapter window)
         {
             if (stuckWindows.ContainsKey(window))
                 stuckWindows.Remove(window);
+        }
+
+        public static Rectangle PositionRelativeTo(IFormAdapter window, StickDir direction, Rectangle size)
+        {
+            Rectangle newPosition = size;
+            if (direction == StickDir.None)
+            {
+                //nothing more
+                newPosition = size;
+            }
+            // Stuck to side from top to bottom
+            if (direction == (StickDir.Left | StickDir.Top | StickDir.Bottom | StickDir.VerticalInside) ||
+                direction == (StickDir.Right | StickDir.Top | StickDir.Bottom | StickDir.VerticalInside))
+            {
+                newPosition.Height = window.Bounds.Height;
+            }
+
+            // Stuck to side from left to right
+            if (direction == (StickDir.Top | StickDir.Left | StickDir.Right | StickDir.HorizontalInside) ||
+                direction == (StickDir.Bottom | StickDir.Left | StickDir.Right | StickDir.HorizontalInside))
+            {
+                newPosition.Width = window.Bounds.Width;
+            }
+
+            // Stuck to left from inside
+            if ((direction & (StickDir.Left | StickDir.HorizontalInside)) == (StickDir.Left | StickDir.HorizontalInside))
+            {
+                newPosition.X = window.Bounds.X;
+            }
+            // Stuck to right from inside
+            else if ((direction & (StickDir.Right | StickDir.HorizontalInside)) == (StickDir.Right | StickDir.HorizontalInside))
+            {
+                newPosition.X = window.Bounds.X + (window.Bounds.Width - size.Width);
+            }
+            // Stuck to left from outside
+            else if ((direction & StickDir.Left) == StickDir.Left)
+            {
+                newPosition.X = window.Bounds.X - size.Width;
+            }
+            // Stuck to right from outside
+            else if ((direction & StickDir.Right) == StickDir.Right)
+            {
+                newPosition.X = window.Bounds.X + window.Bounds.Width;
+            }
+
+             
+            // Stuck to top from inside
+            if ((direction & (StickDir.Top | StickDir.VerticalInside)) == (StickDir.Top | StickDir.VerticalInside))
+            {
+                newPosition.Y = window.Bounds.Y;
+            }
+            // Stuck to bottom from inside
+            else if ((direction & (StickDir.Bottom | StickDir.VerticalInside)) == (StickDir.Bottom | StickDir.VerticalInside))
+            {
+                newPosition.Y = window.Bounds.Y + (window.Bounds.Height - size.Height);
+            }
+            // Stuck to top from outside
+            else if ((direction & StickDir.Top) == StickDir.Top)
+            {
+                newPosition.Y = window.Bounds.Y - size.Height;
+            }
+            // Stuck to bottom from outside
+            else if ((direction & StickDir.Bottom) == StickDir.Bottom)               
+            {
+                newPosition.Y = window.Bounds.Y + window.Bounds.Height;
+            }
+            return newPosition;
         }
         #endregion
 

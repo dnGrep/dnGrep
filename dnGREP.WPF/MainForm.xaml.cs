@@ -44,7 +44,7 @@ namespace dnGREP.WPF
         private System.Windows.Forms.HelpProvider helpProvider = new System.Windows.Forms.HelpProvider();
         private bool isVisible;
         private Preview preview;
-        private StickyWindow _stickyWindow;
+        private StickyWindow stickyWindow;
 		public GrepSettings settings
 		{
 			get { return GrepSettings.Instance; }
@@ -176,11 +176,11 @@ namespace dnGREP.WPF
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
-            _stickyWindow = new StickyWindow(this);
-            _stickyWindow.StickToScreen = true;
-            _stickyWindow.StickToOther = true;
-            _stickyWindow.StickOnResize = true;
-            _stickyWindow.StickOnMove = true;
+            stickyWindow = new StickyWindow(this);
+            stickyWindow.StickToScreen = true;
+            stickyWindow.StickToOther = true;
+            stickyWindow.StickOnResize = true;
+            stickyWindow.StickOnMove = true;
 
             inputData = new MainFormState();
             this.DataContext = inputData;
@@ -611,7 +611,8 @@ namespace dnGREP.WPF
             Properties.Settings.Default.Left = (int)this.Left;
             if (preview != null)
             {
-                GrepSettings.Instance.Set(GrepSettings.Key.PreviewWindowWidth, preview.ActualWidth);
+                GrepSettings.Instance.Set<System.Drawing.Rectangle>(GrepSettings.Key.PreviewWindowSize, preview.StickyWindow.OriginalForm.Bounds);
+                GrepSettings.Instance.Set<StickyWindow.StickDir>(GrepSettings.Key.PreviewWindowPosition, preview.StickyWindow.IsStuckTo(stickyWindow.OriginalForm, true));
                 preview.ForceClose();
             }
             Properties.Settings.Default.Save();
@@ -944,10 +945,23 @@ namespace dnGREP.WPF
                     if (preview == null)
                     {
                         preview = new Preview();
-                        preview.Height = this.ActualHeight;
-                        preview.Left = this.Left + this.ActualWidth;
-                        preview.Width = settings.Get<int>(GrepSettings.Key.PreviewWindowWidth);
-                        preview.Top = this.Top;
+                        System.Drawing.Rectangle bounds = settings.Get<System.Drawing.Rectangle>(GrepSettings.Key.PreviewWindowSize);
+                        if (bounds.Left == 0 && bounds.Right == 0)
+                        {
+                            preview.Height = this.ActualHeight;
+                            preview.Left = this.Left + this.ActualWidth;
+                            preview.Width = this.ActualWidth;
+                            preview.Top = this.Top;
+                        }
+                        else
+                        {
+                            var stickyDir = GrepSettings.Instance.Get<StickyWindow.StickDir>(GrepSettings.Key.PreviewWindowPosition);
+                            bounds = StickyWindow.PositionRelativeTo(stickyWindow.OriginalForm, stickyDir, bounds);
+                            preview.Height = bounds.Height;
+                            preview.Left = bounds.Left;
+                            preview.Width = bounds.Width;
+                            preview.Top = bounds.Top;
+                        }
                     }
                     preview.Show(result.GrepResult.FileNameReal, result.GrepResult, lineNumber);
                 }

@@ -30,7 +30,7 @@ namespace dnGREP.WPF
         private Dictionary<string, IHighlightingDefinition> highlightDefinitions = new Dictionary<string,IHighlightingDefinition>();
         private string currentFile;
         private bool forceClose = false;
-        private StickyWindow _stickyWindow;
+        internal StickyWindow StickyWindow;
         private PreviewState inputData = new PreviewState();
         
         public Preview()
@@ -67,13 +67,12 @@ namespace dnGREP.WPF
 
         void window_Loaded(object sender, RoutedEventArgs e)
         {
-            _stickyWindow = new StickyWindow(this);
-            _stickyWindow.StickToScreen = true;
-            _stickyWindow.StickToOther = true;
-            _stickyWindow.StickOnResize = true;
-            _stickyWindow.StickOnMove = true;
-            _stickyWindow.MoveStuckTogether = false;
-
+            StickyWindow = new StickyWindow(this);
+            StickyWindow.StickToScreen = true;
+            StickyWindow.StickToOther = true;
+            StickyWindow.StickOnResize = true;
+            StickyWindow.StickOnMove = true;
+            StickyWindow.MoveStuckTogether = false;
             if (!UiUtils.IsOnScreen(this))
                 UiUtils.CenterWindow(this);
         }
