@@ -10,6 +10,9 @@ using System.Threading;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Windows.Media;
+using System.Text.RegularExpressions;
+using System.Xml.XPath;
+using System.Xml;
 
 namespace dnGREP.WPF
 {
@@ -636,6 +639,16 @@ namespace dnGREP.WPF
             set { _FileFiltersSummary = value; UpdateState("FileFiltersSummary"); }
         }
 
+        private string _validationMessage = "";
+        /// <summary>
+        /// ValidationMessage property
+        /// </summary>
+        public string ValidationMessage
+        {
+            get { return _validationMessage; }
+            set { _validationMessage = value; UpdateState("ValidationMessage"); }
+        }
+
 		private string _WindowTitle = "dnGREP";
 
 		/// <summary>
@@ -688,6 +701,9 @@ namespace dnGREP.WPF
 		}
 
 		#endregion
+        private XmlDocument doc = new XmlDocument();
+        private XPathNavigator nav;
+
 		public virtual void UpdateState(string name)
 		{
 			OnPropertyChanged(name);
@@ -807,6 +823,40 @@ namespace dnGREP.WPF
 				else
 					WindowTitle = string.Format("{0} in \"{1}\" - dnGREP", (SearchFor == null ? "Empty" : SearchFor.Replace('\n',' ').Replace('\r', ' ')), FileOrFolderPath);
 			}
+
+            //Change validation
+            if (name == "SearchFor" || name == "TypeOfSearch")
+            {
+                if (TypeOfSearch == SearchType.Regex)
+                {
+                    try
+                    {
+                        Regex regex = new Regex(SearchFor);
+                        ValidationMessage = "Regex is OK!";
+                    }
+                    catch
+                    {
+                        ValidationMessage = "Regex is not valid!";
+                    }
+                }
+                else if (TypeOfSearch == SearchType.XPath)
+                {
+                    try
+                    {
+                        nav = doc.CreateNavigator();
+                        XPathExpression expr = nav.Compile(SearchFor);
+                        ValidationMessage = "XPath is OK!";
+                    }
+                    catch
+                    {
+                        ValidationMessage = "XPath is not valid!";
+                    }
+                }
+                else
+                {
+                    ValidationMessage = "";
+                }
+            }
 
 			//Can search
 			if (name == "FileOrFolderPath" || name == "CurrentGrepOperation" || name == "SearchFor")

@@ -128,7 +128,8 @@
                 <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="Auto">
                     <Grid DockPanel.Dock="Top">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition  Width="60"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0" Orientation="Horizontal">
@@ -137,7 +138,10 @@
                             <RadioButton GroupName="SearchText" Name="rbText" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=PlainText}" ToolTip="Plain text search" TabIndex="13">Text</RadioButton>
                             <RadioButton GroupName="SearchSoundex" Name="rbSoundex" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=Soundex}" ToolTip="Phonetic search" TabIndex="14">Phonetic</RadioButton>
                         </StackPanel>
-                        <Button Grid.Column="1" Name="btnTest" Click="btnTest_Click" TabIndex="15">Test</Button>
+                        <Label Grid.Column="1">
+                            <Binding Path="ValidationMessage"/>
+                        </Label>
+                        <Button Grid.Column="2" Name="btnTest" Click="btnTest_Click" TabIndex="15">Test</Button>
                     </Grid>
                     <Expander DockPanel.Dock="Bottom" Name="expOptions" IsExpanded="{Binding Path=IsOptionsExpanded}">
                         <Expander.Header>
