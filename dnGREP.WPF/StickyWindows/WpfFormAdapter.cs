@@ -77,8 +77,8 @@ namespace StickyWindowLibrary
                 // imposta
                 _window.Left += pStart.X;
                 _window.Top += pStart.Y;
-                _window.Width = widthHeightPointConverted.X;
-                _window.Height = widthHeightPointConverted.Y;
+                _window.Width = Math.Max(1, widthHeightPointConverted.X);
+                _window.Height = Math.Max(1, widthHeightPointConverted.Y);
             }
         }
 

@@ -571,21 +571,7 @@ namespace Blue.Windows
                 foreach (IFormAdapter sw in GlobalStickyWindows)
                 {
                     if (sw != this.originalForm)
-                    {
-                        int beforeX = formOffsetPoint.X;
-                        int beforeY = formOffsetPoint.Y;
-                        if (!moveStuck || (moveStuck && !stuckWindows.ContainsKey(sw)))
-                        {
-                            Resize_Stick(sw.Bounds, true);
-                        }
-                        if (moveStuck &&
-                            (beforeX != formOffsetPoint.X || beforeY != formOffsetPoint.Y) &&
-                            !stuckWindows.ContainsKey(sw))
-                        {
-                            stuckWindows[sw] = new StuckWindow { Offset = new Point { X = sw.Bounds.X - formRect.X - formOffsetPoint.X, Y = sw.Bounds.Y - formRect.Y - formOffsetPoint.Y } };
-                            sw.StickyWindow.IsStuck = true;
-                        }
-                    }
+                        Resize_Stick(sw.Bounds, true);
                 }
             }
 
@@ -641,20 +627,20 @@ namespace Blue.Windows
             // Done !!
             originalForm.Bounds = formRect;
 
-            if (isStuck)
+            if (isStuck || stuckWindows.Count > 0)
             {
-                bool anyStuck = false;
-                foreach (var sw in GlobalStickyWindows)
+                if (isStuck)
                 {
-                    if (!IsStuckTo(sw, true))
+                    foreach (var sw in GlobalStickyWindows)
                     {
-                        if (!anyStuck)
-                            anyStuck = true;
-                        sw.StickyWindow.UnstickMe(this.originalForm);
+                        if (sw != this.originalForm && IsStuckTo(sw, true))
+                        {
+                            sw.StickyWindow.UnstickMe(this.originalForm);
+                        }
                     }
-                }
-                if (!anyStuck)
                     isStuck = false;
+                }
+                stuckWindows.Clear();
             }
         }
 
@@ -794,6 +780,10 @@ namespace Blue.Windows
                             (beforeX != formOffsetPoint.X || beforeY != formOffsetPoint.Y) &&
                             !stuckWindows.ContainsKey(sw))
                         {
+                            if (formOffsetPoint.X == stickGap + 1)
+                                formOffsetPoint.X = 0;
+                            if (formOffsetPoint.Y == stickGap + 1)
+                                formOffsetPoint.Y = 0;
                             stuckWindows[sw] = new StuckWindow { Offset = new Point { X = sw.Bounds.X - formRect.X - formOffsetPoint.X, Y = sw.Bounds.Y - formRect.Y - formOffsetPoint.Y } };
                             sw.StickyWindow.IsStuck = true;
                         }
@@ -824,19 +814,15 @@ namespace Blue.Windows
             }
             if (isStuck)
             {
-                bool anyStuck = false;
                 foreach (var sw in GlobalStickyWindows)
                 {
-                    if (!IsStuckTo(sw, true))
+                    if (sw != this.originalForm && IsStuckTo(sw, true))
                     {
-                        if (!anyStuck)
-                            anyStuck = true;
                         sw.StickyWindow.UnstickMe(this.originalForm);
                     }
                 }
-                if (!anyStuck)
-                    isStuck = false;
-            }
+                isStuck = false;
+            }            
         }
 
         /// <summary>
