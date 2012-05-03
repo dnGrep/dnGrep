@@ -827,7 +827,11 @@ namespace dnGREP.WPF
             //Change validation
             if (name == "SearchFor" || name == "TypeOfSearch")
             {
-                if (TypeOfSearch == SearchType.Regex)
+                if (string.IsNullOrWhiteSpace(SearchFor))
+                {
+                    ValidationMessage = "";
+                }
+                else if (TypeOfSearch == SearchType.Regex)
                 {
                     try
                     {

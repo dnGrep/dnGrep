@@ -10,6 +10,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.ComponentModel;
 using System.Reflection;
+using System.Windows.Media;
 
 namespace dnGREP.Common
 {
@@ -46,6 +47,7 @@ namespace dnGREP.Common
 			public const string SizeFrom = "SizeFrom";
             [DefaultValue(100)]
 			public const string SizeTo = "SizeTo";
+            [DefaultValue(0.5)]
 			public const string FuzzyMatchThreshold = "FuzzyMatchThreshold";
 			[DefaultValue(true)]
 			public const string EnableUpdateChecking = "EnableUpdateChecking";
@@ -70,6 +72,7 @@ namespace dnGREP.Common
 			public const string FastFileMatchBookmarks = "FastFileMatchBookmarks";
 			public const string FastFileNotMatchBookmarks = "FastFileNotMatchBookmarks";
 			public const string FastPathBookmarks = "FastPathBookmarks";
+            [DefaultValue(TextFormattingMode.Display)]
             public const string TextFormatting = "TextFormatting";
             [DefaultValue(12)]
             public const string PreviewWindowFont = "PreviewWindowFont";
