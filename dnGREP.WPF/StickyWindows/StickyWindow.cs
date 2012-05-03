@@ -305,7 +305,7 @@ namespace Blue.Windows
         }
 
         #endregion
-        
+
         #region StickyWindow Constructor
 
         /// <summary>
@@ -571,7 +571,21 @@ namespace Blue.Windows
                 foreach (IFormAdapter sw in GlobalStickyWindows)
                 {
                     if (sw != this.originalForm)
-                        Resize_Stick(sw.Bounds, true);
+                    {
+                        int beforeX = formOffsetPoint.X;
+                        int beforeY = formOffsetPoint.Y;
+                        if (!moveStuck || (moveStuck && !stuckWindows.ContainsKey(sw)))
+                        {
+                            Resize_Stick(sw.Bounds, true);
+                        }
+                        if (moveStuck &&
+                            (beforeX != formOffsetPoint.X || beforeY != formOffsetPoint.Y) &&
+                            !stuckWindows.ContainsKey(sw))
+                        {
+                            stuckWindows[sw] = new StuckWindow { Offset = new Point { X = sw.Bounds.X - formRect.X - formOffsetPoint.X, Y = sw.Bounds.Y - formRect.Y - formOffsetPoint.Y } };
+                            sw.StickyWindow.IsStuck = true;
+                        }
+                    }
                 }
             }
 
@@ -626,6 +640,22 @@ namespace Blue.Windows
 
             // Done !!
             originalForm.Bounds = formRect;
+
+            if (isStuck)
+            {
+                bool anyStuck = false;
+                foreach (var sw in GlobalStickyWindows)
+                {
+                    if (!IsStuckTo(sw, true))
+                    {
+                        if (!anyStuck)
+                            anyStuck = true;
+                        sw.StickyWindow.UnstickMe(this.originalForm);
+                    }
+                }
+                if (!anyStuck)
+                    isStuck = false;
+            }
         }
 
         private void Resize_Stick(Rectangle toRect, bool bInsideStick)
@@ -760,8 +790,8 @@ namespace Blue.Windows
                         {
                             Move_Stick(sw.Bounds, true);
                         }
-                        if (moveStuck && 
-                            (beforeX != formOffsetPoint.X || beforeY != formOffsetPoint.Y) && 
+                        if (moveStuck &&
+                            (beforeX != formOffsetPoint.X || beforeY != formOffsetPoint.Y) &&
                             !stuckWindows.ContainsKey(sw))
                         {
                             stuckWindows[sw] = new StuckWindow { Offset = new Point { X = sw.Bounds.X - formRect.X - formOffsetPoint.X, Y = sw.Bounds.Y - formRect.Y - formOffsetPoint.Y } };

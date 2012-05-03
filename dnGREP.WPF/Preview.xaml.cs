@@ -133,6 +133,7 @@ namespace dnGREP.WPF
 
         private void loadFile(string pathToFile) 
         {
+            this.Title = string.Format("Previewing \"{0}\"", pathToFile);
             textEditor.Load(pathToFile);
             string extension = Path.GetExtension(pathToFile);
 
