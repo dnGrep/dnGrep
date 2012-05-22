@@ -29,9 +29,12 @@ namespace dnGREP.WPF
                         this.MainWindow = new MainForm(false);
                         this.MainWindow.Loaded += new RoutedEventHandler(MainWindow_Loaded);
                     }
-                    if (searchPath.EndsWith(":\""))
-                        searchPath = searchPath.Substring(0, searchPath.Length - 1) + "\\";
-                    GrepSettings.Instance.Set<string>(GrepSettings.Key.SearchFolder, searchPath);
+                    else
+                    {
+                        if (searchPath.EndsWith(":\""))
+                            searchPath = searchPath.Substring(0, searchPath.Length - 1) + "\\";
+                        GrepSettings.Instance.Set<string>(GrepSettings.Key.SearchFolder, searchPath);
+                    }
                 }
                 if (this.MainWindow == null)
                     this.MainWindow = new MainForm();
