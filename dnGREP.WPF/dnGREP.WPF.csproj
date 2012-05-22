@@ -157,7 +157,7 @@
     </ApplicationDefinition>
     <Compile Include="RelayCommand.cs" />
     <Compile Include="ViewModels\CommandViewModel.cs" />
-    <Compile Include="ViewModels\Preview.State.cs" />
+    <Compile Include="ViewModels\PreviewViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\WorkspaceViewModel.cs" />
     <Compile Include="Views\PreviewView.xaml.cs">
@@ -223,7 +223,7 @@
     <Compile Include="EnumBooleanConverter.cs" />
     <Compile Include="HelpProvider.cs" />
     <Compile Include="InlineTextBlock.cs" />
-    <Compile Include="ViewModels\MainForm.State.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ObservableGrepSearchResults.cs" />
     <Compile Include="Views\OptionsView.xaml.cs">
       <DependentUpon>OptionsView.xaml</DependentUpon>
@@ -245,7 +245,7 @@
     <Compile Include="Views\Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\TestPattern.State.cs" />
+    <Compile Include="ViewModels\TestPatternViewModel.cs" />
     <Compile Include="Views\TestPatternView.xaml.cs">
       <DependentUpon>TestPatternView.xaml</DependentUpon>
     </Compile>
