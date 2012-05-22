@@ -35,3 +35,5 @@ _ReSharper*/
 Dependencies/SplitButton/*
 dnGREP.ArchiveEngine/7z.dll
 *.psess
+*.ncrunchproject
+*.ncrunchsolution

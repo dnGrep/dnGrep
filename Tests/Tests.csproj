@@ -130,10 +130,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Dependencies\MbUnit40.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BookmarkTest.cs" />
@@ -150,6 +154,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StorageTest.cs" />
     <Compile Include="TestBase.cs" />
+    <Compile Include="UITest.cs" />
     <Compile Include="UtilsTest.cs" />
     <Content Include="Files\TestCase8\test.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -169,6 +174,10 @@
     <ProjectReference Include="..\dnGREP.Engines\dnGREP.Engines.csproj">
       <Project>{DB68B5D3-5E4B-47D0-AA86-83D7C181A1E4}</Project>
       <Name>dnGREP.Engines</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\dnGREP.WPF\dnGREP.WPF.csproj">
+      <Project>{cbc7aec0-59ff-4050-b02d-adb15359ced4}</Project>
+      <Name>dnGREP.WPF</Name>
     </ProjectReference>
     <ProjectReference Include="..\NLog.XmlLayout\NLog.XmlLayout.csproj">
       <Project>{1B364890-BBE6-4167-AF65-FE1C01E8C419}</Project>
@@ -264,6 +273,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Files\TestCase10\file" />
     <None Include="Files\TestCase5\big-word-document.doc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

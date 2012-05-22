@@ -155,9 +155,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Preview.State.cs" />
-    <Compile Include="Preview.xaml.cs">
-      <DependentUpon>Preview.xaml</DependentUpon>
+    <Compile Include="RelayCommand.cs" />
+    <Compile Include="ViewModels\CommandViewModel.cs" />
+    <Compile Include="ViewModels\Preview.State.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="ViewModels\WorkspaceViewModel.cs" />
+    <Compile Include="Views\PreviewView.xaml.cs">
+      <DependentUpon>PreviewView.xaml</DependentUpon>
     </Compile>
     <Compile Include="PreviewHighlighter.cs" />
     <Compile Include="StickyWindows\IFormAdapter.cs" />
@@ -165,19 +169,19 @@
     <Compile Include="StickyWindows\WinFormAdapter.cs" />
     <Compile Include="StickyWindows\WpfFormAdapter.cs" />
     <Compile Include="TotalValueConverter.cs" />
-    <Page Include="MainForm.xaml">
+    <Page Include="Views\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="OptionsForm.xaml">
+    <Page Include="Views\OptionsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Preview.xaml">
+    <Page Include="Views\PreviewView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -187,13 +191,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Test.xaml">
+    <Page Include="Views\Test.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="TestPattern.xaml">
+    <Page Include="Views\TestPatternView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>
@@ -204,8 +208,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="InverseBooleanConverter.cs" />
-    <Compile Include="MainForm.xaml.cs">
-      <DependentUpon>MainForm.xaml</DependentUpon>
+    <Compile Include="Views\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -219,10 +223,10 @@
     <Compile Include="EnumBooleanConverter.cs" />
     <Compile Include="HelpProvider.cs" />
     <Compile Include="InlineTextBlock.cs" />
-    <Compile Include="MainForm.State.cs" />
+    <Compile Include="ViewModels\MainForm.State.cs" />
     <Compile Include="ObservableGrepSearchResults.cs" />
-    <Compile Include="OptionsForm.xaml.cs">
-      <DependentUpon>OptionsForm.xaml</DependentUpon>
+    <Compile Include="Views\OptionsView.xaml.cs">
+      <DependentUpon>OptionsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -238,12 +242,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="ShellIntegration.cs" />
-    <Compile Include="Test.xaml.cs">
+    <Compile Include="Views\Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TestPattern.State.cs" />
-    <Compile Include="TestPattern.xaml.cs">
-      <DependentUpon>TestPattern.xaml</DependentUpon>
+    <Compile Include="ViewModels\TestPattern.State.cs" />
+    <Compile Include="Views\TestPatternView.xaml.cs">
+      <DependentUpon>TestPatternView.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>

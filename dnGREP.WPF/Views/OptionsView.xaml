@@ -15,7 +15,7 @@
             <TabItem Name="tbGeneralTab">
                 <TabItem.Header>
                     <WrapPanel Orientation="Vertical">
-                        <Image Source="Images\preferences-system.png" Width="32" Height="32"/>
+                        <Image Source="..\Images\preferences-system.png" Width="32" Height="32"/>
                         <TextBlock>General</TextBlock>
                     </WrapPanel>
                 </TabItem.Header>
@@ -63,7 +63,7 @@
             <TabItem Name="tbUserInterfaceTab">
                 <TabItem.Header>
                     <WrapPanel Orientation="Vertical">
-                        <Image Source="Images\applications-graphics.png" Width="32" Height="32"/>
+                        <Image Source="..\Images\applications-graphics.png" Width="32" Height="32"/>
                         <TextBlock HorizontalAlignment="Center">User</TextBlock>
                         <TextBlock HorizontalAlignment="Center">Interface</TextBlock>
                     </WrapPanel>
@@ -91,7 +91,7 @@
             <TabItem Name="tbSearchOptionsTab">
                 <TabItem.Header>
                     <WrapPanel Orientation="Vertical">
-                        <Image Source="Images\system-search.png" Width="32" Height="32"/>
+                        <Image Source="..\Images\system-search.png" Width="32" Height="32"/>
                         <TextBlock HorizontalAlignment="Center">Search</TextBlock>
                         <TextBlock HorizontalAlignment="Center">Params</TextBlock>
                     </WrapPanel>
