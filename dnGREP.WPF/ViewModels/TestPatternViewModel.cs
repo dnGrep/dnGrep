@@ -12,9 +12,9 @@ using System.Windows.Media;
 
 namespace dnGREP.WPF
 {
-	public class TestPatternState : INotifyPropertyChanged
+	public class TestPatternViewModel : INotifyPropertyChanged
 	{
-		public TestPatternState()
+		public TestPatternViewModel()
 		{
 			LoadAppSettings();
 			UpdateState("Initial");

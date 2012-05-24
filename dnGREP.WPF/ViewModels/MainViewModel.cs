@@ -16,11 +16,11 @@ using System.Xml;
 
 namespace dnGREP.WPF
 {
-	public class MainFormState : INotifyPropertyChanged
+	public class MainViewModel : INotifyPropertyChanged
 	{
 		public static int FastBookmarkCapacity = 20;
 
-		public MainFormState()
+		public MainViewModel()
 		{
             LoadAppSettings();
 			UpdateState("Initial");

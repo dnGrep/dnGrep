@@ -12,6 +12,12 @@ namespace dnGREP.Common
 		Soundex
 	}
 
+    public enum FileOpenEditor
+    {
+        Default,
+        Custom
+    }
+
 	public enum FileSearchType
 	{
 		Asterisk,

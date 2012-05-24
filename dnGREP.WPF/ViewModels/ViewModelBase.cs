@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq.Expressions;
 
 namespace dnGREP.WPF
 {
@@ -76,6 +77,16 @@ namespace dnGREP.WPF
         /// Raises this object's PropertyChanged event.
         /// </summary>
         /// <param name="propertyName">The property that has a new value.</param>
+        protected virtual void OnPropertyChanged<T>(Expression<Func<T>> expression)
+        {
+            string propertyName = GetPropertyName(expression);
+            OnPropertyChanged(propertyName);
+        }
+
+        /// <summary>
+        /// Raises this object's PropertyChanged event.
+        /// </summary>
+        /// <param name="propertyName">The property that has a new value.</param>
         protected virtual void OnPropertyChanged(string propertyName)
         {
             this.VerifyPropertyName(propertyName);
@@ -86,6 +97,24 @@ namespace dnGREP.WPF
                 var e = new PropertyChangedEventArgs(propertyName);
                 handler(this, e);
             }
+        }
+
+        protected virtual bool IsProperty<T>(Expression<Func<T>> expression, string name)
+        {
+            string propertyName = GetPropertyName(expression);
+            return propertyName == name;
+        }
+
+        /// <summary>
+        /// Get the string name for the property
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="expression"></param>
+        /// <returns></returns>
+        protected string GetPropertyName<T>(Expression<Func<T>> expression)
+        {
+            MemberExpression memberExpression = (MemberExpression)expression.Body;
+            return memberExpression.Member.Name;
         }
 
         #endregion // INotifyPropertyChanged Members
@@ -121,5 +150,13 @@ namespace dnGREP.WPF
 #endif
 
         #endregion // IDisposable Members
+
+        #region Helper Methods
+        public static string GetPropertyName<T,V>(Expression<Func<T, V>> expression)
+        {
+            MemberExpression memberExpression = (MemberExpression)expression.Body;
+            return memberExpression.Member.Name;
+        }
+        #endregion
     }
 }

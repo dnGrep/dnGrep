@@ -1,15 +1,17 @@
-﻿<Window x:Class="dnGREP.WPF.OptionsForm"
+﻿<Window x:Class="dnGREP.WPF.OptionsView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:my="clr-namespace:dnGREP.WPF"
     Title="Options" Width="Auto" WindowStyle="ToolWindow" ResizeMode="NoResize" Height="Auto" MinHeight="260" 
     Background="{StaticResource GradientBackground}"
-    Loaded="Window_Load" Closing="Window_Closing" KeyDown="Window_KeyDown"
     MinWidth="453" Icon="/dnGREP;component/nGREP.ico" WindowStartupLocation="CenterOwner"
     my:DiginesisHelpProvider.HelpKeyword="options.html" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True" SizeToContent="WidthAndHeight">
     <Window.Resources>
-        
+        <my:EnumBooleanConverter x:Key="ebc" />
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="Escape" Command="{Binding CloseCommand}"/>
+    </Window.InputBindings>
     <DockPanel Width="453">
         <TabControl Name="tbMainPanel" DockPanel.Dock="Top" TabStripPlacement="Left">
             <TabItem Name="tbGeneralTab">
@@ -20,22 +22,24 @@
                     </WrapPanel>
                 </TabItem.Header>
                 <StackPanel>
-                    <GroupBox Header="Startup options" Name="grShell">
+                    <GroupBox Header="Startup options" Name="grShell" ToolTip="{Binding Path=PanelTooltip}">
                         <WrapPanel Orientation="Vertical">
-                            <CheckBox Margin="3" Name="cbRegisterShell" Checked="cbRegisterShell_CheckedChanged" Unchecked="cbRegisterShell_CheckedChanged">Enable Windows Explorer integration</CheckBox>
-                            <CheckBox Margin="3" Name="cbRegisterStartup" Checked="cbRegisterStartup_CheckedChanged" Unchecked="cbRegisterStartup_CheckedChanged">Enable startup accelerator</CheckBox>
+                            <CheckBox Margin="3" Name="cbRegisterShell" IsChecked="{Binding Path=EnableWindowsIntegration}" ToolTip="{Binding Path=WindowsIntegrationTooltip}"
+                                      IsEnabled="{Binding Path=IsAdministrator}">Enable Windows Explorer integration</CheckBox>
+                            <CheckBox Margin="3" Name="cbRegisterStartup" IsChecked="{Binding Path=EnableStartupAcceleration}" ToolTip="{Binding Path=StartupAccelerationTooltip}"
+                                      IsEnabled="{Binding Path=IsAdministrator}">Enable startup accelerator</CheckBox>
                         </WrapPanel>
                     </GroupBox>
                     <GroupBox Header="Checking for updates">
                         <WrapPanel>
-                            <CheckBox Margin="3" VerticalAlignment="Center" Name="cbCheckForUpdates" Checked="cbCheckForUpdates_CheckedChanged" Unchecked="cbCheckForUpdates_CheckedChanged">Enable automatic checking every</CheckBox>
-                            <TextBox Width="30" Name="tbUpdateInterval"></TextBox>
+                            <CheckBox Margin="3" VerticalAlignment="Center" Name="cbCheckForUpdates" IsChecked="{Binding Path=EnableCheckForUpdates}">Enable automatic checking every</CheckBox>
+                            <TextBox Width="30" Name="tbUpdateInterval" IsEnabled="{Binding ElementName=cbCheckForUpdates, Path=IsChecked}" Text="{Binding Path=CheckForUpdatesInterval, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                             <Label Margin="3" VerticalAlignment="Center">days</Label>
                         </WrapPanel>
                     </GroupBox>
                     <GroupBox Header="Editor">
                         <StackPanel>
-                            <RadioButton Margin="3" Name="rbDefaultEditor" Checked="rbEditorCheckedChanged" GroupName="Editor" Unchecked="rbEditorCheckedChanged">Default file specific editor</RadioButton>
+                            <RadioButton Margin="3" Name="rbDefaultEditor" GroupName="Editor" IsChecked="{Binding Path=FileEditor, Converter={StaticResource ebc}, ConverterParameter=Default}">Default file specific editor</RadioButton>
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
@@ -47,12 +51,12 @@
                                     <ColumnDefinition />
                                     <ColumnDefinition Width="40"/>
                                 </Grid.ColumnDefinitions>
-                                <RadioButton VerticalAlignment="Center" Grid.Column="0" Margin="3" Name="rbSpecificEditor"  Checked="rbEditorCheckedChanged" GroupName="Editor" Unchecked="rbEditorCheckedChanged">Custom editor:</RadioButton>
-                                <TextBox Grid.Column="1" Name="tbEditorPath" Margin="0,0,0,3"></TextBox>
-                                <Button Grid.Column="2" Margin="5,0,0,0" Name="btnBrowse" Click="btnBrowse_Click">...</Button>
+                                <RadioButton VerticalAlignment="Center" Grid.Column="0" Margin="3" Name="rbSpecificEditor" GroupName="Editor" IsChecked="{Binding Path=FileEditor, Converter={StaticResource ebc}, ConverterParameter=Custom}">Custom editor:</RadioButton>
+                                <TextBox Grid.Column="1" Name="tbEditorPath" Margin="0,0,0,3" IsEnabled="{Binding ElementName=rbSpecificEditor, Path=IsChecked}"></TextBox>
+                                <Button Grid.Column="2" Margin="5,0,0,0" Name="btnBrowse" Command="{Binding Path=BrowseCommand}" IsEnabled="{Binding ElementName=rbSpecificEditor, Path=IsChecked}">...</Button>
                                 <DockPanel Grid.Row="1" Grid.Column="1">
                                     <Label>Arguments</Label>
-                                    <TextBox Name="tbEditorArgs"></TextBox>
+                                    <TextBox Name="tbEditorArgs" IsEnabled="{Binding ElementName=rbSpecificEditor, Path=IsChecked}"></TextBox>
                                 </DockPanel>
                                 <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" TextWrapping="Wrap">(use %file and %line keywords to specify file location and line number)</TextBlock>
                             </Grid>
@@ -69,23 +73,23 @@
                     </WrapPanel>
                 </TabItem.Header>
                 <StackPanel HorizontalAlignment="Stretch">
-                    <CheckBox Name="cbShowPath" Margin="3" Checked="cbShowPath_CheckedChanged" Unchecked="cbShowPath_CheckedChanged">Show file path in results panel</CheckBox>
-                    <CheckBox Margin="3" Name="cbSearchFileNameOnly">
+                    <CheckBox Name="cbShowPath" Margin="3" IsChecked="{Binding Path=ShowFilePathInResults}">Show file path in results panel</CheckBox>
+                    <CheckBox Margin="3" Name="cbSearchFileNameOnly" IsChecked="{Binding Path=AllowSearchWithEmptyPattern}">
                         <CheckBox.Content>
                             <TextBlock TextWrapping="Wrap">Allow searching for file name pattern only when "search for" is empty</TextBlock>
                         </CheckBox.Content>
                     </CheckBox>
-                    <CheckBox Margin="3" Name="cbExpandResult">
+                    <CheckBox Margin="3" Name="cbExpandResult" IsChecked="{Binding Path=AutoExpandSearchTree}">
                         <CheckBox.Content>
                             <TextBlock TextWrapping="Wrap">Show results tree expanded</TextBlock>
                         </CheckBox.Content>
                     </CheckBox>
-                    <CheckBox Margin="3" Name="cbClearType" Checked="cbClearType_Checked" Unchecked="cbClearType_Checked">
+                    <CheckBox Margin="3" Name="cbClearType" IsChecked="{Binding Path=EnableClearType}">
                         <CheckBox.Content>
                             <TextBlock TextWrapping="Wrap">Enable ClearType (smoothes the way application displays text)</TextBlock>
                         </CheckBox.Content>
                     </CheckBox>
-                    <Button Height="23" Name="btnClearPreviousSearches" Width="104" HorizontalAlignment="Left" Click="btnClearPreviousSearches_Click">Clear old searches</Button>
+                    <Button Height="23" Name="btnClearPreviousSearches" Width="104" HorizontalAlignment="Left" Command="{Binding Path=ClearSearchesCommand}">Clear old searches</Button>
                 </StackPanel>
             </TabItem>
             <TabItem Name="tbSearchOptionsTab">
@@ -99,17 +103,28 @@
                 <StackPanel>
                     <GroupBox Header="Phonetic search">
                         <WrapPanel>
+                            <WrapPanel.Resources>
+                                <DataTemplate DataType="{x:Type ValidationError}">
+                                    <TextBlock
+                                      Foreground="Red"
+                                      HorizontalAlignment="Right"
+                                      Text="{Binding Path=ErrorContent}" 
+                                      />
+                                 </DataTemplate>
+                            </WrapPanel.Resources>
                             <Label>Match threshold (from 0 to 1.0)</Label>
-                            <TextBox Name="tbFuzzyMatchThreshold" Width="50" TextChanged="tbFuzzyMatchThreshold_TextChanged"></TextBox>
+                            <TextBox Name="tbFuzzyMatchThreshold" Width="50" Text="{Binding Path=MatchThreshold, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                                     Validation.ErrorTemplate="{x:Null}"></TextBox>
                             <Label>0 - match everything; 1.0 - exact match</Label>
-                            <Label Foreground="Red" Visibility="Hidden" Name="lblFuzzyMatchError">Error: Match threshold should be a number between 0 and 1.0</Label>
+                            <ContentPresenter Content="{Binding ElementName=tbFuzzyMatchThreshold, Path=(Validation.Errors).CurrentItem}"/>
                         </WrapPanel>
                     </GroupBox>
                 </StackPanel>
             </TabItem>
         </TabControl>
         <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Bottom">
-            <Button Width="70" Margin="0,0,5,5" Click="btnSave_Click">Save</Button>
+            <Button Width="70" Margin="0,0,5,5" Command="{Binding Path=SaveCommand}" IsDefault="True">Save</Button>
+            <Button Width="70" Margin="0,0,5,5" Command="{Binding Path=CloseCommand}">Cancel</Button>
         </WrapPanel>
     </DockPanel>
 </Window>

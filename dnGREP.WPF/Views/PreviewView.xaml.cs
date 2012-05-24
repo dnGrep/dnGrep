@@ -31,7 +31,7 @@ namespace dnGREP.WPF
         private string currentFile;
         private bool forceClose = false;
         internal StickyWindow StickyWindow;
-        private PreviewState inputData = new PreviewState();
+        private PreviewViewModel inputData = new PreviewViewModel();
         
         public Preview()
         {

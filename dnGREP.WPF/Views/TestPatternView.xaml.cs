@@ -27,7 +27,7 @@ namespace dnGREP.WPF
     public partial class TestPattern : Window
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
-		private TestPatternState inputData = new TestPatternState();
+		private TestPatternViewModel inputData = new TestPatternViewModel();
 
         public TestPattern()
         {

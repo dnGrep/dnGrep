@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Input;
 
-namespace dnGREP.WPF.ViewModels
+namespace dnGREP.WPF
 {
     /// <summary>
     /// This ViewModelBase subclass requests to be removed 

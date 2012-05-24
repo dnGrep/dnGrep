@@ -38,7 +38,7 @@ namespace dnGREP.WPF
 		private PublishedVersionExtractor ve = new PublishedVersionExtractor();
 		private FileFolderDialogWin32 fileFolderDialog = new FileFolderDialogWin32();
 		private BackgroundWorker workerSearchReplace = new BackgroundWorker();
-        private MainFormState inputData;
+        private MainViewModel inputData;
 		private BookmarksForm bookmarkForm;
         private System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
         private System.Windows.Forms.HelpProvider helpProvider = new System.Windows.Forms.HelpProvider();
@@ -182,7 +182,7 @@ namespace dnGREP.WPF
             stickyWindow.StickOnResize = true;
             stickyWindow.StickOnMove = true;
 
-            inputData = new MainFormState();
+            inputData = new MainViewModel();
             this.DataContext = inputData;
             tvSearchResult.ItemsSource = inputData.SearchResults;
             
@@ -375,7 +375,7 @@ namespace dnGREP.WPF
 				{
 					timer = DateTime.Now;
                     Dictionary<string, object> workerParams = (Dictionary<string, object>)e.Argument;
-                    MainFormState param = (MainFormState)workerParams["State"];
+                    MainViewModel param = (MainViewModel)workerParams["State"];
 					if (param.CurrentGrepOperation == GrepOperation.Search || param.CurrentGrepOperation == GrepOperation.SearchInResults)
 					{
 						int sizeFrom = 0;
@@ -483,9 +483,9 @@ namespace dnGREP.WPF
 			{
 				logger.LogException(LogLevel.Error, ex.Message, ex);
 				bool isSearch = true;
-				if (e.Argument is MainFormState)
+				if (e.Argument is MainViewModel)
 				{
-					MainFormState param = (MainFormState)e.Argument;
+					MainViewModel param = (MainViewModel)e.Argument;
 					if (param.CurrentGrepOperation == GrepOperation.Search || param.CurrentGrepOperation == GrepOperation.SearchInResults)
 						isSearch = true;
 					else
@@ -623,31 +623,31 @@ namespace dnGREP.WPF
 		{
 			//Saving bookmarks
 			List<string> fsb = new List<string>();
-			for (int i = 0; i < inputData.FastSearchBookmarks.Count && i < MainFormState.FastBookmarkCapacity; i++)
+			for (int i = 0; i < inputData.FastSearchBookmarks.Count && i < MainViewModel.FastBookmarkCapacity; i++)
 			{
 				fsb.Add(inputData.FastSearchBookmarks[i]);
 			}
 			settings.Set<List<string>>(GrepSettings.Key.FastSearchBookmarks, fsb);
 			List<string> frb = new List<string>();
-			for (int i = 0; i < inputData.FastReplaceBookmarks.Count && i < MainFormState.FastBookmarkCapacity; i++)
+			for (int i = 0; i < inputData.FastReplaceBookmarks.Count && i < MainViewModel.FastBookmarkCapacity; i++)
 			{
 				frb.Add(inputData.FastReplaceBookmarks[i]);
 			}
 			settings.Set<List<string>>(GrepSettings.Key.FastReplaceBookmarks, frb);
 			List<string> ffmb = new List<string>();
-			for (int i = 0; i < inputData.FastFileMatchBookmarks.Count && i < MainFormState.FastBookmarkCapacity; i++)
+			for (int i = 0; i < inputData.FastFileMatchBookmarks.Count && i < MainViewModel.FastBookmarkCapacity; i++)
 			{
 				ffmb.Add(inputData.FastFileMatchBookmarks[i]);
 			}
 			settings.Set<List<string>>(GrepSettings.Key.FastFileMatchBookmarks, ffmb);
 			List<string> ffnmb = new List<string>();
-			for (int i = 0; i < inputData.FastFileNotMatchBookmarks.Count && i < MainFormState.FastBookmarkCapacity; i++)
+			for (int i = 0; i < inputData.FastFileNotMatchBookmarks.Count && i < MainViewModel.FastBookmarkCapacity; i++)
 			{
 				ffnmb.Add(inputData.FastFileNotMatchBookmarks[i]);
 			}
 			settings.Set<List<string>>(GrepSettings.Key.FastFileNotMatchBookmarks, ffnmb);
 			List<string> fpb = new List<string>();
-			for (int i = 0; i < inputData.FastPathBookmarks.Count && i < MainFormState.FastBookmarkCapacity; i++)
+			for (int i = 0; i < inputData.FastPathBookmarks.Count && i < MainViewModel.FastBookmarkCapacity; i++)
 			{
 				fpb.Add(inputData.FastPathBookmarks[i]);
 			}
@@ -717,7 +717,18 @@ namespace dnGREP.WPF
 			string filePatternIgnore = inputData.FilePatternIgnore;
 
 			copyBookmarksToSettings();
-			OptionsForm optionsForm = new OptionsForm();
+			OptionsView optionsForm = new OptionsView();
+            OptionsViewModel optionsViewModel = new OptionsViewModel();
+            // When the ViewModel asks to be closed, 
+            // close the window.
+            EventHandler handler = null;
+            handler = delegate
+            {
+                optionsViewModel.RequestClose -= handler;
+                optionsForm.Close();
+            };
+            optionsViewModel.RequestClose += handler;
+            optionsForm.DataContext = optionsViewModel;
 			try
 			{
 				optionsForm.ShowDialog();
@@ -728,7 +739,6 @@ namespace dnGREP.WPF
 				logger.LogException(LogLevel.Error, "Error saving options", ex);
 			}
             inputData.LoadAppSettings();
-
 			inputData.FileOrFolderPath = fileOrFolderPath;
 			inputData.SearchFor = searchFor;
 			inputData.ReplaceWith = replaceWith;

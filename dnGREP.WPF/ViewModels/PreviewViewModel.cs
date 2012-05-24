@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 namespace dnGREP.WPF
 {
-    public class PreviewState : INotifyPropertyChanged
+    public class PreviewViewModel : INotifyPropertyChanged
     {
         private Visibility isLargeOrBinary;
         public Visibility IsLargeOrBinary { 
