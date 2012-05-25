@@ -40,7 +40,7 @@ namespace dnGREP.Common
             [DefaultValue(FileSizeFilter.No)]
 			public const string UseFileSizeFilter = "UseFileSizeFilter";
             public const string CaseSensitive = "CaseSensitive";
-            public const string PreviewFileConent = "PreviewFileConent";
+            public const string PreviewFileContent = "PreviewFileContent";
 			public const string Multiline = "Multiline";
 			public const string Singleline = "Singleline";
 			public const string WholeWord = "WholeWord";

@@ -6,7 +6,7 @@
     Title="{Binding Path=WindowTitle}" MinHeight="460"     
     WindowState="Normal" 
     MinWidth="500" Icon="/dnGREP;component/nGREP.ico" Closing="MainForm_Closing"
-    Loaded="Window_Loaded" KeyDown="formKeyDown" Style="{StaticResource DefaultStyle}" 
+    Loaded="Window_Loaded" Style="{StaticResource DefaultStyle}" 
     Background="{StaticResource GradientBackground}"
     SnapsToDevicePixels="True" ResizeMode="CanResizeWithGrip" AllowDrop="False"
     my:DiginesisHelpProvider.HelpKeyword="search-window.html" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True" 
@@ -82,6 +82,9 @@
         <my:EnumBooleanConverter x:Key="ebc" />
 
     </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Key="Escape" Command="{Binding CloseCommand}"/>
+    </Window.InputBindings>
 
     <Grid Name="gridMain">
         <Grid.RowDefinitions>
@@ -98,11 +101,11 @@
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" FontFamily="Microsoft Sans Serif" FontWeight="Bold" FontSize="16" Text="dnGREP"/>
             <Menu Background="{Binding ElementName=gridTop, Path=Background}" Name="mnuMainMenu" Grid.Column="1" HorizontalAlignment="Right" Style="{StaticResource DefaultStyle}">
-                <MenuItem Name="undoToolStripMenuItem" Header="_Undo" IsEnabled="{Binding Path=CanUndo}" Click="undoToolStripMenuItem_Click"/>
-                <MenuItem Header="_Options..." Click="btnOptions_Click"/>
+                <MenuItem Name="undoToolStripMenuItem" Header="_Undo" Command="{Binding Path=UndoCommand}"/>
+                <MenuItem Header="_Options..." Command="{Binding Path=OptionsCommand}"/>
                 <MenuItem Header="_About" Name="helpToolStripMenuItem">
-                    <MenuItem Click="helpToolStripMenuItem_Click" Header="_Help"></MenuItem>
-                    <MenuItem Click="aboutToolStripMenuItem_Click" Header="_About..."></MenuItem>
+                    <MenuItem Command="{Binding Path=HelpCommand}" Header="_Help"></MenuItem>
+                    <MenuItem Command="{Binding Path=AboutCommand}" Header="_About..."></MenuItem>
                 </MenuItem>
             </Menu>
         </Grid>
@@ -121,7 +124,8 @@
                     </Grid.ColumnDefinitions>
                     <ComboBox AllowDrop="True" IsEditable="True" ItemsSource="{Binding Path=FastPathBookmarks}" PreviewDragEnter="tbFolderName_DragOver" PreviewDragOver="tbFolderName_DragOver" PreviewDrop="tbFolderName_Drop" Grid.Column="0" Name="tbFolderName" 
                             Text="{Binding Path=FileOrFolderPath, UpdateSourceTrigger=PropertyChanged}" ToolTip="Path to search in" TabIndex="3" />
-                    <Button Click="btnBrowse_Click" Grid.Column="1" Width="42" HorizontalAlignment="Right" Name="btnBrowse" ToolTip="Browse for folder or files" TabIndex="4">...</Button>
+                    <Button Command="{Binding Path=BrowseCommand}" Grid.Column="1" Width="42" HorizontalAlignment="Right" Name="btnBrowse" 
+                            ToolTip="Browse for folder or files" TabIndex="4">...</Button>
                 </Grid>
             </GroupBox>
             <GroupBox Header="Search" Grid.Row="1">
@@ -141,7 +145,7 @@
                         <Label Grid.Column="1">
                             <Binding Path="ValidationMessage"/>
                         </Label>
-                        <Button Grid.Column="2" Name="btnTest" Click="btnTest_Click" TabIndex="15">Test</Button>
+                        <Button Grid.Column="2" Name="btnTest" Command="{Binding Path=TestCommand}" TabIndex="15">Test</Button>
                     </Grid>
                     <Expander DockPanel.Dock="Bottom" Name="expOptions" IsExpanded="{Binding Path=IsOptionsExpanded}">
                         <Expander.Header>
@@ -152,7 +156,7 @@
                         </Expander.Header>
                         <StackPanel Orientation="Horizontal">
                             <CheckBox Margin="3" Name="cbCaseSensitive" IsChecked="{Binding Path=CaseSensitive}" IsEnabled="{Binding Path=IsCaseSensitiveEnabled}" TabIndex="20">Case sensitive</CheckBox>
-                            <CheckBox Margin="3" Name="cbMultiline" IsChecked="{Binding Path=Multiline}" IsEnabled="{Binding Path=IsMultilineEnabled}" TabIndex="21" Unchecked="cbMultiline_Unchecked">Multiline (slower)</CheckBox>
+                            <CheckBox Margin="3" Name="cbMultiline" IsChecked="{Binding Path=Multiline}" IsEnabled="{Binding Path=IsMultilineEnabled}" TabIndex="21">Multiline (slower)</CheckBox>
                             <CheckBox Margin="3" Name="cbWholeWord" IsChecked="{Binding Path=WholeWord}" IsEnabled="{Binding Path=IsWholeWordEnabled}" TabIndex="22">Whole word</CheckBox>
                             <CheckBox Margin="3" Name="cbSingleline" IsChecked="{Binding Path=Singleline}" IsEnabled="{Binding Path=IsSinglelineEnabled}" TabIndex="23">Match dot as newline</CheckBox>
                         </StackPanel>
@@ -301,9 +305,9 @@
                                 </StackPanel>
                             </StackPanel>
                             <TextBlock Grid.Column="0" Grid.Row="3" VerticalAlignment="Center">Encoding:</TextBlock>
-                            <ComboBox Grid.Column="1" Grid.Row="3" 
-                                    Name="cbEncoding" VerticalAlignment="Top" 
-                                    SelectedValue="{Binding Path=CodePage}" TabIndex="54"  IsEnabled="{Binding Path=FileFilters, Converter={StaticResource InverseBooleanConverter}}"/>
+                            <ComboBox Grid.Column="1" Grid.Row="3" DisplayMemberPath="Key" SelectedValuePath="Value" ItemsSource="{Binding Path=Encodings}"
+                                    Name="cbEncoding" VerticalAlignment="Top" SelectedValue="{Binding Path=CodePage}" SelectedIndex="0"
+                                      TabIndex="54"  IsEnabled="{Binding Path=FileFilters, Converter={StaticResource InverseBooleanConverter}}"/>
                         </Grid>
                     </Grid>
                 </Expander>
@@ -318,35 +322,31 @@
 						Width="83" 
 						VerticalAlignment="Top" 
 						HorizontalAlignment="Left"  
-						Margin="3" Click="btnBookmark_Click" TabIndex="54">
-                    <MenuItem Header="Add" Style="{StaticResource DefaultStyle}" Click="btnBookmark_Click"/>
-                    <MenuItem Header="Open" Style="{StaticResource DefaultStyle}" Click="btnBookmarkOpen_Click"/>
+						Margin="3" Command="{Binding Path=BookmarkAddCommand}" TabIndex="54">
+                    <MenuItem Header="Add" Style="{StaticResource DefaultStyle}" Command="{Binding Path=BookmarkAddCommand}"/>
+                    <MenuItem Header="Open" Style="{StaticResource DefaultStyle}" Command="{Binding Path=BookmarkOpenCommand}"/>
                 </splitButton:SplitButton>
                 <StackPanel HorizontalAlignment="Right" Grid.Column="1" Orientation="Horizontal">
-                    <CheckBox IsChecked="{Binding Path=PreviewFileConent, Mode=TwoWay}" VerticalAlignment="Center" Margin="0 0 5 0" Name="cbPreviewFile" Unchecked="cbPreviewFile_Unchecked">Preview file</CheckBox>
-                    <splitButton:SplitButton x:Name="btnSearch" Content="Search" IsEnabled="{Binding Path=CanSearch}"
-                            Click="btnSearch_Click"
-						    Grid.Row="0" Grid.Column="0"
-						    Width="67" Margin="3" 
+                    <CheckBox IsChecked="{Binding Path=PreviewFileContent}" VerticalAlignment="Center" Margin="0 0 5 0" Name="cbPreviewFile">Preview file</CheckBox>
+                    <splitButton:SplitButton x:Name="btnSearch" Content="Search" Command="{Binding Path=SearchCommand}" 
+						    Grid.Row="0" Grid.Column="0" Width="67" Margin="3" 
 						    Mode="{Binding Path=SearchButtonMode}" IsDefault="True" TabIndex="50">
                         <MenuItem Name="searchInResultsToolStripMenuItem" Header="Search in results" 
-                                IsEnabled="{Binding Path=CanSearchInResults}" Style="{StaticResource DefaultStyle}" Click="btnSearchInResults_Click" />
+                                Command="{Binding Path=SearchInResultsCommand}" Style="{StaticResource DefaultStyle}"/>
                     </splitButton:SplitButton>
-                    <Button Width="64" Margin="3" Content="Replace" Name="btnReplace" Click="btnReplace_Click" IsEnabled="{Binding Path=CanReplace}" TabIndex="51" />
+                    <Button Width="64" Margin="3" Content="Replace" Name="btnReplace" Command="{Binding Path=ReplaceCommand}" TabIndex="51" />
                     <splitButton:SplitButton x:Name="btnOtherActions" Content=">>"
 						    Grid.Row="0" Grid.Column="0"
-						    Width="43" 
-						    VerticalAlignment="Top" 
-						    HorizontalAlignment="Left"  
-						    Margin="3" IsEnabled="{Binding Path=CanSearchInResults}" Click="btnOtherActions_Click" TabIndex="52">
-                        <MenuItem Name="copyFilesToolStripMenuItem" Header="Copy files..." Style="{StaticResource DefaultStyle}" Click="copyFilesToolStripMenuItem_Click"/>
-                        <MenuItem Name="moveFilesToolStripMenuItem" Header="Move files..." Style="{StaticResource DefaultStyle}" Click="moveFilesToolStripMenuItem_Click"/>
-                        <MenuItem Name="deleteFilesToolStripMenuItem" Header="Delete files..." Style="{StaticResource DefaultStyle}" Click="deleteFilesToolStripMenuItem_Click"/>
+						    Width="43" VerticalAlignment="Top"
+						    HorizontalAlignment="Left"  Margin="3" Command="{Binding Path=OtherActionsCommand}" TabIndex="52">
+                        <MenuItem Name="copyFilesToolStripMenuItem" Header="Copy files..." Style="{StaticResource DefaultStyle}" Command="{Binding Path=CopyFilesCommand}"/>
+                        <MenuItem Name="moveFilesToolStripMenuItem" Header="Move files..." Style="{StaticResource DefaultStyle}" Command="{Binding Path=MoveFilesCommand}"/>
+                        <MenuItem Name="deleteFilesToolStripMenuItem" Header="Delete files..." Style="{StaticResource DefaultStyle}" Command="{Binding Path=DeleteFilesCommand}"/>
                         <Separator/>
-                        <MenuItem Name="copyToClipboardToolStripMenuItem" Header="File names to clipboard" Style="{StaticResource DefaultStyle}" Click="copyToClipboardToolStripMenuItem_Click"/>
-                        <MenuItem Name="saveAsCSVToolStripMenuItem" Header="Save as CSV..." Style="{StaticResource DefaultStyle}" Click="saveAsCSVToolStripMenuItem_Click"/>
+                        <MenuItem Name="copyToClipboardToolStripMenuItem" Header="File names to clipboard" Style="{StaticResource DefaultStyle}" Command="{Binding Path=CopyToClipboardCommand}"/>
+                        <MenuItem Name="saveAsCSVToolStripMenuItem" Header="Save as CSV..." Style="{StaticResource DefaultStyle}" Command="{Binding Path=SaveAsCsvCommand}"/>
                     </splitButton:SplitButton>
-                    <Button Width="64" Margin="3" Content="Cancel" Name="btnCancel" Click="btnCancel_Click"  IsEnabled="{Binding Path=CanCancel}" TabIndex="53" />
+                    <Button Width="64" Margin="3" Content="Cancel" Name="btnCancel" Command="{Binding Path=CancelCommand}" TabIndex="53" />
                 </StackPanel>
             </Grid>
         </Grid>
@@ -354,7 +354,7 @@
                   HorizontalAlignment="Stretch" ResizeBehavior="PreviousAndNext"
                   IsEnabled="{Binding Path=Multiline}" Visibility="{Binding Path=Multiline, 
                     Converter={StaticResource BooleanToVisibilityConverter}}"/>
-        <TreeView Name="tvSearchResult" Grid.Row="3"
+        <TreeView Name="tvSearchResult" Grid.Row="3" ItemsSource="{Binding Path=SearchResults}"
                       MouseDoubleClick="tvSearchResult_MouseDoubleClick" PreviewKeyDown="treeKeyDown" SelectedItemChanged="tvSearchResults_SelectedChanged">
             <TreeView.ContextMenu>
                 <ContextMenu Opened="tvContexMenuOpening">
@@ -447,9 +447,8 @@
             </TreeView.ItemContainerStyle>
         </TreeView>
         <StatusBar ClipToBounds="False" Grid.Row="4" Name="statusBar">
-            <ProgressBar Name="barProgressBar" Height="18"
-                             Width="150" IsIndeterminate="False" />
-            <TextBlock Name="lblStatus" />
+            <ProgressBar Name="barProgressBar" Height="18" IsIndeterminate="{Binding Path=IsOperationInProgress}" Width="150" />
+            <TextBlock Name="lblStatus" Text="{Binding Path=StatusMessage}" />
         </StatusBar>
     </Grid>
 </Window>

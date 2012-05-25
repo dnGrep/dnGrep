@@ -23,7 +23,7 @@ namespace dnGREP.WPF
     /// <summary>
     /// Interaction logic for Preview.xaml
     /// </summary>
-    public partial class Preview : Window
+    public partial class PreviewView : Window
     {
         private int line;
         private GrepSearchResult grepResult;
@@ -33,7 +33,7 @@ namespace dnGREP.WPF
         internal StickyWindow StickyWindow;
         private PreviewViewModel inputData = new PreviewViewModel();
         
-        public Preview()
+        public PreviewView()
         {
             InitializeComponent();
             inputData.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(inputData_PropertyChanged);
@@ -157,7 +157,7 @@ namespace dnGREP.WPF
         private IHighlightingDefinition loadHighlightingDefinition(
             string resourceName)
         {
-            var type = typeof(Preview);
+            var type = typeof(PreviewView);
             var fullName = type.Namespace + "." + resourceName;
             using (var stream = type.Assembly.GetManifestResourceStream(fullName))
             using (var reader = new XmlTextReader(stream))

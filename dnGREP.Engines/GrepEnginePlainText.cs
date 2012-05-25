@@ -138,7 +138,7 @@ namespace dnGREP.Engines
 				Queue<GrepSearchResult.GrepLine> postContextLines = new Queue<GrepSearchResult.GrepLine>();
 				while ((line = readStream.ReadLine()) != null)
 				{
-                    if (GrepCore.CancelProcess)
+                    if (Utils.CancelSearch)
                     {
                         return searchResults;
                     }

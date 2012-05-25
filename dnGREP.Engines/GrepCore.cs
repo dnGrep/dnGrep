@@ -35,14 +35,6 @@ namespace dnGREP.Common
 			public int ProcessedFiles;
 			public List<GrepSearchResult> SearchResults;
 		}
-
-		private static bool cancelProcess = false;
-
-		public static bool CancelProcess
-		{
-			get { return GrepCore.cancelProcess; }
-			set { GrepCore.cancelProcess = value; }
-		}
 	
 		/// <summary>
 		/// Searches folder for files whose content matches regex
@@ -57,7 +49,7 @@ namespace dnGREP.Common
 			if (files == null)
 				return searchResults;
 
-            GrepCore.CancelProcess = false;
+            Utils.CancelSearch = false;
 
 			if (searchPattern == null || searchPattern.Trim() == "")
 			{
@@ -93,7 +85,7 @@ namespace dnGREP.Common
 							encoding = Encoding.GetEncoding(codePage);
 
 
-						if (GrepCore.CancelProcess)
+                        if (Utils.CancelSearch)
 						{
 							return searchResults;
 						}
@@ -155,7 +147,7 @@ namespace dnGREP.Common
             replacePattern = Utils.ReplaceSpecialCharacters(replacePattern);
 
 			int processedFiles = 0;
-			GrepCore.CancelProcess = false;
+            Utils.CancelSearch = false;
 
 			try
 			{
@@ -181,7 +173,7 @@ namespace dnGREP.Common
 							encoding = Encoding.GetEncoding(codePage);
 
 
-						if (GrepCore.CancelProcess)
+                        if (Utils.CancelSearch)
 						{
 							break;
 						}
@@ -191,13 +183,13 @@ namespace dnGREP.Common
 							throw new ApplicationException("Replace failed for file: " + file);
 						}
 
-						if (!GrepCore.CancelProcess && ProcessedFile != null)
+                        if (!Utils.CancelSearch && ProcessedFile != null)
 							ProcessedFile(this, new ProgressStatus(processedFiles, null));
 
 
 						File.SetAttributes(file, File.GetAttributes(tempFileName));
 
-						if (GrepCore.CancelProcess)
+                        if (Utils.CancelSearch)
 						{
 							// Replace the file
 							Utils.DeleteFile(file);
