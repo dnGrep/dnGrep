@@ -1788,6 +1788,7 @@ namespace dnGREP.WPF
                     if (SearchResults.Count > 0)
                         FilesFound = true;
                     CurrentGrepOperation = GrepOperation.None;
+                    CanSearch = true;
                 }
                 else if (CurrentGrepOperation == GrepOperation.Replace)
                 {
@@ -1809,6 +1810,7 @@ namespace dnGREP.WPF
                         StatusMessage = "Replace Canceled";
                     }
                     CurrentGrepOperation = GrepOperation.None;
+                    CanSearch = true;
                     SearchResults.Clear();
                 }
 

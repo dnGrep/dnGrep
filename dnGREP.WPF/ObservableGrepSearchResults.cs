@@ -308,8 +308,6 @@ namespace dnGREP.WPF
 			{
 				style = "Empty";
 			}
-
-            formattedText = formatLine(line);
         }
 
         private InlineCollection formatLine(GrepSearchResult.GrepLine line)
@@ -332,17 +330,33 @@ namespace dnGREP.WPF
                 {
                     try
                     {
-                        string regLine = fullLine.Substring(counter, m.StartLocation - counter);
-                        string fmtLine = fullLine.Substring(m.StartLocation, m.Length);
+                        string regLine = null;
+                        string fmtLine = null;
+                        if (fullLine.Length < m.StartLocation + m.Length)
+                        {
+                            regLine = fullLine;
+                        }
+                        else
+                        {
+                            regLine = fullLine.Substring(counter, m.StartLocation - counter);
+                            fmtLine = fullLine.Substring(m.StartLocation, m.Length);
+                        }
 
                         Run regularRun = new Run(regLine);
                         regularRun.FontFamily = font;
                         paragraph.Inlines.Add(regularRun);
 
-                        Run highlightedRun = new Run(fmtLine);
-                        highlightedRun.FontFamily = font;
-                        highlightedRun.Background = Brushes.Yellow;
-                        paragraph.Inlines.Add(highlightedRun);
+                        if (fmtLine != null)
+                        {
+                            Run highlightedRun = new Run(fmtLine);
+                            highlightedRun.FontFamily = font;
+                            highlightedRun.Background = Brushes.Yellow;
+                            paragraph.Inlines.Add(highlightedRun);
+                        }
+                        else
+                        {
+                            break;
+                        }
                     }
                     catch (Exception e)
                     {
@@ -350,8 +364,10 @@ namespace dnGREP.WPF
                         regularRun.FontFamily = font;
                         paragraph.Inlines.Add(regularRun);
                     }
-
-                    counter = m.StartLocation + m.Length;
+                    finally
+                    {
+                        counter = m.StartLocation + m.Length;
+                    }
                 }
                 if (counter < fullLine.Length)
                 {
