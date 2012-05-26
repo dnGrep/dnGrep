@@ -256,7 +256,11 @@ namespace dnGREP.WPF
 		private InlineCollection formattedText;
 		public InlineCollection FormattedText
 		{
-			get { return formattedText; }
+			get {
+                if (formattedText == null || formattedText.Count == 0)
+                    formattedText = formatLine(GrepLine);
+                return formattedText; 
+            }
 		}
 
 		private string style = "";

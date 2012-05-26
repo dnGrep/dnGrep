@@ -354,7 +354,7 @@
                   HorizontalAlignment="Stretch" ResizeBehavior="PreviousAndNext"
                   IsEnabled="{Binding Path=Multiline}" Visibility="{Binding Path=Multiline, 
                     Converter={StaticResource BooleanToVisibilityConverter}}"/>
-        <TreeView Name="tvSearchResult" Grid.Row="3" ItemsSource="{Binding Path=SearchResults}"
+        <TreeView Name="tvSearchResult" Grid.Row="3" ItemsSource="{Binding Path=SearchResults}" VirtualizingStackPanel.IsVirtualizing="True"
                       MouseDoubleClick="tvSearchResult_MouseDoubleClick" PreviewKeyDown="treeKeyDown" SelectedItemChanged="tvSearchResults_SelectedChanged">
             <TreeView.ContextMenu>
                 <ContextMenu Opened="tvContexMenuOpening">
@@ -381,10 +381,10 @@
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
                 <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="Black" />
                 <HierarchicalDataTemplate DataType="{x:Type my:FormattedGrepResult}" ItemsSource="{Binding Path=FormattedLines}" >
-                    <WrapPanel>
+                    <VirtualizingStackPanel Orientation="Horizontal">
                         <Image Source="{Binding Icon}"/>
                         <TextBlock Text="{Binding Label}" Margin="3,0,0,0"/>
-                    </WrapPanel>
+                    </VirtualizingStackPanel>
                 </HierarchicalDataTemplate>
                 <DataTemplate DataType="{x:Type my:FormattedGrepLine}">
                     <WrapPanel>
@@ -401,7 +401,7 @@
                                         <Setter Property="Background" Value="White"/>
                                     </DataTrigger>
                                 </Style.Triggers>
-                            </Style>                            
+                            </Style>
                         </WrapPanel.Resources>
                         <TextBlock Margin="-2,0,0,0" Width="{Binding LineNumberColumnWidth}" Text="{Binding FormattedLineNumber}"/>
                         <my:InlineTextBlock Margin="3,0,0,0" InlineCollection="{Binding FormattedText}"/>
@@ -444,7 +444,7 @@
                         </MultiTrigger>
                     </Style.Triggers>
                 </Style>
-            </TreeView.ItemContainerStyle>
+            </TreeView.ItemContainerStyle>            
         </TreeView>
         <StatusBar ClipToBounds="False" Grid.Row="4" Name="statusBar">
             <ProgressBar Name="barProgressBar" Height="18" IsIndeterminate="{Binding Path=IsOperationInProgress}" Width="150" />
