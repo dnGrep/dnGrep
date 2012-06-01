@@ -155,21 +155,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MVHelpers\SnippetLineNumber.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="ViewModels\CommandViewModel.cs" />
     <Compile Include="ViewModels\OptionsViewModel.cs" />
     <Compile Include="ViewModels\PreviewViewModel.cs" />
+    <Compile Include="ViewModels\SyntaxHighlighterViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\WorkspaceViewModel.cs" />
     <Compile Include="Views\PreviewView.xaml.cs">
       <DependentUpon>PreviewView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PreviewHighlighter.cs" />
+    <Compile Include="MVHelpers\PreviewHighlighter.cs" />
     <Compile Include="StickyWindows\IFormAdapter.cs" />
     <Compile Include="StickyWindows\StickyWindow.cs" />
     <Compile Include="StickyWindows\WinFormAdapter.cs" />
     <Compile Include="StickyWindows\WpfFormAdapter.cs" />
-    <Compile Include="TotalValueConverter.cs" />
+    <Compile Include="MVHelpers\TotalValueConverter.cs" />
     <Page Include="Views\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -192,6 +194,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\SyntaxHighlighter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Test.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -208,7 +214,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="InverseBooleanConverter.cs" />
+    <Compile Include="MVHelpers\InverseBooleanConverter.cs" />
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -221,11 +227,11 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="EnumBooleanConverter.cs" />
+    <Compile Include="MVHelpers\EnumBooleanConverter.cs" />
     <Compile Include="HelpProvider.cs" />
-    <Compile Include="InlineTextBlock.cs" />
+    <Compile Include="MVHelpers\InlineTextBlock.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ObservableGrepSearchResults.cs" />
+    <Compile Include="MVHelpers\ObservableGrepSearchResults.cs" />
     <Compile Include="Views\OptionsView.xaml.cs">
       <DependentUpon>OptionsView.xaml</DependentUpon>
     </Compile>
@@ -243,6 +249,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="ShellIntegration.cs" />
+    <Compile Include="Views\SyntaxHighlighter.xaml.cs">
+      <DependentUpon>SyntaxHighlighter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>

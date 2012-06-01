@@ -1158,6 +1158,7 @@ namespace dnGREP.Common
             }
 
             int lastLineNumber = -1;
+            // Removing duplicate lines (when more than 1 match is on the same line) and grouping all matches belonging to the same line
             for (int i = 0; i < lineNumbers.Count; i++)
             {
                 List<GrepSearchResult.GrepMatch> lineMatches = new List<GrepSearchResult.GrepMatch>();

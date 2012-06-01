@@ -263,6 +263,20 @@ namespace dnGREP.WPF
             }
 		}
 
+        private SyntaxHighlighterViewModel previewViewModel;
+
+        public SyntaxHighlighterViewModel PreviewViewModel
+        {
+            get {
+                if (previewViewModel == null)
+                    previewViewModel = new SyntaxHighlighterViewModel();
+                previewViewModel.Text = GrepLine.LineText;
+                previewViewModel.LineNumber = GrepLine.LineNumber;
+                return previewViewModel; 
+            }
+        }
+
+
 		private string style = "";
 		public string Style
 		{

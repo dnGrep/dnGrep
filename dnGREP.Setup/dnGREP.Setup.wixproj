@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <WIX Condition=" '$(WIX)' == '' ">C:\Program Files (x86)\Windows Installer XML v3.5\</WIX>
-    <SourcePath Condition=" '$(SourcePath)' == '' ">C:\Sandbox\dnGrep\</SourcePath>
+    <SourcePath Condition=" '$(SourcePath)' == '' ">D:\Sandbox\dnGrep\</SourcePath>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>2.6.3</ProductVersion>
     <ProjectGuid>{9a5ee640-e3ee-4985-bd96-64b63a1b0062}</ProjectGuid>
