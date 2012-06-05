@@ -1071,6 +1071,7 @@ namespace dnGREP.Common
         public static List<GrepSearchResult.GrepLine> GetLinesEx(TextReader body, List<GrepSearchResult.GrepMatch> bodyMatches)
         {
             List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
+            List<GrepSearchResult.GrepLine> contextLines = new List<GrepSearchResult.GrepLine>();
             List<string> lineStrings = new List<string>();
             List<int> lineNumbers = new List<int>();
             List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
@@ -1079,6 +1080,13 @@ namespace dnGREP.Common
                 return new List<GrepSearchResult.GrepLine>();
             }
 
+            // Context line (before)
+            int beforeLines = 2;
+            Queue<string> beforeQueue = new Queue<string>(beforeLines + 1);
+            // Contaxt line (after)
+            int afterLines = 3;
+            int currentAfterLine = 1;
+            bool startRecordingAfterLines = false;
             // Current line
             int lineNumber = 0;
             // Current index of character
@@ -1094,6 +1102,18 @@ namespace dnGREP.Common
                 lineNumber++;
                 string line = body.ReadLine(true);
                 bool moreMatches = true;
+                // Building context queue
+                beforeQueue.Enqueue(line);
+                if (startRecordingAfterLines && currentAfterLine < afterLines)
+                {
+                    currentAfterLine++;
+                    contextLines.Add(new GrepSearchResult.GrepLine(lineNumber, line, true, null));
+                }
+                else if (currentAfterLine == afterLines)
+                {
+                    currentAfterLine = 1;
+                    startRecordingAfterLines = false;
+                }
 
                 while (moreMatches)
                 {
@@ -1126,6 +1146,14 @@ namespace dnGREP.Common
                             lineNumbers.Add(i);
                             string tempLine = lineQueue.Dequeue();
                             lineStrings.Add(tempLine);
+                            // Recording context lines (before)
+                            int beforeQueueCounter = 0;
+                            while (beforeQueue.Count > 0)
+                            {
+                                contextLines.Add(new GrepSearchResult.GrepLine(i - beforeQueue.Count + beforeQueueCounter, 
+                                    beforeQueue.Dequeue(), true, null));
+                                    beforeQueueCounter ++;
+                            }
                             // First and only line
                             if (i == startLine && i == lineNumber)
                                 matches.Add(new GrepSearchResult.GrepMatch(i, startIndex, bodyMatches[0].Length));
@@ -1138,6 +1166,8 @@ namespace dnGREP.Common
                             // Last line
                             else
                                 matches.Add(new GrepSearchResult.GrepMatch(i, 0, bodyMatches[0].Length - tempLinesTotalLength + line.Length));
+
+                            startRecordingAfterLines = true;
                         }
                         bodyMatches.RemoveAt(0);
                     }
@@ -1170,6 +1200,9 @@ namespace dnGREP.Common
                     lastLineNumber = lineNumbers[i];
                 }
             }
+            // Clean results
+            results.AddRange(contextLines);
+            CleanResults(ref results);
             return results;
         }
 

@@ -4,6 +4,7 @@ using System.Text;
 using MbUnit.Framework;
 using dnGREP;
 using System.IO;
+using System.Linq;
 using dnGREP.Common;
 
 namespace Tests
@@ -314,7 +315,7 @@ namespace Tests
                 results = Utils.GetLinesEx(reader, bodyMatches);
             }
 
-            Assert.AreEqual(results.Count, 1);
+            Assert.AreEqual(results.Count(l=>l.IsContext == false), 1);
             Assert.AreEqual(results[0].LineText, "Hello world");
             Assert.AreEqual(results[0].Matches.Count, 1);
             Assert.AreEqual(results[0].LineNumber, 1);
