@@ -1201,8 +1201,7 @@ namespace dnGREP.Common
                 }
             }
             // Clean results
-            results.AddRange(contextLines);
-            CleanResults(ref results);
+			MergeResults(ref results, contextLines);
             return results;
         }
 
@@ -1214,6 +1213,7 @@ namespace dnGREP.Common
 		/// <param name="linesAfter"></param>
 		/// <param name="foundLine">1 based line number</param>
 		/// <returns></returns>
+        [Obsolete]
 		public static List<GrepSearchResult.GrepLine> GetContextLines(string body, int linesBefore, int linesAfter, int foundLine)
 		{
 			List<GrepSearchResult.GrepLine> result = new List<GrepSearchResult.GrepLine>();
@@ -1309,6 +1309,51 @@ namespace dnGREP.Common
 			{
 				results[j].Matches.Sort();
 			}
+		}
+		
+		/// <summary>
+		/// Merges sorted context lines into sorted result lines
+		/// </summary>
+		/// <param name="results"></param>
+		public static void MergeResults(ref List<GrepSearchResult.GrepLine> results, List<GrepSearchResult.GrepLine> contextLines)
+		{
+			if (contextLines == null || contextLines.Count == 0)
+				return;
+				
+			if (results == null || results.Count == 0) 
+			{
+				results = contextLines;
+				return;
+			}
+
+			// Current list location
+			int rIndex = 0;
+			int cIndex = 0;
+			
+			while (rIndex < results.Count && cIndex < contextLines.Count) 
+			{
+                if (contextLines[cIndex].LineNumber < results[rIndex].LineNumber) 
+				{
+					results.Insert(rIndex, contextLines[cIndex]);
+					cIndex++;
+					rIndex++;
+				}
+                else if (results[rIndex].LineNumber < contextLines[cIndex].LineNumber) 
+				{
+					rIndex++;
+				}
+                else if (results[rIndex].LineNumber == contextLines[cIndex].LineNumber) 
+				{
+					rIndex++;
+					cIndex++;
+				}				
+			}
+			
+			while (cIndex < contextLines.Count) 
+			{
+				results.Add(contextLines[cIndex]);
+				cIndex++;
+			}			
 		}
 
 		/// <summary>

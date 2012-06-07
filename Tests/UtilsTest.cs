@@ -427,6 +427,63 @@ namespace Tests
         }
 
         [Test]
+        public void TestMergeResultsHappyPath()
+        {
+            List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
+            List<GrepSearchResult.GrepLine> context = new List<GrepSearchResult.GrepLine>();
+            results.Add(new GrepSearchResult.GrepLine(3, "text3", false, null));
+            results.Add(new GrepSearchResult.GrepLine(5, "text5", false, null));
+            results.Add(new GrepSearchResult.GrepLine(6, "text6", false, new List<GrepSearchResult.GrepMatch>()));
+            context.Add(new GrepSearchResult.GrepLine(1, "text1", true, null));
+            context.Add(new GrepSearchResult.GrepLine(2, "text2", true, null));
+            context.Add(new GrepSearchResult.GrepLine(3, "text3", true, null));
+            Utils.MergeResults(ref results, context);
+            Assert.AreEqual(5, results.Count);
+            Assert.AreEqual("text1", results[0].LineText);
+            Assert.AreEqual("text2", results[1].LineText);
+            Assert.AreEqual(true, results[1].IsContext);
+            Assert.AreEqual("text3", results[2].LineText);
+            Assert.AreEqual(false, results[2].IsContext);
+        }
+
+        [Test]
+        public void TestMergeResultsBorderCases()
+        {
+            List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
+            Utils.MergeResults(ref results, null);
+            Assert.AreEqual(0, results.Count);
+
+            List<GrepSearchResult.GrepLine> context = new List<GrepSearchResult.GrepLine>();
+            context.Add(new GrepSearchResult.GrepLine(1, "text1", true, null));
+            context.Add(new GrepSearchResult.GrepLine(2, "text2", true, null));
+            context.Add(new GrepSearchResult.GrepLine(3, "text3", true, null));
+
+            Utils.MergeResults(ref results, context);
+            Assert.AreEqual(3, results.Count);
+            
+            results.Add(new GrepSearchResult.GrepLine(3, "text3", false, null));
+            results.Add(new GrepSearchResult.GrepLine(5, "text5", false, null));
+            results.Add(new GrepSearchResult.GrepLine(6, "text6", false, new List<GrepSearchResult.GrepMatch>()));
+
+            results = new List<GrepSearchResult.GrepLine>();
+            results.Add(new GrepSearchResult.GrepLine(3, "text3", false, null));
+            results.Add(new GrepSearchResult.GrepLine(5, "text5", false, null));
+            results.Add(new GrepSearchResult.GrepLine(6, "text6", false, new List<GrepSearchResult.GrepMatch>()));
+            Utils.MergeResults(ref results, null);
+            Assert.AreEqual(3, results.Count);
+
+            results = new List<GrepSearchResult.GrepLine>();
+            results.Add(new GrepSearchResult.GrepLine(3, "text3", false, null));
+            results.Add(new GrepSearchResult.GrepLine(5, "text5", false, null));
+            context.Add(new GrepSearchResult.GrepLine(20, "text20", true, null));
+            context.Add(new GrepSearchResult.GrepLine(30, "text30", true, null));
+
+            Utils.MergeResults(ref results, context);
+            Assert.AreEqual(5, results.Count);
+            Assert.AreEqual("text30", results[4].LineText);
+        }
+
+        [Test]
         public void TestTextReaderReadLine()
         {
             string text = "Hello world" + Environment.NewLine + "My tests are good\nHow about \ryours?\n";
