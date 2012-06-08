@@ -1068,7 +1068,15 @@ namespace dnGREP.Common
 			return result;
 		}
 
-        public static List<GrepSearchResult.GrepLine> GetLinesEx(TextReader body, List<GrepSearchResult.GrepMatch> bodyMatches)
+        /// <summary>
+        /// Retrieves lines with context based on matches
+        /// </summary>
+        /// <param name="body">Text</param>
+        /// <param name="bodyMatches">List of matches with positions relative to entire text body</param>
+        /// <param name="beforeLines">Context line (before)</param>
+        /// <param name="afterLines">Contaxt line (after</param>
+        /// <returns></returns>
+        public static List<GrepSearchResult.GrepLine> GetLinesEx(TextReader body, List<GrepSearchResult.GrepMatch> bodyMatches, int beforeLines, int afterLines)
         {
             List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
             List<GrepSearchResult.GrepLine> contextLines = new List<GrepSearchResult.GrepLine>();
@@ -1081,11 +1089,9 @@ namespace dnGREP.Common
             }
 
             // Context line (before)
-            int beforeLines = 2;
-            Queue<string> beforeQueue = new Queue<string>(beforeLines + 1);
+            Queue<string> beforeQueue = new Queue<string>();
             // Contaxt line (after)
-            int afterLines = 3;
-            int currentAfterLine = 1;
+            int currentAfterLine = 0;
             bool startRecordingAfterLines = false;
             // Current line
             int lineNumber = 0;
@@ -1097,25 +1103,31 @@ namespace dnGREP.Common
             bool startMatched = false;
             Queue<string> lineQueue = new Queue<string>();
             
-            while (body.Peek() >= 0 && bodyMatches.Count > 0)
+            while (body.Peek() >= 0 && (bodyMatches.Count > 0 || startRecordingAfterLines))
             {
                 lineNumber++;
                 string line = body.ReadLine(true);
                 bool moreMatches = true;
                 // Building context queue
-                beforeQueue.Enqueue(line);
+                if (beforeLines > 0)
+                {
+                    if (beforeQueue.Count >= beforeLines + 1)
+                        beforeQueue.Dequeue();
+
+                    beforeQueue.Enqueue(line.TrimEndOfLine());
+                }
                 if (startRecordingAfterLines && currentAfterLine < afterLines)
                 {
                     currentAfterLine++;
-                    contextLines.Add(new GrepSearchResult.GrepLine(lineNumber, line, true, null));
+                    contextLines.Add(new GrepSearchResult.GrepLine(lineNumber, line.TrimEndOfLine(), true, null));
                 }
                 else if (currentAfterLine == afterLines)
                 {
-                    currentAfterLine = 1;
+                    currentAfterLine = 0;
                     startRecordingAfterLines = false;
                 }
 
-                while (moreMatches)
+                while (moreMatches && bodyMatches.Count > 0)
                 {
                     // Head of match found
                     if (bodyMatches[0].StartLocation >= currentIndex && bodyMatches[0].StartLocation < currentIndex + line.Length && !startMatched)
@@ -1147,12 +1159,14 @@ namespace dnGREP.Common
                             string tempLine = lineQueue.Dequeue();
                             lineStrings.Add(tempLine);
                             // Recording context lines (before)
-                            int beforeQueueCounter = 0;
                             while (beforeQueue.Count > 0)
                             {
-                                contextLines.Add(new GrepSearchResult.GrepLine(i - beforeQueue.Count + beforeQueueCounter, 
-                                    beforeQueue.Dequeue(), true, null));
-                                    beforeQueueCounter ++;
+                                // If only 1 line - it is the same as matched line
+                                if (beforeQueue.Count == 1)
+                                    beforeQueue.Dequeue();
+                                else
+                                    contextLines.Add(new GrepSearchResult.GrepLine(i - beforeQueue.Count + 1, 
+                                        beforeQueue.Dequeue(), true, null));
                             }
                             // First and only line
                             if (i == startLine && i == lineNumber)
@@ -1322,7 +1336,9 @@ namespace dnGREP.Common
 				
 			if (results == null || results.Count == 0) 
 			{
-				results = contextLines;
+                results = new List<GrepSearchResult.GrepLine>();
+                foreach (var line in contextLines)
+                    results.Add(line);
 				return;
 			}
 

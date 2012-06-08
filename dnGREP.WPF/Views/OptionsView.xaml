@@ -52,11 +52,11 @@
                                     <ColumnDefinition Width="40"/>
                                 </Grid.ColumnDefinitions>
                                 <RadioButton VerticalAlignment="Center" Grid.Column="0" Margin="3" Name="rbSpecificEditor" GroupName="Editor" IsChecked="{Binding Path=FileEditor, Converter={StaticResource ebc}, ConverterParameter=Custom}">Custom editor:</RadioButton>
-                                <TextBox Grid.Column="1" Name="tbEditorPath" Margin="0,0,0,3" IsEnabled="{Binding ElementName=rbSpecificEditor, Path=IsChecked}"></TextBox>
+                                <TextBox Grid.Column="1" Text="{Binding Path=CustomEditorPath}" Margin="0,0,0,3" IsEnabled="{Binding ElementName=rbSpecificEditor, Path=IsChecked}"></TextBox>
                                 <Button Grid.Column="2" Margin="5,0,0,0" Name="btnBrowse" Command="{Binding Path=BrowseCommand}" IsEnabled="{Binding ElementName=rbSpecificEditor, Path=IsChecked}">...</Button>
                                 <DockPanel Grid.Row="1" Grid.Column="1">
                                     <Label>Arguments</Label>
-                                    <TextBox Name="tbEditorArgs" IsEnabled="{Binding ElementName=rbSpecificEditor, Path=IsChecked}"></TextBox>
+                                    <TextBox Text="{Binding Path=CustomEditorArgs}" IsEnabled="{Binding ElementName=rbSpecificEditor, Path=IsChecked}"></TextBox>
                                 </DockPanel>
                                 <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" TextWrapping="Wrap">(use %file and %line keywords to specify file location and line number)</TextBlock>
                             </Grid>
@@ -74,6 +74,13 @@
                 </TabItem.Header>
                 <StackPanel HorizontalAlignment="Stretch">
                     <CheckBox Name="cbShowPath" Margin="3" IsChecked="{Binding Path=ShowFilePathInResults}">Show file path in results panel</CheckBox>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Name="cbShowContext" Margin="3" VerticalAlignment="Center" IsChecked="{Binding Path=ShowLinesInContext}">Show result lines in context</CheckBox>
+                        <TextBox Width="40" Text="{Binding Path=ContextLinesBefore}" IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}"></TextBox>
+                        <Label VerticalAlignment="Center">before</Label>
+                        <TextBox Width="40" Text="{Binding Path=ContextLinesAfter}" IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}"></TextBox>
+                        <Label VerticalAlignment="Center">after</Label>                        
+                    </StackPanel>
                     <CheckBox Margin="3" Name="cbSearchFileNameOnly" IsChecked="{Binding Path=AllowSearchWithEmptyPattern}">
                         <CheckBox.Content>
                             <TextBlock TextWrapping="Wrap">Allow searching for file name pattern only when "search for" is empty</TextBlock>

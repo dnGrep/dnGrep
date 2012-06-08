@@ -53,39 +53,68 @@ namespace Tests
 		public void TestGetContextLines()
 		{
 			string test = "Hi\r\nmy\r\nWorld\r\nMy name is Denis\r\nfor\r\nloop";
-			List<GrepSearchResult.GrepLine> lines = Utils.GetContextLines(test, 2, 2, 3);
+            
+            List<GrepSearchResult.GrepMatch> bodyMatches = new List<GrepSearchResult.GrepMatch>();
+            List<GrepSearchResult.GrepLine> lines = new List<GrepSearchResult.GrepLine>();
+            using (StringReader reader = new StringReader(test))
+            {
+                bodyMatches.Clear();
+                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 9, 2));
+                lines = Utils.GetLinesEx(reader, bodyMatches, 2, 2);
+            }
+            Assert.AreEqual(lines.Count, 5);
 			Assert.AreEqual(lines[0].LineNumber, 1);
 			Assert.AreEqual(lines[0].LineText, "Hi");
 			Assert.AreEqual(lines[0].IsContext, true);
-			Assert.AreEqual(lines[2].LineNumber, 4);
-			Assert.AreEqual(lines[2].LineText, "My name is Denis");
-			Assert.AreEqual(lines[2].IsContext, true);
-			Assert.AreEqual(lines[3].LineNumber, 5);
-			Assert.AreEqual(lines[3].LineText, "for");
+            Assert.AreEqual(lines[1].IsContext, true);
+            Assert.AreEqual(lines[2].IsContext, false);
+			Assert.AreEqual(lines[3].LineNumber, 4);
+			Assert.AreEqual(lines[3].LineText, "My name is Denis");
 			Assert.AreEqual(lines[3].IsContext, true);
+			Assert.AreEqual(lines[4].LineNumber, 5);
+			Assert.AreEqual(lines[4].LineText, "for");
+			Assert.AreEqual(lines[4].IsContext, true);
 
-			Assert.AreEqual(lines.Count, 4);
 
-			lines = Utils.GetContextLines(test, 0, 0, 3);
-			Assert.AreEqual(lines.Count, 0);
-
-			lines = Utils.GetContextLines(null, 0, 0, 3);
-			Assert.AreEqual(lines.Count, 0);
-
-			lines = Utils.GetContextLines(test, 10, 0, 2);
-			Assert.AreEqual(lines[0].LineNumber, 1);
-			Assert.AreEqual(lines[0].LineText, "Hi");
-			Assert.AreEqual(lines[0].IsContext, true);
+            bodyMatches = new List<GrepSearchResult.GrepMatch>();
+            using (StringReader reader = new StringReader(test))
+            {
+                bodyMatches.Clear();
+                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 9, 2));
+                lines = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
+            }
 			Assert.AreEqual(lines.Count, 1);
 
-			lines = Utils.GetContextLines(test, 1, 10, 5);
-			Assert.AreEqual(lines[0].LineNumber, 4);
-			Assert.AreEqual(lines[0].LineText, "My name is Denis");
+            bodyMatches = new List<GrepSearchResult.GrepMatch>();
+            using (StringReader reader = new StringReader(test))
+            {
+                bodyMatches.Clear();
+                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 4, 1));
+                lines = Utils.GetLinesEx(reader, bodyMatches, 10, 0);
+            }
+            Assert.AreEqual(lines.Count, 2);
+			Assert.AreEqual(lines[0].LineNumber, 1);
+			Assert.AreEqual(lines[0].LineText, "Hi");
 			Assert.AreEqual(lines[0].IsContext, true);
-			Assert.AreEqual(lines[1].LineNumber, 6);
-			Assert.AreEqual(lines[1].LineText, "loop");
-			Assert.AreEqual(lines[1].IsContext, true);
-			Assert.AreEqual(lines.Count, 2);
+            Assert.AreEqual(lines[1].LineText, "my");
+            Assert.AreEqual(lines[1].IsContext, false);
+
+            bodyMatches = new List<GrepSearchResult.GrepMatch>();
+            using (StringReader reader = new StringReader(test))
+            {
+                bodyMatches.Clear();
+                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 34, 1));
+                lines = Utils.GetLinesEx(reader, bodyMatches, 1, 10);
+            }
+
+            Assert.AreEqual(lines.Count, 3);
+            Assert.AreEqual(lines[0].LineNumber, 4);
+			Assert.AreEqual(lines[1].LineNumber, 5);
+			Assert.AreEqual(lines[1].LineText, "for");
+            Assert.AreEqual(lines[1].IsContext, false);
+			Assert.AreEqual(lines[2].LineNumber, 6);
+			Assert.AreEqual(lines[2].LineText, "loop");
+			Assert.AreEqual(lines[2].IsContext, true);			
 		}
 
         [Test]
@@ -312,7 +341,7 @@ namespace Tests
             {
                 bodyMatches.Clear();
                 bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 3, 2));
-                results = Utils.GetLinesEx(reader, bodyMatches);
+                results = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
 
             Assert.AreEqual(results.Count(l=>l.IsContext == false), 1);
@@ -324,7 +353,7 @@ namespace Tests
             {
                 bodyMatches.Clear();
                 bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 14, 2));
-                results = Utils.GetLinesEx(reader, bodyMatches);
+                results = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
 
 
@@ -337,7 +366,7 @@ namespace Tests
             {
                 bodyMatches.Clear();
                 bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 3, 11));
-                results = Utils.GetLinesEx(reader, bodyMatches);
+                results = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
 
             Assert.AreEqual(results.Count, 2);
@@ -352,7 +381,7 @@ namespace Tests
             {
                 bodyMatches.Clear();
                 bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 3, 30));
-                results = Utils.GetLinesEx(reader, bodyMatches);
+                results = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
 
             Assert.AreEqual(results.Count, 3);
@@ -370,7 +399,7 @@ namespace Tests
             {
                 bodyMatches.Clear();
                 bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 2, 2));
-                results = Utils.GetLinesEx(reader, bodyMatches);
+                results = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
 
             Assert.AreEqual(results.Count, 1);
@@ -382,7 +411,7 @@ namespace Tests
             {
                 bodyMatches.Clear();
                 bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 0, 2));
-                results = Utils.GetLinesEx(reader, bodyMatches);
+                results = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
 
             Assert.AreEqual(results.Count, 1);
@@ -394,7 +423,7 @@ namespace Tests
             {
                 bodyMatches.Clear();
                 bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 10, 2));
-                results = Utils.GetLinesEx(reader, bodyMatches);
+                results = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
 
             Assert.IsEmpty(results);
@@ -403,7 +432,7 @@ namespace Tests
             {
                 bodyMatches.Clear();
                 bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 2, 10));
-                results = Utils.GetLinesEx(reader, bodyMatches);
+                results = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
 
             Assert.IsEmpty(results);
@@ -414,7 +443,7 @@ namespace Tests
                 bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 3, 2));
                 bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 6, 2));
                 bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 14, 2));
-                results = Utils.GetLinesEx(reader, bodyMatches);
+                results = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
 
             Assert.AreEqual(results.Count, 2);
@@ -479,8 +508,8 @@ namespace Tests
             context.Add(new GrepSearchResult.GrepLine(30, "text30", true, null));
 
             Utils.MergeResults(ref results, context);
-            Assert.AreEqual(5, results.Count);
-            Assert.AreEqual("text30", results[4].LineText);
+            Assert.AreEqual(6, results.Count);
+            Assert.AreEqual("text30", results[5].LineText);
         }
 
         [Test]

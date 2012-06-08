@@ -13,6 +13,9 @@ namespace dnGREP.Engines
         private string KEYWORD_GUID_LOWER = "$(guid)";
         private string KEYWORD_GUID_UPPER = "$(GUID)";
         private string KEYWORD_GUIDX = "$(guidx)";
+        protected bool showLinesInContext = false;
+		protected int linesBefore = 0;
+		protected int linesAfter = 0;
 		protected double fuzzyMatchThreshold = 0.5;
         private GoogleMatch fuzzyMatchEngine = new GoogleMatch();
 
@@ -25,6 +28,9 @@ namespace dnGREP.Engines
 
 		public virtual bool Initialize(GrepEngineInitParams param)
 		{
+            this.showLinesInContext = param.ShowLinesInContext;
+            this.linesBefore = param.LinesBefore;
+            this.linesAfter = param.LinesAfter;
 			this.fuzzyMatchThreshold = param.FuzzyMatchThreshold;
 			return true;
 		}
@@ -71,7 +77,7 @@ namespace dnGREP.Engines
                 {
                     using (StringReader reader = new StringReader(text))
                     {
-                        results = Utils.GetLinesEx(reader, globalMatches);
+                        results = Utils.GetLinesEx(reader, globalMatches, linesBefore, linesAfter);
                     }
                 }
                 else
@@ -135,7 +141,7 @@ namespace dnGREP.Engines
                 {
                     using (StringReader reader = new StringReader(text))
                     {
-                        results = Utils.GetLinesEx(reader, globalMatches);
+                        results = Utils.GetLinesEx(reader, globalMatches, linesBefore, linesAfter);
                     }
                 }
                 else
@@ -187,7 +193,7 @@ namespace dnGREP.Engines
                 {
                     using (StringReader reader = new StringReader(text))
                     {
-                        results = Utils.GetLinesEx(reader, globalMatches);
+                        results = Utils.GetLinesEx(reader, globalMatches, linesBefore, linesAfter);
                     }
                 }
                 else
@@ -228,7 +234,7 @@ namespace dnGREP.Engines
                 {
                     using (StringReader reader = new StringReader(text))
                     {
-                        results = Utils.GetLinesEx(reader, globalMatches);
+                        results = Utils.GetLinesEx(reader, globalMatches, linesBefore, linesAfter);
                     }
                 }
                 else
@@ -394,9 +400,42 @@ namespace dnGREP.Engines
 	{
 		public GrepEngineInitParams() { }
 
-		public GrepEngineInitParams(double fuzzyMatchThreshold)
+        public GrepEngineInitParams(bool showLinesInContext, int linesBefore, int linesAfter, double fuzzyMatchThreshold)
 		{
+            this.showLinesInContext = showLinesInContext;            
+            if (!showLinesInContext)
+            {
+                this.linesBefore = 0;
+                this.linesAfter = 0;
+            }
+            else
+            {
+                this.linesBefore = linesBefore;
+                this.linesAfter = linesAfter;
+            }
 			this.fuzzyMatchThreshold = fuzzyMatchThreshold;
+		}
+
+        private bool showLinesInContext = false;
+
+		public bool ShowLinesInContext
+		{
+			get { return showLinesInContext; }
+			set { showLinesInContext = value; }
+		}
+		private int linesBefore = 0;
+
+		public int LinesBefore
+		{
+			get { return linesBefore; }
+			set { linesBefore = value; }
+		}
+		private int linesAfter = 0;
+
+		public int LinesAfter
+		{
+			get { return linesAfter; }
+			set { linesAfter = value; }
 		}
 
 		private double fuzzyMatchThreshold = 0.5;

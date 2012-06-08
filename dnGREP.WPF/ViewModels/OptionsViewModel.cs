@@ -39,6 +39,9 @@ namespace dnGREP.WPF
                 EnableCheckForUpdates != settings.Get<bool>(GrepSettings.Key.EnableUpdateChecking) ||
                 CheckForUpdatesInterval != settings.Get<int>(GrepSettings.Key.UpdateCheckInterval) ||
                 FileEditor != (settings.Get<bool>(GrepSettings.Key.UseCustomEditor) ? FileOpenEditor.Custom : FileOpenEditor.Default) ||
+                ShowLinesInContext != settings.Get<bool>(GrepSettings.Key.ShowLinesInContext) ||
+                ContextLinesBefore != settings.Get<int>(GrepSettings.Key.ContextLinesBefore) ||
+                ContextLinesAfter != settings.Get<int>(GrepSettings.Key.ContextLinesAfter) ||
                 CustomEditorPath != settings.Get<string>(GrepSettings.Key.CustomEditor) ||
                 CustomEditorArgs != settings.Get<string>(GrepSettings.Key.CustomEditorArgs) ||
                 ShowFilePathInResults != settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults) ||
@@ -232,6 +235,51 @@ namespace dnGREP.WPF
             }
         }
 
+        private bool showLinesInContext;
+        public bool ShowLinesInContext
+        {
+            get { return showLinesInContext; }
+            set
+            {
+                if (value == showLinesInContext)
+                    return;
+
+                showLinesInContext = value;
+
+                base.OnPropertyChanged(() => ShowLinesInContext);
+            }
+        }
+
+        private int contextLinesBefore;
+        public int ContextLinesBefore
+        {
+            get { return contextLinesBefore; }
+            set
+            {
+                if (value == contextLinesBefore)
+                    return;
+
+                contextLinesBefore = value;
+
+                base.OnPropertyChanged(() => ContextLinesBefore);
+            }
+        }
+
+        private int contextLinesAfter;
+        public int ContextLinesAfter
+        {
+            get { return contextLinesAfter; }
+            set
+            {
+                if (value == contextLinesAfter)
+                    return;
+
+                contextLinesAfter = value;
+
+                base.OnPropertyChanged(() => ContextLinesAfter);
+            }
+        }
+
         private bool allowSearchWithEmptyPattern;
         public bool AllowSearchWithEmptyPattern
         {
@@ -411,6 +459,9 @@ namespace dnGREP.WPF
             AutoExpandSearchTree = settings.Get<bool>(GrepSettings.Key.ExpandResults);
             EnableClearType = settings.Get<TextFormattingMode>(GrepSettings.Key.TextFormatting) == TextFormattingMode.Ideal;
             MatchThreshold = settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold);
+            ShowLinesInContext = settings.Get<bool>(GrepSettings.Key.ShowLinesInContext);
+            ContextLinesBefore = settings.Get<int>(GrepSettings.Key.ContextLinesBefore);
+            ContextLinesAfter = settings.Get<int>(GrepSettings.Key.ContextLinesAfter);
         }
 
         private void saveSettings()
@@ -449,6 +500,9 @@ namespace dnGREP.WPF
             settings.Set<bool>(GrepSettings.Key.ExpandResults, AutoExpandSearchTree);
             settings.Set<TextFormattingMode>(GrepSettings.Key.TextFormatting, EnableClearType ? TextFormattingMode.Ideal : TextFormattingMode.Display);
             settings.Set<double>(GrepSettings.Key.FuzzyMatchThreshold, MatchThreshold);
+            settings.Set<bool>(GrepSettings.Key.ShowLinesInContext, ShowLinesInContext);
+            settings.Set<int>(GrepSettings.Key.ContextLinesBefore, ContextLinesBefore);
+            settings.Set<int>(GrepSettings.Key.ContextLinesAfter, ContextLinesAfter);
             settings.Save();
         }
 

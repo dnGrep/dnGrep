@@ -40,7 +40,7 @@ namespace dnGREP.Engines.Archive
 			List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
 			SevenZipExtractor extractor = new SevenZipExtractor(file);
 			GrepEnginePlainText plainTextEngine = new GrepEnginePlainText();
-			plainTextEngine.Initialize(new GrepEngineInitParams(fuzzyMatchThreshold));
+			plainTextEngine.Initialize(new GrepEngineInitParams(showLinesInContext, linesBefore, linesAfter, fuzzyMatchThreshold));
 			string tempFolder = Utils.FixFolderName(Utils.GetTempFolder()) + "dnGREP-Archive\\" + Utils.GetHash(file) + "\\";
 			
 			if (Directory.Exists(tempFolder))
@@ -51,7 +51,7 @@ namespace dnGREP.Engines.Archive
 				extractor.ExtractArchive(tempFolder);
 				foreach (string archiveFileName in Directory.GetFiles(tempFolder, "*.*", SearchOption.AllDirectories))
 				{
-					IGrepEngine engine = GrepEngineFactory.GetSearchEngine(archiveFileName, new GrepEngineInitParams(fuzzyMatchThreshold));
+                    IGrepEngine engine = GrepEngineFactory.GetSearchEngine(archiveFileName, new GrepEngineInitParams(showLinesInContext, linesBefore, linesAfter, fuzzyMatchThreshold));
 					searchResults.AddRange(engine.Search(archiveFileName, searchPattern, searchType, searchOptions, encoding));					
 				}
 

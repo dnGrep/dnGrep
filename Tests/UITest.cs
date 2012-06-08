@@ -15,13 +15,13 @@ namespace Tests
         [FixtureSetUp]
         public void Initialize()
         {
-            mainForm = new MainForm();
+            //mainForm = new MainForm();
         }
 
         [FixtureTearDown]
         public void TestCleanup()
         {
-            mainForm = null;
+           // mainForm = null;
         }
     }
 }

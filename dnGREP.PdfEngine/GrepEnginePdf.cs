@@ -21,8 +21,6 @@ namespace dnGREP.Engines.Pdf
 		private string pathToPdfToText = "";
 
 		#region Initialization and disposal
-		public GrepEnginePdf() : this(new GrepEngineInitParams(0.5)) { }
-
 		public override bool Initialize(GrepEngineInitParams param)
 		{
 			this.fuzzyMatchThreshold = param.FuzzyMatchThreshold;
@@ -73,7 +71,7 @@ namespace dnGREP.Engines.Pdf
 				if (!File.Exists(tempFile))
 					throw new ApplicationException("pdftotext failed to create text file.");
 
-				IGrepEngine engine = GrepEngineFactory.GetSearchEngine(tempFile, new GrepEngineInitParams(fuzzyMatchThreshold));
+                IGrepEngine engine = GrepEngineFactory.GetSearchEngine(tempFile, new GrepEngineInitParams(showLinesInContext, linesBefore, linesAfter, fuzzyMatchThreshold));
 				List<GrepSearchResult> results = engine.Search(tempFile, searchPattern, searchType, searchOptions, encoding);
 				foreach (GrepSearchResult result in results)
 				{

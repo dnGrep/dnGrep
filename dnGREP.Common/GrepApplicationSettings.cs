@@ -49,6 +49,12 @@ namespace dnGREP.Common
 			public const string SizeTo = "SizeTo";
             [DefaultValue(0.5)]
 			public const string FuzzyMatchThreshold = "FuzzyMatchThreshold";
+            [DefaultValue(true)]
+            public const string ShowLinesInContext = "ShowLinesInContext";
+            [DefaultValue(2)]
+			public const string ContextLinesBefore = "ContextLinesBefore";
+            [DefaultValue(3)]
+			public const string ContextLinesAfter = "ContextLinesAfter";
 			[DefaultValue(true)]
 			public const string EnableUpdateChecking = "EnableUpdateChecking";
             [DefaultValue(true)]
