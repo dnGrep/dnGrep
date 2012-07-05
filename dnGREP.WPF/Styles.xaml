@@ -24,7 +24,7 @@
     <Style TargetType="{x:Type ComboBox}">
         <Setter Property="Height" Value="23" />
     </Style>
-    <Style TargetType="{x:Type GridSplitter}">
+    <!--<Style TargetType="{x:Type GridSplitter}">
         <Setter Property="Height" Value="5"/>
         <Setter Property="TextElement.Foreground" Value="#FFA6B8D0" />
         <Setter Property="Border.BorderBrush" Value="#FF808C9B" />
@@ -56,5 +56,5 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
+    </Style>-->
 </ResourceDictionary>

@@ -8,7 +8,7 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("dnGREP")]
-[assembly: AssemblyDescription("This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.")]
+[assembly: AssemblyDescription("This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License v2 as published by the Free Software Foundation.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Denis Stankovski")]
 [assembly: AssemblyProduct("dnGREP")]

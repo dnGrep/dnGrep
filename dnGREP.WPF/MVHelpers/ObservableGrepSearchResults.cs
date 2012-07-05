@@ -121,6 +121,29 @@ namespace dnGREP.WPF
 			get { return grepResult; }
 		}
 
+        public int Matches
+        {
+            get { return GrepResult.SearchResults.Count; }
+        }
+
+        private FileInfo fileInfo;
+        public string Size
+        {
+            get {
+                return string.Format("{0}", fileInfo.Length);
+            }
+        }
+
+        public string FileName
+        {
+            get { return fileInfo.Name; }
+        }
+
+        public string FilePath
+        {
+            get { return fileInfo.FullName; }
+        }
+
 		private string style = "";
 		public string Style
 		{
@@ -168,6 +191,7 @@ namespace dnGREP.WPF
 		public FormattedGrepResult(GrepSearchResult result, string folderPath)
 		{
 			grepResult = result;
+            fileInfo = new FileInfo(grepResult.FileNameReal);
 
 			if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ExpandResults))
 			{

@@ -167,6 +167,9 @@
     <Compile Include="ViewModels\SyntaxHighlighterViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\WorkspaceViewModel.cs" />
+    <Compile Include="Views\MainViewEx.xaml.cs">
+      <DependentUpon>MainViewEx.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PreviewView.xaml.cs">
       <DependentUpon>PreviewView.xaml</DependentUpon>
     </Compile>
@@ -176,6 +179,10 @@
     <Compile Include="StickyWindows\WinFormAdapter.cs" />
     <Compile Include="StickyWindows\WpfFormAdapter.cs" />
     <Compile Include="MVHelpers\TotalValueConverter.cs" />
+    <Page Include="Views\MainViewEx.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -26,7 +26,7 @@ namespace dnGREP.WPF
                     string searchPath = e.Args[0];
                     if (searchPath == "/warmUp")
                     {
-                        this.MainWindow = new MainForm(false);
+                        this.MainWindow = new MainFormEx(false);
                         this.MainWindow.Loaded += new RoutedEventHandler(MainWindow_Loaded);
                     }
                     else
@@ -37,7 +37,7 @@ namespace dnGREP.WPF
                     }
                 }
                 if (this.MainWindow == null)
-                    this.MainWindow = new MainForm();
+                    this.MainWindow = new MainFormEx();
 
                 this.MainWindow.Show();
             }
