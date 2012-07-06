@@ -133,35 +133,30 @@ namespace dnGREP.Engines
 			{
 				string line = null;
 				int counter = 1;
-				List<GrepSearchResult.GrepLine> lines = new List<GrepSearchResult.GrepLine>();
-				Queue<GrepSearchResult.GrepLine> preContextLines = new Queue<GrepSearchResult.GrepLine>();
-				Queue<GrepSearchResult.GrepLine> postContextLines = new Queue<GrepSearchResult.GrepLine>();
-				while ((line = readStream.ReadLine()) != null)
-				{
+                int charCounter = 0;
+                List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
+                while (readStream.Peek() >= 0)
+                {
+                    line = readStream.ReadLine(true);
+                
                     if (Utils.CancelSearch)
                     {
                         return searchResults;
                     }
-					List<GrepSearchResult.GrepLine> results = searchMethod(line, searchPattern, searchOptions, false);
+					List<GrepSearchResult.GrepMatch> results = searchMethod(line, searchPattern, searchOptions, false);
 					if (results.Count > 0)
 					{
-						foreach (GrepSearchResult.GrepLine l in results)
+                        foreach (GrepSearchResult.GrepMatch m in results)
 						{
-							l.LineNumber = counter;
-							foreach (GrepSearchResult.GrepMatch m in l.Matches) m.LineNumber = counter;
+                            matches.Add(new GrepSearchResult.GrepMatch(0, m.StartLocation + charCounter, m.Length));
 						}
-						lines.AddRange(results);
-						lines.AddRange(preContextLines);
-						preContextLines.Clear();
-						postContextLines.Clear();
 					}
+                    charCounter += line.Length;
 					counter++;
 				}
-				lines.AddRange(postContextLines);
-				//Utils.CleanResults(ref lines);
-				if (lines.Count > 0)
+				if (matches.Count > 0)
 				{
-                    searchResults.Add(new GrepSearchResult(fileName, lines));
+                    searchResults.Add(new GrepSearchResult(fileName, matches));
 				}
 			}
 			return searchResults;
@@ -173,9 +168,8 @@ namespace dnGREP.Engines
 
 			using (StreamReader readStream = new StreamReader(input, encoding))
 			{
-				List<GrepSearchResult.GrepLine> lines = new List<GrepSearchResult.GrepLine>();
 				string fileBody = readStream.ReadToEnd();
-                lines = searchMethod(fileBody, searchPattern, searchOptions, true);
+                var lines = searchMethod(fileBody, searchPattern, searchOptions, true);
 				//Utils.CleanResults(ref lines);
 				if (lines.Count > 0)
 				{

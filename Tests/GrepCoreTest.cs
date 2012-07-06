@@ -113,7 +113,7 @@ namespace Tests
 		}
 
 		[Test]
-		public void TestSearchReturnsCorrectNumber()
+		public void TestSearchXPathReturnsCorrectNumber()
 		{
 			Utils.CopyFiles(sourceFolder + "\\TestCase4", destinationFolder + "\\TestCase4", null, null);
 			GrepCore core = new GrepCore();

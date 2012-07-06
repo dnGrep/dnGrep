@@ -142,10 +142,7 @@ namespace dnGREP.Engines.Word
 				// create text
 				object text = getProperty(range, "Text");
 
-
-				List<GrepSearchResult.GrepLine> lines = new List<GrepSearchResult.GrepLine>();
-				lines = searchMethod(Utils.CleanLineBreaks(text.ToString()), searchPattern, searchOptions, true);
-				Utils.CleanResults(ref lines);
+				var lines = searchMethod(Utils.CleanLineBreaks(text.ToString()), searchPattern, searchOptions, true);
 				if (lines.Count > 0)
 				{
 					GrepSearchResult result = new GrepSearchResult(file, lines);

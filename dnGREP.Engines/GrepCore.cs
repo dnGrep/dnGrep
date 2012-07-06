@@ -106,13 +106,11 @@ namespace dnGREP.Common
 					catch (Exception ex)
 					{
 						logger.LogException(LogLevel.Error, ex.Message, ex);
-                        List<GrepSearchResult.GrepLine> lines = new List<GrepSearchResult.GrepLine>();
-                        lines.Add(new GrepSearchResult.GrepLine(-1, ex.Message, false, null));
-                        searchResults.Add(new GrepSearchResult(file, lines, false));
+                        searchResults.Add(new GrepSearchResult(file, ex.Message, false));
                         if (ProcessedFile != null)
                         {
                             List<GrepSearchResult> _results = new List<GrepSearchResult>();
-                            _results.Add(new GrepSearchResult(file, lines, false));
+                            _results.Add(new GrepSearchResult(file, ex.Message, false));
                             ProcessedFile(this, new ProgressStatus(processedFiles, _results));
                         }
 					}

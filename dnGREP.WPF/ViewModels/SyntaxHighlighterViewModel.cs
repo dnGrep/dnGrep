@@ -49,6 +49,21 @@ namespace dnGREP.WPF
             }
         }
 
+        private string fileName;
+        public string FileName
+        {
+            get { return fileName; }
+            set
+            {
+                if (value == fileName)
+                    return;
+
+                fileName = value;
+
+                base.OnPropertyChanged(() => FileName);
+            }
+        }
+
         private int lineNumber;
         public int LineNumber
         {

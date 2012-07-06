@@ -101,160 +101,160 @@ namespace dnGREP.WPF
         
 		#region Tree right click events
 
-		private void tvContexMenuOpening(object sender, RoutedEventArgs e)
-		{
-			if (tvSearchResult.SelectedItem is FormattedGrepLine)
-			{
-				btnCopyTreeItemClipboard.Header = "Line of text to clipboard";
-				btnCopyFileNameClipboard.Visibility = Visibility.Collapsed;
-			}
-			else if (tvSearchResult.SelectedItem is FormattedGrepResult)
-			{
-				btnCopyTreeItemClipboard.Header = "Full file path to clipboard";
-				btnCopyFileNameClipboard.Visibility = Visibility.Visible;
-			}
-		}
+        //private void tvContexMenuOpening(object sender, RoutedEventArgs e)
+        //{
+        //    if (tvSearchResult.SelectedItem is FormattedGrepLine)
+        //    {
+        //        btnCopyTreeItemClipboard.Header = "Line of text to clipboard";
+        //        btnCopyFileNameClipboard.Visibility = Visibility.Collapsed;
+        //    }
+        //    else if (tvSearchResult.SelectedItem is FormattedGrepResult)
+        //    {
+        //        btnCopyTreeItemClipboard.Header = "Full file path to clipboard";
+        //        btnCopyFileNameClipboard.Visibility = Visibility.Visible;
+        //    }
+        //}
 
-		private void btnOpenFile_Click(object sender, RoutedEventArgs e)
-        {
-            if (tvSearchResult.SelectedItem is FormattedGrepLine)
-                inputData.OpenFile(tvSearchResult.SelectedItem as FormattedGrepLine);
-            else if (tvSearchResult.SelectedItem is FormattedGrepResult)
-                inputData.OpenFile(tvSearchResult.SelectedItem as FormattedGrepResult);
-        }
+        //private void btnOpenFile_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (tvSearchResult.SelectedItem is FormattedGrepLine)
+        //        inputData.OpenFile(tvSearchResult.SelectedItem as FormattedGrepLine);
+        //    else if (tvSearchResult.SelectedItem is FormattedGrepResult)
+        //        inputData.OpenFile(tvSearchResult.SelectedItem as FormattedGrepResult);
+        //}
 
-        private void btnOpenContainingFolder_Click(object sender, RoutedEventArgs e)
-        {
-            if (tvSearchResult.SelectedItem is FormattedGrepLine)
-            {
-                FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
-				//ShellIntegration.OpenFolder(selectedNode.Parent.GrepResult.FileNameReal);
-                Utils.OpenContainingFolder(selectedNode.Parent.GrepResult.FileNameReal, selectedNode.GrepLine.LineNumber);				
-            }
-            else if (tvSearchResult.SelectedItem is FormattedGrepResult)
-            {
-                FormattedGrepResult selectedNode = (FormattedGrepResult)tvSearchResult.SelectedItem;
-				//ShellIntegration.OpenFolder(selectedNode.GrepResult.FileNameReal);
-                Utils.OpenContainingFolder(selectedNode.GrepResult.FileNameReal, -1);
-            }
-        }
+        //private void btnOpenContainingFolder_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (tvSearchResult.SelectedItem is FormattedGrepLine)
+        //    {
+        //        FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
+        //        //ShellIntegration.OpenFolder(selectedNode.Parent.GrepResult.FileNameReal);
+        //        Utils.OpenContainingFolder(selectedNode.Parent.GrepResult.FileNameReal, selectedNode.GrepLine.LineNumber);				
+        //    }
+        //    else if (tvSearchResult.SelectedItem is FormattedGrepResult)
+        //    {
+        //        FormattedGrepResult selectedNode = (FormattedGrepResult)tvSearchResult.SelectedItem;
+        //        //ShellIntegration.OpenFolder(selectedNode.GrepResult.FileNameReal);
+        //        Utils.OpenContainingFolder(selectedNode.GrepResult.FileNameReal, -1);
+        //    }
+        //}
 
-		private void btnShowFileProperties_Click(object sender, RoutedEventArgs e)
-		{
-			string fileName = "";
-			if (tvSearchResult.SelectedItem is FormattedGrepLine)
-            {
-                FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
-                fileName = selectedNode.Parent.GrepResult.FileNameReal;
-            }
-            else if (tvSearchResult.SelectedItem is FormattedGrepResult)
-            {
-                FormattedGrepResult selectedNode = (FormattedGrepResult)tvSearchResult.SelectedItem;
-				fileName = selectedNode.GrepResult.FileNameReal;
-            }
+        //private void btnShowFileProperties_Click(object sender, RoutedEventArgs e)
+        //{
+        //    string fileName = "";
+        //    if (tvSearchResult.SelectedItem is FormattedGrepLine)
+        //    {
+        //        FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
+        //        fileName = selectedNode.Parent.GrepResult.FileNameReal;
+        //    }
+        //    else if (tvSearchResult.SelectedItem is FormattedGrepResult)
+        //    {
+        //        FormattedGrepResult selectedNode = (FormattedGrepResult)tvSearchResult.SelectedItem;
+        //        fileName = selectedNode.GrepResult.FileNameReal;
+        //    }
 
-			if (fileName != "" && File.Exists(fileName))
-				ShellIntegration.ShowFileProperties(fileName);
-		}
+        //    if (fileName != "" && File.Exists(fileName))
+        //        ShellIntegration.ShowFileProperties(fileName);
+        //}
 
-        private void btnExpandAll_Click(object sender, RoutedEventArgs e)
-        {
-            foreach (FormattedGrepResult result in tvSearchResult.Items)
-            {
-                result.IsExpanded = true;
-            }
-        }
+        //private void btnExpandAll_Click(object sender, RoutedEventArgs e)
+        //{
+        //    foreach (FormattedGrepResult result in tvSearchResult.Items)
+        //    {
+        //        result.IsExpanded = true;
+        //    }
+        //}
 
-        private void btnCollapseAll_Click(object sender, RoutedEventArgs e)
-        {
-            foreach (FormattedGrepResult result in tvSearchResult.Items)
-            {
-                result.IsExpanded = false;
-            }
-        }
+        //private void btnCollapseAll_Click(object sender, RoutedEventArgs e)
+        //{
+        //    foreach (FormattedGrepResult result in tvSearchResult.Items)
+        //    {
+        //        result.IsExpanded = false;
+        //    }
+        //}
 
-        private void btnExclude_Click(object sender, RoutedEventArgs e)
-        {
-            if (tvSearchResult.SelectedItem is FormattedGrepLine)
-            {
-                FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
-                inputData.SearchResults.Remove(selectedNode.Parent);
-            }
-            else if (tvSearchResult.SelectedItem is FormattedGrepResult)
-            {
-                FormattedGrepResult selectedNode = (FormattedGrepResult)tvSearchResult.SelectedItem;
-                inputData.SearchResults.Remove(selectedNode);
-            }
-        }
+        //private void btnExclude_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (tvSearchResult.SelectedItem is FormattedGrepLine)
+        //    {
+        //        FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
+        //        inputData.SearchResults.Remove(selectedNode.Parent);
+        //    }
+        //    else if (tvSearchResult.SelectedItem is FormattedGrepResult)
+        //    {
+        //        FormattedGrepResult selectedNode = (FormattedGrepResult)tvSearchResult.SelectedItem;
+        //        inputData.SearchResults.Remove(selectedNode);
+        //    }
+        //}
 
-		private void copyToClipboard()
-		{
-			if (tvSearchResult.SelectedItem is FormattedGrepLine)
-			{
-				FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
-				Clipboard.SetText(selectedNode.GrepLine.LineText);
-			}
-			else if (tvSearchResult.SelectedItem is FormattedGrepResult)
-			{
-				FormattedGrepResult result = (FormattedGrepResult)tvSearchResult.SelectedItem;
-				Clipboard.SetText(result.GrepResult.FileNameDisplayed);
-			}
-		}
+        //private void copyToClipboard()
+        //{
+        //    if (tvSearchResult.SelectedItem is FormattedGrepLine)
+        //    {
+        //        FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
+        //        Clipboard.SetText(selectedNode.GrepLine.LineText);
+        //    }
+        //    else if (tvSearchResult.SelectedItem is FormattedGrepResult)
+        //    {
+        //        FormattedGrepResult result = (FormattedGrepResult)tvSearchResult.SelectedItem;
+        //        Clipboard.SetText(result.GrepResult.FileNameDisplayed);
+        //    }
+        //}
 
-		private void treeKeyDown(object sender, KeyEventArgs e)
-		{
-			if (e.Key == Key.C && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
-			{
-				copyToClipboard();
-			}
-		}
+        //private void treeKeyDown(object sender, KeyEventArgs e)
+        //{
+        //    if (e.Key == Key.C && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+        //    {
+        //        copyToClipboard();
+        //    }
+        //}
 
-		private void btnCopyTreeItemToClipboard_Click(object sender, RoutedEventArgs e)
-		{
-			copyToClipboard();
-		}
+        //private void btnCopyTreeItemToClipboard_Click(object sender, RoutedEventArgs e)
+        //{
+        //    copyToClipboard();
+        //}
 
-		private void btnCopyNameToClipboard_Click(object sender, RoutedEventArgs e)
-		{			
-			if (tvSearchResult.SelectedItem is FormattedGrepLine)
-			{
-				FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
-				Clipboard.SetText(System.IO.Path.GetFileName(selectedNode.Parent.GrepResult.FileNameDisplayed));
-			}
-			else if (tvSearchResult.SelectedItem is FormattedGrepResult)
-			{
-				FormattedGrepResult result = (FormattedGrepResult)tvSearchResult.SelectedItem;
-				Clipboard.SetText(System.IO.Path.GetFileName(result.GrepResult.FileNameDisplayed));
-			}
-		}
+        //private void btnCopyNameToClipboard_Click(object sender, RoutedEventArgs e)
+        //{			
+        //    if (tvSearchResult.SelectedItem is FormattedGrepLine)
+        //    {
+        //        FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
+        //        Clipboard.SetText(System.IO.Path.GetFileName(selectedNode.Parent.GrepResult.FileNameDisplayed));
+        //    }
+        //    else if (tvSearchResult.SelectedItem is FormattedGrepResult)
+        //    {
+        //        FormattedGrepResult result = (FormattedGrepResult)tvSearchResult.SelectedItem;
+        //        Clipboard.SetText(System.IO.Path.GetFileName(result.GrepResult.FileNameDisplayed));
+        //    }
+        //}
 
-        private void tvSearchResult_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            TreeViewItem item = sender as TreeViewItem;
-            if (item != null)
-            {
-                item.Focus();
-                e.Handled = true;
-            }
-        }
+        //private void tvSearchResult_MouseDown(object sender, MouseButtonEventArgs e)
+        //{
+        //    TreeViewItem item = sender as TreeViewItem;
+        //    if (item != null)
+        //    {
+        //        item.Focus();
+        //        e.Handled = true;
+        //    }
+        //}
 
-        private void tvSearchResult_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            if (tvSearchResult.SelectedItem is FormattedGrepLine &&
-                e.OriginalSource is TextBlock || e.OriginalSource is Run)
-            {
-                inputData.OpenFile(tvSearchResult.SelectedItem as FormattedGrepLine);
-            }
-        }
+        //private void tvSearchResult_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        //{
+        //    if (tvSearchResult.SelectedItem is FormattedGrepLine &&
+        //        e.OriginalSource is TextBlock || e.OriginalSource is Run)
+        //    {
+        //        inputData.OpenFile(tvSearchResult.SelectedItem as FormattedGrepLine);
+        //    }
+        //}
 
-        private void tvSearchResults_SelectedChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            var rect = new System.Drawing.RectangleF { Height = (float)this.ActualHeight, Width = (float)this.ActualWidth, X = (float)this.Left, Y = (float)this.Top };
-            if (tvSearchResult.SelectedItem is FormattedGrepLine)
-                inputData.PreviewFile(tvSearchResult.SelectedItem as FormattedGrepLine, rect);
-            else if (tvSearchResult.SelectedItem is FormattedGrepResult)
-                inputData.PreviewFile(tvSearchResult.SelectedItem as FormattedGrepResult, rect);
-        }
+        //private void tvSearchResults_SelectedChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        //{
+        //    var rect = new System.Drawing.RectangleF { Height = (float)this.ActualHeight, Width = (float)this.ActualWidth, X = (float)this.Left, Y = (float)this.Top };
+        //    if (tvSearchResult.SelectedItem is FormattedGrepLine)
+        //        inputData.PreviewFile(tvSearchResult.SelectedItem as FormattedGrepLine, rect);
+        //    else if (tvSearchResult.SelectedItem is FormattedGrepResult)
+        //        inputData.PreviewFile(tvSearchResult.SelectedItem as FormattedGrepResult, rect);
+        //}
 
 		#endregion
 
@@ -334,51 +334,51 @@ namespace dnGREP.WPF
 			_isMouseDown = true;
 		}
 
-		private void tvSearchResult_PreviewMouseMove(object sender, MouseEventArgs e)
-		{
-			if (_isMouseDown && isDragGesture(e.GetPosition(getTopContainer())))
-			{
-				treeDragStarted(sender as UIElement);
-			}
-		}
+        //private void tvSearchResult_PreviewMouseMove(object sender, MouseEventArgs e)
+        //{
+        //    if (_isMouseDown && isDragGesture(e.GetPosition(getTopContainer())))
+        //    {
+        //        treeDragStarted(sender as UIElement);
+        //    }
+        //}
 
-		private void treeDragStarted(UIElement uiElt)
-		{
-			_isMouseDown = false;
-			Mouse.Capture(uiElt);
+        //private void treeDragStarted(UIElement uiElt)
+        //{
+        //    _isMouseDown = false;
+        //    Mouse.Capture(uiElt);
 
-			DataObject data = new DataObject();
+        //    DataObject data = new DataObject();
 			
-			if (tvSearchResult.SelectedItem is FormattedGrepLine)
-			{
-				FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
-				data.SetData(DataFormats.Text, selectedNode.GrepLine.LineText);
-			}
-			else if (tvSearchResult.SelectedItem is FormattedGrepResult)
-			{
-				FormattedGrepResult result = (FormattedGrepResult)tvSearchResult.SelectedItem;
-				StringCollection files = new StringCollection();
-				files.Add(result.GrepResult.FileNameReal);
-				data.SetFileDropList(files);
-			}
+        //    if (tvSearchResult.SelectedItem is FormattedGrepLine)
+        //    {
+        //        FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
+        //        data.SetData(DataFormats.Text, selectedNode.GrepLine.LineText);
+        //    }
+        //    else if (tvSearchResult.SelectedItem is FormattedGrepResult)
+        //    {
+        //        FormattedGrepResult result = (FormattedGrepResult)tvSearchResult.SelectedItem;
+        //        StringCollection files = new StringCollection();
+        //        files.Add(result.GrepResult.FileNameReal);
+        //        data.SetFileDropList(files);
+        //    }
 
 
-			DragDropEffects supportedEffects = DragDropEffects.Move | DragDropEffects.Copy;
-			// Perform DragDrop
-			DragDropEffects effects = System.Windows.DragDrop.DoDragDrop(_draggedElt, data, supportedEffects);
+        //    DragDropEffects supportedEffects = DragDropEffects.Move | DragDropEffects.Copy;
+        //    // Perform DragDrop
+        //    DragDropEffects effects = System.Windows.DragDrop.DoDragDrop(_draggedElt, data, supportedEffects);
 
-			// Clean up
-			Mouse.Capture(null);
-			_draggedElt = null;
-		}
+        //    // Clean up
+        //    Mouse.Capture(null);
+        //    _draggedElt = null;
+        //}
 
-		private bool isDragGesture(Point point)
-		{
-			bool hGesture = Math.Abs(point.X - _dragStartPoint.X) > SystemParameters.MinimumHorizontalDragDistance;
-			bool vGesture = Math.Abs(point.Y - _dragStartPoint.Y) > SystemParameters.MinimumVerticalDragDistance;
+        //private bool isDragGesture(Point point)
+        //{
+        //    bool hGesture = Math.Abs(point.X - _dragStartPoint.X) > SystemParameters.MinimumHorizontalDragDistance;
+        //    bool vGesture = Math.Abs(point.Y - _dragStartPoint.Y) > SystemParameters.MinimumVerticalDragDistance;
 
-			return (hGesture | vGesture);
-		}
+        //    return (hGesture | vGesture);
+        //}
 
 		private UIElement getTopContainer()
 		{
@@ -414,6 +414,17 @@ namespace dnGREP.WPF
         {
             //gridMain.RowDefinitions[0].Height = new GridLength(1, GridUnitType.Auto);
             //gridMain.RowDefinitions[2].Height = new GridLength(1, GridUnitType.Star);
+        }
+
+        private void FilesSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var listView = (ListView)e.Source;
+            var items = new List<FormattedGrepResult>();
+            foreach (FormattedGrepResult item in listView.SelectedItems)
+            {
+                items.Add(item);
+            }
+            inputData.SetCodeSnippets(items);
         }        
 	}
 }

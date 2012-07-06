@@ -353,7 +353,7 @@
                   HorizontalAlignment="Stretch" ResizeBehavior="PreviousAndNext"
                   IsEnabled="{Binding Path=Multiline}" Visibility="{Binding Path=Multiline, 
                     Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                <ListView Grid.Row="2" ItemsSource="{Binding Path=SearchResults}">
+                <ListView Grid.Row="2" ItemsSource="{Binding Path=SearchResults}" SelectionChanged="FilesSelectionChanged">
                     <ListView.Resources>
                     </ListView.Resources>
                     <ListView.View>
@@ -378,7 +378,21 @@
                   HorizontalAlignment="Stretch" ResizeBehavior="PreviousAndNext"
                   IsEnabled="{Binding Path=Multiline}" Visibility="{Binding Path=Multiline, 
                     Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                <TreeView Name="tvSearchResult" Grid.Row="4" ItemsSource="{Binding Path=SearchResults}" VirtualizingStackPanel.IsVirtualizing="True"
+                <ScrollViewer Grid.Row="4" VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding Path=CodeSnippets}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <my:SyntaxHighlighter DataContext="{Binding Path=PreviewViewModel}" Margin="0, 10, 5, 0"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel Orientation="Vertical" IsItemsHost="True" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </ScrollViewer>
+                <!--<TreeView Name="tvSearchResult" Grid.Row="4" ItemsSource="{Binding Path=SearchResults}" VirtualizingStackPanel.IsVirtualizing="True"
                       MouseDoubleClick="tvSearchResult_MouseDoubleClick" PreviewKeyDown="treeKeyDown" SelectedItemChanged="tvSearchResults_SelectedChanged">
                     <TreeView.ContextMenu>
                         <ContextMenu Opened="tvContexMenuOpening">
@@ -427,9 +441,6 @@
                                         </Style.Triggers>
                                     </Style>
                                 </WrapPanel.Resources>
-                                <!--<TextBlock Margin="-2,0,0,0" Width="{Binding LineNumberColumnWidth}" Text="{Binding FormattedLineNumber}"/>
-                        <my:InlineTextBlock Margin="3,0,0,0" InlineCollection="{Binding FormattedText}"/>-->
-                                <!--<my:SyntaxHighlighter Text="{Binding Path=Text}" LineNumber="{Binding Path=FormattedLineNumber}" Document="{Binding Path=Document}"/>-->
                                 <my:SyntaxHighlighter DataContext="{Binding Path=PreviewViewModel}"/>
                             </WrapPanel>
                         </DataTemplate>
@@ -471,7 +482,7 @@
                             </Style.Triggers>
                         </Style>
                     </TreeView.ItemContainerStyle>
-                </TreeView>
+                </TreeView>-->
             </Grid>
         </Grid>
         <StatusBar ClipToBounds="False" Grid.Row="4" Name="statusBar">

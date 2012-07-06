@@ -218,7 +218,9 @@ namespace Tests
 		[Test]
 		public void TestMatchCount()
 		{
-			GrepSearchResult result = new GrepSearchResult("test.txt", new List<GrepSearchResult.GrepLine>());
+            string pathToDll = GetDllPath();
+            string filePath = pathToDll + "\\Files\\TestCase2\\test-file-plain-big.txt";
+            GrepSearchResult result = new GrepSearchResult(filePath, new List<GrepSearchResult.GrepMatch>());
 			List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
 			matches.Add(new GrepSearchResult.GrepMatch(1, 2, 3));
 			matches.Add(new GrepSearchResult.GrepMatch(1, 5, 2));
@@ -228,9 +230,9 @@ namespace Tests
 			result.SearchResults.Add(new GrepSearchResult.GrepLine(1, "test1", false, matches));
 			Assert.AreEqual(4, Utils.MatchCount(result));
 			Assert.AreEqual(0, Utils.MatchCount(null));
-			result = new GrepSearchResult("test.txt", new List<GrepSearchResult.GrepLine>());
+            result = new GrepSearchResult(filePath, new List<GrepSearchResult.GrepMatch>());
 			Assert.AreEqual(0, Utils.MatchCount(result));
-			result = new GrepSearchResult("test.txt", null);
+            result = new GrepSearchResult(filePath, null);
 			Assert.AreEqual(0, Utils.MatchCount(result));
 		}
 
@@ -635,8 +637,9 @@ namespace Tests
             lines2.Add(new GrepSearchResult.GrepLine(11, "and2", true, null));
             lines2.Add(new GrepSearchResult.GrepLine(12, "hel\"lo2", false, null));
             lines2.Add(new GrepSearchResult.GrepLine(13, "world2", true, null));
-			source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-code.cs", lines));
-			source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-plain.txt", lines2));
+            Assert.Fail();
+			//source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-code.cs", lines));
+			//source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-plain.txt", lines2));
 			Utils.SaveResultsAsCSV(source, destinationFolder + "\\test.csv");
 			string[] stringLines = File.ReadAllLines(destinationFolder + "\\test.csv");
 			Assert.AreEqual(stringLines.Length, 3, "CSV file should contain only 3 lines");

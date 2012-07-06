@@ -1,25 +1,38 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.IO;
 
 namespace dnGREP.Common
 {
 	public class GrepSearchResult
 	{
+        private int linesBefore = 0;
+        private int linesAfter = 0;
+
 		public GrepSearchResult()
 		{
             isSuccess = true;
         }
 
-		public GrepSearchResult(string file, List<GrepLine> results)
-            : this (file, results, true)
+        public GrepSearchResult(string file, List<GrepMatch> matches)
+            : this(file, matches, true)
 		{			
 		}
 
-        public GrepSearchResult(string file, List<GrepLine> results, bool success)
+        public GrepSearchResult(string file, List<GrepMatch> matches, bool success)
         {
             fileName = file;
-            searchResults = results;
+            bodyMatches = matches;
+            isSuccess = success;
+        }
+
+        public GrepSearchResult(string file, string errorMessage, bool success)
+        {
+            fileName = file;
+            bodyMatches = new List<GrepMatch>();
+            searchResults = new List<GrepLine>();
+            searchResults.Add(new GrepSearchResult.GrepLine(-1, errorMessage, false, null));
+
             isSuccess = success;
         }
 
@@ -60,12 +73,34 @@ namespace dnGREP.Common
 			set { readOnly = value; }
 		}
 
-		private List<GrepLine> searchResults = new List<GrepLine>();
+        private List<GrepLine> searchResults;
 
 		public List<GrepLine> SearchResults
 		{
-			get { return searchResults; }
+			get 
+            {
+                if (searchResults == null)
+                {
+                    using (FileStream reader = File.Open(FileNameReal, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    using (StreamReader streamReader = new StreamReader(reader))
+                    {
+                        searchResults = Utils.GetLinesEx(streamReader, bodyMatches, linesBefore, linesAfter);
+                    }
+                }
+                return searchResults; 
+            }
+            set
+            {
+                searchResults = value;
+            }
 		}
+
+        private List<GrepSearchResult.GrepMatch> bodyMatches = new List<GrepMatch>();
+
+        public List<GrepSearchResult.GrepMatch> Matches
+        {
+            get { return bodyMatches; }
+        }
 
         private bool isSuccess;
 

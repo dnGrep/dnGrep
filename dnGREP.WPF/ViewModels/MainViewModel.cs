@@ -30,6 +30,8 @@ namespace dnGREP.WPF
 
 		public MainViewModel()
 		{
+            codeSnippets.Add(new CodeSnippet(10, "test"));
+
             ve.RetrievedVersion += ve_RetrievedVersion;
             this.RequestClose += MainViewModel_RequestClose;
             this.PropertyChanged += MainViewModel_PropertyChanged;
@@ -63,6 +65,12 @@ namespace dnGREP.WPF
         #endregion
 
         #region Properties
+        private ObservableCollection<CodeSnippet> codeSnippets = new ObservableCollection<CodeSnippet>();
+        public ObservableCollection<CodeSnippet> CodeSnippets
+        {
+            get { return codeSnippets; }
+        }
+
         private ObservableGrepSearchResults searchResults = new ObservableGrepSearchResults();
         public ObservableGrepSearchResults SearchResults
         {
@@ -1564,7 +1572,6 @@ namespace dnGREP.WPF
         {
             if (PreviewFileContent)
             {                
-                int lineNumber = 0;
                 previewFile(formattedGrepResult.GrepResult.FileNameReal, formattedGrepResult.GrepResult, 0, parentWindow);
             }            
         }
@@ -1585,6 +1592,15 @@ namespace dnGREP.WPF
             {
                 if (state != System.Windows.WindowState.Maximized)
                     preview.WindowState = state;
+            }
+        }
+
+        public void SetCodeSnippets(ICollection<FormattedGrepResult> results)
+        {
+            codeSnippets.Clear();
+            foreach (var result in results)
+            {
+                //if (result.GrepResult.SearchResults
             }
         }
 
