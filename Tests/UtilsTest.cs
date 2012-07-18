@@ -213,28 +213,7 @@ namespace Tests
 			sb.Append(pathToDll + "\\Files\\TestCase1");
 
 			Assert.AreEqual(Utils.IsPathValid(sb.ToString()), true);
-		}
-
-		[Test]
-		public void TestMatchCount()
-		{
-            string pathToDll = GetDllPath();
-            string filePath = pathToDll + "\\Files\\TestCase2\\test-file-plain-big.txt";
-            GrepSearchResult result = new GrepSearchResult(filePath, new List<GrepSearchResult.GrepMatch>());
-			List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
-			matches.Add(new GrepSearchResult.GrepMatch(1, 2, 3));
-			matches.Add(new GrepSearchResult.GrepMatch(1, 5, 2));
-			result.SearchResults.Add(new GrepSearchResult.GrepLine(1, "test", true, matches));
-            result.SearchResults.Add(new GrepSearchResult.GrepLine(2, "test2", false, null));
-            result.SearchResults.Add(new GrepSearchResult.GrepLine(3, "test3", false, null));
-			result.SearchResults.Add(new GrepSearchResult.GrepLine(1, "test1", false, matches));
-			Assert.AreEqual(4, Utils.MatchCount(result));
-			Assert.AreEqual(0, Utils.MatchCount(null));
-            result = new GrepSearchResult(filePath, new List<GrepSearchResult.GrepMatch>());
-			Assert.AreEqual(0, Utils.MatchCount(result));
-            result = new GrepSearchResult(filePath, null);
-			Assert.AreEqual(0, Utils.MatchCount(result));
-		}        
+		}		      
 
 		[Test]
 		public void TestCleanResults()

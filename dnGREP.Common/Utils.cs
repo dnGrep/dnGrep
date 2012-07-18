@@ -1079,9 +1079,9 @@ namespace dnGREP.Common
         public static List<GrepSearchResult.GrepLine> GetLinesEx(TextReader body, List<GrepSearchResult.GrepMatch> bodyMatches, int beforeLines, int afterLines)
         {
             List<GrepSearchResult.GrepMatch> bodyMatchesClone = new List<GrepSearchResult.GrepMatch>(bodyMatches);
-            List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
+            Dictionary<int, GrepSearchResult.GrepLine> results = new Dictionary<int, GrepSearchResult.GrepLine>();
             List<GrepSearchResult.GrepLine> contextLines = new List<GrepSearchResult.GrepLine>();
-            List<string> lineStrings = new List<string>();
+            Dictionary<int, string> lineStrings = new Dictionary<int, string>();
             List<int> lineNumbers = new List<int>();
             List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
             if (body == null || bodyMatchesClone == null)
@@ -1158,7 +1158,7 @@ namespace dnGREP.Common
                         {
                             lineNumbers.Add(i);
                             string tempLine = lineQueue.Dequeue();
-                            lineStrings.Add(tempLine);
+                            lineStrings[i] = tempLine;
                             // Recording context lines (before)
                             while (beforeQueue.Count > 0)
                             {
@@ -1202,22 +1202,25 @@ namespace dnGREP.Common
                 return new List<GrepSearchResult.GrepLine>();
             }
 
-            int lastLineNumber = -1;
             // Removing duplicate lines (when more than 1 match is on the same line) and grouping all matches belonging to the same line
-            for (int i = 0; i < lineNumbers.Count; i++)
+            for (int i = 0; i < matches.Count; i++)
             {
-                List<GrepSearchResult.GrepMatch> lineMatches = new List<GrepSearchResult.GrepMatch>();
-                foreach (GrepSearchResult.GrepMatch m in matches) if (m.LineNumber == lineNumbers[i]) lineMatches.Add(m);
-
-                if (lastLineNumber != lineNumbers[i])
-                {
-                    results.Add(new GrepSearchResult.GrepLine(lineNumbers[i], lineStrings[i].TrimEndOfLine(), false, lineMatches));
-                    lastLineNumber = lineNumbers[i];
-                }
+                addGrepMatch(results, matches[i], lineStrings[matches[i].LineNumber]);
             }
-            // Clean results
-			MergeResults(ref results, contextLines);
-            return results;
+            for (int i = 0; i < contextLines.Count; i++)
+            {
+                if (!results.ContainsKey(contextLines[i].LineNumber))
+                    results[contextLines[i].LineNumber] = contextLines[i];
+            }
+            
+            return results.Values.OrderBy(l=>l.LineNumber).ToList();
+        }
+
+        private static void addGrepMatch(Dictionary<int, GrepSearchResult.GrepLine> lines, GrepSearchResult.GrepMatch match, string lineText)
+        {
+            if (!lines.ContainsKey(match.LineNumber))
+                lines[match.LineNumber] = new GrepSearchResult.GrepLine(match.LineNumber, lineText.TrimEndOfLine(), false, null);
+            lines[match.LineNumber].Matches.Add(match);
         }
 
 		/// <summary>
@@ -1243,16 +1246,6 @@ namespace dnGREP.Common
 					result.Add(new GrepSearchResult.GrepLine(i + 1, lines[i], true, null));
 			}
 			return result;
-		}
-
-		/// <summary>
-		/// Returns number of matches
-		/// </summary>
-		/// <param name="result"></param>
-		/// <returns></returns>
-		public static int MatchCount(GrepSearchResult result)
-		{
-            return result.Matches.Count;
 		}
 
         /// <summary>
