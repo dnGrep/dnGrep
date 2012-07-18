@@ -8,7 +8,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <DockPanel>
         <Border Background="White" BorderThickness="1" BorderBrush="{Binding BorderBrush, ElementName=tbFilePattern}" >
-            <ae:TextArea Name="textArea" Document="{Binding Path=Document}" FontFamily="Consolas" FontSize="12"/>
+            <ae:TextEditor Name="textEditor" Document="{Binding Path=Document}" FontFamily="Consolas" ShowLineNumbers="True" IsReadOnly="True" FontSize="12"/>
         </Border>
     </DockPanel>
 </UserControl>

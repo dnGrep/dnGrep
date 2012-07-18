@@ -30,6 +30,7 @@ namespace dnGREP.WPF
                 previewViewModel.Text = text;
                 previewViewModel.LineNumber = lineNumber;
                 previewViewModel.SearchResult = result;
+                previewViewModel.FileName = result.FileNameDisplayed;
                 return previewViewModel;
             }
         }

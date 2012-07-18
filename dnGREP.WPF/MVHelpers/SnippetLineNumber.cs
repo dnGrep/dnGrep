@@ -20,6 +20,9 @@ namespace dnGREP.WPF
         private double emSize;
         private int maxLineNumberLength = 1;
         private int startingNumber;
+        private Brush gray = new SolidColorBrush(Color.FromRgb(100, 100, 100));
+        private Brush lightGray = new SolidColorBrush(Color.FromRgb(200, 200, 200));
+        private System.Windows.Size size;
 
         public SnippetLineNumber() : this(1) { }
         public SnippetLineNumber(int startingNumber)
@@ -39,9 +42,10 @@ namespace dnGREP.WPF
                 new string('9', maxLineNumberLength),
                 typeface,
                 emSize,
-                (Brush)GetValue(Control.ForegroundProperty)
+                gray
             );
-            return new Size(text.Width, 0);
+            size = new Size(text.Width, 0);
+            return size;
         }
 
         protected override void OnRender(System.Windows.Media.DrawingContext drawingContext)
@@ -50,17 +54,16 @@ namespace dnGREP.WPF
             Size renderSize = this.RenderSize;
             if (textView != null && textView.VisualLinesValid)
             {
-                var foreground = (Brush)GetValue(Control.ForegroundProperty);
                 foreach (VisualLine line in textView.VisualLines)
                 {
                     int lineNumber = line.FirstDocumentLine.LineNumber + startingNumber;
                     FormattedText text = createFormattedText(
                         this,
                         lineNumber.ToString(CultureInfo.CurrentCulture),
-                        typeface, emSize, foreground
+                        typeface, emSize, gray
                     );
                     double y = line.GetTextLineVisualYPosition(line.TextLines[0], VisualYPosition.TextTop);
-                    drawingContext.DrawText(text, new Point(renderSize.Width - text.Width, y - textView.VerticalOffset));
+                    drawingContext.DrawText(text, new Point(renderSize.Width - text.Width, y - textView.VerticalOffset));                    
                 }
             }
         }
@@ -95,7 +98,7 @@ namespace dnGREP.WPF
             if (emSize == null)
                 emSize = TextBlock.GetFontSize(element);
             if (foreground == null)
-                foreground = TextBlock.GetForeground(element);
+                foreground = gray;
             return new FormattedText(
                 text,
                 CultureInfo.CurrentCulture,

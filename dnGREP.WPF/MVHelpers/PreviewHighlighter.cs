@@ -27,7 +27,7 @@ namespace dnGREP.WPF
             if (result.Matches == null || result.Matches.Count == 0)
                 return;
 
-            var lineResult = result.SearchResults.Find(sr => (sr.LineNumber + firstLineNumber - 1) == line.LineNumber);
+            var lineResult = result.SearchResults.Find(sr => (sr.LineNumber - firstLineNumber + 1) == line.LineNumber);
 
             if (lineResult != null)
             {

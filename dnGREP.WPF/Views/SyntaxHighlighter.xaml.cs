@@ -12,6 +12,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ICSharpCode.AvalonEdit.Editing;
+using ICSharpCode.AvalonEdit.Highlighting;
+using System.Xml;
+using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 
 namespace dnGREP.WPF
 {
@@ -20,10 +23,23 @@ namespace dnGREP.WPF
     /// </summary>
     public partial class SyntaxHighlighter : UserControl
     {
+        private Dictionary<string, IHighlightingDefinition> highlightDefinitions = new Dictionary<string, IHighlightingDefinition>();
+
         public SyntaxHighlighter()
         {
             InitializeComponent();
+            highlightDefinitions["SQL"] = loadHighlightingDefinition("sqlmode.xshd");
             this.DataContextChanged += SyntaxHighlighter_DataContextChanged;
+        }
+
+        private IHighlightingDefinition loadHighlightingDefinition(
+            string resourceName)
+        {
+            var type = typeof(PreviewView);
+            var fullName = type.Namespace + "." + resourceName;
+            using (var stream = type.Assembly.GetManifestResourceStream(fullName))
+            using (var reader = new XmlTextReader(stream))
+                return HighlightingLoader.Load(reader, HighlightingManager.Instance);
         }
 
         void SyntaxHighlighter_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -31,10 +47,22 @@ namespace dnGREP.WPF
             if (e.NewValue != null && e.NewValue is SyntaxHighlighterViewModel)
             {
                 int lineNumber = ((SyntaxHighlighterViewModel)this.DataContext).LineNumber;
-                textArea.LeftMargins.Clear();
-                textArea.LeftMargins.Add(new SnippetLineNumber(lineNumber));
-                textArea.LeftMargins.Add(DottedLineMargin.Create());
-                textArea.TextView.LineTransformers.Add(new PreviewHighlighter(((SyntaxHighlighterViewModel)this.DataContext).SearchResult, lineNumber));
+                textEditor.TextArea.LeftMargins.Clear();
+                textEditor.TextArea.LeftMargins.Add(DottedLineMargin.Create());
+                textEditor.TextArea.LeftMargins.Add(new SnippetLineNumber(lineNumber));
+                textEditor.TextArea.LeftMargins.Add(DottedLineMargin.Create());
+                textEditor.TextArea.TextView.LineTransformers.Add(new PreviewHighlighter(((SyntaxHighlighterViewModel)this.DataContext).SearchResult, lineNumber));
+
+                string ext = ".txt";
+                if (!string.IsNullOrWhiteSpace(((SyntaxHighlighterViewModel)this.DataContext).FileName))
+                    ext = System.IO.Path.GetExtension((((SyntaxHighlighterViewModel)this.DataContext).FileName)).ToLower();
+
+                IHighlightingDefinition def = null;
+                if (ext == ".sql")
+                    def = loadHighlightingDefinition("sqlmode.xshd");
+                else
+                    def = HighlightingManager.Instance.GetDefinitionByExtension(ext);
+                textEditor.SyntaxHighlighting = def;
             }
         }
     }
