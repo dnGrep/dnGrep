@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using dnGREP.Common;
 
 namespace dnGREP.WPF
 {
@@ -76,6 +77,21 @@ namespace dnGREP.WPF
                 lineNumber = value;
 
                 base.OnPropertyChanged(() => LineNumber);
+            }
+        }
+
+        private GrepSearchResult searchResult;
+        public GrepSearchResult SearchResult
+        {
+            get { return searchResult; }
+            set
+            {
+                if (value == searchResult)
+                    return;
+
+                searchResult = value;
+
+                base.OnPropertyChanged(() => SearchResult);
             }
         }
     }

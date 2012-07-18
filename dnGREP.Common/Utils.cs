@@ -1072,18 +1072,19 @@ namespace dnGREP.Common
         /// Retrieves lines with context based on matches
         /// </summary>
         /// <param name="body">Text</param>
-        /// <param name="bodyMatches">List of matches with positions relative to entire text body</param>
+        /// <param name="bodyMatchesClone">List of matches with positions relative to entire text body</param>
         /// <param name="beforeLines">Context line (before)</param>
         /// <param name="afterLines">Contaxt line (after</param>
         /// <returns></returns>
         public static List<GrepSearchResult.GrepLine> GetLinesEx(TextReader body, List<GrepSearchResult.GrepMatch> bodyMatches, int beforeLines, int afterLines)
         {
+            List<GrepSearchResult.GrepMatch> bodyMatchesClone = new List<GrepSearchResult.GrepMatch>(bodyMatches);
             List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
             List<GrepSearchResult.GrepLine> contextLines = new List<GrepSearchResult.GrepLine>();
             List<string> lineStrings = new List<string>();
             List<int> lineNumbers = new List<int>();
             List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
-            if (body == null || bodyMatches == null)
+            if (body == null || bodyMatchesClone == null)
             {
                 return new List<GrepSearchResult.GrepLine>();
             }
@@ -1103,7 +1104,7 @@ namespace dnGREP.Common
             bool startMatched = false;
             Queue<string> lineQueue = new Queue<string>();
             
-            while (body.Peek() >= 0 && (bodyMatches.Count > 0 || startRecordingAfterLines))
+            while (body.Peek() >= 0 && (bodyMatchesClone.Count > 0 || startRecordingAfterLines))
             {
                 lineNumber++;
                 string line = body.ReadLine(true);
@@ -1127,16 +1128,16 @@ namespace dnGREP.Common
                     startRecordingAfterLines = false;
                 }
 
-                while (moreMatches && bodyMatches.Count > 0)
+                while (moreMatches && bodyMatchesClone.Count > 0)
                 {
                     // Head of match found
-                    if (bodyMatches[0].StartLocation >= currentIndex && bodyMatches[0].StartLocation < currentIndex + line.Length && !startMatched)
+                    if (bodyMatchesClone[0].StartLocation >= currentIndex && bodyMatchesClone[0].StartLocation < currentIndex + line.Length && !startMatched)
                     {
                         startMatched = true;
                         moreMatches = true;
                         lineQueue = new Queue<string>();
                         startLine = lineNumber;
-                        startIndex = bodyMatches[0].StartLocation - currentIndex;
+                        startIndex = bodyMatchesClone[0].StartLocation - currentIndex;
                         tempLinesTotalLength = 0;
                     }
 
@@ -1148,7 +1149,7 @@ namespace dnGREP.Common
                     }
 
                     // Tail of match found
-                    if (bodyMatches[0].StartLocation + bodyMatches[0].Length <= currentIndex + line.Length && startMatched)
+                    if (bodyMatchesClone[0].StartLocation + bodyMatchesClone[0].Length <= currentIndex + line.Length && startMatched)
                     {
                         startMatched = false;
                         moreMatches = false;
@@ -1170,7 +1171,7 @@ namespace dnGREP.Common
                             }
                             // First and only line
                             if (i == startLine && i == lineNumber)
-                                matches.Add(new GrepSearchResult.GrepMatch(i, startIndex, bodyMatches[0].Length));
+                                matches.Add(new GrepSearchResult.GrepMatch(i, startIndex, bodyMatchesClone[0].Length));
                             // First but not last line
                             else if (i == startLine)
                                 matches.Add(new GrepSearchResult.GrepMatch(i, startIndex, tempLine.Length - startIndex));
@@ -1179,15 +1180,15 @@ namespace dnGREP.Common
                                 matches.Add(new GrepSearchResult.GrepMatch(i, 0, tempLine.Length));
                             // Last line
                             else
-                                matches.Add(new GrepSearchResult.GrepMatch(i, 0, bodyMatches[0].Length - tempLinesTotalLength + line.Length));
+                                matches.Add(new GrepSearchResult.GrepMatch(i, 0, bodyMatchesClone[0].Length - tempLinesTotalLength + line.Length));
 
                             startRecordingAfterLines = true;
                         }
-                        bodyMatches.RemoveAt(0);
+                        bodyMatchesClone.RemoveAt(0);
                     }
 
                     // Another match on this line
-                    if (bodyMatches.Count > 0 && bodyMatches[0].StartLocation >= currentIndex && bodyMatches[0].StartLocation < currentIndex + line.Length && !startMatched)
+                    if (bodyMatchesClone.Count > 0 && bodyMatchesClone[0].StartLocation >= currentIndex && bodyMatchesClone[0].StartLocation < currentIndex + line.Length && !startMatched)
                         moreMatches = true;
                     else
                         moreMatches = false;
@@ -1251,30 +1252,53 @@ namespace dnGREP.Common
 		/// <returns></returns>
 		public static int MatchCount(GrepSearchResult result)
 		{
-			int counter = 0;
-			if (result != null && result.SearchResults != null)
-			{
-				for (int i = 0; i < result.SearchResults.Count; i++)
-				{
-					GrepSearchResult.GrepLine line = null;
-					if (result.SearchResults.Count >= i)
-						line = result.SearchResults[i];
-
-					if (!line.IsContext)
-					{
-						if (line.Matches == null || line.Matches.Count == 0)
-						{
-							counter++;
-						}
-						else
-						{
-							counter += line.Matches.Count;
-						}
-					}
-				}
-			}
-			return counter;
+            return result.Matches.Count;
 		}
+
+        /// <summary>
+        /// Converts result lines into blocks of text
+        /// </summary>
+        /// <param name="result"></param>
+        /// <param name="linesBefore"></param>
+        /// <param name="linesAfter"></param>
+        /// <returns></returns>
+        public static IEnumerable<NumberedString> GetSnippets(GrepSearchResult result, int linesBefore, int linesAfter)
+        {
+            if (result.Matches.Count > 0)
+            {
+                int lastLine = 0;
+                int firstLine = 0;
+                StringBuilder snippetText = new StringBuilder();
+                foreach (var line in result.GetLinesWithContext(linesBefore, linesAfter))
+                {
+                    // First line of a block
+                    if (firstLine == 0)
+                    {
+                        firstLine = line.LineNumber;
+                        lastLine = line.LineNumber - 1;
+                    }
+                    // Sequence
+                    if (line.LineNumber == lastLine + 1)
+                    {
+                        snippetText.AppendLine(line.LineText);
+                    }
+                    else
+                    {
+                        yield return new NumberedString { Text = snippetText.ToString().TrimEndOfLine(), Value = firstLine };
+                        lastLine = 0;
+                        firstLine = 0;
+                        snippetText.Clear();
+                    }
+                    lastLine = line.LineNumber;
+                }
+                if (snippetText.Length > 0)
+                    yield return new NumberedString { Text = snippetText.ToString().TrimEndOfLine(), Value = firstLine };
+            } 
+            else 
+            {
+                yield return new NumberedString() { Value = 0, Text = "" };
+            }
+        }
 
 		/// <summary>
 		/// Replaces unix-style linebreaks with \r\n
@@ -1496,6 +1520,12 @@ namespace dnGREP.Common
 			return x.Key.CompareTo(y.Key);
 		}
 	}
+
+    public class NumberedString
+    {
+        public int Value;
+        public string Text;
+    }
 
     public static class TextReaderEx 
     {

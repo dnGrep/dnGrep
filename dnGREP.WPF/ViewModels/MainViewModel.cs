@@ -30,8 +30,6 @@ namespace dnGREP.WPF
 
 		public MainViewModel()
 		{
-            codeSnippets.Add(new CodeSnippet(10, "test"));
-
             ve.RetrievedVersion += ve_RetrievedVersion;
             this.RequestClose += MainViewModel_RequestClose;
             this.PropertyChanged += MainViewModel_PropertyChanged;
@@ -1597,10 +1595,15 @@ namespace dnGREP.WPF
 
         public void SetCodeSnippets(ICollection<FormattedGrepResult> results)
         {
-            codeSnippets.Clear();
+            CodeSnippets.Clear();
             foreach (var result in results)
             {
-                //if (result.GrepResult.SearchResults
+                foreach (var block in Utils.GetSnippets(result.GrepResult,
+                        settings.Get<int>(GrepSettings.Key.ContextLinesBefore),
+                        settings.Get<int>(GrepSettings.Key.ContextLinesAfter)))
+                {
+                    CodeSnippets.Add(new CodeSnippet(block.Value, block.Text, result.GrepResult));
+                }
             }
         }
 

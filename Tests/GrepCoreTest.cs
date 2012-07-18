@@ -112,6 +112,23 @@ namespace Tests
 			Assert.IsEmpty(core.Search(new string[] { }, SearchType.PlainText, "string", GrepSearchOption.Multiline, -1));
 		}
 
+        [Test]
+        public void TestResultSequence()
+        {
+            Utils.CopyFiles(sourceFolder + "\\TestCase3", destinationFolder + "\\TestCase3", null, null);
+            GrepCore core = new GrepCore();
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase3", "test-file-plain-big.txt"), SearchType.PlainText, "string", GrepSearchOption.CaseSensitive, -1);
+            Assert.AreEqual(results.Count, 1);
+            var resultLines = results[0].GetLinesWithContext(3, 3);
+            int lastLine = 0;
+            foreach (var line in resultLines)
+            {
+                if (line.LineNumber <= lastLine)
+                    Assert.Fail("Lines are not sequential");
+                lastLine = line.LineNumber;
+            }
+        }
+
 		[Test]
 		public void TestSearchXPathReturnsCorrectNumber()
 		{

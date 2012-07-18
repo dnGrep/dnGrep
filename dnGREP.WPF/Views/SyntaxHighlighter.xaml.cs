@@ -34,6 +34,7 @@ namespace dnGREP.WPF
                 textArea.LeftMargins.Clear();
                 textArea.LeftMargins.Add(new SnippetLineNumber(lineNumber));
                 textArea.LeftMargins.Add(DottedLineMargin.Create());
+                textArea.TextView.LineTransformers.Add(new PreviewHighlighter(((SyntaxHighlighterViewModel)this.DataContext).SearchResult, lineNumber));
             }
         }
     }

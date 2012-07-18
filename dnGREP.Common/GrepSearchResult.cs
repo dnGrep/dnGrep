@@ -6,9 +6,6 @@ namespace dnGREP.Common
 {
 	public class GrepSearchResult
 	{
-        private int linesBefore = 0;
-        private int linesAfter = 0;
-
 		public GrepSearchResult()
 		{
             isSuccess = true;
@@ -84,7 +81,7 @@ namespace dnGREP.Common
                     using (FileStream reader = File.Open(FileNameReal, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                     using (StreamReader streamReader = new StreamReader(reader))
                     {
-                        searchResults = Utils.GetLinesEx(streamReader, bodyMatches, linesBefore, linesAfter);
+                        searchResults = Utils.GetLinesEx(streamReader, bodyMatches, 0, 0);
                     }
                 }
                 return searchResults; 
@@ -94,6 +91,16 @@ namespace dnGREP.Common
                 searchResults = value;
             }
 		}
+
+
+        public List<GrepLine> GetLinesWithContext(int linesBefore, int linesAfter)
+        {
+            using (FileStream reader = File.Open(FileNameReal, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            using (StreamReader streamReader = new StreamReader(reader))
+            {
+                return Utils.GetLinesEx(streamReader, bodyMatches, linesBefore, linesAfter);
+            }
+        }
 
         private List<GrepSearchResult.GrepMatch> bodyMatches = new List<GrepMatch>();
 

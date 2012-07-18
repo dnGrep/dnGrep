@@ -234,7 +234,7 @@ namespace Tests
 			Assert.AreEqual(0, Utils.MatchCount(result));
             result = new GrepSearchResult(filePath, null);
 			Assert.AreEqual(0, Utils.MatchCount(result));
-		}
+		}        
 
 		[Test]
 		public void TestCleanResults()

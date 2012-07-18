@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using dnGREP.Common;
 
 namespace dnGREP.WPF
 {
@@ -10,11 +11,13 @@ namespace dnGREP.WPF
     {
         private int lineNumber;
         private string text;
+        private GrepSearchResult result;
 
-        public CodeSnippet(int line, string text)
+        public CodeSnippet(int line, string text, GrepSearchResult result)
         {
             lineNumber = line;
             this.text = text;
+            this.result = result;
         }
 
         private SyntaxHighlighterViewModel previewViewModel;
@@ -26,6 +29,7 @@ namespace dnGREP.WPF
                     previewViewModel = new SyntaxHighlighterViewModel();
                 previewViewModel.Text = text;
                 previewViewModel.LineNumber = lineNumber;
+                previewViewModel.SearchResult = result;
                 return previewViewModel;
             }
         }
