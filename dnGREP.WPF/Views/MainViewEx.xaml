@@ -165,72 +165,39 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">Search for:</TextBlock>
-                            <GroupBox Grid.Row="0" Grid.Column="1" BorderThickness="0">
-                                <Border BorderThickness="{Binding BorderThickness, ElementName=tbFilePattern}" BorderBrush="{Binding BorderBrush, ElementName=tbFilePattern}" 
-                            Margin="-5,0,-5,-5" VerticalAlignment="Stretch" Background="{Binding Background, ElementName=tbFilePattern}">
-                                    <Grid Style="{StaticResource ExpandedGrid}" Name="tbSearchForGrid" VerticalAlignment="Stretch">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                            <ColumnDefinition Width="21" />
-                                        </Grid.ColumnDefinitions>
-                                        <ComboBox Text="{Binding Path=SearchFor}" Name="cbSearchFastBookmark" BorderThickness="0" Grid.Column="0" VerticalAlignment="Bottom" ItemsSource="{Binding Path=FastSearchBookmarks}" IsTabStop="False">
-                                        </ComboBox>
-                                        <TextBox BorderThickness="0" GotFocus="TextBoxFocus" Name="tbSearchFor" Text="{Binding Path=SearchFor, UpdateSourceTrigger=PropertyChanged}" 
-                                VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" my:DiginesisHelpProvider.HelpKeyword="regular-expressions.html" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True"
-                                Style="{StaticResource ExpandedTextbox}" FontFamily="Consolas" FontSize="12" TabIndex="5" PreviewKeyDown="tbPreviewKeyDown">
-                                            <TextBox.ToolTip>
-                                                <TextBlock>
-                                    <Run>. matches all characters</Run>
-                                    <LineBreak/>
-                                    <Run>\w matches alpha-numerics</Run>
-                                    <LineBreak/>
-                                    <Run>\d matches digits</Run>
-                                    <LineBreak/>
-                                    <Run>\s matches space</Run>
-                                    <LineBreak/>
-                                    <Run>* matches any number of characters</Run>
-                                    <LineBreak/>
-                                    <Run>{1,3} matches 1 to 3 characters</Run>
-                                    <LineBreak/>
-                                    <Run>For more Regex patterns hit F1</Run>
-                                                </TextBlock>
-                                            </TextBox.ToolTip>
-                                        </TextBox>
-                                        <Button Grid.Column="1" Name="btnSearchFastBookmarks" HorizontalContentAlignment="Center" VerticalAlignment="Top" Width="auto" Click="btnSearchFastBookmarks_Click"
-                            FontFamily="Marlett" FontSize="14" Content="6" IsTabStop="False"></Button>
-                                    </Grid>
-                                </Border>
-                            </GroupBox>
+                            <ComboBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=SearchFor}" IsEditable="True" Name="cbSearchFastBookmark" ItemsSource="{Binding Path=FastSearchBookmarks}" Style="{DynamicResource ComboBoxStyle1}"
+                                                  FontFamily="Consolas" FontSize="12" TabIndex="5" my:DiginesisHelpProvider.HelpKeyword="regular-expressions.html" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True">
+                                <ComboBox.ToolTip>
+                                    <TextBlock>
+                                                <Run>. matches all characters</Run>
+                                                <LineBreak/>
+                                                <Run>\w matches alpha-numerics</Run>
+                                                <LineBreak/>
+                                                <Run>\d matches digits</Run>
+                                                <LineBreak/>
+                                                <Run>\s matches space</Run>
+                                                <LineBreak/>
+                                                <Run>* matches any number of characters</Run>
+                                                <LineBreak/>
+                                                <Run>{1,3} matches 1 to 3 characters</Run>
+                                                <LineBreak/>
+                                                <Run>For more Regex patterns hit F1</Run>
+                                    </TextBlock>
+                                </ComboBox.ToolTip>
+                            </ComboBox>
                             <TextBlock Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">Replace for:</TextBlock>
-                            <GroupBox Grid.Row="1" Grid.Column="1" BorderThickness="0">
-                                <Border BorderThickness="{Binding BorderThickness, ElementName=tbFilePattern}" BorderBrush="{Binding BorderBrush, ElementName=tbFilePattern}" 
-                                Margin="-5,0,-5,-5" VerticalAlignment="Stretch" Background="{Binding Background, ElementName=tbFilePattern}">
-                                    <Grid Style="{StaticResource ExpandedGrid}" VerticalAlignment="Stretch" Name="tbReplaceWithGrid">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                            <ColumnDefinition Width="21" />
-                                        </Grid.ColumnDefinitions>
-                                        <ComboBox Text="{Binding Path=ReplaceWith}" Name="cbReplaceFastBookmark" BorderThickness="0" VerticalAlignment="Bottom" ItemsSource="{Binding Path=FastReplaceBookmarks}" IsTabStop="False" Height="23" HorizontalAlignment="Left" Width="435">
-                                        </ComboBox>
-                                        <TextBox GotFocus="TextBoxFocus" BorderThickness="0" Name="tbReplaceWith" 
-                                    Text="{Binding Path=ReplaceWith, UpdateSourceTrigger=PropertyChanged}"  
-                                    VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch"
-                                    Style="{StaticResource ExpandedTextbox}" FontFamily="Consolas" FontSize="12" TabIndex="10" PreviewKeyDown="tbPreviewKeyDown">
-                                            <TextBox.ToolTip>
-                                                <TextBlock>
-										<Run><![CDATA[$& replaces entire regex]]></Run>
-										<LineBreak/>
-										<Run><![CDATA[$1, $2, $3, etc... inserts the text matched between capturing parentheses into the replacement text]]></Run>
-										<LineBreak/>
-										<Run><![CDATA[$$ inserts a single dollar sign into the replacement text]]></Run>
-                                                </TextBlock>
-                                            </TextBox.ToolTip>
-                                        </TextBox>
-                                        <Button Grid.Column="1" Name="btnReplaceFastBookmarks" HorizontalContentAlignment="Center" VerticalAlignment="Top" Width="auto" Click="btnReplaceFastBookmarks_Click"
-                                FontFamily="Marlett" FontSize="14" Content="6" IsTabStop="False"></Button>
-                                    </Grid>
-                                </Border>
-                            </GroupBox>
+                            <ComboBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=ReplaceWith}" IsEditable="True" Name="cbReplaceFastBookmark" ItemsSource="{Binding Path=FastSearchBookmarks}" Style="{DynamicResource ComboBoxStyle1}"
+                                                  FontFamily="Consolas" FontSize="12" TabIndex="5">
+                                <ComboBox.ToolTip>
+                                    <TextBlock>
+										            <Run><![CDATA[$& replaces entire regex]]></Run>
+										            <LineBreak/>
+										            <Run><![CDATA[$1, $2, $3, etc... inserts the text matched between capturing parentheses into the replacement text]]></Run>
+										            <LineBreak/>
+										            <Run><![CDATA[$$ inserts a single dollar sign into the replacement text]]></Run>
+                                    </TextBlock>
+                                </ComboBox.ToolTip>
+                            </ComboBox>
                         </Grid>
                     </DockPanel>
                 </GroupBox>

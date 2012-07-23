@@ -267,18 +267,18 @@ namespace dnGREP.WPF
             }
         }
 
-        private void btnSearchFastBookmarks_Click(object sender, RoutedEventArgs e)
-        {
-            cbSearchFastBookmark.IsDropDownOpen = true;
-            cbSearchFastBookmark.Focus();
-        }
+        //private void btnSearchFastBookmarks_Click(object sender, RoutedEventArgs e)
+        //{
+        //    cbSearchFastBookmark.IsDropDownOpen = true;
+        //    cbSearchFastBookmark.Focus();
+        //}
 
-        private void btnReplaceFastBookmarks_Click(object sender, RoutedEventArgs e)
-        {
-            cbReplaceFastBookmark.IsDropDownOpen = true;
-            cbReplaceFastBookmark.Focus();
-            tbReplaceWith.SelectAll();
-        }
+        //private void btnReplaceFastBookmarks_Click(object sender, RoutedEventArgs e)
+        //{
+        //    cbReplaceFastBookmark.IsDropDownOpen = true;
+        //    cbReplaceFastBookmark.Focus();
+        //    cbReplaceFastBookmark.SelectAll();
+        //}
 
         private void Window_Activated(object sender, EventArgs e)
         {
@@ -290,35 +290,35 @@ namespace dnGREP.WPF
             inputData.ChangePreviewWindowState(this.WindowState);
         }
 
-        private void tbPreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Up || e.Key == Key.Down)
-            {
-                if (!inputData.Multiline)
-                {
-                    if (sender != null && sender == tbSearchFor)
-                    {
-                        if (e.Key == Key.Down)
-                            cbSearchFastBookmark.SelectedIndex++;
-                        else
-                        {
-                            if (cbSearchFastBookmark.SelectedIndex > 0)
-                                cbSearchFastBookmark.SelectedIndex--;
-                        }
-                    }
-                    else if (sender != null && sender == tbReplaceWith)
-                    {
-                        if (e.Key == Key.Down)
-                            cbReplaceFastBookmark.SelectedIndex++;
-                        else
-                        {
-                            if (cbReplaceFastBookmark.SelectedIndex > 0)
-                                cbReplaceFastBookmark.SelectedIndex--;
-                        }
-                    }
-                }
-            }
-        }
+        //private void tbPreviewKeyDown(object sender, KeyEventArgs e)
+        //{
+        //    if (e.Key == Key.Up || e.Key == Key.Down)
+        //    {
+        //        if (!inputData.Multiline)
+        //        {
+        //            if (sender != null && sender == tbSearchFor)
+        //            {
+        //                if (e.Key == Key.Down)
+        //                    cbSearchFastBookmark.SelectedIndex++;
+        //                else
+        //                {
+        //                    if (cbSearchFastBookmark.SelectedIndex > 0)
+        //                        cbSearchFastBookmark.SelectedIndex--;
+        //                }
+        //            }
+        //            else if (sender != null && sender == tbReplaceWith)
+        //            {
+        //                if (e.Key == Key.Down)
+        //                    cbReplaceFastBookmark.SelectedIndex++;
+        //                else
+        //                {
+        //                    if (cbReplaceFastBookmark.SelectedIndex > 0)
+        //                        cbReplaceFastBookmark.SelectedIndex--;
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
         #endregion
         
 		#region DragDropEvents 
