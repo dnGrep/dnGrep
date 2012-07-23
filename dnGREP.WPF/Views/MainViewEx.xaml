@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:splitButton="clr-namespace:Wpf.Controls;assembly=Wpf.SplitButton"
     xmlns:my="clr-namespace:dnGREP.WPF"
+    xmlns:Controls="clr-namespace:dnGREP.WPF.UserControls"
     Title="{Binding Path=WindowTitle}" MinHeight="460"     
     WindowState="Normal" 
     MinWidth="500" Icon="/dnGREP;component/nGREP.ico" Closing="MainForm_Closing"
@@ -16,6 +17,7 @@
     <Window.Resources>
         <my:InverseBooleanConverter x:Key="InverseBooleanConverter" />
         <my:TotalValueConverter x:Key="TotalValueConverter" />
+        <my:EnumBooleanConverter x:Key="ebc" />
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
         <Style x:Key="ExpandedTextbox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource DefaultStyle}">
@@ -67,20 +69,7 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
-
-        <Style x:Key="GrayedOutFilePattern" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource DefaultStyle}">
-            <Style.Setters>
-                <Setter Property="Foreground" Value="Black"/>
-            </Style.Setters>
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding Path=FilePatternIgnore}" Value="">
-                    <Setter Property="Foreground" Value="Gray"/>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
-
-        <my:EnumBooleanConverter x:Key="ebc" />
-
+       
     </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Key="Escape" Command="{Binding CloseCommand}"/>
@@ -112,7 +101,6 @@
                 <RowDefinition Style="{StaticResource ExpandedGridRowMain}"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid Name="gridSearchPane" Grid.Row="0">
@@ -120,16 +108,14 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Style="{StaticResource ExpandedGridRow}"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="29"/>
                 </Grid.RowDefinitions>
                 <GroupBox Header="Search in" Grid.Row="0">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
+                            <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="48" />
                         </Grid.ColumnDefinitions>
-                        <ComboBox AllowDrop="True" IsEditable="True" ItemsSource="{Binding Path=FastPathBookmarks}" PreviewDragEnter="tbFolderName_DragOver" PreviewDragOver="tbFolderName_DragOver" PreviewDrop="tbFolderName_Drop" Grid.Column="0" Name="tbFolderName" 
-                            Text="{Binding Path=FileOrFolderPath, UpdateSourceTrigger=PropertyChanged}" ToolTip="Path to search in" TabIndex="3" />
+                        <Controls:FolderSelectDropdown Grid.Column="0"/>                        
                         <Button Command="{Binding Path=BrowseCommand}" Grid.Column="1" Width="42" HorizontalAlignment="Right" Name="btnBrowse" 
                             ToolTip="Browse for folder or files" TabIndex="4">...</Button>
                     </Grid>
@@ -286,10 +272,6 @@
                     </StackPanel>
                 </Grid>
             </Grid>
-            <GridSplitter VerticalAlignment="Top" Grid.Row="1" ResizeDirection="Rows" Height="5" 
-                  HorizontalAlignment="Stretch" ResizeBehavior="PreviousAndNext"
-                  IsEnabled="{Binding Path=Multiline}" Visibility="{Binding Path=Multiline, 
-                    Converter={StaticResource BooleanToVisibilityConverter}}"/>
             <ListView Grid.Row="2" ItemsSource="{Binding Path=SearchResults}" SelectionChanged="FilesSelectionChanged">
                 <ListView.Resources>
                 </ListView.Resources>
@@ -425,77 +407,5 @@
             <ProgressBar Name="barProgressBar" Height="18" IsIndeterminate="{Binding Path=IsOperationInProgress}" Width="150" />
             <TextBlock Name="lblStatus" Text="{Binding Path=StatusMessage}" />
         </StatusBar>
-        <Popup PlacementTarget="{Binding ElementName=tbFolderName}" IsOpen="True" AllowsTransparency="True" PopupAnimation="Slide">
-            <GroupBox Grid.Column="0" VerticalAlignment="Top" Background="White">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="201*" />
-                        <ColumnDefinition Width="242*" />
-                    </Grid.ColumnDefinitions>
-                    <CheckBox Name="cbAllFiles" Margin="2 5 2 5" IsChecked="{Binding Path=FileFilters}" TabIndex="40" Grid.Row="0" Grid.ColumnSpan="2">Search in all files and subfolders</CheckBox>
-                    <StackPanel Grid.Column="0" Grid.Row="1">
-                        <RadioButton GroupName="NoSizeFilter" Margin="3" Name="rbFilterAllSizes" IsChecked="{Binding Path=UseFileSizeFilter, Converter={StaticResource ebc}, ConverterParameter=No}" TabIndex="40" IsEnabled="{Binding Path=FileFilters, Converter={StaticResource InverseBooleanConverter}}">All sizes</RadioButton>
-                        <StackPanel Orientation="Horizontal">
-                            <RadioButton GroupName="SetSizeFilter" Margin="3" VerticalAlignment="Center" Name="rbFilterSpecificSize"  IsChecked="{Binding Path=UseFileSizeFilter, Converter={StaticResource ebc}, ConverterParameter=Yes}" TabIndex="41"  IsEnabled="{Binding Path=FileFilters, Converter={StaticResource InverseBooleanConverter}}">Size is</RadioButton>
-                            <TextBox GotFocus="TextBoxFocus" Width="47" Margin="3" Name="tbFileSizeFrom" IsEnabled="{Binding Path=IsSizeFilterSet}" TabIndex="42">
-                                <TextBox.Text>
-                                    <Binding Path="SizeFrom" UpdateSourceTrigger="PropertyChanged">
-                                        <Binding.ValidationRules>
-                                            <ExceptionValidationRule />
-                                        </Binding.ValidationRules>
-                                    </Binding>
-                                </TextBox.Text>
-                            </TextBox>
-                            <TextBlock Margin="3" VerticalAlignment="Center">to</TextBlock>
-                            <TextBox GotFocus="TextBoxFocus" Width="47" Margin="3" Name="tbFileSizeTo" IsEnabled="{Binding Path=IsSizeFilterSet}" TabIndex="43">
-                                <TextBox.Text>
-                                    <Binding Path="SizeTo" UpdateSourceTrigger="PropertyChanged">
-                                        <Binding.ValidationRules>
-                                            <ExceptionValidationRule />
-                                        </Binding.ValidationRules>
-                                    </Binding>
-                                </TextBox.Text>
-                            </TextBox>
-                            <TextBlock Margin="3" VerticalAlignment="Center">KB</TextBlock>
-                        </StackPanel>
-                        <CheckBox Margin="2" IsChecked="{Binding Path=IncludeSubfolder}" Name="cbIncludeSubfolders" TabIndex="44" IsEnabled="{Binding Path=FileFilters, Converter={StaticResource InverseBooleanConverter}}">Include subfolders</CheckBox>
-                        <CheckBox Margin="2" IsChecked="{Binding Path=IncludeHidden}" Name="cbIncludeHiddenFolders" TabIndex="45" IsEnabled="{Binding Path=FileFilters, Converter={StaticResource InverseBooleanConverter}}">Include hidden folders</CheckBox>
-                        <CheckBox Margin="2" IsChecked="{Binding Path=IncludeBinary}" Name="cbIncludeBinary" TabIndex="46" IsEnabled="{Binding Path=FileFilters, Converter={StaticResource InverseBooleanConverter}}">Include binary files</CheckBox>
-                    </StackPanel>
-                    <Grid Grid.Column="1" Grid.Row="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="82" />
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="WrapWithOverflow" VerticalAlignment="Center" Foreground="Black">Paths that match:</TextBlock>
-                        <ComboBox IsEditable="True" ItemsSource="{Binding Path=FastFileMatchBookmarks}" Grid.Column="1" Grid.Row="0" GotFocus="TextBoxFocus" Name="tbFilePattern" my:DiginesisHelpProvider.HelpKeyword="searchreplace.html" my:DiginesisHelpProvider.HelpNavigator="Topic" 
-                                        my:DiginesisHelpProvider.ShowHelp="True" Text="{Binding Path=FilePattern, UpdateSourceTrigger=PropertyChanged}" TabIndex="50"  IsEnabled="{Binding Path=FileFilters, Converter={StaticResource InverseBooleanConverter}}"/>
-                        <TextBlock Style="{StaticResource GrayedOutFilePattern}" Grid.Column="0" Grid.Row="1" TextWrapping="WrapWithOverflow" VerticalAlignment="Center">Paths to ignore:</TextBlock>
-                        <ComboBox IsEditable="True" ItemsSource="{Binding Path=FastFileNotMatchBookmarks}" Grid.Column="1" Grid.Row="1" GotFocus="TextBoxFocus" Name="tbFilePatternIgnore" my:DiginesisHelpProvider.HelpKeyword="searchreplace.html" my:DiginesisHelpProvider.HelpNavigator="Topic" 
-                                        my:DiginesisHelpProvider.ShowHelp="True" Text="{Binding Path=FilePatternIgnore, UpdateSourceTrigger=PropertyChanged}" TabIndex="51"  IsEnabled="{Binding Path=FileFilters, Converter={StaticResource InverseBooleanConverter}}"/>
-                        <StackPanel Grid.Column="1" Grid.Row="2" >
-                            <StackPanel Orientation="Horizontal">
-                                <RadioButton GroupName="FileSearchRegex" Margin="3" Name="rbFileRegex" IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}" ToolTip="e.g. file[0-9]{1,2}\\.txt" TabIndex="52" IsEnabled="{Binding Path=FileFilters, Converter={StaticResource InverseBooleanConverter}}">Regex</RadioButton>
-                                <RadioButton GroupName="FileSearchAsterisk" Margin="3" Name="rbFileAsterisk" IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Asterisk}" ToolTip="e.g. file??.*" TabIndex="53" IsEnabled="{Binding Path=FileFilters, Converter={StaticResource InverseBooleanConverter}}">Asterisk pattern</RadioButton>
-                            </StackPanel>
-                        </StackPanel>
-                        <TextBlock Grid.Column="0" Grid.Row="3" VerticalAlignment="Center">Encoding:</TextBlock>
-                        <ComboBox Grid.Column="1" Grid.Row="3" DisplayMemberPath="Key" SelectedValuePath="Value" ItemsSource="{Binding Path=Encodings}"
-                                    Name="cbEncoding" VerticalAlignment="Top" SelectedValue="{Binding Path=CodePage}" SelectedIndex="0"
-                                      TabIndex="54"  IsEnabled="{Binding Path=FileFilters, Converter={StaticResource InverseBooleanConverter}}"/>
-                    </Grid>
-                </Grid>
-            </GroupBox>
-        </Popup>
     </Grid>
 </Window>

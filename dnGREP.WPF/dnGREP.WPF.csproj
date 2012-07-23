@@ -162,6 +162,9 @@
     <Compile Include="MVHelpers\CodeSnippet.cs" />
     <Compile Include="MVHelpers\SnippetLineNumber.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="UserControls\FolderSelectDropdown.xaml.cs">
+      <DependentUpon>FolderSelectDropdown.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\CommandViewModel.cs" />
     <Compile Include="ViewModels\OptionsViewModel.cs" />
     <Compile Include="ViewModels\PreviewViewModel.cs" />
@@ -180,6 +183,14 @@
     <Compile Include="StickyWindows\WinFormAdapter.cs" />
     <Compile Include="StickyWindows\WpfFormAdapter.cs" />
     <Compile Include="MVHelpers\TotalValueConverter.cs" />
+    <Resource Include="Views\TemplateFileOpenDropdown.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Resource>
+    <Page Include="UserControls\FolderSelectDropdown.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainViewEx.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
