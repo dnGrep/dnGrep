@@ -21,7 +21,6 @@
         <GradientStop Color="#CDCDCD" Offset="1"/>
     </LinearGradientBrush>
     <SolidColorBrush x:Key="ButtonNormalBorder" Color="#FF707070"/>
-    <Geometry x:Key="DownArrowGeometry">M 0 0 L 3.5 4 L 7 0 Z</Geometry>
     <Style x:Key="ComboBoxReadonlyToggleButton" TargetType="{x:Type ToggleButton}">
         <Setter Property="OverridesDefaultStyle" Value="true"/>
         <Setter Property="IsTabStop" Value="false"/>
@@ -32,15 +31,12 @@
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
                     <Microsoft_Windows_Themes:ButtonChrome x:Name="Chrome" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" RenderMouseOver="{TemplateBinding IsMouseOver}" RenderPressed="{TemplateBinding IsPressed}" SnapsToDevicePixels="true">
                         <Grid HorizontalAlignment="Right" Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}">
-                            <Path x:Name="Arrow" Data="{StaticResource DownArrowGeometry}" Fill="Black" HorizontalAlignment="Center" Margin="3,1,0,0" VerticalAlignment="Center"/>
+                            <Path x:Name="Arrow" Stretch="Fill" StrokeLineJoin="Round" Stroke="#FF000000" Data="F1 M 0.416667,4.5L 0.416667,2.5L 15.5729,2.5L 15.5729,4.3125L 9.54167,9.59375L 9.54167,15.5L 6.44792,15.5L 6.44792,9.5625L 0.416667,4.5 Z " Height="9" Margin="2"/>
                         </Grid>
                     </Microsoft_Windows_Themes:ButtonChrome>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="true">
                             <Setter Property="RenderPressed" TargetName="Chrome" Value="true"/>
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Fill" TargetName="Arrow" Value="#AFAFAF"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -77,14 +73,11 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
                     <Microsoft_Windows_Themes:ButtonChrome x:Name="Chrome" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" RenderMouseOver="{TemplateBinding IsMouseOver}" RenderPressed="{TemplateBinding IsPressed}" RoundCorners="false" SnapsToDevicePixels="true" Width="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}">
-                        <Path x:Name="Arrow" Data="{StaticResource DownArrowGeometry}" Fill="Black" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Center"/>
+                        <Path x:Name="Arrow" Stretch="Fill" StrokeLineJoin="Round" Stroke="#FF000000" Data="F1 M 0.416667,4.5L 0.416667,2.5L 15.5729,2.5L 15.5729,4.3125L 9.54167,9.59375L 9.54167,15.5L 6.44792,15.5L 6.44792,9.5625L 0.416667,4.5 Z " Height="9" Margin="2"/>
                     </Microsoft_Windows_Themes:ButtonChrome>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="true">
                             <Setter Property="RenderPressed" TargetName="Chrome" Value="true"/>
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Fill" TargetName="Arrow" Value="#AFAFAF"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

@@ -1186,7 +1186,7 @@ namespace dnGREP.WPF
                 name == "IncludeHidden" || name == "IncludeBinary" || name == "UseFileSizeFilter")
             {
                 if (FileFilters)
-                    FileFiltersSummary = "[Off]";
+                    FileFiltersSummary = "[All files]";
                 else
                 {
                     tempList = new List<string>();

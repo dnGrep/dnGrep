@@ -67,12 +67,10 @@
         </Setter>
         <Style.Triggers>
             <DataTrigger Binding="{Binding Path=Multiline}" Value="True">
-                <Setter Property="Height" Value="Auto"/>
                 <Setter Property="TextWrapping" Value="Wrap"/>
                 <Setter Property="AcceptsReturn" Value="True"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Path=Multiline}" Value="False">
-                <Setter Property="Height" Value="25"/>
                 <Setter Property="TextWrapping" Value="NoWrap"/>
                 <Setter Property="AcceptsReturn" Value="False"/>
             </DataTrigger>
@@ -155,7 +153,7 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
-    <Style x:Key="ComboBoxStyle1" TargetType="{x:Type ComboBox}">
+    <Style x:Key="MultilineComboBoxStyle" TargetType="{x:Type ComboBox}">
         <Setter Property="FocusVisualStyle" Value="{StaticResource ComboBoxFocusVisual}"/>
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
         <Setter Property="Background" Value="{StaticResource ButtonNormalBackground}"/>
