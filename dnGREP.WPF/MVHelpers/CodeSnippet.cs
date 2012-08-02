@@ -9,13 +9,13 @@ namespace dnGREP.WPF
 {
     public class CodeSnippet : INotifyPropertyChanged
     {
-        private int lineNumber;
+        private int[] lineNumbers;
         private string text;
         private GrepSearchResult result;
 
-        public CodeSnippet(int line, string text, GrepSearchResult result)
+        public CodeSnippet(int[] lines, string text, GrepSearchResult result)
         {
-            lineNumber = line;
+            lineNumbers = lines;
             this.text = text;
             this.result = result;
         }
@@ -28,7 +28,7 @@ namespace dnGREP.WPF
                 if (previewViewModel == null)
                     previewViewModel = new SyntaxHighlighterViewModel();
                 previewViewModel.Text = text;
-                previewViewModel.LineNumber = lineNumber;
+                previewViewModel.LineNumbers = lineNumbers;
                 previewViewModel.SearchResult = result;
                 previewViewModel.FileName = result.FileNameDisplayed;
                 return previewViewModel;

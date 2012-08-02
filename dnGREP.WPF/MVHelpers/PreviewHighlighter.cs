@@ -13,11 +13,11 @@ namespace dnGREP.WPF
     public class PreviewHighlighter : DocumentColorizingTransformer
     {
         private GrepSearchResult result;
-        private int firstLineNumber;
-        public PreviewHighlighter(GrepSearchResult result, int firstLineNumber = 1)
+        private int[] lineNumbers;
+        public PreviewHighlighter(GrepSearchResult result, int[] lineNumbers = null)
         {
             this.result = result;
-            this.firstLineNumber = firstLineNumber;
+            this.lineNumbers = lineNumbers;
         }
 
         protected override void ColorizeLine(DocumentLine line)
@@ -27,7 +27,11 @@ namespace dnGREP.WPF
             if (result.Matches == null || result.Matches.Count == 0)
                 return;
 
-            var lineResult = result.SearchResults.Find(sr => (sr.LineNumber - firstLineNumber + 1) == line.LineNumber);
+            int lineNumber = line.LineNumber;
+            if (lineNumbers != null && lineNumbers.Length > line.LineNumber - 1)
+                lineNumber = lineNumbers[line.LineNumber - 1];
+
+            var lineResult = result.SearchResults.Find(sr => sr.LineNumber == lineNumber);
 
             if (lineResult != null)
             {

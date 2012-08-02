@@ -235,8 +235,11 @@
                         <VirtualizingStackPanel Orientation="Vertical" IsItemsHost="True" />
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel>
-            </ListView>-->            
-            <ItemsControl ItemsSource="{Binding Path=CodeSnippets}" VirtualizingStackPanel.IsVirtualizing="True" 
+            </ListView>-->
+            <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Auto">
+                <my:SyntaxHighlighter DataContext="{Binding Path=PreviewModel}" Margin="0, 10, 5, 0"/>
+            </ScrollViewer>
+            <!--<ItemsControl ItemsSource="{Binding Path=CodeSnippets}" VirtualizingStackPanel.IsVirtualizing="True" 
                             ScrollViewer.CanContentScroll="True" Background="White" BorderBrush="{DynamicResource TextBoxBorder}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
@@ -262,7 +265,7 @@
                         </Border>
                     </ControlTemplate>
                 </ItemsControl.Template>
-            </ItemsControl>
+            </ItemsControl>-->
         </GroupBox>
         <StatusBar ClipToBounds="False" Grid.Row="4" Name="statusBar">
             <ProgressBar Name="barProgressBar" Height="18" IsIndeterminate="{Binding Path=IsOperationInProgress}" Width="150" />

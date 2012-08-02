@@ -46,12 +46,11 @@ namespace dnGREP.WPF
         {
             if (e.NewValue != null && e.NewValue is SyntaxHighlighterViewModel)
             {
-                int lineNumber = ((SyntaxHighlighterViewModel)this.DataContext).LineNumber;
+                int[] lineNumbers = ((SyntaxHighlighterViewModel)this.DataContext).LineNumbers;
                 textEditor.TextArea.LeftMargins.Clear();
+                textEditor.TextArea.LeftMargins.Add(new SnippetLineNumber(lineNumbers));
                 textEditor.TextArea.LeftMargins.Add(DottedLineMargin.Create());
-                textEditor.TextArea.LeftMargins.Add(new SnippetLineNumber(lineNumber));
-                textEditor.TextArea.LeftMargins.Add(DottedLineMargin.Create());
-                textEditor.TextArea.TextView.LineTransformers.Add(new PreviewHighlighter(((SyntaxHighlighterViewModel)this.DataContext).SearchResult, lineNumber));
+                textEditor.TextArea.TextView.LineTransformers.Add(new PreviewHighlighter(((SyntaxHighlighterViewModel)this.DataContext).SearchResult, lineNumbers));
 
                 string ext = ".txt";
                 if (!string.IsNullOrWhiteSpace(((SyntaxHighlighterViewModel)this.DataContext).FileName))

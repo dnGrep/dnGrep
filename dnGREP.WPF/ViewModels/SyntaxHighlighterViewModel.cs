@@ -65,18 +65,18 @@ namespace dnGREP.WPF
             }
         }
 
-        private int lineNumber;
-        public int LineNumber
+        private int[] lineNumbers;
+        public int[] LineNumbers
         {
-            get { return lineNumber; }
+            get { return lineNumbers; }
             set
             {
-                if (value == lineNumber)
+                if (value == lineNumbers)
                     return;
 
-                lineNumber = value;
+                lineNumbers = value;
 
-                base.OnPropertyChanged(() => LineNumber);
+                base.OnPropertyChanged(() => LineNumbers);
             }
         }
 

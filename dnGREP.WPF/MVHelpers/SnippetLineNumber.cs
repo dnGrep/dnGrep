@@ -19,15 +19,15 @@ namespace dnGREP.WPF
         private Typeface typeface;
         private double emSize;
         private int maxLineNumberLength = 1;
-        private int startingNumber;
+        private int[] lineNumbers;
         private Brush gray = new SolidColorBrush(Color.FromRgb(100, 100, 100));
         private Brush lightGray = new SolidColorBrush(Color.FromRgb(200, 200, 200));
         private System.Windows.Size size;
 
-        public SnippetLineNumber() : this(1) { }
-        public SnippetLineNumber(int startingNumber)
+        public SnippetLineNumber() : this(null) { }
+        public SnippetLineNumber(int[] lineNumbers)
         {
-            this.startingNumber = startingNumber - 1;
+            this.lineNumbers = lineNumbers;
         }
 
         protected override System.Windows.Size MeasureOverride(System.Windows.Size availableSize)
@@ -56,7 +56,9 @@ namespace dnGREP.WPF
             {
                 foreach (VisualLine line in textView.VisualLines)
                 {
-                    int lineNumber = line.FirstDocumentLine.LineNumber + startingNumber;
+                    int lineNumber = line.FirstDocumentLine.LineNumber;
+                    if (lineNumbers != null && lineNumbers.Length > line.FirstDocumentLine.LineNumber - 1)
+                        lineNumber = lineNumbers[line.FirstDocumentLine.LineNumber - 1];
                     FormattedText text = createFormattedText(
                         this,
                         lineNumber.ToString(CultureInfo.CurrentCulture),
@@ -72,7 +74,10 @@ namespace dnGREP.WPF
         {
             base.OnDocumentChanged(oldDocument, newDocument);
 
-            int documentLineCount = (Document != null ? Document.LineCount : 1) + startingNumber;
+            int documentLineCount = (lineNumbers == null? Document.LineCount : lineNumbers[lineNumbers.Length - 1]);
+            if (documentLineCount <= 0)
+                documentLineCount = lineNumbers[lineNumbers.Length - 2];
+
             int newLength = documentLineCount.ToString(CultureInfo.CurrentCulture).Length;
 
             // The margin looks too small when there is only one digit, so always reserve space for

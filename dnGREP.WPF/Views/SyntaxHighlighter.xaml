@@ -6,9 +6,5 @@
              xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="400">
-    <DockPanel>
-        <Border Background="White" BorderThickness="1" BorderBrush="{DynamicResource TextBoxBorder}">
-            <ae:TextEditor Name="textEditor" Document="{Binding Path=Document}" FontFamily="Consolas" ShowLineNumbers="True" IsReadOnly="True" FontSize="12"/>
-        </Border>
-    </DockPanel>
+    <ae:TextEditor Name="textEditor" Document="{Binding Path=Document}" FontFamily="Consolas" ShowLineNumbers="True" IsReadOnly="True" FontSize="12" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" />
 </UserControl>

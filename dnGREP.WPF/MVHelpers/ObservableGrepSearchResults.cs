@@ -297,7 +297,7 @@ namespace dnGREP.WPF
                 if (previewViewModel == null)
                     previewViewModel = new SyntaxHighlighterViewModel();
                 previewViewModel.Text = GrepLine.LineText;
-                previewViewModel.LineNumber = GrepLine.LineNumber;
+                previewViewModel.LineNumbers = new int[] { GrepLine.LineNumber };
                 return previewViewModel; 
             }
         }

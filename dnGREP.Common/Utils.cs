@@ -760,19 +760,24 @@ namespace dnGREP.Common
 		/// <param name="defaultValue">Default value</param>
 		/// <returns></returns>
 		public static T ParseEnum<T>(string value, T defaultValue)
-		{
-			if (string.IsNullOrEmpty(value))
-				return defaultValue;
+        {
+            if (string.IsNullOrEmpty(value))
+                return defaultValue;
 
-			T result = defaultValue;
-			try
-			{
-				result = (T)Enum.Parse(defaultValue.GetType(), value);
-			}
-			catch { }
+            T result = defaultValue;
+            try
+            {
+				// Check if enum is nullable
+                var enumType = Nullable.GetUnderlyingType(typeof(T));
+                if (enumType == null)
+                    result = (T)Enum.Parse(typeof(T), value);
+                else
+                    result = (T)Enum.Parse(enumType, value);
+            }
+            catch { }
 
-			return result;
-		}
+            return result;
+        }
 
 		/// <summary>
 		/// Open file using either default editor or the one provided via customEditor parameter
@@ -1262,7 +1267,8 @@ namespace dnGREP.Common
                 int lastLine = 0;
                 int firstLine = 0;
                 StringBuilder snippetText = new StringBuilder();
-                foreach (var line in result.GetLinesWithContext(linesBefore, linesAfter))
+                var lines = result.GetLinesWithContext(linesBefore, linesAfter);
+                foreach (var line in lines)
                 {
                     // First line of a block
                     if (firstLine == 0)
@@ -1277,7 +1283,7 @@ namespace dnGREP.Common
                     }
                     else
                     {
-                        yield return new NumberedString { Text = snippetText.ToString().TrimEndOfLine(), Value = firstLine };
+                        yield return new NumberedString { Text = snippetText.ToString().TrimEndOfLine(), FirstLineNumber = firstLine, LineCount = lines.Count };
                         lastLine = 0;
                         firstLine = 0;
                         snippetText.Clear();
@@ -1285,20 +1291,30 @@ namespace dnGREP.Common
                     lastLine = line.LineNumber;
                 }
                 if (snippetText.Length > 0)
-                    yield return new NumberedString { Text = snippetText.ToString().TrimEndOfLine(), Value = firstLine };
+                    yield return new NumberedString { Text = snippetText.ToString().TrimEndOfLine(), FirstLineNumber = firstLine, LineCount = lines.Count };
             } 
             else 
             {
-                yield return new NumberedString() { Value = 0, Text = "" };
+                yield return new NumberedString() { LineCount = 0, FirstLineNumber = 0, Text = "" };
             }
         }
 
-		/// <summary>
-		/// Replaces unix-style linebreaks with \r\n
-		/// </summary>
-		/// <param name="text"></param>
-		/// <returns></returns>
-		public static string CleanLineBreaks(string text)
+        public static int[] GetIntArray(int startLine, int lineCount)
+        {
+            int[] result = new int[lineCount];
+            for (int i = 0; i < lineCount; i++)
+            {
+                result[i] = startLine + i;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// Replaces unix-style linebreaks with \r\n
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static string CleanLineBreaks(string text)
 		{
 			if (string.IsNullOrEmpty(text))
 				return text;
@@ -1516,7 +1532,8 @@ namespace dnGREP.Common
 
     public class NumberedString
     {
-        public int Value;
+        public int FirstLineNumber;
+        public int LineCount;
         public string Text;
     }
 

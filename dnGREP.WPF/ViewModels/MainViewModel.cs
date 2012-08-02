@@ -63,10 +63,25 @@ namespace dnGREP.WPF
         #endregion
 
         #region Properties
-        private ObservableCollection<CodeSnippet> codeSnippets = new ObservableCollection<CodeSnippet>();
-        public ObservableCollection<CodeSnippet> CodeSnippets
+        //private ObservableCollection<CodeSnippet> codeSnippets = new ObservableCollection<CodeSnippet>();
+        //public ObservableCollection<CodeSnippet> CodeSnippets
+        //{
+        //    get { return codeSnippets; }
+        //}
+
+        private SyntaxHighlighterViewModel previewModel;
+        public SyntaxHighlighterViewModel PreviewModel
         {
-            get { return codeSnippets; }
+            get { return previewModel; }
+            set
+            {
+                if (value == previewModel)
+                    return;
+
+                previewModel = value;
+
+                base.OnPropertyChanged(() => PreviewModel);
+            }
         }
 
         private ObservableGrepSearchResults searchResults = new ObservableGrepSearchResults();
@@ -1595,16 +1610,27 @@ namespace dnGREP.WPF
 
         public void SetCodeSnippets(ICollection<FormattedGrepResult> results)
         {
-            CodeSnippets.Clear();
             foreach (var result in results)
             {
+                StringBuilder blocks = new StringBuilder();
+                List<int> lines = new List<int>();
+
                 foreach (var block in Utils.GetSnippets(result.GrepResult,
                         settings.Get<int>(GrepSettings.Key.ContextLinesBefore),
                         settings.Get<int>(GrepSettings.Key.ContextLinesAfter)))
                 {
-                    CodeSnippets.Add(new CodeSnippet(block.Value, block.Text, result.GrepResult));
+                    blocks.AppendLine(block.Text);
+                    blocks.AppendLine("...");
+                    lines.AddRange(Utils.GetIntArray(block.FirstLineNumber, block.LineCount));
+                    lines.Add(-1);
                 }
-            }
+                var previewViewModel = new SyntaxHighlighterViewModel();
+                previewViewModel.Text = blocks.ToString().TrimEndOfLine();
+                previewViewModel.LineNumbers = lines.ToArray();
+                previewViewModel.SearchResult = result.GrepResult;
+                previewViewModel.FileName = result.GrepResult.FileNameDisplayed;
+                PreviewModel = previewViewModel;
+            }           
         }
 
         #endregion
