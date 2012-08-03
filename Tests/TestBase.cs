@@ -10,8 +10,9 @@ namespace Tests
 	{
 		public string GetDllPath()
 		{
-			Assembly thisAssembly = Assembly.GetAssembly(typeof(TestBase));
-			return Path.GetDirectoryName(thisAssembly.Location);
+			//Assembly thisAssembly = Assembly.GetAssembly(typeof(TestBase));
+			//return Path.GetDirectoryName(thisAssembly.Location);
+            return @"D:\Sandbox\dnGrep\Tests";
 		}
 	}
 }
