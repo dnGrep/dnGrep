@@ -9,11 +9,10 @@ using Xunit.Extensions;
 
 namespace Tests
 {
-	
 	public class UtilsTest : TestBase, IDisposable
 	{
-		string sourceFolder;
-		string destinationFolder;
+        static string sourceFolder;
+        static string destinationFolder;
 
         public UtilsTest()
 		{
@@ -803,7 +802,7 @@ namespace Tests
 			Assert.Equal<bool>(Utils.IsBinary(sourceFolder + file), isBinary);
 		}
 
-        public IEnumerable<object> TestGetPaths_Source
+        public static IEnumerable<object[]> TestGetPaths_Source
         {
             get {
                 yield return new object[] { sourceFolder + "\\TestCase5\\big-word-document.doc", 1 };

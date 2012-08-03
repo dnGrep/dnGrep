@@ -166,6 +166,9 @@
     <Compile Include="UserControls\FolderSelectDropdown.xaml.cs">
       <DependentUpon>FolderSelectDropdown.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\SnippetPreview.xaml.cs">
+      <DependentUpon>SnippetPreview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\CommandViewModel.cs" />
     <Compile Include="ViewModels\OptionsViewModel.cs" />
     <Compile Include="ViewModels\PreviewViewModel.cs" />
@@ -198,6 +201,10 @@
       <ContainsDesignTimeResources>true</ContainsDesignTimeResources>
     </Page>
     <Page Include="UserControls\FolderSelectDropdown.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\SnippetPreview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

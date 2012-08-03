@@ -146,6 +146,9 @@
     <Compile Include="TestBase.cs" />
     <Compile Include="UITest.cs" />
     <Compile Include="UtilsTest.cs" />
+    <Content Include="Files\TestCase7\Test%3bFo%3blder\issue-10.txt" />
+    <Content Include="Files\TestCase7\Test%3bFolder\issue-10.txt" />
+    <Content Include="Files\TestCase7\Test,Folder\issue-10.txt" />
     <Content Include="Files\TestCase8\test.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -168,6 +171,10 @@
     <ProjectReference Include="..\dnGREP.WPF\dnGREP.WPF.csproj">
       <Project>{cbc7aec0-59ff-4050-b02d-adb15359ced4}</Project>
       <Name>dnGREP.WPF</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NLog.XmlLayout\NLog.XmlLayout.csproj">
+      <Project>{1b364890-bbe6-4167-af65-fe1c01e8c419}</Project>
+      <Name>NLog.XmlLayout</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -214,15 +221,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Files\TestCase6\test_file.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\TestCase7\Test%3bFo%3blder\issue-10.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\TestCase7\Test%3bFolder\issue-10.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Files\TestCase7\Test,Folder\issue-10.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
