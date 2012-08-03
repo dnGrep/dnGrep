@@ -161,17 +161,16 @@
     </ApplicationDefinition>
     <Compile Include="MVHelpers\CodeSnippet.cs" />
     <Compile Include="MVHelpers\PixelBasedScrollingBehavior.cs" />
+    <Compile Include="MVHelpers\RichTextBoxHelper.cs" />
     <Compile Include="MVHelpers\SnippetLineNumber.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="UserControls\FolderSelectDropdown.xaml.cs">
       <DependentUpon>FolderSelectDropdown.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SnippetPreview.xaml.cs">
-      <DependentUpon>SnippetPreview.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\CommandViewModel.cs" />
     <Compile Include="ViewModels\OptionsViewModel.cs" />
     <Compile Include="ViewModels\PreviewViewModel.cs" />
+    <Compile Include="ViewModels\SnippetPreviewModel.cs" />
     <Compile Include="ViewModels\SyntaxHighlighterViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\WorkspaceViewModel.cs" />
@@ -204,10 +203,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\SnippetPreview.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\MainViewEx.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -233,10 +228,6 @@
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\SyntaxHighlighter.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Test.xaml">
       <SubType>Designer</SubType>
@@ -289,9 +280,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="ShellIntegration.cs" />
-    <Compile Include="Views\SyntaxHighlighter.xaml.cs">
-      <DependentUpon>SyntaxHighlighter.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Test.xaml.cs">
       <DependentUpon>Test.xaml</DependentUpon>
     </Compile>

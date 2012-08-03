@@ -401,12 +401,10 @@
                                         <Setter Property="Background" Value="White"/>
                                     </DataTrigger>
                                 </Style.Triggers>
-                            </Style>
+                            </Style>                            
                         </WrapPanel.Resources>
-                        <!--<TextBlock Margin="-2,0,0,0" Width="{Binding LineNumberColumnWidth}" Text="{Binding FormattedLineNumber}"/>
-                        <my:InlineTextBlock Margin="3,0,0,0" InlineCollection="{Binding FormattedText}"/>-->
-                        <!--<my:SyntaxHighlighter Text="{Binding Path=Text}" LineNumber="{Binding Path=FormattedLineNumber}" Document="{Binding Path=Document}"/>-->
-                        <my:SyntaxHighlighter DataContext="{Binding Path=PreviewViewModel}"/>
+                        <TextBlock Margin="-2,0,0,0" Width="{Binding LineNumberColumnWidth}" Text="{Binding FormattedLineNumber}"/>
+                        <my:InlineTextBlock Margin="3,0,0,0" InlineCollection="{Binding FormattedText}"/>
                     </WrapPanel>
                 </DataTemplate>
             </TreeView.Resources>

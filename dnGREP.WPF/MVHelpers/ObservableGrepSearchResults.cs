@@ -201,23 +201,23 @@ namespace dnGREP.WPF
 			bool isFileReadOnly = Utils.IsReadOnly(grepResult);
             bool isSuccess = grepResult.IsSuccess;
 			
-            //string displayedName = Path.GetFileName(grepResult.FileNameDisplayed);
-			
-            //if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowFilePathInResults) &&
-            //    grepResult.FileNameDisplayed.Contains(Utils.GetBaseFolder(folderPath) + "\\"))
-            //{
-            //    displayedName = grepResult.FileNameDisplayed.Substring(Utils.GetBaseFolder(folderPath).Length + 1);
-            //}
-            //int lineCount = Utils.MatchCount(grepResult);
-            //if (lineCount > 0)
-            //    displayedName = string.Format("{0} ({1})", displayedName, lineCount);
-            //if (isFileReadOnly)
-            //{
-            //    result.ReadOnly = true;
-            //    displayedName = displayedName + " [read-only]";
-            //}
+            string displayedName = Path.GetFileName(grepResult.FileNameDisplayed);
 
-            //label = displayedName;
+            if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowFilePathInResults) &&
+                grepResult.FileNameDisplayed.Contains(Utils.GetBaseFolder(folderPath) + "\\"))
+            {
+                displayedName = grepResult.FileNameDisplayed.Substring(Utils.GetBaseFolder(folderPath).Length + 1);
+            }
+            int lineCount = grepResult.Matches.Count;
+            if (lineCount > 0)
+                displayedName = string.Format("{0} ({1})", displayedName, lineCount);
+            if (isFileReadOnly)
+            {
+                result.ReadOnly = true;
+                displayedName = displayedName + " [read-only]";
+            }
+
+            label = displayedName;
 
 			if (isFileReadOnly)
 			{
@@ -228,25 +228,27 @@ namespace dnGREP.WPF
                 style = "Error";
             }
 
-            //if (result.Matches != null && result.Matches.Count > 0)
-            //{
-            //    int currentLine = -1;
-            //    for (int i = 0; i < result.SearchResults.Count; i++)
-            //    {
-            //        GrepSearchResult.GrepLine line = result.SearchResults[i];
-					
-            //        currentLine = line.LineNumber;
-            //        if (currentLine <= 999 && LineNumberColumnWidth < 30)
-            //            LineNumberColumnWidth = 30;
-            //        else if (currentLine > 999 && LineNumberColumnWidth < 35)
-            //            LineNumberColumnWidth = 35;
-            //        else if (currentLine > 9999 && LineNumberColumnWidth < 47)
-            //            LineNumberColumnWidth = 47;
-            //        else if (currentLine > 99999 && LineNumberColumnWidth < 50)
-            //            LineNumberColumnWidth = 50;
-            //        formattedLines.Add(new FormattedGrepLine(line, this, LineNumberColumnWidth));
-            //    }
-            //}
+            if (result.Matches != null && result.Matches.Count > 0)
+            {
+                int currentLine = -1;
+                var linesWithContext = result.GetLinesWithContext(GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
+                    GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter));
+                for (int i = 0; i < linesWithContext.Count; i++)
+                {
+                    GrepSearchResult.GrepLine line = linesWithContext[i];
+
+                    currentLine = line.LineNumber;
+                    if (currentLine <= 999 && LineNumberColumnWidth < 30)
+                        LineNumberColumnWidth = 30;
+                    else if (currentLine > 999 && LineNumberColumnWidth < 35)
+                        LineNumberColumnWidth = 35;
+                    else if (currentLine > 9999 && LineNumberColumnWidth < 47)
+                        LineNumberColumnWidth = 47;
+                    else if (currentLine > 99999 && LineNumberColumnWidth < 50)
+                        LineNumberColumnWidth = 50;
+                    formattedLines.Add(new FormattedGrepLine(line, this, LineNumberColumnWidth));
+                }
+            }
 		}
 
         #region PropertyChanged Members

@@ -27,9 +27,7 @@
     <Grid Name="gridMain" Margin="0,-1,0,1">
         <Grid.RowDefinitions>
             <RowDefinition Height="25" />
-            <RowDefinition Height="350" MinHeight="300"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*" MinHeight="100"/>
+            <RowDefinition Height="*" MinHeight="300"/>
             <RowDefinition Height="25" />
         </Grid.RowDefinitions>
         <Grid Name="gridTop" Grid.Row="0" Background="{Binding ElementName=statusBar, Path=Background}">
@@ -179,94 +177,99 @@
                     <Button Width="64" Margin="3" Content="Cancel" Name="btnCancel" Command="{Binding Path=CancelCommand}" TabIndex="53" />
                 </StackPanel>
             </Grid>
-            <GroupBox Header="Search results" MinHeight="100">
-                <ListView Name="lvResults" ItemsSource="{Binding Path=SearchResults}" SelectionChanged="FilesSelectionChanged" BorderBrush="{DynamicResource TextBoxBorder}">
-                    <ListView.Resources>
-                    </ListView.Resources>
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Width="150" Header="Name">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <Image Source="{Binding Icon}"/>
-                                            <TextBlock Text="{Binding FileName}" Margin="3,0,0,0"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Width="Auto" Header="Size" DisplayMemberBinding="{Binding Size}"/>
-                            <GridViewColumn Width="Auto" Header="Matches" DisplayMemberBinding="{Binding Matches}"/>
-                            <GridViewColumn Width="300" Header="Path" DisplayMemberBinding="{Binding FilePath}"/>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </GroupBox>
-        </DockPanel>
-        <GridSplitter VerticalAlignment="Top" Grid.Row="2" ResizeDirection="Rows" Height="5" 
-                  HorizontalAlignment="Stretch" ResizeBehavior="PreviousAndNext"/>
-        <GroupBox Header="Preview" Grid.Row="3">
-            <!--<ListBox 
-                ItemsSource="{Binding Path=CodeSnippets}"
-                VirtualizingStackPanel.IsVirtualizing="True" 
-                VirtualizingStackPanel.VirtualizationMode="Recycling">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <my:SyntaxHighlighter DataContext="{Binding Path=PreviewViewModel}" Margin="0, 10, 5, 0"/>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel Background="Transparent" 
-                          my:PixelBasedScrollingBehavior.IsEnabled="True">
+            <TreeView Name="tvSearchResult" Grid.Row="3" ItemsSource="{Binding Path=SearchResults}" VirtualizingStackPanel.IsVirtualizing="True"
+                      MouseDoubleClick="tvSearchResult_MouseDoubleClick" PreviewKeyDown="treeKeyDown" SelectedItemChanged="tvSearchResults_SelectedChanged">
+                <TreeView.ContextMenu>
+                    <ContextMenu Opened="tvContexMenuOpening">
+                        <MenuItem Header="Open" Click="btnOpenFile_Click"/>
+                        <MenuItem Header="Open containing folder" Click="btnOpenContainingFolder_Click"/>
+                        <MenuItem Header="Show file properties" Click="btnShowFileProperties_Click"/>
+                        <MenuItem Name="btnCopyFileNameClipboard" Header="File name to clipboard" Click="btnCopyNameToClipboard_Click"/>
+                        <MenuItem Name="btnCopyTreeItemClipboard" Header="Full file path to clipboard" Click="btnCopyTreeItemToClipboard_Click"/>
+                        <Separator/>
+                        <MenuItem Header="Exclude from results" Click="btnExclude_Click"/>
+                        <MenuItem Header="Expand all" Click="btnExpandAll_Click"/>
+                        <MenuItem Header="Collapse all" Click="btnCollapseAll_Click"/>
+                    </ContextMenu>
+                </TreeView.ContextMenu>
+                <TreeView.Resources>
+                    <LinearGradientBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFD9F4FF" Offset="0"/>
+                        <GradientStop Color="#FF9BDDFB" Offset="1"/>
+                    </LinearGradientBrush>
+                    <LinearGradientBrush x:Key="{x:Static SystemColors.ControlBrushKey}" EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#FFEEEDED" Offset="0"/>
+                        <GradientStop Color="#FFDDDDDD" Offset="1"/>
+                    </LinearGradientBrush>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+                    <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="Black" />
+                    <HierarchicalDataTemplate DataType="{x:Type my:FormattedGrepResult}" ItemsSource="{Binding Path=FormattedLines}" >
+                        <VirtualizingStackPanel Orientation="Horizontal">
+                            <Image Source="{Binding Icon}"/>
+                            <TextBlock Text="{Binding Label}" Margin="3,0,0,0"/>
                         </VirtualizingStackPanel>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
-            </ListBox>-->
-            <!--<ListView ItemsSource="{Binding Path=CodeSnippets}" VirtualizingStackPanel.IsVirtualizing="True" 
-                      VirtualizingStackPanel.VirtualizationMode="Standard" ScrollViewer.CanContentScroll="True">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <my:SyntaxHighlighter DataContext="{Binding Path=PreviewViewModel}" Margin="0, 10, 5, 0"/>
+                    </HierarchicalDataTemplate>
+                    <DataTemplate DataType="{x:Type my:FormattedGrepLine}">
+                        <WrapPanel>
+                            <WrapPanel.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}, Path=IsSelected}" Value="True">
+                                            <Setter Property="Background" Value="#FFD2D2D2"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}, Path=IsSelected}" Value="False">
+                                            <Setter Property="Background" Value="#FFE0E0E0"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Path=Style}" Value="Empty">
+                                            <Setter Property="Background" Value="White"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </WrapPanel.Resources>
+                            <TextBlock Margin="-2,0,0,0" Width="{Binding LineNumberColumnWidth}" Text="{Binding FormattedLineNumber}"/>
+                            <my:InlineTextBlock Margin="3,0,0,0" InlineCollection="{Binding FormattedText}"/>
+                        </WrapPanel>
                     </DataTemplate>
-                </ListView.ItemTemplate>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel Orientation="Vertical" IsItemsHost="True" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ListView>-->
-            <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Auto">
-                <my:SyntaxHighlighter DataContext="{Binding Path=PreviewModel}" Margin="0, 10, 5, 0"/>
-            </ScrollViewer>
-            <!--<ItemsControl ItemsSource="{Binding Path=CodeSnippets}" VirtualizingStackPanel.IsVirtualizing="True" 
-                            ScrollViewer.CanContentScroll="True" Background="White" BorderBrush="{DynamicResource TextBoxBorder}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <my:SyntaxHighlighter DataContext="{Binding Path=PreviewViewModel}" Margin="0, 10, 5, 0"/>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <VirtualizingStackPanel Orientation="Vertical" IsItemsHost="True" my:PixelBasedScrollingBehavior.IsEnabled="True"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.Template>
-                    <ControlTemplate>
-                        <Border
-                            BorderThickness="{TemplateBinding Border.BorderThickness}"
-                            Padding="{TemplateBinding Control.Padding}"
-                            BorderBrush="{TemplateBinding Border.BorderBrush}"
-                            Background="{TemplateBinding Panel.Background}"
-                            SnapsToDevicePixels="True">
-                            <ScrollViewer Padding="{TemplateBinding Control.Padding}" Focusable="False">
-                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
-                            </ScrollViewer>
-                        </Border>
-                    </ControlTemplate>
-                </ItemsControl.Template>
-            </ItemsControl>-->
-        </GroupBox>
+                </TreeView.Resources>
+                <TreeView.ItemContainerStyle>
+                    <Style TargetType="TreeViewItem">
+                        <EventSetter
+                        Event="TreeViewItem.MouseRightButtonDown"
+                        Handler="tvSearchResult_MouseDown"/>
+                        <EventSetter
+                        Event="TreeViewItem.PreviewMouseLeftButtonDown"
+                        Handler="tvSearchResult_PreviewMouseLeftButtonDown"/>
+                        <EventSetter
+                        Event="TreeViewItem.PreviewMouseMove"
+                        Handler="tvSearchResult_PreviewMouseMove"/>
+                        <Setter Property="IsExpanded" Value="{Binding Path=IsExpanded, Mode=TwoWay}"/>
+                        <Setter Property="FontSize" Value="12"/>
+                        <Setter Property="BorderThickness" Value="1.5"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=Style}" Value="Context">
+                                <Setter Property="Foreground" Value="DarkGray"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=Style}" Value="ReadOnly">
+                                <Setter Property="Foreground" Value="DarkGray"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Path=Style}" Value="Error">
+                                <Setter Property="Foreground" Value="Red"/>
+                            </DataTrigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="BorderBrush" Value="#adc6e5"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsSelected" Value="True"/>
+                                    <Condition Property="IsSelectionActive" Value="False"/>
+                                </MultiTrigger.Conditions>
+                                <Setter Property="BorderBrush" Value="LightGray"/>
+                            </MultiTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TreeView.ItemContainerStyle>
+            </TreeView>
+        </DockPanel>        
         <StatusBar ClipToBounds="False" Grid.Row="4" Name="statusBar">
             <ProgressBar Name="barProgressBar" Height="18" IsIndeterminate="{Binding Path=IsOperationInProgress}" Width="150" />
             <TextBlock Name="lblStatus" Text="{Binding Path=StatusMessage}" />
