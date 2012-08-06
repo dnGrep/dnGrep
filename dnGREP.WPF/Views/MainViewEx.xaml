@@ -1,17 +1,17 @@
-﻿<Window x:Class="dnGREP.WPF.MainFormEx"
+﻿<Window
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:splitButton="clr-namespace:Wpf.Controls;assembly=Wpf.SplitButton"
     xmlns:my="clr-namespace:dnGREP.WPF"
     xmlns:Controls="clr-namespace:dnGREP.WPF.UserControls"
-    Title="{Binding Path=WindowTitle}" MinHeight="460"     
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="dnGREP.WPF.MainFormEx"
+    Title="{Binding WindowTitle}" MinHeight="460"     
     WindowState="Normal" 
     MinWidth="500" Icon="/dnGREP;component/nGREP.ico" Closing="MainForm_Closing"
-    Loaded="Window_Loaded" Style="{StaticResource DefaultStyle}" 
-    Background="{StaticResource GradientBackground}"
+    Loaded="Window_Loaded"
     SnapsToDevicePixels="True" ResizeMode="CanResizeWithGrip" AllowDrop="False"
     my:DiginesisHelpProvider.HelpKeyword="search-window.html" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True" 
-    WindowStartupLocation="Manual" TextOptions.TextFormattingMode="{Binding Path=TextFormatting}"
+    WindowStartupLocation="Manual" TextOptions.TextFormattingMode="{Binding TextFormatting}"
     FocusManager.FocusedElement="{Binding ElementName=tbSearchFor}" Activated="Window_Activated" StateChanged="Window_StateChanged">
     <!-- Resources -->
     <Window.Resources>
@@ -20,28 +20,34 @@
         <my:EnumBooleanConverter x:Key="ebc" />
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Window.Resources>
+    <Window.Style>
+        <StaticResource ResourceKey="DefaultStyle"/>
+    </Window.Style>
+    <Window.Background>
+        <StaticResource ResourceKey="GradientBackground"/>
+    </Window.Background>
     <Window.InputBindings>
         <KeyBinding Key="Escape" Command="{Binding CloseCommand}"/>
     </Window.InputBindings>
 
-    <Grid Name="gridMain" Margin="0,-1,0,1">
+    <Grid x:Name="gridMain" Margin="0,-1,0,1">
         <Grid.RowDefinitions>
             <RowDefinition Height="25" />
             <RowDefinition Height="*" MinHeight="300"/>
             <RowDefinition Height="25" />
         </Grid.RowDefinitions>
-        <Grid Name="gridTop" Grid.Row="0" Background="{Binding ElementName=statusBar, Path=Background}">
+        <Grid x:Name="gridTop" Grid.Row="0" Background="{Binding Background, ElementName=statusBar}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="70" />
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" FontFamily="Microsoft Sans Serif" FontWeight="Bold" FontSize="16" Text="dnGREP"/>
-            <Menu Background="{Binding ElementName=gridTop, Path=Background}" Name="mnuMainMenu" Grid.Column="1" HorizontalAlignment="Right" Style="{StaticResource DefaultStyle}">
-                <MenuItem Name="undoToolStripMenuItem" Header="_Undo" Command="{Binding Path=UndoCommand}"/>
-                <MenuItem Header="_Options..." Command="{Binding Path=OptionsCommand}"/>
-                <MenuItem Header="_About" Name="helpToolStripMenuItem">
-                    <MenuItem Command="{Binding Path=HelpCommand}" Header="_Help"></MenuItem>
-                    <MenuItem Command="{Binding Path=AboutCommand}" Header="_About..."></MenuItem>
+            <Menu Background="{Binding Background, ElementName=gridTop}" x:Name="mnuMainMenu" Grid.Column="1" HorizontalAlignment="Right" Style="{StaticResource DefaultStyle}">
+                <MenuItem x:Name="undoToolStripMenuItem" Header="_Undo" Command="{Binding UndoCommand}"/>
+                <MenuItem Header="_Options..." Command="{Binding OptionsCommand}"/>
+                <MenuItem Header="_About" x:Name="helpToolStripMenuItem">
+                    <MenuItem Command="{Binding HelpCommand}" Header="_Help"/>
+                    <MenuItem Command="{Binding AboutCommand}" Header="_About..."/>
                 </MenuItem>
             </Menu>
         </Grid>
@@ -53,8 +59,8 @@
                         <ColumnDefinition Width="48" />
                     </Grid.ColumnDefinitions>
                     <Controls:FolderSelectDropdown Grid.Column="0" x:Name="tbFolderName"/>
-                    <Button Command="{Binding Path=BrowseCommand}" Grid.Column="1" Width="42" HorizontalAlignment="Right" Name="btnBrowse" 
-                            ToolTip="Browse for folder or files" TabIndex="4">...</Button>
+                    <Button Command="{Binding BrowseCommand}" Grid.Column="1" Width="42" HorizontalAlignment="Right" x:Name="btnBrowse" 
+                            ToolTip="Browse for folder or files" TabIndex="4" Content="..."/>
                 </Grid>
             </GroupBox>
             <GroupBox Header="Search" DockPanel.Dock="Top">
@@ -66,29 +72,27 @@
                             <ColumnDefinition  Width="60"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.Column="0">
-                            <RadioButton GroupName="SearchRegex" Name="rbRegex" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}" ToolTip="Regular expression search" TabIndex="11">Regex</RadioButton>
-                            <RadioButton GroupName="SearchXPath" Name="rbXPath" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=XPath}" ToolTip="XPath search (XML documents only)" TabIndex="12">XPath</RadioButton>
-                            <RadioButton GroupName="SearchText" Name="rbText" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=PlainText}" ToolTip="Plain text search" TabIndex="13">Text</RadioButton>
-                            <RadioButton GroupName="SearchSoundex" Name="rbSoundex" Margin="3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=Soundex}" ToolTip="Phonetic search" TabIndex="14">Phonetic</RadioButton>
+                            <RadioButton GroupName="SearchRegex" x:Name="rbRegex" Margin="3" IsChecked="{Binding TypeOfSearch, ConverterParameter=Regex, Converter={StaticResource ebc}}" ToolTip="Regular expression search" TabIndex="11" Content="Regex"/>
+                            <RadioButton GroupName="SearchXPath" x:Name="rbXPath" Margin="3" IsChecked="{Binding TypeOfSearch, ConverterParameter=XPath, Converter={StaticResource ebc}}" ToolTip="XPath search (XML documents only)" TabIndex="12" Content="XPath"/>
+                            <RadioButton GroupName="SearchText" x:Name="rbText" Margin="3" IsChecked="{Binding TypeOfSearch, ConverterParameter=PlainText, Converter={StaticResource ebc}}" ToolTip="Plain text search" TabIndex="13" Content="Text"/>
+                            <RadioButton GroupName="SearchSoundex" x:Name="rbSoundex" Margin="3" IsChecked="{Binding TypeOfSearch, ConverterParameter=Soundex, Converter={StaticResource ebc}}" ToolTip="Phonetic search" TabIndex="14" Content="Phonetic"/>
                         </StackPanel>
-                        <Label Grid.Column="1">
-                            <Binding Path="ValidationMessage"/>
-                        </Label>
-                        <Button Grid.Column="2" Name="btnTest" Command="{Binding Path=TestCommand}" TabIndex="15">Test</Button>
+                        <Label Grid.Column="1" Content="{Binding ValidationMessage}"/>
+                        <Button Grid.Column="2" x:Name="btnTest" Command="{Binding TestCommand}" TabIndex="15" Content="Test"/>
                     </Grid>
-                    <Expander DockPanel.Dock="Bottom" Name="expOptions" IsExpanded="{Binding Path=IsOptionsExpanded}">
+                    <Expander DockPanel.Dock="Bottom" x:Name="expOptions" IsExpanded="{Binding IsOptionsExpanded}">
                         <Expander.Header>
                             <WrapPanel>
-                                <TextBlock>Options</TextBlock>
-                                <TextBlock Margin="15,0,0,0" Text="{Binding Path=OptionsSummary}"/>
+                                <TextBlock><Run Text="Options"/></TextBlock>
+                                <TextBlock Margin="15,0,0,0" Text="{Binding OptionsSummary}"/>
                             </WrapPanel>
                         </Expander.Header>
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <CheckBox Margin="3" Name="cbCaseSensitive" IsChecked="{Binding Path=CaseSensitive}" IsEnabled="{Binding Path=IsCaseSensitiveEnabled}" TabIndex="20">Case sensitive</CheckBox>
-                                <CheckBox Margin="3" Name="cbMultiline" IsChecked="{Binding Path=Multiline}" IsEnabled="{Binding Path=IsMultilineEnabled}" TabIndex="21">Multiline (slower)</CheckBox>
-                                <CheckBox Margin="3" Name="cbWholeWord" IsChecked="{Binding Path=WholeWord}" IsEnabled="{Binding Path=IsWholeWordEnabled}" TabIndex="22">Whole word</CheckBox>
-                                <CheckBox Margin="3" Name="cbSingleline" IsChecked="{Binding Path=Singleline}" IsEnabled="{Binding Path=IsSinglelineEnabled}" TabIndex="23">Match dot as newline</CheckBox>
+                                <CheckBox Margin="3" x:Name="cbCaseSensitive" IsChecked="{Binding CaseSensitive}" IsEnabled="{Binding IsCaseSensitiveEnabled}" TabIndex="20" Content="Case sensitive"/>
+                                <CheckBox Margin="3" x:Name="cbMultiline" IsChecked="{Binding Multiline}" IsEnabled="{Binding IsMultilineEnabled}" TabIndex="21" Content="Multiline (slower)"/>
+                                <CheckBox Margin="3" x:Name="cbWholeWord" IsChecked="{Binding WholeWord}" IsEnabled="{Binding IsWholeWordEnabled}" TabIndex="22" Content="Whole word"/>
+                                <CheckBox Margin="3" x:Name="cbSingleline" IsChecked="{Binding Singleline}" IsEnabled="{Binding IsSinglelineEnabled}" TabIndex="23" Content="Match dot as newline"/>
                             </StackPanel>
                         </StackPanel>
                     </Expander>
@@ -102,39 +106,19 @@
                             <ColumnDefinition Width="70"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">Search for:</TextBlock>
-                        <ComboBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=SearchFor}" IsEditable="True" Name="tbSearchFor" ItemsSource="{Binding Path=FastSearchBookmarks}" Style="{DynamicResource MultilineComboBoxStyle}"
+                        <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"><Run Text="Search for:"/></TextBlock>
+                        <ComboBox Grid.Row="0" Grid.Column="1" Text="{Binding SearchFor}" IsEditable="True" x:Name="tbSearchFor" ItemsSource="{Binding FastSearchBookmarks}" Style="{DynamicResource MultilineComboBoxStyle}"
                                         FontFamily="Consolas" FontSize="12" TabIndex="5" my:DiginesisHelpProvider.HelpKeyword="regular-expressions.html" my:DiginesisHelpProvider.HelpNavigator="Topic" 
                                         my:DiginesisHelpProvider.ShowHelp="True" Padding="5">
                             <ComboBox.ToolTip>
-                                <TextBlock>
-                                                <Run>. matches all characters</Run>
-                                                <LineBreak/>
-                                                <Run>\w matches alpha-numerics</Run>
-                                                <LineBreak/>
-                                                <Run>\d matches digits</Run>
-                                                <LineBreak/>
-                                                <Run>\s matches space</Run>
-                                                <LineBreak/>
-                                                <Run>* matches any number of characters</Run>
-                                                <LineBreak/>
-                                                <Run>{1,3} matches 1 to 3 characters</Run>
-                                                <LineBreak/>
-                                                <Run>For more Regex patterns hit F1</Run>
-                                </TextBlock>
+                                <TextBlock><Run Text=". matches all characters"/><LineBreak/><Run Text="\w matches alpha-numerics"/><LineBreak/><Run Text="\d matches digits"/><LineBreak/><Run Text="\s matches space"/><LineBreak/><Run Text="* matches any number of characters"/><LineBreak/><Run Text="{}{1,3} matches 1 to 3 characters"/><LineBreak/><Run Text="For more Regex patterns hit F1"/></TextBlock>
                             </ComboBox.ToolTip>
                         </ComboBox>
-                        <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center">Replace for:</TextBlock>
-                        <ComboBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=ReplaceWith}" IsEditable="True" Name="tbReplaceWith" ItemsSource="{Binding Path=FastReplaceBookmarks}" Style="{DynamicResource MultilineComboBoxStyle}"
+                        <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"><Run Text="Replace for:"/></TextBlock>
+                        <ComboBox Grid.Row="2" Grid.Column="1" Text="{Binding ReplaceWith}" IsEditable="True" x:Name="tbReplaceWith" ItemsSource="{Binding FastReplaceBookmarks}" Style="{DynamicResource MultilineComboBoxStyle}"
                                                   FontFamily="Consolas" FontSize="12" TabIndex="5" Padding="5">
                             <ComboBox.ToolTip>
-                                <TextBlock>
-										            <Run><![CDATA[$& replaces entire regex]]></Run>
-										            <LineBreak/>
-										            <Run><![CDATA[$1, $2, $3, etc... inserts the text matched between capturing parentheses into the replacement text]]></Run>
-										            <LineBreak/>
-										            <Run><![CDATA[$$ inserts a single dollar sign into the replacement text]]></Run>
-                                </TextBlock>
+                                <TextBlock><Run Text="$&amp; replaces entire regex"/><LineBreak/><Run Text="$1, $2, $3, etc... inserts the text matched between capturing parentheses into the replacement text"/><LineBreak/><Run Text="$$ inserts a single dollar sign into the replacement text"/></TextBlock>
                             </ComboBox.ToolTip>
                         </ComboBox>
                     </Grid>
@@ -150,48 +134,36 @@
 						Width="83" 
 						VerticalAlignment="Top" 
 						HorizontalAlignment="Left"  
-						Margin="3" Command="{Binding Path=BookmarkAddCommand}" TabIndex="54">
-                    <MenuItem Header="Add" Style="{StaticResource DefaultStyle}" Command="{Binding Path=BookmarkAddCommand}"/>
-                    <MenuItem Header="Open" Style="{StaticResource DefaultStyle}" Command="{Binding Path=BookmarkOpenCommand}"/>
+						Margin="3" Command="{Binding BookmarkAddCommand}" TabIndex="54">
+                    <MenuItem Header="Add" Style="{StaticResource DefaultStyle}" Command="{Binding BookmarkAddCommand}"/>
+                    <MenuItem Header="Open" Style="{StaticResource DefaultStyle}" Command="{Binding BookmarkOpenCommand}"/>
                 </splitButton:SplitButton>
                 <StackPanel HorizontalAlignment="Right" Grid.Column="1" Orientation="Horizontal">
-                    <CheckBox IsChecked="{Binding Path=PreviewFileContent}" VerticalAlignment="Center" Margin="0 0 5 0" Name="cbPreviewFile">Preview file</CheckBox>
-                    <splitButton:SplitButton x:Name="btnSearch" Content="Search" Command="{Binding Path=SearchCommand}" 
+                    <CheckBox IsChecked="{Binding PreviewFileContent}" VerticalAlignment="Center" Margin="0 0 5 0" x:Name="cbPreviewFile" Content="Preview file"/>
+                    <splitButton:SplitButton x:Name="btnSearch" Content="Search" Command="{Binding SearchCommand}" 
 						    Grid.Row="0" Grid.Column="0" Width="67" Margin="3" 
-						    Mode="{Binding Path=SearchButtonMode}" IsDefault="True" TabIndex="50">
-                        <MenuItem Name="searchInResultsToolStripMenuItem" Header="Search in results" 
-                                Command="{Binding Path=SearchInResultsCommand}" Style="{StaticResource DefaultStyle}"/>
+						    Mode="{Binding SearchButtonMode}" IsDefault="True" TabIndex="50">
+                        <MenuItem x:Name="searchInResultsToolStripMenuItem" Header="Search in results" 
+                                Command="{Binding SearchInResultsCommand}" Style="{StaticResource DefaultStyle}"/>
                     </splitButton:SplitButton>
-                    <Button Width="64" Margin="3" Content="Replace" Name="btnReplace" Command="{Binding Path=ReplaceCommand}" TabIndex="51" />
-                    <splitButton:SplitButton x:Name="btnOtherActions" Content=">>"
+                    <Button Width="64" Margin="3" Content="Replace" x:Name="btnReplace" Command="{Binding ReplaceCommand}" TabIndex="51" />
+                    <splitButton:SplitButton x:Name="btnOtherActions" Content="&gt;&gt;"
 						    Grid.Row="0" Grid.Column="0"
 						    Width="43" VerticalAlignment="Top"
-						    HorizontalAlignment="Left"  Margin="3" Command="{Binding Path=OtherActionsCommand}" TabIndex="52">
-                        <MenuItem Name="copyFilesToolStripMenuItem" Header="Copy files..." Style="{StaticResource DefaultStyle}" Command="{Binding Path=CopyFilesCommand}"/>
-                        <MenuItem Name="moveFilesToolStripMenuItem" Header="Move files..." Style="{StaticResource DefaultStyle}" Command="{Binding Path=MoveFilesCommand}"/>
-                        <MenuItem Name="deleteFilesToolStripMenuItem" Header="Delete files..." Style="{StaticResource DefaultStyle}" Command="{Binding Path=DeleteFilesCommand}"/>
+						    HorizontalAlignment="Left"  Margin="3" Command="{Binding OtherActionsCommand}" TabIndex="52">
+                        <MenuItem x:Name="copyFilesToolStripMenuItem" Header="Copy files..." Style="{StaticResource DefaultStyle}" Command="{Binding CopyFilesCommand}"/>
+                        <MenuItem x:Name="moveFilesToolStripMenuItem" Header="Move files..." Style="{StaticResource DefaultStyle}" Command="{Binding MoveFilesCommand}"/>
+                        <MenuItem x:Name="deleteFilesToolStripMenuItem" Header="Delete files..." Style="{StaticResource DefaultStyle}" Command="{Binding DeleteFilesCommand}"/>
                         <Separator/>
-                        <MenuItem Name="copyToClipboardToolStripMenuItem" Header="File names to clipboard" Style="{StaticResource DefaultStyle}" Command="{Binding Path=CopyToClipboardCommand}"/>
-                        <MenuItem Name="saveAsCSVToolStripMenuItem" Header="Save as CSV..." Style="{StaticResource DefaultStyle}" Command="{Binding Path=SaveAsCsvCommand}"/>
+                        <MenuItem x:Name="copyToClipboardToolStripMenuItem" Header="File names to clipboard" Style="{StaticResource DefaultStyle}" Command="{Binding CopyToClipboardCommand}"/>
+                        <MenuItem x:Name="saveAsCSVToolStripMenuItem" Header="Save as CSV..." Style="{StaticResource DefaultStyle}" Command="{Binding SaveAsCsvCommand}"/>
                     </splitButton:SplitButton>
-                    <Button Width="64" Margin="3" Content="Cancel" Name="btnCancel" Command="{Binding Path=CancelCommand}" TabIndex="53" />
+                    <Button Width="64" Margin="3" Content="Cancel" x:Name="btnCancel" Command="{Binding CancelCommand}" TabIndex="53" />
                 </StackPanel>
             </Grid>
-            <TreeView Name="tvSearchResult" Grid.Row="3" ItemsSource="{Binding Path=SearchResults}" VirtualizingStackPanel.IsVirtualizing="True"
-                      MouseDoubleClick="tvSearchResult_MouseDoubleClick" PreviewKeyDown="treeKeyDown" SelectedItemChanged="tvSearchResults_SelectedChanged">
-                <TreeView.ContextMenu>
-                    <ContextMenu Opened="tvContexMenuOpening">
-                        <MenuItem Header="Open" Click="btnOpenFile_Click"/>
-                        <MenuItem Header="Open containing folder" Click="btnOpenContainingFolder_Click"/>
-                        <MenuItem Header="Show file properties" Click="btnShowFileProperties_Click"/>
-                        <MenuItem Name="btnCopyFileNameClipboard" Header="File name to clipboard" Click="btnCopyNameToClipboard_Click"/>
-                        <MenuItem Name="btnCopyTreeItemClipboard" Header="Full file path to clipboard" Click="btnCopyTreeItemToClipboard_Click"/>
-                        <Separator/>
-                        <MenuItem Header="Exclude from results" Click="btnExclude_Click"/>
-                        <MenuItem Header="Expand all" Click="btnExpandAll_Click"/>
-                        <MenuItem Header="Collapse all" Click="btnCollapseAll_Click"/>
-                    </ContextMenu>
-                </TreeView.ContextMenu>
+            <TreeView x:Name="tvSearchResult" Grid.Row="3" ItemsSource="{Binding SearchResults}" VirtualizingStackPanel.IsVirtualizing="True"
+                      MouseDoubleClick="tvSearchResult_MouseDoubleClick" PreviewKeyDown="treeKeyDown" SelectedItemChanged="tvSearchResults_SelectedChanged"
+                      HorizontalContentAlignment="Stretch">
                 <TreeView.Resources>
                     <LinearGradientBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" EndPoint="0,1" StartPoint="0,0">
                         <GradientStop Color="#FFD9F4FF" Offset="0"/>
@@ -203,7 +175,7 @@
                     </LinearGradientBrush>
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
                     <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="Black" />
-                    <HierarchicalDataTemplate DataType="{x:Type my:FormattedGrepResult}" ItemsSource="{Binding Path=FormattedLines}" >
+                    <HierarchicalDataTemplate DataType="{x:Type my:FormattedGrepResult}" ItemsSource="{Binding FormattedLines}" >
                         <VirtualizingStackPanel Orientation="Horizontal">
                             <Image Source="{Binding Icon}"/>
                             <TextBlock Text="{Binding Label}" Margin="3,0,0,0"/>
@@ -212,47 +184,106 @@
                     <DataTemplate DataType="{x:Type my:FormattedGrepLine}">
                         <WrapPanel>
                             <WrapPanel.Resources>
-                                <Style TargetType="TextBlock">
+                                <Style TargetType="{x:Type TextBlock}">
                                     <Style.Triggers>
-                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}, Path=IsSelected}" Value="True">
+                                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}}" Value="True">
                                             <Setter Property="Background" Value="#FFD2D2D2"/>
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}, Path=IsSelected}" Value="False">
+                                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}}" Value="False">
                                             <Setter Property="Background" Value="#FFE0E0E0"/>
                                         </DataTrigger>
-                                        <DataTrigger Binding="{Binding Path=Style}" Value="Empty">
+                                        <DataTrigger Binding="{Binding Style}" Value="Empty">
                                             <Setter Property="Background" Value="White"/>
                                         </DataTrigger>
                                     </Style.Triggers>
                                 </Style>
                             </WrapPanel.Resources>
-                            <TextBlock Margin="-2,0,0,0" Width="{Binding LineNumberColumnWidth}" Text="{Binding FormattedLineNumber}"/>
-                            <my:InlineTextBlock Margin="3,0,0,0" InlineCollection="{Binding FormattedText}"/>
+                            <TextBlock Margin="-3" Width="{Binding LineNumberColumnWidth}" Text="{Binding FormattedLineNumber}"/>
+                            <my:InlineTextBlock Margin="3,0,0,0" InlineCollection="{Binding FormattedText}" FontFamily="Consolas"/>
                         </WrapPanel>
                     </DataTemplate>
                 </TreeView.Resources>
+                <TreeView.ContextMenu>
+                    <ContextMenu Opened="tvContexMenuOpening">
+                        <MenuItem Header="Open" Click="btnOpenFile_Click"/>
+                        <MenuItem Header="Open containing folder" Click="btnOpenContainingFolder_Click"/>
+                        <MenuItem Header="Show file properties" Click="btnShowFileProperties_Click"/>
+                        <MenuItem x:Name="btnCopyFileNameClipboard" Header="File name to clipboard" Click="btnCopyNameToClipboard_Click"/>
+                        <MenuItem x:Name="btnCopyTreeItemClipboard" Header="Full file path to clipboard" Click="btnCopyTreeItemToClipboard_Click"/>
+                        <Separator/>
+                        <MenuItem Header="Exclude from results" Click="btnExclude_Click"/>
+                        <MenuItem Header="Expand all" Click="btnExpandAll_Click"/>
+                        <MenuItem Header="Collapse all" Click="btnCollapseAll_Click"/>
+                    </ContextMenu>
+                </TreeView.ContextMenu>
                 <TreeView.ItemContainerStyle>
-                    <Style TargetType="TreeViewItem">
+                    <Style TargetType="{x:Type TreeViewItem}">
                         <EventSetter
-                        Event="TreeViewItem.MouseRightButtonDown"
+                        Event="UIElement.MouseRightButtonDown"
                         Handler="tvSearchResult_MouseDown"/>
                         <EventSetter
-                        Event="TreeViewItem.PreviewMouseLeftButtonDown"
+                        Event="UIElement.PreviewMouseLeftButtonDown"
                         Handler="tvSearchResult_PreviewMouseLeftButtonDown"/>
                         <EventSetter
-                        Event="TreeViewItem.PreviewMouseMove"
+                        Event="UIElement.PreviewMouseMove"
                         Handler="tvSearchResult_PreviewMouseMove"/>
-                        <Setter Property="IsExpanded" Value="{Binding Path=IsExpanded, Mode=TwoWay}"/>
+                        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
                         <Setter Property="FontSize" Value="12"/>
                         <Setter Property="BorderThickness" Value="1.5"/>
+                        <Setter Property="Padding" Value="1"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type TreeViewItem}">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition MinWidth="19" Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <ToggleButton x:Name="Expander" Style="{StaticResource ExpandCollapseToggleStyle}" ClickMode="Press" IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"/>
+                                        <Border x:Name="Bd" SnapsToDevicePixels="true" Grid.Column="1" Grid.ColumnSpan="2" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
+                                            <ContentPresenter x:Name="PART_Header" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" ContentSource="Header"/>
+                                        </Border>
+                                        <ItemsPresenter x:Name="ItemsHost" Grid.Column="1"  Grid.ColumnSpan="2"  Grid.Row="1"/>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsExpanded" Value="false">
+                                            <Setter Property="Visibility" TargetName="ItemsHost" Value="Collapsed"/>
+                                        </Trigger>
+                                        <Trigger Property="HasItems" Value="false">
+                                            <Setter Property="Visibility" TargetName="Expander" Value="Hidden"/>
+                                        </Trigger>
+                                        <Trigger Property="IsSelected" Value="true">
+                                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
+                                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+                                        </Trigger>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="IsSelected" Value="true"/>
+                                                <Condition Property="IsSelectionActive" Value="false"/>
+                                            </MultiTrigger.Conditions>
+                                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                                        </MultiTrigger>
+                                        <Trigger Property="IsEnabled" Value="false">
+                                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding Path=Style}" Value="Context">
+                            <DataTrigger Binding="{Binding Style}" Value="Context">
                                 <Setter Property="Foreground" Value="DarkGray"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding Path=Style}" Value="ReadOnly">
+                            <DataTrigger Binding="{Binding Style}" Value="ReadOnly">
                                 <Setter Property="Foreground" Value="DarkGray"/>
                             </DataTrigger>
-                            <DataTrigger Binding="{Binding Path=Style}" Value="Error">
+                            <DataTrigger Binding="{Binding Style}" Value="Error">
                                 <Setter Property="Foreground" Value="Red"/>
                             </DataTrigger>
                             <Trigger Property="IsSelected" Value="True">
@@ -269,10 +300,10 @@
                     </Style>
                 </TreeView.ItemContainerStyle>
             </TreeView>
-        </DockPanel>        
-        <StatusBar ClipToBounds="False" Grid.Row="4" Name="statusBar">
-            <ProgressBar Name="barProgressBar" Height="18" IsIndeterminate="{Binding Path=IsOperationInProgress}" Width="150" />
-            <TextBlock Name="lblStatus" Text="{Binding Path=StatusMessage}" />
+        </DockPanel>
+        <StatusBar ClipToBounds="False" Grid.Row="4" x:Name="statusBar">
+            <ProgressBar x:Name="barProgressBar" Height="18" IsIndeterminate="{Binding IsOperationInProgress}" Width="150" />
+            <TextBlock x:Name="lblStatus" Text="{Binding StatusMessage}" />
         </StatusBar>
     </Grid>
 </Window>

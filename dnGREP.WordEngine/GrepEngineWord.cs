@@ -27,9 +27,7 @@ namespace dnGREP.Engines.Word
 		private object MISSING_VALUE = System.Reflection.Missing.Value;
 
 		#region Initialization and disposal
-		public GrepEngineWord(GrepEngineInitParams param)
-			:
-			base(param)
+		public GrepEngineWord()
 		{
 			try
 			{

@@ -40,11 +40,6 @@ namespace dnGREP.Engines.Pdf
 			}
 		}
 
-		public GrepEnginePdf(GrepEngineInitParams param)
-			:
-			base(param)
-		{ }
-
 		#endregion
 
 		public bool IsSearchOnly

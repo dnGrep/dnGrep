@@ -160,8 +160,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="MVHelpers\CodeSnippet.cs" />
+    <Compile Include="MVHelpers\LazyResultsList.cs" />
     <Compile Include="MVHelpers\PixelBasedScrollingBehavior.cs" />
-    <Compile Include="MVHelpers\RichTextBoxHelper.cs" />
     <Compile Include="MVHelpers\SnippetLineNumber.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="UserControls\FolderSelectDropdown.xaml.cs">

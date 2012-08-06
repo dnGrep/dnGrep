@@ -7,29 +7,53 @@ using System.ComponentModel;
 
 namespace dnGREP.WPF
 {
-    public class PreviewViewModel : INotifyPropertyChanged
+    public class PreviewViewModel : ViewModelBase, INotifyPropertyChanged
     {
+        private bool isVisible;
+        public bool IsVisible
+        {
+            get { return isVisible; }
+            set
+            {
+                if (value == isVisible)
+                    return;
+
+                isVisible = value;
+
+                base.OnPropertyChanged(() => IsVisible);
+            }
+        }
+
         private Visibility isLargeOrBinary;
-        public Visibility IsLargeOrBinary { 
-            get { return isLargeOrBinary;}
-            set { isLargeOrBinary = value; RaisePropertyChanged("IsLargeOrBinary"); }
+        public Visibility IsLargeOrBinary
+        {
+            get { return isLargeOrBinary; }
+            set
+            {
+                if (value == isLargeOrBinary)
+                    return;
+
+                isLargeOrBinary = value;
+
+                base.OnPropertyChanged(() => IsLargeOrBinary);
+            }
         }
 
         private string currentSyntax;
         public string CurrentSyntax
         {
             get { return currentSyntax; }
-            set { currentSyntax = value; RaisePropertyChanged("CurrentSyntax"); }
+            set
+            {
+                if (value == currentSyntax)
+                    return;
+
+                currentSyntax = value;
+
+                base.OnPropertyChanged(() => CurrentSyntax);
+            }
         }
 
         public List<string> Highlighters { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void RaisePropertyChanged(string propertyName)
-        {
-            if (this.PropertyChanged != null)
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }
     }
 }

@@ -13,6 +13,7 @@ using System.Windows;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
 using dnGREP.Common.UI;
+using dnGREP.WPF.MVHelpers;
 
 namespace dnGREP.WPF
 {
@@ -164,7 +165,11 @@ namespace dnGREP.WPF
         public bool IsExpanded
         {
             get { return isExpanded; }
-            set { isExpanded = value; OnPropertyChanged("IsExpanded"); }
+            set { 
+                isExpanded = value;
+                if (value == true)
+                    FormattedLines.Load();  
+                OnPropertyChanged("IsExpanded"); }
         }
 
 		private int lineNumberColumnWidth = 30;
@@ -182,8 +187,8 @@ namespace dnGREP.WPF
             set { icon = value; }
         }
 
-		private List<FormattedGrepLine> formattedLines = new List<FormattedGrepLine>();
-		public List<FormattedGrepLine> FormattedLines
+        private LazyResultsList formattedLines;
+        public LazyResultsList FormattedLines
 		{
 			get { return formattedLines; }
 		}
@@ -228,28 +233,15 @@ namespace dnGREP.WPF
                 style = "Error";
             }
 
-            if (result.Matches != null && result.Matches.Count > 0)
-            {
-                int currentLine = -1;
-                var linesWithContext = result.GetLinesWithContext(GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
-                    GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter));
-                for (int i = 0; i < linesWithContext.Count; i++)
-                {
-                    GrepSearchResult.GrepLine line = linesWithContext[i];
-
-                    currentLine = line.LineNumber;
-                    if (currentLine <= 999 && LineNumberColumnWidth < 30)
-                        LineNumberColumnWidth = 30;
-                    else if (currentLine > 999 && LineNumberColumnWidth < 35)
-                        LineNumberColumnWidth = 35;
-                    else if (currentLine > 9999 && LineNumberColumnWidth < 47)
-                        LineNumberColumnWidth = 47;
-                    else if (currentLine > 99999 && LineNumberColumnWidth < 50)
-                        LineNumberColumnWidth = 50;
-                    formattedLines.Add(new FormattedGrepLine(line, this, LineNumberColumnWidth));
-                }
-            }
+            formattedLines = new LazyResultsList(result, this);
+            formattedLines.LineNumberColumnWidthChanged += formattedLines_PropertyChanged;
 		}
+
+        void formattedLines_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "LineNumberColumnWidth")
+                LineNumberColumnWidth = formattedLines.LineNumberColumnWidth;
+        }
 
         #region PropertyChanged Members
         // Create the OnPropertyChanged method to raise the event
@@ -291,21 +283,7 @@ namespace dnGREP.WPF
             }
 		}
 
-        private SyntaxHighlighterViewModel previewViewModel;
-
-        public SyntaxHighlighterViewModel PreviewViewModel
-        {
-            get {
-                if (previewViewModel == null)
-                    previewViewModel = new SyntaxHighlighterViewModel();
-                previewViewModel.Text = GrepLine.LineText;
-                previewViewModel.LineNumbers = new int[] { GrepLine.LineNumber };
-                return previewViewModel; 
-            }
-        }
-
-
-		private string style = "";
+        private string style = "";
 		public string Style
 		{
 			get { return style; }
@@ -355,18 +333,18 @@ namespace dnGREP.WPF
         private InlineCollection formatLine(GrepSearchResult.GrepLine line)
         {
             Paragraph paragraph = new Paragraph();
-            var font = new FontFamily("Consolas");
- 
+
+            string fullLine = line.LineText;
+
             if (line.Matches.Count == 0)
             {
-                Run mainRun = new Run(line.LineText);
+                Run mainRun = new Run(fullLine);
                 paragraph.Inlines.Add(mainRun);
             }
             else
             {
                 int counter = 0;
-                string fullLine = line.LineText;
-				GrepSearchResult.GrepMatch[] lineMatches = new GrepSearchResult.GrepMatch[line.Matches.Count];
+                GrepSearchResult.GrepMatch[] lineMatches = new GrepSearchResult.GrepMatch[line.Matches.Count];
 				line.Matches.CopyTo(lineMatches);
 				foreach (GrepSearchResult.GrepMatch m in lineMatches)
                 {
@@ -385,13 +363,11 @@ namespace dnGREP.WPF
                         }
 
                         Run regularRun = new Run(regLine);
-                        regularRun.FontFamily = font;
                         paragraph.Inlines.Add(regularRun);
 
                         if (fmtLine != null)
                         {
                             Run highlightedRun = new Run(fmtLine);
-                            highlightedRun.FontFamily = font;
                             highlightedRun.Background = Brushes.Yellow;
                             paragraph.Inlines.Add(highlightedRun);
                         }
@@ -403,7 +379,6 @@ namespace dnGREP.WPF
                     catch (Exception e)
                     {
                         Run regularRun = new Run(fullLine);
-                        regularRun.FontFamily = font;
                         paragraph.Inlines.Add(regularRun);
                     }
                     finally
@@ -417,13 +392,11 @@ namespace dnGREP.WPF
                     {
                         string regLine = fullLine.Substring(counter);
                         Run regularRun = new Run(regLine);
-                        regularRun.FontFamily = font;
                         paragraph.Inlines.Add(regularRun);
                     }
                     catch (Exception e)
                     {
                         Run regularRun = new Run(fullLine);
-                        regularRun.FontFamily = font;
                         paragraph.Inlines.Add(regularRun);
                     }
                 }
