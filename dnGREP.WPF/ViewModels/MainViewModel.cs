@@ -30,6 +30,12 @@ namespace dnGREP.WPF
 
 		public MainViewModel()
 		{
+            searchResults = new ObservableGrepSearchResults();
+            searchResults.PreviewFileLineRequest += searchResults_PreviewFileLineRequest;
+            searchResults.PreviewFileRequest += searchResults_PreviewFileRequest;
+            searchResults.OpenFileLineRequest += searchResults_OpenFileLineRequest;
+            searchResults.OpenFileRequest += searchResults_OpenFileRequest;
+
             ve.RetrievedVersion += ve_RetrievedVersion;
             this.RequestClose += MainViewModel_RequestClose;
             this.PropertyChanged += MainViewModel_PropertyChanged;
@@ -40,8 +46,28 @@ namespace dnGREP.WPF
             LoadSettings();
             checkVersion();
             winFormControlsInit();
-            populateEncodings();
+            populateEncodings();            
 		}
+
+        void searchResults_OpenFileRequest(object sender, MVHelpers.GrepResultEventArgs e)
+        {
+            OpenFile(e.FormattedGrepResult);
+        }
+
+        void searchResults_OpenFileLineRequest(object sender, MVHelpers.GrepLineEventArgs e)
+        {
+            OpenFile(e.FormattedGrepLine);
+        }
+
+        void searchResults_PreviewFileRequest(object sender, MVHelpers.GrepResultEventArgs e)
+        {
+            PreviewFile(e.FormattedGrepResult, e.ParentWindowSize);
+        }
+
+        void searchResults_PreviewFileLineRequest(object sender, MVHelpers.GrepLineEventArgs e)
+        {
+            PreviewFile(e.FormattedGrepLine, e.ParentWindowSize);
+        }
 
         #region Private Variables and Properties
         private XmlDocument doc = new XmlDocument();
@@ -84,7 +110,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private ObservableGrepSearchResults searchResults = new ObservableGrepSearchResults();
+        private ObservableGrepSearchResults searchResults;
         public ObservableGrepSearchResults SearchResults
         {
             get

@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Collections.ObjectModel;
-using dnGREP.Common;
-using System.Windows.Documents;
-using System.Windows.Media;
-using System.IO;
-using System.Collections.Specialized;
-using System.Windows.Media.Imaging;
-using System.Windows;
-using System.Runtime.InteropServices;
-using System.ComponentModel;
+﻿using dnGREP.Common;
 using dnGREP.Common.UI;
 using dnGREP.WPF.MVHelpers;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Windows;
+using System.Windows.Documents;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace dnGREP.WPF
 {
@@ -97,21 +97,30 @@ namespace dnGREP.WPF
             }
         }
 
-        //#region PropertyChanged Members
-        //// Create the OnPropertyChanged method to raise the event
-        //protected void OnFunctionCalled(string name)
-        //{
-        //    FunctionCallEventHandler handler = FunctionCalled;
-        //    if (handler != null)
-        //    {
-        //        handler(this, new PropertyChangedEventArgs(name));
-        //    }
-        //}
+        public event EventHandler<GrepLineEventArgs> OpenFileLineRequest;
+        public event EventHandler<GrepResultEventArgs> OpenFileRequest;
+        public event EventHandler<GrepLineEventArgs> PreviewFileLineRequest;
+        public event EventHandler<GrepResultEventArgs> PreviewFileRequest;
 
-        //public event FunctionCallEventHandler FunctionCalled;
-        //public delegate void FunctionCallEventHandler(object sender, PropertyChangedEventArgs e);
+        public void OpenFile(FormattedGrepLine line)
+        {
+            OpenFileLineRequest(this, new GrepLineEventArgs { FormattedGrepLine = line });
+        }
 
-        //#endregion
+        public void OpenFile(FormattedGrepResult line)
+        {
+            OpenFileRequest(this, new GrepResultEventArgs { FormattedGrepResult = line });
+        }
+
+        public void PreviewFile(FormattedGrepLine line, System.Drawing.RectangleF windowSize)
+        {
+            PreviewFileLineRequest(this, new GrepLineEventArgs { FormattedGrepLine = line, ParentWindowSize = windowSize });
+        }
+
+        public void PreviewFile(FormattedGrepResult line, System.Drawing.RectangleF windowSize)
+        {
+            PreviewFileRequest(this, new GrepResultEventArgs { FormattedGrepResult = line, ParentWindowSize = windowSize });
+        }
 	}
 
     public class FormattedGrepResult : INotifyPropertyChanged
