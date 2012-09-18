@@ -1,0 +1,7 @@
+* Fix XPath
+* Get archive/doc to work
+* Check performance when tree items are disposed
+* Replace buttons
+
+Future:
+* Implement table/snippet view
