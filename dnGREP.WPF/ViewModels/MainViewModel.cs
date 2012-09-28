@@ -80,6 +80,7 @@ namespace dnGREP.WPF
         private BookmarksForm bookmarkForm;
         private System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
         private PreviewView preview;
+        private PreviewViewModel previewModel;
         private StickyWindow stickyWindow;
 
         private GrepSettings settings
@@ -95,18 +96,18 @@ namespace dnGREP.WPF
         //    get { return codeSnippets; }
         //}
 
-        private SyntaxHighlighterViewModel previewModel;
-        public SyntaxHighlighterViewModel PreviewModel
+        private SyntaxHighlighterViewModel contentPreviewModel;
+        public SyntaxHighlighterViewModel ContentPreviewModel
         {
-            get { return previewModel; }
+            get { return contentPreviewModel; }
             set
             {
-                if (value == previewModel)
+                if (value == contentPreviewModel)
                     return;
 
-                previewModel = value;
+                contentPreviewModel = value;
 
-                base.OnPropertyChanged(() => PreviewModel);
+                base.OnPropertyChanged(() => ContentPreviewModel);
             }
         }
 
@@ -1655,7 +1656,7 @@ namespace dnGREP.WPF
                 previewViewModel.LineNumbers = lines.ToArray();
                 previewViewModel.SearchResult = result.GrepResult;
                 previewViewModel.FileName = result.GrepResult.FileNameDisplayed;
-                PreviewModel = previewViewModel;
+                ContentPreviewModel = previewViewModel;
             }           
         }
 
@@ -1919,7 +1920,7 @@ namespace dnGREP.WPF
                     if (System.IO.Path.IsPathRooted(clipboard))
                         fileFolderDialog.SelectedPath = clipboard;
                 }
-                catch (Exception ex)
+                catch
                 {
                     // Ignore
                 }
@@ -2390,9 +2391,15 @@ namespace dnGREP.WPF
         {
             if (PreviewFileContent)
             {
+                if (previewModel == null)
+                {
+                    previewModel = new PreviewViewModel();
+                }
+            
                 if (preview == null)
                 {
                     preview = new PreviewView();
+                    preview.DataContext = previewModel;
                     System.Drawing.Rectangle bounds = settings.Get<System.Drawing.Rectangle>(GrepSettings.Key.PreviewWindowSize);
                     if (bounds.Left == 0 && bounds.Right == 0)
                     {
@@ -2411,7 +2418,9 @@ namespace dnGREP.WPF
                         preview.Top = bounds.Top;
                     }
                 }
-                preview.Show(filePath, result, line);
+                previewModel.GrepResult = result;
+                previewModel.LineNumber = line;
+                previewModel.FilePath = filePath;
             }  
         }
         #endregion

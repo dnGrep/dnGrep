@@ -54,7 +54,7 @@ namespace dnGREP.WPF
                                 element.TextRunProperties.SetBackgroundBrush(new SolidColorBrush(Colors.Yellow));
                             });
                     }
-                    catch (Exception ex)
+                    catch
                     {
                         // Do nothing
                     }

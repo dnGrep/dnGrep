@@ -4,11 +4,37 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.ComponentModel;
+using dnGREP.Common;
+using System.IO;
+using ICSharpCode.AvalonEdit.Highlighting;
+using System.Xml;
+using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 
 namespace dnGREP.WPF
 {
     public class PreviewViewModel : ViewModelBase, INotifyPropertyChanged
     {
+        public PreviewViewModel()
+        {
+            this.PropertyChanged += PreviewViewModel_PropertyChanged;
+
+            highlightDefinitions = new Dictionary<string, IHighlightingDefinition>();
+            Highlighters = new List<string>();
+            foreach (var hl in HighlightingManager.Instance.HighlightingDefinitions)
+            {
+                highlightDefinitions[hl.Name] = hl;
+                Highlighters.Add(hl.Name);
+            }
+            Highlighters.Add("SQL");
+            highlightDefinitions["SQL"] = loadHighlightingDefinition("sqlmode.xshd");
+            Highlighters.Sort();
+            Highlighters.Insert(0, "None");
+            CurrentSyntax = "None";
+        }
+
+        #region Properties and Events
+        public event EventHandler<ShowEventArgs> ShowPreview;
+
         private bool isVisible;
         public bool IsVisible
         {
@@ -55,5 +81,127 @@ namespace dnGREP.WPF
         }
 
         public List<string> Highlighters { get; set; }
+        
+        private string filePath;
+        public string FilePath
+        {
+            get { return filePath; }
+            set
+            {
+                if (value == filePath)
+                    return;
+
+                filePath = value;
+
+                base.OnPropertyChanged(() => FilePath);
+            }
+        }
+
+        private GrepSearchResult grepResult;
+        public GrepSearchResult GrepResult
+        {
+            get { return grepResult; }
+            set
+            {
+                if (value == grepResult)
+                    return;
+
+                grepResult = value;
+
+                base.OnPropertyChanged(() => GrepResult);
+            }
+        }
+
+        private int lineNumber;
+        public int LineNumber
+        {
+            get { return lineNumber; }
+            set
+            {
+                if (value == lineNumber)
+                    return;
+
+                lineNumber = value;
+
+                base.OnPropertyChanged(() => LineNumber);
+            }
+        }
+
+        private IHighlightingDefinition highlightingDefinition;
+        public IHighlightingDefinition HighlightingDefinition
+        {
+            get 
+            {
+                if (highlightDefinitions.ContainsKey(CurrentSyntax))
+                    return highlightDefinitions[CurrentSyntax];
+                else
+                    return HighlightingManager.Instance.GetDefinitionByExtension("txt");
+            }
+        }
+        #endregion
+
+        void PreviewViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            UpdateState(e.PropertyName);
+        }
+
+        private Dictionary<string, IHighlightingDefinition> highlightDefinitions { get; set; }
+
+        #region Public Methods
+        public virtual void UpdateState(string name)
+        {
+            if (name == "FilePath")
+            {                
+                if (!string.IsNullOrEmpty(filePath) &&
+                    File.Exists(FilePath))
+                {
+                    // Set current definition
+                    var fileInfo = new FileInfo(FilePath);
+                    var definition = HighlightingManager.Instance.GetDefinitionByExtension(fileInfo.Extension);
+                    if (definition != null)
+                        CurrentSyntax = definition.Name;
+                    else
+                        CurrentSyntax = "None";
+
+                    // Do not preview files over 1MB or binary
+                    if (fileInfo.Length > 1024000 ||
+                        Utils.IsBinary(FilePath))
+                    {
+                        IsLargeOrBinary = System.Windows.Visibility.Visible;
+                    }
+                    else
+                    {
+                        IsLargeOrBinary = System.Windows.Visibility.Collapsed;
+                    }
+
+                    // Tell View to show window
+                    ShowPreview(this, new ShowEventArgs { ClearContent = true});
+                }
+            }
+
+            if (name == "LineNumber") 
+            {
+                // Tell View to show window but not clear content
+                ShowPreview(this, new ShowEventArgs { ClearContent = false });
+            }
+        }
+        #endregion
+
+        #region Private Methods
+        private IHighlightingDefinition loadHighlightingDefinition(
+            string resourceName)
+        {
+            var type = typeof(PreviewView);
+            var fullName = type.Namespace + "." + resourceName;
+            using (var stream = type.Assembly.GetManifestResourceStream(fullName))
+            using (var reader = new XmlTextReader(stream))
+                return HighlightingLoader.Load(reader, HighlightingManager.Instance);
+        }
+        #endregion
+    }
+
+    public class ShowEventArgs : EventArgs
+    {
+        public bool ClearContent { get; set; }
     }
 }

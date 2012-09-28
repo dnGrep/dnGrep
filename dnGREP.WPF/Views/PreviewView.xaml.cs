@@ -25,44 +25,19 @@ namespace dnGREP.WPF
     /// </summary>
     public partial class PreviewView : Window
     {
-        private int line;
-        private GrepSearchResult grepResult;
-        private Dictionary<string, IHighlightingDefinition> highlightDefinitions = new Dictionary<string,IHighlightingDefinition>();
-        private string currentFile;
         private bool forceClose = false;
         internal StickyWindow StickyWindow;
-        private PreviewViewModel inputData = new PreviewViewModel();
-        
+        private PreviewViewModel inputData;
+
         public PreviewView()
         {
             InitializeComponent();
-            inputData.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(inputData_PropertyChanged);
-            inputData.Highlighters = new List<string>();
-            foreach (var hl in HighlightingManager.Instance.HighlightingDefinitions)
-            {
-                highlightDefinitions[hl.Name] = hl;
-                inputData.Highlighters.Add(hl.Name);
-            }
-            inputData.Highlighters.Add("SQL");
-            highlightDefinitions["SQL"] = loadHighlightingDefinition("sqlmode.xshd");
-            inputData.Highlighters.Sort();
-            inputData.Highlighters.Insert(0, "None");
-            inputData.CurrentSyntax = "None";
 
-            this.DataContext = inputData;
+            DataContextChanged += PreviewView_DataContextChanged;
             textEditor.Loaded += new RoutedEventHandler(textEditor_Loaded);
-            this.Loaded += new RoutedEventHandler(window_Loaded);            
-        }
-
-        void inputData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "CurrentSyntax")
-            {
-                textEditor.TextArea.TextView.LineTransformers.Clear();
-                if (highlightDefinitions.ContainsKey(inputData.CurrentSyntax))
-                    textEditor.SyntaxHighlighting = highlightDefinitions[inputData.CurrentSyntax];
-                textEditor.TextArea.TextView.LineTransformers.Add(new PreviewHighlighter(grepResult));
-            }
+            Loaded += new RoutedEventHandler(window_Loaded);
+            cbWrapText.IsChecked = GrepSettings.Instance.Get<bool?>(GrepSettings.Key.PreviewWindowWrap);
+            zoomSlider.Value = GrepSettings.Instance.Get<int>(GrepSettings.Key.PreviewWindowFont);
         }
 
         void window_Loaded(object sender, RoutedEventArgs e)
@@ -77,91 +52,67 @@ namespace dnGREP.WPF
                 UiUtils.CenterWindow(this);
         }
 
+        void PreviewView_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            inputData = this.DataContext as PreviewViewModel;
+            inputData.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(inputData_PropertyChanged);
+            inputData.ShowPreview += inputData_ShowPreview;
+        }
+
+        void inputData_ShowPreview(object sender, ShowEventArgs e)
+        {
+            if (!e.ClearContent)
+            {
+                if (textEditor.IsLoaded)
+                {
+                    textEditor.ScrollTo(inputData.LineNumber, 0);
+                }
+
+            }
+            else
+            {
+                textEditor.Clear();
+                textEditor.SyntaxHighlighting = inputData.HighlightingDefinition;
+                for (int i = textEditor.TextArea.TextView.LineTransformers.Count - 1; i >= 0; i--)
+                {
+                    if (textEditor.TextArea.TextView.LineTransformers[i] is PreviewHighlighter)
+                        textEditor.TextArea.TextView.LineTransformers.RemoveAt(i);
+                }
+                textEditor.TextArea.TextView.LineTransformers.Add(new PreviewHighlighter(inputData.GrepResult));
+
+                try
+                {
+                    if (inputData.IsLargeOrBinary != System.Windows.Visibility.Visible)
+                    {
+                        this.Title = string.Format("Previewing \"{0}\"", inputData.FilePath);
+                        textEditor.Load(inputData.FilePath);
+                        if (textEditor.IsLoaded)
+                        {
+                            textEditor.ScrollTo(inputData.LineNumber, 0);
+                        }
+                    }
+                    this.Show();
+                }
+                catch (Exception ex)
+                {
+                    textEditor.Text = "Error opening the file: " + ex.Message;
+                }
+            }
+        }
+
+        void inputData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+
+        }
+
         void textEditor_Loaded(object sender, RoutedEventArgs e)
         {
-            textEditor.ScrollTo(line, 0);
-            cbWrapText.IsChecked = GrepSettings.Instance.Get<bool?>(GrepSettings.Key.PreviewWindowWrap);
-            zoomSlider.Value = GrepSettings.Instance.Get<int>(GrepSettings.Key.PreviewWindowFont);            
+            textEditor.ScrollTo(inputData.LineNumber, 0);
         }
 
         public void ResetTextEditor()
         {
-            currentFile = null;
-            textEditor.TextArea.TextView.LineTransformers.Clear();
-            textEditor.Text = "";
-            this.Hide();
-        }
-
-        public void Show(string pathToFile, GrepSearchResult grepResult, int line)
-        {
-            this.grepResult = grepResult;
-            this.line = line;
-            if (pathToFile != currentFile)
-            {
-                currentFile = pathToFile;
-                textEditor.TextArea.TextView.LineTransformers.Clear();
-                textEditor.SyntaxHighlighting = HighlightingManager.Instance.GetDefinitionByExtension("txt");
-
-                var fileInfo = new FileInfo(pathToFile);
-                // Do not preview files over 1MB or binary
-                if (fileInfo.Length > 1024000 ||
-                    Utils.IsBinary(pathToFile))
-                {
-                    inputData.IsLargeOrBinary = System.Windows.Visibility.Visible;
-                    textEditor.Clear();
-                }
-                else
-                {
-                    inputData.IsLargeOrBinary = System.Windows.Visibility.Collapsed;
-                    try
-                    {
-                        loadFile(pathToFile);
-                    }
-                    catch (Exception ex)
-                    {
-                        textEditor.Text = "Error opening the file: " + ex.Message;
-                    }
-                }
-            }
-            if (textEditor.IsLoaded)
-            {
-                textEditor.ScrollTo(line, 0);
-            }
-            this.Show();
-        }
-
-        private void loadFile(string pathToFile) 
-        {
-            this.Title = string.Format("Previewing \"{0}\"", pathToFile);
-            textEditor.Load(pathToFile);
-            string extension = Path.GetExtension(pathToFile);
-
-            if (!string.IsNullOrEmpty(extension))
-            {
-                if (extension.ToLower() == ".vbs")
-                    extension = ".vb";
-
-                IHighlightingDefinition def = null;
-                if (extension.ToLower() == ".sql")
-                    def = loadHighlightingDefinition("sqlmode.xshd");
-                else
-                    def = HighlightingManager.Instance.GetDefinitionByExtension(extension);
-
-                if (def != null)
-                    inputData.CurrentSyntax = def.Name;
-                else
-                    inputData.CurrentSyntax = "None";
-            }
-        }
-
-        private IHighlightingDefinition loadHighlightingDefinition(
-            string resourceName)
-        {
-            var type = typeof(PreviewView);
-            var fullName = type.Namespace + "." + resourceName;
-            using (var stream = type.Assembly.GetManifestResourceStream(fullName))
-            using (var reader = new XmlTextReader(stream))
-                return HighlightingLoader.Load(reader, HighlightingManager.Instance);
+            this.inputData.FilePath = null;
         }
 
         public void ForceClose()
@@ -206,7 +157,8 @@ namespace dnGREP.WPF
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            loadFile(currentFile);
+            this.Title = string.Format("Previewing \"{0}\"", inputData.FilePath);
+            textEditor.Load(inputData.FilePath);
             inputData.IsLargeOrBinary = System.Windows.Visibility.Collapsed;
         }
     }

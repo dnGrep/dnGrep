@@ -1,7 +1,10 @@
 * Fix XPath
 * Get archive/doc to work
+* ---Fix preview---
+* Make file filter more readable
 * Check performance when tree items are disposed
 * Replace buttons
+* Error (search inside D:\dev\source\sdktools\Mint with All Files and no search for)
 
 Future:
 * Implement table/snippet view
