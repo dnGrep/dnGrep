@@ -612,24 +612,19 @@ namespace Tests
 		[Fact]
 		public void WriteToCsvTest()
 		{
+            Utils.CopyFiles(sourceFolder + "\\TestCase3", destinationFolder + "\\TestCase3", null, null);
 			File.WriteAllText(destinationFolder + "\\test.csv", "hello");
-			List<GrepSearchResult> source = new List<GrepSearchResult>();
-			List<GrepSearchResult.GrepLine> lines = new List<GrepSearchResult.GrepLine>();
-            lines.Add(new GrepSearchResult.GrepLine(12, "hello", false, null));
-            lines.Add(new GrepSearchResult.GrepLine(13, "world", true, null));
-			List<GrepSearchResult.GrepLine> lines2 = new List<GrepSearchResult.GrepLine>();
-            lines2.Add(new GrepSearchResult.GrepLine(11, "and2", true, null));
-            lines2.Add(new GrepSearchResult.GrepLine(12, "hel\"lo2", false, null));
-            lines2.Add(new GrepSearchResult.GrepLine(13, "world2", true, null));
-            Assert.True(false);
-			//source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-code.cs", lines));
-			//source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-plain.txt", lines2));
-			Utils.SaveResultsAsCSV(source, destinationFolder + "\\test.csv");
+            var core = new GrepCore();
+            var results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase3", "*.*"), SearchType.PlainText, "string", GrepSearchOption.None, -1);
+            Assert.Equal(results.Count, 2);
+            Assert.Equal(results[0].SearchResults.Count, 2);
+            Assert.Equal(results[1].SearchResults.Count, 174);
+            Utils.SaveResultsAsCSV(results, destinationFolder + "\\test.csv");
 			string[] stringLines = File.ReadAllLines(destinationFolder + "\\test.csv");
-			Assert.Equal(stringLines.Length, 3);
+			Assert.Equal(stringLines.Length, 177);
 			Assert.Equal(stringLines[0].Split(',')[0].Trim(), "File Name");
-			Assert.Equal(stringLines[1].Split(',')[1].Trim(), "12");
-			Assert.Equal(stringLines[2].Split(',')[2].Trim(), "\"hel\"\"lo2\"");
+			Assert.Equal(stringLines[1].Split(',')[1].Trim(), "1");
+            Assert.Equal(stringLines[2].Split(',')[2].Trim(), "\"\tstring returnedLine = Utils.GetLine(body");
 		}
 
 		[Fact]
