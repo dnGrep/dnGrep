@@ -999,9 +999,9 @@ namespace dnGREP.Common
 			}
 
 			string subBody1 = body.Substring(0, index);
-			string[] lines1 = subBody1.Split(new string[] { "\r\n", "\n", "\r" }, StringSplitOptions.None);
+            string[] lines1 = GetLines(subBody1);
 			string subBody2 = body.Substring(index);
-			string[] lines2 = subBody2.Split(new string[] { "\r\n", "\n", "\r" }, StringSplitOptions.None);
+            string[] lines2 = GetLines(subBody2);
 			lineNumber = lines1.Length;
 			return lines1[lines1.Length - 1] + lines2[0];
 		}
@@ -1027,11 +1027,11 @@ namespace dnGREP.Common
 			}
 
 			string subBody1 = body.Substring(0, index);
-			string[] lines1 = subBody1.Split(new string[] { "\r\n", "\n", "\r" }, StringSplitOptions.None);
+            string[] lines1 = GetLines(subBody1);
 			string subBody2 = body.Substring(index, length);
-			string[] lines2 = subBody2.Split(new string[] { "\r\n", "\n", "\r" }, StringSplitOptions.None);
+            string[] lines2 = GetLines(subBody2);
 			string subBody3 = body.Substring(index + length);
-			string[] lines3 = subBody3.Split(new string[] { "\r\n", "\n", "\r" }, StringSplitOptions.None);
+            string[] lines3 = GetLines(subBody3);
 			for (int i = 0; i < lines2.Length; i++)
 			{
 				string line = "";
@@ -1072,6 +1072,18 @@ namespace dnGREP.Common
 
 			return result;
 		}
+
+        public static string[] GetLines(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return null;
+            }
+            else
+            {
+                return text.Split(new string[] { "\r\n", "\n", "\r" }, StringSplitOptions.None);
+            }
+        }
 
         /// <summary>
         /// Retrieves lines with context based on matches
@@ -1179,13 +1191,13 @@ namespace dnGREP.Common
                                 matches.Add(new GrepSearchResult.GrepMatch(i, startIndex, bodyMatchesClone[0].Length));
                             // First but not last line
                             else if (i == startLine)
-                                matches.Add(new GrepSearchResult.GrepMatch(i, startIndex, tempLine.Length - startIndex));
+                                matches.Add(new GrepSearchResult.GrepMatch(i, startIndex, tempLine.TrimEndOfLine().Length - startIndex));
                             // Middle line
                             else if (i > startLine && i < lineNumber)
-                                matches.Add(new GrepSearchResult.GrepMatch(i, 0, tempLine.Length));
+                                matches.Add(new GrepSearchResult.GrepMatch(i, 0, tempLine.TrimEndOfLine().Length));
                             // Last line
                             else
-                                matches.Add(new GrepSearchResult.GrepMatch(i, 0, bodyMatchesClone[0].Length - tempLinesTotalLength + line.Length));
+                                matches.Add(new GrepSearchResult.GrepMatch(i, 0, bodyMatchesClone[0].Length - tempLinesTotalLength + line.Length + startIndex));
 
                             startRecordingAfterLines = true;
                         }
@@ -1244,7 +1256,7 @@ namespace dnGREP.Common
 				return result;
 
 			List<int> lineNumbers = new List<int>();
-			string[] lines = body.Split(new string[] { "\r\n", "\n", "\r" }, StringSplitOptions.None);
+            string[] lines = GetLines(body);
 			for (int i = foundLine - linesBefore - 1; i <= foundLine + linesAfter - 1; i++)
 			{
 				if (i >= 0 && i < lines.Length && (i + 1) != foundLine)

@@ -148,7 +148,7 @@ namespace dnGREP.Engines
 					{
                         foreach (GrepSearchResult.GrepMatch m in results)
 						{
-                            matches.Add(new GrepSearchResult.GrepMatch(0, m.StartLocation + charCounter, m.Length));
+                            matches.Add(new GrepSearchResult.GrepMatch(0, m.StartLocation + charCounter, (int)m.Length));
 						}
 					}
                     charCounter += line.Length;

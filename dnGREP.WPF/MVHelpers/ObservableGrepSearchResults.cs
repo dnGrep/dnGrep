@@ -385,7 +385,7 @@ namespace dnGREP.WPF
                             break;
                         }
                     }
-                    catch (Exception e)
+                    catch
                     {
                         Run regularRun = new Run(fullLine);
                         paragraph.Inlines.Add(regularRun);

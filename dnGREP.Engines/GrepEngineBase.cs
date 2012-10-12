@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
+using System.Xml.XPath;
 using dnGREP.Common;
 using System.IO;
+using System.Xml.XPath;
+using System.Diagnostics;
 
 namespace dnGREP.Engines
 {
@@ -79,22 +82,241 @@ namespace dnGREP.Engines
 			// Check if file is an XML file
 			if (text.Length > 5 && text.Substring(0, 5).ToLower() == "<?xml")
 			{
-				XmlDocument xmlDoc = new XmlDocument();
-				xmlDoc.LoadXml(text);
-				XmlNodeList xmlNodes = xmlDoc.SelectNodes(searchXPath);
-				string line = "";
-				foreach (XmlNode xmlNode in xmlNodes)
-				{
-					line = xmlNode.OuterXml;
-                    // TODO: Fix XPath
-                    results.Add(new GrepSearchResult.GrepMatch(0, 0, 1));
-				}
+                List<XPathPosition> positions = new List<XPathPosition>();
+                using (StringReader reader = new StringReader(text))
+                {
+                    // Code from http://stackoverflow.com/questions/10606534/how-to-search-xml-files-with-xpath-returning-line-and-column-numbers-of-found
+                    XPathDocument xmlDoc = new XPathDocument(reader);
+                    var xpn = xmlDoc.CreateNavigator();
+                    xpn.MoveToFollowing(XPathNodeType.Element);
+                    var xns = xpn.GetNamespacesInScope(XmlNamespaceScope.All);
+                    var xmngr = new XmlNamespaceManager(xpn.NameTable);
+                    foreach (var key in xns.Keys)
+                        xmngr.AddNamespace(key, xns[key]);
+                    var xpni = xpn.Select(searchXPath, xmngr);
+
+                    int foundCounter = 0;
+                    while (xpni.MoveNext())
+                    {
+                        foundCounter++;
+                        var xn = xpni.Current;
+
+                        var xpathPositions = new XPathPosition();
+                        if (xn.NodeType == System.Xml.XPath.XPathNodeType.Attribute)
+                        {
+                            xpathPositions.EndsOnAttribute = true;
+                            xpathPositions.AttributeName = xn.Name;
+                        }
+                        List<int> currentPositions = new List<int>();
+                        getXpathPositions(xn, ref currentPositions);
+                        if (xpathPositions.EndsOnAttribute)
+                            currentPositions.RemoveAt(currentPositions.Count - 1);
+                        xpathPositions.Path = currentPositions;
+                        positions.Add(xpathPositions);
+                    }
+                }
+                
+                results.AddRange(getFilePositions(text, positions));
 			}
 
 			return results;
 		}
 
-		protected List<GrepSearchResult.GrepMatch> doRegexSearch(string text, string searchPattern, GrepSearchOption searchOptions, bool includeContext)
+        #region XPath helper functions
+        public class XPathPosition
+        {
+            public List<int> Path { get; set; }
+            public bool EndsOnAttribute { get; set; }
+            public string AttributeName { get; set; }
+        }
+
+        /// <summary>
+        /// Evaluates the absolute position of the current node.
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="positions">Lists the number of node in the according level, including root, that is first element. Positions start at 1.</param>
+        private void getXpathPositions(XPathNavigator node, ref List<int> positions)
+        {
+            int pos = 1;
+
+            while (node.MoveToPrevious())
+            {
+                pos++;
+            }
+
+            if (node.MoveToParent())
+            {
+                positions.Insert(0, pos);
+                getXpathPositions(node, ref positions);
+            }
+        }
+
+        private int getAbsoluteCharPosition(int line, int position, string text, List<int> lineLengths, bool leftTrimmed)
+        {
+            if (line > lineLengths.Count)
+                throw new ArgumentException("Error getting absolute char position. Line number too high.");
+            int counter = 0;
+            for (int i = 0; i < line; i++)
+                counter += lineLengths[i];
+            if (!leftTrimmed)
+                return counter + position;
+            else
+            {
+                for (int i = counter + position; i >= 0; i--)
+                {
+                    if (text[i] != '\n' && text[i] != '\r' && text[i] != '\t' && text[i] != ' ' && text[i] != '<' && text[i] != '/')
+                        return i;
+                }
+                return 0;
+            }
+        }
+
+
+        public GrepSearchResult.GrepMatch[] getFilePositions(string text, List<XPathPosition> positions)
+        {
+            bool[] endFound = new bool[positions.Count];
+            // Getting line lengths
+            List<int> lineLengths = new List<int>();
+            using (StringReader reader = new StringReader(text))
+            {
+                while (reader.Peek() >= 0)
+                {
+                    lineLengths.Add(reader.ReadLine(true).Length);
+                }
+            }
+            // These are absolute positions
+            GrepSearchResult.GrepMatch[] results = new GrepSearchResult.GrepMatch[positions.Count];
+            if (positions.Count == 0)
+                return results;
+
+            using (StringReader textReader = new StringReader(text))
+            using (XmlReader reader = XmlReader.Create(textReader))
+            {
+                List<int> currPos = new List<int>();
+                
+                try
+                {
+                    IXmlLineInfo lineInfo = ((IXmlLineInfo)reader);
+                    if (lineInfo.HasLineInfo())
+                    {
+                        bool readyToBreak = false;
+                        // Parse the XML and display each node.
+                        while (reader.Read() && !readyToBreak)
+                        {
+                            switch (reader.NodeType)
+                            {
+                                case XmlNodeType.Element:
+
+                                    if (currPos.Count <= reader.Depth)
+                                    {
+                                        currPos.Add(1);
+                                    }
+                                    else
+                                    {
+                                        currPos[reader.Depth]++;
+                                    }
+                                    
+                                    break;
+
+                                case XmlNodeType.EndElement:
+                                    while (reader.Depth < currPos.Count - 1)
+                                    {
+                                        currPos.RemoveAt(reader.Depth + 1); // currPos.Count - 1 would work too.
+                                    }
+
+                                    for (int i = 0; i < positions.Count; i++)
+                                    {
+                                        if (xPathPositionsMatch(currPos, positions[i].Path))
+                                        {
+                                            endFound[i] = true;
+                                        }
+                                    }
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                            if (reader.NodeType == XmlNodeType.EndElement)
+                            {
+                                for (int i = 0; i < positions.Count; i++)
+                                {
+                                    if (endFound[i] && !xPathPositionsMatch(currPos, positions[i].Path))
+                                    {
+                                        if (results[i] != null)
+                                        {
+                                            results[i].EndPosition = getAbsoluteCharPosition(lineInfo.LineNumber - 1, lineInfo.LinePosition - 3, text, lineLengths, true) + 1;
+                                        }
+                                        endFound[i] = false;
+                                    }                                    
+                                }
+                            }
+
+                            if (reader.NodeType == XmlNodeType.Element)
+                            {
+                                for (int i = 0; i < positions.Count; i++)
+                                {
+                                    if (endFound[i])
+                                    {
+                                        if (results[i] != null)
+                                        {
+                                            results[i].EndPosition = getAbsoluteCharPosition(lineInfo.LineNumber - 1, lineInfo.LinePosition - 3, text, lineLengths, true) + 1;
+                                        }
+                                        endFound[i] = false;
+                                    }
+
+                                    if (xPathPositionsMatch(currPos, positions[i].Path))
+                                    {
+                                        results[i] = new GrepSearchResult.GrepMatch(0, getAbsoluteCharPosition(lineInfo.LineNumber - 1, lineInfo.LinePosition - 2, text, lineLengths, false), 0);
+                                    }
+
+                                    // If empty element (e.g.<element/>)
+                                    if (reader.IsEmptyElement)
+                                    {
+                                        if (xPathPositionsMatch(currPos, positions[i].Path))
+                                        {
+                                            endFound[i] = true;
+                                        }
+                                    }
+                                }
+                            }                            
+                        }
+                    }
+                }
+                finally
+                {
+                    for (int i = 0; i < positions.Count; i++)
+                    {
+                        if (results[i] != null && results[i].Length == 0)
+                            results[i].EndPosition = text.Length - 1;
+                    }
+
+                    reader.Close();
+                }
+                // Close the reader.
+            }
+            return results;
+        }
+
+        private bool xPathPositionsMatch(List<int> currPos, List<int> positions)
+        {
+            if (currPos.Count != positions.Count)
+            {
+                return false; // tree is not yet so deep traversed, like the target node
+            }
+
+            for (int i = 0; i < positions.Count; i++)
+            {
+                if (currPos[i] != positions[i])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        #endregion
+
+        protected List<GrepSearchResult.GrepMatch> doRegexSearch(string text, string searchPattern, GrepSearchOption searchOptions, bool includeContext)
 		{
             RegexOptions regexOptions = RegexOptions.None;
             if ((searchOptions & GrepSearchOption.CaseSensitive) != GrepSearchOption.CaseSensitive)

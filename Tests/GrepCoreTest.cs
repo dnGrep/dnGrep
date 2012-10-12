@@ -124,14 +124,24 @@ namespace Tests
         }
 
 		[Fact]
-		public void TestSearchXPathReturnsCorrectNumber()
+		public void TestSearchXPathReturnsCorrectMatchCount()
 		{
 			Utils.CopyFiles(sourceFolder + "\\TestCase4", destinationFolder + "\\TestCase4", null, null);
 			GrepCore core = new GrepCore();
 			List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase4", "app.config"), SearchType.XPath, "//setting", GrepSearchOption.CaseSensitive | GrepSearchOption.Multiline, -1);
 			Assert.Equal(results.Count, 1);
-			Assert.Equal(results[0].SearchResults.Count, 28);
+			Assert.Equal(results[0].Matches.Count, 28);
 		}
+
+        [Fact]
+        public void TestSearchXPathReturnsCorrectResultsCount()
+        {
+            Utils.CopyFiles(sourceFolder + "\\TestCase4", destinationFolder + "\\TestCase4", null, null);
+            GrepCore core = new GrepCore();
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase4", "app.config"), SearchType.XPath, "//setting", GrepSearchOption.CaseSensitive | GrepSearchOption.Multiline, -1);
+            Assert.Equal(results.Count, 1);
+            Assert.Equal(results[0].SearchResults.Count, 84);
+        }
 
         [Fact]
         public void TestSearchWholeWord_Issue_114_Regex()

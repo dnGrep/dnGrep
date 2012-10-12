@@ -193,12 +193,19 @@ namespace dnGREP.Common
 			#endregion
 		}
 
+        public enum GrepMatchTails
+        {
+            Length,
+            EndPosition,
+            EndOfLineOrFile
+        }
+
 		public class GrepMatch : IComparable<GrepMatch>, IComparable
         {
-            public GrepMatch(int line, int from, int length)
+            public GrepMatch(int line, int start, int length)
             {
                 lineNumber = line;
-                startLocation = from;
+                startLocation = start;
                 this.length = length;
             }
 
@@ -221,7 +228,18 @@ namespace dnGREP.Common
             {
                 get { return length; }
                 set { length = value; }
-			}
+            }
+
+            public int EndPosition
+            {
+                get
+                {
+                    return startLocation + length;
+                }
+                set {
+                    length = value - startLocation;                    
+                }
+            }
 
 			#region IComparable<GrepMatch> Members
 
