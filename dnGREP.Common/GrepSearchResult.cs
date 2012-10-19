@@ -71,20 +71,20 @@ namespace dnGREP.Common
 		}
 
         private List<GrepLine> searchResults;
+        int searchResultsLinesBefore = 0;
+        int searchResultsLinesAfter = 0;
+
+        public bool HasSearchResults
+        {
+            get { return searchResults != null; }
+        }
 
 		public List<GrepLine> SearchResults
 		{
 			get 
             {
-                if (searchResults == null)
-                {
-                    using (FileStream reader = File.Open(FileNameReal, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                    using (StreamReader streamReader = new StreamReader(reader))
-                    {
-                        searchResults = Utils.GetLinesEx(streamReader, bodyMatches, 0, 0);
-                    }
-                }
-                return searchResults; 
+                return GetLinesWithContext(GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
+                    GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter));
             }
             set
             {
@@ -95,11 +95,15 @@ namespace dnGREP.Common
 
         public List<GrepLine> GetLinesWithContext(int linesBefore, int linesAfter)
         {
-            using (FileStream reader = File.Open(FileNameReal, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-            using (StreamReader streamReader = new StreamReader(reader))
+            if (searchResults == null)
             {
-                return Utils.GetLinesEx(streamReader, bodyMatches, linesBefore, linesAfter);
+                using (FileStream reader = File.Open(FileNameReal, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                using (StreamReader streamReader = new StreamReader(reader))
+                {
+                    searchResults = Utils.GetLinesEx(streamReader, bodyMatches, linesBefore, linesAfter);
+                }
             }
+            return searchResults;
         }
 
         private List<GrepSearchResult.GrepMatch> bodyMatches = new List<GrepMatch>();

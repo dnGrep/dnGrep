@@ -31,7 +31,7 @@ namespace dnGREP.WPF
             if (lineNumbers != null && lineNumbers.Length > line.LineNumber - 1)
                 lineNumber = lineNumbers[line.LineNumber - 1];
 
-            var lineResult = result.SearchResults.Find(sr => sr.LineNumber == lineNumber);
+            var lineResult = result.SearchResults.Find(sr => sr.LineNumber == lineNumber && sr.IsContext == false);
 
             if (lineResult != null)
             {

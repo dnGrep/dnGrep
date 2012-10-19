@@ -32,8 +32,16 @@ namespace dnGREP.Engines
 		public virtual bool Initialize(GrepEngineInitParams param)
 		{
             this.showLinesInContext = param.ShowLinesInContext;
-            this.linesBefore = param.LinesBefore;
-            this.linesAfter = param.LinesAfter;
+            if (this.showLinesInContext)
+            {
+                this.linesBefore = param.LinesBefore;
+                this.linesAfter = param.LinesAfter;
+            }
+            else
+            {
+                this.linesBefore = 0;
+                this.linesAfter = 0;
+            }
 			this.fuzzyMatchThreshold = param.FuzzyMatchThreshold;
 			return true;
 		}

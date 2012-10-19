@@ -52,7 +52,18 @@ namespace dnGREP.Engines.Archive
 				foreach (string archiveFileName in Directory.GetFiles(tempFolder, "*.*", SearchOption.AllDirectories))
 				{
                     IGrepEngine engine = GrepEngineFactory.GetSearchEngine(archiveFileName, new GrepEngineInitParams(showLinesInContext, linesBefore, linesAfter, fuzzyMatchThreshold));
-					searchResults.AddRange(engine.Search(archiveFileName, searchPattern, searchType, searchOptions, encoding));					
+                    var innerFileResults = engine.Search(archiveFileName, searchPattern, searchType, searchOptions, encoding);
+					
+                    using (FileStream reader = File.Open(archiveFileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    using (StreamReader streamReader = new StreamReader(reader))
+                    {
+                        foreach (var result in innerFileResults)
+                        {
+                            if (!result.HasSearchResults)
+                                result.SearchResults = Utils.GetLinesEx(streamReader, result.Matches, linesBefore, linesAfter);
+                        }
+                    }
+                    searchResults.AddRange(innerFileResults);
 				}
 
 				foreach (GrepSearchResult result in searchResults)

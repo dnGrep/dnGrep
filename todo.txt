@@ -1,11 +1,13 @@
 * --Fix XPath--
-* Get archive/doc to work
-* ---Fix preview---
+* --Get archive/doc to work--
+* --Fix preview--
+* Preview syntax switch not working
 * Clear preview on new search
 * Make file filter more readable
 * Check performance when tree items are disposed
 * Replace buttons
 * Write to CSV
+* Show errors
 * Error (search inside D:\dev\source\sdktools\Mint with All Files and no search for)
 
 Future:

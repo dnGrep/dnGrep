@@ -23,7 +23,7 @@ namespace dnGREP.Engines.Pdf
 		#region Initialization and disposal
 		public override bool Initialize(GrepEngineInitParams param)
 		{
-			this.fuzzyMatchThreshold = param.FuzzyMatchThreshold;
+            base.Initialize(param);
 			try
 			{
 				// Make sure pdftotext.exe exists
@@ -68,6 +68,16 @@ namespace dnGREP.Engines.Pdf
 
                 IGrepEngine engine = GrepEngineFactory.GetSearchEngine(tempFile, new GrepEngineInitParams(showLinesInContext, linesBefore, linesAfter, fuzzyMatchThreshold));
 				List<GrepSearchResult> results = engine.Search(tempFile, searchPattern, searchType, searchOptions, encoding);
+
+                using (FileStream reader = File.Open(tempFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                using (StreamReader streamReader = new StreamReader(reader))
+                {
+                    foreach (var result in results)
+                    {
+                        result.SearchResults = Utils.GetLinesEx(streamReader, result.Matches, linesBefore, linesAfter);
+                    }
+                }
+
 				foreach (GrepSearchResult result in results)
 				{
 					result.ReadOnly = true;
