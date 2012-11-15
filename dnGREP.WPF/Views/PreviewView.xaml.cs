@@ -84,11 +84,19 @@ namespace dnGREP.WPF
                 {
                     if (inputData.IsLargeOrBinary != System.Windows.Visibility.Visible)
                     {
-                        this.Title = string.Format("Previewing \"{0}\"", inputData.FilePath);
-                        textEditor.Load(inputData.FilePath);
-                        if (textEditor.IsLoaded)
+                        if (!string.IsNullOrWhiteSpace(inputData.FilePath))
                         {
-                            textEditor.ScrollTo(inputData.LineNumber, 0);
+                            this.Title = string.Format("Previewing \"{0}\"", inputData.FilePath);
+                            textEditor.Load(inputData.FilePath);
+                            if (textEditor.IsLoaded)
+                            {
+                                textEditor.ScrollTo(inputData.LineNumber, 0);
+                            }
+                        }
+                        else
+                        {
+                            this.Title = "No files to preview.";
+                            textEditor.Text = "";
                         }
                     }
                     this.Show();

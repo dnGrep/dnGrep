@@ -16,8 +16,6 @@ namespace dnGREP.WPF
     {
         public PreviewViewModel()
         {
-            this.PropertyChanged += PreviewViewModel_PropertyChanged;
-
             highlightDefinitions = new Dictionary<string, IHighlightingDefinition>();
             Highlighters = new List<string>();
             foreach (var hl in HighlightingManager.Instance.HighlightingDefinitions)
@@ -30,6 +28,8 @@ namespace dnGREP.WPF
             Highlighters.Sort();
             Highlighters.Insert(0, "None");
             CurrentSyntax = "None";
+
+            this.PropertyChanged += PreviewViewModel_PropertyChanged;
         }
 
         #region Properties and Events
@@ -151,7 +151,7 @@ namespace dnGREP.WPF
         public virtual void UpdateState(string name)
         {
             if (name == "FilePath")
-            {                
+            {
                 if (!string.IsNullOrEmpty(filePath) &&
                     File.Exists(FilePath))
                 {
@@ -175,7 +175,12 @@ namespace dnGREP.WPF
                     }
 
                     // Tell View to show window
-                    ShowPreview(this, new ShowEventArgs { ClearContent = true});
+                    ShowPreview(this, new ShowEventArgs { ClearContent = true });
+                }
+                else
+                {
+                    // Tell View to show window and clear content
+                    ShowPreview(this, new ShowEventArgs { ClearContent = true });
                 }
             }
 
@@ -183,6 +188,12 @@ namespace dnGREP.WPF
             {
                 // Tell View to show window but not clear content
                 ShowPreview(this, new ShowEventArgs { ClearContent = false });
+            }
+
+            if (name == "CurrentSyntax")
+            {
+                // Tell View to show window and clear content
+                ShowPreview(this, new ShowEventArgs { ClearContent = true });
             }
         }
         #endregion
