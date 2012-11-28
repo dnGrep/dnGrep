@@ -17,7 +17,7 @@ namespace dnGREP.WPF.MVHelpers
         {
             this.result = result;
             this.formattedResult = formattedResult;
-            if (formattedResult.GrepResult.Matches != null && formattedResult.GrepResult.Matches.Count > 0)
+            if ((result.Matches != null && result.Matches.Count > 0) || !result.IsSuccess)
             {
                 GrepSearchResult.GrepLine emptyLine = new GrepSearchResult.GrepLine(-1, "", true, null);
                 this.Add(new FormattedGrepLine(emptyLine, formattedResult, 30));

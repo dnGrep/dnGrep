@@ -207,11 +207,6 @@ namespace dnGREP.WPF
 			grepResult = result;
             fileInfo = new FileInfo(grepResult.FileNameReal);
 
-			if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ExpandResults))
-			{
-				IsExpanded = true;
-			}
-
 			bool isFileReadOnly = Utils.IsReadOnly(grepResult);
             bool isSuccess = grepResult.IsSuccess;
 			
@@ -244,6 +239,11 @@ namespace dnGREP.WPF
 
             formattedLines = new LazyResultsList(result, this);
             formattedLines.LineNumberColumnWidthChanged += formattedLines_PropertyChanged;
+
+            if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ExpandResults))
+            {
+                IsExpanded = true;
+            }
 		}
 
         void formattedLines_PropertyChanged(object sender, PropertyChangedEventArgs e)
