@@ -222,7 +222,7 @@ namespace dnGREP.WPF
             {
                 displayedName = grepResult.FileNameDisplayed.Substring(Utils.GetBaseFolder(folderPath).Length + 1);
             }
-            int lineCount = grepResult.Matches.Count;
+            int lineCount = (grepResult.Matches == null ? 0 : grepResult.Matches.Count);
             if (lineCount > 0)
                 displayedName = string.Format("{0} ({1})", displayedName, lineCount);
             if (isFileReadOnly)

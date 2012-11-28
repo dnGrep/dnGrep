@@ -17,8 +17,11 @@ namespace dnGREP.WPF.MVHelpers
         {
             this.result = result;
             this.formattedResult = formattedResult;
-            GrepSearchResult.GrepLine emptyLine = new GrepSearchResult.GrepLine(-1, "", true, null);
-            this.Add(new FormattedGrepLine(emptyLine, formattedResult, 30));
+            if (formattedResult.GrepResult.Matches != null && formattedResult.GrepResult.Matches.Count > 0)
+            {
+                GrepSearchResult.GrepLine emptyLine = new GrepSearchResult.GrepLine(-1, "", true, null);
+                this.Add(new FormattedGrepLine(emptyLine, formattedResult, 30));
+            }
         }
 
         private int lineNumberColumnWidth = 30;

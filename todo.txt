@@ -4,11 +4,12 @@
 * --Preview syntax switch not working--
 * --Clear preview on new search--
 * --Make file filter more readable--
-* Check performance when tree items are disposed
-* Replace buttons
+* --Check performance when tree items are disposed--
 * --Write to CSV--
 * Show errors
-* Error (search inside D:\dev\source\sdktools\Mint with All Files and no search for)
+* --Error (search inside D:\dev\source\sdktools\Mint with All Files and no search for)--
+* Make sure double click works to open file
+* Replace buttons
 
 Future:
 * Implement table/snippet view

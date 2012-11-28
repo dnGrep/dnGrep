@@ -1095,17 +1095,16 @@ namespace dnGREP.Common
         /// <returns></returns>
         public static List<GrepSearchResult.GrepLine> GetLinesEx(TextReader body, List<GrepSearchResult.GrepMatch> bodyMatches, int beforeLines, int afterLines)
         {
+            if (body == null || bodyMatches == null)
+                return new List<GrepSearchResult.GrepLine>();
+            
             List<GrepSearchResult.GrepMatch> bodyMatchesClone = new List<GrepSearchResult.GrepMatch>(bodyMatches);
             Dictionary<int, GrepSearchResult.GrepLine> results = new Dictionary<int, GrepSearchResult.GrepLine>();
             List<GrepSearchResult.GrepLine> contextLines = new List<GrepSearchResult.GrepLine>();
             Dictionary<int, string> lineStrings = new Dictionary<int, string>();
             List<int> lineNumbers = new List<int>();
             List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
-            if (body == null || bodyMatchesClone == null)
-            {
-                return new List<GrepSearchResult.GrepLine>();
-            }
-
+            
             // Context line (before)
             Queue<string> beforeQueue = new Queue<string>();
             // Contaxt line (after)
