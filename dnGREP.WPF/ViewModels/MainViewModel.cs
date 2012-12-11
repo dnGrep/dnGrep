@@ -441,6 +441,32 @@ namespace dnGREP.WPF
             }
         }
 
+        private bool isBookmarked;
+        public bool IsBookmarked
+        {
+            get { return isBookmarked; }
+            set
+            {
+                if (value == isBookmarked)
+                    return;
+
+                isBookmarked = value;
+
+                base.OnPropertyChanged(() => IsBookmarked);
+                base.OnPropertyChanged(() => IsBookmarkedTooltip);
+            }
+        }
+
+        public string IsBookmarkedTooltip
+        {
+            get {
+                if (!IsBookmarked)
+                    return "Add search pattern to bookmarks";
+                else
+                    return "Clear bookmark";
+            }            
+        }
+
         private bool isCaseSensitiveEnabled;
         public bool IsCaseSensitiveEnabled
         {
@@ -618,6 +644,21 @@ namespace dnGREP.WPF
                 searchButtonMode = value;
 
                 base.OnPropertyChanged(() => SearchButtonMode);
+            }
+        }
+
+        private bool searchInResultsContent;
+        public bool SearchInResultsContent
+        {
+            get { return searchInResultsContent; }
+            set
+            {
+                if (value == searchInResultsContent)
+                    return;
+
+                searchInResultsContent = value;
+
+                base.OnPropertyChanged(() => SearchInResultsContent);
             }
         }
 
@@ -925,40 +966,6 @@ namespace dnGREP.WPF
                 return _browseCommand;
             }
         }
-        RelayCommand _bookmarkAddCommand;
-        /// <summary>
-        /// Returns a command that opens file browse dialog.
-        /// </summary>
-        public ICommand BookmarkAddCommand
-        {
-            get
-            {
-                if (_bookmarkAddCommand == null)
-                {
-                    _bookmarkAddCommand = new RelayCommand(
-                        param => this.bookmarkAdd()
-                        );
-                }
-                return _bookmarkAddCommand;
-            }
-        }
-        RelayCommand _bookmarkOpenCommand;
-        /// <summary>
-        /// Returns a command that opens file browse dialog.
-        /// </summary>
-        public ICommand BookmarkOpenCommand
-        {
-            get
-            {
-                if (_bookmarkOpenCommand == null)
-                {
-                    _bookmarkOpenCommand = new RelayCommand(
-                        param => this.bookmarkOpen()
-                        );
-                }
-                return _bookmarkOpenCommand;
-            }
-        }
         RelayCommand _searchCommand;
         /// <summary>
         /// Returns a command that starts a search.
@@ -975,24 +982,6 @@ namespace dnGREP.WPF
                         );
                 }
                 return _searchCommand;
-            }
-        }
-        RelayCommand _searchInResultsCommand;
-        /// <summary>
-        /// Returns a command that starts a search in results.
-        /// </summary>
-        public ICommand SearchInResultsCommand
-        {
-            get
-            {
-                if (_searchInResultsCommand == null)
-                {
-                    _searchInResultsCommand = new RelayCommand(
-                        param => this.searchInResults(),
-                        param => this.CanSearchInResults
-                        );
-                }
-                return _searchInResultsCommand;
             }
         }
         RelayCommand _replaceCommand;
@@ -1150,8 +1139,41 @@ namespace dnGREP.WPF
                 }
                 return _testCommand;
             }
-        }     
-
+        }
+        RelayCommand _bookmarkAddCommand;
+        /// <summary>
+        /// Returns a command that opens file browse dialog.
+        /// </summary>
+        public ICommand BookmarkAddCommand
+        {
+            get
+            {
+                if (_bookmarkAddCommand == null)
+                {
+                    _bookmarkAddCommand = new RelayCommand(
+                        param => this.bookmarkAdd()
+                        );
+                }
+                return _bookmarkAddCommand;
+            }
+        }
+        RelayCommand _bookmarkOpenCommand;
+        /// <summary>
+        /// Returns a command that opens file browse dialog.
+        /// </summary>
+        public ICommand BookmarkOpenCommand
+        {
+            get
+            {
+                if (_bookmarkOpenCommand == null)
+                {
+                    _bookmarkOpenCommand = new RelayCommand(
+                        param => this.bookmarkOpen()
+                        );
+                }
+                return _bookmarkOpenCommand;
+            }
+        }
         #endregion
 
         #region Public Methods
@@ -1426,6 +1448,14 @@ namespace dnGREP.WPF
             {
                 if (preview != null)
                     preview.Hide();
+            }
+
+            if (IsProperty(() => SearchFor, name) || IsProperty(() => ReplaceWith, name) || IsProperty(() => FilePattern, name))
+            {
+                if (BookmarkLibrary.Instance.Bookmarks.Contains(new Bookmark(SearchFor, ReplaceWith, FilePattern, "")))
+                    IsBookmarked = true;
+                else
+                    IsBookmarked = false;
             }
         }
 
@@ -1944,32 +1974,22 @@ namespace dnGREP.WPF
         {
             if (CurrentGrepOperation == GrepOperation.None && !workerSearchReplace.IsBusy)
             {
-                CurrentGrepOperation = GrepOperation.Search;
+                if (SearchInResultsContent && CanSearchInResults)
+                    CurrentGrepOperation = GrepOperation.SearchInResults;
+                else
+                    CurrentGrepOperation = GrepOperation.Search;
                 StatusMessage = "Searching...";
                 if (preview != null)
                     preview.ResetTextEditor();
-                SearchResults.Clear();
                 Dictionary<string, object> workerParames = new Dictionary<string, object>();
-                workerParames["State"] = this;
-                workerSearchReplace.RunWorkerAsync(workerParames);
-                updateBookmarks();
-            }
-        }
-
-        private void searchInResults()
-        {
-            if (CurrentGrepOperation == GrepOperation.None && !workerSearchReplace.IsBusy)
-            {
-                CurrentGrepOperation = GrepOperation.SearchInResults;
-                StatusMessage = "Searching...";
-                if (preview != null)
-                    preview.ResetTextEditor();
-                List<string> foundFiles = new List<string>();
-                foreach (FormattedGrepResult n in SearchResults) foundFiles.Add(n.GrepResult.FileNameReal);
-                Dictionary<string, object> workerParames = new Dictionary<string, object>();
-                workerParames["State"] = this;
-                workerParames["Files"] = foundFiles;
+                if (SearchInResultsContent && CanSearchInResults)
+                {
+                    List<string> foundFiles = new List<string>();
+                    foreach (FormattedGrepResult n in SearchResults) foundFiles.Add(n.GrepResult.FileNameReal);
+                    workerParames["Files"] = foundFiles;
+                }
                 SearchResults.Clear();
+                workerParames["State"] = this;
                 workerSearchReplace.RunWorkerAsync(workerParames);
                 updateBookmarks();
             }
@@ -2121,16 +2141,29 @@ namespace dnGREP.WPF
 
         private void bookmarkAdd()
         {
-            BookmarkDetails bookmarkEditForm = new BookmarkDetails(CreateOrEdit.Create);
             Bookmark newBookmark = new Bookmark(SearchFor, ReplaceWith, FilePattern, "");
-            bookmarkEditForm.Bookmark = newBookmark;
-            if (bookmarkEditForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (IsBookmarked)
             {
-                if (!BookmarkLibrary.Instance.Bookmarks.Contains(newBookmark))
+                BookmarkDetails bookmarkEditForm = new BookmarkDetails(CreateOrEdit.Create);
+                bookmarkEditForm.Bookmark = newBookmark;
+                if (bookmarkEditForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    BookmarkLibrary.Instance.Bookmarks.Add(newBookmark);
-                    BookmarkLibrary.Save();
+                    if (!BookmarkLibrary.Instance.Bookmarks.Contains(newBookmark))
+                    {
+                        BookmarkLibrary.Instance.Bookmarks.Add(newBookmark);
+                        BookmarkLibrary.Save();
+                    }
                 }
+                if (BookmarkLibrary.Instance.Bookmarks.Contains(newBookmark))
+                    IsBookmarked = true;
+                else
+                    IsBookmarked = false;
+            }
+            else
+            {
+                if (BookmarkLibrary.Instance.Bookmarks.Contains(newBookmark))
+                    BookmarkLibrary.Instance.Bookmarks.Remove(newBookmark);
+                IsBookmarked = false;
             }
         }
 

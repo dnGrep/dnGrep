@@ -153,6 +153,10 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+    <Style x:Key="MetroButton" TargetType="{x:Type CheckBox}">
+		<Setter Property="Width" Value="21"/>
+		<Setter Property="Height" Value="21"/>
+	</Style>
     <Style x:Key="MultilineComboBoxStyle" TargetType="{x:Type ComboBox}">
         <Setter Property="FocusVisualStyle" Value="{StaticResource ComboBoxFocusVisual}"/>
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
@@ -223,4 +227,22 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    <ControlTemplate x:Key="FavsMetroButtonTemplate" TargetType="{x:Type CheckBox}">
+    	<Canvas Margin="0,2,0,0">
+            <Path x:Name="star" Stretch="Fill" StrokeThickness="1" StrokeLineJoin="Round" Stroke="#FF3E3E3E" Fill="{TemplateBinding Background}" 
+				Data="F1 M 12.5926,4.87357L 10.8135,10.5588L 5.02215,10.5473L 9.71401,14.0495L 7.9138,19.7276L 12.5926,16.2069L 17.2714,19.7276L 15.4711,14.0495L 20.163,10.5473L 14.3716,10.5588L 12.5926,4.87357 Z " 
+                Height="17.159" Width="17.453"/>
+            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" 
+                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>         	
+        </Canvas>
+    	<ControlTemplate.Triggers>
+    		<Trigger Property="IsMouseOver" Value="True">
+    			<Setter Property="Fill" TargetName="star" Value="#FFF1EA96"/>
+    		</Trigger>
+    		<Trigger Property="IsChecked" Value="True">
+                <Setter Property="Fill" TargetName="star" Value="#FFF9E61E"/>
+    		</Trigger>
+    	</ControlTemplate.Triggers>
+    </ControlTemplate>
 </ResourceDictionary>

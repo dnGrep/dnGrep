@@ -8,7 +8,8 @@
 * --Write to CSV--
 * --Show errors--
 * --Error (search inside D:\dev\source\sdktools\Mint with All Files and no search for)--
-* Make sure double click works to open file
+* --Make sure double click works to open file--
+* Fix refresh of buttons (search for pattern that does not exist - cancel button is not disapearing)
 * Replace buttons
 
 Future:
