@@ -15,6 +15,16 @@ namespace dnGREP.Common
 			get { return searchResult; }
 			set { searchResult = value; }
 		}
+        private string pattern;
+
+        /// <summary>
+        /// Line number
+        /// </summary>
+        public string Pattern
+        {
+            get { return pattern; }
+            set { pattern = value; }
+        }
 		private int lineNumber;
 
 		/// <summary>
@@ -67,7 +77,7 @@ namespace dnGREP.Common
 			set { useBaseEngine = value; }
 		}
 
-		public OpenFileArgs(GrepSearchResult searchResult, int line, bool useCustomEditor, string customEditor, string customEditorArgs)
+		public OpenFileArgs(GrepSearchResult searchResult, string pattern, int line, bool useCustomEditor, string customEditor, string customEditorArgs)
 			: base()
 		{
 			this.searchResult = searchResult;
@@ -76,10 +86,11 @@ namespace dnGREP.Common
 			this.customEditor = customEditor;
 			this.customEditorArgs = customEditorArgs;
 			this.useBaseEngine = false;
+            this.pattern = pattern;
 		}
 		
 		public OpenFileArgs()
-			: this(null, -1, false, null, null)
+			: this(null, null, -1, false, null, null)
 		{ }
 	}
 }

@@ -49,7 +49,7 @@ namespace dnGREP.Common
 					}
 				}
 			}
-			catch (Exception ex)
+			catch
 			{
 				bookmarks = new BookmarkEntity();
 			}

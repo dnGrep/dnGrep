@@ -258,7 +258,7 @@ namespace dnGREP.Common
                 }
                 return false;
             }
-            catch (Exception ex)
+            catch
             {
                 return false;
             }
@@ -296,7 +296,7 @@ namespace dnGREP.Common
 				}
 				return true;
 			}
-			catch (Exception ex)
+			catch
 			{
 				return false;
 			}
@@ -320,7 +320,7 @@ namespace dnGREP.Common
 				else
 					return null;
 			}
-			catch (Exception ex)
+			catch
 			{
 				return null;
 			}
@@ -795,7 +795,7 @@ namespace dnGREP.Common
                 {
                     System.Diagnostics.Process.Start(@"" + args.SearchResult.FileNameDisplayed + "");
                 }
-                catch (Exception ex)
+                catch
                 {
                     ProcessStartInfo info = new ProcessStartInfo("notepad.exe");
                     info.UseShellExecute = false;
@@ -811,7 +811,9 @@ namespace dnGREP.Common
                 info.CreateNoWindow = true;
                 if (args.CustomEditorArgs == null)
                     args.CustomEditorArgs = "";
-                info.Arguments = args.CustomEditorArgs.Replace("%file", "\"" + args.SearchResult.FileNameDisplayed + "\"").Replace("%line", args.LineNumber.ToString());
+                info.Arguments = args.CustomEditorArgs.Replace("%file", "\"" + args.SearchResult.FileNameDisplayed + "\"")
+                    .Replace("%line", args.LineNumber.ToString())
+                    .Replace("%pattern", args.Pattern);
                 System.Diagnostics.Process.Start(info);
             }
 		}
@@ -919,7 +921,7 @@ namespace dnGREP.Common
 						writer.WriteLine("sometext");
 					}
 				}
-				catch (UnauthorizedAccessException ex)
+				catch
 				{
 					//No permission. 
 					canAccess = false;
@@ -931,7 +933,7 @@ namespace dnGREP.Common
 			{
 				DeleteFile(filename);
 			}
-			catch (Exception ex)
+			catch
 			{
 				// Ignore
 			}

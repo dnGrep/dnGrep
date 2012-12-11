@@ -156,7 +156,7 @@ namespace dnGREP.Engines
 				}
 				if (matches.Count > 0)
 				{
-                    searchResults.Add(new GrepSearchResult(fileName, matches));
+                    searchResults.Add(new GrepSearchResult(fileName, searchPattern, matches));
 				}
 			}
 			return searchResults;
@@ -173,7 +173,7 @@ namespace dnGREP.Engines
 				//Utils.CleanResults(ref lines);
 				if (lines.Count > 0)
 				{
-                    searchResults.Add(new GrepSearchResult(fileName, lines));
+                    searchResults.Add(new GrepSearchResult(fileName, searchPattern, lines));
 				}
 			}
 				

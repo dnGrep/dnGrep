@@ -226,7 +226,7 @@ namespace dnGREP.Common
 					return (T)Convert.ChangeType(value, typeof(T));
 				}
 			}
-			catch (Exception ex)
+			catch
 			{
                 return getDefaultValue<T>(key);
 			}

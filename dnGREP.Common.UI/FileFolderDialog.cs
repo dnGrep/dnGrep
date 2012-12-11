@@ -41,7 +41,7 @@ namespace dnGREP.Common.UI
 						dialog.InitialDirectory = Utils.GetBaseFolder(dialog.FileName);
 				}
 			}
-			catch (Exception ex)
+			catch
 			{
 				// Do nothing
 			}
@@ -75,7 +75,7 @@ namespace dnGREP.Common.UI
 						return dialog.FileName;
 					}
 				}
-				catch (Exception ex)
+				catch
 				{
 					return dialog.FileName;
 				}
@@ -105,7 +105,7 @@ namespace dnGREP.Common.UI
 							if (File.Exists(fileName))
 								sb.Append(fileName + ";");
 						}
-						catch (Exception ex)
+						catch
 						{
 							// Go to next
 						}

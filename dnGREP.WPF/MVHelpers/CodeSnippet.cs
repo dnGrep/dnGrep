@@ -34,6 +34,7 @@ namespace dnGREP.WPF
                 return previewViewModel;
             }
         }
+
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }

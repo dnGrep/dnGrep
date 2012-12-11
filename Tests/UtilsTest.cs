@@ -561,8 +561,8 @@ namespace Tests
 			Assert.True(Directory.Exists(destinationFolder + "\\TestCase3\\SubFolder"));
 			Utils.DeleteFolder(destinationFolder + "\\TestCase3");
 			List<GrepSearchResult> source = new List<GrepSearchResult>();
-			source.Add(new GrepSearchResult(sourceFolder + "\\TestCase3\\SubFolder\\test-file-plain-hidden.txt", null));
-			source.Add(new GrepSearchResult(sourceFolder + "\\TestCase3\\test-file-code.cs", null));
+            source.Add(new GrepSearchResult(sourceFolder + "\\TestCase3\\SubFolder\\test-file-plain-hidden.txt", "", null));
+            source.Add(new GrepSearchResult(sourceFolder + "\\TestCase3\\test-file-code.cs", "", null));
 			Utils.CopyFiles(source, sourceFolder + "\\TestCase3", destinationFolder + "\\TestCase3", true);
 			Assert.Equal(Directory.GetFiles(destinationFolder, "*.*", SearchOption.AllDirectories).Length, 2);
 			Assert.True(Directory.Exists(destinationFolder + "\\TestCase3\\SubFolder"));			
@@ -572,11 +572,11 @@ namespace Tests
 		public void TestCopyResults()
 		{
 			List<GrepSearchResult> source = new List<GrepSearchResult>();
-			source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-code.cs", null));
-			source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-plain.txt", null));
+            source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-code.cs", "", null));
+            source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-plain.txt", "", null));
 			Utils.CopyFiles(source, sourceFolder, destinationFolder, false);
 			Assert.Equal(Directory.GetFiles(destinationFolder + "\\TestCase1").Length, 2);
-			source.Add(new GrepSearchResult(sourceFolder + "\\issue-10.txt", null));
+            source.Add(new GrepSearchResult(sourceFolder + "\\issue-10.txt", "", null));
 			Utils.CopyFiles(source, sourceFolder, destinationFolder, true);
 			Assert.Equal(Directory.GetFiles(destinationFolder, "*.*", SearchOption.AllDirectories).Length, 3);
 			try
@@ -597,9 +597,9 @@ namespace Tests
 		public void TestCanCopy()
 		{
 			List<GrepSearchResult> source = new List<GrepSearchResult>();
-			source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-code.cs", null));
-			source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-plain.txt", null));
-			source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\TestCase1\\test-file-plain2.txt", null));
+            source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-code.cs", "", null));
+            source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-plain.txt", "", null));
+            source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\TestCase1\\test-file-plain2.txt", "", null));
 			Assert.False(Utils.CanCopyFiles(source, sourceFolder + "\\TestCase1"));
 			Assert.False(Utils.CanCopyFiles(source, sourceFolder + "\\TestCase1\\"));
 			Assert.True(Utils.CanCopyFiles(source, sourceFolder));
@@ -631,18 +631,18 @@ namespace Tests
 		public void DeleteFilesTest()
 		{
 			List<GrepSearchResult> source = new List<GrepSearchResult>();
-			source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-code.cs", null));
-			source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-plain.txt", null));
+            source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-code.cs", "", null));
+            source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-plain.txt", "", null));
 			Utils.CopyFiles(source, sourceFolder, destinationFolder, false);
 			Assert.Equal(Directory.GetFiles(destinationFolder + "\\TestCase1\\").Length, 2);
 			List<GrepSearchResult> source2 = new List<GrepSearchResult>();
-			source2.Add(new GrepSearchResult(destinationFolder + "\\TestCase1\\test-file-code.cs", null));
+            source2.Add(new GrepSearchResult(destinationFolder + "\\TestCase1\\test-file-code.cs", "", null));
 			Utils.DeleteFiles(source2);
 			Assert.Equal(Directory.GetFiles(destinationFolder + "\\TestCase1\\").Length, 1);
-			source2.Add(new GrepSearchResult(destinationFolder + "\\test-file-code.cs", null));
+            source2.Add(new GrepSearchResult(destinationFolder + "\\test-file-code.cs", "", null));
 			Utils.DeleteFiles(source2);
 			Assert.Equal(Directory.GetFiles(destinationFolder + "\\TestCase1\\").Length, 1);
-			source2.Add(new GrepSearchResult(destinationFolder + "\\TestCase1\\test-file-plain.txt", null));
+            source2.Add(new GrepSearchResult(destinationFolder + "\\TestCase1\\test-file-plain.txt", "", null));
 			Utils.DeleteFiles(source2);
 			Assert.Equal(Directory.GetFiles(destinationFolder + "\\TestCase1\\").Length, 0);
 		}
@@ -658,8 +658,8 @@ namespace Tests
 		public void DeleteFolderTest()
 		{
 			List<GrepSearchResult> source = new List<GrepSearchResult>();
-			source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-code.cs", null));
-			source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-plain.txt", null));
+            source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-code.cs", "", null));
+            source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-plain.txt", "", null));
 			Utils.CopyFiles(source, sourceFolder, destinationFolder, false);
 			Assert.Equal(Directory.GetFiles(destinationFolder + "\\TestCase1").Length, 2);
 			File.SetAttributes(destinationFolder + "\\TestCase1\\test-file-code.cs", FileAttributes.ReadOnly);
@@ -771,12 +771,12 @@ namespace Tests
 		public void GetReadOnlyFilesTest()
 		{			
 			List<GrepSearchResult> source = new List<GrepSearchResult>();
-			source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-code.cs", null));
-			source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-plain.txt", null));
+            source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-code.cs", "", null));
+            source.Add(new GrepSearchResult(sourceFolder + "\\TestCase1\\test-file-plain.txt", "", null));
 
 			List<GrepSearchResult> destination = new List<GrepSearchResult>();
-			destination.Add(new GrepSearchResult(destinationFolder + "\\TestCase1\\test-file-code.cs", null));
-			destination.Add(new GrepSearchResult(destinationFolder + "\\TestCase1\\test-file-plain.txt", null));
+            destination.Add(new GrepSearchResult(destinationFolder + "\\TestCase1\\test-file-code.cs", "", null));
+            destination.Add(new GrepSearchResult(destinationFolder + "\\TestCase1\\test-file-plain.txt", "", null));
 
 			Utils.CopyFiles(source, sourceFolder + "\\TestCase1", destinationFolder + "\\TestCase1", true);
 			File.SetAttributes(destinationFolder + "\\TestCase1\\test-file-code.cs", FileAttributes.ReadOnly);

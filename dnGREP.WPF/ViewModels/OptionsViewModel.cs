@@ -519,7 +519,7 @@ namespace dnGREP.WPF
                 {
                     return Registry.LocalMachine.OpenSubKey(regPath) != null;
                 }
-                catch (UnauthorizedAccessException ex)
+                catch (UnauthorizedAccessException)
                 {
                     isAdministrator = false;
                     return false;
@@ -533,7 +533,7 @@ namespace dnGREP.WPF
                 {
                     return Registry.ClassesRoot.OpenSubKey(regPath) != null;
                 }
-                catch (UnauthorizedAccessException ex)
+                catch (UnauthorizedAccessException)
                 {
                     isAdministrator = false;
                     return false;
@@ -639,7 +639,7 @@ namespace dnGREP.WPF
                     return key.GetValue(SHELL_KEY_NAME) != null;
                 }
             }
-            catch (UnauthorizedAccessException ex)
+            catch (UnauthorizedAccessException)
             {
                 isAdministrator = false;
                 return false;

@@ -111,7 +111,7 @@ namespace dnGREP.Engines.Archive
 				{
 					extractor.ExtractArchive(tempFolder);					
 				}
-				catch (Exception ex)
+				catch
 				{
 					args.UseBaseEngine = true;
 				}
@@ -119,7 +119,7 @@ namespace dnGREP.Engines.Archive
 			GrepSearchResult newResult = new GrepSearchResult();
 			newResult.FileNameReal = args.SearchResult.FileNameReal;
 			newResult.FileNameDisplayed = args.SearchResult.FileNameDisplayed;
-			OpenFileArgs newArgs = new OpenFileArgs(newResult, args.LineNumber, args.UseCustomEditor, args.CustomEditor, args.CustomEditorArgs);
+			OpenFileArgs newArgs = new OpenFileArgs(newResult, args.Pattern, args.LineNumber, args.UseCustomEditor, args.CustomEditor, args.CustomEditorArgs);
 			newArgs.SearchResult.FileNameDisplayed = tempFolder + args.SearchResult.FileNameDisplayed.Substring(args.SearchResult.FileNameReal.Length + 1);
 			Utils.OpenFile(newArgs);
 		}

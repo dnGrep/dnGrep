@@ -55,7 +55,7 @@ namespace dnGREP.Common
 			{
 				foreach (string file in files)
 				{
-					searchResults.Add(new GrepSearchResult(file, null));
+					searchResults.Add(new GrepSearchResult(file, searchPattern, null));
 				}
 
 				if (ProcessedFile != null)
@@ -106,11 +106,11 @@ namespace dnGREP.Common
 					catch (Exception ex)
 					{
 						logger.LogException(LogLevel.Error, ex.Message, ex);
-                        searchResults.Add(new GrepSearchResult(file, ex.Message, false));
+                        searchResults.Add(new GrepSearchResult(file, searchPattern, ex.Message, false));
                         if (ProcessedFile != null)
                         {
                             List<GrepSearchResult> _results = new List<GrepSearchResult>();
-                            _results.Add(new GrepSearchResult(file, ex.Message, false));
+                            _results.Add(new GrepSearchResult(file, searchPattern, ex.Message, false));
                             ProcessedFile(this, new ProgressStatus(processedFiles, _results));
                         }
 					}
@@ -201,7 +201,7 @@ namespace dnGREP.Common
 								Utils.CopyFile(tempFileName, file, true);
 							}
 						}
-						catch (Exception ex2)
+						catch
 						{
 							// DO NOTHING
 						}

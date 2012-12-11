@@ -11,25 +11,26 @@ namespace dnGREP.Common
             isSuccess = true;
         }
 
-        public GrepSearchResult(string file, List<GrepMatch> matches)
-            : this(file, matches, true)
+        public GrepSearchResult(string file, string pattern, List<GrepMatch> matches)
+            : this(file, pattern, matches, true)
 		{			
 		}
 
-        public GrepSearchResult(string file, List<GrepMatch> matches, bool success)
+        public GrepSearchResult(string file, string pattern, List<GrepMatch> matches, bool success)
         {
             fileName = file;
             bodyMatches = matches;
+            this.pattern = pattern;
             isSuccess = success;
         }
 
-        public GrepSearchResult(string file, string errorMessage, bool success)
+        public GrepSearchResult(string file, string pattern, string errorMessage, bool success)
         {
             fileName = file;
             bodyMatches = new List<GrepMatch>();
             searchResults = new List<GrepLine>();
             searchResults.Add(new GrepSearchResult.GrepLine(-1, errorMessage, false, null));
-
+            this.pattern = pattern;
             isSuccess = success;
         }
 
@@ -40,6 +41,14 @@ namespace dnGREP.Common
 			get { return fileName; }
 			set { fileName = value; }
 		}
+
+        private string pattern;
+
+        public string Pattern
+        {
+            get { return pattern; }
+            set { pattern = value; }
+        }
 
 		private string fileNameToOpen = null;
 
@@ -71,8 +80,6 @@ namespace dnGREP.Common
 		}
 
         private List<GrepLine> searchResults;
-        int searchResultsLinesBefore = 0;
-        int searchResultsLinesAfter = 0;
 
         public bool HasSearchResults
         {

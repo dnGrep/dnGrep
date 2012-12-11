@@ -41,7 +41,7 @@ namespace dnGREP.Common.UI
 				}
 				smallIconList.Images.Add("%line%", Properties.Resources.line_icon);
 			}
-			catch (Exception ex)
+			catch
 			{
 				// DO NOTHING
 			}

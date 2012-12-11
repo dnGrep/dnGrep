@@ -143,7 +143,7 @@ namespace dnGREP.Engines.Word
 				var lines = searchMethod(Utils.CleanLineBreaks(text.ToString()), searchPattern, searchOptions, true);
 				if (lines.Count > 0)
 				{
-					GrepSearchResult result = new GrepSearchResult(file, lines);
+                    GrepSearchResult result = new GrepSearchResult(file, searchPattern, lines);
                     using (StringReader reader = new StringReader(text.ToString()))
                     {
                         result.SearchResults = Utils.GetLinesEx(reader, result.Matches, linesBefore, linesAfter);

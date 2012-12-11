@@ -127,7 +127,6 @@ namespace dnGREP.WPF
             }
         }
 
-        private IHighlightingDefinition highlightingDefinition;
         public IHighlightingDefinition HighlightingDefinition
         {
             get 

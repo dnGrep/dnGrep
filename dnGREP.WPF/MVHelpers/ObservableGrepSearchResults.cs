@@ -403,7 +403,7 @@ namespace dnGREP.WPF
                         Run regularRun = new Run(regLine);
                         paragraph.Inlines.Add(regularRun);
                     }
-                    catch (Exception e)
+                    catch
                     {
                         Run regularRun = new Run(fullLine);
                         paragraph.Inlines.Add(regularRun);

@@ -6,7 +6,6 @@ using System.Xml;
 using System.Xml.XPath;
 using dnGREP.Common;
 using System.IO;
-using System.Xml.XPath;
 using System.Diagnostics;
 
 namespace dnGREP.Engines

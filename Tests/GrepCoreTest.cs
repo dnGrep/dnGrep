@@ -107,6 +107,16 @@ namespace Tests
 		}
 
         [Fact]
+        public void TestSearchContainsValidPattern()
+        {
+            Utils.CopyFiles(sourceFolder + "\\TestCase3", destinationFolder + "\\TestCase3", null, null);
+            GrepCore core = new GrepCore();
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase3", "*.*"), SearchType.PlainText, "dnGREP", GrepSearchOption.CaseSensitive, -1);
+            Assert.Equal(results.Count, 1);
+            Assert.Equal("dnGREP", results[0].Pattern);          
+        }
+
+        [Fact]
         public void TestResultSequence()
         {
             Utils.CopyFiles(sourceFolder + "\\TestCase3", destinationFolder + "\\TestCase3", null, null);

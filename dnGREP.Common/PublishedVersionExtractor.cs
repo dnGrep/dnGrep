@@ -47,7 +47,7 @@ namespace dnGREP.Common
                         }
                         return new PackageVersion(extractVersion(response));
                     }
-                    catch (Exception ex)
+                    catch
                     {
                         return new PackageVersion("0.0.0.0");
                     }
@@ -103,7 +103,7 @@ namespace dnGREP.Common
 					else
 						return false;
 				}
-				catch (Exception ex)
+				catch
 				{
 					return false;
 				}
