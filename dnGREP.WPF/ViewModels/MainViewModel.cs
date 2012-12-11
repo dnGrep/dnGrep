@@ -614,6 +614,8 @@ namespace dnGREP.WPF
                 canSearch = value;
 
                 base.OnPropertyChanged(() => CanSearch);
+                // Refersh buttons
+                CommandManager.InvalidateRequerySuggested();
             }
         }
 
@@ -629,6 +631,8 @@ namespace dnGREP.WPF
                 canSearchInResults = value;
 
                 base.OnPropertyChanged(() => CanSearchInResults);
+                // Refersh buttons
+                CommandManager.InvalidateRequerySuggested();
             }
         }
 
@@ -674,6 +678,8 @@ namespace dnGREP.WPF
                 canReplace = value;
 
                 base.OnPropertyChanged(() => CanReplace);
+                // Refersh buttons
+                CommandManager.InvalidateRequerySuggested();
             }
         }
 
@@ -689,6 +695,8 @@ namespace dnGREP.WPF
                 canCancel = value;
 
                 base.OnPropertyChanged(() => CanCancel);
+                // Refersh buttons
+                CommandManager.InvalidateRequerySuggested();
             }
         }
 
@@ -1348,6 +1356,8 @@ namespace dnGREP.WPF
                 {
                     CanSearch = false;
                 }
+                // Refersh buttons
+                CommandManager.InvalidateRequerySuggested();
             }
 
             //Set all files if FileOrFolderPath is a file
@@ -1896,6 +1906,7 @@ namespace dnGREP.WPF
                     if (SearchResults.Count > 0)
                         FilesFound = true;
                     CurrentGrepOperation = GrepOperation.None;
+                    base.OnPropertyChanged(() => CurrentGrepOperation);
                     CanSearch = true;
                 }
                 else if (CurrentGrepOperation == GrepOperation.Replace)
@@ -1918,10 +1929,11 @@ namespace dnGREP.WPF
                         StatusMessage = "Replace Canceled";
                     }
                     CurrentGrepOperation = GrepOperation.None;
+                    base.OnPropertyChanged(() => CurrentGrepOperation);
                     CanSearch = true;
                     SearchResults.Clear();
                 }
-
+                
                 string outdatedEngines = dnGREP.Engines.GrepEngineFactory.GetListOfFailedEngines();
                 if (!string.IsNullOrEmpty(outdatedEngines))
                 {
