@@ -85,9 +85,28 @@ namespace dnGREP.WPF
             inputData.StickyWindow.StickToOther = true;
             inputData.StickyWindow.StickOnResize = true;
             inputData.StickyWindow.StickOnMove = true;
-            //gridMain.RowDefinitions[0].Height = new GridLength(1, GridUnitType.Auto);
-            //gridMain.RowDefinitions[2].Height = new GridLength(1, GridUnitType.Star);
-		}		
+            DataObject.AddPastingHandler(tbSearchFor, new DataObjectPastingEventHandler(onPaste));
+            DataObject.AddPastingHandler(tbReplaceWith, new DataObjectPastingEventHandler(onPaste));
+		}
+
+        /// <summary>
+        /// Workaround to enable pasting tabs
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void onPaste(object sender, DataObjectPastingEventArgs e)
+        {
+            var isText = e.SourceDataObject.GetDataPresent(System.Windows.DataFormats.Text, true);
+            if (!isText) return;
+            var senderControl = (Control)sender;
+            var textBox = (TextBox)senderControl.Template.FindName("PART_EditableTextBox", senderControl);
+            textBox.AcceptsTab = true;
+            var text = e.SourceDataObject.GetData(DataFormats.Text) as string;
+            this.Dispatcher.BeginInvoke((Action)(() =>
+            {
+                textBox.AcceptsTab = false;
+            }), null);
+        }		
 
 		private void MainForm_Closing(object sender, CancelEventArgs e)
 		{
