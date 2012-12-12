@@ -196,6 +196,20 @@ namespace dnGREP.WPF
                 items.Add(item);
             }
             inputData.SetCodeSnippets(items);
+        }
+
+        private void btnOtherActions_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            advanceContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+            advanceContextMenu.PlacementTarget = (UIElement)sender;
+            advanceContextMenu.IsOpen = true;
+        }
+
+        private void btnOtherActions_Click(object sender, RoutedEventArgs e)
+        {
+            advanceContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+            advanceContextMenu.PlacementTarget = (UIElement)sender;
+            advanceContextMenu.IsOpen = true;
         }        
 	}
 }

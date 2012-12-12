@@ -43,10 +43,10 @@
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" FontFamily="Microsoft Sans Serif" FontWeight="Bold" FontSize="16" Text="dnGREP"/>
             <Menu Background="{Binding Background, ElementName=gridTop}" x:Name="mnuMainMenu" Grid.Column="1" HorizontalAlignment="Right" Style="{StaticResource DefaultStyle}">
-                <MenuItem x:Name="undoToolStripMenuItem" Header="_Undo" Command="{Binding UndoCommand}"/>
-                <MenuItem Header="_Options..." Command="{Binding OptionsCommand}"/>
-                <MenuItem Header="_Bookmarks..." Command="{Binding BookmarkOpenCommand}"/>
-                <MenuItem Header="_About" x:Name="helpToolStripMenuItem">
+                <MenuItem x:Name="undoToolStripMenuItem" Header="_Undo" Command="{Binding UndoCommand}" Height="{Binding ActualHeight, ElementName=statusBar}"/>
+                <MenuItem Header="_Options..." Command="{Binding OptionsCommand}" Height="{Binding ActualHeight, ElementName=statusBar}"/>
+                <MenuItem Header="_Bookmarks..." Command="{Binding BookmarkOpenCommand}" Height="{Binding ActualHeight, ElementName=statusBar}"/>
+                <MenuItem Header="_About" x:Name="helpToolStripMenuItem" Height="{Binding ActualHeight, ElementName=statusBar}">
                     <MenuItem Command="{Binding HelpCommand}" Header="_Help"/>
                     <MenuItem Command="{Binding AboutCommand}" Header="_About..."/>
                 </MenuItem>
@@ -141,7 +141,7 @@
 						    Grid.Row="0" Grid.Column="0" Width="67" Margin="3" IsDefault="True" TabIndex="50">
                     </Button>
                     <Button Width="64" Margin="3" Content="Replace" x:Name="btnReplace" Command="{Binding ReplaceCommand}" TabIndex="51" />
-                    <splitButton:SplitButton x:Name="btnOtherActions" Content="&gt;&gt;"
+                    <!--<splitButton:SplitButton x:Name="btnOtherActions" Content="&gt;&gt;"
 						    Grid.Row="0" Grid.Column="0"
 						    Width="43" VerticalAlignment="Top"
 						    HorizontalAlignment="Left"  Margin="3" Command="{Binding OtherActionsCommand}" TabIndex="52">
@@ -151,7 +151,21 @@
                         <Separator/>
                         <MenuItem x:Name="copyToClipboardToolStripMenuItem" Header="File names to clipboard" Style="{StaticResource DefaultStyle}" Command="{Binding CopyToClipboardCommand}"/>
                         <MenuItem x:Name="saveAsCSVToolStripMenuItem" Header="Save as CSV..." Style="{StaticResource DefaultStyle}" Command="{Binding SaveAsCsvCommand}"/>
-                    </splitButton:SplitButton>
+                    </splitButton:SplitButton>-->
+                    <Button Content=">>" x:Name="btnOtherActions" Width="30" Margin="3" Click="btnOtherActions_Click" 
+                            ContextMenuService.Placement="Bottom" IsEnabled="{Binding CanSearchInResults}">
+                        <Button.ContextMenu>
+                            <ContextMenu x:Name="advanceContextMenu">
+                                <MenuItem x:Name="copyFilesToolStripMenuItem" Header="Copy files..." Style="{StaticResource DefaultStyle}" Command="{Binding CopyFilesCommand}"/>
+                                <MenuItem x:Name="moveFilesToolStripMenuItem" Header="Move files..." Style="{StaticResource DefaultStyle}" Command="{Binding MoveFilesCommand}"/>
+                                <MenuItem x:Name="deleteFilesToolStripMenuItem" Header="Delete files..." Style="{StaticResource DefaultStyle}" Command="{Binding DeleteFilesCommand}"/>
+                                <Separator/>
+                                <MenuItem x:Name="copyToClipboardToolStripMenuItem" Header="File names to clipboard" Style="{StaticResource DefaultStyle}" Command="{Binding CopyToClipboardCommand}"/>
+                                <MenuItem x:Name="saveAsCSVToolStripMenuItem" Header="Save as CSV..." Style="{StaticResource DefaultStyle}" Command="{Binding SaveAsCsvCommand}"/>
+                            </ContextMenu>
+                        </Button.ContextMenu>
+                    </Button>
+                    
                     <Button Width="64" Margin="3" Content="Cancel" x:Name="btnCancel" Command="{Binding CancelCommand}" TabIndex="53" />
                 </StackPanel>
             </Grid>

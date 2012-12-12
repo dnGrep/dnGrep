@@ -4,7 +4,7 @@
 library
 C#
 .cs
-C:\Sandbox\dnGrep\Dependencies\SplitButton\SplitButton\obj\Debug\
+D:\Sandbox\dnGrep\Dependencies\SplitButton\SplitButton\obj\Debug\
 Wpf.Controls
 none
 false
@@ -13,6 +13,8 @@ DEBUG;TRACE
 8-1836874138
 
 6-764894571
-11-390019794
+14-832138813
 Themes\Aero.NormalColor.xaml;Themes\Classic.xaml;Themes\Generic.xaml;Themes\Luna.Homestead.xaml;Themes\Luna.Metallic.xaml;Themes\Luna.NormalColor.xaml;Themes\Royal.NormalColor.xaml;Themes\Vista.xaml;
+
+False
 

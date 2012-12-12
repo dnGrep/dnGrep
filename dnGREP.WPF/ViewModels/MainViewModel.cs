@@ -836,22 +836,6 @@ namespace dnGREP.WPF
             }
         }
 
-
-        private bool otherActionsMenuOpen;
-        public bool OtherActionsMenuOpen
-        {
-            get { return otherActionsMenuOpen; }
-            set
-            {
-                if (value == otherActionsMenuOpen)
-                    return;
-
-                otherActionsMenuOpen = value;
-
-                base.OnPropertyChanged(() => OtherActionsMenuOpen);
-            }
-        }
-
         private string statusMessage;
         public string StatusMessage
         {
@@ -1010,24 +994,6 @@ namespace dnGREP.WPF
                 return _replaceCommand;
             }
         }
-        RelayCommand _otherActionsCommand;
-        /// <summary>
-        /// Returns a command that opens other actions
-        /// </summary>
-        public ICommand OtherActionsCommand
-        {
-            get
-            {
-                if (_otherActionsCommand == null)
-                {
-                    _otherActionsCommand = new RelayCommand(
-                        param => { OtherActionsMenuOpen = true; },
-                        param => this.CanSearchInResults
-                        );
-                }
-                return _otherActionsCommand;
-            }
-        }
         RelayCommand _copyFilesCommand;
         /// <summary>
         /// Returns a command that copies files
@@ -1159,7 +1125,7 @@ namespace dnGREP.WPF
                 if (_bookmarkAddCommand == null)
                 {
                     _bookmarkAddCommand = new RelayCommand(
-                        param => this.bookmarkAdd()
+                        param => this.bookmarkAddRemove()
                         );
                 }
                 return _bookmarkAddCommand;
@@ -2151,25 +2117,14 @@ namespace dnGREP.WPF
             aboutForm.ShowDialog();
         }
 
-        private void bookmarkAdd()
+        private void bookmarkAddRemove()
         {
             Bookmark newBookmark = new Bookmark(SearchFor, ReplaceWith, FilePattern, "");
             if (IsBookmarked)
             {
-                BookmarkDetails bookmarkEditForm = new BookmarkDetails(CreateOrEdit.Create);
-                bookmarkEditForm.Bookmark = newBookmark;
-                if (bookmarkEditForm.ShowDialog() == System.Windows.Forms.DialogResult.OK)
-                {
-                    if (!BookmarkLibrary.Instance.Bookmarks.Contains(newBookmark))
-                    {
-                        BookmarkLibrary.Instance.Bookmarks.Add(newBookmark);
-                        BookmarkLibrary.Save();
-                    }
-                }
-                if (BookmarkLibrary.Instance.Bookmarks.Contains(newBookmark))
-                    IsBookmarked = true;
-                else
-                    IsBookmarked = false;
+                if (!BookmarkLibrary.Instance.Bookmarks.Contains(newBookmark))
+                    BookmarkLibrary.Instance.Bookmarks.Add(newBookmark);
+                IsBookmarked = true;
             }
             else
             {
@@ -2177,6 +2132,7 @@ namespace dnGREP.WPF
                     BookmarkLibrary.Instance.Bookmarks.Remove(newBookmark);
                 IsBookmarked = false;
             }
+            BookmarkLibrary.Save();
         }
 
         private void bookmarkOpen()
