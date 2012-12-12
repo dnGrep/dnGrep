@@ -992,6 +992,7 @@ namespace dnGREP.Common
 		/// <param name="index">Index of any character in the line</param>
 		/// <param name="lineNumber">Return parameter - 1-based line number or -1 if index is outside text length</param>
 		/// <returns>Line of text or null if index is outside text length</returns>
+        [Obsolete]
 		public static string GetLine(string body, int index, out int lineNumber)
 		{
 			if (body == null || index < 0 || index > body.Length)
@@ -1021,7 +1022,7 @@ namespace dnGREP.Common
 			List<string> result = new List<string>();
 			lineNumbers = new List<int>();
             matches = new List<GrepSearchResult.GrepMatch>();
-			if (body == null || index < 0 || index > body.Length || index + length > body.Length)
+			if (body == null || index < 0 || index + 1 > body.Length || index + length + 1 > body.Length)
 			{
 				lineNumbers = null;
                 matches = null;
@@ -1079,7 +1080,7 @@ namespace dnGREP.Common
         {
             if (string.IsNullOrEmpty(text))
             {
-                return null;
+                return new string[0];
             }
             else
             {

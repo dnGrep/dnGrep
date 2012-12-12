@@ -27,12 +27,12 @@ namespace Tests
                 Utils.DeleteFolder(destinationFolder);
         }
 
-		[Theory]
 		[InlineData("Hello world", "Hello world", 2, 1)]
 		[InlineData("Hi", "Hi", 2, 1)]
 		[InlineData("Hi\r\n\r\nWorld", "", 4, 2)]
 		[InlineData("Hi\r\n\r\nWorld", "World", 6, 3)]
 		[InlineData(null, null, 6, -1)]
+        [Obsolete]
 		public void TestGetLine(string body, string line, int index, int lineNumber)
 		{
 			int returnedLineNumber = -1;
@@ -259,8 +259,8 @@ namespace Tests
 			Assert.True(PublishedVersionExtractor.IsUpdateNeeded(v1, v2) == result);
 		}
 
-		[Fact]
-		public void GetLines_Returns_Correct_Line()
+		[Obsolete]
+        public void GetLines_Returns_Correct_Line()
 		{
 			string text = "Hello world" + Environment.NewLine + "My tests are good" + Environment.NewLine + "How about yours?";
 			List<int> lineNumbers = new List<int>();
@@ -295,7 +295,7 @@ namespace Tests
 			Assert.Equal(lineNumbers[1], 2);
 			Assert.Equal(lineNumbers[2], 3);
 
-            lines = Utils.GetLines("test", 2, 2, out matches, out lineNumbers);
+            lines = Utils.GetLines("test", 1, 2, out matches, out lineNumbers);
 			Assert.Equal(lines.Count, 1);
 			Assert.Equal(lines[0], "test");
 			Assert.Equal(lineNumbers.Count, 1);
@@ -617,8 +617,8 @@ namespace Tests
             var core = new GrepCore();
             var results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase3", "*.*"), SearchType.PlainText, "string", GrepSearchOption.None, -1);
             Assert.Equal(results.Count, 2);
-            Assert.Equal(results[0].SearchResults.Count, 2);
-            Assert.Equal(results[1].SearchResults.Count, 174);
+            Assert.Equal(results[0].Matches.Count, 3);
+            Assert.Equal(results[1].Matches.Count, 282);
             Utils.SaveResultsAsCSV(results, destinationFolder + "\\test.csv");
 			string[] stringLines = File.ReadAllLines(destinationFolder + "\\test.csv");
 			Assert.Equal(stringLines.Length, 177);

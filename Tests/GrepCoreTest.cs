@@ -50,18 +50,18 @@ namespace Tests
 
 			results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase3", "*.*"), SearchType.Regex, "string", GrepSearchOption.None, -1);
 			Assert.Equal(results.Count, 2);
-			Assert.Equal(results[0].SearchResults.Count, 2);
-			Assert.Equal(results[1].SearchResults.Count, 174);
+            Assert.Equal(results[0].Matches.Count, 3);
+            Assert.Equal(results[1].Matches.Count, 282);
 
 			results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase3", "*.*"), SearchType.Regex, "string", GrepSearchOption.Multiline, -1);
 			Assert.Equal(results.Count, 2);
-			Assert.Equal(results[0].SearchResults.Count, 2);
-			Assert.Equal(results[1].SearchResults.Count, 174);
+            Assert.Equal(results[0].Matches.Count, 3);
+            Assert.Equal(results[1].Matches.Count, 282);
 
             results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase3", "*.*"), SearchType.Regex, "string", GrepSearchOption.Multiline, -1);
 			Assert.Equal(results.Count, 2);
-			Assert.Equal(results[0].SearchResults.Count, 2);
-			Assert.Equal(results[1].SearchResults.Count, 174);			
+            Assert.Equal(results[0].Matches.Count, 3);
+            Assert.Equal(results[1].Matches.Count, 282);			
 
             Assert.Empty(core.Search(null, SearchType.Regex, "string", GrepSearchOption.Multiline, -1));
 			Assert.Empty(core.Search(new string[] { }, SearchType.Regex, "string", GrepSearchOption.Multiline, -1));
@@ -86,18 +86,18 @@ namespace Tests
 
             results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase3", "*.*"), SearchType.PlainText, "string", GrepSearchOption.None, -1);
 			Assert.Equal(results.Count, 2);
-			Assert.Equal(results[0].SearchResults.Count, 2);
-			Assert.Equal(results[1].SearchResults.Count, 174);
+			Assert.Equal(results[0].Matches.Count, 3);
+            Assert.Equal(results[1].Matches.Count, 282);
 
             results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase3", "*.*"), SearchType.PlainText, "string", GrepSearchOption.Multiline, -1);
 			Assert.Equal(results.Count, 2);
-			Assert.Equal(results[0].SearchResults.Count, 2);
-			Assert.Equal(results[1].SearchResults.Count, 174);
+            Assert.Equal(results[0].Matches.Count, 3);
+            Assert.Equal(results[1].Matches.Count, 282);
 
             results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase3", "*.*"), SearchType.PlainText, "string", GrepSearchOption.Multiline, -1);
 			Assert.Equal(results.Count, 2);
-			Assert.Equal(results[0].SearchResults.Count, 2);
-			Assert.Equal(results[1].SearchResults.Count, 174);
+            Assert.Equal(results[0].Matches.Count, 3);
+            Assert.Equal(results[1].Matches.Count, 282);
 
             results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase3", "*.*"), SearchType.PlainText, "dngrep", GrepSearchOption.CaseSensitive, -1);
 			Assert.Equal(results.Count, 0);
@@ -150,7 +150,7 @@ namespace Tests
             GrepCore core = new GrepCore();
             List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase4", "app.config"), SearchType.XPath, "//setting", GrepSearchOption.CaseSensitive | GrepSearchOption.Multiline, -1);
             Assert.Equal(results.Count, 1);
-            Assert.Equal(results[0].SearchResults.Count, 84);
+            Assert.Equal(results[0].SearchResults.Count, 86);
         }
 
         [Fact]
