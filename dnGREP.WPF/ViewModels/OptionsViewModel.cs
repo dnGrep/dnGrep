@@ -38,7 +38,6 @@ namespace dnGREP.WPF
                 EnableStartupAcceleration != isStartupRegistered() ||
                 EnableCheckForUpdates != settings.Get<bool>(GrepSettings.Key.EnableUpdateChecking) ||
                 CheckForUpdatesInterval != settings.Get<int>(GrepSettings.Key.UpdateCheckInterval) ||
-                FileEditor != (settings.Get<bool>(GrepSettings.Key.UseCustomEditor) ? FileOpenEditor.Custom : FileOpenEditor.Default) ||
                 ShowLinesInContext != settings.Get<bool>(GrepSettings.Key.ShowLinesInContext) ||
                 ContextLinesBefore != settings.Get<int>(GrepSettings.Key.ContextLinesBefore) ||
                 ContextLinesAfter != settings.Get<int>(GrepSettings.Key.ContextLinesAfter) ||
@@ -172,21 +171,6 @@ namespace dnGREP.WPF
                 checkForUpdatesInterval = value;
 
                 base.OnPropertyChanged(() => CheckForUpdatesInterval);
-            }
-        }
-
-        private FileOpenEditor fileEditor;
-        public FileOpenEditor FileEditor
-        {
-            get { return fileEditor; }
-            set
-            {
-                if (value == fileEditor)
-                    return;
-
-                fileEditor = value;
-
-                base.OnPropertyChanged(() => FileEditor);
             }
         }
 
@@ -451,7 +435,6 @@ namespace dnGREP.WPF
             EnableStartupAcceleration = isStartupRegistered();
             EnableCheckForUpdates = settings.Get<bool>(GrepSettings.Key.EnableUpdateChecking);
             CheckForUpdatesInterval = settings.Get<int>(GrepSettings.Key.UpdateCheckInterval);
-            FileEditor = settings.Get<bool>(GrepSettings.Key.UseCustomEditor) ? FileOpenEditor.Custom : FileOpenEditor.Default;
             CustomEditorPath = settings.Get<string>(GrepSettings.Key.CustomEditor);
             CustomEditorArgs = settings.Get<string>(GrepSettings.Key.CustomEditorArgs);
             ShowFilePathInResults = settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults);
@@ -492,7 +475,6 @@ namespace dnGREP.WPF
 
             settings.Set<bool>(GrepSettings.Key.EnableUpdateChecking, EnableCheckForUpdates);
             settings.Set<int>(GrepSettings.Key.UpdateCheckInterval, CheckForUpdatesInterval);
-            settings.Set<bool>(GrepSettings.Key.UseCustomEditor, FileEditor == FileOpenEditor.Custom ? true : false);
             settings.Set<string>(GrepSettings.Key.CustomEditor, CustomEditorPath);
             settings.Set<string>(GrepSettings.Key.CustomEditorArgs, CustomEditorArgs);
             settings.Set<bool>(GrepSettings.Key.ShowFilePathInResults, ShowFilePathInResults);

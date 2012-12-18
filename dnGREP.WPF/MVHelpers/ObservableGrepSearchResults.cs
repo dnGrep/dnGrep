@@ -17,7 +17,7 @@ using System.Windows.Media.Imaging;
 
 namespace dnGREP.WPF
 {
-	public class ObservableGrepSearchResults : ObservableCollection<FormattedGrepResult>
+    public class ObservableGrepSearchResults : ObservableCollection<FormattedGrepResult>, INotifyPropertyChanged
 	{
         private string folderPath = "";
 
@@ -97,19 +97,28 @@ namespace dnGREP.WPF
             }
         }
 
+        public bool CustomEditorConfigured
+        {
+            get { return GrepSettings.Instance.IsSet(GrepSettings.Key.CustomEditor); }
+            set
+            {
+                base.OnPropertyChanged(new PropertyChangedEventArgs("CustomEditorConfigured"));
+            }
+        }
+
         public event EventHandler<GrepLineEventArgs> OpenFileLineRequest;
         public event EventHandler<GrepResultEventArgs> OpenFileRequest;
         public event EventHandler<GrepLineEventArgs> PreviewFileLineRequest;
         public event EventHandler<GrepResultEventArgs> PreviewFileRequest;
 
-        public void OpenFile(FormattedGrepLine line)
+        public void OpenFile(FormattedGrepLine line, bool useCustomEditor)
         {
-            OpenFileLineRequest(this, new GrepLineEventArgs { FormattedGrepLine = line });
+            OpenFileLineRequest(this, new GrepLineEventArgs { FormattedGrepLine = line, UseCustomEditor = useCustomEditor });
         }
 
-        public void OpenFile(FormattedGrepResult line)
+        public void OpenFile(FormattedGrepResult line, bool useCustomEditor)
         {
-            OpenFileRequest(this, new GrepResultEventArgs { FormattedGrepResult = line });
+            OpenFileRequest(this, new GrepResultEventArgs { FormattedGrepResult = line, UseCustomEditor = useCustomEditor });
         }
 
         public void PreviewFile(FormattedGrepLine line, System.Drawing.RectangleF windowSize)

@@ -51,12 +51,12 @@ namespace dnGREP.WPF
 
         void searchResults_OpenFileRequest(object sender, MVHelpers.GrepResultEventArgs e)
         {
-            OpenFile(e.FormattedGrepResult);
+            OpenFile(e.FormattedGrepResult, e.UseCustomEditor);
         }
 
         void searchResults_OpenFileLineRequest(object sender, MVHelpers.GrepLineEventArgs e)
         {
-            OpenFile(e.FormattedGrepLine);
+            OpenFile(e.FormattedGrepLine, e.UseCustomEditor);
         }
 
         void searchResults_PreviewFileRequest(object sender, MVHelpers.GrepResultEventArgs e)
@@ -1560,7 +1560,7 @@ namespace dnGREP.WPF
             settings.Set<bool>(GrepSettings.Key.PreviewFileContent, PreviewFileContent);
         }
 
-        public void OpenFile(FormattedGrepLine selectedNode)
+        public void OpenFile(FormattedGrepLine selectedNode, bool useCustomEditor)
         {
             try
             {
@@ -1568,36 +1568,36 @@ namespace dnGREP.WPF
                 int lineNumber = selectedNode.GrepLine.LineNumber;
 
                 FormattedGrepResult result = selectedNode.Parent;
-                OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, settings.Get<bool>(GrepSettings.Key.UseCustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
+                OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
                 dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, new GrepEngineInitParams(false, 0, 0, 0.5)).OpenFile(fileArg);
                 if (fileArg.UseBaseEngine)
-                    Utils.OpenFile(new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, settings.Get<bool>(GrepSettings.Key.UseCustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
+                    Utils.OpenFile(new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
             }
             catch (Exception ex)
             {
                 logger.LogException(LogLevel.Error, "Failed to open file.", ex);
-                if (settings.Get<bool>(GrepSettings.Key.UseCustomEditor))
+                if (useCustomEditor)
                     MessageBox.Show("There was an error opening file by custom editor. \nCheck editor path via \"Options..\".", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
                 else
                     MessageBox.Show("There was an error opening file. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
-        public void OpenFile(FormattedGrepResult result)
+        public void OpenFile(FormattedGrepResult result, bool useCustomEditor)
         {
             try
             {
                 // Line was selected
                 int lineNumber = 0;
-                OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, settings.Get<bool>(GrepSettings.Key.UseCustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
+                OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
                 dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, new GrepEngineInitParams(false, 0, 0, 0.5)).OpenFile(fileArg);
                 if (fileArg.UseBaseEngine)
-                    Utils.OpenFile(new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, settings.Get<bool>(GrepSettings.Key.UseCustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
+                    Utils.OpenFile(new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
             }
             catch (Exception ex)
             {
                 logger.LogException(LogLevel.Error, "Failed to open file.", ex);
-                if (settings.Get<bool>(GrepSettings.Key.UseCustomEditor))
+                if (useCustomEditor)
                     MessageBox.Show("There was an error opening file by custom editor. \nCheck editor path via \"Options..\".", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
                 else
                     MessageBox.Show("There was an error opening file. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -2103,6 +2103,7 @@ namespace dnGREP.WPF
             ReplaceWith = replaceWith;
             FilePattern = filePattern;
             FilePatternIgnore = filePatternIgnore;
+            SearchResults.CustomEditorConfigured = true;
         }
 
         private void showHelp()

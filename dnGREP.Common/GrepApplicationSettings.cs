@@ -61,8 +61,6 @@ namespace dnGREP.Common
 			public const string ShowFilePathInResults = "ShowFilePathInResults";
             [DefaultValue(true)]
 			public const string AllowSearchingForFileNamePattern = "AllowSearchingForFileNamePattern";
-            [DefaultValue(false)]
-			public const string UseCustomEditor = "UseCustomEditor";
 			public const string CustomEditor = "CustomEditor";
 			public const string CustomEditorArgs = "CustomEditorArgs";
             [DefaultValue(10)]
@@ -231,6 +229,21 @@ namespace dnGREP.Common
                 return getDefaultValue<T>(key);
 			}
 		}
+
+        /// <summary>
+        /// Returns true if the value is set; otherwise false
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public bool IsSet(string key)
+        {
+            string value = this[key];
+
+            if (string.IsNullOrWhiteSpace(value))
+                return false;
+            else
+                return true;
+        }
 
 		/// <summary>
 		/// Sets value of object in dictionary and serializes it to specified type

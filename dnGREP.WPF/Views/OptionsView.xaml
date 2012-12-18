@@ -37,9 +37,8 @@
                             <Label Margin="3" VerticalAlignment="Center">days</Label>
                         </WrapPanel>
                     </GroupBox>
-                    <GroupBox Header="Editor">
+                    <GroupBox Header="Custom editor">
                         <StackPanel>
-                            <RadioButton Margin="3" Name="rbDefaultEditor" GroupName="Editor" IsChecked="{Binding Path=FileEditor, Converter={StaticResource ebc}, ConverterParameter=Default}">Default file specific editor</RadioButton>
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition />
@@ -47,18 +46,16 @@
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100" />
                                     <ColumnDefinition />
                                     <ColumnDefinition Width="40"/>
                                 </Grid.ColumnDefinitions>
-                                <RadioButton VerticalAlignment="Center" Grid.Column="0" Margin="3" Name="rbSpecificEditor" GroupName="Editor" IsChecked="{Binding Path=FileEditor, Converter={StaticResource ebc}, ConverterParameter=Custom}">Custom editor:</RadioButton>
-                                <TextBox Grid.Column="1" Text="{Binding Path=CustomEditorPath, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,3" IsEnabled="{Binding ElementName=rbSpecificEditor, Path=IsChecked}"></TextBox>
-                                <Button Grid.Column="2" Margin="5,0,0,0" Name="btnBrowse" Command="{Binding Path=BrowseCommand}" IsEnabled="{Binding ElementName=rbSpecificEditor, Path=IsChecked}">...</Button>
-                                <DockPanel Grid.Row="1" Grid.Column="1">
+                                <TextBox Grid.Column="0" Text="{Binding Path=CustomEditorPath, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,3" IsEnabled="{Binding ElementName=rbSpecificEditor, Path=IsChecked}"></TextBox>
+                                <Button Grid.Column="1" Margin="5,0,0,0" Name="btnBrowse" Command="{Binding Path=BrowseCommand}" IsEnabled="{Binding ElementName=rbSpecificEditor, Path=IsChecked}">...</Button>
+                                <DockPanel Grid.Row="1" Grid.Column="0">
                                     <Label>Arguments</Label>
                                     <TextBox Text="{Binding Path=CustomEditorArgs, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ElementName=rbSpecificEditor, Path=IsChecked}"></TextBox>
                                 </DockPanel>
-                                <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" TextWrapping="Wrap">(use %file and %line keywords to specify file location and line number)</TextBlock>
+                                <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" TextWrapping="Wrap">(use %file and %line keywords to specify file location and line number)</TextBlock>
                             </Grid>
                         </StackPanel>
                     </GroupBox>

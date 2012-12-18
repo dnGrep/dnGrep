@@ -6,6 +6,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </UserControl.Resources>
     <TreeView x:Name="tvSearchResult" ItemsSource="{Binding}" Grid.Row="3" VirtualizingStackPanel.IsVirtualizing="True"
                       MouseDoubleClick="tvSearchResult_MouseDoubleClick" PreviewKeyDown="treeKeyDown" SelectedItemChanged="tvSearchResults_SelectedChanged"
                       HorizontalContentAlignment="Stretch">
@@ -51,6 +54,7 @@
         <TreeView.ContextMenu>
             <ContextMenu Opened="tvContexMenuOpening">
                 <MenuItem Header="Open" Click="btnOpenFile_Click"/>
+                <MenuItem Visibility="{Binding CustomEditorConfigured, Converter={StaticResource BooleanToVisibilityConverter}}" Header="Open with custom editor" Click="btnOpenFileCustomEditor_Click"/>
                 <MenuItem Header="Open containing folder" Click="btnOpenContainingFolder_Click"/>
                 <MenuItem Header="Show file properties" Click="btnShowFileProperties_Click"/>
                 <MenuItem x:Name="btnCopyFileNameClipboard" Header="File name to clipboard" Click="btnCopyNameToClipboard_Click"/>

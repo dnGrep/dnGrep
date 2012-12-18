@@ -118,9 +118,17 @@ namespace dnGREP.WPF
 		private void btnOpenFile_Click(object sender, RoutedEventArgs e)
         {
             if (tvSearchResult.SelectedItem is FormattedGrepLine)
-                inputData.OpenFile(tvSearchResult.SelectedItem as FormattedGrepLine);
+                inputData.OpenFile(tvSearchResult.SelectedItem as FormattedGrepLine, false);
             else if (tvSearchResult.SelectedItem is FormattedGrepResult)
-                inputData.OpenFile(tvSearchResult.SelectedItem as FormattedGrepResult);
+                inputData.OpenFile(tvSearchResult.SelectedItem as FormattedGrepResult, false);
+        }
+
+        private void btnOpenFileCustomEditor_Click(object sender, RoutedEventArgs e)
+        {
+            if (tvSearchResult.SelectedItem is FormattedGrepLine)
+                inputData.OpenFile(tvSearchResult.SelectedItem as FormattedGrepLine, true);
+            else if (tvSearchResult.SelectedItem is FormattedGrepResult)
+                inputData.OpenFile(tvSearchResult.SelectedItem as FormattedGrepResult, true);
         }
 
         private void btnOpenContainingFolder_Click(object sender, RoutedEventArgs e)
@@ -243,7 +251,7 @@ namespace dnGREP.WPF
             if (tvSearchResult.SelectedItem is FormattedGrepLine &&
                 e.OriginalSource is TextBlock || e.OriginalSource is Run)
             {
-                inputData.OpenFile(tvSearchResult.SelectedItem as FormattedGrepLine);
+                inputData.OpenFile(tvSearchResult.SelectedItem as FormattedGrepLine, GrepSettings.Instance.IsSet(GrepSettings.Key.CustomEditor));
             }
         }
 
