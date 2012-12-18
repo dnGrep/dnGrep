@@ -20,10 +20,13 @@ namespace dnGREP.WPF
         {
             try
             {
+                string searchFor = null;
                 Utils.DeleteTempFolder();
                 if (e.Args != null && e.Args.Length > 0)
                 {
                     string searchPath = e.Args[0];
+                    if (e.Args.Length == 2)
+                        searchFor = e.Args[1];
                     if (searchPath == "/warmUp")
                     {
                         this.MainWindow = new MainFormEx(false);
@@ -34,12 +37,19 @@ namespace dnGREP.WPF
                         if (searchPath.EndsWith(":\""))
                             searchPath = searchPath.Substring(0, searchPath.Length - 1) + "\\";
                         GrepSettings.Instance.Set<string>(GrepSettings.Key.SearchFolder, searchPath);
+                        if (searchFor != null)
+                        {
+                            GrepSettings.Instance.Set<string>(GrepSettings.Key.SearchFor, searchFor);
+                            GrepSettings.Instance.Set<SearchType>(GrepSettings.Key.TypeOfSearch, SearchType.Regex);
+                        }
                     }
                 }
                 if (this.MainWindow == null)
                     this.MainWindow = new MainFormEx();
 
                 this.MainWindow.Show();
+                if (searchFor != null && this.MainWindow.DataContext != null)
+                    ((MainViewModel)this.MainWindow.DataContext).SearchCommand.Execute(null);
             }
             catch (Exception ex)
             {
