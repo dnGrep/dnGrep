@@ -37,7 +37,8 @@ namespace dnGREP.Common
         CaseSensitive = 1,
         Multiline = 2,
         SingleLine = 4,
-		WholeWord = 8
+		WholeWord = 8,
+        StopAfterFirstMatch = 16
     }
 
 	public enum GrepOperation

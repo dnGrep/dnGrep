@@ -541,6 +541,21 @@ namespace dnGREP.WPF
                 base.OnPropertyChanged(() => IsSinglelineEnabled);
             }
         }
+
+        private bool stopAfterFirstMatch;
+        public bool StopAfterFirstMatch
+        {
+            get { return stopAfterFirstMatch; }
+            set
+            {
+                if (value == stopAfterFirstMatch)
+                    return;
+
+                stopAfterFirstMatch = value;
+
+                base.OnPropertyChanged(() => StopAfterFirstMatch);
+            }
+        }
         
         private bool wholeWord;
         public bool WholeWord
@@ -1161,6 +1176,7 @@ namespace dnGREP.WPF
                 case "Singleline":
                 case "WholeWord":
                 case "CaseSensitive":
+                case "StopAfterFirstMatch":
                     tempList = new List<string>();
                     if (CaseSensitive)
                         tempList.Add("Case sensitive");
@@ -1169,7 +1185,9 @@ namespace dnGREP.WPF
                     if (WholeWord)
                         tempList.Add("Whole word");
                     if (Singleline)
-                        tempList.Add("Match dot as new line");
+                        tempList.Add("Dot as new line");
+                    if (StopAfterFirstMatch)
+                        tempList.Add("Stop after first match");
                     OptionsSummary = "[";
                     if (tempList.Count == 0)
                     {
@@ -1517,6 +1535,7 @@ namespace dnGREP.WPF
             CaseSensitive = settings.Get<bool>(GrepSettings.Key.CaseSensitive);
             Multiline = settings.Get<bool>(GrepSettings.Key.Multiline);
             Singleline = settings.Get<bool>(GrepSettings.Key.Singleline);
+            StopAfterFirstMatch = settings.Get<bool>(GrepSettings.Key.StopAfterFirstMatch);
             WholeWord = settings.Get<bool>(GrepSettings.Key.WholeWord);
             SizeFrom = settings.Get<int>(GrepSettings.Key.SizeFrom);
             SizeTo = settings.Get<int>(GrepSettings.Key.SizeTo);
@@ -1550,6 +1569,7 @@ namespace dnGREP.WPF
             settings.Set<bool>(GrepSettings.Key.CaseSensitive, CaseSensitive);
             settings.Set<bool>(GrepSettings.Key.Multiline, Multiline);
             settings.Set<bool>(GrepSettings.Key.Singleline, Singleline);
+            settings.Set<bool>(GrepSettings.Key.StopAfterFirstMatch, StopAfterFirstMatch);
             settings.Set<bool>(GrepSettings.Key.WholeWord, WholeWord);
             settings.Set<int>(GrepSettings.Key.SizeFrom, SizeFrom);
             settings.Set<int>(GrepSettings.Key.SizeTo, SizeTo);
@@ -1770,6 +1790,8 @@ namespace dnGREP.WPF
                             searchOptions |= GrepSearchOption.SingleLine;
                         if (WholeWord)
                             searchOptions |= GrepSearchOption.WholeWord;
+                        if (StopAfterFirstMatch)
+                            searchOptions |= GrepSearchOption.StopAfterFirstMatch;
 
                         grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
                         e.Result = grep.Search(files, param.TypeOfSearch, param.SearchFor, searchOptions, param.CodePage);
@@ -1791,6 +1813,8 @@ namespace dnGREP.WPF
                         if (Singleline)
                             searchOptions |= GrepSearchOption.SingleLine;
                         if (WholeWord)
+                            searchOptions |= GrepSearchOption.WholeWord;
+                        if (StopAfterFirstMatch)
                             searchOptions |= GrepSearchOption.WholeWord;
 
                         grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);

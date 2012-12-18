@@ -43,6 +43,7 @@ namespace dnGREP.Common
             public const string PreviewFileContent = "PreviewFileContent";
 			public const string Multiline = "Multiline";
 			public const string Singleline = "Singleline";
+            public const string StopAfterFirstMatch = "StopAfterFirstMatch";
 			public const string WholeWord = "WholeWord";
 			public const string SizeFrom = "SizeFrom";
             [DefaultValue(100)]

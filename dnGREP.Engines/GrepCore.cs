@@ -51,77 +51,84 @@ namespace dnGREP.Common
 
             Utils.CancelSearch = false;
 
-			if (searchPattern == null || searchPattern.Trim() == "")
-			{
-				foreach (string file in files)
-				{
-					searchResults.Add(new GrepSearchResult(file, searchPattern, null));
-				}
+            if (searchPattern == null || searchPattern.Trim() == "")
+            {
+                foreach (string file in files)
+                {
+                    searchResults.Add(new GrepSearchResult(file, searchPattern, null));
+                    if ((searchOptions & GrepSearchOption.StopAfterFirstMatch) == GrepSearchOption.StopAfterFirstMatch)
+                        break;
+                }
 
-				if (ProcessedFile != null)
-				{
+                if (ProcessedFile != null)
+                {
                     ProcessedFile(this, new ProgressStatus(searchResults.Count, searchResults));
-				}
+                }
 
-				return searchResults;
-			}
+                return searchResults;
+            }
+            else
+            {
+                int processedFiles = 0;
 
-			int processedFiles = 0;
-			
-			try
-			{
-				foreach (string file in files)
-				{
-					try
-					{
-						IGrepEngine engine = GrepEngineFactory.GetSearchEngine(file, SearchParams);
-
-						processedFiles++;
-
-						Encoding encoding = null;
-						if (codePage == -1)
-							encoding = Utils.GetFileEncoding(file);
-						else
-							encoding = Encoding.GetEncoding(codePage);
-
-
-                        if (Utils.CancelSearch)
-						{
-							return searchResults;
-						}
-
-						List<GrepSearchResult> fileSearchResults = engine.Search(file, searchPattern, searchType, searchOptions, encoding);
-
-						if (fileSearchResults != null && fileSearchResults.Count > 0)
-						{
-							searchResults.AddRange(fileSearchResults);
-						}
-
-						if (ProcessedFile != null)
-						{
-                            ProcessedFile(this, new ProgressStatus(processedFiles, fileSearchResults));
-						}
-
-					}
-					catch (Exception ex)
-					{
-						logger.LogException(LogLevel.Error, ex.Message, ex);
-                        searchResults.Add(new GrepSearchResult(file, searchPattern, ex.Message, false));
-                        if (ProcessedFile != null)
+                try
+                {
+                    foreach (string file in files)
+                    {
+                        try
                         {
-                            List<GrepSearchResult> _results = new List<GrepSearchResult>();
-                            _results.Add(new GrepSearchResult(file, searchPattern, ex.Message, false));
-                            ProcessedFile(this, new ProgressStatus(processedFiles, _results));
-                        }
-					}
-				}
-			}
-			finally
-			{
-				GrepEngineFactory.UnloadEngines();
-			}
+                            IGrepEngine engine = GrepEngineFactory.GetSearchEngine(file, SearchParams);
 
-			return searchResults;
+                            processedFiles++;
+
+                            Encoding encoding = null;
+                            if (codePage == -1)
+                                encoding = Utils.GetFileEncoding(file);
+                            else
+                                encoding = Encoding.GetEncoding(codePage);
+
+
+                            if (Utils.CancelSearch)
+                            {
+                                return searchResults;
+                            }
+
+                            List<GrepSearchResult> fileSearchResults = engine.Search(file, searchPattern, searchType, searchOptions, encoding);
+
+                            if (fileSearchResults != null && fileSearchResults.Count > 0)
+                            {
+                                searchResults.AddRange(fileSearchResults);
+                            }
+
+                            if (ProcessedFile != null)
+                            {
+                                ProcessedFile(this, new ProgressStatus(processedFiles, fileSearchResults));
+                            }
+
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.LogException(LogLevel.Error, ex.Message, ex);
+                            searchResults.Add(new GrepSearchResult(file, searchPattern, ex.Message, false));
+                            if (ProcessedFile != null)
+                            {
+                                List<GrepSearchResult> _results = new List<GrepSearchResult>();
+                                _results.Add(new GrepSearchResult(file, searchPattern, ex.Message, false));
+                                ProcessedFile(this, new ProgressStatus(processedFiles, _results));
+                            }
+                        }
+
+                        if ((searchOptions & GrepSearchOption.StopAfterFirstMatch) == GrepSearchOption.StopAfterFirstMatch && searchResults.Count > 0)
+                            break;
+                    }
+                }
+                finally
+                {
+                    GrepEngineFactory.UnloadEngines();
+                }
+
+                return searchResults;
+            }
 		}
 
 		public int Replace(IEnumerable<string> files, SearchType searchType, string baseFolder, string searchPattern, string replacePattern, GrepSearchOption searchOptions, int codePage)

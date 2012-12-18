@@ -7,7 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="dnGREP.WPF.MainFormEx"
     Title="{Binding WindowTitle}" MinHeight="460"     
     WindowState="Normal" 
-    MinWidth="500" Icon="/dnGREP;component/nGREP.ico" Closing="MainForm_Closing"
+    MinWidth="550" Icon="/dnGREP;component/nGREP.ico" Closing="MainForm_Closing"
     Loaded="Window_Loaded"
     SnapsToDevicePixels="True" ResizeMode="CanResizeWithGrip" AllowDrop="False"
     my:DiginesisHelpProvider.HelpKeyword="search-window.html" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True" 
@@ -48,7 +48,7 @@
                 <MenuItem Header="_Bookmarks..." Command="{Binding BookmarkOpenCommand}" Height="{Binding ActualHeight, ElementName=statusBar}"/>
                 <MenuItem Header="_About" x:Name="helpToolStripMenuItem" Height="{Binding ActualHeight, ElementName=statusBar}">
                     <MenuItem Command="{Binding HelpCommand}" Header="_Help"/>
-                    <MenuItem Command="{Binding AboutCommand}" Header="_About..."/>
+                    <MenuItem Command="{Binding AboutCommand}" Header="About..."/>
                 </MenuItem>
             </Menu>
         </Grid>
@@ -73,10 +73,10 @@
                             <ColumnDefinition Width="120"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.Column="0">
-                            <RadioButton GroupName="SearchRegex" x:Name="rbRegex" Margin="3" IsChecked="{Binding TypeOfSearch, ConverterParameter=Regex, Converter={StaticResource ebc}}" ToolTip="Regular expression search" TabIndex="11" Content="Regex"/>
-                            <RadioButton GroupName="SearchXPath" x:Name="rbXPath" Margin="3" IsChecked="{Binding TypeOfSearch, ConverterParameter=XPath, Converter={StaticResource ebc}}" ToolTip="XPath search (XML documents only)" TabIndex="12" Content="XPath"/>
-                            <RadioButton GroupName="SearchText" x:Name="rbText" Margin="3" IsChecked="{Binding TypeOfSearch, ConverterParameter=PlainText, Converter={StaticResource ebc}}" ToolTip="Plain text search" TabIndex="13" Content="Text"/>
-                            <RadioButton GroupName="SearchSoundex" x:Name="rbSoundex" Margin="3" IsChecked="{Binding TypeOfSearch, ConverterParameter=Soundex, Converter={StaticResource ebc}}" ToolTip="Phonetic search" TabIndex="14" Content="Phonetic"/>
+                            <RadioButton GroupName="SearchRegex" x:Name="rbRegex" Margin="3" IsChecked="{Binding TypeOfSearch, ConverterParameter=Regex, Converter={StaticResource ebc}}" ToolTip="Regular expression search" TabIndex="11" Content="_Regex"/>
+                            <RadioButton GroupName="SearchXPath" x:Name="rbXPath" Margin="3" IsChecked="{Binding TypeOfSearch, ConverterParameter=XPath, Converter={StaticResource ebc}}" ToolTip="XPath search (XML documents only)" TabIndex="12" Content="_XPath"/>
+                            <RadioButton GroupName="SearchText" x:Name="rbText" Margin="3" IsChecked="{Binding TypeOfSearch, ConverterParameter=PlainText, Converter={StaticResource ebc}}" ToolTip="Plain text search" TabIndex="13" Content="_Text"/>
+                            <RadioButton GroupName="SearchSoundex" x:Name="rbSoundex" Margin="3" IsChecked="{Binding TypeOfSearch, ConverterParameter=Soundex, Converter={StaticResource ebc}}" ToolTip="Phonetic search" TabIndex="14" Content="_Phonetic"/>
                         </StackPanel>
                         <Label Grid.Column="1" Content="{Binding ValidationMessage}"/>
 						<StackPanel Margin="0 0 0 2" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
@@ -94,12 +94,13 @@
                             </WrapPanel>
                         </Expander.Header>
                         <StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <CheckBox Margin="3" x:Name="cbCaseSensitive" IsChecked="{Binding CaseSensitive}" IsEnabled="{Binding IsCaseSensitiveEnabled}" TabIndex="20" Content="Case sensitive"/>
-                                <CheckBox Margin="3" x:Name="cbMultiline" IsChecked="{Binding Multiline}" IsEnabled="{Binding IsMultilineEnabled}" TabIndex="21" Content="Multiline (slower)"/>
-                                <CheckBox Margin="3" x:Name="cbWholeWord" IsChecked="{Binding WholeWord}" IsEnabled="{Binding IsWholeWordEnabled}" TabIndex="22" Content="Whole word"/>
-                                <CheckBox Margin="3" x:Name="cbSingleline" IsChecked="{Binding Singleline}" IsEnabled="{Binding IsSinglelineEnabled}" TabIndex="23" Content="Match dot as newline"/>
-                            </StackPanel>
+                            <WrapPanel Orientation="Horizontal">
+                                <CheckBox Margin="3" x:Name="cbCaseSensitive" IsChecked="{Binding CaseSensitive}" IsEnabled="{Binding IsCaseSensitiveEnabled}" TabIndex="20" Content="C_ase sensitive"/>
+                                <CheckBox Margin="3" x:Name="cbMultiline" IsChecked="{Binding Multiline}" IsEnabled="{Binding IsMultilineEnabled}" TabIndex="21" Content="_Multiline"/>
+                                <CheckBox Margin="3" x:Name="cbWholeWord" IsChecked="{Binding WholeWord}" IsEnabled="{Binding IsWholeWordEnabled}" TabIndex="22" Content="_Whole word"/>
+                                <CheckBox Margin="3" x:Name="cbSingleline" IsChecked="{Binding Singleline}" IsEnabled="{Binding IsSinglelineEnabled}" TabIndex="23" Content="_Dot as newline"/>
+                                <CheckBox Margin="3" x:Name="cbStopAfterFirstMatch" IsChecked="{Binding StopAfterFirstMatch}" TabIndex="24" Content="Stop after _first match"/>
+                            </WrapPanel>
                         </StackPanel>
                     </Expander>
                     <Grid>
@@ -135,9 +136,9 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 				<StackPanel HorizontalAlignment="Right" Grid.Column="0" Orientation="Horizontal">
-                    <CheckBox IsChecked="{Binding SearchInResultsContent}" Visibility="{Binding CanSearchInResults, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Margin="0 0 5 0" Content="Search in results"/>
-                    <CheckBox IsChecked="{Binding PreviewFileContent}" VerticalAlignment="Center" Margin="0 0 5 0" Content="Preview file"/>
-                    <Button x:Name="btnSearch" Content="Search" Command="{Binding SearchCommand}" 
+                    <CheckBox IsChecked="{Binding SearchInResultsContent}" Visibility="{Binding CanSearchInResults, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Margin="0 0 5 0" Content="Search _in results"/>
+                    <CheckBox IsChecked="{Binding PreviewFileContent}" VerticalAlignment="Center" Margin="0 0 5 0" Content="Pre_view file"/>
+                    <Button x:Name="btnSearch" Content="_Search" Command="{Binding SearchCommand}" 
 						    Grid.Row="0" Grid.Column="0" Width="67" Margin="3" IsDefault="True" TabIndex="50">
                     </Button>
                     <Button Width="64" Margin="3" Content="Replace" x:Name="btnReplace" Command="{Binding ReplaceCommand}" TabIndex="51" />
@@ -166,7 +167,7 @@
                         </Button.ContextMenu>
                     </Button>
                     
-                    <Button Width="64" Margin="3" Content="Cancel" x:Name="btnCancel" Command="{Binding CancelCommand}" TabIndex="53" />
+                    <Button Width="64" Margin="3" Content="_Cancel" x:Name="btnCancel" Command="{Binding CancelCommand}" TabIndex="53" />
                 </StackPanel>
             </Grid>
             <Controls:ResultsTree DataContext="{Binding SearchResults}" Grid.Row="3"/>            

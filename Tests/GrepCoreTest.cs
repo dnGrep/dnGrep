@@ -117,6 +117,21 @@ namespace Tests
         }
 
         [Fact]
+        public void TestSearchWithStopAfterFirstMatch()
+        {
+            Utils.CopyFiles(sourceFolder + "\\TestCase3", destinationFolder + "\\TestCase3", null, null);
+            GrepCore core = new GrepCore();
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase3", "*.*"), SearchType.PlainText, "public", GrepSearchOption.CaseSensitive, -1);
+            Assert.True(results.Count > 1);
+            results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase3", "*.*"), SearchType.PlainText, "public", GrepSearchOption.StopAfterFirstMatch, -1);
+            Assert.Equal(1, results.Count);
+            results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase3", "*.*"), SearchType.PlainText, "", GrepSearchOption.CaseSensitive, -1);
+            Assert.True(results.Count > 1);
+            results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase3", "*.*"), SearchType.PlainText, "", GrepSearchOption.StopAfterFirstMatch, -1);
+            Assert.Equal(1, results.Count);
+        }
+
+        [Fact]
         public void TestResultSequence()
         {
             Utils.CopyFiles(sourceFolder + "\\TestCase3", destinationFolder + "\\TestCase3", null, null);
