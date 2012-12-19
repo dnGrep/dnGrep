@@ -163,6 +163,7 @@
                                 <Separator/>
                                 <MenuItem x:Name="copyToClipboardToolStripMenuItem" Header="File names to clipboard" Style="{StaticResource DefaultStyle}" Command="{Binding CopyToClipboardCommand}"/>
                                 <MenuItem x:Name="saveAsCSVToolStripMenuItem" Header="Save as CSV..." Style="{StaticResource DefaultStyle}" Command="{Binding SaveAsCsvCommand}"/>
+                                <MenuItem x:Name="copyAsCSVToolStripMenuItem" Header="CSV to clipboard" Style="{StaticResource DefaultStyle}" Command="{Binding CopyAsCsvCommand}"/>
                             </ContextMenu>
                         </Button.ContextMenu>
                     </Button>

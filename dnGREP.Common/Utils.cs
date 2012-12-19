@@ -122,10 +122,20 @@ namespace dnGREP.Common
 			if (File.Exists(destinationPath))
 				File.Delete(destinationPath);
 
-			StringBuilder sb = new StringBuilder();
-			sb.AppendLine("File Name,Line Number,String");
-			foreach (GrepSearchResult result in source)
-			{
+            File.WriteAllText(destinationPath, GetResultsAsCSV(source));
+		}
+
+        /// <summary>
+        /// Returns a CSV structure from search results
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="destinationPath"></param>
+        public static string GetResultsAsCSV(List<GrepSearchResult> source)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("File Name,Line Number,String");
+            foreach (GrepSearchResult result in source)
+            {
                 if (result.SearchResults == null)
                 {
                     sb.AppendLine("\"" + result.FileNameDisplayed + "\"");
@@ -138,9 +148,9 @@ namespace dnGREP.Common
                             sb.AppendLine("\"" + result.FileNameDisplayed + "\"," + line.LineNumber + ",\"" + line.LineText.Replace("\"", "\"\"") + "\"");
                     }
                 }
-			}
-			File.WriteAllText(destinationPath, sb.ToString());
-		}
+            }
+            return sb.ToString();
+        }
 
 		/// <summary>
 		/// Deletes file based on search results. 

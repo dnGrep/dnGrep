@@ -1094,6 +1094,23 @@ namespace dnGREP.WPF
                 return _saveAsCsvCommand;
             }
         }
+        RelayCommand _copyAsCsvCommand;
+        /// <summary>
+        /// Returns a command that copies content to clipboard
+        /// </summary>
+        public ICommand CopyAsCsvCommand
+        {
+            get
+            {
+                if (_copyAsCsvCommand == null)
+                {
+                    _copyAsCsvCommand = new RelayCommand(
+                        param => this.copyAsCsvToClipboard()
+                        );
+                }
+                return _copyAsCsvCommand;
+            }
+        }
         RelayCommand _cancelCommand;
         /// <summary>
         /// Returns a command that cancels search
@@ -2265,6 +2282,11 @@ namespace dnGREP.WPF
                 sb.AppendLine(result.FileNameReal);
             }
             Clipboard.SetText(sb.ToString());
+        }
+
+        private void copyAsCsvToClipboard()
+        {
+            Clipboard.SetText(Utils.GetResultsAsCSV(SearchResults.GetList()));
         }
 
         private void saveAsCsv()
