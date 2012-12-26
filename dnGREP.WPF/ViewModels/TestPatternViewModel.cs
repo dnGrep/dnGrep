@@ -9,405 +9,211 @@ using System.Windows.Threading;
 using System.Threading;
 using System.ComponentModel;
 using System.Windows.Media;
+using System.Windows.Input;
+using dnGREP.Engines;
+using System.IO;
+using System.Windows.Documents;
 
 namespace dnGREP.WPF
 {
-	public class TestPatternViewModel : INotifyPropertyChanged
-	{
-		public TestPatternViewModel()
-		{
-			LoadAppSettings();
-			UpdateState("Initial");
-			CanSearch = true;
-			CanReplace = true;
-			CanCancel = false;
-			CanSearchInResults = false;
-			SearchButtonMode = "Button";
-		}
-
-		public GrepSettings settings
-		{
-			get { return GrepSettings.Instance; }
-		}
-
-		public void LoadAppSettings()
-		{
-			SearchFor = settings.Get<string>(GrepSettings.Key.SearchFor);
-			ReplaceWith = settings.Get<string>(GrepSettings.Key.ReplaceWith);
-			TypeOfSearch = settings.Get<SearchType>(GrepSettings.Key.TypeOfSearch);
-			CaseSensitive = settings.Get<bool>(GrepSettings.Key.CaseSensitive);
-			Multiline = settings.Get<bool>(GrepSettings.Key.Multiline);
-			Singleline = settings.Get<bool>(GrepSettings.Key.Singleline);
-			WholeWord = settings.Get<bool>(GrepSettings.Key.WholeWord);
-            TextFormatting = settings.Get<TextFormattingMode>(GrepSettings.Key.TextFormatting);
-		}
-
-		private ObservableGrepSearchResults searchResults = new ObservableGrepSearchResults();
-		public ObservableGrepSearchResults SearchResults
-		{
-			get
-			{
-				return searchResults;
-			}
-		}
-
-		private string _SearchFor = "";
-		/// <summary>
-		/// SearchFor property
-		/// </summary>
-		public string SearchFor
-		{
-			get { return _SearchFor; }
-			set
-			{
-				_SearchFor = value;
-				settings.Set<string>(GrepSettings.Key.SearchFor, value);
-				UpdateState("SearchFor");
-			}
-		}
-
-		private string _ReplaceWith = "";
-		/// <summary>
-		/// ReplaceWith property
-		/// </summary>
-		public string ReplaceWith
-		{
-			get { return _ReplaceWith; }
-			set
-			{
-				_ReplaceWith = value;
-				settings.Set<string>(GrepSettings.Key.ReplaceWith, value);
-				UpdateState("ReplaceWith");
-			}
-		}
-
-		private SearchType _TypeOfSearch = SearchType.PlainText;
-		/// <summary>
-		/// TypeOfSearch property
-		/// </summary>
-		public SearchType TypeOfSearch
-		{
-			get { return _TypeOfSearch; }
-			set
-			{
-				_TypeOfSearch = value;
-				settings.Set<SearchType>(GrepSettings.Key.TypeOfSearch, value);
-				UpdateState("TypeOfSearch");
-			}
-		}
-
-		private bool _CaseSensitive = true;
-		/// <summary>
-		/// CaseSensitive property
-		/// </summary>
-		public bool CaseSensitive
-		{
-			get { return _CaseSensitive; }
-			set
-			{
-				_CaseSensitive = value;
-				settings.Set<bool>(GrepSettings.Key.CaseSensitive, value);
-				UpdateState("CaseSensitive");
-			}
-		}
-
-		private bool _IsCaseSensitiveEnabled = true;
-		/// <summary>
-		/// IsCaseSensitiveEnabled property
-		/// </summary>
-		public bool IsCaseSensitiveEnabled
-		{
-			get { return _IsCaseSensitiveEnabled; }
-			set
-			{
-				_IsCaseSensitiveEnabled = value;
-				UpdateState("IsCaseSensitiveEnabled");
-			}
-		}
-
-		private bool _Multiline = false;
-		/// <summary>
-		/// Multiline property
-		/// </summary>
-		public bool Multiline
-		{
-			get { return _Multiline; }
-			set
-			{
-				_Multiline = value;
-				settings.Set<bool>(GrepSettings.Key.Multiline, value);
-				UpdateState("Multiline");
-			}
-		}
-
-		private bool _IsMultilineEnabled = true;
-		/// <summary>
-		/// IsMultilineEnabled property
-		/// </summary>
-		public bool IsMultilineEnabled
-		{
-			get { return _IsMultilineEnabled; }
-			set
-			{
-				_IsMultilineEnabled = value;
-				UpdateState("IsMultilineEnabled");
-			}
-		}
-
-		private bool _Singleline = false;
-		/// <summary>
-		/// Singleline property
-		/// </summary>
-		public bool Singleline
-		{
-			get { return _Singleline; }
-			set
-			{
-				_Singleline = value;
-				settings.Set<bool>(GrepSettings.Key.Singleline, value);
-				UpdateState("Singleline");
-			}
-		}
-
-		private bool _IsSinglelineEnables = true;
-		/// <summary>
-		/// IsSinglelineEnables property
-		/// </summary>
-		public bool IsSinglelineEnabled
-		{
-			get { return _IsSinglelineEnables; }
-			set
-			{
-				_IsSinglelineEnables = value;
-				UpdateState("IsSinglelineEnabled");
-			}
-		}
-
-        private TextFormattingMode _TextFormatting = TextFormattingMode.Display;
-        /// <summary>
-        /// IsOptionsExpanded property
-        /// </summary>
-        public TextFormattingMode TextFormatting
+    public class TestPatternViewModel : BaseMainViewModel
+    {
+        #region Properties
+        private string sampleText;
+        public string SampleText
         {
-            get { return _TextFormatting; }
+            get { return sampleText; }
             set
             {
-                _TextFormatting = value;
-                settings.Set<TextFormattingMode>(GrepSettings.Key.TextFormatting, value);
-                UpdateState("TextFormatting");
+                if (value == sampleText)
+                    return;
+
+                sampleText = value;
+
+                base.OnPropertyChanged(() => SampleText);
             }
         }
 
-		private bool _WholeWord = false;
-		/// <summary>
-		/// WholeWord property
-		/// </summary>
-		public bool WholeWord
-		{
-			get { return _WholeWord; }
-			set
-			{
-				_WholeWord = value;
-				settings.Set<bool>(GrepSettings.Key.WholeWord, value);
-				UpdateState("WholeWord");
-			}
-		}
+        private InlineCollection testOutput;
+        public InlineCollection TestOutput
+        {
+            get
+            {
+                return testOutput;
+            }
+            set
+            {
+                if (value == testOutput)
+                    return;
 
-		private bool _IsWholeWordEnabled = true;
-		/// <summary>
-		/// IsWholeWordEnabled property
-		/// </summary>
-		public bool IsWholeWordEnabled
-		{
-			get { return _IsWholeWordEnabled; }
-			set { _IsWholeWordEnabled = value; UpdateState("IsWholeWordEnabled"); }
-		}
+                testOutput = value;
 
+                base.OnPropertyChanged(() => TestOutput);
+            }
+        }
 
-		#region Derived properties
+        private string testOutputText;
+        public string TestOutputText
+        {
+            get { return testOutputText; }
+            set
+            {
+                if (value == testOutputText)
+                    return;
 
-		private bool _CanSearch = true;
-		/// <summary>
-		/// CanSearch property
-		/// </summary>
-		public bool CanSearch
-		{
-			get { return _CanSearch; }
-			set { _CanSearch = value; UpdateState("CanSearch"); }
-		}
+                testOutputText = value;
 
-		private bool _CanSearchInResults = true;
-		/// <summary>
-		/// CanSearchInResults property
-		/// </summary>
-		public bool CanSearchInResults
-		{
-			get { return _CanSearchInResults; }
-			set { _CanSearchInResults = value; UpdateState("CanSearchInResults"); }
-		}
+                base.OnPropertyChanged(() => TestOutputText);
+            }
+        }
 
-		private string _SearchButtonMode = "";
-		/// <summary>
-		/// SearchButtonMode property
-		/// </summary>
-		public string SearchButtonMode
-		{
-			get { return _SearchButtonMode; }
-			set { _SearchButtonMode = value; UpdateState("SearchButtonMode"); }
-		}
+        RelayCommand _searchCommand;
+        /// <summary>
+        /// Returns a command that starts a search.
+        /// </summary>
+        public ICommand SearchCommand
+        {
+            get
+            {
+                if (_searchCommand == null)
+                {
+                    _searchCommand = new RelayCommand(
+                        param => this.search(),
+                        param => this.CanSearch
+                        );
+                }
+                return _searchCommand;
+            }
+        }
 
-		private bool _CanReplace = false;
-		/// <summary>
-		/// CanReplace property
-		/// </summary>
-		public bool CanReplace
-		{
-			get { return _CanReplace; }
-			set { _CanReplace = value; UpdateState("CanReplace"); }
-		}
-
-		private bool _CanCancel = false;
-		/// <summary>
-		/// CanCancel property
-		/// </summary>
-		public bool CanCancel
-		{
-			get { return _CanCancel; }
-			set { _CanCancel = value; UpdateState("CanCancel"); }
-		}
-
-		private GrepOperation _CurrentGrepOperation = GrepOperation.None;
-		/// <summary>
-		/// CurrentGrepOperation property
-		/// </summary>
-		public GrepOperation CurrentGrepOperation
-		{
-			get { return _CurrentGrepOperation; }
-			set { _CurrentGrepOperation = value; UpdateState("CurrentGrepOperation"); }
-		}
-
-		private string _OptionsSummary = "";
-		/// <summary>
-		/// OptionsSummary property
-		/// </summary>
-		public string OptionsSummary
-		{
-			get { return _OptionsSummary; }
-			set { _OptionsSummary = value; UpdateState("OptionsSummary"); }
-		}
-
-		private string _TextBoxStyle = "";
-		/// <summary>
-		/// TextBoxStyle property
-		/// </summary>
-		public string TextBoxStyle
-		{
-			get { return _TextBoxStyle; }
-			set { _TextBoxStyle = value; UpdateState("TextBoxStyle"); }
-		}
-
+        RelayCommand _replaceCommand;
+        /// <summary>
+        /// Returns a command that starts a search in results.
+        /// </summary>
+        public ICommand ReplaceCommand
+        {
+            get
+            {
+                if (_replaceCommand == null)
+                {
+                    _replaceCommand = new RelayCommand(
+                        param => this.replace(),
+                        param => this.CanReplace
+                        );
+                }
+                return _replaceCommand;
+            }
+        }
 		#endregion
 
-		public void UpdateState(string name)
-		{
-			OnPropertyChanged(name);
+        public override void UpdateState(string name)
+        {
+            base.UpdateState(name);
+            CanReplace = true;
+        }
 
-			switch (name)
-			{
-				case "Initial":
-				case "Multiline":
-				case "Singleline":
-				case "WholeWord":
-				case "CaseSensitive":
-					List<string> tempList = new List<string>();
-					if (CaseSensitive)
-						tempList.Add("Case sensitive");
-					if (Multiline)
-						tempList.Add("Multiline");
-					if (WholeWord)
-						tempList.Add("Whole word");
-					if (Singleline)
-						tempList.Add("Match dot as new line");
-					OptionsSummary = "[";
-					if (tempList.Count == 0)
-					{
-						OptionsSummary += "None";
-					}
-					else
-					{
-						for (int i = 0; i < tempList.Count; i++)
-						{
-							OptionsSummary += tempList[i];
-							if (i < tempList.Count - 1)
-								OptionsSummary += ", ";
-						}
-					}
-					OptionsSummary += "]";
+        #region Private Methods
+        private void search()
+        {
+            if (SampleText == null)
+                SampleText = string.Empty;
+            GrepEnginePlainText engine = new GrepEnginePlainText();
+            engine.Initialize(new GrepEngineInitParams(GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext),
+                GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
+                GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter),
+                GrepSettings.Instance.Get<double>(GrepSettings.Key.FuzzyMatchThreshold)));
+            List<GrepSearchResult> results = new List<GrepSearchResult>();
+            GrepSearchOption searchOptions = GrepSearchOption.None;
+            if (Multiline)
+                searchOptions |= GrepSearchOption.Multiline;
+            if (CaseSensitive)
+                searchOptions |= GrepSearchOption.CaseSensitive;
+            if (Singleline)
+                searchOptions |= GrepSearchOption.SingleLine;
+            if (WholeWord)
+                searchOptions |= GrepSearchOption.WholeWord;
+            using (Stream inputStream = new MemoryStream(Encoding.Default.GetBytes(SampleText)))
+            {
+                try
+                {
+                    results = engine.Search(inputStream, "test.txt", SearchFor, TypeOfSearch,
+                        searchOptions, Encoding.Default);
+                    if (results != null)
+                    {
+                        using (StringReader reader = new StringReader(SampleText))
+                        {
+                            foreach (var result in results)
+                            {
+                                if (!result.HasSearchResults)
+                                    result.SearchResults = Utils.GetLinesEx(reader, result.Matches, 0, 0);
+                            }
+                        }
+                    }
+                }
+                catch (ArgumentException ex)
+                {
+                    MessageBox.Show("Incorrect pattern: " + ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+            SearchResults.Clear();
+            SearchResults.AddRange(results);
+            Paragraph paragraph = new Paragraph();
+            if (SearchResults.Count == 1)
+            {
+                SearchResults[0].FormattedLines.Load(false);
+                foreach (FormattedGrepLine line in SearchResults[0].FormattedLines)
+                {
+                    // Copy children Inline to a temporary array.
+                    paragraph.Inlines.AddRange(line.FormattedText.ToList());
 
-					if (Multiline)
-						TextBoxStyle = "{StaticResource ExpandedTextbox}";
-					else
-						TextBoxStyle = "";
+                    paragraph.Inlines.Add(new LineBreak());
+                    paragraph.Inlines.Add(new Run("================================="));
+                    paragraph.Inlines.Add(new LineBreak());
+                }
+            }
+            else
+            {
+                paragraph.Inlines.Add(new Run("No matches found"));
+            }
+            TestOutput = paragraph.Inlines;
+        }
 
-					break;
-			}
+        private void replace()
+        {
+            GrepEnginePlainText engine = new GrepEnginePlainText();
+            engine.Initialize(new GrepEngineInitParams(GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext),
+                GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
+                GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter),
+                GrepSettings.Instance.Get<double>(GrepSettings.Key.FuzzyMatchThreshold)));
+            List<GrepSearchResult> results = new List<GrepSearchResult>();
 
-			//Search type specific options
-			//Search type specific options
-			if (name == "TypeOfSearch")
-			{
-				if (TypeOfSearch == SearchType.XPath)
-				{
-					IsCaseSensitiveEnabled = false;
-					IsMultilineEnabled = false;
-					IsSinglelineEnabled = false;
-					IsWholeWordEnabled = false;
-					CaseSensitive = false;
-					Multiline = false;
-					Singleline = false;
-					WholeWord = false;
-				}
-				else if (TypeOfSearch == SearchType.PlainText)
-				{
-					IsCaseSensitiveEnabled = true;
-					IsMultilineEnabled = true;
-					IsSinglelineEnabled = false;
-					IsWholeWordEnabled = true;
-					Singleline = false;
-				}
-				else if (TypeOfSearch == SearchType.Soundex)
-				{
-					IsMultilineEnabled = true;
-					IsCaseSensitiveEnabled = false;
-					IsSinglelineEnabled = false;
-					IsWholeWordEnabled = true;
-					CaseSensitive = false;
-					Singleline = false;
-				}
-				else if (TypeOfSearch == SearchType.Regex)
-				{
-					IsCaseSensitiveEnabled = true;
-					IsMultilineEnabled = true;
-					IsSinglelineEnabled = true;
-					IsWholeWordEnabled = true;
-				}
-			}
-		}
+            GrepSearchOption searchOptions = GrepSearchOption.None;
+            if (Multiline)
+                searchOptions |= GrepSearchOption.Multiline;
+            if (CaseSensitive)
+                searchOptions |= GrepSearchOption.CaseSensitive;
+            if (Singleline)
+                searchOptions |= GrepSearchOption.SingleLine;
+            if (WholeWord)
+                searchOptions |= GrepSearchOption.WholeWord;
 
-		#region INotifyPropertyChanged Members
-
-		public event PropertyChangedEventHandler PropertyChanged;
-
-		// Create the OnPropertyChanged method to raise the event
-		protected void OnPropertyChanged(string name)
-		{
-			PropertyChangedEventHandler handler = PropertyChanged;
-			if (handler != null)
-			{
-				handler(this, new PropertyChangedEventArgs(name));
-			}
-		}
-
-		#endregion
-	}
+            string replacedString = "";
+            using (Stream inputStream = new MemoryStream(Encoding.Default.GetBytes(SampleText)))
+            using (Stream writeStream = new MemoryStream())
+            {
+                engine.Replace(inputStream, writeStream, SearchFor, ReplaceWith, TypeOfSearch,
+                    searchOptions, Encoding.Default);
+                writeStream.Position = 0;
+                StreamReader reader = new StreamReader(writeStream);
+                replacedString = reader.ReadToEnd();
+            }
+            SearchResults.Clear();
+            SearchResults.AddRange(results);
+            Paragraph paragraph = new Paragraph();
+            paragraph.Inlines.Add(new Run(replacedString));
+            TestOutput = paragraph.Inlines;
+            TestOutputText = replacedString;
+        }
+        #endregion
+    }
 }

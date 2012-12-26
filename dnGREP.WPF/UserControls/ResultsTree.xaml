@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:my="clr-namespace:dnGREP.WPF"
+             xmlns:Controls="clr-namespace:dnGREP.WPF.UserControls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
@@ -46,6 +47,9 @@
                             </Style.Triggers>
                         </Style>
                     </WrapPanel.Resources>
+                    <Viewbox Width="20" Height="20" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Controls:BusyIndicator/>
+                    </Viewbox>
                     <TextBlock Margin="-3" Width="{Binding LineNumberColumnWidth}" Text="{Binding FormattedLineNumber}"/>
                     <my:InlineTextBlock Margin="3,0,0,0" InlineCollection="{Binding FormattedText}" FontFamily="Consolas"/>
                 </WrapPanel>

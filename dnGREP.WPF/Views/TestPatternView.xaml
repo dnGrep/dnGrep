@@ -117,20 +117,21 @@
                 <RowDefinition Height="25" />
             </Grid.RowDefinitions>
             <Label Grid.Row="0" >Sample input text:</Label>
-            <TextBox Grid.Row="1" Margin="5" AcceptsReturn="True"  Height="Auto" Name="tbTestInput" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"> </TextBox>
+            <TextBox Grid.Row="1" Margin="5" AcceptsReturn="True"  Height="Auto" Name="tbTestInput" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" 
+                     Text="{Binding Path=SampleText, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <Label Grid.Row="2" >Output text:</Label>
             <ScrollViewer Grid.Row="3" Margin="5" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                <TextBlock Name="tbTestOutput">
-                    <TextBlock.ContextMenu>
+                <my:InlineTextBlock Margin="3,0,0,0" InlineCollection="{Binding TestOutput}" FontFamily="Consolas">
+                    <my:InlineTextBlock.ContextMenu>
                         <ContextMenu>
                             <MenuItem Header="Copy to clipboard" Click="btnCopyFile_Click"/>
                         </ContextMenu>
-                    </TextBlock.ContextMenu>
-                </TextBlock>
+                    </my:InlineTextBlock.ContextMenu>
+                </my:InlineTextBlock>
             </ScrollViewer>
             <StackPanel Grid.Row="4" Margin="0,0,3,0"  HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button Width="64" Margin="0,3,0,3" x:Name="btnSearch" Content="Search" IsEnabled="{Binding Path=CanSearch}" Click="btnSearch_Click" IsDefault="True" />
-                <Button Width="64" Margin="3" Content="Replace" Name="btnReplace" Click="btnReplace_Click" IsEnabled="{Binding Path=CanReplace}"/>
+                <Button Width="64" Margin="0,3,0,3" x:Name="btnSearch" Content="Search" Command="{Binding SearchCommand}" IsDefault="True" />
+                <Button Width="64" Margin="3" Content="Replace" Name="btnReplace" Command="{Binding ReplaceCommand}"/>
                 <Button Width="64" Margin="0,3,0,3" x:Name="btnClose" Content="Close" Click="btnClose_Click" IsCancel="True" />
             </StackPanel>
             <StatusBar Grid.Row="5" ClipToBounds="False" BorderThickness="1" BorderBrush="DarkGray">

@@ -44,96 +44,7 @@ namespace dnGREP.WPF
         {
             if (e.Key == Key.Escape)
                 Close();
-        }
-
-        private void btnSearch_Click(object sender, RoutedEventArgs e)
-        {            			
-            GrepEnginePlainText engine = new GrepEnginePlainText();
-            engine.Initialize(new GrepEngineInitParams(GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext),
-                GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
-                GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter),
-                GrepSettings.Instance.Get<double>(GrepSettings.Key.FuzzyMatchThreshold)));
-            List<GrepSearchResult> results = new List<GrepSearchResult>();
-            GrepSearchOption searchOptions = GrepSearchOption.None;
-            if (inputData.Multiline)
-                searchOptions |= GrepSearchOption.Multiline;
-            if (inputData.CaseSensitive)
-                searchOptions |= GrepSearchOption.CaseSensitive;
-            if (inputData.Singleline)
-                searchOptions |= GrepSearchOption.SingleLine;
-			if (inputData.WholeWord)
-				searchOptions |= GrepSearchOption.WholeWord;
-            using (Stream inputStream = new MemoryStream(Encoding.Default.GetBytes(tbTestInput.Text)))
-            {
-				try
-				{
-					results = engine.Search(inputStream, "test.txt", inputData.SearchFor, inputData.TypeOfSearch,
-						searchOptions, Encoding.Default);
-				}
-				catch (ArgumentException ex)
-				{
-					MessageBox.Show("Incorrect pattern: " + ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
-				}
-            }
-            inputData.SearchResults.Clear();
-            inputData.SearchResults.AddRange(results);
-            tbTestOutput.Text = "";
-            if (inputData.SearchResults.Count == 1)
-            {
-                foreach (FormattedGrepLine line in inputData.SearchResults[0].FormattedLines)
-                {
-                    // Copy children Inline to a temporary array.
-                    Inline[] inlines = new Inline[line.FormattedText.Count];
-                    line.FormattedText.CopyTo(inlines, 0);
-
-                    foreach (Inline inline in inlines)
-                    {
-                        tbTestOutput.Inlines.Add(inline);
-                    }
-                    tbTestOutput.Inlines.Add(new LineBreak());
-                    tbTestOutput.Inlines.Add(new Run("================================="));
-                    tbTestOutput.Inlines.Add(new LineBreak());
-                }
-            }
-            else
-            {
-                tbTestOutput.Text = "No matches found";
-            }
-        }
-
-        private void btnReplace_Click(object sender, RoutedEventArgs e)
-        {
-            GrepEnginePlainText engine = new GrepEnginePlainText();
-			engine.Initialize(new GrepEngineInitParams(GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext),
-                GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
-                GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter),
-                GrepSettings.Instance.Get<double>(GrepSettings.Key.FuzzyMatchThreshold)));
-            List<GrepSearchResult> results = new List<GrepSearchResult>();
-
-            GrepSearchOption searchOptions = GrepSearchOption.None;
-            if (inputData.Multiline)
-                searchOptions |= GrepSearchOption.Multiline;
-            if (inputData.CaseSensitive)
-                searchOptions |= GrepSearchOption.CaseSensitive;
-            if (inputData.Singleline)
-                searchOptions |= GrepSearchOption.SingleLine;
-			if (inputData.WholeWord)
-				searchOptions |= GrepSearchOption.WholeWord;
-
-            string replacedString = "";
-            using (Stream inputStream = new MemoryStream(Encoding.Default.GetBytes(tbTestInput.Text)))
-            using (Stream writeStream = new MemoryStream())
-            {
-                engine.Replace(inputStream, writeStream, inputData.SearchFor, inputData.ReplaceWith, inputData.TypeOfSearch,
-                    searchOptions, Encoding.Default);
-                writeStream.Position = 0;
-                StreamReader reader = new StreamReader(writeStream);                
-                replacedString = reader.ReadToEnd();
-            }
-            inputData.SearchResults.Clear();
-            inputData.SearchResults.AddRange(results);
-            tbTestOutput.Text = replacedString;            
-        }
+        }               
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
@@ -147,7 +58,7 @@ namespace dnGREP.WPF
 
         private void btnCopyFile_Click(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText(tbTestOutput.Text);
+            Clipboard.SetText(inputData.TestOutputText);
         }
     }
 }

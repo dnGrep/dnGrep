@@ -52,7 +52,7 @@
                 </MenuItem>
             </Menu>
         </Grid>
-        <DockPanel LastChildFill="True" Grid.Row="1" >
+        <DockPanel LastChildFill="True" Margin="0,24,0,1" Grid.RowSpan="2" >
             <GroupBox Header="Search in" DockPanel.Dock="Top">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -170,7 +170,7 @@
                     
                     <Button Width="64" Margin="3" Content="_Cancel" x:Name="btnCancel" Command="{Binding CancelCommand}" TabIndex="53" />
                 </StackPanel>
-            </Grid>
+            </Grid>            
             <Controls:ResultsTree DataContext="{Binding SearchResults}" Grid.Row="3"/>            
         </DockPanel>
         <StatusBar ClipToBounds="False" Grid.Row="4" x:Name="statusBar">

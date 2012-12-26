@@ -186,7 +186,7 @@ namespace dnGREP.WPF
             set { 
                 isExpanded = value;
                 if (value == true)
-                    FormattedLines.Load();  
+                    FormattedLines.Load(true);  
                 OnPropertyChanged("IsExpanded"); }
         }
 
@@ -277,13 +277,24 @@ namespace dnGREP.WPF
         #endregion
 	}
 
-    public class FormattedGrepLine : INotifyPropertyChanged
+    public class FormattedGrepLine : ViewModelBase
 	{
 		private GrepSearchResult.GrepLine grepLine;
 		public GrepSearchResult.GrepLine GrepLine
 		{
 			get { return grepLine; }
 		}
+
+        private bool isLoading;
+        public bool IsLoading
+        {
+            get { return isLoading; }
+            set
+            {
+                isLoading = value;
+                OnPropertyChanged("IsLoading");
+            }
+        }
 
         private string formattedLineNumber;
         public string FormattedLineNumber
@@ -334,7 +345,7 @@ namespace dnGREP.WPF
 			grepLine = line;
 			Parent.PropertyChanged += new PropertyChangedEventHandler(Parent_PropertyChanged);
 			LineNumberColumnWidth = initialColumnWidth;
-                        
+
             formattedLineNumber = (line.LineNumber == -1 ? "" : line.LineNumber.ToString());
 
 			//string fullText = lineSummary;
