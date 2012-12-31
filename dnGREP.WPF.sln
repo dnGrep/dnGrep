@@ -173,9 +173,6 @@ Global
 		{FA9512EF-562C-4DC1-9CF2-7A8FF896D352} = {177DCA75-DAA1-4097-A3AB-EF944566600D}
 		{DB68B5D3-5E4B-47D0-AA86-83D7C181A1E4} = {177DCA75-DAA1-4097-A3AB-EF944566600D}
 	EndGlobalSection
-	GlobalSection(Performance) = preSolution
-		HasPerformanceSessions = true
-	EndGlobalSection
 	GlobalSection(SharpSetup) = preSolution
 		Version = 1.2
 	EndGlobalSection

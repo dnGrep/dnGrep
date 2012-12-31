@@ -489,7 +489,7 @@ namespace dnGREP.Common
                             }
                             foreach (var pattern in includeRegexPatterns)
                             {
-                                if (pattern.IsMatch(filePath))
+                                if (pattern.IsMatch(filePath) || checkShebang(filePath, pattern.ToString()))
                                 {
                                     includeMatch = true;
                                     break;
@@ -497,7 +497,7 @@ namespace dnGREP.Common
                             }
                             foreach (var pattern in excludeRegexPatterns)
                             {
-                                if (pattern.IsMatch(filePath))
+                                if (pattern.IsMatch(filePath) || checkShebang(filePath, pattern.ToString()))
                                 {
                                     excludeMatch = true;
                                     break;
@@ -521,7 +521,44 @@ namespace dnGREP.Common
             }
         }
 
-        public static bool hasListPermissionOnDir(string dirPath)
+        private static bool checkShebang(string file, string pattern)
+        {
+            if (pattern == null || pattern.Length <= 2 || (pattern[0] != '#' && pattern[1] != '!'))
+                return false;
+            try
+            {
+                using (FileStream readStream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                using (StreamReader streamReader = new StreamReader(readStream))
+                {
+                    string firstLine = streamReader.ReadLine();
+                    // Check if first 2 bytes are '#!'
+                    if (firstLine[0] == 0x23 && firstLine[1] == 0x21)
+                    {
+                        // Do more reading (start from 3rd character in case there is a space after #!)
+                        for (int i = 3; i < firstLine.Length; i++)
+                        {
+                            if (firstLine[i] == ' ' || firstLine[i] == '\r' || firstLine[i] == '\n' || firstLine[i] == '\t')
+                            {
+                                firstLine = firstLine.Substring(0, i);
+                                break;
+                            }
+                        }
+                        return Regex.IsMatch(firstLine.Substring(2).Trim(), pattern.Substring(2), RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                    }
+                    else
+                    {
+                        // Does not have shebang
+                        return false;
+                    }
+                }
+            }
+            catch (IOException)
+            {
+                return false;
+            }
+        }
+
+        private static bool hasListPermissionOnDir(string dirPath)
         {
             try
             {

@@ -12,8 +12,8 @@ namespace Tests
 		{
 			//Assembly thisAssembly = Assembly.GetAssembly(typeof(TestBase));
 			//return Path.GetDirectoryName(thisAssembly.Location);
-            return @"D:\Sandbox\dnGrep\Tests";
-            //return Directory.GetCurrentDirectory();
+            //return @"D:\Sandbox\dnGrep\Tests";
+            return Directory.GetCurrentDirectory();
 		}
 	}
 }
