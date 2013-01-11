@@ -897,14 +897,15 @@ namespace dnGREP.WPF
             }
 
             if (name == "FileFilters" || name == "FilePattern" || name == "IncludeSubfolder" ||
-                name == "IncludeHidden" || name == "IncludeBinary" || name == "UseFileSizeFilter")
+                name == "IncludeHidden" || name == "IncludeBinary" || name == "UseFileSizeFilter"
+                || name == "FilePatternIgnore")
             {
                 if (FileFilters)
                     FileFiltersSummary = "[All files]";
                 else
                 {
                     tempList = new List<string>();
-                    if (FilePattern != "*.*")
+                    if (FilePattern != "*")
                         tempList.Add(FilePattern);
                     if (!IncludeSubfolder)
                         tempList.Add("No subfolders");
@@ -912,12 +913,14 @@ namespace dnGREP.WPF
                         tempList.Add("No hidden");
                     if (!IncludeBinary)
                         tempList.Add("No binary");
+                    if (!string.IsNullOrEmpty(FilePatternIgnore))
+                        tempList.Add("Exclusions");
                     if (UseFileSizeFilter == FileSizeFilter.Yes)
                         tempList.Add("Size");
                     FileFiltersSummary = "[";
                     if (tempList.Count == 0)
                     {
-                        FileFiltersSummary += "Off";
+                        FileFiltersSummary += "All files";
                     }
                     else
                     {

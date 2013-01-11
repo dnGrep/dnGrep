@@ -846,5 +846,21 @@ namespace Tests
             text = "";
             Assert.Equal("", text.TrimEndOfLine());
         }
+
+        [Theory]
+        [InlineData("\\TestCase1", "*.cs", 1)]
+        [InlineData("\\TestCase2", "*.txt", 2)]
+        [InlineData("\\TestCase2", "*.txt;*.xls", 3)]
+        [InlineData("\\TestCase2", null, 0)]
+        [InlineData("\\TestCase11", "#!*python", 2)]
+        [InlineData("\\TestCase11", "#!*python;#!*sh", 3)]
+        public void TestAsteriskGetFilesWithoutExclude(string folder, string pattern, int expectedCount)
+        {
+            var result = Utils.GetFileListEx(sourceFolder + folder, pattern, null, false, false, true, true, 0, 0);
+            int counter = 0;
+            foreach (var f in result)
+                counter++;
+            Assert.Equal(expectedCount, counter);
+        }
 	}
 }
