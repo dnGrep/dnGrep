@@ -25,9 +25,14 @@
             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
             <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="Black" />
             <HierarchicalDataTemplate DataType="{x:Type my:FormattedGrepResult}" ItemsSource="{Binding FormattedLines}" >
-                <VirtualizingStackPanel Orientation="Horizontal">
-                    <Image Source="{Binding Icon}"/>
-                    <TextBlock Text="{Binding Label}" Margin="3,0,0,0"/>
+                <VirtualizingStackPanel Orientation="Vertical">
+                    <VirtualizingStackPanel Orientation="Horizontal">
+                        <Image Source="{Binding Icon}"/>
+                        <TextBlock Text="{Binding Label}" Margin="3,0,0,0"/>                    
+                    </VirtualizingStackPanel>
+                    <Viewbox Width="20" Height="20" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Controls:BusyIndicator Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                    </Viewbox>
                 </VirtualizingStackPanel>
             </HierarchicalDataTemplate>
             <DataTemplate DataType="{x:Type my:FormattedGrepLine}">
@@ -47,9 +52,6 @@
                             </Style.Triggers>
                         </Style>
                     </WrapPanel.Resources>
-                    <Viewbox Width="20" Height="20" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <Controls:BusyIndicator/>
-                    </Viewbox>
                     <TextBlock Margin="-3" Width="{Binding LineNumberColumnWidth}" Text="{Binding FormattedLineNumber}"/>
                     <my:InlineTextBlock Margin="3,0,0,0" InlineCollection="{Binding FormattedText}" FontFamily="Consolas"/>
                 </WrapPanel>

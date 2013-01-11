@@ -29,6 +29,9 @@ namespace dnGREP.WPF.UserControls
 
         void OnTimerElapsed(object sender, ElapsedEventArgs e)
         {
+            if (Visibility != System.Windows.Visibility.Visible)
+                timer.Stop();
+
             rotationCanvas.Dispatcher.Invoke
             (
                 new VoidDelegete(

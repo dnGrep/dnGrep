@@ -185,9 +185,23 @@ namespace dnGREP.WPF
             get { return isExpanded; }
             set { 
                 isExpanded = value;
-                if (value == true)
-                    FormattedLines.Load(true);  
+                if (value == true && !FormattedLines.IsLoaded && !FormattedLines.IsLoading)
+                {
+                    IsLoading = true;
+                    FormattedLines.Load(true);
+                }
                 OnPropertyChanged("IsExpanded"); }
+        }
+
+        private bool isLoading;
+        public bool IsLoading
+        {
+            get { return isLoading; }
+            set
+            {
+                isLoading = value;
+                OnPropertyChanged("IsLoading");
+            }
         }
 
 		private int lineNumberColumnWidth = 30;
@@ -248,12 +262,18 @@ namespace dnGREP.WPF
 
             formattedLines = new LazyResultsList(result, this);
             formattedLines.LineNumberColumnWidthChanged += formattedLines_PropertyChanged;
+            formattedLines.LoadFinished += formattedLines_LoadFinished;
 
             if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ExpandResults))
             {
                 IsExpanded = true;
             }
 		}
+
+        void formattedLines_LoadFinished(object sender, EventArgs e)
+        {
+            IsLoading = false;
+        }
 
         void formattedLines_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -284,17 +304,6 @@ namespace dnGREP.WPF
 		{
 			get { return grepLine; }
 		}
-
-        private bool isLoading;
-        public bool IsLoading
-        {
-            get { return isLoading; }
-            set
-            {
-                isLoading = value;
-                OnPropertyChanged("IsLoading");
-            }
-        }
 
         private string formattedLineNumber;
         public string FormattedLineNumber

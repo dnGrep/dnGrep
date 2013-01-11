@@ -14,6 +14,17 @@ namespace dnGREP.WPF.MVHelpers
     {
         private GrepSearchResult result;
         private FormattedGrepResult formattedResult;
+        private bool isLoaded;
+        public bool IsLoaded
+        {
+            get { return isLoaded; }
+        }
+
+        private bool isLoading;
+        public bool IsLoading
+        {
+            get { return isLoading; }
+        }
 
         public LazyResultsList(GrepSearchResult result, FormattedGrepResult formattedResult)
         {
@@ -23,8 +34,8 @@ namespace dnGREP.WPF.MVHelpers
             {
                 GrepSearchResult.GrepLine emptyLine = new GrepSearchResult.GrepLine(-1, "", true, null);
                 var dummyLine = new FormattedGrepLine(emptyLine, formattedResult, 30);
-                dummyLine.IsLoading = true;
                 this.Add(dummyLine);
+                isLoaded = false;
             }
         }
 
@@ -37,6 +48,10 @@ namespace dnGREP.WPF.MVHelpers
 
         public void Load(bool isAsync)
         {
+            if (isLoaded || isLoading)
+                return;
+
+            isLoading = true;
             if (!isAsync)
             {
                 int currentLine = -1;
@@ -49,10 +64,7 @@ namespace dnGREP.WPF.MVHelpers
 
                 if (this.Count == 1 && this[0].GrepLine.LineNumber == -1)
                 {
-                    if (Application.Current != null)
-                        Application.Current.Dispatcher.Invoke(new Action(() =>
-                            this.Clear()
-                        ));
+                    this.Clear();
                 }
 
                 for (int i = 0; i < linesWithContext.Count; i++)
@@ -64,10 +76,7 @@ namespace dnGREP.WPF.MVHelpers
                         (currentLine != line.LineNumber && currentLine + 1 != line.LineNumber))
                     {
                         GrepSearchResult.GrepLine emptyLine = new GrepSearchResult.GrepLine(-1, "", true, null);
-                        if (Application.Current != null)
-                            Application.Current.Dispatcher.Invoke(new Action(() =>
-                                this.Add(new FormattedGrepLine(emptyLine, formattedResult, 30))
-                            ));
+                        this.Add(new FormattedGrepLine(emptyLine, formattedResult, 30));
                     }
 
                     currentLine = line.LineNumber;
@@ -80,11 +89,10 @@ namespace dnGREP.WPF.MVHelpers
                     else if (currentLine > 99999 && LineNumberColumnWidth < 50)
                         LineNumberColumnWidth = 50;
 
-                    if (Application.Current != null)
-                        Application.Current.Dispatcher.Invoke(new Action(() =>
-                            this.Add(new FormattedGrepLine(line, formattedResult, LineNumberColumnWidth))
-                        ));
+                    this.Add(new FormattedGrepLine(line, formattedResult, LineNumberColumnWidth));                  
                 }
+                isLoaded = true;
+                isLoading = false;
             }
             else
             {
@@ -110,6 +118,7 @@ namespace dnGREP.WPF.MVHelpers
                     }
 
                     List<GrepSearchResult.GrepLine> linesWithContext = task.Result;
+                    List<FormattedGrepLine> tempList = new List<FormattedGrepLine>();
                     for (int i = 0; i < linesWithContext.Count; i++)
                     {
                         GrepSearchResult.GrepLine line = linesWithContext[i];
@@ -134,17 +143,24 @@ namespace dnGREP.WPF.MVHelpers
                             LineNumberColumnWidth = 47;
                         else if (currentLine > 99999 && LineNumberColumnWidth < 50)
                             LineNumberColumnWidth = 50;
-
-                        if (Application.Current != null)
-                            Application.Current.Dispatcher.Invoke(new Action(() =>
-                                this.Add(new FormattedGrepLine(line, formattedResult, LineNumberColumnWidth))
-                            ));
+                        tempList.Add(new FormattedGrepLine(line, formattedResult, LineNumberColumnWidth));
                     }
+
+                    if (Application.Current != null)
+                        Application.Current.Dispatcher.Invoke(new Action(() => 
+                        {
+                            foreach (var l in tempList) this.Add(l);
+                        }
+                    ));
+                    isLoaded = true;
+                    isLoading = false;
+                    LoadFinished(this, null);
                 });
             }
         }
 
         public event EventHandler<PropertyChangedEventArgs> LineNumberColumnWidthChanged;
+        public event EventHandler LoadFinished;
 
         protected void OnPropertyChanged(string name)
         {

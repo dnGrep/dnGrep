@@ -136,7 +136,7 @@ namespace dnGREP.Engines.Pdf
 		{
 			get
 			{
-				return new Version(2, 6, 0, 0);
+				return new Version(2, 7, 0, 0);
 			}
 		}
 
