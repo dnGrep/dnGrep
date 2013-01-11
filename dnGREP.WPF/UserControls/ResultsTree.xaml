@@ -5,6 +5,8 @@
              xmlns:my="clr-namespace:dnGREP.WPF"
              xmlns:Controls="clr-namespace:dnGREP.WPF.UserControls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dummyData="clr-namespace:dnGREP.WPF.DesignTimeData"
+             d:DataContext="{x:Static dummyData:DesignTimeData.DummyObservableGrepSearchResults}"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -25,15 +27,15 @@
             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
             <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="Black" />
             <HierarchicalDataTemplate DataType="{x:Type my:FormattedGrepResult}" ItemsSource="{Binding FormattedLines}" >
-                <VirtualizingStackPanel Orientation="Vertical">
-                    <VirtualizingStackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal">
                         <Image Source="{Binding Icon}"/>
                         <TextBlock Text="{Binding Label}" Margin="3,0,0,0"/>                    
-                    </VirtualizingStackPanel>
+                    </StackPanel>
                     <Viewbox Width="20" Height="20" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <Controls:BusyIndicator Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     </Viewbox>
-                </VirtualizingStackPanel>
+                </StackPanel>
             </HierarchicalDataTemplate>
             <DataTemplate DataType="{x:Type my:FormattedGrepLine}">
                 <WrapPanel>
