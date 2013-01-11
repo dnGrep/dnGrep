@@ -55,7 +55,7 @@
                                     <Label>Arguments</Label>
                                     <TextBox Text="{Binding Path=CustomEditorArgs, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ElementName=rbSpecificEditor, Path=IsChecked}"></TextBox>
                                 </DockPanel>
-                                <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" TextWrapping="Wrap">(use %file and %line keywords to specify file location and line number)</TextBlock>
+                                <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" TextWrapping="Wrap">(use %file and %line keywords for file location and line number and %pattern for search pattern)</TextBlock>
                             </Grid>
                         </StackPanel>
                     </GroupBox>
@@ -127,8 +127,8 @@
             </TabItem>
         </TabControl>
         <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Bottom">
-            <Button Width="70" Margin="0,0,5,5" Command="{Binding Path=SaveCommand}" IsDefault="True">Save</Button>
-            <Button Width="70" Margin="0,0,5,5" Command="{Binding Path=CloseCommand}">Cancel</Button>
+            <Button Width="70" Margin="0,5,5,5" Command="{Binding Path=SaveCommand}" IsDefault="True">Save</Button>
+            <Button Width="70" Margin="0,5,5,5" Command="{Binding Path=CloseCommand}">Cancel</Button>
         </WrapPanel>
     </DockPanel>
 </Window>
