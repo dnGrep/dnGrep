@@ -247,5 +247,17 @@ namespace Tests
             }
             Assert.Equal(2, uniqueGuids.Keys.Count);
         }
+
+        [Theory]
+        [InlineData(SearchType.Regex)]
+        [InlineData(SearchType.PlainText)]
+        public void SearchWIthMultipleLines(SearchType type)
+        {
+            Utils.CopyFiles(sourceFolder + "\\TestCase12", destinationFolder + "\\TestCase12", null, null);
+            GrepCore core = new GrepCore();
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase12", "issue-165.txt"), type, "asdf\r\nqwer", GrepSearchOption.Multiline, -1);
+            Assert.Equal(results[0].Matches.Count, 1);
+            Assert.Equal(results[0].SearchResults.Count, 5);
+        }
     }
 }

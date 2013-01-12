@@ -679,7 +679,13 @@ namespace Tests
 		public void GetFileListTest(string namePattern, bool isRegex, bool includeSubfolders, bool includeHidden, int sizeFrom, int sizeTo, int result)
 		{
 			DirectoryInfo di = new DirectoryInfo(sourceFolder + "\\TestCase2\\HiddenFolder");
+            if (!di.Exists)
+            {
+                di.Create();
+                File.WriteAllText(di.FullName + "\\test-file-plain-hidden.txt", "Hello world");
+            }
 			di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+
             Assert.Equal(result, Utils.GetFileList(sourceFolder + "\\TestCase2", namePattern, null, isRegex, includeSubfolders, includeHidden, true, sizeFrom, sizeTo).Length);
 		}
 

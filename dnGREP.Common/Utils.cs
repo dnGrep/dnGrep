@@ -1232,7 +1232,7 @@ namespace dnGREP.Common
                                 if (beforeQueue.Count == 1)
                                     beforeQueue.Dequeue();
                                 else
-                                    contextLines.Add(new GrepSearchResult.GrepLine(i - beforeQueue.Count + 1, 
+                                    contextLines.Add(new GrepSearchResult.GrepLine(i - beforeQueue.Count + 1 + (lineNumber - startLine), 
                                         beforeQueue.Dequeue(), true, null));
                             }
                             // First and only line
