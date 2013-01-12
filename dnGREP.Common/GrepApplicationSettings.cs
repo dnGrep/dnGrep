@@ -206,7 +206,7 @@ namespace dnGREP.Common
 			{
 				if (typeof(T) == typeof(string))
 				{
-					return (T)Convert.ChangeType(value, typeof(string));
+                    return (T)Convert.ChangeType(value.Replace("&#010;", "\n").Replace("&#013;", "\r"), typeof(string));
 				} 
 				else if (typeof(T).IsEnum)
 				{
@@ -259,7 +259,7 @@ namespace dnGREP.Common
 
 			if (typeof(T) == typeof(string))
 			{
-				this[key] = value.ToString();
+				this[key] = value.ToString().Replace("\n", "&#010;").Replace("\r", "&#013;");
 			}
 			else if (typeof(T).IsEnum)
 			{
