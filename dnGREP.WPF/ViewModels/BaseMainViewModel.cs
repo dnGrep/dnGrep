@@ -467,6 +467,9 @@ namespace dnGREP.WPF
                 if (value == singleline)
                     return;
 
+                if (value)
+                    Multiline = true;
+
                 singleline = value;
 
                 base.OnPropertyChanged(() => Singleline);
