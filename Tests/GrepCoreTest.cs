@@ -165,7 +165,7 @@ namespace Tests
             GrepCore core = new GrepCore();
             List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase4", "app.config"), SearchType.XPath, "//setting", GrepSearchOption.CaseSensitive | GrepSearchOption.Multiline, -1);
             Assert.Equal(results.Count, 1);
-            Assert.Equal(results[0].SearchResults.Count, 86);
+            Assert.Equal(results[0].SearchResults.Count, 84);
         }
 
         [Fact]

@@ -392,7 +392,24 @@ namespace dnGREP.WPF
             if (IsProperty(() => PreviewFileContent, name))
             {
                 if (preview != null)
-                    preview.Hide();
+                {
+                    if (PreviewFileContent)
+                    {
+                        if (FormattedGrepResult.SelectedFile != null)
+                        {
+                            if (FormattedGrepResult.SelectedFile.IsSelected)
+                            {
+                                PreviewFile(FormattedGrepResult.SelectedFile, this.StickyWindow.OriginalForm.Bounds);
+                            }
+                            else if (FormattedGrepLine.SelectedLine != null)
+                            {
+                                PreviewFile(FormattedGrepLine.SelectedLine, this.StickyWindow.OriginalForm.Bounds);
+                            }
+                        }
+                    }
+                    else
+                        preview.Hide();
+                }
             }
         }
 
@@ -807,7 +824,7 @@ namespace dnGREP.WPF
                 else
                     CurrentGrepOperation = GrepOperation.Search;
                 StatusMessage = "Searching...";
-                if (preview != null)
+                if (preview != null && preview.IsVisible)
                     preview.ResetTextEditor();
                 Dictionary<string, object> workerParames = new Dictionary<string, object>();
                 if (SearchInResultsContent && CanSearchInResults)
@@ -844,7 +861,7 @@ namespace dnGREP.WPF
                         return;
                 }
                 StatusMessage = "Replacing...";
-                if (preview != null)
+                if (preview != null && preview.IsVisible)
                     preview.ResetTextEditor();
                 CurrentGrepOperation = GrepOperation.Replace;
                 CanUndo = false;
@@ -1286,6 +1303,7 @@ namespace dnGREP.WPF
                 previewModel.GrepResult = result;
                 previewModel.LineNumber = line;
                 previewModel.FilePath = filePath;
+                preview.Show();
             }  
         }
         #endregion

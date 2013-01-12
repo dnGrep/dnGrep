@@ -134,6 +134,8 @@ namespace dnGREP.WPF
 
     public class FormattedGrepResult : INotifyPropertyChanged
 	{
+        public static FormattedGrepResult SelectedFile = null;
+
 		private GrepSearchResult grepResult = new GrepSearchResult();
 		public GrepSearchResult GrepResult
 		{
@@ -201,6 +203,23 @@ namespace dnGREP.WPF
             {
                 isLoading = value;
                 OnPropertyChanged("IsLoading");
+            }
+        }
+
+        private bool isSelected;
+        public bool IsSelected
+        {
+            get { return isSelected; }
+            set
+            {
+                if (value == isSelected)
+                    return;
+
+                if (value)
+                    SelectedFile = this;
+
+                isSelected = value;
+                OnPropertyChanged("IsSelected");
             }
         }
 
@@ -299,6 +318,8 @@ namespace dnGREP.WPF
 
     public class FormattedGrepLine : ViewModelBase
 	{
+        public static FormattedGrepLine SelectedLine = null;
+
 		private GrepSearchResult.GrepLine grepLine;
 		public GrepSearchResult.GrepLine GrepLine
 		{
@@ -320,6 +341,22 @@ namespace dnGREP.WPF
                 return formattedText; 
             }
 		}
+
+        private bool isSelected;
+        public bool IsSelected
+        {
+            get { return isSelected; }
+            set
+            {
+                if (value == isSelected)
+                    return;
+
+                if (value)
+                    SelectedLine = this;
+                isSelected = value;
+                OnPropertyChanged("IsSelected");
+            }
+        }
 
         private string style = "";
 		public string Style
