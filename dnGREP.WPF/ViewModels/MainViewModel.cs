@@ -1202,7 +1202,7 @@ namespace dnGREP.WPF
             this.workerSearchReplace.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.searchComplete);
             this.workerSearchReplace.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.searchProgressChanged);
             this.saveFileDialog.Filter = "CSV file|*.csv";
-            DiginesisHelpProvider.HelpNamespace = "Doc\\dnGREP.chm";
+            DiginesisHelpProvider.HelpNamespace = "http://code.google.com/p/dngrep/wiki/";
             DiginesisHelpProvider.ShowHelp = true;
         }
 

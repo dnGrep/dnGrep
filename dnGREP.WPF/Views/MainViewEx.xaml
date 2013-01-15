@@ -10,7 +10,7 @@
     MinWidth="550" Icon="/dnGREP;component/nGREP.ico" Closing="MainForm_Closing"
     Loaded="Window_Loaded"
     SnapsToDevicePixels="True" ResizeMode="CanResizeWithGrip" AllowDrop="False"
-    my:DiginesisHelpProvider.HelpKeyword="search-window.html" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True" 
+    my:DiginesisHelpProvider.HelpKeyword="SearchWindow" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True" 
     WindowStartupLocation="Manual" TextOptions.TextFormattingMode="{Binding TextFormatting}"
     FocusManager.FocusedElement="{Binding ElementName=tbSearchFor}" Activated="Window_Activated" StateChanged="Window_StateChanged">
     <!-- Resources -->
@@ -115,7 +115,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"><Run Text="Search for:"/></TextBlock>
                         <ComboBox Grid.Row="0" Grid.Column="1" Text="{Binding SearchFor}" IsEditable="True" x:Name="tbSearchFor" ItemsSource="{Binding FastSearchBookmarks}" Style="{DynamicResource MultilineComboBoxStyle}"
-                                        FontFamily="Consolas" FontSize="12" TabIndex="5" my:DiginesisHelpProvider.HelpKeyword="regular-expressions.html" my:DiginesisHelpProvider.HelpNavigator="Topic" 
+                                        FontFamily="Consolas" FontSize="12" TabIndex="5" my:DiginesisHelpProvider.HelpKeyword="RegularExpressions" my:DiginesisHelpProvider.HelpNavigator="Topic"
                                         my:DiginesisHelpProvider.ShowHelp="True" Padding="5">
                             <ComboBox.ToolTip>
                                 <TextBlock><Run Text=". matches all characters"/><LineBreak/><Run Text="\w matches alpha-numerics"/><LineBreak/><Run Text="\d matches digits"/><LineBreak/><Run Text="\s matches space"/><LineBreak/><Run Text="* matches any number of characters"/><LineBreak/><Run Text="{}{1,3} matches 1 to 3 characters"/><LineBreak/><Run Text="For more Regex patterns hit F1"/></TextBlock>

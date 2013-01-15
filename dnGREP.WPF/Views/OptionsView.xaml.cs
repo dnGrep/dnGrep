@@ -27,7 +27,7 @@ namespace dnGREP.WPF
         public OptionsView()
         {
             InitializeComponent();
-			DiginesisHelpProvider.HelpNamespace = "Doc\\dnGREP.chm";
+            DiginesisHelpProvider.HelpNamespace = "http://code.google.com/p/dngrep/wiki/";
 			DiginesisHelpProvider.ShowHelp = true;
         }
     }

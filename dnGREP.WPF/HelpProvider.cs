@@ -241,7 +241,10 @@ namespace dnGREP.WPF
                     if (!string.IsNullOrEmpty(parameter))
                     {
 
-                        Help.ShowHelp(null, HelpNamespace, command, parameter);
+                        if (HelpNamespace.StartsWith("http"))                        
+                            Help.ShowHelp(null, HelpNamespace + parameter, command);
+                        else
+                            Help.ShowHelp(null, HelpNamespace, command, parameter);
 
                         e.Handled = true;
 
