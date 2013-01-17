@@ -84,7 +84,7 @@
 			<Application_XML_File_URL>http://dngrep.googlecode.com/hg/pad.xml</Application_XML_File_URL>
 		</Application_URLs>
 		<Download_URLs>
-			<Primary_Download_URL>http://code.google.com/p/dngrep/downloads/list/</Primary_Download_URL>
+			<Primary_Download_URL>http://code.google.com/p/dngrep/downloads/list</Primary_Download_URL>
 			<Secondary_Download_URL />
 			<Additional_Download_URL_1 />
 			<Additional_Download_URL_2 />
