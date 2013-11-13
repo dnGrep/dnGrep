@@ -23,24 +23,6 @@
     <Utf8Output>true</Utf8Output>
     <ExpressionBlendVersion>4.0.20525.0</ExpressionBlendVersion>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\x86\Debug\</OutputPath>
@@ -361,22 +343,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>REM Copy plugins
-rmdir /S /Q "$(TargetDir)Plugins"
-mkdir "$(TargetDir)Plugins"
-xcopy  "$(SolutionDir)Release\$(PlatformName)\dnGREP Archive Plugin X.X.X\Plugins\*.*" "$(TargetDir)Plugins" /E
-xcopy  "$(SolutionDir)Release\$(PlatformName)\dnGREP MsWord Plugin X.X.X\Plugins\*.*" "$(TargetDir)Plugins" /E
-xcopy  "$(SolutionDir)Release\$(PlatformName)\dnGREP PDF Plugin X.X.X\Plugins\*.*" "$(TargetDir)Plugins" /E
-REM Copy to Output Folder
-rmdir /S /Q "$(SolutionDir)Release\$(PlatformName)\dnGREP X.X.X (Standalone)"
-mkdir "$(SolutionDir)Release\$(PlatformName)\dnGREP X.X.X (Standalone)"
-xcopy "$(TargetDir)*.*" "$(SolutionDir)Release\$(PlatformName)\dnGREP X.X.X (Standalone)" /E
-rmdir /S /Q "$(SolutionDir)Release\$(PlatformName)\dnGREP X.X.X (Standalone)\Plugins"
-mkdir "$(SolutionDir)Release\$(PlatformName)\dnGREP X.X.X (Standalone)\Plugins"
-del /Q "$(SolutionDir)Release\$(PlatformName)\dnGREP X.X.X (Standalone)\*.pdb"
-del /Q "$(SolutionDir)Release\$(PlatformName)\dnGREP X.X.X (Standalone)\*.Settings.dat"
-del /Q "$(SolutionDir)Release\$(PlatformName)\dnGREP X.X.X (Standalone)\*vshost*.*"
-del /Q "$(SolutionDir)Release\$(PlatformName)\dnGREP X.X.X (Standalone)\Grep_Error_Log.xml"
-$(SolutionDir)Dependencies\NSIS\makensis.exe /DPLATFORM=$(PlatformName) /DVERSION="2.6.0" "$(SolutionDir)NSIS\dnGREP-setup.nsi"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

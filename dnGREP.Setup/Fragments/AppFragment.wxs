@@ -7,57 +7,57 @@
   <Fragment>
     <DirectoryRef Id="INSTALLDIR">
       <Component Id="cmp4F755EB8AEA654DE0F6FB783BD274E79" Guid="{293480D3-64A1-4D5D-A953-4C3F6694BC52}">
-        <File Id="fil034BCFAE6F96321DDDE7EE6FAD15946A" KeyPath="yes" Source="!(wix.SourcePathApp)\dnGREP.Common.dll" >
+        <File Id="fil034BCFAE6F96321DDDE7EE6FAD15946A" KeyPath="yes" Source="$(var.dnGREP.Common.TargetDir)\dnGREP.Common.dll" >
           <netfx:NativeImage Id="ngen_dnGREP.Common.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
         </File>
       </Component>
       <Component Id="cmpD9FA0B07237DE16A4585D46BED20E933" Guid="{F9C505AB-495B-44F9-A774-5F5946B9E8C9}">
-        <File Id="filED998F02E8D47F0905A9464D56B0F77D" KeyPath="yes" Source="!(wix.SourcePathApp)\dnGREP.Common.UI.dll" >
+        <File Id="filED998F02E8D47F0905A9464D56B0F77D" KeyPath="yes" Source="$(var.dnGREP.Common.UI.TargetDir)\dnGREP.Common.UI.dll" >
           <netfx:NativeImage Id="ngen_dnGREP.Common.UI.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
         </File>
       </Component>
       <Component Id="cmp5D64364BE848D8D880558DFAFA0DE81C" Guid="{A053CA7D-4AA0-4D90-AB08-2ACF54D0A9EC}">
-        <File Id="fil0A2118AB81362AE13EE6DDBA78E994BC" KeyPath="yes" Source="!(wix.SourcePathApp)\dnGREP.Engines.dll" >
+        <File Id="fil0A2118AB81362AE13EE6DDBA78E994BC" KeyPath="yes" Source="$(var.dnGREP.Engines.TargetDir)\dnGREP.Engines.dll" >
           <netfx:NativeImage Id="ngen_dnGREP.Engines.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
         </File>
       </Component>
       <Component Id="cmpE75E380769873171E1689F576B0BBBD1" Guid="{B7C5DBF9-8740-4677-8D55-E9C01BF58028}">
-        <File Id="filE4BA9060B65A733C63D86942A6474C5E" KeyPath="yes" Source="!(wix.SourcePathApp)\dnGREP.exe" >
+        <File Id="filE4BA9060B65A733C63D86942A6474C5E" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\dnGREP.exe" >
           <netfx:NativeImage Id="ngen_dnGREP.exe" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
         </File>
       </Component>
       <Component Id="cmp3C0B9E685307149FAB49326CFDE9664B" Guid="{8670B4D7-22A8-4204-BD7C-74B331677E44}">
-        <File Id="fil9A87CBB83F920A2DCE4E2100C929412F" KeyPath="yes" Source="!(wix.SourcePathApp)\dnGREP.exe.config" />
+        <File Id="fil9A87CBB83F920A2DCE4E2100C929412F" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\dnGREP.exe.config" />
       </Component>
       <Component Id="cmp0E16CB47C3F6B22E2FFDD2CC515AD1C8" Guid="{499E357F-9822-4945-A800-82BF6979E072}">
-        <File Id="fil6D3D5546417727749907FC9E19D97FF8" KeyPath="yes" Source="!(wix.SourcePathApp)\ICSharpCode.AvalonEdit.dll" >
+        <File Id="fil6D3D5546417727749907FC9E19D97FF8" KeyPath="yes" Source=".\..\packages\AvalonEdit.4.1.0.8000\lib\Net40\ICSharpCode.AvalonEdit.dll" >
           <netfx:NativeImage Id="ngen_ICSharpCode.AvalonEdit.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
         </File>
       </Component>
       <Component Id="cmp770B497917674F316826C902746C0409" Guid="{C4E32F77-F28D-468F-8F04-A0F508915218}">
-        <File Id="filB9D0C89E2BE03F54B6210850B37C7B82" KeyPath="yes" Source="!(wix.SourcePathApp)\NLog.dll" >
+        <File Id="filB9D0C89E2BE03F54B6210850B37C7B82" KeyPath="yes" Source=".\..\Dependencies\NLog.dll" >
           <netfx:NativeImage Id="ngen_NLog.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
         </File>
       </Component>
       <Component Id="cmpD2B2D2C054FB83F2A00F0E37E94A059D" Guid="{E231E543-7A4D-448D-B2E9-B93984B69F7B}">
-        <File Id="fil77AEE6F35188E9C636FAFA4296491FB7" KeyPath="yes" Source="!(wix.SourcePathApp)\NLog.xml" />
+        <File Id="fil77AEE6F35188E9C636FAFA4296491FB7" KeyPath="yes" Source=".\..\Dependencies\NLog.xml" />
       </Component>
       <Component Id="cmp63940A2343725017B4AC8FB8CA506996" Guid="{FCD0E208-39EF-4682-84B6-602CF99CFC83}">
-        <File Id="filC4FC895A31BBFCC8353F9AA5703B7601" KeyPath="yes" Source="!(wix.SourcePathApp)\NLog.XmlLayout.dll" >
+        <File Id="filC4FC895A31BBFCC8353F9AA5703B7601" KeyPath="yes" Source=".\..\Dependencies\NLog.XmlLayout.dll" >
           <netfx:NativeImage Id="ngen_NLog.XmlLayout.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
         </File>
       </Component>
       <Component Id="cmpB46C13BD217959CD183531DABC9F4E34" Guid="{5B010852-E641-481E-9C8D-F116EB571DCB}">
-        <File Id="fil506F0FA9EB8157C34EABDA61ECB772CF" KeyPath="yes" Source="!(wix.SourcePathApp)\Wpf.SplitButton.dll" >
+        <File Id="fil506F0FA9EB8157C34EABDA61ECB772CF" KeyPath="yes" Source=".\..\Dependencies\Wpf.SplitButton.dll" >
           <netfx:NativeImage Id="ngen_Wpf.SplitButton.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
         </File>
       </Component>
       <Directory Id="dirEA2A071CC81489CE050DF560254EBA27" Name="Doc">
         <Component Id="cmp039C70C9F12FE22CAE6761EA665D59B9" Guid="{C5637831-D89C-4CBB-97D8-2605D40A5F17}">
-          <File Id="fil628453020B46150F5189705F297358A7" KeyPath="yes" Source="!(wix.SourcePathApp)\Doc\dnGREP.chm" />
+          <File Id="fil628453020B46150F5189705F297358A7" KeyPath="yes" Source=".\..\dnGREP.GUI\Doc\dnGREP.chm" />
         </Component>
         <Component Id="cmp5968CED29C71B90C898DC6EEDD02773B" Guid="{831BA960-5B9E-430E-A583-824B41F04429}">
-          <File Id="filC1E1BFE65B99BE5CDC6ABB1D53161971" KeyPath="yes" Source="!(wix.SourcePathApp)\Doc\regular-expressions-cheat-sheet-v2.pdf" />
+          <File Id="filC1E1BFE65B99BE5CDC6ABB1D53161971" KeyPath="yes" Source=".\..\dnGREP.GUI\Doc\regular-expressions-cheat-sheet-v2.pdf" />
         </Component>
       </Directory>
     </DirectoryRef>

@@ -9,7 +9,7 @@
 		<Package InstallerVersion="200" Compressed="yes" />
 
 		<Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
-
+    
     <!-- Adding variable -->
     <?include Variables.wxi ?>
     

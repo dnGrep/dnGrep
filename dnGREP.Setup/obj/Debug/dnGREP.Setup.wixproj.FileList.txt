@@ -1,8 +1,0 @@
-obj\Debug\Product.wixobj
-obj\Debug\Product.Generated.wixobj
-obj\Debug\Fragments\AppFragment.wixobj
-obj\Debug\Fragments\PluginFragmentArchive.wixobj
-obj\Debug\Fragments\PluginFragmentPdf.wixobj
-obj\Debug\Fragments\PluginFragmentWord.wixobj
-C:\Sandbox\dnGrep\Release\x86\dnGREP 2.6.0 (x86).msi
-C:\Sandbox\dnGrep\Release\x86\dnGREP 2.6.0 (x86).wixpdb
