@@ -421,9 +421,9 @@ namespace dnGREP.WPF
             checkIfAdmin();
             if (!IsAdministrator)
             {
-                WindowsIntegrationTooltip = "To set shell integration run dnGREP as Administrator.";
-                StartupAccelerationTooltip = "To enable startup acceleration run dnGREP as Administrator.";
-                PanelTooltip = "To change shell integration and startup acceleration options run dnGREP as Administrator.";
+                WindowsIntegrationTooltip = "To set shell integration run dnGREP with elevated priveleges.";
+                StartupAccelerationTooltip = "To enable startup acceleration run dnGREP with elevated priveleges.";
+                PanelTooltip = "To change shell integration and startup acceleration options run dnGREP with elevated priveleges.";
             }
             else
             {
