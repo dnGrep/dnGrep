@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <WIX Condition=" '$(WIX)' == '' ">C:\Program Files (x86)\WiX Toolset v3.6\</WIX>
+    <WIX Condition=" '$(WIX)' == '' ">C:\Program Files (x86)\WiX Toolset v3.8\</WIX>
     <SourcePath Condition=" '$(SourcePath)' == '' ">.</SourcePath>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>2.7.1</ProductVersion>

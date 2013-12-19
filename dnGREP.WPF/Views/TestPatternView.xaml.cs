@@ -48,7 +48,7 @@ namespace dnGREP.WPF
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            GrepSettings.Instance.Save();
+            inputData.SaveSettings();
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)

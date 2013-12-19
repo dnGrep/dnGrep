@@ -1140,6 +1140,7 @@ namespace dnGREP.WPF
         {
             try
             {
+                SaveSettings();
                 TestPattern testForm = new TestPattern();
                 testForm.ShowDialog();
                 LoadSettings();
