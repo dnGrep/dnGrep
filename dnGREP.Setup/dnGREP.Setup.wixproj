@@ -5,7 +5,7 @@
     <WIX Condition=" '$(WIX)' == '' ">C:\Program Files (x86)\WiX Toolset v3.8\</WIX>
     <SourcePath Condition=" '$(SourcePath)' == '' ">.</SourcePath>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProductVersion>2.7.1</ProductVersion>
+    <ProductVersion>2.7.2</ProductVersion>
     <ProjectGuid>{9a5ee640-e3ee-4985-bd96-64b63a1b0062}</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
     <OutputName>dnGREP $(ProductVersion) ($(Platform))</OutputName>

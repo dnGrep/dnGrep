@@ -936,15 +936,9 @@ namespace dnGREP.WPF
 
         private void showOptions()
         {
-            string fileOrFolderPath = FileOrFolderPath;
-            string searchFor = SearchFor;
-            string replaceWith = ReplaceWith;
-            string filePattern = FilePattern;
-            string filePatternIgnore = FilePatternIgnore;
-
-            copyBookmarksToSettings();
-            OptionsView optionsForm = new OptionsView();
-            OptionsViewModel optionsViewModel = new OptionsViewModel();
+            SaveSettings();
+            var optionsForm = new OptionsView();
+            var optionsViewModel = new OptionsViewModel();
             // When the ViewModel asks to be closed, 
             // close the window.
             EventHandler handler = null;
@@ -965,11 +959,6 @@ namespace dnGREP.WPF
                 logger.LogException(LogLevel.Error, "Error saving options", ex);
             }
             LoadSettings();
-            FileOrFolderPath = fileOrFolderPath;
-            SearchFor = searchFor;
-            ReplaceWith = replaceWith;
-            FilePattern = filePattern;
-            FilePatternIgnore = filePatternIgnore;
             SearchResults.CustomEditorConfigured = true;
         }
 
