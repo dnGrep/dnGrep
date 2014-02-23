@@ -868,5 +868,21 @@ namespace Tests
                 counter++;
             Assert.Equal(expectedCount, counter);
         }
+
+        [Theory]
+        [InlineData("\\TestCase13", "*.*", "Obj\\*", 10)]
+        [InlineData("\\TestCase13", "*.*", ".svn\\*", 11)]
+        [InlineData("\\TestCase13", "*.*", ".svn\\*;obj\\*", 6)]
+        [InlineData("\\TestCase13", "*.*", "*.*", 0)]
+        [InlineData("\\TestCase13", "*.*", "", 15)]
+        public void TestAsteriskGetFilesWithExclude(string folder, string pattern, String excludePattern, int expectedCount)
+        {
+            // This recurses to subfolders
+            var result = Utils.GetFileListEx(sourceFolder + folder, pattern, excludePattern, false, true, true, true, 0, 0);
+            int counter = 0;
+            foreach (var f in result)
+                counter++;
+            Assert.Equal(expectedCount, counter);
+        }
 	}
 }

@@ -574,15 +574,9 @@ namespace dnGREP.WPF
                         if (!string.IsNullOrEmpty(param.FilePattern))
                             filePatternInclude = param.FilePattern;
 
-                        if (param.TypeOfFileSearch == FileSearchType.Asterisk)
-                            filePatternInclude = filePatternInclude.Replace("\\", "");
-
                         string filePatternExclude = "";
                         if (!string.IsNullOrEmpty(param.FilePatternIgnore))
                             filePatternExclude = param.FilePatternIgnore;
-
-                        if (param.TypeOfFileSearch == FileSearchType.Asterisk)
-                            filePatternExclude = filePatternExclude.Replace("\\", "");
 
                         IEnumerable<string> files;
 
