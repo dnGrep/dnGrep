@@ -884,5 +884,18 @@ namespace Tests
                 counter++;
             Assert.Equal(expectedCount, counter);
         }
+
+        [Theory]
+        [InlineData(0, 0, 0, 0, 0, "0.0s")]
+        [InlineData(1, 30, 15, 7, 123, "54h 15m 7.123s")]
+        [InlineData(0, 10, 0, 1, 234, "10h 0m 1.234s")]
+        [InlineData(0, 0, 13, 1, 234, "13m 1.234s")]
+        [InlineData(0, 0, 0, 1, 234, "1.234s")]
+        [InlineData(0, 0, 0, 0, 123456789, "34h 17m 36.789s")]
+        public void TestDurationGetPrettyString(int days, int hours, int minutes, int seconds, int milliseconds, String expectedString)
+        {
+            var duration = new TimeSpan(days, hours, minutes, seconds, milliseconds);
+            Assert.Equal<String>(expectedString, duration.GetPrettyString());
+        }
 	}
 }

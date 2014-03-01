@@ -1581,6 +1581,29 @@ namespace dnGREP.Common
 
 			return false;
 		}
+
+
+        /// <summary>
+        /// Extension method on TimeSpan that gets a "pretty", human readable string of a TimeSpan, e.g. "1h 23m 45.678s".
+        /// Hours and minutes are left off as not needed. Hours are the largest unit of time shown (e.g. not days, weeks).
+        /// </summary>
+        /// <param name="duration">The time span in question.</param>
+        /// <returns>"Pretty", human readable string of the time span.</returns>
+        public static string GetPrettyString(this TimeSpan duration)
+        {
+            var durationStringBuilder = new System.Text.StringBuilder();
+            var totalHoursTruncated = (int)duration.TotalHours;
+
+            if (totalHoursTruncated > 0)
+                durationStringBuilder.Append(totalHoursTruncated + "h ");
+
+            if (duration.Minutes > 0 || totalHoursTruncated > 0)
+                durationStringBuilder.Append(duration.Minutes + "m ");
+
+            durationStringBuilder.Append(duration.Seconds + "." + duration.Milliseconds + "s");
+
+            return durationStringBuilder.ToString();
+        }
 	}
 
 	public class KeyValueComparer : IComparer<KeyValuePair<string, int>>

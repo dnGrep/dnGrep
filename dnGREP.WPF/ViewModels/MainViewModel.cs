@@ -724,7 +724,8 @@ namespace dnGREP.WPF
                     {
                         TimeSpan duration = DateTime.Now.Subtract(timer);
                         results = (List<GrepSearchResult>)e.Result;
-                        StatusMessage = "Search Complete - " + results.Count + " files found in " + duration.TotalMilliseconds + "ms.";
+                        
+                        StatusMessage = "Search Complete - " + results.Count + " files found in " + duration.GetPrettyString() + ".";
                     }
                     else
                     {
