@@ -428,6 +428,7 @@ namespace dnGREP.WPF
                 settings.Set<System.Drawing.Rectangle>(GrepSettings.Key.PreviewWindowSize, preview.StickyWindow.OriginalForm.Bounds);
                 settings.Set<StickyWindow.StickDir>(GrepSettings.Key.PreviewWindowPosition, preview.StickyWindow.IsStuckTo(stickyWindow.OriginalForm, true));
                 preview.ForceClose();
+                preview = null;
             }         
         }
 
