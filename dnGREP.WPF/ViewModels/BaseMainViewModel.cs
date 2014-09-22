@@ -894,7 +894,7 @@ namespace dnGREP.WPF
                         FilePattern = "*";
                         FilePatternIgnore = "";
                         TypeOfFileSearch = FileSearchType.Asterisk;
-                        CodePage = 0;
+                        CodePage = -1;
                     }
                     break;
             }

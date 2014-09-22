@@ -222,25 +222,63 @@ namespace dnGREP.Common
 		/// <returns></returns>
 		public static Encoding GetFileEncoding(string srcFile)
 		{
-			// *** Use Default of Encoding.Default (Ansi CodePage)
-			Encoding enc = Encoding.Default;
-
-			// *** Detect byte order mark if any - otherwise assume default
-			byte[] buffer = new byte[5];
-			using (FileStream readStream = new FileStream(srcFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-			{
-				readStream.Read(buffer, 0, 5);
-			}
-			if (buffer[0] == 0xef && buffer[1] == 0xbb && buffer[2] == 0xbf)
-				enc = Encoding.UTF8;
-			else if (buffer[0] == 0xfe && buffer[1] == 0xff)
-				enc = Encoding.Unicode;
-			else if (buffer[0] == 0 && buffer[1] == 0 && buffer[2] == 0xfe && buffer[3] == 0xff)
-				enc = Encoding.UTF32;
-			else if (buffer[0] == 0x2b && buffer[1] == 0x2f && buffer[2] == 0x76)
-				enc = Encoding.UTF7;
-			return enc;
+            // TODO: Unit tests. At least a regression test for Google Code issue 204. In order to properly unit test this method, we should decouple it from the file system by passing in an object that can be easily faked/mocked (a Stream object?).
+            using (FileStream readStream = new FileStream(srcFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            {
+                var detector = new Ude.CharsetDetector();
+                detector.Feed(readStream);
+                detector.DataEnd();
+                return DotNetEncodingFromUde(detector.Charset) ?? Encoding.Default; // If we detected an encoding, use it, otherwise use defualt.
+            }
 		}
+
+        /// <summary>
+        /// Maps a Ude charset to a System.Text.Encoding.
+        /// </summary>
+        /// <returns>
+        /// The System.Text.Encoding for the given Ude CharsetDetector.Charset, or null if not found in the map.
+        /// </returns>
+        private static Encoding DotNetEncodingFromUde(string udeCharset)
+        {
+            if (udeCharset == null)
+                return null;
+
+            // Ude to .NET encoding name mapping. We should update this if ever both support new encodings.
+            // I got this list by comparing Ude.Core\Charsets.cs with the table shown in the System.Text.Encoding
+            // docs at http://msdn.microsoft.com/en-us/library/vstudio/system.text.encoding(v=vs.100).aspx
+            // Note that it's a many-to-one mapping, in some cases, like (UTF-16LE, UTF-16BE) => utf-16.
+            var udeToDotNet = new Dictionary<string, string>()
+                                   {{"Big-5", "big5"},
+                                    {"EUC-JP", "euc-jp"},
+                                    {"EUC-KR", "euc-kr"},
+                                    {"gb18030", "GB18030"},
+                                    {"HZ-GB-2312", "hz-gb-2312"},
+                                    {"IBM855", "IBM855"},
+                                    {"ISO-2022-JP", "iso-2022-jp"},
+                                    {"ISO-2022-KR", "iso-2022-kr"},
+                                    {"ISO-8859-2", "iso-8859-2"},
+                                    {"ISO-8859-5", "iso-8859-5"},
+                                    {"ISO-8859-7", "iso-8859-7"},
+                                    {"ISO-8859-8", "iso-8859-8"},
+                                    {"KOI8-R", "koi8-r"},
+                                    {"Shift-JIS", "shift_jis"},
+                                    {"ASCII", "us-ascii"},
+                                    {"UTF-16LE", "utf-16"},
+                                    {"UTF-16BE", "utf-16"},
+                                    {"UTF-32BE", "utf-32"},
+                                    {"UTF-32LE", "utf-32"},
+                                    {"UTF-8", "utf-8"},
+                                    {"windows-1251", "windows-1251"},
+                                    {"windows-1252", "Windows-1252"},
+                                    {"windows-1253", "windows-1253"},
+                                    {"windows-1255", "windows-1255"},
+                                    {"x-mac-cyrillic", "x-mac-cyrillic"}};
+
+            if (udeToDotNet.ContainsKey(udeCharset))
+                return Encoding.GetEncoding(udeToDotNet[udeCharset]);
+            else
+                return null;
+        }
 
 		/// <summary>
 		/// Returns true is file is binary. Algorithm taken from winGrep.

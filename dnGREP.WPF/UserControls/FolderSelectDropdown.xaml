@@ -166,7 +166,7 @@
                                     </StackPanel>
                                     <TextBlock Grid.Column="0" Grid.Row="3" VerticalAlignment="Center">Encoding:</TextBlock>
                                     <ComboBox Grid.Column="1" Grid.Row="3" DisplayMemberPath="Key" SelectedValuePath="Value" ItemsSource="{Binding Path=Encodings}"
-                                    Name="cbEncoding" VerticalAlignment="Top" SelectedValue="{Binding Path=CodePage}" SelectedIndex="0"
+                                    Name="cbEncoding" VerticalAlignment="Top" SelectedValue="{Binding Path=CodePage}" SelectedIndex="0" Initialized="cbEncoding_Initialized"
                                       TabIndex="54"  IsEnabled="{Binding Path=FileFilters, Converter={StaticResource InverseBooleanConverter}}"/>
                                 </Grid>
                                 <Expander Grid.Row="2" Grid.ColumnSpan="2" Header="History">
