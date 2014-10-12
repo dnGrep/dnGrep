@@ -226,7 +226,7 @@ namespace Tests
             }
         }
 
-        [Fact]
+        [Fact(Skip = "Functionality being tested not implemented yet.")]
         public void TestGuidxReplaceWithPatternRegex()
         {
             Utils.CopyFiles(sourceFolder + "\\TestCase9", destinationFolder + "\\TestCase9", null, null);
