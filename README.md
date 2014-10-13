@@ -1,35 +1,36 @@
-.NET implementation of GREP tool with GUI. Requires Microsoft .NET *4.0* to run ([http://msdn.microsoft.com/en-us/netframework/aa569263.aspx]). Version 2.0+ is implemented using WPF framework.
+dnGREP is a [grep](http://en.wikipedia.org/wiki/Grep) utility for Windows. dnGREP searches files for lines matching a given [regular expression](https://github.com/dnGrep/dnGrep/wiki/Regular-Expressions), text, or [XPath](https://github.com/dnGrep/dnGrep/wiki/XPath) pattern and returns the match in the results tree.
 
-Check [Introduction user guide] for screenshots and details.
+Requires Microsoft [.NET 4.0](http://msdn.microsoft.com/en-us/netframework/aa569263.aspx) to run. Version 2.0+ is implemented using WPF framework.
 
-## Features
-   * [ShellIntegration Shell integration] (ability to search from explorer)
-   * Plain text/[RegularExpressions regex]/[XPath] search (including case-insensitive search)
-   * [Phonetic] search (using Bitap and Needleman-Wunch algorithms)
-   * File move/copy/delete actions
-   * Search inside archives (via plug-in)
-   * Search MS Word documents (via plug-in)
-   * Search PDF documents (via plug-in)
-   * [Undo] functionality
-   * Optional integration with text editor (like notepad++)
-   * [Bookmarks] (ability to save regex searches for the future)
-   * Pattern test form
-   * Search result highlighting
-   * Search result preview
-   * Does not require installation (can be run from USB drive)
-   * and more...
-
-http://dngrep.googlecode.com/hg/Images/grep-main.jpg
-
+![](https://github.com/dnGrep/dnGrep/wiki/Images/grep-main.jpg)
 _Main Screen_
 
-http://dngrep.googlecode.com/hg/Images/options-window.jpg
+##Features
+  * [Shell integration](https://github.com/dnGrep/dnGrep/wiki/Shell-Integration) (ability to search from explorer)
+  * Plain text/[regex](https://github.com/dnGrep/dnGrep/wiki/Regular-Expressions)/[XPath](https://github.com/dnGrep/dnGrep/wiki/XPath) search (including case-insensitive search)
+  * [Phonetic](https://github.com/dnGrep/dnGrep/wiki/Phonetic) search (using Bitap and Needleman-Wunch algorithms)
+  * File move/copy/delete actions
+  * Search inside archives (via plug-in)
+  * Search MS Word documents (via plug-in)
+  * Search PDF documents (via plug-in)
+  * [Undo](https://github.com/dnGrep/dnGrep/wiki/Undo) functionality
+  * Optional integration with text editor (like notepad++)
+  * [Bookmarks](https://github.com/dnGrep/dnGrep/wiki/Bookmarks) (ability to save regex searches for the future)
+  * Pattern test form
+  * Search result highlighting
+  * Search result preview
+  * Does not require installation (can be run from USB drive)
+  * and more...
 
+
+![](https://github.com/dnGrep/dnGrep/wiki/Images/options-window.jpg)
 _Options_
 
-http://dngrep.googlecode.com/hg/Images/shell-integration.jpg
-
+![](https://github.com/dnGrep/dnGrep/wiki/Images/shell-integration.jpg)
 _Shell Integration_
+
+
+# Release History
 
 ### dnGREP 2.7.2 is out
 
@@ -218,13 +219,13 @@ http://dngrep.googlecode.com/svn/images/options-window-new-option-file-search.jp
 
 ### Release 0.8.4 is available for download
    * Added window to test regular expressions
-   * Added regex cheat-sheet (thanks to http://www.addedbytes.com/cheat-sheets/regular-expressions-cheat-sheet/)
+   * Added regex cheat-sheet (thanks to [addedbytes.com](http://www.addedbytes.com/cheat-sheets/regular-expressions-cheat-sheet/))
 
 ### Release 0.8.3 is available for download
-   * Fixed issues when replacing text in ANSI files by implementing GetFileEncoding() (thanks to [http://csharpfeeds.com/post/6949/Detecting_Text_Encoding_for_StreamReader.aspx])
+   * Fixed issues when replacing text in ANSI files by implementing GetFileEncoding() (thanks to [csharpfeeds.com](http://csharpfeeds.com/post/6949/Detecting_Text_Encoding_for_StreamReader.aspx))
 
 ### Release 0.8.2 is available for download
-   * Implemented case-insensitive plain text search (thanks to http://www.codeproject.com/KB/string/fastestcscaseinsstringrep.aspx) 
+   * Implemented case-insensitive plain text search (thanks to [Huisheng Chen](http://www.codeproject.com/KB/string/fastestcscaseinsstringrep.aspx))
    * Added ability to filter by multiple text pattern (separated by semicolon) 
    * Fixed defect when replacing read-only files 
    * Fixed defect with maintaining file attributes after replacement
