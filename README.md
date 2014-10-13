@@ -1,9 +1,6 @@
-dnGREP is a [grep](http://en.wikipedia.org/wiki/Grep) utility for Windows. dnGREP searches files for lines matching a given [regular expression](https://github.com/dnGrep/dnGrep/wiki/Regular-Expressions), text, or [XPath](https://github.com/dnGrep/dnGrep/wiki/XPath) pattern and returns the match in the results tree.
+dnGREP is a [grep](http://en.wikipedia.org/wiki/Grep) utility for Windows. dnGREP searches files for lines matching a given [regular expression](https://github.com/dnGrep/dnGrep/wiki/Regular-Expressions), text, or [XPath](https://github.com/dnGrep/dnGrep/wiki/XPath) pattern and returns the match in the results tree. See the [wiki](https://github.com/dnGrep/dnGrep/wiki) for more.
 
 Requires Microsoft [.NET 4.0](http://msdn.microsoft.com/en-us/netframework/aa569263.aspx) to run. Version 2.0+ is implemented using WPF framework.
-
-![](https://github.com/dnGrep/dnGrep/wiki/Images/grep-main.jpg)
-_Main Screen_
 
 ##Features
   * [Shell integration](https://github.com/dnGrep/dnGrep/wiki/Shell-Integration) (ability to search from explorer)
@@ -23,11 +20,20 @@ _Main Screen_
   * and more...
 
 
+_Main Screen:_
+
+![](https://github.com/dnGrep/dnGrep/wiki/Images/grep-main.jpg)
+
+
+_Options:_
+
 ![](https://github.com/dnGrep/dnGrep/wiki/Images/options-window.jpg)
-_Options_
+
+
+_Shell Integration:_
 
 ![](https://github.com/dnGrep/dnGrep/wiki/Images/shell-integration.jpg)
-_Shell Integration_
+
 
 
 # Release History
