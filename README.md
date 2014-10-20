@@ -1,4 +1,4 @@
-![logo](http://dngrep.github.io/images/Logo.png)
+![logo](dnGREP.GUI/Images/Logo-small.gif)
 
 Users, see the **[main web site](http://dngrep.github.io/)** to download and install dnGrep.
 
