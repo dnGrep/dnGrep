@@ -92,6 +92,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyInfoCommon.cs">
+      <Link>Properties\AssemblyInfoCommon.cs</Link>
+    </Compile>
+    <Compile Include="..\AssemblyVersionCommon.cs">
+      <Link>Properties\AssemblyVersionCommon.cs</Link>
+    </Compile>
     <Compile Include="GoogleMatch.cs" />
     <Compile Include="GrepCore.cs" />
     <Compile Include="GrepEngineFactory.cs" />

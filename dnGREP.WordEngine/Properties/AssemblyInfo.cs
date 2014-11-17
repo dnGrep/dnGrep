@@ -8,11 +8,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("dnGREP.WordEngine")]
 [assembly: AssemblyDescription("This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Denis Stankovski")]
-[assembly: AssemblyProduct("dnGREP.WordEngine")]
-[assembly: AssemblyCopyright("Copyright, 2013")]
-[assembly: AssemblyTrademark("")]
-[assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 

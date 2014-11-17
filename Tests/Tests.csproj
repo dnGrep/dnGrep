@@ -113,6 +113,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyInfoCommon.cs">
+      <Link>Properties\AssemblyInfoCommon.cs</Link>
+    </Compile>
+    <Compile Include="..\AssemblyVersionCommon.cs">
+      <Link>Properties\AssemblyVersionCommon.cs</Link>
+    </Compile>
     <Compile Include="BookmarkTest.cs" />
     <Compile Include="GrepCoreTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
