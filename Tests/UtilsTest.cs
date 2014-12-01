@@ -753,9 +753,10 @@ namespace Tests
             DirectoryInfo dir = new DirectoryInfo(path);
             var size2 = dir.GetFiles("*.*", SearchOption.AllDirectories).Length;
             var duration2 = DateTime.Now.Subtract(start).Duration().TotalMilliseconds;
-            
+
             Assert.Equal(size, size2);
-            Assert.True(duration > duration2);
+            var bufferPercent = 1.1; // On some build machines (e.g. AppVeyor) the following occasionally fails. So adding a buffer.
+            Assert.True((duration * bufferPercent) > duration2, "(duration * bufferPercent) = " + (duration * bufferPercent) + ", duration2 = " + duration2);
         }
 
         [Theory]
