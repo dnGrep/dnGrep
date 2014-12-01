@@ -336,7 +336,7 @@ namespace dnGREP
 					{
 						if (MessageBox.Show("New version of dnGREP (" + version.Version + ") is available for download.\nWould you like to download it now?", "New version", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information) == DialogResult.Yes)
 						{
-							System.Diagnostics.Process.Start("http://code.google.com/p/dngrep/");
+                            System.Diagnostics.Process.Start("http://dngrep.github.io/");
 						}
 					}
 				}

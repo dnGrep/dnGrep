@@ -1169,7 +1169,7 @@ namespace dnGREP.WPF
                     {
                         if (MessageBox.Show("New version of dnGREP (" + version.Version + ") is available for download.\nWould you like to download it now?", "New version", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
                         {
-                            System.Diagnostics.Process.Start("http://code.google.com/p/dngrep/");
+                            System.Diagnostics.Process.Start("http://dngrep.github.io/");
                         }
                     }
                 }
@@ -1188,7 +1188,7 @@ namespace dnGREP.WPF
             this.workerSearchReplace.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.searchComplete);
             this.workerSearchReplace.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.searchProgressChanged);
             this.saveFileDialog.Filter = "CSV file|*.csv";
-            DiginesisHelpProvider.HelpNamespace = "http://code.google.com/p/dngrep/wiki/";
+            DiginesisHelpProvider.HelpNamespace = "https://github.com/dnGrep/dnGrep/wiki";
             DiginesisHelpProvider.ShowHelp = true;
         }
 
