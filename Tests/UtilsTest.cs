@@ -735,31 +735,7 @@ namespace Tests
 		{
 			Assert.Equal(Utils.GetFileList(sourceFolder + "\\NonExisting", "*.*", null, false, true, true, true, 0, 0).Length, 0);
 		}
-
-        [Fact]
-        public void GetFileListPerformance()
-        {
-            string path = sourceFolder + @"\..\..\..\..\";
-            DateTime start = DateTime.Now;
-            int size = Utils.GetFileList(path, "*.*", null, false, false, false, true, 0, 0).Length;
-            var duration = DateTime.Now.Subtract(start).Duration().TotalMilliseconds;
-
-            path = sourceFolder + @"..\..\..\";
-            start = DateTime.Now;
-            size = Utils.GetFileList(path, @".*\..*", null, true, true, true, true, 0, 0).Length;
-            duration = DateTime.Now.Subtract(start).Duration().TotalMilliseconds;
-
-            start = DateTime.Now;
-            DirectoryInfo dir = new DirectoryInfo(path);
-            var size2 = dir.GetFiles("*.*", SearchOption.AllDirectories).Length;
-            var duration2 = DateTime.Now.Subtract(start).Duration().TotalMilliseconds;
-
-            Assert.Equal(size, size2);
-            //TODO: Since this test fails randomly depending on the machine and perhaps other factors, it might need to be rewritten to run the two timings several times each and compare the averages. Or something else. I think it's hard to unit test performance.
-            var bufferPercent = 1.5; // On some build machines (e.g. AppVeyor) the following occasionally fails. So adding a buffer.
-            Assert.True((duration * bufferPercent) > duration2, "(duration * bufferPercent) = " + (duration * bufferPercent) + ", duration2 = " + duration2);
-        }
-
+        
         [Theory]
 		[InlineData("", 1, 1)]
 		[InlineData("5", 0, 5)]
