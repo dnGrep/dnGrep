@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <!-- Adding variable -->
+  <?include Variables.wxi ?>
   <Product Id="*" 
-           Name="dnGREP $(var.ProductVersion) ($(var.Platform))" 
+           Name="dnGREP $(var.MajorVersion).$(var.MinorVersion).$(var.BuildVersion) ($(var.Platform))" 
            Language="1033" 
            Version="$(var.ProductVersion)" 
            Manufacturer="Denis Stankovski" 
@@ -9,9 +11,6 @@
 		<Package InstallerVersion="200" Compressed="yes" />
 
 		<Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
-    
-    <!-- Adding variable -->
-    <?include Variables.wxi ?>
     
     <!-- Perform conditional checks -->
     <?include Conditions.wxi ?>    
