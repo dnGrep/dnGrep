@@ -173,7 +173,7 @@ namespace dnGREP.Engines.Word
 		{
 			get
 			{
-				return new Version(2,7,0,0);
+                return Assembly.GetAssembly(typeof(IGrepEngine)).GetName().Version;
 			}
 		}
 

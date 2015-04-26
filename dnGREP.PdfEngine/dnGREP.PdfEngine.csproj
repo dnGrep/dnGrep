@@ -101,6 +101,9 @@
     <Compile Include="..\AssemblyInfoCommon.cs">
       <Link>Properties\AssemblyInfoCommon.cs</Link>
     </Compile>
+    <Compile Include="..\AssemblyVersionCommon.cs">
+      <Link>Properties\AssemblyVersionCommon.cs</Link>
+    </Compile>
     <Compile Include="GrepEnginePdf.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
