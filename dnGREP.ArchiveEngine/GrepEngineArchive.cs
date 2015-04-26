@@ -5,6 +5,7 @@ using NLog;
 using dnGREP.Common;
 using SevenZip;
 using System.IO;
+using System.Reflection;
 
 namespace dnGREP.Engines.Archive
 {
@@ -94,7 +95,7 @@ namespace dnGREP.Engines.Archive
 		{
 			get
 			{
-				return new Version(2, 7, 0, 0);
+                return Assembly.GetAssembly(typeof(IGrepEngine)).GetName().Version;
 			}
 		}
 
