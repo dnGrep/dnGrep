@@ -6,19 +6,23 @@
 )
 Import-Module "$PSScriptRoot\ParseVersion.psm1" -Force
 
+# Utility function. Given the digit grouping, xml, and number value, sets the appropriate Wix variable in the xml.
+function setVersion($groupName, $number, $xml)
+{
+    $nodeXml = $xml.Include.ChildNodes | where {($_.NodeType -eq 'ProcessingInstruction') -and ($_.InnerText -match "$groupName\s*=\s*`"")}
+    $nodeXml.InnerText = "$groupName=`"$number`" "
+}
+
 Write-Host "Putting version number from `"$AssemblyVersionCommonCSPath`" to `"$VariablesWxi`""
 
 $version = ParseVersion $AssemblyVersionCommonCSPath
 
 # Write the version number into the MSI name
 $xml = [xml](Get-Content $VariablesWxi)
-$MajorVersionXml = $xml.Include.ChildNodes | where {$_.Value.contains('MajorVersion')}
-$MinorVersionXml = $xml.Include.ChildNodes | where {$_.Value.contains('MinorVersion')}
-$BuildVersionXml = $xml.Include.ChildNodes | where {$_.Value.contains('BuildVersion')}
-$RevisionXml     = $xml.Include.ChildNodes | where {$_.Value.contains('Revision')}
-$MajorVersionXml = $version.MajorVersion
-$MinorVersionXml = $version.MinorVersion
-$BuildVersionXml = $version.BuildVersion
-$RevisionXml     = $version.Revision
+
+setVersion 'MajorVersion' $version.MajorVersion $xml
+setVersion 'MinorVersion' $version.MinorVersion $xml
+setVersion 'BuildVersion' $version.BuildVersion $xml
+setVersion 'Revision'     $version.Revision     $xml
 
 $xml.Save($VariablesWxi)

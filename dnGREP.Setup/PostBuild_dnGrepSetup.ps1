@@ -12,7 +12,7 @@ Write-Host "Renaming .msi and .wipdb to have vesion number in filenames"
 function rename($filePath, $version)
 {
     $file = Get-Item $filePath
-    $newFileName = ( ($file.BaseName).replace('X.X.X.X',"$($version.MajorVersion).$($version.MinorVersion).$($version.BuildVersion).$($version.Revision)") + $file.Extension )
+    $newFileName = ( ($file.BaseName).replace('X.X.X.X',"$($version.MajorVersion).$($version.MinorVersion).$($version.BuildVersion)") + $file.Extension )
     Move-Item $filePath (Join-Path $file.Directory.FullName $newFileName)
 }
 $version = ParseVersion $AssemblyVersionCommonCSPath
