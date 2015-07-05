@@ -416,7 +416,7 @@ namespace dnGREP.Common
                         }
                         sb.Append(splitterIndex + subSplitterIndex < path.Length ? path[splitterIndex + subSplitterIndex].ToString() : "");
                     }
-                    if (!found)
+                    if (!found && !String.IsNullOrEmpty(paths[i]))
                         output.Add(paths[i]);
                 }
             }
