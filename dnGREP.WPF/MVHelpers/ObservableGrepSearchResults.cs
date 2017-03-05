@@ -342,6 +342,9 @@ namespace dnGREP.WPF
             }
 		}
 
+        // FormattedGrepLines don't expand, but the XAML code expects this property on TreeViewItems
+        public bool IsExpanded { get; set; }
+
         private bool isSelected;
         public bool IsSelected
         {
@@ -478,20 +481,5 @@ namespace dnGREP.WPF
             }
             return paragraph.Inlines;
         }
-
-        #region PropertyChanged Members
-        // Create the OnPropertyChanged method to raise the event
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(name));
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion
     }
 }

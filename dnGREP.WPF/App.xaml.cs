@@ -53,7 +53,7 @@ namespace dnGREP.WPF
             }
             catch (Exception ex)
             {
-                logger.LogException(LogLevel.Error, ex.Message, ex);
+                logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
                 MessageBox.Show("Something broke down in the program. See event log for details.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -70,13 +70,13 @@ namespace dnGREP.WPF
             }
             catch (Exception ex)
             {
-                logger.LogException(LogLevel.Error, ex.Message, ex);
+                logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
                 MessageBox.Show("Something broke down in the program. See event log for details.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
-            logger.LogException(LogLevel.Error, e.Exception.Message, e.Exception);
+            logger.Log<Exception>(LogLevel.Error, e.Exception.Message, e.Exception);
             MessageBox.Show("Something broke down in the program. See event log for details.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             e.Handled = true;
         }

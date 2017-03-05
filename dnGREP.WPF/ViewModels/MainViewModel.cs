@@ -447,7 +447,7 @@ namespace dnGREP.WPF
             }
             catch (Exception ex)
             {
-                logger.LogException(LogLevel.Error, "Failed to open file.", ex);
+                logger.Log<Exception>(LogLevel.Error, "Failed to open file.", ex);
                 if (useCustomEditor)
                     MessageBox.Show("There was an error opening file by custom editor. \nCheck editor path via \"Options..\".", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
                 else
@@ -468,7 +468,7 @@ namespace dnGREP.WPF
             }
             catch (Exception ex)
             {
-                logger.LogException(LogLevel.Error, "Failed to open file.", ex);
+                logger.Log<Exception>(LogLevel.Error, "Failed to open file.", ex);
                 if (useCustomEditor)
                     MessageBox.Show("There was an error opening file by custom editor. \nCheck editor path via \"Options..\".", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
                 else
@@ -665,7 +665,7 @@ namespace dnGREP.WPF
             }
             catch (Exception ex)
             {
-                logger.LogException(LogLevel.Error, ex.Message, ex);
+                logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
                 bool isSearch = true;
                 if (e.Argument is MainViewModel)
                 {
@@ -705,7 +705,7 @@ namespace dnGREP.WPF
             }
             catch (Exception ex)
             {
-                logger.LogException(LogLevel.Error, ex.Message, ex);
+                logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
                 MessageBox.Show("Search or replace failed! See error log.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -771,7 +771,7 @@ namespace dnGREP.WPF
             }
             catch (Exception ex)
             {
-                logger.LogException(LogLevel.Error, ex.Message, ex);
+                logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
                 MessageBox.Show("Search or replace failed! See error log.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
@@ -952,7 +952,7 @@ namespace dnGREP.WPF
             catch (Exception ex)
             {
                 MessageBox.Show("There was an error saving options.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
-                logger.LogException(LogLevel.Error, "Error saving options", ex);
+                logger.Log<Exception>(LogLevel.Error, "Error saving options", ex);
             }
             LoadSettings();
             SearchResults.CustomEditorConfigured = true;
@@ -960,8 +960,7 @@ namespace dnGREP.WPF
 
         private void showHelp()
         {
-            //TODO: Fix
-            //ApplicationCommands.Help.Execute(null, helpToolStripMenuItem);
+            System.Diagnostics.Process.Start(@"https://github.com/dnGrep/dnGrep/wiki");
         }
 
         private void showAbout()
@@ -1022,7 +1021,7 @@ namespace dnGREP.WPF
                     catch (Exception ex)
                     {
                         MessageBox.Show("There was an error copying files. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
-                        logger.LogException(LogLevel.Error, "Error copying files", ex);
+                        logger.Log<Exception>(LogLevel.Error, "Error copying files", ex);
                     }
                     CanUndo = false;
                 }
@@ -1050,7 +1049,7 @@ namespace dnGREP.WPF
                     }
                     catch (Exception ex)
                     {
-                        logger.LogException(LogLevel.Error, "Error moving files", ex);
+                        logger.Log<Exception>(LogLevel.Error, "Error moving files", ex);
                         MessageBox.Show("There was an error moving files. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     CanUndo = false;
@@ -1077,7 +1076,7 @@ namespace dnGREP.WPF
                 catch (Exception ex)
                 {
                     MessageBox.Show("There was an error deleting files. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
-                    logger.LogException(LogLevel.Error, "Error deleting files", ex);
+                    logger.Log<Exception>(LogLevel.Error, "Error deleting files", ex);
                 }
                 CanUndo = false;
                 SearchResults.Clear();
@@ -1115,7 +1114,7 @@ namespace dnGREP.WPF
                     catch (Exception ex)
                     {
                         MessageBox.Show("There was an error creating a CSV file. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
-                        logger.LogException(LogLevel.Error, "Error creating CSV file", ex);
+                        logger.Log<Exception>(LogLevel.Error, "Error creating CSV file", ex);
                     }
                 }
             }
@@ -1133,7 +1132,7 @@ namespace dnGREP.WPF
             catch (Exception ex)
             {
                 MessageBox.Show("There was an error running regex test. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
-                logger.LogException(LogLevel.Error, "Error running regex", ex);
+                logger.Log<Exception>(LogLevel.Error, "Error running regex", ex);
             }
         }
 
@@ -1154,7 +1153,7 @@ namespace dnGREP.WPF
             }
             catch (Exception ex)
             {
-                logger.LogException(LogLevel.Error, ex.Message, ex);
+                logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
             }
         }
 
@@ -1176,7 +1175,7 @@ namespace dnGREP.WPF
             }
             catch (Exception ex)
             {
-                logger.LogException(LogLevel.Error, ex.Message, ex);
+                logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
             }
         }
 
@@ -1188,7 +1187,7 @@ namespace dnGREP.WPF
             this.workerSearchReplace.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.searchComplete);
             this.workerSearchReplace.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.searchProgressChanged);
             this.saveFileDialog.Filter = "CSV file|*.csv";
-            DiginesisHelpProvider.HelpNamespace = "https://github.com/dnGrep/dnGrep/wiki";
+            DiginesisHelpProvider.HelpNamespace = "https://github.com/dnGrep/dnGrep/wiki/";
             DiginesisHelpProvider.ShowHelp = true;
         }
 

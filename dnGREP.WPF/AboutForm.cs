@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Reflection;
+using dnGREP.Common.UI;
+using System.Globalization;
 
 namespace dnGREP.WPF
 {
@@ -20,9 +22,9 @@ namespace dnGREP.WPF
 			this.Text = String.Format("About {0}", AssemblyTitle);
 			this.labelProductName.Text = AssemblyProduct;
 			this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
-			this.labelCopyright.Text = AssemblyCopyright;
-			this.labelCompanyName.Text = AssemblyCompany;
-			this.textBoxDescription.Text = AssemblyDescription;
+			this.labelBuildDate.Text = String.Format("Built on {0}", AssemblyBuildDate.ToString(CultureInfo.CurrentUICulture));
+            this.labelCopyright.Text = AssemblyCopyright;
+            this.textBoxDescription.Text = AssemblyDescription;
 		}
 
 		#region Assembly Attribute Accessors
@@ -110,6 +112,11 @@ namespace dnGREP.WPF
 				return ((AssemblyCompanyAttribute)attributes[0]).Company;
 			}
 		}
+
+        public DateTime AssemblyBuildDate
+        {
+            get { return Assembly.GetExecutingAssembly().GetLinkerTime(); }
+        }
 		#endregion
 	}
 }

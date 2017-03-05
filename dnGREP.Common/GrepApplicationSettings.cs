@@ -139,7 +139,7 @@ namespace dnGREP.Common
 			}
 			catch (Exception ex)
 			{
-				logger.LogException(LogLevel.Error, "Failed to load settings", ex);
+				logger.Log<Exception>(LogLevel.Error, "Failed to load settings", ex);
 			}
 		}
 
@@ -179,7 +179,7 @@ namespace dnGREP.Common
 			}
 			catch (Exception ex)
 			{
-				logger.LogException(LogLevel.Error, "Failed to load settings", ex);
+				logger.Log<Exception>(LogLevel.Error, "Failed to load settings", ex);
 			}
 		}
 

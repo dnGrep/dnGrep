@@ -54,6 +54,7 @@ namespace dnGREP.Engines
 		public GrepPlugin(string pluginFilePath)
 		{
 			PluginFilePath = pluginFilePath;
+            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
 		}
 
 		public bool LoadPluginSettings()
@@ -92,13 +93,6 @@ namespace dnGREP.Engines
 
 					if (File.Exists(tempDllFilePath))
 					{
-						List<string> domainSearchPaths = new List<string>();
-						if (System.AppDomain.CurrentDomain.RelativeSearchPath != null)
-							domainSearchPaths = new List<string>(System.AppDomain.CurrentDomain.RelativeSearchPath.Split(';', ','));
-
-						if (!domainSearchPaths.Contains(Path.GetDirectoryName(tempDllFilePath)))
-							AppDomain.CurrentDomain.AppendPrivatePath(Path.GetDirectoryName(tempDllFilePath));
-
 						Assembly assembly = Assembly.LoadFile(tempDllFilePath);
 						Type[] types = assembly.GetTypes();
 						foreach (Type type in types)
@@ -122,6 +116,33 @@ namespace dnGREP.Engines
 			else
 				return false;
 		}
+
+        private readonly IDictionary<string, Assembly> loadedAssemblies = new Dictionary<string, Assembly>();
+
+        private Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+        {
+            Assembly assembly = null;
+
+            if (loadedAssemblies.ContainsKey(args.Name))
+            {
+                assembly = loadedAssemblies[args.Name];
+            }
+            else if (!string.IsNullOrWhiteSpace(PluginFilePath) && !string.IsNullOrWhiteSpace(DllFilePath))
+            {
+                var name = new AssemblyName(args.Name).Name + ".dll";
+
+                var filePath = Path.Combine(Path.GetDirectoryName(PluginFilePath), Path.GetDirectoryName(DllFilePath), name);
+                if (File.Exists(filePath))
+                {
+                    assembly = Assembly.LoadFile(filePath);
+
+                    if (assembly != null)
+                        loadedAssemblies.Add(args.Name, assembly);
+                }
+            }
+
+            return assembly;
+        }
 
 		public void PersistPluginSettings()
 		{

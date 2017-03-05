@@ -546,7 +546,7 @@ namespace dnGREP.Common
                         }
                         catch (Exception ex)
                         {
-                            logger.LogException(LogLevel.Error, ex.Message, ex);
+                            logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
                         }
 
                         if (!matches.Contains(filePath))
@@ -705,7 +705,7 @@ namespace dnGREP.Common
 			}
 			catch (Exception ex)
 			{
-				logger.LogException(LogLevel.Error, ex.Message, ex);
+				logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
 			}
 		}
 
@@ -932,7 +932,7 @@ namespace dnGREP.Common
 			}
 			catch (Exception ex)
 			{
-				logger.LogException(LogLevel.Error, "Failed to delete temp folder", ex);
+				logger.Log<Exception>(LogLevel.Error, "Failed to delete temp folder", ex);
 			}
 		}
 
@@ -988,7 +988,10 @@ namespace dnGREP.Common
 			bool canAccess = true;
 			//1. Provide early notification that the user does not have permission to write.
 			FileIOPermission writePermission = new FileIOPermission(FileIOPermissionAccess.Write, filename);
-			if (!SecurityManager.IsGranted(writePermission))
+            var permissionSet = new PermissionSet(PermissionState.None);
+            permissionSet.AddPermission(writePermission);
+            bool isGranted = permissionSet.IsSubsetOf(AppDomain.CurrentDomain.PermissionSet);
+            if (!isGranted)
 			{
 				//No permission. 
 				canAccess = false;
