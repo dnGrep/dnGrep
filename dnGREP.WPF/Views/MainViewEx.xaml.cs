@@ -1,55 +1,47 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.ComponentModel;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using dnGREP.Common;
-using dnGREP.Engines;
-using NLog;
-using System.IO;
-using System.Reflection;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using dnGREP.Common.UI;
-using System.Text.RegularExpressions;
-using System.Runtime.InteropServices;
 using System.Windows.Interop;
-using Blue.Windows;
+using dnGREP.Common.UI;
+using NLog;
 
 namespace dnGREP.WPF
 {
     /// <summary>
-	/// Interaction logic for MainForm.xaml
+    /// Interaction logic for MainForm.xaml
     /// </summary>
     public partial class MainFormEx : Window
     {
-		private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         private MainViewModel inputData;
         private bool isVisible = true;
 
         public MainFormEx()
-            : this (true)
-        {            
+            : this(true)
+        {
         }
 
         public MainFormEx(bool isVisible)
         {
             InitializeComponent();
-            this.Width = Properties.Settings.Default.Width;
-            this.Height = Properties.Settings.Default.Height;
-            this.Top = Properties.Settings.Default.Top;
-            this.Left = Properties.Settings.Default.Left;
-            if (!UiUtils.IsOnScreen(this))
-                UiUtils.CenterWindow(this);
+
+            this.Width = Properties.Settings.Default.MainFormExBounds.Width;
+            this.Height = Properties.Settings.Default.MainFormExBounds.Height;
+            this.Top = Properties.Settings.Default.MainFormExBounds.Y;
+            this.Left = Properties.Settings.Default.MainFormExBounds.X;
+            this.WindowState = Properties.Settings.Default.WindowState;
+
+            this.Loaded += delegate
+            {
+                if (!UiUtils.IsOnScreen(this))
+                    UiUtils.CenterWindow(this);
+            };
             this.isVisible = isVisible;
+
             inputData = new MainViewModel();
             this.DataContext = inputData;
         }
@@ -78,16 +70,12 @@ namespace dnGREP.WPF
             }
         }
 
-		private void Window_Loaded(object sender, RoutedEventArgs e)
-		{
-            inputData.StickyWindow = new StickyWindow(this);
-            inputData.StickyWindow.StickToScreen = true;
-            inputData.StickyWindow.StickToOther = true;
-            inputData.StickyWindow.StickOnResize = true;
-            inputData.StickyWindow.StickOnMove = true;
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            inputData.ParentWindow = this;
             DataObject.AddPastingHandler(tbSearchFor, new DataObjectPastingEventHandler(onPaste));
             DataObject.AddPastingHandler(tbReplaceWith, new DataObjectPastingEventHandler(onPaste));
-		}
+        }
 
         /// <summary>
         /// Workaround to enable pasting tabs
@@ -106,18 +94,23 @@ namespace dnGREP.WPF
             {
                 textBox.AcceptsTab = false;
             }), null);
-        }		
+        }
 
-		private void MainForm_Closing(object sender, CancelEventArgs e)
-		{
-			Properties.Settings.Default.Width = (int)this.ActualWidth;
-            Properties.Settings.Default.Height = (int)this.ActualHeight;
-            Properties.Settings.Default.Top = (int)this.Top;
-            Properties.Settings.Default.Left = (int)this.Left;
+        private void MainForm_Closing(object sender, CancelEventArgs e)
+        {
+            Properties.Settings.Default.MainFormExBounds = new System.Drawing.Rectangle(
+                (int)Left,
+                (int)Top,
+                (int)ActualWidth,
+                (int)ActualHeight);
+            Properties.Settings.Default.WindowState = System.Windows.WindowState.Normal;
+            if (this.WindowState == System.Windows.WindowState.Maximized)
+                Properties.Settings.Default.WindowState = System.Windows.WindowState.Maximized;
             Properties.Settings.Default.Save();
+
             inputData.CloseCommand.Execute(null);
-		}
-        
+        }
+
         #region UI fixes
         private void TextBoxFocus(object sender, RoutedEventArgs e)
         {
@@ -180,8 +173,8 @@ namespace dnGREP.WPF
         //    }
         //}
         #endregion
-        
-		private void cbMultiline_Unchecked(object sender, RoutedEventArgs e)
+
+        private void cbMultiline_Unchecked(object sender, RoutedEventArgs e)
         {
             //gridMain.RowDefinitions[0].Height = new GridLength(1, GridUnitType.Auto);
             //gridMain.RowDefinitions[2].Height = new GridLength(1, GridUnitType.Star);
@@ -210,6 +203,6 @@ namespace dnGREP.WPF
             advanceContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
             advanceContextMenu.PlacementTarget = (UIElement)sender;
             advanceContextMenu.IsOpen = true;
-        }        
-	}
+        }
+    }
 }

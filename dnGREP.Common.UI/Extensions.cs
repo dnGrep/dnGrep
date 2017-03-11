@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 
 namespace dnGREP.Common.UI
 {
@@ -34,6 +32,20 @@ namespace dnGREP.Common.UI
             var localTime = TimeZoneInfo.ConvertTimeFromUtc(linkTimeUtc, tz);
 
             return localTime;
+        }
+
+        public static Rectangle GetBounds(this Window window)
+        {
+            var loc = window.PointToScreen(new System.Windows.Point(0, 0));
+
+            return new Rectangle((int)loc.X, (int)loc.Y, (int)window.ActualWidth, (int)window.ActualHeight);
+        }
+
+        public static RectangleF GetBoundsF(this Window window)
+        {
+            var loc = window.PointToScreen(new System.Windows.Point(0, 0));
+
+            return new RectangleF((float)loc.X, (float)loc.Y, (float)window.ActualWidth, (float)window.ActualHeight);
         }
     }
 }

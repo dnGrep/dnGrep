@@ -184,10 +184,6 @@
       <DependentUpon>PreviewView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVHelpers\PreviewHighlighter.cs" />
-    <Compile Include="StickyWindows\IFormAdapter.cs" />
-    <Compile Include="StickyWindows\StickyWindow.cs" />
-    <Compile Include="StickyWindows\WinFormAdapter.cs" />
-    <Compile Include="StickyWindows\WpfFormAdapter.cs" />
     <Compile Include="MVHelpers\TotalValueConverter.cs" />
     <Resource Include="Views\TemplateFileOpenDropdown.xaml">
       <SubType>Designer</SubType>

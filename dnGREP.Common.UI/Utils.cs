@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Drawing;
 using System.Windows;
 using System.Windows.Forms;
-using System.Drawing;
 
 namespace dnGREP.Common.UI
 {
@@ -15,7 +12,14 @@ namespace dnGREP.Common.UI
             Screen[] screens = Screen.AllScreens;
             foreach (Screen screen in screens)
             {
-                Rectangle formRectangle = new Rectangle((int)form.Left, (int)form.Top, (int)form.ActualWidth, (int)form.ActualHeight);
+                // when the form is snapped to the left side of the screen, the left position is a small negative number, 
+                // and the bottom exceeds the working area by a small amount.  Similar for snapped right.
+                int left = (int)form.Left + 10;
+                int top = (int)form.Top + 10;
+                int width = Math.Max(0, (int)form.ActualWidth - 40);
+                int height = Math.Max(0, (int)form.ActualHeight - 40);
+
+                Rectangle formRectangle = new Rectangle(left, top, width, height);
 
                 if (screen.WorkingArea.Contains(formRectangle))
                 {

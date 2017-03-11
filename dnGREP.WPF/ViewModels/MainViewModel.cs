@@ -1,9 +1,4 @@
-﻿using Blue.Windows;
-using dnGREP.Common;
-using dnGREP.Common.UI;
-using dnGREP.Engines;
-using NLog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -13,13 +8,18 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
+using dnGREP.Common;
+using dnGREP.Common.UI;
+using dnGREP.Engines;
+using NLog;
 
 namespace dnGREP.WPF
 {
     public class MainViewModel : BaseMainViewModel
-	{
-		public MainViewModel() : base()
-		{
+    {
+        public MainViewModel()
+            : base()
+        {
             SearchResults.PreviewFileLineRequest += searchResults_PreviewFileLineRequest;
             SearchResults.PreviewFileRequest += searchResults_PreviewFileRequest;
             SearchResults.OpenFileLineRequest += searchResults_OpenFileLineRequest;
@@ -29,8 +29,8 @@ namespace dnGREP.WPF
             this.RequestClose += MainViewModel_RequestClose;
             checkVersion();
             winFormControlsInit();
-            populateEncodings();            
-		}
+            populateEncodings();
+        }
 
         void searchResults_OpenFileRequest(object sender, MVHelpers.GrepResultEventArgs e)
         {
@@ -62,28 +62,12 @@ namespace dnGREP.WPF
         private System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
         private PreviewView preview;
         private PreviewViewModel previewModel;
-        private StickyWindow stickyWindow;
 
         #endregion
 
         #region Properties
-        //private ObservableCollection<CodeSnippet> codeSnippets = new ObservableCollection<CodeSnippet>();
-        //public ObservableCollection<CodeSnippet> CodeSnippets
-        //{
-        //    get { return codeSnippets; }
-        //}
-                
-        public StickyWindow StickyWindow
-        {
-            get 
-            {
-                return stickyWindow; 
-            }
-            set
-            {
-                stickyWindow = value;
-            }
-        }
+
+        public Window ParentWindow { get; set; }
 
         #endregion
 
@@ -388,7 +372,7 @@ namespace dnGREP.WPF
         public override void UpdateState(string name)
         {
             base.UpdateState(name);
-            
+
             if (IsProperty(() => PreviewFileContent, name))
             {
                 if (preview != null)
@@ -399,11 +383,11 @@ namespace dnGREP.WPF
                         {
                             if (FormattedGrepResult.SelectedFile.IsSelected)
                             {
-                                PreviewFile(FormattedGrepResult.SelectedFile, this.StickyWindow.OriginalForm.Bounds);
+                                PreviewFile(FormattedGrepResult.SelectedFile, this.ParentWindow.GetBoundsF());
                             }
                             else if (FormattedGrepLine.SelectedLine != null)
                             {
-                                PreviewFile(FormattedGrepLine.SelectedLine, this.StickyWindow.OriginalForm.Bounds);
+                                PreviewFile(FormattedGrepLine.SelectedLine, this.ParentWindow.GetBoundsF());
                             }
                         }
                     }
@@ -415,7 +399,7 @@ namespace dnGREP.WPF
 
         public override void LoadSettings()
         {
-            base.LoadSettings();            
+            base.LoadSettings();
         }
 
         public override void SaveSettings()
@@ -425,11 +409,10 @@ namespace dnGREP.WPF
             copyBookmarksToSettings();
             if (preview != null)
             {
-                settings.Set<System.Drawing.Rectangle>(GrepSettings.Key.PreviewWindowSize, preview.StickyWindow.OriginalForm.Bounds);
-                settings.Set<StickyWindow.StickDir>(GrepSettings.Key.PreviewWindowPosition, preview.StickyWindow.IsStuckTo(stickyWindow.OriginalForm, true));
+                settings.Set<System.Drawing.Rectangle>(GrepSettings.Key.PreviewWindowSize, preview.GetBounds());
                 preview.ForceClose();
                 preview = null;
-            }         
+            }
         }
 
         public void OpenFile(FormattedGrepLine selectedNode, bool useCustomEditor)
@@ -489,9 +472,9 @@ namespace dnGREP.WPF
         public void PreviewFile(FormattedGrepResult formattedGrepResult, RectangleF parentWindow)
         {
             if (PreviewFileContent)
-            {                
+            {
                 previewFile(formattedGrepResult.GrepResult.FileNameReal, formattedGrepResult.GrepResult, 0, parentWindow);
-            }            
+            }
         }
 
         public void ActivatePreviewWindow()
@@ -535,7 +518,7 @@ namespace dnGREP.WPF
                 previewViewModel.SearchResult = result.GrepResult;
                 previewViewModel.FileName = result.GrepResult.FileNameDisplayed;
                 ContentPreviewModel = previewViewModel;
-            }           
+            }
         }
 
         #endregion
@@ -725,7 +708,7 @@ namespace dnGREP.WPF
                     {
                         TimeSpan duration = DateTime.Now.Subtract(timer);
                         results = (List<GrepSearchResult>)e.Result;
-                        
+
                         StatusMessage = "Search Complete - " + results.Count + " files found in " + duration.GetPrettyString() + ".";
                     }
                     else
@@ -762,7 +745,7 @@ namespace dnGREP.WPF
                     CanSearch = true;
                     SearchResults.Clear();
                 }
-                
+
                 string outdatedEngines = dnGREP.Engines.GrepEngineFactory.GetListOfFailedEngines();
                 if (!string.IsNullOrEmpty(outdatedEngines))
                 {
@@ -1262,7 +1245,7 @@ namespace dnGREP.WPF
                 {
                     previewModel = new PreviewViewModel();
                 }
-            
+
                 if (preview == null)
                 {
                     preview = new PreviewView();
@@ -1275,22 +1258,13 @@ namespace dnGREP.WPF
                         preview.Width = parentWindow.Width;
                         preview.Top = parentWindow.Top;
                     }
-                    else
-                    {
-                        var stickyDir = GrepSettings.Instance.Get<StickyWindow.StickDir>(GrepSettings.Key.PreviewWindowPosition);
-                        bounds = StickyWindow.PositionRelativeTo(stickyWindow.OriginalForm, stickyDir, bounds);
-                        preview.Height = bounds.Height;
-                        preview.Left = bounds.Left;
-                        preview.Width = bounds.Width;
-                        preview.Top = bounds.Top;
-                    }
                 }
                 previewModel.GrepResult = result;
                 previewModel.LineNumber = line;
                 previewModel.FilePath = filePath;
                 preview.Show();
-            }  
+            }
         }
         #endregion
-	}
+    }
 }

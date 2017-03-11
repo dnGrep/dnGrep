@@ -25,49 +25,37 @@ namespace dnGREP.WPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("100")]
-        public double Top {
+        [global::System.Configuration.DefaultSettingValueAttribute("Normal")]
+        public global::System.Windows.WindowState WindowState {
             get {
-                return ((double)(this["Top"]));
+                return ((global::System.Windows.WindowState)(this["WindowState"]));
             }
             set {
-                this["Top"] = value;
+                this["WindowState"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("200")]
-        public double Left {
+        [global::System.Configuration.DefaultSettingValueAttribute("1000, 100, 600, 800")]
+        public global::System.Drawing.Rectangle PreviewBounds {
             get {
-                return ((double)(this["Left"]));
+                return ((global::System.Drawing.Rectangle)(this["PreviewBounds"]));
             }
             set {
-                this["Left"] = value;
+                this["PreviewBounds"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("300")]
-        public double Width {
+        [global::System.Configuration.DefaultSettingValueAttribute("100, 100, 900, 800")]
+        public global::System.Drawing.Rectangle MainFormExBounds {
             get {
-                return ((double)(this["Width"]));
+                return ((global::System.Drawing.Rectangle)(this["MainFormExBounds"]));
             }
             set {
-                this["Width"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("500")]
-        public double Height {
-            get {
-                return ((double)(this["Height"]));
-            }
-            set {
-                this["Height"] = value;
+                this["MainFormExBounds"] = value;
             }
         }
     }

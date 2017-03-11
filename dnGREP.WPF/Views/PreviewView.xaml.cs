@@ -1,21 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using ICSharpCode.AvalonEdit.Highlighting;
-using System.IO;
 using dnGREP.Common;
-using Blue.Windows;
-using System.Reflection;
-using System.Xml;
-using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 using dnGREP.Common.UI;
 
 namespace dnGREP.WPF
@@ -26,28 +12,26 @@ namespace dnGREP.WPF
     public partial class PreviewView : Window
     {
         private bool forceClose = false;
-        internal StickyWindow StickyWindow;
         private PreviewViewModel inputData;
 
         public PreviewView()
         {
             InitializeComponent();
 
+            Loaded += PreviewView_Loaded;
             DataContextChanged += PreviewView_DataContextChanged;
-            textEditor.Loaded += new RoutedEventHandler(textEditor_Loaded);
-            Loaded += new RoutedEventHandler(window_Loaded);
+            textEditor.Loaded += textEditor_Loaded;
             cbWrapText.IsChecked = GrepSettings.Instance.Get<bool?>(GrepSettings.Key.PreviewWindowWrap);
             zoomSlider.Value = GrepSettings.Instance.Get<int>(GrepSettings.Key.PreviewWindowFont);
         }
 
-        void window_Loaded(object sender, RoutedEventArgs e)
+        void PreviewView_Loaded(object sender, RoutedEventArgs e)
         {
-            StickyWindow = new StickyWindow(this);
-            StickyWindow.StickToScreen = true;
-            StickyWindow.StickToOther = true;
-            StickyWindow.StickOnResize = true;
-            StickyWindow.StickOnMove = true;
-            StickyWindow.MoveStuckTogether = false;
+            this.Left = Properties.Settings.Default.PreviewBounds.Left;
+            this.Top = Properties.Settings.Default.PreviewBounds.Top;
+            this.Width = Properties.Settings.Default.PreviewBounds.Width;
+            this.Height = Properties.Settings.Default.PreviewBounds.Height;
+
             if (!UiUtils.IsOnScreen(this))
                 UiUtils.CenterWindow(this);
         }
@@ -55,7 +39,6 @@ namespace dnGREP.WPF
         void PreviewView_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             inputData = this.DataContext as PreviewViewModel;
-            inputData.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(inputData_PropertyChanged);
             inputData.ShowPreview += inputData_ShowPreview;
         }
 
@@ -108,11 +91,6 @@ namespace dnGREP.WPF
             }
         }
 
-        void inputData_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-
-        }
-
         void textEditor_Loaded(object sender, RoutedEventArgs e)
         {
             textEditor.ScrollTo(inputData.LineNumber, 0);
@@ -133,6 +111,13 @@ namespace dnGREP.WPF
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            Properties.Settings.Default.PreviewBounds = new System.Drawing.Rectangle(
+                (int)Left,
+                (int)Top,
+                (int)ActualWidth,
+                (int)ActualHeight);
+            Properties.Settings.Default.Save();
+
             if (!forceClose)
             {
                 this.Hide();
