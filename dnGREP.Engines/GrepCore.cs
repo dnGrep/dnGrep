@@ -55,7 +55,7 @@ namespace dnGREP.Common
             {
                 foreach (string file in files)
                 {
-                    searchResults.Add(new GrepSearchResult(file, searchPattern, null));
+                    searchResults.Add(new GrepSearchResult(file, searchPattern, null, Encoding.Default));
                     if ((searchOptions & GrepSearchOption.StopAfterFirstMatch) == GrepSearchOption.StopAfterFirstMatch)
                         break;
                 }

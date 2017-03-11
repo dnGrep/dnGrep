@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
 using System.Text;
 using dnGREP.Common;
+using System.IO;
 using NLog;
+using System.Reflection;
 
 namespace dnGREP.Engines
 {
@@ -156,7 +156,7 @@ namespace dnGREP.Engines
                 }
                 if (matches.Count > 0)
                 {
-                    searchResults.Add(new GrepSearchResult(fileName, searchPattern, matches));
+                    searchResults.Add(new GrepSearchResult(fileName, searchPattern, matches, encoding));
                 }
             }
             return searchResults;
@@ -173,7 +173,7 @@ namespace dnGREP.Engines
                 //Utils.CleanResults(ref lines);
                 if (lines.Count > 0)
                 {
-                    searchResults.Add(new GrepSearchResult(fileName, searchPattern, lines));
+                    searchResults.Add(new GrepSearchResult(fileName, searchPattern, lines, encoding));
                 }
             }
 

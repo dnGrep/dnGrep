@@ -894,7 +894,6 @@ namespace dnGREP.WPF
                         FilePattern = "*";
                         FilePatternIgnore = "";
                         TypeOfFileSearch = FileSearchType.Asterisk;
-                        CodePage = -1;
                     }
                     break;
             }
@@ -1187,6 +1186,7 @@ namespace dnGREP.WPF
             IncludeSubfolder = settings.Get<bool>(GrepSettings.Key.IncludeSubfolder);
             TypeOfSearch = settings.Get<SearchType>(GrepSettings.Key.TypeOfSearch);
             TypeOfFileSearch = settings.Get<FileSearchType>(GrepSettings.Key.TypeOfFileSearch);
+            CodePage = settings.Get<int>(GrepSettings.Key.CodePage);
             FilePattern = settings.Get<string>(GrepSettings.Key.FilePattern);
             FilePatternIgnore = settings.Get<string>(GrepSettings.Key.FilePatternIgnore);
             UseFileSizeFilter = settings.Get<FileSizeFilter>(GrepSettings.Key.UseFileSizeFilter);
@@ -1213,6 +1213,7 @@ namespace dnGREP.WPF
             settings.Set<bool>(GrepSettings.Key.IncludeBinary, IncludeBinary);
             settings.Set<bool>(GrepSettings.Key.IncludeSubfolder, IncludeSubfolder);
             settings.Set<SearchType>(GrepSettings.Key.TypeOfSearch, TypeOfSearch);
+            settings.Set<int>(GrepSettings.Key.CodePage, CodePage);
             settings.Set<FileSearchType>(GrepSettings.Key.TypeOfFileSearch, TypeOfFileSearch);
             settings.Set<string>(GrepSettings.Key.FilePattern, FilePattern);
             settings.Set<string>(GrepSettings.Key.FilePatternIgnore, FilePatternIgnore);

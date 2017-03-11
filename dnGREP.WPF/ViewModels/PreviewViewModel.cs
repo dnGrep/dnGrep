@@ -81,6 +81,8 @@ namespace dnGREP.WPF
         }
 
         public List<string> Highlighters { get; set; }
+
+        public Encoding Encoding { get; set; }
         
         private string filePath;
         public string FilePath

@@ -1261,6 +1261,7 @@ namespace dnGREP.WPF
                 }
                 previewModel.GrepResult = result;
                 previewModel.LineNumber = line;
+                previewModel.Encoding = result.Encoding;
                 previewModel.FilePath = filePath;
                 preview.Show();
             }

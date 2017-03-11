@@ -55,6 +55,7 @@ namespace dnGREP.WPF
             else
             {
                 textEditor.Clear();
+                textEditor.Encoding = inputData.Encoding;
                 textEditor.SyntaxHighlighting = inputData.HighlightingDefinition;
                 for (int i = textEditor.TextArea.TextView.LineTransformers.Count - 1; i >= 0; i--)
                 {

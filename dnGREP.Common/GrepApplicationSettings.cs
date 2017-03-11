@@ -34,6 +34,8 @@ namespace dnGREP.Common
 			public const string TypeOfSearch = "TypeOfSearch";
             [DefaultValue(FileSearchType.Asterisk)]
 			public const string TypeOfFileSearch = "TypeOfFileSearch";
+            [DefaultValue(-1)]
+            public const string CodePage = "CodePage";
             [DefaultValue("*.*")]
 			public const string FilePattern = "FilePattern";
 			public const string FilePatternIgnore = "FilePatternIgnore";

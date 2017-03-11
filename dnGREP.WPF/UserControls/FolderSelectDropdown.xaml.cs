@@ -60,6 +60,10 @@ namespace dnGREP.WPF.UserControls
         private void cbEncoding_Initialized(object sender, EventArgs e)
         {
             // SelectedIndex="0" isn't working on the XAML for cbEncoding, but this seems to work. It would be nice to get the XAML working, instead.
+            var model = (MainViewModel)this.DataContext;
+            if (model != null)
+                ((ComboBox)sender).SelectedValue = model.CodePage;
+            else  // design time
             ((ComboBox)sender).SelectedIndex = 0;
         }
     }
