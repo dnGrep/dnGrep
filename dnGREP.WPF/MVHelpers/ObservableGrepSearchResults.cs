@@ -255,16 +255,28 @@ namespace dnGREP.WPF
             bool isFileReadOnly = Utils.IsReadOnly(grepResult);
             bool isSuccess = grepResult.IsSuccess;
 
+            string basePath = Utils.GetBaseFolder(folderPath).TrimEnd('\\');
             string displayedName = Path.GetFileName(grepResult.FileNameDisplayed);
 
             if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowFilePathInResults) &&
-                grepResult.FileNameDisplayed.Contains(Utils.GetBaseFolder(folderPath) + "\\"))
+                grepResult.FileNameDisplayed.Contains(basePath))
             {
-                displayedName = grepResult.FileNameDisplayed.Substring(Utils.GetBaseFolder(folderPath).Length + 1);
+                displayedName = grepResult.FileNameDisplayed.Substring(basePath.Length + 1).TrimStart('\\');
             }
-            int lineCount = (grepResult.Matches == null ? 0 : grepResult.Matches.Count);
-            if (lineCount > 0)
-                displayedName = string.Format("{0} ({1})", displayedName, lineCount);
+            int matchCount = (grepResult.Matches == null ? 0 : grepResult.Matches.Count);
+            if (matchCount > 0)
+            {
+                if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount))
+                {
+                    var lineCount = grepResult.Matches.Where(r => r.LineNumber > 0)
+                       .Select(r => r.LineNumber).Distinct().Count();
+                    displayedName = string.Format("{0} ({1} matches on {2} lines)", displayedName, matchCount, lineCount);
+                }
+                else
+                {
+                    displayedName = string.Format("{0} ({1})", displayedName, matchCount);
+                }
+            }
             if (isFileReadOnly)
             {
                 result.ReadOnly = true;

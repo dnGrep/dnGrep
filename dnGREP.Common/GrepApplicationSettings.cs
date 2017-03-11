@@ -67,6 +67,8 @@ namespace dnGREP.Common
             [DefaultValue(10)]
 			public const string UpdateCheckInterval = "UpdateCheckInterval";
             public const string ExpandResults = "ExpandResults";
+            [DefaultValue(true)]
+            public const string ShowVerboseMatchCount = "ShowVerboseMatchCount";
 			public const string LastCheckedVersion = "LastCheckedVersion";
             [DefaultValue(true)]
 			public const string IsOptionsExpanded = "IsOptionsExpanded";
