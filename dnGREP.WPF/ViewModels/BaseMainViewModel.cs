@@ -110,7 +110,7 @@ namespace dnGREP.WPF
                 if (value == fileOrFolderPath)
                     return;
 
-                fileOrFolderPath = value;
+                fileOrFolderPath = Utils.CleanPath(value);
 
                 base.OnPropertyChanged(() => FileOrFolderPath);
             }
