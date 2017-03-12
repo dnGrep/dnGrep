@@ -97,6 +97,9 @@
                 <EventSetter
                         Event="UIElement.PreviewMouseMove"
                         Handler="tvSearchResult_PreviewMouseMove"/>
+                <EventSetter 
+                        Event="RequestBringIntoView" 
+                        Handler="tvSearchResult_RequestBringIntoView"/>
                 <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
                 <Setter Property="FontSize" Value="12"/>
                 <Setter Property="BorderThickness" Value="1.5"/>
