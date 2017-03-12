@@ -133,15 +133,10 @@ namespace dnGREP.Common
 
 		public class GrepLine : IComparable<GrepLine>, IComparable
 		{
-            const int MAX_LINE_LENGTH = 500;
-
 			public GrepLine(int number, string text, bool context, List<GrepMatch> matches)
 			{
 				lineNumber = number;
-                if (text.Length > MAX_LINE_LENGTH)
-                    lineText = string.Format("{0}...", text.Substring(0, MAX_LINE_LENGTH));
-                else
-				    lineText = text;
+			    lineText = text;
 				isContext = context;
                 if (matches == null)
                     this.matches = new List<GrepMatch>();

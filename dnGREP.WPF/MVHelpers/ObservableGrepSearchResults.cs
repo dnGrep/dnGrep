@@ -445,7 +445,11 @@ namespace dnGREP.WPF
         {
             Paragraph paragraph = new Paragraph();
 
+            const int MAX_LINE_LENGTH = 500;
+
             string fullLine = line.LineText;
+            if (line.LineText.Length > MAX_LINE_LENGTH)
+                fullLine = line.LineText.Substring(0, MAX_LINE_LENGTH);
 
             if (line.Matches.Count == 0)
             {
@@ -465,7 +469,7 @@ namespace dnGREP.WPF
                         string fmtLine = null;
                         if (fullLine.Length < m.StartLocation + m.Length)
                         {
-                            regLine = fullLine;
+                            regLine = fullLine.Substring(counter, fullLine.Length - counter);
                         }
                         else
                         {
@@ -509,6 +513,38 @@ namespace dnGREP.WPF
                     {
                         Run regularRun = new Run(fullLine);
                         paragraph.Inlines.Add(regularRun);
+                    }
+                }
+                if (line.LineText.Length > MAX_LINE_LENGTH)
+                {
+                    string msg = string.Format("...(+{0:n0} characters)", line.LineText.Length - MAX_LINE_LENGTH);
+                    Run run = new Run(msg);
+                    run.Background = Brushes.AliceBlue;
+                    paragraph.Inlines.Add(run);
+
+                    var hiddenMatches = line.Matches.Where(m => m.StartLocation > MAX_LINE_LENGTH).Select(m => m);
+                    int count = hiddenMatches.Count();
+                    if (count > 0)
+                        paragraph.Inlines.Add(new Run(" additional matches:"));
+
+                    // if close to getting them all, then take them all,
+                    // otherwise, stop at 20 and just show the remaining count
+                    int takeCount = count > 25 ? 20 : count;
+
+                    foreach (GrepSearchResult.GrepMatch m in hiddenMatches.Take(takeCount))
+                    {
+                        paragraph.Inlines.Add(new Run("  "));
+                        string fmtLine = line.LineText.Substring(m.StartLocation, m.Length);
+                        run = new Run(fmtLine);
+                        run.Background = Brushes.Yellow;
+                        paragraph.Inlines.Add(run);
+                        
+                        paragraph.Inlines.Add(new Run(string.Format(" at position {0}", m.StartLocation)));
+                    }
+
+                    if (count > takeCount)
+                    {
+                        paragraph.Inlines.Add(new Run(string.Format(", +{0} more matches", count - takeCount)));
                     }
                 }
             }
