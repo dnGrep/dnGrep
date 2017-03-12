@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -404,9 +405,9 @@ namespace dnGREP.WPF
 
         public override void SaveSettings()
         {
+            copyBookmarksToSettings();
             base.SaveSettings();
             settings.Save();
-            copyBookmarksToSettings();
             if (preview != null)
             {
                 settings.Set<System.Drawing.Rectangle>(GrepSettings.Key.PreviewWindowSize, preview.GetBounds());
@@ -862,22 +863,65 @@ namespace dnGREP.WPF
 
         private void updateBookmarks()
         {
-            // Update bookmarks
-            if (!FastSearchBookmarks.Contains(SearchFor))
+            // Update bookmarks, moving current to the top of the list
+            if (FastSearchBookmarks.IndexOf(SearchFor) != 0)
             {
                 FastSearchBookmarks.Insert(0, SearchFor);
+                int idx = FastSearchBookmarks.Select((x, n) => new { x, n }).Where(xn => xn.x == SearchFor).Select(xn => xn.n).Skip(1).FirstOrDefault();
+                if (idx > 0)
+                {
+                    string s = SearchFor;
+                    FastSearchBookmarks.RemoveAt(idx);
+                    SearchFor = s;
+                }
             }
-            if (!FastFileMatchBookmarks.Contains(FilePattern))
+
+            if (FastReplaceBookmarks.IndexOf(ReplaceWith) != 0)
+            {
+                FastReplaceBookmarks.Insert(0, ReplaceWith);
+                int idx = FastReplaceBookmarks.Select((x, n) => new { x, n }).Where(xn => xn.x == ReplaceWith).Select(xn => xn.n).Skip(1).FirstOrDefault();
+                if (idx > 0)
+                {
+                    string s = ReplaceWith;
+                    FastReplaceBookmarks.RemoveAt(idx);
+                    ReplaceWith = s;
+                }
+            }
+
+            if (FastFileMatchBookmarks.IndexOf(FilePattern) != 0)
             {
                 FastFileMatchBookmarks.Insert(0, FilePattern);
+                int idx = FastFileMatchBookmarks.Select((x, n) => new { x, n }).Where(xn => xn.x == FilePattern).Select(xn => xn.n).Skip(1).FirstOrDefault();
+                if (idx > 0)
+                {
+                    string s = FilePattern;
+                    FastFileMatchBookmarks.RemoveAt(idx);
+                    FilePattern = s;
+                }
             }
-            if (!FastFileNotMatchBookmarks.Contains(FilePatternIgnore))
+
+            if (FastFileNotMatchBookmarks.IndexOf(FilePatternIgnore) != 0)
             {
                 FastFileNotMatchBookmarks.Insert(0, FilePatternIgnore);
+                int idx = FastFileNotMatchBookmarks.Select((x, n) => new { x, n }).Where(xn => xn.x == FilePatternIgnore).Select(xn => xn.n).Skip(1).FirstOrDefault();
+                if (idx > 0)
+                {
+                    string s = FilePatternIgnore;
+                    FastFileNotMatchBookmarks.RemoveAt(idx);
+                    FilePatternIgnore = s;
+                }
             }
-            if (!FastPathBookmarks.Contains(FileOrFolderPath))
+
+            if (FastPathBookmarks.IndexOf(FileOrFolderPath) != 0)
             {
                 FastPathBookmarks.Insert(0, FileOrFolderPath);
+                int idx = FastPathBookmarks.Select((x, n) => new { x, n }).Where(xn => xn.x == FileOrFolderPath).Select(xn => xn.n).Skip(1).FirstOrDefault();
+                if (idx > 0)
+                {
+                    string s = FileOrFolderPath;
+                    FastPathBookmarks.RemoveAt(idx);
+                    FileOrFolderPath = s;
+                }
             }
         }
 
