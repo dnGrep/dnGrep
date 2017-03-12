@@ -640,7 +640,7 @@ namespace dnGREP.WPF
 
                         grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
                         string[] files = ((List<string>)workerParams["Files"]).ToArray();
-                        e.Result = grep.Replace(files, param.TypeOfSearch, Utils.GetBaseFolder(param.FileOrFolderPath), param.SearchFor, param.ReplaceWith, searchOptions, param.CodePage);
+                        e.Result = grep.Replace(files, param.TypeOfSearch, param.SearchFor, param.ReplaceWith, searchOptions, param.CodePage);
 
                         grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
                     }

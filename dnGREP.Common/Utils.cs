@@ -942,13 +942,12 @@ namespace dnGREP.Common
 		/// <returns></returns>
 		public static string GetTempFolder()
 		{
-			string tempPath = FixFolderName(GetDataFolderPath()) + "~dnGREP-Temp\\";
+            string tempPath = Path.Combine(Path.GetTempPath(), "~dnGREP-Temp");
 			if (!Directory.Exists(tempPath))
 			{
-				DirectoryInfo di = Directory.CreateDirectory(tempPath);
-				di.Attributes = FileAttributes.Directory | FileAttributes.Hidden; 
+				Directory.CreateDirectory(tempPath);
 			}
-			return tempPath;
+			return tempPath + Path.DirectorySeparatorChar;
 		}
 
 		/// <summary>
@@ -956,8 +955,8 @@ namespace dnGREP.Common
 		/// </summary>
 		public static void DeleteTempFolder()
 		{
-			string tempPath = FixFolderName(GetDataFolderPath()) + "~dnGREP-Temp\\";
-			try
+            string tempPath = Path.Combine(Path.GetTempPath(), "~dnGREP-Temp");
+            try
 			{
 				if (Directory.Exists(tempPath))
 					DeleteFolder(tempPath);
