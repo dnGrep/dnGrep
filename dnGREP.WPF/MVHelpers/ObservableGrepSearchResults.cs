@@ -1,7 +1,4 @@
-﻿using dnGREP.Common;
-using dnGREP.Common.UI;
-using dnGREP.WPF.MVHelpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -9,27 +6,29 @@ using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using dnGREP.Common;
+using dnGREP.Common.UI;
+using dnGREP.WPF.MVHelpers;
 
 namespace dnGREP.WPF
 {
     public class ObservableGrepSearchResults : ObservableCollection<FormattedGrepResult>, INotifyPropertyChanged
-	{
+    {
         private string folderPath = "";
 
-		public string FolderPath
-		{
-			get { return folderPath; }
-			set { folderPath = value; }
-		}
+        public string FolderPath
+        {
+            get { return folderPath; }
+            set { folderPath = value; }
+        }
 
 
-		public ObservableGrepSearchResults()
-		{
+        public ObservableGrepSearchResults()
+        {
             this.CollectionChanged += new NotifyCollectionChangedEventHandler(ObservableGrepSearchResults_CollectionChanged);
         }
 
@@ -39,7 +38,7 @@ namespace dnGREP.WPF
         //    OnFunctionCalled("Clear");
         //}
 
-        private Dictionary<string, BitmapSource> icons = new Dictionary<string, BitmapSource>(); 
+        private Dictionary<string, BitmapSource> icons = new Dictionary<string, BitmapSource>();
 
         void ObservableGrepSearchResults_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -62,22 +61,23 @@ namespace dnGREP.WPF
             }
         }
 
-		public ObservableGrepSearchResults(List<GrepSearchResult> list) : this()
-		{
-			AddRange(list);
-		}
+        public ObservableGrepSearchResults(List<GrepSearchResult> list)
+            : this()
+        {
+            AddRange(list);
+        }
 
-		public List<GrepSearchResult> GetList()
-		{
-			List<GrepSearchResult> tempList = new List<GrepSearchResult>();
-			foreach (var l in this) tempList.Add(l.GrepResult);
-			return tempList;
-		}
+        public List<GrepSearchResult> GetList()
+        {
+            List<GrepSearchResult> tempList = new List<GrepSearchResult>();
+            foreach (var l in this) tempList.Add(l.GrepResult);
+            return tempList;
+        }
 
-		public void AddRange(List<GrepSearchResult> list)
-		{
-			foreach (var l in list) this.Add(new FormattedGrepResult(l, folderPath));
-		}
+        public void AddRange(List<GrepSearchResult> list)
+        {
+            foreach (var l in list) this.Add(new FormattedGrepResult(l, folderPath));
+        }
 
         [DllImport("gdi32.dll")]
         static extern bool DeleteObject(IntPtr hObject);
@@ -130,17 +130,17 @@ namespace dnGREP.WPF
         {
             PreviewFileRequest(this, new GrepResultEventArgs { FormattedGrepResult = line, ParentWindowSize = windowSize });
         }
-	}
+    }
 
     public class FormattedGrepResult : INotifyPropertyChanged
-	{
+    {
         public static FormattedGrepResult SelectedFile = null;
 
-		private GrepSearchResult grepResult = new GrepSearchResult();
-		public GrepSearchResult GrepResult
-		{
-			get { return grepResult; }
-		}
+        private GrepSearchResult grepResult = new GrepSearchResult();
+        public GrepSearchResult GrepResult
+        {
+            get { return grepResult; }
+        }
 
         public int Matches
         {
@@ -150,7 +150,8 @@ namespace dnGREP.WPF
         private FileInfo fileInfo;
         public string Size
         {
-            get {
+            get
+            {
                 return string.Format("{0}", fileInfo.Length);
             }
         }
@@ -165,34 +166,36 @@ namespace dnGREP.WPF
             get { return fileInfo.FullName; }
         }
 
-		private string style = "";
-		public string Style
-		{
-			get { return style; }
-			set { style = value; }
-		}
+        private string style = "";
+        public string Style
+        {
+            get { return style; }
+            set { style = value; }
+        }
 
-		private string label = "";
-		public string Label
-		{
-			get
-			{
-				return label;
-			}
-		}
+        private string label = "";
+        public string Label
+        {
+            get
+            {
+                return label;
+            }
+        }
 
         private bool isExpanded = false;
         public bool IsExpanded
         {
             get { return isExpanded; }
-            set { 
+            set
+            {
                 isExpanded = value;
                 if (value == true && !FormattedLines.IsLoaded && !FormattedLines.IsLoading)
                 {
                     IsLoading = true;
                     FormattedLines.Load(true);
                 }
-                OnPropertyChanged("IsExpanded"); }
+                OnPropertyChanged("IsExpanded");
+            }
         }
 
         private bool isLoading;
@@ -223,12 +226,12 @@ namespace dnGREP.WPF
             }
         }
 
-		private int lineNumberColumnWidth = 30;
-		public int LineNumberColumnWidth
-		{
-			get { return lineNumberColumnWidth; }
-			set { lineNumberColumnWidth = value; OnPropertyChanged("LineNumberColumnWidth"); }
-		}
+        private int lineNumberColumnWidth = 30;
+        public int LineNumberColumnWidth
+        {
+            get { return lineNumberColumnWidth; }
+            set { lineNumberColumnWidth = value; OnPropertyChanged("LineNumberColumnWidth"); }
+        }
 
         private BitmapSource icon;
 
@@ -240,28 +243,40 @@ namespace dnGREP.WPF
 
         private LazyResultsList formattedLines;
         public LazyResultsList FormattedLines
-		{
-			get { return formattedLines; }
-		}
+        {
+            get { return formattedLines; }
+        }
 
-		public FormattedGrepResult(GrepSearchResult result, string folderPath)
-		{
-			grepResult = result;
+        public FormattedGrepResult(GrepSearchResult result, string folderPath)
+        {
+            grepResult = result;
             fileInfo = new FileInfo(grepResult.FileNameReal);
 
-			bool isFileReadOnly = Utils.IsReadOnly(grepResult);
+            bool isFileReadOnly = Utils.IsReadOnly(grepResult);
             bool isSuccess = grepResult.IsSuccess;
-			
+
+            string basePath = Utils.GetBaseFolder(folderPath).TrimEnd('\\');
             string displayedName = Path.GetFileName(grepResult.FileNameDisplayed);
 
             if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowFilePathInResults) &&
-                grepResult.FileNameDisplayed.Contains(Utils.GetBaseFolder(folderPath) + "\\"))
+                grepResult.FileNameDisplayed.Contains(basePath))
             {
-                displayedName = grepResult.FileNameDisplayed.Substring(Utils.GetBaseFolder(folderPath).Length + 1);
+                displayedName = grepResult.FileNameDisplayed.Substring(basePath.Length + 1).TrimStart('\\');
             }
-            int lineCount = (grepResult.Matches == null ? 0 : grepResult.Matches.Count);
-            if (lineCount > 0)
-                displayedName = string.Format("{0} ({1})", displayedName, lineCount);
+            int matchCount = (grepResult.Matches == null ? 0 : grepResult.Matches.Count);
+            if (matchCount > 0)
+            {
+                if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount))
+                {
+                    var lineCount = grepResult.Matches.Where(r => r.LineNumber > 0)
+                       .Select(r => r.LineNumber).Distinct().Count();
+                    displayedName = string.Format("{0} ({1} matches on {2} lines)", displayedName, matchCount, lineCount);
+                }
+                else
+                {
+                    displayedName = string.Format("{0} ({1})", displayedName, matchCount);
+                }
+            }
             if (isFileReadOnly)
             {
                 result.ReadOnly = true;
@@ -270,10 +285,10 @@ namespace dnGREP.WPF
 
             label = displayedName;
 
-			if (isFileReadOnly)
-			{
-				style = "ReadOnly";
-			}
+            if (isFileReadOnly)
+            {
+                style = "ReadOnly";
+            }
             if (!isSuccess)
             {
                 style = "Error";
@@ -287,7 +302,7 @@ namespace dnGREP.WPF
             {
                 IsExpanded = true;
             }
-		}
+        }
 
         void formattedLines_LoadFinished(object sender, EventArgs e)
         {
@@ -314,17 +329,17 @@ namespace dnGREP.WPF
         public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion
-	}
+    }
 
     public class FormattedGrepLine : ViewModelBase
-	{
+    {
         public static FormattedGrepLine SelectedLine = null;
 
-		private GrepSearchResult.GrepLine grepLine;
-		public GrepSearchResult.GrepLine GrepLine
-		{
-			get { return grepLine; }
-		}
+        private GrepSearchResult.GrepLine grepLine;
+        public GrepSearchResult.GrepLine GrepLine
+        {
+            get { return grepLine; }
+        }
 
         private string formattedLineNumber;
         public string FormattedLineNumber
@@ -332,15 +347,19 @@ namespace dnGREP.WPF
             get { return formattedLineNumber; }
         }
 
-		private InlineCollection formattedText;
-		public InlineCollection FormattedText
-		{
-			get {
+        private InlineCollection formattedText;
+        public InlineCollection FormattedText
+        {
+            get
+            {
                 if (formattedText == null || formattedText.Count == 0)
                     formattedText = formatLine(GrepLine);
-                return formattedText; 
+                return formattedText;
             }
-		}
+        }
+
+        // FormattedGrepLines don't expand, but the XAML code expects this property on TreeViewItems
+        public bool IsExpanded { get; set; }
 
         private bool isSelected;
         public bool IsSelected
@@ -358,25 +377,41 @@ namespace dnGREP.WPF
             }
         }
 
+        private bool isSectionBreak = false;
+        public bool IsSectionBreak
+        {
+            get { return isSectionBreak; }
+            set
+            {
+                if (isSectionBreak == value)
+                {
+                    return;
+                }
+
+                isSectionBreak = value;
+                OnPropertyChanged("IsSectionBreak");
+            }
+        }
+
         private string style = "";
-		public string Style
-		{
-			get { return style; }
-			set { style = value; }
-		}
+        public string Style
+        {
+            get { return style; }
+            set { style = value; }
+        }
 
-		private int lineNumberColumnWidth = 30;
-		public int LineNumberColumnWidth
-		{
-			get { return lineNumberColumnWidth; }
-			set { lineNumberColumnWidth = value; OnPropertyChanged("LineNumberColumnWidth"); }
-		}
+        private int lineNumberColumnWidth = 30;
+        public int LineNumberColumnWidth
+        {
+            get { return lineNumberColumnWidth; }
+            set { lineNumberColumnWidth = value; OnPropertyChanged("LineNumberColumnWidth"); }
+        }
 
-		void Parent_PropertyChanged(object sender, PropertyChangedEventArgs e)
-		{
-			if (e.PropertyName == "LineNumberColumnWidth")
-				LineNumberColumnWidth = Parent.LineNumberColumnWidth;
-		}
+        void Parent_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "LineNumberColumnWidth")
+                LineNumberColumnWidth = Parent.LineNumberColumnWidth;
+        }
 
         private FormattedGrepResult parent;
         public FormattedGrepResult Parent
@@ -385,31 +420,36 @@ namespace dnGREP.WPF
             set { parent = value; }
         }
 
-		public FormattedGrepLine(GrepSearchResult.GrepLine line, FormattedGrepResult parent, int initialColumnWidth)
-		{
+        public FormattedGrepLine(GrepSearchResult.GrepLine line, FormattedGrepResult parent, int initialColumnWidth, bool breakSection)
+        {
             Parent = parent;
-			grepLine = line;
-			Parent.PropertyChanged += new PropertyChangedEventHandler(Parent_PropertyChanged);
-			LineNumberColumnWidth = initialColumnWidth;
+            grepLine = line;
+            Parent.PropertyChanged += new PropertyChangedEventHandler(Parent_PropertyChanged);
+            LineNumberColumnWidth = initialColumnWidth;
+            IsSectionBreak = breakSection;
 
             formattedLineNumber = (line.LineNumber == -1 ? "" : line.LineNumber.ToString());
 
-			//string fullText = lineSummary;
-			if (line.IsContext)
-			{
-				style = "Context";
-			}
-			if (line.LineNumber == -1 && line.LineText == "")
-			{
-				style = "Empty";
-			}
+            //string fullText = lineSummary;
+            if (line.IsContext)
+            {
+                style = "Context";
+            }
+            if (line.LineNumber == -1 && line.LineText == "")
+            {
+                style = "Empty";
+            }
         }
 
         private InlineCollection formatLine(GrepSearchResult.GrepLine line)
         {
             Paragraph paragraph = new Paragraph();
 
+            const int MAX_LINE_LENGTH = 500;
+
             string fullLine = line.LineText;
+            if (line.LineText.Length > MAX_LINE_LENGTH)
+                fullLine = line.LineText.Substring(0, MAX_LINE_LENGTH);
 
             if (line.Matches.Count == 0)
             {
@@ -420,8 +460,8 @@ namespace dnGREP.WPF
             {
                 int counter = 0;
                 GrepSearchResult.GrepMatch[] lineMatches = new GrepSearchResult.GrepMatch[line.Matches.Count];
-				line.Matches.CopyTo(lineMatches);
-				foreach (GrepSearchResult.GrepMatch m in lineMatches)
+                line.Matches.CopyTo(lineMatches);
+                foreach (GrepSearchResult.GrepMatch m in lineMatches)
                 {
                     try
                     {
@@ -429,7 +469,7 @@ namespace dnGREP.WPF
                         string fmtLine = null;
                         if (fullLine.Length < m.StartLocation + m.Length)
                         {
-                            regLine = fullLine;
+                            regLine = fullLine.Substring(counter, fullLine.Length - counter);
                         }
                         else
                         {
@@ -475,23 +515,40 @@ namespace dnGREP.WPF
                         paragraph.Inlines.Add(regularRun);
                     }
                 }
+                if (line.LineText.Length > MAX_LINE_LENGTH)
+                {
+                    string msg = string.Format("...(+{0:n0} characters)", line.LineText.Length - MAX_LINE_LENGTH);
+                    Run run = new Run(msg);
+                    run.Background = Brushes.AliceBlue;
+                    paragraph.Inlines.Add(run);
+
+                    var hiddenMatches = line.Matches.Where(m => m.StartLocation > MAX_LINE_LENGTH).Select(m => m);
+                    int count = hiddenMatches.Count();
+                    if (count > 0)
+                        paragraph.Inlines.Add(new Run(" additional matches:"));
+
+                    // if close to getting them all, then take them all,
+                    // otherwise, stop at 20 and just show the remaining count
+                    int takeCount = count > 25 ? 20 : count;
+
+                    foreach (GrepSearchResult.GrepMatch m in hiddenMatches.Take(takeCount))
+                    {
+                        paragraph.Inlines.Add(new Run("  "));
+                        string fmtLine = line.LineText.Substring(m.StartLocation, m.Length);
+                        run = new Run(fmtLine);
+                        run.Background = Brushes.Yellow;
+                        paragraph.Inlines.Add(run);
+                        
+                        paragraph.Inlines.Add(new Run(string.Format(" at position {0}", m.StartLocation)));
+                    }
+
+                    if (count > takeCount)
+                    {
+                        paragraph.Inlines.Add(new Run(string.Format(", +{0} more matches", count - takeCount)));
+                    }
+                }
             }
             return paragraph.Inlines;
         }
-
-        #region PropertyChanged Members
-        // Create the OnPropertyChanged method to raise the event
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(name));
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion
     }
 }

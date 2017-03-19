@@ -88,6 +88,11 @@
                             <TextBlock TextWrapping="Wrap">Show results tree expanded</TextBlock>
                         </CheckBox.Content>
                     </CheckBox>
+                    <CheckBox Margin="3" Name="cbShowMatchVerbose" IsChecked="{Binding Path=ShowVerboseMatchCount}">
+                        <CheckBox.Content>
+                            <TextBlock TextWrapping="Wrap">Show verbose match count</TextBlock>
+                        </CheckBox.Content>
+                    </CheckBox>
                     <CheckBox Margin="3" Name="cbClearType" IsChecked="{Binding Path=EnableClearType}">
                         <CheckBox.Content>
                             <TextBlock TextWrapping="Wrap">Enable ClearType (smoothes the way application displays text)</TextBlock>

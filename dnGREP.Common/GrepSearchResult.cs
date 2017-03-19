@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 
 namespace dnGREP.Common
 {
@@ -11,16 +12,17 @@ namespace dnGREP.Common
             isSuccess = true;
         }
 
-        public GrepSearchResult(string file, string pattern, List<GrepMatch> matches)
-            : this(file, pattern, matches, true)
+        public GrepSearchResult(string file, string pattern, List<GrepMatch> matches, Encoding encoding)
+            : this(file, pattern, matches, encoding, true)
 		{			
 		}
 
-        public GrepSearchResult(string file, string pattern, List<GrepMatch> matches, bool success)
+        public GrepSearchResult(string file, string pattern, List<GrepMatch> matches, Encoding encoding, bool success)
         {
             fileName = file;
             bodyMatches = matches;
             this.pattern = pattern;
+            Encoding = encoding;
             isSuccess = success;
         }
 
@@ -33,6 +35,8 @@ namespace dnGREP.Common
             this.pattern = pattern;
             isSuccess = success;
         }
+
+        public Encoding Encoding { get; private set; }
 
 		private string fileName;
 
@@ -105,7 +109,7 @@ namespace dnGREP.Common
             if (searchResults == null)
             {
                 using (FileStream reader = File.Open(FileNameReal, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                using (StreamReader streamReader = new StreamReader(reader))
+                using (StreamReader streamReader = new StreamReader(reader, Encoding))
                 {
                     searchResults = Utils.GetLinesEx(streamReader, bodyMatches, linesBefore, linesAfter);
                 }
@@ -129,15 +133,10 @@ namespace dnGREP.Common
 
 		public class GrepLine : IComparable<GrepLine>, IComparable
 		{
-            const int MAX_LINE_LENGTH = 500;
-
 			public GrepLine(int number, string text, bool context, List<GrepMatch> matches)
 			{
 				lineNumber = number;
-                if (text.Length > MAX_LINE_LENGTH)
-                    lineText = string.Format("{0}...", text.Substring(0, MAX_LINE_LENGTH));
-                else
-				    lineText = text;
+			    lineText = text;
 				isContext = context;
                 if (matches == null)
                     this.matches = new List<GrepMatch>();

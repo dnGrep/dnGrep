@@ -35,7 +35,7 @@ namespace dnGREP.Engines.Pdf
 			}
 			catch (Exception ex)
 			{
-				logger.LogException(LogLevel.Error, "Failed to find pdftotext.exe.", ex);
+				logger.Log<Exception>(LogLevel.Error, "Failed to find pdftotext.exe.", ex);
 				return false;
 			}
 		}
@@ -89,7 +89,7 @@ namespace dnGREP.Engines.Pdf
 			}
 			catch (Exception ex)
 			{
-				logger.LogException(LogLevel.Error, "Failed to search inside Pdf file", ex);
+				logger.Log<Exception>(LogLevel.Error, "Failed to search inside Pdf file", ex);
 				return new List<GrepSearchResult>();
 			}
 		}

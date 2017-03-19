@@ -71,37 +71,37 @@
     <!-- Create shell integration and add startup acceleration -->
     <DirectoryRef Id="TARGETDIR">
       <Component Id="Accelerator" Guid="A0299472-2679-4187-87E0-2DD4CB5E07AD">
-        <RegistryKey Root="HKCU" Key="Software\Microsoft\Windows\CurrentVersion\Run" Action="none">
+        <RegistryKey Root="HKCU" Key="Software\Microsoft\Windows\CurrentVersion\Run" >
           <RegistryValue Name="dnGREP" Type="string" Value="&quot;[INSTALLDIR]dnGREP.exe&quot; /warmUp"/>
         </RegistryKey>
       </Component>
       <Component Id="ShellIntegration" Guid="8B727769-A7FF-49D9-B685-8DBDA51F81F7">
-        <RegistryKey Root="HKCR" Key="Directory\shell\dnGREP" Action="createAndRemoveOnUninstall">
+        <RegistryKey Root="HKCR" Key="Directory\shell\dnGREP" >
           <RegistryValue Name="Icon" Type="expandable" Value="[INSTALLDIR]dnGREP.exe"/>
           <RegistryValue Type="string" Value="dnGREP..."/>
         </RegistryKey>
-        <RegistryKey Root="HKCR" Key="Directory\shell\dnGREP\command" Action="createAndRemoveOnUninstall">
+        <RegistryKey Root="HKCR" Key="Directory\shell\dnGREP\command" >
           <RegistryValue Type="expandable" Value="&quot;[INSTALLDIR]dnGREP.exe&quot; &quot;%1&quot;"/>
         </RegistryKey>
-        <RegistryKey Root="HKCR" Key="Drive\shell\dnGREP" Action="createAndRemoveOnUninstall">
+        <RegistryKey Root="HKCR" Key="Drive\shell\dnGREP" >
           <RegistryValue Name="Icon" Type="expandable" Value="[INSTALLDIR]dnGREP.exe"/>
           <RegistryValue Type="string" Value="dnGREP..."/>
         </RegistryKey>
-        <RegistryKey Root="HKCR" Key="Drive\shell\dnGREP\command" Action="createAndRemoveOnUninstall">
+        <RegistryKey Root="HKCR" Key="Drive\shell\dnGREP\command" >
           <RegistryValue Type="expandable" Value="&quot;[INSTALLDIR]dnGREP.exe&quot; &quot;%1&quot;"/>
         </RegistryKey>
-        <RegistryKey Root="HKCR" Key="*\shell\dnGREP" Action="createAndRemoveOnUninstall">
+        <RegistryKey Root="HKCR" Key="*\shell\dnGREP" >
           <RegistryValue Name="Icon" Type="expandable" Value="[INSTALLDIR]dnGREP.exe"/>
           <RegistryValue Type="string" Value="dnGREP..."/>
         </RegistryKey>
-        <RegistryKey Root="HKCR" Key="*\shell\dnGREP\command" Action="createAndRemoveOnUninstall">
+        <RegistryKey Root="HKCR" Key="*\shell\dnGREP\command" >
           <RegistryValue Type="expandable" Value="&quot;[INSTALLDIR]dnGREP.exe&quot; &quot;%1&quot;"/>
         </RegistryKey>
-        <RegistryKey Root="HKLM" Key="SOFTWARE\Classes\Directory\Background\shell\dnGREP" Action="createAndRemoveOnUninstall">
+        <RegistryKey Root="HKLM" Key="SOFTWARE\Classes\Directory\Background\shell\dnGREP" >
           <RegistryValue Name="Icon" Type="expandable" Value="[INSTALLDIR]dnGREP.exe"/>
           <RegistryValue Type="string" Value="dnGREP..."/>
         </RegistryKey>
-        <RegistryKey Root="HKLM" Key="SOFTWARE\Classes\Directory\Background\shell\dnGREP\command" Action="createAndRemoveOnUninstall">
+        <RegistryKey Root="HKLM" Key="SOFTWARE\Classes\Directory\Background\shell\dnGREP\command" >
           <RegistryValue Type="expandable" Value="&quot;[INSTALLDIR]dnGREP.exe&quot; &quot;%V&quot;"/>
         </RegistryKey>
       </Component>

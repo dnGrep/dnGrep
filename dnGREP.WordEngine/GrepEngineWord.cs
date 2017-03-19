@@ -39,7 +39,7 @@ namespace dnGREP.Engines.Word
 			catch (Exception ex)
 			{
 				isAvailable = false;
-				logger.LogException(LogLevel.Error, "Failed to initialize Word.", ex);
+				logger.Log<Exception>(LogLevel.Error, "Failed to initialize Word.", ex);
 			}
 		}
 
@@ -129,33 +129,35 @@ namespace dnGREP.Engines.Word
 			{
 				// Open a given Word document as readonly
 				object wordDocument = openDocument(file, true);
+                if (wordDocument != null)
+                {
+				    // Get Selection Property
+				    wordSelection = wordApplication.GetType().InvokeMember("Selection", BindingFlags.GetProperty,
+					    null, wordApplication, null);
 
-				// Get Selection Property
-				wordSelection = wordApplication.GetType().InvokeMember("Selection", BindingFlags.GetProperty,
-					null, wordApplication, null);
+				    // create range and find objects
+				    object range = getProperty(wordDocument, "Content");
 
-				// create range and find objects
-				object range = getProperty(wordDocument, "Content");
+				    // create text
+				    object text = getProperty(range, "Text");
 
-				// create text
-				object text = getProperty(range, "Text");
-
-				var lines = searchMethod(Utils.CleanLineBreaks(text.ToString()), searchPattern, searchOptions, true);
-				if (lines.Count > 0)
-				{
-                    GrepSearchResult result = new GrepSearchResult(file, searchPattern, lines);
-                    using (StringReader reader = new StringReader(text.ToString()))
-                    {
-                        result.SearchResults = Utils.GetLinesEx(reader, result.Matches, linesBefore, linesAfter);
-                    }
-					result.ReadOnly = true;
-					searchResults.Add(result);
-				}
-				closeDocument(wordDocument);
+				    var lines = searchMethod(Utils.CleanLineBreaks(text.ToString()), searchPattern, searchOptions, true);
+				    if (lines.Count > 0)
+				    {
+                        GrepSearchResult result = new GrepSearchResult(file, searchPattern, lines, Encoding.Default);
+                        using (StringReader reader = new StringReader(text.ToString()))
+                        {
+                            result.SearchResults = Utils.GetLinesEx(reader, result.Matches, linesBefore, linesAfter);
+                        }
+					    result.ReadOnly = true;
+					    searchResults.Add(result);
+				    }
+				    closeDocument(wordDocument);
+                }
 			}
 			catch (Exception ex)
 			{
-				logger.LogException(LogLevel.Error, "Failed to search inside Word file", ex);
+				logger.Log<Exception>(LogLevel.Error, "Failed to search inside Word file", ex);
 			}
 			finally
 			{
@@ -214,7 +216,7 @@ namespace dnGREP.Engines.Word
 			}
 			catch (Exception ex)
 			{
-				logger.LogException(LogLevel.Error, "Failed to load Word and create Document.", ex);
+				logger.Log<Exception>(LogLevel.Error, "Failed to load Word and create Document.", ex);
 			}
 
 			base.Initialize(new GrepEngineInitParams(showLinesInContext, linesBefore, linesAfter, fuzzyMatchThreshold));
@@ -235,7 +237,7 @@ namespace dnGREP.Engines.Word
 				}
 				catch (Exception ex)
 				{
-					logger.LogException(LogLevel.Error, "Failed to unload Word.", ex);
+					logger.Log<Exception>(LogLevel.Error, "Failed to unload Word.", ex);
 				}
 			}
 
@@ -247,7 +249,7 @@ namespace dnGREP.Engines.Word
 				}
 				catch (Exception ex)
 				{
-					logger.LogException(LogLevel.Error, "Failed to release Word object.", ex);
+					logger.Log<Exception>(LogLevel.Error, "Failed to release Word object.", ex);
 				}
 			}
 

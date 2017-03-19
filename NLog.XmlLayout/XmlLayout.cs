@@ -23,7 +23,7 @@ namespace NLog.XmlLayout
 
 		protected override void Append(StringBuilder builder, LogEventInfo logEvent)
 		{
-			using (StringWriter stringWriter = new StringWriter(builder))
+            using (StringWriter stringWriter = new UTF8StringWriter(builder))
 			using (XmlTextWriter writer = new XmlTextWriter(stringWriter))
 			{
 				writer.Formatting = Formatting.Indented;
@@ -50,6 +50,12 @@ namespace NLog.XmlLayout
 							WriteToAttribute(writer, "name", p.Key);
 							WriteToAttribute(writer, "value", p.Value);
 						}
+                        else if (obj is Exception)
+                        {
+                            Exception ex = obj as Exception;
+                            string msg = ex.GetType().ToString() + ex.StackTrace;
+                            WriteToAttribute(writer, "value", msg);                            
+                        }
 						else
 						{
 							WriteToAttribute(writer, "value", obj.ToString());
@@ -82,4 +88,22 @@ namespace NLog.XmlLayout
 				writer.WriteAttributeString(attribute, value);
 		}
 	}
+
+    public class UTF8StringWriter : StringWriter
+    {
+        public UTF8StringWriter()
+            :base()
+        {
+        }
+
+        public UTF8StringWriter(StringBuilder sb)
+            : base(sb)
+        {
+        }
+
+        public override Encoding Encoding
+        {
+            get { return Encoding.UTF8; }
+        }
+    }
 }

@@ -34,6 +34,8 @@ namespace dnGREP.Common
 			public const string TypeOfSearch = "TypeOfSearch";
             [DefaultValue(FileSearchType.Asterisk)]
 			public const string TypeOfFileSearch = "TypeOfFileSearch";
+            [DefaultValue(-1)]
+            public const string CodePage = "CodePage";
             [DefaultValue("*.*")]
 			public const string FilePattern = "FilePattern";
 			public const string FilePatternIgnore = "FilePatternIgnore";
@@ -67,6 +69,8 @@ namespace dnGREP.Common
             [DefaultValue(10)]
 			public const string UpdateCheckInterval = "UpdateCheckInterval";
             public const string ExpandResults = "ExpandResults";
+            [DefaultValue(true)]
+            public const string ShowVerboseMatchCount = "ShowVerboseMatchCount";
 			public const string LastCheckedVersion = "LastCheckedVersion";
             [DefaultValue(true)]
 			public const string IsOptionsExpanded = "IsOptionsExpanded";
@@ -139,7 +143,7 @@ namespace dnGREP.Common
 			}
 			catch (Exception ex)
 			{
-				logger.LogException(LogLevel.Error, "Failed to load settings", ex);
+				logger.Log<Exception>(LogLevel.Error, "Failed to load settings", ex);
 			}
 		}
 
@@ -179,7 +183,7 @@ namespace dnGREP.Common
 			}
 			catch (Exception ex)
 			{
-				logger.LogException(LogLevel.Error, "Failed to load settings", ex);
+				logger.Log<Exception>(LogLevel.Error, "Failed to load settings", ex);
 			}
 		}
 

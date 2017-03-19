@@ -1,12 +1,10 @@
-﻿using dnGREP.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using dnGREP.Common;
 
 namespace dnGREP.WPF.MVHelpers
 {
@@ -33,7 +31,7 @@ namespace dnGREP.WPF.MVHelpers
             if ((result.Matches != null && result.Matches.Count > 0) || !result.IsSuccess)
             {
                 GrepSearchResult.GrepLine emptyLine = new GrepSearchResult.GrepLine(-1, "", true, null);
-                var dummyLine = new FormattedGrepLine(emptyLine, formattedResult, 30);
+                var dummyLine = new FormattedGrepLine(emptyLine, formattedResult, 30, false);
                 this.Add(dummyLine);
                 isLoaded = false;
             }
@@ -70,13 +68,13 @@ namespace dnGREP.WPF.MVHelpers
                 for (int i = 0; i < linesWithContext.Count; i++)
                 {
                     GrepSearchResult.GrepLine line = linesWithContext[i];
+                    bool isSectionBreak = false;
 
                     // Adding separator
                     if (this.Count > 0 && GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext) &&
                         (currentLine != line.LineNumber && currentLine + 1 != line.LineNumber))
                     {
-                        GrepSearchResult.GrepLine emptyLine = new GrepSearchResult.GrepLine(-1, "", true, null);
-                        this.Add(new FormattedGrepLine(emptyLine, formattedResult, 30));
+                        isSectionBreak = true;
                     }
 
                     currentLine = line.LineNumber;
@@ -89,7 +87,7 @@ namespace dnGREP.WPF.MVHelpers
                     else if (currentLine > 99999 && LineNumberColumnWidth < 50)
                         LineNumberColumnWidth = 50;
 
-                    this.Add(new FormattedGrepLine(line, formattedResult, LineNumberColumnWidth));                  
+                    this.Add(new FormattedGrepLine(line, formattedResult, LineNumberColumnWidth, isSectionBreak));
                 }
                 isLoaded = true;
                 isLoading = false;
@@ -122,16 +120,13 @@ namespace dnGREP.WPF.MVHelpers
                     for (int i = 0; i < linesWithContext.Count; i++)
                     {
                         GrepSearchResult.GrepLine line = linesWithContext[i];
+                        bool isSectionBreak = false;
 
                         // Adding separator
-                        if (this.Count > 0 && GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext) &&
+                        if (tempList.Count > 0 && GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext) &&
                             (currentLine != line.LineNumber && currentLine + 1 != line.LineNumber))
                         {
-                            GrepSearchResult.GrepLine emptyLine = new GrepSearchResult.GrepLine(-1, "", true, null);
-                            if (Application.Current != null)
-                                Application.Current.Dispatcher.Invoke(new Action(() =>
-                                    this.Add(new FormattedGrepLine(emptyLine, formattedResult, 30))
-                                ));
+                            isSectionBreak = true;
                         }
 
                         currentLine = line.LineNumber;
@@ -143,11 +138,11 @@ namespace dnGREP.WPF.MVHelpers
                             LineNumberColumnWidth = 47;
                         else if (currentLine > 99999 && LineNumberColumnWidth < 50)
                             LineNumberColumnWidth = 50;
-                        tempList.Add(new FormattedGrepLine(line, formattedResult, LineNumberColumnWidth));
+                        tempList.Add(new FormattedGrepLine(line, formattedResult, LineNumberColumnWidth, isSectionBreak));
                     }
 
                     if (Application.Current != null)
-                        Application.Current.Dispatcher.Invoke(new Action(() => 
+                        Application.Current.Dispatcher.Invoke(new Action(() =>
                         {
                             foreach (var l in tempList) this.Add(l);
                         }

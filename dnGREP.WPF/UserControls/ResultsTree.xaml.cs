@@ -35,6 +35,11 @@ namespace dnGREP.WPF.UserControls
             inputData = ((ObservableGrepSearchResults)(this.DataContext));
         }
 
+        private void tvSearchResult_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
+        {
+            // keep tree view from scrolling horizontally when an item is selected
+            e.Handled = true;
+        }
 
         #region Tree right click events
 

@@ -1,7 +1,6 @@
 ﻿<Window
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:splitButton="clr-namespace:Wpf.Controls;assembly=Wpf.SplitButton"
     xmlns:my="clr-namespace:dnGREP.WPF"
     xmlns:Controls="clr-namespace:dnGREP.WPF.UserControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="dnGREP.WPF.MainFormEx"
@@ -10,7 +9,7 @@
     MinWidth="550" Icon="/dnGREP;component/nGREP.ico" Closing="MainForm_Closing"
     Loaded="Window_Loaded"
     SnapsToDevicePixels="True" ResizeMode="CanResizeWithGrip" AllowDrop="False"
-    my:DiginesisHelpProvider.HelpKeyword="SearchWindow" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True" 
+    my:DiginesisHelpProvider.HelpKeyword="Search-Window" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True" 
     WindowStartupLocation="Manual" TextOptions.TextFormattingMode="{Binding TextFormatting}"
     FocusManager.FocusedElement="{Binding ElementName=tbSearchFor}" Activated="Window_Activated" StateChanged="Window_StateChanged">
     <!-- Resources -->
@@ -115,7 +114,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"><Run Text="Search for:"/></TextBlock>
                         <ComboBox Grid.Row="0" Grid.Column="1" Text="{Binding SearchFor}" IsEditable="True" x:Name="tbSearchFor" ItemsSource="{Binding FastSearchBookmarks}" Style="{DynamicResource MultilineComboBoxStyle}"
-                                        FontFamily="Consolas" FontSize="12" TabIndex="5" my:DiginesisHelpProvider.HelpKeyword="RegularExpressions" my:DiginesisHelpProvider.HelpNavigator="Topic"
+                                  IsTextSearchCaseSensitive="True" FontFamily="Consolas" FontSize="12" TabIndex="5" my:DiginesisHelpProvider.HelpKeyword="Regular-Expressions" my:DiginesisHelpProvider.HelpNavigator="Topic"
                                         my:DiginesisHelpProvider.ShowHelp="True" Padding="5">
                             <ComboBox.ToolTip>
                                 <TextBlock><Run Text=". matches all characters"/><LineBreak/><Run Text="\w matches alpha-numerics"/><LineBreak/><Run Text="\d matches digits"/><LineBreak/><Run Text="\s matches space"/><LineBreak/><Run Text="* matches any number of characters"/><LineBreak/><Run Text="{}{1,3} matches 1 to 3 characters"/><LineBreak/><Run Text="For more Regex patterns hit F1"/></TextBlock>
@@ -123,7 +122,7 @@
                         </ComboBox>
                         <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"><Run Text="Replace for:"/></TextBlock>
                         <ComboBox Grid.Row="2" Grid.Column="1" Text="{Binding ReplaceWith}" IsEditable="True" x:Name="tbReplaceWith" ItemsSource="{Binding FastReplaceBookmarks}" Style="{DynamicResource MultilineComboBoxStyle}"
-                                                  FontFamily="Consolas" FontSize="12" TabIndex="5" Padding="5">
+                                  IsTextSearchCaseSensitive="True" FontFamily="Consolas" FontSize="12" TabIndex="5" Padding="5">
                             <ComboBox.ToolTip>
                                 <TextBlock><Run Text="$&amp; replaces entire regex"/><LineBreak/><Run Text="$1, $2, $3, etc... inserts the text matched between capturing parentheses into the replacement text"/><LineBreak/><Run Text="$$ inserts a single dollar sign into the replacement text"/></TextBlock>
                             </ComboBox.ToolTip>
@@ -142,17 +141,6 @@
 						    Grid.Row="0" Grid.Column="0" Width="67" Margin="3" IsDefault="True" TabIndex="50">
                     </Button>
                     <Button Width="64" Margin="3" Content="Replace" x:Name="btnReplace" Command="{Binding ReplaceCommand}" TabIndex="51" />
-                    <!--<splitButton:SplitButton x:Name="btnOtherActions" Content="&gt;&gt;"
-						    Grid.Row="0" Grid.Column="0"
-						    Width="43" VerticalAlignment="Top"
-						    HorizontalAlignment="Left"  Margin="3" Command="{Binding OtherActionsCommand}" TabIndex="52">
-                        <MenuItem x:Name="copyFilesToolStripMenuItem" Header="Copy files..." Style="{StaticResource DefaultStyle}" Command="{Binding CopyFilesCommand}"/>
-                        <MenuItem x:Name="moveFilesToolStripMenuItem" Header="Move files..." Style="{StaticResource DefaultStyle}" Command="{Binding MoveFilesCommand}"/>
-                        <MenuItem x:Name="deleteFilesToolStripMenuItem" Header="Delete files..." Style="{StaticResource DefaultStyle}" Command="{Binding DeleteFilesCommand}"/>
-                        <Separator/>
-                        <MenuItem x:Name="copyToClipboardToolStripMenuItem" Header="File names to clipboard" Style="{StaticResource DefaultStyle}" Command="{Binding CopyToClipboardCommand}"/>
-                        <MenuItem x:Name="saveAsCSVToolStripMenuItem" Header="Save as CSV..." Style="{StaticResource DefaultStyle}" Command="{Binding SaveAsCsvCommand}"/>
-                    </splitButton:SplitButton>-->
                     <Button Content=">>" x:Name="btnOtherActions" Width="30" Margin="3" Click="btnOtherActions_Click" 
                             ContextMenuService.Placement="Bottom" IsEnabled="{Binding CanSearchInResults}">
                         <Button.ContextMenu>

@@ -76,7 +76,7 @@ namespace dnGREP.Engines.Archive
 			}
 			catch (Exception ex)
 			{
-				logger.LogException(LogLevel.Error, "Failed to search inside archive.", ex);
+				logger.Log<Exception>(LogLevel.Error, "Failed to search inside archive.", ex);
 			}
 			return searchResults;
 		}

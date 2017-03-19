@@ -67,7 +67,7 @@ namespace dnGREP.Common
 			}
 			catch (Exception ex)
 			{
-				logger.LogException(LogLevel.Error, ex.Message, ex);
+				logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
 			}
 		}
 	}

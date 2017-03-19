@@ -30,7 +30,7 @@
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{Binding Icon}"/>
-                        <TextBlock Text="{Binding Label}" Margin="3,0,0,0"/>                    
+                        <TextBlock Text="{Binding Label}" Margin="3,0,0,0"/>
                     </StackPanel>
                     <Viewbox Width="20" Height="20" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <Controls:BusyIndicator Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"/>
@@ -38,25 +38,37 @@
                 </StackPanel>
             </HierarchicalDataTemplate>
             <DataTemplate DataType="{x:Type my:FormattedGrepLine}">
-                <WrapPanel>
-                    <WrapPanel.Resources>
-                        <Style TargetType="{x:Type TextBlock}">
+                <Border BorderBrush="LightGray">
+                    <Border.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="BorderThickness" Value="0,0,0,0" />
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}}" Value="True">
-                                    <Setter Property="Background" Value="#FFD2D2D2"/>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}}" Value="False">
-                                    <Setter Property="Background" Value="#FFE0E0E0"/>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding Style}" Value="Empty">
-                                    <Setter Property="Background" Value="White"/>
+                                <DataTrigger Binding="{Binding IsSectionBreak}" Value="True">
+                                    <Setter Property="BorderThickness" Value="0,1,0,0" />
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
-                    </WrapPanel.Resources>
-                    <TextBlock Margin="-3" Width="{Binding LineNumberColumnWidth}" Text="{Binding FormattedLineNumber}"/>
-                    <my:InlineTextBlock Margin="3,0,0,0" InlineCollection="{Binding FormattedText}" FontFamily="Consolas"/>
-                </WrapPanel>
+                    </Border.Resources>
+                    <WrapPanel>
+                        <WrapPanel.Resources>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}}" Value="True">
+                                        <Setter Property="Background" Value="#FFD2D2D2"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}}" Value="False">
+                                        <Setter Property="Background" Value="#FFE0E0E0"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Style}" Value="Empty">
+                                        <Setter Property="Background" Value="White"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </WrapPanel.Resources>
+                        <TextBlock Margin="-3" Width="{Binding LineNumberColumnWidth}" Text="{Binding FormattedLineNumber}"/>
+                        <my:InlineTextBlock Margin="3,0,0,0" InlineCollection="{Binding FormattedText}" FontFamily="Consolas"/>
+                    </WrapPanel>
+                </Border>
             </DataTemplate>
         </TreeView.Resources>
         <TreeView.ContextMenu>
@@ -85,6 +97,9 @@
                 <EventSetter
                         Event="UIElement.PreviewMouseMove"
                         Handler="tvSearchResult_PreviewMouseMove"/>
+                <EventSetter 
+                        Event="RequestBringIntoView" 
+                        Handler="tvSearchResult_RequestBringIntoView"/>
                 <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
                 <Setter Property="FontSize" Value="12"/>
                 <Setter Property="BorderThickness" Value="1.5"/>

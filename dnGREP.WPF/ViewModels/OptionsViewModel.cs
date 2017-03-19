@@ -46,6 +46,7 @@ namespace dnGREP.WPF
                 ShowFilePathInResults != settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults) ||
                 AllowSearchWithEmptyPattern != settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern) ||
                 AutoExpandSearchTree != settings.Get<bool>(GrepSettings.Key.ExpandResults) ||
+                ShowVerboseMatchCount != settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount) ||
                 EnableClearType != (settings.Get<TextFormattingMode>(GrepSettings.Key.TextFormatting) == TextFormattingMode.Ideal) ||
                 MatchThreshold != settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold))
                     return true;
@@ -294,6 +295,21 @@ namespace dnGREP.WPF
             }
         }
 
+        private bool showVerboseMatchCount;
+        public bool ShowVerboseMatchCount
+        {
+            get { return showVerboseMatchCount; }
+            set
+            {
+                if (value == showVerboseMatchCount)
+                    return;
+
+                showVerboseMatchCount = value;
+
+                base.OnPropertyChanged(() => ShowVerboseMatchCount);
+            }
+        }
+
         private bool enableClearType;
         public bool EnableClearType
         {
@@ -440,6 +456,7 @@ namespace dnGREP.WPF
             ShowFilePathInResults = settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults);
             AllowSearchWithEmptyPattern = settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern);
             AutoExpandSearchTree = settings.Get<bool>(GrepSettings.Key.ExpandResults);
+            showVerboseMatchCount = settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount);
             EnableClearType = settings.Get<TextFormattingMode>(GrepSettings.Key.TextFormatting) == TextFormattingMode.Ideal;
             MatchThreshold = settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold);
             ShowLinesInContext = settings.Get<bool>(GrepSettings.Key.ShowLinesInContext);
@@ -480,6 +497,7 @@ namespace dnGREP.WPF
             settings.Set<bool>(GrepSettings.Key.ShowFilePathInResults, ShowFilePathInResults);
             settings.Set<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern, AllowSearchWithEmptyPattern);
             settings.Set<bool>(GrepSettings.Key.ExpandResults, AutoExpandSearchTree);
+            settings.Set<bool>(GrepSettings.Key.ShowVerboseMatchCount, showVerboseMatchCount);
             settings.Set<TextFormattingMode>(GrepSettings.Key.TextFormatting, EnableClearType ? TextFormattingMode.Ideal : TextFormattingMode.Display);
             settings.Set<double>(GrepSettings.Key.FuzzyMatchThreshold, MatchThreshold);
             settings.Set<bool>(GrepSettings.Key.ShowLinesInContext, ShowLinesInContext);
