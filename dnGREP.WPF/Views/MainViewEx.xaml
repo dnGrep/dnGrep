@@ -29,7 +29,7 @@
         <KeyBinding Key="Escape" Command="{Binding CloseCommand}"/>
     </Window.InputBindings>
 
-    <Grid x:Name="gridMain" Margin="0,-1,0,1">
+    <Grid x:Name="gridMain" Margin="0,-1,0,1" ManipulationBoundaryFeedback="ManipulationBoundaryFeedbackHandler">
         <Grid.RowDefinitions>
             <RowDefinition Height="25" />
             <RowDefinition Height="*" MinHeight="300"/>
@@ -37,10 +37,10 @@
         </Grid.RowDefinitions>
         <Grid x:Name="gridTop" Grid.Row="0" Background="{Binding Background, ElementName=statusBar}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="80" />
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" FontFamily="Microsoft Sans Serif" FontWeight="Bold" FontSize="16" Text="dnGREP"/>
+            <TextBlock Grid.Column="0" FontFamily="Segoe UI" FontWeight="SemiBold" FontSize="18" Text="dnGREP" Margin="6,0,0,0"/>
             <Menu Background="{Binding Background, ElementName=gridTop}" x:Name="mnuMainMenu" Grid.Column="1" HorizontalAlignment="Right" Style="{StaticResource DefaultStyle}">
                 <MenuItem x:Name="undoToolStripMenuItem" Header="_Undo" Command="{Binding UndoCommand}" Height="{Binding ActualHeight, ElementName=statusBar}"/>
                 <MenuItem Header="_Options..." Command="{Binding OptionsCommand}" Height="{Binding ActualHeight, ElementName=statusBar}"/>

@@ -2,8 +2,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
    
     <Style x:Key="DefaultStyle">
-        <Setter Property="Control.FontSize" Value="12"/>
-        <Setter Property="Control.FontFamily" Value="Microsoft Sans Serif"/>
+        <!-- removed to pick up defaults from the user's settings in Windows -->
+        <!--<Setter Property="Control.FontSize" Value="12"/>-->
+        <!--<Setter Property="Control.FontFamily" Value="Segoe UI"/>-->
     </Style>
 
     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" x:Key="GradientBackground">
