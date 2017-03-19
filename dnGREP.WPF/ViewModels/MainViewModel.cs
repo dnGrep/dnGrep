@@ -961,6 +961,7 @@ namespace dnGREP.WPF
         {
             SaveSettings();
             var optionsForm = new OptionsView();
+            optionsForm.Owner = ParentWindow;
             var optionsViewModel = new OptionsViewModel();
             // When the ViewModel asks to be closed, 
             // close the window.
