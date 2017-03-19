@@ -333,7 +333,7 @@ namespace dnGREP.Common
 		{
 			try
 			{
-				if (string.IsNullOrEmpty(path))
+                if (string.IsNullOrWhiteSpace(path))
 					return false;
 
                 string[] paths = SplitPath(path);
@@ -349,6 +349,38 @@ namespace dnGREP.Common
 				return false;
 			}
 		}
+
+        /// <summary>
+        /// Removes whitespace from the individual paths
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static string CleanPath(string path)
+        {
+            string result = path;
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(path))
+                {
+                    List<string> items = new List<string>();
+                    string[] paths = SplitPath(path);
+                    foreach (string subPath in paths)
+                    {
+                        string p = subPath.Trim();
+                        if (!string.IsNullOrWhiteSpace(p) && (File.Exists(p) || Directory.Exists(p)))
+                            items.Add(p);
+                    }
+
+                    result = string.Join(";", items.ToArray());
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
+            }
+
+            return result;
+        }
 
 		/// <summary>
 		/// Returns base folder of one or many files or folders. 
@@ -416,7 +448,7 @@ namespace dnGREP.Common
                         }
                         sb.Append(splitterIndex + subSplitterIndex < path.Length ? path[splitterIndex + subSplitterIndex].ToString() : "");
                     }
-                    if (!found && !String.IsNullOrEmpty(paths[i]))
+                    if (!found && !string.IsNullOrWhiteSpace(paths[i]))
                         output.Add(paths[i]);
                 }
             }
@@ -443,7 +475,7 @@ namespace dnGREP.Common
         /// <returns></returns>
         public static IEnumerable<string> GetFileListEx(string path, string namePatternToInclude, string namePatternToExclude, bool isRegex, bool includeSubfolders, bool includeHidden, bool includeBinary, int sizeFrom, int sizeTo)
         {
-            if (string.IsNullOrEmpty(path) || namePatternToInclude == null)
+            if (string.IsNullOrWhiteSpace(path) || namePatternToInclude == null)
             {
                 yield break;
             }
@@ -546,7 +578,7 @@ namespace dnGREP.Common
                         }
                         catch (Exception ex)
                         {
-                            logger.LogException(LogLevel.Error, ex.Message, ex);
+                            logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
                         }
 
                         if (!matches.Contains(filePath))
@@ -705,7 +737,7 @@ namespace dnGREP.Common
 			}
 			catch (Exception ex)
 			{
-				logger.LogException(LogLevel.Error, ex.Message, ex);
+				logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
 			}
 		}
 
@@ -713,7 +745,7 @@ namespace dnGREP.Common
 		/// Converts unix asterisk based file pattern to regex
 		/// </summary>
 		/// <param name="wildcard">Asterisk based pattern</param>
-		/// <returns>Regeular expression of null is empty</returns>
+		/// <returns>Regular expression of null is empty</returns>
 		private static string wildcardToRegex(string wildcard)
 		{
 			if (wildcard == null || wildcard == "") return wildcard;
@@ -739,7 +771,7 @@ namespace dnGREP.Common
 		/// <summary>
 		/// Parses text into int
 		/// </summary>
-		/// <param name="value">String. May include null, empty srting or text with spaces before or after.</param>
+		/// <param name="value">String. May include null, empty string or text with spaces before or after.</param>
 		/// <returns>Attempts to parse string. Otherwise returns int.MinValue</returns>
 		public static int ParseInt(string value)
 		{
@@ -749,7 +781,7 @@ namespace dnGREP.Common
 		/// <summary>
 		/// Parses text into int
 		/// </summary>
-		/// <param name="value">String. May include null, empty srting or text with spaces before or after.</param>
+		/// <param name="value">String. May include null, empty string or text with spaces before or after.</param>
 		/// <param name="defaultValue">Default value if fails to parse.</param>
 		/// <returns>Attempts to parse string. Otherwise returns defaultValue</returns>
 		public static int ParseInt(string value, int defaultValue)
@@ -769,7 +801,7 @@ namespace dnGREP.Common
 		/// <summary>
 		/// Parses text into double
 		/// </summary>
-		/// <param name="value">String. May include null, empty srting or text with spaces before or after.</param>
+		/// <param name="value">String. May include null, empty string or text with spaces before or after.</param>
 		/// <returns>Attempts to parse string. Otherwise returns double.MinValue</returns>
 		public static double ParseDouble(string value)
 		{
@@ -779,7 +811,7 @@ namespace dnGREP.Common
 		/// <summary>
 		/// Parses text into double
 		/// </summary>
-		/// <param name="value">String. May include null, empty srting or text with spaces before or after.</param>
+		/// <param name="value">String. May include null, empty string or text with spaces before or after.</param>
 		/// <param name="defaultValue">Default value if fails to parse.</param>
 		/// <returns>Attempts to parse string. Otherwise returns defaultValue</returns>
 		public static double ParseDouble(string value, double defaultValue)
@@ -799,7 +831,7 @@ namespace dnGREP.Common
 		/// <summary>
 		/// Parses text into bool
 		/// </summary>
-		/// <param name="value">String. May include null, empty srting or text with spaces before or after.
+		/// <param name="value">String. May include null, empty string or text with spaces before or after.
 		/// Text may be in the format of True/False, Yes/No, Y/N, On/Off, 1/0</param>
 		/// <returns></returns>
 		public static bool ParseBoolean(string value)
@@ -810,7 +842,7 @@ namespace dnGREP.Common
 		/// <summary>
 		/// Parses text into bool
 		/// </summary>
-		/// <param name="value">String. May include null, empty srting or text with spaces before or after.
+		/// <param name="value">String. May include null, empty string or text with spaces before or after.
 		/// Text may be in the format of True/False, Yes/No, Y/N, On/Off, 1/0</param>
 		/// <param name="defaultValue">Default value</param>
 		/// <returns></returns>
@@ -846,7 +878,7 @@ namespace dnGREP.Common
 		/// <returns></returns>
 		public static T ParseEnum<T>(string value, T defaultValue)
         {
-            if (string.IsNullOrEmpty(value))
+            if (string.IsNullOrWhiteSpace(value))
                 return defaultValue;
 
             T result = defaultValue;
@@ -910,13 +942,12 @@ namespace dnGREP.Common
 		/// <returns></returns>
 		public static string GetTempFolder()
 		{
-			string tempPath = FixFolderName(GetDataFolderPath()) + "~dnGREP-Temp\\";
+            string tempPath = Path.Combine(Path.GetTempPath(), "~dnGREP-Temp");
 			if (!Directory.Exists(tempPath))
 			{
-				DirectoryInfo di = Directory.CreateDirectory(tempPath);
-				di.Attributes = FileAttributes.Directory | FileAttributes.Hidden; 
+				Directory.CreateDirectory(tempPath);
 			}
-			return tempPath;
+			return tempPath + Path.DirectorySeparatorChar;
 		}
 
 		/// <summary>
@@ -924,15 +955,15 @@ namespace dnGREP.Common
 		/// </summary>
 		public static void DeleteTempFolder()
 		{
-			string tempPath = FixFolderName(GetDataFolderPath()) + "~dnGREP-Temp\\";
-			try
+            string tempPath = Path.Combine(Path.GetTempPath(), "~dnGREP-Temp");
+            try
 			{
 				if (Directory.Exists(tempPath))
 					DeleteFolder(tempPath);
 			}
 			catch (Exception ex)
 			{
-				logger.LogException(LogLevel.Error, "Failed to delete temp folder", ex);
+				logger.Log<Exception>(LogLevel.Error, "Failed to delete temp folder", ex);
 			}
 		}
 
@@ -988,7 +1019,10 @@ namespace dnGREP.Common
 			bool canAccess = true;
 			//1. Provide early notification that the user does not have permission to write.
 			FileIOPermission writePermission = new FileIOPermission(FileIOPermissionAccess.Write, filename);
-			if (!SecurityManager.IsGranted(writePermission))
+            var permissionSet = new PermissionSet(PermissionState.None);
+            permissionSet.AddPermission(writePermission);
+            bool isGranted = permissionSet.IsSubsetOf(AppDomain.CurrentDomain.PermissionSet);
+            if (!isGranted)
 			{
 				//No permission. 
 				canAccess = false;
@@ -1179,7 +1213,7 @@ namespace dnGREP.Common
         /// <param name="body">Text</param>
         /// <param name="bodyMatchesClone">List of matches with positions relative to entire text body</param>
         /// <param name="beforeLines">Context line (before)</param>
-        /// <param name="afterLines">Contaxt line (after</param>
+        /// <param name="afterLines">Context line (after</param>
         /// <returns></returns>
         public static List<GrepSearchResult.GrepLine> GetLinesEx(TextReader body, List<GrepSearchResult.GrepMatch> bodyMatches, int beforeLines, int afterLines)
         {
@@ -1195,7 +1229,7 @@ namespace dnGREP.Common
             
             // Context line (before)
             Queue<string> beforeQueue = new Queue<string>();
-            // Contaxt line (after)
+            // Context line (after)
             int currentAfterLine = 0;
             bool startRecordingAfterLines = false;
             // Current line

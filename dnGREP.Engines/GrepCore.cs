@@ -55,7 +55,7 @@ namespace dnGREP.Common
             {
                 foreach (string file in files)
                 {
-                    searchResults.Add(new GrepSearchResult(file, searchPattern, null));
+                    searchResults.Add(new GrepSearchResult(file, searchPattern, null, Encoding.Default));
                     if ((searchOptions & GrepSearchOption.StopAfterFirstMatch) == GrepSearchOption.StopAfterFirstMatch)
                         break;
                 }
@@ -108,7 +108,7 @@ namespace dnGREP.Common
                         }
                         catch (Exception ex)
                         {
-                            logger.LogException(LogLevel.Error, ex.Message, ex);
+                            logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
                             searchResults.Add(new GrepSearchResult(file, searchPattern, ex.Message, false));
                             if (ProcessedFile != null)
                             {
@@ -131,31 +131,24 @@ namespace dnGREP.Common
             }
 		}
 
-		public int Replace(IEnumerable<string> files, SearchType searchType, string baseFolder, string searchPattern, string replacePattern, GrepSearchOption searchOptions, int codePage)
+		public int Replace(IEnumerable<string> files, SearchType searchType, string searchPattern, string replacePattern, GrepSearchOption searchOptions, int codePage)
 		{
 			string tempFolder = Utils.GetTempFolder();
-			if (Directory.Exists(tempFolder))
-				Utils.DeleteFolder(tempFolder);
-			Directory.CreateDirectory(tempFolder);
 
-			if (files == null || !Directory.Exists(tempFolder) || !Directory.Exists(baseFolder))
+			if (files == null || !Directory.Exists(tempFolder))
 				return 0;
 
-			baseFolder = Utils.FixFolderName(baseFolder);
-			tempFolder = Utils.FixFolderName(tempFolder);
             replacePattern = Utils.ReplaceSpecialCharacters(replacePattern);
 
 			int processedFiles = 0;
             Utils.CancelSearch = false;
+            string tempFileName = null;
 
 			try
 			{
 				foreach (string file in files)
 				{
-                    if (!file.Contains(baseFolder))
-                        continue;
-
-					string tempFileName = file.Replace(baseFolder, tempFolder);
+					tempFileName = Path.Combine(tempFolder, Path.GetFileName(file));
 					IGrepEngine engine = GrepEngineFactory.GetReplaceEngine(file, searchParams);
 
 					try
@@ -163,7 +156,7 @@ namespace dnGREP.Common
 						processedFiles++;
 						// Copy file					
 						Utils.CopyFile(file, tempFileName, true);
-						Utils.DeleteFile(file);
+                        Utils.DeleteFile(file);
 
 						Encoding encoding = null;
 						if (codePage == -1)
@@ -198,7 +191,7 @@ namespace dnGREP.Common
 					}
 					catch (Exception ex)
 					{
-						logger.LogException(LogLevel.Error, ex.Message, ex);
+						logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
 						try
 						{
 							// Replace the file
@@ -214,6 +207,18 @@ namespace dnGREP.Common
 						}
 						return -1;
 					}
+                    finally
+                    {
+                        try
+                        {
+                            if (!string.IsNullOrWhiteSpace(tempFileName))
+                                Utils.DeleteFile(tempFileName);
+                        }
+                        catch
+                        {
+                            // DO NOTHING
+                        }
+                    }
 				}
 			}
 			finally
@@ -239,7 +244,7 @@ namespace dnGREP.Common
 			}
 			catch (Exception ex)
 			{
-				logger.LogException(LogLevel.Error, "Failed to undo replacement", ex);
+				logger.Log<Exception>(LogLevel.Error, "Failed to undo replacement", ex);
 				return false;
 			}
 		}		

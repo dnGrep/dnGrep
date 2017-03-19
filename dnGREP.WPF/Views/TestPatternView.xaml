@@ -1,7 +1,6 @@
 ﻿<Window x:Class="dnGREP.WPF.TestPattern"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:splitButton="clr-namespace:Wpf.Controls;assembly=Wpf.SplitButton"
     xmlns:my="clr-namespace:dnGREP.WPF"
     Title="Test" Width="527" WindowStyle="ToolWindow" Height="460" MinHeight="460" 
     MinWidth="500" Icon="/dnGREP;component/nGREP.ico"

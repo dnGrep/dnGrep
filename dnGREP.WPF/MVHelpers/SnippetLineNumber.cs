@@ -16,9 +16,6 @@ namespace dnGREP.WPF
 {
     public class SnippetLineNumber : LineNumberMargin
     {
-        private Typeface typeface;
-        private double emSize;
-        private int maxLineNumberLength = 1;
         private int[] lineNumbers;
         private Brush gray = new SolidColorBrush(Color.FromRgb(100, 100, 100));
         private Brush lightGray = new SolidColorBrush(Color.FromRgb(200, 200, 200));

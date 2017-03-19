@@ -196,7 +196,7 @@ namespace Tests
             List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase8", "test.txt"), SearchType.Regex, "here", GrepSearchOption.None, -1);
             Assert.Equal(results.Count, 1);
             Assert.Equal(results[0].SearchResults.Count, 1);
-            core.Replace(Directory.GetFiles(destinationFolder + "\\TestCase8", "test.txt"), SearchType.Regex, destinationFolder + "\\TestCase8", "here", "\\n", GrepSearchOption.None, -1);
+            core.Replace(Directory.GetFiles(destinationFolder + "\\TestCase8", "test.txt"), SearchType.Regex, "here", "\\n", GrepSearchOption.None, -1);
             Assert.Equal(File.ReadAllText(destinationFolder + "\\TestCase8\\test.txt", Encoding.ASCII).Trim().Split('\n').Length, 2);
         }
 
@@ -213,7 +213,7 @@ namespace Tests
             List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase9", "test.txt"), type, "here", GrepSearchOption.None, -1);
             Assert.Equal(results.Count, 1);
             Assert.Equal(results[0].SearchResults.Count, 6);
-            core.Replace(Directory.GetFiles(destinationFolder + "\\TestCase9", "test.txt"), type, destinationFolder + "\\TestCase9", "here", "$(guid)", GrepSearchOption.None, -1);
+            core.Replace(Directory.GetFiles(destinationFolder + "\\TestCase9", "test.txt"), type, "here", "$(guid)", GrepSearchOption.None, -1);
             string fileContent = File.ReadAllText(destinationFolder + "\\TestCase9\\test.txt", Encoding.ASCII).Trim();
             Assert.Equal(6, guidPattern.Matches(fileContent).Count);
             HashSet<string> uniqueGuids = new HashSet<string>();
@@ -234,7 +234,7 @@ namespace Tests
             List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase9", "guidx.txt"), SearchType.Regex, "h\\wre", GrepSearchOption.None, -1);
             Assert.Equal(results.Count, 1);
             Assert.Equal(results[0].SearchResults.Count, 6);
-            core.Replace(Directory.GetFiles(destinationFolder + "\\TestCase9", "guidx.txt"), SearchType.Regex, destinationFolder + "\\TestCase9", "h\\wre", "$(guidx)", GrepSearchOption.None, -1);
+            core.Replace(Directory.GetFiles(destinationFolder + "\\TestCase9", "guidx.txt"), SearchType.Regex, "h\\wre", "$(guidx)", GrepSearchOption.None, -1);
             string fileContent = File.ReadAllText(destinationFolder + "\\TestCase9\\guidx.txt", Encoding.ASCII).Trim();
             Assert.Equal(6, guidPattern.Matches(fileContent).Count);
             Dictionary<string, int> uniqueGuids = new Dictionary<string, int>();
