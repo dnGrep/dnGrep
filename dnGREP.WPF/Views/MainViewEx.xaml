@@ -12,7 +12,6 @@
     my:DiginesisHelpProvider.HelpKeyword="Search-Window" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True" 
     WindowStartupLocation="Manual" TextOptions.TextFormattingMode="{Binding TextFormatting}"
     FocusManager.FocusedElement="{Binding ElementName=tbSearchFor}" Activated="Window_Activated" StateChanged="Window_StateChanged">
-    <!-- Resources -->
     <Window.Resources>
         <my:InverseBooleanConverter x:Key="InverseBooleanConverter" />
         <my:TotalValueConverter x:Key="TotalValueConverter" />
@@ -29,29 +28,29 @@
         <KeyBinding Key="Escape" Command="{Binding CloseCommand}"/>
     </Window.InputBindings>
 
-    <Grid x:Name="gridMain" Margin="0,-1,0,1">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="25" />
-            <RowDefinition Height="*" MinHeight="300"/>
-            <RowDefinition Height="25" />
-        </Grid.RowDefinitions>
-        <Grid x:Name="gridTop" Grid.Row="0" Background="{Binding Background, ElementName=statusBar}">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="70" />
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" FontFamily="Microsoft Sans Serif" FontWeight="Bold" FontSize="16" Text="dnGREP"/>
-            <Menu Background="{Binding Background, ElementName=gridTop}" x:Name="mnuMainMenu" Grid.Column="1" HorizontalAlignment="Right" Style="{StaticResource DefaultStyle}">
-                <MenuItem x:Name="undoToolStripMenuItem" Header="_Undo" Command="{Binding UndoCommand}" Height="{Binding ActualHeight, ElementName=statusBar}"/>
-                <MenuItem Header="_Options..." Command="{Binding OptionsCommand}" Height="{Binding ActualHeight, ElementName=statusBar}"/>
-                <MenuItem Header="_Bookmarks..." Command="{Binding BookmarkOpenCommand}" Height="{Binding ActualHeight, ElementName=statusBar}"/>
-                <MenuItem Header="_About" x:Name="helpToolStripMenuItem" Height="{Binding ActualHeight, ElementName=statusBar}">
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top" Margin="5,5,5,-2">
+            <TextBlock DockPanel.Dock="Left" FontSize="16" FontWeight="DemiBold" Text="dnGrep"/>
+            <Menu x:Name="mnuMainMenu" Background="Transparent" HorizontalAlignment="Right" Style="{StaticResource DefaultStyle}">
+                <Menu.Resources>
+                    <Style TargetType="MenuItem">
+                        <Setter Property="Height" Value="{Binding ActualHeight, ElementName=mnuMainMenu}"/>
+                    </Style>
+                </Menu.Resources>
+                <MenuItem x:Name="undoToolStripMenuItem" Header="_Undo" Command="{Binding UndoCommand}"/>
+                <MenuItem Header="_Options..." Command="{Binding OptionsCommand}"/>
+                <MenuItem Header="_Bookmarks..." Command="{Binding BookmarkOpenCommand}"/>
+                <MenuItem Header="_About" x:Name="helpToolStripMenuItem">
                     <MenuItem Command="{Binding HelpCommand}" Header="_Help"/>
                     <MenuItem Command="{Binding AboutCommand}" Header="About..."/>
                 </MenuItem>
             </Menu>
-        </Grid>
-        <DockPanel LastChildFill="True" Margin="0,24,0,1" Grid.RowSpan="2" >
+        </DockPanel>
+        <StatusBar x:Name="statusBar" ClipToBounds="False" DockPanel.Dock="Bottom">
+            <ProgressBar x:Name="barProgressBar" Height="18" IsIndeterminate="{Binding IsOperationInProgress}" Width="150" />
+            <TextBlock x:Name="lblStatus" Text="{Binding StatusMessage}" />
+        </StatusBar>
+        <DockPanel LastChildFill="True">
             <GroupBox Header="Search in" DockPanel.Dock="Top">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -78,12 +77,12 @@
                             <RadioButton GroupName="SearchSoundex" x:Name="rbSoundex" Margin="3" IsChecked="{Binding TypeOfSearch, ConverterParameter=Soundex, Converter={StaticResource ebc}}" ToolTip="Phonetic search" TabIndex="14" Content="_Phonetic"/>
                         </StackPanel>
                         <Label Grid.Column="1" Content="{Binding ValidationMessage}"/>
-						<StackPanel Margin="0 0 0 2" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <StackPanel Margin="0 0 0 2" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
                             <CheckBox ToolTip="{Binding IsBookmarkedTooltip}" Margin="0 0 5 0" Width="20"
 								Style="{DynamicResource MetroButton}" Template="{DynamicResource FavsMetroButtonTemplate}" IsChecked="{Binding IsBookmarked}" 
                                       Command="{Binding BookmarkAddCommand}"/>
-							<Button x:Name="btnTest" Command="{Binding TestCommand}" TabIndex="15" Content="Test" Width="60"/>
-						</StackPanel>                        
+                            <Button x:Name="btnTest" Command="{Binding TestCommand}" TabIndex="15" Content="Test" Width="60"/>
+                        </StackPanel>
                     </Grid>
                     <Expander DockPanel.Dock="Bottom" x:Name="expOptions" IsExpanded="{Binding IsOptionsExpanded}">
                         <Expander.Header>
@@ -134,7 +133,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-				<StackPanel HorizontalAlignment="Right" Grid.Column="0" Orientation="Horizontal">
+                <StackPanel HorizontalAlignment="Right" Grid.Column="0" Orientation="Horizontal">
                     <CheckBox IsChecked="{Binding SearchInResultsContent}" Visibility="{Binding CanSearchInResults, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Margin="0 0 5 0" Content="Search _in results"/>
                     <CheckBox IsChecked="{Binding PreviewFileContent}" VerticalAlignment="Center" Margin="0 0 5 0" Content="Pre_view file"/>
                     <Button x:Name="btnSearch" Content="_Search" Command="{Binding SearchCommand}" 
@@ -155,15 +154,11 @@
                             </ContextMenu>
                         </Button.ContextMenu>
                     </Button>
-                    
+
                     <Button Width="64" Margin="3" Content="_Cancel" x:Name="btnCancel" Command="{Binding CancelCommand}" TabIndex="53" />
                 </StackPanel>
-            </Grid>            
-            <Controls:ResultsTree DataContext="{Binding SearchResults}" Grid.Row="3"/>            
+            </Grid>
+            <Controls:ResultsTree DataContext="{Binding SearchResults}"/>
         </DockPanel>
-        <StatusBar ClipToBounds="False" Grid.Row="4" x:Name="statusBar">
-            <ProgressBar x:Name="barProgressBar" Height="18" IsIndeterminate="{Binding IsOperationInProgress}" Width="150" />
-            <TextBlock x:Name="lblStatus" Text="{Binding StatusMessage}" />
-        </StatusBar>
-    </Grid>
+    </DockPanel>
 </Window>
