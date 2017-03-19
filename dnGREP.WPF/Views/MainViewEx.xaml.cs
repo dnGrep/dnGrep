@@ -174,12 +174,6 @@ namespace dnGREP.WPF
         //}
         #endregion
 
-        private void cbMultiline_Unchecked(object sender, RoutedEventArgs e)
-        {
-            //gridMain.RowDefinitions[0].Height = new GridLength(1, GridUnitType.Auto);
-            //gridMain.RowDefinitions[2].Height = new GridLength(1, GridUnitType.Star);
-        }
-
         private void FilesSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var listView = (ListView)e.Source;
