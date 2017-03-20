@@ -863,6 +863,10 @@ namespace dnGREP.WPF
 
         private void updateBookmarks()
         {
+            int maxSearchReplaceCount = settings.Get<int>(GrepSettings.Key.MaxSearchBookmarks);
+            int maxPathCount = settings.Get<int>(GrepSettings.Key.MaxPathBookmarks);
+            int maxExtCount = settings.Get<int>(GrepSettings.Key.MaxExtensionBookmarks);
+
             // Update bookmarks, moving current to the top of the list
             if (FastSearchBookmarks.IndexOf(SearchFor) != 0)
             {
@@ -875,6 +879,8 @@ namespace dnGREP.WPF
                     SearchFor = s;
                 }
             }
+            while (FastSearchBookmarks.Count > maxSearchReplaceCount)
+                FastSearchBookmarks.RemoveAt(FastSearchBookmarks.Count - 1);
 
             if (FastReplaceBookmarks.IndexOf(ReplaceWith) != 0)
             {
@@ -887,6 +893,8 @@ namespace dnGREP.WPF
                     ReplaceWith = s;
                 }
             }
+            while (FastReplaceBookmarks.Count > maxSearchReplaceCount)
+                FastReplaceBookmarks.RemoveAt(FastReplaceBookmarks.Count - 1);
 
             if (FastFileMatchBookmarks.IndexOf(FilePattern) != 0)
             {
@@ -899,6 +907,8 @@ namespace dnGREP.WPF
                     FilePattern = s;
                 }
             }
+            while (FastFileMatchBookmarks.Count > maxExtCount)
+                FastFileMatchBookmarks.RemoveAt(FastFileMatchBookmarks.Count - 1);
 
             if (FastFileNotMatchBookmarks.IndexOf(FilePatternIgnore) != 0)
             {
@@ -911,6 +921,8 @@ namespace dnGREP.WPF
                     FilePatternIgnore = s;
                 }
             }
+            while (FastFileNotMatchBookmarks.Count > maxExtCount)
+                FastFileNotMatchBookmarks.RemoveAt(FastFileNotMatchBookmarks.Count - 1);
 
             if (FastPathBookmarks.IndexOf(FileOrFolderPath) != 0)
             {
@@ -923,6 +935,8 @@ namespace dnGREP.WPF
                     FileOrFolderPath = s;
                 }
             }
+            while (FastPathBookmarks.Count > maxPathCount)
+                FastPathBookmarks.RemoveAt(FastPathBookmarks.Count - 1);
         }
 
         private void cancel()
