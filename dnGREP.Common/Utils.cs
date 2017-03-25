@@ -449,7 +449,7 @@ namespace dnGREP.Common
                         sb.Append(splitterIndex + subSplitterIndex < path.Length ? path[splitterIndex + subSplitterIndex].ToString() : "");
                     }
                     if (!found && !string.IsNullOrWhiteSpace(paths[i]))
-                        output.Add(paths[i]);
+                        output.Add(paths[i].TrimStart());
                 }
             }
             return output.ToArray();
