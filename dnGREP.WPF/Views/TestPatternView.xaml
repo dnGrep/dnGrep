@@ -5,11 +5,11 @@
     Title="Test" Width="527" WindowStyle="ToolWindow" Height="460" MinHeight="460" 
     MinWidth="500" Icon="/dnGREP;component/nGREP.ico"
     Background="{StaticResource GradientBackground}"
-    Loaded="Window_Loaded" Closing="Window_Closing"  KeyDown="formKeyDown" Style="{StaticResource DefaultStyle}" 
+    Loaded="Window_Loaded" Closing="Window_Closing"  KeyDown="formKeyDown" 
     SnapsToDevicePixels="True" ResizeMode="CanResizeWithGrip" TextOptions.TextFormattingMode="{Binding Path=TextFormatting}">
     <!-- Resources -->
     <Window.Resources>
-        <Style x:Key="ExpandedTextbox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource DefaultStyle}">
+        <Style x:Key="ExpandedTextbox" TargetType="{x:Type TextBox}">
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Path=Multiline}" Value="True">
                     <Setter Property="Height" Value="50"/>

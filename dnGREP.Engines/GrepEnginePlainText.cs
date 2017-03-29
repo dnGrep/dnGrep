@@ -189,6 +189,31 @@ namespace dnGREP.Engines
                 string line = null;
                 int counter = 1;
 
+                // use first line to determine eol character(s);
+                line = readStream.ReadLine(true);
+                if (line != null)
+                {
+                    if (line.EndsWith("\r\n"))
+                    {
+                        writeStream.NewLine = "\r\n";
+                        line = line.Substring(0, line.Length - 2);
+                    }
+                    else if (line.EndsWith("\n"))
+                    {
+                        writeStream.NewLine = "\n";
+                        line = line.Substring(0, line.Length - 1);
+                    }
+                    else if (line.EndsWith("\r"))
+                    {
+                        writeStream.NewLine = "\r";
+                        line = line.Substring(0, line.Length - 1);
+                    }
+
+                    line = replaceMethod(line, searchPattern, replacePattern, searchOptions);
+                    writeStream.WriteLine(line);
+                    counter++;
+                }
+
                 while ((line = readStream.ReadLine()) != null)
                 {
                     line = replaceMethod(line, searchPattern, replacePattern, searchOptions);

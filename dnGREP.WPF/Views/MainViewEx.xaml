@@ -19,9 +19,6 @@
         <my:EnumBooleanConverter x:Key="ebc" />
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Window.Resources>
-    <Window.Style>
-        <StaticResource ResourceKey="DefaultStyle"/>
-    </Window.Style>
     <Window.Background>
         <StaticResource ResourceKey="GradientBackground"/>
     </Window.Background>
@@ -29,7 +26,7 @@
         <KeyBinding Key="Escape" Command="{Binding CloseCommand}"/>
     </Window.InputBindings>
 
-    <Grid x:Name="gridMain" Margin="0,-1,0,1">
+    <Grid x:Name="gridMain" Margin="0,-1,0,1" ManipulationBoundaryFeedback="ManipulationBoundaryFeedbackHandler">
         <Grid.RowDefinitions>
             <RowDefinition Height="25" />
             <RowDefinition Height="*" MinHeight="300"/>
@@ -37,11 +34,11 @@
         </Grid.RowDefinitions>
         <Grid x:Name="gridTop" Grid.Row="0" Background="{Binding Background, ElementName=statusBar}">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="80" />
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" FontFamily="Microsoft Sans Serif" FontWeight="Bold" FontSize="16" Text="dnGREP"/>
-            <Menu Background="{Binding Background, ElementName=gridTop}" x:Name="mnuMainMenu" Grid.Column="1" HorizontalAlignment="Right" Style="{StaticResource DefaultStyle}">
+            <TextBlock Grid.Column="0" FontFamily="Segoe UI" FontWeight="SemiBold" FontSize="18" Text="dnGREP" Margin="6,0,0,0"/>
+            <Menu Background="{Binding Background, ElementName=gridTop}" x:Name="mnuMainMenu" Grid.Column="1" HorizontalAlignment="Right">
                 <MenuItem x:Name="undoToolStripMenuItem" Header="_Undo" Command="{Binding UndoCommand}" Height="{Binding ActualHeight, ElementName=statusBar}"/>
                 <MenuItem Header="_Options..." Command="{Binding OptionsCommand}" Height="{Binding ActualHeight, ElementName=statusBar}"/>
                 <MenuItem Header="_Bookmarks..." Command="{Binding BookmarkOpenCommand}" Height="{Binding ActualHeight, ElementName=statusBar}"/>
@@ -145,13 +142,13 @@
                             ContextMenuService.Placement="Bottom" IsEnabled="{Binding CanSearchInResults}">
                         <Button.ContextMenu>
                             <ContextMenu x:Name="advanceContextMenu">
-                                <MenuItem x:Name="copyFilesToolStripMenuItem" Header="Copy files..." Style="{StaticResource DefaultStyle}" Command="{Binding CopyFilesCommand}"/>
-                                <MenuItem x:Name="moveFilesToolStripMenuItem" Header="Move files..." Style="{StaticResource DefaultStyle}" Command="{Binding MoveFilesCommand}"/>
-                                <MenuItem x:Name="deleteFilesToolStripMenuItem" Header="Delete files..." Style="{StaticResource DefaultStyle}" Command="{Binding DeleteFilesCommand}"/>
+                                <MenuItem x:Name="copyFilesToolStripMenuItem" Header="Copy files..." Command="{Binding CopyFilesCommand}"/>
+                                <MenuItem x:Name="moveFilesToolStripMenuItem" Header="Move files..." Command="{Binding MoveFilesCommand}"/>
+                                <MenuItem x:Name="deleteFilesToolStripMenuItem" Header="Delete files..." Command="{Binding DeleteFilesCommand}"/>
                                 <Separator/>
-                                <MenuItem x:Name="copyToClipboardToolStripMenuItem" Header="File names to clipboard" Style="{StaticResource DefaultStyle}" Command="{Binding CopyToClipboardCommand}"/>
-                                <MenuItem x:Name="saveAsCSVToolStripMenuItem" Header="Save as CSV..." Style="{StaticResource DefaultStyle}" Command="{Binding SaveAsCsvCommand}"/>
-                                <MenuItem x:Name="copyAsCSVToolStripMenuItem" Header="CSV to clipboard" Style="{StaticResource DefaultStyle}" Command="{Binding CopyAsCsvCommand}"/>
+                                <MenuItem x:Name="copyToClipboardToolStripMenuItem" Header="File names to clipboard" Command="{Binding CopyToClipboardCommand}"/>
+                                <MenuItem x:Name="saveAsCSVToolStripMenuItem" Header="Save as CSV..." Command="{Binding SaveAsCsvCommand}"/>
+                                <MenuItem x:Name="copyAsCSVToolStripMenuItem" Header="CSV to clipboard" Command="{Binding CopyAsCsvCommand}"/>
                             </ContextMenu>
                         </Button.ContextMenu>
                     </Button>

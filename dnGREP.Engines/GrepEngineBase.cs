@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -20,6 +21,7 @@ namespace dnGREP.Engines
 		protected int linesAfter = 0;
 		protected double fuzzyMatchThreshold = 0.5;
         private GoogleMatch fuzzyMatchEngine = new GoogleMatch();
+        private bool verboseMatchCount;
 
 		public GrepEngineBase() { }
 
@@ -42,6 +44,7 @@ namespace dnGREP.Engines
                 this.linesAfter = 0;
             }
 			this.fuzzyMatchThreshold = param.FuzzyMatchThreshold;
+            verboseMatchCount = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount);
 			return true;
 		}
 
@@ -76,7 +79,8 @@ namespace dnGREP.Engines
 					continue;
 				}
 
-                globalMatches.Add(new GrepSearchResult.GrepMatch(0, matchLocation + counter, matchLength));
+                int lineNumber = verboseMatchCount ? text.Take(matchLocation + counter).Count(c => c == '\n' || c == '\r') + 1 : 0;
+                globalMatches.Add(new GrepSearchResult.GrepMatch(lineNumber, matchLocation + counter, matchLength));
                 
                 counter = counter + matchLocation + matchLength;
             }
@@ -273,7 +277,7 @@ namespace dnGREP.Engines
 
                                     if (xPathPositionsMatch(currPos, positions[i].Path))
                                     {
-                                        results[i] = new GrepSearchResult.GrepMatch(0, getAbsoluteCharPosition(lineInfo.LineNumber - 1, lineInfo.LinePosition - 2, text, lineLengths, false), 0);
+                                        results[i] = new GrepSearchResult.GrepMatch(lineInfo.LineNumber - 1, getAbsoluteCharPosition(lineInfo.LineNumber - 1, lineInfo.LinePosition - 2, text, lineLengths, false), 0);
                                     }
 
                                     // If empty element (e.g.<element/>)
@@ -347,7 +351,8 @@ namespace dnGREP.Engines
             List<GrepSearchResult.GrepMatch> globalMatches = new List<GrepSearchResult.GrepMatch>();
             foreach (Match match in Regex.Matches(text, searchPattern, regexOptions))
 			{
-                globalMatches.Add(new GrepSearchResult.GrepMatch(0, match.Index, match.Length));
+                int lineNumber = verboseMatchCount ? text.Take(match.Index).Count(c => c == '\n' || c == '\r') + 1 : 0;
+                globalMatches.Add(new GrepSearchResult.GrepMatch(lineNumber, match.Index, match.Length));
 			}
 
             return globalMatches;
@@ -382,7 +387,8 @@ namespace dnGREP.Engines
 						continue;
 					}
 
-                    globalMatches.Add(new GrepSearchResult.GrepMatch(0, index, searchText.Length));
+                    int lineNumber = verboseMatchCount? text.Take(index).Count(c => c == '\n' || c == '\r') + 1 : 0;
+                    globalMatches.Add(new GrepSearchResult.GrepMatch(lineNumber, index, searchText.Length));
 					index++;
 				}
 			}
@@ -408,7 +414,8 @@ namespace dnGREP.Engines
 						continue;
 					}
 
-                    globalMatches.Add(new GrepSearchResult.GrepMatch(0, index, searchText.Length));
+                    int lineNumber = verboseMatchCount ? text.Take(index).Count(c => c == '\n' || c == '\r') + 1 : 0;
+                    globalMatches.Add(new GrepSearchResult.GrepMatch(lineNumber, index, searchText.Length));
 					index++;
 				}
 			}

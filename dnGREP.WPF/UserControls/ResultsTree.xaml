@@ -15,6 +15,9 @@
     <TreeView x:Name="tvSearchResult" ItemsSource="{Binding}" Grid.Row="3" VirtualizingStackPanel.IsVirtualizing="True"
                       MouseDoubleClick="tvSearchResult_MouseDoubleClick" PreviewKeyDown="treeKeyDown" SelectedItemChanged="tvSearchResults_SelectedChanged"
                       HorizontalContentAlignment="Stretch">
+        <TreeView.LayoutTransform>
+            <ScaleTransform ScaleX="{Binding ResultsScale}" ScaleY="{Binding ResultsScale}" />
+        </TreeView.LayoutTransform>
         <TreeView.Resources>
             <LinearGradientBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" EndPoint="0,1" StartPoint="0,0">
                 <GradientStop Color="#FFD9F4FF" Offset="0"/>
@@ -29,7 +32,7 @@
             <HierarchicalDataTemplate DataType="{x:Type my:FormattedGrepResult}" ItemsSource="{Binding FormattedLines}" >
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="{Binding Icon}"/>
+                        <Image Source="{Binding Icon}" Height="16" />
                         <TextBlock Text="{Binding Label}" Margin="3,0,0,0"/>
                     </StackPanel>
                     <Viewbox Width="20" Height="20" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -65,7 +68,7 @@
                                 </Style.Triggers>
                             </Style>
                         </WrapPanel.Resources>
-                        <TextBlock Margin="-3" Width="{Binding LineNumberColumnWidth}" Text="{Binding FormattedLineNumber}"/>
+                        <TextBlock Margin="-3" Width="{Binding LineNumberColumnWidth}" Text="{Binding FormattedLineNumber}" TextAlignment="Right" Padding="0,0,3,0"/>
                         <my:InlineTextBlock Margin="3,0,0,0" InlineCollection="{Binding FormattedText}" FontFamily="Consolas"/>
                     </WrapPanel>
                 </Border>
@@ -73,6 +76,9 @@
         </TreeView.Resources>
         <TreeView.ContextMenu>
             <ContextMenu Opened="tvContexMenuOpening">
+                <ContextMenu.LayoutTransform>
+                    <ScaleTransform ScaleX="{Binding ResultsMenuScale}" ScaleY="{Binding ResultsMenuScale}" />
+                </ContextMenu.LayoutTransform>
                 <MenuItem Header="Open" Click="btnOpenFile_Click"/>
                 <MenuItem Visibility="{Binding CustomEditorConfigured, Converter={StaticResource BooleanToVisibilityConverter}}" Header="Open with custom editor" Click="btnOpenFileCustomEditor_Click"/>
                 <MenuItem Header="Open containing folder" Click="btnOpenContainingFolder_Click"/>
@@ -83,6 +89,7 @@
                 <MenuItem Header="Exclude from results" Click="btnExclude_Click"/>
                 <MenuItem Header="Expand all" Click="btnExpandAll_Click"/>
                 <MenuItem Header="Collapse all" Click="btnCollapseAll_Click"/>
+                <MenuItem Header="Reset zoom" Click="btnResetZoom_Click"/>
             </ContextMenu>
         </TreeView.ContextMenu>
         <TreeView.ItemContainerStyle>
@@ -101,7 +108,6 @@
                         Event="RequestBringIntoView" 
                         Handler="tvSearchResult_RequestBringIntoView"/>
                 <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
-                <Setter Property="FontSize" Value="12"/>
                 <Setter Property="BorderThickness" Value="1.5"/>
                 <Setter Property="Padding" Value="1"/>
                 <Setter Property="Template">
