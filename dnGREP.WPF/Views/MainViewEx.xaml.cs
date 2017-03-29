@@ -198,5 +198,12 @@ namespace dnGREP.WPF
             advanceContextMenu.PlacementTarget = (UIElement)sender;
             advanceContextMenu.IsOpen = true;
         }
+
+        private void ManipulationBoundaryFeedbackHandler(object sender, ManipulationBoundaryFeedbackEventArgs e)
+        {
+            // disable feedback that list scroll has reached the limit
+            // -- the feedback is that the whole window moves
+            e.Handled = true;
+        }
     }
 }

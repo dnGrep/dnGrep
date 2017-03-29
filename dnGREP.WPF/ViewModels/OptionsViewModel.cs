@@ -48,7 +48,10 @@ namespace dnGREP.WPF
                 AutoExpandSearchTree != settings.Get<bool>(GrepSettings.Key.ExpandResults) ||
                 ShowVerboseMatchCount != settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount) ||
                 EnableClearType != (settings.Get<TextFormattingMode>(GrepSettings.Key.TextFormatting) == TextFormattingMode.Ideal) ||
-                MatchThreshold != settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold))
+                MatchThreshold != settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold) ||
+                MaxSearchBookmarks != settings.Get<int>(GrepSettings.Key.MaxSearchBookmarks) ||
+                MaxPathBookmarks != settings.Get<int>(GrepSettings.Key.MaxPathBookmarks) ||
+                MaxExtensionBookmarks != settings.Get<int>(GrepSettings.Key.MaxExtensionBookmarks))
                     return true;
                 else
                     return false;
@@ -339,7 +342,52 @@ namespace dnGREP.WPF
                 base.OnPropertyChanged(() => MatchThreshold);
             }
         }
-        
+
+        private int maxPathBookmarks;
+        public int MaxPathBookmarks
+        {
+            get { return maxPathBookmarks; }
+            set
+            {
+                if (value == maxPathBookmarks)
+                    return;
+
+                maxPathBookmarks = value;
+
+                base.OnPropertyChanged(() => MaxPathBookmarks);
+            }
+        }
+
+        private int maxSearchBookmarks;
+        public int MaxSearchBookmarks
+        {
+            get { return maxSearchBookmarks; }
+            set
+            {
+                if (value == maxSearchBookmarks)
+                    return;
+
+                maxSearchBookmarks = value;
+
+                base.OnPropertyChanged(() => MaxSearchBookmarks);
+            }
+        }
+
+        private int maxExtensionBookmarks;
+        public int MaxExtensionBookmarks
+        {
+            get { return maxExtensionBookmarks; }
+            set
+            {
+                if (value == maxExtensionBookmarks)
+                    return;
+
+                maxExtensionBookmarks = value;
+
+                base.OnPropertyChanged(() => MaxExtensionBookmarks);
+            }
+        }
+
         #endregion
 
         #region Presentation Properties
@@ -462,6 +510,9 @@ namespace dnGREP.WPF
             ShowLinesInContext = settings.Get<bool>(GrepSettings.Key.ShowLinesInContext);
             ContextLinesBefore = settings.Get<int>(GrepSettings.Key.ContextLinesBefore);
             ContextLinesAfter = settings.Get<int>(GrepSettings.Key.ContextLinesAfter);
+            MaxSearchBookmarks = settings.Get<int>(GrepSettings.Key.MaxSearchBookmarks);
+            MaxPathBookmarks = settings.Get<int>(GrepSettings.Key.MaxPathBookmarks);
+            MaxExtensionBookmarks = settings.Get<int>(GrepSettings.Key.MaxExtensionBookmarks);
         }
 
         private void saveSettings()
@@ -503,6 +554,9 @@ namespace dnGREP.WPF
             settings.Set<bool>(GrepSettings.Key.ShowLinesInContext, ShowLinesInContext);
             settings.Set<int>(GrepSettings.Key.ContextLinesBefore, ContextLinesBefore);
             settings.Set<int>(GrepSettings.Key.ContextLinesAfter, ContextLinesAfter);
+            settings.Set<int>(GrepSettings.Key.MaxSearchBookmarks, MaxSearchBookmarks);
+            settings.Set<int>(GrepSettings.Key.MaxPathBookmarks, MaxPathBookmarks);
+            settings.Set<int>(GrepSettings.Key.MaxExtensionBookmarks, MaxExtensionBookmarks);
             settings.Save();
         }
 

@@ -90,6 +90,12 @@ namespace dnGREP.Common
             public const string PreviewWindowWrap = "PreviewWindowWrap";
             public const string PreviewWindowSize = "PreviewWindowSize";
             public const string PreviewWindowPosition = "PreviewWindowPosition";
+            [DefaultValue(20)]
+            public const string MaxPathBookmarks = "MaxPathBookmarks";
+            [DefaultValue(20)]
+            public const string MaxSearchBookmarks = "MaxSearchBookmarks";
+            [DefaultValue(10)]
+            public const string MaxExtensionBookmarks = "MaxExtensionBookmarks";
         }		
 		
 		private static GrepSettings instance;

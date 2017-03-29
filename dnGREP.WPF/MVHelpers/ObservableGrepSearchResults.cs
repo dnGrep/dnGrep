@@ -106,6 +106,36 @@ namespace dnGREP.WPF
             }
         }
 
+        private double resultsScale = 1.0;
+        public double ResultsScale
+        {
+            get { return resultsScale; }
+            set
+            {
+                if (value == resultsScale)
+                    return;
+
+                resultsScale = value;
+
+                base.OnPropertyChanged(new PropertyChangedEventArgs("ResultsScale"));
+            }
+        }
+
+        private double resultsMenuScale = 1.0;
+        public double ResultsMenuScale
+        {
+            get { return resultsMenuScale; }
+            set
+            {
+                if (value == resultsMenuScale)
+                    return;
+
+                resultsMenuScale = value;
+
+                base.OnPropertyChanged(new PropertyChangedEventArgs("ResultsMenuScale"));
+            }
+        }
+
         public event EventHandler<GrepLineEventArgs> OpenFileLineRequest;
         public event EventHandler<GrepResultEventArgs> OpenFileRequest;
         public event EventHandler<GrepLineEventArgs> PreviewFileLineRequest;
