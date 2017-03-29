@@ -28,6 +28,11 @@ namespace dnGREP.WPF.UserControls
         {
             InitializeComponent();
             this.DataContextChanged += ResultsTree_DataContextChanged;
+
+            tvSearchResult.PreviewMouseWheel += TvSearchResult_PreviewMouseWheel;
+            tvSearchResult.PreviewTouchDown += TvSearchResult_PreviewTouchDown;
+            tvSearchResult.PreviewTouchMove += TvSearchResult_PreviewTouchMove;
+            tvSearchResult.PreviewTouchUp += TvSearchResult_PreviewTouchUp;
         }
 
         void ResultsTree_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -206,6 +211,139 @@ namespace dnGREP.WPF.UserControls
                 inputData.PreviewFile(tvSearchResult.SelectedItem as FormattedGrepLine, rect);
             else if (tvSearchResult.SelectedItem is FormattedGrepResult)
                 inputData.PreviewFile(tvSearchResult.SelectedItem as FormattedGrepResult, rect);
+        }
+
+        #endregion
+
+        #region Zoom
+
+        private Dictionary<int, Point> touchIds = new Dictionary<int, Point>();
+
+        private void TvSearchResult_PreviewTouchDown(object sender, TouchEventArgs e)
+        {
+            IInputElement ctrl = sender as IInputElement;
+            if (ctrl != null && !touchIds.ContainsKey(e.TouchDevice.Id))
+            {
+                var pt = e.GetTouchPoint(ctrl).Position;
+                touchIds.Add(e.TouchDevice.Id, pt);
+            }
+        }
+
+        private void TvSearchResult_PreviewTouchUp(object sender, TouchEventArgs e)
+        {
+            if (touchIds.ContainsKey(e.TouchDevice.Id))
+                touchIds.Remove(e.TouchDevice.Id);
+        }
+
+        private void TvSearchResult_PreviewTouchMove(object sender, TouchEventArgs e)
+        {
+            IInputElement ctrl = sender as IInputElement;
+
+            // sometimes a PreviewTouchUp event is lost when the user is on the scrollbar or edge of the window
+            // if our captured touches do not match the scrollviewer, resynch to the scrollviewer
+            ScrollViewer scrollViewer = e.OriginalSource as ScrollViewer;
+            if (scrollViewer != null)
+            {
+                var svTouches = scrollViewer.TouchesCaptured.Select(t => t.Id);
+                var myTouches = touchIds.Keys.Select(k => k);
+                bool equal = svTouches.OrderBy(i => i).SequenceEqual(myTouches.OrderBy(i => i));
+
+                if (!equal)
+                {
+                    touchIds.Clear();
+                    foreach (var t in scrollViewer.TouchesCaptured)
+                    {
+                        var pt = t.GetTouchPoint(ctrl).Position;
+                        touchIds.Add(t.Id, pt);
+                    }
+                }
+            }
+
+            if (inputData != null && inputData.Count > 0 &&
+                ctrl != null && touchIds.ContainsKey(e.TouchDevice.Id) && touchIds.Count == 2)
+            {
+                var pNew = e.GetTouchPoint(ctrl).Position;
+
+                var otherTouchId = touchIds.Keys.Where(k => k != e.TouchDevice.Id).FirstOrDefault();
+                var p0 = touchIds[otherTouchId];
+                var p1 = touchIds[e.TouchDevice.Id];
+
+                var dx = p1.X - p0.X;
+                var dy = p1.Y - p0.Y;
+                var dist1 = dx * dx + dy * dy;
+
+                dx = pNew.X - p0.X;
+                dy = pNew.Y - p0.Y;
+                var dist2 = dx * dx + dy * dy;
+
+                if (Math.Abs(dist2 - dist1) > 200)
+                {
+                    if (dist1 < dist2 && inputData.ResultsScale < 2.0)
+                    {
+                        inputData.ResultsScale *= 1.005;
+                    }
+
+                    if (dist1 > dist2 && inputData.ResultsScale > 0.8)
+                    {
+                        inputData.ResultsScale /= 1.005;
+                    }
+
+                    if (dist1 < dist2 && inputData.ResultsMenuScale < 1.5)
+                    {
+                        inputData.ResultsMenuScale *= 1.0025;
+                    }
+
+                    if (dist1 > dist2 && inputData.ResultsMenuScale > 1.0)
+                    {
+                        inputData.ResultsMenuScale /= 1.0025;
+                    }
+
+                    e.Handled = true;
+                }
+
+                // and update position for this touch
+                touchIds[e.TouchDevice.Id] = pNew;
+            }
+        }
+
+        private void TvSearchResult_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            bool handle = (Keyboard.Modifiers & ModifierKeys.Control) > 0 &&
+                inputData != null && inputData.Count > 0;
+
+            if (!handle)
+                return;
+
+            if (e.Delta > 0 && inputData.ResultsScale < 2.0)
+            {
+                inputData.ResultsScale *= 1.05;
+            }
+
+            if (e.Delta < 0 && inputData.ResultsScale > 0.8)
+            {
+                inputData.ResultsScale /= 1.05;
+            }
+
+            if (e.Delta > 0 && inputData.ResultsMenuScale < 1.5)
+            {
+                inputData.ResultsMenuScale *= 1.025;
+            }
+
+            if (e.Delta < 0 && inputData.ResultsMenuScale > 1.0)
+            {
+                inputData.ResultsMenuScale /= 1.025;
+            }
+
+            e.Handled = true;
+        }
+
+        private void btnResetZoom_Click(object sender, RoutedEventArgs e)
+        {
+            if (inputData != null)
+            {
+                inputData.ResultsScale = 1.0;
+                inputData.ResultsMenuScale = 1.0;
+            }
         }
 
         #endregion

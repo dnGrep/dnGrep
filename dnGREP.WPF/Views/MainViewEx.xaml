@@ -18,9 +18,6 @@
         <my:EnumBooleanConverter x:Key="ebc" />
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Window.Resources>
-    <Window.Style>
-        <StaticResource ResourceKey="DefaultStyle"/>
-    </Window.Style>
     <Window.Background>
         <StaticResource ResourceKey="GradientBackground"/>
     </Window.Background>
@@ -28,10 +25,10 @@
         <KeyBinding Key="Escape" Command="{Binding CloseCommand}"/>
     </Window.InputBindings>
 
-    <DockPanel>
+    <DockPanel x:Name="gridMain" Margin="0,-1,0,1" ManipulationBoundaryFeedback="ManipulationBoundaryFeedbackHandler">
         <DockPanel DockPanel.Dock="Top" Margin="5,5,5,-2">
             <TextBlock DockPanel.Dock="Left" FontSize="16" FontWeight="DemiBold" Text="dnGrep"/>
-            <Menu x:Name="mnuMainMenu" Background="Transparent" HorizontalAlignment="Right" Style="{StaticResource DefaultStyle}">
+            <Menu x:Name="mnuMainMenu" Background="Transparent" HorizontalAlignment="Right">
                 <Menu.Resources>
                     <Style TargetType="MenuItem">
                         <Setter Property="Height" Value="{Binding ActualHeight, ElementName=mnuMainMenu}"/>
@@ -144,13 +141,13 @@
                             ContextMenuService.Placement="Bottom" IsEnabled="{Binding CanSearchInResults}">
                         <Button.ContextMenu>
                             <ContextMenu x:Name="advanceContextMenu">
-                                <MenuItem x:Name="copyFilesToolStripMenuItem" Header="Copy files..." Style="{StaticResource DefaultStyle}" Command="{Binding CopyFilesCommand}"/>
-                                <MenuItem x:Name="moveFilesToolStripMenuItem" Header="Move files..." Style="{StaticResource DefaultStyle}" Command="{Binding MoveFilesCommand}"/>
-                                <MenuItem x:Name="deleteFilesToolStripMenuItem" Header="Delete files..." Style="{StaticResource DefaultStyle}" Command="{Binding DeleteFilesCommand}"/>
+                                <MenuItem x:Name="copyFilesToolStripMenuItem" Header="Copy files..." Command="{Binding CopyFilesCommand}"/>
+                                <MenuItem x:Name="moveFilesToolStripMenuItem" Header="Move files..." Command="{Binding MoveFilesCommand}"/>
+                                <MenuItem x:Name="deleteFilesToolStripMenuItem" Header="Delete files..." Command="{Binding DeleteFilesCommand}"/>
                                 <Separator/>
-                                <MenuItem x:Name="copyToClipboardToolStripMenuItem" Header="File names to clipboard" Style="{StaticResource DefaultStyle}" Command="{Binding CopyToClipboardCommand}"/>
-                                <MenuItem x:Name="saveAsCSVToolStripMenuItem" Header="Save as CSV..." Style="{StaticResource DefaultStyle}" Command="{Binding SaveAsCsvCommand}"/>
-                                <MenuItem x:Name="copyAsCSVToolStripMenuItem" Header="CSV to clipboard" Style="{StaticResource DefaultStyle}" Command="{Binding CopyAsCsvCommand}"/>
+                                <MenuItem x:Name="copyToClipboardToolStripMenuItem" Header="File names to clipboard" Command="{Binding CopyToClipboardCommand}"/>
+                                <MenuItem x:Name="saveAsCSVToolStripMenuItem" Header="Save as CSV..." Command="{Binding SaveAsCsvCommand}"/>
+                                <MenuItem x:Name="copyAsCSVToolStripMenuItem" Header="CSV to clipboard" Command="{Binding CopyAsCsvCommand}"/>
                             </ContextMenu>
                         </Button.ContextMenu>
                     </Button>
