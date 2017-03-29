@@ -25,7 +25,7 @@
         <KeyBinding Key="Escape" Command="{Binding CloseCommand}"/>
     </Window.InputBindings>
 
-    <DockPanel x:Name="gridMain" Margin="0,-1,0,1" ManipulationBoundaryFeedback="ManipulationBoundaryFeedbackHandler">
+    <DockPanel ManipulationBoundaryFeedback="ManipulationBoundaryFeedbackHandler">
         <DockPanel DockPanel.Dock="Top" Margin="5,5,5,-2">
             <TextBlock DockPanel.Dock="Left" FontSize="16" FontWeight="DemiBold" Text="dnGrep"/>
             <Menu x:Name="mnuMainMenu" Background="Transparent" HorizontalAlignment="Right">
