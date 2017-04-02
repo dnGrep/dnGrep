@@ -16,27 +16,19 @@ using dnGREP.WPF.MVHelpers;
 
 namespace dnGREP.WPF
 {
+    public interface IGrepResult
+    {
+    }
+
     public class ObservableGrepSearchResults : ObservableCollection<FormattedGrepResult>, INotifyPropertyChanged
     {
-        private string folderPath = "";
-
-        public string FolderPath
-        {
-            get { return folderPath; }
-            set { folderPath = value; }
-        }
-
-
         public ObservableGrepSearchResults()
         {
-            this.CollectionChanged += new NotifyCollectionChangedEventHandler(ObservableGrepSearchResults_CollectionChanged);
+            SelectedNodes = new ObservableCollection<IGrepResult>();
+            this.CollectionChanged += ObservableGrepSearchResults_CollectionChanged;
         }
 
-        //protected override void ClearItems()
-        //{
-        //    base.ClearItems();
-        //    OnFunctionCalled("Clear");
-        //}
+        public ObservableCollection<IGrepResult> SelectedNodes { get; private set; }
 
         private Dictionary<string, BitmapSource> icons = new Dictionary<string, BitmapSource>();
 
@@ -77,6 +69,13 @@ namespace dnGREP.WPF
         public void AddRange(List<GrepSearchResult> list)
         {
             foreach (var l in list) this.Add(new FormattedGrepResult(l, folderPath));
+        }
+
+        private string folderPath = "";
+        public string FolderPath
+        {
+            get { return folderPath; }
+            set { folderPath = value; }
         }
 
         [DllImport("gdi32.dll")]
@@ -162,10 +161,8 @@ namespace dnGREP.WPF
         }
     }
 
-    public class FormattedGrepResult : INotifyPropertyChanged
+    public class FormattedGrepResult : ViewModelBase, IGrepResult
     {
-        public static FormattedGrepResult SelectedFile = null;
-
         private GrepSearchResult grepResult = new GrepSearchResult();
         public GrepSearchResult GrepResult
         {
@@ -247,9 +244,6 @@ namespace dnGREP.WPF
             {
                 if (value == isSelected)
                     return;
-
-                if (value)
-                    SelectedFile = this;
 
                 isSelected = value;
                 OnPropertyChanged("IsSelected");
@@ -344,27 +338,10 @@ namespace dnGREP.WPF
             if (e.PropertyName == "LineNumberColumnWidth")
                 LineNumberColumnWidth = formattedLines.LineNumberColumnWidth;
         }
-
-        #region PropertyChanged Members
-        // Create the OnPropertyChanged method to raise the event
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(name));
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion
     }
 
-    public class FormattedGrepLine : ViewModelBase
+    public class FormattedGrepLine : ViewModelBase, IGrepResult
     {
-        public static FormattedGrepLine SelectedLine = null;
-
         private GrepSearchResult.GrepLine grepLine;
         public GrepSearchResult.GrepLine GrepLine
         {
@@ -400,8 +377,6 @@ namespace dnGREP.WPF
                 if (value == isSelected)
                     return;
 
-                if (value)
-                    SelectedLine = this;
                 isSelected = value;
                 OnPropertyChanged("IsSelected");
             }
@@ -568,7 +543,7 @@ namespace dnGREP.WPF
                         run = new Run(fmtLine);
                         run.Background = Brushes.Yellow;
                         paragraph.Inlines.Add(run);
-                        
+
                         paragraph.Inlines.Add(new Run(string.Format(" at position {0}", m.StartLocation)));
                     }
 

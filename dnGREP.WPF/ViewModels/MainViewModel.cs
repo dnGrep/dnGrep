@@ -380,15 +380,17 @@ namespace dnGREP.WPF
                 {
                     if (PreviewFileContent)
                     {
-                        if (FormattedGrepResult.SelectedFile != null)
+                        if (SearchResults.SelectedNodes.Count > 0)
                         {
-                            if (FormattedGrepResult.SelectedFile.IsSelected)
+                            var item = SearchResults.SelectedNodes[0];
+
+                            if (item is FormattedGrepLine)
                             {
-                                PreviewFile(FormattedGrepResult.SelectedFile, this.ParentWindow.GetBoundsF());
+                                PreviewFile(item as FormattedGrepLine, this.ParentWindow.GetBoundsF());
                             }
-                            else if (FormattedGrepLine.SelectedLine != null)
+                            else if (item is FormattedGrepResult)
                             {
-                                PreviewFile(FormattedGrepLine.SelectedLine, this.ParentWindow.GetBoundsF());
+                                PreviewFile(item as FormattedGrepResult, this.ParentWindow.GetBoundsF());
                             }
                         }
                     }

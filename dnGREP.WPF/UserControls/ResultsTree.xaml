@@ -12,9 +12,12 @@
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
-    <TreeView x:Name="tvSearchResult" ItemsSource="{Binding}" Grid.Row="3" VirtualizingStackPanel.IsVirtualizing="True"
-                      MouseDoubleClick="tvSearchResult_MouseDoubleClick" PreviewKeyDown="treeKeyDown" SelectedItemChanged="tvSearchResults_SelectedChanged"
-                      HorizontalContentAlignment="Stretch">
+    <my:MultiSelectTreeView x:Name="tvSearchResult" Grid.Row="3" HorizontalContentAlignment="Stretch"
+                            ItemsSource="{Binding}" SelectedItems="{Binding SelectedNodes}"
+                            MultiSelectRootLevelOnly="False"
+                            VirtualizingStackPanel.IsVirtualizing="True"
+                            MouseDoubleClick="tvSearchResult_MouseDoubleClick" PreviewKeyDown="treeKeyDown" 
+                            SelectedItemsChanged="OnSelectedItemsChanged">
         <TreeView.LayoutTransform>
             <ScaleTransform ScaleX="{Binding ResultsScale}" ScaleY="{Binding ResultsScale}" />
         </TreeView.LayoutTransform>
@@ -57,9 +60,11 @@
                             <Style TargetType="{x:Type TextBlock}">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}}" Value="True">
+                                    <!--<DataTrigger Binding="{Binding my:MultiSelectTreeView.IsItemSelected, RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}}" Value="True">-->
                                         <Setter Property="Background" Value="#FFD2D2D2"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}}" Value="False">
+                                    <!--<DataTrigger Binding="{Binding my:MultiSelectTreeView.IsItemSelected, RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}}" Value="False">-->
                                         <Setter Property="Background" Value="#FFE0E0E0"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding Style}" Value="Empty">
@@ -94,7 +99,8 @@
         </TreeView.ContextMenu>
         <TreeView.ItemContainerStyle>
             <Style TargetType="{x:Type TreeViewItem}">
-                <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
+                <!--<Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>-->
+                <Setter Property="my:MultiSelectTreeView.IsItemSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
                 <EventSetter
                         Event="UIElement.MouseRightButtonDown"
                         Handler="tvSearchResult_MouseDown"/>
@@ -136,13 +142,15 @@
                                 <Trigger Property="HasItems" Value="false">
                                     <Setter Property="Visibility" TargetName="Expander" Value="Hidden"/>
                                 </Trigger>
-                                <Trigger Property="IsSelected" Value="true">
+                                <!--<Trigger Property="IsSelected" Value="true">-->
+                                <Trigger Property="my:MultiSelectTreeView.IsItemSelected" Value="true">
                                     <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
                                     <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
                                 </Trigger>
                                 <MultiTrigger>
                                     <MultiTrigger.Conditions>
-                                        <Condition Property="IsSelected" Value="true"/>
+                                        <!--<Condition Property="IsSelected" Value="true"/>-->
+                                        <Condition Property="my:MultiSelectTreeView.IsItemSelected" Value="true"/>
                                         <Condition Property="IsSelectionActive" Value="false"/>
                                     </MultiTrigger.Conditions>
                                     <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
@@ -165,12 +173,14 @@
                     <DataTrigger Binding="{Binding Style}" Value="Error">
                         <Setter Property="Foreground" Value="Red"/>
                     </DataTrigger>
-                    <Trigger Property="IsSelected" Value="True">
+                    <!--<Trigger Property="IsSelected" Value="True">-->
+                    <Trigger Property="my:MultiSelectTreeView.IsItemSelected" Value="True">
                         <Setter Property="BorderBrush" Value="#adc6e5"/>
                     </Trigger>
                     <MultiTrigger>
                         <MultiTrigger.Conditions>
-                            <Condition Property="IsSelected" Value="True"/>
+                            <!--<Condition Property="IsSelected" Value="True"/>-->
+                            <Condition Property="my:MultiSelectTreeView.IsItemSelected" Value="True"/>
                             <Condition Property="IsSelectionActive" Value="False"/>
                         </MultiTrigger.Conditions>
                         <Setter Property="BorderBrush" Value="LightGray"/>
@@ -178,5 +188,5 @@
                 </Style.Triggers>
             </Style>
         </TreeView.ItemContainerStyle>
-    </TreeView>
+    </my:MultiSelectTreeView>
 </UserControl>

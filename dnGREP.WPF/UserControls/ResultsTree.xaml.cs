@@ -1,19 +1,14 @@
-﻿using dnGREP.Common;
-using System;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using dnGREP.Common;
 
 namespace dnGREP.WPF.UserControls
 {
@@ -202,15 +197,20 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
-        private void tvSearchResults_SelectedChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        private void OnSelectedItemsChanged(object sender, RoutedEventArgs e)
         {
             Window parentWindow = Window.GetWindow(this);
 
             var rect = new System.Drawing.RectangleF { Height = (float)parentWindow.ActualHeight, Width = (float)parentWindow.ActualWidth, X = (float)parentWindow.Left, Y = (float)parentWindow.Top };
-            if (tvSearchResult.SelectedItem is FormattedGrepLine)
-                inputData.PreviewFile(tvSearchResult.SelectedItem as FormattedGrepLine, rect);
-            else if (tvSearchResult.SelectedItem is FormattedGrepResult)
-                inputData.PreviewFile(tvSearchResult.SelectedItem as FormattedGrepResult, rect);
+
+            var items = tvSearchResult.GetValue(MultiSelectTreeView.SelectedItemsProperty) as IList;
+            if (items != null && items.Count > 0)
+            {
+                if (items[0] is FormattedGrepLine)
+                    inputData.PreviewFile(items[0] as FormattedGrepLine, rect);
+                else if (items[0] is FormattedGrepResult)
+                    inputData.PreviewFile(items[0] as FormattedGrepResult, rect);
+            }
         }
 
         #endregion
