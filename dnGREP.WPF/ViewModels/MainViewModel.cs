@@ -463,7 +463,7 @@ namespace dnGREP.WPF
 
                 FormattedGrepResult result = selectedNode.Parent;
                 OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
-                dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, new GrepEngineInitParams(false, 0, 0, 0.5)).OpenFile(fileArg);
+                dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, new GrepEngineInitParams(false, 0, 0, 0.5, false)).OpenFile(fileArg);
                 if (fileArg.UseBaseEngine)
                     Utils.OpenFile(new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
             }
@@ -484,7 +484,7 @@ namespace dnGREP.WPF
                 // Line was selected
                 int lineNumber = 0;
                 OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
-                dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, new GrepEngineInitParams(false, 0, 0, 0.5)).OpenFile(fileArg);
+                dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, new GrepEngineInitParams(false, 0, 0, 0.5, false)).OpenFile(fileArg);
                 if (fileArg.UseBaseEngine)
                     Utils.OpenFile(new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
             }
@@ -660,6 +660,7 @@ namespace dnGREP.WPF
                         grep.SearchParams.LinesBefore = settings.Get<int>(GrepSettings.Key.ContextLinesBefore);
                         grep.SearchParams.LinesAfter = settings.Get<int>(GrepSettings.Key.ContextLinesAfter);
                         grep.SearchParams.ShowLinesInContext = settings.Get<bool>(GrepSettings.Key.ShowLinesInContext);
+                        grep.SearchParams.VerboseMatchCount = settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount);
 
                         GrepSearchOption searchOptions = GrepSearchOption.None;
                         if (Multiline)
@@ -684,6 +685,7 @@ namespace dnGREP.WPF
                         grep.SearchParams.LinesBefore = settings.Get<int>(GrepSettings.Key.ContextLinesBefore);
                         grep.SearchParams.LinesAfter = settings.Get<int>(GrepSettings.Key.ContextLinesAfter);
                         grep.SearchParams.ShowLinesInContext = settings.Get<bool>(GrepSettings.Key.ShowLinesInContext);
+                        grep.SearchParams.VerboseMatchCount = settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount);
 
                         GrepSearchOption searchOptions = GrepSearchOption.None;
                         if (Multiline)

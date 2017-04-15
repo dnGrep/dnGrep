@@ -9,6 +9,7 @@ using dnGREP.Common;
 using System.Data.Linq;
 using System.Collections;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace Tests
 {
@@ -258,6 +259,30 @@ namespace Tests
             List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase12", "issue-165.txt"), type, "asdf\r\nqwer", GrepSearchOption.Multiline, -1);
             Assert.Equal(results[0].Matches.Count, 1);
             Assert.Equal(results[0].SearchResults.Count, 5);
+        }
+
+        [Theory]
+        [InlineData(SearchType.Regex, GrepSearchOption.None, true)]
+        [InlineData(SearchType.Regex, GrepSearchOption.None, false)]
+        [InlineData(SearchType.Regex, GrepSearchOption.Multiline, true)]
+        [InlineData(SearchType.Regex, GrepSearchOption.Multiline, false)]
+        [InlineData(SearchType.PlainText, GrepSearchOption.None, true)]
+        [InlineData(SearchType.PlainText, GrepSearchOption.None, false)]
+        [InlineData(SearchType.PlainText, GrepSearchOption.Multiline, true)]
+        [InlineData(SearchType.PlainText, GrepSearchOption.Multiline, false)]
+        public void TestSearchLongLineWithManyMatches(SearchType type, GrepSearchOption option, bool verbose)
+        {
+            Utils.CopyFiles(sourceFolder + "\\TestCase14", destinationFolder + "\\TestCase14", null, null);
+            GrepCore core = new GrepCore();
+            core.SearchParams.VerboseMatchCount = verbose;
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase14", "*.txt"), type, "1234", option, -1);
+            sw.Stop();
+            Assert.Equal(2, results.Count);
+            Assert.Equal(102456, results[0].Matches.Count);
+            Assert.Equal(102456, results[1].Matches.Count);
+            Assert.True(sw.Elapsed < TimeSpan.FromSeconds(1.25));
         }
     }
 }

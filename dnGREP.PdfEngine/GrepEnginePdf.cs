@@ -66,7 +66,7 @@ namespace dnGREP.Engines.Pdf
 				if (!File.Exists(tempFile))
 					throw new ApplicationException("pdftotext failed to create text file.");
 
-                IGrepEngine engine = GrepEngineFactory.GetSearchEngine(tempFile, new GrepEngineInitParams(showLinesInContext, linesBefore, linesAfter, fuzzyMatchThreshold));
+                IGrepEngine engine = GrepEngineFactory.GetSearchEngine(tempFile, new GrepEngineInitParams(showLinesInContext, linesBefore, linesAfter, fuzzyMatchThreshold, verboseMatchCount));
 				List<GrepSearchResult> results = engine.Search(tempFile, searchPattern, searchType, searchOptions, encoding);
 
                 using (FileStream reader = File.Open(tempFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))

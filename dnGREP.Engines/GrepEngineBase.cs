@@ -20,8 +20,8 @@ namespace dnGREP.Engines
 		protected int linesBefore = 0;
 		protected int linesAfter = 0;
 		protected double fuzzyMatchThreshold = 0.5;
+        protected bool verboseMatchCount;
         private GoogleMatch fuzzyMatchEngine = new GoogleMatch();
-        private bool verboseMatchCount;
 
 		public GrepEngineBase() { }
 
@@ -44,7 +44,7 @@ namespace dnGREP.Engines
                 this.linesAfter = 0;
             }
 			this.fuzzyMatchThreshold = param.FuzzyMatchThreshold;
-            verboseMatchCount = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount);
+            this.verboseMatchCount = param.VerboseMatchCount;
 			return true;
 		}
 
@@ -53,8 +53,10 @@ namespace dnGREP.Engines
 			Utils.OpenFile(args);
 		}
 
-        protected List<GrepSearchResult.GrepMatch> doFuzzySearchMultiline(string text, string searchPattern, GrepSearchOption searchOptions, bool includeContext)
+        protected List<GrepSearchResult.GrepMatch> doFuzzySearchMultiline(int lineNumber, string text, string searchPattern, GrepSearchOption searchOptions, bool includeContext)
         {
+            var lineEndIndexes = GetLineEndIndexes(verboseMatchCount && lineNumber == -1 ? text : null);
+
             int counter = 0;
 			fuzzyMatchEngine.Match_Threshold = (float)fuzzyMatchThreshold;
 			bool isWholeWord = (searchOptions & GrepSearchOption.WholeWord) == GrepSearchOption.WholeWord;
@@ -79,7 +81,9 @@ namespace dnGREP.Engines
 					continue;
 				}
 
-                int lineNumber = verboseMatchCount ? text.Take(matchLocation + counter).Count(c => c == '\n' || c == '\r') + 1 : 0;
+                if (verboseMatchCount && lineEndIndexes.Count > 0)
+                    lineNumber = lineEndIndexes.FindIndex(i => i > matchLocation + counter) + 1;
+
                 globalMatches.Add(new GrepSearchResult.GrepMatch(lineNumber, matchLocation + counter, matchLength));
                 
                 counter = counter + matchLocation + matchLength;
@@ -87,7 +91,7 @@ namespace dnGREP.Engines
             return globalMatches;
         }
 
-        protected List<GrepSearchResult.GrepMatch> doXPathSearch(string text, string searchXPath, GrepSearchOption searchOptions, bool includeContext)
+        protected List<GrepSearchResult.GrepMatch> doXPathSearch(int lineNumber, string text, string searchXPath, GrepSearchOption searchOptions, bool includeContext)
 		{
             List<GrepSearchResult.GrepMatch> results = new List<GrepSearchResult.GrepMatch>();
 			// Check if file is an XML file
@@ -327,7 +331,35 @@ namespace dnGREP.Engines
 
         #endregion
 
-        protected List<GrepSearchResult.GrepMatch> doRegexSearch(string text, string searchPattern, GrepSearchOption searchOptions, bool includeContext)
+        private List<int> GetLineEndIndexes(string text)
+        {
+            List<int> list = new List<int>();
+
+            if (!string.IsNullOrWhiteSpace(text))
+            {
+                int idx = 0;
+                while (idx > -1 && idx < text.Length)
+                {
+                    idx = text.IndexOfAny(new char[] { '\r', '\n' }, idx);
+                    if (idx == -1)
+                    {
+                        list.Add(text.Length);
+                        break;
+                    }
+                    else
+                    {
+                        list.Add(idx);
+
+                        idx++;
+                        if (idx < text.Length && text[idx] == '\n')
+                            idx++;
+                    }
+                }
+            }
+            return list;
+        }
+
+        protected List<GrepSearchResult.GrepMatch> doRegexSearch(int lineNumber, string text, string searchPattern, GrepSearchOption searchOptions, bool includeContext)
 		{
             RegexOptions regexOptions = RegexOptions.None;
             if ((searchOptions & GrepSearchOption.CaseSensitive) != GrepSearchOption.CaseSensitive)
@@ -347,11 +379,15 @@ namespace dnGREP.Engines
 					searchPattern = searchPattern.Trim() + "\\b";
 			}
 
+            var lineEndIndexes = GetLineEndIndexes(verboseMatchCount && lineNumber == -1 ? text : null);
+
 			List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
             List<GrepSearchResult.GrepMatch> globalMatches = new List<GrepSearchResult.GrepMatch>();
             foreach (Match match in Regex.Matches(text, searchPattern, regexOptions))
 			{
-                int lineNumber = verboseMatchCount ? text.Take(match.Index).Count(c => c == '\n' || c == '\r') + 1 : 0;
+                if (verboseMatchCount && lineEndIndexes.Count > 0)
+                    lineNumber = lineEndIndexes.FindIndex(i => i > match.Index) + 1;
+
                 globalMatches.Add(new GrepSearchResult.GrepMatch(lineNumber, match.Index, match.Length));
 			}
 
@@ -370,9 +406,11 @@ namespace dnGREP.Engines
                 return replaceText;
         }
 
-        protected List<GrepSearchResult.GrepMatch> doTextSearchCaseInsensitive(string text, string searchText, GrepSearchOption searchOptions, bool includeContext)
+        protected List<GrepSearchResult.GrepMatch> doTextSearchCaseInsensitive(int lineNumber, string text, string searchText, GrepSearchOption searchOptions, bool includeContext)
 		{
-			int index = 0;
+            var lineEndIndexes = GetLineEndIndexes(verboseMatchCount && lineNumber == -1 ? text : null);
+            
+            int index = 0;
 			bool isWholeWord = (searchOptions & GrepSearchOption.WholeWord) == GrepSearchOption.WholeWord;
             List<GrepSearchResult.GrepMatch> globalMatches = new List<GrepSearchResult.GrepMatch>();
 			while (index >= 0)
@@ -387,7 +425,9 @@ namespace dnGREP.Engines
 						continue;
 					}
 
-                    int lineNumber = verboseMatchCount? text.Take(index).Count(c => c == '\n' || c == '\r') + 1 : 0;
+                    if (verboseMatchCount && lineEndIndexes.Count > 0)
+                        lineNumber = lineEndIndexes.FindIndex(i => i > index) + 1;
+
                     globalMatches.Add(new GrepSearchResult.GrepMatch(lineNumber, index, searchText.Length));
 					index++;
 				}
@@ -396,9 +436,11 @@ namespace dnGREP.Engines
             return globalMatches;
 		}
 
-        protected List<GrepSearchResult.GrepMatch> doTextSearchCaseSensitive(string text, string searchText, GrepSearchOption searchOptions, bool includeContext)
+        protected List<GrepSearchResult.GrepMatch> doTextSearchCaseSensitive(int lineNumber, string text, string searchText, GrepSearchOption searchOptions, bool includeContext)
 		{
-			List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
+            var lineEndIndexes = GetLineEndIndexes(verboseMatchCount && lineNumber == -1 ? text : null);
+            
+            List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
 			int index = 0;
 			bool isWholeWord = (searchOptions & GrepSearchOption.WholeWord) == GrepSearchOption.WholeWord;
             List<GrepSearchResult.GrepMatch> globalMatches = new List<GrepSearchResult.GrepMatch>();
@@ -414,7 +456,9 @@ namespace dnGREP.Engines
 						continue;
 					}
 
-                    int lineNumber = verboseMatchCount ? text.Take(index).Count(c => c == '\n' || c == '\r') + 1 : 0;
+                    if (verboseMatchCount && lineEndIndexes.Count > 0)
+                        lineNumber = lineEndIndexes.FindIndex(i => i > index) + 1;
+
                     globalMatches.Add(new GrepSearchResult.GrepMatch(lineNumber, index, searchText.Length));
 					index++;
 				}
@@ -578,7 +622,7 @@ namespace dnGREP.Engines
 	{
 		public GrepEngineInitParams() { }
 
-        public GrepEngineInitParams(bool showLinesInContext, int linesBefore, int linesAfter, double fuzzyMatchThreshold)
+        public GrepEngineInitParams(bool showLinesInContext, int linesBefore, int linesAfter, double fuzzyMatchThreshold, bool verboseMatchCount)
 		{
             this.showLinesInContext = showLinesInContext;            
             if (!showLinesInContext)
@@ -592,6 +636,7 @@ namespace dnGREP.Engines
                 this.linesAfter = linesAfter;
             }
 			this.fuzzyMatchThreshold = fuzzyMatchThreshold;
+            VerboseMatchCount = verboseMatchCount;
 		}
 
         private bool showLinesInContext = false;
@@ -623,5 +668,7 @@ namespace dnGREP.Engines
 			get { return fuzzyMatchThreshold; }
 			set { fuzzyMatchThreshold = value; }
 		}
+
+        public bool VerboseMatchCount { get; set; }
 	}
 }
