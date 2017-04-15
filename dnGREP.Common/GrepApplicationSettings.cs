@@ -60,21 +60,19 @@ namespace dnGREP.Common
 			public const string ContextLinesAfter = "ContextLinesAfter";
 			[DefaultValue(true)]
 			public const string EnableUpdateChecking = "EnableUpdateChecking";
+            [DefaultValue(10)]
+            public const string UpdateCheckInterval = "UpdateCheckInterval";
+            public const string LastCheckedVersion = "LastCheckedVersion";
             [DefaultValue(true)]
 			public const string ShowFilePathInResults = "ShowFilePathInResults";
             [DefaultValue(true)]
 			public const string AllowSearchingForFileNamePattern = "AllowSearchingForFileNamePattern";
 			public const string CustomEditor = "CustomEditor";
 			public const string CustomEditorArgs = "CustomEditorArgs";
-            [DefaultValue(10)]
-			public const string UpdateCheckInterval = "UpdateCheckInterval";
             public const string ExpandResults = "ExpandResults";
             [DefaultValue(true)]
             public const string ShowVerboseMatchCount = "ShowVerboseMatchCount";
-			public const string LastCheckedVersion = "LastCheckedVersion";
-            [DefaultValue(true)]
-			public const string IsOptionsExpanded = "IsOptionsExpanded";
-            [DefaultValue(true)]
+            [DefaultValue(false)]
             public const string IsFiltersExpanded = "IsFiltersExpanded";
             public const string FileFilters = "FileFilters";
 			public const string FastSearchBookmarks = "FastSearchBookmarks";
@@ -82,20 +80,29 @@ namespace dnGREP.Common
 			public const string FastFileMatchBookmarks = "FastFileMatchBookmarks";
 			public const string FastFileNotMatchBookmarks = "FastFileNotMatchBookmarks";
 			public const string FastPathBookmarks = "FastPathBookmarks";
-            [DefaultValue(TextFormattingMode.Display)]
-            public const string TextFormatting = "TextFormatting";
             [DefaultValue(12)]
             public const string PreviewWindowFont = "PreviewWindowFont";
             [DefaultValue(false)]
             public const string PreviewWindowWrap = "PreviewWindowWrap";
             public const string PreviewWindowSize = "PreviewWindowSize";
-            public const string PreviewWindowPosition = "PreviewWindowPosition";
             [DefaultValue(20)]
             public const string MaxPathBookmarks = "MaxPathBookmarks";
             [DefaultValue(20)]
             public const string MaxSearchBookmarks = "MaxSearchBookmarks";
             [DefaultValue(10)]
             public const string MaxExtensionBookmarks = "MaxExtensionBookmarks";
+            [DefaultValue(true)]
+            public const string OptionsOnMainPanel = "OptionsOnMainPanel";
+            [DefaultValue(FileDateFilter.None)]
+            public const string UseFileDateFilter = "UseFileDateFilter";
+            [DefaultValue(FileTimeRange.None)]
+            public const string TypeOfTimeRangeFilter = "TypeOfTimeRangeFilter";
+            public const string StartDate = "StartDate";
+            public const string EndDate = "EndDate";
+            [DefaultValue(0)]
+            public const string HoursFrom = "HoursFrom";
+            [DefaultValue(8)]
+            public const string HoursTo = "HoursTo";
         }		
 		
 		private static GrepSettings instance;
@@ -240,6 +247,25 @@ namespace dnGREP.Common
                 return getDefaultValue<T>(key);
 			}
 		}
+
+        /// <summary>
+        /// Special handling for nullable value
+        /// </summary>
+        public void SetNullableDateTime(string key, DateTime? value)
+        {
+            Set<DateTime>(key, value ?? DateTime.MinValue);
+        }
+
+        /// <summary>
+        /// Special handling for nullable value
+        /// </summary>
+        public DateTime? GetNullableDateTime(string key)
+        {
+            DateTime dt = Get<DateTime>(key);
+            if (dt == DateTime.MinValue)
+                return null;
+            return dt;
+        }
 
         /// <summary>
         /// Returns true if the value is set; otherwise false

@@ -83,6 +83,13 @@
                         <RowDefinition SharedSizeGroup="xxx"/>
                     </Grid.RowDefinitions>
                     <StackPanel HorizontalAlignment="Stretch">
+                        <StackPanel Orientation="Horizontal" Margin="0,3">
+                            <TextBlock Text="Show search options:" Margin="6,0"/>
+                            <RadioButton Content="on main panel" GroupName="searchLocation" Margin="3,0" 
+                                         IsChecked="{Binding OptionsLocation, Converter={StaticResource ebc}, ConverterParameter=MainPanel}"/>
+                            <RadioButton Content="in options expander" GroupName="searchLocation" Margin="3,0" 
+                                         IsChecked="{Binding OptionsLocation, Converter={StaticResource ebc}, ConverterParameter=OptionsExpander}"/>
+                        </StackPanel>
                         <CheckBox Name="cbShowPath" Margin="3" IsChecked="{Binding Path=ShowFilePathInResults}">Show file path in results panel</CheckBox>
                         <StackPanel Orientation="Horizontal">
                             <CheckBox Name="cbShowContext" Margin="3" VerticalAlignment="Center" IsChecked="{Binding Path=ShowLinesInContext}">Show result lines in context</CheckBox>
@@ -104,11 +111,6 @@
                         <CheckBox Margin="3" Name="cbShowMatchVerbose" IsChecked="{Binding Path=ShowVerboseMatchCount}">
                             <CheckBox.Content>
                                 <TextBlock TextWrapping="Wrap">Show verbose match count</TextBlock>
-                            </CheckBox.Content>
-                        </CheckBox>
-                        <CheckBox Margin="3" Name="cbClearType" IsChecked="{Binding Path=EnableClearType}">
-                            <CheckBox.Content>
-                                <TextBlock TextWrapping="Wrap">Enable ClearType (smoothes the way application displays text)</TextBlock>
                             </CheckBox.Content>
                         </CheckBox>
                         <StackPanel Orientation="Horizontal">

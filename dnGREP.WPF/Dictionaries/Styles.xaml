@@ -9,16 +9,6 @@
     	<GradientStop Color="#FFF9F9F9" Offset="0" />
     	<GradientStop Color="#FFBDC7D4" Offset="1" />
     </LinearGradientBrush>
-    
-    <Style TargetType="{x:Type Button}">
-        <Setter Property="Height" Value="23" />
-    </Style>
-    <Style TargetType="{x:Type TextBox}">
-        <Setter Property="Height" Value="23" />
-    </Style>
-    <Style TargetType="{x:Type ComboBox}">
-        <Setter Property="Height" Value="23" />
-    </Style>
 
     <Style x:Key="GrayedOutFilePattern" TargetType="{x:Type TextBlock}">
         <Style.Setters>
@@ -129,4 +119,17 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style x:Key="CalendarStyle" TargetType="Calendar" >
+        <Setter Property="Height" Value="Auto" />
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="LayoutTransform">
+            <Setter.Value>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="1.2" ScaleY="1.2"/>
+                </TransformGroup>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
 </ResourceDictionary>
