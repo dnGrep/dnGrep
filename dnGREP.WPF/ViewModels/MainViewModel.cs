@@ -26,9 +26,8 @@ namespace dnGREP.WPF
             SearchResults.OpenFileLineRequest += searchResults_OpenFileLineRequest;
             SearchResults.OpenFileRequest += searchResults_OpenFileRequest;
 
-            ve.RetrievedVersion += ve_RetrievedVersion;
             this.RequestClose += MainViewModel_RequestClose;
-            checkVersion();
+            CheckVersion();
             winFormControlsInit();
             populateEncodings();
         }
@@ -56,7 +55,6 @@ namespace dnGREP.WPF
         #region Private Variables and Properties
         private static Logger logger = LogManager.GetCurrentClassLogger();
         private DateTime timer = DateTime.Now;
-        private PublishedVersionExtractor ve = new PublishedVersionExtractor();
         private FileFolderDialogWin32 fileFolderDialog = new FileFolderDialogWin32();
         private BackgroundWorker workerSearchReplace = new BackgroundWorker();
         private BookmarksForm bookmarkForm;
@@ -1238,7 +1236,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private void checkVersion()
+        private async void CheckVersion()
         {
             try
             {
@@ -1248,30 +1246,23 @@ namespace dnGREP.WPF
                     TimeSpan duration = DateTime.Now.Subtract(lastCheck);
                     if (duration.TotalDays >= settings.Get<int>(GrepSettings.Key.UpdateCheckInterval))
                     {
-                        ve.StartWebRequest();
-                        settings.Set<DateTime>(GrepSettings.Key.LastCheckedVersion, DateTime.Now);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
-            }
-        }
+                        var versionChk = new PublishedVersionExtractor();
+                        string version = await versionChk.QueryLatestVersion();
 
-        void ve_RetrievedVersion(object sender, PublishedVersionExtractor.PackageVersion version)
-        {
-            try
-            {
-                if (version.Version != null)
-                {
-                    string currentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-                    if (PublishedVersionExtractor.IsUpdateNeeded(currentVersion, version.Version))
-                    {
-                        if (MessageBox.Show("New version of dnGREP (" + version.Version + ") is available for download.\nWould you like to download it now?", "New version", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                        if (!string.IsNullOrEmpty(version))
                         {
-                            System.Diagnostics.Process.Start("http://dngrep.github.io/");
+                            string currentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                            if (PublishedVersionExtractor.IsUpdateNeeded(currentVersion, version))
+                            {
+                                if (MessageBox.Show("New version of dnGREP (" + version + ") is available for download.\nWould you like to download it now?", 
+                                    "New version", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                                {
+                                    System.Diagnostics.Process.Start("http://dngrep.github.io/");
+                                }
+                            }
                         }
+
+                        settings.Set<DateTime>(GrepSettings.Key.LastCheckedVersion, DateTime.Now);
                     }
                 }
             }
