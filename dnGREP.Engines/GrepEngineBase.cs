@@ -379,6 +379,16 @@ namespace dnGREP.Engines
 					searchPattern = searchPattern.Trim() + "\\b";
 			}
 
+            // Issue #210 .net regex will only match the $ end of line token with a \n, not \r\n or \r
+            // see https://msdn.microsoft.com/en-us/library/yd1hzczs.aspx#Multiline
+            // and http://stackoverflow.com/questions/8618557/why-doesnt-in-net-multiline-regular-expressions-match-crlf
+            // must change the Windows and Mac line ends to just the Unix \n char before calling Regex
+            text = text.Replace("\r\n", "\n");
+            text = text.Replace('\r', '\n');
+            // and if the search pattern has Windows or Mac newlines, they must be converted, too
+            searchPattern = searchPattern.Replace("\r\n", "\n");
+            searchPattern = searchPattern.Replace('\r', '\n');
+
             var lineEndIndexes = GetLineEndIndexes(verboseMatchCount && lineNumber == -1 ? text : null);
 
 			List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
