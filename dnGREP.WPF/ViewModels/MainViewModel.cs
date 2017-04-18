@@ -735,13 +735,18 @@ namespace dnGREP.WPF
                     GrepCore.ProgressStatus progress = (GrepCore.ProgressStatus)e.UserState;
                     string result = string.Empty;
                     if (progress.SearchResults != null)
-                    {
-                        SearchResults.AddRange(progress.SearchResults);
-                        result = string.Format("Searched {0} files. Found {1} matching files.", progress.ProcessedFiles, SearchResults.Count);
+                    {SearchResults.AddRange(progress.SearchResults);
+                        if (!string.IsNullOrWhiteSpace(progress.FileName))
+                            result = string.Format("Searched {0} files. Found {1} matching files - processing {2}", progress.ProcessedFiles, SearchResults.Count, progress.FileName);
+                        else
+                            result = string.Format("Searched {0} files. Found {1} matching files.", progress.ProcessedFiles, SearchResults.Count);
                     }
                     else
                     {
-                        result = string.Format("Searched {0} files.", progress.ProcessedFiles);
+                        if (!string.IsNullOrWhiteSpace(progress.FileName))
+                            result = string.Format("Searched {0} files - processing {1}", progress.ProcessedFiles, progress.FileName);
+                        else
+                            result = string.Format("Searched {0} files.", progress.ProcessedFiles);
                     }
 
                     StatusMessage = result;

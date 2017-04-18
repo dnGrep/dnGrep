@@ -24,16 +24,18 @@ namespace dnGREP.Common
 		private static Logger logger = LogManager.GetCurrentClassLogger();
 		private List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
 		public delegate void SearchProgressHandler(object sender, ProgressStatus files);
-		public event SearchProgressHandler ProcessedFile;
+        public event SearchProgressHandler ProcessedFile = delegate { };
 		public class ProgressStatus
 		{
-			public ProgressStatus(int processed, List<GrepSearchResult> results)
+			public ProgressStatus(int processed, List<GrepSearchResult> results, string fileName)
 			{
 				ProcessedFiles = processed;
 				SearchResults = results;
+                FileName = fileName;
 			}
 			public int ProcessedFiles;
 			public List<GrepSearchResult> SearchResults;
+            public string FileName;
 		}
 	
 		/// <summary>
@@ -55,14 +57,19 @@ namespace dnGREP.Common
             {
                 foreach (string file in files)
                 {
+                    string fname = file;// Path.GetFileName(file);
+                    ProcessedFile(this, new ProgressStatus(searchResults.Count, null, fname));
+
                     searchResults.Add(new GrepSearchResult(file, searchPattern, null, Encoding.Default));
                     if ((searchOptions & GrepSearchOption.StopAfterFirstMatch) == GrepSearchOption.StopAfterFirstMatch)
+                        break;
+                    if (Utils.CancelSearch)
                         break;
                 }
 
                 if (ProcessedFile != null)
                 {
-                    ProcessedFile(this, new ProgressStatus(searchResults.Count, searchResults));
+                    ProcessedFile(this, new ProgressStatus(searchResults.Count, searchResults, null));
                 }
 
                 return searchResults;
@@ -75,6 +82,8 @@ namespace dnGREP.Common
                 {
                     foreach (string file in files)
                     {
+                        string fname = file;// Path.GetFileName(file);
+                        ProcessedFile(this, new ProgressStatus(processedFiles, null, fname));
                         try
                         {
                             IGrepEngine engine = GrepEngineFactory.GetSearchEngine(file, SearchParams);
@@ -102,7 +111,7 @@ namespace dnGREP.Common
 
                             if (ProcessedFile != null)
                             {
-                                ProcessedFile(this, new ProgressStatus(processedFiles, fileSearchResults));
+                                ProcessedFile(this, new ProgressStatus(processedFiles, fileSearchResults, fname));
                             }
 
                         }
@@ -114,7 +123,7 @@ namespace dnGREP.Common
                             {
                                 List<GrepSearchResult> _results = new List<GrepSearchResult>();
                                 _results.Add(new GrepSearchResult(file, searchPattern, ex.Message, false));
-                                ProcessedFile(this, new ProgressStatus(processedFiles, _results));
+                                ProcessedFile(this, new ProgressStatus(processedFiles, _results, fname));
                             }
                         }
 
@@ -148,7 +157,10 @@ namespace dnGREP.Common
 			{
 				foreach (string file in files)
 				{
-					tempFileName = Path.Combine(tempFolder, Path.GetFileName(file));
+                    string fname = file; // Path.GetFileName(file);
+                    ProcessedFile(this, new ProgressStatus(processedFiles, null, fname));
+                    
+                    tempFileName = Path.Combine(tempFolder, Path.GetFileName(file));
 					IGrepEngine engine = GrepEngineFactory.GetReplaceEngine(file, searchParams);
 
 					try
@@ -176,7 +188,7 @@ namespace dnGREP.Common
 						}
 
                         if (!Utils.CancelSearch && ProcessedFile != null)
-							ProcessedFile(this, new ProgressStatus(processedFiles, null));
+							ProcessedFile(this, new ProgressStatus(processedFiles, null, fname));
 
 
 						File.SetAttributes(file, File.GetAttributes(tempFileName));

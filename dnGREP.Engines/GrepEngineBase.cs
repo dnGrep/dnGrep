@@ -393,12 +393,16 @@ namespace dnGREP.Engines
 
 			List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
             List<GrepSearchResult.GrepMatch> globalMatches = new List<GrepSearchResult.GrepMatch>();
-            foreach (Match match in Regex.Matches(text, searchPattern, regexOptions))
+            var matches = Regex.Matches(text, searchPattern, regexOptions);
+            foreach (Match match in matches)
 			{
                 if (verboseMatchCount && lineEndIndexes.Count > 0)
                     lineNumber = lineEndIndexes.FindIndex(i => i > match.Index) + 1;
 
                 globalMatches.Add(new GrepSearchResult.GrepMatch(lineNumber, match.Index, match.Length));
+
+                if (Utils.CancelSearch)
+                    break;
 			}
 
             return globalMatches;
@@ -441,7 +445,10 @@ namespace dnGREP.Engines
                     globalMatches.Add(new GrepSearchResult.GrepMatch(lineNumber, index, searchText.Length));
 					index++;
 				}
-			}
+
+                if (Utils.CancelSearch)
+                    break;
+            }
 
             return globalMatches;
 		}
@@ -472,7 +479,10 @@ namespace dnGREP.Engines
                     globalMatches.Add(new GrepSearchResult.GrepMatch(lineNumber, index, searchText.Length));
 					index++;
 				}
-			}
+
+                if (Utils.CancelSearch)
+                    break;
+            }
 
             return globalMatches;
 		}
@@ -502,7 +512,10 @@ namespace dnGREP.Engines
 			
 					index++;
 				}
-			}
+
+                if (Utils.CancelSearch)
+                    break;
+            }
 			sb.Append(text.Substring(counter));
 			return sb.ToString();
 		}
@@ -532,7 +545,10 @@ namespace dnGREP.Engines
 
 					index++;
 				}
-			}
+
+                if (Utils.CancelSearch)
+                    break;
+            }
 			sb.Append(text.Substring(counter));
 			return sb.ToString();
 		}
