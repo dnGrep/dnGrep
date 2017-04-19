@@ -154,6 +154,7 @@
       <Link>Properties\AssemblyVersionCommon.cs</Link>
     </Compile>
     <Compile Include="DesignTimeData\DesignTimeData.cs" />
+    <Compile Include="MVHelpers\BoolToVisibilityConverter.cs" />
     <Compile Include="MVHelpers\CodeSnippet.cs" />
     <Compile Include="MVHelpers\LazyResultsList.cs" />
     <Compile Include="MVHelpers\PixelBasedScrollingBehavior.cs" />
@@ -162,9 +163,6 @@
     <Compile Include="RelayCommand.cs" />
     <Compile Include="UserControls\BusyIndicator.xaml.cs">
       <DependentUpon>BusyIndicator.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\FolderSelectDropdown.xaml.cs">
-      <DependentUpon>FolderSelectDropdown.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ResultsTree.xaml.cs">
       <DependentUpon>ResultsTree.xaml</DependentUpon>
@@ -185,10 +183,6 @@
     </Compile>
     <Compile Include="MVHelpers\PreviewHighlighter.cs" />
     <Compile Include="MVHelpers\TotalValueConverter.cs" />
-    <Resource Include="Views\TemplateFileOpenDropdown.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Resource>
     <Page Include="Dictionaries\CustomTemplates.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -199,10 +193,6 @@
       <ContainsDesignTimeResources>true</ContainsDesignTimeResources>
     </Page>
     <Page Include="UserControls\BusyIndicator.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\FolderSelectDropdown.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -292,7 +282,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="dnGREP.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -333,7 +325,6 @@
   <ItemGroup>
     <None Include="Images\splash.png" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

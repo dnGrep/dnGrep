@@ -10,8 +10,6 @@ namespace dnGREP.WPF
 {
 	public class EnumBooleanConverter : IValueConverter
 	{
-		#region IValueConverter Members
-
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
 			var ParameterString = parameter as string;
@@ -30,13 +28,11 @@ namespace dnGREP.WPF
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{
-			var ParameterString = parameter as string;
-			if (ParameterString == null)
+            var ParameterString = parameter as string;
+			if (ParameterString == null || value.Equals(false))
 				return DependencyProperty.UnsetValue;
 
 			return Enum.Parse(targetType, ParameterString);
 		}
-
-		#endregion
 	}
 }

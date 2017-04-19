@@ -47,11 +47,12 @@ namespace dnGREP.WPF
                 AllowSearchWithEmptyPattern != settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern) ||
                 AutoExpandSearchTree != settings.Get<bool>(GrepSettings.Key.ExpandResults) ||
                 ShowVerboseMatchCount != settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount) ||
-                EnableClearType != (settings.Get<TextFormattingMode>(GrepSettings.Key.TextFormatting) == TextFormattingMode.Ideal) ||
                 MatchThreshold != settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold) ||
                 MaxSearchBookmarks != settings.Get<int>(GrepSettings.Key.MaxSearchBookmarks) ||
                 MaxPathBookmarks != settings.Get<int>(GrepSettings.Key.MaxPathBookmarks) ||
-                MaxExtensionBookmarks != settings.Get<int>(GrepSettings.Key.MaxExtensionBookmarks))
+                MaxExtensionBookmarks != settings.Get<int>(GrepSettings.Key.MaxExtensionBookmarks) ||
+                OptionsLocation != (settings.Get<bool>(GrepSettings.Key.OptionsOnMainPanel) ?
+                    PanelSelection.MainPanel : PanelSelection.OptionsExpander))
                     return true;
                 else
                     return false;
@@ -313,21 +314,6 @@ namespace dnGREP.WPF
             }
         }
 
-        private bool enableClearType;
-        public bool EnableClearType
-        {
-            get { return enableClearType; }
-            set
-            {
-                if (value == enableClearType)
-                    return;
-
-                enableClearType = value;
-
-                base.OnPropertyChanged(() => EnableClearType);
-            }
-        }
-
         private double matchThreshold;
         public double MatchThreshold
         {
@@ -387,6 +373,24 @@ namespace dnGREP.WPF
                 base.OnPropertyChanged(() => MaxExtensionBookmarks);
             }
         }
+
+        public enum PanelSelection { MainPanel = 0, OptionsExpander }
+
+        private PanelSelection optionsLocation;
+        public PanelSelection OptionsLocation
+        {
+            get { return optionsLocation; }
+            set
+            {
+                if (value == optionsLocation)
+                    return;
+
+                optionsLocation = value;
+
+                base.OnPropertyChanged(() => OptionsLocation);
+            }
+        }
+
 
         #endregion
 
@@ -505,7 +509,6 @@ namespace dnGREP.WPF
             AllowSearchWithEmptyPattern = settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern);
             AutoExpandSearchTree = settings.Get<bool>(GrepSettings.Key.ExpandResults);
             showVerboseMatchCount = settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount);
-            EnableClearType = settings.Get<TextFormattingMode>(GrepSettings.Key.TextFormatting) == TextFormattingMode.Ideal;
             MatchThreshold = settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold);
             ShowLinesInContext = settings.Get<bool>(GrepSettings.Key.ShowLinesInContext);
             ContextLinesBefore = settings.Get<int>(GrepSettings.Key.ContextLinesBefore);
@@ -513,6 +516,8 @@ namespace dnGREP.WPF
             MaxSearchBookmarks = settings.Get<int>(GrepSettings.Key.MaxSearchBookmarks);
             MaxPathBookmarks = settings.Get<int>(GrepSettings.Key.MaxPathBookmarks);
             MaxExtensionBookmarks = settings.Get<int>(GrepSettings.Key.MaxExtensionBookmarks);
+            OptionsLocation = settings.Get<bool>(GrepSettings.Key.OptionsOnMainPanel) ? 
+                PanelSelection.MainPanel : PanelSelection.OptionsExpander;
         }
 
         private void saveSettings()
@@ -549,7 +554,6 @@ namespace dnGREP.WPF
             settings.Set<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern, AllowSearchWithEmptyPattern);
             settings.Set<bool>(GrepSettings.Key.ExpandResults, AutoExpandSearchTree);
             settings.Set<bool>(GrepSettings.Key.ShowVerboseMatchCount, showVerboseMatchCount);
-            settings.Set<TextFormattingMode>(GrepSettings.Key.TextFormatting, EnableClearType ? TextFormattingMode.Ideal : TextFormattingMode.Display);
             settings.Set<double>(GrepSettings.Key.FuzzyMatchThreshold, MatchThreshold);
             settings.Set<bool>(GrepSettings.Key.ShowLinesInContext, ShowLinesInContext);
             settings.Set<int>(GrepSettings.Key.ContextLinesBefore, ContextLinesBefore);
@@ -557,6 +561,7 @@ namespace dnGREP.WPF
             settings.Set<int>(GrepSettings.Key.MaxSearchBookmarks, MaxSearchBookmarks);
             settings.Set<int>(GrepSettings.Key.MaxPathBookmarks, MaxPathBookmarks);
             settings.Set<int>(GrepSettings.Key.MaxExtensionBookmarks, MaxExtensionBookmarks);
+            settings.Set<bool>(GrepSettings.Key.OptionsOnMainPanel, OptionsLocation == PanelSelection.MainPanel);
             settings.Save();
         }
 

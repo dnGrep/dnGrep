@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Interop;
 using dnGREP.Common.UI;
@@ -44,6 +46,9 @@ namespace dnGREP.WPF
 
             inputData = new MainViewModel();
             this.DataContext = inputData;
+
+            this.PreviewKeyDown += MainFormEx_PreviewKeyDown;
+            this.PreviewKeyUp += MainFormEx_PreviewKeyUp;
         }
 
         [DllImport("user32.dll")]
@@ -120,18 +125,33 @@ namespace dnGREP.WPF
             }
         }
 
-        //private void btnSearchFastBookmarks_Click(object sender, RoutedEventArgs e)
-        //{
-        //    cbSearchFastBookmark.IsDropDownOpen = true;
-        //    cbSearchFastBookmark.Focus();
-        //}
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsTextAllowed(e.Text);
+        }
 
-        //private void btnReplaceFastBookmarks_Click(object sender, RoutedEventArgs e)
-        //{
-        //    cbReplaceFastBookmark.IsDropDownOpen = true;
-        //    cbReplaceFastBookmark.Focus();
-        //    cbReplaceFastBookmark.SelectAll();
-        //}
+        private static bool IsTextAllowed(string text)
+        {
+            Regex regex = new Regex("\\d+"); //regex that matches allowed text
+            return regex.IsMatch(text);
+        }
+
+        // Use the DataObject.Pasting Handler 
+        private void TextBoxPasting(object sender, DataObjectPastingEventArgs e)
+        {
+            if (e.DataObject.GetDataPresent(typeof(string)))
+            {
+                string text = (string)e.DataObject.GetData(typeof(string));
+                if (!IsTextAllowed(text))
+                {
+                    e.CancelCommand();
+                }
+            }
+            else
+            {
+                e.CancelCommand();
+            }
+        }
 
         private void Window_Activated(object sender, EventArgs e)
         {
@@ -143,35 +163,6 @@ namespace dnGREP.WPF
             inputData.ChangePreviewWindowState(this.WindowState);
         }
 
-        //private void tbPreviewKeyDown(object sender, KeyEventArgs e)
-        //{
-        //    if (e.Key == Key.Up || e.Key == Key.Down)
-        //    {
-        //        if (!inputData.Multiline)
-        //        {
-        //            if (sender != null && sender == tbSearchFor)
-        //            {
-        //                if (e.Key == Key.Down)
-        //                    cbSearchFastBookmark.SelectedIndex++;
-        //                else
-        //                {
-        //                    if (cbSearchFastBookmark.SelectedIndex > 0)
-        //                        cbSearchFastBookmark.SelectedIndex--;
-        //                }
-        //            }
-        //            else if (sender != null && sender == tbReplaceWith)
-        //            {
-        //                if (e.Key == Key.Down)
-        //                    cbReplaceFastBookmark.SelectedIndex++;
-        //                else
-        //                {
-        //                    if (cbReplaceFastBookmark.SelectedIndex > 0)
-        //                        cbReplaceFastBookmark.SelectedIndex--;
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
         #endregion
 
         private void FilesSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -204,6 +195,45 @@ namespace dnGREP.WPF
             // disable feedback that list scroll has reached the limit
             // -- the feedback is that the whole window moves
             e.Handled = true;
+        }
+
+        private void cbEncoding_Initialized(object sender, EventArgs e)
+        {
+            // SelectedIndex="0" isn't working on the XAML for cbEncoding, but this seems to work. It would be nice to get the XAML working, instead.
+            var model = (MainViewModel)this.DataContext;
+            if (model != null)
+                ((ComboBox)sender).SelectedValue = model.CodePage;
+            else  // design time
+                ((ComboBox)sender).SelectedIndex = 0;
+        }
+
+        private void WrapPanel_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            var panel = (WrapPanel)sender;
+
+            var maxWidth = panel.ActualWidth -
+                LeftFileOptions.ActualWidth - LeftFileOptions.Margin.Left - LeftFileOptions.Margin.Right -
+                MiddleFileOptions.ActualWidth - MiddleFileOptions.Margin.Left - MiddleFileOptions.Margin.Right -
+                RightFileOptions.ActualWidth - RightFileOptions.Margin.Left - RightFileOptions.Margin.Right;
+            SpacerFileOptions.Width = Math.Max(0, maxWidth);
+        }
+
+        void MainFormEx_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt))
+            {
+                fileOptions.Inlines.Clear();
+                fileOptions.Inlines.Add(new Underline(new Run("F")));
+                fileOptions.Inlines.Add(new Run("ile Options"));
+            }
+        }
+
+        void MainFormEx_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            if (Keyboard.IsKeyUp(Key.LeftAlt) && Keyboard.IsKeyUp(Key.RightAlt))
+            {
+                fileOptions.Text = "File Options";
+            }
         }
     }
 }
