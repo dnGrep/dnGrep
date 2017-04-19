@@ -26,6 +26,7 @@ namespace dnGREP.Common
 
 	public enum FileSizeFilter
 	{
+        None,
 		Yes,
 		No
 	}
@@ -48,4 +49,18 @@ namespace dnGREP.Common
 		Replace,
 		None
 	}
+
+    public enum FileDateFilter
+    {
+        None,
+        Modified,
+        Created
+    }
+
+    public enum FileTimeRange
+    {
+        None,
+        Dates,
+        Hours
+    }
 }

@@ -367,6 +367,44 @@ namespace dnGREP.WPF
                 return _bookmarkOpenCommand;
             }
         }
+
+        RelayCommand _resetOptionsCommand;
+        /// <summary>
+        /// Returns a command that resets the search options.
+        /// </summary>
+        public ICommand ResetOptionsCommand
+        {
+            get
+            {
+                if (_resetOptionsCommand == null)
+                {
+                    _resetOptionsCommand = new RelayCommand(
+                        param => this.ResetOptions()
+                        );
+                }
+                return _resetOptionsCommand;
+            }
+        }
+
+        RelayCommand _toggleFileOptionsCommand;
+        /// <summary>
+        /// Returns a command that resets the search options.
+        /// </summary>
+        public ICommand ToggleFileOptionsCommand
+        {
+            get
+            {
+                if (_toggleFileOptionsCommand == null)
+                {
+                    _toggleFileOptionsCommand = new RelayCommand(
+                        param => IsFiltersExpanded = !IsFiltersExpanded
+                        );
+                }
+                return _toggleFileOptionsCommand;
+            }
+        }
+
+
         #endregion
 
         #region Public Methods
@@ -425,7 +463,7 @@ namespace dnGREP.WPF
 
                 FormattedGrepResult result = selectedNode.Parent;
                 OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
-                dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, new GrepEngineInitParams(false, 0, 0, 0.5)).OpenFile(fileArg);
+                dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, new GrepEngineInitParams(false, 0, 0, 0.5, false)).OpenFile(fileArg);
                 if (fileArg.UseBaseEngine)
                     Utils.OpenFile(new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
             }
@@ -446,7 +484,7 @@ namespace dnGREP.WPF
                 // Line was selected
                 int lineNumber = 0;
                 OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
-                dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, new GrepEngineInitParams(false, 0, 0, 0.5)).OpenFile(fileArg);
+                dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, new GrepEngineInitParams(false, 0, 0, 0.5, false)).OpenFile(fileArg);
                 if (fileArg.UseBaseEngine)
                     Utils.OpenFile(new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
             }
@@ -552,6 +590,26 @@ namespace dnGREP.WPF
                             sizeTo = param.SizeTo;
                         }
 
+                        DateTime? startTime = null, endTime = null;
+                        if (param.UseFileDateFilter != FileDateFilter.None)
+                        {
+                            if (param.TypeOfTimeRangeFilter == FileTimeRange.Dates)
+                            {
+                                startTime = param.StartDate;
+                                endTime = param.EndDate;
+                                // the end date should go through the end of the day
+                                if (endTime.HasValue)
+                                    endTime = endTime.Value.AddDays(1.0);
+                            }
+                            else if (param.TypeOfTimeRangeFilter == FileTimeRange.Hours)
+                            {
+                                int low = Math.Min(param.HoursFrom, param.HoursTo);
+                                int high = Math.Max(param.HoursFrom, param.HoursTo);
+                                startTime = DateTime.Now.AddHours(-1 * high);
+                                endTime = DateTime.Now.AddHours(-1 * low);
+                            }
+                        }
+
                         string filePatternInclude = "*.*";
                         if (param.TypeOfFileSearch == FileSearchType.Regex)
                             filePatternInclude = ".*";
@@ -574,7 +632,7 @@ namespace dnGREP.WPF
                         else
                         {
                             files = Utils.GetFileListEx(FileOrFolderPath, filePatternInclude, filePatternExclude, param.TypeOfFileSearch == FileSearchType.Regex, param.IncludeSubfolder,
-                                param.IncludeHidden, param.IncludeBinary, sizeFrom, sizeTo);
+                                param.IncludeHidden, param.IncludeBinary, sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime);
                         }
 
                         if (Utils.CancelSearch)
@@ -602,6 +660,7 @@ namespace dnGREP.WPF
                         grep.SearchParams.LinesBefore = settings.Get<int>(GrepSettings.Key.ContextLinesBefore);
                         grep.SearchParams.LinesAfter = settings.Get<int>(GrepSettings.Key.ContextLinesAfter);
                         grep.SearchParams.ShowLinesInContext = settings.Get<bool>(GrepSettings.Key.ShowLinesInContext);
+                        grep.SearchParams.VerboseMatchCount = settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount);
 
                         GrepSearchOption searchOptions = GrepSearchOption.None;
                         if (Multiline)
@@ -626,6 +685,7 @@ namespace dnGREP.WPF
                         grep.SearchParams.LinesBefore = settings.Get<int>(GrepSettings.Key.ContextLinesBefore);
                         grep.SearchParams.LinesAfter = settings.Get<int>(GrepSettings.Key.ContextLinesAfter);
                         grep.SearchParams.ShowLinesInContext = settings.Get<bool>(GrepSettings.Key.ShowLinesInContext);
+                        grep.SearchParams.VerboseMatchCount = settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount);
 
                         GrepSearchOption searchOptions = GrepSearchOption.None;
                         if (Multiline)
