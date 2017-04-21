@@ -1091,7 +1091,12 @@ namespace dnGREP.WPF
         {
             try
             {
-                bookmarkForm = new BookmarksForm();
+                Action<string,string,string> clearTheStar = (searchFor, replaceWith, filePattern) =>
+                {
+                    if (searchFor == SearchFor && replaceWith == ReplaceWith && filePattern == filePattern)
+                        IsBookmarked = false;
+                };
+                bookmarkForm = new BookmarksForm(clearTheStar);
                 bookmarkForm.PropertyChanged += new PropertyChangedEventHandler(bookmarkForm_PropertyChanged);
                 bookmarkForm.ShowDialog();
             }

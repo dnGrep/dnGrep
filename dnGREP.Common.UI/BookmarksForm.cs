@@ -66,9 +66,12 @@ namespace dnGREP.Common.UI
 			gridBookmarks.Refresh();
 		}
 
-		public BookmarksForm()
+        Action<string,string,string> ClearStar;
+
+		public BookmarksForm(Action<string, string, string> clearStar)
 		{
-			InitializeComponent();			
+            ClearStar = clearStar;
+            InitializeComponent();
 		}
 
 		private void BookmarksForm_Load(object sender, EventArgs e)
@@ -117,12 +120,18 @@ namespace dnGREP.Common.UI
 		{
 			if (gridBookmarks.SelectedRows.Count != 1)
 				return;
-			DataRowView bookmarkRow = (DataRowView)gridBookmarks.SelectedRows[0].DataBoundItem;
-			Bookmark oldBookmark = new Bookmark(bookmarkRow["SearchPattern"].ToString(), bookmarkRow["ReplacePattern"].ToString(),
+            DataRowView bookmarkRow = (DataRowView)gridBookmarks.SelectedRows[0].DataBoundItem;
+
+            ClearStar(bookmarkRow["SearchPattern"].ToString(),
+                      bookmarkRow["ReplacePattern"].ToString(),
+                      bookmarkRow["FileNames"].ToString());
+
+            Bookmark oldBookmark = new Bookmark(bookmarkRow["SearchPattern"].ToString(), bookmarkRow["ReplacePattern"].ToString(),
 				bookmarkRow["FileNames"].ToString(), bookmarkRow["Description"].ToString());
 			BookmarkLibrary.Instance.Bookmarks.Remove(oldBookmark);
 			refreshGrid();
-		}
+
+        }
 
 		private void btnAdd_Click(object sender, EventArgs e)
 		{
