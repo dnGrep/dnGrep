@@ -242,13 +242,14 @@
 
             <GroupBox Header="Search" DockPanel.Dock="Top">
                 <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="Auto">
-                    <Grid DockPanel.Dock="Top">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="120"/>
-                        </Grid.ColumnDefinitions>
-                        <StackPanel Orientation="Horizontal" Grid.Column="0">
+                    <DockPanel DockPanel.Dock="Top" Margin="0,0,0,5">
+                        <Button Content="Test" Command="{Binding TestCommand}" Margin="3,0" Padding="20,4"
+                                DockPanel.Dock="Right" TabIndex="55"/>
+                        <CheckBox ToolTip="{Binding IsBookmarkedTooltip}" Margin="0 0 5 0"
+								  Template="{DynamicResource FavsMetroButtonTemplate}"
+                                  IsChecked="{Binding IsBookmarked}" Command="{Binding BookmarkAddCommand}"
+                                  DockPanel.Dock="Right" TabIndex="54"/>
+                        <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
                             <RadioButton Content="_Regex" GroupName="SearchRegex" Margin="3"
                                          IsChecked="{Binding TypeOfSearch, ConverterParameter=Regex, Converter={StaticResource ebc}}" 
                                          ToolTip="Regular expression search" TabIndex="50"/>
@@ -262,14 +263,8 @@
                                          IsChecked="{Binding TypeOfSearch, ConverterParameter=Soundex, Converter={StaticResource ebc}}" 
                                          ToolTip="Phonetic search" TabIndex="53"/>
                         </StackPanel>
-                        <Label Grid.Column="1" Content="{Binding ValidationMessage}"/>
-                        <StackPanel Margin="0,0,0,2" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                            <CheckBox ToolTip="{Binding IsBookmarkedTooltip}" Margin="0 0 5 0" Width="20"
-								      Style="{DynamicResource MetroButton}" Template="{DynamicResource FavsMetroButtonTemplate}" 
-                                      IsChecked="{Binding IsBookmarked}" Command="{Binding BookmarkAddCommand}" TabIndex="54"/>
-                            <Button Content="Test" Command="{Binding TestCommand}" Margin="3,0" Padding="20,4" TabIndex="55"/>
-                        </StackPanel>
-                    </Grid>
+                        <Label Content="{Binding ValidationMessage}" HorizontalAlignment="Center"/>
+                    </DockPanel>
                     <StackPanel DockPanel.Dock="Bottom" Margin="0,3" Visibility="{Binding OptionsOnMainPanel, Converter={StaticResource BoolToVisibilityConverter}}">
                         <WrapPanel Orientation="Horizontal">
                             <CheckBox Margin="3" IsChecked="{Binding CaseSensitive}" IsEnabled="{Binding IsCaseSensitiveEnabled}" TabIndex="70" Content="C_ase sensitive"/>
