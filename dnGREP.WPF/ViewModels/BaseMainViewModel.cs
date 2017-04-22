@@ -21,12 +21,12 @@ namespace dnGREP.WPF
             searchResults = new ObservableGrepSearchResults();
             this.RequestClose += MainViewModel_RequestClose;
             this.PropertyChanged += MainViewModel_PropertyChanged;
-            
+
             CurrentGrepOperation = GrepOperation.None;
             IsCaseSensitiveEnabled = true;
             IsMultilineEnabled = true;
             IsWholeWordEnabled = true;
-            LoadSettings();        
+            LoadSettings();
         }
 
         #region Private Variables and Properties
@@ -146,21 +146,6 @@ namespace dnGREP.WPF
             }
         }
 
-        private bool isOptionsExpanded;
-        public bool IsOptionsExpanded
-        {
-            get { return isOptionsExpanded; }
-            set
-            {
-                if (value == isOptionsExpanded)
-                    return;
-
-                isOptionsExpanded = value;
-
-                base.OnPropertyChanged(() => IsOptionsExpanded);
-            }
-        }
-
         private bool isFiltersExpanded;
         public bool IsFiltersExpanded
         {
@@ -173,36 +158,6 @@ namespace dnGREP.WPF
                 isFiltersExpanded = value;
 
                 base.OnPropertyChanged(() => IsFiltersExpanded);
-            }
-        }
-
-        private bool fileFilters;
-        public bool FileFilters
-        {
-            get { return fileFilters; }
-            set
-            {
-                if (value == fileFilters)
-                    return;
-
-                fileFilters = value;
-
-                base.OnPropertyChanged(() => FileFilters);
-            }
-        }
-
-        private TextFormattingMode textFormatting;
-        public TextFormattingMode TextFormatting
-        {
-            get { return textFormatting; }
-            set
-            {
-                if (value == textFormatting)
-                    return;
-
-                textFormatting = value;
-
-                base.OnPropertyChanged(() => TextFormatting);
             }
         }
 
@@ -311,7 +266,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private FileSizeFilter useFileSizeFilter;
+        private FileSizeFilter useFileSizeFilter = FileSizeFilter.None;
         public FileSizeFilter UseFileSizeFilter
         {
             get { return useFileSizeFilter; }
@@ -353,6 +308,183 @@ namespace dnGREP.WPF
                 sizeTo = value;
 
                 base.OnPropertyChanged(() => SizeTo);
+            }
+        }
+
+        private FileDateFilter useFileDateFilter;
+        public FileDateFilter UseFileDateFilter
+        {
+            get { return useFileDateFilter; }
+            set
+            {
+                if (value == useFileDateFilter)
+                    return;
+
+                useFileDateFilter = value;
+
+                base.OnPropertyChanged(() => UseFileDateFilter);
+            }
+        }
+
+        private FileTimeRange typeOfTimeRangeFilter;
+        public FileTimeRange TypeOfTimeRangeFilter
+        {
+            get { return typeOfTimeRangeFilter; }
+            set
+            {
+                if (value == typeOfTimeRangeFilter)
+                    return;
+
+                typeOfTimeRangeFilter = value;
+
+                base.OnPropertyChanged(() => TypeOfTimeRangeFilter);
+            }
+        }
+
+        public readonly static DateTime minDate = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Local);
+
+        private DateTime minStartDate = minDate;
+        public DateTime MinStartDate
+        {
+            get { return minStartDate; }
+            set
+            {
+                if (value == minStartDate)
+                    return;
+
+                minStartDate = value;
+
+                base.OnPropertyChanged(() => MinStartDate);
+            }
+        }
+
+        private DateTime? startDate;
+        public DateTime? StartDate
+        {
+            get { return startDate; }
+            set
+            {
+                if (value == startDate)
+                    return;
+
+                startDate = value;
+                if (startDate.HasValue)
+                {
+                    MinEndDate = startDate.Value;
+                    if (EndDate.HasValue && EndDate.Value < MinEndDate)
+                        EndDate = MinEndDate;
+                }
+                else
+                {
+                    MinEndDate = minDate;
+                }
+
+                base.OnPropertyChanged(() => StartDate);
+            }
+        }
+
+        private DateTime minEndDate = minDate;
+        public DateTime MinEndDate
+        {
+            get { return minEndDate; }
+            set
+            {
+                if (value == minEndDate)
+                    return;
+
+                minEndDate = value;
+
+                base.OnPropertyChanged(() => MinEndDate);
+            }
+        }
+
+        private DateTime? endDate;
+        public DateTime? EndDate
+        {
+            get { return endDate; }
+            set
+            {
+                if (value == endDate)
+                    return;
+
+                endDate = value;
+
+                base.OnPropertyChanged(() => EndDate);
+            }
+        }
+
+        private int hoursFrom;
+        public int HoursFrom
+        {
+            get { return hoursFrom; }
+            set
+            {
+                if (value == hoursFrom)
+                    return;
+
+                hoursFrom = value;
+
+                base.OnPropertyChanged(() => HoursFrom);
+            }
+        }
+
+        private int hoursTo;
+        public int HoursTo
+        {
+            get { return hoursTo; }
+            set
+            {
+                if (value == hoursTo)
+                    return;
+
+                hoursTo = value;
+
+                base.OnPropertyChanged(() => HoursTo);
+            }
+        }
+
+        private bool isDateFilterSet;
+        public bool IsDateFilterSet
+        {
+            get { return isDateFilterSet; }
+            set
+            {
+                if (value == isDateFilterSet)
+                    return;
+
+                isDateFilterSet = value;
+
+                base.OnPropertyChanged(() => IsDateFilterSet);
+            }
+        }
+
+        private bool isDatesRangeSet;
+        public bool IsDatesRangeSet
+        {
+            get { return isDatesRangeSet; }
+            set
+            {
+                if (value == isDatesRangeSet)
+                    return;
+
+                isDatesRangeSet = value;
+
+                base.OnPropertyChanged(() => IsDatesRangeSet);
+            }
+        }
+
+        private bool isHoursRangeSet;
+        public bool IsHoursRangeSet
+        {
+            get { return isHoursRangeSet; }
+            set
+            {
+                if (value == isHoursRangeSet)
+                    return;
+
+                isHoursRangeSet = value;
+
+                base.OnPropertyChanged(() => IsHoursRangeSet);
             }
         }
 
@@ -578,7 +710,7 @@ namespace dnGREP.WPF
                 canSearch = value;
 
                 base.OnPropertyChanged(() => CanSearch);
-                // Refersh buttons
+                // Refresh buttons
                 CommandManager.InvalidateRequerySuggested();
             }
         }
@@ -595,23 +727,8 @@ namespace dnGREP.WPF
                 canSearchInResults = value;
 
                 base.OnPropertyChanged(() => CanSearchInResults);
-                // Refersh buttons
+                // Refresh buttons
                 CommandManager.InvalidateRequerySuggested();
-            }
-        }
-
-        private string searchButtonMode;
-        public string SearchButtonMode
-        {
-            get { return searchButtonMode; }
-            set
-            {
-                if (value == searchButtonMode)
-                    return;
-
-                searchButtonMode = value;
-
-                base.OnPropertyChanged(() => SearchButtonMode);
             }
         }
 
@@ -642,7 +759,7 @@ namespace dnGREP.WPF
                 canReplace = value;
 
                 base.OnPropertyChanged(() => CanReplace);
-                // Refersh buttons
+                // Refresh buttons
                 CommandManager.InvalidateRequerySuggested();
             }
         }
@@ -659,7 +776,7 @@ namespace dnGREP.WPF
                 canCancel = value;
 
                 base.OnPropertyChanged(() => CanCancel);
-                // Refersh buttons
+                // Refresh buttons
                 CommandManager.InvalidateRequerySuggested();
             }
         }
@@ -677,21 +794,6 @@ namespace dnGREP.WPF
 
                 base.OnPropertyChanged(() => CurrentGrepOperation);
                 base.OnPropertyChanged(() => IsOperationInProgress);
-            }
-        }
-
-        private string optionsSummary;
-        public string OptionsSummary
-        {
-            get { return optionsSummary; }
-            set
-            {
-                if (value == optionsSummary)
-                    return;
-
-                optionsSummary = value;
-
-                base.OnPropertyChanged(() => OptionsSummary);
             }
         }
 
@@ -815,11 +917,25 @@ namespace dnGREP.WPF
             }
         }
 
+        private bool optionsOnMainPanel = true;
+        public bool OptionsOnMainPanel
+        {
+            get { return optionsOnMainPanel; }
+            set
+            {
+                if (optionsOnMainPanel == value)
+                    return;
+
+                optionsOnMainPanel = value;
+                base.OnPropertyChanged(() => OptionsOnMainPanel);
+            }
+        }
+
         public bool IsOperationInProgress
         {
             get { return CurrentGrepOperation != GrepOperation.None; }
         }
-        
+
         #endregion
 
         #region Presentation Properties
@@ -832,109 +948,63 @@ namespace dnGREP.WPF
             List<string> tempList = null;
             switch (name)
             {
-                case "Initial":
                 case "Multiline":
                 case "Singleline":
                 case "WholeWord":
                 case "CaseSensitive":
                 case "StopAfterFirstMatch":
-                    tempList = new List<string>();
-                    if (CaseSensitive)
-                        tempList.Add("Case sensitive");
-                    if (Multiline)
-                        tempList.Add("Multiline");
-                    if (WholeWord)
-                        tempList.Add("Whole word");
-                    if (Singleline)
-                        tempList.Add("Dot as new line");
-                    if (StopAfterFirstMatch)
-                        tempList.Add("Stop after first match");
-                    OptionsSummary = "[";
-                    if (tempList.Count == 0)
-                    {
-                        OptionsSummary += "None";
-                    }
-                    else
-                    {
-                        for (int i = 0; i < tempList.Count; i++)
-                        {
-                            OptionsSummary += tempList[i];
-                            if (i < tempList.Count - 1)
-                                OptionsSummary += ", ";
-                        }
-                    }
-                    OptionsSummary += "]";
-
                     if (Multiline)
                         TextBoxStyle = "{StaticResource ExpandedTextbox}";
                     else
                         TextBoxStyle = "";
 
                     CanReplace = false;
+                    break;
 
-                    break;
                 case "UseFileSizeFilter":
-                    if (UseFileSizeFilter == FileSizeFilter.Yes)
-                    {
-                        IsSizeFilterSet = true;
-                    }
-                    else
-                    {
-                        IsSizeFilterSet = false;
-                    }
+                        IsSizeFilterSet = UseFileSizeFilter == FileSizeFilter.Yes;
                     break;
-                case "FileFilters":
-                    // Set all properties to correspond to ON value
-                    if (FileFilters)
-                    {
-                        UseFileSizeFilter = FileSizeFilter.No;
-                        IncludeBinary = true;
-                        IncludeHidden = true;
-                        IncludeSubfolder = true;
-                        FilePattern = "*";
-                        FilePatternIgnore = "";
-                        TypeOfFileSearch = FileSearchType.Asterisk;
-                    }
+
+                case "UseFileDateFilter":
+                    IsDateFilterSet = UseFileDateFilter != FileDateFilter.None;
+                    IsDatesRangeSet = IsDateFilterSet && TypeOfTimeRangeFilter == FileTimeRange.Dates;
+                    IsHoursRangeSet = IsDateFilterSet && TypeOfTimeRangeFilter == FileTimeRange.Hours;
+                    if (!IsDateFilterSet)
+                        TypeOfTimeRangeFilter = FileTimeRange.None;
+                    else if (TypeOfTimeRangeFilter == FileTimeRange.None)
+                        TypeOfTimeRangeFilter = FileTimeRange.Dates;
+                    break;
+
+                case "TypeOfTimeRangeFilter":
+                    IsDatesRangeSet = IsDateFilterSet && TypeOfTimeRangeFilter == FileTimeRange.Dates;
+                    IsHoursRangeSet = IsDateFilterSet && TypeOfTimeRangeFilter == FileTimeRange.Hours;
                     break;
             }
 
-            if (name == "FileFilters" || name == "FilePattern" || name == "IncludeSubfolder" ||
-                name == "IncludeHidden" || name == "IncludeBinary" || name == "UseFileSizeFilter"
-                || name == "FilePatternIgnore")
+            if (name == "IncludeSubfolder" ||  name == "IncludeHidden" || name == "IncludeBinary" || 
+                name == "UseFileSizeFilter" || name == "UseFileDateFilter")
             {
-                if (FileFilters)
-                    FileFiltersSummary = "[All files]";
+                tempList = new List<string>();
+                if (!IncludeSubfolder)
+                    tempList.Add("No subfolders");
+                if (!IncludeHidden)
+                    tempList.Add("No hidden");
+                if (!IncludeBinary)
+                    tempList.Add("No binary");
+                if (UseFileSizeFilter == FileSizeFilter.Yes)
+                    tempList.Add("By Size");
+                if (UseFileDateFilter == FileDateFilter.Modified)
+                    tempList.Add("By Modified Date");
+                if (UseFileDateFilter == FileDateFilter.Created)
+                    tempList.Add("By Created Date");
+
+                if (tempList.Count == 0)
+                {
+                    FileFiltersSummary = "All files";
+                }
                 else
                 {
-                    tempList = new List<string>();
-                    if (FilePattern != "*")
-                        tempList.Add(FilePattern);
-                    if (!IncludeSubfolder)
-                        tempList.Add("No subfolders");
-                    if (!IncludeHidden)
-                        tempList.Add("No hidden");
-                    if (!IncludeBinary)
-                        tempList.Add("No binary");
-                    if (!string.IsNullOrEmpty(FilePatternIgnore))
-                        tempList.Add("Exclusions");
-                    if (UseFileSizeFilter == FileSizeFilter.Yes)
-                        tempList.Add("Size");
-                    FileFiltersSummary = "[";
-                    if (tempList.Count == 0)
-                    {
-                        FileFiltersSummary += "All files";
-                    }
-                    else
-                    {
-                        for (int i = 0; i < tempList.Count; i++)
-                        {
-                            FileFiltersSummary += tempList[i];
-                            if (i < tempList.Count - 1)
-                                FileFiltersSummary += ", ";
-                        }
-                    }
-
-                    FileFiltersSummary += "]";
+                    FileFiltersSummary = string.Join(", ", tempList.ToArray());
                 }
             }
 
@@ -1003,31 +1073,19 @@ namespace dnGREP.WPF
                 {
                     CanSearch = false;
                 }
-                // Refersh buttons
+                // Refresh buttons
                 CommandManager.InvalidateRequerySuggested();
             }
 
-            //Set all files if FileOrFolderPath is a file
-            if (name == "FileOrFolderPath")
-            {
-                if (System.IO.File.Exists(FileOrFolderPath))
-                    FileFilters = true;
-            }
-
-            //btnSearch.ShowAdvance
-            if (name == "CurrentGrepOperation" || name == "Initial")
+            if (name == "CurrentGrepOperation")
             {
                 if (searchResults.Count > 0)
                 {
-                    //TODO
                     CanSearchInResults = true;
-                    SearchButtonMode = "Split";
                 }
                 else
                 {
-                    //TODO
                     CanSearchInResults = false;
-                    SearchButtonMode = "Button";
                 }
             }
 
@@ -1108,6 +1166,19 @@ namespace dnGREP.WPF
                 else
                     IsBookmarked = false;
             }
+        }
+
+        protected void ResetOptions()
+        {
+            UseFileSizeFilter = FileSizeFilter.No;
+            IncludeBinary = true;
+            IncludeHidden = true;
+            IncludeSubfolder = true;
+            UseFileDateFilter = FileDateFilter.None;
+            TypeOfTimeRangeFilter = FileTimeRange.None;
+            FilePattern = "*";
+            FilePatternIgnore = "";
+            TypeOfFileSearch = FileSearchType.Asterisk;
         }
 
         virtual public void LoadSettings()
@@ -1197,11 +1268,15 @@ namespace dnGREP.WPF
             WholeWord = settings.Get<bool>(GrepSettings.Key.WholeWord);
             SizeFrom = settings.Get<int>(GrepSettings.Key.SizeFrom);
             SizeTo = settings.Get<int>(GrepSettings.Key.SizeTo);
-            TextFormatting = settings.Get<TextFormattingMode>(GrepSettings.Key.TextFormatting);
-            IsOptionsExpanded = settings.Get<bool>(GrepSettings.Key.IsOptionsExpanded);
             IsFiltersExpanded = settings.Get<bool>(GrepSettings.Key.IsFiltersExpanded);
-            FileFilters = settings.Get<bool>(GrepSettings.Key.FileFilters);
             PreviewFileContent = settings.Get<bool>(GrepSettings.Key.PreviewFileContent);
+            OptionsOnMainPanel = settings.Get<bool>(GrepSettings.Key.OptionsOnMainPanel);
+            UseFileDateFilter = settings.Get<FileDateFilter>(GrepSettings.Key.UseFileDateFilter);
+            TypeOfTimeRangeFilter = settings.Get<FileTimeRange>(GrepSettings.Key.TypeOfTimeRangeFilter);
+            StartDate = settings.GetNullableDateTime(GrepSettings.Key.StartDate);
+            EndDate = settings.GetNullableDateTime(GrepSettings.Key.EndDate);
+            HoursFrom = settings.Get<int>(GrepSettings.Key.HoursFrom);
+            HoursTo = settings.Get<int>(GrepSettings.Key.HoursTo);
         }
 
         public virtual void SaveSettings()
@@ -1225,13 +1300,16 @@ namespace dnGREP.WPF
             settings.Set<bool>(GrepSettings.Key.WholeWord, WholeWord);
             settings.Set<int>(GrepSettings.Key.SizeFrom, SizeFrom);
             settings.Set<int>(GrepSettings.Key.SizeTo, SizeTo);
-            settings.Set<TextFormattingMode>(GrepSettings.Key.TextFormatting, TextFormatting);
-            settings.Set<bool>(GrepSettings.Key.IsOptionsExpanded, IsOptionsExpanded);
             settings.Set<bool>(GrepSettings.Key.IsFiltersExpanded, IsFiltersExpanded);
-            settings.Set<bool>(GrepSettings.Key.FileFilters, FileFilters);
             settings.Set<bool>(GrepSettings.Key.PreviewFileContent, PreviewFileContent);
+            settings.Set<FileDateFilter>(GrepSettings.Key.UseFileDateFilter, UseFileDateFilter);
+            settings.Set<FileTimeRange>(GrepSettings.Key.TypeOfTimeRangeFilter, TypeOfTimeRangeFilter);
+            settings.SetNullableDateTime(GrepSettings.Key.StartDate, StartDate);
+            settings.SetNullableDateTime(GrepSettings.Key.EndDate, EndDate);
+            settings.Set<int>(GrepSettings.Key.HoursFrom, HoursFrom);
+            settings.Set<int>(GrepSettings.Key.HoursTo, HoursTo);
         }
-        
+
         #endregion
 
         #region Private Methods

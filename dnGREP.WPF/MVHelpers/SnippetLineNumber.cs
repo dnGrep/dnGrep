@@ -6,7 +6,6 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.TextFormatting;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Rendering;
@@ -109,7 +108,7 @@ namespace dnGREP.WPF
                 emSize.Value,
                 foreground,
                 null,
-                TextOptions.GetTextFormattingMode(element)
+                TextFormattingMode.Ideal
             );
         }
 

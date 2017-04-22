@@ -141,7 +141,7 @@ namespace dnGREP.Engines.Word
 				    // create text
 				    object text = getProperty(range, "Text");
 
-				    var lines = searchMethod(Utils.CleanLineBreaks(text.ToString()), searchPattern, searchOptions, true);
+				    var lines = searchMethod(-1, Utils.CleanLineBreaks(text.ToString()), searchPattern, searchOptions, true);
 				    if (lines.Count > 0)
 				    {
                         GrepSearchResult result = new GrepSearchResult(file, searchPattern, lines, Encoding.Default);
@@ -219,7 +219,7 @@ namespace dnGREP.Engines.Word
 				logger.Log<Exception>(LogLevel.Error, "Failed to load Word and create Document.", ex);
 			}
 
-			base.Initialize(new GrepEngineInitParams(showLinesInContext, linesBefore, linesAfter, fuzzyMatchThreshold));
+            base.Initialize(new GrepEngineInitParams(showLinesInContext, linesBefore, linesAfter, fuzzyMatchThreshold, verboseMatchCount));
 		}
 
 		/// <summary>

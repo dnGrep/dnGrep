@@ -1,28 +1,31 @@
-﻿<Window
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:my="clr-namespace:dnGREP.WPF"
-    xmlns:Controls="clr-namespace:dnGREP.WPF.UserControls"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d" x:Class="dnGREP.WPF.MainFormEx"
-    Title="{Binding WindowTitle}" MinHeight="460"     
-    WindowState="Normal" 
-    MinWidth="550" Icon="/dnGREP;component/nGREP.ico" Closing="MainForm_Closing"
-    Loaded="Window_Loaded"
-    SnapsToDevicePixels="True" ResizeMode="CanResizeWithGrip" AllowDrop="False"
-    my:DiginesisHelpProvider.HelpKeyword="Search-Window" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True" 
-    WindowStartupLocation="Manual" TextOptions.TextFormattingMode="{Binding TextFormatting}"
-    FocusManager.FocusedElement="{Binding ElementName=tbSearchFor}" Activated="Window_Activated" StateChanged="Window_StateChanged">
+﻿<Window x:Class="dnGREP.WPF.MainFormEx"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:my="clr-namespace:dnGREP.WPF"
+        xmlns:Controls="clr-namespace:dnGREP.WPF.UserControls"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        mc:Ignorable="d"
+        Title="{Binding WindowTitle}" MinWidth="500" MinHeight="460" WindowState="Normal" d:DesignWidth="900"
+        Icon="/dnGREP;component/nGREP.ico" 
+        Closing="MainForm_Closing" Loaded="Window_Loaded" Activated="Window_Activated" StateChanged="Window_StateChanged"
+        SnapsToDevicePixels="True" ResizeMode="CanResizeWithGrip" AllowDrop="False"
+        my:DiginesisHelpProvider.HelpKeyword="Search-Window" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True" 
+        WindowStartupLocation="Manual" FocusManager.FocusedElement="{Binding ElementName=tbSearchFor}">
     <Window.Resources>
         <my:InverseBooleanConverter x:Key="InverseBooleanConverter" />
         <my:TotalValueConverter x:Key="TotalValueConverter" />
         <my:EnumBooleanConverter x:Key="ebc" />
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <my:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed"/>
+        <my:BoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" TrueValue="Collapsed" FalseValue="Visible" />
     </Window.Resources>
     <Window.Background>
         <StaticResource ResourceKey="GradientBackground"/>
     </Window.Background>
     <Window.InputBindings>
         <KeyBinding Key="Escape" Command="{Binding CloseCommand}"/>
+        <KeyBinding Key="F" Modifiers="Alt" Command="{Binding ToggleFileOptionsCommand}" />
     </Window.InputBindings>
 
     <DockPanel ManipulationBoundaryFeedback="ManipulationBoundaryFeedbackHandler">
@@ -34,31 +37,209 @@
                         <Setter Property="Height" Value="{Binding ActualHeight, ElementName=mnuMainMenu}"/>
                     </Style>
                 </Menu.Resources>
-                <MenuItem x:Name="undoToolStripMenuItem" Header="_Undo" Command="{Binding UndoCommand}"/>
-                <MenuItem Header="_Options..." Command="{Binding OptionsCommand}"/>
-                <MenuItem Header="_Bookmarks..." Command="{Binding BookmarkOpenCommand}"/>
-                <MenuItem Header="_About" x:Name="helpToolStripMenuItem">
+                <MenuItem Header="_Undo" Command="{Binding UndoCommand}" TabIndex="0"/>
+                <MenuItem Header="_Options..." Command="{Binding OptionsCommand}"  TabIndex="1"/>
+                <MenuItem Header="_Bookmarks..." Command="{Binding BookmarkOpenCommand}" TabIndex="2"/>
+                <MenuItem Header="_About" TabIndex="3">
                     <MenuItem Command="{Binding HelpCommand}" Header="_Help"/>
-                    <MenuItem Command="{Binding AboutCommand}" Header="About..."/>
+                    <MenuItem Command="{Binding AboutCommand}" Header="_About dnGrep..."/>
                 </MenuItem>
             </Menu>
         </DockPanel>
-        <StatusBar x:Name="statusBar" ClipToBounds="False" DockPanel.Dock="Bottom">
-            <ProgressBar x:Name="barProgressBar" Height="18" IsIndeterminate="{Binding IsOperationInProgress}" Width="150" />
-            <TextBlock x:Name="lblStatus" Text="{Binding StatusMessage}" />
+        <StatusBar ClipToBounds="False" DockPanel.Dock="Bottom">
+            <ProgressBar Height="18" IsIndeterminate="{Binding IsOperationInProgress}" Width="150" />
+            <TextBlock Text="{Binding StatusMessage}" />
         </StatusBar>
         <DockPanel LastChildFill="True">
-            <GroupBox Header="Search in" DockPanel.Dock="Top">
+            <GroupBox DockPanel.Dock="Top" Header="Search in">
                 <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="48" />
                     </Grid.ColumnDefinitions>
-                    <Controls:FolderSelectDropdown Grid.Column="0" x:Name="tbFolderName"/>
-                    <Button Command="{Binding BrowseCommand}" Grid.Column="1" Width="42" HorizontalAlignment="Right" x:Name="btnBrowse" 
-                            ToolTip="Browse for folder or files" TabIndex="4" Content="..."/>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Margin="3" Text="Folder:" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                    <ComboBox x:Name="SearchText" Grid.Row="0" Grid.Column="1" Margin="3" TabIndex="10"
+                              Text="{Binding FileOrFolderPath}" ItemsSource="{Binding FastPathBookmarks}" IsEditable="True" />
+                    <Button Grid.Row="0" Grid.Column="2" Command="{Binding BrowseCommand}" Width="42" Margin="3" 
+                            ToolTip="Browse for folder or files" TabIndex="11" Content="..."/>
+
+                    <Expander Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" IsExpanded="{Binding IsFiltersExpanded}" TabIndex="14">
+                        <Expander.Header>
+                            <StackPanel Margin="0,6" Orientation="Horizontal">
+                                <TextBlock x:Name="fileOptions" TextWrapping="NoWrap" Text="File Options"/>
+                                <TextBlock Margin="12,0,0,0" Text="{Binding FileFiltersSummary}" Foreground="DimGray"
+                                           MaxWidth="{Binding Path=ActualWidth, ElementName=SearchText}" TextTrimming="CharacterEllipsis"/>
+                            </StackPanel>
+                        </Expander.Header>
+                        <GroupBox>
+                            <WrapPanel SizeChanged="WrapPanel_SizeChanged">
+                                <!-- left -->
+                                <StackPanel x:Name="LeftFileOptions">
+                                    <Button Content="Reset Options" Margin="3,3" Padding="10,4" HorizontalAlignment="Left" Command="{Binding ResetOptionsCommand}" TabIndex="20"/>
+                                    <RadioButton GroupName="SizeFilter" Margin="3" Name="rbFilterAllSizes" TabIndex="21" Content="All sizes"
+                                                 IsChecked="{Binding Path=UseFileSizeFilter, Converter={StaticResource ebc}, ConverterParameter=No}"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <RadioButton GroupName="SizeFilter" Margin="3" VerticalAlignment="Center" Name="rbFilterSpecificSize" TabIndex="22" Content="Size is"
+                                                     IsChecked="{Binding Path=UseFileSizeFilter, Converter={StaticResource ebc}, ConverterParameter=Yes}"/>
+                                        <TextBox Width="47" Margin="3" Name="tbFileSizeFrom" IsEnabled="{Binding Path=IsSizeFilterSet}" TabIndex="23"
+                                                 GotFocus="TextBoxFocus" PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting">
+                                            <TextBox.Text>
+                                                <Binding Path="SizeFrom" UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <ExceptionValidationRule />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <TextBlock Margin="3" VerticalAlignment="Center">to</TextBlock>
+                                        <TextBox Width="47" Margin="3" Name="tbFileSizeTo" IsEnabled="{Binding Path=IsSizeFilterSet}" TabIndex="24"
+                                                 GotFocus="TextBoxFocus" PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting">
+                                            <TextBox.Text>
+                                                <Binding Path="SizeTo" UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <ExceptionValidationRule />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <TextBlock Margin="3" VerticalAlignment="Center">KB</TextBlock>
+                                    </StackPanel>
+                                    <CheckBox Margin="2" IsChecked="{Binding Path=IncludeSubfolder}" Name="cbIncludeSubfolders" TabIndex="25" Content="Include subfolders"/>
+                                    <CheckBox Margin="2" IsChecked="{Binding Path=IncludeHidden}" Name="cbIncludeHiddenFolders" TabIndex="26" Content="Include hidden folders"/>
+                                    <CheckBox Margin="2" IsChecked="{Binding Path=IncludeBinary}" Name="cbIncludeBinary" TabIndex="27" Content="Include binary files"/>
+                                </StackPanel>
+
+                                <!-- middle -->
+                                <StackPanel x:Name="MiddleFileOptions" Orientation="Vertical" VerticalAlignment="Bottom" Margin="18,0,0,0">
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,3">
+                                        <RadioButton GroupName="DateFilter" Margin="3,0" Content="All dates" TabIndex="30"
+                                                     IsChecked="{Binding Path=UseFileDateFilter, Converter={StaticResource ebc}, ConverterParameter=None}"/>
+                                        <RadioButton GroupName="DateFilter" Margin="3,0" Content="Modified" TabIndex="31"
+                                                     IsChecked="{Binding Path=UseFileDateFilter, Converter={StaticResource ebc}, ConverterParameter=Modified}"/>
+                                        <RadioButton GroupName="DateFilter" Margin="3,0" Content="Created" TabIndex="32"
+                                                     IsChecked="{Binding Path=UseFileDateFilter, Converter={StaticResource ebc}, ConverterParameter=Created}"/>
+                                    </StackPanel>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <RadioButton GroupName="TimeRange" Grid.Row="0" Grid.Column="0" Margin="3,0" VerticalAlignment="Center" Content="From"
+                                                     IsChecked="{Binding Path=TypeOfTimeRangeFilter, Converter={StaticResource ebc}, ConverterParameter=Dates}"
+                                                     IsEnabled="{Binding Path=IsDateFilterSet}" TabIndex="33"/>
+                                        <DatePicker Grid.Row="0" Grid.Column="1" Margin="3,2" Width="110" TabIndex="34" ToolTip="from the start of the day"
+                                                    CalendarStyle="{StaticResource CalendarStyle}"
+                                                    DisplayDate="{x:Static sys:DateTime.Now}"
+                                                    DisplayDateStart="{Binding MinStartDate}"
+                                                    SelectedDate="{Binding StartDate}"
+                                                    IsEnabled="{Binding IsDatesRangeSet}"/>
+                                        <TextBlock Grid.Row="1" Grid.Column="0" Margin="3,0" HorizontalAlignment="Right" VerticalAlignment="Center" Text="To"/>
+                                        <DatePicker Grid.Row="1" Grid.Column="1" Margin="3,2" Width="110" TabIndex="35" ToolTip="through the end of the day"
+                                                    CalendarStyle="{StaticResource CalendarStyle}"
+                                                    DisplayDateStart="{Binding MinEndDate}"
+                                                    DisplayDate="{x:Static sys:DateTime.Now}"
+                                                    SelectedDate="{Binding EndDate}"
+                                                    IsEnabled="{Binding IsDatesRangeSet}"/>
+                                    </Grid>
+                                    <StackPanel Orientation="Horizontal">
+                                        <RadioButton GroupName="TimeRange" Margin="3" VerticalAlignment="Center" Content="Past"
+                                                     IsChecked="{Binding Path=TypeOfTimeRangeFilter, Converter={StaticResource ebc}, ConverterParameter=Hours}"
+                                                     IsEnabled="{Binding Path=IsDateFilterSet}" TabIndex="36"/>
+                                        <TextBox Width="47" Margin="3" IsEnabled="{Binding IsHoursRangeSet}" TabIndex="37"
+                                                 GotFocus="TextBoxFocus" PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting"
+                                                 Text="{Binding HoursFrom, UpdateSourceTrigger=PropertyChanged}"/>
+
+                                        <TextBlock Margin="3" VerticalAlignment="Center" Text="to"/>
+                                        <TextBox Width="47" Margin="3" IsEnabled="{Binding IsHoursRangeSet}" TabIndex="38"
+                                                 GotFocus="TextBoxFocus" PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting">
+                                            <TextBox.Text>
+                                                <Binding Path="HoursTo" UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <ExceptionValidationRule />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </TextBox>
+                                        <TextBlock Margin="3" VerticalAlignment="Center" Text="hours"/>
+                                    </StackPanel>
+                                </StackPanel>
+
+                                <Border x:Name="SpacerFileOptions"/>
+
+                                <!-- right -->
+                                <Grid x:Name="RightFileOptions" Margin="18,6,0,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="3,0">
+                                        <StackPanel Orientation="Horizontal">
+                                            <RadioButton GroupName="FileSearchType" Margin="3" Name="rbFileRegex" TabIndex="40" Content="Regex"
+                                                         IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}" 
+                                                         ToolTip="e.g. file[0-9]{1,2}\\.txt" />
+                                            <RadioButton GroupName="FileSearchType" Margin="3" Name="rbFileAsterisk" TabIndex="41" Content="Asterisk pattern"
+                                                         IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Asterisk}" 
+                                                         ToolTip="e.g. file??.*"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Top" Margin="3,8">
+                                        <TextBlock VerticalAlignment="Center" Margin="0,0,3,0" Text="Encoding:" />
+                                        <ComboBox Width="240" Name="cbEncoding" TabIndex="42" Margin="3,0"
+                                              DisplayMemberPath="Key" SelectedValuePath="Value" ItemsSource="{Binding Path=Encodings}"
+                                              VerticalAlignment="Top" SelectedValue="{Binding Path=CodePage}" Initialized="cbEncoding_Initialized" />
+                                    </StackPanel>
+                                    <UniformGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="8" HorizontalAlignment="Center" Visibility="{Binding OptionsOnMainPanel, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+                                        <CheckBox Grid.Row="0" Grid.Column="0" Margin="3" IsChecked="{Binding CaseSensitive}" IsEnabled="{Binding IsCaseSensitiveEnabled}" TabIndex="43" Content="C_ase sensitive"/>
+                                        <CheckBox Grid.Row="1" Grid.Column="0" Margin="3" IsChecked="{Binding WholeWord}" IsEnabled="{Binding IsWholeWordEnabled}" TabIndex="44" Content="_Whole word"/>
+                                        <CheckBox Grid.Row="0" Grid.Column="1" Margin="3" IsChecked="{Binding Multiline}" IsEnabled="{Binding IsMultilineEnabled}" TabIndex="45" Content="_Multiline"/>
+                                        <CheckBox Grid.Row="1" Grid.Column="1" Margin="3" IsChecked="{Binding Singleline}" IsEnabled="{Binding IsSinglelineEnabled}" TabIndex="46" Content="_Dot as newline"/>
+                                    </UniformGrid>
+                                </Grid>
+                            </WrapPanel>
+                        </GroupBox>
+                    </Expander>
+
+                    <!-- must be *after* the Expander so they are higher in the z-order -->
+                    <TextBlock Grid.Row="0" Grid.Column="3" Text="Paths that match:" Foreground="Black" Margin="3"
+                                   TextWrapping="NoWrap" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                    <ComboBox Grid.Row="0" Grid.Column="4" Name="tbFilePattern" TabIndex="12" Margin="3"
+                                  Text="{Binding Path=FilePattern, UpdateSourceTrigger=PropertyChanged}" 
+                                  ItemsSource="{Binding Path=FastFileMatchBookmarks}" 
+                                  GotFocus="TextBoxFocus" IsEditable="True"
+                                  my:DiginesisHelpProvider.HelpKeyword="SearchReplace" 
+                                  my:DiginesisHelpProvider.HelpNavigator="Topic" 
+                                  my:DiginesisHelpProvider.ShowHelp="True" />
+
+                    <TextBlock Grid.Row="1" Grid.Column="3"  Text="Paths to ignore:" Margin="3"
+                                   Style="{StaticResource GrayedOutFilePattern}" 
+                                   TextWrapping="NoWrap" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+                    <ComboBox Grid.Row="1" Grid.Column="4" Margin="3" Name="tbFilePatternIgnore" TabIndex="13"  VerticalAlignment="Top"
+                                  Text="{Binding Path=FilePatternIgnore, UpdateSourceTrigger=PropertyChanged}" 
+                                  ItemsSource="{Binding Path=FastFileNotMatchBookmarks}" 
+                                  GotFocus="TextBoxFocus" IsEditable="True" 
+                                  my:DiginesisHelpProvider.HelpKeyword="SearchReplace" 
+                                  my:DiginesisHelpProvider.HelpNavigator="Topic" 
+                                  my:DiginesisHelpProvider.ShowHelp="True"/>
                 </Grid>
             </GroupBox>
+
             <GroupBox Header="Search" DockPanel.Dock="Top">
                 <DockPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="Auto">
                     <Grid DockPanel.Dock="Top">
@@ -68,36 +249,35 @@
                             <ColumnDefinition Width="120"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Orientation="Horizontal" Grid.Column="0">
-                            <RadioButton GroupName="SearchRegex" x:Name="rbRegex" Margin="3" IsChecked="{Binding TypeOfSearch, ConverterParameter=Regex, Converter={StaticResource ebc}}" ToolTip="Regular expression search" TabIndex="11" Content="_Regex"/>
-                            <RadioButton GroupName="SearchXPath" x:Name="rbXPath" Margin="3" IsChecked="{Binding TypeOfSearch, ConverterParameter=XPath, Converter={StaticResource ebc}}" ToolTip="XPath search (XML documents only)" TabIndex="12" Content="_XPath"/>
-                            <RadioButton GroupName="SearchText" x:Name="rbText" Margin="3" IsChecked="{Binding TypeOfSearch, ConverterParameter=PlainText, Converter={StaticResource ebc}}" ToolTip="Plain text search" TabIndex="13" Content="_Text"/>
-                            <RadioButton GroupName="SearchSoundex" x:Name="rbSoundex" Margin="3" IsChecked="{Binding TypeOfSearch, ConverterParameter=Soundex, Converter={StaticResource ebc}}" ToolTip="Phonetic search" TabIndex="14" Content="_Phonetic"/>
+                            <RadioButton Content="_Regex" GroupName="SearchRegex" Margin="3"
+                                         IsChecked="{Binding TypeOfSearch, ConverterParameter=Regex, Converter={StaticResource ebc}}" 
+                                         ToolTip="Regular expression search" TabIndex="50"/>
+                            <RadioButton Content="_XPath" GroupName="SearchXPath" Margin="3"
+                                         IsChecked="{Binding TypeOfSearch, ConverterParameter=XPath, Converter={StaticResource ebc}}" 
+                                         ToolTip="XPath search (XML documents only)" TabIndex="51"/>
+                            <RadioButton Content="_Text" GroupName="SearchText"  Margin="3" 
+                                         IsChecked="{Binding TypeOfSearch, ConverterParameter=PlainText, Converter={StaticResource ebc}}" 
+                                         ToolTip="Plain text search" TabIndex="52"/>
+                            <RadioButton Content="_Phonetic" GroupName="SearchSoundex" Margin="3" 
+                                         IsChecked="{Binding TypeOfSearch, ConverterParameter=Soundex, Converter={StaticResource ebc}}" 
+                                         ToolTip="Phonetic search" TabIndex="53"/>
                         </StackPanel>
                         <Label Grid.Column="1" Content="{Binding ValidationMessage}"/>
-                        <StackPanel Margin="0 0 0 2" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <StackPanel Margin="0,0,0,2" Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
                             <CheckBox ToolTip="{Binding IsBookmarkedTooltip}" Margin="0 0 5 0" Width="20"
-								Style="{DynamicResource MetroButton}" Template="{DynamicResource FavsMetroButtonTemplate}" IsChecked="{Binding IsBookmarked}" 
-                                      Command="{Binding BookmarkAddCommand}"/>
-                            <Button x:Name="btnTest" Command="{Binding TestCommand}" TabIndex="15" Content="Test" Width="60"/>
+								      Style="{DynamicResource MetroButton}" Template="{DynamicResource FavsMetroButtonTemplate}" 
+                                      IsChecked="{Binding IsBookmarked}" Command="{Binding BookmarkAddCommand}" TabIndex="54"/>
+                            <Button Content="Test" Command="{Binding TestCommand}" Margin="3,0" Padding="20,4" TabIndex="55"/>
                         </StackPanel>
                     </Grid>
-                    <Expander DockPanel.Dock="Bottom" x:Name="expOptions" IsExpanded="{Binding IsOptionsExpanded}">
-                        <Expander.Header>
-                            <WrapPanel>
-                                <TextBlock><Run Text="Options"/></TextBlock>
-                                <TextBlock Margin="15,0,0,0" Text="{Binding OptionsSummary}"/>
-                            </WrapPanel>
-                        </Expander.Header>
-                        <StackPanel>
-                            <WrapPanel Orientation="Horizontal">
-                                <CheckBox Margin="3" x:Name="cbCaseSensitive" IsChecked="{Binding CaseSensitive}" IsEnabled="{Binding IsCaseSensitiveEnabled}" TabIndex="20" Content="C_ase sensitive"/>
-                                <CheckBox Margin="3" x:Name="cbMultiline" IsChecked="{Binding Multiline}" IsEnabled="{Binding IsMultilineEnabled}" TabIndex="21" Content="_Multiline"/>
-                                <CheckBox Margin="3" x:Name="cbWholeWord" IsChecked="{Binding WholeWord}" IsEnabled="{Binding IsWholeWordEnabled}" TabIndex="22" Content="_Whole word"/>
-                                <CheckBox Margin="3" x:Name="cbSingleline" IsChecked="{Binding Singleline}" IsEnabled="{Binding IsSinglelineEnabled}" TabIndex="23" Content="_Dot as newline"/>
-                                <CheckBox Margin="3" x:Name="cbStopAfterFirstMatch" IsChecked="{Binding StopAfterFirstMatch}" TabIndex="24" Content="Stop after _first match"/>
-                            </WrapPanel>
-                        </StackPanel>
-                    </Expander>
+                    <StackPanel DockPanel.Dock="Bottom" Margin="0,3" Visibility="{Binding OptionsOnMainPanel, Converter={StaticResource BoolToVisibilityConverter}}">
+                        <WrapPanel Orientation="Horizontal">
+                            <CheckBox Margin="3" IsChecked="{Binding CaseSensitive}" IsEnabled="{Binding IsCaseSensitiveEnabled}" TabIndex="70" Content="C_ase sensitive"/>
+                            <CheckBox Margin="3" IsChecked="{Binding WholeWord}" IsEnabled="{Binding IsWholeWordEnabled}" TabIndex="71" Content="_Whole word"/>
+                            <CheckBox Margin="3" IsChecked="{Binding Multiline}" IsEnabled="{Binding IsMultilineEnabled}" TabIndex="72" Content="_Multiline"/>
+                            <CheckBox Margin="3" IsChecked="{Binding Singleline}" IsEnabled="{Binding IsSinglelineEnabled}" TabIndex="73" Content="_Dot as newline"/>
+                        </WrapPanel>
+                    </StackPanel>
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
@@ -105,20 +285,20 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="70"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"><Run Text="Search for:"/></TextBlock>
-                        <ComboBox Grid.Row="0" Grid.Column="1" Text="{Binding SearchFor}" IsEditable="True" x:Name="tbSearchFor" ItemsSource="{Binding FastSearchBookmarks}" Style="{DynamicResource MultilineComboBoxStyle}"
-                                  IsTextSearchCaseSensitive="True" FontFamily="Consolas" FontSize="12" TabIndex="5" my:DiginesisHelpProvider.HelpKeyword="Regular-Expressions" my:DiginesisHelpProvider.HelpNavigator="Topic"
-                                        my:DiginesisHelpProvider.ShowHelp="True" Padding="5">
+                        <TextBlock Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="3,0" Text="Search for:"/>
+                        <ComboBox Grid.Row="0" Grid.Column="1" Margin="3,0" Text="{Binding SearchFor}" IsEditable="True" x:Name="tbSearchFor" ItemsSource="{Binding FastSearchBookmarks}" Style="{DynamicResource MultilineComboBoxStyle}"
+                                  IsTextSearchCaseSensitive="True" FontFamily="Consolas" FontSize="12" TabIndex="60" my:DiginesisHelpProvider.HelpKeyword="Regular-Expressions" my:DiginesisHelpProvider.HelpNavigator="Topic"
+                                  my:DiginesisHelpProvider.ShowHelp="True" Padding="5">
                             <ComboBox.ToolTip>
                                 <TextBlock><Run Text=". matches all characters"/><LineBreak/><Run Text="\w matches alpha-numerics"/><LineBreak/><Run Text="\d matches digits"/><LineBreak/><Run Text="\s matches space"/><LineBreak/><Run Text="* matches any number of characters"/><LineBreak/><Run Text="{}{1,3} matches 1 to 3 characters"/><LineBreak/><Run Text="For more Regex patterns hit F1"/></TextBlock>
                             </ComboBox.ToolTip>
                         </ComboBox>
-                        <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center"><Run Text="Replace for:"/></TextBlock>
-                        <ComboBox Grid.Row="2" Grid.Column="1" Text="{Binding ReplaceWith}" IsEditable="True" x:Name="tbReplaceWith" ItemsSource="{Binding FastReplaceBookmarks}" Style="{DynamicResource MultilineComboBoxStyle}"
-                                  IsTextSearchCaseSensitive="True" FontFamily="Consolas" FontSize="12" TabIndex="5" Padding="5">
+                        <TextBlock Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="3,0" Text="Replace with:"/>
+                        <ComboBox Grid.Row="2" Grid.Column="1" Margin="3,0" Text="{Binding ReplaceWith}" IsEditable="True" x:Name="tbReplaceWith" ItemsSource="{Binding FastReplaceBookmarks}" Style="{DynamicResource MultilineComboBoxStyle}"
+                                  IsTextSearchCaseSensitive="True" FontFamily="Consolas" FontSize="12" TabIndex="61" Padding="5">
                             <ComboBox.ToolTip>
                                 <TextBlock><Run Text="$&amp; replaces entire regex"/><LineBreak/><Run Text="$1, $2, $3, etc... inserts the text matched between capturing parentheses into the replacement text"/><LineBreak/><Run Text="$$ inserts a single dollar sign into the replacement text"/></TextBlock>
                             </ComboBox.ToolTip>
@@ -128,34 +308,34 @@
             </GroupBox>
             <Grid DockPanel.Dock="Top">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <StackPanel HorizontalAlignment="Right" Grid.Column="0" Orientation="Horizontal">
-                    <CheckBox IsChecked="{Binding SearchInResultsContent}" Visibility="{Binding CanSearchInResults, Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Center" Margin="0 0 5 0" Content="Search _in results"/>
-                    <CheckBox IsChecked="{Binding PreviewFileContent}" VerticalAlignment="Center" Margin="0 0 5 0" Content="Pre_view file"/>
-                    <Button x:Name="btnSearch" Content="_Search" Command="{Binding SearchCommand}" 
-						    Grid.Row="0" Grid.Column="0" Width="67" Margin="3" IsDefault="True" TabIndex="50">
-                    </Button>
-                    <Button Width="64" Margin="3" Content="Replace" x:Name="btnReplace" Command="{Binding ReplaceCommand}" TabIndex="51" />
-                    <Button Content=">>" x:Name="btnOtherActions" Width="30" Margin="3" Click="btnOtherActions_Click" 
-                            ContextMenuService.Placement="Bottom" IsEnabled="{Binding CanSearchInResults}">
+                <WrapPanel Grid.Column="0" HorizontalAlignment="Right" Orientation="Horizontal">
+                    <CheckBox Content="Search _in results" IsChecked="{Binding SearchInResultsContent}" 
+                              Visibility="{Binding CanSearchInResults, Converter={StaticResource BoolToVisibilityConverter}}" 
+                              VerticalAlignment="Center" Margin="3,0" TabIndex="80"/>
+                    <CheckBox Content="Pre_view file" IsChecked="{Binding PreviewFileContent}" VerticalAlignment="Center" Margin="3,0" TabIndex="81"/>
+                    <CheckBox Content="Stop after first match" IsChecked="{Binding StopAfterFirstMatch}" VerticalAlignment="Center" Margin="3,0" TabIndex="82"/>
+                    <Button Content="_Search" Width="67" Padding="0,4" Margin="3" IsDefault="True" Command="{Binding SearchCommand}" TabIndex="83"/>
+                    <Button Content="Replace" Width="64" Margin="3" Command="{Binding ReplaceCommand}" TabIndex="84"/>
+                    <Button Content=">>" Width="30" Margin="3" Click="btnOtherActions_Click" 
+                            ContextMenuService.Placement="Bottom" IsEnabled="{Binding CanSearchInResults}" TabIndex="85">
                         <Button.ContextMenu>
                             <ContextMenu x:Name="advanceContextMenu">
-                                <MenuItem x:Name="copyFilesToolStripMenuItem" Header="Copy files..." Command="{Binding CopyFilesCommand}"/>
-                                <MenuItem x:Name="moveFilesToolStripMenuItem" Header="Move files..." Command="{Binding MoveFilesCommand}"/>
-                                <MenuItem x:Name="deleteFilesToolStripMenuItem" Header="Delete files..." Command="{Binding DeleteFilesCommand}"/>
+                                <MenuItem Header="Copy files..." Command="{Binding CopyFilesCommand}"/>
+                                <MenuItem Header="Move files..." Command="{Binding MoveFilesCommand}"/>
+                                <MenuItem Header="Delete files..." Command="{Binding DeleteFilesCommand}"/>
                                 <Separator/>
-                                <MenuItem x:Name="copyToClipboardToolStripMenuItem" Header="File names to clipboard" Command="{Binding CopyToClipboardCommand}"/>
-                                <MenuItem x:Name="saveAsCSVToolStripMenuItem" Header="Save as CSV..." Command="{Binding SaveAsCsvCommand}"/>
-                                <MenuItem x:Name="copyAsCSVToolStripMenuItem" Header="CSV to clipboard" Command="{Binding CopyAsCsvCommand}"/>
+                                <MenuItem Header="File names to clipboard" Command="{Binding CopyToClipboardCommand}"/>
+                                <MenuItem Header="Save as CSV..." Command="{Binding SaveAsCsvCommand}"/>
+                                <MenuItem Header="CSV to clipboard" Command="{Binding CopyAsCsvCommand}"/>
                             </ContextMenu>
                         </Button.ContextMenu>
                     </Button>
-
-                    <Button Width="64" Margin="3" Content="_Cancel" x:Name="btnCancel" Command="{Binding CancelCommand}" TabIndex="53" />
-                </StackPanel>
+                    <Button Content="_Cancel" Width="64" Margin="3,3,8,3" Command="{Binding CancelCommand}" TabIndex="86"/>
+                </WrapPanel>
             </Grid>
-            <Controls:ResultsTree DataContext="{Binding SearchResults}"/>
+            <Controls:ResultsTree DataContext="{Binding SearchResults}"  TabIndex="90"/>
         </DockPanel>
     </DockPanel>
 </Window>

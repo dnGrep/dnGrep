@@ -143,7 +143,7 @@ namespace dnGREP.Engines
                     {
                         return searchResults;
                     }
-                    List<GrepSearchResult.GrepMatch> results = searchMethod(line, searchPattern, searchOptions, false);
+                    List<GrepSearchResult.GrepMatch> results = searchMethod(counter, line, searchPattern, searchOptions, false);
                     if (results.Count > 0)
                     {
                         foreach (GrepSearchResult.GrepMatch m in results)
@@ -169,7 +169,7 @@ namespace dnGREP.Engines
             using (StreamReader readStream = new StreamReader(input, encoding))
             {
                 string fileBody = readStream.ReadToEnd();
-                var lines = searchMethod(fileBody, searchPattern, searchOptions, true);
+                var lines = searchMethod(-1, fileBody, searchPattern, searchOptions, true);
                 //Utils.CleanResults(ref lines);
                 if (lines.Count > 0)
                 {
