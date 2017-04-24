@@ -25,15 +25,88 @@ namespace dnGREP.WPF
         public ObservableGrepSearchResults()
         {
             SelectedNodes = new ObservableCollection<IGrepResult>();
+            SelectedNodes.CollectionChanged += SelectedNodes_CollectionChanged;
             this.CollectionChanged += ObservableGrepSearchResults_CollectionChanged;
         }
 
+        private Dictionary<string, BitmapSource> icons = new Dictionary<string, BitmapSource>();
+
+        /// <summary>
+        /// Gets the collection of Selected tree nodes, in the order they were selected
+        /// </summary>
         public ObservableCollection<IGrepResult> SelectedNodes { get; private set; }
 
-        private Dictionary<string, BitmapSource> icons = new Dictionary<string, BitmapSource>();
+        /// <summary>
+        /// Gets a read-only collection of the selected items, in display order
+        /// </summary>
+        public ReadOnlyCollection<IGrepResult> SelectedItems
+        {
+            get
+            {
+                var list = SelectedNodes.ToList();
+                // sort the selected items in the order of the items appear in the tree!!!
+                if (list.Count > 1)
+                    list.Sort(new SelectionComparer(this));
+                return list.AsReadOnly();
+            }
+        }
+
+        private class SelectionComparer : IComparer<IGrepResult>
+        {
+            private ObservableGrepSearchResults orderBy;
+            public SelectionComparer(ObservableGrepSearchResults orderBy)
+            {
+                this.orderBy = orderBy;
+            }
+
+            public int Compare(IGrepResult x, IGrepResult y)
+            {
+                var fileX = x as FormattedGrepResult;
+                var lineX = x as FormattedGrepLine;
+                if (fileX == null && lineX != null)
+                    fileX = lineX.Parent;
+
+                var fileY = y as FormattedGrepResult;
+                var lineY = y as FormattedGrepLine;
+                if (fileY == null && lineY != null)
+                    fileY = lineY.Parent;
+
+
+                int posX = 0, posY = 0;
+                if (fileX != null && fileY != null)
+                {
+                    if (fileX == fileY && lineX != null && lineY != null)
+                    {
+                        posX = fileX.FormattedLines.IndexOf(lineX);
+                        posY = fileX.FormattedLines.IndexOf(lineY);
+                        return posX.CompareTo(posY);
+                    }
+
+                    posX = orderBy.IndexOf(fileX);
+                    posY = orderBy.IndexOf(fileY);
+                    return posX.CompareTo(posY);
+                }
+                return 0;
+            }
+        }
 
         void ObservableGrepSearchResults_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            List<IGrepResult> toRemove = new List<IGrepResult>();
+            foreach (var node in SelectedNodes)
+            {
+                FormattedGrepResult item = node as FormattedGrepResult;
+                FormattedGrepLine line = node as FormattedGrepLine;
+
+                if (item != null && !this.Contains(item))
+                    toRemove.Add(item);
+
+                if (line != null && !this.Contains(line.Parent))
+                    toRemove.Add(line);
+            }
+            foreach (var item in toRemove)
+                SelectedNodes.Remove(item);
+
             if (e.NewItems != null)
             {
                 foreach (FormattedGrepResult newEntry in e.NewItems.Cast<FormattedGrepResult>())
@@ -132,6 +205,49 @@ namespace dnGREP.WPF
                 resultsMenuScale = value;
 
                 base.OnPropertyChanged(new PropertyChangedEventArgs("ResultsMenuScale"));
+            }
+        }
+
+        public bool HasSelection
+        {
+            get { return SelectedNodes.Any(); }
+        }
+
+        public bool HasMultipleSelection
+        {
+            get { return SelectedNodes.Count() > 1; }
+        }
+
+        public bool HasGrepResultSelection
+        {
+            get { return SelectedNodes.Where(r => (r as FormattedGrepResult) != null).Any(); }
+        }
+
+        public bool HasGrepLineSelection
+        {
+            get { return SelectedNodes.Where(r => (r as FormattedGrepLine) != null).Any(); }
+        }
+
+        void SelectedNodes_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            base.OnPropertyChanged(new PropertyChangedEventArgs("HasSelection"));
+            base.OnPropertyChanged(new PropertyChangedEventArgs("HasMultipleSelection"));
+            base.OnPropertyChanged(new PropertyChangedEventArgs("HasGrepResultSelection"));
+            base.OnPropertyChanged(new PropertyChangedEventArgs("HasGrepLineSelection"));
+        }
+
+        private bool isResultsTreeFocused;
+        public bool IsResultsTreeFocused
+        {
+            get { return isResultsTreeFocused; }
+            set
+            {
+                if (value == isResultsTreeFocused)
+                    return;
+
+                isResultsTreeFocused = value;
+
+                base.OnPropertyChanged(new PropertyChangedEventArgs("IsResultsTreeFocused"));
             }
         }
 

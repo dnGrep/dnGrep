@@ -7,9 +7,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 
-// https://github.com/cmyksvoll/MultiSelectTreeView
+// modified from: https://github.com/cmyksvoll/MultiSelectTreeView
 
-namespace dnGREP.WPF
+namespace dnGREP.WPF.UserControls
 {
     public class MultiSelectTreeView : TreeView
     {
@@ -21,7 +21,6 @@ namespace dnGREP.WPF
         }
 
         private static TreeViewItem _selectTreeViewItemOnMouseUp;
-
 
         public static readonly DependencyProperty IsItemSelectedProperty = DependencyProperty.RegisterAttached("IsItemSelected", typeof(Boolean), typeof(MultiSelectTreeView), new PropertyMetadata(false, OnIsItemSelectedPropertyChanged));
 
@@ -103,6 +102,7 @@ namespace dnGREP.WPF
             _selectTreeViewItemOnMouseUp = null;
 
             if (e.OriginalSource is TreeView) return;
+            if (Mouse.RightButton == MouseButtonState.Pressed) return;
 
             var treeViewItem = FindTreeViewItem(e.OriginalSource as DependencyObject);
             if (Mouse.LeftButton == MouseButtonState.Pressed && GetIsItemSelected(treeViewItem) && Keyboard.Modifiers != ModifierKeys.Control)
@@ -171,10 +171,31 @@ namespace dnGREP.WPF
 
         private static void OnTreeViewItemPreviewMouseDown(object sender, MouseEventArgs e)
         {
+            var treeView = FindTreeView(e.OriginalSource as DependencyObject);
             var treeViewItem = FindTreeViewItem(e.OriginalSource as DependencyObject);
 
             if (treeViewItem != null && treeViewItem.IsFocused)
+            {
                 OnTreeViewItemGotFocus(sender, e);
+            }
+
+            // if the user clicks on the empty space below the tree items, deselect all items
+            if (treeViewItem == null && treeView != null)
+            {
+                // it is possible to click *between* tree view items, so hit test a point
+                // below the current point to see if there is a tree view item just below it
+                var pt = e.GetPosition(treeView);
+                pt.Offset(0, 10);
+                var hitTest = VisualTreeHelper.HitTest(treeView, pt);
+                if (hitTest != null && hitTest.VisualHit != null)
+                {
+                    treeViewItem = FindAncestor<TreeViewItem>(hitTest.VisualHit);
+                    if (treeViewItem == null)
+                    {
+                        DeSelectAllItems(treeView, null);
+                    }
+                }
+            }
         }
 
         private static void OnTreeViewItemPreviewMouseUp(object sender, MouseButtonEventArgs e)
@@ -255,6 +276,9 @@ namespace dnGREP.WPF
 
         private static TreeView FindTreeView(DependencyObject dependencyObject)
         {
+            if (!(dependencyObject is Visual || dependencyObject is Visual3D))
+                return null;
+
             if (dependencyObject == null)
             {
                 return null;
@@ -281,6 +305,16 @@ namespace dnGREP.WPF
                 {
                     SetStartItem(treeView, null);
                 }
+            }
+        }
+
+        internal static void SelectAll(TreeView treeView)
+        {
+            ICollection<TreeViewItem> allItems = new List<TreeViewItem>();
+            GetAllItems(treeView, null, allItems);
+            foreach (var item in allItems)
+            {
+                SetIsItemSelected(item, true);
             }
         }
 
@@ -354,6 +388,20 @@ namespace dnGREP.WPF
                     }
                 }
             }
+        }
+
+        private static T FindAncestor<T>(DependencyObject current) where T : DependencyObject
+        {
+            // Search the VisualTree for specified type
+            while (current != null)
+            {
+                if (current is T)
+                {
+                    return (T)current;
+                }
+                current = VisualTreeHelper.GetParent(current);
+            }
+            return null;
         }
     }
 }

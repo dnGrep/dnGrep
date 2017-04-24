@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -24,10 +25,10 @@ namespace dnGREP.WPF.UserControls
             InitializeComponent();
             this.DataContextChanged += ResultsTree_DataContextChanged;
 
-            tvSearchResult.PreviewMouseWheel += TvSearchResult_PreviewMouseWheel;
-            tvSearchResult.PreviewTouchDown += TvSearchResult_PreviewTouchDown;
-            tvSearchResult.PreviewTouchMove += TvSearchResult_PreviewTouchMove;
-            tvSearchResult.PreviewTouchUp += TvSearchResult_PreviewTouchUp;
+            treeView.PreviewMouseWheel += treeView_PreviewMouseWheel;
+            treeView.PreviewTouchDown += treeView_PreviewTouchDown;
+            treeView.PreviewTouchMove += treeView_PreviewTouchMove;
+            treeView.PreviewTouchUp += treeView_PreviewTouchUp;
         }
 
         void ResultsTree_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -35,7 +36,7 @@ namespace dnGREP.WPF.UserControls
             inputData = ((ObservableGrepSearchResults)(this.DataContext));
         }
 
-        private void tvSearchResult_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
+        private void treeView_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
         {
             // keep tree view from scrolling horizontally when an item is selected
             e.Handled = true;
@@ -43,73 +44,76 @@ namespace dnGREP.WPF.UserControls
 
         #region Tree right click events
 
-        private void tvContexMenuOpening(object sender, RoutedEventArgs e)
-        {
-            if (tvSearchResult.SelectedItem is FormattedGrepLine)
-            {
-                btnCopyTreeItemClipboard.Header = "Line of text to clipboard";
-                btnCopyFileNameClipboard.Visibility = Visibility.Collapsed;
-            }
-            else if (tvSearchResult.SelectedItem is FormattedGrepResult)
-            {
-                btnCopyTreeItemClipboard.Header = "Full file path to clipboard";
-                btnCopyFileNameClipboard.Visibility = Visibility.Visible;
-            }
-        }
-
         private void btnOpenFile_Click(object sender, RoutedEventArgs e)
         {
-            if (tvSearchResult.SelectedItem is FormattedGrepLine)
-                inputData.OpenFile(tvSearchResult.SelectedItem as FormattedGrepLine, false);
-            else if (tvSearchResult.SelectedItem is FormattedGrepResult)
-                inputData.OpenFile(tvSearchResult.SelectedItem as FormattedGrepResult, false);
+            OpenFiles(false);
         }
 
         private void btnOpenFileCustomEditor_Click(object sender, RoutedEventArgs e)
         {
-            if (tvSearchResult.SelectedItem is FormattedGrepLine)
-                inputData.OpenFile(tvSearchResult.SelectedItem as FormattedGrepLine, true);
-            else if (tvSearchResult.SelectedItem is FormattedGrepResult)
-                inputData.OpenFile(tvSearchResult.SelectedItem as FormattedGrepResult, true);
+            OpenFiles(true);
         }
 
         private void btnOpenContainingFolder_Click(object sender, RoutedEventArgs e)
         {
-            if (tvSearchResult.SelectedItem is FormattedGrepLine)
+            OpenFolders();
+        }
+
+        private void treeKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.C && Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
             {
-                FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
-                //ShellIntegration.OpenFolder(selectedNode.Parent.GrepResult.FileNameReal);
-                Utils.OpenContainingFolder(selectedNode.Parent.GrepResult.FileNameReal, selectedNode.GrepLine.LineNumber);
+                if (inputData.HasGrepLineSelection)
+                {
+                    CopyGrepLines();
+                    e.Handled = true;
+                }
+                else if (inputData.HasGrepResultSelection)
+                {
+                    CopyFileNames(true);
+                    e.Handled = true;
+                }
             }
-            else if (tvSearchResult.SelectedItem is FormattedGrepResult)
+            else if (e.Key == Key.A && Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
             {
-                FormattedGrepResult selectedNode = (FormattedGrepResult)tvSearchResult.SelectedItem;
-                //ShellIntegration.OpenFolder(selectedNode.GrepResult.FileNameReal);
-                Utils.OpenContainingFolder(selectedNode.GrepResult.FileNameReal, -1);
+                MultiSelectTreeView.SelectAll(treeView);
+                e.Handled = true;
             }
+            else if (e.Key == Key.Delete)
+            {
+                ExcludeLines();
+                e.Handled = true;
+            }
+        }
+
+        private void btnCopyFileNames_Click(object sender, RoutedEventArgs e)
+        {
+            CopyFileNames(false);
+        }
+
+        private void btnCopyFullFilePath_Click(object sender, RoutedEventArgs e)
+        {
+            CopyFileNames(true);
+        }
+
+        private void btnCopyGrepLine_Click(object sender, RoutedEventArgs e)
+        {
+            CopyGrepLines();
         }
 
         private void btnShowFileProperties_Click(object sender, RoutedEventArgs e)
         {
-            string fileName = "";
-            if (tvSearchResult.SelectedItem is FormattedGrepLine)
-            {
-                FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
-                fileName = selectedNode.Parent.GrepResult.FileNameReal;
-            }
-            else if (tvSearchResult.SelectedItem is FormattedGrepResult)
-            {
-                FormattedGrepResult selectedNode = (FormattedGrepResult)tvSearchResult.SelectedItem;
-                fileName = selectedNode.GrepResult.FileNameReal;
-            }
+            ShowFileProperties();
+        }
 
-            if (fileName != "" && File.Exists(fileName))
-                ShellIntegration.ShowFileProperties(fileName);
+        private void btnExclude_Click(object sender, RoutedEventArgs e)
+        {
+            ExcludeLines();
         }
 
         private void btnExpandAll_Click(object sender, RoutedEventArgs e)
         {
-            foreach (FormattedGrepResult result in tvSearchResult.Items)
+            foreach (FormattedGrepResult result in treeView.Items)
             {
                 result.IsExpanded = true;
             }
@@ -117,68 +121,214 @@ namespace dnGREP.WPF.UserControls
 
         private void btnCollapseAll_Click(object sender, RoutedEventArgs e)
         {
-            foreach (FormattedGrepResult result in tvSearchResult.Items)
+            foreach (FormattedGrepResult result in treeView.Items)
             {
                 result.IsExpanded = false;
             }
         }
 
-        private void btnExclude_Click(object sender, RoutedEventArgs e)
+        private void OpenFiles(bool useCustomEditor)
         {
-            if (tvSearchResult.SelectedItem is FormattedGrepLine)
+            // get the unique set of file names to open from the selections
+            // keep the first record from each file to use when opening the file
+            // prefer to open by line, if any line is selected; otherwise by file
+
+            List<string> fileNames = new List<string>();
+            List<FormattedGrepLine> lines = new List<FormattedGrepLine>();
+            List<FormattedGrepResult> files = new List<FormattedGrepResult>();
+            foreach (var item in inputData.SelectedItems)
             {
-                FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
-                inputData.Remove(selectedNode.Parent);
+                var lineNode = item as FormattedGrepLine;
+                if (lineNode != null)
+                {
+                    string name = lineNode.Parent.GrepResult.FileNameReal;
+                    if (!fileNames.Contains(name))
+                    {
+                        fileNames.Add(name);
+                        lines.Add(lineNode);
+                    }
+                }
             }
-            else if (tvSearchResult.SelectedItem is FormattedGrepResult)
+
+            foreach (var item in inputData.SelectedItems)
             {
-                FormattedGrepResult selectedNode = (FormattedGrepResult)tvSearchResult.SelectedItem;
-                inputData.Remove(selectedNode);
+                var fileNode = item as FormattedGrepResult;
+                if (fileNode != null)
+                {
+                    string name = fileNode.GrepResult.FileNameReal;
+                    if (!fileNames.Contains(name))
+                    {
+                        fileNames.Add(name);
+                        files.Add(fileNode);
+                    }
+                }
             }
+
+            foreach (var item in lines)
+                inputData.OpenFile(item, useCustomEditor);
+
+            foreach (var item in files)
+                inputData.OpenFile(item, useCustomEditor);
         }
 
-        private void copyToClipboard()
+        private void OpenFolders()
         {
-            if (tvSearchResult.SelectedItem is FormattedGrepLine)
+            // get the unique set of folders from the selections
+            // keep the first file from each folder to open the folder
+
+            List<string> folders = new List<string>();
+            List<string> files = new List<string>();
+            foreach (var item in inputData.SelectedItems)
             {
-                FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
-                Clipboard.SetText(selectedNode.GrepLine.LineText);
+                var fileNode = item as FormattedGrepResult;
+                if (fileNode != null)
+                {
+                    string name = fileNode.GrepResult.FileNameReal;
+                    string path = Path.GetDirectoryName(name);
+                    if (!folders.Contains(path))
+                    {
+                        folders.Add(path);
+                        files.Add(name);
+                    }
+                }
+                var lineNode = item as FormattedGrepLine;
+                if (lineNode != null)
+                {
+                    string name = lineNode.Parent.GrepResult.FileNameReal;
+                    string path = Path.GetDirectoryName(name);
+                    if (!folders.Contains(path))
+                    {
+                        folders.Add(path);
+                        files.Add(name);
+                    }
+                }
             }
-            else if (tvSearchResult.SelectedItem is FormattedGrepResult)
-            {
-                FormattedGrepResult result = (FormattedGrepResult)tvSearchResult.SelectedItem;
-                Clipboard.SetText(result.GrepResult.FileNameDisplayed);
-            }
+
+            foreach (var fileName in files)
+                Utils.OpenContainingFolder(fileName);
         }
 
-        private void treeKeyDown(object sender, KeyEventArgs e)
+        private void ShowFileProperties()
         {
-            if (e.Key == Key.C && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+            // get the unique set of files from the selections
+            List<string> files = new List<string>();
+            foreach (var item in inputData.SelectedItems)
             {
-                copyToClipboard();
+                var fileNode = item as FormattedGrepResult;
+                if (fileNode != null)
+                {
+                    string name = fileNode.GrepResult.FileNameReal;
+                    if (!files.Contains(name) && File.Exists(name))
+                    {
+                        files.Add(name);
+                    }
+                }
+                var lineNode = item as FormattedGrepLine;
+                if (lineNode != null)
+                {
+                    string name = lineNode.Parent.GrepResult.FileNameReal;
+                    if (!files.Contains(name) && File.Exists(name))
+                    {
+                        files.Add(name);
+                    }
+                }
             }
+
+            foreach (var fileName in files)
+                ShellIntegration.ShowFileProperties(fileName);
         }
 
-        private void btnCopyTreeItemToClipboard_Click(object sender, RoutedEventArgs e)
+        private IList<string> GetSelectedFileNames(bool showFullName)
         {
-            copyToClipboard();
+            List<string> list = new List<string>();
+            foreach (var item in inputData.SelectedItems)
+            {
+                var fileNode = item as FormattedGrepResult;
+                if (fileNode != null)
+                {
+                    string name = fileNode.GrepResult.FileNameDisplayed;
+                    if (!showFullName)
+                        name = Path.GetFileName(name);
+
+                    if (!list.Contains(name))
+                        list.Add(name);
+                }
+                var lineNode = item as FormattedGrepLine;
+                if (lineNode != null)
+                {
+                    string name = lineNode.Parent.GrepResult.FileNameDisplayed;
+                    if (!showFullName)
+                        name = Path.GetFileName(name);
+
+                    if (!list.Contains(name))
+                        list.Add(name);
+                }
+            }
+            return list;
         }
 
-        private void btnCopyNameToClipboard_Click(object sender, RoutedEventArgs e)
+        private void CopyFileNames(bool showFullName)
         {
-            if (tvSearchResult.SelectedItem is FormattedGrepLine)
-            {
-                FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
-                Clipboard.SetText(System.IO.Path.GetFileName(selectedNode.Parent.GrepResult.FileNameDisplayed));
-            }
-            else if (tvSearchResult.SelectedItem is FormattedGrepResult)
-            {
-                FormattedGrepResult result = (FormattedGrepResult)tvSearchResult.SelectedItem;
-                Clipboard.SetText(System.IO.Path.GetFileName(result.GrepResult.FileNameDisplayed));
-            }
+            var list = GetSelectedFileNames(showFullName);
+            if (list.Count > 0)
+                Clipboard.SetText(string.Join(Environment.NewLine, list.ToArray()));
         }
 
-        private void tvSearchResult_MouseDown(object sender, MouseButtonEventArgs e)
+        private string GetSelectedGrepLineText()
+        {
+            if (inputData.HasGrepLineSelection)
+            {
+                StringBuilder sb = new StringBuilder();
+                foreach (var item in inputData.SelectedItems)
+                {
+                    var node = item as FormattedGrepLine;
+                    if (node != null)
+                    {
+                        sb.AppendLine(node.GrepLine.LineText);
+                    }
+                }
+
+                return sb.ToString().TrimEndOfLine();
+            }
+            return string.Empty;
+        }
+
+        private void CopyGrepLines()
+        {
+            var lines = GetSelectedGrepLineText();
+            if (!string.IsNullOrWhiteSpace(lines))
+                Clipboard.SetText(lines);
+        }
+
+        private void ExcludeLines()
+        {
+            List<FormattedGrepResult> files = new List<FormattedGrepResult>();
+            foreach (var item in inputData.SelectedItems)
+            {
+                var lineNode = item as FormattedGrepLine;
+                if (lineNode != null)
+                {
+                    var grepResult = lineNode.Parent;
+                    if (!files.Contains(grepResult))
+                    {
+                        files.Add(grepResult);
+                    }
+                }
+                var fileNode = item as FormattedGrepResult;
+                if (fileNode != null)
+                {
+                    if (!files.Contains(fileNode))
+                    {
+                        files.Add(fileNode);
+                    }
+                }
+            }
+
+            foreach (var item in files)
+                inputData.Remove(item);
+        }
+
+        private void treeView_MouseDown(object sender, MouseButtonEventArgs e)
         {
             TreeViewItem item = sender as TreeViewItem;
             if (item != null)
@@ -188,12 +338,11 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
-        private void tvSearchResult_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void treeView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (tvSearchResult.SelectedItem is FormattedGrepLine &&
-                e.OriginalSource is TextBlock || e.OriginalSource is Run)
+            if (treeView.SelectedItem is FormattedGrepLine && (e.OriginalSource is TextBlock || e.OriginalSource is Run))
             {
-                inputData.OpenFile(tvSearchResult.SelectedItem as FormattedGrepLine, GrepSettings.Instance.IsSet(GrepSettings.Key.CustomEditor));
+                inputData.OpenFile(treeView.SelectedItem as FormattedGrepLine, GrepSettings.Instance.IsSet(GrepSettings.Key.CustomEditor));
             }
         }
 
@@ -203,7 +352,7 @@ namespace dnGREP.WPF.UserControls
 
             var rect = new System.Drawing.RectangleF { Height = (float)parentWindow.ActualHeight, Width = (float)parentWindow.ActualWidth, X = (float)parentWindow.Left, Y = (float)parentWindow.Top };
 
-            var items = tvSearchResult.GetValue(MultiSelectTreeView.SelectedItemsProperty) as IList;
+            var items = treeView.GetValue(MultiSelectTreeView.SelectedItemsProperty) as IList;
             if (items != null && items.Count > 0)
             {
                 if (items[0] is FormattedGrepLine)
@@ -219,7 +368,7 @@ namespace dnGREP.WPF.UserControls
 
         private Dictionary<int, Point> touchIds = new Dictionary<int, Point>();
 
-        private void TvSearchResult_PreviewTouchDown(object sender, TouchEventArgs e)
+        private void treeView_PreviewTouchDown(object sender, TouchEventArgs e)
         {
             IInputElement ctrl = sender as IInputElement;
             if (ctrl != null && !touchIds.ContainsKey(e.TouchDevice.Id))
@@ -229,13 +378,13 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
-        private void TvSearchResult_PreviewTouchUp(object sender, TouchEventArgs e)
+        private void treeView_PreviewTouchUp(object sender, TouchEventArgs e)
         {
             if (touchIds.ContainsKey(e.TouchDevice.Id))
                 touchIds.Remove(e.TouchDevice.Id);
         }
 
-        private void TvSearchResult_PreviewTouchMove(object sender, TouchEventArgs e)
+        private void treeView_PreviewTouchMove(object sender, TouchEventArgs e)
         {
             IInputElement ctrl = sender as IInputElement;
 
@@ -306,7 +455,7 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
-        private void TvSearchResult_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        private void treeView_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             bool handle = (Keyboard.Modifiers & ModifierKeys.Control) > 0 &&
                 inputData != null && inputData.Count > 0;
@@ -353,7 +502,7 @@ namespace dnGREP.WPF.UserControls
         private static bool _isMouseDown = false;
         private static System.Windows.Point _dragStartPoint;
 
-        private void tvSearchResult_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void treeView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             // Make this the new drag source
             _draggedElt = e.Source as UIElement;
@@ -361,7 +510,7 @@ namespace dnGREP.WPF.UserControls
             _isMouseDown = true;
         }
 
-        private void tvSearchResult_PreviewMouseMove(object sender, MouseEventArgs e)
+        private void treeView_PreviewMouseMove(object sender, MouseEventArgs e)
         {
             if (_isMouseDown && isDragGesture(e.GetPosition(getTopContainer())))
             {
@@ -376,19 +525,19 @@ namespace dnGREP.WPF.UserControls
 
             DataObject data = new DataObject();
 
-            if (tvSearchResult.SelectedItem is FormattedGrepLine)
+            // if there are lines selected, choose text drag and drop operation
+            var lines = GetSelectedGrepLineText();
+            if (!string.IsNullOrWhiteSpace(lines))
             {
-                FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
-                data.SetData(DataFormats.Text, selectedNode.GrepLine.LineText);
+                data.SetData(DataFormats.Text, lines);
             }
-            else if (tvSearchResult.SelectedItem is FormattedGrepResult)
+            else if (inputData.HasGrepResultSelection)
             {
-                FormattedGrepResult result = (FormattedGrepResult)tvSearchResult.SelectedItem;
+                var list = GetSelectedFileNames(true);
                 StringCollection files = new StringCollection();
-                files.Add(result.GrepResult.FileNameReal);
+                files.AddRange(list.ToArray());
                 data.SetFileDropList(files);
             }
-
 
             DragDropEffects supportedEffects = DragDropEffects.Move | DragDropEffects.Copy;
             // Perform DragDrop
