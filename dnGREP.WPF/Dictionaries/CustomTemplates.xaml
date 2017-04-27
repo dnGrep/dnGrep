@@ -239,8 +239,12 @@
         </DockPanel>
     	<ControlTemplate.Triggers>
     		<Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#88F9E61E"/>
-    		</Trigger>
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect Color="LightGray" ShadowDepth="0" Opacity="1" BlurRadius="14"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
     		<Trigger Property="IsChecked" Value="True">
                 <Setter Property="Background" Value="#FFF9E61E"/>
     		</Trigger>
