@@ -7,11 +7,14 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using dnGREP.Common;
 using dnGREP.Common.UI;
 using dnGREP.Engines;
+using dnGREP.WPF.MVHelpers;
+using Microsoft.Win32;
 using NLog;
 
 namespace dnGREP.WPF
@@ -28,7 +31,7 @@ namespace dnGREP.WPF
 
             this.RequestClose += MainViewModel_RequestClose;
             CheckVersion();
-            winFormControlsInit();
+            ControlsInit();
             populateEncodings();
         }
 
@@ -58,7 +61,6 @@ namespace dnGREP.WPF
         private FileFolderDialogWin32 fileFolderDialog = new FileFolderDialogWin32();
         private BackgroundWorker workerSearchReplace = new BackgroundWorker();
         private BookmarksForm bookmarkForm;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog = new System.Windows.Forms.SaveFileDialog();
         private PreviewView preview;
         private PreviewViewModel previewModel;
 
@@ -262,38 +264,38 @@ namespace dnGREP.WPF
                 return _copyToClipboardCommand;
             }
         }
-        RelayCommand _saveAsCsvCommand;
+        RelayCommand _saveResultsCommand;
         /// <summary>
         /// Returns a command that copies content to clipboard
         /// </summary>
-        public ICommand SaveAsCsvCommand
+        public ICommand SaveResultsCommand
         {
             get
             {
-                if (_saveAsCsvCommand == null)
+                if (_saveResultsCommand == null)
                 {
-                    _saveAsCsvCommand = new RelayCommand(
-                        param => this.saveAsCsv()
+                    _saveResultsCommand = new RelayCommand(
+                        param => SaveResultsToFile()
                         );
                 }
-                return _saveAsCsvCommand;
+                return _saveResultsCommand;
             }
         }
-        RelayCommand _copyAsCsvCommand;
+        RelayCommand _copyMatchingLinesCommand;
         /// <summary>
-        /// Returns a command that copies content to clipboard
+        /// Returns a command that copies matching lines to clipboard
         /// </summary>
-        public ICommand CopyAsCsvCommand
+        public ICommand CopyMatchingLinesCommand
         {
             get
             {
-                if (_copyAsCsvCommand == null)
+                if (_copyMatchingLinesCommand == null)
                 {
-                    _copyAsCsvCommand = new RelayCommand(
-                        param => this.copyAsCsvToClipboard()
+                    _copyMatchingLinesCommand = new RelayCommand(
+                        param => CopyResults()
                         );
                 }
-                return _copyAsCsvCommand;
+                return _copyMatchingLinesCommand;
             }
         }
         RelayCommand _cancelCommand;
@@ -402,7 +404,6 @@ namespace dnGREP.WPF
             }
         }
 
-
         #endregion
 
         #region Public Methods
@@ -416,15 +417,17 @@ namespace dnGREP.WPF
                 {
                     if (PreviewFileContent)
                     {
-                        if (FormattedGrepResult.SelectedFile != null)
+                        if (SearchResults.SelectedNodes.Count > 0)
                         {
-                            if (FormattedGrepResult.SelectedFile.IsSelected)
+                            var item = SearchResults.SelectedNodes[0];
+
+                            if (item is FormattedGrepLine)
                             {
-                                PreviewFile(FormattedGrepResult.SelectedFile, this.ParentWindow.GetBoundsF());
+                                PreviewFile(item as FormattedGrepLine, this.ParentWindow.GetBoundsF());
                             }
-                            else if (FormattedGrepLine.SelectedLine != null)
+                            else if (item is FormattedGrepResult)
                             {
-                                PreviewFile(FormattedGrepLine.SelectedLine, this.ParentWindow.GetBoundsF());
+                                PreviewFile(item as FormattedGrepResult, this.ParentWindow.GetBoundsF());
                             }
                         }
                     }
@@ -568,7 +571,7 @@ namespace dnGREP.WPF
                 workerSearchReplace.CancelAsync();
         }
 
-        private void doSearchReplace(object sender, DoWorkEventArgs e)
+        private void DoSearchReplace(object sender, DoWorkEventArgs e)
         {
             try
             {
@@ -724,7 +727,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private void searchProgressChanged(object sender, ProgressChangedEventArgs e)
+        private void SearchProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             try
             {
@@ -752,7 +755,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private void searchComplete(object sender, RunWorkerCompletedEventArgs e)
+        private void SearchComplete(object sender, RunWorkerCompletedEventArgs e)
         {
             try
             {
@@ -875,6 +878,9 @@ namespace dnGREP.WPF
                 workerParames["State"] = this;
                 workerSearchReplace.RunWorkerAsync(workerParames);
                 updateBookmarks();
+                // toggle value to move focus to the results tree, and enable keyboard actions on the tree
+                SearchResults.IsResultsTreeFocused = false;
+                SearchResults.IsResultsTreeFocused = true;
             }
         }
 
@@ -1199,30 +1205,111 @@ namespace dnGREP.WPF
             Clipboard.SetText(sb.ToString());
         }
 
-        private void copyAsCsvToClipboard()
+        private void CopyResults()
         {
-            Clipboard.SetText(Utils.GetResultsAsCSV(SearchResults.GetList()));
+            // can be a long [process if the results are not yet cached
+            UIServices.SetBusyState();
+            Clipboard.SetText(Utils.GetResultLines(SearchResults.GetList()));
         }
 
-        private void saveAsCsv()
+        private async void SaveResultsToFile()
         {
             if (FilesFound)
             {
-                saveFileDialog.InitialDirectory = Utils.GetBaseFolder(FileOrFolderPath);
-                if (saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                SaveFileDialog dlg = new SaveFileDialog();
+
+                dlg.Filter = "Report file format|*.txt|Results file format|*.txt|CSV file format|*.csv";
+                dlg.DefaultExt = "*.txt";
+                dlg.InitialDirectory = Utils.GetBaseFolder(FileOrFolderPath);
+
+                var result = dlg.ShowDialog();
+                if (result.HasValue && result.Value)
                 {
                     try
                     {
-                        Utils.SaveResultsAsCSV(SearchResults.GetList(), saveFileDialog.FileName);
-                        MessageBox.Show("CSV file has been successfully created.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        IsSaveInProgress = true;
+                        await Task.Run(() =>
+                        {
+                            switch (dlg.FilterIndex)
+                            {
+                                case 1:
+                                    Utils.SaveResultsReport(SearchResults.GetList(), GetSearchOptions(), dlg.FileName);
+                                    break;
+                                case 2:
+                                    Utils.SaveResultsAsText(SearchResults.GetList(), dlg.FileName);
+                                    break;
+                                case 3:
+                                    Utils.SaveResultsAsCSV(SearchResults.GetList(), dlg.FileName);
+                                    break;
+                            }
+                        });
+
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("There was an error creating a CSV file. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
-                        logger.Log<Exception>(LogLevel.Error, "Error creating CSV file", ex);
+                        MessageBox.Show("There was an error creating the file. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+                        logger.Log<Exception>(LogLevel.Error, "Error creating results file", ex);
+                    }
+                    finally
+                    {
+                        IsSaveInProgress = false;
                     }
                 }
             }
+        }
+
+        private string GetSearchOptions()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            List<string> options = new List<string>();
+
+            sb.Append("Search for: '").Append(SearchFor).AppendLine("'")
+              .Append("Using ").Append(TypeOfSearch.ToString().ToLower()).AppendLine(" search");
+
+            if (CaseSensitive) options.Add("Case sensitive");
+            if (WholeWord) options.Add("Whole word");
+            if (Multiline) options.Add("Multiline");
+            if (Singleline) options.Add("Dot as newline");
+            if (SearchInResultsContent) options.Add("Search in results");
+            if (StopAfterFirstMatch) options.Add("Stop after first match");
+            if (options.Count > 0)
+                sb.AppendLine(string.Join(", ", options.ToArray()));
+            sb.AppendLine();
+
+            sb.Append("Search in: ").AppendLine(FileOrFolderPath)
+              .Append("Paths that match: ").AppendLine(FilePattern);
+            if (!string.IsNullOrWhiteSpace(FilePatternIgnore))
+                sb.Append("Paths to ignore: ").AppendLine(FilePatternIgnore);
+            if (TypeOfFileSearch == FileSearchType.Regex)
+                sb.AppendLine("Using regex file pattern");
+
+            options.Clear();
+            if (!IncludeSubfolder) options.Add("No subfolders");
+            if (!IncludeHidden) options.Add("No hidden files");
+            if (!IncludeBinary) options.Add("No binary files");
+            if (options.Count > 0)
+                sb.AppendLine(string.Join(", ", options.ToArray()));
+
+            if (UseFileSizeFilter == FileSizeFilter.Yes)
+                sb.AppendFormat("Size from {0} to {1} KB", SizeFrom, SizeTo).AppendLine();
+
+            if (UseFileDateFilter != FileDateFilter.None && TypeOfTimeRangeFilter == FileTimeRange.Dates)
+                sb.AppendFormat("{0} date from {1} to {2}", UseFileDateFilter.ToString(),
+                    StartDate.HasValue ? StartDate.Value.ToShortDateString() : "*",
+                    EndDate.HasValue ? EndDate.Value.ToShortDateString() : "*").AppendLine();
+
+            if (UseFileDateFilter != FileDateFilter.None && TypeOfTimeRangeFilter == FileTimeRange.Hours)
+                sb.AppendFormat("{0} date in past {1} to {2} hours", UseFileDateFilter.ToString(), HoursFrom, HoursTo)
+                  .AppendLine();
+
+            if (CodePage != -1)
+            {
+                string encoding = Encodings.Where(r => r.Value == CodePage).Select(r => r.Key).FirstOrDefault();
+                sb.Append("Encoding: ").AppendLine(encoding);
+            }
+
+            return sb.ToString();
         }
 
         private void test()
@@ -1259,7 +1346,7 @@ namespace dnGREP.WPF
                             string currentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
                             if (PublishedVersionExtractor.IsUpdateNeeded(currentVersion, version))
                             {
-                                if (MessageBox.Show("New version of dnGREP (" + version + ") is available for download.\nWould you like to download it now?", 
+                                if (MessageBox.Show("New version of dnGREP (" + version + ") is available for download.\nWould you like to download it now?",
                                     "New version", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
                                 {
                                     System.Diagnostics.Process.Start("http://dngrep.github.io/");
@@ -1277,15 +1364,15 @@ namespace dnGREP.WPF
             }
         }
 
-        private void winFormControlsInit()
+        private void ControlsInit()
         {
             this.workerSearchReplace.WorkerReportsProgress = true;
             this.workerSearchReplace.WorkerSupportsCancellation = true;
-            this.workerSearchReplace.DoWork += new System.ComponentModel.DoWorkEventHandler(this.doSearchReplace);
-            this.workerSearchReplace.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.searchComplete);
-            this.workerSearchReplace.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.searchProgressChanged);
-            this.saveFileDialog.Filter = "CSV file|*.csv";
-            DiginesisHelpProvider.HelpNamespace = "https://github.com/dnGrep/dnGrep/wiki/";
+            this.workerSearchReplace.DoWork += DoSearchReplace;
+            this.workerSearchReplace.RunWorkerCompleted += SearchComplete;
+            this.workerSearchReplace.ProgressChanged += SearchProgressChanged;
+
+            DiginesisHelpProvider.HelpNamespace = @"https://github.com/dnGrep/dnGrep/wiki/";
             DiginesisHelpProvider.ShowHelp = true;
         }
 

@@ -47,8 +47,18 @@
             </Menu>
         </DockPanel>
         <StatusBar ClipToBounds="False" DockPanel.Dock="Bottom">
-            <ProgressBar Height="18" IsIndeterminate="{Binding IsOperationInProgress}" Width="150" />
-            <TextBlock Text="{Binding StatusMessage}" />
+            <StatusBarItem>
+                <StackPanel Orientation="Horizontal">
+                    <ProgressBar Height="18" IsIndeterminate="{Binding IsOperationInProgress}" Width="150" />
+                    <TextBlock Text="{Binding StatusMessage}" Margin="3,0" />
+                </StackPanel>
+            </StatusBarItem>
+            <StatusBarItem HorizontalAlignment="Right">
+                <StackPanel Orientation="Horizontal" Visibility="{Binding IsSaveInProgress, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <ProgressBar Height="18" IsIndeterminate="true" Width="150" />
+                    <TextBlock Text="Saving results to file..." Margin="3,0,12,0"/>
+                </StackPanel>
+            </StatusBarItem>
         </StatusBar>
         <DockPanel LastChildFill="True">
             <GroupBox DockPanel.Dock="Top" Header="Search in">
@@ -321,16 +331,16 @@
                                 <MenuItem Header="Move files..." Command="{Binding MoveFilesCommand}"/>
                                 <MenuItem Header="Delete files..." Command="{Binding DeleteFilesCommand}"/>
                                 <Separator/>
-                                <MenuItem Header="File names to clipboard" Command="{Binding CopyToClipboardCommand}"/>
-                                <MenuItem Header="Save as CSV..." Command="{Binding SaveAsCsvCommand}"/>
-                                <MenuItem Header="CSV to clipboard" Command="{Binding CopyAsCsvCommand}"/>
+                                <MenuItem Header="Copy file names" Command="{Binding CopyToClipboardCommand}"/>
+                                <MenuItem Header="Copy results" Command="{Binding CopyMatchingLinesCommand}"/>
+                                <MenuItem Header="Save results..." Command="{Binding SaveResultsCommand}"/>
                             </ContextMenu>
                         </Button.ContextMenu>
                     </Button>
                     <Button Content="_Cancel" Width="64" Margin="3,3,8,3" Command="{Binding CancelCommand}" TabIndex="86"/>
                 </WrapPanel>
             </Grid>
-            <Controls:ResultsTree DataContext="{Binding SearchResults}"  TabIndex="90"/>
+            <Controls:ResultsTree DataContext="{Binding SearchResults}" TabIndex="90"/>
         </DockPanel>
     </DockPanel>
 </Window>

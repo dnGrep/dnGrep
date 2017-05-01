@@ -156,7 +156,10 @@
     <Compile Include="DesignTimeData\DesignTimeData.cs" />
     <Compile Include="MVHelpers\BoolToVisibilityConverter.cs" />
     <Compile Include="MVHelpers\CodeSnippet.cs" />
+    <Compile Include="MVHelpers\FocusExtension.cs" />
     <Compile Include="MVHelpers\LazyResultsList.cs" />
+    <Compile Include="MVHelpers\UIServices.cs" />
+    <Compile Include="UserControls\MultiSelectTreeView.cs" />
     <Compile Include="MVHelpers\PixelBasedScrollingBehavior.cs" />
     <Compile Include="MVHelpers\ResultEventArgs.cs" />
     <Compile Include="MVHelpers\SnippetLineNumber.cs" />
