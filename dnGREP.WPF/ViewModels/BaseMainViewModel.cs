@@ -59,10 +59,7 @@ namespace dnGREP.WPF
         private ObservableGrepSearchResults searchResults = new ObservableGrepSearchResults();
         public ObservableGrepSearchResults SearchResults
         {
-            get
-            {
-                return searchResults;
-            }
+            get { return searchResults; }
         }
 
         private ObservableCollection<string> fastSearchBookmarks = new ObservableCollection<string>();
@@ -917,6 +914,21 @@ namespace dnGREP.WPF
             }
         }
 
+        private bool isSaveInProgress;
+        public bool IsSaveInProgress
+        {
+            get { return isSaveInProgress; }
+            set
+            {
+                if (value == isSaveInProgress)
+                    return;
+
+                isSaveInProgress = value;
+
+                base.OnPropertyChanged(() => IsSaveInProgress);
+            }
+        }
+
         private bool optionsOnMainPanel = true;
         public bool OptionsOnMainPanel
         {
@@ -1062,9 +1074,9 @@ namespace dnGREP.WPF
             }
 
             //Can search
-            if (name == "FileOrFolderPath" || name == "CurrentGrepOperation" || name == "SearchFor")
+            if (name == "FileOrFolderPath" || name == "CurrentGrepOperation" || name == "SearchFor" || name == "IsSaveInProgress")
             {
-                if (Utils.IsPathValid(FileOrFolderPath) && CurrentGrepOperation == GrepOperation.None &&
+                if (Utils.IsPathValid(FileOrFolderPath) && CurrentGrepOperation == GrepOperation.None && !IsSaveInProgress &&
                     (!string.IsNullOrEmpty(SearchFor) || settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern)))
                 {
                     CanSearch = true;
@@ -1077,9 +1089,9 @@ namespace dnGREP.WPF
                 CommandManager.InvalidateRequerySuggested();
             }
 
-            if (name == "CurrentGrepOperation")
+            if (name == "CurrentGrepOperation" || name == "IsSaveInProgress")
             {
-                if (searchResults.Count > 0)
+                if (searchResults.Count > 0 && !IsSaveInProgress)
                 {
                     CanSearchInResults = true;
                 }
@@ -1093,10 +1105,10 @@ namespace dnGREP.WPF
             searchResults.FolderPath = FileOrFolderPath;
 
             // btnReplace
-            if (name == "FileOrFolderPath" || name == "FilesFound" || name == "CurrentGrepOperation" || name == "SearchFor")
+            if (name == "FileOrFolderPath" || name == "FilesFound" || name == "CurrentGrepOperation" || name == "SearchFor" || name == "IsSaveInProgress")
             {
-                if (Utils.IsPathValid(FileOrFolderPath) && FilesFound && CurrentGrepOperation == GrepOperation.None &&
-                    !string.IsNullOrEmpty(SearchFor))
+                if (Utils.IsPathValid(FileOrFolderPath) && FilesFound && CurrentGrepOperation == GrepOperation.None && 
+                    !IsSaveInProgress && !string.IsNullOrEmpty(SearchFor))
                 {
                     CanReplace = true;
                 }

@@ -1,17 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.IO;
-using System.Text.RegularExpressions;
 using System.Diagnostics;
-using System.Reflection;
-using System.Net;
-using System.Xml;
-using System.Security.Permissions;
-using System.Security;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Security;
+using System.Security.Permissions;
+using System.Text;
+using System.Text.RegularExpressions;
 using NLog;
-using System.Security.AccessControl;
 
 namespace dnGREP.Common
 {
@@ -122,7 +119,40 @@ namespace dnGREP.Common
             if (File.Exists(destinationPath))
                 File.Delete(destinationPath);
 
-            File.WriteAllText(destinationPath, GetResultsAsCSV(source));
+            File.WriteAllText(destinationPath, GetResultsAsCSV(source), Encoding.UTF8);
+        }
+
+        /// <summary>
+        /// Creates a text file from search results
+        /// </summary>
+        /// <param name="source">the search results</param>
+        /// <param name="destinationPath">the file name to save</param>
+        public static void SaveResultsAsText(List<GrepSearchResult> source, string destinationPath)
+        {
+            if (File.Exists(destinationPath))
+                File.Delete(destinationPath);
+
+            File.WriteAllText(destinationPath, GetResultLines(source), Encoding.UTF8);
+        }
+
+        public static void SaveResultsReport(List<GrepSearchResult> source, string options, string destinationPath)
+        {
+            if (File.Exists(destinationPath))
+                File.Delete(destinationPath);
+
+            int fileCount = source.Where(r => !string.IsNullOrWhiteSpace(r.FileNameReal)).Select(r => r.FileNameReal).Distinct().Count();
+            int lineCount = source.Sum(s => s.Matches.Where(r => r.LineNumber > 0).Select(r => r.LineNumber).Distinct().Count());
+            int matchCount = source.Sum(s => s.Matches == null ? 0 : s.Matches.Count);
+
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("dnGrep Search Results").AppendLine();
+            sb.Append(options).AppendLine();
+            sb.AppendFormat("Found {0} matches on {1} lines in {2} files",
+                matchCount.ToString("#,##0"), lineCount.ToString("#,##0"), fileCount.ToString("#,##0"))
+                .AppendLine().AppendLine();
+            sb.Append(GetResultLinesWithContext(source));
+
+            File.WriteAllText(destinationPath, sb.ToString(), Encoding.UTF8);
         }
 
         /// <summary>
@@ -148,6 +178,62 @@ namespace dnGREP.Common
                             sb.AppendLine("\"" + result.FileNameDisplayed + "\"," + line.LineNumber + ",\"" + line.LineText.Replace("\"", "\"\"") + "\"");
                     }
                 }
+            }
+            return sb.ToString();
+        }
+
+        public static string GetResultLines(List<GrepSearchResult> source)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (GrepSearchResult result in source)
+            {
+                if (result.SearchResults != null)
+                {
+                    foreach (GrepSearchResult.GrepLine line in result.SearchResults)
+                    {
+                        if (!line.IsContext)
+                            sb.AppendLine(line.LineText);
+                    }
+                }
+            }
+            return sb.ToString();
+        }
+
+        public static string GetResultLinesWithContext(List<GrepSearchResult> source)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (var result in source)
+            {
+                // this call to SearchResults can be expensive if the results are not yet cached
+                var searchResults = result.SearchResults;
+                if (searchResults != null)
+                {
+                    int matchCount = (result.Matches == null ? 0 : result.Matches.Count);
+                    var lineCount = result.Matches.Where(r => r.LineNumber > 0)
+                        .Select(r => r.LineNumber).Distinct().Count();
+
+                    sb.AppendLine(result.FileNameDisplayed)
+                      .AppendFormat("has {0} matches on {1} lines:", matchCount, lineCount).AppendLine();
+
+                    if (searchResults.Any())
+                    {
+                        int prevLineNum = -1;
+                        foreach (var line in searchResults)
+                        {
+                            // Adding separator
+                            if (line.LineNumber != prevLineNum + 1)
+                                sb.AppendLine();
+
+                            sb.Append(line.LineNumber.ToString().PadLeft(6, ' ')).Append(":  ").AppendLine(line.LineText);
+                            prevLineNum = line.LineNumber;
+                        }
+                    }
+                    else
+                    {
+                        sb.AppendLine("[File not found: has it been deleted or moved?]");
+                    }
+                }
+                sb.AppendLine("--------------------------------------------------------------------------------").AppendLine();
             }
             return sb.ToString();
         }
@@ -921,12 +1007,10 @@ namespace dnGREP.Common
         /// Open folder in explorer
         /// </summary>
         /// <param name="fileName"></param>
-        /// <param name="line"></param>
-        public static void OpenContainingFolder(string fileName, int line)
+        public static void OpenContainingFolder(string fileName)
         {
             System.Diagnostics.Process.Start("explorer.exe", "/select,\"" + fileName + "\"");
         }
-
 
         /// <summary>
         /// Returns current path of DLL without trailing slash
