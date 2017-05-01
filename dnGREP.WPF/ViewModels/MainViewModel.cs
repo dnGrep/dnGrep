@@ -1099,7 +1099,7 @@ namespace dnGREP.WPF
             {
                 Action<string,string,string> clearTheStar = (searchFor, replaceWith, filePattern) =>
                 {
-                    if (searchFor == SearchFor && replaceWith == ReplaceWith && filePattern == filePattern)
+                    if (searchFor == SearchFor && replaceWith == ReplaceWith && filePattern == FilePattern)
                         IsBookmarked = false;
                 };
                 bookmarkForm = new BookmarksForm(clearTheStar);
