@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.XPath;
 using dnGREP.Common;
-using System.IO;
-using System.Diagnostics;
 
 namespace dnGREP.Engines
 {
@@ -16,37 +14,27 @@ namespace dnGREP.Engines
         private string KEYWORD_GUID_LOWER = "$(guid)";
         private string KEYWORD_GUID_UPPER = "$(GUID)";
         private string KEYWORD_GUIDX = "$(guidx)";
-        protected bool showLinesInContext = false;
-		protected int linesBefore = 0;
-		protected int linesAfter = 0;
-		protected double fuzzyMatchThreshold = 0.5;
-        protected bool verboseMatchCount;
+        protected GrepEngineInitParams initParams = new GrepEngineInitParams();
         private GoogleMatch fuzzyMatchEngine = new GoogleMatch();
 
-		public GrepEngineBase() { }
+		public GrepEngineBase() 
+        {
+            FileFilter = new FileFilter();
+        }
 
 		public GrepEngineBase(GrepEngineInitParams param)
 		{
-			Initialize(param);
+            initParams = param;
 		}
 
-		public virtual bool Initialize(GrepEngineInitParams param)
-		{
-            this.showLinesInContext = param.ShowLinesInContext;
-            if (this.showLinesInContext)
-            {
-                this.linesBefore = param.LinesBefore;
-                this.linesAfter = param.LinesAfter;
-            }
-            else
-            {
-                this.linesBefore = 0;
-                this.linesAfter = 0;
-            }
-			this.fuzzyMatchThreshold = param.FuzzyMatchThreshold;
-            this.verboseMatchCount = param.VerboseMatchCount;
-			return true;
-		}
+        public virtual bool Initialize(GrepEngineInitParams param, FileFilter filter)
+        {
+            initParams = param;
+            FileFilter = filter;
+            return true;
+        }
+
+        public FileFilter FileFilter { get; protected set; }
 
 		public virtual void OpenFile(OpenFileArgs args)
 		{
@@ -55,10 +43,10 @@ namespace dnGREP.Engines
 
         protected List<GrepSearchResult.GrepMatch> doFuzzySearchMultiline(int lineNumber, string text, string searchPattern, GrepSearchOption searchOptions, bool includeContext)
         {
-            var lineEndIndexes = GetLineEndIndexes(verboseMatchCount && lineNumber == -1 ? text : null);
+            var lineEndIndexes = GetLineEndIndexes(initParams.VerboseMatchCount && lineNumber == -1 ? text : null);
 
             int counter = 0;
-			fuzzyMatchEngine.Match_Threshold = (float)fuzzyMatchThreshold;
+            fuzzyMatchEngine.Match_Threshold = initParams.FuzzyMatchThreshold;
 			bool isWholeWord = (searchOptions & GrepSearchOption.WholeWord) == GrepSearchOption.WholeWord;
             List<GrepSearchResult.GrepMatch> globalMatches = new List<GrepSearchResult.GrepMatch>();
             while (counter < text.Length)
@@ -73,7 +61,7 @@ namespace dnGREP.Engines
 					continue;
 				}
 
-				int matchLength = fuzzyMatchEngine.match_length(text.Substring(counter), searchPattern, matchLocation, isWholeWord, fuzzyMatchThreshold);
+                int matchLength = fuzzyMatchEngine.match_length(text.Substring(counter), searchPattern, matchLocation, isWholeWord, initParams.FuzzyMatchThreshold);
 
 				if (matchLength == -1)
 				{
@@ -81,7 +69,7 @@ namespace dnGREP.Engines
 					continue;
 				}
 
-                if (verboseMatchCount && lineEndIndexes.Count > 0)
+                if (initParams.VerboseMatchCount && lineEndIndexes.Count > 0)
                     lineNumber = lineEndIndexes.FindIndex(i => i > matchLocation + counter) + 1;
 
                 globalMatches.Add(new GrepSearchResult.GrepMatch(lineNumber, matchLocation + counter, matchLength));
@@ -389,14 +377,14 @@ namespace dnGREP.Engines
             searchPattern = searchPattern.Replace("\r\n", "\n");
             searchPattern = searchPattern.Replace('\r', '\n');
 
-            var lineEndIndexes = GetLineEndIndexes(verboseMatchCount && lineNumber == -1 ? text : null);
+            var lineEndIndexes = GetLineEndIndexes(initParams.VerboseMatchCount && lineNumber == -1 ? text : null);
 
 			List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
             List<GrepSearchResult.GrepMatch> globalMatches = new List<GrepSearchResult.GrepMatch>();
             var matches = Regex.Matches(text, searchPattern, regexOptions);
             foreach (Match match in matches)
 			{
-                if (verboseMatchCount && lineEndIndexes.Count > 0)
+                if (initParams.VerboseMatchCount && lineEndIndexes.Count > 0)
                     lineNumber = lineEndIndexes.FindIndex(i => i > match.Index) + 1;
 
                 globalMatches.Add(new GrepSearchResult.GrepMatch(lineNumber, match.Index, match.Length));
@@ -422,7 +410,7 @@ namespace dnGREP.Engines
 
         protected List<GrepSearchResult.GrepMatch> doTextSearchCaseInsensitive(int lineNumber, string text, string searchText, GrepSearchOption searchOptions, bool includeContext)
 		{
-            var lineEndIndexes = GetLineEndIndexes(verboseMatchCount && lineNumber == -1 ? text : null);
+            var lineEndIndexes = GetLineEndIndexes(initParams.VerboseMatchCount && lineNumber == -1 ? text : null);
             
             int index = 0;
 			bool isWholeWord = (searchOptions & GrepSearchOption.WholeWord) == GrepSearchOption.WholeWord;
@@ -439,7 +427,7 @@ namespace dnGREP.Engines
 						continue;
 					}
 
-                    if (verboseMatchCount && lineEndIndexes.Count > 0)
+                    if (initParams.VerboseMatchCount && lineEndIndexes.Count > 0)
                         lineNumber = lineEndIndexes.FindIndex(i => i > index) + 1;
 
                     globalMatches.Add(new GrepSearchResult.GrepMatch(lineNumber, index, searchText.Length));
@@ -455,7 +443,7 @@ namespace dnGREP.Engines
 
         protected List<GrepSearchResult.GrepMatch> doTextSearchCaseSensitive(int lineNumber, string text, string searchText, GrepSearchOption searchOptions, bool includeContext)
 		{
-            var lineEndIndexes = GetLineEndIndexes(verboseMatchCount && lineNumber == -1 ? text : null);
+            var lineEndIndexes = GetLineEndIndexes(initParams.VerboseMatchCount && lineNumber == -1 ? text : null);
             
             List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
 			int index = 0;
@@ -473,7 +461,7 @@ namespace dnGREP.Engines
 						continue;
 					}
 
-                    if (verboseMatchCount && lineEndIndexes.Count > 0)
+                    if (initParams.VerboseMatchCount && lineEndIndexes.Count > 0)
                         lineNumber = lineEndIndexes.FindIndex(i => i > index) + 1;
 
                     globalMatches.Add(new GrepSearchResult.GrepMatch(lineNumber, index, searchText.Length));
@@ -580,7 +568,7 @@ namespace dnGREP.Engines
         {
             int counter = 0;
             StringBuilder result = new StringBuilder();
-			fuzzyMatchEngine.Match_Threshold = (float)fuzzyMatchThreshold;
+            fuzzyMatchEngine.Match_Threshold = initParams.FuzzyMatchThreshold;
 			bool isWholeWord = (searchOptions & GrepSearchOption.WholeWord) == GrepSearchOption.WholeWord;
             while (counter < text.Length)
             {
@@ -598,7 +586,7 @@ namespace dnGREP.Engines
 					continue;
 				}
 
-				int matchLength = fuzzyMatchEngine.match_length(text.Substring(counter), searchPattern, matchLocation, isWholeWord, fuzzyMatchThreshold);
+                int matchLength = fuzzyMatchEngine.match_length(text.Substring(counter), searchPattern, matchLocation, isWholeWord, initParams.FuzzyMatchThreshold);
 
 				if (matchLength == -1)
 				{
@@ -646,55 +634,36 @@ namespace dnGREP.Engines
 
 	public class GrepEngineInitParams
 	{
-		public GrepEngineInitParams() { }
+		public GrepEngineInitParams() 
+        {
+            ShowLinesInContext = false;
+            LinesBefore = 0;
+            LinesAfter = 0;
+            FuzzyMatchThreshold = 0.5f;
+            VerboseMatchCount = false;
+        }
 
         public GrepEngineInitParams(bool showLinesInContext, int linesBefore, int linesAfter, double fuzzyMatchThreshold, bool verboseMatchCount)
 		{
-            this.showLinesInContext = showLinesInContext;            
+            ShowLinesInContext = showLinesInContext;            
             if (!showLinesInContext)
             {
-                this.linesBefore = 0;
-                this.linesAfter = 0;
+                LinesBefore = 0;
+                LinesAfter = 0;
             }
             else
             {
-                this.linesBefore = linesBefore;
-                this.linesAfter = linesAfter;
+                LinesBefore = linesBefore;
+                LinesAfter = linesAfter;
             }
-			this.fuzzyMatchThreshold = fuzzyMatchThreshold;
+			FuzzyMatchThreshold = (float)fuzzyMatchThreshold;
             VerboseMatchCount = verboseMatchCount;
 		}
 
-        private bool showLinesInContext = false;
-
-		public bool ShowLinesInContext
-		{
-			get { return showLinesInContext; }
-			set { showLinesInContext = value; }
-		}
-		private int linesBefore = 0;
-
-		public int LinesBefore
-		{
-			get { return linesBefore; }
-			set { linesBefore = value; }
-		}
-		private int linesAfter = 0;
-
-		public int LinesAfter
-		{
-			get { return linesAfter; }
-			set { linesAfter = value; }
-		}
-
-		private double fuzzyMatchThreshold = 0.5;
-
-		public double FuzzyMatchThreshold
-		{
-			get { return fuzzyMatchThreshold; }
-			set { fuzzyMatchThreshold = value; }
-		}
-
-        public bool VerboseMatchCount { get; set; }
+        public bool ShowLinesInContext { get; private set; }
+        public int LinesBefore { get; private set; }
+        public int LinesAfter { get; private set; }
+        public float FuzzyMatchThreshold { get; private set; }
+        public bool VerboseMatchCount { get; private set; }
 	}
 }

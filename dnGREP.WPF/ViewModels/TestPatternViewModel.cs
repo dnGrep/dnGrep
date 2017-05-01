@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows;
-using dnGREP.Common;
-using System.Collections.Specialized;
-using System.Windows.Threading;
-using System.Threading;
-using System.ComponentModel;
-using System.Windows.Media;
-using System.Windows.Input;
-using dnGREP.Engines;
-using System.IO;
 using System.Windows.Documents;
+using System.Windows.Input;
+using dnGREP.Common;
+using dnGREP.Engines;
 
 namespace dnGREP.WPF
 {
@@ -118,11 +113,13 @@ namespace dnGREP.WPF
             if (SampleText == null)
                 SampleText = string.Empty;
             GrepEnginePlainText engine = new GrepEnginePlainText();
-            engine.Initialize(new GrepEngineInitParams(GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext),
+            engine.Initialize(new GrepEngineInitParams(
+                GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext),
                 GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
                 GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter),
                 GrepSettings.Instance.Get<double>(GrepSettings.Key.FuzzyMatchThreshold),
-                GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount)));
+                GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount)),
+                new FileFilter());
             List<GrepSearchResult> results = new List<GrepSearchResult>();
             GrepSearchOption searchOptions = GrepSearchOption.None;
             if (Multiline)
@@ -182,11 +179,13 @@ namespace dnGREP.WPF
         private void replace()
         {
             GrepEnginePlainText engine = new GrepEnginePlainText();
-            engine.Initialize(new GrepEngineInitParams(GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext),
+            engine.Initialize(new GrepEngineInitParams(
+                GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext),
                 GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
                 GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter),
                 GrepSettings.Instance.Get<double>(GrepSettings.Key.FuzzyMatchThreshold),
-                GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount)));
+                GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount)),
+                new FileFilter());
             List<GrepSearchResult> results = new List<GrepSearchResult>();
 
             GrepSearchOption searchOptions = GrepSearchOption.None;

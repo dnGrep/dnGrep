@@ -2,28 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using dnGREP.Common;
-using dnGREP.Engines;
 
 namespace dnGREP.Engines
 {
 	public interface IGrepEngine
 	{
-		bool Initialize(GrepEngineInitParams param);
+		bool Initialize(GrepEngineInitParams param, FileFilter filter);
 
 		/// <summary>
 		/// Return true if engine supports search only. Return false is engine supports replace as well.
 		/// </summary>
 		bool IsSearchOnly { get;}
 
-		/// <summary>
-		/// Short description of engine
-		/// </summary>
-		string Description { get;}
-
-		/// <summary>
-		/// List of file extensions that the engine will work with
-		/// </summary>
-		List<string> SupportedFileExtensions { get;}
+        FileFilter FileFilter { get; }
 
 		/// <summary>
 		/// Searches folder for files whose content matches regex
