@@ -108,10 +108,17 @@ namespace dnGREP.Common
         {
             if (searchResults == null)
             {
-                using (FileStream reader = File.Open(FileNameReal, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                using (StreamReader streamReader = new StreamReader(reader, Encoding))
+                if (File.Exists(FileNameReal))
                 {
-                    searchResults = Utils.GetLinesEx(streamReader, bodyMatches, linesBefore, linesAfter);
+                    using (FileStream reader = File.Open(FileNameReal, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    using (StreamReader streamReader = new StreamReader(reader, Encoding))
+                    {
+                        searchResults = Utils.GetLinesEx(streamReader, bodyMatches, linesBefore, linesAfter);
+                    }
+                }
+                else
+                {
+                    searchResults = new List<GrepLine>();
                 }
             }
             return searchResults;
