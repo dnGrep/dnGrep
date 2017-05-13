@@ -421,7 +421,10 @@ namespace dnGREP.Common
         public static bool IsArchiveExtension(string ext)
         {
             if (!string.IsNullOrWhiteSpace(ext))
-                return archiveExtensions.Contains(ext.ToLower());
+            {
+                // regex extensions may have a 'match end of line' char: remove it
+                return archiveExtensions.Contains(ext.TrimEnd('$').ToLower());
+            }
             return false;
         }
         private static List<string> archiveExtensions = new string[]

@@ -17,8 +17,7 @@ namespace dnGREP.Engines.Archive
 		public GrepEngineArchive() : base() { }
 
 		public GrepEngineArchive(GrepEngineInitParams param)
-			:
-			base(param)
+			: base(param)
 		{}
 
 		public bool IsSearchOnly
@@ -33,7 +32,7 @@ namespace dnGREP.Engines.Archive
 			string tempFolder = Utils.FixFolderName(Utils.GetTempFolder()) + "dnGREP-Archive\\" + Utils.GetHash(file) + "\\";
             FileFilter filter = FileFilter.ChangePath(tempFolder);
 
-            // if the search pattern(s) only match archive files, need to include an 'any' file type  to search inside the archive.  
+            // if the search pattern(s) only match archive files, need to include an 'any' file type to search inside the archive.  
             // otherwise, keep the original pattern set so the user can specify what types of files to search inside the archive.
             var patterns = Utils.SplitPath(FileFilter.NamePatternToInclude).ToList();
             bool hasNonArchivePattern = patterns.Where(p => !Utils.IsArchiveExtension(Path.GetExtension(p))).Any();
