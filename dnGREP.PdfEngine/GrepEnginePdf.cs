@@ -1,14 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using dnGREP.Engines;
-using NLog;
-using dnGREP.Common;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.IO;
-using System.Text.RegularExpressions;
 using System.Diagnostics;
+using System.IO;
+using System.Reflection;
+using System.Text;
+using dnGREP.Common;
+using NLog;
 
 namespace dnGREP.Engines.Pdf
 {
@@ -21,9 +18,9 @@ namespace dnGREP.Engines.Pdf
 		private string pathToPdfToText = "";
 
 		#region Initialization and disposal
-		public override bool Initialize(GrepEngineInitParams param)
+		public override bool Initialize(GrepEngineInitParams param, FileFilter filter)
 		{
-            base.Initialize(param);
+            base.Initialize(param, filter);
 			try
 			{
 				// Make sure pdftotext.exe exists
@@ -47,16 +44,6 @@ namespace dnGREP.Engines.Pdf
 			get { return true; }
 		}
 
-		public string Description
-		{
-			get { return "Searches inside Acrobat PDF files. File types supported include: pdf. Search only."; }
-		}
-
-		public List<string> SupportedFileExtensions
-		{
-			get { return new List<string>(new string[] { "pdf" }); }
-		}
-
         public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
 		{
 			try
@@ -66,24 +53,27 @@ namespace dnGREP.Engines.Pdf
 				if (!File.Exists(tempFile))
 					throw new ApplicationException("pdftotext failed to create text file.");
 
-                IGrepEngine engine = GrepEngineFactory.GetSearchEngine(tempFile, new GrepEngineInitParams(showLinesInContext, linesBefore, linesAfter, fuzzyMatchThreshold, verboseMatchCount));
+                IGrepEngine engine = GrepEngineFactory.GetSearchEngine(tempFile, initParams, FileFilter);
 				List<GrepSearchResult> results = engine.Search(tempFile, searchPattern, searchType, searchOptions, encoding);
 
-                using (FileStream reader = File.Open(tempFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                using (StreamReader streamReader = new StreamReader(reader))
+                if (results.Count > 0)
                 {
-                    foreach (var result in results)
+                    using (FileStream reader = File.Open(tempFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    using (StreamReader streamReader = new StreamReader(reader))
                     {
-                        result.SearchResults = Utils.GetLinesEx(streamReader, result.Matches, linesBefore, linesAfter);
+                        foreach (var result in results)
+                        {
+                            result.SearchResults = Utils.GetLinesEx(streamReader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
+                        }
+                    }
+
+                    foreach (GrepSearchResult result in results)
+                    {
+                        result.ReadOnly = true;
+                        result.FileNameDisplayed = file;
+                        result.FileNameReal = file;
                     }
                 }
-
-				foreach (GrepSearchResult result in results)
-				{
-					result.ReadOnly = true;
-					result.FileNameDisplayed = file;
-					result.FileNameReal = file;
-				}
 
 				return results;
 			}

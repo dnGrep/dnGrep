@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 using System.Text;
 using dnGREP.Common;
-using System.IO;
 using NLog;
-using System.Reflection;
 
 namespace dnGREP.Engines
 {
@@ -17,16 +17,6 @@ namespace dnGREP.Engines
         public bool IsSearchOnly
         {
             get { return false; }
-        }
-
-        public string Description
-        {
-            get { return "Basic engine for searching plain text file"; }
-        }
-
-        public List<string> SupportedFileExtensions
-        {
-            get { return new List<string>(new string[] { "*" }); }
         }
 
         public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)

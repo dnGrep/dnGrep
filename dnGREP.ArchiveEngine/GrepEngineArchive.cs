@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using NLog;
-using dnGREP.Common;
-using SevenZip;
 using System.IO;
+using System.Linq;
 using System.Reflection;
+using System.Text;
+using dnGREP.Common;
+using NLog;
+using SevenZip;
 
 namespace dnGREP.Engines.Archive
 {
@@ -16,8 +17,7 @@ namespace dnGREP.Engines.Archive
 		public GrepEngineArchive() : base() { }
 
 		public GrepEngineArchive(GrepEngineInitParams param)
-			:
-			base(param)
+			: base(param)
 		{}
 
 		public bool IsSearchOnly
@@ -25,24 +25,22 @@ namespace dnGREP.Engines.Archive
 			get { return true; }
 		}
 
-		public string Description
-		{
-			get { return "Searches inside archive files. Archives supported include: 7z, zip, rar, gzip. Search only."; }
-		}
-
-		public List<string> SupportedFileExtensions
-		{
-			get { return new List<string> ( new string[] { "7z", "zip", "rar", "gzip" }); }
-		}
-
-
         public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
 		{
 			List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
 			SevenZipExtractor extractor = new SevenZipExtractor(file);
-			GrepEnginePlainText plainTextEngine = new GrepEnginePlainText();
-			plainTextEngine.Initialize(new GrepEngineInitParams(showLinesInContext, linesBefore, linesAfter, fuzzyMatchThreshold, verboseMatchCount));
 			string tempFolder = Utils.FixFolderName(Utils.GetTempFolder()) + "dnGREP-Archive\\" + Utils.GetHash(file) + "\\";
+            FileFilter filter = FileFilter.ChangePath(tempFolder);
+
+            // if the search pattern(s) only match archive files, need to include an 'any' file type to search inside the archive.  
+            // otherwise, keep the original pattern set so the user can specify what types of files to search inside the archive.
+            var patterns = Utils.SplitPath(FileFilter.NamePatternToInclude).ToList();
+            bool hasNonArchivePattern = patterns.Where(p => !Utils.IsArchiveExtension(Path.GetExtension(p))).Any();
+            if (!hasNonArchivePattern)
+            {
+                patterns.Add(FileFilter.IsRegex ? ".*" : "*.*");
+                filter = filter.ChangeIncludePattern(string.Join(";", patterns.ToArray()));
+            }
 			
 			if (Directory.Exists(tempFolder))
 				Utils.DeleteFolder(tempFolder);
@@ -50,33 +48,42 @@ namespace dnGREP.Engines.Archive
 			try
 			{
 				extractor.ExtractArchive(tempFolder);
-				foreach (string archiveFileName in Directory.GetFiles(tempFolder, "*.*", SearchOption.AllDirectories))
+                foreach (var innerFileName in Utils.GetFileListEx(filter))
 				{
-                    IGrepEngine engine = GrepEngineFactory.GetSearchEngine(archiveFileName, new GrepEngineInitParams(showLinesInContext, linesBefore, linesAfter, fuzzyMatchThreshold, verboseMatchCount));
-                    var innerFileResults = engine.Search(archiveFileName, searchPattern, searchType, searchOptions, encoding);
-					
-                    using (FileStream reader = File.Open(archiveFileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                    using (StreamReader streamReader = new StreamReader(reader))
+                    IGrepEngine engine = GrepEngineFactory.GetSearchEngine(innerFileName, initParams, FileFilter);
+                    var innerFileResults = engine.Search(innerFileName, searchPattern, searchType, searchOptions, encoding);
+
+                    if (innerFileResults.Count > 0)
                     {
-                        foreach (var result in innerFileResults)
+                        using (FileStream reader = File.Open(innerFileName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                        using (StreamReader streamReader = new StreamReader(reader))
                         {
-                            if (!result.HasSearchResults)
-                                result.SearchResults = Utils.GetLinesEx(streamReader, result.Matches, linesBefore, linesAfter);
+                            foreach (var result in innerFileResults)
+                            {
+                                if (Utils.CancelSearch)
+                                    break;
+
+                                if (!result.HasSearchResults)
+                                    result.SearchResults = Utils.GetLinesEx(streamReader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
+                            }
                         }
+                        searchResults.AddRange(innerFileResults);
                     }
-                    searchResults.AddRange(innerFileResults);
-				}
+
+                    if (Utils.CancelSearch)
+                        break;
+                }
 
 				foreach (GrepSearchResult result in searchResults)
 				{
 					result.FileNameDisplayed = file + "\\" + result.FileNameDisplayed.Substring(tempFolder.Length);
 					result.FileNameReal = file;
 					result.ReadOnly = true;
-				}
+                }
 			}
 			catch (Exception ex)
 			{
-				logger.Log<Exception>(LogLevel.Error, "Failed to search inside archive.", ex);
+				logger.Log<Exception>(LogLevel.Error, string.Format("Failed to search inside archive '{0}'", file), ex);
 			}
 			return searchResults;
 		}

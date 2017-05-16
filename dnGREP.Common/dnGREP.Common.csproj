@@ -121,6 +121,7 @@
     </Compile>
     <Compile Include="BookmarkLibrary.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="FileFilter.cs" />
     <Compile Include="GrepSearchResult.cs" />
     <Compile Include="OpenFileArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

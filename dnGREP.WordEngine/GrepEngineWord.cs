@@ -1,13 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
-using dnGREP.Engines;
-using NLog;
-using dnGREP.Common;
+using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.IO;
-using System.Text.RegularExpressions;
+using System.Text;
+using dnGREP.Common;
+using NLog;
 
 namespace dnGREP.Engines.Word
 {
@@ -82,16 +80,6 @@ namespace dnGREP.Engines.Word
 			get { return true; }
 		}
 
-		public string Description
-		{
-			get { return "Searches inside Microsoft Word files. File types supported include: doc, docx. Search only."; }
-		}
-
-		public List<string> SupportedFileExtensions
-		{
-			get { return new List<string> ( new string[] { "doc", "docx" }); }
-		}
-
         public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
 		{
 			load();
@@ -147,7 +135,7 @@ namespace dnGREP.Engines.Word
                         GrepSearchResult result = new GrepSearchResult(file, searchPattern, lines, Encoding.Default);
                         using (StringReader reader = new StringReader(text.ToString()))
                         {
-                            result.SearchResults = Utils.GetLinesEx(reader, result.Matches, linesBefore, linesAfter);
+                            result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
                         }
 					    result.ReadOnly = true;
 					    searchResults.Add(result);
@@ -219,7 +207,7 @@ namespace dnGREP.Engines.Word
 				logger.Log<Exception>(LogLevel.Error, "Failed to load Word and create Document.", ex);
 			}
 
-            base.Initialize(new GrepEngineInitParams(showLinesInContext, linesBefore, linesAfter, fuzzyMatchThreshold, verboseMatchCount));
+            base.Initialize(initParams, FileFilter);
 		}
 
 		/// <summary>
