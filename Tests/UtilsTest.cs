@@ -1,9 +1,9 @@
-﻿using dnGREP.Common;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using dnGREP.Common;
 using Xunit;
 using Xunit.Extensions;
 
@@ -926,7 +926,7 @@ namespace Tests
         [InlineData("\\TestCase11", "#!*python;#!*sh", 3)]
         public void TestAsteriskGetFilesWithoutExclude(string folder, string pattern, int expectedCount)
         {
-            var result = Utils.GetFileListEx(sourceFolder + folder, pattern, null, false, false, true, true, 0, 0, FileDateFilter.None, null, null);
+            var result = Utils.GetFileListEx(new FileFilter(sourceFolder + folder, pattern, null, false, false, true, true, 0, 0, FileDateFilter.None, null, null));
             int counter = 0;
             foreach (var f in result)
                 counter++;
@@ -942,7 +942,7 @@ namespace Tests
         public void TestAsteriskGetFilesWithExclude(string folder, string pattern, String excludePattern, int expectedCount)
         {
             // This recurses to subfolders
-            var result = Utils.GetFileListEx(sourceFolder + folder, pattern, excludePattern, false, true, true, true, 0, 0, FileDateFilter.None, null, null);
+            var result = Utils.GetFileListEx(new FileFilter(sourceFolder + folder, pattern, excludePattern, false, true, true, true, 0, 0, FileDateFilter.None, null, null));
             int counter = 0;
             foreach (var f in result)
                 counter++;

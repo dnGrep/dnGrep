@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Diagnostics;
 using System.IO;
+using System.Text;
 using dnGREP.Common;
-using System.Reflection;
 using NLog;
 
 namespace dnGREP.Engines
@@ -42,8 +42,11 @@ namespace dnGREP.Engines
             }
         }
 
-        public static IGrepEngine GetSearchEngine(string fileName, GrepEngineInitParams param)
+        public static IGrepEngine GetSearchEngine(string fileName, GrepEngineInitParams param, FileFilter filter)
         {
+            Debug.Assert(param != null);
+            Debug.Assert(filter != null);
+
             loadPlugins();
 
             string fileExtension = Path.GetExtension(fileName).ToLower();
@@ -61,13 +64,13 @@ namespace dnGREP.Engines
                 }
             }
             GrepEnginePlainText plainTextEngine = new GrepEnginePlainText();
-            plainTextEngine.Initialize(param);
+            plainTextEngine.Initialize(param, filter);
 
             if (fileTypeEngines.ContainsKey(fileExtension) && fileTypeEngines[fileExtension].Enabled)
             {
                 if (FrameworkVersionsAreCompatible(fileTypeEngines[fileExtension].Engine.FrameworkVersion, plainTextEngine.FrameworkVersion))
                 {
-                    if (fileTypeEngines[fileExtension].Engine.Initialize(param))
+                    if (fileTypeEngines[fileExtension].Engine.Initialize(param, filter))
                     {
                         return fileTypeEngines[fileExtension].Engine;
                     }
@@ -95,7 +98,7 @@ namespace dnGREP.Engines
             return ( version1.Major == version2.Major );
         }
 
-        public static IGrepEngine GetReplaceEngine(string fileName, GrepEngineInitParams param)
+        public static IGrepEngine GetReplaceEngine(string fileName, GrepEngineInitParams param, FileFilter filter)
         {
             loadPlugins();
 
@@ -114,13 +117,13 @@ namespace dnGREP.Engines
                 }
             }
             GrepEnginePlainText plainTextEngine = new GrepEnginePlainText();
-            plainTextEngine.Initialize(param);
+            plainTextEngine.Initialize(param, filter);
 
             if (fileTypeEngines.ContainsKey(fileExtension) && fileTypeEngines[fileExtension].Enabled && !fileTypeEngines[fileExtension].Engine.IsSearchOnly)
             {
                 if (FrameworkVersionsAreCompatible(fileTypeEngines[fileExtension].Engine.FrameworkVersion, plainTextEngine.FrameworkVersion) )
                 {
-                    if (fileTypeEngines[fileExtension].Engine.Initialize(param))
+                    if (fileTypeEngines[fileExtension].Engine.Initialize(param, filter))
                     {
                         return fileTypeEngines[fileExtension].Engine;
                     }

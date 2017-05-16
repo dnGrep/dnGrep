@@ -400,6 +400,41 @@ namespace dnGREP.Common
         }
 
         /// <summary>
+        /// Returns true if the source file extension is a recognized archive file
+        /// </summary>
+        /// <param name="srcFile">a file name</param>
+        /// <returns></returns>
+        public static bool IsArchive(string srcFile)
+        {
+            if (!string.IsNullOrWhiteSpace(srcFile))
+            {
+                return IsArchiveExtension(Path.GetExtension(srcFile));
+            }
+            return false;
+        }
+        
+        /// <summary>
+        /// Returns true if the parameter is a recognized archive file format file extension.
+        /// </summary>
+        /// <param name="ext">a file extension, with leading '.'</param>
+        /// <returns></returns>
+        public static bool IsArchiveExtension(string ext)
+        {
+            if (!string.IsNullOrWhiteSpace(ext))
+            {
+                // regex extensions may have a 'match end of line' char: remove it
+                return archiveExtensions.Contains(ext.TrimEnd('$').ToLower());
+            }
+            return false;
+        }
+        private static List<string> archiveExtensions = new string[]
+            {
+                // this is just some of the archive formats supported by 7zip.
+                ".zip", ".rar", ".7z", ".gz", ".gzip", ".bz2", ".bzip2", ".tar", ".tbz2", ".tbz", ".tgz", ".arj", ".cab", ".cpio", 
+                ".deb", ".dmg", ".iso", ".hfs", ".hfsx", ".lzh", ".lha", ".lzma", ".z", ".taz", ".rpm", ".xar", ".pkg", ".xz", ".txz", ".zipx", ".jar", ".epub"
+            }.ToList();
+
+        /// <summary>
         /// Add DirectorySeparatorChar to the end of the folder path if does not exist
         /// </summary>
         /// <param name="name">Folder path</param>
@@ -550,35 +585,22 @@ namespace dnGREP.Common
         /// returns array of strings that contain full paths to the files.
         /// If no files found returns 0 length array.
         /// </summary>
-        /// <param name="path">Path to one or many files separated by semi-colon or path to a folder</param>
-        /// <param name="namePatternToInclude">File name pattern. (E.g. *.cs) or regex to include. If null returns empty array. If empty string returns all files.</param>
-        /// <param name="namePatternToExclude">File name pattern. (E.g. *.cs) or regex to exclude. If null or empty is ignored.</param>
-        /// <param name="isRegex">Whether to use regex as search pattern. Otherwise use asterisks</param>
-        /// <param name="includeSubfolders">Include sub folders</param>
-        /// <param name="includeHidden">Include hidden folders</param>
-        /// <param name="includeBinary">Include binary files</param>
-        /// <param name="sizeFrom">Size in KB</param>
-        /// <param name="sizeTo">Size in KB</param>
-        /// <param name="dateFilter">Filter by file modified or created date time range</param>
-        /// <param name="startTime">start of time range</param>
-        /// <param name="endTime">end of time range</param>
+        /// <param name="filter">the file filter parameters</param>
         /// <returns></returns>
-        public static IEnumerable<string> GetFileListEx(string path, string namePatternToInclude, string namePatternToExclude, bool isRegex,
-            bool includeSubfolders, bool includeHidden, bool includeBinary, int sizeFrom, int sizeTo,
-            FileDateFilter dateFilter, DateTime? startTime, DateTime? endTime)
+        public static IEnumerable<string> GetFileListEx(FileFilter filter)
         {
-            if (string.IsNullOrWhiteSpace(path) || namePatternToInclude == null)
+            if (string.IsNullOrWhiteSpace(filter.Path) || filter.NamePatternToInclude == null)
             {
                 yield break;
             }
 
             // Hash set to ensure file name uniqueness
             HashSet<string> matches = new HashSet<string>();
-            List<string> _includePatterns = new List<string>(SplitPath(namePatternToInclude));
-            List<string> _excludePatterns = new List<string>(SplitPath(namePatternToExclude));
+            List<string> _includePatterns = new List<string>(SplitPath(filter.NamePatternToInclude));
+            List<string> _excludePatterns = new List<string>(SplitPath(filter.NamePatternToExclude));
             List<Regex> includeRegexPatterns = new List<Regex>();
             List<Regex> excludeRegexPatterns = new List<Regex>();
-            if (!isRegex)
+            if (!filter.IsRegex)
             {
                 foreach (var pattern in _includePatterns) includeRegexPatterns.Add(new Regex(wildcardToRegex(pattern), RegexOptions.Compiled | RegexOptions.IgnoreCase));
                 foreach (var pattern in _excludePatterns) excludeRegexPatterns.Add(new Regex(wildcardToRegex(pattern), RegexOptions.Compiled | RegexOptions.IgnoreCase));
@@ -589,7 +611,7 @@ namespace dnGREP.Common
                 foreach (var pattern in _excludePatterns) excludeRegexPatterns.Add(new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase));
             }
 
-            foreach (var subPath in SplitPath(path))
+            foreach (var subPath in SplitPath(filter.Path))
             {
                 if (File.Exists(subPath))
                 {
@@ -604,11 +626,11 @@ namespace dnGREP.Common
                 {
                     continue;
                 }
-                foreach (var dirPath in (!includeSubfolders ? new string[] { subPath }.AsEnumerable() :
+                foreach (var dirPath in (!filter.IncludeSubfolders ? new string[] { subPath }.AsEnumerable() :
                     new string[] { subPath }.AsEnumerable().Concat(Directory.EnumerateDirectories(subPath, "*", SearchOption.AllDirectories))))
                 {
                     DirectoryInfo dirInfo = null;
-                    if (!includeHidden)
+                    if (!filter.IncludeHidden)
                     {
                         if (dirInfo == null)
                             dirInfo = new DirectoryInfo(dirPath);
@@ -624,7 +646,7 @@ namespace dnGREP.Common
                         FileInfo fileInfo = null;
                         try
                         {
-                            if (!includeHidden)
+                            if (!filter.IncludeHidden)
                             {
                                 if (fileInfo == null)
                                     fileInfo = new FileInfo(filePath);
@@ -632,34 +654,34 @@ namespace dnGREP.Common
                                     continue;
                             }
 
-                            if (!includeBinary && IsBinary(filePath))
+                            if (!IsArchive(filePath) && !filter.IncludeBinary && IsBinary(filePath))
                                 continue;
-                            if (sizeFrom > 0 || sizeTo > 0)
+                            if (filter.SizeFrom > 0 || filter.SizeTo > 0)
                             {
                                 if (fileInfo == null)
                                     fileInfo = new FileInfo(filePath);
 
                                 long sizeKB = fileInfo.Length / 1000;
-                                if (sizeFrom > 0 && sizeKB < sizeFrom)
+                                if (filter.SizeFrom > 0 && sizeKB < filter.SizeFrom)
                                 {
                                     continue;
                                 }
-                                if (sizeTo > 0 && sizeKB > sizeTo)
+                                if (filter.SizeTo > 0 && sizeKB > filter.SizeTo)
                                 {
                                     continue;
                                 }
                             }
-                            if (dateFilter != FileDateFilter.None)
+                            if (filter.DateFilter != FileDateFilter.None)
                             {
                                 if (fileInfo == null)
                                     fileInfo = new FileInfo(filePath);
 
-                                DateTime fileDate = dateFilter == FileDateFilter.Created ? fileInfo.CreationTime : fileInfo.LastWriteTime;
-                                if (startTime.HasValue && fileDate < startTime.Value)
+                                DateTime fileDate = filter.DateFilter == FileDateFilter.Created ? fileInfo.CreationTime : fileInfo.LastWriteTime;
+                                if (filter.StartTime.HasValue && fileDate < filter.StartTime.Value)
                                 {
                                     continue;
                                 }
-                                if (endTime.HasValue && fileDate >= endTime.Value)
+                                if (filter.EndTime.HasValue && fileDate >= filter.EndTime.Value)
                                 {
                                     continue;
                                 }
@@ -773,8 +795,9 @@ namespace dnGREP.Common
             bool includeSubfolders, bool includeHidden, bool includeBinary, int sizeFrom, int sizeTo,
             FileDateFilter dateFilter, DateTime? startTime, DateTime? endTime)
         {
-            return new List<string>(GetFileListEx(path, namePatternToInclude, namePatternToExclude, isRegex,
-                includeSubfolders, includeHidden, includeBinary, sizeFrom, sizeTo, dateFilter, startTime, endTime)).ToArray();
+            var filter = new FileFilter(path, namePatternToInclude, namePatternToExclude, isRegex,
+                includeSubfolders, includeHidden, includeBinary, sizeFrom, sizeTo, dateFilter, startTime, endTime);
+            return GetFileListEx(filter).ToArray();
         }
 
         /// <summary>

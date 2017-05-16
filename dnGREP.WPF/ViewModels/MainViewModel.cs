@@ -464,7 +464,7 @@ namespace dnGREP.WPF
 
                 FormattedGrepResult result = selectedNode.Parent;
                 OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
-                dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, new GrepEngineInitParams(false, 0, 0, 0.5, false)).OpenFile(fileArg);
+                dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, new GrepEngineInitParams(false, 0, 0, 0.5, false), new FileFilter()).OpenFile(fileArg);
                 if (fileArg.UseBaseEngine)
                     Utils.OpenFile(new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
             }
@@ -485,7 +485,7 @@ namespace dnGREP.WPF
                 // Line was selected
                 int lineNumber = 0;
                 OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
-                dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, new GrepEngineInitParams(false, 0, 0, 0.5, false)).OpenFile(fileArg);
+                dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, new GrepEngineInitParams(false, 0, 0, 0.5, false), new FileFilter()).OpenFile(fileArg);
                 if (fileArg.UseBaseEngine)
                     Utils.OpenFile(new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
             }
@@ -626,14 +626,16 @@ namespace dnGREP.WPF
 
                         Utils.CancelSearch = false;
 
+                        FileFilter fileParams = new FileFilter(FileOrFolderPath, filePatternInclude, filePatternExclude, param.TypeOfFileSearch == FileSearchType.Regex, param.IncludeSubfolder,
+                                param.IncludeHidden, param.IncludeBinary, sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime);
+
                         if (param.CurrentGrepOperation == GrepOperation.SearchInResults)
                         {
                             files = (List<string>)workerParams["Files"];
                         }
                         else
                         {
-                            files = Utils.GetFileListEx(FileOrFolderPath, filePatternInclude, filePatternExclude, param.TypeOfFileSearch == FileSearchType.Regex, param.IncludeSubfolder,
-                                param.IncludeHidden, param.IncludeBinary, sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime);
+                            files = Utils.GetFileListEx(fileParams);
                         }
 
                         if (Utils.CancelSearch)
@@ -657,11 +659,16 @@ namespace dnGREP.WPF
                         }
 
                         GrepCore grep = new GrepCore();
-                        grep.SearchParams.FuzzyMatchThreshold = settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold);
-                        grep.SearchParams.LinesBefore = settings.Get<int>(GrepSettings.Key.ContextLinesBefore);
-                        grep.SearchParams.LinesAfter = settings.Get<int>(GrepSettings.Key.ContextLinesAfter);
-                        grep.SearchParams.ShowLinesInContext = settings.Get<bool>(GrepSettings.Key.ShowLinesInContext);
-                        grep.SearchParams.VerboseMatchCount = settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount);
+                        grep.SearchParams = new GrepEngineInitParams(
+                            settings.Get<bool>(GrepSettings.Key.ShowLinesInContext),
+                            settings.Get<int>(GrepSettings.Key.ContextLinesBefore),
+                            settings.Get<int>(GrepSettings.Key.ContextLinesAfter),
+                            settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold),
+                            settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount));
+
+                        grep.FileFilter = new FileFilter(FileOrFolderPath, filePatternInclude, filePatternExclude, 
+                            param.TypeOfFileSearch == FileSearchType.Regex, param.IncludeSubfolder, param.IncludeHidden, 
+                            param.IncludeBinary, sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime);
 
                         GrepSearchOption searchOptions = GrepSearchOption.None;
                         if (Multiline)
@@ -682,11 +689,12 @@ namespace dnGREP.WPF
                     else
                     {
                         GrepCore grep = new GrepCore();
-                        grep.SearchParams.FuzzyMatchThreshold = settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold);
-                        grep.SearchParams.LinesBefore = settings.Get<int>(GrepSettings.Key.ContextLinesBefore);
-                        grep.SearchParams.LinesAfter = settings.Get<int>(GrepSettings.Key.ContextLinesAfter);
-                        grep.SearchParams.ShowLinesInContext = settings.Get<bool>(GrepSettings.Key.ShowLinesInContext);
-                        grep.SearchParams.VerboseMatchCount = settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount);
+                        grep.SearchParams = new GrepEngineInitParams(
+                            settings.Get<bool>(GrepSettings.Key.ShowLinesInContext),
+                            settings.Get<int>(GrepSettings.Key.ContextLinesBefore),
+                            settings.Get<int>(GrepSettings.Key.ContextLinesAfter),
+                            settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold),
+                            settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount));
 
                         GrepSearchOption searchOptions = GrepSearchOption.None;
                         if (Multiline)
@@ -736,13 +744,18 @@ namespace dnGREP.WPF
                     GrepCore.ProgressStatus progress = (GrepCore.ProgressStatus)e.UserState;
                     string result = string.Empty;
                     if (progress.SearchResults != null)
-                    {
-                        SearchResults.AddRange(progress.SearchResults);
-                        result = string.Format("Searched {0} files. Found {1} matching files.", progress.ProcessedFiles, SearchResults.Count);
+                    {SearchResults.AddRange(progress.SearchResults);
+                        if (!string.IsNullOrWhiteSpace(progress.FileName))
+                            result = string.Format("Searched {0} files. Found {1} matching files - processing {2}", progress.ProcessedFiles, SearchResults.Count, progress.FileName);
+                        else
+                            result = string.Format("Searched {0} files. Found {1} matching files.", progress.ProcessedFiles, SearchResults.Count);
                     }
                     else
                     {
-                        result = string.Format("Searched {0} files.", progress.ProcessedFiles);
+                        if (!string.IsNullOrWhiteSpace(progress.FileName))
+                            result = string.Format("Searched {0} files - processing {1}", progress.ProcessedFiles, progress.FileName);
+                        else
+                            result = string.Format("Searched {0} files.", progress.ProcessedFiles);
                     }
 
                     StatusMessage = result;
@@ -860,6 +873,12 @@ namespace dnGREP.WPF
         {
             if (CurrentGrepOperation == GrepOperation.None && !workerSearchReplace.IsBusy)
             {
+                if (TypeOfFileSearch == FileSearchType.Regex)
+                {
+                    if (!ValidateFilePatterns())
+                        return;
+                }
+
                 if (SearchInResultsContent && CanSearchInResults)
                     CurrentGrepOperation = GrepOperation.SearchInResults;
                 else
@@ -881,6 +900,52 @@ namespace dnGREP.WPF
                 // toggle value to move focus to the results tree, and enable keyboard actions on the tree
                 SearchResults.IsResultsTreeFocused = false;
                 SearchResults.IsResultsTreeFocused = true;
+            }
+        }
+
+        private bool ValidateFilePatterns()
+        {
+            if (!string.IsNullOrWhiteSpace(FilePattern))
+            {
+                foreach (string pattern in Utils.SplitPath(FilePattern))
+                {
+                    string msg = ValidateRegex(pattern);
+                    if (!string.IsNullOrWhiteSpace(msg))
+                    {
+                        MessageBox.Show(string.Format("The file pattern '{0}' is not a valid regular expression:{1}{2}", pattern, Environment.NewLine, msg),
+                            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return false;
+                    }
+                }
+            }
+
+            if (!string.IsNullOrWhiteSpace(FilePatternIgnore))
+            {
+                foreach (string pattern in Utils.SplitPath(FilePatternIgnore))
+                {
+                    string msg = ValidateRegex(pattern);
+                    if (!string.IsNullOrWhiteSpace(msg))
+                    {
+                        MessageBox.Show(string.Format("The file pattern '{0}' is not a valid regular expression:{1}{2}", pattern, Environment.NewLine, msg),
+                            "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        private string ValidateRegex(string FilePattern)
+        {
+            try
+            {
+                Regex regex = new Regex(FilePattern);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
             }
         }
 
