@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Controls;
 
-
 namespace dnGREP.WPF.UserControls
 {
     /// <summary>
@@ -17,7 +16,7 @@ namespace dnGREP.WPF.UserControls
         public BusyIndicator()
         {
             InitializeComponent();
-            Loaded += OnLoaded; 
+            Loaded += OnLoaded;
         }
 
         void OnLoaded(object sender, RoutedEventArgs e)

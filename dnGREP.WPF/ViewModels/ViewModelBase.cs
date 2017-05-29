@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq.Expressions;
@@ -152,7 +151,7 @@ namespace dnGREP.WPF
         #endregion // IDisposable Members
 
         #region Helper Methods
-        public static string GetPropertyName<T,V>(Expression<Func<T, V>> expression)
+        public static string GetPropertyName<T, V>(Expression<Func<T, V>> expression)
         {
             MemberExpression memberExpression = (MemberExpression)expression.Body;
             return memberExpression.Member.Name;

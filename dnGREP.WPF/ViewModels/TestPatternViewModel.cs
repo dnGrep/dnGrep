@@ -99,7 +99,7 @@ namespace dnGREP.WPF
                 return _replaceCommand;
             }
         }
-		#endregion
+        #endregion
 
         public override void UpdateState(string name)
         {

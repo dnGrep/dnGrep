@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel;
+using System.IO;
 using System.Text;
 using System.Windows;
-using System.ComponentModel;
-using dnGREP.Common;
-using System.IO;
-using ICSharpCode.AvalonEdit.Highlighting;
 using System.Xml;
+using dnGREP.Common;
+using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 
 namespace dnGREP.WPF
@@ -83,7 +82,7 @@ namespace dnGREP.WPF
         public List<string> Highlighters { get; set; }
 
         public Encoding Encoding { get; set; }
-        
+
         private string filePath;
         public string FilePath
         {
@@ -131,7 +130,7 @@ namespace dnGREP.WPF
 
         public IHighlightingDefinition HighlightingDefinition
         {
-            get 
+            get
             {
                 if (highlightDefinitions.ContainsKey(CurrentSyntax))
                     return highlightDefinitions[CurrentSyntax];
@@ -185,7 +184,7 @@ namespace dnGREP.WPF
                 }
             }
 
-            if (name == "LineNumber") 
+            if (name == "LineNumber")
             {
                 // Tell View to show window but not clear content
                 ShowPreview(this, new ShowEventArgs { ClearContent = false });

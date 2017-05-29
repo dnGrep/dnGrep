@@ -154,9 +154,9 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
     <Style x:Key="MetroButton" TargetType="{x:Type CheckBox}">
-		<Setter Property="Width" Value="21"/>
-		<Setter Property="Height" Value="21"/>
-	</Style>
+        <Setter Property="Width" Value="21"/>
+        <Setter Property="Height" Value="21"/>
+    </Style>
     <Style x:Key="MultilineComboBoxStyle" TargetType="{x:Type ComboBox}">
         <Setter Property="FocusVisualStyle" Value="{StaticResource ComboBoxFocusVisual}"/>
         <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}"/>
@@ -230,24 +230,24 @@
     <ControlTemplate x:Key="FavsMetroButtonTemplate" TargetType="{x:Type CheckBox}">
         <DockPanel Background="Transparent">
             <Path DockPanel.Dock="Left" StrokeThickness="1" StrokeLineJoin="Round" Stroke="#FF3E3E3E" Fill="{TemplateBinding Background}" 
-				  Data="F1 M 12.5926,4.87357L 10.8135,10.5588L 5.02215,10.5473L 9.71401,14.0495L 7.9138,19.7276L 12.5926,16.2069L 17.2714,19.7276L 15.4711,14.0495L 20.163,10.5473L 14.3716,10.5588L 12.5926,4.87357 Z " 
+                  Data="F1 M 12.5926,4.87357L 10.8135,10.5588L 5.02215,10.5473L 9.71401,14.0495L 7.9138,19.7276L 12.5926,16.2069L 17.2714,19.7276L 15.4711,14.0495L 20.163,10.5473L 14.3716,10.5588L 12.5926,4.87357 Z " 
                   Stretch="Uniform" Height="22" Margin="2"/>
             <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
                               VerticalAlignment="Center"
                               Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" 
                               SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
         </DockPanel>
-    	<ControlTemplate.Triggers>
-    		<Trigger Property="IsMouseOver" Value="True">
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Effect">
                     <Setter.Value>
                         <DropShadowEffect Color="LightGray" ShadowDepth="0" Opacity="1" BlurRadius="14"/>
                     </Setter.Value>
                 </Setter>
             </Trigger>
-    		<Trigger Property="IsChecked" Value="True">
+            <Trigger Property="IsChecked" Value="True">
                 <Setter Property="Background" Value="#FFF9E61E"/>
-    		</Trigger>
-    	</ControlTemplate.Triggers>
+            </Trigger>
+        </ControlTemplate.Triggers>
     </ControlTemplate>
 </ResourceDictionary>

@@ -10,7 +10,6 @@ namespace dnGREP.WPF
     /// </summary>
     public static class DiginesisHelpProvider
     {
-
         #region Fields
 
         private static string mHelpNamespace = null;
@@ -241,7 +240,7 @@ namespace dnGREP.WPF
                     if (!string.IsNullOrEmpty(parameter))
                     {
 
-                        if (HelpNamespace.StartsWith("http"))                        
+                        if (HelpNamespace.StartsWith("http"))
                             Help.ShowHelp(null, HelpNamespace + parameter, command);
                         else
                             Help.ShowHelp(null, HelpNamespace, command, parameter);
@@ -301,7 +300,5 @@ namespace dnGREP.WPF
         }
 
         #endregion
-
     }
-
 }

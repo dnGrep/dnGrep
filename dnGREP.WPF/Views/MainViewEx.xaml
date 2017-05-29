@@ -256,7 +256,7 @@
                         <Button Content="Test" Command="{Binding TestCommand}" Margin="3,0" Padding="20,4"
                                 DockPanel.Dock="Right" TabIndex="55"/>
                         <CheckBox ToolTip="{Binding IsBookmarkedTooltip}" Margin="0 0 5 0"
-								  Template="{DynamicResource FavsMetroButtonTemplate}"
+                                  Template="{DynamicResource FavsMetroButtonTemplate}"
                                   IsChecked="{Binding IsBookmarked}" Command="{Binding BookmarkAddCommand}"
                                   DockPanel.Dock="Right" TabIndex="54"/>
                         <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
