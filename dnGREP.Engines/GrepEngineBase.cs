@@ -397,19 +397,11 @@ namespace dnGREP.Engines
 
             var lineEndIndexes = GetLineEndIndexes((initParams.VerboseMatchCount && lineNumber == -1) ? text : null);
 
-<<<<<<< HEAD
-=======
-            List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
->>>>>>> upstream/master
             List<GrepSearchResult.GrepMatch> globalMatches = new List<GrepSearchResult.GrepMatch>();
             var matches = Regex.Matches(text, searchPattern, regexOptions);
             foreach (Match match in matches)
             {
-<<<<<<< HEAD
-                if (lineEndIndexes.Count > 0)
-=======
                 if (initParams.VerboseMatchCount && lineEndIndexes.Count > 0)
->>>>>>> upstream/master
                     lineNumber = lineEndIndexes.FindIndex(i => i > match.Index) + 1;
 
                 globalMatches.Add(new GrepSearchResult.GrepMatch(lineNumber, match.Index, match.Length));
@@ -420,7 +412,6 @@ namespace dnGREP.Engines
 
             return globalMatches;
         }
-<<<<<<< HEAD
 
         private List<GrepSearchResult.GrepMatch> doRegexSearchSpecial(string text, string searchPattern, RegexOptions regexOptions)
         {
@@ -448,8 +439,6 @@ namespace dnGREP.Engines
 
             return globalMatches;
         }
-=======
->>>>>>> upstream/master
 
         protected string doPatternReplacement(string replaceText)
         {
