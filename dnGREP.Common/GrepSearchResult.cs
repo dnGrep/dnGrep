@@ -5,17 +5,17 @@ using System.Text;
 
 namespace dnGREP.Common
 {
-	public class GrepSearchResult
-	{
-		public GrepSearchResult()
-		{
+    public class GrepSearchResult
+    {
+        public GrepSearchResult()
+        {
             isSuccess = true;
         }
 
         public GrepSearchResult(string file, string pattern, List<GrepMatch> matches, Encoding encoding)
             : this(file, pattern, matches, encoding, true)
-		{			
-		}
+        {
+        }
 
         public GrepSearchResult(string file, string pattern, List<GrepMatch> matches, Encoding encoding, bool success)
         {
@@ -38,13 +38,13 @@ namespace dnGREP.Common
 
         public Encoding Encoding { get; private set; }
 
-		private string fileName;
+        private string fileName;
 
-		public string FileNameDisplayed
-		{
-			get { return fileName; }
-			set { fileName = value; }
-		}
+        public string FileNameDisplayed
+        {
+            get { return fileName; }
+            set { fileName = value; }
+        }
 
         private string pattern;
 
@@ -54,34 +54,35 @@ namespace dnGREP.Common
             set { pattern = value; }
         }
 
-		private string fileNameToOpen = null;
+        private string fileNameToOpen = null;
 
-		/// <summary>
-		/// Use this property if FileNameDisplayed is not the same as FileNameReal.
-		/// If null, FileNameDisplayed is used.
-		/// </summary>
-		/// <example>
-		/// Files in archive have the following FileNameDisplayed "c:\path-to-archive\archive.zip\file1.txt" while
-		/// FileNameReal is ""c:\path-to-archive\archive.zip". 
-		/// </example>
-		public string FileNameReal
-		{
-			get {
-				if (fileNameToOpen == null)
-					return fileName;
-				else
-					return fileNameToOpen;
-			}
-			set { fileNameToOpen = value; }
-		}
+        /// <summary>
+        /// Use this property if FileNameDisplayed is not the same as FileNameReal.
+        /// If null, FileNameDisplayed is used.
+        /// </summary>
+        /// <example>
+        /// Files in archive have the following FileNameDisplayed "c:\path-to-archive\archive.zip\file1.txt" while
+        /// FileNameReal is ""c:\path-to-archive\archive.zip". 
+        /// </example>
+        public string FileNameReal
+        {
+            get
+            {
+                if (fileNameToOpen == null)
+                    return fileName;
+                else
+                    return fileNameToOpen;
+            }
+            set { fileNameToOpen = value; }
+        }
 
-		private bool readOnly = false;
+        private bool readOnly = false;
 
-		public bool ReadOnly
-		{
-			get { return readOnly; }
-			set { readOnly = value; }
-		}
+        public bool ReadOnly
+        {
+            get { return readOnly; }
+            set { readOnly = value; }
+        }
 
         private List<GrepLine> searchResults;
 
@@ -90,9 +91,9 @@ namespace dnGREP.Common
             get { return searchResults != null; }
         }
 
-		public List<GrepLine> SearchResults
-		{
-			get 
+        public List<GrepLine> SearchResults
+        {
+            get
             {
                 return GetLinesWithContext(GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
                     GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter));
@@ -101,7 +102,7 @@ namespace dnGREP.Common
             {
                 searchResults = value;
             }
-		}
+        }
 
 
         public List<GrepLine> GetLinesWithContext(int linesBefore, int linesAfter)
@@ -138,38 +139,38 @@ namespace dnGREP.Common
             get { return isSuccess; }
         }
 
-		public class GrepLine : IComparable<GrepLine>, IComparable
-		{
-			public GrepLine(int number, string text, bool context, List<GrepMatch> matches)
-			{
-				lineNumber = number;
-			    lineText = text;
-				isContext = context;
+        public class GrepLine : IComparable<GrepLine>, IComparable
+        {
+            public GrepLine(int number, string text, bool context, List<GrepMatch> matches)
+            {
+                lineNumber = number;
+                lineText = text;
+                isContext = context;
                 if (matches == null)
                     this.matches = new List<GrepMatch>();
                 else
                     this.matches = matches;
-			}
+            }
 
-			private int lineNumber;
+            private int lineNumber;
 
-			public int LineNumber
-			{
-				get { return lineNumber; }
-				set { lineNumber = value; }
-			}
-			private string lineText;
+            public int LineNumber
+            {
+                get { return lineNumber; }
+                set { lineNumber = value; }
+            }
+            private string lineText;
 
-			public string LineText
-			{
-				get { return lineText; }
-			}
-			private bool isContext = false;
+            public string LineText
+            {
+                get { return lineText; }
+            }
+            private bool isContext = false;
 
-			public bool IsContext
-			{
-				get { return isContext; }
-			}
+            public bool IsContext
+            {
+                get { return isContext; }
+            }
 
             private List<GrepMatch> matches;
 
@@ -178,37 +179,37 @@ namespace dnGREP.Common
                 get { return matches; }
             }
 
-			public override string ToString()
-			{
-				return string.Format("{0}. {1} ({2})", lineNumber, lineText, isContext);
-			}
+            public override string ToString()
+            {
+                return string.Format("{0}. {1} ({2})", lineNumber, lineText, isContext);
+            }
 
-			#region IComparable<GrepLine> Members
+            #region IComparable<GrepLine> Members
 
-			public int CompareTo(GrepLine other)
-			{
-				if (other == null)
-					return 1;
-				else
-					return lineNumber.CompareTo(other.LineNumber);
-			}
+            public int CompareTo(GrepLine other)
+            {
+                if (other == null)
+                    return 1;
+                else
+                    return lineNumber.CompareTo(other.LineNumber);
+            }
 
-			#endregion
+            #endregion
 
-			#region IComparable Members
+            #region IComparable Members
 
-			public int CompareTo(object obj)
-			{
-				if (obj == null)
-					return 1;
-				if (obj is GrepLine)
-					return lineNumber.CompareTo(((GrepLine)obj).LineNumber);
-				else
-					return 1;
-			}
+            public int CompareTo(object obj)
+            {
+                if (obj == null)
+                    return 1;
+                if (obj is GrepLine)
+                    return lineNumber.CompareTo(((GrepLine)obj).LineNumber);
+                else
+                    return 1;
+            }
 
-			#endregion
-		}
+            #endregion
+        }
 
         public enum GrepMatchTails
         {
@@ -217,7 +218,7 @@ namespace dnGREP.Common
             EndOfLineOrFile
         }
 
-		public class GrepMatch : IComparable<GrepMatch>, IComparable
+        public class GrepMatch : IComparable<GrepMatch>, IComparable
         {
             public GrepMatch(int line, int start, int length)
             {
@@ -253,36 +254,37 @@ namespace dnGREP.Common
                 {
                     return startLocation + length;
                 }
-                set {
-                    length = value - startLocation;                    
+                set
+                {
+                    length = value - startLocation;
                 }
             }
 
-			#region IComparable<GrepMatch> Members
+            #region IComparable<GrepMatch> Members
 
-			public int CompareTo(GrepMatch other)
-			{
-				if (other == null)
-					return 1;
-				else
-					return startLocation.CompareTo(other.StartLocation);
-			}
+            public int CompareTo(GrepMatch other)
+            {
+                if (other == null)
+                    return 1;
+                else
+                    return startLocation.CompareTo(other.StartLocation);
+            }
 
-			#endregion
+            #endregion
 
-			#region IComparable Members
+            #region IComparable Members
 
-			public int CompareTo(object obj)
-			{
-				if (obj == null)
-					return 1;
-				if (obj is GrepMatch)
-					return startLocation.CompareTo(((GrepMatch)obj).StartLocation);
-				else
-					return 1;
-			}
+            public int CompareTo(object obj)
+            {
+                if (obj == null)
+                    return 1;
+                if (obj is GrepMatch)
+                    return startLocation.CompareTo(((GrepMatch)obj).StartLocation);
+                else
+                    return 1;
+            }
 
-			#endregion
+            #endregion
         }
-	}
+    }
 }

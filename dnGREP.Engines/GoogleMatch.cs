@@ -21,9 +21,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Web;
 using dnGREP.Common;
 
 namespace dnGREP.Engines
@@ -43,7 +40,7 @@ namespace dnGREP.Engines
         // A match this many characters away from the expected location will add
         // 1.0 to the score (0.0 is a perfect match).
         public int Match_Distance = 1000;
-        
+
         //  MATCH FUNCTIONS
 
 
@@ -83,48 +80,48 @@ namespace dnGREP.Engines
 
         public int match_length(string text, string pattern, int loc, bool isWholeWord, double threashold)
         {
-			// Case 0: pattern.length = 0 or text.length = 0
-			if (text == null || pattern == null || text.Length == 0 || pattern.Length == 0)
-				return 0;
-			// Case 1: exact match
-			if (loc + pattern.Length < text.Length &&
-				text.Substring(loc, pattern.Length).ToLower() == pattern.ToLower())
-			{
-				if (!(isWholeWord && loc + pattern.Length < text.Length && !Utils.IsValidEndText(text.Substring(loc, pattern.Length + 1))))
-					return pattern.Length;
-			}
-			// Case 2: not exact match
-			int counter = 0;
-			double matchIndex = 0;
-			string matchWord = "";
-			NeedlemanWunch nw = new NeedlemanWunch();
-			while (counter < pattern.Length * 2)
-			{
-				if (counter + loc < text.Length) 
-				{
-					counter++;
-					string tempMatchWord = text.Substring(loc, counter);
-					if (isWholeWord && counter + loc < text.Length && !Utils.IsValidEndText(text.Substring(loc + counter)))
-					{
-						continue;
-					}
+            // Case 0: pattern.length = 0 or text.length = 0
+            if (text == null || pattern == null || text.Length == 0 || pattern.Length == 0)
+                return 0;
+            // Case 1: exact match
+            if (loc + pattern.Length < text.Length &&
+                text.Substring(loc, pattern.Length).ToLower() == pattern.ToLower())
+            {
+                if (!(isWholeWord && loc + pattern.Length < text.Length && !Utils.IsValidEndText(text.Substring(loc, pattern.Length + 1))))
+                    return pattern.Length;
+            }
+            // Case 2: not exact match
+            int counter = 0;
+            double matchIndex = 0;
+            string matchWord = "";
+            NeedlemanWunch nw = new NeedlemanWunch();
+            while (counter < pattern.Length * 2)
+            {
+                if (counter + loc < text.Length)
+                {
+                    counter++;
+                    string tempMatchWord = text.Substring(loc, counter);
+                    if (isWholeWord && counter + loc < text.Length && !Utils.IsValidEndText(text.Substring(loc + counter)))
+                    {
+                        continue;
+                    }
 
-					double tempMatchIndex = nw.GetSimilarity(pattern, tempMatchWord);
-					if (tempMatchIndex > matchIndex)
-					{
-						matchIndex = tempMatchIndex;
-						matchWord = tempMatchWord;
-					}
-				} 
-				else 
-				{
-					break;
-				}
-			}
-			if (matchIndex < threashold)
-				return -1;
-			else
-				return matchWord.Length;
+                    double tempMatchIndex = nw.GetSimilarity(pattern, tempMatchWord);
+                    if (tempMatchIndex > matchIndex)
+                    {
+                        matchIndex = tempMatchIndex;
+                        matchWord = tempMatchWord;
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+            if (matchIndex < threashold)
+                return -1;
+            else
+                return matchWord.Length;
         }
 
         /**
@@ -297,6 +294,6 @@ namespace dnGREP.Engines
                 i++;
             }
             return s;
-        }        
+        }
     }
 }

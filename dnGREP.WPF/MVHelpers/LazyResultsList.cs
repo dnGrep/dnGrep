@@ -12,28 +12,21 @@ namespace dnGREP.WPF.MVHelpers
     {
         private GrepSearchResult result;
         private FormattedGrepResult formattedResult;
-        private bool isLoaded;
-        public bool IsLoaded
-        {
-            get { return isLoaded; }
-        }
 
-        private bool isLoading;
-        public bool IsLoading
-        {
-            get { return isLoading; }
-        }
+        public bool IsLoaded { get; private set; }
+        public bool IsLoading { get; private set; }
 
         public LazyResultsList(GrepSearchResult result, FormattedGrepResult formattedResult)
         {
             this.result = result;
             this.formattedResult = formattedResult;
+
             if ((result.Matches != null && result.Matches.Count > 0) || !result.IsSuccess)
             {
                 GrepSearchResult.GrepLine emptyLine = new GrepSearchResult.GrepLine(-1, "", true, null);
                 var dummyLine = new FormattedGrepLine(emptyLine, formattedResult, 30, false);
-                this.Add(dummyLine);
-                isLoaded = false;
+                Add(dummyLine);
+                IsLoaded = false;
             }
         }
 
@@ -46,10 +39,10 @@ namespace dnGREP.WPF.MVHelpers
 
         public void Load(bool isAsync)
         {
-            if (isLoaded || isLoading)
+            if (IsLoaded || IsLoading)
                 return;
 
-            isLoading = true;
+            IsLoading = true;
             if (!isAsync)
             {
                 int currentLine = -1;
@@ -89,8 +82,8 @@ namespace dnGREP.WPF.MVHelpers
 
                     this.Add(new FormattedGrepLine(line, formattedResult, LineNumberColumnWidth, isSectionBreak));
                 }
-                isLoaded = true;
-                isLoading = false;
+                IsLoaded = true;
+                IsLoading = false;
             }
             else
             {
@@ -103,7 +96,7 @@ namespace dnGREP.WPF.MVHelpers
                         GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter));
                     else
                         linesWithContext = result.GetLinesWithContext(0, 0);
-                    //System.Threading.Thread.Sleep(5000);
+
                     return linesWithContext;
                 }).ContinueWith(task =>
                 {
@@ -147,9 +140,9 @@ namespace dnGREP.WPF.MVHelpers
                             foreach (var l in tempList) this.Add(l);
                         }
                     ));
-                    isLoaded = true;
-                    isLoading = false;
-                    LoadFinished(this, null);
+                    IsLoaded = true;
+                    IsLoading = false;
+                    LoadFinished(this, EventArgs.Empty);
                 });
             }
         }

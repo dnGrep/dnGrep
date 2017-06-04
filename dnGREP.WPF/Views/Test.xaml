@@ -4,14 +4,14 @@
     xmlns:sys="clr-namespace:System;assembly=mscorlib"
     Title="Test" Height="300" Width="300">
 
-    
+
     <Grid>
         <Border BorderThickness="2" BorderBrush="Black" VerticalAlignment="Top">
-        <Grid Height="80" VerticalAlignment="Top">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="30" />
-            </Grid.ColumnDefinitions>
+            <Grid Height="80" VerticalAlignment="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="30" />
+                </Grid.ColumnDefinitions>
                 <ComboBox Name="cbHistory" BorderThickness="0" Grid.Column="0" VerticalAlignment="Bottom" MouseDown="cbHistory_MouseDown" PreviewMouseLeftButtonDown="cbHistory_MouseDown">
                     <ComboBox.Resources>
                         <sys:Double x:Key="{x:Static SystemParameters.VerticalScrollBarWidthKey}">0</sys:Double>

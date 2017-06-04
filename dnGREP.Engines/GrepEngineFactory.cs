@@ -15,7 +15,7 @@ namespace dnGREP.Engines
         private static Dictionary<string, string> failedEngines = new Dictionary<string, string>();
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        private static void loadPlugins() 
+        private static void loadPlugins()
         {
             if (plugings == null)
             {
@@ -53,7 +53,7 @@ namespace dnGREP.Engines
             if (fileExtension.Length > 1)
                 fileExtension = fileExtension.Substring(1);
 
-            if (!fileTypeEngines.ContainsKey(fileExtension)) 
+            if (!fileTypeEngines.ContainsKey(fileExtension))
             {
                 foreach (GrepPlugin plugin in plugings)
                 {
@@ -95,7 +95,7 @@ namespace dnGREP.Engines
         /// </summary>
         private static bool FrameworkVersionsAreCompatible(Version version1, Version version2)
         {
-            return ( version1.Major == version2.Major );
+            return (version1.Major == version2.Major);
         }
 
         public static IGrepEngine GetReplaceEngine(string fileName, GrepEngineInitParams param, FileFilter filter)
@@ -121,7 +121,7 @@ namespace dnGREP.Engines
 
             if (fileTypeEngines.ContainsKey(fileExtension) && fileTypeEngines[fileExtension].Enabled && !fileTypeEngines[fileExtension].Engine.IsSearchOnly)
             {
-                if (FrameworkVersionsAreCompatible(fileTypeEngines[fileExtension].Engine.FrameworkVersion, plainTextEngine.FrameworkVersion) )
+                if (FrameworkVersionsAreCompatible(fileTypeEngines[fileExtension].Engine.FrameworkVersion, plainTextEngine.FrameworkVersion))
                 {
                     if (fileTypeEngines[fileExtension].Engine.Initialize(param, filter))
                     {

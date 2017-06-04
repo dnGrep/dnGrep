@@ -1,57 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.ComponentModel;
+using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using dnGREP.Common;
-using dnGREP.Engines;
-using NLog;
-using System.IO;
-using System.Reflection;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using dnGREP.Common.UI;
-using System.Text.RegularExpressions;
-using System.Runtime.InteropServices;
 using System.Windows.Interop;
-using Blue.Windows;
+using dnGREP.Common.UI;
+using NLog;
 
 namespace dnGREP.WPF
 {
     /// <summary>
-	/// Interaction logic for MainForm.xaml
+    /// Interaction logic for MainForm.xaml
     /// </summary>
     public partial class MainForm : Window
     {
-		private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         private MainViewModel inputData;
         private bool isVisible = true;
 
         public MainForm()
-            : this (true)
-        {            
+            : this(true)
+        {
         }
 
         public MainForm(bool isVisible)
         {
             InitializeComponent();
-            this.Width = Properties.Settings.Default.Width;
-            this.Height = Properties.Settings.Default.Height;
-            this.Top = Properties.Settings.Default.Top;
-            this.Left = Properties.Settings.Default.Left;
-            if (!UiUtils.IsOnScreen(this))
-                UiUtils.CenterWindow(this);
+
+            this.Width = Properties.Settings.Default.MainFormExBounds.Width;
+            this.Height = Properties.Settings.Default.MainFormExBounds.Height;
+            this.Top = Properties.Settings.Default.MainFormExBounds.Y;
+            this.Left = Properties.Settings.Default.MainFormExBounds.X;
+            this.WindowState = Properties.Settings.Default.WindowState;
+
+            this.Loaded += delegate
+            {
+                if (!UiUtils.IsOnScreen(this))
+                    UiUtils.CenterWindow(this);
+            };
             this.isVisible = isVisible;
+
             inputData = new MainViewModel();
             this.DataContext = inputData;
+
+            this.PreviewKeyDown += MainFormEx_PreviewKeyDown;
+            this.PreviewKeyUp += MainFormEx_PreviewKeyUp;
         }
 
         [DllImport("user32.dll")]
@@ -78,193 +75,46 @@ namespace dnGREP.WPF
             }
         }
 
-		private void Window_Loaded(object sender, RoutedEventArgs e)
-		{
-            inputData.StickyWindow = new StickyWindow(this);
-            inputData.StickyWindow.StickToScreen = true;
-            inputData.StickyWindow.StickToOther = true;
-            inputData.StickyWindow.StickOnResize = true;
-            inputData.StickyWindow.StickOnMove = true;
-            gridMain.RowDefinitions[1].Height = new GridLength(1, GridUnitType.Auto);
-            gridMain.RowDefinitions[3].Height = new GridLength(1, GridUnitType.Star);
-		}		
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            inputData.ParentWindow = this;
+            DataObject.AddPastingHandler(tbSearchFor, new DataObjectPastingEventHandler(onPaste));
+            DataObject.AddPastingHandler(tbReplaceWith, new DataObjectPastingEventHandler(onPaste));
+        }
 
-		private void MainForm_Closing(object sender, CancelEventArgs e)
-		{
-			Properties.Settings.Default.Width = (int)this.ActualWidth;
-            Properties.Settings.Default.Height = (int)this.ActualHeight;
-            Properties.Settings.Default.Top = (int)this.Top;
-            Properties.Settings.Default.Left = (int)this.Left;
+        /// <summary>
+        /// Workaround to enable pasting tabs
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void onPaste(object sender, DataObjectPastingEventArgs e)
+        {
+            var isText = e.SourceDataObject.GetDataPresent(System.Windows.DataFormats.Text, true);
+            if (!isText) return;
+            var senderControl = (Control)sender;
+            var textBox = (TextBox)senderControl.Template.FindName("PART_EditableTextBox", senderControl);
+            textBox.AcceptsTab = true;
+            var text = e.SourceDataObject.GetData(DataFormats.Text) as string;
+            this.Dispatcher.BeginInvoke((Action)(() =>
+            {
+                textBox.AcceptsTab = false;
+            }), null);
+        }
+
+        private void MainForm_Closing(object sender, CancelEventArgs e)
+        {
+            Properties.Settings.Default.MainFormExBounds = new System.Drawing.Rectangle(
+                (int)Left,
+                (int)Top,
+                (int)ActualWidth,
+                (int)ActualHeight);
+            Properties.Settings.Default.WindowState = System.Windows.WindowState.Normal;
+            if (this.WindowState == System.Windows.WindowState.Maximized)
+                Properties.Settings.Default.WindowState = System.Windows.WindowState.Maximized;
             Properties.Settings.Default.Save();
+
             inputData.CloseCommand.Execute(null);
-		}
-        
-		#region Tree right click events
-
-		private void tvContexMenuOpening(object sender, RoutedEventArgs e)
-		{
-			if (tvSearchResult.SelectedItem is FormattedGrepLine)
-			{
-				btnCopyTreeItemClipboard.Header = "Line of text to clipboard";
-				btnCopyFileNameClipboard.Visibility = Visibility.Collapsed;
-			}
-			else if (tvSearchResult.SelectedItem is FormattedGrepResult)
-			{
-				btnCopyTreeItemClipboard.Header = "Full file path to clipboard";
-				btnCopyFileNameClipboard.Visibility = Visibility.Visible;
-			}
-		}
-
-		private void btnOpenFile_Click(object sender, RoutedEventArgs e)
-        {
-            if (tvSearchResult.SelectedItem is FormattedGrepLine)
-                inputData.OpenFile(tvSearchResult.SelectedItem as FormattedGrepLine, false);
-            else if (tvSearchResult.SelectedItem is FormattedGrepResult)
-                inputData.OpenFile(tvSearchResult.SelectedItem as FormattedGrepResult, false);
         }
-
-        private void btnOpenFileCustomEditor_Click(object sender, RoutedEventArgs e)
-        {
-            if (tvSearchResult.SelectedItem is FormattedGrepLine)
-                inputData.OpenFile(tvSearchResult.SelectedItem as FormattedGrepLine, true);
-            else if (tvSearchResult.SelectedItem is FormattedGrepResult)
-                inputData.OpenFile(tvSearchResult.SelectedItem as FormattedGrepResult, true);
-        }
-
-        private void btnOpenContainingFolder_Click(object sender, RoutedEventArgs e)
-        {
-            if (tvSearchResult.SelectedItem is FormattedGrepLine)
-            {
-                FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
-				//ShellIntegration.OpenFolder(selectedNode.Parent.GrepResult.FileNameReal);
-                Utils.OpenContainingFolder(selectedNode.Parent.GrepResult.FileNameReal, selectedNode.GrepLine.LineNumber);				
-            }
-            else if (tvSearchResult.SelectedItem is FormattedGrepResult)
-            {
-                FormattedGrepResult selectedNode = (FormattedGrepResult)tvSearchResult.SelectedItem;
-				//ShellIntegration.OpenFolder(selectedNode.GrepResult.FileNameReal);
-                Utils.OpenContainingFolder(selectedNode.GrepResult.FileNameReal, -1);
-            }
-        }
-
-		private void btnShowFileProperties_Click(object sender, RoutedEventArgs e)
-		{
-			string fileName = "";
-			if (tvSearchResult.SelectedItem is FormattedGrepLine)
-            {
-                FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
-                fileName = selectedNode.Parent.GrepResult.FileNameReal;
-            }
-            else if (tvSearchResult.SelectedItem is FormattedGrepResult)
-            {
-                FormattedGrepResult selectedNode = (FormattedGrepResult)tvSearchResult.SelectedItem;
-				fileName = selectedNode.GrepResult.FileNameReal;
-            }
-
-			if (fileName != "" && File.Exists(fileName))
-				ShellIntegration.ShowFileProperties(fileName);
-		}
-
-        private void btnExpandAll_Click(object sender, RoutedEventArgs e)
-        {
-            foreach (FormattedGrepResult result in tvSearchResult.Items)
-            {
-                result.IsExpanded = true;
-            }
-        }
-
-        private void btnCollapseAll_Click(object sender, RoutedEventArgs e)
-        {
-            foreach (FormattedGrepResult result in tvSearchResult.Items)
-            {
-                result.IsExpanded = false;
-            }
-        }
-
-        private void btnExclude_Click(object sender, RoutedEventArgs e)
-        {
-            if (tvSearchResult.SelectedItem is FormattedGrepLine)
-            {
-                FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
-                inputData.SearchResults.Remove(selectedNode.Parent);
-            }
-            else if (tvSearchResult.SelectedItem is FormattedGrepResult)
-            {
-                FormattedGrepResult selectedNode = (FormattedGrepResult)tvSearchResult.SelectedItem;
-                inputData.SearchResults.Remove(selectedNode);
-            }
-        }
-
-		private void copyToClipboard()
-		{
-			if (tvSearchResult.SelectedItem is FormattedGrepLine)
-			{
-				FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
-				Clipboard.SetText(selectedNode.GrepLine.LineText);
-			}
-			else if (tvSearchResult.SelectedItem is FormattedGrepResult)
-			{
-				FormattedGrepResult result = (FormattedGrepResult)tvSearchResult.SelectedItem;
-				Clipboard.SetText(result.GrepResult.FileNameDisplayed);
-			}
-		}
-
-		private void treeKeyDown(object sender, KeyEventArgs e)
-		{
-			if (e.Key == Key.C && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
-			{
-				copyToClipboard();
-			}
-		}
-
-		private void btnCopyTreeItemToClipboard_Click(object sender, RoutedEventArgs e)
-		{
-			copyToClipboard();
-		}
-
-		private void btnCopyNameToClipboard_Click(object sender, RoutedEventArgs e)
-		{			
-			if (tvSearchResult.SelectedItem is FormattedGrepLine)
-			{
-				FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
-				Clipboard.SetText(System.IO.Path.GetFileName(selectedNode.Parent.GrepResult.FileNameDisplayed));
-			}
-			else if (tvSearchResult.SelectedItem is FormattedGrepResult)
-			{
-				FormattedGrepResult result = (FormattedGrepResult)tvSearchResult.SelectedItem;
-				Clipboard.SetText(System.IO.Path.GetFileName(result.GrepResult.FileNameDisplayed));
-			}
-		}
-
-        private void tvSearchResult_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            TreeViewItem item = sender as TreeViewItem;
-            if (item != null)
-            {
-                item.Focus();
-                e.Handled = true;
-            }
-        }
-
-        private void tvSearchResult_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            if (tvSearchResult.SelectedItem is FormattedGrepLine &&
-                e.OriginalSource is TextBlock || e.OriginalSource is Run)
-            {
-                inputData.OpenFile(tvSearchResult.SelectedItem as FormattedGrepLine, GrepSettings.Instance.IsSet(GrepSettings.Key.CustomEditor));
-            }
-        }
-
-        private void tvSearchResults_SelectedChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-            var rect = new System.Drawing.RectangleF { Height = (float)this.ActualHeight, Width = (float)this.ActualWidth, X = (float)this.Left, Y = (float)this.Top };
-            if (tvSearchResult.SelectedItem is FormattedGrepLine)
-                inputData.PreviewFile(tvSearchResult.SelectedItem as FormattedGrepLine, rect);
-            else if (tvSearchResult.SelectedItem is FormattedGrepResult)
-                inputData.PreviewFile(tvSearchResult.SelectedItem as FormattedGrepResult, rect);
-        }
-
-		#endregion
 
         #region UI fixes
         private void TextBoxFocus(object sender, RoutedEventArgs e)
@@ -275,17 +125,32 @@ namespace dnGREP.WPF
             }
         }
 
-        private void btnSearchFastBookmarks_Click(object sender, RoutedEventArgs e)
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            cbSearchFastBookmark.IsDropDownOpen = true;
-            cbSearchFastBookmark.Focus();
+            e.Handled = !IsTextAllowed(e.Text);
         }
 
-        private void btnReplaceFastBookmarks_Click(object sender, RoutedEventArgs e)
+        private static bool IsTextAllowed(string text)
         {
-            cbReplaceFastBookmark.IsDropDownOpen = true;
-            cbReplaceFastBookmark.Focus();
-            tbReplaceWith.SelectAll();
+            Regex regex = new Regex("\\d+"); //regex that matches allowed text
+            return regex.IsMatch(text);
+        }
+
+        // Use the DataObject.Pasting Handler 
+        private void TextBoxPasting(object sender, DataObjectPastingEventArgs e)
+        {
+            if (e.DataObject.GetDataPresent(typeof(string)))
+            {
+                string text = (string)e.DataObject.GetData(typeof(string));
+                if (!IsTextAllowed(text))
+                {
+                    e.CancelCommand();
+                }
+            }
+            else
+            {
+                e.CancelCommand();
+            }
         }
 
         private void Window_Activated(object sender, EventArgs e)
@@ -298,130 +163,77 @@ namespace dnGREP.WPF
             inputData.ChangePreviewWindowState(this.WindowState);
         }
 
-        private void tbPreviewKeyDown(object sender, KeyEventArgs e)
+        #endregion
+
+        private void FilesSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (e.Key == Key.Up || e.Key == Key.Down)
+            var listView = (ListView)e.Source;
+            var items = new List<FormattedGrepResult>();
+            foreach (FormattedGrepResult item in listView.SelectedItems)
             {
-                if (!inputData.Multiline)
-                {
-                    if (sender != null && sender == tbSearchFor)
-                    {
-                        if (e.Key == Key.Down)
-                            cbSearchFastBookmark.SelectedIndex++;
-                        else
-                        {
-                            if (cbSearchFastBookmark.SelectedIndex > 0)
-                                cbSearchFastBookmark.SelectedIndex--;
-                        }
-                    }
-                    else if (sender != null && sender == tbReplaceWith)
-                    {
-                        if (e.Key == Key.Down)
-                            cbReplaceFastBookmark.SelectedIndex++;
-                        else
-                        {
-                            if (cbReplaceFastBookmark.SelectedIndex > 0)
-                                cbReplaceFastBookmark.SelectedIndex--;
-                        }
-                    }
-                }
+                items.Add(item);
+            }
+            inputData.SetCodeSnippets(items);
+        }
+
+        private void btnOtherActions_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            advanceContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+            advanceContextMenu.PlacementTarget = (UIElement)sender;
+            advanceContextMenu.IsOpen = true;
+        }
+
+        private void btnOtherActions_Click(object sender, RoutedEventArgs e)
+        {
+            advanceContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+            advanceContextMenu.PlacementTarget = (UIElement)sender;
+            advanceContextMenu.IsOpen = true;
+        }
+
+        private void ManipulationBoundaryFeedbackHandler(object sender, ManipulationBoundaryFeedbackEventArgs e)
+        {
+            // disable feedback that list scroll has reached the limit
+            // -- the feedback is that the whole window moves
+            e.Handled = true;
+        }
+
+        private void cbEncoding_Initialized(object sender, EventArgs e)
+        {
+            // SelectedIndex="0" isn't working on the XAML for cbEncoding, but this seems to work. It would be nice to get the XAML working, instead.
+            var model = (MainViewModel)this.DataContext;
+            if (model != null)
+                ((ComboBox)sender).SelectedValue = model.CodePage;
+            else  // design time
+                ((ComboBox)sender).SelectedIndex = 0;
+        }
+
+        private void WrapPanel_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            var panel = (WrapPanel)sender;
+
+            var maxWidth = panel.ActualWidth -
+                LeftFileOptions.ActualWidth - LeftFileOptions.Margin.Left - LeftFileOptions.Margin.Right -
+                MiddleFileOptions.ActualWidth - MiddleFileOptions.Margin.Left - MiddleFileOptions.Margin.Right -
+                RightFileOptions.ActualWidth - RightFileOptions.Margin.Left - RightFileOptions.Margin.Right;
+            SpacerFileOptions.Width = Math.Max(0, maxWidth);
+        }
+
+        void MainFormEx_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt))
+            {
+                fileOptions.Inlines.Clear();
+                fileOptions.Inlines.Add(new Underline(new Run("F")));
+                fileOptions.Inlines.Add(new Run("ile Options"));
             }
         }
-        #endregion
-        
-		#region DragDropEvents 
-		private static UIElement _draggedElt;
-		private static bool _isMouseDown = false;
-		private static System.Windows.Point _dragStartPoint;
 
-		private void tvSearchResult_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-		{
-			// Make this the new drag source
-			_draggedElt = e.Source as UIElement;
-			_dragStartPoint = e.GetPosition(getTopContainer());
-			_isMouseDown = true;
-		}
-
-		private void tvSearchResult_PreviewMouseMove(object sender, MouseEventArgs e)
-		{
-			if (_isMouseDown && isDragGesture(e.GetPosition(getTopContainer())))
-			{
-				treeDragStarted(sender as UIElement);
-			}
-		}
-
-		private void treeDragStarted(UIElement uiElt)
-		{
-			_isMouseDown = false;
-			Mouse.Capture(uiElt);
-
-			DataObject data = new DataObject();
-			
-			if (tvSearchResult.SelectedItem is FormattedGrepLine)
-			{
-				FormattedGrepLine selectedNode = (FormattedGrepLine)tvSearchResult.SelectedItem;
-				data.SetData(DataFormats.Text, selectedNode.GrepLine.LineText);
-			}
-			else if (tvSearchResult.SelectedItem is FormattedGrepResult)
-			{
-				FormattedGrepResult result = (FormattedGrepResult)tvSearchResult.SelectedItem;
-				StringCollection files = new StringCollection();
-				files.Add(result.GrepResult.FileNameReal);
-				data.SetFileDropList(files);
-			}
-
-
-			DragDropEffects supportedEffects = DragDropEffects.Move | DragDropEffects.Copy;
-			// Perform DragDrop
-			DragDropEffects effects = System.Windows.DragDrop.DoDragDrop(_draggedElt, data, supportedEffects);
-
-			// Clean up
-			Mouse.Capture(null);
-			_draggedElt = null;
-		}
-
-		private bool isDragGesture(Point point)
-		{
-			bool hGesture = Math.Abs(point.X - _dragStartPoint.X) > SystemParameters.MinimumHorizontalDragDistance;
-			bool vGesture = Math.Abs(point.Y - _dragStartPoint.Y) > SystemParameters.MinimumVerticalDragDistance;
-
-			return (hGesture | vGesture);
-		}
-
-		private UIElement getTopContainer()
-		{
-			return Application.Current.MainWindow.Content as UIElement;
-		}
-
-		private void tbFolderName_DragOver(object sender, DragEventArgs e)
-		{
-			e.Effects = DragDropEffects.All;
-			e.Handled = true;
-		}
-
-		private void tbFolderName_Drop(object sender, DragEventArgs e)
-		{
-			if (e.Data is System.Windows.DataObject &&
-			((System.Windows.DataObject)e.Data).ContainsFileDropList())
-			{
-				inputData.FileOrFolderPath = "";
-				StringCollection fileNames = ((System.Windows.DataObject)e.Data).GetFileDropList();
-				StringBuilder sb = new StringBuilder();
-				for (int i = 0; i < fileNames.Count; i++)
-				{
-					sb.Append(fileNames[i]);
-					if (i < (fileNames.Count - 1))
-						sb.Append(";");
-				}
-				inputData.FileOrFolderPath = sb.ToString();
-			}
-		}
-		#endregion
-
-        private void cbMultiline_Unchecked(object sender, RoutedEventArgs e)
+        void MainFormEx_PreviewKeyUp(object sender, KeyEventArgs e)
         {
-            gridMain.RowDefinitions[1].Height = new GridLength(1, GridUnitType.Auto);
-            gridMain.RowDefinitions[3].Height = new GridLength(1, GridUnitType.Star);
-        }        
-	}
+            if (Keyboard.IsKeyUp(Key.LeftAlt) && Keyboard.IsKeyUp(Key.RightAlt))
+            {
+                fileOptions.Text = "File Options";
+            }
+        }
+    }
 }

@@ -107,10 +107,10 @@ namespace dnGREP.WPF
             forceClose = true;
             GrepSettings.Instance.Set<bool?>(GrepSettings.Key.PreviewWindowWrap, cbWrapText.IsChecked);
             GrepSettings.Instance.Set<int>(GrepSettings.Key.PreviewWindowFont, (int)zoomSlider.Value);
-            
+
             if (inputData != null)
                 inputData.ShowPreview -= inputData_ShowPreview;
-            
+
             this.Close();
         }
 

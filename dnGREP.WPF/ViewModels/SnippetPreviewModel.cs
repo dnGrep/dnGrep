@@ -1,10 +1,6 @@
-﻿using dnGREP.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Documents;
+﻿using System.Windows.Documents;
 using System.Windows.Media;
+using dnGREP.Common;
 
 namespace dnGREP.WPF.ViewModels
 {

@@ -11,7 +11,7 @@
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0">This file is either binary or too large to preview.</Label>
             <Button Grid.Column="1" Click="Button_Click">Preview anyway</Button>
-        </Grid>        
+        </Grid>
         <StatusBar DockPanel.Dock="Bottom" ClipToBounds="False" Grid.Row="4" Name="statusBar">
             <TextBlock>Zoom:</TextBlock>
             <Slider Name="zoomSlider" ToolTip="Changes text editor zoom" Value="12" Minimum="9" Maximum="30" Width="200" HorizontalAlignment="Right"/>

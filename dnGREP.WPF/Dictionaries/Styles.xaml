@@ -6,8 +6,8 @@
         <GradientStop Color="{x:Static SystemColors.ControlColor}" Offset="0.8" />
     </LinearGradientBrush>
     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" x:Key="PanelBackgroundBrush">
-    	<GradientStop Color="#FFF9F9F9" Offset="0" />
-    	<GradientStop Color="#FFBDC7D4" Offset="1" />
+        <GradientStop Color="#FFF9F9F9" Offset="0" />
+        <GradientStop Color="#FFBDC7D4" Offset="1" />
     </LinearGradientBrush>
 
     <Style x:Key="GrayedOutFilePattern" TargetType="{x:Type TextBlock}">
@@ -119,7 +119,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <Style x:Key="CalendarStyle" TargetType="Calendar" >
         <Setter Property="Height" Value="Auto" />
         <Setter Property="Width" Value="Auto" />
@@ -131,5 +131,5 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
 </ResourceDictionary>

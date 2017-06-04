@@ -1,16 +1,14 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace dnGREP.Common
 {
-	public enum SearchType
-	{
-		PlainText,
-		Regex,
-		XPath,
-		Soundex
-	}
+    public enum SearchType
+    {
+        PlainText,
+        Regex,
+        XPath,
+        Soundex
+    }
 
     public enum FileOpenEditor
     {
@@ -18,18 +16,18 @@ namespace dnGREP.Common
         Custom
     }
 
-	public enum FileSearchType
-	{
-		Asterisk,
-		Regex
-	}
+    public enum FileSearchType
+    {
+        Asterisk,
+        Regex
+    }
 
-	public enum FileSizeFilter
-	{
+    public enum FileSizeFilter
+    {
         None,
-		Yes,
-		No
-	}
+        Yes,
+        No
+    }
 
     [Flags]
     public enum GrepSearchOption
@@ -38,17 +36,17 @@ namespace dnGREP.Common
         CaseSensitive = 1,
         Multiline = 2,
         SingleLine = 4,
-		WholeWord = 8,
+        WholeWord = 8,
         StopAfterFirstMatch = 16
     }
 
-	public enum GrepOperation
-	{
-		Search,
-		SearchInResults,
-		Replace,
-		None
-	}
+    public enum GrepOperation
+    {
+        Search,
+        SearchInResults,
+        Replace,
+        None
+    }
 
     public enum FileDateFilter
     {

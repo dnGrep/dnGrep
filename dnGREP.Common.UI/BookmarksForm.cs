@@ -1,11 +1,7 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using dnGREP.Common;
 
 namespace dnGREP.Common.UI
 {
@@ -66,7 +62,7 @@ namespace dnGREP.Common.UI
             gridBookmarks.Refresh();
         }
 
-        Action<string,string,string> ClearStar;
+        Action<string, string, string> ClearStar;
 
         public BookmarksForm(Action<string, string, string> clearStar)
         {
@@ -172,7 +168,7 @@ namespace dnGREP.Common.UI
         private void doSearch(object sender, EventArgs e)
         {
             typeTimer.Stop();
-            
+
             if (string.IsNullOrEmpty(textSearch.Text.Trim()))
             {
                 refreshGrid();
@@ -180,7 +176,7 @@ namespace dnGREP.Common.UI
             }
 
             copyOfBookmarks = BookmarkLibrary.Instance.GetDataTable();
-            
+
             for (int i = copyOfBookmarks.Rows.Count - 1; i >= 0; i--)
             {
                 DataRow row = copyOfBookmarks.Rows[i];
