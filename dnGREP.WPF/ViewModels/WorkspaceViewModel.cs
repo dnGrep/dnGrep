@@ -10,21 +10,11 @@ namespace dnGREP.WPF
     /// </summary>
     public abstract class WorkspaceViewModel : ViewModelBase
     {
-        #region Fields
-
         RelayCommand _closeCommand;
-
-        #endregion // Fields
-
-        #region Constructor
 
         protected WorkspaceViewModel()
         {
         }
-
-        #endregion // Constructor
-
-        #region CloseCommand
 
         /// <summary>
         /// Returns the command that, when invoked, attempts
@@ -41,10 +31,6 @@ namespace dnGREP.WPF
             }
         }
 
-        #endregion // CloseCommand
-
-        #region RequestClose [event]
-
         /// <summary>
         /// Raised when this workspace should be removed from the UI.
         /// </summary>
@@ -56,7 +42,5 @@ namespace dnGREP.WPF
             if (handler != null)
                 handler(this, EventArgs.Empty);
         }
-
-        #endregion // RequestClose [event]
     }
 }

@@ -107,40 +107,16 @@ namespace dnGREP.Common
         public Bookmark() { }
         public Bookmark(string pattern, string replacement, string files, string desc)
         {
-            searchPattern = pattern;
-            replacePattern = replacement;
-            fileNames = files;
-            description = desc;
+            SearchPattern = pattern;
+            ReplacePattern = replacement;
+            FileNames = files;
+            Description = desc;
         }
 
-        private string searchPattern;
-
-        public string SearchPattern
-        {
-            get { return searchPattern; }
-            set { searchPattern = value; }
-        }
-        private string replacePattern;
-
-        public string ReplacePattern
-        {
-            get { return replacePattern; }
-            set { replacePattern = value; }
-        }
-        private string fileNames;
-
-        public string FileNames
-        {
-            get { return fileNames; }
-            set { fileNames = value; }
-        }
-        private string description;
-
-        public string Description
-        {
-            get { return description; }
-            set { description = value; }
-        }
+        public string SearchPattern { get; set; }
+        public string ReplacePattern { get; set; }
+        public string FileNames { get; set; }
+        public string Description { get; set; }
 
         public override bool Equals(object obj)
         {
@@ -167,14 +143,9 @@ namespace dnGREP.Common
 
     public class BookmarkComparer : IComparer<Bookmark>
     {
-
-        #region IComparer<Bookmark> Members
-
         public int Compare(Bookmark x, Bookmark y)
         {
             return x.SearchPattern.CompareTo(y.SearchPattern);
         }
-
-        #endregion
     }
 }

@@ -155,9 +155,9 @@
     </Compile>
     <Compile Include="DesignTimeData\DesignTimeData.cs" />
     <Compile Include="MVHelpers\BoolToVisibilityConverter.cs" />
-    <Compile Include="MVHelpers\CodeSnippet.cs" />
     <Compile Include="MVHelpers\FocusExtension.cs" />
     <Compile Include="MVHelpers\LazyResultsList.cs" />
+    <Compile Include="MVHelpers\TotalValueConverter.cs" />
     <Compile Include="MVHelpers\UIServices.cs" />
     <Compile Include="UserControls\MultiSelectTreeView.cs" />
     <Compile Include="MVHelpers\PixelBasedScrollingBehavior.cs" />
@@ -185,7 +185,6 @@
       <DependentUpon>PreviewView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVHelpers\PreviewHighlighter.cs" />
-    <Compile Include="MVHelpers\TotalValueConverter.cs" />
     <Page Include="Dictionaries\CustomTemplates.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

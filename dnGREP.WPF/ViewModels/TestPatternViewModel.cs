@@ -13,7 +13,6 @@ namespace dnGREP.WPF
 {
     public class TestPatternViewModel : BaseMainViewModel
     {
-        #region Properties
         private string sampleText;
         public string SampleText
         {
@@ -24,7 +23,6 @@ namespace dnGREP.WPF
                     return;
 
                 sampleText = value;
-
                 base.OnPropertyChanged(() => SampleText);
             }
         }
@@ -32,17 +30,13 @@ namespace dnGREP.WPF
         private InlineCollection testOutput;
         public InlineCollection TestOutput
         {
-            get
-            {
-                return testOutput;
-            }
+            get { return testOutput; }
             set
             {
                 if (value == testOutput)
                     return;
 
                 testOutput = value;
-
                 base.OnPropertyChanged(() => TestOutput);
             }
         }
@@ -73,7 +67,7 @@ namespace dnGREP.WPF
                 if (_searchCommand == null)
                 {
                     _searchCommand = new RelayCommand(
-                        param => this.search(),
+                        param => this.Search(),
                         param => this.CanSearch
                         );
                 }
@@ -92,14 +86,13 @@ namespace dnGREP.WPF
                 if (_replaceCommand == null)
                 {
                     _replaceCommand = new RelayCommand(
-                        param => this.replace(),
+                        param => this.Replace(),
                         param => this.CanReplace
                         );
                 }
                 return _replaceCommand;
             }
         }
-        #endregion
 
         public override void UpdateState(string name)
         {
@@ -107,8 +100,7 @@ namespace dnGREP.WPF
             CanReplace = true;
         }
 
-        #region Private Methods
-        private void search()
+        private void Search()
         {
             if (SampleText == null)
                 SampleText = string.Empty;
@@ -176,7 +168,7 @@ namespace dnGREP.WPF
             TestOutput = paragraph.Inlines;
         }
 
-        private void replace()
+        private void Replace()
         {
             GrepEnginePlainText engine = new GrepEnginePlainText();
             engine.Initialize(new GrepEngineInitParams(
@@ -215,6 +207,5 @@ namespace dnGREP.WPF
             TestOutput = paragraph.Inlines;
             TestOutputText = replacedString;
         }
-        #endregion
     }
 }

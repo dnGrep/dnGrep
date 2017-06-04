@@ -16,18 +16,6 @@ namespace dnGREP.WPF
             ShellExecuteEx(ref info);
         }
 
-        //public static void OpenFolder(string filename)
-        //{
-        //    SHELLEXECUTEINFO info = new SHELLEXECUTEINFO();
-        //    info.Size = System.Runtime.InteropServices.Marshal.SizeOf(info);
-        //    info.Verb = "explore";
-        //    info.File = filename;
-        //    info.Show = SW_SHOWNORMAL;
-        //    info.Class = "folder";
-        //    info.Mask = SEE_MASK_IDLIST | SEE_MASK_CLASSNAME;
-        //    ShellExecuteEx(ref info);
-        //}
-
         private const int SW_SHOW = 5;
         private const int SW_SHOWNORMAL = 1;
         private const uint SEE_MASK_INVOKEIDLIST = 12;

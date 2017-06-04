@@ -88,7 +88,7 @@ namespace dnGREP.Common.UI
         }
 
         /// <summary>
-        /// When multiple files are selected returns them as semi-colon seprated string
+        /// When multiple files are selected returns them as semi-colon separated string
         /// </summary>
         public string SelectedPaths
         {
