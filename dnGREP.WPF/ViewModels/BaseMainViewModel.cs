@@ -1,14 +1,13 @@
-﻿using dnGREP.Common;
-using NLog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Xml;
 using System.Xml.XPath;
+using dnGREP.Common;
+using NLog;
 
 namespace dnGREP.WPF
 {
@@ -974,7 +973,7 @@ namespace dnGREP.WPF
                     break;
 
                 case "UseFileSizeFilter":
-                        IsSizeFilterSet = UseFileSizeFilter == FileSizeFilter.Yes;
+                    IsSizeFilterSet = UseFileSizeFilter == FileSizeFilter.Yes;
                     break;
 
                 case "UseFileDateFilter":
@@ -993,7 +992,7 @@ namespace dnGREP.WPF
                     break;
             }
 
-            if (name == "IncludeSubfolder" ||  name == "IncludeHidden" || name == "IncludeBinary" || 
+            if (name == "IncludeSubfolder" || name == "IncludeHidden" || name == "IncludeBinary" ||
                 name == "UseFileSizeFilter" || name == "UseFileDateFilter")
             {
                 tempList = new List<string>();
@@ -1107,7 +1106,7 @@ namespace dnGREP.WPF
             // btnReplace
             if (name == "FileOrFolderPath" || name == "FilesFound" || name == "CurrentGrepOperation" || name == "SearchFor" || name == "IsSaveInProgress")
             {
-                if (Utils.IsPathValid(FileOrFolderPath) && FilesFound && CurrentGrepOperation == GrepOperation.None && 
+                if (Utils.IsPathValid(FileOrFolderPath) && FilesFound && CurrentGrepOperation == GrepOperation.None &&
                     !IsSaveInProgress && !string.IsNullOrEmpty(SearchFor))
                 {
                     CanReplace = true;

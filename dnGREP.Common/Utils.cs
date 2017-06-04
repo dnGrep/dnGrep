@@ -412,7 +412,7 @@ namespace dnGREP.Common
             }
             return false;
         }
-        
+
         /// <summary>
         /// Returns true if the parameter is a recognized archive file format file extension.
         /// </summary>

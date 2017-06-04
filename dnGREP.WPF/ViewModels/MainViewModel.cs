@@ -666,8 +666,8 @@ namespace dnGREP.WPF
                             settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold),
                             settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount));
 
-                        grep.FileFilter = new FileFilter(FileOrFolderPath, filePatternInclude, filePatternExclude, 
-                            param.TypeOfFileSearch == FileSearchType.Regex, param.IncludeSubfolder, param.IncludeHidden, 
+                        grep.FileFilter = new FileFilter(FileOrFolderPath, filePatternInclude, filePatternExclude,
+                            param.TypeOfFileSearch == FileSearchType.Regex, param.IncludeSubfolder, param.IncludeHidden,
                             param.IncludeBinary, sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime);
 
                         GrepSearchOption searchOptions = GrepSearchOption.None;
@@ -744,7 +744,8 @@ namespace dnGREP.WPF
                     GrepCore.ProgressStatus progress = (GrepCore.ProgressStatus)e.UserState;
                     string result = string.Empty;
                     if (progress.SearchResults != null)
-                    {SearchResults.AddRange(progress.SearchResults);
+                    {
+                        SearchResults.AddRange(progress.SearchResults);
                         if (!string.IsNullOrWhiteSpace(progress.FileName))
                             result = string.Format("Searched {0} files. Found {1} matching files - processing {2}", progress.ProcessedFiles, SearchResults.Count, progress.FileName);
                         else
@@ -1162,7 +1163,7 @@ namespace dnGREP.WPF
         {
             try
             {
-                Action<string,string,string> clearTheStar = (searchFor, replaceWith, filePattern) =>
+                Action<string, string, string> clearTheStar = (searchFor, replaceWith, filePattern) =>
                 {
                     if (searchFor == SearchFor && replaceWith == ReplaceWith && filePattern == FilePattern)
                         IsBookmarked = false;

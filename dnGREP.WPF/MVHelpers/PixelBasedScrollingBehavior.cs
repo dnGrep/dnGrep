@@ -1,19 +1,10 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="PixelBasedScrollingBehavior.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using System;
+using System.Reflection;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace dnGREP.WPF
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Windows;
-    using System.Windows.Controls;
-    using System.Reflection;
-
     public static class PixelBasedScrollingBehavior
     {
         public static bool GetIsEnabled(DependencyObject obj)
@@ -41,7 +32,7 @@ namespace dnGREP.WPF
 
             if (property == null)
             {
-                throw new InvalidOperationException("Pixel-based scrolling behaviour hack no longer works!");
+                throw new InvalidOperationException("Pixel-based scrolling behavior hack no longer works!");
             }
 
             if ((bool)e.NewValue == true)
@@ -54,5 +45,4 @@ namespace dnGREP.WPF
             }
         }
     }
-
 }

@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Rendering;
-using ICSharpCode.AvalonEdit.Utils;
 
 namespace dnGREP.WPF
 {
@@ -61,7 +57,7 @@ namespace dnGREP.WPF
                         typeface, emSize, gray
                     );
                     double y = line.GetTextLineVisualYPosition(line.TextLines[0], VisualYPosition.TextTop);
-                    drawingContext.DrawText(text, new Point(renderSize.Width - text.Width, y - textView.VerticalOffset));                    
+                    drawingContext.DrawText(text, new Point(renderSize.Width - text.Width, y - textView.VerticalOffset));
                 }
             }
         }
@@ -70,7 +66,7 @@ namespace dnGREP.WPF
         {
             base.OnDocumentChanged(oldDocument, newDocument);
 
-            int documentLineCount = (lineNumbers == null? Document.LineCount : lineNumbers[lineNumbers.Length - 1]);
+            int documentLineCount = (lineNumbers == null ? Document.LineCount : lineNumbers[lineNumbers.Length - 1]);
             if (documentLineCount <= 0)
                 documentLineCount = lineNumbers[lineNumbers.Length - 2];
 
