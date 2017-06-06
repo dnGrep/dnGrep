@@ -287,9 +287,23 @@ namespace Tests
         [Fact]
         public void TestRegexEolToken_Issue_210_SingleLine()
         {
-            Utils.CopyFiles(sourceFolder + "\\TestCase15", destinationFolder + "\\TestCase15", null, null);
+            string path = Path.Combine(destinationFolder, @"Issue210");
+            if (Directory.Exists(path))
+                Utils.DeleteFolder(path);
+            Directory.CreateDirectory(path);
+
+            string line = @"24.4.2014 11:45:21.435;T1;End runSingle Job Wfd ID:1895 JobId:166078 JobType:RunWorkFlow Runtime:5.375 Queued:0.015 Total:5.390";
+
+            string content = line + '\r' + line + '\r' + line + '\r';
+            File.WriteAllText(Path.Combine(path, @"Issue210mac.txt"), content);
+            File.WriteAllText(Path.Combine(path, @"Issue210oneline.txt"), line);
+            content = line + '\n' + line + '\n' + line + '\n';
+            File.WriteAllText(Path.Combine(path, @"Issue210unix.txt"), content);
+            content = line + "\r\n" + line + "\r\n" + line + "\r\n";
+            File.WriteAllText(Path.Combine(path, @"Issue210win.txt"), content);
+
             GrepCore core = new GrepCore();
-            List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase15", "*.txt"), SearchType.Regex, @"[3-9]\d*?.\d\d\d$", GrepSearchOption.None, -1);
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(path, "*.txt"), SearchType.Regex, @"[3-9]\d*?.\d\d\d$", GrepSearchOption.None, -1);
             // should be four test files with no EOL, Windows, Unix, and Mac EOL
             Assert.Equal(4, results.Count);
             Assert.Equal(3, results[0].Matches.Count);
@@ -314,9 +328,23 @@ namespace Tests
         [Fact]
         public void TestRegexEolToken_Issue_210_MultiLine()
         {
-            Utils.CopyFiles(sourceFolder + "\\TestCase15", destinationFolder + "\\TestCase15", null, null);
+            string path = Path.Combine(destinationFolder, @"Issue210");
+            if (Directory.Exists(path))
+                Utils.DeleteFolder(path);
+            Directory.CreateDirectory(path);
+
+            string line = @"24.4.2014 11:45:21.435;T1;End runSingle Job Wfd ID:1895 JobId:166078 JobType:RunWorkFlow Runtime:5.375 Queued:0.015 Total:5.390";
+
+            string content = line + '\r' + line + '\r' + line + '\r';
+            File.WriteAllText(Path.Combine(path, @"Issue210mac.txt"), content);
+            File.WriteAllText(Path.Combine(path, @"Issue210oneline.txt"), line);
+            content = line + '\n' + line + '\n' + line + '\n';
+            File.WriteAllText(Path.Combine(path, @"Issue210unix.txt"), content);
+            content = line + "\r\n" + line + "\r\n" + line + "\r\n";
+            File.WriteAllText(Path.Combine(path, @"Issue210win.txt"), content);
+
             GrepCore core = new GrepCore();
-            List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase15", "*.txt"), SearchType.Regex, @"[3-9]\d*?.\d\d\d$", GrepSearchOption.Multiline, -1);
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(path, "*.txt"), SearchType.Regex, @"[3-9]\d*?.\d\d\d$", GrepSearchOption.Multiline, -1);
             // should be four test files with no EOL, Windows, Unix, and Mac EOL
             Assert.Equal(4, results.Count);
             Assert.Equal(3, results[0].Matches.Count);
