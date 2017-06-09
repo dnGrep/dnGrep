@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ICSharpCode.AvalonEdit.Rendering;
-using System.Windows.Media;
-using System.Windows;
-using ICSharpCode.AvalonEdit.Document;
+﻿using System.Windows.Media;
 using dnGREP.Common;
+using ICSharpCode.AvalonEdit.Document;
+using ICSharpCode.AvalonEdit.Rendering;
 
 namespace dnGREP.WPF
 {

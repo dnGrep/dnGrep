@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Reflection;
 using System.Security.Principal;
-using System.Text;
 using System.Windows.Input;
-using System.Windows.Media;
 using dnGREP.Common;
 using Microsoft.Win32;
 
@@ -17,7 +14,7 @@ namespace dnGREP.WPF
         public OptionsViewModel()
         {
             loadSetting();
-        }              
+        }
 
         #region Private Variables and Properties
         private System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -33,7 +30,8 @@ namespace dnGREP.WPF
         #region Properties
         public bool CanSave
         {
-            get {
+            get
+            {
                 if (EnableWindowsIntegration != isShellRegistered("Directory") ||
                 EnableStartupAcceleration != isStartupRegistered() ||
                 EnableCheckForUpdates != settings.Get<bool>(GrepSettings.Key.EnableUpdateChecking) ||
@@ -465,7 +463,7 @@ namespace dnGREP.WPF
 
         #endregion // Public Methods
 
-        #region Private Methods 
+        #region Private Methods
 
         public void browse()
         {
@@ -516,7 +514,7 @@ namespace dnGREP.WPF
             MaxSearchBookmarks = settings.Get<int>(GrepSettings.Key.MaxSearchBookmarks);
             MaxPathBookmarks = settings.Get<int>(GrepSettings.Key.MaxPathBookmarks);
             MaxExtensionBookmarks = settings.Get<int>(GrepSettings.Key.MaxExtensionBookmarks);
-            OptionsLocation = settings.Get<bool>(GrepSettings.Key.OptionsOnMainPanel) ? 
+            OptionsLocation = settings.Get<bool>(GrepSettings.Key.OptionsOnMainPanel) ?
                 PanelSelection.MainPanel : PanelSelection.OptionsExpander;
         }
 

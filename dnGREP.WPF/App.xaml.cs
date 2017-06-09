@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
 using System.Windows;
 using dnGREP.Common;
 using NLog;
@@ -29,7 +25,7 @@ namespace dnGREP.WPF
                         searchFor = e.Args[1];
                     if (searchPath == "/warmUp")
                     {
-                        this.MainWindow = new MainFormEx(false);
+                        this.MainWindow = new MainForm(false);
                         this.MainWindow.Loaded += new RoutedEventHandler(MainWindow_Loaded);
                     }
                     else
@@ -45,7 +41,7 @@ namespace dnGREP.WPF
                     }
                 }
                 if (this.MainWindow == null)
-                    this.MainWindow = new MainFormEx();
+                    this.MainWindow = new MainForm();
 
                 this.MainWindow.Show();
                 if (searchFor != null && this.MainWindow.DataContext != null)

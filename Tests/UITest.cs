@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Tests
 {
-    
+
     public class UITest
     {
         // No tests yet

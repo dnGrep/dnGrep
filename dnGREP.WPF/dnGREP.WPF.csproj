@@ -155,9 +155,9 @@
     </Compile>
     <Compile Include="DesignTimeData\DesignTimeData.cs" />
     <Compile Include="MVHelpers\BoolToVisibilityConverter.cs" />
-    <Compile Include="MVHelpers\CodeSnippet.cs" />
     <Compile Include="MVHelpers\FocusExtension.cs" />
     <Compile Include="MVHelpers\LazyResultsList.cs" />
+    <Compile Include="MVHelpers\TotalValueConverter.cs" />
     <Compile Include="MVHelpers\UIServices.cs" />
     <Compile Include="UserControls\MultiSelectTreeView.cs" />
     <Compile Include="MVHelpers\PixelBasedScrollingBehavior.cs" />
@@ -178,14 +178,13 @@
     <Compile Include="ViewModels\SyntaxHighlighterViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\WorkspaceViewModel.cs" />
-    <Compile Include="Views\MainViewEx.xaml.cs">
-      <DependentUpon>MainViewEx.xaml</DependentUpon>
+    <Compile Include="Views\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PreviewView.xaml.cs">
       <DependentUpon>PreviewView.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVHelpers\PreviewHighlighter.cs" />
-    <Compile Include="MVHelpers\TotalValueConverter.cs" />
     <Page Include="Dictionaries\CustomTemplates.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -203,7 +202,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MainViewEx.xaml">
+    <Page Include="Views\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -10,26 +10,26 @@ using SevenZip;
 
 namespace dnGREP.Engines.Archive
 {
-	public class GrepEngineArchive : GrepEngineBase, IGrepEngine
-	{
-		private static Logger logger = LogManager.GetCurrentClassLogger();
+    public class GrepEngineArchive : GrepEngineBase, IGrepEngine
+    {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
-		public GrepEngineArchive() : base() { }
+        public GrepEngineArchive() : base() { }
 
-		public GrepEngineArchive(GrepEngineInitParams param)
-			: base(param)
-		{}
+        public GrepEngineArchive(GrepEngineInitParams param)
+            : base(param)
+        { }
 
-		public bool IsSearchOnly
-		{
-			get { return true; }
-		}
+        public bool IsSearchOnly
+        {
+            get { return true; }
+        }
 
         public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
-		{
-			List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
-			SevenZipExtractor extractor = new SevenZipExtractor(file);
-			string tempFolder = Utils.FixFolderName(Utils.GetTempFolder()) + "dnGREP-Archive\\" + Utils.GetHash(file) + "\\";
+        {
+            List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
+            SevenZipExtractor extractor = new SevenZipExtractor(file);
+            string tempFolder = Utils.FixFolderName(Utils.GetTempFolder()) + "dnGREP-Archive\\" + Utils.GetHash(file) + "\\";
             FileFilter filter = FileFilter.ChangePath(tempFolder);
 
             // if the search pattern(s) only match archive files, need to include an 'any' file type to search inside the archive.  
@@ -41,15 +41,15 @@ namespace dnGREP.Engines.Archive
                 patterns.Add(FileFilter.IsRegex ? ".*" : "*.*");
                 filter = filter.ChangeIncludePattern(string.Join(";", patterns.ToArray()));
             }
-			
-			if (Directory.Exists(tempFolder))
-				Utils.DeleteFolder(tempFolder);
-			Directory.CreateDirectory(tempFolder);
-			try
-			{
-				extractor.ExtractArchive(tempFolder);
+
+            if (Directory.Exists(tempFolder))
+                Utils.DeleteFolder(tempFolder);
+            Directory.CreateDirectory(tempFolder);
+            try
+            {
+                extractor.ExtractArchive(tempFolder);
                 foreach (var innerFileName in Utils.GetFileListEx(filter))
-				{
+                {
                     IGrepEngine engine = GrepEngineFactory.GetSearchEngine(innerFileName, initParams, FileFilter);
                     var innerFileResults = engine.Search(innerFileName, searchPattern, searchType, searchOptions, encoding);
 
@@ -74,62 +74,62 @@ namespace dnGREP.Engines.Archive
                         break;
                 }
 
-				foreach (GrepSearchResult result in searchResults)
-				{
-					result.FileNameDisplayed = file + "\\" + result.FileNameDisplayed.Substring(tempFolder.Length);
-					result.FileNameReal = file;
-					result.ReadOnly = true;
+                foreach (GrepSearchResult result in searchResults)
+                {
+                    result.FileNameDisplayed = file + "\\" + result.FileNameDisplayed.Substring(tempFolder.Length);
+                    result.FileNameReal = file;
+                    result.ReadOnly = true;
                 }
-			}
-			catch (Exception ex)
-			{
-				logger.Log<Exception>(LogLevel.Error, string.Format("Failed to search inside archive '{0}'", file), ex);
-			}
-			return searchResults;
-		}
+            }
+            catch (Exception ex)
+            {
+                logger.Log<Exception>(LogLevel.Error, string.Format("Failed to search inside archive '{0}'", file), ex);
+            }
+            return searchResults;
+        }
 
-		public void Unload()
-		{
-			//Do nothing
-		}
+        public void Unload()
+        {
+            //Do nothing
+        }
 
         public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
-		{
-			throw new Exception("The method or operation is not supported.");
-		}
+        {
+            throw new Exception("The method or operation is not supported.");
+        }
 
-		public Version FrameworkVersion
-		{
-			get
-			{
+        public Version FrameworkVersion
+        {
+            get
+            {
                 return Assembly.GetAssembly(typeof(IGrepEngine)).GetName().Version;
-			}
-		}
+            }
+        }
 
-		public override void OpenFile(OpenFileArgs args)
-		{
-			SevenZipExtractor extractor = new SevenZipExtractor(args.SearchResult.FileNameReal);
-			
-			string tempFolder = Utils.FixFolderName(Utils.GetTempFolder()) + "dnGREP-Archive\\" + Utils.GetHash(args.SearchResult.FileNameReal) + "\\";
+        public override void OpenFile(OpenFileArgs args)
+        {
+            SevenZipExtractor extractor = new SevenZipExtractor(args.SearchResult.FileNameReal);
 
-			if (!Directory.Exists(tempFolder))
-			{
-				Directory.CreateDirectory(tempFolder);
-				try
-				{
-					extractor.ExtractArchive(tempFolder);					
-				}
-				catch
-				{
-					args.UseBaseEngine = true;
-				}
-			}
-			GrepSearchResult newResult = new GrepSearchResult();
-			newResult.FileNameReal = args.SearchResult.FileNameReal;
-			newResult.FileNameDisplayed = args.SearchResult.FileNameDisplayed;
-			OpenFileArgs newArgs = new OpenFileArgs(newResult, args.Pattern, args.LineNumber, args.UseCustomEditor, args.CustomEditor, args.CustomEditorArgs);
-			newArgs.SearchResult.FileNameDisplayed = tempFolder + args.SearchResult.FileNameDisplayed.Substring(args.SearchResult.FileNameReal.Length + 1);
-			Utils.OpenFile(newArgs);
-		}
-	}
+            string tempFolder = Utils.FixFolderName(Utils.GetTempFolder()) + "dnGREP-Archive\\" + Utils.GetHash(args.SearchResult.FileNameReal) + "\\";
+
+            if (!Directory.Exists(tempFolder))
+            {
+                Directory.CreateDirectory(tempFolder);
+                try
+                {
+                    extractor.ExtractArchive(tempFolder);
+                }
+                catch
+                {
+                    args.UseBaseEngine = true;
+                }
+            }
+            GrepSearchResult newResult = new GrepSearchResult();
+            newResult.FileNameReal = args.SearchResult.FileNameReal;
+            newResult.FileNameDisplayed = args.SearchResult.FileNameDisplayed;
+            OpenFileArgs newArgs = new OpenFileArgs(newResult, args.Pattern, args.LineNumber, args.UseCustomEditor, args.CustomEditor, args.CustomEditorArgs);
+            newArgs.SearchResult.FileNameDisplayed = tempFolder + args.SearchResult.FileNameDisplayed.Substring(args.SearchResult.FileNameReal.Length + 1);
+            Utils.OpenFile(newArgs);
+        }
+    }
 }

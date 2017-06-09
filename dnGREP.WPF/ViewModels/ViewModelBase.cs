@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq.Expressions;
@@ -13,15 +12,9 @@ namespace dnGREP.WPF
     /// </summary>
     public abstract class ViewModelBase : INotifyPropertyChanged, IDisposable
     {
-        #region Constructor
-
         protected ViewModelBase()
         {
         }
-
-        #endregion // Constructor
-
-        #region DisplayName
 
         /// <summary>
         /// Returns the user-friendly name of this object.
@@ -29,10 +22,6 @@ namespace dnGREP.WPF
         /// or override it to determine the value on-demand.
         /// </summary>
         public virtual string DisplayName { get; protected set; }
-
-        #endregion // DisplayName
-
-        #region Debugging Aides
 
         /// <summary>
         /// Warns the developer if this object does not have
@@ -63,10 +52,6 @@ namespace dnGREP.WPF
         /// override this property's getter to return true.
         /// </summary>
         protected virtual bool ThrowOnInvalidPropertyName { get; private set; }
-
-        #endregion // Debugging Aides
-
-        #region INotifyPropertyChanged Members
 
         /// <summary>
         /// Raised when a property on this object has a new value.
@@ -117,10 +102,6 @@ namespace dnGREP.WPF
             return memberExpression.Member.Name;
         }
 
-        #endregion // INotifyPropertyChanged Members
-
-        #region IDisposable Members
-
         /// <summary>
         /// Invoked when this object is being removed from the application
         /// and will be subject to garbage collection.
@@ -149,14 +130,10 @@ namespace dnGREP.WPF
         }
 #endif
 
-        #endregion // IDisposable Members
-
-        #region Helper Methods
-        public static string GetPropertyName<T,V>(Expression<Func<T, V>> expression)
+        public static string GetPropertyName<T, V>(Expression<Func<T, V>> expression)
         {
             MemberExpression memberExpression = (MemberExpression)expression.Body;
             return memberExpression.Member.Name;
         }
-        #endregion
     }
 }

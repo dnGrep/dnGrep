@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Input;
 
@@ -14,14 +13,8 @@ namespace dnGREP.WPF
     /// </summary>
     public class RelayCommand : ICommand
     {
-        #region Fields
-
-        readonly Action<object> _execute;
-        readonly Predicate<object> _canExecute;
-
-        #endregion // Fields
-
-        #region Constructors
+        private readonly Action<object> execute;
+        private readonly Predicate<object> canExecute;
 
         /// <summary>
         /// Creates a new command that can always execute.
@@ -42,18 +35,14 @@ namespace dnGREP.WPF
             if (execute == null)
                 throw new ArgumentNullException("execute");
 
-            _execute = execute;
-            _canExecute = canExecute;
+            this.execute = execute;
+            this.canExecute = canExecute;
         }
-
-        #endregion // Constructors
-
-        #region ICommand Members
 
         [DebuggerStepThrough]
         public bool CanExecute(object parameter)
         {
-            return _canExecute == null ? true : _canExecute(parameter);
+            return canExecute == null ? true : canExecute(parameter);
         }
 
         public event EventHandler CanExecuteChanged
@@ -64,9 +53,7 @@ namespace dnGREP.WPF
 
         public void Execute(object parameter)
         {
-            _execute(parameter);
+            execute(parameter);
         }
-
-        #endregion // ICommand Members
     }
 }

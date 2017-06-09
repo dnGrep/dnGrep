@@ -123,6 +123,7 @@
     <Compile Include="Enums.cs" />
     <Compile Include="FileFilter.cs" />
     <Compile Include="GrepSearchResult.cs" />
+    <Compile Include="EolReader.cs" />
     <Compile Include="OpenFileArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
