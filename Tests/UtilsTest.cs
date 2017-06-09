@@ -503,32 +503,38 @@ namespace Tests
         {
             string text = "Hello world" + Environment.NewLine + "My tests are good\nHow about \ryours?\n";
             int lineNumber = 0;
-            using (StringReader reader = new StringReader(text))
+            using (StringReader baseReader = new StringReader(text))
             {
-                while (reader.Peek() > 0)
+                using (EolReader reader = new EolReader(baseReader))
                 {
-                    lineNumber++;
-                    var line = reader.ReadLine(true);
-                    if (lineNumber == 1)
-                        Assert.Equal("Hello world" + Environment.NewLine, line);
-                    if (lineNumber == 2)
-                        Assert.Equal("My tests are good\n", line);
-                    if (lineNumber == 3)
-                        Assert.Equal("How about \r", line);
-                    if (lineNumber == 4)
-                        Assert.Equal("yours?\n", line);
+                    while (!reader.EndOfStream)
+                    {
+                        lineNumber++;
+                        var line = reader.ReadLine();
+                        if (lineNumber == 1)
+                            Assert.Equal("Hello world" + Environment.NewLine, line);
+                        if (lineNumber == 2)
+                            Assert.Equal("My tests are good\n", line);
+                        if (lineNumber == 3)
+                            Assert.Equal("How about \r", line);
+                        if (lineNumber == 4)
+                            Assert.Equal("yours?\n", line);
+                    }
                 }
             }
             Assert.Equal(lineNumber, 4);
             text = "Hello world";
             lineNumber = 0;
-            using (StringReader reader = new StringReader(text))
+            using (StringReader baseReader = new StringReader(text))
             {
-                while (reader.Peek() > 0)
+                using (EolReader reader = new EolReader(baseReader))
                 {
-                    lineNumber++;
-                    var line = reader.ReadLine(true);
-                    Assert.Equal("Hello world", line);
+                    while (!reader.EndOfStream)
+                    {
+                        lineNumber++;
+                        var line = reader.ReadLine();
+                        Assert.Equal("Hello world", line);
+                    }
                 }
             }
             Assert.Equal(lineNumber, 1);
@@ -616,15 +622,15 @@ namespace Tests
             File.WriteAllText(destinationFolder + "\\test.csv", "hello");
             var core = new GrepCore();
             var results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase3", "*.*"), SearchType.PlainText, "string", GrepSearchOption.None, -1);
-            Assert.Equal(results.Count, 2);
-            Assert.Equal(results[0].Matches.Count, 3);
-            Assert.Equal(results[1].Matches.Count, 282);
+            Assert.Equal(2, results.Count);
+            Assert.Equal(3, results[0].Matches.Count);
+            Assert.Equal(282, results[1].Matches.Count);
             Utils.SaveResultsAsCSV(results, destinationFolder + "\\test.csv");
             string[] stringLines = File.ReadAllLines(destinationFolder + "\\test.csv");
-            Assert.Equal(stringLines.Length, 177);
-            Assert.Equal(stringLines[0].Split(',')[0].Trim(), "File Name");
-            Assert.Equal(stringLines[1].Split(',')[1].Trim(), "1");
-            Assert.Equal(stringLines[2].Split(',')[2].Trim(), "\"\tstring returnedLine = Utils.GetLine(body");
+            Assert.Equal(177, stringLines.Length);
+            Assert.Equal("File Name", stringLines[0].Split(',')[0].Trim());
+            Assert.Equal("1", stringLines[1].Split(',')[1].Trim());
+            Assert.Equal("\"\tstring returnedLine = Utils.GetLine(body", stringLines[2].Split(',')[2].Trim());
         }
 
         [Fact]

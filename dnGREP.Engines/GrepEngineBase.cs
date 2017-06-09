@@ -180,11 +180,14 @@ namespace dnGREP.Engines
             bool[] endFound = new bool[positions.Count];
             // Getting line lengths
             List<int> lineLengths = new List<int>();
-            using (StringReader reader = new StringReader(text))
+            using (StringReader baseReader = new StringReader(text))
             {
-                while (reader.Peek() >= 0)
+                using (EolReader reader = new EolReader(baseReader))
                 {
-                    lineLengths.Add(reader.ReadLine(true).Length);
+                    while (!reader.EndOfStream)
+                    {
+                        lineLengths.Add(reader.ReadLine().Length);
+                    }
                 }
             }
             // These are absolute positions
@@ -339,7 +342,7 @@ namespace dnGREP.Engines
                         list.Add(idx);
 
                         idx++;
-                        if (idx < text.Length && text[idx] == '\n')
+                        if (idx < text.Length && text[idx - 1] == '\r' && text[idx] == '\n')
                             idx++;
                     }
                 }
@@ -371,15 +374,29 @@ namespace dnGREP.Engines
             // see https://msdn.microsoft.com/en-us/library/yd1hzczs.aspx#Multiline
             // and http://stackoverflow.com/questions/8618557/why-doesnt-in-net-multiline-regular-expressions-match-crlf
             // must change the Windows and Mac line ends to just the Unix \n char before calling Regex
-            text = text.Replace("\r\n", "\n");
-            text = text.Replace('\r', '\n');
-            // and if the search pattern has Windows or Mac newlines, they must be converted, too
-            searchPattern = searchPattern.Replace("\r\n", "\n");
-            searchPattern = searchPattern.Replace('\r', '\n');
+            if (searchPattern.Contains("$"))
+            {
+                // if the search pattern has Windows or Mac newlines, they must be converted, too
+                searchPattern = searchPattern.Replace("\r\n", "\n");
+                searchPattern = searchPattern.Replace('\r', '\n');
 
-            var lineEndIndexes = GetLineEndIndexes(initParams.VerboseMatchCount && lineNumber == -1 ? text : null);
+                if (lineNumber == -1 && text.Contains("\r\n"))
+                {
+                    return doRegexSearchSpecial(text, searchPattern, regexOptions);
+                }
 
-            List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
+                if (text.Contains("\r\n"))
+                {
+                    text = text.Replace("\r\n", "\n");
+                }
+                else if (text.Contains("\r"))
+                {
+                    text = text.Replace('\r', '\n');
+                }
+            }
+
+            var lineEndIndexes = GetLineEndIndexes((initParams.VerboseMatchCount && lineNumber == -1) ? text : null);
+
             List<GrepSearchResult.GrepMatch> globalMatches = new List<GrepSearchResult.GrepMatch>();
             var matches = Regex.Matches(text, searchPattern, regexOptions);
             foreach (Match match in matches)
@@ -388,6 +405,33 @@ namespace dnGREP.Engines
                     lineNumber = lineEndIndexes.FindIndex(i => i > match.Index) + 1;
 
                 globalMatches.Add(new GrepSearchResult.GrepMatch(lineNumber, match.Index, match.Length));
+
+                if (Utils.CancelSearch)
+                    break;
+            }
+
+            return globalMatches;
+        }
+
+        private List<GrepSearchResult.GrepMatch> doRegexSearchSpecial(string text, string searchPattern, RegexOptions regexOptions)
+        {
+            // this is a special case for multiline searches with Windows EOL characters and a '$' in the search pattern
+            // must remove the \r from the EOL (see above), and then account for the missing character in the start index
+            // of each match
+
+            text = text.Replace("\r\n", "\n");
+
+            var lineEndIndexes = GetLineEndIndexes(text);
+            int lineNumber = 1;
+
+            List<GrepSearchResult.GrepMatch> globalMatches = new List<GrepSearchResult.GrepMatch>();
+            var matches = Regex.Matches(text, searchPattern, regexOptions);
+            foreach (Match match in matches)
+            {
+                if (lineEndIndexes.Count > 0)
+                    lineNumber = lineEndIndexes.FindIndex(i => i > match.Index) + 1;
+
+                globalMatches.Add(new GrepSearchResult.GrepMatch(lineNumber, match.Index + (lineNumber - 1), match.Length));
 
                 if (Utils.CancelSearch)
                     break;

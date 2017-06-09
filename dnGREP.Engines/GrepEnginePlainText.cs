@@ -21,7 +21,7 @@ namespace dnGREP.Engines
 
         public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
         {
-            using (FileStream fileStream = File.Open(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            using (FileStream fileStream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.SequentialScan))
             {
                 return Search(fileStream, file, searchPattern, searchType, searchOptions, encoding);
             }
@@ -119,34 +119,37 @@ namespace dnGREP.Engines
         {
             List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
 
-            using (StreamReader readStream = new StreamReader(input, encoding))
+            using (StreamReader baseReader = new StreamReader(input, encoding))
             {
-                string line = null;
-                int counter = 1;
-                int charCounter = 0;
-                List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
-                while (readStream.Peek() >= 0)
+                using (EolReader readStream = new EolReader(baseReader))
                 {
-                    line = readStream.ReadLine(true);
+                    string line = null;
+                    int counter = 1;
+                    int charCounter = 0;
+                    List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
+                    while (!readStream.EndOfStream)
+                    {
+                        line = readStream.ReadLine();
 
-                    if (Utils.CancelSearch)
-                    {
-                        return searchResults;
-                    }
-                    List<GrepSearchResult.GrepMatch> results = searchMethod(counter, line, searchPattern, searchOptions, false);
-                    if (results.Count > 0)
-                    {
-                        foreach (GrepSearchResult.GrepMatch m in results)
+                        if (Utils.CancelSearch)
                         {
-                            matches.Add(new GrepSearchResult.GrepMatch(counter, m.StartLocation + charCounter, (int)m.Length));
+                            return searchResults;
                         }
+                        List<GrepSearchResult.GrepMatch> results = searchMethod(counter, line, searchPattern, searchOptions, false);
+                        if (results.Count > 0)
+                        {
+                            foreach (GrepSearchResult.GrepMatch m in results)
+                            {
+                                matches.Add(new GrepSearchResult.GrepMatch(counter, m.StartLocation + charCounter, (int)m.Length));
+                            }
+                        }
+                        charCounter += line.Length;
+                        counter++;
                     }
-                    charCounter += line.Length;
-                    counter++;
-                }
-                if (matches.Count > 0)
-                {
-                    searchResults.Add(new GrepSearchResult(fileName, searchPattern, matches, encoding));
+                    if (matches.Count > 0)
+                    {
+                        searchResults.Add(new GrepSearchResult(fileName, searchPattern, matches, encoding));
+                    }
                 }
             }
             return searchResults;
@@ -180,32 +183,30 @@ namespace dnGREP.Engines
                 int counter = 1;
 
                 // use first line to determine eol character(s);
-                line = readStream.ReadLine(true);
-                if (line != null)
+                using (EolReader eolReader = new EolReader(readStream))
                 {
-                    if (line.EndsWith("\r\n"))
+                    line = eolReader.ReadLine();
+                    if (line != null)
                     {
-                        writeStream.NewLine = "\r\n";
-                        line = line.Substring(0, line.Length - 2);
+                        if (line.EndsWith("\r\n"))
+                        {
+                            writeStream.NewLine = "\r\n";
+                        }
+                        else if (line.EndsWith("\n"))
+                        {
+                            writeStream.NewLine = "\n";
+                        }
+                        else if (line.EndsWith("\r"))
+                        {
+                            writeStream.NewLine = "\r";
+                        }
                     }
-                    else if (line.EndsWith("\n"))
-                    {
-                        writeStream.NewLine = "\n";
-                        line = line.Substring(0, line.Length - 1);
-                    }
-                    else if (line.EndsWith("\r"))
-                    {
-                        writeStream.NewLine = "\r";
-                        line = line.Substring(0, line.Length - 1);
-                    }
-
-                    line = replaceMethod(line, searchPattern, replacePattern, searchOptions);
-                    writeStream.WriteLine(line);
-                    counter++;
                 }
 
-                while ((line = readStream.ReadLine()) != null)
+                readStream.BaseStream.Seek(0, SeekOrigin.Begin);
+                while (!readStream.EndOfStream)
                 {
+                    line = readStream.ReadLine();
                     line = replaceMethod(line, searchPattern, replacePattern, searchOptions);
                     writeStream.WriteLine(line);
                     counter++;

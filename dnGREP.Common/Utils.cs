@@ -1299,97 +1299,100 @@ namespace dnGREP.Common
             bool startMatched = false;
             Queue<string> lineQueue = new Queue<string>();
 
-            while (body.Peek() >= 0 && (bodyMatchesClone.Count > 0 || startRecordingAfterLines))
+            using (EolReader reader = new EolReader(body))
             {
-                lineNumber++;
-                string line = body.ReadLine(true);
-                bool moreMatches = true;
-                // Building context queue
-                if (beforeLines > 0)
+                while (!reader.EndOfStream && (bodyMatchesClone.Count > 0 || startRecordingAfterLines))
                 {
-                    if (beforeQueue.Count >= beforeLines + 1)
-                        beforeQueue.Dequeue();
-
-                    beforeQueue.Enqueue(line.TrimEndOfLine());
-                }
-                if (startRecordingAfterLines && currentAfterLine < afterLines)
-                {
-                    currentAfterLine++;
-                    contextLines.Add(new GrepSearchResult.GrepLine(lineNumber, line.TrimEndOfLine(), true, null));
-                }
-                else if (currentAfterLine == afterLines)
-                {
-                    currentAfterLine = 0;
-                    startRecordingAfterLines = false;
-                }
-
-                while (moreMatches && bodyMatchesClone.Count > 0)
-                {
-                    // Head of match found
-                    if (bodyMatchesClone[0].StartLocation >= currentIndex && bodyMatchesClone[0].StartLocation < currentIndex + line.Length && !startMatched)
+                    lineNumber++;
+                    string line = reader.ReadLine();
+                    bool moreMatches = true;
+                    // Building context queue
+                    if (beforeLines > 0)
                     {
-                        startMatched = true;
-                        moreMatches = true;
-                        lineQueue = new Queue<string>();
-                        startLine = lineNumber;
-                        startIndex = bodyMatchesClone[0].StartLocation - currentIndex;
-                        tempLinesTotalLength = 0;
+                        if (beforeQueue.Count >= beforeLines + 1)
+                            beforeQueue.Dequeue();
+
+                        beforeQueue.Enqueue(line.TrimEndOfLine());
+                    }
+                    if (startRecordingAfterLines && currentAfterLine < afterLines)
+                    {
+                        currentAfterLine++;
+                        contextLines.Add(new GrepSearchResult.GrepLine(lineNumber, line.TrimEndOfLine(), true, null));
+                    }
+                    else if (currentAfterLine == afterLines)
+                    {
+                        currentAfterLine = 0;
+                        startRecordingAfterLines = false;
                     }
 
-                    // Add line to queue
-                    if (startMatched)
+                    while (moreMatches && bodyMatchesClone.Count > 0)
                     {
-                        lineQueue.Enqueue(line);
-                        tempLinesTotalLength += line.Length;
-                    }
-
-                    // Tail of match found
-                    if (bodyMatchesClone[0].StartLocation + bodyMatchesClone[0].Length <= currentIndex + line.Length && startMatched)
-                    {
-                        startMatched = false;
-                        moreMatches = false;
-                        // Start creating matches
-                        for (int i = startLine; i <= lineNumber; i++)
+                        // Head of match found
+                        if (bodyMatchesClone[0].StartLocation >= currentIndex && bodyMatchesClone[0].StartLocation < currentIndex + line.Length && !startMatched)
                         {
-                            lineNumbers.Add(i);
-                            string tempLine = lineQueue.Dequeue();
-                            lineStrings[i] = tempLine;
-                            // Recording context lines (before)
-                            while (beforeQueue.Count > 0)
-                            {
-                                // If only 1 line - it is the same as matched line
-                                if (beforeQueue.Count == 1)
-                                    beforeQueue.Dequeue();
-                                else
-                                    contextLines.Add(new GrepSearchResult.GrepLine(i - beforeQueue.Count + 1 + (lineNumber - startLine),
-                                        beforeQueue.Dequeue(), true, null));
-                            }
-                            // First and only line
-                            if (i == startLine && i == lineNumber)
-                                matches.Add(new GrepSearchResult.GrepMatch(i, startIndex, bodyMatchesClone[0].Length));
-                            // First but not last line
-                            else if (i == startLine)
-                                matches.Add(new GrepSearchResult.GrepMatch(i, startIndex, tempLine.TrimEndOfLine().Length - startIndex));
-                            // Middle line
-                            else if (i > startLine && i < lineNumber)
-                                matches.Add(new GrepSearchResult.GrepMatch(i, 0, tempLine.TrimEndOfLine().Length));
-                            // Last line
-                            else
-                                matches.Add(new GrepSearchResult.GrepMatch(i, 0, bodyMatchesClone[0].Length - tempLinesTotalLength + line.Length + startIndex));
-
-                            startRecordingAfterLines = true;
+                            startMatched = true;
+                            moreMatches = true;
+                            lineQueue = new Queue<string>();
+                            startLine = lineNumber;
+                            startIndex = bodyMatchesClone[0].StartLocation - currentIndex;
+                            tempLinesTotalLength = 0;
                         }
-                        bodyMatchesClone.RemoveAt(0);
+
+                        // Add line to queue
+                        if (startMatched)
+                        {
+                            lineQueue.Enqueue(line);
+                            tempLinesTotalLength += line.Length;
+                        }
+
+                        // Tail of match found
+                        if (bodyMatchesClone[0].StartLocation + bodyMatchesClone[0].Length <= currentIndex + line.Length && startMatched)
+                        {
+                            startMatched = false;
+                            moreMatches = false;
+                            // Start creating matches
+                            for (int i = startLine; i <= lineNumber; i++)
+                            {
+                                lineNumbers.Add(i);
+                                string tempLine = lineQueue.Dequeue();
+                                lineStrings[i] = tempLine;
+                                // Recording context lines (before)
+                                while (beforeQueue.Count > 0)
+                                {
+                                    // If only 1 line - it is the same as matched line
+                                    if (beforeQueue.Count == 1)
+                                        beforeQueue.Dequeue();
+                                    else
+                                        contextLines.Add(new GrepSearchResult.GrepLine(i - beforeQueue.Count + 1 + (lineNumber - startLine),
+                                            beforeQueue.Dequeue(), true, null));
+                                }
+                                // First and only line
+                                if (i == startLine && i == lineNumber)
+                                    matches.Add(new GrepSearchResult.GrepMatch(i, startIndex, bodyMatchesClone[0].Length));
+                                // First but not last line
+                                else if (i == startLine)
+                                    matches.Add(new GrepSearchResult.GrepMatch(i, startIndex, tempLine.TrimEndOfLine().Length - startIndex));
+                                // Middle line
+                                else if (i > startLine && i < lineNumber)
+                                    matches.Add(new GrepSearchResult.GrepMatch(i, 0, tempLine.TrimEndOfLine().Length));
+                                // Last line
+                                else
+                                    matches.Add(new GrepSearchResult.GrepMatch(i, 0, bodyMatchesClone[0].Length - tempLinesTotalLength + line.Length + startIndex));
+
+                                startRecordingAfterLines = true;
+                            }
+                            bodyMatchesClone.RemoveAt(0);
+                        }
+
+                        // Another match on this line
+                        if (bodyMatchesClone.Count > 0 && bodyMatchesClone[0].StartLocation >= currentIndex && bodyMatchesClone[0].StartLocation < currentIndex + line.Length && !startMatched)
+                            moreMatches = true;
+                        else
+                            moreMatches = false;
                     }
 
-                    // Another match on this line
-                    if (bodyMatchesClone.Count > 0 && bodyMatchesClone[0].StartLocation >= currentIndex && bodyMatchesClone[0].StartLocation < currentIndex + line.Length && !startMatched)
-                        moreMatches = true;
-                    else
-                        moreMatches = false;
+                    currentIndex += line.Length;
                 }
-
-                currentIndex += line.Length;
             }
 
             if (lineStrings.Count == 0)
@@ -1764,57 +1767,6 @@ namespace dnGREP.Common
                 return text.Substring(0, text.Length - 1);
             else
                 return text;
-        }
-
-        public static string ReadLine(this TextReader reader, bool keepEndOfLineCharacters)
-        {
-            if (!keepEndOfLineCharacters)
-                return reader.ReadLine();
-            else
-            {
-                List<char> charList = new List<char>();
-                char[] lastTwoChars = new char[2] { '\0', '\0' };
-                while (true)
-                {
-                    int integer = reader.Peek();
-
-                    // Check for the end of the stream before converting to a character
-                    if (integer == -1)
-                        break;
-
-                    // Fill lastTwoChars
-                    lastTwoChars[0] = lastTwoChars[1];
-                    lastTwoChars[1] = (char)integer;
-                    charList.Add((char)integer);
-
-                    // Check for the end of string
-                    if (lastTwoChars[0] == '\r' && lastTwoChars[1] == '\n')
-                    {
-                        reader.Read();
-                        break;
-                    }
-                    else if (lastTwoChars[0] == '\n' && lastTwoChars[1] == '\0')
-                    {
-                        reader.Read();
-                        break;
-                    }
-                    else if (lastTwoChars[0] == '\r' && lastTwoChars[1] == '\0')
-                    {
-                        reader.Read();
-                        break;
-                    }
-                    else if (lastTwoChars[0] == '\n' || lastTwoChars[0] == '\r')
-                    {
-                        charList.RemoveAt(charList.Count - 1);
-                        break;
-                    }
-                    else
-                    {
-                        reader.Read();
-                    }
-                }
-                return new string(charList.ToArray());
-            }
         }
     }
 }
