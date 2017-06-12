@@ -80,6 +80,16 @@ namespace dnGREP.WPF
             inputData.ParentWindow = this;
             DataObject.AddPastingHandler(tbSearchFor, new DataObjectPastingEventHandler(onPaste));
             DataObject.AddPastingHandler(tbReplaceWith, new DataObjectPastingEventHandler(onPaste));
+
+            var textBox = (tbSearchFor.Template.FindName("PART_EditableTextBox", tbSearchFor) as TextBox);
+            if (textBox != null && !tbSearchFor.IsDropDownOpen)
+            {
+                Application.Current.Dispatcher.BeginInvoke(new Action(() => {
+                    textBox.SelectAll();
+                    textBox.Focus();
+                    //e.Handled = true;
+                }));
+            }
         }
 
         /// <summary>
@@ -212,10 +222,8 @@ namespace dnGREP.WPF
             var panel = (WrapPanel)sender;
 
             var maxWidth = panel.ActualWidth -
-                LeftFileOptions.ActualWidth - LeftFileOptions.Margin.Left - LeftFileOptions.Margin.Right -
-                MiddleFileOptions.ActualWidth - MiddleFileOptions.Margin.Left - MiddleFileOptions.Margin.Right -
-                RightFileOptions.ActualWidth - RightFileOptions.Margin.Left - RightFileOptions.Margin.Right;
-            SpacerFileOptions.Width = Math.Max(0, maxWidth);
+                stckLeftSearchOptions.ActualWidth - stckLeftSearchOptions.Margin.Left - stckLeftSearchOptions.Margin.Right -
+                stckRightSearchOptions.ActualWidth - stckRightSearchOptions.Margin.Left - stckRightSearchOptions.Margin.Right;
         }
 
         void MainFormEx_PreviewKeyDown(object sender, KeyEventArgs e)
