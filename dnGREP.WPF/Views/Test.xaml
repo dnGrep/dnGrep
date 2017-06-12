@@ -29,8 +29,8 @@
                         </ContextMenu>
                     </TextBox.ContextMenu>
                 </TextBox>
-                <Button Grid.Column="1" Name="button1" HorizontalContentAlignment="Center" VerticalAlignment="Top" Width="auto" Click="button1_Click"
-                        FontFamily="Marlett" FontSize="15" Content="6" PreviewMouseLeftButtonDown="DragSource_PreviewMouseLeftButtonDown" PreviewMouseMove="DragSource_PreviewMouseMove"></Button>
+                <Button Grid.Column="1" Name="button1" HorizontalContentAlignment="Center" VerticalAlignment="Top" Width="32" Click="button1_Click"
+                        FontFamily="Marlett" FontSize="15" Content="6" PreviewMouseLeftButtonDown="DragSource_PreviewMouseLeftButtonDown" PreviewMouseMove="DragSource_PreviewMouseMove" Height="24"></Button>
             </Grid>
         </Border>
     </Grid>

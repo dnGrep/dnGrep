@@ -18,11 +18,11 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <TabControl Name="tbMainPanel" Grid.Row="0" TabStripPlacement="Left" Grid.IsSharedSizeScope="True">
-            <TabItem Name="tbGeneralTab">
+            <TabItem Name="tbGeneralTab" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center">
                 <TabItem.Header>
                     <WrapPanel Orientation="Vertical">
-                        <Image Source="..\Images\preferences-system.png" Width="32" Height="32"/>
-                        <TextBlock>General</TextBlock>
+                        <Image Source="..\Images\preferences-system.png" Width="32" Height="32" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">General</TextBlock>
                     </WrapPanel>
                 </TabItem.Header>
                 <Grid>
@@ -33,16 +33,16 @@
                         <GroupBox Header="Startup options" Name="grShell" ToolTip="{Binding Path=PanelTooltip}">
                             <WrapPanel Orientation="Vertical">
                                 <CheckBox Margin="3" Name="cbRegisterShell" IsChecked="{Binding Path=EnableWindowsIntegration}" ToolTip="{Binding Path=WindowsIntegrationTooltip}"
-                                      IsEnabled="{Binding Path=IsAdministrator}">Enable Windows Explorer integration</CheckBox>
+                                      IsEnabled="{Binding Path=IsAdministrator}" VerticalContentAlignment="Center" VerticalAlignment="Center">Enable Windows Explorer integration</CheckBox>
                                 <CheckBox Margin="3" Name="cbRegisterStartup" IsChecked="{Binding Path=EnableStartupAcceleration}" ToolTip="{Binding Path=StartupAccelerationTooltip}"
-                                      IsEnabled="{Binding Path=IsAdministrator}">Enable startup accelerator</CheckBox>
+                                      IsEnabled="{Binding Path=IsAdministrator}" VerticalContentAlignment="Center" VerticalAlignment="Center">Enable startup accelerator</CheckBox>
                             </WrapPanel>
                         </GroupBox>
                         <GroupBox Header="Checking for updates">
                             <WrapPanel>
-                                <CheckBox Margin="3" VerticalAlignment="Center" Name="cbCheckForUpdates" IsChecked="{Binding Path=EnableCheckForUpdates}">Enable automatic checking every</CheckBox>
-                                <TextBox Width="30" Name="tbUpdateInterval" IsEnabled="{Binding ElementName=cbCheckForUpdates, Path=IsChecked}" Text="{Binding Path=CheckForUpdatesInterval, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-                                <Label Margin="3" VerticalAlignment="Center">days</Label>
+                                <CheckBox Margin="3" VerticalAlignment="Center" Name="cbCheckForUpdates" IsChecked="{Binding Path=EnableCheckForUpdates}" VerticalContentAlignment="Center">Enable automatic checking every</CheckBox>
+                                <TextBox Width="31" Name="tbUpdateInterval" IsEnabled="{Binding ElementName=cbCheckForUpdates, Path=IsChecked}" Text="{Binding Path=CheckForUpdatesInterval, UpdateSourceTrigger=PropertyChanged}" Height="24" Margin="3,0,0,0" VerticalContentAlignment="Center" VerticalAlignment="Center"></TextBox>
+                                <Label Margin="0,3,3,3" VerticalAlignment="Center" VerticalContentAlignment="Center">days</Label>
                             </WrapPanel>
                         </GroupBox>
                         <GroupBox Header="Custom editor">
@@ -57,25 +57,25 @@
                                         <ColumnDefinition />
                                         <ColumnDefinition Width="40"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBox Grid.Column="0" Text="{Binding Path=CustomEditorPath, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,3" IsEnabled="{Binding ElementName=rbSpecificEditor, Path=IsChecked}"></TextBox>
-                                    <Button Grid.Column="1" Margin="5,0,0,0" Name="btnBrowse" Command="{Binding Path=BrowseCommand}" IsEnabled="{Binding ElementName=rbSpecificEditor, Path=IsChecked}">...</Button>
+                                    <TextBox Grid.Column="0" Text="{Binding Path=CustomEditorPath, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,1" IsEnabled="{Binding ElementName=rbSpecificEditor, Path=IsChecked}" Height="24" VerticalAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+                                    <Button Grid.Column="1" Margin="7,2,1,1" Name="btnBrowse" Command="{Binding Path=BrowseCommand}" IsEnabled="{Binding ElementName=rbSpecificEditor, Path=IsChecked}" Height="24" Width="32">...</Button>
                                     <DockPanel Grid.Row="1" Grid.Column="0">
-                                        <Label>Arguments</Label>
-                                        <TextBox Text="{Binding Path=CustomEditorArgs, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ElementName=rbSpecificEditor, Path=IsChecked}"></TextBox>
+                                        <Label VerticalAlignment="Center" VerticalContentAlignment="Center">Arguments</Label>
+                                        <TextBox Text="{Binding Path=CustomEditorArgs, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ElementName=rbSpecificEditor, Path=IsChecked}" Height="24" VerticalAlignment="Center" Margin="0,1" VerticalContentAlignment="Center"></TextBox>
                                     </DockPanel>
-                                    <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" TextWrapping="Wrap">(use %file and %line keywords for file location and line number and %pattern for search pattern)</TextBlock>
+                                    <TextBlock Grid.Row="2" Grid.Column="0" TextWrapping="Wrap" VerticalAlignment="Center" Margin="70,0,0,0" Text="Use %file and %line keywords for file location and line number and %pattern for search pattern"/>
                                 </Grid>
                             </StackPanel>
                         </GroupBox>
                     </StackPanel>
                 </Grid>
             </TabItem>
-            <TabItem Name="tbUserInterfaceTab">
+            <TabItem Name="tbUserInterfaceTab" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center">
                 <TabItem.Header>
                     <WrapPanel Orientation="Vertical">
-                        <Image Source="..\Images\applications-graphics.png" Width="32" Height="32"/>
-                        <TextBlock HorizontalAlignment="Center">User</TextBlock>
-                        <TextBlock HorizontalAlignment="Center">Interface</TextBlock>
+                        <Image Source="..\Images\applications-graphics.png" Width="32" Height="32" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">User</TextBlock>
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Interface</TextBlock>
                     </WrapPanel>
                 </TabItem.Header>
                 <Grid>
@@ -84,60 +84,60 @@
                     </Grid.RowDefinitions>
                     <StackPanel HorizontalAlignment="Stretch">
                         <StackPanel Orientation="Horizontal" Margin="0,3">
-                            <TextBlock Text="Show search options:" Margin="6,0"/>
+                            <TextBlock Text="Show search options:" Margin="6,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             <RadioButton Content="on main panel" GroupName="searchLocation" Margin="3,0" 
-                                         IsChecked="{Binding OptionsLocation, Converter={StaticResource ebc}, ConverterParameter=MainPanel}"/>
+                                         IsChecked="{Binding OptionsLocation, Converter={StaticResource ebc}, ConverterParameter=MainPanel}" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
                             <RadioButton Content="in options expander" GroupName="searchLocation" Margin="3,0" 
-                                         IsChecked="{Binding OptionsLocation, Converter={StaticResource ebc}, ConverterParameter=OptionsExpander}"/>
+                                         IsChecked="{Binding OptionsLocation, Converter={StaticResource ebc}, ConverterParameter=OptionsExpander}" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
                         </StackPanel>
-                        <CheckBox Name="cbShowPath" Margin="3" IsChecked="{Binding Path=ShowFilePathInResults}">Show file path in results panel</CheckBox>
+                        <CheckBox Name="cbShowPath" Margin="3" IsChecked="{Binding Path=ShowFilePathInResults}" VerticalAlignment="Center">Show file path in results panel</CheckBox>
                         <StackPanel Orientation="Horizontal">
-                            <CheckBox Name="cbShowContext" Margin="3" VerticalAlignment="Center" IsChecked="{Binding Path=ShowLinesInContext}">Show result lines in context</CheckBox>
-                            <TextBox Width="40" Text="{Binding Path=ContextLinesBefore, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}"></TextBox>
+                            <CheckBox Name="cbShowContext" Margin="3" VerticalAlignment="Center" IsChecked="{Binding Path=ShowLinesInContext}" HorizontalAlignment="Center" VerticalContentAlignment="Center">Show result lines in context</CheckBox>
+                            <TextBox Width="32" Text="{Binding Path=ContextLinesBefore, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}" Height="24" Margin="3,0,0,0" VerticalAlignment="Center" VerticalContentAlignment="Center"></TextBox>
                             <Label VerticalAlignment="Center">before</Label>
-                            <TextBox Width="40" Text="{Binding Path=ContextLinesAfter, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}"></TextBox>
+                            <TextBox Width="32" Text="{Binding Path=ContextLinesAfter, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}" Height="24" VerticalContentAlignment="Center" VerticalAlignment="Center"></TextBox>
                             <Label VerticalAlignment="Center">after</Label>
                         </StackPanel>
-                        <CheckBox Margin="3" Name="cbSearchFileNameOnly" IsChecked="{Binding Path=AllowSearchWithEmptyPattern}">
+                        <CheckBox Margin="3" Name="cbSearchFileNameOnly" IsChecked="{Binding Path=AllowSearchWithEmptyPattern}" VerticalContentAlignment="Center" VerticalAlignment="Center">
                             <CheckBox.Content>
-                                <TextBlock TextWrapping="Wrap">Allow searching for file name pattern only when "search for" is empty</TextBlock>
+                                <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center">Allow searching for file name pattern only when "search for" is empty</TextBlock>
                             </CheckBox.Content>
                         </CheckBox>
-                        <CheckBox Margin="3" Name="cbExpandResult" IsChecked="{Binding Path=AutoExpandSearchTree}">
+                        <CheckBox Margin="3" Name="cbExpandResult" IsChecked="{Binding Path=AutoExpandSearchTree}" VerticalContentAlignment="Center" VerticalAlignment="Center">
                             <CheckBox.Content>
-                                <TextBlock TextWrapping="Wrap">Show results tree expanded</TextBlock>
+                                <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center">Show results tree expanded</TextBlock>
                             </CheckBox.Content>
                         </CheckBox>
-                        <CheckBox Margin="3" Name="cbShowMatchVerbose" IsChecked="{Binding Path=ShowVerboseMatchCount}">
+                        <CheckBox Margin="3" Name="cbShowMatchVerbose" IsChecked="{Binding Path=ShowVerboseMatchCount}" VerticalContentAlignment="Center" VerticalAlignment="Center">
                             <CheckBox.Content>
-                                <TextBlock TextWrapping="Wrap">Show verbose match count</TextBlock>
+                                <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center">Show verbose match count</TextBlock>
                             </CheckBox.Content>
                         </CheckBox>
                         <StackPanel Orientation="Horizontal">
-                            <TextBox Text="{Binding MaxPathBookmarks, UpdateSourceTrigger=PropertyChanged}" Width="50" Margin="3,0" TextAlignment="Right"
-                                 PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBox_Pasting" />
+                            <TextBox Text="{Binding MaxPathBookmarks, UpdateSourceTrigger=PropertyChanged}" Width="48" Margin="3,0" TextAlignment="Right"
+                                 PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBox_Pasting" Height="24" VerticalContentAlignment="Center" VerticalAlignment="Center" />
                             <TextBlock Text="items shown in path history list" Margin="3"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBox Text="{Binding MaxSearchBookmarks, UpdateSourceTrigger=PropertyChanged}" Width="50" Margin="3,0" TextAlignment="Right"
-                                 PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBox_Pasting" />
+                            <TextBox Text="{Binding MaxSearchBookmarks, UpdateSourceTrigger=PropertyChanged}" Width="48" Margin="3,0" TextAlignment="Right"
+                                 PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBox_Pasting" Height="24" VerticalContentAlignment="Center" VerticalAlignment="Center" />
                             <TextBlock Text="items shown in search and replace history lists" Margin="3"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBox Text="{Binding MaxExtensionBookmarks, UpdateSourceTrigger=PropertyChanged}" Width="50" Margin="3,0" TextAlignment="Right"
-                                 PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBox_Pasting" />
+                            <TextBox Text="{Binding MaxExtensionBookmarks, UpdateSourceTrigger=PropertyChanged}" Width="48" Margin="3,0" TextAlignment="Right"
+                                 PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBox_Pasting" Height="24" VerticalContentAlignment="Center" VerticalAlignment="Center" />
                             <TextBlock Text="items shown in file filter history lists" Margin="3"/>
                         </StackPanel>
-                        <Button Height="23" Name="btnClearPreviousSearches" Width="104" HorizontalAlignment="Left" Margin="6,3" Command="{Binding Path=ClearSearchesCommand}">Clear old searches</Button>
+                        <Button Height="24" Name="btnClearPreviousSearches" Width="112" HorizontalAlignment="Left" Margin="3" Command="{Binding Path=ClearSearchesCommand}" VerticalAlignment="Center">Clear old searches</Button>
                     </StackPanel>
                 </Grid>
             </TabItem>
-            <TabItem Name="tbSearchOptionsTab">
+            <TabItem Name="tbSearchOptionsTab" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center">
                 <TabItem.Header>
                     <WrapPanel Orientation="Vertical">
-                        <Image Source="..\Images\system-search.png" Width="32" Height="32"/>
-                        <TextBlock HorizontalAlignment="Center">Search</TextBlock>
-                        <TextBlock HorizontalAlignment="Center">Params</TextBlock>
+                        <Image Source="..\Images\system-search.png" Width="32" Height="32" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Search</TextBlock>
+                        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Params</TextBlock>
                     </WrapPanel>
                 </TabItem.Header>
                 <Grid>
@@ -157,8 +157,8 @@
                                     </DataTemplate>
                                 </WrapPanel.Resources>
                                 <Label>Match threshold (from 0 to 1.0)</Label>
-                                <TextBox Name="tbFuzzyMatchThreshold" Width="50" Text="{Binding Path=MatchThreshold, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
-                                     Validation.ErrorTemplate="{x:Null}"></TextBox>
+                                <TextBox Name="tbFuzzyMatchThreshold" Width="48" Text="{Binding Path=MatchThreshold, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                                     Validation.ErrorTemplate="{x:Null}" Height="24" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
                                 <Label>0 - match everything; 1.0 - exact match</Label>
                                 <ContentPresenter Content="{Binding ElementName=tbFuzzyMatchThreshold, Path=(Validation.Errors).CurrentItem}"/>
                             </WrapPanel>
@@ -168,8 +168,8 @@
             </TabItem>
         </TabControl>
         <WrapPanel Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-            <Button Width="70" Margin="0,5,5,5" Command="{Binding Path=SaveCommand}" IsDefault="True">Save</Button>
-            <Button Width="70" Margin="0,5,5,5" Command="{Binding Path=CloseCommand}">Cancel</Button>
+            <Button Width="64" Margin="0,5,10,5" Command="{Binding Path=SaveCommand}" IsDefault="True" Height="24" VerticalAlignment="Center">Save</Button>
+            <Button Width="64" Margin="0,5,15,5" Command="{Binding Path=CloseCommand}" Height="24" VerticalAlignment="Center">Cancel</Button>
         </WrapPanel>
     </Grid>
 </Window>
