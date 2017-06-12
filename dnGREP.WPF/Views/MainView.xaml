@@ -7,12 +7,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         mc:Ignorable="d"
-        Title="{Binding WindowTitle}" MinWidth="791" MinHeight="470" WindowState="Normal" d:DesignWidth="785"
+        Title="{Binding WindowTitle}" MinWidth="485" MinHeight="485" WindowState="Normal"
         Icon="/dnGREP;component/nGREP.ico" 
         Closing="MainForm_Closing" Loaded="Window_Loaded" Activated="Window_Activated" StateChanged="Window_StateChanged"
         SnapsToDevicePixels="True" ResizeMode="CanResizeWithGrip" AllowDrop="False"
         my:DiginesisHelpProvider.HelpKeyword="Search-Window" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True" 
-        WindowStartupLocation="Manual" FocusManager.FocusedElement="{Binding ElementName=tbSearchFor}" Width="Auto">
+        WindowStartupLocation="Manual" FocusManager.FocusedElement="{Binding ElementName=tbSearchFor}" d:DesignWidth="795">
     <Window.Resources>
         <my:InverseBooleanConverter x:Key="InverseBooleanConverter" />
         <my:TotalValueConverter x:Key="TotalValueConverter" />
@@ -78,7 +78,8 @@
                               Text="{Binding FileOrFolderPath}" ItemsSource="{Binding FastPathBookmarks}" IsEditable="True" Height="24" />
                     <Button Grid.Row="0" Grid.Column="2" Command="{Binding BrowseCommand}" Width="32" Margin="3,4" 
                             ToolTip="Browse for folder or files" TabIndex="11" Content="..." Height="24"/>
-                    <Expander Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" IsExpanded="{Binding IsFiltersExpanded}" TabIndex="14" Margin="0">
+                    <Expander Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" IsExpanded="True" TabIndex="14" Margin="0">
+                        <!--{Binding IsFiltersExpanded}-->
                         <Expander.Header>
                             <StackPanel Margin="0,6" Orientation="Horizontal">
                                 <TextBlock x:Name="fileOptions" TextWrapping="NoWrap" Text="Search Options"/>
