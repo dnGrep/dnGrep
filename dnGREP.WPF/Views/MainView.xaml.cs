@@ -232,8 +232,9 @@ namespace dnGREP.WPF
             if (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt))
             {
                 fileOptions.Inlines.Clear();
-                fileOptions.Inlines.Add(new Underline(new Run("S")));
-                fileOptions.Inlines.Add(new Run("earch Options"));
+                fileOptions.Inlines.Add(new Run("Mor"));
+                fileOptions.Inlines.Add(new Underline(new Run("e")));
+                fileOptions.Inlines.Add(new Run(" ..."));
             }
         }
 
@@ -241,7 +242,7 @@ namespace dnGREP.WPF
         {
             if (Keyboard.IsKeyUp(Key.LeftAlt) && Keyboard.IsKeyUp(Key.RightAlt))
             {
-                fileOptions.Text = "Search Options";
+                fileOptions.Text = "More ...";
             }
         }
     }

@@ -57,11 +57,11 @@
                                         <ColumnDefinition />
                                         <ColumnDefinition Width="40"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBox Grid.Column="0" Text="{Binding Path=CustomEditorPath, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,1" IsEnabled="{Binding ElementName=rbSpecificEditor, Path=IsChecked}" Height="24" VerticalAlignment="Center" VerticalContentAlignment="Center"></TextBox>
+                                    <TextBox Grid.Column="0" Text="{Binding Path=CustomEditorPath, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,1" Height="24" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
                                     <Button Grid.Column="1" Margin="7,2,1,1" Name="btnBrowse" Command="{Binding Path=BrowseCommand}" IsEnabled="{Binding ElementName=rbSpecificEditor, Path=IsChecked}" Height="24" Width="32">...</Button>
                                     <DockPanel Grid.Row="1" Grid.Column="0">
                                         <Label VerticalAlignment="Center" VerticalContentAlignment="Center">Arguments</Label>
-                                        <TextBox Text="{Binding Path=CustomEditorArgs, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding ElementName=rbSpecificEditor, Path=IsChecked}" Height="24" VerticalAlignment="Center" Margin="0,1" VerticalContentAlignment="Center"></TextBox>
+                                        <TextBox Text="{Binding Path=CustomEditorArgs, UpdateSourceTrigger=PropertyChanged}" Height="24" VerticalAlignment="Center" Margin="0,1" VerticalContentAlignment="Center"/>
                                     </DockPanel>
                                     <TextBlock Grid.Row="2" Grid.Column="0" TextWrapping="Wrap" VerticalAlignment="Center" Margin="70,0,0,0" Text="Use %file and %line keywords for file location and line number and %pattern for search pattern"/>
                                 </Grid>

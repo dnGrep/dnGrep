@@ -7,7 +7,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
         mc:Ignorable="d"
-        Title="{Binding WindowTitle}" MinWidth="485" MinHeight="485" WindowState="Normal"
+        Title="{Binding WindowTitle}" MinWidth="500" MinHeight="485" WindowState="Normal"
         Icon="/dnGREP;component/nGREP.ico" 
         Closing="MainForm_Closing" Loaded="Window_Loaded" Activated="Window_Activated" StateChanged="Window_StateChanged"
         SnapsToDevicePixels="True" ResizeMode="CanResizeWithGrip" AllowDrop="False"
@@ -25,7 +25,7 @@
     </Window.Background>
     <Window.InputBindings>
         <KeyBinding Key="Escape" Command="{Binding CloseCommand}"/>
-        <KeyBinding Key="S" Command="{Binding ToggleFileOptionsCommand}" Modifiers="Alt" />
+        <KeyBinding Key="e" Command="{Binding ToggleFileOptionsCommand}" Modifiers="Alt" />
     </Window.InputBindings>
     <DockPanel ManipulationBoundaryFeedback="ManipulationBoundaryFeedbackHandler">
         <DockPanel DockPanel.Dock="Top" Margin="5,5,5,-2">
@@ -82,7 +82,7 @@
                         <!--{Binding IsFiltersExpanded}-->
                         <Expander.Header>
                             <StackPanel Margin="0,6" Orientation="Horizontal">
-                                <TextBlock x:Name="fileOptions" TextWrapping="NoWrap" Text="Search Options"/>
+                                <TextBlock x:Name="fileOptions" TextWrapping="NoWrap" Text="More ..."/>
                                 <TextBlock Margin="12,0,0,0" Text="{Binding FileFiltersSummary}" Foreground="DimGray"
                                            MaxWidth="{Binding Path=ActualWidth, ElementName=SearchText}" TextTrimming="CharacterEllipsis"/>
                             </StackPanel>
@@ -90,13 +90,13 @@
                         <GroupBox>
                             <WrapPanel SizeChanged="WrapPanel_SizeChanged">
                                 <!-- left -->
-                                <StackPanel x:Name="LeftFileOptions" Margin="3,5,15,3">
-                                    <RadioButton GroupName="SizeFilter" Margin="3" Name="rbFilterAllSizes" TabIndex="20" Content="All sizes"
+                                <StackPanel x:Name="LeftFileOptions" Margin="3,5,15,0">
+                                    <RadioButton GroupName="SizeFilter" Margin="3,0,3,3" Name="rbFilterAllSizes" TabIndex="20" Content="All sizes"
                                                  IsChecked="{Binding Path=UseFileSizeFilter, Converter={StaticResource ebc}, ConverterParameter=No}" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
                                     <StackPanel Orientation="Horizontal">
-                                        <RadioButton GroupName="SizeFilter" Margin="3" VerticalAlignment="Center" Name="rbFilterSpecificSize" TabIndex="21" Content="Size is"
+                                        <RadioButton GroupName="SizeFilter" Margin="3,0,3,3" VerticalAlignment="Center" Name="rbFilterSpecificSize" TabIndex="21" Content="Size is"
                                                      IsChecked="{Binding Path=UseFileSizeFilter, Converter={StaticResource ebc}, ConverterParameter=Yes}" VerticalContentAlignment="Center"/>
-                                        <TextBox Width="48" Margin="3" Name="tbFileSizeFrom" IsEnabled="{Binding Path=IsSizeFilterSet}" TabIndex="22"
+                                        <TextBox Width="48" Margin="3,0,3,3" Name="tbFileSizeFrom" IsEnabled="{Binding Path=IsSizeFilterSet}" TabIndex="22"
                                                  GotFocus="TextBoxFocus" PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting" Height="24">
                                             <TextBox.Text>
                                                 <Binding Path="SizeFrom" UpdateSourceTrigger="PropertyChanged">
@@ -106,7 +106,7 @@
                                                 </Binding>
                                             </TextBox.Text>
                                         </TextBox>
-                                        <TextBlock Margin="3" VerticalAlignment="Center">to</TextBlock>
+                                        <TextBlock Margin="3,0,3,3" VerticalAlignment="Center">to</TextBlock>
                                         <TextBox Width="48" Margin="3" Name="tbFileSizeTo" IsEnabled="{Binding Path=IsSizeFilterSet}" TabIndex="23"
                                                  GotFocus="TextBoxFocus" PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting" Height="24" VerticalContentAlignment="Center" VerticalAlignment="Center">
                                             <TextBox.Text>
@@ -117,20 +117,20 @@
                                                 </Binding>
                                             </TextBox.Text>
                                         </TextBox>
-                                        <TextBlock Margin="3" VerticalAlignment="Center">KB</TextBlock>
+                                        <TextBlock Margin="3,0,3,3" VerticalAlignment="Center">KB</TextBlock>
                                     </StackPanel>
-                                    <CheckBox Margin="3" IsChecked="{Binding Path=IncludeSubfolder}" Name="cbIncludeSubfolders" TabIndex="24" Content="Include subfolders" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                                    <CheckBox Margin="3" IsChecked="{Binding Path=IncludeHidden}" Name="cbIncludeHiddenFolders" TabIndex="25" Content="Include hidden folders" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                                    <CheckBox Margin="3" IsChecked="{Binding Path=IncludeBinary}" Name="cbIncludeBinary" TabIndex="26" Content="Include binary files" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                                    <CheckBox Margin="3,0,3,3" IsChecked="{Binding Path=IncludeSubfolder}" Name="cbIncludeSubfolders" TabIndex="24" Content="Include subfolders" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                                    <CheckBox Margin="3,0,3,3" IsChecked="{Binding Path=IncludeHidden}" Name="cbIncludeHiddenFolders" TabIndex="25" Content="Include hidden folders" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                                    <CheckBox Margin="3,0,3,3" IsChecked="{Binding Path=IncludeBinary}" Name="cbIncludeBinary" TabIndex="26" Content="Include binary files" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
                                 </StackPanel>
                                 <!-- middle -->
                                 <StackPanel x:Name="MiddleFileOptions" Orientation="Vertical" VerticalAlignment="Top" Margin="3,5,15,3">
                                     <StackPanel Orientation="Horizontal" Margin="-6,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <RadioButton GroupName="DateFilter" Margin="3" Content="All dates" TabIndex="30"
+                                        <RadioButton GroupName="DateFilter" Margin="3,0,3,3" Content="All dates" TabIndex="30"
                                                      IsChecked="{Binding Path=UseFileDateFilter, Converter={StaticResource ebc}, ConverterParameter=None}" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                                        <RadioButton GroupName="DateFilter" Margin="3" Content="Modified" TabIndex="31"
+                                        <RadioButton GroupName="DateFilter" Margin="3,0,3,3" Content="Modified" TabIndex="31"
                                                      IsChecked="{Binding Path=UseFileDateFilter, Converter={StaticResource ebc}, ConverterParameter=Modified}" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
-                                        <RadioButton GroupName="DateFilter" Margin="3" Content="Created" TabIndex="32"
+                                        <RadioButton GroupName="DateFilter" Margin="3,0,3,3" Content="Created" TabIndex="32"
                                                      IsChecked="{Binding Path=UseFileDateFilter, Converter={StaticResource ebc}, ConverterParameter=Created}" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
                                     </StackPanel>
                                     <Grid>
@@ -142,17 +142,17 @@
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
-                                        <RadioButton GroupName="TimeRange" Grid.Row="0" Grid.Column="0" Margin="3,6" VerticalAlignment="Center" Content="From"
+                                        <RadioButton GroupName="TimeRange" Grid.Row="0" Grid.Column="0" Margin="3,0,3,6" VerticalAlignment="Center" Content="From"
                                                      IsChecked="{Binding Path=TypeOfTimeRangeFilter, Converter={StaticResource ebc}, ConverterParameter=Dates}"
                                                      IsEnabled="{Binding Path=IsDateFilterSet}" TabIndex="33" VerticalContentAlignment="Center"/>
-                                        <DatePicker Grid.Row="0" Grid.Column="1" Margin="3,2" Width="112" TabIndex="34" ToolTip="from the start of the day"
+                                        <DatePicker Grid.Row="0" Grid.Column="1" Margin="3,0,3,2" Width="112" TabIndex="34" ToolTip="from the start of the day"
                                                     CalendarStyle="{StaticResource CalendarStyle}"
                                                     DisplayDate="{x:Static sys:DateTime.Now}"
                                                     DisplayDateStart="{Binding MinStartDate}"
                                                     SelectedDate="{Binding StartDate}"
                                                     IsEnabled="{Binding IsDatesRangeSet}" Height="24" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
-                                        <TextBlock Grid.Row="1" Grid.Column="0" Margin="20,6,0,6" HorizontalAlignment="Left" VerticalAlignment="Center" Text="To"/>
-                                        <DatePicker Grid.Row="1" Grid.Column="1" Margin="3,2" Width="112" TabIndex="35" ToolTip="through the end of the day"
+                                        <TextBlock Grid.Row="1" Grid.Column="0" Margin="20,0,0,6" HorizontalAlignment="Left" VerticalAlignment="Center" Text="To"/>
+                                        <DatePicker Grid.Row="1" Grid.Column="1" Margin="3,0,3,2" Width="112" TabIndex="35" ToolTip="through the end of the day"
                                                     CalendarStyle="{StaticResource CalendarStyle}"
                                                     DisplayDateStart="{Binding MinEndDate}"
                                                     DisplayDate="{x:Static sys:DateTime.Now}"
@@ -160,15 +160,15 @@
                                                     IsEnabled="{Binding IsDatesRangeSet}" Height="24" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalContentAlignment="Left"/>
                                     </Grid>
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                        <RadioButton GroupName="TimeRange" Margin="3" VerticalAlignment="Center" Content="Past"
+                                        <RadioButton GroupName="TimeRange" Margin="3,0,3,3" VerticalAlignment="Center" Content="Past"
                                                      IsChecked="{Binding Path=TypeOfTimeRangeFilter, Converter={StaticResource ebc}, ConverterParameter=Hours}"
                                                      IsEnabled="{Binding Path=IsDateFilterSet}" TabIndex="36" VerticalContentAlignment="Center"/>
-                                        <TextBox Width="45" Margin="9,3,3,3" IsEnabled="{Binding IsHoursRangeSet}" TabIndex="37"
+                                        <TextBox Width="45" Margin="9,0,3,3" IsEnabled="{Binding IsHoursRangeSet}" TabIndex="37"
                                                  GotFocus="TextBoxFocus" PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting"
                                                  Text="{Binding HoursFrom, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center" Height="24"/>
 
-                                        <TextBlock Margin="3" VerticalAlignment="Center" Text="to" HorizontalAlignment="Center"/>
-                                        <TextBox Width="45" Margin="3" IsEnabled="{Binding IsHoursRangeSet}" TabIndex="38"
+                                        <TextBlock Margin="3,0,3,3" VerticalAlignment="Center" Text="to" HorizontalAlignment="Center"/>
+                                        <TextBox Width="45" Margin="3,0,3,3" IsEnabled="{Binding IsHoursRangeSet}" TabIndex="38"
                                                  GotFocus="TextBoxFocus" PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting" VerticalAlignment="Center" HorizontalAlignment="Center" Height="24">
                                             <TextBox.Text>
                                                 <Binding Path="HoursTo" UpdateSourceTrigger="PropertyChanged">
@@ -178,7 +178,7 @@
                                                 </Binding>
                                             </TextBox.Text>
                                         </TextBox>
-                                        <TextBlock Margin="3" VerticalAlignment="Center" Text="hours" HorizontalAlignment="Center"/>
+                                        <TextBlock Margin="3,0,3,3" VerticalAlignment="Center" Text="hours" HorizontalAlignment="Center"/>
                                     </StackPanel>
                                 </StackPanel>
                                 <Border x:Name="SpacerFileOptions"/>
@@ -196,27 +196,27 @@
                                     </Grid.ColumnDefinitions>
                                     <StackPanel  Grid.Row="0" Grid.Column="1" Margin="3,0" HorizontalAlignment="Right">
                                         <StackPanel Orientation="Horizontal">
-                                            <RadioButton GroupName="FileSearchType" Margin="3" Name="rbFileRegex" TabIndex="40" Content="Regex"
+                                            <RadioButton GroupName="FileSearchType" Margin="3,0,3,3" Name="rbFileRegex" TabIndex="40" Content="Regex"
                                                          IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}" 
                                                          ToolTip="e.g. file[0-9]{1,2}\\.txt" VerticalContentAlignment="Center" VerticalAlignment="Center" />
-                                            <RadioButton GroupName="FileSearchType" Margin="3" Name="rbFileAsterisk" TabIndex="41" Content="Asterisk pattern"
+                                            <RadioButton GroupName="FileSearchType" Margin="3,0,3,3" Name="rbFileAsterisk" TabIndex="41" Content="Asterisk pattern"
                                                          IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Asterisk}" 
                                                          ToolTip="e.g. file??.*" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
                                         </StackPanel>
                                     </StackPanel>
                                     <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="3">
-                                        <TextBlock VerticalAlignment="Center" Margin="3" Text="Encoding:" HorizontalAlignment="Left" />
-                                        <ComboBox Width="224" Name="cbEncoding" TabIndex="42" Margin="3"
+                                        <TextBlock VerticalAlignment="Center" Margin="3,0,3,3" Text="Encoding:" HorizontalAlignment="Left" />
+                                        <ComboBox Width="224" Name="cbEncoding" TabIndex="42" Margin="3,0,3,3"
                                               DisplayMemberPath="Key" SelectedValuePath="Value" ItemsSource="{Binding Path=Encodings}"
                                               VerticalAlignment="Center" SelectedValue="{Binding Path=CodePage}" Initialized="cbEncoding_Initialized" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="24" />
                                     </StackPanel>
                                     <UniformGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="4,3,3,3" Visibility="{Binding OptionsOnMainPanel, Converter={StaticResource InverseBoolToVisibilityConverter}}">
-                                        <CheckBox Grid.Row="0" Grid.Column="0" Margin="3" IsChecked="{Binding CaseSensitive}" IsEnabled="{Binding IsCaseSensitiveEnabled}" TabIndex="43" Content="C_ase sensitive" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                                        <CheckBox Grid.Row="1" Grid.Column="0" Margin="3" IsChecked="{Binding WholeWord}" IsEnabled="{Binding IsWholeWordEnabled}" TabIndex="44" Content="_Whole word" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                                        <CheckBox Grid.Row="0" Grid.Column="1" Margin="3" IsChecked="{Binding Multiline}" IsEnabled="{Binding IsMultilineEnabled}" TabIndex="44" Content="_Multiline (slower)" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                                        <CheckBox Grid.Row="1" Grid.Column="1" Margin="3" IsChecked="{Binding Singleline}" IsEnabled="{Binding IsSinglelineEnabled}" TabIndex="45" Content="_Dot matches newline" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                                        <CheckBox Grid.Row="0" Grid.Column="0" Margin="3,0,3,3" IsChecked="{Binding CaseSensitive}" IsEnabled="{Binding IsCaseSensitiveEnabled}" TabIndex="43" Content="C_ase sensitive" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                                        <CheckBox Grid.Row="1" Grid.Column="0" Margin="3,0,3,3" IsChecked="{Binding WholeWord}" IsEnabled="{Binding IsWholeWordEnabled}" TabIndex="44" Content="_Whole word" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                                        <CheckBox Grid.Row="0" Grid.Column="1" Margin="3,0,3,3" IsChecked="{Binding Multiline}" IsEnabled="{Binding IsMultilineEnabled}" TabIndex="44" Content="_Multiline (slower)" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                                        <CheckBox Grid.Row="1" Grid.Column="1" Margin="3,0,3,3" IsChecked="{Binding Singleline}" IsEnabled="{Binding IsSinglelineEnabled}" TabIndex="45" Content="_Dot matches newline" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
                                     </UniformGrid>
-                                    <Button Content="Reset Options" Margin="3" Command="{Binding ResetOptionsCommand}" TabIndex="46" Height="24" Grid.Row="3" Width="98" Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Right" />
+                                    <Button Content="Reset Options" Margin="3,0,3,3" Command="{Binding ResetOptionsCommand}" TabIndex="46" Height="24" Grid.Row="3" Width="98" Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Right" />
                                 </Grid>
                             </WrapPanel>
                         </GroupBox>
