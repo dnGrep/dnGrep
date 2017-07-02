@@ -627,7 +627,7 @@ namespace dnGREP.WPF
                         Utils.CancelSearch = false;
 
                         FileFilter fileParams = new FileFilter(FileOrFolderPath, filePatternInclude, filePatternExclude, param.TypeOfFileSearch == FileSearchType.Regex, param.IncludeSubfolder,
-                                param.IncludeHidden, param.IncludeBinary, sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime);
+                                param.IncludeHidden, param.IncludeBinary, param.IncludeArchive, sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime);
 
                         if (param.CurrentGrepOperation == GrepOperation.SearchInResults)
                         {
@@ -668,7 +668,7 @@ namespace dnGREP.WPF
 
                         grep.FileFilter = new FileFilter(FileOrFolderPath, filePatternInclude, filePatternExclude,
                             param.TypeOfFileSearch == FileSearchType.Regex, param.IncludeSubfolder, param.IncludeHidden,
-                            param.IncludeBinary, sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime);
+                            param.IncludeBinary, param.IncludeArchive, sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime);
 
                         GrepSearchOption searchOptions = GrepSearchOption.None;
                         if (Multiline)
@@ -1354,6 +1354,7 @@ namespace dnGREP.WPF
             if (!IncludeSubfolder) options.Add("No subfolders");
             if (!IncludeHidden) options.Add("No hidden files");
             if (!IncludeBinary) options.Add("No binary files");
+            //if (!IncludeArchive) options.Add("No archives");
             if (options.Count > 0)
                 sb.AppendLine(string.Join(", ", options.ToArray()));
 

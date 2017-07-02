@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.Xml;
 using System.Xml.XPath;
 using dnGREP.Common;
+using dnGREP.Engines;
 using NLog;
 
 namespace dnGREP.WPF
@@ -26,6 +27,8 @@ namespace dnGREP.WPF
             IsMultilineEnabled = true;
             IsWholeWordEnabled = true;
             LoadSettings();
+            Utils.ArchiveExtensions = GrepEngineFactory.GetArchiveExtenstions();
+            CanSearchArchives = Utils.ArchiveExtensions.Count > 0;
         }
 
         #region Private Variables and Properties
@@ -229,6 +232,21 @@ namespace dnGREP.WPF
                 includeBinary = value;
 
                 base.OnPropertyChanged(() => IncludeBinary);
+            }
+        }
+
+        private bool includeArchive;
+        public bool IncludeArchive
+        {
+            get { return includeArchive; }
+            set
+            {
+                if (value == includeArchive)
+                    return;
+
+                includeArchive = value;
+
+                base.OnPropertyChanged(() => IncludeArchive);
             }
         }
 
@@ -942,6 +960,22 @@ namespace dnGREP.WPF
             }
         }
 
+        private bool canSearchArchives = false;
+        public bool CanSearchArchives
+        {
+            get { return canSearchArchives; }
+            set
+            {
+                if (canSearchArchives == value)
+                    return;
+
+                canSearchArchives = value;
+                base.OnPropertyChanged(() => CanSearchArchives);
+            }
+        }
+
+
+
         public bool IsOperationInProgress
         {
             get { return CurrentGrepOperation != GrepOperation.None; }
@@ -993,7 +1027,7 @@ namespace dnGREP.WPF
             }
 
             if (name == "IncludeSubfolder" || name == "IncludeHidden" || name == "IncludeBinary" ||
-                name == "UseFileSizeFilter" || name == "UseFileDateFilter")
+                name == "IncludeArchive" || name == "UseFileSizeFilter" || name == "UseFileDateFilter")
             {
                 tempList = new List<string>();
                 if (!IncludeSubfolder)
@@ -1002,6 +1036,8 @@ namespace dnGREP.WPF
                     tempList.Add("No hidden");
                 if (!IncludeBinary)
                     tempList.Add("No binary");
+                //if (!IncludeArchive)
+                //    tempList.Add("No archives");
                 if (UseFileSizeFilter == FileSizeFilter.Yes)
                     tempList.Add("By Size");
                 if (UseFileDateFilter == FileDateFilter.Modified)
@@ -1185,6 +1221,7 @@ namespace dnGREP.WPF
             IncludeBinary = true;
             IncludeHidden = true;
             IncludeSubfolder = true;
+            IncludeArchive = true;
             UseFileDateFilter = FileDateFilter.None;
             TypeOfTimeRangeFilter = FileTimeRange.None;
             FilePattern = "*";
@@ -1265,6 +1302,7 @@ namespace dnGREP.WPF
             ReplaceWith = settings.Get<string>(GrepSettings.Key.ReplaceWith);
             IncludeHidden = settings.Get<bool>(GrepSettings.Key.IncludeHidden);
             IncludeBinary = settings.Get<bool>(GrepSettings.Key.IncludeBinary);
+            IncludeArchive = settings.Get<bool>(GrepSettings.Key.IncludeArchive);
             IncludeSubfolder = settings.Get<bool>(GrepSettings.Key.IncludeSubfolder);
             TypeOfSearch = settings.Get<SearchType>(GrepSettings.Key.TypeOfSearch);
             TypeOfFileSearch = settings.Get<FileSearchType>(GrepSettings.Key.TypeOfFileSearch);
@@ -1297,6 +1335,7 @@ namespace dnGREP.WPF
             settings.Set<string>(GrepSettings.Key.ReplaceWith, ReplaceWith);
             settings.Set<bool>(GrepSettings.Key.IncludeHidden, IncludeHidden);
             settings.Set<bool>(GrepSettings.Key.IncludeBinary, IncludeBinary);
+            settings.Set<bool>(GrepSettings.Key.IncludeArchive, IncludeArchive);
             settings.Set<bool>(GrepSettings.Key.IncludeSubfolder, IncludeSubfolder);
             settings.Set<SearchType>(GrepSettings.Key.TypeOfSearch, TypeOfSearch);
             settings.Set<int>(GrepSettings.Key.CodePage, CodePage);

@@ -109,6 +109,28 @@ namespace dnGREP.Engines.Word
             return result;
         }
 
+        // the stream version will get called if the file is in an archive
+        public List<GrepSearchResult> Search(Stream input, string fileName, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
+        {
+            // write the stream to a temp folder, and run the file version of the search
+            string tempFolder = Path.Combine(Utils.GetTempFolder(), "dnGREP-WORD");
+            // the fileName may contain the partial path of the directory structure in the archive
+            string filePath = Path.Combine(tempFolder, fileName);
+
+            // use the directory name to also include folders within the archive
+            string directory = Path.GetDirectoryName(filePath);
+            if (!Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
+
+            using (var fileStream = File.Create(filePath))
+            {
+                input.Seek(0, SeekOrigin.Begin);
+                input.CopyTo(fileStream);
+            }
+
+            return Search(filePath, searchPattern, searchType, searchOptions, encoding);
+        }
+
         private List<GrepSearchResult> searchMultiline(string file, string searchPattern, GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod)
         {
             List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
@@ -161,10 +183,7 @@ namespace dnGREP.Engines.Word
 
         public Version FrameworkVersion
         {
-            get
-            {
-                return Assembly.GetAssembly(typeof(IGrepEngine)).GetName().Version;
-            }
+            get { return Assembly.GetAssembly(typeof(IGrepEngine)).GetName().Version; }
         }
 
         public override void OpenFile(OpenFileArgs args)

@@ -19,13 +19,14 @@
         <my:EnumBooleanConverter x:Key="ebc" />
         <my:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed"/>
         <my:BoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" TrueValue="Collapsed" FalseValue="Visible" />
+        <my:ElementSizeConverter x:Key="SizeConverter" />
     </Window.Resources>
     <Window.Background>
         <StaticResource ResourceKey="GradientBackground"/>
     </Window.Background>
     <Window.InputBindings>
         <KeyBinding Key="Escape" Command="{Binding CloseCommand}"/>
-        <KeyBinding Key="F" Modifiers="Alt" Command="{Binding ToggleFileOptionsCommand}" />
+        <KeyBinding Key="E" Modifiers="Alt" Command="{Binding ToggleFileOptionsCommand}" />
     </Window.InputBindings>
 
     <DockPanel ManipulationBoundaryFeedback="ManipulationBoundaryFeedbackHandler">
@@ -66,6 +67,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
+                        <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
@@ -83,9 +85,10 @@
                     <Expander Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" IsExpanded="{Binding IsFiltersExpanded}" TabIndex="14">
                         <Expander.Header>
                             <StackPanel Margin="0,6" Orientation="Horizontal">
-                                <TextBlock x:Name="fileOptions" TextWrapping="NoWrap" Text="File Options"/>
+                                <TextBlock x:Name="fileOptions" TextWrapping="NoWrap" Text="More..."/>
                                 <TextBlock Margin="12,0,0,0" Text="{Binding FileFiltersSummary}" Foreground="DimGray"
-                                           MaxWidth="{Binding Path=ActualWidth, ElementName=SearchText}" TextTrimming="CharacterEllipsis"/>
+                                           MaxWidth="{Binding Path=ActualWidth, ElementName=SearchText, Converter={StaticResource SizeConverter}, ConverterParameter=0.7}" 
+                                           TextWrapping="WrapWithOverflow"/>
                             </StackPanel>
                         </Expander.Header>
                         <GroupBox>
@@ -227,9 +230,9 @@
                     </Expander>
 
                     <!-- must be *after* the Expander so they are higher in the z-order -->
-                    <TextBlock Grid.Row="0" Grid.Column="3" Text="Paths that match:" Foreground="Black" Margin="3"
-                                   TextWrapping="NoWrap" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-                    <ComboBox Grid.Row="0" Grid.Column="4" Name="tbFilePattern" TabIndex="12" Margin="3"
+                    <TextBlock Grid.Row="0" Grid.Column="3" Text="Paths that match:" Foreground="Black" Margin="3,6"
+                                   TextWrapping="NoWrap" VerticalAlignment="Top" HorizontalAlignment="Right"/>
+                    <ComboBox Grid.Row="0" Grid.Column="4" Name="tbFilePattern" TabIndex="12" Margin="3" VerticalAlignment="Top"
                                   Text="{Binding Path=FilePattern, UpdateSourceTrigger=PropertyChanged}" 
                                   ItemsSource="{Binding Path=FastFileMatchBookmarks}" 
                                   GotFocus="TextBoxFocus" IsEditable="True"
@@ -237,10 +240,15 @@
                                   my:DiginesisHelpProvider.HelpNavigator="Topic" 
                                   my:DiginesisHelpProvider.ShowHelp="True" />
 
-                    <TextBlock Grid.Row="1" Grid.Column="3"  Text="Paths to ignore:" Margin="3"
+                    <CheckBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="3,6,6,3"
+                              IsChecked="{Binding Path=IncludeArchive}" Name="cbIncludeArchives" TabIndex="13" 
+                              Content="Search in ar_chives" VerticalAlignment="Top" HorizontalAlignment="Right"
+                              Visibility="{Binding CanSearchArchives, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                    
+                    <TextBlock Grid.Row="1" Grid.Column="3" Text="Paths to ignore:" Margin="3,6"
                                    Style="{StaticResource GrayedOutFilePattern}" 
                                    TextWrapping="NoWrap" VerticalAlignment="Top" HorizontalAlignment="Right"/>
-                    <ComboBox Grid.Row="1" Grid.Column="4" Margin="3" Name="tbFilePatternIgnore" TabIndex="13"  VerticalAlignment="Top"
+                    <ComboBox Grid.Row="1" Grid.Column="4" Margin="3" Name="tbFilePatternIgnore" TabIndex="14"  VerticalAlignment="Top"
                                   Text="{Binding Path=FilePatternIgnore, UpdateSourceTrigger=PropertyChanged}" 
                                   ItemsSource="{Binding Path=FastFileNotMatchBookmarks}" 
                                   GotFocus="TextBoxFocus" IsEditable="True" 

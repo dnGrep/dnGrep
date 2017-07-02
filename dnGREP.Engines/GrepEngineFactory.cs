@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using dnGREP.Common;
 using NLog;
@@ -11,25 +12,26 @@ namespace dnGREP.Engines
     public class GrepEngineFactory
     {
         private static Dictionary<string, GrepPlugin> fileTypeEngines = new Dictionary<string, GrepPlugin>();
-        private static List<GrepPlugin> plugings = null;
+        private static List<GrepPlugin> plugins = null;
         private static Dictionary<string, string> failedEngines = new Dictionary<string, string>();
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        private static void loadPlugins()
+        private static void LoadPlugins()
         {
-            if (plugings == null)
+            if (plugins == null)
             {
-                plugings = new List<GrepPlugin>();
-                if (Directory.Exists(Utils.GetCurrentPath() + "\\Plugins"))
+                plugins = new List<GrepPlugin>();
+                string pluginPath = Path.Combine(Utils.GetCurrentPath(), "Plugins");
+                if (Directory.Exists(pluginPath))
                 {
-                    foreach (string pluginFile in Directory.GetFiles(Utils.GetCurrentPath() + "\\Plugins", "*.plugin", SearchOption.AllDirectories))
+                    foreach (string pluginFile in Directory.GetFiles(pluginPath, "*.plugin", SearchOption.AllDirectories))
                     {
                         try
                         {
                             GrepPlugin plugin = new GrepPlugin(pluginFile);
                             if (plugin.LoadPluginSettings())
                             {
-                                plugings.Add(plugin);
+                                plugins.Add(plugin);
                             }
                         }
                         catch (Exception ex)
@@ -42,12 +44,29 @@ namespace dnGREP.Engines
             }
         }
 
+        public static List<string> GetArchiveExtenstions()
+        {
+            LoadPlugins();
+
+            if (plugins != null && plugins.Count > 0)
+            {
+                var archivePlugin = plugins.Where(r => r.Enabled &&
+                    (r.Extensions.Contains("zip") || r.Extensions.Contains("gzip") || r.Extensions.Contains("gz") || r.Extensions.Contains("7z")))
+                    .Select(r => r).FirstOrDefault();
+
+                if (archivePlugin != null)
+                    return archivePlugin.Extensions;
+            }
+
+            return new List<string>();
+        }
+
         public static IGrepEngine GetSearchEngine(string fileName, GrepEngineInitParams param, FileFilter filter)
         {
             Debug.Assert(param != null);
             Debug.Assert(filter != null);
 
-            loadPlugins();
+            LoadPlugins();
 
             string fileExtension = Path.GetExtension(fileName).ToLower();
             if (fileExtension.Length > 1)
@@ -55,7 +74,7 @@ namespace dnGREP.Engines
 
             if (!fileTypeEngines.ContainsKey(fileExtension))
             {
-                foreach (GrepPlugin plugin in plugings)
+                foreach (GrepPlugin plugin in plugins)
                 {
                     if (plugin.Extensions.Contains(fileExtension))
                     {
@@ -100,7 +119,7 @@ namespace dnGREP.Engines
 
         public static IGrepEngine GetReplaceEngine(string fileName, GrepEngineInitParams param, FileFilter filter)
         {
-            loadPlugins();
+            LoadPlugins();
 
             string fileExtension = Path.GetExtension(fileName);
             if (fileExtension.Length > 1)
@@ -108,7 +127,7 @@ namespace dnGREP.Engines
 
             if (!fileTypeEngines.ContainsKey(fileExtension))
             {
-                foreach (GrepPlugin plugin in plugings)
+                foreach (GrepPlugin plugin in plugins)
                 {
                     if (plugin.Extensions.Contains(fileExtension))
                     {

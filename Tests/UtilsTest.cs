@@ -693,7 +693,7 @@ namespace Tests
             di.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
 
             Assert.Equal(result, Utils.GetFileList(sourceFolder + "\\TestCase2", namePattern, null, isRegex, includeSubfolders, includeHidden,
-                true, sizeFrom, sizeTo, FileDateFilter.None, null, null).Length);
+                true, false, sizeFrom, sizeTo, FileDateFilter.None, null, null).Length);
         }
 
         [Theory]
@@ -736,10 +736,10 @@ namespace Tests
                 endTime = new DateTime(2017, 01, endDay.Value, 0, 0, 0, DateTimeKind.Local);
 
             fi.CreationTime = fileTime;
-            Assert.Equal(result, Utils.GetFileList(di.FullName, "*", string.Empty, false, false, false, false, 0, 0, FileDateFilter.Created, startTime, endTime).Length);
+            Assert.Equal(result, Utils.GetFileList(di.FullName, "*", string.Empty, false, false, false, false, false, 0, 0, FileDateFilter.Created, startTime, endTime).Length);
 
             fi.LastWriteTime = fileTime;
-            Assert.Equal(result, Utils.GetFileList(di.FullName, "*", string.Empty, false, false, false, false, 0, 0, FileDateFilter.Modified, startTime, endTime).Length);
+            Assert.Equal(result, Utils.GetFileList(di.FullName, "*", string.Empty, false, false, false, false, false, 0, 0, FileDateFilter.Modified, startTime, endTime).Length);
         }
 
         [Theory]
@@ -771,10 +771,10 @@ namespace Tests
             DateTime endTime = now.AddHours(-1 * fromHoursPast);
 
             fi.CreationTime = fileTime;
-            Assert.Equal(result, Utils.GetFileList(di.FullName, "*", string.Empty, false, false, false, false, 0, 0, FileDateFilter.Created, startTime, endTime).Length);
+            Assert.Equal(result, Utils.GetFileList(di.FullName, "*", string.Empty, false, false, false, false, false, 0, 0, FileDateFilter.Created, startTime, endTime).Length);
 
             fi.LastWriteTime = fileTime;
-            Assert.Equal(result, Utils.GetFileList(di.FullName, "*", string.Empty, false, false, false, false, 0, 0, FileDateFilter.Modified, startTime, endTime).Length);
+            Assert.Equal(result, Utils.GetFileList(di.FullName, "*", string.Empty, false, false, false, false, false, 0, 0, FileDateFilter.Modified, startTime, endTime).Length);
         }
 
         [Fact]
@@ -782,28 +782,28 @@ namespace Tests
         {
             string dllPath = GetDllPath();
             string path = sourceFolder + "\\TestCase2;" + sourceFolder + "\\TestCase2\\excel-file.xls";
-            Assert.Equal(Utils.GetFileList(path, "*.*", "", false, false, false, true, 0, 0, FileDateFilter.None, null, null).Length, 4);
+            Assert.Equal(Utils.GetFileList(path, "*.*", "", false, false, false, true, false, 0, 0, FileDateFilter.None, null, null).Length, 4);
 
             path = sourceFolder + "\\TestCase2;" + sourceFolder + "\\TestCase3\\test-file-code.cs";
-            Assert.Equal(Utils.GetFileList(path, "*.*", "", false, false, false, true, 0, 0, FileDateFilter.None, null, null).Length, 5);
+            Assert.Equal(Utils.GetFileList(path, "*.*", "", false, false, false, true, false, 0, 0, FileDateFilter.None, null, null).Length, 5);
 
             path = sourceFolder + "\\TestCase3\\test-file-code.cs;" + sourceFolder + "\\TestCase2";
-            Assert.Equal(Utils.GetFileList(path, "*.*", "", false, false, false, true, 0, 0, FileDateFilter.None, null, null).Length, 5);
+            Assert.Equal(Utils.GetFileList(path, "*.*", "", false, false, false, true, false, 0, 0, FileDateFilter.None, null, null).Length, 5);
 
             path = sourceFolder + "\\TestCase2;" + sourceFolder + "\\TestCase3\\test-file-code.cs;" + sourceFolder + "\\TestCase3\\test-file-plain.txt";
-            Assert.Equal(Utils.GetFileList(path, "*.*", null, false, false, false, true, 0, 0, FileDateFilter.None, null, null).Length, 6);
+            Assert.Equal(Utils.GetFileList(path, "*.*", null, false, false, false, true, false, 0, 0, FileDateFilter.None, null, null).Length, 6);
 
             path = sourceFolder + "\\TestCase3\\test-file-code.cs;" + sourceFolder + "\\TestCase3\\test-file-plain.txt";
-            Assert.Equal(Utils.GetFileList(path, "*.*", null, false, false, false, true, 0, 0, FileDateFilter.None, null, null).Length, 2);
+            Assert.Equal(Utils.GetFileList(path, "*.*", null, false, false, false, true, false, 0, 0, FileDateFilter.None, null, null).Length, 2);
 
             path = sourceFolder + "\\TestCase3\\test-file-code.cs;" + sourceFolder + "\\TestCase3\\test-file-plain.txt;";
-            Assert.Equal(Utils.GetFileList(path, "*.*", null, false, false, false, true, 0, 0, FileDateFilter.None, null, null).Length, 2);
+            Assert.Equal(Utils.GetFileList(path, "*.*", null, false, false, false, true, false, 0, 0, FileDateFilter.None, null, null).Length, 2);
 
             path = sourceFolder + "\\TestCase3\\test-file-code.cs," + sourceFolder + "\\TestCase3\\test-file-plain.txt,";
-            Assert.Equal(Utils.GetFileList(path, "*.*", null, false, false, false, true, 0, 0, FileDateFilter.None, null, null).Length, 2);
+            Assert.Equal(Utils.GetFileList(path, "*.*", null, false, false, false, true, false, 0, 0, FileDateFilter.None, null, null).Length, 2);
 
             path = sourceFolder + "\\TestCase3\\test-file-code.cs," + sourceFolder + "\\TestCase3\\test-file-plain.txt";
-            Assert.Equal(Utils.GetFileList(path, "*.*", null, false, false, false, true, 0, 0, FileDateFilter.None, null, null).Length, 2);
+            Assert.Equal(Utils.GetFileList(path, "*.*", null, false, false, false, true, false, 0, 0, FileDateFilter.None, null, null).Length, 2);
         }
 
         [Fact]
@@ -811,17 +811,17 @@ namespace Tests
         {
             string dllPath = GetDllPath();
             string path = sourceFolder + "\\TestCase2";
-            Assert.Equal(Utils.GetFileList(path, "*.*", "*.xls", false, false, false, true, 0, 0, FileDateFilter.None, null, null).Length, 3);
-            Assert.Equal(Utils.GetFileList(path, "excel*.*", "*.xls", false, false, false, true, 0, 0, FileDateFilter.None, null, null).Length, 0);
-            Assert.Equal(Utils.GetFileList(path, "excel*.*", "*.xs", false, false, false, true, 0, 0, FileDateFilter.None, null, null).Length, 1);
-            Assert.Equal(Utils.GetFileList(path, "t[a-z]st-file-*.*", "*.cs", false, false, false, true, 0, 0, FileDateFilter.None, null, null).Length, 2);
-            Assert.Equal(Utils.GetFileList(path, "t[ea]st-file-*.*", "*.cs", false, false, false, true, 0, 0, FileDateFilter.None, null, null).Length, 2);
+            Assert.Equal(Utils.GetFileList(path, "*.*", "*.xls", false, false, false, true, false, 0, 0, FileDateFilter.None, null, null).Length, 3);
+            Assert.Equal(Utils.GetFileList(path, "excel*.*", "*.xls", false, false, false, true, false, 0, 0, FileDateFilter.None, null, null).Length, 0);
+            Assert.Equal(Utils.GetFileList(path, "excel*.*", "*.xs", false, false, false, true, false, 0, 0, FileDateFilter.None, null, null).Length, 1);
+            Assert.Equal(Utils.GetFileList(path, "t[a-z]st-file-*.*", "*.cs", false, false, false, true, false, 0, 0, FileDateFilter.None, null, null).Length, 2);
+            Assert.Equal(Utils.GetFileList(path, "t[ea]st-file-*.*", "*.cs", false, false, false, true, false, 0, 0, FileDateFilter.None, null, null).Length, 2);
         }
 
         [Fact]
         public void GetFileListFromNonExistingFolderReturnsEmptyString()
         {
-            Assert.Equal(Utils.GetFileList(sourceFolder + "\\NonExisting", "*.*", null, false, true, true, true, 0, 0, FileDateFilter.None, null, null).Length, 0);
+            Assert.Equal(Utils.GetFileList(sourceFolder + "\\NonExisting", "*.*", null, false, true, true, true, false, 0, 0, FileDateFilter.None, null, null).Length, 0);
         }
 
         [Theory]
@@ -932,7 +932,7 @@ namespace Tests
         [InlineData("\\TestCase11", "#!*python;#!*sh", 3)]
         public void TestAsteriskGetFilesWithoutExclude(string folder, string pattern, int expectedCount)
         {
-            var result = Utils.GetFileListEx(new FileFilter(sourceFolder + folder, pattern, null, false, false, true, true, 0, 0, FileDateFilter.None, null, null));
+            var result = Utils.GetFileListEx(new FileFilter(sourceFolder + folder, pattern, null, false, false, true, true, false, 0, 0, FileDateFilter.None, null, null));
             int counter = 0;
             foreach (var f in result)
                 counter++;
@@ -948,7 +948,7 @@ namespace Tests
         public void TestAsteriskGetFilesWithExclude(string folder, string pattern, String excludePattern, int expectedCount)
         {
             // This recurses to subfolders
-            var result = Utils.GetFileListEx(new FileFilter(sourceFolder + folder, pattern, excludePattern, false, true, true, true, 0, 0, FileDateFilter.None, null, null));
+            var result = Utils.GetFileListEx(new FileFilter(sourceFolder + folder, pattern, excludePattern, false, true, true, true, false, 0, 0, FileDateFilter.None, null, null));
             int counter = 0;
             foreach (var f in result)
                 counter++;

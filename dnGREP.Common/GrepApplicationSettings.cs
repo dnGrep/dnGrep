@@ -26,6 +26,8 @@ namespace dnGREP.Common
             [DefaultValue(true)]
             public const string IncludeBinary = "IncludeBinary";
             [DefaultValue(true)]
+            public const string IncludeArchive = "IncludeArchive";
+            [DefaultValue(true)]
             public const string IncludeSubfolder = "IncludeSubfolder";
             [DefaultValue(SearchType.Regex)]
             public const string TypeOfSearch = "TypeOfSearch";

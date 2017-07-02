@@ -86,7 +86,7 @@ namespace dnGREP.Common
                             Encoding encoding = Encoding.Default;
                             if (codePage > -1)
                                 encoding = Encoding.GetEncoding(codePage);
-                            else if (!Utils.IsBinary(file))
+                            else if (!Utils.IsBinary(file) && !Utils.IsPdfFile(file))
                                 encoding = Utils.GetFileEncoding(file);
 
                             if (Utils.CancelSearch)
@@ -160,7 +160,7 @@ namespace dnGREP.Common
                         Encoding encoding = Encoding.Default;
                         if (codePage > -1)
                             encoding = Encoding.GetEncoding(codePage);
-                        else if (!Utils.IsBinary(file))
+                        else if (!Utils.IsBinary(tempFileName))
                             encoding = Utils.GetFileEncoding(tempFileName);
 
                         if (Utils.CancelSearch)
