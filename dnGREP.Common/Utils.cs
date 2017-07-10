@@ -1739,22 +1739,12 @@ namespace dnGREP.Common
 
         public static bool HasUtf8ByteOrderMark(Stream inputStream)
         {
-            bool result = false;
-            int bb = inputStream.ReadByte();
-            if (0xEF == bb)
-            {
-                bb = inputStream.ReadByte();
-                if (0xBB == bb)
-                {
-                    bb = inputStream.ReadByte();
-                    if (0xBF == bb)
-                    {
-                        result = true;
-                    }
-                }
-            }
+            int b1 = inputStream.ReadByte();
+            int b2 = inputStream.ReadByte();
+            int b3 = inputStream.ReadByte();
             inputStream.Seek(0, SeekOrigin.Begin);
-            return result;
+
+            return (0xEF == b1 && 0xBB == b2 && 0xBF == b3);
         }
     }
 
