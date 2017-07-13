@@ -234,7 +234,7 @@ namespace dnGREP.WPF
                 fileOptions.Inlines.Clear();
                 fileOptions.Inlines.Add(new Run("Mor"));
                 fileOptions.Inlines.Add(new Underline(new Run("e")));
-                fileOptions.Inlines.Add(new Run(" ..."));
+                fileOptions.Inlines.Add(new Run("..."));
             }
         }
 
@@ -242,7 +242,7 @@ namespace dnGREP.WPF
         {
             if (Keyboard.IsKeyUp(Key.LeftAlt) && Keyboard.IsKeyUp(Key.RightAlt))
             {
-                fileOptions.Text = "More ...";
+                fileOptions.Text = "More...";
             }
         }
     }
