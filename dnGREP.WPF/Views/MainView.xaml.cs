@@ -80,6 +80,15 @@ namespace dnGREP.WPF
             inputData.ParentWindow = this;
             DataObject.AddPastingHandler(tbSearchFor, new DataObjectPastingEventHandler(onPaste));
             DataObject.AddPastingHandler(tbReplaceWith, new DataObjectPastingEventHandler(onPaste));
+
+            var textBox = (tbSearchFor.Template.FindName("PART_EditableTextBox", tbSearchFor) as TextBox);
+            if (textBox != null && !tbSearchFor.IsDropDownOpen)
+            {
+                Application.Current.Dispatcher.BeginInvoke(new Action(() => {
+                    textBox.SelectAll();
+                    textBox.Focus();
+                }));
+            }
         }
 
         /// <summary>
@@ -223,8 +232,9 @@ namespace dnGREP.WPF
             if (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt))
             {
                 fileOptions.Inlines.Clear();
-                fileOptions.Inlines.Add(new Underline(new Run("F")));
-                fileOptions.Inlines.Add(new Run("ile Options"));
+                fileOptions.Inlines.Add(new Run("Mor"));
+                fileOptions.Inlines.Add(new Underline(new Run("e")));
+                fileOptions.Inlines.Add(new Run("..."));
             }
         }
 
@@ -232,7 +242,7 @@ namespace dnGREP.WPF
         {
             if (Keyboard.IsKeyUp(Key.LeftAlt) && Keyboard.IsKeyUp(Key.RightAlt))
             {
-                fileOptions.Text = "File Options";
+                fileOptions.Text = "More...";
             }
         }
     }

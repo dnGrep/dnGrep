@@ -9,14 +9,14 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
-            <Label Grid.Column="0">This file is either binary or too large to preview.</Label>
-            <Button Grid.Column="1" Click="Button_Click">Preview anyway</Button>
+            <Label Grid.Column="0" VerticalAlignment="Center" VerticalContentAlignment="Center">This file is either binary or too large to preview.</Label>
+            <Button Click="Button_Click" Height="24" Width="112" Grid.ColumnSpan="2" Margin="473,1,0,1" VerticalAlignment="Center">Preview anyway</Button>
         </Grid>
-        <StatusBar DockPanel.Dock="Bottom" ClipToBounds="False" Grid.Row="4" Name="statusBar">
-            <TextBlock>Zoom:</TextBlock>
-            <Slider Name="zoomSlider" ToolTip="Changes text editor zoom" Value="12" Minimum="9" Maximum="30" Width="200" HorizontalAlignment="Right"/>
-            <CheckBox Name="cbWrapText">Wrap text</CheckBox>
-            <ComboBox Name="cbHighlighter" ItemsSource="{Binding Path=Highlighters}" SelectedValue="{Binding Path=CurrentSyntax}"></ComboBox>
+        <StatusBar DockPanel.Dock="Bottom" ClipToBounds="False" Grid.Row="4" Name="statusBar" VerticalContentAlignment="Center" VerticalAlignment="Center">
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,3,0">Zoom:</TextBlock>
+            <Slider Name="zoomSlider" ToolTip="Changes text editor zoom" Value="12" Minimum="9" Maximum="30" Width="200" HorizontalAlignment="Right" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="0,0,3,0"/>
+            <CheckBox Name="cbWrapText" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="0,0,3,0">Wrap text</CheckBox>
+            <ComboBox Name="cbHighlighter" ItemsSource="{Binding Path=Highlighters}" SelectedValue="{Binding Path=CurrentSyntax}" VerticalContentAlignment="Center" Margin="0,0,3,0"></ComboBox>
         </StatusBar>
         <ae:TextEditor Name="textEditor" FontFamily="Consolas" FontSize="{Binding ElementName=zoomSlider,Path=Value}" ShowLineNumbers="True" 
                        IsReadOnly="True" WordWrap="{Binding ElementName=cbWrapText,Path=IsChecked}" />
