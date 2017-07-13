@@ -1736,6 +1736,16 @@ namespace dnGREP.Common
 
             return durationStringBuilder.ToString();
         }
+
+        public static bool HasUtf8ByteOrderMark(Stream inputStream)
+        {
+            int b1 = inputStream.ReadByte();
+            int b2 = inputStream.ReadByte();
+            int b3 = inputStream.ReadByte();
+            inputStream.Seek(0, SeekOrigin.Begin);
+
+            return (0xEF == b1 && 0xBB == b2 && 0xBF == b3);
+        }
     }
 
     public class KeyValueComparer : IComparer<KeyValuePair<string, int>>
