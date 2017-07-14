@@ -1354,7 +1354,7 @@ namespace dnGREP.WPF
             if (!IncludeSubfolder) options.Add("No subfolders");
             if (!IncludeHidden) options.Add("No hidden files");
             if (!IncludeBinary) options.Add("No binary files");
-            //if (!IncludeArchive) options.Add("No archives");
+            if (!IncludeArchive) options.Add("No archives");
             if (options.Count > 0)
                 sb.AppendLine(string.Join(", ", options.ToArray()));
 

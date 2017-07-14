@@ -826,6 +826,21 @@ namespace dnGREP.WPF
             }
         }
 
+        private double maxFileFiltersSummaryWidth;
+        public double MaxFileFiltersSummaryWidth
+        {
+            get { return maxFileFiltersSummaryWidth; }
+            set
+            {
+                if (value == maxFileFiltersSummaryWidth)
+                    return;
+
+                maxFileFiltersSummaryWidth = value;
+
+                base.OnPropertyChanged(() => MaxFileFiltersSummaryWidth);
+            }
+        }
+
         private string validationMessage;
         public string ValidationMessage
         {
@@ -1027,7 +1042,7 @@ namespace dnGREP.WPF
             }
 
             if (name == "IncludeSubfolder" || name == "IncludeHidden" || name == "IncludeBinary" ||
-                name == "IncludeArchive" || name == "UseFileSizeFilter" || name == "UseFileDateFilter")
+                name == "UseFileSizeFilter" || name == "UseFileDateFilter")
             {
                 tempList = new List<string>();
                 if (!IncludeSubfolder)
@@ -1036,8 +1051,6 @@ namespace dnGREP.WPF
                     tempList.Add("No hidden");
                 if (!IncludeBinary)
                     tempList.Add("No binary");
-                //if (!IncludeArchive)
-                //    tempList.Add("No archives");
                 if (UseFileSizeFilter == FileSizeFilter.Yes)
                     tempList.Add("By Size");
                 if (UseFileDateFilter == FileDateFilter.Modified)

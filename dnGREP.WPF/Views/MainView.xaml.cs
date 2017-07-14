@@ -227,6 +227,21 @@ namespace dnGREP.WPF
             SpacerFileOptions.Width = Math.Max(0, maxWidth);
         }
 
+        private void Expander_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            // set the max width of the File Filters Summary text block so the Search In Archives checkbox does not overlap it
+            var panel = (Expander)sender;
+
+            var iconWidth = 40;
+            var maxWidth = panel.ActualWidth - iconWidth -
+                fileOptions.ActualWidth - fileOptions.Margin.Left - fileOptions.Margin.Right -
+                cbIncludeArchives.ActualWidth - cbIncludeArchives.Margin.Left - cbIncludeArchives.Margin.Right -
+                pathsToIgnoreLabel.ActualWidth - pathsToIgnoreLabel.Margin.Left - pathsToIgnoreLabel.Margin.Right -
+                tbFilePatternIgnore.ActualWidth - tbFilePatternIgnore.Margin.Left - tbFilePatternIgnore.Margin.Right;
+
+            inputData.MaxFileFiltersSummaryWidth = Math.Max(0, maxWidth);
+        }
+
         void MainFormEx_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt))
