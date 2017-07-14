@@ -177,39 +177,31 @@ namespace dnGREP.Engines
         {
             using (StreamReader readStream = new StreamReader(inputStream, encoding))
             {
-                StreamWriter writeStream = new StreamWriter(outputStream, encoding);
+                bool hasUtf8bom = encoding == Encoding.UTF8 && Utils.HasUtf8ByteOrderMark(inputStream);
+                var outputEncoding = encoding;
+                if (hasUtf8bom)
+                {
+                    outputEncoding = new UTF8Encoding(true);
+                }
+
+                StreamWriter writeStream = new StreamWriter(outputStream, outputEncoding);
 
                 string line = null;
                 int counter = 1;
 
-                // use first line to determine eol character(s);
+                // read with eol character(s);
                 using (EolReader eolReader = new EolReader(readStream))
                 {
-                    line = eolReader.ReadLine();
-                    if (line != null)
+                    while (!eolReader.EndOfStream)
                     {
-                        if (line.EndsWith("\r\n"))
-                        {
-                            writeStream.NewLine = "\r\n";
-                        }
-                        else if (line.EndsWith("\n"))
-                        {
-                            writeStream.NewLine = "\n";
-                        }
-                        else if (line.EndsWith("\r"))
-                        {
-                            writeStream.NewLine = "\r";
-                        }
-                    }
-                }
+                        line = eolReader.ReadLine();
+                        if (counter == 1 && hasUtf8bom)
+                            line = line.Replace("\ufeff", ""); // remove BOM
 
-                readStream.BaseStream.Seek(0, SeekOrigin.Begin);
-                while (!readStream.EndOfStream)
-                {
-                    line = readStream.ReadLine();
-                    line = replaceMethod(line, searchPattern, replacePattern, searchOptions);
-                    writeStream.WriteLine(line);
-                    counter++;
+                        line = replaceMethod(line, searchPattern, replacePattern, searchOptions);
+                        writeStream.Write(line);  // keep original eol
+                        counter++;
+                    }
                 }
 
                 writeStream.Flush();

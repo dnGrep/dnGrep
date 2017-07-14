@@ -225,26 +225,105 @@ namespace Tests
             }
         }
 
-        [Fact(Skip = "Functionality being tested not implemented yet.")]
-        public void TestGuidxReplaceWithPatternRegex()
+        // commented out so we can see all tests pass with green, not orange
+        //[Fact(Skip = "Functionality being tested not implemented yet.")]
+        //public void TestGuidxReplaceWithPatternRegex()
+        //{
+        //    Utils.CopyFiles(sourceFolder + "\\TestCase9", destinationFolder + "\\TestCase9", null, null);
+        //    GrepCore core = new GrepCore();
+        //    List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase9", "guidx.txt"), SearchType.Regex, "h\\wre", GrepSearchOption.None, -1);
+        //    Assert.Equal(results.Count, 1);
+        //    Assert.Equal(results[0].SearchResults.Count, 6);
+        //    core.Replace(Directory.GetFiles(destinationFolder + "\\TestCase9", "guidx.txt"), SearchType.Regex, "h\\wre", "$(guidx)", GrepSearchOption.None, -1);
+        //    string fileContent = File.ReadAllText(destinationFolder + "\\TestCase9\\guidx.txt", Encoding.ASCII).Trim();
+        //    Assert.Equal(6, guidPattern.Matches(fileContent).Count);
+        //    Dictionary<string, int> uniqueGuids = new Dictionary<string, int>();
+        //    foreach (Match match in guidPattern.Matches(fileContent))
+        //    {
+        //        if (!uniqueGuids.ContainsKey(match.Value))
+        //            uniqueGuids[match.Value] = 1;
+        //        else
+        //            uniqueGuids[match.Value]++;
+        //    }
+        //    Assert.Equal(2, uniqueGuids.Keys.Count);
+        //}
+
+        [Theory]
+        [InlineData(SearchType.PlainText, GrepSearchOption.None, "children", "general")]
+        [InlineData(SearchType.PlainText, GrepSearchOption.Multiline, "children", "general")]
+        [InlineData(SearchType.Regex, GrepSearchOption.None, "child.*\"\\>", "general\">")]
+        [InlineData(SearchType.Regex, GrepSearchOption.Multiline, "child.*\"\\>", "general\">")]
+        [InlineData(SearchType.Regex, GrepSearchOption.None, "child.*\"\\>$", "general\">")]
+        [InlineData(SearchType.Regex, GrepSearchOption.Multiline, "child.*\"\\>$", "general\">")]
+        public void TestReplaceOnFileWithout_UTF8_BOM(SearchType type, GrepSearchOption option, string searchFor, string replaceWith)
         {
-            Utils.CopyFiles(sourceFolder + "\\TestCase9", destinationFolder + "\\TestCase9", null, null);
+            // Test for Issue #227
+            Utils.CopyFiles(sourceFolder + "\\TestCase15", destinationFolder + "\\TestCase15", null, null);
             GrepCore core = new GrepCore();
-            List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase9", "guidx.txt"), SearchType.Regex, "h\\wre", GrepSearchOption.None, -1);
-            Assert.Equal(results.Count, 1);
-            Assert.Equal(results[0].SearchResults.Count, 6);
-            core.Replace(Directory.GetFiles(destinationFolder + "\\TestCase9", "guidx.txt"), SearchType.Regex, "h\\wre", "$(guidx)", GrepSearchOption.None, -1);
-            string fileContent = File.ReadAllText(destinationFolder + "\\TestCase9\\guidx.txt", Encoding.ASCII).Trim();
-            Assert.Equal(6, guidPattern.Matches(fileContent).Count);
-            Dictionary<string, int> uniqueGuids = new Dictionary<string, int>();
-            foreach (Match match in guidPattern.Matches(fileContent))
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase15", "books.xml"),
+                type, searchFor, option, -1);
+            Assert.Equal(1, results.Count);
+            core.Replace(Directory.GetFiles(destinationFolder + "\\TestCase15", "books.xml"),
+                type, searchFor, replaceWith, option, -1);
+
+            using (StreamReader reader = new StreamReader(destinationFolder + "\\TestCase15\\books.xml", true))
             {
-                if (!uniqueGuids.ContainsKey(match.Value))
-                    uniqueGuids[match.Value] = 1;
-                else
-                    uniqueGuids[match.Value]++;
+                Assert.Equal(Encoding.UTF8, reader.CurrentEncoding);
+                // check there is no BOM
+                int bb = reader.BaseStream.ReadByte();
+                Assert.NotEqual(0xEF, bb);
+                Assert.Equal('<', bb);
+                bb = reader.BaseStream.ReadByte();
+                Assert.NotEqual(0xBB, bb);
+                bb = reader.BaseStream.ReadByte();
+                Assert.NotEqual(0xBF, bb);
             }
-            Assert.Equal(2, uniqueGuids.Keys.Count);
+            var fileContent = File.ReadAllLines(destinationFolder + "\\TestCase15\\books.xml", Encoding.UTF8);
+
+            Assert.Equal(38, fileContent.Length);
+            Assert.Equal("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", fileContent[0]);
+            Assert.Equal("  <book category=\"general\">", fileContent[8]);
+        }
+
+        [Theory]
+        [InlineData(SearchType.PlainText, GrepSearchOption.None, "children", "general")]
+        [InlineData(SearchType.PlainText, GrepSearchOption.Multiline, "children", "general")]
+        [InlineData(SearchType.Regex, GrepSearchOption.None, "child.*\"\\>", "general\">")]
+        [InlineData(SearchType.Regex, GrepSearchOption.Multiline, "child.*\"\\>", "general\">")]
+        [InlineData(SearchType.Regex, GrepSearchOption.None, "child.*\"\\>$", "general\">")]
+        [InlineData(SearchType.Regex, GrepSearchOption.Multiline, "child.*\"\\>$", "general\">")]
+        public void TestReplaceOnFileWith_UTF8_BOM(SearchType type, GrepSearchOption option, string searchFor, string replaceWith)
+        {
+            // Test for Issue #227 dnGrep inserting extra BOM, and scrambling file
+            Utils.CopyFiles(sourceFolder + "\\TestCase15", destinationFolder + "\\TestCase15", null, null);
+            GrepCore core = new GrepCore();
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase15", "books_bom.xml"),
+                type, searchFor, option, -1);
+            Assert.Equal(1, results.Count);
+            core.Replace(Directory.GetFiles(destinationFolder + "\\TestCase15", "books_bom.xml"),
+                type, searchFor, replaceWith, option, -1);
+
+            using (StreamReader reader = new StreamReader(destinationFolder + "\\TestCase15\\books_bom.xml", true))
+            {
+                Assert.Equal(Encoding.UTF8, reader.CurrentEncoding);
+                // check there is a BOM
+                int bb = reader.BaseStream.ReadByte();
+                Assert.Equal(0xEF, bb);
+                bb = reader.BaseStream.ReadByte();
+                Assert.Equal(0xBB, bb);
+                bb = reader.BaseStream.ReadByte();
+                Assert.Equal(0xBF, bb);
+                // check that there are not two BOMs
+                bb = reader.BaseStream.ReadByte();
+                Assert.NotEqual(0xEF, bb);
+                Assert.Equal('<', bb);
+            }
+            var fileContent = File.ReadAllLines(destinationFolder + "\\TestCase15\\books_bom.xml", Encoding.UTF8);
+
+            Assert.Equal(38, fileContent.Length);
+            string line1 = fileContent[0].Replace("\ufeff", ""); // remove BOM
+            Assert.Equal("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", line1);
+            Assert.Equal("  <book category=\"general\">", fileContent[8]);
         }
 
         [Theory]

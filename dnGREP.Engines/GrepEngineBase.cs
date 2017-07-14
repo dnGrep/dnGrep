@@ -605,7 +605,32 @@ namespace dnGREP.Engines
                     searchPattern = searchPattern.Trim() + "\\b";
             }
 
-            return Regex.Replace(text, searchPattern, doPatternReplacement(replacePattern), regexOptions);
+            // Another issue #210 change (see above)
+            // regex only matches $ end of line on a \n newline
+            // change Windows and Mac newlines to UNIX
+            string prevNewLine = null;
+            if (searchPattern.Contains("$"))
+            {
+                // if the search pattern has Windows or Mac newlines, they must be converted, too
+                searchPattern = searchPattern.Replace("\r\n", "\n");
+                searchPattern = searchPattern.Replace('\r', '\n');
+
+                if (text.Contains("\r\n"))
+                {
+                    text = text.Replace("\r\n", "\n");
+                    prevNewLine = "\r\n";
+                }
+                else if (text.Contains("\r"))
+                {
+                    text = text.Replace("\r", "\n");
+                    prevNewLine = "\r";
+                }
+            }
+
+            string result = Regex.Replace(text, searchPattern, doPatternReplacement(replacePattern), regexOptions);
+            if (!string.IsNullOrEmpty(prevNewLine))
+                result = result.Replace("\n", prevNewLine);
+            return result;
         }
 
         public string doFuzzyReplace(string text, string searchPattern, string replacePattern, GrepSearchOption searchOptions)
