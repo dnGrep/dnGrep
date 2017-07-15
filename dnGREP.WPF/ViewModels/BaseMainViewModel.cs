@@ -26,9 +26,9 @@ namespace dnGREP.WPF
             IsCaseSensitiveEnabled = true;
             IsMultilineEnabled = true;
             IsWholeWordEnabled = true;
-            LoadSettings();
             Utils.ArchiveExtensions = GrepEngineFactory.GetArchiveExtenstions();
             CanSearchArchives = Utils.ArchiveExtensions.Count > 0;
+            LoadSettings();
         }
 
         #region Private Variables and Properties
@@ -1234,7 +1234,7 @@ namespace dnGREP.WPF
             IncludeBinary = true;
             IncludeHidden = true;
             IncludeSubfolder = true;
-            IncludeArchive = true;
+            IncludeArchive = Utils.ArchiveExtensions.Count > 0;
             UseFileDateFilter = FileDateFilter.None;
             TypeOfTimeRangeFilter = FileTimeRange.None;
             FilePattern = "*";
@@ -1315,7 +1315,7 @@ namespace dnGREP.WPF
             ReplaceWith = settings.Get<string>(GrepSettings.Key.ReplaceWith);
             IncludeHidden = settings.Get<bool>(GrepSettings.Key.IncludeHidden);
             IncludeBinary = settings.Get<bool>(GrepSettings.Key.IncludeBinary);
-            IncludeArchive = settings.Get<bool>(GrepSettings.Key.IncludeArchive);
+            IncludeArchive = settings.Get<bool>(GrepSettings.Key.IncludeArchive) && Utils.ArchiveExtensions.Count > 0;
             IncludeSubfolder = settings.Get<bool>(GrepSettings.Key.IncludeSubfolder);
             TypeOfSearch = settings.Get<SearchType>(GrepSettings.Key.TypeOfSearch);
             TypeOfFileSearch = settings.Get<FileSearchType>(GrepSettings.Key.TypeOfFileSearch);
