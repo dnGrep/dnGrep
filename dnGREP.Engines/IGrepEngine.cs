@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using dnGREP.Common;
 
@@ -27,6 +28,18 @@ namespace dnGREP.Engines
         /// <param name="encoding"></param>
         /// <returns>List of results. If nothing is found returns empty list</returns>
         List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding);
+
+        /// <summary>
+        /// Searches an input stream for files whose content matches regex
+        /// </summary>
+        /// <param name="input">the input stream</param>
+        /// <param name="fileName">the file name</param>
+        /// <param name="searchPattern"></param>
+        /// <param name="searchType"></param>
+        /// <param name="searchOptions"></param>
+        /// <param name="encoding"></param>
+        /// <returns></returns>
+        List<GrepSearchResult> Search(Stream input, string fileName, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding);
 
         bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding);
 

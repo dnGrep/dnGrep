@@ -46,6 +46,7 @@ namespace dnGREP.Engines.Pdf
 
         public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
         {
+            string tempFolder = Path.Combine(Utils.GetTempFolder(), "dnGREP-PDF");
             try
             {
                 // Extract text
@@ -70,7 +71,10 @@ namespace dnGREP.Engines.Pdf
                     foreach (GrepSearchResult result in results)
                     {
                         result.ReadOnly = true;
-                        result.FileNameDisplayed = file;
+                        if (file.Contains(tempFolder))
+                            result.FileNameDisplayed = file.Substring(tempFolder.Length + 1);
+                        else
+                            result.FileNameDisplayed = file;
                         result.FileNameReal = file;
                     }
                 }
@@ -84,12 +88,34 @@ namespace dnGREP.Engines.Pdf
             }
         }
 
+        // the stream version will get called if the file is in an archive
+        public List<GrepSearchResult> Search(Stream input, string fileName, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
+        {
+            // write the stream to a temp folder, and run the file version of the search
+            string tempFolder = Path.Combine(Utils.GetTempFolder(), "dnGREP-PDF");
+            // the fileName may contain the partial path of the directory structure in the archive
+            string filePath = Path.Combine(tempFolder, fileName);
+
+            // use the directory name to also include folders within the archive
+            string directory = Path.GetDirectoryName(filePath);
+            if (!Directory.Exists(directory))
+                Directory.CreateDirectory(directory);
+
+            using (var fileStream = File.Create(filePath))
+            {
+                input.Seek(0, SeekOrigin.Begin);
+                input.CopyTo(fileStream);
+            }
+
+            return Search(filePath, searchPattern, searchType, searchOptions, encoding);
+        }
+
         private string extractText(string pdfFilePath)
         {
-            string tempFolder = Utils.GetTempFolder() + "dnGREP-PDF\\";
+            string tempFolder = Path.Combine(Utils.GetTempFolder(), "dnGREP-PDF");
             if (!Directory.Exists(tempFolder))
                 Directory.CreateDirectory(tempFolder);
-            string tempFileName = tempFolder + Path.GetFileNameWithoutExtension(pdfFilePath) + ".txt";
+            string tempFileName = Path.Combine(tempFolder, Path.GetFileNameWithoutExtension(pdfFilePath) + ".txt");
 
             using (Process process = new Process())
             {
@@ -124,10 +150,7 @@ namespace dnGREP.Engines.Pdf
 
         public Version FrameworkVersion
         {
-            get
-            {
-                return Assembly.GetAssembly(typeof(IGrepEngine)).GetName().Version;
-            }
+            get { return Assembly.GetAssembly(typeof(IGrepEngine)).GetName().Version; }
         }
 
         public void Unload()

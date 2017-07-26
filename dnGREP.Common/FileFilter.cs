@@ -20,13 +20,14 @@ namespace dnGREP.Common
         /// <param name="includeSubfolders">Include sub folders</param>
         /// <param name="includeHidden">Include hidden folders</param>
         /// <param name="includeBinary">Include binary files</param>
+        /// <param name="includeArchive">Include search in archives</param>
         /// <param name="sizeFrom">Size in KB</param>
         /// <param name="sizeTo">Size in KB</param>
         /// <param name="dateFilter">Filter by file modified or created date time range</param>
         /// <param name="startTime">start of time range</param>
         /// <param name="endTime">end of time range</param>
         public FileFilter(string path, string namePatternToInclude, string namePatternToExclude, bool isRegex,
-            bool includeSubfolders, bool includeHidden, bool includeBinary, int sizeFrom, int sizeTo,
+            bool includeSubfolders, bool includeHidden, bool includeBinary, bool includeArchive, int sizeFrom, int sizeTo,
             FileDateFilter dateFilter, DateTime? startTime, DateTime? endTime)
         {
             Path = path;
@@ -36,6 +37,7 @@ namespace dnGREP.Common
             IncludeSubfolders = includeSubfolders;
             IncludeHidden = includeHidden;
             IncludeBinary = includeBinary;
+            IncludeArchive = includeArchive;
             SizeFrom = sizeFrom;
             SizeTo = sizeTo;
             DateFilter = dateFilter;
@@ -67,6 +69,7 @@ namespace dnGREP.Common
                 IncludeSubfolders,
                 IncludeHidden,
                 IncludeBinary,
+                IncludeArchive,
                 SizeFrom,
                 SizeTo,
                 DateFilter,
@@ -82,6 +85,7 @@ namespace dnGREP.Common
         public bool IncludeSubfolders { get; private set; }
         public bool IncludeHidden { get; private set; }
         public bool IncludeBinary { get; private set; }
+        public bool IncludeArchive { get; private set; }
         public int SizeFrom { get; private set; }
         public int SizeTo { get; private set; }
         public FileDateFilter DateFilter { get; private set; }
