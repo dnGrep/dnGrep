@@ -16,6 +16,11 @@ namespace dnGREP.Common
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
+        static Utils()
+        {
+            ArchiveExtensions = new List<string>();
+        }
+
         /// <summary>
         /// Copies the folder recursively. Uses includePattern to avoid unnecessary objects
         /// </summary>
@@ -292,7 +297,7 @@ namespace dnGREP.Common
         /// <param name="path"></param>
         public static void DeleteFolder(string path)
         {
-            string[] files = GetFileList(path, "*.*", null, false, true, true, true, 0, 0, FileDateFilter.None, null, null);
+            string[] files = GetFileList(path, "*.*", null, false, true, true, true, false, 0, 0, FileDateFilter.None, null, null);
             foreach (string file in files)
             {
                 File.SetAttributes(file, FileAttributes.Normal);
@@ -376,14 +381,18 @@ namespace dnGREP.Common
         /// <returns>True is file is binary otherwise false</returns>
         public static bool IsBinary(string srcFile)
         {
+            using (FileStream readStream = new FileStream(srcFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            {
+                return IsBinary(readStream);
+            }
+        }
+
+        public static bool IsBinary(Stream stream)
+        {
             try
             {
                 byte[] buffer = new byte[1024];
-                int count = 0;
-                using (FileStream readStream = new FileStream(srcFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                {
-                    count = readStream.Read(buffer, 0, buffer.Length);
-                }
+                int count = stream.Read(buffer, 0, buffer.Length);
                 for (int i = 0; i < count - 1; i = i + 2)
                 {
                     if (buffer[i] == 0 && buffer[i + 1] == 0)
@@ -397,6 +406,34 @@ namespace dnGREP.Common
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// Returns true if the source file extension is ".pdf"
+        /// </summary>
+        /// <param name="srcFile"></param>
+        /// <returns></returns>
+        public static bool IsPdfFile(string srcFile)
+        {
+            string ext = Path.GetExtension(srcFile);
+            if (!string.IsNullOrWhiteSpace(ext) && ext.Equals(".PDF", StringComparison.CurrentCultureIgnoreCase))
+                return true;
+            return false;
+        }
+
+        /// <summary>
+        /// Returns true if the source file extension is ".doc" or ".docx"
+        /// </summary>
+        /// <param name="srcFile"></param>
+        /// <returns></returns>
+        public static bool IsWordFile(string srcFile)
+        {
+            string ext = Path.GetExtension(srcFile);
+            if (!string.IsNullOrWhiteSpace(ext) && 
+                (ext.Equals(".DOC", StringComparison.CurrentCultureIgnoreCase) ||
+                 ext.Equals(".DOCX", StringComparison.CurrentCultureIgnoreCase)))
+                return true;
+            return false;
         }
 
         /// <summary>
@@ -416,23 +453,23 @@ namespace dnGREP.Common
         /// <summary>
         /// Returns true if the parameter is a recognized archive file format file extension.
         /// </summary>
-        /// <param name="ext">a file extension, with leading '.'</param>
+        /// <param name="ext">a file extension, with/without a leading '.'</param>
         /// <returns></returns>
         public static bool IsArchiveExtension(string ext)
         {
             if (!string.IsNullOrWhiteSpace(ext))
             {
                 // regex extensions may have a 'match end of line' char: remove it
-                return archiveExtensions.Contains(ext.TrimEnd('$').ToLower());
+                ext = ext.TrimStart('.').TrimEnd('$').ToLower();
+                return ArchiveExtensions.Contains(ext);
             }
             return false;
         }
-        private static List<string> archiveExtensions = new string[]
-            {
-                // this is just some of the archive formats supported by 7zip.
-                ".zip", ".rar", ".7z", ".gz", ".gzip", ".bz2", ".bzip2", ".tar", ".tbz2", ".tbz", ".tgz", ".arj", ".cab", ".cpio", 
-                ".deb", ".dmg", ".iso", ".hfs", ".hfsx", ".lzh", ".lha", ".lzma", ".z", ".taz", ".rpm", ".xar", ".pkg", ".xz", ".txz", ".zipx", ".jar", ".epub"
-            }.ToList();
+
+        /// <summary>
+        /// Gets or set the list of archive extensions (lowercase, without leading '.')
+        /// </summary>
+        public static List<string> ArchiveExtensions { get; set; }
 
         /// <summary>
         /// Add DirectorySeparatorChar to the end of the folder path if does not exist
@@ -579,6 +616,31 @@ namespace dnGREP.Common
 
         public static bool CancelSearch = false;
 
+        public static void PrepareFilters(FileFilter filter, List<Regex> includeRegexPatterns, List<Regex> excludeRegexPatterns)
+        {
+            if (includeRegexPatterns == null || excludeRegexPatterns == null)
+                return;
+
+            var includePatterns = SplitPath(filter.NamePatternToInclude);
+            var excludePatterns = SplitPath(filter.NamePatternToExclude);
+            if (!filter.IsRegex)
+            {
+                foreach (var pattern in includePatterns)
+                    includeRegexPatterns.Add(new Regex(wildcardToRegex(pattern), RegexOptions.Compiled | RegexOptions.IgnoreCase));
+
+                foreach (var pattern in excludePatterns)
+                    excludeRegexPatterns.Add(new Regex(wildcardToRegex(pattern), RegexOptions.Compiled | RegexOptions.IgnoreCase));
+            }
+            else
+            {
+                foreach (var pattern in includePatterns)
+                    includeRegexPatterns.Add(new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase));
+
+                foreach (var pattern in excludePatterns)
+                    excludeRegexPatterns.Add(new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase));
+            }
+        }
+
         /// <summary>
         /// Iterator based file search
         /// Searches folder and it's subfolders for files that match pattern and
@@ -596,20 +658,10 @@ namespace dnGREP.Common
 
             // Hash set to ensure file name uniqueness
             HashSet<string> matches = new HashSet<string>();
-            List<string> _includePatterns = new List<string>(SplitPath(filter.NamePatternToInclude));
-            List<string> _excludePatterns = new List<string>(SplitPath(filter.NamePatternToExclude));
-            List<Regex> includeRegexPatterns = new List<Regex>();
-            List<Regex> excludeRegexPatterns = new List<Regex>();
-            if (!filter.IsRegex)
-            {
-                foreach (var pattern in _includePatterns) includeRegexPatterns.Add(new Regex(wildcardToRegex(pattern), RegexOptions.Compiled | RegexOptions.IgnoreCase));
-                foreach (var pattern in _excludePatterns) excludeRegexPatterns.Add(new Regex(wildcardToRegex(pattern), RegexOptions.Compiled | RegexOptions.IgnoreCase));
-            }
-            else
-            {
-                foreach (var pattern in _includePatterns) includeRegexPatterns.Add(new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase));
-                foreach (var pattern in _excludePatterns) excludeRegexPatterns.Add(new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase));
-            }
+
+            var includeRegexPatterns = new List<Regex>();
+            var excludeRegexPatterns = new List<Regex>();
+            PrepareFilters(filter, includeRegexPatterns, excludeRegexPatterns);
 
             foreach (var subPath in SplitPath(filter.Path))
             {
@@ -654,8 +706,12 @@ namespace dnGREP.Common
                                     continue;
                             }
 
+                            if (!filter.IncludeArchive && IsArchive(filePath))
+                                continue;
+
                             if (!IsArchive(filePath) && !filter.IncludeBinary && IsBinary(filePath))
                                 continue;
+
                             if (filter.SizeFrom > 0 || filter.SizeTo > 0)
                             {
                                 if (fileInfo == null)
@@ -686,17 +742,24 @@ namespace dnGREP.Common
                                     continue;
                                 }
                             }
-                            foreach (var pattern in includeRegexPatterns)
+                            if (filter.IncludeArchive && IsArchive(filePath))
                             {
-                                if (pattern.IsMatch(filePath) || checkShebang(filePath, pattern.ToString()))
+                                includeMatch = true;
+                            }
+                            if (!includeMatch)
+                            {
+                                foreach (var pattern in includeRegexPatterns)
                                 {
-                                    includeMatch = true;
-                                    break;
+                                    if (pattern.IsMatch(filePath) || CheckShebang(filePath, pattern.ToString()))
+                                    {
+                                        includeMatch = true;
+                                        break;
+                                    }
                                 }
                             }
                             foreach (var pattern in excludeRegexPatterns)
                             {
-                                if (pattern.IsMatch(filePath) || checkShebang(filePath, pattern.ToString()))
+                                if (pattern.IsMatch(filePath) || CheckShebang(filePath, pattern.ToString()))
                                 {
                                     excludeMatch = true;
                                     break;
@@ -720,7 +783,7 @@ namespace dnGREP.Common
             }
         }
 
-        private static bool checkShebang(string file, string pattern)
+        public static bool CheckShebang(string file, string pattern)
         {
             if (pattern == null || pattern.Length <= 2 || (pattern[0] != '#' && pattern[1] != '!'))
                 return false;
@@ -785,6 +848,7 @@ namespace dnGREP.Common
         /// <param name="includeSubfolders">Include sub folders</param>
         /// <param name="includeHidden">Include hidden folders</param>
         /// <param name="includeBinary">Include binary files</param>
+        /// <param name="includeArchive">Include search in archives</param>
         /// <param name="sizeFrom">Size in KB</param>
         /// <param name="sizeTo">Size in KB</param>
         /// <param name="dateFilter">Filter by file modified or created date time range</param>
@@ -792,11 +856,11 @@ namespace dnGREP.Common
         /// <param name="endTime">end of time range</param>
         /// <returns>List of file or empty list if nothing is found</returns>
         public static string[] GetFileList(string path, string namePatternToInclude, string namePatternToExclude, bool isRegex,
-            bool includeSubfolders, bool includeHidden, bool includeBinary, int sizeFrom, int sizeTo,
+            bool includeSubfolders, bool includeHidden, bool includeBinary, bool includeArchive, int sizeFrom, int sizeTo,
             FileDateFilter dateFilter, DateTime? startTime, DateTime? endTime)
         {
             var filter = new FileFilter(path, namePatternToInclude, namePatternToExclude, isRegex,
-                includeSubfolders, includeHidden, includeBinary, sizeFrom, sizeTo, dateFilter, startTime, endTime);
+                includeSubfolders, includeHidden, includeBinary, includeArchive, sizeFrom, sizeTo, dateFilter, startTime, endTime);
             return GetFileListEx(filter).ToArray();
         }
 
@@ -805,7 +869,7 @@ namespace dnGREP.Common
         /// </summary>
         /// <param name="wildcard">Asterisk based pattern</param>
         /// <returns>Regular expression of null is empty</returns>
-        private static string wildcardToRegex(string wildcard)
+        public static string wildcardToRegex(string wildcard)
         {
             if (wildcard == null || wildcard == "") return wildcard;
 
