@@ -429,7 +429,7 @@ namespace dnGREP.Common
         public static bool IsWordFile(string srcFile)
         {
             string ext = Path.GetExtension(srcFile);
-            if (!string.IsNullOrWhiteSpace(ext) && 
+            if (!string.IsNullOrWhiteSpace(ext) &&
                 (ext.Equals(".DOC", StringComparison.CurrentCultureIgnoreCase) ||
                  ext.Equals(".DOCX", StringComparison.CurrentCultureIgnoreCase)))
                 return true;
@@ -1726,11 +1726,14 @@ namespace dnGREP.Common
 
         public static string ReplaceSpecialCharacters(string input)
         {
-            string result = input.Replace("\\t", "\t")
-                                 .Replace("\\n", "\n")
-                                 .Replace("\\0", "\0")
-                                 .Replace("\\b", "\b")
-                                 .Replace("\\r", "\r");
+            string result = input.Replace(@"\\a", "\a")
+                                 .Replace(@"\\b", "\b")
+                                 .Replace(@"\\f", "\f")
+                                 .Replace(@"\\n", "\n")
+                                 .Replace(@"\\r", "\r")
+                                 .Replace(@"\\t", "\t")
+                                 .Replace(@"\\v", "\v")
+                                 .Replace(@"\\0", "\0");
             return result;
         }
 
