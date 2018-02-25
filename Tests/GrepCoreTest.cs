@@ -188,6 +188,22 @@ namespace Tests
         }
 
         [Fact]
+        public void TestReplaceSpecialChars()
+        {
+            string result = Utils.ReplaceSpecialCharacters("\\\\t");
+            Assert.Equal("\t", result);
+
+            result = Utils.ReplaceSpecialCharacters("\\\\n");
+            Assert.Equal("\n", result);
+
+            result = Utils.ReplaceSpecialCharacters("\\\\r\\\\n");
+            Assert.Equal("\r\n", result);
+
+            result = Utils.ReplaceSpecialCharacters("\\\\a");
+            Assert.Equal("\a", result);
+        }
+
+        [Fact]
         public void TestReplaceWithNewLineWorks()
         {
             Utils.CopyFiles(sourceFolder + "\\TestCase8", destinationFolder + "\\TestCase8", null, null);
@@ -195,7 +211,7 @@ namespace Tests
             List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase8", "test.txt"), SearchType.Regex, "here", GrepSearchOption.None, -1);
             Assert.Equal(results.Count, 1);
             Assert.Equal(results[0].SearchResults.Count, 1);
-            core.Replace(Directory.GetFiles(destinationFolder + "\\TestCase8", "test.txt"), SearchType.Regex, "here", "\\n", GrepSearchOption.None, -1);
+            core.Replace(Directory.GetFiles(destinationFolder + "\\TestCase8", "test.txt"), SearchType.Regex, "here", "\\\\n", GrepSearchOption.None, -1);
             Assert.Equal(File.ReadAllText(destinationFolder + "\\TestCase8\\test.txt", Encoding.ASCII).Trim().Split('\n').Length, 2);
         }
 
