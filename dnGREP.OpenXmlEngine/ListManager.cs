@@ -513,7 +513,8 @@ namespace dnGREP.Engines.OpenXml
         {
             if (!string.IsNullOrWhiteSpace(value))
             {
-                if (int.TryParse(value, out int num))
+                int num;
+                if (int.TryParse(value, out num))
                 {
                     // 1440 twips = 1 inch
                     // make 1 inch == 6 spaces
