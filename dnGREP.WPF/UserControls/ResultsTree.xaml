@@ -164,10 +164,10 @@
                 </Setter>
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding Style}" Value="Context">
-                        <Setter Property="Foreground" Value="DarkGray"/>
+                        <Setter Property="Foreground" Value="DimGray"/>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Style}" Value="ReadOnly">
-                        <Setter Property="Foreground" Value="DarkGray"/>
+                        <Setter Property="Foreground" Value="DimGray"/>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Style}" Value="Error">
                         <Setter Property="Foreground" Value="Red"/>

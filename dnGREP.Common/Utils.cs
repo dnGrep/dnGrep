@@ -422,7 +422,7 @@ namespace dnGREP.Common
         }
 
         /// <summary>
-        /// Returns true if the source file extension is ".doc" or ".docx"
+        /// Returns true if the source file extension is ".doc" or ".docx" or ".docm"
         /// </summary>
         /// <param name="srcFile"></param>
         /// <returns></returns>
@@ -431,7 +431,24 @@ namespace dnGREP.Common
             string ext = Path.GetExtension(srcFile);
             if (!string.IsNullOrWhiteSpace(ext) &&
                 (ext.Equals(".DOC", StringComparison.CurrentCultureIgnoreCase) ||
-                 ext.Equals(".DOCX", StringComparison.CurrentCultureIgnoreCase)))
+                 ext.Equals(".DOCX", StringComparison.CurrentCultureIgnoreCase) ||
+                 ext.Equals(".DOCM", StringComparison.CurrentCultureIgnoreCase)))
+                return true;
+            return false;
+        }
+
+        /// <summary>
+        /// Returns true if the source file extension is ".xls" or ".xlsx" or ".xlsm"
+        /// </summary>
+        /// <param name="srcFile"></param>
+        /// <returns></returns>
+        public static bool IsExcelFile(string srcFile)
+        {
+            string ext = Path.GetExtension(srcFile);
+            if (!string.IsNullOrWhiteSpace(ext) &&
+                (ext.Equals(".XLS", StringComparison.CurrentCultureIgnoreCase) ||
+                 ext.Equals(".XLSX", StringComparison.CurrentCultureIgnoreCase) ||
+                 ext.Equals(".XLSM", StringComparison.OrdinalIgnoreCase)))
                 return true;
             return false;
         }

@@ -403,6 +403,10 @@ namespace dnGREP.WPF
             {
                 displayedName = grepResult.FileNameDisplayed.Substring(basePath.Length + 1).TrimStart('\\');
             }
+            if (!string.IsNullOrWhiteSpace(grepResult.AdditionalInformation))
+            {
+                displayedName += " " + grepResult.AdditionalInformation + " ";
+            }
             int matchCount = (grepResult.Matches == null ? 0 : grepResult.Matches.Count);
             if (matchCount > 0)
             {

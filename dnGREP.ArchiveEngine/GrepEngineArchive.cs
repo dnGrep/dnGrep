@@ -249,7 +249,7 @@ namespace dnGREP.Engines.Archive
                 }
             }
 
-            if (Utils.IsPdfFile(filePath) || Utils.IsWordFile(filePath))
+            if (Utils.IsPdfFile(filePath) || Utils.IsWordFile(filePath) || Utils.IsExcelFile(filePath))
                 args.UseCustomEditor = false;
 
             GrepSearchResult newResult = new GrepSearchResult();
