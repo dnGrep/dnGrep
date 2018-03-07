@@ -29,9 +29,15 @@ namespace dnGREP.Engines
                         try
                         {
                             GrepPlugin plugin = new GrepPlugin(pluginFile);
-                            if (plugin.LoadPluginSettings())
+                            if (plugin.LoadPluginSettings() && plugin.Enabled)
                             {
+                                logger.Debug(string.Format("Loading plugin: {0} for extensions {1}",
+                                    plugin.DllFilePath, string.Join(", ", plugin.Extensions.ToArray())));
                                 plugins.Add(plugin);
+                            }
+                            else
+                            {
+                                logger.Debug(string.Format("Skipping plugin: {0}", plugin.DllFilePath));
                             }
                         }
                         catch (Exception ex)
@@ -91,22 +97,29 @@ namespace dnGREP.Engines
                 {
                     if (fileTypeEngines[fileExtension].Engine.Initialize(param, filter))
                     {
+                        logger.Debug(string.Format("Using plugin: {0} for extension {1}",
+                            fileTypeEngines[fileExtension].Engine.ToString(), fileExtension));
                         return fileTypeEngines[fileExtension].Engine;
                     }
                     else
                     {
+                        logger.Debug(string.Format("File type engines failed to initialize: {0}, using plainTextEngine", fileExtension));
                         failedEngines[fileTypeEngines[fileExtension].Engine.GetType().Name] = "Failed to initialize the plugin. See error log for details.";
                         return plainTextEngine;
                     }
                 }
                 else
                 {
+                    logger.Debug(string.Format("File type engines version mismatch for: {0}, using plainTextEngine", fileExtension));
                     failedEngines[fileTypeEngines[fileExtension].Engine.GetType().Name] = "Plugin developed under outdated framework. Please update the plugin.";
                     return plainTextEngine;
                 }
             }
             else
+            {
+                logger.Debug(string.Format("File type engines has no key for: {0}, using plainTextEngine", fileExtension));
                 return plainTextEngine;
+            }
         }
 
         /// <summary>

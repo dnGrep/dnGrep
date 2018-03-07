@@ -76,6 +76,11 @@ namespace dnGREP.Common
             set { fileNameToOpen = value; }
         }
 
+        /// <summary>
+        /// Gets or sets additional information about the file to show in the results header
+        /// </summary>
+        public string AdditionalInformation { get; set; }
+
         private bool readOnly = false;
 
         public bool ReadOnly

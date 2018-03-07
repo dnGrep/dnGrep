@@ -2,29 +2,29 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <!-- Adding variable -->
   <?include Variables.wxi ?>
-  <Product Id="*" 
-           Name="dnGREP $(var.MajorVersion).$(var.MinorVersion).$(var.BuildVersion) ($(var.Platform))" 
-           Language="1033" 
-           Version="$(var.ProductVersion)" 
-           Manufacturer="Denis Stankovski" 
+  <Product Id="*"
+           Name="dnGREP $(var.MajorVersion).$(var.MinorVersion).$(var.BuildVersion) ($(var.Platform))"
+           Language="1033"
+           Version="$(var.ProductVersion)"
+           Manufacturer="dnGrep Developers"
            UpgradeCode="4CF55558-B642-482E-9FBF-06EA5AEC8276">
-		<Package InstallerVersion="200" Compressed="yes" />
+    <Package InstallerVersion="200" Compressed="yes" />
 
-		<Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
-    
+    <Media Id="1" Cabinet="media1.cab" EmbedCab="yes" />
+
     <!-- Perform conditional checks -->
-    <?include Conditions.wxi ?>    
+    <?include Conditions.wxi ?>
 
     <!-- Prevent modification/repair -->
     <Property Id="ARPNOREPAIR">1</Property>
     <Property Id="ARPNOMODIFY">1</Property>
-    
+
     <!-- Properties -->
     <Property Id="INSTALLLEVEL" Value="3" />
 
-     <!-- Icon -->
+    <!-- Icon -->
     <Icon Id="nGREP.ico" SourceFile="nGREP.ico"/>
-    <Property Id="ARPPRODUCTICON" Value="nGREP.ico" />    
+    <Property Id="ARPPRODUCTICON" Value="nGREP.ico" />
 
     <!-- ========================== UI =============================-->
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
@@ -41,32 +41,32 @@
     <CustomAction Id="PreventDowngrading" Error="Newer version of dnGREP is already installed." />
     <CustomAction Id="PreventReInstalling" Error="dnGREP version $(var.ProductVersion) is already installed." />
     <CustomAction Id="RunWarmUp" Directory="INSTALLDIR" Execute="deferred" Impersonate="no"
-					  ExeCommand="&quot;[INSTALLDIR]dnGREP.exe&quot; /warmUp" Return="check"/>
+            ExeCommand="&quot;[INSTALLDIR]dnGREP.exe&quot; /warmUp" Return="check"/>
     <!-- ===========================================================-->
 
     <Upgrade Id="4CF55558-B642-482E-9FBF-06EA5AEC8276">
       <!-- Will prevent reinstalling the same version IF MSI with the same version but different Product ID has been previously installed -->
       <UpgradeVersion OnlyDetect='yes' Property='SELFFOUND'
-			 Minimum='$(var.ProductVersion)' IncludeMinimum='yes'
-			  Maximum='$(var.ProductVersion)' IncludeMaximum='yes' />
+       Minimum='$(var.ProductVersion)' IncludeMinimum='yes'
+        Maximum='$(var.ProductVersion)' IncludeMaximum='yes' />
       <UpgradeVersion OnlyDetect='yes' Property='NEWERFOUND'
-			  Minimum='$(var.ProductVersion)' IncludeMinimum='no' />
+        Minimum='$(var.ProductVersion)' IncludeMinimum='no' />
       <UpgradeVersion OnlyDetect='no' Property='PREVIOUSFOUND'
-			  Minimum='0.0.0.0' IncludeMinimum='yes'
-			  Maximum='$(var.ProductVersion)' IncludeMaximum='no' />
+        Minimum='0.0.0.0' IncludeMinimum='yes'
+        Maximum='$(var.ProductVersion)' IncludeMaximum='no' />
     </Upgrade>
 
-		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="$(var.PlatformProgramFilesFolder)">
-				<Directory Id="INSTALLDIR" Name="dnGREP">
-          <Directory Id="PluginsDir" Name="Plugins">            
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="$(var.PlatformProgramFilesFolder)">
+        <Directory Id="INSTALLDIR" Name="dnGREP">
+          <Directory Id="PluginsDir" Name="Plugins">
           </Directory>
-				</Directory>
-			</Directory>
+        </Directory>
+      </Directory>
       <Directory Id="ProgramMenuFolder">
         <Directory  Id="ApplicationProgramsFolder" Name="dnGREP"/>
       </Directory>
-		</Directory>
+    </Directory>
 
     <!-- Create shell integration and add startup acceleration -->
     <DirectoryRef Id="TARGETDIR">
@@ -112,15 +112,15 @@
     <DirectoryRef Id="ApplicationProgramsFolder">
       <Component  Id="ApplicationShortcut" Guid="78E286ED-5A4A-4F17-AF9E-79DBD8172998">
         <Shortcut Id="ApplicationStartMenuShortcut"
-					Name="dnGREP"
-					Description="dnGREP application"
-					Target="[INSTALLDIR]dnGREP.exe"
-						  WorkingDirectory="INSTALLDIR"/>
+                  Name="dnGREP"
+                  Description="dnGREP application"
+                  Target="[INSTALLDIR]dnGREP.exe"
+                  WorkingDirectory="INSTALLDIR"/>
         <Shortcut Id="UninstallShortcut"
-						  Name="Uninstall dnGREP"
-						  Description="Uninstalls dnGREP"
-						  Target="[SystemFolder]msiexec.exe"
-						  Arguments="/x [ProductCode]"/>
+                  Name="Uninstall dnGREP"
+                  Description="Uninstalls dnGREP"
+                  Target="[SystemFolder]msiexec.exe"
+                  Arguments="/x [ProductCode]"/>
 
         <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall"/>
         <RegistryValue Root="HKCU" Key="Software\Microsoft\dnGREP" Name="installed" Type="integer" Value="1" KeyPath="yes"/>
@@ -147,8 +147,11 @@
         <Feature Id="ArchivePlugin" Title="Archive Search" AllowAdvertise='no' Absent='allow' Description="Archive Search plugin" Level="2">
           <ComponentGroupRef Id="dnGREPPluginFilesArchive"/>
         </Feature>
+        <Feature Id="OpenXmlPlugin" Title="Excel and Word Search" AllowAdvertise='no' Absent='allow' Description="Open XML Search plugin" Level="2">
+          <ComponentGroupRef Id="dnGREPPluginFilesOpenXml"/>
+        </Feature>
       </Feature>
-    </Feature>    
+    </Feature>
 
     <!-- Sequences -->
     <InstallExecuteSequence>
@@ -162,5 +165,5 @@
       <Custom Action="PreventDowngrading" After="FindRelatedProducts">NEWERFOUND</Custom>
       <Custom Action="PreventReInstalling" After="FindRelatedProducts">SELFFOUND</Custom>
     </InstallUISequence>
-	</Product>
+  </Product>
 </Wix>

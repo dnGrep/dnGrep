@@ -422,16 +422,33 @@ namespace dnGREP.Common
         }
 
         /// <summary>
-        /// Returns true if the source file extension is ".doc" or ".docx"
+        /// Returns true if the source file extension is ".doc" or ".docx" or ".docm"
         /// </summary>
         /// <param name="srcFile"></param>
         /// <returns></returns>
         public static bool IsWordFile(string srcFile)
         {
             string ext = Path.GetExtension(srcFile);
-            if (!string.IsNullOrWhiteSpace(ext) && 
+            if (!string.IsNullOrWhiteSpace(ext) &&
                 (ext.Equals(".DOC", StringComparison.CurrentCultureIgnoreCase) ||
-                 ext.Equals(".DOCX", StringComparison.CurrentCultureIgnoreCase)))
+                 ext.Equals(".DOCX", StringComparison.CurrentCultureIgnoreCase) ||
+                 ext.Equals(".DOCM", StringComparison.CurrentCultureIgnoreCase)))
+                return true;
+            return false;
+        }
+
+        /// <summary>
+        /// Returns true if the source file extension is ".xls" or ".xlsx" or ".xlsm"
+        /// </summary>
+        /// <param name="srcFile"></param>
+        /// <returns></returns>
+        public static bool IsExcelFile(string srcFile)
+        {
+            string ext = Path.GetExtension(srcFile);
+            if (!string.IsNullOrWhiteSpace(ext) &&
+                (ext.Equals(".XLS", StringComparison.CurrentCultureIgnoreCase) ||
+                 ext.Equals(".XLSX", StringComparison.CurrentCultureIgnoreCase) ||
+                 ext.Equals(".XLSM", StringComparison.OrdinalIgnoreCase)))
                 return true;
             return false;
         }
@@ -1726,11 +1743,14 @@ namespace dnGREP.Common
 
         public static string ReplaceSpecialCharacters(string input)
         {
-            string result = input.Replace("\\t", "\t")
-                                 .Replace("\\n", "\n")
-                                 .Replace("\\0", "\0")
-                                 .Replace("\\b", "\b")
-                                 .Replace("\\r", "\r");
+            string result = input.Replace(@"\\a", "\a")
+                                 .Replace(@"\\b", "\b")
+                                 .Replace(@"\\f", "\f")
+                                 .Replace(@"\\n", "\n")
+                                 .Replace(@"\\r", "\r")
+                                 .Replace(@"\\t", "\t")
+                                 .Replace(@"\\v", "\v")
+                                 .Replace(@"\\0", "\0");
             return result;
         }
 
