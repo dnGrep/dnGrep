@@ -39,6 +39,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		vs.testsettings = vs.testsettings
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dnGREP.OpenXmlEngine", "dnGREP.OpenXmlEngine\dnGREP.OpenXmlEngine.csproj", "{8312CAE2-B208-4186-B711-815593FEBB94}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -125,6 +127,14 @@ Global
 		{9A5EE640-E3EE-4985-BD96-64B63A1B0062}.Release|x64.Build.0 = Release|x64
 		{9A5EE640-E3EE-4985-BD96-64B63A1B0062}.Release|x86.ActiveCfg = Release|x86
 		{9A5EE640-E3EE-4985-BD96-64B63A1B0062}.Release|x86.Build.0 = Release|x86
+		{8312CAE2-B208-4186-B711-815593FEBB94}.Debug|x64.ActiveCfg = Debug|x64
+		{8312CAE2-B208-4186-B711-815593FEBB94}.Debug|x64.Build.0 = Debug|x64
+		{8312CAE2-B208-4186-B711-815593FEBB94}.Debug|x86.ActiveCfg = Debug|x86
+		{8312CAE2-B208-4186-B711-815593FEBB94}.Debug|x86.Build.0 = Debug|x86
+		{8312CAE2-B208-4186-B711-815593FEBB94}.Release|x64.ActiveCfg = Release|x64
+		{8312CAE2-B208-4186-B711-815593FEBB94}.Release|x64.Build.0 = Release|x64
+		{8312CAE2-B208-4186-B711-815593FEBB94}.Release|x86.ActiveCfg = Release|x86
+		{8312CAE2-B208-4186-B711-815593FEBB94}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -133,6 +143,10 @@ Global
 		{7317511F-A32C-44AE-9C87-1E4806E891FB} = {177DCA75-DAA1-4097-A3AB-EF944566600D}
 		{6B5159A5-C92C-4203-84DE-273FEB30D07B} = {177DCA75-DAA1-4097-A3AB-EF944566600D}
 		{FA9512EF-562C-4DC1-9CF2-7A8FF896D352} = {177DCA75-DAA1-4097-A3AB-EF944566600D}
+		{8312CAE2-B208-4186-B711-815593FEBB94} = {177DCA75-DAA1-4097-A3AB-EF944566600D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {835B141D-24DE-4FDA-805E-B7871861B348}
 	EndGlobalSection
 	GlobalSection(SharpSetup) = preSolution
 		Version = 1.2
