@@ -250,6 +250,22 @@ namespace dnGREP.WPF
             }
         }
 
+
+        private bool searchParallel;
+        public bool SearchParallel
+        {
+            get { return searchParallel; }
+            set
+            {
+                if (value == searchParallel)
+                    return;
+
+                searchParallel = value;
+
+                base.OnPropertyChanged(() => SearchParallel);
+            }
+        }
+
         private SearchType typeOfSearch;
         public SearchType TypeOfSearch
         {
@@ -1316,6 +1332,7 @@ namespace dnGREP.WPF
             IncludeHidden = settings.Get<bool>(GrepSettings.Key.IncludeHidden);
             IncludeBinary = settings.Get<bool>(GrepSettings.Key.IncludeBinary);
             IncludeArchive = settings.Get<bool>(GrepSettings.Key.IncludeArchive) && Utils.ArchiveExtensions.Count > 0;
+            SearchParallel = settings.Get<bool>(GrepSettings.Key.SearchParallel);
             IncludeSubfolder = settings.Get<bool>(GrepSettings.Key.IncludeSubfolder);
             TypeOfSearch = settings.Get<SearchType>(GrepSettings.Key.TypeOfSearch);
             TypeOfFileSearch = settings.Get<FileSearchType>(GrepSettings.Key.TypeOfFileSearch);
@@ -1349,6 +1366,7 @@ namespace dnGREP.WPF
             settings.Set<bool>(GrepSettings.Key.IncludeHidden, IncludeHidden);
             settings.Set<bool>(GrepSettings.Key.IncludeBinary, IncludeBinary);
             settings.Set<bool>(GrepSettings.Key.IncludeArchive, IncludeArchive);
+            settings.Set<bool>(GrepSettings.Key.SearchParallel, SearchParallel);
             settings.Set<bool>(GrepSettings.Key.IncludeSubfolder, IncludeSubfolder);
             settings.Set<SearchType>(GrepSettings.Key.TypeOfSearch, TypeOfSearch);
             settings.Set<int>(GrepSettings.Key.CodePage, CodePage);

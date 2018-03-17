@@ -174,7 +174,7 @@ namespace Ude.Core
                     for (int i = 0; i < PROBERS_NUM; i++) {
                         if (charsetProbers[i] != null) {
                             st = charsetProbers[i].HandleData(buf, offset, len);
-                            #if DEBUG                            
+                            #if DEBUG_UDE
                             charsetProbers[i].DumpStatus();
                             #endif                        
                             if (st == ProbingState.FoundIt) {

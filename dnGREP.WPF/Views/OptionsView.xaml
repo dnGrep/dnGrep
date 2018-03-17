@@ -145,20 +145,31 @@
                         <RowDefinition SharedSizeGroup="xxx"/>
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0">
-                        <GroupBox Header="Phonetic search">
+                        <GroupBox Header="Regex Search">
                             <WrapPanel>
                                 <WrapPanel.Resources>
                                     <DataTemplate DataType="{x:Type ValidationError}">
-                                        <TextBlock
-                                      Foreground="Red"
-                                      HorizontalAlignment="Right"
-                                      Text="{Binding Path=ErrorContent}" 
-                                      />
+                                        <TextBlock Foreground="Red" HorizontalAlignment="Right" Text="{Binding Path=ErrorContent}" />
+                                    </DataTemplate>
+                                </WrapPanel.Resources>
+                                <Label>Match timeout</Label>
+                                <TextBox Name="tbMatchTimeout" Width="48" Text="{Binding Path=MatchTimeout, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+                                     Validation.ErrorTemplate="{x:Null}" Height="24" VerticalContentAlignment="Center"/>
+                                <Label>seconds</Label>
+                                <TextBlock TextWrapping="Wrap">The match timeout limits how long the regular expression engine will attempt to resolve a regular expression before it times out. This prevents processing expressions and input strings that require excessive backtracking.</TextBlock>
+                                <ContentPresenter Content="{Binding ElementName=tbMatchTimeout, Path=(Validation.Errors).CurrentItem}"/>
+                            </WrapPanel>
+                        </GroupBox>
+                        <GroupBox Header="Phonetic Search" Margin="0,12,0,0">
+                            <WrapPanel>
+                                <WrapPanel.Resources>
+                                    <DataTemplate DataType="{x:Type ValidationError}">
+                                        <TextBlock Foreground="Red" HorizontalAlignment="Right" Text="{Binding Path=ErrorContent}" />
                                     </DataTemplate>
                                 </WrapPanel.Resources>
                                 <Label>Match threshold (from 0 to 1.0)</Label>
                                 <TextBox Name="tbFuzzyMatchThreshold" Width="48" Text="{Binding Path=MatchThreshold, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
-                                     Validation.ErrorTemplate="{x:Null}" Height="24" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                                     Validation.ErrorTemplate="{x:Null}" Height="24" VerticalContentAlignment="Center"/>
                                 <Label>0 - match everything; 1.0 - exact match</Label>
                                 <ContentPresenter Content="{Binding ElementName=tbFuzzyMatchThreshold, Path=(Validation.Errors).CurrentItem}"/>
                             </WrapPanel>

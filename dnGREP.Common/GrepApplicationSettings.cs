@@ -102,6 +102,10 @@ namespace dnGREP.Common
             public const string HoursFrom = "HoursFrom";
             [DefaultValue(8)]
             public const string HoursTo = "HoursTo";
+            [DefaultValue(false)]
+            public const string SearchParallel = "SearchParallel";
+            [DefaultValue(4.0)]
+            public const string MatchTimeout = "MatchTimeout";
         }
 
         private static GrepSettings instance;

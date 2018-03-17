@@ -63,6 +63,7 @@ namespace dnGREP.WPF
         private BookmarksForm bookmarkForm;
         private PreviewView preview;
         private PreviewViewModel previewModel;
+        private List<string> currentSearchFiles = new List<string>();
 
         #endregion
 
@@ -464,7 +465,7 @@ namespace dnGREP.WPF
 
                 FormattedGrepResult result = selectedNode.Parent;
                 OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
-                dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, new GrepEngineInitParams(false, 0, 0, 0.5, false), new FileFilter()).OpenFile(fileArg);
+                dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, GrepEngineInitParams.Default, new FileFilter()).OpenFile(fileArg);
                 if (fileArg.UseBaseEngine)
                     Utils.OpenFile(new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
             }
@@ -485,7 +486,7 @@ namespace dnGREP.WPF
                 // Line was selected
                 int lineNumber = 0;
                 OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
-                dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, new GrepEngineInitParams(false, 0, 0, 0.5, false), new FileFilter()).OpenFile(fileArg);
+                dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, GrepEngineInitParams.Default, new FileFilter()).OpenFile(fileArg);
                 if (fileArg.UseBaseEngine)
                     Utils.OpenFile(new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
             }
@@ -664,7 +665,8 @@ namespace dnGREP.WPF
                             settings.Get<int>(GrepSettings.Key.ContextLinesBefore),
                             settings.Get<int>(GrepSettings.Key.ContextLinesAfter),
                             settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold),
-                            settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount));
+                            settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount),
+                            SearchParallel);
 
                         grep.FileFilter = new FileFilter(FileOrFolderPath, filePatternInclude, filePatternExclude,
                             param.TypeOfFileSearch == FileSearchType.Regex, param.IncludeSubfolder, param.IncludeHidden,
@@ -682,9 +684,9 @@ namespace dnGREP.WPF
                         if (StopAfterFirstMatch)
                             searchOptions |= GrepSearchOption.StopAfterFirstMatch;
 
-                        grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
+                        grep.ProcessedFile += GrepCore_ProcessedFile;
                         e.Result = grep.Search(files, param.TypeOfSearch, param.SearchFor, searchOptions, param.CodePage);
-                        grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
+                        grep.ProcessedFile -= GrepCore_ProcessedFile;
                     }
                     else
                     {
@@ -694,7 +696,8 @@ namespace dnGREP.WPF
                             settings.Get<int>(GrepSettings.Key.ContextLinesBefore),
                             settings.Get<int>(GrepSettings.Key.ContextLinesAfter),
                             settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold),
-                            settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount));
+                            settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount),
+                            SearchParallel);
 
                         GrepSearchOption searchOptions = GrepSearchOption.None;
                         if (Multiline)
@@ -708,11 +711,10 @@ namespace dnGREP.WPF
                         if (StopAfterFirstMatch)
                             searchOptions |= GrepSearchOption.WholeWord;
 
-                        grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
+                        grep.ProcessedFile += GrepCore_ProcessedFile;
                         string[] files = ((List<string>)workerParams["Files"]).ToArray();
                         e.Result = grep.Replace(files, param.TypeOfSearch, param.SearchFor, param.ReplaceWith, searchOptions, param.CodePage);
-
-                        grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
+                        grep.ProcessedFile -= GrepCore_ProcessedFile;
                     }
                 }
             }
@@ -741,24 +743,42 @@ namespace dnGREP.WPF
             {
                 if (!Utils.CancelSearch)
                 {
-                    GrepCore.ProgressStatus progress = (GrepCore.ProgressStatus)e.UserState;
-                    string result = string.Empty;
+                    ProgressStatus progress = (ProgressStatus)e.UserState;
+
                     if (progress.SearchResults != null)
-                    {
                         SearchResults.AddRange(progress.SearchResults);
-                        if (!string.IsNullOrWhiteSpace(progress.FileName))
-                            result = string.Format("Searched {0} files. Found {1} matching files - processing {2}", progress.ProcessedFiles, SearchResults.Count, progress.FileName);
+
+                    // When running in parallel, multiple files will be in progress at the same time.
+                    // This keeps track of the files that are running and the long running file names
+                    // are shown again as the short runs finish.
+                    string fileName = string.Empty;
+                    if (!string.IsNullOrWhiteSpace(progress.FileName))
+                    {
+                        if (progress.BeginSearch)
+                        {
+                            fileName = progress.FileName;
+                            if (!currentSearchFiles.Contains(fileName))
+                                currentSearchFiles.Add(fileName);
+                        }
                         else
-                            result = string.Format("Searched {0} files. Found {1} matching files.", progress.ProcessedFiles, SearchResults.Count);
+                        {
+                            if (currentSearchFiles.Contains(fileName))
+                                currentSearchFiles.Remove(fileName);
+
+                            if (currentSearchFiles.Count > 0)
+                                fileName = currentSearchFiles.Last();
+                        }
+                    }
+
+                    string result = string.Empty;
+                    if (!string.IsNullOrWhiteSpace(fileName))
+                    {
+                        result = string.Format("Searched {0} files. Found {1} matching files - processing {2}", progress.ProcessedFiles, progress.SuccessfulFiles, fileName);
                     }
                     else
                     {
-                        if (!string.IsNullOrWhiteSpace(progress.FileName))
-                            result = string.Format("Searched {0} files - processing {1}", progress.ProcessedFiles, progress.FileName);
-                        else
-                            result = string.Format("Searched {0} files.", progress.ProcessedFiles);
+                        result = string.Format("Searched {0} files. Found {1} matching files.", progress.ProcessedFiles, progress.SuccessfulFiles);
                     }
-
                     StatusMessage = result;
                 }
             }
@@ -784,8 +804,9 @@ namespace dnGREP.WPF
                     {
                         TimeSpan duration = DateTime.Now.Subtract(timer);
                         results = (List<GrepSearchResult>)e.Result;
+                        int successCount = results.Where(r => r.IsSuccess).Count();
 
-                        StatusMessage = "Search Complete - " + results.Count + " files found in " + duration.GetPrettyString() + ".";
+                        StatusMessage = string.Format("Search Complete - {0} files found in {1}.", successCount, duration.GetPrettyString());
                     }
                     else
                     {
@@ -836,10 +857,11 @@ namespace dnGREP.WPF
             finally
             {
                 Utils.CancelSearch = false;
+                currentSearchFiles.Clear();
             }
         }
 
-        void grep_ProcessedFile(object sender, GrepCore.ProgressStatus progress)
+        void GrepCore_ProcessedFile(object sender, ProgressStatus progress)
         {
             workerSearchReplace.ReportProgress((int)progress.ProcessedFiles, progress);
         }

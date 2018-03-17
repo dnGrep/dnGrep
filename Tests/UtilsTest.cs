@@ -811,11 +811,11 @@ namespace Tests
         {
             string dllPath = GetDllPath();
             string path = sourceFolder + "\\TestCase2";
-            Assert.Equal(Utils.GetFileList(path, "*.*", "*.xls", false, false, false, true, false, 0, 0, FileDateFilter.None, null, null).Length, 3);
-            Assert.Equal(Utils.GetFileList(path, "excel*.*", "*.xls", false, false, false, true, false, 0, 0, FileDateFilter.None, null, null).Length, 0);
-            Assert.Equal(Utils.GetFileList(path, "excel*.*", "*.xs", false, false, false, true, false, 0, 0, FileDateFilter.None, null, null).Length, 1);
-            Assert.Equal(Utils.GetFileList(path, "t[a-z]st-file-*.*", "*.cs", false, false, false, true, false, 0, 0, FileDateFilter.None, null, null).Length, 2);
-            Assert.Equal(Utils.GetFileList(path, "t[ea]st-file-*.*", "*.cs", false, false, false, true, false, 0, 0, FileDateFilter.None, null, null).Length, 2);
+            Assert.Equal(3, Utils.GetFileList(path, "*.*", "*.xls", false, false, false, true, false, 0, 0, FileDateFilter.None, null, null).Length);
+            Assert.Equal(0, Utils.GetFileList(path, "excel*.*", "*.xls", false, false, false, true, false, 0, 0, FileDateFilter.None, null, null).Length);
+            Assert.Equal(1, Utils.GetFileList(path, "excel*.*", "*.xs", false, false, false, true, false, 0, 0, FileDateFilter.None, null, null).Length);
+            Assert.Equal(2, Utils.GetFileList(path, "t*st-file-*.*", "*.cs", false, false, false, true, false, 0, 0, FileDateFilter.None, null, null).Length);
+            Assert.Equal(2, Utils.GetFileList(path, "t?st-file-*.*", "*.cs", false, false, false, true, false, 0, 0, FileDateFilter.None, null, null).Length);
         }
 
         [Fact]

@@ -189,6 +189,7 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
@@ -204,19 +205,26 @@
                                                          ToolTip="e.g. file??.*" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
                                         </StackPanel>
                                     </StackPanel>
-                                    <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="3">
+                                    <CheckBox Grid.Row="1" IsChecked="{Binding SearchParallel}" Margin="3,0,24,3" Content="Search Paralle_l" TabIndex="42" ToolTip="Search files in multiple threads - results will not be ordered" />
+                                    <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="3">
                                         <TextBlock VerticalAlignment="Center" Margin="3,0,3,3" Text="Encoding:" HorizontalAlignment="Left" />
-                                        <ComboBox Width="224" Name="cbEncoding" TabIndex="42" Margin="3,0,3,3"
+                                        <ComboBox Width="224" Name="cbEncoding" TabIndex="43" Margin="3,0,3,3"
                                               DisplayMemberPath="Key" SelectedValuePath="Value" ItemsSource="{Binding Path=Encodings}"
-                                              VerticalAlignment="Center" SelectedValue="{Binding Path=CodePage}" Initialized="cbEncoding_Initialized" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="24" />
+                                              VerticalAlignment="Center" SelectedValue="{Binding Path=CodePage}" Initialized="cbEncoding_Initialized" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="24">
+                                            <ComboBox.ItemContainerStyle>
+                                                <Style TargetType="{x:Type ComboBoxItem}">
+                                                    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                                                </Style>
+                                            </ComboBox.ItemContainerStyle>
+                                        </ComboBox>
                                     </StackPanel>
-                                    <UniformGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="4,3,3,3" Visibility="{Binding OptionsOnMainPanel, Converter={StaticResource InverseBoolToVisibilityConverter}}">
-                                        <CheckBox Grid.Row="0" Grid.Column="0" Margin="3,0,3,3" IsChecked="{Binding CaseSensitive}" IsEnabled="{Binding IsCaseSensitiveEnabled}" TabIndex="43" Content="C_ase sensitive" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                                        <CheckBox Grid.Row="1" Grid.Column="0" Margin="3,0,3,3" IsChecked="{Binding WholeWord}" IsEnabled="{Binding IsWholeWordEnabled}" TabIndex="44" Content="_Whole word" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                                        <CheckBox Grid.Row="0" Grid.Column="1" Margin="3,0,3,3" IsChecked="{Binding Multiline}" IsEnabled="{Binding IsMultilineEnabled}" TabIndex="44" Content="_Multiline" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
-                                        <CheckBox Grid.Row="1" Grid.Column="1" Margin="3,0,3,3" IsChecked="{Binding Singleline}" IsEnabled="{Binding IsSinglelineEnabled}" TabIndex="45" Content="_Dot as newline" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                                    <UniformGrid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="4,3,3,3" Visibility="{Binding OptionsOnMainPanel, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+                                        <CheckBox Grid.Row="0" Grid.Column="0" Margin="3,0,3,3" IsChecked="{Binding CaseSensitive}" IsEnabled="{Binding IsCaseSensitiveEnabled}" TabIndex="44" Content="C_ase sensitive" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                                        <CheckBox Grid.Row="1" Grid.Column="0" Margin="3,0,3,3" IsChecked="{Binding WholeWord}" IsEnabled="{Binding IsWholeWordEnabled}" TabIndex="45" Content="_Whole word" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                                        <CheckBox Grid.Row="0" Grid.Column="1" Margin="3,0,3,3" IsChecked="{Binding Multiline}" IsEnabled="{Binding IsMultilineEnabled}" TabIndex="46" Content="_Multiline" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
+                                        <CheckBox Grid.Row="1" Grid.Column="1" Margin="3,0,3,3" IsChecked="{Binding Singleline}" IsEnabled="{Binding IsSinglelineEnabled}" TabIndex="47" Content="_Dot as newline" VerticalContentAlignment="Center" VerticalAlignment="Center"/>
                                     </UniformGrid>
-                                    <Button Content="Reset Options" Margin="3,0,3,3" Command="{Binding ResetOptionsCommand}" TabIndex="46" Height="24" Grid.Row="3" Width="98" Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Right" />
+                                    <Button Grid.Row="4" Grid.Column="1" Content="Reset Options" Margin="3,0,3,3" Command="{Binding ResetOptionsCommand}" TabIndex="48" Height="24" Width="98" VerticalAlignment="Center" HorizontalContentAlignment="Center" HorizontalAlignment="Right" />
                                 </Grid>
                             </WrapPanel>
                         </GroupBox>

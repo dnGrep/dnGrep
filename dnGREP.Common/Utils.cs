@@ -16,6 +16,8 @@ namespace dnGREP.Common
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
+        private static Dictionary<string, Regex> regexCache = new Dictionary<string, Regex>();
+
         static Utils()
         {
             ArchiveExtensions = new List<string>();
@@ -633,28 +635,78 @@ namespace dnGREP.Common
 
         public static bool CancelSearch = false;
 
-        public static void PrepareFilters(FileFilter filter, List<Regex> includeRegexPatterns, List<Regex> excludeRegexPatterns)
+        public static bool PrepareSearchPatterns(FileFilter filter, List<string> includeSearchPatterns)
+        {
+            bool handled = false;
+            if (!filter.IsRegex && !filter.NamePatternToInclude.Contains("#!"))
+            {
+                var includePatterns = SplitPath(filter.NamePatternToInclude);
+                foreach (var pattern in includePatterns)
+                {
+                    includeSearchPatterns.Add(pattern);
+                }
+                handled = true;
+            }
+            return handled;
+        }
+
+        public static void PrepareFilters(FileFilter filter,
+            List<Regex> includeRegexPatterns, List<Regex> excludeRegexPatterns,
+            bool includePatternHandled = false)
         {
             if (includeRegexPatterns == null || excludeRegexPatterns == null)
                 return;
 
             var includePatterns = SplitPath(filter.NamePatternToInclude);
             var excludePatterns = SplitPath(filter.NamePatternToExclude);
+            Regex regex;
             if (!filter.IsRegex)
             {
-                foreach (var pattern in includePatterns)
-                    includeRegexPatterns.Add(new Regex(wildcardToRegex(pattern), RegexOptions.Compiled | RegexOptions.IgnoreCase));
+                // non-regex include patterns are used as search patterns in the call to EnumerateFiles
+                if (!includePatternHandled)
+                {
+                    foreach (var pattern in includePatterns)
+                    {
+                        if (!regexCache.TryGetValue(pattern, out regex))
+                        {
+                            regex = new Regex(wildcardToRegex(pattern), RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                            regexCache.Add(pattern, regex);
+                        }
+                        includeRegexPatterns.Add(regex);
+                    }
+                }
 
                 foreach (var pattern in excludePatterns)
-                    excludeRegexPatterns.Add(new Regex(wildcardToRegex(pattern), RegexOptions.Compiled | RegexOptions.IgnoreCase));
+                {
+                    if (!regexCache.TryGetValue(pattern, out regex))
+                    {
+                        regex = new Regex(wildcardToRegex(pattern), RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        regexCache.Add(pattern, regex);
+                    }
+                    excludeRegexPatterns.Add(regex);
+                }
             }
             else
             {
                 foreach (var pattern in includePatterns)
-                    includeRegexPatterns.Add(new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase));
+                {
+                    if (!regexCache.TryGetValue(pattern, out regex))
+                    {
+                        regex = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        regexCache.Add(pattern, regex);
+                    }
+                    includeRegexPatterns.Add(regex);
+                }
 
                 foreach (var pattern in excludePatterns)
-                    excludeRegexPatterns.Add(new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase));
+                {
+                    if (!regexCache.TryGetValue(pattern, out regex))
+                    {
+                        regex = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        regexCache.Add(pattern, regex);
+                    }
+                    excludeRegexPatterns.Add(regex);
+                }
             }
         }
 
@@ -676,9 +728,12 @@ namespace dnGREP.Common
             // Hash set to ensure file name uniqueness
             HashSet<string> matches = new HashSet<string>();
 
+            var includeSearchPatterns = new List<string>();
+            bool hasSearchPattern = PrepareSearchPatterns(filter, includeSearchPatterns);
+
             var includeRegexPatterns = new List<Regex>();
             var excludeRegexPatterns = new List<Regex>();
-            PrepareFilters(filter, includeRegexPatterns, excludeRegexPatterns);
+            PrepareFilters(filter, includeRegexPatterns, excludeRegexPatterns, hasSearchPattern);
 
             foreach (var subPath in SplitPath(filter.Path))
             {
@@ -695,8 +750,11 @@ namespace dnGREP.Common
                 {
                     continue;
                 }
-                foreach (var dirPath in (!filter.IncludeSubfolders ? new string[] { subPath }.AsEnumerable() :
-                    new string[] { subPath }.AsEnumerable().Concat(Directory.EnumerateDirectories(subPath, "*", SearchOption.AllDirectories))))
+
+                IEnumerable<string> paths = !filter.IncludeSubfolders ? new string[] { subPath }.AsEnumerable() :
+                    new string[] { subPath }.AsEnumerable().Concat(SafeDirectory.EnumerateDirectories(subPath, "*", SearchOption.AllDirectories));
+
+                foreach (var dirPath in paths)
                 {
                     DirectoryInfo dirInfo = null;
                     if (!filter.IncludeHidden)
@@ -706,9 +764,8 @@ namespace dnGREP.Common
                         if (dirInfo.Root.Name != dirInfo.Name && (dirInfo.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
                             continue;
                     }
-                    if (!hasListPermissionOnDir(dirPath))
-                        continue;
-                    foreach (var filePath in Directory.EnumerateFiles(dirPath))
+
+                    foreach (var filePath in SafeDirectory.EnumerateFiles(dirPath, includeSearchPatterns))
                     {
                         bool excludeMatch = false;
                         bool includeMatch = false;
@@ -765,13 +822,21 @@ namespace dnGREP.Common
                             }
                             if (!includeMatch)
                             {
-                                foreach (var pattern in includeRegexPatterns)
+                                if (includeRegexPatterns.Count > 0)
                                 {
-                                    if (pattern.IsMatch(filePath) || CheckShebang(filePath, pattern.ToString()))
+                                    foreach (var pattern in includeRegexPatterns)
                                     {
-                                        includeMatch = true;
-                                        break;
+                                        if (pattern.IsMatch(filePath) || CheckShebang(filePath, pattern.ToString()))
+                                        {
+                                            includeMatch = true;
+                                            break;
+                                        }
                                     }
+                                }
+                                else if (hasSearchPattern)
+                                {
+                                    // already filtered in call to EnumerateFile
+                                    includeMatch = true;
                                 }
                             }
                             foreach (var pattern in excludeRegexPatterns)
@@ -832,22 +897,6 @@ namespace dnGREP.Common
                 }
             }
             catch (IOException)
-            {
-                return false;
-            }
-        }
-
-        private static bool hasListPermissionOnDir(string dirPath)
-        {
-            try
-            {
-                foreach (string path in Directory.EnumerateFiles(dirPath))
-                {
-                    break;
-                }
-                return true;
-            }
-            catch
             {
                 return false;
             }

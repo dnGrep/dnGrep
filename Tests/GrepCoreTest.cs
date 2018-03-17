@@ -368,7 +368,7 @@ namespace Tests
         {
             Utils.CopyFiles(sourceFolder + "\\TestCase14", destinationFolder + "\\TestCase14", null, null);
             GrepCore core = new GrepCore();
-            core.SearchParams = new GrepEngineInitParams(false, 0, 0, 0.5, verbose);
+            core.SearchParams = new GrepEngineInitParams(false, 0, 0, 0.5, verbose, false);
             Stopwatch sw = new Stopwatch();
             sw.Start();
             List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase14", "*.txt"), type, "1234", option, -1);
