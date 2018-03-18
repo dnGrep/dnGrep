@@ -205,7 +205,7 @@
                                                          ToolTip="e.g. file??.*" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
                                         </StackPanel>
                                     </StackPanel>
-                                    <CheckBox Grid.Row="1" IsChecked="{Binding SearchParallel}" Margin="3,0,24,3" Content="Search Paralle_l" TabIndex="42" ToolTip="Search files in multiple threads - results will not be ordered" />
+                                    <CheckBox Grid.Row="1" IsChecked="{Binding SearchParallel}" Margin="3,0,24,3" Content="Search Paralle_l" TabIndex="42" ToolTip="Search files in multiple threads" />
                                     <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="3">
                                         <TextBlock VerticalAlignment="Center" Margin="3,0,3,3" Text="Encoding:" HorizontalAlignment="Left" />
                                         <ComboBox Width="224" Name="cbEncoding" TabIndex="43" Margin="3,0,3,3"
@@ -328,10 +328,12 @@
                     <CheckBox Content="Stop after first match" IsChecked="{Binding StopAfterFirstMatch}" VerticalAlignment="Center" Margin="3,0" TabIndex="82" VerticalContentAlignment="Center"/>
                     <Button Content="_Search" Width="64" Margin="3" IsDefault="True" Command="{Binding SearchCommand}" TabIndex="83" Height="24"/>
                     <Button Content="Replace" Width="64" Margin="3" Command="{Binding ReplaceCommand}" TabIndex="84" Height="24"/>
+                    <Button Content="Sort" Width="64" Margin="3" Command="{Binding SortCommand}" TabIndex="85" Height="24"
+                            Visibility="{Binding SearchParallel, Converter={StaticResource BoolToVisibilityConverter}}"/>
                     <Button Content=">>" Width="32" Margin="3" Click="btnOtherActions_Click" 
-                            ContextMenuService.Placement="Bottom" IsEnabled="{Binding CanSearchInResults}" TabIndex="85" Height="24">
+                            ContextMenuService.Placement="Bottom" IsEnabled="{Binding CanSearchInResults}" TabIndex="86" Height="24">
                         <Button.ContextMenu>
-                            <ContextMenu x:Name="advanceContextMenu">f
+                            <ContextMenu x:Name="advanceContextMenu">
                                 <MenuItem Header="Copy files..." Command="{Binding CopyFilesCommand}"/>
                                 <MenuItem Header="Move files..." Command="{Binding MoveFilesCommand}"/>
                                 <MenuItem Header="Delete files..." Command="{Binding DeleteFilesCommand}"/>
@@ -342,7 +344,7 @@
                             </ContextMenu>
                         </Button.ContextMenu>
                     </Button>
-                    <Button Content="_Cancel" Width="64" Margin="3,3,8,3" Command="{Binding CancelCommand}" TabIndex="86" Height="24"/>
+                    <Button Content="_Cancel" Width="64" Margin="3,3,8,3" Command="{Binding CancelCommand}" TabIndex="87" Height="24"/>
                 </WrapPanel>
             </Grid>
             <Controls:ResultsTree DataContext="{Binding SearchResults}" TabIndex="90"/>

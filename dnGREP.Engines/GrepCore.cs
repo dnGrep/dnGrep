@@ -77,7 +77,7 @@ namespace dnGREP.Common
                         cancellationTokenSource = new CancellationTokenSource();
 
                         ParallelOptions po = new ParallelOptions();
-                        //po.MaxDegreeOfParallelism = Environment.ProcessorCount * 4 / 5;
+                        po.MaxDegreeOfParallelism = Environment.ProcessorCount * 4 / 5;
                         po.CancellationToken = cancellationTokenSource.Token;
                         Parallel.ForEach(files, po, f => Search(f, searchType, searchPattern, searchOptions, codePage));
                     }

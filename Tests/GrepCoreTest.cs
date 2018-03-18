@@ -376,7 +376,7 @@ namespace Tests
             Assert.Equal(2, results.Count);
             Assert.Equal(102456, results[0].Matches.Count);
             Assert.Equal(102456, results[1].Matches.Count);
-            Assert.True(sw.Elapsed < TimeSpan.FromSeconds(1.25));
+            Assert.True(sw.Elapsed < TimeSpan.FromSeconds(2.0));
         }
 
         [Fact]

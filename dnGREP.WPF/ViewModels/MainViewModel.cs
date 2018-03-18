@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 using dnGREP.Common;
 using dnGREP.Common.UI;
 using dnGREP.Engines;
@@ -29,7 +30,7 @@ namespace dnGREP.WPF
             SearchResults.OpenFileLineRequest += searchResults_OpenFileLineRequest;
             SearchResults.OpenFileRequest += searchResults_OpenFileRequest;
 
-            this.RequestClose += MainViewModel_RequestClose;
+            RequestClose += MainViewModel_RequestClose;
             CheckVersion();
             ControlsInit();
             populateEncodings();
@@ -64,6 +65,7 @@ namespace dnGREP.WPF
         private PreviewView preview;
         private PreviewViewModel previewModel;
         private List<string> currentSearchFiles = new List<string>();
+        private bool isSorted;
 
         #endregion
 
@@ -197,6 +199,25 @@ namespace dnGREP.WPF
                 return _replaceCommand;
             }
         }
+        RelayCommand _sortCommand;
+        /// <summary>
+        /// Returns a command that sorts the results.
+        /// </summary>
+        public ICommand SortCommand
+        {
+            get
+            {
+                if (_sortCommand == null)
+                {
+                    _sortCommand = new RelayCommand(
+                        param => this.SortResults(),
+                        param => this.CanSortResults
+                        );
+                }
+                return _sortCommand;
+            }
+        }
+
         RelayCommand _copyFilesCommand;
         /// <summary>
         /// Returns a command that copies files
@@ -841,6 +862,7 @@ namespace dnGREP.WPF
                     base.OnPropertyChanged(() => CurrentGrepOperation);
                     CanSearch = true;
                     SearchResults.Clear();
+                    isSorted = false;
                 }
 
                 string outdatedEngines = dnGREP.Engines.GrepEngineFactory.GetListOfFailedEngines();
@@ -917,6 +939,7 @@ namespace dnGREP.WPF
                     workerParames["Files"] = foundFiles;
                 }
                 SearchResults.Clear();
+                isSorted = false;
                 workerParames["State"] = this;
                 workerSearchReplace.RunWorkerAsync(workerParames);
                 updateBookmarks();
@@ -1008,6 +1031,7 @@ namespace dnGREP.WPF
                 workerParames["State"] = this;
                 workerParames["Files"] = foundFiles;
                 SearchResults.Clear();
+                isSorted = false;
                 workerSearchReplace.RunWorkerAsync(workerParames);
                 updateBookmarks();
             }
@@ -1253,6 +1277,7 @@ namespace dnGREP.WPF
                     }
                     CanUndo = false;
                     SearchResults.Clear();
+                    isSorted = false;
                     FilesFound = false;
                 }
             }
@@ -1279,6 +1304,7 @@ namespace dnGREP.WPF
                 }
                 CanUndo = false;
                 SearchResults.Clear();
+                isSorted = false;
                 FilesFound = false;
             }
         }
@@ -1343,6 +1369,26 @@ namespace dnGREP.WPF
                         IsSaveInProgress = false;
                     }
                 }
+            }
+        }
+
+        public bool CanSortResults
+        {
+            get
+            {
+                return SearchParallel && !isSorted && SearchResults.Count > 0 &&
+                    CurrentGrepOperation == GrepOperation.None && !workerSearchReplace.IsBusy;
+            }
+        }
+
+        private void SortResults()
+        {
+            using (var d = Dispatcher.CurrentDispatcher.DisableProcessing())
+            {
+                var list = SearchResults.ToList();
+                SearchResults.Clear();
+                SearchResults.AddRange(list.OrderBy(r => r.Label));
+                isSorted = true;
             }
         }
 

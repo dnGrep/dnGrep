@@ -714,7 +714,7 @@ namespace dnGREP.Engines
             LinesAfter = 0;
             FuzzyMatchThreshold = 0.5f;
             VerboseMatchCount = false;
-            // keep the default false: for unit tests and maintain previous behavior 
+            // keep the default false for unit tests 
             SearchParallel = false;
         }
 

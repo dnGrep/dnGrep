@@ -141,7 +141,14 @@ namespace dnGREP.WPF
 
         public void AddRange(List<GrepSearchResult> list)
         {
-            foreach (var l in list) this.Add(new FormattedGrepResult(l, folderPath));
+            foreach (var l in list)
+                Add(new FormattedGrepResult(l, folderPath));
+        }
+
+        public void AddRange(IEnumerable<FormattedGrepResult> items)
+        {
+            foreach (var item in items)
+                Add(item);
         }
 
         private string folderPath = "";

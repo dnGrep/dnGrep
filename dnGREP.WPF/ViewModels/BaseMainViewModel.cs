@@ -18,9 +18,8 @@ namespace dnGREP.WPF
 
         public BaseMainViewModel()
         {
-            searchResults = new ObservableGrepSearchResults();
-            this.RequestClose += MainViewModel_RequestClose;
-            this.PropertyChanged += MainViewModel_PropertyChanged;
+            RequestClose += MainViewModel_RequestClose;
+            PropertyChanged += MainViewModel_PropertyChanged;
 
             CurrentGrepOperation = GrepOperation.None;
             IsCaseSensitiveEnabled = true;
