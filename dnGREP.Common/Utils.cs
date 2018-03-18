@@ -700,7 +700,6 @@ namespace dnGREP.Common
                     {
                         regex = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
                         regexCache.Add(pattern, regex);
-                        Debug.WriteLine("Added " + pattern);
                     }
                 }
                 catch (Exception ex)

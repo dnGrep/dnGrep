@@ -768,55 +768,58 @@ namespace dnGREP.WPF
             }
         }
 
+        private object lockObj = new object();
         private void SearchProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            try
+            lock (lockObj)
             {
-                if (!Utils.CancelSearch)
+                try
                 {
-                    ProgressStatus progress = (ProgressStatus)e.UserState;
-
-                    if (progress.SearchResults != null)
-                        SearchResults.AddRange(progress.SearchResults);
-
-                    // When running in parallel, multiple files will be in progress at the same time.
-                    // This keeps track of the files that are running and the long running file names
-                    // are shown again as the short runs finish.
-                    string fileName = string.Empty;
-                    if (!string.IsNullOrWhiteSpace(progress.FileName))
+                    if (!Utils.CancelSearch)
                     {
-                        if (progress.BeginSearch)
+                        ProgressStatus progress = (ProgressStatus)e.UserState;
+
+                        if (progress.SearchResults != null)
+                            SearchResults.AddRange(progress.SearchResults);
+
+                        // When running in parallel, multiple files will be in progress at the same time.
+                        // This keeps track of the files that are running and the long running file names
+                        // are shown again as the short runs finish.
+                        string fileName = progress.FileName;
+                        if (!string.IsNullOrWhiteSpace(fileName))
                         {
-                            fileName = progress.FileName;
-                            if (!currentSearchFiles.Contains(fileName))
-                                currentSearchFiles.Add(fileName);
+                            if (progress.BeginSearch)
+                            {
+                                if (!currentSearchFiles.Contains(fileName))
+                                    currentSearchFiles.Add(fileName);
+                            }
+                            else
+                            {
+                                if (currentSearchFiles.Contains(fileName))
+                                    currentSearchFiles.Remove(fileName);
+
+                                if (currentSearchFiles.Count > 0)
+                                    fileName = currentSearchFiles[0];
+                            }
+                        }
+
+                        string result = string.Empty;
+                        if (!string.IsNullOrWhiteSpace(fileName))
+                        {
+                            result = string.Format("Searched {0} files. Found {1} matching files - processing {2}", progress.ProcessedFiles, progress.SuccessfulFiles, fileName);
                         }
                         else
                         {
-                            if (currentSearchFiles.Contains(fileName))
-                                currentSearchFiles.Remove(fileName);
-
-                            if (currentSearchFiles.Count > 0)
-                                fileName = currentSearchFiles.Last();
+                            result = string.Format("Searched {0} files. Found {1} matching files.", progress.ProcessedFiles, progress.SuccessfulFiles);
                         }
+                        StatusMessage = result;
                     }
-
-                    string result = string.Empty;
-                    if (!string.IsNullOrWhiteSpace(fileName))
-                    {
-                        result = string.Format("Searched {0} files. Found {1} matching files - processing {2}", progress.ProcessedFiles, progress.SuccessfulFiles, fileName);
-                    }
-                    else
-                    {
-                        result = string.Format("Searched {0} files. Found {1} matching files.", progress.ProcessedFiles, progress.SuccessfulFiles);
-                    }
-                    StatusMessage = result;
                 }
-            }
-            catch (Exception ex)
-            {
-                logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
-                MessageBox.Show("Search or replace failed! See error log.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                catch (Exception ex)
+                {
+                    logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
+                    MessageBox.Show("Search or replace failed! See error log.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
