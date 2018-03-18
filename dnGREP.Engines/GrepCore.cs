@@ -166,6 +166,8 @@ namespace dnGREP.Common
                 Interlocked.Add(ref foundfilesCount, hits);
 
                 ProcessedFile(this, new ProgressStatus(false, processedFilesCount, foundfilesCount, fileSearchResults, file));
+
+                GrepEngineFactory.ReturnToPool(file, engine);
             }
             catch (Exception ex)
             {
@@ -238,6 +240,8 @@ namespace dnGREP.Common
 
 
                         File.SetAttributes(file, File.GetAttributes(tempFileName));
+
+                        GrepEngineFactory.ReturnToPool(file, engine);
 
                         if (Utils.CancelSearch)
                         {

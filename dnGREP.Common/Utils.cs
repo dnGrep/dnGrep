@@ -16,6 +16,7 @@ namespace dnGREP.Common
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
+        private static object regexLock = new object();
         private static Dictionary<string, Regex> regexCache = new Dictionary<string, Regex>();
 
         static Utils()
@@ -441,6 +442,7 @@ namespace dnGREP.Common
 
         /// <summary>
         /// Returns true if the source file extension is ".xls" or ".xlsx" or ".xlsm"
+        /// At this time we can't parse ".xlsb" files, so do not include them here 
         /// </summary>
         /// <param name="srcFile"></param>
         /// <returns></returns>
@@ -645,6 +647,16 @@ namespace dnGREP.Common
                 {
                     includeSearchPatterns.Add(pattern);
                 }
+                if (filter.IncludeArchive)
+                {
+                    foreach (var ext in ArchiveExtensions)
+                    {
+                        string fileExtension = "*." + ext;
+                        if (!includeSearchPatterns.Contains(fileExtension))
+                            includeSearchPatterns.Add(fileExtension);
+                    }
+                }
+
                 handled = true;
             }
             return handled;
@@ -657,56 +669,46 @@ namespace dnGREP.Common
             if (includeRegexPatterns == null || excludeRegexPatterns == null)
                 return;
 
-            var includePatterns = SplitPath(filter.NamePatternToInclude);
-            var excludePatterns = SplitPath(filter.NamePatternToExclude);
-            Regex regex;
-            if (!filter.IsRegex)
+            // non-regex include patterns are used as search patterns in the call to EnumerateFiles
+            if (filter.IsRegex || !includePatternHandled)
             {
-                // non-regex include patterns are used as search patterns in the call to EnumerateFiles
-                if (!includePatternHandled)
-                {
-                    foreach (var pattern in includePatterns)
-                    {
-                        if (!regexCache.TryGetValue(pattern, out regex))
-                        {
-                            regex = new Regex(wildcardToRegex(pattern), RegexOptions.Compiled | RegexOptions.IgnoreCase);
-                            regexCache.Add(pattern, regex);
-                        }
-                        includeRegexPatterns.Add(regex);
-                    }
-                }
-
-                foreach (var pattern in excludePatterns)
-                {
-                    if (!regexCache.TryGetValue(pattern, out regex))
-                    {
-                        regex = new Regex(wildcardToRegex(pattern), RegexOptions.Compiled | RegexOptions.IgnoreCase);
-                        regexCache.Add(pattern, regex);
-                    }
-                    excludeRegexPatterns.Add(regex);
-                }
-            }
-            else
-            {
+                var includePatterns = SplitPath(filter.NamePatternToInclude);
                 foreach (var pattern in includePatterns)
                 {
-                    if (!regexCache.TryGetValue(pattern, out regex))
-                    {
-                        regex = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
-                        regexCache.Add(pattern, regex);
-                    }
-                    includeRegexPatterns.Add(regex);
+                    includeRegexPatterns.Add(GetRegex(pattern, filter.IsRegex));
                 }
+            }
 
-                foreach (var pattern in excludePatterns)
+            var excludePatterns = SplitPath(filter.NamePatternToExclude);
+            foreach (var pattern in excludePatterns)
+            {
+                excludeRegexPatterns.Add(GetRegex(pattern, filter.IsRegex));
+            }
+        }
+
+        private static Regex GetRegex(string pattern, bool isRegex)
+        {
+            lock (regexLock)
+            {
+                Regex regex = null;
+                try
                 {
+                    if (!isRegex)
+                        pattern = wildcardToRegex(pattern);
+
                     if (!regexCache.TryGetValue(pattern, out regex))
                     {
                         regex = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
                         regexCache.Add(pattern, regex);
+                        Debug.WriteLine("Added " + pattern);
                     }
-                    excludeRegexPatterns.Add(regex);
                 }
+                catch (Exception ex)
+                {
+                    logger.Error(ex, "Failed in Utils.GetRegex");
+                    throw;
+                }
+                return regex;
             }
         }
 
@@ -783,8 +785,20 @@ namespace dnGREP.Common
                             if (!filter.IncludeArchive && IsArchive(filePath))
                                 continue;
 
-                            if (!IsArchive(filePath) && !filter.IncludeBinary && IsBinary(filePath))
-                                continue;
+                            if (!IsArchive(filePath) && !filter.IncludeBinary)
+                            {
+                                // when searching for Excel and Word files, skip the binary file check
+                                if (IsExcelFile(filePath) && includeSearchPatterns.Contains(".xls", StringComparison.OrdinalIgnoreCase))
+                                {
+                                }
+                                else if (IsWordFile(filePath) && includeSearchPatterns.Contains(".doc", StringComparison.OrdinalIgnoreCase))
+                                {
+                                }
+                                else if (IsBinary(filePath))
+                                {
+                                    continue;
+                                }
+                            }
 
                             if (filter.SizeFrom > 0 || filter.SizeTo > 0)
                             {
@@ -1910,6 +1924,21 @@ namespace dnGREP.Common
                 return text.Substring(0, text.Length - 1);
             else
                 return text;
+        }
+    }
+
+    public static class StringExtensions
+    {
+        public static bool Contains(this string source, string toCheck, StringComparison comp)
+        {
+            if (source == null) return false;
+            return source.IndexOf(toCheck, comp) >= 0;
+        }
+
+        public static bool Contains(this IEnumerable<string> source, string toCheck, StringComparison comp)
+        {
+            if (source == null) return false;
+            return source.Where(s => s.Contains(toCheck, comp)).Any();
         }
     }
 }

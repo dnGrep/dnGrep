@@ -79,6 +79,8 @@ namespace dnGREP.Engines.Pdf
                     }
                 }
 
+                GrepEngineFactory.ReturnToPool(tempFile, engine);
+
                 return results;
             }
             catch (Exception ex)
