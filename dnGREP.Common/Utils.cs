@@ -452,7 +452,7 @@ namespace dnGREP.Common
             if (!string.IsNullOrWhiteSpace(ext) &&
                 (ext.Equals(".XLS", StringComparison.CurrentCultureIgnoreCase) ||
                  ext.Equals(".XLSX", StringComparison.CurrentCultureIgnoreCase) ||
-                 ext.Equals(".XLSM", StringComparison.OrdinalIgnoreCase)))
+                 ext.Equals(".XLSM", StringComparison.CurrentCultureIgnoreCase)))
                 return true;
             return false;
         }
@@ -784,16 +784,15 @@ namespace dnGREP.Common
                             if (!filter.IncludeArchive && IsArchive(filePath))
                                 continue;
 
-                            if (!IsArchive(filePath) && !filter.IncludeBinary)
+                            if (!filter.IncludeBinary && !IsArchive(filePath))
                             {
-                                // when searching for Excel and Word files, skip the binary file check
-                                if (IsExcelFile(filePath) && includeSearchPatterns.Contains(".xls", StringComparison.OrdinalIgnoreCase))
-                                {
-                                }
-                                else if (IsWordFile(filePath) && includeSearchPatterns.Contains(".doc", StringComparison.OrdinalIgnoreCase))
-                                {
-                                }
-                                else if (IsBinary(filePath))
+                                bool isExcelMatch = IsExcelFile(filePath) && includeSearchPatterns.Contains(".xls", StringComparison.OrdinalIgnoreCase);
+                                bool isWordMatch = IsWordFile(filePath) && includeSearchPatterns.Contains(".doc", StringComparison.OrdinalIgnoreCase);
+                                
+                                // When searching for Excel and Word files, skip the binary file check:
+                                // If someone is searching for Excel or Word, don't make them include binary to 
+                                // find their files.  No need to include PDF, it doesn't test positive as a binary file.
+                                if (!(isExcelMatch || isWordMatch) && IsBinary(filePath))
                                 {
                                     continue;
                                 }
