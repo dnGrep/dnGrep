@@ -4,66 +4,78 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using dnGREP.Common;
+using NLog;
 
 namespace dnGREP.Engines
 {
     public class GrepPlugin
     {
-        private IGrepEngine engine;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private readonly IDictionary<string, Assembly> loadedAssemblies = new Dictionary<string, Assembly>();
+        private Type pluginType;
 
-        public IGrepEngine Engine
+        public IGrepEngine CreateEngine()
         {
-            get { return engine; }
-            set { engine = value; }
+            IGrepEngine engine = null;
+            try
+            {
+                if (pluginType != null)
+                    engine = (IGrepEngine)Activator.CreateInstance(pluginType);
+            }
+            catch (Exception ex)
+            {
+                logger.Log<Exception>(LogLevel.Error, "Failed to create engine " + Path.GetFileNameWithoutExtension(DllFilePath), ex);
+            }
+            return engine;
         }
-        private List<string> extensions = new List<string>();
 
-        public List<string> Extensions
-        {
-            get { return extensions; }
-        }
-        private string dllFilePath;
+        public List<string> Extensions { get; private set; }
 
         /// <summary>
-        /// Relative path to DLL file
+        /// Gets the name of the IGrepEngine type
         /// </summary>
-        public string DllFilePath
-        {
-            get { return dllFilePath; }
-            set { dllFilePath = value; }
-        }
-        private string pluginFilePath;
+        public string PluginName { get; private set; }
+
+        /// <summary>
+        /// Absolute path to DLL file
+        /// </summary>
+        public string DllFilePath { get; private set; }
 
         /// <summary>
         /// Absolute path to plugin file
         /// </summary>
-        public string PluginFilePath
-        {
-            get { return pluginFilePath; }
-            set { pluginFilePath = value; }
-        }
+        public string PluginFilePath { get; private set; }
 
-        private bool enabled = true;
+        /// <summary>
+        /// Gets a flag indicating if this plugin should be loaded
+        /// </summary>
+        public bool Enabled { get; private set; }
 
-        public bool Enabled
+        /// <summary>
+        /// Returns true if engine supports search only. Returns false is engine supports replace as well.
+        /// </summary>
+        public bool IsSearchOnly { get; private set; }
+
+        public Version FrameworkVersion
         {
-            get { return enabled; }
-            set { enabled = value; }
+            get { return Assembly.GetAssembly(pluginType).GetName().Version; }
         }
 
         public GrepPlugin(string pluginFilePath)
         {
             PluginFilePath = pluginFilePath;
+            Extensions = new List<string>();
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
         }
 
         public bool LoadPluginSettings()
         {
-            if (pluginFilePath != null && File.Exists(pluginFilePath))
+            bool result = false;
+            if (PluginFilePath != null && File.Exists(PluginFilePath))
             {
                 try
                 {
-                    foreach (string line in File.ReadAllLines(pluginFilePath))
+                    foreach (string line in File.ReadAllLines(PluginFilePath))
                     {
                         string[] tokens = line.Split('=');
                         if (tokens.Length != 2)
@@ -89,35 +101,45 @@ namespace dnGREP.Engines
 
                     string tempDllFilePath = DllFilePath;
                     if (!File.Exists(tempDllFilePath))
-                        tempDllFilePath = Path.GetDirectoryName(pluginFilePath) + "\\" + tempDllFilePath;
+                        DllFilePath = Path.Combine(Path.GetDirectoryName(PluginFilePath), tempDllFilePath);
 
-                    if (File.Exists(tempDllFilePath))
+                    if (File.Exists(DllFilePath))
                     {
-                        Assembly assembly = Assembly.LoadFile(tempDllFilePath);
+                        Assembly assembly = Assembly.LoadFile(DllFilePath);
                         Type[] types = assembly.GetTypes();
                         foreach (Type type in types)
                         {
                             if (type.GetInterface("IGrepEngine") != null)
                             {
-                                IGrepEngine engine = (IGrepEngine)Activator.CreateInstance(type);
-                                Engine = engine;
+                                pluginType = type;
                                 break;
                             }
                         }
                     }
+
+                    if (pluginType != null)
+                    {
+                        PluginName = pluginType.Name;
+                        var engine = CreateEngine();
+                        if (engine != null)
+                        {
+                            IsSearchOnly = engine.IsSearchOnly;
+
+                            var disposable = engine as IDisposable;
+                            if (disposable != null)
+                                disposable.Dispose();
+                        }
+                    }
+
+                    result = pluginType != null;
                 }
                 catch (Exception ex)
                 {
                     throw ex;
                 }
             }
-            if (Engine != null)
-                return true;
-            else
-                return false;
+            return result;
         }
-
-        private readonly IDictionary<string, Assembly> loadedAssemblies = new Dictionary<string, Assembly>();
 
         private Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
         {
@@ -146,7 +168,7 @@ namespace dnGREP.Engines
 
         public void PersistPluginSettings()
         {
-            if (pluginFilePath != null && File.Exists(pluginFilePath))
+            if (PluginFilePath != null && File.Exists(PluginFilePath))
             {
                 try
                 {
@@ -158,8 +180,8 @@ namespace dnGREP.Engines
                     {
                         sb.Append(ext + ",");
                     }
-                    Utils.DeleteFile(pluginFilePath);
-                    File.WriteAllText(pluginFilePath, sb.ToString());
+                    Utils.DeleteFile(PluginFilePath);
+                    File.WriteAllText(PluginFilePath, sb.ToString());
 
                 }
                 catch (Exception ex)

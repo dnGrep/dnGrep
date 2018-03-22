@@ -174,9 +174,9 @@ namespace Ude.Core
                     for (int i = 0; i < PROBERS_NUM; i++) {
                         if (charsetProbers[i] != null) {
                             st = charsetProbers[i].HandleData(buf, offset, len);
-                            #if DEBUG                            
+#if DEBUG_ENCODING_DETECTION
                             charsetProbers[i].DumpStatus();
-                            #endif                        
+#endif
                             if (st == ProbingState.FoundIt) {
                                 done = true;
                                 detectedCharset = charsetProbers[i].GetCharsetName();

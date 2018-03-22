@@ -368,7 +368,7 @@ namespace Tests
         {
             Utils.CopyFiles(sourceFolder + "\\TestCase14", destinationFolder + "\\TestCase14", null, null);
             GrepCore core = new GrepCore();
-            core.SearchParams = new GrepEngineInitParams(false, 0, 0, 0.5, verbose);
+            core.SearchParams = new GrepEngineInitParams(false, 0, 0, 0.5, verbose, false);
             Stopwatch sw = new Stopwatch();
             sw.Start();
             List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase14", "*.txt"), type, "1234", option, -1);
@@ -376,7 +376,7 @@ namespace Tests
             Assert.Equal(2, results.Count);
             Assert.Equal(102456, results[0].Matches.Count);
             Assert.Equal(102456, results[1].Matches.Count);
-            Assert.True(sw.Elapsed < TimeSpan.FromSeconds(1.25));
+            Assert.True(sw.Elapsed < TimeSpan.FromSeconds(2.0));
         }
 
         [Fact]

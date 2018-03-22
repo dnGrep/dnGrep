@@ -102,6 +102,10 @@ namespace dnGREP.Common
             public const string HoursFrom = "HoursFrom";
             [DefaultValue(8)]
             public const string HoursTo = "HoursTo";
+            [DefaultValue(true)]
+            public const string SearchParallel = "SearchParallel";
+            [DefaultValue(4.0)]
+            public const string MatchTimeout = "MatchTimeout";
         }
 
         private static GrepSettings instance;
@@ -128,7 +132,7 @@ namespace dnGREP.Common
         /// </summary>
         public void Load()
         {
-            Load(Utils.GetDataFolderPath() + "\\" + storageFileName);
+            Load(Path.Combine(Utils.GetDataFolderPath(), storageFileName));
         }
 
         /// <summary>

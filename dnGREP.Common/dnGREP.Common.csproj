@@ -122,6 +122,7 @@
     <Compile Include="BookmarkLibrary.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="FileFilter.cs" />
+    <Compile Include="SafeDirectory.cs" />
     <Compile Include="GrepSearchResult.cs" />
     <Compile Include="EolReader.cs" />
     <Compile Include="OpenFileArgs.cs" />

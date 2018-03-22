@@ -45,6 +45,7 @@ namespace dnGREP.WPF
                 AllowSearchWithEmptyPattern != settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern) ||
                 AutoExpandSearchTree != settings.Get<bool>(GrepSettings.Key.ExpandResults) ||
                 ShowVerboseMatchCount != settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount) ||
+                MatchTimeout != settings.Get<double>(GrepSettings.Key.MatchTimeout) ||
                 MatchThreshold != settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold) ||
                 MaxSearchBookmarks != settings.Get<int>(GrepSettings.Key.MaxSearchBookmarks) ||
                 MaxPathBookmarks != settings.Get<int>(GrepSettings.Key.MaxPathBookmarks) ||
@@ -312,6 +313,21 @@ namespace dnGREP.WPF
             }
         }
 
+        private double matchTimeout;
+        public double MatchTimeout
+        {
+            get { return matchTimeout; }
+            set
+            {
+                if (value == matchTimeout)
+                    return;
+
+                matchTimeout = value;
+
+                base.OnPropertyChanged(() => MatchTimeout);
+            }
+        }
+
         private double matchThreshold;
         public double MatchThreshold
         {
@@ -507,6 +523,7 @@ namespace dnGREP.WPF
             AllowSearchWithEmptyPattern = settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern);
             AutoExpandSearchTree = settings.Get<bool>(GrepSettings.Key.ExpandResults);
             showVerboseMatchCount = settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount);
+            MatchTimeout = settings.Get<double>(GrepSettings.Key.MatchTimeout);
             MatchThreshold = settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold);
             ShowLinesInContext = settings.Get<bool>(GrepSettings.Key.ShowLinesInContext);
             ContextLinesBefore = settings.Get<int>(GrepSettings.Key.ContextLinesBefore);
@@ -552,6 +569,7 @@ namespace dnGREP.WPF
             settings.Set<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern, AllowSearchWithEmptyPattern);
             settings.Set<bool>(GrepSettings.Key.ExpandResults, AutoExpandSearchTree);
             settings.Set<bool>(GrepSettings.Key.ShowVerboseMatchCount, showVerboseMatchCount);
+            settings.Set<double>(GrepSettings.Key.MatchTimeout, MatchTimeout);
             settings.Set<double>(GrepSettings.Key.FuzzyMatchThreshold, MatchThreshold);
             settings.Set<bool>(GrepSettings.Key.ShowLinesInContext, ShowLinesInContext);
             settings.Set<int>(GrepSettings.Key.ContextLinesBefore, ContextLinesBefore);
@@ -772,6 +790,11 @@ namespace dnGREP.WPF
                 {
                     if (MatchThreshold < 0 || MatchThreshold > 1.0)
                         error = "Error: Match threshold should be a number between 0 and 1.0";
+                }
+                else if (IsProperty(() => MatchTimeout, propertyName))
+                {
+                    if (MatchTimeout <= 0 || MatchTimeout > 60 * 60)
+                        error = "Error: Match Timeout should be a number 0 and 3600";
                 }
                 // Dirty the commands registered with CommandManager,
                 // such as our Save command, so that they are queried

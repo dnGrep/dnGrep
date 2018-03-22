@@ -110,7 +110,8 @@ namespace dnGREP.WPF
                 GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
                 GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter),
                 GrepSettings.Instance.Get<double>(GrepSettings.Key.FuzzyMatchThreshold),
-                GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount)),
+                GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount),
+                false),
                 new FileFilter());
             List<GrepSearchResult> results = new List<GrepSearchResult>();
             GrepSearchOption searchOptions = GrepSearchOption.None;
@@ -176,7 +177,8 @@ namespace dnGREP.WPF
                 GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
                 GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter),
                 GrepSettings.Instance.Get<double>(GrepSettings.Key.FuzzyMatchThreshold),
-                GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount)),
+                GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount),
+                false),
                 new FileFilter());
             List<GrepSearchResult> results = new List<GrepSearchResult>();
 

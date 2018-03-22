@@ -14,8 +14,10 @@ namespace dnGREP.Engines
         private string KEYWORD_GUID_LOWER = "$(guid)";
         private string KEYWORD_GUID_UPPER = "$(GUID)";
         private string KEYWORD_GUIDX = "$(guidx)";
-        protected GrepEngineInitParams initParams = new GrepEngineInitParams();
+        protected GrepEngineInitParams initParams = GrepEngineInitParams.Default;
         private GoogleMatch fuzzyMatchEngine = new GoogleMatch();
+
+        public static TimeSpan MatchTimeout = TimeSpan.FromSeconds(4.0);
 
         public GrepEngineBase()
         {
@@ -398,7 +400,7 @@ namespace dnGREP.Engines
             var lineEndIndexes = GetLineEndIndexes((initParams.VerboseMatchCount && lineNumber == -1) ? text : null);
 
             List<GrepSearchResult.GrepMatch> globalMatches = new List<GrepSearchResult.GrepMatch>();
-            var matches = Regex.Matches(text, searchPattern, regexOptions);
+            var matches = Regex.Matches(text, searchPattern, regexOptions, MatchTimeout);
             foreach (Match match in matches)
             {
                 if (initParams.VerboseMatchCount && lineEndIndexes.Count > 0)
@@ -425,7 +427,7 @@ namespace dnGREP.Engines
             int lineNumber = 1;
 
             List<GrepSearchResult.GrepMatch> globalMatches = new List<GrepSearchResult.GrepMatch>();
-            var matches = Regex.Matches(text, searchPattern, regexOptions);
+            var matches = Regex.Matches(text, searchPattern, regexOptions, MatchTimeout);
             foreach (Match match in matches)
             {
                 if (lineEndIndexes.Count > 0)
@@ -703,6 +705,8 @@ namespace dnGREP.Engines
 
     public class GrepEngineInitParams
     {
+        public static GrepEngineInitParams Default = new GrepEngineInitParams();
+
         public GrepEngineInitParams()
         {
             ShowLinesInContext = false;
@@ -710,9 +714,11 @@ namespace dnGREP.Engines
             LinesAfter = 0;
             FuzzyMatchThreshold = 0.5f;
             VerboseMatchCount = false;
+            // keep the default false for unit tests 
+            SearchParallel = false;
         }
 
-        public GrepEngineInitParams(bool showLinesInContext, int linesBefore, int linesAfter, double fuzzyMatchThreshold, bool verboseMatchCount)
+        public GrepEngineInitParams(bool showLinesInContext, int linesBefore, int linesAfter, double fuzzyMatchThreshold, bool verboseMatchCount, bool searchParallel)
         {
             ShowLinesInContext = showLinesInContext;
             if (!showLinesInContext)
@@ -727,6 +733,7 @@ namespace dnGREP.Engines
             }
             FuzzyMatchThreshold = (float)fuzzyMatchThreshold;
             VerboseMatchCount = verboseMatchCount;
+            SearchParallel = searchParallel;
         }
 
         public bool ShowLinesInContext { get; private set; }
@@ -734,5 +741,6 @@ namespace dnGREP.Engines
         public int LinesAfter { get; private set; }
         public float FuzzyMatchThreshold { get; private set; }
         public bool VerboseMatchCount { get; private set; }
+        public bool SearchParallel { get; private set; }
     }
 }
