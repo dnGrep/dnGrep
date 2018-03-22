@@ -128,8 +128,7 @@ namespace dnGREP.Engines.OpenXml
                     sb.Append(lvlText.Substring(0, m.Index));
                     string lvlString = grp.Value;
                     int lvlNum = -1;
-                    int num;
-                    if (int.TryParse(lvlString, out num))
+                    if (int.TryParse(lvlString, out int num))
                         lvlNum = num;
                     //need to subtract 1 because, e.g. %1 is the format
                     //for the number at array offset 0
@@ -513,8 +512,7 @@ namespace dnGREP.Engines.OpenXml
         {
             if (!string.IsNullOrWhiteSpace(value))
             {
-                int num;
-                if (int.TryParse(value, out num))
+                if (int.TryParse(value, out int num))
                 {
                     // 1440 twips = 1 inch
                     // make 1 inch == 6 spaces
