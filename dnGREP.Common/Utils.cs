@@ -16,6 +16,9 @@ namespace dnGREP.Common
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
+        private static object regexLock = new object();
+        private static Dictionary<string, Regex> regexCache = new Dictionary<string, Regex>();
+
         static Utils()
         {
             ArchiveExtensions = new List<string>();
@@ -439,6 +442,7 @@ namespace dnGREP.Common
 
         /// <summary>
         /// Returns true if the source file extension is ".xls" or ".xlsx" or ".xlsm"
+        /// At this time we can't parse ".xlsb" files, so do not include them here 
         /// </summary>
         /// <param name="srcFile"></param>
         /// <returns></returns>
@@ -448,7 +452,7 @@ namespace dnGREP.Common
             if (!string.IsNullOrWhiteSpace(ext) &&
                 (ext.Equals(".XLS", StringComparison.CurrentCultureIgnoreCase) ||
                  ext.Equals(".XLSX", StringComparison.CurrentCultureIgnoreCase) ||
-                 ext.Equals(".XLSM", StringComparison.OrdinalIgnoreCase)))
+                 ext.Equals(".XLSM", StringComparison.CurrentCultureIgnoreCase)))
                 return true;
             return false;
         }
@@ -633,28 +637,77 @@ namespace dnGREP.Common
 
         public static bool CancelSearch = false;
 
-        public static void PrepareFilters(FileFilter filter, List<Regex> includeRegexPatterns, List<Regex> excludeRegexPatterns)
+        public static bool PrepareSearchPatterns(FileFilter filter, List<string> includeSearchPatterns)
+        {
+            bool handled = false;
+            if (!filter.IsRegex && !filter.NamePatternToInclude.Contains("#!"))
+            {
+                var includePatterns = SplitPath(filter.NamePatternToInclude);
+                foreach (var pattern in includePatterns)
+                {
+                    includeSearchPatterns.Add(pattern);
+                }
+                if (filter.IncludeArchive)
+                {
+                    foreach (var ext in ArchiveExtensions)
+                    {
+                        string fileExtension = "*." + ext;
+                        if (!includeSearchPatterns.Contains(fileExtension))
+                            includeSearchPatterns.Add(fileExtension);
+                    }
+                }
+
+                handled = true;
+            }
+            return handled;
+        }
+
+        public static void PrepareFilters(FileFilter filter,
+            List<Regex> includeRegexPatterns, List<Regex> excludeRegexPatterns,
+            bool includePatternHandled = false)
         {
             if (includeRegexPatterns == null || excludeRegexPatterns == null)
                 return;
 
-            var includePatterns = SplitPath(filter.NamePatternToInclude);
-            var excludePatterns = SplitPath(filter.NamePatternToExclude);
-            if (!filter.IsRegex)
+            // non-regex include patterns are used as search patterns in the call to EnumerateFiles
+            if (filter.IsRegex || !includePatternHandled)
             {
+                var includePatterns = SplitPath(filter.NamePatternToInclude);
                 foreach (var pattern in includePatterns)
-                    includeRegexPatterns.Add(new Regex(wildcardToRegex(pattern), RegexOptions.Compiled | RegexOptions.IgnoreCase));
-
-                foreach (var pattern in excludePatterns)
-                    excludeRegexPatterns.Add(new Regex(wildcardToRegex(pattern), RegexOptions.Compiled | RegexOptions.IgnoreCase));
+                {
+                    includeRegexPatterns.Add(GetRegex(pattern, filter.IsRegex));
+                }
             }
-            else
-            {
-                foreach (var pattern in includePatterns)
-                    includeRegexPatterns.Add(new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase));
 
-                foreach (var pattern in excludePatterns)
-                    excludeRegexPatterns.Add(new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase));
+            var excludePatterns = SplitPath(filter.NamePatternToExclude);
+            foreach (var pattern in excludePatterns)
+            {
+                excludeRegexPatterns.Add(GetRegex(pattern, filter.IsRegex));
+            }
+        }
+
+        private static Regex GetRegex(string pattern, bool isRegex)
+        {
+            lock (regexLock)
+            {
+                Regex regex = null;
+                try
+                {
+                    if (!isRegex)
+                        pattern = wildcardToRegex(pattern);
+
+                    if (!regexCache.TryGetValue(pattern, out regex))
+                    {
+                        regex = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        regexCache.Add(pattern, regex);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex, "Failed in Utils.GetRegex");
+                    throw;
+                }
+                return regex;
             }
         }
 
@@ -676,9 +729,12 @@ namespace dnGREP.Common
             // Hash set to ensure file name uniqueness
             HashSet<string> matches = new HashSet<string>();
 
+            var includeSearchPatterns = new List<string>();
+            bool hasSearchPattern = PrepareSearchPatterns(filter, includeSearchPatterns);
+
             var includeRegexPatterns = new List<Regex>();
             var excludeRegexPatterns = new List<Regex>();
-            PrepareFilters(filter, includeRegexPatterns, excludeRegexPatterns);
+            PrepareFilters(filter, includeRegexPatterns, excludeRegexPatterns, hasSearchPattern);
 
             foreach (var subPath in SplitPath(filter.Path))
             {
@@ -695,8 +751,11 @@ namespace dnGREP.Common
                 {
                     continue;
                 }
-                foreach (var dirPath in (!filter.IncludeSubfolders ? new string[] { subPath }.AsEnumerable() :
-                    new string[] { subPath }.AsEnumerable().Concat(Directory.EnumerateDirectories(subPath, "*", SearchOption.AllDirectories))))
+
+                IEnumerable<string> paths = !filter.IncludeSubfolders ? new string[] { subPath }.AsEnumerable() :
+                    new string[] { subPath }.AsEnumerable().Concat(SafeDirectory.EnumerateDirectories(subPath, "*", SearchOption.AllDirectories));
+
+                foreach (var dirPath in paths)
                 {
                     DirectoryInfo dirInfo = null;
                     if (!filter.IncludeHidden)
@@ -706,9 +765,8 @@ namespace dnGREP.Common
                         if (dirInfo.Root.Name != dirInfo.Name && (dirInfo.Attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
                             continue;
                     }
-                    if (!hasListPermissionOnDir(dirPath))
-                        continue;
-                    foreach (var filePath in Directory.EnumerateFiles(dirPath))
+
+                    foreach (var filePath in SafeDirectory.EnumerateFiles(dirPath, includeSearchPatterns))
                     {
                         bool excludeMatch = false;
                         bool includeMatch = false;
@@ -726,8 +784,19 @@ namespace dnGREP.Common
                             if (!filter.IncludeArchive && IsArchive(filePath))
                                 continue;
 
-                            if (!IsArchive(filePath) && !filter.IncludeBinary && IsBinary(filePath))
-                                continue;
+                            if (!filter.IncludeBinary && !IsArchive(filePath))
+                            {
+                                bool isExcelMatch = IsExcelFile(filePath) && includeSearchPatterns.Contains(".xls", StringComparison.OrdinalIgnoreCase);
+                                bool isWordMatch = IsWordFile(filePath) && includeSearchPatterns.Contains(".doc", StringComparison.OrdinalIgnoreCase);
+                                
+                                // When searching for Excel and Word files, skip the binary file check:
+                                // If someone is searching for Excel or Word, don't make them include binary to 
+                                // find their files.  No need to include PDF, it doesn't test positive as a binary file.
+                                if (!(isExcelMatch || isWordMatch) && IsBinary(filePath))
+                                {
+                                    continue;
+                                }
+                            }
 
                             if (filter.SizeFrom > 0 || filter.SizeTo > 0)
                             {
@@ -765,13 +834,21 @@ namespace dnGREP.Common
                             }
                             if (!includeMatch)
                             {
-                                foreach (var pattern in includeRegexPatterns)
+                                if (includeRegexPatterns.Count > 0)
                                 {
-                                    if (pattern.IsMatch(filePath) || CheckShebang(filePath, pattern.ToString()))
+                                    foreach (var pattern in includeRegexPatterns)
                                     {
-                                        includeMatch = true;
-                                        break;
+                                        if (pattern.IsMatch(filePath) || CheckShebang(filePath, pattern.ToString()))
+                                        {
+                                            includeMatch = true;
+                                            break;
+                                        }
                                     }
+                                }
+                                else if (hasSearchPattern)
+                                {
+                                    // already filtered in call to EnumerateFile
+                                    includeMatch = true;
                                 }
                             }
                             foreach (var pattern in excludeRegexPatterns)
@@ -832,22 +909,6 @@ namespace dnGREP.Common
                 }
             }
             catch (IOException)
-            {
-                return false;
-            }
-        }
-
-        private static bool hasListPermissionOnDir(string dirPath)
-        {
-            try
-            {
-                foreach (string path in Directory.EnumerateFiles(dirPath))
-                {
-                    break;
-                }
-                return true;
-            }
-            catch
             {
                 return false;
             }
@@ -1861,6 +1922,21 @@ namespace dnGREP.Common
                 return text.Substring(0, text.Length - 1);
             else
                 return text;
+        }
+    }
+
+    public static class StringExtensions
+    {
+        public static bool Contains(this string source, string toCheck, StringComparison comp)
+        {
+            if (source == null) return false;
+            return source.IndexOf(toCheck, comp) >= 0;
+        }
+
+        public static bool Contains(this IEnumerable<string> source, string toCheck, StringComparison comp)
+        {
+            if (source == null) return false;
+            return source.Where(s => s.Contains(toCheck, comp)).Any();
         }
     }
 }

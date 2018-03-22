@@ -6,7 +6,7 @@
            Name="dnGREP $(var.MajorVersion).$(var.MinorVersion).$(var.BuildVersion) ($(var.Platform))"
            Language="1033"
            Version="$(var.ProductVersion)"
-           Manufacturer="dnGrep Developers"
+           Manufacturer="dnGrep Community Contributors"
            UpgradeCode="4CF55558-B642-482E-9FBF-06EA5AEC8276">
     <Package InstallerVersion="200" Compressed="yes" />
 

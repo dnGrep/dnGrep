@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Threading;
 using dnGREP.Common;
 using dnGREP.Common.UI;
 using dnGREP.Engines;
@@ -29,7 +30,7 @@ namespace dnGREP.WPF
             SearchResults.OpenFileLineRequest += searchResults_OpenFileLineRequest;
             SearchResults.OpenFileRequest += searchResults_OpenFileRequest;
 
-            this.RequestClose += MainViewModel_RequestClose;
+            RequestClose += MainViewModel_RequestClose;
             CheckVersion();
             ControlsInit();
             populateEncodings();
@@ -63,6 +64,8 @@ namespace dnGREP.WPF
         private BookmarksForm bookmarkForm;
         private PreviewView preview;
         private PreviewViewModel previewModel;
+        private List<string> currentSearchFiles = new List<string>();
+        private bool isSorted;
 
         #endregion
 
@@ -196,6 +199,25 @@ namespace dnGREP.WPF
                 return _replaceCommand;
             }
         }
+        RelayCommand _sortCommand;
+        /// <summary>
+        /// Returns a command that sorts the results.
+        /// </summary>
+        public ICommand SortCommand
+        {
+            get
+            {
+                if (_sortCommand == null)
+                {
+                    _sortCommand = new RelayCommand(
+                        param => this.SortResults(),
+                        param => this.CanSortResults
+                        );
+                }
+                return _sortCommand;
+            }
+        }
+
         RelayCommand _copyFilesCommand;
         /// <summary>
         /// Returns a command that copies files
@@ -464,7 +486,12 @@ namespace dnGREP.WPF
 
                 FormattedGrepResult result = selectedNode.Parent;
                 OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
-                dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, new GrepEngineInitParams(false, 0, 0, 0.5, false), new FileFilter()).OpenFile(fileArg);
+                IGrepEngine engine = GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, GrepEngineInitParams.Default, new FileFilter());
+                if (engine != null)
+                {
+                    engine.OpenFile(fileArg);
+                    GrepEngineFactory.ReturnToPool(result.GrepResult.FileNameReal, engine);
+                }
                 if (fileArg.UseBaseEngine)
                     Utils.OpenFile(new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
             }
@@ -485,7 +512,12 @@ namespace dnGREP.WPF
                 // Line was selected
                 int lineNumber = 0;
                 OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
-                dnGREP.Engines.GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, new GrepEngineInitParams(false, 0, 0, 0.5, false), new FileFilter()).OpenFile(fileArg);
+                IGrepEngine engine = GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, GrepEngineInitParams.Default, new FileFilter());
+                if (engine != null)
+                {
+                    engine.OpenFile(fileArg);
+                    GrepEngineFactory.ReturnToPool(result.GrepResult.FileNameReal, engine);
+                }
                 if (fileArg.UseBaseEngine)
                     Utils.OpenFile(new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
             }
@@ -664,7 +696,8 @@ namespace dnGREP.WPF
                             settings.Get<int>(GrepSettings.Key.ContextLinesBefore),
                             settings.Get<int>(GrepSettings.Key.ContextLinesAfter),
                             settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold),
-                            settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount));
+                            settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount),
+                            SearchParallel);
 
                         grep.FileFilter = new FileFilter(FileOrFolderPath, filePatternInclude, filePatternExclude,
                             param.TypeOfFileSearch == FileSearchType.Regex, param.IncludeSubfolder, param.IncludeHidden,
@@ -682,9 +715,9 @@ namespace dnGREP.WPF
                         if (StopAfterFirstMatch)
                             searchOptions |= GrepSearchOption.StopAfterFirstMatch;
 
-                        grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
+                        grep.ProcessedFile += GrepCore_ProcessedFile;
                         e.Result = grep.Search(files, param.TypeOfSearch, param.SearchFor, searchOptions, param.CodePage);
-                        grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
+                        grep.ProcessedFile -= GrepCore_ProcessedFile;
                     }
                     else
                     {
@@ -694,7 +727,8 @@ namespace dnGREP.WPF
                             settings.Get<int>(GrepSettings.Key.ContextLinesBefore),
                             settings.Get<int>(GrepSettings.Key.ContextLinesAfter),
                             settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold),
-                            settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount));
+                            settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount),
+                            SearchParallel);
 
                         GrepSearchOption searchOptions = GrepSearchOption.None;
                         if (Multiline)
@@ -708,11 +742,10 @@ namespace dnGREP.WPF
                         if (StopAfterFirstMatch)
                             searchOptions |= GrepSearchOption.WholeWord;
 
-                        grep.ProcessedFile += new GrepCore.SearchProgressHandler(grep_ProcessedFile);
+                        grep.ProcessedFile += GrepCore_ProcessedFile;
                         string[] files = ((List<string>)workerParams["Files"]).ToArray();
                         e.Result = grep.Replace(files, param.TypeOfSearch, param.SearchFor, param.ReplaceWith, searchOptions, param.CodePage);
-
-                        grep.ProcessedFile -= new GrepCore.SearchProgressHandler(grep_ProcessedFile);
+                        grep.ProcessedFile -= GrepCore_ProcessedFile;
                     }
                 }
             }
@@ -735,37 +768,58 @@ namespace dnGREP.WPF
             }
         }
 
+        private object lockObj = new object();
         private void SearchProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            try
+            lock (lockObj)
             {
-                if (!Utils.CancelSearch)
+                try
                 {
-                    GrepCore.ProgressStatus progress = (GrepCore.ProgressStatus)e.UserState;
-                    string result = string.Empty;
-                    if (progress.SearchResults != null)
+                    if (!Utils.CancelSearch)
                     {
-                        SearchResults.AddRange(progress.SearchResults);
-                        if (!string.IsNullOrWhiteSpace(progress.FileName))
-                            result = string.Format("Searched {0} files. Found {1} matching files - processing {2}", progress.ProcessedFiles, SearchResults.Count, progress.FileName);
-                        else
-                            result = string.Format("Searched {0} files. Found {1} matching files.", progress.ProcessedFiles, SearchResults.Count);
-                    }
-                    else
-                    {
-                        if (!string.IsNullOrWhiteSpace(progress.FileName))
-                            result = string.Format("Searched {0} files - processing {1}", progress.ProcessedFiles, progress.FileName);
-                        else
-                            result = string.Format("Searched {0} files.", progress.ProcessedFiles);
-                    }
+                        ProgressStatus progress = (ProgressStatus)e.UserState;
 
-                    StatusMessage = result;
+                        if (progress.SearchResults != null)
+                            SearchResults.AddRange(progress.SearchResults);
+
+                        // When running in parallel, multiple files will be in progress at the same time.
+                        // This keeps track of the files that are running and the long running file names
+                        // are shown again as the short runs finish.
+                        string fileName = progress.FileName;
+                        if (!string.IsNullOrWhiteSpace(fileName))
+                        {
+                            if (progress.BeginSearch)
+                            {
+                                if (!currentSearchFiles.Contains(fileName))
+                                    currentSearchFiles.Add(fileName);
+                            }
+                            else
+                            {
+                                if (currentSearchFiles.Contains(fileName))
+                                    currentSearchFiles.Remove(fileName);
+
+                                if (currentSearchFiles.Count > 0)
+                                    fileName = currentSearchFiles[0];
+                            }
+                        }
+
+                        string result = string.Empty;
+                        if (!string.IsNullOrWhiteSpace(fileName))
+                        {
+                            result = string.Format("Searched {0} files. Found {1} matching files - processing {2}", progress.ProcessedFiles, progress.SuccessfulFiles, fileName);
+                        }
+                        else
+                        {
+                            result = string.Format("Searched {0} files. Found {1} matching files.", progress.ProcessedFiles, progress.SuccessfulFiles);
+                        }
+                        StatusMessage = result;
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
-                MessageBox.Show("Search or replace failed! See error log.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                catch (Exception ex)
+                {
+                    logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
+                    MessageBox.Show("Search or replace failed! See error log.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
@@ -784,8 +838,9 @@ namespace dnGREP.WPF
                     {
                         TimeSpan duration = DateTime.Now.Subtract(timer);
                         results = (List<GrepSearchResult>)e.Result;
+                        int successCount = results.Where(r => r.IsSuccess).Count();
 
-                        StatusMessage = "Search Complete - " + results.Count + " files found in " + duration.GetPrettyString() + ".";
+                        StatusMessage = string.Format("Search Complete - {0} files found in {1}.", successCount, duration.GetPrettyString());
                     }
                     else
                     {
@@ -820,6 +875,7 @@ namespace dnGREP.WPF
                     base.OnPropertyChanged(() => CurrentGrepOperation);
                     CanSearch = true;
                     SearchResults.Clear();
+                    isSorted = false;
                 }
 
                 string outdatedEngines = dnGREP.Engines.GrepEngineFactory.GetListOfFailedEngines();
@@ -836,10 +892,11 @@ namespace dnGREP.WPF
             finally
             {
                 Utils.CancelSearch = false;
+                currentSearchFiles.Clear();
             }
         }
 
-        void grep_ProcessedFile(object sender, GrepCore.ProgressStatus progress)
+        void GrepCore_ProcessedFile(object sender, ProgressStatus progress)
         {
             workerSearchReplace.ReportProgress((int)progress.ProcessedFiles, progress);
         }
@@ -895,6 +952,7 @@ namespace dnGREP.WPF
                     workerParames["Files"] = foundFiles;
                 }
                 SearchResults.Clear();
+                isSorted = false;
                 workerParames["State"] = this;
                 workerSearchReplace.RunWorkerAsync(workerParames);
                 updateBookmarks();
@@ -986,6 +1044,7 @@ namespace dnGREP.WPF
                 workerParames["State"] = this;
                 workerParames["Files"] = foundFiles;
                 SearchResults.Clear();
+                isSorted = false;
                 workerSearchReplace.RunWorkerAsync(workerParames);
                 updateBookmarks();
             }
@@ -1231,6 +1290,7 @@ namespace dnGREP.WPF
                     }
                     CanUndo = false;
                     SearchResults.Clear();
+                    isSorted = false;
                     FilesFound = false;
                 }
             }
@@ -1257,6 +1317,7 @@ namespace dnGREP.WPF
                 }
                 CanUndo = false;
                 SearchResults.Clear();
+                isSorted = false;
                 FilesFound = false;
             }
         }
@@ -1321,6 +1382,26 @@ namespace dnGREP.WPF
                         IsSaveInProgress = false;
                     }
                 }
+            }
+        }
+
+        public bool CanSortResults
+        {
+            get
+            {
+                return SearchParallel && !isSorted && SearchResults.Count > 0 &&
+                    CurrentGrepOperation == GrepOperation.None && !workerSearchReplace.IsBusy;
+            }
+        }
+
+        private void SortResults()
+        {
+            using (var d = Dispatcher.CurrentDispatcher.DisableProcessing())
+            {
+                var list = SearchResults.ToList();
+                SearchResults.Clear();
+                SearchResults.AddRange(list.OrderBy(r => r.Label));
+                isSorted = true;
             }
         }
 

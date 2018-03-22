@@ -98,6 +98,8 @@ namespace dnGREP.Engines.Archive
                                             searchResults.AddRange(innerFileResults);
                                         }
                                     }
+
+                                    GrepEngineFactory.ReturnToPool(innerFileName, engine);
                                 }
                                 if (Utils.CancelSearch)
                                     break;
