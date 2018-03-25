@@ -19,7 +19,8 @@ namespace dnGREP.Common
     public enum FileSearchType
     {
         Asterisk,
-        Regex
+        Regex,
+        Everything
     }
 
     public enum FileSizeFilter

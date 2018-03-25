@@ -193,9 +193,9 @@
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <StackPanel  Grid.Row="0" Grid.Column="1" Margin="3,0" HorizontalAlignment="Right">
+                                    <StackPanel  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="3,0" HorizontalAlignment="Right">
                                         <StackPanel Orientation="Horizontal">
                                             <RadioButton GroupName="FileSearchType" Margin="3,0,3,3" Name="rbFileRegex" TabIndex="40" Content="Regex"
                                                          IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}" 
@@ -203,6 +203,10 @@
                                             <RadioButton GroupName="FileSearchType" Margin="3,0,3,3" Name="rbFileAsterisk" TabIndex="41" Content="Asterisk pattern"
                                                          IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Asterisk}" 
                                                          ToolTip="e.g. file??.*" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                                            <RadioButton GroupName="FileSearchType" Margin="3,0,3,3" Name="rbFileEverything" TabIndex="41" Content="Everything"
+                                                         IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Everything}" 
+                                                         ToolTip="Everything Index Service" VerticalAlignment="Center" VerticalContentAlignment="Center"
+                                                         Visibility="{Binding Path=IsEverythingAvailable, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                         </StackPanel>
                                     </StackPanel>
                                     <CheckBox Grid.Row="1" IsChecked="{Binding SearchParallel}" Margin="3,0,24,3" Content="Search Paralle_l" TabIndex="42" ToolTip="Search files in multiple threads" />

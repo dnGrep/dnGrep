@@ -8,6 +8,7 @@ using System.Xml;
 using System.Xml.XPath;
 using dnGREP.Common;
 using dnGREP.Engines;
+using dnGREP.Everything;
 using NLog;
 
 namespace dnGREP.WPF
@@ -28,6 +29,8 @@ namespace dnGREP.WPF
             Utils.ArchiveExtensions = GrepEngineFactory.GetArchiveExtenstions();
             CanSearchArchives = Utils.ArchiveExtensions.Count > 0;
             LoadSettings();
+
+            IsEverythingAvailable = EverythingSearch.IsAvailable;
         }
 
         #region Private Variables and Properties
@@ -108,7 +111,10 @@ namespace dnGREP.WPF
                 if (value == fileOrFolderPath)
                     return;
 
-                fileOrFolderPath = Utils.CleanPath(value);
+                if (TypeOfFileSearch == FileSearchType.Everything)
+                    fileOrFolderPath = value;
+                else
+                    fileOrFolderPath = Utils.CleanPath(value);
 
                 base.OnPropertyChanged(() => FileOrFolderPath);
             }
@@ -294,6 +300,22 @@ namespace dnGREP.WPF
                 base.OnPropertyChanged(() => TypeOfFileSearch);
             }
         }
+
+        private bool isEverythingAvailable;
+        public bool IsEverythingAvailable
+        {
+            get { return isEverythingAvailable; }
+            set
+            {
+                if (value == isEverythingAvailable)
+                    return;
+
+                isEverythingAvailable = value;
+
+                base.OnPropertyChanged(() => IsEverythingAvailable);
+            }
+        }
+
 
         private FileSizeFilter useFileSizeFilter = FileSizeFilter.None;
         public FileSizeFilter UseFileSizeFilter
@@ -1139,7 +1161,11 @@ namespace dnGREP.WPF
             //Can search
             if (name == "FileOrFolderPath" || name == "CurrentGrepOperation" || name == "SearchFor" || name == "IsSaveInProgress")
             {
-                if (Utils.IsPathValid(FileOrFolderPath) && CurrentGrepOperation == GrepOperation.None && !IsSaveInProgress &&
+                bool pathValid = (TypeOfFileSearch == FileSearchType.Everything) ?
+                    !string.IsNullOrWhiteSpace(FileOrFolderPath) :
+                    Utils.IsPathValid(FileOrFolderPath);
+
+                if (pathValid && CurrentGrepOperation == GrepOperation.None && !IsSaveInProgress &&
                     (!string.IsNullOrEmpty(SearchFor) || settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern)))
                 {
                     CanSearch = true;
@@ -1165,7 +1191,7 @@ namespace dnGREP.WPF
             }
 
             //searchResults
-            searchResults.FolderPath = FileOrFolderPath;
+            searchResults.FolderPath = TypeOfFileSearch == FileSearchType.Everything ? string.Empty : FileOrFolderPath;
 
             // btnReplace
             if (name == "FileOrFolderPath" || name == "FilesFound" || name == "CurrentGrepOperation" || name == "SearchFor" || name == "IsSaveInProgress")
@@ -1325,7 +1351,6 @@ namespace dnGREP.WPF
             }
             settings[GrepSettings.Key.SearchFolder] = _fileOrFolderPath;
 
-            FileOrFolderPath = settings.Get<string>(GrepSettings.Key.SearchFolder);
             SearchFor = settings.Get<string>(GrepSettings.Key.SearchFor);
             ReplaceWith = settings.Get<string>(GrepSettings.Key.ReplaceWith);
             IncludeHidden = settings.Get<bool>(GrepSettings.Key.IncludeHidden);
@@ -1335,6 +1360,8 @@ namespace dnGREP.WPF
             IncludeSubfolder = settings.Get<bool>(GrepSettings.Key.IncludeSubfolder);
             TypeOfSearch = settings.Get<SearchType>(GrepSettings.Key.TypeOfSearch);
             TypeOfFileSearch = settings.Get<FileSearchType>(GrepSettings.Key.TypeOfFileSearch);
+            // FileOrFolderPath depends on TypeOfFileSearch, so must be after
+            FileOrFolderPath = settings.Get<string>(GrepSettings.Key.SearchFolder);
             CodePage = settings.Get<int>(GrepSettings.Key.CodePage);
             FilePattern = settings.Get<string>(GrepSettings.Key.FilePattern);
             FilePatternIgnore = settings.Get<string>(GrepSettings.Key.FilePatternIgnore);

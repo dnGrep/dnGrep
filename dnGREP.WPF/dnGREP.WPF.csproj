@@ -309,6 +309,10 @@
       <Project>{DB68B5D3-5E4B-47D0-AA86-83D7C181A1E4}</Project>
       <Name>dnGREP.Engines</Name>
     </ProjectReference>
+    <ProjectReference Include="..\dnGREP.Everything\dnGREP.Everything.csproj">
+      <Project>{39c7bce4-7837-401e-8afa-2bcfe70c63f7}</Project>
+      <Name>dnGREP.Everything</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NLog.XmlLayout\NLog.XmlLayout.csproj">
       <Project>{1B364890-BBE6-4167-AF65-FE1C01E8C419}</Project>
       <Name>NLog.XmlLayout</Name>

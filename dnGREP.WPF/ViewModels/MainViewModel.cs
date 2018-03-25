@@ -646,6 +646,8 @@ namespace dnGREP.WPF
                         string filePatternInclude = "*.*";
                         if (param.TypeOfFileSearch == FileSearchType.Regex)
                             filePatternInclude = ".*";
+                        else if (param.TypeOfFileSearch == FileSearchType.Everything)
+                            filePatternInclude = string.Empty;
 
                         if (!string.IsNullOrEmpty(param.FilePattern))
                             filePatternInclude = param.FilePattern;
@@ -658,8 +660,10 @@ namespace dnGREP.WPF
 
                         Utils.CancelSearch = false;
 
-                        FileFilter fileParams = new FileFilter(FileOrFolderPath, filePatternInclude, filePatternExclude, param.TypeOfFileSearch == FileSearchType.Regex, param.IncludeSubfolder,
-                                param.IncludeHidden, param.IncludeBinary, param.IncludeArchive, sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime);
+                        FileFilter fileParams = new FileFilter(FileOrFolderPath, filePatternInclude, filePatternExclude,
+                            param.TypeOfFileSearch == FileSearchType.Regex, param.TypeOfFileSearch == FileSearchType.Everything,
+                            param.IncludeSubfolder, param.IncludeHidden, param.IncludeBinary, param.IncludeArchive, sizeFrom,
+                            sizeTo, param.UseFileDateFilter, startTime, endTime);
 
                         if (param.CurrentGrepOperation == GrepOperation.SearchInResults)
                         {
@@ -700,8 +704,9 @@ namespace dnGREP.WPF
                             SearchParallel);
 
                         grep.FileFilter = new FileFilter(FileOrFolderPath, filePatternInclude, filePatternExclude,
-                            param.TypeOfFileSearch == FileSearchType.Regex, param.IncludeSubfolder, param.IncludeHidden,
-                            param.IncludeBinary, param.IncludeArchive, sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime);
+                            param.TypeOfFileSearch == FileSearchType.Regex, param.TypeOfFileSearch == FileSearchType.Everything,
+                            param.IncludeSubfolder, param.IncludeHidden, param.IncludeBinary, param.IncludeArchive,
+                            sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime);
 
                         GrepSearchOption searchOptions = GrepSearchOption.None;
                         if (Multiline)
@@ -1428,6 +1433,8 @@ namespace dnGREP.WPF
                 sb.Append("Paths to ignore: ").AppendLine(FilePatternIgnore);
             if (TypeOfFileSearch == FileSearchType.Regex)
                 sb.AppendLine("Using regex file pattern");
+            else if (TypeOfFileSearch == FileSearchType.Everything)
+                sb.AppendLine("Using Everything index search");
 
             options.Clear();
             if (!IncludeSubfolder) options.Add("No subfolders");
