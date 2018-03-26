@@ -803,16 +803,14 @@ namespace dnGREP.WPF
                             }
                         }
 
-                        string result = string.Empty;
                         if (!string.IsNullOrWhiteSpace(fileName))
                         {
-                            result = string.Format("Searched {0} files. Found {1} matching files - processing {2}", progress.ProcessedFiles, progress.SuccessfulFiles, fileName);
+                            StatusMessage = $"Searched {progress.ProcessedFiles} files. Found {progress.SuccessfulFiles} matching files - processing {fileName}";
                         }
                         else
                         {
-                            result = string.Format("Searched {0} files. Found {1} matching files.", progress.ProcessedFiles, progress.SuccessfulFiles);
+                            StatusMessage = $"Searched {progress.ProcessedFiles} files. Found {progress.SuccessfulFiles} matching files.";
                         }
-                        StatusMessage = result;
                     }
                 }
                 catch (Exception ex)
@@ -840,7 +838,7 @@ namespace dnGREP.WPF
                         results = (List<GrepSearchResult>)e.Result;
                         int successCount = results.Where(r => r.IsSuccess).Count();
 
-                        StatusMessage = string.Format("Search Complete - {0} files found in {1}.", successCount, duration.GetPrettyString());
+                        StatusMessage = $"Search Complete - {successCount} files found in {duration.GetPrettyString()}.";
                     }
                     else
                     {
@@ -863,7 +861,7 @@ namespace dnGREP.WPF
                         }
                         else
                         {
-                            StatusMessage = "Replace Complete - " + (int)e.Result + " files replaced.";
+                            StatusMessage = $"Replace Complete - {(int)e.Result} files replaced.";
                             CanUndo = true;
                         }
                     }
