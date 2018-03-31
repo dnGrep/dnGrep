@@ -163,8 +163,8 @@ namespace dnGREP.WPF
                     else
                         CurrentSyntax = "None";
 
-                    // Do not preview files over 1MB or binary
-                    if (fileInfo.Length > 1024000 ||
+                    // Do not preview files over 4MB or binary
+                    if (fileInfo.Length > 4096000 ||
                         Utils.IsBinary(FilePath))
                     {
                         IsLargeOrBinary = System.Windows.Visibility.Visible;
