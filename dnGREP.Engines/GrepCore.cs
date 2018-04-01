@@ -50,18 +50,21 @@ namespace dnGREP.Common
 
             if (searchPattern == null || searchPattern.Trim() == "")
             {
+                int count = 0;
                 foreach (string file in files)
                 {
-                    ProcessedFile(this, new ProgressStatus(true, searchResults.Count, files.Count(), null, file));
+                    count++;
+                    ProcessedFile(this, new ProgressStatus(true, searchResults.Count, count, null, file));
 
                     searchResults.Add(new GrepSearchResult(file, searchPattern, null, Encoding.Default));
+
                     if ((searchOptions & GrepSearchOption.StopAfterFirstMatch) == GrepSearchOption.StopAfterFirstMatch)
                         break;
                     if (Utils.CancelSearch)
                         break;
                 }
 
-                ProcessedFile(this, new ProgressStatus(false, searchResults.Count, files.Count(), searchResults, null));
+                ProcessedFile(this, new ProgressStatus(false, searchResults.Count, count, searchResults, null));
 
                 return new List<GrepSearchResult>(searchResults);
             }
@@ -87,7 +90,7 @@ namespace dnGREP.Common
                         {
                             Search(file, searchType, searchPattern, searchOptions, codePage);
 
-                            if ((searchOptions & GrepSearchOption.StopAfterFirstMatch) == GrepSearchOption.StopAfterFirstMatch && searchResults.Count > 0)
+                            if (searchOptions.HasFlag(GrepSearchOption.StopAfterFirstMatch) && searchResults.Count > 0)
                                 break;
                         }
                     }

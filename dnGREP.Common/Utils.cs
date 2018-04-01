@@ -636,6 +636,16 @@ namespace dnGREP.Common
             return output.ToArray();
         }
 
+        public static bool EverythingSearchHasPath(string searchText)
+        {
+            return EverythingSearch.HasPath(searchText);
+        }
+
+        public static string EverythingSearchBaseFoleder(string searchText)
+        {
+            return EverythingSearch.GetBaseFolder(searchText);
+        }
+
         public static bool CancelSearch = false;
 
         public static bool PrepareSearchPatterns(FileFilter filter, List<string> includeSearchPatterns)
@@ -784,7 +794,14 @@ namespace dnGREP.Common
 
                     foreach (var filePath in SafeDirectory.EnumerateFiles(dirPath, includeSearchPatterns))
                     {
-                        if (IncludeFile(filePath, filter, null, hasSearchPattern, includeSearchPatterns,
+                        if (!filter.IncludeArchive && IsArchive(filePath))
+                            continue;
+
+                        if (filter.AllFiles)
+                        {
+                            yield return filePath;
+                        }
+                        else if (IncludeFile(filePath, filter, null, hasSearchPattern, includeSearchPatterns,
                             includeRegexPatterns, excludeRegexPatterns) && !matches.Contains(filePath))
                         {
                             matches.Add(filePath);
@@ -800,7 +817,16 @@ namespace dnGREP.Common
             foreach(var fileInfo in EverythingSearch.FindFiles(filter.Path))
             {
                 FileData fileData = new FileData(fileInfo);
-                if (IncludeFile(fileInfo.FullName, filter, fileData, true, new List<string>(), includeRegexPatterns, excludeRegexPatterns))
+
+                if (!filter.IncludeArchive && IsArchive(fileData.FullName))
+                    continue;
+
+                if (filter.AllFiles)
+                {
+                    yield return fileInfo.FullName;
+                }
+                else if (IncludeFile(fileInfo.FullName, filter, fileData, true, new List<string>(), 
+                    includeRegexPatterns, excludeRegexPatterns))
                 {
                     yield return fileInfo.FullName;
                 }
@@ -825,9 +851,6 @@ namespace dnGREP.Common
                     if (fileInfo.Attributes.HasFlag(FileAttributes.Hidden))
                         return false;
                 }
-
-                if (!filter.IncludeArchive && IsArchive(filePath))
-                    return false;
 
                 if (!filter.IncludeBinary && !IsArchive(filePath))
                 {

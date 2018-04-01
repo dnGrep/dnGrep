@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using NLog;
 
 namespace dnGREP.Everything
 {
     public sealed class EverythingSearch
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         private EverythingSearch()
         {
             // cannot construct...
@@ -60,38 +63,8 @@ namespace dnGREP.Everything
             }
         }
 
-        //public static string GetPathPart(string searchText)
-        //{
-        //    string path = string.Empty;
-        //    if (searchText.StartsWith("\""))
-        //    {
-        //        int endIndex = searchText.IndexOf('\"', 1);
-        //        if (endIndex > -1)
-        //        {
-        //            endIndex++;
-
-        //            path = searchText.Substring(0, endIndex).Trim();
-        //        }
-        //    }
-        //    else
-        //    {
-        //        int endIndex = searchText.IndexOf(' ');
-        //        if (endIndex > -1)
-        //        {
-        //            path = searchText.Substring(0, endIndex).Trim();
-        //        }
-        //    }
-
-        //    if (!string.IsNullOrWhiteSpace(path))
-        //    {
-
-        //    }
-        //}
-
         public static IEnumerable<EverythingFileInfo> FindFiles(string searchString)
         {
-
-
             NativeMethods.Everything_SetSort((UInt32)SortType.NameAscending);
 
             NativeMethods.Everything_SetSearchW(searchString);
@@ -125,6 +98,51 @@ namespace dnGREP.Everything
                     yield return fileInfo;
                 }
             }
+        }
+
+        public static bool HasPath(string searchText)
+        {
+            return !string.IsNullOrWhiteSpace(GetBaseFolder(searchText));
+        }
+
+        public static string GetBaseFolder(string searchText)
+        {
+            if (string.IsNullOrWhiteSpace(searchText))
+                return string.Empty;
+
+            try
+            {
+                string path = searchText.Trim();
+                foreach (string prefix in EverythingKeywords.PathPrefixes)
+                {
+                    if (path.StartsWith(prefix))
+                        path = path.Remove(0, prefix.Length);
+                }
+                path = path.Trim();
+
+                int pos = -1;
+                if (path.StartsWith("\""))
+                {
+                    pos = path.IndexOf('"', 1);
+                    if (pos > -1)
+                        path = path.Substring(1, pos - 1).Trim();
+                }
+                else
+                {
+                    pos = path.IndexOf(' ');
+                    if (pos > -1)
+                        path = path.Substring(0, pos).Trim();
+                }
+
+                if (!string.IsNullOrWhiteSpace(path) && Directory.Exists(path) && Path.IsPathRooted(path))
+                    return path;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Error in EverythingSearch GetBaseFolder");
+            }
+
+            return string.Empty;
         }
     }
 }

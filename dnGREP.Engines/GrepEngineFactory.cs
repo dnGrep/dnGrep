@@ -252,10 +252,13 @@ namespace dnGREP.Engines
 
                 foreach (IGrepEngine engine in loadedEngines)
                 {
-                    engine.Unload();
-                    var disposable = engine as IDisposable;
-                    if (disposable != null)
-                        disposable.Dispose();
+                    if (engine != null)
+                    {
+                        engine.Unload();
+                        var disposable = engine as IDisposable;
+                        if (disposable != null)
+                            disposable.Dispose();
+                    }
                 }
 
                 loadedEngines.Clear();

@@ -906,14 +906,18 @@ namespace dnGREP.WPF
 
         private void browse()
         {
+            string basePath = TypeOfFileSearch == FileSearchType.Everything ?
+                Utils.EverythingSearchBaseFoleder(FileOrFolderPath) :
+                Utils.GetBaseFolder(FileOrFolderPath);
+
             fileFolderDialog.Dialog.Multiselect = true;
-            fileFolderDialog.SelectedPath = Utils.GetBaseFolder(FileOrFolderPath);
-            if (FileOrFolderPath == "")
+            fileFolderDialog.SelectedPath = basePath;
+            if (string.IsNullOrWhiteSpace(FileOrFolderPath))
             {
                 string clipboard = Clipboard.GetText();
                 try
                 {
-                    if (System.IO.Path.IsPathRooted(clipboard))
+                    if (Path.IsPathRooted(clipboard))
                         fileFolderDialog.SelectedPath = clipboard;
                 }
                 catch
@@ -1035,8 +1039,13 @@ namespace dnGREP.WPF
                 if (preview != null && preview.IsVisible)
                     preview.ResetTextEditor();
                 CurrentGrepOperation = GrepOperation.Replace;
+
+                string basePath = TypeOfFileSearch == FileSearchType.Everything ?
+                    Utils.EverythingSearchBaseFoleder(FileOrFolderPath) :
+                    Utils.GetBaseFolder(FileOrFolderPath);
+
                 CanUndo = false;
-                UndoFolder = Utils.GetBaseFolder(FileOrFolderPath);
+                UndoFolder = basePath;
                 List<string> foundFiles = new List<string>();
                 foreach (FormattedGrepResult n in SearchResults)
                 {
@@ -1254,7 +1263,11 @@ namespace dnGREP.WPF
                             return;
                         }
 
-                        Utils.CopyFiles(SearchResults.GetList(), Utils.GetBaseFolder(FileOrFolderPath), Utils.GetBaseFolder(fileFolderDialog.SelectedPath), true);
+                        string basePath = TypeOfFileSearch == FileSearchType.Everything ?
+                            Utils.EverythingSearchBaseFoleder(FileOrFolderPath) :
+                            Utils.GetBaseFolder(FileOrFolderPath);
+
+                        Utils.CopyFiles(SearchResults.GetList(), basePath, Utils.GetBaseFolder(fileFolderDialog.SelectedPath), true);
                         MessageBox.Show("Files have been successfully copied.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     catch (Exception ex)
@@ -1282,7 +1295,11 @@ namespace dnGREP.WPF
                             return;
                         }
 
-                        Utils.CopyFiles(SearchResults.GetList(), Utils.GetBaseFolder(FileOrFolderPath), Utils.GetBaseFolder(fileFolderDialog.SelectedPath), true);
+                        string basePath = TypeOfFileSearch == FileSearchType.Everything ?
+                            Utils.EverythingSearchBaseFoleder(FileOrFolderPath) :
+                            Utils.GetBaseFolder(FileOrFolderPath);
+
+                        Utils.CopyFiles(SearchResults.GetList(), basePath, Utils.GetBaseFolder(fileFolderDialog.SelectedPath), true);
                         Utils.DeleteFiles(SearchResults.GetList());
                         MessageBox.Show("Files have been successfully moved.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
@@ -1348,9 +1365,13 @@ namespace dnGREP.WPF
             {
                 SaveFileDialog dlg = new SaveFileDialog();
 
+                string basePath = TypeOfFileSearch == FileSearchType.Everything ?
+                    Utils.EverythingSearchBaseFoleder(FileOrFolderPath) :
+                    Utils.GetBaseFolder(FileOrFolderPath);
+
                 dlg.Filter = "Report file format|*.txt|Results file format|*.txt|CSV file format|*.csv";
                 dlg.DefaultExt = "*.txt";
-                dlg.InitialDirectory = Utils.GetBaseFolder(FileOrFolderPath);
+                dlg.InitialDirectory = basePath;
 
                 var result = dlg.ShowDialog();
                 if (result.HasValue && result.Value)

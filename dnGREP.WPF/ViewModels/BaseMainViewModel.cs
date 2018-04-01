@@ -102,12 +102,15 @@ namespace dnGREP.WPF
             get { return encodings; }
         }
 
+        private string rawFileOrFolderPath;
         private string fileOrFolderPath;
         public string FileOrFolderPath
         {
             get { return fileOrFolderPath; }
             set
             {
+                rawFileOrFolderPath = value;
+
                 if (value == fileOrFolderPath)
                     return;
 
@@ -1158,8 +1161,16 @@ namespace dnGREP.WPF
                 }
             }
 
+            if (name == "TypeOfFileSearch")
+            {
+                // when switching to Everything search, reset the FileOrFolerPath,
+                // which may have been cleaned when last set.
+                if (TypeOfFileSearch == FileSearchType.Everything)
+                    FileOrFolderPath = rawFileOrFolderPath;
+            }
+
             //Can search
-            if (name == "FileOrFolderPath" || name == "CurrentGrepOperation" || name == "SearchFor" || name == "IsSaveInProgress")
+            if (name == "FileOrFolderPath"  || name == "TypeOfFileSearch" || name == "CurrentGrepOperation" || name == "SearchFor" || name == "IsSaveInProgress")
             {
                 bool pathValid = (TypeOfFileSearch == FileSearchType.Everything) ?
                     !string.IsNullOrWhiteSpace(FileOrFolderPath) :
@@ -1191,12 +1202,18 @@ namespace dnGREP.WPF
             }
 
             //searchResults
-            searchResults.FolderPath = TypeOfFileSearch == FileSearchType.Everything ? string.Empty : FileOrFolderPath;
+            searchResults.FolderPath = TypeOfFileSearch == FileSearchType.Everything ? 
+                Utils.EverythingSearchBaseFoleder(FileOrFolderPath) :
+                Utils.GetBaseFolder(FileOrFolderPath);
 
             // btnReplace
             if (name == "FileOrFolderPath" || name == "FilesFound" || name == "CurrentGrepOperation" || name == "SearchFor" || name == "IsSaveInProgress")
             {
-                if (Utils.IsPathValid(FileOrFolderPath) && FilesFound && CurrentGrepOperation == GrepOperation.None &&
+                string basePath = TypeOfFileSearch == FileSearchType.Everything ?
+                    Utils.EverythingSearchBaseFoleder(FileOrFolderPath) :
+                    Utils.GetBaseFolder(FileOrFolderPath);
+
+                if (Utils.IsPathValid(basePath) && FilesFound && CurrentGrepOperation == GrepOperation.None &&
                     !IsSaveInProgress && !string.IsNullOrEmpty(SearchFor))
                 {
                     CanReplace = true;
