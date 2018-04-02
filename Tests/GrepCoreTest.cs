@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using dnGREP.Common;
@@ -211,8 +212,15 @@ namespace Tests
             List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase8", "test.txt"), SearchType.Regex, "here", GrepSearchOption.None, -1);
             Assert.Equal(results.Count, 1);
             Assert.Equal(results[0].SearchResults.Count, 1);
-            core.Replace(Directory.GetFiles(destinationFolder + "\\TestCase8", "test.txt"), SearchType.Regex, "here", "\\\\n", GrepSearchOption.None, -1);
-            Assert.Equal(File.ReadAllText(destinationFolder + "\\TestCase8\\test.txt", Encoding.ASCII).Trim().Split('\n').Length, 2);
+
+            string testFile = Path.Combine(destinationFolder, @"TestCase8\test.txt");
+            Dictionary<string, string> files = new Dictionary<string, string>
+            {
+                { testFile, Guid.NewGuid().ToString() + ".txt" }
+            };
+
+            core.Replace(files, SearchType.Regex, "here", "\\\\n", GrepSearchOption.None, -1);
+            Assert.Equal(File.ReadAllText(testFile, Encoding.ASCII).Trim().Split('\n').Length, 2);
         }
 
         private Regex guidPattern = new Regex("[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}");
@@ -228,7 +236,14 @@ namespace Tests
             List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase9", "test.txt"), type, "here", GrepSearchOption.None, -1);
             Assert.Equal(results.Count, 1);
             Assert.Equal(results[0].SearchResults.Count, 6);
-            core.Replace(Directory.GetFiles(destinationFolder + "\\TestCase9", "test.txt"), type, "here", "$(guid)", GrepSearchOption.None, -1);
+
+            string testFile = Path.Combine(destinationFolder, @"TestCase9\test.txt");
+            Dictionary<string, string> files = new Dictionary<string, string>
+            {
+                { testFile, Guid.NewGuid().ToString() + ".txt" }
+            };
+
+            core.Replace(files, type, "here", "$(guid)", GrepSearchOption.None, -1);
             string fileContent = File.ReadAllText(destinationFolder + "\\TestCase9\\test.txt", Encoding.ASCII).Trim();
             Assert.Equal(6, guidPattern.Matches(fileContent).Count);
             HashSet<string> uniqueGuids = new HashSet<string>();
@@ -279,10 +294,14 @@ namespace Tests
             List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase15", "books.xml"),
                 type, searchFor, option, -1);
             Assert.Equal(1, results.Count);
-            core.Replace(Directory.GetFiles(destinationFolder + "\\TestCase15", "books.xml"),
-                type, searchFor, replaceWith, option, -1);
+            string testFile = Path.Combine(destinationFolder, @"TestCase15\books.xml");
+            Dictionary<string, string> files = new Dictionary<string, string>
+            {
+                { testFile, Guid.NewGuid().ToString() + ".xml" }
+            };
+            core.Replace(files, type, searchFor, replaceWith, option, -1);
 
-            using (StreamReader reader = new StreamReader(destinationFolder + "\\TestCase15\\books.xml", true))
+            using (StreamReader reader = new StreamReader(testFile, true))
             {
                 Assert.Equal(Encoding.UTF8, reader.CurrentEncoding);
                 // check there is no BOM
@@ -316,10 +335,14 @@ namespace Tests
             List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase15", "books_bom.xml"),
                 type, searchFor, option, -1);
             Assert.Equal(1, results.Count);
-            core.Replace(Directory.GetFiles(destinationFolder + "\\TestCase15", "books_bom.xml"),
-                type, searchFor, replaceWith, option, -1);
+            string testFile = Path.Combine(destinationFolder, @"TestCase15\books_bom.xml");
+            Dictionary<string, string> files = new Dictionary<string, string>
+            {
+                { testFile, Guid.NewGuid().ToString() + ".xml" }
+            };
+            core.Replace(files, type, searchFor, replaceWith, option, -1);
 
-            using (StreamReader reader = new StreamReader(destinationFolder + "\\TestCase15\\books_bom.xml", true))
+            using (StreamReader reader = new StreamReader(testFile, true))
             {
                 Assert.Equal(Encoding.UTF8, reader.CurrentEncoding);
                 // check there is a BOM
@@ -340,6 +363,32 @@ namespace Tests
             string line1 = fileContent[0].Replace("\ufeff", ""); // remove BOM
             Assert.Equal("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", line1);
             Assert.Equal("  <book category=\"general\">", fileContent[8]);
+        }
+
+        [Fact]
+        public void TestReplaceAndUndoWorks()
+        {
+            Utils.CopyFiles(sourceFolder + "\\TestCase3", destinationFolder + "\\TestCase3", null, null);
+            GrepCore core = new GrepCore();
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase3", "test-file-code.cs"), SearchType.PlainText, "body", GrepSearchOption.None, -1);
+            Assert.Equal(1, results.Count);
+            Assert.Equal(2, results[0].SearchResults.Where(r => r.IsContext).Count());
+
+            string testFile = Path.Combine(destinationFolder, @"TestCase3\test-file-code.cs");
+            Dictionary<string, string> files = new Dictionary<string, string>
+            {
+                { testFile, Guid.NewGuid().ToString() + ".cs" }
+            };
+
+            core.Replace(files, SearchType.PlainText, "body", "text", GrepSearchOption.None, -1);
+            string content = File.ReadAllText(testFile, Encoding.ASCII);
+            Assert.False(content.Contains("body"));
+            Assert.True(content.Contains("text"));
+
+            core.Undo(files);
+            content = File.ReadAllText(testFile, Encoding.ASCII);
+            Assert.False(content.Contains("text"));
+            Assert.True(content.Contains("body"));
         }
 
         [Theory]

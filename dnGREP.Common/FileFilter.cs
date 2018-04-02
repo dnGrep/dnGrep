@@ -96,23 +96,5 @@ namespace dnGREP.Common
         public DateTime? StartTime { get; private set; }
         public DateTime? EndTime { get; private set; }
 
-        public bool AllFiles
-        {
-            get
-            {
-                bool regexIncludePattern = false;
-                if (UseEverything && !string.IsNullOrEmpty(NamePatternToExclude) ||
-                    IsRegex && !string.IsNullOrEmpty(NamePatternToInclude))
-                    regexIncludePattern = true;
-
-                return !regexIncludePattern &&
-                    string.IsNullOrWhiteSpace(NamePatternToExclude) &&
-                    IncludeHidden &&
-                    IncludeBinary &&
-                    (SizeFrom == 0 && SizeTo == 0) &&
-                    DateFilter == FileDateFilter.None;
-            }
-        }
-
     }
 }

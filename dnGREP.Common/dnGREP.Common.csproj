@@ -97,6 +97,7 @@
       <HintPath>..\packages\NLog.4.4.13\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -123,6 +124,7 @@
     <Compile Include="Enums.cs" />
     <Compile Include="FileData.cs" />
     <Compile Include="FileFilter.cs" />
+    <Compile Include="PathSearchText.cs" />
     <Compile Include="SafeDirectory.cs" />
     <Compile Include="GrepSearchResult.cs" />
     <Compile Include="EolReader.cs" />

@@ -8,6 +8,7 @@ using System.Security;
 using System.Security.Permissions;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows;
 using dnGREP.Everything;
 using NLog;
 
@@ -60,32 +61,140 @@ namespace dnGREP.Common
         }
 
         /// <summary>
-        /// Copies file based on search results. If folder does not exist, creates it.
+        /// Copies files with directory structure based on search results. If destination folder does not exist, creates it.
         /// </summary>
         /// <param name="source"></param>
         /// <param name="sourceDirectory"></param>
         /// <param name="destinationDirectory"></param>
-        /// <param name="overWrite"></param>
-        public static void CopyFiles(List<GrepSearchResult> source, string sourceDirectory, string destinationDirectory, bool overWrite)
+        /// <param name="action"></param>
+        /// <returns>number of files copied</returns>
+        public static int CopyFiles(List<GrepSearchResult> source, string sourceDirectory, string destinationDirectory, OverwriteFile action)
+        {
+            return CopyMoveFilesImpl(source, sourceDirectory, destinationDirectory, action, false);
+        }
+
+        /// <summary>
+        /// Moves files with directory structure based on search results. If destination folder does not exist, creates it.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="sourceDirectory"></param>
+        /// <param name="destinationDirectory"></param>
+        /// <param name="action"></param>
+        /// <returns>number of files copied</returns>
+        public static int MoveFiles(List<GrepSearchResult> source, string sourceDirectory, string destinationDirectory, OverwriteFile action)
+        {
+            return CopyMoveFilesImpl(source, sourceDirectory, destinationDirectory, action, true);
+        }
+
+        private static int CopyMoveFilesImpl(List<GrepSearchResult> source, string sourceDirectory, string destinationDirectory, OverwriteFile action, bool deleteAfterCopy)
         {
             sourceDirectory = FixFolderName(sourceDirectory);
             destinationDirectory = FixFolderName(destinationDirectory);
 
             if (!Directory.Exists(destinationDirectory)) Directory.CreateDirectory(destinationDirectory);
 
-            List<string> files = new List<string>();
+            int count = 0;
+            HashSet<string> files = new HashSet<string>();
 
             foreach (GrepSearchResult result in source)
             {
-                if (!files.Contains(result.FileNameReal) && result.FileNameDisplayed.Contains(sourceDirectory))
+                if (!files.Contains(result.FileNameReal) && result.FileNameReal.Contains(sourceDirectory))
                 {
                     files.Add(result.FileNameReal);
                     FileInfo sourceFileInfo = new FileInfo(result.FileNameReal);
                     FileInfo destinationFileInfo = new FileInfo(destinationDirectory + result.FileNameReal.Substring(sourceDirectory.Length));
                     if (sourceFileInfo.FullName != destinationFileInfo.FullName)
-                        CopyFile(sourceFileInfo.FullName, destinationFileInfo.FullName, overWrite);
+                    {
+                        bool overwrite = action == OverwriteFile.Yes;
+                        if (destinationFileInfo.Exists && action == OverwriteFile.Prompt)
+                        {
+                            var answer = MessageBox.Show(
+                                $"The file '{destinationFileInfo.Name}' already exists in {destinationFileInfo.DirectoryName}, overwrite existing?",
+                                "Overwrite File", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
+
+                            if (answer == MessageBoxResult.Cancel)
+                                return count;
+                            if (answer == MessageBoxResult.No)
+                                continue;
+
+                            overwrite = true;
+                        }
+
+                        CopyFile(sourceFileInfo.FullName, destinationFileInfo.FullName, overwrite);
+                        if (deleteAfterCopy)
+                            DeleteFile(sourceFileInfo.FullName);
+                        count++;
+                    }
                 }
             }
+            return count;
+        }
+
+        /// <summary>
+        /// Copies source files to destination folder without source directory structure.
+        /// If destination folder does not exist, creates it.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="destinationDirectory"></param>
+        /// <param name="action"></param>
+        /// <returns>number of files copied</returns>
+        public static int CopyFiles(List<GrepSearchResult> source, string destinationDirectory, OverwriteFile action)
+        {
+            return CopyMoveImpl(source, destinationDirectory, action, false);
+        }
+
+        /// <summary>
+        /// Moves source files to destination folder without source directory structure.
+        /// If destination folder does not exist, creates it.
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="destinationDirectory"></param>
+        /// <param name="action"></param>
+        /// <returns>number of files moved</returns>
+        public static int MoveFiles(List<GrepSearchResult> source, string destinationDirectory, OverwriteFile action)
+        {
+            return CopyMoveImpl(source, destinationDirectory, action, true);
+        }
+
+        private static int CopyMoveImpl(List<GrepSearchResult> source, string destinationDirectory, OverwriteFile action, bool deleteAfterCopy)
+        {
+            if (!Directory.Exists(destinationDirectory)) Directory.CreateDirectory(destinationDirectory);
+
+            int count = 0;
+            HashSet<string> files = new HashSet<string>();
+
+            foreach (GrepSearchResult result in source)
+            {
+                if (!files.Contains(result.FileNameReal))
+                {
+                    files.Add(result.FileNameReal);
+                    FileInfo sourceFileInfo = new FileInfo(result.FileNameReal);
+                    FileInfo destinationFileInfo = new FileInfo(Path.Combine(destinationDirectory, Path.GetFileName(result.FileNameReal)));
+                    if (sourceFileInfo.FullName != destinationFileInfo.FullName)
+                    {
+                        bool overwrite = action == OverwriteFile.Yes;
+                        if (destinationFileInfo.Exists && action == OverwriteFile.Prompt)
+                        {
+                            var answer = MessageBox.Show(
+                                $"The file '{destinationFileInfo.Name}' already exists in {destinationFileInfo.DirectoryName}, overwrite existing?",
+                                "Overwrite File", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
+
+                            if (answer == MessageBoxResult.Cancel)
+                                return count;
+                            if (answer == MessageBoxResult.No)
+                                continue;
+
+                            overwrite = true;
+                        }
+
+                        CopyFile(sourceFileInfo.FullName, destinationFileInfo.FullName, overwrite);
+                        if (deleteAfterCopy)
+                            DeleteFile(sourceFileInfo.FullName);
+                        count++;
+                    }
+                }
+            }
+            return count;
         }
 
         /// <summary>
@@ -101,7 +210,7 @@ namespace dnGREP.Common
 
             destinationDirectory = FixFolderName(destinationDirectory);
 
-            List<string> files = new List<string>();
+            HashSet<string> files = new HashSet<string>();
 
             foreach (GrepSearchResult result in source)
             {
@@ -251,18 +360,20 @@ namespace dnGREP.Common
         /// Deletes file based on search results. 
         /// </summary>
         /// <param name="source"></param>
-        public static void DeleteFiles(List<GrepSearchResult> source)
+        public static int DeleteFiles(List<GrepSearchResult> source)
         {
-            List<string> files = new List<string>();
-
+            HashSet<string> files = new HashSet<string>();
+            int count = 0;
             foreach (GrepSearchResult result in source)
             {
                 if (!files.Contains(result.FileNameReal))
                 {
                     files.Add(result.FileNameReal);
                     DeleteFile(result.FileNameReal);
+                    count++;
                 }
             }
+            return count;
         }
 
         /// <summary>
@@ -600,6 +711,9 @@ namespace dnGREP.Common
             else if (path.Trim() == "")
                 return new string[0];
 
+            // remove quotes
+            path = path.Replace("\"", string.Empty);
+
             List<string> output = new List<string>();
             string[] paths = path.Split(';', ',');
             int splitterIndex = -1;
@@ -634,16 +748,6 @@ namespace dnGREP.Common
                 }
             }
             return output.ToArray();
-        }
-
-        public static bool EverythingSearchHasPath(string searchText)
-        {
-            return EverythingSearch.HasPath(searchText);
-        }
-
-        public static string EverythingSearchBaseFoleder(string searchText)
-        {
-            return EverythingSearch.GetBaseFolder(searchText);
         }
 
         public static bool CancelSearch = false;
@@ -794,14 +898,7 @@ namespace dnGREP.Common
 
                     foreach (var filePath in SafeDirectory.EnumerateFiles(dirPath, includeSearchPatterns))
                     {
-                        if (!filter.IncludeArchive && IsArchive(filePath))
-                            continue;
-
-                        if (filter.AllFiles)
-                        {
-                            yield return filePath;
-                        }
-                        else if (IncludeFile(filePath, filter, null, hasSearchPattern, includeSearchPatterns,
+                        if (IncludeFile(filePath, filter, null, hasSearchPattern, includeSearchPatterns,
                             includeRegexPatterns, excludeRegexPatterns) && !matches.Contains(filePath))
                         {
                             matches.Add(filePath);
@@ -818,14 +915,7 @@ namespace dnGREP.Common
             {
                 FileData fileData = new FileData(fileInfo);
 
-                if (!filter.IncludeArchive && IsArchive(fileData.FullName))
-                    continue;
-
-                if (filter.AllFiles)
-                {
-                    yield return fileInfo.FullName;
-                }
-                else if (IncludeFile(fileInfo.FullName, filter, fileData, true, new List<string>(), 
+                if (IncludeFile(fileInfo.FullName, filter, fileData, true, new List<string>(), 
                     includeRegexPatterns, excludeRegexPatterns))
                 {
                     yield return fileInfo.FullName;
@@ -851,6 +941,9 @@ namespace dnGREP.Common
                     if (fileInfo.Attributes.HasFlag(FileAttributes.Hidden))
                         return false;
                 }
+
+                if (!filter.IncludeArchive && IsArchive(filePath))
+                    return false;
 
                 if (!filter.IncludeBinary && !IsArchive(filePath))
                 {

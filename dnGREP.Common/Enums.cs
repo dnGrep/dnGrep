@@ -62,4 +62,12 @@ namespace dnGREP.Common
         Dates,
         Hours
     }
+
+    public enum OverwriteFile
+    {
+        Yes,
+        No,
+        Prompt
+    }
+
 }
