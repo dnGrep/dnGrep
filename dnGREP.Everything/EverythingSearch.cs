@@ -55,6 +55,11 @@ namespace dnGREP.Everything
             }
         }
 
+        public static void Initialize()
+        {
+            NativeMethods.Everything_RebuildDB();
+        }
+
         public static bool IsDbLoaded
         {
             get
@@ -65,6 +70,9 @@ namespace dnGREP.Everything
 
         public static IEnumerable<EverythingFileInfo> FindFiles(string searchString)
         {
+            if (!IsDbLoaded)
+                yield break;
+
             NativeMethods.Everything_SetSort((UInt32)SortType.NameAscending);
 
             NativeMethods.Everything_SetSearchW(searchString);
@@ -113,12 +121,11 @@ namespace dnGREP.Everything
             try
             {
                 string path = searchText.Trim();
-                foreach (string prefix in EverythingKeywords.PathPrefixes)
-                {
-                    if (path.StartsWith(prefix))
-                        path = path.Remove(0, prefix.Length);
-                }
-                path = path.Trim();
+
+                if (Directory.Exists(path))
+                    return path;
+
+                path = RemovePrefixes(path);
 
                 int pos = -1;
                 if (path.StartsWith("\""))
@@ -126,6 +133,8 @@ namespace dnGREP.Everything
                     pos = path.IndexOf('"', 1);
                     if (pos > -1)
                         path = path.Substring(1, pos - 1).Trim();
+
+                    path = RemovePrefixes(path);
                 }
                 else
                 {
@@ -134,8 +143,21 @@ namespace dnGREP.Everything
                         path = path.Substring(0, pos).Trim();
                 }
 
-                if (!string.IsNullOrWhiteSpace(path) && Directory.Exists(path) && Path.IsPathRooted(path))
-                    return path;
+                // Check for paths OR'd together
+                pos = path.IndexOf('|');
+                if (pos > -1)
+                {
+                    path = path.Substring(0, pos);
+                }
+
+                if (!string.IsNullOrWhiteSpace(path))
+                {
+                    if (Directory.Exists(path) && Path.IsPathRooted(path))
+                        return path;
+
+                    if (File.Exists(path))
+                        return Path.GetDirectoryName(path);
+                }
             }
             catch (Exception ex)
             {
@@ -143,6 +165,51 @@ namespace dnGREP.Everything
             }
 
             return string.Empty;
+        }
+
+        public static string GetFilePattern(string searchText)
+        {
+            if (string.IsNullOrWhiteSpace(searchText))
+                return string.Empty;
+
+            try
+            {
+                string path = searchText.Trim();
+                string filePattern = string.Empty;
+
+                if (Directory.Exists(path))
+                    return string.Empty;
+
+                int pos = path.LastIndexOf('"');
+                if (pos > -1)
+                {
+                    filePattern = path.Substring(pos + 1).Trim();
+                }
+                else
+                {
+                    pos = path.IndexOf(' ');
+                    if (pos > -1)
+                        filePattern = path.Substring(pos + 1).Trim();
+                }
+
+                return filePattern;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Error in EverythingSearch GetFilePattern");
+            }
+
+            return string.Empty;
+        }
+
+        private static string RemovePrefixes(string text)
+        {
+            foreach (string prefix in EverythingKeywords.PathPrefixes)
+            {
+                if (text.StartsWith(prefix))
+                    text = text.Remove(0, prefix.Length);
+            }
+            return text.Trim();
         }
     }
 }

@@ -290,6 +290,26 @@ namespace dnGREP.Everything
         [DllImport(EverythingDLL)]
         internal static extern uint Everything_GetBuildNumber();
 
+        /// <summary>
+        /// Requests Everything to rescan all folder indexes.
+        /// </summary>
+        /// <returns>
+        /// The function returns non-zero if the request to rescan all folder indexes was successful.
+        /// The function returns 0 if an error occurred.To get extended error information, call Everything_GetLastError
+        /// </returns>
+        [DllImport(EverythingDLL)]
+        internal static extern bool Everything_UpdateAllFolderIndexes();
+
+        /// <summary>
+        /// Requests Everything to forcefully rebuild the Everything index.
+        /// </summary>
+        /// <remarks>
+        /// Requesting a rebuild will mark all indexes as dirty and start the rebuild process.
+        /// Use Everything_IsDBLoaded to determine if the database has been rebuilt before performing a query.
+        /// </remarks>
+        /// <returns></returns>
+        [DllImport(EverythingDLL)]
+        internal static extern bool Everything_RebuildDB();
 
 
         // not used at this time:
@@ -392,10 +412,6 @@ namespace dnGREP.Everything
         private static extern bool Everything_IsAdmin();
         [DllImport(EverythingDLL)]
         private static extern bool Everything_IsAppData();
-        [DllImport(EverythingDLL)]
-        private static extern bool Everything_RebuildDB();
-        [DllImport(EverythingDLL)]
-        private static extern bool Everything_UpdateAllFolderIndexes();
         [DllImport(EverythingDLL)]
         private static extern bool Everything_SaveDB();
         [DllImport(EverythingDLL)]

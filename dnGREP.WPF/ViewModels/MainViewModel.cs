@@ -942,6 +942,8 @@ namespace dnGREP.WPF
 
         private void Browse()
         {
+            string filePattern = PathSearchText.FilePattern;
+
             fileFolderDialog.Dialog.Multiselect = true;
             fileFolderDialog.SelectedPath = PathSearchText.BaseFolder;
             if (string.IsNullOrWhiteSpace(PathSearchText.BaseFolder))
@@ -959,10 +961,33 @@ namespace dnGREP.WPF
             }
             if (fileFolderDialog.ShowDialog() == true)
             {
+                string newPath = string.Empty;
                 if (fileFolderDialog.SelectedPaths != null)
-                    FileOrFolderPath = fileFolderDialog.SelectedPaths;
+                {
+                    if (TypeOfFileSearch == FileSearchType.Everything)
+                    {
+                        string[] paths = fileFolderDialog.SelectedPaths.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                        newPath = string.Join("|", paths.Select(p => Utils.Quote(p)).ToArray());
+                    }
+                    else
+                    {
+                        newPath = fileFolderDialog.SelectedPaths;
+                    }
+                }
                 else
-                    FileOrFolderPath = fileFolderDialog.SelectedPath;
+                {
+                    newPath = fileFolderDialog.SelectedPath;
+                }
+
+                if (!string.IsNullOrWhiteSpace(filePattern))
+                {
+                    if (newPath.Contains(" ") && !newPath.StartsWith("\""))
+                        newPath = Utils.Quote(newPath);
+
+                    newPath += " " + filePattern;
+                }
+
+                FileOrFolderPath = newPath;
             }
         }
 

@@ -154,6 +154,7 @@
     <Compile Include="DesignTimeData\DesignTimeData.cs" />
     <Compile Include="MVHelpers\BoolToVisibilityConverter.cs" />
     <Compile Include="MVHelpers\FocusExtension.cs" />
+    <Compile Include="MVHelpers\GridLengthConverter.cs" />
     <Compile Include="MVHelpers\LazyResultsList.cs" />
     <Compile Include="MVHelpers\TotalValueConverter.cs" />
     <Compile Include="MVHelpers\UIServices.cs" />

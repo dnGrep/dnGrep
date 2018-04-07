@@ -56,6 +56,21 @@ namespace dnGREP.Common
         }
 
         /// <summary>
+        /// Gets the search text part of the string, following the base folder
+        /// </summary>
+        public string FilePattern
+        {
+            get
+            {
+                if (TypeOfFileSearch == FileSearchType.Everything)
+                {
+                    return EverythingSearch.GetFilePattern(CleanPath);
+                }
+                return string.Empty;
+            }
+        }
+
+        /// <summary>
         /// Gets a flag indicating the BaseFolder is valid
         /// </summary>
         public bool IsValidBaseFolder

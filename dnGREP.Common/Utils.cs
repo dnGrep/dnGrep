@@ -286,7 +286,7 @@ namespace dnGREP.Common
             {
                 if (result.SearchResults == null)
                 {
-                    sb.AppendLine("\"" + result.FileNameDisplayed + "\"");
+                    sb.AppendLine(Quote(result.FileNameDisplayed));
                 }
                 else
                 {
@@ -911,16 +911,28 @@ namespace dnGREP.Common
 
         private static IEnumerable<string> GetFileListEverything(FileFilter filter, IList<Regex> includeRegexPatterns, IList<Regex> excludeRegexPatterns)
         {
-            foreach(var fileInfo in EverythingSearch.FindFiles(filter.Path))
+            string searchString = filter.Path.Trim();
+            if (filter.IncludeArchive)
+            {
+                // to search in archives, ask Everything to return all archive files
+                searchString += "|*." + string.Join("|*.", ArchiveExtensions.ToArray());
+            }
+
+            foreach (var fileInfo in EverythingSearch.FindFiles(searchString))
             {
                 FileData fileData = new FileData(fileInfo);
 
-                if (IncludeFile(fileInfo.FullName, filter, fileData, true, new List<string>(), 
+                if (IncludeFile(fileInfo.FullName, filter, fileData, true, new List<string>(),
                     includeRegexPatterns, excludeRegexPatterns))
                 {
                     yield return fileInfo.FullName;
                 }
             }
+        }
+
+        public static string Quote(string text)
+        {
+            return "\"" + text + "\"";
         }
 
         /// <summary>
@@ -1285,7 +1297,7 @@ namespace dnGREP.Common
                 };
                 if (args.CustomEditorArgs == null)
                     args.CustomEditorArgs = "";
-                info.Arguments = args.CustomEditorArgs.Replace("%file", "\"" + args.SearchResult.FileNameDisplayed + "\"")
+                info.Arguments = args.CustomEditorArgs.Replace("%file", Quote(args.SearchResult.FileNameDisplayed))
                     .Replace("%line", args.LineNumber.ToString())
                     .Replace("%pattern", args.Pattern);
                 System.Diagnostics.Process.Start(info);

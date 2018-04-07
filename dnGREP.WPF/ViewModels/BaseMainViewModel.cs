@@ -318,6 +318,51 @@ namespace dnGREP.WPF
         }
 
 
+        private bool isEverythingSearchMode;
+        public bool IsEverythingSearchMode
+        {
+            get { return isEverythingSearchMode; }
+            set
+            {
+                if (value == isEverythingSearchMode)
+                    return;
+
+                isEverythingSearchMode = value;
+
+                base.OnPropertyChanged(() => IsEverythingSearchMode);
+            }
+        }
+
+        private string patternColumnWidth = "*";
+        public string PatternColumnWidth
+        {
+            get { return patternColumnWidth; }
+            set
+            {
+                if (value == patternColumnWidth)
+                    return;
+
+                patternColumnWidth = value;
+
+                base.OnPropertyChanged(() => PatternColumnWidth);
+            }
+        }
+
+        private string searchTextBoxLabel = "Folder:";
+        public string SearchTextBoxLabel
+        {
+            get { return searchTextBoxLabel; }
+            set
+            {
+                if (value == searchTextBoxLabel)
+                    return;
+
+                searchTextBoxLabel = value;
+
+                base.OnPropertyChanged(() => SearchTextBoxLabel);
+            }
+        }
+
         private FileSizeFilter useFileSizeFilter = FileSizeFilter.None;
         public FileSizeFilter UseFileSizeFilter
         {
@@ -1061,6 +1106,23 @@ namespace dnGREP.WPF
                 case "TypeOfTimeRangeFilter":
                     IsDatesRangeSet = IsDateFilterSet && TypeOfTimeRangeFilter == FileTimeRange.Dates;
                     IsHoursRangeSet = IsDateFilterSet && TypeOfTimeRangeFilter == FileTimeRange.Hours;
+                    break;
+
+                case "TypeOfFileSearch":
+                    if (TypeOfFileSearch == FileSearchType.Everything)
+                    {
+                        FilePattern = string.Empty;
+                        FilePatternIgnore = string.Empty;
+                        IsEverythingSearchMode = true;
+                        PatternColumnWidth = "Auto";
+                        SearchTextBoxLabel = "Everything search:";
+                    }
+                    else
+                    {
+                        IsEverythingSearchMode = false;
+                        PatternColumnWidth = "*";
+                        SearchTextBoxLabel = "Folder:";
+                    }
                     break;
             }
 

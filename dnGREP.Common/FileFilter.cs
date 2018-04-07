@@ -1,4 +1,5 @@
 ﻿using System;
+using dnGREP.Everything;
 
 namespace dnGREP.Common
 {
@@ -69,6 +70,48 @@ namespace dnGREP.Common
                 NamePatternToExclude,
                 IsRegex,
                 UseEverything,
+                IncludeSubfolders,
+                IncludeHidden,
+                IncludeBinary,
+                IncludeArchive,
+                SizeFrom,
+                SizeTo,
+                DateFilter,
+                StartTime,
+                EndTime
+                );
+        }
+
+        public FileFilter ToStandardFilter()
+        {
+            if (!UseEverything)
+                return Clone();
+
+            string folder = EverythingSearch.GetBaseFolder(Path);
+
+            bool isRegex = false;
+            string include = Path.Substring(folder.Length, Path.Length - folder.Length).Trim();
+            if (include.StartsWith("regex:"))
+            {
+                isRegex = true;
+                include = include.Substring("regex:".Length);
+            }
+
+            if (include.Contains("|"))
+            {
+                include = include.Replace('|', ',');
+            }
+
+            // #TODO maybe someday: there are dozens more conversions possible: 
+            // See http://www.voidtools.com/support/everything/searching/
+            // and dnGREP.Everything.EverythingKeywords
+
+            return new FileFilter(
+                folder,
+                include,
+                string.Empty,
+                isRegex,
+                false,
                 IncludeSubfolders,
                 IncludeHidden,
                 IncludeBinary,
