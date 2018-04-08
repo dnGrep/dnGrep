@@ -818,21 +818,18 @@ namespace dnGREP.WPF
                 string fileName = progress.FileName;
                 if (!string.IsNullOrWhiteSpace(fileName))
                 {
-                    lock (lockObjTwo)
+                    if (progress.BeginSearch)
                     {
-                        if (progress.BeginSearch)
-                        {
-                            if (!currentSearchFiles.Contains(fileName))
-                                currentSearchFiles.Add(fileName);
-                        }
-                        else
-                        {
-                            if (currentSearchFiles.Contains(fileName))
-                                currentSearchFiles.Remove(fileName);
+                        if (!currentSearchFiles.Contains(fileName))
+                            currentSearchFiles.Add(fileName);
+                    }
+                    else
+                    {
+                        if (currentSearchFiles.Contains(fileName))
+                            currentSearchFiles.Remove(fileName);
 
-                            if (currentSearchFiles.Count > 0)
-                                fileName = currentSearchFiles.FirstOrDefault();
-                        }
+                        if (currentSearchFiles.Count > 0)
+                            fileName = currentSearchFiles.FirstOrDefault();
                     }
                 }
 
