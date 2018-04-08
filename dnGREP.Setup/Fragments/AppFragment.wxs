@@ -7,7 +7,7 @@
   <?if $(var.Platform) = x64 ?>
     <?define App.PlatformShort="64" ?>
   <?else?>
-    <?define App.PlatformShort="86" ?>
+    <?define App.PlatformShort="32" ?>
   <?endif ?>
   
   <Fragment>
