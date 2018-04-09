@@ -1388,6 +1388,8 @@ namespace dnGREP.WPF
             settings.SetNullableDateTime(GrepSettings.Key.EndDate, EndDate);
             settings.Set<int>(GrepSettings.Key.HoursFrom, HoursFrom);
             settings.Set<int>(GrepSettings.Key.HoursTo, HoursTo);
+
+            settings.Save();
         }
 
         #endregion
@@ -1403,6 +1405,12 @@ namespace dnGREP.WPF
         {
             Utils.CancelSearch = true;
             SaveSettings();
+            CloseChildWindows();
+        }
+
+        protected virtual void CloseChildWindows()
+        {
+            // do nothing in base class
         }
 
         #endregion

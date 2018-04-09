@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         Title="{Binding WindowTitle}" MinWidth="500" MinHeight="485" WindowState="Normal"
         Icon="/dnGREP;component/nGREP.ico" 
-        Closing="MainForm_Closing" Loaded="Window_Loaded" Activated="Window_Activated" StateChanged="Window_StateChanged"
+        Closing="MainForm_Closing" Loaded="Window_Loaded" StateChanged="Window_StateChanged"
         SnapsToDevicePixels="True" ResizeMode="CanResizeWithGrip" AllowDrop="False"
         my:DiginesisHelpProvider.HelpKeyword="Search-Window" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True" 
         WindowStartupLocation="Manual" FocusManager.FocusedElement="{Binding ElementName=tbSearchFor}" d:DesignWidth="795">

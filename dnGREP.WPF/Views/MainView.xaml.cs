@@ -84,7 +84,8 @@ namespace dnGREP.WPF
             var textBox = (tbSearchFor.Template.FindName("PART_EditableTextBox", tbSearchFor) as TextBox);
             if (textBox != null && !tbSearchFor.IsDropDownOpen)
             {
-                Application.Current.Dispatcher.BeginInvoke(new Action(() => {
+                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                {
                     textBox.SelectAll();
                     textBox.Focus();
                 }));
@@ -160,11 +161,6 @@ namespace dnGREP.WPF
             {
                 e.CancelCommand();
             }
-        }
-
-        private void Window_Activated(object sender, EventArgs e)
-        {
-            inputData.ActivatePreviewWindow();
         }
 
         private void Window_StateChanged(object sender, EventArgs e)

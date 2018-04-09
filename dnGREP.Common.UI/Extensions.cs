@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Interop;
 
 namespace dnGREP.Common.UI
 {
@@ -46,6 +49,28 @@ namespace dnGREP.Common.UI
             var loc = window.PointToScreen(new System.Windows.Point(0, 0));
 
             return new RectangleF((float)loc.X, (float)loc.Y, (float)window.ActualWidth, (float)window.ActualHeight);
+        }
+
+        public static void BringToFront(this Window window)
+        {
+            IntPtr hWnd = new WindowInteropHelper(window).Handle;
+            NativeMethods.BringToFront(hWnd);
+        }
+
+        internal class NativeMethods
+        {
+            const int SWP_NOMOVE = 0x0002;
+            const int SWP_NOSIZE = 0x0001;
+            const int SWP_SHOWWINDOW = 0x0040;
+            const int SWP_NOACTIVATE = 0x0010;
+
+            [DllImport("user32.dll", EntryPoint = "SetWindowPos")]
+            public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int Y, int cx, int cy, int wFlags);
+
+            public static void BringToFront(IntPtr hWnd)
+            {
+                SetWindowPos(hWnd, IntPtr.Zero, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW | SWP_NOACTIVATE);
+            }
         }
     }
 }
