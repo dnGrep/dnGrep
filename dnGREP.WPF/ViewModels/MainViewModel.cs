@@ -466,21 +466,23 @@ namespace dnGREP.WPF
             }
         }
 
-        public override void LoadSettings()
-        {
-            base.LoadSettings();
-        }
-
         public override void SaveSettings()
         {
             CopyBookmarksToSettings();
-            base.SaveSettings();
-            settings.Save();
             if (preview != null)
             {
-                settings.Set<System.Drawing.Rectangle>(GrepSettings.Key.PreviewWindowSize, preview.GetBounds());
+                settings.Set<Rectangle>(GrepSettings.Key.PreviewWindowSize, preview.GetBounds());
+                preview.SaveSettings();
+            }
+
+            base.SaveSettings();
+        }
+
+        protected override void CloseChildWindows()
+        {
+            if (preview != null)
+            {
                 preview.ForceClose();
-                preview = null;
             }
         }
 
@@ -552,25 +554,19 @@ namespace dnGREP.WPF
         {
             if (PreviewFileContent)
             {
-                PreviewFile(formattedGrepResult.GrepResult.FileNameReal, formattedGrepResult.GrepResult, 0, parentWindow);
+                int lineNumber = 0;
+                if (formattedGrepResult.GrepResult != null && formattedGrepResult.GrepResult.Matches.Count > 0)
+                    lineNumber = formattedGrepResult.GrepResult.Matches[0].LineNumber;
+
+                PreviewFile(formattedGrepResult.GrepResult.FileNameReal, formattedGrepResult.GrepResult, lineNumber, parentWindow);
             }
         }
 
-        public void ActivatePreviewWindow()
+        public void ChangePreviewWindowState(WindowState state)
         {
             if (preview != null && preview.IsVisible)
             {
-                preview.Topmost = true;  // important
-                preview.Topmost = false; // important
-                preview.Focus();         // important
-            }
-        }
-
-        public void ChangePreviewWindowState(System.Windows.WindowState state)
-        {
-            if (preview != null && preview.IsVisible)
-            {
-                if (state != System.Windows.WindowState.Maximized)
+                if (state != WindowState.Maximized)
                     preview.WindowState = state;
             }
         }
@@ -1713,7 +1709,11 @@ namespace dnGREP.WPF
                 previewModel.LineNumber = line;
                 previewModel.Encoding = result.Encoding;
                 previewModel.FilePath = filePath;
+
+                if (preview.WindowState == WindowState.Minimized)
+                    preview.WindowState = WindowState.Normal;
                 preview.Show();
+                preview.BringToFront();
             }
         }
         #endregion
