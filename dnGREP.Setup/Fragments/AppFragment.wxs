@@ -4,6 +4,12 @@
   <!-- Adding variable -->
   <?include ..\Variables.wxi ?>
 
+  <?if $(var.Platform) = x64 ?>
+    <?define App.PlatformShort="64" ?>
+  <?else?>
+    <?define App.PlatformShort="32" ?>
+  <?endif ?>
+  
   <Fragment>
     <DirectoryRef Id="INSTALLDIR">
       <Component Id="cmp4F755EB8AEA654DE0F6FB783BD274E79" Guid="{293480D3-64A1-4D5D-A953-4C3F6694BC52}">
@@ -49,6 +55,16 @@
           <netfx:NativeImage Id="ngen_NLog.XmlLayout.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
         </File>
       </Component>
+      <Component Id="cmp7DD353A5178A4A3EAE13CB71CD8CEAE2" Guid="{0384FEB4-AF1A-414A-BAA6-4A5CB2BBF9C7}">
+        <File Id="fil6325F98DBB79430AB5675F6F8473FECC" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\dnGREP.Everything.dll" >
+          <netfx:NativeImage Id="ngen_dnGREP.Everything.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
+        </File>
+      </Component>
+      <Component Id="cmp2026EEE4D24E41B4BF43B79B16CE7A4E" Guid="{392076A3-06CF-4212-941B-DD82FB72075D}">
+        <File Id="filA5A20558D688414DA4A216589F40877A" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\Everything$(var.App.PlatformShort).dll" >
+          <netfx:NativeImage Id="ngen_Everything$(var.App.PlatformShort).dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
+        </File>
+      </Component>
     </DirectoryRef>
   </Fragment>
   <Fragment>
@@ -62,6 +78,8 @@
       <ComponentRef Id="cmp0459596434A34BA899AD1B009417DEEB" />
       <ComponentRef Id="cmp770B497917674F316826C902746C0409" />
       <ComponentRef Id="cmp63940A2343725017B4AC8FB8CA506996" />
+      <ComponentRef Id="cmp7DD353A5178A4A3EAE13CB71CD8CEAE2" />
+      <ComponentRef Id="cmp2026EEE4D24E41B4BF43B79B16CE7A4E" />
     </ComponentGroup>
   </Fragment>
 </Wix>

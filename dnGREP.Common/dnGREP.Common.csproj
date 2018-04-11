@@ -18,6 +18,8 @@
     <UpgradeBackupLocation />
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup>
     <SignAssembly>true</SignAssembly>
@@ -95,6 +97,7 @@
       <HintPath>..\packages\NLog.4.4.13\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -119,7 +122,9 @@
     </Compile>
     <Compile Include="BookmarkLibrary.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="FileData.cs" />
     <Compile Include="FileFilter.cs" />
+    <Compile Include="PathSearchText.cs" />
     <Compile Include="SafeDirectory.cs" />
     <Compile Include="GrepSearchResult.cs" />
     <Compile Include="EolReader.cs" />
@@ -182,6 +187,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\line-icon.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\dnGREP.Everything\dnGREP.Everything.csproj">
+      <Project>{39c7bce4-7837-401e-8afa-2bcfe70c63f7}</Project>
+      <Name>dnGREP.Everything</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

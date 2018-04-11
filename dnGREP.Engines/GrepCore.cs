@@ -50,18 +50,21 @@ namespace dnGREP.Common
 
             if (searchPattern == null || searchPattern.Trim() == "")
             {
+                int count = 0;
                 foreach (string file in files)
                 {
-                    ProcessedFile(this, new ProgressStatus(true, searchResults.Count, files.Count(), null, file));
+                    count++;
+                    ProcessedFile(this, new ProgressStatus(true, searchResults.Count, count, null, file));
 
                     searchResults.Add(new GrepSearchResult(file, searchPattern, null, Encoding.Default));
+
                     if ((searchOptions & GrepSearchOption.StopAfterFirstMatch) == GrepSearchOption.StopAfterFirstMatch)
                         break;
                     if (Utils.CancelSearch)
                         break;
                 }
 
-                ProcessedFile(this, new ProgressStatus(false, searchResults.Count, files.Count(), searchResults, null));
+                ProcessedFile(this, new ProgressStatus(false, searchResults.Count, count, searchResults, null));
 
                 return new List<GrepSearchResult>(searchResults);
             }
@@ -87,7 +90,7 @@ namespace dnGREP.Common
                         {
                             Search(file, searchType, searchPattern, searchOptions, codePage);
 
-                            if ((searchOptions & GrepSearchOption.StopAfterFirstMatch) == GrepSearchOption.StopAfterFirstMatch && searchResults.Count > 0)
+                            if (searchOptions.HasFlag(GrepSearchOption.StopAfterFirstMatch) && searchResults.Count > 0)
                                 break;
                         }
                     }
@@ -190,11 +193,11 @@ namespace dnGREP.Common
             }
         }
 
-        public int Replace(IEnumerable<string> files, SearchType searchType, string searchPattern, string replacePattern, GrepSearchOption searchOptions, int codePage)
+        public int Replace(Dictionary<string, string> files, SearchType searchType, string searchPattern, string replacePattern, GrepSearchOption searchOptions, int codePage)
         {
             string tempFolder = Utils.GetTempFolder();
 
-            if (files == null || !Directory.Exists(tempFolder))
+            if (files == null || files.Count == 0 || !Directory.Exists(tempFolder))
                 return 0;
 
             replacePattern = Utils.ReplaceSpecialCharacters(replacePattern);
@@ -205,11 +208,13 @@ namespace dnGREP.Common
 
             try
             {
-                foreach (string file in files)
+                foreach (string file in files.Keys)
                 {
                     ProcessedFile(this, new ProgressStatus(true, processedFiles, processedFiles, null, file));
 
-                    tempFileName = Path.Combine(tempFolder, Path.GetFileName(file));
+                    // the value in the files dictionary is the temp file name assigned by
+                    // the caller for any possible Undo operation
+                    tempFileName = Path.Combine(tempFolder, files[file]);
                     IGrepEngine engine = GrepEngineFactory.GetReplaceEngine(file, SearchParams, FileFilter);
 
                     try
@@ -269,18 +274,6 @@ namespace dnGREP.Common
                         }
                         return -1;
                     }
-                    finally
-                    {
-                        try
-                        {
-                            if (!string.IsNullOrWhiteSpace(tempFileName))
-                                Utils.DeleteFile(tempFileName);
-                        }
-                        catch
-                        {
-                            // DO NOTHING
-                        }
-                    }
                 }
             }
             finally
@@ -291,7 +284,7 @@ namespace dnGREP.Common
             return processedFiles;
         }
 
-        public bool Undo(string folderPath)
+        public bool Undo(Dictionary<string, string> undoMap)
         {
             string tempFolder = Utils.GetTempFolder();
             if (!Directory.Exists(tempFolder))
@@ -301,7 +294,12 @@ namespace dnGREP.Common
             }
             try
             {
-                Utils.CopyFiles(tempFolder, folderPath, null, null);
+                foreach(string filePath in undoMap.Keys)
+                {
+                    string sourceFile = Path.Combine(tempFolder, undoMap[filePath]);
+                    if (File.Exists(sourceFile))
+                        Utils.CopyFile(sourceFile, filePath, true);
+                }
                 return true;
             }
             catch (Exception ex)

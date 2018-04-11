@@ -92,6 +92,14 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
+    <ProjectReference Include="..\dnGREP.Everything\dnGREP.Everything.csproj">
+      <Name>dnGREP.Everything</Name>
+      <Project>{39c7bce4-7837-401e-8afa-2bcfe70c63f7}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
     <ProjectReference Include="..\dnGREP.OpenXmlEngine\dnGREP.OpenXmlEngine.csproj">
       <Name>dnGREP.OpenXmlEngine</Name>
       <Project>{8312cae2-b208-4186-b711-815593febb94}</Project>

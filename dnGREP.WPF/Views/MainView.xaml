@@ -19,6 +19,7 @@
         <my:EnumBooleanConverter x:Key="ebc" />
         <my:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed"/>
         <my:BoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" TrueValue="Collapsed" FalseValue="Visible" />
+        <my:GridLengthConverter x:Key="GridLengthConverter" />
     </Window.Resources>
     <Window.Background>
         <StaticResource ResourceKey="GradientBackground"/>
@@ -71,9 +72,9 @@
                         <ColumnDefinition Width="2*"/>
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="{Binding PatternColumnWidth, Converter={StaticResource GridLengthConverter}}"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Folder:" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,8"/>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding SearchTextBoxLabel, FallbackValue='Folder:'}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="3,8"/>
                     <ComboBox x:Name="SearchText" Grid.Row="0" Grid.Column="1" Margin="3,4" TabIndex="10"
                               Text="{Binding FileOrFolderPath}" ItemsSource="{Binding FastPathBookmarks}" IsEditable="True" Height="24" />
                     <Button Grid.Row="0" Grid.Column="2" Command="{Binding BrowseCommand}" Width="32" Margin="3,4" 
@@ -193,9 +194,9 @@
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto"/>
-                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto"/>
                                     </Grid.ColumnDefinitions>
-                                    <StackPanel  Grid.Row="0" Grid.Column="1" Margin="3,0" HorizontalAlignment="Right">
+                                    <StackPanel  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="3,0" HorizontalAlignment="Right">
                                         <StackPanel Orientation="Horizontal">
                                             <RadioButton GroupName="FileSearchType" Margin="3,0,3,3" Name="rbFileRegex" TabIndex="40" Content="Regex"
                                                          IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}" 
@@ -203,6 +204,10 @@
                                             <RadioButton GroupName="FileSearchType" Margin="3,0,3,3" Name="rbFileAsterisk" TabIndex="41" Content="Asterisk pattern"
                                                          IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Asterisk}" 
                                                          ToolTip="e.g. file??.*" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                                            <RadioButton GroupName="FileSearchType" Margin="3,0,3,3" Name="rbFileEverything" TabIndex="41" Content="Everything"
+                                                         IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Everything}" 
+                                                         ToolTip="Everything Index Service" VerticalAlignment="Center" VerticalContentAlignment="Center"
+                                                         Visibility="{Binding Path=IsEverythingAvailable, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                         </StackPanel>
                                     </StackPanel>
                                     <CheckBox Grid.Row="1" IsChecked="{Binding SearchParallel}" Margin="3,0,24,3" Content="Search Paralle_l" TabIndex="42" ToolTip="Search files in multiple threads" />
@@ -231,28 +236,32 @@
                     </Expander>
                     <!-- must be *after* the Expander so they are higher in the z-order -->
                     <TextBlock Grid.Row="0" Grid.Column="3" Text="Paths to match:" Foreground="Black" Margin="3,8"
-                                   TextWrapping="NoWrap" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                               TextWrapping="NoWrap" VerticalAlignment="Center" HorizontalAlignment="Left"
+                               Visibility="{Binding IsEverythingSearchMode, Converter={StaticResource InverseBoolToVisibilityConverter}}"/>
                     <ComboBox Grid.Row="0" Grid.Column="4" Name="tbFilePattern" TabIndex="12" Margin="3,4"
-                                  Text="{Binding Path=FilePattern, UpdateSourceTrigger=PropertyChanged}" 
-                                  ItemsSource="{Binding Path=FastFileMatchBookmarks}" 
-                                  GotFocus="TextBoxFocus" IsEditable="True"
-                                  my:DiginesisHelpProvider.HelpKeyword="SearchReplace" 
-                                  my:DiginesisHelpProvider.HelpNavigator="Topic" 
-                                  my:DiginesisHelpProvider.ShowHelp="True" Height="24" />
+                              Text="{Binding Path=FilePattern, UpdateSourceTrigger=PropertyChanged}" 
+                              ItemsSource="{Binding Path=FastFileMatchBookmarks}" 
+                              GotFocus="TextBoxFocus" IsEditable="True"
+                              my:DiginesisHelpProvider.HelpKeyword="SearchReplace" 
+                              my:DiginesisHelpProvider.HelpNavigator="Topic" 
+                              my:DiginesisHelpProvider.ShowHelp="True" Height="24"
+                              Visibility="{Binding IsEverythingSearchMode, Converter={StaticResource InverseBoolToVisibilityConverter}}"/>
                     <CheckBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="3,8,8,3"
                               IsChecked="{Binding Path=IncludeArchive}" Name="cbIncludeArchives" TabIndex="13" 
                               Content="Search in ar_chives" VerticalAlignment="Top" HorizontalAlignment="Right"
                               Visibility="{Binding CanSearchArchives, Converter={StaticResource BoolToVisibilityConverter}}"/>
                     <TextBlock Grid.Row="1" Grid.Column="3"  Text="Paths to ignore:" Margin="3,8,3,0"
                                Style="{StaticResource GrayedOutFilePattern}"  Name="pathsToIgnoreLabel"
-                               TextWrapping="NoWrap" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                               TextWrapping="NoWrap" VerticalAlignment="Top" HorizontalAlignment="Left"
+                               Visibility="{Binding IsEverythingSearchMode, Converter={StaticResource InverseBoolToVisibilityConverter}}"/>
                     <ComboBox Grid.Row="1" Grid.Column="4" Margin="3,4,3,0" Name="tbFilePatternIgnore" TabIndex="14"
-                                  Text="{Binding Path=FilePatternIgnore, UpdateSourceTrigger=PropertyChanged}" 
-                                  ItemsSource="{Binding Path=FastFileNotMatchBookmarks}" 
-                                  GotFocus="TextBoxFocus" IsEditable="True" 
-                                  my:DiginesisHelpProvider.HelpKeyword="SearchReplace" 
-                                  my:DiginesisHelpProvider.HelpNavigator="Topic" 
-                                  my:DiginesisHelpProvider.ShowHelp="True" Height="24" VerticalAlignment="Top"/>
+                              Text="{Binding Path=FilePatternIgnore, UpdateSourceTrigger=PropertyChanged}" 
+                              ItemsSource="{Binding Path=FastFileNotMatchBookmarks}" 
+                              GotFocus="TextBoxFocus" IsEditable="True" 
+                              my:DiginesisHelpProvider.HelpKeyword="SearchReplace" 
+                              my:DiginesisHelpProvider.HelpNavigator="Topic" 
+                              my:DiginesisHelpProvider.ShowHelp="True" Height="24" VerticalAlignment="Top"
+                              Visibility="{Binding IsEverythingSearchMode, Converter={StaticResource InverseBoolToVisibilityConverter}}"/>
                 </Grid>
             </GroupBox>
             <GroupBox Header="Search" DockPanel.Dock="Top">
