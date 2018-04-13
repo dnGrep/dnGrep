@@ -102,11 +102,15 @@ namespace dnGREP.WPF
             this.inputData.FilePath = null;
         }
 
+        internal void SaveSettings()
+        {
+            GrepSettings.Instance.Set<bool?>(GrepSettings.Key.PreviewWindowWrap, cbWrapText.IsChecked);
+            GrepSettings.Instance.Set<int>(GrepSettings.Key.PreviewWindowFont, (int)zoomSlider.Value);
+        }
+
         public void ForceClose()
         {
             forceClose = true;
-            GrepSettings.Instance.Set<bool?>(GrepSettings.Key.PreviewWindowWrap, cbWrapText.IsChecked);
-            GrepSettings.Instance.Set<int>(GrepSettings.Key.PreviewWindowFont, (int)zoomSlider.Value);
 
             if (inputData != null)
                 inputData.ShowPreview -= inputData_ShowPreview;
@@ -158,6 +162,7 @@ namespace dnGREP.WPF
             this.Title = string.Format("Previewing \"{0}\"", inputData.FilePath);
             textEditor.Load(inputData.FilePath);
             inputData.IsLargeOrBinary = System.Windows.Visibility.Collapsed;
+            textEditor.ScrollTo(inputData.LineNumber, 0);
         }
     }
 }

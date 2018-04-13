@@ -402,13 +402,17 @@ namespace dnGREP.WPF
             bool isFileReadOnly = Utils.IsReadOnly(grepResult);
             bool isSuccess = grepResult.IsSuccess;
 
-            string basePath = Utils.GetBaseFolder(folderPath).TrimEnd('\\');
+            string basePath = string.IsNullOrWhiteSpace(folderPath) ? string.Empty :
+                Utils.GetBaseFolder(folderPath).TrimEnd('\\');
             string displayedName = Path.GetFileName(grepResult.FileNameDisplayed);
 
             if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowFilePathInResults) &&
                 grepResult.FileNameDisplayed.Contains(basePath))
             {
-                displayedName = grepResult.FileNameDisplayed.Substring(basePath.Length + 1).TrimStart('\\');
+                if (!string.IsNullOrWhiteSpace(basePath))
+                    displayedName = grepResult.FileNameDisplayed.Substring(basePath.Length + 1).TrimStart('\\');
+                else
+                    displayedName = grepResult.FileNameDisplayed;
             }
             if (!string.IsNullOrWhiteSpace(grepResult.AdditionalInformation))
             {

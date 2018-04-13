@@ -2,7 +2,10 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
-        Title="Preview" Height="415" Width="593" WindowStyle="ToolWindow" Closing="Window_Closing" ShowInTaskbar="False">
+        Title="Preview" Height="415" Width="593" 
+        Icon="/dnGREP;component/nGREP.ico" 
+        Closing="Window_Closing">
+    
     <DockPanel>
         <Grid DockPanel.Dock="Top" Background="{Binding ElementName=statusBar, Path=Background}" Name="previewPanel" Visibility="{Binding Path=IsLargeOrBinary}">
             <Grid.ColumnDefinitions>
