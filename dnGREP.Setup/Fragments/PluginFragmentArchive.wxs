@@ -8,9 +8,12 @@
             </Component>
             <Directory Id="dirC3F7CB3FDF58AF6EC0C27403925EFDB4" Name="ArchiveSearch">
                 <Component Id="cmp076536C5D88900C40C1A61CB5902CCD6" Guid="{84D03197-FCD9-4697-B32E-A0999989253C}">
-                    <File Id="filB6B9C08742F4F91E23D2367C46744F87" KeyPath="yes" Source="$(var.dnGREP.ArchiveEngine.ProjectDir)7zip\$(var.dnGREP.ArchiveEngine.Platform)\7z.dll" />
+                    <File Id="filB6B9C08742F4F91E23D2367C46744F87" KeyPath="yes" Source="$(var.dnGREP.ArchiveEngine.ProjectDir)7z.dll" />
                 </Component>
-                <Component Id="cmpE8E4B56478D0B41BD48DEFF41E18A4BD" Guid="{9013FE2C-477D-4CF6-A171-23868F82CCA9}">
+              <Component Id="cmp909D945AD96C4A2D9629E377F1177403" Guid="{D1E35664-FAEC-4697-98B7-F88CF24135C1}">
+                <File Id="fil688631BFB7D14C60BFFD9D9699E7BDAC" KeyPath="yes" Source="$(var.dnGREP.ArchiveEngine.ProjectDir)7z64.dll" />
+              </Component>
+              <Component Id="cmpE8E4B56478D0B41BD48DEFF41E18A4BD" Guid="{9013FE2C-477D-4CF6-A171-23868F82CCA9}">
                     <File Id="fil0054CBA81971C73574523367596F1A1A" KeyPath="yes" Source="$(var.dnGREP.ArchiveEngine.TargetDir)dnGREP.Engines.Archive.dll" />
                 </Component>
                 <Component Id="cmp82E1996CD2019A98453AB5EC8C5DF18A" Guid="{C38580EA-5F65-40E7-9E9E-D603EBCD5CC3}">
@@ -23,6 +26,7 @@
         <ComponentGroup Id="dnGREPPluginFilesArchive">
             <ComponentRef Id="cmp5E7189C83C592884CED821C069CA48F5" />
             <ComponentRef Id="cmp076536C5D88900C40C1A61CB5902CCD6" />
+            <ComponentRef Id="cmp909D945AD96C4A2D9629E377F1177403" />
             <ComponentRef Id="cmpE8E4B56478D0B41BD48DEFF41E18A4BD" />
             <ComponentRef Id="cmp82E1996CD2019A98453AB5EC8C5DF18A" />
         </ComponentGroup>
