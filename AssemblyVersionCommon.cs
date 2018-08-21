@@ -12,5 +12,5 @@ using System.Reflection;
 // by using '*'
 //
 // NOTE: Given our build, this is the canonical spot to set the product version number.
-[assembly: AssemblyVersion("2.9.82.0")]
-[assembly: AssemblyFileVersion("2.9.82.0")]
+[assembly: AssemblyVersion("2.9.94.0")]
+[assembly: AssemblyFileVersion("2.9.94.0")]
