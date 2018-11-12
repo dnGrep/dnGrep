@@ -11,6 +11,11 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using dnGREP.Everything;
 using NLog;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
+using File = Alphaleonis.Win32.Filesystem.File;
+using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.Common
 {
@@ -18,7 +23,7 @@ namespace dnGREP.Common
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        private static object regexLock = new object();
+        private static readonly object regexLock = new object();
         private static Dictionary<string, Regex> regexCache = new Dictionary<string, Regex>();
 
         static Utils()
@@ -430,7 +435,7 @@ namespace dnGREP.Common
         public static Encoding GetFileEncoding(string srcFile)
         {
             // TODO: Unit tests. At least a regression test for Google Code issue 204. In order to properly unit test this method, we should decouple it from the file system by passing in an object that can be easily faked/mocked (a Stream object?).
-            using (FileStream readStream = new FileStream(srcFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            using (FileStream readStream = File.Open(srcFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
                 var detector = new Ude.CharsetDetector();
                 detector.Feed(readStream);
@@ -496,7 +501,7 @@ namespace dnGREP.Common
         /// <returns>True is file is binary otherwise false</returns>
         public static bool IsBinary(string srcFile)
         {
-            using (FileStream readStream = new FileStream(srcFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            using (FileStream readStream = File.Open(srcFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
                 return IsBinary(readStream);
             }
@@ -1049,7 +1054,7 @@ namespace dnGREP.Common
                 return false;
             try
             {
-                using (FileStream readStream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                using (FileStream readStream = File.Open(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 using (StreamReader streamReader = new StreamReader(readStream))
                 {
                     string firstLine = streamReader.ReadLine();
@@ -1271,36 +1276,49 @@ namespace dnGREP.Common
         /// <param name="customEditorArgs">Arguments for custom editor</param>
         public static void OpenFile(OpenFileArgs args)
         {
-            if (!args.UseCustomEditor || args.CustomEditor == null || args.CustomEditor.Trim() == "")
+            string filePath = args.SearchResult.FileNameDisplayed;
+            if (filePath != null && filePath.Length > 260)
+                filePath = Path.GetShort83Path(filePath);
+
+            if (!args.UseCustomEditor || string.IsNullOrWhiteSpace(args.CustomEditor))
             {
                 try
                 {
-                    Process.Start(@"" + args.SearchResult.FileNameDisplayed + "");
+                    using (var proc = Process.Start(Quote(filePath)))
+                    {
+                    }
                 }
                 catch
                 {
-                    ProcessStartInfo info = new ProcessStartInfo("notepad.exe")
+                    using (var proc = new Process())
                     {
-                        UseShellExecute = false,
-                        CreateNoWindow = true,
-                        Arguments = args.SearchResult.FileNameDisplayed
-                    };
-                    Process.Start(info);
+                        proc.StartInfo = new ProcessStartInfo("notepad.exe")
+                        {
+                            UseShellExecute = false,
+                            CreateNoWindow = true,
+                            Arguments = filePath
+                        };
+                        proc.Start();
+                    }
                 }
             }
             else
             {
-                ProcessStartInfo info = new ProcessStartInfo(args.CustomEditor)
-                {
-                    UseShellExecute = false,
-                    CreateNoWindow = true
-                };
                 if (args.CustomEditorArgs == null)
                     args.CustomEditorArgs = "";
-                info.Arguments = args.CustomEditorArgs.Replace("%file", Quote(args.SearchResult.FileNameDisplayed))
-                    .Replace("%line", args.LineNumber.ToString())
-                    .Replace("%pattern", args.Pattern);
-                System.Diagnostics.Process.Start(info);
+
+                using (var proc = new Process())
+                {
+                    proc.StartInfo = new ProcessStartInfo(args.CustomEditor)
+                    {
+                        UseShellExecute = false,
+                        CreateNoWindow = true,
+                        Arguments = args.CustomEditorArgs.Replace("%file", Quote(filePath))
+                            .Replace("%line", args.LineNumber.ToString())
+                            .Replace("%pattern", args.Pattern),
+                    };
+                    proc.Start();
+                }
             }
         }
 
@@ -1401,7 +1419,7 @@ namespace dnGREP.Common
             {
                 try
                 {
-                    using (FileStream fstream = new FileStream(filename, FileMode.Create))
+                    using (FileStream fstream = File.Open(filename, FileMode.Create))
                     using (TextWriter writer = new StreamWriter(fstream))
                     {
                         writer.WriteLine("sometext");

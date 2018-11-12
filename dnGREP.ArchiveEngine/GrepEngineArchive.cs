@@ -5,9 +5,15 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using dnGREP.Common;
 using NLog;
 using SevenZip;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
+using File = Alphaleonis.Win32.Filesystem.File;
+using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.Engines.Archive
 {
@@ -28,7 +34,7 @@ namespace dnGREP.Engines.Archive
 
         public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
         {
-            using (FileStream fileStream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.SequentialScan))
+            using (FileStream fileStream = File.Open(file, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.SequentialScan))
             {
                 return Search(fileStream, file, searchPattern, searchType, searchOptions, encoding);
             }
@@ -234,11 +240,26 @@ namespace dnGREP.Engines.Archive
                 if (!Directory.Exists(directory))
                     Directory.CreateDirectory(directory);
 
-                using (SevenZipExtractor extractor = new SevenZipExtractor(args.SearchResult.FileNameReal))
+                string fileNameReal = args.SearchResult.FileNameReal;
+                bool deleteFileNameReal = false;
+                if (fileNameReal.Length > 260)
+                {
+                    fileNameReal = Path.Combine(tempFolder, Path.GetFileName(args.SearchResult.FileNameReal));
+                    if (File.Exists(fileNameReal))
+                    {
+                        File.Delete(fileNameReal);
+                        while (File.Exists(fileNameReal))
+                            Thread.Sleep(100);
+                    }
+                    File.Copy(args.SearchResult.FileNameReal, fileNameReal);
+                    deleteFileNameReal = true;
+                }
+
+                using (SevenZipExtractor extractor = new SevenZipExtractor(fileNameReal))
                 {
                     if (extractor.ArchiveFileData.Where(r => r.FileName == innerFileName && !r.IsDirectory).Any())
                     {
-                        using (FileStream stream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                        using (FileStream stream = File.Open(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
                         {
                             try
                             {
@@ -251,14 +272,21 @@ namespace dnGREP.Engines.Archive
                         }
                     }
                 }
+
+                if (deleteFileNameReal)
+                {
+                    File.Delete(fileNameReal);
+                }
             }
 
             if (Utils.IsPdfFile(filePath) || Utils.IsWordFile(filePath) || Utils.IsExcelFile(filePath))
                 args.UseCustomEditor = false;
 
-            GrepSearchResult newResult = new GrepSearchResult();
-            newResult.FileNameReal = args.SearchResult.FileNameReal;
-            newResult.FileNameDisplayed = args.SearchResult.FileNameDisplayed;
+            GrepSearchResult newResult = new GrepSearchResult
+            {
+                FileNameReal = args.SearchResult.FileNameReal,
+                FileNameDisplayed = args.SearchResult.FileNameDisplayed
+            };
             OpenFileArgs newArgs = new OpenFileArgs(newResult, args.Pattern, args.LineNumber, args.UseCustomEditor, args.CustomEditor, args.CustomEditorArgs);
             newArgs.SearchResult.FileNameDisplayed = filePath;
             Utils.OpenFile(newArgs);

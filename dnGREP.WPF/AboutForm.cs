@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using System.Reflection;
 using System.Windows.Forms;
+using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common.UI;
 
 namespace dnGREP.WPF
@@ -42,7 +43,7 @@ namespace dnGREP.WPF
                         return titleAttribute.Title;
                 }
                 // If there was no Title attribute, or if the Title attribute was the empty string, return the .exe name
-                return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
+                return Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
             }
         }
 

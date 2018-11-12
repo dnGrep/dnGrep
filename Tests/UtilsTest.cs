@@ -6,6 +6,11 @@ using System.Text;
 using dnGREP.Common;
 using Xunit;
 using Xunit.Extensions;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
+using File = Alphaleonis.Win32.Filesystem.File;
+using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace Tests
 {
@@ -18,6 +23,20 @@ namespace Tests
         {
             sourceFolder = GetDllPath() + "\\Files";
             destinationFolder = Path.GetTempPath() + Guid.NewGuid().ToString();
+            // test long paths
+            string[] parts = new string[]
+                {
+                    destinationFolder,
+                    new string('a', 50),
+                    new string('b', 50),
+                    new string('c', 50),
+                    new string('d', 50),
+                    new string('e', 50),
+                    new string('f', 50),
+                    new string('g', 50),
+                    new string('h', 50),
+                };
+            destinationFolder = Path.Combine(parts);
             Directory.CreateDirectory(destinationFolder);
         }
 

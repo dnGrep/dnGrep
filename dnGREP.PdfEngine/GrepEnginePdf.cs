@@ -6,6 +6,11 @@ using System.Reflection;
 using System.Text;
 using dnGREP.Common;
 using NLog;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
+using File = Alphaleonis.Win32.Filesystem.File;
+using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.Engines.Pdf
 {
@@ -50,7 +55,7 @@ namespace dnGREP.Engines.Pdf
             try
             {
                 // Extract text
-                string tempFile = extractText(file);
+                string tempFile = ExtractText(file);
                 if (!File.Exists(tempFile))
                     throw new ApplicationException("pdftotext failed to create text file.");
 
@@ -112,12 +117,15 @@ namespace dnGREP.Engines.Pdf
             return Search(filePath, searchPattern, searchType, searchOptions, encoding);
         }
 
-        private string extractText(string pdfFilePath)
+        private string ExtractText(string pdfFilePath)
         {
             string tempFolder = Path.Combine(Utils.GetTempFolder(), "dnGREP-PDF");
             if (!Directory.Exists(tempFolder))
                 Directory.CreateDirectory(tempFolder);
             string tempFileName = Path.Combine(tempFolder, Path.GetFileNameWithoutExtension(pdfFilePath) + ".txt");
+
+            if (pdfFilePath.Length > 260)
+                pdfFilePath = Path.GetShort83Path(pdfFilePath);
 
             using (Process process = new Process())
             {
