@@ -26,6 +26,22 @@ namespace Tests
         {
             sourceFolder = GetDllPath() + "\\Files";
             destinationFolder = Path.GetTempPath() + Guid.NewGuid().ToString();
+
+            // long paths test
+            var parts = new string[]
+                {
+                    destinationFolder,
+                    new string('a', 50),
+                    new string('b', 50),
+                    new string('c', 50),
+                    new string('d', 50),
+                    new string('e', 50),
+                    new string('f', 50),
+                    new string('g', 50),
+                    new string('h', 50),
+                };
+            destinationFolder = Path.Combine(parts);
+
             Directory.CreateDirectory(destinationFolder);
         }
 
@@ -306,7 +322,8 @@ namespace Tests
             };
             core.Replace(files, type, searchFor, replaceWith, option, -1);
 
-            using (StreamReader reader = new StreamReader(testFile, true))
+            using (FileStream stream = File.Open(testFile, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (StreamReader reader = new StreamReader(stream, true))
             {
                 Assert.Equal(Encoding.UTF8, reader.CurrentEncoding);
                 // check there is no BOM
@@ -347,7 +364,8 @@ namespace Tests
             };
             core.Replace(files, type, searchFor, replaceWith, option, -1);
 
-            using (StreamReader reader = new StreamReader(testFile, true))
+            using (FileStream stream = File.Open(testFile, FileMode.Open, FileAccess.Read, FileShare.Read))
+            using (StreamReader reader = new StreamReader(stream, true))
             {
                 Assert.Equal(Encoding.UTF8, reader.CurrentEncoding);
                 // check there is a BOM

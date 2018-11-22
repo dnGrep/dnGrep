@@ -111,7 +111,7 @@ namespace dnGREP.Common
             if (patterns.Any())
             {
                 foreach (var pattern in patterns)
-                    matches = matches.Concat(Directory.EnumerateFiles(path, pattern));
+                    matches = matches.Concat(Directory.EnumerateFiles(path, pattern == "*.*" ? "*" : pattern));
             }
             else
             {

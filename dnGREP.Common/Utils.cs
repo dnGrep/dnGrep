@@ -1360,7 +1360,12 @@ namespace dnGREP.Common
         /// <param name="fileName"></param>
         public static void OpenContainingFolder(string fileName)
         {
-            System.Diagnostics.Process.Start("explorer.exe", "/select,\"" + fileName + "\"");
+            if (fileName.Length > 260)
+                fileName = Path.GetShort83Path(fileName);
+
+            using (Process.Start("explorer.exe", "/select,\"" + fileName + "\""))
+            {
+            }
         }
 
         /// <summary>

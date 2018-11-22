@@ -19,8 +19,7 @@ namespace dnGREP.Everything
             // cannot construct...
         }
 
-        // #TODO: does Everything support longer paths?
-        private const int maxPath = 260;
+        private const int maxPath = 32768;
 
         private static bool? isAvailable;
 

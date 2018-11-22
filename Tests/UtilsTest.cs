@@ -23,8 +23,9 @@ namespace Tests
         {
             sourceFolder = GetDllPath() + "\\Files";
             destinationFolder = Path.GetTempPath() + Guid.NewGuid().ToString();
-            // test long paths
-            string[] parts = new string[]
+
+            // long paths test
+            var parts = new string[]
                 {
                     destinationFolder,
                     new string('a', 50),
@@ -37,6 +38,7 @@ namespace Tests
                     new string('h', 50),
                 };
             destinationFolder = Path.Combine(parts);
+
             Directory.CreateDirectory(destinationFolder);
         }
 

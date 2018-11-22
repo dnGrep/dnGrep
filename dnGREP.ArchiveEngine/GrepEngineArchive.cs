@@ -240,22 +240,13 @@ namespace dnGREP.Engines.Archive
                 if (!Directory.Exists(directory))
                     Directory.CreateDirectory(directory);
 
-                string fileNameReal = args.SearchResult.FileNameReal;
-                bool deleteFileNameReal = false;
-                if (fileNameReal.Length > 260)
+                string zipFile = args.SearchResult.FileNameReal;
+                if (zipFile.Length > 260 && !zipFile.StartsWith(@"\\?\"))
                 {
-                    fileNameReal = Path.Combine(tempFolder, Path.GetFileName(args.SearchResult.FileNameReal));
-                    if (File.Exists(fileNameReal))
-                    {
-                        File.Delete(fileNameReal);
-                        while (File.Exists(fileNameReal))
-                            Thread.Sleep(100);
-                    }
-                    File.Copy(args.SearchResult.FileNameReal, fileNameReal);
-                    deleteFileNameReal = true;
+                    zipFile = @"\\?\" + zipFile;
                 }
 
-                using (SevenZipExtractor extractor = new SevenZipExtractor(fileNameReal))
+                using (SevenZipExtractor extractor = new SevenZipExtractor(zipFile))
                 {
                     if (extractor.ArchiveFileData.Where(r => r.FileName == innerFileName && !r.IsDirectory).Any())
                     {
@@ -271,11 +262,6 @@ namespace dnGREP.Engines.Archive
                             }
                         }
                     }
-                }
-
-                if (deleteFileNameReal)
-                {
-                    File.Delete(fileNameReal);
                 }
             }
 

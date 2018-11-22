@@ -90,7 +90,7 @@ namespace dnGREP.Engines.Pdf
             }
             catch (Exception ex)
             {
-                logger.Log<Exception>(LogLevel.Error, "Failed to search inside Pdf file", ex);
+                logger.Log<Exception>(LogLevel.Error, $"Failed to search inside PDF file: {ex.Message}", ex);
                 return new List<GrepSearchResult>();
             }
         }
@@ -124,31 +124,46 @@ namespace dnGREP.Engines.Pdf
                 Directory.CreateDirectory(tempFolder);
             string tempFileName = Path.Combine(tempFolder, Path.GetFileNameWithoutExtension(pdfFilePath) + ".txt");
 
-            if (pdfFilePath.Length > 260)
-                pdfFilePath = Path.GetShort83Path(pdfFilePath);
+            if (pdfFilePath.Length > 260 && !pdfFilePath.StartsWith(@"\\?\"))
+            {
+                pdfFilePath = @"\\?\" + pdfFilePath;
+                //pdfFilePath = Path.GetShort83Path(pdfFilePath);
+            }
 
             using (Process process = new Process())
             {
-                try
-                {
-                    // use command prompt
-                    process.StartInfo.FileName = pathToPdfToText;
-                    process.StartInfo.Arguments = string.Format("-layout \"{0}\" \"{1}\"", pdfFilePath, tempFileName);
-                    process.StartInfo.UseShellExecute = false;
-                    process.StartInfo.WorkingDirectory = Utils.GetCurrentPath(typeof(GrepEnginePdf));
-                    process.StartInfo.CreateNoWindow = true;
-                    // start cmd prompt, execute command
-                    process.Start();
-                    process.WaitForExit();
+                // use command prompt
+                process.StartInfo.FileName = pathToPdfToText;
+                process.StartInfo.Arguments = string.Format("-layout \"{0}\" \"{1}\"", pdfFilePath, tempFileName);
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.WorkingDirectory = Utils.GetCurrentPath(typeof(GrepEnginePdf));
+                process.StartInfo.CreateNoWindow = true;
+                // start cmd prompt, execute command
+                process.Start();
+                process.WaitForExit();
 
-                    if (process.ExitCode == 0)
-                        return tempFileName;
-                    else
-                        throw new Exception("pdftotext process exited with error code.");
-                }
-                catch
+                if (process.ExitCode == 0)
+                    return tempFileName;
+                else
                 {
-                    throw;
+                    string errorMessage = string.Empty;
+                    switch (process.ExitCode)
+                    {
+                        case 1:
+                            errorMessage = "Error opening PDF file";
+                            break;
+                        case 2:
+                            errorMessage = "Error opening an output file";
+                            break;
+                        case 3:
+                            errorMessage = "Error related to PDF permissions";
+                            break;
+                        default:
+                            errorMessage = "Unknown error";
+                            break;
+                    }
+
+                    throw new Exception($"pdftotext returned '{errorMessage}' converting '{pdfFilePath}'");
                 }
             }
         }
