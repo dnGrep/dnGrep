@@ -423,7 +423,7 @@ namespace dnGREP.Common
                 File.SetAttributes(file, FileAttributes.Normal);
                 File.Delete(file);
             }
-            Directory.Delete(path, true);
+            Directory.Delete(path, true, true);
         }
 
         /// <summary>
@@ -887,28 +887,13 @@ namespace dnGREP.Common
                     continue;
                 }
 
-                IEnumerable<string> paths = !filter.IncludeSubfolders ? new string[] { subPath }.AsEnumerable() :
-                    new string[] { subPath }.AsEnumerable().Concat(SafeDirectory.EnumerateDirectories(subPath, "*", SearchOption.AllDirectories));
-
-                foreach (var dirPath in paths)
+                foreach (var filePath in SafeDirectory.EnumerateFiles(subPath, includeSearchPatterns, filter.IncludeHidden, filter.IncludeSubfolders))
                 {
-                    DirectoryInfo dirInfo = null;
-                    if (!filter.IncludeHidden)
+                    if (IncludeFile(filePath, filter, null, hasSearchPattern, includeSearchPatterns,
+                        includeRegexPatterns, excludeRegexPatterns) && !matches.Contains(filePath))
                     {
-                        if (dirInfo == null)
-                            dirInfo = new DirectoryInfo(dirPath);
-                        if (dirInfo.Root.Name != dirInfo.Name && dirInfo.Attributes.HasFlag(FileAttributes.Hidden))
-                            continue;
-                    }
-
-                    foreach (var filePath in SafeDirectory.EnumerateFiles(dirPath, includeSearchPatterns))
-                    {
-                        if (IncludeFile(filePath, filter, null, hasSearchPattern, includeSearchPatterns,
-                            includeRegexPatterns, excludeRegexPatterns) && !matches.Contains(filePath))
-                        {
-                            matches.Add(filePath);
-                            yield return filePath;
-                        }
+                        matches.Add(filePath);
+                        yield return filePath;
                     }
                 }
             }
@@ -923,7 +908,7 @@ namespace dnGREP.Common
                 searchString += "|*." + string.Join("|*.", ArchiveExtensions.ToArray());
             }
 
-            foreach (var fileInfo in EverythingSearch.FindFiles(searchString))
+            foreach (var fileInfo in EverythingSearch.FindFiles(searchString, filter.IncludeHidden))
             {
                 FileData fileData = new FileData(fileInfo);
 
@@ -951,14 +936,6 @@ namespace dnGREP.Common
             bool includeMatch = false;
             try
             {
-                if (!filter.IncludeHidden)
-                {
-                    if (fileInfo == null)
-                        fileInfo = new FileData(filePath);
-                    if (fileInfo.Attributes.HasFlag(FileAttributes.Hidden))
-                        return false;
-                }
-
                 if (!filter.IncludeArchive && IsArchive(filePath))
                     return false;
 

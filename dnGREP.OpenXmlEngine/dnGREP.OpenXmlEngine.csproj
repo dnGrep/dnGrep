@@ -159,12 +159,12 @@
   -->
   <PropertyGroup>
     <PostBuildEvent>REM Debug setup
-xcopy /Y /R "$(TargetDir)dnGREP.Engines.OpenXml.plugin" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\Debug\Plugins\"
-xcopy /Y /R "$(TargetDir)dnGREP.Engines.OpenXml.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\Debug\Plugins\OpenXmlSearch\"
-xcopy /Y /R "$(TargetDir)dnGREP.Engines.OpenXml.pdb" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\Debug\Plugins\OpenXmlSearch\"
-xcopy /Y /R "$(TargetDir)DocumentFormat.OpenXml.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\Debug\Plugins\OpenXmlSearch\"
-xcopy /Y /R "$(TargetDir)ExcelDataReader.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\Debug\Plugins\OpenXmlSearch\"
-xcopy /Y /R "$(TargetDir)ExcelNumberFormat.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\Debug\Plugins\OpenXmlSearch\"
+xcopy /Y /R "$(TargetDir)dnGREP.Engines.OpenXml.plugin" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\"
+xcopy /Y /R "$(TargetDir)dnGREP.Engines.OpenXml.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\OpenXmlSearch\"
+xcopy /Y /R "$(TargetDir)dnGREP.Engines.OpenXml.pdb" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\OpenXmlSearch\"
+xcopy /Y /R "$(TargetDir)DocumentFormat.OpenXml.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\OpenXmlSearch\"
+xcopy /Y /R "$(TargetDir)ExcelDataReader.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\Debug\$(ConfigurationName)\OpenXmlSearch\"
+xcopy /Y /R "$(TargetDir)ExcelNumberFormat.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\Debug\$(ConfigurationName)\OpenXmlSearch\"
 
 REM Start copying release files
 rmdir /S /Q "$(SolutionDir)Release\$(PlatformName)\dnGREP OpenXml Plugin X.X.X"

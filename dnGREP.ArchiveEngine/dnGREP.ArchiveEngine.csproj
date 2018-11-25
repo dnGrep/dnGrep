@@ -168,12 +168,12 @@
   -->
   <PropertyGroup>
     <PostBuildEvent>REM Debug setup
-xcopy /Y /R "$(TargetDir)dnGREP.Engines.Archive.plugin" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\Debug\Plugins\"
-xcopy /Y /R "$(TargetDir)7z.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\Debug\Plugins\ArchiveSearch\"
-xcopy /Y /R "$(TargetDir)7z64.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\Debug\Plugins\ArchiveSearch\"
-xcopy /Y /R "$(TargetDir)dnGREP.Engines.Archive.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\Debug\Plugins\ArchiveSearch\"
-xcopy /Y /R "$(TargetDir)dnGREP.Engines.Archive.pdb" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\Debug\Plugins\ArchiveSearch\"
-xcopy /Y /R "$(TargetDir)SevenZipSharp.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\Debug\Plugins\ArchiveSearch\"
+xcopy /Y /R "$(TargetDir)dnGREP.Engines.Archive.plugin" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\"
+xcopy /Y /R "$(TargetDir)7z.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\ArchiveSearch\"
+xcopy /Y /R "$(TargetDir)7z64.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\ArchiveSearch\"
+xcopy /Y /R "$(TargetDir)dnGREP.Engines.Archive.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\ArchiveSearch\"
+xcopy /Y /R "$(TargetDir)dnGREP.Engines.Archive.pdb" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\ArchiveSearch\"
+xcopy /Y /R "$(TargetDir)SevenZipSharp.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\Debug\$(ConfigurationName)\ArchiveSearch\"
 
 REM Start copying release files
 rmdir /S /Q "$(SolutionDir)Release\$(PlatformName)\dnGREP Archive Plugin X.X.X"

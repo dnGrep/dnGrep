@@ -155,10 +155,10 @@
   -->
   <PropertyGroup>
     <PostBuildEvent>REM Debug setup
-xcopy /Y /R "$(TargetDir)dnGREP.Engines.Pdf.plugin" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\Debug\Plugins\"
-xcopy /Y /R "$(TargetDir)dnGREP.Engines.Pdf.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\Debug\Plugins\PdfSearch\"
-xcopy /Y /R "$(TargetDir)dnGREP.Engines.Pdf.pdb" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\Debug\Plugins\PdfSearch\"
-xcopy /Y /R "$(TargetDir)pdftotext.exe" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\Debug\Plugins\PdfSearch\"
+xcopy /Y /R "$(TargetDir)dnGREP.Engines.Pdf.plugin" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\"
+xcopy /Y /R "$(TargetDir)dnGREP.Engines.Pdf.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\PdfSearch\"
+xcopy /Y /R "$(TargetDir)dnGREP.Engines.Pdf.pdb" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\PdfSearch\"
+xcopy /Y /R "$(TargetDir)pdftotext.exe" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\Debug\$(ConfigurationName)\PdfSearch\"
 
 REM Start copying release files
 rmdir /S /Q "$(SolutionDir)Release\$(PlatformName)\dnGREP PDF Plugin X.X.X"
