@@ -10,11 +10,12 @@ namespace dnGREP.WPF.MVHelpers
 {
     public class LazyResultsList : ObservableCollection<FormattedGrepLine>, INotifyPropertyChanged
     {
-        private GrepSearchResult result;
-        private FormattedGrepResult formattedResult;
+        private readonly GrepSearchResult result;
+        private readonly FormattedGrepResult formattedResult;
 
         public bool IsLoaded { get; private set; }
         public bool IsLoading { get; private set; }
+        public bool IsReplaceMode { get; private set; }
 
         public LazyResultsList(GrepSearchResult result, FormattedGrepResult formattedResult)
         {
@@ -24,7 +25,7 @@ namespace dnGREP.WPF.MVHelpers
             if ((result.Matches != null && result.Matches.Count > 0) || !result.IsSuccess)
             {
                 GrepSearchResult.GrepLine emptyLine = new GrepSearchResult.GrepLine(-1, "", true, null);
-                var dummyLine = new FormattedGrepLine(emptyLine, formattedResult, 30, false);
+                var dummyLine = new FormattedGrepLine(emptyLine, formattedResult, 30, false, IsReplaceMode);
                 Add(dummyLine);
                 IsLoaded = false;
             }
@@ -35,6 +36,16 @@ namespace dnGREP.WPF.MVHelpers
         {
             get { return lineNumberColumnWidth; }
             set { lineNumberColumnWidth = value; OnPropertyChanged("LineNumberColumnWidth"); }
+        }
+
+        internal void ResetForReplace()
+        {
+            IsReplaceMode = true;
+
+            foreach (FormattedGrepLine line in this)
+            {
+                line.ResetForReplace();
+            }
         }
 
         public void Load(bool isAsync)
@@ -80,7 +91,7 @@ namespace dnGREP.WPF.MVHelpers
                     else if (currentLine > 99999 && LineNumberColumnWidth < 50)
                         LineNumberColumnWidth = 50;
 
-                    this.Add(new FormattedGrepLine(line, formattedResult, LineNumberColumnWidth, isSectionBreak));
+                    this.Add(new FormattedGrepLine(line, formattedResult, LineNumberColumnWidth, isSectionBreak, IsReplaceMode));
                 }
                 IsLoaded = true;
                 IsLoading = false;
@@ -131,7 +142,7 @@ namespace dnGREP.WPF.MVHelpers
                             LineNumberColumnWidth = 47;
                         else if (currentLine > 99999 && LineNumberColumnWidth < 50)
                             LineNumberColumnWidth = 50;
-                        tempList.Add(new FormattedGrepLine(line, formattedResult, LineNumberColumnWidth, isSectionBreak));
+                        tempList.Add(new FormattedGrepLine(line, formattedResult, LineNumberColumnWidth, isSectionBreak, IsReplaceMode));
                     }
 
                     if (Application.Current != null)
@@ -142,7 +153,7 @@ namespace dnGREP.WPF.MVHelpers
                     ));
                     IsLoaded = true;
                     IsLoading = false;
-                    LoadFinished(this, EventArgs.Empty);
+                    LoadFinished?.Invoke(this, EventArgs.Empty);
                 });
             }
         }

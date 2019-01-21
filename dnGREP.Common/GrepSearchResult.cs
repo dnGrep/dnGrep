@@ -14,7 +14,7 @@ namespace dnGREP.Common
     {
         public GrepSearchResult()
         {
-            isSuccess = true;
+            IsSuccess = true;
         }
 
         public GrepSearchResult(string file, string pattern, List<GrepMatch> matches, Encoding encoding)
@@ -24,40 +24,27 @@ namespace dnGREP.Common
 
         public GrepSearchResult(string file, string pattern, List<GrepMatch> matches, Encoding encoding, bool success)
         {
-            fileName = file;
-            bodyMatches = matches;
-            this.pattern = pattern;
+            FileNameDisplayed = file;
+            Matches = matches;
+            Pattern = pattern;
             Encoding = encoding;
-            isSuccess = success;
+            IsSuccess = success;
         }
 
         public GrepSearchResult(string file, string pattern, string errorMessage, bool success)
         {
-            fileName = file;
-            bodyMatches = new List<GrepMatch>();
-            searchResults = new List<GrepLine>();
-            searchResults.Add(new GrepSearchResult.GrepLine(-1, errorMessage, false, null));
-            this.pattern = pattern;
-            isSuccess = success;
+            FileNameDisplayed = file;
+            Matches = new List<GrepMatch>();
+            searchResults = new List<GrepLine> { new GrepLine(-1, errorMessage, false, null) };
+            Pattern = pattern;
+            IsSuccess = success;
         }
 
-        public Encoding Encoding { get; private set; }
+        public Encoding Encoding { get; }
 
-        private string fileName;
+        public string FileNameDisplayed { get; set; }
 
-        public string FileNameDisplayed
-        {
-            get { return fileName; }
-            set { fileName = value; }
-        }
-
-        private string pattern;
-
-        public string Pattern
-        {
-            get { return pattern; }
-            set { pattern = value; }
-        }
+        public string Pattern { get; }
 
         private string fileNameToOpen = null;
 
@@ -74,7 +61,7 @@ namespace dnGREP.Common
             get
             {
                 if (fileNameToOpen == null)
-                    return fileName;
+                    return FileNameDisplayed;
                 else
                     return fileNameToOpen;
             }
@@ -86,13 +73,7 @@ namespace dnGREP.Common
         /// </summary>
         public string AdditionalInformation { get; set; }
 
-        private bool readOnly = false;
-
-        public bool ReadOnly
-        {
-            get { return readOnly; }
-            set { readOnly = value; }
-        }
+        public bool ReadOnly { get; set; } = false;
 
         private List<GrepLine> searchResults;
 
@@ -124,7 +105,7 @@ namespace dnGREP.Common
                     using (FileStream reader = File.Open(FileNameReal, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                     using (StreamReader streamReader = new StreamReader(reader, Encoding))
                     {
-                        searchResults = Utils.GetLinesEx(streamReader, bodyMatches, linesBefore, linesAfter);
+                        searchResults = Utils.GetLinesEx(streamReader, Matches, linesBefore, linesAfter);
                     }
                 }
                 else
@@ -135,63 +116,34 @@ namespace dnGREP.Common
             return searchResults;
         }
 
-        private List<GrepSearchResult.GrepMatch> bodyMatches = new List<GrepMatch>();
+        public List<GrepSearchResult.GrepMatch> Matches { get; } = new List<GrepMatch>();
 
-        public List<GrepSearchResult.GrepMatch> Matches
-        {
-            get { return bodyMatches; }
-        }
-
-        private bool isSuccess;
-
-        public bool IsSuccess
-        {
-            get { return isSuccess; }
-        }
+        public bool IsSuccess { get; }
 
         public class GrepLine : IComparable<GrepLine>, IComparable
         {
             public GrepLine(int number, string text, bool context, List<GrepMatch> matches)
             {
-                lineNumber = number;
-                lineText = text;
-                isContext = context;
+                LineNumber = number;
+                LineText = text;
+                IsContext = context;
                 if (matches == null)
-                    this.matches = new List<GrepMatch>();
+                    Matches = new List<GrepMatch>();
                 else
-                    this.matches = matches;
+                    Matches = matches;
             }
 
-            private int lineNumber;
+            public int LineNumber { get; set; }
 
-            public int LineNumber
-            {
-                get { return lineNumber; }
-                set { lineNumber = value; }
-            }
-            private string lineText;
+            public string LineText { get; }
 
-            public string LineText
-            {
-                get { return lineText; }
-            }
-            private bool isContext = false;
+            public bool IsContext { get; } = false;
 
-            public bool IsContext
-            {
-                get { return isContext; }
-            }
-
-            private List<GrepMatch> matches;
-
-            public List<GrepMatch> Matches
-            {
-                get { return matches; }
-            }
+            public List<GrepMatch> Matches { get; }
 
             public override string ToString()
             {
-                return string.Format("{0}. {1} ({2})", lineNumber, lineText, isContext);
+                return string.Format("{0}. {1} ({2})", LineNumber, LineText, IsContext);
             }
 
             #region IComparable<GrepLine> Members
@@ -201,7 +153,7 @@ namespace dnGREP.Common
                 if (other == null)
                     return 1;
                 else
-                    return lineNumber.CompareTo(other.LineNumber);
+                    return LineNumber.CompareTo(other.LineNumber);
             }
 
             #endregion
@@ -213,7 +165,7 @@ namespace dnGREP.Common
                 if (obj == null)
                     return 1;
                 if (obj is GrepLine)
-                    return lineNumber.CompareTo(((GrepLine)obj).LineNumber);
+                    return LineNumber.CompareTo(((GrepLine)obj).LineNumber);
                 else
                     return 1;
             }
@@ -228,46 +180,77 @@ namespace dnGREP.Common
             EndOfLineOrFile
         }
 
-        public class GrepMatch : IComparable<GrepMatch>, IComparable
+        public class GrepMatch : IComparable<GrepMatch>, IComparable, IEquatable<GrepMatch>
         {
             public GrepMatch(int line, int start, int length)
             {
-                lineNumber = line;
-                startLocation = start;
-                this.length = length;
+                LineNumber = line;
+                StartLocation = start;
+                Length = length;
+
+                FileMatchId = Guid.NewGuid().ToString();
             }
 
-            private int lineNumber = 0;
-            public int LineNumber
+            public GrepMatch(string fileMatchId, int line, int start, int length)
             {
-                get { return lineNumber; }
-                set { lineNumber = value; }
+                LineNumber = line;
+                StartLocation = start;
+                Length = length;
+
+                FileMatchId = fileMatchId;
             }
 
-            private int startLocation = 0;
-            public int StartLocation
-            {
-                get { return startLocation; }
-                set { startLocation = value; }
-            }
+            public string FileMatchId { get; private set; }
 
-            private int length = 0;
-            public int Length
-            {
-                get { return length; }
-                set { length = value; }
-            }
+            public int LineNumber { get; } = 0;
+
+            public int StartLocation { get; } = 0;
+
+            public int Length { get; private set; } = 0;
+
+            public bool ReplaceMatch { get; set; } = false;
 
             public int EndPosition
             {
                 get
                 {
-                    return startLocation + length;
+                    return StartLocation + Length;
                 }
                 set
                 {
-                    length = value - startLocation;
+                    Length = value - StartLocation;
                 }
+            }
+
+            public override string ToString()
+            {
+                return $"{LineNumber}: {StartLocation} + {Length}";
+            }
+
+            public override int GetHashCode()
+            {
+                unchecked
+                {
+                    int hashCode = 13;
+                    hashCode = (hashCode * 397) ^ LineNumber;
+                    hashCode = (hashCode * 397) ^ StartLocation;
+                    hashCode = (hashCode * 397) ^ Length;
+                    return hashCode;
+                }
+            }
+
+            public override bool Equals(object obj)
+            {
+                return Equals(obj as GrepMatch);
+            }
+
+            public bool Equals(GrepMatch other)
+            {
+                if (other == null) return false;
+
+                return LineNumber == other.LineNumber &&
+                    StartLocation == other.StartLocation &&
+                    Length == other.Length;
             }
 
             #region IComparable<GrepMatch> Members
@@ -277,7 +260,7 @@ namespace dnGREP.Common
                 if (other == null)
                     return 1;
                 else
-                    return startLocation.CompareTo(other.StartLocation);
+                    return StartLocation.CompareTo(other.StartLocation);
             }
 
             #endregion
@@ -289,7 +272,7 @@ namespace dnGREP.Common
                 if (obj == null)
                     return 1;
                 if (obj is GrepMatch)
-                    return startLocation.CompareTo(((GrepMatch)obj).StartLocation);
+                    return StartLocation.CompareTo(((GrepMatch)obj).StartLocation);
                 else
                     return 1;
             }

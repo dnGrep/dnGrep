@@ -1076,10 +1076,11 @@ namespace dnGREP.WPF
                     if (MessageBox.Show("Are you sure you want to replace search pattern with empty string?", "Replace", MessageBoxButton.YesNoCancel, MessageBoxImage.Question) != MessageBoxResult.Yes)
                         return;
                 }
+
                 List<string> roFiles = Utils.GetReadOnlyFiles(SearchResults.GetList());
                 if (roFiles.Count > 0)
                 {
-                    StringBuilder sb = new StringBuilder("Some of the files can not be modified. If you continue, these files will be skipped.\nWould you like to continue?\n\n");
+                    StringBuilder sb = new StringBuilder("Some of the files cannot be modified. If you continue, these files will be skipped.\nWould you like to continue?\n\n");
                     foreach (string fileName in roFiles)
                     {
                         sb.AppendLine(" - " + new FileInfo(fileName).Name);
@@ -1087,32 +1088,47 @@ namespace dnGREP.WPF
                     if (MessageBox.Show(sb.ToString(), "Replace", MessageBoxButton.YesNoCancel, MessageBoxImage.Question) != MessageBoxResult.Yes)
                         return;
                 }
-                StatusMessage = "Replacing...";
-                if (preview != null && preview.IsVisible)
-                    preview.ResetTextEditor();
-                CurrentGrepOperation = GrepOperation.Replace;
 
-                CanUndo = false;
-                undoMap.Clear();
-                foreach (FormattedGrepResult n in SearchResults)
+                ObservableGrepSearchResults replaceList = new ObservableGrepSearchResults(SearchResults.GetWritableList());
+
+                ReplaceWindow dlg = new ReplaceWindow();
+                dlg.ViewModel.SearchFor = SearchFor;
+                dlg.ViewModel.ReplaceWith = ReplaceWith;
+                dlg.ViewModel.SearchResults = replaceList;
+                var result = dlg.ShowDialog();
+
+                if (result.HasValue && result.Value)
                 {
-                    string filePath = n.GrepResult.FileNameReal;
-                    if (!n.GrepResult.ReadOnly && !undoMap.ContainsKey(filePath))
+                    //StatusMessage = "Replacing...";
+                    //if (preview != null && preview.IsVisible)
+                    //    preview.ResetTextEditor();
+                    //CurrentGrepOperation = GrepOperation.Replace;
+
+                    CanUndo = false;
+                    undoMap.Clear();
+                    foreach (FormattedGrepResult n in replaceList)
                     {
-                        undoMap.Add(filePath, Guid.NewGuid().ToString() + Path.GetExtension(filePath));
+                        string filePath = n.GrepResult.FileNameReal;
+                        if (!n.GrepResult.ReadOnly && !undoMap.ContainsKey(filePath) && n.GrepResult.Matches.Any(m => m.ReplaceMatch))
+                        {
+                            undoMap.Add(filePath, Guid.NewGuid().ToString() + Path.GetExtension(filePath));
+                        }
                     }
-                }
 
-                Dictionary<string, object> workerParams = new Dictionary<string, object>
-                {
-                    ["State"] = this,
-                    ["Files"] = undoMap
-                };
-                SearchResults.Clear();
-                isSorted = false;
-                idleTimer.Start();
-                workerSearchReplace.RunWorkerAsync(workerParams);
-                UpdateBookmarks();
+                    // !!! TODO TODO TODO !!!
+                    // Need to find a way to pass the "ReplaceMatch" flags or equivalent to the replace engines
+
+                    //Dictionary<string, object> workerParams = new Dictionary<string, object>
+                    //{
+                    //    ["State"] = this,
+                    //    ["Files"] = undoMap
+                    //};
+                    //SearchResults.Clear();
+                    //isSorted = false;
+                    //idleTimer.Start();
+                    //workerSearchReplace.RunWorkerAsync(workerParams);
+                    //UpdateBookmarks();
+                }
             }
         }
 

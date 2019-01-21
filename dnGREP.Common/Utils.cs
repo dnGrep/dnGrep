@@ -1676,18 +1676,19 @@ namespace dnGREP.Common
                                         contextLines.Add(new GrepSearchResult.GrepLine(i - beforeQueue.Count + 1 + (lineNumber - startLine),
                                             beforeQueue.Dequeue(), true, null));
                                 }
+                                string fileMatchId = bodyMatchesClone[0].FileMatchId;
                                 // First and only line
                                 if (i == startLine && i == lineNumber)
-                                    matches.Add(new GrepSearchResult.GrepMatch(i, startIndex, bodyMatchesClone[0].Length));
+                                    matches.Add(new GrepSearchResult.GrepMatch(fileMatchId, i, startIndex, bodyMatchesClone[0].Length));
                                 // First but not last line
                                 else if (i == startLine)
-                                    matches.Add(new GrepSearchResult.GrepMatch(i, startIndex, tempLine.TrimEndOfLine().Length - startIndex));
+                                    matches.Add(new GrepSearchResult.GrepMatch(fileMatchId, i, startIndex, tempLine.TrimEndOfLine().Length - startIndex));
                                 // Middle line
                                 else if (i > startLine && i < lineNumber)
-                                    matches.Add(new GrepSearchResult.GrepMatch(i, 0, tempLine.TrimEndOfLine().Length));
+                                    matches.Add(new GrepSearchResult.GrepMatch(fileMatchId, i, 0, tempLine.TrimEndOfLine().Length));
                                 // Last line
                                 else
-                                    matches.Add(new GrepSearchResult.GrepMatch(i, 0, bodyMatchesClone[0].Length - tempLinesTotalLength + line.Length + startIndex));
+                                    matches.Add(new GrepSearchResult.GrepMatch(fileMatchId, i, 0, bodyMatchesClone[0].Length - tempLinesTotalLength + line.Length + startIndex));
 
                                 startRecordingAfterLines = true;
                             }
@@ -1729,31 +1730,6 @@ namespace dnGREP.Common
             if (!lines.ContainsKey(match.LineNumber))
                 lines[match.LineNumber] = new GrepSearchResult.GrepLine(match.LineNumber, lineText.TrimEndOfLine(), false, null);
             lines[match.LineNumber].Matches.Add(match);
-        }
-
-        /// <summary>
-        /// Returns a list of context GrepLines by line numbers provided in the input parameter. Matched line is not returned.
-        /// </summary>
-        /// <param name="body"></param>
-        /// <param name="linesBefore"></param>
-        /// <param name="linesAfter"></param>
-        /// <param name="foundLine">1 based line number</param>
-        /// <returns></returns>
-        [Obsolete]
-        public static List<GrepSearchResult.GrepLine> GetContextLines(string body, int linesBefore, int linesAfter, int foundLine)
-        {
-            List<GrepSearchResult.GrepLine> result = new List<GrepSearchResult.GrepLine>();
-            if (body == null || body.Trim() == "")
-                return result;
-
-            List<int> lineNumbers = new List<int>();
-            string[] lines = GetLines(body);
-            for (int i = foundLine - linesBefore - 1; i <= foundLine + linesAfter - 1; i++)
-            {
-                if (i >= 0 && i < lines.Length && (i + 1) != foundLine)
-                    result.Add(new GrepSearchResult.GrepLine(i + 1, lines[i], true, null));
-            }
-            return result;
         }
 
         /// <summary>

@@ -1,0 +1,141 @@
+﻿<Window x:Class="dnGREP.WPF.ReplaceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:my="clr-namespace:dnGREP.WPF"
+        mc:Ignorable="d"
+        Title="Replace Text" Height="760" Width="900" WindowStartupLocation="CenterScreen"
+        FocusManager.FocusedElement="{Binding ElementName=btnReplace}" >
+
+    <Window.Resources>
+
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="3"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Padding" Value="6,3"/>
+            <Setter Property="MinWidth" Value="90"/>
+            <Setter Property="MinHeight" Value="30"/>
+            <Setter Property="Margin" Value="3"/>
+        </Style>
+
+    </Window.Resources>
+
+    <Border Padding="4">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="24"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Search for:" HorizontalAlignment="Right"/>
+            <Border Grid.Row="0" Grid.Column="1" BorderBrush="LightGray" BorderThickness="1" Margin="6,3">
+                <TextBlock Text="{Binding SearchFor}"/>
+            </Border>
+            <Button Grid.Row="0" Grid.Column="2" Grid.RowSpan="2" Padding="16,0" TabIndex="0" Command="{Binding ReplaceAllCommand}">
+                <AccessText TextWrapping="Wrap" TextAlignment="Center" Width="80" Text="Replace in _All Files"/>
+            </Button>
+
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Replace with:" HorizontalAlignment="Right"/>
+            <Border Grid.Row="1" Grid.Column="1" BorderBrush="LightGray" BorderThickness="1" Margin="6,3">
+                <TextBlock Text="{Binding ReplaceWith}"/>
+            </Border>
+
+            <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="3,8,3,3" FontWeight="Medium">
+                <Run Text="File"/>
+                <Run Text="{Binding FileNumber, FallbackValue=0}"/>
+                <Run Text="of"/>
+                <Run Text="{Binding FileCount, FallbackValue=6}"/><Run Text=":   "/>
+                <Run Text="{Binding FileLabel}"/>
+            </TextBlock>
+            <ProgressBar Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Margin="6" Maximum="{Binding FileCount}" Value="{Binding FileNumber}"/>
+
+            <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Margin="3" Orientation="Horizontal">
+                <Button Content="Previous File" TabIndex="1" Command="{Binding PrevFileCommand}" />
+                <Button Content="Next File" TabIndex="2" Command="{Binding NextFileCommand}"/>
+                <Button Content="Replace in File" Margin="16,3,3,3" TabIndex="3" Command="{Binding ReplaceAllInFileCommand}"/>
+                <Button Content="Undo File" TabIndex="4" Command="{Binding UndoFileCommand}"/>
+            </StackPanel>
+
+            <ItemsControl Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3" x:Name="lineList"
+                          DataContext="{Binding SelectedSearchResult}"
+                          ItemsSource="{Binding FormattedLines}"
+                          VirtualizingStackPanel.IsVirtualizing="True" 
+                          VirtualizingStackPanel.VirtualizationMode="Recycling" 
+                          BorderBrush="DodgerBlue" BorderThickness="1" Margin="6,3">
+
+                <ItemsControl.Template>
+                    <ControlTemplate>
+                        <Border BorderThickness="{TemplateBinding Border.BorderThickness}" Padding="{TemplateBinding Control.Padding}" BorderBrush="{TemplateBinding Border.BorderBrush}" Background="{TemplateBinding Panel.Background}" SnapsToDevicePixels="True">
+                            <ScrollViewer Padding="{TemplateBinding Control.Padding}" Focusable="False" HorizontalScrollBarVisibility="Auto">
+                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </ItemsControl.Template>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel IsItemsHost="True"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate DataType="{x:Type my:FormattedGrepLine}">
+                        <Border BorderBrush="Gray" 
+                                        Width="{Binding Path=ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ItemsControl}}">
+                            <Border.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="BorderThickness" Value="0,0,0,0" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsSectionBreak}" Value="True">
+                                            <Setter Property="BorderThickness" Value="0,1,0,0" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Resources>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Width="{Binding LineNumberColumnWidth}" 
+                                           Text="{Binding FormattedLineNumber}" 
+                                           TextAlignment="Right" 
+                                           Background="WhiteSmoke" 
+                                           Margin="0,-2,0,-2"
+                                           Padding="0,1,3,0" 
+                                           FontFamily="Consolas"/>
+                                <my:InlineTextBlock Margin="6,0,0,0" 
+                                                    InlineCollection="{Binding FormattedText}" 
+                                                    FontFamily="Consolas"/>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <DockPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3" Margin="3" LastChildFill="False">
+                <Button Content="_Previous" TabIndex="10" Command="{Binding PrevOccuranceCommand}"/>
+                <Button Content="_Next" TabIndex="11" Command="{Binding NextOccuranceCommand}"/>
+                <Button Content="_Replace" TabIndex="12" Margin="16,3,3,3" Command="{Binding ReplaceOccuranceCommand}" x:Name="btnReplace"/>
+                <Button Content="_Undo" TabIndex="13" Command="{Binding UndoOccuranceCommand}"/>
+            </DockPanel>
+
+            <DockPanel Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Right" LastChildFill="False">
+                <Button DockPanel.Dock="Right" Content="Cancel" TabIndex="20" Click="CancelButton_Click"/>
+                <Button DockPanel.Dock="Right" Content="Apply Selections" TabIndex="21" Click="OKButton_Click"/>
+            </DockPanel>
+
+        </Grid>
+    </Border>
+</Window>
