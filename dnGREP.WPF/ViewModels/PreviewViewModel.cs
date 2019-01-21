@@ -15,15 +15,15 @@ namespace dnGREP.WPF
     {
         public PreviewViewModel()
         {
-            highlightDefinitions = new Dictionary<string, IHighlightingDefinition>();
+            HighlightDefinitions = new Dictionary<string, IHighlightingDefinition>();
             Highlighters = new List<string>();
             foreach (var hl in HighlightingManager.Instance.HighlightingDefinitions)
             {
-                highlightDefinitions[hl.Name] = hl;
+                HighlightDefinitions[hl.Name] = hl;
                 Highlighters.Add(hl.Name);
             }
             Highlighters.Add("SQL");
-            highlightDefinitions["SQL"] = loadHighlightingDefinition("sqlmode.xshd");
+            HighlightDefinitions["SQL"] = LoadHighlightingDefinition("sqlmode.xshd");
             Highlighters.Sort();
             Highlighters.Insert(0, "None");
             CurrentSyntax = "None";
@@ -83,6 +83,21 @@ namespace dnGREP.WPF
 
         public Encoding Encoding { get; set; }
 
+        private string displayFileName;
+        public string DisplayFileName
+        {
+            get { return displayFileName; }
+            set
+            {
+                if (value == displayFileName)
+                    return;
+
+                displayFileName = value;
+
+                base.OnPropertyChanged(() => DisplayFileName);
+            }
+        }
+
         private string filePath;
         public string FilePath
         {
@@ -132,8 +147,8 @@ namespace dnGREP.WPF
         {
             get
             {
-                if (highlightDefinitions.ContainsKey(CurrentSyntax))
-                    return highlightDefinitions[CurrentSyntax];
+                if (HighlightDefinitions.ContainsKey(CurrentSyntax))
+                    return HighlightDefinitions[CurrentSyntax];
                 else
                     return HighlightingManager.Instance.GetDefinitionByExtension("txt");
             }
@@ -145,7 +160,7 @@ namespace dnGREP.WPF
             UpdateState(e.PropertyName);
         }
 
-        private Dictionary<string, IHighlightingDefinition> highlightDefinitions { get; set; }
+        private Dictionary<string, IHighlightingDefinition> HighlightDefinitions { get; set; }
 
         #region Public Methods
         public virtual void UpdateState(string name)
@@ -199,7 +214,7 @@ namespace dnGREP.WPF
         #endregion
 
         #region Private Methods
-        private IHighlightingDefinition loadHighlightingDefinition(
+        private IHighlightingDefinition LoadHighlightingDefinition(
             string resourceName)
         {
             var type = typeof(PreviewView);

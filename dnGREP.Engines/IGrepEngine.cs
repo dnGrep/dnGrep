@@ -64,4 +64,14 @@ namespace dnGREP.Engines
         /// <param name="args"></param>
         void OpenFile(OpenFileArgs args);
     }
+
+    public interface IArchiveEngine
+    {
+        /// <summary>
+        /// Extract a file from an archive to a temp file
+        /// </summary>
+        /// <param name="searchResult"></param>
+        /// <returns></returns>
+        string ExtractToTempFile(GrepSearchResult searchResult);
+    }
 }
