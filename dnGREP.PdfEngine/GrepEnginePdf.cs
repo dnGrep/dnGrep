@@ -59,13 +59,19 @@ namespace dnGREP.Engines.Pdf
                 if (!File.Exists(tempFile))
                     throw new ApplicationException("pdftotext failed to create text file.");
 
+                // GrepCore cannot check encoding of the original pdf file. If the encoding parameter is not default
+                // then it is the user-specified code page.  If the encoding parameter *is* the default,
+                // then it most likely not been set, so get the encoding of the extracted text file:
+                if (encoding == Encoding.Default)
+                    encoding = Utils.GetFileEncoding(tempFile);
+
                 IGrepEngine engine = GrepEngineFactory.GetSearchEngine(tempFile, initParams, FileFilter);
                 List<GrepSearchResult> results = engine.Search(tempFile, searchPattern, searchType, searchOptions, encoding);
 
                 if (results.Count > 0)
                 {
                     using (FileStream reader = File.Open(tempFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                    using (StreamReader streamReader = new StreamReader(reader))
+                    using (StreamReader streamReader = new StreamReader(reader, encoding))
                     {
                         foreach (var result in results)
                         {
@@ -127,7 +133,6 @@ namespace dnGREP.Engines.Pdf
             if (pdfFilePath.Length > 260 && !pdfFilePath.StartsWith(@"\\?\"))
             {
                 pdfFilePath = @"\\?\" + pdfFilePath;
-                //pdfFilePath = Path.GetShort83Path(pdfFilePath);
             }
 
             using (Process process = new Process())
