@@ -6,6 +6,11 @@ using System.Reflection;
 using System.Text;
 using dnGREP.Common;
 using NLog;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
+using File = Alphaleonis.Win32.Filesystem.File;
+using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.Engines.Pdf
 {
@@ -50,7 +55,7 @@ namespace dnGREP.Engines.Pdf
             try
             {
                 // Extract text
-                string tempFile = extractText(file);
+                string tempFile = ExtractText(file);
                 if (!File.Exists(tempFile))
                     throw new ApplicationException("pdftotext failed to create text file.");
 
@@ -85,7 +90,7 @@ namespace dnGREP.Engines.Pdf
             }
             catch (Exception ex)
             {
-                logger.Log<Exception>(LogLevel.Error, "Failed to search inside Pdf file", ex);
+                logger.Log<Exception>(LogLevel.Error, $"Failed to search inside PDF file: {ex.Message}", ex);
                 return new List<GrepSearchResult>();
             }
         }
@@ -112,35 +117,53 @@ namespace dnGREP.Engines.Pdf
             return Search(filePath, searchPattern, searchType, searchOptions, encoding);
         }
 
-        private string extractText(string pdfFilePath)
+        private string ExtractText(string pdfFilePath)
         {
             string tempFolder = Path.Combine(Utils.GetTempFolder(), "dnGREP-PDF");
             if (!Directory.Exists(tempFolder))
                 Directory.CreateDirectory(tempFolder);
             string tempFileName = Path.Combine(tempFolder, Path.GetFileNameWithoutExtension(pdfFilePath) + ".txt");
 
+            if (pdfFilePath.Length > 260 && !pdfFilePath.StartsWith(@"\\?\"))
+            {
+                pdfFilePath = @"\\?\" + pdfFilePath;
+                //pdfFilePath = Path.GetShort83Path(pdfFilePath);
+            }
+
             using (Process process = new Process())
             {
-                try
-                {
-                    // use command prompt
-                    process.StartInfo.FileName = pathToPdfToText;
-                    process.StartInfo.Arguments = string.Format("-layout \"{0}\" \"{1}\"", pdfFilePath, tempFileName);
-                    process.StartInfo.UseShellExecute = false;
-                    process.StartInfo.WorkingDirectory = Utils.GetCurrentPath(typeof(GrepEnginePdf));
-                    process.StartInfo.CreateNoWindow = true;
-                    // start cmd prompt, execute command
-                    process.Start();
-                    process.WaitForExit();
+                // use command prompt
+                process.StartInfo.FileName = pathToPdfToText;
+                process.StartInfo.Arguments = string.Format("-layout \"{0}\" \"{1}\"", pdfFilePath, tempFileName);
+                process.StartInfo.UseShellExecute = false;
+                process.StartInfo.WorkingDirectory = Utils.GetCurrentPath(typeof(GrepEnginePdf));
+                process.StartInfo.CreateNoWindow = true;
+                // start cmd prompt, execute command
+                process.Start();
+                process.WaitForExit();
 
-                    if (process.ExitCode == 0)
-                        return tempFileName;
-                    else
-                        throw new Exception("pdftotext process exited with error code.");
-                }
-                catch
+                if (process.ExitCode == 0)
+                    return tempFileName;
+                else
                 {
-                    throw;
+                    string errorMessage = string.Empty;
+                    switch (process.ExitCode)
+                    {
+                        case 1:
+                            errorMessage = "Error opening PDF file";
+                            break;
+                        case 2:
+                            errorMessage = "Error opening an output file";
+                            break;
+                        case 3:
+                            errorMessage = "Error related to PDF permissions";
+                            break;
+                        default:
+                            errorMessage = "Unknown error";
+                            break;
+                    }
+
+                    throw new Exception($"pdftotext returned '{errorMessage}' converting '{pdfFilePath}'");
                 }
             }
         }
