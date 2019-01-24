@@ -6,6 +6,11 @@ using System.Runtime.InteropServices;
 using System.Text;
 using dnGREP.Common;
 using NLog;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
+using File = Alphaleonis.Win32.Filesystem.File;
+using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.Engines.Word
 {
@@ -294,6 +299,9 @@ namespace dnGREP.Engines.Word
         {
             if (isAvailable && wordDocuments != null && wordDocuments != null)
             {
+                if (path.Length > 255)  // 255 for Word!
+                    path = Path.GetShort83Path(path);
+
                 return wordDocuments.GetType().InvokeMember("Open", BindingFlags.InvokeMethod,
                     null, wordDocuments, new object[3] { path, MISSING_VALUE, bReadOnly });
             }

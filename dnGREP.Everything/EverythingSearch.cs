@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using NLog;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
+using File = Alphaleonis.Win32.Filesystem.File;
+using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.Everything
 {
@@ -14,8 +19,7 @@ namespace dnGREP.Everything
             // cannot construct...
         }
 
-        // #TODO: does Everything support longer paths?
-        private const int maxPath = 260;
+        private const int maxPath = 32768;
 
         private static bool? isAvailable;
 
@@ -27,9 +31,9 @@ namespace dnGREP.Everything
                 {
                     try
                     {
-                        UInt32 major = NativeMethods.Everything_GetMajorVersion();
-                        UInt32 minor = NativeMethods.Everything_GetMinorVersion();
-                        UInt32 revision = NativeMethods.Everything_GetRevision();
+                        uint major = NativeMethods.Everything_GetMajorVersion();
+                        uint minor = NativeMethods.Everything_GetMinorVersion();
+                        uint revision = NativeMethods.Everything_GetRevision();
 
                         // we need version 1.4.1 or higher
                         if (major < 1)
@@ -68,16 +72,16 @@ namespace dnGREP.Everything
             }
         }
 
-        public static IEnumerable<EverythingFileInfo> FindFiles(string searchString)
+        public static IEnumerable<EverythingFileInfo> FindFiles(string searchString, bool includeHidden)
         {
             if (!IsDbLoaded)
                 yield break;
 
-            NativeMethods.Everything_SetSort((UInt32)SortType.NameAscending);
+            NativeMethods.Everything_SetSort((uint)SortType.NameAscending);
 
             NativeMethods.Everything_SetSearchW(searchString);
 
-            NativeMethods.Everything_SetRequestFlags((UInt32)(
+            NativeMethods.Everything_SetRequestFlags((uint)(
                 RequestFlags.FullPathAndFileName |
                 RequestFlags.Attributes |
                 RequestFlags.Size |
@@ -86,8 +90,8 @@ namespace dnGREP.Everything
 
             NativeMethods.Everything_QueryW(true);
 
-            UInt32 count = NativeMethods.Everything_GetNumResults();
-            for (UInt32 idx = 0; idx < count; idx++)
+            uint count = NativeMethods.Everything_GetNumResults();
+            for (uint idx = 0; idx < count; idx++)
             {
                 string fullName = NativeMethods.Everything_GetResultFullPathName(idx, maxPath);
 
@@ -102,6 +106,9 @@ namespace dnGREP.Everything
                     DateTime lastWriteTime = NativeMethods.Everything_GetResultDateModified(idx);
 
                     EverythingFileInfo fileInfo = new EverythingFileInfo(fullName, attr, length, createdTime, lastWriteTime);
+
+                    if (!includeHidden && fileInfo.Attributes.HasFlag(FileAttributes.Hidden))
+                        continue;
 
                     yield return fileInfo;
                 }

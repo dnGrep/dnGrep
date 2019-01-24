@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.IO;
 using System.Text;
 using System.Windows;
 using System.Xml;
+using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;

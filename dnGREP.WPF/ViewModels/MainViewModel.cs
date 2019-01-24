@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -11,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
+using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
 using dnGREP.Common.UI;
 using dnGREP.Engines;

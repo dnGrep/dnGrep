@@ -1,8 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using NLog;
+using Alphaleonis.Win32.Filesystem;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
+using File = Alphaleonis.Win32.Filesystem.File;
+using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.Common
 {
@@ -10,107 +15,211 @@ namespace dnGREP.Common
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        public static IEnumerable<string> EnumerateDirectories(string path, string pattern, SearchOption option)
+        private static readonly DirectoryEnumerationOptions baseDirOptions =
+            DirectoryEnumerationOptions.Folders |
+            DirectoryEnumerationOptions.SkipReparsePoints |
+            DirectoryEnumerationOptions.BasicSearch |
+            DirectoryEnumerationOptions.LargeCache;
+
+        private static readonly DirectoryEnumerationOptions baseFileOptions =
+            DirectoryEnumerationOptions.Files |
+            DirectoryEnumerationOptions.SkipReparsePoints |
+            DirectoryEnumerationOptions.BasicSearch |
+            DirectoryEnumerationOptions.LargeCache;
+
+
+        public static IEnumerable<string> EnumerateFiles(string path, IList<string> patterns, bool includeHidden, bool recursive)
         {
-            return EnumerateDirectories(new DirectoryInfo(path), pattern, option);
+            if (string.IsNullOrWhiteSpace(path) || !Directory.Exists(path))
+                return Enumerable.Empty<string>();
+
+            if (includeHidden)
+                return EnumerateFilesIncludeHidden(path, patterns, recursive);
+            else
+                return EnumerateFilesExcludeHidden(path, patterns, recursive);
         }
 
-        public static IEnumerable<string> EnumerateDirectories(DirectoryInfo root, string pattern, SearchOption option)
+        private static IEnumerable<string> EnumerateFilesIncludeHidden(string path, IList<string> patterns, bool recursive)
         {
-            if (root == null || !root.Exists) yield break;
+            // when not checking for hidden directories or files, just enumerate files, which is faster
 
-            IEnumerable<DirectoryInfo> matches = Enumerable.Empty<DirectoryInfo>();
-            try
-            {
-                matches = matches.Concat(root.EnumerateDirectories(pattern, SearchOption.TopDirectoryOnly));
-            }
-            catch (UnauthorizedAccessException)
-            {
-                logger.Warn(string.Format(@"Unable to access '{0}'. Skipping...", root.FullName));
-                yield break;
-            }
-            catch (PathTooLongException ptle)
-            {
-                logger.Warn(ptle, string.Format(@"Could not process path '{0}\{1}'.", root.Parent.FullName, root.Name));
-                yield break;
-            }
-            catch (IOException ioe)
-            {
-                // "The symbolic link cannot be followed because its type is disabled."
-                // "The specified network name is no longer available."
-                logger.Warn(ioe, string.Format(@"Could not process path (check SymlinkEvaluation rules) '{0}\{1}'.", root.Parent.FullName, root.Name));
-                yield break;
-            }
-            catch (Exception ex)
-            {
-                logger.Warn(ex, string.Format(@"Could not process path '{0}\{1}'.", root.Parent.FullName, root.Name));
-                yield break;
-            }
+            var fileOptions = baseFileOptions;
+            if (recursive)
+                fileOptions |= DirectoryEnumerationOptions.Recursive;
 
-
-            foreach (var dir in matches)
+            DirectoryEnumerationFilters fileFilters = new DirectoryEnumerationFilters
             {
-                yield return dir.FullName;
-            }
-
-            if (option == SearchOption.AllDirectories)
-            {
-                foreach (var subdir in root.EnumerateDirectories("*", SearchOption.TopDirectoryOnly))
+                ErrorFilter = (errorCode, errorMessage, pathProcessed) =>
                 {
-                    foreach (var match in EnumerateDirectories(subdir, pattern, option))
-                    {
-                        yield return match;
-                    }
+                    logger.Error($"Find file error {errorCode}: {errorMessage} on {pathProcessed}");
+                    return true;
                 }
+            };
+
+
+            bool includeAllFiles = patterns.Count == 0 ||
+                (patterns.Count == 1 && (patterns[0] == "*.*" || patterns[0] == "*"));
+
+            if (!includeAllFiles)
+            {
+                fileFilters.InclusionFilter = fsei =>
+                {
+                    foreach (string pattern in patterns)
+                    {
+                        if (WildcardMatch(fsei.FileName, pattern, true))
+                            return true;
+                    }
+                    return false;
+                };
+            }
+
+            return Directory.EnumerateFiles(path, fileOptions, fileFilters, PathFormat.FullPath);
+        }
+
+        private static IEnumerable<string> EnumerateFilesExcludeHidden(string path, IList<string> patterns, bool recursive)
+        {
+            // when checking for hidden directories, enumerate the directories separately from files to check for hidden flag on directories
+
+            DirectoryInfo di = new DirectoryInfo(path);
+            if (di.Attributes.HasFlag(FileAttributes.Hidden))
+                yield break;
+
+            var dirOptions = baseDirOptions;
+            if (recursive)
+                dirOptions |= DirectoryEnumerationOptions.Recursive;
+
+
+            DirectoryEnumerationFilters dirFilters = new DirectoryEnumerationFilters
+            {
+                ErrorFilter = (errorCode, errorMessage, pathProcessed) =>
+                {
+                    logger.Error($"Find file error {errorCode}: {errorMessage} on {pathProcessed}");
+                    return true;
+                }
+            };
+
+            dirFilters.InclusionFilter = fsei =>
+            {
+                return !fsei.IsHidden;
+            };
+
+
+            DirectoryEnumerationFilters fileFilters = new DirectoryEnumerationFilters
+            {
+                ErrorFilter = (errorCode, errorMessage, pathProcessed) =>
+                {
+                    logger.Error($"Find file error {errorCode}: {errorMessage} on {pathProcessed}");
+                    return true;
+                }
+            };
+
+
+            bool includeAllFiles = patterns.Count == 0 ||
+                (patterns.Count == 1 && (patterns[0] == "*.*" || patterns[0] == "*"));
+
+            if (includeAllFiles)
+            {
+                fileFilters.InclusionFilter = fsei =>
+                {
+                    return !fsei.IsHidden;
+                };
+            }
+            else
+            {
+                fileFilters.InclusionFilter = fsei =>
+                {
+                    if (fsei.IsHidden)
+                        return false;
+
+                    foreach (string pattern in patterns)
+                    {
+                        if (WildcardMatch(fsei.FileName, pattern, true))
+                            return true;
+                    }
+                    return false;
+                };
+            }
+
+            IEnumerable<string> directories = new string[] { path };
+            if (recursive)
+                directories = directories.Concat(Directory.EnumerateDirectories(path, dirOptions, dirFilters, PathFormat.FullPath));
+
+            foreach (var directory in directories)
+            {
+                IEnumerable<string> matches = Directory.EnumerateFiles(directory, baseFileOptions, fileFilters, PathFormat.FullPath);
+
+                foreach (var file in matches)
+                    yield return file;
             }
         }
 
-        public static IEnumerable<string> EnumerateFiles(string path, IEnumerable<string> patterns)
+        public static bool WildcardMatch(string str, string pattern, bool ignoreCase)
         {
-            if (string.IsNullOrWhiteSpace(path) || !Directory.Exists(path)) yield break;
+            if (ignoreCase)
+                return WildcardMatch(str.ToLower(), pattern.ToLower());
+            else
+                return WildcardMatch(str, pattern);
+        }
 
-            IEnumerable<string> matches = Enumerable.Empty<string>();
-            try
+        public static bool WildcardMatch(string str, string pattern)
+        {
+            if (string.IsNullOrEmpty(pattern))
+                return str.Length == 0;
+
+            if (pattern == "*" || pattern == "*.*")
+                return !string.IsNullOrWhiteSpace(str);
+
+            if (pattern == "*.")
+                return string.IsNullOrWhiteSpace(Path.GetExtension(str));
+
+            if (pattern == ".*")
+                return str.StartsWith(".");
+
+            if (pattern.StartsWith("*") && pattern.IndexOf('*', 1) == -1 && pattern.IndexOf('?') == -1)
+                return str.EndsWith(pattern.Substring(1));
+
+            int pS = 0;
+            int pW = 0;
+            int lS = str.Length;
+            int lW = pattern.Length;
+
+            while (pS < lS && pW < lW && pattern[pW] != '*')
             {
-                if (patterns.Any())
+                char wild = pattern[pW];
+                if (wild != '?' && wild != str[pS])
+                    return false;
+                pW++;
+                pS++;
+            }
+
+            int pSm = 0;
+            int pWm = 0;
+            while (pS < lS && pW < lW)
+            {
+                char wild = pattern[pW];
+                if (wild == '*')
                 {
-                    foreach (var pattern in patterns)
-                        matches = matches.Concat(Directory.EnumerateFiles(path, pattern));
+                    pW++;
+                    if (pW == lW)
+                        return true;
+                    pWm = pW;
+                    pSm = pS + 1;
+                }
+                else if (wild == '?' || wild == str[pS])
+                {
+                    pW++;
+                    pS++;
                 }
                 else
                 {
-                    matches = matches.Concat(Directory.EnumerateFiles(path));
+                    pW = pWm;
+                    pS = pSm;
+                    pSm++;
                 }
             }
-            catch (UnauthorizedAccessException)
-            {
-                logger.Warn(string.Format(@"Unable to access '{0}'. Skipping...", path));
-                yield break;
-            }
-            catch (PathTooLongException ptle)
-            {
-                logger.Warn(ptle, string.Format(@"Could not process file in path '{0}'.", path));
-                yield break;
-            }
-            catch (IOException ioe)
-            {
-                // "The symbolic link cannot be followed because its type is disabled."
-                // "The specified network name is no longer available."
-                logger.Warn(ioe, string.Format(@"Could not process path (check SymlinkEvaluation rules)'{0} '.", path));
-                yield break;
-            }
-            catch (Exception ex)
-            {
-                logger.Warn(ex, string.Format(@"Could not process path '{0}'.", path));
-                yield break;
-            }
-
-
-            foreach (var file in matches)
-            {
-                yield return file;
-            }
-
+            while (pW < lW && pattern[pW] == '*')
+                pW++;
+            return pW == lW && pS == lS;
         }
     }
 }
