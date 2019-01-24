@@ -17,7 +17,7 @@ using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.Engines.Archive
 {
-    public class GrepEngineArchive : GrepEngineBase, IGrepEngine
+    public class GrepEngineArchive : GrepEngineBase, IGrepEngine, IArchiveEngine
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
@@ -276,6 +276,47 @@ namespace dnGREP.Engines.Archive
             OpenFileArgs newArgs = new OpenFileArgs(newResult, args.Pattern, args.LineNumber, args.UseCustomEditor, args.CustomEditor, args.CustomEditorArgs);
             newArgs.SearchResult.FileNameDisplayed = filePath;
             Utils.OpenFile(newArgs);
+        }
+
+        public string ExtractToTempFile(GrepSearchResult searchResult)
+        {
+            string tempFolder = Path.Combine(Utils.GetTempFolder(), "dnGREP-Archive", Utils.GetHash(searchResult.FileNameReal));
+            string innerFileName = searchResult.FileNameDisplayed.Substring(searchResult.FileNameReal.Length).TrimStart(Path.DirectorySeparatorChar);
+            string filePath = Path.Combine(tempFolder, innerFileName);
+
+            if (!File.Exists(filePath))
+            {
+                // use the directory name to also include folders within the archive
+                string directory = Path.GetDirectoryName(filePath);
+                if (!Directory.Exists(directory))
+                    Directory.CreateDirectory(directory);
+
+                string zipFile = searchResult.FileNameReal;
+                if (zipFile.Length > 260 && !zipFile.StartsWith(@"\\?\"))
+                {
+                    zipFile = @"\\?\" + zipFile;
+                }
+
+                using (SevenZipExtractor extractor = new SevenZipExtractor(zipFile))
+                {
+                    if (extractor.ArchiveFileData.Where(r => r.FileName == innerFileName && !r.IsDirectory).Any())
+                    {
+                        using (FileStream stream = File.Open(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                        {
+                            try
+                            {
+                                extractor.ExtractFile(innerFileName, stream);
+                            }
+                            catch (Exception ex)
+                            {
+                                logger.Log<Exception>(LogLevel.Error, string.Format("Failed extract file {0} from archive '{1}'", innerFileName, searchResult.FileNameReal), ex);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return filePath;
         }
     }
 }
