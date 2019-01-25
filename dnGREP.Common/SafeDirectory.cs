@@ -153,73 +153,91 @@ namespace dnGREP.Common
             }
         }
 
-        public static bool WildcardMatch(string str, string pattern, bool ignoreCase)
+        /// <summary>
+        /// Tests if a file name matches a Windows file pattern
+        /// </summary>
+        /// <param name="fileName">the file name to test</param>
+        /// <param name="pattern">the Windows file patten</param>
+        /// <param name="ignoreCase">true for case-insensitive</param>
+        /// <returns>True if match, otherwise false</returns>
+        public static bool WildcardMatch(string fileName, string pattern, bool ignoreCase)
         {
             if (ignoreCase)
-                return WildcardMatch(str.ToLower(), pattern.ToLower());
+                return WildcardMatch(fileName.ToLower(), pattern.ToLower());
             else
-                return WildcardMatch(str, pattern);
+                return WildcardMatch(fileName, pattern);
         }
 
-        public static bool WildcardMatch(string str, string pattern)
+        /// <summary>
+        /// Tests if a file name matches a Windows file pattern
+        /// </summary>
+        /// <remarks>
+        /// Not an exact duplicate of the internal Windows implementation, but most common patterns are supported
+        /// https://blogs.msdn.microsoft.com/jeremykuhne/2017/06/04/wildcards-in-windows/
+        /// https://blogs.msdn.microsoft.com/oldnewthing/20071217-00/?p=24143/
+        /// </remarks>
+        /// <param name="fileName">the file name to test</param>
+        /// <param name="pattern">the Windows file patten</param>
+        /// <returns>True if match, otherwise false</returns>
+        public static bool WildcardMatch(string fileName, string pattern)
         {
             if (string.IsNullOrEmpty(pattern))
-                return str.Length == 0;
+                return fileName.Length == 0;
 
             if (pattern == "*" || pattern == "*.*")
-                return !string.IsNullOrWhiteSpace(str);
+                return !string.IsNullOrWhiteSpace(fileName);
 
             if (pattern == "*.")
-                return string.IsNullOrWhiteSpace(Path.GetExtension(str));
+                return string.IsNullOrWhiteSpace(Path.GetExtension(fileName));
 
             if (pattern == ".*")
-                return str.StartsWith(".");
+                return fileName.StartsWith(".");
 
             if (pattern.StartsWith("*") && pattern.IndexOf('*', 1) == -1 && pattern.IndexOf('?') == -1)
-                return str.EndsWith(pattern.Substring(1));
+                return fileName.EndsWith(pattern.Substring(1));
 
-            int pS = 0;
-            int pW = 0;
-            int lS = str.Length;
-            int lW = pattern.Length;
+            int fileNameIndex = 0;
+            int patternIndex = 0;
+            int fileNameLength = fileName.Length;
+            int patternLength = pattern.Length;
 
-            while (pS < lS && pW < lW && pattern[pW] != '*')
+            while (fileNameIndex < fileNameLength && patternIndex < patternLength && pattern[patternIndex] != '*')
             {
-                char wild = pattern[pW];
-                if (wild != '?' && wild != str[pS])
+                char wild = pattern[patternIndex];
+                if (wild != '?' && wild != fileName[fileNameIndex])
                     return false;
-                pW++;
-                pS++;
+                patternIndex++;
+                fileNameIndex++;
             }
 
-            int pSm = 0;
-            int pWm = 0;
-            while (pS < lS && pW < lW)
+            int fileNameIndex2 = 0;
+            int patternIndex2 = 0;
+            while (fileNameIndex < fileNameLength && patternIndex < patternLength)
             {
-                char wild = pattern[pW];
+                char wild = pattern[patternIndex];
                 if (wild == '*')
                 {
-                    pW++;
-                    if (pW == lW)
+                    patternIndex++;
+                    if (patternIndex == patternLength)
                         return true;
-                    pWm = pW;
-                    pSm = pS + 1;
+                    patternIndex2 = patternIndex;
+                    fileNameIndex2 = fileNameIndex + 1;
                 }
-                else if (wild == '?' || wild == str[pS])
+                else if (wild == '?' || wild == fileName[fileNameIndex])
                 {
-                    pW++;
-                    pS++;
+                    patternIndex++;
+                    fileNameIndex++;
                 }
                 else
                 {
-                    pW = pWm;
-                    pS = pSm;
-                    pSm++;
+                    patternIndex = patternIndex2;
+                    fileNameIndex = fileNameIndex2;
+                    fileNameIndex2++;
                 }
             }
-            while (pW < lW && pattern[pW] == '*')
-                pW++;
-            return pW == lW && pS == lS;
+            while (patternIndex < patternLength && pattern[patternIndex] == '*')
+                patternIndex++;
+            return patternIndex == patternLength && fileNameIndex == fileNameLength;
         }
     }
 }
