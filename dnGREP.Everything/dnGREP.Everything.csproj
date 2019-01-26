@@ -103,6 +103,7 @@
     </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>xcopy /Y /R "$(ProjectDir)$(PlatformName)\Everything*.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)"</PostBuildEvent>
+    <PostBuildEvent>mkdir "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)"\
+xcopy /Y /R "$(ProjectDir)$(PlatformName)\Everything*.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)"\</PostBuildEvent>
   </PropertyGroup>
 </Project>

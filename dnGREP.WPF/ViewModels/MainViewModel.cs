@@ -761,9 +761,8 @@ namespace dnGREP.WPF
             {
                 logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
                 bool isSearch = true;
-                if (e.Argument is MainViewModel)
+                if (e.Argument is MainViewModel param)
                 {
-                    MainViewModel param = (MainViewModel)e.Argument;
                     if (param.CurrentGrepOperation == GrepOperation.Search || param.CurrentGrepOperation == GrepOperation.SearchInResults)
                         isSearch = true;
                     else
@@ -776,7 +775,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private object lockObjOne = new object();
+        private readonly object lockObjOne = new object();
         private void SearchProgressChanged(object sender, ProgressChangedEventArgs e)
         {
             try
@@ -803,7 +802,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private object lockObjTwo = new object();
+        private readonly object lockObjTwo = new object();
         private void UpdateStatus(ProgressStatus progress)
         {
             // When running in parallel, multiple files will be in progress at the same time.
@@ -868,8 +867,7 @@ namespace dnGREP.WPF
                     {
                         TimeSpan duration = DateTime.Now.Subtract(timer);
                         int successCount = 0;
-                        var results = e.Result as List<GrepSearchResult>;
-                        if (results != null)
+                        if (e.Result is List<GrepSearchResult> results)
                             successCount = results.Where(r => r.IsSuccess).Count();
 
                         StatusMessage = $"Search Complete - Searched {processedFiles} files. Found {successCount} files in {duration.GetPrettyString()}.";
@@ -1703,6 +1701,29 @@ namespace dnGREP.WPF
         {
             if (PreviewFileContent)
             {
+                string displayfileName = filePath;
+
+                if (Utils.IsArchive(filePath))
+                {
+                    if (GrepEngineFactory.GetSearchEngine(filePath, GrepEngineInitParams.Default, new FileFilter()) is IArchiveEngine engine)
+                    {
+                        OpenFileArgs fileArg = new OpenFileArgs(result, result.Pattern, 0, false, null, null);
+                        string tempFile = engine.ExtractToTempFile(result);
+                        GrepEngineFactory.ReturnToPool(filePath, engine as IGrepEngine);
+
+                        if (string.IsNullOrWhiteSpace(tempFile))
+                        {
+                            MessageBox.Show("Failed to extract file from archive, see dnGrep error log for more information");
+                            return;
+                        }
+                        else
+                        {
+                            displayfileName = result.FileNameDisplayed;
+                            filePath = tempFile;
+                        }
+                    }
+                }
+
                 if (previewModel == null)
                 {
                     previewModel = new PreviewViewModel();
@@ -1712,7 +1733,7 @@ namespace dnGREP.WPF
                 {
                     preview = new PreviewView();
                     preview.DataContext = previewModel;
-                    System.Drawing.Rectangle bounds = settings.Get<System.Drawing.Rectangle>(GrepSettings.Key.PreviewWindowSize);
+                    Rectangle bounds = settings.Get<Rectangle>(GrepSettings.Key.PreviewWindowSize);
                     if (bounds.Left == 0 && bounds.Right == 0)
                     {
                         preview.Height = parentWindow.Height;
@@ -1721,9 +1742,12 @@ namespace dnGREP.WPF
                         preview.Top = parentWindow.Top;
                     }
                 }
+
+
                 previewModel.GrepResult = result;
                 previewModel.LineNumber = line;
                 previewModel.Encoding = result.Encoding;
+                previewModel.DisplayFileName = displayfileName;
                 previewModel.FilePath = filePath;
 
                 if (preview.WindowState == WindowState.Minimized)
