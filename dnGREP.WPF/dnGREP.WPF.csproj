@@ -182,6 +182,7 @@
     <Compile Include="ViewModels\OptionsViewModel.cs" />
     <Compile Include="ViewModels\PreviewViewModel.cs" />
     <Compile Include="ViewModels\ReplaceViewModel.cs" />
+    <Compile Include="ViewModels\SearchReplaceCriteria.cs" />
     <Compile Include="ViewModels\SnippetPreviewModel.cs" />
     <Compile Include="ViewModels\SyntaxHighlighterViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />

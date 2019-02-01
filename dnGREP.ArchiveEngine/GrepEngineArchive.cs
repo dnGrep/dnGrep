@@ -217,7 +217,8 @@ namespace dnGREP.Engines.Archive
             //Do nothing
         }
 
-        public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
+        public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, 
+            GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepSearchResult.GrepMatch> replaceItems)
         {
             throw new Exception("The method or operation is not supported.");
         }

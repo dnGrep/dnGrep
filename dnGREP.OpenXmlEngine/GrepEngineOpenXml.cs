@@ -41,25 +41,25 @@ namespace dnGREP.Engines.OpenXml
         // the stream version will get called if the file is in an archive
         public List<GrepSearchResult> Search(Stream input, string fileName, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
         {
-            SearchDelegates.DoSearch searchMethodMultiline = doTextSearchCaseSensitive;
+            SearchDelegates.DoSearch searchMethodMultiline = DoTextSearchCaseSensitive;
             switch (searchType)
             {
                 case SearchType.PlainText:
                 case SearchType.XPath:
                     if ((searchOptions & GrepSearchOption.CaseSensitive) == GrepSearchOption.CaseSensitive)
                     {
-                        searchMethodMultiline = doTextSearchCaseSensitive;
+                        searchMethodMultiline = DoTextSearchCaseSensitive;
                     }
                     else
                     {
-                        searchMethodMultiline = doTextSearchCaseInsensitive;
+                        searchMethodMultiline = DoTextSearchCaseInsensitive;
                     }
                     break;
                 case SearchType.Regex:
-                    searchMethodMultiline = doRegexSearch;
+                    searchMethodMultiline = DoRegexSearch;
                     break;
                 case SearchType.Soundex:
-                    searchMethodMultiline = doFuzzySearchMultiline;
+                    searchMethodMultiline = DoFuzzySearchMultiline;
                     break;
             }
 
@@ -290,7 +290,8 @@ namespace dnGREP.Engines.OpenXml
 
         public bool IsSearchOnly { get { return true; } }
 
-        public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
+        public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, 
+            GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepSearchResult.GrepMatch> replaceItems)
         {
             throw new Exception("The method or operation is not implemented.");
         }

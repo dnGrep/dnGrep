@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
@@ -16,9 +17,9 @@ namespace dnGREP.Engines
 {
     public class GrepEngineBase
     {
-        private string KEYWORD_GUID_LOWER = "$(guid)";
-        private string KEYWORD_GUID_UPPER = "$(GUID)";
-        private string KEYWORD_GUIDX = "$(guidx)";
+        private readonly string KEYWORD_GUID_LOWER = "$(guid)";
+        private readonly string KEYWORD_GUID_UPPER = "$(GUID)";
+        private readonly string KEYWORD_GUIDX = "$(guidx)";
         protected GrepEngineInitParams initParams = GrepEngineInitParams.Default;
         private GoogleMatch fuzzyMatchEngine = new GoogleMatch();
 
@@ -48,7 +49,7 @@ namespace dnGREP.Engines
             Utils.OpenFile(args);
         }
 
-        protected List<GrepSearchResult.GrepMatch> doFuzzySearchMultiline(int lineNumber, string text, string searchPattern, GrepSearchOption searchOptions, bool includeContext)
+        protected List<GrepSearchResult.GrepMatch> DoFuzzySearchMultiline(int lineNumber, string text, string searchPattern, GrepSearchOption searchOptions, bool includeContext)
         {
             var lineEndIndexes = GetLineEndIndexes(initParams.VerboseMatchCount && lineNumber == -1 ? text : null);
 
@@ -86,7 +87,7 @@ namespace dnGREP.Engines
             return globalMatches;
         }
 
-        protected List<GrepSearchResult.GrepMatch> doXPathSearch(int lineNumber, string text, string searchXPath, GrepSearchOption searchOptions, bool includeContext)
+        protected List<GrepSearchResult.GrepMatch> DoXPathSearch(int lineNumber, string text, string searchXPath, GrepSearchOption searchOptions, bool includeContext)
         {
             List<GrepSearchResult.GrepMatch> results = new List<GrepSearchResult.GrepMatch>();
             // Check if file is an XML file
@@ -118,7 +119,7 @@ namespace dnGREP.Engines
                             xpathPositions.AttributeName = xn.Name;
                         }
                         List<int> currentPositions = new List<int>();
-                        getXpathPositions(xn, ref currentPositions);
+                        GetXpathPositions(xn, ref currentPositions);
                         if (xpathPositions.EndsOnAttribute)
                             currentPositions.RemoveAt(currentPositions.Count - 1);
                         xpathPositions.Path = currentPositions;
@@ -126,7 +127,7 @@ namespace dnGREP.Engines
                     }
                 }
 
-                results.AddRange(getFilePositions(text, positions));
+                results.AddRange(GetFilePositions(text, positions));
             }
 
             return results;
@@ -145,7 +146,7 @@ namespace dnGREP.Engines
         /// </summary>
         /// <param name="node"></param>
         /// <param name="positions">Lists the number of node in the according level, including root, that is first element. Positions start at 1.</param>
-        private void getXpathPositions(XPathNavigator node, ref List<int> positions)
+        private void GetXpathPositions(XPathNavigator node, ref List<int> positions)
         {
             int pos = 1;
 
@@ -157,11 +158,11 @@ namespace dnGREP.Engines
             if (node.MoveToParent())
             {
                 positions.Insert(0, pos);
-                getXpathPositions(node, ref positions);
+                GetXpathPositions(node, ref positions);
             }
         }
 
-        private int getAbsoluteCharPosition(int line, int position, string text, List<int> lineLengths, bool leftTrimmed)
+        private int GetAbsoluteCharPosition(int line, int position, string text, List<int> lineLengths, bool leftTrimmed)
         {
             if (line > lineLengths.Count)
                 throw new ArgumentException("Error getting absolute char position. Line number too high.");
@@ -182,7 +183,7 @@ namespace dnGREP.Engines
         }
 
 
-        public GrepSearchResult.GrepMatch[] getFilePositions(string text, List<XPathPosition> positions)
+        public GrepSearchResult.GrepMatch[] GetFilePositions(string text, List<XPathPosition> positions)
         {
             bool[] endFound = new bool[positions.Count];
             // Getting line lengths
@@ -239,7 +240,7 @@ namespace dnGREP.Engines
 
                                     for (int i = 0; i < positions.Count; i++)
                                     {
-                                        if (xPathPositionsMatch(currPos, positions[i].Path))
+                                        if (XPathPositionsMatch(currPos, positions[i].Path))
                                         {
                                             endFound[i] = true;
                                         }
@@ -253,11 +254,11 @@ namespace dnGREP.Engines
                             {
                                 for (int i = 0; i < positions.Count; i++)
                                 {
-                                    if (endFound[i] && !xPathPositionsMatch(currPos, positions[i].Path))
+                                    if (endFound[i] && !XPathPositionsMatch(currPos, positions[i].Path))
                                     {
                                         if (results[i] != null)
                                         {
-                                            results[i].EndPosition = getAbsoluteCharPosition(lineInfo.LineNumber - 1, lineInfo.LinePosition - 3, text, lineLengths, true) + 1;
+                                            results[i].EndPosition = GetAbsoluteCharPosition(lineInfo.LineNumber - 1, lineInfo.LinePosition - 3, text, lineLengths, true) + 1;
                                         }
                                         endFound[i] = false;
                                     }
@@ -272,20 +273,20 @@ namespace dnGREP.Engines
                                     {
                                         if (results[i] != null)
                                         {
-                                            results[i].EndPosition = getAbsoluteCharPosition(lineInfo.LineNumber - 1, lineInfo.LinePosition - 3, text, lineLengths, true) + 1;
+                                            results[i].EndPosition = GetAbsoluteCharPosition(lineInfo.LineNumber - 1, lineInfo.LinePosition - 3, text, lineLengths, true) + 1;
                                         }
                                         endFound[i] = false;
                                     }
 
-                                    if (xPathPositionsMatch(currPos, positions[i].Path))
+                                    if (XPathPositionsMatch(currPos, positions[i].Path))
                                     {
-                                        results[i] = new GrepSearchResult.GrepMatch(lineInfo.LineNumber - 1, getAbsoluteCharPosition(lineInfo.LineNumber - 1, lineInfo.LinePosition - 2, text, lineLengths, false), 0);
+                                        results[i] = new GrepSearchResult.GrepMatch(lineInfo.LineNumber - 1, GetAbsoluteCharPosition(lineInfo.LineNumber - 1, lineInfo.LinePosition - 2, text, lineLengths, false), 0);
                                     }
 
                                     // If empty element (e.g.<element/>)
                                     if (reader.IsEmptyElement)
                                     {
-                                        if (xPathPositionsMatch(currPos, positions[i].Path))
+                                        if (XPathPositionsMatch(currPos, positions[i].Path))
                                         {
                                             endFound[i] = true;
                                         }
@@ -310,7 +311,7 @@ namespace dnGREP.Engines
             return results;
         }
 
-        private bool xPathPositionsMatch(List<int> currPos, List<int> positions)
+        private bool XPathPositionsMatch(List<int> currPos, List<int> positions)
         {
             if (currPos.Count != positions.Count)
             {
@@ -357,7 +358,7 @@ namespace dnGREP.Engines
             return list;
         }
 
-        protected List<GrepSearchResult.GrepMatch> doRegexSearch(int lineNumber, string text, string searchPattern, GrepSearchOption searchOptions, bool includeContext)
+        protected List<GrepSearchResult.GrepMatch> DoRegexSearch(int lineNumber, string text, string searchPattern, GrepSearchOption searchOptions, bool includeContext)
         {
             RegexOptions regexOptions = RegexOptions.None;
             if ((searchOptions & GrepSearchOption.CaseSensitive) != GrepSearchOption.CaseSensitive)
@@ -389,7 +390,7 @@ namespace dnGREP.Engines
 
                 if (lineNumber == -1 && text.Contains("\r\n"))
                 {
-                    return doRegexSearchSpecial(text, searchPattern, regexOptions);
+                    return DoRegexSearchSpecial(text, searchPattern, regexOptions);
                 }
 
                 if (text.Contains("\r\n"))
@@ -420,7 +421,7 @@ namespace dnGREP.Engines
             return globalMatches;
         }
 
-        private List<GrepSearchResult.GrepMatch> doRegexSearchSpecial(string text, string searchPattern, RegexOptions regexOptions)
+        private List<GrepSearchResult.GrepMatch> DoRegexSearchSpecial(string text, string searchPattern, RegexOptions regexOptions)
         {
             // this is a special case for multiline searches with Windows EOL characters and a '$' in the search pattern
             // must remove the \r from the EOL (see above), and then account for the missing character in the start index
@@ -447,7 +448,7 @@ namespace dnGREP.Engines
             return globalMatches;
         }
 
-        protected string doPatternReplacement(string replaceText)
+        protected string DoPatternReplacement(string replaceText)
         {
             if (replaceText.Contains(KEYWORD_GUID_LOWER))
                 return replaceText.Replace(KEYWORD_GUID_LOWER, Guid.NewGuid().ToString());
@@ -459,7 +460,7 @@ namespace dnGREP.Engines
                 return replaceText;
         }
 
-        protected List<GrepSearchResult.GrepMatch> doTextSearchCaseInsensitive(int lineNumber, string text, string searchText, GrepSearchOption searchOptions, bool includeContext)
+        protected List<GrepSearchResult.GrepMatch> DoTextSearchCaseInsensitive(int lineNumber, string text, string searchText, GrepSearchOption searchOptions, bool includeContext)
         {
             var lineEndIndexes = GetLineEndIndexes(initParams.VerboseMatchCount && lineNumber == -1 ? text : null);
 
@@ -492,7 +493,7 @@ namespace dnGREP.Engines
             return globalMatches;
         }
 
-        protected List<GrepSearchResult.GrepMatch> doTextSearchCaseSensitive(int lineNumber, string text, string searchText, GrepSearchOption searchOptions, bool includeContext)
+        protected List<GrepSearchResult.GrepMatch> DoTextSearchCaseSensitive(int lineNumber, string text, string searchText, GrepSearchOption searchOptions, bool includeContext)
         {
             var lineEndIndexes = GetLineEndIndexes(initParams.VerboseMatchCount && lineNumber == -1 ? text : null);
 
@@ -526,26 +527,27 @@ namespace dnGREP.Engines
             return globalMatches;
         }
 
-        protected string doTextReplaceCaseSensitive(string text, string searchText, string replaceText, GrepSearchOption searchOptions)
+        protected string DoTextReplaceCaseSensitive(string text, string searchText, string replaceText, GrepSearchOption searchOptions,
+            IEnumerable<GrepSearchResult.GrepMatch> replaceItems)
         {
             StringBuilder sb = new StringBuilder();
             int index = 0;
             int counter = 0;
-            bool isWholeWord = (searchOptions & GrepSearchOption.WholeWord) == GrepSearchOption.WholeWord;
+            bool isWholeWord = searchOptions.HasFlag(GrepSearchOption.WholeWord);
             while (index >= 0)
             {
                 index = text.IndexOf(searchText, index, StringComparison.InvariantCulture);
                 if (index >= 0)
                 {
                     if (isWholeWord && (!Utils.IsValidBeginText(text.Substring(0, index)) ||
-                    !Utils.IsValidEndText(text.Substring(index + searchText.Length))))
+                        !Utils.IsValidEndText(text.Substring(index + searchText.Length))))
                     {
                         index++;
                         continue;
                     }
 
                     sb.Append(text.Substring(counter, index - counter));
-                    sb.Append(doPatternReplacement(replaceText));
+                    sb.Append(DoPatternReplacement(replaceText));
 
                     counter = index + searchText.Length;
 
@@ -559,7 +561,8 @@ namespace dnGREP.Engines
             return sb.ToString();
         }
 
-        protected string doTextReplaceCaseInsensitive(string text, string searchText, string replaceText, GrepSearchOption searchOptions)
+        protected string DoTextReplaceCaseInsensitive(string text, string searchText, string replaceText, GrepSearchOption searchOptions,
+            IEnumerable<GrepSearchResult.GrepMatch> replaceItems)
         {
             StringBuilder sb = new StringBuilder();
             int index = 0;
@@ -578,7 +581,7 @@ namespace dnGREP.Engines
                     }
 
                     sb.Append(text.Substring(counter, index - counter));
-                    sb.Append(doPatternReplacement(replaceText));
+                    sb.Append(DoPatternReplacement(replaceText));
 
                     counter = index + searchText.Length;
 
@@ -592,7 +595,8 @@ namespace dnGREP.Engines
             return sb.ToString();
         }
 
-        protected string doRegexReplace(string text, string searchPattern, string replacePattern, GrepSearchOption searchOptions)
+        protected string DoRegexReplace(string text, string searchPattern, string replacePattern, GrepSearchOption searchOptions,
+            IEnumerable<GrepSearchResult.GrepMatch> replaceItems)
         {
             RegexOptions regexOptions = RegexOptions.None;
             if ((searchOptions & GrepSearchOption.CaseSensitive) != GrepSearchOption.CaseSensitive)
@@ -634,13 +638,14 @@ namespace dnGREP.Engines
                 }
             }
 
-            string result = Regex.Replace(text, searchPattern, doPatternReplacement(replacePattern), regexOptions);
+            string result = Regex.Replace(text, searchPattern, DoPatternReplacement(replacePattern), regexOptions);
             if (!string.IsNullOrEmpty(prevNewLine))
                 result = result.Replace("\n", prevNewLine);
             return result;
         }
 
-        public string doFuzzyReplace(string text, string searchPattern, string replacePattern, GrepSearchOption searchOptions)
+        public string DoFuzzyReplace(string text, string searchPattern, string replacePattern, GrepSearchOption searchOptions,
+            IEnumerable<GrepSearchResult.GrepMatch> replaceItems)
         {
             int counter = 0;
             StringBuilder result = new StringBuilder();
@@ -674,14 +679,15 @@ namespace dnGREP.Engines
                 // Text before match
                 result.Append(text.Substring(counter, matchLocation));
                 // New text
-                result.Append(doPatternReplacement(replacePattern));
+                result.Append(DoPatternReplacement(replacePattern));
 
                 counter = counter + matchLocation + matchLength;
             }
             return result.ToString();
         }
 
-        protected string doXPathReplace(string text, string searchXPath, string replaceText, GrepSearchOption searchOptions)
+        protected string DoXPathReplace(string text, string searchXPath, string replaceText, GrepSearchOption searchOptions,
+            IEnumerable<GrepSearchResult.GrepMatch> replaceItems)
         {
             if (text.Length > 5 && text.Substring(0, 5).ToLower() == "<?xml")
             {
@@ -691,7 +697,7 @@ namespace dnGREP.Engines
 
                 foreach (XmlNode xmlNode in xmlNodes)
                 {
-                    xmlNode.InnerXml = doPatternReplacement(replaceText);
+                    xmlNode.InnerXml = DoPatternReplacement(replaceText);
                 }
                 StringBuilder sb = new StringBuilder();
                 StringWriter stringWriter = new StringWriter(sb);

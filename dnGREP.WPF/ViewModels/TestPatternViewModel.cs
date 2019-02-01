@@ -202,7 +202,7 @@ namespace dnGREP.WPF
             using (Stream writeStream = new MemoryStream())
             {
                 engine.Replace(inputStream, writeStream, SearchFor, ReplaceWith, TypeOfSearch,
-                    searchOptions, Encoding.Default);
+                    searchOptions, Encoding.Default, Enumerable.Empty<GrepSearchResult.GrepMatch>());
                 writeStream.Position = 0;
                 StreamReader reader = new StreamReader(writeStream);
                 replacedString = reader.ReadToEnd();

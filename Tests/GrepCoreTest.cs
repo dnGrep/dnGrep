@@ -19,8 +19,8 @@ namespace Tests
 {
     public class GrepCoreTest : TestBase, IDisposable
     {
-        string sourceFolder;
-        string destinationFolder;
+        private readonly string sourceFolder;
+        private string destinationFolder;
 
         public GrepCoreTest()
         {
@@ -284,9 +284,9 @@ namespace Tests
             Assert.Equal(results[0].SearchResults.Count, 1);
 
             string testFile = Path.Combine(destFolder, @"TestCase8\test.txt");
-            Dictionary<string, string> files = new Dictionary<string, string>
+            List<ReplaceDef> files = new List<ReplaceDef>
             {
-                { testFile, Guid.NewGuid().ToString() + ".txt" }
+                new ReplaceDef(testFile, Enumerable.Empty<GrepSearchResult.GrepMatch>())
             };
 
             core.Replace(files, SearchType.Regex, "here", "\\\\n", GrepSearchOption.None, -1);
@@ -313,9 +313,9 @@ namespace Tests
             Assert.Equal(results[0].SearchResults.Count, 6);
 
             string testFile = Path.Combine(destFolder, @"TestCase9\test.txt");
-            Dictionary<string, string> files = new Dictionary<string, string>
+            List<ReplaceDef> files = new List<ReplaceDef>
             {
-                { testFile, Guid.NewGuid().ToString() + ".txt" }
+                new ReplaceDef(testFile, Enumerable.Empty<GrepSearchResult.GrepMatch>())
             };
 
             core.Replace(files, type, "here", "$(guid)", GrepSearchOption.None, -1);
@@ -370,9 +370,9 @@ namespace Tests
                 type, searchFor, option, -1);
             Assert.Equal(1, results.Count);
             string testFile = Path.Combine(destinationFolder, @"TestCase15\books.xml");
-            Dictionary<string, string> files = new Dictionary<string, string>
+            List<ReplaceDef> files = new List<ReplaceDef>
             {
-                { testFile, Guid.NewGuid().ToString() + ".xml" }
+                new ReplaceDef(testFile, Enumerable.Empty<GrepSearchResult.GrepMatch>())
             };
             core.Replace(files, type, searchFor, replaceWith, option, -1);
 
@@ -412,9 +412,9 @@ namespace Tests
                 type, searchFor, option, -1);
             Assert.Equal(1, results.Count);
             string testFile = Path.Combine(destinationFolder, @"TestCase15\books_bom.xml");
-            Dictionary<string, string> files = new Dictionary<string, string>
+            List<ReplaceDef> files = new List<ReplaceDef>
             {
-                { testFile, Guid.NewGuid().ToString() + ".xml" }
+                new ReplaceDef(testFile, Enumerable.Empty<GrepSearchResult.GrepMatch>())
             };
             core.Replace(files, type, searchFor, replaceWith, option, -1);
 
@@ -456,9 +456,9 @@ namespace Tests
             Assert.Equal(2, results[0].SearchResults.Where(r => r.IsContext).Count());
 
             string testFile = Path.Combine(destFolder, @"TestCase3\test-file-code.cs");
-            Dictionary<string, string> files = new Dictionary<string, string>
+            List<ReplaceDef> files = new List<ReplaceDef>
             {
-                { testFile, Guid.NewGuid().ToString() + ".cs" }
+                new ReplaceDef(testFile, Enumerable.Empty<GrepSearchResult.GrepMatch>())
             };
 
             core.Replace(files, SearchType.PlainText, "body", "text", GrepSearchOption.None, -1);
@@ -501,8 +501,10 @@ namespace Tests
         public void TestSearchLongLineWithManyMatches(SearchType type, GrepSearchOption option, bool verbose)
         {
             Utils.CopyFiles(sourceFolder + "\\TestCase14", destinationFolder + "\\TestCase14", null, null);
-            GrepCore core = new GrepCore();
-            core.SearchParams = new GrepEngineInitParams(false, 0, 0, 0.5, verbose, false);
+            GrepCore core = new GrepCore
+            {
+                SearchParams = new GrepEngineInitParams(false, 0, 0, 0.5, verbose, false)
+            };
             Stopwatch sw = new Stopwatch();
             sw.Start();
             List<GrepSearchResult> results = core.Search(Directory.GetFiles(destinationFolder + "\\TestCase14", "*.txt"), type, "1234", option, -1);

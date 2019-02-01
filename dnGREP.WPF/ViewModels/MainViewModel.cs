@@ -70,7 +70,7 @@ namespace dnGREP.WPF
         private HashSet<string> currentSearchFiles = new HashSet<string>();
         private int processedFiles;
         private bool isSorted;
-        private Dictionary<string, string> undoMap = new Dictionary<string, string>();
+        private List<ReplaceDef> undoList = new List<ReplaceDef>();
         private DispatcherTimer idleTimer = new DispatcherTimer(DispatcherPriority.ContextIdle);
         private string latestStatusMessage;
 
@@ -610,13 +610,11 @@ namespace dnGREP.WPF
         {
             try
             {
-                if (!workerSearchReplace.CancellationPending)
+                if (e.Argument is SearchReplaceCriteria param && !workerSearchReplace.CancellationPending)
                 {
                     timer = DateTime.Now;
-                    Dictionary<string, object> workerParams = (Dictionary<string, object>)e.Argument;
-                    //TODO: Check if this is needed
-                    MainViewModel param = (MainViewModel)workerParams["State"];
-                    if (param.CurrentGrepOperation == GrepOperation.Search || param.CurrentGrepOperation == GrepOperation.SearchInResults)
+                    
+                    if (param.Operation == GrepOperation.Search || param.Operation == GrepOperation.SearchInResults)
                     {
                         int sizeFrom = 0;
                         int sizeTo = 0;
@@ -668,9 +666,9 @@ namespace dnGREP.WPF
                             param.IncludeSubfolder, param.IncludeHidden, param.IncludeBinary, param.IncludeArchive, sizeFrom,
                             sizeTo, param.UseFileDateFilter, startTime, endTime);
 
-                        if (param.CurrentGrepOperation == GrepOperation.SearchInResults)
+                        if (param.Operation == GrepOperation.SearchInResults)
                         {
-                            files = (List<string>)workerParams["Files"];
+                            files = param.SearchInFiles;
                         }
                         else
                         {
@@ -751,8 +749,7 @@ namespace dnGREP.WPF
                             searchOptions |= GrepSearchOption.WholeWord;
 
                         grep.ProcessedFile += GrepCore_ProcessedFile;
-                        var files = workerParams["Files"] as Dictionary<string, string>;
-                        e.Result = grep.Replace(files, param.TypeOfSearch, param.SearchFor, param.ReplaceWith, searchOptions, param.CodePage);
+                        e.Result = grep.Replace(param.ReplaceFiles, param.TypeOfSearch, param.SearchFor, param.ReplaceWith, searchOptions, param.CodePage);
                         grep.ProcessedFile -= GrepCore_ProcessedFile;
                     }
                 }
@@ -894,7 +891,7 @@ namespace dnGREP.WPF
                         else
                         {
                             StatusMessage = $"Replace Complete - {(int)e.Result} files replaced.";
-                            CanUndo = undoMap.Count > 0;
+                            CanUndo = undoList.Count > 0;
                         }
                     }
                     else
@@ -999,16 +996,16 @@ namespace dnGREP.WPF
                 StatusMessage = "Searching...";
                 if (preview != null && preview.IsVisible)
                     preview.ResetTextEditor();
-                Dictionary<string, object> workerParams = new Dictionary<string, object>();
+
+                SearchReplaceCriteria workerParams = new SearchReplaceCriteria(this);
                 if (SearchInResultsContent && CanSearchInResults)
                 {
                     List<string> foundFiles = new List<string>();
                     foreach (FormattedGrepResult n in SearchResults) foundFiles.Add(n.GrepResult.FileNameReal);
-                    workerParams["Files"] = foundFiles;
+                    workerParams.AddSearchFiles(foundFiles);
                 }
                 SearchResults.Clear();
                 isSorted = false;
-                workerParams["State"] = this;
                 processedFiles = 0;
                 idleTimer.Start();
                 workerSearchReplace.RunWorkerAsync(workerParams);
@@ -1097,21 +1094,25 @@ namespace dnGREP.WPF
 
                 if (result.HasValue && result.Value)
                 {
-                    //StatusMessage = "Replacing...";
-                    //if (preview != null && preview.IsVisible)
-                    //    preview.ResetTextEditor();
-                    //CurrentGrepOperation = GrepOperation.Replace;
+                    StatusMessage = "Replacing...";
+                    if (preview != null && preview.IsVisible)
+                        preview.ResetTextEditor();
+                    CurrentGrepOperation = GrepOperation.Replace;
+
+                    SearchReplaceCriteria workerParams = new SearchReplaceCriteria(this);
 
                     CanUndo = false;
-                    undoMap.Clear();
+                    undoList.Clear();
                     foreach (FormattedGrepResult n in replaceList)
                     {
                         string filePath = n.GrepResult.FileNameReal;
-                        if (!n.GrepResult.ReadOnly && !undoMap.ContainsKey(filePath) && n.GrepResult.Matches.Any(m => m.ReplaceMatch))
+                        if (!n.GrepResult.ReadOnly && !undoList.Any(r => r.OrginalFile == filePath) && n.GrepResult.Matches.Any(m => m.ReplaceMatch))
                         {
-                            undoMap.Add(filePath, Guid.NewGuid().ToString() + Path.GetExtension(filePath));
+                            undoList.Add(new ReplaceDef(filePath, n.GrepResult.Matches));
                         }
                     }
+
+                    workerParams.AddReplaceFiles(undoList);
 
                     // !!! TODO TODO TODO !!!
                     // Need to find a way to pass the "ReplaceMatch" flags or equivalent to the replace engines
@@ -1121,11 +1122,11 @@ namespace dnGREP.WPF
                     //    ["State"] = this,
                     //    ["Files"] = undoMap
                     //};
-                    //SearchResults.Clear();
-                    //isSorted = false;
-                    //idleTimer.Start();
-                    //workerSearchReplace.RunWorkerAsync(workerParams);
-                    //UpdateBookmarks();
+                    SearchResults.Clear();
+                    isSorted = false;
+                    idleTimer.Start();
+                    workerSearchReplace.RunWorkerAsync(workerParams);
+                    UpdateBookmarks();
                 }
             }
         }
@@ -1140,12 +1141,12 @@ namespace dnGREP.WPF
                 if (response == MessageBoxResult.Yes)
                 {
                     GrepCore core = new GrepCore();
-                    bool result = core.Undo(undoMap);
+                    bool result = core.Undo(undoList);
                     if (result)
                     {
                         MessageBox.Show("Files have been successfully reverted.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                         Utils.DeleteTempFolder();
-                        undoMap.Clear();
+                        undoList.Clear();
                     }
                     else
                     {
