@@ -28,7 +28,7 @@ namespace dnGREP.Common
 
 
         private List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
-        private object lockObj = new object();
+        private readonly object lockObj = new object();
         private CancellationTokenSource cancellationTokenSource;
         private int processedFilesCount;
         private int foundfilesCount;
@@ -79,9 +79,11 @@ namespace dnGREP.Common
                     {
                         cancellationTokenSource = new CancellationTokenSource();
 
-                        ParallelOptions po = new ParallelOptions();
-                        po.MaxDegreeOfParallelism = Math.Max(1, Environment.ProcessorCount * 4 / 5);
-                        po.CancellationToken = cancellationTokenSource.Token;
+                        ParallelOptions po = new ParallelOptions
+                        {
+                            MaxDegreeOfParallelism = Math.Max(1, Environment.ProcessorCount * 4 / 5),
+                            CancellationToken = cancellationTokenSource.Token
+                        };
                         Parallel.ForEach(files, po, f => Search(f, searchType, searchPattern, searchOptions, codePage));
                     }
                     else
@@ -91,6 +93,9 @@ namespace dnGREP.Common
                             Search(file, searchType, searchPattern, searchOptions, codePage);
 
                             if (searchOptions.HasFlag(GrepSearchOption.StopAfterFirstMatch) && searchResults.Count > 0)
+                                break;
+
+                            if (Utils.CancelSearch)
                                 break;
                         }
                     }
@@ -178,8 +183,10 @@ namespace dnGREP.Common
                 AddSearchResult(new GrepSearchResult(file, searchPattern, ex.Message, false));
                 if (ProcessedFile != null)
                 {
-                    List<GrepSearchResult> _results = new List<GrepSearchResult>();
-                    _results.Add(new GrepSearchResult(file, searchPattern, ex.Message, false));
+                    List<GrepSearchResult> _results = new List<GrepSearchResult>
+                    {
+                        new GrepSearchResult(file, searchPattern, ex.Message, false)
+                    };
                     ProcessedFile(this, new ProgressStatus(false, processedFilesCount, foundfilesCount, _results, file));
                 }
             }
@@ -294,7 +301,7 @@ namespace dnGREP.Common
             }
             try
             {
-                foreach(string filePath in undoMap.Keys)
+                foreach (string filePath in undoMap.Keys)
                 {
                     string sourceFile = Path.Combine(tempFolder, undoMap[filePath]);
                     if (File.Exists(sourceFile))
