@@ -81,7 +81,8 @@ namespace dnGREP.Common
             // when checking for hidden directories, enumerate the directories separately from files to check for hidden flag on directories
 
             DirectoryInfo di = new DirectoryInfo(path);
-            if (di.Attributes.HasFlag(FileAttributes.Hidden))
+            // the root of the drive has the hidden attribute set, so don't stop on this hidden directory
+            if (di.Attributes.HasFlag(FileAttributes.Hidden) && (di.Root != di))
                 yield break;
 
             var dirOptions = baseDirOptions;
