@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,6 +23,9 @@ namespace dnGREP.Engines
         private readonly string KEYWORD_GUIDX = "$(guidx)";
         protected GrepEngineInitParams initParams = GrepEngineInitParams.Default;
         private GoogleMatch fuzzyMatchEngine = new GoogleMatch();
+
+        private static ConcurrentDictionary<string, string> guidxMatches = new ConcurrentDictionary<string, string>();
+        internal static void ResetGuidxCache() => guidxMatches.Clear();
 
         public static TimeSpan MatchTimeout = TimeSpan.FromSeconds(4.0);
 
@@ -49,47 +53,302 @@ namespace dnGREP.Engines
             Utils.OpenFile(args);
         }
 
-        protected List<GrepSearchResult.GrepMatch> DoFuzzySearchMultiline(int lineNumber, string text, string searchPattern, GrepSearchOption searchOptions, bool includeContext)
+        private List<int> GetLineEndIndexes(string text)
         {
-            var lineEndIndexes = GetLineEndIndexes(initParams.VerboseMatchCount && lineNumber == -1 ? text : null);
+            List<int> list = new List<int>();
 
-            int counter = 0;
-            fuzzyMatchEngine.Match_Threshold = initParams.FuzzyMatchThreshold;
-            bool isWholeWord = (searchOptions & GrepSearchOption.WholeWord) == GrepSearchOption.WholeWord;
-            List<GrepSearchResult.GrepMatch> globalMatches = new List<GrepSearchResult.GrepMatch>();
-            while (counter < text.Length)
+            if (!string.IsNullOrWhiteSpace(text))
             {
-                int matchLocation = fuzzyMatchEngine.match_main(text.Substring(counter), searchPattern, counter);
-                if (matchLocation == -1)
-                    break;
-
-                if (isWholeWord && !Utils.IsValidBeginText(text.Substring(counter).Substring(0, matchLocation)))
+                int idx = 0;
+                while (idx > -1 && idx < text.Length)
                 {
-                    counter = counter + matchLocation + searchPattern.Length;
-                    continue;
+                    idx = text.IndexOfAny(new char[] { '\r', '\n' }, idx);
+                    if (idx == -1)
+                    {
+                        list.Add(text.Length);
+                        break;
+                    }
+                    else
+                    {
+                        list.Add(idx);
+
+                        idx++;
+                        if (idx < text.Length && text[idx - 1] == '\r' && text[idx] == '\n')
+                            idx++;
+                    }
                 }
-
-                int matchLength = fuzzyMatchEngine.match_length(text.Substring(counter), searchPattern, matchLocation, isWholeWord, initParams.FuzzyMatchThreshold);
-
-                if (matchLength == -1)
-                {
-                    counter = counter + matchLocation + searchPattern.Length;
-                    continue;
-                }
-
-                if (initParams.VerboseMatchCount && lineEndIndexes.Count > 0)
-                    lineNumber = lineEndIndexes.FindIndex(i => i > matchLocation + counter) + 1;
-
-                globalMatches.Add(new GrepSearchResult.GrepMatch(lineNumber, matchLocation + counter, matchLength));
-
-                counter = counter + matchLocation + matchLength;
             }
+            return list;
+        }
+
+        private string DoPatternReplacement(string searchPattern, string replaceText)
+        {
+            if (replaceText.Contains(KEYWORD_GUID_LOWER))
+                return replaceText.Replace(KEYWORD_GUID_LOWER, Guid.NewGuid().ToString());
+            if (replaceText.Contains(KEYWORD_GUID_UPPER))
+                return replaceText.Replace(KEYWORD_GUID_UPPER, Guid.NewGuid().ToString().ToUpper());
+            if (replaceText.Contains(KEYWORD_GUIDX))
+            {
+                string guidx = guidxMatches.GetOrAdd(searchPattern, (key) => Guid.NewGuid().ToString());
+                return replaceText.Replace(KEYWORD_GUIDX, guidx);
+            }
+            else
+                return replaceText;
+        }
+
+        #region Regex Search and Replace
+
+        private IEnumerable<GrepMatch> RegexSearchIterator(int lineNumber, int filePosition, string text, string searchPattern, GrepSearchOption searchOptions)
+        {
+            RegexOptions regexOptions = RegexOptions.None;
+            if (!searchOptions.HasFlag(GrepSearchOption.CaseSensitive))
+                regexOptions |= RegexOptions.IgnoreCase;
+            if (searchOptions.HasFlag(GrepSearchOption.Multiline))
+                regexOptions |= RegexOptions.Multiline;
+            if (searchOptions.HasFlag(GrepSearchOption.SingleLine))
+                regexOptions |= RegexOptions.Singleline;
+
+            bool isWholeWord = searchOptions.HasFlag(GrepSearchOption.WholeWord);
+
+            if (isWholeWord)
+            {
+                if (!searchPattern.Trim().StartsWith("\\b"))
+                    searchPattern = "\\b" + searchPattern.Trim();
+                if (!searchPattern.Trim().EndsWith("\\b"))
+                    searchPattern = searchPattern.Trim() + "\\b";
+            }
+
+            // Issue #210 .net regex will only match the $ end of line token with a \n, not \r\n or \r
+            // see https://msdn.microsoft.com/en-us/library/yd1hzczs.aspx#Multiline
+            // and http://stackoverflow.com/questions/8618557/why-doesnt-in-net-multiline-regular-expressions-match-crlf
+            // must change the Windows and Mac line ends to just the Unix \n char before calling Regex
+            if (searchPattern.Contains("$"))
+            {
+                // if the search pattern has Windows or Mac newlines, they must be converted, too
+                searchPattern = searchPattern.Replace("\r\n", "\n");
+                searchPattern = searchPattern.Replace('\r', '\n');
+
+                if (lineNumber == -1 && text.Contains("\r\n"))
+                {
+                    foreach (var match in RegexSearchIteratorSpecial(text, searchPattern, regexOptions))
+                        yield return match;
+
+                    yield break;
+                }
+
+                if (text.Contains("\r\n"))
+                {
+                    text = text.Replace("\r\n", "\n");
+                }
+                else if (text.Contains("\r"))
+                {
+                    text = text.Replace('\r', '\n');
+                }
+            }
+
+            var lineEndIndexes = GetLineEndIndexes((initParams.VerboseMatchCount && lineNumber == -1) ? text : null);
+
+            List<GrepMatch> globalMatches = new List<GrepMatch>();
+            var matches = Regex.Matches(text, searchPattern, regexOptions, MatchTimeout);
+            foreach (Match match in matches)
+            {
+                if (initParams.VerboseMatchCount && lineEndIndexes.Count > 0)
+                    lineNumber = lineEndIndexes.FindIndex(i => i > match.Index) + 1;
+
+                yield return new GrepMatch(lineNumber, match.Index + filePosition, match.Length);
+            }
+        }
+
+        private IEnumerable<GrepMatch> RegexSearchIteratorSpecial(string text, string searchPattern, RegexOptions regexOptions)
+        {
+            // this is a special case for multiline searches with Windows EOL characters and a '$' in the search pattern
+            // must remove the \r from the EOL (see above), and then account for the missing character in the start index
+            // and length of each match
+
+            text = text.Replace("\r\n", "\n");
+
+            var lineEndIndexes = GetLineEndIndexes(text);
+            int lineNumber = 1, endLineNumber = 1, newLineCount = 0;
+
+            var matches = Regex.Matches(text, searchPattern, regexOptions, MatchTimeout);
+            foreach (Match match in matches)
+            {
+                if (lineEndIndexes.Count > 0)
+                {
+                    lineNumber = lineEndIndexes.FindIndex(i => i > match.Index) + 1;
+                    endLineNumber = lineEndIndexes.FindIndex(i => i > match.Index + match.Length - 1) + 1;
+                    newLineCount = endLineNumber - lineNumber;
+                }
+
+                yield return new GrepMatch(lineNumber, match.Index + (lineNumber - 1), match.Length + newLineCount);
+            }
+        }
+
+        protected List<GrepMatch> DoRegexSearch(int lineNumber, int filePosition, string text, string searchPattern,
+            GrepSearchOption searchOptions, bool includeContext)
+        {
+            List<GrepMatch> globalMatches = new List<GrepMatch>();
+
+            foreach (var match in RegexSearchIterator(lineNumber, filePosition, text, searchPattern, searchOptions))
+            {
+                globalMatches.Add(match);
+
+                if (Utils.CancelSearch)
+                    break;
+            }
+
             return globalMatches;
         }
 
-        protected List<GrepSearchResult.GrepMatch> DoXPathSearch(int lineNumber, string text, string searchXPath, GrepSearchOption searchOptions, bool includeContext)
+        protected string DoRegexReplace(int lineNumber, int filePosition, string text, string searchPattern, string replacePattern,
+            GrepSearchOption searchOptions, IEnumerable<GrepMatch> replaceItems)
         {
-            List<GrepSearchResult.GrepMatch> results = new List<GrepSearchResult.GrepMatch>();
+            RegexOptions regexOptions = RegexOptions.None;
+            if (!searchOptions.HasFlag(GrepSearchOption.CaseSensitive))
+                regexOptions |= RegexOptions.IgnoreCase;
+            if (searchOptions.HasFlag(GrepSearchOption.Multiline))
+                regexOptions |= RegexOptions.Multiline;
+            if (searchOptions.HasFlag(GrepSearchOption.SingleLine))
+                regexOptions |= RegexOptions.Singleline;
+
+            bool isWholeWord = searchOptions.HasFlag(GrepSearchOption.WholeWord);
+
+            if (isWholeWord)
+            {
+                if (!searchPattern.Trim().StartsWith("\\b"))
+                    searchPattern = "\\b" + searchPattern.Trim();
+                if (!searchPattern.Trim().EndsWith("\\b"))
+                    searchPattern = searchPattern.Trim() + "\\b";
+            }
+
+            // Issue #210 .net regex will only match the $ end of line token with a \n, not \r\n or \r
+            bool convertToWindowsNewline = false;
+            string searchPatternForReplace = searchPattern;
+            if (searchPattern.Contains("$") && text.Contains("\r\n"))
+            {
+                convertToWindowsNewline = true;
+                searchPatternForReplace = searchPattern.Replace("\r\n", "\n");
+                replacePattern = replacePattern.Replace("\r\n", "\n");
+            }
+
+            StringBuilder sb = new StringBuilder();
+            int counter = 0;
+
+            foreach (GrepMatch match in RegexSearchIterator(lineNumber, filePosition, text, searchPattern, searchOptions))
+            {
+                if (replaceItems.Any(r => match.Equals(r) && r.ReplaceMatch))
+                {
+                    string matchText = text.Substring(match.StartLocation - filePosition, match.Length);
+                    int matchTextLength = matchText.Length; // save in case the newline is changed
+
+                    if (convertToWindowsNewline)
+                        matchText = matchText.Replace("\r\n", "\n");
+
+                    string replaceText = Regex.Replace(matchText, searchPatternForReplace, DoPatternReplacement(matchText, replacePattern), regexOptions);
+
+                    if (convertToWindowsNewline)
+                        replaceText = replaceText.Replace("\n", "\r\n");
+
+                    sb.Append(text.Substring(counter, match.StartLocation - filePosition - counter));
+                    sb.Append(replaceText);
+
+                    counter = match.StartLocation - filePosition + matchTextLength;
+                }
+
+                if (Utils.CancelSearch)
+                    break;
+            }
+
+            sb.Append(text.Substring(counter));
+
+            string result = sb.ToString();
+
+            return result;
+        }
+
+        #endregion
+
+        #region Text Search and Replace
+
+        protected List<GrepMatch> DoTextSearch(int lineNumber, int filePosition, string text, string searchText, GrepSearchOption searchOptions, bool includeContext)
+        {
+            List<GrepMatch> globalMatches = new List<GrepMatch>();
+
+            foreach (var match in TextSearchIterator(lineNumber, filePosition, text, searchText, searchOptions))
+            {
+                globalMatches.Add(match);
+
+                if (Utils.CancelSearch)
+                    break;
+            }
+
+            return globalMatches;
+        }
+
+        protected string DoTextReplace(int lineNumber, int filePosition, string text, string searchText, string replaceText,
+            GrepSearchOption searchOptions, IEnumerable<GrepMatch> replaceItems)
+        {
+            if (!replaceItems.Any(r => r.LineNumber == lineNumber && r.ReplaceMatch))
+                return text;
+
+            StringBuilder sb = new StringBuilder();
+            int counter = 0;
+
+            foreach (var match in TextSearchIterator(lineNumber, filePosition, text, searchText, searchOptions))
+            {
+                if (replaceItems.Any(r => match.Equals(r) && r.ReplaceMatch))
+                {
+                    sb.Append(text.Substring(counter, match.StartLocation - filePosition - counter));
+                    sb.Append(DoPatternReplacement(searchText, replaceText));
+
+                    counter = match.StartLocation - filePosition + searchText.Length;
+                }
+
+                if (Utils.CancelSearch)
+                    break;
+            }
+
+            sb.Append(text.Substring(counter));
+            return sb.ToString();
+        }
+
+        private IEnumerable<GrepMatch> TextSearchIterator(int lineNumber, int filePosition, string text, string searchText, GrepSearchOption searchOptions)
+        {
+            var lineEndIndexes = GetLineEndIndexes(initParams.VerboseMatchCount && lineNumber == -1 ? text : null);
+
+            int index = 0;
+            bool isWholeWord = searchOptions.HasFlag(GrepSearchOption.WholeWord);
+            StringComparison comparisonType = searchOptions.HasFlag(GrepSearchOption.CaseSensitive) ? StringComparison.InvariantCulture : StringComparison.InvariantCultureIgnoreCase;
+            while (index >= 0)
+            {
+                index = text.IndexOf(searchText, index, comparisonType);
+                if (index >= 0)
+                {
+                    if (isWholeWord && (!Utils.IsValidBeginText(text.Substring(0, index)) ||
+                        !Utils.IsValidEndText(text.Substring(index + searchText.Length))))
+                    {
+                        index++;
+                        continue;
+                    }
+
+                    if (initParams.VerboseMatchCount && lineEndIndexes.Count > 0)
+                    {
+                        lineNumber = lineEndIndexes.FindIndex(i => i > index) + 1;
+                    }
+
+                    yield return new GrepMatch(lineNumber, index + filePosition, searchText.Length);
+                    index++;
+                }
+            }
+        }
+
+        #endregion
+
+        #region XPath Search and Replace
+
+        protected List<GrepMatch> DoXPathSearch(int lineNumber, int filePosition, string text, string searchXPath, GrepSearchOption searchOptions, bool includeContext)
+        {
+            List<GrepMatch> results = new List<GrepMatch>();
             // Check if file is an XML file
             if (text.Length > 5 && text.Substring(0, 5).ToLower() == "<?xml")
             {
@@ -131,6 +390,33 @@ namespace dnGREP.Engines
             }
 
             return results;
+        }
+
+        protected string DoXPathReplace(int lineNumber, int filePosition, string text, string searchXPath, string replaceText, GrepSearchOption searchOptions,
+            IEnumerable<GrepMatch> replaceItems)
+        {
+            if (text.Length > 5 && text.Substring(0, 5).ToLower() == "<?xml")
+            {
+                XmlDocument xmlDoc = new XmlDocument();
+                xmlDoc.LoadXml(text);
+                XmlNodeList xmlNodes = xmlDoc.SelectNodes(searchXPath);
+
+                foreach (XmlNode xmlNode in xmlNodes)
+                {
+                    xmlNode.InnerXml = DoPatternReplacement(searchXPath, replaceText);
+                }
+                StringBuilder sb = new StringBuilder();
+                StringWriter stringWriter = new StringWriter(sb);
+                using (XmlTextWriter xmlWriter = new XmlTextWriter(stringWriter))
+                {
+                    xmlWriter.Formatting = Formatting.Indented;
+                    xmlDoc.WriteContentTo(xmlWriter);
+                    xmlWriter.Flush();
+                }
+
+                return sb.ToString();
+            }
+            return text;
         }
 
         #region XPath helper functions
@@ -183,7 +469,7 @@ namespace dnGREP.Engines
         }
 
 
-        public GrepSearchResult.GrepMatch[] GetFilePositions(string text, List<XPathPosition> positions)
+        public GrepMatch[] GetFilePositions(string text, List<XPathPosition> positions)
         {
             bool[] endFound = new bool[positions.Count];
             // Getting line lengths
@@ -199,7 +485,7 @@ namespace dnGREP.Engines
                 }
             }
             // These are absolute positions
-            GrepSearchResult.GrepMatch[] results = new GrepSearchResult.GrepMatch[positions.Count];
+            GrepMatch[] results = new GrepMatch[positions.Count];
             if (positions.Count == 0)
                 return results;
 
@@ -280,7 +566,7 @@ namespace dnGREP.Engines
 
                                     if (XPathPositionsMatch(currPos, positions[i].Path))
                                     {
-                                        results[i] = new GrepSearchResult.GrepMatch(lineInfo.LineNumber - 1, GetAbsoluteCharPosition(lineInfo.LineNumber - 1, lineInfo.LinePosition - 2, text, lineLengths, false), 0);
+                                        results[i] = new GrepMatch(lineInfo.LineNumber - 1, GetAbsoluteCharPosition(lineInfo.LineNumber - 1, lineInfo.LinePosition - 2, text, lineLengths, false), 0);
                                     }
 
                                     // If empty element (e.g.<element/>)
@@ -330,327 +616,55 @@ namespace dnGREP.Engines
 
         #endregion
 
-        private List<int> GetLineEndIndexes(string text)
-        {
-            List<int> list = new List<int>();
+        #endregion
 
-            if (!string.IsNullOrWhiteSpace(text))
-            {
-                int idx = 0;
-                while (idx > -1 && idx < text.Length)
-                {
-                    idx = text.IndexOfAny(new char[] { '\r', '\n' }, idx);
-                    if (idx == -1)
-                    {
-                        list.Add(text.Length);
-                        break;
-                    }
-                    else
-                    {
-                        list.Add(idx);
+        #region Fuzzy Search and Replace
 
-                        idx++;
-                        if (idx < text.Length && text[idx - 1] == '\r' && text[idx] == '\n')
-                            idx++;
-                    }
-                }
-            }
-            return list;
-        }
-
-        protected List<GrepSearchResult.GrepMatch> DoRegexSearch(int lineNumber, string text, string searchPattern, GrepSearchOption searchOptions, bool includeContext)
-        {
-            RegexOptions regexOptions = RegexOptions.None;
-            if ((searchOptions & GrepSearchOption.CaseSensitive) != GrepSearchOption.CaseSensitive)
-                regexOptions |= RegexOptions.IgnoreCase;
-            if ((searchOptions & GrepSearchOption.Multiline) == GrepSearchOption.Multiline)
-                regexOptions |= RegexOptions.Multiline;
-            if ((searchOptions & GrepSearchOption.SingleLine) == GrepSearchOption.SingleLine)
-                regexOptions |= RegexOptions.Singleline;
-
-            bool isWholeWord = (searchOptions & GrepSearchOption.WholeWord) == GrepSearchOption.WholeWord;
-
-            if (isWholeWord)
-            {
-                if (!searchPattern.Trim().StartsWith("\\b"))
-                    searchPattern = "\\b" + searchPattern.Trim();
-                if (!searchPattern.Trim().EndsWith("\\b"))
-                    searchPattern = searchPattern.Trim() + "\\b";
-            }
-
-            // Issue #210 .net regex will only match the $ end of line token with a \n, not \r\n or \r
-            // see https://msdn.microsoft.com/en-us/library/yd1hzczs.aspx#Multiline
-            // and http://stackoverflow.com/questions/8618557/why-doesnt-in-net-multiline-regular-expressions-match-crlf
-            // must change the Windows and Mac line ends to just the Unix \n char before calling Regex
-            if (searchPattern.Contains("$"))
-            {
-                // if the search pattern has Windows or Mac newlines, they must be converted, too
-                searchPattern = searchPattern.Replace("\r\n", "\n");
-                searchPattern = searchPattern.Replace('\r', '\n');
-
-                if (lineNumber == -1 && text.Contains("\r\n"))
-                {
-                    return DoRegexSearchSpecial(text, searchPattern, regexOptions);
-                }
-
-                if (text.Contains("\r\n"))
-                {
-                    text = text.Replace("\r\n", "\n");
-                }
-                else if (text.Contains("\r"))
-                {
-                    text = text.Replace('\r', '\n');
-                }
-            }
-
-            var lineEndIndexes = GetLineEndIndexes((initParams.VerboseMatchCount && lineNumber == -1) ? text : null);
-
-            List<GrepSearchResult.GrepMatch> globalMatches = new List<GrepSearchResult.GrepMatch>();
-            var matches = Regex.Matches(text, searchPattern, regexOptions, MatchTimeout);
-            foreach (Match match in matches)
-            {
-                if (initParams.VerboseMatchCount && lineEndIndexes.Count > 0)
-                    lineNumber = lineEndIndexes.FindIndex(i => i > match.Index) + 1;
-
-                globalMatches.Add(new GrepSearchResult.GrepMatch(lineNumber, match.Index, match.Length));
-
-                if (Utils.CancelSearch)
-                    break;
-            }
-
-            return globalMatches;
-        }
-
-        private List<GrepSearchResult.GrepMatch> DoRegexSearchSpecial(string text, string searchPattern, RegexOptions regexOptions)
-        {
-            // this is a special case for multiline searches with Windows EOL characters and a '$' in the search pattern
-            // must remove the \r from the EOL (see above), and then account for the missing character in the start index
-            // of each match
-
-            text = text.Replace("\r\n", "\n");
-
-            var lineEndIndexes = GetLineEndIndexes(text);
-            int lineNumber = 1;
-
-            List<GrepSearchResult.GrepMatch> globalMatches = new List<GrepSearchResult.GrepMatch>();
-            var matches = Regex.Matches(text, searchPattern, regexOptions, MatchTimeout);
-            foreach (Match match in matches)
-            {
-                if (lineEndIndexes.Count > 0)
-                    lineNumber = lineEndIndexes.FindIndex(i => i > match.Index) + 1;
-
-                globalMatches.Add(new GrepSearchResult.GrepMatch(lineNumber, match.Index + (lineNumber - 1), match.Length));
-
-                if (Utils.CancelSearch)
-                    break;
-            }
-
-            return globalMatches;
-        }
-
-        protected string DoPatternReplacement(string replaceText)
-        {
-            if (replaceText.Contains(KEYWORD_GUID_LOWER))
-                return replaceText.Replace(KEYWORD_GUID_LOWER, Guid.NewGuid().ToString());
-            if (replaceText.Contains(KEYWORD_GUID_UPPER))
-                return replaceText.Replace(KEYWORD_GUID_UPPER, Guid.NewGuid().ToString().ToUpper());
-            else if (replaceText.Contains(KEYWORD_GUIDX))
-                return replaceText;
-            else
-                return replaceText;
-        }
-
-        protected List<GrepSearchResult.GrepMatch> DoTextSearchCaseInsensitive(int lineNumber, string text, string searchText, GrepSearchOption searchOptions, bool includeContext)
+        protected List<GrepMatch> DoFuzzySearchMultiline(int lineNumber, int filePosition, string text, string searchPattern, GrepSearchOption searchOptions, bool includeContext)
         {
             var lineEndIndexes = GetLineEndIndexes(initParams.VerboseMatchCount && lineNumber == -1 ? text : null);
 
-            int index = 0;
-            bool isWholeWord = (searchOptions & GrepSearchOption.WholeWord) == GrepSearchOption.WholeWord;
-            List<GrepSearchResult.GrepMatch> globalMatches = new List<GrepSearchResult.GrepMatch>();
-            while (index >= 0)
-            {
-                index = text.IndexOf(searchText, index, StringComparison.InvariantCultureIgnoreCase);
-                if (index >= 0)
-                {
-                    if (isWholeWord && (!Utils.IsValidBeginText(text.Substring(0, index)) ||
-                    !Utils.IsValidEndText(text.Substring(index + searchText.Length))))
-                    {
-                        index++;
-                        continue;
-                    }
-
-                    if (initParams.VerboseMatchCount && lineEndIndexes.Count > 0)
-                        lineNumber = lineEndIndexes.FindIndex(i => i > index) + 1;
-
-                    globalMatches.Add(new GrepSearchResult.GrepMatch(lineNumber, index, searchText.Length));
-                    index++;
-                }
-
-                if (Utils.CancelSearch)
-                    break;
-            }
-
-            return globalMatches;
-        }
-
-        protected List<GrepSearchResult.GrepMatch> DoTextSearchCaseSensitive(int lineNumber, string text, string searchText, GrepSearchOption searchOptions, bool includeContext)
-        {
-            var lineEndIndexes = GetLineEndIndexes(initParams.VerboseMatchCount && lineNumber == -1 ? text : null);
-
-            List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
-            int index = 0;
-            bool isWholeWord = (searchOptions & GrepSearchOption.WholeWord) == GrepSearchOption.WholeWord;
-            List<GrepSearchResult.GrepMatch> globalMatches = new List<GrepSearchResult.GrepMatch>();
-            while (index >= 0)
-            {
-                index = text.IndexOf(searchText, index, StringComparison.InvariantCulture);
-                if (index >= 0)
-                {
-                    if (isWholeWord && (!Utils.IsValidBeginText(text.Substring(0, index)) ||
-                    !Utils.IsValidEndText(text.Substring(index + searchText.Length))))
-                    {
-                        index++;
-                        continue;
-                    }
-
-                    if (initParams.VerboseMatchCount && lineEndIndexes.Count > 0)
-                        lineNumber = lineEndIndexes.FindIndex(i => i > index) + 1;
-
-                    globalMatches.Add(new GrepSearchResult.GrepMatch(lineNumber, index, searchText.Length));
-                    index++;
-                }
-
-                if (Utils.CancelSearch)
-                    break;
-            }
-
-            return globalMatches;
-        }
-
-        protected string DoTextReplaceCaseSensitive(string text, string searchText, string replaceText, GrepSearchOption searchOptions,
-            IEnumerable<GrepSearchResult.GrepMatch> replaceItems)
-        {
-            StringBuilder sb = new StringBuilder();
-            int index = 0;
             int counter = 0;
+            fuzzyMatchEngine.Match_Threshold = initParams.FuzzyMatchThreshold;
             bool isWholeWord = searchOptions.HasFlag(GrepSearchOption.WholeWord);
-            while (index >= 0)
+            List<GrepMatch> globalMatches = new List<GrepMatch>();
+            while (counter < text.Length)
             {
-                index = text.IndexOf(searchText, index, StringComparison.InvariantCulture);
-                if (index >= 0)
-                {
-                    if (isWholeWord && (!Utils.IsValidBeginText(text.Substring(0, index)) ||
-                        !Utils.IsValidEndText(text.Substring(index + searchText.Length))))
-                    {
-                        index++;
-                        continue;
-                    }
-
-                    sb.Append(text.Substring(counter, index - counter));
-                    sb.Append(DoPatternReplacement(replaceText));
-
-                    counter = index + searchText.Length;
-
-                    index++;
-                }
-
-                if (Utils.CancelSearch)
+                int matchLocation = fuzzyMatchEngine.match_main(text.Substring(counter), searchPattern, counter);
+                if (matchLocation == -1)
                     break;
-            }
-            sb.Append(text.Substring(counter));
-            return sb.ToString();
-        }
 
-        protected string DoTextReplaceCaseInsensitive(string text, string searchText, string replaceText, GrepSearchOption searchOptions,
-            IEnumerable<GrepSearchResult.GrepMatch> replaceItems)
-        {
-            StringBuilder sb = new StringBuilder();
-            int index = 0;
-            int counter = 0;
-            bool isWholeWord = (searchOptions & GrepSearchOption.WholeWord) == GrepSearchOption.WholeWord;
-            while (index >= 0)
-            {
-                index = text.ToLowerInvariant().IndexOf(searchText.ToLowerInvariant(), index, StringComparison.InvariantCulture);
-                if (index >= 0)
+                if (isWholeWord && !Utils.IsValidBeginText(text.Substring(counter).Substring(0, matchLocation)))
                 {
-                    if (isWholeWord && (!Utils.IsValidBeginText(text.Substring(0, index)) ||
-                    !Utils.IsValidEndText(text.Substring(index + searchText.Length))))
-                    {
-                        index++;
-                        continue;
-                    }
-
-                    sb.Append(text.Substring(counter, index - counter));
-                    sb.Append(DoPatternReplacement(replaceText));
-
-                    counter = index + searchText.Length;
-
-                    index++;
+                    counter = counter + matchLocation + searchPattern.Length;
+                    continue;
                 }
 
-                if (Utils.CancelSearch)
-                    break;
+                int matchLength = fuzzyMatchEngine.match_length(text.Substring(counter), searchPattern, matchLocation, isWholeWord, initParams.FuzzyMatchThreshold);
+
+                if (matchLength == -1)
+                {
+                    counter = counter + matchLocation + searchPattern.Length;
+                    continue;
+                }
+
+                if (initParams.VerboseMatchCount && lineEndIndexes.Count > 0)
+                    lineNumber = lineEndIndexes.FindIndex(i => i > matchLocation + counter) + 1;
+
+                globalMatches.Add(new GrepMatch(lineNumber, matchLocation + filePosition + counter, matchLength));
+
+                counter = counter + matchLocation + matchLength;
             }
-            sb.Append(text.Substring(counter));
-            return sb.ToString();
+            return globalMatches;
         }
 
-        protected string DoRegexReplace(string text, string searchPattern, string replacePattern, GrepSearchOption searchOptions,
-            IEnumerable<GrepSearchResult.GrepMatch> replaceItems)
-        {
-            RegexOptions regexOptions = RegexOptions.None;
-            if ((searchOptions & GrepSearchOption.CaseSensitive) != GrepSearchOption.CaseSensitive)
-                regexOptions |= RegexOptions.IgnoreCase;
-            if ((searchOptions & GrepSearchOption.Multiline) == GrepSearchOption.Multiline)
-                regexOptions |= RegexOptions.Multiline;
-            if ((searchOptions & GrepSearchOption.SingleLine) == GrepSearchOption.SingleLine)
-                regexOptions |= RegexOptions.Singleline;
-
-            bool isWholeWord = (searchOptions & GrepSearchOption.WholeWord) == GrepSearchOption.WholeWord;
-
-            if (isWholeWord)
-            {
-                if (!searchPattern.Trim().StartsWith("\\b"))
-                    searchPattern = "\\b" + searchPattern.Trim();
-                if (!searchPattern.Trim().EndsWith("\\b"))
-                    searchPattern = searchPattern.Trim() + "\\b";
-            }
-
-            // Another issue #210 change (see above)
-            // regex only matches $ end of line on a \n newline
-            // change Windows and Mac newlines to UNIX
-            string prevNewLine = null;
-            if (searchPattern.Contains("$"))
-            {
-                // if the search pattern has Windows or Mac newlines, they must be converted, too
-                searchPattern = searchPattern.Replace("\r\n", "\n");
-                searchPattern = searchPattern.Replace('\r', '\n');
-
-                if (text.Contains("\r\n"))
-                {
-                    text = text.Replace("\r\n", "\n");
-                    prevNewLine = "\r\n";
-                }
-                else if (text.Contains("\r"))
-                {
-                    text = text.Replace("\r", "\n");
-                    prevNewLine = "\r";
-                }
-            }
-
-            string result = Regex.Replace(text, searchPattern, DoPatternReplacement(replacePattern), regexOptions);
-            if (!string.IsNullOrEmpty(prevNewLine))
-                result = result.Replace("\n", prevNewLine);
-            return result;
-        }
-
-        public string DoFuzzyReplace(string text, string searchPattern, string replacePattern, GrepSearchOption searchOptions,
-            IEnumerable<GrepSearchResult.GrepMatch> replaceItems)
+        public string DoFuzzyReplace(int lineNumber, int filePosition, string text, string searchPattern, string replacePattern, GrepSearchOption searchOptions,
+            IEnumerable<GrepMatch> replaceItems)
         {
             int counter = 0;
             StringBuilder result = new StringBuilder();
             fuzzyMatchEngine.Match_Threshold = initParams.FuzzyMatchThreshold;
-            bool isWholeWord = (searchOptions & GrepSearchOption.WholeWord) == GrepSearchOption.WholeWord;
+            bool isWholeWord = searchOptions.HasFlag(GrepSearchOption.WholeWord);
             while (counter < text.Length)
             {
                 int matchLocation = fuzzyMatchEngine.match_main(text.Substring(counter), searchPattern, counter);
@@ -679,39 +693,14 @@ namespace dnGREP.Engines
                 // Text before match
                 result.Append(text.Substring(counter, matchLocation));
                 // New text
-                result.Append(DoPatternReplacement(replacePattern));
+                result.Append(DoPatternReplacement(searchPattern, replacePattern));
 
                 counter = counter + matchLocation + matchLength;
             }
             return result.ToString();
         }
 
-        protected string DoXPathReplace(string text, string searchXPath, string replaceText, GrepSearchOption searchOptions,
-            IEnumerable<GrepSearchResult.GrepMatch> replaceItems)
-        {
-            if (text.Length > 5 && text.Substring(0, 5).ToLower() == "<?xml")
-            {
-                XmlDocument xmlDoc = new XmlDocument();
-                xmlDoc.LoadXml(text);
-                XmlNodeList xmlNodes = xmlDoc.SelectNodes(searchXPath);
-
-                foreach (XmlNode xmlNode in xmlNodes)
-                {
-                    xmlNode.InnerXml = DoPatternReplacement(replaceText);
-                }
-                StringBuilder sb = new StringBuilder();
-                StringWriter stringWriter = new StringWriter(sb);
-                using (XmlTextWriter xmlWriter = new XmlTextWriter(stringWriter))
-                {
-                    xmlWriter.Formatting = Formatting.Indented;
-                    xmlDoc.WriteContentTo(xmlWriter);
-                    xmlWriter.Flush();
-                }
-
-                return sb.ToString();
-            }
-            return text;
-        }
+        #endregion
     }
 
     public class GrepEngineInitParams

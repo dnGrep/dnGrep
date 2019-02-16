@@ -47,7 +47,7 @@ namespace dnGREP.Engines
         List<GrepSearchResult> Search(Stream input, string fileName, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding);
 
         bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, 
-            GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepSearchResult.GrepMatch> replaceItems);
+            GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepMatch> replaceItems);
 
         /// <summary>
         /// Method gets called when search/replace process is complete

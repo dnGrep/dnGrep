@@ -88,19 +88,12 @@ namespace dnGREP.Engines.Word
         public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
         {
             load();
-            SearchDelegates.DoSearch searchMethodMultiline = DoTextSearchCaseSensitive;
+            SearchDelegates.DoSearch searchMethodMultiline = DoTextSearch;
             switch (searchType)
             {
                 case SearchType.PlainText:
                 case SearchType.XPath:
-                    if ((searchOptions & GrepSearchOption.CaseSensitive) == GrepSearchOption.CaseSensitive)
-                    {
-                        searchMethodMultiline = DoTextSearchCaseSensitive;
-                    }
-                    else
-                    {
-                        searchMethodMultiline = DoTextSearchCaseInsensitive;
-                    }
+                    searchMethodMultiline = DoTextSearch;
                     break;
                 case SearchType.Regex:
                     searchMethodMultiline = DoRegexSearch;
@@ -156,7 +149,7 @@ namespace dnGREP.Engines.Word
                     // create text
                     object text = getProperty(range, "Text");
 
-                    var lines = searchMethod(-1, Utils.CleanLineBreaks(text.ToString()), searchPattern, searchOptions, true);
+                    var lines = searchMethod(-1, 0, Utils.CleanLineBreaks(text.ToString()), searchPattern, searchOptions, true);
                     if (lines.Count > 0)
                     {
                         GrepSearchResult result = new GrepSearchResult(file, searchPattern, lines, Encoding.Default);
@@ -181,8 +174,8 @@ namespace dnGREP.Engines.Word
             return searchResults;
         }
 
-        public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, 
-            GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepSearchResult.GrepMatch> replaceItems)
+        public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType,
+            GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepMatch> replaceItems)
         {
             throw new Exception("The method or operation is not implemented.");
         }

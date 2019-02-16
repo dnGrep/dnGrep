@@ -466,7 +466,7 @@ namespace dnGREP.WPF
                 FormattedMatches.Add(new FormattedGrepMatch(match));
             //foreach (var line in GrepResult.SearchResults)
             //{
-            //    foreach (GrepSearchResult.GrepMatch match in line.Matches)
+            //    foreach (GrepMatch match in line.Matches)
             //        FormattedMatches.Add(new FormattedGrepMatch(match));
             //}
         }
@@ -597,9 +597,9 @@ namespace dnGREP.WPF
             else
             {
                 int counter = 0;
-                GrepSearchResult.GrepMatch[] lineMatches = new GrepSearchResult.GrepMatch[line.Matches.Count];
+                GrepMatch[] lineMatches = new GrepMatch[line.Matches.Count];
                 line.Matches.CopyTo(lineMatches);
-                foreach (GrepSearchResult.GrepMatch m in lineMatches)
+                foreach (GrepMatch m in lineMatches)
                 {
                     try
                     {
@@ -665,18 +665,24 @@ namespace dnGREP.WPF
                     // otherwise, stop at 20 and just show the remaining count
                     int takeCount = count > 25 ? 20 : count;
 
-                    foreach (GrepSearchResult.GrepMatch m in hiddenMatches.Take(takeCount))
+                    foreach (GrepMatch m in hiddenMatches.Take(takeCount))
                     {
-                        paragraph.Inlines.Add(new Run("  "));
-                        string fmtLine = line.LineText.Substring(m.StartLocation, m.Length);
-                        paragraph.Inlines.Add(new Run(fmtLine) { Background = Brushes.Yellow });
+                        if (m.StartLocation + m.Length <= line.LineText.Length)
+                        {
+                            paragraph.Inlines.Add(new Run("  "));
+                            string fmtLine = line.LineText.Substring(m.StartLocation, m.Length);
+                            paragraph.Inlines.Add(new Run(fmtLine) { Background = Brushes.Yellow });
 
-                        paragraph.Inlines.Add(new Run(string.Format(" at position {0}", m.StartLocation)));
+                            if (m.StartLocation + m.Length == line.LineText.Length)
+                                paragraph.Inlines.Add(new Run(" (at end of line)"));
+                            else
+                                paragraph.Inlines.Add(new Run($" at position {m.StartLocation}"));
+                        }
                     }
 
                     if (count > takeCount)
                     {
-                        paragraph.Inlines.Add(new Run(string.Format(", +{0} more matches", count - takeCount)));
+                        paragraph.Inlines.Add(new Run($", +{count - takeCount} more matches"));
                     }
                 }
             }
@@ -701,9 +707,9 @@ namespace dnGREP.WPF
             else
             {
                 int counter = 0;
-                GrepSearchResult.GrepMatch[] lineMatches = new GrepSearchResult.GrepMatch[line.Matches.Count];
+                GrepMatch[] lineMatches = new GrepMatch[line.Matches.Count];
                 line.Matches.CopyTo(lineMatches);
-                foreach (GrepSearchResult.GrepMatch m in lineMatches)
+                foreach (GrepMatch m in lineMatches)
                 {
                     var formattedMatch = Parent.FormattedMatches
                         .Where(fm => fm.Match.FileMatchId == m.FileMatchId)
@@ -787,7 +793,7 @@ namespace dnGREP.WPF
                 ////    // otherwise, stop at 20 and just show the remaining count
                 ////    int takeCount = count > 25 ? 20 : count;
 
-                ////    foreach (GrepSearchResult.GrepMatch m in hiddenMatches.Take(takeCount))
+                ////    foreach (GrepMatch m in hiddenMatches.Take(takeCount))
                 ////    {
                 ////        paragraph.Inlines.Add(new Run("  "));
                 ////        string fmtLine = line.LineText.Substring(m.StartLocation, m.Length);
@@ -808,7 +814,7 @@ namespace dnGREP.WPF
 
     public class FormattedGrepMatch : ViewModelBase
     {
-        public FormattedGrepMatch(GrepSearchResult.GrepMatch match)
+        public FormattedGrepMatch(GrepMatch match)
         {
             Match = match;
             ReplaceMatch = Match.ReplaceMatch;
@@ -816,7 +822,7 @@ namespace dnGREP.WPF
             Background = Match.ReplaceMatch ? Brushes.PaleGreen : Brushes.Bisque;
         }
 
-        public GrepSearchResult.GrepMatch Match { get; }
+        public GrepMatch Match { get; }
 
         public override string ToString()
         {

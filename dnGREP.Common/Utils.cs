@@ -40,13 +40,9 @@ namespace dnGREP.Common
         /// <param name="excludePattern">Regex pattern that matches file or folder to be included. If null or empty, the parameter is ignored</param>
         public static void CopyFiles(string sourceDirectory, string destinationDirectory, string includePattern, string excludePattern)
         {
-            String[] files;
-
-            destinationDirectory = FixFolderName(destinationDirectory);
-
             if (!Directory.Exists(destinationDirectory)) Directory.CreateDirectory(destinationDirectory);
 
-            files = Directory.GetFileSystemEntries(sourceDirectory);
+            var files = Directory.GetFileSystemEntries(sourceDirectory);
 
             foreach (string element in files)
             {
@@ -58,10 +54,10 @@ namespace dnGREP.Common
 
                 // Sub directories
                 if (Directory.Exists(element))
-                    CopyFiles(element, destinationDirectory + Path.GetFileName(element), includePattern, excludePattern);
+                    CopyFiles(element, Path.Combine(destinationDirectory, Path.GetFileName(element)), includePattern, excludePattern);
                 // Files in directory
                 else
-                    CopyFile(element, destinationDirectory + Path.GetFileName(element), true);
+                    CopyFile(element, Path.Combine(destinationDirectory, Path.GetFileName(element)), true);
             }
         }
 
@@ -390,7 +386,7 @@ namespace dnGREP.Common
         public static void CopyFile(string sourcePath, string destinationPath, bool overWrite)
         {
             if (File.Exists(destinationPath) && !overWrite)
-                throw new IOException("File: '" + destinationPath + "' exists.");
+                throw new IOException($"File: '{destinationPath}' exists.");
 
             if (!new FileInfo(destinationPath).Directory.Exists)
                 new FileInfo(destinationPath).Directory.Create();
@@ -1373,7 +1369,7 @@ namespace dnGREP.Common
             }
             else
             {
-                string dataFolder = Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData) + "\\dnGREP";
+                string dataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dnGREP");
                 if (!Directory.Exists(dataFolder))
                     Directory.CreateDirectory(dataFolder);
                 return dataFolder;
@@ -1382,7 +1378,7 @@ namespace dnGREP.Common
 
         private static bool HasWriteAccessToFolder(string folderPath)
         {
-            string filename = FixFolderName(folderPath) + "~temp.dat";
+            string filename = Path.Combine(folderPath, "~temp.dat");
             bool canAccess = true;
             //1. Provide early notification that the user does not have permission to write.
             FileIOPermission writePermission = new FileIOPermission(FileIOPermissionAccess.Write, filename);
@@ -1503,11 +1499,11 @@ namespace dnGREP.Common
         /// <param name="length">Length of a line</param>
         /// <param name="lineNumbers">Return parameter - 1-based line numbers or null if index is outside text length</param>
         /// <returns>Line of text or null if index is outside text length</returns>
-        public static List<string> GetLines(string body, int index, int length, out List<GrepSearchResult.GrepMatch> matches, out List<int> lineNumbers)
+        public static List<string> GetLines(string body, int index, int length, out List<GrepMatch> matches, out List<int> lineNumbers)
         {
             List<string> result = new List<string>();
             lineNumbers = new List<int>();
-            matches = new List<GrepSearchResult.GrepMatch>();
+            matches = new List<GrepMatch>();
             if (body == null || index < 0 || index + 1 > body.Length || index + length + 1 > body.Length)
             {
                 lineNumbers = null;
@@ -1536,7 +1532,7 @@ namespace dnGREP.Common
                         line = lines1[lines1.Length - 1] + lines2[0];
                     }
 
-                    matches.Add(new GrepSearchResult.GrepMatch(lines1.Length + i, index - subBody1.Length + lines1[lines1.Length - 1].Length, lines2[0].Length));
+                    matches.Add(new GrepMatch(lines1.Length + i, index - subBody1.Length + lines1[lines1.Length - 1].Length, lines2[0].Length));
                 }
                 else if (i == lines2.Length - 1)
                 {
@@ -1549,12 +1545,12 @@ namespace dnGREP.Common
                         line = lines2[lines2.Length - 1];
                     }
 
-                    matches.Add(new GrepSearchResult.GrepMatch(lines1.Length + i, 0, lines2[lines2.Length - 1].Length));
+                    matches.Add(new GrepMatch(lines1.Length + i, 0, lines2[lines2.Length - 1].Length));
                 }
                 else
                 {
                     line = lines2[i];
-                    matches.Add(new GrepSearchResult.GrepMatch(lines1.Length + i, 0, lines2[i].Length));
+                    matches.Add(new GrepMatch(lines1.Length + i, 0, lines2[i].Length));
                 }
                 result.Add(line);
             }
@@ -1582,17 +1578,17 @@ namespace dnGREP.Common
         /// <param name="beforeLines">Context line (before)</param>
         /// <param name="afterLines">Context line (after</param>
         /// <returns></returns>
-        public static List<GrepSearchResult.GrepLine> GetLinesEx(TextReader body, List<GrepSearchResult.GrepMatch> bodyMatches, int beforeLines, int afterLines)
+        public static List<GrepSearchResult.GrepLine> GetLinesEx(TextReader body, List<GrepMatch> bodyMatches, int beforeLines, int afterLines)
         {
             if (body == null || bodyMatches == null)
                 return new List<GrepSearchResult.GrepLine>();
 
-            List<GrepSearchResult.GrepMatch> bodyMatchesClone = new List<GrepSearchResult.GrepMatch>(bodyMatches);
+            List<GrepMatch> bodyMatchesClone = new List<GrepMatch>(bodyMatches);
             Dictionary<int, GrepSearchResult.GrepLine> results = new Dictionary<int, GrepSearchResult.GrepLine>();
             List<GrepSearchResult.GrepLine> contextLines = new List<GrepSearchResult.GrepLine>();
             Dictionary<int, string> lineStrings = new Dictionary<int, string>();
             List<int> lineNumbers = new List<int>();
-            List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
+            List<GrepMatch> matches = new List<GrepMatch>();
 
             // Context line (before)
             Queue<string> beforeQueue = new Queue<string>();
@@ -1679,16 +1675,16 @@ namespace dnGREP.Common
                                 string fileMatchId = bodyMatchesClone[0].FileMatchId;
                                 // First and only line
                                 if (i == startLine && i == lineNumber)
-                                    matches.Add(new GrepSearchResult.GrepMatch(fileMatchId, i, startIndex, bodyMatchesClone[0].Length));
+                                    matches.Add(new GrepMatch(fileMatchId, i, startIndex, bodyMatchesClone[0].Length));
                                 // First but not last line
                                 else if (i == startLine)
-                                    matches.Add(new GrepSearchResult.GrepMatch(fileMatchId, i, startIndex, tempLine.TrimEndOfLine().Length - startIndex));
+                                    matches.Add(new GrepMatch(fileMatchId, i, startIndex, tempLine.TrimEndOfLine().Length - startIndex));
                                 // Middle line
                                 else if (i > startLine && i < lineNumber)
-                                    matches.Add(new GrepSearchResult.GrepMatch(fileMatchId, i, 0, tempLine.TrimEndOfLine().Length));
+                                    matches.Add(new GrepMatch(fileMatchId, i, 0, tempLine.TrimEndOfLine().Length));
                                 // Last line
                                 else
-                                    matches.Add(new GrepSearchResult.GrepMatch(fileMatchId, i, 0, bodyMatchesClone[0].Length - tempLinesTotalLength + line.Length + startIndex));
+                                    matches.Add(new GrepMatch(fileMatchId, i, 0, bodyMatchesClone[0].Length - tempLinesTotalLength + line.Length + startIndex));
 
                                 startRecordingAfterLines = true;
                             }
@@ -1725,7 +1721,7 @@ namespace dnGREP.Common
             return results.Values.OrderBy(l => l.LineNumber).ToList();
         }
 
-        private static void AddGrepMatch(Dictionary<int, GrepSearchResult.GrepLine> lines, GrepSearchResult.GrepMatch match, string lineText)
+        private static void AddGrepMatch(Dictionary<int, GrepSearchResult.GrepLine> lines, GrepMatch match, string lineText)
         {
             if (!lines.ContainsKey(match.LineNumber))
                 lines[match.LineNumber] = new GrepSearchResult.GrepLine(match.LineNumber, lineText.TrimEndOfLine(), false, null);

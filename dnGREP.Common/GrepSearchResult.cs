@@ -116,7 +116,7 @@ namespace dnGREP.Common
             return searchResults;
         }
 
-        public List<GrepSearchResult.GrepMatch> Matches { get; } = new List<GrepMatch>();
+        public List<GrepMatch> Matches { get; } = new List<GrepMatch>();
 
         public bool IsSuccess { get; }
 
@@ -172,112 +172,112 @@ namespace dnGREP.Common
 
             #endregion
         }
+    }
 
-        public enum GrepMatchTails
+    public enum GrepMatchTails
+    {
+        Length,
+        EndPosition,
+        EndOfLineOrFile
+    }
+
+    public class GrepMatch : IComparable<GrepMatch>, IComparable, IEquatable<GrepMatch>
+    {
+        public GrepMatch(int line, int start, int length)
         {
-            Length,
-            EndPosition,
-            EndOfLineOrFile
+            LineNumber = line;
+            StartLocation = start;
+            Length = length;
+
+            FileMatchId = Guid.NewGuid().ToString();
         }
 
-        public class GrepMatch : IComparable<GrepMatch>, IComparable, IEquatable<GrepMatch>
+        public GrepMatch(string fileMatchId, int line, int start, int length)
         {
-            public GrepMatch(int line, int start, int length)
-            {
-                LineNumber = line;
-                StartLocation = start;
-                Length = length;
+            LineNumber = line;
+            StartLocation = start;
+            Length = length;
 
-                FileMatchId = Guid.NewGuid().ToString();
-            }
-
-            public GrepMatch(string fileMatchId, int line, int start, int length)
-            {
-                LineNumber = line;
-                StartLocation = start;
-                Length = length;
-
-                FileMatchId = fileMatchId;
-            }
-
-            public string FileMatchId { get; private set; }
-
-            public int LineNumber { get; } = 0;
-
-            public int StartLocation { get; } = 0;
-
-            public int Length { get; private set; } = 0;
-
-            public bool ReplaceMatch { get; set; } = false;
-
-            public int EndPosition
-            {
-                get
-                {
-                    return StartLocation + Length;
-                }
-                set
-                {
-                    Length = value - StartLocation;
-                }
-            }
-
-            public override string ToString()
-            {
-                return $"{LineNumber}: {StartLocation} + {Length}";
-            }
-
-            public override int GetHashCode()
-            {
-                unchecked
-                {
-                    int hashCode = 13;
-                    hashCode = (hashCode * 397) ^ LineNumber;
-                    hashCode = (hashCode * 397) ^ StartLocation;
-                    hashCode = (hashCode * 397) ^ Length;
-                    return hashCode;
-                }
-            }
-
-            public override bool Equals(object obj)
-            {
-                return Equals(obj as GrepMatch);
-            }
-
-            public bool Equals(GrepMatch other)
-            {
-                if (other == null) return false;
-
-                return LineNumber == other.LineNumber &&
-                    StartLocation == other.StartLocation &&
-                    Length == other.Length;
-            }
-
-            #region IComparable<GrepMatch> Members
-
-            public int CompareTo(GrepMatch other)
-            {
-                if (other == null)
-                    return 1;
-                else
-                    return StartLocation.CompareTo(other.StartLocation);
-            }
-
-            #endregion
-
-            #region IComparable Members
-
-            public int CompareTo(object obj)
-            {
-                if (obj == null)
-                    return 1;
-                if (obj is GrepMatch)
-                    return StartLocation.CompareTo(((GrepMatch)obj).StartLocation);
-                else
-                    return 1;
-            }
-
-            #endregion
+            FileMatchId = fileMatchId;
         }
+
+        public string FileMatchId { get; }
+
+        public int LineNumber { get; } = 0;
+
+        public int StartLocation { get; } = 0;
+
+        public int Length { get; private set; } = 0;
+
+        public bool ReplaceMatch { get; set; } = false;
+
+        public int EndPosition
+        {
+            get
+            {
+                return StartLocation + Length;
+            }
+            set
+            {
+                Length = value - StartLocation;
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"{LineNumber}: {StartLocation} + {Length}";
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hashCode = 13;
+                hashCode = (hashCode * 397) ^ LineNumber;
+                hashCode = (hashCode * 397) ^ StartLocation;
+                hashCode = (hashCode * 397) ^ Length;
+                return hashCode;
+            }
+        }
+
+        public override bool Equals(object obj)
+        {
+            return Equals(obj as GrepMatch);
+        }
+
+        public bool Equals(GrepMatch other)
+        {
+            if (other == null) return false;
+
+            return LineNumber == other.LineNumber &&
+                StartLocation == other.StartLocation &&
+                Length == other.Length;
+        }
+
+        #region IComparable<GrepMatch> Members
+
+        public int CompareTo(GrepMatch other)
+        {
+            if (other == null)
+                return 1;
+            else
+                return StartLocation.CompareTo(other.StartLocation);
+        }
+
+        #endregion
+
+        #region IComparable Members
+
+        public int CompareTo(object obj)
+        {
+            if (obj == null)
+                return 1;
+            if (obj is GrepMatch)
+                return StartLocation.CompareTo(((GrepMatch)obj).StartLocation);
+            else
+                return 1;
+        }
+
+        #endregion
     }
 }

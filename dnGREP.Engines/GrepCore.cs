@@ -58,7 +58,7 @@ namespace dnGREP.Common
 
                     searchResults.Add(new GrepSearchResult(file, searchPattern, null, Encoding.Default));
 
-                    if ((searchOptions & GrepSearchOption.StopAfterFirstMatch) == GrepSearchOption.StopAfterFirstMatch)
+                    if (searchOptions.HasFlag(GrepSearchOption.StopAfterFirstMatch))
                         break;
                     if (Utils.CancelSearch)
                         break;
@@ -192,7 +192,7 @@ namespace dnGREP.Common
             }
             finally
             {
-                if ((searchOptions & GrepSearchOption.StopAfterFirstMatch) == GrepSearchOption.StopAfterFirstMatch && searchResults.Count > 0)
+                if (searchOptions.HasFlag(GrepSearchOption.StopAfterFirstMatch) && searchResults.Count > 0)
                 {
                     if (cancellationTokenSource != null)
                         cancellationTokenSource.Cancel();
@@ -206,6 +206,8 @@ namespace dnGREP.Common
 
             if (files == null || !files.Any() || !Directory.Exists(tempFolder))
                 return 0;
+
+            GrepEngineBase.ResetGuidxCache();
 
             replacePattern = Utils.ReplaceSpecialCharacters(replacePattern);
 

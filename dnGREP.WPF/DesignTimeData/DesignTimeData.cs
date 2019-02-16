@@ -20,8 +20,8 @@ namespace dnGREP.WPF.DesignTimeData
                     string filePath = Path.GetDirectoryName(file);
 
                     dummyObservableGrepSearchResults = new ObservableGrepSearchResults();
-                    var matches = new List<GrepSearchResult.GrepMatch>();
-                    matches.Add(new GrepSearchResult.GrepMatch(1, 6, 6));
+                    var matches = new List<GrepMatch>();
+                    matches.Add(new GrepMatch(1, 6, 6));
                     var result = new GrepSearchResult(file, "abc", matches, Encoding.Default);
                     result.SearchResults.Add(new GrepSearchResult.GrepLine(1, "using System", true, matches));
                     var formatted = new FormattedGrepResult(result, filePath);
