@@ -209,9 +209,10 @@ namespace Tests
 
             Utils.CopyFiles(Path.Combine(sourceFolder, "TestCase4"), Path.Combine(destFolder, "TestCase4"), null, null);
             GrepCore core = new GrepCore();
-            List<GrepSearchResult> results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase4"), "app.config"), SearchType.XPath, "//setting", GrepSearchOption.CaseSensitive | GrepSearchOption.Multiline, -1);
-            Assert.Equal(results.Count, 1);
-            Assert.Equal(results[0].Matches.Count, 28);
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase4"), "app.config"), SearchType.XPath,
+                "//setting", GrepSearchOption.CaseSensitive, -1);
+            Assert.Equal(1, results.Count);
+            Assert.Equal(28, results[0].Matches.Count);
         }
 
         [Theory]
@@ -223,9 +224,144 @@ namespace Tests
 
             Utils.CopyFiles(Path.Combine(sourceFolder, "TestCase4"), Path.Combine(destFolder, "TestCase4"), null, null);
             GrepCore core = new GrepCore();
-            List<GrepSearchResult> results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase4"), "app.config"), SearchType.XPath, "//setting", GrepSearchOption.CaseSensitive | GrepSearchOption.Multiline, -1);
-            Assert.Equal(results.Count, 1);
-            Assert.Equal(results[0].SearchResults.Count, 84);
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase4"), "app.config"), SearchType.XPath,
+                "//setting", GrepSearchOption.CaseSensitive, -1);
+            Assert.Equal(1, results.Count);
+            Assert.Equal(84, results[0].SearchResults.Count);
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void TestSearchXPathWithMissingXmlDeclaration(bool useLongPath)
+        {
+            string destFolder = useLongPath ? GetLongPathDestination(Guid.NewGuid().ToString()) : destinationFolder;
+
+            Utils.CopyFiles(Path.Combine(sourceFolder, "TestCase4"), Path.Combine(destFolder, "TestCase4"), null, null);
+            GrepCore core = new GrepCore();
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase4"), "books_no_decl.xml"),
+                SearchType.XPath, "//book/price", GrepSearchOption.CaseSensitive, -1);
+            Assert.Equal(1, results.Count);
+            Assert.Equal(5, results[0].Matches.Count);
+
+            // test the results have returned the correct string
+            foreach (var item in results[0].SearchResults.Where(r => !r.IsContext))
+            {
+                Assert.True(item.LineText.Trim().StartsWith("<price"));
+                Assert.True(item.LineText.Trim().EndsWith("</price>"));
+            }
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void TestSearchAndReplaceXPathWithMissingXmlDeclaration(bool useLongPath)
+        {
+            string destFolder = useLongPath ? GetLongPathDestination(Guid.NewGuid().ToString()) : destinationFolder;
+
+            Utils.CopyFiles(Path.Combine(sourceFolder, "TestCase4"), Path.Combine(destFolder, "TestCase4"), null, null);
+            GrepCore core = new GrepCore();
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase4"), "books_no_decl.xml"),
+                SearchType.XPath, "(//@category)[2]", GrepSearchOption.None, -1);
+            Assert.Equal(1, results.Count);
+            Assert.Equal(1, results[0].Matches.Count);
+
+            // mark all matches for replace
+            foreach (var match in results[0].Matches)
+            {
+                match.ReplaceMatch = true;
+            }
+
+            string testFile = Path.Combine(destinationFolder, "TestCase4", "books_no_decl.xml");
+            List<ReplaceDef> files = new List<ReplaceDef>
+            {
+                new ReplaceDef(testFile, results[0].Matches)
+            };
+            core.Replace(files, SearchType.XPath, "(//@category)[2]", "general", GrepSearchOption.None, -1);
+
+            var fileContent = File.ReadAllLines(testFile, Encoding.UTF8);
+            Assert.Equal(37, fileContent.Length);
+            Assert.Equal("<bookstore>", fileContent[0]);
+            Assert.Equal("  <book category=\"general\">", fileContent[7]);
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void TestSearchAndReplaceXPath(bool useLongPath)
+        {
+            string destFolder = useLongPath ? GetLongPathDestination(Guid.NewGuid().ToString()) : destinationFolder;
+
+            Utils.CopyFiles(Path.Combine(sourceFolder, "TestCase4"), Path.Combine(destFolder, "TestCase4"), null, null);
+            GrepCore core = new GrepCore();
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase4"), "app.config"), SearchType.XPath,
+                "//appSettings", GrepSearchOption.CaseSensitive, -1);
+            Assert.Equal(1, results.Count);
+            Assert.Equal(1, results[0].Matches.Count);
+
+            // mark all matches for replace
+            foreach (var result in results)
+            {
+                foreach (var match in result.Matches)
+                {
+                    match.ReplaceMatch = true;
+                }
+            }
+
+            string testFile = Path.Combine(destFolder, @"TestCase4\app.config");
+            List<ReplaceDef> files = new List<ReplaceDef>
+            {
+                new ReplaceDef(testFile, results[0].Matches)
+            };
+
+            string replaceText = "<add key=\"test\" value=\"true\" />";
+            core.Replace(files, SearchType.XPath, "//appSettings", replaceText, GrepSearchOption.None, -1);
+
+            results = core.Search(new string[] { testFile }, SearchType.XPath, "//add", GrepSearchOption.None, -1);
+            Assert.Equal(1, results.Count);
+            Assert.Equal(1, results[0].Matches.Count);
+            var hit = results[0].SearchResults.Where(r => !r.IsContext).ToArray();
+            Assert.Equal(1, hit.Length);
+            Assert.True(hit[0].LineText.Contains("key=\"test\""));
+            Assert.True(hit[0].LineText.Contains("value=\"true\""));
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void TestSearchAndReplaceXPathAttribute(bool useLongPath)
+        {
+            string destFolder = useLongPath ? GetLongPathDestination(Guid.NewGuid().ToString()) : destinationFolder;
+
+            Utils.CopyFiles(Path.Combine(sourceFolder, "TestCase15"), Path.Combine(destFolder, "TestCase15"), null, null);
+            GrepCore core = new GrepCore();
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase15"), "books.xml"), SearchType.XPath,
+                "/bookstore/book/title[1]/@lang", GrepSearchOption.None, -1);
+            Assert.Equal(1, results.Count);
+            Assert.Equal(5, results[0].Matches.Count);
+
+            // mark all matches for replace
+            foreach (var match in results[0].Matches)
+            {
+                match.ReplaceMatch = true;
+            }
+
+            string testFile = Path.Combine(destFolder, @"TestCase15\books.xml");
+            List<ReplaceDef> files = new List<ReplaceDef>
+            {
+                new ReplaceDef(testFile, results[0].Matches)
+            };
+
+            string replaceText = "dnGrep";
+            core.Replace(files, SearchType.XPath, "/bookstore/book/title[1]/@lang", replaceText, GrepSearchOption.None, -1);
+
+            results = core.Search(new string[] { testFile }, SearchType.XPath, "/bookstore/book/title[1]/@lang", GrepSearchOption.None, -1);
+            Assert.Equal(1, results.Count);
+            Assert.Equal(5, results[0].Matches.Count);
+            var hits = results[0].SearchResults.Where(r => !r.IsContext).ToArray();
+            Assert.Equal(5, hits.Length);
+            foreach (var line in hits)
+                Assert.True(line.LineText.Contains("lang=\"dnGrep\""));
         }
 
         [Theory]
@@ -286,16 +422,13 @@ namespace Tests
             Utils.CopyFiles(Path.Combine(sourceFolder, "TestCase8"), Path.Combine(destFolder, "TestCase8"), null, null);
             GrepCore core = new GrepCore();
             List<GrepSearchResult> results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase8"), "test.txt"), SearchType.Regex, "here", GrepSearchOption.None, -1);
-            Assert.Equal(results.Count, 1);
-            Assert.Equal(results[0].SearchResults.Count, 1);
+            Assert.Equal(1, results.Count);
+            Assert.Equal(1, results[0].SearchResults.Count);
 
             // mark all matches for replace
-            foreach (var result in results)
+            foreach (var match in results[0].Matches)
             {
-                foreach (var match in result.Matches)
-                {
-                    match.ReplaceMatch = true;
-                }
+                match.ReplaceMatch = true;
             }
 
             string testFile = Path.Combine(destFolder, @"TestCase8\test.txt");
@@ -329,12 +462,9 @@ namespace Tests
             Assert.Equal(6, results[0].SearchResults.Count);
 
             // mark all matches for replace
-            foreach (var result in results)
+            foreach (var match in results[0].Matches)
             {
-                foreach (var match in result.Matches)
-                {
-                    match.ReplaceMatch = true;
-                }
+                match.ReplaceMatch = true;
             }
 
             string testFile = Path.Combine(destFolder, @"TestCase9\test.txt");
@@ -363,16 +493,13 @@ namespace Tests
             GrepCore core = new GrepCore();
             List<GrepSearchResult> results = core.Search(Directory.GetFiles(Path.Combine(destinationFolder, "TestCase9"), "guidx.txt"),
                 SearchType.Regex, "h\\wre", GrepSearchOption.None, -1);
-            Assert.Equal(results.Count, 1);
-            Assert.Equal(results[0].SearchResults.Count, 6);
+            Assert.Equal(1, results.Count);
+            Assert.Equal(6, results[0].SearchResults.Count);
 
             // mark all matches for replace
-            foreach (var result in results)
+            foreach (var match in results[0].Matches)
             {
-                foreach (var match in result.Matches)
-                {
-                    match.ReplaceMatch = true;
-                }
+                match.ReplaceMatch = true;
             }
 
             string testFile = Path.Combine(destinationFolder, @"TestCase9\guidx.txt");
@@ -403,6 +530,7 @@ namespace Tests
         [InlineData(SearchType.Regex, GrepSearchOption.Multiline, "child.*\"\\>", "general\">")]
         [InlineData(SearchType.Regex, GrepSearchOption.None, "child.*\"\\>$", "general\">")]
         [InlineData(SearchType.Regex, GrepSearchOption.Multiline, "child.*\"\\>$", "general\">")]
+        [InlineData(SearchType.XPath, GrepSearchOption.None, "(//@category)[2]", "general")]
         public void TestReplaceOnFileWithout_UTF8_BOM(SearchType type, GrepSearchOption option, string searchFor, string replaceWith)
         {
             // Test for Issue #227
@@ -413,12 +541,9 @@ namespace Tests
             Assert.Equal(1, results.Count);
 
             // mark all matches for replace
-            foreach (var result in results)
+            foreach (var match in results[0].Matches)
             {
-                foreach (var match in result.Matches)
-                {
-                    match.ReplaceMatch = true;
-                }
+                match.ReplaceMatch = true;
             }
 
             string testFile = Path.Combine(destinationFolder, "TestCase15", "books.xml");
@@ -455,6 +580,7 @@ namespace Tests
         [InlineData(SearchType.Regex, GrepSearchOption.Multiline, "child.*\"\\>", "general\">")]
         [InlineData(SearchType.Regex, GrepSearchOption.None, "child.*\"\\>$", "general\">")]
         [InlineData(SearchType.Regex, GrepSearchOption.Multiline, "child.*\"\\>$", "general\">")]
+        [InlineData(SearchType.XPath, GrepSearchOption.None, "(//@category)[2]", "general")]
         public void TestReplaceOnFileWith_UTF8_BOM(SearchType type, GrepSearchOption option, string searchFor, string replaceWith)
         {
             // Test for Issue #227 dnGrep inserting extra BOM, and scrambling file
@@ -465,12 +591,9 @@ namespace Tests
             Assert.Equal(1, results.Count);
 
             // mark all matches for replace
-            foreach (var result in results)
+            foreach (var match in results[0].Matches)
             {
-                foreach (var match in result.Matches)
-                {
-                    match.ReplaceMatch = true;
-                }
+                match.ReplaceMatch = true;
             }
 
             string testFile = Path.Combine(destinationFolder, "TestCase15", "books_bom.xml");
@@ -519,12 +642,9 @@ namespace Tests
             Assert.Equal(2, results[0].SearchResults.Where(r => !r.IsContext).Count());
 
             // mark all matches for replace
-            foreach (var result in results)
+            foreach (var match in results[0].Matches)
             {
-                foreach (var match in result.Matches)
-                {
-                    match.ReplaceMatch = true;
-                }
+                match.ReplaceMatch = true;
             }
 
             string testFile = Path.Combine(destFolder, @"TestCase3\test-file-code.cs");
@@ -694,12 +814,9 @@ namespace Tests
             Assert.Equal(2, results[0].SearchResults.Where(r => !r.IsContext).Count());
 
             // mark all matches for replace
-            foreach (var result in results)
+            foreach (var match in results[0].Matches)
             {
-                foreach (var match in result.Matches)
-                {
-                    match.ReplaceMatch = true;
-                }
+                match.ReplaceMatch = true;
             }
 
             string testFile = Path.Combine(destFolder, @"TestCase3\test-file-code.cs");
@@ -733,12 +850,9 @@ namespace Tests
             Assert.Equal(1, results[0].SearchResults.Where(r => !r.IsContext).Count());
 
             // mark all matches for replace
-            foreach (var result in results)
+            foreach (var match in results[0].Matches)
             {
-                foreach (var match in result.Matches)
-                {
-                    match.ReplaceMatch = true;
-                }
+                match.ReplaceMatch = true;
             }
 
             string testFile = Path.Combine(destFolder, @"TestCase3\test-file-code.cs");
@@ -780,12 +894,9 @@ namespace Tests
 
 
             // mark all matches for replace
-            foreach (var result in results)
+            foreach (var match in results[0].Matches)
             {
-                foreach (var match in result.Matches)
-                {
-                    match.ReplaceMatch = true;
-                }
+                match.ReplaceMatch = true;
             }
 
             string testFile = Path.Combine(destFolder, @"TestCase16", fileName);

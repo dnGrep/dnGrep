@@ -197,15 +197,32 @@ namespace dnGREP.WPF
             if (WholeWord)
                 searchOptions |= GrepSearchOption.WholeWord;
 
-            string replacedString = "";
+            string replacedString = string.Empty;
+            using (Stream inputStream = new MemoryStream(Encoding.Default.GetBytes(SampleText)))
+            using (Stream writeStream = new MemoryStream())
+            {
+                // first search, and mark all hits for replace
+                results = engine.Search(inputStream, "test.txt", SearchFor, TypeOfSearch, searchOptions, Encoding.Default);
+
+                // mark all matches for replace
+                if (results.Count > 0)
+                {
+                    foreach (var match in results[0].Matches)
+                    {
+                        match.ReplaceMatch = true;
+                    }
+                }
+            }
             using (Stream inputStream = new MemoryStream(Encoding.Default.GetBytes(SampleText)))
             using (Stream writeStream = new MemoryStream())
             {
                 engine.Replace(inputStream, writeStream, SearchFor, ReplaceWith, TypeOfSearch,
-                    searchOptions, Encoding.Default, Enumerable.Empty<GrepMatch>());
+                    searchOptions, Encoding.Default, results[0].Matches);
                 writeStream.Position = 0;
-                StreamReader reader = new StreamReader(writeStream);
-                replacedString = reader.ReadToEnd();
+                using (StreamReader reader = new StreamReader(writeStream))
+                {
+                    replacedString = reader.ReadToEnd();
+                }
             }
             SearchResults.Clear();
             SearchResults.AddRange(results);

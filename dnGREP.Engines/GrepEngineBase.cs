@@ -349,8 +349,11 @@ namespace dnGREP.Engines
         protected List<GrepMatch> DoXPathSearch(int lineNumber, int filePosition, string text, string searchXPath, GrepSearchOption searchOptions, bool includeContext)
         {
             List<GrepMatch> results = new List<GrepMatch>();
-            // Check if file is an XML file
-            if (text.Length > 5 && text.Substring(0, 5).ToLower() == "<?xml")
+
+            // skip files that are obviously not xml files, but report errors on badly formed xml
+            int firstElemIdx = text.IndexOf('<');
+            int firstCharIdx = text.TakeWhile(char.IsWhiteSpace).Count();
+            if (firstElemIdx > -1 && firstElemIdx <= firstCharIdx)
             {
                 List<XPathPosition> positions = new List<XPathPosition>();
                 using (StringReader reader = new StringReader(text))
@@ -388,25 +391,35 @@ namespace dnGREP.Engines
 
                 results.AddRange(GetFilePositions(text, positions));
             }
-
             return results;
         }
 
         protected string DoXPathReplace(int lineNumber, int filePosition, string text, string searchXPath, string replaceText, GrepSearchOption searchOptions,
             IEnumerable<GrepMatch> replaceItems)
         {
-            if (text.Length > 5 && text.Substring(0, 5).ToLower() == "<?xml")
+            // shouldn't get here, but skip non-xml files:
+            if (text.StartsWith("<"))
             {
                 XmlDocument xmlDoc = new XmlDocument();
                 xmlDoc.LoadXml(text);
                 XmlNodeList xmlNodes = xmlDoc.SelectNodes(searchXPath);
 
+                // assume the replace items and xml nodes are in the same order
+                var replaceList = replaceItems.ToArray();
+                bool checkReplace = replaceList.Length == xmlNodes.Count;
+
+                int idx = 0;
                 foreach (XmlNode xmlNode in xmlNodes)
                 {
-                    xmlNode.InnerXml = DoPatternReplacement(searchXPath, replaceText);
+                    bool doReplace = checkReplace ? replaceList[idx].ReplaceMatch : true;
+
+                    if (doReplace)
+                        xmlNode.InnerXml = DoPatternReplacement(xmlNode.InnerXml, replaceText);
+
+                    idx++;
                 }
                 StringBuilder sb = new StringBuilder();
-                StringWriter stringWriter = new StringWriter(sb);
+                using (StringWriter stringWriter = new StringWriter(sb))
                 using (XmlTextWriter xmlWriter = new XmlTextWriter(stringWriter))
                 {
                     xmlWriter.Formatting = Formatting.Indented;
@@ -499,9 +512,8 @@ namespace dnGREP.Engines
                     IXmlLineInfo lineInfo = ((IXmlLineInfo)reader);
                     if (lineInfo.HasLineInfo())
                     {
-                        bool readyToBreak = false;
                         // Parse the XML and display each node.
-                        while (reader.Read() && !readyToBreak)
+                        while (reader.Read())
                         {
                             switch (reader.NodeType)
                             {

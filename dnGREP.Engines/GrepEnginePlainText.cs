@@ -87,7 +87,7 @@ namespace dnGREP.Engines
                     break;
             }
 
-            if (searchOptions.HasFlag(GrepSearchOption.Multiline))
+            if (searchOptions.HasFlag(GrepSearchOption.Multiline) || searchType == SearchType.XPath)
                 return ReplaceMultiline(readStream, writeStream, searchPattern, replacePattern, searchOptions, replaceMethod, encoding, replaceItems);
             else
                 return Replace(readStream, writeStream, searchPattern, replacePattern, searchOptions, replaceMethod, encoding, replaceItems);
@@ -157,7 +157,6 @@ namespace dnGREP.Engines
             {
                 string fileBody = readStream.ReadToEnd();
                 var matches = searchMethod(-1, 0, fileBody, searchPattern, searchOptions, true);
-                //Utils.CleanResults(ref lines);
                 if (matches.Count > 0)
                 {
                     searchResults.Add(new GrepSearchResult(fileName, searchPattern, matches, encoding));
