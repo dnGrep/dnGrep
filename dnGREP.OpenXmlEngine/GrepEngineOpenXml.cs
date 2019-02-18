@@ -52,7 +52,7 @@ namespace dnGREP.Engines.OpenXml
                     searchMethodMultiline = DoRegexSearch;
                     break;
                 case SearchType.Soundex:
-                    searchMethodMultiline = DoFuzzySearchMultiline;
+                    searchMethodMultiline = DoFuzzySearch;
                     break;
             }
 

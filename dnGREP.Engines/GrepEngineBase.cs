@@ -22,7 +22,7 @@ namespace dnGREP.Engines
         private readonly string KEYWORD_GUID_UPPER = "$(GUID)";
         private readonly string KEYWORD_GUIDX = "$(guidx)";
         protected GrepEngineInitParams initParams = GrepEngineInitParams.Default;
-        private GoogleMatch fuzzyMatchEngine = new GoogleMatch();
+        private GoogleMatch fuzzyMatchEngine;
 
         private static ConcurrentDictionary<string, string> guidxMatches = new ConcurrentDictionary<string, string>();
         internal static void ResetGuidxCache() => guidxMatches.Clear();
@@ -632,14 +632,59 @@ namespace dnGREP.Engines
 
         #region Fuzzy Search and Replace
 
-        protected List<GrepMatch> DoFuzzySearchMultiline(int lineNumber, int filePosition, string text, string searchPattern, GrepSearchOption searchOptions, bool includeContext)
+        protected List<GrepMatch> DoFuzzySearch(int lineNumber, int filePosition, string text, string searchPattern, GrepSearchOption searchOptions, bool includeContext)
+        {
+            List<GrepMatch> globalMatches = new List<GrepMatch>();
+
+            foreach (var match in FuzzySearchIterator(lineNumber, filePosition, text, searchPattern, searchOptions))
+            {
+                globalMatches.Add(match);
+
+                if (Utils.CancelSearch)
+                    break;
+            }
+
+            return globalMatches;
+        }
+
+        public string DoFuzzyReplace(int lineNumber, int filePosition, string text, string searchPattern, string replacePattern, GrepSearchOption searchOptions,
+            IEnumerable<GrepMatch> replaceItems)
+        {
+            if (!replaceItems.Any(r => r.LineNumber == lineNumber && r.ReplaceMatch))
+                return text;
+
+            StringBuilder sb = new StringBuilder();
+            int counter = 0;
+
+            foreach (var match in FuzzySearchIterator(lineNumber, filePosition, text, searchPattern, searchOptions))
+            {
+                if (replaceItems.Any(r => match.Equals(r) && r.ReplaceMatch))
+                {
+                    sb.Append(text.Substring(counter, match.StartLocation - filePosition - counter));
+                    sb.Append(DoPatternReplacement(searchPattern, replacePattern));
+
+                    counter = match.StartLocation - filePosition + match.Length;
+                }
+
+                if (Utils.CancelSearch)
+                    break;
+            }
+
+            sb.Append(text.Substring(counter));
+            return sb.ToString();
+        }
+
+        private IEnumerable<GrepMatch> FuzzySearchIterator(int lineNumber, int filePosition, string text, string searchPattern, GrepSearchOption searchOptions)
         {
             var lineEndIndexes = GetLineEndIndexes(initParams.VerboseMatchCount && lineNumber == -1 ? text : null);
 
-            int counter = 0;
+            if (fuzzyMatchEngine == null)
+                fuzzyMatchEngine = new GoogleMatch();
             fuzzyMatchEngine.Match_Threshold = initParams.FuzzyMatchThreshold;
+
             bool isWholeWord = searchOptions.HasFlag(GrepSearchOption.WholeWord);
-            List<GrepMatch> globalMatches = new List<GrepMatch>();
+
+            int counter = 0;
             while (counter < text.Length)
             {
                 int matchLocation = fuzzyMatchEngine.match_main(text.Substring(counter), searchPattern, counter);
@@ -663,53 +708,10 @@ namespace dnGREP.Engines
                 if (initParams.VerboseMatchCount && lineEndIndexes.Count > 0)
                     lineNumber = lineEndIndexes.FindIndex(i => i > matchLocation + counter) + 1;
 
-                globalMatches.Add(new GrepMatch(lineNumber, matchLocation + filePosition + counter, matchLength));
+                yield return new GrepMatch(lineNumber, matchLocation + filePosition + counter, matchLength);
 
                 counter = counter + matchLocation + matchLength;
             }
-            return globalMatches;
-        }
-
-        public string DoFuzzyReplace(int lineNumber, int filePosition, string text, string searchPattern, string replacePattern, GrepSearchOption searchOptions,
-            IEnumerable<GrepMatch> replaceItems)
-        {
-            int counter = 0;
-            StringBuilder result = new StringBuilder();
-            fuzzyMatchEngine.Match_Threshold = initParams.FuzzyMatchThreshold;
-            bool isWholeWord = searchOptions.HasFlag(GrepSearchOption.WholeWord);
-            while (counter < text.Length)
-            {
-                int matchLocation = fuzzyMatchEngine.match_main(text.Substring(counter), searchPattern, counter);
-                if (matchLocation == -1)
-                {
-                    result.Append(text.Substring(counter));
-                    break;
-                }
-
-                if (isWholeWord && !Utils.IsValidBeginText(text.Substring(counter).Substring(0, matchLocation + counter)))
-                {
-                    result.Append(text.Substring(counter));
-                    counter = counter + matchLocation + searchPattern.Length;
-                    continue;
-                }
-
-                int matchLength = fuzzyMatchEngine.match_length(text.Substring(counter), searchPattern, matchLocation, isWholeWord, initParams.FuzzyMatchThreshold);
-
-                if (matchLength == -1)
-                {
-                    result.Append(text.Substring(counter));
-                    counter = counter + matchLocation + searchPattern.Length;
-                    continue;
-                }
-
-                // Text before match
-                result.Append(text.Substring(counter, matchLocation));
-                // New text
-                result.Append(DoPatternReplacement(searchPattern, replacePattern));
-
-                counter = counter + matchLocation + matchLength;
-            }
-            return result.ToString();
         }
 
         #endregion

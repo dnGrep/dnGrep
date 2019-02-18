@@ -288,6 +288,35 @@ namespace Tests
         [Theory]
         [InlineData(true)]
         [InlineData(false)]
+        public void TestSearchAndFilteredReplaceXPathWithMissingXmlDeclaration(bool useLongPath)
+        {
+            string destFolder = useLongPath ? GetLongPathDestination(Guid.NewGuid().ToString()) : destinationFolder;
+
+            Utils.CopyFiles(Path.Combine(sourceFolder, "TestCase4"), Path.Combine(destFolder, "TestCase4"), null, null);
+            GrepCore core = new GrepCore();
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase4"), "books_no_decl.xml"),
+                SearchType.XPath, "(//@currency)", GrepSearchOption.None, -1);
+            Assert.Equal(1, results.Count);
+            Assert.Equal(5, results[0].Matches.Count);
+
+            // mark 2nd and 4th matches for replace
+            results[0].Matches[1].ReplaceMatch = true;
+            results[0].Matches[3].ReplaceMatch = true;
+
+            string testFile = Path.Combine(destinationFolder, "TestCase4", "books_no_decl.xml");
+            List<ReplaceDef> files = new List<ReplaceDef>
+            {
+                new ReplaceDef(testFile, results[0].Matches)
+            };
+            core.Replace(files, SearchType.XPath, "(//@currency)", "EUR", GrepSearchOption.None, -1);
+
+            var fileContent = File.ReadAllText(testFile, Encoding.UTF8);
+            Assert.Equal(2, Regex.Matches(fileContent, "EUR").Count);
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
         public void TestSearchAndReplaceXPath(bool useLongPath)
         {
             string destFolder = useLongPath ? GetLongPathDestination(Guid.NewGuid().ToString()) : destinationFolder;
@@ -625,6 +654,40 @@ namespace Tests
             string line1 = fileContent[0].Replace("\ufeff", ""); // remove BOM
             Assert.Equal("<?xml version=\"1.0\" encoding=\"UTF-8\"?>", line1);
             Assert.Equal("  <book category=\"general\">", fileContent[8]);
+        }
+
+        [Theory]
+        [InlineData(SearchType.PlainText, GrepSearchOption.None, "2003", "2002")]
+        [InlineData(SearchType.PlainText, GrepSearchOption.Multiline, "2003", "2002")]
+        [InlineData(SearchType.Regex, GrepSearchOption.None, "(<\\w+>)\\d+3(</\\w+>)", "${1}2002${2}")]
+        [InlineData(SearchType.Regex, GrepSearchOption.Multiline, "(<\\w+>)\\d+3(</\\w+>)", "${1}2002${2}")]
+        [InlineData(SearchType.Regex, GrepSearchOption.None, "(<\\w+>)\\d+3(</\\w+>)$", "${1}2002${2}")]
+        [InlineData(SearchType.Regex, GrepSearchOption.Multiline, "(<\\w+>)\\d+3(</\\w+>)$", "${1}2002${2}")]
+        [InlineData(SearchType.XPath, GrepSearchOption.None, "//book[year = 2003]/year", "2002")]
+        [InlineData(SearchType.Soundex, GrepSearchOption.None, "03", "02")]
+        public void TestSearchAndFilteredReplace(SearchType type, GrepSearchOption option, string searchFor, string replaceWith)
+        {
+            Utils.CopyFiles(Path.Combine(sourceFolder, "TestCase15"), Path.Combine(destinationFolder, "TestCase15"), null, null);
+            GrepCore core = new GrepCore();
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(Path.Combine(destinationFolder, "TestCase15"), "books.xml"),
+                type, searchFor, option, -1);
+            Assert.Equal(1, results.Count);
+            Assert.Equal(2, results[0].Matches.Count);
+
+            // mark only the second match for replace
+            results[0].Matches[1].ReplaceMatch = true;
+
+            string testFile = Path.Combine(destinationFolder, "TestCase15", "books.xml");
+            List<ReplaceDef> files = new List<ReplaceDef>
+            {
+                new ReplaceDef(testFile, results[0].Matches)
+            };
+            core.Replace(files, type, searchFor, replaceWith, option, -1);
+
+            var fileContent = File.ReadAllText(testFile, Encoding.UTF8);
+            Assert.True(fileContent.Contains("<year>2003</year>"));
+            Assert.Equal(1, Regex.Matches(fileContent, "2002").Count);
+            Assert.Equal(1, Regex.Matches(fileContent, "2003").Count);
         }
 
         [Theory]

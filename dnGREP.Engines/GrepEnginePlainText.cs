@@ -47,7 +47,7 @@ namespace dnGREP.Engines
                     searchMethod = DoXPathSearch;
                     break;
                 case SearchType.Soundex:
-                    searchMethod = DoFuzzySearchMultiline;
+                    searchMethod = DoFuzzySearch;
                     break;
             }
 

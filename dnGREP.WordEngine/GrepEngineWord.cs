@@ -99,7 +99,7 @@ namespace dnGREP.Engines.Word
                     searchMethodMultiline = DoRegexSearch;
                     break;
                 case SearchType.Soundex:
-                    searchMethodMultiline = DoFuzzySearchMultiline;
+                    searchMethodMultiline = DoFuzzySearch;
                     break;
             }
 
