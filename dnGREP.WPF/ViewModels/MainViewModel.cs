@@ -1717,6 +1717,7 @@ namespace dnGREP.WPF
                 {
                     preview = new PreviewView();
                     preview.DataContext = previewModel;
+                    preview.Owner = ParentWindow;
                     Rectangle bounds = settings.Get<Rectangle>(GrepSettings.Key.PreviewWindowSize);
                     if (bounds.Left == 0 && bounds.Right == 0)
                     {
