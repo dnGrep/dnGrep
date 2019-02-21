@@ -562,6 +562,17 @@ namespace dnGREP.WPF
             }
         }
 
+        public void ChangePreviewWindowActivation(bool activate)
+        {
+            if (this.preview != null && this.preview.IsVisible)
+            {
+                if (activate && !this.preview.IsActive)
+                {
+                    this.preview.Activate();
+                }
+            }
+        }
+
         public void ChangePreviewWindowState(WindowState state)
         {
             if (preview != null && preview.IsVisible)
@@ -1717,7 +1728,6 @@ namespace dnGREP.WPF
                 {
                     preview = new PreviewView();
                     preview.DataContext = previewModel;
-                    preview.Owner = ParentWindow;
                     Rectangle bounds = settings.Get<Rectangle>(GrepSettings.Key.PreviewWindowSize);
                     if (bounds.Left == 0 && bounds.Right == 0)
                     {
