@@ -578,7 +578,7 @@ namespace dnGREP.Engines
 
                                     if (XPathPositionsMatch(currPos, positions[i].Path))
                                     {
-                                        results[i] = new GrepMatch(lineInfo.LineNumber - 1, GetAbsoluteCharPosition(lineInfo.LineNumber - 1, lineInfo.LinePosition - 2, text, lineLengths, false), 0);
+                                        results[i] = new GrepMatch(lineInfo.LineNumber, GetAbsoluteCharPosition(lineInfo.LineNumber - 1, lineInfo.LinePosition - 2, text, lineLengths, false), 0);
                                     }
 
                                     // If empty element (e.g.<element/>)

@@ -51,7 +51,7 @@ namespace dnGREP.WPF.ViewModels
             }
         }
 
-        private InlineCollection formatLine(GrepSearchResult.GrepLine line)
+        private InlineCollection formatLine(GrepLine line)
         {
             Paragraph paragraph = new Paragraph();
             var font = new FontFamily("Consolas");

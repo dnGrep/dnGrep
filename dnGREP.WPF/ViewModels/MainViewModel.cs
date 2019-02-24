@@ -1084,7 +1084,7 @@ namespace dnGREP.WPF
                         return;
                 }
 
-                ObservableGrepSearchResults replaceList = new ObservableGrepSearchResults(SearchResults.GetWritableList());
+                List<GrepSearchResult> replaceList = SearchResults.GetWritableList();
 
                 ReplaceWindow dlg = new ReplaceWindow();
                 dlg.ViewModel.SearchFor = SearchFor;
@@ -1103,25 +1103,17 @@ namespace dnGREP.WPF
 
                     CanUndo = false;
                     undoList.Clear();
-                    foreach (FormattedGrepResult n in replaceList)
+                    foreach (GrepSearchResult gsr in replaceList)
                     {
-                        string filePath = n.GrepResult.FileNameReal;
-                        if (!n.GrepResult.ReadOnly && !undoList.Any(r => r.OrginalFile == filePath) && n.GrepResult.Matches.Any(m => m.ReplaceMatch))
+                        string filePath = gsr.FileNameReal;
+                        if (!gsr.ReadOnly && !undoList.Any(r => r.OrginalFile == filePath) && gsr.Matches.Any(m => m.ReplaceMatch))
                         {
-                            undoList.Add(new ReplaceDef(filePath, n.GrepResult.Matches));
+                            undoList.Add(new ReplaceDef(filePath, gsr.Matches));
                         }
                     }
 
                     workerParams.AddReplaceFiles(undoList);
 
-                    // !!! TODO TODO TODO !!!
-                    // Need to find a way to pass the "ReplaceMatch" flags or equivalent to the replace engines
-
-                    //Dictionary<string, object> workerParams = new Dictionary<string, object>
-                    //{
-                    //    ["State"] = this,
-                    //    ["Files"] = undoMap
-                    //};
                     SearchResults.Clear();
                     isSorted = false;
                     idleTimer.Start();

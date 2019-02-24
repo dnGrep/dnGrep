@@ -474,7 +474,7 @@ namespace dnGREP.WPF
 
     public class FormattedGrepLine : ViewModelBase, IGrepResult
     {
-        public FormattedGrepLine(GrepSearchResult.GrepLine line, FormattedGrepResult parent, int initialColumnWidth,
+        public FormattedGrepLine(GrepLine line, FormattedGrepResult parent, int initialColumnWidth,
             bool breakSection, bool isReplaceMode)
         {
             Parent = parent;
@@ -505,7 +505,7 @@ namespace dnGREP.WPF
 
         public bool IsReplaceMode { get; private set; }
 
-        public GrepSearchResult.GrepLine GrepLine { get; private set; }
+        public GrepLine GrepLine { get; private set; }
         public string FormattedLineNumber { get; private set; }
 
         private InlineCollection formattedText;
@@ -579,7 +579,7 @@ namespace dnGREP.WPF
 
         public FormattedGrepResult Parent { get; private set; }
 
-        private InlineCollection FormatLine(GrepSearchResult.GrepLine line)
+        private InlineCollection FormatLine(GrepLine line)
         {
             Paragraph paragraph = new Paragraph();
 
@@ -689,7 +689,7 @@ namespace dnGREP.WPF
             return paragraph.Inlines;
         }
 
-        private InlineCollection FormatForReplace(GrepSearchResult.GrepLine line)
+        private InlineCollection FormatForReplace(GrepLine line)
         {
             Paragraph paragraph = new Paragraph();
 

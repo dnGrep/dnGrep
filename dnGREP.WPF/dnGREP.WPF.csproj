@@ -165,6 +165,8 @@
     <Compile Include="MVHelpers\FocusExtension.cs" />
     <Compile Include="MVHelpers\GridLengthConverter.cs" />
     <Compile Include="MVHelpers\LazyResultsList.cs" />
+    <Compile Include="MVHelpers\ReplaceViewHighlighter.cs" />
+    <Compile Include="MVHelpers\ReplaceViewLineNumberMargin.cs" />
     <Compile Include="MVHelpers\TotalValueConverter.cs" />
     <Compile Include="MVHelpers\UIServices.cs" />
     <Compile Include="UserControls\MultiSelectTreeView.cs" />
