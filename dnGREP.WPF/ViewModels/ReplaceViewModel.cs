@@ -251,8 +251,6 @@ namespace dnGREP.WPF
 
                 if (_selectedGrepMatch != null)
                 {
-                    FileOffset = _selectedGrepMatch.StartLocation;
-
                     var lineMatch = _selectedSearchResult.SearchResults
                         .FirstOrDefault(sr => sr.Matches.Any(m => m.FileMatchId == _selectedGrepMatch.FileMatchId));
 
@@ -356,21 +354,6 @@ namespace dnGREP.WPF
                 currentSyntax = value;
 
                 base.OnPropertyChanged(() => CurrentSyntax);
-            }
-        }
-
-        private int fileOffset;
-        public int FileOffset
-        {
-            get { return fileOffset; }
-            set
-            {
-                if (value == fileOffset)
-                    return;
-
-                fileOffset = value;
-
-                base.OnPropertyChanged(() => FileOffset);
             }
         }
 

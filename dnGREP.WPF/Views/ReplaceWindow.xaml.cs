@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Shapes;
+using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Editing;
 
 namespace dnGREP.WPF
@@ -56,7 +57,7 @@ namespace dnGREP.WPF
                 if (ViewModel.SelectedGrepMatch != null)
                 {
                     textEditor.ScrollTo(ViewModel.LineNumber, ViewModel.ColNumber);
-                    textEditor.TextArea.Caret.Offset = ViewModel.FileOffset;
+                    textEditor.TextArea.Caret.Position = new TextViewPosition(ViewModel.LineNumber, ViewModel.ColNumber + 1);
                 }
 
                 textEditor.TextArea.TextView.Redraw();
