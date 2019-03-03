@@ -13,14 +13,14 @@
         <KeyBinding Command="{Binding PrevFileCommand}" Gesture="Ctrl+PageUp"/>
         <KeyBinding Command="{Binding NextFileCommand}" Gesture="Ctrl+PageDown"/>
         <KeyBinding Command="{Binding ReplaceAllInFileCommand}" Gesture="Ctrl+A"/>
-        <KeyBinding Command="{Binding UndoFileCommand}" Gesture="Ctrl+R"/>
+        <KeyBinding Command="{Binding UndoFileCommand}" Gesture="Ctrl+T"/>
         
         <KeyBinding Command="{Binding PrevMatchCommand}" Gesture="Ctrl+Left"/>
         <KeyBinding Command="{Binding PrevMatchCommand}" Gesture="Ctrl+Up"/>
         <KeyBinding Command="{Binding NextMatchCommand}" Gesture="Ctrl+Right"/>
         <KeyBinding Command="{Binding NextMatchCommand}" Gesture="Ctrl+Down"/>
         
-        <KeyBinding Command="{Binding ReplaceMatchCommand}" Gesture="Ctrl+M"/>
+        <KeyBinding Command="{Binding ReplaceMatchCommand}" Gesture="Ctrl+R"/>
         <KeyBinding Command="{Binding UndoMatchCommand}" Gesture="Ctrl+U"/>
     </Window.InputBindings>
     <Window.Resources>
@@ -99,7 +99,7 @@
                         <Button Content="Replace in File" Margin="16,3,3,3" TabIndex="3" Command="{Binding ReplaceAllInFileCommand}"
                                 ToolTip="Mark all matches in this file for replacement [Ctrl+A]"/>
                         <Button Content="Undo File" TabIndex="4" Command="{Binding UndoFileCommand}"
-                                ToolTip="Reset and skip all matches in this file [Ctrl+R]"/>
+                                ToolTip="Reset and skip all matches in this file [Ctrl+T]"/>
                     </StackPanel>
                     <StackPanel Grid.Row="2" Grid.Column="1" Margin="3" Orientation="Horizontal">
                         <Button Content="Replace in All Files" TabIndex="5" HorizontalAlignment="Right" 
@@ -131,7 +131,7 @@
                         <Button Content="_Next" TabIndex="11" Command="{Binding NextMatchCommand}"
                                 ToolTip="Move to the previous match in this file [Ctrl+Right]"/>
                         <Button Content="_Replace" TabIndex="12" Margin="24,3,3,3" Command="{Binding ReplaceMatchCommand}" 
-                                ToolTip="Mark match for replacement [Ctrl+M]"/>
+                                ToolTip="Mark match for replacement [Ctrl+R]"/>
                         <Button Content="_Undo" TabIndex="13" Command="{Binding UndoMatchCommand}"
                                 ToolTip="Undo mark replace on this match [Ctrl+U]"/>
                     </StackPanel>

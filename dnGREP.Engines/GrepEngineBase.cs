@@ -288,7 +288,7 @@ namespace dnGREP.Engines
         protected string DoTextReplace(int lineNumber, int filePosition, string text, string searchText, string replaceText,
             GrepSearchOption searchOptions, IEnumerable<GrepMatch> replaceItems)
         {
-            if (!replaceItems.Any(r => r.LineNumber == lineNumber && r.ReplaceMatch))
+            if (lineNumber > -1 && !replaceItems.Any(r => r.LineNumber == lineNumber && r.ReplaceMatch))
                 return text;
 
             StringBuilder sb = new StringBuilder();
@@ -650,7 +650,7 @@ namespace dnGREP.Engines
         public string DoFuzzyReplace(int lineNumber, int filePosition, string text, string searchPattern, string replacePattern, GrepSearchOption searchOptions,
             IEnumerable<GrepMatch> replaceItems)
         {
-            if (!replaceItems.Any(r => r.LineNumber == lineNumber && r.ReplaceMatch))
+            if (lineNumber > -1 && !replaceItems.Any(r => r.LineNumber == lineNumber && r.ReplaceMatch))
                 return text;
 
             StringBuilder sb = new StringBuilder();

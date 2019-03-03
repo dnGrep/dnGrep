@@ -11,5 +11,8 @@
     <Setting Name="MainFormExBounds" Type="System.Drawing.Rectangle" Scope="User">
       <Value Profile="(Default)">100, 100, 900, 800</Value>
     </Setting>
+    <Setting Name="ReplaceBounds" Type="System.Drawing.Rectangle" Scope="User">
+      <Value Profile="(Default)">200, 200, 800, 980</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

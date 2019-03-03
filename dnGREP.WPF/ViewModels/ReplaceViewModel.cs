@@ -149,6 +149,26 @@ namespace dnGREP.WPF
             }
         }
 
+        internal void MoveToMatch(int line, int column)
+        {
+            if (SelectedSearchResult != null && IndividualReplaceEnabled)
+            {
+                var lineMatch = SelectedSearchResult.SearchResults.Where(sr => sr.LineNumber == line)
+                    .SelectMany(sr => sr.Matches)
+                    .FirstOrDefault(m => m.StartLocation <= column && column <= m.EndPosition);
+
+                if (lineMatch != null)
+                {
+                    var match = SelectedSearchResult.Matches.FirstOrDefault(m => m.FileMatchId == lineMatch.FileMatchId);
+                    if (match != null)
+                    {
+                        matchIndex = SelectedSearchResult.Matches.IndexOf(match);
+                        SelectedGrepMatch = match;
+                    }
+                }
+            }
+        }
+
         private List<GrepSearchResult> _searchResults = null;
         public List<GrepSearchResult> SearchResults
         {

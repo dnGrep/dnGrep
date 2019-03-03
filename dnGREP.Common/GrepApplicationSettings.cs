@@ -111,6 +111,10 @@ namespace dnGREP.Common
             public const string SearchParallel = "SearchParallel";
             [DefaultValue(4.0)]
             public const string MatchTimeout = "MatchTimeout";
+            [DefaultValue(14)]
+            public const string ReplaceWindowFontSize = "ReplaceWindowFontSize";
+            [DefaultValue(false)]
+            public const string ReplaceWindowWrap = "ReplaceWindowWrap";
         }
 
         private static GrepSettings instance;
@@ -191,7 +195,7 @@ namespace dnGREP.Common
                 {
                     // Create temp file in case save crashes
                     using (FileStream stream = File.OpenWrite(path + "~"))
-                    using (XmlWriter xmlStream = XmlWriter.Create(stream, new XmlWriterSettings { Indent = false }))
+                    using (XmlWriter xmlStream = XmlWriter.Create(stream, new XmlWriterSettings { Indent = true }))
                     {
                         if (xmlStream == null)
                             return;

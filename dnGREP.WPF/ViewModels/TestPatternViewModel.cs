@@ -92,17 +92,11 @@ namespace dnGREP.WPF
                 {
                     _replaceCommand = new RelayCommand(
                         param => this.Replace(),
-                        param => this.CanReplace
+                        param => this.CanSearch
                         );
                 }
                 return _replaceCommand;
             }
-        }
-
-        public override void UpdateState(string name)
-        {
-            base.UpdateState(name);
-            CanReplace = true;
         }
 
         private void Search()
@@ -198,32 +192,44 @@ namespace dnGREP.WPF
                 searchOptions |= GrepSearchOption.WholeWord;
 
             string replacedString = string.Empty;
-            using (Stream inputStream = new MemoryStream(Encoding.Default.GetBytes(SampleText)))
-            using (Stream writeStream = new MemoryStream())
+            try
             {
-                // first search, and mark all hits for replace
-                results = engine.Search(inputStream, "test.txt", SearchFor, TypeOfSearch, searchOptions, Encoding.Default);
-
-                // mark all matches for replace
-                if (results.Count > 0)
+                using (Stream inputStream = new MemoryStream(Encoding.Default.GetBytes(SampleText)))
+                using (Stream writeStream = new MemoryStream())
                 {
-                    foreach (var match in results[0].Matches)
+                    // first search, and mark all hits for replace
+                    results = engine.Search(inputStream, "test.txt", SearchFor, TypeOfSearch, searchOptions, Encoding.Default);
+
+                    // mark all matches for replace
+                    if (results.Count > 0)
                     {
-                        match.ReplaceMatch = true;
+                        foreach (var match in results[0].Matches)
+                        {
+                            match.ReplaceMatch = true;
+                        }
+                    }
+                }
+                using (Stream inputStream = new MemoryStream(Encoding.Default.GetBytes(SampleText)))
+                using (Stream writeStream = new MemoryStream())
+                {
+                    engine.Replace(inputStream, writeStream, SearchFor, ReplaceWith, TypeOfSearch,
+                        searchOptions, Encoding.Default, results[0].Matches);
+                    writeStream.Position = 0;
+                    using (StreamReader reader = new StreamReader(writeStream))
+                    {
+                        replacedString = reader.ReadToEnd();
                     }
                 }
             }
-            using (Stream inputStream = new MemoryStream(Encoding.Default.GetBytes(SampleText)))
-            using (Stream writeStream = new MemoryStream())
+            catch (ArgumentException ex)
             {
-                engine.Replace(inputStream, writeStream, SearchFor, ReplaceWith, TypeOfSearch,
-                    searchOptions, Encoding.Default, results[0].Matches);
-                writeStream.Position = 0;
-                using (StreamReader reader = new StreamReader(writeStream))
-                {
-                    replacedString = reader.ReadToEnd();
-                }
+                MessageBox.Show("Incorrect pattern: " + ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
             SearchResults.Clear();
             SearchResults.AddRange(results);
             Paragraph paragraph = new Paragraph();
