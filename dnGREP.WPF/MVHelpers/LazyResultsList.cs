@@ -15,7 +15,6 @@ namespace dnGREP.WPF.MVHelpers
 
         public bool IsLoaded { get; private set; }
         public bool IsLoading { get; private set; }
-        public bool IsReplaceMode { get; private set; }
 
         public LazyResultsList(GrepSearchResult result, FormattedGrepResult formattedResult)
         {
@@ -25,7 +24,7 @@ namespace dnGREP.WPF.MVHelpers
             if ((result.Matches != null && result.Matches.Count > 0) || !result.IsSuccess)
             {
                 GrepLine emptyLine = new GrepLine(-1, "", true, null);
-                var dummyLine = new FormattedGrepLine(emptyLine, formattedResult, 30, false, IsReplaceMode);
+                var dummyLine = new FormattedGrepLine(emptyLine, formattedResult, 30, false);
                 Add(dummyLine);
                 IsLoaded = false;
             }
@@ -36,16 +35,6 @@ namespace dnGREP.WPF.MVHelpers
         {
             get { return lineNumberColumnWidth; }
             set { lineNumberColumnWidth = value; OnPropertyChanged("LineNumberColumnWidth"); }
-        }
-
-        internal void ResetForReplace()
-        {
-            IsReplaceMode = true;
-
-            foreach (FormattedGrepLine line in this)
-            {
-                line.ResetForReplace();
-            }
         }
 
         public void Load(bool isAsync)
@@ -91,7 +80,7 @@ namespace dnGREP.WPF.MVHelpers
                     else if (currentLine > 99999 && LineNumberColumnWidth < 50)
                         LineNumberColumnWidth = 50;
 
-                    this.Add(new FormattedGrepLine(line, formattedResult, LineNumberColumnWidth, isSectionBreak, IsReplaceMode));
+                    this.Add(new FormattedGrepLine(line, formattedResult, LineNumberColumnWidth, isSectionBreak));
                 }
                 IsLoaded = true;
                 IsLoading = false;
@@ -142,7 +131,7 @@ namespace dnGREP.WPF.MVHelpers
                             LineNumberColumnWidth = 47;
                         else if (currentLine > 99999 && LineNumberColumnWidth < 50)
                             LineNumberColumnWidth = 50;
-                        tempList.Add(new FormattedGrepLine(line, formattedResult, LineNumberColumnWidth, isSectionBreak, IsReplaceMode));
+                        tempList.Add(new FormattedGrepLine(line, formattedResult, LineNumberColumnWidth, isSectionBreak));
                     }
 
                     if (Application.Current != null)

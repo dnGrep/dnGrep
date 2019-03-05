@@ -455,34 +455,17 @@ namespace dnGREP.WPF
         }
 
         public ObservableCollection<FormattedGrepMatch> FormattedMatches { get; } = new ObservableCollection<FormattedGrepMatch>();
-
-        internal void InitializeReplace()
-        {
-            FormattedLines.ResetForReplace();
-
-            FormattedMatches.Clear();
-
-            foreach (var match in GrepResult.Matches)
-                FormattedMatches.Add(new FormattedGrepMatch(match));
-            //foreach (var line in GrepResult.SearchResults)
-            //{
-            //    foreach (GrepMatch match in line.Matches)
-            //        FormattedMatches.Add(new FormattedGrepMatch(match));
-            //}
-        }
     }
 
     public class FormattedGrepLine : ViewModelBase, IGrepResult
     {
-        public FormattedGrepLine(GrepLine line, FormattedGrepResult parent, int initialColumnWidth,
-            bool breakSection, bool isReplaceMode)
+        public FormattedGrepLine(GrepLine line, FormattedGrepResult parent, int initialColumnWidth, bool breakSection)
         {
             Parent = parent;
             GrepLine = line;
             Parent.PropertyChanged += new PropertyChangedEventHandler(Parent_PropertyChanged);
             LineNumberColumnWidth = initialColumnWidth;
             IsSectionBreak = breakSection;
-            IsReplaceMode = isReplaceMode;
 
             FormattedLineNumber = (line.LineNumber == -1 ? "" : line.LineNumber.ToString());
 
@@ -496,14 +479,6 @@ namespace dnGREP.WPF
                 Style = "Empty";
             }
         }
-
-        public void ResetForReplace()
-        {
-            formattedText = null;
-            IsReplaceMode = true;
-        }
-
-        public bool IsReplaceMode { get; private set; }
 
         public GrepLine GrepLine { get; private set; }
         public string FormattedLineNumber { get; private set; }
@@ -522,10 +497,7 @@ namespace dnGREP.WPF
         {
             if (formattedText == null || formattedText.Count == 0)
             {
-                if (IsReplaceMode)
-                    formattedText = FormatForReplace(GrepLine);
-                else
-                    formattedText = FormatLine(GrepLine);
+                formattedText = FormatLine(GrepLine);
             }
         }
 
@@ -685,128 +657,6 @@ namespace dnGREP.WPF
                         paragraph.Inlines.Add(new Run($", +{count - takeCount} more matches"));
                     }
                 }
-            }
-            return paragraph.Inlines;
-        }
-
-        private InlineCollection FormatForReplace(GrepLine line)
-        {
-            Paragraph paragraph = new Paragraph();
-
-            const int MAX_LINE_LENGTH = 500;
-
-            string fullLine = line.LineText;
-
-            if (line.Matches.Count == 0)
-            {
-                if (fullLine.Length > MAX_LINE_LENGTH)
-                    fullLine = fullLine.Substring(0, MAX_LINE_LENGTH);
-
-                paragraph.Inlines.Add(new Run(fullLine));
-            }
-            else
-            {
-                int counter = 0;
-                GrepMatch[] lineMatches = new GrepMatch[line.Matches.Count];
-                line.Matches.CopyTo(lineMatches);
-                foreach (GrepMatch m in lineMatches)
-                {
-                    var formattedMatch = Parent.FormattedMatches
-                        .Where(fm => fm.Match.FileMatchId == m.FileMatchId)
-                        .FirstOrDefault();
-
-                    try
-                    {
-                        string regLine = null;
-                        string fmtLine = null;
-                        if (fullLine.Length < m.StartLocation + m.Length)
-                        {
-                            regLine = fullLine.Substring(counter, fullLine.Length - counter);
-                        }
-                        else
-                        {
-                            regLine = fullLine.Substring(counter, m.StartLocation - counter);
-                            fmtLine = fullLine.Substring(m.StartLocation, m.Length);
-                        }
-                        paragraph.Inlines.Add(new Run(regLine));
-
-                        if (fmtLine != null)
-                        {
-                            var run = new Run(fmtLine);
-                            BindingOperations.SetBinding(run, TextElement.BackgroundProperty,
-                                new Binding
-                                {
-                                    Source = formattedMatch,
-                                    Path = new PropertyPath("Background")
-                                });
-                            BindingOperations.SetBinding(run, TextElement.FontSizeProperty,
-                                new Binding
-                                {
-                                    Source = formattedMatch,
-                                    Path = new PropertyPath("FontSize")
-                                });
-                            BindingOperations.SetBinding(run, TextElement.FontWeightProperty,
-                                new Binding
-                                {
-                                    Source = formattedMatch,
-                                    Path = new PropertyPath("FontWeight"),
-                                });
-                            paragraph.Inlines.Add(run);
-                        }
-                        else
-                        {
-                            break;
-                        }
-                    }
-                    catch
-                    {
-                        paragraph.Inlines.Add(new Run(fullLine));
-                    }
-                    finally
-                    {
-                        counter = m.StartLocation + m.Length;
-                    }
-                }
-                if (counter < fullLine.Length)
-                {
-                    try
-                    {
-                        string regLine = fullLine.Substring(counter);
-                        paragraph.Inlines.Add(new Run(regLine));
-                    }
-                    catch
-                    {
-                        paragraph.Inlines.Add(new Run(fullLine));
-                    }
-                }
-                ////if (line.LineText.Length > MAX_LINE_LENGTH)
-                ////{
-                ////    string msg = string.Format("...(+{0:n0} characters)", line.LineText.Length - MAX_LINE_LENGTH);
-                ////    paragraph.Inlines.Add(new Run(msg) { Background = Brushes.AliceBlue });
-
-                ////    var hiddenMatches = line.Matches.Where(m => m.StartLocation > MAX_LINE_LENGTH).Select(m => m);
-                ////    int count = hiddenMatches.Count();
-                ////    if (count > 0)
-                ////        paragraph.Inlines.Add(new Run(" additional matches:"));
-
-                ////    // if close to getting them all, then take them all,
-                ////    // otherwise, stop at 20 and just show the remaining count
-                ////    int takeCount = count > 25 ? 20 : count;
-
-                ////    foreach (GrepMatch m in hiddenMatches.Take(takeCount))
-                ////    {
-                ////        paragraph.Inlines.Add(new Run("  "));
-                ////        string fmtLine = line.LineText.Substring(m.StartLocation, m.Length);
-                ////        paragraph.Inlines.Add(new Run(fmtLine) { Background = Brushes.Yellow });
-
-                ////        paragraph.Inlines.Add(new Run(string.Format(" at position {0}", m.StartLocation)));
-                ////    }
-
-                ////    if (count > takeCount)
-                ////    {
-                ////        paragraph.Inlines.Add(new Run(string.Format(", +{0} more matches", count - takeCount)));
-                ////    }
-                ////}
             }
             return paragraph.Inlines;
         }

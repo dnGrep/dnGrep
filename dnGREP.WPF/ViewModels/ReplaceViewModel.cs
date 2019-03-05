@@ -124,11 +124,6 @@ namespace dnGREP.WPF
                     matchIndex = 0;
                     SelectedGrepMatch = SelectedSearchResult.Matches[matchIndex];
                 }
-                //else  ?? advance to next file?
-                //{
-                //    matchIndex = -1;
-                //    SelectNextFile();
-                //}
             }
         }
 
@@ -461,8 +456,6 @@ namespace dnGREP.WPF
                 }
                 ReplaceMatch?.Invoke(this, EventArgs.Empty);
             }
-
-            //SelectNextFile();  // auto advance?
         }
 
         private void UndoAllMarksInFile()
