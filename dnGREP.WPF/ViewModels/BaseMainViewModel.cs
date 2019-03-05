@@ -13,13 +13,12 @@ using NLog;
 
 namespace dnGREP.WPF
 {
-    public class BaseMainViewModel : WorkspaceViewModel, IDataErrorInfo
+    public class BaseMainViewModel : ViewModelBase, IDataErrorInfo
     {
         public static int FastBookmarkCapacity = 20;
 
         public BaseMainViewModel()
         {
-            RequestClose += MainViewModel_RequestClose;
             PropertyChanged += MainViewModel_PropertyChanged;
 
             CurrentGrepOperation = GrepOperation.None;
@@ -47,20 +46,6 @@ namespace dnGREP.WPF
         #endregion
 
         #region Properties
-        private SyntaxHighlighterViewModel contentPreviewModel;
-        public SyntaxHighlighterViewModel ContentPreviewModel
-        {
-            get { return contentPreviewModel; }
-            set
-            {
-                if (value == contentPreviewModel)
-                    return;
-
-                contentPreviewModel = value;
-
-                base.OnPropertyChanged(() => ContentPreviewModel);
-            }
-        }
 
         private ObservableGrepSearchResults searchResults = new ObservableGrepSearchResults();
         public ObservableGrepSearchResults SearchResults
@@ -1472,18 +1457,6 @@ namespace dnGREP.WPF
         void MainViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             UpdateState(e.PropertyName);
-        }
-
-        private void MainViewModel_RequestClose(object sender, EventArgs e)
-        {
-            Utils.CancelSearch = true;
-            SaveSettings();
-            CloseChildWindows();
-        }
-
-        protected virtual void CloseChildWindows()
-        {
-            // do nothing in base class
         }
 
         #endregion

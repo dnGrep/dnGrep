@@ -168,7 +168,6 @@
     <Compile Include="MVHelpers\TotalValueConverter.cs" />
     <Compile Include="MVHelpers\UIServices.cs" />
     <Compile Include="UserControls\MultiSelectTreeView.cs" />
-    <Compile Include="MVHelpers\PixelBasedScrollingBehavior.cs" />
     <Compile Include="MVHelpers\ResultEventArgs.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="UserControls\BusyIndicator.xaml.cs">
@@ -178,13 +177,9 @@
       <DependentUpon>ResultsTree.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\BaseMainViewModel.cs" />
-    <Compile Include="ViewModels\CommandViewModel.cs" />
     <Compile Include="ViewModels\OptionsViewModel.cs" />
     <Compile Include="ViewModels\PreviewViewModel.cs" />
-    <Compile Include="ViewModels\SnippetPreviewModel.cs" />
-    <Compile Include="ViewModels\SyntaxHighlighterViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Compile Include="ViewModels\WorkspaceViewModel.cs" />
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -224,12 +219,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dictionaries\Styles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Test.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <Generator>MSBuild:Compile</Generator>
@@ -276,9 +265,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="ShellIntegration.cs" />
-    <Compile Include="Views\Test.xaml.cs">
-      <DependentUpon>Test.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\TestPatternViewModel.cs" />
     <Compile Include="Views\TestPatternView.xaml.cs">
       <DependentUpon>TestPatternView.xaml</DependentUpon>
