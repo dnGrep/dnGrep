@@ -49,8 +49,8 @@ namespace dnGREP.WPF
             }
         }
 
-        private Visibility isLargeOrBinary;
-        public Visibility IsLargeOrBinary
+        private bool isLargeOrBinary;
+        public bool IsLargeOrBinary
         {
             get { return isLargeOrBinary; }
             set
@@ -143,6 +143,21 @@ namespace dnGREP.WPF
             }
         }
 
+        private bool highlightDisabled;
+        public bool HighlightDisabled
+        {
+            get { return highlightDisabled; }
+            set
+            {
+                if (value == highlightDisabled)
+                    return;
+
+                highlightDisabled = value;
+
+                base.OnPropertyChanged(() => HighlightDisabled);
+            }
+        }
+
         public IHighlightingDefinition HighlightingDefinition
         {
             get
@@ -179,36 +194,31 @@ namespace dnGREP.WPF
                         CurrentSyntax = "None";
 
                     // Do not preview files over 4MB or binary
-                    if (fileInfo.Length > 4096000 ||
-                        Utils.IsBinary(FilePath))
-                    {
-                        IsLargeOrBinary = System.Windows.Visibility.Visible;
-                    }
-                    else
-                    {
-                        IsLargeOrBinary = System.Windows.Visibility.Collapsed;
-                    }
+                    IsLargeOrBinary = fileInfo.Length > 4096000 || Utils.IsBinary(FilePath);
+
+                    // Disable highlighting for large number of matches
+                    HighlightDisabled = GrepResult.Matches.Count > 5000;
 
                     // Tell View to show window
-                    ShowPreview(this, new ShowEventArgs { ClearContent = true });
+                    ShowPreview?.Invoke(this, new ShowEventArgs { ClearContent = true });
                 }
                 else
                 {
                     // Tell View to show window and clear content
-                    ShowPreview(this, new ShowEventArgs { ClearContent = true });
+                    ShowPreview?.Invoke(this, new ShowEventArgs { ClearContent = true });
                 }
             }
 
             if (name == "LineNumber")
             {
                 // Tell View to show window but not clear content
-                ShowPreview(this, new ShowEventArgs { ClearContent = false });
+                ShowPreview?.Invoke(this, new ShowEventArgs { ClearContent = false });
             }
 
             if (name == "CurrentSyntax")
             {
                 // Tell View to show window and clear content
-                ShowPreview(this, new ShowEventArgs { ClearContent = true });
+                ShowPreview?.Invoke(this, new ShowEventArgs { ClearContent = true });
             }
         }
         #endregion

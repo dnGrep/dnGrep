@@ -40,13 +40,9 @@ namespace dnGREP.Common
         /// <param name="excludePattern">Regex pattern that matches file or folder to be included. If null or empty, the parameter is ignored</param>
         public static void CopyFiles(string sourceDirectory, string destinationDirectory, string includePattern, string excludePattern)
         {
-            String[] files;
-
-            destinationDirectory = FixFolderName(destinationDirectory);
-
             if (!Directory.Exists(destinationDirectory)) Directory.CreateDirectory(destinationDirectory);
 
-            files = Directory.GetFileSystemEntries(sourceDirectory);
+            var files = Directory.GetFileSystemEntries(sourceDirectory);
 
             foreach (string element in files)
             {
@@ -58,10 +54,10 @@ namespace dnGREP.Common
 
                 // Sub directories
                 if (Directory.Exists(element))
-                    CopyFiles(element, destinationDirectory + Path.GetFileName(element), includePattern, excludePattern);
+                    CopyFiles(element, Path.Combine(destinationDirectory, Path.GetFileName(element)), includePattern, excludePattern);
                 // Files in directory
                 else
-                    CopyFile(element, destinationDirectory + Path.GetFileName(element), true);
+                    CopyFile(element, Path.Combine(destinationDirectory, Path.GetFileName(element)), true);
             }
         }
 
@@ -295,7 +291,7 @@ namespace dnGREP.Common
                 }
                 else
                 {
-                    foreach (GrepSearchResult.GrepLine line in result.SearchResults)
+                    foreach (GrepLine line in result.SearchResults)
                     {
                         if (!line.IsContext)
                             sb.AppendLine("\"" + result.FileNameDisplayed + "\"," + line.LineNumber + ",\"" + line.LineText.Replace("\"", "\"\"") + "\"");
@@ -312,7 +308,7 @@ namespace dnGREP.Common
             {
                 if (result.SearchResults != null)
                 {
-                    foreach (GrepSearchResult.GrepLine line in result.SearchResults)
+                    foreach (GrepLine line in result.SearchResults)
                     {
                         if (!line.IsContext)
                             sb.AppendLine(line.LineText);
@@ -390,7 +386,7 @@ namespace dnGREP.Common
         public static void CopyFile(string sourcePath, string destinationPath, bool overWrite)
         {
             if (File.Exists(destinationPath) && !overWrite)
-                throw new IOException("File: '" + destinationPath + "' exists.");
+                throw new IOException($"File: '{destinationPath}' exists.");
 
             if (!new FileInfo(destinationPath).Directory.Exists)
                 new FileInfo(destinationPath).Directory.Create();
@@ -1373,7 +1369,7 @@ namespace dnGREP.Common
             }
             else
             {
-                string dataFolder = Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData) + "\\dnGREP";
+                string dataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dnGREP");
                 if (!Directory.Exists(dataFolder))
                     Directory.CreateDirectory(dataFolder);
                 return dataFolder;
@@ -1382,7 +1378,7 @@ namespace dnGREP.Common
 
         private static bool HasWriteAccessToFolder(string folderPath)
         {
-            string filename = FixFolderName(folderPath) + "~temp.dat";
+            string filename = Path.Combine(folderPath, "~temp.dat");
             bool canAccess = true;
             //1. Provide early notification that the user does not have permission to write.
             FileIOPermission writePermission = new FileIOPermission(FileIOPermissionAccess.Write, filename);
@@ -1471,97 +1467,6 @@ namespace dnGREP.Common
                 return false;
         }
 
-        /// <summary>
-        /// Returns line and line number from a multiline string based on character index
-        /// </summary>
-        /// <param name="body">Multiline string</param>
-        /// <param name="index">Index of any character in the line</param>
-        /// <param name="lineNumber">Return parameter - 1-based line number or -1 if index is outside text length</param>
-        /// <returns>Line of text or null if index is outside text length</returns>
-        [Obsolete]
-        public static string GetLine(string body, int index, out int lineNumber)
-        {
-            if (body == null || index < 0 || index > body.Length)
-            {
-                lineNumber = -1;
-                return null;
-            }
-
-            string subBody1 = body.Substring(0, index);
-            string[] lines1 = GetLines(subBody1);
-            string subBody2 = body.Substring(index);
-            string[] lines2 = GetLines(subBody2);
-            lineNumber = lines1.Length;
-            return lines1[lines1.Length - 1] + lines2[0];
-        }
-
-        /// <summary>
-        /// Returns lines and line numbers from a multiline string based on character index and length
-        /// </summary>
-        /// <param name="body">Multiline string</param>
-        /// <param name="index">Index of any character in the line</param>
-        /// <param name="length">Length of a line</param>
-        /// <param name="lineNumbers">Return parameter - 1-based line numbers or null if index is outside text length</param>
-        /// <returns>Line of text or null if index is outside text length</returns>
-        public static List<string> GetLines(string body, int index, int length, out List<GrepSearchResult.GrepMatch> matches, out List<int> lineNumbers)
-        {
-            List<string> result = new List<string>();
-            lineNumbers = new List<int>();
-            matches = new List<GrepSearchResult.GrepMatch>();
-            if (body == null || index < 0 || index + 1 > body.Length || index + length + 1 > body.Length)
-            {
-                lineNumbers = null;
-                matches = null;
-                return null;
-            }
-
-            string subBody1 = body.Substring(0, index);
-            string[] lines1 = GetLines(subBody1);
-            string subBody2 = body.Substring(index, length);
-            string[] lines2 = GetLines(subBody2);
-            string subBody3 = body.Substring(index + length);
-            string[] lines3 = GetLines(subBody3);
-            for (int i = 0; i < lines2.Length; i++)
-            {
-                string line = "";
-                lineNumbers.Add(lines1.Length + i);
-                if (i == 0)
-                {
-                    if (lines2.Length == 1 && lines3.Length > 0)
-                    {
-                        line = lines1[lines1.Length - 1] + lines2[0] + lines3[0];
-                    }
-                    else
-                    {
-                        line = lines1[lines1.Length - 1] + lines2[0];
-                    }
-
-                    matches.Add(new GrepSearchResult.GrepMatch(lines1.Length + i, index - subBody1.Length + lines1[lines1.Length - 1].Length, lines2[0].Length));
-                }
-                else if (i == lines2.Length - 1)
-                {
-                    if (lines3.Length > 0)
-                    {
-                        line = lines2[lines2.Length - 1] + lines3[0];
-                    }
-                    else
-                    {
-                        line = lines2[lines2.Length - 1];
-                    }
-
-                    matches.Add(new GrepSearchResult.GrepMatch(lines1.Length + i, 0, lines2[lines2.Length - 1].Length));
-                }
-                else
-                {
-                    line = lines2[i];
-                    matches.Add(new GrepSearchResult.GrepMatch(lines1.Length + i, 0, lines2[i].Length));
-                }
-                result.Add(line);
-            }
-
-            return result;
-        }
-
         public static string[] GetLines(string text)
         {
             if (string.IsNullOrEmpty(text))
@@ -1574,6 +1479,24 @@ namespace dnGREP.Common
             }
         }
 
+        public static string GetEOL(string path, Encoding encoding)
+        {
+            using (FileStream reader = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            using (StreamReader streamReader = new StreamReader(reader, encoding))
+            using (EolReader eolReader = new EolReader(streamReader))
+            {
+                string line = eolReader.ReadLine();
+
+                if (line.EndsWith("\r\n"))
+                    return "\r\n";
+                else if (line.EndsWith("\n"))
+                    return "\n";
+                else if (line.EndsWith("\r"))
+                    return "\r";
+            }
+            return string.Empty;
+        }
+
         /// <summary>
         /// Retrieves lines with context based on matches
         /// </summary>
@@ -1582,17 +1505,17 @@ namespace dnGREP.Common
         /// <param name="beforeLines">Context line (before)</param>
         /// <param name="afterLines">Context line (after</param>
         /// <returns></returns>
-        public static List<GrepSearchResult.GrepLine> GetLinesEx(TextReader body, List<GrepSearchResult.GrepMatch> bodyMatches, int beforeLines, int afterLines)
+        public static List<GrepLine> GetLinesEx(TextReader body, List<GrepMatch> bodyMatches, int beforeLines, int afterLines)
         {
             if (body == null || bodyMatches == null)
-                return new List<GrepSearchResult.GrepLine>();
+                return new List<GrepLine>();
 
-            List<GrepSearchResult.GrepMatch> bodyMatchesClone = new List<GrepSearchResult.GrepMatch>(bodyMatches);
-            Dictionary<int, GrepSearchResult.GrepLine> results = new Dictionary<int, GrepSearchResult.GrepLine>();
-            List<GrepSearchResult.GrepLine> contextLines = new List<GrepSearchResult.GrepLine>();
+            List<GrepMatch> bodyMatchesClone = new List<GrepMatch>(bodyMatches);
+            Dictionary<int, GrepLine> results = new Dictionary<int, GrepLine>();
+            List<GrepLine> contextLines = new List<GrepLine>();
             Dictionary<int, string> lineStrings = new Dictionary<int, string>();
             List<int> lineNumbers = new List<int>();
-            List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
+            List<GrepMatch> matches = new List<GrepMatch>();
 
             // Context line (before)
             Queue<string> beforeQueue = new Queue<string>();
@@ -1627,7 +1550,7 @@ namespace dnGREP.Common
                     if (startRecordingAfterLines && currentAfterLine < afterLines)
                     {
                         currentAfterLine++;
-                        contextLines.Add(new GrepSearchResult.GrepLine(lineNumber, line.TrimEndOfLine(), true, null));
+                        contextLines.Add(new GrepLine(lineNumber, line.TrimEndOfLine(), true, null));
                     }
                     else if (currentAfterLine == afterLines)
                     {
@@ -1673,21 +1596,22 @@ namespace dnGREP.Common
                                     if (beforeQueue.Count == 1)
                                         beforeQueue.Dequeue();
                                     else
-                                        contextLines.Add(new GrepSearchResult.GrepLine(i - beforeQueue.Count + 1 + (lineNumber - startLine),
+                                        contextLines.Add(new GrepLine(i - beforeQueue.Count + 1 + (lineNumber - startLine),
                                             beforeQueue.Dequeue(), true, null));
                                 }
+                                string fileMatchId = bodyMatchesClone[0].FileMatchId;
                                 // First and only line
                                 if (i == startLine && i == lineNumber)
-                                    matches.Add(new GrepSearchResult.GrepMatch(i, startIndex, bodyMatchesClone[0].Length));
+                                    matches.Add(new GrepMatch(fileMatchId, i, startIndex, bodyMatchesClone[0].Length));
                                 // First but not last line
                                 else if (i == startLine)
-                                    matches.Add(new GrepSearchResult.GrepMatch(i, startIndex, tempLine.TrimEndOfLine().Length - startIndex));
+                                    matches.Add(new GrepMatch(fileMatchId, i, startIndex, tempLine.TrimEndOfLine().Length - startIndex));
                                 // Middle line
                                 else if (i > startLine && i < lineNumber)
-                                    matches.Add(new GrepSearchResult.GrepMatch(i, 0, tempLine.TrimEndOfLine().Length));
+                                    matches.Add(new GrepMatch(fileMatchId, i, 0, tempLine.TrimEndOfLine().Length));
                                 // Last line
                                 else
-                                    matches.Add(new GrepSearchResult.GrepMatch(i, 0, bodyMatchesClone[0].Length - tempLinesTotalLength + line.Length + startIndex));
+                                    matches.Add(new GrepMatch(fileMatchId, i, 0, bodyMatchesClone[0].Length - tempLinesTotalLength + line.Length + startIndex));
 
                                 startRecordingAfterLines = true;
                             }
@@ -1707,7 +1631,7 @@ namespace dnGREP.Common
 
             if (lineStrings.Count == 0)
             {
-                return new List<GrepSearchResult.GrepLine>();
+                return new List<GrepLine>();
             }
 
             // Removing duplicate lines (when more than 1 match is on the same line) and grouping all matches belonging to the same line
@@ -1724,36 +1648,11 @@ namespace dnGREP.Common
             return results.Values.OrderBy(l => l.LineNumber).ToList();
         }
 
-        private static void AddGrepMatch(Dictionary<int, GrepSearchResult.GrepLine> lines, GrepSearchResult.GrepMatch match, string lineText)
+        private static void AddGrepMatch(Dictionary<int, GrepLine> lines, GrepMatch match, string lineText)
         {
             if (!lines.ContainsKey(match.LineNumber))
-                lines[match.LineNumber] = new GrepSearchResult.GrepLine(match.LineNumber, lineText.TrimEndOfLine(), false, null);
+                lines[match.LineNumber] = new GrepLine(match.LineNumber, lineText.TrimEndOfLine(), false, null);
             lines[match.LineNumber].Matches.Add(match);
-        }
-
-        /// <summary>
-        /// Returns a list of context GrepLines by line numbers provided in the input parameter. Matched line is not returned.
-        /// </summary>
-        /// <param name="body"></param>
-        /// <param name="linesBefore"></param>
-        /// <param name="linesAfter"></param>
-        /// <param name="foundLine">1 based line number</param>
-        /// <returns></returns>
-        [Obsolete]
-        public static List<GrepSearchResult.GrepLine> GetContextLines(string body, int linesBefore, int linesAfter, int foundLine)
-        {
-            List<GrepSearchResult.GrepLine> result = new List<GrepSearchResult.GrepLine>();
-            if (body == null || body.Trim() == "")
-                return result;
-
-            List<int> lineNumbers = new List<int>();
-            string[] lines = GetLines(body);
-            for (int i = foundLine - linesBefore - 1; i <= foundLine + linesAfter - 1; i++)
-            {
-                if (i >= 0 && i < lines.Length && (i + 1) != foundLine)
-                    result.Add(new GrepSearchResult.GrepLine(i + 1, lines[i], true, null));
-            }
-            return result;
         }
 
         /// <summary>
@@ -1831,7 +1730,7 @@ namespace dnGREP.Common
         /// Sorts and removes dupes
         /// </summary>
         /// <param name="results"></param>
-        public static void CleanResults(ref List<GrepSearchResult.GrepLine> results)
+        public static void CleanResults(ref List<GrepLine> results)
         {
             if (results == null || results.Count == 0)
                 return;
@@ -1865,14 +1764,14 @@ namespace dnGREP.Common
         /// Merges sorted context lines into sorted result lines
         /// </summary>
         /// <param name="results"></param>
-        public static void MergeResults(ref List<GrepSearchResult.GrepLine> results, List<GrepSearchResult.GrepLine> contextLines)
+        public static void MergeResults(ref List<GrepLine> results, List<GrepLine> contextLines)
         {
             if (contextLines == null || contextLines.Count == 0)
                 return;
 
             if (results == null || results.Count == 0)
             {
-                results = new List<GrepSearchResult.GrepLine>();
+                results = new List<GrepLine>();
                 foreach (var line in contextLines)
                     results.Add(line);
                 return;

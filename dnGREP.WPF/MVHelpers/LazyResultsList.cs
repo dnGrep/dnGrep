@@ -10,8 +10,8 @@ namespace dnGREP.WPF.MVHelpers
 {
     public class LazyResultsList : ObservableCollection<FormattedGrepLine>, INotifyPropertyChanged
     {
-        private GrepSearchResult result;
-        private FormattedGrepResult formattedResult;
+        private readonly GrepSearchResult result;
+        private readonly FormattedGrepResult formattedResult;
 
         public bool IsLoaded { get; private set; }
         public bool IsLoading { get; private set; }
@@ -23,7 +23,7 @@ namespace dnGREP.WPF.MVHelpers
 
             if ((result.Matches != null && result.Matches.Count > 0) || !result.IsSuccess)
             {
-                GrepSearchResult.GrepLine emptyLine = new GrepSearchResult.GrepLine(-1, "", true, null);
+                GrepLine emptyLine = new GrepLine(-1, "", true, null);
                 var dummyLine = new FormattedGrepLine(emptyLine, formattedResult, 30, false);
                 Add(dummyLine);
                 IsLoaded = false;
@@ -46,7 +46,7 @@ namespace dnGREP.WPF.MVHelpers
             if (!isAsync)
             {
                 int currentLine = -1;
-                List<GrepSearchResult.GrepLine> linesWithContext = new List<GrepSearchResult.GrepLine>();
+                List<GrepLine> linesWithContext = new List<GrepLine>();
                 if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext))
                     linesWithContext = result.GetLinesWithContext(GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
                     GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter));
@@ -60,7 +60,7 @@ namespace dnGREP.WPF.MVHelpers
 
                 for (int i = 0; i < linesWithContext.Count; i++)
                 {
-                    GrepSearchResult.GrepLine line = linesWithContext[i];
+                    GrepLine line = linesWithContext[i];
                     bool isSectionBreak = false;
 
                     // Adding separator
@@ -88,9 +88,9 @@ namespace dnGREP.WPF.MVHelpers
             else
             {
                 int currentLine = -1;
-                var asyncTask = Task.Factory.StartNew<List<GrepSearchResult.GrepLine>>(() =>
+                var asyncTask = Task.Factory.StartNew<List<GrepLine>>(() =>
                 {
-                    List<GrepSearchResult.GrepLine> linesWithContext = new List<GrepSearchResult.GrepLine>();
+                    List<GrepLine> linesWithContext = new List<GrepLine>();
                     if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext))
                         linesWithContext = result.GetLinesWithContext(GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
                         GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter));
@@ -108,11 +108,11 @@ namespace dnGREP.WPF.MVHelpers
                             ));
                     }
 
-                    List<GrepSearchResult.GrepLine> linesWithContext = task.Result;
+                    List<GrepLine> linesWithContext = task.Result;
                     List<FormattedGrepLine> tempList = new List<FormattedGrepLine>();
                     for (int i = 0; i < linesWithContext.Count; i++)
                     {
-                        GrepSearchResult.GrepLine line = linesWithContext[i];
+                        GrepLine line = linesWithContext[i];
                         bool isSectionBreak = false;
 
                         // Adding separator
@@ -142,7 +142,7 @@ namespace dnGREP.WPF.MVHelpers
                     ));
                     IsLoaded = true;
                     IsLoading = false;
-                    LoadFinished(this, EventArgs.Empty);
+                    LoadFinished?.Invoke(this, EventArgs.Empty);
                 });
             }
         }

@@ -21,8 +21,8 @@ namespace Tests
 
         public UtilsTest()
         {
-            sourceFolder = GetDllPath() + "\\Files";
-            destinationFolder = Path.GetTempPath() + Guid.NewGuid().ToString();
+            sourceFolder = Path.Combine(GetDllPath(), "Files");
+            destinationFolder = Path.Combine(Path.GetTempPath(), "dnGrepTest", Guid.NewGuid().ToString());
             Directory.CreateDirectory(destinationFolder);
         }
 
@@ -51,22 +51,13 @@ namespace Tests
 
         public void Dispose()
         {
-            if (Directory.Exists(destinationFolder))
-                Utils.DeleteFolder(destinationFolder);
-        }
+            // if long path, delete folder from the top of the long path
+            string folder = destinationFolder;
+            while (folder.Contains("aaaaaaaaaaaaaaaaaaaa"))
+                folder = Path.GetDirectoryName(folder);
 
-        [InlineData("Hello world", "Hello world", 2, 1)]
-        [InlineData("Hi", "Hi", 2, 1)]
-        [InlineData("Hi\r\n\r\nWorld", "", 4, 2)]
-        [InlineData("Hi\r\n\r\nWorld", "World", 6, 3)]
-        [InlineData(null, null, 6, -1)]
-        [Obsolete]
-        public void TestGetLine(string body, string line, int index, int lineNumber)
-        {
-            int returnedLineNumber = -1;
-            string returnedLine = Utils.GetLine(body, index, out returnedLineNumber);
-            Assert.Equal(returnedLine, line);
-            Assert.Equal(returnedLineNumber, lineNumber);
+            if (Directory.Exists(folder))
+                Utils.DeleteFolder(folder);
         }
 
         [Fact]
@@ -87,12 +78,12 @@ namespace Tests
         {
             string test = "Hi\r\nmy\r\nWorld\r\nMy name is Denis\r\nfor\r\nloop";
 
-            List<GrepSearchResult.GrepMatch> bodyMatches = new List<GrepSearchResult.GrepMatch>();
-            List<GrepSearchResult.GrepLine> lines = new List<GrepSearchResult.GrepLine>();
+            List<GrepMatch> bodyMatches = new List<GrepMatch>();
+            List<GrepLine> lines = new List<GrepLine>();
             using (StringReader reader = new StringReader(test))
             {
                 bodyMatches.Clear();
-                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 9, 2));
+                bodyMatches.Add(new GrepMatch(0, 9, 2));
                 lines = Utils.GetLinesEx(reader, bodyMatches, 2, 2);
             }
             Assert.Equal(lines.Count, 5);
@@ -109,20 +100,20 @@ namespace Tests
             Assert.Equal(lines[4].IsContext, true);
 
 
-            bodyMatches = new List<GrepSearchResult.GrepMatch>();
+            bodyMatches = new List<GrepMatch>();
             using (StringReader reader = new StringReader(test))
             {
                 bodyMatches.Clear();
-                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 9, 2));
+                bodyMatches.Add(new GrepMatch(0, 9, 2));
                 lines = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
             Assert.Equal(lines.Count, 1);
 
-            bodyMatches = new List<GrepSearchResult.GrepMatch>();
+            bodyMatches = new List<GrepMatch>();
             using (StringReader reader = new StringReader(test))
             {
                 bodyMatches.Clear();
-                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 4, 1));
+                bodyMatches.Add(new GrepMatch(0, 4, 1));
                 lines = Utils.GetLinesEx(reader, bodyMatches, 10, 0);
             }
             Assert.Equal(lines.Count, 2);
@@ -132,11 +123,11 @@ namespace Tests
             Assert.Equal(lines[1].LineText, "my");
             Assert.Equal(lines[1].IsContext, false);
 
-            bodyMatches = new List<GrepSearchResult.GrepMatch>();
+            bodyMatches = new List<GrepMatch>();
             using (StringReader reader = new StringReader(test))
             {
                 bodyMatches.Clear();
-                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 34, 1));
+                bodyMatches.Add(new GrepMatch(0, 34, 1));
                 lines = Utils.GetLinesEx(reader, bodyMatches, 1, 10);
             }
 
@@ -251,11 +242,11 @@ namespace Tests
         [Fact]
         public void TestCleanResults()
         {
-            List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
-            results.Add(new GrepSearchResult.GrepLine(1, "test", true, null));
-            results.Add(new GrepSearchResult.GrepLine(3, "test3", false, null));
-            results.Add(new GrepSearchResult.GrepLine(2, "test2", false, null));
-            results.Add(new GrepSearchResult.GrepLine(1, "test1", false, null));
+            List<GrepLine> results = new List<GrepLine>();
+            results.Add(new GrepLine(1, "test", true, null));
+            results.Add(new GrepLine(3, "test3", false, null));
+            results.Add(new GrepLine(2, "test2", false, null));
+            results.Add(new GrepLine(1, "test1", false, null));
             Utils.CleanResults(ref results);
 
             Assert.Equal(results.Count, 3);
@@ -266,7 +257,7 @@ namespace Tests
 
             results = null;
             Utils.CleanResults(ref results);
-            results = new List<GrepSearchResult.GrepLine>();
+            results = new List<GrepLine>();
             Utils.CleanResults(ref results);
         }
 
@@ -287,74 +278,17 @@ namespace Tests
             Assert.True(PublishedVersionExtractor.IsUpdateNeeded(v1, v2) == result);
         }
 
-        [Obsolete]
-        public void GetLines_Returns_Correct_Line()
-        {
-            string text = "Hello world" + Environment.NewLine + "My tests are good" + Environment.NewLine + "How about yours?";
-            List<int> lineNumbers = new List<int>();
-            List<GrepSearchResult.GrepMatch> matches = new List<GrepSearchResult.GrepMatch>();
-            List<string> lines = Utils.GetLines(text, 3, 2, out matches, out lineNumbers);
-            Assert.Equal(lines.Count, 1);
-            Assert.Equal(lines[0], "Hello world");
-            Assert.Equal(lineNumbers.Count, 1);
-            Assert.Equal(lineNumbers[0], 1);
-
-            lines = Utils.GetLines(text, 14, 2, out matches, out lineNumbers);
-            Assert.Equal(lines.Count, 1);
-            Assert.Equal(lines[0], "My tests are good");
-            Assert.Equal(lineNumbers.Count, 1);
-            Assert.Equal(lineNumbers[0], 2);
-
-            lines = Utils.GetLines(text, 3, 11, out matches, out lineNumbers);
-            Assert.Equal(lines.Count, 2);
-            Assert.Equal(lines[0], "Hello world");
-            Assert.Equal(lines[1], "My tests are good");
-            Assert.Equal(lineNumbers.Count, 2);
-            Assert.Equal(lineNumbers[0], 1);
-            Assert.Equal(lineNumbers[1], 2);
-
-            lines = Utils.GetLines(text, 3, 30, out matches, out lineNumbers);
-            Assert.Equal(lines.Count, 3);
-            Assert.Equal(lines[0], "Hello world");
-            Assert.Equal(lines[1], "My tests are good");
-            Assert.Equal(lines[2], "How about yours?");
-            Assert.Equal(lineNumbers.Count, 3);
-            Assert.Equal(lineNumbers[0], 1);
-            Assert.Equal(lineNumbers[1], 2);
-            Assert.Equal(lineNumbers[2], 3);
-
-            lines = Utils.GetLines("test", 1, 2, out matches, out lineNumbers);
-            Assert.Equal(lines.Count, 1);
-            Assert.Equal(lines[0], "test");
-            Assert.Equal(lineNumbers.Count, 1);
-            Assert.Equal(lineNumbers[0], 1);
-
-            lines = Utils.GetLines("test", 0, 2, out matches, out lineNumbers);
-            Assert.Equal(lines.Count, 1);
-            Assert.Equal(lines[0], "test");
-            Assert.Equal(lineNumbers.Count, 1);
-            Assert.Equal(lineNumbers[0], 1);
-
-            lines = Utils.GetLines("test", 10, 2, out matches, out lineNumbers);
-            Assert.Null(lines);
-            Assert.Null(lineNumbers);
-
-            lines = Utils.GetLines("test", 2, 10, out matches, out lineNumbers);
-            Assert.Null(lines);
-            Assert.Null(lineNumbers);
-        }
-
         [Fact]
         public void GetLinesEx_Returns_Correct_Line()
         {
             string text = "Hello world" + Environment.NewLine + "My tests are good" + Environment.NewLine + "How about yours?";
             List<int> lineNumbers = new List<int>();
-            List<GrepSearchResult.GrepMatch> bodyMatches = new List<GrepSearchResult.GrepMatch>();
-            List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
+            List<GrepMatch> bodyMatches = new List<GrepMatch>();
+            List<GrepLine> results = new List<GrepLine>();
             using (StringReader reader = new StringReader(text))
             {
                 bodyMatches.Clear();
-                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 3, 2));
+                bodyMatches.Add(new GrepMatch(0, 3, 2));
                 results = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
 
@@ -366,7 +300,7 @@ namespace Tests
             using (StringReader reader = new StringReader(text))
             {
                 bodyMatches.Clear();
-                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 14, 2));
+                bodyMatches.Add(new GrepMatch(0, 14, 2));
                 results = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
 
@@ -379,7 +313,7 @@ namespace Tests
             using (StringReader reader = new StringReader(text))
             {
                 bodyMatches.Clear();
-                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 3, 11));
+                bodyMatches.Add(new GrepMatch(0, 3, 11));
                 results = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
 
@@ -394,7 +328,7 @@ namespace Tests
             using (StringReader reader = new StringReader(text))
             {
                 bodyMatches.Clear();
-                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 3, 30));
+                bodyMatches.Add(new GrepMatch(0, 3, 30));
                 results = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
 
@@ -412,7 +346,7 @@ namespace Tests
             using (StringReader reader = new StringReader("test"))
             {
                 bodyMatches.Clear();
-                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 2, 2));
+                bodyMatches.Add(new GrepMatch(0, 2, 2));
                 results = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
 
@@ -424,7 +358,7 @@ namespace Tests
             using (StringReader reader = new StringReader("test"))
             {
                 bodyMatches.Clear();
-                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 0, 2));
+                bodyMatches.Add(new GrepMatch(0, 0, 2));
                 results = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
 
@@ -436,7 +370,7 @@ namespace Tests
             using (StringReader reader = new StringReader("test"))
             {
                 bodyMatches.Clear();
-                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 10, 2));
+                bodyMatches.Add(new GrepMatch(0, 10, 2));
                 results = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
 
@@ -445,7 +379,7 @@ namespace Tests
             using (StringReader reader = new StringReader("test"))
             {
                 bodyMatches.Clear();
-                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 2, 10));
+                bodyMatches.Add(new GrepMatch(0, 2, 10));
                 results = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
 
@@ -454,9 +388,9 @@ namespace Tests
             using (StringReader reader = new StringReader(text))
             {
                 bodyMatches.Clear();
-                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 3, 2));
-                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 6, 2));
-                bodyMatches.Add(new GrepSearchResult.GrepMatch(0, 14, 2));
+                bodyMatches.Add(new GrepMatch(0, 3, 2));
+                bodyMatches.Add(new GrepMatch(0, 6, 2));
+                bodyMatches.Add(new GrepMatch(0, 14, 2));
                 results = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
 
@@ -472,14 +406,14 @@ namespace Tests
         [Fact]
         public void TestMergeResultsHappyPath()
         {
-            List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
-            List<GrepSearchResult.GrepLine> context = new List<GrepSearchResult.GrepLine>();
-            results.Add(new GrepSearchResult.GrepLine(3, "text3", false, null));
-            results.Add(new GrepSearchResult.GrepLine(5, "text5", false, null));
-            results.Add(new GrepSearchResult.GrepLine(6, "text6", false, new List<GrepSearchResult.GrepMatch>()));
-            context.Add(new GrepSearchResult.GrepLine(1, "text1", true, null));
-            context.Add(new GrepSearchResult.GrepLine(2, "text2", true, null));
-            context.Add(new GrepSearchResult.GrepLine(3, "text3", true, null));
+            List<GrepLine> results = new List<GrepLine>();
+            List<GrepLine> context = new List<GrepLine>();
+            results.Add(new GrepLine(3, "text3", false, null));
+            results.Add(new GrepLine(5, "text5", false, null));
+            results.Add(new GrepLine(6, "text6", false, new List<GrepMatch>()));
+            context.Add(new GrepLine(1, "text1", true, null));
+            context.Add(new GrepLine(2, "text2", true, null));
+            context.Add(new GrepLine(3, "text3", true, null));
             Utils.MergeResults(ref results, context);
             Assert.Equal(5, results.Count);
             Assert.Equal("text1", results[0].LineText);
@@ -492,34 +426,34 @@ namespace Tests
         [Fact]
         public void TestMergeResultsBorderCases()
         {
-            List<GrepSearchResult.GrepLine> results = new List<GrepSearchResult.GrepLine>();
+            List<GrepLine> results = new List<GrepLine>();
             Utils.MergeResults(ref results, null);
             Assert.Equal(0, results.Count);
 
-            List<GrepSearchResult.GrepLine> context = new List<GrepSearchResult.GrepLine>();
-            context.Add(new GrepSearchResult.GrepLine(1, "text1", true, null));
-            context.Add(new GrepSearchResult.GrepLine(2, "text2", true, null));
-            context.Add(new GrepSearchResult.GrepLine(3, "text3", true, null));
+            List<GrepLine> context = new List<GrepLine>();
+            context.Add(new GrepLine(1, "text1", true, null));
+            context.Add(new GrepLine(2, "text2", true, null));
+            context.Add(new GrepLine(3, "text3", true, null));
 
             Utils.MergeResults(ref results, context);
             Assert.Equal(3, results.Count);
 
-            results.Add(new GrepSearchResult.GrepLine(3, "text3", false, null));
-            results.Add(new GrepSearchResult.GrepLine(5, "text5", false, null));
-            results.Add(new GrepSearchResult.GrepLine(6, "text6", false, new List<GrepSearchResult.GrepMatch>()));
+            results.Add(new GrepLine(3, "text3", false, null));
+            results.Add(new GrepLine(5, "text5", false, null));
+            results.Add(new GrepLine(6, "text6", false, new List<GrepMatch>()));
 
-            results = new List<GrepSearchResult.GrepLine>();
-            results.Add(new GrepSearchResult.GrepLine(3, "text3", false, null));
-            results.Add(new GrepSearchResult.GrepLine(5, "text5", false, null));
-            results.Add(new GrepSearchResult.GrepLine(6, "text6", false, new List<GrepSearchResult.GrepMatch>()));
+            results = new List<GrepLine>();
+            results.Add(new GrepLine(3, "text3", false, null));
+            results.Add(new GrepLine(5, "text5", false, null));
+            results.Add(new GrepLine(6, "text6", false, new List<GrepMatch>()));
             Utils.MergeResults(ref results, null);
             Assert.Equal(3, results.Count);
 
-            results = new List<GrepSearchResult.GrepLine>();
-            results.Add(new GrepSearchResult.GrepLine(3, "text3", false, null));
-            results.Add(new GrepSearchResult.GrepLine(5, "text5", false, null));
-            context.Add(new GrepSearchResult.GrepLine(20, "text20", true, null));
-            context.Add(new GrepSearchResult.GrepLine(30, "text30", true, null));
+            results = new List<GrepLine>();
+            results.Add(new GrepLine(3, "text3", false, null));
+            results.Add(new GrepLine(5, "text5", false, null));
+            context.Add(new GrepLine(20, "text20", true, null));
+            context.Add(new GrepLine(30, "text30", true, null));
 
             Utils.MergeResults(ref results, context);
             Assert.Equal(6, results.Count);

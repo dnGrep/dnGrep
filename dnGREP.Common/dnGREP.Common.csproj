@@ -147,6 +147,7 @@
     <Compile Include="PublishedVersionExtractor.cs" />
     <Compile Include="SearchDelegates.cs" />
     <Compile Include="GrepApplicationSettings.cs" />
+    <Compile Include="ReplaceDef.cs" />
     <Compile Include="Ude.Core\Big5Prober.cs" />
     <Compile Include="Ude.Core\BitPackage.cs" />
     <Compile Include="Ude.Core\CharDistributionAnalyser.cs" />

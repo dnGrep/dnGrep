@@ -51,7 +51,7 @@ namespace dnGREP.WPF.ViewModels
             }
         }
 
-        private InlineCollection formatLine(GrepSearchResult.GrepLine line)
+        private InlineCollection formatLine(GrepLine line)
         {
             Paragraph paragraph = new Paragraph();
             var font = new FontFamily("Consolas");
@@ -65,9 +65,9 @@ namespace dnGREP.WPF.ViewModels
             {
                 int counter = 0;
                 string fullLine = line.LineText;
-                GrepSearchResult.GrepMatch[] lineMatches = new GrepSearchResult.GrepMatch[line.Matches.Count];
+                GrepMatch[] lineMatches = new GrepMatch[line.Matches.Count];
                 line.Matches.CopyTo(lineMatches);
-                foreach (GrepSearchResult.GrepMatch m in lineMatches)
+                foreach (GrepMatch m in lineMatches)
                 {
                     try
                     {
