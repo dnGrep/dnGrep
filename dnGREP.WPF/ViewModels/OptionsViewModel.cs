@@ -9,7 +9,7 @@ using Microsoft.Win32;
 
 namespace dnGREP.WPF
 {
-    public class OptionsViewModel : WorkspaceViewModel, IDataErrorInfo
+    public class OptionsViewModel : ViewModelBase, IDataErrorInfo
     {
         public OptionsViewModel()
         {
@@ -474,7 +474,6 @@ namespace dnGREP.WPF
         public void Save()
         {
             saveSettings();
-            base.CloseCommand.Execute(null);
         }
 
         #endregion // Public Methods

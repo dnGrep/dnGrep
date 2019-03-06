@@ -1,7 +1,7 @@
 ﻿/*
- * Copyright 2008 Google Inc. All Rights Reserved.
- * Author: fraser@google.com (Neil Fraser)
- * Author: anteru@developer.shelter13.net (Matthaeus G. Chajdas)
+ * Diff Match and Patch
+ * Copyright 2018 The diff-match-patch Authors.
+ * https://github.com/google/diff-match-patch
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,9 +14,6 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
- * Diff Match and Patch
- * http://code.google.com/p/google-diff-match-patch/
  */
 
 using System;
@@ -25,10 +22,9 @@ using dnGREP.Common;
 
 namespace dnGREP.Engines
 {
-    /**
-     * Class containing the diff, match and patch methods.
-     * Also Contains the behaviour settings.
-     */
+    /// <summary>
+    /// Methods other than match_length extracted from DiffMatchPatch.diff_match_patch
+    /// </summary>
     public class GoogleMatch
     {
         // Defaults.
@@ -54,6 +50,8 @@ namespace dnGREP.Engines
          */
         public int match_main(string text, string pattern, int loc)
         {
+            // Check for null inputs not needed since null can't be passed in C#.
+
             loc = Math.Max(0, Math.Min(loc, text.Length));
             if (text == pattern)
             {
@@ -66,7 +64,7 @@ namespace dnGREP.Engines
                 return -1;
             }
             else if (loc + pattern.Length <= text.Length
-                && text.Substring(loc, pattern.Length) == pattern)
+            && text.Substring(loc, pattern.Length) == pattern)
             {
                 // Perfect match at the perfect spot!  (Includes case of null pattern)
                 return loc;
@@ -143,14 +141,15 @@ namespace dnGREP.Engines
             // Highest score beyond which we give up.
             double score_threshold = Match_Threshold;
             // Is there a nearby exact match? (speedup)
-            int best_loc = text.IndexOf(pattern, loc);
+            int best_loc = text.IndexOf(pattern, loc, StringComparison.Ordinal);
             if (best_loc != -1)
             {
                 score_threshold = Math.Min(match_bitapScore(0, best_loc, loc,
                     pattern), score_threshold);
                 // What about in the other direction? (speedup)
                 best_loc = text.LastIndexOf(pattern,
-                    Math.Min(loc + pattern.Length, text.Length));
+                    Math.Min(loc + pattern.Length, text.Length),
+                    StringComparison.Ordinal);
                 if (best_loc != -1)
                 {
                     score_threshold = Math.Min(match_bitapScore(0, best_loc, loc,
@@ -214,8 +213,7 @@ namespace dnGREP.Engines
                     {
                         // Subsequent passes: fuzzy match.
                         rd[j] = ((rd[j + 1] << 1) | 1) & charMatch
-                            | (((last_rd[j + 1] | last_rd[j]) << 1) | 1)
-                            | last_rd[j + 1];
+                            | (((last_rd[j + 1] | last_rd[j]) << 1) | 1) | last_rd[j + 1];
                     }
                     if ((rd[j] & matchmask) != 0)
                     {
@@ -289,7 +287,7 @@ namespace dnGREP.Engines
             int i = 0;
             foreach (char c in char_pattern)
             {
-                var value = s[c] | (1 << (pattern.Length - i - 1));
+                int value = s[c] | (1 << (pattern.Length - i - 1));
                 s[c] = value;
                 i++;
             }

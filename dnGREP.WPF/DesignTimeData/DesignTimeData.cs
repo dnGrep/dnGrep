@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
+using dnGREP.Common;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.WPF.DesignTimeData
 {
@@ -19,10 +20,10 @@ namespace dnGREP.WPF.DesignTimeData
                     string filePath = Path.GetDirectoryName(file);
 
                     dummyObservableGrepSearchResults = new ObservableGrepSearchResults();
-                    var matches = new List<Common.GrepSearchResult.GrepMatch>();
-                    matches.Add(new Common.GrepSearchResult.GrepMatch(1, 6, 6));
-                    var result = new Common.GrepSearchResult(file, "abc", matches, Encoding.Default);
-                    result.SearchResults.Add(new Common.GrepSearchResult.GrepLine(1, "using System", true, matches));
+                    var matches = new List<GrepMatch>();
+                    matches.Add(new GrepMatch(1, 6, 6));
+                    var result = new GrepSearchResult(file, "abc", matches, Encoding.Default);
+                    result.SearchResults.Add(new GrepLine(1, "using System", true, matches));
                     var formatted = new FormattedGrepResult(result, filePath);
                     formatted.IsExpanded = true;
                     dummyObservableGrepSearchResults.Add(formatted);

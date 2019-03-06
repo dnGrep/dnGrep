@@ -5,13 +5,19 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using dnGREP.Common;
 using NLog;
 using SevenZip;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
+using File = Alphaleonis.Win32.Filesystem.File;
+using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.Engines.Archive
 {
-    public class GrepEngineArchive : GrepEngineBase, IGrepEngine
+    public class GrepEngineArchive : GrepEngineBase, IGrepEngine, IArchiveEngine
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
@@ -28,7 +34,7 @@ namespace dnGREP.Engines.Archive
 
         public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
         {
-            using (FileStream fileStream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.SequentialScan))
+            using (FileStream fileStream = File.Open(file, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.SequentialScan))
             {
                 return Search(fileStream, file, searchPattern, searchType, searchOptions, encoding);
             }
@@ -211,7 +217,8 @@ namespace dnGREP.Engines.Archive
             //Do nothing
         }
 
-        public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
+        public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, 
+            GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepMatch> replaceItems)
         {
             throw new Exception("The method or operation is not supported.");
         }
@@ -234,11 +241,17 @@ namespace dnGREP.Engines.Archive
                 if (!Directory.Exists(directory))
                     Directory.CreateDirectory(directory);
 
-                using (SevenZipExtractor extractor = new SevenZipExtractor(args.SearchResult.FileNameReal))
+                string zipFile = args.SearchResult.FileNameReal;
+                if (zipFile.Length > 260 && !zipFile.StartsWith(@"\\?\"))
+                {
+                    zipFile = @"\\?\" + zipFile;
+                }
+
+                using (SevenZipExtractor extractor = new SevenZipExtractor(zipFile))
                 {
                     if (extractor.ArchiveFileData.Where(r => r.FileName == innerFileName && !r.IsDirectory).Any())
                     {
-                        using (FileStream stream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                        using (FileStream stream = File.Open(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
                         {
                             try
                             {
@@ -256,12 +269,55 @@ namespace dnGREP.Engines.Archive
             if (Utils.IsPdfFile(filePath) || Utils.IsWordFile(filePath) || Utils.IsExcelFile(filePath))
                 args.UseCustomEditor = false;
 
-            GrepSearchResult newResult = new GrepSearchResult();
-            newResult.FileNameReal = args.SearchResult.FileNameReal;
-            newResult.FileNameDisplayed = args.SearchResult.FileNameDisplayed;
+            GrepSearchResult newResult = new GrepSearchResult
+            {
+                FileNameReal = args.SearchResult.FileNameReal,
+                FileNameDisplayed = args.SearchResult.FileNameDisplayed
+            };
             OpenFileArgs newArgs = new OpenFileArgs(newResult, args.Pattern, args.LineNumber, args.UseCustomEditor, args.CustomEditor, args.CustomEditorArgs);
             newArgs.SearchResult.FileNameDisplayed = filePath;
             Utils.OpenFile(newArgs);
+        }
+
+        public string ExtractToTempFile(GrepSearchResult searchResult)
+        {
+            string tempFolder = Path.Combine(Utils.GetTempFolder(), "dnGREP-Archive", Utils.GetHash(searchResult.FileNameReal));
+            string innerFileName = searchResult.FileNameDisplayed.Substring(searchResult.FileNameReal.Length).TrimStart(Path.DirectorySeparatorChar);
+            string filePath = Path.Combine(tempFolder, innerFileName);
+
+            if (!File.Exists(filePath))
+            {
+                // use the directory name to also include folders within the archive
+                string directory = Path.GetDirectoryName(filePath);
+                if (!Directory.Exists(directory))
+                    Directory.CreateDirectory(directory);
+
+                string zipFile = searchResult.FileNameReal;
+                if (zipFile.Length > 260 && !zipFile.StartsWith(@"\\?\"))
+                {
+                    zipFile = @"\\?\" + zipFile;
+                }
+
+                using (SevenZipExtractor extractor = new SevenZipExtractor(zipFile))
+                {
+                    if (extractor.ArchiveFileData.Where(r => r.FileName == innerFileName && !r.IsDirectory).Any())
+                    {
+                        using (FileStream stream = File.Open(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                        {
+                            try
+                            {
+                                extractor.ExtractFile(innerFileName, stream);
+                            }
+                            catch (Exception ex)
+                            {
+                                logger.Log<Exception>(LogLevel.Error, string.Format("Failed extract file {0} from archive '{1}'", innerFileName, searchResult.FileNameReal), ex);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return filePath;
         }
     }
 }

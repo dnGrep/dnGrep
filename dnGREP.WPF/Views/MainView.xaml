@@ -25,7 +25,7 @@
         <StaticResource ResourceKey="GradientBackground"/>
     </Window.Background>
     <Window.InputBindings>
-        <KeyBinding Key="Escape" Command="{Binding CloseCommand}"/>
+        <KeyBinding Key="Escape" Command="{Binding CancelCommand}"/>
         <KeyBinding Key="e" Modifiers="Alt" Command="{Binding ToggleFileOptionsCommand}" />
     </Window.InputBindings>
     <DockPanel ManipulationBoundaryFeedback="ManipulationBoundaryFeedbackHandler">
@@ -98,7 +98,7 @@
                                         <RadioButton GroupName="SizeFilter" Margin="3,0,3,3" VerticalAlignment="Center" Name="rbFilterSpecificSize" TabIndex="21" Content="Size is"
                                                      IsChecked="{Binding Path=UseFileSizeFilter, Converter={StaticResource ebc}, ConverterParameter=Yes}" VerticalContentAlignment="Center"/>
                                         <TextBox Width="48" Margin="3,0,3,3" Name="tbFileSizeFrom" IsEnabled="{Binding Path=IsSizeFilterSet}" TabIndex="22"
-                                                 GotFocus="TextBoxFocus" PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting" Height="24">
+                                                 GotFocus="TextBoxFocus" PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting" Height="24" VerticalContentAlignment="Center" VerticalAlignment="Center">
                                             <TextBox.Text>
                                                 <Binding Path="SizeFrom" UpdateSourceTrigger="PropertyChanged">
                                                     <Binding.ValidationRules>
@@ -108,7 +108,7 @@
                                             </TextBox.Text>
                                         </TextBox>
                                         <TextBlock Margin="3,0,3,3" VerticalAlignment="Center">to</TextBlock>
-                                        <TextBox Width="48" Margin="3" Name="tbFileSizeTo" IsEnabled="{Binding Path=IsSizeFilterSet}" TabIndex="23"
+                                        <TextBox Width="48" Margin="3,0,3,3" Name="tbFileSizeTo" IsEnabled="{Binding Path=IsSizeFilterSet}" TabIndex="23"
                                                  GotFocus="TextBoxFocus" PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting" Height="24" VerticalContentAlignment="Center" VerticalAlignment="Center">
                                             <TextBox.Text>
                                                 <Binding Path="SizeTo" UpdateSourceTrigger="PropertyChanged">
@@ -166,11 +166,11 @@
                                                      IsEnabled="{Binding Path=IsDateFilterSet}" TabIndex="36" VerticalContentAlignment="Center"/>
                                         <TextBox Width="45" Margin="9,0,3,3" IsEnabled="{Binding IsHoursRangeSet}" TabIndex="37"
                                                  GotFocus="TextBoxFocus" PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting"
-                                                 Text="{Binding HoursFrom, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center" Height="24"/>
+                                                 Text="{Binding HoursFrom, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center" Height="24" VerticalContentAlignment="Center"/>
 
                                         <TextBlock Margin="3,0,3,3" VerticalAlignment="Center" Text="to" HorizontalAlignment="Center"/>
                                         <TextBox Width="45" Margin="3,0,3,3" IsEnabled="{Binding IsHoursRangeSet}" TabIndex="38"
-                                                 GotFocus="TextBoxFocus" PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting" VerticalAlignment="Center" HorizontalAlignment="Center" Height="24">
+                                                 GotFocus="TextBoxFocus" PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting" VerticalAlignment="Center" HorizontalAlignment="Center" Height="24" VerticalContentAlignment="Center">
                                             <TextBox.Text>
                                                 <Binding Path="HoursTo" UpdateSourceTrigger="PropertyChanged">
                                                     <Binding.ValidationRules>

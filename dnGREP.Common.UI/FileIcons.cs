@@ -7,6 +7,11 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using Microsoft.Win32;
 using NLog;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
+using File = Alphaleonis.Win32.Filesystem.File;
+using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.Common.UI
 {
@@ -127,11 +132,11 @@ namespace dnGREP.Common.UI
 
         [DllImport("Shell32", CharSet = CharSet.Auto)]
         internal extern static int ExtractIconEx(
-            [MarshalAs(UnmanagedType.LPTStr)] 
+            [MarshalAs(UnmanagedType.LPTStr)]
             string lpszFile,      //size of the icon
             int nIconIndex,       //index of the icon
-            // (in case we have more
-            // then 1 icon in the file
+                                  // (in case we have more
+                                  // then 1 icon in the file
             IntPtr[] phIconLarge, //32x32 icon
             IntPtr[] phIconSmall, //16x16 icon
             int nIcons);          //how many to get
@@ -256,36 +261,38 @@ namespace dnGREP.Common.UI
                 return null;
             }
         }
-        public static Icon IconFromResource(string ResourceName)
+        public static Icon IconFromResource(string resourceName)
         {
-            Assembly TempAssembly = Assembly.GetCallingAssembly();
+            Assembly assembly = Assembly.GetCallingAssembly();
 
-            return new Icon(TempAssembly.GetManifestResourceStream(ResourceName));
+            return new Icon(assembly.GetManifestResourceStream(resourceName));
         }
 
-        public static void SaveIconFromImage(Image SourceImage,
-               string IconFilename, IconSize DestenationIconSize)
+        public static void SaveIconFromImage(Image sourceImage,
+               string iconFilename, IconSize destenationIconSize)
         {
-            Size NewIconSize = DestenationIconSize ==
+            Size newIconSize = destenationIconSize ==
                  IconSize.Large ? new Size(32, 32) : new Size(16, 16);
 
-            Bitmap RawImage = new Bitmap(SourceImage, NewIconSize);
-            Icon TempIcon = Icon.FromHandle(RawImage.GetHicon());
-            FileStream NewIconStream = new FileStream(IconFilename,
-                                                  FileMode.Create);
-
-            TempIcon.Save(NewIconStream);
-
-            NewIconStream.Close();
+            using (Bitmap rawImage = new Bitmap(sourceImage, newIconSize))
+            {
+                using (Icon tempIcon = Icon.FromHandle(rawImage.GetHicon()))
+                {
+                    using (FileStream newIconStream = File.Open(iconFilename, FileMode.Create))
+                    {
+                        tempIcon.Save(newIconStream);
+                    }
+                }
+            }
         }
 
         private static Icon GetManagedIcon(IntPtr hIcon)
         {
-            Icon Clone = (Icon)Icon.FromHandle(hIcon).Clone();
+            Icon clone = (Icon)Icon.FromHandle(hIcon).Clone();
 
             DestroyIcon(hIcon);
 
-            return Clone;
+            return clone;
         }
     }
 }

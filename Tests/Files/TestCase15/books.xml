@@ -30,7 +30,7 @@
   </book>
   <book category="programming">
     <title lang="en">grep Pocket Reference</title>
-    <author>John Bambenek</autho>
+    <author>John Bambenek</author>
     <author>Agnieszka Klus</author>
     <year>2009</year>
     <price currency="USD">8.99</price>
