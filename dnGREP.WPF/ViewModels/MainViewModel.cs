@@ -30,7 +30,6 @@ namespace dnGREP.WPF
             SearchResults.OpenFileLineRequest += SearchResults_OpenFileLineRequest;
             SearchResults.OpenFileRequest += SearchResults_OpenFileRequest;
 
-            RequestClose += MainViewModel_RequestClose;
             CheckVersion();
             ControlsInit();
             PopulateEncodings();
@@ -478,7 +477,7 @@ namespace dnGREP.WPF
             base.SaveSettings();
         }
 
-        protected override void CloseChildWindows()
+        internal void CloseChildWindows()
         {
             if (preview != null)
             {
@@ -571,37 +570,13 @@ namespace dnGREP.WPF
             }
         }
 
-        public void SetCodeSnippets(ICollection<FormattedGrepResult> results)
-        {
-            foreach (var result in results)
-            {
-                StringBuilder blocks = new StringBuilder();
-                List<int> lines = new List<int>();
-
-                foreach (var block in Utils.GetSnippets(result.GrepResult,
-                        settings.Get<int>(GrepSettings.Key.ContextLinesBefore),
-                        settings.Get<int>(GrepSettings.Key.ContextLinesAfter)))
-                {
-                    blocks.AppendLine(block.Text);
-                    blocks.AppendLine("...");
-                    lines.AddRange(Utils.GetIntArray(block.FirstLineNumber, block.LineCount));
-                    lines.Add(-1);
-                }
-                var previewViewModel = new SyntaxHighlighterViewModel();
-                previewViewModel.Text = blocks.ToString().TrimEndOfLine();
-                previewViewModel.LineNumbers = lines.ToArray();
-                previewViewModel.SearchResult = result.GrepResult;
-                previewViewModel.FileName = result.GrepResult.FileNameDisplayed;
-                ContentPreviewModel = previewViewModel;
-            }
-        }
-
         #endregion
 
         #region Private Methods
 
-        private void MainViewModel_RequestClose(object sender, EventArgs e)
+        internal void CancelSearch()
         {
+            Utils.CancelSearch = true;
             if (workerSearchReplace.IsBusy)
                 workerSearchReplace.CancelAsync();
         }
@@ -1245,15 +1220,6 @@ namespace dnGREP.WPF
             var optionsForm = new OptionsView();
             optionsForm.Owner = ParentWindow;
             var optionsViewModel = new OptionsViewModel();
-            // When the ViewModel asks to be closed, 
-            // close the window.
-            EventHandler handler = null;
-            handler = delegate
-            {
-                optionsViewModel.RequestClose -= handler;
-                optionsForm.Close();
-            };
-            optionsViewModel.RequestClose += handler;
             optionsForm.DataContext = optionsViewModel;
             try
             {
@@ -1759,6 +1725,7 @@ namespace dnGREP.WPF
                     preview.WindowState = WindowState.Normal;
                 preview.Show();
                 preview.BringToFront();
+                preview.Focus(); // needs focus so the Esc key will close (hide) the preview
             }
         }
         #endregion

@@ -20,9 +20,16 @@ namespace dnGREP.WPF
 
             Loaded += PreviewView_Loaded;
             DataContextChanged += PreviewView_DataContextChanged;
+            PreviewKeyDown += PreviewView_PreviewKeyDown;
             textEditor.Loaded += TextEditor_Loaded;
             cbWrapText.IsChecked = GrepSettings.Instance.Get<bool?>(GrepSettings.Key.PreviewWindowWrap);
             zoomSlider.Value = GrepSettings.Instance.Get<int>(GrepSettings.Key.PreviewWindowFont);
+        }
+
+        private void PreviewView_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+                Close();
         }
 
         void PreviewView_Loaded(object sender, RoutedEventArgs e)

@@ -9,9 +9,6 @@
     <Window.Resources>
         <my:EnumBooleanConverter x:Key="ebc" />
     </Window.Resources>
-    <Window.InputBindings>
-        <KeyBinding Key="Escape" Command="{Binding CloseCommand}"/>
-    </Window.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -179,8 +176,8 @@
             </TabItem>
         </TabControl>
         <WrapPanel Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-            <Button Width="64" Margin="0,5,10,5" Command="{Binding Path=SaveCommand}" IsDefault="True" Height="24" VerticalAlignment="Center">Save</Button>
-            <Button Width="64" Margin="0,5,15,5" Command="{Binding Path=CloseCommand}" Height="24" VerticalAlignment="Center">Cancel</Button>
+            <Button Width="64" Margin="0,5,10,5" Height="24" IsDefault="True" Content="Save" Command="{Binding Path=SaveCommand}"/>
+            <Button Width="64" Margin="0,5,15,5" Height="24" IsCancel="True" Content="Cancel"/>
         </WrapPanel>
     </Grid>
 </Window>

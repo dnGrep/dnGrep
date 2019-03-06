@@ -25,7 +25,7 @@
         <StaticResource ResourceKey="GradientBackground"/>
     </Window.Background>
     <Window.InputBindings>
-        <KeyBinding Key="Escape" Command="{Binding CloseCommand}"/>
+        <KeyBinding Key="Escape" Command="{Binding CancelCommand}"/>
         <KeyBinding Key="e" Modifiers="Alt" Command="{Binding ToggleFileOptionsCommand}" />
     </Window.InputBindings>
     <DockPanel ManipulationBoundaryFeedback="ManipulationBoundaryFeedbackHandler">
