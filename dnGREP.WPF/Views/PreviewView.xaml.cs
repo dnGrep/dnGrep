@@ -68,11 +68,13 @@ namespace dnGREP.WPF
                     if (textEditor.TextArea.TextView.LineTransformers[i] is PreviewHighlighter)
                         textEditor.TextArea.TextView.LineTransformers.RemoveAt(i);
                 }
-                textEditor.TextArea.TextView.LineTransformers.Add(new PreviewHighlighter(viewModel.GrepResult));
+
+                if (!viewModel.HighlightDisabled)
+                    textEditor.TextArea.TextView.LineTransformers.Add(new PreviewHighlighter(viewModel.GrepResult));
 
                 try
                 {
-                    if (viewModel.IsLargeOrBinary != Visibility.Visible)
+                    if (!viewModel.IsLargeOrBinary)
                     {
                         if (!string.IsNullOrWhiteSpace(viewModel.FilePath))
                         {
@@ -167,7 +169,7 @@ namespace dnGREP.WPF
         {
             Title = string.Format("Previewing \"{0}\"", viewModel.DisplayFileName);
             textEditor.Load(viewModel.FilePath);
-            viewModel.IsLargeOrBinary = Visibility.Collapsed;
+            viewModel.IsLargeOrBinary = false;
             textEditor.ScrollTo(viewModel.LineNumber, 0);
         }
     }

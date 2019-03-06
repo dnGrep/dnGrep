@@ -829,23 +829,6 @@ namespace dnGREP.WPF
             }
         }
 
-        private bool canReplace;
-        public bool CanReplace
-        {
-            get { return canReplace; }
-            set
-            {
-                if (value == canReplace)
-                    return;
-
-                canReplace = value;
-
-                base.OnPropertyChanged(() => CanReplace);
-                // Refresh buttons
-                CommandManager.InvalidateRequerySuggested();
-            }
-        }
-
         private bool canCancel;
         public bool CanCancel
         {
@@ -1070,8 +1053,6 @@ namespace dnGREP.WPF
                         TextBoxStyle = "{StaticResource ExpandedTextbox}";
                     else
                         TextBoxStyle = "";
-
-                    CanReplace = false;
                     break;
 
                 case "UseFileSizeFilter":
@@ -1150,51 +1131,48 @@ namespace dnGREP.WPF
                 if (string.IsNullOrWhiteSpace(FileOrFolderPath))
                     WindowTitle = "dnGREP";
                 else
-                    WindowTitle = string.Format("{0} in \"{1}\" - dnGREP", 
-                        (SearchFor == null ? "Empty" : SearchFor.Replace('\n', ' ').Replace('\r', ' ')), 
+                    WindowTitle = string.Format("{0} in \"{1}\" - dnGREP",
+                        (SearchFor == null ? "Empty" : SearchFor.Replace('\n', ' ').Replace('\r', ' ')),
                         PathSearchText.CleanPath);
             }
 
             //Change validation
             if (name == "SearchFor" || name == "TypeOfSearch")
             {
-                if (string.IsNullOrWhiteSpace(SearchFor))
+                ValidationMessage = string.Empty;
+
+                if (!string.IsNullOrWhiteSpace(SearchFor))
                 {
-                    ValidationMessage = "";
-                }
-                else if (TypeOfSearch == SearchType.Regex)
-                {
-                    try
+                    if (TypeOfSearch == SearchType.Regex)
                     {
-                        Regex regex = new Regex(SearchFor);
-                        ValidationMessage = "Regex is OK!";
+                        try
+                        {
+                            Regex regex = new Regex(SearchFor);
+                            ValidationMessage = "Regex is OK!";
+                        }
+                        catch
+                        {
+                            ValidationMessage = "Regex is not valid!";
+                        }
                     }
-                    catch
+                    else if (TypeOfSearch == SearchType.XPath)
                     {
-                        ValidationMessage = "Regex is not valid!";
+                        try
+                        {
+                            nav = doc.CreateNavigator();
+                            XPathExpression expr = nav.Compile(SearchFor);
+                            ValidationMessage = "XPath is OK!";
+                        }
+                        catch
+                        {
+                            ValidationMessage = "XPath is not valid!";
+                        }
                     }
-                }
-                else if (TypeOfSearch == SearchType.XPath)
-                {
-                    try
-                    {
-                        nav = doc.CreateNavigator();
-                        XPathExpression expr = nav.Compile(SearchFor);
-                        ValidationMessage = "XPath is OK!";
-                    }
-                    catch
-                    {
-                        ValidationMessage = "XPath is not valid!";
-                    }
-                }
-                else
-                {
-                    ValidationMessage = "";
                 }
             }
 
             //Can search
-            if (name == "FileOrFolderPath"  || name == "TypeOfFileSearch" || name == "CurrentGrepOperation" || name == "SearchFor" || name == "IsSaveInProgress")
+            if (name == "FileOrFolderPath" || name == "TypeOfFileSearch" || name == "CurrentGrepOperation" || name == "SearchFor" || name == "IsSaveInProgress")
             {
                 if (PathSearchText.IsValidPath && CurrentGrepOperation == GrepOperation.None && !IsSaveInProgress &&
                     (!string.IsNullOrEmpty(SearchFor) || settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern)))
@@ -1223,20 +1201,6 @@ namespace dnGREP.WPF
 
             //searchResults
             searchResults.FolderPath = PathSearchText.BaseFolder;
-
-            // btnReplace
-            if (name == "FileOrFolderPath" || name == "FilesFound" || name == "CurrentGrepOperation" || name == "SearchFor" || name == "IsSaveInProgress")
-            {
-                if (PathSearchText.IsValidBaseFolder && FilesFound && CurrentGrepOperation == GrepOperation.None &&
-                    !IsSaveInProgress && !string.IsNullOrEmpty(SearchFor))
-                {
-                    CanReplace = true;
-                }
-                else
-                {
-                    CanReplace = false;
-                }
-            }
 
             //btnCancel
             if (name == "CurrentGrepOperation")

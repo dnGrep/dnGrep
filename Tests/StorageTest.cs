@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using dnGREP.Common;
 using Xunit;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
@@ -13,16 +12,16 @@ namespace Tests
 
     public class StorageTest : TestBase, IDisposable
     {
-        string sourceFolder;
+        private readonly string destinationFolder;
 
         public StorageTest()
         {
-            sourceFolder = Path.GetTempPath() + "TestFiles";
+            destinationFolder = Path.Combine(Path.GetTempPath(), "dnGrepTest", "TestFiles");
         }
 
         public void Dispose()
         {
-            Directory.Delete(sourceFolder, true);
+            Directory.Delete(destinationFolder, true);
         }
 
         [Fact]
@@ -32,9 +31,9 @@ namespace Tests
             storage.Clear();
             Assert.Empty(storage);
             storage["test"] = "hello";
-            storage.Save(sourceFolder + "\\test.xml");
-            Assert.True(File.Exists(sourceFolder + "\\test.xml"));
-            Assert.True(new FileInfo(sourceFolder + "\\test.xml").Length > 10);
+            storage.Save(destinationFolder + "\\test.xml");
+            Assert.True(File.Exists(destinationFolder + "\\test.xml"));
+            Assert.True(new FileInfo(destinationFolder + "\\test.xml").Length > 10);
         }
 
         [Fact]
@@ -44,10 +43,10 @@ namespace Tests
             storage.Clear();
             Assert.Empty(storage);
             storage["test"] = "hello";
-            storage.Save(sourceFolder + "\\test.xml");
+            storage.Save(destinationFolder + "\\test.xml");
             storage.Clear();
             Assert.Empty(storage);
-            storage.Load(sourceFolder + "\\test.xml");
+            storage.Load(destinationFolder + "\\test.xml");
             Assert.True(storage["test"] == "hello");
         }
 
@@ -59,10 +58,10 @@ namespace Tests
             Assert.Empty(storage);
             storage.Set<int>("size", 10);
             storage.Set<bool>("isTrue", true);
-            storage.Save(sourceFolder + "\\test.xml");
+            storage.Save(destinationFolder + "\\test.xml");
             storage.Clear();
             Assert.Empty(storage);
-            storage.Load(sourceFolder + "\\test.xml");
+            storage.Load(destinationFolder + "\\test.xml");
             Assert.Equal<int>(storage.Get<int>("size"), 10);
             Assert.Equal<bool>(storage.Get<bool>("isTrue"), true);
         }
