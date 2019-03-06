@@ -6,6 +6,11 @@ using System.Runtime.InteropServices;
 using System.Text;
 using dnGREP.Common;
 using NLog;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
+using File = Alphaleonis.Win32.Filesystem.File;
+using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.Engines.Word
 {
@@ -83,25 +88,18 @@ namespace dnGREP.Engines.Word
         public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
         {
             load();
-            SearchDelegates.DoSearch searchMethodMultiline = doTextSearchCaseSensitive;
+            SearchDelegates.DoSearch searchMethodMultiline = DoTextSearch;
             switch (searchType)
             {
                 case SearchType.PlainText:
                 case SearchType.XPath:
-                    if ((searchOptions & GrepSearchOption.CaseSensitive) == GrepSearchOption.CaseSensitive)
-                    {
-                        searchMethodMultiline = doTextSearchCaseSensitive;
-                    }
-                    else
-                    {
-                        searchMethodMultiline = doTextSearchCaseInsensitive;
-                    }
+                    searchMethodMultiline = DoTextSearch;
                     break;
                 case SearchType.Regex:
-                    searchMethodMultiline = doRegexSearch;
+                    searchMethodMultiline = DoRegexSearch;
                     break;
                 case SearchType.Soundex:
-                    searchMethodMultiline = doFuzzySearchMultiline;
+                    searchMethodMultiline = DoFuzzySearch;
                     break;
             }
 
@@ -151,7 +149,7 @@ namespace dnGREP.Engines.Word
                     // create text
                     object text = getProperty(range, "Text");
 
-                    var lines = searchMethod(-1, Utils.CleanLineBreaks(text.ToString()), searchPattern, searchOptions, true);
+                    var lines = searchMethod(-1, 0, Utils.CleanLineBreaks(text.ToString()), searchPattern, searchOptions, true);
                     if (lines.Count > 0)
                     {
                         GrepSearchResult result = new GrepSearchResult(file, searchPattern, lines, Encoding.Default);
@@ -176,7 +174,8 @@ namespace dnGREP.Engines.Word
             return searchResults;
         }
 
-        public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
+        public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType,
+            GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepMatch> replaceItems)
         {
             throw new Exception("The method or operation is not implemented.");
         }
@@ -294,6 +293,9 @@ namespace dnGREP.Engines.Word
         {
             if (isAvailable && wordDocuments != null && wordDocuments != null)
             {
+                if (path.Length > 255)  // 255 for Word!
+                    path = Path.GetShort83Path(path);
+
                 return wordDocuments.GetType().InvokeMember("Open", BindingFlags.InvokeMethod,
                     null, wordDocuments, new object[3] { path, MISSING_VALUE, bReadOnly });
             }

@@ -8,6 +8,11 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using dnGREP.Common;
 using dnGREP.Engines;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
+using File = Alphaleonis.Win32.Filesystem.File;
+using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.WPF
 {
@@ -87,17 +92,11 @@ namespace dnGREP.WPF
                 {
                     _replaceCommand = new RelayCommand(
                         param => this.Replace(),
-                        param => this.CanReplace
+                        param => this.CanSearch
                         );
                 }
                 return _replaceCommand;
             }
-        }
-
-        public override void UpdateState(string name)
-        {
-            base.UpdateState(name);
-            CanReplace = true;
         }
 
         private void Search()
@@ -192,16 +191,45 @@ namespace dnGREP.WPF
             if (WholeWord)
                 searchOptions |= GrepSearchOption.WholeWord;
 
-            string replacedString = "";
-            using (Stream inputStream = new MemoryStream(Encoding.Default.GetBytes(SampleText)))
-            using (Stream writeStream = new MemoryStream())
+            string replacedString = string.Empty;
+            try
             {
-                engine.Replace(inputStream, writeStream, SearchFor, ReplaceWith, TypeOfSearch,
-                    searchOptions, Encoding.Default);
-                writeStream.Position = 0;
-                StreamReader reader = new StreamReader(writeStream);
-                replacedString = reader.ReadToEnd();
+                using (Stream inputStream = new MemoryStream(Encoding.Default.GetBytes(SampleText)))
+                using (Stream writeStream = new MemoryStream())
+                {
+                    // first search, and mark all hits for replace
+                    results = engine.Search(inputStream, "test.txt", SearchFor, TypeOfSearch, searchOptions, Encoding.Default);
+
+                    // mark all matches for replace
+                    if (results.Count > 0)
+                    {
+                        foreach (var match in results[0].Matches)
+                        {
+                            match.ReplaceMatch = true;
+                        }
+                    }
+                }
+                using (Stream inputStream = new MemoryStream(Encoding.Default.GetBytes(SampleText)))
+                using (Stream writeStream = new MemoryStream())
+                {
+                    engine.Replace(inputStream, writeStream, SearchFor, ReplaceWith, TypeOfSearch,
+                        searchOptions, Encoding.Default, results[0].Matches);
+                    writeStream.Position = 0;
+                    using (StreamReader reader = new StreamReader(writeStream))
+                    {
+                        replacedString = reader.ReadToEnd();
+                    }
+                }
             }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show("Incorrect pattern: " + ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
             SearchResults.Clear();
             SearchResults.AddRange(results);
             Paragraph paragraph = new Paragraph();

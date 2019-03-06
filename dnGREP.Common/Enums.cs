@@ -19,7 +19,8 @@ namespace dnGREP.Common
     public enum FileSearchType
     {
         Asterisk,
-        Regex
+        Regex,
+        Everything
     }
 
     public enum FileSizeFilter
@@ -61,4 +62,12 @@ namespace dnGREP.Common
         Dates,
         Hours
     }
+
+    public enum OverwriteFile
+    {
+        Yes,
+        No,
+        Prompt
+    }
+
 }

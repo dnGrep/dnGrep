@@ -8,17 +8,17 @@ using System.Xml;
 using System.Xml.XPath;
 using dnGREP.Common;
 using dnGREP.Engines;
+using dnGREP.Everything;
 using NLog;
 
 namespace dnGREP.WPF
 {
-    public class BaseMainViewModel : WorkspaceViewModel, IDataErrorInfo
+    public class BaseMainViewModel : ViewModelBase, IDataErrorInfo
     {
         public static int FastBookmarkCapacity = 20;
 
         public BaseMainViewModel()
         {
-            RequestClose += MainViewModel_RequestClose;
             PropertyChanged += MainViewModel_PropertyChanged;
 
             CurrentGrepOperation = GrepOperation.None;
@@ -28,6 +28,8 @@ namespace dnGREP.WPF
             Utils.ArchiveExtensions = GrepEngineFactory.GetArchiveExtenstions();
             CanSearchArchives = Utils.ArchiveExtensions.Count > 0;
             LoadSettings();
+
+            IsEverythingAvailable = EverythingSearch.IsAvailable;
         }
 
         #region Private Variables and Properties
@@ -39,23 +41,11 @@ namespace dnGREP.WPF
         {
             get { return GrepSettings.Instance; }
         }
+
+        protected PathSearchText PathSearchText { get; private set; } = new PathSearchText();
         #endregion
 
         #region Properties
-        private SyntaxHighlighterViewModel contentPreviewModel;
-        public SyntaxHighlighterViewModel ContentPreviewModel
-        {
-            get { return contentPreviewModel; }
-            set
-            {
-                if (value == contentPreviewModel)
-                    return;
-
-                contentPreviewModel = value;
-
-                base.OnPropertyChanged(() => ContentPreviewModel);
-            }
-        }
 
         private ObservableGrepSearchResults searchResults = new ObservableGrepSearchResults();
         public ObservableGrepSearchResults SearchResults
@@ -108,7 +98,8 @@ namespace dnGREP.WPF
                 if (value == fileOrFolderPath)
                     return;
 
-                fileOrFolderPath = Utils.CleanPath(value);
+                fileOrFolderPath = value;
+                PathSearchText.FileOrFolderPath = value;
 
                 base.OnPropertyChanged(() => FileOrFolderPath);
             }
@@ -290,8 +281,70 @@ namespace dnGREP.WPF
                     return;
 
                 typeOfFileSearch = value;
+                PathSearchText.TypeOfFileSearch = value;
 
                 base.OnPropertyChanged(() => TypeOfFileSearch);
+            }
+        }
+
+        private bool isEverythingAvailable;
+        public bool IsEverythingAvailable
+        {
+            get { return isEverythingAvailable; }
+            set
+            {
+                if (value == isEverythingAvailable)
+                    return;
+
+                isEverythingAvailable = value;
+
+                base.OnPropertyChanged(() => IsEverythingAvailable);
+            }
+        }
+
+
+        private bool isEverythingSearchMode;
+        public bool IsEverythingSearchMode
+        {
+            get { return isEverythingSearchMode; }
+            set
+            {
+                if (value == isEverythingSearchMode)
+                    return;
+
+                isEverythingSearchMode = value;
+
+                base.OnPropertyChanged(() => IsEverythingSearchMode);
+            }
+        }
+
+        private string patternColumnWidth = "*";
+        public string PatternColumnWidth
+        {
+            get { return patternColumnWidth; }
+            set
+            {
+                if (value == patternColumnWidth)
+                    return;
+
+                patternColumnWidth = value;
+
+                base.OnPropertyChanged(() => PatternColumnWidth);
+            }
+        }
+
+        private string searchTextBoxLabel = "Folder:";
+        public string SearchTextBoxLabel
+        {
+            get { return searchTextBoxLabel; }
+            set
+            {
+                if (value == searchTextBoxLabel)
+                    return;
+
+                searchTextBoxLabel = value;
+
+                base.OnPropertyChanged(() => SearchTextBoxLabel);
             }
         }
 
@@ -776,23 +829,6 @@ namespace dnGREP.WPF
             }
         }
 
-        private bool canReplace;
-        public bool CanReplace
-        {
-            get { return canReplace; }
-            set
-            {
-                if (value == canReplace)
-                    return;
-
-                canReplace = value;
-
-                base.OnPropertyChanged(() => CanReplace);
-                // Refresh buttons
-                CommandManager.InvalidateRequerySuggested();
-            }
-        }
-
         private bool canCancel;
         public bool CanCancel
         {
@@ -931,21 +967,6 @@ namespace dnGREP.WPF
             }
         }
 
-        private string undoFolder;
-        public string UndoFolder
-        {
-            get { return undoFolder; }
-            set
-            {
-                if (value == undoFolder)
-                    return;
-
-                undoFolder = value;
-
-                base.OnPropertyChanged(() => UndoFolder);
-            }
-        }
-
         private string statusMessage;
         public string StatusMessage
         {
@@ -1032,8 +1053,6 @@ namespace dnGREP.WPF
                         TextBoxStyle = "{StaticResource ExpandedTextbox}";
                     else
                         TextBoxStyle = "";
-
-                    CanReplace = false;
                     break;
 
                 case "UseFileSizeFilter":
@@ -1053,6 +1072,23 @@ namespace dnGREP.WPF
                 case "TypeOfTimeRangeFilter":
                     IsDatesRangeSet = IsDateFilterSet && TypeOfTimeRangeFilter == FileTimeRange.Dates;
                     IsHoursRangeSet = IsDateFilterSet && TypeOfTimeRangeFilter == FileTimeRange.Hours;
+                    break;
+
+                case "TypeOfFileSearch":
+                    if (TypeOfFileSearch == FileSearchType.Everything)
+                    {
+                        FilePattern = string.Empty;
+                        FilePatternIgnore = string.Empty;
+                        IsEverythingSearchMode = true;
+                        PatternColumnWidth = "Auto";
+                        SearchTextBoxLabel = "Everything search:";
+                    }
+                    else
+                    {
+                        IsEverythingSearchMode = false;
+                        PatternColumnWidth = "*";
+                        SearchTextBoxLabel = "Folder:";
+                    }
                     break;
             }
 
@@ -1095,51 +1131,50 @@ namespace dnGREP.WPF
                 if (string.IsNullOrWhiteSpace(FileOrFolderPath))
                     WindowTitle = "dnGREP";
                 else
-                    WindowTitle = string.Format("{0} in \"{1}\" - dnGREP", (SearchFor == null ? "Empty" : SearchFor.Replace('\n', ' ').Replace('\r', ' ')), FileOrFolderPath);
+                    WindowTitle = string.Format("{0} in \"{1}\" - dnGREP",
+                        (SearchFor == null ? "Empty" : SearchFor.Replace('\n', ' ').Replace('\r', ' ')),
+                        PathSearchText.CleanPath);
             }
 
             //Change validation
             if (name == "SearchFor" || name == "TypeOfSearch")
             {
-                if (string.IsNullOrWhiteSpace(SearchFor))
+                ValidationMessage = string.Empty;
+
+                if (!string.IsNullOrWhiteSpace(SearchFor))
                 {
-                    ValidationMessage = "";
-                }
-                else if (TypeOfSearch == SearchType.Regex)
-                {
-                    try
+                    if (TypeOfSearch == SearchType.Regex)
                     {
-                        Regex regex = new Regex(SearchFor);
-                        ValidationMessage = "Regex is OK!";
+                        try
+                        {
+                            Regex regex = new Regex(SearchFor);
+                            ValidationMessage = "Regex is OK!";
+                        }
+                        catch
+                        {
+                            ValidationMessage = "Regex is not valid!";
+                        }
                     }
-                    catch
+                    else if (TypeOfSearch == SearchType.XPath)
                     {
-                        ValidationMessage = "Regex is not valid!";
+                        try
+                        {
+                            nav = doc.CreateNavigator();
+                            XPathExpression expr = nav.Compile(SearchFor);
+                            ValidationMessage = "XPath is OK!";
+                        }
+                        catch
+                        {
+                            ValidationMessage = "XPath is not valid!";
+                        }
                     }
-                }
-                else if (TypeOfSearch == SearchType.XPath)
-                {
-                    try
-                    {
-                        nav = doc.CreateNavigator();
-                        XPathExpression expr = nav.Compile(SearchFor);
-                        ValidationMessage = "XPath is OK!";
-                    }
-                    catch
-                    {
-                        ValidationMessage = "XPath is not valid!";
-                    }
-                }
-                else
-                {
-                    ValidationMessage = "";
                 }
             }
 
             //Can search
-            if (name == "FileOrFolderPath" || name == "CurrentGrepOperation" || name == "SearchFor" || name == "IsSaveInProgress")
+            if (name == "FileOrFolderPath" || name == "TypeOfFileSearch" || name == "CurrentGrepOperation" || name == "SearchFor" || name == "IsSaveInProgress")
             {
-                if (Utils.IsPathValid(FileOrFolderPath) && CurrentGrepOperation == GrepOperation.None && !IsSaveInProgress &&
+                if (PathSearchText.IsValidPath && CurrentGrepOperation == GrepOperation.None && !IsSaveInProgress &&
                     (!string.IsNullOrEmpty(SearchFor) || settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern)))
                 {
                     CanSearch = true;
@@ -1165,21 +1200,7 @@ namespace dnGREP.WPF
             }
 
             //searchResults
-            searchResults.FolderPath = FileOrFolderPath;
-
-            // btnReplace
-            if (name == "FileOrFolderPath" || name == "FilesFound" || name == "CurrentGrepOperation" || name == "SearchFor" || name == "IsSaveInProgress")
-            {
-                if (Utils.IsPathValid(FileOrFolderPath) && FilesFound && CurrentGrepOperation == GrepOperation.None &&
-                    !IsSaveInProgress && !string.IsNullOrEmpty(SearchFor))
-                {
-                    CanReplace = true;
-                }
-                else
-                {
-                    CanReplace = false;
-                }
-            }
+            searchResults.FolderPath = PathSearchText.BaseFolder;
 
             //btnCancel
             if (name == "CurrentGrepOperation")
@@ -1312,7 +1333,7 @@ namespace dnGREP.WPF
             }
             settings[GrepSettings.Key.FilePatternIgnore] = _filePatternIgnore;
 
-            string _fileOrFolderPath = settings.Get<string>(GrepSettings.Key.SearchFolder);
+            string searchFolder = settings.Get<string>(GrepSettings.Key.SearchFolder);
             FastPathBookmarks.Clear();
             List<string> pb = settings.Get<List<string>>(GrepSettings.Key.FastPathBookmarks);
             if (pb != null)
@@ -1323,9 +1344,8 @@ namespace dnGREP.WPF
                         FastPathBookmarks.Add(bookmark);
                 }
             }
-            settings[GrepSettings.Key.SearchFolder] = _fileOrFolderPath;
+            settings[GrepSettings.Key.SearchFolder] = searchFolder;
 
-            FileOrFolderPath = settings.Get<string>(GrepSettings.Key.SearchFolder);
             SearchFor = settings.Get<string>(GrepSettings.Key.SearchFor);
             ReplaceWith = settings.Get<string>(GrepSettings.Key.ReplaceWith);
             IncludeHidden = settings.Get<bool>(GrepSettings.Key.IncludeHidden);
@@ -1335,6 +1355,8 @@ namespace dnGREP.WPF
             IncludeSubfolder = settings.Get<bool>(GrepSettings.Key.IncludeSubfolder);
             TypeOfSearch = settings.Get<SearchType>(GrepSettings.Key.TypeOfSearch);
             TypeOfFileSearch = settings.Get<FileSearchType>(GrepSettings.Key.TypeOfFileSearch);
+            // FileOrFolderPath depends on TypeOfFileSearch, so must be after
+            FileOrFolderPath = settings.Get<string>(GrepSettings.Key.SearchFolder);
             CodePage = settings.Get<int>(GrepSettings.Key.CodePage);
             FilePattern = settings.Get<string>(GrepSettings.Key.FilePattern);
             FilePatternIgnore = settings.Get<string>(GrepSettings.Key.FilePatternIgnore);
@@ -1388,6 +1410,8 @@ namespace dnGREP.WPF
             settings.SetNullableDateTime(GrepSettings.Key.EndDate, EndDate);
             settings.Set<int>(GrepSettings.Key.HoursFrom, HoursFrom);
             settings.Set<int>(GrepSettings.Key.HoursTo, HoursTo);
+
+            settings.Save();
         }
 
         #endregion
@@ -1397,12 +1421,6 @@ namespace dnGREP.WPF
         void MainViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             UpdateState(e.PropertyName);
-        }
-
-        private void MainViewModel_RequestClose(object sender, EventArgs e)
-        {
-            Utils.CancelSearch = true;
-            SaveSettings();
         }
 
         #endregion

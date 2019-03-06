@@ -7,6 +7,11 @@ using System.Reflection;
 using System.Text;
 using dnGREP.Common;
 using NLog;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
+using File = Alphaleonis.Win32.Filesystem.File;
+using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.Engines
 {
@@ -252,10 +257,13 @@ namespace dnGREP.Engines
 
                 foreach (IGrepEngine engine in loadedEngines)
                 {
-                    engine.Unload();
-                    var disposable = engine as IDisposable;
-                    if (disposable != null)
-                        disposable.Dispose();
+                    if (engine != null)
+                    {
+                        engine.Unload();
+                        var disposable = engine as IDisposable;
+                        if (disposable != null)
+                            disposable.Dispose();
+                    }
                 }
 
                 loadedEngines.Clear();

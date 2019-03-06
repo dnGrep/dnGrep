@@ -1,0 +1,37 @@
+<bookstore>
+  <book category="cooking">
+    <title lang="en">Everyday Italian</title>
+    <author>Giada De Laurentiis</author>
+    <year>2005</year>
+    <price currency="USD">30.00</price>
+  </book>
+  <book category="children">
+    <title lang="en">Harry Potter</title>
+    <author>J K. Rowling</author>
+    <year>2005</year>
+    <price currency="USD">29.99</price>
+  </book>
+  <book category="web">
+    <title lang="en">XQuery Kick Start</title>
+    <author>James McGovern</author>
+    <author>Per Bothner</author>
+    <author>Kurt Cagle</author>
+    <author>James Linn</author>
+    <author>Vaidyanathan Nagarajan</author>
+    <year>2003</year>
+    <price currency="USD">49.99</price>
+  </book>
+  <book category="web">
+    <title lang="en">Learning XML</title>
+    <author>Erik T. Ray</author>
+    <year>2003</year>
+    <price currency="USD">39.95</price>
+  </book>
+  <book category="programming">
+    <title lang="en">grep Pocket Reference</title>
+    <author>John Bambenek</author>
+    <author>Agnieszka Klus</author>
+    <year>2009</year>
+    <price currency="USD">8.99</price>
+  </book>
+</bookstore>

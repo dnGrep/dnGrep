@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using dnGREP.Common;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
+using File = Alphaleonis.Win32.Filesystem.File;
+using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.Engines
 {
@@ -41,7 +46,8 @@ namespace dnGREP.Engines
         /// <returns></returns>
         List<GrepSearchResult> Search(Stream input, string fileName, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding);
 
-        bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding);
+        bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, 
+            GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepMatch> replaceItems);
 
         /// <summary>
         /// Method gets called when search/replace process is complete
@@ -58,5 +64,15 @@ namespace dnGREP.Engines
         /// </summary>
         /// <param name="args"></param>
         void OpenFile(OpenFileArgs args);
+    }
+
+    public interface IArchiveEngine
+    {
+        /// <summary>
+        /// Extract a file from an archive to a temp file
+        /// </summary>
+        /// <param name="searchResult"></param>
+        /// <returns></returns>
+        string ExtractToTempFile(GrepSearchResult searchResult);
     }
 }

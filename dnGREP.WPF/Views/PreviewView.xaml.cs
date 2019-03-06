@@ -12,7 +12,7 @@ namespace dnGREP.WPF
     public partial class PreviewView : Window
     {
         private bool forceClose = false;
-        private PreviewViewModel inputData;
+        private PreviewViewModel viewModel;
 
         public PreviewView()
         {
@@ -20,17 +20,24 @@ namespace dnGREP.WPF
 
             Loaded += PreviewView_Loaded;
             DataContextChanged += PreviewView_DataContextChanged;
-            textEditor.Loaded += textEditor_Loaded;
+            PreviewKeyDown += PreviewView_PreviewKeyDown;
+            textEditor.Loaded += TextEditor_Loaded;
             cbWrapText.IsChecked = GrepSettings.Instance.Get<bool?>(GrepSettings.Key.PreviewWindowWrap);
             zoomSlider.Value = GrepSettings.Instance.Get<int>(GrepSettings.Key.PreviewWindowFont);
         }
 
+        private void PreviewView_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+                Close();
+        }
+
         void PreviewView_Loaded(object sender, RoutedEventArgs e)
         {
-            this.Left = Properties.Settings.Default.PreviewBounds.Left;
-            this.Top = Properties.Settings.Default.PreviewBounds.Top;
-            this.Width = Properties.Settings.Default.PreviewBounds.Width;
-            this.Height = Properties.Settings.Default.PreviewBounds.Height;
+            Left = Properties.Settings.Default.PreviewBounds.Left;
+            Top = Properties.Settings.Default.PreviewBounds.Top;
+            Width = Properties.Settings.Default.PreviewBounds.Width;
+            Height = Properties.Settings.Default.PreviewBounds.Height;
 
             if (!UiUtils.IsOnScreen(this))
                 UiUtils.CenterWindow(this);
@@ -38,52 +45,53 @@ namespace dnGREP.WPF
 
         void PreviewView_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            inputData = this.DataContext as PreviewViewModel;
-            inputData.ShowPreview += inputData_ShowPreview;
+            viewModel = DataContext as PreviewViewModel;
+            viewModel.ShowPreview += ViewModel_ShowPreview;
         }
 
-        void inputData_ShowPreview(object sender, ShowEventArgs e)
+        void ViewModel_ShowPreview(object sender, ShowEventArgs e)
         {
             if (!e.ClearContent)
             {
                 if (textEditor.IsLoaded)
                 {
-                    textEditor.ScrollTo(inputData.LineNumber, 0);
+                    textEditor.ScrollTo(viewModel.LineNumber, 0);
                 }
-
             }
             else
             {
                 textEditor.Clear();
-                textEditor.Encoding = inputData.Encoding;
-                textEditor.SyntaxHighlighting = inputData.HighlightingDefinition;
+                textEditor.Encoding = viewModel.Encoding;
+                textEditor.SyntaxHighlighting = viewModel.HighlightingDefinition;
                 for (int i = textEditor.TextArea.TextView.LineTransformers.Count - 1; i >= 0; i--)
                 {
                     if (textEditor.TextArea.TextView.LineTransformers[i] is PreviewHighlighter)
                         textEditor.TextArea.TextView.LineTransformers.RemoveAt(i);
                 }
-                textEditor.TextArea.TextView.LineTransformers.Add(new PreviewHighlighter(inputData.GrepResult));
+
+                if (!viewModel.HighlightDisabled)
+                    textEditor.TextArea.TextView.LineTransformers.Add(new PreviewHighlighter(viewModel.GrepResult));
 
                 try
                 {
-                    if (inputData.IsLargeOrBinary != System.Windows.Visibility.Visible)
+                    if (!viewModel.IsLargeOrBinary)
                     {
-                        if (!string.IsNullOrWhiteSpace(inputData.FilePath))
+                        if (!string.IsNullOrWhiteSpace(viewModel.FilePath))
                         {
-                            this.Title = string.Format("Previewing \"{0}\"", inputData.FilePath);
-                            textEditor.Load(inputData.FilePath);
+                            Title = string.Format("Previewing \"{0}\"", viewModel.DisplayFileName);
+                            textEditor.Load(viewModel.FilePath);
                             if (textEditor.IsLoaded)
                             {
-                                textEditor.ScrollTo(inputData.LineNumber, 0);
+                                textEditor.ScrollTo(viewModel.LineNumber, 0);
                             }
                         }
                         else
                         {
-                            this.Title = "No files to preview.";
+                            Title = "No files to preview.";
                             textEditor.Text = "";
                         }
                     }
-                    this.Show();
+                    Show();
                 }
                 catch (Exception ex)
                 {
@@ -92,26 +100,30 @@ namespace dnGREP.WPF
             }
         }
 
-        void textEditor_Loaded(object sender, RoutedEventArgs e)
+        void TextEditor_Loaded(object sender, RoutedEventArgs e)
         {
-            textEditor.ScrollTo(inputData.LineNumber, 0);
+            textEditor.ScrollTo(viewModel.LineNumber, 0);
         }
 
         public void ResetTextEditor()
         {
-            this.inputData.FilePath = null;
+            viewModel.FilePath = null;
+        }
+
+        internal void SaveSettings()
+        {
+            GrepSettings.Instance.Set<bool?>(GrepSettings.Key.PreviewWindowWrap, cbWrapText.IsChecked);
+            GrepSettings.Instance.Set<int>(GrepSettings.Key.PreviewWindowFont, (int)zoomSlider.Value);
         }
 
         public void ForceClose()
         {
             forceClose = true;
-            GrepSettings.Instance.Set<bool?>(GrepSettings.Key.PreviewWindowWrap, cbWrapText.IsChecked);
-            GrepSettings.Instance.Set<int>(GrepSettings.Key.PreviewWindowFont, (int)zoomSlider.Value);
 
-            if (inputData != null)
-                inputData.ShowPreview -= inputData_ShowPreview;
+            if (viewModel != null)
+                viewModel.ShowPreview -= ViewModel_ShowPreview;
 
-            this.Close();
+            Close();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -125,7 +137,7 @@ namespace dnGREP.WPF
 
             if (!forceClose)
             {
-                this.Hide();
+                Hide();
                 e.Cancel = true;
             }
         }
@@ -155,9 +167,10 @@ namespace dnGREP.WPF
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Title = string.Format("Previewing \"{0}\"", inputData.FilePath);
-            textEditor.Load(inputData.FilePath);
-            inputData.IsLargeOrBinary = System.Windows.Visibility.Collapsed;
+            Title = string.Format("Previewing \"{0}\"", viewModel.DisplayFileName);
+            textEditor.Load(viewModel.FilePath);
+            viewModel.IsLargeOrBinary = false;
+            textEditor.ScrollTo(viewModel.LineNumber, 0);
         }
     }
 }

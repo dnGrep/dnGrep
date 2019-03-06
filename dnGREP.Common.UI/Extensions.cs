@@ -1,8 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Interop;
+using System.Windows.Media;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
+using File = Alphaleonis.Win32.Filesystem.File;
+using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.Common.UI
 {
@@ -19,7 +29,7 @@ namespace dnGREP.Common.UI
 
             var buffer = new byte[2048];
 
-            using (var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+            using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
                 stream.Read(buffer, 0, 2048);
 
             var offset = BitConverter.ToInt32(buffer, c_PeHeaderOffset);
@@ -46,6 +56,48 @@ namespace dnGREP.Common.UI
             var loc = window.PointToScreen(new System.Windows.Point(0, 0));
 
             return new RectangleF((float)loc.X, (float)loc.Y, (float)window.ActualWidth, (float)window.ActualHeight);
+        }
+
+        public static void BringToFront(this Window window)
+        {
+            IntPtr hWnd = new WindowInteropHelper(window).Handle;
+            NativeMethods.BringToFront(hWnd);
+        }
+
+        internal class NativeMethods
+        {
+            const int SWP_NOMOVE = 0x0002;
+            const int SWP_NOSIZE = 0x0001;
+            const int SWP_SHOWWINDOW = 0x0040;
+            const int SWP_NOACTIVATE = 0x0010;
+
+            [DllImport("user32.dll", EntryPoint = "SetWindowPos")]
+            public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int Y, int cx, int cy, int wFlags);
+
+            public static void BringToFront(IntPtr hWnd)
+            {
+                SetWindowPos(hWnd, IntPtr.Zero, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW | SWP_NOACTIVATE);
+            }
+        }
+
+        public static IEnumerable<T> FindVisualChildren<T>(this DependencyObject depObj) where T : DependencyObject
+        {
+            if (depObj != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                {
+                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+                    if (child != null && child is T)
+                    {
+                        yield return (T)child;
+                    }
+
+                    foreach (T childOfChild in child.FindVisualChildren<T>())
+                    {
+                        yield return childOfChild;
+                    }
+                }
+            }
         }
     }
 }

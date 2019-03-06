@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -11,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
+using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
 using dnGREP.Common.UI;
 using dnGREP.Engines;
@@ -25,33 +25,35 @@ namespace dnGREP.WPF
         public MainViewModel()
             : base()
         {
-            SearchResults.PreviewFileLineRequest += searchResults_PreviewFileLineRequest;
-            SearchResults.PreviewFileRequest += searchResults_PreviewFileRequest;
-            SearchResults.OpenFileLineRequest += searchResults_OpenFileLineRequest;
-            SearchResults.OpenFileRequest += searchResults_OpenFileRequest;
+            SearchResults.PreviewFileLineRequest += SearchResults_PreviewFileLineRequest;
+            SearchResults.PreviewFileRequest += SearchResults_PreviewFileRequest;
+            SearchResults.OpenFileLineRequest += SearchResults_OpenFileLineRequest;
+            SearchResults.OpenFileRequest += SearchResults_OpenFileRequest;
 
-            RequestClose += MainViewModel_RequestClose;
             CheckVersion();
             ControlsInit();
-            populateEncodings();
+            PopulateEncodings();
+
+            idleTimer.Interval = TimeSpan.FromMilliseconds(250);
+            idleTimer.Tick += IdleTimer_Tick;
         }
 
-        void searchResults_OpenFileRequest(object sender, MVHelpers.GrepResultEventArgs e)
+        void SearchResults_OpenFileRequest(object sender, MVHelpers.GrepResultEventArgs e)
         {
             OpenFile(e.FormattedGrepResult, e.UseCustomEditor);
         }
 
-        void searchResults_OpenFileLineRequest(object sender, MVHelpers.GrepLineEventArgs e)
+        void SearchResults_OpenFileLineRequest(object sender, MVHelpers.GrepLineEventArgs e)
         {
             OpenFile(e.FormattedGrepLine, e.UseCustomEditor);
         }
 
-        void searchResults_PreviewFileRequest(object sender, MVHelpers.GrepResultEventArgs e)
+        void SearchResults_PreviewFileRequest(object sender, MVHelpers.GrepResultEventArgs e)
         {
             PreviewFile(e.FormattedGrepResult, e.ParentWindowSize);
         }
 
-        void searchResults_PreviewFileLineRequest(object sender, MVHelpers.GrepLineEventArgs e)
+        void SearchResults_PreviewFileLineRequest(object sender, MVHelpers.GrepLineEventArgs e)
         {
             PreviewFile(e.FormattedGrepLine, e.ParentWindowSize);
         }
@@ -64,8 +66,12 @@ namespace dnGREP.WPF
         private BookmarksForm bookmarkForm;
         private PreviewView preview;
         private PreviewViewModel previewModel;
-        private List<string> currentSearchFiles = new List<string>();
+        private HashSet<string> currentSearchFiles = new HashSet<string>();
+        private int processedFiles;
         private bool isSorted;
+        private List<ReplaceDef> undoList = new List<ReplaceDef>();
+        private DispatcherTimer idleTimer = new DispatcherTimer(DispatcherPriority.ContextIdle);
+        private string latestStatusMessage;
 
         #endregion
 
@@ -87,7 +93,7 @@ namespace dnGREP.WPF
                 if (_undoCommand == null)
                 {
                     _undoCommand = new RelayCommand(
-                        param => this.undo(),
+                        param => this.Undo(),
                         param => CanUndo
                         );
                 }
@@ -106,7 +112,7 @@ namespace dnGREP.WPF
                 if (_optionsCommand == null)
                 {
                     _optionsCommand = new RelayCommand(
-                        param => this.showOptions()
+                        param => this.ShowOptions()
                         );
                 }
                 return _optionsCommand;
@@ -123,7 +129,7 @@ namespace dnGREP.WPF
                 if (_helpCommand == null)
                 {
                     _helpCommand = new RelayCommand(
-                        param => this.showHelp()
+                        param => this.ShowHelp()
                         );
                 }
                 return _helpCommand;
@@ -140,7 +146,7 @@ namespace dnGREP.WPF
                 if (_aboutCommand == null)
                 {
                     _aboutCommand = new RelayCommand(
-                        param => this.showAbout()
+                        param => this.ShowAbout()
                         );
                 }
                 return _aboutCommand;
@@ -157,7 +163,7 @@ namespace dnGREP.WPF
                 if (_browseCommand == null)
                 {
                     _browseCommand = new RelayCommand(
-                        param => this.browse()
+                        param => this.Browse()
                         );
                 }
                 return _browseCommand;
@@ -174,8 +180,8 @@ namespace dnGREP.WPF
                 if (_searchCommand == null)
                 {
                     _searchCommand = new RelayCommand(
-                        param => this.search(),
-                        param => this.CanSearch
+                        param => Search(),
+                        param => CanSearch
                         );
                 }
                 return _searchCommand;
@@ -192,8 +198,8 @@ namespace dnGREP.WPF
                 if (_replaceCommand == null)
                 {
                     _replaceCommand = new RelayCommand(
-                        param => this.replace(),
-                        param => this.CanReplace
+                        param => Replace(),
+                        param => CanReplace
                         );
                 }
                 return _replaceCommand;
@@ -210,8 +216,8 @@ namespace dnGREP.WPF
                 if (_sortCommand == null)
                 {
                     _sortCommand = new RelayCommand(
-                        param => this.SortResults(),
-                        param => this.CanSortResults
+                        param => SortResults(),
+                        param => CanSortResults
                         );
                 }
                 return _sortCommand;
@@ -229,7 +235,7 @@ namespace dnGREP.WPF
                 if (_copyFilesCommand == null)
                 {
                     _copyFilesCommand = new RelayCommand(
-                        param => this.copyFiles()
+                        param => this.CopyFiles()
                         );
                 }
                 return _copyFilesCommand;
@@ -246,7 +252,7 @@ namespace dnGREP.WPF
                 if (_moveFilesCommand == null)
                 {
                     _moveFilesCommand = new RelayCommand(
-                        param => this.moveFiles()
+                        param => this.MoveFiles()
                         );
                 }
                 return _moveFilesCommand;
@@ -263,7 +269,7 @@ namespace dnGREP.WPF
                 if (_deleteFilesCommand == null)
                 {
                     _deleteFilesCommand = new RelayCommand(
-                        param => this.deleteFiles()
+                        param => this.DeleteFiles()
                         );
                 }
                 return _deleteFilesCommand;
@@ -280,7 +286,7 @@ namespace dnGREP.WPF
                 if (_copyToClipboardCommand == null)
                 {
                     _copyToClipboardCommand = new RelayCommand(
-                        param => this.copyToClipboard()
+                        param => this.CopyToClipboard()
                         );
                 }
                 return _copyToClipboardCommand;
@@ -331,7 +337,7 @@ namespace dnGREP.WPF
                 if (_cancelCommand == null)
                 {
                     _cancelCommand = new RelayCommand(
-                        param => this.cancel(),
+                        param => this.Cancel(),
                         param => CanCancel
                         );
                 }
@@ -349,7 +355,7 @@ namespace dnGREP.WPF
                 if (_testCommand == null)
                 {
                     _testCommand = new RelayCommand(
-                        param => this.test()
+                        param => this.Test()
                         );
                 }
                 return _testCommand;
@@ -366,7 +372,7 @@ namespace dnGREP.WPF
                 if (_bookmarkAddCommand == null)
                 {
                     _bookmarkAddCommand = new RelayCommand(
-                        param => this.bookmarkAddRemove()
+                        param => this.BookmarkAddRemove()
                         );
                 }
                 return _bookmarkAddCommand;
@@ -383,7 +389,7 @@ namespace dnGREP.WPF
                 if (_bookmarkOpenCommand == null)
                 {
                     _bookmarkOpenCommand = new RelayCommand(
-                        param => this.bookmarkOpen()
+                        param => this.BookmarkOpen()
                         );
                 }
                 return _bookmarkOpenCommand;
@@ -459,21 +465,23 @@ namespace dnGREP.WPF
             }
         }
 
-        public override void LoadSettings()
-        {
-            base.LoadSettings();
-        }
-
         public override void SaveSettings()
         {
-            copyBookmarksToSettings();
-            base.SaveSettings();
-            settings.Save();
+            CopyBookmarksToSettings();
             if (preview != null)
             {
-                settings.Set<System.Drawing.Rectangle>(GrepSettings.Key.PreviewWindowSize, preview.GetBounds());
+                settings.Set<Rectangle>(GrepSettings.Key.PreviewWindowSize, preview.GetBounds());
+                preview.SaveSettings();
+            }
+
+            base.SaveSettings();
+        }
+
+        internal void CloseChildWindows()
+        {
+            if (preview != null)
+            {
                 preview.ForceClose();
-                preview = null;
             }
         }
 
@@ -499,7 +507,7 @@ namespace dnGREP.WPF
             {
                 logger.Log<Exception>(LogLevel.Error, "Failed to open file.", ex);
                 if (useCustomEditor)
-                    MessageBox.Show("There was an error opening file by custom editor. \nCheck editor path via \"Options..\".", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"There was an error opening file by custom editor. {Environment.NewLine}Check editor path via \"Options..\".", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
                 else
                     MessageBox.Show("There was an error opening file. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -525,7 +533,7 @@ namespace dnGREP.WPF
             {
                 logger.Log<Exception>(LogLevel.Error, "Failed to open file.", ex);
                 if (useCustomEditor)
-                    MessageBox.Show("There was an error opening file by custom editor. \nCheck editor path via \"Options..\".", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"There was an error opening file by custom editor.{Environment.NewLine}Check editor path via \"Options..\".", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
                 else
                     MessageBox.Show("There was an error opening file. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -537,7 +545,7 @@ namespace dnGREP.WPF
             {
                 int lineNumber = formattedGrepLine.GrepLine.LineNumber;
                 FormattedGrepResult result = formattedGrepLine.Parent;
-                previewFile(result.GrepResult.FileNameReal, result.GrepResult, lineNumber, parentWindow);
+                PreviewFile(result.GrepResult.FileNameReal, result.GrepResult, lineNumber, parentWindow);
             }
         }
 
@@ -545,51 +553,20 @@ namespace dnGREP.WPF
         {
             if (PreviewFileContent)
             {
-                previewFile(formattedGrepResult.GrepResult.FileNameReal, formattedGrepResult.GrepResult, 0, parentWindow);
+                int lineNumber = 0;
+                if (formattedGrepResult.GrepResult != null && formattedGrepResult.GrepResult.Matches.Count > 0)
+                    lineNumber = formattedGrepResult.GrepResult.Matches[0].LineNumber;
+
+                PreviewFile(formattedGrepResult.GrepResult.FileNameReal, formattedGrepResult.GrepResult, lineNumber, parentWindow);
             }
         }
 
-        public void ActivatePreviewWindow()
+        public void ChangePreviewWindowState(WindowState state)
         {
             if (preview != null && preview.IsVisible)
             {
-                preview.Topmost = true;  // important
-                preview.Topmost = false; // important
-                preview.Focus();         // important
-            }
-        }
-
-        public void ChangePreviewWindowState(System.Windows.WindowState state)
-        {
-            if (preview != null && preview.IsVisible)
-            {
-                if (state != System.Windows.WindowState.Maximized)
+                if (state != WindowState.Maximized)
                     preview.WindowState = state;
-            }
-        }
-
-        public void SetCodeSnippets(ICollection<FormattedGrepResult> results)
-        {
-            foreach (var result in results)
-            {
-                StringBuilder blocks = new StringBuilder();
-                List<int> lines = new List<int>();
-
-                foreach (var block in Utils.GetSnippets(result.GrepResult,
-                        settings.Get<int>(GrepSettings.Key.ContextLinesBefore),
-                        settings.Get<int>(GrepSettings.Key.ContextLinesAfter)))
-                {
-                    blocks.AppendLine(block.Text);
-                    blocks.AppendLine("...");
-                    lines.AddRange(Utils.GetIntArray(block.FirstLineNumber, block.LineCount));
-                    lines.Add(-1);
-                }
-                var previewViewModel = new SyntaxHighlighterViewModel();
-                previewViewModel.Text = blocks.ToString().TrimEndOfLine();
-                previewViewModel.LineNumbers = lines.ToArray();
-                previewViewModel.SearchResult = result.GrepResult;
-                previewViewModel.FileName = result.GrepResult.FileNameDisplayed;
-                ContentPreviewModel = previewViewModel;
             }
         }
 
@@ -597,8 +574,9 @@ namespace dnGREP.WPF
 
         #region Private Methods
 
-        private void MainViewModel_RequestClose(object sender, EventArgs e)
+        internal void CancelSearch()
         {
+            Utils.CancelSearch = true;
             if (workerSearchReplace.IsBusy)
                 workerSearchReplace.CancelAsync();
         }
@@ -607,13 +585,11 @@ namespace dnGREP.WPF
         {
             try
             {
-                if (!workerSearchReplace.CancellationPending)
+                if (e.Argument is SearchReplaceCriteria param && !workerSearchReplace.CancellationPending)
                 {
                     timer = DateTime.Now;
-                    Dictionary<string, object> workerParams = (Dictionary<string, object>)e.Argument;
-                    //TODO: Check if this is needed
-                    MainViewModel param = (MainViewModel)workerParams["State"];
-                    if (param.CurrentGrepOperation == GrepOperation.Search || param.CurrentGrepOperation == GrepOperation.SearchInResults)
+
+                    if (param.Operation == GrepOperation.Search || param.Operation == GrepOperation.SearchInResults)
                     {
                         int sizeFrom = 0;
                         int sizeTo = 0;
@@ -646,6 +622,8 @@ namespace dnGREP.WPF
                         string filePatternInclude = "*.*";
                         if (param.TypeOfFileSearch == FileSearchType.Regex)
                             filePatternInclude = ".*";
+                        else if (param.TypeOfFileSearch == FileSearchType.Everything)
+                            filePatternInclude = string.Empty;
 
                         if (!string.IsNullOrEmpty(param.FilePattern))
                             filePatternInclude = param.FilePattern;
@@ -658,12 +636,14 @@ namespace dnGREP.WPF
 
                         Utils.CancelSearch = false;
 
-                        FileFilter fileParams = new FileFilter(FileOrFolderPath, filePatternInclude, filePatternExclude, param.TypeOfFileSearch == FileSearchType.Regex, param.IncludeSubfolder,
-                                param.IncludeHidden, param.IncludeBinary, param.IncludeArchive, sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime);
+                        FileFilter fileParams = new FileFilter(PathSearchText.CleanPath, filePatternInclude, filePatternExclude,
+                            param.TypeOfFileSearch == FileSearchType.Regex, param.TypeOfFileSearch == FileSearchType.Everything,
+                            param.IncludeSubfolder, param.IncludeHidden, param.IncludeBinary, param.IncludeArchive, sizeFrom,
+                            sizeTo, param.UseFileDateFilter, startTime, endTime);
 
-                        if (param.CurrentGrepOperation == GrepOperation.SearchInResults)
+                        if (param.Operation == GrepOperation.SearchInResults)
                         {
-                            files = (List<string>)workerParams["Files"];
+                            files = param.SearchInFiles;
                         }
                         else
                         {
@@ -699,9 +679,10 @@ namespace dnGREP.WPF
                             settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount),
                             SearchParallel);
 
-                        grep.FileFilter = new FileFilter(FileOrFolderPath, filePatternInclude, filePatternExclude,
-                            param.TypeOfFileSearch == FileSearchType.Regex, param.IncludeSubfolder, param.IncludeHidden,
-                            param.IncludeBinary, param.IncludeArchive, sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime);
+                        grep.FileFilter = new FileFilter(PathSearchText.CleanPath, filePatternInclude, filePatternExclude,
+                            param.TypeOfFileSearch == FileSearchType.Regex, param.TypeOfFileSearch == FileSearchType.Everything,
+                            param.IncludeSubfolder, param.IncludeHidden, param.IncludeBinary, param.IncludeArchive,
+                            sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime);
 
                         GrepSearchOption searchOptions = GrepSearchOption.None;
                         if (Multiline)
@@ -743,8 +724,7 @@ namespace dnGREP.WPF
                             searchOptions |= GrepSearchOption.WholeWord;
 
                         grep.ProcessedFile += GrepCore_ProcessedFile;
-                        string[] files = ((List<string>)workerParams["Files"]).ToArray();
-                        e.Result = grep.Replace(files, param.TypeOfSearch, param.SearchFor, param.ReplaceWith, searchOptions, param.CodePage);
+                        e.Result = grep.Replace(param.ReplaceFiles, param.TypeOfSearch, param.SearchFor, param.ReplaceWith, searchOptions, param.CodePage);
                         grep.ProcessedFile -= GrepCore_ProcessedFile;
                     }
                 }
@@ -753,9 +733,8 @@ namespace dnGREP.WPF
             {
                 logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
                 bool isSearch = true;
-                if (e.Argument is MainViewModel)
+                if (e.Argument is MainViewModel param)
                 {
-                    MainViewModel param = (MainViewModel)e.Argument;
                     if (param.CurrentGrepOperation == GrepOperation.Search || param.CurrentGrepOperation == GrepOperation.SearchInResults)
                         isSearch = true;
                     else
@@ -768,68 +747,90 @@ namespace dnGREP.WPF
             }
         }
 
-        private object lockObj = new object();
+        private readonly object lockObjOne = new object();
         private void SearchProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            lock (lockObj)
+            try
             {
-                try
+                if (!Utils.CancelSearch)
                 {
-                    if (!Utils.CancelSearch)
+                    ProgressStatus progress = (ProgressStatus)e.UserState;
+
+                    if (progress != null && !progress.BeginSearch && progress.SearchResults != null && progress.SearchResults.Count > 0)
                     {
-                        ProgressStatus progress = (ProgressStatus)e.UserState;
-
-                        if (progress.SearchResults != null)
+                        lock (lockObjOne)
+                        {
                             SearchResults.AddRange(progress.SearchResults);
-
-                        // When running in parallel, multiple files will be in progress at the same time.
-                        // This keeps track of the files that are running and the long running file names
-                        // are shown again as the short runs finish.
-                        string fileName = progress.FileName;
-                        if (!string.IsNullOrWhiteSpace(fileName))
-                        {
-                            if (progress.BeginSearch)
-                            {
-                                if (!currentSearchFiles.Contains(fileName))
-                                    currentSearchFiles.Add(fileName);
-                            }
-                            else
-                            {
-                                if (currentSearchFiles.Contains(fileName))
-                                    currentSearchFiles.Remove(fileName);
-
-                                if (currentSearchFiles.Count > 0)
-                                    fileName = currentSearchFiles[0];
-                            }
                         }
+                    }
 
-                        string result = string.Empty;
-                        if (!string.IsNullOrWhiteSpace(fileName))
-                        {
-                            result = string.Format("Searched {0} files. Found {1} matching files - processing {2}", progress.ProcessedFiles, progress.SuccessfulFiles, fileName);
-                        }
-                        else
-                        {
-                            result = string.Format("Searched {0} files. Found {1} matching files.", progress.ProcessedFiles, progress.SuccessfulFiles);
-                        }
-                        StatusMessage = result;
+                    UpdateStatus(progress);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
+                MessageBox.Show("Search or replace failed! See error log.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private readonly object lockObjTwo = new object();
+        private void UpdateStatus(ProgressStatus progress)
+        {
+            // When running in parallel, multiple files will be in progress at the same time.
+            // This keeps track of the files that are running and the long running file names
+            // are shown again as the short runs finish.
+            lock (lockObjTwo)
+            {
+                string fileName = progress.FileName;
+                if (!string.IsNullOrWhiteSpace(fileName))
+                {
+                    if (progress.BeginSearch)
+                    {
+                        if (!currentSearchFiles.Contains(fileName))
+                            currentSearchFiles.Add(fileName);
+                    }
+                    else
+                    {
+                        if (currentSearchFiles.Contains(fileName))
+                            currentSearchFiles.Remove(fileName);
+
+                        if (currentSearchFiles.Count > 0)
+                            fileName = currentSearchFiles.FirstOrDefault();
                     }
                 }
-                catch (Exception ex)
+
+                // keep the total count of processed files to report at completion
+                processedFiles = Math.Max(processedFiles, progress.ProcessedFiles);
+
+                // the search has gotten fast enough that setting the StatusMessage is slowing 
+                // down the main thread.  Update the latest status message, but only update the 
+                // UI periodically when the dispatcher is idle.
+                if (!string.IsNullOrWhiteSpace(fileName))
                 {
-                    logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
-                    MessageBox.Show("Search or replace failed! See error log.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    latestStatusMessage = $"Searched {progress.ProcessedFiles} files. Found {progress.SuccessfulFiles} matching files - processing {fileName}";
+                }
+                else
+                {
+                    latestStatusMessage = $"Searched {progress.ProcessedFiles} files. Found {progress.SuccessfulFiles} matching files.";
                 }
             }
         }
 
+        private void IdleTimer_Tick(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(latestStatusMessage))
+                StatusMessage = latestStatusMessage;
+        }
+
         private void SearchComplete(object sender, RunWorkerCompletedEventArgs e)
         {
+            latestStatusMessage = string.Empty;
+            idleTimer.Stop();
             try
             {
                 if (CurrentGrepOperation == GrepOperation.Search || CurrentGrepOperation == GrepOperation.SearchInResults)
                 {
-                    List<GrepSearchResult> results = new List<GrepSearchResult>();
                     if (e.Result == null)
                     {
                         StatusMessage = "Search Canceled or Failed";
@@ -837,10 +838,11 @@ namespace dnGREP.WPF
                     else if (!e.Cancelled)
                     {
                         TimeSpan duration = DateTime.Now.Subtract(timer);
-                        results = (List<GrepSearchResult>)e.Result;
-                        int successCount = results.Where(r => r.IsSuccess).Count();
+                        int successCount = 0;
+                        if (e.Result is List<GrepSearchResult> results)
+                            successCount = results.Where(r => r.IsSuccess).Count();
 
-                        StatusMessage = string.Format("Search Complete - {0} files found in {1}.", successCount, duration.GetPrettyString());
+                        StatusMessage = $"Search Complete - Searched {processedFiles} files. Found {successCount} files in {duration.GetPrettyString()}.";
                     }
                     else
                     {
@@ -863,8 +865,8 @@ namespace dnGREP.WPF
                         }
                         else
                         {
-                            StatusMessage = "Replace Complete - " + (int)e.Result + " files replaced.";
-                            CanUndo = true;
+                            StatusMessage = $"Replace Complete - {(int)e.Result} files replaced.";
+                            CanUndo = undoList.Count > 0;
                         }
                     }
                     else
@@ -881,7 +883,7 @@ namespace dnGREP.WPF
                 string outdatedEngines = dnGREP.Engines.GrepEngineFactory.GetListOfFailedEngines();
                 if (!string.IsNullOrEmpty(outdatedEngines))
                 {
-                    MessageBox.Show("The following plugins failed to load:\n\n" + outdatedEngines + "\n\nDefault engine was used instead.", "Plugin Errors", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show($"The following plugins failed to load:{Environment.NewLine}{Environment.NewLine}{outdatedEngines}{Environment.NewLine}{Environment.NewLine}Default engine was used instead.", "Plugin Errors", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
             catch (Exception ex)
@@ -901,16 +903,18 @@ namespace dnGREP.WPF
             workerSearchReplace.ReportProgress((int)progress.ProcessedFiles, progress);
         }
 
-        private void browse()
+        private void Browse()
         {
+            string filePattern = PathSearchText.FilePattern;
+
             fileFolderDialog.Dialog.Multiselect = true;
-            fileFolderDialog.SelectedPath = Utils.GetBaseFolder(FileOrFolderPath);
-            if (FileOrFolderPath == "")
+            fileFolderDialog.SelectedPath = PathSearchText.BaseFolder;
+            if (string.IsNullOrWhiteSpace(PathSearchText.BaseFolder))
             {
                 string clipboard = Clipboard.GetText();
                 try
                 {
-                    if (System.IO.Path.IsPathRooted(clipboard))
+                    if (Path.IsPathRooted(clipboard))
                         fileFolderDialog.SelectedPath = clipboard;
                 }
                 catch
@@ -920,14 +924,37 @@ namespace dnGREP.WPF
             }
             if (fileFolderDialog.ShowDialog() == true)
             {
+                string newPath = string.Empty;
                 if (fileFolderDialog.SelectedPaths != null)
-                    FileOrFolderPath = fileFolderDialog.SelectedPaths;
+                {
+                    if (TypeOfFileSearch == FileSearchType.Everything)
+                    {
+                        string[] paths = fileFolderDialog.SelectedPaths.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                        newPath = string.Join("|", paths.Select(p => Utils.Quote(p)).ToArray());
+                    }
+                    else
+                    {
+                        newPath = fileFolderDialog.SelectedPaths;
+                    }
+                }
                 else
-                    FileOrFolderPath = fileFolderDialog.SelectedPath;
+                {
+                    newPath = fileFolderDialog.SelectedPath;
+                }
+
+                if (!string.IsNullOrWhiteSpace(filePattern))
+                {
+                    if (newPath.Contains(" ") && !newPath.StartsWith("\""))
+                        newPath = Utils.Quote(newPath);
+
+                    newPath += " " + filePattern;
+                }
+
+                FileOrFolderPath = newPath;
             }
         }
 
-        private void search()
+        private void Search()
         {
             if (CurrentGrepOperation == GrepOperation.None && !workerSearchReplace.IsBusy)
             {
@@ -944,18 +971,20 @@ namespace dnGREP.WPF
                 StatusMessage = "Searching...";
                 if (preview != null && preview.IsVisible)
                     preview.ResetTextEditor();
-                Dictionary<string, object> workerParames = new Dictionary<string, object>();
+
+                SearchReplaceCriteria workerParams = new SearchReplaceCriteria(this);
                 if (SearchInResultsContent && CanSearchInResults)
                 {
                     List<string> foundFiles = new List<string>();
                     foreach (FormattedGrepResult n in SearchResults) foundFiles.Add(n.GrepResult.FileNameReal);
-                    workerParames["Files"] = foundFiles;
+                    workerParams.AddSearchFiles(foundFiles);
                 }
                 SearchResults.Clear();
                 isSorted = false;
-                workerParames["State"] = this;
-                workerSearchReplace.RunWorkerAsync(workerParames);
-                updateBookmarks();
+                processedFiles = 0;
+                idleTimer.Start();
+                workerSearchReplace.RunWorkerAsync(workerParams);
+                UpdateBookmarks();
                 // toggle value to move focus to the results tree, and enable keyboard actions on the tree
                 SearchResults.IsResultsTreeFocused = false;
                 SearchResults.IsResultsTreeFocused = true;
@@ -1008,49 +1037,97 @@ namespace dnGREP.WPF
             }
         }
 
-        private void replace()
+        private void Replace()
         {
             if (CurrentGrepOperation == GrepOperation.None && !workerSearchReplace.IsBusy)
             {
                 if (string.IsNullOrEmpty(ReplaceWith))
                 {
-                    if (MessageBox.Show("Are you sure you want to replace search pattern with empty string?", "Replace", MessageBoxButton.YesNoCancel, MessageBoxImage.Question) != MessageBoxResult.Yes)
+                    if (MessageBox.Show("Are you sure you want to replace search pattern with empty string?", "Replace", MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
                         return;
                 }
+
                 List<string> roFiles = Utils.GetReadOnlyFiles(SearchResults.GetList());
                 if (roFiles.Count > 0)
                 {
-                    StringBuilder sb = new StringBuilder("Some of the files can not be modified. If you continue, these files will be skipped.\nWould you like to continue?\n\n");
+                    StringBuilder sb = new StringBuilder($"Some of the files cannot be modified. If you continue, these files will be skipped.{Environment.NewLine}Would you like to continue?{Environment.NewLine}{Environment.NewLine}");
                     foreach (string fileName in roFiles)
                     {
                         sb.AppendLine(" - " + new FileInfo(fileName).Name);
                     }
-                    if (MessageBox.Show(sb.ToString(), "Replace", MessageBoxButton.YesNoCancel, MessageBoxImage.Question) != MessageBoxResult.Yes)
+                    if (MessageBox.Show(sb.ToString(), "Replace", MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
                         return;
                 }
-                StatusMessage = "Replacing...";
-                if (preview != null && preview.IsVisible)
-                    preview.ResetTextEditor();
-                CurrentGrepOperation = GrepOperation.Replace;
-                CanUndo = false;
-                UndoFolder = Utils.GetBaseFolder(FileOrFolderPath);
-                List<string> foundFiles = new List<string>();
-                foreach (FormattedGrepResult n in SearchResults)
+
+                List<GrepSearchResult> replaceList = SearchResults.GetWritableList();
+
+                ReplaceWindow dlg = new ReplaceWindow();
+                dlg.ViewModel.SearchFor = SearchFor;
+                dlg.ViewModel.ReplaceWith = ReplaceWith;
+                dlg.ViewModel.SearchResults = replaceList;
+                var result = dlg.ShowDialog();
+
+                if (result.HasValue && result.Value)
                 {
-                    if (!n.GrepResult.ReadOnly)
-                        foundFiles.Add(n.GrepResult.FileNameReal);
+                    CanUndo = false;
+                    undoList.Clear();
+                    foreach (GrepSearchResult gsr in replaceList)
+                    {
+                        string filePath = gsr.FileNameReal;
+                        if (!gsr.ReadOnly && !undoList.Any(r => r.OrginalFile == filePath) && gsr.Matches.Any(m => m.ReplaceMatch))
+                        {
+                            undoList.Add(new ReplaceDef(filePath, gsr.Matches));
+                        }
+                    }
+
+                    if (undoList.Count > 0)
+                    {
+                        StatusMessage = "Replacing...";
+                        if (preview != null && preview.IsVisible)
+                            preview.ResetTextEditor();
+                        CurrentGrepOperation = GrepOperation.Replace;
+
+                        SearchReplaceCriteria workerParams = new SearchReplaceCriteria(this);
+
+                        workerParams.AddReplaceFiles(undoList);
+
+                        SearchResults.Clear();
+                        isSorted = false;
+                        idleTimer.Start();
+                        workerSearchReplace.RunWorkerAsync(workerParams);
+                        UpdateBookmarks();
+                    }
                 }
-                Dictionary<string, object> workerParames = new Dictionary<string, object>();
-                workerParames["State"] = this;
-                workerParames["Files"] = foundFiles;
-                SearchResults.Clear();
-                isSorted = false;
-                workerSearchReplace.RunWorkerAsync(workerParames);
-                updateBookmarks();
             }
         }
 
-        private void updateBookmarks()
+        private void Undo()
+        {
+            if (CanUndo)
+            {
+                MessageBoxResult response = MessageBox.Show(
+                    "Undo will revert modified file(s) back to their original state. Any changes made to the file(s) after the replace will be overwritten. Are you sure you want to proceed?",
+                    "Undo", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
+                if (response == MessageBoxResult.Yes)
+                {
+                    GrepCore core = new GrepCore();
+                    bool result = core.Undo(undoList);
+                    if (result)
+                    {
+                        MessageBox.Show("Files have been successfully reverted.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        Utils.DeleteTempFolder();
+                        undoList.Clear();
+                    }
+                    else
+                    {
+                        MessageBox.Show("There was an error reverting files. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    CanUndo = false;
+                }
+            }
+        }
+
+        private void UpdateBookmarks()
         {
             int maxSearchReplaceCount = settings.Get<int>(GrepSettings.Key.MaxSearchBookmarks);
             int maxPathCount = settings.Get<int>(GrepSettings.Key.MaxPathBookmarks);
@@ -1113,13 +1190,14 @@ namespace dnGREP.WPF
             while (FastFileNotMatchBookmarks.Count > maxExtCount)
                 FastFileNotMatchBookmarks.RemoveAt(FastFileNotMatchBookmarks.Count - 1);
 
-            if (FastPathBookmarks.IndexOf(FileOrFolderPath) != 0)
+            string searchPath = PathSearchText.CleanPath;
+            if (FastPathBookmarks.IndexOf(searchPath) != 0)
             {
-                FastPathBookmarks.Insert(0, FileOrFolderPath);
-                int idx = FastPathBookmarks.Select((x, n) => new { x, n }).Where(xn => xn.x == FileOrFolderPath).Select(xn => xn.n).Skip(1).FirstOrDefault();
+                FastPathBookmarks.Insert(0, searchPath);
+                int idx = FastPathBookmarks.Select((x, n) => new { x, n }).Where(xn => xn.x == searchPath).Select(xn => xn.n).Skip(1).FirstOrDefault();
                 if (idx > 0)
                 {
-                    string s = FileOrFolderPath;
+                    string s = searchPath;
                     FastPathBookmarks.RemoveAt(idx);
                     FileOrFolderPath = s;
                 }
@@ -1128,7 +1206,7 @@ namespace dnGREP.WPF
                 FastPathBookmarks.RemoveAt(FastPathBookmarks.Count - 1);
         }
 
-        private void cancel()
+        private void Cancel()
         {
             if (CurrentGrepOperation != GrepOperation.None)
             {
@@ -1136,45 +1214,12 @@ namespace dnGREP.WPF
             }
         }
 
-        private void undo()
-        {
-            if (CanUndo)
-            {
-                MessageBoxResult response = MessageBox.Show("Undo will revert modified file(s) back to their original state. Any changes made to the file(s) after the replace will be overwritten. Are you sure you want to procede?",
-                    "Undo", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning, MessageBoxResult.Cancel);
-                if (response == MessageBoxResult.Yes)
-                {
-                    GrepCore core = new GrepCore();
-                    bool result = core.Undo(UndoFolder);
-                    if (result)
-                    {
-                        MessageBox.Show("Files have been successfully reverted.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-                        Utils.DeleteTempFolder();
-                    }
-                    else
-                    {
-                        MessageBox.Show("There was an error reverting files. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                    CanUndo = false;
-                }
-            }
-        }
-
-        private void showOptions()
+        private void ShowOptions()
         {
             SaveSettings();
             var optionsForm = new OptionsView();
             optionsForm.Owner = ParentWindow;
             var optionsViewModel = new OptionsViewModel();
-            // When the ViewModel asks to be closed, 
-            // close the window.
-            EventHandler handler = null;
-            handler = delegate
-            {
-                optionsViewModel.RequestClose -= handler;
-                optionsForm.Close();
-            };
-            optionsViewModel.RequestClose += handler;
             optionsForm.DataContext = optionsViewModel;
             try
             {
@@ -1189,18 +1234,18 @@ namespace dnGREP.WPF
             SearchResults.CustomEditorConfigured = true;
         }
 
-        private void showHelp()
+        private void ShowHelp()
         {
             System.Diagnostics.Process.Start(@"https://github.com/dnGrep/dnGrep/wiki");
         }
 
-        private void showAbout()
+        private void ShowAbout()
         {
             AboutForm aboutForm = new AboutForm();
             aboutForm.ShowDialog();
         }
 
-        private void bookmarkAddRemove()
+        private void BookmarkAddRemove()
         {
             Bookmark newBookmark = new Bookmark(SearchFor, ReplaceWith, FilePattern, "");
             if (IsBookmarked)
@@ -1218,7 +1263,7 @@ namespace dnGREP.WPF
             BookmarkLibrary.Save();
         }
 
-        private void bookmarkOpen()
+        private void BookmarkOpen()
         {
             try
             {
@@ -1228,16 +1273,16 @@ namespace dnGREP.WPF
                         IsBookmarked = false;
                 };
                 bookmarkForm = new BookmarksForm(clearTheStar);
-                bookmarkForm.PropertyChanged += new PropertyChangedEventHandler(bookmarkForm_PropertyChanged);
+                bookmarkForm.PropertyChanged += new PropertyChangedEventHandler(BookmarkForm_PropertyChanged);
                 bookmarkForm.ShowDialog();
             }
             finally
             {
-                bookmarkForm.PropertyChanged -= new PropertyChangedEventHandler(bookmarkForm_PropertyChanged);
+                bookmarkForm.PropertyChanged -= new PropertyChangedEventHandler(BookmarkForm_PropertyChanged);
             }
         }
 
-        private void copyFiles()
+        private void CopyFiles()
         {
             if (FilesFound)
             {
@@ -1245,14 +1290,27 @@ namespace dnGREP.WPF
                 {
                     try
                     {
-                        if (!Utils.CanCopyFiles(SearchResults.GetList(), Utils.GetBaseFolder(fileFolderDialog.SelectedPath)))
+                        var fileList = SearchResults.GetList();
+                        string destinationFolder = Utils.GetBaseFolder(fileFolderDialog.SelectedPath);
+                        string baseFolder = PathSearchText.BaseFolder;
+
+                        if (!Utils.CanCopyFiles(fileList, destinationFolder))
                         {
-                            MessageBox.Show("Attention, some of the files are located in the selected directory.\nPlease select another directory and try again.", "Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            MessageBox.Show($"Attention, some of the files are located in the selected directory.{Environment.NewLine}Please select another directory and try again.", "Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
                             return;
                         }
 
-                        Utils.CopyFiles(SearchResults.GetList(), Utils.GetBaseFolder(FileOrFolderPath), Utils.GetBaseFolder(fileFolderDialog.SelectedPath), true);
-                        MessageBox.Show("Files have been successfully copied.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        int count = 0;
+                        if (!string.IsNullOrWhiteSpace(baseFolder))
+                        {
+                            count = Utils.CopyFiles(fileList, baseFolder, destinationFolder, OverwriteFile.Prompt);
+                        }
+                        else
+                        {
+                            // without a common base path, copy all files to a single directory 
+                            count = Utils.CopyFiles(fileList, destinationFolder, OverwriteFile.Prompt);
+                        }
+                        MessageBox.Show($"{count} files have been successfully copied.", "Copy Complete", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     catch (Exception ex)
                     {
@@ -1264,7 +1322,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private void moveFiles()
+        private void MoveFiles()
         {
             if (FilesFound)
             {
@@ -1272,16 +1330,28 @@ namespace dnGREP.WPF
                 {
                     try
                     {
-                        if (!Utils.CanCopyFiles(SearchResults.GetList(), Utils.GetBaseFolder(fileFolderDialog.SelectedPath)))
+                        var fileList = SearchResults.GetList();
+                        string destinationFolder = Utils.GetBaseFolder(fileFolderDialog.SelectedPath);
+                        string baseFolder = PathSearchText.BaseFolder;
+
+                        if (!Utils.CanCopyFiles(fileList, destinationFolder))
                         {
-                            MessageBox.Show("Attention, some of the files are located in the selected directory.\nPlease select another directory and try again.",
+                            MessageBox.Show($"Attention, some of the files are located in the selected directory.{Environment.NewLine}Please select another directory and try again.",
                                 "Attention", MessageBoxButton.OK, MessageBoxImage.Warning);
                             return;
                         }
 
-                        Utils.CopyFiles(SearchResults.GetList(), Utils.GetBaseFolder(FileOrFolderPath), Utils.GetBaseFolder(fileFolderDialog.SelectedPath), true);
-                        Utils.DeleteFiles(SearchResults.GetList());
-                        MessageBox.Show("Files have been successfully moved.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                        int count = 0;
+                        if (!string.IsNullOrWhiteSpace(baseFolder))
+                        {
+                            count = Utils.MoveFiles(fileList, baseFolder, destinationFolder, OverwriteFile.Prompt);
+                        }
+                        else
+                        {
+                            // without a common base path, move all files to a single directory 
+                            count = Utils.MoveFiles(fileList, destinationFolder, OverwriteFile.Prompt);
+                        }
+                        MessageBox.Show($"{count} files have been successfully moved.", "Move Complete", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     catch (Exception ex)
                     {
@@ -1296,19 +1366,19 @@ namespace dnGREP.WPF
             }
         }
 
-        private void deleteFiles()
+        private void DeleteFiles()
         {
             if (FilesFound)
             {
                 try
                 {
-                    if (MessageBox.Show("Attention, you are about to delete files found during search.\nAre you sure you want to procede?", "Attention", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning) != MessageBoxResult.Yes)
+                    if (MessageBox.Show($"Attention, you are about to delete files found during search.{Environment.NewLine}Are you sure you want to proceed?", "Attention", MessageBoxButton.YesNo, MessageBoxImage.Warning) != MessageBoxResult.Yes)
                     {
                         return;
                     }
 
-                    Utils.DeleteFiles(SearchResults.GetList());
-                    MessageBox.Show("Files have been successfully deleted.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                    int count = Utils.DeleteFiles(SearchResults.GetList());
+                    MessageBox.Show($"{count} files have been successfully deleted.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
@@ -1322,7 +1392,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private void copyToClipboard()
+        private void CopyToClipboard()
         {
             StringBuilder sb = new StringBuilder();
             foreach (GrepSearchResult result in SearchResults.GetList())
@@ -1347,7 +1417,7 @@ namespace dnGREP.WPF
 
                 dlg.Filter = "Report file format|*.txt|Results file format|*.txt|CSV file format|*.csv";
                 dlg.DefaultExt = "*.txt";
-                dlg.InitialDirectory = Utils.GetBaseFolder(FileOrFolderPath);
+                dlg.InitialDirectory = PathSearchText.BaseFolder;
 
                 var result = dlg.ShowDialog();
                 if (result.HasValue && result.Value)
@@ -1382,6 +1452,15 @@ namespace dnGREP.WPF
                         IsSaveInProgress = false;
                     }
                 }
+            }
+        }
+
+        public bool CanReplace
+        {
+            get
+            {
+                return PathSearchText.IsValidBaseFolder && FilesFound && CurrentGrepOperation == GrepOperation.None &&
+                        !IsSaveInProgress && !string.IsNullOrEmpty(SearchFor) && SearchResults.GetWritableList().Count > 0;
             }
         }
 
@@ -1424,12 +1503,14 @@ namespace dnGREP.WPF
                 sb.AppendLine(string.Join(", ", options.ToArray()));
             sb.AppendLine();
 
-            sb.Append("Search in: ").AppendLine(FileOrFolderPath)
+            sb.Append("Search in: ").AppendLine(PathSearchText.CleanPath)
               .Append("Paths that match: ").AppendLine(FilePattern);
             if (!string.IsNullOrWhiteSpace(FilePatternIgnore))
                 sb.Append("Paths to ignore: ").AppendLine(FilePatternIgnore);
             if (TypeOfFileSearch == FileSearchType.Regex)
                 sb.AppendLine("Using regex file pattern");
+            else if (TypeOfFileSearch == FileSearchType.Everything)
+                sb.AppendLine("Using Everything index search");
 
             options.Clear();
             if (!IncludeSubfolder) options.Add("No subfolders");
@@ -1460,7 +1541,7 @@ namespace dnGREP.WPF
             return sb.ToString();
         }
 
-        private void test()
+        private void Test()
         {
             try
             {
@@ -1494,7 +1575,7 @@ namespace dnGREP.WPF
                             string currentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
                             if (PublishedVersionExtractor.IsUpdateNeeded(currentVersion, version))
                             {
-                                if (MessageBox.Show("New version of dnGREP (" + version + ") is available for download.\nWould you like to download it now?",
+                                if (MessageBox.Show($"New version of dnGREP ({version}) is available for download.{Environment.NewLine}Would you like to download it now?",
                                     "New version", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
                                 {
                                     System.Diagnostics.Process.Start("http://dngrep.github.io/");
@@ -1524,7 +1605,7 @@ namespace dnGREP.WPF
             DiginesisHelpProvider.ShowHelp = true;
         }
 
-        private void populateEncodings()
+        private void PopulateEncodings()
         {
             KeyValuePair<string, int> defaultValue = new KeyValuePair<string, int>("Auto detection (default)", -1);
 
@@ -1542,7 +1623,7 @@ namespace dnGREP.WPF
                 Encodings.Add(enc);
         }
 
-        void bookmarkForm_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        void BookmarkForm_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "FilePattern")
                 FilePattern = bookmarkForm.FilePattern;
@@ -1552,7 +1633,7 @@ namespace dnGREP.WPF
                 ReplaceWith = bookmarkForm.ReplaceWith;
         }
 
-        private void copyBookmarksToSettings()
+        private void CopyBookmarksToSettings()
         {
             //Saving bookmarks
             List<string> fsb = new List<string>();
@@ -1587,10 +1668,33 @@ namespace dnGREP.WPF
             settings.Set<List<string>>(GrepSettings.Key.FastPathBookmarks, fpb);
         }
 
-        private void previewFile(string filePath, GrepSearchResult result, int line, RectangleF parentWindow)
+        private void PreviewFile(string filePath, GrepSearchResult result, int line, RectangleF parentWindow)
         {
             if (PreviewFileContent)
             {
+                string displayfileName = filePath;
+
+                if (Utils.IsArchive(filePath))
+                {
+                    if (GrepEngineFactory.GetSearchEngine(filePath, GrepEngineInitParams.Default, new FileFilter()) is IArchiveEngine engine)
+                    {
+                        OpenFileArgs fileArg = new OpenFileArgs(result, result.Pattern, 0, false, null, null);
+                        string tempFile = engine.ExtractToTempFile(result);
+                        GrepEngineFactory.ReturnToPool(filePath, engine as IGrepEngine);
+
+                        if (string.IsNullOrWhiteSpace(tempFile))
+                        {
+                            MessageBox.Show("Failed to extract file from archive, see dnGrep error log for more information");
+                            return;
+                        }
+                        else
+                        {
+                            displayfileName = result.FileNameDisplayed;
+                            filePath = tempFile;
+                        }
+                    }
+                }
+
                 if (previewModel == null)
                 {
                     previewModel = new PreviewViewModel();
@@ -1600,7 +1704,7 @@ namespace dnGREP.WPF
                 {
                     preview = new PreviewView();
                     preview.DataContext = previewModel;
-                    System.Drawing.Rectangle bounds = settings.Get<System.Drawing.Rectangle>(GrepSettings.Key.PreviewWindowSize);
+                    Rectangle bounds = settings.Get<Rectangle>(GrepSettings.Key.PreviewWindowSize);
                     if (bounds.Left == 0 && bounds.Right == 0)
                     {
                         preview.Height = parentWindow.Height;
@@ -1609,11 +1713,19 @@ namespace dnGREP.WPF
                         preview.Top = parentWindow.Top;
                     }
                 }
+
+
                 previewModel.GrepResult = result;
                 previewModel.LineNumber = line;
                 previewModel.Encoding = result.Encoding;
+                previewModel.DisplayFileName = displayfileName;
                 previewModel.FilePath = filePath;
+
+                if (preview.WindowState == WindowState.Minimized)
+                    preview.WindowState = WindowState.Normal;
                 preview.Show();
+                preview.BringToFront();
+                preview.Focus(); // needs focus so the Esc key will close (hide) the preview
             }
         }
         #endregion

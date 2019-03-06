@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Reflection;
 using System.Text;
+using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
 using NLog;
 
@@ -125,8 +125,7 @@ namespace dnGREP.Engines
                         {
                             IsSearchOnly = engine.IsSearchOnly;
 
-                            var disposable = engine as IDisposable;
-                            if (disposable != null)
+                            if (engine is IDisposable disposable)
                                 disposable.Dispose();
                         }
                     }

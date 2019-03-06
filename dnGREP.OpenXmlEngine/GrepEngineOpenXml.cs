@@ -12,6 +12,11 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using ExcelDataReader;
 using ExcelNumberFormat;
 using NLog;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
+using File = Alphaleonis.Win32.Filesystem.File;
+using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.Engines.OpenXml
 {
@@ -22,7 +27,7 @@ namespace dnGREP.Engines.OpenXml
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        private Dictionary<string, Dictionary<string, Level>> numberFormats = new Dictionary<string, Dictionary<string, Level>>();
+        private readonly Dictionary<string, Dictionary<string, Level>> numberFormats = new Dictionary<string, Dictionary<string, Level>>();
 
 
         public List<GrepSearchResult> Search(string fileName, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
@@ -36,33 +41,26 @@ namespace dnGREP.Engines.OpenXml
         // the stream version will get called if the file is in an archive
         public List<GrepSearchResult> Search(Stream input, string fileName, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
         {
-            SearchDelegates.DoSearch searchMethodMultiline = doTextSearchCaseSensitive;
+            SearchDelegates.DoSearch searchMethodMultiline = DoTextSearch;
             switch (searchType)
             {
                 case SearchType.PlainText:
                 case SearchType.XPath:
-                    if ((searchOptions & GrepSearchOption.CaseSensitive) == GrepSearchOption.CaseSensitive)
-                    {
-                        searchMethodMultiline = doTextSearchCaseSensitive;
-                    }
-                    else
-                    {
-                        searchMethodMultiline = doTextSearchCaseInsensitive;
-                    }
+                    searchMethodMultiline = DoTextSearch;
                     break;
                 case SearchType.Regex:
-                    searchMethodMultiline = doRegexSearch;
+                    searchMethodMultiline = DoRegexSearch;
                     break;
                 case SearchType.Soundex:
-                    searchMethodMultiline = doFuzzySearchMultiline;
+                    searchMethodMultiline = DoFuzzySearch;
                     break;
             }
 
-            List<GrepSearchResult> result = searchMultiline(input, fileName, searchPattern, searchOptions, searchMethodMultiline);
+            List<GrepSearchResult> result = SearchMultiline(input, fileName, searchPattern, searchOptions, searchMethodMultiline);
             return result;
         }
 
-        private List<GrepSearchResult> searchMultiline(Stream input, string file, string searchPattern, GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod)
+        private List<GrepSearchResult> SearchMultiline(Stream input, string file, string searchPattern, GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod)
         {
             List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
 
@@ -87,11 +85,13 @@ namespace dnGREP.Engines.OpenXml
                 var sheets = ExtractExcelText(stream);
                 foreach (var kvPair in sheets)
                 {
-                    var lines = searchMethod(-1, kvPair.Value, searchPattern, searchOptions, true);
+                    var lines = searchMethod(-1, 0, kvPair.Value, searchPattern, searchOptions, true);
                     if (lines.Count > 0)
                     {
-                        GrepSearchResult result = new GrepSearchResult(file, searchPattern, lines, Encoding.Default);
-                        result.AdditionalInformation = string.Format(" Sheet [{0}]", kvPair.Key);
+                        GrepSearchResult result = new GrepSearchResult(file, searchPattern, lines, Encoding.Default)
+                        {
+                            AdditionalInformation = string.Format(" Sheet [{0}]", kvPair.Key)
+                        };
                         using (StringReader reader = new StringReader(kvPair.Value))
                         {
                             result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
@@ -156,7 +156,7 @@ namespace dnGREP.Engines.OpenXml
             {
                 var text = ExtractWordText(stream);
 
-                var lines = searchMethod(-1, text, searchPattern, searchOptions, true);
+                var lines = searchMethod(-1, 0, text, searchPattern, searchOptions, true);
                 if (lines.Count > 0)
                 {
                     GrepSearchResult result = new GrepSearchResult(file, searchPattern, lines, Encoding.Default);
@@ -242,16 +242,17 @@ namespace dnGREP.Engines.OpenXml
             if (para != null && para.ParagraphProperties != null && para.ParagraphProperties.Indentation != null)
             {
                 var indentation = para.ParagraphProperties.Indentation;
-                if (indentation.Left.HasValue)
+                if (indentation.Left != null && indentation.Left.HasValue)
                 {
                     indent = WordListManager.TwipsToSpaces(indentation.Left);
                 }
-                else if (indentation.Start.HasValue)
+                else if (indentation.Start != null && indentation.Start.HasValue)
                 {
                     indent = WordListManager.TwipsToSpaces(indentation.Start);
                 }
             }
             if (para != null && para.ParagraphProperties != null && para.ParagraphProperties.ParagraphStyleId != null &&
+                para.ParagraphProperties.ParagraphStyleId.Val != null &&
                 para.ParagraphProperties.ParagraphStyleId.Val.HasValue)
             {
                 var style = docStyles.Where(r => r.StyleId == para.ParagraphProperties.ParagraphStyleId.Val.Value)
@@ -264,11 +265,11 @@ namespace dnGREP.Engines.OpenXml
 
                     if (pp != null && pp.Indentation != null)
                     {
-                        if (pp.Indentation.Left.HasValue)
+                        if (pp.Indentation.Left != null && pp.Indentation.Left.HasValue)
                         {
                             indent = WordListManager.TwipsToSpaces(pp.Indentation.Left);
                         }
-                        else if (pp.Indentation.Start.HasValue)
+                        else if (pp.Indentation.Start != null && pp.Indentation.Start.HasValue)
                         {
                             indent = WordListManager.TwipsToSpaces(pp.Indentation.Start);
                         }
@@ -282,7 +283,8 @@ namespace dnGREP.Engines.OpenXml
 
         public bool IsSearchOnly { get { return true; } }
 
-        public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
+        public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType,
+            GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepMatch> replaceItems)
         {
             throw new Exception("The method or operation is not implemented.");
         }

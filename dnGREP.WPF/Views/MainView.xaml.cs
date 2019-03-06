@@ -84,7 +84,8 @@ namespace dnGREP.WPF
             var textBox = (tbSearchFor.Template.FindName("PART_EditableTextBox", tbSearchFor) as TextBox);
             if (textBox != null && !tbSearchFor.IsDropDownOpen)
             {
-                Application.Current.Dispatcher.BeginInvoke(new Action(() => {
+                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                {
                     textBox.SelectAll();
                     textBox.Focus();
                 }));
@@ -112,6 +113,10 @@ namespace dnGREP.WPF
 
         private void MainForm_Closing(object sender, CancelEventArgs e)
         {
+            inputData.CancelSearch();
+            inputData.SaveSettings();
+            inputData.CloseChildWindows();
+
             Properties.Settings.Default.MainFormExBounds = new System.Drawing.Rectangle(
                 (int)Left,
                 (int)Top,
@@ -121,8 +126,6 @@ namespace dnGREP.WPF
             if (this.WindowState == System.Windows.WindowState.Maximized)
                 Properties.Settings.Default.WindowState = System.Windows.WindowState.Maximized;
             Properties.Settings.Default.Save();
-
-            inputData.CloseCommand.Execute(null);
         }
 
         #region UI fixes
@@ -162,35 +165,12 @@ namespace dnGREP.WPF
             }
         }
 
-        private void Window_Activated(object sender, EventArgs e)
-        {
-            inputData.ActivatePreviewWindow();
-        }
-
         private void Window_StateChanged(object sender, EventArgs e)
         {
             inputData.ChangePreviewWindowState(this.WindowState);
         }
 
         #endregion
-
-        private void FilesSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var listView = (ListView)e.Source;
-            var items = new List<FormattedGrepResult>();
-            foreach (FormattedGrepResult item in listView.SelectedItems)
-            {
-                items.Add(item);
-            }
-            inputData.SetCodeSnippets(items);
-        }
-
-        private void btnOtherActions_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            advanceContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
-            advanceContextMenu.PlacementTarget = (UIElement)sender;
-            advanceContextMenu.IsOpen = true;
-        }
 
         private void btnOtherActions_Click(object sender, RoutedEventArgs e)
         {
