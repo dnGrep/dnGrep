@@ -65,7 +65,6 @@ namespace dnGREP.WPF
         private BackgroundWorker workerSearchReplace = new BackgroundWorker();
         private BookmarksForm bookmarkForm;
         private PreviewView preview;
-        private PreviewViewModel previewModel;
         private HashSet<string> currentSearchFiles = new HashSet<string>();
         private int processedFiles;
         private bool isSorted;
@@ -78,6 +77,8 @@ namespace dnGREP.WPF
         #region Properties
 
         public Window ParentWindow { get; set; }
+
+        public PreviewViewModel PreviewModel { get; set; }
 
         #endregion
 
@@ -1695,37 +1696,37 @@ namespace dnGREP.WPF
                     }
                 }
 
-                if (previewModel == null)
-                {
-                    previewModel = new PreviewViewModel();
-                }
+                //if (previewModel == null)
+                //{
+                //    previewModel = new PreviewViewModel();
+                //}
 
-                if (preview == null)
-                {
-                    preview = new PreviewView();
-                    preview.DataContext = previewModel;
-                    Rectangle bounds = settings.Get<Rectangle>(GrepSettings.Key.PreviewWindowSize);
-                    if (bounds.Left == 0 && bounds.Right == 0)
-                    {
-                        preview.Height = parentWindow.Height;
-                        preview.Left = parentWindow.Left + parentWindow.Width;
-                        preview.Width = parentWindow.Width;
-                        preview.Top = parentWindow.Top;
-                    }
-                }
+                //if (preview == null)
+                //{
+                //    preview = new PreviewView();
+                //    preview.DataContext = previewModel;
+                //    Rectangle bounds = settings.Get<Rectangle>(GrepSettings.Key.PreviewWindowSize);
+                //    if (bounds.Left == 0 && bounds.Right == 0)
+                //    {
+                //        preview.Height = parentWindow.Height;
+                //        preview.Left = parentWindow.Left + parentWindow.Width;
+                //        preview.Width = parentWindow.Width;
+                //        preview.Top = parentWindow.Top;
+                //    }
+                //}
 
 
-                previewModel.GrepResult = result;
-                previewModel.LineNumber = line;
-                previewModel.Encoding = result.Encoding;
-                previewModel.DisplayFileName = displayfileName;
-                previewModel.FilePath = filePath;
+                PreviewModel.GrepResult = result;
+                PreviewModel.LineNumber = line;
+                PreviewModel.Encoding = result.Encoding;
+                PreviewModel.DisplayFileName = displayfileName;
+                PreviewModel.FilePath = filePath;
 
-                if (preview.WindowState == WindowState.Minimized)
-                    preview.WindowState = WindowState.Normal;
-                preview.Show();
-                preview.BringToFront();
-                preview.Focus(); // needs focus so the Esc key will close (hide) the preview
+                //if (preview.WindowState == WindowState.Minimized)
+                //    preview.WindowState = WindowState.Normal;
+                //preview.Show();
+                //preview.BringToFront();
+                //preview.Focus(); // needs focus so the Esc key will close (hide) the preview
             }
         }
         #endregion

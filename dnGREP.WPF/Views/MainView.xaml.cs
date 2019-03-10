@@ -47,6 +47,8 @@ namespace dnGREP.WPF
             inputData = new MainViewModel();
             this.DataContext = inputData;
 
+            inputData.PreviewModel = previewControl.ViewModel;
+
             this.PreviewKeyDown += MainFormEx_PreviewKeyDown;
             this.PreviewKeyUp += MainFormEx_PreviewKeyUp;
         }
