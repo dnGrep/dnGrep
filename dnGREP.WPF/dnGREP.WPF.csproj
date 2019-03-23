@@ -170,9 +170,6 @@
     <Compile Include="Views\PreviewControl.xaml.cs">
       <DependentUpon>PreviewControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PreviewView.xaml.cs">
-      <DependentUpon>PreviewView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MVHelpers\PreviewHighlighter.cs" />
     <Page Include="Dictionaries\CustomTemplates.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -204,10 +201,6 @@
     <Page Include="Views\PreviewControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\PreviewView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Dictionaries\Styles.xaml">
       <SubType>Designer</SubType>

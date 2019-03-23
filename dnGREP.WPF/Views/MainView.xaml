@@ -10,7 +10,6 @@
         mc:Ignorable="d"
         Title="{Binding WindowTitle}" MinWidth="500" MinHeight="485" WindowState="Normal"
         Icon="/dnGREP;component/nGREP.ico" 
-        Closing="MainForm_Closing" Loaded="Window_Loaded" StateChanged="Window_StateChanged"
         SnapsToDevicePixels="True" ResizeMode="CanResizeWithGrip" AllowDrop="False"
         my:DiginesisHelpProvider.HelpKeyword="Search-Window" my:DiginesisHelpProvider.HelpNavigator="Topic" my:DiginesisHelpProvider.ShowHelp="True" 
         WindowStartupLocation="Manual" FocusManager.FocusedElement="{Binding ElementName=tbSearchFor}" d:DesignWidth="900">
@@ -21,6 +20,18 @@
         <my:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed"/>
         <my:BoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" TrueValue="Collapsed" FalseValue="Visible" />
         <my:GridLengthConverter x:Key="GridLengthConverter" />
+
+        <Style x:Key="previewVisibilityStyle" TargetType="Control">
+            <Setter Property="Visibility" Value="Visible"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding IsPreviewDocked}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding PreviewFileContent}" Value="False">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <Window.Background>
         <StaticResource ResourceKey="GradientBackground"/>
@@ -29,15 +40,21 @@
         <KeyBinding Key="Escape" Command="{Binding CancelCommand}"/>
         <KeyBinding Key="e" Modifiers="Alt" Command="{Binding ToggleFileOptionsCommand}" />
     </Window.InputBindings>
-    
+
     <DockPanel ManipulationBoundaryFeedback="ManipulationBoundaryFeedbackHandler">
 
-        <df:DockPane DockPanel.Dock="Right" Width="200" ButtonOverlapsContent="False" Background="{StaticResource GradientBackground}">
+        <df:DockSite DockPanel.Dock="Right" Background="{StaticResource GradientBackground}"
+                     Heading="{Binding PreviewTitle}" ShowHeader="True"
+                     Width="{Binding PreviewDockedWidth, Mode=TwoWay, FallbackValue=100}"
+                     FloatWindowBounds="{Binding PreviewWindowBounds, Mode=TwoWay}" 
+                     FloatWindowState="{Binding PreviewWindowState, Mode=TwoWay}"
+                     IsDocked="{Binding IsPreviewDocked, Mode=TwoWay}"
+                     Style="{StaticResource previewVisibilityStyle}" >
             <Border>
                 <my:PreviewControl x:Name="previewControl" />
             </Border>
-        </df:DockPane>
-        <df:DockPanelSplitter DockPanel.Dock="Right" Thickness="4" Background="Gainsboro" />
+        </df:DockSite>
+        <df:DockPanelSplitter DockPanel.Dock="Right" Thickness="4" Background="Gainsboro" Style="{StaticResource previewVisibilityStyle}"/>
 
         <DockPanel DockPanel.Dock="Top" Margin="5,5,5,-2">
             <TextBlock DockPanel.Dock="Left" FontSize="16" FontWeight="DemiBold" Text="dnGrep"/>
@@ -71,7 +88,7 @@
                 </StackPanel>
             </StatusBarItem>
         </StatusBar>
-        
+
         <DockPanel LastChildFill="True">
             <GroupBox DockPanel.Dock="Top" Header="Search in">
                 <Grid>
@@ -227,7 +244,7 @@
                                         <TextBlock VerticalAlignment="Center" Margin="3,0,3,3" Text="Encoding:" HorizontalAlignment="Left" />
                                         <ComboBox Width="224" Name="cbEncoding" TabIndex="43" Margin="3,0,3,3"
                                               DisplayMemberPath="Key" SelectedValuePath="Value" ItemsSource="{Binding Path=Encodings}"
-                                              VerticalAlignment="Center" SelectedValue="{Binding Path=CodePage}" Initialized="cbEncoding_Initialized" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="24">
+                                              VerticalAlignment="Center" SelectedValue="{Binding Path=CodePage}" Initialized="CbEncoding_Initialized" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="24">
                                             <ComboBox.ItemContainerStyle>
                                                 <Style TargetType="{x:Type ComboBoxItem}">
                                                     <Setter Property="HorizontalContentAlignment" Value="Left"/>
@@ -345,13 +362,13 @@
                     <CheckBox Content="Search _in results" IsChecked="{Binding SearchInResultsContent}" 
                               Visibility="{Binding CanSearchInResults, Converter={StaticResource BoolToVisibilityConverter}}" 
                               VerticalAlignment="Center" Margin="3,0" TabIndex="80" VerticalContentAlignment="Center"/>
-                    <CheckBox Content="Pre_view file" IsChecked="{Binding PreviewFileContent}" VerticalAlignment="Center" Margin="3,0" TabIndex="81" VerticalContentAlignment="Center"/>
+                    <CheckBox Content="Pre_view file" x:Name="chkPreview" IsChecked="{Binding PreviewFileContent}" VerticalAlignment="Center" Margin="3,0" TabIndex="81" VerticalContentAlignment="Center"/>
                     <CheckBox Content="Stop after first match" IsChecked="{Binding StopAfterFirstMatch}" VerticalAlignment="Center" Margin="3,0" TabIndex="82" VerticalContentAlignment="Center"/>
                     <Button Content="_Search" Width="64" Margin="3" IsDefault="True" Command="{Binding SearchCommand}" TabIndex="83" Height="24"/>
                     <Button Content="Replace" Width="64" Margin="3" Command="{Binding ReplaceCommand}" TabIndex="84" Height="24"/>
                     <Button Content="Sort" Width="64" Margin="3" Command="{Binding SortCommand}" TabIndex="85" Height="24"
                             Visibility="{Binding SearchParallel, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                    <Button Content=">>" Width="32" Margin="3" Click="btnOtherActions_Click" 
+                    <Button Content=">>" Width="32" Margin="3" Click="ButtonOtherActions_Click" 
                             ContextMenuService.Placement="Bottom" IsEnabled="{Binding CanSearchInResults}" TabIndex="86" Height="24">
                         <Button.ContextMenu>
                             <ContextMenu x:Name="advanceContextMenu">

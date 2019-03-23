@@ -155,14 +155,12 @@
     <Compile Include="BookmarksForm.Designer.cs">
       <DependentUpon>BookmarksForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Extensions.cs" />
     <Compile Include="FileFolderDialog.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="FileFolderDialog.Win32.cs" />
     <Compile Include="FileIcons.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\dnGREP.Common\dnGREP.Common.csproj">

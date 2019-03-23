@@ -5,14 +5,23 @@
     <Setting Name="WindowState" Type="System.Windows.WindowState" Scope="User">
       <Value Profile="(Default)">Normal</Value>
     </Setting>
-    <Setting Name="PreviewBounds" Type="System.Drawing.Rectangle" Scope="User">
-      <Value Profile="(Default)">1000, 100, 600, 800</Value>
+    <Setting Name="PreviewBounds" Type="System.Windows.Rect" Scope="User">
+      <Value Profile="(Default)">1000,100,600,800</Value>
     </Setting>
-    <Setting Name="MainFormExBounds" Type="System.Drawing.Rectangle" Scope="User">
-      <Value Profile="(Default)">100, 100, 900, 800</Value>
+    <Setting Name="MainFormExBounds" Type="System.Windows.Rect" Scope="User">
+      <Value Profile="(Default)">100,100,900,800</Value>
     </Setting>
-    <Setting Name="ReplaceBounds" Type="System.Drawing.Rectangle" Scope="User">
-      <Value Profile="(Default)">200, 200, 800, 980</Value>
+    <Setting Name="ReplaceBounds" Type="System.Windows.Rect" Scope="User">
+      <Value Profile="(Default)">200,200,800,980</Value>
+    </Setting>
+    <Setting Name="PreviewWindowState" Type="System.Windows.WindowState" Scope="User">
+      <Value Profile="(Default)">Normal</Value>
+    </Setting>
+    <Setting Name="PreviewDocked" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="PreviewDockedWidth" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">240</Value>
     </Setting>
   </Settings>
 </SettingsFile>

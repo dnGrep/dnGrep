@@ -22,14 +22,14 @@ namespace DockFloat
     /// Add this XmlNamespace attribute to the root element of the markup file where it is 
     /// to be used:
     ///
-    ///     xmlns:OsDps="clr-namespace:DockPanelSplitter"
+    ///     xmlns:df="clr-namespace:DockPanelSplitter"
     ///
     ///
     /// Step 1b) Using this custom control in a XAML file that exists in a different project.
     /// Add this XmlNamespace attribute to the root element of the markup file where it is 
     /// to be used:
     ///
-    ///     xmlns:MyNamespace="clr-namespace:DockPanelSplitter;assembly=DockPanelSplitter"
+    ///     xmlns:df="clr-namespace:DockPanelSplitter;assembly=DockFloat"
     ///
     /// You will also need to add a project reference from the project where the XAML file lives
     /// to this project and Rebuild to avoid compilation errors:
@@ -41,7 +41,7 @@ namespace DockFloat
     /// Step 2)
     /// Go ahead and use your control in the XAML file.
     ///
-    ///     <MyNamespace:DockPanelSplitter/>
+    ///     <df:DockPanelSplitter/>
     ///
     /// </summary>
 

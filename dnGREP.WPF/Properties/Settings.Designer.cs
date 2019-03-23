@@ -37,10 +37,10 @@ namespace dnGREP.WPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1000, 100, 600, 800")]
-        public global::System.Drawing.Rectangle PreviewBounds {
+        [global::System.Configuration.DefaultSettingValueAttribute("1000,100,600,800")]
+        public global::System.Windows.Rect PreviewBounds {
             get {
-                return ((global::System.Drawing.Rectangle)(this["PreviewBounds"]));
+                return ((global::System.Windows.Rect)(this["PreviewBounds"]));
             }
             set {
                 this["PreviewBounds"] = value;
@@ -49,10 +49,10 @@ namespace dnGREP.WPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("100, 100, 900, 800")]
-        public global::System.Drawing.Rectangle MainFormExBounds {
+        [global::System.Configuration.DefaultSettingValueAttribute("100,100,900,800")]
+        public global::System.Windows.Rect MainFormExBounds {
             get {
-                return ((global::System.Drawing.Rectangle)(this["MainFormExBounds"]));
+                return ((global::System.Windows.Rect)(this["MainFormExBounds"]));
             }
             set {
                 this["MainFormExBounds"] = value;
@@ -61,13 +61,49 @@ namespace dnGREP.WPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("200, 200, 800, 980")]
-        public global::System.Drawing.Rectangle ReplaceBounds {
+        [global::System.Configuration.DefaultSettingValueAttribute("200,200,800,980")]
+        public global::System.Windows.Rect ReplaceBounds {
             get {
-                return ((global::System.Drawing.Rectangle)(this["ReplaceBounds"]));
+                return ((global::System.Windows.Rect)(this["ReplaceBounds"]));
             }
             set {
                 this["ReplaceBounds"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Normal")]
+        public global::System.Windows.WindowState PreviewWindowState {
+            get {
+                return ((global::System.Windows.WindowState)(this["PreviewWindowState"]));
+            }
+            set {
+                this["PreviewWindowState"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool PreviewDocked {
+            get {
+                return ((bool)(this["PreviewDocked"]));
+            }
+            set {
+                this["PreviewDocked"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("240")]
+        public double PreviewDockedWidth {
+            get {
+                return ((double)(this["PreviewDockedWidth"]));
+            }
+            set {
+                this["PreviewDockedWidth"] = value;
             }
         }
     }

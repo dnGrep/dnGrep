@@ -3,7 +3,6 @@ using System.Globalization;
 using System.Reflection;
 using System.Windows.Forms;
 using Alphaleonis.Win32.Filesystem;
-using dnGREP.Common.UI;
 
 namespace dnGREP.WPF
 {
@@ -113,8 +112,32 @@ namespace dnGREP.WPF
 
         public DateTime AssemblyBuildDate
         {
-            get { return Assembly.GetExecutingAssembly().GetLinkerTime(); }
+            get { return GetLinkerTime(Assembly.GetExecutingAssembly()); }
         }
-        #endregion
+
+        // http://stackoverflow.com/questions/1600962/displaying-the-build-date
+        static DateTime GetLinkerTime(Assembly assembly, TimeZoneInfo target = null)
+        {
+            var filePath = assembly.Location;
+            const int c_PeHeaderOffset = 60;
+            const int c_LinkerTimestampOffset = 8;
+
+            var buffer = new byte[2048];
+
+            using (var stream = File.Open(filePath, System.IO.FileMode.Open, System.IO.FileAccess.Read))
+                stream.Read(buffer, 0, 2048);
+
+            var offset = BitConverter.ToInt32(buffer, c_PeHeaderOffset);
+            var secondsSince1970 = BitConverter.ToInt32(buffer, offset + c_LinkerTimestampOffset);
+            var epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
+            var linkTimeUtc = epoch.AddSeconds(secondsSince1970);
+
+            var tz = target ?? TimeZoneInfo.Local;
+            var localTime = TimeZoneInfo.ConvertTimeFromUtc(linkTimeUtc, tz);
+
+            return localTime;
+        }
+        #endregion        
     }
 }
