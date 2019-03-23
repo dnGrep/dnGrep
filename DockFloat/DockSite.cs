@@ -129,6 +129,14 @@ namespace DockFloat
         public static readonly DependencyProperty IsDockedProperty =
             DependencyProperty.Register("IsDocked", typeof(bool), typeof(DockSite), new PropertyMetadata(true));
 
+        public bool IsHidden
+        {
+            get => (bool)GetValue(IsHiddenProperty);
+            set => SetValue(IsHiddenProperty, value);
+        }
+        public static readonly DependencyProperty IsHiddenProperty =
+            DependencyProperty.Register("IsHidden", typeof(bool), typeof(DockSite), new PropertyMetadata(false));
+
         public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
@@ -142,7 +150,7 @@ namespace DockFloat
                 .Where(d => !d.IsDocked).ToArray();
 
             foreach (var dockSite in sites)
-                dockSite.PopOut(true);
+                dockSite.PopOut(dockSite.IsHidden);
         }
 
         private void SavePlacement()
@@ -153,6 +161,8 @@ namespace DockFloat
 
             FloatWindowState = floatingWindow.WindowState == WindowState.Maximized ?
                 WindowState.Maximized : WindowState.Normal;
+
+            IsHidden = floatingWindow.Visibility != Visibility.Visible;
         }
 
         void PopOut(bool hidden)
@@ -206,7 +216,7 @@ namespace DockFloat
             floatingWindow.Loaded += (s, e) =>
             {
                 if (!floatingWindow.IsOnScreen())
-                    floatingWindow.CenterWindow();
+                    floatingWindow.ToRightEdge();
             };
             floatingWindow.Closing += (s, e) => SavePlacement();
             floatingWindow.Closed += (s, e) => DockIn();

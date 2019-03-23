@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Interop;
 using WpfScreenHelper;
 
 namespace DockFloat
@@ -44,14 +45,42 @@ namespace DockFloat
             return false;
         }
 
+        public static void ConstrainToScreen(this Window window)
+        {
+            // don't let the window grow beyond the right edge of the screen
+            var screen = Screen.FromHandle(new WindowInteropHelper(window).Handle);
+            if (window.Left + window.ActualWidth > screen.Bounds.Right)
+            {
+                window.Width = screen.Bounds.Right - window.Left;
+            }
+        }
+
         public static void CenterWindow(this Window window)
         {
             double screenWidth = SystemParameters.PrimaryScreenWidth;
             double screenHeight = SystemParameters.PrimaryScreenHeight;
-            double windowWidth = window.ActualWidth;
-            double windowHeight = window.ActualHeight;
-            window.Left = (screenWidth / 2) - (windowWidth / 2);
-            window.Top = (screenHeight / 2) - (windowHeight / 2);
+
+            if (window.ActualHeight > screenHeight)
+                window.Height = screenHeight;
+            if (window.ActualWidth > screenWidth)
+                window.Width = screenWidth;
+
+            window.Left = (screenWidth / 2) - (window.ActualWidth / 2);
+            window.Top = (screenHeight / 2) - (window.ActualHeight / 2);
+        }
+
+        public static void ToRightEdge(this Window window)
+        {
+            double screenWidth = SystemParameters.PrimaryScreenWidth;
+            double screenHeight = SystemParameters.PrimaryScreenHeight;
+
+            if (window.ActualHeight > screenHeight)
+                window.Height = screenHeight;
+            if (window.ActualWidth > screenWidth)
+                window.Width = screenWidth;
+
+            window.Left = screenWidth - window.ActualWidth;
+            window.Top = (screenHeight / 2) - (window.ActualHeight / 2);
         }
     }
 }

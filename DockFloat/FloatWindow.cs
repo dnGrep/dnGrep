@@ -61,8 +61,6 @@ namespace DockFloat
 
         private void FloatWindow_Closing(object sender, CancelEventArgs e)
         {
-            // TODO save properties
-
             if (!forceClose)
             {
                 Hide();
@@ -77,7 +75,5 @@ namespace DockFloat
             content.HorizontalAlignment = HorizontalAlignment.Stretch;
             content.VerticalAlignment = VerticalAlignment.Stretch;
         }
-
     }
-
 }

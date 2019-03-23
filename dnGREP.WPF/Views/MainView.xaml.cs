@@ -34,12 +34,14 @@ namespace dnGREP.WPF
             Height = Properties.Settings.Default.MainFormExBounds.Height;
             Top = Properties.Settings.Default.MainFormExBounds.Y;
             Left = Properties.Settings.Default.MainFormExBounds.X;
-            WindowState = Properties.Settings.Default.WindowState;
+            WindowState = Properties.Settings.Default.MainWindowState;
 
             Loaded += (s, e) =>
             {
                 if (!this.IsOnScreen())
                     this.CenterWindow();
+
+                this.ConstrainToScreen();
             };
             this.isVisible = isVisible;
 
@@ -47,6 +49,7 @@ namespace dnGREP.WPF
             viewModel = new MainViewModel();
             viewModel.PreviewHide += ViewModel_PreviewHide;
             viewModel.PreviewShow += ViewModel_PreviewShow;
+            viewModel.PropertyChanged += ViewModel_PropertyChanged;
             DataContext = viewModel;
 
             viewModel.PreviewModel = previewControl.ViewModel;
@@ -125,9 +128,9 @@ namespace dnGREP.WPF
                 Top,
                 ActualWidth,
                 ActualHeight);
-            Properties.Settings.Default.WindowState = WindowState.Normal;
+            Properties.Settings.Default.MainWindowState = WindowState.Normal;
             if (WindowState == WindowState.Maximized)
-                Properties.Settings.Default.WindowState = WindowState.Maximized;
+                Properties.Settings.Default.MainWindowState = WindowState.Maximized;
 
             Properties.Settings.Default.Save();
         }
@@ -149,6 +152,47 @@ namespace dnGREP.WPF
             foreach (Window wind in DockSite.GetAllFloatWindows(this))
             {
                 wind.Close();
+            }
+        }
+
+        private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            // Shrink or grow the main window the same amount as the
+            // preview panel that is hiding or showing
+            // Toggle the ProportionalResize property so the splitter
+            // distance is not changed when the main window is resized
+
+            if (e.PropertyName == "IsPreviewDocked")
+            {
+                if (viewModel.PreviewFileContent)
+                {
+                    previewSplitter.ProportionalResize = false;
+
+                    if (viewModel.IsPreviewDocked)
+                        Width += viewModel.PreviewDockedWidth;
+                    else
+                        Width -= viewModel.PreviewDockedWidth;
+
+                    this.ConstrainToScreen();
+
+                    previewSplitter.ProportionalResize = true;
+                }
+            }
+            else if (e.PropertyName == "PreviewFileContent")
+            {
+                if (viewModel.IsPreviewDocked)
+                {
+                    previewSplitter.ProportionalResize = false;
+
+                    if (viewModel.PreviewFileContent)
+                        Width += viewModel.PreviewDockedWidth;
+                    else
+                        Width -= viewModel.PreviewDockedWidth;
+
+                    this.ConstrainToScreen();
+
+                    previewSplitter.ProportionalResize = true;
+                }
             }
         }
 

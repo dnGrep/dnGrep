@@ -49,25 +49,27 @@
                      FloatWindowBounds="{Binding PreviewWindowBounds, Mode=TwoWay}" 
                      FloatWindowState="{Binding PreviewWindowState, Mode=TwoWay}"
                      IsDocked="{Binding IsPreviewDocked, Mode=TwoWay}"
+                     IsHidden="{Binding IsPreviewHidden, Mode=TwoWay}"
                      Style="{StaticResource previewVisibilityStyle}" >
             <Border>
                 <my:PreviewControl x:Name="previewControl" />
             </Border>
         </df:DockSite>
-        <df:DockPanelSplitter DockPanel.Dock="Right" Thickness="4" Background="Gainsboro" Style="{StaticResource previewVisibilityStyle}"/>
+        <df:DockPanelSplitter x:Name="previewSplitter" DockPanel.Dock="Right" Thickness="4" Background="Gainsboro"
+                              Style="{StaticResource previewVisibilityStyle}"/>
 
-        <DockPanel DockPanel.Dock="Top" Margin="5,5,5,-2">
+        <DockPanel DockPanel.Dock="Top" Margin="5,5,5,0">
             <TextBlock DockPanel.Dock="Left" FontSize="16" FontWeight="DemiBold" Text="dnGrep"/>
-            <Menu x:Name="mnuMainMenu" Background="Transparent" HorizontalAlignment="Right">
+            <Menu Background="Transparent" HorizontalAlignment="Right">
                 <Menu.Resources>
                     <Style TargetType="MenuItem">
-                        <Setter Property="Height" Value="{Binding ActualHeight, ElementName=mnuMainMenu}"/>
+                        <Setter Property="Height" Value="22"/>
                     </Style>
                 </Menu.Resources>
                 <MenuItem Header="_Undo" Command="{Binding UndoCommand}" TabIndex="0" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="0,0,3,0"/>
                 <MenuItem Header="_Options..." Command="{Binding OptionsCommand}"  TabIndex="1" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="0,0,3,0"/>
                 <MenuItem Header="_Bookmarks..." Command="{Binding BookmarkOpenCommand}" TabIndex="2" Margin="0,0,3,0" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
-                <MenuItem Header="_About" TabIndex="3" Height="22" Margin="0,0,3,0" VerticalContentAlignment="Center" VerticalAlignment="Center">
+                <MenuItem Header="_About" TabIndex="3" Margin="0,0,3,0" VerticalContentAlignment="Center" VerticalAlignment="Center">
                     <MenuItem Command="{Binding HelpCommand}" Header="_Help"/>
                     <MenuItem Command="{Binding AboutCommand}" Header="_About dnGrep..."/>
                 </MenuItem>

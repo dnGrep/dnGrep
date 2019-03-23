@@ -2,14 +2,14 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="dnGREP.WPF.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="WindowState" Type="System.Windows.WindowState" Scope="User">
+    <Setting Name="MainWindowState" Type="System.Windows.WindowState" Scope="User">
       <Value Profile="(Default)">Normal</Value>
     </Setting>
     <Setting Name="PreviewBounds" Type="System.Windows.Rect" Scope="User">
       <Value Profile="(Default)">1000,100,600,800</Value>
     </Setting>
     <Setting Name="MainFormExBounds" Type="System.Windows.Rect" Scope="User">
-      <Value Profile="(Default)">100,100,900,800</Value>
+      <Value Profile="(Default)">100,100,1400,800</Value>
     </Setting>
     <Setting Name="ReplaceBounds" Type="System.Windows.Rect" Scope="User">
       <Value Profile="(Default)">200,200,800,980</Value>
@@ -21,7 +21,10 @@
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="PreviewDockedWidth" Type="System.Double" Scope="User">
-      <Value Profile="(Default)">240</Value>
+      <Value Profile="(Default)">360</Value>
+    </Setting>
+    <Setting Name="PreviewHidden" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
     </Setting>
   </Settings>
 </SettingsFile>

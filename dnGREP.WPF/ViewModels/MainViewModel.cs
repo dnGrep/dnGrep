@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -23,7 +22,7 @@ namespace dnGREP.WPF
     public class MainViewModel : BaseMainViewModel
     {
         public event EventHandler PreviewHide;
-        public event EventHandler PreviewShow;        
+        public event EventHandler PreviewShow;
 
         public MainViewModel()
             : base()
@@ -32,6 +31,7 @@ namespace dnGREP.WPF
             _previewWindowState = Properties.Settings.Default.PreviewWindowState;
             _isPreviewDocked = Properties.Settings.Default.PreviewDocked;
             _previewDockedWidth = Properties.Settings.Default.PreviewDockedWidth;
+            _isPreviewHidden = Properties.Settings.Default.PreviewHidden;
 
             SearchResults.PreviewFileLineRequest += SearchResults_PreviewFileLineRequest;
             SearchResults.PreviewFileRequest += SearchResults_PreviewFileRequest;
@@ -144,6 +144,20 @@ namespace dnGREP.WPF
 
                 _isPreviewDocked = value;
                 base.OnPropertyChanged(() => IsPreviewDocked);
+            }
+        }
+
+        private bool _isPreviewHidden = false;
+        public bool IsPreviewHidden
+        {
+            get { return _isPreviewHidden; }
+            set
+            {
+                if (_isPreviewHidden == value)
+                    return;
+
+                _isPreviewHidden = value;
+                base.OnPropertyChanged(() => IsPreviewHidden);
             }
         }
 
@@ -549,6 +563,7 @@ namespace dnGREP.WPF
             Properties.Settings.Default.PreviewWindowState = PreviewWindowState;
             Properties.Settings.Default.PreviewDocked = IsPreviewDocked;
             Properties.Settings.Default.PreviewDockedWidth = PreviewDockedWidth;
+            Properties.Settings.Default.PreviewHidden = IsPreviewHidden;
 
             base.SaveSettings();
         }
@@ -1031,7 +1046,7 @@ namespace dnGREP.WPF
 
                 PreviewModel.FilePath = string.Empty;
                 PreviewTitle = string.Empty;
-                
+
 
                 SearchReplaceCriteria workerParams = new SearchReplaceCriteria(this);
                 if (SearchInResultsContent && CanSearchInResults)

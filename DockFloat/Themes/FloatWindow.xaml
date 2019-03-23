@@ -41,7 +41,7 @@
                                    Foreground="#999999" HorizontalAlignment="Center" VerticalAlignment="Center"
                                    RenderOptions.ClearTypeHint="Auto" TextOptions.TextRenderingMode="Aliased"  
                                    TextOptions.TextFormattingMode="Display"/>
-                        <!-- Window 10 only! <TextBlock x:Name="txt" Text="{TemplateBinding Content}" FontFamily="Segoe MDL2 Assets" FontSize="10" 
+                        <!-- Windows 10 only! <TextBlock x:Name="txt" Text="{TemplateBinding Content}" FontFamily="Segoe MDL2 Assets" FontSize="10" 
                                    Foreground="#999999" HorizontalAlignment="Center" VerticalAlignment="Center"
                                    RenderOptions.ClearTypeHint="Auto" TextOptions.TextRenderingMode="Aliased"  
                                    TextOptions.TextFormattingMode="Display"/>-->
@@ -69,7 +69,7 @@
                                    Foreground="#999999" HorizontalAlignment="Center" VerticalAlignment="Center"
                                    RenderOptions.ClearTypeHint="Auto" TextOptions.TextRenderingMode="Aliased"  
                                    TextOptions.TextFormattingMode="Display"/>
-                        <!-- Window 10 only! <TextBlock x:Name="txt" Text="&#xE8BB;" FontFamily="Segoe MDL2 Assets" FontSize="10" 
+                        <!-- Windows 10 only! <TextBlock x:Name="txt" Text="&#xE8BB;" FontFamily="Segoe MDL2 Assets" FontSize="10" 
                                    Foreground="#999999" HorizontalAlignment="Center" VerticalAlignment="Center"
                                    RenderOptions.ClearTypeHint="Auto" TextOptions.TextRenderingMode="Aliased"  
                                    TextOptions.TextFormattingMode="Display"/>-->
@@ -91,19 +91,19 @@
 
     <Style x:Key="MinimizeButtonStyle" TargetType="Button" BasedOn="{StaticResource CaptionButtonStyle}">
         <Setter Property="Content" Value="&#x30;"/>
-        <!--<Setter Property="Content" Value="&#xE949;"/>-->
+        <!--<Setter Property="Content" Value="&#xE949;"/> win10 -->
         <Setter Property="ToolTip" Value="Minimize"/>
     </Style>
 
     <Style x:Key="MaximizeButtonStyle" TargetType="Button" BasedOn="{StaticResource CaptionButtonStyle}">
         <Setter Property="Content" Value="&#x31;"/>
-        <!--<Setter Property="Content" Value="&#xE739;"/>-->
+        <!--<Setter Property="Content" Value="&#xE739;"/> win10 -->
         <Setter Property="ToolTip" Value="Maximize"/>
     </Style>
 
     <Style x:Key="RestoreButtonStyle" TargetType="Button" BasedOn="{StaticResource CaptionButtonStyle}">
         <Setter Property="Content" Value="&#x32;"/>
-        <!--<Setter Property="Content" Value="&#xE923;"/>-->
+        <!--<Setter Property="Content" Value="&#xE923;"/> win10 -->
         <Setter Property="ToolTip" Value="Restore Down"/>
     </Style>
 
@@ -116,7 +116,6 @@
                                     GlassFrameThickness="5,30,5,5"
                                     NonClientFrameEdges="None"
                                     ResizeBorderThickness="5"/>
-                <!--<shell:WindowChrome CaptionHeight="18" GlassFrameThickness="2"/>-->
             </Setter.Value>
         </Setter>
         <Setter Property="ShowInTaskbar" Value="True"/>

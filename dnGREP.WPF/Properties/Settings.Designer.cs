@@ -26,12 +26,12 @@ namespace dnGREP.WPF.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("Normal")]
-        public global::System.Windows.WindowState WindowState {
+        public global::System.Windows.WindowState MainWindowState {
             get {
-                return ((global::System.Windows.WindowState)(this["WindowState"]));
+                return ((global::System.Windows.WindowState)(this["MainWindowState"]));
             }
             set {
-                this["WindowState"] = value;
+                this["MainWindowState"] = value;
             }
         }
         
@@ -49,7 +49,7 @@ namespace dnGREP.WPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("100,100,900,800")]
+        [global::System.Configuration.DefaultSettingValueAttribute("100,100,1400,800")]
         public global::System.Windows.Rect MainFormExBounds {
             get {
                 return ((global::System.Windows.Rect)(this["MainFormExBounds"]));
@@ -97,13 +97,25 @@ namespace dnGREP.WPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("240")]
+        [global::System.Configuration.DefaultSettingValueAttribute("360")]
         public double PreviewDockedWidth {
             get {
                 return ((double)(this["PreviewDockedWidth"]));
             }
             set {
                 this["PreviewDockedWidth"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool PreviewHidden {
+            get {
+                return ((bool)(this["PreviewHidden"]));
+            }
+            set {
+                this["PreviewHidden"] = value;
             }
         }
     }
