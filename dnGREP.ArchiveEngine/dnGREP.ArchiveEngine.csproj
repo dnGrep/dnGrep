@@ -99,7 +99,7 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.5.11\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\packages\NLog.4.6.0\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="SevenZipSharp, Version=1.0.3537.37869, Culture=neutral, PublicKeyToken=20de82c62b055c88, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -178,7 +178,7 @@ xcopy /Y /R "$(TargetDir)7z.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$
 xcopy /Y /R "$(TargetDir)7z64.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\ArchiveSearch\"
 xcopy /Y /R "$(TargetDir)dnGREP.Engines.Archive.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\ArchiveSearch\"
 xcopy /Y /R "$(TargetDir)dnGREP.Engines.Archive.pdb" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\ArchiveSearch\"
-xcopy /Y /R "$(TargetDir)SevenZipSharp.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\Debug\$(ConfigurationName)\ArchiveSearch\"
+xcopy /Y /R "$(TargetDir)SevenZipSharp.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\ArchiveSearch\"
 
 REM Start copying release files
 rmdir /S /Q "$(SolutionDir)Release\$(PlatformName)\dnGREP Archive Plugin X.X.X"

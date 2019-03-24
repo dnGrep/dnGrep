@@ -19,6 +19,12 @@
         <Component Id="cmpA45314E8043447409B314877181AFFC2" Guid="{B0AE5F70-C2D7-4AE9-A818-F4FCF2976893}">
           <File Id="filFAEC854B95AE471588ACDB42F946AEA8" KeyPath="yes" Source="$(var.dnGREP.OpenXmlEngine.TargetDir)ExcelNumberFormat.dll" />
         </Component>
+        <Component Id="cmp06E8CC1317FE401882E090D0ED67D0E6" Guid="{B95A23F1-8524-4956-A65A-BF74E668E355}">
+          <File Id="filA571DBCD888F4A4C8900DC52F168B29A" KeyPath="yes" Source="$(var.dnGREP.OpenXmlEngine.TargetDir)System.IO.FileSystem.Primitives.dll" />
+        </Component>
+        <Component Id="cmp9D170004A242480EB7C60BAB2B866177" Guid="{9AF7A64F-4660-4F48-BC2A-D0AF0FF9E6D8}">
+          <File Id="filF347E9025FF04ACE9CADD1964A7FB02B" KeyPath="yes" Source="$(var.dnGREP.OpenXmlEngine.TargetDir)System.IO.Packaging.dll" />
+        </Component>
       </Directory>
     </DirectoryRef>
   </Fragment>
@@ -29,6 +35,8 @@
       <ComponentRef Id="cmp65CA3425451848238FB8FF1E6D13CDA9" />
       <ComponentRef Id="cmpCD493559D3B041348B088DB173CD2DCD" />
       <ComponentRef Id="cmpA45314E8043447409B314877181AFFC2" />
+      <ComponentRef Id="cmp06E8CC1317FE401882E090D0ED67D0E6" />
+      <ComponentRef Id="cmp9D170004A242480EB7C60BAB2B866177" />
     </ComponentGroup>
   </Fragment>
 </Wix>

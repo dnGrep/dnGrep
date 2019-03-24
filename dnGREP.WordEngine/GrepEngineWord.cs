@@ -25,9 +25,8 @@ namespace dnGREP.Engines.Word
         private Type wordType;
         private object wordApplication;
         private object wordDocuments;
-        private object wordSelection;
 
-        private object MISSING_VALUE = System.Reflection.Missing.Value;
+        private readonly object MISSING_VALUE = Missing.Value;
 
         #region Initialization and disposal
         public GrepEngineWord()
@@ -87,7 +86,7 @@ namespace dnGREP.Engines.Word
 
         public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
         {
-            load();
+            Load();
             SearchDelegates.DoSearch searchMethodMultiline = DoTextSearch;
             switch (searchType)
             {
@@ -103,7 +102,7 @@ namespace dnGREP.Engines.Word
                     break;
             }
 
-            List<GrepSearchResult> result = searchMultiline(file, searchPattern, searchOptions, searchMethodMultiline);
+            List<GrepSearchResult> result = SearchMultiline(file, searchPattern, searchOptions, searchMethodMultiline);
             return result;
         }
 
@@ -129,47 +128,40 @@ namespace dnGREP.Engines.Word
             return Search(filePath, searchPattern, searchType, searchOptions, encoding);
         }
 
-        private List<GrepSearchResult> searchMultiline(string file, string searchPattern, GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod)
+        private List<GrepSearchResult> SearchMultiline(string file, string searchPattern, GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod)
         {
             List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
 
             try
             {
                 // Open a given Word document as readonly
-                object wordDocument = openDocument(file, true);
+                object wordDocument = OpenDocument(file, true);
                 if (wordDocument != null)
                 {
-                    // Get Selection Property
-                    wordSelection = wordApplication.GetType().InvokeMember("Selection", BindingFlags.GetProperty,
-                        null, wordApplication, null);
-
                     // create range and find objects
-                    object range = getProperty(wordDocument, "Content");
+                    object range = GetProperty(wordDocument, "Content");
 
                     // create text
-                    object text = getProperty(range, "Text");
+                    object text = GetProperty(range, "Text");
 
-                    var lines = searchMethod(-1, 0, Utils.CleanLineBreaks(text.ToString()), searchPattern, searchOptions, true);
+                    string docText = Utils.CleanLineBreaks(text.ToString());
+                    var lines = searchMethod(-1, 0, docText, searchPattern, searchOptions, true);
                     if (lines.Count > 0)
                     {
                         GrepSearchResult result = new GrepSearchResult(file, searchPattern, lines, Encoding.Default);
-                        using (StringReader reader = new StringReader(text.ToString()))
+                        using (StringReader reader = new StringReader(docText))
                         {
                             result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
                         }
                         result.ReadOnly = true;
                         searchResults.Add(result);
                     }
-                    closeDocument(wordDocument);
+                    CloseDocument(wordDocument);
                 }
             }
             catch (Exception ex)
             {
                 logger.Log<Exception>(LogLevel.Error, "Failed to search inside Word file", ex);
-            }
-            finally
-            {
-                releaseSelection();
             }
             return searchResults;
         }
@@ -195,7 +187,7 @@ namespace dnGREP.Engines.Word
         /// <summary>
         /// Loads Microsoft Word.
         /// </summary>
-        private void load()
+        private void Load()
         {
             bool visible = false;
             try
@@ -263,41 +255,22 @@ namespace dnGREP.Engines.Word
             isLoaded = false;
         }
 
-        /// <summary>Information enum [for selection]</summary>
-        private enum WdInformation
-        {
-            wdActiveEndPageNumber = 3,
-            wdFirstCharacterColumnNumber = 9,
-            wdFirstCharacterLineNumber = 10
-        }
-
-        /// <summary>
-        /// Releases the selection object from memory.
-        /// </summary>
-        private void releaseSelection()
-        {
-            if (wordSelection != null)
-            {
-                Marshal.ReleaseComObject(wordSelection);
-            }
-            wordSelection = null;
-        }
-
         /// <summary>
         /// Opens and returns the Word's document object for the given file.
         /// </summary>
         /// <param name="path">Full path to file.</param>
-        /// <param name="bReadOnly">True for readonly, False for full access.</param>
+        /// <param name="readOnly">True for readonly, False for full access.</param>
         /// <returns>Word's Document object if success, null otherwise</returns>
-        private object openDocument(string path, bool bReadOnly)
+        private object OpenDocument(string path, bool readOnly)
         {
             if (isAvailable && wordDocuments != null && wordDocuments != null)
             {
                 if (path.Length > 255)  // 255 for Word!
                     path = Path.GetShort83Path(path);
 
+                bool addToRecentFiles = false;
                 return wordDocuments.GetType().InvokeMember("Open", BindingFlags.InvokeMethod,
-                    null, wordDocuments, new object[3] { path, MISSING_VALUE, bReadOnly });
+                    null, wordDocuments, new object[4] { path, MISSING_VALUE, readOnly, addToRecentFiles });
             }
 
             return null;
@@ -307,24 +280,10 @@ namespace dnGREP.Engines.Word
         /// Closes the given Word Document object.
         /// </summary>
         /// <param name="doc">Word Document object</param>
-        private void closeDocument(object doc)
+        private void CloseDocument(object doc)
         {
             if (isAvailable && doc != null)
                 doc.GetType().InvokeMember("Close", BindingFlags.InvokeMethod, null, doc, new object[] { });
-        }
-
-        /// <summary>
-        /// Returns the Information object from the given object.
-        /// </summary>
-        /// <param name="obj">Object to retrieve information object from</param>
-        /// <param name="type">Information type to retrieve</param>
-        /// <returns>Information object</returns>
-        private object information(object obj, WdInformation type)
-        {
-            if (isAvailable && obj != null)
-                return obj.GetType().InvokeMember("Information", BindingFlags.GetProperty, null, obj, new object[1] { (int)type });
-
-            return null;
         }
 
         /// <summary>
@@ -333,36 +292,12 @@ namespace dnGREP.Engines.Word
         /// <param name="obj">Object to get property from</param>
         /// <param name="prop">name of property to retrieve</param>
         /// <returns>Property object</returns>
-        private object getProperty(object obj, string prop)
+        private object GetProperty(object obj, string prop)
         {
             if (isAvailable && obj != null)
                 return obj.GetType().InvokeMember(prop, BindingFlags.GetProperty, null, obj, new object[] { });
 
             return null;
-        }
-
-        /// <summary>
-        /// Sets the given object's property to the given value.
-        /// </summary>
-        /// <param name="obj">object to set property</param>
-        /// <param name="prop">name of property</param>
-        /// <param name="value">value to set</param>
-        private void setProperty(object obj, string prop, object value)
-        {
-            if (isAvailable && obj != null)
-                obj.GetType().InvokeMember(prop, BindingFlags.SetProperty, null, obj, new object[1] { value });
-        }
-
-        /// <summary>
-        /// Runs the given routine on the object.
-        /// </summary>
-        /// <param name="obj">object to run routine on</param>
-        /// <param name="routine">name of routine</param>
-        /// <param name="parms">any parameters to routine</param>
-        private void runRoutine(object obj, string routine, object[] parms)
-        {
-            if (isAvailable && obj != null)
-                obj.GetType().InvokeMember(routine, BindingFlags.InvokeMethod, null, obj, parms);
         }
 
         #endregion

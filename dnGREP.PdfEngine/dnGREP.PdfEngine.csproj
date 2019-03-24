@@ -99,7 +99,7 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.5.11\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\packages\NLog.4.6.0\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -163,7 +163,7 @@
 xcopy /Y /R "$(TargetDir)dnGREP.Engines.Pdf.plugin" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\"
 xcopy /Y /R "$(TargetDir)dnGREP.Engines.Pdf.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\PdfSearch\"
 xcopy /Y /R "$(TargetDir)dnGREP.Engines.Pdf.pdb" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\PdfSearch\"
-xcopy /Y /R "$(TargetDir)pdftotext.exe" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\Debug\$(ConfigurationName)\PdfSearch\"
+xcopy /Y /R "$(TargetDir)pdftotext.exe" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\PdfSearch\"
 
 REM Start copying release files
 rmdir /S /Q "$(SolutionDir)Release\$(PlatformName)\dnGREP PDF Plugin X.X.X"
@@ -171,6 +171,7 @@ mkdir "$(SolutionDir)Release\$(PlatformName)\dnGREP PDF Plugin X.X.X\Plugins\Pdf
 xcopy "$(TargetDir)readme" "$(SolutionDir)Release\$(PlatformName)\dnGREP PDF Plugin X.X.X"
 xcopy "$(TargetDir)dnGREP.Engines.Pdf.plugin" "$(SolutionDir)Release\$(PlatformName)\dnGREP PDF Plugin X.X.X\Plugins"
 xcopy "$(TargetDir)pdftotext.exe" "$(SolutionDir)Release\$(PlatformName)\dnGREP PDF Plugin X.X.X\Plugins\PdfSearch"
-xcopy "$(TargetDir)dnGREP.Engines.Pdf.dll" "$(SolutionDir)Release\$(PlatformName)\dnGREP PDF Plugin X.X.X\Plugins\PdfSearch"</PostBuildEvent>
+xcopy "$(TargetDir)dnGREP.Engines.Pdf.dll" "$(SolutionDir)Release\$(PlatformName)\dnGREP PDF Plugin X.X.X\Plugins\PdfSearch"
+</PostBuildEvent>
   </PropertyGroup>
 </Project>
