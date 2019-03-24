@@ -6,13 +6,13 @@
       <Value Profile="(Default)">Normal</Value>
     </Setting>
     <Setting Name="PreviewBounds" Type="System.Windows.Rect" Scope="User">
-      <Value Profile="(Default)">1000,100,600,800</Value>
+      <Value Profile="(Default)">0,0,0,0</Value>
     </Setting>
     <Setting Name="MainFormExBounds" Type="System.Windows.Rect" Scope="User">
-      <Value Profile="(Default)">100,100,1400,800</Value>
+      <Value Profile="(Default)">100,100,1200,800</Value>
     </Setting>
     <Setting Name="ReplaceBounds" Type="System.Windows.Rect" Scope="User">
-      <Value Profile="(Default)">200,200,800,980</Value>
+      <Value Profile="(Default)">0,0,0,0</Value>
     </Setting>
     <Setting Name="PreviewWindowState" Type="System.Windows.WindowState" Scope="User">
       <Value Profile="(Default)">Normal</Value>

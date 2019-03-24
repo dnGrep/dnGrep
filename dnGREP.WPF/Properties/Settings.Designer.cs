@@ -37,7 +37,7 @@ namespace dnGREP.WPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1000,100,600,800")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0,0,0,0")]
         public global::System.Windows.Rect PreviewBounds {
             get {
                 return ((global::System.Windows.Rect)(this["PreviewBounds"]));
@@ -49,7 +49,7 @@ namespace dnGREP.WPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("100,100,1400,800")]
+        [global::System.Configuration.DefaultSettingValueAttribute("100,100,1200,800")]
         public global::System.Windows.Rect MainFormExBounds {
             get {
                 return ((global::System.Windows.Rect)(this["MainFormExBounds"]));
@@ -61,7 +61,7 @@ namespace dnGREP.WPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("200,200,800,980")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0,0,0,0")]
         public global::System.Windows.Rect ReplaceBounds {
             get {
                 return ((global::System.Windows.Rect)(this["ReplaceBounds"]));

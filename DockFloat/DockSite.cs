@@ -196,9 +196,9 @@ namespace DockFloat
 
         void AddContentToNewFloatingWindow(bool hidden)
         {
-            if (FloatWindowBounds == Rect.Empty)
+            if (FloatWindowBounds == Rect.Empty || FloatWindowBounds == new Rect(0, 0, 0, 0))
             {
-                FloatWindowBounds = new Rect(GetPopupPosition(), new Size(600, 800));
+                FloatWindowBounds = GetPopupPosition();
             }
 
             floatingWindow = new FloatWindow(savedContentState.FloatContent)
@@ -217,6 +217,8 @@ namespace DockFloat
             {
                 if (!floatingWindow.IsOnScreen())
                     floatingWindow.ToRightEdge();
+
+                floatingWindow.ConstrainToScreen();
             };
             floatingWindow.Closing += (s, e) => SavePlacement();
             floatingWindow.Closed += (s, e) => DockIn();
@@ -224,11 +226,11 @@ namespace DockFloat
                 floatingWindow.Show();
         }
 
-        Point GetPopupPosition()
+        private Rect GetPopupPosition()
         {
-            var position = PointToScreen(new Point(0, 0));
-            position.Offset(20, 20);
-            return position;
+            var wind = Application.Current.MainWindow;
+            var position = new Point(wind.Left + wind.ActualWidth, wind.Top);
+            return new Rect(position, new Size(640, wind.Height));
         }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
         mc:Ignorable="d"
-        Title="Replace Text" Height="800" Width="980" WindowStartupLocation="CenterScreen"
+        Title="Replace Text" Height="800" Width="980" 
         FocusManager.FocusedElement="{Binding ElementName=btnCanel}" >
 
     <Window.InputBindings>

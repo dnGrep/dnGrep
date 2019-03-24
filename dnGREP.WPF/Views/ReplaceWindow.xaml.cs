@@ -9,6 +9,7 @@ using dnGREP.Common;
 using DockFloat;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Editing;
+using WpfScreenHelper;
 
 namespace dnGREP.WPF
 {
@@ -27,15 +28,28 @@ namespace dnGREP.WPF
         {
             InitializeComponent();
 
-            Left = Properties.Settings.Default.ReplaceBounds.Left;
-            Top = Properties.Settings.Default.ReplaceBounds.Top;
-            Width = Properties.Settings.Default.ReplaceBounds.Width;
-            Height = Properties.Settings.Default.ReplaceBounds.Height;
+            if (Properties.Settings.Default.ReplaceBounds == Rect.Empty ||
+                Properties.Settings.Default.ReplaceBounds == new Rect(0, 0, 0, 0))
+            {
+                Width = 800;
+                Height = 980;
+                WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            }
+            else
+            {
+                WindowStartupLocation = WindowStartupLocation.Manual;
+                Left = Properties.Settings.Default.ReplaceBounds.Left;
+                Top = Properties.Settings.Default.ReplaceBounds.Top;
+                Width = Properties.Settings.Default.ReplaceBounds.Width;
+                Height = Properties.Settings.Default.ReplaceBounds.Height;
+            }
 
             Loaded += (s, e) =>
             {
                 if (!this.IsOnScreen())
                     this.CenterWindow();
+
+                this.ConstrainToScreen();
             };
 
             cbWrapText.IsChecked = GrepSettings.Instance.Get<bool?>(GrepSettings.Key.ReplaceWindowWrap);
