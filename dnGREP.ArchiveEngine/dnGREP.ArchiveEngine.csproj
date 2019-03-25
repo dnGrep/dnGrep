@@ -159,10 +159,7 @@
     <None Include="app.config" />
     <None Include="dnGrep.snk" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="7zip\x64\" />
-    <Folder Include="7zip\x86\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
