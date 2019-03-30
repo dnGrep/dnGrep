@@ -56,7 +56,7 @@
             </Border>
         </df:DockSite>
         <df:DockPanelSplitter x:Name="previewSplitter" DockPanel.Dock="Right" Thickness="4" Background="Gainsboro"
-                              Style="{StaticResource previewVisibilityStyle}"/>
+                              Style="{StaticResource previewVisibilityStyle}" ProportionalResize="True"/>
 
         <DockPanel DockPanel.Dock="Top" Margin="5,5,5,0">
             <TextBlock DockPanel.Dock="Left" FontSize="16" FontWeight="DemiBold" Text="dnGrep"/>
