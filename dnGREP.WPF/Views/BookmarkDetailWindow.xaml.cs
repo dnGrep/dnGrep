@@ -1,0 +1,21 @@
+﻿using System.Windows;
+
+namespace dnGREP.WPF
+{
+    /// <summary>
+    /// Interaction logic for BookmarkDetailWindow.xaml
+    /// </summary>
+    public partial class BookmarkDetailWindow : Window
+    {
+        public BookmarkDetailWindow()
+        {
+            InitializeComponent();
+        }
+
+        private void OkButton_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = true;
+            Close();
+        }
+    }
+}

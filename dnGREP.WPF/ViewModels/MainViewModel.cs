@@ -71,7 +71,7 @@ namespace dnGREP.WPF
         private DateTime timer = DateTime.Now;
         private FileFolderDialogWin32 fileFolderDialog = new FileFolderDialogWin32();
         private BackgroundWorker workerSearchReplace = new BackgroundWorker();
-        private BookmarksForm bookmarkForm;
+        private BookmarksWindow bookmarkWindow;
         private HashSet<string> currentSearchFiles = new HashSet<string>();
         private int processedFiles;
         private bool isSorted;
@@ -1319,7 +1319,7 @@ namespace dnGREP.WPF
 
         private void ShowAbout()
         {
-            AboutForm aboutForm = new AboutForm();
+            AboutWindow aboutForm = new AboutWindow();
             aboutForm.ShowDialog();
         }
 
@@ -1345,18 +1345,18 @@ namespace dnGREP.WPF
         {
             try
             {
-                Action<string, string, string> clearTheStar = (searchFor, replaceWith, filePattern) =>
+                void clearTheStar(string searchFor, string replaceWith, string filePattern)
                 {
                     if (searchFor == SearchFor && replaceWith == ReplaceWith && filePattern == FilePattern)
                         IsBookmarked = false;
-                };
-                bookmarkForm = new BookmarksForm(clearTheStar);
-                bookmarkForm.PropertyChanged += new PropertyChangedEventHandler(BookmarkForm_PropertyChanged);
-                bookmarkForm.ShowDialog();
+                }
+                bookmarkWindow = new BookmarksWindow(clearTheStar);
+                bookmarkWindow.UseBookmark += BookmarkForm_UseBookmark;
+                bookmarkWindow.ShowDialog();
             }
             finally
             {
-                bookmarkForm.PropertyChanged -= new PropertyChangedEventHandler(BookmarkForm_PropertyChanged);
+                bookmarkWindow.UseBookmark -= BookmarkForm_UseBookmark;
             }
         }
 
@@ -1701,14 +1701,11 @@ namespace dnGREP.WPF
                 Encodings.Add(enc);
         }
 
-        void BookmarkForm_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void BookmarkForm_UseBookmark(object sender, EventArgs e)
         {
-            if (e.PropertyName == "FilePattern")
-                FilePattern = bookmarkForm.FilePattern;
-            else if (e.PropertyName == "SearchFor")
-                SearchFor = bookmarkForm.SearchFor;
-            else if (e.PropertyName == "ReplaceWith")
-                ReplaceWith = bookmarkForm.ReplaceWith;
+            FilePattern = bookmarkWindow.ViewModel.SelectedBookmark.FilePattern;
+            SearchFor = bookmarkWindow.ViewModel.SelectedBookmark.SearchFor;
+            ReplaceWith = bookmarkWindow.ViewModel.SelectedBookmark.ReplaceWith;
         }
 
         private void CopyBookmarksToSettings()
