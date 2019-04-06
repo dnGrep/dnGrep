@@ -1949,6 +1949,14 @@ namespace dnGREP.Common
             return durationStringBuilder.ToString();
         }
 
+        public static bool HasUtf8ByteOrderMark(string srcFile)
+        {
+            using (FileStream readStream = File.Open(srcFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            {
+                return HasUtf8ByteOrderMark(readStream);
+            }
+        }
+
         public static bool HasUtf8ByteOrderMark(Stream inputStream)
         {
             int b1 = inputStream.ReadByte();
