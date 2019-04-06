@@ -88,7 +88,6 @@ namespace dnGREP.Common
             public const string PreviewWindowFont = "PreviewWindowFont";
             [DefaultValue(false)]
             public const string PreviewWindowWrap = "PreviewWindowWrap";
-            public const string PreviewWindowSize = "PreviewWindowSize";
             [DefaultValue(20)]
             public const string MaxPathBookmarks = "MaxPathBookmarks";
             [DefaultValue(20)]

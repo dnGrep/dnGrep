@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="dnGREP.WPF.PreviewControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:my="clr-namespace:dnGREP.WPF"
+             xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="600">
+
+    <UserControl.Resources>
+        <my:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed"/>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="16"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Border BorderBrush="LightGray" BorderThickness="0,1,0,0">
+        <DockPanel>
+            <DockPanel DockPanel.Dock="Top" Background="{Binding ElementName=statusBar, Path=Background}" Name="previewPanel" 
+                       Visibility="{Binding Path=IsLargeOrBinary, Converter={StaticResource BoolToVisibilityConverter}}">
+                <Label Content="This file is either binary or too large to preview." VerticalContentAlignment="Center"/>
+                <Button Content="Preview anyway" FontSize="14" Padding="6" Margin="3" HorizontalAlignment="Right" Click="Button_Click"/>
+            </DockPanel>
+            <Label DockPanel.Dock="Top" Content="Highlights disabled: too many matches found." 
+                   Background="{Binding ElementName=statusBar, Path=Background}" VerticalContentAlignment="Center"
+                   Visibility="{Binding HighlightDisabled, Converter={StaticResource BoolToVisibilityConverter}}"/>
+            <StatusBar DockPanel.Dock="Bottom" ClipToBounds="False" Grid.Row="4" Name="statusBar" VerticalContentAlignment="Center" VerticalAlignment="Center">
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,3,0">Zoom:</TextBlock>
+                <Slider Name="zoomSlider" ToolTip="Changes text editor zoom" Value="12" Minimum="9" Maximum="30" Width="200" HorizontalAlignment="Right" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="0,0,3,0"/>
+                <CheckBox Name="cbWrapText" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="0,0,3,0">Wrap text</CheckBox>
+                <ComboBox Name="cbHighlighter" ItemsSource="{Binding Path=Highlighters}" SelectedValue="{Binding Path=CurrentSyntax}" VerticalContentAlignment="Center" Margin="0,0,3,0"></ComboBox>
+            </StatusBar>
+            <ae:TextEditor Name="textEditor" FontFamily="Consolas" FontSize="{Binding ElementName=zoomSlider,Path=Value}" ShowLineNumbers="True" 
+                           IsReadOnly="True" WordWrap="{Binding ElementName=cbWrapText,Path=IsChecked}" />
+        </DockPanel>
+    </Border>
+</UserControl>

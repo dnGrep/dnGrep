@@ -6,9 +6,10 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Shapes;
 using dnGREP.Common;
-using dnGREP.Common.UI;
+using DockFloat;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Editing;
+using WpfScreenHelper;
 
 namespace dnGREP.WPF
 {
@@ -27,7 +28,30 @@ namespace dnGREP.WPF
         {
             InitializeComponent();
 
-            Loaded += ReplaceWindow_Loaded;
+            if (Properties.Settings.Default.ReplaceBounds == Rect.Empty ||
+                Properties.Settings.Default.ReplaceBounds == new Rect(0, 0, 0, 0))
+            {
+                Width = 800;
+                Height = 980;
+                WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            }
+            else
+            {
+                WindowStartupLocation = WindowStartupLocation.Manual;
+                Left = Properties.Settings.Default.ReplaceBounds.Left;
+                Top = Properties.Settings.Default.ReplaceBounds.Top;
+                Width = Properties.Settings.Default.ReplaceBounds.Width;
+                Height = Properties.Settings.Default.ReplaceBounds.Height;
+            }
+
+            Loaded += (s, e) =>
+            {
+                if (!this.IsOnScreen())
+                    this.CenterWindow();
+
+                this.ConstrainToScreen();
+            };
+
             cbWrapText.IsChecked = GrepSettings.Instance.Get<bool?>(GrepSettings.Key.ReplaceWindowWrap);
             zoomSlider.Value = GrepSettings.Instance.Get<int>(GrepSettings.Key.ReplaceWindowFontSize);
 
@@ -59,27 +83,16 @@ namespace dnGREP.WPF
             textEditor.TextArea.Caret.PositionChanged += Caret_PositionChanged;
         }
 
-        void ReplaceWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            Left = Properties.Settings.Default.ReplaceBounds.Left;
-            Top = Properties.Settings.Default.ReplaceBounds.Top;
-            Width = Properties.Settings.Default.ReplaceBounds.Width;
-            Height = Properties.Settings.Default.ReplaceBounds.Height;
-
-            if (!UiUtils.IsOnScreen(this))
-                UiUtils.CenterWindow(this);
-        }
-
         private void SaveSettings()
         {
             GrepSettings.Instance.Set(GrepSettings.Key.ReplaceWindowWrap, cbWrapText.IsChecked);
             GrepSettings.Instance.Set(GrepSettings.Key.ReplaceWindowFontSize, (int)zoomSlider.Value);
 
-            Properties.Settings.Default.ReplaceBounds = new System.Drawing.Rectangle(
-               (int)Left,
-               (int)Top,
-               (int)ActualWidth,
-               (int)ActualHeight);
+            Properties.Settings.Default.ReplaceBounds = new Rect(
+               Left,
+               Top,
+               ActualWidth,
+               ActualHeight);
             Properties.Settings.Default.Save();
         }
 

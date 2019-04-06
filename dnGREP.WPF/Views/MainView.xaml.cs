@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
@@ -8,7 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Interop;
-using dnGREP.Common.UI;
+using DockFloat;
 using NLog;
 
 namespace dnGREP.WPF
@@ -19,7 +18,7 @@ namespace dnGREP.WPF
     public partial class MainForm : Window
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
-        private MainViewModel inputData;
+        private MainViewModel viewModel;
         private bool isVisible = true;
 
         public MainForm()
@@ -31,24 +30,35 @@ namespace dnGREP.WPF
         {
             InitializeComponent();
 
-            this.Width = Properties.Settings.Default.MainFormExBounds.Width;
-            this.Height = Properties.Settings.Default.MainFormExBounds.Height;
-            this.Top = Properties.Settings.Default.MainFormExBounds.Y;
-            this.Left = Properties.Settings.Default.MainFormExBounds.X;
-            this.WindowState = Properties.Settings.Default.WindowState;
+            Width = Properties.Settings.Default.MainFormExBounds.Width;
+            Height = Properties.Settings.Default.MainFormExBounds.Height;
+            Top = Properties.Settings.Default.MainFormExBounds.Y;
+            Left = Properties.Settings.Default.MainFormExBounds.X;
+            WindowState = Properties.Settings.Default.MainWindowState;
 
-            this.Loaded += delegate
+            Loaded += (s, e) =>
             {
-                if (!UiUtils.IsOnScreen(this))
-                    UiUtils.CenterWindow(this);
+                if (!this.IsOnScreen())
+                    this.CenterWindow();
+
+                this.ConstrainToScreen();
             };
             this.isVisible = isVisible;
 
-            inputData = new MainViewModel();
-            this.DataContext = inputData;
 
-            this.PreviewKeyDown += MainFormEx_PreviewKeyDown;
-            this.PreviewKeyUp += MainFormEx_PreviewKeyUp;
+            viewModel = new MainViewModel();
+            viewModel.PreviewHide += ViewModel_PreviewHide;
+            viewModel.PreviewShow += ViewModel_PreviewShow;
+            viewModel.PropertyChanged += ViewModel_PropertyChanged;
+            DataContext = viewModel;
+
+            viewModel.PreviewModel = previewControl.ViewModel;
+
+            Loaded += Window_Loaded;
+            Closing += MainForm_Closing;
+
+            PreviewKeyDown += MainFormEx_PreviewKeyDown;
+            PreviewKeyUp += MainFormEx_PreviewKeyUp;
         }
 
         [DllImport("user32.dll")]
@@ -56,20 +66,15 @@ namespace dnGREP.WPF
 
         private const int HWND_MESSAGE = -3;
 
-        private IntPtr hwnd;
-        private IntPtr oldParent;
-
         protected override void OnSourceInitialized(EventArgs e)
         {
             base.OnSourceInitialized(e);
             if (!isVisible)
             {
-                HwndSource hwndSource = PresentationSource.FromVisual(this) as HwndSource;
-
-                if (hwndSource != null)
+                if (PresentationSource.FromVisual(this) is HwndSource hwndSource)
                 {
-                    hwnd = hwndSource.Handle;
-                    oldParent = SetParent(hwnd, (IntPtr)HWND_MESSAGE);
+                    // make this a message-only window
+                    SetParent(hwndSource.Handle, (IntPtr)HWND_MESSAGE);
                     Visibility = Visibility.Hidden;
                 }
             }
@@ -77,19 +82,20 @@ namespace dnGREP.WPF
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            inputData.ParentWindow = this;
-            DataObject.AddPastingHandler(tbSearchFor, new DataObjectPastingEventHandler(onPaste));
-            DataObject.AddPastingHandler(tbReplaceWith, new DataObjectPastingEventHandler(onPaste));
+            viewModel.ParentWindow = this;
+            DataObject.AddPastingHandler(tbSearchFor, new DataObjectPastingEventHandler(OnPaste));
+            DataObject.AddPastingHandler(tbReplaceWith, new DataObjectPastingEventHandler(OnPaste));
 
-            var textBox = (tbSearchFor.Template.FindName("PART_EditableTextBox", tbSearchFor) as TextBox);
-            if (textBox != null && !tbSearchFor.IsDropDownOpen)
+            if (tbSearchFor.Template.FindName("PART_EditableTextBox", tbSearchFor) is TextBox textBox && !tbSearchFor.IsDropDownOpen)
             {
-                Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+                Dispatcher.BeginInvoke(new Action(() =>
                 {
                     textBox.SelectAll();
                     textBox.Focus();
                 }));
             }
+
+            DockSite.InitFloatingWindows();
         }
 
         /// <summary>
@@ -97,15 +103,15 @@ namespace dnGREP.WPF
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void onPaste(object sender, DataObjectPastingEventArgs e)
+        private void OnPaste(object sender, DataObjectPastingEventArgs e)
         {
-            var isText = e.SourceDataObject.GetDataPresent(System.Windows.DataFormats.Text, true);
+            var isText = e.SourceDataObject.GetDataPresent(DataFormats.Text, true);
             if (!isText) return;
             var senderControl = (Control)sender;
             var textBox = (TextBox)senderControl.Template.FindName("PART_EditableTextBox", senderControl);
             textBox.AcceptsTab = true;
             var text = e.SourceDataObject.GetData(DataFormats.Text) as string;
-            this.Dispatcher.BeginInvoke((Action)(() =>
+            Dispatcher.BeginInvoke((Action)(() =>
             {
                 textBox.AcceptsTab = false;
             }), null);
@@ -113,20 +119,83 @@ namespace dnGREP.WPF
 
         private void MainForm_Closing(object sender, CancelEventArgs e)
         {
-            inputData.CancelSearch();
-            inputData.SaveSettings();
-            inputData.CloseChildWindows();
+            viewModel.CancelSearch();
+            viewModel.SaveSettings();
+            previewControl.SaveSettings();
 
-            Properties.Settings.Default.MainFormExBounds = new System.Drawing.Rectangle(
-                (int)Left,
-                (int)Top,
-                (int)ActualWidth,
-                (int)ActualHeight);
-            Properties.Settings.Default.WindowState = System.Windows.WindowState.Normal;
-            if (this.WindowState == System.Windows.WindowState.Maximized)
-                Properties.Settings.Default.WindowState = System.Windows.WindowState.Maximized;
+            Properties.Settings.Default.MainFormExBounds = new Rect(
+                Left,
+                Top,
+                ActualWidth,
+                ActualHeight);
+            Properties.Settings.Default.MainWindowState = WindowState.Normal;
+            if (WindowState == WindowState.Maximized)
+                Properties.Settings.Default.MainWindowState = WindowState.Maximized;
+
             Properties.Settings.Default.Save();
         }
+
+        private void ViewModel_PreviewShow(object sender, EventArgs e)
+        {
+            foreach (Window wind in DockSite.GetAllFloatWindows(this))
+            {
+                if (wind.WindowState == WindowState.Minimized)
+                    wind.WindowState = WindowState.Normal;
+                wind.Show();
+                wind.Activate();
+                wind.Focus(); // needs focus so the Esc key will close (hide) the preview
+            }
+        }
+
+        private void ViewModel_PreviewHide(object sender, EventArgs e)
+        {
+            foreach (Window wind in DockSite.GetAllFloatWindows(this))
+            {
+                wind.Close();
+            }
+        }
+
+        private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            // Shrink or grow the main window the same amount as the
+            // preview panel that is hiding or showing
+            // Toggle the ProportionalResize property so the splitter
+            // distance is not changed when the main window is resized
+
+            if (e.PropertyName == "IsPreviewDocked")
+            {
+                if (viewModel.PreviewFileContent)
+                {
+                    previewSplitter.ProportionalResize = false;
+
+                    if (viewModel.IsPreviewDocked)
+                        Width += viewModel.PreviewDockedWidth;
+                    else
+                        Width -= viewModel.PreviewDockedWidth;
+
+                    this.ConstrainToScreen();
+
+                    previewSplitter.ProportionalResize = true;
+                }
+            }
+            else if (e.PropertyName == "PreviewFileContent")
+            {
+                if (viewModel.IsPreviewDocked)
+                {
+                    previewSplitter.ProportionalResize = false;
+
+                    if (viewModel.PreviewFileContent)
+                        Width += viewModel.PreviewDockedWidth;
+                    else
+                        Width -= viewModel.PreviewDockedWidth;
+
+                    this.ConstrainToScreen();
+
+                    previewSplitter.ProportionalResize = true;
+                }
+            }
+        }
+
 
         #region UI fixes
         private void TextBoxFocus(object sender, RoutedEventArgs e)
@@ -165,14 +234,9 @@ namespace dnGREP.WPF
             }
         }
 
-        private void Window_StateChanged(object sender, EventArgs e)
-        {
-            inputData.ChangePreviewWindowState(this.WindowState);
-        }
-
         #endregion
 
-        private void btnOtherActions_Click(object sender, RoutedEventArgs e)
+        private void ButtonOtherActions_Click(object sender, RoutedEventArgs e)
         {
             advanceContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
             advanceContextMenu.PlacementTarget = (UIElement)sender;
@@ -186,7 +250,7 @@ namespace dnGREP.WPF
             e.Handled = true;
         }
 
-        private void cbEncoding_Initialized(object sender, EventArgs e)
+        private void CbEncoding_Initialized(object sender, EventArgs e)
         {
             // SelectedIndex="0" isn't working on the XAML for cbEncoding, but this seems to work. It would be nice to get the XAML working, instead.
             var model = (MainViewModel)this.DataContext;
@@ -219,7 +283,7 @@ namespace dnGREP.WPF
                 pathsToIgnoreLabel.ActualWidth - pathsToIgnoreLabel.Margin.Left - pathsToIgnoreLabel.Margin.Right -
                 tbFilePatternIgnore.ActualWidth - tbFilePatternIgnore.Margin.Left - tbFilePatternIgnore.Margin.Right;
 
-            inputData.MaxFileFiltersSummaryWidth = Math.Max(0, maxWidth);
+            viewModel.MaxFileFiltersSummaryWidth = Math.Max(0, maxWidth);
         }
 
         void MainFormEx_PreviewKeyDown(object sender, KeyEventArgs e)
