@@ -239,6 +239,14 @@ namespace dnGREP.Common
                         else if (!Utils.IsBinary(tempFileName))
                             encoding = Utils.GetFileEncoding(tempFileName);
 
+                        // The UTF-8 encoding returned from Encoding.GetEncoding("utf-8") includes the BOM - see Encoding.GetPreamble()
+                        // If this file does not have the BOM, then change to an encoder without the BOM so the BOM is not added in 
+                        // the replace operation
+                        if (encoding is UTF8Encoding && !Utils.HasUtf8ByteOrderMark(tempFileName))
+                        {
+                            encoding = new UTF8Encoding(false);
+                        }
+
                         if (Utils.CancelSearch)
                         {
                             break;
