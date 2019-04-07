@@ -12,8 +12,8 @@ namespace Tests
             BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark("test1", "test2", "test3", "test4"));
             BookmarkLibrary.Save();
             BookmarkLibrary.Load();
-            Assert.Equal(BookmarkLibrary.Instance.Bookmarks.Count, 1);
-            Assert.Equal(BookmarkLibrary.Instance.Bookmarks[0].Description, "test4");
+            Assert.Single(BookmarkLibrary.Instance.Bookmarks);
+            Assert.Equal("test4", BookmarkLibrary.Instance.Bookmarks[0].Description);
         }
     }
 }
