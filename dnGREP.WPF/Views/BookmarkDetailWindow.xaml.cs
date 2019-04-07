@@ -10,6 +10,12 @@ namespace dnGREP.WPF
         public BookmarkDetailWindow()
         {
             InitializeComponent();
+
+            SourceInitialized += (s, e) =>
+            {
+                MinWidth = ActualWidth;
+                MinHeight = ActualHeight;
+            };
         }
 
         private void OkButton_Click(object sender, RoutedEventArgs e)

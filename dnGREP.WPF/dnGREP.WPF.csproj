@@ -145,6 +145,7 @@
     <Compile Include="..\AssemblyVersionCommon.cs">
       <Link>Properties\AssemblyVersionCommon.cs</Link>
     </Compile>
+    <Compile Include="MVHelpers\TypeOfSearchValueConverter.cs" />
     <Compile Include="Views\BookmarkDetailWindow.xaml.cs">
       <DependentUpon>BookmarkDetailWindow.xaml</DependentUpon>
     </Compile>

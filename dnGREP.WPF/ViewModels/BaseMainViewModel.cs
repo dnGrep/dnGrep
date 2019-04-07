@@ -1257,7 +1257,7 @@ namespace dnGREP.WPF
 
             if (IsProperty(() => SearchFor, name) || IsProperty(() => ReplaceWith, name) || IsProperty(() => FilePattern, name))
             {
-                if (BookmarkLibrary.Instance.Bookmarks.Contains(new Bookmark(SearchFor, ReplaceWith, FilePattern, "")))
+                if (BookmarkLibrary.Instance.Bookmarks.Contains(new Bookmark(SearchFor, ReplaceWith, FilePattern)))
                     IsBookmarked = true;
                 else
                     IsBookmarked = false;

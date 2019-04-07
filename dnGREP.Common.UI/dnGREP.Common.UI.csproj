@@ -145,18 +145,6 @@
     <Compile Include="..\AssemblyVersionCommon.cs">
       <Link>Properties\AssemblyVersionCommon.cs</Link>
     </Compile>
-    <Compile Include="BookmarkDetails.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BookmarkDetails.Designer.cs">
-      <DependentUpon>BookmarkDetails.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BookmarksForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="BookmarksForm.Designer.cs">
-      <DependentUpon>BookmarksForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="FileFolderDialog.Win32.cs" />
     <Compile Include="FileIcons.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -166,16 +154,6 @@
       <Project>{32DF5B77-EE00-4A94-BF4C-19BCBB1940A4}</Project>
       <Name>dnGREP.Common</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="BookmarkDetails.resx">
-      <DependentUpon>BookmarkDetails.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BookmarksForm.resx">
-      <DependentUpon>BookmarksForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">

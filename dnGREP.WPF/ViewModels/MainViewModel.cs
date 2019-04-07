@@ -1325,7 +1325,20 @@ namespace dnGREP.WPF
 
         private void BookmarkAddRemove()
         {
-            Bookmark newBookmark = new Bookmark(SearchFor, ReplaceWith, FilePattern, "");
+            Bookmark newBookmark = new Bookmark(SearchFor, ReplaceWith, FilePattern)
+            {
+                IgnoreFilePattern = FilePatternIgnore,
+                TypeOfFileSearch = TypeOfFileSearch,
+                TypeOfSearch = TypeOfSearch,
+                CaseSensitive = CaseSensitive,
+                WholeWord = WholeWord,
+                Multiline = Multiline,
+                Singleline = Singleline,
+                IncludeSubfolders = IncludeSubfolder,
+                IncludeHiddenFiles = IncludeHidden,
+                IncludeBinaryFiles = IncludeBinary,
+            };
+
             if (IsBookmarked)
             {
                 if (!BookmarkLibrary.Instance.Bookmarks.Contains(newBookmark))
@@ -1352,6 +1365,10 @@ namespace dnGREP.WPF
                 }
                 bookmarkWindow = new BookmarksWindow(clearTheStar);
                 bookmarkWindow.UseBookmark += BookmarkForm_UseBookmark;
+                Point pt = WpfScreenHelper.MouseHelper.MousePosition;
+                bookmarkWindow.WindowStartupLocation = WindowStartupLocation.Manual;
+                bookmarkWindow.Left = pt.X - bookmarkWindow.Width + 100;
+                bookmarkWindow.Top = pt.Y + 20;
                 bookmarkWindow.ShowDialog();
             }
             finally
@@ -1703,9 +1720,28 @@ namespace dnGREP.WPF
 
         private void BookmarkForm_UseBookmark(object sender, EventArgs e)
         {
-            FilePattern = bookmarkWindow.ViewModel.SelectedBookmark.FilePattern;
-            SearchFor = bookmarkWindow.ViewModel.SelectedBookmark.SearchFor;
-            ReplaceWith = bookmarkWindow.ViewModel.SelectedBookmark.ReplaceWith;
+            var bmk = bookmarkWindow.ViewModel.SelectedBookmark;
+            if (bmk != null)
+            {
+                FilePattern = bmk.FilePattern;
+                SearchFor = bmk.SearchFor;
+                ReplaceWith = bmk.ReplaceWith;
+
+                if (bmk.HasExtendedProperties)
+                {
+                    FilePatternIgnore = bmk.IgnoreFilePattern;
+                    TypeOfFileSearch = bmk.TypeOfFileSearch;
+                    IncludeSubfolder = bmk.IncludeSubfolders;
+                    IncludeHidden = bmk.IncludeHidden;
+                    IncludeBinary = bmk.IncludeBinary;
+
+                    TypeOfSearch = bmk.TypeOfSearch;
+                    CaseSensitive = bmk.CaseSensitive;
+                    WholeWord = bmk.WholeWord;
+                    Multiline = bmk.Multiline;
+                    Singleline = bmk.Singleline;
+                }
+            }
         }
 
         private void CopyBookmarksToSettings()
