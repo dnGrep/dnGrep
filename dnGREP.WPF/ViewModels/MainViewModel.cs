@@ -637,8 +637,12 @@ namespace dnGREP.WPF
             if (PreviewFileContent)
             {
                 int lineNumber = 0;
-                if (formattedGrepResult.GrepResult != null && formattedGrepResult.GrepResult.Matches.Count > 0)
+                if (formattedGrepResult.GrepResult != null &&
+                    formattedGrepResult.GrepResult.Matches != null &&
+                    formattedGrepResult.GrepResult.Matches.Count > 0)
+                {
                     lineNumber = formattedGrepResult.GrepResult.Matches[0].LineNumber;
+                }
 
                 PreviewFile(formattedGrepResult.GrepResult.FileNameReal, formattedGrepResult.GrepResult, lineNumber);
             }
