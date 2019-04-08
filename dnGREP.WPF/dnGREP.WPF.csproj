@@ -145,6 +145,10 @@
     <Compile Include="..\AssemblyVersionCommon.cs">
       <Link>Properties\AssemblyVersionCommon.cs</Link>
     </Compile>
+    <Compile Include="MVHelpers\TypeOfSearchValueConverter.cs" />
+    <Compile Include="Views\BookmarkDetailWindow.xaml.cs">
+      <DependentUpon>BookmarkDetailWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="DesignTimeData\DesignTimeData.cs" />
     <Compile Include="MVHelpers\BoolToVisibilityConverter.cs" />
     <Compile Include="MVHelpers\FocusExtension.cs" />
@@ -163,12 +167,20 @@
     <Compile Include="UserControls\ResultsTree.xaml.cs">
       <DependentUpon>ResultsTree.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\BaseMainViewModel.cs" />
+    <Compile Include="ViewModels\BookmarksViewModel.cs" />
     <Compile Include="ViewModels\OptionsViewModel.cs" />
     <Compile Include="ViewModels\PreviewViewModel.cs" />
     <Compile Include="ViewModels\ReplaceViewModel.cs" />
     <Compile Include="ViewModels\SearchReplaceCriteria.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BookmarksWindow.xaml.cs">
+      <DependentUpon>BookmarksWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -176,6 +188,10 @@
       <DependentUpon>PreviewControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="MVHelpers\PreviewHighlighter.cs" />
+    <Page Include="Views\BookmarkDetailWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dictionaries\CustomTemplates.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -192,6 +208,14 @@
     <Page Include="UserControls\ResultsTree.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BookmarksWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -230,12 +254,6 @@
     <Compile Include="MVHelpers\InverseBooleanConverter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AboutForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AboutForm.Designer.cs">
-      <DependentUpon>AboutForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="MVHelpers\EnumBooleanConverter.cs" />
     <Compile Include="HelpProvider.cs" />
     <Compile Include="MVHelpers\InlineTextBlock.cs" />
@@ -265,10 +283,6 @@
     <Compile Include="Views\TestPatternView.xaml.cs">
       <DependentUpon>TestPatternView.xaml</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AboutForm.resx">
-      <DependentUpon>AboutForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -323,6 +337,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Images\splash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\dnGrep48.png" />
+    <Resource Include="Images\dnGrep80.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

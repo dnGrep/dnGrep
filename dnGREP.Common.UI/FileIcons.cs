@@ -4,7 +4,6 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
 using Microsoft.Win32;
 using NLog;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
@@ -17,42 +16,11 @@ namespace dnGREP.Common.UI
 {
     public class FileIcons
     {
-        private static ImageList smallIconList = new ImageList();
         private static Logger logger = LogManager.GetCurrentClassLogger();
-
-        public static ImageList SmallIconList
-        {
-            get { return smallIconList; }
-        }
-
-        public static void LoadImageList(string[] extensions)
-        {
-            try
-            {
-                smallIconList.ImageSize = new Size(16, 16);
-                smallIconList.ColorDepth = ColorDepth.Depth32Bit;
-                foreach (string extension in extensions)
-                {
-                    if (!FileIcons.SmallIconList.Images.ContainsKey(extension))
-                    {
-                        Bitmap smallIcon = IconHandler.IconFromExtension(extension, IconSize.Small);
-                        if (smallIcon == null)
-                            smallIcon = Properties.Resources.na_icon;
-                        FileIcons.SmallIconList.Images.Add(extension, smallIcon);
-                    }
-
-                }
-                smallIconList.Images.Add("%line%", Properties.Resources.line_icon);
-            }
-            catch
-            {
-                // DO NOTHING
-            }
-        }
 
         public static void StoreIcon(string extension, string path)
         {
-            StoreIcon(extension, path, getMimeType(Path.GetExtension(path)));
+            StoreIcon(extension, path, GetMimeType(Path.GetExtension(path)));
         }
 
         public static void StoreIcon(string extension, string path, string mimeType)
@@ -65,7 +33,7 @@ namespace dnGREP.Common.UI
                         Directory.CreateDirectory(Path.GetDirectoryName(path));
                     Bitmap image = IconHandler.IconFromExtension(extension, IconSize.Small);
 
-                    System.Drawing.Imaging.Encoder qualityEncoder = System.Drawing.Imaging.Encoder.Quality;
+                    Encoder qualityEncoder = Encoder.Quality;
                     long quality = 100;
                     EncoderParameter ratio = new EncoderParameter(qualityEncoder, quality);
                     EncoderParameters codecParams = new EncoderParameters(1);
@@ -89,7 +57,7 @@ namespace dnGREP.Common.UI
             }
         }
 
-        private static string getMimeType(string sExtension)
+        private static string GetMimeType(string sExtension)
         {
             string extension = sExtension.ToLower();
             RegistryKey key = Registry.ClassesRoot.OpenSubKey("MIME\\Database\\Content Type");

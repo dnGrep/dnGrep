@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
 using System.Xml.Serialization;
 using NLog;
@@ -30,7 +29,10 @@ namespace dnGREP.Common
 
         private BookmarkLibrary() { }
 
-        private const string storageFileName = "Bookmarks";
+        private static string BookmarksFile
+        {
+            get { return Path.Combine(Utils.GetDataFolderPath(), "bookmarks.xml"); }
+        }
 
         public static void Load()
         {
@@ -38,13 +40,13 @@ namespace dnGREP.Common
             {
                 BookmarkEntity bookmarkLib;
                 XmlSerializer serializer = new XmlSerializer(typeof(BookmarkEntity));
-                if (!File.Exists(Utils.GetDataFolderPath() + "\\bookmarks.xml"))
+                if (!File.Exists(BookmarksFile))
                 {
                     bookmarks = new BookmarkEntity();
                 }
                 else
                 {
-                    using (TextReader reader = new StreamReader(Utils.GetDataFolderPath() + "\\bookmarks.xml"))
+                    using (TextReader reader = new StreamReader(BookmarksFile))
                     {
                         bookmarkLib = (BookmarkEntity)serializer.Deserialize(reader);
                         bookmarks = bookmarkLib;
@@ -62,7 +64,7 @@ namespace dnGREP.Common
             try
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(BookmarkEntity));
-                using (TextWriter writer = new StreamWriter(Utils.GetDataFolderPath() + "\\bookmarks.xml"))
+                using (TextWriter writer = new StreamWriter(BookmarksFile))
                 {
                     serializer.Serialize(writer, bookmarks);
                 }
@@ -77,31 +79,7 @@ namespace dnGREP.Common
     [Serializable]
     public class BookmarkEntity
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
-
-        private List<Bookmark> bookmarks = new List<Bookmark>();
-
-        public List<Bookmark> Bookmarks
-        {
-            get { return bookmarks; }
-            set { bookmarks = value; }
-        }
-
-        public DataTable GetDataTable()
-        {
-            DataTable bookmarkTable = new DataTable();
-            bookmarkTable.Columns.Add("Description", typeof(String));
-            bookmarkTable.Columns.Add("SearchPattern", typeof(String));
-            bookmarkTable.Columns.Add("ReplacePattern", typeof(String));
-            bookmarkTable.Columns.Add("FileNames", typeof(String));
-            bookmarks.Sort(new BookmarkComparer());
-            foreach (Bookmark b in bookmarks)
-            {
-                bookmarkTable.LoadDataRow(new string[] {b.Description, b.SearchPattern, 
-                    b.ReplacePattern, b.FileNames}, true);
-            }
-            return bookmarkTable;
-        }
+        public List<Bookmark> Bookmarks { get; set; } = new List<Bookmark>();
 
         public BookmarkEntity() { }
     }
@@ -110,47 +88,71 @@ namespace dnGREP.Common
     public class Bookmark
     {
         public Bookmark() { }
-        public Bookmark(string pattern, string replacement, string files, string desc)
+        public Bookmark(string searchFor, string replaceWith, string filePattern)
         {
-            SearchPattern = pattern;
-            ReplacePattern = replacement;
-            FileNames = files;
-            Description = desc;
+            Version = 2;
+            SearchPattern = searchFor;
+            ReplacePattern = replaceWith;
+            FileNames = filePattern;
         }
 
-        public string SearchPattern { get; set; }
-        public string ReplacePattern { get; set; }
-        public string FileNames { get; set; }
-        public string Description { get; set; }
+        public int Version { get; set; } = 1;
+        public string Description { get; set; } = string.Empty;
+
+        public SearchType TypeOfSearch { get; set; } = SearchType.PlainText;
+        public string SearchPattern { get; set; } = string.Empty;
+        public string ReplacePattern { get; set; } = string.Empty;
+        public bool CaseSensitive { get; set; }
+        public bool WholeWord { get; set; }
+        public bool Multiline { get; set; }
+        public bool Singleline { get; set; }
+
+        public FileSearchType TypeOfFileSearch { get; set; } = FileSearchType.Asterisk;
+        public string FileNames { get; set; } = string.Empty;
+        public string IgnoreFilePattern { get; set; } = string.Empty;
+        public bool IncludeSubfolders { get; set; }
+        public bool IncludeHiddenFiles { get; set; }
+        public bool IncludeBinaryFiles { get; set; }
+
+
+        // do not write v2 properties if the user hasn't updated the bookmark
+        public bool ShouldSerializeTypeOfFileSearch() { return Version > 1; }
+        public bool ShouldSerializeIgnoreFilePattern() { return Version > 1; }
+        public bool ShouldSerializeIncludeSubfolders() { return Version > 1; }
+        public bool ShouldSerializeIncludeHiddenFiles() { return Version > 1; }
+        public bool ShouldSerializeIncludeBinaryFiles() { return Version > 1; }
+        public bool ShouldSerializeTypeOfSearch() { return Version > 1; }
+        public bool ShouldSerializeCaseSensitive() { return Version > 1; }
+        public bool ShouldSerializeWholeWord() { return Version > 1; }
+        public bool ShouldSerializeMultiline() { return Version > 1; }
+        public bool ShouldSerializeSingleline() { return Version > 1; }
 
         public override bool Equals(object obj)
         {
-            if (obj == null || !(obj is Bookmark))
+            if (obj is Bookmark otherBookmark)
             {
-                return false;
+                return FileNames == otherBookmark.FileNames &&
+                    SearchPattern == otherBookmark.SearchPattern &&
+                    ReplacePattern == otherBookmark.ReplacePattern;
             }
-            else
-            {
-                Bookmark otherBookmark = (Bookmark)obj;
-                if (this.FileNames == otherBookmark.FileNames &&
-                    this.ReplacePattern == otherBookmark.ReplacePattern &&
-                    this.SearchPattern == otherBookmark.SearchPattern)
-                    return true;
-                else
-                    return false;
-            }
+            return false;
         }
+
         public override int GetHashCode()
         {
-            return (FileNames + ReplacePattern + SearchPattern).GetHashCode();
+            unchecked
+            {
+                int hashCode = 13;
+                hashCode = (hashCode * 397) ^ FileNames.GetHashCode();
+                hashCode = (hashCode * 397) ^ SearchPattern.GetHashCode();
+                hashCode = (hashCode * 397) ^ ReplacePattern.GetHashCode();
+                return hashCode;
+            }
         }
-    }
 
-    public class BookmarkComparer : IComparer<Bookmark>
-    {
-        public int Compare(Bookmark x, Bookmark y)
+        public override string ToString()
         {
-            return x.SearchPattern.CompareTo(y.SearchPattern);
+            return $"{SearchPattern} to {ReplacePattern} on {FileNames} :: {Description}";
         }
     }
 }

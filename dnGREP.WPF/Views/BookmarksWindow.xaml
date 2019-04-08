@@ -1,0 +1,78 @@
+﻿<Window x:Class="dnGREP.WPF.BookmarksWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:my="clr-namespace:dnGREP.WPF"
+        mc:Ignorable="d"
+        Title="Bookmarks"  Height="440" Width="860" MinHeight="300" MinWidth="520"
+        Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
+        ResizeMode="CanResizeWithGrip" ShowInTaskbar="True" Icon="/dnGREP;component/nGREP.ico" >
+
+    <Window.Resources>
+        <my:TypeOfSearchValueConverter  x:Key="tosConverter"/>
+
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="90"/>
+            <Setter Property="Height" Value="28"/>
+            <Setter Property="Padding" Value="3"/>
+            <Setter Property="Margin" Value="3"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0">
+            <TextBlock Text="Filter:" Margin="3"/>
+            <TextBox Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" Margin="3"/>
+        </DockPanel>
+
+        <DataGrid Grid.Row="1" Margin="3" 
+                  ItemsSource="{Binding Bookmarks}" 
+                  SelectedValue="{Binding SelectedBookmark}"
+                  AutoGenerateColumns="False"
+                  SelectionMode="Single" SelectionUnit="FullRow"
+                  CanUserReorderColumns="True"
+                  CanUserResizeColumns="True"
+                  CanUserSortColumns="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Type" MinWidth="80" IsReadOnly="True" SortMemberPath="TypeOfSearch">
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource tosConverter}">
+                            <Binding Path="TypeOfSearch"/>
+                            <Binding Path="HasExtendedProperties"/>
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+                <DataGridTextColumn Header="Search For" MinWidth="120" IsReadOnly="True" Binding="{Binding SearchFor}"/>
+                <DataGridTextColumn Header="Replace With" MinWidth="120" IsReadOnly="True" Binding="{Binding ReplaceWith}"/>
+                <DataGridTextColumn Header="File Pattern" MinWidth="120" IsReadOnly="True" Binding="{Binding FilePattern}"/>
+                <DataGridTextColumn Header="Comments" MinWidth="240" IsReadOnly="True" Binding="{Binding Description}"/>
+                <DataGridCheckBoxColumn Header="Extended Properties" MinWidth="20" IsReadOnly="True" Binding="{Binding HasExtendedProperties}"/>
+            </DataGrid.Columns>
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <EventSetter Event="PreviewMouseDoubleClick" Handler="DataGridRow_PreviewMouseDoubleClick" />
+                </Style>
+            </DataGrid.RowStyle>
+        </DataGrid>
+
+        <DockPanel Grid.Row="2" LastChildFill="False">
+            <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                <Button Content="_Add" Command="{Binding AddCommand}"/>
+                <Button Content="_Edit" Command="{Binding EditCommand}"/>
+                <Button Content="_Delete" Command="{Binding DeleteCommand}"/>
+            </StackPanel>
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                <Button Content="_Close" IsCancel="True" IsDefault="True"/>
+                <Button Content="_Use" IsEnabled="{Binding HasSelection}" Click="UseButton_Click"/>
+            </StackPanel>
+        </DockPanel>
+
+    </Grid>
+</Window>
