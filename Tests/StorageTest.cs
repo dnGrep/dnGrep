@@ -56,14 +56,14 @@ namespace Tests
             GrepSettings storage = GrepSettings.Instance;
             storage.Clear();
             Assert.Empty(storage);
-            storage.Set<int>("size", 10);
-            storage.Set<bool>("isTrue", true);
+            storage.Set("size", 10);
+            storage.Set("isTrue", true);
             storage.Save(destinationFolder + "\\test.xml");
             storage.Clear();
             Assert.Empty(storage);
             storage.Load(destinationFolder + "\\test.xml");
-            Assert.Equal<int>(storage.Get<int>("size"), 10);
-            Assert.Equal<bool>(storage.Get<bool>("isTrue"), true);
+            Assert.Equal(10, storage.Get<int>("size"));
+            Assert.True(storage.Get<bool>("isTrue"));
         }
     }
 }
