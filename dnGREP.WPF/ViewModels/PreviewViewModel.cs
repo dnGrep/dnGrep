@@ -178,7 +178,7 @@ namespace dnGREP.WPF
                     IsLargeOrBinary = fileInfo.Length > 4096000 || Utils.IsBinary(FilePath);
 
                     // Disable highlighting for large number of matches
-                    HighlightDisabled = GrepResult.Matches.Count > 5000;
+                    HighlightDisabled = GrepResult?.Matches?.Count > 5000;
 
                     // Tell View to show window
                     ShowPreview?.Invoke(this, new ShowEventArgs { ClearContent = true });
