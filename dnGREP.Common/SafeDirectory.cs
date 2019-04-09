@@ -68,6 +68,10 @@ namespace dnGREP.Common
                     {
                         if (WildcardMatch(fsei.FileName, pattern, true))
                             return true;
+                        else if (pattern == "*.doc" && WildcardMatch(fsei.FileName, "*.doc*", true))
+                            return true;
+                        else if (pattern == "*.xls" && WildcardMatch(fsei.FileName, "*.xls*", true))
+                            return true;
                     }
                     return false;
                 };
@@ -135,6 +139,10 @@ namespace dnGREP.Common
                     foreach (string pattern in patterns)
                     {
                         if (WildcardMatch(fsei.FileName, pattern, true))
+                            return true;
+                        else if (pattern == "*.doc" && WildcardMatch(fsei.FileName, "*.doc*", true))
+                            return true;
+                        else if (pattern == "*.xls" && WildcardMatch(fsei.FileName, "*.xls*", true))
                             return true;
                     }
                     return false;

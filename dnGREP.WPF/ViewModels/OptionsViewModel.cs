@@ -13,15 +13,13 @@ namespace dnGREP.WPF
     {
         public OptionsViewModel()
         {
-            loadSetting();
+            LoadSetting();
         }
 
         #region Private Variables and Properties
-        private System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog();
-        private static string SHELL_KEY_NAME = "dnGREP";
-        private static string OLD_SHELL_KEY_NAME = "nGREP";
-        private static string SHELL_MENU_TEXT = "dnGREP...";
-        private GrepSettings settings
+        private static readonly string SHELL_KEY_NAME = "dnGREP";
+        private static readonly string SHELL_MENU_TEXT = "dnGREP...";
+        private GrepSettings Settings
         {
             get { return GrepSettings.Instance; }
         }
@@ -32,25 +30,25 @@ namespace dnGREP.WPF
         {
             get
             {
-                if (EnableWindowsIntegration != isShellRegistered("Directory") ||
-                EnableStartupAcceleration != isStartupRegistered() ||
-                EnableCheckForUpdates != settings.Get<bool>(GrepSettings.Key.EnableUpdateChecking) ||
-                CheckForUpdatesInterval != settings.Get<int>(GrepSettings.Key.UpdateCheckInterval) ||
-                ShowLinesInContext != settings.Get<bool>(GrepSettings.Key.ShowLinesInContext) ||
-                ContextLinesBefore != settings.Get<int>(GrepSettings.Key.ContextLinesBefore) ||
-                ContextLinesAfter != settings.Get<int>(GrepSettings.Key.ContextLinesAfter) ||
-                CustomEditorPath != settings.Get<string>(GrepSettings.Key.CustomEditor) ||
-                CustomEditorArgs != settings.Get<string>(GrepSettings.Key.CustomEditorArgs) ||
-                ShowFilePathInResults != settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults) ||
-                AllowSearchWithEmptyPattern != settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern) ||
-                AutoExpandSearchTree != settings.Get<bool>(GrepSettings.Key.ExpandResults) ||
-                ShowVerboseMatchCount != settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount) ||
-                MatchTimeout != settings.Get<double>(GrepSettings.Key.MatchTimeout) ||
-                MatchThreshold != settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold) ||
-                MaxSearchBookmarks != settings.Get<int>(GrepSettings.Key.MaxSearchBookmarks) ||
-                MaxPathBookmarks != settings.Get<int>(GrepSettings.Key.MaxPathBookmarks) ||
-                MaxExtensionBookmarks != settings.Get<int>(GrepSettings.Key.MaxExtensionBookmarks) ||
-                OptionsLocation != (settings.Get<bool>(GrepSettings.Key.OptionsOnMainPanel) ?
+                if (EnableWindowsIntegration != IsShellRegistered("Directory") ||
+                EnableStartupAcceleration != IsStartupRegistered() ||
+                EnableCheckForUpdates != Settings.Get<bool>(GrepSettings.Key.EnableUpdateChecking) ||
+                CheckForUpdatesInterval != Settings.Get<int>(GrepSettings.Key.UpdateCheckInterval) ||
+                ShowLinesInContext != Settings.Get<bool>(GrepSettings.Key.ShowLinesInContext) ||
+                ContextLinesBefore != Settings.Get<int>(GrepSettings.Key.ContextLinesBefore) ||
+                ContextLinesAfter != Settings.Get<int>(GrepSettings.Key.ContextLinesAfter) ||
+                CustomEditorPath != Settings.Get<string>(GrepSettings.Key.CustomEditor) ||
+                CustomEditorArgs != Settings.Get<string>(GrepSettings.Key.CustomEditorArgs) ||
+                ShowFilePathInResults != Settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults) ||
+                AllowSearchWithEmptyPattern != Settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern) ||
+                AutoExpandSearchTree != Settings.Get<bool>(GrepSettings.Key.ExpandResults) ||
+                ShowVerboseMatchCount != Settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount) ||
+                MatchTimeout != Settings.Get<double>(GrepSettings.Key.MatchTimeout) ||
+                MatchThreshold != Settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold) ||
+                MaxSearchBookmarks != Settings.Get<int>(GrepSettings.Key.MaxSearchBookmarks) ||
+                MaxPathBookmarks != Settings.Get<int>(GrepSettings.Key.MaxPathBookmarks) ||
+                MaxExtensionBookmarks != Settings.Get<int>(GrepSettings.Key.MaxExtensionBookmarks) ||
+                OptionsLocation != (Settings.Get<bool>(GrepSettings.Key.OptionsOnMainPanel) ?
                     PanelSelection.MainPanel : PanelSelection.OptionsExpander))
                     return true;
                 else
@@ -421,8 +419,8 @@ namespace dnGREP.WPF
                 if (_saveCommand == null)
                 {
                     _saveCommand = new RelayCommand(
-                        param => this.Save(),
-                        param => this.CanSave
+                        param => Save(),
+                        param => CanSave
                         );
                 }
                 return _saveCommand;
@@ -440,7 +438,7 @@ namespace dnGREP.WPF
                 if (_browseCommand == null)
                 {
                     _browseCommand = new RelayCommand(
-                        param => this.browse()
+                        param => Browse()
                         );
                 }
                 return _browseCommand;
@@ -458,7 +456,7 @@ namespace dnGREP.WPF
                 if (_clearSearchesCommand == null)
                 {
                     _clearSearchesCommand = new RelayCommand(
-                        param => this.clearSearches()
+                        param => ClearSearches()
                         );
                 }
                 return _clearSearchesCommand;
@@ -473,33 +471,35 @@ namespace dnGREP.WPF
         /// </summary>
         public void Save()
         {
-            saveSettings();
+            SaveSettings();
         }
 
         #endregion // Public Methods
 
         #region Private Methods
 
-        public void browse()
+        public void Browse()
         {
-            if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            var dlg = new OpenFileDialog();
+            var result = dlg.ShowDialog();
+            if (result.HasValue && result.Value)
             {
-                CustomEditorPath = openFileDialog.FileName;
+                CustomEditorPath = dlg.FileName;
             }
         }
 
-        public void clearSearches()
+        public void ClearSearches()
         {
-            settings.Set<List<string>>(GrepSettings.Key.FastFileMatchBookmarks, new List<string>());
-            settings.Set<List<string>>(GrepSettings.Key.FastFileNotMatchBookmarks, new List<string>());
-            settings.Set<List<string>>(GrepSettings.Key.FastPathBookmarks, new List<string>());
-            settings.Set<List<string>>(GrepSettings.Key.FastReplaceBookmarks, new List<string>());
-            settings.Set<List<string>>(GrepSettings.Key.FastSearchBookmarks, new List<string>());
+            Settings.Set(GrepSettings.Key.FastFileMatchBookmarks, new List<string>());
+            Settings.Set(GrepSettings.Key.FastFileNotMatchBookmarks, new List<string>());
+            Settings.Set(GrepSettings.Key.FastPathBookmarks, new List<string>());
+            Settings.Set(GrepSettings.Key.FastReplaceBookmarks, new List<string>());
+            Settings.Set(GrepSettings.Key.FastSearchBookmarks, new List<string>());
         }
 
-        private void loadSetting()
+        private void LoadSetting()
         {
-            checkIfAdmin();
+            CheckIfAdmin();
             if (!IsAdministrator)
             {
                 WindowsIntegrationTooltip = "To set shell integration run dnGREP with elevated priveleges.";
@@ -512,75 +512,75 @@ namespace dnGREP.WPF
                 StartupAccelerationTooltip = "Startup acceleration loads application libraries on machine start to improve application startup time.";
                 PanelTooltip = "Shell integration enables running an application from shell context menu.";
             }
-            EnableWindowsIntegration = isShellRegistered("Directory");
-            EnableStartupAcceleration = isStartupRegistered();
-            EnableCheckForUpdates = settings.Get<bool>(GrepSettings.Key.EnableUpdateChecking);
-            CheckForUpdatesInterval = settings.Get<int>(GrepSettings.Key.UpdateCheckInterval);
-            CustomEditorPath = settings.Get<string>(GrepSettings.Key.CustomEditor);
-            CustomEditorArgs = settings.Get<string>(GrepSettings.Key.CustomEditorArgs);
-            ShowFilePathInResults = settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults);
-            AllowSearchWithEmptyPattern = settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern);
-            AutoExpandSearchTree = settings.Get<bool>(GrepSettings.Key.ExpandResults);
-            showVerboseMatchCount = settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount);
-            MatchTimeout = settings.Get<double>(GrepSettings.Key.MatchTimeout);
-            MatchThreshold = settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold);
-            ShowLinesInContext = settings.Get<bool>(GrepSettings.Key.ShowLinesInContext);
-            ContextLinesBefore = settings.Get<int>(GrepSettings.Key.ContextLinesBefore);
-            ContextLinesAfter = settings.Get<int>(GrepSettings.Key.ContextLinesAfter);
-            MaxSearchBookmarks = settings.Get<int>(GrepSettings.Key.MaxSearchBookmarks);
-            MaxPathBookmarks = settings.Get<int>(GrepSettings.Key.MaxPathBookmarks);
-            MaxExtensionBookmarks = settings.Get<int>(GrepSettings.Key.MaxExtensionBookmarks);
-            OptionsLocation = settings.Get<bool>(GrepSettings.Key.OptionsOnMainPanel) ?
+            EnableWindowsIntegration = IsShellRegistered("Directory");
+            EnableStartupAcceleration = IsStartupRegistered();
+            EnableCheckForUpdates = Settings.Get<bool>(GrepSettings.Key.EnableUpdateChecking);
+            CheckForUpdatesInterval = Settings.Get<int>(GrepSettings.Key.UpdateCheckInterval);
+            CustomEditorPath = Settings.Get<string>(GrepSettings.Key.CustomEditor);
+            CustomEditorArgs = Settings.Get<string>(GrepSettings.Key.CustomEditorArgs);
+            ShowFilePathInResults = Settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults);
+            AllowSearchWithEmptyPattern = Settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern);
+            AutoExpandSearchTree = Settings.Get<bool>(GrepSettings.Key.ExpandResults);
+            showVerboseMatchCount = Settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount);
+            MatchTimeout = Settings.Get<double>(GrepSettings.Key.MatchTimeout);
+            MatchThreshold = Settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold);
+            ShowLinesInContext = Settings.Get<bool>(GrepSettings.Key.ShowLinesInContext);
+            ContextLinesBefore = Settings.Get<int>(GrepSettings.Key.ContextLinesBefore);
+            ContextLinesAfter = Settings.Get<int>(GrepSettings.Key.ContextLinesAfter);
+            MaxSearchBookmarks = Settings.Get<int>(GrepSettings.Key.MaxSearchBookmarks);
+            MaxPathBookmarks = Settings.Get<int>(GrepSettings.Key.MaxPathBookmarks);
+            MaxExtensionBookmarks = Settings.Get<int>(GrepSettings.Key.MaxExtensionBookmarks);
+            OptionsLocation = Settings.Get<bool>(GrepSettings.Key.OptionsOnMainPanel) ?
                 PanelSelection.MainPanel : PanelSelection.OptionsExpander;
         }
 
-        private void saveSettings()
+        private void SaveSettings()
         {
             if (EnableWindowsIntegration)
             {
-                shellRegister("Directory");
-                shellRegister("Drive");
-                shellRegister("*");
-                shellRegister("here");
+                ShellRegister("Directory");
+                ShellRegister("Drive");
+                ShellRegister("*");
+                ShellRegister("here");
             }
             else
             {
-                shellUnregister("Directory");
-                shellUnregister("Drive");
-                shellUnregister("*");
-                shellUnregister("here");
+                ShellUnregister("Directory");
+                ShellUnregister("Drive");
+                ShellUnregister("*");
+                ShellUnregister("here");
             }
 
             if (EnableStartupAcceleration)
             {
-                startupRegister();
+                StartupRegister();
             }
             else
             {
-                startupUnregister();
+                StartupUnregister();
             }
 
-            settings.Set<bool>(GrepSettings.Key.EnableUpdateChecking, EnableCheckForUpdates);
-            settings.Set<int>(GrepSettings.Key.UpdateCheckInterval, CheckForUpdatesInterval);
-            settings.Set<string>(GrepSettings.Key.CustomEditor, CustomEditorPath);
-            settings.Set<string>(GrepSettings.Key.CustomEditorArgs, CustomEditorArgs);
-            settings.Set<bool>(GrepSettings.Key.ShowFilePathInResults, ShowFilePathInResults);
-            settings.Set<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern, AllowSearchWithEmptyPattern);
-            settings.Set<bool>(GrepSettings.Key.ExpandResults, AutoExpandSearchTree);
-            settings.Set<bool>(GrepSettings.Key.ShowVerboseMatchCount, showVerboseMatchCount);
-            settings.Set<double>(GrepSettings.Key.MatchTimeout, MatchTimeout);
-            settings.Set<double>(GrepSettings.Key.FuzzyMatchThreshold, MatchThreshold);
-            settings.Set<bool>(GrepSettings.Key.ShowLinesInContext, ShowLinesInContext);
-            settings.Set<int>(GrepSettings.Key.ContextLinesBefore, ContextLinesBefore);
-            settings.Set<int>(GrepSettings.Key.ContextLinesAfter, ContextLinesAfter);
-            settings.Set<int>(GrepSettings.Key.MaxSearchBookmarks, MaxSearchBookmarks);
-            settings.Set<int>(GrepSettings.Key.MaxPathBookmarks, MaxPathBookmarks);
-            settings.Set<int>(GrepSettings.Key.MaxExtensionBookmarks, MaxExtensionBookmarks);
-            settings.Set<bool>(GrepSettings.Key.OptionsOnMainPanel, OptionsLocation == PanelSelection.MainPanel);
-            settings.Save();
+            Settings.Set(GrepSettings.Key.EnableUpdateChecking, EnableCheckForUpdates);
+            Settings.Set(GrepSettings.Key.UpdateCheckInterval, CheckForUpdatesInterval);
+            Settings.Set(GrepSettings.Key.CustomEditor, CustomEditorPath);
+            Settings.Set(GrepSettings.Key.CustomEditorArgs, CustomEditorArgs);
+            Settings.Set(GrepSettings.Key.ShowFilePathInResults, ShowFilePathInResults);
+            Settings.Set(GrepSettings.Key.AllowSearchingForFileNamePattern, AllowSearchWithEmptyPattern);
+            Settings.Set(GrepSettings.Key.ExpandResults, AutoExpandSearchTree);
+            Settings.Set(GrepSettings.Key.ShowVerboseMatchCount, showVerboseMatchCount);
+            Settings.Set(GrepSettings.Key.MatchTimeout, MatchTimeout);
+            Settings.Set(GrepSettings.Key.FuzzyMatchThreshold, MatchThreshold);
+            Settings.Set(GrepSettings.Key.ShowLinesInContext, ShowLinesInContext);
+            Settings.Set(GrepSettings.Key.ContextLinesBefore, ContextLinesBefore);
+            Settings.Set(GrepSettings.Key.ContextLinesAfter, ContextLinesAfter);
+            Settings.Set(GrepSettings.Key.MaxSearchBookmarks, MaxSearchBookmarks);
+            Settings.Set(GrepSettings.Key.MaxPathBookmarks, MaxPathBookmarks);
+            Settings.Set(GrepSettings.Key.MaxExtensionBookmarks, MaxExtensionBookmarks);
+            Settings.Set(GrepSettings.Key.OptionsOnMainPanel, OptionsLocation == PanelSelection.MainPanel);
+            Settings.Save();
         }
 
-        private bool isShellRegistered(string location)
+        private bool IsShellRegistered(string location)
         {
             if (!isAdministrator)
                 return false;
@@ -615,12 +615,12 @@ namespace dnGREP.WPF
             }
         }
 
-        private void shellRegister(string location)
+        private void ShellRegister(string location)
         {
             if (!isAdministrator)
                 return;
 
-            if (!isShellRegistered(location))
+            if (!IsShellRegistered(location))
             {
 
                 if (location == "here")
@@ -668,12 +668,12 @@ namespace dnGREP.WPF
             }
         }
 
-        private void shellUnregister(string location)
+        private void ShellUnregister(string location)
         {
             if (!isAdministrator)
                 return;
 
-            if (isShellRegistered(location))
+            if (IsShellRegistered(location))
             {
                 if (location == "here")
                 {
@@ -688,19 +688,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private void oldShellUnregister()
-        {
-            if (!isAdministrator)
-                return;
-
-            string regPath = string.Format(@"Directory\shell\{0}", OLD_SHELL_KEY_NAME);
-            if (Registry.ClassesRoot.OpenSubKey(regPath) != null)
-            {
-                Registry.ClassesRoot.DeleteSubKeyTree(regPath);
-            }
-        }
-
-        private bool isStartupRegistered()
+        private bool IsStartupRegistered()
         {
             if (!isAdministrator)
                 return false;
@@ -720,12 +708,12 @@ namespace dnGREP.WPF
             }
         }
 
-        private void startupRegister()
+        private void StartupRegister()
         {
             if (!isAdministrator)
                 return;
 
-            if (!isStartupRegistered())
+            if (!IsStartupRegistered())
             {
                 string regPath = @"Software\Microsoft\Windows\CurrentVersion\Run";
 
@@ -736,12 +724,12 @@ namespace dnGREP.WPF
             }
         }
 
-        private void startupUnregister()
+        private void StartupUnregister()
         {
             if (!isAdministrator)
                 return;
 
-            if (isStartupRegistered())
+            if (IsStartupRegistered())
             {
                 string regPath = @"Software\Microsoft\Windows\CurrentVersion\Run";
 
@@ -752,7 +740,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private void checkIfAdmin()
+        private void CheckIfAdmin()
         {
             try
             {

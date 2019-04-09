@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -22,9 +21,18 @@ namespace dnGREP.WPF
 {
     public class MainViewModel : BaseMainViewModel
     {
+        public event EventHandler PreviewHide;
+        public event EventHandler PreviewShow;
+
         public MainViewModel()
             : base()
         {
+            _previewWindowBounds = Properties.Settings.Default.PreviewBounds;
+            _previewWindowState = Properties.Settings.Default.PreviewWindowState;
+            _isPreviewDocked = Properties.Settings.Default.PreviewDocked;
+            _previewDockedWidth = Properties.Settings.Default.PreviewDockedWidth;
+            _isPreviewHidden = Properties.Settings.Default.PreviewHidden;
+
             SearchResults.PreviewFileLineRequest += SearchResults_PreviewFileLineRequest;
             SearchResults.PreviewFileRequest += SearchResults_PreviewFileRequest;
             SearchResults.OpenFileLineRequest += SearchResults_OpenFileLineRequest;
@@ -38,24 +46,24 @@ namespace dnGREP.WPF
             idleTimer.Tick += IdleTimer_Tick;
         }
 
-        void SearchResults_OpenFileRequest(object sender, MVHelpers.GrepResultEventArgs e)
+        void SearchResults_OpenFileRequest(object sender, GrepResultEventArgs e)
         {
             OpenFile(e.FormattedGrepResult, e.UseCustomEditor);
         }
 
-        void SearchResults_OpenFileLineRequest(object sender, MVHelpers.GrepLineEventArgs e)
+        void SearchResults_OpenFileLineRequest(object sender, GrepLineEventArgs e)
         {
             OpenFile(e.FormattedGrepLine, e.UseCustomEditor);
         }
 
-        void SearchResults_PreviewFileRequest(object sender, MVHelpers.GrepResultEventArgs e)
+        void SearchResults_PreviewFileRequest(object sender, GrepResultEventArgs e)
         {
-            PreviewFile(e.FormattedGrepResult, e.ParentWindowSize);
+            PreviewFile(e.FormattedGrepResult);
         }
 
-        void SearchResults_PreviewFileLineRequest(object sender, MVHelpers.GrepLineEventArgs e)
+        void SearchResults_PreviewFileLineRequest(object sender, GrepLineEventArgs e)
         {
-            PreviewFile(e.FormattedGrepLine, e.ParentWindowSize);
+            PreviewFile(e.FormattedGrepLine);
         }
 
         #region Private Variables and Properties
@@ -63,9 +71,7 @@ namespace dnGREP.WPF
         private DateTime timer = DateTime.Now;
         private FileFolderDialogWin32 fileFolderDialog = new FileFolderDialogWin32();
         private BackgroundWorker workerSearchReplace = new BackgroundWorker();
-        private BookmarksForm bookmarkForm;
-        private PreviewView preview;
-        private PreviewViewModel previewModel;
+        private BookmarksWindow bookmarkWindow;
         private HashSet<string> currentSearchFiles = new HashSet<string>();
         private int processedFiles;
         private bool isSorted;
@@ -79,9 +85,96 @@ namespace dnGREP.WPF
 
         public Window ParentWindow { get; set; }
 
+        public PreviewViewModel PreviewModel { get; set; }
+
         #endregion
 
         #region Presentation Properties
+
+        private string _previewTitle = " ";
+        public string PreviewTitle
+        {
+            get { return _previewTitle; }
+            set
+            {
+                if (_previewTitle == value)
+                    return;
+
+                _previewTitle = value;
+                base.OnPropertyChanged(() => PreviewTitle);
+            }
+        }
+
+        private Rect _previewWindowBounds = Rect.Empty;
+        public Rect PreviewWindowBounds
+        {
+            get { return _previewWindowBounds; }
+            set
+            {
+                if (_previewWindowBounds == value)
+                    return;
+
+                _previewWindowBounds = value;
+                base.OnPropertyChanged(() => PreviewWindowBounds);
+            }
+        }
+
+        private WindowState _previewWindowState = WindowState.Normal;
+        public WindowState PreviewWindowState
+        {
+            get { return _previewWindowState; }
+            set
+            {
+                if (_previewWindowState == value)
+                    return;
+
+                _previewWindowState = value;
+                base.OnPropertyChanged(() => PreviewWindowState);
+            }
+        }
+
+        private bool _isPreviewDocked = false;
+        public bool IsPreviewDocked
+        {
+            get { return _isPreviewDocked; }
+            set
+            {
+                if (_isPreviewDocked == value)
+                    return;
+
+                _isPreviewDocked = value;
+                base.OnPropertyChanged(() => IsPreviewDocked);
+            }
+        }
+
+        private bool _isPreviewHidden = false;
+        public bool IsPreviewHidden
+        {
+            get { return _isPreviewHidden; }
+            set
+            {
+                if (_isPreviewHidden == value)
+                    return;
+
+                _isPreviewHidden = value;
+                base.OnPropertyChanged(() => IsPreviewHidden);
+            }
+        }
+
+        private double _previewDockedWidth = 200;
+        public double PreviewDockedWidth
+        {
+            get { return _previewDockedWidth; }
+            set
+            {
+                if (_previewDockedWidth == value)
+                    return;
+
+                _previewDockedWidth = value;
+                base.OnPropertyChanged(() => PreviewDockedWidth);
+            }
+        }
+
         RelayCommand _undoCommand;
         /// <summary>
         /// Returns an undo command
@@ -441,48 +534,38 @@ namespace dnGREP.WPF
 
             if (IsProperty(() => PreviewFileContent, name))
             {
-                if (preview != null)
+                if (PreviewFileContent)
                 {
-                    if (PreviewFileContent)
+                    if (SearchResults.SelectedNodes.Count > 0)
                     {
-                        if (SearchResults.SelectedNodes.Count > 0)
-                        {
-                            var item = SearchResults.SelectedNodes[0];
+                        var item = SearchResults.SelectedNodes[0];
 
-                            if (item is FormattedGrepLine)
-                            {
-                                PreviewFile(item as FormattedGrepLine, this.ParentWindow.GetBoundsF());
-                            }
-                            else if (item is FormattedGrepResult)
-                            {
-                                PreviewFile(item as FormattedGrepResult, this.ParentWindow.GetBoundsF());
-                            }
+                        if (item is FormattedGrepLine grepLine)
+                        {
+                            PreviewFile(grepLine);
+                        }
+                        else if (item is FormattedGrepResult grepResult)
+                        {
+                            PreviewFile(grepResult);
                         }
                     }
-                    else
-                        preview.Hide();
                 }
+                else
+                    PreviewHide?.Invoke(this, EventArgs.Empty);
             }
         }
 
         public override void SaveSettings()
         {
             CopyBookmarksToSettings();
-            if (preview != null)
-            {
-                settings.Set<Rectangle>(GrepSettings.Key.PreviewWindowSize, preview.GetBounds());
-                preview.SaveSettings();
-            }
+
+            Properties.Settings.Default.PreviewBounds = PreviewWindowBounds;
+            Properties.Settings.Default.PreviewWindowState = PreviewWindowState;
+            Properties.Settings.Default.PreviewDocked = IsPreviewDocked;
+            Properties.Settings.Default.PreviewDockedWidth = PreviewDockedWidth;
+            Properties.Settings.Default.PreviewHidden = IsPreviewHidden;
 
             base.SaveSettings();
-        }
-
-        internal void CloseChildWindows()
-        {
-            if (preview != null)
-            {
-                preview.ForceClose();
-            }
         }
 
         public void OpenFile(FormattedGrepLine selectedNode, bool useCustomEditor)
@@ -539,34 +622,29 @@ namespace dnGREP.WPF
             }
         }
 
-        public void PreviewFile(FormattedGrepLine formattedGrepLine, RectangleF parentWindow)
+        public void PreviewFile(FormattedGrepLine formattedGrepLine)
         {
             if (PreviewFileContent)
             {
                 int lineNumber = formattedGrepLine.GrepLine.LineNumber;
                 FormattedGrepResult result = formattedGrepLine.Parent;
-                PreviewFile(result.GrepResult.FileNameReal, result.GrepResult, lineNumber, parentWindow);
+                PreviewFile(result.GrepResult.FileNameReal, result.GrepResult, lineNumber);
             }
         }
 
-        public void PreviewFile(FormattedGrepResult formattedGrepResult, RectangleF parentWindow)
+        public void PreviewFile(FormattedGrepResult formattedGrepResult)
         {
             if (PreviewFileContent)
             {
                 int lineNumber = 0;
-                if (formattedGrepResult.GrepResult != null && formattedGrepResult.GrepResult.Matches.Count > 0)
+                if (formattedGrepResult.GrepResult != null &&
+                    formattedGrepResult.GrepResult.Matches != null &&
+                    formattedGrepResult.GrepResult.Matches.Count > 0)
+                {
                     lineNumber = formattedGrepResult.GrepResult.Matches[0].LineNumber;
+                }
 
-                PreviewFile(formattedGrepResult.GrepResult.FileNameReal, formattedGrepResult.GrepResult, lineNumber, parentWindow);
-            }
-        }
-
-        public void ChangePreviewWindowState(WindowState state)
-        {
-            if (preview != null && preview.IsVisible)
-            {
-                if (state != WindowState.Maximized)
-                    preview.WindowState = state;
+                PreviewFile(formattedGrepResult.GrepResult.FileNameReal, formattedGrepResult.GrepResult, lineNumber);
             }
         }
 
@@ -969,8 +1047,10 @@ namespace dnGREP.WPF
                 else
                     CurrentGrepOperation = GrepOperation.Search;
                 StatusMessage = "Searching...";
-                if (preview != null && preview.IsVisible)
-                    preview.ResetTextEditor();
+
+                PreviewModel.FilePath = string.Empty;
+                PreviewTitle = string.Empty;
+
 
                 SearchReplaceCriteria workerParams = new SearchReplaceCriteria(this);
                 if (SearchInResultsContent && CanSearchInResults)
@@ -1083,8 +1163,10 @@ namespace dnGREP.WPF
                     if (undoList.Count > 0)
                     {
                         StatusMessage = "Replacing...";
-                        if (preview != null && preview.IsVisible)
-                            preview.ResetTextEditor();
+
+                        PreviewModel.FilePath = string.Empty;
+                        PreviewTitle = string.Empty;
+
                         CurrentGrepOperation = GrepOperation.Replace;
 
                         SearchReplaceCriteria workerParams = new SearchReplaceCriteria(this);
@@ -1241,13 +1323,26 @@ namespace dnGREP.WPF
 
         private void ShowAbout()
         {
-            AboutForm aboutForm = new AboutForm();
+            AboutWindow aboutForm = new AboutWindow();
             aboutForm.ShowDialog();
         }
 
         private void BookmarkAddRemove()
         {
-            Bookmark newBookmark = new Bookmark(SearchFor, ReplaceWith, FilePattern, "");
+            Bookmark newBookmark = new Bookmark(SearchFor, ReplaceWith, FilePattern)
+            {
+                IgnoreFilePattern = FilePatternIgnore,
+                TypeOfFileSearch = TypeOfFileSearch,
+                TypeOfSearch = TypeOfSearch,
+                CaseSensitive = CaseSensitive,
+                WholeWord = WholeWord,
+                Multiline = Multiline,
+                Singleline = Singleline,
+                IncludeSubfolders = IncludeSubfolder,
+                IncludeHiddenFiles = IncludeHidden,
+                IncludeBinaryFiles = IncludeBinary,
+            };
+
             if (IsBookmarked)
             {
                 if (!BookmarkLibrary.Instance.Bookmarks.Contains(newBookmark))
@@ -1267,18 +1362,22 @@ namespace dnGREP.WPF
         {
             try
             {
-                Action<string, string, string> clearTheStar = (searchFor, replaceWith, filePattern) =>
+                void clearTheStar(string searchFor, string replaceWith, string filePattern)
                 {
                     if (searchFor == SearchFor && replaceWith == ReplaceWith && filePattern == FilePattern)
                         IsBookmarked = false;
-                };
-                bookmarkForm = new BookmarksForm(clearTheStar);
-                bookmarkForm.PropertyChanged += new PropertyChangedEventHandler(BookmarkForm_PropertyChanged);
-                bookmarkForm.ShowDialog();
+                }
+                bookmarkWindow = new BookmarksWindow(clearTheStar);
+                bookmarkWindow.UseBookmark += BookmarkForm_UseBookmark;
+                Point pt = WpfScreenHelper.MouseHelper.MousePosition;
+                bookmarkWindow.WindowStartupLocation = WindowStartupLocation.Manual;
+                bookmarkWindow.Left = pt.X - bookmarkWindow.Width + 100;
+                bookmarkWindow.Top = pt.Y + 20;
+                bookmarkWindow.ShowDialog();
             }
             finally
             {
-                bookmarkForm.PropertyChanged -= new PropertyChangedEventHandler(BookmarkForm_PropertyChanged);
+                bookmarkWindow.UseBookmark -= BookmarkForm_UseBookmark;
             }
         }
 
@@ -1623,14 +1722,30 @@ namespace dnGREP.WPF
                 Encodings.Add(enc);
         }
 
-        void BookmarkForm_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void BookmarkForm_UseBookmark(object sender, EventArgs e)
         {
-            if (e.PropertyName == "FilePattern")
-                FilePattern = bookmarkForm.FilePattern;
-            else if (e.PropertyName == "SearchFor")
-                SearchFor = bookmarkForm.SearchFor;
-            else if (e.PropertyName == "ReplaceWith")
-                ReplaceWith = bookmarkForm.ReplaceWith;
+            var bmk = bookmarkWindow.ViewModel.SelectedBookmark;
+            if (bmk != null)
+            {
+                FilePattern = bmk.FilePattern;
+                SearchFor = bmk.SearchFor;
+                ReplaceWith = bmk.ReplaceWith;
+
+                if (bmk.HasExtendedProperties)
+                {
+                    FilePatternIgnore = bmk.IgnoreFilePattern;
+                    TypeOfFileSearch = bmk.TypeOfFileSearch;
+                    IncludeSubfolder = bmk.IncludeSubfolders;
+                    IncludeHidden = bmk.IncludeHidden;
+                    IncludeBinary = bmk.IncludeBinary;
+
+                    TypeOfSearch = bmk.TypeOfSearch;
+                    CaseSensitive = bmk.CaseSensitive;
+                    WholeWord = bmk.WholeWord;
+                    Multiline = bmk.Multiline;
+                    Singleline = bmk.Singleline;
+                }
+            }
         }
 
         private void CopyBookmarksToSettings()
@@ -1668,7 +1783,7 @@ namespace dnGREP.WPF
             settings.Set<List<string>>(GrepSettings.Key.FastPathBookmarks, fpb);
         }
 
-        private void PreviewFile(string filePath, GrepSearchResult result, int line, RectangleF parentWindow)
+        private void PreviewFile(string filePath, GrepSearchResult result, int line)
         {
             if (PreviewFileContent)
             {
@@ -1695,37 +1810,16 @@ namespace dnGREP.WPF
                     }
                 }
 
-                if (previewModel == null)
-                {
-                    previewModel = new PreviewViewModel();
-                }
+                PreviewTitle = Path.GetFileName(displayfileName);
 
-                if (preview == null)
-                {
-                    preview = new PreviewView();
-                    preview.DataContext = previewModel;
-                    Rectangle bounds = settings.Get<Rectangle>(GrepSettings.Key.PreviewWindowSize);
-                    if (bounds.Left == 0 && bounds.Right == 0)
-                    {
-                        preview.Height = parentWindow.Height;
-                        preview.Left = parentWindow.Left + parentWindow.Width;
-                        preview.Width = parentWindow.Width;
-                        preview.Top = parentWindow.Top;
-                    }
-                }
+                PreviewModel.GrepResult = result;
+                PreviewModel.LineNumber = line;
+                PreviewModel.Encoding = result.Encoding;
+                PreviewModel.DisplayFileName = displayfileName;
+                PreviewModel.FilePath = filePath;
 
-
-                previewModel.GrepResult = result;
-                previewModel.LineNumber = line;
-                previewModel.Encoding = result.Encoding;
-                previewModel.DisplayFileName = displayfileName;
-                previewModel.FilePath = filePath;
-
-                if (preview.WindowState == WindowState.Minimized)
-                    preview.WindowState = WindowState.Normal;
-                preview.Show();
-                preview.BringToFront();
-                preview.Focus(); // needs focus so the Esc key will close (hide) the preview
+                if (!IsPreviewDocked)
+                    PreviewShow?.Invoke(this, EventArgs.Empty);
             }
         }
         #endregion

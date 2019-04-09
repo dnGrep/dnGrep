@@ -19,7 +19,7 @@ namespace dnGREP.WPF
         {
             int lineStartOffset = line.Offset;
             string text = CurrentContext.Document.GetText(line);
-            if (result.Matches == null || result.Matches.Count == 0)
+            if (result == null || result.Matches == null || result.Matches.Count == 0)
                 return;
 
             int lineNumber = line.LineNumber;

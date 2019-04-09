@@ -11,13 +11,7 @@ namespace NLog.XmlLayout
     [LayoutRenderer("xml")]
     public class XmlLayoutRenderer : LayoutRenderer
     {
-        private string elementName;
-
-        public string ElementName
-        {
-            get { return elementName; }
-            set { elementName = value; }
-        }
+        public string ElementName { get; set; }
 
         protected override void Append(StringBuilder builder, LogEventInfo logEvent)
         {
@@ -26,14 +20,14 @@ namespace NLog.XmlLayout
             {
                 writer.Formatting = Formatting.Indented;
                 // Create the eventNode element
-                writer.WriteStartElement((elementName == null ? logEvent.Level.ToString() : elementName));
+                writer.WriteStartElement(ElementName ?? logEvent.Level.ToString());
 
-                if (elementName != null)
+                if (ElementName != null)
                 {
                     WriteToAttribute(writer, "type", logEvent.Level.ToString());
                 }
 
-                WriteToAttribute(writer, "time", logEvent.TimeStamp.ToString("M/d/yyyy HH:mm:ss tt"));
+                WriteToAttribute(writer, "time", logEvent.TimeStamp.ToString("M/d/yyyy HH:mm:ss.fff"));
                 writer.WriteStartElement("Message");
                 writer.WriteString(logEvent.Message);
                 writer.WriteEndElement();
@@ -41,24 +35,25 @@ namespace NLog.XmlLayout
                 {
                     foreach (object obj in logEvent.Parameters)
                     {
-                        writer.WriteStartElement("Parameter");
-                        if (obj is KeyValuePair<string, string>)
+                        if (obj is Exception ex)
                         {
-                            KeyValuePair<string, string> p = (KeyValuePair<string, string>)obj;
-                            WriteToAttribute(writer, "name", p.Key);
-                            WriteToAttribute(writer, "value", p.Value);
-                        }
-                        else if (obj is Exception)
-                        {
-                            Exception ex = obj as Exception;
-                            string msg = ex.GetType().ToString() + ex.StackTrace;
-                            WriteToAttribute(writer, "value", msg);
+                            string msg = ex.GetType().ToString() + Environment.NewLine + ex.StackTrace;
+                            WriteToElement(writer, "Exception", msg);
                         }
                         else
                         {
-                            WriteToAttribute(writer, "value", obj.ToString());
+                            writer.WriteStartElement("Parameter");
+                            if (obj is KeyValuePair<string, string> p)
+                            {
+                                WriteToAttribute(writer, "name", p.Key);
+                                WriteToAttribute(writer, "value", p.Value);
+                            }
+                            else
+                            {
+                                WriteToAttribute(writer, "value", obj.ToString());
+                            }
+                            writer.WriteEndElement();
                         }
-                        writer.WriteEndElement();
                     }
                 }
                 if (logEvent.Exception != null)
@@ -68,6 +63,13 @@ namespace NLog.XmlLayout
                 writer.WriteEndElement();
                 stringWriter.Flush();
             }
+        }
+
+        internal static void WriteToElement(XmlTextWriter writer, string localName, string content)
+        {
+            writer.WriteStartElement(localName);
+            writer.WriteString(content);
+            writer.WriteEndElement();
         }
 
         internal static void WriteToAttribute(XmlTextWriter writer, string attribute, string value)

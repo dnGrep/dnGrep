@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-using System.Windows;
 using System.Xml;
 using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
@@ -28,26 +27,10 @@ namespace dnGREP.WPF
             Highlighters.Insert(0, "None");
             CurrentSyntax = "None";
 
-            this.PropertyChanged += PreviewViewModel_PropertyChanged;
+            PropertyChanged += PreviewViewModel_PropertyChanged;
         }
 
-        #region Properties and Events
         public event EventHandler<ShowEventArgs> ShowPreview;
-
-        private bool isVisible;
-        public bool IsVisible
-        {
-            get { return isVisible; }
-            set
-            {
-                if (value == isVisible)
-                    return;
-
-                isVisible = value;
-
-                base.OnPropertyChanged(() => IsVisible);
-            }
-        }
 
         private bool isLargeOrBinary;
         public bool IsLargeOrBinary
@@ -168,7 +151,6 @@ namespace dnGREP.WPF
                     return HighlightingManager.Instance.GetDefinitionByExtension("txt");
             }
         }
-        #endregion
 
         void PreviewViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
@@ -177,8 +159,7 @@ namespace dnGREP.WPF
 
         private Dictionary<string, IHighlightingDefinition> HighlightDefinitions { get; set; }
 
-        #region Public Methods
-        public virtual void UpdateState(string name)
+        private void UpdateState(string name)
         {
             if (name == "FilePath")
             {
@@ -197,7 +178,7 @@ namespace dnGREP.WPF
                     IsLargeOrBinary = fileInfo.Length > 4096000 || Utils.IsBinary(FilePath);
 
                     // Disable highlighting for large number of matches
-                    HighlightDisabled = GrepResult.Matches.Count > 5000;
+                    HighlightDisabled = GrepResult?.Matches?.Count > 5000;
 
                     // Tell View to show window
                     ShowPreview?.Invoke(this, new ShowEventArgs { ClearContent = true });
@@ -221,19 +202,15 @@ namespace dnGREP.WPF
                 ShowPreview?.Invoke(this, new ShowEventArgs { ClearContent = true });
             }
         }
-        #endregion
 
-        #region Private Methods
-        private IHighlightingDefinition LoadHighlightingDefinition(
-            string resourceName)
+        private IHighlightingDefinition LoadHighlightingDefinition(string resourceName)
         {
-            var type = typeof(PreviewView);
+            var type = typeof(PreviewControl);
             var fullName = type.Namespace + "." + resourceName;
             using (var stream = type.Assembly.GetManifestResourceStream(fullName))
             using (var reader = new XmlTextReader(stream))
                 return HighlightingLoader.Load(reader, HighlightingManager.Instance);
         }
-        #endregion
     }
 
     public class ShowEventArgs : EventArgs

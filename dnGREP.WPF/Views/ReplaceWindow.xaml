@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
         mc:Ignorable="d"
-        Title="Replace Text" Height="800" Width="980" WindowStartupLocation="CenterScreen"
+        Title="Replace Text" Height="800" Width="980" 
         FocusManager.FocusedElement="{Binding ElementName=btnCanel}" >
 
     <Window.InputBindings>
@@ -148,10 +148,10 @@
             </GroupBox>
 
             <DockPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="3" HorizontalAlignment="Right" LastChildFill="False">
-                <Button DockPanel.Dock="Right" Content="OK" TabIndex="20" Click="OKButton_Click"
-                        ToolTip="Replace matches marked for replacement"/>
-                <Button DockPanel.Dock="Right" x:Name="btnCanel" Content="Cancel" TabIndex="21" IsCancel="True" 
+                <Button DockPanel.Dock="Right" x:Name="btnCanel" Content="Cancel" TabIndex="20" IsCancel="True" 
                         Click="CancelButton_Click" ToolTip="Cancel all replacements"/>
+                <Button DockPanel.Dock="Right" Content="OK" TabIndex="21" Click="OKButton_Click"
+                        ToolTip="Replace matches marked for replacement"/>
             </DockPanel>
 
         </Grid>
