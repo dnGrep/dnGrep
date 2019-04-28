@@ -1,24 +1,43 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                    mc:Ignorable="d">
 
-    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" x:Key="GradientBackground">
-        <GradientStop Color="White" Offset="0" />
-        <GradientStop Color="{x:Static SystemColors.ControlColor}" Offset="0.8" />
-    </LinearGradientBrush>
-    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" x:Key="PanelBackgroundBrush">
-        <GradientStop Color="#FFF9F9F9" Offset="0" />
-        <GradientStop Color="#FFBDC7D4" Offset="1" />
-    </LinearGradientBrush>
-
+    <Style x:Key="TextBlockBaseStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource Control.Foreground}" />
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+    </Style>
+    <Style x:Key="LabelTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource TextBlockBaseStyle}">
+        <Setter Property="TextWrapping" Value="NoWrap"/>
+    </Style>
+    <Style x:Key="GrayTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource LabelTextBlockStyle}">
+        <Setter Property="Foreground" Value="{DynamicResource Control.GrayText}" />
+        <Setter Property="TextWrapping" Value="NoWrap"/>
+    </Style>
+    
     <Style x:Key="GrayedOutFilePattern" TargetType="{x:Type TextBlock}">
         <Style.Setters>
-            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Foreground" Value="{DynamicResource Control.Foreground}"/>
         </Style.Setters>
         <Style.Triggers>
             <DataTrigger Binding="{Binding Path=FilePatternIgnore}" Value="">
-                <Setter Property="Foreground" Value="Gray"/>
+                <Setter Property="Foreground" Value="{DynamicResource Control.GrayText}"/>
             </DataTrigger>
         </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type Label}">
+        <Setter Property="Foreground" Value="{DynamicResource Control.Foreground}"/>
+    </Style>
+
+    <Style TargetType="ToolTip">
+        <Setter Property="Background" Value="{DynamicResource Control.InfoBackground}" />
+        <Setter Property="Foreground" Value="{DynamicResource Control.InfoForeground}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource Control.FrameBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="Padding" Value="6"/>
     </Style>
 
     <Style x:Key="TreeViewItemFocusVisual">
@@ -31,7 +50,7 @@
         </Setter>
     </Style>
 
-    <PathGeometry x:Key="TreeArrow" Figures="M0,0 L0,6 L6,0 z"/>
+    <!--<PathGeometry x:Key="TreeArrow" Figures="M0,0 L0,6 L6,0 z"/>
 
     <Style x:Key="ExpandCollapseToggleStyle" TargetType="{x:Type ToggleButton}">
         <Setter Property="Focusable" Value="False"/>
@@ -71,7 +90,7 @@
         <Setter Property="HorizontalContentAlignment" Value="{Binding Path=HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
         <Setter Property="VerticalContentAlignment" Value="{Binding Path=VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
         <Setter Property="Padding" Value="1,0,0,0"/>
-        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Control.Foreground}"/>
         <Setter Property="FocusVisualStyle" Value="{StaticResource TreeViewItemFocusVisual}"/>
         <Setter Property="Template">
             <Setter.Value>
@@ -100,25 +119,25 @@
                             <Setter Property="Visibility" TargetName="Expander" Value="Hidden"/>
                         </Trigger>
                         <Trigger Property="IsSelected" Value="true">
-                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource TreeViewItem.Highlight.Background}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource TreeViewItem.Highlight.Background}"/>
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
                                 <Condition Property="IsSelected" Value="true"/>
                                 <Condition Property="IsSelectionActive" Value="false"/>
                             </MultiTrigger.Conditions>
-                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource Control.Foregound}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource Control.Foreground}"/>
                         </MultiTrigger>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource Control.GrayText}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
+    </Style>-->
 
     <Style x:Key="CalendarStyle" TargetType="Calendar" >
         <Setter Property="Height" Value="Auto" />

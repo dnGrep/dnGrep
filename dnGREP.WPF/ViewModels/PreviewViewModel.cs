@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using System.Windows.Media;
 using System.Xml;
 using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
@@ -18,16 +19,128 @@ namespace dnGREP.WPF
             Highlighters = new List<string>();
             foreach (var hl in HighlightingManager.Instance.HighlightingDefinitions)
             {
+                ColorInverter.TranslateThemeColors(hl);
                 HighlightDefinitions[hl.Name] = hl;
                 Highlighters.Add(hl.Name);
             }
             Highlighters.Add("SQL");
             HighlightDefinitions["SQL"] = LoadHighlightingDefinition("sqlmode.xshd");
+            ColorInverter.TranslateThemeColors(HighlightDefinitions["SQL"]);
             Highlighters.Sort();
             Highlighters.Insert(0, "None");
             CurrentSyntax = "None";
 
             PropertyChanged += PreviewViewModel_PropertyChanged;
+        }
+
+        private void TranslateThemeColors(IHighlightingDefinition hl)
+        {
+            foreach (var item in hl.NamedHighlightingColors)
+            {
+                if (item != null && !item.IsFrozen)
+                {
+                    if (item.Foreground != null)
+                    {
+                        string hex = item.Foreground.ToString();
+                        Color c = (Color)ColorConverter.ConvertFromString(hex);
+                        item.Foreground = new SimpleHighlightingBrush(Invert(c));
+                    }
+                    else if (item.Background != null)
+                    {
+                        string hex = item.Background.ToString();
+                        Color c = (Color)ColorConverter.ConvertFromString(hex);
+                        item.Background = new SimpleHighlightingBrush(Invert(c));
+                    }
+                }
+            }
+            foreach (var item in hl.MainRuleSet.Rules)
+            {
+                if (item.Color != null && !item.Color.IsFrozen && string.IsNullOrEmpty(item.Color.Name))
+                {
+                    if (item.Color.Foreground != null)
+                    {
+                        string hex = item.Color.Foreground.ToString();
+                        Color c = (Color)ColorConverter.ConvertFromString(hex);
+                        item.Color.Foreground = new SimpleHighlightingBrush(Invert(c));
+                    }
+                    else if (item.Color.Background != null)
+                    {
+                        string hex = item.Color.Background.ToString();
+                        Color c = (Color)ColorConverter.ConvertFromString(hex);
+                        item.Color.Background = new SimpleHighlightingBrush(Invert(c));
+                    }
+                }
+            }
+            foreach (var item in hl.MainRuleSet.Spans)
+            {
+                if (item.SpanColor != null && !item.SpanColor.IsFrozen && string.IsNullOrEmpty(item.SpanColor.Name))
+                {
+                    if (item.SpanColor.Foreground != null)
+                    {
+                        string hex = item.SpanColor.Foreground.ToString();
+                        Color c = (Color)ColorConverter.ConvertFromString(hex);
+                        item.SpanColor.Foreground = new SimpleHighlightingBrush(Invert(c));
+                    }
+                    else if (item.SpanColor.Background != null)
+                    {
+                        string hex = item.SpanColor.Background.ToString();
+                        Color c = (Color)ColorConverter.ConvertFromString(hex);
+                        item.SpanColor.Background = new SimpleHighlightingBrush(Invert(c));
+                    }
+                }
+                if (item.StartColor != null && !item.StartColor.IsFrozen && string.IsNullOrEmpty(item.StartColor.Name))
+                {
+                    if (item.StartColor.Foreground != null)
+                    {
+                        string hex = item.StartColor.Foreground.ToString();
+                        Color c = (Color)ColorConverter.ConvertFromString(hex);
+                        item.StartColor.Foreground = new SimpleHighlightingBrush(Invert(c));
+                    }
+                    else if (item.StartColor.Background != null)
+                    {
+                        string hex = item.StartColor.Background.ToString();
+                        Color c = (Color)ColorConverter.ConvertFromString(hex);
+                        item.StartColor.Background = new SimpleHighlightingBrush(Invert(c));
+                    }
+                }
+                if (item.EndColor != null && !item.EndColor.IsFrozen && string.IsNullOrEmpty(item.EndColor.Name))
+                {
+                    if (item.EndColor.Foreground != null)
+                    {
+                        string hex = item.EndColor.Foreground.ToString();
+                        Color c = (Color)ColorConverter.ConvertFromString(hex);
+                        item.EndColor.Foreground = new SimpleHighlightingBrush(Invert(c));
+                    }
+                    else if (item.EndColor.Background != null)
+                    {
+                        string hex = item.EndColor.Background.ToString();
+                        Color c = (Color)ColorConverter.ConvertFromString(hex);
+                        item.EndColor.Background = new SimpleHighlightingBrush(Invert(c));
+                    }
+                }
+            }
+        }
+
+        private Color Invert(Color c)
+        {
+            int shift = c.A - Math.Min(c.R, Math.Min(c.G, c.B)) - Math.Max(c.R, Math.Max(c.G, c.B));
+            Color result = new Color
+            {
+                A = c.A,
+                R = Wrap(shift + c.R),
+                G = Wrap(shift + c.G),
+                B = Wrap(shift + c.B),
+            };
+            return result;
+        }
+
+        private byte Wrap(int v)
+        {
+            if (v > byte.MaxValue)
+                v -= byte.MaxValue;
+            if (v < 0)
+                v += byte.MaxValue;
+            return (byte)v;
         }
 
         public event EventHandler<ShowEventArgs> ShowPreview;

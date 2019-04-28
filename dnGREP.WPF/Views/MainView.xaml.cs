@@ -15,7 +15,7 @@ namespace dnGREP.WPF
     /// <summary>
     /// Interaction logic for MainForm.xaml
     /// </summary>
-    public partial class MainForm : Window
+    public partial class MainForm : ThemedWindow
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
         private MainViewModel viewModel;

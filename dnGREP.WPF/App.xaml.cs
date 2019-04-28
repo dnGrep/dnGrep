@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
+using System.Windows.Media;
 using dnGREP.Common;
+using ICSharpCode.AvalonEdit.Highlighting;
 using NLog;
 
 namespace dnGREP.WPF
@@ -12,10 +15,34 @@ namespace dnGREP.WPF
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
+        private AppTheme appThemeSvc;
+
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             try
             {
+                appThemeSvc = new AppTheme();
+                appThemeSvc.WatchTheme();
+                appThemeSvc.AppThemeChanged += (s, ea) =>
+                {
+                    string name = appThemeSvc.CurrentTheme == WindowsTheme.Dark ? "Dark" : "Light";
+                    Resources.MergedDictionaries[0].Source = new Uri($"/Themes/{name}Brushes.xaml", UriKind.Relative);
+                };
+
+                string appTheme = "Dark";
+                //string appTheme = appThemeSvc.CurrentTheme == WindowsTheme.Dark ? "Dark" : "Light";
+                Resources.MergedDictionaries[0].Source = new Uri($"/Themes/{appTheme}Brushes.xaml", UriKind.Relative);
+
+                //if (appTheme == "Dark")
+                //{
+                //    foreach (var hl in HighlightingManager.Instance.HighlightingDefinitions)
+                //    {
+                //        ColorInverter.TranslateThemeColors(hl);
+                //    }
+                //}
+                //var accentColor = SystemParameters.WindowGlassColor;
+                //Current.Resources["ControlAccentBrush"] = new SolidColorBrush(accentColor);
+
                 string searchFor = null;
                 Utils.DeleteTempFolder();
                 if (e.Args != null && e.Args.Length > 0)

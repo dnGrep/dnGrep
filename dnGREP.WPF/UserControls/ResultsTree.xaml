@@ -12,27 +12,22 @@
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
-    <Controls:MultiSelectTreeView x:Name="treeView" Grid.Row="3" HorizontalContentAlignment="Stretch"
-                            ItemsSource="{Binding}" SelectedItems="{Binding SelectedNodes}"
-                            MultiSelectRootLevelOnly="False"
-                            VirtualizingStackPanel.IsVirtualizing="True"
-                            MouseDoubleClick="treeView_MouseDoubleClick" PreviewKeyDown="treeKeyDown" 
-                            SelectedItemsChanged="OnSelectedItemsChanged"
-                            my:FocusExtension.IsFocused="{Binding IsResultsTreeFocused}" >
+    
+    <Controls:MultiSelectTreeView x:Name="treeView" 
+                                  Foreground="{DynamicResource TreeView.Foreground}"
+                                  Background="{DynamicResource TreeView.Background}"
+                                  BorderBrush="{DynamicResource TreeView.Border}"
+                                  ItemsSource="{Binding}" SelectedItems="{Binding SelectedNodes}"
+                                  MultiSelectRootLevelOnly="False"
+                                  VirtualizingStackPanel.IsVirtualizing="True"
+                                  HorizontalContentAlignment="Stretch"
+                                  MouseDoubleClick="treeView_MouseDoubleClick" PreviewKeyDown="treeKeyDown" 
+                                  SelectedItemsChanged="OnSelectedItemsChanged"
+                                  my:FocusExtension.IsFocused="{Binding IsResultsTreeFocused}" >
         <TreeView.LayoutTransform>
             <ScaleTransform ScaleX="{Binding ResultsScale}" ScaleY="{Binding ResultsScale}" />
         </TreeView.LayoutTransform>
         <TreeView.Resources>
-            <LinearGradientBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" EndPoint="0,1" StartPoint="0,0">
-                <GradientStop Color="#FFD9F4FF" Offset="0"/>
-                <GradientStop Color="#FF9BDDFB" Offset="1"/>
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="{x:Static SystemColors.ControlBrushKey}" EndPoint="0,1" StartPoint="0,0">
-                <GradientStop Color="#FFEEEDED" Offset="0"/>
-                <GradientStop Color="#FFDDDDDD" Offset="1"/>
-            </LinearGradientBrush>
-            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
-            <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="Black" />
             <HierarchicalDataTemplate DataType="{x:Type my:FormattedGrepResult}" ItemsSource="{Binding FormattedLines}" >
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
@@ -45,7 +40,7 @@
                 </StackPanel>
             </HierarchicalDataTemplate>
             <DataTemplate DataType="{x:Type my:FormattedGrepLine}">
-                <Border BorderBrush="LightGray">
+                <Border BorderBrush="{DynamicResource TreeView.Section.Border}">
                     <Border.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="BorderThickness" Value="0,0,0,0" />
@@ -61,13 +56,13 @@
                             <Style TargetType="{x:Type TextBlock}">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}}" Value="True">
-                                        <Setter Property="Background" Value="#FFD2D2D2"/>
+                                        <Setter Property="Background" Value="{DynamicResource TreeView.LineNumber.Selected.Background}"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}}" Value="False">
-                                        <Setter Property="Background" Value="#FFE0E0E0"/>
+                                        <Setter Property="Background" Value="{DynamicResource TreeView.LineNumber.Deselected.Background}"/>
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding Style}" Value="Empty">
-                                        <Setter Property="Background" Value="White"/>
+                                        <Setter Property="Background" Value="{DynamicResource TreeView.LineNumber.Empty.Background}"/>
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
@@ -101,6 +96,7 @@
         </TreeView.ContextMenu>
         <TreeView.ItemContainerStyle>
             <Style TargetType="{x:Type TreeViewItem}">
+                <Setter Property="Foreground" Value="{DynamicResource TreeView.Foreground}"/>
                 <Setter Property="Controls:MultiSelectTreeView.IsItemSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
                 <EventSetter
                         Event="UIElement.MouseRightButtonDown"
@@ -131,7 +127,11 @@
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
                                 <ToggleButton x:Name="Expander" Style="{StaticResource ExpandCollapseToggleStyle}" ClickMode="Press" IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"/>
-                                <Border x:Name="Bd" SnapsToDevicePixels="true" Grid.Column="1" Grid.ColumnSpan="2" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
+                                <Border x:Name="Bd" SnapsToDevicePixels="true" Grid.Column="1" Grid.ColumnSpan="2" 
+                                        Background="{TemplateBinding Background}" 
+                                        BorderBrush="{TemplateBinding BorderBrush}" 
+                                        BorderThickness="{TemplateBinding BorderThickness}" 
+                                        Padding="{TemplateBinding Padding}">
                                     <ContentPresenter x:Name="PART_Header" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" ContentSource="Header"/>
                                 </Border>
                                 <ItemsPresenter x:Name="ItemsHost" Grid.Column="1"  Grid.ColumnSpan="2"  Grid.Row="1"/>
@@ -144,19 +144,19 @@
                                     <Setter Property="Visibility" TargetName="Expander" Value="Hidden"/>
                                 </Trigger>
                                 <Trigger Property="Controls:MultiSelectTreeView.IsItemSelected" Value="true">
-                                    <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+                                    <Setter Property="Background" TargetName="Bd" Value="{DynamicResource TreeViewItem.Highlight.Background}"/>
+                                    <Setter Property="Foreground" Value="{DynamicResource TreeView.Foreground}"/>
                                 </Trigger>
                                 <MultiTrigger>
                                     <MultiTrigger.Conditions>
                                         <Condition Property="Controls:MultiSelectTreeView.IsItemSelected" Value="true"/>
                                         <Condition Property="IsSelectionActive" Value="false"/>
                                     </MultiTrigger.Conditions>
-                                    <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-                                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                                    <Setter Property="Background" TargetName="Bd" Value="{DynamicResource TreeViewItem.InactiveHighlight.Background}"/>
+                                    <Setter Property="Foreground" Value="{DynamicResource TreeView.Foreground}"/>
                                 </MultiTrigger>
                                 <Trigger Property="IsEnabled" Value="false">
-                                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                    <Setter Property="Foreground" Value="{DynamicResource Control.GrayText}"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -164,23 +164,23 @@
                 </Setter>
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding Style}" Value="Context">
-                        <Setter Property="Foreground" Value="DimGray"/>
+                        <Setter Property="Foreground" Value="{DynamicResource Control.GrayText}"/>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Style}" Value="ReadOnly">
-                        <Setter Property="Foreground" Value="DimGray"/>
+                        <Setter Property="Foreground" Value="{DynamicResource Control.GrayText}"/>
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Style}" Value="Error">
                         <Setter Property="Foreground" Value="Red"/>
                     </DataTrigger>
                     <Trigger Property="Controls:MultiSelectTreeView.IsItemSelected" Value="True">
-                        <Setter Property="BorderBrush" Value="#adc6e5"/>
+                        <Setter Property="BorderBrush" Value="{DynamicResource TreeViewItem.Highlight.Border}"/>
                     </Trigger>
                     <MultiTrigger>
                         <MultiTrigger.Conditions>
                             <Condition Property="Controls:MultiSelectTreeView.IsItemSelected" Value="True"/>
                             <Condition Property="IsSelectionActive" Value="False"/>
                         </MultiTrigger.Conditions>
-                        <Setter Property="BorderBrush" Value="LightGray"/>
+                        <Setter Property="BorderBrush" Value="{DynamicResource TreeViewItem.InactiveHighlight.Border}"/>
                     </MultiTrigger>
                 </Style.Triggers>
             </Style>

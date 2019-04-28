@@ -1,4 +1,5 @@
-﻿using System.Windows.Media;
+﻿using System.Windows;
+using System.Windows.Media;
 using dnGREP.Common;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Rendering;
@@ -30,6 +31,8 @@ namespace dnGREP.WPF
 
             if (lineResult != null)
             {
+                Brush background = Application.Current.Resources["TreeView.Match.Highlight.Background"] as Brush;
+
                 for (int i = 0; i < lineResult.Matches.Count; i++)
                 {
                     try
@@ -46,7 +49,7 @@ namespace dnGREP.WPF
                                 Brush br = element.TextRunProperties.BackgroundBrush;
                                 // Replace the typeface with a modified version of
                                 // the same typeface
-                                element.TextRunProperties.SetBackgroundBrush(new SolidColorBrush(Colors.Yellow));
+                                element.TextRunProperties.SetBackgroundBrush(background);
                             });
                     }
                     catch

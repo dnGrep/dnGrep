@@ -592,7 +592,10 @@ namespace dnGREP.WPF
 
                         if (fmtLine != null)
                         {
-                            paragraph.Inlines.Add(new Run(fmtLine) { Background = Brushes.Yellow });
+                            var run = new Run(fmtLine);
+                            run.SetResourceReference(Run.ForegroundProperty, "TreeView.Match.Highlight.Foreground");
+                            run.SetResourceReference(Run.BackgroundProperty, "TreeView.Match.Highlight.Background");
+                            paragraph.Inlines.Add(run);
                         }
                         else
                         {
@@ -626,7 +629,11 @@ namespace dnGREP.WPF
                 if (line.LineText.Length > MAX_LINE_LENGTH)
                 {
                     string msg = string.Format("...(+{0:n0} characters)", line.LineText.Length - MAX_LINE_LENGTH);
-                    paragraph.Inlines.Add(new Run(msg) { Background = Brushes.AliceBlue });
+
+                    var msgRun = new Run(msg);
+                    msgRun.SetResourceReference(Run.ForegroundProperty, "TreeView.Message.Highlight.Foreground");
+                    msgRun.SetResourceReference(Run.BackgroundProperty, "TreeView.Message.Highlight.Background");
+                    paragraph.Inlines.Add(msgRun);
 
                     var hiddenMatches = line.Matches.Where(m => m.StartLocation > MAX_LINE_LENGTH).Select(m => m);
                     int count = hiddenMatches.Count();
@@ -643,7 +650,10 @@ namespace dnGREP.WPF
                         {
                             paragraph.Inlines.Add(new Run("  "));
                             string fmtLine = line.LineText.Substring(m.StartLocation, m.Length);
-                            paragraph.Inlines.Add(new Run(fmtLine) { Background = Brushes.Yellow });
+                            var run = new Run(fmtLine);
+                            run.SetResourceReference(Run.ForegroundProperty, "TreeView.Match.Highlight.Foreground");
+                            run.SetResourceReference(Run.BackgroundProperty, "TreeView.Match.Highlight.Background");
+                            paragraph.Inlines.Add(run);
 
                             if (m.StartLocation + m.Length == line.LineText.Length)
                                 paragraph.Inlines.Add(new Run(" (at end of line)"));
