@@ -82,7 +82,7 @@
                             <Setter Property="Foreground" Value="{DynamicResource Control.Disabled.Forground}"/>
                         </Trigger>
                         <Trigger Property="IsFocused" Value="true">
-                            <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource Control.Accent}" />
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource Control.Focused.Border}" />
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
