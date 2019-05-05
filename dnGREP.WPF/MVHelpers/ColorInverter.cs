@@ -11,11 +11,6 @@ namespace dnGREP.WPF
         {
             foreach (var item in hl.NamedHighlightingColors)
             {
-                //if (color != null && !color.IsFrozen)
-                //{
-                //    color.Foreground = Invert(color.Foreground);
-                //    color.Background = Invert(color.Background);
-                //}
                 if (!item.IsFrozen)
                 {
                     if (item.Foreground != null)
@@ -34,12 +29,6 @@ namespace dnGREP.WPF
             }
             foreach (var item in hl.MainRuleSet.Rules)
             {
-                //if (item.Color != null && !item.Color.IsFrozen)
-                //{
-                //    item.Color.Foreground = Invert(item.Color.Foreground);
-                //    item.Color.Background = Invert(item.Color.Background);
-                //}
-
                 if (item.Color != null && !item.Color.IsFrozen && string.IsNullOrWhiteSpace(item.Color.Name))
                 {
                     if (item.Color.Foreground != null)
@@ -58,22 +47,6 @@ namespace dnGREP.WPF
             }
             foreach (var item in hl.MainRuleSet.Spans)
             {
-                //if (item.SpanColor != null && !item.SpanColor.IsFrozen)
-                //{
-                //    item.SpanColor.Foreground = Invert(item.SpanColor.Foreground);
-                //    item.SpanColor.Background = Invert(item.SpanColor.Background);
-                //}
-                //if (item.StartColor != null && !item.StartColor.IsFrozen)
-                //{
-                //    item.StartColor.Foreground = Invert(item.StartColor.Foreground);
-                //    item.StartColor.Background = Invert(item.StartColor.Background);
-                //}
-                //if (item.EndColor != null && !item.EndColor.IsFrozen)
-                //{
-                //    item.EndColor.Foreground = Invert(item.EndColor.Foreground);
-                //    item.EndColor.Background = Invert(item.EndColor.Background);
-                //}
-
                 if (item.SpanColor != null && !item.SpanColor.IsFrozen && string.IsNullOrWhiteSpace(item.SpanColor.Name))
                 {
                     if (item.SpanColor.Foreground != null)
@@ -134,38 +107,30 @@ namespace dnGREP.WPF
 
         public static Color Invert(Color c)
         {
-            byte shift = (byte)(byte.MaxValue - Math.Min(c.R, Math.Min(c.G, c.B)) - Math.Max(c.R, Math.Max(c.G, c.B)));
+            double white_bias = .08;
+            double m = 1.0 + white_bias;
+            double shift = white_bias + (byte.MaxValue - Math.Min(c.R, Math.Min(c.G, c.B)) - Math.Max(c.R, Math.Max(c.G, c.B)));
             Color result = new Color
             {
                 A = c.A,
-                R = (byte)(shift + c.R),
-                G = (byte)(shift + c.G),
-                B = (byte)(shift + c.B),
+                R = (byte)((shift + c.R) / m),
+                G = (byte)((shift + c.G) / m),
+                B = (byte)((shift + c.B) / m),
             };
             return result;
         }
 
-        //private static Color Invert(Color c)
+        //public static Color Invert(Color c)
         //{
-        //    int shift = c.A - Math.Min(c.R, Math.Min(c.G, c.B)) - Math.Max(c.R, Math.Max(c.G, c.B));
+        //    byte shift = (byte)(byte.MaxValue - Math.Min(c.R, Math.Min(c.G, c.B)) - Math.Max(c.R, Math.Max(c.G, c.B)));
         //    Color result = new Color
         //    {
         //        A = c.A,
-        //        R = Wrap(shift + c.R),
-        //        G = Wrap(shift + c.G),
-        //        B = Wrap(shift + c.B),
+        //        R = (byte)(shift + c.R),
+        //        G = (byte)(shift + c.G),
+        //        B = (byte)(shift + c.B),
         //    };
         //    return result;
         //}
-
-        //private static byte Wrap(int v)
-        //{
-        //    if (v > byte.MaxValue)
-        //        v -= byte.MaxValue;
-        //    if (v < 0)
-        //        v += byte.MaxValue;
-        //    return (byte)v;
-        //}
-
     }
 }

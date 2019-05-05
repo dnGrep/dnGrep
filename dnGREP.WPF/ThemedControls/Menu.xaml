@@ -215,7 +215,63 @@
     <Setter Property="Foreground" Value="{DynamicResource Menu.Item.Foreground}"/>
   </Style>
 
+  <Style x:Key="ThemedContextMenu" TargetType="{x:Type ContextMenu}">
+    <Style.Resources>
+      <Style x:Key="{x:Static MenuItem.SeparatorStyleKey}" TargetType="Separator">
+        <Setter Property="Height" Value="1"/>
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="Separator">
+              <Border BorderBrush="{DynamicResource Menu.Separator.Border}" BorderThickness="1" Margin="28,0,0,0"/>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+      <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource ThemedMenuItem}" />
+    </Style.Resources>
+    <Setter Property="Background" Value="{DynamicResource Menu.Normal.Background}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource Menu.Normal.Border}" />
+    <Setter Property="Foreground" Value="{DynamicResource Menu.Item.Foreground}" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type ContextMenu}">
+          <Border Uid="Border_93">
+            <Border.Style>
+              <Style TargetType="{x:Type Border}">
+                <Setter Property="Tag" Value="{DynamicResource {x:Static SystemParameters.DropShadowKey}}"/>
+                <Style.Triggers>
+                  <DataTrigger Binding="{Binding Tag, RelativeSource={RelativeSource Self}}" Value="True">
+                    <Setter Property="Background" Value="{DynamicResource Menu.Context.Shadow.Background}"/>
+                    <Setter Property="Padding" Value="0,0,5,5"/>
+                    <Setter Property="Effect">
+                      <Setter.Value>
+                        <DropShadowEffect BlurRadius="4" Opacity="0.8" ShadowDepth="1"/>
+                      </Setter.Value>
+                    </Setter>
+                  </DataTrigger>
+                </Style.Triggers>
+              </Style>
+            </Border.Style>
+            <Border BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Background="{DynamicResource Menu.SubMenu.Item.Background}"
+                    Uid="Border_50">
+              <ScrollViewer CanContentScroll="True"
+                            Style="{DynamicResource {ComponentResourceKey ResourceId=MenuScrollViewer, TypeInTargetAssembly={x:Type FrameworkElement}}}"
+                            Uid="ScrollViewer_9">
+                <ItemsPresenter KeyboardNavigation.DirectionalNavigation="Cycle"
+                                Margin="{TemplateBinding Padding}"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                Uid="ItemsPresenter_5"/>
+              </ScrollViewer>
+            </Border>
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
   <Style BasedOn="{StaticResource ThemedMenu}" TargetType="{x:Type Menu}" />
-  <Style BasedOn="{StaticResource ThemedMenuItem}" TargetType="{x:Type MenuItem}" />
+  <Style BasedOn="{StaticResource ThemedContextMenu}" TargetType="{x:Type ContextMenu}" />
 
 </ResourceDictionary>

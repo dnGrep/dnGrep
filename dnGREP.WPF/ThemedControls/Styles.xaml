@@ -4,19 +4,21 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
                     mc:Ignorable="d">
 
-    <Style x:Key="TextBlockBaseStyle" TargetType="TextBlock">
+    <Style x:Key="ThemedTextBlock" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{DynamicResource Control.Foreground}" />
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Left"/>
     </Style>
-    <Style x:Key="LabelTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource TextBlockBaseStyle}">
+    
+    <Style x:Key="LabelTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource ThemedTextBlock}">
         <Setter Property="TextWrapping" Value="NoWrap"/>
     </Style>
+    
     <Style x:Key="GrayTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource LabelTextBlockStyle}">
         <Setter Property="Foreground" Value="{DynamicResource Control.GrayText}" />
         <Setter Property="TextWrapping" Value="NoWrap"/>
     </Style>
-    
+
     <Style x:Key="GrayedOutFilePattern" TargetType="{x:Type TextBlock}">
         <Style.Setters>
             <Setter Property="Foreground" Value="{DynamicResource Control.Foreground}"/>
@@ -32,7 +34,14 @@
         <Setter Property="Foreground" Value="{DynamicResource Control.Foreground}"/>
     </Style>
 
-    <Style TargetType="ToolTip">
+    <Style x:Key="FormTextBox" BasedOn="{StaticResource {x:Type TextBox}}" TargetType="{x:Type TextBox}">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="MinHeight" Value="24"/>
+    </Style>
+
+    <Style TargetType="{x:Type ToolTip}">
         <Setter Property="Background" Value="{DynamicResource Control.InfoBackground}" />
         <Setter Property="Foreground" Value="{DynamicResource Control.InfoForeground}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource Control.FrameBorderBrush}"/>
@@ -40,104 +49,26 @@
         <Setter Property="Padding" Value="6"/>
     </Style>
 
-    <Style x:Key="TreeViewItemFocusVisual">
-        <Setter Property="Control.Template">
-            <Setter.Value>
-                <ControlTemplate>
-                    <Rectangle/>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+    <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource ThemedCheckbox}">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 
-    <!--<PathGeometry x:Key="TreeArrow" Figures="M0,0 L0,6 L6,0 z"/>
-
-    <Style x:Key="ExpandCollapseToggleStyle" TargetType="{x:Type ToggleButton}">
-        <Setter Property="Focusable" Value="False"/>
-        <Setter Property="Width" Value="16"/>
-        <Setter Property="Height" Value="16"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type ToggleButton}">
-                    <Border Width="16" Height="16" Background="Transparent" Padding="5,5,5,5">
-                        <Path x:Name="ExpandPath" Fill="Transparent" Stroke="#FF989898" Data="{StaticResource TreeArrow}">
-                            <Path.RenderTransform>
-                                <RotateTransform Angle="135" CenterX="3" CenterY="3"/>
-                            </Path.RenderTransform>
-                        </Path>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Stroke" TargetName="ExpandPath" Value="#FF1BBBFA"/>
-                            <Setter Property="Fill" TargetName="ExpandPath" Value="Transparent"/>
-                        </Trigger>
-                        <Trigger Property="IsChecked" Value="True">
-                            <Setter Property="RenderTransform" TargetName="ExpandPath">
-                                <Setter.Value>
-                                    <RotateTransform Angle="180" CenterX="3" CenterY="3"/>
-                                </Setter.Value>
-                            </Setter>
-                            <Setter Property="Fill" TargetName="ExpandPath" Value="#FF595959"/>
-                            <Setter Property="Stroke" TargetName="ExpandPath" Value="#FF262626"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+    <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource ThemedRadioButton}">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
-    <Style x:Key="TreeViewItemStyle1" TargetType="{x:Type TreeViewItem}">
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="HorizontalContentAlignment" Value="{Binding Path=HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-        <Setter Property="VerticalContentAlignment" Value="{Binding Path=VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
-        <Setter Property="Padding" Value="1,0,0,0"/>
-        <Setter Property="Foreground" Value="{DynamicResource Control.Foreground}"/>
-        <Setter Property="FocusVisualStyle" Value="{StaticResource TreeViewItemFocusVisual}"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type TreeViewItem}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition MinWidth="19" Width="Auto"/>
-                            <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <ToggleButton x:Name="Expander" Style="{StaticResource ExpandCollapseToggleStyle}" ClickMode="Press" IsChecked="{Binding Path=IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"/>
-                        <Border x:Name="Bd" SnapsToDevicePixels="true" Grid.Column="1" Grid.ColumnSpan="2" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
-                            <ContentPresenter x:Name="PART_Header" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" ContentSource="Header"/>
-                        </Border>
-                        <ItemsPresenter x:Name="ItemsHost" Grid.Column="1"  Grid.ColumnSpan="2"  Grid.Row="1"/>
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsExpanded" Value="false">
-                            <Setter Property="Visibility" TargetName="ItemsHost" Value="Collapsed"/>
-                        </Trigger>
-                        <Trigger Property="HasItems" Value="false">
-                            <Setter Property="Visibility" TargetName="Expander" Value="Hidden"/>
-                        </Trigger>
-                        <Trigger Property="IsSelected" Value="true">
-                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource TreeViewItem.Highlight.Background}"/>
-                            <Setter Property="Foreground" Value="{DynamicResource TreeViewItem.Highlight.Background}"/>
-                        </Trigger>
-                        <MultiTrigger>
-                            <MultiTrigger.Conditions>
-                                <Condition Property="IsSelected" Value="true"/>
-                                <Condition Property="IsSelectionActive" Value="false"/>
-                            </MultiTrigger.Conditions>
-                            <Setter Property="Background" TargetName="Bd" Value="{DynamicResource Control.Foregound}"/>
-                            <Setter Property="Foreground" Value="{DynamicResource Control.Foreground}"/>
-                        </MultiTrigger>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="{DynamicResource Control.GrayText}"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>-->
+
+    <Style TargetType="{x:Type ProgressBar}" BasedOn="{StaticResource ThemedProgressBar}">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+
+    <Style TargetType="{x:Type DatePicker}" BasedOn="{StaticResource ThemedDatePicker}">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Left"/>
+    </Style>
 
     <Style x:Key="CalendarStyle" TargetType="Calendar" >
         <Setter Property="Height" Value="Auto" />

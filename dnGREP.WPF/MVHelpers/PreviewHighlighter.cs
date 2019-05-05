@@ -32,6 +32,7 @@ namespace dnGREP.WPF
             if (lineResult != null)
             {
                 Brush background = Application.Current.Resources["TreeView.Match.Highlight.Background"] as Brush;
+                Brush foreground = Application.Current.Resources["TreeView.Match.Highlight.Foreground"] as Brush;
 
                 for (int i = 0; i < lineResult.Matches.Count; i++)
                 {
@@ -46,10 +47,8 @@ namespace dnGREP.WPF
                             {
                                 // This lambda gets called once for every VisualLineElement
                                 // between the specified offsets.
-                                Brush br = element.TextRunProperties.BackgroundBrush;
-                                // Replace the typeface with a modified version of
-                                // the same typeface
                                 element.TextRunProperties.SetBackgroundBrush(background);
+                                element.TextRunProperties.SetForegroundBrush(foreground);
                             });
                     }
                     catch

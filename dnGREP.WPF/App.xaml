@@ -16,6 +16,7 @@
                 <ResourceDictionary Source="ThemedControls\CheckBox.xaml"/>
                 <ResourceDictionary Source="ThemedControls\ComboBox.xaml"/>
                 <ResourceDictionary Source="ThemedControls\CustomTemplates.xaml"/>
+                <ResourceDictionary Source="ThemedControls\DatePicker.xaml"/>
                 <ResourceDictionary Source="ThemedControls\Expander.xaml"/>
                 <ResourceDictionary Source="ThemedControls\GroupBox.xaml"/>
                 <ResourceDictionary Source="ThemedControls\Menu.xaml"/>

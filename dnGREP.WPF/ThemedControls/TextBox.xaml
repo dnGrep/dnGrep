@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
 
-    <Style x:Key="{x:Type TextBoxBase}" TargetType="{x:Type TextBoxBase}" BasedOn="{x:Null}">
+    <Style x:Key="ThemedTextBox" TargetType="{x:Type TextBoxBase}" BasedOn="{x:Null}">
         <Setter Property="Foreground" Value="{DynamicResource Control.Foreground}"/>
         <Setter Property="Background" Value="{DynamicResource Control.InputBackground}"/>
         <Setter Property="BorderBrush" Value="{DynamicResource Control.InputBorder}"/>
@@ -99,10 +99,9 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style BasedOn="{StaticResource {x:Type TextBoxBase}}" TargetType="{x:Type TextBox}">
-    </Style>
-    <Style BasedOn="{StaticResource {x:Type TextBoxBase}}" TargetType="{x:Type RichTextBox}">
-    </Style>
+
+    <Style BasedOn="{StaticResource ThemedTextBox}" TargetType="{x:Type TextBox}"/>
+    <Style BasedOn="{StaticResource ThemedTextBox}" TargetType="{x:Type RichTextBox}"/>
 
     <!-- text-in-datagrid styles-->
     <Style x:Key="DataGridTextStyle" TargetType="TextBlock" >
@@ -113,15 +112,5 @@
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Padding" Value="0" />
     </Style>
-
-    <!--<Style BasedOn="{StaticResource ThemedTextBox}" TargetType="{x:Type TextBox}" />-->
-
-    <Style x:Key="FormTextBox" BasedOn="{StaticResource {x:Type TextBox}}" TargetType="{x:Type TextBox}">
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="MinHeight" Value="24"/>
-    </Style>
-
 
 </ResourceDictionary>

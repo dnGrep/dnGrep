@@ -116,7 +116,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="ComboBoxEditableTextBox" TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBoxBase}}">
+    <Style x:Key="ComboBoxEditableTextBox" TargetType="TextBox" BasedOn="{StaticResource ThemedTextBox}">
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="AllowDrop" Value="true" />
         <Setter Property="MinWidth" Value="0" />

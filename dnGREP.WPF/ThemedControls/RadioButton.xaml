@@ -86,6 +86,4 @@
         </Setter>
     </Style>
 
-    <Style BasedOn="{StaticResource ThemedRadioButton}" TargetType="RadioButton" />
-
 </ResourceDictionary>
