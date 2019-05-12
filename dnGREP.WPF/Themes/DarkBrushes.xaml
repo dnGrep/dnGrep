@@ -83,6 +83,7 @@
     <SolidColorBrush x:Key="OptionMark.Pressed.Background" Color="#2C628B" />
     <SolidColorBrush x:Key="OptionMark.Pressed.Border" Color="#C4E5F6" />
     <SolidColorBrush x:Key="OptionMark.Pressed.Glyph" Color="#FFFFFFFF"/>
+    <DropShadowEffect x:Key="OptionMark.DropShadowEffect" Color="#FFFFFFFF" ShadowDepth="0" Opacity="1" BlurRadius="18"/>
 
 
     <!-- Button -->
