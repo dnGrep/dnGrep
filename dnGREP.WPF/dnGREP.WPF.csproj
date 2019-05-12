@@ -148,6 +148,7 @@
     </Compile>
     <Compile Include="Controls\ContentControlEx.cs" />
     <Compile Include="Controls\ThemedWindow.cs" />
+    <Compile Include="MVHelpers\CaptionConverter.cs" />
     <Compile Include="MVHelpers\ColorInverter.cs" />
     <Compile Include="MVHelpers\TypeOfSearchValueConverter.cs" />
     <Compile Include="Views\BookmarkDetailWindow.xaml.cs">
@@ -213,7 +214,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ThemedControls\DockSite.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ThemedControls\Expander.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ThemedControls\FloatWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -224,6 +233,10 @@
     <Page Include="ThemedControls\Menu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ThemedControls\PreviewControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ThemedControls\ProgressBar.xaml">
       <Generator>MSBuild:Compile</Generator>

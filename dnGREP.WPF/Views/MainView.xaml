@@ -21,17 +21,6 @@
         <my:BoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" TrueValue="Collapsed" FalseValue="Visible" />
         <my:GridLengthConverter x:Key="GridLengthConverter" />
 
-        <Style x:Key="previewVisibilityStyle" TargetType="Control">
-            <Setter Property="Visibility" Value="Visible"/>
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding IsPreviewDocked}" Value="False">
-                    <Setter Property="Visibility" Value="Collapsed"/>
-                </DataTrigger>
-                <DataTrigger Binding="{Binding PreviewFileContent}" Value="False">
-                    <Setter Property="Visibility" Value="Collapsed"/>
-                </DataTrigger>
-            </Style.Triggers>
-        </Style>
     </my:ThemedWindow.Resources>
     <my:ThemedWindow.Background>
         <DynamicResource ResourceKey="GradientBackground"/>
@@ -50,7 +39,7 @@
                      FloatWindowState="{Binding PreviewWindowState, Mode=TwoWay}"
                      IsDocked="{Binding IsPreviewDocked, Mode=TwoWay}"
                      IsHidden="{Binding IsPreviewHidden, Mode=TwoWay}"
-                     Style="{StaticResource previewVisibilityStyle}" >
+                     Style="{StaticResource ThemedDockSite}" >
             <Border>
                 <my:PreviewControl x:Name="previewControl" />
             </Border>
