@@ -1324,6 +1324,7 @@ namespace dnGREP.WPF
         private void ShowAbout()
         {
             AboutWindow aboutForm = new AboutWindow();
+            aboutForm.Owner = Application.Current.MainWindow;
             aboutForm.ShowDialog();
         }
 

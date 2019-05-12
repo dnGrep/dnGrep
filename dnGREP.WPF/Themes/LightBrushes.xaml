@@ -11,6 +11,7 @@
         <GradientStop Color="White" Offset="0" />
         <GradientStop Color="{x:Static SystemColors.ControlColor}" Offset="0.8" />
     </LinearGradientBrush>
+    <SolidColorBrush x:Key="Dialog.Background" Color="#FFF0F0F0"/>
 
     <!-- Window Caption -->
     <SolidColorBrush x:Key="Caption.BackgroundBrush" Color="White" />

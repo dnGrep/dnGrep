@@ -87,6 +87,9 @@
 
     <Style TargetType="local:ThemedWindow"
            xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework">
+        <Style.Resources>
+            <local:ResizeModeConverter x:Key="ResizeModeConverter" />
+        </Style.Resources>
         <Setter Property="shell:WindowChrome.WindowChrome">
             <Setter.Value>
                 <shell:WindowChrome CaptionHeight="30"
@@ -115,11 +118,13 @@
 
                                     <Button x:Name="PART_MinimizeButton"
                                             Style="{StaticResource MinimizeButtonStyle}" 
-                                            WindowChrome.IsHitTestVisibleInChrome="True" />
+                                            WindowChrome.IsHitTestVisibleInChrome="True"
+                                            Visibility="{TemplateBinding ResizeMode, Converter={StaticResource ResizeModeConverter}}"/>
 
                                     <Button x:Name="PART_RestoreButton"
                                             Style="{StaticResource MaximizeButtonStyle}" 
-                                            WindowChrome.IsHitTestVisibleInChrome="True" />
+                                            WindowChrome.IsHitTestVisibleInChrome="True"
+                                            Visibility="{TemplateBinding ResizeMode, Converter={StaticResource ResizeModeConverter}}" />
 
                                     <Button x:Name="PART_CloseButton"
                                             Style="{StaticResource CloseButtonStyle}" 

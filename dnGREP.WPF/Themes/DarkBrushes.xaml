@@ -11,6 +11,7 @@
         <GradientStop Color="#FF404040" Offset="0" />
         <GradientStop Color="#FF303030" Offset="0.8" />
     </LinearGradientBrush>
+    <SolidColorBrush x:Key="Dialog.Background" Color="#FF404040"/>
 
 
     <!-- Window Caption -->
