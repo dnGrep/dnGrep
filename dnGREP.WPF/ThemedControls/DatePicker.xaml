@@ -3,9 +3,9 @@
 
 
     <Style x:Key="ThemedDatePickerTextbox" TargetType="{x:Type DatePickerTextBox}">
-        <Setter Property="Foreground" Value="{DynamicResource Control.InputBackground}"/>
-        <Setter Property="Background" Value="{DynamicResource Control.InputBackground}"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource Control.InputBorder}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Control.Foreground}"/>
+        <Setter Property="Background" Value="{DynamicResource Control.Static.Background}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource Control.Static.Border}"/>
         <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
         <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
         <Setter Property="Template">

@@ -116,7 +116,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="ComboBoxEditableTextBox" TargetType="TextBox" BasedOn="{StaticResource ThemedTextBox}">
+    <Style x:Key="ComboBoxEditableTextBox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource ThemedTextBox}">
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="AllowDrop" Value="true" />
         <Setter Property="MinWidth" Value="0" />
@@ -124,18 +124,7 @@
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst" />
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type TextBox}">
-                    <ScrollViewer
-                        x:Name="PART_ContentHost"
-                        Background="Transparent"
-                        Focusable="false"
-                        HorizontalScrollBarVisibility="Hidden"
-                        VerticalScrollBarVisibility="Hidden" />
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+        <Setter Property="BorderBrush" Value="Transparent"/>
         <Style.Triggers>
             <DataTrigger Binding="{Binding Path=Multiline}" Value="True">
                 <Setter Property="TextWrapping" Value="Wrap"/>
@@ -272,21 +261,19 @@
                 </themes:SystemDropShadowChrome>
             </Popup>
             <ToggleButton x:Name="toggleButton"
-                Grid.ColumnSpan="2"
-                Background="{TemplateBinding Background}"
-                BorderBrush="{TemplateBinding BorderBrush}"
-                BorderThickness="{TemplateBinding BorderThickness}"
-                IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                Style="{StaticResource ComboBoxToggleButton2}" />
-            <Border x:Name="border"
-                Margin="{TemplateBinding BorderThickness}"
-                Background="{StaticResource Control.InputBackground}">
-                <TextBox x:Name="PART_EditableTextBox"
-                    Margin="{TemplateBinding Padding}"
-                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
-                    VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
-                    IsReadOnly="{Binding IsReadOnly, RelativeSource={RelativeSource TemplatedParent}}"
-                    Style="{StaticResource ComboBoxEditableTextBox}" />
+                          Grid.ColumnSpan="2"
+                          Background="{TemplateBinding Background}"
+                          BorderBrush="{TemplateBinding BorderBrush}"
+                          BorderThickness="{TemplateBinding BorderThickness}"
+                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                          Style="{StaticResource ComboBoxToggleButton2}" />
+            <Border x:Name="border" Margin="3,1"
+                    Background="{DynamicResource Control.Static.Background}">
+                <TextBox x:Name="PART_EditableTextBox" Margin="0" 
+                         HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                         VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                         IsReadOnly="{Binding IsReadOnly, RelativeSource={RelativeSource TemplatedParent}}"
+                         Style="{StaticResource ComboBoxEditableTextBox}" />
             </Border>
         </Grid>
         <ControlTemplate.Triggers>

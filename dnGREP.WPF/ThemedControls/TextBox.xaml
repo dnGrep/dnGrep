@@ -4,8 +4,8 @@
 
     <Style x:Key="ThemedTextBox" TargetType="{x:Type TextBoxBase}" BasedOn="{x:Null}">
         <Setter Property="Foreground" Value="{DynamicResource Control.Foreground}"/>
-        <Setter Property="Background" Value="{DynamicResource Control.InputBackground}"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource Control.InputBorder}"/>
+        <Setter Property="Background" Value="{DynamicResource Control.Static.Background}"/>
+        <Setter Property="BorderBrush" Value="{DynamicResource Control.Static.Border}"/>
         <!--<Setter Property="ContextMenu" Value="{DynamicResource TextBoxMetroContextMenu}" />-->
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="Padding" Value="2,1,1,1"/>
@@ -83,6 +83,7 @@
                         </Trigger>
                         <Trigger Property="IsFocused" Value="true">
                             <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource Control.Focused.Border}" />
+                            <Setter Property="Background" Value="{DynamicResource Control.Focused.Background}" />
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>

@@ -147,6 +147,7 @@ namespace dnGREP.WPF
             }
             SearchResults.Clear();
             SearchResults.AddRange(results);
+            TestOutputText = string.Empty;
             Paragraph paragraph = new Paragraph();
             if (SearchResults.Count == 1)
             {
@@ -157,7 +158,7 @@ namespace dnGREP.WPF
                     paragraph.Inlines.AddRange(line.FormattedText.ToList());
 
                     paragraph.Inlines.Add(new LineBreak());
-                    paragraph.Inlines.Add(new Run("================================="));
+                    paragraph.Inlines.Add(new Run("---------------------------------"));
                     paragraph.Inlines.Add(new LineBreak());
                 }
             }
