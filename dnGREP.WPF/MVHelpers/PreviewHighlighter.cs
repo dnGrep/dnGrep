@@ -31,8 +31,8 @@ namespace dnGREP.WPF
 
             if (lineResult != null)
             {
-                Brush background = Application.Current.Resources["TreeView.Match.Highlight.Background"] as Brush;
-                Brush foreground = Application.Current.Resources["TreeView.Match.Highlight.Foreground"] as Brush;
+                Brush background = Application.Current.Resources["Match.Highlight.Background"] as Brush;
+                Brush foreground = Application.Current.Resources["Match.Highlight.Foreground"] as Brush;
 
                 for (int i = 0; i < lineResult.Matches.Count; i++)
                 {

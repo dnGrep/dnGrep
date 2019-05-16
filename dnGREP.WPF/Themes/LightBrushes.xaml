@@ -5,6 +5,12 @@
     <SolidColorBrush x:Key="SplitterBrush" Color="#FFC8C8C8"/>
     <SolidColorBrush x:Key="AvalonEdit.Background" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="AvalonEdit.Foreground" Color="#FF000000"/>
+    <SolidColorBrush x:Key="Match.Highlight.Foreground" Color="#FF000000"/>
+    <SolidColorBrush x:Key="Match.Highlight.Background" Color="Yellow"/>
+    <SolidColorBrush x:Key="Match.Skip.Foreground" Color="#FF000000"/>
+    <SolidColorBrush x:Key="Match.Skip.Background" Color="#FFFFA07A"/>
+    <SolidColorBrush x:Key="Match.Replace.Foreground" Color="#FF000000"/>
+    <SolidColorBrush x:Key="Match.Replace.Background" Color="#FF98FB98"/>
 
 
     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" x:Key="GradientBackground">
@@ -52,8 +58,10 @@
     <DropShadowEffect x:Key="Menu.DropShadowEffect" ShadowDepth="1" Color="Gray"/>
 
     <!-- Group Box -->
-    <SolidColorBrush x:Key="GroupBox.Border" Color="#FFD5DFE5" />
     <SolidColorBrush x:Key="GroupBox.Foreground" Color="#FF000000"/>
+    <SolidColorBrush x:Key="GroupBox.Border" Color="#FFD5DFE5" />
+    <SolidColorBrush x:Key="GroupBox.Border.Inner" Color="#FFFBFBFB" />
+    <SolidColorBrush x:Key="GroupBox.Border.Outer" Color="#FFFFFFFF" />
 
     <!-- RadioButton -->
     <SolidColorBrush x:Key="Radio.Static.Background" Color="Transparent" />
@@ -215,8 +223,6 @@
     <SolidColorBrush x:Key="TreeView.LineNumber.Deselected.Background" Color="#FFE0E0E0"/>
     <SolidColorBrush x:Key="TreeView.LineNumber.Selected.Background" Color="#FFD2D2D2"/>
     <SolidColorBrush x:Key="TreeView.LineNumber.Empty.Background" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="TreeView.Match.Highlight.Foreground" Color="#FF000000"/>
-    <SolidColorBrush x:Key="TreeView.Match.Highlight.Background" Color="Yellow"/>
     <SolidColorBrush x:Key="TreeView.Message.Highlight.Foreground" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="TreeView.Message.Highlight.Background" Color="AliceBlue"/>
     <SolidColorBrush x:Key="TreeView.Disabled.Background" Color="#FFF0F0F0"/>

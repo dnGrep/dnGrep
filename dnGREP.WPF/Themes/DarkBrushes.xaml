@@ -5,6 +5,12 @@
     <SolidColorBrush x:Key="SplitterBrush" Color="#FF999999"/>
     <SolidColorBrush x:Key="AvalonEdit.Foreground" Color="#FFF5F5F5"/>
     <SolidColorBrush x:Key="AvalonEdit.Background" Color="#FF1E1E1E"/>
+    <SolidColorBrush x:Key="Match.Highlight.Foreground" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="Match.Highlight.Background" Color="#FF267800"/>
+    <SolidColorBrush x:Key="Match.Skip.Foreground" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="Match.Skip.Background" Color="#FF8A0000"/>
+    <SolidColorBrush x:Key="Match.Replace.Foreground" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="Match.Replace.Background" Color="#FF267800"/>
 
 
     <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" x:Key="GradientBackground">
@@ -53,9 +59,11 @@
     <DropShadowEffect x:Key="Menu.DropShadowEffect" ShadowDepth="2" Color="#FF404040"/>
 
     <!-- Group Box -->
-    <SolidColorBrush x:Key="GroupBox.Border" Color="#FF1475A6"/>
     <SolidColorBrush x:Key="GroupBox.Foreground" Color="#FFF5F5F5"/>
-    
+    <SolidColorBrush x:Key="GroupBox.Border" Color="#FF1475A6"/>
+    <SolidColorBrush x:Key="GroupBox.Border.Inner" Color="#00000000" />
+    <SolidColorBrush x:Key="GroupBox.Border.Outer" Color="#FF404040" />
+
     <!-- RadioButton -->
     <SolidColorBrush x:Key="Radio.Static.Background" Color="Transparent" />
     <SolidColorBrush x:Key="Radio.Static.Border" Color="#FFFFFFFF"/>
@@ -190,8 +198,6 @@
     <SolidColorBrush x:Key="TreeView.LineNumber.Deselected.Background" Color="#FF4F4F52"/>
     <SolidColorBrush x:Key="TreeView.LineNumber.Selected.Background" Color="#FF6E6E73"/>
     <SolidColorBrush x:Key="TreeView.LineNumber.Empty.Background" Color="#FF000000"/>
-    <SolidColorBrush x:Key="TreeView.Match.Highlight.Foreground" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="TreeView.Match.Highlight.Background" Color="#FF267800"/>
     <SolidColorBrush x:Key="TreeView.Message.Highlight.Foreground" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="TreeView.Message.Highlight.Background" Color="#FF0061B5"/>
     <SolidColorBrush x:Key="TreeView.Disabled.Background" Color="#FF404040"/>

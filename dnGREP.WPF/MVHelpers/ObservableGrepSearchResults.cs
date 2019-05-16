@@ -593,8 +593,8 @@ namespace dnGREP.WPF
                         if (fmtLine != null)
                         {
                             var run = new Run(fmtLine);
-                            run.SetResourceReference(Run.ForegroundProperty, "TreeView.Match.Highlight.Foreground");
-                            run.SetResourceReference(Run.BackgroundProperty, "TreeView.Match.Highlight.Background");
+                            run.SetResourceReference(Run.ForegroundProperty, "Match.Highlight.Foreground");
+                            run.SetResourceReference(Run.BackgroundProperty, "Match.Highlight.Background");
                             paragraph.Inlines.Add(run);
                         }
                         else
@@ -651,8 +651,8 @@ namespace dnGREP.WPF
                             paragraph.Inlines.Add(new Run("  "));
                             string fmtLine = line.LineText.Substring(m.StartLocation, m.Length);
                             var run = new Run(fmtLine);
-                            run.SetResourceReference(Run.ForegroundProperty, "TreeView.Match.Highlight.Foreground");
-                            run.SetResourceReference(Run.BackgroundProperty, "TreeView.Match.Highlight.Background");
+                            run.SetResourceReference(Run.ForegroundProperty, "Match.Highlight.Foreground");
+                            run.SetResourceReference(Run.BackgroundProperty, "Match.Highlight.Background");
                             paragraph.Inlines.Add(run);
 
                             if (m.StartLocation + m.Length == line.LineText.Length)

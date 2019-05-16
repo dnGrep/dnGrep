@@ -1,12 +1,16 @@
-﻿<Window x:Class="dnGREP.WPF.ReplaceWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
-        mc:Ignorable="d"
-        Title="Replace Text" Height="800" Width="980" 
-        FocusManager.FocusedElement="{Binding ElementName=btnCanel}" >
+﻿<my:ThemedWindow x:Class="dnGREP.WPF.ReplaceWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
+                 xmlns:my="clr-namespace:dnGREP.WPF"
+                 mc:Ignorable="d"
+                 Icon="/dnGREP;component/nGREP.ico"
+                 Title="Replace Text" 
+                 Height="800" Width="980" 
+                 Background="{DynamicResource Dialog.Background}"
+                 FocusManager.FocusedElement="{Binding ElementName=btnCancel}" >
 
     <Window.InputBindings>
         <KeyBinding Command="{Binding ReplaceAllCommand}" Key="F10"/>
@@ -25,16 +29,16 @@
     </Window.InputBindings>
     <Window.Resources>
 
-        <Style TargetType="GroupBox">
+        <Style TargetType="GroupBox" BasedOn="{StaticResource ThemedGroupBox}">
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="Margin" Value="3"/>
         </Style>
-        <Style TargetType="TextBlock">
+        <Style TargetType="TextBlock" BasedOn="{StaticResource LabelTextBlockStyle}">
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Margin" Value="3"/>
         </Style>
 
-        <Style TargetType="Button">
+        <Style TargetType="Button" BasedOn="{StaticResource FormButtonStyle}">
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Padding" Value="6,3"/>
             <Setter Property="MinWidth" Value="90"/>
@@ -61,12 +65,12 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Row="0" Grid.Column="0" Text="Search for:" HorizontalAlignment="Right"/>
-            <Border Grid.Row="0" Grid.Column="1" BorderBrush="LightGray" BorderThickness="1" Margin="6,3">
+            <Border Grid.Row="0" Grid.Column="1" BorderBrush="{DynamicResource GroupBox.Border}" BorderThickness="1" Margin="6,3">
                 <TextBlock Text="{Binding SearchFor}"/>
             </Border>
 
             <TextBlock Grid.Row="1" Grid.Column="0" Text="Replace with:" HorizontalAlignment="Right"/>
-            <Border Grid.Row="1" Grid.Column="1" BorderBrush="LightGray" BorderThickness="1" Margin="6,3">
+            <Border Grid.Row="1" Grid.Column="1" BorderBrush="{DynamicResource GroupBox.Border}" BorderThickness="1" Margin="6,3">
                 <TextBlock Text="{Binding ReplaceWith}"/>
             </Border>
 
@@ -108,8 +112,11 @@
                 </Grid>
             </GroupBox>
 
-            <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="LightGray" BorderThickness="1">
+            <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="{DynamicResource GroupBox.Border}" 
+                    BorderThickness="1" Margin="4" CornerRadius="4">
                 <ae:TextEditor Name="textEditor" Margin="3" FontFamily="Consolas" FontSize="{Binding ElementName=zoomSlider, Path=Value}"
+                               Foreground="{DynamicResource AvalonEdit.Foreground}"
+                               Background="{DynamicResource AvalonEdit.Background}"
                                IsReadOnly="True" WordWrap="{Binding ElementName=cbWrapText, Path=IsChecked}" 
                                KeyboardNavigation.TabNavigation="Once" TabIndex="6" PreviewKeyDown="TextEditor_PreviewKeyDown"/>
             </Border>
@@ -136,19 +143,21 @@
                                 ToolTip="Undo mark replace on this match [Ctrl+U]"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="text" Margin="24,1,3,1" TextDecorations="Underline" Background="LightSalmon" Padding="2" 
+                        <TextBlock Text="text" Margin="24,1,3,1" TextDecorations="Underline" Padding="2"
+                                   Background="{DynamicResource Match.Skip.Background}"
+                                   Foreground="{DynamicResource Match.Skip.Foreground}"
                                    FontFamily="Consolas" VerticalAlignment="Center"/>
                         <TextBlock Text="Selected Match"/>
-                        <Rectangle Height="18" Width="40" Fill="PaleGreen" Margin="24,0,3,0"/>
+                        <Rectangle Height="18" Width="40" Fill="{DynamicResource Match.Replace.Background}" Margin="24,0,3,0"/>
                         <TextBlock Text="Replace Match"/>
-                        <Rectangle Height="18" Width="40" Fill="LightSalmon" Margin="24,0,3,0"/>
+                        <Rectangle Height="18" Width="40" Fill="{DynamicResource Match.Skip.Background}" Margin="24,0,3,0"/>
                         <TextBlock Text="Skip Match"/>
                     </StackPanel>
                 </StackPanel>
             </GroupBox>
 
             <DockPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="3" HorizontalAlignment="Right" LastChildFill="False">
-                <Button DockPanel.Dock="Right" x:Name="btnCanel" Content="Cancel" TabIndex="20" IsCancel="True" 
+                <Button DockPanel.Dock="Right" x:Name="btnCancel" Content="Cancel" TabIndex="20" IsCancel="True" 
                         Click="CancelButton_Click" ToolTip="Cancel all replacements"/>
                 <Button DockPanel.Dock="Right" Content="OK" TabIndex="21" Click="OKButton_Click"
                         ToolTip="Replace matches marked for replacement"/>
@@ -156,4 +165,4 @@
 
         </Grid>
     </Border>
-</Window>
+</my:ThemedWindow>

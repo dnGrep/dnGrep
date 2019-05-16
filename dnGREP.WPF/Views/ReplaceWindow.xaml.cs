@@ -16,7 +16,7 @@ namespace dnGREP.WPF
     /// <summary>
     /// Interaction logic for ReplaceWindow.xaml
     /// </summary>
-    public partial class ReplaceWindow : Window
+    public partial class ReplaceWindow : ThemedWindow
     {
         private ReplaceViewHighlighter highlighter;
         private ReplaceViewLineNumberMargin lineNumberMargin;
