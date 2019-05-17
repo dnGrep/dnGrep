@@ -5,10 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
-using System.Xml;
 using dnGREP.Common;
 using ICSharpCode.AvalonEdit.Highlighting;
-using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 
 namespace dnGREP.WPF
 {
@@ -35,20 +33,9 @@ namespace dnGREP.WPF
                 HighlightDefinitions[hl.Name] = hl;
                 Highlighters.Add(hl.Name);
             }
-            Highlighters.Add("SQL");
-            HighlightDefinitions["SQL"] = LoadHighlightingDefinition("sqlmode.xshd");
             Highlighters.Sort();
             Highlighters.Insert(0, "None");
             CurrentSyntax = "None";
-        }
-
-        private IHighlightingDefinition LoadHighlightingDefinition(string resourceName)
-        {
-            var type = typeof(ReplaceViewModel);
-            var fullName = type.Namespace + "." + resourceName;
-            using (var stream = type.Assembly.GetManifestResourceStream(fullName))
-            using (var reader = new XmlTextReader(stream))
-                return HighlightingLoader.Load(reader, HighlightingManager.Instance);
         }
 
         public void SelectNextFile()

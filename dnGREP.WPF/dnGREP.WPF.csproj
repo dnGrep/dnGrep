@@ -152,6 +152,7 @@
     <Compile Include="MVHelpers\ColorInverter.cs" />
     <Compile Include="MVHelpers\StringNotNullOrEmptyConverter.cs" />
     <Compile Include="MVHelpers\TypeOfSearchValueConverter.cs" />
+    <Compile Include="ThemedHighlightingManager.cs" />
     <Compile Include="Views\BookmarkDetailWindow.xaml.cs">
       <DependentUpon>BookmarkDetailWindow.xaml</DependentUpon>
     </Compile>

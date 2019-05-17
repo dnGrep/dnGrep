@@ -33,13 +33,9 @@ namespace dnGREP.WPF
                 //string appTheme = appThemeSvc.CurrentTheme == WindowsTheme.Dark ? "Dark" : "Light";
                 Resources.MergedDictionaries[0].Source = new Uri($"/Themes/{appTheme}Brushes.xaml", UriKind.Relative);
 
-                //if (appTheme == "Dark")
-                //{
-                //    foreach (var hl in HighlightingManager.Instance.HighlightingDefinitions)
-                //    {
-                //        ColorInverter.TranslateThemeColors(hl);
-                //    }
-                //}
+
+                ThemedHighlightingManager.Instance.Initialize();
+
                 //var accentColor = SystemParameters.WindowGlassColor;
                 //Current.Resources["ControlAccentBrush"] = new SolidColorBrush(accentColor);
 

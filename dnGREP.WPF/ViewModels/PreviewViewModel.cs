@@ -1,12 +1,10 @@
-﻿using Alphaleonis.Win32.Filesystem;
-using dnGREP.Common;
-using ICSharpCode.AvalonEdit.Highlighting;
-using ICSharpCode.AvalonEdit.Highlighting.Xshd;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-using System.Xml;
+using Alphaleonis.Win32.Filesystem;
+using dnGREP.Common;
+using ICSharpCode.AvalonEdit.Highlighting;
 
 namespace dnGREP.WPF
 {
@@ -18,13 +16,9 @@ namespace dnGREP.WPF
             Highlighters = new List<string>();
             foreach (var hl in HighlightingManager.Instance.HighlightingDefinitions)
             {
-                ColorInverter.TranslateThemeColors(hl);
                 HighlightDefinitions[hl.Name] = hl;
                 Highlighters.Add(hl.Name);
             }
-            Highlighters.Add("SQL");
-            HighlightDefinitions["SQL"] = LoadHighlightingDefinition("sqlmode.xshd");
-            ColorInverter.TranslateThemeColors(HighlightDefinitions["SQL"]);
             Highlighters.Sort();
             Highlighters.Insert(0, "None");
             CurrentSyntax = "None";
@@ -203,15 +197,6 @@ namespace dnGREP.WPF
                 // Tell View to show window and clear content
                 ShowPreview?.Invoke(this, new ShowEventArgs { ClearContent = true });
             }
-        }
-
-        private IHighlightingDefinition LoadHighlightingDefinition(string resourceName)
-        {
-            var type = typeof(PreviewControl);
-            var fullName = type.Namespace + "." + resourceName;
-            using (var stream = type.Assembly.GetManifestResourceStream(fullName))
-            using (var reader = new XmlTextReader(stream))
-                return HighlightingLoader.Load(reader, HighlightingManager.Instance);
         }
     }
 

@@ -1,10 +1,12 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib" >
 
-    
-    <SolidColorBrush x:Key="SplitterBrush" Color="#FFC8C8C8"/>
+
     <SolidColorBrush x:Key="AvalonEdit.Background" Color="#FFFFFFFF"/>
     <SolidColorBrush x:Key="AvalonEdit.Foreground" Color="#FF000000"/>
+    <sys:Boolean x:Key="AvalonEdit.SyntaxColor.Invert">false</sys:Boolean>
+
     <SolidColorBrush x:Key="Match.Highlight.Foreground" Color="#FF000000"/>
     <SolidColorBrush x:Key="Match.Highlight.Background" Color="Yellow"/>
     <SolidColorBrush x:Key="Match.Skip.Foreground" Color="#FF000000"/>
@@ -18,6 +20,7 @@
         <GradientStop Color="{x:Static SystemColors.ControlColor}" Offset="0.8" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Dialog.Background" Color="#FFF0F0F0"/>
+    <SolidColorBrush x:Key="SplitterBrush" Color="#FFC8C8C8"/>
 
     <!-- Window Caption -->
     <SolidColorBrush x:Key="Caption.BackgroundBrush" Color="White" />
@@ -196,7 +199,7 @@
     <SolidColorBrush x:Key="ScrollBar.Disabled.Background" Color="#F0F0F0"/>
     <SolidColorBrush x:Key="ScrollBar.Disabled.Border" Color="#F0F0F0"/>
     <SolidColorBrush x:Key="ScrollBar.Disabled.Glyph" Color="#BFBFBF"/>
-    
+
     <!-- Slider -->
     <SolidColorBrush x:Key="SliderThumb.Static.Foreground" Color="#FFE5E5E5"/>
     <SolidColorBrush x:Key="SliderThumb.Static.Background" Color="#FFF0F0F0"/>
@@ -209,7 +212,7 @@
     <SolidColorBrush x:Key="SliderThumb.Disabled.Border" Color="#FFD9D9D9"/>
     <SolidColorBrush x:Key="SliderThumb.Track.Background" Color="#FFE7EAEA"/>
     <SolidColorBrush x:Key="SliderThumb.Track.Border" Color="#FFD6D6D6"/>
-    
+
     <!-- Progress Bar -->
     <SolidColorBrush x:Key="ProgressBar.Background" Color="#FFE6E6E6"/>
     <SolidColorBrush x:Key="ProgressBar.Border" Color="#FFBCBCBC"/>
