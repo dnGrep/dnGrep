@@ -146,7 +146,6 @@
     <Compile Include="..\AssemblyVersionCommon.cs">
       <Link>Properties\AssemblyVersionCommon.cs</Link>
     </Compile>
-    <Compile Include="Controls\ContentControlEx.cs" />
     <Compile Include="Controls\ThemedWindow.cs" />
     <Compile Include="MVHelpers\ResizeModeConverter.cs" />
     <Compile Include="MVHelpers\ColorInverter.cs" />
