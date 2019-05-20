@@ -114,6 +114,10 @@ namespace dnGREP.Common
             public const string ReplaceWindowFontSize = "ReplaceWindowFontSize";
             [DefaultValue(false)]
             public const string ReplaceWindowWrap = "ReplaceWindowWrap";
+            [DefaultValue(true)]
+            public const string FollowWindowsTheme = "FollowWindowsTheme";
+            [DefaultValue("Light")]
+            public const string CurrentTheme = "CurrentTheme";
         }
 
         private static GrepSettings instance;
@@ -228,7 +232,7 @@ namespace dnGREP.Common
             string value = this[key];
 
             if (value == null)
-                return getDefaultValue<T>(key);
+                return GetDefaultValue<T>(key);
 
             try
             {
@@ -255,7 +259,7 @@ namespace dnGREP.Common
             }
             catch
             {
-                return getDefaultValue<T>(key);
+                return GetDefaultValue<T>(key);
             }
         }
 
@@ -329,7 +333,7 @@ namespace dnGREP.Common
         }
 
         private List<FieldInfo> constantKeys;
-        private T getDefaultValue<T>(string key)
+        private T GetDefaultValue<T>(string key)
         {
             if (constantKeys == null)
             {
@@ -347,8 +351,7 @@ namespace dnGREP.Common
             if (info == null)
                 return default(T);
 
-            DefaultValueAttribute[] attr = info.GetCustomAttributes(typeof(DefaultValueAttribute), false) as DefaultValueAttribute[];
-            if (attr != null && attr.Length == 1)
+            if (info.GetCustomAttributes(typeof(DefaultValueAttribute), false) is DefaultValueAttribute[] attr && attr.Length == 1)
                 return (T)attr[0].Value;
 
             return default(T);

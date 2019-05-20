@@ -12,6 +12,7 @@
                  my:DiginesisHelpProvider.ShowHelp="True" >
     <Window.Resources>
         <my:EnumBooleanConverter x:Key="ebc" />
+        <my:InverseBooleanConverter x:Key="not"/>
         <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource LabelTextBlockStyle}"/>
 
         <Style TargetType="{x:Type GroupBox}" BasedOn="{StaticResource ThemedGroupBox}">
@@ -55,8 +56,8 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <ScrollViewer Grid.Row="0">
-
             <StackPanel  HorizontalAlignment="Stretch">
+                
                 <GroupBox Header="Startup options" ToolTip="{Binding Path=PanelTooltip}">
                     <StackPanel Orientation="Vertical">
                         <CheckBox Margin="0,6,0,3" 
@@ -81,6 +82,22 @@
                                  IsEnabled="{Binding ElementName=cbCheckForUpdates, Path=IsChecked}" 
                                  Text="{Binding Path=CheckForUpdatesInterval, UpdateSourceTrigger=PropertyChanged}"/>
                         <Label Content="days" Margin="3,0" />
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Header="Theme">
+                    <StackPanel>
+                        <CheckBox Margin="0,6,0,3" 
+                                  Content="Follow Windows Theme"
+                                  IsChecked="{Binding Path=FollowWindowsTheme}"
+                                  IsEnabled="{Binding Path=HasWindowsThemes}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Selected Theme" Margin="0,3"/>
+                            <ComboBox Width="200" Margin="6,3"
+                                      ItemsSource="{Binding Path=ThemeNames}" 
+                                      SelectedValue="{Binding Path=CurrentTheme}"
+                                      IsEnabled="{Binding Path=FollowWindowsTheme, Converter={StaticResource not}}"/>
+                        </StackPanel>
                     </StackPanel>
                 </GroupBox>
 
@@ -173,7 +190,7 @@
                         <StackPanel Orientation="Horizontal">
                             <StackPanel.Resources>
                                 <DataTemplate DataType="{x:Type ValidationError}">
-                                    <TextBlock Foreground="Red" HorizontalAlignment="Right" Text="{Binding Path=ErrorContent}" />
+                                    <TextBlock Foreground="Red" HorizontalAlignment="Right" Text="{Binding Path=ErrorContent}" Margin="4,8" />
                                 </DataTemplate>
                             </StackPanel.Resources>
                             <TextBlock Text="Match timeout" Margin="0,0,3,0"/>
@@ -192,7 +209,7 @@
                         <StackPanel Orientation="Horizontal">
                             <StackPanel.Resources>
                                 <DataTemplate DataType="{x:Type ValidationError}">
-                                    <TextBlock Foreground="Red" HorizontalAlignment="Right" Text="{Binding Path=ErrorContent}" />
+                                    <TextBlock Foreground="Red" HorizontalAlignment="Right" Text="{Binding Path=ErrorContent}" Margin="4,6"/>
                                 </DataTemplate>
                             </StackPanel.Resources>
                             <TextBlock Text="Match threshold (from 0 to 1.0)" Margin="0,0,6,0"/>

@@ -29,7 +29,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type df:DockSite}">
-                    <Border Background="{TemplateBinding Background}"
+                    <Border Background="{DynamicResource Control.Static.Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
                         <Grid>

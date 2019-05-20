@@ -7,8 +7,8 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Themes\DarkBrushes.xaml" />
-                <!--<ResourceDictionary Source="Themes\LightBrushes.xaml" />-->
+                <!--<ResourceDictionary Source="Themes\DarkBrushes.xaml" />-->
+                <ResourceDictionary Source="Themes\LightBrushes.xaml" />
                 
                 <ResourceDictionary Source="ThemedControls\ThemedWindow.xaml"/>
                 <ResourceDictionary Source="ThemedControls\FloatWindow.xaml"/>
