@@ -3,6 +3,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero">
 
+    <Geometry x:Key="DownArrowGeometry">M 0 0 L 3.5 4 L 7 0 Z</Geometry>
+    
     <Style x:Key="ComboBoxToggleButton2" TargetType="{x:Type ToggleButton}">
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="IsTabStop" Value="false" />
@@ -30,7 +32,7 @@
                                 Margin="0"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                Data="F1 M 0,0 L 2.667,2.66665 L 5.3334,0 L 5.3334,-1.78168 L 2.6667,0.88501 L0,-1.78168 L0,0 Z"
+                                Data="{StaticResource DownArrowGeometry}"
                                 Fill="{DynamicResource ComboBox.Static.Glyph}" />
                         </Border>
                     </Border>
@@ -64,7 +66,6 @@
                                 <Condition Binding="{Binding IsEditable, RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}}" Value="true" />
                             </MultiDataTrigger.Conditions>
                             <Setter TargetName="templateRoot" Property="Background" Value="{DynamicResource ComboBox.MouseOver.Editable.Background}" />
-                            <Setter TargetName="templateRoot" Property="BorderBrush" Value="{DynamicResource ComboBox.MouseOver.Editable.Border}" />
                             <Setter TargetName="splitBorder" Property="Background" Value="{DynamicResource ComboBox.MouseOver.Editable.Button.Background}" />
                             <Setter TargetName="splitBorder" Property="BorderBrush" Value="{DynamicResource ComboBox.MouseOver.Editable.Button.Border}" />
                         </MultiDataTrigger>
@@ -125,6 +126,24 @@
         <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst" />
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
         <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <ScrollViewer
+                        x:Name="PART_ContentHost"
+                        Background="Transparent"
+                        Focusable="false"
+                        HorizontalScrollBarVisibility="Hidden"
+                        VerticalScrollBarVisibility="Hidden" />
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsFocused" Value="true">
+                            <Setter TargetName="PART_ContentHost" Property="Background" Value="{DynamicResource Control.Focused.Background}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
         <Style.Triggers>
             <DataTrigger Binding="{Binding Path=Multiline}" Value="True">
                 <Setter Property="TextWrapping" Value="Wrap"/>

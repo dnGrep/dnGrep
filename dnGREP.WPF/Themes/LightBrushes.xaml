@@ -112,7 +112,6 @@
     <SolidColorBrush x:Key="Control.Static.Background" Color="White"/>
     <SolidColorBrush x:Key="Control.Static.Border" Color="#FFACACAC"/>
     <SolidColorBrush x:Key="Control.Focused.Background" Color="White"/>
-    <SolidColorBrush x:Key="Control.Focused.Border" Color="#FF1BA1E2"/>
     <SolidColorBrush x:Key="Control.Disabled.Forground" Color="#FFA6A6A6"/>
     <SolidColorBrush x:Key="Control.MouseOver.InputBackground" Color="White"/>
     <SolidColorBrush x:Key="Control.MouseOver.InputBorder" Color="#3e3e42"/>
@@ -152,7 +151,6 @@
     </LinearGradientBrush>
     <SolidColorBrush x:Key="ComboBox.MouseOver.Border" Color="#FF7EB4EA"/>
     <SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Background" Color="#FFFFFFFF"/>
-    <SolidColorBrush x:Key="ComboBox.MouseOver.Editable.Border" Color="#FF7EB4EA"/>
     <LinearGradientBrush x:Key="ComboBox.MouseOver.Editable.Button.Background" EndPoint="0,1" StartPoint="0,0">
         <GradientStop Color="#FFEBF4FC" Offset="0.0"/>
         <GradientStop Color="#FFDCECFC" Offset="1.0"/>

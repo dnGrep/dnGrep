@@ -597,8 +597,8 @@ namespace dnGREP.WPF
                 PanelSelection.MainPanel : PanelSelection.OptionsExpander;
 
             // current values may not equal the saved settings value
-            FollowWindowsTheme = AppTheme.Instance.FollowWindowsTheme;
             CurrentTheme = AppTheme.Instance.CurrentThemeName;
+            FollowWindowsTheme = AppTheme.Instance.FollowWindowsTheme;
         }
 
         private void SaveSettings()
