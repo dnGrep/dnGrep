@@ -103,14 +103,4 @@
     <Style BasedOn="{StaticResource ThemedTextBox}" TargetType="{x:Type TextBox}"/>
     <Style BasedOn="{StaticResource ThemedTextBox}" TargetType="{x:Type RichTextBox}"/>
 
-    <!-- text-in-datagrid styles-->
-    <Style x:Key="DataGridTextStyle" TargetType="TextBlock" >
-        <Setter Property="Margin" Value="2,0" />
-    </Style>
-
-    <Style x:Key="DataGridEditingTextStyle" TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
-        <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="Padding" Value="0" />
-    </Style>
-
 </ResourceDictionary>

@@ -243,4 +243,34 @@
         <GradientStop Color="#C6E0E0E0" Offset="1"/>
     </LinearGradientBrush>
 
+    <!-- DataGrid -->
+    <SolidColorBrush x:Key="DataGrid.Foreground" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="DataGrid.Background" Color="#FF404040"/>
+    <SolidColorBrush x:Key="DataGrid.Border" Color="#FF828790"/>
+    <SolidColorBrush x:Key="DataGrid.Cell.Foreground" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="DataGrid.Cell.Background" Color="#303030"/>
+    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" x:Key="DataGrid.Header.Background">
+        <GradientStop Color="#FF404040" Offset="0"/>
+        <GradientStop Color="#FF202020" Offset="0.4"/>
+        <GradientStop Color="#FF000000" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" x:Key="DataGrid.Header.MouseOver.Background">
+        <GradientStop Color="#FF404040" Offset="0"/>
+        <GradientStop Color="#FF2B5B80" Offset="0.4"/>
+        <GradientStop Color="#FF3C7FB1" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" x:Key="DataGrid.Header.Pressed.Background">
+        <GradientStop Color="#FF404040" Offset="0"/>
+        <GradientStop Color="#FF255173" Offset="0.4"/>
+        <GradientStop Color="#FF2C628B" Offset="1"/>
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="DataGrid.Header.Foreground" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="DataGrid.Header.Border" Color="#FF606060"/>
+    <SolidColorBrush x:Key="DataGrid.Header.Glyph" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="DataGrid.FocusBorder" Color="#FFDCDCDC"/>
+    <SolidColorBrush x:Key="DataGrid.Highlight.Foreground" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="DataGrid.Highlight.Background" Color="#FF1B5E7A"/>
+    <SolidColorBrush x:Key="DataGrid.InactiveSelectionHighlight.Foreground" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="DataGrid.InactiveSelectionHighlight.Background" Color="#FF14465C"/>
+
 </ResourceDictionary>

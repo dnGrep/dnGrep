@@ -281,5 +281,38 @@
     </LinearGradientBrush>
 
 
+    <!-- DataGrid -->
+    <SolidColorBrush x:Key="DataGrid.Foreground" Color="#FF000000"/>
+    <SolidColorBrush x:Key="DataGrid.Background" Color="#FFF0F0F0"/>
+    <SolidColorBrush x:Key="DataGrid.Border" Color="#FF688CAF"/>
+    <SolidColorBrush x:Key="DataGrid.Cell.Foreground" Color="#FF000000"/>
+    <SolidColorBrush x:Key="DataGrid.Cell.Background" Color="#FFFFFFFF"/>
+    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" x:Key="DataGrid.Header.Background">
+        <GradientStop Color="#FFFFFFFF" Offset="0"/>
+        <GradientStop Color="#FFFFFFFF" Offset="0.475"/>
+        <GradientStop Color="#FFF7F8FA" Offset="0.475"/>
+        <GradientStop Color="#FFF2F3F5" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" x:Key="DataGrid.Header.MouseOver.Background">
+        <GradientStop Color="#FFE3F7FF" Offset="0"/>
+        <GradientStop Color="#FFE3F7FF" Offset="0.475"/>
+        <GradientStop Color="#FFBCECFE" Offset="0.475"/>
+        <GradientStop Color="#FFB8E8FB" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1" x:Key="DataGrid.Header.Pressed.Background">
+        <GradientStop Color="#FFBCE4F9" Offset="0"/>
+        <GradientStop Color="#FFBCE4F9" Offset="0.35"/>
+        <GradientStop Color="#FF8DD6F7" Offset="0.35"/>
+        <GradientStop Color="#FF8AD1F5" Offset="1"/>
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="DataGrid.Header.Foreground" Color="#FF000000"/>
+    <SolidColorBrush x:Key="DataGrid.Header.Border" Color="#FFE5E6E8"/>
+    <SolidColorBrush x:Key="DataGrid.Header.Glyph" Color="#FF000000"/>
+    <SolidColorBrush x:Key="DataGrid.FocusBorder" Color="#FF000000"/>
+    <SolidColorBrush x:Key="DataGrid.Highlight.Foreground" Color="#FFFFFFFF"/>
+    <SolidColorBrush x:Key="DataGrid.Highlight.Background" Color="#FF0078D7"/>
+    <SolidColorBrush x:Key="DataGrid.InactiveSelectionHighlight.Foreground" Color="#FF000000"/>
+    <SolidColorBrush x:Key="DataGrid.InactiveSelectionHighlight.Background" Color="#FFF0F0F0"/>
+
 
 </ResourceDictionary>

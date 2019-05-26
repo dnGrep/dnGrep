@@ -9,7 +9,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <!--<ResourceDictionary Source="Themes\DarkBrushes.xaml" />-->
                 <ResourceDictionary Source="Themes\LightBrushes.xaml" />
-                
+
                 <ResourceDictionary Source="ThemedControls\ThemedWindow.xaml"/>
                 <ResourceDictionary Source="ThemedControls\FloatWindow.xaml"/>
                 <ResourceDictionary Source="ThemedControls\PreviewControl.xaml"/>
@@ -18,6 +18,7 @@
                 <ResourceDictionary Source="ThemedControls\CheckBox.xaml"/>
                 <ResourceDictionary Source="ThemedControls\ComboBox.xaml"/>
                 <ResourceDictionary Source="ThemedControls\CustomTemplates.xaml"/>
+                <ResourceDictionary Source="ThemedControls\DataGrid.xaml"/>
                 <ResourceDictionary Source="ThemedControls\DatePicker.xaml"/>
                 <ResourceDictionary Source="ThemedControls\DockSite.xaml"/>
                 <ResourceDictionary Source="ThemedControls\Expander.xaml"/>
@@ -29,7 +30,7 @@
                 <ResourceDictionary Source="ThemedControls\ScrollViewer.xaml"/>
                 <ResourceDictionary Source="ThemedControls\Slider.xaml"/>
                 <ResourceDictionary Source="ThemedControls\TreeView.xaml"/>
-                
+
                 <ResourceDictionary Source="ThemedControls\Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
