@@ -3,32 +3,32 @@
 
 
     <Style x:Key="ThemedTextBox" TargetType="{x:Type TextBoxBase}" BasedOn="{x:Null}">
-        <Setter Property="Foreground" Value="{DynamicResource Control.Foreground}"/>
-        <Setter Property="Background" Value="{DynamicResource Control.Static.Background}"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource Control.Static.Border}"/>
+        <Setter Property="Foreground" Value="{DynamicResource Control.Foreground}" />
+        <Setter Property="Background" Value="{DynamicResource Control.Static.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Control.Static.Border}" />
         <!--<Setter Property="ContextMenu" Value="{DynamicResource TextBoxMetroContextMenu}" />-->
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Padding" Value="2,1,1,1"/>
-        <Setter Property="AllowDrop" Value="true"/>
-        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-        <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst"/>
-        <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="2,1,1,1" />
+        <Setter Property="AllowDrop" Value="true" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst" />
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
         <Setter Property="SelectionBrush" Value="{DynamicResource Control.Highlight}" />
         <Setter Property="Validation.ErrorTemplate">
             <Setter.Value>
                 <ControlTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Border BorderThickness="1" BorderBrush="#FFdc000c" VerticalAlignment="Top">
+                        <Border VerticalAlignment="Top" BorderThickness="1" BorderBrush="#FFdc000c">
                             <Grid>
-                                <AdornedElementPlaceholder x:Name="adorner" Margin="-1"/>
+                                <AdornedElementPlaceholder x:Name="adorner" Margin="-1" />
                             </Grid>
                         </Border>
-                        <Border x:Name="errorBorder" Background="#FFdc000c" Margin="8,0,0,0"
-                                Opacity="0" CornerRadius="0"
-                                IsHitTestVisible="False"
-                                MinHeight="24" >
-                            <TextBlock Text="{Binding ElementName=adorner, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"
-                                       Foreground="White" Margin="8,2,8,3" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                        <Border x:Name="errorBorder" MinHeight="24" Margin="8,0,0,0"
+                                Background="#FFdc000c" Opacity="0" CornerRadius="0"
+                                IsHitTestVisible="False">
+                            <TextBlock Margin="8,2,8,3" VerticalAlignment="Center"
+                                       Text="{Binding ElementName=adorner, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"
+                                       Foreground="White" TextWrapping="Wrap" />
                         </Border>
                     </StackPanel>
                     <ControlTemplate.Triggers>
@@ -39,21 +39,17 @@
                             <DataTrigger.EnterActions>
                                 <BeginStoryboard x:Name="fadeInStoryboard">
                                     <Storyboard>
-                                        <DoubleAnimation Duration="00:00:00.15"
-                                                         Storyboard.TargetName="errorBorder"
-                                                         Storyboard.TargetProperty="Opacity"
-                                                         To="1"/>
+                                        <DoubleAnimation Storyboard.TargetName="errorBorder" Storyboard.TargetProperty="Opacity" To="1"
+                                                         Duration="00:00:00.15" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </DataTrigger.EnterActions>
                             <DataTrigger.ExitActions>
-                                <StopStoryboard BeginStoryboardName="fadeInStoryboard"/>
+                                <StopStoryboard BeginStoryboardName="fadeInStoryboard" />
                                 <BeginStoryboard x:Name="fadeOutStoryBoard">
                                     <Storyboard>
-                                        <DoubleAnimation Duration="00:00:00"
-                                                         Storyboard.TargetName="errorBorder"
-                                                         Storyboard.TargetProperty="Opacity"
-                                                         To="0"/>
+                                        <DoubleAnimation Storyboard.TargetName="errorBorder" Storyboard.TargetProperty="Opacity" To="0"
+                                                         Duration="00:00:00" />
                                     </Storyboard>
                                 </BeginStoryboard>
                             </DataTrigger.ExitActions>
@@ -66,33 +62,32 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBoxBase}">
                     <Border x:Name="Bd"
+                            Padding="{TemplateBinding Padding}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             Background="{TemplateBinding Background}"
-                            Padding="{TemplateBinding Padding}"
                             SnapsToDevicePixels="true">
-                        <ScrollViewer x:Name="PART_ContentHost" RenderOptions.ClearTypeHint="Enabled"
-                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        <ScrollViewer x:Name="PART_ContentHost" RenderOptions.ClearTypeHint="Enabled" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="{DynamicResource Control.Disabled.Forground}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource Control.Disabled.Forground}" />
                         </Trigger>
                         <Trigger Property="IsReadOnly" Value="true">
-                            <Setter Property="Foreground" Value="{DynamicResource Control.Disabled.Forground}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource Control.Disabled.Forground}" />
                         </Trigger>
                         <Trigger Property="IsFocused" Value="true">
                             <Setter Property="Background" Value="{DynamicResource Control.Focused.Background}" />
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
-                                <Condition Property="IsReadOnly" Value="False"/>
-                                <Condition Property="IsEnabled" Value="True"/>
-                                <Condition Property="IsMouseOver" Value="True"/>
+                                <Condition Property="IsReadOnly" Value="False" />
+                                <Condition Property="IsEnabled" Value="True" />
+                                <Condition Property="IsMouseOver" Value="True" />
                             </MultiTrigger.Conditions>
-                            <Setter Property="Background" Value="{DynamicResource Control.MouseOver.InputBackground}"/>
-                            <Setter Property="BorderBrush" Value="{DynamicResource Control.MouseOver.InputBorder}"/>
-                            <Setter Property="Foreground" Value="{DynamicResource Control.MouseOver.Foreground}"/>
+                            <Setter Property="Background" Value="{DynamicResource Control.MouseOver.InputBackground}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource Control.MouseOver.InputBorder}" />
+                            <Setter Property="Foreground" Value="{DynamicResource Control.MouseOver.Foreground}" />
                         </MultiTrigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -100,7 +95,7 @@
         </Setter>
     </Style>
 
-    <Style BasedOn="{StaticResource ThemedTextBox}" TargetType="{x:Type TextBox}"/>
-    <Style BasedOn="{StaticResource ThemedTextBox}" TargetType="{x:Type RichTextBox}"/>
+    <Style BasedOn="{StaticResource ThemedTextBox}" TargetType="{x:Type TextBox}" />
+    <Style BasedOn="{StaticResource ThemedTextBox}" TargetType="{x:Type RichTextBox}" />
 
 </ResourceDictionary>

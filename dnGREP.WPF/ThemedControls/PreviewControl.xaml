@@ -2,13 +2,13 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Style x:Key="previewVisibilityStyle" TargetType="Control">
-        <Setter Property="Visibility" Value="Visible"/>
+        <Setter Property="Visibility" Value="Visible" />
         <Style.Triggers>
             <DataTrigger Binding="{Binding IsPreviewDocked}" Value="False">
-                <Setter Property="Visibility" Value="Collapsed"/>
+                <Setter Property="Visibility" Value="Collapsed" />
             </DataTrigger>
             <DataTrigger Binding="{Binding PreviewFileContent}" Value="False">
-                <Setter Property="Visibility" Value="Collapsed"/>
+                <Setter Property="Visibility" Value="Collapsed" />
             </DataTrigger>
         </Style.Triggers>
     </Style>
