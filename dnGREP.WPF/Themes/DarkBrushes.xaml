@@ -212,11 +212,11 @@
     <SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Fill" Color="#FF82DFFB" />
     <SolidColorBrush x:Key="TreeViewItem.TreeArrow.MouseOver.Checked.Stroke" Color="#FF1CC4F7" />
     <SolidColorBrush x:Key="TreeViewItem.Highlight.Foreground" Color="#FFF5F5F5" />
-    <SolidColorBrush x:Key="TreeViewItem.Highlight.Background" Color="#FF14465C" />
-    <SolidColorBrush x:Key="TreeViewItem.Highlight.Border" Color="#FF1E698A" />
+    <SolidColorBrush x:Key="TreeViewItem.Highlight.Background" Color="#FF1B5E7A" />
+    <SolidColorBrush x:Key="TreeViewItem.Highlight.Border" Color="#FF288BB5" />
     <SolidColorBrush x:Key="TreeViewItem.InactiveHighlight.Foreground" Color="#FFF5F5F5" />
-    <SolidColorBrush x:Key="TreeViewItem.InactiveHighlight.Background" Color="#FF103747" />
-    <SolidColorBrush x:Key="TreeViewItem.InactiveHighlight.Border" Color="#FF14465C" />
+    <SolidColorBrush x:Key="TreeViewItem.InactiveHighlight.Background" Color="#FF164E66" />
+    <SolidColorBrush x:Key="TreeViewItem.InactiveHighlight.Border" Color="#FF2581A8" />
 
     <!--  Expander  -->
     <SolidColorBrush x:Key="Expander.Static.Arrow.Stroke" Color="#FFE0E0E0" />
