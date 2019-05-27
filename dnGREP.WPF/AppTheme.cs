@@ -1,10 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Management;
 using System.Security.Principal;
 using System.Windows;
+using System.Windows.Markup;
+using System.Windows.Media;
+using System.Windows.Media.Effects;
 using dnGREP.Common;
 using Microsoft.Win32;
+using NLog;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.WPF
 {
@@ -16,6 +24,8 @@ namespace dnGREP.WPF
 
     public class AppTheme
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         private const string RegistryKeyPath = @"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize";
         private const string RegistryValueName = "AppsUseLightTheme";
 
@@ -32,6 +42,9 @@ namespace dnGREP.WPF
         // current value may not equal the saved settings value
         public bool FollowWindowsTheme { get; private set; }
 
+        private readonly List<string> themeNames = new List<string> { "Light", "Dark" };
+        public IEnumerable<string> ThemeNames { get => themeNames; }
+
         // current value may not equal the saved settings value
         private string currentThemeName = "Light";
         public string CurrentThemeName
@@ -44,7 +57,16 @@ namespace dnGREP.WPF
 
                 currentThemeName = value;
 
-                Application.Current.Resources.MergedDictionaries[0].Source = new Uri($"/Themes/{CurrentThemeName}Brushes.xaml", UriKind.Relative);
+                if (CurrentThemeName == "Light" || CurrentThemeName == "Dark")
+                {
+                    Application.Current.Resources.MergedDictionaries[0].Source = new Uri($"/Themes/{CurrentThemeName}Brushes.xaml", UriKind.Relative);
+                }
+                else
+                {
+                    string dataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dnGrep");
+                    string path = Path.Combine(dataFolder, CurrentThemeName + ".xaml");
+                    Application.Current.Resources.MergedDictionaries[0].Source = new Uri(path, UriKind.Absolute);
+                }
 
                 //var accentColor = SystemParameters.WindowGlassColor;
                 //Current.Resources["ControlAccentBrush"] = new SolidColorBrush(accentColor);
@@ -68,6 +90,8 @@ namespace dnGREP.WPF
 
         public void Initialize()
         {
+            LoadExternalThemes();
+
             HasWindowsThemes = false;
             if (Environment.OSVersion.Version.Major >= 10)
             {
@@ -158,6 +182,86 @@ namespace dnGREP.WPF
             {
                 CurrentThemeName = WindowsTheme == WindowsTheme.Dark ? "Dark" : "Light";
             }
+        }
+
+        private void LoadExternalThemes()
+        {
+            string dataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dnGrep");
+            foreach (string fileName in Directory.GetFiles(dataFolder, "*.xaml"))
+            {
+                try
+                {
+                    using (FileStream s = new FileStream(fileName, FileMode.Open))
+                    {
+                        string name = Path.GetFileNameWithoutExtension(fileName);
+                        object obj = XamlReader.Load(s);
+                        if (obj is ResourceDictionary dict && IsValid(dict, name))
+                        {
+                            themeNames.Add(name);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    string msg = ex.Message;
+                }
+            }
+        }
+
+        private bool IsValid(ResourceDictionary dict2, string name)
+        {
+            bool valid = true;
+            var dict1 = Application.Current.Resources.MergedDictionaries[0];
+
+            if (dict1.Count > dict2.Count)
+            {
+                valid = false;
+                logger.Error($"Theme '{name}' is missing {dict1.Count - dict2.Count} keys");
+            }
+
+            foreach (var key in dict1.Keys)
+            {
+                if (!dict2.Contains(key))
+                {
+                    valid = false;
+                    logger.Error($"Theme '{name}' is missing key '{key}'");
+                }
+
+                object value1 = dict1[key];
+                object value2 = dict2[key];
+
+                if (value1 is Brush)
+                {
+                    if (!(value2 is Brush))
+                    {
+                        valid = false;
+                        logger.Error($"Theme '{name}', key '{key}' should be a Brush");
+                    }
+                }
+                else if (value1 is DropShadowEffect)
+                {
+                    if (!(value2 is DropShadowEffect))
+                    {
+                        valid = false;
+                        logger.Error($"Theme '{name}', key '{key}' should be a DropShadowEffect");
+                    }
+                }
+                else if (value1 is bool)
+                {
+                    if (!(value2 is bool))
+                    {
+                        valid = false;
+                        logger.Error($"Theme '{name}', key '{key}' should be a Boolean");
+                    }
+                }
+            }
+
+            if (!valid)
+            {
+                MessageBox.Show($"Could not load theme '{name}', see log file for more information.", "Load Theme", MessageBoxButton.OK);
+            }
+
+            return valid;
         }
     }
 }

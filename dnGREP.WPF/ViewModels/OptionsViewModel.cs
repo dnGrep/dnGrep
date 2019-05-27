@@ -16,8 +16,8 @@ namespace dnGREP.WPF
         {
             LoadSetting();
 
-            ThemeNames.Add("Light");
-            ThemeNames.Add("Dark");
+            foreach (string name in AppTheme.Instance.ThemeNames)
+                ThemeNames.Add(name);
 
             hasWindowsThemes = AppTheme.HasWindowsThemes;
             AppTheme.Instance.CurrentThemeChanged += (s, e) =>
