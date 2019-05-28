@@ -11,6 +11,7 @@
                  ResizeMode="NoResize"
                  SizeToContent="Width"
                  Background="{DynamicResource Dialog.Background}"
+                 CaptionBackground="{DynamicResource Caption.Dialog.Background}"
                  Icon="/dnGREP;component/nGREP.ico"
                  WindowStartupLocation="CenterOwner">
     <Window.Resources>
@@ -76,7 +77,8 @@
 
                 <GroupBox Header="Checking for updates">
                     <StackPanel Orientation="Horizontal">
-                        <CheckBox Name="cbCheckForUpdates" Content="Enable automatic checking every" IsChecked="{Binding Path=EnableCheckForUpdates}" />
+                        <CheckBox Name="cbCheckForUpdates" Content="Enable automatic checking every"
+                                  IsChecked="{Binding Path=EnableCheckForUpdates}" />
                         <TextBox Width="31" Height="24" Margin="3,0,0,0"
                                  IsEnabled="{Binding ElementName=cbCheckForUpdates, Path=IsChecked}"
                                  Text="{Binding Path=CheckForUpdatesInterval, UpdateSourceTrigger=PropertyChanged}" />
@@ -160,7 +162,8 @@
                             <Label Content="after" />
                         </StackPanel>
 
-                        <CheckBox Name="cbSearchFileNameOnly" Margin="3" IsChecked="{Binding Path=AllowSearchWithEmptyPattern}">
+                        <CheckBox Name="cbSearchFileNameOnly" Margin="3"
+                                  IsChecked="{Binding Path=AllowSearchWithEmptyPattern}">
                             <CheckBox.Content>
                                 <TextBlock>Allow searching for file name pattern only when &quot;search for&quot; is empty</TextBlock>
                             </CheckBox.Content>

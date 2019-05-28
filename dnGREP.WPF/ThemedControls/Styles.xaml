@@ -44,7 +44,7 @@
     <Style TargetType="{x:Type ToolTip}">
         <Setter Property="Background" Value="{DynamicResource Control.InfoBackground}" />
         <Setter Property="Foreground" Value="{DynamicResource Control.InfoForeground}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource Control.FrameBorderBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Control.FrameBorder}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="6" />
     </Style>

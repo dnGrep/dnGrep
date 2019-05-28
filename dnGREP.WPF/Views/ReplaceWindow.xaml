@@ -10,6 +10,7 @@
                  Height="800"
                  Icon="/dnGREP;component/nGREP.ico"
                  Background="{DynamicResource Dialog.Background}"
+                 CaptionBackground="{DynamicResource Caption.Dialog.Background}"
                  FocusManager.FocusedElement="{Binding ElementName=btnCancel}"
                  mc:Ignorable="d">
 

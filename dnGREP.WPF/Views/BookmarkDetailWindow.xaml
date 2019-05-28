@@ -7,10 +7,11 @@
                  Title="Bookmark Details"
                  SizeToContent="WidthAndHeight"
                  WindowStartupLocation="CenterOwner"
-                 Background="{DynamicResource Dialog.Background}"
                  ResizeMode="CanResize"
                  ShowInTaskbar="True"
                  Icon="/dnGREP;component/nGREP.ico"
+                 Background="{DynamicResource Dialog.Background}"
+                 CaptionBackground="{DynamicResource Caption.Dialog.Background}"
                  mc:Ignorable="d">
 
 

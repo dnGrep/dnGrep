@@ -12,6 +12,7 @@
                  ResizeMode="NoResize"
                  WindowStartupLocation="CenterOwner"
                  Background="{DynamicResource Dialog.Background}"
+                 CaptionBackground="{DynamicResource Caption.Dialog.Background}"
                  mc:Ignorable="d">
 
     <Grid Margin="8">

@@ -119,7 +119,7 @@
         </Setter>
         <Setter Property="ShowInTaskbar" Value="True" />
         <Setter Property="MinWidth" Value="220" />
-        <Setter Property="TextElement.Foreground" Value="{DynamicResource Caption.TextBrush}" />
+        <Setter Property="TextElement.Foreground" Value="{DynamicResource Caption.Foreground}" />
         <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
         <Setter Property="Control.Template">
             <Setter.Value>
@@ -129,7 +129,7 @@
                         <DockPanel x:Name="innerRoot" Background="{TemplateBinding Background}">
                             <DockPanel x:Name="titleBar"
                                        Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(shell:WindowChrome.WindowChrome).CaptionHeight, Mode=OneWay}"
-                                       Background="{DynamicResource Caption.BackgroundBrush}"
+                                       Background="{DynamicResource Caption.Background}"
                                        DockPanel.Dock="Top">
 
                                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">

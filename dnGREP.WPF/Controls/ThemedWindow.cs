@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Media;
 
 namespace dnGREP.WPF
 {
@@ -15,8 +16,31 @@ namespace dnGREP.WPF
         }
 
         public ThemedWindow()
-            :base()
+            : base()
         {
+        }
+
+        /// <summary>
+        /// Identifies the <see cref="CaptionBackground" /> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty CaptionBackgroundProperty = DependencyProperty.Register(
+            "CaptionBackground", typeof(Brush), typeof(ThemedWindow),
+            new UIPropertyMetadata(Brushes.White));
+
+        /// <summary>
+        /// Gets or sets the value of the <see cref="CaptionBackground" />
+        /// property. This is a dependency property.
+        /// </summary>
+        public Brush CaptionBackground
+        {
+            get
+            {
+                return (Brush)GetValue(CaptionBackgroundProperty);
+            }
+            set
+            {
+                SetValue(CaptionBackgroundProperty, value);
+            }
         }
 
         public override void OnApplyTemplate()

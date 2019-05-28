@@ -10,6 +10,7 @@
                  WindowStyle="SingleBorderWindow"
                  Icon="/dnGREP;component/nGREP.ico"
                  Background="{DynamicResource Dialog.Background}"
+                 CaptionBackground="{DynamicResource Caption.Dialog.Background}"
                  Loaded="Window_Loaded"
                  Closing="Window_Closing"
                  KeyDown="FormKeyDown"
@@ -17,7 +18,9 @@
                  ResizeMode="CanResizeWithGrip">
     <!--  Resources  -->
     <Window.Resources>
-        <Style x:Key="ExpandedTextbox" TargetType="{x:Type TextBox}" BasedOn="{StaticResource ThemedTextBox}">
+        <Style x:Key="ExpandedTextbox"
+               TargetType="{x:Type TextBox}"
+               BasedOn="{StaticResource ThemedTextBox}">
             <Setter Property="VerticalAlignment" Value="Center" />
             <!--<Setter Property="VerticalContentAlignment" Value="Center"/>-->
             <Setter Property="Height" Value="24" />
@@ -167,7 +170,9 @@
                      Margin="5" AcceptsReturn="True" TextWrapping="Wrap"
                      VerticalScrollBarVisibility="Auto"
                      Text="{Binding Path=SampleText, UpdateSourceTrigger=PropertyChanged}" />
-            <Label Grid.Row="2" VerticalAlignment="Center" VerticalContentAlignment="Center">Output text:</Label>
+            <Label Grid.Row="2" VerticalAlignment="Center" VerticalContentAlignment="Center">
+                Output text:
+            </Label>
             <Border Grid.Row="3" Margin="5"
                     BorderBrush="{DynamicResource Control.Static.Border}"
                     BorderThickness="1"
@@ -180,7 +185,8 @@
                 </ScrollViewer>
                 <Border.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Copy to clipboard" Click="BtnCopyFile_Click" IsEnabled="{Binding TestOutputText, Converter={StaticResource notNullOrEmpty}}" />
+                        <MenuItem Header="Copy to clipboard" Click="BtnCopyFile_Click"
+                                  IsEnabled="{Binding TestOutputText, Converter={StaticResource notNullOrEmpty}}" />
                     </ContextMenu>
                 </Border.ContextMenu>
             </Border>
@@ -199,7 +205,9 @@
             </StackPanel>
             <StatusBar Grid.Row="5" ClipToBounds="False" BorderThickness="1"
                        BorderBrush="DarkGray">
-                <TextBlock Name="lblStatus" HorizontalAlignment="Center" VerticalAlignment="Center">Click Search or Replace to test search pattern</TextBlock>
+                <TextBlock Name="lblStatus" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    Click Search or Replace to test search pattern
+                </TextBlock>
             </StatusBar>
         </Grid>
     </DockPanel>

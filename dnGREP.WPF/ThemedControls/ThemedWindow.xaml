@@ -5,7 +5,7 @@
     <Style x:Key="ToolTipStyle" TargetType="ToolTip">
         <Setter Property="Background" Value="{DynamicResource Control.InfoBackground}" />
         <Setter Property="Foreground" Value="{DynamicResource Control.InfoForeground}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource Control.FrameBorderBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Control.FrameBorder}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Padding" Value="6" />
     </Style>
@@ -72,19 +72,22 @@
         <Setter Property="ToolTip" Value="Close" />
     </Style>
 
-    <Style x:Key="MinimizeButtonStyle" TargetType="Button" BasedOn="{StaticResource CaptionButtonStyle}">
+    <Style x:Key="MinimizeButtonStyle" TargetType="Button"
+           BasedOn="{StaticResource CaptionButtonStyle}">
         <Setter Property="Content" Value="&#x30;" />
         <!--<Setter Property="Content" Value="&#xE949;"/> win10 -->
         <Setter Property="ToolTip" Value="Minimize" />
     </Style>
 
-    <Style x:Key="MaximizeButtonStyle" TargetType="Button" BasedOn="{StaticResource CaptionButtonStyle}">
+    <Style x:Key="MaximizeButtonStyle" TargetType="Button"
+           BasedOn="{StaticResource CaptionButtonStyle}">
         <Setter Property="Content" Value="&#x31;" />
         <!--<Setter Property="Content" Value="&#xE739;"/> win10 -->
         <Setter Property="ToolTip" Value="Maximize" />
     </Style>
 
-    <Style x:Key="RestoreButtonStyle" TargetType="Button" BasedOn="{StaticResource CaptionButtonStyle}">
+    <Style x:Key="RestoreButtonStyle" TargetType="Button"
+           BasedOn="{StaticResource CaptionButtonStyle}">
         <Setter Property="Content" Value="&#x32;" />
         <!--<Setter Property="Content" Value="&#xE923;"/> win10 -->
         <Setter Property="ToolTip" Value="Restore Down" />
@@ -108,7 +111,7 @@
                         <DockPanel x:Name="innerRoot" Background="{TemplateBinding Background}">
                             <DockPanel x:Name="titleBar"
                                        Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(shell:WindowChrome.WindowChrome).CaptionHeight, Mode=OneWay}"
-                                       Background="{DynamicResource Caption.BackgroundBrush}"
+                                       Background="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CaptionBackground, Mode=OneWay}"
                                        DockPanel.Dock="Top">
 
                                 <Image Width="32" Margin="6,3,0,3" VerticalAlignment="Top"
@@ -129,7 +132,9 @@
                                             Visibility="{TemplateBinding ResizeMode,
                                                                          Converter={StaticResource ResizeModeConverter}}" />
 
-                                    <Button x:Name="PART_CloseButton" Style="{StaticResource CloseButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" />
+                                    <Button x:Name="PART_CloseButton"
+                                            Style="{StaticResource CloseButtonStyle}"
+                                            WindowChrome.IsHitTestVisibleInChrome="True" />
 
                                 </StackPanel>
 
@@ -138,7 +143,7 @@
                                            Text="{Binding Title, RelativeSource={RelativeSource TemplatedParent}}"
                                            ToolTip="{Binding Title, RelativeSource={RelativeSource TemplatedParent}}"
                                            TextTrimming="CharacterEllipsis"
-                                           Foreground="{DynamicResource Caption.TextBrush}" />
+                                           Foreground="{DynamicResource Caption.Foreground}" />
 
                             </DockPanel>
                             <Border BorderThickness="{TemplateBinding Border.BorderThickness}" BorderBrush="{TemplateBinding Border.BorderBrush}">

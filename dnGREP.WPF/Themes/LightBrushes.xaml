@@ -21,12 +21,13 @@
         <GradientStop Color="{x:Static SystemColors.ControlColor}" Offset="0.8" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="Dialog.Background" Color="#FFF0F0F0" />
-    <SolidColorBrush x:Key="SplitterBrush" Color="#FFC8C8C8" />
+    <SolidColorBrush x:Key="Splitter.Background" Color="#FFC8C8C8" />
 
 
     <!--  Window Caption  -->
-    <SolidColorBrush x:Key="Caption.BackgroundBrush" Color="White" />
-    <SolidColorBrush x:Key="Caption.TextBrush" Color="Black" />
+    <SolidColorBrush x:Key="Caption.Background" Color="White" />
+    <SolidColorBrush x:Key="Caption.Foreground" Color="Black" />
+    <SolidColorBrush x:Key="Caption.Dialog.Background" Color="#FFFAFAFA" />
     <SolidColorBrush x:Key="Caption.Button.Background" Color="Transparent" />
     <SolidColorBrush x:Key="Caption.Button.Foreground" Color="Black" />
     <SolidColorBrush x:Key="Caption.Button.MouseOver.Background" Color="#FFE5E5E5" />
@@ -122,7 +123,7 @@
     <SolidColorBrush x:Key="Control.GrayText" Color="#FF6D6D6D" />
     <SolidColorBrush x:Key="Control.InfoBackground" Color="#FFFFFFE1" />
     <SolidColorBrush x:Key="Control.InfoForeground" Color="Black" />
-    <SolidColorBrush x:Key="Control.FrameBorderBrush" Color="#FF000000" />
+    <SolidColorBrush x:Key="Control.FrameBorder" Color="#FF000000" />
     <SolidColorBrush x:Key="Control.Highlight" Color="#A00078D7" />
 
     <!--  ComboBox  -->

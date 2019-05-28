@@ -10,6 +10,7 @@
                  MinWidth="520"
                  MinHeight="300"
                  Background="{DynamicResource Dialog.Background}"
+                 CaptionBackground="{DynamicResource Caption.Dialog.Background}"
                  ResizeMode="CanResize"
                  ShowInTaskbar="True"
                  Icon="/dnGREP;component/nGREP.ico"

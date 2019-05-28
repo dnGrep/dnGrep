@@ -16,6 +16,8 @@
                  my:DiginesisHelpProvider.ShowHelp="True"
                  AllowDrop="False"
                  SnapsToDevicePixels="True"
+                 Background="{DynamicResource GradientBackground}"
+                 CaptionBackground="{DynamicResource Caption.Background}"
                  Icon="/dnGREP;component/nGREP.ico"
                  WindowState="Normal"
                  WindowStartupLocation="Manual"
@@ -28,16 +30,15 @@
         <my:TotalValueConverter x:Key="TotalValueConverter" />
         <my:EnumBooleanConverter x:Key="ebc" />
         <my:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed" />
-        <my:BoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" TrueValue="Collapsed" FalseValue="Visible" />
+        <my:BoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" TrueValue="Collapsed"
+                                      FalseValue="Visible" />
         <my:GridLengthConverter x:Key="GridLengthConverter" />
 
     </my:ThemedWindow.Resources>
-    <my:ThemedWindow.Background>
-        <DynamicResource ResourceKey="GradientBackground" />
-    </my:ThemedWindow.Background>
     <my:ThemedWindow.InputBindings>
         <KeyBinding Key="Escape" Command="{Binding CancelCommand}" />
-        <KeyBinding Key="e" Modifiers="Alt" Command="{Binding ToggleFileOptionsCommand}" />
+        <KeyBinding Key="e" Modifiers="Alt"
+                    Command="{Binding ToggleFileOptionsCommand}" />
     </my:ThemedWindow.InputBindings>
 
     <DockPanel ManipulationBoundaryFeedback="ManipulationBoundaryFeedbackHandler">
@@ -57,11 +58,12 @@
             </Border>
         </df:DockSite>
         <df:DockPanelSplitter x:Name="previewSplitter" DockPanel.Dock="Right" Thickness="4"
-                              Background="{DynamicResource SplitterBrush}"
+                              Background="{DynamicResource Splitter.Background}"
                               Style="{StaticResource previewVisibilityStyle}"
                               ProportionalResize="True" />
 
-        <DockPanel Margin="5,5,5,0" DockPanel.Dock="Top" Background="{DynamicResource Menu.Normal.Background}">
+        <DockPanel Margin="5,5,5,0" DockPanel.Dock="Top"
+                   Background="{DynamicResource Menu.Normal.Background}">
             <TextBlock DockPanel.Dock="Left" FontSize="16" FontWeight="DemiBold"
                        Text="dnGrep"
                        Style="{StaticResource ThemedTextBlock}" />
@@ -92,14 +94,17 @@
                 <StackPanel Orientation="Horizontal">
                     <ProgressBar Width="150" Height="18" Margin="3,0"
                                  IsIndeterminate="{Binding IsOperationInProgress}" />
-                    <TextBlock Margin="3,0" Text="{Binding StatusMessage}" Style="{StaticResource LabelTextBlockStyle}" />
+                    <TextBlock Margin="3,0"
+                               Text="{Binding StatusMessage}"
+                               Style="{StaticResource LabelTextBlockStyle}" />
                 </StackPanel>
             </StatusBarItem>
             <StatusBarItem HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal" Visibility="{Binding IsSaveInProgress, Converter={StaticResource BoolToVisibilityConverter}}">
                     <ProgressBar Width="150" Height="18" Margin="3,0"
                                  IsIndeterminate="true" />
-                    <TextBlock Margin="3,0,12,0" Text="Saving results to file..." Style="{StaticResource LabelTextBlockStyle}" />
+                    <TextBlock Margin="3,0,12,0" Text="Saving results to file..."
+                               Style="{StaticResource LabelTextBlockStyle}" />
                 </StackPanel>
             </StatusBarItem>
         </StatusBar>
@@ -136,7 +141,8 @@
                               TabIndex="14" SizeChanged="Expander_SizeChanged">
                         <Expander.Header>
                             <StackPanel Margin="0,6" Orientation="Horizontal">
-                                <TextBlock x:Name="fileOptions" Text="More..." Style="{StaticResource LabelTextBlockStyle}" />
+                                <TextBlock x:Name="fileOptions" Text="More..."
+                                           Style="{StaticResource LabelTextBlockStyle}" />
                                 <TextBlock MaxWidth="{Binding MaxFileFiltersSummaryWidth}"
                                            Margin="12,0,0,0"
                                            Text="{Binding FileFiltersSummary}"
@@ -144,7 +150,8 @@
                                            TextTrimming="CharacterEllipsis" />
                             </StackPanel>
                         </Expander.Header>
-                        <Border BorderBrush="{DynamicResource GroupBox.Border}" BorderThickness="1" CornerRadius="4">
+                        <Border BorderBrush="{DynamicResource GroupBox.Border}"
+                                BorderThickness="1" CornerRadius="4">
                             <WrapPanel SizeChanged="WrapPanel_SizeChanged">
                                 <!--  left  -->
                                 <StackPanel x:Name="LeftFileOptions" Margin="3,5,15,0">
@@ -168,7 +175,8 @@
                                                 </Binding>
                                             </TextBox.Text>
                                         </TextBox>
-                                        <TextBlock Margin="3,0,3,3" Text="to" Style="{StaticResource LabelTextBlockStyle}" />
+                                        <TextBlock Margin="3,0,3,3" Text="to"
+                                                   Style="{StaticResource LabelTextBlockStyle}" />
                                         <TextBox Name="tbFileSizeTo" Width="48" Height="24"
                                                  Margin="3,0,3,3"
                                                  IsEnabled="{Binding Path=IsSizeFilterSet}"
@@ -182,7 +190,8 @@
                                                 </Binding>
                                             </TextBox.Text>
                                         </TextBox>
-                                        <TextBlock Margin="3,0,3,3" Text="KB" Style="{StaticResource LabelTextBlockStyle}" />
+                                        <TextBlock Margin="3,0,3,3" Text="KB"
+                                                   Style="{StaticResource LabelTextBlockStyle}" />
                                     </StackPanel>
                                     <CheckBox Name="cbIncludeSubfolders" Margin="3,0,3,3"
                                               IsChecked="{Binding Path=IncludeSubfolder}"
@@ -255,7 +264,8 @@
                                                  PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting"
                                                  Text="{Binding HoursFrom, UpdateSourceTrigger=PropertyChanged}" />
 
-                                        <TextBlock Margin="3,0,3,3" Text="to" Style="{StaticResource LabelTextBlockStyle}" />
+                                        <TextBlock Margin="3,0,3,3" Text="to"
+                                                   Style="{StaticResource LabelTextBlockStyle}" />
                                         <TextBox Width="45" Height="24" Margin="3,0,3,3"
                                                  HorizontalAlignment="Center"
                                                  IsEnabled="{Binding IsHoursRangeSet}"
@@ -269,7 +279,8 @@
                                                 </Binding>
                                             </TextBox.Text>
                                         </TextBox>
-                                        <TextBlock Margin="3,0,3,3" Text="hours" Style="{StaticResource LabelTextBlockStyle}" />
+                                        <TextBlock Margin="3,0,3,3" Text="hours"
+                                                   Style="{StaticResource LabelTextBlockStyle}" />
                                     </StackPanel>
                                 </StackPanel>
                                 <Border x:Name="SpacerFileOptions" />
@@ -310,7 +321,8 @@
                                               ToolTip="Search files in multiple threads" />
                                     <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                                                 Margin="3" VerticalAlignment="Center" Orientation="Horizontal">
-                                        <TextBlock Margin="3,0,3,3" Text="Encoding:" Style="{StaticResource LabelTextBlockStyle}" />
+                                        <TextBlock Margin="3,0,3,3" Text="Encoding:"
+                                                   Style="{StaticResource LabelTextBlockStyle}" />
                                         <ComboBox Name="cbEncoding" Width="224" Height="24"
                                                   Margin="3,0,3,3" HorizontalContentAlignment="Center" TabIndex="43"
                                                   DisplayMemberPath="Key" SelectedValuePath="Value"
@@ -418,7 +430,8 @@
                         </StackPanel>
                         <Label HorizontalAlignment="Center" Content="{Binding ValidationMessage}" />
                     </DockPanel>
-                    <StackPanel Margin="0,5,0,3" DockPanel.Dock="Bottom" Visibility="{Binding OptionsOnMainPanel, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <StackPanel Margin="0,5,0,3" DockPanel.Dock="Bottom"
+                                Visibility="{Binding OptionsOnMainPanel, Converter={StaticResource BoolToVisibilityConverter}}">
                         <WrapPanel Margin="77,0,0,0" Orientation="Horizontal">
                             <CheckBox Margin="3"
                                       IsChecked="{Binding CaseSensitive}"
