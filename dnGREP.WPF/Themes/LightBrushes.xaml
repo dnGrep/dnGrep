@@ -5,6 +5,7 @@
 
     <SolidColorBrush x:Key="AvalonEdit.Foreground" Color="#FF000000" />
     <SolidColorBrush x:Key="AvalonEdit.Background" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="AvalonEdit.Link" Color="#FF0000FF" />
     <sys:Boolean x:Key="AvalonEdit.SyntaxColor.Invert">false</sys:Boolean>
 
     <SolidColorBrush x:Key="Match.Highlight.Foreground" Color="#FF000000" />

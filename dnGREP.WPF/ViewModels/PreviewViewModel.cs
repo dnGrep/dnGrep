@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Text;
 using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
@@ -12,13 +13,7 @@ namespace dnGREP.WPF
     {
         public PreviewViewModel()
         {
-            HighlightDefinitions = new Dictionary<string, IHighlightingDefinition>();
-            Highlighters = new List<string>();
-            foreach (var hl in HighlightingManager.Instance.HighlightingDefinitions)
-            {
-                HighlightDefinitions[hl.Name] = hl;
-                Highlighters.Add(hl.Name);
-            }
+            Highlighters = ThemedHighlightingManager.Instance.HighlightingNames.ToList();
             Highlighters.Sort();
             Highlighters.Insert(0, "None");
             CurrentSyntax = "None";
@@ -141,10 +136,7 @@ namespace dnGREP.WPF
         {
             get
             {
-                if (HighlightDefinitions.ContainsKey(CurrentSyntax))
-                    return HighlightDefinitions[CurrentSyntax];
-                else
-                    return HighlightingManager.Instance.GetDefinitionByExtension("txt");
+                return ThemedHighlightingManager.Instance.GetDefinition(CurrentSyntax);
             }
         }
 
@@ -152,8 +144,6 @@ namespace dnGREP.WPF
         {
             UpdateState(e.PropertyName);
         }
-
-        private Dictionary<string, IHighlightingDefinition> HighlightDefinitions { get; set; }
 
         private void UpdateState(string name)
         {
@@ -164,7 +154,7 @@ namespace dnGREP.WPF
                 {
                     // Set current definition
                     var fileInfo = new FileInfo(FilePath);
-                    var definition = HighlightingManager.Instance.GetDefinitionByExtension(fileInfo.Extension);
+                    var definition = ThemedHighlightingManager.Instance.GetDefinitionByExtension(fileInfo.Extension);
                     if (definition != null)
                         CurrentSyntax = definition.Name;
                     else

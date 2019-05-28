@@ -394,7 +394,26 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <EmbeddedResource Include="sqlmode.xshd" />
+    <EmbeddedResource Include="Resources\ASPX.xshd" />
+    <EmbeddedResource Include="Resources\Boo.xshd" />
+    <EmbeddedResource Include="Resources\Coco-Mode.xshd" />
+    <EmbeddedResource Include="Resources\CPP-Mode.xshd" />
+    <EmbeddedResource Include="Resources\CSharp-Mode.xshd" />
+    <EmbeddedResource Include="Resources\CSS-Mode.xshd" />
+    <EmbeddedResource Include="Resources\HTML-Mode.xshd" />
+    <EmbeddedResource Include="Resources\Java-Mode.xshd" />
+    <EmbeddedResource Include="Resources\JavaScript-Mode.xshd" />
+    <EmbeddedResource Include="Resources\MarkDown-Mode.xshd" />
+    <EmbeddedResource Include="Resources\Patch-Mode.xshd" />
+    <EmbeddedResource Include="Resources\PHP-Mode.xshd" />
+    <EmbeddedResource Include="Resources\PowerShell.xshd" />
+    <EmbeddedResource Include="Resources\Python-Mode.xshd" />
+    <EmbeddedResource Include="Resources\Tex-Mode.xshd" />
+    <EmbeddedResource Include="Resources\TSQL-Mode.xshd" />
+    <EmbeddedResource Include="Resources\VB-Mode.xshd" />
+    <EmbeddedResource Include="Resources\XML-Mode.xshd" />
+    <EmbeddedResource Include="Resources\XmlDoc.xshd" />
+    <EmbeddedResource Include="Resources\Sql-Mode.xshd" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="nGREP.ico" />
@@ -439,6 +458,7 @@
     <Resource Include="Images\dnGrep48.png" />
     <Resource Include="Images\dnGrep80.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

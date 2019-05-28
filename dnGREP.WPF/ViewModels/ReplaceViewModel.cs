@@ -19,20 +19,12 @@ namespace dnGREP.WPF
         public event EventHandler ReplaceMatch;
         public event EventHandler CloseTrue;
 
-        private Dictionary<string, IHighlightingDefinition> HighlightDefinitions;
-
         private int fileIndex = -1;
         private int matchIndex = -1;
 
         public ReplaceViewModel()
         {
-            HighlightDefinitions = new Dictionary<string, IHighlightingDefinition>();
-            Highlighters = new List<string>();
-            foreach (var hl in HighlightingManager.Instance.HighlightingDefinitions)
-            {
-                HighlightDefinitions[hl.Name] = hl;
-                Highlighters.Add(hl.Name);
-            }
+            Highlighters = ThemedHighlightingManager.Instance.HighlightingNames.ToList();
             Highlighters.Sort();
             Highlighters.Insert(0, "None");
             CurrentSyntax = "None";
@@ -408,10 +400,7 @@ namespace dnGREP.WPF
         {
             get
             {
-                if (HighlightDefinitions.ContainsKey(CurrentSyntax))
-                    return HighlightDefinitions[CurrentSyntax];
-                else
-                    return HighlightingManager.Instance.GetDefinitionByExtension("txt");
+                return ThemedHighlightingManager.Instance.GetDefinition(CurrentSyntax);
             }
         }
 

@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Shapes;
 using dnGREP.Common;
 using DockFloat;
@@ -119,6 +120,7 @@ namespace dnGREP.WPF
             else if (e.PropertyName == "CurrentSyntax")
             {
                 textEditor.SyntaxHighlighting = ViewModel.HighlightingDefinition;
+                textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["AvalonEdit.Link"] as Brush;
                 textEditor.TextArea.TextView.Redraw();
             }
         }
@@ -141,6 +143,7 @@ namespace dnGREP.WPF
                 textEditor.TextArea.TextView.LineTransformers.Add(highlighter);
                 textEditor.Encoding = ViewModel.Encoding;
                 textEditor.SyntaxHighlighting = ViewModel.HighlightingDefinition;
+                textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["AvalonEdit.Link"] as Brush;
             }
 
             lineNumberMargin.LineNumbers.AddRange(ViewModel.LineNumbers);
