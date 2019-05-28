@@ -89,19 +89,22 @@
         <Setter Property="ToolTip" Value="Close" />
     </Style>
 
-    <Style x:Key="MinimizeButtonStyle" TargetType="Button" BasedOn="{StaticResource CaptionButtonStyle}">
+    <Style x:Key="MinimizeButtonStyle" TargetType="Button"
+           BasedOn="{StaticResource CaptionButtonStyle}">
         <Setter Property="Content" Value="&#x30;" />
         <!--<Setter Property="Content" Value="&#xE949;"/> win10 -->
         <Setter Property="ToolTip" Value="Minimize" />
     </Style>
 
-    <Style x:Key="MaximizeButtonStyle" TargetType="Button" BasedOn="{StaticResource CaptionButtonStyle}">
+    <Style x:Key="MaximizeButtonStyle" TargetType="Button"
+           BasedOn="{StaticResource CaptionButtonStyle}">
         <Setter Property="Content" Value="&#x31;" />
         <!--<Setter Property="Content" Value="&#xE739;"/> win10 -->
         <Setter Property="ToolTip" Value="Maximize" />
     </Style>
 
-    <Style x:Key="RestoreButtonStyle" TargetType="Button" BasedOn="{StaticResource CaptionButtonStyle}">
+    <Style x:Key="RestoreButtonStyle" TargetType="Button"
+           BasedOn="{StaticResource CaptionButtonStyle}">
         <Setter Property="Content" Value="&#x32;" />
         <!--<Setter Property="Content" Value="&#xE923;"/> win10 -->
         <Setter Property="ToolTip" Value="Restore Down" />
@@ -131,13 +134,20 @@
 
                                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
 
-                                    <Button x:Name="PART_MinimizeButton" Style="{StaticResource MinimizeButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" />
+                                    <Button x:Name="PART_DockButton" shell:WindowChrome.IsHitTestVisibleInChrome="True"
+                                            Style="{StaticResource DockInButtonStyle}" />
 
-                                    <Button x:Name="PART_RestoreButton" Style="{StaticResource MaximizeButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" />
+                                    <Button x:Name="PART_MinimizeButton"
+                                            Style="{StaticResource MinimizeButtonStyle}"
+                                            WindowChrome.IsHitTestVisibleInChrome="True" />
 
-                                    <Button x:Name="PART_CloseButton" Style="{StaticResource CloseButtonStyle}" WindowChrome.IsHitTestVisibleInChrome="True" />
+                                    <Button x:Name="PART_RestoreButton"
+                                            Style="{StaticResource MaximizeButtonStyle}"
+                                            WindowChrome.IsHitTestVisibleInChrome="True" />
 
-                                    <Button x:Name="PART_DockButton" shell:WindowChrome.IsHitTestVisibleInChrome="True" Style="{StaticResource DockInButtonStyle}" />
+                                    <Button x:Name="PART_CloseButton"
+                                            Style="{StaticResource CloseButtonStyle}"
+                                            WindowChrome.IsHitTestVisibleInChrome="True" />
 
                                 </StackPanel>
                                 <TextBlock Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
