@@ -2,26 +2,44 @@
 <!-- syntaxdefinition for HTML 2000 by Mike Krueger -->
 <!-- converted to AvalonEdit format by Siegfried Pammer in 2010 -->
 <SyntaxDefinition name="HTML" extensions=".htm;.html" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
-  <Color name="Comment" foreground="DarkSlateGray" exampleText="&lt;!-- comment --&gt;" />
-  <Color name="Digits" foreground="DarkBlue" exampleText="&lt;digits&gt;0123456789&lt;/digits&gt;" />
-  <Color name="ScriptTag" foreground="#FF8B008B" exampleText="&lt;script&gt;alert('Hello World!');&lt;/script&gt;" />
-  <Color name="JavaScriptTag" foreground="#FF8B008B" exampleText="&lt;script lang=&quot;JavaScript&quot;&gt;alert('Hello World!');&lt;/script&gt;" />
-  <Color name="JScriptTag" foreground="#FF8B008B" exampleText="&lt;script lang=&quot;JScript&quot;&gt;Response.Write(&quot;Hello World!&quot;);&lt;/script&gt;" />
-  <Color name="VBScriptTag" foreground="#FF8B008B" exampleText="&lt;script lang=&quot;VBScript&quot;&gt;Response.Write(&quot;Hello World!&quot;)&lt;/script&gt;" />
-  <Color name="UnknownScriptTag" foreground="#FF8B008B" exampleText="&lt;script la&gt;alert('Hello World!');&lt;/script&gt;" />
-  <Color name="HtmlTag" foreground="#FF8B008B" exampleText="&lt;html&gt;Hello World!/html&gt;" />
-  <Color name="Tags" foreground="#FF8B008B" exampleText="&lt;html&gt;Hello World! &lt;test /&gt;&lt;/html&gt;" />
-  <Color name="Attributes" foreground="Red" exampleText="&lt;html background='green'&gt;Hello World! &lt;test /&gt;&lt;/html&gt;" />
-  <Color name="Slash" foreground="DarkMagenta" exampleText="&lt;html background='green'&gt;Hello World! &lt;test /&gt;&lt;/html&gt;" />
-  <Color name="Assignment" foreground="#FF296FA9" exampleText="&lt;html background='green'&gt;Hello World! &lt;test /&gt;&lt;/html&gt;" />
-  <Color name="String" foreground="#FF296FA9" exampleText="&lt;html background='green'&gt;Hello World! &lt;test /&gt;&lt;/html&gt;" />
-  <Color name="EntityReference" foreground="#FF296FA9" exampleText="&lt;html background='green'&gt;Hello&amp;nbsp;World! &lt;test /&gt;&lt;/html&gt;" />
-  <Color name="Entities" foreground="#FF008000" exampleText="&lt;html background='green'&gt;Hello&amp;nbsp;World! &lt;test /&gt;&lt;/html&gt;" />
-  <Color name="UnknownAttribute" foreground="#FF296FA9" exampleText="&lt;html foo='bar' background='green'&gt;Hello&amp;nbsp;World! &lt;test /&gt;&lt;/html&gt;" />
+  <Color name="Comment" foreground="#FF39A839" fontStyle="italic" />
+  <Color name="Digits" foreground="#FF202020" />
+  <Color name="ScriptTag" foreground="#FF800080" />
+  <Color name="JavaScriptTag" foreground="#FF800080" />
+  <Color name="JScriptTag" foreground="#FF800080" />
+  <Color name="VBScriptTag" foreground="#FF800080" />
+  <Color name="UnknownScriptTag" foreground="#FF800080" />
+  <Color name="HtmlTag" foreground="#FF202020" />
+  <Color name="Tags" foreground="#FF296FA9" />
+  <Color name="Attributes" foreground="#FF026400" />
+  <Color name="Slash" foreground="#FF202020" />
+  <Color name="Assignment" foreground="#FF02BDB0" />
+  <Color name="String" foreground="#FFC45D18" />
+  <Color name="EntityReference" foreground="#FF0098EB"  fontStyle="italic" />
+  <Color name="Entities" foreground="#FF0098EB"  fontStyle="italic" />
+  <Color name="UnknownAttribute" foreground="#FFF00000" />
+  <Color name="CommentMarkerSetTodo" foreground="#FFF00000" fontWeight="bold"/>
+  <Color name="CommentMarkerSetHackUndone" foreground="#FFB0A700" fontWeight="bold"/>
+
+  <RuleSet name="CommentMarkerSet">
+    <Keywords color="CommentMarkerSetTodo">
+      <Word>TODO</Word>
+      <Word>FIXME</Word>
+    </Keywords>
+    <Keywords color="CommentMarkerSetHackUndone">
+      <Word>HACK</Word>
+      <Word>UNDONE</Word>
+    </Keywords>
+  </RuleSet>
+
   <RuleSet ignoreCase="true">
-    <Span color="Comment" multiline="true">
+    <Span color="Comment" ruleSet="CommentMarkerSet" multiline="true">
       <Begin>&lt;!--</Begin>
       <End>--&gt;</End>
+    </Span>
+    <Span ruleSet="JavaScriptSet" multiline="true">
+      <Begin color="ScriptTag">&lt;script&gt;</Begin>
+      <End color="ScriptTag">&lt;/script&gt;</End>
     </Span>
     <Span ruleSet="JavaScriptSet" multiline="true">
       <Begin color="JavaScriptTag">&lt;script\ lang="JavaScript"&gt;</Begin>
@@ -38,10 +56,6 @@
     <Span multiline="true">
       <Begin color="VBScriptTag">&lt;script\ lang="VBScript"&gt;</Begin>
       <End color="VBScriptTag">&lt;/script&gt;</End>
-    </Span>
-    <Span ruleSet="JavaScriptSet" multiline="true">
-      <Begin color="ScriptTag">&lt;script&gt;</Begin>
-      <End color="ScriptTag">&lt;/script&gt;</End>
     </Span>
     <Span multiline="true">
       <Begin color="UnknownScriptTag">&lt;script[^\w\d_]</Begin>
@@ -106,14 +120,14 @@
     </Keywords>
     <Rule color="Digits">\b0[xX][0-9a-fA-F]+|(\b\d+(\.[0-9]+)?|\.[0-9]+)([eE][+-]?[0-9]+)?</Rule>
   </RuleSet>
-  <RuleSet name="HtmlTagSet" ignoreCase="false">
+  <RuleSet name="HtmlTagSet" ignoreCase="true">
     <Keywords color="Slash">
       <Word>/</Word>
     </Keywords>
     <Keywords color="Assignment">
       <Word>=</Word>
     </Keywords>
-    <Keywords color="Tags">
+    <Keywords color="Tags" >
       <Word>!DOCTYPE</Word>
       <Word>A</Word>
       <Word>ABBR</Word>

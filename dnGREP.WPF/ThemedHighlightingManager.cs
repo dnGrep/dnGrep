@@ -47,7 +47,7 @@ namespace dnGREP.WPF
         {
             lock (lockObj)
             {
-                bool invertColors = mode == Mode.Normal ? false : mode == Mode.Inverted ? true : 
+                bool invertColors = mode == Mode.Normal ? false : mode == Mode.Inverted ? true :
                     (bool)Application.Current.Resources["AvalonEdit.SyntaxColor.Invert"];
                 if (invertColors)
                 {
@@ -96,7 +96,7 @@ namespace dnGREP.WPF
                 RegisterHighlighting("XmlDoc", null, "XmlDoc.xshd", invertColors);
                 RegisterHighlighting("C#", new[] { ".cs" }, "CSharp-Mode.xshd", invertColors);
 
-                RegisterHighlighting("JavaScript", new[] { ".js", ".json" }, "JavaScript-Mode.xshd", invertColors);
+                RegisterHighlighting("JavaScript", new[] { ".js" }, "JavaScript-Mode.xshd", invertColors);
                 RegisterHighlighting("HTML", new[] { ".htm", ".html" }, "HTML-Mode.xshd", invertColors);
                 RegisterHighlighting("ASP/XHTML", new[] { ".asp", ".aspx", ".asax", ".asmx", ".ascx", ".master" }, "ASPX.xshd", invertColors);
 
@@ -112,7 +112,7 @@ namespace dnGREP.WPF
                 RegisterHighlighting("SQL", new[] { ".sql" }, "Sql-Mode.xshd", invertColors);
                 RegisterHighlighting("TeX", new[] { ".tex" }, "Tex-Mode.xshd", invertColors);
                 RegisterHighlighting("TSQL", new[] { ".sql" }, "TSQL-Mode.xshd", invertColors);
-                RegisterHighlighting("VB", new[] { ".vb" }, "VB-Mode.xshd", invertColors);
+                RegisterHighlighting("VBNET", new[] { ".vb" }, "VB-Mode.xshd", invertColors);
                 RegisterHighlighting("XML", (".xml;.xsl;.xslt;.xsd;.manifest;.config;.addin;" +
                                                  ".xshd;.wxs;.wxi;.wxl;.proj;.csproj;.vbproj;.ilproj;" +
                                                  ".booproj;.build;.xfrm;.targets;.xaml;.xpt;" +

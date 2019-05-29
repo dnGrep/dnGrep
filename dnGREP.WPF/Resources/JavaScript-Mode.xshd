@@ -2,15 +2,17 @@
 <!-- syntaxdefinition for JavaScript 2.0 by Svante Lidman -->
 <!-- converted to AvalonEdit format by Siegfried Pammer in 2010 -->
 <SyntaxDefinition name="JavaScript" extensions=".js" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
-  <Color name="Digits" foreground="DarkBlue" exampleText="3.14" />
-  <Color name="Comment" foreground="Green" exampleText="// comment" />
-  <Color name="String" foreground="Sienna" exampleText="var text = &quot;Hello, World!&quot;;" />
-  <Color name="Character" foreground="Sienna" exampleText="var char = 'a';" />
-  <Color name="Regex" foreground="Sienna" exampleText="/abc/m" />
-  <Color name="JavaScriptKeyWords" foreground="#FF296FA9" exampleText="return myVariable;" />
-  <Color name="JavaScriptIntrinsics" foreground="#FF296FA9" exampleText="Math.random()" />
-  <Color name="JavaScriptLiterals" foreground="#FF296FA9" exampleText="return false;" />
-  <Color name="JavaScriptGlobalFunctions" foreground="#FF296FA9" exampleText="escape(myString);" />
+
+  <Color name="JavaScriptLiterals"        foreground="#FFB27700" />
+  <Color name="Digits"                    foreground="#FF202020" />
+  <Color name="Comment"                   foreground="#FF39A839" />
+  <Color name="Character"                 foreground="#FFC45D18" />
+  <Color name="String"                    foreground="#FFC45D18" />
+  <Color name="Regex"                     foreground="#FFC45D18" />
+  <Color name="JavaScriptKeyWords"        foreground="#FF0033CC" />
+  <Color name="JavaScriptIntrinsics"      foreground="#FF0080FF" />
+  <Color name="JavaScriptGlobalFunctions" foreground="#FF0080FF" />
+
   <RuleSet ignoreCase="false">
     <Keywords color="JavaScriptKeyWords">
       <Word>break</Word>

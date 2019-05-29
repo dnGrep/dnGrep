@@ -1,19 +1,39 @@
 ﻿<?xml version="1.0"?>
 <SyntaxDefinition name="PowerShell" extensions=".ps1;.psm1;.psd1" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
-  <Color name="Comment" foreground="Green" exampleText="// comment" />
-  <Color name="String" foreground="#FF296FA9" exampleText="string text = &quot;Hello, World!&quot;"/>
-  <Color name="Char" foreground="Magenta" exampleText="char linefeed = '\n';"/>
-  <Color name="Punctuation" exampleText="a(b.c);" />
-  <Color name="NumberLiteral" foreground="DarkBlue" exampleText="3.1415f"/>
-  <Color name="Keywords" fontWeight="bold" foreground="#FF296FA9" exampleText="if (a)"/>
-  <Color name="Variable" foreground="Maroon" exampleText="$param = 1" />
-  <Color name="ExceptionKeywords" fontWeight="bold" foreground="Teal" />
-  <Color name="GotoKeywords" foreground="Navy" />
-  <Color name="ReferenceTypes" foreground="Red" />
-  <Color name="Command" fontWeight="bold" foreground="MidnightBlue" />
-  <Color name="Operators" foreground="#FF8515EA" exampleText="-eq"/>
+
+  <Color name="Digits"            foreground="#FF202020" exampleText="3.1415f"/>
+  <Color name="Variable"          foreground="#FF000000" exampleText="$param = 1" />
+  <Color name="Punctuation"       foreground="#FF202020" exampleText="a(b.c);" />
+  <Color name="Comment"           foreground="#FF39A839" exampleText="// comment" />
+  <Color name="Char"              foreground="#FFC45D18" exampleText="char linefeed = '\n';"/>
+  <Color name="String"            foreground="#FFC45D18" exampleText="string text = &quot;Hello, World!&quot;"/>
+  <Color name="MethodCall1"       foreground="#FF0080FF" fontWeight="bold" exampleText="o.ToString();"/>
+  <Color name="MethodCall"        foreground="#FF0060A0" fontWeight="bold" exampleText="o.ToString();"/>
+  <Color name="Command"           foreground="#FF0060A0" fontWeight="bold" />
+  <Color name="Keywords"          foreground="#FF006F73" fontWeight="bold" exampleText="if (a)"/>
+  <Color name="ExceptionKeywords" foreground="#FF0041A8" fontWeight="bold" />
+  <Color name="GotoKeywords"      foreground="#FF006F73" />
+  <Color name="ReferenceTypes"    foreground="#FF0060A0" />
+  <Color name="Operators"         foreground="#FF008080" exampleText="-eq"/>
+  <Color name="InnerDataTypeCast" foreground="#FFB04040" background="#33AAAAAA" fontWeight="bold" />
+  <Color name="DataTypeCast"      foreground="#FF800000" />
+
+  <RuleSet name="InnerDataTypeCast" ignoreCase="false">
+    <Keywords color="InnerDataTypeCast">
+      <Word>void</Word>
+      <Word>decimal</Word>
+      <Word>int</Word>
+      <Word>double</Word>
+      <Word>math</Word>
+    </Keywords>
+  </RuleSet>
 
   <RuleSet ignoreCase="true">
+    <Span color="DataTypeCast" ruleSet="InnerDataTypeCast">
+      <Begin>\[</Begin>
+      <End>\]</End>
+    </Span>
+
     <Span color="Comment">
       <Begin>\#</Begin>
     </Span>
@@ -122,6 +142,18 @@
     </Keywords>
 
     <Rule color="Variable">
+      (\$[\d\w_]+):([\d\w_]+)
+    </Rule>
+
+    <Rule color="Variable">
+      (\$[\d\w_]+)\.([\d\w_]+)\.([\d\w_]+)
+    </Rule>
+
+    <Rule color="Variable">
+      (\$[\d\w_]+)\.([\d\w_]+)
+    </Rule>
+
+    <Rule color="Variable">
       \$[\d\w_]+
     </Rule>
 
@@ -129,8 +161,18 @@
       [\w]+-[\w]+
     </Rule>
 
+    <Rule color="MethodCall1">
+      [:][:]
+    </Rule>
+
+    <Rule color="MethodCall">
+      \b
+      [\d\w_]+  # an identifier
+      (?=\s*\() # followed by (
+    </Rule>
+
     <!-- Digits -->
-    <Rule color="NumberLiteral">
+    <Rule color="Digits">
       \b0[xX][0-9a-fA-F]+  # hex number
       |
       (	\b\d+(\.[0-9]+)?   #number with optional floating point
@@ -140,7 +182,7 @@
     </Rule>
 
     <Rule color="Punctuation">
-      [?,.;()\[\]{}+\-/%*&lt;&gt;^+~!|&amp;]+
+      [?,.;\[\](){}+\-/%*&lt;&gt;^+~!|&amp;]+
     </Rule>
   </RuleSet>
 </SyntaxDefinition>

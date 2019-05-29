@@ -5,20 +5,17 @@
 <!-- Converted to AvalonEdit format by Daniel Grunwald in 2010 -->
 <!-- Updated 2010 by Siegfried Oleg Pammer for VB.NET 9 and 10 -->
 <!-- Updated 2011 by Siegfried Oleg Pammer for VB 11 CTP -->
-<SyntaxDefinition name="VB" extensions=".vb" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
-  <Color name="Comment" foreground="Green" exampleText="' comment" />
-  <Color name="String" exampleText="text = &quot;Hello, World!&quot;" />
-
-  <Color name="DateLiteral" foreground="#FF296FA9" exampleText="endOfWorld = #2012-12-21#" />
-  <Color name="Preprocessor" foreground="Maroon" exampleText="#Region &quot;Title&quot;" />
+<SyntaxDefinition name="VBNET" extensions=".vb" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+  <Color name="Comment" foreground="#FF39A839" exampleText="' comment" />
+  <Color name="String" foreground="#FFC45D18" exampleText="text = &quot;Hello, World!&quot;" />
+  <Color name="DateLiteral" foreground="#FF0080FF" exampleText="endOfWorld = #2012-12-21#" />
+  <Color name="Preprocessor" foreground="#FFA83939" exampleText="#Region &quot;Title&quot;" />
   <Color name="DataTypes" foreground="#FF6F002F" exampleText="Dim b As Boolean = True" />
-  <Color name="Operators" foreground="#FF8515EA" exampleText="If a OrElse b Then"/>
-  <Color name="Constants" foreground="#FF296FA9" exampleText="b = False" />
-  <Color name="Keywords" foreground="#FF296FA9" exampleText="If a OrElse b Then" />
-  <Color name="FunctionKeywords" foreground="#FF296FA9" exampleText="CInt(a)" />
-  <Color name="ContextKeywords" foreground="#FF296FA9" exampleText="Declare Unicode Sub SomeMethod" />
-
-  <Property name="DocCommentMarker" value="'''" />
+  <Color name="Operators" foreground="#FF610FA8" exampleText="If a OrElse b Then"/>
+  <Color name="Constants" foreground="#FF0080FF" exampleText="b = False" />
+  <Color name="Keywords" foreground="#FF0080FF" exampleText="If a OrElse b Then" />
+  <Color name="FunctionKeywords" foreground="#FF0080FF" exampleText="CInt(a)" />
+  <Color name="ContextKeywords" foreground="#FF0080FF" exampleText="Declare Unicode Sub SomeMethod" />
 
   <RuleSet ignoreCase="true">
     <Span color="String">

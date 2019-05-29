@@ -2,27 +2,28 @@
 <!-- syntaxdefinition for Java 2001 by Jonathan Pierce & Mike Krueger -->
 <!-- converted to AvalonEdit format by Siegfried Pammer in 2010 -->
 <SyntaxDefinition name="Java" extensions=".java" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
-  <Color name="MethodName" foreground="DarkBlue" />
-  <Color name="Digits" foreground="DarkBlue" fontStyle="italic" />
-  <Color name="String" foreground="Magenta"  />
-  <Color name="Character" foreground="Magenta"  />
-  <Color name="Comment" foreground="SlateGray" />
-  <Color name="Punctuation" foreground="DarkGreen" />
+  <Color name="Digits" foreground="#FF202020" fontStyle="italic" />
+  <Color name="Comment" foreground="#FF39A839" />
+  <Color name="JavaDocTags" foreground="#FF39A839" fontWeight="bold" fontStyle="italic" />
+  <Color name="Punctuation" foreground="#FF202020" />
+  <Color name="Character" foreground="#FFC45D18"  />
+  <Color name="String" foreground="#FFC45D18"  />
   <Color name="AccessKeywords" foreground="Black" fontWeight="bold" />
-  <Color name="OperatorKeywords" foreground="DarkCyan" fontWeight="bold" />
-  <Color name="SelectionStatements" foreground="#FF296FA9" fontWeight="bold" />
-  <Color name="IterationStatements" foreground="#FF296FA9" fontWeight="bold" />
-  <Color name="ExceptionHandlingStatements" foreground="Teal" fontWeight="bold" />
-  <Color name="ValueTypes" foreground="Red" fontWeight="bold" />
-  <Color name="ReferenceTypes" foreground="Red" />
-  <Color name="Void" foreground="Red" />
-  <Color name="JumpStatements" foreground="Navy" />
-  <Color name="Modifiers" foreground="Brown" />
+  <Color name="OperatorKeywords" foreground="#FF296FA9" fontWeight="bold" />
+  <Color name="SelectionStatements" foreground="#FF006F73" fontWeight="bold" />
+  <Color name="IterationStatements" foreground="#FF006F73" fontWeight="bold" />
+  <Color name="ExceptionHandlingStatements" foreground="#FF0041A8" fontWeight="bold" />
+  <Color name="ValueTypes" foreground="#FF0060A0" fontWeight="bold" />
+  <Color name="ReferenceTypes" foreground="#FF0060A0" />
+  <Color name="Void" foreground="#FF0060A0" />
+  <Color name="JumpStatements" foreground="#FF006F73" />
+  <Color name="Modifiers" foreground="#FF0041A8" />
   <Color name="AccessModifiers" foreground="#FF296FA9" fontWeight="bold" />
-  <Color name="Package" foreground="Green" fontWeight="bold" />
-  <Color name="Literals" foreground="Black" fontWeight="bold" />
-  <Color name="CommentTags" foreground="Red" fontWeight="bold" fontStyle="italic" />
-  <Color name="JavaDocTags" foreground="DarkGray" fontWeight="bold" fontStyle="italic" />
+  <Color name="MethodCall" foreground="#FF0060A0" />
+  <Color name="Package" foreground="#FF0033CC" fontWeight="bold" />
+  <Color name="Literals" foreground="#FF0080FF" fontWeight="bold" />
+  <Color name="CommentTODO" foreground="#FFA83939" fontWeight="bold" fontStyle="italic" />
+
   <RuleSet ignoreCase="false">
     <Rule color="Punctuation">
       [?,.()\[\]{}+\-/%*&lt;&gt;^!|]+
@@ -126,11 +127,11 @@
         <Span begin="\\" end="." />
       </RuleSet>
     </Span>
-    <Rule color="MethodName">[\d\w_]+(?=(\s*\())</Rule>
+    <Rule color="MethodCall">[\d\w_]+(?=(\s*\())</Rule>
     <Rule color="Digits">\b0[xX][0-9a-fA-F]+|(\b\d+(\.[0-9]+)?|\.[0-9]+)([eE][+-]?[0-9]+)?</Rule>
   </RuleSet>
   <RuleSet name="TestSet" ignoreCase="true">
-    <Keywords color="CommentTags">
+    <Keywords color="CommentTODO">
       <Word>TODO</Word>
     </Keywords>
     <Keywords color="JavaDocTags">

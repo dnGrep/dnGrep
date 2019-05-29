@@ -1,27 +1,28 @@
 <?xml version="1.0"?>
 <!-- syntaxdefinition for C/C++ 2001 by Andrea Paatz and Mike Krueger -->
 <!-- converted to AvalonEdit format by Siegfried Pammer in 2010 -->
-<SyntaxDefinition name="C++" extensions=".c;.h;.cc;.cpp;.hpp" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
-  <Color name="Comment" foreground="Green" />
-  <Color name="Character" foreground="Fuchsia" />
-  <Color name="String" foreground="Fuchsia" />
-  <Color name="Preprocessor" foreground="Green" />
-  <Color name="Punctuation" foreground="DarkGreen" />
-  <Color name="MethodName" foreground="MidnightBlue" fontWeight="bold" />
-  <Color name="Digits" foreground="DarkBlue" />
+<SyntaxDefinition name="C++" extensions=".c;.h;.cc;.cpp;.hpp;.rc" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+  <Color name="Digits" foreground="#FF202020" />
+  <Color name="Comment" foreground="#FF39A839" />
+  <Color name="Punctuation" foreground="#FF202020" />
+  <Color name="String" foreground="#FFC45D18" />
+  <Color name="Character" foreground="#FFC45D18" />
+  <Color name="MethodCall" foreground="#FF0060A0" fontWeight="bold" />
+  <Color name="Preprocessor" foreground="#FFA83939" />
   <Color name="CompoundKeywords" foreground="Black" fontWeight="bold" />
   <Color name="This" foreground="Black" fontWeight="bold" />
-  <Color name="Operators" foreground="#FF008B8B" fontWeight="bold" />
-  <Color name="Namespace" foreground="#FF008000" fontWeight="bold" />
+  <Color name="Operators" foreground="#FF006F73" fontWeight="bold" />
+  <Color name="Namespace" foreground="#FF0033CC" fontWeight="bold" />
   <Color name="Friend" foreground="#FFA52A2A" />
-  <Color name="Modifiers" foreground="#FF296FA9" fontWeight="bold" />
-  <Color name="TypeKeywords" foreground="#FFFF0000" />
-  <Color name="BooleanConstants" foreground="#FF000000" fontWeight="bold" />
-  <Color name="Keywords" foreground="#FF296FA9" fontWeight="bold" />
-  <Color name="LoopKeywords" foreground="#FF296FA9" fontWeight="bold" />
-  <Color name="JumpKeywords" foreground="#FF000080" />
-  <Color name="ExceptionHandling" foreground="#FF008080" fontWeight="bold" />
-  <Color name="ControlFlow" foreground="#FF296FA9" fontWeight="bold" />
+  <Color name="Modifiers" foreground="#FF0041A8" fontWeight="bold" />
+  <Color name="TypeKeywords" foreground="#FF296FA9" />
+  <Color name="BooleanConstants" foreground="#FF0033CC" fontWeight="bold" />
+  <Color name="Keywords" foreground="#FF006F73" fontWeight="bold" />
+  <Color name="LoopKeywords" foreground="#FF006F73" fontWeight="bold" />
+  <Color name="JumpKeywords" foreground="#FF006F73" />
+  <Color name="ExceptionHandling" foreground="#FF0041A8" fontWeight="bold" />
+  <Color name="ControlFlow" foreground="#FF006F73" fontWeight="bold" />
+
   <RuleSet ignoreCase="false">
     <Rule color="Punctuation">
       [?,.;()\[\]{}+\-/%*&lt;&gt;^=~!&amp;]+
@@ -189,7 +190,7 @@
         <Span begin="\\" end="." />
       </RuleSet>
     </Span>
-    <Rule color="MethodName">[\d\w_]+(?=(\s*\())</Rule>
+    <Rule color="MethodCall">[\d\w_]+(?=(\s*\())</Rule>
     <Rule color="Digits">\b0[xX][0-9a-fA-F]+|(\b\d+(\.[0-9]+)?|\.[0-9]+)([eE][+-]?[0-9]+)?</Rule>
   </RuleSet>
 </SyntaxDefinition>

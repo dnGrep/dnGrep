@@ -2,20 +2,22 @@
 <!-- syntaxdefinition for PHP 2001 by Chad Smith & Mike Krueger -->
 <!-- converted to AvalonEdit format by Siegfried Pammer in 2010 -->
 <SyntaxDefinition name ="PHP" extensions = ".php" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
-  <Color name="Comment" foreground="Green" exampleText="// comment" />
-  <Color name="String" foreground="#FF296FA9" exampleText="$text = &quot;Hello, World!&quot;" />
-  <Color name="NumberLiteral" foreground="DarkBlue" exampleText="3.1415" />
-  <Color name="Punctuation" foreground="DarkGreen" exampleText="a(b + c)" />
-  <Color name="FunctionCall" foreground="MidnightBlue" fontWeight="bold" exampleText="abs(num);"/>
+
+  <Color name="Digits" foreground="#FF202020" exampleText="3.1415" />
+  <Color name="Punctuation" foreground="#FF202020" exampleText="a(b + c)" />
+  <Color name="Comment" foreground="#FF39A839" exampleText="// comment" />
+  <Color name="String" foreground="#FFC45D18" exampleText="$text = &quot;Hello, World!&quot;" />
+  <Color name="FunctionCall" foreground="#FF0060A0" fontWeight="bold" exampleText="abs(num);"/>
   <Color name="AccessKeywords" foreground="Black" fontWeight="bold" exampleText="global $database;" />
-  <Color name="OperatorKeywords" foreground="DarkCyan" fontWeight="bold" exampleText="if (x === false and y === false) { }" />
-  <Color name="SelectionStatements" foreground="#FF296FA9" fontWeight="bold" exampleText="if (true) { } else { }" />
-  <Color name="IterationStatements" foreground="#FF296FA9" fontWeight="bold" exampleText="while (true) { }" />
-  <Color name="JumpStatements" foreground="Navy" fontWeight="bold" exampleText="if (x == 5) continue;" />
-  <Color name="ControlStatements" foreground="Teal" fontWeight="bold" exampleText="include(&quot;test.php&quot;);" />
-  <Color name="ValueTypes" foreground="Red" fontWeight="bold" exampleText="int test = 5;" />
-  <Color name="OtherTypes" foreground="Red" exampleText="object test = null;" />
-  <Color name="AccessModifiers" foreground="#FF296FA9" fontWeight="bold" exampleText="public function test() {}" />
+  <Color name="OperatorKeywords" foreground="#FF006F73" fontWeight="bold" exampleText="if (x === false and y === false) { }" />
+  <Color name="SelectionStatements" foreground="#FF006F73" fontWeight="bold" exampleText="if (true) { } else { }" />
+  <Color name="IterationStatements" foreground="#FF006F73" fontWeight="bold" exampleText="while (true) { }" />
+  <Color name="JumpStatements" foreground="#FF0041A8" fontWeight="bold" exampleText="if (x == 5) continue;" />
+  <Color name="ControlStatements" foreground="#FF0033CC" fontWeight="bold" exampleText="include(&quot;test.php&quot;);" />
+  <Color name="ValueTypes" foreground="#FF0060A0" fontWeight="bold" exampleText="int test = 5;" />
+  <Color name="OtherTypes" foreground="#FF0060A0" exampleText="object test = null;" />
+  <Color name="AccessModifiers" foreground="#FF006F73" fontWeight="bold" exampleText="public function test() {}" />
+
   <RuleSet>
     <Span color="Comment">
       <Begin>\#</Begin>
@@ -31,7 +33,7 @@
     </Span>
 
     <!-- Digits -->
-    <Rule color="NumberLiteral">
+    <Rule color="Digits">
       \b0[xX][0-9a-fA-F]+  # hex number
       |
       \b0[0-9]+ # octal number
