@@ -10,16 +10,16 @@
   <Color name="String" foreground="#FFC45D18"  />
   <Color name="AccessKeywords" foreground="Black" fontWeight="bold" />
   <Color name="OperatorKeywords" foreground="#FF296FA9" fontWeight="bold" />
-  <Color name="SelectionStatements" foreground="#FF006F73" fontWeight="bold" />
-  <Color name="IterationStatements" foreground="#FF006F73" fontWeight="bold" />
+  <Color name="SelectionStatements" foreground="#FF793A74" fontWeight="bold" />
+  <Color name="IterationStatements" foreground="#FF793A74" fontWeight="bold" />
   <Color name="ExceptionHandlingStatements" foreground="#FF0041A8" fontWeight="bold" />
-  <Color name="ValueTypes" foreground="#FF0060A0" fontWeight="bold" />
-  <Color name="ReferenceTypes" foreground="#FF0060A0" />
-  <Color name="Void" foreground="#FF0060A0" />
-  <Color name="JumpStatements" foreground="#FF006F73" />
+  <Color name="ValueTypes" foreground="#FF016183" fontWeight="bold" />
+  <Color name="ReferenceTypes" foreground="#FF016183" />
+  <Color name="Void" foreground="#FF016183" />
+  <Color name="JumpStatements" foreground="#FF793A74" />
   <Color name="Modifiers" foreground="#FF0041A8" />
   <Color name="AccessModifiers" foreground="#FF296FA9" fontWeight="bold" />
-  <Color name="MethodCall" foreground="#FF0060A0" />
+  <Color name="MethodCall" foreground="#FF016183" />
   <Color name="Package" foreground="#FF0033CC" fontWeight="bold" />
   <Color name="Literals" foreground="#FF0080FF" fontWeight="bold" />
   <Color name="CommentTODO" foreground="#FFA83939" fontWeight="bold" fontStyle="italic" />

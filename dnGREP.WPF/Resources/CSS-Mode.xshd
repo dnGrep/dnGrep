@@ -5,7 +5,7 @@
   <Color name="Class"       foreground="#FFA83939" />
   <Color name="Property"    foreground="#FFA200FF" />
   <Color name="Value"       foreground="#FF0080FF" />
-  <Color name="Default"     foreground="#FF006F73" />
+  <Color name="Default"     foreground="#FF793A74" />
   <Color name="CurlyBraces" foreground="#FF202020" />
   <Color name="Colon"       foreground="#FF202020" />
 
