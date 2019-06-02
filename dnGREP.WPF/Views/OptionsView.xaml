@@ -14,6 +14,11 @@
                  CaptionBackground="{DynamicResource Caption.Dialog.Background}"
                  Icon="/dnGREP;component/nGREP.ico"
                  WindowStartupLocation="CenterOwner">
+
+    <Window.InputBindings>
+        <KeyBinding Gesture="Ctrl+F5" Command="{Binding ReloadThemeCommand}" />
+    </Window.InputBindings>
+
     <Window.Resources>
         <my:EnumBooleanConverter x:Key="ebc" />
         <my:InverseBooleanConverter x:Key="not" />
@@ -97,6 +102,9 @@
                                       ItemsSource="{Binding Path=ThemeNames}"
                                       SelectedValue="{Binding Path=CurrentTheme}"
                                       IsEnabled="{Binding Path=FollowWindowsTheme, Converter={StaticResource not}}" />
+                            <Button Margin="6,3" Padding="4" Content="Reload"
+                                    Command="{Binding ReloadThemeCommand}"
+                                    ToolTip="Reload the current theme file [Ctrl+F5]" />
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>

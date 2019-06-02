@@ -39,6 +39,7 @@
         <KeyBinding Key="Escape" Command="{Binding CancelCommand}" />
         <KeyBinding Key="e" Modifiers="Alt"
                     Command="{Binding ToggleFileOptionsCommand}" />
+        <KeyBinding Gesture="Ctrl+F5" Command="{Binding ReloadThemeCommand}" />
     </my:ThemedWindow.InputBindings>
 
     <DockPanel ManipulationBoundaryFeedback="ManipulationBoundaryFeedbackHandler">

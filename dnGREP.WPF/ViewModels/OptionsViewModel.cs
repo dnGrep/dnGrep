@@ -525,6 +525,24 @@ namespace dnGREP.WPF
                 return _clearSearchesCommand;
             }
         }
+
+        RelayCommand _reloadThemeCommand;
+        /// <summary>
+        /// Returns a command that reloads the current theme file.
+        /// </summary>
+        public ICommand ReloadThemeCommand
+        {
+            get
+            {
+                if (_reloadThemeCommand == null)
+                {
+                    _reloadThemeCommand = new RelayCommand(
+                        param => AppTheme.Instance.ReloadCurrentTheme()
+                        );
+                }
+                return _reloadThemeCommand;
+            }
+        }
         #endregion
 
         #region Public Methods

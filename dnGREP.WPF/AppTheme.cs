@@ -45,6 +45,13 @@ namespace dnGREP.WPF
         private readonly List<string> themeNames = new List<string> { "Light", "Dark" };
         public IEnumerable<string> ThemeNames { get => themeNames; }
 
+        internal void ReloadCurrentTheme()
+        {
+            string name = currentThemeName;
+            currentThemeName = string.Empty;
+            CurrentThemeName = name;
+        }
+
         // current value may not equal the saved settings value
         private string currentThemeName = "Light";
         public string CurrentThemeName
