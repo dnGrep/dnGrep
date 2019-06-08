@@ -1,62 +1,80 @@
-﻿<Window x:Class="dnGREP.WPF.BookmarksWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:my="clr-namespace:dnGREP.WPF"
-        mc:Ignorable="d"
-        Title="Bookmarks"  Height="440" Width="860" MinHeight="300" MinWidth="520"
-        Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"
-        ResizeMode="CanResizeWithGrip" ShowInTaskbar="True" Icon="/dnGREP;component/nGREP.ico" >
+﻿<my:ThemedWindow x:Class="dnGREP.WPF.BookmarksWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:my="clr-namespace:dnGREP.WPF"
+                 Title="Bookmarks"
+                 Width="860"
+                 Height="440"
+                 MinWidth="520"
+                 MinHeight="300"
+                 Background="{DynamicResource Dialog.Background}"
+                 CaptionBackground="{DynamicResource Caption.Dialog.Background}"
+                 ResizeMode="CanResize"
+                 ShowInTaskbar="True"
+                 Icon="/dnGREP;component/nGREP.ico"
+                 mc:Ignorable="d">
 
     <Window.Resources>
-        <my:TypeOfSearchValueConverter  x:Key="tosConverter"/>
+        <my:TypeOfSearchValueConverter x:Key="tosConverter" />
 
-        <Style TargetType="Button">
-            <Setter Property="Width" Value="90"/>
-            <Setter Property="Height" Value="28"/>
-            <Setter Property="Padding" Value="3"/>
-            <Setter Property="Margin" Value="3"/>
+        <Style TargetType="Button" BasedOn="{StaticResource ThemedButton}">
+            <Setter Property="Width" Value="90" />
+            <Setter Property="Height" Value="28" />
+            <Setter Property="Padding" Value="3" />
+            <Setter Property="Margin" Value="3" />
         </Style>
     </Window.Resources>
 
     <Grid Margin="8">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
             <RowDefinition />
-            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Row="0">
-            <TextBlock Text="Filter:" Margin="3"/>
-            <TextBox Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" Margin="3"/>
+            <TextBlock Margin="3" Text="Filter:" Style="{StaticResource LabelTextBlockStyle}" />
+            <TextBox Margin="3" Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" />
         </DockPanel>
 
-        <DataGrid Grid.Row="1" Margin="3" 
-                  ItemsSource="{Binding Bookmarks}" 
+        <DataGrid Grid.Row="1" Margin="3"
+                  ItemsSource="{Binding Bookmarks}"
                   SelectedValue="{Binding SelectedBookmark}"
-                  AutoGenerateColumns="False"
-                  SelectionMode="Single" SelectionUnit="FullRow"
-                  CanUserReorderColumns="True"
-                  CanUserResizeColumns="True"
-                  CanUserSortColumns="True">
+                  AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow"
+                  CanUserReorderColumns="True" CanUserResizeColumns="True"
+                  CanUserSortColumns="True"
+                  Style="{StaticResource ThemedDataGrid}"
+                  ColumnHeaderStyle="{StaticResource ThemedDataGridColumnHeader}"
+                  CellStyle="{StaticResource ThemedDataGridCell}"
+                  RowHeaderStyle="{StaticResource ThemedDataGridRowHeader}">
+
+
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Type" MinWidth="80" IsReadOnly="True" SortMemberPath="TypeOfSearch">
+                <DataGridTextColumn MinWidth="80" Header="Type" IsReadOnly="True"
+                                    SortMemberPath="TypeOfSearch">
                     <DataGridTextColumn.Binding>
                         <MultiBinding Converter="{StaticResource tosConverter}">
-                            <Binding Path="TypeOfSearch"/>
-                            <Binding Path="HasExtendedProperties"/>
+                            <Binding Path="TypeOfSearch" />
+                            <Binding Path="HasExtendedProperties" />
                         </MultiBinding>
                     </DataGridTextColumn.Binding>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Search For" MinWidth="120" IsReadOnly="True" Binding="{Binding SearchFor}"/>
-                <DataGridTextColumn Header="Replace With" MinWidth="120" IsReadOnly="True" Binding="{Binding ReplaceWith}"/>
-                <DataGridTextColumn Header="File Pattern" MinWidth="120" IsReadOnly="True" Binding="{Binding FilePattern}"/>
-                <DataGridTextColumn Header="Comments" MinWidth="240" IsReadOnly="True" Binding="{Binding Description}"/>
-                <DataGridCheckBoxColumn Header="Extended Properties" MinWidth="20" IsReadOnly="True" Binding="{Binding HasExtendedProperties}"/>
+                <DataGridTextColumn MinWidth="120" Header="Search For" IsReadOnly="True"
+                                    Binding="{Binding SearchFor}" />
+                <DataGridTextColumn MinWidth="120" Header="Replace With" IsReadOnly="True"
+                                    Binding="{Binding ReplaceWith}" />
+                <DataGridTextColumn MinWidth="120" Header="File Pattern" IsReadOnly="True"
+                                    Binding="{Binding FilePattern}" />
+                <DataGridTextColumn MinWidth="240" Header="Comments" IsReadOnly="True"
+                                    Binding="{Binding Description}" />
+                <DataGridCheckBoxColumn MinWidth="20" Header="Extended Properties" IsReadOnly="True"
+                                        Binding="{Binding HasExtendedProperties}"
+                                        ElementStyle="{StaticResource DataGridCheckBoxStyle}" />
             </DataGrid.Columns>
             <DataGrid.RowStyle>
-                <Style TargetType="{x:Type DataGridRow}">
+                <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource ThemedDataGridRow}">
                     <EventSetter Event="PreviewMouseDoubleClick" Handler="DataGridRow_PreviewMouseDoubleClick" />
                 </Style>
             </DataGrid.RowStyle>
@@ -64,15 +82,15 @@
 
         <DockPanel Grid.Row="2" LastChildFill="False">
             <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
-                <Button Content="_Add" Command="{Binding AddCommand}"/>
-                <Button Content="_Edit" Command="{Binding EditCommand}"/>
-                <Button Content="_Delete" Command="{Binding DeleteCommand}"/>
+                <Button Content="_Add" Command="{Binding AddCommand}" />
+                <Button Content="_Edit" Command="{Binding EditCommand}" />
+                <Button Content="_Delete" Command="{Binding DeleteCommand}" />
             </StackPanel>
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
-                <Button Content="_Close" IsCancel="True" IsDefault="True"/>
-                <Button Content="_Use" IsEnabled="{Binding HasSelection}" Click="UseButton_Click"/>
+                <Button Content="_Close" IsCancel="True" IsDefault="True" />
+                <Button Content="_Use" IsEnabled="{Binding HasSelection}" Click="UseButton_Click" />
             </StackPanel>
         </DockPanel>
 
     </Grid>
-</Window>
+</my:ThemedWindow>

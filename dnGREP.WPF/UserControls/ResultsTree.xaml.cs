@@ -138,8 +138,7 @@ namespace dnGREP.WPF.UserControls
             List<FormattedGrepResult> files = new List<FormattedGrepResult>();
             foreach (var item in inputData.SelectedItems)
             {
-                var lineNode = item as FormattedGrepLine;
-                if (lineNode != null)
+                if (item is FormattedGrepLine lineNode)
                 {
                     string name = lineNode.Parent.GrepResult.FileNameReal;
                     if (!fileNames.Contains(name))
@@ -152,8 +151,7 @@ namespace dnGREP.WPF.UserControls
 
             foreach (var item in inputData.SelectedItems)
             {
-                var fileNode = item as FormattedGrepResult;
-                if (fileNode != null)
+                if (item is FormattedGrepResult fileNode)
                 {
                     string name = fileNode.GrepResult.FileNameReal;
                     if (!fileNames.Contains(name))
@@ -180,8 +178,7 @@ namespace dnGREP.WPF.UserControls
             List<string> files = new List<string>();
             foreach (var item in inputData.SelectedItems)
             {
-                var fileNode = item as FormattedGrepResult;
-                if (fileNode != null)
+                if (item is FormattedGrepResult fileNode)
                 {
                     string name = fileNode.GrepResult.FileNameReal;
                     string path = Path.GetDirectoryName(name);
@@ -191,8 +188,7 @@ namespace dnGREP.WPF.UserControls
                         files.Add(name);
                     }
                 }
-                var lineNode = item as FormattedGrepLine;
-                if (lineNode != null)
+                if (item is FormattedGrepLine lineNode)
                 {
                     string name = lineNode.Parent.GrepResult.FileNameReal;
                     string path = Path.GetDirectoryName(name);
@@ -214,8 +210,7 @@ namespace dnGREP.WPF.UserControls
             List<string> files = new List<string>();
             foreach (var item in inputData.SelectedItems)
             {
-                var fileNode = item as FormattedGrepResult;
-                if (fileNode != null)
+                if (item is FormattedGrepResult fileNode)
                 {
                     string name = fileNode.GrepResult.FileNameReal;
                     if (!files.Contains(name) && File.Exists(name))
@@ -223,8 +218,7 @@ namespace dnGREP.WPF.UserControls
                         files.Add(name);
                     }
                 }
-                var lineNode = item as FormattedGrepLine;
-                if (lineNode != null)
+                if (item is FormattedGrepLine lineNode)
                 {
                     string name = lineNode.Parent.GrepResult.FileNameReal;
                     if (!files.Contains(name) && File.Exists(name))
@@ -243,8 +237,7 @@ namespace dnGREP.WPF.UserControls
             List<string> list = new List<string>();
             foreach (var item in inputData.SelectedItems)
             {
-                var fileNode = item as FormattedGrepResult;
-                if (fileNode != null)
+                if (item is FormattedGrepResult fileNode)
                 {
                     string name = fileNode.GrepResult.FileNameDisplayed;
                     if (!showFullName)
@@ -253,8 +246,7 @@ namespace dnGREP.WPF.UserControls
                     if (!list.Contains(name))
                         list.Add(name);
                 }
-                var lineNode = item as FormattedGrepLine;
-                if (lineNode != null)
+                if (item is FormattedGrepLine lineNode)
                 {
                     string name = lineNode.Parent.GrepResult.FileNameDisplayed;
                     if (!showFullName)
@@ -281,8 +273,7 @@ namespace dnGREP.WPF.UserControls
                 StringBuilder sb = new StringBuilder();
                 foreach (var item in inputData.SelectedItems)
                 {
-                    var node = item as FormattedGrepLine;
-                    if (node != null)
+                    if (item is FormattedGrepLine node)
                     {
                         sb.AppendLine(node.GrepLine.LineText);
                     }
@@ -305,8 +296,7 @@ namespace dnGREP.WPF.UserControls
             List<FormattedGrepResult> files = new List<FormattedGrepResult>();
             foreach (var item in inputData.SelectedItems)
             {
-                var lineNode = item as FormattedGrepLine;
-                if (lineNode != null)
+                if (item is FormattedGrepLine lineNode)
                 {
                     var grepResult = lineNode.Parent;
                     if (!files.Contains(grepResult))
@@ -314,8 +304,7 @@ namespace dnGREP.WPF.UserControls
                         files.Add(grepResult);
                     }
                 }
-                var fileNode = item as FormattedGrepResult;
-                if (fileNode != null)
+                if (item is FormattedGrepResult fileNode)
                 {
                     if (!files.Contains(fileNode))
                     {
@@ -330,8 +319,7 @@ namespace dnGREP.WPF.UserControls
 
         private void treeView_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            TreeViewItem item = sender as TreeViewItem;
-            if (item != null)
+            if (sender is TreeViewItem item)
             {
                 item.Focus();
                 e.Handled = true;
@@ -352,8 +340,7 @@ namespace dnGREP.WPF.UserControls
 
             var rect = new System.Drawing.RectangleF { Height = (float)parentWindow.ActualHeight, Width = (float)parentWindow.ActualWidth, X = (float)parentWindow.Left, Y = (float)parentWindow.Top };
 
-            var items = treeView.GetValue(MultiSelectTreeView.SelectedItemsProperty) as IList;
-            if (items != null && items.Count > 0)
+            if (treeView.GetValue(MultiSelectTreeView.SelectedItemsProperty) is IList items && items.Count > 0)
             {
                 if (items[0] is FormattedGrepLine)
                     inputData.PreviewFile(items[0] as FormattedGrepLine, rect);
@@ -370,8 +357,7 @@ namespace dnGREP.WPF.UserControls
 
         private void treeView_PreviewTouchDown(object sender, TouchEventArgs e)
         {
-            IInputElement ctrl = sender as IInputElement;
-            if (ctrl != null && !touchIds.ContainsKey(e.TouchDevice.Id))
+            if (sender is IInputElement ctrl && !touchIds.ContainsKey(e.TouchDevice.Id))
             {
                 var pt = e.GetTouchPoint(ctrl).Position;
                 touchIds.Add(e.TouchDevice.Id, pt);
@@ -390,8 +376,7 @@ namespace dnGREP.WPF.UserControls
 
             // sometimes a PreviewTouchUp event is lost when the user is on the scrollbar or edge of the window
             // if our captured touches do not match the scrollviewer, resynch to the scrollviewer
-            ScrollViewer scrollViewer = e.OriginalSource as ScrollViewer;
-            if (scrollViewer != null)
+            if (e.OriginalSource is ScrollViewer scrollViewer)
             {
                 var svTouches = scrollViewer.TouchesCaptured.Select(t => t.Id);
                 var myTouches = touchIds.Keys.Select(k => k);

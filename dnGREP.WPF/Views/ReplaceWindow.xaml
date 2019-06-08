@@ -1,45 +1,51 @@
-﻿<Window x:Class="dnGREP.WPF.ReplaceWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
-        mc:Ignorable="d"
-        Title="Replace Text" Height="800" Width="980" 
-        FocusManager.FocusedElement="{Binding ElementName=btnCanel}" >
+﻿<my:ThemedWindow x:Class="dnGREP.WPF.ReplaceWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
+                 xmlns:my="clr-namespace:dnGREP.WPF"
+                 Title="Replace Text"
+                 Width="980"
+                 Height="800"
+                 Icon="/dnGREP;component/nGREP.ico"
+                 Background="{DynamicResource Dialog.Background}"
+                 CaptionBackground="{DynamicResource Caption.Dialog.Background}"
+                 FocusManager.FocusedElement="{Binding ElementName=btnCancel}"
+                 mc:Ignorable="d">
 
     <Window.InputBindings>
-        <KeyBinding Command="{Binding ReplaceAllCommand}" Key="F10"/>
-        <KeyBinding Command="{Binding PrevFileCommand}" Gesture="Ctrl+PageUp"/>
-        <KeyBinding Command="{Binding NextFileCommand}" Gesture="Ctrl+PageDown"/>
-        <KeyBinding Command="{Binding ReplaceAllInFileCommand}" Gesture="Ctrl+A"/>
-        <KeyBinding Command="{Binding UndoFileCommand}" Gesture="Ctrl+T"/>
-        
-        <KeyBinding Command="{Binding PrevMatchCommand}" Gesture="Ctrl+Left"/>
-        <KeyBinding Command="{Binding PrevMatchCommand}" Gesture="Ctrl+Up"/>
-        <KeyBinding Command="{Binding NextMatchCommand}" Gesture="Ctrl+Right"/>
-        <KeyBinding Command="{Binding NextMatchCommand}" Gesture="Ctrl+Down"/>
-        
-        <KeyBinding Command="{Binding ReplaceMatchCommand}" Gesture="Ctrl+R"/>
-        <KeyBinding Command="{Binding UndoMatchCommand}" Gesture="Ctrl+U"/>
+        <KeyBinding Key="F10" Command="{Binding ReplaceAllCommand}" />
+        <KeyBinding Command="{Binding PrevFileCommand}" Gesture="Ctrl+PageUp" />
+        <KeyBinding Command="{Binding NextFileCommand}" Gesture="Ctrl+PageDown" />
+        <KeyBinding Command="{Binding ReplaceAllInFileCommand}" Gesture="Ctrl+A" />
+        <KeyBinding Command="{Binding UndoFileCommand}" Gesture="Ctrl+T" />
+
+        <KeyBinding Command="{Binding PrevMatchCommand}" Gesture="Ctrl+Left" />
+        <KeyBinding Command="{Binding PrevMatchCommand}" Gesture="Ctrl+Up" />
+        <KeyBinding Command="{Binding NextMatchCommand}" Gesture="Ctrl+Right" />
+        <KeyBinding Command="{Binding NextMatchCommand}" Gesture="Ctrl+Down" />
+
+        <KeyBinding Command="{Binding ReplaceMatchCommand}" Gesture="Ctrl+R" />
+        <KeyBinding Command="{Binding UndoMatchCommand}" Gesture="Ctrl+U" />
     </Window.InputBindings>
     <Window.Resources>
 
-        <Style TargetType="GroupBox">
-            <Setter Property="FontSize" Value="16"/>
-            <Setter Property="Margin" Value="3"/>
+        <Style TargetType="GroupBox" BasedOn="{StaticResource ThemedGroupBox}">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Margin" Value="3" />
         </Style>
-        <Style TargetType="TextBlock">
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Margin" Value="3"/>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource LabelTextBlockStyle}">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Margin" Value="3" />
         </Style>
 
-        <Style TargetType="Button">
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="Padding" Value="6,3"/>
-            <Setter Property="MinWidth" Value="90"/>
-            <Setter Property="MinHeight" Value="32"/>
-            <Setter Property="Margin" Value="3"/>
+        <Style TargetType="Button" BasedOn="{StaticResource FormButtonStyle}">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Padding" Value="6,3" />
+            <Setter Property="MinWidth" Value="90" />
+            <Setter Property="MinHeight" Value="32" />
+            <Setter Property="Margin" Value="3" />
         </Style>
 
     </Window.Resources>
@@ -47,113 +53,156 @@
     <Border Padding="4">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Search for:" HorizontalAlignment="Right"/>
-            <Border Grid.Row="0" Grid.Column="1" BorderBrush="LightGray" BorderThickness="1" Margin="6,3">
-                <TextBlock Text="{Binding SearchFor}"/>
+            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right"
+                       Text="Search for:" />
+            <Border Grid.Row="0" Grid.Column="1" Margin="6,3"
+                    BorderBrush="{DynamicResource GroupBox.Border}"
+                    BorderThickness="1">
+                <TextBlock Text="{Binding SearchFor}" />
             </Border>
 
-            <TextBlock Grid.Row="1" Grid.Column="0" Text="Replace with:" HorizontalAlignment="Right"/>
-            <Border Grid.Row="1" Grid.Column="1" BorderBrush="LightGray" BorderThickness="1" Margin="6,3">
-                <TextBlock Text="{Binding ReplaceWith}"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right"
+                       Text="Replace with:" />
+            <Border Grid.Row="1" Grid.Column="1" Margin="6,3"
+                    BorderBrush="{DynamicResource GroupBox.Border}"
+                    BorderThickness="1">
+                <TextBlock Text="{Binding ReplaceWith}" />
             </Border>
 
-            <GroupBox Header="Files" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" >
+            <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                      Header="Files">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition />
-                        <RowDefinition Height="24"/>
+                        <RowDefinition Height="24" />
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="3,8,3,3" FontWeight="Medium">
-                        <Run Text="File"/>
-                        <Run Text="{Binding FileNumber, FallbackValue=0}"/>
-                        <Run Text="of"/>
-                        <Run Text="{Binding FileCount, FallbackValue=6}"/><Run Text=":   "/>
-                        <Run Text="{Binding FileLabel}"/>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                               Margin="3,8,3,3" FontWeight="Medium">
+                        <Run Text="File" />
+                        <Run Text="{Binding FileNumber, FallbackValue=0}" />
+                        <Run Text="of" />
+                        <Run Text="{Binding FileCount, FallbackValue=6}" /><Run Text=":   " />
+                        <Run Text="{Binding FileLabel}" />
                     </TextBlock>
-                    <ProgressBar Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="6" Maximum="{Binding FileCount}" Value="{Binding FileNumber}"/>
+                    <ProgressBar Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                 Margin="6"
+                                 Maximum="{Binding FileCount}"
+                                 Value="{Binding FileNumber}" />
 
-                    <StackPanel Grid.Row="2" Grid.Column="0" Margin="3" Orientation="Horizontal">
-                        <Button Content="Previous File" TabIndex="1" Command="{Binding PrevFileCommand}"
-                                ToolTip="Show the previous file [Ctrl+PgUp]"/>
-                        <Button Content="Next _File" TabIndex="2" Command="{Binding NextFileCommand}"
-                                ToolTip="Show the next file [Ctrl+PgDn]"/>
-                        <Button Content="Replace in File" Margin="16,3,3,3" TabIndex="3" Command="{Binding ReplaceAllInFileCommand}"
-                                ToolTip="Mark all matches in this file for replacement [Ctrl+A]"/>
-                        <Button Content="Undo File" TabIndex="4" Command="{Binding UndoFileCommand}"
-                                ToolTip="Reset and skip all matches in this file [Ctrl+T]"/>
+                    <StackPanel Grid.Row="2" Grid.Column="0" Margin="3"
+                                Orientation="Horizontal">
+                        <Button Content="Previous File" TabIndex="1"
+                                Command="{Binding PrevFileCommand}"
+                                ToolTip="Show the previous file [Ctrl+PgUp]" />
+                        <Button Content="Next _File" TabIndex="2"
+                                Command="{Binding NextFileCommand}"
+                                ToolTip="Show the next file [Ctrl+PgDn]" />
+                        <Button Margin="16,3,3,3" Content="Replace in File" TabIndex="3"
+                                Command="{Binding ReplaceAllInFileCommand}"
+                                ToolTip="Mark all matches in this file for replacement [Ctrl+A]" />
+                        <Button Content="Undo File" TabIndex="4"
+                                Command="{Binding UndoFileCommand}"
+                                ToolTip="Reset and skip all matches in this file [Ctrl+T]" />
                     </StackPanel>
-                    <StackPanel Grid.Row="2" Grid.Column="1" Margin="3" Orientation="Horizontal">
-                        <Button Content="Replace in All Files" TabIndex="5" HorizontalAlignment="Right" 
-                                Command="{Binding ReplaceAllCommand}" ToolTip="Replace all matches in all files, and apply [F10]"/>
+                    <StackPanel Grid.Row="2" Grid.Column="1" Margin="3"
+                                Orientation="Horizontal">
+                        <Button HorizontalAlignment="Right" Content="Replace in All Files" TabIndex="5"
+                                Command="{Binding ReplaceAllCommand}"
+                                ToolTip="Replace all matches in all files, and apply [F10]" />
                     </StackPanel>
                 </Grid>
             </GroupBox>
 
-            <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="LightGray" BorderThickness="1">
-                <ae:TextEditor Name="textEditor" Margin="3" FontFamily="Consolas" FontSize="{Binding ElementName=zoomSlider, Path=Value}"
-                               IsReadOnly="True" WordWrap="{Binding ElementName=cbWrapText, Path=IsChecked}" 
-                               KeyboardNavigation.TabNavigation="Once" TabIndex="6" PreviewKeyDown="TextEditor_PreviewKeyDown"/>
+            <Border Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                    Margin="4"
+                    BorderBrush="{DynamicResource GroupBox.Border}"
+                    BorderThickness="1" CornerRadius="4">
+                <ae:TextEditor Name="textEditor" Margin="3" FontFamily="Consolas"
+                               FontSize="{Binding ElementName=zoomSlider, Path=Value}"
+                               Foreground="{DynamicResource AvalonEdit.Foreground}"
+                               Background="{DynamicResource AvalonEdit.Background}"
+                               IsReadOnly="True"
+                               WordWrap="{Binding ElementName=cbWrapText, Path=IsChecked}"
+                               KeyboardNavigation.TabNavigation="Once" TabIndex="6"
+                               PreviewKeyDown="TextEditor_PreviewKeyDown" />
             </Border>
 
-            <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" ClipToBounds="False" Name="statusBar" Orientation="Horizontal">
-                <TextBlock Margin="24,3,3,3" Text="Zoom:" VerticalAlignment="Center"/>
-                <Slider Name="zoomSlider" ToolTip="Changes text editor zoom" Value="14" Minimum="9" Maximum="30" Width="200" 
-                        Margin="0,0,3,0" VerticalAlignment="Center" TabIndex="7" />
-                <CheckBox Name="cbWrapText" IsChecked="True" VerticalAlignment="Center" Margin="12,0,3,0" Content="Wrap text" TabIndex="8"/>
-                <ComboBox Name="cbHighlighter" ItemsSource="{Binding Path=Highlighters}" SelectedValue="{Binding Path=CurrentSyntax}" 
-                          TabIndex="9" Margin="12,0,3,0"/>
+            <StackPanel Name="statusBar" Grid.Row="4" Grid.Column="0"
+                        Grid.ColumnSpan="2" ClipToBounds="False" Orientation="Horizontal">
+                <TextBlock Margin="24,3,3,3" VerticalAlignment="Center" Text="Zoom:" />
+                <Slider Name="zoomSlider" Width="200" Margin="0,0,3,0"
+                        VerticalAlignment="Center" ToolTip="Changes text editor zoom" Minimum="9"
+                        Maximum="30" TabIndex="7" Value="14" />
+                <CheckBox Name="cbWrapText" Margin="12,0,3,0" VerticalAlignment="Center"
+                          IsChecked="True" Content="Wrap text" TabIndex="8" />
+                <ComboBox Name="cbHighlighter" Margin="12,0,3,0"
+                          ItemsSource="{Binding Path=Highlighters}"
+                          SelectedValue="{Binding Path=CurrentSyntax}"
+                          TabIndex="9" />
             </StackPanel>
 
-            <GroupBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="3" Header="Matches">
+            <GroupBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
+                      Margin="3" Header="Matches">
                 <StackPanel>
                     <StackPanel Margin="3" Orientation="Horizontal">
-                        <Button Content="_Previous" TabIndex="10" Command="{Binding PrevMatchCommand}"
-                                ToolTip="Move to the next match in this file [Ctrl+Left]"/>
-                        <Button Content="_Next" TabIndex="11" Command="{Binding NextMatchCommand}"
-                                ToolTip="Move to the previous match in this file [Ctrl+Right]"/>
-                        <Button Content="_Replace" TabIndex="12" Margin="24,3,3,3" Command="{Binding ReplaceMatchCommand}" 
-                                ToolTip="Mark match for replacement [Ctrl+R]"/>
-                        <Button Content="_Undo" TabIndex="13" Command="{Binding UndoMatchCommand}"
-                                ToolTip="Undo mark replace on this match [Ctrl+U]"/>
+                        <Button Content="_Previous" TabIndex="10"
+                                Command="{Binding PrevMatchCommand}"
+                                ToolTip="Move to the next match in this file [Ctrl+Left]" />
+                        <Button Content="_Next" TabIndex="11"
+                                Command="{Binding NextMatchCommand}"
+                                ToolTip="Move to the previous match in this file [Ctrl+Right]" />
+                        <Button Margin="24,3,3,3" Content="_Replace" TabIndex="12"
+                                Command="{Binding ReplaceMatchCommand}"
+                                ToolTip="Mark match for replacement [Ctrl+R]" />
+                        <Button Content="_Undo" TabIndex="13"
+                                Command="{Binding UndoMatchCommand}"
+                                ToolTip="Undo mark replace on this match [Ctrl+U]" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="text" Margin="24,1,3,1" TextDecorations="Underline" Background="LightSalmon" Padding="2" 
-                                   FontFamily="Consolas" VerticalAlignment="Center"/>
-                        <TextBlock Text="Selected Match"/>
-                        <Rectangle Height="18" Width="40" Fill="PaleGreen" Margin="24,0,3,0"/>
-                        <TextBlock Text="Replace Match"/>
-                        <Rectangle Height="18" Width="40" Fill="LightSalmon" Margin="24,0,3,0"/>
-                        <TextBlock Text="Skip Match"/>
+                        <TextBlock Margin="24,1,3,1" Padding="2" VerticalAlignment="Center"
+                                   Text="text" TextDecorations="Underline"
+                                   Background="{DynamicResource Match.Skip.Background}"
+                                   Foreground="{DynamicResource Match.Skip.Foreground}"
+                                   FontFamily="Consolas" />
+                        <TextBlock Text="Selected Match" />
+                        <Rectangle Width="40" Height="18" Margin="24,0,3,0"
+                                   Fill="{DynamicResource Match.Replace.Background}" />
+                        <TextBlock Text="Replace Match" />
+                        <Rectangle Width="40" Height="18" Margin="24,0,3,0"
+                                   Fill="{DynamicResource Match.Skip.Background}" />
+                        <TextBlock Text="Skip Match" />
                     </StackPanel>
                 </StackPanel>
             </GroupBox>
 
-            <DockPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="3" HorizontalAlignment="Right" LastChildFill="False">
-                <Button DockPanel.Dock="Right" x:Name="btnCanel" Content="Cancel" TabIndex="20" IsCancel="True" 
-                        Click="CancelButton_Click" ToolTip="Cancel all replacements"/>
-                <Button DockPanel.Dock="Right" Content="OK" TabIndex="21" Click="OKButton_Click"
-                        ToolTip="Replace matches marked for replacement"/>
+            <DockPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
+                       Margin="3" HorizontalAlignment="Right" LastChildFill="False">
+                <Button x:Name="btnCancel" DockPanel.Dock="Right" Content="Cancel"
+                        TabIndex="20" IsCancel="True" Click="CancelButton_Click"
+                        ToolTip="Cancel all replacements" />
+                <Button DockPanel.Dock="Right" Content="OK" TabIndex="21"
+                        Click="OKButton_Click" ToolTip="Replace matches marked for replacement" />
             </DockPanel>
 
         </Grid>
     </Border>
-</Window>
+</my:ThemedWindow>

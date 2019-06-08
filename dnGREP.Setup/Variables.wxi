@@ -6,16 +6,16 @@
   <?if $(var.Platform) = x64 ?>
   <?define Win64 = "yes" ?>
   <?define PlatformProgramFilesFolder = "ProgramFiles64Folder" ?>
-  <?define NGenPlatform = "32bit" ?>
+  <?define NGenPlatform = "64bit" ?>
   <?else ?>
   <?define Win64 = "no" ?>
   <?define PlatformProgramFilesFolder = "ProgramFilesFolder" ?>
-  <?define NGenPlatform = "64bit" ?>
+  <?define NGenPlatform = "32bit" ?>
   <?endif ?>
   <!-- Version number. Should be overwritten during build. Revision is NOT used by Windows Installer during upgrade procedure. -->
   <?define MajorVersion="2" ?>
   <?define MinorVersion="9" ?>
-  <?define BuildVersion="129" ?>
+  <?define BuildVersion="141" ?>
   <?define Revision="0" ?>
   <!-- Full version number to display -->
   <?define ProductVersion="$(var.MajorVersion).$(var.MinorVersion).$(var.BuildVersion).$(var.Revision)" ?>

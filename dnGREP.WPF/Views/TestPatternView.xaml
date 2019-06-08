@@ -1,30 +1,45 @@
-﻿<Window x:Class="dnGREP.WPF.TestPattern"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:my="clr-namespace:dnGREP.WPF"
-    Title="Test" Width="527" WindowStyle="ToolWindow" Height="460" MinHeight="460" 
-    MinWidth="500" Icon="/dnGREP;component/nGREP.ico"
-    Background="{StaticResource GradientBackground}"
-    Loaded="Window_Loaded" Closing="Window_Closing"  KeyDown="formKeyDown" 
-    SnapsToDevicePixels="True" ResizeMode="CanResizeWithGrip">
-    <!-- Resources -->
+﻿<my:ThemedWindow x:Class="dnGREP.WPF.TestPattern"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:my="clr-namespace:dnGREP.WPF"
+                 Title="Test"
+                 Width="527"
+                 Height="460"
+                 MinWidth="500"
+                 MinHeight="460"
+                 WindowStyle="SingleBorderWindow"
+                 Icon="/dnGREP;component/nGREP.ico"
+                 Background="{DynamicResource Dialog.Background}"
+                 CaptionBackground="{DynamicResource Caption.Dialog.Background}"
+                 Loaded="Window_Loaded"
+                 Closing="Window_Closing"
+                 KeyDown="FormKeyDown"
+                 SnapsToDevicePixels="True"
+                 ResizeMode="CanResizeWithGrip">
+    <!--  Resources  -->
     <Window.Resources>
-        <Style x:Key="ExpandedTextbox" TargetType="{x:Type TextBox}">
+        <Style x:Key="ExpandedTextbox"
+               TargetType="{x:Type TextBox}"
+               BasedOn="{StaticResource ThemedTextBox}">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <!--<Setter Property="VerticalContentAlignment" Value="Center"/>-->
+            <Setter Property="Height" Value="24" />
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Path=Multiline}" Value="True">
-                    <Setter Property="Height" Value="50"/>
-                    <Setter Property="TextWrapping" Value="Wrap"/>
-                    <Setter Property="AcceptsReturn" Value="True"/>
+                    <Setter Property="Height" Value="50" />
+                    <Setter Property="TextWrapping" Value="Wrap" />
+                    <Setter Property="AcceptsReturn" Value="True" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=Multiline}" Value="False">
-                    <Setter Property="Height" Value="23"/>
-                    <Setter Property="TextWrapping" Value="NoWrap"/>
-                    <Setter Property="AcceptsReturn" Value="False"/>
+                    <Setter Property="Height" Value="24" />
+                    <Setter Property="TextWrapping" Value="NoWrap" />
+                    <Setter Property="AcceptsReturn" Value="False" />
                 </DataTrigger>
             </Style.Triggers>
         </Style>
 
         <my:EnumBooleanConverter x:Key="ebc" />
+        <my:StringNotNullOrEmptyConverter x:Key="notNullOrEmpty" />
 
     </Window.Resources>
 
@@ -33,68 +48,106 @@
             <GroupBox Header="Search">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="23"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="23" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal">
-                        <RadioButton GroupName="SearchRegex" Name="rbRegex" Margin="3,4,3,3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}" VerticalContentAlignment="Center" VerticalAlignment="Center">Regex</RadioButton>
-                        <RadioButton GroupName="SearchXPath" Name="rbXPath" Margin="3,4,3,3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=XPath}" VerticalContentAlignment="Center" VerticalAlignment="Center">XPath</RadioButton>
-                        <RadioButton GroupName="SearchText" Name="rbText" Margin="3,4,3,3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=PlainText}" VerticalContentAlignment="Center" VerticalAlignment="Center">Text</RadioButton>
-                        <RadioButton GroupName="SearchSoundex" Name="rbSoundex" Margin="3,4,3,3" IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=Soundex}" VerticalContentAlignment="Center" VerticalAlignment="Center">Phonetic</RadioButton>
+                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
+                        <RadioButton Name="rbRegex" Margin="3,4,3,3" VerticalAlignment="Center"
+                                     VerticalContentAlignment="Center" GroupName="SearchRegex"
+                                     IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}">
+                            Regex
+                        </RadioButton>
+                        <RadioButton Name="rbXPath" Margin="3,4,3,3" VerticalAlignment="Center"
+                                     VerticalContentAlignment="Center" GroupName="SearchXPath"
+                                     IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=XPath}">
+                            XPath
+                        </RadioButton>
+                        <RadioButton Name="rbText" Margin="3,4,3,3" VerticalAlignment="Center"
+                                     VerticalContentAlignment="Center" GroupName="SearchText"
+                                     IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=PlainText}">
+                            Text
+                        </RadioButton>
+                        <RadioButton Name="rbSoundex" Margin="3,4,3,3" VerticalAlignment="Center"
+                                     VerticalContentAlignment="Center" GroupName="SearchSoundex"
+                                     IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, ConverterParameter=Soundex}">
+                            Phonetic
+                        </RadioButton>
                     </StackPanel>
-                    <GroupBox Header="Search for:" Grid.Row="1" 
-                              Grid.ColumnSpan="2" BorderThickness="0" VerticalContentAlignment="Center" VerticalAlignment="Center">
-                        <TextBox Name="tbSearchFor" Margin="-5,3,-5,0" Text="{Binding Path=SearchFor, UpdateSourceTrigger=PropertyChanged}" 
-                                 VerticalScrollBarVisibility="Auto" 
-                                 Style="{StaticResource ExpandedTextbox}" VerticalContentAlignment="Center" VerticalAlignment="Center" Height="24">
+                    <GroupBox Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center"
+                              VerticalContentAlignment="Center" Header="Search for:" BorderThickness="0">
+                        <TextBox Name="tbSearchFor" Margin="-5,3,-5,0"
+                                 Text="{Binding Path=SearchFor, UpdateSourceTrigger=PropertyChanged}"
+                                 VerticalScrollBarVisibility="Auto"
+                                 Style="{StaticResource ExpandedTextbox}">
                             <TextBox.ToolTip>
                                 <TextBlock>
-                                        <Run>. matches all characters</Run>
-                                        <LineBreak/>
-                                        <Run>\w matches alpha-numerics</Run>
-                                        <LineBreak/>
-                                        <Run>\d matches digits</Run>
-                                        <LineBreak/>
-                                        <Run>\s matches space</Run>
-                                        <LineBreak/>
-                                        <Run>* matches any number of characters</Run>
-                                        <LineBreak/>
-                                        <Run>{1,3} matches 1 to 3 characters</Run>
-                                        <LineBreak/>
-                                        <Run>For more Regex patterns hit F1</Run>
+                                    <Run>. matches all characters</Run>
+                                    <LineBreak />
+                                    <Run>\w matches alpha-numerics</Run>
+                                    <LineBreak />
+                                    <Run>\d matches digits</Run>
+                                    <LineBreak />
+                                    <Run>\s matches space</Run>
+                                    <LineBreak />
+                                    <Run>* matches any number of characters</Run>
+                                    <LineBreak />
+                                    <Run>{1,3} matches 1 to 3 characters</Run>
+                                    <LineBreak />
+                                    <Run>For more Regex patterns hit F1</Run>
                                 </TextBlock>
                             </TextBox.ToolTip>
                         </TextBox>
                     </GroupBox>
-                    <GroupBox Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" 
-                              Header="Replace with:" BorderThickness="0" VerticalContentAlignment="Center" VerticalAlignment="Center">
-                        <TextBox Margin="-5,3,-5,0" Name="tbReplaceWith" 
-                                 Text="{Binding Path=ReplaceWith, UpdateSourceTrigger=PropertyChanged}"  
-                                 VerticalScrollBarVisibility="Auto" 
-                                 Style="{StaticResource ExpandedTextbox}" VerticalContentAlignment="Center" VerticalAlignment="Center" Height="24">
+                    <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                              VerticalAlignment="Center" VerticalContentAlignment="Center"
+                              Header="Replace with:" BorderThickness="0">
+                        <TextBox Name="tbReplaceWith" Margin="-5,3,-5,0"
+                                 Text="{Binding Path=ReplaceWith, UpdateSourceTrigger=PropertyChanged}"
+                                 VerticalScrollBarVisibility="Auto"
+                                 Style="{StaticResource ExpandedTextbox}">
                             <TextBox.ToolTip>
                                 <TextBlock>
-                                            <Run><![CDATA[$& replaces entire regex]]></Run>
-                                            <LineBreak/>
-                                            <Run><![CDATA[$1, $2, $3, etc... inserts the text matched between capturing parentheses into the replacement text]]></Run>
-                                            <LineBreak/>
-                                            <Run><![CDATA[$$ inserts a single dollar sign into the replacement text]]></Run>
+                                    <Run><![CDATA[$& replaces entire regex]]></Run>
+                                    <LineBreak />
+                                    <Run><![CDATA[$1, $2, $3, etc... inserts the text matched between capturing parentheses into the replacement text]]></Run>
+                                    <LineBreak />
+                                    <Run><![CDATA[$$ inserts a single dollar sign into the replacement text]]></Run>
                                 </TextBlock>
                             </TextBox.ToolTip>
                         </TextBox>
                     </GroupBox>
-                    <GroupBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" 
-                             BorderThickness="0" VerticalContentAlignment="Center" VerticalAlignment="Center">
+                    <GroupBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                              VerticalAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0">
                         <StackPanel Orientation="Horizontal">
-                            <CheckBox Margin="-3,4,3,3" Name="cbCaseSensitive" IsChecked="{Binding Path=CaseSensitive}" IsEnabled="{Binding Path=IsCaseSensitiveEnabled}" VerticalContentAlignment="Center" VerticalAlignment="Center">Case sensitive</CheckBox>
-                            <CheckBox Margin="3,4,3,3" Name="cbWholeWord" IsChecked="{Binding Path=WholeWord}" IsEnabled="{Binding Path=IsWholeWordEnabled}" VerticalContentAlignment="Center" VerticalAlignment="Center">Whole word</CheckBox>
-                            <CheckBox Margin="3,4,3,3" Name="cbMultiline" IsChecked="{Binding Path=Multiline}" IsEnabled="{Binding Path=IsMultilineEnabled}" VerticalContentAlignment="Center" VerticalAlignment="Center">Multiline</CheckBox>
-                            <CheckBox Margin="3,4,3,3" Name="cbSingleline" IsChecked="{Binding Path=Singleline}" IsEnabled="{Binding Path=IsSinglelineEnabled}" VerticalContentAlignment="Center" VerticalAlignment="Center">Dot matches newline</CheckBox>
+                            <CheckBox Name="cbCaseSensitive" Margin="-3,4,3,3" VerticalAlignment="Center"
+                                      VerticalContentAlignment="Center"
+                                      IsChecked="{Binding Path=CaseSensitive}"
+                                      IsEnabled="{Binding Path=IsCaseSensitiveEnabled}">
+                                Case sensitive
+                            </CheckBox>
+                            <CheckBox Name="cbWholeWord" Margin="3,4,3,3" VerticalAlignment="Center"
+                                      VerticalContentAlignment="Center"
+                                      IsChecked="{Binding Path=WholeWord}"
+                                      IsEnabled="{Binding Path=IsWholeWordEnabled}">
+                                Whole word
+                            </CheckBox>
+                            <CheckBox Name="cbMultiline" Margin="3,4,3,3" VerticalAlignment="Center"
+                                      VerticalContentAlignment="Center"
+                                      IsChecked="{Binding Path=Multiline}"
+                                      IsEnabled="{Binding Path=IsMultilineEnabled}">
+                                Multiline
+                            </CheckBox>
+                            <CheckBox Name="cbSingleline" Margin="3,4,3,3" VerticalAlignment="Center"
+                                      VerticalContentAlignment="Center"
+                                      IsChecked="{Binding Path=Singleline}"
+                                      IsEnabled="{Binding Path=IsSinglelineEnabled}">
+                                Dot matches newline
+                            </CheckBox>
                         </StackPanel>
                     </GroupBox>
                 </Grid>
@@ -103,33 +156,59 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="25" />
-                <RowDefinition Height="100*"/>
+                <RowDefinition Height="100*" />
                 <RowDefinition Height="25" />
-                <RowDefinition Height="100*"/>
+                <RowDefinition Height="100*" />
                 <RowDefinition Height="30" />
                 <RowDefinition Height="25" />
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Margin="0" VerticalContentAlignment="Center" VerticalAlignment="Center" >Sample input text:</Label>
-            <TextBox Grid.Row="1" Margin="5" AcceptsReturn="True"  Height="Auto" Name="tbTestInput" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" 
-                     Text="{Binding Path=SampleText, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <Label Grid.Row="2" VerticalContentAlignment="Center" VerticalAlignment="Center" >Output text:</Label>
-            <ScrollViewer Grid.Row="3" Margin="5" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                <my:InlineTextBlock Margin="3,0,0,0" InlineCollection="{Binding TestOutput}" FontFamily="Consolas">
-                    <my:InlineTextBlock.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="Copy to clipboard" Click="btnCopyFile_Click"/>
-                        </ContextMenu>
-                    </my:InlineTextBlock.ContextMenu>
-                </my:InlineTextBlock>
-            </ScrollViewer>
-            <StackPanel Grid.Row="4" Margin="0,0,3,0"  HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button Width="64" Margin="3" x:Name="btnSearch" Content="Search" Command="{Binding SearchCommand}" IsDefault="True" Height="24" VerticalAlignment="Center" />
-                <Button Width="64" Margin="3" Content="Replace" Name="btnReplace" Command="{Binding ReplaceCommand}" Height="24" VerticalAlignment="Center"/>
-                <Button Width="64" Margin="3" x:Name="btnClose" Content="Close" Click="btnClose_Click" IsCancel="True" Height="24" VerticalAlignment="Center" />
+            <Label Grid.Row="0" Margin="0" VerticalAlignment="Center"
+                   VerticalContentAlignment="Center">
+                Sample input text:
+            </Label>
+            <TextBox Name="tbTestInput" Grid.Row="1" Height="Auto"
+                     Margin="5" AcceptsReturn="True" TextWrapping="Wrap"
+                     VerticalScrollBarVisibility="Auto"
+                     Text="{Binding Path=SampleText, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Grid.Row="2" VerticalAlignment="Center" VerticalContentAlignment="Center">
+                Output text:
+            </Label>
+            <Border Grid.Row="3" Margin="5"
+                    BorderBrush="{DynamicResource Control.Static.Border}"
+                    BorderThickness="1"
+                    Background="{DynamicResource Control.Static.Background}">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                    <my:InlineTextBlock Margin="3,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"
+                                        InlineCollection="{Binding TestOutput}"
+                                        FontFamily="Consolas"
+                                        Style="{StaticResource ThemedTextBlock}" />
+                </ScrollViewer>
+                <Border.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Copy to clipboard" Click="BtnCopyFile_Click"
+                                  IsEnabled="{Binding TestOutputText, Converter={StaticResource notNullOrEmpty}}" />
+                    </ContextMenu>
+                </Border.ContextMenu>
+            </Border>
+            <StackPanel Grid.Row="4" Margin="0,0,3,0" HorizontalAlignment="Right"
+                        Orientation="Horizontal">
+                <Button x:Name="btnSearch" Width="64" Height="24"
+                        Margin="3" VerticalAlignment="Center" Content="Search"
+                        Command="{Binding SearchCommand}"
+                        IsDefault="True" />
+                <Button Name="btnReplace" Width="64" Height="24"
+                        Margin="3" VerticalAlignment="Center" Content="Replace"
+                        Command="{Binding ReplaceCommand}" />
+                <Button x:Name="btnClose" Width="64" Height="24"
+                        Margin="3" VerticalAlignment="Center" Content="Close"
+                        Click="BtnClose_Click" IsCancel="True" />
             </StackPanel>
-            <StatusBar Grid.Row="5" ClipToBounds="False" BorderThickness="1" BorderBrush="DarkGray">
-                <TextBlock Name="lblStatus" VerticalAlignment="Center" HorizontalAlignment="Center">Click Search or Replace to test search pattern</TextBlock>
+            <StatusBar Grid.Row="5" ClipToBounds="False" BorderThickness="1"
+                       BorderBrush="DarkGray">
+                <TextBlock Name="lblStatus" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    Click Search or Replace to test search pattern
+                </TextBlock>
             </StatusBar>
         </Grid>
     </DockPanel>
-</Window>
+</my:ThemedWindow>

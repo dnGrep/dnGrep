@@ -173,6 +173,7 @@ namespace dnGREP.WPF.UserControls
         {
             var treeView = FindTreeView(e.OriginalSource as DependencyObject);
             var treeViewItem = FindTreeViewItem(e.OriginalSource as DependencyObject);
+            var scrollViewer = FindScrollViewer(e.OriginalSource as DependencyObject);
 
             if (treeViewItem != null && treeViewItem.IsFocused)
             {
@@ -180,7 +181,7 @@ namespace dnGREP.WPF.UserControls
             }
 
             // if the user clicks on the empty space below the tree items, deselect all items
-            if (treeViewItem == null && treeView != null)
+            if (treeViewItem == null && scrollViewer == null && treeView != null)
             {
                 // it is possible to click *between* tree view items, so hit test a point
                 // below the current point to see if there is a tree view item just below it
@@ -213,13 +214,25 @@ namespace dnGREP.WPF.UserControls
             if (!(dependencyObject is Visual || dependencyObject is Visual3D))
                 return null;
 
-            var treeViewItem = dependencyObject as TreeViewItem;
-            if (treeViewItem != null)
+            if (dependencyObject is TreeViewItem treeViewItem)
             {
                 return treeViewItem;
             }
 
             return FindTreeViewItem(VisualTreeHelper.GetParent(dependencyObject));
+        }
+
+        private static ScrollViewer FindScrollViewer(DependencyObject dependencyObject)
+        {
+            if (!(dependencyObject is Visual || dependencyObject is Visual3D))
+                return null;
+
+            if (dependencyObject is ScrollViewer sv)
+            {
+                return sv;
+            }
+
+            return FindScrollViewer(VisualTreeHelper.GetParent(dependencyObject));
         }
 
         private static void SelectSingleItem(TreeView treeView, TreeViewItem treeViewItem)
@@ -236,8 +249,7 @@ namespace dnGREP.WPF.UserControls
             {
                 for (int i = 0; i < treeView.Items.Count; i++)
                 {
-                    var item = treeView.ItemContainerGenerator.ContainerFromIndex(i) as TreeViewItem;
-                    if (item != null)
+                    if (treeView.ItemContainerGenerator.ContainerFromIndex(i) is TreeViewItem item)
                     {
                         // do not deselect the root items, 
                         DeSelectAllItems(null, item);
@@ -252,8 +264,7 @@ namespace dnGREP.WPF.UserControls
             {
                 for (int i = 0; i < treeView.Items.Count; i++)
                 {
-                    var item = treeView.ItemContainerGenerator.ContainerFromIndex(i) as TreeViewItem;
-                    if (item != null)
+                    if (treeView.ItemContainerGenerator.ContainerFromIndex(i) is TreeViewItem item)
                     {
                         SetIsItemSelected(item, false);
                         DeSelectAllItems(null, item);
@@ -264,8 +275,7 @@ namespace dnGREP.WPF.UserControls
             {
                 for (int i = 0; i < treeViewItem.Items.Count; i++)
                 {
-                    var item = treeViewItem.ItemContainerGenerator.ContainerFromIndex(i) as TreeViewItem;
-                    if (item != null)
+                    if (treeViewItem.ItemContainerGenerator.ContainerFromIndex(i) is TreeViewItem item)
                     {
                         SetIsItemSelected(item, false);
                         DeSelectAllItems(null, item);
@@ -368,8 +378,7 @@ namespace dnGREP.WPF.UserControls
             {
                 for (int i = 0; i < treeView.Items.Count; i++)
                 {
-                    var item = treeView.ItemContainerGenerator.ContainerFromIndex(i) as TreeViewItem;
-                    if (item != null)
+                    if (treeView.ItemContainerGenerator.ContainerFromIndex(i) is TreeViewItem item)
                     {
                         allItems.Add(item);
                         GetAllItems(null, item, allItems);
@@ -380,8 +389,7 @@ namespace dnGREP.WPF.UserControls
             {
                 for (int i = 0; i < treeViewItem.Items.Count; i++)
                 {
-                    var item = treeViewItem.ItemContainerGenerator.ContainerFromIndex(i) as TreeViewItem;
-                    if (item != null)
+                    if (treeViewItem.ItemContainerGenerator.ContainerFromIndex(i) is TreeViewItem item)
                     {
                         allItems.Add(item);
                         GetAllItems(null, item, allItems);

@@ -5,7 +5,7 @@ namespace dnGREP.WPF
     /// <summary>
     /// Interaction logic for BookmarkDetailWindow.xaml
     /// </summary>
-    public partial class BookmarkDetailWindow : Window
+    public partial class BookmarkDetailWindow : ThemedWindow
     {
         public BookmarkDetailWindow()
         {

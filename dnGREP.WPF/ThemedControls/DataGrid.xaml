@@ -1,0 +1,188 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero">
+
+    <Style x:Key="ThemedDataGrid" BasedOn="{StaticResource {x:Type DataGrid}}" TargetType="{x:Type DataGrid}">
+        <Setter Property="Background" Value="{DynamicResource DataGrid.Background}" />
+        <Setter Property="Foreground" Value="{DynamicResource DataGrid.Foreground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource DataGrid.Border}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="RowDetailsVisibilityMode" Value="VisibleWhenSelected" />
+        <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+        <Setter Property="ScrollViewer.PanningMode" Value="Both" />
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+    </Style>
+
+    <Style x:Key="{ComponentResourceKey ResourceId=DataGridSelectAllButtonStyle, TypeInTargetAssembly={x:Type DataGrid}}" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Grid>
+                        <Rectangle x:Name="Border" Fill="{DynamicResource DataGrid.Header.Background}" SnapsToDevicePixels="True" />
+                        <Polygon x:Name="Arrow" Margin="8,8,3,3" HorizontalAlignment="Right"
+                                 VerticalAlignment="Bottom" Fill="Black" Opacity="0.15"
+                                 Points="0,10 10,10 10,0" Stretch="Uniform" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Border" Property="Stroke" Value="{DynamicResource DataGrid.FocusBorder}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Border" Property="Fill" Value="{DynamicResource DataGrid.FocusBorder}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Arrow" Property="Visibility" Value="Collapsed" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ThemedDataGridCell" TargetType="{x:Type DataGridCell}">
+        <Setter Property="Foreground" Value="{DynamicResource DataGrid.Cell.Foreground}" />
+        <Setter Property="Background" Value="{DynamicResource DataGrid.Cell.Background}" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            SnapsToDevicePixels="True">
+                        <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter Property="Background" Value="{DynamicResource DataGrid.Highlight.Background}" />
+                <Setter Property="Foreground" Value="{DynamicResource DataGrid.Highlight.Foreground}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource DataGrid.Highlight.Background}" />
+            </Trigger>
+            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                <Setter Property="BorderBrush" Value="{DynamicResource DataGrid.FocusBorder}" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsSelected" Value="true" />
+                    <Condition Property="Selector.IsSelectionActive" Value="false" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Background" Value="{DynamicResource DataGrid.InactiveSelectionHighlight.Background}" />
+                <Setter Property="BorderBrush" Value="{DynamicResource DataGrid.InactiveSelectionHighlight.Background}" />
+                <Setter Property="Foreground" Value="{DynamicResource DataGrid.InactiveSelectionHighlight.Foreground}" />
+            </MultiTrigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Foreground" Value="{DynamicResource Control.GrayText}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="ColumnHeaderGripperStyle" TargetType="{x:Type Thumb}">
+        <Setter Property="Width" Value="8" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Cursor" Value="SizeWE" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Thumb}">
+                    <Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ThemedDataGridColumnHeader" BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}">
+        <Setter Property="Background" Value="{DynamicResource DataGrid.Header.Background}" />
+        <Setter Property="Foreground" Value="{DynamicResource DataGrid.Header.Foreground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource DataGrid.Header.Border}" />
+        <Setter Property="BorderThickness" Value="1,0,1,1" />
+        <Setter Property="Padding" Value="8,6" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="MinWidth" Value="0" />
+        <Setter Property="MinHeight" Value="22" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                    <Grid>
+                        <Themes:DataGridHeaderBorder x:Name="border"
+                                                     Padding="{TemplateBinding Padding}"
+                                                     Background="{TemplateBinding Background}"
+                                                     BorderBrush="{TemplateBinding BorderBrush}"
+                                                     BorderThickness="{TemplateBinding BorderThickness}"
+                                                     IsClickable="{TemplateBinding CanUserSort}"
+                                                     IsHovered="{TemplateBinding IsMouseOver}"
+                                                     IsPressed="{TemplateBinding IsPressed}"
+                                                     SeparatorBrush="{TemplateBinding SeparatorBrush}"
+                                                     SeparatorVisibility="{TemplateBinding SeparatorVisibility}"
+                                                     SortDirection="{TemplateBinding SortDirection}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <ContentPresenter Grid.Column="0"
+                                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                <Path x:Name="sortArrow" Grid.Column="1" Width="8"
+                                      Height="6" Margin="2,0,5,0" HorizontalAlignment="Right"
+                                      VerticalAlignment="Center" Data="M0,0 L1,0 0.5,1 z"
+                                      Fill="{DynamicResource DataGrid.Header.Glyph}"
+                                      Opacity="0.5" RenderTransformOrigin="0.5,0.4" Stretch="Fill"
+                                      Visibility="Collapsed" />
+                            </Grid>
+                        </Themes:DataGridHeaderBorder>
+                        <Thumb x:Name="PART_LeftHeaderGripper" HorizontalAlignment="Left" Style="{StaticResource ColumnHeaderGripperStyle}" />
+                        <Thumb x:Name="PART_RightHeaderGripper" HorizontalAlignment="Right" Style="{StaticResource ColumnHeaderGripperStyle}" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource DataGrid.Header.MouseOver.Background}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter TargetName="border" Property="Background" Value="{DynamicResource DataGrid.Header.Pressed.Background}" />
+                        </Trigger>
+                        <Trigger Property="SortDirection" Value="Ascending">
+                            <Setter TargetName="sortArrow" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="sortArrow" Property="RenderTransform">
+                                <Setter.Value>
+                                    <RotateTransform Angle="180" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="SortDirection" Value="Descending">
+                            <Setter TargetName="sortArrow" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ThemedDataGridRowHeader" BasedOn="{StaticResource {x:Type DataGridRowHeader}}" TargetType="{x:Type DataGridRowHeader}">
+        <Setter Property="Background" Value="{DynamicResource DataGrid.Cell.Background}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource DataGrid.Header.Border}" />
+        <Setter Property="BorderThickness" Value="0,1,1,1" />
+        <Setter Property="Padding" Value="3,0,0,0" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="MinWidth" Value="8" />
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+
+    <Style x:Key="ThemedDataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}" TargetType="{x:Type DataGridRow}">
+        <Setter Property="Background" Value="{DynamicResource DataGrid.Cell.Background}" />
+        <Setter Property="Foreground" Value="{DynamicResource DataGrid.Cell.Foreground}" />
+    </Style>
+
+    <Style x:Key="DataGridCheckBoxStyle" BasedOn="{StaticResource ThemedCheckbox}" TargetType="{x:Type CheckBox}">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+
+</ResourceDictionary>

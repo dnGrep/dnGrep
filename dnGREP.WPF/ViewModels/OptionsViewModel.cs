@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Reflection;
 using System.Security.Principal;
@@ -14,6 +15,15 @@ namespace dnGREP.WPF
         public OptionsViewModel()
         {
             LoadSetting();
+
+            foreach (string name in AppTheme.Instance.ThemeNames)
+                ThemeNames.Add(name);
+
+            hasWindowsThemes = AppTheme.HasWindowsThemes;
+            AppTheme.Instance.CurrentThemeChanged += (s, e) =>
+            {
+                CurrentTheme = AppTheme.Instance.CurrentThemeName;
+            };
         }
 
         #region Private Variables and Properties
@@ -49,7 +59,9 @@ namespace dnGREP.WPF
                 MaxPathBookmarks != Settings.Get<int>(GrepSettings.Key.MaxPathBookmarks) ||
                 MaxExtensionBookmarks != Settings.Get<int>(GrepSettings.Key.MaxExtensionBookmarks) ||
                 OptionsLocation != (Settings.Get<bool>(GrepSettings.Key.OptionsOnMainPanel) ?
-                    PanelSelection.MainPanel : PanelSelection.OptionsExpander))
+                    PanelSelection.MainPanel : PanelSelection.OptionsExpander) ||
+                FollowWindowsTheme != Settings.Get<bool>(GrepSettings.Key.FollowWindowsTheme) ||
+                CurrentTheme != Settings.Get<string>(GrepSettings.Key.CurrentTheme))
                     return true;
                 else
                     return false;
@@ -172,9 +184,60 @@ namespace dnGREP.WPF
 
                 checkForUpdatesInterval = value;
 
-                base.OnPropertyChanged(() => CheckForUpdatesInterval);
+                base.OnPropertyChanged("CheckForUpdatesInterval");
             }
         }
+
+        private bool followWindowsTheme = true;
+        public bool FollowWindowsTheme
+        {
+            get { return followWindowsTheme; }
+            set
+            {
+                if (followWindowsTheme == value)
+                    return;
+
+                followWindowsTheme = value;
+                OnPropertyChanged("FollowWindowsTheme");
+
+                AppTheme.Instance.FollowWindowsThemeChanged(followWindowsTheme, CurrentTheme);
+
+                CurrentTheme = AppTheme.Instance.CurrentThemeName;
+            }
+        }
+
+
+        private bool hasWindowsThemes = true;
+        public bool HasWindowsThemes
+        {
+            get { return hasWindowsThemes; }
+            set
+            {
+                if (hasWindowsThemes == value)
+                    return;
+
+                hasWindowsThemes = value;
+                OnPropertyChanged("HasWindowsThemes");
+            }
+        }
+
+        private string currentTheme = "Light";
+        public string CurrentTheme
+        {
+            get { return currentTheme; }
+            set
+            {
+                if (currentTheme == value)
+                    return;
+
+                currentTheme = value;
+                OnPropertyChanged("CurrentTheme");
+
+                AppTheme.Instance.CurrentThemeName = currentTheme;
+            }
+        }
+
+        public ObservableCollection<string> ThemeNames { get; } = new ObservableCollection<string>();
 
         private string customEditorPath;
         public string CustomEditorPath
@@ -462,6 +525,24 @@ namespace dnGREP.WPF
                 return _clearSearchesCommand;
             }
         }
+
+        RelayCommand _reloadThemeCommand;
+        /// <summary>
+        /// Returns a command that reloads the current theme file.
+        /// </summary>
+        public ICommand ReloadThemeCommand
+        {
+            get
+            {
+                if (_reloadThemeCommand == null)
+                {
+                    _reloadThemeCommand = new RelayCommand(
+                        param => AppTheme.Instance.ReloadCurrentTheme()
+                        );
+                }
+                return _reloadThemeCommand;
+            }
+        }
         #endregion
 
         #region Public Methods
@@ -532,6 +613,10 @@ namespace dnGREP.WPF
             MaxExtensionBookmarks = Settings.Get<int>(GrepSettings.Key.MaxExtensionBookmarks);
             OptionsLocation = Settings.Get<bool>(GrepSettings.Key.OptionsOnMainPanel) ?
                 PanelSelection.MainPanel : PanelSelection.OptionsExpander;
+
+            // current values may not equal the saved settings value
+            CurrentTheme = AppTheme.Instance.CurrentThemeName;
+            FollowWindowsTheme = AppTheme.Instance.FollowWindowsTheme;
         }
 
         private void SaveSettings()
@@ -577,6 +662,8 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.MaxPathBookmarks, MaxPathBookmarks);
             Settings.Set(GrepSettings.Key.MaxExtensionBookmarks, MaxExtensionBookmarks);
             Settings.Set(GrepSettings.Key.OptionsOnMainPanel, OptionsLocation == PanelSelection.MainPanel);
+            Settings.Set(GrepSettings.Key.FollowWindowsTheme, FollowWindowsTheme);
+            Settings.Set(GrepSettings.Key.CurrentTheme, CurrentTheme);
             Settings.Save();
         }
 

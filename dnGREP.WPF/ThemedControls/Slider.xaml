@@ -1,0 +1,304 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ControlTemplate x:Key="SliderThumbHorizontalTop" TargetType="{x:Type Thumb}">
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" UseLayoutRounding="True">
+            <Path x:Name="grip" VerticalAlignment="Center"
+                  Data="M 0,6 C0,6 5.5,0 5.5,0 5.5,0 11,6 11,6 11,6 11,18 11,18 11,18 0,18 0,18 0,18 0,6 0,6 z"
+                  Fill="{DynamicResource SliderThumb.Static.Background}"
+                  Stretch="Fill" SnapsToDevicePixels="True"
+                  Stroke="{DynamicResource SliderThumb.Static.Border}"
+                  StrokeThickness="1" UseLayoutRounding="True" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter TargetName="grip" Property="Fill" Value="{DynamicResource SliderThumb.MouseOver.Background}" />
+                <Setter TargetName="grip" Property="Stroke" Value="{DynamicResource SliderThumb.MouseOver.Border}" />
+            </Trigger>
+            <Trigger Property="IsDragging" Value="true">
+                <Setter TargetName="grip" Property="Fill" Value="{DynamicResource SliderThumb.Pressed.Background}" />
+                <Setter TargetName="grip" Property="Stroke" Value="{DynamicResource SliderThumb.Pressed.Border}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter TargetName="grip" Property="Fill" Value="{DynamicResource SliderThumb.Disabled.Background}" />
+                <Setter TargetName="grip" Property="Stroke" Value="{DynamicResource SliderThumb.Disabled.Border}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="SliderThumbHorizontalBottom" TargetType="{x:Type Thumb}">
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" UseLayoutRounding="True">
+            <Path x:Name="grip" VerticalAlignment="Center"
+                  Data="M 0,12 C0,12 5.5,18 5.5,18 5.5,18 11,12 11,12 11,12 11,0 11,0 11,0 0,0 0,0 0,0 0,12 0,12 z"
+                  Fill="{DynamicResource SliderThumb.Static.Background}"
+                  Stretch="Fill" SnapsToDevicePixels="True"
+                  Stroke="{DynamicResource SliderThumb.Static.Border}"
+                  StrokeThickness="1" UseLayoutRounding="True" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter TargetName="grip" Property="Fill" Value="{DynamicResource SliderThumb.MouseOver.Background}" />
+                <Setter TargetName="grip" Property="Stroke" Value="{DynamicResource SliderThumb.MouseOver.Border}" />
+            </Trigger>
+            <Trigger Property="IsDragging" Value="true">
+                <Setter TargetName="grip" Property="Fill" Value="{DynamicResource SliderThumb.Pressed.Background}" />
+                <Setter TargetName="grip" Property="Stroke" Value="{DynamicResource SliderThumb.Pressed.Border}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter TargetName="grip" Property="Fill" Value="{DynamicResource SliderThumb.Disabled.Background}" />
+                <Setter TargetName="grip" Property="Stroke" Value="{DynamicResource SliderThumb.Disabled.Border}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="SliderThumbHorizontalDefault" TargetType="{x:Type Thumb}">
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" UseLayoutRounding="True">
+            <Path x:Name="grip" VerticalAlignment="Center"
+                  Data="M 0,0 C0,0 11,0 11,0 11,0 11,18 11,18 11,18 0,18 0,18 0,18 0,0 0,0 z"
+                  Fill="{DynamicResource SliderThumb.Static.Background}"
+                  Stretch="Fill" SnapsToDevicePixels="True"
+                  Stroke="{DynamicResource SliderThumb.Static.Border}"
+                  StrokeThickness="1" UseLayoutRounding="True" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter TargetName="grip" Property="Fill" Value="{DynamicResource SliderThumb.MouseOver.Background}" />
+                <Setter TargetName="grip" Property="Stroke" Value="{DynamicResource SliderThumb.MouseOver.Border}" />
+            </Trigger>
+            <Trigger Property="IsDragging" Value="true">
+                <Setter TargetName="grip" Property="Fill" Value="{DynamicResource SliderThumb.Pressed.Background}" />
+                <Setter TargetName="grip" Property="Stroke" Value="{DynamicResource SliderThumb.Pressed.Border}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter TargetName="grip" Property="Fill" Value="{DynamicResource SliderThumb.Disabled.Background}" />
+                <Setter TargetName="grip" Property="Stroke" Value="{DynamicResource SliderThumb.Disabled.Border}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="SliderHorizontal" TargetType="{x:Type Slider}">
+        <Border x:Name="border"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Background="{TemplateBinding Background}"
+                SnapsToDevicePixels="True">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" MinHeight="{TemplateBinding MinHeight}" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TickBar x:Name="TopTick" Grid.Row="0" Height="4"
+                         Margin="0,0,0,2"
+                         Fill="{TemplateBinding Foreground}"
+                         Placement="Top" Visibility="Collapsed" />
+                <TickBar x:Name="BottomTick" Grid.Row="2" Height="4"
+                         Margin="0,2,0,0"
+                         Fill="{TemplateBinding Foreground}"
+                         Placement="Bottom" Visibility="Collapsed" />
+                <Border x:Name="TrackBackground" Grid.Row="1" Height="4.0"
+                        Margin="5,0" VerticalAlignment="center"
+                        BorderBrush="{DynamicResource SliderThumb.Track.Border}"
+                        BorderThickness="1"
+                        Background="{DynamicResource SliderThumb.Track.Background}">
+                    <Canvas Margin="-6,-1">
+                        <Rectangle x:Name="PART_SelectionRange" Height="4.0"
+                                   Fill="{DynamicResource Control.Highlight}"
+                                   Visibility="Hidden" />
+                    </Canvas>
+                </Border>
+                <Track x:Name="PART_Track" Grid.Row="1">
+                    <Track.DecreaseRepeatButton>
+                        <RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{StaticResource RepeatButtonTransparent}" />
+                    </Track.DecreaseRepeatButton>
+                    <Track.IncreaseRepeatButton>
+                        <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource RepeatButtonTransparent}" />
+                    </Track.IncreaseRepeatButton>
+                    <Track.Thumb>
+                        <Thumb x:Name="Thumb" Width="11" Height="18"
+                               VerticalAlignment="Center" Focusable="False" OverridesDefaultStyle="True"
+                               Template="{StaticResource SliderThumbHorizontalDefault}" />
+                    </Track.Thumb>
+                </Track>
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="TickPlacement" Value="TopLeft">
+                <Setter TargetName="TopTick" Property="Visibility" Value="Visible" />
+                <Setter TargetName="Thumb" Property="Template" Value="{StaticResource SliderThumbHorizontalTop}" />
+                <Setter TargetName="TrackBackground" Property="Margin" Value="5,2,5,0" />
+            </Trigger>
+            <Trigger Property="TickPlacement" Value="BottomRight">
+                <Setter TargetName="BottomTick" Property="Visibility" Value="Visible" />
+                <Setter TargetName="Thumb" Property="Template" Value="{StaticResource SliderThumbHorizontalBottom}" />
+                <Setter TargetName="TrackBackground" Property="Margin" Value="5,0,5,2" />
+            </Trigger>
+            <Trigger Property="TickPlacement" Value="Both">
+                <Setter TargetName="TopTick" Property="Visibility" Value="Visible" />
+                <Setter TargetName="BottomTick" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsSelectionRangeEnabled" Value="true">
+                <Setter TargetName="PART_SelectionRange" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsKeyboardFocused" Value="true">
+                <Setter TargetName="Thumb" Property="Foreground" Value="Blue" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="SliderThumbVerticalLeft" TargetType="{x:Type Thumb}">
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" UseLayoutRounding="True">
+            <Path x:Name="grip"
+                  Data="M 6,11 C6,11 0,5.5 0,5.5 0,5.5 6,0 6,0 6,0 18,0 18,0 18,0 18,11 18,11 18,11 6,11 6,11 z"
+                  Fill="{DynamicResource SliderThumb.Static.Background}"
+                  Stretch="Fill"
+                  Stroke="{DynamicResource SliderThumb.Static.Border}" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter TargetName="grip" Property="Fill" Value="{DynamicResource SliderThumb.MouseOver.Background}" />
+                <Setter TargetName="grip" Property="Stroke" Value="{DynamicResource SliderThumb.MouseOver.Border}" />
+            </Trigger>
+            <Trigger Property="IsDragging" Value="true">
+                <Setter TargetName="grip" Property="Fill" Value="{DynamicResource SliderThumb.Pressed.Background}" />
+                <Setter TargetName="grip" Property="Stroke" Value="{DynamicResource SliderThumb.Pressed.Border}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter TargetName="grip" Property="Fill" Value="{DynamicResource SliderThumb.Disabled.Background}" />
+                <Setter TargetName="grip" Property="Stroke" Value="{DynamicResource SliderThumb.Disabled.Border}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="SliderThumbVerticalRight" TargetType="{x:Type Thumb}">
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" UseLayoutRounding="True">
+            <Path x:Name="grip"
+                  Data="M 12,11 C12,11 18,5.5 18,5.5 18,5.5 12,0 12,0 12,0 0,0 0,0 0,0 0,11 0,11 0,11 12,11 12,11 z"
+                  Fill="{DynamicResource SliderThumb.Static.Background}"
+                  Stretch="Fill"
+                  Stroke="{DynamicResource SliderThumb.Static.Border}" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter TargetName="grip" Property="Fill" Value="{DynamicResource SliderThumb.MouseOver.Background}" />
+                <Setter TargetName="grip" Property="Stroke" Value="{DynamicResource SliderThumb.MouseOver.Border}" />
+            </Trigger>
+            <Trigger Property="IsDragging" Value="true">
+                <Setter TargetName="grip" Property="Fill" Value="{DynamicResource SliderThumb.Pressed.Background}" />
+                <Setter TargetName="grip" Property="Stroke" Value="{DynamicResource SliderThumb.Pressed.Border}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter TargetName="grip" Property="Fill" Value="{DynamicResource SliderThumb.Disabled.Background}" />
+                <Setter TargetName="grip" Property="Stroke" Value="{DynamicResource SliderThumb.Disabled.Border}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="SliderThumbVerticalDefault" TargetType="{x:Type Thumb}">
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" UseLayoutRounding="True">
+            <Path x:Name="grip" Data="M0.5,0.5 L18.5,0.5 18.5,11.5 0.5,11.5z"
+                  Fill="{DynamicResource SliderThumb.Static.Background}"
+                  Stretch="Fill"
+                  Stroke="{DynamicResource SliderThumb.Static.Border}" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter TargetName="grip" Property="Fill" Value="{DynamicResource SliderThumb.MouseOver.Background}" />
+                <Setter TargetName="grip" Property="Stroke" Value="{DynamicResource SliderThumb.MouseOver.Border}" />
+            </Trigger>
+            <Trigger Property="IsDragging" Value="true">
+                <Setter TargetName="grip" Property="Fill" Value="{DynamicResource SliderThumb.Pressed.Background}" />
+                <Setter TargetName="grip" Property="Stroke" Value="{DynamicResource SliderThumb.Pressed.Border}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter TargetName="grip" Property="Fill" Value="{DynamicResource SliderThumb.Disabled.Background}" />
+                <Setter TargetName="grip" Property="Stroke" Value="{DynamicResource SliderThumb.Disabled.Border}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="SliderVertical" TargetType="{x:Type Slider}">
+        <Border x:Name="border"
+                BorderBrush="{TemplateBinding BorderBrush}"
+                BorderThickness="{TemplateBinding BorderThickness}"
+                Background="{TemplateBinding Background}"
+                SnapsToDevicePixels="True">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" MinWidth="{TemplateBinding MinWidth}" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TickBar x:Name="TopTick" Grid.Column="0" Width="4"
+                         Margin="0,0,2,0"
+                         Fill="{TemplateBinding Foreground}"
+                         Placement="Left" Visibility="Collapsed" />
+                <TickBar x:Name="BottomTick" Grid.Column="2" Width="4"
+                         Margin="2,0,0,0"
+                         Fill="{TemplateBinding Foreground}"
+                         Placement="Right" Visibility="Collapsed" />
+                <Border x:Name="TrackBackground" Grid.Column="1" Width="4.0"
+                        Margin="0,5" HorizontalAlignment="center"
+                        BorderBrush="{DynamicResource SliderThumb.Track.Border}"
+                        BorderThickness="1"
+                        Background="{DynamicResource SliderThumb.Track.Background}">
+                    <Canvas Margin="-1,-6">
+                        <Rectangle x:Name="PART_SelectionRange" Width="4.0"
+                                   Fill="{DynamicResource Control.Highlight}"
+                                   Visibility="Hidden" />
+                    </Canvas>
+                </Border>
+                <Track x:Name="PART_Track" Grid.Column="1">
+                    <Track.DecreaseRepeatButton>
+                        <RepeatButton Command="{x:Static Slider.DecreaseLarge}" Style="{StaticResource RepeatButtonTransparent}" />
+                    </Track.DecreaseRepeatButton>
+                    <Track.IncreaseRepeatButton>
+                        <RepeatButton Command="{x:Static Slider.IncreaseLarge}" Style="{StaticResource RepeatButtonTransparent}" />
+                    </Track.IncreaseRepeatButton>
+                    <Track.Thumb>
+                        <Thumb x:Name="Thumb" Width="18" Height="11"
+                               VerticalAlignment="Top" Focusable="False" OverridesDefaultStyle="True"
+                               Template="{StaticResource SliderThumbVerticalDefault}" />
+                    </Track.Thumb>
+                </Track>
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="TickPlacement" Value="TopLeft">
+                <Setter TargetName="TopTick" Property="Visibility" Value="Visible" />
+                <Setter TargetName="Thumb" Property="Template" Value="{StaticResource SliderThumbVerticalLeft}" />
+                <Setter TargetName="TrackBackground" Property="Margin" Value="2,5,0,5" />
+            </Trigger>
+            <Trigger Property="TickPlacement" Value="BottomRight">
+                <Setter TargetName="BottomTick" Property="Visibility" Value="Visible" />
+                <Setter TargetName="Thumb" Property="Template" Value="{StaticResource SliderThumbVerticalRight}" />
+                <Setter TargetName="TrackBackground" Property="Margin" Value="0,5,2,5" />
+            </Trigger>
+            <Trigger Property="TickPlacement" Value="Both">
+                <Setter TargetName="TopTick" Property="Visibility" Value="Visible" />
+                <Setter TargetName="BottomTick" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsSelectionRangeEnabled" Value="true">
+                <Setter TargetName="PART_SelectionRange" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsKeyboardFocused" Value="true">
+                <Setter TargetName="Thumb" Property="Foreground" Value="Blue" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style TargetType="{x:Type Slider}">
+        <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="Foreground" Value="{DynamicResource SliderThumb.Static.Foreground}" />
+        <Setter Property="Template" Value="{StaticResource SliderHorizontal}" />
+        <Style.Triggers>
+            <Trigger Property="Orientation" Value="Vertical">
+                <Setter Property="Template" Value="{StaticResource SliderVertical}" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+</ResourceDictionary>

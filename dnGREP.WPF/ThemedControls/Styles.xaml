@@ -1,0 +1,85 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    mc:Ignorable="d">
+
+    <Style x:Key="ThemedTextBlock" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{DynamicResource Control.Foreground}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+    </Style>
+
+    <Style x:Key="LabelTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource ThemedTextBlock}">
+        <Setter Property="TextWrapping" Value="NoWrap" />
+    </Style>
+
+    <Style x:Key="GrayTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource LabelTextBlockStyle}">
+        <Setter Property="Foreground" Value="{DynamicResource Control.GrayText}" />
+        <Setter Property="TextWrapping" Value="NoWrap" />
+    </Style>
+
+    <Style x:Key="GrayedOutFilePattern" TargetType="{x:Type TextBlock}">
+        <Style.Setters>
+            <Setter Property="Foreground" Value="{DynamicResource Control.Foreground}" />
+        </Style.Setters>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=FilePatternIgnore}" Value="">
+                <Setter Property="Foreground" Value="{DynamicResource Control.GrayText}" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style TargetType="{x:Type Label}">
+        <Setter Property="Foreground" Value="{DynamicResource Control.Foreground}" />
+    </Style>
+
+    <Style x:Key="FormTextBox" BasedOn="{StaticResource {x:Type TextBox}}" TargetType="{x:Type TextBox}">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="MinHeight" Value="24" />
+    </Style>
+
+    <Style TargetType="{x:Type ToolTip}">
+        <Setter Property="Background" Value="{DynamicResource Control.InfoBackground}" />
+        <Setter Property="Foreground" Value="{DynamicResource Control.InfoForeground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource Control.FrameBorder}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="6" />
+    </Style>
+
+    <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource ThemedCheckbox}">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+
+    <Style TargetType="{x:Type RadioButton}" BasedOn="{StaticResource ThemedRadioButton}">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+
+    <Style TargetType="{x:Type ProgressBar}" BasedOn="{StaticResource ThemedProgressBar}">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+    </Style>
+
+    <Style TargetType="{x:Type DatePicker}" BasedOn="{StaticResource ThemedDatePicker}">
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+    </Style>
+
+    <Style x:Key="CalendarStyle" TargetType="Calendar">
+        <Setter Property="Height" Value="Auto" />
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="LayoutTransform">
+            <Setter.Value>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="1.2" ScaleY="1.2" />
+                </TransformGroup>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

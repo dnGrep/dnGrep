@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<SyntaxDefinition name="Python" extensions=".py" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+  <Color name="Digits"                      foreground="#FF202020"/>
+  <Color name="DocComment"                  foreground="#FF39A839" />
+  <Color name="LineComment"                 foreground="#FF39A839" />
+  <Color name="Punctuation"                 foreground="#FF202020" />
+  <Color name="Char"                        foreground="#FFC45D18" />
+  <Color name="String"                      foreground="#FFC45D18" />
+  <Color name="BuiltInStatements"           foreground="#FF0041A8" fontWeight="bold" />
+  <Color name="ClassStatement"              foreground="#FF0080FF" fontWeight="bold" />
+  <Color name="ExceptionHandlingStatements" foreground="#FF0041A8" fontWeight="bold" />
+  <Color name="FunctionDefinition"          foreground="#FF0080FF" fontWeight="bold" />
+  <Color name="Imports"                     foreground="#FF0041A8" fontWeight="bold" />
+  <Color name="IterationStatements"         foreground="#FF0080FF" fontWeight="bold" />
+  <Color name="JumpStatements"              foreground="#FF0041A8" />
+  <Color name="OperatorStatements"          foreground="#FF0080FF" fontWeight="bold" />
+  <Color name="PassStatement"               foreground="#FF202020" />
+  <Color name="SelectionStatements"         foreground="#FF0080FF" fontWeight="bold" />
+  <Color name="WithStatement"               foreground="#FF9400D3" />
+  <Color name="CommentMarkerSetTodo"        foreground="#FFA83939" fontWeight="bold" />
+  <Color name="CommentMarkerSetHackUndone"  foreground="#FFB0A700" fontWeight="bold"/>
+
+  <RuleSet name="CommentMarkerSet">
+    <Keywords color="CommentMarkerSetTodo">
+      <Word>TODO</Word>
+      <Word>FIXME</Word>
+    </Keywords>
+    <Keywords color="CommentMarkerSetHackUndone">
+      <Word>HACK</Word>
+      <Word>UNDONE</Word>
+    </Keywords>
+  </RuleSet>
+
+  <!-- Main RuleSet -->
+  <RuleSet ignoreCase="false">
+
+    <Rule color="Digits">\b0[xX][0-9a-fA-F]+|(\b\d+(\.[0-9]+)?|\.[0-9]+)([eE][+-]?[0-9]+)?</Rule>
+
+    <Rule color="Punctuation">
+      [?,.:;()\[\]{}+\-/%*&lt;&gt;^=~!&amp;]+
+    </Rule>
+
+    <Span color="Char" multiline="false">
+      <Begin>'</Begin>
+      <End>'</End>
+      <RuleSet>
+        <!-- escape with backslash -->
+        <Span begin="\\" end="." />
+      </RuleSet>
+    </Span>
+    <Span color="DocComment" ruleSet="CommentMarkerSet" multiline="true">
+      <Begin>"""</Begin>
+      <End>"""</End>
+    </Span>
+    <Span color="LineComment" ruleSet="CommentMarkerSet" multiline="false">
+      <Begin>\#</Begin>
+    </Span>
+    <Span color="String" multiline="false">
+      <Begin>"</Begin>
+      <End>"</End>
+      <RuleSet>
+        <!-- escape with backslash -->
+        <Span begin="\\" end="."/>
+      </RuleSet>
+    </Span>
+
+    <Keywords color="BuiltInStatements">
+      <Word>assert</Word>
+      <Word>del</Word>
+      <Word>exec</Word>
+      <Word>global</Word>
+      <Word>lambda</Word>
+      <Word>print</Word>
+    </Keywords>
+    <Keywords color="ClassStatement">
+      <Word>class</Word>
+    </Keywords>
+    <Keywords color="ExceptionHandlingStatements">
+      <Word>except</Word>
+      <Word>finally</Word>
+      <Word>raise</Word>
+      <Word>try</Word>
+    </Keywords>
+    <Keywords color="FunctionDefinition">
+      <Word>def</Word>
+    </Keywords>
+    <Keywords color="Imports">
+      <Word>import</Word>
+      <Word>from</Word>
+    </Keywords>
+    <Keywords color="IterationStatements">
+      <Word>for</Word>
+      <Word>in</Word>
+      <Word>while</Word>
+    </Keywords>
+    <Keywords color="JumpStatements">
+      <Word>break</Word>
+      <Word>continue</Word>
+      <Word>yield</Word>
+      <Word>return</Word>
+    </Keywords>
+    <Keywords color="OperatorStatements">
+      <Word>and</Word>
+      <Word>as</Word>
+      <Word>is</Word>
+      <Word>not</Word>
+      <Word>or</Word>
+    </Keywords>
+    <Keywords color="PassStatement">
+      <Word>pass</Word>
+    </Keywords>
+    <Keywords color="SelectionStatements">
+      <Word>elif</Word>
+      <Word>else</Word>
+      <Word>if</Word>
+    </Keywords>
+    <Keywords color="WithStatement">
+      <Word>with</Word>
+    </Keywords>
+  </RuleSet>
+</SyntaxDefinition>

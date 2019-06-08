@@ -3,36 +3,54 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:my="clr-namespace:dnGREP.WPF"
              xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="600">
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             d:DesignHeight="300"
+             d:DesignWidth="600"
+             mc:Ignorable="d">
 
     <UserControl.Resources>
-        <my:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed"/>
+        <my:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed" />
         <Style TargetType="Label">
-            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontSize" Value="16" />
         </Style>
     </UserControl.Resources>
 
-    <Border BorderBrush="LightGray" BorderThickness="0,1,0,0">
+    <Border BorderBrush="{DynamicResource Control.Static.Border}" BorderThickness="0,1,0,0">
         <DockPanel>
-            <DockPanel DockPanel.Dock="Top" Background="{Binding ElementName=statusBar, Path=Background}" Name="previewPanel" 
+            <DockPanel Name="previewPanel" DockPanel.Dock="Top"
+                       Background="{DynamicResource StatusBar.Static.Background}"
                        Visibility="{Binding Path=IsLargeOrBinary, Converter={StaticResource BoolToVisibilityConverter}}">
-                <Label Content="This file is either binary or too large to preview." VerticalContentAlignment="Center"/>
-                <Button Content="Preview anyway" FontSize="14" Padding="6" Margin="3" HorizontalAlignment="Right" Click="Button_Click"/>
+                <Label VerticalContentAlignment="Center" Content="This file is either binary or too large to preview." Foreground="{DynamicResource StatusBar.Static.Foreground}" />
+                <Button Margin="3" Padding="6" HorizontalAlignment="Right"
+                        Content="Preview anyway" FontSize="14" Click="Button_Click" />
             </DockPanel>
-            <Label DockPanel.Dock="Top" Content="Highlights disabled: too many matches found." 
-                   Background="{Binding ElementName=statusBar, Path=Background}" VerticalContentAlignment="Center"
-                   Visibility="{Binding HighlightDisabled, Converter={StaticResource BoolToVisibilityConverter}}"/>
-            <StatusBar DockPanel.Dock="Bottom" ClipToBounds="False" Grid.Row="4" Name="statusBar" VerticalContentAlignment="Center" VerticalAlignment="Center">
-                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,3,0">Zoom:</TextBlock>
-                <Slider Name="zoomSlider" ToolTip="Changes text editor zoom" Value="12" Minimum="9" Maximum="30" Width="200" HorizontalAlignment="Right" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="0,0,3,0"/>
-                <CheckBox Name="cbWrapText" VerticalContentAlignment="Center" VerticalAlignment="Center" Margin="0,0,3,0">Wrap text</CheckBox>
-                <ComboBox Name="cbHighlighter" ItemsSource="{Binding Path=Highlighters}" SelectedValue="{Binding Path=CurrentSyntax}" VerticalContentAlignment="Center" Margin="0,0,3,0"></ComboBox>
+            <Label VerticalContentAlignment="Center" DockPanel.Dock="Top"
+                   Content="Highlights disabled: too many matches found."
+                   Background="{DynamicResource StatusBar.Static.Background}"
+                   Foreground="{DynamicResource StatusBar.Static.Foreground}"
+                   Visibility="{Binding HighlightDisabled, Converter={StaticResource BoolToVisibilityConverter}}" />
+            <StatusBar Name="statusBar" Grid.Row="4" VerticalAlignment="Center"
+                       VerticalContentAlignment="Center" DockPanel.Dock="Bottom" ClipToBounds="False">
+                <TextBlock Margin="0,0,3,0" HorizontalAlignment="Center" VerticalAlignment="Center">Zoom:</TextBlock>
+                <Slider Name="zoomSlider" Width="200" Margin="0,0,3,0"
+                        HorizontalAlignment="Right" VerticalAlignment="Center"
+                        VerticalContentAlignment="Center" ToolTip="Changes text editor zoom" Minimum="9"
+                        Maximum="30" Value="12" />
+                <CheckBox Name="cbWrapText" Margin="0,0,3,0" VerticalAlignment="Center"
+                          VerticalContentAlignment="Center">
+                    Wrap text
+                </CheckBox>
+                <ComboBox Name="cbHighlighter" Margin="0,0,3,0" VerticalContentAlignment="Center"
+                          ItemsSource="{Binding Path=Highlighters}"
+                          SelectedValue="{Binding Path=CurrentSyntax}" />
             </StatusBar>
-            <ae:TextEditor Name="textEditor" FontFamily="Consolas" FontSize="{Binding ElementName=zoomSlider,Path=Value}" ShowLineNumbers="True" 
-                           IsReadOnly="True" WordWrap="{Binding ElementName=cbWrapText,Path=IsChecked}" />
+            <ae:TextEditor Name="textEditor" FontFamily="Consolas"
+                           FontSize="{Binding ElementName=zoomSlider, Path=Value}"
+                           Foreground="{DynamicResource AvalonEdit.Foreground}"
+                           Background="{DynamicResource AvalonEdit.Background}"
+                           ShowLineNumbers="True" IsReadOnly="True"
+                           WordWrap="{Binding ElementName=cbWrapText, Path=IsChecked}" />
         </DockPanel>
     </Border>
 </UserControl>
