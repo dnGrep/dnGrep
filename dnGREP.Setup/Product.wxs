@@ -21,6 +21,9 @@
 
     <!-- Properties -->
     <Property Id="INSTALLLEVEL" Value="3" />
+    
+    <!-- uncomment the next line to write verbose logs to %temp%\MSIxxxxx.LOG -->
+    <!--<Property Id="MsiLogging" Value="v" />-->
 
     <!-- Icon -->
     <Icon Id="nGREP.ico" SourceFile="nGREP.ico"/>
@@ -159,8 +162,14 @@
       <Custom Action="PreventReInstalling" After="FindRelatedProducts">SELFFOUND</Custom>
       <RemoveExistingProducts After="InstallInitialize"/>
       <Custom Action="RunWarmUp" Before="InstallFinalize">NOT REMOVE</Custom>
+      <Custom Action="NetFxExecuteNativeImageCommitInstall" After="NetFxExecuteNativeImageUninstall">0</Custom>
+      <Custom Action="NetFxExecuteNativeImageInstall" After="NetFxExecuteNativeImageCommitInstall" />
     </InstallExecuteSequence>
 
+    <UI>
+      <ProgressText Action="NetFxExecuteNativeImageInstall">Running ngen to optimize the application</ProgressText>
+    </UI>
+    
     <InstallUISequence>
       <Custom Action="PreventDowngrading" After="FindRelatedProducts">NEWERFOUND</Custom>
       <Custom Action="PreventReInstalling" After="FindRelatedProducts">SELFFOUND</Custom>

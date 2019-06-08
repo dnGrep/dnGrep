@@ -68,7 +68,9 @@ namespace dnGREP.WPF
 
         protected override void OnSourceInitialized(EventArgs e)
         {
-            base.OnSourceInitialized(e);
+            if (isVisible)
+                base.OnSourceInitialized(e);
+
             if (!isVisible)
             {
                 if (PresentationSource.FromVisual(this) is HwndSource hwndSource)

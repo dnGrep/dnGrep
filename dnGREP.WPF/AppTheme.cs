@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Management;
+using System.Reflection;
 using System.Security.Principal;
 using System.Windows;
 using System.Windows.Markup;
@@ -72,11 +73,11 @@ namespace dnGREP.WPF
                 {
                     string dataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dnGrep");
                     string path = Path.Combine(dataFolder, CurrentThemeName + ".xaml");
-                    Application.Current.Resources.MergedDictionaries[0].Source = new Uri(path, UriKind.Absolute);
+                    if (File.Exists(path))
+                    {
+                        Application.Current.Resources.MergedDictionaries[0].Source = new Uri(path, UriKind.Absolute);
+                    }
                 }
-
-                //var accentColor = SystemParameters.WindowGlassColor;
-                //Current.Resources["ControlAccentBrush"] = new SolidColorBrush(accentColor);
 
                 CurrentThemeChanged?.Invoke(this, EventArgs.Empty);
             }
@@ -97,6 +98,20 @@ namespace dnGREP.WPF
 
         public void Initialize()
         {
+            string src = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Themes", "Sunset.xaml");
+            string dest = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dnGrep", "Sunset.xaml");
+            if (!File.Exists(dest))
+            {
+                try
+                {
+                    File.Copy(src, dest);
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex);
+                }
+            }
+
             LoadExternalThemes();
 
             HasWindowsThemes = false;
@@ -202,7 +217,7 @@ namespace dnGREP.WPF
                     {
                         string name = Path.GetFileNameWithoutExtension(fileName);
                         object obj = XamlReader.Load(s);
-                        if (obj is ResourceDictionary dict && IsValid(dict, name))
+                        if (obj is ResourceDictionary dict && IsValid(dict, name) && !themeNames.Contains(name))
                         {
                             themeNames.Add(name);
                         }
