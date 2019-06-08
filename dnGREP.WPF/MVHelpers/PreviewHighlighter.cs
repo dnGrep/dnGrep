@@ -1,4 +1,5 @@
-﻿using System.Windows.Media;
+﻿using System.Windows;
+using System.Windows.Media;
 using dnGREP.Common;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Rendering;
@@ -30,6 +31,9 @@ namespace dnGREP.WPF
 
             if (lineResult != null)
             {
+                Brush background = Application.Current.Resources["Match.Highlight.Background"] as Brush;
+                Brush foreground = Application.Current.Resources["Match.Highlight.Foreground"] as Brush;
+
                 for (int i = 0; i < lineResult.Matches.Count; i++)
                 {
                     try
@@ -43,10 +47,8 @@ namespace dnGREP.WPF
                             {
                                 // This lambda gets called once for every VisualLineElement
                                 // between the specified offsets.
-                                Brush br = element.TextRunProperties.BackgroundBrush;
-                                // Replace the typeface with a modified version of
-                                // the same typeface
-                                element.TextRunProperties.SetBackgroundBrush(new SolidColorBrush(Colors.Yellow));
+                                element.TextRunProperties.SetBackgroundBrush(background);
+                                element.TextRunProperties.SetForegroundBrush(foreground);
                             });
                     }
                     catch

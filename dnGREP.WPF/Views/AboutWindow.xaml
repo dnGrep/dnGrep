@@ -1,12 +1,19 @@
-﻿<Window x:Class="dnGREP.WPF.AboutWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d"
-        Title="About dnGREP" Height="270" Width="480"
-        WindowStyle="SingleBorderWindow" ResizeMode="NoResize" WindowStartupLocation="CenterOwner"
-        Background="#FFF0F0F0">
+﻿<my:ThemedWindow x:Class="dnGREP.WPF.AboutWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:my="clr-namespace:dnGREP.WPF"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 Title="About dnGREP"
+                 Width="480"
+                 Height="270"
+                 Icon="/dnGREP;component/nGREP.ico"
+                 WindowStyle="SingleBorderWindow"
+                 ResizeMode="NoResize"
+                 WindowStartupLocation="CenterOwner"
+                 Background="{DynamicResource Dialog.Background}"
+                 CaptionBackground="{DynamicResource Caption.Dialog.Background}"
+                 mc:Ignorable="d">
 
     <Grid Margin="8">
         <Grid.RowDefinitions>
@@ -22,19 +29,32 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
-        <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Source="/dnGREP;component/Images/dnGrep80.png" 
-               Width="80" Height="80" Margin="8"/>
-
-        <TextBlock Grid.Row="0" Grid.Column="1" Text="dnGREP" FontWeight="DemiBold" FontSize="14"/>
-        <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Version, FallbackValue='Version'}"/>
-        <TextBlock Grid.Row="2" Grid.Column="1" Text="{Binding BuildDate, FallbackValue='Build date'}"/>
-        <TextBlock Grid.Row="3" Grid.Column="1" Text="{Binding Copyright, FallbackValue='Copyright'}"/>
-        
-        <Border Grid.Row="4" Grid.Column="1" BorderBrush="Gray" BorderThickness="0,1,0,0" Margin="0,3,0,0">
-            <TextBlock Text="{Binding Description, FallbackValue='Description'}" TextWrapping="Wrap"/>
+        <Border Grid.Row="0" Grid.RowSpan="4" Grid.Column="0"
+                Margin="8" Background="#80ffffff" CornerRadius="12">
+            <Image Width="72" Height="72" Margin="8"
+                   Source="/dnGREP;component/Images/dnGrep80.png" />
         </Border>
 
-        <Button Grid.Row="5" Grid.Column="1" Content="OK" IsDefault="True" IsCancel="True" 
-                Width="90" Height="28" HorizontalAlignment="Right" />
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="dnGREP"
+                   FontWeight="DemiBold" FontSize="14"
+                   Style="{StaticResource ThemedTextBlock}" />
+        <TextBlock Grid.Row="1" Grid.Column="1"
+                   Text="{Binding Version, FallbackValue='Version'}"
+                   Style="{StaticResource ThemedTextBlock}" />
+        <TextBlock Grid.Row="2" Grid.Column="1"
+                   Text="{Binding BuildDate, FallbackValue='Build date'}"
+                   Style="{StaticResource ThemedTextBlock}" />
+        <TextBlock Grid.Row="3" Grid.Column="1"
+                   Text="{Binding Copyright, FallbackValue='Copyright'}"
+                   Style="{StaticResource ThemedTextBlock}" />
+
+        <Border Grid.Row="4" Grid.Column="1" Margin="0,3,0,0"
+                BorderBrush="Gray" BorderThickness="0,1,0,0">
+            <TextBlock Text="{Binding Description, FallbackValue='Description'}" TextWrapping="Wrap" Style="{StaticResource ThemedTextBlock}" />
+        </Border>
+
+        <Button Grid.Row="5" Grid.Column="1" Width="90"
+                Height="28" HorizontalAlignment="Right" Content="OK"
+                IsDefault="True" IsCancel="True" />
     </Grid>
-</Window>
+</my:ThemedWindow>

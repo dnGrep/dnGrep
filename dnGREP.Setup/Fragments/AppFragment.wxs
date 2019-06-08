@@ -77,10 +77,13 @@
         </File>
       </Component>
       <Component Id="cmp2026EEE4D24E41B4BF43B79B16CE7A4E" Guid="{392076A3-06CF-4212-941B-DD82FB72075D}">
-        <File Id="filA5A20558D688414DA4A216589F40877A" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\Everything$(var.App.PlatformShort).dll" >
-          <netfx:NativeImage Id="ngen_Everything$(var.App.PlatformShort).dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
-        </File>
+        <File Id="filA5A20558D688414DA4A216589F40877A" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\Everything$(var.App.PlatformShort).dll" />
       </Component>
+      <Directory Id="dirA21EF341F58C4CD8A3652F9814E52748" Name="Themes">
+        <Component Id="cmp9870824B781A4C4094CD594CACFBDE9E" Guid="{1E306AFA-D718-4B0A-93E8-B6242A094BF9}">
+          <File Id="fil2766C07E80EC4076B2B54F770E60FF44" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\Themes\Sunset.xaml" />
+        </Component>
+      </Directory>
     </DirectoryRef>
   </Fragment>
   <Fragment>
@@ -99,6 +102,7 @@
       <ComponentRef Id="cmp10B3F70BED274CCC836FFC1BB5B515F8" />
       <ComponentRef Id="cmp7DD353A5178A4A3EAE13CB71CD8CEAE2" />
       <ComponentRef Id="cmp2026EEE4D24E41B4BF43B79B16CE7A4E" />
+      <ComponentRef Id="cmp9870824B781A4C4094CD594CACFBDE9E" />
     </ComponentGroup>
   </Fragment>
 </Wix>

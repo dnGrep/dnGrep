@@ -33,6 +33,11 @@ namespace dnGREP.WPF
             var lineResult = result.SearchResults.FirstOrDefault(sr => sr.ClippedFileLineNumber == lineNumber && sr.IsContext == false);
             if (lineResult != null)
             {
+                Brush skipBackground = Application.Current.Resources["Match.Skip.Background"] as Brush;
+                Brush skipForeground = Application.Current.Resources["Match.Skip.Foreground"] as Brush;
+                Brush replBackground = Application.Current.Resources["Match.Replace.Background"] as Brush;
+                Brush replForeground = Application.Current.Resources["Match.Replace.Foreground"] as Brush;
+
                 foreach (var grepMatch in lineResult.Matches)
                 {
                     try
@@ -40,7 +45,8 @@ namespace dnGREP.WPF
                         // get the global file match corresponding to this line match
                         // only the file match has a valid ReplaceMatch flag
                         GrepMatch fileMatch = result.Matches.FirstOrDefault(m => m.FileMatchId == grepMatch.FileMatchId);
-                        Color color = fileMatch == null ? Colors.LightGray : fileMatch.ReplaceMatch ? Colors.PaleGreen : Colors.LightSalmon;
+                        Brush foreground = fileMatch == null ? Brushes.Black : fileMatch.ReplaceMatch ? replForeground : skipForeground;
+                        Brush background = fileMatch == null ? Brushes.LightGray : fileMatch.ReplaceMatch ? replBackground : skipBackground;
 
                         bool isSelected = grepMatch.FileMatchId.Equals(SelectedGrepMatch.FileMatchId);
 
@@ -51,7 +57,8 @@ namespace dnGREP.WPF
                             {
                                 // This lambda gets called once for every VisualLineElement
                                 // between the specified offsets.
-                                element.TextRunProperties.SetBackgroundBrush(new SolidColorBrush(color));
+                                element.TextRunProperties.SetBackgroundBrush(background);
+                                element.TextRunProperties.SetForegroundBrush(foreground);
 
                                 if (isSelected)
                                 {
@@ -59,7 +66,7 @@ namespace dnGREP.WPF
                                     {
                                         new TextDecoration(
                                             TextDecorationLocation.Underline,
-                                            new Pen(Brushes.Black, 2), 0,
+                                            new Pen(foreground, 2), 0,
                                             TextDecorationUnit.Pixel,
                                             TextDecorationUnit.Pixel)
                                     };

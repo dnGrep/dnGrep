@@ -1,51 +1,47 @@
 ﻿<UserControl x:Class="dnGREP.WPF.UserControls.ResultsTree"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:my="clr-namespace:dnGREP.WPF"
              xmlns:Controls="clr-namespace:dnGREP.WPF.UserControls"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:dummyData="clr-namespace:dnGREP.WPF.DesignTimeData"
              d:DataContext="{x:Static dummyData:DesignTimeData.DummyObservableGrepSearchResults}"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             mc:Ignorable="d">
+    
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </UserControl.Resources>
-    <Controls:MultiSelectTreeView x:Name="treeView" Grid.Row="3" HorizontalContentAlignment="Stretch"
-                            ItemsSource="{Binding}" SelectedItems="{Binding SelectedNodes}"
-                            MultiSelectRootLevelOnly="False"
-                            VirtualizingStackPanel.IsVirtualizing="True"
-                            MouseDoubleClick="treeView_MouseDoubleClick" PreviewKeyDown="treeKeyDown" 
-                            SelectedItemsChanged="OnSelectedItemsChanged"
-                            my:FocusExtension.IsFocused="{Binding IsResultsTreeFocused}" >
+
+    <Controls:MultiSelectTreeView x:Name="treeView" HorizontalContentAlignment="Stretch"
+                                  my:FocusExtension.IsFocused="{Binding IsResultsTreeFocused}"
+                                  Foreground="{DynamicResource TreeView.Foreground}"
+                                  Background="{DynamicResource TreeView.Background}"
+                                  BorderBrush="{DynamicResource TreeView.Border}"
+                                  ItemsSource="{Binding}"
+                                  SelectedItems="{Binding SelectedNodes}"
+                                  MultiSelectRootLevelOnly="False" VirtualizingStackPanel.IsVirtualizing="True"
+                                  MouseDoubleClick="treeView_MouseDoubleClick" PreviewKeyDown="treeKeyDown"
+                                  SelectedItemsChanged="OnSelectedItemsChanged">
         <TreeView.LayoutTransform>
             <ScaleTransform ScaleX="{Binding ResultsScale}" ScaleY="{Binding ResultsScale}" />
         </TreeView.LayoutTransform>
         <TreeView.Resources>
-            <LinearGradientBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" EndPoint="0,1" StartPoint="0,0">
-                <GradientStop Color="#FFD9F4FF" Offset="0"/>
-                <GradientStop Color="#FF9BDDFB" Offset="1"/>
-            </LinearGradientBrush>
-            <LinearGradientBrush x:Key="{x:Static SystemColors.ControlBrushKey}" EndPoint="0,1" StartPoint="0,0">
-                <GradientStop Color="#FFEEEDED" Offset="0"/>
-                <GradientStop Color="#FFDDDDDD" Offset="1"/>
-            </LinearGradientBrush>
-            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
-            <SolidColorBrush x:Key="{x:Static SystemColors.ControlTextBrushKey}" Color="Black" />
-            <HierarchicalDataTemplate DataType="{x:Type my:FormattedGrepResult}" ItemsSource="{Binding FormattedLines}" >
+            <HierarchicalDataTemplate DataType="{x:Type my:FormattedGrepResult}" ItemsSource="{Binding FormattedLines}">
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="{Binding Icon}" Height="16" />
-                        <TextBlock Text="{Binding Label}" Margin="3,0,0,0"/>
+                        <Image Height="16" Source="{Binding Icon}" />
+                        <TextBlock Margin="3,0,0,0" Text="{Binding Label}" />
                     </StackPanel>
                     <Viewbox Width="20" Height="20" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <Controls:BusyIndicator Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                        <Controls:BusyIndicator Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     </Viewbox>
                 </StackPanel>
             </HierarchicalDataTemplate>
             <DataTemplate DataType="{x:Type my:FormattedGrepLine}">
-                <Border BorderBrush="LightGray">
+                <Border BorderBrush="{DynamicResource TreeView.Section.Border}">
                     <Border.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="BorderThickness" Value="0,0,0,0" />
@@ -61,19 +57,22 @@
                             <Style TargetType="{x:Type TextBlock}">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}}" Value="True">
-                                        <Setter Property="Background" Value="#FFD2D2D2"/>
+                                        <Setter Property="Background" Value="{DynamicResource TreeView.LineNumber.Selected.Background}" />
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}}" Value="False">
-                                        <Setter Property="Background" Value="#FFE0E0E0"/>
+                                        <Setter Property="Background" Value="{DynamicResource TreeView.LineNumber.Deselected.Background}" />
                                     </DataTrigger>
                                     <DataTrigger Binding="{Binding Style}" Value="Empty">
-                                        <Setter Property="Background" Value="White"/>
+                                        <Setter Property="Background" Value="{DynamicResource TreeView.LineNumber.Empty.Background}" />
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
                         </WrapPanel.Resources>
-                        <TextBlock Margin="-3" Width="{Binding LineNumberColumnWidth}" Text="{Binding FormattedLineNumber}" TextAlignment="Right" Padding="0,0,3,0"/>
-                        <my:InlineTextBlock Margin="3,0,0,0" InlineCollection="{Binding FormattedText}" FontFamily="Consolas"/>
+                        <TextBlock Width="{Binding LineNumberColumnWidth}"
+                                   Margin="-3" Padding="0,0,3,0"
+                                   Text="{Binding FormattedLineNumber}"
+                                   TextAlignment="Right" />
+                        <my:InlineTextBlock Margin="3,0,0,0" InlineCollection="{Binding FormattedText}" FontFamily="Consolas" />
                     </WrapPanel>
                 </Border>
             </DataTemplate>
@@ -83,80 +82,86 @@
                 <ContextMenu.LayoutTransform>
                     <ScaleTransform ScaleX="{Binding ResultsMenuScale}" ScaleY="{Binding ResultsMenuScale}" />
                 </ContextMenu.LayoutTransform>
-                <MenuItem Header="Open" Click="btnOpenFile_Click" IsEnabled="{Binding HasSelection}"/>
-                <MenuItem Header="Open with custom editor" Click="btnOpenFileCustomEditor_Click" IsEnabled="{Binding HasSelection}"
+                <MenuItem Header="Open" Click="btnOpenFile_Click" IsEnabled="{Binding HasSelection}" />
+                <MenuItem Header="Open with custom editor" Click="btnOpenFileCustomEditor_Click"
+                          IsEnabled="{Binding HasSelection}"
                           Visibility="{Binding CustomEditorConfigured, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                <MenuItem Header="Open containing folder" Click="btnOpenContainingFolder_Click" IsEnabled="{Binding HasSelection}"/>
-                <MenuItem Header="Show file properties" Click="btnShowFileProperties_Click" IsEnabled="{Binding HasSelection}"/>
-                <Separator/>
-                <MenuItem Header="Copy file names" Click="btnCopyFileNames_Click" IsEnabled="{Binding HasSelection}"/>
-                <MenuItem Header="Copy full file paths" Click="btnCopyFullFilePath_Click" IsEnabled="{Binding HasSelection}"/>
-                <MenuItem Header="Copy Lines of text" Click="btnCopyGrepLine_Click" IsEnabled="{Binding HasGrepLineSelection}"/>
-                <Separator/>
-                <MenuItem Header="Exclude from results" Click="btnExclude_Click" IsEnabled="{Binding HasSelection}"/>
-                <MenuItem Header="Expand all" Click="btnExpandAll_Click"/>
-                <MenuItem Header="Collapse all" Click="btnCollapseAll_Click"/>
-                <MenuItem Header="Reset zoom" Click="btnResetZoom_Click"/>
+                <MenuItem Header="Open containing folder" Click="btnOpenContainingFolder_Click" IsEnabled="{Binding HasSelection}" />
+                <MenuItem Header="Show file properties" Click="btnShowFileProperties_Click" IsEnabled="{Binding HasSelection}" />
+                <Separator />
+                <MenuItem Header="Copy file names" Click="btnCopyFileNames_Click" IsEnabled="{Binding HasSelection}" />
+                <MenuItem Header="Copy full file paths" Click="btnCopyFullFilePath_Click" IsEnabled="{Binding HasSelection}" />
+                <MenuItem Header="Copy Lines of text" Click="btnCopyGrepLine_Click" IsEnabled="{Binding HasGrepLineSelection}" />
+                <Separator />
+                <MenuItem Header="Exclude from results" Click="btnExclude_Click" IsEnabled="{Binding HasSelection}" />
+                <MenuItem Header="Expand all" Click="btnExpandAll_Click" />
+                <MenuItem Header="Collapse all" Click="btnCollapseAll_Click" />
+                <MenuItem Header="Reset zoom" Click="btnResetZoom_Click" />
             </ContextMenu>
         </TreeView.ContextMenu>
         <TreeView.ItemContainerStyle>
             <Style TargetType="{x:Type TreeViewItem}">
+                <Setter Property="Foreground" Value="{DynamicResource TreeView.Foreground}" />
                 <Setter Property="Controls:MultiSelectTreeView.IsItemSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
-                <EventSetter
-                        Event="UIElement.MouseRightButtonDown"
-                        Handler="treeView_MouseDown"/>
-                <EventSetter
-                        Event="UIElement.PreviewMouseLeftButtonDown"
-                        Handler="treeView_PreviewMouseLeftButtonDown"/>
-                <EventSetter
-                        Event="UIElement.PreviewMouseMove"
-                        Handler="treeView_PreviewMouseMove"/>
-                <EventSetter 
-                        Event="RequestBringIntoView" 
-                        Handler="treeView_RequestBringIntoView"/>
-                <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}"/>
-                <Setter Property="BorderThickness" Value="1.5"/>
-                <Setter Property="Padding" Value="1"/>
+                <EventSetter Event="UIElement.MouseRightButtonDown" Handler="treeView_MouseDown" />
+                <EventSetter Event="UIElement.PreviewMouseLeftButtonDown" Handler="treeView_PreviewMouseLeftButtonDown" />
+                <EventSetter Event="UIElement.PreviewMouseMove" Handler="treeView_PreviewMouseMove" />
+                <EventSetter Event="RequestBringIntoView" Handler="treeView_RequestBringIntoView" />
+                <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                <Setter Property="BorderThickness" Value="1.5" />
+                <Setter Property="Padding" Value="1" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type TreeViewItem}">
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition MinWidth="19" Width="Auto"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto" MinWidth="19" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition/>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition />
                                 </Grid.RowDefinitions>
-                                <ToggleButton x:Name="Expander" Style="{StaticResource ExpandCollapseToggleStyle}" ClickMode="Press" IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"/>
-                                <Border x:Name="Bd" SnapsToDevicePixels="true" Grid.Column="1" Grid.ColumnSpan="2" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Padding="{TemplateBinding Padding}">
-                                    <ContentPresenter x:Name="PART_Header" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" ContentSource="Header"/>
+                                <ToggleButton x:Name="Expander"
+                                              Style="{StaticResource ExpandCollapseToggleStyle}"
+                                              ClickMode="Press"
+                                              IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" />
+                                <Border x:Name="Bd" Grid.Column="1" Grid.ColumnSpan="2"
+                                        Padding="{TemplateBinding Padding}"
+                                        SnapsToDevicePixels="true"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}">
+                                    <ContentPresenter x:Name="PART_Header"
+                                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                      SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                      ContentSource="Header" />
                                 </Border>
-                                <ItemsPresenter x:Name="ItemsHost" Grid.Column="1"  Grid.ColumnSpan="2"  Grid.Row="1"/>
+                                <ItemsPresenter x:Name="ItemsHost" Grid.Row="1" Grid.Column="1"
+                                                Grid.ColumnSpan="2" />
                             </Grid>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsExpanded" Value="false">
-                                    <Setter Property="Visibility" TargetName="ItemsHost" Value="Collapsed"/>
+                                    <Setter TargetName="ItemsHost" Property="Visibility" Value="Collapsed" />
                                 </Trigger>
                                 <Trigger Property="HasItems" Value="false">
-                                    <Setter Property="Visibility" TargetName="Expander" Value="Hidden"/>
+                                    <Setter TargetName="Expander" Property="Visibility" Value="Hidden" />
                                 </Trigger>
                                 <Trigger Property="Controls:MultiSelectTreeView.IsItemSelected" Value="true">
-                                    <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}"/>
-                                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.HighlightTextBrushKey}}"/>
+                                    <Setter TargetName="Bd" Property="Background" Value="{DynamicResource TreeViewItem.Highlight.Background}" />
+                                    <Setter Property="Foreground" Value="{DynamicResource TreeView.Foreground}" />
                                 </Trigger>
                                 <MultiTrigger>
                                     <MultiTrigger.Conditions>
-                                        <Condition Property="Controls:MultiSelectTreeView.IsItemSelected" Value="true"/>
-                                        <Condition Property="IsSelectionActive" Value="false"/>
+                                        <Condition Property="Controls:MultiSelectTreeView.IsItemSelected" Value="true" />
+                                        <Condition Property="IsSelectionActive" Value="false" />
                                     </MultiTrigger.Conditions>
-                                    <Setter Property="Background" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
-                                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+                                    <Setter TargetName="Bd" Property="Background" Value="{DynamicResource TreeViewItem.InactiveHighlight.Background}" />
+                                    <Setter Property="Foreground" Value="{DynamicResource TreeView.Foreground}" />
                                 </MultiTrigger>
                                 <Trigger Property="IsEnabled" Value="false">
-                                    <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                    <Setter Property="Foreground" Value="{DynamicResource Control.GrayText}" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -164,23 +169,23 @@
                 </Setter>
                 <Style.Triggers>
                     <DataTrigger Binding="{Binding Style}" Value="Context">
-                        <Setter Property="Foreground" Value="DimGray"/>
+                        <Setter Property="Foreground" Value="{DynamicResource Control.GrayText}" />
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Style}" Value="ReadOnly">
-                        <Setter Property="Foreground" Value="DimGray"/>
+                        <Setter Property="Foreground" Value="{DynamicResource Control.GrayText}" />
                     </DataTrigger>
                     <DataTrigger Binding="{Binding Style}" Value="Error">
-                        <Setter Property="Foreground" Value="Red"/>
+                        <Setter Property="Foreground" Value="Red" />
                     </DataTrigger>
                     <Trigger Property="Controls:MultiSelectTreeView.IsItemSelected" Value="True">
-                        <Setter Property="BorderBrush" Value="#adc6e5"/>
+                        <Setter Property="BorderBrush" Value="{DynamicResource TreeViewItem.Highlight.Border}" />
                     </Trigger>
                     <MultiTrigger>
                         <MultiTrigger.Conditions>
-                            <Condition Property="Controls:MultiSelectTreeView.IsItemSelected" Value="True"/>
-                            <Condition Property="IsSelectionActive" Value="False"/>
+                            <Condition Property="Controls:MultiSelectTreeView.IsItemSelected" Value="True" />
+                            <Condition Property="IsSelectionActive" Value="False" />
                         </MultiTrigger.Conditions>
-                        <Setter Property="BorderBrush" Value="LightGray"/>
+                        <Setter Property="BorderBrush" Value="{DynamicResource TreeViewItem.InactiveHighlight.Border}" />
                     </MultiTrigger>
                 </Style.Triggers>
             </Style>

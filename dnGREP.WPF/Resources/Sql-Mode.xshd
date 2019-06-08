@@ -8,7 +8,7 @@ http://minisqlquery.codeplex.com/license
   <Properties>
     <Property name="LineComment" value="--"/>
   </Properties>
-  <Digits name = "Digits" bold = "true" italic = "false" color = "Blue"/>
+  <Digits name = "Digits" bold = "true" italic = "false" color = "#FF296FA9"/>
   <RuleSets>
     <RuleSet ignorecase = "true">
       <Delimiters>&amp;&lt;&gt;~!%^*()-+=|\#/{}[]:;"' ,	.?</Delimiters>
@@ -50,7 +50,7 @@ http://minisqlquery.codeplex.com/license
         <Key word="DELETE" />
         <Key word="TRUNCATE" />
       </KeyWords>
-      <KeyWords name="SqlKeywordsBold" bold="true" italic="false" color="Blue">
+      <KeyWords name="SqlKeywordsBold" bold="true" italic="false" color="#FF296FA9">
         <Key word="BEGIN" />
         <Key word="END" />
         <Key word="EXEC" />
@@ -64,7 +64,7 @@ http://minisqlquery.codeplex.com/license
         <Key word="USER" />
         <Key word="VIEW" />
       </KeyWords>
-      <KeyWords name="SqlKeywordsNormal" bold="false" italic="false" color="Blue">
+      <KeyWords name="SqlKeywordsNormal" bold="false" italic="false" color="#FF296FA9">
         <Key word="ADD" />
         <Key word="ALL" />
         <Key word="ANY" />

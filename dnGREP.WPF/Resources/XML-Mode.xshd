@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<SyntaxDefinition name="XML" extensions=".aml;.xml;.xsl;.xslt;.xsd;.manifest;.config;.addin;.xshd;.wxs;.wxi;.wxl;.proj;.csproj;.drproj;.vbproj;.ilproj;.booproj;.build;.xfrm;.targets;.xaml;.xpt;.xft;.map;.wsdl;.disco;.ps1xml;.nuspec;.resx;.StyleCop" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+  <Color name="Comment"        foreground="#FF39A839" exampleText="&lt;!-- comment --&gt;" />
+  <Color name="CData"          foreground="#FFC45D18" exampleText="&lt;![CDATA[data]]&gt;" />
+  <Color name="DocType"        foreground="#FF003E70" exampleText="&lt;!DOCTYPE rootElement&gt;" />
+  <Color name="XmlDeclaration" foreground="#FF003E70" exampleText='&lt;?xml version="1.0"?&gt;' />
+  <Color name="XmlTag"         foreground="#FF296FA9" exampleText='&lt;tag attribute="value" /&gt;' />
+  <Color name="AttributeName"  foreground="#FF014163" exampleText='&lt;tag attribute="value" /&gt;' />
+  <Color name="AttributeValue" foreground="#FFC45D18" exampleText='&lt;tag attribute="value" /&gt;' />
+  <Color name="Entity"         foreground="#FF0098EB" exampleText="index.aspx?a=1&amp;amp;b=2" />
+  <Color name="BrokenEntity"   foreground="#FFF00000" exampleText="index.aspx?a=1&amp;b=2" />
+  <Color name="CommentMarkerSetTodo"       foreground="#FFF00000" fontWeight="bold"/>
+  <Color name="CommentMarkerSetHackUndone" foreground="#FFB0A700" fontWeight="bold"/>
+
+  <RuleSet name="CommentMarkerSet">
+    <Keywords color="CommentMarkerSetTodo">
+      <Word>TODO</Word>
+      <Word>FIXME</Word>
+    </Keywords>
+    <Keywords color="CommentMarkerSetHackUndone">
+      <Word>HACK</Word>
+      <Word>UNDONE</Word>
+    </Keywords>
+  </RuleSet>
+
+  <RuleSet>
+    <Span color="Comment" ruleSet="CommentMarkerSet" multiline="true">
+      <Begin>&lt;!--</Begin>
+      <End>--&gt;</End>
+    </Span>
+    <Span color="CData" multiline="true">
+      <Begin>&lt;!\[CDATA\[</Begin>
+      <End>]]&gt;</End>
+    </Span>
+    <Span color="DocType" multiline="true">
+      <Begin>&lt;!DOCTYPE</Begin>
+      <End>&gt;</End>
+    </Span>
+    <Span color="XmlDeclaration" multiline="true">
+      <Begin>&lt;\?</Begin>
+      <End>\?&gt;</End>
+    </Span>
+    <Span color="XmlTag" multiline="true">
+      <Begin>&lt;</Begin>
+      <End>&gt;</End>
+      <RuleSet>
+        <!-- Treat the position before '<' as end, as that's not a valid character
+             in attribute names and indicates the user forgot a closing quote. -->
+        <Span color="AttributeValue" multiline="true" ruleSet="EntitySet">
+          <Begin>"</Begin>
+          <End>"|(?=&lt;)</End>
+        </Span>
+        <Span color="AttributeValue" multiline="true" ruleSet="EntitySet">
+          <Begin>'</Begin>
+          <End>'|(?=&lt;)</End>
+        </Span>
+        <Rule color="AttributeName">[\d\w_\-\.]+(?=(\s*=))</Rule>
+        <Rule color="AttributeValue">=</Rule>
+      </RuleSet>
+    </Span>
+    <Import ruleSet="EntitySet"/>
+  </RuleSet>
+
+  <RuleSet name="EntitySet">
+    <Rule color="Entity">
+      &amp;
+      [\w\d\#]+
+      ;
+    </Rule>
+
+    <Rule color="BrokenEntity">
+      &amp;
+      [\w\d\#]*
+      #missing ;
+    </Rule>
+  </RuleSet>
+</SyntaxDefinition>

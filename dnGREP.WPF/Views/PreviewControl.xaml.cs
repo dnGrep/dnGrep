@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using dnGREP.Common;
 
 namespace dnGREP.WPF
@@ -20,6 +21,12 @@ namespace dnGREP.WPF
             ViewModel.ShowPreview += ViewModel_ShowPreview;
             cbWrapText.IsChecked = GrepSettings.Instance.Get<bool?>(GrepSettings.Key.PreviewWindowWrap);
             zoomSlider.Value = GrepSettings.Instance.Get<int>(GrepSettings.Key.PreviewWindowFont);
+
+            AppTheme.Instance.CurrentThemeChanged += (s, e) =>
+            {
+                textEditor.SyntaxHighlighting = ViewModel.HighlightingDefinition;
+                textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["AvalonEdit.Link"] as Brush;
+            };
         }
 
         public PreviewViewModel ViewModel { get; private set; } = new PreviewViewModel();
@@ -38,6 +45,7 @@ namespace dnGREP.WPF
                 textEditor.Clear();
                 textEditor.Encoding = ViewModel.Encoding;
                 textEditor.SyntaxHighlighting = ViewModel.HighlightingDefinition;
+                textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["AvalonEdit.Link"] as Brush;
                 for (int i = textEditor.TextArea.TextView.LineTransformers.Count - 1; i >= 0; i--)
                 {
                     if (textEditor.TextArea.TextView.LineTransformers[i] is PreviewHighlighter)

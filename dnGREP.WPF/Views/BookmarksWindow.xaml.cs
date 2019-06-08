@@ -7,7 +7,7 @@ namespace dnGREP.WPF
     /// <summary>
     /// Interaction logic for BookmarksWindow.xaml
     /// </summary>
-    public partial class BookmarksWindow : Window
+    public partial class BookmarksWindow : ThemedWindow
     {
         public event EventHandler UseBookmark;
 

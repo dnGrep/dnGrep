@@ -1,14 +1,37 @@
 ﻿<Application x:Class="dnGREP.WPF.App"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Exit="Application_Exit" Startup="Application_Startup" 
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Startup="Application_Startup"
+             Exit="Application_Exit"
              DispatcherUnhandledException="Application_DispatcherUnhandledException">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Dictionaries\Styles.xaml" />
-                <ResourceDictionary Source="Dictionaries\CustomTemplates.xaml" />
-                <!--<ResourceDictionary Source="/PresentationFramework.Aero,Version=4.0.0.0,Culture=neutral, PublicKeyToken=31bf3856ad364e35,ProcessorArchitecture=MSIL;component/themes/Aero.NormalColor.xaml"/>-->
+                <!--<ResourceDictionary Source="Themes\DarkBrushes.xaml" />-->
+                <ResourceDictionary Source="Themes\LightBrushes.xaml" />
+
+                <ResourceDictionary Source="ThemedControls\ThemedWindow.xaml" />
+                <ResourceDictionary Source="ThemedControls\FloatWindow.xaml" />
+                <ResourceDictionary Source="ThemedControls\PreviewControl.xaml" />
+                <ResourceDictionary Source="ThemedControls\TextBox.xaml" />
+                <ResourceDictionary Source="ThemedControls\Button.xaml" />
+                <ResourceDictionary Source="ThemedControls\CheckBox.xaml" />
+                <ResourceDictionary Source="ThemedControls\ComboBox.xaml" />
+                <ResourceDictionary Source="ThemedControls\CustomTemplates.xaml" />
+                <ResourceDictionary Source="ThemedControls\DataGrid.xaml" />
+                <ResourceDictionary Source="ThemedControls\DatePicker.xaml" />
+                <ResourceDictionary Source="ThemedControls\DockSite.xaml" />
+                <ResourceDictionary Source="ThemedControls\Expander.xaml" />
+                <ResourceDictionary Source="ThemedControls\GroupBox.xaml" />
+                <ResourceDictionary Source="ThemedControls\Menu.xaml" />
+                <ResourceDictionary Source="ThemedControls\ProgressBar.xaml" />
+                <ResourceDictionary Source="ThemedControls\RadioButton.xaml" />
+                <ResourceDictionary Source="ThemedControls\StatusBar.xaml" />
+                <ResourceDictionary Source="ThemedControls\ScrollViewer.xaml" />
+                <ResourceDictionary Source="ThemedControls\Slider.xaml" />
+                <ResourceDictionary Source="ThemedControls\TreeView.xaml" />
+
+                <ResourceDictionary Source="ThemedControls\Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

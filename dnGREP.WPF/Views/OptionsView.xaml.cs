@@ -6,7 +6,7 @@ namespace dnGREP.WPF
     /// <summary>
     /// Interaction logic for OptionsForm.xaml
     /// </summary>
-    public partial class OptionsView : Window
+    public partial class OptionsView : ThemedWindow
     {
         public OptionsView()
         {
@@ -36,8 +36,7 @@ namespace dnGREP.WPF
         {
             if (!string.IsNullOrEmpty(text))
             {
-                int value;
-                if (!int.TryParse(text, out value))
+                if (!int.TryParse(text, out int value))
                     return false;
             }
             return true;

@@ -8,7 +8,7 @@ namespace dnGREP.WPF
     /// <summary>
     /// Interaction logic for TestPattern.xaml
     /// </summary>
-    public partial class TestPattern : Window
+    public partial class TestPattern : ThemedWindow
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
         private TestPatternViewModel inputData = new TestPatternViewModel();
@@ -24,7 +24,7 @@ namespace dnGREP.WPF
             inputData.UpdateState("");
         }
 
-        private void formKeyDown(object sender, KeyEventArgs e)
+        private void FormKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Escape)
                 Close();
@@ -35,12 +35,12 @@ namespace dnGREP.WPF
             inputData.SaveSettings();
         }
 
-        private void btnClose_Click(object sender, RoutedEventArgs e)
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        private void btnCopyFile_Click(object sender, RoutedEventArgs e)
+        private void BtnCopyFile_Click(object sender, RoutedEventArgs e)
         {
             Clipboard.SetText(inputData.TestOutputText);
         }

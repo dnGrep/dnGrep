@@ -5,10 +5,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Input;
-using System.Xml;
 using dnGREP.Common;
 using ICSharpCode.AvalonEdit.Highlighting;
-using ICSharpCode.AvalonEdit.Highlighting.Xshd;
 
 namespace dnGREP.WPF
 {
@@ -21,34 +19,15 @@ namespace dnGREP.WPF
         public event EventHandler ReplaceMatch;
         public event EventHandler CloseTrue;
 
-        private Dictionary<string, IHighlightingDefinition> HighlightDefinitions;
-
         private int fileIndex = -1;
         private int matchIndex = -1;
 
         public ReplaceViewModel()
         {
-            HighlightDefinitions = new Dictionary<string, IHighlightingDefinition>();
-            Highlighters = new List<string>();
-            foreach (var hl in HighlightingManager.Instance.HighlightingDefinitions)
-            {
-                HighlightDefinitions[hl.Name] = hl;
-                Highlighters.Add(hl.Name);
-            }
-            Highlighters.Add("SQL");
-            HighlightDefinitions["SQL"] = LoadHighlightingDefinition("sqlmode.xshd");
+            Highlighters = ThemedHighlightingManager.Instance.HighlightingNames.ToList();
             Highlighters.Sort();
             Highlighters.Insert(0, "None");
             CurrentSyntax = "None";
-        }
-
-        private IHighlightingDefinition LoadHighlightingDefinition(string resourceName)
-        {
-            var type = typeof(ReplaceViewModel);
-            var fullName = type.Namespace + "." + resourceName;
-            using (var stream = type.Assembly.GetManifestResourceStream(fullName))
-            using (var reader = new XmlTextReader(stream))
-                return HighlightingLoader.Load(reader, HighlightingManager.Instance);
         }
 
         public void SelectNextFile()
@@ -421,10 +400,7 @@ namespace dnGREP.WPF
         {
             get
             {
-                if (HighlightDefinitions.ContainsKey(CurrentSyntax))
-                    return HighlightDefinitions[CurrentSyntax];
-                else
-                    return HighlightingManager.Instance.GetDefinitionByExtension("txt");
+                return ThemedHighlightingManager.Instance.GetDefinition(CurrentSyntax);
             }
         }
 

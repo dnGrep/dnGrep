@@ -16,6 +16,8 @@ namespace dnGREP.WPF
         {
             try
             {
+                AppTheme.Instance.Initialize();
+
                 string searchFor = null;
                 Utils.DeleteTempFolder();
                 if (e.Args != null && e.Args.Length > 0)

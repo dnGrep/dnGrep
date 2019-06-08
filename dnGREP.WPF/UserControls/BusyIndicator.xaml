@@ -1,117 +1,89 @@
-﻿<UserControl x:Class="dnGREP.WPF.UserControls.BusyIndicator"  
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Height="400" Width="400">
+﻿<UserControl x:Class="dnGREP.WPF.UserControls.BusyIndicator"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Width="400"
+             Height="400">
 
     <UserControl.Resources>
         <Style x:Key="canvasStyle" TargetType="{x:Type Canvas}">
-            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Background" Value="Transparent" />
         </Style>
-        <Style x:Key ="rectangle" 
-                     TargetType="{x:Type Rectangle}">
-            <Setter Property="Width" Value="20"/>
-            <Setter Property="Height" Value="130"/>
-            <Setter Property="Fill" Value="#FF3BA9CD"/>
-            <Setter Property="Canvas.Left" Value="190"/>
-            <Setter Property="Canvas.Top" Value="0"/>
-            <Setter Property="RadiusX" Value="10"/>
-            <Setter Property="RadiusY" Value="10"/>
+        <Style x:Key="rectangle" TargetType="{x:Type Rectangle}">
+            <Setter Property="Width" Value="20" />
+            <Setter Property="Height" Value="130" />
+            <Setter Property="Fill" Value="#FF3BA9CD" />
+            <Setter Property="Canvas.Left" Value="190" />
+            <Setter Property="Canvas.Top" Value="0" />
+            <Setter Property="RadiusX" Value="10" />
+            <Setter Property="RadiusY" Value="10" />
         </Style>
         <Style x:Key="percents" TargetType="{x:Type TextBox}">
             <Setter Property="FontSize" Value="20" />
-            <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="BorderBrush" Value="Transparent"/>
-            <Setter Property="IsReadOnly" Value="true"/>
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="IsReadOnly" Value="true" />
         </Style>
     </UserControl.Resources>
-    <Canvas RenderTransformOrigin="0.5,0.5" 
-             Style="{StaticResource canvasStyle}">
-        <Canvas Name="rotationCanvas" 
-               RenderTransformOrigin="0.5,0.5" 
-               Style="{StaticResource canvasStyle}">
-            <Rectangle  Style="{StaticResource rectangle}">
-            </Rectangle>
-            <Rectangle Opacity="0.92" 
-                    Style="{StaticResource rectangle}">
+    <Canvas RenderTransformOrigin="0.5,0.5" Style="{StaticResource canvasStyle}">
+        <Canvas Name="rotationCanvas" RenderTransformOrigin="0.5,0.5" Style="{StaticResource canvasStyle}">
+            <Rectangle Style="{StaticResource rectangle}" />
+            <Rectangle Opacity="0.92" Style="{StaticResource rectangle}">
                 <Rectangle.RenderTransform>
-                    <RotateTransform Angle="30" 
-                            CenterX="10" CenterY="200"/>
+                    <RotateTransform Angle="30" CenterX="10" CenterY="200" />
                 </Rectangle.RenderTransform>
             </Rectangle>
-            <Rectangle Opacity="0.84" 
-                    Style="{StaticResource rectangle}">
+            <Rectangle Opacity="0.84" Style="{StaticResource rectangle}">
                 <Rectangle.RenderTransform>
-                    <RotateTransform Angle="60" 
-                           CenterX="10" CenterY="200"/>
+                    <RotateTransform Angle="60" CenterX="10" CenterY="200" />
                 </Rectangle.RenderTransform>
             </Rectangle>
-            <Rectangle Opacity="0.76" 
-                     Style="{StaticResource rectangle}" >
+            <Rectangle Opacity="0.76" Style="{StaticResource rectangle}">
                 <Rectangle.RenderTransform>
-                    <RotateTransform Angle="90" 
-                          CenterX="10" CenterY="200"/>
+                    <RotateTransform Angle="90" CenterX="10" CenterY="200" />
                 </Rectangle.RenderTransform>
             </Rectangle>
-            <Rectangle Opacity="0.66" 
-                   Style="{StaticResource rectangle}">
+            <Rectangle Opacity="0.66" Style="{StaticResource rectangle}">
                 <Rectangle.RenderTransform>
-                    <RotateTransform Angle="120" 
-                         CenterX="10" CenterY="200"/>
+                    <RotateTransform Angle="120" CenterX="10" CenterY="200" />
                 </Rectangle.RenderTransform>
             </Rectangle>
-            <Rectangle Opacity="0.58" 
-                      Style="{StaticResource rectangle}" >
+            <Rectangle Opacity="0.58" Style="{StaticResource rectangle}">
                 <Rectangle.RenderTransform>
-                    <RotateTransform Angle="150" 
-                           CenterX="10" CenterY="200"/>
+                    <RotateTransform Angle="150" CenterX="10" CenterY="200" />
                 </Rectangle.RenderTransform>
             </Rectangle>
-            <Rectangle Opacity="0.5" 
-                      Style="{StaticResource rectangle}" >
+            <Rectangle Opacity="0.5" Style="{StaticResource rectangle}">
                 <Rectangle.RenderTransform>
-                    <RotateTransform Angle="180" 
-                          CenterX="10" CenterY="200"/>
+                    <RotateTransform Angle="180" CenterX="10" CenterY="200" />
                 </Rectangle.RenderTransform>
             </Rectangle>
-            <Rectangle Opacity="0.42" 
-                    Style="{StaticResource rectangle}" >
+            <Rectangle Opacity="0.42" Style="{StaticResource rectangle}">
                 <Rectangle.RenderTransform>
-                    <RotateTransform Angle="210" 
-                      CenterX="10" CenterY="200"/>
+                    <RotateTransform Angle="210" CenterX="10" CenterY="200" />
                 </Rectangle.RenderTransform>
             </Rectangle>
-            <Rectangle Opacity="0.34" 
-                      Style="{StaticResource rectangle}" >
+            <Rectangle Opacity="0.34" Style="{StaticResource rectangle}">
                 <Rectangle.RenderTransform>
-                    <RotateTransform Angle="240" 
-                      CenterX="10" CenterY="200"/>
+                    <RotateTransform Angle="240" CenterX="10" CenterY="200" />
                 </Rectangle.RenderTransform>
             </Rectangle>
-            <Rectangle Opacity="0.26" 
-                  Style="{StaticResource rectangle}" >
+            <Rectangle Opacity="0.26" Style="{StaticResource rectangle}">
                 <Rectangle.RenderTransform>
-                    <RotateTransform Angle="270" 
-                      CenterX="10" CenterY="200"/>
+                    <RotateTransform Angle="270" CenterX="10" CenterY="200" />
                 </Rectangle.RenderTransform>
             </Rectangle>
-            <Rectangle Opacity="0.16" 
-                 Style="{StaticResource rectangle}" >
+            <Rectangle Opacity="0.16" Style="{StaticResource rectangle}">
                 <Rectangle.RenderTransform>
-                    <RotateTransform Angle="300" 
-                      CenterX="10" CenterY="200"/>
+                    <RotateTransform Angle="300" CenterX="10" CenterY="200" />
                 </Rectangle.RenderTransform>
             </Rectangle>
-            <Rectangle Opacity="0.08" 
-                   Style="{StaticResource rectangle}" >
+            <Rectangle Opacity="0.08" Style="{StaticResource rectangle}">
                 <Rectangle.RenderTransform>
-                    <RotateTransform Angle="330" 
-                       CenterX="10" CenterY="200"/>
+                    <RotateTransform Angle="330" CenterX="10" CenterY="200" />
                 </Rectangle.RenderTransform>
             </Rectangle>
             <Canvas.RenderTransform>
-                <RotateTransform x:Name="SpinnerRotate"  
-                   Angle="0" CenterX="200" 
-                   CenterY="200" />
+                <RotateTransform x:Name="SpinnerRotate" Angle="0" CenterX="200" CenterY="200" />
             </Canvas.RenderTransform>
         </Canvas>
     </Canvas>
