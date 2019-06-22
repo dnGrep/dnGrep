@@ -27,7 +27,7 @@
                                 <ScrollViewer x:Name="PART_ContentHost" Margin="0"
                                               HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
                                               VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
-                                <Border x:Name="FocusVisual" BorderBrush="#FF45D6FA" CornerRadius="1"
+                                <Border x:Name="FocusVisualBorder" BorderBrush="#FF45D6FA" CornerRadius="1"
                                         IsHitTestVisible="False" Opacity="0" />
                             </Grid>
                         </Border>
@@ -68,7 +68,7 @@
                                 <VisualState x:Name="Unfocused" />
                                 <VisualState x:Name="Focused">
                                     <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisual" To="1"
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FocusVisualBorder" To="1"
                                                          Duration="0" />
                                     </Storyboard>
                                 </VisualState>
