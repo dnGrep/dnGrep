@@ -10,14 +10,24 @@ namespace dnGREP.Common
         public GrepSearchResult SearchResult { get; set; }
 
         /// <summary>
-        /// Line number
+        /// The search pattern
         /// </summary>
         public string Pattern { get; set; }
 
         /// <summary>
-        /// Line number
+        /// The match line number
         /// </summary>
         public int LineNumber { get; set; }
+
+        /// <summary>
+        /// The first match string on this line
+        /// </summary>
+        public string FirstMatch { get; set; }
+
+        /// <summary>
+        /// The column number of the first match on this line
+        /// </summary>
+        public int ColumnNumber { get; set; }
 
         /// <summary>
         /// If true, CustomEditor is used to open the file
@@ -39,20 +49,18 @@ namespace dnGREP.Common
         /// </summary>
         public bool UseBaseEngine { get; set; }
 
-        public OpenFileArgs(GrepSearchResult searchResult, string pattern, int line, bool useCustomEditor, string customEditor, string customEditorArgs)
+        public OpenFileArgs(GrepSearchResult searchResult, string pattern, int line, string firstMatch, int columnNumber, bool useCustomEditor, string customEditor, string customEditorArgs)
             : base()
         {
             SearchResult = searchResult;
             LineNumber = line;
+            FirstMatch = firstMatch;
+            ColumnNumber = columnNumber;
             UseCustomEditor = useCustomEditor;
             CustomEditor = customEditor;
             CustomEditorArgs = customEditorArgs;
             UseBaseEngine = false;
             Pattern = pattern;
         }
-
-        public OpenFileArgs()
-            : this(null, null, -1, false, null, null)
-        { }
     }
 }
