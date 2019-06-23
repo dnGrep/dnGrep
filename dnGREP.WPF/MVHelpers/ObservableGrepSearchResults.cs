@@ -152,7 +152,25 @@ namespace dnGREP.WPF
         public void AddRange(List<GrepSearchResult> list)
         {
             foreach (var l in list)
+            {
+                var fmtResult = new FormattedGrepResult(l, folderPath);
+                Add(fmtResult);
+
+                // moved this check out of FormattedGrepResult constructor:
+                // does not work correctly in TestPatternView, which does not lazy load
+                if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ExpandResults))
+                {
+                    fmtResult.IsExpanded = true;
+                }
+            }
+        }
+
+        public void AddRangeForTestView(List<GrepSearchResult> list)
+        {
+            foreach (var l in list)
+            {
                 Add(new FormattedGrepResult(l, folderPath));
+            }
         }
 
         public void AddRange(IEnumerable<FormattedGrepResult> items)
@@ -436,11 +454,6 @@ namespace dnGREP.WPF
             FormattedLines = new LazyResultsList(result, this);
             FormattedLines.LineNumberColumnWidthChanged += FormattedLines_PropertyChanged;
             FormattedLines.LoadFinished += FormattedLines_LoadFinished;
-
-            if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ExpandResults))
-            {
-                IsExpanded = true;
-            }
         }
 
         void FormattedLines_LoadFinished(object sender, EventArgs e)
