@@ -25,6 +25,8 @@
     <SolidColorBrush x:Key="Splitter.Background" po:Freeze="true" Color="#FFC8C8C8" />
 
     <!--  Window Caption  -->
+    <SolidColorBrush x:Key="Window.Border.Active" po:Freeze="true" Color="#FF707070" />
+    <SolidColorBrush x:Key="Window.Border.Inactive" po:Freeze="true" Color="#FFAAAAAA" />
     <SolidColorBrush x:Key="Caption.Background" po:Freeze="true" Color="White" />
     <SolidColorBrush x:Key="Caption.Foreground" po:Freeze="true" Color="Black" />
     <SolidColorBrush x:Key="Caption.Dialog.Background" po:Freeze="true" Color="#FFFAFAFA" />
