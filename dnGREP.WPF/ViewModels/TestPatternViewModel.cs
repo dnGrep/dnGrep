@@ -146,7 +146,7 @@ namespace dnGREP.WPF
                 }
             }
             SearchResults.Clear();
-            SearchResults.AddRange(results);
+            SearchResults.AddRangeForTestView(results);
             TestOutputText = string.Empty;
             Paragraph paragraph = new Paragraph();
             if (SearchResults.Count == 1)
@@ -154,11 +154,14 @@ namespace dnGREP.WPF
                 SearchResults[0].FormattedLines.Load(false);
                 foreach (FormattedGrepLine line in SearchResults[0].FormattedLines)
                 {
+                    if (line.IsSectionBreak)
+                    {
+                        paragraph.Inlines.Add(new Run("---------------------------------"));
+                        paragraph.Inlines.Add(new LineBreak());
+                    }
+
                     // Copy children Inline to a temporary array.
                     paragraph.Inlines.AddRange(line.FormattedText.ToList());
-
-                    paragraph.Inlines.Add(new LineBreak());
-                    paragraph.Inlines.Add(new Run("---------------------------------"));
                     paragraph.Inlines.Add(new LineBreak());
                 }
             }
