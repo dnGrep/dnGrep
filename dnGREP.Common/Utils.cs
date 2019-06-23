@@ -1288,7 +1288,9 @@ namespace dnGREP.Common
                         CreateNoWindow = true,
                         Arguments = args.CustomEditorArgs.Replace("%file", Quote(filePath))
                             .Replace("%line", args.LineNumber.ToString())
-                            .Replace("%pattern", args.Pattern),
+                            .Replace("%pattern", args.Pattern)
+                            .Replace("%match", args.FirstMatch)
+                            .Replace("%column", args.ColumnNumber.ToString()),
                     };
                     proc.Start();
                 }

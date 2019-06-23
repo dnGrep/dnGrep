@@ -106,8 +106,9 @@
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate TargetType="local:ThemedWindow">
-                    <!--  This border lets the active-window highlighting (colored border around window) show through from the OS WindowChrome  -->
-                    <Border x:Name="root" Padding="1" UseLayoutRounding="True">
+                    <Border x:Name="root" Padding="0"
+                            BorderBrush="{DynamicResource Window.Border.Inactive}"
+                            BorderThickness="1" UseLayoutRounding="True">
                         <DockPanel x:Name="innerRoot" Background="{TemplateBinding Background}">
                             <DockPanel x:Name="titleBar"
                                        Height="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(shell:WindowChrome.WindowChrome).CaptionHeight, Mode=OneWay}"
@@ -157,9 +158,11 @@
                     <ControlTemplate.Triggers>
                         <!--  Fix issue where WPF cuts off content edges when window is maximized  -->
                         <Trigger Property="WindowState" Value="Maximized">
-                            <Setter TargetName="root" Property="Padding" Value="{Binding Source={x:Static SystemParameters.WindowResizeBorderThickness}}" />
                             <Setter TargetName="innerRoot" Property="Margin" Value="{Binding Source={x:Static SystemParameters.WindowResizeBorderThickness}}" />
                             <Setter TargetName="PART_RestoreButton" Property="Style" Value="{StaticResource RestoreButtonStyle}" />
+                        </Trigger>
+                        <Trigger Property="IsActive" Value="true">
+                            <Setter TargetName="root" Property="BorderBrush" Value="{DynamicResource Window.Border.Active}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

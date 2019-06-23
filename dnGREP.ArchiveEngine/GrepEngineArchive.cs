@@ -274,7 +274,7 @@ namespace dnGREP.Engines.Archive
                 FileNameReal = args.SearchResult.FileNameReal,
                 FileNameDisplayed = args.SearchResult.FileNameDisplayed
             };
-            OpenFileArgs newArgs = new OpenFileArgs(newResult, args.Pattern, args.LineNumber, args.UseCustomEditor, args.CustomEditor, args.CustomEditorArgs);
+            OpenFileArgs newArgs = new OpenFileArgs(newResult, args.Pattern, args.LineNumber, args.FirstMatch, args.ColumnNumber, args.UseCustomEditor, args.CustomEditor, args.CustomEditorArgs);
             newArgs.SearchResult.FileNameDisplayed = filePath;
             Utils.OpenFile(newArgs);
         }

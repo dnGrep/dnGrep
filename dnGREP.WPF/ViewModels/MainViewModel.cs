@@ -593,8 +593,19 @@ namespace dnGREP.WPF
                 // Line was selected
                 int lineNumber = selectedNode.GrepLine.LineNumber;
 
+                int columnNumber = 1;
+                string matchText = string.Empty;
+                var firstMatch = selectedNode.GrepLine.Matches.FirstOrDefault();
+                if (firstMatch != null)
+                {
+                    columnNumber = firstMatch.StartLocation + 1;
+                    matchText = selectedNode.GrepLine.LineText.Substring(firstMatch.StartLocation, firstMatch.Length);
+                }
+
                 FormattedGrepResult result = selectedNode.Parent;
-                OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
+                OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, matchText, columnNumber,
+                    useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), 
+                    settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
                 IGrepEngine engine = GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, GrepEngineInitParams.Default, new FileFilter());
                 if (engine != null)
                 {
@@ -602,7 +613,9 @@ namespace dnGREP.WPF
                     GrepEngineFactory.ReturnToPool(result.GrepResult.FileNameReal, engine);
                 }
                 if (fileArg.UseBaseEngine)
-                    Utils.OpenFile(new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
+                    Utils.OpenFile(new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, matchText, columnNumber, 
+                        useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), 
+                        settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
             }
             catch (Exception ex)
             {
@@ -620,7 +633,25 @@ namespace dnGREP.WPF
             {
                 // Line was selected
                 int lineNumber = 0;
-                OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
+
+                int columnNumber = 1;
+                string matchText = string.Empty;
+                var firstLine = result.GrepResult.SearchResults.FirstOrDefault(r => !r.IsContext);
+                if (firstLine != null)
+                {
+                    lineNumber = firstLine.LineNumber;
+
+                    var firstMatch = firstLine.Matches.FirstOrDefault();
+                    if (firstMatch != null)
+                    {
+                        columnNumber = firstMatch.StartLocation + 1;
+                        matchText = firstLine.LineText.Substring(firstMatch.StartLocation, firstMatch.Length);
+                    }
+                }
+
+                OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, matchText, columnNumber,
+                    useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), 
+                    settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
                 IGrepEngine engine = GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, GrepEngineInitParams.Default, new FileFilter());
                 if (engine != null)
                 {
@@ -628,7 +659,9 @@ namespace dnGREP.WPF
                     GrepEngineFactory.ReturnToPool(result.GrepResult.FileNameReal, engine);
                 }
                 if (fileArg.UseBaseEngine)
-                    Utils.OpenFile(new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
+                    Utils.OpenFile(new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, matchText, columnNumber,
+                        useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), 
+                        settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
             }
             catch (Exception ex)
             {
@@ -1812,7 +1845,7 @@ namespace dnGREP.WPF
                 {
                     if (GrepEngineFactory.GetSearchEngine(filePath, GrepEngineInitParams.Default, new FileFilter()) is IArchiveEngine engine)
                     {
-                        OpenFileArgs fileArg = new OpenFileArgs(result, result.Pattern, 0, false, null, null);
+                        OpenFileArgs fileArg = new OpenFileArgs(result, result.Pattern, 0, string.Empty, 1, false, null, null);
                         string tempFile = engine.ExtractToTempFile(result);
                         GrepEngineFactory.ReturnToPool(filePath, engine as IGrepEngine);
 
