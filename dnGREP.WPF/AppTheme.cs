@@ -4,7 +4,9 @@ using System.Globalization;
 using System.IO;
 using System.Management;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Security.Principal;
+using System.Text;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -100,6 +102,26 @@ namespace dnGREP.WPF
         {
             string src = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Themes", "Sunset.xaml");
             string dest = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dnGrep", "Sunset.xaml");
+            if (File.Exists(dest) && FileChanged(src, dest))
+            {
+                for (int idx = 1; idx < 40; idx++)
+                {
+                    string temp = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dnGrep", $"Sunset_{idx}.xaml.bak");
+                    if (!File.Exists(temp))
+                    {
+                        try
+                        {
+                            File.Move(dest, temp);
+                            break;
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.Error(ex);
+                        }
+                    }
+                }
+            }
+
             if (!File.Exists(dest))
             {
                 try
@@ -145,6 +167,22 @@ namespace dnGREP.WPF
             CurrentThemeName = appTheme;
 
             ThemedHighlightingManager.Instance.Initialize();
+        }
+
+        private bool FileChanged(string filePath1, string filePath2)
+        {
+            return GetSHA(filePath1) != GetSHA(filePath2);
+        }
+
+        private string GetSHA(string filename)
+        {
+            using (var stream = File.OpenRead(filename))
+            {
+                using (var sha = SHA256.Create())
+                {
+                    return BitConverter.ToString(sha.ComputeHash(stream)).Replace("-", "").ToLowerInvariant();
+                }
+            }
         }
 
         public void WatchTheme()
