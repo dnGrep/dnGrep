@@ -685,18 +685,25 @@ namespace dnGREP.Common
         {
             try
             {
-                string[] paths = SplitPath(path);
-                if (paths[0].Trim() != "" && File.Exists(paths[0]))
-                    return Path.GetDirectoryName(paths[0]);
-                else if (paths[0].Trim() != "" && Directory.Exists(paths[0]))
-                    return paths[0];
-                else
+                if (string.IsNullOrWhiteSpace(path))
                     return null;
+
+                string[] paths = SplitPath(path);
+                if (paths.Length > 0)
+                {
+                    if (paths[0].Trim() != "" && File.Exists(paths[0]))
+                        return Path.GetDirectoryName(paths[0]);
+                    else if (paths[0].Trim() != "" && Directory.Exists(paths[0]))
+                        return paths[0];
+                    else
+                        return null;
+                }
             }
             catch
             {
                 return null;
             }
+            return null;
         }
 
         /// <summary>

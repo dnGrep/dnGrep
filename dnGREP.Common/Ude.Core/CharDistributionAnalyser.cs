@@ -643,7 +643,7 @@ namespace Ude.Core
 
         private static float EUCTW_TYPICAL_DISTRIBUTION_RATIO = 0.75f;
 
-        private static int EUCTW_TABLE_SIZE = 8102;
+        private static int EUCTW_TABLE_SIZE = 5376;
 
         private static int[] EUCTW_CHAR2FREQ_ORDER = {
            1,1800,1506, 255,1431, 198,   9,  82,   6,7310, 177, 202,3615,1256,2808, 110, // 2742
