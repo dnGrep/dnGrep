@@ -83,6 +83,15 @@ namespace dnGREP.Engines.Archive
 
                                 if (CheckBinary(filter, stream))
                                 {
+                                    // Need to check the encoding of each file in the archive. If the encoding parameter is not default
+                                    // then it is the user-specified code page.  If the encoding parameter *is* the default,
+                                    // then it most likely not been set, so get the encoding of the extracted text file:
+                                    if (encoding == Encoding.Default && !Utils.IsBinary(stream))
+                                    {
+                                        stream.Seek(0, SeekOrigin.Begin);
+                                        encoding = Utils.GetFileEncoding(stream);
+                                    }
+
                                     IGrepEngine engine = GrepEngineFactory.GetSearchEngine(innerFileName, initParams, filter);
                                     var innerFileResults = engine.Search(stream, innerFileName, searchPattern, searchType, searchOptions, encoding);
 
@@ -92,7 +101,7 @@ namespace dnGREP.Engines.Archive
                                         {
                                             extractor.ExtractFile(innerFileName, readStream);
                                             readStream.Seek(0, SeekOrigin.Begin);
-                                            using (StreamReader streamReader = new StreamReader(readStream))
+                                            using (StreamReader streamReader = new StreamReader(readStream, encoding))
                                             {
                                                 foreach (var result in innerFileResults)
                                                 {
