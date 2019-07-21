@@ -441,6 +441,22 @@ namespace dnGREP.Common
         }
 
         /// <summary>
+        /// Detects the byte order mark of a file and returns an appropriate encoding for the file.
+        /// </summary>
+        /// <param name="stream"></param>
+        /// <returns></returns>
+        public static Encoding GetFileEncoding(Stream stream)
+        {
+            var detector = new Ude.CharsetDetector();
+            detector.Feed(stream);
+            detector.DataEnd();
+            var result = DotNetEncodingFromUde(detector.Charset) ?? Encoding.Default; // If we detected an encoding, use it, otherwise use default.
+            // reset the stream back to the beginning
+            stream.Seek(0, SeekOrigin.Begin);
+            return result;
+        }
+
+        /// <summary>
         /// Maps a Ude charset to a System.Text.Encoding.
         /// </summary>
         /// <returns>
