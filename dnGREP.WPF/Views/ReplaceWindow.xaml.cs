@@ -162,6 +162,12 @@ namespace dnGREP.WPF
             catch (Exception ex)
             {
                 textEditor.Text = "Error opening the file: " + ex.Message;
+                // remove the highligher
+                for (int i = textEditor.TextArea.TextView.LineTransformers.Count - 1; i >= 0; i--)
+                {
+                    if (textEditor.TextArea.TextView.LineTransformers[i] is ReplaceViewHighlighter)
+                        textEditor.TextArea.TextView.LineTransformers.RemoveAt(i);
+                }
             }
 
             // recalculate the width of the line number margin
