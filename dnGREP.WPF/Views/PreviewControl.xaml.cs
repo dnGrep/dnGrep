@@ -1,9 +1,12 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using dnGREP.Common;
+
+using File = Alphaleonis.Win32.Filesystem.File;
 
 namespace dnGREP.WPF
 {
@@ -61,8 +64,10 @@ namespace dnGREP.WPF
                     {
                         if (!string.IsNullOrWhiteSpace(ViewModel.FilePath))
                         {
-                            //Title = string.Format("Previewing \"{0}\"", ViewModel.DisplayFileName);
-                            textEditor.Load(ViewModel.FilePath);
+                            using (FileStream stream = File.Open(ViewModel.FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                            {
+                                textEditor.Load(stream);
+                            }
                             if (textEditor.IsLoaded)
                             {
                                 textEditor.ScrollTo(ViewModel.LineNumber, 0);
