@@ -119,6 +119,7 @@ namespace dnGREP.WPF
                                                  ".xft;.map;.wsdl;.disco;.ps1xml;.nuspec").Split(';'),
                                          "XML-Mode.xshd", invertColors);
                 RegisterHighlighting("MarkDown", new[] { ".md" }, "MarkDown-Mode.xshd", invertColors);
+                RegisterHighlighting("Lisp", new[] { ".lisp", ".lsp", ".cl", ".mnl", ".dcl" }, "Lisp-Mode.xshd", invertColors);
 
                 invertColors = true;
                 mode = Mode.Inverted;
