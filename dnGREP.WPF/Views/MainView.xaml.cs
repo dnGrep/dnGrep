@@ -8,7 +8,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Interop;
 using DockFloat;
-using NLog;
 
 namespace dnGREP.WPF
 {
@@ -17,9 +16,8 @@ namespace dnGREP.WPF
     /// </summary>
     public partial class MainForm : ThemedWindow
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
-        private MainViewModel viewModel;
-        private bool isVisible = true;
+        private readonly MainViewModel viewModel;
+        private readonly bool isVisible = true;
 
         public MainForm()
             : this(true)
@@ -30,16 +28,37 @@ namespace dnGREP.WPF
         {
             InitializeComponent();
 
+            // fix for placements on monitors with different DPIs:
+            // initial placement on the primary monitor, then move it
+            // to the saved location when the window is loaded
+            Left = 0;
+            Top = 0;
             Width = Properties.Settings.Default.MainFormExBounds.Width;
             Height = Properties.Settings.Default.MainFormExBounds.Height;
-            Top = Properties.Settings.Default.MainFormExBounds.Y;
-            Left = Properties.Settings.Default.MainFormExBounds.X;
-            WindowState = Properties.Settings.Default.MainWindowState;
+            WindowState = WindowState.Normal;
+
+            Rect windowBounds = new Rect(
+                Properties.Settings.Default.MainFormExBounds.X,
+                Properties.Settings.Default.MainFormExBounds.Y,
+                Properties.Settings.Default.MainFormExBounds.Width,
+                Properties.Settings.Default.MainFormExBounds.Height);
 
             Loaded += (s, e) =>
             {
-                if (!this.IsOnScreen())
+                if (windowBounds.IsOnScreen())
+                {
+                    // setting Left and Top does not work when
+                    // moving to a monitor with a different DPI
+                    // than the primary monitor
+                    this.MoveWindow(
+                        Properties.Settings.Default.MainFormExBounds.X,
+                        Properties.Settings.Default.MainFormExBounds.Y);
+                    WindowState = Properties.Settings.Default.MainWindowState;
+                }
+                else
+                {
                     this.CenterWindow();
+                }
 
                 this.ConstrainToScreen();
             };

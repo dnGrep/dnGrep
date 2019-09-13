@@ -24,22 +24,111 @@ namespace DockFloat
             }
         }
 
+        public static Point ToDevicePixels(this Window window, Point pt)
+        {
+            var t = PresentationSource.FromVisual(window).CompositionTarget.TransformToDevice;
+            return t.Transform(pt);
+        }
+
+        public static Rect ToDevicePixels(this Window window, Rect rect)
+        {
+            var t = PresentationSource.FromVisual(window).CompositionTarget.TransformToDevice;
+            var topLeft = t.Transform(rect.TopLeft);
+            var botRight = t.Transform(rect.BottomRight);
+            return new Rect(topLeft, botRight);
+        }
+
+        public static Rect ToDevicePixels(this Screen screen, Rect rect)
+        {
+            IntPtr hMonitor = NativeMethods.GetMonitor(screen.Bounds);
+            NativeMethods.GetDpiForMonitor(hMonitor, NativeMethods.MonitorDpiType.MDT_EFFECTIVE_DPI, out uint dpiX, out uint dpiY);
+            double scaleX = (double)dpiX / 96;
+            double scaleY = (double)dpiY / 96;
+            Rect result = new Rect(
+                rect.X * scaleX,
+                rect.Y * scaleY,
+                rect.Width * scaleX,
+                rect.Height * scaleY);
+            return result;
+        }
+
+        public static Point FromDevicePixels(this Window window, Point pt)
+        {
+            var t = PresentationSource.FromVisual(window).CompositionTarget.TransformFromDevice;
+            return t.Transform(pt);
+        }
+
+        public static Rect FromDevicePixels(this Window window, Rect rect)
+        {
+            var t = PresentationSource.FromVisual(window).CompositionTarget.TransformFromDevice;
+            var topLeft = t.Transform(rect.TopLeft);
+            var botRight = t.Transform(rect.BottomRight);
+            return new Rect(topLeft, botRight);
+        }
+
         public static bool IsOnScreen(this Window window)
         {
-            // when the form is snapped to the left side of the screen, the left position is a small negative number, 
-            // and the bottom exceeds the working area by a small amount.  Similar for snapped right.
-            double left = window.Left + 10;
-            double top = window.Top + 10;
-            double width = Math.Max(0, window.ActualWidth - 40);
-            double height = Math.Max(0, window.ActualHeight - 40);
+            Rect windowBounds = new Rect(
+                window.Left, window.Top, window.ActualWidth, window.ActualHeight);
 
-            Rect windRect = new Rect(left, top, width, height);
+            return windowBounds.IsOnScreen();
+        }
+
+        public static bool IsOnScreen(this Rect windowBounds)
+        {
+            // test to see if the center of the title bar is on a screen
+            // this will allow the user to easily move the window if partially off screen
+            Rect bounds = new Rect(
+                windowBounds.Left + 5 + 44,
+                windowBounds.Top + 5,
+                windowBounds.Width - 3 * 44,
+                30);
 
             foreach (Screen screen in Screen.AllScreens)
             {
-                if (screen.WorkingArea.Contains(windRect))
+                Rect deviceRect = screen.ToDevicePixels(bounds);
+                if (screen.WorkingArea.IntersectsWith(deviceRect))
                 {
                     return true;
+                }
+            }
+            return false;
+        }
+
+        public static Screen ScreenFromWpfPoint(this Point pt)
+        {
+            Rect bounds = new Rect(pt, new Size(2, 2));
+            foreach (Screen screen in Screen.AllScreens)
+            {
+                Rect deviceRect = screen.ToDevicePixels(bounds);
+                if (screen.WorkingArea.Contains(deviceRect))
+                {
+                    return screen;
+                }
+            }
+            return null;
+        }
+
+        public static bool MoveWindow(this Window window, double x, double y)
+        {
+            double width = window.Width;
+            double height = window.Height;
+            Point pt = new Point(x, y);
+            Screen screen = pt.ScreenFromWpfPoint();
+            if (screen != null)
+            {
+                Rect bounds = new Rect(x, y, window.ActualWidth, window.ActualHeight);
+                Rect r = screen.ToDevicePixels(bounds);
+                if (NativeMethods.MoveWindow(new WindowInteropHelper(window).Handle, (int)r.Left, (int)r.Top, (int)r.Width, (int)r.Height, true))
+                {
+                    window.Dispatcher.Invoke(() =>
+                    {
+                        window.Width = width;
+                        window.Height = height;
+
+                        var w = window.ActualWidth;
+                        var h = window.ActualHeight;
+                    });
                 }
             }
             return false;
@@ -49,9 +138,10 @@ namespace DockFloat
         {
             // don't let the window grow beyond the right edge of the screen
             var screen = Screen.FromHandle(new WindowInteropHelper(window).Handle);
-            if (window.Left + window.ActualWidth > screen.Bounds.Right)
+            var bounds = window.FromDevicePixels(screen.Bounds);
+            if (window.Left + window.ActualWidth > bounds.Right)
             {
-                window.Width = screen.Bounds.Right - window.Left;
+                window.Width = bounds.Right - window.Left;
             }
         }
 
@@ -61,9 +151,9 @@ namespace DockFloat
             double screenHeight = SystemParameters.PrimaryScreenHeight;
 
             if (window.ActualHeight > screenHeight)
-                window.Height = screenHeight;
+                window.Height = screenHeight - 20;
             if (window.ActualWidth > screenWidth)
-                window.Width = screenWidth;
+                window.Width = screenWidth - 20;
 
             window.Left = (screenWidth / 2) - (window.ActualWidth / 2);
             window.Top = (screenHeight / 2) - (window.ActualHeight / 2);
@@ -81,6 +171,26 @@ namespace DockFloat
 
             window.Left = screenWidth - window.ActualWidth;
             window.Top = (screenHeight / 2) - (window.ActualHeight / 2);
+        }
+
+        public static void SetWindowPosition(this Window window, Point pt, Window relativeTo)
+        {
+            pt.Offset(relativeTo.Left, relativeTo.Top);
+            IntPtr hwnd = new WindowInteropHelper(relativeTo).Handle;
+            Screen screen = Screen.FromHandle(hwnd);
+            Rect wa = relativeTo.FromDevicePixels(screen.WorkingArea);
+
+            window.WindowStartupLocation = WindowStartupLocation.Manual;
+            window.Left = pt.X;
+            window.Top = pt.Y;
+            if (window.Left < wa.Left)
+                window.Left = wa.Left;
+            if (window.Left + window.Width > wa.Right)
+                window.Left = wa.Right - window.Width;
+            if (window.Top < wa.Top)
+                window.Top = wa.Top;
+            if (window.Top + window.Height > wa.Bottom)
+                window.Top = wa.Bottom - window.Height;
         }
     }
 }

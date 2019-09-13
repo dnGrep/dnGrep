@@ -86,6 +86,7 @@
   <ItemGroup>
     <Compile Include="ContentState.cs" />
     <Compile Include="DockPanelSplitter.cs" />
+    <Compile Include="NativeMethods.cs" />
     <Compile Include="TopOrSideConverter.cs" />
     <Page Include="App.xaml">
       <SubType>Designer</SubType>
