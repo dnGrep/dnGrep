@@ -151,7 +151,7 @@ namespace Ude.Core
 
         public override void Reset ()
         {
-            int activeNum = 0;
+            activeNum = 0;
             for (int i = 0; i < PROBERS_NUM; i++) {
                 if (probers[i] != null) {
                     probers[i].Reset();
