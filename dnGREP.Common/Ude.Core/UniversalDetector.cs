@@ -1,3 +1,4 @@
+// https://dxr.mozilla.org/mozilla/source/extensions/universalchardet/src
 /* ***** BEGIN LICENSE BLOCK *****
  * Version: MPL 1.1/GPL 2.0/LGPL 2.1
  *
@@ -149,7 +150,7 @@ namespace Ude.Core
                     }
                 } else { 
                     if (inputState == InputState.PureASCII &&
-                        (buf[i] == 0x33 || (buf[i] == 0x7B && lastChar == 0x7E))) {
+                        (buf[i] == 0x1B || (buf[i] == 0x7B && lastChar == 0x7E))) {
                         // found escape character or HZ "~{"
                         inputState = InputState.EscASCII;
                     }
