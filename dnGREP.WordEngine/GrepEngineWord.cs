@@ -79,6 +79,11 @@ namespace dnGREP.Engines.Word
 
         #endregion
 
+        public IList<string> DefaultFileExtensions
+        {
+            get { return new string[] {"doc" }; }
+        }
+
         public bool IsSearchOnly
         {
             get { return true; }

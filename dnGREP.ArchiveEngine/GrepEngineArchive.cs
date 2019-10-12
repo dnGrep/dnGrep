@@ -27,6 +27,11 @@ namespace dnGREP.Engines.Archive
             : base(param)
         { }
 
+        public IList<string> DefaultFileExtensions
+        {
+            get { return new string[] { "zip", "rar", "7z", "gz", "gzip", "bz2", "bzip2", "tar", "tbz2", "tbz", "tgz", "arj", "cab", "cpio", "deb", "dmg", "iso", "isx", "hfs", "hfsx", "lzh", "lha", "lzma", "z", "taz", "rpm", "xar", "pkg", "xz", "txz", "zipx", "jar", "epub", "wim", "chm" }; }
+        }
+
         public bool IsSearchOnly
         {
             get { return true; }
@@ -226,7 +231,7 @@ namespace dnGREP.Engines.Archive
             //Do nothing
         }
 
-        public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, 
+        public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType,
             GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepMatch> replaceItems)
         {
             throw new Exception("The method or operation is not supported.");

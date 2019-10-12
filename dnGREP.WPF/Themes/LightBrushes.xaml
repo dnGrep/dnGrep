@@ -121,7 +121,7 @@
     <SolidColorBrush x:Key="Control.Static.Background" po:Freeze="true" Color="White" />
     <SolidColorBrush x:Key="Control.Static.Border" po:Freeze="true" Color="#FFACACAC" />
     <SolidColorBrush x:Key="Control.Focused.Background" po:Freeze="true" Color="White" />
-    <SolidColorBrush x:Key="Control.Disabled.Forground" po:Freeze="true" Color="#FFACACAC" />
+    <SolidColorBrush x:Key="Control.Disabled.Forground" po:Freeze="true" Color="#FF707070" />
     <SolidColorBrush x:Key="Control.MouseOver.InputBackground" po:Freeze="true" Color="White" />
     <SolidColorBrush x:Key="Control.MouseOver.InputBorder" po:Freeze="true" Color="#FF3E3E42" />
     <SolidColorBrush x:Key="Control.MouseOver.Foreground" po:Freeze="true" Color="Black" />

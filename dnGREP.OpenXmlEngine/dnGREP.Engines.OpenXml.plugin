@@ -1,3 +1,2 @@
+Name=OpenXml
 File=OpenXmlSearch\dnGREP.Engines.OpenXml.dll
-Enabled=True
-Extensions=docx,docm,xls,xlsx,xlsm
