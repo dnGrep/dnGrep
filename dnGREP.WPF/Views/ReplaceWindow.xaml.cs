@@ -10,7 +10,6 @@ using dnGREP.Common;
 using DockFloat;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Editing;
-using WpfScreenHelper;
 
 namespace dnGREP.WPF
 {
@@ -162,7 +161,7 @@ namespace dnGREP.WPF
             catch (Exception ex)
             {
                 textEditor.Text = "Error opening the file: " + ex.Message;
-                // remove the highligher
+                // remove the highlighter
                 for (int i = textEditor.TextArea.TextView.LineTransformers.Count - 1; i >= 0; i--)
                 {
                     if (textEditor.TextArea.TextView.LineTransformers[i] is ReplaceViewHighlighter)
