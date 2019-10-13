@@ -5,6 +5,7 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading;
 using System.Xml;
 using System.Xml.Serialization;
 using NLog;
@@ -121,8 +122,9 @@ namespace dnGREP.Common
         }
 
         private static GrepSettings instance;
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private const string storageFileName = "dnGREP.Settings.dat";
+        private const string mutexId = "{83D660FA-E399-4BBC-A3FC-09897115D2E2}";
 
         private GrepSettings() { }
 
@@ -171,7 +173,7 @@ namespace dnGREP.Common
             }
             catch (Exception ex)
             {
-                logger.Log<Exception>(LogLevel.Error, "Failed to load settings", ex);
+                logger.Log<Exception>(LogLevel.Error, "Failed to load settings: " + ex.Message, ex);
             }
         }
 
@@ -180,7 +182,7 @@ namespace dnGREP.Common
         /// </summary>
         public void Save()
         {
-            Save(Utils.GetDataFolderPath() + "\\" + storageFileName);
+            Save(Path.Combine(Utils.GetDataFolderPath(), storageFileName));
         }
 
         /// <summary>
@@ -189,13 +191,31 @@ namespace dnGREP.Common
         /// <param name="path">Path to settings file</param>
         public void Save(string path)
         {
-            try
+            using (var mutex = new Mutex(false, mutexId))
             {
-                if (!Directory.Exists(Path.GetDirectoryName(path)))
-                    Directory.CreateDirectory(Path.GetDirectoryName(path));
-
-                lock (this)
+                bool hasHandle = false;
+                try
                 {
+                    try
+                    {
+                        hasHandle = mutex.WaitOne(5000, false);
+                        if (hasHandle == false)
+                        {
+                            logger.Info("Timeout waiting for exclusive access to save app settings.");
+                            return;
+                        }
+                    }
+                    catch (AbandonedMutexException)
+                    {
+                        // The mutex was abandoned in another process,
+                        // it will still get acquired
+                        hasHandle = true;
+                    }
+
+                    // Perform work here.
+                    if (!Directory.Exists(Path.GetDirectoryName(path)))
+                        Directory.CreateDirectory(Path.GetDirectoryName(path));
+
                     // Create temp file in case save crashes
                     using (FileStream stream = File.OpenWrite(path + "~"))
                     using (XmlWriter xmlStream = XmlWriter.Create(stream, new XmlWriterSettings { Indent = true }))
@@ -208,10 +228,15 @@ namespace dnGREP.Common
                     File.Copy(path + "~", path, true);
                     Utils.DeleteFile(path + "~");
                 }
-            }
-            catch (Exception ex)
-            {
-                logger.Log<Exception>(LogLevel.Error, "Failed to load settings", ex);
+                catch (Exception ex)
+                {
+                    logger.Log<Exception>(LogLevel.Error, "Failed to save app settings: " + ex.Message, ex);
+                }
+                finally
+                {
+                    if (hasHandle)
+                        mutex.ReleaseMutex();
+                }
             }
         }
 

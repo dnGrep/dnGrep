@@ -27,6 +27,11 @@ namespace dnGREP.Engines.OpenXml
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
+        public IList<string> DefaultFileExtensions
+        {
+            get { return new string[] { "docx", "docm", "xls", "xlsx", "xlsm" }; }
+        }
+
         private readonly Dictionary<string, Dictionary<string, Level>> numberFormats = new Dictionary<string, Dictionary<string, Level>>();
 
 

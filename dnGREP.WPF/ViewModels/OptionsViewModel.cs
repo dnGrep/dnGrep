@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using System.Security.Principal;
 using System.Windows.Input;
 using dnGREP.Common;
+using dnGREP.Engines;
 using Microsoft.Win32;
 
 namespace dnGREP.WPF
@@ -61,11 +64,18 @@ namespace dnGREP.WPF
                 OptionsLocation != (Settings.Get<bool>(GrepSettings.Key.OptionsOnMainPanel) ?
                     PanelSelection.MainPanel : PanelSelection.OptionsExpander) ||
                 FollowWindowsTheme != Settings.Get<bool>(GrepSettings.Key.FollowWindowsTheme) ||
-                CurrentTheme != Settings.Get<string>(GrepSettings.Key.CurrentTheme))
+                CurrentTheme != Settings.Get<string>(GrepSettings.Key.CurrentTheme) ||
+                IsChanged(Plugins)
+                )
                     return true;
                 else
                     return false;
             }
+        }
+
+        private bool IsChanged(IList<PluginOptions> plugins)
+        {
+            return plugins.Any(p => p.IsChanged);
         }
 
         private bool enableWindowsIntegration;
@@ -466,6 +476,7 @@ namespace dnGREP.WPF
             }
         }
 
+        public ObservableCollection<PluginOptions> Plugins { get; set; } = new ObservableCollection<PluginOptions>();
 
         #endregion
 
@@ -583,9 +594,9 @@ namespace dnGREP.WPF
             CheckIfAdmin();
             if (!IsAdministrator)
             {
-                WindowsIntegrationTooltip = "To set shell integration run dnGREP with elevated priveleges.";
-                StartupAccelerationTooltip = "To enable startup acceleration run dnGREP with elevated priveleges.";
-                PanelTooltip = "To change shell integration and startup acceleration options run dnGREP with elevated priveleges.";
+                WindowsIntegrationTooltip = "To set shell integration run dnGREP with elevated privileges.";
+                StartupAccelerationTooltip = "To enable startup acceleration run dnGREP with elevated privileges.";
+                PanelTooltip = "To change shell integration and startup acceleration options run dnGREP with elevated privileges.";
             }
             else
             {
@@ -617,6 +628,31 @@ namespace dnGREP.WPF
             // current values may not equal the saved settings value
             CurrentTheme = AppTheme.Instance.CurrentThemeName;
             FollowWindowsTheme = AppTheme.Instance.FollowWindowsTheme;
+
+            Plugins.Clear();
+            foreach (var plugin in GrepEngineFactory.AllPlugins.OrderBy(p => p.Name))
+            {
+                string nameKey = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(plugin.Name);
+                string enabledkey = nameKey + "Enabled";
+                string addKey = "Add" + nameKey + "Extensions";
+                string remKey = "Rem" + nameKey + "Extensions";
+
+                bool isEnabled = true;
+                if (GrepSettings.Instance.ContainsKey(enabledkey))
+                    isEnabled = GrepSettings.Instance.Get<bool>(enabledkey);
+
+                string addCsv = string.Empty;
+                if (GrepSettings.Instance.ContainsKey(addKey))
+                    addCsv = GrepSettings.Instance.Get<string>(addKey).Trim();
+
+                string remCsv = string.Empty;
+                if (GrepSettings.Instance.ContainsKey(remKey))
+                    remCsv = GrepSettings.Instance.Get<string>(remKey).Trim();
+
+                var pluginOptions = new PluginOptions(
+                    plugin.Name, isEnabled, string.Join(", ", plugin.DefaultExtensions), addCsv, remCsv);
+                Plugins.Add(pluginOptions);
+            }
         }
 
         private void SaveSettings()
@@ -664,7 +700,36 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.OptionsOnMainPanel, OptionsLocation == PanelSelection.MainPanel);
             Settings.Set(GrepSettings.Key.FollowWindowsTheme, FollowWindowsTheme);
             Settings.Set(GrepSettings.Key.CurrentTheme, CurrentTheme);
+
+            bool pluginsChanged = Plugins.Any(p => p.IsChanged);
+            foreach (var plugin in Plugins)
+            {
+                string nameKey = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(plugin.Name);
+                string enabledkey = nameKey + "Enabled";
+                string addKey = "Add" + nameKey + "Extensions";
+                string remKey = "Rem" + nameKey + "Extensions";
+
+                Settings.Set(enabledkey, plugin.IsEnabled);
+                Settings.Set(addKey, CleanExtensions(plugin.AddExtensions));
+                Settings.Set(remKey, CleanExtensions(plugin.RemExtensions));
+
+                plugin.SetUnchanged();
+            }
+
             Settings.Save();
+
+            if (pluginsChanged)
+                GrepEngineFactory.ReloadPlugins();
+        }
+
+        private string CleanExtensions(string extensions)
+        {
+            if (string.IsNullOrWhiteSpace(extensions))
+                return string.Empty;
+
+            string[] split = extensions.Split(new char[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var cleaned = split.Select(s => s.TrimStart('.').Trim());
+            return string.Join(", ", cleaned);
         }
 
         private bool IsShellRegistered(string location)
@@ -886,5 +951,103 @@ namespace dnGREP.WPF
         }
 
         #endregion
+    }
+
+    public class PluginOptions : ViewModelBase
+    {
+        public PluginOptions(string name, bool enabled, string defExt, string addExt, string remExt)
+        {
+            Name = name;
+            IsEnabled = origIsEnabled = enabled;
+            DefaultExtensions = defExt;
+            AddExtensions = origAddExtensions = addExt;
+            RemExtensions = origRemExtensions = remExt;
+        }
+
+        public bool IsChanged => isEnabled != origIsEnabled || addExtensions != origAddExtensions || remExtensions != origRemExtensions;
+
+        private string name;
+        public string Name
+        {
+            get { return name; }
+            set
+            {
+                if (value == name)
+                    return;
+
+                name = value;
+                base.OnPropertyChanged(() => Name);
+            }
+        }
+
+        private bool origIsEnabled;
+        private bool isEnabled;
+        public bool IsEnabled
+        {
+            get { return isEnabled; }
+            set
+            {
+                if (value == isEnabled)
+                    return;
+
+                isEnabled = value;
+
+                base.OnPropertyChanged(() => IsEnabled);
+            }
+        }
+
+        private string origAddExtensions = string.Empty;
+        private string addExtensions = string.Empty;
+        public string AddExtensions
+        {
+            get { return addExtensions; }
+            set
+            {
+                if (value == addExtensions)
+                    return;
+
+                addExtensions = value;
+
+                base.OnPropertyChanged(() => AddExtensions);
+            }
+        }
+
+        private string origRemExtensions = string.Empty;
+        private string remExtensions = string.Empty;
+        public string RemExtensions
+        {
+            get { return remExtensions; }
+            set
+            {
+                if (value == remExtensions)
+                    return;
+
+                remExtensions = value;
+
+                base.OnPropertyChanged(() => RemExtensions);
+            }
+        }
+
+        private string defaultExtensions = string.Empty;
+        public string DefaultExtensions
+        {
+            get { return defaultExtensions; }
+            set
+            {
+                if (value == defaultExtensions)
+                    return;
+
+                defaultExtensions = value;
+
+                base.OnPropertyChanged(() => DefaultExtensions);
+            }
+        }
+
+        internal void SetUnchanged()
+        {
+            origIsEnabled = isEnabled;
+            origAddExtensions = addExtensions;
+            origRemExtensions = remExtensions;
+        }
     }
 }

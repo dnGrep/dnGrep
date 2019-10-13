@@ -268,6 +268,46 @@
                         <TextBlock Text="0 - match everything; 1.0 - exact match" />
                     </StackPanel>
                 </GroupBox>
+
+                <GroupBox Header="Plugin options">
+                    <ItemsControl ItemsSource="{Binding Path=Plugins}" Grid.IsSharedSizeScope="True">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,0,0,12">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="A"/>
+                                        <ColumnDefinition Width="480"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Name}" FontWeight="Bold" Margin="0,3,6,3"/>
+                                    <CheckBox Grid.Row="0" Grid.Column="1" Content="Enabled" IsChecked="{Binding IsEnabled}"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="Extensions:"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Default:" Margin="3" HorizontalAlignment="Right"/>
+                                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DefaultExtensions}" 
+                                             IsReadOnly="True" Margin="3" HorizontalAlignment="Stretch"/>
+
+                                    <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" SharedSizeGroup="A"/>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" SharedSizeGroup="B"/>
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Add:" Margin="3" HorizontalAlignment="Right"/>
+                                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding AddExtensions}" Margin="3" HorizontalAlignment="Stretch"/>
+                                        <TextBlock Grid.Row="0" Grid.Column="2" Text="Remove:" Margin="3" HorizontalAlignment="Right"/>
+                                        <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding RemExtensions}" Margin="3" HorizontalAlignment="Stretch"/>
+                                    </Grid>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </GroupBox>
             </StackPanel>
 
         </ScrollViewer>

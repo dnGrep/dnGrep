@@ -44,6 +44,11 @@ namespace dnGREP.Engines.Pdf
 
         #endregion
 
+
+        public IList<string> DefaultFileExtensions
+        {
+            get { return new string[] { "pdf" }; }
+        }
         public bool IsSearchOnly
         {
             get { return true; }
