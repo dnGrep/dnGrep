@@ -22,8 +22,6 @@ namespace dnGREP.Common
     /// </summary>
     public class GrepSettings : SerializableDictionary
     {
-        private const string mutexId = "{83D660FA-E399-4BBC-A3FC-09897115D2E2}";
-
         public static class Key
         {
             public const string SearchFolder = "SearchFolder";
@@ -124,8 +122,9 @@ namespace dnGREP.Common
         }
 
         private static GrepSettings instance;
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private const string storageFileName = "dnGREP.Settings.dat";
+        private const string mutexId = "{83D660FA-E399-4BBC-A3FC-09897115D2E2}";
 
         private GrepSettings() { }
 
@@ -183,7 +182,7 @@ namespace dnGREP.Common
         /// </summary>
         public void Save()
         {
-            Save(Utils.GetDataFolderPath() + "\\" + storageFileName);
+            Save(Path.Combine(Utils.GetDataFolderPath(), storageFileName));
         }
 
         /// <summary>
@@ -199,11 +198,10 @@ namespace dnGREP.Common
                 {
                     try
                     {
-                        // note, you may want to time out here instead of waiting forever
                         hasHandle = mutex.WaitOne(5000, false);
                         if (hasHandle == false)
                         {
-                            logger.Info("Timeout waiting for exclusive access to save settings.");
+                            logger.Info("Timeout waiting for exclusive access to save app settings.");
                             return;
                         }
                     }
@@ -232,7 +230,7 @@ namespace dnGREP.Common
                 }
                 catch (Exception ex)
                 {
-                    logger.Log<Exception>(LogLevel.Error, "Failed to save settings", ex);
+                    logger.Log<Exception>(LogLevel.Error, "Failed to save app settings", ex);
                 }
                 finally
                 {
