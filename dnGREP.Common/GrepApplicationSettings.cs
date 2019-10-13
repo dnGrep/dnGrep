@@ -5,6 +5,7 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Threading;
 using System.Xml;
 using System.Xml.Serialization;
 using NLog;
@@ -21,6 +22,8 @@ namespace dnGREP.Common
     /// </summary>
     public class GrepSettings : SerializableDictionary
     {
+        private const string mutexId = "{83D660FA-E399-4BBC-A3FC-09897115D2E2}";
+
         public static class Key
         {
             public const string SearchFolder = "SearchFolder";
@@ -189,13 +192,32 @@ namespace dnGREP.Common
         /// <param name="path">Path to settings file</param>
         public void Save(string path)
         {
-            try
+            using (var mutex = new Mutex(false, mutexId))
             {
-                if (!Directory.Exists(Path.GetDirectoryName(path)))
-                    Directory.CreateDirectory(Path.GetDirectoryName(path));
-
-                lock (this)
+                bool hasHandle = false;
+                try
                 {
+                    try
+                    {
+                        // note, you may want to time out here instead of waiting forever
+                        hasHandle = mutex.WaitOne(5000, false);
+                        if (hasHandle == false)
+                        {
+                            logger.Info("Timeout waiting for exclusive access to save settings.");
+                            return;
+                        }
+                    }
+                    catch (AbandonedMutexException)
+                    {
+                        // The mutex was abandoned in another process,
+                        // it will still get acquired
+                        hasHandle = true;
+                    }
+
+                    // Perform work here.
+                    if (!Directory.Exists(Path.GetDirectoryName(path)))
+                        Directory.CreateDirectory(Path.GetDirectoryName(path));
+
                     // Create temp file in case save crashes
                     using (FileStream stream = File.OpenWrite(path + "~"))
                     using (XmlWriter xmlStream = XmlWriter.Create(stream, new XmlWriterSettings { Indent = true }))
@@ -208,10 +230,15 @@ namespace dnGREP.Common
                     File.Copy(path + "~", path, true);
                     Utils.DeleteFile(path + "~");
                 }
-            }
-            catch (Exception ex)
-            {
-                logger.Log<Exception>(LogLevel.Error, "Failed to load settings", ex);
+                catch (Exception ex)
+                {
+                    logger.Log<Exception>(LogLevel.Error, "Failed to save settings", ex);
+                }
+                finally
+                {
+                    if (hasHandle)
+                        mutex.ReleaseMutex();
+                }
             }
         }
 
