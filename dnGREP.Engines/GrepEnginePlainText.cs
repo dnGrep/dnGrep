@@ -19,6 +19,11 @@ namespace dnGREP.Engines
 
         public GrepEnginePlainText() : base() { }
 
+        public IList<string> DefaultFileExtensions
+        {
+            get { return new string[0]; }
+        }
+
         public bool IsSearchOnly
         {
             get { return false; }

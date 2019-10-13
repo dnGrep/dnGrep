@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Reflection;
 using System.Text;
 using Alphaleonis.Win32.Filesystem;
@@ -10,7 +11,7 @@ namespace dnGREP.Engines
 {
     public class GrepPlugin
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private readonly IDictionary<string, Assembly> loadedAssemblies = new Dictionary<string, Assembly>();
         private Type pluginType;
 
@@ -28,6 +29,10 @@ namespace dnGREP.Engines
             }
             return engine;
         }
+
+        public string Name { get; private set; }
+
+        public List<string> DefaultExtensions { get; private set; }
 
         public List<string> Extensions { get; private set; }
 
@@ -64,6 +69,7 @@ namespace dnGREP.Engines
         public GrepPlugin(string pluginFilePath)
         {
             PluginFilePath = pluginFilePath;
+            DefaultExtensions = new List<string>();
             Extensions = new List<string>();
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
         }
@@ -83,18 +89,11 @@ namespace dnGREP.Engines
 
                         switch (tokens[0].Trim().ToUpper())
                         {
+                            case "NAME":
+                                Name = tokens[1].Trim();
+                                break;
                             case "FILE":
                                 DllFilePath = tokens[1].Trim();
-                                break;
-                            case "ENABLED":
-                                Enabled = Utils.ParseBoolean(tokens[1].Trim(), true);
-                                break;
-                            case "EXTENSIONS":
-                                Extensions.Clear();
-                                foreach (string extension in tokens[1].Trim().Split(','))
-                                {
-                                    Extensions.Add(extension.Trim().ToLower());
-                                }
                                 break;
                         }
                     }
@@ -117,18 +116,24 @@ namespace dnGREP.Engines
                         }
                     }
 
+                    IList<string> defaultExtensions = null;
                     if (pluginType != null)
                     {
                         PluginName = pluginType.Name;
                         var engine = CreateEngine();
                         if (engine != null)
                         {
+                            defaultExtensions = engine.DefaultFileExtensions;
                             IsSearchOnly = engine.IsSearchOnly;
 
                             if (engine is IDisposable disposable)
                                 disposable.Dispose();
                         }
                     }
+
+                    GetEnabledFromSettings(Name);
+
+                    GetExtensionsFromSettings(Name, defaultExtensions);
 
                     result = pluginType != null;
                 }
@@ -138,6 +143,61 @@ namespace dnGREP.Engines
                 }
             }
             return result;
+        }
+
+        private void GetEnabledFromSettings(string name)
+        {
+            Enabled = true;
+            if (!string.IsNullOrEmpty(name))
+            {
+                string key = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(name) + "Enabled";
+                if (GrepSettings.Instance.ContainsKey(key))
+                    Enabled = GrepSettings.Instance.Get<bool>(key);
+            }
+        }
+
+        private void GetExtensionsFromSettings(string name, IList<string> defaultExtensions)
+        {
+            DefaultExtensions.Clear();
+            Extensions.Clear();
+            if (defaultExtensions != null)
+            {
+                DefaultExtensions.AddRange(defaultExtensions);
+                Extensions.AddRange(defaultExtensions);
+            }
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                string addKey = "Add" + CultureInfo.InvariantCulture.TextInfo.ToTitleCase(name) + "Extensions";
+                string remKey = "Rem" + CultureInfo.InvariantCulture.TextInfo.ToTitleCase(name) + "Extensions";
+
+                if (GrepSettings.Instance.ContainsKey(addKey))
+                {
+                    string csv = GrepSettings.Instance.Get<string>(addKey).Trim();
+                    if (!string.IsNullOrWhiteSpace(csv))
+                    {
+                        foreach (string extension in csv.Split(','))
+                        {
+                            var ext = extension.Trim().ToLower();
+                            Extensions.Add(ext);
+                        }
+                    }
+                }
+
+                if (GrepSettings.Instance.ContainsKey(remKey))
+                {
+                    string csv = GrepSettings.Instance.Get<string>(remKey).Trim();
+                    if (!string.IsNullOrWhiteSpace(csv))
+                    {
+                        foreach (string extension in csv.Split(','))
+                        {
+                            var ext = extension.Trim().ToLower();
+                            if (Extensions.Contains(ext))
+                                Extensions.Remove(ext);
+                        }
+                    }
+                }
+            }
         }
 
         private Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
@@ -163,31 +223,6 @@ namespace dnGREP.Engines
             }
 
             return assembly;
-        }
-
-        public void PersistPluginSettings()
-        {
-            if (PluginFilePath != null && File.Exists(PluginFilePath))
-            {
-                try
-                {
-                    StringBuilder sb = new StringBuilder();
-                    sb.AppendLine("File=" + DllFilePath);
-                    sb.AppendLine("Enabled=" + Enabled.ToString());
-                    sb.Append("Extensions=");
-                    foreach (string ext in Extensions)
-                    {
-                        sb.Append(ext + ",");
-                    }
-                    Utils.DeleteFile(PluginFilePath);
-                    File.WriteAllText(PluginFilePath, sb.ToString());
-
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            }
         }
     }
 }

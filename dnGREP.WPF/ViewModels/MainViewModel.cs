@@ -14,6 +14,7 @@ using dnGREP.Common;
 using dnGREP.Common.UI;
 using dnGREP.Engines;
 using dnGREP.WPF.MVHelpers;
+using DockFloat;
 using Microsoft.Win32;
 using NLog;
 
@@ -604,7 +605,7 @@ namespace dnGREP.WPF
 
                 FormattedGrepResult result = selectedNode.Parent;
                 OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, matchText, columnNumber,
-                    useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), 
+                    useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor),
                     settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
                 IGrepEngine engine = GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, GrepEngineInitParams.Default, new FileFilter());
                 if (engine != null)
@@ -613,8 +614,8 @@ namespace dnGREP.WPF
                     GrepEngineFactory.ReturnToPool(result.GrepResult.FileNameReal, engine);
                 }
                 if (fileArg.UseBaseEngine)
-                    Utils.OpenFile(new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, matchText, columnNumber, 
-                        useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), 
+                    Utils.OpenFile(new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, matchText, columnNumber,
+                        useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor),
                         settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
             }
             catch (Exception ex)
@@ -650,7 +651,7 @@ namespace dnGREP.WPF
                 }
 
                 OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, matchText, columnNumber,
-                    useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), 
+                    useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor),
                     settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
                 IGrepEngine engine = GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, GrepEngineInitParams.Default, new FileFilter());
                 if (engine != null)
@@ -660,7 +661,7 @@ namespace dnGREP.WPF
                 }
                 if (fileArg.UseBaseEngine)
                     Utils.OpenFile(new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, matchText, columnNumber,
-                        useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor), 
+                        useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor),
                         settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
             }
             catch (Exception ex)
@@ -1421,10 +1422,11 @@ namespace dnGREP.WPF
                 }
                 bookmarkWindow = new BookmarksWindow(clearTheStar);
                 bookmarkWindow.UseBookmark += BookmarkForm_UseBookmark;
-                Point pt = WpfScreenHelper.MouseHelper.MousePosition;
-                bookmarkWindow.WindowStartupLocation = WindowStartupLocation.Manual;
-                bookmarkWindow.Left = pt.X - bookmarkWindow.Width + 100;
-                bookmarkWindow.Top = pt.Y + 20;
+
+                var wnd = Application.Current.MainWindow;
+                Point pt = Mouse.GetPosition(wnd);
+                pt.Offset(-bookmarkWindow.Width + 100, 20);
+                bookmarkWindow.SetWindowPosition(pt, wnd);
                 bookmarkWindow.ShowDialog();
             }
             finally
@@ -1698,6 +1700,8 @@ namespace dnGREP.WPF
             {
                 SaveSettings();
                 TestPattern testForm = new TestPattern();
+                Point pt = new Point(40, 40);
+                testForm.SetWindowPosition(pt, Application.Current.MainWindow);
                 testForm.ShowDialog();
                 LoadSettings();
             }

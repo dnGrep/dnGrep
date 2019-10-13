@@ -1,3 +1,2 @@
+Name=Pdf
 File=PdfSearch\dnGREP.Engines.Pdf.dll
-Enabled=True
-Extensions=pdf

@@ -1,3 +1,2 @@
+Name=Word
 File=MsWordSearch\dnGREP.Engines.Word.dll
-Enabled=True
-Extensions=doc

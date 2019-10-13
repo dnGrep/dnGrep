@@ -21,11 +21,23 @@ namespace dnGREP.Engines
 
         private static Dictionary<string, GrepPlugin> fileTypeEngines = new Dictionary<string, GrepPlugin>();
         private static List<GrepPlugin> plugins = null;
+        private static List<GrepPlugin> disabledPlugins = new List<GrepPlugin>();
         private static Dictionary<string, string> poolKeys = new Dictionary<string, string>();
         private static List<IGrepEngine> loadedEngines = new List<IGrepEngine>();
         private static Dictionary<string, Queue<IGrepEngine>> pooledEngines = new Dictionary<string, Queue<IGrepEngine>>();
         private static Dictionary<string, string> failedEngines = new Dictionary<string, string>();
         private static object lockObj = new object();
+
+        public static IEnumerable<GrepPlugin> AllPlugins
+        {
+            get
+            {
+                if (plugins == null)
+                    return Enumerable.Empty<GrepPlugin>();
+
+                return plugins.Concat(disabledPlugins);
+            }
+        }
 
         private static void LoadPlugins()
         {
@@ -34,6 +46,7 @@ namespace dnGREP.Engines
                 if (plugins == null)
                 {
                     plugins = new List<GrepPlugin>();
+                    disabledPlugins.Clear();
                     string pluginPath = Path.Combine(Utils.GetCurrentPath(), "Plugins");
                     if (Directory.Exists(pluginPath))
                     {
@@ -44,9 +57,9 @@ namespace dnGREP.Engines
                                 GrepPlugin plugin = new GrepPlugin(pluginFile);
                                 if (plugin.LoadPluginSettings())
                                 {
-                                    if (plugin.Enabled)
+                                    if (FrameworkVersionsAreCompatible(plugin.FrameworkVersion, FrameworkVersion))
                                     {
-                                        if (FrameworkVersionsAreCompatible(plugin.FrameworkVersion, FrameworkVersion))
+                                        if (plugin.Enabled)
                                         {
                                             plugins.Add(plugin);
 
@@ -63,15 +76,17 @@ namespace dnGREP.Engines
 
                                             logger.Debug(string.Format("Loading plugin: {0} for extensions {1}",
                                                 plugin.DllFilePath, string.Join(", ", plugin.Extensions.ToArray())));
+
                                         }
                                         else
                                         {
-                                            logger.Error(string.Format("Plugin '{0}' developed under outdated framework. Please update the plugin.", Path.GetFileNameWithoutExtension(pluginFile)));
+                                            disabledPlugins.Add(plugin);
+                                            logger.Debug(string.Format("Plugin skipped, not enabled: {0}", plugin.DllFilePath));
                                         }
                                     }
                                     else
                                     {
-                                        logger.Debug(string.Format("Plugin skipped, not enabled: {0}", plugin.DllFilePath));
+                                        logger.Error(string.Format("Plugin '{0}' developed under outdated framework. Please update the plugin.", Path.GetFileNameWithoutExtension(pluginFile)));
                                     }
                                 }
                                 else
@@ -97,6 +112,74 @@ namespace dnGREP.Engines
                                 {
                                     fileTypeEngines.Add(fileExtension, plugin);
                                 }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public static void ReloadPlugins()
+        {
+            if (plugins == null)
+            {
+                LoadPlugins();
+                return;
+            }
+
+            lock (lockObj)
+            {
+                var pluginList = new List<GrepPlugin>();
+                pluginList.AddRange(plugins);
+                pluginList.AddRange(disabledPlugins);
+
+                plugins.Clear();
+                disabledPlugins.Clear();
+                poolKeys.Clear();
+                fileTypeEngines.Clear();
+                UnloadEngines();
+
+                foreach (var plugin in pluginList)
+                {
+                    if (plugin.LoadPluginSettings())
+                    {
+                        if (plugin.Enabled)
+                        {
+                            plugins.Add(plugin);
+
+                            // many file extensions will map to the same pool of engines, 
+                            // so keep a common key for the set of extensions
+                            foreach (string ext in plugin.Extensions)
+                            {
+                                string fileExtension = ext.TrimStart('.');
+                                if (!poolKeys.ContainsKey(fileExtension))
+                                {
+                                    poolKeys.Add(fileExtension, plugin.PluginName);
+                                }
+                            }
+
+                            logger.Debug(string.Format("Loading plugin: {0} for extensions {1}",
+                                plugin.DllFilePath, string.Join(", ", plugin.Extensions.ToArray())));
+
+                        }
+                        else
+                        {
+                            disabledPlugins.Add(plugin);
+                            logger.Debug(string.Format("Plugin skipped, not enabled: {0}", plugin.DllFilePath));
+                        }
+                    }
+                }
+
+                foreach (GrepPlugin plugin in plugins)
+                {
+                    foreach (string extension in plugin.Extensions)
+                    {
+                        if (extension != null)
+                        {
+                            string fileExtension = extension.TrimStart('.');
+                            if (!string.IsNullOrWhiteSpace(fileExtension) && !fileTypeEngines.ContainsKey(fileExtension))
+                            {
+                                fileTypeEngines.Add(fileExtension, plugin);
                             }
                         }
                     }
@@ -212,11 +295,9 @@ namespace dnGREP.Engines
             lock (lockObj)
             {
                 IGrepEngine engine = null;
-                string poolKey;
-                if (poolKeys.TryGetValue(fileExtension, out poolKey))
+                if (poolKeys.TryGetValue(fileExtension, out string poolKey))
                 {
-                    Queue<IGrepEngine> pooledEngines;
-                    if (GrepEngineFactory.pooledEngines.TryGetValue(poolKey, out pooledEngines))
+                    if (GrepEngineFactory.pooledEngines.TryGetValue(poolKey, out Queue<IGrepEngine> pooledEngines))
                     {
                         if (pooledEngines.Count > 0)
                         {
@@ -233,12 +314,9 @@ namespace dnGREP.Engines
             lock (lockObj)
             {
                 string fileExtension = Path.GetExtension(fileName).ToLower().TrimStart('.');
-                string poolKey;
-                if (poolKeys.TryGetValue(fileExtension, out poolKey))
+                if (poolKeys.TryGetValue(fileExtension, out string poolKey))
                 {
-                    Queue<IGrepEngine> pooledEngines;
-
-                    if (!GrepEngineFactory.pooledEngines.TryGetValue(poolKey, out pooledEngines))
+                    if (!GrepEngineFactory.pooledEngines.TryGetValue(poolKey, out Queue<IGrepEngine> pooledEngines))
                     {
                         pooledEngines = new Queue<IGrepEngine>();
                         GrepEngineFactory.pooledEngines.Add(poolKey, pooledEngines);
