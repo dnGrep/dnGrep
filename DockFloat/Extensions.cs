@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Interop;
+using System.Windows.Media;
 using WpfScreenHelper;
 
 namespace DockFloat
@@ -40,10 +41,22 @@ namespace DockFloat
 
         public static Rect ToDevicePixels(this Screen screen, Rect rect)
         {
-            IntPtr hMonitor = NativeMethods.GetMonitor(screen.Bounds);
-            NativeMethods.GetDpiForMonitor(hMonitor, NativeMethods.MonitorDpiType.MDT_EFFECTIVE_DPI, out uint dpiX, out uint dpiY);
-            double scaleX = (double)dpiX / 96;
-            double scaleY = (double)dpiY / 96;
+            double scaleX, scaleY;
+            try
+            {
+                IntPtr hMonitor = NativeMethods.GetMonitor(screen.Bounds);
+                NativeMethods.GetDpiForMonitor(hMonitor, NativeMethods.MonitorDpiType.MDT_EFFECTIVE_DPI, out uint dpiX, out uint dpiY);
+                scaleX = (double)dpiX / 96;
+                scaleY = (double)dpiY / 96;
+            }
+            catch (EntryPointNotFoundException)
+            {
+                // must be an old version of Windows (7 or 8)
+                // Get scale of main window and assume scale is the same for all monitors
+                var dpiScale = VisualTreeHelper.GetDpi(Application.Current.MainWindow);
+                scaleX = dpiScale.DpiScaleX;
+                scaleY = dpiScale.DpiScaleY;
+            }
             Rect result = new Rect(
                 rect.X * scaleX,
                 rect.Y * scaleY,
