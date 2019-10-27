@@ -47,6 +47,8 @@ namespace DockFloat
 
     public class DockPanelSplitter : Control
     {
+        public static double Panel1MinSize => 25;
+        public static double Panel2MinSize => 25;
         static DockPanelSplitter()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(DockPanelSplitter),
@@ -182,7 +184,6 @@ namespace DockFloat
 
         private void SetTargetWidth(double newWidth)
         {
-            // todo - constrain the width of the element to the available client area
             Panel dp = Parent as Panel;
             Dock dock = DockPanel.GetDock(this);
             MatrixTransform t = element.TransformToAncestor(dp) as MatrixTransform;
@@ -194,12 +195,17 @@ namespace DockFloat
             if (newWidth > element.MaxWidth)
                 newWidth = element.MaxWidth;
 
+            if (newWidth > dp.ActualWidth - Panel1MinSize)
+                newWidth = dp.ActualWidth - Panel1MinSize;
+
+            if (newWidth < Panel2MinSize)
+                newWidth = Panel2MinSize;
+
             element.Width = newWidth;
         }
 
         private void SetTargetHeight(double newHeight)
         {
-            // todo - constrain the height of the element to the available client area
             Panel dp = Parent as Panel;
             Dock dock = DockPanel.GetDock(this);
             MatrixTransform t = element.TransformToAncestor(dp) as MatrixTransform;
@@ -210,6 +216,12 @@ namespace DockFloat
                 newHeight = element.MinHeight;
             if (newHeight > element.MaxHeight)
                 newHeight = element.MaxHeight;
+
+            if (newHeight > dp.ActualHeight - Panel1MinSize)
+                newHeight = dp.ActualHeight - Panel1MinSize;
+
+            if (newHeight < Panel2MinSize)
+                newHeight = Panel2MinSize;
 
             element.Height = newHeight;
         }
