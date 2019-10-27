@@ -141,8 +141,8 @@ namespace dnGREP.WPF
         private void MainForm_Closing(object sender, CancelEventArgs e)
         {
             viewModel.CancelSearch();
-            viewModel.SaveSettings();
             previewControl.SaveSettings();
+            viewModel.SaveSettings();
 
             Properties.Settings.Default.MainFormExBounds = new Rect(
                 Left,
