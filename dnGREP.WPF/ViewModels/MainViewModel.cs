@@ -28,10 +28,12 @@ namespace dnGREP.WPF
         public MainViewModel()
             : base()
         {
+            double maxPreviewWidth = Application.Current.MainWindow.Width - DockPanelSplitter.Panel1MinSize;
+
             _previewWindowBounds = Properties.Settings.Default.PreviewBounds;
             _previewWindowState = Properties.Settings.Default.PreviewWindowState;
             _isPreviewDocked = Properties.Settings.Default.PreviewDocked;
-            _previewDockedWidth = Properties.Settings.Default.PreviewDockedWidth;
+            _previewDockedWidth = Math.Min(Properties.Settings.Default.PreviewDockedWidth, maxPreviewWidth);
             _isPreviewHidden = Properties.Settings.Default.PreviewHidden;
 
             SearchResults.PreviewFileLineRequest += SearchResults_PreviewFileLineRequest;
@@ -1088,6 +1090,8 @@ namespace dnGREP.WPF
         {
             if (CurrentGrepOperation == GrepOperation.None && !workerSearchReplace.IsBusy)
             {
+                SaveSettings();
+
                 if (TypeOfFileSearch == FileSearchType.Regex)
                 {
                     if (!ValidateFilePatterns())
