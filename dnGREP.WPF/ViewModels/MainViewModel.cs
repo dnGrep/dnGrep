@@ -1088,6 +1088,8 @@ namespace dnGREP.WPF
         {
             if (CurrentGrepOperation == GrepOperation.None && !workerSearchReplace.IsBusy)
             {
+                SaveSettings();
+
                 if (TypeOfFileSearch == FileSearchType.Regex)
                 {
                     if (!ValidateFilePatterns())
