@@ -42,21 +42,23 @@ namespace DockFloat
         public static Rect ToDevicePixels(this Screen screen, Rect rect)
         {
             double scaleX, scaleY;
-            try
+            if (Environment.OSVersion.Version.Major >= 10 || 
+                (Environment.OSVersion.Version.Major == 6 && Environment.OSVersion.Version.Minor == 3))
             {
                 IntPtr hMonitor = NativeMethods.GetMonitor(screen.Bounds);
                 NativeMethods.GetDpiForMonitor(hMonitor, NativeMethods.MonitorDpiType.MDT_EFFECTIVE_DPI, out uint dpiX, out uint dpiY);
                 scaleX = (double)dpiX / 96;
                 scaleY = (double)dpiY / 96;
             }
-            catch (EntryPointNotFoundException)
+            else
             {
-                // must be an old version of Windows (7 or 8)
+                // an old version of Windows (7 or 8)
                 // Get scale of main window and assume scale is the same for all monitors
                 var dpiScale = VisualTreeHelper.GetDpi(Application.Current.MainWindow);
                 scaleX = dpiScale.DpiScaleX;
                 scaleY = dpiScale.DpiScaleY;
             }
+
             Rect result = new Rect(
                 rect.X * scaleX,
                 rect.Y * scaleY,
