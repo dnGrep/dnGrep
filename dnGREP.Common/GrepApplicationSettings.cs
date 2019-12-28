@@ -35,6 +35,8 @@ namespace dnGREP.Common
             public const string IncludeArchive = "IncludeArchive";
             [DefaultValue(true)]
             public const string IncludeSubfolder = "IncludeSubfolder";
+            [DefaultValue(-1)]
+            public const string MaxSubfolderDepth = "MaxSubfolderDepth";
             [DefaultValue(SearchType.Regex)]
             public const string TypeOfSearch = "TypeOfSearch";
             [DefaultValue(FileSearchType.Asterisk)]
@@ -44,6 +46,8 @@ namespace dnGREP.Common
             [DefaultValue("*.*")]
             public const string FilePattern = "FilePattern";
             public const string FilePatternIgnore = "FilePatternIgnore";
+            [DefaultValue(true)]
+            public const string UseGitignore = "UseGitignore";
             [DefaultValue(FileSizeFilter.No)]
             public const string UseFileSizeFilter = "UseFileSizeFilter";
             public const string CaseSensitive = "CaseSensitive";

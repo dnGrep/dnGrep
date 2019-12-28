@@ -32,6 +32,7 @@ namespace dnGREP.Engines
         {
             get
             {
+                LoadPlugins();
                 if (plugins == null)
                     return Enumerable.Empty<GrepPlugin>();
 
@@ -185,23 +186,6 @@ namespace dnGREP.Engines
                     }
                 }
             }
-        }
-
-        public static List<string> GetArchiveExtenstions()
-        {
-            LoadPlugins();
-
-            if (plugins != null && plugins.Count > 0)
-            {
-                var archivePlugin = plugins.Where(r => r.Enabled &&
-                    (r.Extensions.Contains("zip") || r.Extensions.Contains("gzip") || r.Extensions.Contains("gz") || r.Extensions.Contains("7z")))
-                    .Select(r => r).FirstOrDefault();
-
-                if (archivePlugin != null)
-                    return archivePlugin.Extensions;
-            }
-
-            return new List<string>();
         }
 
         public static IGrepEngine GetSearchEngine(string fileName, GrepEngineInitParams param, FileFilter filter)

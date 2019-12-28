@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -24,12 +25,7 @@ namespace dnGREP.Common
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static readonly object regexLock = new object();
-        private static Dictionary<string, Regex> regexCache = new Dictionary<string, Regex>();
-
-        static Utils()
-        {
-            ArchiveExtensions = new List<string>();
-        }
+        private static readonly Dictionary<string, Regex> regexCache = new Dictionary<string, Regex>();
 
         /// <summary>
         /// Copies the folder recursively. Uses includePattern to avoid unnecessary objects
@@ -413,7 +409,7 @@ namespace dnGREP.Common
         /// <param name="path"></param>
         public static void DeleteFolder(string path)
         {
-            string[] files = GetFileList(path, "*.*", null, false, false, true, true, true, false, 0, 0, FileDateFilter.None, null, null);
+            string[] files = GetFileList(path, "*.*", null, false, false, true, true, true, false, 0, 0, FileDateFilter.None, null, null, false, -1);
             foreach (string file in files)
             {
                 File.SetAttributes(file, FileAttributes.Normal);
@@ -610,7 +606,7 @@ namespace dnGREP.Common
             if (!string.IsNullOrWhiteSpace(ext))
             {
                 // regex extensions may have a 'match end of line' char: remove it
-                ext = ext.TrimStart('.').TrimEnd('$').ToLower();
+                ext = ext.TrimStart('.').TrimEnd('$').ToLower(CultureInfo.CurrentUICulture);
                 return ArchiveExtensions.Contains(ext);
             }
             return false;
@@ -619,7 +615,12 @@ namespace dnGREP.Common
         /// <summary>
         /// Gets or set the list of archive extensions (lowercase, without leading '.')
         /// </summary>
-        public static List<string> ArchiveExtensions { get; set; }
+        public static List<string> ArchiveExtensions => ArchiveDirectory.Extensions;
+
+        /// <summary>
+        /// returns a list of archiveExtensions used to search for files (with leading '*.')
+        /// </summary>
+        public static List<string> ArchivePatterns => ArchiveDirectory.Patterns;
 
         /// <summary>
         /// Add DirectorySeparatorChar to the end of the folder path if does not exist
@@ -730,10 +731,8 @@ namespace dnGREP.Common
         /// <returns>Array of strings. If path is null, returns null. If path is empty, returns empty array.</returns>
         public static string[] SplitPath(string path)
         {
-            if (path == null)
-                return new string[0];
-            else if (path.Trim() == "")
-                return new string[0];
+            if (string.IsNullOrWhiteSpace(path))
+                return Array.Empty<string>();
 
             // remove quotes
             path = path.Replace("\"", string.Empty);
@@ -778,23 +777,31 @@ namespace dnGREP.Common
 
         public static bool PrepareSearchPatterns(FileFilter filter, List<string> includeSearchPatterns)
         {
+            if (filter == null)
+                throw new ArgumentNullException(nameof(filter));
+            if (includeSearchPatterns == null)
+                throw new ArgumentNullException(nameof(includeSearchPatterns));
+
             bool handled = false;
             if (!filter.IsRegex && !filter.NamePatternToInclude.Contains("#!"))
             {
                 var includePatterns = SplitPath(filter.NamePatternToInclude);
                 foreach (var pattern in includePatterns)
                 {
-                    includeSearchPatterns.Add(pattern);
+                    if (pattern == "*.doc" || pattern == "*.xls")
+                        includeSearchPatterns.Add(pattern + "*");
+                    else
+                        includeSearchPatterns.Add(pattern);
                 }
-                if (filter.IncludeArchive)
-                {
-                    foreach (var ext in ArchiveExtensions)
-                    {
-                        string fileExtension = "*." + ext;
-                        if (!includeSearchPatterns.Contains(fileExtension))
-                            includeSearchPatterns.Add(fileExtension);
-                    }
-                }
+                //if (filter.IncludeArchive)
+                //{
+                //    foreach (var ext in ArchiveExtensions)
+                //    {
+                //        string fileExtension = "*." + ext;
+                //        if (!includeSearchPatterns.Contains(fileExtension))
+                //            includeSearchPatterns.Add(fileExtension);
+                //    }
+                //}
 
                 handled = true;
             }
@@ -860,10 +867,16 @@ namespace dnGREP.Common
         /// <returns></returns>
         public static IEnumerable<string> GetFileListEx(FileFilter filter)
         {
+            if (filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter));
+            }
+
             if (string.IsNullOrWhiteSpace(filter.Path) || filter.NamePatternToInclude == null)
             {
                 yield break;
             }
+
 
             // Hash set to ensure file name uniqueness
             HashSet<string> matches = new HashSet<string>();
@@ -894,7 +907,13 @@ namespace dnGREP.Common
             {
                 if (File.Exists(subPath))
                 {
-                    if (!matches.Contains(subPath))
+                    if (filter.IncludeArchive && IsArchive(subPath))
+                    {
+                        foreach (var innerFile in EnumerateArchiveFiles(subPath, filter, hasSearchPattern,
+                            includeSearchPatterns, includeRegexPatterns, excludeRegexPatterns))
+                            yield return innerFile;
+                    }
+                    else if (!matches.Contains(subPath))
                     {
                         matches.Add(subPath);
                         yield return subPath;
@@ -906,9 +925,32 @@ namespace dnGREP.Common
                     continue;
                 }
 
-                foreach (var filePath in SafeDirectory.EnumerateFiles(subPath, includeSearchPatterns, filter.IncludeHidden, filter.IncludeSubfolders))
+                Gitignore gitignore = null;
+                if (filter.UseGitIgnore)
                 {
-                    if (IncludeFile(filePath, filter, null, hasSearchPattern, includeSearchPatterns,
+                    Stopwatch sw = new Stopwatch();
+                    sw.Start();
+                    var gitDirectories = SafeDirectory.GetGitignoreDirectories(subPath, filter.IncludeSubfolders);
+                    if (gitDirectories != null)
+                    {
+                        gitignore = GitUtil.GetGitignore(gitDirectories);
+                    }
+                    sw.Stop();
+                    Debug.WriteLine($"Search git directories in {sw.ElapsedMilliseconds} ms");
+                }
+
+                foreach (var filePath in SafeDirectory.EnumerateFiles(subPath, includeSearchPatterns, gitignore, filter))
+                {
+                    if (IsArchive(filePath))
+                    {
+                        if (filter.IncludeArchive)
+                        {
+                            foreach (var innerFile in EnumerateArchiveFiles(filePath, filter, hasSearchPattern,
+                                includeSearchPatterns, includeRegexPatterns, excludeRegexPatterns))
+                                yield return innerFile;
+                        }
+                    }
+                    else if (IncludeFile(filePath, filter, null, hasSearchPattern, includeSearchPatterns,
                         includeRegexPatterns, excludeRegexPatterns) && !matches.Contains(filePath))
                     {
                         matches.Add(filePath);
@@ -921,20 +963,43 @@ namespace dnGREP.Common
         private static IEnumerable<string> GetFileListEverything(FileFilter filter, IList<Regex> includeRegexPatterns, IList<Regex> excludeRegexPatterns)
         {
             string searchString = filter.Path.Trim();
+            List<string> includeSearchPatterns = new List<string> { "*.*" };// if including archives, return everything inside archives
             if (filter.IncludeArchive)
             {
                 // to search in archives, ask Everything to return all archive files
-                searchString += "|*." + string.Join("|*.", ArchiveExtensions.ToArray());
+                searchString += "|*." + string.Join("|*.", ArchiveExtensions);
             }
 
             foreach (var fileInfo in EverythingSearch.FindFiles(searchString, filter.IncludeHidden))
             {
                 FileData fileData = new FileData(fileInfo);
 
-                if (IncludeFile(fileInfo.FullName, filter, fileData, true, new List<string>(),
+                if (filter.IncludeArchive && IsArchive(fileInfo.FullName))
+                {
+                    foreach (var innerFile in EnumerateArchiveFiles(fileInfo.FullName, filter, true,
+                        includeSearchPatterns, includeRegexPatterns, excludeRegexPatterns))
+                    {
+                        yield return innerFile;
+                    }
+                }
+                else if (IncludeFile(fileInfo.FullName, filter, fileData, true, new List<string>(),
                     includeRegexPatterns, excludeRegexPatterns))
                 {
                     yield return fileInfo.FullName;
+                }
+            }
+        }
+
+        private static IEnumerable<string> EnumerateArchiveFiles(string filePath, FileFilter filter,
+            bool hasSearchPattern, IList<string> includeSearchPatterns,
+            IList<Regex> includeRegexPatterns, IList<Regex> excludeRegexPatterns)
+        {
+            foreach (var fileData in ArchiveDirectory.EnumerateFiles(filePath, includeSearchPatterns, filter))
+            {
+                if (IncludeFile(fileData.FullName, filter, fileData, hasSearchPattern, includeSearchPatterns,
+                    includeRegexPatterns, excludeRegexPatterns))
+                {
+                    yield return fileData.FullName;
                 }
             }
         }
@@ -955,9 +1020,6 @@ namespace dnGREP.Common
             bool includeMatch = false;
             try
             {
-                if (!filter.IncludeArchive && IsArchive(filePath))
-                    return false;
-
                 if (!filter.IncludeBinary && !IsArchive(filePath))
                 {
                     bool isExcelMatch = IsExcelFile(filePath) && includeSearchPatterns.Contains(".xls", StringComparison.OrdinalIgnoreCase);
@@ -1001,10 +1063,6 @@ namespace dnGREP.Common
                     {
                         return false;
                     }
-                }
-                if (filter.IncludeArchive && IsArchive(filePath))
-                {
-                    includeMatch = true;
                 }
                 if (!includeMatch)
                 {
@@ -1090,7 +1148,8 @@ namespace dnGREP.Common
         /// <param name="namePatternToInclude">File name pattern. (E.g. *.cs) or regex to include. If null returns empty array. If empty string returns all files.</param>
         /// <param name="namePatternToExclude">File name pattern. (E.g. *.cs) or regex to exclude. If null or empty is ignored.</param>
         /// <param name="isRegex">Whether to use regex as search pattern. Otherwise use asterisks</param>
-        /// <param name="includeSubfolders">Include sub folders</param>
+        /// <param name="useEverything">use Everything for file search</param>
+        /// <param name="includeSubfolders">Include sub-folders</param>
         /// <param name="includeHidden">Include hidden folders</param>
         /// <param name="includeBinary">Include binary files</param>
         /// <param name="includeArchive">Include search in archives</param>
@@ -1099,13 +1158,16 @@ namespace dnGREP.Common
         /// <param name="dateFilter">Filter by file modified or created date time range</param>
         /// <param name="startTime">start of time range</param>
         /// <param name="endTime">end of time range</param>
+        /// <param name="useGitignore">use .gitignore as an exclusion filter</param>
+        /// <param name="maxSubfolderDepth">Max depth of sub-folders where 0 is root only and -1 is all</param>
         /// <returns>List of file or empty list if nothing is found</returns>
         public static string[] GetFileList(string path, string namePatternToInclude, string namePatternToExclude, bool isRegex,
             bool useEverything, bool includeSubfolders, bool includeHidden, bool includeBinary, bool includeArchive, int sizeFrom, int sizeTo,
-            FileDateFilter dateFilter, DateTime? startTime, DateTime? endTime)
+            FileDateFilter dateFilter, DateTime? startTime, DateTime? endTime, bool useGitignore, int maxSubfolderDepth)
         {
-            var filter = new FileFilter(path, namePatternToInclude, namePatternToExclude, isRegex, useEverything,
-                includeSubfolders, includeHidden, includeBinary, includeArchive, sizeFrom, sizeTo, dateFilter, startTime, endTime);
+            var filter = new FileFilter(path, namePatternToInclude, namePatternToExclude, isRegex, useGitignore, useEverything,
+                includeSubfolders, maxSubfolderDepth, includeHidden, includeBinary, includeArchive, sizeFrom, sizeTo,
+                dateFilter, startTime, endTime);
             return GetFileListEx(filter).ToArray();
         }
 
@@ -1116,7 +1178,7 @@ namespace dnGREP.Common
         /// <returns>Regular expression of null is empty</returns>
         public static string WildcardToRegex(string wildcard)
         {
-            if (wildcard == null || wildcard == "") return wildcard;
+            if (string.IsNullOrWhiteSpace(wildcard)) return wildcard;
 
             StringBuilder sb = new StringBuilder();
 
@@ -1840,17 +1902,19 @@ namespace dnGREP.Common
         public static string GetHash(string input)
         {
             // step 1, calculate MD5 hash from input
-            System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create();
-            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
-            byte[] hash = md5.ComputeHash(inputBytes);
-
-            // step 2, convert byte array to hex string
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < hash.Length; i++)
+            using (var md5 = System.Security.Cryptography.MD5.Create())
             {
-                sb.Append(hash[i].ToString("X2"));
+                byte[] inputBytes = Encoding.ASCII.GetBytes(input);
+                byte[] hash = md5.ComputeHash(inputBytes);
+
+                // step 2, convert byte array to hex string
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < hash.Length; i++)
+                {
+                    sb.Append(hash[i].ToString("X2", CultureInfo.InvariantCulture));
+                }
+                return sb.ToString();
             }
-            return sb.ToString();
         }
 
         /// <summary>
@@ -1991,6 +2055,89 @@ namespace dnGREP.Common
 
             return (0xEF == b1 && 0xBB == b2 && 0xBF == b3);
         }
+
+        public static bool IsGitInstalled => GitUtil.IsGitInstalled;
+
+        //private static bool? isGitInstalled = null;
+        //public static bool IsGitInstalled
+        //{
+        //    get
+        //    {
+        //        if (!isGitInstalled.HasValue)
+        //        {
+        //            isGitInstalled = CheckGitInstalled();
+        //        }
+        //        return isGitInstalled.Value;
+        //    }
+        //}
+
+        //private static bool CheckGitInstalled()
+        //{
+        //    ProcessStartInfo startInfo = new ProcessStartInfo
+        //    {
+        //        FileName = "git",
+        //        Arguments = "--version",
+        //        RedirectStandardOutput = true,
+        //        RedirectStandardError = true,
+        //        UseShellExecute = false,
+        //        CreateNoWindow = true
+        //    };
+
+        //    using (Process proc = new Process())
+        //    {
+        //        proc.StartInfo = startInfo;
+        //        try
+        //        {
+        //            proc.Start();
+        //            if (!proc.StandardOutput.EndOfStream)
+        //            {
+        //                string line = proc.StandardOutput.ReadLine();
+        //                return !string.IsNullOrEmpty(line) && line.StartsWith("git ", StringComparison.CurrentCulture);
+        //            }
+        //        }
+        //        catch (InvalidOperationException) { }
+        //        catch (Win32Exception) { }
+        //    }
+        //    return false;
+        //}
+
+        //public static IList<string> GetGitIgnore(string directory)
+        //{
+        //    List<string> list = new List<string>();
+
+        //    if (IsGitInstalled)
+        //    {
+        //        ProcessStartInfo startInfo = new ProcessStartInfo
+        //        {
+        //            FileName = "git",
+        //            Arguments = "status --short --ignored",
+        //            WorkingDirectory = directory,
+        //            RedirectStandardOutput = true,
+        //            RedirectStandardError = true,
+        //            UseShellExecute = false,
+        //            CreateNoWindow = true
+        //        };
+
+        //        using (Process proc = new Process())
+        //        {
+        //            proc.StartInfo = startInfo;
+        //            try
+        //            {
+        //                proc.Start();
+        //                while (!proc.StandardOutput.EndOfStream)
+        //                {
+        //                    string line = proc.StandardOutput.ReadLine();
+        //                    if (line.StartsWith("!! ", StringComparison.OrdinalIgnoreCase))
+        //                        list.Add(line.Substring(3));
+        //                }
+        //            }
+        //            catch (InvalidOperationException) { }
+        //            catch (Win32Exception) { }
+        //        }
+        //    }
+
+        //    return list;
+        //}
     }
 
     public class KeyValueComparer : IComparer<KeyValuePair<string, int>>

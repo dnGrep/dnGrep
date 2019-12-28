@@ -39,7 +39,6 @@
   <ItemGroup>
     <Compile Include="Fragments\AppFragment.wxs" />
     <Compile Include="Fragments\PluginFragmentOpenXml.wxs" />
-    <Compile Include="Fragments\PluginFragmentArchive.wxs" />
     <Compile Include="Fragments\PluginFragmentPdf.wxs" />
     <Compile Include="Fragments\PluginFragmentWord.wxs" />
     <Compile Include="Product.wxs" />
@@ -60,14 +59,6 @@
     </WixExtension>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\dnGREP.ArchiveEngine\dnGREP.ArchiveEngine.csproj">
-      <Name>dnGREP.ArchiveEngine</Name>
-      <Project>{7317511f-a32c-44ae-9c87-1e4806e891fb}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
     <ProjectReference Include="..\dnGREP.Common.UI\dnGREP.Common.UI.csproj">
       <Name>dnGREP.Common.UI</Name>
       <Project>{da182974-5fd2-4dfb-938d-dcdc2d232547}</Project>

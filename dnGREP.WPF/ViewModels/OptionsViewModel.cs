@@ -476,6 +476,21 @@ namespace dnGREP.WPF
             }
         }
 
+        private PluginOptions archiveOptions;
+        public PluginOptions ArchiveOptions
+        {
+            get { return archiveOptions; }
+            set
+            {
+                if (value == archiveOptions)
+                    return;
+
+                archiveOptions = value;
+
+                base.OnPropertyChanged(() => ArchiveOptions);
+            }
+        }
+
         public ObservableCollection<PluginOptions> Plugins { get; set; } = new ObservableCollection<PluginOptions>();
 
         #endregion
@@ -628,6 +643,24 @@ namespace dnGREP.WPF
             // current values may not equal the saved settings value
             CurrentTheme = AppTheme.Instance.CurrentThemeName;
             FollowWindowsTheme = AppTheme.Instance.FollowWindowsTheme;
+
+
+            {
+                string nameKey = "Archive";
+                string addKey = "Add" + nameKey + "Extensions";
+                string remKey = "Rem" + nameKey + "Extensions";
+
+                string addCsv = string.Empty;
+                if (GrepSettings.Instance.ContainsKey(addKey))
+                    addCsv = GrepSettings.Instance.Get<string>(addKey).Trim();
+
+                string remCsv = string.Empty;
+                if (GrepSettings.Instance.ContainsKey(remKey))
+                    remCsv = GrepSettings.Instance.Get<string>(remKey).Trim();
+
+                ArchiveOptions = new PluginOptions("Archive", true,
+                    string.Join(", ", ArchiveDirectory.DefaultExtensions), addCsv, remCsv);
+            }
 
             Plugins.Clear();
             foreach (var plugin in GrepEngineFactory.AllPlugins.OrderBy(p => p.Name))

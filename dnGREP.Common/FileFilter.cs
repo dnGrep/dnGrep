@@ -9,6 +9,7 @@ namespace dnGREP.Common
         {
             Path = ".";
             NamePatternToInclude = "*.*";
+            MaxSubfolderDepth = -1;
         }
 
         /// <summary>
@@ -18,8 +19,10 @@ namespace dnGREP.Common
         /// <param name="namePatternToInclude">File name pattern. (E.g. *.cs) or regex to include. If null returns empty array. If empty string returns all files.</param>
         /// <param name="namePatternToExclude">File name pattern. (E.g. *.cs) or regex to exclude. If null or empty is ignored.</param>
         /// <param name="isRegex">Whether to use regex as search pattern. Otherwise use asterisks</param>
+        /// <param name="useGitignore">Use .gitignore file, if present</param>
         /// <param name="useEverything">Use Everything index to search</param>
         /// <param name="includeSubfolders">Include sub folders</param>
+        /// <param name="maxSbufolderDepth">Maximum depth of search, where 1 is top level only and -1 is all directories</param>
         /// <param name="includeHidden">Include hidden folders</param>
         /// <param name="includeBinary">Include binary files</param>
         /// <param name="includeArchive">Include search in archives</param>
@@ -28,16 +31,18 @@ namespace dnGREP.Common
         /// <param name="dateFilter">Filter by file modified or created date time range</param>
         /// <param name="startTime">start of time range</param>
         /// <param name="endTime">end of time range</param>
-        public FileFilter(string path, string namePatternToInclude, string namePatternToExclude, bool isRegex, bool useEverything,
-            bool includeSubfolders, bool includeHidden, bool includeBinary, bool includeArchive, int sizeFrom, int sizeTo,
+        public FileFilter(string path, string namePatternToInclude, string namePatternToExclude, bool isRegex, bool useGitignore, bool useEverything,
+            bool includeSubfolders, int maxSbufolderDepth, bool includeHidden, bool includeBinary, bool includeArchive, int sizeFrom, int sizeTo,
             FileDateFilter dateFilter, DateTime? startTime, DateTime? endTime)
         {
             Path = path;
             NamePatternToInclude = namePatternToInclude;
             NamePatternToExclude = namePatternToExclude;
             IsRegex = isRegex;
+            UseGitIgnore = useGitignore;
             UseEverything = useEverything;
             IncludeSubfolders = includeSubfolders;
+            MaxSubfolderDepth = maxSbufolderDepth;
             IncludeHidden = includeHidden;
             IncludeBinary = includeBinary;
             IncludeArchive = includeArchive;
@@ -69,8 +74,10 @@ namespace dnGREP.Common
                 NamePatternToInclude,
                 NamePatternToExclude,
                 IsRegex,
+                UseGitIgnore,
                 UseEverything,
                 IncludeSubfolders,
+                MaxSubfolderDepth,
                 IncludeHidden,
                 IncludeBinary,
                 IncludeArchive,
@@ -91,7 +98,7 @@ namespace dnGREP.Common
 
             bool isRegex = false;
             string include = Path.Substring(folder.Length, Path.Length - folder.Length).Trim();
-            if (include.StartsWith("regex:"))
+            if (include.StartsWith("regex:", StringComparison.OrdinalIgnoreCase))
             {
                 isRegex = true;
                 include = include.Substring("regex:".Length);
@@ -111,8 +118,10 @@ namespace dnGREP.Common
                 include,
                 string.Empty,
                 isRegex,
+                UseGitIgnore,
                 false,
                 IncludeSubfolders,
+                MaxSubfolderDepth,
                 IncludeHidden,
                 IncludeBinary,
                 IncludeArchive,
@@ -127,9 +136,11 @@ namespace dnGREP.Common
         public string Path { get; private set; }
         public string NamePatternToInclude { get; set; }
         public string NamePatternToExclude { get; private set; }
+        public bool UseGitIgnore { get; private set; }
         public bool IsRegex { get; private set; }
         public bool UseEverything { get; private set; }
         public bool IncludeSubfolders { get; private set; }
+        public int MaxSubfolderDepth { get; private set; }
         public bool IncludeHidden { get; private set; }
         public bool IncludeBinary { get; private set; }
         public bool IncludeArchive { get; private set; }
@@ -138,6 +149,5 @@ namespace dnGREP.Common
         public FileDateFilter DateFilter { get; private set; }
         public DateTime? StartTime { get; private set; }
         public DateTime? EndTime { get; private set; }
-
     }
 }

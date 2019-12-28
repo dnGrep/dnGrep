@@ -25,7 +25,6 @@ namespace dnGREP.WPF
             IsCaseSensitiveEnabled = true;
             IsMultilineEnabled = true;
             IsWholeWordEnabled = true;
-            Utils.ArchiveExtensions = GrepEngineFactory.GetArchiveExtenstions();
             CanSearchArchives = Utils.ArchiveExtensions.Count > 0;
             LoadSettings();
 
@@ -180,6 +179,26 @@ namespace dnGREP.WPF
             }
         }
 
+        private bool useGitignore;
+        public bool UseGitignore
+        {
+            get { return useGitignore; }
+            set
+            {
+                if (value == useGitignore)
+                    return;
+
+                useGitignore = value;
+
+                base.OnPropertyChanged(() => UseGitignore);
+            }
+        }
+
+        public bool IsGitInstalled
+        {
+            get { return Utils.IsGitInstalled; }
+        }
+
         private bool includeSubfolder;
         public bool IncludeSubfolder
         {
@@ -192,6 +211,26 @@ namespace dnGREP.WPF
                 includeSubfolder = value;
 
                 base.OnPropertyChanged(() => IncludeSubfolder);
+
+                if (!includeSubfolder)
+                {
+                    MaxSubfolderDepth = -1;
+                }
+            }
+        }
+
+        private int maxSubfolderDepth = -1;
+        public int MaxSubfolderDepth
+        {
+            get { return maxSubfolderDepth; }
+            set
+            {
+                if (value == maxSubfolderDepth)
+                    return;
+
+                maxSubfolderDepth = value;
+
+                base.OnPropertyChanged(() => MaxSubfolderDepth);
             }
         }
 
@@ -1079,6 +1118,7 @@ namespace dnGREP.WPF
                     {
                         FilePattern = string.Empty;
                         FilePatternIgnore = string.Empty;
+                        UseGitignore = false;
                         IsEverythingSearchMode = true;
                         PatternColumnWidth = "Auto";
                         SearchTextBoxLabel = "Everything search:";
@@ -1092,12 +1132,14 @@ namespace dnGREP.WPF
                     break;
             }
 
-            if (name == "IncludeSubfolder" || name == "IncludeHidden" || name == "IncludeBinary" ||
-                name == "UseFileSizeFilter" || name == "UseFileDateFilter")
+            if (name == "IncludeSubfolder" || name == "MaxSubfolderDepth" || name == "IncludeHidden" ||
+                name == "IncludeBinary" || name == "UseFileSizeFilter" || name == "UseFileDateFilter")
             {
                 tempList = new List<string>();
-                if (!IncludeSubfolder)
+                if (!IncludeSubfolder || (IncludeSubfolder && MaxSubfolderDepth == 0))
                     tempList.Add("No subfolders");
+                if (IncludeSubfolder && MaxSubfolderDepth > 0) 
+                    tempList.Add($"Max folder depth {MaxSubfolderDepth}");
                 if (!IncludeHidden)
                     tempList.Add("No hidden");
                 if (!IncludeBinary)
@@ -1120,7 +1162,8 @@ namespace dnGREP.WPF
             }
 
             //Files found
-            if (name == "FileOrFolderPath" || name == "SearchFor" || name == "FilePattern" || name == "FilePatternIgnore")
+            if (name == "FileOrFolderPath" || name == "SearchFor" || name == "FilePattern" || 
+                name == "FilePatternIgnore" || name == "UseGitignore" )
             {
                 FilesFound = false;
             }
@@ -1270,12 +1313,14 @@ namespace dnGREP.WPF
             IncludeBinary = true;
             IncludeHidden = true;
             IncludeSubfolder = true;
+            MaxSubfolderDepth = -1;
             IncludeArchive = Utils.ArchiveExtensions.Count > 0;
             UseFileDateFilter = FileDateFilter.None;
             TypeOfTimeRangeFilter = FileTimeRange.None;
             FilePattern = "*";
             FilePatternIgnore = "";
             TypeOfFileSearch = FileSearchType.Asterisk;
+            UseGitignore = Utils.IsGitInstalled;
         }
 
         virtual public void LoadSettings()
@@ -1353,6 +1398,7 @@ namespace dnGREP.WPF
             IncludeArchive = settings.Get<bool>(GrepSettings.Key.IncludeArchive) && Utils.ArchiveExtensions.Count > 0;
             SearchParallel = settings.Get<bool>(GrepSettings.Key.SearchParallel);
             IncludeSubfolder = settings.Get<bool>(GrepSettings.Key.IncludeSubfolder);
+            MaxSubfolderDepth = settings.Get<int>(GrepSettings.Key.MaxSubfolderDepth);
             TypeOfSearch = settings.Get<SearchType>(GrepSettings.Key.TypeOfSearch);
             TypeOfFileSearch = settings.Get<FileSearchType>(GrepSettings.Key.TypeOfFileSearch);
             // FileOrFolderPath depends on TypeOfFileSearch, so must be after
@@ -1360,6 +1406,7 @@ namespace dnGREP.WPF
             CodePage = settings.Get<int>(GrepSettings.Key.CodePage);
             FilePattern = settings.Get<string>(GrepSettings.Key.FilePattern);
             FilePatternIgnore = settings.Get<string>(GrepSettings.Key.FilePatternIgnore);
+            UseGitignore = settings.Get<bool>(GrepSettings.Key.UseGitignore) && Utils.IsGitInstalled;
             UseFileSizeFilter = settings.Get<FileSizeFilter>(GrepSettings.Key.UseFileSizeFilter);
             CaseSensitive = settings.Get<bool>(GrepSettings.Key.CaseSensitive);
             Multiline = settings.Get<bool>(GrepSettings.Key.Multiline);
@@ -1389,11 +1436,13 @@ namespace dnGREP.WPF
             settings.Set<bool>(GrepSettings.Key.IncludeArchive, IncludeArchive);
             settings.Set<bool>(GrepSettings.Key.SearchParallel, SearchParallel);
             settings.Set<bool>(GrepSettings.Key.IncludeSubfolder, IncludeSubfolder);
+            settings.Set<int>(GrepSettings.Key.MaxSubfolderDepth, MaxSubfolderDepth);
             settings.Set<SearchType>(GrepSettings.Key.TypeOfSearch, TypeOfSearch);
             settings.Set<int>(GrepSettings.Key.CodePage, CodePage);
             settings.Set<FileSearchType>(GrepSettings.Key.TypeOfFileSearch, TypeOfFileSearch);
             settings.Set<string>(GrepSettings.Key.FilePattern, FilePattern);
             settings.Set<string>(GrepSettings.Key.FilePatternIgnore, FilePatternIgnore);
+            settings.Set<bool>(GrepSettings.Key.UseGitignore, UseGitignore);
             settings.Set<FileSizeFilter>(GrepSettings.Key.UseFileSizeFilter, UseFileSizeFilter);
             settings.Set<bool>(GrepSettings.Key.CaseSensitive, CaseSensitive);
             settings.Set<bool>(GrepSettings.Key.Multiline, Multiline);

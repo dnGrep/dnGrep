@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using NLog;
@@ -15,33 +17,104 @@ namespace dnGREP.Common
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        private static readonly DirectoryEnumerationOptions baseDirOptions =
+        private const DirectoryEnumerationOptions baseDirOptions =
             DirectoryEnumerationOptions.Folders |
             DirectoryEnumerationOptions.SkipReparsePoints |
             DirectoryEnumerationOptions.BasicSearch |
             DirectoryEnumerationOptions.LargeCache;
 
-        private static readonly DirectoryEnumerationOptions baseFileOptions =
+        private const DirectoryEnumerationOptions baseFileOptions =
             DirectoryEnumerationOptions.Files |
             DirectoryEnumerationOptions.SkipReparsePoints |
             DirectoryEnumerationOptions.BasicSearch |
             DirectoryEnumerationOptions.LargeCache;
+        private const string dot = ".";
+        private const string star = "*";
 
+        public static IList<string> GetGitignoreDirectories(string path, bool recursive)
+        {
+            if (File.Exists(Path.Combine(path, ".gitignore")))
+                return new List<string> { path };
 
-        public static IEnumerable<string> EnumerateFiles(string path, IList<string> patterns, bool includeHidden, bool recursive)
+            var fileOptions = baseFileOptions;
+            if (recursive)
+                fileOptions |= DirectoryEnumerationOptions.Recursive;
+
+            List<string> dontRecurseBelow = new List<string>();
+
+            DirectoryEnumerationFilters fileFilters = new DirectoryEnumerationFilters
+            {
+                ErrorFilter = (errorCode, errorMessage, pathProcessed) =>
+                {
+                    logger.Error($"Find file error {errorCode}: {errorMessage} on {pathProcessed}");
+                    return true;
+                },
+                RecursionFilter = fsei =>
+                {
+                    if (fsei.IsDirectory && dontRecurseBelow.Any(p => fsei.FullPath.StartsWith(p, StringComparison.CurrentCulture)))
+                        return false;
+                    return true;
+                },
+                InclusionFilter = fsei =>
+                {
+                    if (fsei.FileName == ".gitignore")
+                    {
+                        dontRecurseBelow.Add(Path.GetDirectoryName(fsei.FullPath));
+                        return true;
+                    }
+                    return false;
+                }
+            };
+
+            var list = Directory.EnumerateFiles(path, fileOptions, fileFilters, PathFormat.FullPath)
+                .Select(s => Path.GetDirectoryName(s)).ToList();
+
+            if (list.Count == 0)
+            {
+                DirectoryInfo di = new DirectoryInfo(path);
+                while (di.Parent != null)
+                {
+                    if (File.Exists(Path.Combine(di.Parent.FullName, ".gitignore")))
+                    {
+                        list.Add(path);
+                        break;
+                    }
+
+                    di = di.Parent;
+                }
+            }
+
+            return list;
+        }
+
+        public static IEnumerable<string> EnumerateFiles(string path, IList<string> patterns,
+            Gitignore gitignore, FileFilter filter)
         {
             if (string.IsNullOrWhiteSpace(path) || !Directory.Exists(path))
                 return Enumerable.Empty<string>();
 
-            if (includeHidden)
-                return EnumerateFilesIncludeHidden(path, patterns, recursive);
+            if (patterns == null)
+            {
+                throw new ArgumentNullException(nameof(patterns));
+            }
+            if (filter == null)
+            {
+                throw new ArgumentNullException(nameof(filter));
+            }
+
+            bool simpleSearch = filter.IncludeHidden && filter.MaxSubfolderDepth == -1 &&
+                (gitignore == null || gitignore.IsEmpty) &&
+                string.IsNullOrWhiteSpace(filter.NamePatternToExclude);
+
+            if (simpleSearch)
+                return EnumerateAllFiles(path, patterns, filter.IncludeArchive, filter.IncludeSubfolders);
             else
-                return EnumerateFilesExcludeHidden(path, patterns, recursive);
+                return EnumerateFilesWithFilters(path, patterns, gitignore, filter);
         }
 
-        private static IEnumerable<string> EnumerateFilesIncludeHidden(string path, IList<string> patterns, bool recursive)
+        private static IEnumerable<string> EnumerateAllFiles(string path, IList<string> patterns, bool includeArchive, bool recursive)
         {
-            // when not checking for hidden directories or files, just enumerate files, which is faster
+            // without filters, just enumerate files, which is faster
 
             var fileOptions = baseFileOptions;
             if (recursive)
@@ -68,11 +141,17 @@ namespace dnGREP.Common
                     {
                         if (WildcardMatch(fsei.FileName, pattern, true))
                             return true;
-                        else if (pattern == "*.doc" && WildcardMatch(fsei.FileName, "*.doc*", true))
-                            return true;
-                        else if (pattern == "*.xls" && WildcardMatch(fsei.FileName, "*.xls*", true))
-                            return true;
                     }
+
+                    if (includeArchive)
+                    {
+                        foreach (string pattern in ArchiveDirectory.Patterns)
+                        {
+                            if (WildcardMatch(fsei.FileName, pattern, true))
+                                return true;
+                        }
+                    }
+
                     return false;
                 };
             }
@@ -80,19 +159,37 @@ namespace dnGREP.Common
             return Directory.EnumerateFiles(path, fileOptions, fileFilters, PathFormat.FullPath);
         }
 
-        private static IEnumerable<string> EnumerateFilesExcludeHidden(string path, IList<string> patterns, bool recursive)
+        private static IEnumerable<string> EnumerateFilesWithFilters(string path, IList<string> patterns,
+            Gitignore gitignore, FileFilter filter)
         {
-            // when checking for hidden directories, enumerate the directories separately from files to check for hidden flag on directories
-
             DirectoryInfo di = new DirectoryInfo(path);
             // the root of the drive has the hidden attribute set, so don't stop on this hidden directory
             if (di.Attributes.HasFlag(FileAttributes.Hidden) && (di.Root != di))
                 yield break;
 
-            var dirOptions = baseDirOptions;
-            if (recursive)
-                dirOptions |= DirectoryEnumerationOptions.Recursive;
+            int startDepth = 0;
+            if (filter.MaxSubfolderDepth > 0)
+                startDepth = GetDepth(di);
 
+            IEnumerable<string> directories = new string[] { path };
+            if (filter.IncludeSubfolders)
+                directories = directories.Concat(EnumerateDirectoriesImpl(path, filter, startDepth, gitignore));
+
+            foreach (var directory in directories)
+            {
+                IEnumerable<string> matches = EnumerateFilesImpl(directory, patterns, filter, gitignore);
+
+                foreach (var file in matches)
+                    yield return file;
+            }
+        }
+
+        private static IEnumerable<string> EnumerateDirectoriesImpl(string path,
+            FileFilter filter, int startDepth, Gitignore gitignore)
+        {
+            var dirOptions = baseDirOptions;
+            if (filter.IncludeSubfolders)
+                dirOptions |= DirectoryEnumerationOptions.Recursive;
 
             DirectoryEnumerationFilters dirFilters = new DirectoryEnumerationFilters
             {
@@ -100,15 +197,69 @@ namespace dnGREP.Common
                 {
                     logger.Error($"Find file error {errorCode}: {errorMessage} on {pathProcessed}");
                     return true;
-                }
+                },
+
+                RecursionFilter = fsei =>
+                {
+                    if (gitignore != null && gitignore.Directories.Contains(fsei.FullPath))
+                    {
+                        return false;
+                    }
+
+                    if (!filter.IncludeHidden && fsei.IsHidden)
+                    {
+                        return false;
+                    }
+
+                    if (filter.MaxSubfolderDepth >= 0)
+                    {
+                        int depth = GetDepth(new DirectoryInfo(fsei.FullPath));
+                        if (depth - startDepth > filter.MaxSubfolderDepth)
+                            return false;
+                    }
+
+                    if (filter.UseGitIgnore && fsei.FileName == ".git")
+                    {
+                        return false;
+                    }
+
+                    return true;
+                },
+
+                InclusionFilter = fsei =>
+                {
+                    if (gitignore != null && gitignore.Directories.Contains(fsei.FullPath))
+                    {
+                        return false;
+                    }
+
+                    if (!filter.IncludeHidden && fsei.IsHidden)
+                    {
+                        return false;
+                    }
+
+                    if (filter.MaxSubfolderDepth >= 0)
+                    {
+                        int depth = GetDepth(new DirectoryInfo(fsei.FullPath));
+                        if (depth - startDepth > filter.MaxSubfolderDepth)
+                            return false;
+                    }
+
+                    if (filter.UseGitIgnore && fsei.FileName == ".git")
+                    {
+                        return false;
+                    }
+
+                    return true;
+                },
             };
 
-            dirFilters.InclusionFilter = fsei =>
-            {
-                return !fsei.IsHidden;
-            };
+            return Directory.EnumerateDirectories(path, dirOptions, dirFilters, PathFormat.FullPath);
+        }
 
-
+        private static IEnumerable<string> EnumerateFilesImpl(string path, IList<string> patterns,
+            FileFilter filter, Gitignore gitignore)
+        {
             DirectoryEnumerationFilters fileFilters = new DirectoryEnumerationFilters
             {
                 ErrorFilter = (errorCode, errorMessage, pathProcessed) =>
@@ -119,47 +270,63 @@ namespace dnGREP.Common
             };
 
 
-            bool includeAllFiles = patterns.Count == 0 ||
-                (patterns.Count == 1 && (patterns[0] == "*.*" || patterns[0] == "*"));
+            bool includeAllFiles = (patterns.Count == 0 ||
+                (patterns.Count == 1 && (patterns[0] == "*.*" || patterns[0] == "*"))) &&
+                (gitignore == null || gitignore.Files.Count == 0);
 
             if (includeAllFiles)
             {
                 fileFilters.InclusionFilter = fsei =>
                 {
-                    return !fsei.IsHidden;
+                    if (!filter.IncludeHidden && fsei.IsHidden)
+                        return false;
+
+                    return true;
                 };
             }
             else
             {
                 fileFilters.InclusionFilter = fsei =>
                 {
-                    if (fsei.IsHidden)
+                    if (!filter.IncludeHidden && fsei.IsHidden)
                         return false;
+
+                    if (gitignore != null && gitignore.Files.Contains(fsei.FullPath))
+                    {
+                        return false;
+                    }
 
                     foreach (string pattern in patterns)
                     {
                         if (WildcardMatch(fsei.FileName, pattern, true))
                             return true;
-                        else if (pattern == "*.doc" && WildcardMatch(fsei.FileName, "*.doc*", true))
-                            return true;
-                        else if (pattern == "*.xls" && WildcardMatch(fsei.FileName, "*.xls*", true))
-                            return true;
+                    }
+
+                    if (filter.IncludeArchive)
+                    {
+                        foreach (string pattern in ArchiveDirectory.Patterns)
+                        {
+                            if (WildcardMatch(fsei.FileName, pattern, true))
+                                return true;
+                        }
                     }
                     return false;
                 };
             }
 
-            IEnumerable<string> directories = new string[] { path };
-            if (recursive)
-                directories = directories.Concat(Directory.EnumerateDirectories(path, dirOptions, dirFilters, PathFormat.FullPath));
+            return Directory.EnumerateFiles(path, baseFileOptions, fileFilters, PathFormat.FullPath);
+        }
 
-            foreach (var directory in directories)
+        private static int GetDepth(DirectoryInfo di)
+        {
+            int depth = 0;
+            var parent = di.Parent;
+            while (parent != null)
             {
-                IEnumerable<string> matches = Directory.EnumerateFiles(directory, baseFileOptions, fileFilters, PathFormat.FullPath);
-
-                foreach (var file in matches)
-                    yield return file;
+                depth++;
+                parent = parent.Parent;
             }
+            return depth;
         }
 
         /// <summary>
@@ -171,8 +338,17 @@ namespace dnGREP.Common
         /// <returns>True if match, otherwise false</returns>
         public static bool WildcardMatch(string fileName, string pattern, bool ignoreCase)
         {
+            if (fileName == null)
+            {
+                throw new ArgumentNullException(nameof(fileName));
+            }
+            if (pattern == null)
+            {
+                throw new ArgumentNullException(nameof(pattern));
+            }
+
             if (ignoreCase)
-                return WildcardMatch(fileName.ToLower(), pattern.ToLower());
+                return WildcardMatch(fileName.ToLower(CultureInfo.CurrentCulture), pattern.ToLower(CultureInfo.CurrentCulture));
             else
                 return WildcardMatch(fileName, pattern);
         }
@@ -190,6 +366,15 @@ namespace dnGREP.Common
         /// <returns>True if match, otherwise false</returns>
         public static bool WildcardMatch(string fileName, string pattern)
         {
+            if (fileName == null)
+            {
+                throw new ArgumentNullException(nameof(fileName));
+            }
+            if (pattern == null)
+            {
+                throw new ArgumentNullException(nameof(pattern));
+            }
+
             if (string.IsNullOrEmpty(pattern))
                 return fileName.Length == 0;
 
@@ -200,10 +385,10 @@ namespace dnGREP.Common
                 return string.IsNullOrWhiteSpace(Path.GetExtension(fileName));
 
             if (pattern == ".*")
-                return fileName.StartsWith(".");
+                return fileName.StartsWith(dot, StringComparison.OrdinalIgnoreCase);
 
-            if (pattern.StartsWith("*") && pattern.IndexOf('*', 1) == -1 && pattern.IndexOf('?') == -1)
-                return fileName.EndsWith(pattern.Substring(1));
+            if (pattern.StartsWith(star, StringComparison.OrdinalIgnoreCase) && pattern.IndexOf('*', 1) == -1 && pattern.IndexOf('?') == -1)
+                return fileName.EndsWith(pattern.Substring(1), StringComparison.CurrentCulture);
 
             int fileNameIndex = 0;
             int patternIndex = 0;

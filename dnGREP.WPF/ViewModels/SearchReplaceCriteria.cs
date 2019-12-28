@@ -21,10 +21,12 @@ namespace dnGREP.WPF
             TypeOfFileSearch = vm.TypeOfFileSearch;
             FilePattern = vm.FilePattern;
             FilePatternIgnore = vm.FilePatternIgnore;
+            UseGitIgnore = vm.UseGitignore;
             IncludeArchive = vm.IncludeArchive;
             IncludeBinary = vm.IncludeBinary;
             IncludeHidden = vm.IncludeHidden;
             IncludeSubfolder = vm.IncludeSubfolder;
+            MaxSubfolderDepth = vm.MaxSubfolderDepth;
             CodePage = vm.CodePage;
             TypeOfSearch = vm.TypeOfSearch;
             SearchFor = vm.SearchFor;
@@ -54,10 +56,12 @@ namespace dnGREP.WPF
         public FileSearchType TypeOfFileSearch { get; private set; }
         public string FilePattern { get; private set; }
         public string FilePatternIgnore { get; private set; }
+        public bool UseGitIgnore { get; private set; }
         public bool IncludeArchive { get; private set; }
         public bool IncludeBinary { get; private set; }
         public bool IncludeHidden { get; private set; }
         public bool IncludeSubfolder { get; private set; }
+        public int MaxSubfolderDepth { get; private set; }
         public int CodePage { get; private set; }
         public SearchType TypeOfSearch { get; private set; }
         public string SearchFor { get; private set; }

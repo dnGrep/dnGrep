@@ -33,7 +33,7 @@
         <my:BoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" TrueValue="Collapsed"
                                       FalseValue="Visible" />
         <my:GridLengthConverter x:Key="GridLengthConverter" />
-
+        <my:IntOrEmptyValueConverter x:Key="IntConverter"/>
     </my:ThemedWindow.Resources>
     <my:ThemedWindow.InputBindings>
         <KeyBinding Key="Escape" Command="{Binding CancelCommand}" />
@@ -197,12 +197,31 @@
                                     <CheckBox Name="cbIncludeSubfolders" Margin="3,0,3,3"
                                               IsChecked="{Binding Path=IncludeSubfolder}"
                                               TabIndex="24" Content="Include subfolders" />
+                                    <StackPanel Orientation="Horizontal" Margin="26,0">
+                                        <TextBlock Margin="3,0,3,3" Text="Max depth"
+                                                   Style="{StaticResource LabelTextBlockStyle}" />
+                                        <my:DepthTextBox Width="48" Height="24"
+                                                 Margin="3,0,3,3"
+                                                 IsEnabled="{Binding Path=IncludeSubfolder}"
+                                                 TabIndex="25" GotFocus="TextBoxFocus"
+                                                 PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting">
+                                            <TextBox.Text>
+                                                <Binding Path="MaxSubfolderDepth" UpdateSourceTrigger="PropertyChanged"
+                                                         Converter="{StaticResource IntConverter}">
+                                                    <Binding.ValidationRules>
+                                                        <ExceptionValidationRule />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>
+                                        </my:DepthTextBox>
+                                    </StackPanel>
+
                                     <CheckBox Name="cbIncludeHiddenFolders" Margin="3,0,3,3"
                                               IsChecked="{Binding Path=IncludeHidden}"
-                                              TabIndex="25" Content="Include hidden folders" />
+                                              TabIndex="26" Content="Include hidden folders" />
                                     <CheckBox Name="cbIncludeBinary" Margin="3,0,3,3"
                                               IsChecked="{Binding Path=IncludeBinary}"
-                                              TabIndex="26" Content="Include binary files" />
+                                              TabIndex="27" Content="Include binary files" />
                                 </StackPanel>
                                 <!--  middle  -->
                                 <StackPanel x:Name="MiddleFileOptions" Margin="3,5,15,3" VerticalAlignment="Top"
@@ -316,16 +335,21 @@
                                                          Visibility="{Binding Path=IsEverythingAvailable, Converter={StaticResource BoolToVisibilityConverter}}" />
                                         </StackPanel>
                                     </StackPanel>
-                                    <CheckBox Grid.Row="1" Margin="3,0,24,3"
+                                    <CheckBox Grid.Row="1" Grid.Column="0" Margin="3,3,3,6"
                                               IsChecked="{Binding SearchParallel}"
                                               Content="Search Paralle_l" TabIndex="42"
                                               ToolTip="Search files in multiple threads" />
+                                    <CheckBox Grid.Row="1" Grid.Column="1" Margin="3,3,3,6"
+                                              IsChecked="{Binding UseGitignore}"
+                                              Content="Use .gitignore" TabIndex="43"
+                                              Visibility="{Binding IsGitInstalled, Converter={StaticResource BoolToVisibilityConverter}}"
+                                              ToolTip="Use .gitignore to filter files" />
                                     <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                                                 Margin="3" VerticalAlignment="Center" Orientation="Horizontal">
                                         <TextBlock Margin="3,0,3,3" Text="Encoding:"
                                                    Style="{StaticResource LabelTextBlockStyle}" />
                                         <ComboBox Name="cbEncoding" Width="224" Height="24"
-                                                  Margin="3,0,3,3" HorizontalContentAlignment="Center" TabIndex="43"
+                                                  Margin="3,0,3,3" HorizontalContentAlignment="Center" TabIndex="44"
                                                   DisplayMemberPath="Key" SelectedValuePath="Value"
                                                   ItemsSource="{Binding Path=Encodings}"
                                                   SelectedValue="{Binding Path=CodePage}"
@@ -343,25 +367,25 @@
                                         <CheckBox Grid.Row="0" Grid.Column="0" Margin="3,0,3,3"
                                                   IsChecked="{Binding CaseSensitive}"
                                                   IsEnabled="{Binding IsCaseSensitiveEnabled}"
-                                                  TabIndex="44" Content="C_ase sensitive" />
+                                                  TabIndex="45" Content="C_ase sensitive" />
                                         <CheckBox Grid.Row="1" Grid.Column="0" Margin="3,0,3,3"
                                                   IsChecked="{Binding WholeWord}"
                                                   IsEnabled="{Binding IsWholeWordEnabled}"
-                                                  TabIndex="45" Content="_Whole word" />
+                                                  TabIndex="46" Content="_Whole word" />
                                         <CheckBox Grid.Row="0" Grid.Column="1" Margin="3,0,3,3"
                                                   IsChecked="{Binding Multiline}"
                                                   IsEnabled="{Binding IsMultilineEnabled}"
-                                                  TabIndex="46" Content="_Multiline" />
+                                                  TabIndex="47" Content="_Multiline" />
                                         <CheckBox Grid.Row="1" Grid.Column="1" Margin="3,0,3,3"
                                                   IsChecked="{Binding Singleline}"
                                                   IsEnabled="{Binding IsSinglelineEnabled}"
-                                                  TabIndex="47" Content="_Dot as newline" />
+                                                  TabIndex="48" Content="_Dot as newline" />
                                     </UniformGrid>
                                     <Button Grid.Row="4" Grid.Column="1" Width="98"
                                             Height="24" Margin="3,0,3,3" HorizontalAlignment="Right"
                                             HorizontalContentAlignment="Center" Content="Reset Options"
                                             Command="{Binding ResetOptionsCommand}"
-                                            TabIndex="48" />
+                                            TabIndex="49" />
                                 </Grid>
                             </WrapPanel>
                         </Border>

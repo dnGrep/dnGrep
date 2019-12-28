@@ -147,9 +147,6 @@
         <Feature Id="WordPlugin" Title="Word Search" AllowAdvertise='no' Absent='allow' Description="MS Word Search plugin" Level="2">
           <ComponentGroupRef Id="dnGREPPluginFilesWord"/>
         </Feature>
-        <Feature Id="ArchivePlugin" Title="Archive Search" AllowAdvertise='no' Absent='allow' Description="Archive Search plugin" Level="2">
-          <ComponentGroupRef Id="dnGREPPluginFilesArchive"/>
-        </Feature>
         <Feature Id="OpenXmlPlugin" Title="Excel and Word Search" AllowAdvertise='no' Absent='allow' Description="Open XML Search plugin" Level="2">
           <ComponentGroupRef Id="dnGREPPluginFilesOpenXml"/>
         </Feature>
