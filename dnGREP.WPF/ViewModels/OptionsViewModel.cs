@@ -65,6 +65,7 @@ namespace dnGREP.WPF
                     PanelSelection.MainPanel : PanelSelection.OptionsExpander) ||
                 FollowWindowsTheme != Settings.Get<bool>(GrepSettings.Key.FollowWindowsTheme) ||
                 CurrentTheme != Settings.Get<string>(GrepSettings.Key.CurrentTheme) ||
+                ArchiveOptions.IsChanged ||
                 IsChanged(Plugins)
                 )
                     return true;
@@ -482,9 +483,6 @@ namespace dnGREP.WPF
             get { return archiveOptions; }
             set
             {
-                if (value == archiveOptions)
-                    return;
-
                 archiveOptions = value;
 
                 base.OnPropertyChanged(() => ArchiveOptions);
@@ -733,6 +731,19 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.OptionsOnMainPanel, OptionsLocation == PanelSelection.MainPanel);
             Settings.Set(GrepSettings.Key.FollowWindowsTheme, FollowWindowsTheme);
             Settings.Set(GrepSettings.Key.CurrentTheme, CurrentTheme);
+
+            if (ArchiveOptions.IsChanged)
+            {
+                string nameKey = "Archive";
+                string addKey = "Add" + nameKey + "Extensions";
+                string remKey = "Rem" + nameKey + "Extensions";
+
+                Settings.Set(addKey, CleanExtensions(ArchiveOptions.AddExtensions));
+                Settings.Set(remKey, CleanExtensions(ArchiveOptions.RemExtensions));
+
+                ArchiveOptions.SetUnchanged();
+                ArchiveDirectory.Reinitialize();
+            }
 
             bool pluginsChanged = Plugins.Any(p => p.IsChanged);
             foreach (var plugin in Plugins)

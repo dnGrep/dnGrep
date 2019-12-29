@@ -29,6 +29,11 @@ namespace dnGREP.Common
             get { return new string[] { "zip", "7z", "jar", "war", "ear", "rar", "cab", "gz", "gzip", "tar", "rpm", "iso", "isx", "bz2", "bzip2", "tbz2", "tbz", "tgz", "arj", "cpio", "deb", "dmg", "hfs", "hfsx", "lzh", "lha", "lzma", "z", "taz", "xar", "pkg", "xz", "txz", "zipx", "epub", "wim", "chm" }; }
         }
 
+        public static void Reinitialize()
+        {
+            GetExtensionsFromSettings("Archive");
+        }
+
         public static List<string> Extensions { get; private set; } = new List<string>();
 
         public static List<string> Patterns { get; private set; } = new List<string>();

@@ -293,9 +293,9 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <TextBlock Grid.Row="0" Grid.Column="0" Text="Add:" Margin="3" HorizontalAlignment="Right"/>
-                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding AddExtensions}" Margin="3" HorizontalAlignment="Stretch"/>
+                            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding AddExtensions, UpdateSourceTrigger=PropertyChanged}" Margin="3" HorizontalAlignment="Stretch"/>
                             <TextBlock Grid.Row="0" Grid.Column="2" Text="Remove:" Margin="3" HorizontalAlignment="Right"/>
-                            <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding RemExtensions}" Margin="3" HorizontalAlignment="Stretch"/>
+                            <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding RemExtensions, UpdateSourceTrigger=PropertyChanged}" Margin="3" HorizontalAlignment="Stretch"/>
                         </Grid>
                     </Grid>
                 </GroupBox>
@@ -330,9 +330,9 @@
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Row="0" Grid.Column="0" Text="Add:" Margin="3" HorizontalAlignment="Right"/>
-                                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding AddExtensions}" Margin="3" HorizontalAlignment="Stretch"/>
+                                        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding AddExtensions, UpdateSourceTrigger=PropertyChanged}" Margin="3" HorizontalAlignment="Stretch"/>
                                         <TextBlock Grid.Row="0" Grid.Column="2" Text="Remove:" Margin="3" HorizontalAlignment="Right"/>
-                                        <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding RemExtensions}" Margin="3" HorizontalAlignment="Stretch"/>
+                                        <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding RemExtensions, UpdateSourceTrigger=PropertyChanged}" Margin="3" HorizontalAlignment="Stretch"/>
                                     </Grid>
                                 </Grid>
                             </DataTemplate>
