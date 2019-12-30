@@ -33,6 +33,7 @@ namespace dnGREP.Common
 
             if (file.Contains(ArchiveDirectory.ArchiveSeparator))
             {
+                ReadOnly = true;
                 string[] parts = file.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
                 if (parts.Length > 0)
                     FileNameReal = parts[0];
