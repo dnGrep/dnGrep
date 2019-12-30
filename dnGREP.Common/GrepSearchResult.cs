@@ -25,10 +25,18 @@ namespace dnGREP.Common
         public GrepSearchResult(string file, string pattern, List<GrepMatch> matches, Encoding encoding, bool success)
         {
             FileNameDisplayed = file;
-            Matches = matches;
+            if (matches != null)
+                Matches = matches;
             Pattern = pattern;
             Encoding = encoding;
             IsSuccess = success;
+
+            if (file.Contains(ArchiveDirectory.ArchiveSeparator))
+            {
+                string[] parts = file.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+                if (parts.Length > 0)
+                    FileNameReal = parts[0];
+            }
         }
 
         public GrepSearchResult(string file, string pattern, string errorMessage, bool success)
