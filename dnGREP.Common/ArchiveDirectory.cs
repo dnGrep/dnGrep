@@ -198,6 +198,96 @@ namespace dnGREP.Common
             };
         }
 
+        public static FileData GetFileData(GrepSearchResult searchResult)
+        {
+            if (searchResult == null)
+                throw new ArgumentNullException(nameof(searchResult));
+
+            string[] parts = searchResult.FileNameDisplayed.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+            if (!searchResult.FileNameDisplayed.Contains(ArchiveSeparator) || parts.Length < 2)
+            {
+                return null;
+            }
+            string innerFileName = parts.Last();
+            string[] intermediateFiles = parts.Skip(1).Take(parts.Length - 2).ToArray();
+
+            string zipFile = searchResult.FileNameReal;
+            if (zipFile.Length > 260 && !zipFile.StartsWith(@"\\?\", StringComparison.InvariantCulture))
+            {
+                zipFile = @"\\?\" + zipFile;
+            }
+
+            using (SevenZipExtractor extractor = new SevenZipExtractor(zipFile))
+            {
+                if (intermediateFiles.Length > 0 && extractor.ArchiveFileNames.Contains(intermediateFiles.First()))
+                {
+                    using (Stream stream = new MemoryStream())
+                    {
+                        extractor.ExtractFile(intermediateFiles.First(), stream);
+                        string[] newIntermediateFiles = intermediateFiles.Skip(1).ToArray();
+
+                        return GetFileData(stream, searchResult.FileNameReal, innerFileName, newIntermediateFiles);
+                    }
+                }
+                else
+                {
+                    int index = -1;
+                    var info = extractor.ArchiveFileData.FirstOrDefault(r => r.FileName == innerFileName);
+                    if (info != null)
+                    {
+                        index = info.Index;
+                    }
+                    else if (extractor.ArchiveFileNames.Count == 1 && extractor.ArchiveFileNames[0] == "[no name]")
+                    {
+                        index = 0;
+                    }
+
+                    if (index > -1)
+                    {
+                        return new FileData(searchResult.FileNameReal, extractor.ArchiveFileData[index]);
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        private static FileData GetFileData(Stream input, string filePath, string innerFileName, string[] intermediateFiles)
+        {
+            using (SevenZipExtractor extractor = new SevenZipExtractor(input))
+            {
+                if (intermediateFiles.Length > 0 && extractor.ArchiveFileNames.Contains(intermediateFiles.First()))
+                {
+                    using (Stream stream = new MemoryStream())
+                    {
+                        extractor.ExtractFile(intermediateFiles.First(), stream);
+                        string[] newIntermediateFiles = intermediateFiles.Skip(1).ToArray();
+
+                        return GetFileData(stream, filePath, innerFileName, newIntermediateFiles);
+                    }
+                }
+                else
+                {
+                    int index = -1;
+                    var info = extractor.ArchiveFileData.FirstOrDefault(r => r.FileName == innerFileName);
+                    if (info != null)
+                    {
+                        index = info.Index;
+                    }
+                    else if (extractor.ArchiveFileNames.Count == 1 && extractor.ArchiveFileNames[0] == "[no name]")
+                    {
+                        index = 0;
+                    }
+
+                    if (index > -1)
+                    {
+                        return new FileData(filePath, extractor.ArchiveFileData[index]);
+                    }
+                }
+            }
+            return null;
+        }
+
         public static void OpenFile(OpenFileArgs args)
         {
             if (args == null)

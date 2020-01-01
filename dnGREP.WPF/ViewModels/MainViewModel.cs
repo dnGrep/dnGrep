@@ -77,7 +77,6 @@ namespace dnGREP.WPF
         private BookmarksWindow bookmarkWindow;
         private HashSet<string> currentSearchFiles = new HashSet<string>();
         private int processedFiles;
-        private bool isSorted;
         private List<ReplaceDef> undoList = new List<ReplaceDef>();
         private DispatcherTimer idleTimer = new DispatcherTimer(DispatcherPriority.ContextIdle);
         private string latestStatusMessage;
@@ -175,6 +174,36 @@ namespace dnGREP.WPF
 
                 _previewDockedWidth = value;
                 base.OnPropertyChanged(() => PreviewDockedWidth);
+            }
+        }
+
+        private SortType sortType;
+        public SortType SortType
+        {
+            get { return sortType; }
+            set
+            {
+                if (sortType != value)
+                {
+                    sortType = value;
+                    base.OnPropertyChanged(() => SortType);
+                }
+                SortResults();
+            }
+        }
+
+        private ListSortDirection sortDirection;
+        public ListSortDirection SortDirection
+        {
+            get { return sortDirection; }
+            set
+            {
+                if (sortDirection != value)
+                {
+                    sortDirection = value;
+                    base.OnPropertyChanged(() => SortDirection);
+                }
+                SortResults();
             }
         }
 
@@ -301,6 +330,7 @@ namespace dnGREP.WPF
                 return _replaceCommand;
             }
         }
+
         RelayCommand _sortCommand;
         /// <summary>
         /// Returns a command that sorts the results.
@@ -576,9 +606,20 @@ namespace dnGREP.WPF
             }
         }
 
+        public override void LoadSettings()
+        {
+            base.LoadSettings();
+
+            SortType = GrepSettings.Instance.Get<SortType>(GrepSettings.Key.TypeOfSort);
+            SortDirection = GrepSettings.Instance.Get<ListSortDirection>(GrepSettings.Key.SortDirection);
+        }
+
         public override void SaveSettings()
         {
             CopyBookmarksToSettings();
+
+            settings.Set<ListSortDirection>(GrepSettings.Key.SortDirection, SortDirection);
+            settings.Set<SortType>(GrepSettings.Key.TypeOfSort, SortType);
 
             Properties.Settings.Default.PreviewBounds = PreviewWindowBounds;
             Properties.Settings.Default.PreviewWindowState = PreviewWindowState;
@@ -1024,7 +1065,6 @@ namespace dnGREP.WPF
                     base.OnPropertyChanged(() => CurrentGrepOperation);
                     CanSearch = true;
                     SearchResults.Clear();
-                    isSorted = false;
                 }
 
                 string outdatedEngines = dnGREP.Engines.GrepEngineFactory.GetListOfFailedEngines();
@@ -1131,7 +1171,6 @@ namespace dnGREP.WPF
                     workerParams.AddSearchFiles(foundFiles);
                 }
                 SearchResults.Clear();
-                isSorted = false;
                 processedFiles = 0;
                 idleTimer.Start();
                 workerSearchReplace.RunWorkerAsync(workerParams);
@@ -1245,7 +1284,6 @@ namespace dnGREP.WPF
                         workerParams.AddReplaceFiles(undoList);
 
                         SearchResults.Clear();
-                        isSorted = false;
                         idleTimer.Start();
                         workerSearchReplace.RunWorkerAsync(workerParams);
                         UpdateBookmarks();
@@ -1532,7 +1570,6 @@ namespace dnGREP.WPF
                     }
                     CanUndo = false;
                     SearchResults.Clear();
-                    isSorted = false;
                     FilesFound = false;
                 }
             }
@@ -1559,7 +1596,6 @@ namespace dnGREP.WPF
                 }
                 CanUndo = false;
                 SearchResults.Clear();
-                isSorted = false;
                 FilesFound = false;
             }
         }
@@ -1640,19 +1676,47 @@ namespace dnGREP.WPF
         {
             get
             {
-                return SearchParallel && !isSorted && SearchResults.Count > 0 &&
+                return SearchResults.Count > 0 &&
                     CurrentGrepOperation == GrepOperation.None && !workerSearchReplace.IsBusy;
             }
         }
 
         private void SortResults()
         {
+            if (!CanSortResults) return;
+
             using (var d = Dispatcher.CurrentDispatcher.DisableProcessing())
             {
                 var list = SearchResults.ToList();
                 SearchResults.Clear();
-                SearchResults.AddRange(list.OrderBy(r => r.Label));
-                isSorted = true;
+
+                switch (sortType)
+                {
+                    case SortType.FileNameOnly:
+                        list.Sort(new FileNameOnlyComparer(sortDirection));
+                        break;
+                    case SortType.FileTypeAndName:
+                        list.Sort(new FileTypeAndNameComparer(sortDirection));
+                        break;
+                    case SortType.FileNameDepthFirst:
+                    default:
+                        list.Sort(new FileNameDepthFirstComparer(sortDirection));
+                        break;
+                    case SortType.FileNameBreadthFirst:
+                        list.Sort(new FileNameBreadthFirstComparer(sortDirection));
+                        break;
+                    case SortType.Size:
+                        list.Sort(new FileSizeComparer(sortDirection));
+                        break;
+                    case SortType.Date:
+                        list.Sort(new FileDateComparer(sortDirection));
+                        break;
+                    case SortType.MatchCount:
+                        list.Sort(new MatchCountComparer(sortDirection));
+                        break;
+                }
+
+                SearchResults.AddRange(list);
             }
         }
 

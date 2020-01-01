@@ -545,11 +545,43 @@
                             Content="Replace"
                             Command="{Binding ReplaceCommand}"
                             TabIndex="84" />
-                    <Button Width="64" Height="24" Margin="3"
+                    <my:SplitButton Width="76" Height="24" Margin="3"
                             Content="Sort"
                             Command="{Binding SortCommand}"
-                            TabIndex="85"
-                            Visibility="{Binding SearchParallel, Converter={StaticResource BoolToVisibilityConverter}}" />
+                            TabIndex="85">
+                        <my:SplitButton.ContextMenu>
+                            <ContextMenu>
+                                <my:RadioMenuItem Header="Path and file name, depth-first"
+                                                  GroupName="S1" 
+                                                  IsChecked="{Binding Path=SortType, Converter={StaticResource ebc}, ConverterParameter=FileNameDepthFirst}"/>
+                                <my:RadioMenuItem Header="Path and file name, breadth-first"
+                                                  GroupName="S1" 
+                                                  IsChecked="{Binding Path=SortType, Converter={StaticResource ebc}, ConverterParameter=FileNameBreadthFirst}"/>
+                                <my:RadioMenuItem Header="File name only"
+                                                  GroupName="S1" 
+                                                  IsChecked="{Binding Path=SortType, Converter={StaticResource ebc}, ConverterParameter=FileNameOnly}"/>
+                                <my:RadioMenuItem Header="File type and name"
+                                                  GroupName="S1" 
+                                                  IsChecked="{Binding Path=SortType, Converter={StaticResource ebc}, ConverterParameter=FileTypeAndName}"/>
+                                <my:RadioMenuItem Header="File size"
+                                                  GroupName="S1" 
+                                                  IsChecked="{Binding Path=SortType, Converter={StaticResource ebc}, ConverterParameter=Size}"/>
+                                <my:RadioMenuItem Header="Last write time"
+                                                  GroupName="S1" 
+                                                  IsChecked="{Binding Path=SortType, Converter={StaticResource ebc}, ConverterParameter=Date}"/>
+                                <my:RadioMenuItem Header="Match count"
+                                                  GroupName="S1" 
+                                                  IsChecked="{Binding Path=SortType, Converter={StaticResource ebc}, ConverterParameter=MatchCount}"/>
+                                <Separator/>
+                                <my:RadioMenuItem Header="Ascending"
+                                                  GroupName="S2" 
+                                                  IsChecked="{Binding Path=SortDirection, Converter={StaticResource ebc}, ConverterParameter=Ascending}"/>
+                                <my:RadioMenuItem Header="Descending"
+                                                  GroupName="S2" 
+                                                  IsChecked="{Binding Path=SortDirection, Converter={StaticResource ebc}, ConverterParameter=Descending}"/>
+                            </ContextMenu>
+                        </my:SplitButton.ContextMenu>
+                    </my:SplitButton>
                     <Button Width="32" Height="24" Margin="3"
                             Content="&gt;&gt;" Click="ButtonOtherActions_Click"
                             ContextMenuService.Placement="Bottom"

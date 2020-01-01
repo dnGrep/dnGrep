@@ -6,14 +6,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using dnGREP.Common;
 using dnGREP.Common.UI;
 using dnGREP.WPF.MVHelpers;
-using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.WPF
@@ -321,25 +319,6 @@ namespace dnGREP.WPF
             get { return GrepResult.Matches.Count; }
         }
 
-        private FileInfo fileInfo;
-        public string Size
-        {
-            get
-            {
-                return string.Format("{0}", fileInfo.Length);
-            }
-        }
-
-        public string FileName
-        {
-            get { return fileInfo.Name; }
-        }
-
-        public string FilePath
-        {
-            get { return fileInfo.FullName; }
-        }
-
         public string Style { get; private set; } = "";
 
         public string Label { get; private set; } = "";
@@ -399,7 +378,6 @@ namespace dnGREP.WPF
         public FormattedGrepResult(GrepSearchResult result, string folderPath)
         {
             GrepResult = result;
-            fileInfo = new FileInfo(GrepResult.FileNameReal);
 
             bool isFileReadOnly = Utils.IsReadOnly(GrepResult);
             bool isSuccess = GrepResult.IsSuccess;

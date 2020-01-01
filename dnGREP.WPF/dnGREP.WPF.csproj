@@ -151,10 +151,13 @@
       <Link>Properties\AssemblyVersionCommon.cs</Link>
     </Compile>
     <Compile Include="Controls\DepthTextBox.cs" />
+    <Compile Include="Controls\RadioMenuItem.cs" />
+    <Compile Include="Controls\SplitButton.cs" />
     <Compile Include="Controls\ThemedWindow.cs" />
     <Compile Include="MVHelpers\IntOrEmptyValueConverter.cs" />
     <Compile Include="MVHelpers\ResizeModeConverter.cs" />
     <Compile Include="MVHelpers\ColorInverter.cs" />
+    <Compile Include="MVHelpers\ResultSorter.cs" />
     <Compile Include="MVHelpers\StringNotNullOrEmptyConverter.cs" />
     <Compile Include="MVHelpers\TypeOfSearchValueConverter.cs" />
     <Compile Include="ThemedHighlightingManager.cs" />
@@ -201,6 +204,10 @@
     </Compile>
     <Compile Include="MVHelpers\PreviewHighlighter.cs" />
     <Compile Include="AppTheme.cs" />
+    <Page Include="ThemedControls\SplitButton.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ThemedControls\Button.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

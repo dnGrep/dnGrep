@@ -123,6 +123,10 @@ namespace dnGREP.Common
             public const string FollowWindowsTheme = "FollowWindowsTheme";
             [DefaultValue("Light")]
             public const string CurrentTheme = "CurrentTheme";
+            [DefaultValue(SortType.FileNameDepthFirst)]
+            public const string TypeOfSort = "TypeOfSort";
+            [DefaultValue(ListSortDirection.Ascending)]
+            public const string SortDirection = "SortDirection";
         }
 
         private static GrepSettings instance;

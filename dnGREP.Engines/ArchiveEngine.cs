@@ -129,6 +129,7 @@ namespace dnGREP.Engines
 
                 foreach (GrepSearchResult result in searchResults)
                 {
+                    result.InnerFileName = result.FileNameDisplayed;
                     result.FileNameDisplayed = compositeFileName;
                     result.FileNameReal = diskFile;
                     result.ReadOnly = true;
