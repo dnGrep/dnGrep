@@ -217,39 +217,10 @@ namespace dnGREP.Common
                 zipFile = @"\\?\" + zipFile;
             }
 
-            using (SevenZipExtractor extractor = new SevenZipExtractor(zipFile))
+            using (FileStream input = File.Open(zipFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
-                if (intermediateFiles.Length > 0 && extractor.ArchiveFileNames.Contains(intermediateFiles.First()))
-                {
-                    using (Stream stream = new MemoryStream())
-                    {
-                        extractor.ExtractFile(intermediateFiles.First(), stream);
-                        string[] newIntermediateFiles = intermediateFiles.Skip(1).ToArray();
-
-                        return GetFileData(stream, searchResult.FileNameReal, innerFileName, newIntermediateFiles);
-                    }
-                }
-                else
-                {
-                    int index = -1;
-                    var info = extractor.ArchiveFileData.FirstOrDefault(r => r.FileName == innerFileName);
-                    if (info != null)
-                    {
-                        index = info.Index;
-                    }
-                    else if (extractor.ArchiveFileNames.Count == 1 && extractor.ArchiveFileNames[0] == "[no name]")
-                    {
-                        index = 0;
-                    }
-
-                    if (index > -1)
-                    {
-                        return new FileData(searchResult.FileNameReal, extractor.ArchiveFileData[index]);
-                    }
-                }
+                return GetFileData(input, searchResult.FileNameReal, innerFileName, intermediateFiles);
             }
-
-            return null;
         }
 
         private static FileData GetFileData(Stream input, string filePath, string innerFileName, string[] intermediateFiles)
@@ -337,46 +308,9 @@ namespace dnGREP.Common
                     zipFile = @"\\?\" + zipFile;
                 }
 
-                using (SevenZipExtractor extractor = new SevenZipExtractor(zipFile))
+                using (FileStream input = File.Open(zipFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 {
-                    if (intermediateFiles.Length > 0 && extractor.ArchiveFileNames.Contains(intermediateFiles.First()))
-                    {
-                        using (Stream stream = new MemoryStream())
-                        {
-                            extractor.ExtractFile(intermediateFiles.First(), stream);
-                            string[] newIntermediateFiles = intermediateFiles.Skip(1).ToArray();
-
-                            ExtractToTempFile(stream, filePath, searchResult.FileNameReal, innerFileName, newIntermediateFiles);
-                        }
-                    }
-                    else
-                    {
-                        int index = -1;
-                        var info = extractor.ArchiveFileData.FirstOrDefault(r => r.FileName == innerFileName);
-                        if (info != null)
-                        {
-                            index = info.Index;
-                        }
-                        else if (extractor.ArchiveFileNames.Count == 1 && extractor.ArchiveFileNames[0] == "[no name]")
-                        {
-                            index = 0;
-                        }
-
-                        if (index > -1)
-                        {
-                            using (FileStream stream = File.Open(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
-                            {
-                                try
-                                {
-                                    extractor.ExtractFile(index, stream);
-                                }
-                                catch (Exception ex)
-                                {
-                                    logger.Log<Exception>(LogLevel.Error, string.Format(CultureInfo.CurrentCulture, "Failed extract file {0} from archive '{1}'", innerFileName, searchResult.FileNameReal), ex);
-                                }
-                            }
-                        }
-                    }
+                    ExtractToTempFile(input, filePath, searchResult.FileNameReal, innerFileName, intermediateFiles);
                 }
             }
 
@@ -416,7 +350,7 @@ namespace dnGREP.Common
                         {
                             try
                             {
-                                extractor.ExtractFile(0, stream);
+                                extractor.ExtractFile(index, stream);
                             }
                             catch (Exception ex)
                             {
