@@ -53,7 +53,7 @@ namespace dnGREP.Common
             get
             {
                 return systemFileInfo != null ? systemFileInfo.Name :
-                    sevenZipFileInfo != null ? sevenZipFileInfo.FileName :
+                    sevenZipFileInfo != null ? Path.GetFileName(sevenZipFileInfo.FileName) :
                     everythingFileInfo != null ? everythingFileInfo.Name :
                     string.Empty;
             }

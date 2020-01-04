@@ -610,8 +610,10 @@ namespace dnGREP.WPF
         {
             base.LoadSettings();
 
-            SortType = GrepSettings.Instance.Get<SortType>(GrepSettings.Key.TypeOfSort);
-            SortDirection = GrepSettings.Instance.Get<ListSortDirection>(GrepSettings.Key.SortDirection);
+            // changing the private field so as to not trigger sorting the results when
+            // the Options dialog is closed
+            sortType = GrepSettings.Instance.Get<SortType>(GrepSettings.Key.TypeOfSort);
+            sortDirection = GrepSettings.Instance.Get<ListSortDirection>(GrepSettings.Key.SortDirection);
         }
 
         public override void SaveSettings()
@@ -1422,7 +1424,7 @@ namespace dnGREP.WPF
                 logger.Log<Exception>(LogLevel.Error, "Error saving options", ex);
             }
             LoadSettings();
-            SearchResults.CustomEditorConfigured = true;
+            SearchResults.RaiseSettingsPropertiesChanged();
         }
 
         private void ShowHelp()

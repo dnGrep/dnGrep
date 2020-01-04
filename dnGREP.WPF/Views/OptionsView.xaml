@@ -194,6 +194,9 @@
                         <CheckBox Name="cbShowMatchVerbose" Margin="3" Content="Show verbose match count"
                                   IsChecked="{Binding Path=ShowVerboseMatchCount}" />
 
+                        <CheckBox Name="cbShowFileInfoToolTips" Margin="3" Content="Show file info tool tips"
+                                  IsChecked="{Binding Path=ShowFileInfoTooltips}" />
+
                     </StackPanel>
                 </GroupBox>
 

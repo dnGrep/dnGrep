@@ -202,13 +202,19 @@ namespace dnGREP.WPF
             }
         }
 
+        // some settings have changed, raise property changed events to update the UI
+        public void RaiseSettingsPropertiesChanged()
+        {
+            base.OnPropertyChanged(new PropertyChangedEventArgs("CustomEditorConfigured"));
+
+            foreach (var item in this)
+            {
+                item.RaiseSettingsPropertiesChanged();
+            }
+        }
         public bool CustomEditorConfigured
         {
             get { return GrepSettings.Instance.IsSet(GrepSettings.Key.CustomEditor); }
-            set
-            {
-                base.OnPropertyChanged(new PropertyChangedEventArgs("CustomEditorConfigured"));
-            }
         }
 
         private double resultsScale = 1.0;
@@ -322,6 +328,17 @@ namespace dnGREP.WPF
         public string Style { get; private set; } = "";
 
         public string Label { get; private set; } = "";
+
+        public bool ShowFileInfoTooltips
+        {
+            get { return GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowFileInfoTooltips); }
+        }
+
+        // some settings have changed, raise property changed events to update the UI
+        public void RaiseSettingsPropertiesChanged()
+        {
+            base.OnPropertyChanged(() => ShowFileInfoTooltips);
+        }
 
         private bool isExpanded = false;
         public bool IsExpanded

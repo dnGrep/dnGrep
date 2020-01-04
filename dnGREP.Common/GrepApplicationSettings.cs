@@ -127,6 +127,8 @@ namespace dnGREP.Common
             public const string TypeOfSort = "TypeOfSort";
             [DefaultValue(ListSortDirection.Ascending)]
             public const string SortDirection = "SortDirection";
+            [DefaultValue(true)]
+            public const string ShowFileInfoTooltips = "ShowFileInfoTooltips";
         }
 
         private static GrepSettings instance;

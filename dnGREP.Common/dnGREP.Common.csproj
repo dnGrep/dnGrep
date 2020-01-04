@@ -138,6 +138,7 @@
     <Compile Include="FileData.cs" />
     <Compile Include="FileFilter.cs" />
     <Compile Include="GitUtil.cs" />
+    <Compile Include="NativeMethods.cs" />
     <Compile Include="PathSearchText.cs" />
     <Compile Include="SafeDirectory.cs" />
     <Compile Include="GrepSearchResult.cs" />
