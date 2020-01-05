@@ -10,6 +10,7 @@ using dnGREP.Common;
 using DockFloat;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Editing;
+using ICSharpCode.AvalonEdit.Search;
 
 namespace dnGREP.WPF
 {
@@ -23,6 +24,7 @@ namespace dnGREP.WPF
         private bool isInitializing;
         private bool isInPropertyChanged;
         private bool isInCaretMoved;
+        private readonly SearchPanel searchPanel;
 
         public ReplaceWindow()
         {
@@ -66,6 +68,9 @@ namespace dnGREP.WPF
             lineNumberMargin.SetBinding(Control.ForegroundProperty, lineNumbersForeground);
 
             DataContext = ViewModel;
+
+            searchPanel = SearchPanel.Install(textEditor);
+            searchPanel.MarkerBrush = Application.Current.Resources["Match.Highlight.Background"] as Brush;
 
             ViewModel.LoadFile += (s, e) => LoadFile();
             ViewModel.ReplaceMatch += (s, e) => textEditor.TextArea.TextView.Redraw();

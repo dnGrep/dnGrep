@@ -27,9 +27,11 @@
                 <ResourceDictionary Source="ThemedControls\ProgressBar.xaml" />
                 <ResourceDictionary Source="ThemedControls\RadioButton.xaml" />
                 <ResourceDictionary Source="ThemedControls\SplitButton.xaml" />
+                <ResourceDictionary Source="ThemedControls\SearchPanel.xaml" />
                 <ResourceDictionary Source="ThemedControls\StatusBar.xaml" />
                 <ResourceDictionary Source="ThemedControls\ScrollViewer.xaml" />
                 <ResourceDictionary Source="ThemedControls\Slider.xaml" />
+                <ResourceDictionary Source="ThemedControls\ToggleButton.xaml" />
                 <ResourceDictionary Source="ThemedControls\TreeView.xaml" />
 
                 <ResourceDictionary Source="ThemedControls\Styles.xaml" />
