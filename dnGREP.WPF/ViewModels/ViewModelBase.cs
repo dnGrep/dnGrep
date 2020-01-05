@@ -95,7 +95,7 @@ namespace dnGREP.WPF
             return memberExpression.Member.Name;
         }
 
-#if DEBUG
+#if DEBUG_FINALIZE
         /// <summary>
         /// Useful for ensuring that ViewModel objects are properly garbage collected.
         /// </summary>

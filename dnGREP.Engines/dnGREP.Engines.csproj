@@ -93,7 +93,10 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.6.1\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\packages\NLog.4.6.8\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="SevenZipSharp">
+      <HintPath>..\Dependencies\SevenZipSharp.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -111,6 +114,7 @@
     <Compile Include="..\AssemblyVersionCommon.cs">
       <Link>Properties\AssemblyVersionCommon.cs</Link>
     </Compile>
+    <Compile Include="ArchiveEngine.cs" />
     <Compile Include="GoogleMatch.cs" />
     <Compile Include="GrepCore.cs" />
     <Compile Include="GrepEngineFactory.cs" />

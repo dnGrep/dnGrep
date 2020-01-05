@@ -40,7 +40,7 @@
             <Setter Property="Margin" Value="3" />
         </Style>
 
-        <Style TargetType="Button" BasedOn="{StaticResource FormButtonStyle}">
+        <Style x:Key="ReplaceButton" TargetType="Button" BasedOn="{StaticResource FormButtonStyle}">
             <Setter Property="FontSize" Value="14" />
             <Setter Property="Padding" Value="6,3" />
             <Setter Property="MinWidth" Value="90" />
@@ -112,22 +112,27 @@
                                 Orientation="Horizontal">
                         <Button Content="Previous File" TabIndex="1"
                                 Command="{Binding PrevFileCommand}"
-                                ToolTip="Show the previous file [Ctrl+PgUp]" />
+                                ToolTip="Show the previous file [Ctrl+PgUp]" 
+                                Style="{StaticResource ReplaceButton}"/>
                         <Button Content="Next _File" TabIndex="2"
                                 Command="{Binding NextFileCommand}"
-                                ToolTip="Show the next file [Ctrl+PgDn]" />
+                                ToolTip="Show the next file [Ctrl+PgDn]"
+                                Style="{StaticResource ReplaceButton}"/>
                         <Button Margin="16,3,3,3" Content="Replace in File" TabIndex="3"
                                 Command="{Binding ReplaceAllInFileCommand}"
-                                ToolTip="Mark all matches in this file for replacement [Ctrl+A]" />
+                                ToolTip="Mark all matches in this file for replacement [Ctrl+A]"
+                                Style="{StaticResource ReplaceButton}"/>
                         <Button Content="Undo File" TabIndex="4"
                                 Command="{Binding UndoFileCommand}"
-                                ToolTip="Reset and skip all matches in this file [Ctrl+T]" />
+                                ToolTip="Reset and skip all matches in this file [Ctrl+T]"
+                                Style="{StaticResource ReplaceButton}"/>
                     </StackPanel>
                     <StackPanel Grid.Row="2" Grid.Column="1" Margin="3"
                                 Orientation="Horizontal">
                         <Button HorizontalAlignment="Right" Content="Replace in All Files" TabIndex="5"
                                 Command="{Binding ReplaceAllCommand}"
-                                ToolTip="Replace all matches in all files, and apply [F10]" />
+                                ToolTip="Replace all matches in all files, and apply [F10]"
+                                Style="{StaticResource ReplaceButton}"/>
                     </StackPanel>
                 </Grid>
             </GroupBox>
@@ -166,16 +171,20 @@
                     <StackPanel Margin="3" Orientation="Horizontal">
                         <Button Content="_Previous" TabIndex="10"
                                 Command="{Binding PrevMatchCommand}"
-                                ToolTip="Move to the next match in this file [Ctrl+Left]" />
+                                ToolTip="Move to the next match in this file [Ctrl+Left]"
+                                Style="{StaticResource ReplaceButton}"/>
                         <Button Content="_Next" TabIndex="11"
                                 Command="{Binding NextMatchCommand}"
-                                ToolTip="Move to the previous match in this file [Ctrl+Right]" />
+                                ToolTip="Move to the previous match in this file [Ctrl+Right]"
+                                Style="{StaticResource ReplaceButton}"/>
                         <Button Margin="24,3,3,3" Content="_Replace" TabIndex="12"
                                 Command="{Binding ReplaceMatchCommand}"
-                                ToolTip="Mark match for replacement [Ctrl+R]" />
+                                ToolTip="Mark match for replacement [Ctrl+R]"
+                                Style="{StaticResource ReplaceButton}"/>
                         <Button Content="_Undo" TabIndex="13"
                                 Command="{Binding UndoMatchCommand}"
-                                ToolTip="Undo mark replace on this match [Ctrl+U]" />
+                                ToolTip="Undo mark replace on this match [Ctrl+U]"
+                                Style="{StaticResource ReplaceButton}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="24,1,3,1" Padding="2" VerticalAlignment="Center"
@@ -198,9 +207,12 @@
                        Margin="3" HorizontalAlignment="Right" LastChildFill="False">
                 <Button x:Name="btnCancel" DockPanel.Dock="Right" Content="Cancel"
                         TabIndex="20" IsCancel="True" Click="CancelButton_Click"
-                        ToolTip="Cancel all replacements" />
+                        ToolTip="Cancel all replacements"
+                        Style="{StaticResource ReplaceButton}"/>
                 <Button DockPanel.Dock="Right" Content="OK" TabIndex="21"
-                        Click="OKButton_Click" ToolTip="Replace matches marked for replacement" />
+                        Click="OKButton_Click" 
+                        ToolTip="Replace matches marked for replacement"
+                        Style="{StaticResource ReplaceButton}"/>
             </DockPanel>
 
         </Grid>

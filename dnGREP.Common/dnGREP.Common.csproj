@@ -95,13 +95,16 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.6.1\lib\net45\NLog.dll</HintPath>
+      <HintPath>..\packages\NLog.4.6.8\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="SevenZipSharp">
+      <HintPath>..\Dependencies\SevenZipSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
@@ -129,10 +132,13 @@
     <Compile Include="..\AssemblyVersionCommon.cs">
       <Link>Properties\AssemblyVersionCommon.cs</Link>
     </Compile>
+    <Compile Include="ArchiveDirectory.cs" />
     <Compile Include="BookmarkLibrary.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="FileData.cs" />
     <Compile Include="FileFilter.cs" />
+    <Compile Include="GitUtil.cs" />
+    <Compile Include="NativeMethods.cs" />
     <Compile Include="PathSearchText.cs" />
     <Compile Include="SafeDirectory.cs" />
     <Compile Include="GrepSearchResult.cs" />

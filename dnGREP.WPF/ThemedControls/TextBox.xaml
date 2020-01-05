@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:my="clr-namespace:dnGREP.WPF">
 
 
     <Style x:Key="ThemedTextBox" TargetType="{x:Type TextBoxBase}" BasedOn="{x:Null}">
@@ -97,5 +98,6 @@
 
     <Style BasedOn="{StaticResource ThemedTextBox}" TargetType="{x:Type TextBox}" />
     <Style BasedOn="{StaticResource ThemedTextBox}" TargetType="{x:Type RichTextBox}" />
+    <Style BasedOn="{StaticResource ThemedTextBox}" TargetType="{x:Type my:DepthTextBox}" />
 
 </ResourceDictionary>

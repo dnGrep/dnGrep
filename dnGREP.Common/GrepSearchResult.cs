@@ -25,10 +25,21 @@ namespace dnGREP.Common
         public GrepSearchResult(string file, string pattern, List<GrepMatch> matches, Encoding encoding, bool success)
         {
             FileNameDisplayed = file;
-            Matches = matches;
+            if (matches != null)
+                Matches = matches;
             Pattern = pattern;
             Encoding = encoding;
             IsSuccess = success;
+
+            if (file.Contains(ArchiveDirectory.ArchiveSeparator))
+            {
+                ReadOnly = true;
+                string[] parts = file.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+                if (parts.Length > 0)
+                    FileNameReal = parts[0];
+                if (parts.Length > 1)
+                    InnerFileName = parts[1];
+            }
         }
 
         public GrepSearchResult(string file, string pattern, string errorMessage, bool success)
@@ -45,6 +56,8 @@ namespace dnGREP.Common
         public string EOL { get; set; }
 
         public string FileNameDisplayed { get; set; }
+
+        public string InnerFileName { get; set; }
 
         public string Pattern { get; }
 
@@ -68,6 +81,36 @@ namespace dnGREP.Common
                     return fileNameToOpen;
             }
             set { fileNameToOpen = value; }
+        }
+
+        private FileData fileInfo;
+        public FileData FileInfo
+        {
+            get
+            {
+                if (fileInfo == null)
+                {
+                    if (!string.IsNullOrEmpty(InnerFileName))
+                    {
+                        fileInfo = ArchiveDirectory.GetFileData(this);
+                    }
+                    else
+                    {
+                        fileInfo = new FileData(FileNameReal);
+                    }
+                }
+                return fileInfo;
+            }
+        }
+
+        public string FileSize
+        {
+            get { return NativeMethods.StrFormatByteSize(FileInfo.Length); }
+        }
+
+        public string FileType
+        {
+            get { return NativeMethods.GetFileTypeDescription(Path.GetExtension(FileNameDisplayed)); }
         }
 
         /// <summary>

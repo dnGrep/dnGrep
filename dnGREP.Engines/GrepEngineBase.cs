@@ -48,6 +48,9 @@ namespace dnGREP.Engines
 
         public FileFilter FileFilter { get; protected set; }
 
+        public int LinesAfter => initParams.LinesAfter;
+        public int LinesBefore => initParams.LinesBefore;
+
         public virtual void OpenFile(OpenFileArgs args)
         {
             Utils.OpenFile(args);

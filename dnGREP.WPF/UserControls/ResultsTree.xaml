@@ -33,7 +33,30 @@
                 <StackPanel Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
                         <Image Height="16" Source="{Binding Icon}" />
-                        <TextBlock Margin="3,0,0,0" Text="{Binding Label}" />
+                        <TextBlock Margin="3,0,0,0" Text="{Binding Label}">
+                            <TextBlock.ToolTip>
+                                <ToolTip  Visibility="{Binding ShowFileInfoTooltips, Converter={StaticResource BooleanToVisibilityConverter}}">
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Margin="3,0" Text="File:"/>
+                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.FileInfo.Name}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Margin="3,0" Text="Type:"/>
+                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.FileType}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Margin="3,0" Text="Size:"/>
+                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.FileSize}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Margin="3,0" Text="Date Modified:"/>
+                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.FileInfo.LastWriteTime, StringFormat={}{0:g}}"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </ToolTip>
+                            </TextBlock.ToolTip>
+                        </TextBlock>
                     </StackPanel>
                     <Viewbox Width="20" Height="20" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <Controls:BusyIndicator Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}" />

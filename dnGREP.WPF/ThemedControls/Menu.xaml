@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:my="clr-namespace:dnGREP.WPF">
 
 
     <Style x:Key="ThemedMenuItem" TargetType="{x:Type MenuItem}">
@@ -270,6 +271,7 @@
         </Setter>
     </Style>
 
+    <Style BasedOn="{StaticResource ThemedMenuItem}" TargetType="{x:Type my:RadioMenuItem}"/>
     <Style BasedOn="{StaticResource ThemedMenu}" TargetType="{x:Type Menu}" />
     <Style BasedOn="{StaticResource ThemedContextMenu}" TargetType="{x:Type ContextMenu}" />
 
