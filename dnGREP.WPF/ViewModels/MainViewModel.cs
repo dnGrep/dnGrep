@@ -77,7 +77,6 @@ namespace dnGREP.WPF
         private BookmarksWindow bookmarkWindow;
         private HashSet<string> currentSearchFiles = new HashSet<string>();
         private int processedFiles;
-        private bool isSorted;
         private List<ReplaceDef> undoList = new List<ReplaceDef>();
         private DispatcherTimer idleTimer = new DispatcherTimer(DispatcherPriority.ContextIdle);
         private string latestStatusMessage;
@@ -175,6 +174,36 @@ namespace dnGREP.WPF
 
                 _previewDockedWidth = value;
                 base.OnPropertyChanged(() => PreviewDockedWidth);
+            }
+        }
+
+        private SortType sortType;
+        public SortType SortType
+        {
+            get { return sortType; }
+            set
+            {
+                if (sortType != value)
+                {
+                    sortType = value;
+                    base.OnPropertyChanged(() => SortType);
+                }
+                SortResults();
+            }
+        }
+
+        private ListSortDirection sortDirection;
+        public ListSortDirection SortDirection
+        {
+            get { return sortDirection; }
+            set
+            {
+                if (sortDirection != value)
+                {
+                    sortDirection = value;
+                    base.OnPropertyChanged(() => SortDirection);
+                }
+                SortResults();
             }
         }
 
@@ -301,6 +330,7 @@ namespace dnGREP.WPF
                 return _replaceCommand;
             }
         }
+
         RelayCommand _sortCommand;
         /// <summary>
         /// Returns a command that sorts the results.
@@ -576,9 +606,22 @@ namespace dnGREP.WPF
             }
         }
 
+        public override void LoadSettings()
+        {
+            base.LoadSettings();
+
+            // changing the private field so as to not trigger sorting the results when
+            // the Options dialog is closed
+            sortType = GrepSettings.Instance.Get<SortType>(GrepSettings.Key.TypeOfSort);
+            sortDirection = GrepSettings.Instance.Get<ListSortDirection>(GrepSettings.Key.SortDirection);
+        }
+
         public override void SaveSettings()
         {
             CopyBookmarksToSettings();
+
+            settings.Set<ListSortDirection>(GrepSettings.Key.SortDirection, SortDirection);
+            settings.Set<SortType>(GrepSettings.Key.TypeOfSort, SortType);
 
             Properties.Settings.Default.PreviewBounds = PreviewWindowBounds;
             Properties.Settings.Default.PreviewWindowState = PreviewWindowState;
@@ -609,16 +652,24 @@ namespace dnGREP.WPF
                 OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, matchText, columnNumber,
                     useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor),
                     settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
-                IGrepEngine engine = GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, GrepEngineInitParams.Default, new FileFilter());
-                if (engine != null)
+                bool isInArchive = Utils.IsArchive(result.GrepResult.FileNameReal);
+                if (isInArchive)
                 {
-                    engine.OpenFile(fileArg);
-                    GrepEngineFactory.ReturnToPool(result.GrepResult.FileNameReal, engine);
+                    ArchiveDirectory.OpenFile(fileArg);
                 }
-                if (fileArg.UseBaseEngine)
-                    Utils.OpenFile(new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, matchText, columnNumber,
-                        useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor),
-                        settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
+                else
+                {
+                    IGrepEngine engine = GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, GrepEngineInitParams.Default, new FileFilter());
+                    if (engine != null)
+                    {
+                        engine.OpenFile(fileArg);
+                        GrepEngineFactory.ReturnToPool(result.GrepResult.FileNameReal, engine);
+                    }
+                    if (fileArg.UseBaseEngine)
+                        Utils.OpenFile(new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, matchText, columnNumber,
+                            useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor),
+                            settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
+                }
             }
             catch (Exception ex)
             {
@@ -655,16 +706,23 @@ namespace dnGREP.WPF
                 OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, matchText, columnNumber,
                     useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor),
                     settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
-                IGrepEngine engine = GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, GrepEngineInitParams.Default, new FileFilter());
-                if (engine != null)
+                if (Utils.IsArchive(result.GrepResult.FileNameReal))
                 {
-                    engine.OpenFile(fileArg);
-                    GrepEngineFactory.ReturnToPool(result.GrepResult.FileNameReal, engine);
+                    ArchiveDirectory.OpenFile(fileArg);
                 }
-                if (fileArg.UseBaseEngine)
-                    Utils.OpenFile(new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, matchText, columnNumber,
-                        useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor),
-                        settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
+                else
+                {
+                    IGrepEngine engine = GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, GrepEngineInitParams.Default, new FileFilter());
+                    if (engine != null)
+                    {
+                        engine.OpenFile(fileArg);
+                        GrepEngineFactory.ReturnToPool(result.GrepResult.FileNameReal, engine);
+                    }
+                    if (fileArg.UseBaseEngine)
+                        Utils.OpenFile(new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, matchText, columnNumber,
+                            useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor),
+                            settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
+                }
             }
             catch (Exception ex)
             {
@@ -769,8 +827,8 @@ namespace dnGREP.WPF
                         Utils.CancelSearch = false;
 
                         FileFilter fileParams = new FileFilter(PathSearchText.CleanPath, filePatternInclude, filePatternExclude,
-                            param.TypeOfFileSearch == FileSearchType.Regex, param.TypeOfFileSearch == FileSearchType.Everything,
-                            param.IncludeSubfolder, param.IncludeHidden, param.IncludeBinary, param.IncludeArchive, sizeFrom,
+                            param.TypeOfFileSearch == FileSearchType.Regex, param.UseGitIgnore, param.TypeOfFileSearch == FileSearchType.Everything,
+                            param.IncludeSubfolder, param.MaxSubfolderDepth, param.IncludeHidden, param.IncludeBinary, param.IncludeArchive, sizeFrom,
                             sizeTo, param.UseFileDateFilter, startTime, endTime);
 
                         if (param.Operation == GrepOperation.SearchInResults)
@@ -812,8 +870,8 @@ namespace dnGREP.WPF
                             SearchParallel);
 
                         grep.FileFilter = new FileFilter(PathSearchText.CleanPath, filePatternInclude, filePatternExclude,
-                            param.TypeOfFileSearch == FileSearchType.Regex, param.TypeOfFileSearch == FileSearchType.Everything,
-                            param.IncludeSubfolder, param.IncludeHidden, param.IncludeBinary, param.IncludeArchive,
+                            param.TypeOfFileSearch == FileSearchType.Regex, param.UseGitIgnore, param.TypeOfFileSearch == FileSearchType.Everything,
+                            param.IncludeSubfolder, param.MaxSubfolderDepth, param.IncludeHidden, param.IncludeBinary, param.IncludeArchive,
                             sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime);
 
                         GrepSearchOption searchOptions = GrepSearchOption.None;
@@ -1009,7 +1067,6 @@ namespace dnGREP.WPF
                     base.OnPropertyChanged(() => CurrentGrepOperation);
                     CanSearch = true;
                     SearchResults.Clear();
-                    isSorted = false;
                 }
 
                 string outdatedEngines = dnGREP.Engines.GrepEngineFactory.GetListOfFailedEngines();
@@ -1116,7 +1173,6 @@ namespace dnGREP.WPF
                     workerParams.AddSearchFiles(foundFiles);
                 }
                 SearchResults.Clear();
-                isSorted = false;
                 processedFiles = 0;
                 idleTimer.Start();
                 workerSearchReplace.RunWorkerAsync(workerParams);
@@ -1230,7 +1286,6 @@ namespace dnGREP.WPF
                         workerParams.AddReplaceFiles(undoList);
 
                         SearchResults.Clear();
-                        isSorted = false;
                         idleTimer.Start();
                         workerSearchReplace.RunWorkerAsync(workerParams);
                         UpdateBookmarks();
@@ -1369,7 +1424,7 @@ namespace dnGREP.WPF
                 logger.Log<Exception>(LogLevel.Error, "Error saving options", ex);
             }
             LoadSettings();
-            SearchResults.CustomEditorConfigured = true;
+            SearchResults.RaiseSettingsPropertiesChanged();
         }
 
         private void ShowHelp()
@@ -1517,7 +1572,6 @@ namespace dnGREP.WPF
                     }
                     CanUndo = false;
                     SearchResults.Clear();
-                    isSorted = false;
                     FilesFound = false;
                 }
             }
@@ -1544,7 +1598,6 @@ namespace dnGREP.WPF
                 }
                 CanUndo = false;
                 SearchResults.Clear();
-                isSorted = false;
                 FilesFound = false;
             }
         }
@@ -1625,19 +1678,47 @@ namespace dnGREP.WPF
         {
             get
             {
-                return SearchParallel && !isSorted && SearchResults.Count > 0 &&
+                return SearchResults.Count > 0 &&
                     CurrentGrepOperation == GrepOperation.None && !workerSearchReplace.IsBusy;
             }
         }
 
         private void SortResults()
         {
+            if (!CanSortResults) return;
+
             using (var d = Dispatcher.CurrentDispatcher.DisableProcessing())
             {
                 var list = SearchResults.ToList();
                 SearchResults.Clear();
-                SearchResults.AddRange(list.OrderBy(r => r.Label));
-                isSorted = true;
+
+                switch (sortType)
+                {
+                    case SortType.FileNameOnly:
+                        list.Sort(new FileNameOnlyComparer(sortDirection));
+                        break;
+                    case SortType.FileTypeAndName:
+                        list.Sort(new FileTypeAndNameComparer(sortDirection));
+                        break;
+                    case SortType.FileNameDepthFirst:
+                    default:
+                        list.Sort(new FileNameDepthFirstComparer(sortDirection));
+                        break;
+                    case SortType.FileNameBreadthFirst:
+                        list.Sort(new FileNameBreadthFirstComparer(sortDirection));
+                        break;
+                    case SortType.Size:
+                        list.Sort(new FileSizeComparer(sortDirection));
+                        break;
+                    case SortType.Date:
+                        list.Sort(new FileDateComparer(sortDirection));
+                        break;
+                    case SortType.MatchCount:
+                        list.Sort(new MatchCountComparer(sortDirection));
+                        break;
+                }
+
+                SearchResults.AddRange(list);
             }
         }
 
@@ -1670,7 +1751,8 @@ namespace dnGREP.WPF
                 sb.AppendLine("Using Everything index search");
 
             options.Clear();
-            if (!IncludeSubfolder) options.Add("No subfolders");
+            if (!IncludeSubfolder || (IncludeSubfolder && MaxSubfolderDepth == 0)) options.Add("No subfolders");
+            if (IncludeSubfolder && MaxSubfolderDepth > 0) options.Add($"Max folder depth {MaxSubfolderDepth}");
             if (!IncludeHidden) options.Add("No hidden files");
             if (!IncludeBinary) options.Add("No binary files");
             if (!IncludeArchive) options.Add("No archives");
@@ -1851,11 +1933,12 @@ namespace dnGREP.WPF
 
                 if (Utils.IsArchive(filePath))
                 {
-                    if (GrepEngineFactory.GetSearchEngine(filePath, GrepEngineInitParams.Default, new FileFilter()) is IArchiveEngine engine)
+                    //if (GrepEngineFactory.GetSearchEngine(filePath, GrepEngineInitParams.Default, new FileFilter()) is IArchiveEngine engine)
                     {
                         OpenFileArgs fileArg = new OpenFileArgs(result, result.Pattern, 0, string.Empty, 1, false, null, null);
-                        string tempFile = engine.ExtractToTempFile(result);
-                        GrepEngineFactory.ReturnToPool(filePath, engine as IGrepEngine);
+                        string tempFile = ArchiveDirectory.ExtractToTempFile(result);
+                        //string tempFile = engine.ExtractToTempFile(result);
+                        //GrepEngineFactory.ReturnToPool(filePath, engine as IGrepEngine);
 
                         if (string.IsNullOrWhiteSpace(tempFile))
                         {

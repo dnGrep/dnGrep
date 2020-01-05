@@ -27,6 +27,11 @@ namespace Tests
             sourceFolder = Path.Combine(GetDllPath(), "Files");
             destinationFolder = Path.Combine(Path.GetTempPath(), "dnGrepTest", Guid.NewGuid().ToString());
             Directory.CreateDirectory(destinationFolder);
+
+            if (Environment.Is64BitProcess)
+                SevenZip.SevenZipBase.SetLibraryPath(Path.Combine(GetDllPath(), @"7z64.dll"));
+            else
+                SevenZip.SevenZipBase.SetLibraryPath(Path.Combine(GetDllPath(), @"7z.dll"));
         }
 
         public string GetLongPathDestination(string leafFolder)
@@ -980,6 +985,51 @@ namespace Tests
 
             Assert.Single(hits[1].Matches);
             Assert.Equal("Start", hits[1].LineText.Substring(hits[1].Matches[0].StartLocation, hits[1].Matches[0].Length));
+        }
+
+        [Theory]
+        [InlineData("*.txt", "test", 15)]
+        [InlineData("*.txt", "flash", 1)]
+        [InlineData("*.c", "hello", 1)]
+        public void TestSearchArchiveFiles(string namePattern, string searchText, int expected)
+        {
+            string testCase17 = Path.Combine(sourceFolder, @"TestCase17");
+            string destFolder = Path.Combine(destinationFolder, @"TestCase17");
+            DirectoryInfo di = new DirectoryInfo(destFolder);
+            if (!di.Exists)
+            {
+                di.Create();
+                Directory.Copy(testCase17, destFolder);
+            }
+
+            GrepCore core = new GrepCore();
+            var files = Utils.GetFileList(destFolder, namePattern, null, false, false, true, true,
+                true, true, 0, 0, FileDateFilter.None, null, null, false, -1);
+            List<GrepSearchResult> results = core.Search(files, SearchType.PlainText, searchText, GrepSearchOption.None, -1);
+            Assert.Equal(expected, results.Count);
+        }
+
+        [Theory]
+        [InlineData("*.txt", "test", 15)]
+        [InlineData("*.txt", "flash", 1)]
+        [InlineData("*.c", "hello", 1)]
+        public void TestSearchArchiveFilesLongPath(string namePattern, string searchText, int expected)
+        {
+            string longDestinationFolder = GetLongPathDestination(Guid.NewGuid().ToString());
+            string testCase17 = Path.Combine(sourceFolder, @"TestCase17");
+            string destFolder = Path.Combine(longDestinationFolder, @"TestCase17");
+            DirectoryInfo di = new DirectoryInfo(destFolder);
+            if (!di.Exists)
+            {
+                di.Create();
+                Directory.Copy(testCase17, destFolder);
+            }
+
+            GrepCore core = new GrepCore();
+            var files = Utils.GetFileList(destFolder, namePattern, null, false, false, true, true,
+                true, true, 0, 0, FileDateFilter.None, null, null, false, -1);
+            List<GrepSearchResult> results = core.Search(files, SearchType.PlainText, searchText, GrepSearchOption.None, -1);
+            Assert.Equal(expected, results.Count);
         }
     }
 }

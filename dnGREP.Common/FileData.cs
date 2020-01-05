@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using dnGREP.Everything;
+using SevenZip;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
 using File = Alphaleonis.Win32.Filesystem.File;
@@ -10,16 +11,25 @@ using Path = Alphaleonis.Win32.Filesystem.Path;
 namespace dnGREP.Common
 {
     /// <summary>
-    /// FileData is a common interface wrapper for a System.IO>FileInfo or an Everything.EverythingFileInfo
+    /// FileData is a common interface wrapper for a System.IO.FileInfo, 
+    /// SevenZip.ArchiveFileInfo, or an Everything.EverythingFileInfo
     /// </summary>
     public class FileData
     {
-        private FileInfo systemFileInfo;
-        private EverythingFileInfo everythingFileInfo;
+        private readonly FileInfo systemFileInfo;
+        private readonly string archiveFileName;
+        private readonly ArchiveFileInfo sevenZipFileInfo;
+        private readonly EverythingFileInfo everythingFileInfo;
 
         public FileData(string fileName)
         {
             systemFileInfo = new FileInfo(fileName);
+        }
+
+        public FileData(string srcFileName, ArchiveFileInfo fileInfo)
+        {
+            archiveFileName = srcFileName;
+            sevenZipFileInfo = fileInfo;
         }
 
         public FileData(EverythingFileInfo fileInfo)
@@ -32,6 +42,7 @@ namespace dnGREP.Common
             get
             {
                 return systemFileInfo != null ? systemFileInfo.FullName :
+                    sevenZipFileInfo != null ? (archiveFileName ?? string.Empty) + ArchiveDirectory.ArchiveSeparator + sevenZipFileInfo.FileName :
                     everythingFileInfo != null ? everythingFileInfo.FullName :
                     string.Empty;
             }
@@ -42,6 +53,7 @@ namespace dnGREP.Common
             get
             {
                 return systemFileInfo != null ? systemFileInfo.Name :
+                    sevenZipFileInfo != null ? Path.GetFileName(sevenZipFileInfo.FileName) :
                     everythingFileInfo != null ? everythingFileInfo.Name :
                     string.Empty;
             }
@@ -52,6 +64,7 @@ namespace dnGREP.Common
             get
             {
                 return systemFileInfo != null ? systemFileInfo.DirectoryName :
+                    sevenZipFileInfo != null ? Path.GetDirectoryName(sevenZipFileInfo.FileName) :
                     everythingFileInfo != null ? everythingFileInfo.DirectoryName :
                     string.Empty;
             }
@@ -62,6 +75,7 @@ namespace dnGREP.Common
             get
             {
                 return systemFileInfo != null ? systemFileInfo.Extension :
+                    sevenZipFileInfo != null ? Path.GetExtension(sevenZipFileInfo.FileName) :
                     everythingFileInfo != null ? everythingFileInfo.Extension :
                     string.Empty;
             }
@@ -72,6 +86,7 @@ namespace dnGREP.Common
             get
             {
                 return systemFileInfo != null ? systemFileInfo.Exists :
+                    sevenZipFileInfo != null ? true :
                     everythingFileInfo != null ? everythingFileInfo.Exists :
                     false;
             }
@@ -82,6 +97,7 @@ namespace dnGREP.Common
             get
             {
                 return systemFileInfo != null ? systemFileInfo.Attributes :
+                    sevenZipFileInfo != null ? (FileAttributes)sevenZipFileInfo.Attributes :
                     everythingFileInfo != null ? everythingFileInfo.Attributes :
                     FileAttributes.Normal;
             }
@@ -92,6 +108,7 @@ namespace dnGREP.Common
             get
             {
                 return systemFileInfo != null ? systemFileInfo.IsReadOnly :
+                    sevenZipFileInfo != null ? true :
                     everythingFileInfo != null ? everythingFileInfo.IsReadOnly :
                     true;
             }
@@ -102,6 +119,7 @@ namespace dnGREP.Common
             get
             {
                 return systemFileInfo != null ? systemFileInfo.Length :
+                    sevenZipFileInfo != null ? ToLong(sevenZipFileInfo.Size) :
                     everythingFileInfo != null ? everythingFileInfo.Length :
                     0;
             }
@@ -112,6 +130,7 @@ namespace dnGREP.Common
             get
             {
                 return systemFileInfo != null ? systemFileInfo.CreationTimeUtc :
+                    sevenZipFileInfo != null ? sevenZipFileInfo.CreationTime.ToUniversalTime() :
                     everythingFileInfo != null ? everythingFileInfo.CreationTimeUtc :
                     DateTime.MinValue;
             }
@@ -122,6 +141,7 @@ namespace dnGREP.Common
             get
             {
                 return systemFileInfo != null ? systemFileInfo.CreationTime :
+                    sevenZipFileInfo != null ? sevenZipFileInfo.CreationTime :
                     everythingFileInfo != null ? everythingFileInfo.CreationTime :
                     DateTime.MinValue;
             }
@@ -132,6 +152,7 @@ namespace dnGREP.Common
             get
             {
                 return systemFileInfo != null ? systemFileInfo.LastWriteTimeUtc :
+                    sevenZipFileInfo != null ? sevenZipFileInfo.LastWriteTime.ToUniversalTime() :
                     everythingFileInfo != null ? everythingFileInfo.LastWriteTimeUtc :
                     DateTime.MinValue;
             }
@@ -142,10 +163,24 @@ namespace dnGREP.Common
             get
             {
                 return systemFileInfo != null ? systemFileInfo.LastWriteTime :
+                    sevenZipFileInfo != null ? sevenZipFileInfo.LastWriteTime :
                     everythingFileInfo != null ? everythingFileInfo.LastWriteTime :
                     DateTime.MinValue;
             }
         }
 
+        public bool IsBinary { get; set; }
+
+        private static long ToLong(ulong size)
+        {
+            try
+            {
+                return Convert.ToInt64(size);
+            }
+            catch (OverflowException)
+            {
+                return long.MaxValue;
+            }
+        }
     }
 }

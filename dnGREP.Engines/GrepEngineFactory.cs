@@ -32,6 +32,7 @@ namespace dnGREP.Engines
         {
             get
             {
+                LoadPlugins();
                 if (plugins == null)
                     return Enumerable.Empty<GrepPlugin>();
 
@@ -187,23 +188,6 @@ namespace dnGREP.Engines
             }
         }
 
-        public static List<string> GetArchiveExtenstions()
-        {
-            LoadPlugins();
-
-            if (plugins != null && plugins.Count > 0)
-            {
-                var archivePlugin = plugins.Where(r => r.Enabled &&
-                    (r.Extensions.Contains("zip") || r.Extensions.Contains("gzip") || r.Extensions.Contains("gz") || r.Extensions.Contains("7z")))
-                    .Select(r => r).FirstOrDefault();
-
-                if (archivePlugin != null)
-                    return archivePlugin.Extensions;
-            }
-
-            return new List<string>();
-        }
-
         public static IGrepEngine GetSearchEngine(string fileName, GrepEngineInitParams param, FileFilter filter)
         {
             Debug.Assert(param != null);
@@ -213,33 +197,36 @@ namespace dnGREP.Engines
 
             string fileExtension = Path.GetExtension(fileName).ToLower().TrimStart('.');
 
-            IGrepEngine poolEngine = FetchFromPool(fileExtension);
-            if (poolEngine != null)
+            lock (lockObj)
             {
-                poolEngine.Initialize(param, filter);
-                return poolEngine;
-            }
-
-            if (fileTypeEngines.ContainsKey(fileExtension))
-            {
-                IGrepEngine engine = fileTypeEngines[fileExtension].CreateEngine();
-                if (engine != null && engine.Initialize(param, filter))
+                IGrepEngine poolEngine = FetchFromPool(fileExtension);
+                if (poolEngine != null)
                 {
-                    loadedEngines.Add(engine);
-                    logger.Debug(string.Format("Using plugin: {0} for extension {1}", engine.ToString(), fileExtension));
-                    return engine;
+                    poolEngine.Initialize(param, filter);
+                    return poolEngine;
+                }
+
+                if (fileTypeEngines.ContainsKey(fileExtension))
+                {
+                    IGrepEngine engine = fileTypeEngines[fileExtension].CreateEngine();
+                    if (engine != null && engine.Initialize(param, filter))
+                    {
+                        loadedEngines.Add(engine);
+                        logger.Debug(string.Format("Using plugin: {0} for extension {1}", engine.ToString(), fileExtension));
+                        return engine;
+                    }
+                    else
+                    {
+                        logger.Debug(string.Format("File type engines failed to initialize: {0}, using plainTextEngine", fileExtension));
+                        failedEngines[engine.GetType().Name] = "Failed to initialize the plugin. See error log for details.";
+                        return GetPlainTextEngine(fileExtension, param, filter);
+                    }
                 }
                 else
                 {
-                    logger.Debug(string.Format("File type engines failed to initialize: {0}, using plainTextEngine", fileExtension));
-                    failedEngines[engine.GetType().Name] = "Failed to initialize the plugin. See error log for details.";
+                    logger.Debug(string.Format("File type engines has no key for: {0}, using plainTextEngine", fileExtension));
                     return GetPlainTextEngine(fileExtension, param, filter);
                 }
-            }
-            else
-            {
-                logger.Debug(string.Format("File type engines has no key for: {0}, using plainTextEngine", fileExtension));
-                return GetPlainTextEngine(fileExtension, param, filter);
             }
         }
 
@@ -252,22 +239,25 @@ namespace dnGREP.Engines
 
             string fileExtension = Path.GetExtension(fileName).ToLower().TrimStart('.');
 
-            if (fileTypeEngines.ContainsKey(fileExtension) && !fileTypeEngines[fileExtension].IsSearchOnly)
+            lock (lockObj)
             {
-                IGrepEngine engine = fileTypeEngines[fileExtension].CreateEngine();
-                if (engine != null && engine.Initialize(param, filter))
+                if (fileTypeEngines.ContainsKey(fileExtension) && !fileTypeEngines[fileExtension].IsSearchOnly)
                 {
-                    loadedEngines.Add(engine);
-                    return engine;
+                    IGrepEngine engine = fileTypeEngines[fileExtension].CreateEngine();
+                    if (engine != null && engine.Initialize(param, filter))
+                    {
+                        loadedEngines.Add(engine);
+                        return engine;
+                    }
+                    else
+                    {
+                        failedEngines[engine.GetType().Name] = "Failed to initialize the plugin. See error log for details.";
+                        return GetPlainTextEngine(fileExtension, param, filter);
+                    }
                 }
                 else
-                {
-                    failedEngines[engine.GetType().Name] = "Failed to initialize the plugin. See error log for details.";
                     return GetPlainTextEngine(fileExtension, param, filter);
-                }
             }
-            else
-                return GetPlainTextEngine(fileExtension, param, filter);
         }
 
         private static IGrepEngine GetPlainTextEngine(string fileExtension, GrepEngineInitParams param, FileFilter filter)
@@ -292,21 +282,18 @@ namespace dnGREP.Engines
 
         private static IGrepEngine FetchFromPool(string fileExtension)
         {
-            lock (lockObj)
+            IGrepEngine engine = null;
+            if (poolKeys.TryGetValue(fileExtension, out string poolKey))
             {
-                IGrepEngine engine = null;
-                if (poolKeys.TryGetValue(fileExtension, out string poolKey))
+                if (GrepEngineFactory.pooledEngines.TryGetValue(poolKey, out Queue<IGrepEngine> pooledEngines))
                 {
-                    if (GrepEngineFactory.pooledEngines.TryGetValue(poolKey, out Queue<IGrepEngine> pooledEngines))
+                    if (pooledEngines.Count > 0)
                     {
-                        if (pooledEngines.Count > 0)
-                        {
-                            engine = pooledEngines.Dequeue();
-                        }
+                        engine = pooledEngines.Dequeue();
                     }
                 }
-                return engine;
             }
+            return engine;
         }
 
         public static void ReturnToPool(string fileName, IGrepEngine engine)

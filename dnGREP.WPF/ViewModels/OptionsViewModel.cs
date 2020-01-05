@@ -56,6 +56,7 @@ namespace dnGREP.WPF
                 AllowSearchWithEmptyPattern != Settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern) ||
                 AutoExpandSearchTree != Settings.Get<bool>(GrepSettings.Key.ExpandResults) ||
                 ShowVerboseMatchCount != Settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount) ||
+                ShowFileInfoTooltips != Settings.Get<bool>(GrepSettings.Key.ShowFileInfoTooltips) ||
                 MatchTimeout != Settings.Get<double>(GrepSettings.Key.MatchTimeout) ||
                 MatchThreshold != Settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold) ||
                 MaxSearchBookmarks != Settings.Get<int>(GrepSettings.Key.MaxSearchBookmarks) ||
@@ -65,6 +66,7 @@ namespace dnGREP.WPF
                     PanelSelection.MainPanel : PanelSelection.OptionsExpander) ||
                 FollowWindowsTheme != Settings.Get<bool>(GrepSettings.Key.FollowWindowsTheme) ||
                 CurrentTheme != Settings.Get<string>(GrepSettings.Key.CurrentTheme) ||
+                ArchiveOptions.IsChanged ||
                 IsChanged(Plugins)
                 )
                     return true;
@@ -384,6 +386,21 @@ namespace dnGREP.WPF
             }
         }
 
+        private bool showFileInfoTooltips;
+        public bool ShowFileInfoTooltips
+        {
+            get { return showFileInfoTooltips; }
+            set
+            {
+                if (value == showFileInfoTooltips)
+                    return;
+
+                showFileInfoTooltips = value;
+
+                base.OnPropertyChanged(() => ShowFileInfoTooltips);
+            }
+        }
+
         private double matchTimeout;
         public double MatchTimeout
         {
@@ -473,6 +490,18 @@ namespace dnGREP.WPF
                 optionsLocation = value;
 
                 base.OnPropertyChanged(() => OptionsLocation);
+            }
+        }
+
+        private PluginOptions archiveOptions;
+        public PluginOptions ArchiveOptions
+        {
+            get { return archiveOptions; }
+            set
+            {
+                archiveOptions = value;
+
+                base.OnPropertyChanged(() => ArchiveOptions);
             }
         }
 
@@ -613,7 +642,8 @@ namespace dnGREP.WPF
             ShowFilePathInResults = Settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults);
             AllowSearchWithEmptyPattern = Settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern);
             AutoExpandSearchTree = Settings.Get<bool>(GrepSettings.Key.ExpandResults);
-            showVerboseMatchCount = Settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount);
+            ShowVerboseMatchCount = Settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount);
+            ShowFileInfoTooltips = Settings.Get<bool>(GrepSettings.Key.ShowFileInfoTooltips);
             MatchTimeout = Settings.Get<double>(GrepSettings.Key.MatchTimeout);
             MatchThreshold = Settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold);
             ShowLinesInContext = Settings.Get<bool>(GrepSettings.Key.ShowLinesInContext);
@@ -628,6 +658,24 @@ namespace dnGREP.WPF
             // current values may not equal the saved settings value
             CurrentTheme = AppTheme.Instance.CurrentThemeName;
             FollowWindowsTheme = AppTheme.Instance.FollowWindowsTheme;
+
+
+            {
+                string nameKey = "Archive";
+                string addKey = "Add" + nameKey + "Extensions";
+                string remKey = "Rem" + nameKey + "Extensions";
+
+                string addCsv = string.Empty;
+                if (GrepSettings.Instance.ContainsKey(addKey))
+                    addCsv = GrepSettings.Instance.Get<string>(addKey).Trim();
+
+                string remCsv = string.Empty;
+                if (GrepSettings.Instance.ContainsKey(remKey))
+                    remCsv = GrepSettings.Instance.Get<string>(remKey).Trim();
+
+                ArchiveOptions = new PluginOptions("Archive", true,
+                    string.Join(", ", ArchiveDirectory.DefaultExtensions), addCsv, remCsv);
+            }
 
             Plugins.Clear();
             foreach (var plugin in GrepEngineFactory.AllPlugins.OrderBy(p => p.Name))
@@ -688,7 +736,8 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.ShowFilePathInResults, ShowFilePathInResults);
             Settings.Set(GrepSettings.Key.AllowSearchingForFileNamePattern, AllowSearchWithEmptyPattern);
             Settings.Set(GrepSettings.Key.ExpandResults, AutoExpandSearchTree);
-            Settings.Set(GrepSettings.Key.ShowVerboseMatchCount, showVerboseMatchCount);
+            Settings.Set(GrepSettings.Key.ShowVerboseMatchCount, ShowVerboseMatchCount);
+            Settings.Set(GrepSettings.Key.ShowFileInfoTooltips, ShowFileInfoTooltips);
             Settings.Set(GrepSettings.Key.MatchTimeout, MatchTimeout);
             Settings.Set(GrepSettings.Key.FuzzyMatchThreshold, MatchThreshold);
             Settings.Set(GrepSettings.Key.ShowLinesInContext, ShowLinesInContext);
@@ -700,6 +749,19 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.OptionsOnMainPanel, OptionsLocation == PanelSelection.MainPanel);
             Settings.Set(GrepSettings.Key.FollowWindowsTheme, FollowWindowsTheme);
             Settings.Set(GrepSettings.Key.CurrentTheme, CurrentTheme);
+
+            if (ArchiveOptions.IsChanged)
+            {
+                string nameKey = "Archive";
+                string addKey = "Add" + nameKey + "Extensions";
+                string remKey = "Rem" + nameKey + "Extensions";
+
+                Settings.Set(addKey, CleanExtensions(ArchiveOptions.AddExtensions));
+                Settings.Set(remKey, CleanExtensions(ArchiveOptions.RemExtensions));
+
+                ArchiveOptions.SetUnchanged();
+                ArchiveDirectory.Reinitialize();
+            }
 
             bool pluginsChanged = Plugins.Any(p => p.IsChanged);
             foreach (var plugin in Plugins)

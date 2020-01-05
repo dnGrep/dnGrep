@@ -70,4 +70,14 @@ namespace dnGREP.Common
         Prompt
     }
 
+    public enum SortType
+    {
+        FileNameOnly,
+        FileTypeAndName,
+        FileNameDepthFirst,
+        FileNameBreadthFirst,
+        Size,
+        Date,
+        MatchCount,
+    }
 }

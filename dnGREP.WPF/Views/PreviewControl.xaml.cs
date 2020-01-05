@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using dnGREP.Common;
-
+using ICSharpCode.AvalonEdit.Search;
 using File = Alphaleonis.Win32.Filesystem.File;
 
 namespace dnGREP.WPF
@@ -15,11 +15,16 @@ namespace dnGREP.WPF
     /// </summary>
     public partial class PreviewControl : UserControl
     {
+        private readonly SearchPanel searchPanel;
+
         public PreviewControl()
         {
             InitializeComponent();
 
             DataContext = ViewModel;
+
+            searchPanel = SearchPanel.Install(textEditor);
+            searchPanel.MarkerBrush = Application.Current.Resources["Match.Highlight.Background"] as Brush;
 
             ViewModel.ShowPreview += ViewModel_ShowPreview;
             cbWrapText.IsChecked = GrepSettings.Instance.Get<bool?>(GrepSettings.Key.PreviewWindowWrap);
@@ -29,6 +34,7 @@ namespace dnGREP.WPF
             {
                 textEditor.SyntaxHighlighting = ViewModel.HighlightingDefinition;
                 textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["AvalonEdit.Link"] as Brush;
+                searchPanel.MarkerBrush = Application.Current.Resources["Match.Highlight.Background"] as Brush;
             };
         }
 

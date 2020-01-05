@@ -6,14 +6,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using dnGREP.Common;
 using dnGREP.Common.UI;
 using dnGREP.WPF.MVHelpers;
-using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.WPF
@@ -204,13 +202,19 @@ namespace dnGREP.WPF
             }
         }
 
+        // some settings have changed, raise property changed events to update the UI
+        public void RaiseSettingsPropertiesChanged()
+        {
+            base.OnPropertyChanged(new PropertyChangedEventArgs("CustomEditorConfigured"));
+
+            foreach (var item in this)
+            {
+                item.RaiseSettingsPropertiesChanged();
+            }
+        }
         public bool CustomEditorConfigured
         {
             get { return GrepSettings.Instance.IsSet(GrepSettings.Key.CustomEditor); }
-            set
-            {
-                base.OnPropertyChanged(new PropertyChangedEventArgs("CustomEditorConfigured"));
-            }
         }
 
         private double resultsScale = 1.0;
@@ -321,28 +325,20 @@ namespace dnGREP.WPF
             get { return GrepResult.Matches.Count; }
         }
 
-        private FileInfo fileInfo;
-        public string Size
-        {
-            get
-            {
-                return string.Format("{0}", fileInfo.Length);
-            }
-        }
-
-        public string FileName
-        {
-            get { return fileInfo.Name; }
-        }
-
-        public string FilePath
-        {
-            get { return fileInfo.FullName; }
-        }
-
         public string Style { get; private set; } = "";
 
         public string Label { get; private set; } = "";
+
+        public bool ShowFileInfoTooltips
+        {
+            get { return GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowFileInfoTooltips); }
+        }
+
+        // some settings have changed, raise property changed events to update the UI
+        public void RaiseSettingsPropertiesChanged()
+        {
+            base.OnPropertyChanged(() => ShowFileInfoTooltips);
+        }
 
         private bool isExpanded = false;
         public bool IsExpanded
@@ -399,7 +395,6 @@ namespace dnGREP.WPF
         public FormattedGrepResult(GrepSearchResult result, string folderPath)
         {
             GrepResult = result;
-            fileInfo = new FileInfo(GrepResult.FileNameReal);
 
             bool isFileReadOnly = Utils.IsReadOnly(GrepResult);
             bool isSuccess = GrepResult.IsSuccess;

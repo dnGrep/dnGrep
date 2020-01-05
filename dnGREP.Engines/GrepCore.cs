@@ -151,10 +151,12 @@ namespace dnGREP.Common
 
                 Interlocked.Increment(ref processedFilesCount);
 
+                bool isArchive = file.Contains(ArchiveDirectory.ArchiveSeparator);
+
                 Encoding encoding = Encoding.Default;
                 if (codePage > -1)
                     encoding = Encoding.GetEncoding(codePage);
-                else if (!Utils.IsBinary(file) && !Utils.IsPdfFile(file))
+                else if (!isArchive && !Utils.IsBinary(file) && !Utils.IsPdfFile(file))
                     encoding = Utils.GetFileEncoding(file);
 
                 if (Utils.CancelSearch)
@@ -164,7 +166,15 @@ namespace dnGREP.Common
                     return;
                 }
 
-                List<GrepSearchResult> fileSearchResults = engine.Search(file, searchPattern, searchType, searchOptions, encoding);
+                List<GrepSearchResult> fileSearchResults = null;
+                if (isArchive)
+                {
+                    fileSearchResults = ArchiveEngine.Search(engine, file, searchPattern, searchType, searchOptions, encoding);
+                }
+                else
+                {
+                    fileSearchResults = engine.Search(file, searchPattern, searchType, searchOptions, encoding);
+                }
 
                 if (fileSearchResults != null && fileSearchResults.Count > 0)
                 {
