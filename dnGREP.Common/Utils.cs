@@ -928,15 +928,11 @@ namespace dnGREP.Common
                 Gitignore gitignore = null;
                 if (filter.UseGitIgnore)
                 {
-                    Stopwatch sw = new Stopwatch();
-                    sw.Start();
                     var gitDirectories = SafeDirectory.GetGitignoreDirectories(subPath, filter.IncludeSubfolders);
                     if (gitDirectories != null)
                     {
                         gitignore = GitUtil.GetGitignore(gitDirectories);
                     }
-                    sw.Stop();
-                    Debug.WriteLine($"Search git directories in {sw.ElapsedMilliseconds} ms");
                 }
 
                 foreach (var filePath in SafeDirectory.EnumerateFiles(subPath, includeSearchPatterns, gitignore, filter))
