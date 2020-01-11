@@ -907,13 +907,17 @@ namespace dnGREP.Common
             {
                 if (File.Exists(subPath))
                 {
-                    if (filter.IncludeArchive && IsArchive(subPath))
+                    if (IsArchive(subPath))
                     {
-                        foreach (var innerFile in EnumerateArchiveFiles(subPath, filter, hasSearchPattern,
+                        if (filter.IncludeArchive)
+                        {
+                            foreach (var innerFile in EnumerateArchiveFiles(subPath, filter, hasSearchPattern,
                             includeSearchPatterns, includeRegexPatterns, excludeRegexPatterns))
-                            yield return innerFile;
+                                yield return innerFile;
+                        }
                     }
-                    else if (!matches.Contains(subPath))
+                    else if (IncludeFile(subPath, filter, null, hasSearchPattern, includeSearchPatterns,
+                        includeRegexPatterns, excludeRegexPatterns) && !matches.Contains(subPath))
                     {
                         matches.Add(subPath);
                         yield return subPath;
