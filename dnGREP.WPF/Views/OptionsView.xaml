@@ -128,7 +128,7 @@
                                  Text="{Binding Path=CustomEditorPath, UpdateSourceTrigger=PropertyChanged}" />
                         <Button Grid.Column="2" Width="32" Height="24"
                                 Margin="7,2,1,1"
-                                Command="{Binding Path=BrowseCommand}">
+                                Command="{Binding Path=BrowseEditorCommand}">
                             ...
                         </Button>
                         <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,0,3,0"
@@ -148,6 +148,39 @@
                             <Run> for the first matched text on the line, and </Run>
                             <Run FontWeight="Bold">%column</Run>
                             <Run> for the column number of first match on the line</Run>
+                        </TextBlock>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Header="Compare application">
+                    <Grid Margin="0,0,12,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="440" />
+                            <ColumnDefinition Width="40" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,0,3,0"
+                                   Text="Command" />
+                        <TextBox Grid.Row="0" Grid.Column="1" Height="24"
+                                 Margin="0,2,0,1"
+                                 Text="{Binding Path=CompareApplicationPath, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button Grid.Column="2" Width="32" Height="24"
+                                Margin="7,2,1,1"
+                                Command="{Binding Path=BrowseCompareCommand}">
+                            ...
+                        </Button>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,0,3,0"
+                                   Text="Arguments" />
+                        <TextBox Grid.Row="1" Grid.Column="1" Height="24"
+                                 Margin="0,1"
+                                 Text="{Binding Path=CompareApplicationArgs, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Grid.Row="2" Grid.Column="1" TextWrapping="Wrap">
+                            dnGrep will add the selected files to the end of the command line.
                         </TextBlock>
                     </Grid>
                 </GroupBox>

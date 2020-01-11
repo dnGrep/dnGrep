@@ -78,6 +78,8 @@ namespace dnGREP.Common
             public const string AllowSearchingForFileNamePattern = "AllowSearchingForFileNamePattern";
             public const string CustomEditor = "CustomEditor";
             public const string CustomEditorArgs = "CustomEditorArgs";
+            public const string CompareApplication = "CompareApplication";
+            public const string CompareApplicationArgs = "CompareApplicationArgs";
             public const string ExpandResults = "ExpandResults";
             [DefaultValue(true)]
             public const string ShowVerboseMatchCount = "ShowVerboseMatchCount";
