@@ -56,6 +56,7 @@ namespace dnGREP.Common
             public const string Singleline = "Singleline";
             public const string StopAfterFirstMatch = "StopAfterFirstMatch";
             public const string WholeWord = "WholeWord";
+            public const string BooleanOperators = "BooleanOperators";
             public const string SizeFrom = "SizeFrom";
             [DefaultValue(100)]
             public const string SizeTo = "SizeTo";

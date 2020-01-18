@@ -25,6 +25,7 @@ namespace dnGREP.WPF
             IsCaseSensitiveEnabled = true;
             IsMultilineEnabled = true;
             IsWholeWordEnabled = true;
+            IsBooleanOperatorsEnabled = TypeOfSearch == SearchType.PlainText;
             CanSearchArchives = Utils.ArchiveExtensions.Count > 0;
             LoadSettings();
 
@@ -789,6 +790,36 @@ namespace dnGREP.WPF
             }
         }
 
+        private bool booleanOperators;
+        public bool BooleanOperators
+        {
+            get { return booleanOperators; }
+            set
+            {
+                if (value == booleanOperators)
+                    return;
+
+                booleanOperators = value;
+
+                base.OnPropertyChanged(() => BooleanOperators);
+            }
+        }
+
+        private bool isBooleanOperatorsEnabled;
+        public bool IsBooleanOperatorsEnabled
+        {
+            get { return isBooleanOperatorsEnabled; }
+            set
+            {
+                if (value == isBooleanOperatorsEnabled)
+                    return;
+
+                isBooleanOperatorsEnabled = value;
+
+                base.OnPropertyChanged(() => IsBooleanOperatorsEnabled);
+            }
+        }
+
         private bool isSizeFilterSet;
         public bool IsSizeFilterSet
         {
@@ -1267,10 +1298,12 @@ namespace dnGREP.WPF
                     IsMultilineEnabled = false;
                     IsSinglelineEnabled = false;
                     IsWholeWordEnabled = false;
+                    IsBooleanOperatorsEnabled = false;
                     CaseSensitive = false;
                     Multiline = false;
                     Singleline = false;
                     WholeWord = false;
+                    BooleanOperators = false;
                 }
                 else if (TypeOfSearch == SearchType.PlainText)
                 {
@@ -1278,6 +1311,7 @@ namespace dnGREP.WPF
                     IsMultilineEnabled = true;
                     IsSinglelineEnabled = false;
                     IsWholeWordEnabled = true;
+                    IsBooleanOperatorsEnabled = true;
                     Singleline = false;
                 }
                 else if (TypeOfSearch == SearchType.Soundex)
@@ -1286,8 +1320,10 @@ namespace dnGREP.WPF
                     IsCaseSensitiveEnabled = false;
                     IsSinglelineEnabled = false;
                     IsWholeWordEnabled = true;
+                    IsBooleanOperatorsEnabled = false;
                     CaseSensitive = false;
                     Singleline = false;
+                    BooleanOperators = false;
                 }
                 else if (TypeOfSearch == SearchType.Regex)
                 {
@@ -1295,6 +1331,8 @@ namespace dnGREP.WPF
                     IsMultilineEnabled = true;
                     IsSinglelineEnabled = true;
                     IsWholeWordEnabled = true;
+                    IsBooleanOperatorsEnabled = false;
+                    BooleanOperators = false;
                 }
             }
 
@@ -1413,6 +1451,7 @@ namespace dnGREP.WPF
             Singleline = settings.Get<bool>(GrepSettings.Key.Singleline);
             StopAfterFirstMatch = settings.Get<bool>(GrepSettings.Key.StopAfterFirstMatch);
             WholeWord = settings.Get<bool>(GrepSettings.Key.WholeWord);
+            BooleanOperators = settings.Get<bool>(GrepSettings.Key.BooleanOperators);
             SizeFrom = settings.Get<int>(GrepSettings.Key.SizeFrom);
             SizeTo = settings.Get<int>(GrepSettings.Key.SizeTo);
             IsFiltersExpanded = settings.Get<bool>(GrepSettings.Key.IsFiltersExpanded);
@@ -1449,6 +1488,7 @@ namespace dnGREP.WPF
             settings.Set<bool>(GrepSettings.Key.Singleline, Singleline);
             settings.Set<bool>(GrepSettings.Key.StopAfterFirstMatch, StopAfterFirstMatch);
             settings.Set<bool>(GrepSettings.Key.WholeWord, WholeWord);
+            settings.Set<bool>(GrepSettings.Key.BooleanOperators, BooleanOperators);
             settings.Set<int>(GrepSettings.Key.SizeFrom, SizeFrom);
             settings.Set<int>(GrepSettings.Key.SizeTo, SizeTo);
             settings.Set<bool>(GrepSettings.Key.IsFiltersExpanded, IsFiltersExpanded);

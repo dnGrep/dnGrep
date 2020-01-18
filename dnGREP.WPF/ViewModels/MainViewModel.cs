@@ -883,6 +883,8 @@ namespace dnGREP.WPF
                             searchOptions |= GrepSearchOption.SingleLine;
                         if (WholeWord)
                             searchOptions |= GrepSearchOption.WholeWord;
+                        if (BooleanOperators)
+                            searchOptions |= GrepSearchOption.BooleanOperators;
                         if (StopAfterFirstMatch)
                             searchOptions |= GrepSearchOption.StopAfterFirstMatch;
 
@@ -910,8 +912,10 @@ namespace dnGREP.WPF
                             searchOptions |= GrepSearchOption.SingleLine;
                         if (WholeWord)
                             searchOptions |= GrepSearchOption.WholeWord;
+                        if (BooleanOperators)
+                            searchOptions |= GrepSearchOption.BooleanOperators;
                         if (StopAfterFirstMatch)
-                            searchOptions |= GrepSearchOption.WholeWord;
+                            searchOptions |= GrepSearchOption.StopAfterFirstMatch;
 
                         grep.ProcessedFile += GrepCore_ProcessedFile;
                         e.Result = grep.Replace(param.ReplaceFiles, param.TypeOfSearch, param.SearchFor, param.ReplaceWith, searchOptions, param.CodePage);
@@ -1453,6 +1457,7 @@ namespace dnGREP.WPF
                 IncludeSubfolders = IncludeSubfolder,
                 IncludeHiddenFiles = IncludeHidden,
                 IncludeBinaryFiles = IncludeBinary,
+                // TODO: add BooleanOperators
             };
 
             if (IsBookmarked)
@@ -1735,6 +1740,7 @@ namespace dnGREP.WPF
             if (WholeWord) options.Add("Whole word");
             if (Multiline) options.Add("Multiline");
             if (Singleline) options.Add("Dot as newline");
+            if (BooleanOperators) options.Add("Boolean operators");
             if (SearchInResultsContent) options.Add("Search in results");
             if (StopAfterFirstMatch) options.Add("Stop after first match");
             if (options.Count > 0)
