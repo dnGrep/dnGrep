@@ -1675,7 +1675,9 @@ namespace dnGREP.WPF
             get
             {
                 return PathSearchText.IsValidBaseFolder && FilesFound && CurrentGrepOperation == GrepOperation.None &&
-                        !IsSaveInProgress && !string.IsNullOrEmpty(SearchFor) && SearchResults.GetWritableList().Count > 0;
+                        !IsSaveInProgress && !string.IsNullOrEmpty(SearchFor) && SearchResults.GetWritableList().Count > 0 &&
+                        // if using boolean operators, only allow replace for plain text searches (not implemented for regex)
+                        (BooleanOperators ? TypeOfSearch == SearchType.PlainText : true); 
             }
         }
 

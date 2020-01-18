@@ -18,8 +18,6 @@ namespace dnGREP.Engines
 {
     public class GrepEngineBase
     {
-        private const string AND = " AND ";
-        private const string OR = " OR ";
         private readonly string KEYWORD_GUID_LOWER = "$(guid)";
         private readonly string KEYWORD_GUID_UPPER = "$(GUID)";
         private readonly string KEYWORD_GUIDX = "$(guidx)";
@@ -103,7 +101,8 @@ namespace dnGREP.Engines
 
         #region Regex Search and Replace
 
-        private IEnumerable<GrepMatch> RegexSearchIterator(int lineNumber, int filePosition, string text, string searchPattern, GrepSearchOption searchOptions)
+        private IEnumerable<GrepMatch> RegexSearchIterator(int lineNumber, int filePosition, string text, 
+            string searchPattern, GrepSearchOption searchOptions)
         {
             RegexOptions regexOptions = RegexOptions.None;
             if (!searchOptions.HasFlag(GrepSearchOption.CaseSensitive))
@@ -115,6 +114,29 @@ namespace dnGREP.Engines
 
             bool isWholeWord = searchOptions.HasFlag(GrepSearchOption.WholeWord);
 
+            if (searchOptions.HasFlag(GrepSearchOption.BooleanOperators))
+            {
+                Utils.ParseBooleanOperators(searchPattern, out List<string> andClauses, out List<string> orClauses);
+
+                if (andClauses != null && andClauses.Count > 1)
+                {
+                    return RegexSearchIteratorAnd(lineNumber, filePosition,
+                        text, andClauses, isWholeWord, regexOptions);
+                }
+
+                if (orClauses != null && orClauses.Count > 1)
+                {
+                    return RegexSearchIteratorOr(lineNumber, filePosition,
+                        text, orClauses, isWholeWord, regexOptions);
+                }
+            }
+
+            return RegexSearchIterator(lineNumber, filePosition, text, searchPattern, isWholeWord, regexOptions);
+        }
+
+        private IEnumerable<GrepMatch> RegexSearchIterator(int lineNumber, int filePosition, string text, 
+            string searchPattern, bool isWholeWord, RegexOptions regexOptions)
+        {
             if (isWholeWord)
             {
                 if (!searchPattern.Trim().StartsWith("\\b"))
@@ -187,6 +209,47 @@ namespace dnGREP.Engines
 
                 yield return new GrepMatch(lineNumber, match.Index + (lineNumber - 1), match.Length + newLineCount);
             }
+        }
+
+        private IEnumerable<GrepMatch> RegexSearchIteratorAnd(int lineNumber, int filePosition, string text,
+            List<string> andClauses, bool isWholeWord, RegexOptions regexOptions)
+        {
+            List<GrepMatch> results = new List<GrepMatch>();
+            foreach (string searchPattern in andClauses)
+            {
+                var matches = RegexSearchIterator(lineNumber, filePosition, text,
+                    searchPattern, isWholeWord, regexOptions);
+
+                if (matches.Any())
+                {
+                    results.AddRange(matches);
+                }
+                else
+                {
+                    results.Clear();
+                    break;
+                }
+            }
+            GrepMatch.Normalize(results);
+            return results;
+        }
+
+        private IEnumerable<GrepMatch> RegexSearchIteratorOr(int lineNumber, int filePosition, string text,
+            List<string> orClauses, bool isWholeWord, RegexOptions regexOptions)
+        {
+            List<GrepMatch> results = new List<GrepMatch>();
+            foreach (string searchPattern in orClauses)
+            {
+                var matches = RegexSearchIterator(lineNumber, filePosition, text,
+                    searchPattern, isWholeWord, regexOptions);
+
+                if (matches.Any())
+                {
+                    results.AddRange(matches);
+                }
+            }
+            GrepMatch.Normalize(results);
+            return results;
         }
 
         protected List<GrepMatch> DoRegexSearch(int lineNumber, int filePosition, string text, string searchPattern,
@@ -326,14 +389,14 @@ namespace dnGREP.Engines
 
             if (searchOptions.HasFlag(GrepSearchOption.BooleanOperators))
             {
-                ParseBooleanOperators(searchText, out List<string> andClauses, out List<string> orClauses);
+                Utils.ParseBooleanOperators(searchText, out List<string> andClauses, out List<string> orClauses);
 
                 if (andClauses != null && andClauses.Count > 1)
                 {
                     return TextSearchIteratorAnd(lineNumber, filePosition,
                         text, andClauses, lineEndIndexes, isWholeWord, comparisonType);
                 }
-                
+
                 if (orClauses != null && orClauses.Count > 1)
                 {
                     return TextSearchIteratorOr(lineNumber, filePosition,
@@ -377,7 +440,7 @@ namespace dnGREP.Engines
             List<GrepMatch> results = new List<GrepMatch>();
             foreach (string searchText in andClauses)
             {
-                var matches = TextSearchIterator(lineNumber, filePosition, text, searchText, 
+                var matches = TextSearchIterator(lineNumber, filePosition, text, searchText,
                     lineEndIndexes, isWholeWord, comparisonType);
 
                 if (matches.Any())
@@ -410,41 +473,6 @@ namespace dnGREP.Engines
             }
             GrepMatch.Normalize(results);
             return results;
-        }
-
-        private void ParseBooleanOperators(string text, out List<string> andClauses, out List<string> orClauses)
-        {
-            andClauses = null;
-            orClauses = null;
-            if (text.Contains(AND, StringComparison.InvariantCultureIgnoreCase))
-            {
-                andClauses = new List<string>();
-                SplitClauses(text, AND, andClauses);
-            }
-            else if (text.Contains(OR, StringComparison.InvariantCultureIgnoreCase))
-            {
-                orClauses = new List<string>();
-                SplitClauses(text, OR, orClauses);
-            }
-        }
-
-        private void SplitClauses(string text, string key, List<string> clauses)
-        {
-            int pos1 = 0;
-            while (pos1 > -1 && pos1 < text.Length)
-            {
-                int pos2 = text.IndexOf(key, pos1, StringComparison.InvariantCultureIgnoreCase);
-                if (pos2 > -1)
-                {
-                    clauses.Add(text.Substring(pos1, pos2 - pos1));
-                    pos1 = pos2 + key.Length;
-                }
-                else
-                {
-                    clauses.Add(text.Substring(pos1));
-                    pos1 = text.Length;
-                }
-            }
         }
 
         #endregion

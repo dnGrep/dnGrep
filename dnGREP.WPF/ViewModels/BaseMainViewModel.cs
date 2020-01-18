@@ -7,7 +7,6 @@ using System.Windows.Input;
 using System.Xml;
 using System.Xml.XPath;
 using dnGREP.Common;
-using dnGREP.Engines;
 using dnGREP.Everything;
 using NLog;
 
@@ -25,7 +24,7 @@ namespace dnGREP.WPF
             IsCaseSensitiveEnabled = true;
             IsMultilineEnabled = true;
             IsWholeWordEnabled = true;
-            IsBooleanOperatorsEnabled = TypeOfSearch == SearchType.PlainText;
+            IsBooleanOperatorsEnabled = TypeOfSearch == SearchType.PlainText || TypeOfSearch == SearchType.Regex;
             CanSearchArchives = Utils.ArchiveExtensions.Count > 0;
             LoadSettings();
 
@@ -1169,7 +1168,7 @@ namespace dnGREP.WPF
                 tempList = new List<string>();
                 if (!IncludeSubfolder || (IncludeSubfolder && MaxSubfolderDepth == 0))
                     tempList.Add("No subfolders");
-                if (IncludeSubfolder && MaxSubfolderDepth > 0) 
+                if (IncludeSubfolder && MaxSubfolderDepth > 0)
                     tempList.Add($"Max folder depth {MaxSubfolderDepth}");
                 if (!IncludeHidden)
                     tempList.Add("No hidden");
@@ -1193,8 +1192,8 @@ namespace dnGREP.WPF
             }
 
             //Files found
-            if (name == "FileOrFolderPath" || name == "SearchFor" || name == "FilePattern" || 
-                name == "FilePatternIgnore" || name == "UseGitignore" )
+            if (name == "FileOrFolderPath" || name == "SearchFor" || name == "FilePattern" ||
+                name == "FilePatternIgnore" || name == "UseGitignore")
             {
                 FilesFound = false;
             }
@@ -1211,7 +1210,7 @@ namespace dnGREP.WPF
             }
 
             //Change validation
-            if (name == "SearchFor" || name == "TypeOfSearch")
+            if (name == "SearchFor" || name == "TypeOfSearch" || name == "BooleanOperators")
             {
                 ValidationMessage = string.Empty;
 
@@ -1219,14 +1218,28 @@ namespace dnGREP.WPF
                 {
                     if (TypeOfSearch == SearchType.Regex)
                     {
-                        try
+                        if (BooleanOperators)
                         {
-                            Regex regex = new Regex(SearchFor);
-                            ValidationMessage = "Regex is OK!";
+                            Utils.ParseBooleanOperators(SearchFor, out List<string> andClauses, out List<string> orClauses);
+
+                            if (andClauses != null)
+                            {
+                                foreach (var pattern in andClauses)
+                                {
+                                    ValidateRegex(pattern);
+                                }
+                            }
+                            if (orClauses != null)
+                            {
+                                foreach (var pattern in orClauses)
+                                {
+                                    ValidateRegex(pattern);
+                                }
+                            }
                         }
-                        catch
+                        else
                         {
-                            ValidationMessage = "Regex is not valid!";
+                            ValidateRegex(SearchFor);
                         }
                     }
                     else if (TypeOfSearch == SearchType.XPath)
@@ -1331,8 +1344,7 @@ namespace dnGREP.WPF
                     IsMultilineEnabled = true;
                     IsSinglelineEnabled = true;
                     IsWholeWordEnabled = true;
-                    IsBooleanOperatorsEnabled = false;
-                    BooleanOperators = false;
+                    IsBooleanOperatorsEnabled = true;
                 }
             }
 
@@ -1342,6 +1354,19 @@ namespace dnGREP.WPF
                     IsBookmarked = true;
                 else
                     IsBookmarked = false;
+            }
+        }
+
+        private void ValidateRegex(string pattern)
+        {
+            try
+            {
+                Regex regex = new Regex(pattern);
+                ValidationMessage = "Regex is OK!";
+            }
+            catch
+            {
+                ValidationMessage = "Regex is not valid!";
             }
         }
 
