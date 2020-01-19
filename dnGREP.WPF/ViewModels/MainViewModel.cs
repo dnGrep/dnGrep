@@ -1152,6 +1152,7 @@ namespace dnGREP.WPF
             if (CurrentGrepOperation == GrepOperation.None && !workerSearchReplace.IsBusy)
             {
                 SaveSettings();
+                SearchParametersChanged = false;
 
                 if (TypeOfFileSearch == FileSearchType.Regex)
                 {
@@ -1676,6 +1677,8 @@ namespace dnGREP.WPF
             {
                 return PathSearchText.IsValidBaseFolder && FilesFound && CurrentGrepOperation == GrepOperation.None &&
                         !IsSaveInProgress && !string.IsNullOrEmpty(SearchFor) && SearchResults.GetWritableList().Count > 0 &&
+                        // can only replace using the same parameters as was used for the search
+                        !SearchParametersChanged && 
                         // if using boolean operators, only allow replace for plain text searches (not implemented for regex)
                         (BooleanOperators ? TypeOfSearch == SearchType.PlainText : true); 
             }

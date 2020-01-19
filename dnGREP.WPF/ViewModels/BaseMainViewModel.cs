@@ -36,6 +36,44 @@ namespace dnGREP.WPF
         private XPathNavigator nav;
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
+        // list of properties that affect the search results
+        private static readonly HashSet<string> searchParameters = new HashSet<string>
+        {
+            nameof(BooleanOperators),
+            nameof(CaseSensitive),
+            nameof(CodePage),
+            nameof(EndDate),
+            nameof(FileOrFolderPath),
+            nameof(FilePattern),
+            nameof(FilePatternIgnore),
+            nameof(HoursFrom),
+            nameof(HoursTo),
+            nameof(IncludeArchive),
+            nameof(IncludeBinary),
+            nameof(IncludeHidden),
+            nameof(IncludeSubfolder),
+            nameof(IsDateFilterSet),
+            nameof(IsDatesRangeSet),
+            nameof(IsEverythingSearchMode),
+            nameof(IsHoursRangeSet),
+            nameof(IsSizeFilterSet),
+            nameof(MaxSubfolderDepth),
+            nameof(Multiline),
+            nameof(ReplaceWith),
+            nameof(SearchFor),
+            nameof(Singleline),
+            nameof(SizeFrom),
+            nameof(SizeTo),
+            nameof(StartDate),
+            nameof(TypeOfFileSearch),
+            nameof(TypeOfSearch),
+            nameof(TypeOfTimeRangeFilter),
+            nameof(UseFileDateFilter),
+            nameof(UseFileSizeFilter),
+            nameof(UseGitignore),
+            nameof(WholeWord),
+        };
+
         protected GrepSettings settings
         {
             get { return GrepSettings.Instance; }
@@ -86,6 +124,20 @@ namespace dnGREP.WPF
         public ObservableCollection<KeyValuePair<string, int>> Encodings
         {
             get { return encodings; }
+        }
+
+        private bool searchParametersChanged;
+        public bool SearchParametersChanged
+        {
+            get { return searchParametersChanged; }
+            set
+            {
+                if (value == searchParametersChanged)
+                    return;
+
+                searchParametersChanged = value;
+                base.OnPropertyChanged(() => SearchParametersChanged);
+            }
         }
 
         private string fileOrFolderPath;
@@ -1103,13 +1155,13 @@ namespace dnGREP.WPF
 
         #endregion
 
-        #region Presentation Properties
-        // Need to be implemented separately
-        #endregion
-
         #region Public Methods
+
         public virtual void UpdateState(string name)
         {
+            if (searchParameters.Contains(name))
+                SearchParametersChanged = true;
+
             List<string> tempList = null;
             switch (name)
             {
