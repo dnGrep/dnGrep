@@ -116,8 +116,10 @@ namespace dnGREP.Common
 
                         var attr = (FileAttributes)fileInfo.Attributes;
                         string innerFileName = fileInfo.FileName;
+                        int index = fileInfo.Index;
                         if (innerFileName == "[no name]" && extractor.ArchiveFileData.Count == 1)
                         {
+                            index = 0;
                             innerFileName = Path.GetFileNameWithoutExtension(file);
                             ArchiveFileInfo temp = Copy(fileInfo);
                             temp.FileName = innerFileName;
@@ -132,30 +134,27 @@ namespace dnGREP.Common
                             continue;
                         }
 
+                        if (!filter.IncludeHidden)
+                        {
+                            string path = Path.GetDirectoryName(innerFileName);
+                            if (hiddenDirectories.Contains(path))
+                            {
+                                continue;
+                            }
+                        }
+
                         if (!filter.IncludeBinary)
                         {
                             using (Stream stream = new MemoryStream())
                             {
-                                extractor.ExtractFile(innerFileName, stream);
+                                extractor.ExtractFile(index, stream);
                                 stream.Seek(0, SeekOrigin.Begin);
 
                                 fileData.IsBinary = Utils.IsBinary(stream);
                             }
                         }
 
-                        if (Utils.IsArchive(innerFileName))
-                        {
-                            using (Stream stream = new MemoryStream())
-                            {
-                                extractor.ExtractFile(innerFileName, stream);
-
-                                foreach (var item in EnumerateFiles(stream, file + ArchiveSeparator + innerFileName, includeSearchPatterns, filter))
-                                {
-                                    results.Add(item);
-                                }
-                            }
-                        }
-                        else if (includeSearchPatterns != null && includeSearchPatterns.Count > 0)
+                        if (includeSearchPatterns != null && includeSearchPatterns.Count > 0)
                         {
                             foreach (string pattern in includeSearchPatterns)
                             {
@@ -166,6 +165,19 @@ namespace dnGREP.Common
                         else
                         {
                             results.Add(fileData);
+                        }
+
+                        if (Utils.IsArchive(innerFileName))
+                        {
+                            using (Stream stream = new MemoryStream())
+                            {
+                                extractor.ExtractFile(index, stream);
+
+                                foreach (var item in EnumerateFiles(stream, file + ArchiveSeparator + innerFileName, includeSearchPatterns, filter))
+                                {
+                                    results.Add(item);
+                                }
+                            }
                         }
 
                         if (Utils.CancelSearch)
@@ -227,27 +239,47 @@ namespace dnGREP.Common
         {
             using (SevenZipExtractor extractor = new SevenZipExtractor(input))
             {
-                if (intermediateFiles.Length > 0 && extractor.ArchiveFileNames.Contains(intermediateFiles.First()))
+                if (intermediateFiles.Length > 0)
                 {
-                    using (Stream stream = new MemoryStream())
+                    int index = -1;
+                    if (extractor.ArchiveFileData.Count == 1)
                     {
-                        extractor.ExtractFile(intermediateFiles.First(), stream);
-                        string[] newIntermediateFiles = intermediateFiles.Skip(1).ToArray();
+                        index = 0;
+                    }
+                    else
+                    {
+                        string name = intermediateFiles.First();
+                        var fd = extractor.ArchiveFileData.FirstOrDefault(f => string.Equals(f.FileName, name));
+                        if (fd != null)
+                        {
+                            index = fd.Index;
+                        }
+                    }
+                    if (index > -1)
+                    {
+                        using (Stream stream = new MemoryStream())
+                        {
+                            extractor.ExtractFile(index, stream);
+                            string[] newIntermediateFiles = intermediateFiles.Skip(1).ToArray();
 
-                        return GetFileData(stream, filePath, innerFileName, newIntermediateFiles);
+                            return GetFileData(stream, filePath, innerFileName, newIntermediateFiles);
+                        }
                     }
                 }
                 else
                 {
                     int index = -1;
-                    var info = extractor.ArchiveFileData.FirstOrDefault(r => r.FileName == innerFileName);
-                    if (info != null)
-                    {
-                        index = info.Index;
-                    }
-                    else if (extractor.ArchiveFileNames.Count == 1 && extractor.ArchiveFileNames[0] == "[no name]")
+                    if (extractor.ArchiveFileData.Count == 1)
                     {
                         index = 0;
+                    }
+                    else
+                    {
+                        var fd = extractor.ArchiveFileData.FirstOrDefault(r => string.Equals(r.FileName, innerFileName));
+                        if (fd != null)
+                        {
+                            index = fd.Index;
+                        }
                     }
 
                     if (index > -1)
@@ -321,27 +353,48 @@ namespace dnGREP.Common
         {
             using (SevenZipExtractor extractor = new SevenZipExtractor(input))
             {
-                if (intermediateFiles.Length > 0 && extractor.ArchiveFileNames.Contains(intermediateFiles.First()))
+                if (intermediateFiles.Length > 0)
                 {
-                    using (Stream stream = new MemoryStream())
+                    int index = -1;
+                    if (extractor.ArchiveFileData.Count == 1)
                     {
-                        extractor.ExtractFile(intermediateFiles.First(), stream);
-                        string[] newIntermediateFiles = intermediateFiles.Skip(1).ToArray();
+                        index = 0;
+                    }
+                    else
+                    {
+                        string name = intermediateFiles.First();
+                        var fd = extractor.ArchiveFileData.FirstOrDefault(f => string.Equals(f.FileName, name));
+                        if (fd != null)
+                        {
+                            index = fd.Index;
+                        }
+                    }
 
-                        ExtractToTempFile(stream, filePath, diskFile, innerFileName, newIntermediateFiles);
+                    if (index > -1)
+                    {
+                        using (Stream stream = new MemoryStream())
+                        {
+                            extractor.ExtractFile(index, stream);
+                            string[] newIntermediateFiles = intermediateFiles.Skip(1).ToArray();
+
+                            ExtractToTempFile(stream, filePath, diskFile, innerFileName, newIntermediateFiles);
+                        }
                     }
                 }
                 else
                 {
                     int index = -1;
-                    var info = extractor.ArchiveFileData.FirstOrDefault(r => r.FileName == innerFileName);
-                    if (info != null)
-                    {
-                        index = info.Index;
-                    }
-                    else if (extractor.ArchiveFileNames.Count == 1 && extractor.ArchiveFileNames[0] == "[no name]")
+                    if (extractor.ArchiveFileData.Count == 1)
                     {
                         index = 0;
+                    }
+                    else
+                    {
+                        var fd = extractor.ArchiveFileData.FirstOrDefault(f => string.Equals(f.FileName, innerFileName));
+                        if (fd != null)
+                        {
+                            index = fd.Index;
+                        }
                     }
 
                     if (index > -1)
