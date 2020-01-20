@@ -346,5 +346,63 @@ namespace dnGREP.Common
         }
 
         #endregion
+
+        /// <summary>
+        /// Normalizes the results from multiple searches by sorting the matches, 
+        /// and then merging overlapping matches
+        /// </summary>
+        /// <param name="matches"></param>
+        public static void Normalize(List<GrepMatch> matches)
+        {
+            if (matches != null && matches.Count > 1)
+            {
+                matches.Sort();
+                var overlap = FirstOverlap(matches);
+                while (overlap != null)
+                {
+                    GrepMatch merged = GrepMatch.Merge(overlap.Item1, overlap.Item2);
+                    matches.RemoveAt(overlap.Item3 + 1);
+                    matches.RemoveAt(overlap.Item3);
+                    matches.Insert(overlap.Item3, merged);
+
+                    overlap = FirstOverlap(matches);
+                }
+            }
+        }
+
+        private static Tuple<GrepMatch, GrepMatch, int> FirstOverlap(List<GrepMatch> matches)
+        {
+            for (int idx = 0; idx < matches.Count - 1; idx++)
+            {
+                if (matches[idx].IsOverlap(matches[idx + 1]))
+                    return Tuple.Create(matches[idx], matches[idx + 1], idx);
+            }
+            return null;
+        }
+
+        private bool IsOverlap(GrepMatch other)
+        {
+            if (LineNumber == other.LineNumber)
+            {
+                if (StartLocation <= other.StartLocation && StartLocation + Length > other.StartLocation)
+                {
+                    return true;
+                }
+                else if (other.StartLocation <= StartLocation && other.StartLocation + other.Length > StartLocation)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private static GrepMatch Merge(GrepMatch one, GrepMatch two)
+        {
+            int start = Math.Min(one.StartLocation, two.StartLocation);
+            int end = Math.Max(one.EndPosition, two.EndPosition);
+            int line = Math.Min(one.LineNumber, two.LineNumber);
+
+            return new GrepMatch(line, start, end - start);
+        }
     }
 }

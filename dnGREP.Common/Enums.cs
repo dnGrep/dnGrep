@@ -38,7 +38,8 @@ namespace dnGREP.Common
         Multiline = 2,
         SingleLine = 4,
         WholeWord = 8,
-        StopAfterFirstMatch = 16
+        StopAfterFirstMatch = 16,
+        BooleanOperators = 32
     }
 
     public enum GrepOperation
