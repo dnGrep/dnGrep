@@ -106,6 +106,7 @@ namespace dnGREP.Common
         public bool WholeWord { get; set; }
         public bool Multiline { get; set; }
         public bool Singleline { get; set; }
+        public bool BoolenOperators { get; set; }
 
         public FileSearchType TypeOfFileSearch { get; set; } = FileSearchType.Asterisk;
         public string FileNames { get; set; } = string.Empty;
@@ -126,6 +127,7 @@ namespace dnGREP.Common
         public bool ShouldSerializeWholeWord() { return Version > 1; }
         public bool ShouldSerializeMultiline() { return Version > 1; }
         public bool ShouldSerializeSingleline() { return Version > 1; }
+        public bool ShouldSerializeBooleanOperators() { return Version > 1; }
 
         public override bool Equals(object obj)
         {

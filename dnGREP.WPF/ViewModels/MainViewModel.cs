@@ -1455,10 +1455,10 @@ namespace dnGREP.WPF
                 WholeWord = WholeWord,
                 Multiline = Multiline,
                 Singleline = Singleline,
+                BoolenOperators = BooleanOperators,
                 IncludeSubfolders = IncludeSubfolder,
                 IncludeHiddenFiles = IncludeHidden,
                 IncludeBinaryFiles = IncludeBinary,
-                // TODO: add BooleanOperators
             };
 
             if (IsBookmarked)
