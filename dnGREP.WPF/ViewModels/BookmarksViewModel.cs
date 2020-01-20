@@ -190,6 +190,7 @@ namespace dnGREP.WPF
                         WholeWord = editBmk.WholeWord,
                         Multiline = editBmk.Multiline,
                         Singleline = editBmk.Singleline,
+                        BoolenOperators = editBmk.BooleanOperators,
                         IncludeSubfolders = editBmk.IncludeSubfolders,
                         IncludeHiddenFiles = editBmk.IncludeHidden,
                         IncludeBinaryFiles = editBmk.IncludeBinary,
@@ -224,6 +225,7 @@ namespace dnGREP.WPF
                     WholeWord = editBmk.WholeWord,
                     Multiline = editBmk.Multiline,
                     Singleline = editBmk.Singleline,
+                    BoolenOperators = editBmk.BooleanOperators,
                     IncludeSubfolders = editBmk.IncludeSubfolders,
                     IncludeHiddenFiles = editBmk.IncludeHidden,
                     IncludeBinaryFiles = editBmk.IncludeBinary,
@@ -254,6 +256,7 @@ namespace dnGREP.WPF
             WholeWord = bk.WholeWord;
             Multiline = bk.Multiline;
             Singleline = bk.Singleline;
+            BooleanOperators = bk.BoolenOperators;
 
             TypeOfFileSearch = bk.TypeOfFileSearch;
             IgnoreFilePattern = bk.IgnoreFilePattern;
@@ -293,6 +296,9 @@ namespace dnGREP.WPF
 
             Singleline = toCopy.Singleline;
             IsSinglelineEnabled = toCopy.IsSinglelineEnabled;
+
+            BooleanOperators = toCopy.BooleanOperators;
+            IsBooleanOperatorsEnabled = toCopy.IsBooleanOperatorsEnabled;
         }
 
         private void UpdateTypeOfSearchState()
@@ -301,6 +307,7 @@ namespace dnGREP.WPF
             IsMultilineEnabled = true;
             IsSinglelineEnabled = true;
             IsWholeWordEnabled = true;
+            IsBooleanOperatorsEnabled = true;
 
             if (TypeOfSearch == SearchType.XPath)
             {
@@ -308,10 +315,12 @@ namespace dnGREP.WPF
                 IsMultilineEnabled = false;
                 IsSinglelineEnabled = false;
                 IsWholeWordEnabled = false;
+                IsBooleanOperatorsEnabled = false;
                 CaseSensitive = false;
                 Multiline = false;
                 Singleline = false;
                 WholeWord = false;
+                BooleanOperators = false;
             }
             else if (TypeOfSearch == SearchType.PlainText)
             {
@@ -322,8 +331,10 @@ namespace dnGREP.WPF
             {
                 IsCaseSensitiveEnabled = false;
                 IsSinglelineEnabled = false;
+                IsBooleanOperatorsEnabled = false;
                 CaseSensitive = false;
                 Singleline = false;
+                BooleanOperators = false;
             }
         }
 
@@ -552,6 +563,35 @@ namespace dnGREP.WPF
 
                 isSinglelineEnabled = value;
                 OnPropertyChanged("IsSinglelineEnabled");
+            }
+        }
+
+
+        private bool booleanOperators = false;
+        public bool BooleanOperators
+        {
+            get { return booleanOperators; }
+            set
+            {
+                if (booleanOperators == value)
+                    return;
+
+                booleanOperators = value;
+                OnPropertyChanged("BooleanOperators");
+            }
+        }
+
+        private bool isbooleanOperatorsEnabled = false;
+        public bool IsBooleanOperatorsEnabled
+        {
+            get { return isbooleanOperatorsEnabled; }
+            set
+            {
+                if (isbooleanOperatorsEnabled == value)
+                    return;
+
+                isbooleanOperatorsEnabled = value;
+                OnPropertyChanged("IsBooleanOperatorsEnabled");
             }
         }
 

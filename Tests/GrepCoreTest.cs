@@ -120,6 +120,7 @@ namespace Tests
             GrepCore core = new GrepCore();
             List<GrepSearchResult> results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "dnGREP", GrepSearchOption.CaseSensitive, -1);
             Assert.Single(results);
+            Assert.Equal(3, results[0].Matches.Count);
 
             results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "dngrep", GrepSearchOption.CaseSensitive, -1);
             Assert.Empty(results);
@@ -129,13 +130,9 @@ namespace Tests
 
             results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "dngrep", GrepSearchOption.None, -1);
             Assert.Single(results);
+            Assert.Equal(3, results[0].Matches.Count);
 
             results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "string", GrepSearchOption.None, -1);
-            Assert.Equal(2, results.Count);
-            Assert.Equal(3, results[0].Matches.Count);
-            Assert.Equal(282, results[1].Matches.Count);
-
-            results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "string", GrepSearchOption.Multiline, -1);
             Assert.Equal(2, results.Count);
             Assert.Equal(3, results[0].Matches.Count);
             Assert.Equal(282, results[1].Matches.Count);
@@ -150,6 +147,147 @@ namespace Tests
 
             Assert.Empty(core.Search(null, SearchType.PlainText, "string", GrepSearchOption.Multiline, -1));
             Assert.Empty(core.Search(new string[] { }, SearchType.PlainText, "string", GrepSearchOption.Multiline, -1));
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void TestSearchPlainBooleanOpAndReturnsCorrectNumber(bool useLongPath)
+        {
+            string destFolder = useLongPath ? GetLongPathDestination(Guid.NewGuid().ToString()) : destinationFolder;
+
+            Utils.CopyFiles(Path.Combine(sourceFolder, "TestCase3"), Path.Combine(destFolder, "TestCase3"), null, null);
+            GrepCore core = new GrepCore();
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "Regex AND pattern", GrepSearchOption.CaseSensitive | GrepSearchOption.BooleanOperators, -1);
+            Assert.Single(results);
+            Assert.Equal(24, results[0].Matches.Count);
+
+            results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "regex AND pattern", GrepSearchOption.CaseSensitive | GrepSearchOption.BooleanOperators, -1);
+            Assert.Single(results);
+            Assert.Equal(12, results[0].Matches.Count);
+
+            results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "dngrep AND asterisk", GrepSearchOption.CaseSensitive | GrepSearchOption.Multiline | GrepSearchOption.BooleanOperators, -1);
+            Assert.Empty(results);
+
+            results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "dnGREP AND asterisk", GrepSearchOption.CaseSensitive | GrepSearchOption.Multiline | GrepSearchOption.BooleanOperators, -1);
+            Assert.Single(results);
+            Assert.Equal(6, results[0].Matches.Count);
+
+            results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "regex AND asterisk", GrepSearchOption.BooleanOperators, -1);
+            Assert.Single(results);
+            Assert.Equal(9, results[0].Matches.Count);
+
+            results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "body AND lineNumber", GrepSearchOption.BooleanOperators, -1);
+            Assert.Equal(2, results.Count);
+            Assert.Equal(4, results[0].Matches.Count);
+            Assert.Equal(12, results[1].Matches.Count);
+
+            results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "body AND lineNumber", GrepSearchOption.Multiline | GrepSearchOption.BooleanOperators, -1);
+            Assert.Equal(2, results.Count);
+            Assert.Equal(7, results[0].Matches.Count);
+            Assert.Equal(120, results[1].Matches.Count);
+
+            Assert.Empty(core.Search(null, SearchType.PlainText, "body AND lineNumber", GrepSearchOption.BooleanOperators, -1));
+            Assert.Empty(core.Search(new string[] { }, SearchType.PlainText, "body AND lineNumber", GrepSearchOption.BooleanOperators, -1));
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void TestSearchPlainBooleanOpOrReturnsCorrectNumber(bool useLongPath)
+        {
+            string destFolder = useLongPath ? GetLongPathDestination(Guid.NewGuid().ToString()) : destinationFolder;
+
+            Utils.CopyFiles(Path.Combine(sourceFolder, "TestCase3"), Path.Combine(destFolder, "TestCase3"), null, null);
+            GrepCore core = new GrepCore();
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "dnGREP OR asterisk", GrepSearchOption.CaseSensitive | GrepSearchOption.BooleanOperators, -1);
+            Assert.Single(results);
+            Assert.Equal(6, results[0].Matches.Count);
+
+            results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "dngrep OR asterisk", GrepSearchOption.CaseSensitive | GrepSearchOption.BooleanOperators, -1);
+            Assert.Single(results);
+            Assert.Equal(3, results[0].Matches.Count);
+
+            results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "dnGREP OR asterisk", GrepSearchOption.CaseSensitive | GrepSearchOption.Multiline | GrepSearchOption.BooleanOperators, -1);
+            Assert.Single(results);
+            Assert.Equal(6, results[0].Matches.Count);
+
+            results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "dngrep OR asterisk", GrepSearchOption.CaseSensitive | GrepSearchOption.Multiline | GrepSearchOption.BooleanOperators, -1);
+            Assert.Single(results);
+            Assert.Equal(3, results[0].Matches.Count);
+
+            results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "dnGrep OR Asterisk", GrepSearchOption.BooleanOperators, -1);
+            Assert.Single(results);
+            Assert.Equal(6, results[0].Matches.Count);
+
+            results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "alpha OR hello", GrepSearchOption.BooleanOperators, -1);
+            Assert.Single(results);
+            Assert.Single(results[0].Matches);
+
+            results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "alpha OR hello", GrepSearchOption.Multiline | GrepSearchOption.BooleanOperators, -1);
+            Assert.Single(results);
+            Assert.Single(results[0].Matches);
+
+            Assert.Empty(core.Search(null, SearchType.PlainText, "body OR lineNumber", GrepSearchOption.BooleanOperators, -1));
+            Assert.Empty(core.Search(new string[] { }, SearchType.PlainText, "body OR lineNumber", GrepSearchOption.BooleanOperators, -1));
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void TestSearchRegexBooleanOpAndReturnsCorrectNumber(bool useLongPath)
+        {
+            string destFolder = useLongPath ? GetLongPathDestination(Guid.NewGuid().ToString()) : destinationFolder;
+
+            Utils.CopyFiles(Path.Combine(sourceFolder, "TestCase3"), Path.Combine(destFolder, "TestCase3"), null, null);
+            GrepCore core = new GrepCore();
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.Regex, @"r\w+ly AND Pa\w+n", GrepSearchOption.CaseSensitive | GrepSearchOption.BooleanOperators, -1);
+            Assert.Single(results);
+            Assert.Equal(12, results[0].Matches.Count);
+
+            results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.Regex, @"r\w+ly AND pa\w+n", GrepSearchOption.BooleanOperators, -1);
+            Assert.Single(results);
+            Assert.Equal(12, results[0].Matches.Count);
+
+            results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.Regex, @"\w+GREP AND as.+k", GrepSearchOption.CaseSensitive | GrepSearchOption.Multiline | GrepSearchOption.BooleanOperators, -1);
+            Assert.Single(results);
+            Assert.Equal(6, results[0].Matches.Count);
+
+            results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.Regex, @"\w+grep AND as.+k", GrepSearchOption.Multiline | GrepSearchOption.BooleanOperators, -1);
+            Assert.Single(results);
+            Assert.Equal(9, results[0].Matches.Count);
+
+            Assert.Empty(core.Search(null, SearchType.Regex, @"\w+grep AND as.+k", GrepSearchOption.BooleanOperators, -1));
+            Assert.Empty(core.Search(new string[] { }, SearchType.Regex, @"\w+grep AND as.+k", GrepSearchOption.BooleanOperators, -1));
+        }
+
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public void TestSearchRegexBooleanOpOrReturnsCorrectNumber(bool useLongPath)
+        {
+            string destFolder = useLongPath ? GetLongPathDestination(Guid.NewGuid().ToString()) : destinationFolder;
+
+            Utils.CopyFiles(Path.Combine(sourceFolder, "TestCase3"), Path.Combine(destFolder, "TestCase3"), null, null);
+            GrepCore core = new GrepCore();
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.Regex, @"r\w+ly OR H...o", GrepSearchOption.CaseSensitive | GrepSearchOption.BooleanOperators, -1);
+            Assert.Equal(2, results.Count);
+            Assert.Equal(6, results[0].Matches.Count);
+
+            results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.Regex, @"unn\w+ or Ast\w+", GrepSearchOption.BooleanOperators, -1);
+            Assert.Single(results);
+            Assert.Equal(6, results[0].Matches.Count);
+
+            results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.Regex, @"unn\w+ OR As.+k", GrepSearchOption.CaseSensitive | GrepSearchOption.Multiline | GrepSearchOption.BooleanOperators, -1);
+            Assert.Single(results);
+            Assert.Equal(3, results[0].Matches.Count);
+
+            results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.Regex, @"unn\w+ OR As.+k", GrepSearchOption.Multiline | GrepSearchOption.BooleanOperators, -1);
+            Assert.Single(results);
+            Assert.Equal(9, results[0].Matches.Count);
+
+            Assert.Empty(core.Search(null, SearchType.Regex, @"r\w+ly OR pa\w+n", GrepSearchOption.BooleanOperators, -1));
+            Assert.Empty(core.Search(new string[] { }, SearchType.Regex, @"r\w+ly OR pa\w+n", GrepSearchOption.BooleanOperators, -1));
         }
 
         [Theory]

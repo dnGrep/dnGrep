@@ -474,6 +474,11 @@
                                       IsChecked="{Binding Singleline}"
                                       IsEnabled="{Binding IsSinglelineEnabled}"
                                       TabIndex="73" Content="_Dot as newline" />
+                            <CheckBox Margin="3"
+                                      IsChecked="{Binding BooleanOperators}"
+                                      IsEnabled="{Binding IsBooleanOperatorsEnabled}"
+                                      TabIndex="74" Content="Boolean operators" 
+                                      ToolTip="Combine multiple search patterns using 'AND' or 'OR'"/>
                         </WrapPanel>
                     </StackPanel>
                     <Grid>

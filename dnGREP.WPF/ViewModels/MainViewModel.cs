@@ -883,6 +883,8 @@ namespace dnGREP.WPF
                             searchOptions |= GrepSearchOption.SingleLine;
                         if (WholeWord)
                             searchOptions |= GrepSearchOption.WholeWord;
+                        if (BooleanOperators)
+                            searchOptions |= GrepSearchOption.BooleanOperators;
                         if (StopAfterFirstMatch)
                             searchOptions |= GrepSearchOption.StopAfterFirstMatch;
 
@@ -910,8 +912,10 @@ namespace dnGREP.WPF
                             searchOptions |= GrepSearchOption.SingleLine;
                         if (WholeWord)
                             searchOptions |= GrepSearchOption.WholeWord;
+                        if (BooleanOperators)
+                            searchOptions |= GrepSearchOption.BooleanOperators;
                         if (StopAfterFirstMatch)
-                            searchOptions |= GrepSearchOption.WholeWord;
+                            searchOptions |= GrepSearchOption.StopAfterFirstMatch;
 
                         grep.ProcessedFile += GrepCore_ProcessedFile;
                         e.Result = grep.Replace(param.ReplaceFiles, param.TypeOfSearch, param.SearchFor, param.ReplaceWith, searchOptions, param.CodePage);
@@ -1148,6 +1152,7 @@ namespace dnGREP.WPF
             if (CurrentGrepOperation == GrepOperation.None && !workerSearchReplace.IsBusy)
             {
                 SaveSettings();
+                SearchParametersChanged = false;
 
                 if (TypeOfFileSearch == FileSearchType.Regex)
                 {
@@ -1450,6 +1455,7 @@ namespace dnGREP.WPF
                 WholeWord = WholeWord,
                 Multiline = Multiline,
                 Singleline = Singleline,
+                BoolenOperators = BooleanOperators,
                 IncludeSubfolders = IncludeSubfolder,
                 IncludeHiddenFiles = IncludeHidden,
                 IncludeBinaryFiles = IncludeBinary,
@@ -1670,7 +1676,11 @@ namespace dnGREP.WPF
             get
             {
                 return PathSearchText.IsValidBaseFolder && FilesFound && CurrentGrepOperation == GrepOperation.None &&
-                        !IsSaveInProgress && !string.IsNullOrEmpty(SearchFor) && SearchResults.GetWritableList().Count > 0;
+                        !IsSaveInProgress && !string.IsNullOrEmpty(SearchFor) && SearchResults.GetWritableList().Count > 0 &&
+                        // can only replace using the same parameters as was used for the search
+                        !SearchParametersChanged && 
+                        // if using boolean operators, only allow replace for plain text searches (not implemented for regex)
+                        (BooleanOperators ? TypeOfSearch == SearchType.PlainText : true); 
             }
         }
 
@@ -1735,6 +1745,7 @@ namespace dnGREP.WPF
             if (WholeWord) options.Add("Whole word");
             if (Multiline) options.Add("Multiline");
             if (Singleline) options.Add("Dot as newline");
+            if (BooleanOperators) options.Add("Boolean operators");
             if (SearchInResultsContent) options.Add("Search in results");
             if (StopAfterFirstMatch) options.Add("Stop after first match");
             if (options.Count > 0)

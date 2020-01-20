@@ -59,16 +59,31 @@ namespace dnGREP.Engines
             {
                 using (SevenZipExtractor extractor = new SevenZipExtractor(input))
                 {
-                    if (intermediateFiles.Length > 0 && extractor.ArchiveFileNames.Contains(intermediateFiles.First()))
+                    if (intermediateFiles.Length > 0)
                     {
-                        using (Stream stream = new MemoryStream())
+                        int index = -1;
+                        if (extractor.ArchiveFileData.Count == 1)
                         {
-                            extractor.ExtractFile(intermediateFiles.First(), stream);
-                            string[] newIntermediateFiles = intermediateFiles.Skip(1).ToArray();
+                            index = 0;
+                        }
+                        else
+                        {
+                            string name = intermediateFiles.First();
+                            var fd = extractor.ArchiveFileData.FirstOrDefault(f => string.Equals(f.FileName, name));
+                            if (fd != null)
+                                index = fd.Index;
+                        }
+                        if (index > -1)
+                        {
+                            using (Stream stream = new MemoryStream())
+                            {
+                                extractor.ExtractFile(index, stream);
+                                string[] newIntermediateFiles = intermediateFiles.Skip(1).ToArray();
 
-                            searchResults.AddRange(
-                                Search(engine, stream, compositeFileName, diskFile, newIntermediateFiles, innerFileName,
-                                    searchPattern, searchType, searchOptions, encoding));
+                                searchResults.AddRange(
+                                    Search(engine, stream, compositeFileName, diskFile, newIntermediateFiles, innerFileName,
+                                        searchPattern, searchType, searchOptions, encoding));
+                            }
                         }
                     }
                     else

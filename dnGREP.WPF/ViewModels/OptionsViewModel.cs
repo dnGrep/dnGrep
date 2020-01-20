@@ -52,6 +52,8 @@ namespace dnGREP.WPF
                 ContextLinesAfter != Settings.Get<int>(GrepSettings.Key.ContextLinesAfter) ||
                 CustomEditorPath != Settings.Get<string>(GrepSettings.Key.CustomEditor) ||
                 CustomEditorArgs != Settings.Get<string>(GrepSettings.Key.CustomEditorArgs) ||
+                CompareApplicationPath != Settings.Get<string>(GrepSettings.Key.CompareApplication) ||
+                CompareApplicationArgs != Settings.Get<string>(GrepSettings.Key.CompareApplicationArgs) ||
                 ShowFilePathInResults != Settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults) ||
                 AllowSearchWithEmptyPattern != Settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern) ||
                 AutoExpandSearchTree != Settings.Get<bool>(GrepSettings.Key.ExpandResults) ||
@@ -278,6 +280,36 @@ namespace dnGREP.WPF
                 customEditorArgs = value;
 
                 base.OnPropertyChanged(() => CustomEditorArgs);
+            }
+        }
+
+        private string compareApplicationPath;
+        public string CompareApplicationPath
+        {
+            get { return compareApplicationPath; }
+            set
+            {
+                if (value == compareApplicationPath)
+                    return;
+
+                compareApplicationPath = value;
+
+                base.OnPropertyChanged(() => CompareApplicationPath);
+            }
+        }
+
+        private string compareApplicationArgs;
+        public string CompareApplicationArgs
+        {
+            get { return compareApplicationArgs; }
+            set
+            {
+                if (value == compareApplicationArgs)
+                    return;
+
+                compareApplicationArgs = value;
+
+                base.OnPropertyChanged(() => CompareApplicationArgs);
             }
         }
 
@@ -530,21 +562,39 @@ namespace dnGREP.WPF
             }
         }
 
-        RelayCommand _browseCommand;
+        RelayCommand _browseEditiorCommand;
         /// <summary>
         /// Returns a command that opens file browse dialog.
         /// </summary>
-        public ICommand BrowseCommand
+        public ICommand BrowseEditorCommand
         {
             get
             {
-                if (_browseCommand == null)
+                if (_browseEditiorCommand == null)
                 {
-                    _browseCommand = new RelayCommand(
-                        param => Browse()
+                    _browseEditiorCommand = new RelayCommand(
+                        param => BrowseToEditor()
                         );
                 }
-                return _browseCommand;
+                return _browseEditiorCommand;
+            }
+        }
+
+        RelayCommand _browseCompareCommand;
+        /// <summary>
+        /// Returns a command that opens file browse dialog.
+        /// </summary>
+        public ICommand BrowseCompareCommand
+        {
+            get
+            {
+                if (_browseCompareCommand == null)
+                {
+                    _browseCompareCommand = new RelayCommand(
+                        param => BrowseToCompareApp()
+                        );
+                }
+                return _browseCompareCommand;
             }
         }
 
@@ -599,13 +649,23 @@ namespace dnGREP.WPF
 
         #region Private Methods
 
-        public void Browse()
+        public void BrowseToEditor()
         {
             var dlg = new OpenFileDialog();
             var result = dlg.ShowDialog();
             if (result.HasValue && result.Value)
             {
                 CustomEditorPath = dlg.FileName;
+            }
+        }
+
+        public void BrowseToCompareApp()
+        {
+            var dlg = new OpenFileDialog();
+            var result = dlg.ShowDialog();
+            if (result.HasValue && result.Value)
+            {
+                CompareApplicationPath = dlg.FileName;
             }
         }
 
@@ -639,6 +699,8 @@ namespace dnGREP.WPF
             CheckForUpdatesInterval = Settings.Get<int>(GrepSettings.Key.UpdateCheckInterval);
             CustomEditorPath = Settings.Get<string>(GrepSettings.Key.CustomEditor);
             CustomEditorArgs = Settings.Get<string>(GrepSettings.Key.CustomEditorArgs);
+            CompareApplicationPath = Settings.Get<string>(GrepSettings.Key.CompareApplication);
+            CompareApplicationArgs = Settings.Get<string>(GrepSettings.Key.CompareApplicationArgs);
             ShowFilePathInResults = Settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults);
             AllowSearchWithEmptyPattern = Settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern);
             AutoExpandSearchTree = Settings.Get<bool>(GrepSettings.Key.ExpandResults);
@@ -733,6 +795,8 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.UpdateCheckInterval, CheckForUpdatesInterval);
             Settings.Set(GrepSettings.Key.CustomEditor, CustomEditorPath);
             Settings.Set(GrepSettings.Key.CustomEditorArgs, CustomEditorArgs);
+            Settings.Set(GrepSettings.Key.CompareApplication, CompareApplicationPath);
+            Settings.Set(GrepSettings.Key.CompareApplicationArgs, CompareApplicationArgs);
             Settings.Set(GrepSettings.Key.ShowFilePathInResults, ShowFilePathInResults);
             Settings.Set(GrepSettings.Key.AllowSearchingForFileNamePattern, AllowSearchWithEmptyPattern);
             Settings.Set(GrepSettings.Key.ExpandResults, AutoExpandSearchTree);

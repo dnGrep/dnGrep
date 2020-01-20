@@ -907,13 +907,17 @@ namespace dnGREP.Common
             {
                 if (File.Exists(subPath))
                 {
-                    if (filter.IncludeArchive && IsArchive(subPath))
+                    if (IsArchive(subPath))
                     {
-                        foreach (var innerFile in EnumerateArchiveFiles(subPath, filter, hasSearchPattern,
+                        if (filter.IncludeArchive)
+                        {
+                            foreach (var innerFile in EnumerateArchiveFiles(subPath, filter, hasSearchPattern,
                             includeSearchPatterns, includeRegexPatterns, excludeRegexPatterns))
-                            yield return innerFile;
+                                yield return innerFile;
+                        }
                     }
-                    else if (!matches.Contains(subPath))
+                    else if (IncludeFile(subPath, filter, null, hasSearchPattern, includeSearchPatterns,
+                        includeRegexPatterns, excludeRegexPatterns) && !matches.Contains(subPath))
                     {
                         matches.Add(subPath);
                         yield return subPath;
@@ -1421,6 +1425,44 @@ namespace dnGREP.Common
 
             using (Process.Start("explorer.exe", "/select,\"" + fileName + "\""))
             {
+            }
+        }
+
+        public static void CompareFiles(IList<GrepSearchResult> files)
+        {
+            var settings = GrepSettings.Instance;
+            string application = settings.Get<string>(GrepSettings.Key.CompareApplication);
+            string args = settings.Get<string>(GrepSettings.Key.CompareApplicationArgs);
+
+            if (!string.IsNullOrWhiteSpace(application))
+            {
+                List<string> paths = new List<string>();
+                foreach (var item in files)
+                {
+                    string filePath = item.FileNameReal;
+                    if (Utils.IsArchive(filePath))
+                        filePath = ArchiveDirectory.ExtractToTempFile(item);
+
+                    if (!paths.Contains(filePath))
+                        paths.Add(filePath);
+
+                    if (paths.Count == 3)
+                        break;
+                }
+
+                string appArgs = string.IsNullOrWhiteSpace(args) ? string.Empty : args + " ";
+                string fileArgs = string.Join(" ", paths.Select(p => Quote(p)));
+
+                using (var proc = new Process())
+                {
+                    proc.StartInfo = new ProcessStartInfo(application)
+                    {
+                        UseShellExecute = false,
+                        CreateNoWindow = true,
+                        Arguments = appArgs + fileArgs
+                    };
+                    proc.Start();
+                }
             }
         }
 
@@ -2054,86 +2096,43 @@ namespace dnGREP.Common
 
         public static bool IsGitInstalled => GitUtil.IsGitInstalled;
 
-        //private static bool? isGitInstalled = null;
-        //public static bool IsGitInstalled
-        //{
-        //    get
-        //    {
-        //        if (!isGitInstalled.HasValue)
-        //        {
-        //            isGitInstalled = CheckGitInstalled();
-        //        }
-        //        return isGitInstalled.Value;
-        //    }
-        //}
+        private const string AND = " AND ";
+        private const string OR = " OR ";
 
-        //private static bool CheckGitInstalled()
-        //{
-        //    ProcessStartInfo startInfo = new ProcessStartInfo
-        //    {
-        //        FileName = "git",
-        //        Arguments = "--version",
-        //        RedirectStandardOutput = true,
-        //        RedirectStandardError = true,
-        //        UseShellExecute = false,
-        //        CreateNoWindow = true
-        //    };
+        public static void ParseBooleanOperators(string text, out List<string> andClauses, out List<string> orClauses)
+        {
+            andClauses = null;
+            orClauses = null;
+            if (text.Contains(AND, StringComparison.InvariantCultureIgnoreCase))
+            {
+                andClauses = new List<string>();
+                SplitClauses(text, AND, andClauses);
+            }
+            else if (text.Contains(OR, StringComparison.InvariantCultureIgnoreCase))
+            {
+                orClauses = new List<string>();
+                SplitClauses(text, OR, orClauses);
+            }
+        }
 
-        //    using (Process proc = new Process())
-        //    {
-        //        proc.StartInfo = startInfo;
-        //        try
-        //        {
-        //            proc.Start();
-        //            if (!proc.StandardOutput.EndOfStream)
-        //            {
-        //                string line = proc.StandardOutput.ReadLine();
-        //                return !string.IsNullOrEmpty(line) && line.StartsWith("git ", StringComparison.CurrentCulture);
-        //            }
-        //        }
-        //        catch (InvalidOperationException) { }
-        //        catch (Win32Exception) { }
-        //    }
-        //    return false;
-        //}
-
-        //public static IList<string> GetGitIgnore(string directory)
-        //{
-        //    List<string> list = new List<string>();
-
-        //    if (IsGitInstalled)
-        //    {
-        //        ProcessStartInfo startInfo = new ProcessStartInfo
-        //        {
-        //            FileName = "git",
-        //            Arguments = "status --short --ignored",
-        //            WorkingDirectory = directory,
-        //            RedirectStandardOutput = true,
-        //            RedirectStandardError = true,
-        //            UseShellExecute = false,
-        //            CreateNoWindow = true
-        //        };
-
-        //        using (Process proc = new Process())
-        //        {
-        //            proc.StartInfo = startInfo;
-        //            try
-        //            {
-        //                proc.Start();
-        //                while (!proc.StandardOutput.EndOfStream)
-        //                {
-        //                    string line = proc.StandardOutput.ReadLine();
-        //                    if (line.StartsWith("!! ", StringComparison.OrdinalIgnoreCase))
-        //                        list.Add(line.Substring(3));
-        //                }
-        //            }
-        //            catch (InvalidOperationException) { }
-        //            catch (Win32Exception) { }
-        //        }
-        //    }
-
-        //    return list;
-        //}
+        private static void SplitClauses(string text, string key, List<string> clauses)
+        {
+            int pos1 = 0;
+            while (pos1 > -1 && pos1 < text.Length)
+            {
+                int pos2 = text.IndexOf(key, pos1, StringComparison.InvariantCultureIgnoreCase);
+                if (pos2 > -1)
+                {
+                    clauses.Add(text.Substring(pos1, pos2 - pos1));
+                    pos1 = pos2 + key.Length;
+                }
+                else
+                {
+                    clauses.Add(text.Substring(pos1));
+                    pos1 = text.Length;
+                }
+            }
+        }
     }
 
     public class KeyValueComparer : IComparer<KeyValuePair<string, int>>

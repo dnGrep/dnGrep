@@ -80,6 +80,7 @@
                 <CheckBox IsChecked="{Binding WholeWord}" IsEnabled="{Binding IsWholeWordEnabled}" Content="_Whole word" />
                 <CheckBox IsChecked="{Binding Multiline}" IsEnabled="{Binding IsMultilineEnabled}" Content="_Multiline" />
                 <CheckBox IsChecked="{Binding Singleline}" IsEnabled="{Binding IsSinglelineEnabled}" Content="_Dot as newline" />
+                <CheckBox IsChecked="{Binding BooleanOperators}" IsEnabled="{Binding IsBooleanOperatorsEnabled}" Content="Boolean Operators" />
             </StackPanel>
 
 

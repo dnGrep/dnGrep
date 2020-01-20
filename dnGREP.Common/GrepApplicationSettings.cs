@@ -56,6 +56,7 @@ namespace dnGREP.Common
             public const string Singleline = "Singleline";
             public const string StopAfterFirstMatch = "StopAfterFirstMatch";
             public const string WholeWord = "WholeWord";
+            public const string BooleanOperators = "BooleanOperators";
             public const string SizeFrom = "SizeFrom";
             [DefaultValue(100)]
             public const string SizeTo = "SizeTo";
@@ -78,6 +79,8 @@ namespace dnGREP.Common
             public const string AllowSearchingForFileNamePattern = "AllowSearchingForFileNamePattern";
             public const string CustomEditor = "CustomEditor";
             public const string CustomEditorArgs = "CustomEditorArgs";
+            public const string CompareApplication = "CompareApplication";
+            public const string CompareApplicationArgs = "CompareApplicationArgs";
             public const string ExpandResults = "ExpandResults";
             [DefaultValue(true)]
             public const string ShowVerboseMatchCount = "ShowVerboseMatchCount";

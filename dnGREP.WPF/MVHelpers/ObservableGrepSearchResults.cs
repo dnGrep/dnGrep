@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using dnGREP.Common;
@@ -206,6 +207,7 @@ namespace dnGREP.WPF
         public void RaiseSettingsPropertiesChanged()
         {
             base.OnPropertyChanged(new PropertyChangedEventArgs("CustomEditorConfigured"));
+            base.OnPropertyChanged(new PropertyChangedEventArgs("CompareApplicationConfigured"));
 
             foreach (var item in this)
             {
@@ -215,6 +217,11 @@ namespace dnGREP.WPF
         public bool CustomEditorConfigured
         {
             get { return GrepSettings.Instance.IsSet(GrepSettings.Key.CustomEditor); }
+        }
+
+        public bool CompareApplicationConfigured
+        {
+            get { return GrepSettings.Instance.IsSet(GrepSettings.Key.CompareApplication); }
         }
 
         private double resultsScale = 1.0;
@@ -273,6 +280,58 @@ namespace dnGREP.WPF
             base.OnPropertyChanged(new PropertyChangedEventArgs("HasMultipleSelection"));
             base.OnPropertyChanged(new PropertyChangedEventArgs("HasGrepResultSelection"));
             base.OnPropertyChanged(new PropertyChangedEventArgs("HasGrepLineSelection"));
+        }
+
+        RelayCommand _compareFilesCommand;
+        public ICommand CompareFilesCommand
+        {
+            get
+            {
+                if (_compareFilesCommand == null)
+                {
+                    _compareFilesCommand = new RelayCommand(
+                        param => CompareFiles(),
+                        param => CanCompareFiles
+                        );
+                }
+                return _compareFilesCommand;
+            }
+        }
+
+        private IList<GrepSearchResult> GetSelectedFiles()
+        {
+            List<GrepSearchResult> files = new List<GrepSearchResult>();
+            foreach (var item in SelectedItems)
+            {
+                if (item is FormattedGrepResult fileNode)
+                {
+                    if (!files.Contains(fileNode.GrepResult))
+                        files.Add(fileNode.GrepResult);
+                }
+                if (item is FormattedGrepLine lineNode)
+                {
+                    if (!files.Contains(lineNode.Parent.GrepResult))
+                        files.Add(lineNode.Parent.GrepResult);
+                }
+            }
+            return files;
+        }
+
+
+        public bool CanCompareFiles
+        {
+            get 
+            {
+                int count = GetSelectedFiles().Count;
+                return count == 2 || count == 3;
+            } 
+        }
+
+        private void CompareFiles()
+        {
+            var files = GetSelectedFiles();
+            if (files.Count == 2 || files.Count == 3)
+                Utils.CompareFiles(files);
         }
 
         private bool isResultsTreeFocused;

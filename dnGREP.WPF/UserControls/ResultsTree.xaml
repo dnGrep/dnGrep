@@ -111,6 +111,8 @@
                           Visibility="{Binding CustomEditorConfigured, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 <MenuItem Header="Open containing folder" Click="btnOpenContainingFolder_Click" IsEnabled="{Binding HasSelection}" />
                 <MenuItem Header="Show file properties" Click="btnShowFileProperties_Click" IsEnabled="{Binding HasSelection}" />
+                <MenuItem Header="Compare files" Command="{Binding CompareFilesCommand}"
+                          Visibility="{Binding CompareApplicationConfigured, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 <Separator />
                 <MenuItem Header="Copy file names" Click="btnCopyFileNames_Click" IsEnabled="{Binding HasSelection}" />
                 <MenuItem Header="Copy full file paths" Click="btnCopyFullFilePath_Click" IsEnabled="{Binding HasSelection}" />

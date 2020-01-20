@@ -7,7 +7,6 @@ using System.Windows.Input;
 using System.Xml;
 using System.Xml.XPath;
 using dnGREP.Common;
-using dnGREP.Engines;
 using dnGREP.Everything;
 using NLog;
 
@@ -25,6 +24,7 @@ namespace dnGREP.WPF
             IsCaseSensitiveEnabled = true;
             IsMultilineEnabled = true;
             IsWholeWordEnabled = true;
+            IsBooleanOperatorsEnabled = TypeOfSearch == SearchType.PlainText || TypeOfSearch == SearchType.Regex;
             CanSearchArchives = Utils.ArchiveExtensions.Count > 0;
             LoadSettings();
 
@@ -35,6 +35,44 @@ namespace dnGREP.WPF
         private XmlDocument doc = new XmlDocument();
         private XPathNavigator nav;
         private static Logger logger = LogManager.GetCurrentClassLogger();
+
+        // list of properties that affect the search results
+        private static readonly HashSet<string> searchParameters = new HashSet<string>
+        {
+            nameof(BooleanOperators),
+            nameof(CaseSensitive),
+            nameof(CodePage),
+            nameof(EndDate),
+            nameof(FileOrFolderPath),
+            nameof(FilePattern),
+            nameof(FilePatternIgnore),
+            nameof(HoursFrom),
+            nameof(HoursTo),
+            nameof(IncludeArchive),
+            nameof(IncludeBinary),
+            nameof(IncludeHidden),
+            nameof(IncludeSubfolder),
+            nameof(IsDateFilterSet),
+            nameof(IsDatesRangeSet),
+            nameof(IsEverythingSearchMode),
+            nameof(IsHoursRangeSet),
+            nameof(IsSizeFilterSet),
+            nameof(MaxSubfolderDepth),
+            nameof(Multiline),
+            nameof(ReplaceWith),
+            nameof(SearchFor),
+            nameof(Singleline),
+            nameof(SizeFrom),
+            nameof(SizeTo),
+            nameof(StartDate),
+            nameof(TypeOfFileSearch),
+            nameof(TypeOfSearch),
+            nameof(TypeOfTimeRangeFilter),
+            nameof(UseFileDateFilter),
+            nameof(UseFileSizeFilter),
+            nameof(UseGitignore),
+            nameof(WholeWord),
+        };
 
         protected GrepSettings settings
         {
@@ -86,6 +124,20 @@ namespace dnGREP.WPF
         public ObservableCollection<KeyValuePair<string, int>> Encodings
         {
             get { return encodings; }
+        }
+
+        private bool searchParametersChanged;
+        public bool SearchParametersChanged
+        {
+            get { return searchParametersChanged; }
+            set
+            {
+                if (value == searchParametersChanged)
+                    return;
+
+                searchParametersChanged = value;
+                base.OnPropertyChanged(() => SearchParametersChanged);
+            }
         }
 
         private string fileOrFolderPath;
@@ -789,6 +841,36 @@ namespace dnGREP.WPF
             }
         }
 
+        private bool booleanOperators;
+        public bool BooleanOperators
+        {
+            get { return booleanOperators; }
+            set
+            {
+                if (value == booleanOperators)
+                    return;
+
+                booleanOperators = value;
+
+                base.OnPropertyChanged(() => BooleanOperators);
+            }
+        }
+
+        private bool isBooleanOperatorsEnabled;
+        public bool IsBooleanOperatorsEnabled
+        {
+            get { return isBooleanOperatorsEnabled; }
+            set
+            {
+                if (value == isBooleanOperatorsEnabled)
+                    return;
+
+                isBooleanOperatorsEnabled = value;
+
+                base.OnPropertyChanged(() => IsBooleanOperatorsEnabled);
+            }
+        }
+
         private bool isSizeFilterSet;
         public bool IsSizeFilterSet
         {
@@ -1073,13 +1155,13 @@ namespace dnGREP.WPF
 
         #endregion
 
-        #region Presentation Properties
-        // Need to be implemented separately
-        #endregion
-
         #region Public Methods
+
         public virtual void UpdateState(string name)
         {
+            if (searchParameters.Contains(name))
+                SearchParametersChanged = true;
+
             List<string> tempList = null;
             switch (name)
             {
@@ -1138,7 +1220,7 @@ namespace dnGREP.WPF
                 tempList = new List<string>();
                 if (!IncludeSubfolder || (IncludeSubfolder && MaxSubfolderDepth == 0))
                     tempList.Add("No subfolders");
-                if (IncludeSubfolder && MaxSubfolderDepth > 0) 
+                if (IncludeSubfolder && MaxSubfolderDepth > 0)
                     tempList.Add($"Max folder depth {MaxSubfolderDepth}");
                 if (!IncludeHidden)
                     tempList.Add("No hidden");
@@ -1162,8 +1244,8 @@ namespace dnGREP.WPF
             }
 
             //Files found
-            if (name == "FileOrFolderPath" || name == "SearchFor" || name == "FilePattern" || 
-                name == "FilePatternIgnore" || name == "UseGitignore" )
+            if (name == "FileOrFolderPath" || name == "SearchFor" || name == "FilePattern" ||
+                name == "FilePatternIgnore" || name == "UseGitignore")
             {
                 FilesFound = false;
             }
@@ -1180,7 +1262,7 @@ namespace dnGREP.WPF
             }
 
             //Change validation
-            if (name == "SearchFor" || name == "TypeOfSearch")
+            if (name == "SearchFor" || name == "TypeOfSearch" || name == "BooleanOperators")
             {
                 ValidationMessage = string.Empty;
 
@@ -1188,14 +1270,28 @@ namespace dnGREP.WPF
                 {
                     if (TypeOfSearch == SearchType.Regex)
                     {
-                        try
+                        if (BooleanOperators)
                         {
-                            Regex regex = new Regex(SearchFor);
-                            ValidationMessage = "Regex is OK!";
+                            Utils.ParseBooleanOperators(SearchFor, out List<string> andClauses, out List<string> orClauses);
+
+                            if (andClauses != null)
+                            {
+                                foreach (var pattern in andClauses)
+                                {
+                                    ValidateRegex(pattern);
+                                }
+                            }
+                            if (orClauses != null)
+                            {
+                                foreach (var pattern in orClauses)
+                                {
+                                    ValidateRegex(pattern);
+                                }
+                            }
                         }
-                        catch
+                        else
                         {
-                            ValidationMessage = "Regex is not valid!";
+                            ValidateRegex(SearchFor);
                         }
                     }
                     else if (TypeOfSearch == SearchType.XPath)
@@ -1267,10 +1363,12 @@ namespace dnGREP.WPF
                     IsMultilineEnabled = false;
                     IsSinglelineEnabled = false;
                     IsWholeWordEnabled = false;
+                    IsBooleanOperatorsEnabled = false;
                     CaseSensitive = false;
                     Multiline = false;
                     Singleline = false;
                     WholeWord = false;
+                    BooleanOperators = false;
                 }
                 else if (TypeOfSearch == SearchType.PlainText)
                 {
@@ -1278,6 +1376,7 @@ namespace dnGREP.WPF
                     IsMultilineEnabled = true;
                     IsSinglelineEnabled = false;
                     IsWholeWordEnabled = true;
+                    IsBooleanOperatorsEnabled = true;
                     Singleline = false;
                 }
                 else if (TypeOfSearch == SearchType.Soundex)
@@ -1286,8 +1385,10 @@ namespace dnGREP.WPF
                     IsCaseSensitiveEnabled = false;
                     IsSinglelineEnabled = false;
                     IsWholeWordEnabled = true;
+                    IsBooleanOperatorsEnabled = false;
                     CaseSensitive = false;
                     Singleline = false;
+                    BooleanOperators = false;
                 }
                 else if (TypeOfSearch == SearchType.Regex)
                 {
@@ -1295,6 +1396,7 @@ namespace dnGREP.WPF
                     IsMultilineEnabled = true;
                     IsSinglelineEnabled = true;
                     IsWholeWordEnabled = true;
+                    IsBooleanOperatorsEnabled = true;
                 }
             }
 
@@ -1304,6 +1406,19 @@ namespace dnGREP.WPF
                     IsBookmarked = true;
                 else
                     IsBookmarked = false;
+            }
+        }
+
+        private void ValidateRegex(string pattern)
+        {
+            try
+            {
+                Regex regex = new Regex(pattern);
+                ValidationMessage = "Regex is OK!";
+            }
+            catch
+            {
+                ValidationMessage = "Regex is not valid!";
             }
         }
 
@@ -1413,6 +1528,7 @@ namespace dnGREP.WPF
             Singleline = settings.Get<bool>(GrepSettings.Key.Singleline);
             StopAfterFirstMatch = settings.Get<bool>(GrepSettings.Key.StopAfterFirstMatch);
             WholeWord = settings.Get<bool>(GrepSettings.Key.WholeWord);
+            BooleanOperators = settings.Get<bool>(GrepSettings.Key.BooleanOperators);
             SizeFrom = settings.Get<int>(GrepSettings.Key.SizeFrom);
             SizeTo = settings.Get<int>(GrepSettings.Key.SizeTo);
             IsFiltersExpanded = settings.Get<bool>(GrepSettings.Key.IsFiltersExpanded);
@@ -1449,6 +1565,7 @@ namespace dnGREP.WPF
             settings.Set<bool>(GrepSettings.Key.Singleline, Singleline);
             settings.Set<bool>(GrepSettings.Key.StopAfterFirstMatch, StopAfterFirstMatch);
             settings.Set<bool>(GrepSettings.Key.WholeWord, WholeWord);
+            settings.Set<bool>(GrepSettings.Key.BooleanOperators, BooleanOperators);
             settings.Set<int>(GrepSettings.Key.SizeFrom, SizeFrom);
             settings.Set<int>(GrepSettings.Key.SizeTo, SizeTo);
             settings.Set<bool>(GrepSettings.Key.IsFiltersExpanded, IsFiltersExpanded);
