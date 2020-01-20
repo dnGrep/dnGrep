@@ -1428,6 +1428,44 @@ namespace dnGREP.Common
             }
         }
 
+        public static void CompareFiles(IList<GrepSearchResult> files)
+        {
+            var settings = GrepSettings.Instance;
+            string application = settings.Get<string>(GrepSettings.Key.CompareApplication);
+            string args = settings.Get<string>(GrepSettings.Key.CompareApplicationArgs);
+
+            if (!string.IsNullOrWhiteSpace(application))
+            {
+                List<string> paths = new List<string>();
+                foreach (var item in files)
+                {
+                    string filePath = item.FileNameReal;
+                    if (Utils.IsArchive(filePath))
+                        filePath = ArchiveDirectory.ExtractToTempFile(item);
+
+                    if (!paths.Contains(filePath))
+                        paths.Add(filePath);
+
+                    if (paths.Count == 3)
+                        break;
+                }
+
+                string appArgs = string.IsNullOrWhiteSpace(args) ? string.Empty : args + " ";
+                string fileArgs = string.Join(" ", paths.Select(p => Quote(p)));
+
+                using (var proc = new Process())
+                {
+                    proc.StartInfo = new ProcessStartInfo(application)
+                    {
+                        UseShellExecute = false,
+                        CreateNoWindow = true,
+                        Arguments = appArgs + fileArgs
+                    };
+                    proc.Start();
+                }
+            }
+        }
+
         /// <summary>
         /// Returns current path of DLL without trailing slash
         /// </summary>
