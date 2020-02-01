@@ -120,11 +120,7 @@ namespace dnGREP.WPF
             get { return fastPathBookmarks; }
         }
 
-        private ObservableCollection<KeyValuePair<string, int>> encodings = new ObservableCollection<KeyValuePair<string, int>>();
-        public ObservableCollection<KeyValuePair<string, int>> Encodings
-        {
-            get { return encodings; }
-        }
+        public ObservableCollection<KeyValuePair<string, int>> Encodings { get; } = new ObservableCollection<KeyValuePair<string, int>>();
 
         private bool searchParametersChanged;
         public bool SearchParametersChanged
@@ -688,33 +684,6 @@ namespace dnGREP.WPF
                 previewFileContent = value;
 
                 base.OnPropertyChanged(() => PreviewFileContent);
-            }
-        }
-
-        private bool isBookmarked;
-        public bool IsBookmarked
-        {
-            get { return isBookmarked; }
-            set
-            {
-                if (value == isBookmarked)
-                    return;
-
-                isBookmarked = value;
-
-                base.OnPropertyChanged(() => IsBookmarked);
-                base.OnPropertyChanged(() => IsBookmarkedTooltip);
-            }
-        }
-
-        public string IsBookmarkedTooltip
-        {
-            get
-            {
-                if (!IsBookmarked)
-                    return "Add search pattern to bookmarks";
-                else
-                    return "Clear bookmark";
             }
         }
 
@@ -1398,14 +1367,6 @@ namespace dnGREP.WPF
                     IsWholeWordEnabled = true;
                     IsBooleanOperatorsEnabled = true;
                 }
-            }
-
-            if (IsProperty(() => SearchFor, name) || IsProperty(() => ReplaceWith, name) || IsProperty(() => FilePattern, name))
-            {
-                if (BookmarkLibrary.Instance.Bookmarks.Contains(new Bookmark(SearchFor, ReplaceWith, FilePattern)))
-                    IsBookmarked = true;
-                else
-                    IsBookmarked = false;
             }
         }
 

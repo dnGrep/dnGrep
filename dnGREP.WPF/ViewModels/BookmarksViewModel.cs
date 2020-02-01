@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Data;
@@ -146,11 +148,14 @@ namespace dnGREP.WPF
             {
                 ClearStar(SelectedBookmark.SearchFor, SelectedBookmark.ReplaceWith, SelectedBookmark.FilePattern);
 
-                var bmk = new Bookmark(SelectedBookmark.SearchFor, SelectedBookmark.ReplaceWith, SelectedBookmark.FilePattern);
-                BookmarkLibrary.Instance.Bookmarks.Remove(bmk);
-                BookmarkLibrary.Save();
+                var bmk = BookmarkLibrary.Instance.Find(SelectedBookmark.SearchFor, SelectedBookmark.ReplaceWith, SelectedBookmark.FilePattern);
+                if (bmk != null)
+                {
+                    BookmarkLibrary.Instance.Bookmarks.Remove(bmk);
+                    BookmarkLibrary.Save();
 
-                Bookmarks.Remove(SelectedBookmark);
+                    Bookmarks.Remove(SelectedBookmark);
+                }
             }
         }
 
@@ -176,9 +181,12 @@ namespace dnGREP.WPF
                         ClearStar(SelectedBookmark.SearchFor, SelectedBookmark.ReplaceWith, SelectedBookmark.FilePattern);
                     }
 
-                    var bmk = new Bookmark(SelectedBookmark.SearchFor, SelectedBookmark.ReplaceWith, SelectedBookmark.FilePattern);
-                    BookmarkLibrary.Instance.Bookmarks.Remove(bmk);
-                    Bookmarks.Remove(SelectedBookmark);
+                    var bmk = BookmarkLibrary.Instance.Find(SelectedBookmark.SearchFor, SelectedBookmark.ReplaceWith, SelectedBookmark.FilePattern);
+                    if (bmk != null)
+                    {
+                        BookmarkLibrary.Instance.Bookmarks.Remove(bmk);
+                        Bookmarks.Remove(SelectedBookmark);
+                    }
 
                     var newBmk = new Bookmark(editBmk.SearchFor, editBmk.ReplaceWith, editBmk.FilePattern)
                     {
@@ -190,11 +198,17 @@ namespace dnGREP.WPF
                         WholeWord = editBmk.WholeWord,
                         Multiline = editBmk.Multiline,
                         Singleline = editBmk.Singleline,
-                        BoolenOperators = editBmk.BooleanOperators,
+                        BooleanOperators = editBmk.BooleanOperators,
                         IncludeSubfolders = editBmk.IncludeSubfolders,
+                        MaxSubfolderDepth = editBmk.MaxSubfolderDepth,
                         IncludeHiddenFiles = editBmk.IncludeHidden,
                         IncludeBinaryFiles = editBmk.IncludeBinary,
+                        UseGitignore = editBmk.UseGitignore,
+                        IncludeArchive = editBmk.IncludeArchive,
+                        CodePage = editBmk.CodePage,
                     };
+                    string[] paths = editBmk.PathReferences.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+                    newBmk.FolderReferences.AddRange(paths);
                     BookmarkLibrary.Instance.Bookmarks.Add(newBmk);
                     BookmarkLibrary.Save();
                     Bookmarks.AddNewItem(editBmk);
@@ -225,11 +239,17 @@ namespace dnGREP.WPF
                     WholeWord = editBmk.WholeWord,
                     Multiline = editBmk.Multiline,
                     Singleline = editBmk.Singleline,
-                    BoolenOperators = editBmk.BooleanOperators,
+                    BooleanOperators = editBmk.BooleanOperators,
                     IncludeSubfolders = editBmk.IncludeSubfolders,
+                    MaxSubfolderDepth = editBmk.MaxSubfolderDepth,
                     IncludeHiddenFiles = editBmk.IncludeHidden,
                     IncludeBinaryFiles = editBmk.IncludeBinary,
+                    UseGitignore = editBmk.UseGitignore,
+                    IncludeArchive = editBmk.IncludeArchive,
+                    CodePage = editBmk.CodePage,
                 };
+                string[] paths = editBmk.PathReferences.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+                newBmk.FolderReferences.AddRange(paths);
                 BookmarkLibrary.Instance.Bookmarks.Add(newBmk);
                 BookmarkLibrary.Save();
                 Bookmarks.AddNewItem(editBmk);
@@ -240,9 +260,12 @@ namespace dnGREP.WPF
 
     public class BookmarkViewModel : ViewModelBase
     {
+        public static ObservableCollection<KeyValuePair<string, int>> Encodings { get; } = new ObservableCollection<KeyValuePair<string, int>>();
+
         public BookmarkViewModel(Bookmark bk)
         {
             IsEverythingAvailable = EverythingSearch.IsAvailable;
+            IsGitInstalled = Utils.IsGitInstalled;
 
             Description = bk.Description;
             FilePattern = bk.FileNames;
@@ -256,13 +279,18 @@ namespace dnGREP.WPF
             WholeWord = bk.WholeWord;
             Multiline = bk.Multiline;
             Singleline = bk.Singleline;
-            BooleanOperators = bk.BoolenOperators;
+            BooleanOperators = bk.BooleanOperators;
 
             TypeOfFileSearch = bk.TypeOfFileSearch;
             IgnoreFilePattern = bk.IgnoreFilePattern;
             IncludeBinary = bk.IncludeBinaryFiles;
             IncludeHidden = bk.IncludeHiddenFiles;
             IncludeSubfolders = bk.IncludeSubfolders;
+            MaxSubfolderDepth = bk.MaxSubfolderDepth;
+            UseGitignore = bk.UseGitignore;
+            IncludeArchive = bk.IncludeArchive;
+            CodePage = bk.CodePage;
+            PathReferences = string.Join(Environment.NewLine, bk.FolderReferences);
 
             UpdateTypeOfSearchState();
         }
@@ -271,6 +299,7 @@ namespace dnGREP.WPF
         {
             HasExtendedProperties = true;
             IsEverythingAvailable = EverythingSearch.IsAvailable;
+            IsGitInstalled = Utils.IsGitInstalled;
 
             Description = toCopy.Description;
             FilePattern = toCopy.FilePattern;
@@ -284,6 +313,11 @@ namespace dnGREP.WPF
             IncludeBinary = toCopy.IncludeBinary;
             IncludeHidden = toCopy.IncludeHidden;
             IncludeSubfolders = toCopy.IncludeSubfolders;
+            MaxSubfolderDepth = toCopy.MaxSubfolderDepth;
+            UseGitignore = toCopy.UseGitignore;
+            IncludeArchive = toCopy.IncludeArchive;
+            CodePage = toCopy.CodePage;
+            PathReferences = string.Join(Environment.NewLine, toCopy.PathReferences);
 
             CaseSensitive = toCopy.CaseSensitive;
             IsCaseSensitiveEnabled = toCopy.IsCaseSensitiveEnabled;
@@ -606,6 +640,26 @@ namespace dnGREP.WPF
 
                 includeSubfolders = value;
                 OnPropertyChanged("IncludeSubfolders");
+
+                if (!includeSubfolders)
+                {
+                    MaxSubfolderDepth = -1;
+                }
+            }
+        }
+
+        private int maxSubfolderDepth = -1;
+        public int MaxSubfolderDepth
+        {
+            get { return maxSubfolderDepth; }
+            set
+            {
+                if (value == maxSubfolderDepth)
+                    return;
+
+                maxSubfolderDepth = value;
+
+                base.OnPropertyChanged(() => MaxSubfolderDepth);
             }
         }
 
@@ -637,6 +691,79 @@ namespace dnGREP.WPF
             }
         }
 
+        private bool useGitignore = false;
+        public bool UseGitignore
+        {
+            get { return useGitignore; }
+            set
+            {
+                if (useGitignore == value)
+                    return;
+
+                useGitignore = value;
+                OnPropertyChanged("UseGitignore");
+            }
+        }
+
+        private bool includeArchive = false;
+        public bool IncludeArchive
+        {
+            get { return includeArchive; }
+            set
+            {
+                if (includeArchive == value)
+                    return;
+
+                includeArchive = value;
+                OnPropertyChanged("IncludeArchive");
+            }
+        }
+
+        private int codePage = -1;
+        public int CodePage
+        {
+            get { return codePage; }
+            set
+            {
+                if (codePage == value)
+                    return;
+
+                codePage = value;
+                OnPropertyChanged("CodePage");
+
+                EncodingIndex = (Encodings.Select((kv, Index) => new { kv.Value, Index })
+                    .FirstOrDefault(a => a.Value == codePage) ?? new { Value = 0, Index = 0 }).Index;
+            }
+        }
+
+        private int encodingIndex = 0;
+        public int EncodingIndex
+        {
+            get { return encodingIndex; }
+            set
+            {
+                if (encodingIndex == value || encodingIndex < 0 || encodingIndex > Encodings.Count - 1)
+                    return;
+
+                encodingIndex = value;
+                OnPropertyChanged("EncodingIndex");
+            }
+        }
+
+        private string pathReferences = string.Empty;
+        public string PathReferences
+        {
+            get { return pathReferences; }
+            set
+            {
+                if (value == pathReferences)
+                    return;
+
+                pathReferences = value;
+                OnPropertyChanged("PathReferences");
+            }
+        }
+
         private bool isEverythingAvailable;
         public bool IsEverythingAvailable
         {
@@ -649,6 +776,21 @@ namespace dnGREP.WPF
                 isEverythingAvailable = value;
 
                 base.OnPropertyChanged("IsEverythingAvailable");
+            }
+        }
+
+        private bool isGitInstalled;
+        public bool IsGitInstalled
+        {
+            get { return isGitInstalled; }
+            set
+            {
+                if (value == isGitInstalled)
+                    return;
+
+                isGitInstalled = value;
+
+                base.OnPropertyChanged("IsGitInstalled");
             }
         }
 
