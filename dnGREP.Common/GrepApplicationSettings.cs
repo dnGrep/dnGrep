@@ -132,6 +132,8 @@ namespace dnGREP.Common
             public const string SortDirection = "SortDirection";
             [DefaultValue(true)]
             public const string ShowFileInfoTooltips = "ShowFileInfoTooltips";
+            [DefaultValue(true)]
+            public const string HighlightMatches = "HighlightMatches";
         }
 
         private static GrepSettings instance;

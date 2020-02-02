@@ -6,7 +6,6 @@ using System.Management;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Security.Principal;
-using System.Text;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Media;
@@ -34,6 +33,7 @@ namespace dnGREP.WPF
 
         public static AppTheme Instance { get; } = new AppTheme();
 
+        public event EventHandler CurrentThemeChanging;
         public event EventHandler CurrentThemeChanged;
 
         private AppTheme() { }
@@ -64,6 +64,8 @@ namespace dnGREP.WPF
             {
                 if (currentThemeName == value)
                     return;
+
+                CurrentThemeChanging?.Invoke(this, EventArgs.Empty);
 
                 currentThemeName = value;
 

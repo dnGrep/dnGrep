@@ -18,6 +18,8 @@ namespace dnGREP.WPF
             Highlighters.Insert(0, "None");
             CurrentSyntax = "None";
 
+            HighlightsOn = GrepSettings.Instance.Get<bool>(GrepSettings.Key.HighlightMatches);
+
             PropertyChanged += PreviewViewModel_PropertyChanged;
         }
 
@@ -117,6 +119,20 @@ namespace dnGREP.WPF
             }
         }
 
+        private bool highlightsOn = true;
+        public bool HighlightsOn
+        {
+            get { return highlightsOn; }
+            set
+            {
+                if (value == highlightsOn)
+                    return;
+
+                highlightsOn = value;
+                base.OnPropertyChanged(() => HighlightsOn);
+            }
+        }
+
         private bool highlightDisabled;
         public bool HighlightDisabled
         {
@@ -147,7 +163,7 @@ namespace dnGREP.WPF
 
         private void UpdateState(string name)
         {
-            if (name == "FilePath")
+            if (name == nameof(FilePath))
             {
                 if (!string.IsNullOrEmpty(filePath) &&
                     File.Exists(FilePath))
@@ -176,13 +192,13 @@ namespace dnGREP.WPF
                 }
             }
 
-            if (name == "LineNumber")
+            if (name == nameof(LineNumber))
             {
                 // Tell View to show window but not clear content
                 ShowPreview?.Invoke(this, new ShowEventArgs { ClearContent = false });
             }
 
-            if (name == "CurrentSyntax")
+            if (name == nameof(CurrentSyntax))
             {
                 // Tell View to show window and clear content
                 ShowPreview?.Invoke(this, new ShowEventArgs { ClearContent = true });

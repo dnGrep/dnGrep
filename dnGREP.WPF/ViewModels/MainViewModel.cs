@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
 using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
@@ -24,6 +25,9 @@ namespace dnGREP.WPF
     {
         public event EventHandler PreviewHide;
         public event EventHandler PreviewShow;
+
+        private Brush highlightForeground;
+        private Brush highlightBackground;
 
         public MainViewModel()
             : base()
@@ -44,6 +48,23 @@ namespace dnGREP.WPF
             CheckVersion();
             ControlsInit();
             PopulateEncodings();
+
+            highlightBackground = Application.Current.Resources["Match.Highlight.Background"] as Brush;
+            highlightForeground = Application.Current.Resources["Match.Highlight.Foreground"] as Brush;
+            ToggleHighlights();
+
+            AppTheme.Instance.CurrentThemeChanging += (s, e) =>
+            {
+                Application.Current.Resources.Remove("Match.Highlight.Background");
+                Application.Current.Resources.Remove("Match.Highlight.Foreground");
+            };
+
+            AppTheme.Instance.CurrentThemeChanged += (s, e) =>
+            {
+                highlightBackground = Application.Current.Resources["Match.Highlight.Background"] as Brush;
+                highlightForeground = Application.Current.Resources["Match.Highlight.Foreground"] as Brush;
+                ToggleHighlights();
+            };
 
             idleTimer.Interval = TimeSpan.FromMilliseconds(250);
             idleTimer.Tick += IdleTimer_Tick;
@@ -204,6 +225,20 @@ namespace dnGREP.WPF
                     base.OnPropertyChanged(() => SortDirection);
                 }
                 SortResults();
+            }
+        }
+
+        private bool highlightsOn;
+        public bool HighlightsOn
+        {
+            get { return highlightsOn; }
+            set
+            {
+                if (value == highlightsOn)
+                    return;
+
+                highlightsOn = value;
+                base.OnPropertyChanged(() => HighlightsOn);
             }
         }
 
@@ -470,6 +505,24 @@ namespace dnGREP.WPF
                 return _cancelCommand;
             }
         }
+        RelayCommand _highlightsCommand;
+        /// <summary>
+        /// Returns a command that toggles match highlights
+        /// </summary>
+        public ICommand HighlightsCommand
+        {
+            get
+            {
+                if (_highlightsCommand == null)
+                {
+                    _highlightsCommand = new RelayCommand(
+                        param => ToggleHighlights()
+                        );
+                }
+                return _highlightsCommand;
+            }
+        }
+
         RelayCommand _testCommand;
         /// <summary>
         /// Returns a command that opens test view
@@ -614,6 +667,7 @@ namespace dnGREP.WPF
             // the Options dialog is closed
             sortType = GrepSettings.Instance.Get<SortType>(GrepSettings.Key.TypeOfSort);
             sortDirection = GrepSettings.Instance.Get<ListSortDirection>(GrepSettings.Key.SortDirection);
+            HighlightsOn = GrepSettings.Instance.Get<bool>(GrepSettings.Key.HighlightMatches);
         }
 
         public override void SaveSettings()
@@ -622,6 +676,7 @@ namespace dnGREP.WPF
 
             settings.Set<ListSortDirection>(GrepSettings.Key.SortDirection, SortDirection);
             settings.Set<SortType>(GrepSettings.Key.TypeOfSort, SortType);
+            settings.Set<bool>(GrepSettings.Key.HighlightMatches, HighlightsOn);
 
             Properties.Settings.Default.PreviewBounds = PreviewWindowBounds;
             Properties.Settings.Default.PreviewWindowState = PreviewWindowState;
@@ -1444,6 +1499,25 @@ namespace dnGREP.WPF
             aboutForm.ShowDialog();
         }
 
+        private void ToggleHighlights()
+        {
+            if (HighlightsOn)
+            {
+                Application.Current.Resources["Match.Highlight.Background"] = highlightBackground;
+                Application.Current.Resources["Match.Highlight.Foreground"] = highlightForeground;
+            }
+            else
+            {
+                Application.Current.Resources["Match.Highlight.Background"] = Application.Current.Resources["TreeView.Background"];
+                Application.Current.Resources["Match.Highlight.Foreground"] = Application.Current.Resources["TreeView.Foreground"];
+            }
+
+            if (PreviewModel != null)
+            {
+                PreviewModel.HighlightsOn = HighlightsOn;
+            }
+        }
+
         private void BookmarkAddRemove()
         {
             Bookmark newBookmark = new Bookmark(SearchFor, ReplaceWith, FilePattern)
@@ -1678,9 +1752,9 @@ namespace dnGREP.WPF
                 return PathSearchText.IsValidBaseFolder && FilesFound && CurrentGrepOperation == GrepOperation.None &&
                         !IsSaveInProgress && !string.IsNullOrEmpty(SearchFor) && SearchResults.GetWritableList().Count > 0 &&
                         // can only replace using the same parameters as was used for the search
-                        !SearchParametersChanged && 
+                        !SearchParametersChanged &&
                         // if using boolean operators, only allow replace for plain text searches (not implemented for regex)
-                        (BooleanOperators ? TypeOfSearch == SearchType.PlainText : true); 
+                        (BooleanOperators ? TypeOfSearch == SearchType.PlainText : true);
             }
         }
 

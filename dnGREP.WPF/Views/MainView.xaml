@@ -110,6 +110,12 @@
             </StatusBarItem>
         </StatusBar>
 
+        <DockPanel DockPanel.Dock="Bottom">
+            <CheckBox Content="Highlight Matches" Margin="10,3"                                  
+                      IsChecked="{Binding HighlightsOn}"
+                      Command="{Binding HighlightsCommand}" />
+        </DockPanel>
+
         <DockPanel Margin="4,0" LastChildFill="True">
             <GroupBox DockPanel.Dock="Top" Header="Search in">
                 <Grid>
