@@ -186,6 +186,7 @@ namespace Tests
         [Theory]
         [InlineData("\\Files\\TestCase7\\Test;Folder", "\\Files\\TestCase7\\Test;Folder")]
         [InlineData("\\Files\\TestCase7\\Test,Folder", "\\Files\\TestCase7\\Test,Folder")]
+        [InlineData("\\Files\\TestCase7\\Test,Folder\\logA", "\\Files\\TestCase7\\Test,Folder\\logA")]
         public void TestGetBaseFolderWithColons(string relativePath, string expected)
         {
             string pathToDll = GetDllPath();
@@ -231,6 +232,7 @@ namespace Tests
         [Theory]
         [InlineData("\\Files\\TestCase7\\Test;Folder\\issue-10.txt", true)]
         [InlineData("\\Files\\TestCase7\\Test,Folder\\issue-10.txt", true)]
+        [InlineData("\\Files\\TestCase7\\Test,Folder\\log?", true)]
         [InlineData("\\Files\\TestCase7\\Test;Folder\\*.txt", true)]
         [InlineData("\\Files\\TestCase7\\Test,Folder\\*.txt", true)]
         public void TestIsPathValidWithColon(string relativePath, bool expected)
@@ -1016,6 +1018,7 @@ namespace Tests
         [InlineData("{0}\\TestCase7\\Test*", 3)]
         [InlineData("{0}\\TestCase7\\*Folder", 2)]
         [InlineData("{0}\\TestCase7\\T*Folder", 2)]
+        [InlineData("{0}\\TestCase7\\Test,Folder\\log?", 2)]
         [InlineData("{0}\\TestCase7\\logA\\*.txt", 1)]
         [InlineData("{0}\\TestCase7\\logA;{0}\\TestCase7\\Test*", 4)]
         [InlineData("{0}\\TestCase7\\Test*;{0}\\TestCase7\\LogB", 4)]
@@ -1131,6 +1134,8 @@ namespace Tests
                 yield return new object[] { "{0}\\TestCase7\\log?", 2 };
                 yield return new object[] { "{0}\\TestCase7\\Test*", 3 };
                 yield return new object[] { "{0}\\TestCase7\\logA\\*.txt", 1 };
+                yield return new object[] { "{0}\\TestCase7\\Test,Folder\\log?", 2 };
+                yield return new object[] { "{0}\\TestCase7\\Test,Folder\\logA\\*.txt", 1 };
             }
         }
 
