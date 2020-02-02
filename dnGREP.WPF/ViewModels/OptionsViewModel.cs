@@ -1051,12 +1051,12 @@ namespace dnGREP.WPF
                 string error = null;
 
                 // Do validation
-                if (IsProperty(() => MatchThreshold, propertyName))
+                if (propertyName == nameof(MatchThreshold))
                 {
                     if (MatchThreshold < 0 || MatchThreshold > 1.0)
                         error = "Error: Match threshold should be a number between 0 and 1.0";
                 }
-                else if (IsProperty(() => MatchTimeout, propertyName))
+                else if (propertyName == nameof(MatchTimeout))
                 {
                     if (MatchTimeout <= 0 || MatchTimeout > 60 * 60)
                         error = "Error: Match Timeout should be a number 0 and 3600";

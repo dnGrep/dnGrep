@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
 using NLog;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
@@ -81,6 +82,22 @@ namespace dnGREP.Common
     {
         public List<Bookmark> Bookmarks { get; set; } = new List<Bookmark>();
 
+        public Bookmark Find(string searchFor, string replaceWith, string filePattern)
+        {
+            return Bookmarks.FirstOrDefault(bk => bk.SearchPattern == searchFor &&
+                bk.ReplacePattern == replaceWith && bk.FileNames == filePattern);
+        }
+
+        public void AddFolderReference(Bookmark bookmark, string folder)
+        {
+            var oldRefs = Bookmarks.Where(b => b.FolderReferences.Contains(folder)).ToArray();
+            foreach (Bookmark bk in oldRefs)
+            {
+                bk.FolderReferences.Remove(folder);
+            }
+            bookmark.FolderReferences.Add(folder);
+        }
+
         public BookmarkEntity() { }
     }
 
@@ -106,7 +123,7 @@ namespace dnGREP.Common
         public bool WholeWord { get; set; }
         public bool Multiline { get; set; }
         public bool Singleline { get; set; }
-        public bool BoolenOperators { get; set; }
+        public bool BooleanOperators { get; set; }
 
         public FileSearchType TypeOfFileSearch { get; set; } = FileSearchType.Asterisk;
         public string FileNames { get; set; } = string.Empty;
@@ -114,6 +131,11 @@ namespace dnGREP.Common
         public bool IncludeSubfolders { get; set; }
         public bool IncludeHiddenFiles { get; set; }
         public bool IncludeBinaryFiles { get; set; }
+        public int MaxSubfolderDepth { get; set; } = -1;
+        public bool UseGitignore { get; set; }
+        public bool IncludeArchive { get; set; }
+        public int CodePage { get; set; } = -1;
+        public List<string> FolderReferences { get; set; } = new List<string>();
 
 
         // do not write v2 properties if the user hasn't updated the bookmark
@@ -128,6 +150,11 @@ namespace dnGREP.Common
         public bool ShouldSerializeMultiline() { return Version > 1; }
         public bool ShouldSerializeSingleline() { return Version > 1; }
         public bool ShouldSerializeBooleanOperators() { return Version > 1; }
+        public bool ShouldSerializeMaxSubfolderDepth() { return Version > 1; }
+        public bool ShouldSerializeUseGitignore() { return Version > 1; }
+        public bool ShouldSerializeIncludeArchive() { return Version > 1; }
+        public bool ShouldSerializeCodePage() { return Version > 1; }
+        public bool ShouldSerializeFolderReferences() { return Version > 1; }
 
         public override bool Equals(object obj)
         {

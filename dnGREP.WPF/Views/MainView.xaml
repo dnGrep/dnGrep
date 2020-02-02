@@ -432,7 +432,13 @@
                         <Button Width="96" Height="24" Margin="3,0"
                                 Content="Test Expression"
                                 Command="{Binding TestCommand}"
-                                DockPanel.Dock="Right" TabIndex="55" />
+                                DockPanel.Dock="Right" TabIndex="56" />
+                        <CheckBox Width="24" Height="24" Margin="0,0,3,0"
+                                  ToolTip="{Binding IsFolderBookmarkedTooltip}"
+                                  Template="{DynamicResource PlusMetroButtonTemplate}"
+                                  IsChecked="{Binding IsFolderBookmarked}"
+                                  Command="{Binding FolderBookmarkAddCommand}"
+                                  DockPanel.Dock="Right" TabIndex="55" />
                         <CheckBox Width="24" Height="24" Margin="0,0,3,0"
                                   ToolTip="{Binding IsBookmarkedTooltip}"
                                   Template="{DynamicResource FavsMetroButtonTemplate}"
