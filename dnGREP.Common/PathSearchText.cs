@@ -3,14 +3,30 @@
 namespace dnGREP.Common
 {
     /// <summary>
-    /// This class maps the text entered into the 'Search in Folder' box on the main window
+    /// This class maps the text entered into the 'Search in Folder' box on the main window.
+    /// Values are cached to reduce the number of times the path is split and evaluated.
     /// </summary>
     public class PathSearchText
     {
+        private string fileOrFolderPath;
         /// <summary>
         /// Gets or sets the raw text entered in the Folder text box
         /// </summary>
-        public string FileOrFolderPath { get; set; } = string.Empty;
+        public string FileOrFolderPath
+        {
+            get => fileOrFolderPath;
+            set
+            {
+                if (value == fileOrFolderPath)
+                    return;
+
+                cleanPath = null;
+                baseFolder = null;
+                isValidBaseFolder = null;
+                isValidPath = null;
+                fileOrFolderPath = value;
+            }
+        }
 
         /// <summary>
         /// Gets or sets the current file search type
@@ -22,6 +38,7 @@ namespace dnGREP.Common
             return $"{FileOrFolderPath} - {TypeOfFileSearch}";
         }
 
+        private string cleanPath;
         /// <summary>
         /// Gets the FileOrFolderPath with whitespace removed from the individual paths
         /// </summary>
@@ -29,15 +46,18 @@ namespace dnGREP.Common
         {
             get
             {
-                string path = string.Empty;
-                if (TypeOfFileSearch == FileSearchType.Everything)
-                    path = FileOrFolderPath.Trim();
-                else
-                    path = Utils.CleanPath(FileOrFolderPath);
-                return path;
+                if (cleanPath == null)
+                {
+                    if (TypeOfFileSearch == FileSearchType.Everything)
+                        cleanPath = FileOrFolderPath.Trim();
+                    else
+                        cleanPath = Utils.CleanPath(FileOrFolderPath);
+                }
+                return cleanPath;
             }
         }
 
+        private string baseFolder;
         /// <summary>
         /// Gets the base folder of one or many files or folders. 
         /// If the FileOrFolderPath contains multiple paths, it returns the first one.
@@ -46,12 +66,14 @@ namespace dnGREP.Common
         {
             get
             {
-                string path = string.Empty;
-                if (TypeOfFileSearch == FileSearchType.Everything)
-                    path = EverythingSearch.GetBaseFolder(CleanPath);
-                else
-                    path = Utils.GetBaseFolder(CleanPath);
-                return path;
+                if (baseFolder == null)
+                {
+                    if (TypeOfFileSearch == FileSearchType.Everything)
+                        baseFolder = EverythingSearch.GetBaseFolder(CleanPath);
+                    else
+                        baseFolder = Utils.GetBaseFolder(CleanPath);
+                }
+                return baseFolder;
             }
         }
 
@@ -70,6 +92,7 @@ namespace dnGREP.Common
             }
         }
 
+        private bool? isValidBaseFolder;
         /// <summary>
         /// Gets a flag indicating the BaseFolder is valid
         /// </summary>
@@ -77,10 +100,15 @@ namespace dnGREP.Common
         {
             get
             {
-                return Utils.IsPathValid(BaseFolder);
+                if (!isValidBaseFolder.HasValue)
+                {
+                    isValidBaseFolder = Utils.IsPathValid(BaseFolder);
+                }
+                return isValidBaseFolder.Value;
             }
         }
 
+        private bool? isValidPath;
         /// <summary>
         /// Gets a flag indicating the path or set of paths are valid
         /// </summary>
@@ -88,12 +116,14 @@ namespace dnGREP.Common
         {
             get
             {
-                bool valid = false;
-                if (TypeOfFileSearch == FileSearchType.Everything)
-                    valid = !string.IsNullOrWhiteSpace(CleanPath);
-                else
-                    valid = Utils.IsPathValid(CleanPath);
-                return valid;
+                if (!isValidPath.HasValue)
+                {
+                    if (TypeOfFileSearch == FileSearchType.Everything)
+                        isValidPath = !string.IsNullOrWhiteSpace(CleanPath);
+                    else
+                        isValidPath = Utils.IsPathValid(CleanPath);
+                }
+                return isValidPath.Value;
             }
         }
 

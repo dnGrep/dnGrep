@@ -367,9 +367,18 @@
                                             </ComboBox.ItemContainerStyle>
                                         </ComboBox>
                                     </StackPanel>
-                                    <UniformGrid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                                    <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
                                                  Margin="4,3,3,3"
                                                  Visibility="{Binding OptionsOnMainPanel, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
                                         <CheckBox Grid.Row="0" Grid.Column="0" Margin="3,0,3,3"
                                                   IsChecked="{Binding CaseSensitive}"
                                                   IsEnabled="{Binding IsCaseSensitiveEnabled}"
@@ -386,7 +395,12 @@
                                                   IsChecked="{Binding Singleline}"
                                                   IsEnabled="{Binding IsSinglelineEnabled}"
                                                   TabIndex="48" Content="_Dot as newline" />
-                                    </UniformGrid>
+                                        <CheckBox Grid.Row="2" Grid.Column="0" Margin="3,0,3,3"
+                                                  IsChecked="{Binding BooleanOperators}"
+                                                  IsEnabled="{Binding IsBooleanOperatorsEnabled}"
+                                                  TabIndex="48" Content="Boolean operators" 
+                                                  ToolTip="Combine multiple search patterns using 'AND' or 'OR'"/>
+                                    </Grid>
                                     <Button Grid.Row="4" Grid.Column="1" Width="98"
                                             Height="24" Margin="3,0,3,3" HorizontalAlignment="Right"
                                             HorizontalContentAlignment="Center" Content="Reset Options"
@@ -438,7 +452,13 @@
                         <Button Width="96" Height="24" Margin="3,0"
                                 Content="Test Expression"
                                 Command="{Binding TestCommand}"
-                                DockPanel.Dock="Right" TabIndex="55" />
+                                DockPanel.Dock="Right" TabIndex="56" />
+                        <CheckBox Width="24" Height="24" Margin="0,0,3,0"
+                                  ToolTip="{Binding IsFolderBookmarkedTooltip}"
+                                  Template="{DynamicResource PlusMetroButtonTemplate}"
+                                  IsChecked="{Binding IsFolderBookmarked}"
+                                  Command="{Binding FolderBookmarkAddCommand}"
+                                  DockPanel.Dock="Right" TabIndex="55" />
                         <CheckBox Width="24" Height="24" Margin="0,0,3,0"
                                   ToolTip="{Binding IsBookmarkedTooltip}"
                                   Template="{DynamicResource FavsMetroButtonTemplate}"
