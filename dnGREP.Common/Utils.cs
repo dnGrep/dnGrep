@@ -646,7 +646,7 @@ namespace dnGREP.Common
                 if (string.IsNullOrWhiteSpace(path))
                     return false;
 
-                string[] paths = SplitPath(path);
+                string[] paths = SplitPath(path, false);
                 foreach (string subPath in paths)
                 {
                     if (subPath.Trim() != "" && !File.Exists(subPath) && !Directory.Exists(subPath))
@@ -673,12 +673,22 @@ namespace dnGREP.Common
                 if (!string.IsNullOrWhiteSpace(path))
                 {
                     List<string> items = new List<string>();
-                    string[] paths = SplitPath(path);
+                    string[] paths = SplitPath(path, true);
                     foreach (string subPath in paths)
                     {
                         string p = subPath.Trim();
-                        if (!string.IsNullOrWhiteSpace(p) && (File.Exists(p) || Directory.Exists(p)))
+                        string pattern = Path.GetFileName(p);
+                        if (pattern.Contains(Path.WildcardQuestion) || pattern.Contains(Path.WildcardStarMatchAll))
+                        {
+                            // if the path contains a wildcard, validate on the parent directory
+                            string parent = Path.GetDirectoryName(p);
+                            if (!string.IsNullOrWhiteSpace(parent) && (File.Exists(parent) || Directory.Exists(parent)))
+                                items.Add(p);
+                        }
+                        else if (!string.IsNullOrWhiteSpace(p) && (File.Exists(p) || Directory.Exists(p)))
+                        {
                             items.Add(p);
+                        }
                     }
 
                     result = string.Join(";", items.ToArray());
@@ -705,9 +715,16 @@ namespace dnGREP.Common
                 if (string.IsNullOrWhiteSpace(path))
                     return null;
 
-                string[] paths = SplitPath(path);
+                string[] paths = SplitPath(path, false);
                 if (paths.Length > 0)
                 {
+                    if (paths.Length > 1)
+                    {
+                        string commonPath = FindCommonPath(paths);
+                        if (!string.IsNullOrWhiteSpace(commonPath) && Directory.Exists(commonPath))
+                            return commonPath;
+                    }
+
                     if (paths[0].Trim() != "" && File.Exists(paths[0]))
                         return Path.GetDirectoryName(paths[0]);
                     else if (paths[0].Trim() != "" && Directory.Exists(paths[0]))
@@ -722,6 +739,50 @@ namespace dnGREP.Common
             }
             return null;
         }
+        public static string FindCommonPath(IList<string> paths)
+        {
+            string commonPath = string.Empty;
+            List<string> separatedPath = paths
+                .First(str => str.Length == paths.Max(st2 => st2.Length))
+                .Split(new char[] { Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries)
+                .ToList();
+
+            foreach (string pathSegment in separatedPath)
+            {
+                if (commonPath.Length == 0 && paths.All(str => str.StartsWith(pathSegment)))
+                {
+                    commonPath = pathSegment;
+                }
+                else if (paths.All(str => str.StartsWith(commonPath + Path.DirectorySeparator + pathSegment)))
+                {
+                    commonPath += Path.DirectorySeparator + pathSegment;
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return commonPath;
+        }
+
+        /// <summary>
+        /// Splits a list of patterns separated by ; or ,
+        /// </summary>
+        /// <param name="pattern">Pattern to split</param>
+        /// <returns>Array of strings. If path is null, returns null. If path is empty, returns empty array.</returns>
+        public static string[] SplitPattern(string pattern)
+        {
+            if (string.IsNullOrWhiteSpace(pattern))
+                return Array.Empty<string>();
+
+            // remove quotes
+            pattern = pattern.Replace("\"", string.Empty);
+
+            string[] parts = pattern.Split(new char[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+            return parts.Select(p => p.Trim()).ToArray();
+        }
 
         /// <summary>
         /// Splits path into subpaths if ; or , are found in path.
@@ -729,7 +790,7 @@ namespace dnGREP.Common
         /// </summary>
         /// <param name="path">Path to split</param>
         /// <returns>Array of strings. If path is null, returns null. If path is empty, returns empty array.</returns>
-        public static string[] SplitPath(string path)
+        public static string[] SplitPath(string path, bool preserveWildcards)
         {
             if (string.IsNullOrWhiteSpace(path))
                 return Array.Empty<string>();
@@ -738,39 +799,101 @@ namespace dnGREP.Common
             path = path.Replace("\"", string.Empty);
 
             List<string> output = new List<string>();
-            string[] paths = path.Split(';', ',');
+            string[] paths = path.Split(new char[] { ';', ',' }, StringSplitOptions.RemoveEmptyEntries);
             int splitterIndex = -1;
             for (int i = 0; i < paths.Length; i++)
             {
-                splitterIndex += paths[i].Length + 1;
+                string testPath = paths[i];
+                splitterIndex += testPath.Length + 1;
                 string splitter = (splitterIndex < path.Length ? path[splitterIndex].ToString() : "");
-                StringBuilder sb = new StringBuilder();
-                if (File.Exists(paths[i]) || Directory.Exists(paths[i]))
-                    output.Add(paths[i]);
+                if (File.Exists(testPath) || Directory.Exists(testPath))
+                {
+                    output.Add(testPath);
+                }
                 else
                 {
-                    int subSplitterIndex = 0;
                     bool found = false;
-                    sb.Append(paths[i] + splitter);
-                    for (int j = i + 1; j < paths.Length; j++)
+                    IList<string> subPaths = GetPathsByWildcard(testPath);
+                    if (subPaths.Count > 0)
                     {
-                        subSplitterIndex += paths[j].Length + 1;
-                        sb.Append(paths[j]);
-                        if (File.Exists(sb.ToString()) || Directory.Exists(sb.ToString()))
-                        {
-                            output.Add(sb.ToString());
-                            splitterIndex += subSplitterIndex;
-                            i = j;
-                            found = true;
-                            break;
-                        }
-                        sb.Append(splitterIndex + subSplitterIndex < path.Length ? path[splitterIndex + subSplitterIndex].ToString() : "");
+                        if (preserveWildcards)
+                            output.Add(testPath);
+                        else
+                            output.AddRange(subPaths);
+                        found = true;
                     }
-                    if (!found && !string.IsNullOrWhiteSpace(paths[i]))
-                        output.Add(paths[i].TrimStart());
+
+                    if (!found)
+                    {
+                        // this handles folder names containing a comma or semicolon
+                        StringBuilder sb = new StringBuilder();
+                        int subSplitterIndex = 0;
+                        sb.Append(testPath + splitter);
+                        for (int j = i + 1; j < paths.Length; j++)
+                        {
+                            subSplitterIndex += paths[j].Length + 1;
+                            sb.Append(paths[j]);
+                            if (File.Exists(sb.ToString()) || Directory.Exists(sb.ToString()))
+                            {
+                                output.Add(sb.ToString());
+                                splitterIndex += subSplitterIndex;
+                                i = j;
+                                found = true;
+                                break;
+                            }
+                            else
+                            {
+                                subPaths = GetPathsByWildcard(sb.ToString());
+                                if (subPaths.Count > 0)
+                                {
+                                    if (preserveWildcards)
+                                        output.Add(testPath);
+                                    else
+                                        output.AddRange(subPaths);
+
+                                    splitterIndex += subSplitterIndex;
+                                    i = j;
+                                    found = true;
+                                    break;
+                                }
+                            }
+                            sb.Append(splitterIndex + subSplitterIndex < path.Length ? path[splitterIndex + subSplitterIndex].ToString() : "");
+                        }
+                        if (!found && !string.IsNullOrWhiteSpace(testPath))
+                        {
+                            output.Add(testPath.TrimStart());
+                        }
+                    }
                 }
             }
             return output.ToArray();
+        }
+
+        /// <summary>
+        /// If the last path segment contains wild card chars, return the set of matching paths or files.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        private static IList<string> GetPathsByWildcard(string path)
+        {
+            List<string> output = new List<string>();
+            if (!string.IsNullOrWhiteSpace(path))
+            {
+                string parent = Path.GetDirectoryName(path);
+                if (Directory.Exists(parent))
+                {
+                    string pattern = Path.GetFileName(path);
+                    if (pattern.Contains(Path.WildcardQuestion) || pattern.Contains(Path.WildcardStarMatchAll))
+                    {
+                        string[] subDirs = Directory.GetDirectories(parent, pattern, SearchOption.TopDirectoryOnly);
+                        output.AddRange(subDirs);
+
+                        string[] files = Directory.GetFiles(parent, pattern, SearchOption.TopDirectoryOnly);
+                        output.AddRange(files);
+                    }
+                }
+            }
+            return output;
         }
 
         public static bool CancelSearch = false;
@@ -785,7 +908,7 @@ namespace dnGREP.Common
             bool handled = false;
             if (!filter.IsRegex && !filter.NamePatternToInclude.Contains("#!"))
             {
-                var includePatterns = SplitPath(filter.NamePatternToInclude);
+                var includePatterns = SplitPattern(filter.NamePatternToInclude);
                 foreach (var pattern in includePatterns)
                 {
                     if (pattern == "*.doc" || pattern == "*.xls")
@@ -793,16 +916,6 @@ namespace dnGREP.Common
                     else
                         includeSearchPatterns.Add(pattern);
                 }
-                //if (filter.IncludeArchive)
-                //{
-                //    foreach (var ext in ArchiveExtensions)
-                //    {
-                //        string fileExtension = "*." + ext;
-                //        if (!includeSearchPatterns.Contains(fileExtension))
-                //            includeSearchPatterns.Add(fileExtension);
-                //    }
-                //}
-
                 handled = true;
             }
             return handled;
@@ -818,14 +931,14 @@ namespace dnGREP.Common
             // non-regex include patterns are used as search patterns in the call to EnumerateFiles
             if (filter.IsRegex || !includePatternHandled)
             {
-                var includePatterns = SplitPath(filter.NamePatternToInclude);
+                var includePatterns = SplitPattern(filter.NamePatternToInclude);
                 foreach (var pattern in includePatterns)
                 {
                     includeRegexPatterns.Add(GetRegex(pattern, filter.IsRegex));
                 }
             }
 
-            var excludePatterns = SplitPath(filter.NamePatternToExclude);
+            var excludePatterns = SplitPattern(filter.NamePatternToExclude);
             foreach (var pattern in excludePatterns)
             {
                 excludeRegexPatterns.Add(GetRegex(pattern, filter.IsRegex));
@@ -844,7 +957,7 @@ namespace dnGREP.Common
 
                     if (!regexCache.TryGetValue(pattern, out regex))
                     {
-                        regex = new Regex(pattern, RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        regex = new Regex(pattern, RegexOptions.IgnoreCase);
                         regexCache.Add(pattern, regex);
                     }
                 }
@@ -903,7 +1016,7 @@ namespace dnGREP.Common
                 yield break;
             }
 
-            foreach (var subPath in SplitPath(filter.Path))
+            foreach (var subPath in SplitPath(filter.Path, false))
             {
                 if (File.Exists(subPath))
                 {
@@ -1124,7 +1237,7 @@ namespace dnGREP.Common
                                 break;
                             }
                         }
-                        return Regex.IsMatch(firstLine.Substring(2).Trim(), pattern.Substring(2), RegexOptions.Compiled | RegexOptions.IgnoreCase);
+                        return Regex.IsMatch(firstLine.Substring(2).Trim(), pattern.Substring(2), RegexOptions.IgnoreCase);
                     }
                     else
                     {
