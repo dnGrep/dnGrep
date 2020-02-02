@@ -296,6 +296,51 @@ namespace dnGREP.WPF
             }
         }
 
+        private bool showLinesInContext;
+        public bool ShowLinesInContext
+        {
+            get { return showLinesInContext; }
+            set
+            {
+                if (value == showLinesInContext)
+                    return;
+
+                showLinesInContext = value;
+
+                base.OnPropertyChanged(() => ShowLinesInContext);
+            }
+        }
+
+        private int contextLinesBefore;
+        public int ContextLinesBefore
+        {
+            get { return contextLinesBefore; }
+            set
+            {
+                if (value == contextLinesBefore)
+                    return;
+
+                contextLinesBefore = value;
+
+                base.OnPropertyChanged(() => ContextLinesBefore);
+            }
+        }
+
+        private int contextLinesAfter;
+        public int ContextLinesAfter
+        {
+            get { return contextLinesAfter; }
+            set
+            {
+                if (value == contextLinesAfter)
+                    return;
+
+                contextLinesAfter = value;
+
+                base.OnPropertyChanged(() => ContextLinesAfter);
+            }
+        }
+
         RelayCommand _undoCommand;
         /// <summary>
         /// Returns an undo command
@@ -758,15 +803,21 @@ namespace dnGREP.WPF
             sortType = GrepSettings.Instance.Get<SortType>(GrepSettings.Key.TypeOfSort);
             sortDirection = GrepSettings.Instance.Get<ListSortDirection>(GrepSettings.Key.SortDirection);
             HighlightsOn = GrepSettings.Instance.Get<bool>(GrepSettings.Key.HighlightMatches);
+            ShowLinesInContext = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext);
+            ContextLinesBefore = GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore);
+            ContextLinesAfter = GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter);
         }
 
         public override void SaveSettings()
         {
             CopyBookmarksToSettings();
 
-            settings.Set<ListSortDirection>(GrepSettings.Key.SortDirection, SortDirection);
-            settings.Set<SortType>(GrepSettings.Key.TypeOfSort, SortType);
-            settings.Set<bool>(GrepSettings.Key.HighlightMatches, HighlightsOn);
+            settings.Set(GrepSettings.Key.SortDirection, SortDirection);
+            settings.Set(GrepSettings.Key.TypeOfSort, SortType);
+            settings.Set(GrepSettings.Key.HighlightMatches, HighlightsOn);
+            settings.Set(GrepSettings.Key.ShowLinesInContext, ShowLinesInContext);
+            settings.Set(GrepSettings.Key.ContextLinesBefore, ContextLinesBefore);
+            settings.Set(GrepSettings.Key.ContextLinesAfter, ContextLinesAfter);
 
             Properties.Settings.Default.PreviewBounds = PreviewWindowBounds;
             Properties.Settings.Default.PreviewWindowState = PreviewWindowState;
