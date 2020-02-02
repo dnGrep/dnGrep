@@ -1613,7 +1613,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private void BookmarkAddRemove()
+        private void BookmarkAddRemove(bool associateWithFolder)
         {
             Bookmark newBookmark = new Bookmark(SearchFor, ReplaceWith, FilePattern)
             {
