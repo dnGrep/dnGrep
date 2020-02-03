@@ -110,11 +110,26 @@
             </StatusBarItem>
         </StatusBar>
 
-        <DockPanel DockPanel.Dock="Bottom">
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
             <CheckBox Content="Highlight Matches" Margin="10,3"                                  
                       IsChecked="{Binding HighlightsOn}"
-                      Command="{Binding HighlightsCommand}" />
-        </DockPanel>
+                      Command="{Binding HighlightsCommand}" 
+                      TabIndex="91"/>
+            <CheckBox Content="Show context lines" Name="cbShowContext" Margin="10,3,3,3" HorizontalAlignment="Center"
+                      ToolTip="Context changes applied in next search"
+                      IsChecked="{Binding Path=ShowLinesInContext}"
+                      TabIndex="92"/>
+            <TextBox Width="32" Height="24" Margin="3,0,0,0"
+                     Text="{Binding Path=ContextLinesBefore, UpdateSourceTrigger=PropertyChanged}"
+                     IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}" 
+                     TabIndex="93"/>
+            <Label Content="before and" />
+            <TextBox Width="32" Height="24"
+                     Text="{Binding Path=ContextLinesAfter, UpdateSourceTrigger=PropertyChanged}"
+                     IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}" 
+                     TabIndex="94"/>
+            <Label Content="after" />
+        </StackPanel>
 
         <DockPanel Margin="4,0" LastChildFill="True">
             <GroupBox DockPanel.Dock="Top" Header="Search in">
