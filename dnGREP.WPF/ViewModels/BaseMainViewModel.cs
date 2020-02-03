@@ -59,7 +59,6 @@ namespace dnGREP.WPF
             nameof(IsSizeFilterSet),
             nameof(MaxSubfolderDepth),
             nameof(Multiline),
-            nameof(ReplaceWith),
             nameof(SearchFor),
             nameof(Singleline),
             nameof(SizeFrom),
