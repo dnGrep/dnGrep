@@ -134,6 +134,14 @@
                      IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}" 
                      TabIndex="94"/>
             <Label Content="after" />
+            <Label Margin="30,0,3,0" Content="Zoom:" ToolTip="Changes the results tree zoom"/>
+            <Slider Width="180" Margin="0,0,3,0" VerticalAlignment="Center"
+                    Minimum="0.8" Maximum="2.0" LargeChange=".05" SmallChange=".01"
+                    Value="{Binding SearchResults.ResultsScale}" TabIndex="95">
+                <Slider.ToolTip>
+                    <ToolTip Content="{Binding SearchResults.ResultsScale}" ContentStringFormat="P1"/>
+                </Slider.ToolTip>
+            </Slider>
         </StackPanel>
 
         <DockPanel Margin="4,0" LastChildFill="True">

@@ -829,6 +829,7 @@ namespace dnGREP.WPF
             // the Options dialog is closed
             sortType = GrepSettings.Instance.Get<SortType>(GrepSettings.Key.TypeOfSort);
             sortDirection = GrepSettings.Instance.Get<ListSortDirection>(GrepSettings.Key.SortDirection);
+            SearchResults.ResultsScale = GrepSettings.Instance.Get<double>(GrepSettings.Key.ResultsTreeScale);
             IsResultOptionsExpanded = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowResultOptions);
             HighlightsOn = GrepSettings.Instance.Get<bool>(GrepSettings.Key.HighlightMatches);
             ShowLinesInContext = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext);
@@ -843,6 +844,7 @@ namespace dnGREP.WPF
             settings.Set(GrepSettings.Key.SortDirection, SortDirection);
             settings.Set(GrepSettings.Key.TypeOfSort, SortType);
             settings.Set(GrepSettings.Key.ShowResultOptions, IsResultOptionsExpanded);
+            settings.Set(GrepSettings.Key.ResultsTreeScale, SearchResults.ResultsScale);
             settings.Set(GrepSettings.Key.HighlightMatches, HighlightsOn);
             settings.Set(GrepSettings.Key.ShowLinesInContext, ShowLinesInContext);
             settings.Set(GrepSettings.Key.ContextLinesBefore, ContextLinesBefore);

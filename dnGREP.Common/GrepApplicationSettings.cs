@@ -136,6 +136,8 @@ namespace dnGREP.Common
             public const string HighlightMatches = "HighlightMatches";
             [DefaultValue(true)]
             public const string ShowResultOptions = "ShowResultOptions";
+            [DefaultValue(1.0)]
+            public const string ResultsTreeScale = "ResultsTreeScale";
         }
 
         private static GrepSettings instance;
