@@ -93,6 +93,10 @@
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem>
                 <StackPanel Orientation="Horizontal">
+                    <CheckBox Margin="3,0,10,0" Background="{DynamicResource Control.Static.Background}"
+                              ToolTip="{Binding ResultOptionsButtonTooltip}"
+                              Template="{DynamicResource ExpanderButtonTemplate}"
+                              IsChecked="{Binding IsResultOptionsExpanded}" />
                     <ProgressBar Width="150" Height="18" Margin="3,0"
                                  IsIndeterminate="{Binding IsOperationInProgress}" />
                     <TextBlock Margin="3,0"
@@ -110,7 +114,8 @@
             </StatusBarItem>
         </StatusBar>
 
-        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal">
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal"
+                    Visibility="{Binding IsResultOptionsExpanded, Converter={StaticResource BoolToVisibilityConverter}}">
             <CheckBox Content="Highlight Matches" Margin="10,3"                                  
                       IsChecked="{Binding HighlightsOn}"
                       Command="{Binding HighlightsCommand}" 
