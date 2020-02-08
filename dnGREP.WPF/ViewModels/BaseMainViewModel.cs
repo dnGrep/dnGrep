@@ -1226,7 +1226,7 @@ namespace dnGREP.WPF
                 else
                     WindowTitle = string.Format("{0} in \"{1}\" - dnGREP",
                         (SearchFor == null ? "Empty" : SearchFor.Replace('\n', ' ').Replace('\r', ' ')),
-                        PathSearchText.CleanPath);
+                        FileOrFolderPath);
             }
 
             //Change validation
@@ -1453,7 +1453,6 @@ namespace dnGREP.WPF
             }
             settings[GrepSettings.Key.FilePatternIgnore] = _filePatternIgnore;
 
-            string searchFolder = settings.Get<string>(GrepSettings.Key.SearchFolder);
             FastPathBookmarks.Clear();
             List<string> pb = settings.Get<List<string>>(GrepSettings.Key.FastPathBookmarks);
             if (pb != null)
@@ -1464,7 +1463,6 @@ namespace dnGREP.WPF
                         FastPathBookmarks.Add(bookmark);
                 }
             }
-            settings[GrepSettings.Key.SearchFolder] = searchFolder;
 
             SearchFor = settings.Get<string>(GrepSettings.Key.SearchFor);
             ReplaceWith = settings.Get<string>(GrepSettings.Key.ReplaceWith);

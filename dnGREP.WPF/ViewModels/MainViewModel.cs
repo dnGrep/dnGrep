@@ -1053,7 +1053,7 @@ namespace dnGREP.WPF
 
                         Utils.CancelSearch = false;
 
-                        FileFilter fileParams = new FileFilter(PathSearchText.CleanPath, filePatternInclude, filePatternExclude,
+                        FileFilter fileParams = new FileFilter(FileOrFolderPath, filePatternInclude, filePatternExclude,
                             param.TypeOfFileSearch == FileSearchType.Regex, param.UseGitIgnore, param.TypeOfFileSearch == FileSearchType.Everything,
                             param.IncludeSubfolder, param.MaxSubfolderDepth, param.IncludeHidden, param.IncludeBinary, param.IncludeArchive, sizeFrom,
                             sizeTo, param.UseFileDateFilter, startTime, endTime);
@@ -1096,7 +1096,7 @@ namespace dnGREP.WPF
                             settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount),
                             SearchParallel);
 
-                        grep.FileFilter = new FileFilter(PathSearchText.CleanPath, filePatternInclude, filePatternExclude,
+                        grep.FileFilter = new FileFilter(FileOrFolderPath, filePatternInclude, filePatternExclude,
                             param.TypeOfFileSearch == FileSearchType.Regex, param.UseGitIgnore, param.TypeOfFileSearch == FileSearchType.Everything,
                             param.IncludeSubfolder, param.MaxSubfolderDepth, param.IncludeHidden, param.IncludeBinary, param.IncludeArchive,
                             sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime);
@@ -1618,7 +1618,7 @@ namespace dnGREP.WPF
             while (FastFileNotMatchBookmarks.Count > maxExtCount)
                 FastFileNotMatchBookmarks.RemoveAt(FastFileNotMatchBookmarks.Count - 1);
 
-            string searchPath = PathSearchText.CleanPath;
+            string searchPath = FileOrFolderPath;
             if (FastPathBookmarks.IndexOf(searchPath) != 0)
             {
                 FastPathBookmarks.Insert(0, searchPath);
@@ -1819,6 +1819,7 @@ namespace dnGREP.WPF
                     {
                         var fileList = SearchResults.GetList();
                         string destinationFolder = Utils.GetBaseFolder(fileFolderDialog.SelectedPath);
+                        bool hasSingleBaseFolder = Utils.HasSingleBaseFolder(PathSearchText.FileOrFolderPath);
                         string baseFolder = PathSearchText.BaseFolder;
 
                         if (!Utils.CanCopyFiles(fileList, destinationFolder))
@@ -1828,7 +1829,7 @@ namespace dnGREP.WPF
                         }
 
                         int count = 0;
-                        if (!string.IsNullOrWhiteSpace(baseFolder))
+                        if (hasSingleBaseFolder && !string.IsNullOrWhiteSpace(baseFolder))
                         {
                             count = Utils.CopyFiles(fileList, baseFolder, destinationFolder, OverwriteFile.Prompt);
                         }
@@ -1859,6 +1860,7 @@ namespace dnGREP.WPF
                     {
                         var fileList = SearchResults.GetList();
                         string destinationFolder = Utils.GetBaseFolder(fileFolderDialog.SelectedPath);
+                        bool hasSingleBaseFolder = Utils.HasSingleBaseFolder(PathSearchText.FileOrFolderPath);
                         string baseFolder = PathSearchText.BaseFolder;
 
                         if (!Utils.CanCopyFiles(fileList, destinationFolder))
@@ -1869,7 +1871,7 @@ namespace dnGREP.WPF
                         }
 
                         int count = 0;
-                        if (!string.IsNullOrWhiteSpace(baseFolder))
+                        if (hasSingleBaseFolder && !string.IsNullOrWhiteSpace(baseFolder))
                         {
                             count = Utils.MoveFiles(fileList, baseFolder, destinationFolder, OverwriteFile.Prompt);
                         }
@@ -2061,7 +2063,7 @@ namespace dnGREP.WPF
                 sb.AppendLine(string.Join(", ", options.ToArray()));
             sb.AppendLine();
 
-            sb.Append("Search in: ").AppendLine(PathSearchText.CleanPath)
+            sb.Append("Search in: ").AppendLine(FileOrFolderPath)
               .Append("Paths that match: ").AppendLine(FilePattern);
             if (!string.IsNullOrWhiteSpace(FilePatternIgnore))
                 sb.Append("Paths to ignore: ").AppendLine(FilePatternIgnore);

@@ -320,11 +320,11 @@ namespace dnGREP.WPF
 
         public bool CanCompareFiles
         {
-            get 
+            get
             {
                 int count = GetSelectedFiles().Count;
                 return count == 2 || count == 3;
-            } 
+            }
         }
 
         private void CompareFiles()
@@ -458,12 +458,11 @@ namespace dnGREP.WPF
             bool isFileReadOnly = Utils.IsReadOnly(GrepResult);
             bool isSuccess = GrepResult.IsSuccess;
 
-            string basePath = string.IsNullOrWhiteSpace(folderPath) ? string.Empty :
-                Utils.GetBaseFolder(folderPath).TrimEnd('\\');
+            string basePath = string.IsNullOrWhiteSpace(folderPath) ? string.Empty : folderPath.TrimEnd('\\');
             string displayedName = Path.GetFileName(GrepResult.FileNameDisplayed);
 
             if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowFilePathInResults) &&
-                GrepResult.FileNameDisplayed.Contains(basePath))
+                GrepResult.FileNameDisplayed.Contains(basePath, StringComparison.CurrentCultureIgnoreCase))
             {
                 if (!string.IsNullOrWhiteSpace(basePath))
                     displayedName = GrepResult.FileNameDisplayed.Substring(basePath.Length + 1).TrimStart('\\');
