@@ -163,84 +163,92 @@ namespace Tests
         }
 
         [Theory]
-        [InlineData("\\Files\\TestCase1\\test-file-code.cs", "\\Files\\TestCase1")]
-        [InlineData("\\Files\\TestCase1", "\\Files\\TestCase1")]
-        [InlineData("\\Files\\TestCas\\", null)]
-        [InlineData("\\Files\\TestCase1\\test-file-code.cs;\\Files\\TestCase2\\test-file-plain.txt", "\\Files")]
-        [InlineData("\\Files\\Test*", "\\Files")]
-        [InlineData("\\Files\\T*e7", "\\Files\\TestCase7")]
+        [InlineData("{0}\\TestCase1\\test-file-code.cs", "{0}\\TestCase1")]
+        [InlineData("{0}\\TestCase1", "{0}\\TestCase1")]
+        [InlineData("{0}\\TestCas\\", null)]
+        [InlineData("{0}\\TestCase1\\test-file-code.cs;{0}\\TestCase2\\test-file-plain.txt", "{0}")]
+        [InlineData("{0}\\Test*", "{0}")]
+        [InlineData("{0}\\T*e7", "{0}\\TestCase7")]
         public void TestGetBaseFolder(string relativePath, string expected)
         {
-            StringBuilder sb = new StringBuilder();
-            string pathToDll = GetDllPath();
-            string[] rPaths = relativePath.Split(';');
-            foreach (string rPath in rPaths)
-                sb.Append(pathToDll + rPath + ";");
+            string path = string.Format(relativePath, sourceFolder);
 
             if (expected == null)
-                Assert.Null(Utils.GetBaseFolder(sb.ToString()));
+                Assert.Null(Utils.GetBaseFolder(path));
             else
-                Assert.Equal(pathToDll + expected, Utils.GetBaseFolder(sb.ToString()));
+            {
+                string result = string.Format(expected, sourceFolder);
+                Assert.Equal(result, Utils.GetBaseFolder(path));
+            }
         }
 
         [Theory]
-        [InlineData("\\Files\\TestCase7\\Test;Folder", "\\Files\\TestCase7\\Test;Folder")]
-        [InlineData("\\Files\\TestCase7\\Test,Folder", "\\Files\\TestCase7\\Test,Folder")]
-        [InlineData("\\Files\\TestCase7\\Test,Folder\\logA", "\\Files\\TestCase7\\Test,Folder\\logA")]
+        [InlineData("{0}\\TestCase7\\Test;Folder", "{0}\\TestCase7\\Test;Folder")]
+        [InlineData("{0}\\TestCase7\\Test,Folder", "{0}\\TestCase7\\Test,Folder")]
+        [InlineData("{0}\\TestCase7\\Test,Folder\\logA", "{0}\\TestCase7\\Test,Folder\\logA")]
+        [InlineData("{0}\\TestCase7\\path.1 final", "{0}\\TestCase7\\path.1 final")]
+        [InlineData("\"{0}\\TestCase7\\path.1 final, server\"", "{0}\\TestCase7\\path.1 final, server")] // tests for issue 184, needs to be quoted
+        [InlineData("\"{0}\\TestCase7\\path.1 final; server\"", "{0}\\TestCase7\\path.1 final; server")]
         public void TestGetBaseFolderWithColons(string relativePath, string expected)
         {
-            string pathToDll = GetDllPath();
-            relativePath = pathToDll + relativePath;
+            string path = string.Format(relativePath, sourceFolder);
+            string result = string.Format(expected, sourceFolder);
 
-            if (expected == null)
-                Assert.Null(Utils.GetBaseFolder(relativePath));
-            else
-                Assert.Equal(pathToDll + expected, Utils.GetBaseFolder(relativePath));
+            Assert.Equal(result, Utils.GetBaseFolder(path));
         }
 
         [Theory]
-        [InlineData("\\Files\\TestCase1\\test-file-code.cs", true)]
-        [InlineData("\\Files\\TestCase1\\test-file-code2.cs", false)]
-        [InlineData("\\Files\\TestCase1\\", true)]
-        [InlineData("\\Files\\TestCase1", true)]
-        [InlineData("\\Files\\TestCas\\", false)]
-        [InlineData("\\Files\\TestCase1\\test-file-code.cs;\\Files\\TestCase1\\test-file-plain.txt", true)]
-        [InlineData("\\Files\\TestCase1\\test-file-code.cs;\\Files\\TestCase1\\test-file-plain.txt;\\Files\\TestCase1", true)]
-        [InlineData("\\Files\\TestCase1\\test11-file-code.cs;\\Files\\TestCase1\\test-file-plain.txt;\\Files\\TestCase1", false)]
-        [InlineData("\\Files\\TestCase1\\test-file-code.cs;\\Files\\TestCase1\\test-file-plain.txt;\\Files1\\TestCase1", false)]
-        [InlineData("\\Files\\TestCase*", true)]
-        [InlineData("\\Files\\TestCase*\\", false)]
-        [InlineData("\\Files\\TestCase1\\*.txt", true)]
-        [InlineData("\\Files\\TestCase1\\*.cpp", false)]
-        [InlineData("\\Files\\TestCase1\\test*", true)]
+        [InlineData("{0}\\TestCase1\\test-file-code.cs", true)]
+        [InlineData("{0}\\TestCase1", true)]
+        [InlineData("{0}\\TestCas\\", false)]
+        [InlineData("{0}\\TestCase1\\test-file-code.cs;{0}\\TestCase2\\test-file-plain.txt", true)]
+        [InlineData("{0}\\Test*", true)]
+        [InlineData("{0}\\T*e7", true)]
+        [InlineData("{0}\\TestCase7\\Test;Folder", true)]
+        [InlineData("{0}\\TestCase7\\Test,Folder\\log*", true)]
+        [InlineData("{0}\\TestCase7\\Test,Folder\\log?", true)]
+        [InlineData("{0}\\TestCase7\\path.1 final, server", false)] // tests for issue 184, needs to be quoted
+        [InlineData("\"{0}\\TestCase7\\path.1 final, server\"", true)]
+        public void TestHasSingleBaseFolder(string relativePath, bool expected)
+        {
+            string path = string.Format(relativePath, sourceFolder);
+            Assert.Equal(expected, Utils.HasSingleBaseFolder(path));
+        }
+
+        [Theory]
+        [InlineData("{0}\\TestCase1\\test-file-code.cs", true)]
+        [InlineData("{0}\\TestCase1\\test-file-code2.cs", false)]
+        [InlineData("{0}\\TestCase1\\", true)]
+        [InlineData("{0}\\TestCase1", true)]
+        [InlineData("{0}\\TestCas\\", false)]
+        [InlineData("{0}\\TestCase1\\test-file-code.cs;{0}\\TestCase1\\test-file-plain.txt", true)]
+        [InlineData("{0}\\TestCase1\\test-file-code.cs;{0}\\TestCase1\\test-file-plain.txt;{0}\\TestCase1", true)]
+        [InlineData("{0}\\TestCase1\\test11-file-code.cs;{0}\\TestCase1\\test-file-plain.txt;{0}\\TestCase1", false)]
+        [InlineData("{0}\\TestCase1\\test-file-code.cs;{0}\\TestCase1\\test-file-plain.txt;{0}1\\TestCase1", false)]
+        [InlineData("{0}\\TestCase*", true)]
+        [InlineData("{0}\\TestCase*\\", false)]
+        [InlineData("{0}\\TestCase1\\*.txt", true)]
+        [InlineData("{0}\\TestCase1\\*.cpp", false)]
+        [InlineData("{0}\\TestCase1\\test*", true)]
         public void TestIsPathValid(string relativePath, bool expected)
         {
-            StringBuilder sb = new StringBuilder();
-            string pathToDll = GetDllPath();
-            string[] rPaths = relativePath.Split(';');
-            foreach (string rPath in rPaths)
-                sb.Append(pathToDll + rPath + ";");
-
-            Assert.Equal(expected, Utils.IsPathValid(sb.ToString()));
-
-            foreach (string rPath in rPaths)
-                sb.Append(pathToDll + rPath + ",");
-
-            Assert.Equal(expected, Utils.IsPathValid(sb.ToString()));
+            string path = string.Format(relativePath, sourceFolder);
+            Assert.Equal(expected, Utils.IsPathValid(path));
         }
 
         [Theory]
-        [InlineData("\\Files\\TestCase7\\Test;Folder\\issue-10.txt", true)]
-        [InlineData("\\Files\\TestCase7\\Test,Folder\\issue-10.txt", true)]
-        [InlineData("\\Files\\TestCase7\\Test,Folder\\log?", true)]
-        [InlineData("\\Files\\TestCase7\\Test;Folder\\*.txt", true)]
-        [InlineData("\\Files\\TestCase7\\Test,Folder\\*.txt", true)]
+        [InlineData("{0}\\TestCase7\\Test;Folder\\issue-10.txt", true)]
+        [InlineData("{0}\\TestCase7\\Test,Folder\\issue-10.txt", true)]
+        [InlineData("{0}\\TestCase7\\Test,Folder\\log?", true)]
+        [InlineData("{0}\\TestCase7\\Test;Folder\\*.txt", true)]
+        [InlineData("{0}\\TestCase7\\Test,Folder\\*.txt", true)]
+        [InlineData("{0}\\TestCase7\\path.1 final, server", false)] // special case issue 184: needs to quoted
+        [InlineData("\"{0}\\TestCase7\\path.1 final, server\"", true)]
+        [InlineData("\"{0}\\TestCase7\\path.1 final; server\"", true)]
         public void TestIsPathValidWithColon(string relativePath, bool expected)
         {
-            string pathToDll = GetDllPath();
-            relativePath = pathToDll + relativePath;
-
-            Assert.Equal(expected, Utils.IsPathValid(relativePath));
+            string path = string.Format(relativePath, sourceFolder);
+            Assert.Equal(expected, Utils.IsPathValid(path));
         }
 
         [Fact]
@@ -985,7 +993,6 @@ namespace Tests
         [Fact]
         public void GetFileListTestWithMultiplePaths()
         {
-            string dllPath = GetDllPath();
             string path = sourceFolder + "\\TestCase2;" + sourceFolder + "\\TestCase2\\excel-file.xls";
             Assert.Equal(4, Utils.GetFileList(path, "*.*", "", false, false, false, false, true, false, 0, 0, FileDateFilter.None, null, null, false, -1).Length);
 
@@ -1025,7 +1032,6 @@ namespace Tests
         [InlineData("{0}\\TestCase7\\log?;{0}\\TestCase7\\Test*", 5)]
         public void GetFileListTestWithPathWildcards(string pathPattern, int expected)
         {
-            string dllPath = GetDllPath();
             string path = string.Format(pathPattern, sourceFolder);
             Assert.Equal(expected, Utils.GetFileList(path, "*.*", "", false, false, false, false, true, false, 0, 0, FileDateFilter.None, null, null, false, -1).Length);
         }
@@ -1033,7 +1039,6 @@ namespace Tests
         [Fact]
         public void GetFileListWithExcludes()
         {
-            string dllPath = GetDllPath();
             string path = sourceFolder + "\\TestCase2";
             Assert.Equal(3, Utils.GetFileList(path, "*.*", "*.xls", false, false, false, false, true, false, 0, 0, FileDateFilter.None, null, null, false, -1).Length);
             Assert.Empty(Utils.GetFileList(path, "excel*.*", "*.xls", false, false, false, false, true, false, 0, 0, FileDateFilter.None, null, null, false, -1));
@@ -1125,9 +1130,10 @@ namespace Tests
                 yield return new object[] { "{0}\\TestCase7\\Test,Folder\\;{0}\\TestCase7", 2 };
                 yield return new object[] { "{0}\\TestCase7\\Test;Folder\\;{0}\\TestCase7", 2 };
                 yield return new object[] { "{0}\\TestCase7\\Test;Folder\\;{0}\\TestCase7;{0}\\TestCase7\\Test;Folder\\", 3 };
-                yield return new object[] { ".git\\*;*.resx;*.aip;bin\\*;packages\\*;", 5 };
-                yield return new object[] { ";.git\\*;*.resx;*.aip;bin\\*;packages\\*;", 5 };
-                yield return new object[] { ".git\\*;*.resx;;;*.aip;;bin\\*;packages\\*;", 5 };
+                yield return new object[] { "{0}\\TestCase7\\Test;Folder;{0}\\TestCase7;{0}\\TestCase7\\Test;Folder", 3 };
+                yield return new object[] { "{0}\\TestCase7\\Test;Folder ;{0}\\TestCase7;{0}\\TestCase7\\Test;Folder", 3 };
+                yield return new object[] { "{0}\\TestCase7\\Test;Folder;{0}\\TestCase7 ;{0}\\TestCase7\\Test;Folder", 3 };
+                yield return new object[] { "{0}\\TestCase7\\Test;Folder;{0}\\TestCase7;{0}\\TestCase7\\Test;Folder ", 3 };
                 yield return new object[] { null, 0 };
                 yield return new object[] { "", 0 };
                 yield return new object[] { "{0}\\TestCase7\\log*", 2 };
@@ -1151,6 +1157,25 @@ namespace Tests
             Assert.Equal(expected, result.Length);
         }
 
+        [Theory]
+        [InlineData("\"{0}\\TestCase7\\path.1 final, server\",{0}\\TestCase7\\Test,Folder\\;{0}\\TestCase7", 3)]
+        [InlineData("\"{0}\\TestCase7\\path.1 final, server\";{0}\\TestCase7\\Test,Folder\\;{0}\\TestCase7", 3)]
+        [InlineData("\"{0}\\TestCase7\\path.1 final; server\",{0}\\TestCase7\\Test,Folder\\;{0}\\TestCase7", 3)]
+        [InlineData("\"{0}\\TestCase7\\path.1 final; server\";{0}\\TestCase7\\Test,Folder\\;{0}\\TestCase7", 3)]
+        [InlineData("{0}\\TestCase7\\Test,Folder\\;\"{0}\\TestCase7\\path.1 final; server\";{0}\\TestCase7", 3)]
+        [InlineData("{0}\\TestCase7\\Test,Folder\\;{0}\\TestCase7;\"{0}\\TestCase7\\path.1 final; server\"", 3)]
+        [InlineData("\"{0}\\TestCase7\\Test,Folder\\\";{0}\\TestCase7;\"{0}\\TestCase7\\path.1 final; server\"", 3)]
+        [InlineData("\"{0}\\TestCase7\\Test,Folder\";{0}\\TestCase7 ;\"{0}\\TestCase7\\path.1 final; server \"", 3)]
+        public void TestGetPathsCountQuoted(string path, int expected) // tests for issue 184
+        {
+            path = string.Format(path, sourceFolder);
+
+            string[] result = Utils.SplitPath(path, false);
+            Assert.NotNull(result);
+            Assert.Equal(expected, result.Length);
+        }
+
+
         [Fact]
         public void TestGetPathsContent()
         {
@@ -1169,11 +1194,19 @@ namespace Tests
         [InlineData("{0}\\TestCase7\\log* ", "{0}\\TestCase7\\log*")]
         [InlineData("{0}\\TestCase7\\log* ;{0}\\TestCase7\\log*", "{0}\\TestCase7\\log*;{0}\\TestCase7\\log*")]
         [InlineData("{0}\\TestCase7\\log* ;{0}\\TestCase7\\log? ", "{0}\\TestCase7\\log*;{0}\\TestCase7\\log?")]
+        [InlineData("{0}\\TestCase7\\Test;Folder ;{0}\\TestCase7;{0}\\TestCase7\\Test;Folder", "{0}\\TestCase7\\Test;Folder;{0}\\TestCase7;{0}\\TestCase7\\Test;Folder")]
+        [InlineData("{0}\\TestCase7\\Test;Folder;{0}\\TestCase7 ;{0}\\TestCase7\\Test;Folder", "{0}\\TestCase7\\Test;Folder;{0}\\TestCase7;{0}\\TestCase7\\Test;Folder")]
+        [InlineData("{0}\\TestCase7\\Test;Folder;{0}\\TestCase7;{0}\\TestCase7\\Test;Folder ", "{0}\\TestCase7\\Test;Folder;{0}\\TestCase7;{0}\\TestCase7\\Test;Folder")]
+        [InlineData("\"{0}\\TestCase7\\Test;Folder \";{0}\\TestCase7;{0}\\TestCase7\\Test;Folder", "{0}\\TestCase7\\Test;Folder;{0}\\TestCase7;{0}\\TestCase7\\Test;Folder")]
+        [InlineData("\"{0}\\TestCase7\\Test;Folder \";\"{0}\\TestCase7\";{0}\\TestCase7\\Test;Folder", "{0}\\TestCase7\\Test;Folder;{0}\\TestCase7;{0}\\TestCase7\\Test;Folder")]
+        [InlineData("\"{0}\\TestCase7\\Test;Folder \";\"{0}\\TestCase7\";\"{0}\\TestCase7\\Test;Folder\"", "{0}\\TestCase7\\Test;Folder;{0}\\TestCase7;{0}\\TestCase7\\Test;Folder")]
+        [InlineData("\"{0}\\TestCase7\\path.1 final, server\"", "{0}\\TestCase7\\path.1 final, server")] // tests for issue 184, needs to be quoted
+        [InlineData("\"{0}\\TestCase7\\path.1 final; server\"", "{0}\\TestCase7\\path.1 final; server")]
         public void TestCleanPath(string path, string result)
         {
             string input = string.Format(path, sourceFolder);
             string expected = string.Format(result, sourceFolder);
-            string cleaned = Utils.CleanPath(input);
+            string cleaned = string.Join(";", Utils.SplitPath(input, true));
             Assert.Equal(expected, cleaned);
         }
 
@@ -1184,6 +1217,9 @@ namespace Tests
         [InlineData("*.cpp ,*.h", 2)]
         [InlineData("*.cpp, *.h", 2)]
         [InlineData("**/test/*,**bin/*", 2)]
+        [InlineData(".git\\*;*.resx;*.aip;bin\\*;packages\\*;", 5)]
+        [InlineData(";.git\\*;*.resx;*.aip;bin\\*;packages\\*;", 5)]
+        [InlineData(".git\\*;*.resx;;;*.aip;;bin\\*;packages\\*;", 5)]
         public void TestSplitPattern(string pattern, int expected)
         {
             Assert.Equal(expected, Utils.SplitPattern(pattern).Length);
