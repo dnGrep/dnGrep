@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -27,6 +28,7 @@ namespace dnGREP.WPF
             searchPanel.MarkerBrush = Application.Current.Resources["Match.Highlight.Background"] as Brush;
 
             ViewModel.ShowPreview += ViewModel_ShowPreview;
+            ViewModel.PropertyChanged += ViewModel_PropertyChanged;
             cbWrapText.IsChecked = GrepSettings.Instance.Get<bool?>(GrepSettings.Key.PreviewWindowWrap);
             zoomSlider.Value = GrepSettings.Instance.Get<int>(GrepSettings.Key.PreviewWindowFont);
 
@@ -36,6 +38,21 @@ namespace dnGREP.WPF
                 textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["AvalonEdit.Link"] as Brush;
                 searchPanel.MarkerBrush = Application.Current.Resources["Match.Highlight.Background"] as Brush;
             };
+        }
+
+        private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(ViewModel.HighlightsOn))
+            {
+                for (int i = textEditor.TextArea.TextView.LineTransformers.Count - 1; i >= 0; i--)
+                {
+                    if (textEditor.TextArea.TextView.LineTransformers[i] is PreviewHighlighter)
+                        textEditor.TextArea.TextView.LineTransformers.RemoveAt(i);
+                }
+
+                if (ViewModel.HighlightsOn && !ViewModel.HighlightDisabled)
+                    textEditor.TextArea.TextView.LineTransformers.Add(new PreviewHighlighter(ViewModel.GrepResult));
+            }
         }
 
         public PreviewViewModel ViewModel { get; private set; } = new PreviewViewModel();
@@ -61,7 +78,7 @@ namespace dnGREP.WPF
                         textEditor.TextArea.TextView.LineTransformers.RemoveAt(i);
                 }
 
-                if (!ViewModel.HighlightDisabled)
+                if (ViewModel.HighlightsOn && !ViewModel.HighlightDisabled)
                     textEditor.TextArea.TextView.LineTransformers.Add(new PreviewHighlighter(ViewModel.GrepResult));
 
                 try

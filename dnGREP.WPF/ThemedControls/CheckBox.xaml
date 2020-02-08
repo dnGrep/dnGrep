@@ -125,4 +125,64 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
+    <ControlTemplate x:Key="PlusMetroButtonTemplate" TargetType="{x:Type CheckBox}">
+        <DockPanel Background="Transparent">
+            <Path Height="22" Margin="2"
+                  Data="F1 M 5,0L 10,0L 10,5L 15,5L 15,10L 10,10L 10,15L 5,15L 5,10L 0,10L 0,5L 5,5 Z "
+                  DockPanel.Dock="Left"
+                  Fill="{TemplateBinding Background}"
+                  Stretch="Uniform"
+                  Stroke="{DynamicResource OptionMark.Static.Glyph}"
+                  StrokeLineJoin="Round" StrokeThickness="1" />
+            <ContentPresenter Margin="{TemplateBinding Padding}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              VerticalAlignment="Center" RecognizesAccessKey="True"
+                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+        </DockPanel>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Effect" Value="{DynamicResource OptionMark.DropShadowEffect}" />
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Background" Value="#FFF9E61E" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ExpanderButtonTemplate" TargetType="{x:Type CheckBox}">
+        <Border Padding="{TemplateBinding Padding}">
+            <Grid Background="Transparent" SnapsToDevicePixels="False">
+                <Ellipse x:Name="circle" Width="19" Height="19"
+                         HorizontalAlignment="Center" VerticalAlignment="Center"
+                         Fill="{DynamicResource Expander.Static.Circle.Fill}"
+                         Stroke="{DynamicResource Expander.Static.Circle.Stroke}" />
+                <Path x:Name="arrow" HorizontalAlignment="Center" VerticalAlignment="Center"
+                      Data="M 1,4.5  L 4.5,1  L 8,4.5" SnapsToDevicePixels="false"
+                      Stroke="{DynamicResource Expander.Static.Arrow.Stroke}"
+                      StrokeThickness="2" />
+            </Grid>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsChecked" Value="true">
+                <Setter TargetName="arrow" Property="Data" Value="M 1,1.5 L 4.5,5 L 8,1.5" />
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter TargetName="circle" Property="Stroke" Value="{DynamicResource Expander.MouseOver.Circle.Stroke}" />
+                <Setter TargetName="circle" Property="Fill" Value="{DynamicResource Expander.MouseOver.Circle.Fill}" />
+                <Setter TargetName="arrow" Property="Stroke" Value="{DynamicResource Expander.MouseOver.Arrow.Stroke}" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="true">
+                <Setter TargetName="circle" Property="Stroke" Value="{DynamicResource Expander.Pressed.Circle.Stroke}" />
+                <Setter TargetName="circle" Property="StrokeThickness" Value="1.5" />
+                <Setter TargetName="circle" Property="Fill" Value="{DynamicResource Expander.Pressed.Circle.Fill}" />
+                <Setter TargetName="arrow" Property="Stroke" Value="{DynamicResource Expander.Pressed.Arrow.Stroke}" />
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="false">
+                <Setter TargetName="circle" Property="Stroke" Value="{DynamicResource Expander.Disabled.Circle.Stroke}" />
+                <Setter TargetName="circle" Property="Fill" Value="{DynamicResource Expander.Disabled.Circle.Fill}" />
+                <Setter TargetName="arrow" Property="Stroke" Value="{DynamicResource Expander.Disabled.Arrow.Stroke}" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
 </ResourceDictionary>

@@ -59,7 +59,6 @@ namespace dnGREP.WPF
             nameof(IsSizeFilterSet),
             nameof(MaxSubfolderDepth),
             nameof(Multiline),
-            nameof(ReplaceWith),
             nameof(SearchFor),
             nameof(Singleline),
             nameof(SizeFrom),
@@ -120,11 +119,7 @@ namespace dnGREP.WPF
             get { return fastPathBookmarks; }
         }
 
-        private ObservableCollection<KeyValuePair<string, int>> encodings = new ObservableCollection<KeyValuePair<string, int>>();
-        public ObservableCollection<KeyValuePair<string, int>> Encodings
-        {
-            get { return encodings; }
-        }
+        public ObservableCollection<KeyValuePair<string, int>> Encodings { get; } = new ObservableCollection<KeyValuePair<string, int>>();
 
         private bool searchParametersChanged;
         public bool SearchParametersChanged
@@ -691,33 +686,6 @@ namespace dnGREP.WPF
             }
         }
 
-        private bool isBookmarked;
-        public bool IsBookmarked
-        {
-            get { return isBookmarked; }
-            set
-            {
-                if (value == isBookmarked)
-                    return;
-
-                isBookmarked = value;
-
-                base.OnPropertyChanged(() => IsBookmarked);
-                base.OnPropertyChanged(() => IsBookmarkedTooltip);
-            }
-        }
-
-        public string IsBookmarkedTooltip
-        {
-            get
-            {
-                if (!IsBookmarked)
-                    return "Add search pattern to bookmarks";
-                else
-                    return "Clear bookmark";
-            }
-        }
-
         private bool isCaseSensitiveEnabled;
         public bool IsCaseSensitiveEnabled
         {
@@ -1258,7 +1226,7 @@ namespace dnGREP.WPF
                 else
                     WindowTitle = string.Format("{0} in \"{1}\" - dnGREP",
                         (SearchFor == null ? "Empty" : SearchFor.Replace('\n', ' ').Replace('\r', ' ')),
-                        PathSearchText.CleanPath);
+                        FileOrFolderPath);
             }
 
             //Change validation
@@ -1399,14 +1367,6 @@ namespace dnGREP.WPF
                     IsBooleanOperatorsEnabled = true;
                 }
             }
-
-            if (IsProperty(() => SearchFor, name) || IsProperty(() => ReplaceWith, name) || IsProperty(() => FilePattern, name))
-            {
-                if (BookmarkLibrary.Instance.Bookmarks.Contains(new Bookmark(SearchFor, ReplaceWith, FilePattern)))
-                    IsBookmarked = true;
-                else
-                    IsBookmarked = false;
-            }
         }
 
         private void ValidateRegex(string pattern)
@@ -1493,7 +1453,6 @@ namespace dnGREP.WPF
             }
             settings[GrepSettings.Key.FilePatternIgnore] = _filePatternIgnore;
 
-            string searchFolder = settings.Get<string>(GrepSettings.Key.SearchFolder);
             FastPathBookmarks.Clear();
             List<string> pb = settings.Get<List<string>>(GrepSettings.Key.FastPathBookmarks);
             if (pb != null)
@@ -1504,7 +1463,6 @@ namespace dnGREP.WPF
                         FastPathBookmarks.Add(bookmark);
                 }
             }
-            settings[GrepSettings.Key.SearchFolder] = searchFolder;
 
             SearchFor = settings.Get<string>(GrepSettings.Key.SearchFor);
             ReplaceWith = settings.Get<string>(GrepSettings.Key.ReplaceWith);

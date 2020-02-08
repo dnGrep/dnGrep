@@ -93,6 +93,10 @@
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem>
                 <StackPanel Orientation="Horizontal">
+                    <CheckBox Margin="3,0,10,0" Background="{DynamicResource Control.Static.Background}"
+                              ToolTip="{Binding ResultOptionsButtonTooltip}"
+                              Template="{DynamicResource ExpanderButtonTemplate}"
+                              IsChecked="{Binding IsResultOptionsExpanded}" />
                     <ProgressBar Width="150" Height="18" Margin="3,0"
                                  IsIndeterminate="{Binding IsOperationInProgress}" />
                     <TextBlock Margin="3,0"
@@ -109,6 +113,36 @@
                 </StackPanel>
             </StatusBarItem>
         </StatusBar>
+
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal"
+                    Visibility="{Binding IsResultOptionsExpanded, Converter={StaticResource BoolToVisibilityConverter}}">
+            <CheckBox Content="Highlight Matches" Margin="10,3"                                  
+                      IsChecked="{Binding HighlightsOn}"
+                      Command="{Binding HighlightsCommand}" 
+                      TabIndex="91"/>
+            <CheckBox Content="Show context lines" Name="cbShowContext" Margin="10,3,3,3" HorizontalAlignment="Center"
+                      ToolTip="Context changes applied in next search"
+                      IsChecked="{Binding Path=ShowLinesInContext}"
+                      TabIndex="92"/>
+            <TextBox Width="32" Height="24" Margin="3,0,0,0"
+                     Text="{Binding Path=ContextLinesBefore, UpdateSourceTrigger=PropertyChanged}"
+                     IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}" 
+                     TabIndex="93"/>
+            <Label Content="before and" />
+            <TextBox Width="32" Height="24"
+                     Text="{Binding Path=ContextLinesAfter, UpdateSourceTrigger=PropertyChanged}"
+                     IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}" 
+                     TabIndex="94"/>
+            <Label Content="after" />
+            <Label Margin="30,0,3,0" Content="Zoom:" ToolTip="Changes the results tree zoom"/>
+            <Slider Width="180" Margin="0,0,3,0" VerticalAlignment="Center"
+                    Minimum="0.8" Maximum="2.0" LargeChange=".05" SmallChange=".01"
+                    Value="{Binding SearchResults.ResultsScale}" TabIndex="95">
+                <Slider.ToolTip>
+                    <ToolTip Content="{Binding SearchResults.ResultsScale}" ContentStringFormat="P1"/>
+                </Slider.ToolTip>
+            </Slider>
+        </StackPanel>
 
         <DockPanel Margin="4,0" LastChildFill="True">
             <GroupBox DockPanel.Dock="Top" Header="Search in">
@@ -361,9 +395,18 @@
                                             </ComboBox.ItemContainerStyle>
                                         </ComboBox>
                                     </StackPanel>
-                                    <UniformGrid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                                    <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
                                                  Margin="4,3,3,3"
                                                  Visibility="{Binding OptionsOnMainPanel, Converter={StaticResource InverseBoolToVisibilityConverter}}">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
                                         <CheckBox Grid.Row="0" Grid.Column="0" Margin="3,0,3,3"
                                                   IsChecked="{Binding CaseSensitive}"
                                                   IsEnabled="{Binding IsCaseSensitiveEnabled}"
@@ -380,7 +423,12 @@
                                                   IsChecked="{Binding Singleline}"
                                                   IsEnabled="{Binding IsSinglelineEnabled}"
                                                   TabIndex="48" Content="_Dot as newline" />
-                                    </UniformGrid>
+                                        <CheckBox Grid.Row="2" Grid.Column="0" Margin="3,0,3,3"
+                                                  IsChecked="{Binding BooleanOperators}"
+                                                  IsEnabled="{Binding IsBooleanOperatorsEnabled}"
+                                                  TabIndex="48" Content="Boolean operators" 
+                                                  ToolTip="Combine multiple search patterns using 'AND' or 'OR'"/>
+                                    </Grid>
                                     <Button Grid.Row="4" Grid.Column="1" Width="98"
                                             Height="24" Margin="3,0,3,3" HorizontalAlignment="Right"
                                             HorizontalContentAlignment="Center" Content="Reset Options"
@@ -432,7 +480,13 @@
                         <Button Width="96" Height="24" Margin="3,0"
                                 Content="Test Expression"
                                 Command="{Binding TestCommand}"
-                                DockPanel.Dock="Right" TabIndex="55" />
+                                DockPanel.Dock="Right" TabIndex="56" />
+                        <CheckBox Width="24" Height="24" Margin="0,0,3,0"
+                                  ToolTip="{Binding IsFolderBookmarkedTooltip}"
+                                  Template="{DynamicResource PlusMetroButtonTemplate}"
+                                  IsChecked="{Binding IsFolderBookmarked}"
+                                  Command="{Binding FolderBookmarkAddCommand}"
+                                  DockPanel.Dock="Right" TabIndex="55" />
                         <CheckBox Width="24" Height="24" Margin="0,0,3,0"
                                   ToolTip="{Binding IsBookmarkedTooltip}"
                                   Template="{DynamicResource FavsMetroButtonTemplate}"

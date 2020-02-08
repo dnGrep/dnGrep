@@ -18,6 +18,7 @@
     <Window.Resources>
         <my:EnumBooleanConverter x:Key="ebc" />
         <my:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed" />
+        <my:IntOrEmptyValueConverter x:Key="IntConverter"/>
 
         <Style TargetType="Button" BasedOn="{StaticResource ThemedButton}">
             <Setter Property="Width" Value="90" />
@@ -105,13 +106,57 @@
                 </StackPanel>
             </GroupBox>
 
-            <StackPanel Margin="0,3,0,16" DockPanel.Dock="Top" Orientation="Horizontal">
+            <UniformGrid DockPanel.Dock="Top">
                 <CheckBox IsChecked="{Binding Path=IncludeSubfolders}" Content="Include subfolders" />
                 <CheckBox IsChecked="{Binding Path=IncludeHidden}" Content="Include hidden folders" />
                 <CheckBox IsChecked="{Binding Path=IncludeBinary}" Content="Include binary files" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="3,0,3,3" Text="Max depth"
+                               Style="{StaticResource LabelTextBlockStyle}" />
+                    <my:DepthTextBox Width="48" Height="24"
+                                     Margin="3,0,3,3"
+                                     IsEnabled="{Binding Path=IncludeSubfolder}"
+                                     TabIndex="25" GotFocus="TextBoxFocus"
+                                     PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting">
+                        <TextBox.Text>
+                            <Binding Path="MaxSubfolderDepth" UpdateSourceTrigger="PropertyChanged"
+                                     Converter="{StaticResource IntConverter}">
+                                <Binding.ValidationRules>
+                                    <ExceptionValidationRule />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </my:DepthTextBox>
+                </StackPanel>
+                <CheckBox IsChecked="{Binding Path=IncludeArchive}" Content="Search in archives" />
+                <CheckBox IsChecked="{Binding Path=UseGitignore}" Content="Use .gitignore" 
+                          ToolTip="Use .gitignore to filter files"
+                          Visibility="{Binding IsGitInstalled, Converter={StaticResource BoolToVisibilityConverter}}" />
+            </UniformGrid>
+
+            <StackPanel Margin="0,3,0,16" DockPanel.Dock="Top" Orientation="Horizontal">
+                <TextBlock Margin="3,0,3,3" Text="Encoding:"
+                           Style="{StaticResource LabelTextBlockStyle}" />
+                <ComboBox Name="cbEncoding" Width="224" Height="24"
+                          Margin="3,0,3,3" HorizontalContentAlignment="Center"
+                          DisplayMemberPath="Key" SelectedValuePath="Value"
+                          ItemsSource="{Binding Path=Encodings}"
+                          SelectedIndex="{Binding Path=EncodingIndex, Mode=OneWay}"
+                          SelectedValue="{Binding Path=CodePage, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ComboBoxItem}">
+                            <Setter Property="HorizontalContentAlignment" Value="Left" />
+                        </Style>
+                    </ComboBox.ItemContainerStyle>
+                </ComboBox>
             </StackPanel>
 
-            <TextBlock DockPanel.Dock="Top" Style="{StaticResource labelStyle}" Text="Description:" />
+            <TextBox DockPanel.Dock="Bottom" Text="{Binding PathReferences}" Height="48"
+                     TextWrapping="NoWrap" AcceptsReturn="True" IsReadOnly="True"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"/>
+            <TextBlock DockPanel.Dock="Bottom" Style="{StaticResource labelStyle}" Text="Associated Folders:" />
+            
+            <TextBlock DockPanel.Dock="Top" Style="{StaticResource labelStyle}" Text="Description:" Margin="0,16,0,0"/>
             <TextBox MinHeight="48" VerticalContentAlignment="Stretch"
                      Text="{Binding Description}"
                      TextWrapping="Wrap" AcceptsReturn="True" />

@@ -1,5 +1,4 @@
 using System;
-using System.IO;
 using System.Text;
 using Microsoft.Win32;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
@@ -35,12 +34,12 @@ namespace dnGREP.Common.UI
             try
             {
                 // Set initial directory (used when dialog.FileName is set from outside)
-                if (dialog.FileName != null && dialog.FileName != "")
+                if (!string.IsNullOrWhiteSpace(dialog.FileName))
                 {
                     if (Directory.Exists(dialog.FileName))
                         dialog.InitialDirectory = dialog.FileName;
                     else
-                        dialog.InitialDirectory = Utils.GetBaseFolder(dialog.FileName);
+                        dialog.InitialDirectory = Utils.GetBaseFolder("\"" + dialog.FileName + "\"");
                 }
             }
             catch
@@ -71,21 +70,21 @@ namespace dnGREP.Common.UI
                         (dialog.FileName.EndsWith("Folder Selection.") || !File.Exists(dialog.FileName)) &&
                         !Directory.Exists(dialog.FileName))
                     {
-                        return Path.GetDirectoryName(dialog.FileName);
+                        return Utils.QuoteIfNeeded(Path.GetDirectoryName(dialog.FileName));
                     }
                     else
                     {
-                        return dialog.FileName;
+                        return Utils.QuoteIfNeeded(dialog.FileName);
                     }
                 }
                 catch
                 {
-                    return dialog.FileName;
+                    return Utils.QuoteIfNeeded(dialog.FileName);
                 }
             }
             set
             {
-                if (value != null && value != "")
+                if (!string.IsNullOrWhiteSpace(value))
                 {
                     dialog.FileName = value;
                 }
@@ -107,7 +106,7 @@ namespace dnGREP.Common.UI
                         try
                         {
                             if (File.Exists(fileName))
-                                sb.Append(fileName + ";");
+                                sb.Append(Utils.QuoteIfNeeded(fileName) + ";");
                         }
                         catch
                         {

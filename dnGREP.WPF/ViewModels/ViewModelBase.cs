@@ -77,12 +77,6 @@ namespace dnGREP.WPF
             }
         }
 
-        protected virtual bool IsProperty<T>(Expression<Func<T>> expression, string name)
-        {
-            string propertyName = GetPropertyName(expression);
-            return propertyName == name;
-        }
-
         /// <summary>
         /// Get the string name for the property
         /// </summary>
