@@ -122,6 +122,9 @@ namespace dnGREP.WPF
                 searchOptions |= GrepSearchOption.SingleLine;
             if (WholeWord)
                 searchOptions |= GrepSearchOption.WholeWord;
+            if (BooleanOperators)
+                searchOptions |= GrepSearchOption.BooleanOperators;
+
             using (Stream inputStream = new MemoryStream(Encoding.Default.GetBytes(SampleText)))
             {
                 try
