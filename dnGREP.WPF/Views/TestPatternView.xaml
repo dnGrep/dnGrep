@@ -3,7 +3,7 @@
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:my="clr-namespace:dnGREP.WPF"
                  Title="Test"
-                 Width="580" Height="460"
+                 Width="580" Height="580"
                  MinWidth="580" MinHeight="460"
                  WindowStyle="SingleBorderWindow"
                  Icon="/dnGREP;component/nGREP.ico"
@@ -36,6 +36,8 @@
 
         <my:EnumBooleanConverter x:Key="ebc" />
         <my:StringNotNullOrEmptyConverter x:Key="notNullOrEmpty" />
+        <my:ValidationColorConverter x:Key="validationColor" />
+        <my:BoolToVisibilityConverter x:Key="boolToVis" TrueValue="Visible" FalseValue="Collapsed" />
     </Window.Resources>
 
     <DockPanel>
@@ -48,7 +50,11 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
                         <RadioButton Content="Regex" Margin="3,4,3,3" GroupName="SearchRegex"
                                      IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, 
                                         ConverterParameter=Regex}"/>
@@ -62,9 +68,19 @@
                                      IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, 
                                         ConverterParameter=Soundex}"/>
                     </StackPanel>
-                    <GroupBox Grid.Row="1" 
+                    <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Border Background="#12FFFFFF" CornerRadius="3" 
+                                Visibility="{Binding HasValidationMessage, Converter={StaticResource boolToVis}}">
+                            <Label HorizontalAlignment="Center" Padding="12,3" FontWeight="SemiBold"
+                                   Content="{Binding ValidationMessage}"
+                                   Foreground="{Binding IsValidPattern, Converter={StaticResource validationColor}}"
+                                   Background="Transparent">
+                            </Label>
+                        </Border>
+                    </StackPanel>
+                    <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                               Header="Search for:" BorderThickness="0">
-                        <TextBox Name="tbSearchFor" Margin="-5,3,-5,0"
+                        <TextBox Margin="-5,3,-5,0"
                                  Text="{Binding Path=SearchFor, UpdateSourceTrigger=PropertyChanged}"
                                  VerticalScrollBarVisibility="Auto"
                                  Style="{StaticResource ExpandedTextbox}">
@@ -87,9 +103,9 @@
                             </TextBox.ToolTip>
                         </TextBox>
                     </GroupBox>
-                    <GroupBox Grid.Row="2"
+                    <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                               Header="Replace with:" BorderThickness="0">
-                        <TextBox Name="tbReplaceWith" Margin="-5,3,-5,0"
+                        <TextBox Margin="-5,3,-5,0"
                                  Text="{Binding Path=ReplaceWith, UpdateSourceTrigger=PropertyChanged}"
                                  VerticalScrollBarVisibility="Auto"
                                  Style="{StaticResource ExpandedTextbox}">
@@ -104,76 +120,90 @@
                             </TextBox.ToolTip>
                         </TextBox>
                     </GroupBox>
-                    <GroupBox Grid.Row="3" BorderThickness="0">
-                        <StackPanel Orientation="Horizontal">
-                            <CheckBox Content="Case sensitive" Margin="-3,4,3,3" 
-                                      IsChecked="{Binding Path=CaseSensitive}"
-                                      IsEnabled="{Binding Path=IsCaseSensitiveEnabled}"/>
-                            <CheckBox Content="Whole word" Margin="3,4,3,3" 
-                                      IsChecked="{Binding Path=WholeWord}"
-                                      IsEnabled="{Binding Path=IsWholeWordEnabled}"/>
-                            <CheckBox Content="Multiline" Margin="3,4,3,3" 
-                                      IsChecked="{Binding Path=Multiline}"
-                                      IsEnabled="{Binding Path=IsMultilineEnabled}"/>
-                            <CheckBox Content="Dot as newline" Margin="3,4,3,3" 
-                                      IsChecked="{Binding Path=Singleline}"
-                                      IsEnabled="{Binding Path=IsSinglelineEnabled}"/>
-                            <CheckBox Content="Boolean operators" Margin="3,4,3,3" 
-                                      IsChecked="{Binding BooleanOperators}"
-                                      IsEnabled="{Binding IsBooleanOperatorsEnabled}"/>
-                        </StackPanel>
-                    </GroupBox>
+                    <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="8,0,0,0" Orientation="Horizontal">
+                        <CheckBox Content="Case sensitive" Margin="-3,4,3,3" 
+                                    IsChecked="{Binding Path=CaseSensitive}"
+                                    IsEnabled="{Binding Path=IsCaseSensitiveEnabled}"/>
+                        <CheckBox Content="Whole word" Margin="3,4,3,3" 
+                                    IsChecked="{Binding Path=WholeWord}"
+                                    IsEnabled="{Binding Path=IsWholeWordEnabled}"/>
+                        <CheckBox Content="Multiline" Margin="3,4,3,3" 
+                                    IsChecked="{Binding Path=Multiline}"
+                                    IsEnabled="{Binding Path=IsMultilineEnabled}"/>
+                        <CheckBox Content="Dot as newline" Margin="3,4,3,3" 
+                                    IsChecked="{Binding Path=Singleline}"
+                                    IsEnabled="{Binding Path=IsSinglelineEnabled}"/>
+                        <CheckBox Content="Boolean operators" Margin="3,4,3,3" 
+                                    IsChecked="{Binding Path=BooleanOperators}"
+                                    IsEnabled="{Binding Path=IsBooleanOperatorsEnabled}"/>
+                    </StackPanel>
                 </Grid>
             </GroupBox>
         </StackPanel>
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="100*" />
+                <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="100*" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Content="Sample input text:"/>
-            <TextBox Name="tbTestInput" Grid.Row="1" Height="Auto"
-                     Margin="5" AcceptsReturn="True" TextWrapping="Wrap"
-                     VerticalScrollBarVisibility="Auto"
-                     Text="{Binding Path=SampleText, UpdateSourceTrigger=PropertyChanged}" />
-            <Label Grid.Row="2" Content="Output text:"/>
-            <Border Grid.Row="3" Margin="5"
-                    BorderBrush="{DynamicResource Control.Static.Border}"
-                    BorderThickness="1"
-                    Background="{DynamicResource Control.Static.Background}">
-                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                    <my:InlineTextBlock Margin="3,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"
-                                        InlineCollection="{Binding TestOutput}"
-                                        FontFamily="Consolas"
-                                        Style="{StaticResource ThemedTextBlock}" />
-                </ScrollViewer>
-                <Border.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Copy to clipboard" Click="BtnCopyFile_Click"
-                                  IsEnabled="{Binding TestOutputText, Converter={StaticResource notNullOrEmpty}}" />
-                    </ContextMenu>
-                </Border.ContextMenu>
-            </Border>
-            <StackPanel Grid.Row="4" Margin="0,0,3,0" HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button Width="64" Height="24"
-                        Margin="3" Content="Search"
-                        Command="{Binding SearchCommand}"
-                        IsDefault="True" />
-                <Button Width="64" Height="24"
-                        Margin="3" Content="Replace"
-                        Command="{Binding ReplaceCommand}" />
+            <DockPanel Grid.Row="0" LastChildFill="True">
+                <Label DockPanel.Dock="Top" Content="Sample input text:"/>
+                <TextBox Height="Auto"
+                         Margin="5" AcceptsReturn="True" TextWrapping="Wrap"
+                         VerticalScrollBarVisibility="Auto"
+                         FontFamily="Consolas"
+                         Text="{Binding Path=SampleText, UpdateSourceTrigger=PropertyChanged}" />
+            </DockPanel>
+            <GridSplitter Grid.Row="1" Height="2" Background="{DynamicResource Splitter.Background}" 
+                          Margin="8,0" VerticalAlignment="Center" HorizontalAlignment="Stretch" />
+            <DockPanel Grid.Row="2" LastChildFill="True">
+                <Label DockPanel.Dock="Top" Content="Search result:" />
+                <Border Margin="5"
+                        BorderBrush="{DynamicResource Control.Static.Border}"
+                        BorderThickness="1"
+                        Background="{DynamicResource Control.Static.Background}">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <my:InlineTextBlock Margin="3,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"
+                                            InlineCollection="{Binding SearchOutput}"
+                                            FontFamily="Consolas"
+                                            Style="{StaticResource ThemedTextBlock}" />
+                    </ScrollViewer>
+                </Border>
+            </DockPanel>
+            <GridSplitter Grid.Row="3" Height="2" Background="{DynamicResource Splitter.Background}" 
+                          Margin="8,0" VerticalAlignment="Center" HorizontalAlignment="Stretch" />
+            <DockPanel Grid.Row="4" LastChildFill="True">
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                    <Label Content="Replace result:"/>
+                    <Label Content="{Binding Path=ReplaceErrorText}" Margin="20,0,0,0" 
+                           FontWeight="SemiBold" Foreground="Red"/>
+                </StackPanel>
+                <Border Margin="5"
+                        BorderBrush="{DynamicResource Control.Static.Border}"
+                        BorderThickness="1"
+                        Background="{DynamicResource Control.Static.Background}">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <my:InlineTextBlock Margin="3,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"
+                                            InlineCollection="{Binding ReplaceOutput}"
+                                            FontFamily="Consolas"
+                                            Style="{StaticResource ThemedTextBlock}" />
+                    </ScrollViewer>
+                    <Border.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Copy to clipboard" Click="BtnCopyFile_Click"
+                                      IsEnabled="{Binding ReplaceOutputText, Converter={StaticResource notNullOrEmpty}}" />
+                        </ContextMenu>
+                    </Border.ContextMenu>
+                </Border>
+            </DockPanel>
+            <StackPanel Grid.Row="5" Margin="0,0,3,0" HorizontalAlignment="Right" Orientation="Horizontal">
                 <Button Width="64" Height="24"
                         Margin="3" Content="Close"
                         Click="BtnClose_Click" IsCancel="True" />
             </StackPanel>
-            <StatusBar Grid.Row="5" ClipToBounds="False" BorderThickness="1"
-                       BorderBrush="DarkGray">
-                <TextBlock Text="Click Search or Replace to test search pattern"/>
-            </StatusBar>
         </Grid>
     </DockPanel>
 </my:ThemedWindow>

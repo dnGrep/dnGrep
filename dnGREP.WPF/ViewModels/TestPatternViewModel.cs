@@ -5,20 +5,107 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Documents;
-using System.Windows.Input;
+using System.Windows.Media;
+using System.Xml;
 using dnGREP.Common;
 using dnGREP.Engines;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
-using File = Alphaleonis.Win32.Filesystem.File;
-using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
-using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.WPF
 {
     public class TestPatternViewModel : BaseMainViewModel
     {
-        private string sampleText;
+        private bool hasMatches;
+        private int searchHash;
+        private int replaceHash;
+        private List<GrepSearchResult> grepResults = new List<GrepSearchResult>();
+        private readonly string horizontalBar = new string(char.ConvertFromUtf32(0x2015)[0], 80);
+
+        private int GetSearchHash()
+        {
+            unchecked
+            {
+                int hashCode = 13;
+                hashCode = (hashCode * 397) ^ SampleText?.GetHashCode() ?? 5;
+                hashCode = (hashCode * 397) ^ SearchFor?.GetHashCode() ?? 5;
+                hashCode = (hashCode * 397) ^ TypeOfSearch.GetHashCode();
+                hashCode = (hashCode * 397) ^ CaseSensitive.GetHashCode();
+                hashCode = (hashCode * 397) ^ WholeWord.GetHashCode();
+                hashCode = (hashCode * 397) ^ Multiline.GetHashCode();
+                hashCode = (hashCode * 397) ^ Singleline.GetHashCode();
+                hashCode = (hashCode * 397) ^ BooleanOperators.GetHashCode();
+                return hashCode;
+            }
+        }
+
+        private int GetReplaceHash()
+        {
+            unchecked
+            {
+                int hashCode = GetSearchHash();
+                hashCode = (hashCode * 397) ^ ReplaceWith?.GetHashCode() ?? 5;
+                return hashCode;
+            }
+        }
+
+        public override void UpdateState(string name)
+        {
+            base.UpdateState(name);
+
+            switch (name)
+            {
+                case nameof(SampleText):
+                case nameof(SearchFor):
+                case nameof(TypeOfSearch):
+                case nameof(CaseSensitive):
+                case nameof(WholeWord):
+                case nameof(Multiline):
+                case nameof(Singleline):
+                case nameof(BooleanOperators):
+                    int sHash = GetSearchHash();
+                    if (IsValidPattern && sHash != searchHash)
+                    {
+                        Search();
+                        Replace();
+
+                        searchHash = sHash;
+                        replaceHash = GetReplaceHash();
+                    }
+                    break;
+
+                case nameof(ReplaceWith):
+                    int rHash = GetReplaceHash();
+                    if (IsValidPattern && rHash != replaceHash)
+                    {
+                        Replace();
+
+                        replaceHash = rHash;
+                    }
+                    break;
+
+                case nameof(ValidationMessage):
+                    HasValidationMessage = !string.IsNullOrWhiteSpace(ValidationMessage);
+                    break;
+            }
+        }
+
+
+        private bool hasValidationMessage;
+
+        public bool HasValidationMessage
+        {
+            get { return hasValidationMessage; }
+            set
+            {
+                if (value == hasValidationMessage)
+                    return;
+
+                hasValidationMessage = value;
+                base.OnPropertyChanged(() => HasValidationMessage);
+            }
+        }
+
+
+        private static string sampleText;
         public string SampleText
         {
             get { return sampleText; }
@@ -32,110 +119,124 @@ namespace dnGREP.WPF
             }
         }
 
-        private InlineCollection testOutput;
-        public InlineCollection TestOutput
+        private InlineCollection searchOutput;
+        public InlineCollection SearchOutput
         {
-            get { return testOutput; }
+            get { return searchOutput; }
             set
             {
-                if (value == testOutput)
+                if (value == searchOutput)
                     return;
 
-                testOutput = value;
-                base.OnPropertyChanged(() => TestOutput);
+                searchOutput = value;
+                base.OnPropertyChanged(() => SearchOutput);
             }
         }
 
-        private string testOutputText;
-        public string TestOutputText
+        private InlineCollection replaceOutput;
+        public InlineCollection ReplaceOutput
         {
-            get { return testOutputText; }
+            get { return replaceOutput; }
             set
             {
-                if (value == testOutputText)
+                if (value == replaceOutput)
                     return;
 
-                testOutputText = value;
-
-                base.OnPropertyChanged(() => TestOutputText);
+                replaceOutput = value;
+                base.OnPropertyChanged(() => ReplaceOutput);
             }
         }
 
-        RelayCommand _searchCommand;
-        /// <summary>
-        /// Returns a command that starts a search.
-        /// </summary>
-        public ICommand SearchCommand
+        private string replaceOutputText;
+        public string ReplaceOutputText
+        {
+            get { return replaceOutputText; }
+            set
+            {
+                if (value == replaceOutputText)
+                    return;
+
+                replaceOutputText = value;
+
+                base.OnPropertyChanged(() => ReplaceOutputText);
+            }
+        }
+
+        private string replaceErrorText;
+        public string ReplaceErrorText
+        {
+            get { return replaceErrorText; }
+            set
+            {
+                if (value == replaceErrorText)
+                    return;
+
+                replaceErrorText = value;
+
+                base.OnPropertyChanged(() => ReplaceErrorText);
+            }
+        }
+
+        private GrepEngineInitParams InitParameters
         {
             get
             {
-                if (_searchCommand == null)
-                {
-                    _searchCommand = new RelayCommand(
-                        param => this.Search(),
-                        param => this.CanSearch
-                        );
-                }
-                return _searchCommand;
+                return new GrepEngineInitParams(
+                    GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext),
+                    GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
+                    GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter),
+                    GrepSettings.Instance.Get<double>(GrepSettings.Key.FuzzyMatchThreshold),
+                    GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount),
+                false);
             }
         }
 
-        RelayCommand _replaceCommand;
-        /// <summary>
-        /// Returns a command that starts a search in results.
-        /// </summary>
-        public ICommand ReplaceCommand
+        private GrepSearchOption SearchOptions
         {
             get
             {
-                if (_replaceCommand == null)
-                {
-                    _replaceCommand = new RelayCommand(
-                        param => this.Replace(),
-                        param => this.CanSearch
-                        );
-                }
-                return _replaceCommand;
+                GrepSearchOption searchOptions = GrepSearchOption.None;
+                if (Multiline)
+                    searchOptions |= GrepSearchOption.Multiline;
+                if (CaseSensitive)
+                    searchOptions |= GrepSearchOption.CaseSensitive;
+                if (Singleline)
+                    searchOptions |= GrepSearchOption.SingleLine;
+                if (WholeWord)
+                    searchOptions |= GrepSearchOption.WholeWord;
+                if (BooleanOperators)
+                    searchOptions |= GrepSearchOption.BooleanOperators;
+
+                return searchOptions;
             }
         }
 
         private void Search()
         {
-            if (SampleText == null)
-                SampleText = string.Empty;
-            GrepEnginePlainText engine = new GrepEnginePlainText();
-            engine.Initialize(new GrepEngineInitParams(
-                GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext),
-                GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
-                GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter),
-                GrepSettings.Instance.Get<double>(GrepSettings.Key.FuzzyMatchThreshold),
-                GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount),
-                false),
-                new FileFilter());
-            List<GrepSearchResult> results = new List<GrepSearchResult>();
-            GrepSearchOption searchOptions = GrepSearchOption.None;
-            if (Multiline)
-                searchOptions |= GrepSearchOption.Multiline;
-            if (CaseSensitive)
-                searchOptions |= GrepSearchOption.CaseSensitive;
-            if (Singleline)
-                searchOptions |= GrepSearchOption.SingleLine;
-            if (WholeWord)
-                searchOptions |= GrepSearchOption.WholeWord;
-            if (BooleanOperators)
-                searchOptions |= GrepSearchOption.BooleanOperators;
+            hasMatches = false;
+            grepResults.Clear();
 
-            using (Stream inputStream = new MemoryStream(Encoding.Default.GetBytes(SampleText)))
+            if (string.IsNullOrEmpty(SampleText) || string.IsNullOrEmpty(SearchFor))
+            {
+                SearchOutput = new Paragraph().Inlines;
+                return;
+            }
+
+            GrepEnginePlainText engine = new GrepEnginePlainText();
+            engine.Initialize(InitParameters, new FileFilter());
+
+            using (Stream inputStream = new MemoryStream(Encoding.Unicode.GetBytes(SampleText)))
             {
                 try
                 {
-                    results = engine.Search(inputStream, "test.txt", SearchFor, TypeOfSearch,
-                        searchOptions, Encoding.Default);
-                    if (results != null)
+                    grepResults = engine.Search(inputStream, "test.txt", SearchFor, TypeOfSearch,
+                        SearchOptions, Encoding.Unicode);
+
+                    if (grepResults != null)
                     {
                         using (StringReader reader = new StringReader(SampleText))
                         {
-                            foreach (var result in results)
+                            foreach (var result in grepResults)
                             {
                                 if (!result.HasSearchResults)
                                     result.SearchResults = Utils.GetLinesEx(reader, result.Matches, 0, 0);
@@ -148,9 +249,9 @@ namespace dnGREP.WPF
                     MessageBox.Show("Incorrect pattern: " + ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
+
             SearchResults.Clear();
-            SearchResults.AddRangeForTestView(results);
-            TestOutputText = string.Empty;
+            SearchResults.AddRangeForTestView(grepResults);
             Paragraph paragraph = new Paragraph();
             if (SearchResults.Count == 1)
             {
@@ -159,68 +260,64 @@ namespace dnGREP.WPF
                 {
                     if (line.IsSectionBreak)
                     {
-                        paragraph.Inlines.Add(new Run("---------------------------------"));
+                        paragraph.Inlines.Add(new Run(horizontalBar)
+                        {
+                            FontWeight = FontWeights.Light,
+                            Foreground = Application.Current.Resources["TreeView.Section.Border"] as Brush,
+                        });
                         paragraph.Inlines.Add(new LineBreak());
                     }
 
                     // Copy children Inline to a temporary array.
                     paragraph.Inlines.AddRange(line.FormattedText.ToList());
                     paragraph.Inlines.Add(new LineBreak());
+                    hasMatches = true;
                 }
             }
             else
             {
                 paragraph.Inlines.Add(new Run("No matches found"));
             }
-            TestOutput = paragraph.Inlines;
+            SearchOutput = paragraph.Inlines;
         }
 
         private void Replace()
         {
-            GrepEnginePlainText engine = new GrepEnginePlainText();
-            engine.Initialize(new GrepEngineInitParams(
-                GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext),
-                GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
-                GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter),
-                GrepSettings.Instance.Get<double>(GrepSettings.Key.FuzzyMatchThreshold),
-                GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount),
-                false),
-                new FileFilter());
-            List<GrepSearchResult> results = new List<GrepSearchResult>();
+            ReplaceErrorText = string.Empty;
 
-            GrepSearchOption searchOptions = GrepSearchOption.None;
-            if (Multiline)
-                searchOptions |= GrepSearchOption.Multiline;
-            if (CaseSensitive)
-                searchOptions |= GrepSearchOption.CaseSensitive;
-            if (Singleline)
-                searchOptions |= GrepSearchOption.SingleLine;
-            if (WholeWord)
-                searchOptions |= GrepSearchOption.WholeWord;
+            if (string.IsNullOrEmpty(SampleText) || string.IsNullOrEmpty(SearchFor) || !hasMatches)
+            {
+                ReplaceOutput = new Paragraph().Inlines;
+                return;
+            }
+
+            string replaceString = ReplaceWith ?? string.Empty;
+
+            GrepEnginePlainText engine = new GrepEnginePlainText();
+            engine.Initialize(InitParameters, new FileFilter());
 
             string replacedString = string.Empty;
             try
             {
-                using (Stream inputStream = new MemoryStream(Encoding.Default.GetBytes(SampleText)))
-                using (Stream writeStream = new MemoryStream())
+                // mark all matches for replace
+                if (grepResults.Count > 0)
                 {
-                    // first search, and mark all hits for replace
-                    results = engine.Search(inputStream, "test.txt", SearchFor, TypeOfSearch, searchOptions, Encoding.Default);
-
-                    // mark all matches for replace
-                    if (results.Count > 0)
+                    foreach (var match in grepResults[0].Matches)
                     {
-                        foreach (var match in results[0].Matches)
-                        {
-                            match.ReplaceMatch = true;
-                        }
+                        match.ReplaceMatch = true;
                     }
                 }
-                using (Stream inputStream = new MemoryStream(Encoding.Default.GetBytes(SampleText)))
+                else
+                {
+                    ReplaceOutput = new Paragraph().Inlines;
+                    return;
+                }
+
+                using (Stream inputStream = new MemoryStream(Encoding.Unicode.GetBytes(SampleText)))
                 using (Stream writeStream = new MemoryStream())
                 {
-                    engine.Replace(inputStream, writeStream, SearchFor, ReplaceWith, TypeOfSearch,
-                        searchOptions, Encoding.Default, results[0].Matches);
+                    engine.Replace(inputStream, writeStream, SearchFor, replaceString, TypeOfSearch,
+                        SearchOptions, Encoding.Unicode, grepResults[0].Matches);
                     writeStream.Position = 0;
                     using (StreamReader reader = new StreamReader(writeStream))
                     {
@@ -232,17 +329,19 @@ namespace dnGREP.WPF
             {
                 MessageBox.Show("Incorrect pattern: " + ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+            catch (XmlException)
+            {
+                ReplaceErrorText = "Replace text is not valid XML!";
+            }
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            SearchResults.Clear();
-            SearchResults.AddRange(results);
             Paragraph paragraph = new Paragraph();
             paragraph.Inlines.Add(new Run(replacedString));
-            TestOutput = paragraph.Inlines;
-            TestOutputText = replacedString;
+            ReplaceOutput = paragraph.Inlines;
+            ReplaceOutputText = replacedString;
         }
     }
 }

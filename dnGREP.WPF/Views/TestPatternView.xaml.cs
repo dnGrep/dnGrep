@@ -35,7 +35,7 @@ namespace dnGREP.WPF
 
         private void BtnCopyFile_Click(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText(inputData.TestOutputText);
+            Clipboard.SetText(inputData.ReplaceOutputText);
         }
     }
 }

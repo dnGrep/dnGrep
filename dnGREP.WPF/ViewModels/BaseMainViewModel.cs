@@ -981,6 +981,21 @@ namespace dnGREP.WPF
             }
         }
 
+        private bool isValidPattern;
+
+        public bool IsValidPattern
+        {
+            get { return isValidPattern; }
+            set
+            {
+                if (value == isValidPattern)
+                    return;
+
+                isValidPattern = value;
+                base.OnPropertyChanged(() => IsValidPattern);
+            }
+        }
+
         private string validationMessage;
         public string ValidationMessage
         {
@@ -1233,6 +1248,7 @@ namespace dnGREP.WPF
             if (name == "SearchFor" || name == "TypeOfSearch" || name == "BooleanOperators")
             {
                 ValidationMessage = string.Empty;
+                IsValidPattern = true;
 
                 if (!string.IsNullOrWhiteSpace(SearchFor))
                 {
@@ -1269,10 +1285,12 @@ namespace dnGREP.WPF
                             nav = doc.CreateNavigator();
                             XPathExpression expr = nav.Compile(SearchFor);
                             ValidationMessage = "XPath is OK!";
+                            IsValidPattern = true;
                         }
                         catch
                         {
                             ValidationMessage = "XPath is not valid!";
+                            IsValidPattern = false;
                         }
                     }
                 }
@@ -1375,10 +1393,12 @@ namespace dnGREP.WPF
             {
                 Regex regex = new Regex(pattern);
                 ValidationMessage = "Regex is OK!";
+                IsValidPattern = true;
             }
             catch
             {
                 ValidationMessage = "Regex is not valid!";
+                IsValidPattern = false;
             }
         }
 
