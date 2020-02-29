@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Media;
 using dnGREP.Common;
 using ICSharpCode.AvalonEdit.Document;
@@ -42,7 +43,8 @@ namespace dnGREP.WPF
 
                         base.ChangeLinePart(
                             lineStartOffset + grepMatch.StartLocation, // startOffset
-                            lineStartOffset + grepMatch.StartLocation + grepMatch.Length, // endOffset
+                            // match may include the non-printing newline chars at the end of the line, don't overflow the length
+                            Math.Min(line.EndOffset, lineStartOffset + grepMatch.StartLocation + grepMatch.Length), // endOffset
                             (VisualLineElement element) =>
                             {
                                 // This lambda gets called once for every VisualLineElement

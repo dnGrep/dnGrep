@@ -643,19 +643,26 @@ namespace dnGREP.WPF
                     {
                         string regLine = null;
                         string fmtLine = null;
-                        if (fullLine.Length < m.StartLocation + m.Length)
+                        if (m.StartLocation < fullLine.Length)
                         {
-                            regLine = fullLine.Substring(counter, fullLine.Length - counter);
+                            regLine = fullLine.Substring(counter, m.StartLocation - counter);
+                        }
+
+                        if (m.StartLocation + m.Length <= fullLine.Length)
+                        {
+                            fmtLine = fullLine.Substring(m.StartLocation, m.Length);
                         }
                         else
                         {
-                            regLine = fullLine.Substring(counter, m.StartLocation - counter);
-                            fmtLine = fullLine.Substring(m.StartLocation, m.Length);
+                            // match may include the non-printing newline chars at the end of the line: don't overflow the length
+                            fmtLine = fullLine.Substring(m.StartLocation, fullLine.Length - m.StartLocation);
                         }
 
-                        Run regularRun = new Run(regLine);
-                        paragraph.Inlines.Add(regularRun);
-
+                        if (regLine != null)
+                        {
+                            Run regularRun = new Run(regLine);
+                            paragraph.Inlines.Add(regularRun);
+                        }
                         if (fmtLine != null)
                         {
                             var run = new Run(fmtLine);
