@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
-using NLog;
 
 namespace dnGREP.WPF
 {
@@ -10,18 +9,12 @@ namespace dnGREP.WPF
     /// </summary>
     public partial class TestPattern : ThemedWindow
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
         private TestPatternViewModel inputData = new TestPatternViewModel();
 
         public TestPattern()
         {
             InitializeComponent();
             this.DataContext = inputData;
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            inputData.UpdateState("");
         }
 
         private void FormKeyDown(object sender, KeyEventArgs e)
@@ -42,7 +35,7 @@ namespace dnGREP.WPF
 
         private void BtnCopyFile_Click(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText(inputData.TestOutputText);
+            Clipboard.SetText(inputData.ReplaceOutputText);
         }
     }
 }
