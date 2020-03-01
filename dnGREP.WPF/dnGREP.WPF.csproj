@@ -151,6 +151,7 @@
       <Link>Properties\AssemblyVersionCommon.cs</Link>
     </Compile>
     <Compile Include="Controls\DepthTextBox.cs" />
+    <Compile Include="Controls\MultilineComboBox.cs" />
     <Compile Include="Controls\RadioMenuItem.cs" />
     <Compile Include="Controls\SplitButton.cs" />
     <Compile Include="Controls\ThemedWindow.cs" />

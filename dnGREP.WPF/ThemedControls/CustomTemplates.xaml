@@ -2,6 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                     xmlns:Microsoft_Windows_Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+                    xmlns:my="clr-namespace:dnGREP.WPF"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
 
@@ -17,7 +18,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="MultilineComboBoxStyle" TargetType="{x:Type ComboBox}">
+    <Style x:Key="MultilineComboBoxStyle" TargetType="{x:Type my:MultilineComboBox}">
         <Setter Property="FocusVisualStyle" Value="{StaticResource ComboBoxFocusVisual}" />
         <Setter Property="Background" Value="{StaticResource ComboBox.Static.Background}" />
         <Setter Property="BorderBrush" Value="{StaticResource ComboBox.Static.Border}" />
@@ -69,7 +70,7 @@
                                       BorderBrush="{TemplateBinding BorderBrush}"
                                       Background="{TemplateBinding Background}"
                                       IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
-                                      Style="{StaticResource ComboBoxReadonlyToggleButton2}" />
+                                      Style="{StaticResource ComboBoxToggleButton2}" />
                         <ContentPresenter Margin="{TemplateBinding Padding}"
                                           HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
