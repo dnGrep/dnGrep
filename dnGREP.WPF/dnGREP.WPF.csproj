@@ -155,6 +155,7 @@
     <Compile Include="Controls\RadioMenuItem.cs" />
     <Compile Include="Controls\SplitButton.cs" />
     <Compile Include="Controls\ThemedWindow.cs" />
+    <Compile Include="MVHelpers\FileDragDropHelper.cs" />
     <Compile Include="MVHelpers\IntOrEmptyValueConverter.cs" />
     <Compile Include="MVHelpers\ResizeModeConverter.cs" />
     <Compile Include="MVHelpers\ColorInverter.cs" />
