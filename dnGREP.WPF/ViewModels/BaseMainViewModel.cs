@@ -764,6 +764,34 @@ namespace dnGREP.WPF
             }
         }
 
+        private bool highlightCaptureGroups;
+        public bool HighlightCaptureGroups
+        {
+            get { return highlightCaptureGroups; }
+            set
+            {
+                if (value == highlightCaptureGroups)
+                    return;
+
+                highlightCaptureGroups = value;
+                base.OnPropertyChanged(() => HighlightCaptureGroups);
+            }
+        }
+
+        private bool isHighlightGroupsEnabled;
+        public bool IsHighlightGroupsEnabled
+        {
+            get { return isHighlightGroupsEnabled; }
+            set
+            {
+                if (value == isHighlightGroupsEnabled)
+                    return;
+
+                isHighlightGroupsEnabled = value;
+                base.OnPropertyChanged(() => IsHighlightGroupsEnabled);
+            }
+        }
+
         private bool stopAfterFirstMatch;
         public bool StopAfterFirstMatch
         {
@@ -1350,6 +1378,7 @@ namespace dnGREP.WPF
                     IsSinglelineEnabled = false;
                     IsWholeWordEnabled = false;
                     IsBooleanOperatorsEnabled = false;
+                    IsHighlightGroupsEnabled = false;
                     CaseSensitive = false;
                     Multiline = false;
                     Singleline = false;
@@ -1363,6 +1392,7 @@ namespace dnGREP.WPF
                     IsSinglelineEnabled = false;
                     IsWholeWordEnabled = true;
                     IsBooleanOperatorsEnabled = true;
+                    IsHighlightGroupsEnabled = false;
                     Singleline = false;
                 }
                 else if (TypeOfSearch == SearchType.Soundex)
@@ -1372,6 +1402,7 @@ namespace dnGREP.WPF
                     IsSinglelineEnabled = false;
                     IsWholeWordEnabled = true;
                     IsBooleanOperatorsEnabled = false;
+                    IsHighlightGroupsEnabled = false;
                     CaseSensitive = false;
                     Singleline = false;
                     BooleanOperators = false;
@@ -1383,6 +1414,7 @@ namespace dnGREP.WPF
                     IsSinglelineEnabled = true;
                     IsWholeWordEnabled = true;
                     IsBooleanOperatorsEnabled = true;
+                    IsHighlightGroupsEnabled = true;
                 }
             }
         }
@@ -1507,6 +1539,7 @@ namespace dnGREP.WPF
             StopAfterFirstMatch = settings.Get<bool>(GrepSettings.Key.StopAfterFirstMatch);
             WholeWord = settings.Get<bool>(GrepSettings.Key.WholeWord);
             BooleanOperators = settings.Get<bool>(GrepSettings.Key.BooleanOperators);
+            HighlightCaptureGroups = settings.Get<bool>(GrepSettings.Key.HighlightCaptureGroups);
             SizeFrom = settings.Get<int>(GrepSettings.Key.SizeFrom);
             SizeTo = settings.Get<int>(GrepSettings.Key.SizeTo);
             IsFiltersExpanded = settings.Get<bool>(GrepSettings.Key.IsFiltersExpanded);
@@ -1544,6 +1577,7 @@ namespace dnGREP.WPF
             settings.Set<bool>(GrepSettings.Key.StopAfterFirstMatch, StopAfterFirstMatch);
             settings.Set<bool>(GrepSettings.Key.WholeWord, WholeWord);
             settings.Set<bool>(GrepSettings.Key.BooleanOperators, BooleanOperators);
+            settings.Set<bool>(GrepSettings.Key.HighlightCaptureGroups, HighlightCaptureGroups);
             settings.Set<int>(GrepSettings.Key.SizeFrom, SizeFrom);
             settings.Set<int>(GrepSettings.Key.SizeTo, SizeTo);
             settings.Set<bool>(GrepSettings.Key.IsFiltersExpanded, IsFiltersExpanded);

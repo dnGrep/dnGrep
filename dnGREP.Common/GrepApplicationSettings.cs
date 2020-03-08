@@ -138,6 +138,8 @@ namespace dnGREP.Common
             public const string ShowResultOptions = "ShowResultOptions";
             [DefaultValue(1.0)]
             public const string ResultsTreeScale = "ResultsTreeScale";
+            [DefaultValue(false)]
+            public const string HighlightCaptureGroups = "HighlightCaptureGroups";
         }
 
         private static GrepSettings instance;

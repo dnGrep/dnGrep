@@ -30,7 +30,7 @@ namespace dnGREP.WPF
             this.CollectionChanged += ObservableGrepSearchResults_CollectionChanged;
         }
 
-        private Dictionary<string, BitmapSource> icons = new Dictionary<string, BitmapSource>();
+        private readonly Dictionary<string, BitmapSource> icons = new Dictionary<string, BitmapSource>();
 
         /// <summary>
         /// Gets the collection of Selected tree nodes, in the order they were selected
@@ -388,6 +388,9 @@ namespace dnGREP.WPF
 
         public string Label { get; private set; } = "";
 
+        internal int MatchIdx { get; set; }
+        internal Dictionary<string, string> GroupColors { get; } = new Dictionary<string, string>();
+
         public bool ShowFileInfoTooltips
         {
             get { return GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowFileInfoTooltips); }
@@ -611,8 +614,13 @@ namespace dnGREP.WPF
 
         void Parent_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "LineNumberColumnWidth")
+            if (e.PropertyName == nameof(LineNumberColumnWidth))
                 LineNumberColumnWidth = Parent.LineNumberColumnWidth;
+        }
+
+        public bool HighlightCaptureGroups
+        {
+            get { return GrepSettings.Instance.Get<bool>(GrepSettings.Key.HighlightCaptureGroups); }
         }
 
         public FormattedGrepResult Parent { get; private set; }
@@ -639,6 +647,7 @@ namespace dnGREP.WPF
                 line.Matches.CopyTo(lineMatches);
                 foreach (GrepMatch m in lineMatches)
                 {
+                    Parent.MatchIdx++;
                     try
                     {
                         string regLine = null;
@@ -665,10 +674,17 @@ namespace dnGREP.WPF
                         }
                         if (fmtLine != null)
                         {
-                            var run = new Run(fmtLine);
-                            run.SetResourceReference(Run.ForegroundProperty, "Match.Highlight.Foreground");
-                            run.SetResourceReference(Run.BackgroundProperty, "Match.Highlight.Background");
-                            paragraph.Inlines.Add(run);
+                            if (HighlightCaptureGroups && m.Groups.Count > 0)
+                            {
+                                FormatCaptureGroups(paragraph, m, fmtLine);
+                            }
+                            else
+                            {
+                                var run = new Run(fmtLine);
+                                run.SetResourceReference(Run.ForegroundProperty, "Match.Highlight.Foreground");
+                                run.SetResourceReference(Run.BackgroundProperty, "Match.Highlight.Background");
+                                paragraph.Inlines.Add(run);
+                            }
                         }
                         else
                         {
@@ -742,6 +758,191 @@ namespace dnGREP.WPF
                 }
             }
             return paragraph.Inlines;
+        }
+
+        private void FormatCaptureGroups(Paragraph paragraph, GrepMatch match, string fmtLine)
+        {
+            if (paragraph == null || match == null || string.IsNullOrEmpty(fmtLine))
+                return;
+
+            GroupMap map = new GroupMap(match, fmtLine);
+            foreach (var range in map.Ranges.Where(r => r.Length > 0))
+            {
+                var run = new Run(range.RangeText);
+                if (range.Group == null)
+                {
+                    run.SetResourceReference(Run.ForegroundProperty, "Match.Highlight.Foreground");
+                    run.SetResourceReference(Run.BackgroundProperty, "Match.Highlight.Background");
+                    run.ToolTip = $"Match {Parent.MatchIdx}{Environment.NewLine}{fmtLine}";
+                    paragraph.Inlines.Add(run);
+                }
+                else
+                {
+                    if (!Parent.GroupColors.TryGetValue(range.Group.Name, out string bgColor))
+                    {
+                        int groupIdx = Parent.GroupColors.Count % 10;
+                        bgColor = $"Match.Group.{groupIdx}.Highlight.Background";
+                        Parent.GroupColors.Add(range.Group.Name, bgColor);
+                    }
+                    run.SetResourceReference(Run.ForegroundProperty, "Match.Highlight.Foreground");
+                    run.SetResourceReference(Run.BackgroundProperty, bgColor);
+                    run.ToolTip = $"Match {Parent.MatchIdx}{Environment.NewLine}Group {range.Group.Name}:   {range.Group.Value}";
+                    paragraph.Inlines.Add(run);
+                }
+            }
+        }
+
+        private class GroupMap
+        {
+            private readonly int start;
+            private readonly List<Range> ranges = new List<Range>();
+            public GroupMap(GrepMatch match, string text)
+            {
+                start = match.StartLocation;
+                MatchText = text;
+                ranges.Add(new Range(0, MatchText.Length, this, null));
+
+                foreach (var group in match.Groups.OrderByDescending(g => g.Length))
+                {
+                    Insert(group);
+                }
+                ranges.Sort();
+            }
+
+            public IEnumerable<Range> Ranges => ranges;
+
+            public string MatchText { get; }
+
+            private void Insert(GrepCaptureGroup group)
+            {
+                int startIndex = group.StartLocation - start;
+                int endIndex = startIndex + group.Length;
+
+                //gggggg
+                //xxxxxx
+                var replace = ranges.FirstOrDefault(r => r.Start == startIndex && r.End == endIndex);
+                if (replace != null)
+                {
+                    ranges.Remove(replace);
+                    ranges.Add(new Range(startIndex, endIndex, this, group));
+                }
+                else
+                {
+                    //gg
+                    //xxxxxx
+                    var head = ranges.FirstOrDefault(r => r.Start == startIndex && r.End > endIndex);
+                    if (head != null)
+                    {
+                        ranges.Remove(head);
+                        ranges.Add(new Range(startIndex, endIndex, this, group));
+                        ranges.Add(new Range(endIndex, head.End, this, head.Group));
+                    }
+                    else
+                    {
+                        //    gg
+                        //xxxxxx
+                        var tail = ranges.FirstOrDefault(r => r.Start < startIndex && r.End == endIndex);
+                        if (tail != null)
+                        {
+                            ranges.Remove(tail);
+                            ranges.Add(new Range(tail.Start, startIndex, this, tail.Group));
+                            ranges.Add(new Range(startIndex, endIndex, this, group));
+                        }
+                        else
+                        {
+                            //  gg
+                            //xxxxxx
+                            var split = ranges.FirstOrDefault(r => r.Start < startIndex && r.End > endIndex);
+                            if (split != null)
+                            {
+                                ranges.Remove(split);
+                                ranges.Add(new Range(split.Start, startIndex, this, split.Group));
+                                ranges.Add(new Range(startIndex, endIndex, this, group));
+                                ranges.Add(new Range(endIndex, split.End, this, split.Group));
+                            }
+                            else
+                            {
+                                //   gggg  
+                                //xxxxxyyyyy
+                                var spans = ranges.Where(r => (r.Start < startIndex && r.End < endIndex) ||
+                                    (r.Start > startIndex && r.End > endIndex)).OrderBy(r => r.Start).ToList();
+
+                                if (spans.Count == 2)
+                                {
+                                    ranges.Remove(spans[0]);
+                                    ranges.Remove(spans[1]);
+                                    ranges.Add(new Range(spans[0].Start, startIndex, this, spans[0].Group));
+                                    ranges.Add(new Range(startIndex, endIndex, this, group));
+                                    ranges.Add(new Range(endIndex, spans[1].End, this, spans[1].Group));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private class Range : IComparable<Range>, IComparable, IEquatable<Range>
+        {
+            private readonly GroupMap parentMap;
+            public Range(int start, int end, GroupMap parent, GrepCaptureGroup group)
+            {
+                Start = Math.Min(start, end);
+                End = Math.Max(start, end);
+                parentMap = parent;
+                Group = group;
+            }
+
+            public int Start { get; }
+            public int End { get; }
+
+            public int Length { get { return End - Start; } }
+
+            public string RangeText { get { return parentMap.MatchText.Substring(Start, Length); } }
+
+            public GrepCaptureGroup Group { get; }
+
+            public int CompareTo(object obj)
+            {
+                return CompareTo(obj as Range);
+            }
+
+            public int CompareTo(Range other)
+            {
+                if (other == null)
+                    return 1;
+                else
+                    return Start.CompareTo(other.Start); // should never be equal
+            }
+
+            public override bool Equals(object obj)
+            {
+                return Equals(obj as Range);
+            }
+
+            public bool Equals(Range other)
+            {
+                if (other == null) return false;
+
+                return Start == other.Start &&
+                    End == other.End;
+            }
+
+            public override int GetHashCode()
+            {
+                unchecked
+                {
+                    int hashCode = 13;
+                    hashCode = (hashCode * 397) ^ Start;
+                    hashCode = (hashCode * 397) ^ End;
+                    return hashCode;
+                }
+            }
+
+            public override string ToString()
+            {
+                return $"{Start} - {End}:  {RangeText}";
+            }
         }
     }
 

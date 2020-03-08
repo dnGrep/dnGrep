@@ -118,28 +118,33 @@
 
         <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal"
                     Visibility="{Binding IsResultOptionsExpanded, Converter={StaticResource BoolToVisibilityConverter}}">
-            <CheckBox Content="Highlight Matches" Margin="10,3"                                  
+            <CheckBox Content="Highlight Matches" Margin="10,3,6,3"                                  
                       IsChecked="{Binding HighlightsOn}"
                       Command="{Binding HighlightsCommand}" 
                       TabIndex="91"/>
-            <CheckBox Content="Show context lines" Name="cbShowContext" Margin="10,3,3,3" HorizontalAlignment="Center"
-                      ToolTip="Context changes applied in next search"
-                      IsChecked="{Binding Path=ShowLinesInContext}"
+            <CheckBox Content="Highlight Groups" Margin="6,3"                                  
+                      IsChecked="{Binding HighlightCaptureGroups}"
+                      IsEnabled="{Binding Path=IsHighlightGroupsEnabled}"
+                      ToolTip="Highlight regular expression groups - changes will be applied in next search"
                       TabIndex="92"/>
+            <CheckBox Content="Show context lines" Name="cbShowContext" Margin="6,3,3,3" HorizontalAlignment="Center"
+                      ToolTip="Context changes Will be applied in next search"
+                      IsChecked="{Binding Path=ShowLinesInContext}"
+                      TabIndex="93"/>
             <TextBox Width="32" Height="24" Margin="3,0,0,0"
                      Text="{Binding Path=ContextLinesBefore, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}" 
-                     TabIndex="93"/>
+                     TabIndex="94"/>
             <Label Content="before and" />
             <TextBox Width="32" Height="24"
                      Text="{Binding Path=ContextLinesAfter, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}" 
-                     TabIndex="94"/>
+                     TabIndex="95"/>
             <Label Content="after" />
-            <Label Margin="30,0,3,0" Content="Zoom:" ToolTip="Changes the results tree zoom"/>
+            <Label Margin="12,0,3,0" Content="Zoom:" ToolTip="Changes the results tree zoom"/>
             <Slider Width="180" Margin="0,0,3,0" VerticalAlignment="Center"
                     Minimum="0.8" Maximum="2.0" LargeChange=".05" SmallChange=".01"
-                    Value="{Binding SearchResults.ResultsScale}" TabIndex="95">
+                    Value="{Binding SearchResults.ResultsScale}" TabIndex="97">
                 <Slider.ToolTip>
                     <ToolTip Content="{Binding SearchResults.ResultsScale}" ContentStringFormat="P1"/>
                 </Slider.ToolTip>

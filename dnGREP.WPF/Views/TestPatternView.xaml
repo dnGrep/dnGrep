@@ -120,8 +120,8 @@
                             </TextBox.ToolTip>
                         </TextBox>
                     </GroupBox>
-                    <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="8,0,0,0" Orientation="Horizontal">
-                        <CheckBox Content="Case sensitive" Margin="-3,4,3,3" 
+                    <WrapPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="8,0,0,0" Orientation="Horizontal">
+                        <CheckBox Content="Case sensitive" Margin="3,4,3,3" 
                                     IsChecked="{Binding Path=CaseSensitive}"
                                     IsEnabled="{Binding Path=IsCaseSensitiveEnabled}"/>
                         <CheckBox Content="Whole word" Margin="3,4,3,3" 
@@ -136,7 +136,10 @@
                         <CheckBox Content="Boolean operators" Margin="3,4,3,3" 
                                     IsChecked="{Binding Path=BooleanOperators}"
                                     IsEnabled="{Binding Path=IsBooleanOperatorsEnabled}"/>
-                    </StackPanel>
+                        <CheckBox Content="Highlight Groups" Margin="3,4,3,3"                                  
+                                    IsChecked="{Binding HighlightCaptureGroups}"
+                                    IsEnabled="{Binding Path=IsHighlightGroupsEnabled}" />
+                    </WrapPanel>
                 </Grid>
             </GroupBox>
         </StackPanel>
