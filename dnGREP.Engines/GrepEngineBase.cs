@@ -101,7 +101,7 @@ namespace dnGREP.Engines
 
         #region Regex Search and Replace
 
-        private IEnumerable<GrepMatch> RegexSearchIterator(int lineNumber, int filePosition, string text, 
+        private IEnumerable<GrepMatch> RegexSearchIterator(int lineNumber, int filePosition, string text,
             string searchPattern, GrepSearchOption searchOptions)
         {
             RegexOptions regexOptions = RegexOptions.None;
@@ -134,7 +134,7 @@ namespace dnGREP.Engines
             return RegexSearchIterator(lineNumber, filePosition, text, searchPattern, isWholeWord, regexOptions);
         }
 
-        private IEnumerable<GrepMatch> RegexSearchIterator(int lineNumber, int filePosition, string text, 
+        private IEnumerable<GrepMatch> RegexSearchIterator(int lineNumber, int filePosition, string text,
             string searchPattern, bool isWholeWord, RegexOptions regexOptions)
         {
             if (isWholeWord)
@@ -147,67 +147,107 @@ namespace dnGREP.Engines
 
             // Issue #210 .net regex will only match the $ end of line token with a \n, not \r\n or \r
             // see https://msdn.microsoft.com/en-us/library/yd1hzczs.aspx#Multiline
-            // and http://stackoverflow.com/questions/8618557/why-doesnt-in-net-multiline-regular-expressions-match-crlf
-            // must change the Windows and Mac line ends to just the Unix \n char before calling Regex
-            if (searchPattern.Contains("$"))
+            // http://stackoverflow.com/questions/8618557/why-doesnt-in-net-multiline-regular-expressions-match-crlf
+            // https://docs.microsoft.com/en-us/dotnet/standard/base-types/regular-expression-language-quick-reference
+
+            // Note: in Singleline mode, need to capture the new line chars
+
+            bool searchPatternEndsWithDot = searchPattern.EndsWith(".") || searchPattern.EndsWith(".*") ||
+                searchPattern.EndsWith(".?") || searchPattern.EndsWith(".+");
+
+            int extraChars = 0;
+
+            if (text.Contains("\r\n"))
             {
-                // if the search pattern has Windows or Mac newlines, they must be converted, too
-                searchPattern = searchPattern.Replace("\r\n", "\n");
+                if (searchPattern.Contains("$"))
+                {
+                    if (regexOptions.HasFlag(RegexOptions.Singleline))
+                    {
+                        searchPattern = searchPattern.Replace("$", "\r?$");
+                    }
+                    else
+                    {
+                        searchPattern = searchPattern.Replace("$", "(?=\r?$)");
+
+                        // can't make this pattern work if the multi line text does not end in a newline
+                        if (regexOptions.HasFlag(RegexOptions.Multiline) && !text.EndsWith("\r\n"))
+                        {
+                            text += "\r\n";
+                            extraChars = 2;
+                        }
+                    }
+                }
+
+                // if the patten ends with a dot in some form, it will match the \r path of \r\n
+                // modify the search pattern to capture or exclude the \r 
+                if (searchPatternEndsWithDot)
+                {
+                    if (regexOptions.HasFlag(RegexOptions.Singleline))
+                    {
+                        searchPattern += "\r?$";
+                    }
+                    else
+                    {
+                        searchPattern += "(?=\r?$)";
+
+                        // can't make this pattern work if the multi line text does not end in a newline
+                        if (regexOptions.HasFlag(RegexOptions.Multiline) && !text.EndsWith("\r\n"))
+                        {
+                            text += "\r\n";
+                            extraChars = 2;
+                        }
+                    }
+                }
+            }
+            else if (text.Contains("\r") && (searchPattern.Contains("$") || searchPatternEndsWithDot))
+            {
+                // for this case, it's easiest to change the newline char while searching
                 searchPattern = searchPattern.Replace('\r', '\n');
-
-                if (lineNumber == -1 && text.Contains("\r\n"))
-                {
-                    foreach (var match in RegexSearchIteratorSpecial(text, searchPattern, regexOptions))
-                        yield return match;
-
-                    yield break;
-                }
-
-                if (text.Contains("\r\n"))
-                {
-                    text = text.Replace("\r\n", "\n");
-                }
-                else if (text.Contains("\r"))
-                {
-                    text = text.Replace('\r', '\n');
-                }
+                text = text.Replace('\r', '\n');
             }
 
             var lineEndIndexes = GetLineEndIndexes((initParams.VerboseMatchCount && lineNumber == -1) ? text : null);
 
             List<GrepMatch> globalMatches = new List<GrepMatch>();
-            var matches = Regex.Matches(text, searchPattern, regexOptions, MatchTimeout);
+
+            var regex = new Regex(searchPattern, regexOptions, MatchTimeout);
+            var matches = regex.Matches(text);
             foreach (Match match in matches)
             {
                 if (initParams.VerboseMatchCount && lineEndIndexes.Count > 0)
                     lineNumber = lineEndIndexes.FindIndex(i => i > match.Index) + 1;
 
-                yield return new GrepMatch(lineNumber, match.Index + filePosition, match.Length);
-            }
-        }
+                int length = match.Length;
+                if (match.Index + filePosition + match.Length > text.Length)
+                    length -= extraChars;
 
-        private IEnumerable<GrepMatch> RegexSearchIteratorSpecial(string text, string searchPattern, RegexOptions regexOptions)
-        {
-            // this is a special case for multiline searches with Windows EOL characters and a '$' in the search pattern
-            // must remove the \r from the EOL (see above), and then account for the missing character in the start index
-            // and length of each match
+                // The pattern (?=\r?$) fixes most problems trying to make \r\n process like \n
+                // but it does capture the leading \r in the match. When that happens, set the 
+                // match length back one to exclude it
+                if (!regexOptions.HasFlag(RegexOptions.Singleline) && match.Value.EndsWith("\r"))
+                    length -= 1;
 
-            text = text.Replace("\r\n", "\n");
+                var grepMatch = new GrepMatch(lineNumber, match.Index + filePosition, length);
 
-            var lineEndIndexes = GetLineEndIndexes(text);
-            int lineNumber = 1, endLineNumber = 1, newLineCount = 0;
-
-            var matches = Regex.Matches(text, searchPattern, regexOptions, MatchTimeout);
-            foreach (Match match in matches)
-            {
-                if (lineEndIndexes.Count > 0)
+                if (match.Groups.Count > 1)
                 {
-                    lineNumber = lineEndIndexes.FindIndex(i => i > match.Index) + 1;
-                    endLineNumber = lineEndIndexes.FindIndex(i => i > match.Index + match.Length - 1) + 1;
-                    newLineCount = endLineNumber - lineNumber;
+                    // Note that group 0 is always the whole match
+                    for (int idx = 1; idx < match.Groups.Count; idx++)
+                    {
+                        var group = match.Groups[idx];
+                        if (group.Success)
+                        {
+                            length = group.Length;
+                            if (!regexOptions.HasFlag(RegexOptions.Singleline) && group.Value.EndsWith("\r"))
+                                length -= 1;
+
+                            grepMatch.Groups.Add(
+                                new GrepCaptureGroup(regex.GroupNameFromNumber(idx), group.Index, length, group.Value));
+                        }
+                    }
                 }
 
-                yield return new GrepMatch(lineNumber, match.Index + (lineNumber - 1), match.Length + newLineCount);
+                yield return grepMatch;
             }
         }
 

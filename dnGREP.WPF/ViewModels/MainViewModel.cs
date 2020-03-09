@@ -21,7 +21,7 @@ using NLog;
 
 namespace dnGREP.WPF
 {
-    public class MainViewModel : BaseMainViewModel
+    public class MainViewModel : BaseMainViewModel, IFileDragDropTarget
     {
         public event EventHandler PreviewHide;
         public event EventHandler PreviewShow;
@@ -769,6 +769,22 @@ namespace dnGREP.WPF
         #endregion
 
         #region Public Methods
+       
+        public void OnFileDrop(bool append, string[] filePaths)
+        {
+            string paths = append ? FileOrFolderPath : string.Empty;
+
+            foreach (string path in filePaths)
+            {
+                if (!string.IsNullOrEmpty(paths))
+                    paths += ";";
+
+                paths += Utils.QuoteIfNeeded(path);
+            }
+
+            FileOrFolderPath = paths;
+        }
+        
         public override void UpdateState(string name)
         {
             base.UpdateState(name);

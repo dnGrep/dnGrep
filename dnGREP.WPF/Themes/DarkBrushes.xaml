@@ -12,6 +12,16 @@
 
     <SolidColorBrush x:Key="Match.Highlight.Foreground" po:Freeze="true" Color="#FFFFFFFF" />
     <SolidColorBrush x:Key="Match.Highlight.Background" po:Freeze="true" Color="#FF267800" />
+    <SolidColorBrush x:Key="Match.Group.0.Highlight.Background" po:Freeze="true" Color="#FF4682B4" />
+    <SolidColorBrush x:Key="Match.Group.1.Highlight.Background" po:Freeze="true" Color="#FFD2691E" />
+    <SolidColorBrush x:Key="Match.Group.2.Highlight.Background" po:Freeze="true" Color="#FF800000" />
+    <SolidColorBrush x:Key="Match.Group.3.Highlight.Background" po:Freeze="true" Color="#FF9400D3" />
+    <SolidColorBrush x:Key="Match.Group.4.Highlight.Background" po:Freeze="true" Color="#FF874526" />
+    <SolidColorBrush x:Key="Match.Group.5.Highlight.Background" po:Freeze="true" Color="#FF003891" />
+    <SolidColorBrush x:Key="Match.Group.6.Highlight.Background" po:Freeze="true" Color="#FFA87900" />
+    <SolidColorBrush x:Key="Match.Group.7.Highlight.Background" po:Freeze="true" Color="#FF6A5ACD" />
+    <SolidColorBrush x:Key="Match.Group.8.Highlight.Background" po:Freeze="true" Color="#FFCF4E40" />
+    <SolidColorBrush x:Key="Match.Group.9.Highlight.Background" po:Freeze="true" Color="#FFC71585" />
     <SolidColorBrush x:Key="Match.Skip.Foreground" po:Freeze="true" Color="#FFFFFFFF" />
     <SolidColorBrush x:Key="Match.Skip.Background" po:Freeze="true" Color="#FF8A0000" />
     <SolidColorBrush x:Key="Match.Replace.Foreground" po:Freeze="true" Color="#FFFFFFFF" />

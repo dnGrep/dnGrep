@@ -139,6 +139,9 @@
     <Compile Include="FileData.cs" />
     <Compile Include="FileFilter.cs" />
     <Compile Include="GitUtil.cs" />
+    <Compile Include="GrepCaptureGroup.cs" />
+    <Compile Include="GrepLine.cs" />
+    <Compile Include="GrepMatch.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="PathSearchText.cs" />
     <Compile Include="SafeDirectory.cs" />
