@@ -1869,16 +1869,16 @@ namespace dnGREP.Common
                                 string fileMatchId = bodyMatchesClone[0].FileMatchId;
                                 // First and only line
                                 if (i == startLine && i == lineNumber)
-                                    matches.Add(new GrepMatch(fileMatchId, i, startIndex, bodyMatchesClone[0].Length));
+                                    matches.Add(new GrepMatch(fileMatchId, i, startIndex, bodyMatchesClone[0].Length, bodyMatchesClone[0].Groups));
                                 // First but not last line
                                 else if (i == startLine)
-                                    matches.Add(new GrepMatch(fileMatchId, i, startIndex, tempLine.TrimEndOfLine().Length - startIndex));
+                                    matches.Add(new GrepMatch(fileMatchId, i, startIndex, tempLine.TrimEndOfLine().Length - startIndex, bodyMatchesClone[0].Groups));
                                 // Middle line
                                 else if (i > startLine && i < lineNumber)
-                                    matches.Add(new GrepMatch(fileMatchId, i, 0, tempLine.TrimEndOfLine().Length));
+                                    matches.Add(new GrepMatch(fileMatchId, i, 0, tempLine.TrimEndOfLine().Length, bodyMatchesClone[0].Groups));
                                 // Last line
                                 else
-                                    matches.Add(new GrepMatch(fileMatchId, i, 0, bodyMatchesClone[0].Length - tempLinesTotalLength + line.Length + startIndex));
+                                    matches.Add(new GrepMatch(fileMatchId, i, 0, bodyMatchesClone[0].Length - tempLinesTotalLength + line.Length + startIndex, bodyMatchesClone[0].Groups));
 
                                 startRecordingAfterLines = true;
                             }

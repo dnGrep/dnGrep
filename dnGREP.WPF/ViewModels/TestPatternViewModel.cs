@@ -33,6 +33,7 @@ namespace dnGREP.WPF
                 hashCode = (hashCode * 397) ^ Multiline.GetHashCode();
                 hashCode = (hashCode * 397) ^ Singleline.GetHashCode();
                 hashCode = (hashCode * 397) ^ BooleanOperators.GetHashCode();
+                hashCode = (hashCode * 397) ^ HighlightCaptureGroups.GetHashCode();
                 return hashCode;
             }
         }
@@ -51,6 +52,11 @@ namespace dnGREP.WPF
         {
             base.UpdateState(name);
 
+            if (name == nameof(HighlightCaptureGroups))
+            {
+                settings.Set(GrepSettings.Key.HighlightCaptureGroups, HighlightCaptureGroups);
+            }
+
             switch (name)
             {
                 case nameof(SampleText):
@@ -61,6 +67,7 @@ namespace dnGREP.WPF
                 case nameof(Multiline):
                 case nameof(Singleline):
                 case nameof(BooleanOperators):
+                case nameof(HighlightCaptureGroups):
                     int sHash = GetSearchHash();
                     if (IsValidPattern && sHash != searchHash)
                     {

@@ -209,7 +209,9 @@ namespace dnGREP.Engines
             var lineEndIndexes = GetLineEndIndexes((initParams.VerboseMatchCount && lineNumber == -1) ? text : null);
 
             List<GrepMatch> globalMatches = new List<GrepMatch>();
-            var matches = Regex.Matches(text, searchPattern, regexOptions, MatchTimeout);
+
+            var regex = new Regex(searchPattern, regexOptions, MatchTimeout);
+            var matches = regex.Matches(text);
             foreach (Match match in matches)
             {
                 if (initParams.VerboseMatchCount && lineEndIndexes.Count > 0)
@@ -225,7 +227,27 @@ namespace dnGREP.Engines
                 if (!regexOptions.HasFlag(RegexOptions.Singleline) && match.Value.EndsWith("\r"))
                     length -= 1;
 
-                yield return new GrepMatch(lineNumber, match.Index + filePosition, length);
+                var grepMatch = new GrepMatch(lineNumber, match.Index + filePosition, length);
+
+                if (match.Groups.Count > 1)
+                {
+                    // Note that group 0 is always the whole match
+                    for (int idx = 1; idx < match.Groups.Count; idx++)
+                    {
+                        var group = match.Groups[idx];
+                        if (group.Success)
+                        {
+                            length = group.Length;
+                            if (!regexOptions.HasFlag(RegexOptions.Singleline) && group.Value.EndsWith("\r"))
+                                length -= 1;
+
+                            grepMatch.Groups.Add(
+                                new GrepCaptureGroup(regex.GroupNameFromNumber(idx), group.Index, length, group.Value));
+                        }
+                    }
+                }
+
+                yield return grepMatch;
             }
         }
 
