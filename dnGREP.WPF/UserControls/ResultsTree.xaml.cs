@@ -509,6 +509,8 @@ namespace dnGREP.WPF.UserControls
             Mouse.Capture(uiElt);
 
             DataObject data = new DataObject();
+            // set this data format to prevent dropping onto our own main window
+            data.SetData(App.InstanceId, string.Empty);
 
             // if there are lines selected, choose text drag and drop operation
             var lines = GetSelectedGrepLineText();

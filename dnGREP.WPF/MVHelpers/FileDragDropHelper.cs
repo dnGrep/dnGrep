@@ -62,6 +62,12 @@ namespace dnGREP.WPF
             if (sender is DependencyObject d &&
                 d.GetValue(FileDragDropTargetProperty) is IFileDragDropTarget fileTarget)
             {
+                if (e.Data.GetDataPresent(App.InstanceId))
+                {
+                    // drag source is this application instance: do not drop on ourself
+                    // but can accept a drop from another dnGrep or Windows Explorer, etc.
+                    return;
+                }
                 if (e.Data.GetDataPresent(DataFormats.FileDrop))
                 {
                     fileTarget.OnFileDrop(e.KeyStates.HasFlag(DragDropKeyStates.ControlKey),
