@@ -769,7 +769,7 @@ namespace dnGREP.WPF
         #endregion
 
         #region Public Methods
-       
+
         public void OnFileDrop(bool append, string[] filePaths)
         {
             string paths = append ? FileOrFolderPath : string.Empty;
@@ -784,7 +784,7 @@ namespace dnGREP.WPF
 
             FileOrFolderPath = paths;
         }
-        
+
         public override void UpdateState(string name)
         {
             base.UpdateState(name);
@@ -2188,18 +2188,23 @@ namespace dnGREP.WPF
         {
             KeyValuePair<string, int> defaultValue = new KeyValuePair<string, int>("Auto detection (default)", -1);
 
+            List<KeyValuePair<string, int>> tempUni = new List<KeyValuePair<string, int>>();
             List<KeyValuePair<string, int>> tempEnc = new List<KeyValuePair<string, int>>();
             foreach (EncodingInfo ei in Encoding.GetEncodings())
             {
                 Encoding e = ei.GetEncoding();
-                tempEnc.Add(new KeyValuePair<string, int>(e.EncodingName, e.CodePage));
+                if (e.EncodingName.Contains("Unicode", StringComparison.OrdinalIgnoreCase))
+                    tempUni.Add(new KeyValuePair<string, int>(e.EncodingName, e.CodePage));
+                else
+                    tempEnc.Add(new KeyValuePair<string, int>(e.EncodingName, e.CodePage));
             }
 
+            tempUni.Sort(new KeyValueComparer());
+            tempUni.Insert(0, defaultValue);
             tempEnc.Sort(new KeyValueComparer());
-            tempEnc.Insert(0, defaultValue);
             Encodings.Clear();
             BookmarkViewModel.Encodings.Clear();
-            foreach (var enc in tempEnc)
+            foreach (var enc in tempUni.Concat(tempEnc))
             {
                 Encodings.Add(enc);
                 BookmarkViewModel.Encodings.Add(enc);
