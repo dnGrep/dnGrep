@@ -77,6 +77,8 @@ namespace dnGREP.Common
             public const string ShowFilePathInResults = "ShowFilePathInResults";
             [DefaultValue(true)]
             public const string AllowSearchingForFileNamePattern = "AllowSearchingForFileNamePattern";
+            [DefaultValue(true)]
+            public const string DetectEncodingForFileNamePattern = "DetectEncodingForFileNamePattern";
             public const string CustomEditor = "CustomEditor";
             public const string CustomEditorArgs = "CustomEditorArgs";
             public const string CompareApplication = "CompareApplication";

@@ -661,10 +661,15 @@ namespace dnGREP.WPF
                         {
                             fmtLine = fullLine.Substring(m.StartLocation, m.Length);
                         }
-                        else
+                        else if (fullLine.Length > m.StartLocation)
                         {
                             // match may include the non-printing newline chars at the end of the line: don't overflow the length
                             fmtLine = fullLine.Substring(m.StartLocation, fullLine.Length - m.StartLocation);
+                        }
+                        else
+                        {
+                            // binary file?
+                            regLine = fullLine;
                         }
 
                         if (regLine != null)

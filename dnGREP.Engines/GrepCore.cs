@@ -56,7 +56,17 @@ namespace dnGREP.Common
                     count++;
                     ProcessedFile(this, new ProgressStatus(true, searchResults.Count, count, null, file));
 
-                    searchResults.Add(new GrepSearchResult(file, searchPattern, null, Encoding.Default));
+                    Encoding encoding = Encoding.Default;
+                    if (codePage > -1)
+                        encoding = Encoding.GetEncoding(codePage);
+
+                    if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.DetectEncodingForFileNamePattern))
+                    {
+                        if (codePage == -1 && !Utils.IsArchive(file) && !Utils.IsBinary(file) && !Utils.IsPdfFile(file))
+                            encoding = Utils.GetFileEncoding(file);
+                    }
+
+                    searchResults.Add(new GrepSearchResult(file, searchPattern, null, encoding));
 
                     if (searchOptions.HasFlag(GrepSearchOption.StopAfterFirstMatch))
                         break;
@@ -321,7 +331,7 @@ namespace dnGREP.Common
             }
             try
             {
-                foreach(var item in undoMap)
+                foreach (var item in undoMap)
                 {
                     string sourceFile = Path.Combine(tempFolder, item.BackupName);
                     if (File.Exists(sourceFile))

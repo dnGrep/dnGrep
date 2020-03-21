@@ -46,6 +46,11 @@
                                             <TextBlock Margin="3,0" Text="{Binding GrepResult.FileType}"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
+                                            <TextBlock Margin="3,0" Text="Encoding:"/>
+                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.Encoding.EncodingName}"/>
+                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.Encoding.CodePage, StringFormat=cp{0}}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
                                             <TextBlock Margin="3,0" Text="Size:"/>
                                             <TextBlock Margin="3,0" Text="{Binding GrepResult.FileSize}"/>
                                         </StackPanel>

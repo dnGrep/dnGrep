@@ -56,6 +56,7 @@ namespace dnGREP.WPF
                 CompareApplicationArgs != Settings.Get<string>(GrepSettings.Key.CompareApplicationArgs) ||
                 ShowFilePathInResults != Settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults) ||
                 AllowSearchWithEmptyPattern != Settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern) ||
+                DetectEncodingForFileNamePattern != Settings.Get<bool>(GrepSettings.Key.DetectEncodingForFileNamePattern) ||
                 AutoExpandSearchTree != Settings.Get<bool>(GrepSettings.Key.ExpandResults) ||
                 ShowVerboseMatchCount != Settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount) ||
                 ShowFileInfoTooltips != Settings.Get<bool>(GrepSettings.Key.ShowFileInfoTooltips) ||
@@ -388,6 +389,21 @@ namespace dnGREP.WPF
             }
         }
 
+        private bool detectEncodingForFileNamePattern;
+        public bool DetectEncodingForFileNamePattern
+        {
+            get { return detectEncodingForFileNamePattern; }
+            set
+            {
+                if (value == detectEncodingForFileNamePattern)
+                    return;
+
+                detectEncodingForFileNamePattern = value;
+
+                base.OnPropertyChanged(() => DetectEncodingForFileNamePattern);
+            }
+        }
+
         private bool autoExpandSearchTree;
         public bool AutoExpandSearchTree
         {
@@ -703,6 +719,7 @@ namespace dnGREP.WPF
             CompareApplicationArgs = Settings.Get<string>(GrepSettings.Key.CompareApplicationArgs);
             ShowFilePathInResults = Settings.Get<bool>(GrepSettings.Key.ShowFilePathInResults);
             AllowSearchWithEmptyPattern = Settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern);
+            DetectEncodingForFileNamePattern = Settings.Get<bool>(GrepSettings.Key.DetectEncodingForFileNamePattern);
             AutoExpandSearchTree = Settings.Get<bool>(GrepSettings.Key.ExpandResults);
             ShowVerboseMatchCount = Settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount);
             ShowFileInfoTooltips = Settings.Get<bool>(GrepSettings.Key.ShowFileInfoTooltips);
@@ -799,6 +816,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.CompareApplicationArgs, CompareApplicationArgs);
             Settings.Set(GrepSettings.Key.ShowFilePathInResults, ShowFilePathInResults);
             Settings.Set(GrepSettings.Key.AllowSearchingForFileNamePattern, AllowSearchWithEmptyPattern);
+            Settings.Set(GrepSettings.Key.DetectEncodingForFileNamePattern, DetectEncodingForFileNamePattern);
             Settings.Set(GrepSettings.Key.ExpandResults, AutoExpandSearchTree);
             Settings.Set(GrepSettings.Key.ShowVerboseMatchCount, ShowVerboseMatchCount);
             Settings.Set(GrepSettings.Key.ShowFileInfoTooltips, ShowFileInfoTooltips);

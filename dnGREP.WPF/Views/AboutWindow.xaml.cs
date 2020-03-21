@@ -1,4 +1,6 @@
-﻿namespace dnGREP.WPF
+﻿using System.Windows.Navigation;
+
+namespace dnGREP.WPF
 {
     /// <summary>
     /// Interaction logic for AboutWindow.xaml
@@ -10,6 +12,11 @@
             InitializeComponent();
 
             DataContext = new AboutViewModel();
+        }
+
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            System.Diagnostics.Process.Start(e.Uri.ToString());
         }
     }
 }

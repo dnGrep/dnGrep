@@ -221,6 +221,9 @@
                             </CheckBox.Content>
                         </CheckBox>
 
+                        <CheckBox Name="cbCheckEncoding" Margin="3" Content="Detect file encoding when searching for file name pattern only"
+                                  IsChecked="{Binding Path=DetectEncodingForFileNamePattern}" />
+
                         <CheckBox Name="cbExpandResult" Margin="3" Content="Show results tree expanded"
                                   IsChecked="{Binding Path=AutoExpandSearchTree}" />
 
