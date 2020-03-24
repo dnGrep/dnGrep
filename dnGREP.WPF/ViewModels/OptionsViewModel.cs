@@ -6,7 +6,9 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Security.Principal;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using dnGREP.Common;
 using dnGREP.Engines;
 using Microsoft.Win32;
@@ -69,6 +71,9 @@ namespace dnGREP.WPF
                     PanelSelection.MainPanel : PanelSelection.OptionsExpander) ||
                 FollowWindowsTheme != Settings.Get<bool>(GrepSettings.Key.FollowWindowsTheme) ||
                 CurrentTheme != Settings.Get<string>(GrepSettings.Key.CurrentTheme) ||
+                UseDefaultFontMainForm != Settings.Get<bool>(GrepSettings.Key.UseDefaultFontMainForm) ||
+                FontFamilyMainForm != Settings.Get<string>(GrepSettings.Key.FontFamilyMainForm) ||
+                FontSizeMainForm != Settings.Get<double>(GrepSettings.Key.FontSizeMainForm) ||
                 ArchiveOptions.IsChanged ||
                 IsChanged(Plugins)
                 )
@@ -555,6 +560,65 @@ namespace dnGREP.WPF
 
         public ObservableCollection<PluginOptions> Plugins { get; set; } = new ObservableCollection<PluginOptions>();
 
+        public IList<string> FontFamilies
+        {
+            get { return Fonts.SystemFontFamilies.Select(r => r.Source).ToList(); }
+        }
+
+        public IList<double> FontSizes
+        {
+            get { return new List<double> { 9, 10, 11, 12, 13, 14, 16, 18, 20, 22, 24 }; }
+        }
+
+        private bool useDefaultFontMainForm = true;
+        public bool UseDefaultFontMainForm
+        {
+            get { return useDefaultFontMainForm; }
+            set
+            {
+                if (useDefaultFontMainForm == value)
+                    return;
+
+                useDefaultFontMainForm = value;
+
+                if (useDefaultFontMainForm)
+                {
+                    FontFamilyMainForm = SystemFonts.MessageFontFamily.Source;
+                    FontSizeMainForm = SystemFonts.MessageFontSize;
+                }
+
+                base.OnPropertyChanged(() => UseDefaultFontMainForm);
+            }
+        }
+
+        private string fontFamilyMainForm;
+        public string FontFamilyMainForm
+        {
+            get { return fontFamilyMainForm; }
+            set
+            {
+                if (fontFamilyMainForm == value)
+                    return;
+
+                fontFamilyMainForm = value;
+                base.OnPropertyChanged(() => FontFamilyMainForm);
+            }
+        }
+
+        private double fontSizeMainForm;
+        public double FontSizeMainForm
+        {
+            get { return fontSizeMainForm; }
+            set
+            {
+                if (fontSizeMainForm == value)
+                    return;
+
+                fontSizeMainForm = value;
+                base.OnPropertyChanged(() => FontSizeMainForm);
+            }
+        }
+
         #endregion
 
         #region Presentation Properties
@@ -733,6 +797,11 @@ namespace dnGREP.WPF
             MaxExtensionBookmarks = Settings.Get<int>(GrepSettings.Key.MaxExtensionBookmarks);
             OptionsLocation = Settings.Get<bool>(GrepSettings.Key.OptionsOnMainPanel) ?
                 PanelSelection.MainPanel : PanelSelection.OptionsExpander;
+            UseDefaultFontMainForm = Settings.Get<bool>(GrepSettings.Key.UseDefaultFontMainForm);
+            FontFamilyMainForm = UseDefaultFontMainForm ? SystemFonts.MessageFontFamily.Source : 
+                Settings.Get<string>(GrepSettings.Key.FontFamilyMainForm);
+            FontSizeMainForm = UseDefaultFontMainForm ? SystemFonts.MessageFontSize : 
+                Settings.Get<double>(GrepSettings.Key.FontSizeMainForm);
 
             // current values may not equal the saved settings value
             CurrentTheme = AppTheme.Instance.CurrentThemeName;
@@ -831,6 +900,9 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.OptionsOnMainPanel, OptionsLocation == PanelSelection.MainPanel);
             Settings.Set(GrepSettings.Key.FollowWindowsTheme, FollowWindowsTheme);
             Settings.Set(GrepSettings.Key.CurrentTheme, CurrentTheme);
+            Settings.Set(GrepSettings.Key.UseDefaultFontMainForm, UseDefaultFontMainForm);
+            Settings.Set(GrepSettings.Key.FontFamilyMainForm, FontFamilyMainForm);
+            Settings.Set(GrepSettings.Key.FontSizeMainForm, FontSizeMainForm);
 
             if (ArchiveOptions.IsChanged)
             {

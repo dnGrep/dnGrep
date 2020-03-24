@@ -114,6 +114,34 @@ namespace dnGREP.WPF
 
         #region Presentation Properties
 
+        private string fontFamilyMainForm = SystemFonts.MessageFontFamily.Source;
+        public string FontFamilyMainForm
+        {
+            get { return fontFamilyMainForm; }
+            set
+            {
+                if (fontFamilyMainForm == value)
+                    return;
+
+                fontFamilyMainForm = value;
+                base.OnPropertyChanged(() => FontFamilyMainForm);
+            }
+        }
+
+        private double fontSizeMainForm = SystemFonts.MessageFontSize;
+        public double FontSizeMainForm
+        {
+            get { return fontSizeMainForm; }
+            set
+            {
+                if (fontSizeMainForm == value)
+                    return;
+
+                fontSizeMainForm = value;
+                base.OnPropertyChanged(() => FontSizeMainForm);
+            }
+        }
+
         private bool isBookmarked;
         public bool IsBookmarked
         {
@@ -851,6 +879,12 @@ namespace dnGREP.WPF
             ShowLinesInContext = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext);
             ContextLinesBefore = GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore);
             ContextLinesAfter = GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter);
+
+            bool useDefaultFontMainForm = GrepSettings.Instance.Get<bool>(GrepSettings.Key.UseDefaultFontMainForm);
+            FontFamilyMainForm = useDefaultFontMainForm ? SystemFonts.MessageFontFamily.Source :
+                GrepSettings.Instance.Get<string>(GrepSettings.Key.FontFamilyMainForm);
+            FontSizeMainForm = useDefaultFontMainForm ? SystemFonts.MessageFontSize :
+                GrepSettings.Instance.Get<double>(GrepSettings.Key.FontSizeMainForm);
         }
 
         public override void SaveSettings()

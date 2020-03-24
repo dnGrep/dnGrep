@@ -109,6 +109,36 @@
                     </StackPanel>
                 </GroupBox>
 
+                <GroupBox Header="Main Window Font">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <CheckBox Grid.Row="0" Grid.ColumnSpan="2" Margin="0,6,0,3" Content="Use Default"
+                                  IsChecked="{Binding Path=UseDefaultFontMainForm}" />
+                        <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,3" 
+                                   HorizontalAlignment="Right" Text="Font Family" />
+                        <ComboBox Grid.Row="1" Grid.Column="1" Width="200" Margin="6,3"
+                                  HorizontalAlignment="Left"
+                                  ItemsSource="{Binding Path=FontFamilies}"
+                                  SelectedValue="{Binding Path=FontFamilyMainForm}"
+                                  IsEnabled="{Binding Path=UseDefaultFontMainForm, Converter={StaticResource not}}" />
+                        <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,3" 
+                                   HorizontalAlignment="Right" Text="Font Size" />
+                        <ComboBox Grid.Row="2" Grid.Column="1" Width="80" Margin="6,3"
+                                  HorizontalAlignment="Left"
+                                  ItemsSource="{Binding Path=FontSizes}"
+                                  SelectedValue="{Binding Path=FontSizeMainForm}"
+                                  IsEnabled="{Binding Path=UseDefaultFontMainForm, Converter={StaticResource not}}" />
+                    </Grid>
+                </GroupBox>
+
                 <GroupBox Header="Custom editor">
                     <Grid Margin="0,0,12,0">
                         <Grid.RowDefinitions>

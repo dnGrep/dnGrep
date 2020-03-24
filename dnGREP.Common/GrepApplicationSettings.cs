@@ -142,6 +142,10 @@ namespace dnGREP.Common
             public const string ResultsTreeScale = "ResultsTreeScale";
             [DefaultValue(false)]
             public const string HighlightCaptureGroups = "HighlightCaptureGroups";
+            [DefaultValue(true)]
+            public const string UseDefaultFontMainForm = "UseDefaultFontMainForm";
+            public const string FontFamilyMainForm = "FontFamilyMainForm";
+            public const string FontSizeMainForm = "FontSizeMainForm";
         }
 
         private static GrepSettings instance;
