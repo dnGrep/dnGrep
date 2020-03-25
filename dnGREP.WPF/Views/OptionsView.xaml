@@ -22,6 +22,7 @@
     <Window.Resources>
         <my:EnumBooleanConverter x:Key="ebc" />
         <my:InverseBooleanConverter x:Key="not" />
+        <my:TextBoxWidthConverter x:Key="TextBoxWidthConverter"/>
         <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource LabelTextBlockStyle}" />
 
         <Style TargetType="{x:Type GroupBox}" BasedOn="{StaticResource ThemedGroupBox}">
@@ -31,8 +32,8 @@
                     <ControlTemplate TargetType="{x:Type GroupBox}">
                         <Grid SnapsToDevicePixels="True">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="160" />
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" SharedSizeGroup="B" />
+                                <ColumnDefinition />
                             </Grid.ColumnDefinitions>
 
                             <Border x:Name="Header" Grid.Column="0" Margin="0,6,30,0"
@@ -59,7 +60,7 @@
     </Window.Resources>
 
 
-    <Grid Margin="12,0,0,0">
+    <Grid Margin="12,0,0,0" Grid.IsSharedSizeScope="True">
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto" />
@@ -84,9 +85,17 @@
                     <StackPanel Orientation="Horizontal">
                         <CheckBox Name="cbCheckForUpdates" Content="Enable automatic checking every"
                                   IsChecked="{Binding Path=EnableCheckForUpdates}" />
-                        <TextBox Width="31" Height="24" Margin="3,0,0,0"
+                        <TextBox Margin="3,0,0,0"
                                  IsEnabled="{Binding ElementName=cbCheckForUpdates, Path=IsChecked}"
-                                 Text="{Binding Path=CheckForUpdatesInterval, UpdateSourceTrigger=PropertyChanged}" />
+                                 Text="{Binding Path=CheckForUpdatesInterval, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBox.Width>
+                                <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
+                                    <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                    <Binding Path="FontFamilyMainForm"/>
+                                    <Binding Path="FontSizeMainForm"/>
+                                </MultiBinding>
+                            </TextBox.Width>
+                        </TextBox>
                         <Label Margin="3,0" Content="days" />
                     </StackPanel>
                 </GroupBox>
@@ -98,11 +107,19 @@
                                   IsEnabled="{Binding Path=HasWindowsThemes}" />
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Margin="0,3" Text="Selected Theme" />
-                            <ComboBox Width="200" Margin="6,3"
+                            <ComboBox Margin="6,3"
                                       ItemsSource="{Binding Path=ThemeNames}"
                                       SelectedValue="{Binding Path=CurrentTheme}"
-                                      IsEnabled="{Binding Path=FollowWindowsTheme, Converter={StaticResource not}}" />
-                            <Button Margin="6,3" Padding="4" Content="Reload"
+                                      IsEnabled="{Binding Path=FollowWindowsTheme, Converter={StaticResource not}}">
+                                <ComboBox.Width>
+                                    <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="200" FallbackValue="200">
+                                        <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                        <Binding Path="FontFamilyMainForm"/>
+                                        <Binding Path="FontSizeMainForm"/>
+                                    </MultiBinding>
+                                </ComboBox.Width>
+                            </ComboBox>
+                            <Button Margin="6,3" Padding="12,3" Content="Reload"
                                     Command="{Binding ReloadThemeCommand}"
                                     ToolTip="Reload the current theme file [Ctrl+F5]" />
                         </StackPanel>
@@ -112,6 +129,7 @@
                 <GroupBox Header="Main Window Font">
                     <Grid>
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
@@ -124,18 +142,37 @@
                                   IsChecked="{Binding Path=UseDefaultFontMainForm}" />
                         <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,3" 
                                    HorizontalAlignment="Right" Text="Font Family" />
-                        <ComboBox Grid.Row="1" Grid.Column="1" Width="200" Margin="6,3"
+                        <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="6,3"
                                   HorizontalAlignment="Left"
                                   ItemsSource="{Binding Path=FontFamilies}"
                                   SelectedValue="{Binding Path=FontFamilyMainForm}"
-                                  IsEnabled="{Binding Path=UseDefaultFontMainForm, Converter={StaticResource not}}" />
+                                  IsEnabled="{Binding Path=UseDefaultFontMainForm, Converter={StaticResource not}}">
+                            <ComboBox.Width>
+                                <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="200" FallbackValue="200">
+                                    <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                    <Binding Path="FontFamilyMainForm"/>
+                                    <Binding Path="FontSizeMainForm"/>
+                                </MultiBinding>
+                            </ComboBox.Width>
+                        </ComboBox>
                         <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,3" 
                                    HorizontalAlignment="Right" Text="Font Size" />
-                        <ComboBox Grid.Row="2" Grid.Column="1" Width="80" Margin="6,3"
+                        <ComboBox Grid.Row="2" Grid.Column="1" Margin="6,3"
                                   HorizontalAlignment="Left"
                                   ItemsSource="{Binding Path=FontSizes}"
                                   SelectedValue="{Binding Path=FontSizeMainForm}"
-                                  IsEnabled="{Binding Path=UseDefaultFontMainForm, Converter={StaticResource not}}" />
+                                  IsEnabled="{Binding Path=UseDefaultFontMainForm, Converter={StaticResource not}}">
+                            <ComboBox.Width>
+                                <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="80" FallbackValue="80">
+                                    <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                    <Binding Path="FontFamilyMainForm"/>
+                                    <Binding Path="FontSizeMainForm"/>
+                                </MultiBinding>
+                            </ComboBox.Width>
+                        </ComboBox>
+                        <TextBlock Grid.Row="2" Grid.Column="2" Text="Sample Text"
+                                   FontFamily="{Binding Path=FontFamilyMainForm}"
+                                   FontSize="{Binding Path=FontSizeMainForm}"/>
                     </Grid>
                 </GroupBox>
 
@@ -147,26 +184,29 @@
                             <RowDefinition />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="440" />
-                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,0,3,0"
+                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="3"
                                    Text="Command" />
-                        <TextBox Grid.Row="0" Grid.Column="1" Height="24"
-                                 Margin="0,2,0,1"
+                        <TextBox Grid.Row="0" Grid.Column="1" Margin="3"
                                  Text="{Binding Path=CustomEditorPath, UpdateSourceTrigger=PropertyChanged}" />
-                        <Button Grid.Column="2" Width="32" Height="24"
-                                Margin="7,2,1,1"
+                        <Button Grid.Column="2" Content="..." Margin="3"
                                 Command="{Binding Path=BrowseEditorCommand}">
-                            ...
+                            <Button.Width>
+                                <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
+                                    <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                    <Binding Path="FontFamilyMainForm"/>
+                                    <Binding Path="FontSizeMainForm"/>
+                                </MultiBinding>
+                            </Button.Width>
                         </Button>
-                        <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,0,3,0"
+                        <TextBlock Grid.Row="1" Grid.Column="0" Margin="3"
                                    Text="Arguments" />
-                        <TextBox Grid.Row="1" Grid.Column="1" Height="24"
-                                 Margin="0,1"
+                        <TextBox Grid.Row="1" Grid.Column="1" Margin="3"
                                  Text="{Binding Path=CustomEditorArgs, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBlock Grid.Row="2" Grid.Column="1" TextWrapping="Wrap">
+                        <TextBlock Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Margin="3">
                             <Run>Use keywords </Run>
                             <Run FontWeight="Bold">%file</Run>
                             <Run> for file location, </Run>
@@ -190,26 +230,29 @@
                             <RowDefinition />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="440" />
-                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,0,3,0"
+                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="3"
                                    Text="Command" />
-                        <TextBox Grid.Row="0" Grid.Column="1" Height="24"
-                                 Margin="0,2,0,1"
+                        <TextBox Grid.Row="0" Grid.Column="1" Margin="3"
                                  Text="{Binding Path=CompareApplicationPath, UpdateSourceTrigger=PropertyChanged}" />
-                        <Button Grid.Column="2" Width="32" Height="24"
-                                Margin="7,2,1,1"
+                        <Button Grid.Column="2" Content="..." Margin="3"
                                 Command="{Binding Path=BrowseCompareCommand}">
-                            ...
+                            <Button.Width>
+                                <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
+                                    <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                    <Binding Path="FontFamilyMainForm"/>
+                                    <Binding Path="FontSizeMainForm"/>
+                                </MultiBinding>
+                            </Button.Width>
                         </Button>
-                        <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,0,3,0"
+                        <TextBlock Grid.Row="1" Grid.Column="0" Margin="3"
                                    Text="Arguments" />
-                        <TextBox Grid.Row="1" Grid.Column="1" Height="24"
-                                 Margin="0,1"
+                        <TextBox Grid.Row="1" Grid.Column="1" Margin="3"
                                  Text="{Binding Path=CompareApplicationArgs, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBlock Grid.Row="2" Grid.Column="1" TextWrapping="Wrap">
+                        <TextBlock Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Margin="3">
                             dnGrep will add the selected files to the end of the command line.
                         </TextBlock>
                     </Grid>
@@ -234,13 +277,28 @@
                                       IsChecked="{Binding Path=ShowLinesInContext}">
                                 Show result lines in context
                             </CheckBox>
-                            <TextBox Width="32" Height="24" Margin="3,0,0,0"
+                            <TextBox Margin="3,0,0,0"
                                      Text="{Binding Path=ContextLinesBefore, UpdateSourceTrigger=PropertyChanged}"
-                                     IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}" />
+                                     IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}">
+                                <TextBox.Width>
+                                    <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
+                                        <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                        <Binding Path="FontFamilyMainForm"/>
+                                        <Binding Path="FontSizeMainForm"/>
+                                    </MultiBinding>
+                                </TextBox.Width>
+                            </TextBox>
                             <Label Content="before and" />
-                            <TextBox Width="32" Height="24"
-                                     Text="{Binding Path=ContextLinesAfter, UpdateSourceTrigger=PropertyChanged}"
-                                     IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}" />
+                            <TextBox Text="{Binding Path=ContextLinesAfter, UpdateSourceTrigger=PropertyChanged}"
+                                     IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}">
+                                <TextBox.Width>
+                                    <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
+                                        <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                        <Binding Path="FontFamilyMainForm"/>
+                                        <Binding Path="FontSizeMainForm"/>
+                                    </MultiBinding>
+                                </TextBox.Width>
+                            </TextBox>
                             <Label Content="after" />
                         </StackPanel>
 
@@ -268,29 +326,52 @@
 
                 <GroupBox Header="History Lists">
                     <StackPanel>
-
                         <StackPanel Orientation="Horizontal">
-                            <TextBox Width="48" Height="24" Margin="3,0"
+                            <TextBox Margin="3,0"
                                      Text="{Binding MaxPathBookmarks, UpdateSourceTrigger=PropertyChanged}"
                                      TextAlignment="Right" PreviewTextInput="TextBox_PreviewTextInput"
-                                     DataObject.Pasting="TextBox_Pasting" />
+                                     DataObject.Pasting="TextBox_Pasting">
+                                <TextBox.Width>
+                                    <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="48" FallbackValue="48">
+                                        <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                        <Binding Path="FontFamilyMainForm"/>
+                                        <Binding Path="FontSizeMainForm"/>
+                                    </MultiBinding>
+                                </TextBox.Width>
+                            </TextBox>
                             <TextBlock Margin="3" Text="items shown in path history list" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBox Width="48" Height="24" Margin="3,0"
+                            <TextBox Margin="3,0"
                                      Text="{Binding MaxSearchBookmarks, UpdateSourceTrigger=PropertyChanged}"
                                      TextAlignment="Right" PreviewTextInput="TextBox_PreviewTextInput"
-                                     DataObject.Pasting="TextBox_Pasting" />
+                                     DataObject.Pasting="TextBox_Pasting">
+                                <TextBox.Width>
+                                    <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="48" FallbackValue="48">
+                                        <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                        <Binding Path="FontFamilyMainForm"/>
+                                        <Binding Path="FontSizeMainForm"/>
+                                    </MultiBinding>
+                                </TextBox.Width>
+                            </TextBox>
                             <TextBlock Margin="3" Text="items shown in search and replace history lists" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBox Width="48" Height="24" Margin="3,0"
+                            <TextBox Margin="3,0"
                                      Text="{Binding MaxExtensionBookmarks, UpdateSourceTrigger=PropertyChanged}"
                                      TextAlignment="Right" PreviewTextInput="TextBox_PreviewTextInput"
-                                     DataObject.Pasting="TextBox_Pasting" />
+                                     DataObject.Pasting="TextBox_Pasting">
+                                <TextBox.Width>
+                                    <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="48" FallbackValue="48">
+                                        <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                        <Binding Path="FontFamilyMainForm"/>
+                                        <Binding Path="FontSizeMainForm"/>
+                                    </MultiBinding>
+                                </TextBox.Width>
+                            </TextBox>
                             <TextBlock Margin="3" Text="items shown in file filter history lists" />
                         </StackPanel>
-                        <Button Name="btnClearPreviousSearches" Width="112" Height="24"
+                        <Button Name="btnClearPreviousSearches" Padding="12,3"
                                 Margin="3" HorizontalAlignment="Left"
                                 Command="{Binding Path=ClearSearchesCommand}">
                             Clear old searches
@@ -308,10 +389,18 @@
                                 </DataTemplate>
                             </StackPanel.Resources>
                             <TextBlock Margin="0,0,3,0" Text="Match timeout" />
-                            <TextBox Name="tbMatchTimeout" Width="48" Height="24"
+                            <TextBox Name="tbMatchTimeout"
                                      Margin="3,0"
                                      Text="{Binding Path=MatchTimeout, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
-                                     Validation.ErrorTemplate="{x:Null}" />
+                                     Validation.ErrorTemplate="{x:Null}">
+                                <TextBox.Width>
+                                    <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="48" FallbackValue="48">
+                                        <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                        <Binding Path="FontFamilyMainForm"/>
+                                        <Binding Path="FontSizeMainForm"/>
+                                    </MultiBinding>
+                                </TextBox.Width>
+                            </TextBox>
                             <TextBlock Margin="3,0,0,0" Text="seconds" />
                             <ContentPresenter Content="{Binding ElementName=tbMatchTimeout, Path=(Validation.Errors).CurrentItem}" />
                         </StackPanel>
@@ -329,9 +418,17 @@
                                 </DataTemplate>
                             </StackPanel.Resources>
                             <TextBlock Margin="0,0,6,0" Text="Match threshold (from 0 to 1.0)" />
-                            <TextBox Name="tbFuzzyMatchThreshold" Width="48" Height="24"
+                            <TextBox Name="tbFuzzyMatchThreshold"
                                      Text="{Binding Path=MatchThreshold, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
-                                     Validation.ErrorTemplate="{x:Null}" />
+                                     Validation.ErrorTemplate="{x:Null}">
+                                <TextBox.Width>
+                                    <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="48" FallbackValue="48">
+                                        <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                        <Binding Path="FontFamilyMainForm"/>
+                                        <Binding Path="FontSizeMainForm"/>
+                                    </MultiBinding>
+                                </TextBox.Width>
+                            </TextBox>
                             <ContentPresenter Content="{Binding ElementName=tbFuzzyMatchThreshold, Path=(Validation.Errors).CurrentItem}" />
                         </StackPanel>
                         <TextBlock Text="0 - match everything; 1.0 - exact match" />
@@ -414,10 +511,11 @@
 
         <WrapPanel Grid.Row="1" Margin="0,6,0,0" HorizontalAlignment="Right"
                    VerticalAlignment="Bottom">
-            <Button Width="64" Height="24" Margin="0,5,10,5"
+            <Button x:Name="btnSave" Padding="24,3" Margin="0,5,10,5"
                     IsDefault="True" Content="Save"
-                    Command="{Binding Path=SaveCommand}" />
-            <Button Width="64" Height="24" Margin="0,5,15,5"
+                    Command="{Binding Path=SaveCommand}" 
+                    Width="{Binding ElementName=btnClose, Path=ActualWidth}"/>
+            <Button x:Name="btnClose" Padding="24,3" Margin="0,5,15,5"
                     IsCancel="True" Content="Close" />
         </WrapPanel>
     </Grid>
