@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Globalization;
 using System.Reflection;
+using System.Windows;
 using Alphaleonis.Win32.Filesystem;
+using dnGREP.Common;
 
 namespace dnGREP.WPF
 {
@@ -13,6 +15,36 @@ namespace dnGREP.WPF
             BuildDate = $"Built on {AssemblyBuildDate.ToString(CultureInfo.CurrentUICulture)}";
             Copyright = AssemblyCopyright;
             Description = AssemblyDescription;
+            ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
+            DialogFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.DialogFontSize);
+        }
+
+        private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
+        public string ApplicationFontFamily
+        {
+            get { return applicationFontFamily; }
+            set
+            {
+                if (applicationFontFamily == value)
+                    return;
+
+                applicationFontFamily = value;
+                base.OnPropertyChanged(() => ApplicationFontFamily);
+            }
+        }
+
+        private double dialogfontSize = SystemFonts.MessageFontSize;
+        public double DialogFontSize
+        {
+            get { return dialogfontSize; }
+            set
+            {
+                if (dialogfontSize == value)
+                    return;
+
+                dialogfontSize = value;
+                base.OnPropertyChanged(() => DialogFontSize);
+            }
         }
 
         private string _version = string.Empty;
