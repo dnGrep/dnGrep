@@ -35,9 +35,19 @@
         <my:TitleFontSizeConverter x:Key="TitleSizeConverter"/>
 
         <Style TargetType="GroupBox" BasedOn="{StaticResource ThemedGroupBox}">
-            <Setter Property="FontSize">
+            <Setter Property="HeaderTemplate">
                 <Setter.Value>
-                    <Binding Path="ReplaceFormFontSize" Converter="{StaticResource TitleSizeConverter}" ConverterParameter="2"/>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}" Foreground="{DynamicResource GroupBox.Foreground}"
+                                   FontWeight="Medium">
+                            <TextBlock.FontSize>
+                                <Binding Path="FontSize" 
+                                         RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType=GroupBox}" 
+                                         Converter="{StaticResource TitleSizeConverter}" 
+                                         ConverterParameter="2" FallbackValue="14"/>
+                            </TextBlock.FontSize>
+                        </TextBlock>
+                    </DataTemplate>
                 </Setter.Value>
             </Setter>
             <Setter Property="Margin" Value="3" />
