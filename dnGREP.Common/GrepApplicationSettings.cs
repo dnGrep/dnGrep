@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
+using System.Windows;
 using System.Xml;
 using System.Xml.Serialization;
 using NLog;
@@ -143,9 +144,11 @@ namespace dnGREP.Common
             [DefaultValue(false)]
             public const string HighlightCaptureGroups = "HighlightCaptureGroups";
             [DefaultValue(true)]
-            public const string UseDefaultFontMainForm = "UseDefaultFontMainForm";
-            public const string FontFamilyMainForm = "FontFamilyMainForm";
-            public const string FontSizeMainForm = "FontSizeMainForm";
+            public const string UseDefaultFont = "UseDefaultFont";
+            public const string ApplicationFontFamily = "ApplicationFontFamily";
+            public const string MainFormFontSize = "MainFormFontSize";
+            public const string ReplaceFormFontSize = "ReplaceFormFontSize";
+            public const string DialogFontSize = "DialogFontSize";
         }
 
         private static GrepSettings instance;

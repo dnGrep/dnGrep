@@ -114,31 +114,31 @@ namespace dnGREP.WPF
 
         #region Presentation Properties
 
-        private string fontFamilyMainForm = SystemFonts.MessageFontFamily.Source;
-        public string FontFamilyMainForm
+        private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
+        public string ApplicationFontFamily
         {
-            get { return fontFamilyMainForm; }
+            get { return applicationFontFamily; }
             set
             {
-                if (fontFamilyMainForm == value)
+                if (applicationFontFamily == value)
                     return;
 
-                fontFamilyMainForm = value;
-                base.OnPropertyChanged(() => FontFamilyMainForm);
+                applicationFontFamily = value;
+                base.OnPropertyChanged(() => ApplicationFontFamily);
             }
         }
 
-        private double fontSizeMainForm = SystemFonts.MessageFontSize;
-        public double FontSizeMainForm
+        private double mainFormfontSize = SystemFonts.MessageFontSize;
+        public double MainFormFontSize
         {
-            get { return fontSizeMainForm; }
+            get { return mainFormfontSize; }
             set
             {
-                if (fontSizeMainForm == value)
+                if (mainFormfontSize == value)
                     return;
 
-                fontSizeMainForm = value;
-                base.OnPropertyChanged(() => FontSizeMainForm);
+                mainFormfontSize = value;
+                base.OnPropertyChanged(() => MainFormFontSize);
             }
         }
 
@@ -880,11 +880,11 @@ namespace dnGREP.WPF
             ContextLinesBefore = GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore);
             ContextLinesAfter = GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter);
 
-            bool useDefaultFontMainForm = GrepSettings.Instance.Get<bool>(GrepSettings.Key.UseDefaultFontMainForm);
-            FontFamilyMainForm = useDefaultFontMainForm ? SystemFonts.MessageFontFamily.Source :
-                GrepSettings.Instance.Get<string>(GrepSettings.Key.FontFamilyMainForm);
-            FontSizeMainForm = useDefaultFontMainForm ? SystemFonts.MessageFontSize :
-                GrepSettings.Instance.Get<double>(GrepSettings.Key.FontSizeMainForm);
+            bool useDefaultFontMainForm = GrepSettings.Instance.Get<bool>(GrepSettings.Key.UseDefaultFont);
+            ApplicationFontFamily = useDefaultFontMainForm ? SystemFonts.MessageFontFamily.Source :
+                GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
+            MainFormFontSize = useDefaultFontMainForm ? SystemFonts.MessageFontSize :
+                GrepSettings.Instance.Get<double>(GrepSettings.Key.MainFormFontSize);
         }
 
         public override void SaveSettings()

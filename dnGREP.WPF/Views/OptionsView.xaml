@@ -5,6 +5,8 @@
                  Title="Options"
                  Height="600"
                  MinWidth="500"
+                 FontFamily="{Binding ApplicationFontFamily}"
+                 FontSize="{Binding DialogFontSize}"
                  my:DiginesisHelpProvider.HelpKeyword="Options"
                  my:DiginesisHelpProvider.HelpNavigator="Topic"
                  my:DiginesisHelpProvider.ShowHelp="True"
@@ -91,8 +93,8 @@
                             <TextBox.Width>
                                 <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
                                     <Binding RelativeSource="{RelativeSource Mode=Self}"/>
-                                    <Binding Path="FontFamilyMainForm"/>
-                                    <Binding Path="FontSizeMainForm"/>
+                                    <Binding Path="ApplicationFontFamily"/>
+                                    <Binding Path="DialogFontSize"/>
                                 </MultiBinding>
                             </TextBox.Width>
                         </TextBox>
@@ -114,8 +116,8 @@
                                 <ComboBox.Width>
                                     <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="200" FallbackValue="200">
                                         <Binding RelativeSource="{RelativeSource Mode=Self}"/>
-                                        <Binding Path="FontFamilyMainForm"/>
-                                        <Binding Path="FontSizeMainForm"/>
+                                        <Binding Path="ApplicationFontFamily"/>
+                                        <Binding Path="DialogFontSize"/>
                                     </MultiBinding>
                                 </ComboBox.Width>
                             </ComboBox>
@@ -126,7 +128,7 @@
                     </StackPanel>
                 </GroupBox>
 
-                <GroupBox Header="Main Window Font">
+                <GroupBox Header="Application Fonts">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -137,42 +139,98 @@
                             <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
                         </Grid.RowDefinitions>
                         <CheckBox Grid.Row="0" Grid.ColumnSpan="2" Margin="0,6,0,3" Content="Use Default"
-                                  IsChecked="{Binding Path=UseDefaultFontMainForm}" />
+                                  IsChecked="{Binding Path=UseDefaultFont}" />
                         <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,3" 
                                    HorizontalAlignment="Right" Text="Font Family" />
                         <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="6,3"
                                   HorizontalAlignment="Left"
                                   ItemsSource="{Binding Path=FontFamilies}"
-                                  SelectedValue="{Binding Path=FontFamilyMainForm}"
-                                  IsEnabled="{Binding Path=UseDefaultFontMainForm, Converter={StaticResource not}}">
+                                  SelectedValue="{Binding Path=EditApplicationFontFamily}"
+                                  IsEnabled="{Binding Path=UseDefaultFont, Converter={StaticResource not}}">
                             <ComboBox.Width>
                                 <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="200" FallbackValue="200">
                                     <Binding RelativeSource="{RelativeSource Mode=Self}"/>
-                                    <Binding Path="FontFamilyMainForm"/>
-                                    <Binding Path="FontSizeMainForm"/>
+                                    <Binding Path="ApplicationFontFamily"/>
+                                    <Binding Path="DialogFontSize"/>
                                 </MultiBinding>
                             </ComboBox.Width>
                         </ComboBox>
+                        
                         <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,3" 
-                                   HorizontalAlignment="Right" Text="Font Size" />
-                        <ComboBox Grid.Row="2" Grid.Column="1" Margin="6,3"
-                                  HorizontalAlignment="Left"
-                                  ItemsSource="{Binding Path=FontSizes}"
-                                  SelectedValue="{Binding Path=FontSizeMainForm}"
-                                  IsEnabled="{Binding Path=UseDefaultFontMainForm, Converter={StaticResource not}}">
-                            <ComboBox.Width>
-                                <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="80" FallbackValue="80">
+                                   HorizontalAlignment="Right" Text="Main Font Size" />
+                        <TextBox Grid.Row="2" Grid.Column="1" Margin="6,3"
+                                 IsEnabled="{Binding Path=UseDefaultFont, Converter={StaticResource not}}">
+                            <TextBox.Text>
+                                <Binding Path="EditMainFormFontSize" Mode="TwoWay" 
+                                         UpdateSourceTrigger="PropertyChanged" Delay="1250">
+                                    <Binding.ValidationRules>
+                                        <my:ValueRangeRule Min="8" Max="24"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                            <TextBox.Width>
+                                <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="48" FallbackValue="48">
                                     <Binding RelativeSource="{RelativeSource Mode=Self}"/>
-                                    <Binding Path="FontFamilyMainForm"/>
-                                    <Binding Path="FontSizeMainForm"/>
+                                    <Binding Path="ApplicationFontFamily"/>
+                                    <Binding Path="DialogFontSize"/>
                                 </MultiBinding>
-                            </ComboBox.Width>
-                        </ComboBox>
-                        <TextBlock Grid.Row="2" Grid.Column="2" Text="Sample Text"
-                                   FontFamily="{Binding Path=FontFamilyMainForm}"
-                                   FontSize="{Binding Path=FontSizeMainForm}"/>
+                            </TextBox.Width>
+                        </TextBox>
+                        <TextBlock Grid.Row="2" Grid.Column="2" Margin="12,3" Text="Sample Text"
+                                   FontFamily="{Binding Path=EditApplicationFontFamily}"
+                                   FontSize="{Binding Path=EditMainFormFontSize}"/>
+                        
+                        <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,3" 
+                                   HorizontalAlignment="Right" Text="Replace Font Size" />
+                        <TextBox Grid.Row="3" Grid.Column="1" Margin="6,3"
+                                 IsEnabled="{Binding Path=UseDefaultFont, Converter={StaticResource not}}">
+                            <TextBox.Text>
+                                <Binding Path="EditReplaceFormFontSize" Mode="TwoWay" 
+                                         UpdateSourceTrigger="PropertyChanged" Delay="1250">
+                                    <Binding.ValidationRules>
+                                        <my:ValueRangeRule Min="8" Max="24"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                            <TextBox.Width>
+                                <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="48" FallbackValue="48">
+                                    <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                    <Binding Path="ApplicationFontFamily"/>
+                                    <Binding Path="DialogFontSize"/>
+                                </MultiBinding>
+                            </TextBox.Width>
+                        </TextBox>
+                        <TextBlock Grid.Row="3" Grid.Column="2" Margin="12,3" Text="Sample Text"
+                                   FontFamily="{Binding Path=EditApplicationFontFamily}"
+                                   FontSize="{Binding Path=EditReplaceFormFontSize}"/>
+                        
+                        <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,3" 
+                                   HorizontalAlignment="Right" Text="Dialog Font Size" />
+                        <TextBox Grid.Row="4" Grid.Column="1" Margin="6,3"
+                                 IsEnabled="{Binding Path=UseDefaultFont, Converter={StaticResource not}}">
+                            <TextBox.Text>
+                                <Binding Path="EditDialogFontSize" Mode="TwoWay" 
+                                         UpdateSourceTrigger="PropertyChanged" Delay="1250">
+                                    <Binding.ValidationRules>
+                                        <my:ValueRangeRule Min="8" Max="24"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                            <TextBox.Width>
+                                <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="48" FallbackValue="48">
+                                    <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                    <Binding Path="ApplicationFontFamily"/>
+                                    <Binding Path="DialogFontSize"/>
+                                </MultiBinding>
+                            </TextBox.Width>
+                        </TextBox>
+                        <TextBlock Grid.Row="4" Grid.Column="2" Margin="12,3" Text="Sample Text"
+                                   FontFamily="{Binding Path=EditApplicationFontFamily}"
+                                   FontSize="{Binding Path=EditDialogFontSize}"/>
                     </Grid>
                 </GroupBox>
 
@@ -197,8 +255,8 @@
                             <Button.Width>
                                 <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
                                     <Binding RelativeSource="{RelativeSource Mode=Self}"/>
-                                    <Binding Path="FontFamilyMainForm"/>
-                                    <Binding Path="FontSizeMainForm"/>
+                                    <Binding Path="ApplicationFontFamily"/>
+                                    <Binding Path="DialogFontSize"/>
                                 </MultiBinding>
                             </Button.Width>
                         </Button>
@@ -243,8 +301,8 @@
                             <Button.Width>
                                 <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
                                     <Binding RelativeSource="{RelativeSource Mode=Self}"/>
-                                    <Binding Path="FontFamilyMainForm"/>
-                                    <Binding Path="FontSizeMainForm"/>
+                                    <Binding Path="ApplicationFontFamily"/>
+                                    <Binding Path="DialogFontSize"/>
                                 </MultiBinding>
                             </Button.Width>
                         </Button>
@@ -283,8 +341,8 @@
                                 <TextBox.Width>
                                     <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
                                         <Binding RelativeSource="{RelativeSource Mode=Self}"/>
-                                        <Binding Path="FontFamilyMainForm"/>
-                                        <Binding Path="FontSizeMainForm"/>
+                                        <Binding Path="ApplicationFontFamily"/>
+                                        <Binding Path="DialogFontSize"/>
                                     </MultiBinding>
                                 </TextBox.Width>
                             </TextBox>
@@ -294,8 +352,8 @@
                                 <TextBox.Width>
                                     <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
                                         <Binding RelativeSource="{RelativeSource Mode=Self}"/>
-                                        <Binding Path="FontFamilyMainForm"/>
-                                        <Binding Path="FontSizeMainForm"/>
+                                        <Binding Path="ApplicationFontFamily"/>
+                                        <Binding Path="DialogFontSize"/>
                                     </MultiBinding>
                                 </TextBox.Width>
                             </TextBox>
@@ -334,8 +392,8 @@
                                 <TextBox.Width>
                                     <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="48" FallbackValue="48">
                                         <Binding RelativeSource="{RelativeSource Mode=Self}"/>
-                                        <Binding Path="FontFamilyMainForm"/>
-                                        <Binding Path="FontSizeMainForm"/>
+                                        <Binding Path="ApplicationFontFamily"/>
+                                        <Binding Path="DialogFontSize"/>
                                     </MultiBinding>
                                 </TextBox.Width>
                             </TextBox>
@@ -349,8 +407,8 @@
                                 <TextBox.Width>
                                     <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="48" FallbackValue="48">
                                         <Binding RelativeSource="{RelativeSource Mode=Self}"/>
-                                        <Binding Path="FontFamilyMainForm"/>
-                                        <Binding Path="FontSizeMainForm"/>
+                                        <Binding Path="ApplicationFontFamily"/>
+                                        <Binding Path="DialogFontSize"/>
                                     </MultiBinding>
                                 </TextBox.Width>
                             </TextBox>
@@ -364,8 +422,8 @@
                                 <TextBox.Width>
                                     <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="48" FallbackValue="48">
                                         <Binding RelativeSource="{RelativeSource Mode=Self}"/>
-                                        <Binding Path="FontFamilyMainForm"/>
-                                        <Binding Path="FontSizeMainForm"/>
+                                        <Binding Path="ApplicationFontFamily"/>
+                                        <Binding Path="DialogFontSize"/>
                                     </MultiBinding>
                                 </TextBox.Width>
                             </TextBox>
@@ -390,19 +448,24 @@
                             </StackPanel.Resources>
                             <TextBlock Margin="0,0,3,0" Text="Match timeout" />
                             <TextBox Name="tbMatchTimeout"
-                                     Margin="3,0"
-                                     Text="{Binding Path=MatchTimeout, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
-                                     Validation.ErrorTemplate="{x:Null}">
+                                     Margin="3,0">
+                                <TextBox.Text>
+                                    <Binding Path="MatchTimeout" Mode="TwoWay" 
+                                         UpdateSourceTrigger="PropertyChanged" Delay="1250">
+                                        <Binding.ValidationRules>
+                                            <my:ValueRangeRule Min="0.001" Max="3600"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
                                 <TextBox.Width>
                                     <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="48" FallbackValue="48">
                                         <Binding RelativeSource="{RelativeSource Mode=Self}"/>
-                                        <Binding Path="FontFamilyMainForm"/>
-                                        <Binding Path="FontSizeMainForm"/>
+                                        <Binding Path="ApplicationFontFamily"/>
+                                        <Binding Path="DialogFontSize"/>
                                     </MultiBinding>
                                 </TextBox.Width>
                             </TextBox>
                             <TextBlock Margin="3,0,0,0" Text="seconds" />
-                            <ContentPresenter Content="{Binding ElementName=tbMatchTimeout, Path=(Validation.Errors).CurrentItem}" />
                         </StackPanel>
                         <TextBlock Width="440" TextWrapping="Wrap">The match timeout limits how long the regular expression engine will attempt to resolve a regular expression before it times out. This prevents processing expressions and input strings that require excessive backtracking.</TextBlock>
                     </StackPanel>
@@ -418,18 +481,23 @@
                                 </DataTemplate>
                             </StackPanel.Resources>
                             <TextBlock Margin="0,0,6,0" Text="Match threshold (from 0 to 1.0)" />
-                            <TextBox Name="tbFuzzyMatchThreshold"
-                                     Text="{Binding Path=MatchThreshold, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
-                                     Validation.ErrorTemplate="{x:Null}">
+                            <TextBox Name="tbFuzzyMatchThreshold">
+                                <TextBox.Text>
+                                    <Binding Path="MatchThreshold" Mode="TwoWay" 
+                                         UpdateSourceTrigger="PropertyChanged" Delay="1250">
+                                        <Binding.ValidationRules>
+                                            <my:ValueRangeRule Min="0" Max="1"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
                                 <TextBox.Width>
                                     <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="48" FallbackValue="48">
                                         <Binding RelativeSource="{RelativeSource Mode=Self}"/>
-                                        <Binding Path="FontFamilyMainForm"/>
-                                        <Binding Path="FontSizeMainForm"/>
+                                        <Binding Path="ApplicationFontFamily"/>
+                                        <Binding Path="DialogFontSize"/>
                                     </MultiBinding>
                                 </TextBox.Width>
                             </TextBox>
-                            <ContentPresenter Content="{Binding ElementName=tbFuzzyMatchThreshold, Path=(Validation.Errors).CurrentItem}" />
                         </StackPanel>
                         <TextBlock Text="0 - match everything; 1.0 - exact match" />
                     </StackPanel>

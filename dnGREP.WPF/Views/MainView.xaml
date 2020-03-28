@@ -17,8 +17,8 @@
                  AllowDrop="True"
                  my:FileDragDropHelper.IsFileDragDropEnabled="True" 
                  my:FileDragDropHelper.FileDragDropTarget="{Binding}"
-                 FontFamily="{Binding FontFamilyMainForm}"
-                 FontSize="{Binding FontSizeMainForm}"
+                 FontFamily="{Binding ApplicationFontFamily}"
+                 FontSize="{Binding MainFormFontSize}"
                  SnapsToDevicePixels="True"
                  Background="{DynamicResource GradientBackground}"
                  CaptionBackground="{DynamicResource Caption.Background}"
@@ -72,7 +72,7 @@
         <DockPanel Margin="5,5,5,0" DockPanel.Dock="Top"
                    Background="{DynamicResource Menu.Normal.Background}">
             <TextBlock DockPanel.Dock="Left" 
-                       FontSize="{Binding FontSizeMainForm, Converter={StaticResource TitleSizeConverter}}" 
+                       FontSize="{Binding MainFormFontSize, Converter={StaticResource TitleSizeConverter}}" 
                        FontWeight="DemiBold"
                        Text="dnGrep"
                        Style="{StaticResource ThemedTextBlock}" />
@@ -80,8 +80,8 @@
                 <Menu.Resources>
                     <Style BasedOn="{StaticResource ThemedMenuItem}" TargetType="{x:Type MenuItem}">
                         <!--<Setter Property="Height" Value="22" />-->
-                        <Setter Property="FontFamily" Value="{Binding FontFamilyMainForm}"/>
-                        <Setter Property="FontSize" Value="{Binding FontSizeMainForm}"/>
+                        <Setter Property="FontFamily" Value="{Binding ApplicationFontFamily}"/>
+                        <Setter Property="FontSize" Value="{Binding MainFormFontSize}"/>
                     </Style>
                 </Menu.Resources>
                 <MenuItem Margin="0,0,3,0" Header="_Undo"
@@ -101,8 +101,8 @@
         </DockPanel>
 
         <StatusBar DockPanel.Dock="Bottom"
-                   FontFamily="{Binding FontFamilyMainForm}"
-                   FontSize="{Binding FontSizeMainForm}">
+                   FontFamily="{Binding ApplicationFontFamily}"
+                   FontSize="{Binding MainFormFontSize}">
             <StatusBarItem>
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Margin="3,0,10,0" Background="{DynamicResource Control.Static.Background}"
@@ -148,8 +148,8 @@
                 <TextBox.Width>
                     <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
                         <Binding RelativeSource="{RelativeSource Mode=Self}"/>
-                        <Binding Path="FontFamilyMainForm"/>
-                        <Binding Path="FontSizeMainForm"/>
+                        <Binding Path="ApplicationFontFamily"/>
+                        <Binding Path="MainFormFontSize"/>
                     </MultiBinding>
                 </TextBox.Width>
             </TextBox>
@@ -160,8 +160,8 @@
                 <TextBox.Width>
                     <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
                         <Binding RelativeSource="{RelativeSource Mode=Self}"/>
-                        <Binding Path="FontFamilyMainForm"/>
-                        <Binding Path="FontSizeMainForm"/>
+                        <Binding Path="ApplicationFontFamily"/>
+                        <Binding Path="MainFormFontSize"/>
                     </MultiBinding>
                 </TextBox.Width>
             </TextBox>
@@ -205,8 +205,8 @@
                         <Button.Width>
                             <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
                                 <Binding RelativeSource="{RelativeSource Mode=Self}"/>
-                                <Binding Path="FontFamilyMainForm"/>
-                                <Binding Path="FontSizeMainForm"/>
+                                <Binding Path="ApplicationFontFamily"/>
+                                <Binding Path="MainFormFontSize"/>
                             </MultiBinding>
                         </Button.Width>
                     </Button>
@@ -245,8 +245,8 @@
                                             <TextBox.Width>
                                                 <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="48" FallbackValue="48">
                                                     <Binding RelativeSource="{RelativeSource Mode=Self}"/>
-                                                    <Binding Path="FontFamilyMainForm"/>
-                                                    <Binding Path="FontSizeMainForm"/>
+                                                    <Binding Path="ApplicationFontFamily"/>
+                                                    <Binding Path="MainFormFontSize"/>
                                                 </MultiBinding>
                                             </TextBox.Width>
                                             <TextBox.Text>
@@ -267,8 +267,8 @@
                                             <TextBox.Width>
                                                 <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="48" FallbackValue="48">
                                                     <Binding RelativeSource="{RelativeSource Mode=Self}"/>
-                                                    <Binding Path="FontFamilyMainForm"/>
-                                                    <Binding Path="FontSizeMainForm"/>
+                                                    <Binding Path="ApplicationFontFamily"/>
+                                                    <Binding Path="MainFormFontSize"/>
                                                 </MultiBinding>
                                             </TextBox.Width>
                                             <TextBox.Text>
@@ -295,8 +295,8 @@
                                             <TextBox.Width>
                                                 <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="48" FallbackValue="48">
                                                     <Binding RelativeSource="{RelativeSource Mode=Self}"/>
-                                                    <Binding Path="FontFamilyMainForm"/>
-                                                    <Binding Path="FontSizeMainForm"/>
+                                                    <Binding Path="ApplicationFontFamily"/>
+                                                    <Binding Path="MainFormFontSize"/>
                                                 </MultiBinding>
                                             </TextBox.Width>
                                             <TextBox.Text>
@@ -380,8 +380,8 @@
                                             <TextBox.Width>
                                                 <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="45" FallbackValue="45">
                                                     <Binding RelativeSource="{RelativeSource Mode=Self}"/>
-                                                    <Binding Path="FontFamilyMainForm"/>
-                                                    <Binding Path="FontSizeMainForm"/>
+                                                    <Binding Path="ApplicationFontFamily"/>
+                                                    <Binding Path="MainFormFontSize"/>
                                                 </MultiBinding>
                                             </TextBox.Width>
                                         </TextBox>
@@ -396,8 +396,8 @@
                                             <TextBox.Width>
                                                 <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="45" FallbackValue="45">
                                                     <Binding RelativeSource="{RelativeSource Mode=Self}"/>
-                                                    <Binding Path="FontFamilyMainForm"/>
-                                                    <Binding Path="FontSizeMainForm"/>
+                                                    <Binding Path="ApplicationFontFamily"/>
+                                                    <Binding Path="MainFormFontSize"/>
                                                 </MultiBinding>
                                             </TextBox.Width>
                                             <TextBox.Text>
@@ -471,8 +471,8 @@
                                             <ComboBox.Width>
                                                 <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="224" FallbackValue="224">
                                                     <Binding RelativeSource="{RelativeSource Mode=Self}"/>
-                                                    <Binding Path="FontFamilyMainForm"/>
-                                                    <Binding Path="FontSizeMainForm"/>
+                                                    <Binding Path="ApplicationFontFamily"/>
+                                                    <Binding Path="MainFormFontSize"/>
                                                 </MultiBinding>
                                             </ComboBox.Width>
                                         </ComboBox>
@@ -640,7 +640,7 @@
                                   ItemsSource="{Binding FastSearchBookmarks}"
                                   Style="{DynamicResource MultilineComboBoxStyle}"
                                   IsTextSearchCaseSensitive="True" 
-                                  FontFamily="Consolas" FontSize="{Binding FontSizeMainForm}"
+                                  FontFamily="Consolas" FontSize="{Binding MainFormFontSize}"
                                   TabIndex="60">
                             <ComboBox.ToolTip>
                                 <TextBlock><Run Text=". matches all characters" /><LineBreak /><Run Text="\w matches alpha-numerics" /><LineBreak /><Run Text="\d matches digits" /><LineBreak /><Run Text="\s matches space" /><LineBreak /><Run Text="* matches any number of characters" /><LineBreak /><Run Text="{}{1,3} matches 1 to 3 characters" /><LineBreak /><Run Text="For more Regex patterns hit F1" /></TextBlock>
@@ -656,7 +656,7 @@
                                   ItemsSource="{Binding FastReplaceBookmarks}"
                                   Style="{DynamicResource MultilineComboBoxStyle}"
                                   IsTextSearchCaseSensitive="True" 
-                                  FontFamily="Consolas" FontSize="{Binding FontSizeMainForm}"
+                                  FontFamily="Consolas" FontSize="{Binding MainFormFontSize}"
                                   TabIndex="61">
                             <ComboBox.ToolTip>
                                 <TextBlock><Run Text="$&amp; replaces entire regex" /><LineBreak /><Run Text="$1, $2, $3, etc... inserts the text matched between capturing parentheses into the replacement text" /><LineBreak /><Run Text="$$ inserts a single dollar sign into the replacement text" /><LineBreak /><Run Text="\\t inserts a tab, and \\n or \\r\\n inserts a newline into the replacement text" /></TextBlock>
