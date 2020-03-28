@@ -885,6 +885,12 @@ namespace dnGREP.WPF
                 GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
             MainFormFontSize = useDefaultFontMainForm ? SystemFonts.MessageFontSize :
                 GrepSettings.Instance.Get<double>(GrepSettings.Key.MainFormFontSize);
+
+            if (PreviewModel != null)
+            {
+                PreviewModel.ApplicationFontFamily = ApplicationFontFamily;
+                PreviewModel.MainFormFontSize = MainFormFontSize;
+            }
         }
 
         public override void SaveSettings()

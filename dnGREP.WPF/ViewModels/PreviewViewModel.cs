@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Windows;
 using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
 using ICSharpCode.AvalonEdit.Highlighting;
@@ -19,6 +20,9 @@ namespace dnGREP.WPF
             CurrentSyntax = "None";
 
             HighlightsOn = GrepSettings.Instance.Get<bool>(GrepSettings.Key.HighlightMatches);
+
+            ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
+            MainFormFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.MainFormFontSize);
 
             PropertyChanged += PreviewViewModel_PropertyChanged;
         }
@@ -153,6 +157,34 @@ namespace dnGREP.WPF
             get
             {
                 return ThemedHighlightingManager.Instance.GetDefinition(CurrentSyntax);
+            }
+        }
+
+        private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
+        public string ApplicationFontFamily
+        {
+            get { return applicationFontFamily; }
+            set
+            {
+                if (applicationFontFamily == value)
+                    return;
+
+                applicationFontFamily = value;
+                base.OnPropertyChanged(() => ApplicationFontFamily);
+            }
+        }
+
+        private double mainFormfontSize = SystemFonts.MessageFontSize;
+        public double MainFormFontSize
+        {
+            get { return mainFormfontSize; }
+            set
+            {
+                if (mainFormfontSize == value)
+                    return;
+
+                mainFormfontSize = value;
+                base.OnPropertyChanged(() => MainFormFontSize);
             }
         }
 

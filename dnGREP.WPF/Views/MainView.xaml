@@ -11,14 +11,14 @@
                  MinWidth="500"
                  MinHeight="485"
                  d:DesignWidth="900"
+                 FontFamily="{Binding ApplicationFontFamily}"
+                 FontSize="{Binding MainFormFontSize}"
                  my:DiginesisHelpProvider.HelpKeyword="Search-Window"
                  my:DiginesisHelpProvider.HelpNavigator="Topic"
                  my:DiginesisHelpProvider.ShowHelp="True"
                  AllowDrop="True"
                  my:FileDragDropHelper.IsFileDragDropEnabled="True" 
                  my:FileDragDropHelper.FileDragDropTarget="{Binding}"
-                 FontFamily="{Binding ApplicationFontFamily}"
-                 FontSize="{Binding MainFormFontSize}"
                  SnapsToDevicePixels="True"
                  Background="{DynamicResource GradientBackground}"
                  CaptionBackground="{DynamicResource Caption.Background}"
@@ -59,6 +59,7 @@
                      FloatWindowState="{Binding PreviewWindowState, Mode=TwoWay}"
                      IsDocked="{Binding IsPreviewDocked, Mode=TwoWay}"
                      IsHidden="{Binding IsPreviewHidden, Mode=TwoWay}"
+                     FontSize="{Binding MainFormFontSize, Converter={StaticResource TitleSizeConverter}, ConverterParameter=2, FallbackValue=14}" 
                      Style="{StaticResource ThemedDockSite}">
             <Border>
                 <my:PreviewControl x:Name="previewControl" />
@@ -72,7 +73,7 @@
         <DockPanel Margin="5,5,5,0" DockPanel.Dock="Top"
                    Background="{DynamicResource Menu.Normal.Background}">
             <TextBlock DockPanel.Dock="Left" 
-                       FontSize="{Binding MainFormFontSize, Converter={StaticResource TitleSizeConverter}}" 
+                       FontSize="{Binding MainFormFontSize, Converter={StaticResource TitleSizeConverter}, ConverterParameter=4}" 
                        FontWeight="DemiBold"
                        Text="dnGrep"
                        Style="{StaticResource ThemedTextBlock}" />

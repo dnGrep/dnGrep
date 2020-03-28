@@ -38,7 +38,8 @@
                             BorderThickness="{TemplateBinding BorderThickness}">
                         <Grid>
                             <DockPanel>
-                                <TextBlock x:Name="header" DockPanel.Dock="Top" FontSize="14" Margin="3,0,0,0"
+                                <TextBlock x:Name="header" DockPanel.Dock="Top" Margin="3,0,0,0"
+                                           FontSize="{Binding FontSize, RelativeSource={RelativeSource TemplatedParent}}"
                                            Text="{Binding Heading, RelativeSource={RelativeSource TemplatedParent}}" />
                                 <!-- Spacer for when ButtonOverlapsContent is not set -->
                                 <Border x:Name="spacer"
