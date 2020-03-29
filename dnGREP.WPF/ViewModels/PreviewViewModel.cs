@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
-using System.Windows;
 using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
 using ICSharpCode.AvalonEdit.Highlighting;
@@ -160,7 +159,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
+        private string applicationFontFamily;
         public string ApplicationFontFamily
         {
             get { return applicationFontFamily; }
@@ -174,7 +173,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private double mainFormfontSize = SystemFonts.MessageFontSize;
+        private double mainFormfontSize;
         public double MainFormFontSize
         {
             get { return mainFormfontSize; }

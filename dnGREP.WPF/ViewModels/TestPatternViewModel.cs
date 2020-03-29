@@ -101,7 +101,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
+        private string applicationFontFamily;
         public string ApplicationFontFamily
         {
             get { return applicationFontFamily; }
@@ -115,7 +115,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private double dialogfontSize = SystemFonts.MessageFontSize;
+        private double dialogfontSize;
         public double DialogFontSize
         {
             get { return dialogfontSize; }

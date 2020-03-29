@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Reflection;
-using System.Windows;
 using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
 
@@ -19,7 +18,7 @@ namespace dnGREP.WPF
             DialogFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.DialogFontSize);
         }
 
-        private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
+        private string applicationFontFamily;
         public string ApplicationFontFamily
         {
             get { return applicationFontFamily; }
@@ -33,7 +32,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private double dialogfontSize = SystemFonts.MessageFontSize;
+        private double dialogfontSize;
         public double DialogFontSize
         {
             get { return dialogfontSize; }

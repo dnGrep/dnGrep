@@ -114,7 +114,7 @@ namespace dnGREP.WPF
 
         #region Presentation Properties
 
-        private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
+        private string applicationFontFamily;
         public string ApplicationFontFamily
         {
             get { return applicationFontFamily; }
@@ -128,7 +128,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private double mainFormfontSize = SystemFonts.MessageFontSize;
+        private double mainFormfontSize;
         public double MainFormFontSize
         {
             get { return mainFormfontSize; }
@@ -880,11 +880,8 @@ namespace dnGREP.WPF
             ContextLinesBefore = GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore);
             ContextLinesAfter = GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter);
 
-            bool useDefaultFontMainForm = GrepSettings.Instance.Get<bool>(GrepSettings.Key.UseDefaultFont);
-            ApplicationFontFamily = useDefaultFontMainForm ? SystemFonts.MessageFontFamily.Source :
-                GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
-            MainFormFontSize = useDefaultFontMainForm ? SystemFonts.MessageFontSize :
-                GrepSettings.Instance.Get<double>(GrepSettings.Key.MainFormFontSize);
+            ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
+            MainFormFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.MainFormFontSize);
 
             if (PreviewModel != null)
             {

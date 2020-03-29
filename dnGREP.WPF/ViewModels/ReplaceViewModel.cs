@@ -4,7 +4,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Windows;
 using System.Windows.Input;
 using dnGREP.Common;
 using ICSharpCode.AvalonEdit.Highlighting;
@@ -407,7 +406,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
+        private string applicationFontFamily;
         public string ApplicationFontFamily
         {
             get { return applicationFontFamily; }
@@ -421,7 +420,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private double replaceFormfontSize = SystemFonts.MessageFontSize;
+        private double replaceFormfontSize;
         public double ReplaceFormFontSize
         {
             get { return replaceFormfontSize; }

@@ -200,10 +200,36 @@ namespace dnGREP.Common
                     foreach (KeyValuePair<string, string> pair in appData)
                         this[pair.Key] = pair.Value;
                 }
+
+                InitializeFonts();
             }
             catch (Exception ex)
             {
                 logger.Log<Exception>(LogLevel.Error, "Failed to load settings: " + ex.Message, ex);
+            }
+        }
+
+        private void InitializeFonts()
+        {
+            if (!TryGetValue(Key.ApplicationFontFamily, out string value) ||
+                string.IsNullOrWhiteSpace(value))
+            {
+                Set(Key.ApplicationFontFamily, SystemFonts.MessageFontFamily.Source);
+            }
+
+            if (Get<double>(Key.MainFormFontSize) == 0)
+            {
+                Set(Key.MainFormFontSize, SystemFonts.MessageFontSize);
+            }
+
+            if (Get<double>(Key.ReplaceFormFontSize) == 0)
+            {
+                Set(Key.ReplaceFormFontSize, SystemFonts.MessageFontSize);
+            }
+
+            if (Get<double>(Key.DialogFontSize) == 0)
+            {
+                Set(Key.DialogFontSize, SystemFonts.MessageFontSize);
             }
         }
 
