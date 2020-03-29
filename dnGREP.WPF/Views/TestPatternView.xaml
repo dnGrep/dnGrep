@@ -3,8 +3,10 @@
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:my="clr-namespace:dnGREP.WPF"
                  Title="Test"
-                 Width="580" Height="580"
-                 MinWidth="580" MinHeight="460"
+                 FontFamily="{Binding ApplicationFontFamily}"
+                 FontSize="{Binding DialogFontSize}"
+                 SizeToContent="Height"
+                 Width="600" MinHeight="460"
                  WindowStyle="SingleBorderWindow"
                  Icon="/dnGREP;component/nGREP.ico"
                  Background="{DynamicResource Dialog.Background}"
@@ -19,15 +21,13 @@
                TargetType="{x:Type TextBox}"
                BasedOn="{StaticResource ThemedTextBox}">
             <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Height" Value="24" />
             <Style.Triggers>
                 <DataTrigger Binding="{Binding Path=Multiline}" Value="True">
-                    <Setter Property="Height" Value="50" />
+                    <Setter Property="MinHeight" Value="50" />
                     <Setter Property="TextWrapping" Value="Wrap" />
                     <Setter Property="AcceptsReturn" Value="True" />
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=Multiline}" Value="False">
-                    <Setter Property="Height" Value="24" />
                     <Setter Property="TextWrapping" Value="NoWrap" />
                     <Setter Property="AcceptsReturn" Value="False" />
                 </DataTrigger>
@@ -120,7 +120,7 @@
                             </TextBox.ToolTip>
                         </TextBox>
                     </GroupBox>
-                    <WrapPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="8,0,0,0" Orientation="Horizontal">
+                    <UniformGrid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="8,0,0,0" Rows="2">
                         <CheckBox Content="Case sensitive" Margin="3,4,3,3" 
                                     IsChecked="{Binding Path=CaseSensitive}"
                                     IsEnabled="{Binding Path=IsCaseSensitiveEnabled}"/>
@@ -139,7 +139,7 @@
                         <CheckBox Content="Highlight Groups" Margin="3,4,3,3"                                  
                                     IsChecked="{Binding HighlightCaptureGroups}"
                                     IsEnabled="{Binding Path=IsHighlightGroupsEnabled}" />
-                    </WrapPanel>
+                    </UniformGrid>
                 </Grid>
             </GroupBox>
         </StackPanel>
@@ -154,7 +154,7 @@
             </Grid.RowDefinitions>
             <DockPanel Grid.Row="0" LastChildFill="True">
                 <Label DockPanel.Dock="Top" Content="Sample input text:"/>
-                <TextBox Height="Auto"
+                <TextBox MinHeight="60"
                          Margin="5" AcceptsReturn="True" TextWrapping="Wrap"
                          VerticalScrollBarVisibility="Auto"
                          FontFamily="Consolas"
@@ -169,7 +169,8 @@
                         BorderThickness="1"
                         Background="{DynamicResource Control.Static.Background}">
                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                        <my:InlineTextBlock Margin="3,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"
+                        <my:InlineTextBlock Margin="3,0,0,0" MinHeight="60"
+                                            HorizontalAlignment="Stretch" VerticalAlignment="Top"
                                             InlineCollection="{Binding SearchOutput}"
                                             FontFamily="Consolas"
                                             Style="{StaticResource ThemedTextBlock}" />
@@ -189,7 +190,8 @@
                         BorderThickness="1"
                         Background="{DynamicResource Control.Static.Background}">
                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                        <my:InlineTextBlock Margin="3,0,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Top"
+                        <my:InlineTextBlock Margin="3,0,0,0" MinHeight="60"
+                                            HorizontalAlignment="Stretch" VerticalAlignment="Top"
                                             InlineCollection="{Binding ReplaceOutput}"
                                             FontFamily="Consolas"
                                             Style="{StaticResource ThemedTextBlock}" />
@@ -203,8 +205,7 @@
                 </Border>
             </DockPanel>
             <StackPanel Grid.Row="5" Margin="0,0,3,0" HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button Width="64" Height="24"
-                        Margin="3" Content="Close"
+                <Button Margin="3" Padding="20,3" Content="Close"
                         Click="BtnClose_Click" IsCancel="True" />
             </StackPanel>
         </Grid>

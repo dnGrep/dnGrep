@@ -5,6 +5,8 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:my="clr-namespace:dnGREP.WPF"
                  Title="Bookmark Details"
+                 FontFamily="{Binding ApplicationFontFamily}"
+                 FontSize="{Binding DialogFontSize}"
                  SizeToContent="WidthAndHeight"
                  WindowStartupLocation="CenterOwner"
                  ResizeMode="CanResize"
@@ -19,11 +21,10 @@
         <my:EnumBooleanConverter x:Key="ebc" />
         <my:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed" />
         <my:IntOrEmptyValueConverter x:Key="IntConverter"/>
+        <my:TextBoxWidthConverter x:Key="TextBoxWidthConverter"/>
 
         <Style TargetType="Button" BasedOn="{StaticResource ThemedButton}">
-            <Setter Property="Width" Value="90" />
-            <Setter Property="Height" Value="28" />
-            <Setter Property="Padding" Value="3" />
+            <Setter Property="Padding" Value="20,3" />
             <Setter Property="Margin" Value="3" />
         </Style>
         <Style TargetType="TextBox" BasedOn="{StaticResource ThemedTextBox}">
@@ -44,12 +45,16 @@
         </Style>
     </Window.Resources>
 
-    <DockPanel MinWidth="450" Margin="8">
+    <DockPanel MinWidth="450" Margin="8" Grid.IsSharedSizeScope="True">
 
-        <StackPanel HorizontalAlignment="Right" DockPanel.Dock="Bottom" Orientation="Horizontal">
-            <Button Content="OK" IsDefault="True" Click="OkButton_Click" />
-            <Button Content="Cancel" IsCancel="True" />
-        </StackPanel>
+        <Grid HorizontalAlignment="Right" DockPanel.Dock="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition SharedSizeGroup="A"/>
+                <ColumnDefinition SharedSizeGroup="A"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="OK" IsDefault="True" Click="OkButton_Click" />
+            <Button Grid.Column="1" Content="Cancel" IsCancel="True" />
+        </Grid>
 
         <DockPanel Margin="0,0,0,18">
 
@@ -113,8 +118,7 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Margin="3,0,3,3" Text="Max depth"
                                Style="{StaticResource LabelTextBlockStyle}" />
-                    <my:DepthTextBox Width="48" Height="24"
-                                     Margin="3,0,3,3"
+                    <my:DepthTextBox Margin="3,0,3,3"
                                      IsEnabled="{Binding Path=IncludeSubfolder}"
                                      TabIndex="25" GotFocus="TextBoxFocus"
                                      PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting">
@@ -126,6 +130,13 @@
                                 </Binding.ValidationRules>
                             </Binding>
                         </TextBox.Text>
+                        <TextBox.Width>
+                            <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="48" FallbackValue="48">
+                                <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                <Binding Path="ApplicationFontFamily"/>
+                                <Binding Path="DialogFontSize"/>
+                            </MultiBinding>
+                        </TextBox.Width>
                     </my:DepthTextBox>
                 </StackPanel>
                 <CheckBox IsChecked="{Binding Path=IncludeArchive}" Content="Search in archives" />
@@ -137,7 +148,7 @@
             <StackPanel Margin="0,3,0,16" DockPanel.Dock="Top" Orientation="Horizontal">
                 <TextBlock Margin="3,0,3,3" Text="Encoding:"
                            Style="{StaticResource LabelTextBlockStyle}" />
-                <ComboBox Name="cbEncoding" Width="224" Height="24"
+                <ComboBox Name="cbEncoding"
                           Margin="3,0,3,3" HorizontalContentAlignment="Center"
                           DisplayMemberPath="Key" SelectedValuePath="Value"
                           ItemsSource="{Binding Path=Encodings}"
@@ -148,6 +159,13 @@
                             <Setter Property="HorizontalContentAlignment" Value="Left" />
                         </Style>
                     </ComboBox.ItemContainerStyle>
+                    <ComboBox.Width>
+                        <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="224" FallbackValue="224">
+                            <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                            <Binding Path="ApplicationFontFamily"/>
+                            <Binding Path="DialogFontSize"/>
+                        </MultiBinding>
+                    </ComboBox.Width>
                 </ComboBox>
             </StackPanel>
 

@@ -20,6 +20,12 @@ namespace dnGREP.WPF
         private List<GrepSearchResult> grepResults = new List<GrepSearchResult>();
         private readonly string horizontalBar = new string(char.ConvertFromUtf32(0x2015)[0], 80);
 
+        public TestPatternViewModel()
+        {
+            ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
+            DialogFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.DialogFontSize);
+        }
+
         private int GetSearchHash()
         {
             unchecked
@@ -92,6 +98,34 @@ namespace dnGREP.WPF
                 case nameof(ValidationMessage):
                     HasValidationMessage = !string.IsNullOrWhiteSpace(ValidationMessage);
                     break;
+            }
+        }
+
+        private string applicationFontFamily = SystemFonts.MessageFontFamily.Source;
+        public string ApplicationFontFamily
+        {
+            get { return applicationFontFamily; }
+            set
+            {
+                if (applicationFontFamily == value)
+                    return;
+
+                applicationFontFamily = value;
+                base.OnPropertyChanged(() => ApplicationFontFamily);
+            }
+        }
+
+        private double dialogfontSize = SystemFonts.MessageFontSize;
+        public double DialogFontSize
+        {
+            get { return dialogfontSize; }
+            set
+            {
+                if (dialogfontSize == value)
+                    return;
+
+                dialogfontSize = value;
+                base.OnPropertyChanged(() => DialogFontSize);
             }
         }
 
