@@ -33,6 +33,10 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+        <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource ThemedContextMenu}">
+            <Setter Property="FontFamily" Value="{Binding ApplicationFontFamily}"/>
+            <Setter Property="FontSize" Value="{Binding DialogFontSize}"/>
+        </Style>
 
         <my:EnumBooleanConverter x:Key="ebc" />
         <my:StringNotNullOrEmptyConverter x:Key="notNullOrEmpty" />

@@ -422,16 +422,6 @@ namespace dnGREP.WPF.UserControls
                         inputData.ResultsScale /= 1.005;
                     }
 
-                    if (dist1 < dist2 && inputData.ResultsMenuScale < 1.5)
-                    {
-                        inputData.ResultsMenuScale *= 1.0025;
-                    }
-
-                    if (dist1 > dist2 && inputData.ResultsMenuScale > 1.0)
-                    {
-                        inputData.ResultsMenuScale /= 1.0025;
-                    }
-
                     e.Handled = true;
                 }
 
@@ -458,16 +448,6 @@ namespace dnGREP.WPF.UserControls
                 inputData.ResultsScale /= 1.05;
             }
 
-            if (e.Delta > 0 && inputData.ResultsMenuScale < 1.5)
-            {
-                inputData.ResultsMenuScale *= 1.025;
-            }
-
-            if (e.Delta < 0 && inputData.ResultsMenuScale > 1.0)
-            {
-                inputData.ResultsMenuScale /= 1.025;
-            }
-
             e.Handled = true;
         }
 
@@ -476,7 +456,6 @@ namespace dnGREP.WPF.UserControls
             if (inputData != null)
             {
                 inputData.ResultsScale = 1.0;
-                inputData.ResultsMenuScale = 1.0;
             }
         }
 

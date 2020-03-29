@@ -40,7 +40,13 @@
         <my:IntOrEmptyValueConverter x:Key="IntConverter"/>
         <my:TitleFontSizeConverter x:Key="TitleSizeConverter"/>
         <my:TextBoxWidthConverter x:Key="TextBoxWidthConverter"/>
+
+        <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource ThemedContextMenu}">
+            <Setter Property="FontFamily" Value="{Binding ApplicationFontFamily}"/>
+            <Setter Property="FontSize" Value="{Binding MainFormFontSize}"/>
+        </Style>
     </my:ThemedWindow.Resources>
+    
     <my:ThemedWindow.InputBindings>
         <KeyBinding Key="Escape" Command="{Binding CancelCommand}" />
         <KeyBinding Key="e" Modifiers="Alt"
@@ -80,7 +86,6 @@
             <Menu HorizontalAlignment="Right">
                 <Menu.Resources>
                     <Style BasedOn="{StaticResource ThemedMenuItem}" TargetType="{x:Type MenuItem}">
-                        <!--<Setter Property="Height" Value="22" />-->
                         <Setter Property="FontFamily" Value="{Binding ApplicationFontFamily}"/>
                         <Setter Property="FontSize" Value="{Binding MainFormFontSize}"/>
                     </Style>
