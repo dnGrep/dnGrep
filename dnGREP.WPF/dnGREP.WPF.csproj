@@ -157,10 +157,14 @@
     <Compile Include="Controls\ThemedWindow.cs" />
     <Compile Include="MVHelpers\FileDragDropHelper.cs" />
     <Compile Include="MVHelpers\IntOrEmptyValueConverter.cs" />
+    <Compile Include="MVHelpers\PercentValueConverter.cs" />
     <Compile Include="MVHelpers\ResizeModeConverter.cs" />
     <Compile Include="MVHelpers\ColorInverter.cs" />
     <Compile Include="MVHelpers\ResultSorter.cs" />
     <Compile Include="MVHelpers\StringNotNullOrEmptyConverter.cs" />
+    <Compile Include="MVHelpers\ValueRangeRule.cs" />
+    <Compile Include="MVHelpers\TextBoxWidthConverter.cs" />
+    <Compile Include="MVHelpers\TitleFontSizeConverter.cs" />
     <Compile Include="MVHelpers\TypeOfSearchValueConverter.cs" />
     <Compile Include="MVHelpers\ValidationColorConverter.cs" />
     <Compile Include="ThemedHighlightingManager.cs" />

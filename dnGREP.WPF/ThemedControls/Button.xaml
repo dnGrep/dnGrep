@@ -63,7 +63,6 @@
     <Style BasedOn="{StaticResource ThemedButton}" TargetType="Button" />
 
     <Style x:Key="FormButtonStyle" BasedOn="{StaticResource ThemedButton}" TargetType="Button">
-        <Setter Property="MinHeight" Value="24" />
         <Setter Property="MinWidth" Value="80" />
         <Setter Property="Margin" Value="3,0" />
     </Style>

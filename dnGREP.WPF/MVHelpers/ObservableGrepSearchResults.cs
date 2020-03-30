@@ -239,21 +239,6 @@ namespace dnGREP.WPF
             }
         }
 
-        private double resultsMenuScale = 1.0;
-        public double ResultsMenuScale
-        {
-            get { return resultsMenuScale; }
-            set
-            {
-                if (value == resultsMenuScale)
-                    return;
-
-                resultsMenuScale = value;
-
-                base.OnPropertyChanged(new PropertyChangedEventArgs("ResultsMenuScale"));
-            }
-        }
-
         public bool HasSelection
         {
             get { return SelectedNodes.Any(); }

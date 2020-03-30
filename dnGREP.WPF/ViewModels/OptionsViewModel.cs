@@ -6,18 +6,20 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Security.Principal;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
 using dnGREP.Common;
 using dnGREP.Engines;
 using Microsoft.Win32;
 
 namespace dnGREP.WPF
 {
-    public class OptionsViewModel : ViewModelBase, IDataErrorInfo
+    public class OptionsViewModel : ViewModelBase
     {
         public OptionsViewModel()
         {
-            LoadSetting();
+            LoadSettings();
 
             foreach (string name in AppTheme.Instance.ThemeNames)
                 ThemeNames.Add(name);
@@ -69,6 +71,11 @@ namespace dnGREP.WPF
                     PanelSelection.MainPanel : PanelSelection.OptionsExpander) ||
                 FollowWindowsTheme != Settings.Get<bool>(GrepSettings.Key.FollowWindowsTheme) ||
                 CurrentTheme != Settings.Get<string>(GrepSettings.Key.CurrentTheme) ||
+                UseDefaultFont != Settings.Get<bool>(GrepSettings.Key.UseDefaultFont) ||
+                EditApplicationFontFamily != Settings.Get<string>(GrepSettings.Key.ApplicationFontFamily) ||
+                EditMainFormFontSize != Settings.Get<double>(GrepSettings.Key.MainFormFontSize) ||
+                EditReplaceFormFontSize != Settings.Get<double>(GrepSettings.Key.ReplaceFormFontSize) ||
+                EditDialogFontSize != Settings.Get<double>(GrepSettings.Key.DialogFontSize) ||
                 ArchiveOptions.IsChanged ||
                 IsChanged(Plugins)
                 )
@@ -555,6 +562,146 @@ namespace dnGREP.WPF
 
         public ObservableCollection<PluginOptions> Plugins { get; set; } = new ObservableCollection<PluginOptions>();
 
+        public IList<string> FontFamilies
+        {
+            get { return Fonts.SystemFontFamilies.Select(r => r.Source).ToList(); }
+        }
+
+        private bool useDefaultFont = true;
+        public bool UseDefaultFont
+        {
+            get { return useDefaultFont; }
+            set
+            {
+                if (useDefaultFont == value)
+                    return;
+
+                useDefaultFont = value;
+
+                if (useDefaultFont)
+                {
+                    EditApplicationFontFamily = SystemFonts.MessageFontFamily.Source;
+                    EditMainFormFontSize = SystemFonts.MessageFontSize;
+                    EditReplaceFormFontSize = SystemFonts.MessageFontSize;
+                    EditDialogFontSize = SystemFonts.MessageFontSize;
+                }
+
+                base.OnPropertyChanged(() => UseDefaultFont);
+            }
+        }
+
+        private string applicationFontFamily;
+        public string ApplicationFontFamily
+        {
+            get { return applicationFontFamily; }
+            set
+            {
+                if (applicationFontFamily == value)
+                    return;
+
+                applicationFontFamily = value;
+                base.OnPropertyChanged(() => ApplicationFontFamily);
+            }
+        }
+
+        private string editApplicationFontFamily;
+        public string EditApplicationFontFamily
+        {
+            get { return editApplicationFontFamily; }
+            set
+            {
+                if (editApplicationFontFamily == value)
+                    return;
+
+                editApplicationFontFamily = value;
+                base.OnPropertyChanged(() => EditApplicationFontFamily);
+            }
+        }
+
+        private double mainFormFontSize;
+        public double MainFormFontSize
+        {
+            get { return mainFormFontSize; }
+            set
+            {
+                if (mainFormFontSize == value)
+                    return;
+
+                mainFormFontSize = value;
+                base.OnPropertyChanged(() => MainFormFontSize);
+            }
+        }
+
+        private double editMainFormFontSize;
+        public double EditMainFormFontSize
+        {
+            get { return editMainFormFontSize; }
+            set
+            {
+                if (editMainFormFontSize == value)
+                    return;
+
+                editMainFormFontSize = value;
+                base.OnPropertyChanged(() => EditMainFormFontSize);
+            }
+        }
+
+        private double replaceFormFontSize;
+        public double ReplaceFormFontSize
+        {
+            get { return replaceFormFontSize; }
+            set
+            {
+                if (replaceFormFontSize == value)
+                    return;
+
+                replaceFormFontSize = value;
+                base.OnPropertyChanged(() => ReplaceFormFontSize);
+            }
+        }
+
+        private double editReplaceFormFontSize;
+        public double EditReplaceFormFontSize
+        {
+            get { return editReplaceFormFontSize; }
+            set
+            {
+                if (editReplaceFormFontSize == value)
+                    return;
+
+                editReplaceFormFontSize = value;
+                base.OnPropertyChanged(() => EditReplaceFormFontSize);
+            }
+        }
+
+        private double dialogFontSize;
+        public double DialogFontSize
+        {
+            get { return dialogFontSize; }
+            set
+            {
+                if (dialogFontSize == value)
+                    return;
+
+                dialogFontSize = value;
+                base.OnPropertyChanged(() => DialogFontSize);
+            }
+        }
+
+        private double editDialogFontSize;
+        public double EditDialogFontSize
+        {
+            get { return editDialogFontSize; }
+            set
+            {
+                if (editDialogFontSize == value)
+                    return;
+
+                editDialogFontSize = value;
+                base.OnPropertyChanged(() => EditDialogFontSize);
+            }
+        }
+
         #endregion
 
         #region Presentation Properties
@@ -694,7 +841,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.FastSearchBookmarks, new List<string>());
         }
 
-        private void LoadSetting()
+        private void LoadSettings()
         {
             CheckIfAdmin();
             if (!IsAdministrator)
@@ -733,6 +880,16 @@ namespace dnGREP.WPF
             MaxExtensionBookmarks = Settings.Get<int>(GrepSettings.Key.MaxExtensionBookmarks);
             OptionsLocation = Settings.Get<bool>(GrepSettings.Key.OptionsOnMainPanel) ?
                 PanelSelection.MainPanel : PanelSelection.OptionsExpander;
+            
+            UseDefaultFont = Settings.Get<bool>(GrepSettings.Key.UseDefaultFont);
+            ApplicationFontFamily = EditApplicationFontFamily =
+                ValueOrDefault(GrepSettings.Key.ApplicationFontFamily, SystemFonts.MessageFontFamily.Source);
+            MainFormFontSize = EditMainFormFontSize =
+                ValueOrDefault(GrepSettings.Key.MainFormFontSize, SystemFonts.MessageFontSize);
+            ReplaceFormFontSize = EditReplaceFormFontSize =
+                ValueOrDefault(GrepSettings.Key.ReplaceFormFontSize, SystemFonts.MessageFontSize);
+            DialogFontSize = EditDialogFontSize =
+                ValueOrDefault(GrepSettings.Key.DialogFontSize, SystemFonts.MessageFontSize);
 
             // current values may not equal the saved settings value
             CurrentTheme = AppTheme.Instance.CurrentThemeName;
@@ -782,6 +939,18 @@ namespace dnGREP.WPF
             }
         }
 
+        private string ValueOrDefault(string settingsKey, string defaultValue)
+        {
+            string value = Settings.Get<string>(settingsKey);
+            return UseDefaultFont || string.IsNullOrWhiteSpace(value) ? defaultValue : value;
+        }
+
+        private double ValueOrDefault(string settingsKey, double defaultValue)
+        {
+            double value = Settings.Get<double>(settingsKey);
+            return UseDefaultFont || value == 0 ? defaultValue : value;
+        }
+
         private void SaveSettings()
         {
             if (EnableWindowsIntegration)
@@ -808,6 +977,11 @@ namespace dnGREP.WPF
                 StartupUnregister();
             }
 
+            ApplicationFontFamily = EditApplicationFontFamily;
+            MainFormFontSize = EditMainFormFontSize;
+            ReplaceFormFontSize = EditReplaceFormFontSize;
+            DialogFontSize = EditDialogFontSize;
+
             Settings.Set(GrepSettings.Key.EnableUpdateChecking, EnableCheckForUpdates);
             Settings.Set(GrepSettings.Key.UpdateCheckInterval, CheckForUpdatesInterval);
             Settings.Set(GrepSettings.Key.CustomEditor, CustomEditorPath);
@@ -831,6 +1005,11 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.OptionsOnMainPanel, OptionsLocation == PanelSelection.MainPanel);
             Settings.Set(GrepSettings.Key.FollowWindowsTheme, FollowWindowsTheme);
             Settings.Set(GrepSettings.Key.CurrentTheme, CurrentTheme);
+            Settings.Set(GrepSettings.Key.UseDefaultFont, UseDefaultFont);
+            Settings.Set(GrepSettings.Key.ApplicationFontFamily, ApplicationFontFamily);
+            Settings.Set(GrepSettings.Key.MainFormFontSize, MainFormFontSize);
+            Settings.Set(GrepSettings.Key.ReplaceFormFontSize, ReplaceFormFontSize);
+            Settings.Set(GrepSettings.Key.DialogFontSize, DialogFontSize);
 
             if (ArchiveOptions.IsChanged)
             {
@@ -1062,37 +1241,37 @@ namespace dnGREP.WPF
 
         #region IDataErrorInfo Members
 
-        string IDataErrorInfo.this[string propertyName]
-        {
-            get
-            {
-                string error = null;
+        //string IDataErrorInfo.this[string propertyName]
+        //{
+        //    get
+        //    {
+        //        string error = null;
 
-                // Do validation
-                if (propertyName == nameof(MatchThreshold))
-                {
-                    if (MatchThreshold < 0 || MatchThreshold > 1.0)
-                        error = "Error: Match threshold should be a number between 0 and 1.0";
-                }
-                else if (propertyName == nameof(MatchTimeout))
-                {
-                    if (MatchTimeout <= 0 || MatchTimeout > 60 * 60)
-                        error = "Error: Match Timeout should be a number 0 and 3600";
-                }
-                // Dirty the commands registered with CommandManager,
-                // such as our Save command, so that they are queried
-                // to see if they can execute now.
-                CommandManager.InvalidateRequerySuggested();
+        //        // Do validation
+        //        if (propertyName == nameof(MatchThreshold))
+        //        {
+        //            if (MatchThreshold < 0 || MatchThreshold > 1.0)
+        //                error = "Error: Match threshold should be a number between 0 and 1.0";
+        //        }
+        //        else if (propertyName == nameof(MatchTimeout))
+        //        {
+        //            if (MatchTimeout <= 0 || MatchTimeout > 60 * 60)
+        //                error = "Error: Match Timeout should be a number 0 and 3600";
+        //        }
+        //        // Dirty the commands registered with CommandManager,
+        //        // such as our Save command, so that they are queried
+        //        // to see if they can execute now.
+        //        CommandManager.InvalidateRequerySuggested();
 
-                return error;
-            }
-        }
+        //        return error;
+        //    }
+        //}
 
 
-        public string Error
-        {
-            get { return null; }
-        }
+        //public string Error
+        //{
+        //    get { return null; }
+        //}
 
         #endregion
     }

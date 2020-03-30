@@ -13,6 +13,10 @@
     
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource ThemedContextMenu}">
+            <Setter Property="FontFamily" Value="{Binding Path=DataContext.ApplicationFontFamily, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+            <Setter Property="FontSize" Value="{Binding Path=DataContext.MainFormFontSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+        </Style>
     </UserControl.Resources>
 
     <Controls:MultiSelectTreeView x:Name="treeView" HorizontalContentAlignment="Stretch"
@@ -107,9 +111,6 @@
         </TreeView.Resources>
         <TreeView.ContextMenu>
             <ContextMenu>
-                <ContextMenu.LayoutTransform>
-                    <ScaleTransform ScaleX="{Binding ResultsMenuScale}" ScaleY="{Binding ResultsMenuScale}" />
-                </ContextMenu.LayoutTransform>
                 <MenuItem Header="Open" Click="btnOpenFile_Click" IsEnabled="{Binding HasSelection}" />
                 <MenuItem Header="Open with custom editor" Click="btnOpenFileCustomEditor_Click"
                           IsEnabled="{Binding HasSelection}"

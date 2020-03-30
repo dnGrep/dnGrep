@@ -5,6 +5,8 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:my="clr-namespace:dnGREP.WPF"
                  Title="Bookmarks"
+                 FontFamily="{Binding ApplicationFontFamily}"
+                 FontSize="{Binding DialogFontSize}"
                  Width="860"
                  Height="440"
                  MinWidth="520"
@@ -20,9 +22,7 @@
         <my:TypeOfSearchValueConverter x:Key="tosConverter" />
 
         <Style TargetType="Button" BasedOn="{StaticResource ThemedButton}">
-            <Setter Property="Width" Value="90" />
-            <Setter Property="Height" Value="28" />
-            <Setter Property="Padding" Value="3" />
+            <Setter Property="Padding" Value="20,3" />
             <Setter Property="Margin" Value="3" />
         </Style>
     </Window.Resources>
@@ -80,16 +80,25 @@
             </DataGrid.RowStyle>
         </DataGrid>
 
-        <DockPanel Grid.Row="2" LastChildFill="False">
-            <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
-                <Button Content="_Add" Command="{Binding AddCommand}" />
-                <Button Content="_Edit" Command="{Binding EditCommand}" />
-                <Button Content="_Delete" Command="{Binding DeleteCommand}" />
-            </StackPanel>
-            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
-                <Button Content="_Close" IsCancel="True" IsDefault="True" />
-                <Button Content="_Use" IsEnabled="{Binding HasSelection}" Click="UseButton_Click" />
-            </StackPanel>
+        <DockPanel Grid.Row="2" LastChildFill="False" Grid.IsSharedSizeScope="True">
+            <Grid DockPanel.Dock="Left">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="A"/>
+                    <ColumnDefinition SharedSizeGroup="A"/>
+                    <ColumnDefinition SharedSizeGroup="A"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Content="_Add" Command="{Binding AddCommand}" />
+                <Button Grid.Column="1" Content="_Edit" Command="{Binding EditCommand}" />
+                <Button Grid.Column="2" Content="_Delete" Command="{Binding DeleteCommand}" />
+            </Grid>
+            <Grid DockPanel.Dock="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition SharedSizeGroup="A"/>
+                    <ColumnDefinition SharedSizeGroup="A"/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Content="_Close" IsCancel="True" IsDefault="True" />
+                <Button Grid.Column="1" Content="_Use" IsEnabled="{Binding HasSelection}" Click="UseButton_Click" />
+            </Grid>
         </DockPanel>
 
     </Grid>

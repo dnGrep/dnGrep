@@ -114,6 +114,34 @@ namespace dnGREP.WPF
 
         #region Presentation Properties
 
+        private string applicationFontFamily;
+        public string ApplicationFontFamily
+        {
+            get { return applicationFontFamily; }
+            set
+            {
+                if (applicationFontFamily == value)
+                    return;
+
+                applicationFontFamily = value;
+                base.OnPropertyChanged(() => ApplicationFontFamily);
+            }
+        }
+
+        private double mainFormfontSize;
+        public double MainFormFontSize
+        {
+            get { return mainFormfontSize; }
+            set
+            {
+                if (mainFormfontSize == value)
+                    return;
+
+                mainFormfontSize = value;
+                base.OnPropertyChanged(() => MainFormFontSize);
+            }
+        }
+
         private bool isBookmarked;
         public bool IsBookmarked
         {
@@ -851,6 +879,15 @@ namespace dnGREP.WPF
             ShowLinesInContext = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext);
             ContextLinesBefore = GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore);
             ContextLinesAfter = GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter);
+
+            ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
+            MainFormFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.MainFormFontSize);
+
+            if (PreviewModel != null)
+            {
+                PreviewModel.ApplicationFontFamily = ApplicationFontFamily;
+                PreviewModel.MainFormFontSize = MainFormFontSize;
+            }
         }
 
         public override void SaveSettings()
