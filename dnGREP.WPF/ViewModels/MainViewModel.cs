@@ -1537,6 +1537,12 @@ namespace dnGREP.WPF
                 }
 
                 List<GrepSearchResult> replaceList = SearchResults.GetWritableList();
+                foreach (var file in roFiles)
+                {
+                    var item = replaceList.FirstOrDefault(r => r.FileNameReal == file);
+                    if (item != null)
+                        replaceList.Remove(item);
+                }
 
                 ReplaceWindow dlg = new ReplaceWindow();
                 dlg.ViewModel.SearchFor = SearchFor;

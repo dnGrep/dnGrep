@@ -6,11 +6,14 @@ using System.Text;
 using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
 using ICSharpCode.AvalonEdit.Highlighting;
+using NLog;
 
 namespace dnGREP.WPF
 {
     public class PreviewViewModel : ViewModelBase, INotifyPropertyChanged
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public PreviewViewModel()
         {
             Highlighters = ThemedHighlightingManager.Instance.HighlightingNames.ToList();
@@ -207,8 +210,17 @@ namespace dnGREP.WPF
                     else
                         CurrentSyntax = "None";
 
-                    // Do not preview files over 4MB or binary
-                    IsLargeOrBinary = fileInfo.Length > 4096000 || Utils.IsBinary(FilePath);
+                    try
+                    {
+                        // Do not preview files over 4MB or binary
+                        IsLargeOrBinary = fileInfo.Length > 4096000 || Utils.IsBinary(FilePath);
+                    }
+                    catch (System.IO.IOException ex)
+                    {
+                        // Is the file locked and cannot be read by IsBinary?
+                        // message is shown in the preview window
+                        logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
+                    }
 
                     // Disable highlighting for large number of matches
                     HighlightDisabled = GrepResult?.Matches?.Count > 5000;
