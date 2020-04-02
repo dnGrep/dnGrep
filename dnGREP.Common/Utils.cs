@@ -14,7 +14,6 @@ using dnGREP.Everything;
 using NLog;
 using UtfUnknown;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
 using File = Alphaleonis.Win32.Filesystem.File;
 using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -1113,19 +1112,15 @@ namespace dnGREP.Common
             bool hasSearchPattern, IList<string> includeSearchPatterns,
             IList<Regex> includeRegexPatterns, IList<Regex> excludeRegexPatterns)
         {
-            bool excludeMatch = false;
             bool includeMatch = false;
             try
             {
-                if (!filter.IncludeBinary && !IsArchive(filePath))
-                {
-                    bool isExcelMatch = IsExcelFile(filePath) && includeSearchPatterns.Contains(".xls", StringComparison.OrdinalIgnoreCase);
-                    bool isWordMatch = IsWordFile(filePath) && includeSearchPatterns.Contains(".doc", StringComparison.OrdinalIgnoreCase);
+                // check filters that do not read the file first...
 
-                    // When searching for Excel and Word files, skip the binary file check:
-                    // If someone is searching for Excel or Word, don't make them include binary to 
-                    // find their files.  No need to include PDF, it doesn't test positive as a binary file.
-                    if (!(isExcelMatch || isWordMatch) && IsBinary(filePath))
+                // exclude this file?
+                foreach (var pattern in excludeRegexPatterns)
+                {
+                    if (pattern.IsMatch(filePath))
                     {
                         return false;
                     }
@@ -1161,42 +1156,57 @@ namespace dnGREP.Common
                         return false;
                     }
                 }
-                if (!includeMatch)
+
+                if (!filter.IncludeBinary && !IsArchive(filePath))
                 {
-                    if (includeRegexPatterns.Count > 0)
+                    bool isExcelMatch = IsExcelFile(filePath) && includeSearchPatterns.Contains(".xls", StringComparison.OrdinalIgnoreCase);
+                    bool isWordMatch = IsWordFile(filePath) && includeSearchPatterns.Contains(".doc", StringComparison.OrdinalIgnoreCase);
+
+                    // When searching for Excel and Word files, skip the binary file check:
+                    // If someone is searching for Excel or Word, don't make them include binary to 
+                    // find their files.  No need to include PDF, it doesn't test positive as a binary file.
+                    if (!(isExcelMatch || isWordMatch) && IsBinary(filePath))
                     {
-                        foreach (var pattern in includeRegexPatterns)
+                        return false;
+                    }
+                }
+
+                if (hasSearchPattern)
+                {
+                    // already filtered in call to EnumerateFile
+                    includeMatch = true;
+                }
+                else if (includeRegexPatterns.Count > 0)
+                {
+                    foreach (var pattern in includeRegexPatterns)
+                    {
+                        if (pattern.IsMatch(filePath) || CheckShebang(filePath, pattern.ToString()))
                         {
-                            if (pattern.IsMatch(filePath) || CheckShebang(filePath, pattern.ToString()))
-                            {
-                                includeMatch = true;
-                                break;
-                            }
+                            includeMatch = true;
+                            break;
                         }
                     }
-                    else if (hasSearchPattern)
-                    {
-                        // already filtered in call to EnumerateFile
-                        includeMatch = true;
-                    }
                 }
-                foreach (var pattern in excludeRegexPatterns)
+
+                if (includeMatch)
                 {
-                    if (pattern.IsMatch(filePath) || CheckShebang(filePath, pattern.ToString()))
+                    foreach (var pattern in excludeRegexPatterns)
                     {
-                        excludeMatch = true;
-                        break;
+                        if (CheckShebang(filePath, pattern.ToString()))
+                        {
+                            return false;
+                        }
                     }
                 }
-                if (excludeMatch || !includeMatch)
-                    return false;
+
+                return includeMatch;
             }
             catch (Exception ex)
             {
                 logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
+                // returning true shows an error in the results tree
+                return true;
             }
-
-            return true;
         }
 
         public static bool CheckShebang(string file, string pattern)
@@ -1676,17 +1686,43 @@ namespace dnGREP.Common
                     {
                         files.Add(result.FileNameReal);
                     }
+                    else if (IsFileLocked(result.FileNameReal))
+                    {
+                        files.Add(result.FileNameReal);
+                    }
                 }
             }
             return files;
         }
 
+        public static bool IsFileLocked(string filePath)
+        {
+            if (!string.IsNullOrEmpty(filePath) && File.Exists(filePath))
+            {
+                try
+                {
+                    var list = File.GetProcessForFileLock(filePath);
+
+                    return list != null && list.Count > 0;
+                }
+                catch (Exception ex)
+                {
+                    logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
+                }
+            }
+
+            return false;
+        }
+
         public static bool IsReadOnly(GrepSearchResult result)
         {
-            if (File.Exists(result.FileNameReal) && (File.GetAttributes(result.FileNameReal) & FileAttributes.ReadOnly) == FileAttributes.ReadOnly || result.ReadOnly)
-                return true;
-            else
-                return false;
+            if (File.Exists(result.FileNameReal))
+            {
+                if (File.GetAttributes(result.FileNameReal).HasFlag(FileAttributes.ReadOnly) || result.ReadOnly)
+                    return true;
+            }
+
+            return false;
         }
 
         public static string[] GetLines(string text)
