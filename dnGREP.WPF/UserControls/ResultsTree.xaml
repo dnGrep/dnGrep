@@ -13,6 +13,10 @@
     
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource ThemedContextMenu}">
+            <Setter Property="FontFamily" Value="{Binding Path=DataContext.ApplicationFontFamily, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+            <Setter Property="FontSize" Value="{Binding Path=DataContext.MainFormFontSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+        </Style>
     </UserControl.Resources>
 
     <Controls:MultiSelectTreeView x:Name="treeView" HorizontalContentAlignment="Stretch"
@@ -44,6 +48,11 @@
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Margin="3,0" Text="Type:"/>
                                             <TextBlock Margin="3,0" Text="{Binding GrepResult.FileType}"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Margin="3,0" Text="Encoding:"/>
+                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.Encoding.EncodingName}"/>
+                                            <TextBlock Margin="3,0" Text="{Binding GrepResult.Encoding.CodePage, StringFormat=cp{0}}"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Margin="3,0" Text="Size:"/>
@@ -102,9 +111,6 @@
         </TreeView.Resources>
         <TreeView.ContextMenu>
             <ContextMenu>
-                <ContextMenu.LayoutTransform>
-                    <ScaleTransform ScaleX="{Binding ResultsMenuScale}" ScaleY="{Binding ResultsMenuScale}" />
-                </ContextMenu.LayoutTransform>
                 <MenuItem Header="Open" Click="btnOpenFile_Click" IsEnabled="{Binding HasSelection}" />
                 <MenuItem Header="Open with custom editor" Click="btnOpenFileCustomEditor_Click"
                           IsEnabled="{Binding HasSelection}"

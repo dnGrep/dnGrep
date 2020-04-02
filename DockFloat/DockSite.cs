@@ -212,6 +212,7 @@ namespace DockFloat
                 WindowState = FloatWindowState,
             };
             BindingOperations.SetBinding(floatingWindow, Window.TitleProperty, new Binding("Heading") { Source = this });
+            BindingOperations.SetBinding(floatingWindow, Window.FontSizeProperty, new Binding("FontSize") { Source = this });
 
             floatingWindow.Loaded += (s, e) =>
             {

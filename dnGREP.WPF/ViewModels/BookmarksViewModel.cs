@@ -25,6 +25,37 @@ namespace dnGREP.WPF
             {
                 Filter = BookmarkFilter
             };
+
+            ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
+            DialogFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.DialogFontSize);
+        }
+
+        private string applicationFontFamily;
+        public string ApplicationFontFamily
+        {
+            get { return applicationFontFamily; }
+            set
+            {
+                if (applicationFontFamily == value)
+                    return;
+
+                applicationFontFamily = value;
+                base.OnPropertyChanged(() => ApplicationFontFamily);
+            }
+        }
+
+        private double dialogfontSize;
+        public double DialogFontSize
+        {
+            get { return dialogfontSize; }
+            set
+            {
+                if (dialogfontSize == value)
+                    return;
+
+                dialogfontSize = value;
+                base.OnPropertyChanged(() => DialogFontSize);
+            }
         }
 
         public ListCollectionView Bookmarks { get; private set; }
@@ -293,6 +324,9 @@ namespace dnGREP.WPF
             PathReferences = string.Join(Environment.NewLine, bk.FolderReferences);
 
             UpdateTypeOfSearchState();
+
+            ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
+            DialogFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.DialogFontSize);
         }
 
         public BookmarkViewModel(BookmarkViewModel toCopy)
@@ -333,6 +367,9 @@ namespace dnGREP.WPF
 
             BooleanOperators = toCopy.BooleanOperators;
             IsBooleanOperatorsEnabled = toCopy.IsBooleanOperatorsEnabled;
+
+            ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
+            DialogFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.DialogFontSize);
         }
 
         private void UpdateTypeOfSearchState()
@@ -372,6 +409,34 @@ namespace dnGREP.WPF
             }
         }
 
+
+        private string applicationFontFamily;
+        public string ApplicationFontFamily
+        {
+            get { return applicationFontFamily; }
+            set
+            {
+                if (applicationFontFamily == value)
+                    return;
+
+                applicationFontFamily = value;
+                base.OnPropertyChanged(() => ApplicationFontFamily);
+            }
+        }
+
+        private double dialogfontSize;
+        public double DialogFontSize
+        {
+            get { return dialogfontSize; }
+            set
+            {
+                if (dialogfontSize == value)
+                    return;
+
+                dialogfontSize = value;
+                base.OnPropertyChanged(() => DialogFontSize);
+            }
+        }
 
         private bool hasExtendedProperties = false;
         public bool HasExtendedProperties

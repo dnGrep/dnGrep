@@ -33,7 +33,7 @@
                         <Grid>
                             <DockPanel>
                                 <TextBlock x:Name="header" Margin="3,0,0,0" DockPanel.Dock="Top"
-                                           FontSize="14"
+                                           FontSize="{Binding FontSize, RelativeSource={RelativeSource TemplatedParent}}"
                                            Foreground="{DynamicResource Control.Foreground}"
                                            Text="{Binding Heading, RelativeSource={RelativeSource TemplatedParent}}" />
                                 <!--  Spacer for when ButtonOverlapsContent is not set  -->

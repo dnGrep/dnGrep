@@ -5,56 +5,185 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  Title="About dnGREP"
-                 Width="480"
-                 Height="270"
+                 FontFamily="{Binding ApplicationFontFamily}"
+                 FontSize="{Binding DialogFontSize}"
+                 Height="500"
+                 MinWidth="500"
                  Icon="/dnGREP;component/nGREP.ico"
-                 WindowStyle="SingleBorderWindow"
                  ResizeMode="NoResize"
+                 SizeToContent="Width"
                  WindowStartupLocation="CenterOwner"
                  Background="{DynamicResource Dialog.Background}"
                  CaptionBackground="{DynamicResource Caption.Dialog.Background}"
                  mc:Ignorable="d">
 
-    <Grid Margin="8">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
+    <Window.Resources>
+        <my:TitleFontSizeConverter x:Key="TitleSizeConverter"/>
+    </Window.Resources>
 
-        <Border Grid.Row="0" Grid.RowSpan="4" Grid.Column="0"
+    <DockPanel Margin="8" LastChildFill="True"
+               Grid.IsSharedSizeScope="True">
+
+        <Grid DockPanel.Dock="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" SharedSizeGroup="A" />
+                <ColumnDefinition SharedSizeGroup="B"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Row="0" Grid.RowSpan="4" Grid.Column="0"
                 Margin="8" Background="#80ffffff" CornerRadius="12">
-            <Image Width="72" Height="72" Margin="8"
+                <Image Width="72" Height="72" Margin="8"
                    Source="/dnGREP;component/Images/dnGrep80.png" />
-        </Border>
+            </Border>
 
-        <TextBlock Grid.Row="0" Grid.Column="1" Text="dnGREP"
-                   FontWeight="DemiBold" FontSize="14"
-                   Style="{StaticResource ThemedTextBlock}" />
-        <TextBlock Grid.Row="1" Grid.Column="1"
+            <StackPanel Grid.Row="0" Grid.Column="1"  Orientation="Horizontal">
+                <TextBlock Text="dnGREP" FontWeight="DemiBold" 
+                       FontSize="{Binding DialogFontSize, Converter={StaticResource TitleSizeConverter}, ConverterParameter=2, FallbackValue=14}" 
+                       Style="{StaticResource ThemedTextBlock}"/>
+                <TextBlock Style="{StaticResource ThemedTextBlock}" Margin="30,0,0,0">
+                <Hyperlink NavigateUri="http://dngrep.github.io/" RequestNavigate="Hyperlink_RequestNavigate">
+                    dnGrep on GitHub
+                </Hyperlink>
+                </TextBlock>
+            </StackPanel>
+
+            <TextBlock Grid.Row="1" Grid.Column="1"
                    Text="{Binding Version, FallbackValue='Version'}"
                    Style="{StaticResource ThemedTextBlock}" />
-        <TextBlock Grid.Row="2" Grid.Column="1"
+            <TextBlock Grid.Row="2" Grid.Column="1"
                    Text="{Binding BuildDate, FallbackValue='Build date'}"
                    Style="{StaticResource ThemedTextBlock}" />
-        <TextBlock Grid.Row="3" Grid.Column="1"
+            <TextBlock Grid.Row="3" Grid.Column="1"
                    Text="{Binding Copyright, FallbackValue='Copyright'}"
                    Style="{StaticResource ThemedTextBlock}" />
 
-        <Border Grid.Row="4" Grid.Column="1" Margin="0,3,0,0"
-                BorderBrush="Gray" BorderThickness="0,1,0,0">
-            <TextBlock Text="{Binding Description, FallbackValue='Description'}" TextWrapping="Wrap" Style="{StaticResource ThemedTextBlock}" />
-        </Border>
+            <Border Grid.Row="4" Grid.Column="1" Margin="0,12,12,12"
+                    BorderBrush="Gray" BorderThickness="0,1,0,1"
+                    HorizontalAlignment="Stretch">
+                <TextBlock Margin="0,4"
+                           Text="{Binding Description, FallbackValue='Description'}" 
+                           TextWrapping="Wrap" MaxWidth="500"
+                           Style="{StaticResource ThemedTextBlock}" />
+            </Border>
+            
+            <TextBlock Grid.Row="5" Grid.Column="0" Text="Acknowledgments" 
+                    Style="{StaticResource ThemedTextBlock}" FontWeight="DemiBold" Margin="0,12,6,0"/>
+        </Grid>
 
-        <Button Grid.Row="5" Grid.Column="1" Width="90"
+        <Button DockPanel.Dock="Bottom" Width="90" Margin="0,10,0,0"
                 Height="28" HorizontalAlignment="Right" Content="OK"
                 IsDefault="True" IsCancel="True" />
-    </Grid>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"  SharedSizeGroup="A"/>
+                    <ColumnDefinition SharedSizeGroup="B"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
+                    <Hyperlink NavigateUri="https://www.7-zip.org/" RequestNavigate="Hyperlink_RequestNavigate">
+                        7-Zip
+                    </Hyperlink>
+                    Library for reading archive files
+                </TextBlock>
+                <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
+                    <Hyperlink NavigateUri="https://github.com/dnGrep/SevenZipSharp/" RequestNavigate="Hyperlink_RequestNavigate">
+                        SevenZipSharp
+                    </Hyperlink>
+                    .NET library for 7-Zip
+                </TextBlock>
+                <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
+                    <Hyperlink NavigateUri="http://alphafs.alphaleonis.com/" RequestNavigate="Hyperlink_RequestNavigate">
+                        AlphaFS
+                    </Hyperlink>
+                    .NET library for extended length paths
+                </TextBlock>
+                <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
+                    <Hyperlink NavigateUri="https://www.voidtools.com/" RequestNavigate="Hyperlink_RequestNavigate">
+                        Everything
+                    </Hyperlink>
+                    File system indexing, locate files instantly
+                </TextBlock>
+                <TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
+                    <Hyperlink NavigateUri="http://avalonedit.net/" RequestNavigate="Hyperlink_RequestNavigate">
+                        Avalon Edit
+                    </Hyperlink>
+                    .NET WPF text editor component
+                </TextBlock>
+                <TextBlock Grid.Row="5" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
+                    <Hyperlink NavigateUri="https://www.newtonsoft.com/json" RequestNavigate="Hyperlink_RequestNavigate">
+                        Newtonsoft Json
+                    </Hyperlink>
+                    Json framework for .NET
+                </TextBlock>
+                <TextBlock Grid.Row="6" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
+                    <Hyperlink NavigateUri="https://nlog-project.org/" RequestNavigate="Hyperlink_RequestNavigate">
+                        NLog
+                    </Hyperlink>
+                    Logging framework for .NET
+                </TextBlock>
+                <TextBlock Grid.Row="7" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
+                    <Hyperlink NavigateUri="https://github.com/CharsetDetector/UTF-unknown" RequestNavigate="Hyperlink_RequestNavigate">
+                        UtfKnown
+                    </Hyperlink>
+                    .NET library for character set detection
+                </TextBlock>
+                <TextBlock Grid.Row="8" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
+                    <Hyperlink NavigateUri="https://github.com/micdenny/WpfScreenHelper" RequestNavigate="Hyperlink_RequestNavigate">
+                        WpfScreenHelper
+                    </Hyperlink>
+                    .NET WPF screen helper utility
+                </TextBlock>
+                <TextBlock Grid.Row="9" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
+                    <Hyperlink NavigateUri="https://github.com/OfficeDev/Open-XML-SDK" RequestNavigate="Hyperlink_RequestNavigate">
+                        Open XML
+                    </Hyperlink>
+                    .NET library to work with Word and Excel documents
+                </TextBlock>
+                <TextBlock Grid.Row="10" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
+                    <Hyperlink NavigateUri="https://github.com/ExcelDataReader/ExcelDataReader" RequestNavigate="Hyperlink_RequestNavigate">
+                        Excel Data Reader
+                    </Hyperlink>
+                    .NET library for reading Microsoft Excel files
+                </TextBlock>
+                <TextBlock Grid.Row="11" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
+                    <Hyperlink NavigateUri="https://github.com/andersnm/ExcelNumberFormat" RequestNavigate="Hyperlink_RequestNavigate">
+                        Excel Number Format
+                    </Hyperlink>
+                    .NET library to parse ECMA-376 numbers
+                </TextBlock>
+                <TextBlock Grid.Row="12" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
+                    <Hyperlink NavigateUri="https://www.xpdfreader.com/pdftotext-man.html" RequestNavigate="Hyperlink_RequestNavigate">
+                        pdftotext
+                    </Hyperlink>
+                    Converts PDF files to plain text
+                </TextBlock>
+            </Grid>
+        </ScrollViewer>
+
+    </DockPanel>
 </my:ThemedWindow>

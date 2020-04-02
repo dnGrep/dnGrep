@@ -422,16 +422,6 @@ namespace dnGREP.WPF.UserControls
                         inputData.ResultsScale /= 1.005;
                     }
 
-                    if (dist1 < dist2 && inputData.ResultsMenuScale < 1.5)
-                    {
-                        inputData.ResultsMenuScale *= 1.0025;
-                    }
-
-                    if (dist1 > dist2 && inputData.ResultsMenuScale > 1.0)
-                    {
-                        inputData.ResultsMenuScale /= 1.0025;
-                    }
-
                     e.Handled = true;
                 }
 
@@ -458,16 +448,6 @@ namespace dnGREP.WPF.UserControls
                 inputData.ResultsScale /= 1.05;
             }
 
-            if (e.Delta > 0 && inputData.ResultsMenuScale < 1.5)
-            {
-                inputData.ResultsMenuScale *= 1.025;
-            }
-
-            if (e.Delta < 0 && inputData.ResultsMenuScale > 1.0)
-            {
-                inputData.ResultsMenuScale /= 1.025;
-            }
-
             e.Handled = true;
         }
 
@@ -476,7 +456,6 @@ namespace dnGREP.WPF.UserControls
             if (inputData != null)
             {
                 inputData.ResultsScale = 1.0;
-                inputData.ResultsMenuScale = 1.0;
             }
         }
 
@@ -509,6 +488,8 @@ namespace dnGREP.WPF.UserControls
             Mouse.Capture(uiElt);
 
             DataObject data = new DataObject();
+            // set this data format to prevent dropping onto our own main window
+            data.SetData(App.InstanceId, string.Empty);
 
             // if there are lines selected, choose text drag and drop operation
             var lines = GetSelectedGrepLineText();

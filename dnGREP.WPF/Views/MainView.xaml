@@ -11,6 +11,8 @@
                  MinWidth="500"
                  MinHeight="485"
                  d:DesignWidth="900"
+                 FontFamily="{Binding ApplicationFontFamily}"
+                 FontSize="{Binding MainFormFontSize}"
                  my:DiginesisHelpProvider.HelpKeyword="Search-Window"
                  my:DiginesisHelpProvider.HelpNavigator="Topic"
                  my:DiginesisHelpProvider.ShowHelp="True"
@@ -36,7 +38,15 @@
                                       FalseValue="Visible" />
         <my:GridLengthConverter x:Key="GridLengthConverter" />
         <my:IntOrEmptyValueConverter x:Key="IntConverter"/>
+        <my:TitleFontSizeConverter x:Key="TitleSizeConverter"/>
+        <my:TextBoxWidthConverter x:Key="TextBoxWidthConverter"/>
+
+        <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource ThemedContextMenu}">
+            <Setter Property="FontFamily" Value="{Binding ApplicationFontFamily}"/>
+            <Setter Property="FontSize" Value="{Binding MainFormFontSize}"/>
+        </Style>
     </my:ThemedWindow.Resources>
+    
     <my:ThemedWindow.InputBindings>
         <KeyBinding Key="Escape" Command="{Binding CancelCommand}" />
         <KeyBinding Key="e" Modifiers="Alt"
@@ -55,6 +65,7 @@
                      FloatWindowState="{Binding PreviewWindowState, Mode=TwoWay}"
                      IsDocked="{Binding IsPreviewDocked, Mode=TwoWay}"
                      IsHidden="{Binding IsPreviewHidden, Mode=TwoWay}"
+                     FontSize="{Binding MainFormFontSize, Converter={StaticResource TitleSizeConverter}, ConverterParameter=2, FallbackValue=14}" 
                      Style="{StaticResource ThemedDockSite}">
             <Border>
                 <my:PreviewControl x:Name="previewControl" />
@@ -67,13 +78,16 @@
 
         <DockPanel Margin="5,5,5,0" DockPanel.Dock="Top"
                    Background="{DynamicResource Menu.Normal.Background}">
-            <TextBlock DockPanel.Dock="Left" FontSize="16" FontWeight="DemiBold"
+            <TextBlock DockPanel.Dock="Left" 
+                       FontSize="{Binding MainFormFontSize, Converter={StaticResource TitleSizeConverter}, ConverterParameter=4}" 
+                       FontWeight="DemiBold"
                        Text="dnGrep"
                        Style="{StaticResource ThemedTextBlock}" />
             <Menu HorizontalAlignment="Right">
                 <Menu.Resources>
                     <Style BasedOn="{StaticResource ThemedMenuItem}" TargetType="{x:Type MenuItem}">
-                        <Setter Property="Height" Value="22" />
+                        <Setter Property="FontFamily" Value="{Binding ApplicationFontFamily}"/>
+                        <Setter Property="FontSize" Value="{Binding MainFormFontSize}"/>
                     </Style>
                 </Menu.Resources>
                 <MenuItem Margin="0,0,3,0" Header="_Undo"
@@ -92,7 +106,9 @@
             </Menu>
         </DockPanel>
 
-        <StatusBar DockPanel.Dock="Bottom">
+        <StatusBar DockPanel.Dock="Bottom"
+                   FontFamily="{Binding ApplicationFontFamily}"
+                   FontSize="{Binding MainFormFontSize}">
             <StatusBarItem>
                 <StackPanel Orientation="Horizontal">
                     <CheckBox Margin="3,0,10,0" Background="{DynamicResource Control.Static.Background}"
@@ -131,15 +147,30 @@
                       ToolTip="Context changes Will be applied in next search"
                       IsChecked="{Binding Path=ShowLinesInContext}"
                       TabIndex="93"/>
-            <TextBox Width="32" Height="24" Margin="3,0,0,0"
+            <TextBox Margin="3,0,0,0"
                      Text="{Binding Path=ContextLinesBefore, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}" 
-                     TabIndex="94"/>
+                     TabIndex="94">
+                <TextBox.Width>
+                    <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
+                        <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                        <Binding Path="ApplicationFontFamily"/>
+                        <Binding Path="MainFormFontSize"/>
+                    </MultiBinding>
+                </TextBox.Width>
+            </TextBox>
             <Label Content="before and" />
-            <TextBox Width="32" Height="24"
-                     Text="{Binding Path=ContextLinesAfter, UpdateSourceTrigger=PropertyChanged}"
+            <TextBox Text="{Binding Path=ContextLinesAfter, UpdateSourceTrigger=PropertyChanged}"
                      IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}" 
-                     TabIndex="95"/>
+                     TabIndex="95">
+                <TextBox.Width>
+                    <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
+                        <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                        <Binding Path="ApplicationFontFamily"/>
+                        <Binding Path="MainFormFontSize"/>
+                    </MultiBinding>
+                </TextBox.Width>
+            </TextBox>
             <Label Content="after" />
             <Label Margin="12,0,3,0" Content="Zoom:" ToolTip="Changes the results tree zoom"/>
             <Slider Width="180" Margin="0,0,3,0" VerticalAlignment="Center"
@@ -173,10 +204,18 @@
                               Text="{Binding FileOrFolderPath}"
                               ItemsSource="{Binding FastPathBookmarks}"
                               IsEditable="True" />
-                    <Button Grid.Row="0" Grid.Column="2" Width="32"
-                            Height="24" Margin="3,4"
+                    <Button Grid.Row="0" Grid.Column="2"
+                            Margin="3,4"
                             Command="{Binding BrowseCommand}"
-                            ToolTip="Browse for folder or files" TabIndex="11" Content="..." />
+                            ToolTip="Browse for folder or files" TabIndex="11" Content="..." >
+                        <Button.Width>
+                            <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
+                                <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                <Binding Path="ApplicationFontFamily"/>
+                                <Binding Path="MainFormFontSize"/>
+                            </MultiBinding>
+                        </Button.Width>
+                    </Button>
                     <Expander Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5"
                               Margin="0"
                               IsExpanded="{Binding IsFiltersExpanded}"
@@ -204,11 +243,18 @@
                                         <RadioButton Name="rbFilterSpecificSize" Margin="3,0,3,3" GroupName="SizeFilter"
                                                      TabIndex="21" Content="Size is"
                                                      IsChecked="{Binding Path=UseFileSizeFilter, Converter={StaticResource ebc}, ConverterParameter=Yes}" />
-                                        <TextBox Name="tbFileSizeFrom" Width="48" Height="24"
+                                        <TextBox Name="tbFileSizeFrom"
                                                  Margin="3,0,3,3"
                                                  IsEnabled="{Binding Path=IsSizeFilterSet}"
                                                  TabIndex="22" GotFocus="TextBoxFocus"
                                                  PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting">
+                                            <TextBox.Width>
+                                                <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="48" FallbackValue="48">
+                                                    <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                                    <Binding Path="ApplicationFontFamily"/>
+                                                    <Binding Path="MainFormFontSize"/>
+                                                </MultiBinding>
+                                            </TextBox.Width>
                                             <TextBox.Text>
                                                 <Binding Path="SizeFrom" UpdateSourceTrigger="PropertyChanged">
                                                     <Binding.ValidationRules>
@@ -219,11 +265,18 @@
                                         </TextBox>
                                         <TextBlock Margin="3,0,3,3" Text="to"
                                                    Style="{StaticResource LabelTextBlockStyle}" />
-                                        <TextBox Name="tbFileSizeTo" Width="48" Height="24"
+                                        <TextBox Name="tbFileSizeTo"
                                                  Margin="3,0,3,3"
                                                  IsEnabled="{Binding Path=IsSizeFilterSet}"
                                                  TabIndex="23" GotFocus="TextBoxFocus"
                                                  PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting">
+                                            <TextBox.Width>
+                                                <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="48" FallbackValue="48">
+                                                    <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                                    <Binding Path="ApplicationFontFamily"/>
+                                                    <Binding Path="MainFormFontSize"/>
+                                                </MultiBinding>
+                                            </TextBox.Width>
                                             <TextBox.Text>
                                                 <Binding Path="SizeTo" UpdateSourceTrigger="PropertyChanged">
                                                     <Binding.ValidationRules>
@@ -241,11 +294,17 @@
                                     <StackPanel Orientation="Horizontal" Margin="26,0">
                                         <TextBlock Margin="3,0,3,3" Text="Max depth"
                                                    Style="{StaticResource LabelTextBlockStyle}" />
-                                        <my:DepthTextBox Width="48" Height="24"
-                                                 Margin="3,0,3,3"
+                                        <my:DepthTextBox Margin="3,0,3,3"
                                                  IsEnabled="{Binding Path=IncludeSubfolder}"
                                                  TabIndex="25" GotFocus="TextBoxFocus"
                                                  PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting">
+                                            <TextBox.Width>
+                                                <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="48" FallbackValue="48">
+                                                    <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                                    <Binding Path="ApplicationFontFamily"/>
+                                                    <Binding Path="MainFormFontSize"/>
+                                                </MultiBinding>
+                                            </TextBox.Width>
                                             <TextBox.Text>
                                                 <Binding Path="MaxSubfolderDepth" UpdateSourceTrigger="PropertyChanged"
                                                          Converter="{StaticResource IntConverter}">
@@ -293,8 +352,8 @@
                                                      IsChecked="{Binding Path=TypeOfTimeRangeFilter, Converter={StaticResource ebc}, ConverterParameter=Dates}"
                                                      IsEnabled="{Binding Path=IsDateFilterSet}"
                                                      TabIndex="33" />
-                                        <DatePicker Grid.Row="0" Grid.Column="1" Width="112"
-                                                    Height="24" Margin="3,0,3,2" TabIndex="34"
+                                        <DatePicker Grid.Row="0" Grid.Column="1"
+                                                    Margin="3,0,3,2" TabIndex="34"
                                                     ToolTip="from the start of the day"
                                                     CalendarStyle="{StaticResource CalendarStyle}"
                                                     DisplayDate="{x:Static sys:DateTime.Now}"
@@ -304,8 +363,8 @@
                                         <TextBlock Grid.Row="1" Grid.Column="0" Margin="20,0,0,6"
                                                    Text="To"
                                                    Style="{StaticResource LabelTextBlockStyle}" />
-                                        <DatePicker Grid.Row="1" Grid.Column="1" Width="112"
-                                                    Height="24" Margin="3,0,3,2" TabIndex="35"
+                                        <DatePicker Grid.Row="1" Grid.Column="1"
+                                                    Margin="3,0,3,2" TabIndex="35"
                                                     ToolTip="through the end of the day"
                                                     CalendarStyle="{StaticResource CalendarStyle}"
                                                     DisplayDateStart="{Binding MinEndDate}"
@@ -318,20 +377,35 @@
                                                      IsChecked="{Binding Path=TypeOfTimeRangeFilter, Converter={StaticResource ebc}, ConverterParameter=Hours}"
                                                      IsEnabled="{Binding Path=IsDateFilterSet}"
                                                      TabIndex="36" />
-                                        <TextBox Width="45" Height="24" Margin="9,0,3,3"
+                                        <TextBox Margin="9,0,3,3"
                                                  HorizontalAlignment="Center"
                                                  IsEnabled="{Binding IsHoursRangeSet}"
                                                  TabIndex="37" GotFocus="TextBoxFocus"
                                                  PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting"
-                                                 Text="{Binding HoursFrom, UpdateSourceTrigger=PropertyChanged}" />
+                                                 Text="{Binding HoursFrom, UpdateSourceTrigger=PropertyChanged}">
+                                            <TextBox.Width>
+                                                <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="45" FallbackValue="45">
+                                                    <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                                    <Binding Path="ApplicationFontFamily"/>
+                                                    <Binding Path="MainFormFontSize"/>
+                                                </MultiBinding>
+                                            </TextBox.Width>
+                                        </TextBox>
 
                                         <TextBlock Margin="3,0,3,3" Text="to"
                                                    Style="{StaticResource LabelTextBlockStyle}" />
-                                        <TextBox Width="45" Height="24" Margin="3,0,3,3"
+                                        <TextBox Margin="3,0,3,3"
                                                  HorizontalAlignment="Center"
                                                  IsEnabled="{Binding IsHoursRangeSet}"
                                                  TabIndex="38" GotFocus="TextBoxFocus"
                                                  PreviewTextInput="TextBox_PreviewTextInput" DataObject.Pasting="TextBoxPasting">
+                                            <TextBox.Width>
+                                                <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="45" FallbackValue="45">
+                                                    <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                                    <Binding Path="ApplicationFontFamily"/>
+                                                    <Binding Path="MainFormFontSize"/>
+                                                </MultiBinding>
+                                            </TextBox.Width>
                                             <TextBox.Text>
                                                 <Binding Path="HoursTo" UpdateSourceTrigger="PropertyChanged">
                                                     <Binding.ValidationRules>
@@ -389,7 +463,7 @@
                                                 Margin="3" VerticalAlignment="Center" Orientation="Horizontal">
                                         <TextBlock Margin="3,0,3,3" Text="Encoding:"
                                                    Style="{StaticResource LabelTextBlockStyle}" />
-                                        <ComboBox Name="cbEncoding" Width="224" Height="24"
+                                        <ComboBox Name="cbEncoding" 
                                                   Margin="3,0,3,3" HorizontalContentAlignment="Center" TabIndex="44"
                                                   DisplayMemberPath="Key" SelectedValuePath="Value"
                                                   ItemsSource="{Binding Path=Encodings}"
@@ -400,6 +474,13 @@
                                                     <Setter Property="HorizontalContentAlignment" Value="Left" />
                                                 </Style>
                                             </ComboBox.ItemContainerStyle>
+                                            <ComboBox.Width>
+                                                <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="224" FallbackValue="224">
+                                                    <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                                    <Binding Path="ApplicationFontFamily"/>
+                                                    <Binding Path="MainFormFontSize"/>
+                                                </MultiBinding>
+                                            </ComboBox.Width>
                                         </ComboBox>
                                     </StackPanel>
                                     <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
@@ -436,8 +517,8 @@
                                                   TabIndex="48" Content="Boolean operators" 
                                                   ToolTip="Combine multiple search patterns using 'AND' or 'OR'"/>
                                     </Grid>
-                                    <Button Grid.Row="4" Grid.Column="1" Width="98"
-                                            Height="24" Margin="3,0,3,3" HorizontalAlignment="Right"
+                                    <Button Grid.Row="4" Grid.Column="1"
+                                            Margin="3,0,3,3" HorizontalAlignment="Right"
                                             HorizontalContentAlignment="Center" Content="Reset Options"
                                             Command="{Binding ResetOptionsCommand}"
                                             TabIndex="49" />
@@ -451,7 +532,7 @@
                                Style="{StaticResource LabelTextBlockStyle}"
                                Visibility="{Binding IsEverythingSearchMode, Converter={StaticResource InverseBoolToVisibilityConverter}}" />
                     <ComboBox Name="tbFilePattern" Grid.Row="0" Grid.Column="4"
-                              Height="24" Margin="3,4" my:DiginesisHelpProvider.HelpKeyword="SearchReplace"
+                              Margin="3,4" my:DiginesisHelpProvider.HelpKeyword="SearchReplace"
                               my:DiginesisHelpProvider.HelpNavigator="Topic"
                               my:DiginesisHelpProvider.ShowHelp="True" TabIndex="12"
                               Text="{Binding Path=FilePattern, UpdateSourceTrigger=PropertyChanged}"
@@ -471,7 +552,7 @@
                                TextWrapping="NoWrap"
                                Visibility="{Binding IsEverythingSearchMode, Converter={StaticResource InverseBoolToVisibilityConverter}}" />
                     <ComboBox Name="tbFilePatternIgnore" Grid.Row="1" Grid.Column="4"
-                              Height="24" Margin="3,4,3,0" VerticalAlignment="Top"
+                              Margin="3,4,3,0" VerticalAlignment="Top"
                               my:DiginesisHelpProvider.HelpKeyword="SearchReplace"
                               my:DiginesisHelpProvider.HelpNavigator="Topic"
                               my:DiginesisHelpProvider.ShowHelp="True" TabIndex="14"
@@ -484,17 +565,17 @@
             <GroupBox Header="Search" DockPanel.Dock="Top">
                 <DockPanel Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <DockPanel Margin="0,0,0,5" DockPanel.Dock="Top">
-                        <Button Width="96" Height="24" Margin="3,0"
+                        <Button Margin="3,0" Padding="8,3"
                                 Content="Test Expression"
                                 Command="{Binding TestCommand}"
                                 DockPanel.Dock="Right" TabIndex="56" />
-                        <CheckBox Width="24" Height="24" Margin="0,0,3,0"
+                        <CheckBox Margin="0,0,3,0"
                                   ToolTip="{Binding IsFolderBookmarkedTooltip}"
                                   Template="{DynamicResource PlusMetroButtonTemplate}"
                                   IsChecked="{Binding IsFolderBookmarked}"
                                   Command="{Binding FolderBookmarkAddCommand}"
                                   DockPanel.Dock="Right" TabIndex="55" />
-                        <CheckBox Width="24" Height="24" Margin="0,0,3,0"
+                        <CheckBox Margin="0,0,3,0"
                                   ToolTip="{Binding IsBookmarkedTooltip}"
                                   Template="{DynamicResource FavsMetroButtonTemplate}"
                                   IsChecked="{Binding IsBookmarked}"
@@ -564,7 +645,8 @@
                                   IsEditable="True"
                                   ItemsSource="{Binding FastSearchBookmarks}"
                                   Style="{DynamicResource MultilineComboBoxStyle}"
-                                  IsTextSearchCaseSensitive="True" FontFamily="Consolas" FontSize="12"
+                                  IsTextSearchCaseSensitive="True" 
+                                  FontFamily="Consolas" FontSize="{Binding MainFormFontSize}"
                                   TabIndex="60">
                             <ComboBox.ToolTip>
                                 <TextBlock><Run Text=". matches all characters" /><LineBreak /><Run Text="\w matches alpha-numerics" /><LineBreak /><Run Text="\d matches digits" /><LineBreak /><Run Text="\s matches space" /><LineBreak /><Run Text="* matches any number of characters" /><LineBreak /><Run Text="{}{1,3} matches 1 to 3 characters" /><LineBreak /><Run Text="For more Regex patterns hit F1" /></TextBlock>
@@ -579,7 +661,8 @@
                                   IsEditable="True"
                                   ItemsSource="{Binding FastReplaceBookmarks}"
                                   Style="{DynamicResource MultilineComboBoxStyle}"
-                                  IsTextSearchCaseSensitive="True" FontFamily="Consolas" FontSize="12"
+                                  IsTextSearchCaseSensitive="True" 
+                                  FontFamily="Consolas" FontSize="{Binding MainFormFontSize}"
                                   TabIndex="61">
                             <ComboBox.ToolTip>
                                 <TextBlock><Run Text="$&amp; replaces entire regex" /><LineBreak /><Run Text="$1, $2, $3, etc... inserts the text matched between capturing parentheses into the replacement text" /><LineBreak /><Run Text="$$ inserts a single dollar sign into the replacement text" /><LineBreak /><Run Text="\\t inserts a tab, and \\n or \\r\\n inserts a newline into the replacement text" /></TextBlock>
@@ -603,15 +686,15 @@
                     <CheckBox Margin="3,0" Content="Stop after first match"
                               IsChecked="{Binding StopAfterFirstMatch}"
                               TabIndex="82" />
-                    <Button Width="64" Height="24" Margin="3"
+                    <Button Margin="3" Padding="8,3"
                             Content="_Search" IsDefault="True"
                             Command="{Binding SearchCommand}"
                             TabIndex="83" />
-                    <Button Width="64" Height="24" Margin="3"
+                    <Button Margin="3" Padding="8,3"
                             Content="Replace"
                             Command="{Binding ReplaceCommand}"
                             TabIndex="84" />
-                    <my:SplitButton Width="76" Height="24" Margin="3"
+                    <my:SplitButton Margin="3" Padding="8,3"
                             Content="Sort"
                             Command="{Binding SortCommand}"
                             TabIndex="85">
@@ -648,7 +731,7 @@
                             </ContextMenu>
                         </my:SplitButton.ContextMenu>
                     </my:SplitButton>
-                    <Button Width="32" Height="24" Margin="3"
+                    <Button Margin="3" Padding="8,3"
                             Content="&gt;&gt;" Click="ButtonOtherActions_Click"
                             ContextMenuService.Placement="Bottom"
                             IsEnabled="{Binding CanSearchInResults}"
@@ -665,7 +748,7 @@
                             </ContextMenu>
                         </Button.ContextMenu>
                     </Button>
-                    <Button Width="64" Height="24" Margin="3,3,8,3"
+                    <Button Margin="3,3,8,3" Padding="8,3"
                             Content="_Cancel"
                             Command="{Binding CancelCommand}"
                             TabIndex="87" />

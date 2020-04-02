@@ -28,7 +28,7 @@
                                 Background="#FFdc000c" Opacity="0" CornerRadius="0"
                                 IsHitTestVisible="False">
                             <TextBlock Margin="8,2,8,3" VerticalAlignment="Center"
-                                       Text="{Binding ElementName=adorner, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}"
+                                       Text="{Binding ElementName=adorner, Path=AdornedElement.(Validation.Errors)/ErrorContent}"
                                        Foreground="White" TextWrapping="Wrap" />
                         </Border>
                     </StackPanel>

@@ -12,8 +12,8 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using dnGREP.Everything;
 using NLog;
+using UtfUnknown;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
 using File = Alphaleonis.Win32.Filesystem.File;
 using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -427,13 +427,14 @@ namespace dnGREP.Common
         /// <returns></returns>
         public static Encoding GetFileEncoding(string srcFile)
         {
-            // TODO: Unit tests. At least a regression test for Google Code issue 204. In order to properly unit test this method, we should decouple it from the file system by passing in an object that can be easily faked/mocked (a Stream object?).
             using (FileStream readStream = File.Open(srcFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
-                var detector = new Ude.CharsetDetector();
-                detector.Feed(readStream);
-                detector.DataEnd();
-                return DotNetEncodingFromUde(detector.Charset) ?? Encoding.Default; // If we detected an encoding, use it, otherwise use default.
+                var results = CharsetDetector.DetectFromStream(readStream);
+                // Get the best Detection
+                DetectionDetail resultDetected = results.Detected;
+                // Get the System.Text.Encoding of the found encoding (can be null if not available)
+                Encoding encoding = resultDetected?.Encoding ?? Encoding.Default;
+                return encoding;
             }
         }
 
@@ -444,67 +445,19 @@ namespace dnGREP.Common
         /// <returns></returns>
         public static Encoding GetFileEncoding(Stream stream)
         {
-            var detector = new Ude.CharsetDetector();
-            detector.Feed(stream);
-            detector.DataEnd();
-            var result = DotNetEncodingFromUde(detector.Charset) ?? Encoding.Default; // If we detected an encoding, use it, otherwise use default.
+            var results = CharsetDetector.DetectFromStream(stream);
+            // Get the best Detection
+            DetectionDetail resultDetected = results.Detected;
+            // Get the System.Text.Encoding of the found encoding (can be null if not available)
+            Encoding encoding = resultDetected?.Encoding ?? Encoding.Default;
+
             // reset the stream back to the beginning
             stream.Seek(0, SeekOrigin.Begin);
-            return result;
+            return encoding;
         }
 
         /// <summary>
-        /// Maps a Ude charset to a System.Text.Encoding.
-        /// </summary>
-        /// <returns>
-        /// The System.Text.Encoding for the given Ude CharsetDetector.Charset, or null if not found in the map.
-        /// </returns>
-        private static Encoding DotNetEncodingFromUde(string udeCharset)
-        {
-            if (udeCharset == null)
-                return null;
-
-            // Ude to .NET encoding name mapping. We should update this if ever both support new encodings.
-            // I got this list by comparing Ude.Core\Charsets.cs with the table shown in the System.Text.Encoding
-            // docs at http://msdn.microsoft.com/en-us/library/vstudio/system.text.encoding(v=vs.100).aspx
-            // Note that it's a many-to-one mapping, in some cases, like (UTF-16LE, UTF-16BE) => utf-16.
-            var udeToDotNet = new Dictionary<string, string>()
-                                   {{"Big-5", "big5"},
-                                    {"EUC-JP", "euc-jp"},
-                                    {"EUC-KR", "euc-kr"},
-                                    {"gb18030", "GB18030"},
-                                    {"HZ-GB-2312", "hz-gb-2312"},
-                                    {"IBM855", "IBM855"},
-                                    {"ISO-2022-JP", "iso-2022-jp"},
-                                    {"ISO-2022-KR", "iso-2022-kr"},
-                                    {"ISO-8859-2", "iso-8859-2"},
-                                    {"ISO-8859-5", "iso-8859-5"},
-                                    {"ISO-8859-7", "iso-8859-7"},
-                                    {"ISO-8859-8", "iso-8859-8"},
-                                    {"KOI8-R", "koi8-r"},
-                                    {"Shift-JIS", "shift_jis"},
-                                    {"ASCII", "us-ascii"},
-                                    {"UTF-16LE", "utf-16"},
-                                    {"UTF-16BE", "utf-16"},
-                                    {"UTF-32BE", "utf-32"},
-                                    {"UTF-32LE", "utf-32"},
-                                    {"UTF-8", "utf-8"},
-                                    {"windows-1251", "windows-1251"},
-                                    {"windows-1252", "Windows-1252"},
-                                    {"windows-1253", "windows-1253"},
-                                    {"windows-1255", "windows-1255"},
-                                    {"x-mac-cyrillic", "x-mac-cyrillic"}};
-
-            if (udeToDotNet.ContainsKey(udeCharset))
-                return Encoding.GetEncoding(udeToDotNet[udeCharset]);
-            else
-                return null;
-        }
-
-        /// <summary>
-        /// Returns true is file is binary. Algorithm taken from winGrep.
-        /// The function scans first 10KB for 0x0000 sequence
-        /// and if found, assumes the file to be binary
+        /// Returns true is file is binary.
         /// </summary>
         /// <param name="filePath">Path to a file</param>
         /// <returns>True is file is binary otherwise false</returns>
@@ -522,9 +475,10 @@ namespace dnGREP.Common
             {
                 byte[] buffer = new byte[1024];
                 int count = stream.Read(buffer, 0, buffer.Length);
-                for (int i = 0; i < count - 1; i = i + 2)
+                for (int i = 0; i < count - 3; i++)
                 {
-                    if (buffer[i] == 0 && buffer[i + 1] == 0)
+                    // check for 4 consecutive nulls - 2 will give false positive on UTF-32
+                    if (buffer[i] == 0 && buffer[i + 1] == 0 && buffer[i + 2] == 0 && buffer[i + 3] == 0)
                     {
                         return true;
                     }
@@ -1158,19 +1112,15 @@ namespace dnGREP.Common
             bool hasSearchPattern, IList<string> includeSearchPatterns,
             IList<Regex> includeRegexPatterns, IList<Regex> excludeRegexPatterns)
         {
-            bool excludeMatch = false;
             bool includeMatch = false;
             try
             {
-                if (!filter.IncludeBinary && !IsArchive(filePath))
-                {
-                    bool isExcelMatch = IsExcelFile(filePath) && includeSearchPatterns.Contains(".xls", StringComparison.OrdinalIgnoreCase);
-                    bool isWordMatch = IsWordFile(filePath) && includeSearchPatterns.Contains(".doc", StringComparison.OrdinalIgnoreCase);
+                // check filters that do not read the file first...
 
-                    // When searching for Excel and Word files, skip the binary file check:
-                    // If someone is searching for Excel or Word, don't make them include binary to 
-                    // find their files.  No need to include PDF, it doesn't test positive as a binary file.
-                    if (!(isExcelMatch || isWordMatch) && IsBinary(filePath))
+                // exclude this file?
+                foreach (var pattern in excludeRegexPatterns)
+                {
+                    if (pattern.IsMatch(filePath))
                     {
                         return false;
                     }
@@ -1206,42 +1156,57 @@ namespace dnGREP.Common
                         return false;
                     }
                 }
-                if (!includeMatch)
+
+                if (!filter.IncludeBinary && !IsArchive(filePath))
                 {
-                    if (includeRegexPatterns.Count > 0)
+                    bool isExcelMatch = IsExcelFile(filePath) && includeSearchPatterns.Contains(".xls", StringComparison.OrdinalIgnoreCase);
+                    bool isWordMatch = IsWordFile(filePath) && includeSearchPatterns.Contains(".doc", StringComparison.OrdinalIgnoreCase);
+
+                    // When searching for Excel and Word files, skip the binary file check:
+                    // If someone is searching for Excel or Word, don't make them include binary to 
+                    // find their files.  No need to include PDF, it doesn't test positive as a binary file.
+                    if (!(isExcelMatch || isWordMatch) && IsBinary(filePath))
                     {
-                        foreach (var pattern in includeRegexPatterns)
+                        return false;
+                    }
+                }
+
+                if (hasSearchPattern)
+                {
+                    // already filtered in call to EnumerateFile
+                    includeMatch = true;
+                }
+                else if (includeRegexPatterns.Count > 0)
+                {
+                    foreach (var pattern in includeRegexPatterns)
+                    {
+                        if (pattern.IsMatch(filePath) || CheckShebang(filePath, pattern.ToString()))
                         {
-                            if (pattern.IsMatch(filePath) || CheckShebang(filePath, pattern.ToString()))
-                            {
-                                includeMatch = true;
-                                break;
-                            }
+                            includeMatch = true;
+                            break;
                         }
                     }
-                    else if (hasSearchPattern)
-                    {
-                        // already filtered in call to EnumerateFile
-                        includeMatch = true;
-                    }
                 }
-                foreach (var pattern in excludeRegexPatterns)
+
+                if (includeMatch)
                 {
-                    if (pattern.IsMatch(filePath) || CheckShebang(filePath, pattern.ToString()))
+                    foreach (var pattern in excludeRegexPatterns)
                     {
-                        excludeMatch = true;
-                        break;
+                        if (CheckShebang(filePath, pattern.ToString()))
+                        {
+                            return false;
+                        }
                     }
                 }
-                if (excludeMatch || !includeMatch)
-                    return false;
+
+                return includeMatch;
             }
             catch (Exception ex)
             {
                 logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
+                // returning true shows an error in the results tree
+                return true;
             }
-
-            return true;
         }
 
         public static bool CheckShebang(string file, string pattern)
@@ -1721,17 +1686,43 @@ namespace dnGREP.Common
                     {
                         files.Add(result.FileNameReal);
                     }
+                    else if (IsFileLocked(result.FileNameReal))
+                    {
+                        files.Add(result.FileNameReal);
+                    }
                 }
             }
             return files;
         }
 
+        public static bool IsFileLocked(string filePath)
+        {
+            if (!string.IsNullOrEmpty(filePath) && File.Exists(filePath))
+            {
+                try
+                {
+                    var list = File.GetProcessForFileLock(filePath);
+
+                    return list != null && list.Count > 0;
+                }
+                catch (Exception ex)
+                {
+                    logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
+                }
+            }
+
+            return false;
+        }
+
         public static bool IsReadOnly(GrepSearchResult result)
         {
-            if (File.Exists(result.FileNameReal) && (File.GetAttributes(result.FileNameReal) & FileAttributes.ReadOnly) == FileAttributes.ReadOnly || result.ReadOnly)
-                return true;
-            else
-                return false;
+            if (File.Exists(result.FileNameReal))
+            {
+                if (File.GetAttributes(result.FileNameReal).HasFlag(FileAttributes.ReadOnly) || result.ReadOnly)
+                    return true;
+            }
+
+            return false;
         }
 
         public static string[] GetLines(string text)

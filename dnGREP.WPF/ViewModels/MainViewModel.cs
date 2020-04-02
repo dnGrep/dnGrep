@@ -114,6 +114,34 @@ namespace dnGREP.WPF
 
         #region Presentation Properties
 
+        private string applicationFontFamily;
+        public string ApplicationFontFamily
+        {
+            get { return applicationFontFamily; }
+            set
+            {
+                if (applicationFontFamily == value)
+                    return;
+
+                applicationFontFamily = value;
+                base.OnPropertyChanged(() => ApplicationFontFamily);
+            }
+        }
+
+        private double mainFormfontSize;
+        public double MainFormFontSize
+        {
+            get { return mainFormfontSize; }
+            set
+            {
+                if (mainFormfontSize == value)
+                    return;
+
+                mainFormfontSize = value;
+                base.OnPropertyChanged(() => MainFormFontSize);
+            }
+        }
+
         private bool isBookmarked;
         public bool IsBookmarked
         {
@@ -769,7 +797,7 @@ namespace dnGREP.WPF
         #endregion
 
         #region Public Methods
-       
+
         public void OnFileDrop(bool append, string[] filePaths)
         {
             string paths = append ? FileOrFolderPath : string.Empty;
@@ -784,7 +812,7 @@ namespace dnGREP.WPF
 
             FileOrFolderPath = paths;
         }
-        
+
         public override void UpdateState(string name)
         {
             base.UpdateState(name);
@@ -851,6 +879,15 @@ namespace dnGREP.WPF
             ShowLinesInContext = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext);
             ContextLinesBefore = GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore);
             ContextLinesAfter = GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter);
+
+            ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
+            MainFormFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.MainFormFontSize);
+
+            if (PreviewModel != null)
+            {
+                PreviewModel.ApplicationFontFamily = ApplicationFontFamily;
+                PreviewModel.MainFormFontSize = MainFormFontSize;
+            }
         }
 
         public override void SaveSettings()
@@ -1500,6 +1537,12 @@ namespace dnGREP.WPF
                 }
 
                 List<GrepSearchResult> replaceList = SearchResults.GetWritableList();
+                foreach (var file in roFiles)
+                {
+                    var item = replaceList.FirstOrDefault(r => r.FileNameReal == file);
+                    if (item != null)
+                        replaceList.Remove(item);
+                }
 
                 ReplaceWindow dlg = new ReplaceWindow();
                 dlg.ViewModel.SearchFor = SearchFor;
@@ -2188,18 +2231,23 @@ namespace dnGREP.WPF
         {
             KeyValuePair<string, int> defaultValue = new KeyValuePair<string, int>("Auto detection (default)", -1);
 
+            List<KeyValuePair<string, int>> tempUni = new List<KeyValuePair<string, int>>();
             List<KeyValuePair<string, int>> tempEnc = new List<KeyValuePair<string, int>>();
             foreach (EncodingInfo ei in Encoding.GetEncodings())
             {
                 Encoding e = ei.GetEncoding();
-                tempEnc.Add(new KeyValuePair<string, int>(e.EncodingName, e.CodePage));
+                if (e.EncodingName.Contains("Unicode", StringComparison.OrdinalIgnoreCase))
+                    tempUni.Add(new KeyValuePair<string, int>(e.EncodingName, e.CodePage));
+                else
+                    tempEnc.Add(new KeyValuePair<string, int>(e.EncodingName, e.CodePage));
             }
 
+            tempUni.Sort(new KeyValueComparer());
+            tempUni.Insert(0, defaultValue);
             tempEnc.Sort(new KeyValueComparer());
-            tempEnc.Insert(0, defaultValue);
             Encodings.Clear();
             BookmarkViewModel.Encodings.Clear();
-            foreach (var enc in tempEnc)
+            foreach (var enc in tempUni.Concat(tempEnc))
             {
                 Encodings.Add(enc);
                 BookmarkViewModel.Encodings.Add(enc);

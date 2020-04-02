@@ -12,6 +12,8 @@ namespace dnGREP.WPF
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
+        public static string InstanceId { get; } = Guid.NewGuid().ToString();
+
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             try

@@ -28,6 +28,8 @@ namespace dnGREP.WPF
             Highlighters.Sort();
             Highlighters.Insert(0, "None");
             CurrentSyntax = "None";
+            ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
+            ReplaceFormFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.ReplaceFormFontSize);
         }
 
         public void SelectNextFile()
@@ -401,6 +403,34 @@ namespace dnGREP.WPF
             get
             {
                 return ThemedHighlightingManager.Instance.GetDefinition(CurrentSyntax);
+            }
+        }
+
+        private string applicationFontFamily;
+        public string ApplicationFontFamily
+        {
+            get { return applicationFontFamily; }
+            set
+            {
+                if (applicationFontFamily == value)
+                    return;
+
+                applicationFontFamily = value;
+                base.OnPropertyChanged(() => ApplicationFontFamily);
+            }
+        }
+
+        private double replaceFormfontSize;
+        public double ReplaceFormFontSize
+        {
+            get { return replaceFormfontSize; }
+            set
+            {
+                if (replaceFormfontSize == value)
+                    return;
+
+                replaceFormfontSize = value;
+                base.OnPropertyChanged(() => ReplaceFormFontSize);
             }
         }
 

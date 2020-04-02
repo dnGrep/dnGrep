@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
+using System.Windows;
 using System.Xml;
 using System.Xml.Serialization;
 using NLog;
@@ -77,6 +78,8 @@ namespace dnGREP.Common
             public const string ShowFilePathInResults = "ShowFilePathInResults";
             [DefaultValue(true)]
             public const string AllowSearchingForFileNamePattern = "AllowSearchingForFileNamePattern";
+            [DefaultValue(true)]
+            public const string DetectEncodingForFileNamePattern = "DetectEncodingForFileNamePattern";
             public const string CustomEditor = "CustomEditor";
             public const string CustomEditorArgs = "CustomEditorArgs";
             public const string CompareApplication = "CompareApplication";
@@ -140,6 +143,12 @@ namespace dnGREP.Common
             public const string ResultsTreeScale = "ResultsTreeScale";
             [DefaultValue(false)]
             public const string HighlightCaptureGroups = "HighlightCaptureGroups";
+            [DefaultValue(true)]
+            public const string UseDefaultFont = "UseDefaultFont";
+            public const string ApplicationFontFamily = "ApplicationFontFamily";
+            public const string MainFormFontSize = "MainFormFontSize";
+            public const string ReplaceFormFontSize = "ReplaceFormFontSize";
+            public const string DialogFontSize = "DialogFontSize";
         }
 
         private static GrepSettings instance;
@@ -191,10 +200,36 @@ namespace dnGREP.Common
                     foreach (KeyValuePair<string, string> pair in appData)
                         this[pair.Key] = pair.Value;
                 }
+
+                InitializeFonts();
             }
             catch (Exception ex)
             {
                 logger.Log<Exception>(LogLevel.Error, "Failed to load settings: " + ex.Message, ex);
+            }
+        }
+
+        private void InitializeFonts()
+        {
+            if (!TryGetValue(Key.ApplicationFontFamily, out string value) ||
+                string.IsNullOrWhiteSpace(value))
+            {
+                Set(Key.ApplicationFontFamily, SystemFonts.MessageFontFamily.Source);
+            }
+
+            if (Get<double>(Key.MainFormFontSize) == 0)
+            {
+                Set(Key.MainFormFontSize, SystemFonts.MessageFontSize);
+            }
+
+            if (Get<double>(Key.ReplaceFormFontSize) == 0)
+            {
+                Set(Key.ReplaceFormFontSize, SystemFonts.MessageFontSize);
+            }
+
+            if (Get<double>(Key.DialogFontSize) == 0)
+            {
+                Set(Key.DialogFontSize, SystemFonts.MessageFontSize);
             }
         }
 

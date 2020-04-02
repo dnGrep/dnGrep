@@ -1,5 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:my="clr-namespace:dnGREP.WPF">
 
     <Style x:Key="OptionMarkFocusVisualDef">
         <Setter Property="Control.Template">
@@ -34,6 +35,9 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <ControlTemplate.Resources>
+                        <my:PercentValueConverter x:Key="PercentValueConverter" />
+                    </ControlTemplate.Resources>
                     <Grid x:Name="templateRoot" Background="Transparent" SnapsToDevicePixels="True">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -44,12 +48,15 @@
                                 VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}">
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Height="{Binding ActualHeight, ElementName=contentPresenter, 
+                                        Converter={StaticResource PercentValueConverter}, ConverterParameter=.8}"
+                                Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" >
                             <Grid x:Name="markGrid">
                                 <Path x:Name="optionMark" Margin="1"
                                       Data="F1 M 9.97498,1.22334L 4.6983,9.09834L 4.52164,9.09834L 0,5.19331L 1.27664,3.52165L 4.255,6.08833L 8.33331,1.52588e-005L 9.97498,1.22334 Z "
                                       Fill="{DynamicResource OptionMark.Static.Glyph}"
-                                      Opacity="0" Stretch="None" />
+                                      Opacity="0" Stretch="Uniform" />
                                 <Rectangle x:Name="indeterminateMark" Margin="2"
                                            Fill="{DynamicResource OptionMark.Static.Glyph}"
                                            Opacity="0" />

@@ -6,11 +6,14 @@ using System.Text;
 using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
 using ICSharpCode.AvalonEdit.Highlighting;
+using NLog;
 
 namespace dnGREP.WPF
 {
     public class PreviewViewModel : ViewModelBase, INotifyPropertyChanged
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public PreviewViewModel()
         {
             Highlighters = ThemedHighlightingManager.Instance.HighlightingNames.ToList();
@@ -19,6 +22,9 @@ namespace dnGREP.WPF
             CurrentSyntax = "None";
 
             HighlightsOn = GrepSettings.Instance.Get<bool>(GrepSettings.Key.HighlightMatches);
+
+            ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
+            MainFormFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.MainFormFontSize);
 
             PropertyChanged += PreviewViewModel_PropertyChanged;
         }
@@ -156,6 +162,34 @@ namespace dnGREP.WPF
             }
         }
 
+        private string applicationFontFamily;
+        public string ApplicationFontFamily
+        {
+            get { return applicationFontFamily; }
+            set
+            {
+                if (applicationFontFamily == value)
+                    return;
+
+                applicationFontFamily = value;
+                base.OnPropertyChanged(() => ApplicationFontFamily);
+            }
+        }
+
+        private double mainFormfontSize;
+        public double MainFormFontSize
+        {
+            get { return mainFormfontSize; }
+            set
+            {
+                if (mainFormfontSize == value)
+                    return;
+
+                mainFormfontSize = value;
+                base.OnPropertyChanged(() => MainFormFontSize);
+            }
+        }
+
         void PreviewViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             UpdateState(e.PropertyName);
@@ -176,8 +210,17 @@ namespace dnGREP.WPF
                     else
                         CurrentSyntax = "None";
 
-                    // Do not preview files over 4MB or binary
-                    IsLargeOrBinary = fileInfo.Length > 4096000 || Utils.IsBinary(FilePath);
+                    try
+                    {
+                        // Do not preview files over 4MB or binary
+                        IsLargeOrBinary = fileInfo.Length > 4096000 || Utils.IsBinary(FilePath);
+                    }
+                    catch (System.IO.IOException ex)
+                    {
+                        // Is the file locked and cannot be read by IsBinary?
+                        // message is shown in the preview window
+                        logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
+                    }
 
                     // Disable highlighting for large number of matches
                     HighlightDisabled = GrepResult?.Matches?.Count > 5000;

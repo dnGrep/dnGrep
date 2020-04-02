@@ -152,7 +152,8 @@
 
                                 </StackPanel>
                                 <TextBlock Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
-                                           Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=Title}" />
+                                           Text="{Binding Path=Title, RelativeSource={RelativeSource TemplatedParent}}" 
+                                           FontSize="{Binding FontSize, RelativeSource={RelativeSource TemplatedParent}}" />
                             </DockPanel>
                             <Border BorderThickness="{TemplateBinding Border.BorderThickness}" BorderBrush="{TemplateBinding Border.BorderBrush}">
                                 <AdornerDecorator>
