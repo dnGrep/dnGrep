@@ -370,7 +370,8 @@ namespace Tests
             List<GrepSearchResult> results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase4"), "app.config"), SearchType.XPath,
                 "//setting", GrepSearchOption.CaseSensitive, -1);
             Assert.Single(results);
-            Assert.Equal(84, results[0].SearchResults.Count);
+            var lines = results[0].GetLinesWithContext(0, 0);
+            Assert.Equal(84, lines.Count);
         }
 
         [Theory]

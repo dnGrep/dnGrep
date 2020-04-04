@@ -1759,7 +1759,7 @@ namespace dnGREP.Common
         /// Retrieves lines with context based on matches
         /// </summary>
         /// <param name="body">Text</param>
-        /// <param name="bodyMatchesClone">List of matches with positions relative to entire text body</param>
+        /// <param name="bodyMatches">List of matches with positions relative to entire text body</param>
         /// <param name="beforeLines">Context line (before)</param>
         /// <param name="afterLines">Context line (after</param>
         /// <returns></returns>
@@ -1827,6 +1827,17 @@ namespace dnGREP.Common
                             startLine = lineNumber;
                             startIndex = bodyMatchesClone[0].StartLocation - currentIndex;
                             tempLinesTotalLength = 0;
+
+                            // Recording the before match context lines
+                            while (beforeQueue.Count > 0)
+                            {
+                                // If only 1 line - it is the same as matched line
+                                if (beforeQueue.Count == 1)
+                                    beforeQueue.Dequeue();
+                                else
+                                    contextLines.Add(new GrepLine(startLine - beforeQueue.Count + 1 + (lineNumber - startLine),
+                                        beforeQueue.Dequeue(), true, null));
+                            }
                         }
 
                         // Add line to queue
@@ -1847,16 +1858,7 @@ namespace dnGREP.Common
                                 lineNumbers.Add(i);
                                 string tempLine = lineQueue.Dequeue();
                                 lineStrings[i] = tempLine;
-                                // Recording context lines (before)
-                                while (beforeQueue.Count > 0)
-                                {
-                                    // If only 1 line - it is the same as matched line
-                                    if (beforeQueue.Count == 1)
-                                        beforeQueue.Dequeue();
-                                    else
-                                        contextLines.Add(new GrepLine(i - beforeQueue.Count + 1 + (lineNumber - startLine),
-                                            beforeQueue.Dequeue(), true, null));
-                                }
+
                                 string fileMatchId = bodyMatchesClone[0].FileMatchId;
                                 // First and only line
                                 if (i == startLine && i == lineNumber)
