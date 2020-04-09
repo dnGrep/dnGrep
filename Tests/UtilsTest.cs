@@ -143,6 +143,25 @@ namespace Tests
             Assert.Equal(6, lines[2].LineNumber);
             Assert.Equal("loop", lines[2].LineText);
             Assert.True(lines[2].IsContext);
+
+            // test added for github issue 417: the 'before' context lines were missing
+            // from multiline regex match
+            bodyMatches = new List<GrepMatch>();
+            using (StringReader reader = new StringReader(test))
+            {
+                bodyMatches.Clear();
+                bodyMatches.Add(new GrepMatch(4, 15, 21));
+                lines = Utils.GetLinesEx(reader, bodyMatches, 2, 3);
+            }
+
+            Assert.Equal(5, lines.Count);
+            Assert.Equal(2, lines[0].LineNumber);
+            Assert.Equal(3, lines[1].LineNumber);
+            Assert.Equal("World", lines[1].LineText);
+            Assert.True(lines[1].IsContext);
+            Assert.Equal(4, lines[2].LineNumber);
+            Assert.Equal("My name is Denis", lines[2].LineText);
+            Assert.False(lines[2].IsContext);
         }
 
         [Fact]
