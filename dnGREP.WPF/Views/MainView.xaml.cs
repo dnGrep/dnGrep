@@ -90,7 +90,6 @@ namespace dnGREP.WPF
             if (isVisible)
             {
                 base.OnSourceInitialized(e);
-                ((HwndSource)PresentationSource.FromVisual(this)).AddHook(HookProc);
             }
 
             if (!isVisible)
@@ -102,23 +101,6 @@ namespace dnGREP.WPF
                     Visibility = Visibility.Hidden;
                 }
             }
-        }
-
-        private IntPtr HookProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
-        {
-            if (msg == 0x0084 /*WM_NCHITTEST*/ )
-            {
-                // This prevents a crash in WindowChromeWorker._HandleNCHitTest
-                try
-                {
-                    lParam.ToInt32();
-                }
-                catch (OverflowException)
-                {
-                    handled = true;
-                }
-            }
-            return IntPtr.Zero;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
