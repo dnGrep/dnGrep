@@ -17,6 +17,44 @@ namespace Tests
         }
 
         [Fact]
+        public void TestBookmarkEquality()
+        {
+            Bookmark b1 = new Bookmark("test1", "test2", "test3");
+            Bookmark b2 = new Bookmark("test1", "test2", "test3") { Description = "test4" };
+            Bookmark b3 = new Bookmark("testA", "testB", "testC");
+            Bookmark b4 = new Bookmark("testA", "testB", "testC") 
+            {
+                IgnoreFilePattern = "*.txt",
+                WholeWord = true,
+                Multiline = false,
+                IncludeArchive = true,
+            };
+            Bookmark b5 = new Bookmark("testA", "testB", "testC") 
+            {
+                IgnoreFilePattern = "*.txt",
+                WholeWord = true,
+                Multiline = false,
+                IncludeArchive = true,
+            };
+            Bookmark b6 = new Bookmark("testA", "testB", "testC") 
+            {
+                IgnoreFilePattern = "*.txt",
+            };
+
+            Assert.False(b1 == null);
+            Assert.False(b1.Equals(null));
+            Assert.False(Bookmark.Equals(null, b1));
+            Assert.False(Bookmark.Equals(b1, null));
+            Assert.True(b1 == b2);
+            Assert.True(b1.Equals(b2));
+            Assert.False(b1 == b3);
+            Assert.False(b1.Equals(b3));
+            Assert.True(b1 != b3);
+            Assert.True(b4 == b5);
+            Assert.False(b4 == b6);
+        }
+
+        [Fact]
         public void TestBookmarkFind()
         {
             BookmarkLibrary.Instance.Bookmarks.Clear();
@@ -24,7 +62,7 @@ namespace Tests
             BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark("testA", "testB", "testC"));
             Assert.Equal(2, BookmarkLibrary.Instance.Bookmarks.Count);
 
-            var bmk = BookmarkLibrary.Instance.Find("test1", "test2", "test3");
+            var bmk = BookmarkLibrary.Instance.Find(new Bookmark("test1", "test2", "test3"));
             Assert.NotNull(bmk);
         }
 
@@ -36,7 +74,7 @@ namespace Tests
             BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark("testA", "testB", "testC"));
             Assert.Equal(2, BookmarkLibrary.Instance.Bookmarks.Count);
 
-            var bmk = BookmarkLibrary.Instance.Find("test1", "test2", "test3");
+            var bmk = BookmarkLibrary.Instance.Find(new Bookmark("test1", "test2", "test3"));
             Assert.NotNull(bmk);
 
             BookmarkLibrary.Instance.AddFolderReference(bmk, @"c:\test\path");
@@ -51,7 +89,7 @@ namespace Tests
             BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark("testA", "testB", "testC"));
             Assert.Equal(2, BookmarkLibrary.Instance.Bookmarks.Count);
 
-            var bmk = BookmarkLibrary.Instance.Find("test1", "test2", "test3");
+            var bmk = BookmarkLibrary.Instance.Find(new Bookmark("test1", "test2", "test3"));
             Assert.NotNull(bmk);
 
             BookmarkLibrary.Instance.AddFolderReference(bmk, @"c:\test\path");
@@ -67,13 +105,13 @@ namespace Tests
             BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark("testA", "testB", "testC"));
             Assert.Equal(2, BookmarkLibrary.Instance.Bookmarks.Count);
 
-            var bmk = BookmarkLibrary.Instance.Find("test1", "test2", "test3");
+            var bmk = BookmarkLibrary.Instance.Find(new Bookmark("test1", "test2", "test3"));
             Assert.NotNull(bmk);
 
             BookmarkLibrary.Instance.AddFolderReference(bmk, @"c:\test\path");
             Assert.Single(bmk.FolderReferences);
 
-            var bmk2 = BookmarkLibrary.Instance.Find("testA", "testB", "testC");
+            var bmk2 = BookmarkLibrary.Instance.Find(new Bookmark("testA", "testB", "testC"));
             Assert.NotNull(bmk2);
 
             BookmarkLibrary.Instance.AddFolderReference(bmk2, @"c:\test\path");

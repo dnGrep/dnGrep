@@ -82,10 +82,9 @@ namespace dnGREP.Common
     {
         public List<Bookmark> Bookmarks { get; set; } = new List<Bookmark>();
 
-        public Bookmark Find(string searchFor, string replaceWith, string filePattern)
+        public Bookmark Find(Bookmark bookmark)
         {
-            return Bookmarks.FirstOrDefault(bk => bk.SearchPattern == searchFor &&
-                bk.ReplacePattern == replaceWith && bk.FileNames == filePattern);
+            return Bookmarks.FirstOrDefault(bk => bk == bookmark);
         }
 
         public void AddFolderReference(Bookmark bookmark, string folder)
@@ -160,11 +159,35 @@ namespace dnGREP.Common
         {
             if (obj is Bookmark otherBookmark)
             {
-                return FileNames == otherBookmark.FileNames &&
-                    SearchPattern == otherBookmark.SearchPattern &&
-                    ReplacePattern == otherBookmark.ReplacePattern;
+                return this.Equals(otherBookmark);
             }
             return false;
+        }
+
+        public bool Equals(Bookmark otherBookmark)
+        {
+            if (otherBookmark is null)
+                return false;
+
+            return
+                TypeOfFileSearch == otherBookmark.TypeOfFileSearch &&
+                FileNames == otherBookmark.FileNames &&
+                IgnoreFilePattern == otherBookmark.IgnoreFilePattern &&
+                TypeOfSearch == otherBookmark.TypeOfSearch &&
+                SearchPattern == otherBookmark.SearchPattern &&
+                ReplacePattern == otherBookmark.ReplacePattern &&
+                CaseSensitive == otherBookmark.CaseSensitive &&
+                WholeWord == otherBookmark.WholeWord &&
+                Multiline == otherBookmark.Multiline &&
+                Singleline == otherBookmark.Singleline &&
+                BooleanOperators == otherBookmark.BooleanOperators &&
+                IncludeSubfolders == otherBookmark.IncludeSubfolders &&
+                IncludeHiddenFiles == otherBookmark.IncludeHiddenFiles &&
+                IncludeBinaryFiles == otherBookmark.IncludeBinaryFiles &&
+                MaxSubfolderDepth == otherBookmark.MaxSubfolderDepth &&
+                UseGitignore == otherBookmark.UseGitignore &&
+                IncludeArchive == otherBookmark.IncludeArchive &&
+                CodePage == otherBookmark.CodePage;
         }
 
         public override int GetHashCode()
@@ -172,12 +195,32 @@ namespace dnGREP.Common
             unchecked
             {
                 int hashCode = 13;
-                hashCode = (hashCode * 397) ^ FileNames.GetHashCode();
-                hashCode = (hashCode * 397) ^ SearchPattern.GetHashCode();
-                hashCode = (hashCode * 397) ^ ReplacePattern.GetHashCode();
+                hashCode = (hashCode * 17) ^ TypeOfFileSearch.GetHashCode();
+                hashCode = (hashCode * 17) ^ FileNames.GetHashCode();
+                hashCode = (hashCode * 17) ^ IgnoreFilePattern.GetHashCode();
+                hashCode = (hashCode * 17) ^ TypeOfSearch.GetHashCode();
+                hashCode = (hashCode * 17) ^ SearchPattern.GetHashCode();
+                hashCode = (hashCode * 17) ^ ReplacePattern.GetHashCode();
+                hashCode = (hashCode * 17) ^ CaseSensitive.GetHashCode();
+                hashCode = (hashCode * 17) ^ WholeWord.GetHashCode();
+                hashCode = (hashCode * 17) ^ Multiline.GetHashCode();
+                hashCode = (hashCode * 17) ^ Singleline.GetHashCode();
+                hashCode = (hashCode * 17) ^ BooleanOperators.GetHashCode();
+                hashCode = (hashCode * 17) ^ IncludeSubfolders.GetHashCode();
+                hashCode = (hashCode * 17) ^ IncludeHiddenFiles.GetHashCode();
+                hashCode = (hashCode * 17) ^ IncludeBinaryFiles.GetHashCode();
+                hashCode = (hashCode * 17) ^ MaxSubfolderDepth.GetHashCode();
+                hashCode = (hashCode * 17) ^ UseGitignore.GetHashCode();
+                hashCode = (hashCode * 17) ^ IncludeArchive.GetHashCode();
+                hashCode = (hashCode * 17) ^ CodePage.GetHashCode();
                 return hashCode;
             }
         }
+
+        public static bool Equals(Bookmark b1, Bookmark b2) => b1 is null ? b2 is null : b1.Equals(b2);
+
+        public static bool operator ==(Bookmark b1, Bookmark b2) => Equals(b1, b2);
+        public static bool operator !=(Bookmark b1, Bookmark b2) => !Equals(b1, b2);
 
         public override string ToString()
         {

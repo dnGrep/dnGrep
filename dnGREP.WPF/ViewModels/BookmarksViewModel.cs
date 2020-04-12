@@ -12,10 +12,10 @@ namespace dnGREP.WPF
 {
     public class BookmarkListViewModel : ViewModelBase
     {
-        readonly Action<string, string, string> ClearStar;
+        readonly Action<Bookmark> ClearStar;
         readonly Window ownerWnd;
 
-        public BookmarkListViewModel(Window owner, Action<string, string, string> clearStar)
+        public BookmarkListViewModel(Window owner, Action<Bookmark> clearStar)
         {
             ownerWnd = owner;
             ClearStar = clearStar;
@@ -177,9 +177,9 @@ namespace dnGREP.WPF
         {
             if (SelectedBookmark != null)
             {
-                ClearStar(SelectedBookmark.SearchFor, SelectedBookmark.ReplaceWith, SelectedBookmark.FilePattern);
+                ClearStar(SelectedBookmark.ToBookmark());
 
-                var bmk = BookmarkLibrary.Instance.Find(SelectedBookmark.SearchFor, SelectedBookmark.ReplaceWith, SelectedBookmark.FilePattern);
+                var bmk = BookmarkLibrary.Instance.Find(SelectedBookmark.ToBookmark());
                 if (bmk != null)
                 {
                     BookmarkLibrary.Instance.Bookmarks.Remove(bmk);
@@ -205,14 +205,12 @@ namespace dnGREP.WPF
                 var result = dlg.ShowDialog();
                 if (result.HasValue && result.Value)
                 {
-                    if (SelectedBookmark.SearchFor != editBmk.SearchFor ||
-                        SelectedBookmark.ReplaceWith != editBmk.ReplaceWith ||
-                        SelectedBookmark.FilePattern != editBmk.FilePattern)
+                    if (SelectedBookmark != editBmk)
                     {
-                        ClearStar(SelectedBookmark.SearchFor, SelectedBookmark.ReplaceWith, SelectedBookmark.FilePattern);
+                        ClearStar(SelectedBookmark.ToBookmark());
                     }
 
-                    var bmk = BookmarkLibrary.Instance.Find(SelectedBookmark.SearchFor, SelectedBookmark.ReplaceWith, SelectedBookmark.FilePattern);
+                    var bmk = BookmarkLibrary.Instance.Find(SelectedBookmark.ToBookmark());
                     if (bmk != null)
                     {
                         BookmarkLibrary.Instance.Bookmarks.Remove(bmk);
@@ -370,6 +368,30 @@ namespace dnGREP.WPF
 
             ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
             DialogFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.DialogFontSize);
+        }
+
+        public Bookmark ToBookmark()
+        {
+            return new Bookmark(SearchFor, ReplaceWith, FilePattern)
+            {
+                Description = Description,
+                IgnoreFilePattern = IgnoreFilePattern,
+                TypeOfFileSearch = TypeOfFileSearch,
+                TypeOfSearch = TypeOfSearch,
+                CaseSensitive = CaseSensitive,
+                WholeWord = WholeWord,
+                Multiline = Multiline,
+                Singleline = Singleline,
+                BooleanOperators = BooleanOperators,
+                IncludeSubfolders = IncludeSubfolders,
+                IncludeHiddenFiles = IncludeHidden,
+                IncludeBinaryFiles = IncludeBinary,
+                MaxSubfolderDepth = MaxSubfolderDepth,
+                UseGitignore = UseGitignore,
+                IncludeArchive = IncludeArchive,
+                CodePage = CodePage,
+                FolderReferences = PathReferences.Split(new char[] { '\n', '\r'}, StringSplitOptions.RemoveEmptyEntries).ToList()
+            };
         }
 
         private void UpdateTypeOfSearchState()
@@ -861,13 +883,37 @@ namespace dnGREP.WPF
 
         public override bool Equals(object obj)
         {
-            if (obj is BookmarkViewModel other)
+            if (obj is BookmarkViewModel otherBookmark)
             {
-                return FilePattern == other.FilePattern &&
-                    SearchFor == other.SearchFor &&
-                    ReplaceWith == other.ReplaceWith;
+                return this.Equals(otherBookmark);
             }
             return false;
+        }
+
+        public bool Equals(BookmarkViewModel otherVM)
+        {
+            if (otherVM is null)
+                return false;
+
+            return
+                TypeOfFileSearch == otherVM.TypeOfFileSearch &&
+                FilePattern == otherVM.FilePattern &&
+                IgnoreFilePattern == otherVM.IgnoreFilePattern &&
+                TypeOfSearch == otherVM.TypeOfSearch &&
+                SearchFor == otherVM.SearchFor &&
+                ReplaceWith == otherVM.ReplaceWith &&
+                CaseSensitive == otherVM.CaseSensitive &&
+                WholeWord == otherVM.WholeWord &&
+                Multiline == otherVM.Multiline &&
+                Singleline == otherVM.Singleline &&
+                BooleanOperators == otherVM.BooleanOperators &&
+                IncludeSubfolders == otherVM.IncludeSubfolders &&
+                IncludeHidden == otherVM.IncludeHidden &&
+                IncludeBinary == otherVM.IncludeBinary &&
+                MaxSubfolderDepth == otherVM.MaxSubfolderDepth &&
+                UseGitignore == otherVM.UseGitignore &&
+                IncludeArchive == otherVM.IncludeArchive &&
+                CodePage == otherVM.CodePage;
         }
 
         public override int GetHashCode()
@@ -875,12 +921,32 @@ namespace dnGREP.WPF
             unchecked
             {
                 int hashCode = 13;
-                hashCode = (hashCode * 397) ^ FilePattern.GetHashCode();
-                hashCode = (hashCode * 397) ^ SearchFor.GetHashCode();
-                hashCode = (hashCode * 397) ^ ReplaceWith.GetHashCode();
+                hashCode = (hashCode * 17) ^ TypeOfFileSearch.GetHashCode();
+                hashCode = (hashCode * 17) ^ FilePattern.GetHashCode();
+                hashCode = (hashCode * 17) ^ IgnoreFilePattern.GetHashCode();
+                hashCode = (hashCode * 17) ^ TypeOfSearch.GetHashCode();
+                hashCode = (hashCode * 17) ^ SearchFor.GetHashCode();
+                hashCode = (hashCode * 17) ^ ReplaceWith.GetHashCode();
+                hashCode = (hashCode * 17) ^ CaseSensitive.GetHashCode();
+                hashCode = (hashCode * 17) ^ WholeWord.GetHashCode();
+                hashCode = (hashCode * 17) ^ Multiline.GetHashCode();
+                hashCode = (hashCode * 17) ^ Singleline.GetHashCode();
+                hashCode = (hashCode * 17) ^ BooleanOperators.GetHashCode();
+                hashCode = (hashCode * 17) ^ IncludeSubfolders.GetHashCode();
+                hashCode = (hashCode * 17) ^ IncludeHidden.GetHashCode();
+                hashCode = (hashCode * 17) ^ IncludeBinary.GetHashCode();
+                hashCode = (hashCode * 17) ^ MaxSubfolderDepth.GetHashCode();
+                hashCode = (hashCode * 17) ^ UseGitignore.GetHashCode();
+                hashCode = (hashCode * 17) ^ IncludeArchive.GetHashCode();
+                hashCode = (hashCode * 17) ^ CodePage.GetHashCode();
                 return hashCode;
             }
         }
+
+        public static bool Equals(BookmarkViewModel b1, BookmarkViewModel b2) => b1 is null ? b2 is null : b1.Equals(b2);
+
+        public static bool operator ==(BookmarkViewModel b1, BookmarkViewModel b2) => Equals(b1, b2);
+        public static bool operator !=(BookmarkViewModel b1, BookmarkViewModel b2) => !Equals(b1, b2);
 
         public override string ToString()
         {

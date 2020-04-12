@@ -817,9 +817,10 @@ namespace dnGREP.WPF
         {
             base.UpdateState(name);
 
-            if (name == nameof(SearchFor) || name == nameof(ReplaceWith) || name == nameof(FilePattern))
+            if (bookmarkParameters.Contains(name))
             {
-                var bmk = BookmarkLibrary.Instance.Find(SearchFor, ReplaceWith, FilePattern);
+                Bookmark current = CurrentBookmarkSettings();
+                var bmk = BookmarkLibrary.Instance.Find(current);
                 if (bmk != null)
                 {
                     IsBookmarked = true;
@@ -1754,9 +1755,32 @@ namespace dnGREP.WPF
             }
         }
 
-        private void BookmarkAddRemove(bool associateWithFolder)
+        // list of properties that are saved in a bookmarks
+        private static readonly HashSet<string> bookmarkParameters = new HashSet<string>
         {
-            Bookmark newBookmark = new Bookmark(SearchFor, ReplaceWith, FilePattern)
+            nameof(SearchFor),
+            nameof(ReplaceWith),
+            nameof(FilePattern),
+            nameof(FilePatternIgnore),
+            nameof(TypeOfFileSearch),
+            nameof(TypeOfSearch),
+            nameof(CaseSensitive),
+            nameof(WholeWord),
+            nameof(Multiline),
+            nameof(Singleline),
+            nameof(BooleanOperators),
+            nameof(IncludeSubfolder),
+            nameof(IncludeHidden),
+            nameof(IncludeBinary),
+            nameof(MaxSubfolderDepth),
+            nameof(UseGitignore),
+            nameof(IncludeArchive),
+            nameof(CodePage),
+        };
+
+        public Bookmark CurrentBookmarkSettings()
+        {
+            return new Bookmark(SearchFor, ReplaceWith, FilePattern)
             {
                 IgnoreFilePattern = FilePatternIgnore,
                 TypeOfFileSearch = TypeOfFileSearch,
@@ -1774,16 +1798,21 @@ namespace dnGREP.WPF
                 IncludeArchive = IncludeArchive,
                 CodePage = CodePage,
             };
+        }
+
+        private void BookmarkAddRemove(bool associateWithFolder)
+        {
+            Bookmark current = CurrentBookmarkSettings();
 
             if (associateWithFolder)
             {
                 if (IsFolderBookmarked && !string.IsNullOrWhiteSpace(FileOrFolderPath))
                 {
-                    Bookmark bmk = BookmarkLibrary.Instance.Find(SearchFor, ReplaceWith, FilePattern);
+                    Bookmark bmk = BookmarkLibrary.Instance.Find(current);
                     if (bmk == null)
                     {
-                        bmk = newBookmark;
-                        BookmarkLibrary.Instance.Bookmarks.Add(newBookmark);
+                        bmk = current;
+                        BookmarkLibrary.Instance.Bookmarks.Add(current);
                         IsBookmarked = true;
                     }
                     BookmarkLibrary.Instance.AddFolderReference(bmk, FileOrFolderPath);
@@ -1791,7 +1820,7 @@ namespace dnGREP.WPF
                 }
                 else
                 {
-                    Bookmark bmk = BookmarkLibrary.Instance.Find(SearchFor, ReplaceWith, FilePattern);
+                    Bookmark bmk = BookmarkLibrary.Instance.Find(current);
                     if (bmk != null && bmk.FolderReferences.Contains(FileOrFolderPath))
                     {
                         bmk.FolderReferences.Remove(FileOrFolderPath);
@@ -1803,13 +1832,13 @@ namespace dnGREP.WPF
             {
                 if (IsBookmarked)
                 {
-                    if (!BookmarkLibrary.Instance.Bookmarks.Contains(newBookmark))
-                        BookmarkLibrary.Instance.Bookmarks.Add(newBookmark);
+                    if (!BookmarkLibrary.Instance.Bookmarks.Contains(current))
+                        BookmarkLibrary.Instance.Bookmarks.Add(current);
                     IsBookmarked = true;
                 }
                 else
                 {
-                    Bookmark bmk = BookmarkLibrary.Instance.Find(SearchFor, ReplaceWith, FilePattern);
+                    Bookmark bmk = BookmarkLibrary.Instance.Find(current);
                     if (bmk != null)
                     {
                         int count = bmk.FolderReferences.Count(s => s != FileOrFolderPath);
@@ -1845,15 +1874,14 @@ namespace dnGREP.WPF
         {
             try
             {
-                void clearTheStar(string searchFor, string replaceWith, string filePattern)
-                {
-                    if (searchFor == SearchFor && replaceWith == ReplaceWith && filePattern == FilePattern)
+                bookmarkWindow = new BookmarksWindow(bk =>
                     {
-                        IsBookmarked = false;
-                        IsFolderBookmarked = false;
-                    }
-                }
-                bookmarkWindow = new BookmarksWindow(clearTheStar);
+                        if (CurrentBookmarkSettings() == bk)
+                        {
+                            IsBookmarked = false;
+                            IsFolderBookmarked = false;
+                        }
+                    });
                 bookmarkWindow.UseBookmark += BookmarkForm_UseBookmark;
 
                 var wnd = Application.Current.MainWindow;
