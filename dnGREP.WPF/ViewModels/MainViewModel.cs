@@ -2291,25 +2291,22 @@ namespace dnGREP.WPF
                 SearchFor = bmk.SearchFor;
                 ReplaceWith = bmk.ReplaceWith;
 
-                if (bmk.HasExtendedProperties)
-                {
-                    FilePatternIgnore = bmk.IgnoreFilePattern;
-                    TypeOfFileSearch = bmk.TypeOfFileSearch;
-                    IncludeSubfolder = bmk.IncludeSubfolders;
-                    MaxSubfolderDepth = bmk.MaxSubfolderDepth;
-                    IncludeHidden = bmk.IncludeHidden;
-                    IncludeBinary = bmk.IncludeBinary;
-                    IncludeArchive = bmk.IncludeArchive;
-                    UseGitignore = bmk.UseGitignore;
-                    CodePage = bmk.CodePage;
+                FilePatternIgnore = bmk.IgnoreFilePattern;
+                TypeOfFileSearch = bmk.TypeOfFileSearch;
+                IncludeSubfolder = bmk.IncludeSubfolders;
+                MaxSubfolderDepth = bmk.MaxSubfolderDepth;
+                IncludeHidden = bmk.IncludeHidden;
+                IncludeBinary = bmk.IncludeBinary;
+                IncludeArchive = bmk.IncludeArchive;
+                UseGitignore = bmk.UseGitignore;
+                CodePage = bmk.CodePage;
 
-                    TypeOfSearch = bmk.TypeOfSearch;
-                    CaseSensitive = bmk.CaseSensitive;
-                    WholeWord = bmk.WholeWord;
-                    Multiline = bmk.Multiline;
-                    Singleline = bmk.Singleline;
-                    BooleanOperators = bmk.BooleanOperators;
-                }
+                TypeOfSearch = bmk.TypeOfSearch;
+                CaseSensitive = bmk.CaseSensitive;
+                WholeWord = bmk.WholeWord;
+                Multiline = bmk.Multiline;
+                Singleline = bmk.Singleline;
+                BooleanOperators = bmk.BooleanOperators;
             }
         }
 

@@ -53,25 +53,18 @@
 
             <DataGrid.Columns>
                 <DataGridTextColumn MinWidth="80" Header="Type" IsReadOnly="True"
-                                    SortMemberPath="TypeOfSearch">
-                    <DataGridTextColumn.Binding>
-                        <MultiBinding Converter="{StaticResource tosConverter}">
-                            <Binding Path="TypeOfSearch" />
-                            <Binding Path="HasExtendedProperties" />
-                        </MultiBinding>
-                    </DataGridTextColumn.Binding>
-                </DataGridTextColumn>
+                                    Binding="{Binding TypeOfSearch, Converter={StaticResource tosConverter}}"
+                                    SortMemberPath="TypeOfSearch" />
                 <DataGridTextColumn MinWidth="120" Header="Search For" IsReadOnly="True"
                                     Binding="{Binding SearchFor}" />
                 <DataGridTextColumn MinWidth="120" Header="Replace With" IsReadOnly="True"
                                     Binding="{Binding ReplaceWith}" />
                 <DataGridTextColumn MinWidth="120" Header="File Pattern" IsReadOnly="True"
                                     Binding="{Binding FilePattern}" />
-                <DataGridTextColumn MinWidth="240" Header="Comments" IsReadOnly="True"
+                <DataGridTextColumn MinWidth="160" Header="Description" IsReadOnly="True"
                                     Binding="{Binding Description}" />
-                <DataGridCheckBoxColumn MinWidth="20" Header="Extended Properties" IsReadOnly="True"
-                                        Binding="{Binding HasExtendedProperties}"
-                                        ElementStyle="{StaticResource DataGridCheckBoxStyle}" />
+                <DataGridTextColumn MinWidth="20" Header="Other Properties" IsReadOnly="True"
+                                    Binding="{Binding ExtendedProperties}" />
             </DataGrid.Columns>
             <DataGrid.RowStyle>
                 <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource ThemedDataGridRow}">
@@ -86,10 +79,12 @@
                     <ColumnDefinition SharedSizeGroup="A"/>
                     <ColumnDefinition SharedSizeGroup="A"/>
                     <ColumnDefinition SharedSizeGroup="A"/>
+                    <ColumnDefinition SharedSizeGroup="A"/>
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0" Content="_Add" Command="{Binding AddCommand}" />
-                <Button Grid.Column="1" Content="_Edit" Command="{Binding EditCommand}" />
-                <Button Grid.Column="2" Content="_Delete" Command="{Binding DeleteCommand}" />
+                <Button Grid.Column="1" Content="Du_plicate" Command="{Binding DuplicateCommand}" />
+                <Button Grid.Column="2" Content="_Edit" Command="{Binding EditCommand}" />
+                <Button Grid.Column="3" Content="_Delete" Command="{Binding DeleteCommand}" />
             </Grid>
             <Grid DockPanel.Dock="Right">
                 <Grid.ColumnDefinitions>
