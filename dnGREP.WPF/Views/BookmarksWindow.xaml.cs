@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Input;
+using dnGREP.Common;
 
 namespace dnGREP.WPF
 {
@@ -11,7 +12,7 @@ namespace dnGREP.WPF
     {
         public event EventHandler UseBookmark;
 
-        public BookmarksWindow(Action<string, string, string> clearStar)
+        public BookmarksWindow(Action<Bookmark> clearStar)
         {
             InitializeComponent();
 

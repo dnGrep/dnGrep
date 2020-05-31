@@ -55,12 +55,6 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AlphaFS, Version=2.2.0.0, Culture=neutral, PublicKeyToken=4d31a58f7d7ad5c9, processorArchitecture=MSIL">
-      <HintPath>..\packages\AlphaFS.2.2.6\lib\net452\AlphaFS.dll</HintPath>
-    </Reference>
-    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NLog.4.6.8\lib\net45\NLog.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -91,11 +85,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="dnGrep.snk" />
-    <None Include="packages.config" />
     <None Include="x64\Everything64.dll" />
   </ItemGroup>
   <ItemGroup>
     <None Include="x86\Everything32.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AlphaFS">
+      <Version>2.2.6</Version>
+    </PackageReference>
+    <PackageReference Include="NLog">
+      <Version>4.7.0</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

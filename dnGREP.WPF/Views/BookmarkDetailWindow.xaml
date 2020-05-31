@@ -20,6 +20,7 @@
     <Window.Resources>
         <my:EnumBooleanConverter x:Key="ebc" />
         <my:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed" />
+        <my:BoolToVisibilityConverter x:Key="InvBoolToVisibilityConverter" TrueValue="Collapsed" FalseValue="Visible" />
         <my:IntOrEmptyValueConverter x:Key="IntConverter"/>
         <my:TextBoxWidthConverter x:Key="TextBoxWidthConverter"/>
 
@@ -49,11 +50,16 @@
 
         <Grid HorizontalAlignment="Right" DockPanel.Dock="Bottom">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition />
                 <ColumnDefinition SharedSizeGroup="A"/>
                 <ColumnDefinition SharedSizeGroup="A"/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Content="OK" IsDefault="True" Click="OkButton_Click" />
-            <Button Grid.Column="1" Content="Cancel" IsCancel="True" />
+            <TextBlock Grid.Column="0" Text="This bookmark already exists" 
+                       Style="{StaticResource labelStyle}"  Margin="0,0,18,0"
+                       Visibility="{Binding ElementName=okBtn, Path=IsEnabled, Converter={StaticResource InvBoolToVisibilityConverter}}"/>
+            <Button Grid.Column="1" x:Name="okBtn" Content="OK" IsDefault="True" 
+                    Command="{Binding SaveCommand}" Click="OkButton_Click" />
+            <Button Grid.Column="2" Content="Cancel" IsCancel="True" />
         </Grid>
 
         <DockPanel Margin="0,0,0,18">

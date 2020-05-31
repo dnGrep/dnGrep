@@ -1,6 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Interop;
 using System.Windows.Media;
 
 namespace dnGREP.WPF
@@ -18,6 +20,32 @@ namespace dnGREP.WPF
         public ThemedWindow()
             : base()
         {
+        }
+
+        protected override void OnSourceInitialized(EventArgs e)
+        {
+            base.OnSourceInitialized(e);
+            if (PresentationSource.FromVisual(this) is HwndSource hwndSource)
+            {
+                hwndSource.AddHook(HookProc);
+            }
+        }
+
+        private IntPtr HookProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            if (msg == 0x0084 /*WM_NCHITTEST*/ )
+            {
+                // This prevents a crash in WindowChromeWorker._HandleNCHitTest
+                try
+                {
+                    lParam.ToInt32();
+                }
+                catch (OverflowException)
+                {
+                    handled = true;
+                }
+            }
+            return IntPtr.Zero;
         }
 
         /// <summary>
