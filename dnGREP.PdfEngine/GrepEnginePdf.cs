@@ -144,7 +144,7 @@ namespace dnGREP.Engines.Pdf
             {
                 // use command prompt
                 process.StartInfo.FileName = pathToPdfToText;
-                process.StartInfo.Arguments = string.Format("-layout \"{0}\" \"{1}\"", pdfFilePath, tempFileName);
+                process.StartInfo.Arguments = string.Format("-layout -enc UTF-8 -bom \"{0}\" \"{1}\"", pdfFilePath, tempFileName);
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.WorkingDirectory = Utils.GetCurrentPath(typeof(GrepEnginePdf));
                 process.StartInfo.CreateNoWindow = true;
