@@ -87,12 +87,12 @@ namespace dnGREP.Engines
                         if (tokens.Length != 2)
                             continue;
 
-                        switch (tokens[0].Trim().ToUpper())
+                        switch (tokens[0].Trim())
                         {
-                            case "NAME":
+                            case "Name":
                                 Name = tokens[1].Trim();
                                 break;
-                            case "FILE":
+                            case "File":
                                 DllFilePath = tokens[1].Trim();
                                 break;
                         }
