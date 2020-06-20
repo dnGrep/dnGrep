@@ -492,7 +492,7 @@
       <Version>6.0.1</Version>
     </PackageReference>
     <PackageReference Include="NLog">
-      <Version>4.7.0</Version>
+      <Version>4.7.2</Version>
     </PackageReference>
     <PackageReference Include="StrongNamer">
       <Version>0.2.5</Version>
