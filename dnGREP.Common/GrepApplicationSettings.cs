@@ -430,12 +430,12 @@ namespace dnGREP.Common
             }
             FieldInfo info = constantKeys.Find(fi => fi.Name == key);
             if (info == null)
-                return default;
+                return default(T);
 
             if (info.GetCustomAttributes(typeof(DefaultValueAttribute), false) is DefaultValueAttribute[] attr && attr.Length == 1)
                 return (T)attr[0].Value;
 
-            return default;
+            return default(T);
         }
     }
 

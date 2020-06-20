@@ -23,7 +23,7 @@ namespace dnGREP.Common
 {
     public static class Utils
     {
-        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static readonly object regexLock = new object();
         private static readonly Dictionary<string, Regex> regexCache = new Dictionary<string, Regex>();
