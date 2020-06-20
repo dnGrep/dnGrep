@@ -19,7 +19,7 @@ namespace dnGREP.Engines.Pdf
     /// </summary>
     public class GrepEnginePdf : GrepEngineBase, IGrepEngine
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private string pathToPdfToText = "";
 
         #region Initialization and disposal

@@ -1141,19 +1141,21 @@ namespace dnGREP.WPF
                             }
                         }
 
-                        GrepCore grep = new GrepCore();
-                        grep.SearchParams = new GrepEngineInitParams(
+                        GrepCore grep = new GrepCore
+                        {
+                            SearchParams = new GrepEngineInitParams(
                             settings.Get<bool>(GrepSettings.Key.ShowLinesInContext),
                             settings.Get<int>(GrepSettings.Key.ContextLinesBefore),
                             settings.Get<int>(GrepSettings.Key.ContextLinesAfter),
                             settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold),
                             settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount),
-                            SearchParallel);
+                            SearchParallel),
 
-                        grep.FileFilter = new FileFilter(FileOrFolderPath, filePatternInclude, filePatternExclude,
+                            FileFilter = new FileFilter(FileOrFolderPath, filePatternInclude, filePatternExclude,
                             param.TypeOfFileSearch == FileSearchType.Regex, param.UseGitIgnore, param.TypeOfFileSearch == FileSearchType.Everything,
                             param.IncludeSubfolder, param.MaxSubfolderDepth, param.IncludeHidden, param.IncludeBinary, param.IncludeArchive,
-                            sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime);
+                            sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime)
+                        };
 
                         GrepSearchOption searchOptions = GrepSearchOption.None;
                         if (Multiline)
@@ -1175,14 +1177,16 @@ namespace dnGREP.WPF
                     }
                     else
                     {
-                        GrepCore grep = new GrepCore();
-                        grep.SearchParams = new GrepEngineInitParams(
+                        GrepCore grep = new GrepCore
+                        {
+                            SearchParams = new GrepEngineInitParams(
                             settings.Get<bool>(GrepSettings.Key.ShowLinesInContext),
                             settings.Get<int>(GrepSettings.Key.ContextLinesBefore),
                             settings.Get<int>(GrepSettings.Key.ContextLinesAfter),
                             settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold),
                             settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount),
-                            SearchParallel);
+                            SearchParallel)
+                        };
 
                         GrepSearchOption searchOptions = GrepSearchOption.None;
                         if (Multiline)
@@ -1707,8 +1711,10 @@ namespace dnGREP.WPF
         private void ShowOptions()
         {
             SaveSettings();
-            var optionsForm = new OptionsView();
-            optionsForm.Owner = ParentWindow;
+            var optionsForm = new OptionsView
+            {
+                Owner = ParentWindow
+            };
             var optionsViewModel = new OptionsViewModel();
             optionsForm.DataContext = optionsViewModel;
             try
@@ -1731,8 +1737,10 @@ namespace dnGREP.WPF
 
         private void ShowAbout()
         {
-            AboutWindow aboutForm = new AboutWindow();
-            aboutForm.Owner = Application.Current.MainWindow;
+            AboutWindow aboutForm = new AboutWindow
+            {
+                Owner = Application.Current.MainWindow
+            };
             aboutForm.ShowDialog();
         }
 
@@ -2027,11 +2035,12 @@ namespace dnGREP.WPF
         {
             if (FilesFound)
             {
-                SaveFileDialog dlg = new SaveFileDialog();
-
-                dlg.Filter = "Report file format|*.txt|Results file format|*.txt|CSV file format|*.csv";
-                dlg.DefaultExt = "*.txt";
-                dlg.InitialDirectory = PathSearchText.BaseFolder;
+                SaveFileDialog dlg = new SaveFileDialog
+                {
+                    Filter = "Report file format|*.txt|Results file format|*.txt|CSV file format|*.csv",
+                    DefaultExt = "*.txt",
+                    InitialDirectory = PathSearchText.BaseFolder
+                };
 
                 var result = dlg.ShowDialog();
                 if (result.HasValue && result.Value)
@@ -2078,7 +2087,7 @@ namespace dnGREP.WPF
                         // can only replace using the same parameters as was used for the search
                         !SearchParametersChanged &&
                         // if using boolean operators, only allow replace for plain text searches (not implemented for regex)
-                        (BooleanOperators ? TypeOfSearch == SearchType.PlainText : true);
+                        (!BooleanOperators || TypeOfSearch == SearchType.PlainText);
             }
         }
 
