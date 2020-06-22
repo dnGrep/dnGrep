@@ -1768,144 +1768,226 @@ namespace dnGREP.Common
             if (body == null || bodyMatches == null)
                 return new List<GrepLine>();
 
-            List<GrepMatch> bodyMatchesClone = new List<GrepMatch>(bodyMatches);
-            Dictionary<int, GrepLine> results = new Dictionary<int, GrepLine>();
-            List<GrepLine> contextLines = new List<GrepLine>();
-            Dictionary<int, string> lineStrings = new Dictionary<int, string>();
-            List<int> lineNumbers = new List<int>();
-            List<GrepMatch> matches = new List<GrepMatch>();
-
-            // Context line (before)
-            Queue<string> beforeQueue = new Queue<string>();
-            // Context line (after)
-            int currentAfterLine = 0;
-            bool startRecordingAfterLines = false;
-            // Current line
-            int lineNumber = 0;
-            // Current index of character
-            int currentIndex = 0;
-            int startIndex = 0;
-            int tempLinesTotalLength = 0;
-            int startLine = 0;
-            bool startMatched = false;
-            Queue<string> lineQueue = new Queue<string>();
-
-            using (EolReader reader = new EolReader(body))
+            if (body is StreamReader && (body as StreamReader).BaseStream.CanSeek) // gotta go fast
             {
-                while (!reader.EndOfStream && (bodyMatchesClone.Count > 0 || startRecordingAfterLines))
+                Dictionary<int, GrepLine> results = new Dictionary<int, GrepLine>();
+
+                StreamReader streamReader = body as StreamReader;
+                Stream baseStream = streamReader.BaseStream;
+                ReverseLineReader backReader = new ReverseLineReader(baseStream, streamReader.CurrentEncoding);
+                EolReader forwardReader = new EolReader(body);
+
+                for (int match_i = 0, match_n = bodyMatches.Count; match_i < match_n; ++match_i)
                 {
-                    lineNumber++;
-                    string line = reader.ReadLine();
-                    bool moreMatches = true;
-                    // Building context queue
-                    if (beforeLines > 0)
+                    forwardReader.Reset();
+                    backReader.Reset();
+
+                    int beforeLinesLeftToRead = beforeLines;
+                    int afterLinesLeftToRead = afterLines;
+
+                    GrepMatch match = bodyMatches[match_i];
+
+                    baseStream.Seek(match.StartLocation, SeekOrigin.Begin);
+                    int lineNumber = match.LineNumber;
+
+                    string matchLineStart = backReader.ReadLine();
+                    if(matchLineStart.EndsWith("\n") || matchLineStart.EndsWith("\r"))
                     {
-                        if (beforeQueue.Count >= beforeLines + 1)
-                            beforeQueue.Dequeue();
-
-                        beforeQueue.Enqueue(line.TrimEndOfLine());
-                    }
-                    if (startRecordingAfterLines && currentAfterLine < afterLines)
-                    {
-                        currentAfterLine++;
-                        contextLines.Add(new GrepLine(lineNumber, line.TrimEndOfLine(), true, null));
-                    }
-                    else if (currentAfterLine == afterLines)
-                    {
-                        currentAfterLine = 0;
-                        startRecordingAfterLines = false;
-                    }
-
-                    while (moreMatches && bodyMatchesClone.Count > 0)
-                    {
-                        // Head of match found
-                        if (bodyMatchesClone[0].StartLocation >= currentIndex && bodyMatchesClone[0].StartLocation < currentIndex + line.Length && !startMatched)
-                        {
-                            startMatched = true;
-                            moreMatches = true;
-                            lineQueue = new Queue<string>();
-                            startLine = lineNumber;
-                            startIndex = bodyMatchesClone[0].StartLocation - currentIndex;
-                            tempLinesTotalLength = 0;
-
-                            // Recording the before match context lines
-                            while (beforeQueue.Count > 0)
-                            {
-                                // If only 1 line - it is the same as matched line
-                                if (beforeQueue.Count == 1)
-                                    beforeQueue.Dequeue();
-                                else
-                                    contextLines.Add(new GrepLine(startLine - beforeQueue.Count + 1 + (lineNumber - startLine),
-                                        beforeQueue.Dequeue(), true, null));
-                            }
-                        }
-
-                        // Add line to queue
-                        if (startMatched)
-                        {
-                            lineQueue.Enqueue(line);
-                            tempLinesTotalLength += line.Length;
-                        }
-
-                        // Tail of match found
-                        if (bodyMatchesClone[0].StartLocation + bodyMatchesClone[0].Length <= currentIndex + line.Length && startMatched)
-                        {
-                            startMatched = false;
-                            moreMatches = false;
-                            // Start creating matches
-                            for (int i = startLine; i <= lineNumber; i++)
-                            {
-                                lineNumbers.Add(i);
-                                string tempLine = lineQueue.Dequeue();
-                                lineStrings[i] = tempLine;
-
-                                string fileMatchId = bodyMatchesClone[0].FileMatchId;
-                                // First and only line
-                                if (i == startLine && i == lineNumber)
-                                    matches.Add(new GrepMatch(fileMatchId, i, startIndex, bodyMatchesClone[0].Length, bodyMatchesClone[0].Groups));
-                                // First but not last line
-                                else if (i == startLine)
-                                    matches.Add(new GrepMatch(fileMatchId, i, startIndex, tempLine.TrimEndOfLine().Length - startIndex, bodyMatchesClone[0].Groups));
-                                // Middle line
-                                else if (i > startLine && i < lineNumber)
-                                    matches.Add(new GrepMatch(fileMatchId, i, 0, tempLine.TrimEndOfLine().Length, bodyMatchesClone[0].Groups));
-                                // Last line
-                                else
-                                    matches.Add(new GrepMatch(fileMatchId, i, 0, bodyMatchesClone[0].Length - tempLinesTotalLength + line.Length + startIndex, bodyMatchesClone[0].Groups));
-
-                                startRecordingAfterLines = true;
-                            }
-                            bodyMatchesClone.RemoveAt(0);
-                        }
-
-                        // Another match on this line
-                        if (bodyMatchesClone.Count > 0 && bodyMatchesClone[0].StartLocation >= currentIndex && bodyMatchesClone[0].StartLocation < currentIndex + line.Length && !startMatched)
-                            moreMatches = true;
-                        else
-                            moreMatches = false;
+                        beforeLinesLeftToRead--;
+                        lineNumber -= 1;
+                        if (!results.ContainsKey(lineNumber))
+                            results[lineNumber] = new GrepLine(lineNumber, matchLineStart.TrimEndOfLine(), true, null);
+                        matchLineStart = "";
                     }
 
-                    currentIndex += line.Length;
+                    for(; beforeLinesLeftToRead > 0 && !backReader.EndOfStream; --beforeLinesLeftToRead)
+                    {
+                        lineNumber -= 1;
+                        string lineStr = backReader.ReadLine().TrimEndOfLine();
+                        if (!results.ContainsKey(lineNumber))
+                            results[lineNumber] = new GrepLine(lineNumber, lineStr, true, null);
+                    }
+
+                    baseStream.Seek(match.StartLocation, SeekOrigin.Begin);
+                    lineNumber = match.LineNumber;
+
+                    string matchLineEnd = forwardReader.ReadLine();
+                    int matchLength = matchLineEnd.Length;
+                    if (!results.ContainsKey(lineNumber) || results[lineNumber].IsContext)
+                        results[lineNumber] = new GrepLine(lineNumber, matchLineStart + matchLineEnd.TrimEndOfLine(), false, null);
+                    results[lineNumber].Matches.Add(
+                        new GrepMatch(
+                            match.FileMatchId,
+                            lineNumber,
+                            matchLineStart.Length,
+                            Math.Min(matchLineEnd.TrimEndOfLine().Length, match.Length),
+                            match.Groups));
+
+                    while (matchLength < match.Length)
+                    {
+                        lineNumber += 1;
+                        string lineStr = forwardReader.ReadLine();
+                        if (!results.ContainsKey(lineNumber) || results[lineNumber].IsContext)
+                            results[lineNumber] = new GrepLine(lineNumber, lineStr.TrimEndOfLine(), false, null);
+                        results[lineNumber].Matches.Add(
+                            new GrepMatch(
+                                match.FileMatchId,
+                                lineNumber,
+                                0,
+                                Math.Min(match.Length - matchLength, lineStr.TrimEndOfLine().Length),
+                                match.Groups));
+                        matchLength += lineStr.Length;
+                    }
+
+                    for(; afterLinesLeftToRead > 0 && !forwardReader.EndOfStream; --afterLinesLeftToRead)
+                    {
+                        lineNumber += 1;
+                        string lineStr = forwardReader.ReadLine();
+                        if (!results.ContainsKey(lineNumber))
+                            results[lineNumber] = new GrepLine(lineNumber, lineStr.TrimEndOfLine(), true, null);
+                    }
                 }
+                return results.Values.OrderBy(l => l.LineNumber).ToList();
             }
-
-            if (lineStrings.Count == 0)
+            else
             {
-                return new List<GrepLine>();
-            }
+                List<GrepMatch> bodyMatchesClone = new List<GrepMatch>(bodyMatches);
+                Dictionary<int, GrepLine> results = new Dictionary<int, GrepLine>();
+                List<GrepLine> contextLines = new List<GrepLine>();
+                Dictionary<int, string> lineStrings = new Dictionary<int, string>();
+                List<GrepMatch> matches = new List<GrepMatch>();
 
-            // Removing duplicate lines (when more than 1 match is on the same line) and grouping all matches belonging to the same line
-            for (int i = 0; i < matches.Count; i++)
-            {
-                AddGrepMatch(results, matches[i], lineStrings[matches[i].LineNumber]);
-            }
-            for (int i = 0; i < contextLines.Count; i++)
-            {
-                if (!results.ContainsKey(contextLines[i].LineNumber))
-                    results[contextLines[i].LineNumber] = contextLines[i];
-            }
+                // Context line (before)
+                Queue<string> beforeQueue = new Queue<string>();
+                // Context line (after)
+                int currentAfterLine = 0;
+                bool startRecordingAfterLines = false;
+                // Current line
+                int lineNumber = 0;
+                // Current index of character
+                int currentIndex = 0;
+                int startIndex = 0;
+                int tempLinesTotalLength = 0;
+                int startLine = 0;
+                bool startMatched = false;
+                Queue<string> lineQueue = new Queue<string>();
 
-            return results.Values.OrderBy(l => l.LineNumber).ToList();
+                using (EolReader reader = new EolReader(body))
+                {
+                    while (!reader.EndOfStream && (bodyMatchesClone.Count > 0 || startRecordingAfterLines))
+                    {
+                        lineNumber++;
+                        string line = reader.ReadLine();
+                        bool moreMatches = true;
+                        // Building context queue
+                        if (beforeLines > 0)
+                        {
+                            if (beforeQueue.Count >= beforeLines + 1)
+                                beforeQueue.Dequeue();
+
+                            beforeQueue.Enqueue(line.TrimEndOfLine());
+                        }
+                        if (startRecordingAfterLines && currentAfterLine < afterLines)
+                        {
+                            currentAfterLine++;
+                            contextLines.Add(new GrepLine(lineNumber, line.TrimEndOfLine(), true, null));
+                        }
+                        else if (currentAfterLine == afterLines)
+                        {
+                            currentAfterLine = 0;
+                            startRecordingAfterLines = false;
+                        }
+
+                        while (moreMatches && bodyMatchesClone.Count > 0)
+                        {
+                            // Head of match found
+                            if (bodyMatchesClone[0].StartLocation >= currentIndex && bodyMatchesClone[0].StartLocation < currentIndex + line.Length && !startMatched)
+                            {
+                                startMatched = true;
+                                moreMatches = true;
+                                lineQueue = new Queue<string>();
+                                startLine = lineNumber;
+                                startIndex = bodyMatchesClone[0].StartLocation - currentIndex;
+                                tempLinesTotalLength = 0;
+
+                                // Recording the before match context lines
+                                while (beforeQueue.Count > 0)
+                                {
+                                    // If only 1 line - it is the same as matched line
+                                    if (beforeQueue.Count == 1)
+                                        beforeQueue.Dequeue();
+                                    else
+                                        contextLines.Add(new GrepLine(startLine - beforeQueue.Count + 1 + (lineNumber - startLine),
+                                            beforeQueue.Dequeue(), true, null));
+                                }
+                            }
+
+                            // Add line to queue
+                            if (startMatched)
+                            {
+                                lineQueue.Enqueue(line);
+                                tempLinesTotalLength += line.Length;
+                            }
+
+                            // Tail of match found
+                            if (bodyMatchesClone[0].StartLocation + bodyMatchesClone[0].Length <= currentIndex + line.Length && startMatched)
+                            {
+                                startMatched = false;
+                                moreMatches = false;
+                                // Start creating matches
+                                for (int i = startLine; i <= lineNumber; i++)
+                                {
+                                    string tempLine = lineQueue.Dequeue();
+                                    lineStrings[i] = tempLine;
+
+                                    string fileMatchId = bodyMatchesClone[0].FileMatchId;
+                                    // First and only line
+                                    if (i == startLine && i == lineNumber)
+                                        matches.Add(new GrepMatch(fileMatchId, i, startIndex, bodyMatchesClone[0].Length, bodyMatchesClone[0].Groups));
+                                    // First but not last line
+                                    else if (i == startLine)
+                                        matches.Add(new GrepMatch(fileMatchId, i, startIndex, tempLine.TrimEndOfLine().Length - startIndex, bodyMatchesClone[0].Groups));
+                                    // Middle line
+                                    else if (i > startLine && i < lineNumber)
+                                        matches.Add(new GrepMatch(fileMatchId, i, 0, tempLine.TrimEndOfLine().Length, bodyMatchesClone[0].Groups));
+                                    // Last line
+                                    else
+                                        matches.Add(new GrepMatch(fileMatchId, i, 0, bodyMatchesClone[0].Length - tempLinesTotalLength + line.Length + startIndex, bodyMatchesClone[0].Groups));
+
+                                    startRecordingAfterLines = true;
+                                }
+                                bodyMatchesClone.RemoveAt(0);
+                            }
+
+                            // Another match on this line
+                            if (bodyMatchesClone.Count > 0 && bodyMatchesClone[0].StartLocation >= currentIndex && bodyMatchesClone[0].StartLocation < currentIndex + line.Length && !startMatched)
+                                moreMatches = true;
+                            else
+                                moreMatches = false;
+                        }
+
+                        currentIndex += line.Length;
+                    }
+                }
+
+                if (lineStrings.Count == 0)
+                {
+                    return new List<GrepLine>();
+                }
+
+                // Removing duplicate lines (when more than 1 match is on the same line) and grouping all matches belonging to the same line
+                for (int i = 0; i < matches.Count; i++)
+                {
+                    AddGrepMatch(results, matches[i], lineStrings[matches[i].LineNumber]);
+                }
+                for (int i = 0; i < contextLines.Count; i++)
+                {
+                    if (!results.ContainsKey(contextLines[i].LineNumber))
+                        results[contextLines[i].LineNumber] = contextLines[i];
+                }
+
+                return results.Values.OrderBy(l => l.LineNumber).ToList();
+            }
         }
 
         private static void AddGrepMatch(Dictionary<int, GrepLine> lines, GrepMatch match, string lineText)

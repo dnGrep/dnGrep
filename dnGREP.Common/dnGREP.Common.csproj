@@ -135,6 +135,7 @@
     <Compile Include="GrepMatch.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="PathSearchText.cs" />
+    <Compile Include="ReverseLineReader.cs" />
     <Compile Include="SafeDirectory.cs" />
     <Compile Include="GrepSearchResult.cs" />
     <Compile Include="EolReader.cs" />

@@ -27,6 +27,12 @@ namespace dnGREP.Common
         {
         }
 
+        public void Reset()
+        {
+            charLen = 0;
+            charPos = 0;
+        }
+
         private int ReadBuffer()
         {
             charLen = 0;
