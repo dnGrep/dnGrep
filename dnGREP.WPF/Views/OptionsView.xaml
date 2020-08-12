@@ -600,7 +600,11 @@
 
         </ScrollViewer>
 
-        <WrapPanel Grid.Row="1" Margin="0,6,0,0" HorizontalAlignment="Right"
+        <WrapPanel Grid.Row="1" Margin="0,8,0,0" HorizontalAlignment="Left"
+                   VerticalAlignment="Center">
+            <TextBlock Text="Press F1 for help on Options" HorizontalAlignment="Left"/>
+        </WrapPanel>
+        <WrapPanel Grid.Row="1" Margin="0,8,0,0" HorizontalAlignment="Right"
                    VerticalAlignment="Bottom">
             <Button x:Name="btnSave" Padding="24,3" Margin="0,5,10,5"
                     IsDefault="True" Content="Save"
