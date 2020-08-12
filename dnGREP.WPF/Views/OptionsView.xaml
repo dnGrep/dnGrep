@@ -503,8 +503,8 @@
                     </StackPanel>
                 </GroupBox>
 
-                <GroupBox Header="Archive Options" Grid.IsSharedSizeScope="True">
-                    <Grid Margin="0,0,0,12" DataContext="{Binding ArchiveOptions}">
+                <GroupBox Header="Archive Options">
+                    <Grid DataContext="{Binding ArchiveOptions}" Grid.IsSharedSizeScope="True">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" SharedSizeGroup="A"/>
                             <ColumnDefinition Width="490"/>
@@ -531,6 +531,29 @@
                             <TextBlock Grid.Row="0" Grid.Column="2" Text="Remove:" Margin="3" HorizontalAlignment="Right"/>
                             <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding RemExtensions, UpdateSourceTrigger=PropertyChanged}" Margin="3" HorizontalAlignment="Stretch"/>
                         </Grid>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Header="PDF to Text">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,3"
+                                   Text="PdfToText.exe command line options:"/>
+                        <TextBox Grid.Row="1" Grid.Column="0" 
+                                 Text="{Binding PdfToTextOptions}" 
+                                 Width="350" Margin="0,3"
+                                 HorizontalAlignment="Left" />
+                        <Button Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" 
+                                Content="Reset" Command="{Binding ResetPdfToTextOptionCommand}"
+                                Padding="12,3" Margin="20,3" 
+                                HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </Grid>
                 </GroupBox>
 

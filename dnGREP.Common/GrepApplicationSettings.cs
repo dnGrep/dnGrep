@@ -149,6 +149,8 @@ namespace dnGREP.Common
             public const string MainFormFontSize = "MainFormFontSize";
             public const string ReplaceFormFontSize = "ReplaceFormFontSize";
             public const string DialogFontSize = "DialogFontSize";
+            [DefaultValue("-layout -enc UTF-8 -bom")]
+            public const string PdfToTextOptions = "PdfToTextOptions";
         }
 
         private static GrepSettings instance;
