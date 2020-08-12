@@ -2044,7 +2044,7 @@ namespace dnGREP.WPF
                             switch (dlg.FilterIndex)
                             {
                                 case 1:
-                                    Utils.SaveResultsReport(SearchResults.GetList(), GetSearchOptions(), dlg.FileName);
+                                    Utils.SaveResultsReport(SearchResults.GetList(), BooleanOperators, SearchFor, GetSearchOptions(), dlg.FileName);
                                     break;
                                 case 2:
                                     Utils.SaveResultsAsText(SearchResults.GetList(), dlg.FileName);
