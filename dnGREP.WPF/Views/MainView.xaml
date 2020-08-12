@@ -744,7 +744,11 @@
                                 <Separator />
                                 <MenuItem Header="Copy file names" Command="{Binding CopyToClipboardCommand}" />
                                 <MenuItem Header="Copy results" Command="{Binding CopyMatchingLinesCommand}" />
-                                <MenuItem Header="Save results..." Command="{Binding SaveResultsCommand}" />
+                                <MenuItem Header="Save results">
+                                    <MenuItem Header="Report" Command="{Binding SaveResultsCommand}" CommandParameter="Report" />
+                                    <MenuItem Header="Text Results" Command="{Binding SaveResultsCommand}" CommandParameter="Text" />
+                                    <MenuItem Header="CSV Results" Command="{Binding SaveResultsCommand}" CommandParameter="CSV" />
+                                </MenuItem>
                             </ContextMenu>
                         </Button.ContextMenu>
                     </Button>
