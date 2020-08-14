@@ -76,6 +76,7 @@ namespace dnGREP.WPF
                 EditMainFormFontSize != Settings.Get<double>(GrepSettings.Key.MainFormFontSize) ||
                 EditReplaceFormFontSize != Settings.Get<double>(GrepSettings.Key.ReplaceFormFontSize) ||
                 EditDialogFontSize != Settings.Get<double>(GrepSettings.Key.DialogFontSize) ||
+                PdfToTextOptions != Settings.Get<string>(GrepSettings.Key.PdfToTextOptions) ||
                 ArchiveOptions.IsChanged ||
                 IsChanged(Plugins)
                 )
@@ -548,10 +549,23 @@ namespace dnGREP.WPF
             }
         }
 
+        private string pdfToTextOptions = string.Empty;
+        public string PdfToTextOptions
+        {
+            get { return pdfToTextOptions; }
+            set
+            {
+                if (pdfToTextOptions == value)
+                    return;
+
+                pdfToTextOptions = value;
+                OnPropertyChanged(nameof(PdfToTextOptions));
+            }
+        }
+
         private PluginOptions archiveOptions;
         public PluginOptions ArchiveOptions
-        {
-            get { return archiveOptions; }
+        {            get { return archiveOptions; }
             set
             {
                 archiveOptions = value;
@@ -706,7 +720,7 @@ namespace dnGREP.WPF
 
         #region Presentation Properties
 
-        RelayCommand _saveCommand;
+        private RelayCommand _saveCommand;
         /// <summary>
         /// Returns a command that saves the form
         /// </summary>
@@ -725,7 +739,7 @@ namespace dnGREP.WPF
             }
         }
 
-        RelayCommand _browseEditiorCommand;
+        private RelayCommand _browseEditiorCommand;
         /// <summary>
         /// Returns a command that opens file browse dialog.
         /// </summary>
@@ -743,7 +757,7 @@ namespace dnGREP.WPF
             }
         }
 
-        RelayCommand _browseCompareCommand;
+        private RelayCommand _browseCompareCommand;
         /// <summary>
         /// Returns a command that opens file browse dialog.
         /// </summary>
@@ -761,7 +775,7 @@ namespace dnGREP.WPF
             }
         }
 
-        RelayCommand _clearSearchesCommand;
+        private RelayCommand _clearSearchesCommand;
         /// <summary>
         /// Returns a command that clears old searches.
         /// </summary>
@@ -779,7 +793,7 @@ namespace dnGREP.WPF
             }
         }
 
-        RelayCommand _reloadThemeCommand;
+        private RelayCommand _reloadThemeCommand;
         /// <summary>
         /// Returns a command that reloads the current theme file.
         /// </summary>
@@ -794,6 +808,21 @@ namespace dnGREP.WPF
                         );
                 }
                 return _reloadThemeCommand;
+            }
+        }
+
+        private RelayCommand _resetPdfToTextOptionCommand;
+        public ICommand ResetPdfToTextOptionCommand
+        {
+            get
+            {
+                if (_resetPdfToTextOptionCommand == null)
+                {
+                    _resetPdfToTextOptionCommand = new RelayCommand(
+                        param => PdfToTextOptions = "-layout -enc UTF-8 -bom"
+                        );
+                }
+                return _resetPdfToTextOptionCommand;
             }
         }
         #endregion
@@ -895,6 +924,7 @@ namespace dnGREP.WPF
             CurrentTheme = AppTheme.Instance.CurrentThemeName;
             FollowWindowsTheme = AppTheme.Instance.FollowWindowsTheme;
 
+            PdfToTextOptions = Settings.Get<string>(GrepSettings.Key.PdfToTextOptions);
 
             {
                 string nameKey = "Archive";
@@ -1010,6 +1040,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.MainFormFontSize, MainFormFontSize);
             Settings.Set(GrepSettings.Key.ReplaceFormFontSize, ReplaceFormFontSize);
             Settings.Set(GrepSettings.Key.DialogFontSize, DialogFontSize);
+            Settings.Set(GrepSettings.Key.PdfToTextOptions, PdfToTextOptions);
 
             if (ArchiveOptions.IsChanged)
             {
