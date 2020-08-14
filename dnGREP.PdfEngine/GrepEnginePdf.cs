@@ -140,11 +140,13 @@ namespace dnGREP.Engines.Pdf
                 pdfFilePath = @"\\?\" + pdfFilePath;
             }
 
+            string options = GrepSettings.Instance.Get<string>(GrepSettings.Key.PdfToTextOptions);
+
             using (Process process = new Process())
             {
                 // use command prompt
                 process.StartInfo.FileName = pathToPdfToText;
-                process.StartInfo.Arguments = string.Format("-layout -enc UTF-8 -bom \"{0}\" \"{1}\"", pdfFilePath, tempFileName);
+                process.StartInfo.Arguments = string.Format("{0} \"{1}\" \"{2}\"", options, pdfFilePath, tempFileName);
                 process.StartInfo.UseShellExecute = false;
                 process.StartInfo.WorkingDirectory = Utils.GetCurrentPath(typeof(GrepEnginePdf));
                 process.StartInfo.CreateNoWindow = true;

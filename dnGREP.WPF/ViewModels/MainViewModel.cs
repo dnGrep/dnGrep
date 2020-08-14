@@ -618,7 +618,7 @@ namespace dnGREP.WPF
                 if (_saveResultsCommand == null)
                 {
                     _saveResultsCommand = new RelayCommand(
-                        param => SaveResultsToFile()
+                        param => SaveResultsToFile(param as string)
                         );
                 }
                 return _saveResultsCommand;
@@ -2023,14 +2023,28 @@ namespace dnGREP.WPF
             Clipboard.SetText(Utils.GetResultLines(SearchResults.GetList()));
         }
 
-        private async void SaveResultsToFile()
+        private async void SaveResultsToFile(string reportType)
         {
             if (FilesFound)
             {
                 SaveFileDialog dlg = new SaveFileDialog();
 
-                dlg.Filter = "Report file format|*.txt|Results file format|*.txt|CSV file format|*.csv";
-                dlg.DefaultExt = "*.txt";
+                switch (reportType)
+                {
+                    case "Report":
+                        dlg.Filter = "Report file format|*.txt";
+                        dlg.DefaultExt = "*.txt";
+                        break;
+                    case "Text":
+                        dlg.Filter = "Results file format|*.txt";
+                        dlg.DefaultExt = "*.txt";
+                        break;
+                    case "CSV":
+                        dlg.Filter = "CSV file format|*.csv";
+                        dlg.DefaultExt = "*.csv";
+                        break;
+                }
+
                 dlg.InitialDirectory = PathSearchText.BaseFolder;
 
                 var result = dlg.ShowDialog();
@@ -2041,15 +2055,15 @@ namespace dnGREP.WPF
                         IsSaveInProgress = true;
                         await Task.Run(() =>
                         {
-                            switch (dlg.FilterIndex)
+                            switch (reportType)
                             {
-                                case 1:
-                                    Utils.SaveResultsReport(SearchResults.GetList(), GetSearchOptions(), dlg.FileName);
+                                case "Report":
+                                    Utils.SaveResultsReport(SearchResults.GetList(), BooleanOperators, SearchFor, GetSearchOptions(), dlg.FileName);
                                     break;
-                                case 2:
+                                case "Text":
                                     Utils.SaveResultsAsText(SearchResults.GetList(), dlg.FileName);
                                     break;
-                                case 3:
+                                case "CSV":
                                     Utils.SaveResultsAsCSV(SearchResults.GetList(), dlg.FileName);
                                     break;
                             }

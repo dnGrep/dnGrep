@@ -227,7 +227,7 @@ namespace dnGREP.Engines
                 if (!regexOptions.HasFlag(RegexOptions.Singleline) && match.Value.EndsWith("\r"))
                     length -= 1;
 
-                var grepMatch = new GrepMatch(lineNumber, match.Index + filePosition, length);
+                var grepMatch = new GrepMatch(searchPattern, lineNumber, match.Index + filePosition, length);
 
                 if (match.Groups.Count > 1)
                 {
@@ -468,7 +468,7 @@ namespace dnGREP.Engines
                         lineNumber = lineEndIndexes.FindIndex(i => i > index) + 1;
                     }
 
-                    yield return new GrepMatch(lineNumber, index + filePosition, searchText.Length);
+                    yield return new GrepMatch(searchText, lineNumber, index + filePosition, searchText.Length);
                     index++;
                 }
             }
@@ -751,7 +751,7 @@ namespace dnGREP.Engines
 
                                     if (XPathPositionsMatch(currPos, positions[i].Path))
                                     {
-                                        results[i] = new GrepMatch(lineInfo.LineNumber, GetAbsoluteCharPosition(lineInfo.LineNumber - 1, lineInfo.LinePosition - 2, text, lineLengths, false), 0);
+                                        results[i] = new GrepMatch(string.Empty, lineInfo.LineNumber, GetAbsoluteCharPosition(lineInfo.LineNumber - 1, lineInfo.LinePosition - 2, text, lineLengths, false), 0);
                                     }
 
                                     // If empty element (e.g.<element/>)
@@ -881,7 +881,7 @@ namespace dnGREP.Engines
                 if (initParams.VerboseMatchCount && lineEndIndexes.Count > 0)
                     lineNumber = lineEndIndexes.FindIndex(i => i > matchLocation + counter) + 1;
 
-                yield return new GrepMatch(lineNumber, matchLocation + filePosition + counter, matchLength);
+                yield return new GrepMatch(searchPattern, lineNumber, matchLocation + filePosition + counter, matchLength);
 
                 counter = counter + matchLocation + matchLength;
             }

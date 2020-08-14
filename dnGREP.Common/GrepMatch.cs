@@ -5,8 +5,9 @@ namespace dnGREP.Common
 {
     public class GrepMatch : IComparable<GrepMatch>, IComparable, IEquatable<GrepMatch>
     {
-        public GrepMatch(int line, int start, int length)
+        public GrepMatch(string searchPattern, int line, int start, int length)
         {
+            SearchPattern = searchPattern;
             LineNumber = line;
             StartLocation = start;
             Length = length;
@@ -14,11 +15,12 @@ namespace dnGREP.Common
             FileMatchId = Guid.NewGuid().ToString();
         }
 
-        public GrepMatch(string fileMatchId, int line, int start, int length, IEnumerable<GrepCaptureGroup> toCopy)
+        public GrepMatch(string fileMatchId, string searchPattern, int line, int start, int length, IEnumerable<GrepCaptureGroup> toCopy)
         {
             LineNumber = line;
             StartLocation = start;
             Length = length;
+            SearchPattern = searchPattern;
 
             FileMatchId = fileMatchId;
 
@@ -50,6 +52,8 @@ namespace dnGREP.Common
         }
 
         public List<GrepCaptureGroup> Groups { get; } = new List<GrepCaptureGroup>();
+
+        public string SearchPattern { get; private set; }
 
         /// <summary>
         /// Gets or sets a flag indicating if this match should be replaced
@@ -168,7 +172,7 @@ namespace dnGREP.Common
             int end = Math.Max(one.EndPosition, two.EndPosition);
             int line = Math.Min(one.LineNumber, two.LineNumber);
 
-            return new GrepMatch(line, start, end - start);
+            return new GrepMatch(one.SearchPattern + " & " + two.SearchPattern, line, start, end - start);
         }
     }
 }
