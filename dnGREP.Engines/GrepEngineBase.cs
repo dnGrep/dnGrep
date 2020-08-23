@@ -311,6 +311,8 @@ namespace dnGREP.Engines
         protected string DoRegexReplace(int lineNumber, int filePosition, string text, string searchPattern, string replacePattern,
             GrepSearchOption searchOptions, IEnumerable<GrepMatch> replaceItems)
         {
+            string result = text;
+
             RegexOptions regexOptions = RegexOptions.None;
             if (!searchOptions.HasFlag(GrepSearchOption.CaseSensitive))
                 regexOptions |= RegexOptions.IgnoreCase;
@@ -329,47 +331,48 @@ namespace dnGREP.Engines
                     searchPattern = searchPattern.Trim() + "\\b";
             }
 
-            // Issue #210 .net regex will only match the $ end of line token with a \n, not \r\n or \r
-            bool convertToWindowsNewline = false;
-            string searchPatternForReplace = searchPattern;
-            if (searchPattern.Contains("$") && text.Contains("\r\n"))
+            // check this block of text for any matches that are marked for replace
+            // just return the original text if not
+            var matches = RegexSearchIterator(lineNumber, filePosition, text, searchPattern, searchOptions);
+            var toDo = replaceItems.Intersect(matches);
+            if (toDo.Any(r => r.ReplaceMatch))
             {
-                convertToWindowsNewline = true;
-                searchPatternForReplace = searchPattern.Replace("\r\n", "\n");
-                replacePattern = replacePattern.Replace("\r\n", "\n");
-            }
-
-            StringBuilder sb = new StringBuilder();
-            int counter = 0;
-
-            foreach (GrepMatch match in RegexSearchIterator(lineNumber, filePosition, text, searchPattern, searchOptions))
-            {
-                if (replaceItems.Any(r => match.Equals(r) && r.ReplaceMatch))
+                // Issue #210 .net regex will only match the $ end of line token with a \n, not \r\n or \r
+                bool convertToWindowsNewline = false;
+                string searchPatternForReplace = searchPattern;
+                if (searchPattern.Contains("$") && text.Contains("\r\n"))
                 {
-                    string matchText = text.Substring(match.StartLocation - filePosition, match.Length);
-                    int matchTextLength = matchText.Length; // save in case the newline is changed
-
-                    if (convertToWindowsNewline)
-                        matchText = matchText.Replace("\r\n", "\n");
-
-                    string replaceText = Regex.Replace(matchText, searchPatternForReplace, DoPatternReplacement(matchText, replacePattern), regexOptions);
-
-                    if (convertToWindowsNewline)
-                        replaceText = replaceText.Replace("\n", "\r\n");
-
-                    sb.Append(text.Substring(counter, match.StartLocation - filePosition - counter));
-                    sb.Append(replaceText);
-
-                    counter = match.StartLocation - filePosition + matchTextLength;
+                    convertToWindowsNewline = true;
+                    searchPatternForReplace = searchPattern.Replace("\r\n", "\n");
+                    replacePattern = replacePattern.Replace("\r\n", "\n");
+                    text = text.Replace("\r\n", "\n");
                 }
 
-                if (Utils.CancelSearch)
-                    break;
+                // because we're possibly altering the new line chars, the match.Index in Regex.Replace
+                // may not match the startPos in the GrepMatch, but the order of the matches should be 
+                // the same.  So get the indexes of matches to change in this text block
+                var indexes = toDo.Select((item, index) => new { item, index }).Where(t => t.item.ReplaceMatch).Select(t => t.index).ToList();
+
+                int matchIndex = 0;
+                string replaceText = Regex.Replace(text, searchPatternForReplace, (match) =>
+                    {
+                        if (indexes.Contains(matchIndex++))
+                        {
+                            var pattern = DoPatternReplacement(match.Value, replacePattern);
+                            return match.Result(pattern);
+                        }
+                        else
+                        {
+                            return match.Value;
+                        }
+                    },
+                    regexOptions, MatchTimeout);
+
+                if (convertToWindowsNewline)
+                    replaceText = replaceText.Replace("\n", "\r\n");
+
+                result = replaceText;
             }
-
-            sb.Append(text.Substring(counter));
-
-            string result = sb.ToString();
 
             return result;
         }
