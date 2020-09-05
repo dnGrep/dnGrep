@@ -253,6 +253,7 @@ namespace dnGREP.WPF
                         IncludeBinaryFiles = editBmk.IncludeBinary,
                         UseGitignore = editBmk.UseGitignore,
                         IncludeArchive = editBmk.IncludeArchive,
+                        FollowSymlinks = editBmk.FollowSymlinks,
                         CodePage = editBmk.CodePage,
                     };
                     string[] paths = editBmk.PathReferences.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
@@ -300,6 +301,7 @@ namespace dnGREP.WPF
                         IncludeBinaryFiles = duplicateBmk.IncludeBinary,
                         UseGitignore = duplicateBmk.UseGitignore,
                         IncludeArchive = duplicateBmk.IncludeArchive,
+                        FollowSymlinks = duplicateBmk.FollowSymlinks,
                         CodePage = duplicateBmk.CodePage,
                     };
                     BookmarkLibrary.Instance.Bookmarks.Add(newBmk);
@@ -342,6 +344,7 @@ namespace dnGREP.WPF
                     IncludeBinaryFiles = editBmk.IncludeBinary,
                     UseGitignore = editBmk.UseGitignore,
                     IncludeArchive = editBmk.IncludeArchive,
+                    FollowSymlinks = editBmk.FollowSymlinks,
                     CodePage = editBmk.CodePage,
                 };
                 string[] paths = editBmk.PathReferences.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
@@ -391,6 +394,7 @@ namespace dnGREP.WPF
             MaxSubfolderDepth = bk.MaxSubfolderDepth;
             UseGitignore = bk.UseGitignore;
             IncludeArchive = bk.IncludeArchive;
+            FollowSymlinks = bk.FollowSymlinks;
             CodePage = bk.CodePage;
             PathReferences = string.Join(Environment.NewLine, bk.FolderReferences);
 
@@ -422,6 +426,7 @@ namespace dnGREP.WPF
             MaxSubfolderDepth = toCopy.MaxSubfolderDepth;
             UseGitignore = toCopy.UseGitignore;
             IncludeArchive = toCopy.IncludeArchive;
+            FollowSymlinks = toCopy.FollowSymlinks;
             CodePage = toCopy.CodePage;
             PathReferences = string.Join(Environment.NewLine, toCopy.PathReferences);
 
@@ -459,6 +464,8 @@ namespace dnGREP.WPF
                 tempList.Add("No hidden");
             if (!IncludeBinary)
                 tempList.Add("No binary");
+            if (!FollowSymlinks)
+                tempList.Add("No symlinks");
             if (CaseSensitive)
                 tempList.Add("Case sensitive");
             if (WholeWord)
@@ -495,6 +502,7 @@ namespace dnGREP.WPF
                 MaxSubfolderDepth = MaxSubfolderDepth,
                 UseGitignore = UseGitignore,
                 IncludeArchive = IncludeArchive,
+                FollowSymlinks = FollowSymlinks,
                 CodePage = CodePage,
                 FolderReferences = PathReferences.Split(new char[] { '\n', '\r'}, StringSplitOptions.RemoveEmptyEntries).ToList()
             };
@@ -912,6 +920,20 @@ namespace dnGREP.WPF
             }
         }
 
+        private bool followSymlinks = false;
+        public bool FollowSymlinks
+        {
+            get { return followSymlinks; }
+            set
+            {
+                if (followSymlinks == value)
+                    return;
+
+                followSymlinks = value;
+                OnPropertyChanged("FollowSymlinks");
+            }
+        }
+
         private int codePage = -1;
         public int CodePage
         {
@@ -1044,6 +1066,7 @@ namespace dnGREP.WPF
                 IncludeSubfolders == otherVM.IncludeSubfolders &&
                 IncludeHidden == otherVM.IncludeHidden &&
                 IncludeBinary == otherVM.IncludeBinary &&
+                FollowSymlinks == otherVM.FollowSymlinks &&
                 MaxSubfolderDepth == otherVM.MaxSubfolderDepth &&
                 UseGitignore == otherVM.UseGitignore &&
                 IncludeArchive == otherVM.IncludeArchive &&
@@ -1072,6 +1095,7 @@ namespace dnGREP.WPF
                 hashCode = (hashCode * 17) ^ MaxSubfolderDepth.GetHashCode();
                 hashCode = (hashCode * 17) ^ UseGitignore.GetHashCode();
                 hashCode = (hashCode * 17) ^ IncludeArchive.GetHashCode();
+                hashCode = (hashCode * 17) ^ FollowSymlinks.GetHashCode();
                 hashCode = (hashCode * 17) ^ CodePage.GetHashCode();
                 return hashCode;
             }

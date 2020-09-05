@@ -52,6 +52,7 @@ namespace dnGREP.WPF
             nameof(IncludeBinary),
             nameof(IncludeHidden),
             nameof(IncludeSubfolder),
+            nameof(FollowSymlinks),
             nameof(IsDateFilterSet),
             nameof(IsDatesRangeSet),
             nameof(IsEverythingSearchMode),
@@ -308,6 +309,21 @@ namespace dnGREP.WPF
                 includeBinary = value;
 
                 base.OnPropertyChanged(() => IncludeBinary);
+            }
+        }
+
+        private bool followSymlinks;
+        public bool FollowSymlinks
+        { 
+            get { return followSymlinks; }
+            set
+            {
+                if (value == followSymlinks)
+                    return;
+
+                followSymlinks = value;
+
+                base.OnPropertyChanged(() => FollowSymlinks);
             }
         }
 
@@ -1226,7 +1242,8 @@ namespace dnGREP.WPF
             }
 
             if (name == "IncludeSubfolder" || name == "MaxSubfolderDepth" || name == "IncludeHidden" ||
-                name == "IncludeBinary" || name == "UseFileSizeFilter" || name == "UseFileDateFilter")
+                name == "IncludeBinary" || name == "UseFileSizeFilter" || name == "UseFileDateFilter" ||
+                name == "FollowSymlinks")
             {
                 tempList = new List<string>();
                 if (!IncludeSubfolder || (IncludeSubfolder && MaxSubfolderDepth == 0))
@@ -1237,6 +1254,8 @@ namespace dnGREP.WPF
                     tempList.Add("No hidden");
                 if (!IncludeBinary)
                     tempList.Add("No binary");
+                if (!FollowSymlinks)
+                    tempList.Add("No symlinks");
                 if (UseFileSizeFilter == FileSizeFilter.Yes)
                     tempList.Add("By Size");
                 if (UseFileDateFilter == FileDateFilter.Modified)
@@ -1442,6 +1461,7 @@ namespace dnGREP.WPF
             IncludeSubfolder = true;
             MaxSubfolderDepth = -1;
             IncludeArchive = Utils.ArchiveExtensions.Count > 0;
+            FollowSymlinks = false;
             UseFileDateFilter = FileDateFilter.None;
             TypeOfTimeRangeFilter = FileTimeRange.None;
             FilePattern = "*";
@@ -1524,6 +1544,7 @@ namespace dnGREP.WPF
             SearchParallel = settings.Get<bool>(GrepSettings.Key.SearchParallel);
             IncludeSubfolder = settings.Get<bool>(GrepSettings.Key.IncludeSubfolder);
             MaxSubfolderDepth = settings.Get<int>(GrepSettings.Key.MaxSubfolderDepth);
+            FollowSymlinks = settings.Get<bool>(GrepSettings.Key.FollowSymlinks);
             TypeOfSearch = settings.Get<SearchType>(GrepSettings.Key.TypeOfSearch);
             TypeOfFileSearch = settings.Get<FileSearchType>(GrepSettings.Key.TypeOfFileSearch);
             // FileOrFolderPath depends on TypeOfFileSearch, so must be after
@@ -1564,6 +1585,7 @@ namespace dnGREP.WPF
             settings.Set<bool>(GrepSettings.Key.SearchParallel, SearchParallel);
             settings.Set<bool>(GrepSettings.Key.IncludeSubfolder, IncludeSubfolder);
             settings.Set<int>(GrepSettings.Key.MaxSubfolderDepth, MaxSubfolderDepth);
+            settings.Set<bool>(GrepSettings.Key.FollowSymlinks, FollowSymlinks);
             settings.Set<SearchType>(GrepSettings.Key.TypeOfSearch, TypeOfSearch);
             settings.Set<int>(GrepSettings.Key.CodePage, CodePage);
             settings.Set<FileSearchType>(GrepSettings.Key.TypeOfFileSearch, TypeOfFileSearch);

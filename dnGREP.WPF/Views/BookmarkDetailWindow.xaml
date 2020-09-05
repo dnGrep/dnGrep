@@ -146,6 +146,7 @@
                     </my:DepthTextBox>
                 </StackPanel>
                 <CheckBox IsChecked="{Binding Path=IncludeArchive}" Content="Search in archives" />
+                <CheckBox IsChecked="{Binding Path=FollowSymlinks}" Content="Follow symbolic links" />
                 <CheckBox IsChecked="{Binding Path=UseGitignore}" Content="Use .gitignore" 
                           ToolTip="Use .gitignore to filter files"
                           Visibility="{Binding IsGitInstalled, Converter={StaticResource BoolToVisibilityConverter}}" />

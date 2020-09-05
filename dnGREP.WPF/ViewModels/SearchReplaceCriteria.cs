@@ -27,6 +27,7 @@ namespace dnGREP.WPF
             IncludeHidden = vm.IncludeHidden;
             IncludeSubfolder = vm.IncludeSubfolder;
             MaxSubfolderDepth = vm.MaxSubfolderDepth;
+            FollowSymlinks = vm.FollowSymlinks;
             CodePage = vm.CodePage;
             TypeOfSearch = vm.TypeOfSearch;
             SearchFor = vm.SearchFor;
@@ -62,6 +63,7 @@ namespace dnGREP.WPF
         public bool IncludeHidden { get; private set; }
         public bool IncludeSubfolder { get; private set; }
         public int MaxSubfolderDepth { get; private set; }
+        public bool FollowSymlinks { get; private set; }
         public int CodePage { get; private set; }
         public SearchType TypeOfSearch { get; private set; }
         public string SearchFor { get; private set; }
