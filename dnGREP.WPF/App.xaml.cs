@@ -10,7 +10,7 @@ namespace dnGREP.WPF
     /// </summary>
     public partial class App : Application
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         public static string InstanceId { get; } = Guid.NewGuid().ToString();
 
@@ -20,37 +20,31 @@ namespace dnGREP.WPF
             {
                 AppTheme.Instance.Initialize();
 
-                string searchFor = null;
-                Utils.DeleteTempFolder();
-                if (e.Args != null && e.Args.Length > 0)
-                {
-                    string searchPath = e.Args[0];
-                    if (e.Args.Length == 2)
-                        searchFor = e.Args[1];
-                    if (searchPath == "/warmUp")
-                    {
-                        this.MainWindow = new MainForm(false);
-                        this.MainWindow.Loaded += new RoutedEventHandler(MainWindow_Loaded);
-                    }
-                    else
-                    {
-                        if (searchPath.EndsWith(":\""))
-                            searchPath = searchPath.Substring(0, searchPath.Length - 1) + "\\";
-                        searchPath = Utils.QuoteIfNeeded(searchPath);
-                        GrepSettings.Instance.Set<string>(GrepSettings.Key.SearchFolder, searchPath);
-                        if (searchFor != null)
-                        {
-                            GrepSettings.Instance.Set<string>(GrepSettings.Key.SearchFor, searchFor);
-                            GrepSettings.Instance.Set<SearchType>(GrepSettings.Key.TypeOfSearch, SearchType.Regex);
-                        }
-                    }
-                }
-                if (this.MainWindow == null)
-                    this.MainWindow = new MainForm();
+                CommandLineArgs args = new CommandLineArgs();
 
-                this.MainWindow.Show();
-                if (searchFor != null && this.MainWindow.DataContext != null)
-                    ((MainViewModel)this.MainWindow.DataContext).SearchCommand.Execute(null);
+                if (args.WarmUp)
+                {
+                    MainWindow = new MainForm(false);
+                    MainWindow.Loaded += MainWindow_Loaded;
+                }
+                else if (args.ShowHelp)
+                {
+                    MainWindow = new HelpWindow(args.GetHelpString(), args.InvalidArgument);
+                }
+                else
+                {
+                    args.ApplyArgs();
+                }
+
+                if (MainWindow == null)
+                {
+                    MainWindow = new MainForm();
+                    Utils.DeleteTempFolder();
+                }
+
+                MainWindow.Show();
+                if (args.ExecuteSearch && MainWindow.DataContext != null)
+                    ((MainViewModel)MainWindow.DataContext).SearchCommand.Execute(null);
             }
             catch (Exception ex)
             {
@@ -61,8 +55,9 @@ namespace dnGREP.WPF
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            this.MainWindow.Close();
+            MainWindow.Close();
         }
+
         private void Application_Exit(object sender, ExitEventArgs e)
         {
             try
@@ -75,6 +70,7 @@ namespace dnGREP.WPF
                 MessageBox.Show("Something broke down in the program. See event log for details.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             logger.Log<Exception>(LogLevel.Error, e.Exception.Message, e.Exception);
