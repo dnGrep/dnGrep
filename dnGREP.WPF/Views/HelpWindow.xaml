@@ -1,0 +1,39 @@
+﻿<my:ThemedWindow x:Class="dnGREP.WPF.HelpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:my="clr-namespace:dnGREP.WPF"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="dnGrep" 
+        Height="600" 
+        Width="450"
+        FontFamily="{Binding ApplicationFontFamily}"
+        FontSize="{Binding DialogFontSize}"
+        Icon="/dnGREP;component/nGREP.ico"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource Dialog.Background}"
+        CaptionBackground="{DynamicResource Caption.Dialog.Background}">
+
+    <DockPanel Margin="8" LastChildFill="True"
+               Grid.IsSharedSizeScope="True">
+
+        <Button DockPanel.Dock="Bottom" Width="90" Margin="0,10,0,0"
+                Height="28" HorizontalAlignment="Right" Content="OK"
+                IsDefault="True" IsCancel="True" Click="OkButton_Click"/>
+
+        <TextBlock DockPanel.Dock="Top" x:Name="WarningMsg"
+                   Text="One or more arguments are invalid."
+                   Margin="3" HorizontalAlignment="Center"
+                   Style="{StaticResource ThemedTextBlock}"
+                   FontWeight="SemiBold"
+                   Foreground="Red"/>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" 
+                      HorizontalScrollBarVisibility="Disabled">
+            <TextBlock x:Name="HelpText" TextWrapping="Wrap"
+                       Style="{StaticResource ThemedTextBlock}"/>
+        </ScrollViewer>
+    </DockPanel>
+</my:ThemedWindow>

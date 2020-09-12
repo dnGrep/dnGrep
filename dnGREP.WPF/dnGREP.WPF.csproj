@@ -137,6 +137,7 @@
     <Compile Include="..\AssemblyVersionCommon.cs">
       <Link>Properties\AssemblyVersionCommon.cs</Link>
     </Compile>
+    <Compile Include="CommandLineArgs.cs" />
     <Compile Include="Controls\DepthTextBox.cs" />
     <Compile Include="Controls\MultilineComboBox.cs" />
     <Compile Include="Controls\RadioMenuItem.cs" />
@@ -189,6 +190,9 @@
     </Compile>
     <Compile Include="Views\BookmarksWindow.xaml.cs">
       <DependentUpon>BookmarksWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HelpWindow.xaml.cs">
+      <DependentUpon>HelpWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
@@ -344,6 +348,10 @@
     <Page Include="Views\BookmarksWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\HelpWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>

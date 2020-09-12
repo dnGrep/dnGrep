@@ -138,7 +138,7 @@ namespace dnGREP.Common
         }
 
         public string Path { get; private set; }
-        public string NamePatternToInclude { get; set; }
+        public string NamePatternToInclude { get; private set; }
         public string NamePatternToExclude { get; private set; }
         public bool UseGitIgnore { get; private set; }
         public bool IsRegex { get; private set; }
