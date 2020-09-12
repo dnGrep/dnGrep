@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using dnGREP.Common;
+using dnGREP.WPF;
 using Xunit;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
@@ -1315,6 +1316,58 @@ namespace Tests
         {
             bool result = SafeDirectory.WildcardMatch(fileName, pattern, true);
             Assert.Equal(expected, result);
+        }
+
+        [Theory]
+        [InlineData(@"", 0, false, false, null, null, null, null, null, null, null, null, null, null, null, false)]
+        [InlineData(@" /warmUp", 1, false, true, null, null, null, null, null, null, null, null, null, null, null, false)]
+        [InlineData(@" ""c:\temp\test data\""", 1, false, false, @"c:\temp\test data\", null, null, null, null, null, null, null, null, null, null, false)] // old style search directory without flag
+        [InlineData(@" ""c:\temp\test data\"" p\w*", 2, false, false, @"c:\temp\test data\", @"p\w*", SearchType.Regex, null, null, null, null, null, null, null, null, true)]  // old style search directory and regex without flags
+        [InlineData(@" ""c:\temp\test data"" ""p\w*""", 2, false, false, @"c:\temp\test data", @"p\w*", SearchType.Regex, null, null, null, null, null, null, null, null, true)]  // old style search directory and regex without flags
+        [InlineData(@" c:\temp\testData\ ""p\w*""", 2, false, false, @"c:\temp\testData\", @"p\w*", SearchType.Regex, null, null, null, null, null, null, null, null, true)]  // old style search directory and regex without flags
+        [InlineData(@" c:\temp\testData ""p\w*""", 2, false, false, @"c:\temp\testData", @"p\w*", SearchType.Regex, null, null, null, null, null, null, null, null, true)]  // old style search directory and regex without flags
+        [InlineData(@" -f ""c:\temp\test data\""", 2, false, false, @"c:\temp\test data\", null, null, null, null, null, null, null, null, null, null, false)]
+        [InlineData(@" -f ""c:\temp\testData\""", 2, false, false, @"c:\temp\testData\", null, null, null, null, null, null, null, null, null, null, false)]
+        [InlineData(@" -f c:\temp\testData\", 2, false, false, @"c:\temp\testData\", null, null, null, null, null, null, null, null, null, null, false)]
+        [InlineData(@" -f c:\temp\testData", 2, false, false, @"c:\temp\testData", null, null, null, null, null, null, null, null, null, null, false)]
+        [InlineData(@" -f ""c:\temp\test data\"" -s p\w*", 4, false, false, @"c:\temp\test data\", @"p\w*", null, null, null, null, null, null, null, null, null, true)]
+        [InlineData(@" -f ""c:\temp\test data\"" -s ""p\w*""", 4, false, false, @"c:\temp\test data\", @"p\w*", null, null, null, null, null, null, null, null, null, true)]
+        [InlineData(@" -f ""c:\temp\testData\"" -s p\w*", 4, false, false, @"c:\temp\testData\", @"p\w*", null, null, null, null, null, null, null, null, null, true)]
+        [InlineData(@" -f c:\temp\testData\ -s p\w*", 4, false, false, @"c:\temp\testData\", @"p\w*", null, null, null, null, null, null, null, null, null, true)]
+        [InlineData(@" -f c:\temp\testData -s p\w*", 4, false, false, @"c:\temp\testData", @"p\w*", null, null, null, null, null, null, null, null, null, true)]
+        [InlineData(@" -f c:\temp\testData -s ""p\w*""", 4, false, false, @"c:\temp\testData", @"p\w*", null, null, null, null, null, null, null, null, null, true)]
+        [InlineData(@" -f c:\temp\testData -s p""\w*", 4, false, false, @"c:\temp\testData", @"p""\w*", null, null, null, null, null, null, null, null, null, true)]
+        [InlineData(@" -f c:\temp\testData -s ""\w*", 4, false, false, @"c:\temp\testData", @"""\w*", null, null, null, null, null, null, null, null, null, true)]
+        [InlineData(@" -f c:\temp\testData -st Regex -s ""p\w*""", 6, false, false, @"c:\temp\testData", @"p\w*", SearchType.Regex, null, null, null, null, null, null, null, null, true)]
+        [InlineData(@" -f c:\temp\testData -pm *.txt;*.xml -s ""p\w*""", 6, false, false, @"c:\temp\testData", @"p\w*", null, "*.txt;*.xml", null, null, null, null, null, null, null, true)]
+        [InlineData(@" -f c:\temp\testData -pt Asterisk -pm *.* -pi *.pdf -s ""p\w*""", 10, false, false, @"c:\temp\testData", @"p\w*", null, "*.*", "*.pdf", FileSearchType.Asterisk, null, null, null, null, null, true)]
+        [InlineData(@" -f c:\temp\testData -s p\w* /cs true /ww True /ml false /dn false /bo False", 14, false, false, @"c:\temp\testData", @"p\w*", null, null, null, null, true, true, false, false, false, true)]
+        [InlineData(@" -f c:\temp\testData /cs true /ww True /ml false", 8, false, false, @"c:\temp\testData", null, null, null, null, null, true, true, false, null, null, false)]
+        public void SplitCommandLineTest(string commandLine, int argCount, 
+            bool expInvalidArgument, bool expIsWarmUp, string expSearchPath, string expSearchFor, 
+            SearchType? expSearchType, string expPatternToInclude, string expPatternToExclude, 
+            FileSearchType? expTypeOfFileSearch, bool? expCaseSensitive, bool? expWholeWord, 
+            bool? expMultiline, bool? expDotAsNewLine, bool? expBooleanOperators, bool expExecuteSearch)
+        {
+            const string program = @"""C:\\Program Files\\dnGREP\\dnGREP.exe""";
+            var args = new CommandLineArgs(program + commandLine);
+
+            Assert.Equal(argCount, args.Count);
+            Assert.Equal(expInvalidArgument, args.InvalidArgument);
+            Assert.Equal(expIsWarmUp, args.WarmUp);
+            Assert.Equal(expSearchPath, args.SearchPath);
+            Assert.Equal(expSearchFor, args.SearchFor);
+            Assert.Equal(expSearchType, args.TypeOfSearch);
+            Assert.Equal(expPatternToInclude, args.NamePatternToInclude);
+            Assert.Equal(expPatternToExclude, args.NamePatternToExclude);
+            Assert.Equal(expTypeOfFileSearch, args.TypeOfFileSearch);
+            Assert.Equal(expCaseSensitive, args.CaseSensitive);
+            Assert.Equal(expWholeWord, args.WholeWord);
+            Assert.Equal(expMultiline, args.Multiline);
+            Assert.Equal(expDotAsNewLine, args.DotAsNewline);
+            Assert.Equal(expBooleanOperators, args.BooleanOperators);
+            Assert.Equal(expExecuteSearch, args.ExecuteSearch);
+
         }
     }
 }

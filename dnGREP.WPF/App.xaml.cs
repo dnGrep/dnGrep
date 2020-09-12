@@ -20,7 +20,7 @@ namespace dnGREP.WPF
             {
                 AppTheme.Instance.Initialize();
 
-                CommandLineArgs args = new CommandLineArgs();
+                CommandLineArgs args = new CommandLineArgs(Environment.CommandLine);
 
                 if (args.WarmUp)
                 {

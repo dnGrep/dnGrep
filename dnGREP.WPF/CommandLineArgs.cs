@@ -3,46 +3,43 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
-using System.Text;
+using System.Text.RegularExpressions;
 using dnGREP.Common;
 
 namespace dnGREP.WPF
 {
     public class CommandLineArgs
     {
-        public CommandLineArgs()
+        public CommandLineArgs(string commandLine)
         {
             // Getting the arguments from Environment.GetCommandLineArgs() or StartupEventArgs 
             // does strange things with quoted strings, so parse them here:
-            string[] args = SplitCommandLine(Environment.CommandLine);
-            if (args.Length > 1)
+            string[] args = SplitCommandLine(commandLine);
+            Count = args.Length;
+            if (args.Length > 0)
             {
                 EvaluateArgs(args);
             }
         }
+
+        public int Count { get; private set; }
+
+        private readonly static Regex cmdRegex = new Regex("(?:^| )(\"(?:[^\"])*\"|[^ ]*)",
+            RegexOptions.Compiled);
+
         private static string[] SplitCommandLine(string line)
         {
             List<string> result = new List<string>();
-            StringBuilder currentStr = new StringBuilder();
-            bool inQuotes = false;
-            for (int i = 0; i < line.Length; i++) // For each character
+            MatchCollection matches = cmdRegex.Matches(line);
+            foreach (Match m in matches)
             {
-                if (line[i] == '\"') // Quotes are closing or opening
-                    inQuotes = !inQuotes;
-                else if (line[i] == ' ') // Space
+                string s = m.Value.Trim();
+                if (s.Length > 2 && s.StartsWith("\"", StringComparison.InvariantCulture) && s.EndsWith("\"", StringComparison.InvariantCulture))
                 {
-                    if (!inQuotes) // If not in quotes, end of current string, add it to result
-                    {
-                        result.Add(currentStr.ToString());
-                        currentStr.Clear();
-                    }
-                    else
-                        currentStr.Append(line[i]); // If in quotes, just add it 
+                    s = s.Substring(1, s.Length - 2);
                 }
-                else // Add any other character to current string
-                    currentStr.Append(line[i]);
+                result.Add(s);
             }
-            result.Add(currentStr.ToString());
             return result.Skip(1).ToArray(); // Drop the program path, and return array of all strings
         }
 
