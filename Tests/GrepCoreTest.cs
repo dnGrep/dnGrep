@@ -565,13 +565,9 @@ namespace Tests
             Assert.Single(results[0].SearchResults);
         }
 
-        [Theory]
-        [InlineData(true)]
-        [InlineData(false)]
-        public void TestReplaceSpecialChars(bool useLongPath)
+        [Fact]
+        public void TestReplaceSpecialChars()
         {
-            string destFolder = useLongPath ? GetLongPathDestination(Guid.NewGuid().ToString()) : destinationFolder;
-
             string result = Utils.ReplaceSpecialCharacters("\\\\t");
             Assert.Equal("\t", result);
 
@@ -583,6 +579,41 @@ namespace Tests
 
             result = Utils.ReplaceSpecialCharacters("\\\\a");
             Assert.Equal("\a", result);
+        }
+
+        [Theory]
+        [InlineData(@"\b(\w+[.])\b", "$1 ", "first.second. third", "first. second")]
+        [InlineData(@"\b\w+(?=\sis\b)", "Saturday", "Sunday is a weekend day.", "Saturday")]
+        [InlineData(@"\b(?!un)\w+\b", "understood", "untie, unite, misunderstood, under, unknown", ", understood, ")]
+        [InlineData(@"(?<=[$])(\d+)", "4", "The price is $1.99 for two.", "$4.99")]
+        [InlineData(@"(?<!USD)\d{3}", "200", "JPY100 USD100", "JPY200 USD100")]
+        [InlineData(@"(?<=_(?=\d{2}_))\d+", "15", "10 _16_ 20", "10 _15_ 20")]
+        public void TestLookAroundReplace(string pattern, string replace, string input, string expected)
+        {
+            string path = Path.Combine(destinationFolder, @"Issue437");
+            if (Directory.Exists(path))
+                Utils.DeleteFolder(path);
+            Directory.CreateDirectory(path);
+
+            string testFile = Path.Combine(path, @"test.txt");
+            File.WriteAllText(testFile, input);
+
+            GrepCore core = new GrepCore();
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(path, "test.txt"), SearchType.Regex, pattern, GrepSearchOption.None, -1);
+            
+            // mark all matches for replace
+            foreach (var match in results[0].Matches)
+            {
+                match.ReplaceMatch = true;
+            }
+            List<ReplaceDef> files = new List<ReplaceDef>
+            {
+                new ReplaceDef(testFile, results[0].Matches)
+            };
+
+            core.Replace(files, SearchType.Regex, pattern, replace, GrepSearchOption.None, -1);
+
+            Assert.True(File.ReadAllText(testFile).Contains(expected, StringComparison.InvariantCulture));
         }
 
         [Theory]
@@ -614,7 +645,7 @@ namespace Tests
             Assert.Equal(2, File.ReadAllText(testFile, Encoding.ASCII).Trim().Split('\n').Length);
         }
 
-        private Regex guidPattern = new Regex("[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}");
+        private readonly Regex guidPattern = new Regex("[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}");
 
         [Theory]
         [InlineData(SearchType.Regex, true)]
