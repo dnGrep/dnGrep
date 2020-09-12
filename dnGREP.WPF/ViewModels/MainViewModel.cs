@@ -1109,8 +1109,8 @@ namespace dnGREP.WPF
 
                         FileFilter fileParams = new FileFilter(FileOrFolderPath, filePatternInclude, filePatternExclude,
                             param.TypeOfFileSearch == FileSearchType.Regex, param.UseGitIgnore, param.TypeOfFileSearch == FileSearchType.Everything,
-                            param.IncludeSubfolder, param.MaxSubfolderDepth, param.IncludeHidden, param.IncludeBinary, param.IncludeArchive, sizeFrom,
-                            sizeTo, param.UseFileDateFilter, startTime, endTime);
+                            param.IncludeSubfolder, param.MaxSubfolderDepth, param.IncludeHidden, param.IncludeBinary, param.IncludeArchive, 
+                            param.FollowSymlinks, sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime);
 
                         if (param.Operation == GrepOperation.SearchInResults)
                         {
@@ -1153,7 +1153,7 @@ namespace dnGREP.WPF
                         grep.FileFilter = new FileFilter(FileOrFolderPath, filePatternInclude, filePatternExclude,
                             param.TypeOfFileSearch == FileSearchType.Regex, param.UseGitIgnore, param.TypeOfFileSearch == FileSearchType.Everything,
                             param.IncludeSubfolder, param.MaxSubfolderDepth, param.IncludeHidden, param.IncludeBinary, param.IncludeArchive,
-                            sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime);
+                            param.FollowSymlinks, sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime);
 
                         GrepSearchOption searchOptions = GrepSearchOption.None;
                         if (Multiline)
@@ -1772,6 +1772,7 @@ namespace dnGREP.WPF
             nameof(IncludeSubfolder),
             nameof(IncludeHidden),
             nameof(IncludeBinary),
+            nameof(FollowSymlinks),
             nameof(MaxSubfolderDepth),
             nameof(UseGitignore),
             nameof(IncludeArchive),
@@ -1796,6 +1797,7 @@ namespace dnGREP.WPF
                 MaxSubfolderDepth = MaxSubfolderDepth,
                 UseGitignore = UseGitignore,
                 IncludeArchive = IncludeArchive,
+                FollowSymlinks = FollowSymlinks,
                 CodePage = CodePage,
             };
         }
@@ -2179,6 +2181,7 @@ namespace dnGREP.WPF
             if (!IncludeHidden) options.Add("No hidden files");
             if (!IncludeBinary) options.Add("No binary files");
             if (!IncludeArchive) options.Add("No archives");
+            if (!FollowSymlinks) options.Add("No symlinks");
             if (options.Count > 0)
                 sb.AppendLine(string.Join(", ", options.ToArray()));
 
@@ -2312,6 +2315,7 @@ namespace dnGREP.WPF
                 IncludeHidden = bmk.IncludeHidden;
                 IncludeBinary = bmk.IncludeBinary;
                 IncludeArchive = bmk.IncludeArchive;
+                FollowSymlinks = bmk.FollowSymlinks;
                 UseGitignore = bmk.UseGitignore;
                 CodePage = bmk.CodePage;
 
@@ -2341,6 +2345,7 @@ namespace dnGREP.WPF
                     IncludeHidden = bmk.IncludeHiddenFiles;
                     IncludeBinary = bmk.IncludeBinaryFiles;
                     IncludeArchive = bmk.IncludeArchive;
+                    FollowSymlinks = bmk.FollowSymlinks;
                     UseGitignore = bmk.UseGitignore;
                     CodePage = bmk.CodePage;
 

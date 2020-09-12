@@ -146,7 +146,7 @@ namespace dnGREP.WPF
         }
 
         // http://stackoverflow.com/questions/1600962/displaying-the-build-date
-        static DateTime GetLinkerTime(Assembly assembly, TimeZoneInfo target = null)
+        public static DateTime GetLinkerTime(Assembly assembly, TimeZoneInfo target = null)
         {
             var filePath = assembly.Location;
             const int c_PeHeaderOffset = 60;
