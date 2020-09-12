@@ -322,6 +322,9 @@
                                     <CheckBox Name="cbIncludeBinary" Margin="3,0,3,3"
                                               IsChecked="{Binding Path=IncludeBinary}"
                                               TabIndex="27" Content="Include binary files" />
+                                    <CheckBox Name="cbFollowSymlinks" Margin="3,0,3,3"
+                                              IsChecked="{Binding Path=FollowSymlinks}"
+                                              TabIndex="28" Content="Follow symbolic links" />
                                 </StackPanel>
                                 <!--  middle  -->
                                 <StackPanel x:Name="MiddleFileOptions" Margin="3,5,15,3" VerticalAlignment="Top"

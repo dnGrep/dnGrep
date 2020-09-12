@@ -15,7 +15,7 @@ namespace dnGREP.Common
 {
     public static class SafeDirectory
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         private const DirectoryEnumerationOptions baseDirOptions =
             DirectoryEnumerationOptions.Folders |
@@ -31,7 +31,7 @@ namespace dnGREP.Common
         private const string dot = ".";
         private const string star = "*";
 
-        public static IList<string> GetGitignoreDirectories(string path, bool recursive)
+        public static IList<string> GetGitignoreDirectories(string path, bool recursive, bool followSymlinks)
         {
             if (File.Exists(Path.Combine(path, ".gitignore")))
                 return new List<string> { path };
@@ -39,6 +39,8 @@ namespace dnGREP.Common
             var fileOptions = baseFileOptions;
             if (recursive)
                 fileOptions |= DirectoryEnumerationOptions.Recursive;
+            if (followSymlinks)
+                fileOptions &= ~DirectoryEnumerationOptions.SkipReparsePoints;
 
             List<string> dontRecurseBelow = new List<string>();
 
@@ -107,18 +109,20 @@ namespace dnGREP.Common
                 string.IsNullOrWhiteSpace(filter.NamePatternToExclude);
 
             if (simpleSearch)
-                return EnumerateAllFiles(path, patterns, filter.IncludeArchive, filter.IncludeSubfolders);
+                return EnumerateAllFiles(path, patterns, filter.IncludeArchive, filter.IncludeSubfolders, filter.FollowSymlinks);
             else
                 return EnumerateFilesWithFilters(path, patterns, gitignore, filter);
         }
 
-        private static IEnumerable<string> EnumerateAllFiles(string path, IList<string> patterns, bool includeArchive, bool recursive)
+        private static IEnumerable<string> EnumerateAllFiles(string path, IList<string> patterns, bool includeArchive, bool recursive, bool followSymlinks)
         {
             // without filters, just enumerate files, which is faster
 
             var fileOptions = baseFileOptions;
             if (recursive)
                 fileOptions |= DirectoryEnumerationOptions.Recursive;
+            if (followSymlinks)
+                fileOptions &= ~DirectoryEnumerationOptions.SkipReparsePoints;
 
             DirectoryEnumerationFilters fileFilters = new DirectoryEnumerationFilters
             {
@@ -190,6 +194,8 @@ namespace dnGREP.Common
             var dirOptions = baseDirOptions;
             if (filter.IncludeSubfolders)
                 dirOptions |= DirectoryEnumerationOptions.Recursive;
+            if (filter.FollowSymlinks)
+                dirOptions &= ~DirectoryEnumerationOptions.SkipReparsePoints;
 
             DirectoryEnumerationFilters dirFilters = new DirectoryEnumerationFilters
             {
@@ -314,7 +320,11 @@ namespace dnGREP.Common
                 };
             }
 
-            return Directory.EnumerateFiles(path, baseFileOptions, fileFilters, PathFormat.FullPath);
+            var fileOptions = baseFileOptions;
+            if (filter.FollowSymlinks)
+                fileOptions &= ~DirectoryEnumerationOptions.SkipReparsePoints;
+
+            return Directory.EnumerateFiles(path, fileOptions, fileFilters, PathFormat.FullPath);
         }
 
         private static int GetDepth(DirectoryInfo di)

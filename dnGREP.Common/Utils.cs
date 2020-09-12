@@ -23,7 +23,7 @@ namespace dnGREP.Common
 {
     public static class Utils
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         private static readonly object regexLock = new object();
         private static readonly Dictionary<string, Regex> regexCache = new Dictionary<string, Regex>();
@@ -438,7 +438,7 @@ namespace dnGREP.Common
         /// <param name="path"></param>
         public static void DeleteFolder(string path)
         {
-            string[] files = GetFileList(path, "*.*", null, false, false, true, true, true, false, 0, 0, FileDateFilter.None, null, null, false, -1);
+            string[] files = GetFileList(path, "*.*", null, false, false, true, true, true, false, false, 0, 0, FileDateFilter.None, null, null, false, -1);
             foreach (string file in files)
             {
                 File.SetAttributes(file, FileAttributes.Normal);
@@ -1056,7 +1056,7 @@ namespace dnGREP.Common
                 Gitignore gitignore = null;
                 if (filter.UseGitIgnore)
                 {
-                    var gitDirectories = SafeDirectory.GetGitignoreDirectories(subPath, filter.IncludeSubfolders);
+                    var gitDirectories = SafeDirectory.GetGitignoreDirectories(subPath, filter.IncludeSubfolders, filter.FollowSymlinks);
                     if (gitDirectories != null)
                     {
                         gitignore = GitUtil.GetGitignore(gitDirectories);
@@ -1288,6 +1288,7 @@ namespace dnGREP.Common
         /// <param name="includeHidden">Include hidden folders</param>
         /// <param name="includeBinary">Include binary files</param>
         /// <param name="includeArchive">Include search in archives</param>
+        /// <param name="followSymlinks">Include search in symbolic links</param>
         /// <param name="sizeFrom">Size in KB</param>
         /// <param name="sizeTo">Size in KB</param>
         /// <param name="dateFilter">Filter by file modified or created date time range</param>
@@ -1297,11 +1298,12 @@ namespace dnGREP.Common
         /// <param name="maxSubfolderDepth">Max depth of sub-folders where 0 is root only and -1 is all</param>
         /// <returns>List of file or empty list if nothing is found</returns>
         public static string[] GetFileList(string path, string namePatternToInclude, string namePatternToExclude, bool isRegex,
-            bool useEverything, bool includeSubfolders, bool includeHidden, bool includeBinary, bool includeArchive, int sizeFrom, int sizeTo,
-            FileDateFilter dateFilter, DateTime? startTime, DateTime? endTime, bool useGitignore, int maxSubfolderDepth)
+            bool useEverything, bool includeSubfolders, bool includeHidden, bool includeBinary, bool includeArchive,
+            bool followSymlinks, int sizeFrom, int sizeTo, FileDateFilter dateFilter,
+            DateTime? startTime, DateTime? endTime, bool useGitignore, int maxSubfolderDepth)
         {
             var filter = new FileFilter(path, namePatternToInclude, namePatternToExclude, isRegex, useGitignore, useEverything,
-                includeSubfolders, maxSubfolderDepth, includeHidden, includeBinary, includeArchive, sizeFrom, sizeTo,
+                includeSubfolders, maxSubfolderDepth, includeHidden, includeBinary, includeArchive, followSymlinks, sizeFrom, sizeTo,
                 dateFilter, startTime, endTime);
             return GetFileListEx(filter).ToArray();
         }
@@ -1987,16 +1989,6 @@ namespace dnGREP.Common
             {
                 yield return new NumberedString() { LineCount = 0, FirstLineNumber = 0, Text = "" };
             }
-        }
-
-        public static int[] GetIntArray(int startLine, int lineCount)
-        {
-            int[] result = new int[lineCount];
-            for (int i = 0; i < lineCount; i++)
-            {
-                result[i] = startLine + i;
-            }
-            return result;
         }
 
         /// <summary>

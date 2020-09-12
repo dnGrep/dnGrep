@@ -1174,7 +1174,7 @@ namespace Tests
 
             GrepCore core = new GrepCore();
             var files = Utils.GetFileList(destFolder, namePattern, null, false, false, true, true,
-                true, true, 0, 0, FileDateFilter.None, null, null, false, -1);
+                true, true, false, 0, 0, FileDateFilter.None, null, null, false, -1);
             List<GrepSearchResult> results = core.Search(files, SearchType.PlainText, searchText, GrepSearchOption.None, -1);
             Assert.Equal(expected, results.Count);
         }
@@ -1197,7 +1197,7 @@ namespace Tests
 
             GrepCore core = new GrepCore();
             var files = Utils.GetFileList(destFolder, namePattern, null, false, false, true, true,
-                true, true, 0, 0, FileDateFilter.None, null, null, false, -1);
+                true, true, false, 0, 0, FileDateFilter.None, null, null, false, -1);
             List<GrepSearchResult> results = core.Search(files, SearchType.PlainText, searchText, GrepSearchOption.None, -1);
             Assert.Equal(expected, results.Count);
         }

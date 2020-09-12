@@ -133,6 +133,7 @@ namespace dnGREP.Common
         public int MaxSubfolderDepth { get; set; } = -1;
         public bool UseGitignore { get; set; }
         public bool IncludeArchive { get; set; }
+        public bool FollowSymlinks { get; set; }
         public int CodePage { get; set; } = -1;
         public List<string> FolderReferences { get; set; } = new List<string>();
 
@@ -152,6 +153,7 @@ namespace dnGREP.Common
         public bool ShouldSerializeMaxSubfolderDepth() { return Version > 1; }
         public bool ShouldSerializeUseGitignore() { return Version > 1; }
         public bool ShouldSerializeIncludeArchive() { return Version > 1; }
+        public bool ShouldSerializeFollowSymlinks() { return Version > 1; }
         public bool ShouldSerializeCodePage() { return Version > 1; }
         public bool ShouldSerializeFolderReferences() { return Version > 1; }
 
@@ -187,6 +189,7 @@ namespace dnGREP.Common
                 MaxSubfolderDepth == otherBookmark.MaxSubfolderDepth &&
                 UseGitignore == otherBookmark.UseGitignore &&
                 IncludeArchive == otherBookmark.IncludeArchive &&
+                FollowSymlinks == otherBookmark.FollowSymlinks &&
                 CodePage == otherBookmark.CodePage;
         }
 
@@ -212,6 +215,7 @@ namespace dnGREP.Common
                 hashCode = (hashCode * 17) ^ MaxSubfolderDepth.GetHashCode();
                 hashCode = (hashCode * 17) ^ UseGitignore.GetHashCode();
                 hashCode = (hashCode * 17) ^ IncludeArchive.GetHashCode();
+                hashCode = (hashCode * 17) ^ FollowSymlinks.GetHashCode();
                 hashCode = (hashCode * 17) ^ CodePage.GetHashCode();
                 return hashCode;
             }
