@@ -547,7 +547,7 @@
                         <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,3"
                                    Text="PdfToText.exe command line options:"/>
                         <TextBox Grid.Row="1" Grid.Column="0" 
-                                 Text="{Binding PdfToTextOptions}" 
+                                 Text="{Binding PdfToTextOptions, UpdateSourceTrigger=PropertyChanged}" 
                                  Width="350" Margin="0,3"
                                  HorizontalAlignment="Left" />
                         <Button Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" 
