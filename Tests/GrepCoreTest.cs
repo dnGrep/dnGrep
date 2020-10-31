@@ -538,6 +538,31 @@ namespace Tests
         }
 
         [Theory]
+        [InlineData("test1.xml", 3, false)]
+        [InlineData("test2.xml", 3, false)]
+        [InlineData("test3.xml", 3, false)]
+        [InlineData("test4.xml", 4, true)]
+        [InlineData("test5.xml", 4, true)]
+        [InlineData("test6.xml", 3, false)]
+        [InlineData("test7.xml", 3, false)]
+        [InlineData("test8.xml", 3, true)]
+        [InlineData("test9.xml", 3, false)]
+        [InlineData("test10.xml", 8, false)]
+        public void TestSearchXPathWithCommentsReturnsCorrectString(string fileName, int matchLineCount, bool matchContainsComment)
+        {
+            string destFolder = destinationFolder;
+
+            Utils.CopyFiles(Path.Combine(sourceFolder, "TestCase18"), Path.Combine(destFolder, "TestCase18"), null, null);
+            GrepCore core = new GrepCore();
+            List<GrepSearchResult> results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase18"), fileName), SearchType.XPath,
+                "/bookstore/book[1]", GrepSearchOption.None, -1);
+            Assert.Single(results);
+            var lines = results[0].SearchResults.Where(r => !r.IsContext);
+            Assert.Equal(matchLineCount, lines.Count());
+            Assert.Equal(matchContainsComment, lines.Where(l => l.LineText.Contains("<!--")).Any());
+        }
+
+        [Theory]
         [InlineData(true)]
         [InlineData(false)]
         public void TestSearchWholeWord_Issue_114_Regex(bool useLongPath)
