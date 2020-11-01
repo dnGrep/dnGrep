@@ -694,6 +694,7 @@ namespace dnGREP.Engines
                             switch (reader.NodeType)
                             {
                                 case XmlNodeType.Element:
+                                case XmlNodeType.Comment:
 
                                     if (currPos.Count <= reader.Depth)
                                     {
@@ -724,15 +725,17 @@ namespace dnGREP.Engines
                                     break;
                             }
 
-                            if (reader.NodeType == XmlNodeType.EndElement)
+                            if (reader.NodeType == XmlNodeType.EndElement ||
+                                reader.NodeType == XmlNodeType.Comment)
                             {
+                                int tokenOffset = reader.NodeType == XmlNodeType.Element ? 3 : 5;
                                 for (int i = 0; i < positions.Count; i++)
                                 {
                                     if (endFound[i] && !XPathPositionsMatch(currPos, positions[i].Path))
                                     {
                                         if (results[i] != null)
                                         {
-                                            results[i].EndPosition = GetAbsoluteCharPosition(lineInfo.LineNumber - 1, lineInfo.LinePosition - 3, text, lineLengths, true) + 1;
+                                            results[i].EndPosition = GetAbsoluteCharPosition(lineInfo.LineNumber - 1, lineInfo.LinePosition - tokenOffset, text, lineLengths, true) + 1;
                                         }
                                         endFound[i] = false;
                                     }

@@ -244,6 +244,11 @@ namespace dnGREP.WPF
             get { return SelectedNodes.Any(); }
         }
 
+        public bool HasSingleSelection
+        {
+            get { return SelectedNodes.Count() == 1; }
+        }
+
         public bool HasMultipleSelection
         {
             get { return SelectedNodes.Count() > 1; }
@@ -262,6 +267,7 @@ namespace dnGREP.WPF
         void SelectedNodes_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             base.OnPropertyChanged(new PropertyChangedEventArgs("HasSelection"));
+            base.OnPropertyChanged(new PropertyChangedEventArgs("HasSingleSelection"));
             base.OnPropertyChanged(new PropertyChangedEventArgs("HasMultipleSelection"));
             base.OnPropertyChanged(new PropertyChangedEventArgs("HasGrepResultSelection"));
             base.OnPropertyChanged(new PropertyChangedEventArgs("HasGrepLineSelection"));
@@ -371,7 +377,19 @@ namespace dnGREP.WPF
 
         public string Style { get; private set; } = "";
 
-        public string Label { get; private set; } = "";
+        private string label = string.Empty;
+        public string Label
+        {
+            get { return label; }
+            set
+            {
+                if (label == value)
+                    return;
+
+                label = value;
+                OnPropertyChanged(nameof(Label));
+            }
+        }
 
         internal int MatchIdx { get; set; }
         internal Dictionary<string, string> GroupColors { get; } = new Dictionary<string, string>();
@@ -439,14 +457,35 @@ namespace dnGREP.WPF
 
         public LazyResultsList FormattedLines { get; private set; }
 
+        private string searchFolderPath;
+
         public FormattedGrepResult(GrepSearchResult result, string folderPath)
         {
             GrepResult = result;
 
-            bool isFileReadOnly = Utils.IsReadOnly(GrepResult);
-            bool isSuccess = GrepResult.IsSuccess;
+            searchFolderPath = folderPath;
+            bool isFileReadOnly = SetLabel();
 
-            string basePath = string.IsNullOrWhiteSpace(folderPath) ? string.Empty : folderPath.TrimEnd('\\');
+            if (isFileReadOnly)
+            {
+                GrepResult.ReadOnly = true;
+                Style = "ReadOnly";
+            }
+            if (!GrepResult.IsSuccess)
+            {
+                Style = "Error";
+            }
+
+            FormattedLines = new LazyResultsList(result, this);
+            FormattedLines.LineNumberColumnWidthChanged += FormattedLines_PropertyChanged;
+            FormattedLines.LoadFinished += FormattedLines_LoadFinished;
+        }
+
+        internal bool SetLabel()
+        {
+            bool isFileReadOnly = Utils.IsReadOnly(GrepResult);
+
+            string basePath = string.IsNullOrWhiteSpace(searchFolderPath) ? string.Empty : searchFolderPath.TrimEnd('\\');
             string displayedName = Path.GetFileName(GrepResult.FileNameDisplayed);
 
             if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowFilePathInResults) &&
@@ -477,24 +516,12 @@ namespace dnGREP.WPF
             }
             if (isFileReadOnly)
             {
-                result.ReadOnly = true;
                 displayedName = displayedName + " [read-only]";
             }
 
             Label = displayedName;
 
-            if (isFileReadOnly)
-            {
-                Style = "ReadOnly";
-            }
-            if (!isSuccess)
-            {
-                Style = "Error";
-            }
-
-            FormattedLines = new LazyResultsList(result, this);
-            FormattedLines.LineNumberColumnWidthChanged += FormattedLines_PropertyChanged;
-            FormattedLines.LoadFinished += FormattedLines_LoadFinished;
+            return isFileReadOnly;
         }
 
         void FormattedLines_LoadFinished(object sender, EventArgs e)

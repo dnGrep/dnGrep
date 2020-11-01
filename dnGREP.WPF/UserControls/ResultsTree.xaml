@@ -120,6 +120,7 @@
                 <MenuItem Header="Compare files" Command="{Binding CompareFilesCommand}"
                           Visibility="{Binding CompareApplicationConfigured, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 <Separator />
+                <MenuItem Header="Rename file" Click="btnRenameFile_Click" IsEnabled="{Binding HasSingleSelection}" />
                 <MenuItem Header="Copy file names" Click="btnCopyFileNames_Click" IsEnabled="{Binding HasSelection}" />
                 <MenuItem Header="Copy full file paths" Click="btnCopyFullFilePath_Click" IsEnabled="{Binding HasSelection}" />
                 <MenuItem Header="Copy Lines of text" Click="btnCopyGrepLine_Click" IsEnabled="{Binding HasGrepLineSelection}" />

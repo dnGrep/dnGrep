@@ -156,6 +156,9 @@
     <Compile Include="MVHelpers\TypeOfSearchValueConverter.cs" />
     <Compile Include="MVHelpers\ValidationColorConverter.cs" />
     <Compile Include="ThemedHighlightingManager.cs" />
+    <Compile Include="Views\RenameWindow.xaml.cs">
+      <DependentUpon>RenameWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BookmarkDetailWindow.xaml.cs">
       <DependentUpon>BookmarkDetailWindow.xaml</DependentUpon>
     </Compile>
@@ -324,6 +327,10 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Page Include="Views\RenameWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\BookmarkDetailWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
