@@ -86,6 +86,66 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
+        private void btnRenameFile_Click(object sender, RoutedEventArgs e)
+        {
+            FormattedGrepResult searchResult = null;
+            var node = inputData.SelectedNodes.FirstOrDefault();
+
+            if (node is FormattedGrepLine lineNode)
+            {
+                searchResult = lineNode.Parent;
+            }
+            else if (node is FormattedGrepResult fileNode)
+            {
+                searchResult = fileNode;
+            }
+
+            if (searchResult != null && searchResult.GrepResult != null &&
+                !string.IsNullOrEmpty(searchResult.GrepResult.FileNameReal))
+            {
+                var grepResult = searchResult.GrepResult;
+                var dlg = new RenameWindow
+                {
+                    Owner = Application.Current.MainWindow,
+                    SourcePath = grepResult.FileNameReal
+                };
+
+                var result = dlg.ShowDialog();
+                if (result.HasValue && result.Value)
+                {
+                    string destPath = dlg.DestinationPath;
+                    if (!string.IsNullOrEmpty(destPath) && !File.Exists(destPath))
+                    {
+                        try
+                        {
+                            string ext = string.Empty;
+                            if (grepResult.FileNameReal != grepResult.FileNameDisplayed)
+                            {
+                                int index = grepResult.FileNameDisplayed.IndexOf(grepResult.FileNameReal, StringComparison.Ordinal);
+                                if (index >= 0)
+                                    ext = grepResult.FileNameDisplayed.Remove(index, grepResult.FileNameReal.Length);
+                            }
+
+                            File.Move(grepResult.FileNameReal, destPath);
+
+                            grepResult.FileNameReal = destPath;
+                            grepResult.FileNameDisplayed = destPath + ext;
+
+                            // update label in the results tree
+                            searchResult.SetLabel();
+                            // update label on the preview window
+                            OnSelectedItemsChanged(this, e);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Rename failed: " + ex.Message, "Rename File",
+                                MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
+                    }
+                }
+            }
+        }
+
         private void btnCopyFileNames_Click(object sender, RoutedEventArgs e)
         {
             CopyFileNames(false);
