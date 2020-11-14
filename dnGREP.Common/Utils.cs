@@ -2134,6 +2134,7 @@ namespace dnGREP.Common
                beginText.EndsWith(":") ||
                beginText.EndsWith(";") ||
                beginText.EndsWith("-") ||
+               beginText.EndsWith("=") ||
                beginText.EndsWith("\\") ||
                beginText.EndsWith("/") ||
                beginText.EndsWith("'") ||
@@ -2187,6 +2188,7 @@ namespace dnGREP.Common
                endText.StartsWith(":") ||
                endText.StartsWith(";") ||
                endText.StartsWith("-") ||
+               endText.StartsWith("=") ||
                endText.StartsWith(">") ||
                endText.StartsWith("]") ||
                endText.StartsWith("}") ||

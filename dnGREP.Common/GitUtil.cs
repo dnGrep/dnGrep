@@ -79,7 +79,7 @@ namespace dnGREP.Common
                         {
                             string line = proc.StandardOutput.ReadLine();
                             if (line.StartsWith("!! ", StringComparison.OrdinalIgnoreCase))
-                                list.Add(line.Substring(3));
+                                list.Add(line.Substring(3).Trim('"'));
                         }
                     }
                     catch (InvalidOperationException) { }
