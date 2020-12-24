@@ -455,6 +455,8 @@
     <EmbeddedResource Include="Resources\XmlDoc.xshd" />
     <EmbeddedResource Include="Resources\Sql-Mode.xshd" />
     <EmbeddedResource Include="Resources\Lisp-Mode.xshd" />
+    <EmbeddedResource Include="Resources\Json.xshd" />
+    <EmbeddedResource Include="Resources\Yaml.xshd" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="nGREP.ico" />
