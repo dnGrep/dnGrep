@@ -1347,35 +1347,41 @@ namespace Tests
         }
 
         [Theory]
-        [InlineData(@"", 0, false, false, null, null, null, null, null, null, null, null, null, null, null, false)]
-        [InlineData(@" /warmUp", 1, false, true, null, null, null, null, null, null, null, null, null, null, null, false)]
-        [InlineData(@" ""c:\temp\test data\""", 1, false, false, @"c:\temp\test data\", null, null, null, null, null, null, null, null, null, null, false)] // old style search directory without flag
-        [InlineData(@" ""c:\temp\test data\"" p\w*", 2, false, false, @"c:\temp\test data\", @"p\w*", SearchType.Regex, null, null, null, null, null, null, null, null, true)]  // old style search directory and regex without flags
-        [InlineData(@" ""c:\temp\test data"" ""p\w*""", 2, false, false, @"c:\temp\test data", @"p\w*", SearchType.Regex, null, null, null, null, null, null, null, null, true)]  // old style search directory and regex without flags
-        [InlineData(@" c:\temp\testData\ ""p\w*""", 2, false, false, @"c:\temp\testData\", @"p\w*", SearchType.Regex, null, null, null, null, null, null, null, null, true)]  // old style search directory and regex without flags
-        [InlineData(@" c:\temp\testData ""p\w*""", 2, false, false, @"c:\temp\testData", @"p\w*", SearchType.Regex, null, null, null, null, null, null, null, null, true)]  // old style search directory and regex without flags
-        [InlineData(@" -f ""c:\temp\test data\""", 2, false, false, @"c:\temp\test data\", null, null, null, null, null, null, null, null, null, null, false)]
-        [InlineData(@" -f ""c:\temp\testData\""", 2, false, false, @"c:\temp\testData\", null, null, null, null, null, null, null, null, null, null, false)]
-        [InlineData(@" -f c:\temp\testData\", 2, false, false, @"c:\temp\testData\", null, null, null, null, null, null, null, null, null, null, false)]
-        [InlineData(@" -f c:\temp\testData", 2, false, false, @"c:\temp\testData", null, null, null, null, null, null, null, null, null, null, false)]
-        [InlineData(@" -f ""c:\temp\test data\"" -s p\w*", 4, false, false, @"c:\temp\test data\", @"p\w*", null, null, null, null, null, null, null, null, null, true)]
-        [InlineData(@" -f ""c:\temp\test data\"" -s ""p\w*""", 4, false, false, @"c:\temp\test data\", @"p\w*", null, null, null, null, null, null, null, null, null, true)]
-        [InlineData(@" -f ""c:\temp\testData\"" -s p\w*", 4, false, false, @"c:\temp\testData\", @"p\w*", null, null, null, null, null, null, null, null, null, true)]
-        [InlineData(@" -f c:\temp\testData\ -s p\w*", 4, false, false, @"c:\temp\testData\", @"p\w*", null, null, null, null, null, null, null, null, null, true)]
-        [InlineData(@" -f c:\temp\testData -s p\w*", 4, false, false, @"c:\temp\testData", @"p\w*", null, null, null, null, null, null, null, null, null, true)]
-        [InlineData(@" -f c:\temp\testData -s ""p\w*""", 4, false, false, @"c:\temp\testData", @"p\w*", null, null, null, null, null, null, null, null, null, true)]
-        [InlineData(@" -f c:\temp\testData -s p""\w*", 4, false, false, @"c:\temp\testData", @"p""\w*", null, null, null, null, null, null, null, null, null, true)]
-        [InlineData(@" -f c:\temp\testData -s ""\w*", 4, false, false, @"c:\temp\testData", @"""\w*", null, null, null, null, null, null, null, null, null, true)]
-        [InlineData(@" -f c:\temp\testData -st Regex -s ""p\w*""", 6, false, false, @"c:\temp\testData", @"p\w*", SearchType.Regex, null, null, null, null, null, null, null, null, true)]
-        [InlineData(@" -f c:\temp\testData -pm *.txt;*.xml -s ""p\w*""", 6, false, false, @"c:\temp\testData", @"p\w*", null, "*.txt;*.xml", null, null, null, null, null, null, null, true)]
-        [InlineData(@" -f c:\temp\testData -pt Asterisk -pm *.* -pi *.pdf -s ""p\w*""", 10, false, false, @"c:\temp\testData", @"p\w*", null, "*.*", "*.pdf", FileSearchType.Asterisk, null, null, null, null, null, true)]
-        [InlineData(@" -f c:\temp\testData -s p\w* /cs true /ww True /ml false /dn false /bo False", 14, false, false, @"c:\temp\testData", @"p\w*", null, null, null, null, true, true, false, false, false, true)]
-        [InlineData(@" -f c:\temp\testData /cs true /ww True /ml false", 8, false, false, @"c:\temp\testData", null, null, null, null, null, true, true, false, null, null, false)]
+        [InlineData(@"", 0, false, false, null, null, null, null, null, null, null, null, null, null, null, false, null, null, null, false)]
+        [InlineData(@" /warmUp", 1, false, true, null, null, null, null, null, null, null, null, null, null, null, false, null, null, null, false)]
+        [InlineData(@" ""c:\temp\test data\""", 1, false, false, @"c:\temp\test data\", null, null, null, null, null, null, null, null, null, null, false, null, null, null, false)] // old style search directory without flag
+        [InlineData(@" ""c:\temp\test data\"" p\w*", 2, false, false, @"c:\temp\test data\", @"p\w*", SearchType.Regex, null, null, null, null, null, null, null, null, true, null, null, null, false)]  // old style search directory and regex without flags
+        [InlineData(@" ""c:\temp\test data"" ""p\w*""", 2, false, false, @"c:\temp\test data", @"p\w*", SearchType.Regex, null, null, null, null, null, null, null, null, true, null, null, null, false)]  // old style search directory and regex without flags
+        [InlineData(@" c:\temp\testData\ ""p\w*""", 2, false, false, @"c:\temp\testData\", @"p\w*", SearchType.Regex, null, null, null, null, null, null, null, null, true, null, null, null, false)]  // old style search directory and regex without flags
+        [InlineData(@" c:\temp\testData ""p\w*""", 2, false, false, @"c:\temp\testData", @"p\w*", SearchType.Regex, null, null, null, null, null, null, null, null, true, null, null, null, false)]  // old style search directory and regex without flags
+        [InlineData(@" -f ""c:\temp\test data\""", 2, false, false, @"c:\temp\test data\", null, null, null, null, null, null, null, null, null, null, false, null, null, null, false)]
+        [InlineData(@" -f ""c:\temp\testData\""", 2, false, false, @"c:\temp\testData\", null, null, null, null, null, null, null, null, null, null, false, null, null, null, false)]
+        [InlineData(@" -f c:\temp\testData\", 2, false, false, @"c:\temp\testData\", null, null, null, null, null, null, null, null, null, null, false, null, null, null, false)]
+        [InlineData(@" -f c:\temp\testData", 2, false, false, @"c:\temp\testData", null, null, null, null, null, null, null, null, null, null, false, null, null, null, false)]
+        [InlineData(@" -f ""c:\temp\test data\"" -s p\w*", 4, false, false, @"c:\temp\test data\", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, null, null, false)]
+        [InlineData(@" -f ""c:\temp\test data\"" -s ""p\w*""", 4, false, false, @"c:\temp\test data\", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, null, null, false)]
+        [InlineData(@" -f ""c:\temp\testData\"" -s p\w*", 4, false, false, @"c:\temp\testData\", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, null, null, false)]
+        [InlineData(@" -f c:\temp\testData\ -s p\w*", 4, false, false, @"c:\temp\testData\", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, null, null, false)]
+        [InlineData(@" -f c:\temp\testData -s p\w*", 4, false, false, @"c:\temp\testData", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, null, null, false)]
+        [InlineData(@" -f c:\temp\testData -s ""p\w*""", 4, false, false, @"c:\temp\testData", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, null, null, false)]
+        [InlineData(@" -f c:\temp\testData -s p""\w*", 4, false, false, @"c:\temp\testData", @"p""\w*", null, null, null, null, null, null, null, null, null, true, null, null, null, false)]
+        [InlineData(@" -f c:\temp\testData -s ""\w*", 4, false, false, @"c:\temp\testData", @"""\w*", null, null, null, null, null, null, null, null, null, true, null, null, null, false)]
+        [InlineData(@" -f c:\temp\testData -st Regex -s ""p\w*""", 6, false, false, @"c:\temp\testData", @"p\w*", SearchType.Regex, null, null, null, null, null, null, null, null, true, null, null, null, false)]
+        [InlineData(@" -f c:\temp\testData -pm *.txt;*.xml -s ""p\w*""", 6, false, false, @"c:\temp\testData", @"p\w*", null, "*.txt;*.xml", null, null, null, null, null, null, null, true, null, null, null, false)]
+        [InlineData(@" -f c:\temp\testData -pt Asterisk -pm *.* -pi *.pdf -s ""p\w*""", 10, false, false, @"c:\temp\testData", @"p\w*", null, "*.*", "*.pdf", FileSearchType.Asterisk, null, null, null, null, null, true, null, null, null, false)]
+        [InlineData(@" -f c:\temp\testData -s p\w* /cs true /ww True /ml false /dn false /bo False", 14, false, false, @"c:\temp\testData", @"p\w*", null, null, null, null, true, true, false, false, false, true, null, null, null, false)]
+        [InlineData(@" -f c:\temp\testData /cs true /ww True /ml false", 8, false, false, @"c:\temp\testData", null, null, null, null, null, true, true, false, null, null, false, null, null, null, false)]
+        [InlineData(@" -f c:\temp\testData\ -s p\w* -rpt c:\temp\report.txt", 6, false, false, @"c:\temp\testData\", @"p\w*", null, null, null, null, null, null, null, null, null, true, @"c:\temp\report.txt", null, null, false)]
+        [InlineData(@" -f c:\temp\testData\ -s p\w* -txt c:\temp\report.txt", 6, false, false, @"c:\temp\testData\", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, @"c:\temp\report.txt", null, false)]
+        [InlineData(@" -f c:\temp\testData\ -s p\w* -csv c:\temp\report.csv", 6, false, false, @"c:\temp\testData\", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, null, @"c:\temp\report.csv", false)]
+        [InlineData(@" -f c:\temp\testData\ -s p\w* -csv c:\temp\report.csv -x", 7, false, false, @"c:\temp\testData\", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, null, @"c:\temp\report.csv", true)]
+        [InlineData(@" -f c:\temp\testData\ -s p\w* -x -csv c:\temp\report.csv", 7, false, false, @"c:\temp\testData\", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, null, @"c:\temp\report.csv", true)]
         public void SplitCommandLineTest(string commandLine, int argCount, 
             bool expInvalidArgument, bool expIsWarmUp, string expSearchPath, string expSearchFor, 
             SearchType? expSearchType, string expPatternToInclude, string expPatternToExclude, 
             FileSearchType? expTypeOfFileSearch, bool? expCaseSensitive, bool? expWholeWord, 
-            bool? expMultiline, bool? expDotAsNewLine, bool? expBooleanOperators, bool expExecuteSearch)
+            bool? expMultiline, bool? expDotAsNewLine, bool? expBooleanOperators, bool expExecuteSearch,
+            string expReportPath, string expTextPath, string expCsvPath, bool expExit)
         {
             const string program = @"""C:\\Program Files\\dnGREP\\dnGREP.exe""";
             var args = new CommandLineArgs(program + commandLine);
@@ -1395,6 +1401,10 @@ namespace Tests
             Assert.Equal(expDotAsNewLine, args.DotAsNewline);
             Assert.Equal(expBooleanOperators, args.BooleanOperators);
             Assert.Equal(expExecuteSearch, args.ExecuteSearch);
+            Assert.Equal(expReportPath, args.ReportPath);
+            Assert.Equal(expTextPath, args.TextPath);
+            Assert.Equal(expCsvPath, args.CsvPath);
+            Assert.Equal(expExit, args.Exit);
 
         }
     }

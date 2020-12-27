@@ -253,6 +253,56 @@ namespace dnGREP.WPF
                                 }
                                 break;
 
+                            case "/rpt":
+                            case "-rpt":
+                            case "-report":
+                                if (!string.IsNullOrWhiteSpace(value))
+                                {
+                                    ReportPath = value;
+                                    idx++;
+                                }
+                                else
+                                {
+                                    InvalidArgument = true;
+                                    ShowHelp = true;
+                                }
+                                break;
+
+                            case "/txt":
+                            case "-txt":
+                            case "-text":
+                                if (!string.IsNullOrWhiteSpace(value))
+                                {
+                                    TextPath = value;
+                                    idx++;
+                                }
+                                else
+                                {
+                                    InvalidArgument = true;
+                                    ShowHelp = true;
+                                }
+                                break;
+
+                            case "/csv":
+                            case "-csv":
+                                if (!string.IsNullOrWhiteSpace(value))
+                                {
+                                    CsvPath = value;
+                                    idx++;
+                                }
+                                else
+                                {
+                                    InvalidArgument = true;
+                                    ShowHelp = true;
+                                }
+                                break;
+
+                            case "/x":
+                            case "-x":
+                            case "-exit":
+                                Exit = true;
+                                break;
+
                             case "/h":
                             case "-h":
                             case "-help":
@@ -289,6 +339,10 @@ namespace dnGREP.WPF
         public bool? DotAsNewline { get; private set; }
         public bool? BooleanOperators { get; private set; }
         public bool ExecuteSearch { get; private set; }
+        public string ReportPath { get; private set; }
+        public string TextPath { get; private set; }
+        public string CsvPath { get; private set; }
+        public bool Exit { get; private set; }
 
         public void ApplyArgs()
         {
@@ -428,6 +482,25 @@ namespace dnGREP.WPF
                     "-bo [True/False]",
                     "-booleanOperators [True/False]",
                     "    Sets the Boolean operators search flag - True or False.",
+                    string.Empty,
+                    "/rpt [filePath]",
+                    "-rpt [filePath]",
+                    "-report [filePath]",
+                    "    Create results file in report format after search is complete.",
+                    string.Empty,
+                    "/txt [filePath]",
+                    "-txt [filePath]",
+                    "-text [filePath]",
+                    "    Create results file in text format after search is complete.",
+                    string.Empty,
+                    "/csv [filePath]",
+                    "-csv [filePath]",
+                    "    Create results file in CSV format after search is complete.",
+                    string.Empty,
+                    "/x",
+                    "-x",
+                    "-exit",
+                    "    Exit dnGrep after command line operations are complete.",
                     });
         }
     }

@@ -1109,7 +1109,7 @@ namespace dnGREP.WPF
 
                         FileFilter fileParams = new FileFilter(FileOrFolderPath, filePatternInclude, filePatternExclude,
                             param.TypeOfFileSearch == FileSearchType.Regex, param.UseGitIgnore, param.TypeOfFileSearch == FileSearchType.Everything,
-                            param.IncludeSubfolder, param.MaxSubfolderDepth, param.IncludeHidden, param.IncludeBinary, param.IncludeArchive, 
+                            param.IncludeSubfolder, param.MaxSubfolderDepth, param.IncludeHidden, param.IncludeBinary, param.IncludeArchive,
                             param.FollowSymlinks, sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime);
 
                         if (param.Operation == GrepOperation.SearchInResults)
@@ -1328,6 +1328,11 @@ namespace dnGREP.WPF
                     CurrentGrepOperation = GrepOperation.None;
                     base.OnPropertyChanged(() => CurrentGrepOperation);
                     CanSearch = true;
+
+                    if (Application.Current is App app)
+                    {
+                        ProcessCommands(app.AppArgs);
+                    }
                 }
                 else if (CurrentGrepOperation == GrepOperation.Replace)
                 {
@@ -2082,6 +2087,26 @@ namespace dnGREP.WPF
                         IsSaveInProgress = false;
                     }
                 }
+            }
+        }
+
+        private void ProcessCommands(CommandLineArgs args)
+        {
+            if (!string.IsNullOrWhiteSpace(args.ReportPath))
+            {
+                Utils.SaveResultsReport(SearchResults.GetList(), BooleanOperators, SearchFor, GetSearchOptions(), args.ReportPath);
+            }
+            if (!string.IsNullOrWhiteSpace(args.TextPath))
+            {
+                Utils.SaveResultsAsText(SearchResults.GetList(), args.TextPath);
+            }
+            if (!string.IsNullOrWhiteSpace(args.CsvPath))
+            {
+                Utils.SaveResultsAsCSV(SearchResults.GetList(), args.CsvPath);
+            }
+            if (args.Exit)
+            {
+                Application.Current.MainWindow.Close();
             }
         }
 
