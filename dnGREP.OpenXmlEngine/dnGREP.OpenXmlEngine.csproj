@@ -168,8 +168,6 @@ xcopy /Y /R "$(TargetDir)dnGREP.Engines.OpenXml.pdb" "$(SolutionDir)dnGREP.WPF\b
 xcopy /Y /R "$(TargetDir)DocumentFormat.OpenXml.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\OpenXmlSearch\"
 xcopy /Y /R "$(TargetDir)ExcelDataReader.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\OpenXmlSearch\"
 xcopy /Y /R "$(TargetDir)ExcelNumberFormat.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\OpenXmlSearch\"
-xcopy /Y /R "$(TargetDir)System.IO.FileSystem.Primitives.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\OpenXmlSearch\"
-xcopy /Y /R "$(TargetDir)System.IO.Packaging.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\OpenXmlSearch\"
 
 REM Start copying release files
 rmdir /S /Q "$(SolutionDir)Release\$(PlatformName)\dnGREP OpenXml Plugin X.X.X"
@@ -180,8 +178,6 @@ xcopy "$(TargetDir)dnGREP.Engines.OpenXml.dll" "$(SolutionDir)Release\$(Platform
 xcopy "$(TargetDir)DocumentFormat.OpenXml.dll" "$(SolutionDir)Release\$(PlatformName)\dnGREP OpenXml Plugin X.X.X\Plugins\OpenXmlSearch"
 xcopy "$(TargetDir)ExcelDataReader.dll" "$(SolutionDir)Release\$(PlatformName)\dnGREP OpenXml Plugin X.X.X\Plugins\OpenXmlSearch"
 xcopy "$(TargetDir)ExcelNumberFormat.dll" "$(SolutionDir)Release\$(PlatformName)\dnGREP OpenXml Plugin X.X.X\Plugins\OpenXmlSearch"
-xcopy "$(TargetDir)System.IO.FileSystem.Primitives.dll" "$(SolutionDir)Release\$(PlatformName)\dnGREP OpenXml Plugin X.X.X\Plugins\OpenXmlSearch"
-xcopy "$(TargetDir)System.IO.Packaging.dll" "$(SolutionDir)Release\$(PlatformName)\dnGREP OpenXml Plugin X.X.X\Plugins\OpenXmlSearch"
 </PostBuildEvent>
   </PropertyGroup>
 </Project>
