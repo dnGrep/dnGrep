@@ -30,8 +30,9 @@
                             <Rectangle Grid.Column="1" Width="1" Margin="0,4,0,4"
                                     Fill="{TemplateBinding Foreground}" Opacity="0.4" />
                             <Grid x:Name="SplitElement" Grid.Column="2" Background="Transparent">
-                                <Path Margin="4,0,4,0" VerticalAlignment="Center"
-                                    Data="M 0,0 L 8,0 L 4,4 Z" Fill="{TemplateBinding Foreground}" />
+                                <TextBlock x:Name="arrow" Text="⏷" FontFamily="Segoe UI Symbol" 
+                                           VerticalAlignment="Center" Margin="3"
+                                           Foreground="{TemplateBinding Foreground}"/>
                             </Grid>
                         </Grid>
                     </Border>
@@ -51,6 +52,7 @@
                             <Setter TargetName="border" Property="Background" Value="{DynamicResource Button.Disabled.Background}" />
                             <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource Button.Disabled.Border}" />
                             <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="{DynamicResource Button.Disabled.Foreground}" />
+                            <Setter TargetName="arrow" Property="TextElement.Foreground" Value="{DynamicResource Button.Disabled.Foreground}" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
