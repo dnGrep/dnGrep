@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
 using NLog;
 
@@ -18,6 +19,8 @@ namespace dnGREP.WPF
         {
             try
             {
+                GlobalDiagnosticsContext.Set("logDir", Path.Combine(Utils.GetDataFolderPath(), "logs"));
+
                 AppTheme.Instance.Initialize();
 
                 CommandLineArgs args = new CommandLineArgs(Environment.CommandLine);
