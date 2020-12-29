@@ -7,6 +7,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using dnGREP.Common;
+using dnGREP.WPF.Properties;
 using DockFloat;
 using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.Editing;
@@ -30,8 +31,8 @@ namespace dnGREP.WPF
         {
             InitializeComponent();
 
-            if (Properties.Settings.Default.ReplaceBounds == Rect.Empty ||
-                Properties.Settings.Default.ReplaceBounds == new Rect(0, 0, 0, 0))
+            if (LayoutProperties.ReplaceBounds == Rect.Empty ||
+                LayoutProperties.ReplaceBounds == new Rect(0, 0, 0, 0))
             {
                 Width = 800;
                 Height = 980;
@@ -40,10 +41,10 @@ namespace dnGREP.WPF
             else
             {
                 WindowStartupLocation = WindowStartupLocation.Manual;
-                Left = Properties.Settings.Default.ReplaceBounds.Left;
-                Top = Properties.Settings.Default.ReplaceBounds.Top;
-                Width = Properties.Settings.Default.ReplaceBounds.Width;
-                Height = Properties.Settings.Default.ReplaceBounds.Height;
+                Left = LayoutProperties.ReplaceBounds.Left;
+                Top = LayoutProperties.ReplaceBounds.Top;
+                Width = LayoutProperties.ReplaceBounds.Width;
+                Height = LayoutProperties.ReplaceBounds.Height;
             }
 
             Loaded += (s, e) =>
@@ -93,12 +94,12 @@ namespace dnGREP.WPF
             GrepSettings.Instance.Set(GrepSettings.Key.ReplaceWindowWrap, cbWrapText.IsChecked);
             GrepSettings.Instance.Set(GrepSettings.Key.ReplaceWindowFontSize, (int)zoomSlider.Value);
 
-            Properties.Settings.Default.ReplaceBounds = new Rect(
+            LayoutProperties.ReplaceBounds = new Rect(
                Left,
                Top,
                ActualWidth,
                ActualHeight);
-            Properties.Settings.Default.Save();
+            LayoutProperties.Save();
         }
 
         public ReplaceViewModel ViewModel { get; } = new ReplaceViewModel();

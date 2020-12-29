@@ -1079,11 +1079,11 @@ namespace dnGREP.WPF
             {
                 int hashCode = 13;
                 hashCode = (hashCode * 17) ^ TypeOfFileSearch.GetHashCode();
-                hashCode = (hashCode * 17) ^ FilePattern.GetHashCode();
-                hashCode = (hashCode * 17) ^ IgnoreFilePattern.GetHashCode();
+                hashCode = (hashCode * 17) ^ FilePattern?.GetHashCode() ?? 5;
+                hashCode = (hashCode * 17) ^ IgnoreFilePattern?.GetHashCode() ?? 5;
                 hashCode = (hashCode * 17) ^ TypeOfSearch.GetHashCode();
-                hashCode = (hashCode * 17) ^ SearchFor.GetHashCode();
-                hashCode = (hashCode * 17) ^ ReplaceWith.GetHashCode();
+                hashCode = (hashCode * 17) ^ SearchFor?.GetHashCode() ?? 5;
+                hashCode = (hashCode * 17) ^ ReplaceWith?.GetHashCode() ?? 5;
                 hashCode = (hashCode * 17) ^ CaseSensitive.GetHashCode();
                 hashCode = (hashCode * 17) ^ WholeWord.GetHashCode();
                 hashCode = (hashCode * 17) ^ Multiline.GetHashCode();

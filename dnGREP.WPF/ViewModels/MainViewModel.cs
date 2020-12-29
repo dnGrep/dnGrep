@@ -15,6 +15,7 @@ using dnGREP.Common;
 using dnGREP.Common.UI;
 using dnGREP.Engines;
 using dnGREP.WPF.MVHelpers;
+using dnGREP.WPF.Properties;
 using DockFloat;
 using Microsoft.Win32;
 using NLog;
@@ -34,11 +35,11 @@ namespace dnGREP.WPF
         {
             double maxPreviewWidth = Application.Current.MainWindow.Width - DockPanelSplitter.Panel1MinSize;
 
-            _previewWindowBounds = Properties.Settings.Default.PreviewBounds;
-            _previewWindowState = Properties.Settings.Default.PreviewWindowState;
-            _isPreviewDocked = Properties.Settings.Default.PreviewDocked;
-            _previewDockedWidth = Math.Min(Properties.Settings.Default.PreviewDockedWidth, maxPreviewWidth);
-            _isPreviewHidden = Properties.Settings.Default.PreviewHidden;
+            _previewWindowBounds = LayoutProperties.PreviewBounds;
+            _previewWindowState = LayoutProperties.PreviewWindowState;
+            _isPreviewDocked = LayoutProperties.PreviewDocked;
+            _previewDockedWidth = Math.Min(LayoutProperties.PreviewDockedWidth, maxPreviewWidth);
+            _isPreviewHidden = LayoutProperties.PreviewHidden;
 
             SearchResults.PreviewFileLineRequest += SearchResults_PreviewFileLineRequest;
             SearchResults.PreviewFileRequest += SearchResults_PreviewFileRequest;
@@ -904,11 +905,11 @@ namespace dnGREP.WPF
             settings.Set(GrepSettings.Key.ContextLinesBefore, ContextLinesBefore);
             settings.Set(GrepSettings.Key.ContextLinesAfter, ContextLinesAfter);
 
-            Properties.Settings.Default.PreviewBounds = PreviewWindowBounds;
-            Properties.Settings.Default.PreviewWindowState = PreviewWindowState;
-            Properties.Settings.Default.PreviewDocked = IsPreviewDocked;
-            Properties.Settings.Default.PreviewDockedWidth = PreviewDockedWidth;
-            Properties.Settings.Default.PreviewHidden = IsPreviewHidden;
+            LayoutProperties.PreviewBounds = PreviewWindowBounds;
+            LayoutProperties.PreviewWindowState = PreviewWindowState;
+            LayoutProperties.PreviewDocked = IsPreviewDocked;
+            LayoutProperties.PreviewDockedWidth = PreviewDockedWidth;
+            LayoutProperties.PreviewHidden = IsPreviewHidden;
 
             base.SaveSettings();
         }

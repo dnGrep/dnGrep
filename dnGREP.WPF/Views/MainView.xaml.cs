@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Interop;
+using dnGREP.WPF.Properties;
 using DockFloat;
 
 namespace dnGREP.WPF
@@ -33,15 +34,15 @@ namespace dnGREP.WPF
             // to the saved location when the window is loaded
             Left = 0;
             Top = 0;
-            Width = Properties.Settings.Default.MainFormExBounds.Width;
-            Height = Properties.Settings.Default.MainFormExBounds.Height;
+            Width = LayoutProperties.MainWindowBounds.Width;
+            Height = LayoutProperties.MainWindowBounds.Height;
             WindowState = WindowState.Normal;
 
             Rect windowBounds = new Rect(
-                Properties.Settings.Default.MainFormExBounds.X,
-                Properties.Settings.Default.MainFormExBounds.Y,
-                Properties.Settings.Default.MainFormExBounds.Width,
-                Properties.Settings.Default.MainFormExBounds.Height);
+                LayoutProperties.MainWindowBounds.X,
+                LayoutProperties.MainWindowBounds.Y,
+                LayoutProperties.MainWindowBounds.Width,
+                LayoutProperties.MainWindowBounds.Height);
 
             Loaded += (s, e) =>
             {
@@ -51,9 +52,9 @@ namespace dnGREP.WPF
                     // moving to a monitor with a different DPI
                     // than the primary monitor
                     this.MoveWindow(
-                        Properties.Settings.Default.MainFormExBounds.X,
-                        Properties.Settings.Default.MainFormExBounds.Y);
-                    WindowState = Properties.Settings.Default.MainWindowState;
+                        LayoutProperties.MainWindowBounds.X,
+                        LayoutProperties.MainWindowBounds.Y);
+                    WindowState = LayoutProperties.MainWindowState;
                 }
                 else
                 {
@@ -143,19 +144,18 @@ namespace dnGREP.WPF
         private void MainForm_Closing(object sender, CancelEventArgs e)
         {
             viewModel.CancelSearch();
-            previewControl.SaveSettings();
-            viewModel.SaveSettings();
 
-            Properties.Settings.Default.MainFormExBounds = new Rect(
+            LayoutProperties.MainWindowBounds = new Rect(
                 Left,
                 Top,
                 ActualWidth,
                 ActualHeight);
-            Properties.Settings.Default.MainWindowState = WindowState.Normal;
+            LayoutProperties.MainWindowState = WindowState.Normal;
             if (WindowState == WindowState.Maximized)
-                Properties.Settings.Default.MainWindowState = WindowState.Maximized;
+                LayoutProperties.MainWindowState = WindowState.Maximized;
 
-            Properties.Settings.Default.Save();
+            previewControl.SaveSettings();
+            viewModel.SaveSettings();
         }
 
         private void ViewModel_PreviewShow(object sender, EventArgs e)

@@ -18,6 +18,8 @@ namespace dnGREP.WPF
                 const string candiate = "Abcd 1234";
 
                 double fontSize = (double)values[2];
+                // when initializing, the size may be 0 (which throws an exception)
+                if (fontSize < 8) fontSize = 12;
 
                 Size defaultSize = MeasureString(candiate,
                     new Typeface(SystemFonts.MessageFontFamily, SystemFonts.MessageFontStyle, SystemFonts.MessageFontWeight, FontStretches.Normal),
