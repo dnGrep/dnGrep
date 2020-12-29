@@ -155,6 +155,7 @@
     <Compile Include="MVHelpers\TitleFontSizeConverter.cs" />
     <Compile Include="MVHelpers\TypeOfSearchValueConverter.cs" />
     <Compile Include="MVHelpers\ValidationColorConverter.cs" />
+    <Compile Include="Properties\LayoutProperties.cs" />
     <Compile Include="ThemedHighlightingManager.cs" />
     <Compile Include="Views\RenameWindow.xaml.cs">
       <DependentUpon>RenameWindow.xaml</DependentUpon>
@@ -455,6 +456,8 @@
     <EmbeddedResource Include="Resources\XmlDoc.xshd" />
     <EmbeddedResource Include="Resources\Sql-Mode.xshd" />
     <EmbeddedResource Include="Resources\Lisp-Mode.xshd" />
+    <EmbeddedResource Include="Resources\Json.xshd" />
+    <EmbeddedResource Include="Resources\Yaml.xshd" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="nGREP.ico" />

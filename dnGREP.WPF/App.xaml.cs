@@ -15,6 +15,8 @@ namespace dnGREP.WPF
 
         public static string InstanceId { get; } = Guid.NewGuid().ToString();
 
+        public CommandLineArgs AppArgs { get; private set; }
+
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             try
@@ -23,20 +25,20 @@ namespace dnGREP.WPF
 
                 AppTheme.Instance.Initialize();
 
-                CommandLineArgs args = new CommandLineArgs(Environment.CommandLine);
+                AppArgs = new CommandLineArgs(Environment.CommandLine);
 
-                if (args.WarmUp)
+                if (AppArgs.WarmUp)
                 {
                     MainWindow = new MainForm(false);
                     MainWindow.Loaded += MainWindow_Loaded;
                 }
-                else if (args.ShowHelp)
+                else if (AppArgs.ShowHelp)
                 {
-                    MainWindow = new HelpWindow(args.GetHelpString(), args.InvalidArgument);
+                    MainWindow = new HelpWindow(AppArgs.GetHelpString(), AppArgs.InvalidArgument);
                 }
                 else
                 {
-                    args.ApplyArgs();
+                    AppArgs.ApplyArgs();
                 }
 
                 if (MainWindow == null)
@@ -46,7 +48,7 @@ namespace dnGREP.WPF
                 }
 
                 MainWindow.Show();
-                if (args.ExecuteSearch && MainWindow.DataContext != null)
+                if (AppArgs.ExecuteSearch && MainWindow.DataContext != null)
                     ((MainViewModel)MainWindow.DataContext).SearchCommand.Execute(null);
             }
             catch (Exception ex)
