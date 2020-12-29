@@ -118,7 +118,7 @@ namespace dnGREP.WPF
                         }
                         catch (Exception ex)
                         {
-                            logger.Error(ex);
+                            logger.Error(ex, "Failure in initialize themes, backup Sunset.xaml");
                         }
                     }
                 }
@@ -132,7 +132,7 @@ namespace dnGREP.WPF
                 }
                 catch (Exception ex)
                 {
-                    logger.Error(ex);
+                    logger.Error(ex, "Failure in initialize themes, copy Sunset.xaml");
                 }
             }
 
@@ -248,8 +248,8 @@ namespace dnGREP.WPF
 
         private void LoadExternalThemes()
         {
-            string dataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dnGrep");
-            foreach (string fileName in Directory.GetFiles(dataFolder, "*.xaml"))
+            string dataFolder = Utils.GetDataFolderPath();
+            foreach (string fileName in Directory.GetFiles(dataFolder, "*.xaml", SearchOption.AllDirectories))
             {
                 try
                 {

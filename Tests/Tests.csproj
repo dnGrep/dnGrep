@@ -146,10 +146,6 @@
       <Project>{cbc7aec0-59ff-4050-b02d-adb15359ced4}</Project>
       <Name>dnGREP.WPF</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NLog.XmlLayout\NLog.XmlLayout.csproj">
-      <Project>{1b364890-bbe6-4167-af65-fe1c01e8c419}</Project>
-      <Name>NLog.XmlLayout</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -206,7 +202,7 @@
       <Version>2.4.1</Version>
     </PackageReference>
     <PackageReference Include="xunit.runner.visualstudio">
-      <Version>2.4.2</Version>
+      <Version>2.4.3</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

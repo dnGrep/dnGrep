@@ -71,16 +71,17 @@ namespace dnGREP.WPF
         {
             lock (lockObj)
             {
+                string key = extension.ToLowerInvariant();
                 bool invertColors = mode == Mode.Normal ? false : mode == Mode.Inverted ? true :
                     (bool)Application.Current.Resources["AvalonEdit.SyntaxColor.Invert"];
                 if (invertColors)
                 {
-                    if (invertedHighlightingsByExtension.TryGetValue(extension, out IHighlightingDefinition definition))
+                    if (invertedHighlightingsByExtension.TryGetValue(key, out IHighlightingDefinition definition))
                         return definition;
                 }
                 else
                 {
-                    if (normalHighlightingsByExtension.TryGetValue(extension, out IHighlightingDefinition definition))
+                    if (normalHighlightingsByExtension.TryGetValue(key, out IHighlightingDefinition definition))
                         return definition;
                 }
                 return null;
@@ -96,30 +97,35 @@ namespace dnGREP.WPF
                 RegisterHighlighting("XmlDoc", null, "XmlDoc.xshd", invertColors);
                 RegisterHighlighting("C#", new[] { ".cs" }, "CSharp-Mode.xshd", invertColors);
 
-                RegisterHighlighting("JavaScript", new[] { ".js" }, "JavaScript-Mode.xshd", invertColors);
-                RegisterHighlighting("HTML", new[] { ".htm", ".html" }, "HTML-Mode.xshd", invertColors);
+                RegisterHighlighting("JavaScript", (".js;.cjs;.mjs;.iced;.liticed;.coffee;.litcoffee;" +
+                                             ".ts;.tsx;.ls;.es;.es6;.sjs;.eg").Split(';'),
+                                             "JavaScript-Mode.xshd", invertColors);
+                RegisterHighlighting("HTML", new[] { ".htm", ".html", ".cshtml", ".vbhtml" }, "HTML-Mode.xshd", invertColors);
                 RegisterHighlighting("ASP/XHTML", new[] { ".asp", ".aspx", ".asax", ".asmx", ".ascx", ".master" }, "ASPX.xshd", invertColors);
-
                 RegisterHighlighting("Boo", new[] { ".boo" }, "Boo.xshd", invertColors);
                 RegisterHighlighting("Coco", new[] { ".atg" }, "Coco-Mode.xshd", invertColors);
                 RegisterHighlighting("CSS", new[] { ".css" }, "CSS-Mode.xshd", invertColors);
                 RegisterHighlighting("C++", new[] { ".c", ".h", ".cc", ".cpp", ".hpp" }, "CPP-Mode.xshd", invertColors);
-                RegisterHighlighting("Java", new[] { ".java" }, "Java-Mode.xshd", invertColors);
+                RegisterHighlighting("Java", new[] { ".java", ".scala" }, "Java-Mode.xshd", invertColors);
                 RegisterHighlighting("Patch", new[] { ".patch", ".diff" }, "Patch-Mode.xshd", invertColors);
                 RegisterHighlighting("PowerShell", new[] { ".ps1", ".psm1", ".psd1" }, "PowerShell.xshd", invertColors);
-                RegisterHighlighting("PHP", new[] { ".php" }, "PHP-Mode.xshd", invertColors);
+                RegisterHighlighting("PHP", new[] { ".php", ".php3", ".php4", ".php5", ".phtml" }, "PHP-Mode.xshd", invertColors);
                 RegisterHighlighting("Python", new[] { ".py", ".pyw" }, "Python-Mode.xshd", invertColors);
-                RegisterHighlighting("SQL", new[] { ".sql" }, "Sql-Mode.xshd", invertColors);
+                RegisterHighlighting("SQL", new[] { ".sql", ".pks", ".pkb" }, "Sql-Mode.xshd", invertColors);
                 RegisterHighlighting("TeX", new[] { ".tex" }, "Tex-Mode.xshd", invertColors);
                 RegisterHighlighting("TSQL", new[] { ".sql" }, "TSQL-Mode.xshd", invertColors);
                 RegisterHighlighting("VBNET", new[] { ".vb" }, "VB-Mode.xshd", invertColors);
                 RegisterHighlighting("XML", (".xml;.xsl;.xslt;.xsd;.manifest;.config;.addin;" +
-                                                 ".xshd;.wxs;.wxi;.wxl;.proj;.csproj;.vbproj;.ilproj;" +
-                                                 ".booproj;.build;.xfrm;.targets;.xaml;.xpt;" +
-                                                 ".xft;.map;.wsdl;.disco;.ps1xml;.nuspec").Split(';'),
+                                         ".xshd;.wxs;.wxi;.wxl;.proj;.csproj;.vbproj;.ilproj;" +
+                                         ".booproj;.build;.xfrm;.targets;.xaml;.xpt;" +
+                                         ".xft;.map;.wsdl;.disco;.ps1xml;.nuspec").Split(';'),
                                          "XML-Mode.xshd", invertColors);
-                RegisterHighlighting("MarkDown", new[] { ".md" }, "MarkDown-Mode.xshd", invertColors);
+                RegisterHighlighting("MarkDown", new[] { ".md", ".markdown", ".mdown", ".mkdn", ".mkd",
+                                        ".mdwn", ".mdtxt", ".mdtext", ".rmd"}, 
+                                        "MarkDown-Mode.xshd", invertColors);
                 RegisterHighlighting("Lisp", new[] { ".lisp", ".lsp", ".cl", ".mnl", ".dcl" }, "Lisp-Mode.xshd", invertColors);
+                RegisterHighlighting("Json", new[] { ".json" }, "Json.xshd", invertColors);
+                RegisterHighlighting("Yaml", new[] { ".yml", ".yaml" }, "Yaml.xshd", invertColors);
 
                 invertColors = true;
                 mode = Mode.Inverted;

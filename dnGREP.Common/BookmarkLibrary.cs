@@ -72,7 +72,7 @@ namespace dnGREP.Common
             }
             catch (Exception ex)
             {
-                logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
+                logger.Error(ex, "Failed to save bookmarks");
             }
         }
     }
@@ -199,11 +199,11 @@ namespace dnGREP.Common
             {
                 int hashCode = 13;
                 hashCode = (hashCode * 17) ^ TypeOfFileSearch.GetHashCode();
-                hashCode = (hashCode * 17) ^ FileNames.GetHashCode();
-                hashCode = (hashCode * 17) ^ IgnoreFilePattern.GetHashCode();
+                hashCode = (hashCode * 17) ^ FileNames?.GetHashCode() ?? 5;
+                hashCode = (hashCode * 17) ^ IgnoreFilePattern?.GetHashCode() ?? 5;
                 hashCode = (hashCode * 17) ^ TypeOfSearch.GetHashCode();
-                hashCode = (hashCode * 17) ^ SearchPattern.GetHashCode();
-                hashCode = (hashCode * 17) ^ ReplacePattern.GetHashCode();
+                hashCode = (hashCode * 17) ^ SearchPattern?.GetHashCode() ?? 5;
+                hashCode = (hashCode * 17) ^ ReplacePattern?.GetHashCode() ?? 5;
                 hashCode = (hashCode * 17) ^ CaseSensitive.GetHashCode();
                 hashCode = (hashCode * 17) ^ WholeWord.GetHashCode();
                 hashCode = (hashCode * 17) ^ Multiline.GetHashCode();

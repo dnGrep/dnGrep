@@ -153,6 +153,14 @@ namespace dnGREP.Common
             public const string PdfToTextOptions = "PdfToTextOptions";
             [DefaultValue(false)]
             public const string FollowSymlinks = "FollowSymlinks";
+            public const string MainWindowState = "MainWindowState";
+            public const string MainWindowBounds = "MainWindowBounds";
+            public const string ReplaceBounds = "ReplaceBounds";
+            public const string PreviewBounds = "PreviewBounds";
+            public const string PreviewWindowState = "PreviewWindowState";
+            public const string PreviewDocked = "PreviewDocked";
+            public const string PreviewDockedWidth = "PreviewDockedWidth";
+            public const string PreviewHidden = "PreviewHidden";
         }
 
         private static GrepSettings instance;
@@ -209,7 +217,7 @@ namespace dnGREP.Common
             }
             catch (Exception ex)
             {
-                logger.Log<Exception>(LogLevel.Error, "Failed to load settings: " + ex.Message, ex);
+                logger.Error(ex, "Failed to load settings: " + ex.Message);
             }
         }
 
@@ -290,7 +298,7 @@ namespace dnGREP.Common
                 }
                 catch (Exception ex)
                 {
-                    logger.Log<Exception>(LogLevel.Error, "Failed to save app settings: " + ex.Message, ex);
+                    logger.Error(ex, "Failed to save app settings: " + ex.Message);
                 }
                 finally
                 {
@@ -328,6 +336,10 @@ namespace dnGREP.Common
                 else if (typeof(T).IsEnum)
                 {
                     return (T)Enum.Parse(typeof(T), value);
+                }
+                else if (typeof(T) == typeof(Rect))
+                {
+                    return (T)Convert.ChangeType(Rect.Parse(value), typeof(Rect));
                 }
                 else if (!typeof(T).IsPrimitive)
                 {
@@ -398,6 +410,10 @@ namespace dnGREP.Common
                 this[key] = value.ToString().Replace("\n", "&#010;").Replace("\r", "&#013;");
             }
             else if (typeof(T).IsEnum)
+            {
+                this[key] = value.ToString();
+            }
+            else if (typeof(T) == typeof(Rect))
             {
                 this[key] = value.ToString();
             }

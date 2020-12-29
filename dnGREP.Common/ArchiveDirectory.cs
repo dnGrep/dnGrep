@@ -187,7 +187,7 @@ namespace dnGREP.Common
             }
             catch (Exception ex)
             {
-                logger.Log<Exception>(LogLevel.Error, string.Format(CultureInfo.CurrentCulture, "Failed to search inside archive '{0}'", file), ex);
+                logger.Error(ex, string.Format(CultureInfo.CurrentCulture, "Failed to search inside archive '{0}'", file));
             }
             return results;
         }
@@ -407,7 +407,7 @@ namespace dnGREP.Common
                             }
                             catch (Exception ex)
                             {
-                                logger.Log<Exception>(LogLevel.Error, string.Format(CultureInfo.CurrentCulture, "Failed extract file {0} from archive '{1}'", innerFileName, diskFile), ex);
+                                logger.Error(ex, string.Format(CultureInfo.CurrentCulture, "Failed extract file {0} from archive '{1}'", innerFileName, diskFile));
                             }
                         }
                     }

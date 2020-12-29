@@ -97,7 +97,7 @@ namespace dnGREP.Engines
                             }
                             catch (Exception ex)
                             {
-                                logger.Log<Exception>(LogLevel.Error, "Failed to initialize " + Path.GetFileNameWithoutExtension(pluginFile) + " engine.", ex);
+                                logger.Error(ex, "Failed to initialize " + Path.GetFileNameWithoutExtension(pluginFile) + " engine.");
                             }
                         }
                     }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<SyntaxDefinition name="Yaml" extensions=".yaml;.yml" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+  <Color name="FieldName" foreground="#FF0080FF" />
+  <Color name="Variable" foreground="#FF605050"  />
+  <Color name="Comment" foreground="#FF39A839" exampleText="# comment" />
+
+  <RuleSet ignoreCase="false">
+    <Rule color="FieldName">
+      \b\w[\w-]*(?=:)
+    </Rule>
+    <Rule color="Variable">
+      \$?{{.*}}
+    </Rule>
+    <Rule color="Comment">
+      \#.*
+    </Rule>
+  </RuleSet>
+</SyntaxDefinition>

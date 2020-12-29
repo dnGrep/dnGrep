@@ -15,6 +15,7 @@ using dnGREP.Common;
 using dnGREP.Common.UI;
 using dnGREP.Engines;
 using dnGREP.WPF.MVHelpers;
+using dnGREP.WPF.Properties;
 using DockFloat;
 using Microsoft.Win32;
 using NLog;
@@ -34,11 +35,11 @@ namespace dnGREP.WPF
         {
             double maxPreviewWidth = Application.Current.MainWindow.Width - DockPanelSplitter.Panel1MinSize;
 
-            _previewWindowBounds = Properties.Settings.Default.PreviewBounds;
-            _previewWindowState = Properties.Settings.Default.PreviewWindowState;
-            _isPreviewDocked = Properties.Settings.Default.PreviewDocked;
-            _previewDockedWidth = Math.Min(Properties.Settings.Default.PreviewDockedWidth, maxPreviewWidth);
-            _isPreviewHidden = Properties.Settings.Default.PreviewHidden;
+            _previewWindowBounds = LayoutProperties.PreviewBounds;
+            _previewWindowState = LayoutProperties.PreviewWindowState;
+            _isPreviewDocked = LayoutProperties.PreviewDocked;
+            _previewDockedWidth = Math.Min(LayoutProperties.PreviewDockedWidth, maxPreviewWidth);
+            _isPreviewHidden = LayoutProperties.PreviewHidden;
 
             SearchResults.PreviewFileLineRequest += SearchResults_PreviewFileLineRequest;
             SearchResults.PreviewFileRequest += SearchResults_PreviewFileRequest;
@@ -904,11 +905,11 @@ namespace dnGREP.WPF
             settings.Set(GrepSettings.Key.ContextLinesBefore, ContextLinesBefore);
             settings.Set(GrepSettings.Key.ContextLinesAfter, ContextLinesAfter);
 
-            Properties.Settings.Default.PreviewBounds = PreviewWindowBounds;
-            Properties.Settings.Default.PreviewWindowState = PreviewWindowState;
-            Properties.Settings.Default.PreviewDocked = IsPreviewDocked;
-            Properties.Settings.Default.PreviewDockedWidth = PreviewDockedWidth;
-            Properties.Settings.Default.PreviewHidden = IsPreviewHidden;
+            LayoutProperties.PreviewBounds = PreviewWindowBounds;
+            LayoutProperties.PreviewWindowState = PreviewWindowState;
+            LayoutProperties.PreviewDocked = IsPreviewDocked;
+            LayoutProperties.PreviewDockedWidth = PreviewDockedWidth;
+            LayoutProperties.PreviewHidden = IsPreviewHidden;
 
             base.SaveSettings();
         }
@@ -954,7 +955,7 @@ namespace dnGREP.WPF
             }
             catch (Exception ex)
             {
-                logger.Log<Exception>(LogLevel.Error, "Failed to open file.", ex);
+                logger.Error(ex, "Failed to open file.");
                 if (useCustomEditor)
                     MessageBox.Show($"There was an error opening file by custom editor. {Environment.NewLine}Check editor path via \"Options..\".", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
                 else
@@ -1007,7 +1008,7 @@ namespace dnGREP.WPF
             }
             catch (Exception ex)
             {
-                logger.Log<Exception>(LogLevel.Error, "Failed to open file.", ex);
+                logger.Error(ex, "Failed to open file.");
                 if (useCustomEditor)
                     MessageBox.Show($"There was an error opening file by custom editor.{Environment.NewLine}Check editor path via \"Options..\".", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
                 else
@@ -1109,7 +1110,7 @@ namespace dnGREP.WPF
 
                         FileFilter fileParams = new FileFilter(FileOrFolderPath, filePatternInclude, filePatternExclude,
                             param.TypeOfFileSearch == FileSearchType.Regex, param.UseGitIgnore, param.TypeOfFileSearch == FileSearchType.Everything,
-                            param.IncludeSubfolder, param.MaxSubfolderDepth, param.IncludeHidden, param.IncludeBinary, param.IncludeArchive, 
+                            param.IncludeSubfolder, param.MaxSubfolderDepth, param.IncludeHidden, param.IncludeBinary, param.IncludeArchive,
                             param.FollowSymlinks, sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime);
 
                         if (param.Operation == GrepOperation.SearchInResults)
@@ -1206,7 +1207,7 @@ namespace dnGREP.WPF
             }
             catch (Exception ex)
             {
-                logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
+                logger.Error(ex, "Failed in search/replace");
                 bool isSearch = true;
                 if (e.Argument is MainViewModel param)
                 {
@@ -1244,7 +1245,7 @@ namespace dnGREP.WPF
             }
             catch (Exception ex)
             {
-                logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
+                logger.Error(ex, "Failure in search progress changed");
                 MessageBox.Show("Search or replace failed! See error log.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -1328,6 +1329,11 @@ namespace dnGREP.WPF
                     CurrentGrepOperation = GrepOperation.None;
                     base.OnPropertyChanged(() => CurrentGrepOperation);
                     CanSearch = true;
+
+                    if (Application.Current is App app)
+                    {
+                        ProcessCommands(app.AppArgs);
+                    }
                 }
                 else if (CurrentGrepOperation == GrepOperation.Replace)
                 {
@@ -1362,7 +1368,7 @@ namespace dnGREP.WPF
             }
             catch (Exception ex)
             {
-                logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
+                logger.Error(ex, "Failure in search complete update");
                 MessageBox.Show("Search or replace failed! See error log.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
@@ -1718,7 +1724,7 @@ namespace dnGREP.WPF
             catch (Exception ex)
             {
                 MessageBox.Show("There was an error saving options.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
-                logger.Log<Exception>(LogLevel.Error, "Error saving options", ex);
+                logger.Error(ex, "Error saving options");
             }
             LoadSettings();
             SearchResults.RaiseSettingsPropertiesChanged();
@@ -1932,7 +1938,7 @@ namespace dnGREP.WPF
                     catch (Exception ex)
                     {
                         MessageBox.Show("There was an error copying files. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
-                        logger.Log<Exception>(LogLevel.Error, "Error copying files", ex);
+                        logger.Error(ex, "Error copying files");
                     }
                     CanUndo = false;
                 }
@@ -1973,7 +1979,7 @@ namespace dnGREP.WPF
                     }
                     catch (Exception ex)
                     {
-                        logger.Log<Exception>(LogLevel.Error, "Error moving files", ex);
+                        logger.Error(ex, "Error moving files");
                         MessageBox.Show("There was an error moving files. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     CanUndo = false;
@@ -2000,7 +2006,7 @@ namespace dnGREP.WPF
                 catch (Exception ex)
                 {
                     MessageBox.Show("There was an error deleting files. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
-                    logger.Log<Exception>(LogLevel.Error, "Error deleting files", ex);
+                    logger.Error(ex, "Error deleting files");
                 }
                 CanUndo = false;
                 SearchResults.Clear();
@@ -2075,13 +2081,33 @@ namespace dnGREP.WPF
                     catch (Exception ex)
                     {
                         MessageBox.Show("There was an error creating the file. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
-                        logger.Log<Exception>(LogLevel.Error, "Error creating results file", ex);
+                        logger.Error(ex, "Error creating results file");
                     }
                     finally
                     {
                         IsSaveInProgress = false;
                     }
                 }
+            }
+        }
+
+        private void ProcessCommands(CommandLineArgs args)
+        {
+            if (!string.IsNullOrWhiteSpace(args.ReportPath))
+            {
+                Utils.SaveResultsReport(SearchResults.GetList(), BooleanOperators, SearchFor, GetSearchOptions(), args.ReportPath);
+            }
+            if (!string.IsNullOrWhiteSpace(args.TextPath))
+            {
+                Utils.SaveResultsAsText(SearchResults.GetList(), args.TextPath);
+            }
+            if (!string.IsNullOrWhiteSpace(args.CsvPath))
+            {
+                Utils.SaveResultsAsCSV(SearchResults.GetList(), args.CsvPath);
+            }
+            if (args.Exit)
+            {
+                Application.Current.MainWindow.Close();
             }
         }
 
@@ -2220,7 +2246,7 @@ namespace dnGREP.WPF
             catch (Exception ex)
             {
                 MessageBox.Show("There was an error running regex test. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
-                logger.Log<Exception>(LogLevel.Error, "Error running regex", ex);
+                logger.Error(ex, "Error running regex");
             }
         }
 
@@ -2256,7 +2282,7 @@ namespace dnGREP.WPF
             }
             catch (Exception ex)
             {
-                logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
+                logger.Error(ex, "Failure in check version");
             }
         }
 
