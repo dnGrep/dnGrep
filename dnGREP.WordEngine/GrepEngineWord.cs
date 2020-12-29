@@ -41,7 +41,7 @@ namespace dnGREP.Engines.Word
             catch (Exception ex)
             {
                 isAvailable = false;
-                logger.Log<Exception>(LogLevel.Error, "Failed to initialize Word.", ex);
+                logger.Error(ex, "Failed to initialize Word.");
             }
         }
 
@@ -81,7 +81,7 @@ namespace dnGREP.Engines.Word
 
         public IList<string> DefaultFileExtensions
         {
-            get { return new string[] {"doc" }; }
+            get { return new string[] { "doc" }; }
         }
 
         public bool IsSearchOnly
@@ -166,7 +166,7 @@ namespace dnGREP.Engines.Word
             }
             catch (Exception ex)
             {
-                logger.Log<Exception>(LogLevel.Error, "Failed to search inside Word file", ex);
+                logger.Error(ex, "Failed to search inside Word file");
             }
             return searchResults;
         }
@@ -219,7 +219,7 @@ namespace dnGREP.Engines.Word
             }
             catch (Exception ex)
             {
-                logger.Log<Exception>(LogLevel.Error, "Failed to load Word and create Document.", ex);
+                logger.Error(ex, "Failed to load Word and create Document.");
             }
 
             base.Initialize(initParams, FileFilter);
@@ -240,7 +240,7 @@ namespace dnGREP.Engines.Word
                 }
                 catch (Exception ex)
                 {
-                    logger.Log<Exception>(LogLevel.Error, "Failed to unload Word.", ex);
+                    logger.Error(ex, "Failed to unload Word.");
                 }
             }
 
@@ -252,7 +252,7 @@ namespace dnGREP.Engines.Word
                 }
                 catch (Exception ex)
                 {
-                    logger.Log<Exception>(LogLevel.Error, "Failed to release Word object.", ex);
+                    logger.Error(ex, "Failed to release Word object.");
                 }
             }
 

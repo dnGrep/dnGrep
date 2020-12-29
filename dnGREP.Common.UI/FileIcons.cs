@@ -52,7 +52,7 @@ namespace dnGREP.Common.UI
                 }
                 catch (Exception ex)
                 {
-                    logger.Log<Exception>(LogLevel.Error, "Failed to create icon", ex);
+                    logger.Error(ex, "Failed to create icon");
                 }
             }
         }

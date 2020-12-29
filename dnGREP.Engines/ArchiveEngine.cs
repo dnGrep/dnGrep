@@ -152,7 +152,7 @@ namespace dnGREP.Engines
             }
             catch (Exception ex)
             {
-                logger.Log<Exception>(LogLevel.Error, string.Format("Failed to search inside archive '{0}'", diskFile), ex);
+                logger.Error(ex, string.Format("Failed to search inside archive '{0}'", diskFile));
             }
             return searchResults;
         }

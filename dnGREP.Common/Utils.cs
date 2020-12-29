@@ -1231,7 +1231,7 @@ namespace dnGREP.Common
             }
             catch (Exception ex)
             {
-                logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
+                logger.Error(ex, "Failure in applying file filters");
                 // returning true shows an error in the results tree
                 return true;
             }
@@ -1547,7 +1547,7 @@ namespace dnGREP.Common
             }
             catch (Exception ex)
             {
-                logger.Log<Exception>(LogLevel.Error, "Failed to delete temp folder", ex);
+                logger.Error(ex, "Failed to delete temp folder");
             }
         }
 
@@ -1737,7 +1737,7 @@ namespace dnGREP.Common
                 }
                 catch (Exception ex)
                 {
-                    logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
+                    logger.Error(ex, "Failure in file lock check");
                 }
             }
 

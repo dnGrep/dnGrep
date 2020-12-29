@@ -217,7 +217,7 @@ namespace dnGREP.Common
             }
             catch (Exception ex)
             {
-                logger.Log<Exception>(LogLevel.Error, "Failed to load settings: " + ex.Message, ex);
+                logger.Error(ex, "Failed to load settings: " + ex.Message);
             }
         }
 
@@ -298,7 +298,7 @@ namespace dnGREP.Common
                 }
                 catch (Exception ex)
                 {
-                    logger.Log<Exception>(LogLevel.Error, "Failed to save app settings: " + ex.Message, ex);
+                    logger.Error(ex, "Failed to save app settings: " + ex.Message);
                 }
                 finally
                 {

@@ -73,11 +73,6 @@
           <netfx:NativeImage Id="ngen_NLog.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
         </File>
       </Component>
-      <Component Id="cmp63940A2343725017B4AC8FB8CA506996" Guid="{FCD0E208-39EF-4682-84B6-602CF99CFC83}">
-        <File Id="filC4FC895A31BBFCC8353F9AA5703B7601" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\NLog.XmlLayout.dll" >
-          <netfx:NativeImage Id="ngen_NLog.XmlLayout.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
-        </File>
-      </Component>
       <Component Id="cmp1890E8AA2A3B456C8D741C549EAC7823" Guid="{8974E33B-2F69-48A6-9A83-728F1C85ECDC}">
         <File Id="filDD627B0779CB4C17B55C2B55AE5B0873" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\UtfUnknown.dll" >
           <netfx:NativeImage Id="ngen_UtfUnknown.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
@@ -118,7 +113,6 @@
       <ComponentRef Id="cmp0E16CB47C3F6B22E2FFDD2CC515AD1C8" />
       <ComponentRef Id="cmp0459596434A34BA899AD1B009417DEEB" />
       <ComponentRef Id="cmp770B497917674F316826C902746C0409" />
-      <ComponentRef Id="cmp63940A2343725017B4AC8FB8CA506996" />
       <ComponentRef Id="cmp1890E8AA2A3B456C8D741C549EAC7823" />
       <ComponentRef Id="cmp10B3F70BED274CCC836FFC1BB5B515F8" />
       <ComponentRef Id="cmp7DD353A5178A4A3EAE13CB71CD8CEAE2" />

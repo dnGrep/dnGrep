@@ -483,10 +483,6 @@
       <Project>{86c22db6-4211-44a1-93ba-b21027cc90f9}</Project>
       <Name>DockFloat</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NLog.XmlLayout\NLog.XmlLayout.csproj">
-      <Project>{1B364890-BBE6-4167-AF65-FE1C01E8C419}</Project>
-      <Name>NLog.XmlLayout</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\applications-graphics.png" />
@@ -510,13 +506,13 @@
       <Version>6.0.1</Version>
     </PackageReference>
     <PackageReference Include="NLog">
-      <Version>4.7.2</Version>
+      <Version>4.7.6</Version>
     </PackageReference>
     <PackageReference Include="StrongNamer">
       <Version>0.2.5</Version>
     </PackageReference>
     <PackageReference Include="WpfScreenHelper">
-      <Version>0.4.0</Version>
+      <Version>1.0.0</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

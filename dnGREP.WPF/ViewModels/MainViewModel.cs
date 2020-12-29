@@ -955,7 +955,7 @@ namespace dnGREP.WPF
             }
             catch (Exception ex)
             {
-                logger.Log<Exception>(LogLevel.Error, "Failed to open file.", ex);
+                logger.Error(ex, "Failed to open file.");
                 if (useCustomEditor)
                     MessageBox.Show($"There was an error opening file by custom editor. {Environment.NewLine}Check editor path via \"Options..\".", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
                 else
@@ -1008,7 +1008,7 @@ namespace dnGREP.WPF
             }
             catch (Exception ex)
             {
-                logger.Log<Exception>(LogLevel.Error, "Failed to open file.", ex);
+                logger.Error(ex, "Failed to open file.");
                 if (useCustomEditor)
                     MessageBox.Show($"There was an error opening file by custom editor.{Environment.NewLine}Check editor path via \"Options..\".", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
                 else
@@ -1207,7 +1207,7 @@ namespace dnGREP.WPF
             }
             catch (Exception ex)
             {
-                logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
+                logger.Error(ex, "Failed in search/replace");
                 bool isSearch = true;
                 if (e.Argument is MainViewModel param)
                 {
@@ -1245,7 +1245,7 @@ namespace dnGREP.WPF
             }
             catch (Exception ex)
             {
-                logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
+                logger.Error(ex, "Failure in search progress changed");
                 MessageBox.Show("Search or replace failed! See error log.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -1368,7 +1368,7 @@ namespace dnGREP.WPF
             }
             catch (Exception ex)
             {
-                logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
+                logger.Error(ex, "Failure in search complete update");
                 MessageBox.Show("Search or replace failed! See error log.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
@@ -1724,7 +1724,7 @@ namespace dnGREP.WPF
             catch (Exception ex)
             {
                 MessageBox.Show("There was an error saving options.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
-                logger.Log<Exception>(LogLevel.Error, "Error saving options", ex);
+                logger.Error(ex, "Error saving options");
             }
             LoadSettings();
             SearchResults.RaiseSettingsPropertiesChanged();
@@ -1938,7 +1938,7 @@ namespace dnGREP.WPF
                     catch (Exception ex)
                     {
                         MessageBox.Show("There was an error copying files. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
-                        logger.Log<Exception>(LogLevel.Error, "Error copying files", ex);
+                        logger.Error(ex, "Error copying files");
                     }
                     CanUndo = false;
                 }
@@ -1979,7 +1979,7 @@ namespace dnGREP.WPF
                     }
                     catch (Exception ex)
                     {
-                        logger.Log<Exception>(LogLevel.Error, "Error moving files", ex);
+                        logger.Error(ex, "Error moving files");
                         MessageBox.Show("There was an error moving files. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     CanUndo = false;
@@ -2006,7 +2006,7 @@ namespace dnGREP.WPF
                 catch (Exception ex)
                 {
                     MessageBox.Show("There was an error deleting files. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
-                    logger.Log<Exception>(LogLevel.Error, "Error deleting files", ex);
+                    logger.Error(ex, "Error deleting files");
                 }
                 CanUndo = false;
                 SearchResults.Clear();
@@ -2081,7 +2081,7 @@ namespace dnGREP.WPF
                     catch (Exception ex)
                     {
                         MessageBox.Show("There was an error creating the file. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
-                        logger.Log<Exception>(LogLevel.Error, "Error creating results file", ex);
+                        logger.Error(ex, "Error creating results file");
                     }
                     finally
                     {
@@ -2246,7 +2246,7 @@ namespace dnGREP.WPF
             catch (Exception ex)
             {
                 MessageBox.Show("There was an error running regex test. Please examine the error log.", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
-                logger.Log<Exception>(LogLevel.Error, "Error running regex", ex);
+                logger.Error(ex, "Error running regex");
             }
         }
 
@@ -2282,7 +2282,7 @@ namespace dnGREP.WPF
             }
             catch (Exception ex)
             {
-                logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
+                logger.Error(ex, "Failure in check version");
             }
         }
 

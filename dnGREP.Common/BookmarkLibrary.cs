@@ -72,7 +72,7 @@ namespace dnGREP.Common
             }
             catch (Exception ex)
             {
-                logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
+                logger.Error(ex, "Failed to save bookmarks");
             }
         }
     }

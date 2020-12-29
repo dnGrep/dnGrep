@@ -118,7 +118,7 @@ namespace dnGREP.WPF
                         }
                         catch (Exception ex)
                         {
-                            logger.Error(ex);
+                            logger.Error(ex, "Failure in initialize themes, backup Sunset.xaml");
                         }
                     }
                 }
@@ -132,7 +132,7 @@ namespace dnGREP.WPF
                 }
                 catch (Exception ex)
                 {
-                    logger.Error(ex);
+                    logger.Error(ex, "Failure in initialize themes, copy Sunset.xaml");
                 }
             }
 
