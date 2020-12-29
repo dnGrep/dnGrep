@@ -25,7 +25,7 @@ namespace dnGREP.Engines
             }
             catch (Exception ex)
             {
-                logger.Log<Exception>(LogLevel.Error, "Failed to create engine " + Path.GetFileNameWithoutExtension(DllFilePath), ex);
+                logger.Error(ex, "Failed to create engine " + Path.GetFileNameWithoutExtension(DllFilePath));
             }
             return engine;
         }

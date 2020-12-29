@@ -199,7 +199,7 @@ namespace dnGREP.Common
             }
             catch (Exception ex)
             {
-                logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
+                logger.Error(ex, "Failed in Search");
                 AddSearchResult(new GrepSearchResult(file, searchPattern, ex.Message, false));
                 if (ProcessedFile != null)
                 {
@@ -295,7 +295,7 @@ namespace dnGREP.Common
                     }
                     catch (Exception ex)
                     {
-                        logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
+                        logger.Error(ex, "Failure in Replace");
                         try
                         {
                             // Replace the file
@@ -341,7 +341,7 @@ namespace dnGREP.Common
             }
             catch (Exception ex)
             {
-                logger.Log<Exception>(LogLevel.Error, "Failed to undo replacement", ex);
+                logger.Error(ex, "Failed to undo replacement");
                 return false;
             }
         }

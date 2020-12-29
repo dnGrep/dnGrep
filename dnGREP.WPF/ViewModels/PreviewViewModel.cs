@@ -219,7 +219,7 @@ namespace dnGREP.WPF
                     {
                         // Is the file locked and cannot be read by IsBinary?
                         // message is shown in the preview window
-                        logger.Log<Exception>(LogLevel.Error, ex.Message, ex);
+                        logger.Error(ex, "Failure in check for large or binary");
                     }
 
                     // Disable highlighting for large number of matches
