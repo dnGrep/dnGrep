@@ -12,6 +12,7 @@
   <Color name="MethodCall" foreground="#FF016183" fontWeight="bold" exampleText="o.ToString();"/>
   <Color name="ThisOrBaseReference" foreground="#FF016183" fontWeight="bold" exampleText="this.Do(); base.Do();"/>
   <Color name="NullOrValueKeywords" foreground="#FF0080FF" fontWeight="bold" exampleText="if (value == null)"/>
+  <Color name="ConstraintKeywords" foreground="#FF0080FF" fontWeight="bold" exampleText="if (value == null)"/>
   <Color name="Keywords" foreground="#FF793A74" fontWeight="bold" exampleText="if (a) {} else {}"/>
   <Color name="GotoKeywords" foreground="#FF793A74" exampleText="continue; return null;"/>
   <Color name="ContextKeywords" foreground="#FF0080FF" exampleText="var a = from x in y select z;"/>
@@ -123,6 +124,7 @@
       <Word>as</Word>
       <Word>is</Word>
       <Word>new</Word>
+      <Word>nameof</Word>
       <Word>sizeof</Word>
       <Word>typeof</Word>
       <Word>stackalloc</Word>
@@ -174,6 +176,7 @@
       <Word>var</Word>
       <Word>dynamic</Word>
       <Word>await</Word>
+      <Word>with</Word>
     </Keywords>
 
     <Keywords color="ExceptionKeywords">
@@ -181,6 +184,7 @@
       <Word>throw</Word>
       <Word>catch</Word>
       <Word>finally</Word>
+      <Word>when</Word>
     </Keywords>
 
     <Keywords color="CheckedKeyword">
@@ -209,6 +213,7 @@
       <Word>uint</Word>
       <Word>ushort</Word>
       <Word>ulong</Word>
+      <Word>record</Word>
     </Keywords>
 
     <Keywords color="ReferenceTypes">
@@ -237,6 +242,7 @@
       <Word>const</Word>
       <Word>event</Word>
       <Word>extern</Word>
+      <Word>alias</Word>
       <Word>override</Word>
       <Word>readonly</Word>
       <Word>sealed</Word>
@@ -261,6 +267,7 @@
     <Keywords color="GetSetAddRemove">
       <Word>get</Word>
       <Word>set</Word>
+      <Word>init</Word>
       <Word>add</Word>
       <Word>remove</Word>
     </Keywords>
@@ -268,6 +275,11 @@
     <Keywords color="NullOrValueKeywords">
       <Word>null</Word>
       <Word>value</Word>
+    </Keywords>
+
+    <Keywords color="ConstraintKeywords">
+      <Word>notnull</Word>
+      <Word>unmanaged</Word>
     </Keywords>
 
     <!-- Mark previous rule-->
