@@ -735,7 +735,8 @@
                         </my:SplitButton.ContextMenu>
                     </my:SplitButton>
                     <Button Margin="3" Padding="8,3"
-                            Content="&gt;&gt;" Click="ButtonOtherActions_Click"
+                            Content="More ⏷"
+                            Click="ButtonOtherActions_Click"
                             ContextMenuService.Placement="Bottom"
                             IsEnabled="{Binding CanSearchInResults}"
                             TabIndex="86">
