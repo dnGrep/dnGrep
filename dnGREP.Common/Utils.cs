@@ -1620,7 +1620,7 @@ namespace dnGREP.Common
         public static string GetDataFolderPath()
         {
             string currentFolder = GetCurrentPath(typeof(Utils));
-            if (canUseCurrentFolder == null)
+            if (!canUseCurrentFolder.HasValue)
             {
                 canUseCurrentFolder = HasWriteAccessToFolder(currentFolder);
             }
@@ -1635,6 +1635,18 @@ namespace dnGREP.Common
                 if (!Directory.Exists(dataFolder))
                     Directory.CreateDirectory(dataFolder);
                 return dataFolder;
+            }
+        }
+
+        public static bool IsPortableMode
+        { 
+            get
+            {
+                if (!canUseCurrentFolder.HasValue)
+                {
+                    GetDataFolderPath();
+                }
+                return canUseCurrentFolder.Value;
             }
         }
 
