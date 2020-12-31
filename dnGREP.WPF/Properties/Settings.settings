@@ -9,7 +9,7 @@
       <Value Profile="(Default)">0,0,0,0</Value>
     </Setting>
     <Setting Name="MainFormExBounds" Type="System.Windows.Rect" Scope="User">
-      <Value Profile="(Default)">100,100,1200,800</Value>
+      <Value Profile="(Default)">20,20,1200,800</Value>
     </Setting>
     <Setting Name="ReplaceBounds" Type="System.Windows.Rect" Scope="User">
       <Value Profile="(Default)">0,0,0,0</Value>

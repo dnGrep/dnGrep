@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using dnGREP.Common;
 
 namespace dnGREP.WPF.Properties
@@ -27,6 +28,16 @@ namespace dnGREP.WPF.Properties
         private static double? previewDockedWidth;
         private static bool? previewHidden;
 
+        private static Rect Validate(Rect rect)
+        {
+            // width and height must be non-negative
+            if (rect.Width < 0 || rect.Height < 0)
+                return new Rect(rect.Location, 
+                    new Size(Math.Max(rect.Width, 0), Math.Max(rect.Height, 0)));
+
+            return rect;
+        }
+
         public static Rect MainWindowBounds
         {
             get
@@ -41,12 +52,13 @@ namespace dnGREP.WPF.Properties
                     {
                         mainWindowBounds = Properties.Settings.Default.MainFormExBounds;
                     }
+                    mainWindowBounds = Validate(mainWindowBounds.Value);
                 }
                 return mainWindowBounds.Value;
             }
             set
             {
-                mainWindowBounds = value;
+                mainWindowBounds = Validate(value);
                 GrepSettings.Instance.Set(GrepSettings.Key.MainWindowBounds, mainWindowBounds.Value);
             }
         }
@@ -89,12 +101,13 @@ namespace dnGREP.WPF.Properties
                     {
                         replaceBounds = Properties.Settings.Default.ReplaceBounds;
                     }
+                    replaceBounds = Validate(replaceBounds.Value);
                 }
                 return replaceBounds.Value;
             }
             set
             {
-                replaceBounds = value;
+                replaceBounds = Validate(value);
                 GrepSettings.Instance.Set(GrepSettings.Key.ReplaceBounds, replaceBounds.Value);
             }
         }
@@ -113,12 +126,13 @@ namespace dnGREP.WPF.Properties
                     {
                         previewBounds = Properties.Settings.Default.PreviewBounds;
                     }
+                    previewBounds = Validate(previewBounds.Value);
                 }
                 return previewBounds.Value;
             }
             set
             {
-                previewBounds = value;
+                previewBounds = Validate(value);
                 GrepSettings.Instance.Set(GrepSettings.Key.PreviewBounds, previewBounds.Value);
             }
         }
@@ -186,12 +200,13 @@ namespace dnGREP.WPF.Properties
                     {
                         previewDockedWidth = Properties.Settings.Default.PreviewDockedWidth;
                     }
+                    previewDockedWidth = Math.Max(previewDockedWidth.Value, 25);
                 }
                 return previewDockedWidth.Value;
             }
             set
             {
-                previewDockedWidth = value;
+                previewDockedWidth = Math.Max(value, 25);
                 GrepSettings.Instance.Set(GrepSettings.Key.PreviewDockedWidth, previewDockedWidth.Value);
             }
         }

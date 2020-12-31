@@ -52,6 +52,7 @@ namespace dnGREP.Common
             [DefaultValue(FileSizeFilter.No)]
             public const string UseFileSizeFilter = "UseFileSizeFilter";
             public const string CaseSensitive = "CaseSensitive";
+            [DefaultValue(true)]
             public const string PreviewFileContent = "PreviewFileContent";
             public const string Multiline = "Multiline";
             public const string Singleline = "Singleline";
@@ -199,20 +200,19 @@ namespace dnGREP.Common
         {
             try
             {
-                if (!File.Exists(path))
-                    return;
-
-                using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                if (File.Exists(path))
                 {
-                    if (stream == null)
-                        return;
-                    XmlSerializer serializer = new XmlSerializer(typeof(SerializableDictionary));
-                    this.Clear();
-                    SerializableDictionary appData = (SerializableDictionary)serializer.Deserialize(stream);
-                    foreach (KeyValuePair<string, string> pair in appData)
-                        this[pair.Key] = pair.Value;
+                    using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    {
+                        if (stream == null)
+                            return;
+                        XmlSerializer serializer = new XmlSerializer(typeof(SerializableDictionary));
+                        this.Clear();
+                        SerializableDictionary appData = (SerializableDictionary)serializer.Deserialize(stream);
+                        foreach (KeyValuePair<string, string> pair in appData)
+                            this[pair.Key] = pair.Value;
+                    }
                 }
-
                 InitializeFonts();
             }
             catch (Exception ex)
