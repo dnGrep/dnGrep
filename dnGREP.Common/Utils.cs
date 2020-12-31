@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security;
+using System.Security.Cryptography;
 using System.Security.Permissions;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -25,8 +26,18 @@ namespace dnGREP.Common
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
+        private static readonly char[] chars =
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".ToCharArray();
+
+        private static readonly string tempFolderName;
+
         private static readonly object regexLock = new object();
         private static readonly Dictionary<string, Regex> regexCache = new Dictionary<string, Regex>();
+
+        static Utils()
+        {
+            tempFolderName = "dnGrep-" + GetUniqueKey(12);
+        }
 
         /// <summary>
         /// Copies the folder recursively. Uses includePattern to avoid unnecessary objects
@@ -491,10 +502,14 @@ namespace dnGREP.Common
         /// <returns>True is file is binary otherwise false</returns>
         public static bool IsBinary(string srcFile)
         {
-            using (FileStream readStream = File.Open(srcFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            if (File.Exists(srcFile))
             {
-                return IsBinary(readStream);
+                using (FileStream readStream = File.Open(srcFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                {
+                    return IsBinary(readStream);
+                }
             }
+            return false;
         }
 
         public static bool IsBinary(Stream stream)
@@ -577,6 +592,11 @@ namespace dnGREP.Common
                 return IsArchiveExtension(Path.GetExtension(srcFile));
             }
             return false;
+        }
+
+        public static bool IsFileInArchive(string srcFile)
+        {
+            return srcFile.Contains(ArchiveDirectory.ArchiveSeparator);
         }
 
         /// <summary>
@@ -1185,7 +1205,7 @@ namespace dnGREP.Common
                     }
                 }
 
-                if (!filter.IncludeBinary && !IsArchive(filePath))
+                if (!filter.IncludeBinary && !IsArchive(filePath) && !IsFileInArchive(filePath))
                 {
                     bool isExcelMatch = IsExcelFile(filePath) && includeSearchPatterns.Contains(".xls", StringComparison.OrdinalIgnoreCase);
                     bool isWordMatch = IsWordFile(filePath) && includeSearchPatterns.Contains(".doc", StringComparison.OrdinalIgnoreCase);
@@ -1519,8 +1539,6 @@ namespace dnGREP.Common
             }
         }
 
-        private readonly static string tempFolderName = "dnGrep-" + Guid.NewGuid().ToString();
-
         /// <summary>
         /// Returns path to a temp folder used by dnGREP (including trailing slash). If folder does not exist
         /// it gets created.
@@ -1551,6 +1569,25 @@ namespace dnGREP.Common
             {
                 logger.Error(ex, "Failed to delete temp folder");
             }
+        }
+
+        public static string GetUniqueKey(int size)
+        {
+            byte[] data = new byte[4 * size];
+            using (RNGCryptoServiceProvider crypto = new RNGCryptoServiceProvider())
+            {
+                crypto.GetBytes(data);
+            }
+            StringBuilder result = new StringBuilder(size);
+            for (int i = 0; i < size; i++)
+            {
+                var rnd = BitConverter.ToUInt32(data, i * 4);
+                var idx = rnd % chars.Length;
+
+                result.Append(chars[idx]);
+            }
+
+            return result.ToString();
         }
 
         /// <summary>
@@ -1641,7 +1678,7 @@ namespace dnGREP.Common
         }
 
         public static bool IsPortableMode
-        { 
+        {
             get
             {
                 if (!canUseCurrentFolder.HasValue)
