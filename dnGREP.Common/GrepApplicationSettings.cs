@@ -259,6 +259,10 @@ namespace dnGREP.Common
         /// <param name="path">Path to settings file</param>
         public void Save(string path)
         {
+            // don't save in warmUp mode
+            if (Environment.GetCommandLineArgs().Contains("/warmUp", StringComparison.OrdinalIgnoreCase))
+                return;
+
             using (var mutex = new Mutex(false, mutexId))
             {
                 bool hasHandle = false;
