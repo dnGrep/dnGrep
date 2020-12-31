@@ -67,34 +67,6 @@ namespace DockFloat
             return result;
         }
 
-        public static Rect FromDevicePixels(this Screen screen, Rect rect)
-        {
-            double scaleX, scaleY;
-            if (Environment.OSVersion.Version.Major >= 10 || 
-                (Environment.OSVersion.Version.Major == 6 && Environment.OSVersion.Version.Minor == 3))
-            {
-                IntPtr hMonitor = NativeMethods.GetMonitor(screen.Bounds);
-                NativeMethods.GetDpiForMonitor(hMonitor, NativeMethods.MonitorDpiType.MDT_EFFECTIVE_DPI, out uint dpiX, out uint dpiY);
-                scaleX = (double)dpiX / 96;
-                scaleY = (double)dpiY / 96;
-            }
-            else
-            {
-                // an old version of Windows (7 or 8)
-                // Get scale of main window and assume scale is the same for all monitors
-                var dpiScale = VisualTreeHelper.GetDpi(Application.Current.MainWindow);
-                scaleX = dpiScale.DpiScaleX;
-                scaleY = dpiScale.DpiScaleY;
-            }
-
-            Rect result = new Rect(
-                rect.X / scaleX,
-                rect.Y / scaleY,
-                rect.Width / scaleX,
-                rect.Height / scaleY);
-            return result;
-        }
-
         public static Point FromDevicePixels(this Window window, Point pt)
         {
             var t = PresentationSource.FromVisual(window).CompositionTarget.TransformFromDevice;
@@ -192,7 +164,7 @@ namespace DockFloat
         public static void CenterWindow(this Window window)
         {
             var screen = Screen.FromHandle(new WindowInteropHelper(window).Handle);
-            var rect = FromDevicePixels(screen, screen.WorkingArea);
+            var rect = window.FromDevicePixels(screen.WorkingArea);
 
             double screenWidth = rect.Width;
             double screenHeight = rect.Height;
@@ -209,7 +181,7 @@ namespace DockFloat
         public static void ToRightEdge(this Window window)
         {
             var screen = Screen.FromHandle(new WindowInteropHelper(window).Handle);
-            var rect = FromDevicePixels(screen, screen.WorkingArea);
+            var rect = window.FromDevicePixels(screen.WorkingArea);
 
             double screenWidth = rect.Width;
             double screenHeight = rect.Height;
