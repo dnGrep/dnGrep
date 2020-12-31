@@ -67,6 +67,34 @@ namespace DockFloat
             return result;
         }
 
+        public static Rect FromDevicePixels(this Screen screen, Rect rect)
+        {
+            double scaleX, scaleY;
+            if (Environment.OSVersion.Version.Major >= 10 || 
+                (Environment.OSVersion.Version.Major == 6 && Environment.OSVersion.Version.Minor == 3))
+            {
+                IntPtr hMonitor = NativeMethods.GetMonitor(screen.Bounds);
+                NativeMethods.GetDpiForMonitor(hMonitor, NativeMethods.MonitorDpiType.MDT_EFFECTIVE_DPI, out uint dpiX, out uint dpiY);
+                scaleX = (double)dpiX / 96;
+                scaleY = (double)dpiY / 96;
+            }
+            else
+            {
+                // an old version of Windows (7 or 8)
+                // Get scale of main window and assume scale is the same for all monitors
+                var dpiScale = VisualTreeHelper.GetDpi(Application.Current.MainWindow);
+                scaleX = dpiScale.DpiScaleX;
+                scaleY = dpiScale.DpiScaleY;
+            }
+
+            Rect result = new Rect(
+                rect.X / scaleX,
+                rect.Y / scaleY,
+                rect.Width / scaleX,
+                rect.Height / scaleY);
+            return result;
+        }
+
         public static Point FromDevicePixels(this Window window, Point pt)
         {
             var t = PresentationSource.FromVisual(window).CompositionTarget.TransformFromDevice;
@@ -93,10 +121,11 @@ namespace DockFloat
         {
             // test to see if the center of the title bar is on a screen
             // this will allow the user to easily move the window if partially off screen
+            // 44 is the width of a title bar button, 30 is the height
             Rect bounds = new Rect(
                 windowBounds.Left + 5 + 44,
                 windowBounds.Top + 5,
-                windowBounds.Width - 3 * 44,
+                Math.Max(windowBounds.Width - 3 * 44, 44),  // can't be negative!
                 30);
 
             foreach (Screen screen in Screen.AllScreens)
@@ -153,7 +182,7 @@ namespace DockFloat
         {
             // don't let the window grow beyond the right edge of the screen
             var screen = Screen.FromHandle(new WindowInteropHelper(window).Handle);
-            var bounds = window.FromDevicePixels(screen.Bounds);
+            var bounds = window.FromDevicePixels(screen.WorkingArea);
             if (window.Left + window.ActualWidth > bounds.Right)
             {
                 window.Width = bounds.Right - window.Left;
@@ -162,8 +191,11 @@ namespace DockFloat
 
         public static void CenterWindow(this Window window)
         {
-            double screenWidth = SystemParameters.PrimaryScreenWidth;
-            double screenHeight = SystemParameters.PrimaryScreenHeight;
+            var screen = Screen.FromHandle(new WindowInteropHelper(window).Handle);
+            var rect = FromDevicePixels(screen, screen.WorkingArea);
+
+            double screenWidth = rect.Width;
+            double screenHeight = rect.Height;
 
             if (window.ActualHeight > screenHeight)
                 window.Height = screenHeight - 20;
@@ -176,8 +208,11 @@ namespace DockFloat
 
         public static void ToRightEdge(this Window window)
         {
-            double screenWidth = SystemParameters.PrimaryScreenWidth;
-            double screenHeight = SystemParameters.PrimaryScreenHeight;
+            var screen = Screen.FromHandle(new WindowInteropHelper(window).Handle);
+            var rect = FromDevicePixels(screen, screen.WorkingArea);
+
+            double screenWidth = rect.Width;
+            double screenHeight = rect.Height;
 
             if (window.ActualHeight > screenHeight)
                 window.Height = screenHeight;
