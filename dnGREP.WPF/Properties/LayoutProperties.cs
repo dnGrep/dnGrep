@@ -30,10 +30,10 @@ namespace dnGREP.WPF.Properties
 
         private static Rect Validate(Rect rect)
         {
-            // width and height must be non-negative: set to minimum of 20
-            if (rect.Width < 20 || rect.Height < 20)
+            // width and height must be non-negative
+            if (rect.Width < 0 || rect.Height < 0)
                 return new Rect(rect.Location, 
-                    new Size(Math.Max(rect.Width, 20), Math.Max(rect.Height, 20)));
+                    new Size(Math.Max(rect.Width, 0), Math.Max(rect.Height, 0)));
 
             return rect;
         }
