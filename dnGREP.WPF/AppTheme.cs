@@ -102,37 +102,42 @@ namespace dnGREP.WPF
 
         public void Initialize()
         {
-            string src = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Themes", "Sunset.xaml");
-            string dest = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dnGrep", "Sunset.xaml");
-            if (File.Exists(dest) && FileChanged(src, dest))
+            if (!Utils.IsPortableMode)
             {
-                for (int idx = 1; idx < 40; idx++)
+                // Copy Sunset.xaml from Program Files\Themes to AppData\dnGrep
+                // If the file exists and is different, back up the old file first, then copy
+                string src = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Themes", "Sunset.xaml");
+                string dest = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dnGrep", "Sunset.xaml");
+                if (File.Exists(dest) && FileChanged(src, dest))
                 {
-                    string temp = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dnGrep", $"Sunset_{idx}.xaml.bak");
-                    if (!File.Exists(temp))
+                    for (int idx = 1; idx < 40; idx++)
                     {
-                        try
+                        string temp = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dnGrep", $"Sunset_{idx}.xaml.bak");
+                        if (!File.Exists(temp))
                         {
-                            File.Move(dest, temp);
-                            break;
-                        }
-                        catch (Exception ex)
-                        {
-                            logger.Error(ex, "Failure in initialize themes, backup Sunset.xaml");
+                            try
+                            {
+                                File.Move(dest, temp);
+                                break;
+                            }
+                            catch (Exception ex)
+                            {
+                                logger.Error(ex, "Failure in initialize themes, backup Sunset.xaml");
+                            }
                         }
                     }
                 }
-            }
 
-            if (!File.Exists(dest))
-            {
-                try
+                if (Directory.Exists(Path.GetDirectoryName(dest)) && !File.Exists(dest))
                 {
-                    File.Copy(src, dest);
-                }
-                catch (Exception ex)
-                {
-                    logger.Error(ex, "Failure in initialize themes, copy Sunset.xaml");
+                    try
+                    {
+                        File.Copy(src, dest);
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Error(ex, "Failure in initialize themes, copy Sunset.xaml");
+                    }
                 }
             }
 
@@ -265,7 +270,7 @@ namespace dnGREP.WPF
                 }
                 catch (Exception ex)
                 {
-                    string msg = ex.Message;
+                    logger.Error(ex, $"Failed to load external theme file: '{fileName}'");
                 }
             }
         }

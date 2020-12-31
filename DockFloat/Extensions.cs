@@ -93,10 +93,11 @@ namespace DockFloat
         {
             // test to see if the center of the title bar is on a screen
             // this will allow the user to easily move the window if partially off screen
+            // 44 is the width of a title bar button, 30 is the height
             Rect bounds = new Rect(
                 windowBounds.Left + 5 + 44,
                 windowBounds.Top + 5,
-                windowBounds.Width - 3 * 44,
+                Math.Max(windowBounds.Width - 3 * 44, 44),  // can't be negative!
                 30);
 
             foreach (Screen screen in Screen.AllScreens)
@@ -153,7 +154,7 @@ namespace DockFloat
         {
             // don't let the window grow beyond the right edge of the screen
             var screen = Screen.FromHandle(new WindowInteropHelper(window).Handle);
-            var bounds = window.FromDevicePixels(screen.Bounds);
+            var bounds = window.FromDevicePixels(screen.WorkingArea);
             if (window.Left + window.ActualWidth > bounds.Right)
             {
                 window.Width = bounds.Right - window.Left;
@@ -162,8 +163,11 @@ namespace DockFloat
 
         public static void CenterWindow(this Window window)
         {
-            double screenWidth = SystemParameters.PrimaryScreenWidth;
-            double screenHeight = SystemParameters.PrimaryScreenHeight;
+            var screen = Screen.FromHandle(new WindowInteropHelper(window).Handle);
+            var rect = window.FromDevicePixels(screen.WorkingArea);
+
+            double screenWidth = rect.Width;
+            double screenHeight = rect.Height;
 
             if (window.ActualHeight > screenHeight)
                 window.Height = screenHeight - 20;
@@ -176,8 +180,11 @@ namespace DockFloat
 
         public static void ToRightEdge(this Window window)
         {
-            double screenWidth = SystemParameters.PrimaryScreenWidth;
-            double screenHeight = SystemParameters.PrimaryScreenHeight;
+            var screen = Screen.FromHandle(new WindowInteropHelper(window).Handle);
+            var rect = window.FromDevicePixels(screen.WorkingArea);
+
+            double screenWidth = rect.Width;
+            double screenHeight = rect.Height;
 
             if (window.ActualHeight > screenHeight)
                 window.Height = screenHeight;

@@ -276,7 +276,7 @@ namespace dnGREP.WPF
                 if (_previewDockedWidth == value)
                     return;
 
-                _previewDockedWidth = value;
+                _previewDockedWidth = Math.Max(value, 25);
                 base.OnPropertyChanged(() => PreviewDockedWidth);
             }
         }
