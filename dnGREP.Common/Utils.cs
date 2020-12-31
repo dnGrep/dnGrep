@@ -1661,7 +1661,18 @@ namespace dnGREP.Common
             string currentFolder = GetCurrentPath(typeof(Utils));
             if (!canUseCurrentFolder.HasValue)
             {
-                canUseCurrentFolder = HasWriteAccessToFolder(currentFolder);
+                // if started in Admin mode, the user can write to these directories
+                // so filter them out first...
+                if (currentFolder.IsSubDirectoryOf(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)) ||
+                    currentFolder.IsSubDirectoryOf(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86)) ||
+                    currentFolder.IsSubDirectoryOf(Environment.GetFolderPath(Environment.SpecialFolder.Windows)))
+                {
+                    canUseCurrentFolder = false;
+                }
+                else
+                {
+                    canUseCurrentFolder = HasWriteAccessToFolder(currentFolder);
+                }
             }
 
             if (canUseCurrentFolder == true)
@@ -1687,6 +1698,32 @@ namespace dnGREP.Common
                 }
                 return canUseCurrentFolder.Value;
             }
+        }
+
+        public static bool IsSubDirectoryOf(this string candidate, string other)
+        {
+            var isChild = false;
+            try
+            {
+                var candidateInfo = new DirectoryInfo(candidate);
+                var otherInfo = new DirectoryInfo(other);
+
+                while (candidateInfo.Parent != null)
+                {
+                    if (candidateInfo.Parent.FullName == otherInfo.FullName)
+                    {
+                        isChild = true;
+                        break;
+                    }
+                    else candidateInfo = candidateInfo.Parent;
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, $"Unable to check directories {candidate} and {other}");
+            }
+
+            return isChild;
         }
 
         private static bool HasWriteAccessToFolder(string folderPath)
