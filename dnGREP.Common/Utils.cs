@@ -1519,6 +1519,8 @@ namespace dnGREP.Common
             }
         }
 
+        private readonly static string tempFolderName = "dnGrep-" + Guid.NewGuid().ToString();
+
         /// <summary>
         /// Returns path to a temp folder used by dnGREP (including trailing slash). If folder does not exist
         /// it gets created.
@@ -1526,7 +1528,7 @@ namespace dnGREP.Common
         /// <returns></returns>
         public static string GetTempFolder()
         {
-            string tempPath = Path.Combine(Path.GetTempPath(), "~dnGREP-Temp");
+            string tempPath = Path.Combine(Path.GetTempPath(), tempFolderName);
             if (!Directory.Exists(tempPath))
             {
                 Directory.CreateDirectory(tempPath);
@@ -1539,7 +1541,7 @@ namespace dnGREP.Common
         /// </summary>
         public static void DeleteTempFolder()
         {
-            string tempPath = Path.Combine(Path.GetTempPath(), "~dnGREP-Temp");
+            string tempPath = Path.Combine(Path.GetTempPath(), tempFolderName);
             try
             {
                 if (Directory.Exists(tempPath))
