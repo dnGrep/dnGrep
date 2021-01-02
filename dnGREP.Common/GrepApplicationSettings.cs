@@ -418,8 +418,9 @@ namespace dnGREP.Common
             {
                 this[key] = value.ToString();
             }
-            else if (value is Rect rect)
+            else if (typeof(T) == typeof(Rect))
             {
+                Rect rect = (Rect)Convert.ChangeType(value, typeof(Rect));
                 // need invariant culture for Rect.Parse to work
                 this[key] = rect.ToString(CultureInfo.InvariantCulture);
             }
