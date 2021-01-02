@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Runtime.Serialization;
@@ -417,9 +418,10 @@ namespace dnGREP.Common
             {
                 this[key] = value.ToString();
             }
-            else if (typeof(T) == typeof(Rect))
+            else if (value is Rect rect)
             {
-                this[key] = value.ToString();
+                // need invariant culture for Rect.Parse to work
+                this[key] = rect.ToString(CultureInfo.InvariantCulture);
             }
             else if (!typeof(T).IsPrimitive)
             {
