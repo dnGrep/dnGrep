@@ -119,7 +119,30 @@ namespace dnGREP.WPF
                 }));
             }
 
+            SetActivePreviewDockSite();
             DockSite.InitFloatingWindows();
+        }
+
+        private void SetActivePreviewDockSite()
+        {
+            if (viewModel.PreviewDockSide == Dock.Right)
+            {
+                var element = dockSiteBottom.Content;
+                if (element != null)
+                {
+                    dockSiteBottom.Content = null;
+                    dockSiteRight.Content = element;
+                }
+            }
+            else if (viewModel.PreviewDockSide == Dock.Bottom)
+            {
+                var element = dockSiteRight.Content;
+                if (element != null)
+                {
+                    dockSiteRight.Content = null;
+                    dockSiteBottom.Content = element;
+                }
+            }
         }
 
         /// <summary>
@@ -189,7 +212,7 @@ namespace dnGREP.WPF
             {
                 if (viewModel.PreviewFileContent)
                 {
-                    previewSplitter.ProportionalResize = false;
+                    previewSplitterRight.ProportionalResize = false;
 
                     if (viewModel.IsPreviewDocked)
                         Width += viewModel.PreviewDockedWidth;
@@ -198,14 +221,14 @@ namespace dnGREP.WPF
 
                     this.ConstrainToScreen();
 
-                    previewSplitter.ProportionalResize = true;
+                    previewSplitterRight.ProportionalResize = true;
                 }
             }
             else if (e.PropertyName == "PreviewFileContent")
             {
                 if (viewModel.IsPreviewDocked)
                 {
-                    previewSplitter.ProportionalResize = false;
+                    previewSplitterRight.ProportionalResize = false;
 
                     if (viewModel.PreviewFileContent)
                         Width += viewModel.PreviewDockedWidth;
@@ -214,8 +237,12 @@ namespace dnGREP.WPF
 
                     this.ConstrainToScreen();
 
-                    previewSplitter.ProportionalResize = true;
+                    previewSplitterRight.ProportionalResize = true;
                 }
+            }
+            else if (e.PropertyName == "PreviewDockSide")
+            {
+                SetActivePreviewDockSite();
             }
         }
 

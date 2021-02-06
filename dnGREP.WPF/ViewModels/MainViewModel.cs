@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -34,11 +35,17 @@ namespace dnGREP.WPF
             : base()
         {
             double maxPreviewWidth = Application.Current.MainWindow.Width - DockPanelSplitter.Panel1MinSize;
+            double maxPreviewHeight = Application.Current.MainWindow.Height - DockPanelSplitter.Panel1MinSize;
 
             _previewWindowBounds = LayoutProperties.PreviewBounds;
             _previewWindowState = LayoutProperties.PreviewWindowState;
             _isPreviewDocked = LayoutProperties.PreviewDocked;
             _previewDockedWidth = Math.Min(LayoutProperties.PreviewDockedWidth, maxPreviewWidth);
+            if (Enum.TryParse(LayoutProperties.PreviewDockSide, out Dock side))
+            {
+                _previewDockSide = side;
+            }
+            _previewDockedHeight = Math.Min(LayoutProperties.PreviewDockedHeight, maxPreviewHeight);
             _isPreviewHidden = LayoutProperties.PreviewHidden;
 
             SearchResults.PreviewFileLineRequest += SearchResults_PreviewFileLineRequest;
@@ -253,6 +260,20 @@ namespace dnGREP.WPF
             }
         }
 
+        private Dock _previewDockSide = Dock.Right;
+        public Dock PreviewDockSide
+        {
+            get { return _previewDockSide; }
+            set
+            {
+                if (_previewDockSide == value)
+                    return;
+
+                _previewDockSide = value;
+                base.OnPropertyChanged(() => PreviewDockSide);
+            }
+        }
+
         private bool _isPreviewHidden = false;
         public bool IsPreviewHidden
         {
@@ -278,6 +299,20 @@ namespace dnGREP.WPF
 
                 _previewDockedWidth = Math.Max(value, 25);
                 base.OnPropertyChanged(() => PreviewDockedWidth);
+            }
+        }
+
+        private double _previewDockedHeight = 200;
+        public double PreviewDockedHeight
+        {
+            get { return _previewDockedHeight; }
+            set
+            {
+                if (_previewDockedHeight == value)
+                    return;
+
+                _previewDockedHeight = Math.Max(value, 25);
+                base.OnPropertyChanged(() => PreviewDockedHeight);
             }
         }
 
@@ -908,7 +943,9 @@ namespace dnGREP.WPF
             LayoutProperties.PreviewBounds = PreviewWindowBounds;
             LayoutProperties.PreviewWindowState = PreviewWindowState;
             LayoutProperties.PreviewDocked = IsPreviewDocked;
+            LayoutProperties.PreviewDockSide = PreviewDockSide.ToString();
             LayoutProperties.PreviewDockedWidth = PreviewDockedWidth;
+            LayoutProperties.PreviewDockedHeight = PreviewDockedHeight;
             LayoutProperties.PreviewHidden = IsPreviewHidden;
 
             base.SaveSettings();

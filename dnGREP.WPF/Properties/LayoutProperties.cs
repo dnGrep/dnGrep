@@ -25,14 +25,16 @@ namespace dnGREP.WPF.Properties
         private static Rect? previewBounds;
         private static WindowState? previewWindowState;
         private static bool? previewDocked;
+        private static string previewDockSide;
         private static double? previewDockedWidth;
+        private static double? previewDockedHeight;
         private static bool? previewHidden;
 
         private static Rect Validate(Rect rect)
         {
             // width and height must be non-negative
             if (rect.Width < 0 || rect.Height < 0)
-                return new Rect(rect.Location, 
+                return new Rect(rect.Location,
                     new Size(Math.Max(rect.Width, 0), Math.Max(rect.Height, 0)));
 
             return rect;
@@ -185,6 +187,33 @@ namespace dnGREP.WPF.Properties
             }
         }
 
+        public static string PreviewDockSide
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(previewDockSide))
+                {
+                    if (GrepSettings.Instance.IsSet(GrepSettings.Key.PreviewDockSide))
+                    {
+                        previewDockSide = GrepSettings.Instance.Get<string>(GrepSettings.Key.PreviewDockSide);
+                    }
+                    else
+                    {
+                        previewDockSide = Properties.Settings.Default.PreviewDockSide;
+                    }
+                }
+                return previewDockSide;
+            }
+            set
+            {
+                // validate value
+                if (value == "Right" || value == "Bottom")
+                {
+                    previewDockSide = value;
+                    GrepSettings.Instance.Set(GrepSettings.Key.PreviewDockSide, previewDockSide);
+                }
+            }
+        }
 
         public static double PreviewDockedWidth
         {
@@ -208,6 +237,31 @@ namespace dnGREP.WPF.Properties
             {
                 previewDockedWidth = Math.Max(value, 25);
                 GrepSettings.Instance.Set(GrepSettings.Key.PreviewDockedWidth, previewDockedWidth.Value);
+            }
+        }
+
+        public static double PreviewDockedHeight
+        {
+            get
+            {
+                if (!previewDockedHeight.HasValue)
+                {
+                    if (GrepSettings.Instance.IsSet(GrepSettings.Key.PreviewDockedHeight))
+                    {
+                        previewDockedHeight = GrepSettings.Instance.Get<double>(GrepSettings.Key.PreviewDockedHeight);
+                    }
+                    else
+                    {
+                        previewDockedHeight = Properties.Settings.Default.PreviewDockedHeight;
+                    }
+                    previewDockedHeight = Math.Max(previewDockedHeight.Value, 25);
+                }
+                return previewDockedHeight.Value;
+            }
+            set
+            {
+                previewDockedHeight = Math.Max(value, 25);
+                GrepSettings.Instance.Set(GrepSettings.Key.PreviewDockedHeight, previewDockedHeight.Value);
             }
         }
 

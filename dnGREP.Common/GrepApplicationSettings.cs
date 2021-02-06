@@ -161,7 +161,9 @@ namespace dnGREP.Common
             public const string PreviewBounds = "PreviewBounds";
             public const string PreviewWindowState = "PreviewWindowState";
             public const string PreviewDocked = "PreviewDocked";
+            public const string PreviewDockSide = "PreviewDockSide";
             public const string PreviewDockedWidth = "PreviewDockedWidth";
+            public const string PreviewDockedHeight = "PreviewDockedHeight";
             public const string PreviewHidden = "PreviewHidden";
         }
 
