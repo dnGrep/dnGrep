@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
 using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
 
@@ -38,8 +40,8 @@ namespace dnGREP.WPF.UserControls
 
         private void treeView_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
         {
-            // keep tree view from scrolling horizontally when an item is selected
-            e.Handled = true;
+            // keep tree view from scrolling horizontally when an item is (mouse) selected
+            e.Handled = !inNextPrevious;
         }
 
         #region Tree right click events
@@ -83,6 +85,94 @@ namespace dnGREP.WPF.UserControls
             {
                 ExcludeLines();
                 e.Handled = true;
+            }
+            else if (e.Key == Key.F3 && Keyboard.Modifiers == ModifierKeys.None)
+            {
+                try
+                {
+                    Cursor = Cursors.Wait;
+                    inNextPrevious = true;
+                    NextLineMatch();
+                    e.Handled = true;
+                }
+                finally
+                {
+                    inNextPrevious = false;
+                    Cursor = Cursors.Arrow;
+                }
+            }
+            else if (e.Key == Key.F4 && Keyboard.Modifiers == ModifierKeys.None)
+            {
+                try
+                {
+                    Cursor = Cursors.Wait;
+                    inNextPrevious = true;
+                    PreviousLineMatch();
+                    e.Handled = true;
+                }
+                finally
+                {
+                    inNextPrevious = false;
+                    Cursor = Cursors.Arrow;
+                }
+            }
+        }
+
+        private bool inNextPrevious;
+
+        private async void NextLineMatch()
+        {
+            var node = inputData.SelectedNodes.FirstOrDefault();
+            if (node == null)
+            {
+                var firstResult = inputData.FirstOrDefault();
+                if (firstResult != null)
+                {
+                    await SelectFirstChild(firstResult);
+                }
+            }
+            else
+            {
+                if (node is FormattedGrepResult result)
+                {
+                    await SelectFirstChild(result);
+                }
+                else if (node is FormattedGrepLine currentLine)
+                {
+                    if (!SelectNextLine(currentLine))
+                    {
+                        currentLine.Parent.IsExpanded = false;
+                        await SelectNextResult(currentLine);
+                    }
+                }
+            }
+        }
+
+        private async void PreviousLineMatch()
+        {
+            var node = inputData.SelectedNodes.FirstOrDefault();
+            if (node == null)
+            {
+                var lastResult = inputData.LastOrDefault();
+                if (lastResult != null)
+                {
+                    await SelectLastChild(lastResult);
+                }
+            }
+            else
+            {
+                if (node is FormattedGrepResult result)
+                {
+                    await SelectPreviousResult(result);
+                }
+                else if (node is FormattedGrepLine currentLine)
+                {
+                    if (!SelectPreviousLine(currentLine))
+                    {
+                        currentLine.Parent.IsExpanded = false;
+                        await SelectPreviousResult(currentLine);
+                    }
+                }
             }
         }
 
@@ -171,11 +261,11 @@ namespace dnGREP.WPF.UserControls
             ExcludeLines();
         }
 
-        private void btnExpandAll_Click(object sender, RoutedEventArgs e)
+        private async void btnExpandAll_Click(object sender, RoutedEventArgs e)
         {
             foreach (FormattedGrepResult result in treeView.Items)
             {
-                result.IsExpanded = true;
+                await result.ExpandTreeNode();
             }
         }
 
@@ -183,7 +273,7 @@ namespace dnGREP.WPF.UserControls
         {
             foreach (FormattedGrepResult result in treeView.Items)
             {
-                result.IsExpanded = false;
+                result.CollapseTreeNode();
             }
         }
 
@@ -588,5 +678,246 @@ namespace dnGREP.WPF.UserControls
         }
         #endregion
 
+        #region Find & Select Tree View Item
+
+        private async Task SelectFirstChild(FormattedGrepResult grepResult)
+        {
+            if (!grepResult.IsExpanded)
+            {
+                await grepResult.ExpandTreeNode();
+            }
+            var firstLine = grepResult.FormattedLines.Where(l => !l.GrepLine.IsContext).FirstOrDefault();
+            if (firstLine != null)
+            {
+                var tvi = GetTreeViewItem(treeView, firstLine);
+                if (tvi != null)
+                {
+                    tvi.IsSelected = true;
+                }
+            }
+        }
+
+        private async Task SelectNextResult(FormattedGrepLine currentLine)
+        {
+            var result = currentLine.Parent;
+            int idx = inputData.IndexOf(result) + 1;
+            if (idx >= inputData.Count) idx = 0;
+
+            var nextResult = inputData[idx];
+            await SelectFirstChild(nextResult);
+        }
+
+        private bool SelectNextLine(FormattedGrepLine currentLine)
+        {
+            var result = currentLine.Parent;
+            var nextLine = result.FormattedLines.Where(l => !l.GrepLine.IsContext &&
+                    l.GrepLine.LineNumber > currentLine.GrepLine.LineNumber)
+                .FirstOrDefault();
+
+            if (nextLine != null)
+            {
+                var tvi = GetTreeViewItem(treeView, nextLine);
+                if (tvi != null)
+                {
+                    tvi.IsSelected = true;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private async Task SelectLastChild(FormattedGrepResult grepResult)
+        {
+            if (!grepResult.IsExpanded)
+            {
+                await grepResult.ExpandTreeNode();
+            }
+            var lastLine = grepResult.FormattedLines.Where(l => !l.GrepLine.IsContext).LastOrDefault();
+            if (lastLine != null)
+            {
+                var tvi = GetTreeViewItem(treeView, lastLine);
+                if (tvi != null)
+                {
+                    tvi.IsSelected = true;
+                }
+            }
+        }
+
+        private async Task SelectPreviousResult(FormattedGrepResult result)
+        {
+            int idx = inputData.IndexOf(result) - 1;
+            if (idx < 0) idx = inputData.Count - 1;
+
+            var previousResult = inputData[idx];
+            await SelectLastChild(previousResult);
+        }
+
+        private async Task SelectPreviousResult(FormattedGrepLine currentLine)
+        {
+            var result = currentLine.Parent;
+            int idx = inputData.IndexOf(result) - 1;
+            if (idx < 0) idx = inputData.Count - 1;
+
+            var previousResult = inputData[idx];
+            await SelectLastChild(previousResult);
+        }
+
+        private bool SelectPreviousLine(FormattedGrepLine currentLine)
+        {
+            var result = currentLine.Parent;
+            var previousLine = result.FormattedLines.Where(l => !l.GrepLine.IsContext &&
+                    l.GrepLine.LineNumber < currentLine.GrepLine.LineNumber)
+                .LastOrDefault();
+
+            if (previousLine != null)
+            {
+                var tvi = GetTreeViewItem(treeView, previousLine);
+                if (tvi != null)
+                {
+                    tvi.IsSelected = true;
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // these two methods are from: 
+        // https://docs.microsoft.com/en-us/dotnet/desktop/wpf/controls/how-to-find-a-treeviewitem-in-a-treeview
+
+        /// <summary>
+        /// Recursively search for an item in this subtree.
+        /// </summary>
+        /// <param name="container">
+        /// The parent ItemsControl. This can be a TreeView or a TreeViewItem.
+        /// </param>
+        /// <param name="item">
+        /// The item to search for.
+        /// </param>
+        /// <returns>
+        /// The TreeViewItem that contains the specified item.
+        /// </returns>
+        private static TreeViewItem GetTreeViewItem(ItemsControl container, object item)
+        {
+            if (container != null)
+            {
+                if (container.DataContext == item)
+                {
+                    return container as TreeViewItem;
+                }
+
+                // Expand the current container
+                if (container is TreeViewItem && !((TreeViewItem)container).IsExpanded)
+                {
+                    container.SetValue(TreeViewItem.IsExpandedProperty, true);
+                }
+
+                // Try to generate the ItemsPresenter and the ItemsPanel.
+                // by calling ApplyTemplate.  Note that in the
+                // virtualizing case even if the item is marked
+                // expanded we still need to do this step in order to
+                // regenerate the visuals because they may have been virtualized away.
+
+                container.ApplyTemplate();
+                ItemsPresenter itemsPresenter =
+                    (ItemsPresenter)container.Template.FindName("ItemsHost", container);
+                if (itemsPresenter != null)
+                {
+                    itemsPresenter.ApplyTemplate();
+                }
+                else
+                {
+                    // The Tree template has not named the ItemsPresenter,
+                    // so walk the descendents and find the child.
+                    itemsPresenter = FindVisualChild<ItemsPresenter>(container);
+                    if (itemsPresenter == null)
+                    {
+                        container.UpdateLayout();
+
+                        itemsPresenter = FindVisualChild<ItemsPresenter>(container);
+                    }
+                }
+
+                Panel itemsHostPanel = (Panel)VisualTreeHelper.GetChild(itemsPresenter, 0);
+
+                // Ensure that the generator for this panel has been created.
+                _ = itemsHostPanel.Children;
+
+                for (int i = 0, count = container.Items.Count; i < count; i++)
+                {
+                    TreeViewItem subContainer;
+                    if (itemsHostPanel is MyVirtualizingStackPanel virtualizingPanel)
+                    {
+                        // Bring the item into view so
+                        // that the container will be generated.
+                        virtualizingPanel.BringIntoView(i);
+
+                        subContainer =
+                            (TreeViewItem)container.ItemContainerGenerator.
+                            ContainerFromIndex(i);
+                    }
+                    else
+                    {
+                        subContainer =
+                            (TreeViewItem)container.ItemContainerGenerator.
+                            ContainerFromIndex(i);
+                        if (subContainer != null)
+                        {
+                            // Bring the item into view to maintain the
+                            // same behavior as with a virtualizing panel.
+                            subContainer.BringIntoView();
+                        }
+                    }
+
+                    if (subContainer != null)
+                    {
+                        // Search the next level for the object.
+                        TreeViewItem resultContainer = GetTreeViewItem(subContainer, item);
+                        if (resultContainer != null)
+                        {
+                            return resultContainer;
+                        }
+                        else
+                        {
+                            // The object is not under this TreeViewItem
+                            // so collapse it.
+                            subContainer.IsExpanded = false;
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Search for an element of a certain type in the visual tree.
+        /// </summary>
+        /// <typeparam name="T">The type of element to find.</typeparam>
+        /// <param name="visual">The parent element.</param>
+        /// <returns></returns>
+        private static T FindVisualChild<T>(Visual visual) where T : Visual
+        {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(visual); i++)
+            {
+                Visual child = (Visual)VisualTreeHelper.GetChild(visual, i);
+                if (child != null)
+                {
+                    T correctlyTyped = child as T;
+                    if (correctlyTyped != null)
+                    {
+                        return correctlyTyped;
+                    }
+
+                    T descendent = FindVisualChild<T>(child);
+                    if (descendent != null)
+                    {
+                        return descendent;
+                    }
+                }
+            }
+
+            return null;
+        }
+        #endregion
     }
 }

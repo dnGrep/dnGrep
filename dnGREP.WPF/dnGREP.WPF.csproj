@@ -163,7 +163,6 @@
     <Compile Include="Views\BookmarkDetailWindow.xaml.cs">
       <DependentUpon>BookmarkDetailWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DesignTimeData\DesignTimeData.cs" />
     <Compile Include="MVHelpers\BoolToVisibilityConverter.cs" />
     <Compile Include="MVHelpers\FocusExtension.cs" />
     <Compile Include="MVHelpers\GridLengthConverter.cs" />

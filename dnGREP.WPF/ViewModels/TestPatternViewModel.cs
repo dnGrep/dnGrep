@@ -252,7 +252,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private void Search()
+        private async void Search()
         {
             hasMatches = false;
             grepResults.Clear();
@@ -296,7 +296,7 @@ namespace dnGREP.WPF
             Paragraph paragraph = new Paragraph();
             if (SearchResults.Count == 1)
             {
-                SearchResults[0].FormattedLines.Load(false);
+                await SearchResults[0].FormattedLines.LoadAsync();
                 foreach (FormattedGrepLine line in SearchResults[0].FormattedLines)
                 {
                     if (line.IsSectionBreak)
