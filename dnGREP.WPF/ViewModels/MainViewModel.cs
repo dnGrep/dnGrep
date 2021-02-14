@@ -47,6 +47,7 @@ namespace dnGREP.WPF
             }
             _previewDockedHeight = Math.Min(LayoutProperties.PreviewDockedHeight, maxPreviewHeight);
             _isPreviewHidden = LayoutProperties.PreviewHidden;
+            _previewAutoPosition = settings.Get<bool>(GrepSettings.Key.PreviewAutoPosition);
 
             SearchResults.PreviewFileLineRequest += SearchResults_PreviewFileLineRequest;
             SearchResults.PreviewFileRequest += SearchResults_PreviewFileRequest;
@@ -257,6 +258,20 @@ namespace dnGREP.WPF
 
                 _isPreviewDocked = value;
                 base.OnPropertyChanged(() => IsPreviewDocked);
+            }
+        }
+
+        private bool _previewAutoPosition = true;
+        public bool PreviewAutoPosition
+        {
+            get { return _previewAutoPosition; }
+            set
+            {
+                if (_previewAutoPosition == value)
+                    return;
+
+                _previewAutoPosition = value;
+                base.OnPropertyChanged(() => PreviewAutoPosition);
             }
         }
 
@@ -947,6 +962,8 @@ namespace dnGREP.WPF
             LayoutProperties.PreviewDockedWidth = PreviewDockedWidth;
             LayoutProperties.PreviewDockedHeight = PreviewDockedHeight;
             LayoutProperties.PreviewHidden = IsPreviewHidden;
+
+            settings.Set(GrepSettings.Key.PreviewAutoPosition, PreviewAutoPosition);
 
             base.SaveSettings();
         }

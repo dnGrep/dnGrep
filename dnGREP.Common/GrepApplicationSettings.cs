@@ -165,6 +165,8 @@ namespace dnGREP.Common
             public const string PreviewDockedWidth = "PreviewDockedWidth";
             public const string PreviewDockedHeight = "PreviewDockedHeight";
             public const string PreviewHidden = "PreviewHidden";
+            [DefaultValue(true)]
+            public const string PreviewAutoPosition = "PreviewAutoPosition";
         }
 
         private static GrepSettings instance;

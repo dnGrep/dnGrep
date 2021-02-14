@@ -71,6 +71,7 @@
                      Style="{StaticResource ThemedDockSite}">
             <df:DockSite.ContextMenu>
                 <ContextMenu>
+                    <MenuItem Header="Auto Position" IsCheckable="True" IsChecked="{Binding PreviewAutoPosition}"/>
                     <my:RadioMenuItem Header="Dock Right" GroupName="D1" 
                                       IsChecked="{Binding Path=PreviewDockSide, Converter={StaticResource ebc}, ConverterParameter=Right}"/>
                     <my:RadioMenuItem Header="Dock Bottom" GroupName="D1" 
@@ -100,6 +101,7 @@
                      Style="{StaticResource ThemedDockSite}">
             <df:DockSite.ContextMenu>
                 <ContextMenu>
+                    <MenuItem Header="Auto Position" IsCheckable="True" IsChecked="{Binding PreviewAutoPosition}"/>
                     <my:RadioMenuItem Header="Dock Right" GroupName="D1" 
                                       IsChecked="{Binding Path=PreviewDockSide, Converter={StaticResource ebc}, ConverterParameter=Right}"/>
                     <my:RadioMenuItem Header="Dock Bottom" GroupName="D1" 
