@@ -724,7 +724,10 @@ namespace dnGREP.WPF.UserControls
             var firstLine = grepResult.FormattedLines.Where(l => !l.GrepLine.IsContext).FirstOrDefault();
             if (firstLine != null)
             {
-                var tvi = GetTreeViewItem(treeView, firstLine, null, SearchDirection.Down);
+                var parent = GetTreeViewItem(treeView, grepResult, null, SearchDirection.Down, 1);
+                ItemsControl container = parent as ItemsControl ?? treeView;
+                int depth = parent != null ? 1 : 2;
+                var tvi = GetTreeViewItem(container, firstLine, null, SearchDirection.Down, depth);
                 if (tvi != null)
                 {
                     tvi.IsSelected = true;
@@ -753,7 +756,8 @@ namespace dnGREP.WPF.UserControls
             {
                 var parent = GetTreeViewItemParent(treeView, currentLine);
                 ItemsControl container = parent as ItemsControl ?? treeView;
-                var tvi = GetTreeViewItem(container, nextLine, currentLine, SearchDirection.Down);
+                int depth = parent != null ? 1 : 2;
+                var tvi = GetTreeViewItem(container, nextLine, currentLine, SearchDirection.Down, depth);
                 if (tvi != null)
                 {
                     tvi.IsSelected = true;
@@ -772,7 +776,10 @@ namespace dnGREP.WPF.UserControls
             var lastLine = grepResult.FormattedLines.Where(l => !l.GrepLine.IsContext).LastOrDefault();
             if (lastLine != null)
             {
-                var tvi = GetTreeViewItem(treeView, lastLine, null, SearchDirection.Up);
+                var parent = GetTreeViewItem(treeView, grepResult, null, SearchDirection.Up, 1);
+                ItemsControl container = parent as ItemsControl ?? treeView;
+                int depth = parent != null ? 1 : 2;
+                var tvi = GetTreeViewItem(container, lastLine, null, SearchDirection.Up, depth);
                 if (tvi != null)
                 {
                     tvi.IsSelected = true;
@@ -810,7 +817,8 @@ namespace dnGREP.WPF.UserControls
             {
                 var parent = GetTreeViewItemParent(treeView, currentLine);
                 ItemsControl container = parent as ItemsControl ?? treeView;
-                var tvi = GetTreeViewItem(container, previousLine, currentLine, SearchDirection.Up);
+                int depth = parent != null ? 1 : 2;
+                var tvi = GetTreeViewItem(container, previousLine, currentLine, SearchDirection.Up, depth);
                 if (tvi != null)
                 {
                     tvi.IsSelected = true;
@@ -835,13 +843,17 @@ namespace dnGREP.WPF.UserControls
         /// <returns>
         /// The TreeViewItem that contains the specified item.
         /// </returns>
-        private static TreeViewItem GetTreeViewItem(ItemsControl container, object item, object selectedItem, SearchDirection dir)
+        private static TreeViewItem GetTreeViewItem(ItemsControl container, object item, object selectedItem, SearchDirection dir, int depth)
         {
             if (container != null)
             {
                 if (container.DataContext == item)
                 {
                     return container as TreeViewItem;
+                }
+                else if (depth <= 0)
+                {
+                    return null;
                 }
 
                 // Expand the current container
@@ -919,7 +931,7 @@ namespace dnGREP.WPF.UserControls
                     if (subContainer != null)
                     {
                         // Search the next level for the object.
-                        TreeViewItem resultContainer = GetTreeViewItem(subContainer, item, selectedItem, dir);
+                        TreeViewItem resultContainer = GetTreeViewItem(subContainer, item, selectedItem, dir, depth - 1);
                         if (resultContainer != null)
                         {
                             return resultContainer;
@@ -991,6 +1003,16 @@ namespace dnGREP.WPF.UserControls
             }
             return null;
         }
+
+        //private static TreeViewItem ContainerFromItem(ItemContainerGenerator root, object item)
+        //{
+        //    if (root.ContainerFromItem(item) is TreeViewItem treeViewItem)
+        //    {
+        //        return treeViewItem;
+        //    }
+
+        //    return null;
+        //}
 
         private static TreeViewItem ContainerFromItemRecursive(ItemContainerGenerator root, object item)
         {
