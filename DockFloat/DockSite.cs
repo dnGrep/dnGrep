@@ -184,18 +184,30 @@ namespace DockFloat
 
         void SaveContentFromDock()
         {
-            savedContentState = ContentState.Save(Content);
+            if (Content != null)
+            {
+                savedContentState = ContentState.Save(Content);
+            }
+            else
+            {
+                savedContentState = null;
+            }
             Content = null;
         }
 
         void RestoreContentToDock()
         {
-            Content = savedContentState.Restore();
+            if (savedContentState != null)
+            {
+                Content = savedContentState.Restore();
+            }
             savedContentState = null;
         }
 
         void AddContentToNewFloatingWindow(bool hidden)
         {
+            if (savedContentState == null) return;
+
             if (FloatWindowBounds == Rect.Empty || FloatWindowBounds == new Rect(0, 0, 0, 0))
             {
                 FloatWindowBounds = GetPopupPosition();

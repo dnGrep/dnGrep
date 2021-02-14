@@ -118,5 +118,29 @@ namespace dnGREP.WPF.Properties {
                 this["PreviewHidden"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("200")]
+        public double PreviewDockedHeight {
+            get {
+                return ((double)(this["PreviewDockedHeight"]));
+            }
+            set {
+                this["PreviewDockedHeight"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Right")]
+        public string PreviewDockSide {
+            get {
+                return ((string)(this["PreviewDockSide"]));
+            }
+            set {
+                this["PreviewDockSide"] = value;
+            }
+        }
     }
 }

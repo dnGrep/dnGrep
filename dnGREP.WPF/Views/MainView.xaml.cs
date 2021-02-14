@@ -19,6 +19,9 @@ namespace dnGREP.WPF
     {
         private readonly MainViewModel viewModel;
         private readonly bool isVisible = true;
+        private const double UpperThreshold = 1.4;
+        private const double LowerThreshold = 1.0;
+
 
         public MainForm()
             : this(true)
@@ -28,6 +31,8 @@ namespace dnGREP.WPF
         public MainForm(bool isVisible)
         {
             InitializeComponent();
+
+            SizeChanged += MainForm_SizeChanged;
 
             // fix for placements on monitors with different DPIs:
             // initial placement on the primary monitor, then move it
@@ -119,7 +124,45 @@ namespace dnGREP.WPF
                 }));
             }
 
+            SetActivePreviewDockSite();
             DockSite.InitFloatingWindows();
+        }
+
+        private void SetActivePreviewDockSite()
+        {
+            if (viewModel.PreviewDockSide == Dock.Right)
+            {
+                var element = dockSiteBottom.Content;
+                if (element != null)
+                {
+                    dockSiteBottom.Content = null;
+                    dockSiteRight.Content = element;
+                }
+            }
+            else if (viewModel.PreviewDockSide == Dock.Bottom)
+            {
+                var element = dockSiteRight.Content;
+                if (element != null)
+                {
+                    dockSiteRight.Content = null;
+                    dockSiteBottom.Content = element;
+                }
+            }
+        }
+
+        private void AutoPosistionPreviewWindow(double ratio)
+        {
+            if (viewModel.PreviewFileContent && viewModel.IsPreviewDocked && viewModel.PreviewAutoPosition)
+            {
+                if (ratio > UpperThreshold && viewModel.PreviewDockSide == Dock.Bottom)
+                {
+                    viewModel.PreviewDockSide = Dock.Right;
+                }
+                else if (ratio < LowerThreshold && viewModel.PreviewDockSide == Dock.Right)
+                {
+                    viewModel.PreviewDockSide = Dock.Bottom;
+                }
+            }
         }
 
         /// <summary>
@@ -180,45 +223,30 @@ namespace dnGREP.WPF
 
         private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            // Shrink or grow the main window the same amount as the
-            // preview panel that is hiding or showing
-            // Toggle the ProportionalResize property so the splitter
-            // distance is not changed when the main window is resized
-
             if (e.PropertyName == "IsPreviewDocked")
             {
-                if (viewModel.PreviewFileContent)
-                {
-                    previewSplitter.ProportionalResize = false;
-
-                    if (viewModel.IsPreviewDocked)
-                        Width += viewModel.PreviewDockedWidth;
-                    else
-                        Width -= viewModel.PreviewDockedWidth;
-
-                    this.ConstrainToScreen();
-
-                    previewSplitter.ProportionalResize = true;
-                }
+                AutoPosistionPreviewWindow(ActualWidth / ActualHeight);
             }
-            else if (e.PropertyName == "PreviewFileContent")
+            else if (e.PropertyName == "PreviewAutoPosition")
             {
-                if (viewModel.IsPreviewDocked)
+                AutoPosistionPreviewWindow(ActualWidth / ActualHeight);
+            }
+            else if (e.PropertyName == "PreviewDockSide")
+            {
+                SetActivePreviewDockSite();
+
+                // if the user manually selects the other dock location, turn off auto positioning
+                double ratio = ActualWidth / ActualHeight;
+                if (ratio > UpperThreshold && viewModel.PreviewDockSide == Dock.Bottom)
                 {
-                    previewSplitter.ProportionalResize = false;
-
-                    if (viewModel.PreviewFileContent)
-                        Width += viewModel.PreviewDockedWidth;
-                    else
-                        Width -= viewModel.PreviewDockedWidth;
-
-                    this.ConstrainToScreen();
-
-                    previewSplitter.ProportionalResize = true;
+                    viewModel.PreviewAutoPosition = false;
+                }
+                else if (ratio < LowerThreshold && viewModel.PreviewDockSide == Dock.Right)
+                {
+                    viewModel.PreviewAutoPosition = false;
                 }
             }
         }
-
 
         #region UI fixes
         private void TextBoxFocus(object sender, RoutedEventArgs e)
@@ -271,6 +299,11 @@ namespace dnGREP.WPF
             // disable feedback that list scroll has reached the limit
             // -- the feedback is that the whole window moves
             e.Handled = true;
+        }
+
+        private void MainForm_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            AutoPosistionPreviewWindow(e.NewSize.Width / e.NewSize.Height);
         }
 
         private void CbEncoding_Initialized(object sender, EventArgs e)
