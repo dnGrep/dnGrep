@@ -103,33 +103,51 @@ namespace dnGREP.WPF.UserControls
             }
             else if (e.Key == Key.F3 && Keyboard.Modifiers == ModifierKeys.None)
             {
-                try
-                {
-                    Cursor = Cursors.Wait;
-                    NextLineMatch();
-                    e.Handled = true;
-                }
-                finally
-                {
-                    Cursor = Cursors.Arrow;
-                }
+                Next();
+                e.Handled = true;
             }
             else if (e.Key == Key.F4 && Keyboard.Modifiers == ModifierKeys.None)
             {
-                try
-                {
-                    Cursor = Cursors.Wait;
-                    PreviousLineMatch();
-                    e.Handled = true;
-                }
-                finally
-                {
-                    Cursor = Cursors.Arrow;
-                }
+                Previous();
+                e.Handled = true;
             }
         }
 
-        private async void NextLineMatch()
+        internal void SetFocus()
+        {
+            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                treeView.Focus();
+            }), System.Windows.Threading.DispatcherPriority.Render);
+        }
+
+        internal async void Next()
+        {
+            try
+            {
+                Cursor = Cursors.Wait;
+                await NextLineMatch();
+            }
+            finally
+            {
+                Cursor = Cursors.Arrow;
+            }
+        }
+
+        internal async void Previous()
+        {
+            try
+            {
+                Cursor = Cursors.Wait;
+                await PreviousLineMatch();
+            }
+            finally
+            {
+                Cursor = Cursors.Arrow;
+            }
+        }
+
+        private async Task NextLineMatch()
         {
             FormattedGrepResult selectedResult = inputData.SelectedNodes.OfType<FormattedGrepResult>()
                 .Where(n => n != null)
@@ -161,7 +179,7 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
-        private async void PreviousLineMatch()
+        private async Task PreviousLineMatch()
         {
             FormattedGrepResult selectedResult = inputData.SelectedNodes.OfType<FormattedGrepResult>()
                 .Where(n => n != null)

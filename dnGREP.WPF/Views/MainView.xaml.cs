@@ -79,6 +79,7 @@ namespace dnGREP.WPF
 
             PreviewKeyDown += MainFormEx_PreviewKeyDown;
             PreviewKeyUp += MainFormEx_PreviewKeyUp;
+            KeyDown += MainForm_KeyDown;
         }
 
         [DllImport("user32.dll")]
@@ -325,6 +326,22 @@ namespace dnGREP.WPF
             if (Keyboard.IsKeyUp(Key.LeftAlt) && Keyboard.IsKeyUp(Key.RightAlt))
             {
                 fileOptions.Text = "More...";
+            }
+        }
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F3 && Keyboard.Modifiers == ModifierKeys.None)
+            {
+                resultsTree.SetFocus();
+                resultsTree.Next();
+                e.Handled = true;
+            }
+            else if (e.Key == Key.F4 && Keyboard.Modifiers == ModifierKeys.None)
+            {
+                resultsTree.SetFocus();
+                resultsTree.Previous();
+                e.Handled = true;
             }
         }
     }
