@@ -27,6 +27,11 @@
                                   MultiSelectRootLevelOnly="False" VirtualizingStackPanel.IsVirtualizing="True"
                                   MouseDoubleClick="treeView_MouseDoubleClick" PreviewKeyDown="treeKeyDown"
                                   SelectedItemsChanged="OnSelectedItemsChanged">
+        <TreeView.ItemsPanel>
+            <ItemsPanelTemplate>
+                <Controls:MyVirtualizingStackPanel/>
+            </ItemsPanelTemplate>
+        </TreeView.ItemsPanel>
         <TreeView.LayoutTransform>
             <ScaleTransform ScaleX="{Binding ResultsScale}" ScaleY="{Binding ResultsScale}" />
         </TreeView.LayoutTransform>
