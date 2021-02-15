@@ -5,8 +5,6 @@
              xmlns:my="clr-namespace:dnGREP.WPF"
              xmlns:Controls="clr-namespace:dnGREP.WPF.UserControls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:dummyData="clr-namespace:dnGREP.WPF.DesignTimeData"
-             d:DataContext="{x:Static dummyData:DesignTimeData.DummyObservableGrepSearchResults}"
              d:DesignHeight="300"
              d:DesignWidth="300"
              mc:Ignorable="d">
@@ -29,6 +27,11 @@
                                   MultiSelectRootLevelOnly="False" VirtualizingStackPanel.IsVirtualizing="True"
                                   MouseDoubleClick="treeView_MouseDoubleClick" PreviewKeyDown="treeKeyDown"
                                   SelectedItemsChanged="OnSelectedItemsChanged">
+        <TreeView.ItemsPanel>
+            <ItemsPanelTemplate>
+                <Controls:MyVirtualizingStackPanel/>
+            </ItemsPanelTemplate>
+        </TreeView.ItemsPanel>
         <TreeView.LayoutTransform>
             <ScaleTransform ScaleX="{Binding ResultsScale}" ScaleY="{Binding ResultsScale}" />
         </TreeView.LayoutTransform>
@@ -142,6 +145,13 @@
                 <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
                 <Setter Property="BorderThickness" Value="1.5" />
                 <Setter Property="Padding" Value="1" />
+                <Setter Property="ItemsPanel">
+                    <Setter.Value>
+                        <ItemsPanelTemplate>
+                            <Controls:MyVirtualizingStackPanel/>
+                        </ItemsPanelTemplate>
+                    </Setter.Value>
+                </Setter>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="{x:Type TreeViewItem}">

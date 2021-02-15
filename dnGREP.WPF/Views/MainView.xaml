@@ -802,7 +802,7 @@
                                 TabIndex="87" />
                     </WrapPanel>
                 </Grid>
-                <uc:ResultsTree DataContext="{Binding SearchResults}" TabIndex="90" />
+                <uc:ResultsTree x:Name="resultsTree" DataContext="{Binding SearchResults}" TabIndex="90" />
             </DockPanel>
         </DockPanel>
     </DockPanel>
