@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using System.Windows;
 using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
@@ -22,6 +23,13 @@ namespace dnGREP.WPF
             try
             {
                 GlobalDiagnosticsContext.Set("logDir", Path.Combine(Utils.GetDataFolderPath(), "logs"));
+
+                Assembly thisAssembly = Assembly.GetAssembly(typeof(App));
+                var path = Path.GetDirectoryName(thisAssembly.Location);
+                if (Environment.Is64BitProcess)
+                    SevenZip.SevenZipBase.SetLibraryPath(Path.Combine(path, @"7z64.dll"));
+                else
+                    SevenZip.SevenZipBase.SetLibraryPath(Path.Combine(path, @"7z.dll"));
 
                 AppTheme.Instance.Initialize();
 
