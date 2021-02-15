@@ -30,6 +30,7 @@
         <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
         <Setter Property="ScrollViewer.PanningMode" Value="Both" />
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+        <Setter Property="my:MultilineComboBox.AllowMultiline" Value="True"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ComboBox}">
@@ -106,11 +107,6 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsEditable" Value="true">
-                <!--<Setter Property="BorderBrush" Value="{StaticResource TextBoxBorder}"/>
-                <Setter Property="Background" Value="{DynamicResource ComboBox.DropDown.Background}"/>
-                <Setter Property="IsTabStop" Value="false"/>
-                <Setter Property="Padding" Value="3"/>
-                <Setter Property="Template" Value="{StaticResource ComboBoxEditableTemplate}"/>-->
                 <Setter Property="IsTabStop" Value="false" />
                 <Setter Property="Padding" Value="2" />
                 <Setter Property="Template" Value="{StaticResource ComboBoxEditableTemplate}" />

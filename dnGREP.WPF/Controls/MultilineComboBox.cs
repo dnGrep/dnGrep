@@ -47,10 +47,27 @@ namespace dnGREP.WPF
             {
                 editTextBox.RaiseEvent(
                   new KeyEventArgs(Keyboard.PrimaryDevice, PresentationSource.FromVisual(editTextBox), 0, key)
-                  { 
-                      RoutedEvent = Keyboard.KeyDownEvent 
+                  {
+                      RoutedEvent = Keyboard.KeyDownEvent
                   });
             }
         }
+
+        public static readonly DependencyProperty AllowMultilineProperty =
+            DependencyProperty.RegisterAttached("AllowMultiline",
+            typeof(bool), typeof(MultilineComboBox),
+            new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsRender)
+        );
+
+        public static void SetAllowMultiline(DependencyObject element, bool value)
+        {
+            element.SetValue(AllowMultilineProperty, value);
+        }
+
+        public static bool GetAllowMultiline(DependencyObject element)
+        {
+            return (bool)element.GetValue(AllowMultilineProperty);
+        }
     }
+
 }
