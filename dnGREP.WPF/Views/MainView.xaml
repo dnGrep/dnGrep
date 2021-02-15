@@ -664,6 +664,11 @@
                                           IsEnabled="{Binding IsBooleanOperatorsEnabled}"
                                           TabIndex="74" Content="Boolean operators" 
                                           ToolTip="Combine multiple search patterns using 'AND' or 'OR'"/>
+                                <CheckBox Margin="3"
+                                          IsChecked="{Binding CaptureGroupSearch}"
+                                          IsEnabled="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}"
+                                          TabIndex="75" Content="Capture group search" 
+                                          ToolTip="Use capture groups from 'Paths to match' in the 'Search for' pattern"/>
                             </WrapPanel>
                         </StackPanel>
                         <Grid>

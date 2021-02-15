@@ -1225,7 +1225,16 @@ namespace dnGREP.WPF
                             searchOptions |= GrepSearchOption.StopAfterFirstMatch;
 
                         grep.ProcessedFile += GrepCore_ProcessedFile;
-                        e.Result = grep.Search(files, param.TypeOfSearch, param.SearchFor, searchOptions, param.CodePage);
+
+                        if (CaptureGroupSearch && param.TypeOfFileSearch == FileSearchType.Regex &&
+                            !string.IsNullOrEmpty(param.SearchFor))
+                        {
+                            e.Result = grep.CaptureGroupSearch(files, filePatternInclude, searchOptions, param.TypeOfSearch, param.SearchFor, param.CodePage);
+                        }
+                        else
+                        {
+                            e.Result = grep.Search(files, param.TypeOfSearch, param.SearchFor, searchOptions, param.CodePage);
+                        }
                         grep.ProcessedFile -= GrepCore_ProcessedFile;
                     }
                     else

@@ -2378,6 +2378,18 @@ namespace dnGREP.Common
                 }
             }
         }
+        public static bool ValidateRegex(string pattern)
+        {
+            try
+            {
+                Regex regex = new Regex(pattern);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 
     public class KeyValueComparer : IComparer<KeyValuePair<string, int>>
