@@ -883,6 +883,21 @@ namespace dnGREP.WPF
             }
         }
 
+        private bool captureGroupSearch;
+        public bool CaptureGroupSearch
+        {
+            get { return captureGroupSearch; }
+            set
+            {
+                if (value == captureGroupSearch)
+                    return;
+
+                captureGroupSearch = value;
+
+                base.OnPropertyChanged(() => CaptureGroupSearch);
+            }
+        }
+
         private bool isSizeFilterSet;
         public bool IsSizeFilterSet
         {
@@ -1238,6 +1253,11 @@ namespace dnGREP.WPF
                         PatternColumnWidth = "*";
                         SearchTextBoxLabel = "Folder:";
                     }
+
+                    if (TypeOfFileSearch != FileSearchType.Regex)
+                    {
+                        CaptureGroupSearch = false;
+                    }
                     break;
             }
 
@@ -1560,6 +1580,7 @@ namespace dnGREP.WPF
             StopAfterFirstMatch = settings.Get<bool>(GrepSettings.Key.StopAfterFirstMatch);
             WholeWord = settings.Get<bool>(GrepSettings.Key.WholeWord);
             BooleanOperators = settings.Get<bool>(GrepSettings.Key.BooleanOperators);
+            CaptureGroupSearch = GrepSettings.Instance.Get<bool>(GrepSettings.Key.CaptureGroupSearch);
             HighlightCaptureGroups = settings.Get<bool>(GrepSettings.Key.HighlightCaptureGroups);
             SizeFrom = settings.Get<int>(GrepSettings.Key.SizeFrom);
             SizeTo = settings.Get<int>(GrepSettings.Key.SizeTo);
@@ -1599,6 +1620,7 @@ namespace dnGREP.WPF
             settings.Set<bool>(GrepSettings.Key.StopAfterFirstMatch, StopAfterFirstMatch);
             settings.Set<bool>(GrepSettings.Key.WholeWord, WholeWord);
             settings.Set<bool>(GrepSettings.Key.BooleanOperators, BooleanOperators);
+            settings.Set<bool>(GrepSettings.Key.CaptureGroupSearch, CaptureGroupSearch);
             settings.Set<bool>(GrepSettings.Key.HighlightCaptureGroups, HighlightCaptureGroups);
             settings.Set<int>(GrepSettings.Key.SizeFrom, SizeFrom);
             settings.Set<int>(GrepSettings.Key.SizeTo, SizeTo);

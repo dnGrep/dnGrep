@@ -26,5 +26,11 @@
     <Setting Name="PreviewHidden" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="PreviewDockedHeight" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">200</Value>
+    </Setting>
+    <Setting Name="PreviewDockSide" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Right</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

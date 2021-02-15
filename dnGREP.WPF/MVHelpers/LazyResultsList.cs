@@ -37,114 +37,70 @@ namespace dnGREP.WPF.MVHelpers
             set { lineNumberColumnWidth = value; OnPropertyChanged("LineNumberColumnWidth"); }
         }
 
-        public void Load(bool isAsync)
+        public async Task<bool> LoadAsync()
         {
             if (IsLoaded || IsLoading)
-                return;
+                return false;
 
             IsLoading = true;
-            if (!isAsync)
+
+            int currentLine = -1;
+
+            List<GrepLine> linesWithContext = await Task.Run(() =>
             {
-                int currentLine = -1;
-                List<GrepLine> linesWithContext = new List<GrepLine>();
+                List<GrepLine> list = new List<GrepLine>();
                 if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext))
-                    linesWithContext = result.GetLinesWithContext(GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
-                    GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter));
-                else
-                    linesWithContext = result.GetLinesWithContext(0, 0);
-
-                if (this.Count == 1 && this[0].GrepLine.LineNumber == -1)
-                {
-                    this.Clear();
-                }
-
-                for (int i = 0; i < linesWithContext.Count; i++)
-                {
-                    GrepLine line = linesWithContext[i];
-                    bool isSectionBreak = false;
-
-                    // Adding separator
-                    if (this.Count > 0 && GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext) &&
-                        (currentLine != line.LineNumber && currentLine + 1 != line.LineNumber))
-                    {
-                        isSectionBreak = true;
-                    }
-
-                    currentLine = line.LineNumber;
-                    if (currentLine <= 999 && LineNumberColumnWidth < 30)
-                        LineNumberColumnWidth = 30;
-                    else if (currentLine > 999 && LineNumberColumnWidth < 35)
-                        LineNumberColumnWidth = 35;
-                    else if (currentLine > 9999 && LineNumberColumnWidth < 47)
-                        LineNumberColumnWidth = 47;
-                    else if (currentLine > 99999 && LineNumberColumnWidth < 50)
-                        LineNumberColumnWidth = 50;
-
-                    this.Add(new FormattedGrepLine(line, formattedResult, LineNumberColumnWidth, isSectionBreak));
-                }
-                IsLoaded = true;
-                IsLoading = false;
-            }
-            else
-            {
-                int currentLine = -1;
-                var asyncTask = Task.Factory.StartNew<List<GrepLine>>(() =>
-                {
-                    List<GrepLine> linesWithContext = new List<GrepLine>();
-                    if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext))
-                        linesWithContext = result.GetLinesWithContext(GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
+                    list = result.GetLinesWithContext(GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
                         GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter));
-                    else
-                        linesWithContext = result.GetLinesWithContext(0, 0);
+                else
+                    list = result.GetLinesWithContext(0, 0);
 
-                    return linesWithContext;
-                }).ContinueWith(task =>
-                {
-                    if (this.Count == 1 && this[0].GrepLine.LineNumber == -1)
-                    {
-                        if (Application.Current != null)
-                            Application.Current.Dispatcher.Invoke(new Action(() =>
-                                this.Clear()
-                            ));
-                    }
+                return list;
+            });
 
-                    List<GrepLine> linesWithContext = task.Result;
-                    List<FormattedGrepLine> tempList = new List<FormattedGrepLine>();
-                    for (int i = 0; i < linesWithContext.Count; i++)
-                    {
-                        GrepLine line = linesWithContext[i];
-                        bool isSectionBreak = false;
-
-                        // Adding separator
-                        if (tempList.Count > 0 && GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext) &&
-                            (currentLine != line.LineNumber && currentLine + 1 != line.LineNumber))
-                        {
-                            isSectionBreak = true;
-                        }
-
-                        currentLine = line.LineNumber;
-                        if (currentLine <= 999 && LineNumberColumnWidth < 30)
-                            LineNumberColumnWidth = 30;
-                        else if (currentLine > 999 && LineNumberColumnWidth < 35)
-                            LineNumberColumnWidth = 35;
-                        else if (currentLine > 9999 && LineNumberColumnWidth < 47)
-                            LineNumberColumnWidth = 47;
-                        else if (currentLine > 99999 && LineNumberColumnWidth < 50)
-                            LineNumberColumnWidth = 50;
-                        tempList.Add(new FormattedGrepLine(line, formattedResult, LineNumberColumnWidth, isSectionBreak));
-                    }
-
-                    if (Application.Current != null)
-                        Application.Current.Dispatcher.Invoke(new Action(() =>
-                        {
-                            foreach (var l in tempList) this.Add(l);
-                        }
+            if (this.Count == 1 && this[0].GrepLine.LineNumber == -1)
+            {
+                if (Application.Current != null)
+                    Application.Current.Dispatcher.Invoke(new Action(() =>
+                        this.Clear()
                     ));
-                    IsLoaded = true;
-                    IsLoading = false;
-                    LoadFinished?.Invoke(this, EventArgs.Empty);
-                });
             }
+
+            List<FormattedGrepLine> tempList = new List<FormattedGrepLine>();
+            for (int i = 0; i < linesWithContext.Count; i++)
+            {
+                GrepLine line = linesWithContext[i];
+                bool isSectionBreak = false;
+
+                // Adding separator
+                if (tempList.Count > 0 && GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext) &&
+                    (currentLine != line.LineNumber && currentLine + 1 != line.LineNumber))
+                {
+                    isSectionBreak = true;
+                }
+
+                currentLine = line.LineNumber;
+                if (currentLine <= 999 && LineNumberColumnWidth < 30)
+                    LineNumberColumnWidth = 30;
+                else if (currentLine > 999 && LineNumberColumnWidth < 35)
+                    LineNumberColumnWidth = 35;
+                else if (currentLine > 9999 && LineNumberColumnWidth < 47)
+                    LineNumberColumnWidth = 47;
+                else if (currentLine > 99999 && LineNumberColumnWidth < 50)
+                    LineNumberColumnWidth = 50;
+                tempList.Add(new FormattedGrepLine(line, formattedResult, LineNumberColumnWidth, isSectionBreak));
+            }
+
+            if (Application.Current != null)
+                Application.Current.Dispatcher.Invoke(new Action(() =>
+                {
+                    foreach (var l in tempList) this.Add(l);
+                }
+            ));
+            IsLoaded = true;
+            IsLoading = false;
+            LoadFinished?.Invoke(this, EventArgs.Empty);
+            return true;
         }
 
         public event EventHandler<PropertyChangedEventArgs> LineNumberColumnWidthChanged;

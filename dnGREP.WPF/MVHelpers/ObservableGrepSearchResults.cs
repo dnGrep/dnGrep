@@ -5,6 +5,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -405,17 +406,36 @@ namespace dnGREP.WPF
             base.OnPropertyChanged(() => ShowFileInfoTooltips);
         }
 
+        public async Task ExpandTreeNode()
+        {
+            if (!FormattedLines.IsLoaded)
+            {
+                IsLoading = true;
+                await FormattedLines.LoadAsync();
+                IsLoading = false;
+            }
+            IsExpanded = true;
+        }
+
+        internal void CollapseTreeNode()
+        {
+            IsExpanded = false;
+        }
+
         private bool isExpanded = false;
         public bool IsExpanded
         {
             get { return isExpanded; }
             set
             {
+                if (isExpanded == value)
+                    return;
+
                 isExpanded = value;
                 if (value == true && !FormattedLines.IsLoaded && !FormattedLines.IsLoading)
                 {
                     IsLoading = true;
-                    FormattedLines.Load(true);
+                    Task.Run(() => FormattedLines.LoadAsync());
                 }
                 OnPropertyChanged("IsExpanded");
             }

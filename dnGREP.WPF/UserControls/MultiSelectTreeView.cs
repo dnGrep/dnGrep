@@ -412,4 +412,15 @@ namespace dnGREP.WPF.UserControls
             return null;
         }
     }
+
+    public class MyVirtualizingStackPanel : VirtualizingStackPanel
+    {
+        /// <summary>
+        /// Expose BringIndexIntoView.
+        /// </summary>
+        public void BringIntoView(int index)
+        {
+            this.BringIndexIntoView(index);
+        }
+    }
 }

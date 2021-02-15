@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Alphaleonis.Win32.Filesystem;
@@ -130,6 +131,57 @@ namespace dnGREP.Common
 
                 return new List<GrepSearchResult>(searchResults);
             }
+        }
+
+        public List<GrepSearchResult> CaptureGroupSearch(IEnumerable<string> files, string filePatternInclude,
+            GrepSearchOption searchOptions, SearchType searchType, string searchPattern, int codePage)
+        {
+            searchResults.Clear();
+
+            if (files == null || !files.Any())
+                return searchResults;
+
+            Utils.CancelSearch = false;
+
+            try
+            {
+                foreach (string filePath in files)
+                {
+                    string fileName = Path.GetFileName(filePath);
+                    string modSearchPattern = Regex.Replace(fileName, filePatternInclude, searchPattern);
+
+                    if (string.IsNullOrEmpty(modSearchPattern))
+                    {
+                        continue;
+                    }
+                    else if (searchType == SearchType.Regex && !Utils.ValidateRegex(modSearchPattern))
+                    {
+                        continue;
+                    }
+
+                    Search(filePath, searchType, modSearchPattern, searchOptions, codePage);
+
+                    if (searchOptions.HasFlag(GrepSearchOption.StopAfterFirstMatch) && searchResults.Count > 0)
+                        break;
+
+                    if (Utils.CancelSearch)
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Failed in capture group search");
+            }
+            finally
+            {
+                if (cancellationTokenSource != null)
+                {
+                    cancellationTokenSource.Dispose();
+                    cancellationTokenSource = null;
+                }
+                GrepEngineFactory.UnloadEngines();
+            }
+            return new List<GrepSearchResult>(searchResults);
         }
 
         private void AddSearchResult(GrepSearchResult result)
