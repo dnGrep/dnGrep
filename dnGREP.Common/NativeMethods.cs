@@ -56,5 +56,35 @@ namespace dnGREP.Common
         private const uint SHGFI_TYPENAME = 0x000000400;     // get type name
         private const uint SHGFI_USEFILEATTRIBUTES = 0x000000010;     // use passed dwFileAttribute
 
+
+        /// <summary>
+        /// Sets the clipboard text in a retry loop
+        /// </summary>
+        /// <remarks>
+        /// Applications receiving clipboard notifications can lock the clipboard
+        /// The reference implementation already does this with delays and retries,
+        /// but that doesn't always work, so this adds an outer retry to the whole operation
+        /// https://referencesource.microsoft.com/#PresentationCore/Core/CSharp/System/Windows/Clipboard.cs,8b9b56e883ff64c7
+        /// </remarks>
+        /// <param name="text"></param>
+        public static void SetClipboardText(string text)
+        {
+            const uint CLIPBRD_E_CANT_OPEN = 0x800401D0;
+
+            for (int i = 0; i < 10; i++)
+            {
+                try
+                {
+                    System.Windows.Clipboard.SetText(text);
+                    return;
+                }
+                catch (COMException ex)
+                {
+                    if ((uint)ex.ErrorCode != CLIPBRD_E_CANT_OPEN)
+                        throw;
+                }
+                System.Threading.Thread.Sleep(100);
+            }
+        }
     }
 }

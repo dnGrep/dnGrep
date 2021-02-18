@@ -2084,14 +2084,14 @@ namespace dnGREP.WPF
             {
                 sb.AppendLine(result.FileNameReal);
             }
-            Clipboard.SetText(sb.ToString());
+            NativeMethods.SetClipboardText(sb.ToString());
         }
 
         private void CopyResults()
         {
-            // can be a long [process if the results are not yet cached
+            // can be a long process if the results are not yet cached
             UIServices.SetBusyState();
-            Clipboard.SetText(Utils.GetResultLines(SearchResults.GetList()));
+            NativeMethods.SetClipboardText(Utils.GetResultLines(SearchResults.GetList()));
         }
 
         private async void SaveResultsToFile(string reportType)

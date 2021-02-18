@@ -448,7 +448,7 @@ namespace dnGREP.WPF.UserControls
         {
             var list = GetSelectedFileNames(showFullName);
             if (list.Count > 0)
-                Clipboard.SetText(string.Join(Environment.NewLine, list.ToArray()));
+                NativeMethods.SetClipboardText(string.Join(Environment.NewLine, list.ToArray()));
         }
 
         private string GetSelectedGrepLineText()
@@ -473,7 +473,7 @@ namespace dnGREP.WPF.UserControls
         {
             var lines = GetSelectedGrepLineText();
             if (!string.IsNullOrWhiteSpace(lines))
-                Clipboard.SetText(lines);
+                NativeMethods.SetClipboardText(lines);
         }
 
         private void ExcludeLines()
