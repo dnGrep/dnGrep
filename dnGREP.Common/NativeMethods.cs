@@ -58,12 +58,26 @@ namespace dnGREP.Common
 
 
         /// <summary>
-        /// Sets the clipboard text in a retry loop
+        /// Sets the clipboard text and suppresses the CLIPBRD_E_CANT_OPEN error
         /// </summary>
         /// <remarks>
-        /// Applications receiving clipboard notifications can lock the clipboard
-        /// The reference implementation already does this with delays and retries,
-        /// but that doesn't always work, so this adds an outer retry to the whole operation
+        /// Applications receiving clipboard notifications can lock the clipboard,  causing
+        /// Clipboard.SetText to fail. 
+        /// 
+        /// The WPF implementation (link below) already calls the clipboard with delays
+        /// and retries. Testing has shown that calling SetText in a retry loop won't help, it only 
+        /// makes the failure slower.
+        /// 
+        /// The SetText method does two clipboard operations: first to set the data object and 
+        /// second to flush the data so it is remains on the clipboard after the application exits.
+        /// Testing has shown that setting the data succeeds, which raises a notification, the bad actor
+        /// locks the clipboard, and the call to flush fails with CLIPBRD_E_CANT_OPEN.
+        /// 
+        /// The flush is nice, but not really a necessary feature.
+        ///
+        /// In contrast, Clipboard.SetDataObject(text) does not do the flush, and won't have
+        /// to wait through the retry loops.  So if SetText fails, fall back to SetDataObject.
+        /// 
         /// https://referencesource.microsoft.com/#PresentationCore/Core/CSharp/System/Windows/Clipboard.cs,8b9b56e883ff64c7
         /// </remarks>
         /// <param name="text"></param>
@@ -71,20 +85,26 @@ namespace dnGREP.Common
         {
             const uint CLIPBRD_E_CANT_OPEN = 0x800401D0;
 
-            for (int i = 0; i < 10; i++)
+            try
             {
-                try
-                {
+                if (useClipboardSetDataObject)
+                    System.Windows.Clipboard.SetDataObject(text);
+                else
                     System.Windows.Clipboard.SetText(text);
-                    return;
-                }
-                catch (COMException ex)
+                return;
+            }
+            catch (COMException ex)
+            {
+                if ((uint)ex.ErrorCode == CLIPBRD_E_CANT_OPEN)
                 {
-                    if ((uint)ex.ErrorCode != CLIPBRD_E_CANT_OPEN)
-                        throw;
+                    useClipboardSetDataObject = true;
                 }
-                System.Threading.Thread.Sleep(100);
+                else
+                {
+                    throw;
+                }
             }
         }
+        private static bool useClipboardSetDataObject;
     }
 }
