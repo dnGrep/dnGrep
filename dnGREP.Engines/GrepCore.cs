@@ -148,7 +148,8 @@ namespace dnGREP.Common
                 foreach (string filePath in files)
                 {
                     string fileName = Path.GetFileName(filePath);
-                    string modSearchPattern = Regex.Replace(fileName, filePatternInclude, searchPattern);
+                    string modSearchPattern = Regex.Replace(fileName, filePatternInclude, searchPattern,
+                        RegexOptions.IgnoreCase, TimeSpan.FromSeconds(4.0));
 
                     if (string.IsNullOrEmpty(modSearchPattern))
                     {
@@ -156,6 +157,7 @@ namespace dnGREP.Common
                     }
                     else if (searchType == SearchType.Regex && !Utils.ValidateRegex(modSearchPattern))
                     {
+                        logger.Error($"Capture group search pattern is not a valid regular expression: '{modSearchPattern}'");
                         continue;
                     }
 
