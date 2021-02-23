@@ -1,11 +1,21 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
+using NLog;
 
 namespace dnGREP.Common
 {
     public static class NativeMethods
     {
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+        [DllImport("user32.dll")]
+        static extern IntPtr GetOpenClipboardWindow();
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+
         [DllImport("Shlwapi.dll", CharSet = CharSet.Auto)]
         private static extern long StrFormatByteSize(long fileSize, [MarshalAs(UnmanagedType.LPTStr)] StringBuilder buffer, int bufferSize);
 
@@ -98,6 +108,19 @@ namespace dnGREP.Common
                 if ((uint)ex.ErrorCode == CLIPBRD_E_CANT_OPEN)
                 {
                     useClipboardSetDataObject = true;
+
+                    var process = ProcessHoldingClipboard();
+                    if (process != null)
+                    {
+                        string msg = $"Error setting clipboard text, the clipboard is locked by" + Environment.NewLine;
+                        msg += (process.MainModule != null && !string.IsNullOrEmpty(process.MainModule.FileName) ?
+                            process.MainModule.FileName : process.ProcessName) + Environment.NewLine +
+                            $"Window Title: {process.MainWindowTitle}";
+                        logger.Error(msg);
+                        System.Windows.MessageBox.Show(msg, "Copy",
+                            System.Windows.MessageBoxButton.OK,
+                            System.Windows.MessageBoxImage.Error);
+                    }
                 }
                 else
                 {
@@ -106,5 +129,36 @@ namespace dnGREP.Common
             }
         }
         private static bool useClipboardSetDataObject;
+
+        private static Process ProcessHoldingClipboard()
+        {
+            Process process = null;
+
+            IntPtr hwnd = GetOpenClipboardWindow();
+
+            if (hwnd != IntPtr.Zero)
+            {
+                _ = GetWindowThreadProcessId(hwnd, out uint processId);
+
+                Process[] procs = Process.GetProcesses();
+                foreach (Process proc in procs)
+                {
+                    IntPtr handle = proc.MainWindowHandle;
+
+                    if (handle == hwnd)
+                    {
+                        process = proc;
+                        break;
+                    }
+                    else if (processId == proc.Id)
+                    {
+                        process = proc;
+                        break;
+                    }
+                }
+            }
+
+            return process;
+        }
     }
 }
