@@ -875,15 +875,12 @@ namespace dnGREP.WPF
             CheckIfAdmin();
             if (!IsAdministrator)
             {
-                WindowsIntegrationTooltip = "To set shell integration run dnGREP with elevated privileges.";
-                StartupAccelerationTooltip = "To enable startup acceleration run dnGREP with elevated privileges.";
-                PanelTooltip = "To change shell integration and startup acceleration options run dnGREP with elevated privileges.";
+                PanelTooltip = "To change these options run dnGREP as Administrator.";
             }
             else
             {
-                WindowsIntegrationTooltip = "Shell integration enables running an application from shell context menu.";
+                WindowsIntegrationTooltip = "Enables starting dnGrep from the Windows Explorer right-click context menu.";
                 StartupAccelerationTooltip = "Startup acceleration loads application libraries on machine start to improve application startup time.";
-                PanelTooltip = "Shell integration enables running an application from shell context menu.";
             }
             EnableWindowsIntegration = IsShellRegistered("Directory");
             EnableStartupAcceleration = IsStartupRegistered();
@@ -1088,9 +1085,6 @@ namespace dnGREP.WPF
 
         private bool IsShellRegistered(string location)
         {
-            if (!isAdministrator)
-                return false;
-
             if (location == "here")
             {
                 string regPath = string.Format(@"SOFTWARE\Classes\Directory\Background\shell\{0}",
@@ -1196,9 +1190,6 @@ namespace dnGREP.WPF
 
         private bool IsStartupRegistered()
         {
-            if (!isAdministrator)
-                return false;
-
             string regPath = @"Software\Microsoft\Windows\CurrentVersion\Run";
             try
             {
