@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using dnGREP.Common;
 
 namespace dnGREP.WPF
 {
@@ -9,7 +10,7 @@ namespace dnGREP.WPF
     /// </summary>
     public partial class TestPattern : ThemedWindow
     {
-        private TestPatternViewModel inputData = new TestPatternViewModel();
+        private readonly TestPatternViewModel inputData = new TestPatternViewModel();
 
         public TestPattern()
         {
@@ -35,7 +36,7 @@ namespace dnGREP.WPF
 
         private void BtnCopyFile_Click(object sender, RoutedEventArgs e)
         {
-            Clipboard.SetText(inputData.ReplaceOutputText);
+            NativeMethods.SetClipboardText(inputData.ReplaceOutputText);
         }
     }
 }
