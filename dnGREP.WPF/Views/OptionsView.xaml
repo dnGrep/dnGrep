@@ -72,7 +72,7 @@
 
                 <GroupBox Header="Startup options" ToolTip="{Binding Path=PanelTooltip}">
                     <StackPanel Orientation="Vertical">
-                        <CheckBox Margin="0,6,0,3" Content="Enable Windows Explorer integration"
+                        <CheckBox Margin="0,6,0,3" Content="Show dnGrep in Explorer right-click menu"
                                   IsChecked="{Binding Path=EnableWindowsIntegration}"
                                   ToolTip="{Binding Path=WindowsIntegrationTooltip}"
                                   IsEnabled="{Binding Path=IsAdministrator}" />

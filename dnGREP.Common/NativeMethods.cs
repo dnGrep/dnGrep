@@ -1,11 +1,21 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
+using NLog;
 
 namespace dnGREP.Common
 {
     public static class NativeMethods
     {
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+        [DllImport("user32.dll")]
+        static extern IntPtr GetOpenClipboardWindow();
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint lpdwProcessId);
+
         [DllImport("Shlwapi.dll", CharSet = CharSet.Auto)]
         private static extern long StrFormatByteSize(long fileSize, [MarshalAs(UnmanagedType.LPTStr)] StringBuilder buffer, int bufferSize);
 
@@ -56,5 +66,99 @@ namespace dnGREP.Common
         private const uint SHGFI_TYPENAME = 0x000000400;     // get type name
         private const uint SHGFI_USEFILEATTRIBUTES = 0x000000010;     // use passed dwFileAttribute
 
+
+        /// <summary>
+        /// Sets the clipboard text and suppresses the CLIPBRD_E_CANT_OPEN error
+        /// </summary>
+        /// <remarks>
+        /// Applications receiving clipboard notifications can lock the clipboard,  causing
+        /// Clipboard.SetText to fail. 
+        /// 
+        /// The WPF implementation (link below) already calls the clipboard with delays
+        /// and retries. Testing has shown that calling SetText in a retry loop won't help, it only 
+        /// makes the failure slower.
+        /// 
+        /// The SetText method does two clipboard operations: first to set the data object and 
+        /// second to flush the data so it is remains on the clipboard after the application exits.
+        /// Testing has shown that setting the data succeeds, which raises a notification, the bad actor
+        /// locks the clipboard, and the call to flush fails with CLIPBRD_E_CANT_OPEN.
+        /// 
+        /// The flush is nice, but not really a necessary feature.
+        ///
+        /// In contrast, Clipboard.SetDataObject(text) does not do the flush, and won't have
+        /// to wait through the retry loops.  So if SetText fails, fall back to SetDataObject.
+        /// 
+        /// https://referencesource.microsoft.com/#PresentationCore/Core/CSharp/System/Windows/Clipboard.cs,8b9b56e883ff64c7
+        /// </remarks>
+        /// <param name="text"></param>
+        public static void SetClipboardText(string text)
+        {
+            const uint CLIPBRD_E_CANT_OPEN = 0x800401D0;
+
+            try
+            {
+                if (useClipboardSetDataObject)
+                    System.Windows.Clipboard.SetDataObject(text);
+                else
+                    System.Windows.Clipboard.SetText(text);
+                return;
+            }
+            catch (COMException ex)
+            {
+                if ((uint)ex.ErrorCode == CLIPBRD_E_CANT_OPEN)
+                {
+                    useClipboardSetDataObject = true;
+
+                    var process = ProcessHoldingClipboard();
+                    if (process != null)
+                    {
+                        string msg = $"Error setting clipboard text, the clipboard is locked by" + Environment.NewLine;
+                        msg += (process.MainModule != null && !string.IsNullOrEmpty(process.MainModule.FileName) ?
+                            process.MainModule.FileName : process.ProcessName) + Environment.NewLine +
+                            $"Window Title: {process.MainWindowTitle}";
+                        logger.Error(msg);
+                        System.Windows.MessageBox.Show(msg, "Copy",
+                            System.Windows.MessageBoxButton.OK,
+                            System.Windows.MessageBoxImage.Error);
+                    }
+                }
+                else
+                {
+                    throw;
+                }
+            }
+        }
+        private static bool useClipboardSetDataObject;
+
+        private static Process ProcessHoldingClipboard()
+        {
+            Process process = null;
+
+            IntPtr hwnd = GetOpenClipboardWindow();
+
+            if (hwnd != IntPtr.Zero)
+            {
+                _ = GetWindowThreadProcessId(hwnd, out uint processId);
+
+                Process[] procs = Process.GetProcesses();
+                foreach (Process proc in procs)
+                {
+                    IntPtr handle = proc.MainWindowHandle;
+
+                    if (handle == hwnd)
+                    {
+                        process = proc;
+                        break;
+                    }
+                    else if (processId == proc.Id)
+                    {
+                        process = proc;
+                        break;
+                    }
+                }
+            }
+
+            return process;
+        }
     }
 }
