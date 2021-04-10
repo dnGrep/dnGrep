@@ -42,7 +42,7 @@ namespace DockFloat
         public static Rect ToDevicePixels(this Screen screen, Rect rect)
         {
             double scaleX, scaleY;
-            if (Environment.OSVersion.Version.Major >= 10 || 
+            if (Environment.OSVersion.Version.Major >= 10 ||
                 (Environment.OSVersion.Version.Major == 6 && Environment.OSVersion.Version.Minor == 3))
             {
                 IntPtr hMonitor = NativeMethods.GetMonitor(screen.Bounds);
@@ -142,8 +142,8 @@ namespace DockFloat
                         window.Width = width;
                         window.Height = height;
 
-                        var w = window.ActualWidth;
-                        var h = window.ActualHeight;
+                        //var w = window.ActualWidth;
+                        //var h = window.ActualHeight;
                     });
                 }
             }
@@ -157,7 +157,7 @@ namespace DockFloat
             var bounds = window.FromDevicePixels(screen.WorkingArea);
             if (window.Left + window.ActualWidth > bounds.Right)
             {
-                window.Width = bounds.Right - window.Left;
+                window.Width = Math.Min(20, bounds.Right - window.Left);  // can't be negative!
             }
         }
 
