@@ -49,25 +49,28 @@ namespace dnGREP.WPF
                 LayoutProperties.MainWindowBounds.Width,
                 LayoutProperties.MainWindowBounds.Height);
 
-            Loaded += (s, e) =>
+            if (isVisible)
             {
-                if (windowBounds.IsOnScreen())
+                Loaded += (s, e) =>
                 {
-                    // setting Left and Top does not work when
-                    // moving to a monitor with a different DPI
-                    // than the primary monitor
-                    this.MoveWindow(
-                        LayoutProperties.MainWindowBounds.X,
-                        LayoutProperties.MainWindowBounds.Y);
-                    WindowState = LayoutProperties.MainWindowState;
-                }
-                else
-                {
-                    this.CenterWindow();
-                }
+                    if (windowBounds.IsOnScreen())
+                    {
+                        // setting Left and Top does not work when
+                        // moving to a monitor with a different DPI
+                        // than the primary monitor
+                        this.MoveWindow(
+                            LayoutProperties.MainWindowBounds.X,
+                            LayoutProperties.MainWindowBounds.Y);
+                        WindowState = LayoutProperties.MainWindowState;
+                    }
+                    else
+                    {
+                        this.CenterWindow();
+                    }
 
-                this.ConstrainToScreen();
-            };
+                    this.ConstrainToScreen();
+                };
+            }
             this.isVisible = isVisible;
 
 
