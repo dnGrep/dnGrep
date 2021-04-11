@@ -16,13 +16,16 @@ namespace dnGREP.WPF
 
         public static string InstanceId { get; } = Guid.NewGuid().ToString();
 
+        public static string LogDir { get; private set; }
+
         public CommandLineArgs AppArgs { get; private set; }
 
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             try
             {
-                GlobalDiagnosticsContext.Set("logDir", Path.Combine(Utils.GetDataFolderPath(), "logs"));
+                LogDir = Path.Combine(Utils.GetDataFolderPath(), "logs");
+                GlobalDiagnosticsContext.Set("logDir", LogDir);
 
                 Assembly thisAssembly = Assembly.GetAssembly(typeof(App));
                 var path = Path.GetDirectoryName(thisAssembly.Location);
@@ -62,7 +65,8 @@ namespace dnGREP.WPF
             catch (Exception ex)
             {
                 logger.Error(ex, "Failure in application startup");
-                MessageBox.Show("Something broke down in the program. See event log for details.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Something broke down in dnGrep. See the error log for details: " + LogDir,
+                    "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -80,14 +84,16 @@ namespace dnGREP.WPF
             catch (Exception ex)
             {
                 logger.Error(ex, "Failure in application exit");
-                MessageBox.Show("Something broke down in the program. See event log for details.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Something broke down in dnGrep. See the error log for details: " + LogDir,
+                    "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             logger.Error(e.Exception, "Unhandled exception caught");
-            MessageBox.Show("Something broke down in the program. See event log for details.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("Something broke down in dnGrep. See the error log for details: " + LogDir,
+                    "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);;
             e.Handled = true;
         }
     }

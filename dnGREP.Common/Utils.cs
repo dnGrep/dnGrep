@@ -119,7 +119,7 @@ namespace dnGREP.Common
                         {
                             var answer = MessageBox.Show(
                                 $"The file '{destinationFileInfo.Name}' already exists in {destinationFileInfo.DirectoryName}, overwrite existing?",
-                                "Overwrite File", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
+                                "dnGrep - Overwrite File", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
 
                             if (answer == MessageBoxResult.Cancel)
                                 return count;
@@ -186,7 +186,7 @@ namespace dnGREP.Common
                         {
                             var answer = MessageBox.Show(
                                 $"The file '{destinationFileInfo.Name}' already exists in {destinationFileInfo.DirectoryName}, overwrite existing?",
-                                "Overwrite File", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
+                                "dnGrep - Overwrite File", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
 
                             if (answer == MessageBoxResult.Cancel)
                                 return count;
