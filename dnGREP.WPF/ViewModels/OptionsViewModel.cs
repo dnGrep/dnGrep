@@ -1161,7 +1161,7 @@ namespace dnGREP.WPF
                 catch (Exception ex)
                 {
                     logger.Error(ex, "Failed to register dnGrep with Explorer context menu");
-                    MessageBox.Show("There was an error adding dnGrep to Explorer right-click menu. Please examine the error log.",
+                    MessageBox.Show("There was an error adding dnGrep to Explorer right-click menu. See the error log for details: " + App.LogDir,
                         "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
@@ -1197,7 +1197,7 @@ namespace dnGREP.WPF
             catch (Exception ex)
             {
                 logger.Error(ex, "Failed to remove dnGrep from Explorer context menu");
-                MessageBox.Show("There was an error removing dnGrep from the Explorer right-click menu. Please examine the error log.",
+                MessageBox.Show("There was an error removing dnGrep from the Explorer right-click menu. See the error log for details: " + App.LogDir,
                     "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -1239,7 +1239,7 @@ namespace dnGREP.WPF
                 catch (Exception ex)
                 {
                     logger.Error(ex, "Failed to register auto startup");
-                    MessageBox.Show("There was an error registering auto startup. Please examine the error log.",
+                    MessageBox.Show("There was an error registering auto startup. See the error log for details: " + App.LogDir,
                         "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
@@ -1266,7 +1266,7 @@ namespace dnGREP.WPF
                 catch (Exception ex)
                 {
                     logger.Error(ex, "Failed to unregister auto startup");
-                    MessageBox.Show("There was an error unregistering auto startup. Please examine the error log.",
+                    MessageBox.Show("There was an error unregistering auto startup. See the error log for details: " + App.LogDir,
                         "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
