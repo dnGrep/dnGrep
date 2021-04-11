@@ -76,29 +76,30 @@
                                   IsChecked="{Binding Path=EnableWindowsIntegration}"
                                   ToolTip="{Binding Path=WindowsIntegrationTooltip}"
                                   IsEnabled="{Binding Path=IsAdministrator}" />
-                        <CheckBox Margin="0,3" Content="Enable startup accelerator"
-                                  IsChecked="{Binding Path=EnableStartupAcceleration}"
-                                  ToolTip="{Binding Path=StartupAccelerationTooltip}"
-                                  IsEnabled="{Binding Path=IsAdministrator}" />
                     </StackPanel>
                 </GroupBox>
 
                 <GroupBox Header="Checking for updates">
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox Name="cbCheckForUpdates" Content="Enable automatic checking every"
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox Name="cbCheckForUpdates" Content="Enable automatic checking every"
                                   IsChecked="{Binding Path=EnableCheckForUpdates}" />
-                        <TextBox Margin="3,0,0,0"
+                            <TextBox Margin="3,0,0,0"
                                  IsEnabled="{Binding ElementName=cbCheckForUpdates, Path=IsChecked}"
                                  Text="{Binding Path=CheckForUpdatesInterval, UpdateSourceTrigger=PropertyChanged}">
-                            <TextBox.Width>
-                                <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
-                                    <Binding RelativeSource="{RelativeSource Mode=Self}"/>
-                                    <Binding Path="ApplicationFontFamily"/>
-                                    <Binding Path="DialogFontSize"/>
-                                </MultiBinding>
-                            </TextBox.Width>
-                        </TextBox>
-                        <Label Margin="3,0" Content="days" />
+                                <TextBox.Width>
+                                    <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
+                                        <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                        <Binding Path="ApplicationFontFamily"/>
+                                        <Binding Path="DialogFontSize"/>
+                                    </MultiBinding>
+                                </TextBox.Width>
+                            </TextBox>
+                            <Label Margin="3,0" Content="days" />
+                        </StackPanel>
+                        <CheckBox Margin="0,3" Content="Check for updates when Windows starts"
+                                  IsChecked="{Binding Path=EnableRunAtStartup}"
+                                  IsEnabled="{Binding Path=EnableCheckForUpdates }"/>
                     </StackPanel>
                 </GroupBox>
 
