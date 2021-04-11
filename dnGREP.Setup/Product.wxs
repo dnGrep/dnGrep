@@ -69,7 +69,7 @@
       </Directory>
     </Directory>
 
-    <!-- Create shell integration and add startup acceleration -->
+    <!-- Create shell integration -->
     <DirectoryRef Id="TARGETDIR">
       <Component Id="ShellIntegration" Guid="8B727769-A7FF-49D9-B685-8DBDA51F81F7">
         <RegistryKey Root="HKCR" Key="Directory\shell\dnGREP" >
@@ -126,7 +126,7 @@
     <Feature Id="CoreFiles" Title="dnGREP" Display="expand" AllowAdvertise='no' Absent='disallow' Description="Core dnGREP application." Level="1" ConfigurableDirectory="INSTALLDIR">
       <ComponentGroupRef Id="dnGREPAppFiles"/>
       <ComponentRef Id="ApplicationShortcut" />
-      <Feature Id="ShellIntegration" Title="Shell integration" AllowAdvertise='no' Absent='allow' Description="Shell integration." Level="2">
+      <Feature Id="ShellIntegration" Title="Windows Explorer menu" AllowAdvertise='no' Absent='allow' Description="Add dnGrep to Windows Explorer right-click menu." Level="2">
         <ComponentRef Id="ShellIntegration"/>
       </Feature>
       <Feature Id="Plugins" Title="Plugins" Level="2" Display="expand">
