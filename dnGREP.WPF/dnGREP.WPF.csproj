@@ -147,6 +147,8 @@
     <Compile Include="Controls\RadioMenuItem.cs" />
     <Compile Include="Controls\SplitButton.cs" />
     <Compile Include="Controls\ThemedWindow.cs" />
+    <Compile Include="MVHelpers\BoolToTextWrappingConverter.cs" />
+    <Compile Include="MVHelpers\BoolToScrollbarVisibilityConverter.cs" />
     <Compile Include="MVHelpers\DockSiteVisibilityConverter.cs" />
     <Compile Include="MVHelpers\FileDragDropHelper.cs" />
     <Compile Include="MVHelpers\IntOrEmptyValueConverter.cs" />

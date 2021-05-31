@@ -11,6 +11,8 @@
     
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <my:BoolToScollBarVisibilityConverter x:Key="BoolToScollBarVisibilityConverter"/>
+        <my:BoolToTextWrappingConverter x:Key="BoolToTextWrappingConverter"/>
         <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource ThemedContextMenu}">
             <Setter Property="FontFamily" Value="{Binding Path=DataContext.ApplicationFontFamily, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
             <Setter Property="FontSize" Value="{Binding Path=DataContext.MainFormFontSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
@@ -26,7 +28,8 @@
                                   SelectedItems="{Binding SelectedNodes}"
                                   MultiSelectRootLevelOnly="False" VirtualizingStackPanel.IsVirtualizing="True"
                                   MouseDoubleClick="treeView_MouseDoubleClick" PreviewKeyDown="treeKeyDown"
-                                  SelectedItemsChanged="OnSelectedItemsChanged">
+                                  SelectedItemsChanged="OnSelectedItemsChanged"
+                                  ScrollViewer.HorizontalScrollBarVisibility="{Binding Path=WrapText, Converter={StaticResource BoolToScollBarVisibilityConverter}}">
         <TreeView.ItemsPanel>
             <ItemsPanelTemplate>
                 <Controls:MyVirtualizingStackPanel/>
@@ -38,9 +41,10 @@
         <TreeView.Resources>
             <HierarchicalDataTemplate DataType="{x:Type my:FormattedGrepResult}" ItemsSource="{Binding FormattedLines}">
                 <StackPanel Orientation="Vertical">
-                    <StackPanel Orientation="Horizontal">
+                    <WrapPanel Orientation="Horizontal">
                         <Image Height="16" Source="{Binding Icon}" />
-                        <TextBlock Margin="3,0,0,0" Text="{Binding Label}">
+                        <TextBlock Margin="3,0,0,0" Text="{Binding Label}"
+                                   TextWrapping="{Binding WrapText, Converter={StaticResource BoolToTextWrappingConverter}}">
                             <TextBlock.ToolTip>
                                 <ToolTip  Visibility="{Binding ShowFileInfoTooltips, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <StackPanel Orientation="Vertical">
@@ -69,7 +73,7 @@
                                 </ToolTip>
                             </TextBlock.ToolTip>
                         </TextBlock>
-                    </StackPanel>
+                    </WrapPanel>
                     <Viewbox Width="20" Height="20" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <Controls:BusyIndicator Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     </Viewbox>
@@ -87,7 +91,7 @@
                             </Style.Triggers>
                         </Style>
                     </Border.Resources>
-                    <WrapPanel>
+                    <WrapPanel >
                         <WrapPanel.Resources>
                             <Style TargetType="{x:Type TextBlock}">
                                 <Style.Triggers>
@@ -107,7 +111,8 @@
                                    Margin="-3" Padding="0,0,3,0"
                                    Text="{Binding FormattedLineNumber}"
                                    TextAlignment="Right" />
-                        <my:InlineTextBlock Margin="3,0,0,0" InlineCollection="{Binding FormattedText}" FontFamily="Consolas" />
+                        <my:InlineTextBlock Margin="3,0,0,0" InlineCollection="{Binding FormattedText}" FontFamily="Consolas" 
+                                            TextWrapping="{Binding WrapText, Converter={StaticResource BoolToTextWrappingConverter}}"/>
                     </WrapPanel>
                 </Border>
             </DataTemplate>

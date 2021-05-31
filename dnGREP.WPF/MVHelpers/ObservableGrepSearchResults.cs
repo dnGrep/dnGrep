@@ -154,6 +154,7 @@ namespace dnGREP.WPF
             foreach (var l in list)
             {
                 var fmtResult = new FormattedGrepResult(l, folderPath);
+                fmtResult.WrapText = WrapText;
                 Add(fmtResult);
 
                 // moved this check out of FormattedGrepResult constructor:
@@ -324,6 +325,27 @@ namespace dnGREP.WPF
             var files = GetSelectedFiles();
             if (files.Count == 2 || files.Count == 3)
                 Utils.CompareFiles(files);
+        }
+
+        private bool wrapText;
+        public bool WrapText
+        {
+            get { return wrapText; }
+            set 
+            {
+                if (value == wrapText)
+                    return;
+
+                wrapText = value;
+
+                foreach (var item in this)
+                {
+                    item.WrapText = value;
+                }
+
+
+                base.OnPropertyChanged(new PropertyChangedEventArgs("WrapText"));
+            }
         }
 
         private bool isResultsTreeFocused;
@@ -556,6 +578,26 @@ namespace dnGREP.WPF
         }
 
         public ObservableCollection<FormattedGrepMatch> FormattedMatches { get; } = new ObservableCollection<FormattedGrepMatch>();
+
+        private bool wrapText;
+        public bool WrapText
+        {
+            get { return wrapText; }
+            set
+            {
+                if (value == wrapText)
+                    return;
+
+                wrapText = value;
+
+                foreach (var item in FormattedLines)
+                {
+                    item.WrapText = value;
+                }
+
+                base.OnPropertyChanged("WrapText");
+            }
+        }
     }
 
     public class FormattedGrepLine : ViewModelBase, IGrepResult
@@ -567,6 +609,7 @@ namespace dnGREP.WPF
             Parent.PropertyChanged += new PropertyChangedEventHandler(Parent_PropertyChanged);
             LineNumberColumnWidth = initialColumnWidth;
             IsSectionBreak = breakSection;
+            WrapText = Parent.WrapText;
 
             FormattedLineNumber = (line.LineNumber == -1 ? "" : line.LineNumber.ToString());
 
@@ -657,15 +700,32 @@ namespace dnGREP.WPF
 
         public FormattedGrepResult Parent { get; private set; }
 
+        private bool wrapText;
+        public bool WrapText
+        {
+            get { return wrapText; }
+            set
+            {
+                if (value == wrapText)
+                    return;
+
+                wrapText = value;
+
+                MaxLineLength = wrapText ? 10000 : 500;
+
+                base.OnPropertyChanged("WrapText");
+            }
+        }
+
+        public int MaxLineLength { get; private set; } = 500;
+
         private InlineCollection FormatLine(GrepLine line)
         {
             Paragraph paragraph = new Paragraph();
 
-            const int MAX_LINE_LENGTH = 500;
-
             string fullLine = line.LineText;
-            if (line.LineText.Length > MAX_LINE_LENGTH)
-                fullLine = line.LineText.Substring(0, MAX_LINE_LENGTH);
+            if (line.LineText.Length > MaxLineLength)
+                fullLine = line.LineText.Substring(0, MaxLineLength);
 
             if (line.Matches.Count == 0)
             {
@@ -752,16 +812,16 @@ namespace dnGREP.WPF
                         paragraph.Inlines.Add(regularRun);
                     }
                 }
-                if (line.LineText.Length > MAX_LINE_LENGTH)
+                if (line.LineText.Length > MaxLineLength)
                 {
-                    string msg = string.Format("...(+{0:n0} characters)", line.LineText.Length - MAX_LINE_LENGTH);
+                    string msg = string.Format("...(+{0:n0} characters)", line.LineText.Length - MaxLineLength);
 
                     var msgRun = new Run(msg);
                     msgRun.SetResourceReference(Run.ForegroundProperty, "TreeView.Message.Highlight.Foreground");
                     msgRun.SetResourceReference(Run.BackgroundProperty, "TreeView.Message.Highlight.Background");
                     paragraph.Inlines.Add(msgRun);
 
-                    var hiddenMatches = line.Matches.Where(m => m.StartLocation > MAX_LINE_LENGTH).Select(m => m);
+                    var hiddenMatches = line.Matches.Where(m => m.StartLocation > MaxLineLength).Select(m => m);
                     int count = hiddenMatches.Count();
                     if (count > 0)
                         paragraph.Inlines.Add(new Run(" additional matches:"));
