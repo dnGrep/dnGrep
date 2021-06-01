@@ -172,55 +172,62 @@
                 </StatusBarItem>
             </StatusBar>
 
-            <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal"
+            <WrapPanel DockPanel.Dock="Bottom" Orientation="Horizontal"
                         Visibility="{Binding IsResultOptionsExpanded, Converter={StaticResource BoolToVisibilityConverter}}">
                 <CheckBox Content="Highlight Matches" Margin="10,3,6,3"                                  
                           IsChecked="{Binding HighlightsOn}"
                           Command="{Binding HighlightsCommand}" 
                           TabIndex="91"/>
                 <CheckBox Content="Highlight Groups" Margin="6,3"                                  
-                          IsChecked="{Binding HighlightCaptureGroups}"
-                          IsEnabled="{Binding Path=IsHighlightGroupsEnabled}"
-                          ToolTip="Highlight regular expression groups - changes will be applied in next search"
-                          TabIndex="92"/>
-                <CheckBox Content="Show context lines" Name="cbShowContext" Margin="6,3,3,3" HorizontalAlignment="Center"
-                          ToolTip="Context changes Will be applied in next search"
-                          IsChecked="{Binding Path=ShowLinesInContext}"
-                          TabIndex="93"/>
-                <TextBox Margin="3,0,0,0"
-                         Text="{Binding Path=ContextLinesBefore, UpdateSourceTrigger=PropertyChanged}"
-                         IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}" 
-                         TabIndex="94">
-                    <TextBox.Width>
-                        <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
-                            <Binding RelativeSource="{RelativeSource Mode=Self}"/>
-                            <Binding Path="ApplicationFontFamily"/>
-                            <Binding Path="MainFormFontSize"/>
-                        </MultiBinding>
-                    </TextBox.Width>
-                </TextBox>
-                <Label Content="before and" />
-                <TextBox Text="{Binding Path=ContextLinesAfter, UpdateSourceTrigger=PropertyChanged}"
-                         IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}" 
-                         TabIndex="95">
-                    <TextBox.Width>
-                        <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
-                            <Binding RelativeSource="{RelativeSource Mode=Self}"/>
-                            <Binding Path="ApplicationFontFamily"/>
-                            <Binding Path="MainFormFontSize"/>
-                        </MultiBinding>
-                    </TextBox.Width>
-                </TextBox>
-                <Label Content="after" />
-                <Label Margin="12,0,3,0" Content="Zoom:" ToolTip="Changes the results tree zoom"/>
-                <Slider Width="180" Margin="0,0,3,0" VerticalAlignment="Center"
-                        Minimum="0.8" Maximum="2.0" LargeChange=".05" SmallChange=".01"
-                        Value="{Binding SearchResults.ResultsScale}" TabIndex="97">
-                    <Slider.ToolTip>
-                        <ToolTip Content="{Binding SearchResults.ResultsScale}" ContentStringFormat="P1"/>
-                    </Slider.ToolTip>
-                </Slider>
-            </StackPanel>
+                            IsChecked="{Binding HighlightCaptureGroups}"
+                            IsEnabled="{Binding Path=IsHighlightGroupsEnabled}"
+                            ToolTip="Highlight regular expression groups - changes will be applied in next search"
+                            TabIndex="92"/>
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox Content="Show context lines" Name="cbShowContext" Margin="6,3,3,3" HorizontalAlignment="Center"
+                              ToolTip="Context changes Will be applied in next search"
+                              IsChecked="{Binding Path=ShowLinesInContext}"
+                              TabIndex="93"/>
+                    <TextBox Margin="3,0,0,0"
+                             Text="{Binding Path=ContextLinesBefore, UpdateSourceTrigger=PropertyChanged}"
+                             IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}" 
+                             TabIndex="94">
+                        <TextBox.Width>
+                            <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
+                                <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                <Binding Path="ApplicationFontFamily"/>
+                                <Binding Path="MainFormFontSize"/>
+                            </MultiBinding>
+                        </TextBox.Width>
+                    </TextBox>
+                    <Label Content="before and" />
+                    <TextBox Text="{Binding Path=ContextLinesAfter, UpdateSourceTrigger=PropertyChanged}"
+                             IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}" 
+                             TabIndex="95">
+                        <TextBox.Width>
+                            <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
+                                <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                <Binding Path="ApplicationFontFamily"/>
+                                <Binding Path="MainFormFontSize"/>
+                            </MultiBinding>
+                        </TextBox.Width>
+                    </TextBox>
+                    <Label Content="after" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Margin="12,0,3,0" Content="Zoom:" ToolTip="Changes the results tree zoom"/>
+                    <Slider Width="180" Margin="0,0,3,0" VerticalAlignment="Center"
+                            Minimum="0.8" Maximum="2.0" LargeChange=".05" SmallChange=".01"
+                            Value="{Binding SearchResults.ResultsScale}" TabIndex="97">
+                        <Slider.ToolTip>
+                            <ToolTip Content="{Binding SearchResults.ResultsScale}" ContentStringFormat="P1"/>
+                        </Slider.ToolTip>
+                    </Slider>
+                </StackPanel>
+                <CheckBox Content="Wrap Text" Margin="10,3,6,3"                                  
+                          IsChecked="{Binding SearchResults.WrapText}"
+                          TabIndex="98"/>
+            </WrapPanel>
 
             <DockPanel Margin="4,0" LastChildFill="True">
                 <GroupBox DockPanel.Dock="Top" Header="Search in">
