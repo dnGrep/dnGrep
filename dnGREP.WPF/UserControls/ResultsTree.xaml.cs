@@ -26,7 +26,7 @@ namespace dnGREP.WPF.UserControls
         public ResultsTree()
         {
             InitializeComponent();
-            this.DataContextChanged += ResultsTree_DataContextChanged;
+            DataContextChanged += ResultsTree_DataContextChanged;
 
             treeView.PreviewMouseWheel += treeView_PreviewMouseWheel;
             treeView.PreviewTouchDown += treeView_PreviewTouchDown;
@@ -36,7 +36,7 @@ namespace dnGREP.WPF.UserControls
 
         void ResultsTree_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            inputData = ((ObservableGrepSearchResults)(this.DataContext));
+            inputData = (ObservableGrepSearchResults)DataContext;
         }
 
         private void treeView_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
@@ -93,8 +93,12 @@ namespace dnGREP.WPF.UserControls
             }
             else if (e.Key == Key.A && Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
             {
-                MultiSelectTreeView.SelectAll(treeView);
+                SelectAll();
                 e.Handled = true;
+            }
+            else if (e.Key == Key.End && Keyboard.Modifiers.HasFlag(ModifierKeys.Control) && Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
+            {
+                SelectToEnd();
             }
             else if (e.Key == Key.Delete)
             {
@@ -110,6 +114,45 @@ namespace dnGREP.WPF.UserControls
             {
                 Previous();
                 e.Handled = true;
+            }
+        }
+
+        private void SelectAll()
+        {
+            treeView.DeselectAllChildItems();
+
+            foreach (var item in inputData)
+            {
+                item.IsSelected = true;
+            }
+        }
+
+        private void SelectToEnd()
+        {
+            var startTreeViewItem = treeView.StartTreeViewItem;
+            if (startTreeViewItem != null && startTreeViewItem.DataContext is ITreeItem startItem)
+            {
+                treeView.DeselectAllChildItems();
+
+                if (startItem is FormattedGrepLine line)
+                {
+                    startItem = line.Parent;
+                    if (!startItem.IsSelected)
+                        startItem.IsSelected = true;
+                }
+
+                bool isSelecting = false;
+                foreach (var item in inputData)
+                {
+                    if (item == startItem)
+                    {
+                        isSelecting = true;
+                    }
+                    else if (isSelecting)
+                    {
+                        item.IsSelected = true;
+                    }
+                }
             }
         }
 
@@ -692,7 +735,7 @@ namespace dnGREP.WPF.UserControls
 
             DragDropEffects supportedEffects = DragDropEffects.Move | DragDropEffects.Copy;
             // Perform DragDrop
-            DragDropEffects effects = System.Windows.DragDrop.DoDragDrop(_draggedElt, data, supportedEffects);
+            _ = DragDrop.DoDragDrop(_draggedElt, data, supportedEffects);
 
             // Clean up
             Mouse.Capture(null);

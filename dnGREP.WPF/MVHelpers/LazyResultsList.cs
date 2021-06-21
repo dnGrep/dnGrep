@@ -108,7 +108,7 @@ namespace dnGREP.WPF.MVHelpers
 
         protected void OnPropertyChanged(string name)
         {
-            LineNumberColumnWidthChanged(this, new PropertyChangedEventArgs(name));
+            LineNumberColumnWidthChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

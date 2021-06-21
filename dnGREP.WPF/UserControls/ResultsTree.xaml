@@ -26,8 +26,10 @@
                                   BorderBrush="{DynamicResource TreeView.Border}"
                                   ItemsSource="{Binding}"
                                   SelectedItems="{Binding SelectedNodes}"
-                                  MultiSelectRootLevelOnly="False" VirtualizingStackPanel.IsVirtualizing="True"
-                                  MouseDoubleClick="treeView_MouseDoubleClick" PreviewKeyDown="treeKeyDown"
+                                  MultiSelectRootLevelOnly="False" 
+                                  VirtualizingStackPanel.IsVirtualizing="True"
+                                  MouseDoubleClick="treeView_MouseDoubleClick" 
+                                  PreviewKeyDown="treeKeyDown"
                                   SelectedItemsChanged="OnSelectedItemsChanged"
                                   Grid.IsSharedSizeScope="True"
                                   ScrollViewer.HorizontalScrollBarVisibility="{Binding Path=WrapText, Converter={StaticResource BoolToScollBarVisibilityConverter}}">
