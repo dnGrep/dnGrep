@@ -96,6 +96,10 @@ namespace dnGREP.WPF.UserControls
                 SelectAll();
                 e.Handled = true;
             }
+            else if (e.Key == Key.Home && Keyboard.Modifiers.HasFlag(ModifierKeys.Control) && Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
+            {
+                SelectToStart();
+            }
             else if (e.Key == Key.End && Keyboard.Modifiers.HasFlag(ModifierKeys.Control) && Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
             {
                 SelectToEnd();
@@ -124,6 +128,31 @@ namespace dnGREP.WPF.UserControls
             foreach (var item in inputData)
             {
                 item.IsSelected = true;
+            }
+        }
+
+        private void SelectToStart()
+        {
+            var startTreeViewItem = treeView.StartTreeViewItem;
+            if (startTreeViewItem != null && startTreeViewItem.DataContext is ITreeItem startItem)
+            {
+                treeView.DeselectAllChildItems();
+
+                if (startItem is FormattedGrepLine line)
+                {
+                    startItem = line.Parent;
+                    if (!startItem.IsSelected)
+                        startItem.IsSelected = true;
+                }
+
+                foreach (var item in inputData)
+                {
+                    item.IsSelected = true;
+                    if (item == startItem)
+                    {
+                        break;
+                    }
+                }
             }
         }
 
