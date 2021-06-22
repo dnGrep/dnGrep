@@ -128,6 +128,14 @@ namespace dnGREP.WPF.UserControls
             foreach (var item in inputData)
             {
                 item.IsSelected = true;
+
+                if (item.IsExpanded)
+                {
+                    foreach (var child in item.Children)
+                    {
+                        child.IsSelected = true;
+                    }
+                }
             }
         }
 
@@ -148,6 +156,15 @@ namespace dnGREP.WPF.UserControls
                 foreach (var item in inputData)
                 {
                     item.IsSelected = true;
+
+                    if (item.IsExpanded)
+                    {
+                        foreach (var child in item.Children)
+                        {
+                            child.IsSelected = true;
+                        }
+                    }
+
                     if (item == startItem)
                     {
                         break;
@@ -180,6 +197,14 @@ namespace dnGREP.WPF.UserControls
                     else if (isSelecting)
                     {
                         item.IsSelected = true;
+
+                        if (item.IsExpanded)
+                        {
+                            foreach (var child in item.Children)
+                            {
+                                child.IsSelected = true;
+                            }
+                        }
                     }
                 }
             }

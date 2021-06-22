@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -12,6 +11,7 @@ namespace dnGREP.WPF.UserControls
 {
     public interface ITreeItem
     {
+        bool IsExpanded { get; }
         bool IsSelected { get; set; }
 
         int Level { get; }
