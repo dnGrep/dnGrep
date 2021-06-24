@@ -2230,8 +2230,10 @@ namespace dnGREP.WPF
         {
             if (!CanSortResults) return;
 
+            var selections = SearchResults.SelectedItems;
             using (var d = Dispatcher.CurrentDispatcher.DisableProcessing())
             {
+                SearchResults.DeselectAllItems();
                 var list = SearchResults.ToList();
                 SearchResults.Clear();
 
@@ -2263,6 +2265,7 @@ namespace dnGREP.WPF
 
                 SearchResults.AddRange(list);
             }
+            SearchResults.SelectItems(selections);
         }
 
         private string GetSearchOptions()
