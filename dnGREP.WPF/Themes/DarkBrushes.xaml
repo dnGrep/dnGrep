@@ -39,6 +39,8 @@
     <SolidColorBrush x:Key="Window.Border.Inactive" po:Freeze="true" Color="#FF2C628B" />
     <SolidColorBrush x:Key="Caption.Background" po:Freeze="true" Color="#FF333333" />
     <SolidColorBrush x:Key="Caption.Foreground" po:Freeze="true" Color="#FFFFFFFF" />
+    <SolidColorBrush x:Key="Caption.Background.Inactive" po:Freeze="true" Color="#FF333333" />
+    <SolidColorBrush x:Key="Caption.Foreground.Inactive" po:Freeze="true" Color="#FFDCDCDC" />
     <SolidColorBrush x:Key="Caption.Dialog.Background" po:Freeze="true" Color="#FF666666" />
     <SolidColorBrush x:Key="Caption.Button.Background" po:Freeze="true" Color="Transparent" />
     <SolidColorBrush x:Key="Caption.Button.Foreground" po:Freeze="true" Color="#FF989898" />

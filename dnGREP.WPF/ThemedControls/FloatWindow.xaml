@@ -151,7 +151,8 @@
                                             WindowChrome.IsHitTestVisibleInChrome="True" />
 
                                 </StackPanel>
-                                <TextBlock Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                <TextBlock x:Name="titleBarText" 
+                                           Margin="5,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
                                            Text="{Binding Path=Title, RelativeSource={RelativeSource TemplatedParent}}" 
                                            FontSize="{Binding FontSize, RelativeSource={RelativeSource TemplatedParent}}" />
                             </DockPanel>
@@ -171,6 +172,10 @@
                         </Trigger>
                         <Trigger Property="IsActive" Value="true">
                             <Setter TargetName="root" Property="BorderBrush" Value="{DynamicResource Window.Border.Active}" />
+                        </Trigger>
+                        <Trigger Property="IsActive" Value="False">
+                            <Setter TargetName="titleBar" Property="Background" Value="{DynamicResource Caption.Background.Inactive}"/>
+                            <Setter TargetName="titleBarText" Property="Foreground" Value="{DynamicResource Caption.Foreground.Inactive}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

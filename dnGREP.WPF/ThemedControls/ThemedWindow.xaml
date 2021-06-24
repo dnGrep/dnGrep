@@ -115,7 +115,7 @@
                                        Background="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=CaptionBackground, Mode=OneWay}"
                                        DockPanel.Dock="Top">
 
-                                <Image Width="32" Margin="6,3,0,3" VerticalAlignment="Top"
+                                <Image x:Name="icon" Width="32" Margin="6,3,0,3" VerticalAlignment="Top"
                                        DockPanel.Dock="Left"
                                        Source="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" />
 
@@ -139,7 +139,8 @@
 
                                 </StackPanel>
 
-                                <TextBlock Height="{Binding Source={x:Static SystemParameters.CaptionHeight}}"
+                                <TextBlock x:Name="titleBarText" 
+                                           Height="{Binding Source={x:Static SystemParameters.CaptionHeight}}"
                                            Margin="6,1,3,1" HorizontalAlignment="Left" VerticalAlignment="Center"
                                            Text="{Binding Title, RelativeSource={RelativeSource TemplatedParent}}"
                                            ToolTip="{Binding Title, RelativeSource={RelativeSource TemplatedParent}}"
@@ -164,6 +165,11 @@
                         </Trigger>
                         <Trigger Property="IsActive" Value="true">
                             <Setter TargetName="root" Property="BorderBrush" Value="{DynamicResource Window.Border.Active}" />
+                        </Trigger>
+                        <Trigger Property="IsActive" Value="False">
+                            <Setter TargetName="icon" Property="Opacity" Value="0.6"/>
+                            <Setter TargetName="titleBar" Property="Background" Value="{DynamicResource Caption.Background.Inactive}"/>
+                            <Setter TargetName="titleBarText" Property="Foreground" Value="{DynamicResource Caption.Foreground.Inactive}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
