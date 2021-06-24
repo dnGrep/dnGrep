@@ -36,7 +36,23 @@ namespace dnGREP.WPF.UserControls
 
         void ResultsTree_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
+            if (inputData != null && inputData.SelectedNodes != null)
+            {
+                inputData.SelectedNodes.CollectionChanged -= SelectedNodes_CollectionChanged;
+            }
+
             inputData = (ObservableGrepSearchResults)DataContext;
+            inputData.SelectedNodes.CollectionChanged += SelectedNodes_CollectionChanged;
+        }
+
+        private void SelectedNodes_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Add ||
+                e.Action == NotifyCollectionChangedAction.Remove ||
+                e.Action == NotifyCollectionChangedAction.Reset)
+            {
+                OnSelectedItemsChanged();
+            }
         }
 
         private void treeView_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
@@ -153,21 +169,24 @@ namespace dnGREP.WPF.UserControls
                         startItem.IsSelected = true;
                 }
 
-                foreach (var item in inputData)
+                bool isSelecting = false;
+                foreach (var item in inputData.Reverse())
                 {
-                    item.IsSelected = true;
-
-                    if (item.IsExpanded)
-                    {
-                        foreach (var child in item.Children)
-                        {
-                            child.IsSelected = true;
-                        }
-                    }
-
                     if (item == startItem)
                     {
-                        break;
+                        isSelecting = true;
+                    }
+                    else if (isSelecting)
+                    {
+                        item.IsSelected = true;
+
+                        if (item.IsExpanded)
+                        {
+                            foreach (var child in item.Children)
+                            {
+                                child.IsSelected = true;
+                            }
+                        }
                     }
                 }
             }
@@ -356,7 +375,7 @@ namespace dnGREP.WPF.UserControls
                             // update label in the results tree
                             searchResult.SetLabel();
                             // update label on the preview window
-                            OnSelectedItemsChanged(this, e);
+                            OnSelectedItemsChanged();
                         }
                         catch (Exception ex)
                         {
@@ -616,13 +635,13 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
-        private void OnSelectedItemsChanged(object sender, RoutedEventArgs e)
+        private void OnSelectedItemsChanged()
         {
             Window parentWindow = Window.GetWindow(this);
 
             var rect = new System.Drawing.RectangleF { Height = (float)parentWindow.ActualHeight, Width = (float)parentWindow.ActualWidth, X = (float)parentWindow.Left, Y = (float)parentWindow.Top };
 
-            if (treeView.GetValue(MultiSelectTreeView.SelectedItemsProperty) is IList items && items.Count > 0)
+            if (inputData.SelectedNodes is IList items && items.Count > 0)
             {
                 if (items[0] is FormattedGrepLine)
                     inputData.PreviewFile(items[0] as FormattedGrepLine, rect);

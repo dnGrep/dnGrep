@@ -77,16 +77,6 @@ namespace dnGREP.WPF.UserControls
             element.SetValue(SelectedItemsProperty, value);
         }
 
-        public static readonly RoutedEvent SelectedItemsChangedEvent =
-            EventManager.RegisterRoutedEvent("SelectedItemsChangedEvent", RoutingStrategy.Bubble,
-            typeof(RoutedEventHandler), typeof(MultiSelectTreeView));
-
-        public event RoutedEventHandler SelectedItemsChanged
-        {
-            add { AddHandler(SelectedItemsChangedEvent, value); }
-            remove { RemoveHandler(SelectedItemsChangedEvent, value); }
-        }
-
 
         private static readonly DependencyProperty StartItemProperty =
             DependencyProperty.RegisterAttached("StartItem",
