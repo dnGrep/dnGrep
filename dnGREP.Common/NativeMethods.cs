@@ -117,7 +117,7 @@ namespace dnGREP.Common
                             process.MainModule.FileName : process.ProcessName) + Environment.NewLine +
                             $"Window Title: {process.MainWindowTitle}";
                         logger.Error(msg);
-                        System.Windows.MessageBox.Show(msg, "Copy",
+                        System.Windows.MessageBox.Show(msg, "dnGrep - Copy",
                             System.Windows.MessageBoxButton.OK,
                             System.Windows.MessageBoxImage.Error);
                     }

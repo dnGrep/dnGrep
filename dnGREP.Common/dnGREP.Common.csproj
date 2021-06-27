@@ -128,6 +128,7 @@
     <Compile Include="ArchiveDirectory.cs" />
     <Compile Include="BookmarkLibrary.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="FileData.cs" />
     <Compile Include="FileFilter.cs" />
     <Compile Include="GitUtil.cs" />

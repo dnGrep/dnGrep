@@ -119,7 +119,7 @@ namespace dnGREP.Common
                         {
                             var answer = MessageBox.Show(
                                 $"The file '{destinationFileInfo.Name}' already exists in {destinationFileInfo.DirectoryName}, overwrite existing?",
-                                "Overwrite File", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
+                                "dnGrep - Overwrite File", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
 
                             if (answer == MessageBoxResult.Cancel)
                                 return count;
@@ -186,7 +186,7 @@ namespace dnGREP.Common
                         {
                             var answer = MessageBox.Show(
                                 $"The file '{destinationFileInfo.Name}' already exists in {destinationFileInfo.DirectoryName}, overwrite existing?",
-                                "Overwrite File", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
+                                "dnGrep - Overwrite File", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
 
                             if (answer == MessageBoxResult.Cancel)
                                 return count;
@@ -2421,21 +2421,6 @@ namespace dnGREP.Common
                 return text.Substring(0, text.Length - 1);
             else
                 return text;
-        }
-    }
-
-    public static class StringExtensions
-    {
-        public static bool Contains(this string source, string toCheck, StringComparison comp)
-        {
-            if (source == null) return false;
-            return source.IndexOf(toCheck, comp) >= 0;
-        }
-
-        public static bool Contains(this IEnumerable<string> source, string toCheck, StringComparison comp)
-        {
-            if (source == null) return false;
-            return source.Where(s => s.Contains(toCheck, comp)).Any();
         }
     }
 }

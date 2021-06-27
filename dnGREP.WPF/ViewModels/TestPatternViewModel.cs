@@ -287,7 +287,7 @@ namespace dnGREP.WPF
                 }
                 catch (ArgumentException ex)
                 {
-                    MessageBox.Show("Incorrect pattern: " + ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Incorrect pattern: " + ex.Message, "dnGrep", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
 
@@ -368,7 +368,7 @@ namespace dnGREP.WPF
             }
             catch (ArgumentException ex)
             {
-                MessageBox.Show("Incorrect pattern: " + ex.Message, "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Incorrect pattern: " + ex.Message, "dnGrep", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             catch (XmlException)
             {
@@ -376,7 +376,7 @@ namespace dnGREP.WPF
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Error: " + ex.Message, "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             Paragraph paragraph = new Paragraph();

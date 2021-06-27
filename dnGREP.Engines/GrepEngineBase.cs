@@ -159,15 +159,15 @@ namespace dnGREP.Engines
 
             if (text.Contains("\r\n"))
             {
-                if (searchPattern.Contains("$"))
+                if (searchPattern.ConstainsNotEscaped("$"))
                 {
                     if (regexOptions.HasFlag(RegexOptions.Singleline))
                     {
-                        searchPattern = searchPattern.Replace("$", "\r?$");
+                        searchPattern = searchPattern.ReplaceIfNotEscaped("$", "\r?$");
                     }
                     else
                     {
-                        searchPattern = searchPattern.Replace("$", "(?=\r?$)");
+                        searchPattern = searchPattern.ReplaceIfNotEscaped("$", "(?=\r?$)");
 
                         // can't make this pattern work if the multi line text does not end in a newline
                         if (regexOptions.HasFlag(RegexOptions.Multiline) && !text.EndsWith("\r\n"))
@@ -199,7 +199,7 @@ namespace dnGREP.Engines
                     }
                 }
             }
-            else if (text.Contains("\r") && (searchPattern.Contains("$") || searchPatternEndsWithDot))
+            else if (text.Contains("\r") && (searchPattern.ConstainsNotEscaped("$") || searchPatternEndsWithDot))
             {
                 // for this case, it's easiest to change the newline char while searching
                 searchPattern = searchPattern.Replace('\r', '\n');
@@ -340,7 +340,7 @@ namespace dnGREP.Engines
                 // Issue #210 .net regex will only match the $ end of line token with a \n, not \r\n or \r
                 bool convertToWindowsNewline = false;
                 string searchPatternForReplace = searchPattern;
-                if (searchPattern.Contains("$") && text.Contains("\r\n"))
+                if (searchPattern.ConstainsNotEscaped("$") && text.Contains("\r\n"))
                 {
                     convertToWindowsNewline = true;
                     searchPatternForReplace = searchPattern.Replace("\r\n", "\n");

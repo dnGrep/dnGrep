@@ -50,7 +50,7 @@ namespace dnGREP.WPF
                         textEditor.TextArea.TextView.LineTransformers.RemoveAt(i);
                 }
 
-                if (ViewModel.HighlightsOn && !ViewModel.HighlightDisabled)
+                if (ViewModel.HighlightsOn && !ViewModel.HighlightDisabled && !ViewModel.IsPdf)
                     textEditor.TextArea.TextView.LineTransformers.Add(new PreviewHighlighter(ViewModel.GrepResult));
             }
         }
@@ -78,7 +78,7 @@ namespace dnGREP.WPF
                         textEditor.TextArea.TextView.LineTransformers.RemoveAt(i);
                 }
 
-                if (ViewModel.HighlightsOn && !ViewModel.HighlightDisabled)
+                if (ViewModel.HighlightsOn && !ViewModel.HighlightDisabled && !ViewModel.IsPdf)
                     textEditor.TextArea.TextView.LineTransformers.Add(new PreviewHighlighter(ViewModel.GrepResult));
 
                 try

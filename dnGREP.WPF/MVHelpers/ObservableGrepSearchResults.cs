@@ -14,21 +14,37 @@ using System.Windows.Media.Imaging;
 using dnGREP.Common;
 using dnGREP.Common.UI;
 using dnGREP.WPF.MVHelpers;
+using dnGREP.WPF.UserControls;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.WPF
 {
-    public interface IGrepResult
-    {
-    }
-
     public class ObservableGrepSearchResults : ObservableCollection<FormattedGrepResult>, INotifyPropertyChanged
     {
+        public static readonly Messenger SearchResultsMessenger = new Messenger();
+
         public ObservableGrepSearchResults()
         {
-            SelectedNodes = new ObservableCollection<IGrepResult>();
+            SelectedNodes = new ObservableCollection<ITreeItem>();
             SelectedNodes.CollectionChanged += SelectedNodes_CollectionChanged;
-            this.CollectionChanged += ObservableGrepSearchResults_CollectionChanged;
+            CollectionChanged += ObservableGrepSearchResults_CollectionChanged;
+
+            SearchResultsMessenger.Register<ITreeItem>("IsSelectedChanged", OnSelectionChanged);
+        }
+
+        private void OnSelectionChanged(ITreeItem item)
+        {
+            if (item != null)
+            {
+                if (item.IsSelected && !SelectedNodes.Contains(item))
+                {
+                    SelectedNodes.Insert(0, item);
+                }
+                else
+                {
+                    SelectedNodes.Remove(item);
+                }
+            }
         }
 
         private readonly Dictionary<string, BitmapSource> icons = new Dictionary<string, BitmapSource>();
@@ -36,16 +52,16 @@ namespace dnGREP.WPF
         /// <summary>
         /// Gets the collection of Selected tree nodes, in the order they were selected
         /// </summary>
-        public ObservableCollection<IGrepResult> SelectedNodes { get; private set; }
+        public ObservableCollection<ITreeItem> SelectedNodes { get; private set; }
 
         /// <summary>
         /// Gets a read-only collection of the selected items, in display order
         /// </summary>
-        public ReadOnlyCollection<IGrepResult> SelectedItems
+        public ReadOnlyCollection<ITreeItem> SelectedItems
         {
             get
             {
-                var list = SelectedNodes.ToList();
+                var list = SelectedNodes.Where(i => i != null).ToList();
                 // sort the selected items in the order of the items appear in the tree!!!
                 if (list.Count > 1)
                     list.Sort(new SelectionComparer(this));
@@ -53,7 +69,26 @@ namespace dnGREP.WPF
             }
         }
 
-        private class SelectionComparer : IComparer<IGrepResult>
+        public void DeselectAllItems()
+        {
+            foreach (var item in SelectedItems)
+            {
+                item.IsSelected = false;
+            }
+        }
+
+        public void SelectItems(ICollection<ITreeItem> selections)
+        {
+            foreach (var item in this)
+            {
+                if (selections.Contains(item))
+                {
+                    item.IsSelected = true;
+                }
+            }
+        }
+
+        private class SelectionComparer : IComparer<ITreeItem>
         {
             private ObservableGrepSearchResults orderBy;
             public SelectionComparer(ObservableGrepSearchResults orderBy)
@@ -61,7 +96,7 @@ namespace dnGREP.WPF
                 this.orderBy = orderBy;
             }
 
-            public int Compare(IGrepResult x, IGrepResult y)
+            public int Compare(ITreeItem x, ITreeItem y)
             {
                 var fileX = x as FormattedGrepResult;
                 var lineX = x as FormattedGrepLine;
@@ -94,7 +129,7 @@ namespace dnGREP.WPF
 
         void ObservableGrepSearchResults_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            List<IGrepResult> toRemove = new List<IGrepResult>();
+            List<ITreeItem> toRemove = new List<ITreeItem>();
             foreach (var node in SelectedNodes)
             {
                 if (node is FormattedGrepResult item && !this.Contains(item))
@@ -154,6 +189,7 @@ namespace dnGREP.WPF
             foreach (var l in list)
             {
                 var fmtResult = new FormattedGrepResult(l, folderPath);
+                fmtResult.WrapText = WrapText;
                 Add(fmtResult);
 
                 // moved this check out of FormattedGrepResult constructor:
@@ -326,6 +362,27 @@ namespace dnGREP.WPF
                 Utils.CompareFiles(files);
         }
 
+        private bool wrapText;
+        public bool WrapText
+        {
+            get { return wrapText; }
+            set
+            {
+                if (value == wrapText)
+                    return;
+
+                wrapText = value;
+
+                foreach (var item in this)
+                {
+                    item.WrapText = value;
+                }
+
+
+                base.OnPropertyChanged(new PropertyChangedEventArgs("WrapText"));
+            }
+        }
+
         private bool isResultsTreeFocused;
         public bool IsResultsTreeFocused
         {
@@ -367,7 +424,7 @@ namespace dnGREP.WPF
         }
     }
 
-    public class FormattedGrepResult : ViewModelBase, IGrepResult
+    public class FormattedGrepResult : ViewModelBase, ITreeItem
     {
         public GrepSearchResult GrepResult { get; private set; } = new GrepSearchResult();
 
@@ -462,6 +519,7 @@ namespace dnGREP.WPF
                     return;
 
                 isSelected = value;
+                ObservableGrepSearchResults.SearchResultsMessenger.NotifyColleagues("IsSelectedChanged", this);
                 OnPropertyChanged("IsSelected");
             }
         }
@@ -556,26 +614,51 @@ namespace dnGREP.WPF
         }
 
         public ObservableCollection<FormattedGrepMatch> FormattedMatches { get; } = new ObservableCollection<FormattedGrepMatch>();
+
+        private bool wrapText;
+        public bool WrapText
+        {
+            get { return wrapText; }
+            set
+            {
+                if (value == wrapText)
+                    return;
+
+                wrapText = value;
+
+                foreach (var item in FormattedLines)
+                {
+                    item.WrapText = value;
+                }
+
+                base.OnPropertyChanged("WrapText");
+            }
+        }
+
+        public int Level => 0;
+
+        public IEnumerable<ITreeItem> Children => FormattedLines;
     }
 
-    public class FormattedGrepLine : ViewModelBase, IGrepResult
+    public class FormattedGrepLine : ViewModelBase, ITreeItem
     {
         public FormattedGrepLine(GrepLine line, FormattedGrepResult parent, int initialColumnWidth, bool breakSection)
         {
             Parent = parent;
             GrepLine = line;
-            Parent.PropertyChanged += new PropertyChangedEventHandler(Parent_PropertyChanged);
+            Parent.PropertyChanged += Parent_PropertyChanged;
             LineNumberColumnWidth = initialColumnWidth;
             IsSectionBreak = breakSection;
+            WrapText = Parent.WrapText;
 
-            FormattedLineNumber = (line.LineNumber == -1 ? "" : line.LineNumber.ToString());
+            FormattedLineNumber = line.LineNumber == -1 ? string.Empty : line.LineNumber.ToString();
 
             //string fullText = lineSummary;
             if (line.IsContext)
             {
                 Style = "Context";
             }
-            if (line.LineNumber == -1 && line.LineText == "")
+            if (line.LineNumber == -1 && string.IsNullOrEmpty(line.LineText))
             {
                 Style = "Empty";
             }
@@ -615,6 +698,7 @@ namespace dnGREP.WPF
                     return;
 
                 isSelected = value;
+                ObservableGrepSearchResults.SearchResultsMessenger.NotifyColleagues("IsSelectedChanged", this);
                 OnPropertyChanged("IsSelected");
             }
         }
@@ -657,15 +741,36 @@ namespace dnGREP.WPF
 
         public FormattedGrepResult Parent { get; private set; }
 
+        private bool wrapText;
+        public bool WrapText
+        {
+            get { return wrapText; }
+            set
+            {
+                if (value == wrapText)
+                    return;
+
+                wrapText = value;
+
+                MaxLineLength = wrapText ? 10000 : 500;
+
+                base.OnPropertyChanged("WrapText");
+            }
+        }
+
+        public int MaxLineLength { get; private set; } = 500;
+
+        public int Level => 1;
+
+        public IEnumerable<ITreeItem> Children => Enumerable.Empty<ITreeItem>();
+
         private InlineCollection FormatLine(GrepLine line)
         {
             Paragraph paragraph = new Paragraph();
 
-            const int MAX_LINE_LENGTH = 500;
-
             string fullLine = line.LineText;
-            if (line.LineText.Length > MAX_LINE_LENGTH)
-                fullLine = line.LineText.Substring(0, MAX_LINE_LENGTH);
+            if (line.LineText.Length > MaxLineLength)
+                fullLine = line.LineText.Substring(0, MaxLineLength);
 
             if (line.Matches.Count == 0)
             {
@@ -752,16 +857,16 @@ namespace dnGREP.WPF
                         paragraph.Inlines.Add(regularRun);
                     }
                 }
-                if (line.LineText.Length > MAX_LINE_LENGTH)
+                if (line.LineText.Length > MaxLineLength)
                 {
-                    string msg = string.Format("...(+{0:n0} characters)", line.LineText.Length - MAX_LINE_LENGTH);
+                    string msg = string.Format("...(+{0:n0} characters)", line.LineText.Length - MaxLineLength);
 
                     var msgRun = new Run(msg);
                     msgRun.SetResourceReference(Run.ForegroundProperty, "TreeView.Message.Highlight.Foreground");
                     msgRun.SetResourceReference(Run.BackgroundProperty, "TreeView.Message.Highlight.Background");
                     paragraph.Inlines.Add(msgRun);
 
-                    var hiddenMatches = line.Matches.Where(m => m.StartLocation > MAX_LINE_LENGTH).Select(m => m);
+                    var hiddenMatches = line.Matches.Where(m => m.StartLocation > MaxLineLength).Select(m => m);
                     int count = hiddenMatches.Count();
                     if (count > 0)
                         paragraph.Inlines.Add(new Run(" additional matches:"));
@@ -997,7 +1102,7 @@ namespace dnGREP.WPF
 
         public override string ToString()
         {
-            return Match.ToString() + $" selected={isSelected}";
+            return Match.ToString() + $" replace={replaceMatch}";
         }
 
 
@@ -1016,23 +1121,6 @@ namespace dnGREP.WPF
                 Match.ReplaceMatch = value;
 
                 Background = Match.ReplaceMatch ? Brushes.PaleGreen : Brushes.Bisque;
-            }
-        }
-
-        private bool isSelected = false;
-        public bool IsSelected
-        {
-            get { return isSelected; }
-            set
-            {
-                if (isSelected == value)
-                    return;
-
-                isSelected = value;
-                OnPropertyChanged(() => IsSelected);
-
-                FontWeight = isSelected ? FontWeights.Black : FontWeights.Normal;
-                FontSize = isSelected ? 18 : 12;
             }
         }
 

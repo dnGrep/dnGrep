@@ -26,7 +26,7 @@ namespace dnGREP.WPF.UserControls
         public ResultsTree()
         {
             InitializeComponent();
-            this.DataContextChanged += ResultsTree_DataContextChanged;
+            DataContextChanged += ResultsTree_DataContextChanged;
 
             treeView.PreviewMouseWheel += treeView_PreviewMouseWheel;
             treeView.PreviewTouchDown += treeView_PreviewTouchDown;
@@ -36,7 +36,23 @@ namespace dnGREP.WPF.UserControls
 
         void ResultsTree_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            inputData = ((ObservableGrepSearchResults)(this.DataContext));
+            if (inputData != null && inputData.SelectedNodes != null)
+            {
+                inputData.SelectedNodes.CollectionChanged -= SelectedNodes_CollectionChanged;
+            }
+
+            inputData = (ObservableGrepSearchResults)DataContext;
+            inputData.SelectedNodes.CollectionChanged += SelectedNodes_CollectionChanged;
+        }
+
+        private void SelectedNodes_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Add ||
+                e.Action == NotifyCollectionChangedAction.Remove ||
+                e.Action == NotifyCollectionChangedAction.Reset)
+            {
+                OnSelectedItemsChanged();
+            }
         }
 
         private void treeView_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
@@ -93,8 +109,16 @@ namespace dnGREP.WPF.UserControls
             }
             else if (e.Key == Key.A && Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
             {
-                MultiSelectTreeView.SelectAll(treeView);
+                SelectAll();
                 e.Handled = true;
+            }
+            else if (e.Key == Key.Home && Keyboard.Modifiers.HasFlag(ModifierKeys.Control) && Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
+            {
+                SelectToStart();
+            }
+            else if (e.Key == Key.End && Keyboard.Modifiers.HasFlag(ModifierKeys.Control) && Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
+            {
+                SelectToEnd();
             }
             else if (e.Key == Key.Delete)
             {
@@ -110,6 +134,98 @@ namespace dnGREP.WPF.UserControls
             {
                 Previous();
                 e.Handled = true;
+            }
+        }
+
+        private void SelectAll()
+        {
+            treeView.DeselectAllChildItems();
+
+            foreach (var item in inputData)
+            {
+                item.IsSelected = true;
+
+                if (item.IsExpanded)
+                {
+                    foreach (var child in item.Children)
+                    {
+                        child.IsSelected = true;
+                    }
+                }
+            }
+        }
+
+        private void SelectToStart()
+        {
+            var startTreeViewItem = treeView.StartTreeViewItem;
+            if (startTreeViewItem != null && startTreeViewItem.DataContext is ITreeItem startItem)
+            {
+                treeView.DeselectAllChildItems();
+
+                if (startItem is FormattedGrepLine line)
+                {
+                    startItem = line.Parent;
+                    if (!startItem.IsSelected)
+                        startItem.IsSelected = true;
+                }
+
+                bool isSelecting = false;
+                foreach (var item in inputData.Reverse())
+                {
+                    if (item == startItem)
+                    {
+                        isSelecting = true;
+                    }
+                    else if (isSelecting)
+                    {
+                        item.IsSelected = true;
+
+                        if (item.IsExpanded)
+                        {
+                            foreach (var child in item.Children)
+                            {
+                                child.IsSelected = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void SelectToEnd()
+        {
+            var startTreeViewItem = treeView.StartTreeViewItem;
+            if (startTreeViewItem != null && startTreeViewItem.DataContext is ITreeItem startItem)
+            {
+                treeView.DeselectAllChildItems();
+
+                if (startItem is FormattedGrepLine line)
+                {
+                    startItem = line.Parent;
+                    if (!startItem.IsSelected)
+                        startItem.IsSelected = true;
+                }
+
+                bool isSelecting = false;
+                foreach (var item in inputData)
+                {
+                    if (item == startItem)
+                    {
+                        isSelecting = true;
+                    }
+                    else if (isSelecting)
+                    {
+                        item.IsSelected = true;
+
+                        if (item.IsExpanded)
+                        {
+                            foreach (var child in item.Children)
+                            {
+                                child.IsSelected = true;
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -259,11 +375,11 @@ namespace dnGREP.WPF.UserControls
                             // update label in the results tree
                             searchResult.SetLabel();
                             // update label on the preview window
-                            OnSelectedItemsChanged(this, e);
+                            OnSelectedItemsChanged();
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show("Rename failed: " + ex.Message, "Rename File",
+                            MessageBox.Show("Rename failed: " + ex.Message, "dnGrep - Rename File",
                                 MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                     }
@@ -519,13 +635,13 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
-        private void OnSelectedItemsChanged(object sender, RoutedEventArgs e)
+        private void OnSelectedItemsChanged()
         {
             Window parentWindow = Window.GetWindow(this);
 
             var rect = new System.Drawing.RectangleF { Height = (float)parentWindow.ActualHeight, Width = (float)parentWindow.ActualWidth, X = (float)parentWindow.Left, Y = (float)parentWindow.Top };
 
-            if (treeView.GetValue(MultiSelectTreeView.SelectedItemsProperty) is IList items && items.Count > 0)
+            if (inputData.SelectedNodes is IList items && items.Count > 0)
             {
                 if (items[0] is FormattedGrepLine)
                     inputData.PreviewFile(items[0] as FormattedGrepLine, rect);
@@ -692,7 +808,7 @@ namespace dnGREP.WPF.UserControls
 
             DragDropEffects supportedEffects = DragDropEffects.Move | DragDropEffects.Copy;
             // Perform DragDrop
-            DragDropEffects effects = System.Windows.DragDrop.DoDragDrop(_draggedElt, data, supportedEffects);
+            _ = DragDrop.DoDragDrop(_draggedElt, data, supportedEffects);
 
             // Clean up
             Mouse.Capture(null);

@@ -11,6 +11,8 @@
     
     <UserControl.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <my:BoolToScollBarVisibilityConverter x:Key="BoolToScollBarVisibilityConverter"/>
+        <my:BoolToTextWrappingConverter x:Key="BoolToTextWrappingConverter"/>
         <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource ThemedContextMenu}">
             <Setter Property="FontFamily" Value="{Binding Path=DataContext.ApplicationFontFamily, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
             <Setter Property="FontSize" Value="{Binding Path=DataContext.MainFormFontSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
@@ -24,9 +26,12 @@
                                   BorderBrush="{DynamicResource TreeView.Border}"
                                   ItemsSource="{Binding}"
                                   SelectedItems="{Binding SelectedNodes}"
-                                  MultiSelectRootLevelOnly="False" VirtualizingStackPanel.IsVirtualizing="True"
-                                  MouseDoubleClick="treeView_MouseDoubleClick" PreviewKeyDown="treeKeyDown"
-                                  SelectedItemsChanged="OnSelectedItemsChanged">
+                                  MultiSelectRootLevelOnly="False" 
+                                  VirtualizingStackPanel.IsVirtualizing="True"
+                                  MouseDoubleClick="treeView_MouseDoubleClick" 
+                                  PreviewKeyDown="treeKeyDown"
+                                  Grid.IsSharedSizeScope="True"
+                                  ScrollViewer.HorizontalScrollBarVisibility="{Binding Path=WrapText, Converter={StaticResource BoolToScollBarVisibilityConverter}}">
         <TreeView.ItemsPanel>
             <ItemsPanelTemplate>
                 <Controls:MyVirtualizingStackPanel/>
@@ -38,9 +43,16 @@
         <TreeView.Resources>
             <HierarchicalDataTemplate DataType="{x:Type my:FormattedGrepResult}" ItemsSource="{Binding FormattedLines}">
                 <StackPanel Orientation="Vertical">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Height="16" Source="{Binding Icon}" />
-                        <TextBlock Margin="3,0,0,0" Text="{Binding Label}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="ICON"/>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" 
+                               Height="16" Source="{Binding Icon}" />
+                        <TextBlock Grid.Column="1" 
+                                   Margin="6,0,0,0" Text="{Binding Label}"
+                                   TextWrapping="{Binding WrapText, Converter={StaticResource BoolToTextWrappingConverter}}">
                             <TextBlock.ToolTip>
                                 <ToolTip  Visibility="{Binding ShowFileInfoTooltips, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <StackPanel Orientation="Vertical">
@@ -69,7 +81,7 @@
                                 </ToolTip>
                             </TextBlock.ToolTip>
                         </TextBlock>
-                    </StackPanel>
+                    </Grid>
                     <Viewbox Width="20" Height="20" Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
                         <Controls:BusyIndicator Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     </Viewbox>
@@ -87,8 +99,8 @@
                             </Style.Triggers>
                         </Style>
                     </Border.Resources>
-                    <WrapPanel>
-                        <WrapPanel.Resources>
+                    <Grid>
+                        <Grid.Resources>
                             <Style TargetType="{x:Type TextBlock}">
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type TreeViewItem}}}" Value="True">
@@ -102,13 +114,20 @@
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
-                        </WrapPanel.Resources>
-                        <TextBlock Width="{Binding LineNumberColumnWidth}"
+                        </Grid.Resources>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="NUM"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   Width="{Binding LineNumberColumnWidth}"
                                    Margin="-3" Padding="0,0,3,0"
                                    Text="{Binding FormattedLineNumber}"
                                    TextAlignment="Right" />
-                        <my:InlineTextBlock Margin="3,0,0,0" InlineCollection="{Binding FormattedText}" FontFamily="Consolas" />
-                    </WrapPanel>
+                        <my:InlineTextBlock Grid.Column="1" 
+                                            Margin="6,0,0,0" InlineCollection="{Binding FormattedText}" FontFamily="Consolas" 
+                                            TextWrapping="{Binding WrapText, Converter={StaticResource BoolToTextWrappingConverter}}"/>
+                    </Grid>
                 </Border>
             </DataTemplate>
         </TreeView.Resources>
@@ -165,7 +184,7 @@
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition />
                                 </Grid.RowDefinitions>
-                                <ToggleButton x:Name="Expander"
+                                <ToggleButton x:Name="Expander" Grid.Column="0"
                                               Style="{StaticResource ExpandCollapseToggleStyle}"
                                               ClickMode="Press"
                                               IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" />

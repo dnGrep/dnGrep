@@ -39,23 +39,26 @@
                    Background="{DynamicResource StatusBar.Static.Background}"
                    Foreground="{DynamicResource StatusBar.Static.Foreground}"
                    Visibility="{Binding HighlightDisabled, Converter={StaticResource BoolToVisibilityConverter}}" />
-            <StatusBar Name="statusBar" Grid.Row="4" VerticalAlignment="Center"
-                       VerticalContentAlignment="Center" DockPanel.Dock="Bottom" ClipToBounds="False"
-                       FontFamily="{Binding ApplicationFontFamily}"
-                       FontSize="{Binding MainFormFontSize}">
-                <TextBlock Margin="0,0,3,0" HorizontalAlignment="Center" VerticalAlignment="Center">Zoom:</TextBlock>
-                <Slider Name="zoomSlider" Width="200" Margin="0,0,3,0"
-                        HorizontalAlignment="Right" VerticalAlignment="Center"
-                        VerticalContentAlignment="Center" ToolTip="Changes text editor zoom" Minimum="9"
-                        Maximum="30" Value="12" />
-                <CheckBox Name="cbWrapText" Margin="0,0,3,0" VerticalAlignment="Center"
-                          VerticalContentAlignment="Center">
-                    Wrap text
-                </CheckBox>
-                <ComboBox Name="cbHighlighter" Margin="0,0,3,0" VerticalContentAlignment="Center"
+            <WrapPanel Name="statusBar" DockPanel.Dock="Bottom"
+                       Margin="3" VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Zoom:" Margin="0,0,3,0" 
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center"
+                               Style="{DynamicResource LabelTextBlockStyle}"/>
+                    <Slider Name="zoomSlider" Width="200" Margin="0,0,3,0"
+                            HorizontalAlignment="Right" VerticalAlignment="Center"
+                            VerticalContentAlignment="Center" ToolTip="Changes text editor zoom" 
+                            Minimum="9" Maximum="30" Value="12" />
+                </StackPanel>
+                <CheckBox Name="cbWrapText" Content="Wrap Text"
+                          Margin="3,0,3,0" VerticalAlignment="Center"
+                          VerticalContentAlignment="Center"/>
+                <ComboBox Name="cbHighlighter" Margin="3,0,3,0" MinWidth="80"
+                          VerticalContentAlignment="Center"
                           ItemsSource="{Binding Path=Highlighters}"
                           SelectedValue="{Binding Path=CurrentSyntax}" />
-            </StatusBar>
+            </WrapPanel>
             <ae:TextEditor Name="textEditor" FontFamily="Consolas"
                            FontSize="{Binding ElementName=zoomSlider, Path=Value}"
                            Foreground="{DynamicResource AvalonEdit.Foreground}"
