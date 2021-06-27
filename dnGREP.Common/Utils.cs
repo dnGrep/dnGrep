@@ -2423,19 +2423,4 @@ namespace dnGREP.Common
                 return text;
         }
     }
-
-    public static class StringExtensions
-    {
-        public static bool Contains(this string source, string toCheck, StringComparison comp)
-        {
-            if (source == null) return false;
-            return source.IndexOf(toCheck, comp) >= 0;
-        }
-
-        public static bool Contains(this IEnumerable<string> source, string toCheck, StringComparison comp)
-        {
-            if (source == null) return false;
-            return source.Where(s => s.Contains(toCheck, comp)).Any();
-        }
-    }
 }

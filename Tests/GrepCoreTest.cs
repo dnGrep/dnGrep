@@ -1410,5 +1410,36 @@ namespace Tests
 
             Assert.Equal(expected, fileContent);
         }
+
+        [Theory]
+        [InlineData(@"{$R *.dfm}", @"\{\$", 2, @"{&", @"{&R *.dfm}")]
+        public void TestIssue503EscapedDollar(string content, string pattern, int matchLength, string replace, string expected)
+        {
+            string path = Path.Combine(destinationFolder, @"TestEscapedDollar");
+            if (Directory.Exists(path))
+                Utils.DeleteFolder(path);
+            Directory.CreateDirectory(path);
+
+            string file = Path.Combine(path, @"test.txt");
+            File.WriteAllText(file, content);
+            var files = Directory.GetFiles(path, "*.txt");
+
+            GrepCore core = new GrepCore();
+            var results = core.Search(files, SearchType.Regex, pattern, GrepSearchOption.None, -1);
+
+            Assert.Single(results);
+            Assert.Single(results[0].Matches);
+            Assert.Equal(matchLength, results[0].Matches[0].Length);
+
+            // mark for replace
+            List<ReplaceDef> replaceFiles = new List<ReplaceDef>();
+            results[0].Matches[0].ReplaceMatch = true;
+            replaceFiles.Add(new ReplaceDef(file, results[0].Matches));
+
+            core.Replace(replaceFiles, SearchType.Regex, pattern, replace, GrepSearchOption.SingleLine, -1);
+            string fileContent = File.ReadAllText(file, Encoding.UTF8);
+
+            Assert.Equal(expected, fileContent);
+        }
     }
 }
