@@ -46,6 +46,21 @@ namespace dnGREP.WPF
             }
         }
 
+        private bool isPdf;
+        public bool IsPdf
+        {
+            get { return isPdf; }
+            set
+            {
+                if (value == isPdf)
+                    return;
+
+                isPdf = value;
+
+                base.OnPropertyChanged(() => IsPdf);
+            }
+        }
+
         private string currentSyntax;
         public string CurrentSyntax
         {
@@ -213,7 +228,8 @@ namespace dnGREP.WPF
                     try
                     {
                         // Do not preview files over 4MB or binary
-                        IsLargeOrBinary = fileInfo.Length > 4096000 || Utils.IsBinary(FilePath);
+                        IsPdf = Utils.IsPdfFile(FilePath);
+                        IsLargeOrBinary = fileInfo.Length > 4096000 || Utils.IsBinary(FilePath) || IsPdf;
                     }
                     catch (System.IO.IOException ex)
                     {
