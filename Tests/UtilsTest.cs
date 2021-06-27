@@ -1407,5 +1407,34 @@ namespace Tests
             Assert.Equal(expExit, args.Exit);
 
         }
+
+        [Theory]
+        [InlineData(@"a$b\$c", @"azb\$c", "$", "z")]
+        [InlineData(@"$ab\$c", @"zab\$c", "$", "z")]
+        [InlineData(@"\$ab\$c", @"\$ab\$c", "$", "z")]
+        [InlineData(@"a$b\$c", @"azyzzxb\$c", "$", "zyzzx")]
+        [InlineData(@"\$", @"\$", "$", "z")]
+        [InlineData(@"$", @"z", "$", "z")]
+        [InlineData(@"abcdef", @"abcdef", "$", "z")]
+        public void TestReplaceUnescaped(string input, string expected, string oldValue, string newValue)
+        {
+            string actual = input.ReplaceIfNotEscaped(oldValue, newValue);
+            Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData(@"a$b\$c", true, "$")]
+        [InlineData(@"$ab\$c", true, "$")]
+        [InlineData(@"a\$b$c", true, "$")]
+        [InlineData(@"\$ab$c", true, "$")]
+        [InlineData(@"\$ab\$c", false, "$")]
+        [InlineData(@"\$", false, "$")]
+        [InlineData(@"$", true, "$")]
+        [InlineData(@"abcdef", false, "$")]
+        public void TestContainsNotUnescaped(string input, bool expected, string toCheck)
+        {
+            bool actual = input.ConstainsNotEscaped(toCheck);
+            Assert.Equal(expected, actual);
+        }
     }
 }
