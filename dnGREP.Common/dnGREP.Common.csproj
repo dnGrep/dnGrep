@@ -179,7 +179,7 @@
       <Version>13.0.1</Version>
     </PackageReference>
     <PackageReference Include="NLog">
-      <Version>4.7.6</Version>
+      <Version>4.7.10</Version>
     </PackageReference>
     <PackageReference Include="UTF.Unknown">
       <Version>2.3.0</Version>
