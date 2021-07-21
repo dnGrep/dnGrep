@@ -113,9 +113,10 @@ namespace DockFloat
                 // Subscribe to the parent's size changed event
                 dp.SizeChanged += ParentSizeChanged;
 
-                // Store the current size of the parent DockPanel
-                previousParentWidth = dp.ActualWidth;
-                previousParentHeight = dp.ActualHeight;
+                // Current size of the parent DockPanel is not yet set
+                // Store the current size in the ParentSizeChanged handler
+                previousParentWidth = double.NaN;
+                previousParentHeight = double.NaN;
 
                 // Find the target element
                 UpdateTargetElement();
@@ -232,13 +233,17 @@ namespace DockFloat
 
             if (Parent is DockPanel dp)
             {
-                double sx = dp.ActualWidth / previousParentWidth;
-                double sy = dp.ActualHeight / previousParentHeight;
+                if (!double.IsNaN(previousParentWidth) && previousParentWidth != 0 &&
+                    !double.IsNaN(previousParentHeight) && previousParentHeight != 0)
+                {
+                    double sx = dp.ActualWidth / previousParentWidth;
+                    double sy = dp.ActualHeight / previousParentHeight;
 
-                if (!double.IsInfinity(sx))
-                    SetTargetWidth(element.Width * sx);
-                if (!double.IsInfinity(sy))
-                    SetTargetHeight(element.Height * sy);
+                    if (!double.IsInfinity(sx))
+                        SetTargetWidth(element.Width * sx);
+                    if (!double.IsInfinity(sy))
+                        SetTargetHeight(element.Height * sy);
+                }
 
                 previousParentWidth = dp.ActualWidth;
                 previousParentHeight = dp.ActualHeight;

@@ -192,11 +192,18 @@ namespace dnGREP.WPF
         {
             viewModel.CancelSearch();
 
-            LayoutProperties.MainWindowBounds = new Rect(
-                Left,
-                Top,
-                ActualWidth,
-                ActualHeight);
+            if (WindowState == WindowState.Normal)
+            {
+                LayoutProperties.MainWindowBounds = new Rect(
+                    Left,
+                    Top,
+                    ActualWidth,
+                    ActualHeight);
+            }
+            else
+            {
+                LayoutProperties.MainWindowBounds = RestoreBounds;
+            }
             LayoutProperties.MainWindowState = WindowState.Normal;
             if (WindowState == WindowState.Maximized)
                 LayoutProperties.MainWindowState = WindowState.Maximized;
