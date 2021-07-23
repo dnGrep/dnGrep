@@ -62,6 +62,14 @@ namespace dnGREP.WPF
                             LayoutProperties.MainWindowBounds.X,
                             LayoutProperties.MainWindowBounds.Y);
                         WindowState = LayoutProperties.MainWindowState;
+
+                        // after window is sized and positioned, asynchronously reset the preview
+                        // splitter position (which got moved during the layout)
+                        Dispatcher.BeginInvoke((Action)(() =>
+                        {
+                            viewModel.PreviewDockedWidth = LayoutProperties.PreviewDockedWidth;
+                            viewModel.PreviewDockedHeight = LayoutProperties.PreviewDockedHeight;
+                        }), null);
                     }
                     else
                     {
