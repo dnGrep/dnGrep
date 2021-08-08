@@ -34,6 +34,7 @@ namespace dnGREP.WPF
                 else
                     SevenZip.SevenZipBase.SetLibraryPath(Path.Combine(path, @"7z.dll"));
 
+                TranslationSource.Instance.SetCulture(GrepSettings.Instance.Get<string>(GrepSettings.Key.CurrentCulture));
                 AppTheme.Instance.Initialize();
 
                 AppArgs = new CommandLineArgs(Environment.CommandLine);

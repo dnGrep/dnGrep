@@ -18,7 +18,7 @@ namespace dnGREP.WPF
 {
     public class OptionsViewModel : ViewModelBase
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         public OptionsViewModel()
         {
@@ -26,6 +26,8 @@ namespace dnGREP.WPF
 
             foreach (string name in AppTheme.Instance.ThemeNames)
                 ThemeNames.Add(name);
+
+            CultureNames = TranslationSource.Instance.AppCultures.ToArray();
 
             hasWindowsThemes = AppTheme.HasWindowsThemes;
             AppTheme.Instance.CurrentThemeChanged += (s, e) =>
@@ -74,6 +76,7 @@ namespace dnGREP.WPF
                     PanelSelection.MainPanel : PanelSelection.OptionsExpander) ||
                 FollowWindowsTheme != Settings.Get<bool>(GrepSettings.Key.FollowWindowsTheme) ||
                 CurrentTheme != Settings.Get<string>(GrepSettings.Key.CurrentTheme) ||
+                CurrentCulture != Settings.Get<string>(GrepSettings.Key.CurrentCulture) ||
                 UseDefaultFont != Settings.Get<bool>(GrepSettings.Key.UseDefaultFont) ||
                 EditApplicationFontFamily != Settings.Get<string>(GrepSettings.Key.ApplicationFontFamily) ||
                 EditMainFormFontSize != Settings.Get<double>(GrepSettings.Key.MainFormFontSize) ||
@@ -252,6 +255,23 @@ namespace dnGREP.WPF
         }
 
         public ObservableCollection<string> ThemeNames { get; } = new ObservableCollection<string>();
+
+        private string currentCulture;
+        public string CurrentCulture
+        {
+            get { return currentCulture; }
+            set
+            {
+                if (currentCulture == value)
+                    return;
+
+                currentCulture = value;
+                OnPropertyChanged("CurrentCulture");
+                TranslationSource.Instance.SetCulture(value);
+            }
+        }
+
+        public KeyValuePair<string, string>[] CultureNames { get;  }
 
         private string customEditorPath;
         public string CustomEditorPath
@@ -911,6 +931,7 @@ namespace dnGREP.WPF
             // current values may not equal the saved settings value
             CurrentTheme = AppTheme.Instance.CurrentThemeName;
             FollowWindowsTheme = AppTheme.Instance.FollowWindowsTheme;
+            CurrentCulture = TranslationSource.Instance.CurrentCulture.Name;
 
             PdfToTextOptions = Settings.Get<string>(GrepSettings.Key.PdfToTextOptions);
 
@@ -1023,6 +1044,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.OptionsOnMainPanel, OptionsLocation == PanelSelection.MainPanel);
             Settings.Set(GrepSettings.Key.FollowWindowsTheme, FollowWindowsTheme);
             Settings.Set(GrepSettings.Key.CurrentTheme, CurrentTheme);
+            Settings.Set(GrepSettings.Key.CurrentCulture, CurrentCulture);
             Settings.Set(GrepSettings.Key.UseDefaultFont, UseDefaultFont);
             Settings.Set(GrepSettings.Key.ApplicationFontFamily, ApplicationFontFamily);
             Settings.Set(GrepSettings.Key.MainFormFontSize, MainFormFontSize);

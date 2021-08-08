@@ -130,18 +130,18 @@
                             <Setter Property="FontSize" Value="{Binding MainFormFontSize}"/>
                         </Style>
                     </Menu.Resources>
-                    <MenuItem Margin="0,0,3,0" Header="_Undo"
+                    <MenuItem Margin="0,0,3,0" Header="{my:Loc Key='_Undo'}"
                               Command="{Binding UndoCommand}"
                               TabIndex="0" />
-                    <MenuItem Margin="0,0,3,0" Header="_Options..."
+                    <MenuItem Margin="0,0,3,0" Header="{my:Loc Key='_Options...'}"
                               Command="{Binding OptionsCommand}"
                               TabIndex="1" />
-                    <MenuItem Margin="0,0,3,0" Header="_Bookmarks..."
+                    <MenuItem Margin="0,0,3,0" Header="{my:Loc Key='_Bookmarks...'}"
                               Command="{Binding BookmarkOpenCommand}"
                               TabIndex="2" />
-                    <MenuItem Margin="0,0,3,0" Header="_About" TabIndex="3">
-                        <MenuItem Command="{Binding HelpCommand}" Header="_Help" />
-                        <MenuItem Command="{Binding AboutCommand}" Header="_About dnGrep..." />
+                    <MenuItem Margin="0,0,3,0" Header="{my:Loc Key='_About'}" TabIndex="3">
+                        <MenuItem Command="{Binding HelpCommand}" Header="{my:Loc Key='_Help'}" />
+                        <MenuItem Command="{Binding AboutCommand}" Header="{my:Loc Key='_About_dnGrep...'}" />
                     </MenuItem>
                 </Menu>
             </DockPanel>

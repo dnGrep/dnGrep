@@ -4,7 +4,7 @@
                  xmlns:my="clr-namespace:dnGREP.WPF"
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                 Title="About dnGREP"
+                 Title="{my:Loc Key='About dnGREP'}"
                  FontFamily="{Binding ApplicationFontFamily}"
                  FontSize="{Binding DialogFontSize}"
                  Height="500"
@@ -45,12 +45,12 @@
             </Border>
 
             <StackPanel Grid.Row="0" Grid.Column="1"  Orientation="Horizontal">
-                <TextBlock Text="dnGREP" FontWeight="DemiBold" 
+                <TextBlock Text="{my:Loc Key='dnGREP'}" FontWeight="DemiBold" 
                        FontSize="{Binding DialogFontSize, Converter={StaticResource TitleSizeConverter}, ConverterParameter=2, FallbackValue=14}" 
                        Style="{StaticResource ThemedTextBlock}"/>
                 <TextBlock Style="{StaticResource ThemedTextBlock}" Margin="30,0,0,0">
                 <Hyperlink NavigateUri="http://dngrep.github.io/" RequestNavigate="Hyperlink_RequestNavigate">
-                    dnGrep on GitHub
+                    <TextBlock Text="{my:Loc Key='dnGrep on GitHub'}"/>
                 </Hyperlink>
                 </TextBlock>
             </StackPanel>
@@ -74,12 +74,12 @@
                            Style="{StaticResource ThemedTextBlock}" />
             </Border>
             
-            <TextBlock Grid.Row="5" Grid.Column="0" Text="Acknowledgments" 
+            <TextBlock Grid.Row="5" Grid.Column="0" Text="{my:Loc Key='Acknowledgments'}" 
                     Style="{StaticResource ThemedTextBlock}" FontWeight="DemiBold" Margin="0,12,6,0"/>
         </Grid>
 
         <Button DockPanel.Dock="Bottom" Width="90" Margin="0,10,0,0"
-                Height="28" HorizontalAlignment="Right" Content="OK"
+                Height="28" HorizontalAlignment="Right" Content="{my:Loc Key='OK'}"
                 IsDefault="True" IsCancel="True" />
 
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">

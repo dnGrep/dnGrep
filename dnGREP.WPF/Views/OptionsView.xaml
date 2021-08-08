@@ -129,6 +129,24 @@
                     </StackPanel>
                 </GroupBox>
 
+                <GroupBox Header="Language">
+                    <StackPanel Orientation="Horizontal">
+                        <ComboBox Margin="6,3"
+                                  ItemsSource="{Binding Path=CultureNames}"
+                                  SelectedValuePath="Key"
+                                  DisplayMemberPath="Value"
+                                  SelectedValue="{Binding Path=CurrentCulture, Mode=TwoWay}">
+                            <ComboBox.Width>
+                                <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="250" FallbackValue="250">
+                                    <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                    <Binding Path="ApplicationFontFamily"/>
+                                    <Binding Path="DialogFontSize"/>
+                                </MultiBinding>
+                            </ComboBox.Width>
+                        </ComboBox>
+                    </StackPanel>
+                </GroupBox>
+
                 <GroupBox Header="Application Fonts">
                     <Grid>
                         <Grid.ColumnDefinitions>

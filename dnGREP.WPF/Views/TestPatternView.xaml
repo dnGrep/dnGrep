@@ -2,7 +2,7 @@
                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:my="clr-namespace:dnGREP.WPF"
-                 Title="Test"
+                 Title="{my:Loc Key='Test'}"
                  FontFamily="{Binding ApplicationFontFamily}"
                  FontSize="{Binding DialogFontSize}"
                  SizeToContent="Height"
@@ -59,16 +59,16 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
-                        <RadioButton Content="Regex" Margin="3,4,3,3" GroupName="SearchRegex"
+                        <RadioButton Content="{my:Loc Key=Regex}" Margin="3,4,3,3" GroupName="SearchRegex"
                                      IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, 
                                         ConverterParameter=Regex}"/>
-                        <RadioButton Content="XPath" Margin="3,4,3,3" GroupName="SearchXPath"
+                        <RadioButton Content="{my:Loc Key=XPath}" Margin="3,4,3,3" GroupName="SearchXPath"
                                      IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, 
                                         ConverterParameter=XPath}"/>
-                        <RadioButton Content="Text" Margin="3,4,3,3" GroupName="SearchText"
+                        <RadioButton Content="{my:Loc Key=Text}" Margin="3,4,3,3" GroupName="SearchText"
                                      IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, 
                                         ConverterParameter=PlainText}"/>
-                        <RadioButton Content="Phonetic" Margin="3,4,3,3" GroupName="SearchSoundex"
+                        <RadioButton Content="{my:Loc Key=Phonetic}" Margin="3,4,3,3" GroupName="SearchSoundex"
                                      IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, 
                                         ConverterParameter=Soundex}"/>
                     </StackPanel>
@@ -83,7 +83,7 @@
                         </Border>
                     </StackPanel>
                     <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                              Header="Search for:" BorderThickness="0">
+                              Header="{my:Loc Key='Search for:'}" BorderThickness="0">
                         <TextBox Margin="-5,3,-5,0"
                                  Text="{Binding Path=SearchFor, UpdateSourceTrigger=PropertyChanged}"
                                  VerticalScrollBarVisibility="Auto"
@@ -108,7 +108,7 @@
                         </TextBox>
                     </GroupBox>
                     <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                              Header="Replace with:" BorderThickness="0">
+                              Header="{my:Loc Key='Replace with:'}" BorderThickness="0">
                         <TextBox Margin="-5,3,-5,0"
                                  Text="{Binding Path=ReplaceWith, UpdateSourceTrigger=PropertyChanged}"
                                  VerticalScrollBarVisibility="Auto"
@@ -125,22 +125,22 @@
                         </TextBox>
                     </GroupBox>
                     <UniformGrid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="8,0,0,0" Rows="2">
-                        <CheckBox Content="Case sensitive" Margin="3,4,3,3" 
+                        <CheckBox Content="{my:Loc Key='Case sensitive'}" Margin="3,4,3,3" 
                                     IsChecked="{Binding Path=CaseSensitive}"
                                     IsEnabled="{Binding Path=IsCaseSensitiveEnabled}"/>
-                        <CheckBox Content="Whole word" Margin="3,4,3,3" 
+                        <CheckBox Content="{my:Loc Key='Whole word'}" Margin="3,4,3,3" 
                                     IsChecked="{Binding Path=WholeWord}"
                                     IsEnabled="{Binding Path=IsWholeWordEnabled}"/>
-                        <CheckBox Content="Multiline" Margin="3,4,3,3" 
+                        <CheckBox Content="{my:Loc Key='Multiline'}" Margin="3,4,3,3" 
                                     IsChecked="{Binding Path=Multiline}"
                                     IsEnabled="{Binding Path=IsMultilineEnabled}"/>
-                        <CheckBox Content="Dot as newline" Margin="3,4,3,3" 
+                        <CheckBox Content="{my:Loc Key='Dot as newline'}" Margin="3,4,3,3" 
                                     IsChecked="{Binding Path=Singleline}"
                                     IsEnabled="{Binding Path=IsSinglelineEnabled}"/>
-                        <CheckBox Content="Boolean operators" Margin="3,4,3,3" 
+                        <CheckBox Content="{my:Loc Key='Boolean operators'}" Margin="3,4,3,3" 
                                     IsChecked="{Binding Path=BooleanOperators}"
                                     IsEnabled="{Binding Path=IsBooleanOperatorsEnabled}"/>
-                        <CheckBox Content="Highlight Groups" Margin="3,4,3,3"                                  
+                        <CheckBox Content="{my:Loc Key='Highlight Groups'}" Margin="3,4,3,3"                                  
                                     IsChecked="{Binding HighlightCaptureGroups}"
                                     IsEnabled="{Binding Path=IsHighlightGroupsEnabled}" />
                     </UniformGrid>
@@ -157,7 +157,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <DockPanel Grid.Row="0" LastChildFill="True">
-                <Label DockPanel.Dock="Top" Content="Sample input text:"/>
+                <Label DockPanel.Dock="Top" Content="{my:Loc Key='Sample input text:'}"/>
                 <TextBox MinHeight="60"
                          Margin="5" AcceptsReturn="True" TextWrapping="Wrap"
                          VerticalScrollBarVisibility="Auto"
@@ -167,7 +167,7 @@
             <GridSplitter Grid.Row="1" Height="2" Background="{DynamicResource Splitter.Background}" 
                           Margin="8,0" VerticalAlignment="Center" HorizontalAlignment="Stretch" />
             <DockPanel Grid.Row="2" LastChildFill="True">
-                <Label DockPanel.Dock="Top" Content="Search result:" />
+                <Label DockPanel.Dock="Top" Content="{my:Loc Key='Search result:'}" />
                 <Border Margin="5"
                         BorderBrush="{DynamicResource Control.Static.Border}"
                         BorderThickness="1"
@@ -185,7 +185,7 @@
                           Margin="8,0" VerticalAlignment="Center" HorizontalAlignment="Stretch" />
             <DockPanel Grid.Row="4" LastChildFill="True">
                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                    <Label Content="Replace result:"/>
+                    <Label Content="{my:Loc Key='Replace result:'}"/>
                     <Label Content="{Binding Path=ReplaceErrorText}" Margin="20,0,0,0" 
                            FontWeight="SemiBold" Foreground="Red"/>
                 </StackPanel>
@@ -209,7 +209,7 @@
                 </Border>
             </DockPanel>
             <StackPanel Grid.Row="5" Margin="0,0,3,0" HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button Margin="3" Padding="20,3" Content="Close"
+                <Button Margin="3" Padding="20,3" Content="{my:Loc Key='Close'}"
                         Click="BtnClose_Click" IsCancel="True" />
             </StackPanel>
         </Grid>
