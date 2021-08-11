@@ -144,6 +144,8 @@
                                 </MultiBinding>
                             </ComboBox.Width>
                         </ComboBox>
+                        <Button Margin="6,3" Padding="12,3" Content="Load from file..."
+                                    Command="{Binding LoadResxCommand}" />
                     </StackPanel>
                 </GroupBox>
 

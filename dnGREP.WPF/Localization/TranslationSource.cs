@@ -30,6 +30,7 @@ namespace dnGREP.WPF
         {
             if (!string.IsNullOrWhiteSpace(ietfLanguateTag) && AppCultures.ContainsKey(ietfLanguateTag))
             {
+                ResourceManagerEx.Instance.FileResources = null;
                 CurrentCulture = CultureInfo.GetCultureInfoByIetfLanguageTag(ietfLanguateTag);
             }
         }
@@ -57,6 +58,19 @@ namespace dnGREP.WPF
                     CurrentCultureChanged?.Invoke(this, EventArgs.Empty);
                 }
             }
+        }
+
+        public bool LoadResxFile(string filePath)
+        {
+            ResxFile resxFile = new ResxFile();
+            resxFile.ReadFile(filePath);
+            if (resxFile.IsValid)
+            {
+                ResourceManagerEx.Instance.FileResources = resxFile;
+                CurrentCulture = CultureInfo.GetCultureInfoByIetfLanguageTag(resxFile.IetfLanguateTag);
+                return true;
+            }
+            return false;
         }
     }
 

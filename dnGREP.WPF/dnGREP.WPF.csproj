@@ -147,6 +147,8 @@
     <Compile Include="Controls\RadioMenuItem.cs" />
     <Compile Include="Controls\SplitButton.cs" />
     <Compile Include="Controls\ThemedWindow.cs" />
+    <Compile Include="Localization\ResourceManagerEx.cs" />
+    <Compile Include="Localization\ResxFile.cs" />
     <Compile Include="MVHelpers\BoolToTextWrappingConverter.cs" />
     <Compile Include="MVHelpers\BoolToScrollbarVisibilityConverter.cs" />
     <Compile Include="MVHelpers\DockSiteVisibilityConverter.cs" />
@@ -158,7 +160,7 @@
     <Compile Include="MVHelpers\ColorInverter.cs" />
     <Compile Include="MVHelpers\ResultSorter.cs" />
     <Compile Include="MVHelpers\StringNotNullOrEmptyConverter.cs" />
-    <Compile Include="MVHelpers\TranslationSource.cs" />
+    <Compile Include="Localization\TranslationSource.cs" />
     <Compile Include="MVHelpers\ValueRangeRule.cs" />
     <Compile Include="MVHelpers\TextBoxWidthConverter.cs" />
     <Compile Include="MVHelpers\TitleFontSizeConverter.cs" />

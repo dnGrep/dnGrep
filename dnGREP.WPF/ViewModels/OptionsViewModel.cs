@@ -86,9 +86,13 @@ namespace dnGREP.WPF
                 ArchiveOptions.IsChanged ||
                 IsChanged(Plugins)
                 )
-                    return true;
+                {
+                    return CurrentCulture != null;
+                }
                 else
+                {
                     return false;
+                }
             }
         }
 
@@ -751,7 +755,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private RelayCommand _browseEditiorCommand;
+        private RelayCommand _browseEditorCommand;
         /// <summary>
         /// Returns a command that opens file browse dialog.
         /// </summary>
@@ -759,13 +763,13 @@ namespace dnGREP.WPF
         {
             get
             {
-                if (_browseEditiorCommand == null)
+                if (_browseEditorCommand == null)
                 {
-                    _browseEditiorCommand = new RelayCommand(
+                    _browseEditorCommand = new RelayCommand(
                         param => BrowseToEditor()
                         );
                 }
-                return _browseEditiorCommand;
+                return _browseEditorCommand;
             }
         }
 
@@ -823,6 +827,24 @@ namespace dnGREP.WPF
             }
         }
 
+        private RelayCommand _loadResxCommand;
+        /// <summary>
+        /// Returns a command that loads an external resx file.
+        /// </summary>
+        public ICommand LoadResxCommand
+        {
+            get
+            {
+                if (_loadResxCommand == null)
+                {
+                    _loadResxCommand = new RelayCommand(
+                        param => LoadResxFile()
+                        );
+                }
+                return _loadResxCommand;
+            }
+        }
+
         private RelayCommand _resetPdfToTextOptionCommand;
         public ICommand ResetPdfToTextOptionCommand
         {
@@ -852,6 +874,22 @@ namespace dnGREP.WPF
         #endregion // Public Methods
 
         #region Private Methods
+
+        private void LoadResxFile()
+        {
+            var dlg = new OpenFileDialog();
+            dlg.Filter = "resx files|*.resx";
+            dlg.CheckFileExists = true;
+            dlg.DefaultExt = "resx";
+            var result = dlg.ShowDialog();
+            if (result.HasValue && result.Value)
+            {
+                if (TranslationSource.Instance.LoadResxFile(dlg.FileName))
+                {
+                    CurrentCulture = null;
+                }
+            }
+        }
 
         public void BrowseToEditor()
         {
