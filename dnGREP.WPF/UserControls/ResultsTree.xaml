@@ -148,8 +148,10 @@
                 <MenuItem Header="Copy Lines of text" Click="btnCopyGrepLine_Click" IsEnabled="{Binding HasGrepLineSelection}" />
                 <Separator />
                 <MenuItem Header="Exclude from results" Click="btnExclude_Click" IsEnabled="{Binding HasSelection}" />
-                <MenuItem Header="Expand all" Click="btnExpandAll_Click" />
-                <MenuItem Header="Collapse all" Click="btnCollapseAll_Click" />
+                <MenuItem Header="Next Match" Click="btnNextMatch_Click" InputGestureText="F3" />
+                <MenuItem Header="Previous Match" Click="btnPreviousMatch_Click" InputGestureText="F4"/>
+                <MenuItem Header="Expand all" Click="btnExpandAll_Click" InputGestureText="F6" />
+                <MenuItem Header="Collapse all" Click="btnCollapseAll_Click" InputGestureText="Shift+F6"/>
                 <MenuItem Header="Reset zoom" Click="btnResetZoom_Click" />
             </ContextMenu>
         </TreeView.ContextMenu>
