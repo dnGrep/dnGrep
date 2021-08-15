@@ -2,6 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/ThemedControls/ThemedWindow.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/dnGrep;component/ThemedControls/ThemedWindow.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
