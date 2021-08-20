@@ -8,13 +8,14 @@ using System.Xml;
 using System.Xml.XPath;
 using dnGREP.Common;
 using dnGREP.Everything;
-using NLog;
 
 namespace dnGREP.WPF
 {
     public class BaseMainViewModel : ViewModelBase, IDataErrorInfo
     {
-        public static int FastBookmarkCapacity = 20;
+        public static readonly int FastBookmarkCapacity = 20;
+        public static readonly string STAR = "*";
+        public static readonly string AUTO = "Auto";
 
         public BaseMainViewModel()
         {
@@ -32,9 +33,8 @@ namespace dnGREP.WPF
         }
 
         #region Private Variables and Properties
-        private XmlDocument doc = new XmlDocument();
+        private readonly XmlDocument doc = new XmlDocument();
         private XPathNavigator nav;
-        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         // list of properties that affect the search results
         private static readonly HashSet<string> searchParameters = new HashSet<string>
@@ -84,37 +84,37 @@ namespace dnGREP.WPF
 
         #region Properties
 
-        private ObservableGrepSearchResults searchResults = new ObservableGrepSearchResults();
+        private readonly ObservableGrepSearchResults searchResults = new ObservableGrepSearchResults();
         public ObservableGrepSearchResults SearchResults
         {
             get { return searchResults; }
         }
 
-        private ObservableCollection<string> fastSearchBookmarks = new ObservableCollection<string>();
+        private readonly ObservableCollection<string> fastSearchBookmarks = new ObservableCollection<string>();
         public ObservableCollection<string> FastSearchBookmarks
         {
             get { return fastSearchBookmarks; }
         }
 
-        private ObservableCollection<string> fastReplaceBookmarks = new ObservableCollection<string>();
+        private readonly ObservableCollection<string> fastReplaceBookmarks = new ObservableCollection<string>();
         public ObservableCollection<string> FastReplaceBookmarks
         {
             get { return fastReplaceBookmarks; }
         }
 
-        private ObservableCollection<string> fastFileMatchBookmarks = new ObservableCollection<string>();
+        private readonly ObservableCollection<string> fastFileMatchBookmarks = new ObservableCollection<string>();
         public ObservableCollection<string> FastFileMatchBookmarks
         {
             get { return fastFileMatchBookmarks; }
         }
 
-        private ObservableCollection<string> fastFileNotMatchBookmarks = new ObservableCollection<string>();
+        private readonly ObservableCollection<string> fastFileNotMatchBookmarks = new ObservableCollection<string>();
         public ObservableCollection<string> FastFileNotMatchBookmarks
         {
             get { return fastFileNotMatchBookmarks; }
         }
 
-        private ObservableCollection<string> fastPathBookmarks = new ObservableCollection<string>();
+        private readonly ObservableCollection<string> fastPathBookmarks = new ObservableCollection<string>();
         public ObservableCollection<string> FastPathBookmarks
         {
             get { return fastPathBookmarks; }
@@ -314,7 +314,7 @@ namespace dnGREP.WPF
 
         private bool followSymlinks;
         public bool FollowSymlinks
-        { 
+        {
             get { return followSymlinks; }
             set
             {
@@ -420,7 +420,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string patternColumnWidth = "*";
+        private string patternColumnWidth = STAR;
         public string PatternColumnWidth
         {
             get { return patternColumnWidth; }
@@ -435,7 +435,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string searchTextBoxLabel = "Folder:";
+        private string searchTextBoxLabel = Properties.Resources.Folder_;
         public string SearchTextBoxLabel
         {
             get { return searchTextBoxLabel; }
@@ -1070,7 +1070,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string windowTitle = "dnGREP";
+        private string windowTitle = Properties.Resources.DnGREP_Title;
         public string WindowTitle
         {
             get { return windowTitle; }
@@ -1204,7 +1204,6 @@ namespace dnGREP.WPF
             if (searchParameters.Contains(name))
                 SearchParametersChanged = true;
 
-            List<string> tempList = null;
             switch (name)
             {
                 case "Multiline":
@@ -1244,14 +1243,14 @@ namespace dnGREP.WPF
                         FilePatternIgnore = string.Empty;
                         UseGitignore = false;
                         IsEverythingSearchMode = true;
-                        PatternColumnWidth = "Auto";
-                        SearchTextBoxLabel = "Everything search:";
+                        PatternColumnWidth = AUTO;
+                        SearchTextBoxLabel = Properties.Resources.EverythingSearch;
                     }
                     else
                     {
                         IsEverythingSearchMode = false;
-                        PatternColumnWidth = "*";
-                        SearchTextBoxLabel = "Folder:";
+                        PatternColumnWidth = STAR;
+                        SearchTextBoxLabel = Properties.Resources.Folder_;
                     }
 
                     if (TypeOfFileSearch != FileSearchType.Regex)
@@ -1265,27 +1264,27 @@ namespace dnGREP.WPF
                 name == "IncludeBinary" || name == "UseFileSizeFilter" || name == "UseFileDateFilter" ||
                 name == "FollowSymlinks")
             {
-                tempList = new List<string>();
+                var tempList = new List<string>();
                 if (!IncludeSubfolder || (IncludeSubfolder && MaxSubfolderDepth == 0))
-                    tempList.Add("No subfolders");
+                    tempList.Add(Properties.Resources.NoSubfolders);
                 if (IncludeSubfolder && MaxSubfolderDepth > 0)
-                    tempList.Add($"Max folder depth {MaxSubfolderDepth}");
+                    tempList.Add(string.Format(Properties.Resources.MaxFolderDepth, MaxSubfolderDepth));
                 if (!IncludeHidden)
-                    tempList.Add("No hidden");
+                    tempList.Add(Properties.Resources.NoHidden);
                 if (!IncludeBinary)
-                    tempList.Add("No binary");
+                    tempList.Add(Properties.Resources.NoBinary);
                 if (!FollowSymlinks)
-                    tempList.Add("No symlinks");
+                    tempList.Add(Properties.Resources.NoSymlinks);
                 if (UseFileSizeFilter == FileSizeFilter.Yes)
-                    tempList.Add("By Size");
+                    tempList.Add(Properties.Resources.BySize);
                 if (UseFileDateFilter == FileDateFilter.Modified)
-                    tempList.Add("By Modified Date");
+                    tempList.Add(Properties.Resources.ByModifiedDate);
                 if (UseFileDateFilter == FileDateFilter.Created)
-                    tempList.Add("By Created Date");
+                    tempList.Add(Properties.Resources.ByCreatedDate);
 
                 if (tempList.Count == 0)
                 {
-                    FileFiltersSummary = "All files";
+                    FileFiltersSummary = Properties.Resources.AllFiles;
                 }
                 else
                 {
@@ -1306,8 +1305,8 @@ namespace dnGREP.WPF
                 if (string.IsNullOrWhiteSpace(FileOrFolderPath))
                     WindowTitle = "dnGREP";
                 else
-                    WindowTitle = string.Format("{0} in \"{1}\" - dnGREP",
-                        (SearchFor == null ? "Empty" : SearchFor.Replace('\n', ' ').Replace('\r', ' ')),
+                    WindowTitle = string.Format(Properties.Resources.WindowTitle,
+                        SearchFor == null ? Properties.Resources.Empty : SearchFor.Replace('\n', ' ').Replace('\r', ' '),
                         FileOrFolderPath);
             }
 
@@ -1351,12 +1350,12 @@ namespace dnGREP.WPF
                         {
                             nav = doc.CreateNavigator();
                             XPathExpression expr = nav.Compile(SearchFor);
-                            ValidationMessage = "XPath is OK!";
+                            ValidationMessage = Properties.Resources.XPathIsOK;
                             IsValidPattern = true;
                         }
                         catch
                         {
-                            ValidationMessage = "XPath is not valid!";
+                            ValidationMessage = Properties.Resources.XPathIsNotValid;
                             IsValidPattern = false;
                         }
                     }
@@ -1463,12 +1462,12 @@ namespace dnGREP.WPF
             try
             {
                 Regex regex = new Regex(pattern);
-                ValidationMessage = "Regex is OK!";
+                ValidationMessage = Properties.Resources.RegexIsOK;
                 IsValidPattern = true;
             }
             catch
             {
-                ValidationMessage = "Regex is not valid!";
+                ValidationMessage = Properties.Resources.RegexIsNotValid;
                 IsValidPattern = false;
             }
         }

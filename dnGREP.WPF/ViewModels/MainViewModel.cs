@@ -172,9 +172,9 @@ namespace dnGREP.WPF
             get
             {
                 if (!IsBookmarked)
-                    return "Add search pattern to bookmarks";
+                    return Properties.Resources.AddSearchPatternToBookmarks;
                 else
-                    return "Clear bookmark";
+                    return Properties.Resources.ClearBookmark;
             }
         }
 
@@ -199,9 +199,9 @@ namespace dnGREP.WPF
             get
             {
                 if (!IsFolderBookmarked)
-                    return "Associate bookmark with folder";
+                    return Properties.Resources.AssociateBookmarkWithFolder;
                 else
-                    return "Remove folder from bookmark association";
+                    return Properties.Resources.RemoveFolderFromBookmarkAssociation;
             }
         }
 
@@ -441,9 +441,9 @@ namespace dnGREP.WPF
             get
             {
                 if (IsResultOptionsExpanded)
-                    return "Hide result options";
+                    return Properties.Resources.HideResultOptions;
                 else
-                    return "Show result options";
+                    return Properties.Resources.ShowResultOptions;
             }
         }
 
@@ -1013,11 +1013,12 @@ namespace dnGREP.WPF
             {
                 logger.Error(ex, "Failed to open file.");
                 if (useCustomEditor)
-                    MessageBox.Show($"There was an error opening file by custom editor. {Environment.NewLine}Check editor path via \"Options..\".",
-                        "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Properties.Resources.CustomEditorFileOpenError + Environment.NewLine +
+                        Properties.Resources.CheckEditorPath,
+                        Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                 else
-                    MessageBox.Show("There was an error opening file. See the error log for details: " + App.LogDir,
-                        "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Properties.Resources.ErrorOpeningFile + App.LogDir,
+                        Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -1068,11 +1069,12 @@ namespace dnGREP.WPF
             {
                 logger.Error(ex, "Failed to open file.");
                 if (useCustomEditor)
-                    MessageBox.Show($"There was an error opening file by custom editor.{Environment.NewLine}Check editor path via \"Options..\".",
-                        "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Properties.Resources.CustomEditorFileOpenError + Environment.NewLine +
+                        Properties.Resources.CheckEditorPath,
+                        Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                 else
-                    MessageBox.Show("There was an error opening file. See the error log for details: " + App.LogDir,
-                        "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Properties.Resources.ErrorOpeningFile + App.LogDir,
+                        Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -1196,8 +1198,8 @@ namespace dnGREP.WPF
                             }
                             catch (ArgumentException regException)
                             {
-                                MessageBox.Show("Incorrect pattern: " + regException.Message,
-                                    "dnGrep", MessageBoxButton.OK, MessageBoxImage.Warning);
+                                MessageBox.Show(Properties.Resources.IncorrectPattern + regException.Message,
+                                    Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Warning);
                                 e.Result = null;
                                 return;
                             }
@@ -1287,11 +1289,11 @@ namespace dnGREP.WPF
                         isSearch = false;
                 }
                 if (isSearch)
-                    MessageBox.Show("Search failed! See the error log for details: " + App.LogDir,
-                        "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Properties.Resources.SearchFailedError + App.LogDir,
+                        Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                 else
-                    MessageBox.Show("Replace failed! See the error log for details: " + App.LogDir,
-                        "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Properties.Resources.ReplaceFailedError + App.LogDir,
+                        Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -1318,8 +1320,8 @@ namespace dnGREP.WPF
             catch (Exception ex)
             {
                 logger.Error(ex, "Failure in search progress changed");
-                MessageBox.Show("Search or replace failed! See the error log for details: " + App.LogDir,
-                    "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Properties.Resources.SearchOrReplaceFailed + App.LogDir,
+                    Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -1357,11 +1359,13 @@ namespace dnGREP.WPF
                 // UI periodically when the dispatcher is idle.
                 if (!string.IsNullOrWhiteSpace(fileName))
                 {
-                    latestStatusMessage = $"Searched {progress.ProcessedFiles} files. Found {progress.SuccessfulFiles} matching files - processing {fileName}";
+                    latestStatusMessage = string.Format(Properties.Resources.Searched0FilesFound1MatchingFilesProcessing2,
+                        progress.ProcessedFiles, progress.SuccessfulFiles, fileName);
                 }
                 else
                 {
-                    latestStatusMessage = $"Searched {progress.ProcessedFiles} files. Found {progress.SuccessfulFiles} matching files.";
+                    latestStatusMessage = string.Format(Properties.Resources.Searched0FilesFound1MatchingFiles,
+                        progress.ProcessedFiles, progress.SuccessfulFiles);
                 }
             }
         }
@@ -1382,7 +1386,7 @@ namespace dnGREP.WPF
                 {
                     if (e.Result == null)
                     {
-                        StatusMessage = "Search Canceled or Failed";
+                        StatusMessage = Properties.Resources.SearchCanceledOrFailed;
                     }
                     else if (!e.Cancelled)
                     {
@@ -1391,11 +1395,12 @@ namespace dnGREP.WPF
                         if (e.Result is List<GrepSearchResult> results)
                             successCount = results.Where(r => r.IsSuccess).Count();
 
-                        StatusMessage = $"Search Complete - Searched {processedFiles} files. Found {successCount} files in {duration.GetPrettyString()}.";
+                        StatusMessage = string.Format(Properties.Resources.SearchCompleteSearched0FilesFound1FilesIn2,
+                            processedFiles, successCount, duration.GetPrettyString());
                     }
                     else
                     {
-                        StatusMessage = "Search Canceled";
+                        StatusMessage = Properties.Resources.SearchCanceled;
                     }
                     if (SearchResults.Count > 0)
                         FilesFound = true;
@@ -1414,19 +1419,20 @@ namespace dnGREP.WPF
                     {
                         if (e.Result == null || ((int)e.Result) == -1)
                         {
-                            StatusMessage = "Replace Failed.";
-                            MessageBox.Show("Replace failed! See the error log for details: " + App.LogDir,
-                                "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                            StatusMessage = Properties.Resources.ReplaceFailed;
+                            MessageBox.Show(Properties.Resources.ReplaceFailedError + App.LogDir,
+                                Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                         else
                         {
-                            StatusMessage = $"Replace Complete - {(int)e.Result} files replaced.";
+                            StatusMessage = string.Format(Properties.Resources.ReplaceComplete0FilesReplaced,
+                                (int)e.Result);
                             CanUndo = undoList.Count > 0;
                         }
                     }
                     else
                     {
-                        StatusMessage = "Replace Canceled";
+                        StatusMessage = Properties.Resources.ReplaceCanceled;
                     }
                     CurrentGrepOperation = GrepOperation.None;
                     base.OnPropertyChanged(() => CurrentGrepOperation);
@@ -1437,15 +1443,18 @@ namespace dnGREP.WPF
                 string outdatedEngines = dnGREP.Engines.GrepEngineFactory.GetListOfFailedEngines();
                 if (!string.IsNullOrEmpty(outdatedEngines))
                 {
-                    MessageBox.Show($"The following plugins failed to load:{Environment.NewLine}{Environment.NewLine}{outdatedEngines}{Environment.NewLine}{Environment.NewLine}Default engine was used instead.",
-                        "dnGrep - Plugin Errors", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show(Properties.Resources.TheFollowingPluginsFailedToLoad +
+                        Environment.NewLine + Environment.NewLine +
+                        outdatedEngines + Environment.NewLine + Environment.NewLine +
+                        Properties.Resources.DefaultEngineWasUsedInstead,
+                        Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
             catch (Exception ex)
             {
                 logger.Error(ex, "Failure in search complete update");
-                MessageBox.Show("Search or replace failed! See the error log for details: " + App.LogDir,
-                    "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Properties.Resources.SearchOrReplaceFailed + App.LogDir,
+                    Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
             }
             finally
             {
@@ -1527,7 +1536,7 @@ namespace dnGREP.WPF
                     CurrentGrepOperation = GrepOperation.SearchInResults;
                 else
                     CurrentGrepOperation = GrepOperation.Search;
-                StatusMessage = "Searching...";
+                StatusMessage = Properties.Resources.Searching;
 
                 PreviewModel.FilePath = string.Empty;
                 PreviewTitle = string.Empty;
@@ -1560,8 +1569,8 @@ namespace dnGREP.WPF
                     string msg = ValidateRegex(pattern);
                     if (!string.IsNullOrWhiteSpace(msg))
                     {
-                        MessageBox.Show(string.Format("The file pattern '{0}' is not a valid regular expression:{1}{2}", pattern, Environment.NewLine, msg),
-                            "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(string.Format(Properties.Resources.TheFilePattern0IsNotAValidRegularExpression12, pattern, Environment.NewLine, msg),
+                            Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                         return false;
                     }
                 }
@@ -1574,8 +1583,8 @@ namespace dnGREP.WPF
                     string msg = ValidateRegex(pattern);
                     if (!string.IsNullOrWhiteSpace(msg))
                     {
-                        MessageBox.Show(string.Format("The file pattern '{0}' is not a valid regular expression:{1}{2}", pattern, Environment.NewLine, msg),
-                            "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(string.Format(Properties.Resources.TheFilePattern0IsNotAValidRegularExpression12, pattern, Environment.NewLine, msg),
+                            Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                         return false;
                     }
                 }
@@ -1603,8 +1612,8 @@ namespace dnGREP.WPF
             {
                 if (string.IsNullOrEmpty(ReplaceWith))
                 {
-                    if (MessageBox.Show("Are you sure you want to replace search pattern with empty string?",
-                        "dnGrep - Replace", MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
+                    if (MessageBox.Show(Properties.Resources.AreYouSureYouWantToReplaceSearchPatternWithEmptyString,
+                        Properties.Resources.DnGrep, MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
                     {
                         return;
                     }
@@ -1613,12 +1622,15 @@ namespace dnGREP.WPF
                 List<string> roFiles = Utils.GetReadOnlyFiles(SearchResults.GetList());
                 if (roFiles.Count > 0)
                 {
-                    StringBuilder sb = new StringBuilder($"Some of the files cannot be modified. If you continue, these files will be skipped.{Environment.NewLine}Would you like to continue?{Environment.NewLine}{Environment.NewLine}");
+                    StringBuilder sb = new StringBuilder(Properties.Resources.SomeOfTheFilesCannotBeModifiedIfYouContinueTheseFilesWillBeSkipped);
+                    sb.Append(Environment.NewLine)
+                      .Append(Properties.Resources.WouldYouLikeToContinue)
+                      .Append(Environment.NewLine).Append(Environment.NewLine);
                     foreach (string fileName in roFiles)
                     {
                         sb.AppendLine(" - " + new FileInfo(fileName).Name);
                     }
-                    if (MessageBox.Show(sb.ToString(), "dnGrep - Replace",
+                    if (MessageBox.Show(sb.ToString(), Properties.Resources.DnGrep,
                         MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
                     {
                         return;
@@ -1654,7 +1666,7 @@ namespace dnGREP.WPF
 
                     if (undoList.Count > 0)
                     {
-                        StatusMessage = "Replacing...";
+                        StatusMessage = Properties.Resources.Replacing;
 
                         PreviewModel.FilePath = string.Empty;
                         PreviewTitle = string.Empty;
@@ -1679,22 +1691,22 @@ namespace dnGREP.WPF
             if (CanUndo)
             {
                 MessageBoxResult response = MessageBox.Show(
-                    "Undo will revert modified file(s) back to their original state. Any changes made to the file(s) after the replace will be overwritten. Are you sure you want to proceed?",
-                    "dnGrep - Undo", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
+                    Properties.Resources.UndoWillRevertModifiedFiles,
+                    Properties.Resources.DnGrep, MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
                 if (response == MessageBoxResult.Yes)
                 {
                     GrepCore core = new GrepCore();
                     bool result = core.Undo(undoList);
                     if (result)
                     {
-                        MessageBox.Show("Files have been successfully reverted.", "dnGrep", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show(Properties.Resources.FilesHaveBeenSuccessfullyReverted, Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Information);
                         Utils.DeleteTempFolder();
                         undoList.Clear();
                     }
                     else
                     {
-                        MessageBox.Show("There was an error reverting files. See the error log for details: " + App.LogDir,
-                            "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(Properties.Resources.ThereWasAnErrorRevertingFiles + App.LogDir,
+                            Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     CanUndo = false;
                 }
@@ -1807,8 +1819,8 @@ namespace dnGREP.WPF
             catch (Exception ex)
             {
                 logger.Error(ex, "Error saving options");
-                MessageBox.Show("There was an error saving options. See the error log for details: " + App.LogDir,
-                    "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Properties.Resources.ThereWasAnErrorSavingOptions + App.LogDir,
+                    Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
             }
             LoadSettings();
             SearchResults.RaiseSettingsPropertiesChanged();
@@ -1936,13 +1948,20 @@ namespace dnGREP.WPF
                         int count = bmk.FolderReferences.Count(s => s != FileOrFolderPath);
                         if (count > 0)
                         {
-                            var sx = count > 1 ? "s" : string.Empty;
-                            var that = count > 1 ? "those" : "that";
-                            var ans = MessageBox.Show(
-                                $"This bookmark is associated with {count} other folder{sx}:" +
-                                Environment.NewLine + $"Clearing this bookmark will also remove {that} bookmark{sx}." +
-                                Environment.NewLine + Environment.NewLine +
-                                "Do you want to continue?", "dnGrep - Clear Bookmark",
+                            string message;
+                            if (count == 1)
+                            {
+                                message = Properties.Resources.ThisBookmarkIsAssociatedWithOneOtherFolder +
+                                    Environment.NewLine + Properties.Resources.ClearingThisBookmarkWillAlsoClearThatBookmark;
+                            }
+                            else
+                            {
+                                message = string.Format(Properties.Resources.ThisBookmarkIsAssociatedWith0OtherFolders, count) +
+                                    Environment.NewLine + Properties.Resources.ClearingThisBookmarkWillAlsoRemoveThoseBookmarks;
+
+                            }
+                            var ans = MessageBox.Show(message + Environment.NewLine + Environment.NewLine +
+                                Properties.Resources.DoYouWantToContinue, Properties.Resources.DnGrep,
                                 MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                             if (ans == MessageBoxResult.No)
@@ -2003,8 +2022,9 @@ namespace dnGREP.WPF
 
                         if (!Utils.CanCopyFiles(fileList, destinationFolder))
                         {
-                            MessageBox.Show($"Attention, some of the files are located in the selected directory.{Environment.NewLine}Please select another directory and try again.",
-                                "dnGrep", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            MessageBox.Show(Properties.Resources.SomeOfTheFilesAreLocatedInTheSelectedDirectory + Environment.NewLine +
+                                Properties.Resources.PleaseSelectAnotherDirectoryAndTryAgain,
+                                Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Warning);
                             return;
                         }
 
@@ -2018,14 +2038,15 @@ namespace dnGREP.WPF
                             // without a common base path, copy all files to a single directory 
                             count = Utils.CopyFiles(fileList, destinationFolder, OverwriteFile.Prompt);
                         }
-                        MessageBox.Show($"{count} files have been successfully copied.", "dnGrep - Copy Complete",
+                        MessageBox.Show(string.Format(Properties.Resources.CountFilesHaveBeenSuccessfullyCopied, count),
+                            Properties.Resources.DnGrep,
                             MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     catch (Exception ex)
                     {
                         logger.Error(ex, "Error copying files");
-                        MessageBox.Show("There was an error copying files. See the error log for details: " + App.LogDir,
-                            "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(Properties.Resources.ThereWasAnErrorCopyingFiles + App.LogDir,
+                            Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     CanUndo = false;
                 }
@@ -2047,8 +2068,9 @@ namespace dnGREP.WPF
 
                         if (!Utils.CanCopyFiles(fileList, destinationFolder))
                         {
-                            MessageBox.Show($"Attention, some of the files are located in the selected directory.{Environment.NewLine}Please select another directory and try again.",
-                                "dnGrep", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            MessageBox.Show(Properties.Resources.SomeOfTheFilesAreLocatedInTheSelectedDirectory + Environment.NewLine +
+                                Properties.Resources.PleaseSelectAnotherDirectoryAndTryAgain,
+                                Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Warning);
                             return;
                         }
 
@@ -2062,14 +2084,14 @@ namespace dnGREP.WPF
                             // without a common base path, move all files to a single directory 
                             count = Utils.MoveFiles(fileList, destinationFolder, OverwriteFile.Prompt);
                         }
-                        MessageBox.Show($"{count} files have been successfully moved.",
-                            "dnGrep - Move Complete", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show(string.Format(Properties.Resources.CountFilesHaveBeenSuccessfullyMoved, count),
+                            Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     catch (Exception ex)
                     {
                         logger.Error(ex, "Error moving files");
-                        MessageBox.Show("There was an error moving files. See the error log for details: " + App.LogDir,
-                            "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(Properties.Resources.ThereWasAnErrorMovingFiles + App.LogDir,
+                            Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     CanUndo = false;
                     SearchResults.Clear();
@@ -2084,21 +2106,22 @@ namespace dnGREP.WPF
             {
                 try
                 {
-                    if (MessageBox.Show($"Attention, you are about to delete files found during search.{Environment.NewLine}Are you sure you want to proceed?",
-                        "dnGrep", MessageBoxButton.YesNo, MessageBoxImage.Warning) != MessageBoxResult.Yes)
+                    if (MessageBox.Show(Properties.Resources.YouAreAboutToDeleteFilesFoundDuringSearch + Environment.NewLine +
+                        Properties.Resources.AreYouSureYouWantToContinue,
+                        Properties.Resources.DnGrep, MessageBoxButton.YesNo, MessageBoxImage.Warning) != MessageBoxResult.Yes)
                     {
                         return;
                     }
 
                     int count = Utils.DeleteFiles(SearchResults.GetList());
-                    MessageBox.Show($"{count} files have been successfully deleted.",
-                        "dnGrep", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show(string.Format(Properties.Resources.CountFilesHaveBeenSuccessfullyDeleted, count),
+                        Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
                     logger.Error(ex, "Error deleting files");
-                    MessageBox.Show("There was an error deleting files. See the error log for details: " + App.LogDir,
-                        "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Properties.Resources.ThereWasAnErrorDeletingFiles + App.LogDir,
+                        Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 CanUndo = false;
                 SearchResults.Clear();
@@ -2132,15 +2155,15 @@ namespace dnGREP.WPF
                 switch (reportType)
                 {
                     case "Report":
-                        dlg.Filter = "Report file format|*.txt";
+                        dlg.Filter = Properties.Resources.ReportFileFormat + "|*.txt";
                         dlg.DefaultExt = "*.txt";
                         break;
                     case "Text":
-                        dlg.Filter = "Results file format|*.txt";
+                        dlg.Filter = Properties.Resources.ResultsFileFormat + "|*.txt";
                         dlg.DefaultExt = "*.txt";
                         break;
                     case "CSV":
-                        dlg.Filter = "CSV file format|*.csv";
+                        dlg.Filter = Properties.Resources.CSVFileFormat + "|*.csv";
                         dlg.DefaultExt = "*.csv";
                         break;
                 }
@@ -2173,8 +2196,8 @@ namespace dnGREP.WPF
                     catch (Exception ex)
                     {
                         logger.Error(ex, "Error creating results file");
-                        MessageBox.Show("There was an error creating the file. See the error log for details: " + App.LogDir,
-                            "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(Properties.Resources.ThereWasAnErrorCreatingTheFile + App.LogDir,
+                            Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     finally
                     {
@@ -2274,55 +2297,55 @@ namespace dnGREP.WPF
 
             List<string> options = new List<string>();
 
-            sb.Append("Search for: '").Append(SearchFor).AppendLine("'")
-              .Append("Using ").Append(TypeOfSearch.ToString().ToLower()).AppendLine(" search");
+            sb.Append(Properties.Resources.SearchFor).Append(" '").Append(SearchFor).AppendLine("'")
+              .Append(Properties.Resources.Using).Append(" ").Append(TypeOfSearch.ToString().ToLower()).Append(" ").AppendLine(Properties.Resources.SearchL);
 
-            if (CaseSensitive) options.Add("Case sensitive");
-            if (WholeWord) options.Add("Whole word");
-            if (Multiline) options.Add("Multiline");
-            if (Singleline) options.Add("Dot as newline");
-            if (BooleanOperators) options.Add("Boolean operators");
-            if (SearchInResultsContent) options.Add("Search in results");
-            if (StopAfterFirstMatch) options.Add("Stop after first match");
+            if (CaseSensitive) options.Add(Properties.Resources.CaseSensitive);
+            if (WholeWord) options.Add(Properties.Resources.WholeWord);
+            if (Multiline) options.Add(Properties.Resources.Multiline);
+            if (Singleline) options.Add(Properties.Resources.DotAsNewline);
+            if (BooleanOperators) options.Add(Properties.Resources.BooleanOperators_);
+            if (SearchInResultsContent) options.Add(Properties.Resources.SearchInResults);
+            if (StopAfterFirstMatch) options.Add(Properties.Resources.StopAfterFirstMatch_);
             if (options.Count > 0)
                 sb.AppendLine(string.Join(", ", options.ToArray()));
             sb.AppendLine();
 
-            sb.Append("Search in: ").AppendLine(FileOrFolderPath)
-              .Append("Paths that match: ").AppendLine(FilePattern);
+            sb.Append(Properties.Resources.SearchIn).Append(": ").AppendLine(FileOrFolderPath)
+              .Append(Properties.Resources.PathsToMatch).Append(" ").AppendLine(FilePattern);
             if (!string.IsNullOrWhiteSpace(FilePatternIgnore))
-                sb.Append("Paths to ignore: ").AppendLine(FilePatternIgnore);
+                sb.Append(Properties.Resources.PathsToIgnore).Append(" ").AppendLine(FilePatternIgnore);
             if (TypeOfFileSearch == FileSearchType.Regex)
-                sb.AppendLine("Using regex file pattern");
+                sb.AppendLine(Properties.Resources.UsingRegexFilePattern);
             else if (TypeOfFileSearch == FileSearchType.Everything)
-                sb.AppendLine("Using Everything index search");
+                sb.AppendLine(Properties.Resources.UsingEverythingIndexSearch);
 
             options.Clear();
-            if (!IncludeSubfolder || (IncludeSubfolder && MaxSubfolderDepth == 0)) options.Add("No subfolders");
-            if (IncludeSubfolder && MaxSubfolderDepth > 0) options.Add($"Max folder depth {MaxSubfolderDepth}");
-            if (!IncludeHidden) options.Add("No hidden files");
-            if (!IncludeBinary) options.Add("No binary files");
-            if (!IncludeArchive) options.Add("No archives");
-            if (!FollowSymlinks) options.Add("No symlinks");
+            if (!IncludeSubfolder || (IncludeSubfolder && MaxSubfolderDepth == 0)) options.Add(Properties.Resources.NoSubfolders);
+            if (IncludeSubfolder && MaxSubfolderDepth > 0) options.Add(string.Format(Properties.Resources.MaxFolderDepth, MaxSubfolderDepth));
+            if (!IncludeHidden) options.Add(Properties.Resources.NoHiddenFiles);
+            if (!IncludeBinary) options.Add(Properties.Resources.NoBinaryFiles);
+            if (!IncludeArchive) options.Add(Properties.Resources.NoArchives);
+            if (!FollowSymlinks) options.Add(Properties.Resources.NoSymlinks);
             if (options.Count > 0)
                 sb.AppendLine(string.Join(", ", options.ToArray()));
 
             if (UseFileSizeFilter == FileSizeFilter.Yes)
-                sb.AppendFormat("Size from {0} to {1} KB", SizeFrom, SizeTo).AppendLine();
+                sb.AppendFormat(Properties.Resources.SizeFrom0To1KB, SizeFrom, SizeTo).AppendLine();
 
             if (UseFileDateFilter != FileDateFilter.None && TypeOfTimeRangeFilter == FileTimeRange.Dates)
-                sb.AppendFormat("{0} date from {1} to {2}", UseFileDateFilter.ToString(),
+                sb.AppendFormat(Properties.Resources.Type0DateFrom1To2, UseFileDateFilter.ToString(),
                     StartDate.HasValue ? StartDate.Value.ToShortDateString() : "*",
                     EndDate.HasValue ? EndDate.Value.ToShortDateString() : "*").AppendLine();
 
             if (UseFileDateFilter != FileDateFilter.None && TypeOfTimeRangeFilter == FileTimeRange.Hours)
-                sb.AppendFormat("{0} date in past {1} to {2} hours", UseFileDateFilter.ToString(), HoursFrom, HoursTo)
+                sb.AppendFormat(Properties.Resources.Type0DateInPast1To2Hours, UseFileDateFilter.ToString(), HoursFrom, HoursTo)
                   .AppendLine();
 
             if (CodePage != -1)
             {
                 string encoding = Encodings.Where(r => r.Value == CodePage).Select(r => r.Key).FirstOrDefault();
-                sb.Append("Encoding: ").AppendLine(encoding);
+                sb.Append(Properties.Resources.Encoding).Append(" ").AppendLine(encoding);
             }
 
             return sb.ToString();
@@ -2342,8 +2365,8 @@ namespace dnGREP.WPF
             catch (Exception ex)
             {
                 logger.Error(ex, "Error running regex");
-                MessageBox.Show("There was an error running regex test. See the error log for details: " + App.LogDir,
-                    "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Properties.Resources.ThereWasAnErrorRunningRegexTest + App.LogDir,
+                    Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -2365,8 +2388,9 @@ namespace dnGREP.WPF
                             string currentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
                             if (PublishedVersionExtractor.IsUpdateNeeded(currentVersion, version))
                             {
-                                if (MessageBox.Show($"New version of dnGREP ({version}) is available for download.{Environment.NewLine}Would you like to download it now?",
-                                    "dnGrep - New version", MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
+                                if (MessageBox.Show(string.Format(Properties.Resources.NewVersionOfDnGREP0IsAvailableForDownload, version) +
+                                    Environment.NewLine + Properties.Resources.WouldYouLikeToDownloadItNow,
+                                    Properties.Resources.DnGrep + " - " + Properties.Resources.NewVersion, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
                                 {
                                     System.Diagnostics.Process.Start("http://dngrep.github.io/");
                                 }
@@ -2397,14 +2421,14 @@ namespace dnGREP.WPF
 
         private void PopulateEncodings()
         {
-            KeyValuePair<string, int> defaultValue = new KeyValuePair<string, int>("Auto detection (default)", -1);
+            KeyValuePair<string, int> defaultValue = new KeyValuePair<string, int>(Properties.Resources.EncodingAutoDetection, -1);
 
             List<KeyValuePair<string, int>> tempUni = new List<KeyValuePair<string, int>>();
             List<KeyValuePair<string, int>> tempEnc = new List<KeyValuePair<string, int>>();
             foreach (EncodingInfo ei in Encoding.GetEncodings())
             {
                 Encoding e = ei.GetEncoding();
-                if (e.EncodingName.Contains("Unicode", StringComparison.OrdinalIgnoreCase))
+                if (e.EncodingName.Contains(Properties.Resources.Unicode, StringComparison.OrdinalIgnoreCase))
                     tempUni.Add(new KeyValuePair<string, int>(e.EncodingName, e.CodePage));
                 else
                     tempEnc.Add(new KeyValuePair<string, int>(e.EncodingName, e.CodePage));
@@ -2529,8 +2553,8 @@ namespace dnGREP.WPF
 
                     if (string.IsNullOrWhiteSpace(tempFile))
                     {
-                        MessageBox.Show("Failed to extract file from archive. See the error log for details: " + App.LogDir,
-                            "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(Properties.Resources.FailedToExtractFileFromArchive + App.LogDir,
+                            Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
                     }
                     else

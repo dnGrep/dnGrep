@@ -46,7 +46,7 @@
 
     <DockPanel>
         <StackPanel Margin="3" DockPanel.Dock="Top">
-            <GroupBox Header="Search">
+            <GroupBox Header="{my:Loc Key='Search'}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -59,16 +59,16 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
-                        <RadioButton Content="{my:Loc Key=Regex}" Margin="3,4,3,3" GroupName="SearchRegex"
+                        <RadioButton Content="{my:Loc Key='Regex_'}" Margin="3,4,3,3" GroupName="SearchRegex"
                                      IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, 
                                         ConverterParameter=Regex}"/>
-                        <RadioButton Content="{my:Loc Key=XPath}" Margin="3,4,3,3" GroupName="SearchXPath"
+                        <RadioButton Content="{my:Loc Key='XPath_'}" Margin="3,4,3,3" GroupName="SearchXPath"
                                      IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, 
                                         ConverterParameter=XPath}"/>
-                        <RadioButton Content="{my:Loc Key=Text}" Margin="3,4,3,3" GroupName="SearchText"
+                        <RadioButton Content="{my:Loc Key='Text_'}" Margin="3,4,3,3" GroupName="SearchText"
                                      IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, 
                                         ConverterParameter=PlainText}"/>
-                        <RadioButton Content="{my:Loc Key=Phonetic}" Margin="3,4,3,3" GroupName="SearchSoundex"
+                        <RadioButton Content="{my:Loc Key='Phonetic_'}" Margin="3,4,3,3" GroupName="SearchSoundex"
                                      IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, 
                                         ConverterParameter=Soundex}"/>
                     </StackPanel>
@@ -83,64 +83,64 @@
                         </Border>
                     </StackPanel>
                     <GroupBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                              Header="{my:Loc Key='Search for:'}" BorderThickness="0">
+                              Header="{my:Loc Key='SearchFor'}" BorderThickness="0">
                         <TextBox Margin="-5,3,-5,0"
                                  Text="{Binding Path=SearchFor, UpdateSourceTrigger=PropertyChanged}"
                                  VerticalScrollBarVisibility="Auto"
                                  Style="{StaticResource ExpandedTextbox}">
                             <TextBox.ToolTip>
                                 <TextBlock>
-                                    <Run>. matches all characters</Run>
+                                    <Run Text="{my:Loc Key='MatchesAllCharacters'}"/>
                                     <LineBreak />
-                                    <Run>\w matches alpha-numerics</Run>
+                                    <Run Text="{my:Loc Key='MatchesAlphaNumerics'}"/>
                                     <LineBreak />
-                                    <Run>\d matches digits</Run>
+                                    <Run Text="{my:Loc Key='MatchesDigits'}"/>
                                     <LineBreak />
-                                    <Run>\s matches space</Run>
+                                    <Run Text="{my:Loc Key='MatchesSpace'}"/>
                                     <LineBreak />
-                                    <Run>* matches any number of characters</Run>
+                                    <Run Text="{my:Loc Key='MatchesAnyNumberOfCharacters'}"/>
                                     <LineBreak />
-                                    <Run>{1,3} matches 1 to 3 characters</Run>
+                                    <Run Text="{my:Loc Key='Matches1To3Characters'}"/>
                                     <LineBreak />
-                                    <Run>For more Regex patterns hit F1</Run>
+                                    <Run Text="{my:Loc Key='ForMoreRegexPatternsHitF1'}"/>
                                 </TextBlock>
                             </TextBox.ToolTip>
                         </TextBox>
                     </GroupBox>
                     <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                              Header="{my:Loc Key='Replace with:'}" BorderThickness="0">
+                              Header="{my:Loc Key='ReplaceWith'}" BorderThickness="0">
                         <TextBox Margin="-5,3,-5,0"
                                  Text="{Binding Path=ReplaceWith, UpdateSourceTrigger=PropertyChanged}"
                                  VerticalScrollBarVisibility="Auto"
                                  Style="{StaticResource ExpandedTextbox}">
                             <TextBox.ToolTip>
                                 <TextBlock>
-                                    <Run><![CDATA[$& replaces entire regex]]></Run>
+                                    <Run Text="{my:Loc Key='ReplacesEntireRegex'}"/>
                                     <LineBreak />
-                                    <Run><![CDATA[$1, $2, $3, etc... inserts the text matched between capturing parentheses into the replacement text]]></Run>
+                                    <Run Text="{my:Loc Key='InsertsTheTextMatchedIntoTheReplacementText'}"/>
                                     <LineBreak />
-                                    <Run><![CDATA[$$ inserts a single dollar sign into the replacement text]]></Run>
+                                    <Run Text="{my:Loc Key='InsertsASingleDollarSignIntoTheReplacementText'}"/>
                                 </TextBlock>
                             </TextBox.ToolTip>
                         </TextBox>
                     </GroupBox>
                     <UniformGrid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="8,0,0,0" Rows="2">
-                        <CheckBox Content="{my:Loc Key='Case sensitive'}" Margin="3,4,3,3" 
+                        <CheckBox Content="{my:Loc Key='CaseSensitive_'}" Margin="3,4,3,3" 
                                     IsChecked="{Binding Path=CaseSensitive}"
                                     IsEnabled="{Binding Path=IsCaseSensitiveEnabled}"/>
-                        <CheckBox Content="{my:Loc Key='Whole word'}" Margin="3,4,3,3" 
+                        <CheckBox Content="{my:Loc Key='WholeWord_'}" Margin="3,4,3,3" 
                                     IsChecked="{Binding Path=WholeWord}"
                                     IsEnabled="{Binding Path=IsWholeWordEnabled}"/>
-                        <CheckBox Content="{my:Loc Key='Multiline'}" Margin="3,4,3,3" 
+                        <CheckBox Content="{my:Loc Key='Multiline_'}" Margin="3,4,3,3" 
                                     IsChecked="{Binding Path=Multiline}"
                                     IsEnabled="{Binding Path=IsMultilineEnabled}"/>
-                        <CheckBox Content="{my:Loc Key='Dot as newline'}" Margin="3,4,3,3" 
+                        <CheckBox Content="{my:Loc Key='DotAsNewline_'}" Margin="3,4,3,3" 
                                     IsChecked="{Binding Path=Singleline}"
                                     IsEnabled="{Binding Path=IsSinglelineEnabled}"/>
-                        <CheckBox Content="{my:Loc Key='Boolean operators'}" Margin="3,4,3,3" 
+                        <CheckBox Content="{my:Loc Key='BooleanOperators_'}" Margin="3,4,3,3" 
                                     IsChecked="{Binding Path=BooleanOperators}"
                                     IsEnabled="{Binding Path=IsBooleanOperatorsEnabled}"/>
-                        <CheckBox Content="{my:Loc Key='Highlight Groups'}" Margin="3,4,3,3"                                  
+                        <CheckBox Content="{my:Loc Key='HighlightGroups_'}" Margin="3,4,3,3"                                  
                                     IsChecked="{Binding HighlightCaptureGroups}"
                                     IsEnabled="{Binding Path=IsHighlightGroupsEnabled}" />
                     </UniformGrid>
@@ -157,7 +157,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <DockPanel Grid.Row="0" LastChildFill="True">
-                <Label DockPanel.Dock="Top" Content="{my:Loc Key='Sample input text:'}"/>
+                <Label DockPanel.Dock="Top" Content="{my:Loc Key='SampleInputText'}"/>
                 <TextBox MinHeight="60"
                          Margin="5" AcceptsReturn="True" TextWrapping="Wrap"
                          VerticalScrollBarVisibility="Auto"
@@ -167,7 +167,7 @@
             <GridSplitter Grid.Row="1" Height="2" Background="{DynamicResource Splitter.Background}" 
                           Margin="8,0" VerticalAlignment="Center" HorizontalAlignment="Stretch" />
             <DockPanel Grid.Row="2" LastChildFill="True">
-                <Label DockPanel.Dock="Top" Content="{my:Loc Key='Search result:'}" />
+                <Label DockPanel.Dock="Top" Content="{my:Loc Key='SearchResult'}" />
                 <Border Margin="5"
                         BorderBrush="{DynamicResource Control.Static.Border}"
                         BorderThickness="1"
@@ -185,7 +185,7 @@
                           Margin="8,0" VerticalAlignment="Center" HorizontalAlignment="Stretch" />
             <DockPanel Grid.Row="4" LastChildFill="True">
                 <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                    <Label Content="{my:Loc Key='Replace result:'}"/>
+                    <Label Content="{my:Loc Key='ReplaceResult'}"/>
                     <Label Content="{Binding Path=ReplaceErrorText}" Margin="20,0,0,0" 
                            FontWeight="SemiBold" Foreground="Red"/>
                 </StackPanel>
@@ -209,7 +209,7 @@
                 </Border>
             </DockPanel>
             <StackPanel Grid.Row="5" Margin="0,0,3,0" HorizontalAlignment="Right" Orientation="Horizontal">
-                <Button Margin="3" Padding="20,3" Content="{my:Loc Key='Close'}"
+                <Button Margin="3" Padding="20,3" Content="{my:Loc Key='Close_'}"
                         Click="BtnClose_Click" IsCancel="True" />
             </StackPanel>
         </Grid>
