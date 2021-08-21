@@ -2,8 +2,8 @@
                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:my="clr-namespace:dnGREP.WPF"
-                 Title="Options"
-                 Height="600"
+                 Title="{my:Loc Key='Options'}"
+                 Height="1600"
                  MinWidth="500"
                  FontFamily="{Binding ApplicationFontFamily}"
                  FontSize="{Binding DialogFontSize}"
@@ -70,19 +70,19 @@
         <ScrollViewer Grid.Row="0">
             <StackPanel HorizontalAlignment="Stretch">
 
-                <GroupBox Header="Startup options" ToolTip="{Binding Path=PanelTooltip}">
+                <GroupBox Header="{my:Loc Key='StartupOptions'}" ToolTip="{Binding Path=PanelTooltip}">
                     <StackPanel Orientation="Vertical">
-                        <CheckBox Margin="0,6,0,3" Content="Show dnGrep in Explorer right-click menu"
+                        <CheckBox Margin="0,6,0,3" Content="{my:Loc Key='ShowDnGrepInExplorerRightClickMenu_'}"
                                   IsChecked="{Binding Path=EnableWindowsIntegration}"
                                   ToolTip="{Binding Path=WindowsIntegrationTooltip}"
                                   IsEnabled="{Binding Path=IsAdministrator}" />
                     </StackPanel>
                 </GroupBox>
 
-                <GroupBox Header="Checking for updates">
+                <GroupBox Header="{my:Loc Key='CheckingForUpdates'}">
                     <StackPanel Orientation="Vertical">
                         <StackPanel Orientation="Horizontal">
-                            <CheckBox Name="cbCheckForUpdates" Content="Enable automatic checking every"
+                            <CheckBox Name="cbCheckForUpdates" Content="{my:Loc Key='EnableAutomaticCheckingEvery_'}"
                                   IsChecked="{Binding Path=EnableCheckForUpdates}" />
                             <TextBox Margin="3,0,0,0"
                                  IsEnabled="{Binding ElementName=cbCheckForUpdates, Path=IsChecked}"
@@ -95,21 +95,21 @@
                                     </MultiBinding>
                                 </TextBox.Width>
                             </TextBox>
-                            <Label Margin="3,0" Content="days" />
+                            <Label Margin="3,0" Content="{my:Loc Key='Days'}" />
                         </StackPanel>
-                        <CheckBox Margin="0,3" Content="Check for updates when Windows starts"
+                        <CheckBox Margin="0,3" Content="{my:Loc Key='CheckForUpdatesWhenWindowsStarts'}"
                                   IsChecked="{Binding Path=EnableRunAtStartup}"
                                   IsEnabled="{Binding Path=EnableCheckForUpdates }"/>
                     </StackPanel>
                 </GroupBox>
 
-                <GroupBox Header="Theme">
+                <GroupBox Header="{my:Loc Key='Theme'}">
                     <StackPanel>
-                        <CheckBox Margin="0,6,0,3" Content="Follow Windows Theme"
+                        <CheckBox Margin="0,6,0,3" Content="{my:Loc Key='FollowWindowsTheme_'}"
                                   IsChecked="{Binding Path=FollowWindowsTheme}"
                                   IsEnabled="{Binding Path=HasWindowsThemes}" />
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Margin="0,3" Text="Selected Theme" />
+                            <TextBlock Margin="0,3" Text="{my:Loc Key='SelectedTheme'}" />
                             <ComboBox Margin="6,3"
                                       ItemsSource="{Binding Path=ThemeNames}"
                                       SelectedValue="{Binding Path=CurrentTheme}"
@@ -122,14 +122,14 @@
                                     </MultiBinding>
                                 </ComboBox.Width>
                             </ComboBox>
-                            <Button Margin="6,3" Padding="12,3" Content="Reload"
+                            <Button Margin="6,3" Padding="12,3" Content="{my:Loc Key='Reload_'}"
                                     Command="{Binding ReloadThemeCommand}"
-                                    ToolTip="Reload the current theme file [Ctrl+F5]" />
+                                    ToolTip="{my:Loc Key='ReloadTheCurrentThemeFile'}" />
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>
 
-                <GroupBox Header="Language">
+                <GroupBox Header="{my:Loc Key='Language'}">
                     <StackPanel Orientation="Horizontal">
                         <ComboBox Margin="6,3"
                                   ItemsSource="{Binding Path=CultureNames}"
@@ -144,12 +144,12 @@
                                 </MultiBinding>
                             </ComboBox.Width>
                         </ComboBox>
-                        <Button Margin="6,3" Padding="12,3" Content="Load from file..."
+                        <Button Margin="6,3" Padding="12,3" Content="{my:Loc Key='LoadFromFile_'}"
                                     Command="{Binding LoadResxCommand}" />
                     </StackPanel>
                 </GroupBox>
 
-                <GroupBox Header="Application Fonts">
+                <GroupBox Header="{my:Loc Key='ApplicationFonts'}">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -163,10 +163,10 @@
                             <RowDefinition />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                        <CheckBox Grid.Row="0" Grid.ColumnSpan="2" Margin="0,6,0,3" Content="Use Default"
+                        <CheckBox Grid.Row="0" Grid.ColumnSpan="2" Margin="0,6,0,3" Content="{my:Loc Key='UseDefault_'}"
                                   IsChecked="{Binding Path=UseDefaultFont}" />
                         <TextBlock Grid.Row="1" Grid.Column="0" Margin="0,3" 
-                                   HorizontalAlignment="Right" Text="Font Family" />
+                                   HorizontalAlignment="Right" Text="{my:Loc Key='FontFamily'}" />
                         <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="6,3"
                                   HorizontalAlignment="Left"
                                   ItemsSource="{Binding Path=FontFamilies}"
@@ -182,7 +182,7 @@
                         </ComboBox>
                         
                         <TextBlock Grid.Row="2" Grid.Column="0" Margin="0,3" 
-                                   HorizontalAlignment="Right" Text="Main Font Size" />
+                                   HorizontalAlignment="Right" Text="{my:Loc Key='MainFontSize'}" />
                         <TextBox Grid.Row="2" Grid.Column="1" Margin="6,3"
                                  IsEnabled="{Binding Path=UseDefaultFont, Converter={StaticResource not}}">
                             <TextBox.Text>
@@ -201,12 +201,12 @@
                                 </MultiBinding>
                             </TextBox.Width>
                         </TextBox>
-                        <TextBlock Grid.Row="2" Grid.Column="2" Margin="12,3" Text="Sample Text"
+                        <TextBlock Grid.Row="2" Grid.Column="2" Margin="12,3" Text="{my:Loc Key='SampleText'}"
                                    FontFamily="{Binding Path=EditApplicationFontFamily}"
                                    FontSize="{Binding Path=EditMainFormFontSize}"/>
                         
                         <TextBlock Grid.Row="3" Grid.Column="0" Margin="0,3" 
-                                   HorizontalAlignment="Right" Text="Replace Font Size" />
+                                   HorizontalAlignment="Right" Text="{my:Loc Key='ReplaceFontSize'}" />
                         <TextBox Grid.Row="3" Grid.Column="1" Margin="6,3"
                                  IsEnabled="{Binding Path=UseDefaultFont, Converter={StaticResource not}}">
                             <TextBox.Text>
@@ -225,12 +225,12 @@
                                 </MultiBinding>
                             </TextBox.Width>
                         </TextBox>
-                        <TextBlock Grid.Row="3" Grid.Column="2" Margin="12,3" Text="Sample Text"
+                        <TextBlock Grid.Row="3" Grid.Column="2" Margin="12,3" Text="{my:Loc Key='SampleText'}"
                                    FontFamily="{Binding Path=EditApplicationFontFamily}"
                                    FontSize="{Binding Path=EditReplaceFormFontSize}"/>
                         
                         <TextBlock Grid.Row="4" Grid.Column="0" Margin="0,3" 
-                                   HorizontalAlignment="Right" Text="Dialog Font Size" />
+                                   HorizontalAlignment="Right" Text="{my:Loc Key='DialogFontSize'}" />
                         <TextBox Grid.Row="4" Grid.Column="1" Margin="6,3"
                                  IsEnabled="{Binding Path=UseDefaultFont, Converter={StaticResource not}}">
                             <TextBox.Text>
@@ -249,13 +249,13 @@
                                 </MultiBinding>
                             </TextBox.Width>
                         </TextBox>
-                        <TextBlock Grid.Row="4" Grid.Column="2" Margin="12,3" Text="Sample Text"
+                        <TextBlock Grid.Row="4" Grid.Column="2" Margin="12,3" Text="{my:Loc Key='SampleText'}"
                                    FontFamily="{Binding Path=EditApplicationFontFamily}"
                                    FontSize="{Binding Path=EditDialogFontSize}"/>
                     </Grid>
                 </GroupBox>
 
-                <GroupBox Header="Custom editor">
+                <GroupBox Header="{my:Loc Key='CustomEditor'}">
                     <Grid Margin="0,0,12,0">
                         <Grid.RowDefinitions>
                             <RowDefinition />
@@ -268,10 +268,10 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0" Margin="3"
-                                   Text="Command" />
+                                   Text="{my:Loc Key='Command'}" />
                         <TextBox Grid.Row="0" Grid.Column="1" Margin="3"
                                  Text="{Binding Path=CustomEditorPath, UpdateSourceTrigger=PropertyChanged}" />
-                        <Button Grid.Column="2" Content="..." Margin="3"
+                        <Button Grid.Column="2" Content="{my:Loc Key='Ellipsis'}" Margin="3"
                                 Command="{Binding Path=BrowseEditorCommand}">
                             <Button.Width>
                                 <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
@@ -282,26 +282,26 @@
                             </Button.Width>
                         </Button>
                         <TextBlock Grid.Row="1" Grid.Column="0" Margin="3"
-                                   Text="Arguments" />
+                                   Text="{my:Loc Key='Arguments'}" />
                         <TextBox Grid.Row="1" Grid.Column="1" Margin="3"
                                  Text="{Binding Path=CustomEditorArgs, UpdateSourceTrigger=PropertyChanged}" />
                         <TextBlock Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Margin="3">
-                            <Run>Use keywords </Run>
-                            <Run FontWeight="Bold">%file</Run>
-                            <Run> for file location, </Run>
-                            <Run FontWeight="Bold">%line</Run>
-                            <Run> for the line number, </Run>
-                            <Run FontWeight="Bold">%pattern</Run>
-                            <Run>for the search pattern, </Run>
-                            <Run FontWeight="Bold">%match</Run>
-                            <Run> for the first matched text on the line, and </Run>
-                            <Run FontWeight="Bold">%column</Run>
-                            <Run> for the column number of first match on the line</Run>
+                            <Run Text="{my:Loc Key='Editor1_UseKeywords'}"/>
+                            <Run FontWeight="Bold" Text="{my:Loc Key='Editor2_File'}"/>
+                            <Run Text="{my:Loc Key='Editor3_ForFileLocation'}"/>
+                            <Run FontWeight="Bold" Text="{my:Loc Key='Editor4_Line'}"/>
+                            <Run Text="{my:Loc Key='Editor5_ForTheLineNumber'}"/>
+                            <Run FontWeight="Bold" Text="{my:Loc Key='Editor6_Pattern'}"/>
+                            <Run Text="{my:Loc Key='Editor7_ForTheSearchPattern'}"/>
+                            <Run FontWeight="Bold" Text="{my:Loc Key='Editor8_Match'}"/>
+                            <Run Text="{my:Loc Key='Editor9_OrTheFirstMatchedTextOnTheLineAnd'}"/>
+                            <Run FontWeight="Bold" Text="{my:Loc Key='Editor10_Column'}"/>
+                            <Run Text="{my:Loc Key='Editor11_ForTheColumnNumberOfFirstMatchOnTheLine'}"/>
                         </TextBlock>
                     </Grid>
                 </GroupBox>
 
-                <GroupBox Header="Compare application">
+                <GroupBox Header="{my:Loc Key='CompareApplication'}">
                     <Grid Margin="0,0,12,0">
                         <Grid.RowDefinitions>
                             <RowDefinition />
@@ -314,10 +314,10 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0" Margin="3"
-                                   Text="Command" />
+                                   Text="{my:Loc Key='Command'}" />
                         <TextBox Grid.Row="0" Grid.Column="1" Margin="3"
                                  Text="{Binding Path=CompareApplicationPath, UpdateSourceTrigger=PropertyChanged}" />
-                        <Button Grid.Column="2" Content="..." Margin="3"
+                        <Button Grid.Column="2" Content="{my:Loc Key='Ellipsis'}" Margin="3"
                                 Command="{Binding Path=BrowseCompareCommand}">
                             <Button.Width>
                                 <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
@@ -328,34 +328,32 @@
                             </Button.Width>
                         </Button>
                         <TextBlock Grid.Row="1" Grid.Column="0" Margin="3"
-                                   Text="Arguments" />
+                                   Text="{my:Loc Key='Arguments'}" />
                         <TextBox Grid.Row="1" Grid.Column="1" Margin="3"
                                  Text="{Binding Path=CompareApplicationArgs, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBlock Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Margin="3">
-                            dnGrep will add the selected files to the end of the command line.
-                        </TextBlock>
+                        <TextBlock Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Margin="3" 
+                                   Text="{my:Loc Key='DnGrepWillAddTheSelectedFiles'}"/>
                     </Grid>
                 </GroupBox>
 
-                <GroupBox Header="Layout">
+                <GroupBox Header="{my:Loc Key='Layout'}">
                     <StackPanel Margin="0,6,0,0" Orientation="Horizontal">
-                        <TextBlock Text="Show search options:" />
-                        <RadioButton Margin="18,0" Content="on main panel" GroupName="searchLocation"
+                        <TextBlock Text="{my:Loc Key='ShowSearchOptions'}" />
+                        <RadioButton Margin="18,0" Content="{my:Loc Key='OnMainPanel'}" GroupName="searchLocation"
                                      IsChecked="{Binding OptionsLocation, Converter={StaticResource ebc}, ConverterParameter=MainPanel}" />
-                        <RadioButton Margin="3,0" Content="in options expander" GroupName="searchLocation"
+                        <RadioButton Margin="3,0" Content="{my:Loc Key='InOptionsExpander'}" GroupName="searchLocation"
                                      IsChecked="{Binding OptionsLocation, Converter={StaticResource ebc}, ConverterParameter=OptionsExpander}" />
                     </StackPanel>
                 </GroupBox>
 
-                <GroupBox Header="Results Options">
+                <GroupBox Header="{my:Loc Key='ResultsOptions'}">
                     <StackPanel Margin="0,3,0,0">
-                        <CheckBox Name="cbShowPath" Margin="3" Content="Show file path in results panel"
+                        <CheckBox Name="cbShowPath" Margin="3" Content="{my:Loc Key='ShowFilePathInResultsPanel'}"
                                   IsChecked="{Binding Path=ShowFilePathInResults}" />
                         <StackPanel Orientation="Horizontal">
                             <CheckBox Name="cbShowContext" Margin="3" HorizontalAlignment="Center"
-                                      IsChecked="{Binding Path=ShowLinesInContext}">
-                                Show result lines in context
-                            </CheckBox>
+                                      IsChecked="{Binding Path=ShowLinesInContext}" 
+                                      Content="{my:Loc Key='ShowResultLinesInContext'}"/>
                             <TextBox Margin="3,0,0,0"
                                      Text="{Binding Path=ContextLinesBefore, UpdateSourceTrigger=PropertyChanged}"
                                      IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}">
@@ -367,7 +365,7 @@
                                     </MultiBinding>
                                 </TextBox.Width>
                             </TextBox>
-                            <Label Content="before and" />
+                            <Label Content="{my:Loc Key='BeforeAnd'}" />
                             <TextBox Text="{Binding Path=ContextLinesAfter, UpdateSourceTrigger=PropertyChanged}"
                                      IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}">
                                 <TextBox.Width>
@@ -378,7 +376,7 @@
                                     </MultiBinding>
                                 </TextBox.Width>
                             </TextBox>
-                            <Label Content="after" />
+                            <Label Content="{my:Loc Key='After'}" />
                         </StackPanel>
 
                         <CheckBox Name="cbSearchFileNameOnly" Margin="3"
@@ -388,22 +386,22 @@
                             </CheckBox.Content>
                         </CheckBox>
 
-                        <CheckBox Name="cbCheckEncoding" Margin="3" Content="Detect file encoding when searching for file name pattern only"
+                        <CheckBox Name="cbCheckEncoding" Margin="3" Content="{my:Loc Key='DetectFileEncodingWhenSearchingForFileNamePatternOnly'}"
                                   IsChecked="{Binding Path=DetectEncodingForFileNamePattern}" />
 
-                        <CheckBox Name="cbExpandResult" Margin="3" Content="Show results tree expanded"
+                        <CheckBox Name="cbExpandResult" Margin="3" Content="{my:Loc Key='ShowResultsTreeExpanded'}"
                                   IsChecked="{Binding Path=AutoExpandSearchTree}" />
 
-                        <CheckBox Name="cbShowMatchVerbose" Margin="3" Content="Show verbose match count"
+                        <CheckBox Name="cbShowMatchVerbose" Margin="3" Content="{my:Loc Key='ShowVerboseMatchCount'}"
                                   IsChecked="{Binding Path=ShowVerboseMatchCount}" />
 
-                        <CheckBox Name="cbShowFileInfoToolTips" Margin="3" Content="Show file info tool tips"
+                        <CheckBox Name="cbShowFileInfoToolTips" Margin="3" Content="{my:Loc Key='ShowFileInfoToolTips'}"
                                   IsChecked="{Binding Path=ShowFileInfoTooltips}" />
 
                     </StackPanel>
                 </GroupBox>
 
-                <GroupBox Header="History Lists">
+                <GroupBox Header="{my:Loc Key='HistoryLists'}">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <TextBox Margin="3,0"
@@ -418,7 +416,7 @@
                                     </MultiBinding>
                                 </TextBox.Width>
                             </TextBox>
-                            <TextBlock Margin="3" Text="items shown in path history list" />
+                            <TextBlock Margin="3" Text="{my:Loc Key='ItemsShownInPathHistoryList'}" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <TextBox Margin="3,0"
@@ -433,7 +431,7 @@
                                     </MultiBinding>
                                 </TextBox.Width>
                             </TextBox>
-                            <TextBlock Margin="3" Text="items shown in search and replace history lists" />
+                            <TextBlock Margin="3" Text="{my:Loc Key='ItemsShownInSearchAndReplaceHistoryLists'}" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <TextBox Margin="3,0"
@@ -448,17 +446,16 @@
                                     </MultiBinding>
                                 </TextBox.Width>
                             </TextBox>
-                            <TextBlock Margin="3" Text="items shown in file filter history lists" />
+                            <TextBlock Margin="3" Text="{my:Loc Key='ItemsShownInFileFilterHistoryLists'}" />
                         </StackPanel>
                         <Button Name="btnClearPreviousSearches" Padding="12,3"
                                 Margin="3" HorizontalAlignment="Left"
-                                Command="{Binding Path=ClearSearchesCommand}">
-                            Clear old searches
-                        </Button>
+                                Command="{Binding Path=ClearSearchesCommand}"
+                                Content="{my:Loc Key='ClearOldSearches'}"/>
                     </StackPanel>
                 </GroupBox>
 
-                <GroupBox Header="Regex Options">
+                <GroupBox Header="{my:Loc Key='RegexOptions'}">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <StackPanel.Resources>
@@ -467,7 +464,7 @@
                                                Text="{Binding Path=ErrorContent}" />
                                 </DataTemplate>
                             </StackPanel.Resources>
-                            <TextBlock Margin="0,0,3,0" Text="Match timeout" />
+                            <TextBlock Margin="0,0,3,0" Text="{my:Loc Key='MatchTimeout'}" />
                             <TextBox Name="tbMatchTimeout"
                                      Margin="3,0">
                                 <TextBox.Text>
@@ -486,13 +483,13 @@
                                     </MultiBinding>
                                 </TextBox.Width>
                             </TextBox>
-                            <TextBlock Margin="3,0,0,0" Text="seconds" />
+                            <TextBlock Margin="3,0,0,0" Text="{my:Loc Key='Seconds'}" />
                         </StackPanel>
-                        <TextBlock Width="440" TextWrapping="Wrap">The match timeout limits how long the regular expression engine will attempt to resolve a regular expression before it times out. This prevents processing expressions and input strings that require excessive backtracking.</TextBlock>
+                        <TextBlock Width="440" TextWrapping="Wrap" Text="{my:Loc Key='TheMatchTimeoutLimits'}"/>
                     </StackPanel>
                 </GroupBox>
 
-                <GroupBox Header="Phonetic Search">
+                <GroupBox Header="{my:Loc Key='PhoneticSearch'}">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <StackPanel.Resources>
@@ -501,7 +498,7 @@
                                                Text="{Binding Path=ErrorContent}" />
                                 </DataTemplate>
                             </StackPanel.Resources>
-                            <TextBlock Margin="0,0,6,0" Text="Match threshold (from 0 to 1.0)" />
+                            <TextBlock Margin="0,0,6,0" Text="{my:Loc Key='MatchThreshold'}" />
                             <TextBox Name="tbFuzzyMatchThreshold">
                                 <TextBox.Text>
                                     <Binding Path="MatchThreshold" Mode="TwoWay" 
@@ -520,11 +517,11 @@
                                 </TextBox.Width>
                             </TextBox>
                         </StackPanel>
-                        <TextBlock Text="0 - match everything; 1.0 - exact match" />
+                        <TextBlock Text="{my:Loc Key='MatchEverythingToExactMatch'}" />
                     </StackPanel>
                 </GroupBox>
 
-                <GroupBox Header="Archive Options">
+                <GroupBox Header="{my:Loc Key='ArchiveOptions'}">
                     <Grid DataContext="{Binding ArchiveOptions}" Grid.IsSharedSizeScope="True">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" SharedSizeGroup="A"/>
@@ -535,8 +532,8 @@
                             <RowDefinition/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Extensions:"/>
-                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Default:" Margin="3"/>
+                        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{my:Loc Key='Extensions'}"/>
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{my:Loc Key='Default'}" Margin="3"/>
                         <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding DefaultExtensions}" 
                                  IsReadOnly="True" Margin="3" HorizontalAlignment="Stretch"/>
 
@@ -547,15 +544,15 @@
                                 <ColumnDefinition Width="Auto" SharedSizeGroup="B"/>
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Add:" Margin="3" HorizontalAlignment="Right"/>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{my:Loc Key='Add'}" Margin="3" HorizontalAlignment="Right"/>
                             <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding AddExtensions, UpdateSourceTrigger=PropertyChanged}" Margin="3" HorizontalAlignment="Stretch"/>
-                            <TextBlock Grid.Row="0" Grid.Column="2" Text="Remove:" Margin="3" HorizontalAlignment="Right"/>
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="{my:Loc Key='Remove'}" Margin="3" HorizontalAlignment="Right"/>
                             <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding RemExtensions, UpdateSourceTrigger=PropertyChanged}" Margin="3" HorizontalAlignment="Stretch"/>
                         </Grid>
                     </Grid>
                 </GroupBox>
 
-                <GroupBox Header="PDF to Text">
+                <GroupBox Header="{my:Loc Key='PDFToText'}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -566,19 +563,19 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0" Margin="0,3"
-                                   Text="PdfToText.exe command line options:"/>
+                                   Text="{my:Loc Key='PdfToTextExeCommandLineOptions'}"/>
                         <TextBox Grid.Row="1" Grid.Column="0" 
                                  Text="{Binding PdfToTextOptions, UpdateSourceTrigger=PropertyChanged}" 
                                  Width="350" Margin="0,3"
                                  HorizontalAlignment="Left" />
                         <Button Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" 
-                                Content="Reset" Command="{Binding ResetPdfToTextOptionCommand}"
+                                Content="{my:Loc Key='Reset'}" Command="{Binding ResetPdfToTextOptionCommand}"
                                 Padding="12,3" Margin="20,3" 
                                 HorizontalAlignment="Left" VerticalAlignment="Center"/>
                     </Grid>
                 </GroupBox>
 
-                <GroupBox Header="Plugin Options">
+                <GroupBox Header="{my:Loc Key='PluginOptions'}">
                     <ItemsControl ItemsSource="{Binding Path=Plugins}" Grid.IsSharedSizeScope="True">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
@@ -594,9 +591,9 @@
                                         <RowDefinition/>
                                     </Grid.RowDefinitions>
                                     <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Name}" FontWeight="Bold" Margin="0,3,6,3"/>
-                                    <CheckBox Grid.Row="0" Grid.Column="1" Content="Enabled" IsChecked="{Binding IsEnabled}"/>
-                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="Extensions:"/>
-                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Default:" Margin="3" HorizontalAlignment="Right"/>
+                                    <CheckBox Grid.Row="0" Grid.Column="1" Content="{my:Loc Key='Enabled'}" IsChecked="{Binding IsEnabled}"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{my:Loc Key='Extensions'}"/>
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="{my:Loc Key='Default'}" Margin="3" HorizontalAlignment="Right"/>
                                     <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DefaultExtensions}" 
                                              IsReadOnly="True" Margin="3" HorizontalAlignment="Stretch"/>
 
@@ -607,9 +604,9 @@
                                             <ColumnDefinition Width="Auto" SharedSizeGroup="B"/>
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Add:" Margin="3" HorizontalAlignment="Right"/>
+                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{my:Loc Key='Add'}" Margin="3" HorizontalAlignment="Right"/>
                                         <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding AddExtensions, UpdateSourceTrigger=PropertyChanged}" Margin="3" HorizontalAlignment="Stretch"/>
-                                        <TextBlock Grid.Row="0" Grid.Column="2" Text="Remove:" Margin="3" HorizontalAlignment="Right"/>
+                                        <TextBlock Grid.Row="0" Grid.Column="2" Text="{my:Loc Key='Remove'}" Margin="3" HorizontalAlignment="Right"/>
                                         <TextBox Grid.Row="0" Grid.Column="3" Text="{Binding RemExtensions, UpdateSourceTrigger=PropertyChanged}" Margin="3" HorizontalAlignment="Stretch"/>
                                     </Grid>
                                 </Grid>
@@ -623,16 +620,16 @@
 
         <WrapPanel Grid.Row="1" Margin="0,8,0,0" HorizontalAlignment="Left"
                    VerticalAlignment="Center">
-            <TextBlock Text="Press F1 for help on Options" HorizontalAlignment="Left"/>
+            <TextBlock Text="{my:Loc Key='PressF1ForHelpOnOptions'}" HorizontalAlignment="Left"/>
         </WrapPanel>
         <WrapPanel Grid.Row="1" Margin="0,8,0,0" HorizontalAlignment="Right"
                    VerticalAlignment="Bottom">
             <Button x:Name="btnSave" Padding="24,3" Margin="0,5,10,5"
-                    IsDefault="True" Content="Save"
+                    IsDefault="True" Content="{my:Loc Key='Save_'}"
                     Command="{Binding Path=SaveCommand}" 
                     Width="{Binding ElementName=btnClose, Path=ActualWidth}"/>
             <Button x:Name="btnClose" Padding="24,3" Margin="0,5,15,5"
-                    IsCancel="True" Content="Close" />
+                    IsCancel="True" Content="{my:Loc Key='Close_'}" />
         </WrapPanel>
     </Grid>
 </my:ThemedWindow>

@@ -202,7 +202,7 @@
                     </ScrollViewer>
                     <Border.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="Copy to clipboard" Click="BtnCopyFile_Click"
+                            <MenuItem Header="{my:Loc Key='CopyToClipboard'}" Click="BtnCopyFile_Click"
                                       IsEnabled="{Binding ReplaceOutputText, Converter={StaticResource notNullOrEmpty}}" />
                         </ContextMenu>
                     </Border.ContextMenu>

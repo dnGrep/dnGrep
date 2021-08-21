@@ -52,18 +52,18 @@
 
 
             <DataGrid.Columns>
-                <DataGridTextColumn MinWidth="80" Header="Type" IsReadOnly="True"
+                <DataGridTextColumn MinWidth="80" Header="{my:Loc Key='TypeHeader'}" IsReadOnly="True"
                                     Binding="{Binding TypeOfSearch, Converter={StaticResource tosConverter}}"
                                     SortMemberPath="TypeOfSearch" />
-                <DataGridTextColumn MinWidth="120" Header="Search For" IsReadOnly="True"
+                <DataGridTextColumn MinWidth="120" Header="{my:Loc Key='SearchForHeader'}" IsReadOnly="True"
                                     Binding="{Binding SearchFor}" />
-                <DataGridTextColumn MinWidth="120" Header="Replace With" IsReadOnly="True"
+                <DataGridTextColumn MinWidth="120" Header="{my:Loc Key='ReplaceWithHeader'}" IsReadOnly="True"
                                     Binding="{Binding ReplaceWith}" />
-                <DataGridTextColumn MinWidth="120" Header="File Pattern" IsReadOnly="True"
+                <DataGridTextColumn MinWidth="120" Header="{my:Loc Key='FilePatternHeader'}" IsReadOnly="True"
                                     Binding="{Binding FilePattern}" />
-                <DataGridTextColumn MinWidth="160" Header="Description" IsReadOnly="True"
+                <DataGridTextColumn MinWidth="160" Header="{my:Loc Key='DescriptionHeader'}" IsReadOnly="True"
                                     Binding="{Binding Description}" />
-                <DataGridTextColumn MinWidth="20" Header="Other Properties" IsReadOnly="True"
+                <DataGridTextColumn MinWidth="20" Header="{my:Loc Key='OtherPropertiesHeader'}" IsReadOnly="True"
                                     Binding="{Binding ExtendedProperties}" />
             </DataGrid.Columns>
             <DataGrid.RowStyle>

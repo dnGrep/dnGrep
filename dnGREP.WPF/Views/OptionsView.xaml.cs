@@ -1,7 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using dnGREP.Common;
 
 namespace dnGREP.WPF
 {
