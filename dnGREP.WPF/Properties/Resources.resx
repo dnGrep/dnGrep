@@ -143,8 +143,8 @@
   <data name="Acknowledgments" xml:space="preserve">
     <value>Acknowledgments</value>
   </data>
-  <data name="OK" xml:space="preserve">
-    <value>OK</value>
+  <data name="OK_" xml:space="preserve">
+    <value>_OK</value>
   </data>
   <data name="LibraryForReadingArchiveFiles" xml:space="preserve">
     <value>Library for reading archive files</value>
@@ -524,7 +524,7 @@
   <data name="ForExampleRegularExpession" xml:space="preserve">
     <value>e.g. file[0-9]{1,2}\\.txt</value>
   </data>
-  <data name="ForExampleAsteriskPatter" xml:space="preserve">
+  <data name="ForExampleAsteriskPattern" xml:space="preserve">
     <value>e.g. file??.*</value>
   </data>
   <data name="EverythingIndexService" xml:space="preserve">
@@ -817,5 +817,50 @@
   </data>
   <data name="FailedToExtractFileFromArchive" xml:space="preserve">
     <value>Failed to extract file from archive. See the error log for details: </value>
+  </data>
+  <data name="BookmarkDetails" xml:space="preserve">
+    <value>Bookmark Details</value>
+  </data>
+  <data name="FilePattern" xml:space="preserve">
+    <value>File pattern:</value>
+  </data>
+  <data name="IgnorePattern" xml:space="preserve">
+    <value>Ignore pattern:</value>
+  </data>
+  <data name="AssociatedFolders" xml:space="preserve">
+    <value>Associated Folders:</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description:</value>
+  </data>
+  <data name="ThisBookmarkAlreadyExists" xml:space="preserve">
+    <value>This bookmark already exists</value>
+  </data>
+  <data name="Phonetic_" xml:space="preserve">
+    <value>_Phonetic</value>
+  </data>
+  <data name="Bookmarks" xml:space="preserve">
+    <value>Bookmarks</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter:</value>
+  </data>
+  <data name="Add_" xml:space="preserve">
+    <value>_Add</value>
+  </data>
+  <data name="Duplicate_" xml:space="preserve">
+    <value>Du_plicate</value>
+  </data>
+  <data name="Edit_" xml:space="preserve">
+    <value>_Edit</value>
+  </data>
+  <data name="Delete_" xml:space="preserve">
+    <value>_Delete</value>
+  </data>
+  <data name="Use_" xml:space="preserve">
+    <value>_Use</value>
+  </data>
+  <data name="SearchInArchives" xml:space="preserve">
+    <value>Search in archives</value>
   </data>
 </root>

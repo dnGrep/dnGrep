@@ -4,7 +4,7 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:my="clr-namespace:dnGREP.WPF"
-                 Title="Bookmarks"
+                 Title="{my:Loc Key='Bookmarks'}"
                  FontFamily="{Binding ApplicationFontFamily}"
                  FontSize="{Binding DialogFontSize}"
                  Width="860"
@@ -35,7 +35,7 @@
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Row="0">
-            <TextBlock Margin="3" Text="Filter:" Style="{StaticResource LabelTextBlockStyle}" />
+            <TextBlock Margin="3" Text="{my:Loc Key='Filter'}" Style="{StaticResource LabelTextBlockStyle}" />
             <TextBox Margin="3" Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" />
         </DockPanel>
 
@@ -81,18 +81,18 @@
                     <ColumnDefinition SharedSizeGroup="A"/>
                     <ColumnDefinition SharedSizeGroup="A"/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="_Add" Command="{Binding AddCommand}" />
-                <Button Grid.Column="1" Content="Du_plicate" Command="{Binding DuplicateCommand}" />
-                <Button Grid.Column="2" Content="_Edit" Command="{Binding EditCommand}" />
-                <Button Grid.Column="3" Content="_Delete" Command="{Binding DeleteCommand}" />
+                <Button Grid.Column="0" Content="{my:Loc Key='Add_'}" Command="{Binding AddCommand}" />
+                <Button Grid.Column="1" Content="{my:Loc Key='Duplicate_'}" Command="{Binding DuplicateCommand}" />
+                <Button Grid.Column="2" Content="{my:Loc Key='Edit_'}" Command="{Binding EditCommand}" />
+                <Button Grid.Column="3" Content="{my:Loc Key='Delete_'}" Command="{Binding DeleteCommand}" />
             </Grid>
             <Grid DockPanel.Dock="Right">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition SharedSizeGroup="A"/>
                     <ColumnDefinition SharedSizeGroup="A"/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="_Close" IsCancel="True" IsDefault="True" />
-                <Button Grid.Column="1" Content="_Use" IsEnabled="{Binding HasSelection}" Click="UseButton_Click" />
+                <Button Grid.Column="0" Content="{my:Loc Key='Close_'}" IsCancel="True" IsDefault="True" />
+                <Button Grid.Column="1" Content="{my:Loc Key='Use_'}" IsEnabled="{Binding HasSelection}" Click="UseButton_Click" />
             </Grid>
         </DockPanel>
 

@@ -190,7 +190,7 @@ namespace dnGREP.WPF
 
                 checkForUpdatesInterval = value;
 
-                base.OnPropertyChanged("CheckForUpdatesInterval");
+                base.OnPropertyChanged(nameof(CheckForUpdatesInterval));
             }
         }
 
@@ -219,7 +219,7 @@ namespace dnGREP.WPF
                     return;
 
                 followWindowsTheme = value;
-                OnPropertyChanged("FollowWindowsTheme");
+                OnPropertyChanged(nameof(FollowWindowsTheme));
 
                 AppTheme.Instance.FollowWindowsThemeChanged(followWindowsTheme, CurrentTheme);
 
@@ -238,7 +238,7 @@ namespace dnGREP.WPF
                     return;
 
                 hasWindowsThemes = value;
-                OnPropertyChanged("HasWindowsThemes");
+                OnPropertyChanged(nameof(HasWindowsThemes));
             }
         }
 
@@ -252,7 +252,7 @@ namespace dnGREP.WPF
                     return;
 
                 currentTheme = value;
-                OnPropertyChanged("CurrentTheme");
+                OnPropertyChanged(nameof(CurrentTheme));
 
                 AppTheme.Instance.CurrentThemeName = currentTheme;
             }
@@ -270,7 +270,7 @@ namespace dnGREP.WPF
                     return;
 
                 currentCulture = value;
-                OnPropertyChanged("CurrentCulture");
+                OnPropertyChanged(nameof(CurrentCulture));
                 TranslationSource.Instance.SetCulture(value);
             }
         }

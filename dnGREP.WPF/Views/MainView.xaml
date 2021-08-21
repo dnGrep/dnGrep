@@ -492,7 +492,7 @@
                                                 <RadioButton Name="rbFileAsterisk" Margin="3,0,3,3" GroupName="FileSearchType"
                                                              TabIndex="41" Content="{my:Loc Key='AsteriskPattern_'}"
                                                              IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Asterisk}"
-                                                             ToolTip="{my:Loc Key='ForExampleAsteriskPatter'}" />
+                                                             ToolTip="{my:Loc Key='ForExampleAsteriskPattern'}" />
                                                 <RadioButton Name="rbFileEverything" Margin="3,0,3,3" GroupName="FileSearchType"
                                                              TabIndex="41" Content="{my:Loc Key='Everything_'}"
                                                              IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Everything}"

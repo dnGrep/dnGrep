@@ -97,6 +97,15 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to _Add.
+        /// </summary>
+        internal static string Add_ {
+            get {
+                return ResourceManager.GetString("Add_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add search pattern to bookmarks.
         /// </summary>
         internal static string AddSearchPatternToBookmarks {
@@ -169,6 +178,15 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Associated Folders:.
+        /// </summary>
+        internal static string AssociatedFolders {
+            get {
+                return ResourceManager.GetString("AssociatedFolders", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Asterisk pattern.
         /// </summary>
         internal static string AsteriskPattern_ {
@@ -192,6 +210,24 @@ namespace dnGREP.WPF.Properties {
         internal static string BeforeAnd {
             get {
                 return ResourceManager.GetString("BeforeAnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bookmark Details.
+        /// </summary>
+        internal static string BookmarkDetails {
+            get {
+                return ResourceManager.GetString("BookmarkDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bookmarks.
+        /// </summary>
+        internal static string Bookmarks {
+            get {
+                return ResourceManager.GetString("Bookmarks", resourceCulture);
             }
         }
         
@@ -475,11 +511,29 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to _Delete.
+        /// </summary>
+        internal static string Delete_ {
+            get {
+                return ResourceManager.GetString("Delete_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete files....
         /// </summary>
         internal static string DeleteFiles_ {
             get {
                 return ResourceManager.GetString("DeleteFiles_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description:.
+        /// </summary>
+        internal static string Description {
+            get {
+                return ResourceManager.GetString("Description", resourceCulture);
             }
         }
         
@@ -552,6 +606,24 @@ namespace dnGREP.WPF.Properties {
         internal static string DoYouWantToContinue {
             get {
                 return ResourceManager.GetString("DoYouWantToContinue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Du_plicate.
+        /// </summary>
+        internal static string Duplicate_ {
+            get {
+                return ResourceManager.GetString("Duplicate_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Edit.
+        /// </summary>
+        internal static string Edit_ {
+            get {
+                return ResourceManager.GetString("Edit_", resourceCulture);
             }
         }
         
@@ -646,6 +718,15 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File pattern:.
+        /// </summary>
+        internal static string FilePattern {
+            get {
+                return ResourceManager.GetString("FilePattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Files have been successfully reverted..
         /// </summary>
         internal static string FilesHaveBeenSuccessfullyReverted {
@@ -660,6 +741,15 @@ namespace dnGREP.WPF.Properties {
         internal static string FileSystemIndexingLocateFilesInstantly {
             get {
                 return ResourceManager.GetString("FileSystemIndexingLocateFilesInstantly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter:.
+        /// </summary>
+        internal static string Filter {
+            get {
+                return ResourceManager.GetString("Filter", resourceCulture);
             }
         }
         
@@ -684,9 +774,9 @@ namespace dnGREP.WPF.Properties {
         /// <summary>
         ///   Looks up a localized string similar to e.g. file??.*.
         /// </summary>
-        internal static string ForExampleAsteriskPatter {
+        internal static string ForExampleAsteriskPattern {
             get {
-                return ResourceManager.GetString("ForExampleAsteriskPatter", resourceCulture);
+                return ResourceManager.GetString("ForExampleAsteriskPattern", resourceCulture);
             }
         }
         
@@ -777,6 +867,15 @@ namespace dnGREP.WPF.Properties {
         internal static string Hours {
             get {
                 return ResourceManager.GetString("Hours", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ignore pattern:.
+        /// </summary>
+        internal static string IgnorePattern {
+            get {
+                return ResourceManager.GetString("IgnorePattern", resourceCulture);
             }
         }
         
@@ -1150,11 +1249,11 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to OK.
+        ///   Looks up a localized string similar to _OK.
         /// </summary>
-        internal static string OK {
+        internal static string OK_ {
             get {
-                return ResourceManager.GetString("OK", resourceCulture);
+                return ResourceManager.GetString("OK_", resourceCulture);
             }
         }
         
@@ -1195,7 +1294,7 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Phonetic.
+        ///   Looks up a localized string similar to _Phonetic.
         /// </summary>
         internal static string Phonetic_ {
             get {
@@ -1555,6 +1654,15 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search in archives.
+        /// </summary>
+        internal static string SearchInArchives {
+            get {
+                return ResourceManager.GetString("SearchInArchives", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search in ar_chives.
         /// </summary>
         internal static string SearchInArchives_ {
@@ -1897,6 +2005,15 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This bookmark already exists.
+        /// </summary>
+        internal static string ThisBookmarkAlreadyExists {
+            get {
+                return ResourceManager.GetString("ThisBookmarkAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This bookmark is associated with {0} other folders:.
         /// </summary>
         internal static string ThisBookmarkIsAssociatedWith0OtherFolders {
@@ -1983,6 +2100,15 @@ namespace dnGREP.WPF.Properties {
         internal static string Unicode {
             get {
                 return ResourceManager.GetString("Unicode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Use.
+        /// </summary>
+        internal static string Use_ {
+            get {
+                return ResourceManager.GetString("Use_", resourceCulture);
             }
         }
         
