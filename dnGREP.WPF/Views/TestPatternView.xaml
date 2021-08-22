@@ -90,19 +90,19 @@
                                  Style="{StaticResource ExpandedTextbox}">
                             <TextBox.ToolTip>
                                 <TextBlock>
-                                    <Run Text="{my:Loc Key='MatchesAllCharacters'}"/>
+                                    <Run Text="{my:Loc Key='TTA1_MatchesAllCharacters'}"/>
                                     <LineBreak />
-                                    <Run Text="{my:Loc Key='MatchesAlphaNumerics'}"/>
+                                    <Run Text="{my:Loc Key='TTA2_MatchesAlphaNumerics'}"/>
                                     <LineBreak />
-                                    <Run Text="{my:Loc Key='MatchesDigits'}"/>
+                                    <Run Text="{my:Loc Key='TTA3_MatchesDigits'}"/>
                                     <LineBreak />
-                                    <Run Text="{my:Loc Key='MatchesSpace'}"/>
+                                    <Run Text="{my:Loc Key='TTA4_MatchesSpace'}"/>
                                     <LineBreak />
-                                    <Run Text="{my:Loc Key='MatchesAnyNumberOfCharacters'}"/>
+                                    <Run Text="{my:Loc Key='TTA5_MatchesAnyNumberOfCharacters'}"/>
                                     <LineBreak />
-                                    <Run Text="{my:Loc Key='Matches1To3Characters'}"/>
+                                    <Run Text="{my:Loc Key='TTA6_Matches1To3Characters'}"/>
                                     <LineBreak />
-                                    <Run Text="{my:Loc Key='ForMoreRegexPatternsHitF1'}"/>
+                                    <Run Text="{my:Loc Key='TTA7_ForMoreRegexPatternsHitF1'}"/>
                                 </TextBlock>
                             </TextBox.ToolTip>
                         </TextBox>
@@ -115,11 +115,11 @@
                                  Style="{StaticResource ExpandedTextbox}">
                             <TextBox.ToolTip>
                                 <TextBlock>
-                                    <Run Text="{my:Loc Key='ReplacesEntireRegex'}"/>
+                                    <Run Text="{my:Loc Key='TTB1_ReplacesEntireRegex'}"/>
                                     <LineBreak />
-                                    <Run Text="{my:Loc Key='InsertsTheTextMatchedIntoTheReplacementText'}"/>
+                                    <Run Text="{my:Loc Key='TTB2_InsertsTheTextMatchedIntoTheReplacementText'}"/>
                                     <LineBreak />
-                                    <Run Text="{my:Loc Key='InsertsASingleDollarSignIntoTheReplacementText'}"/>
+                                    <Run Text="{my:Loc Key='TTB3_InsertsASingleDollarSignIntoTheReplacementText'}"/>
                                 </TextBlock>
                             </TextBox.ToolTip>
                         </TextBox>

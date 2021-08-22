@@ -117,11 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="English" xml:space="preserve">
+  <data name="Language_English" xml:space="preserve">
     <value>English</value>
     <comment>@Invariant</comment>
   </data>
-  <data name="Chinese" xml:space="preserve">
+  <data name="Language_Chinese" xml:space="preserve">
     <value>中文</value>
     <comment>@Invariant</comment>
   </data>
@@ -239,34 +239,34 @@
   <data name="Close_" xml:space="preserve">
     <value>_Close</value>
   </data>
-  <data name="MatchesAllCharacters" xml:space="preserve">
+  <data name="TTA1_MatchesAllCharacters" xml:space="preserve">
     <value>. matches all characters</value>
   </data>
-  <data name="MatchesAlphaNumerics" xml:space="preserve">
+  <data name="TTA2_MatchesAlphaNumerics" xml:space="preserve">
     <value>\w matches alpha-numerics</value>
   </data>
-  <data name="MatchesDigits" xml:space="preserve">
+  <data name="TTA3_MatchesDigits" xml:space="preserve">
     <value>\d matches digits</value>
   </data>
-  <data name="MatchesSpace" xml:space="preserve">
+  <data name="TTA4_MatchesSpace" xml:space="preserve">
     <value>\s matches space</value>
   </data>
-  <data name="MatchesAnyNumberOfCharacters" xml:space="preserve">
+  <data name="TTA5_MatchesAnyNumberOfCharacters" xml:space="preserve">
     <value>* matches any number of characters</value>
   </data>
-  <data name="Matches1To3Characters" xml:space="preserve">
+  <data name="TTA6_Matches1To3Characters" xml:space="preserve">
     <value>{1,3} matches 1 to 3 characters</value>
   </data>
-  <data name="ForMoreRegexPatternsHitF1" xml:space="preserve">
+  <data name="TTA7_ForMoreRegexPatternsHitF1" xml:space="preserve">
     <value>For more Regex patterns hit F1</value>
   </data>
-  <data name="ReplacesEntireRegex" xml:space="preserve">
+  <data name="TTB1_ReplacesEntireRegex" xml:space="preserve">
     <value>$&amp; replaces entire regex</value>
   </data>
-  <data name="InsertsTheTextMatchedIntoTheReplacementText" xml:space="preserve">
+  <data name="TTB2_InsertsTheTextMatchedIntoTheReplacementText" xml:space="preserve">
     <value>$1, $2, $3, etc... inserts the text matched between capturing parentheses into the replacement text</value>
   </data>
-  <data name="InsertsASingleDollarSignIntoTheReplacementText" xml:space="preserve">
+  <data name="TTB3_InsertsASingleDollarSignIntoTheReplacementText" xml:space="preserve">
     <value>$$ inserts a single dollar sign into the replacement text</value>
   </data>
   <data name="Undo_" xml:space="preserve">
@@ -402,7 +402,7 @@
     <value>Descending</value>
   </data>
   <data name="MoreArrow_" xml:space="preserve">
-    <value>More ⏷</value>
+    <value>_More ⏷</value>
   </data>
   <data name="Cancel_" xml:space="preserve">
     <value>_Cancel</value>

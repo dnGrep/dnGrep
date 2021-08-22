@@ -22,8 +22,8 @@ namespace dnGREP.WPF
         public Dictionary<string, string> AppCultures =>
             new Dictionary<string, string>
             {
-                { "en-US", Properties.Resources.English },
-                { "zh", Properties.Resources.Chinese },
+                { "en-US", Properties.Resources.Language_English },
+                { "zh", Properties.Resources.Language_Chinese },
             };
 
         public void SetCulture(string ietfLanguateTag)

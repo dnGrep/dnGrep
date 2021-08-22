@@ -403,15 +403,6 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 中文.
-        /// </summary>
-        internal static string Chinese {
-            get {
-                return ResourceManager.GetString("Chinese", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Clear bookmark.
         /// </summary>
         internal static string ClearBookmark {
@@ -934,15 +925,6 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to English.
-        /// </summary>
-        internal static string English {
-            get {
-                return ResourceManager.GetString("English", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to There was an error opening file. See the error log for details: .
         /// </summary>
         internal static string ErrorOpeningFile {
@@ -1096,15 +1078,6 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For more Regex patterns hit F1.
-        /// </summary>
-        internal static string ForMoreRegexPatternsHitF1 {
-            get {
-                return ResourceManager.GetString("ForMoreRegexPatternsHitF1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to From.
         /// </summary>
         internal static string From_ {
@@ -1240,24 +1213,6 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $$ inserts a single dollar sign into the replacement text.
-        /// </summary>
-        internal static string InsertsASingleDollarSignIntoTheReplacementText {
-            get {
-                return ResourceManager.GetString("InsertsASingleDollarSignIntoTheReplacementText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to $1, $2, $3, etc... inserts the text matched between capturing parentheses into the replacement text.
-        /// </summary>
-        internal static string InsertsTheTextMatchedIntoTheReplacementText {
-            get {
-                return ResourceManager.GetString("InsertsTheTextMatchedIntoTheReplacementText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to items shown in file filter history lists.
         /// </summary>
         internal static string ItemsShownInFileFilterHistoryLists {
@@ -1312,6 +1267,24 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 中文.
+        /// </summary>
+        internal static string Language_Chinese {
+            get {
+                return ResourceManager.GetString("Language_Chinese", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        internal static string Language_English {
+            get {
+                return ResourceManager.GetString("Language_English", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Layout.
         /// </summary>
         internal static string Layout {
@@ -1353,60 +1326,6 @@ namespace dnGREP.WPF.Properties {
         internal static string MainFontSize {
             get {
                 return ResourceManager.GetString("MainFontSize", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to {1,3} matches 1 to 3 characters.
-        /// </summary>
-        internal static string Matches1To3Characters {
-            get {
-                return ResourceManager.GetString("Matches1To3Characters", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to . matches all characters.
-        /// </summary>
-        internal static string MatchesAllCharacters {
-            get {
-                return ResourceManager.GetString("MatchesAllCharacters", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to \w matches alpha-numerics.
-        /// </summary>
-        internal static string MatchesAlphaNumerics {
-            get {
-                return ResourceManager.GetString("MatchesAlphaNumerics", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to * matches any number of characters.
-        /// </summary>
-        internal static string MatchesAnyNumberOfCharacters {
-            get {
-                return ResourceManager.GetString("MatchesAnyNumberOfCharacters", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to \d matches digits.
-        /// </summary>
-        internal static string MatchesDigits {
-            get {
-                return ResourceManager.GetString("MatchesDigits", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to \s matches space.
-        /// </summary>
-        internal static string MatchesSpace {
-            get {
-                return ResourceManager.GetString("MatchesSpace", resourceCulture);
             }
         }
         
@@ -1474,7 +1393,7 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to More ⏷.
+        ///   Looks up a localized string similar to _More ⏷.
         /// </summary>
         internal static string MoreArrow_ {
             get {
@@ -1974,15 +1893,6 @@ namespace dnGREP.WPF.Properties {
         internal static string ReplaceResult {
             get {
                 return ResourceManager.GetString("ReplaceResult", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to $&amp; replaces entire regex.
-        /// </summary>
-        internal static string ReplacesEntireRegex {
-            get {
-                return ResourceManager.GetString("ReplacesEntireRegex", resourceCulture);
             }
         }
         
@@ -2748,6 +2658,96 @@ namespace dnGREP.WPF.Properties {
         internal static string To {
             get {
                 return ResourceManager.GetString("To", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to . matches all characters.
+        /// </summary>
+        internal static string TTA1_MatchesAllCharacters {
+            get {
+                return ResourceManager.GetString("TTA1_MatchesAllCharacters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \w matches alpha-numerics.
+        /// </summary>
+        internal static string TTA2_MatchesAlphaNumerics {
+            get {
+                return ResourceManager.GetString("TTA2_MatchesAlphaNumerics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \d matches digits.
+        /// </summary>
+        internal static string TTA3_MatchesDigits {
+            get {
+                return ResourceManager.GetString("TTA3_MatchesDigits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to \s matches space.
+        /// </summary>
+        internal static string TTA4_MatchesSpace {
+            get {
+                return ResourceManager.GetString("TTA4_MatchesSpace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to * matches any number of characters.
+        /// </summary>
+        internal static string TTA5_MatchesAnyNumberOfCharacters {
+            get {
+                return ResourceManager.GetString("TTA5_MatchesAnyNumberOfCharacters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {1,3} matches 1 to 3 characters.
+        /// </summary>
+        internal static string TTA6_Matches1To3Characters {
+            get {
+                return ResourceManager.GetString("TTA6_Matches1To3Characters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For more Regex patterns hit F1.
+        /// </summary>
+        internal static string TTA7_ForMoreRegexPatternsHitF1 {
+            get {
+                return ResourceManager.GetString("TTA7_ForMoreRegexPatternsHitF1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to $&amp; replaces entire regex.
+        /// </summary>
+        internal static string TTB1_ReplacesEntireRegex {
+            get {
+                return ResourceManager.GetString("TTB1_ReplacesEntireRegex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to $1, $2, $3, etc... inserts the text matched between capturing parentheses into the replacement text.
+        /// </summary>
+        internal static string TTB2_InsertsTheTextMatchedIntoTheReplacementText {
+            get {
+                return ResourceManager.GetString("TTB2_InsertsTheTextMatchedIntoTheReplacementText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to $$ inserts a single dollar sign into the replacement text.
+        /// </summary>
+        internal static string TTB3_InsertsASingleDollarSignIntoTheReplacementText {
+            get {
+                return ResourceManager.GetString("TTB3_InsertsASingleDollarSignIntoTheReplacementText", resourceCulture);
             }
         }
         

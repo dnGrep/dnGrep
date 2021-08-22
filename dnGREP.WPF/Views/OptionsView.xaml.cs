@@ -36,7 +36,7 @@ namespace dnGREP.WPF
         {
             if (!string.IsNullOrEmpty(text))
             {
-                if (!int.TryParse(text, out int value))
+                if (!int.TryParse(text, out _))
                     return false;
             }
             return true;
