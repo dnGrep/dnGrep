@@ -48,15 +48,15 @@ namespace dnGREP.WPF
                 }
                 else
                 {
-                    MessageBox.Show($"Resources file '{filePath}', is not a resx file.",
-                        "dnGrep - Load Resources", MessageBoxButton.OK);
+                    MessageBox.Show(string.Format(Properties.Resources.ResourcesFile0IsNotAResxFile, filePath),
+                        Properties.Resources.DnGrep + "  " + Properties.Resources.LoadResources, MessageBoxButton.OK);
                 }
             }
             catch(Exception ex)
             {
                 logger.Error(ex, $"Failed to load resources file '{filePath}'");
-                MessageBox.Show($"Could not load resources file '{filePath}', See the error log for details: " + App.LogDir,
-                    "dnGrep - Load Resources", MessageBoxButton.OK);
+                MessageBox.Show(string.Format(Properties.Resources.CouldNotLoadResourcesFile0, filePath) + App.LogDir,
+                    Properties.Resources.DnGrep + "  " + Properties.Resources.LoadResources, MessageBoxButton.OK);
             }
         }
 

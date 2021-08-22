@@ -547,6 +547,15 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy Files.
+        /// </summary>
+        internal static string CopyFiles {
+            get {
+                return ResourceManager.GetString("CopyFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy files....
         /// </summary>
         internal static string CopyFiles_ {
@@ -588,6 +597,24 @@ namespace dnGREP.WPF.Properties {
         internal static string CopyToClipboard {
             get {
                 return ResourceManager.GetString("CopyToClipboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not load resources file &apos;{0}&apos;, See the error log for details: .
+        /// </summary>
+        internal static string CouldNotLoadResourcesFile0 {
+            get {
+                return ResourceManager.GetString("CouldNotLoadResourcesFile0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not load theme &apos;{0}&apos;, See the error log for details: .
+        /// </summary>
+        internal static string CouldNotLoadTheme {
+            get {
+                return ResourceManager.GetString("CouldNotLoadTheme", resourceCulture);
             }
         }
         
@@ -696,6 +723,15 @@ namespace dnGREP.WPF.Properties {
         internal static string Delete_ {
             get {
                 return ResourceManager.GetString("Delete_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete Files.
+        /// </summary>
+        internal static string DeleteFiles {
+            get {
+                return ResourceManager.GetString("DeleteFiles", resourceCulture);
             }
         }
         
@@ -997,11 +1033,29 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error: .
+        /// </summary>
+        internal static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There was an error opening file. See the error log for details: .
         /// </summary>
         internal static string ErrorOpeningFile {
             get {
                 return ResourceManager.GetString("ErrorOpeningFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error setting clipboard text, the clipboard is locked by.
+        /// </summary>
+        internal static string ErrorSettingClipboardTextTheClipboardIsLockedBy {
+            get {
+                return ResourceManager.GetString("ErrorSettingClipboardTextTheClipboardIsLockedBy", resourceCulture);
             }
         }
         
@@ -1438,6 +1492,15 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Load Resources.
+        /// </summary>
+        internal static string LoadResources {
+            get {
+                return ResourceManager.GetString("LoadResources", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Logging framework for .NET.
         /// </summary>
         internal static string LoggingFrameworkForNET {
@@ -1551,6 +1614,15 @@ namespace dnGREP.WPF.Properties {
         internal static string MoreArrow_ {
             get {
                 return ResourceManager.GetString("MoreArrow_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move Files.
+        /// </summary>
+        internal static string MoveFiles {
+            get {
+                return ResourceManager.GetString("MoveFiles", resourceCulture);
             }
         }
         
@@ -1942,6 +2014,15 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Plugin Errors.
+        /// </summary>
+        internal static string PluginErrors {
+            get {
+                return ResourceManager.GetString("PluginErrors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Plugin Options.
         /// </summary>
         internal static string PluginOptions {
@@ -2131,6 +2212,15 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rename failed: .
+        /// </summary>
+        internal static string RenameFailed {
+            get {
+                return ResourceManager.GetString("RenameFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rename File.
         /// </summary>
         internal static string RenameFile {
@@ -2145,6 +2235,15 @@ namespace dnGREP.WPF.Properties {
         internal static string RenameFileL {
             get {
                 return ResourceManager.GetString("RenameFileL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace.
+        /// </summary>
+        internal static string Replace {
+            get {
+                return ResourceManager.GetString("Replace", resourceCulture);
             }
         }
         
@@ -2257,6 +2356,15 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Replace text is not valid XML!.
+        /// </summary>
+        internal static string ReplaceTextIsNotValidXML {
+            get {
+                return ResourceManager.GetString("ReplaceTextIsNotValidXML", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Replace with:.
         /// </summary>
         internal static string ReplaceWith {
@@ -2329,6 +2437,15 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Resources file &apos;{0}&apos;, is not a resx file..
+        /// </summary>
+        internal static string ResourcesFile0IsNotAResxFile {
+            get {
+                return ResourceManager.GetString("ResourcesFile0IsNotAResxFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Results file format.
         /// </summary>
         internal static string ResultsFileFormat {
@@ -2397,6 +2514,24 @@ namespace dnGREP.WPF.Properties {
         internal static string RplB4_SkipMatch {
             get {
                 return ResourceManager.GetString("RplB4_SkipMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Run dnGrep as Administrator to change showing dnGrep in Explorer right-click menu.
+        /// </summary>
+        internal static string RunDnGrepAsAdministrator {
+            get {
+                return ResourceManager.GetString("RunDnGrepAsAdministrator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Run dnGrep as Administrator to change Startup Register.
+        /// </summary>
+        internal static string RunDnGrepAsAdministratorToChangeStartupRegister {
+            get {
+                return ResourceManager.GetString("RunDnGrepAsAdministratorToChangeStartupRegister", resourceCulture);
             }
         }
         
@@ -2833,6 +2968,15 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Something broke down in dnGrep. See the error log for details: .
+        /// </summary>
+        internal static string SomethingBrokeDownInDnGrep {
+            get {
+                return ResourceManager.GetString("SomethingBrokeDownInDnGrep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Sort.
         /// </summary>
         internal static string Sort_ {
@@ -2977,6 +3121,15 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The file &apos;{0}&apos; already exists in {1}, overwrite existing?.
+        /// </summary>
+        internal static string TheFile0AlreadyExistsIn1OverwriteExisting {
+            get {
+                return ResourceManager.GetString("TheFile0AlreadyExistsIn1OverwriteExisting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The file pattern &apos;{0}&apos; is not a valid regular expression:{1}{2}.
         /// </summary>
         internal static string TheFilePattern0IsNotAValidRegularExpression12 {
@@ -3009,6 +3162,15 @@ namespace dnGREP.WPF.Properties {
         internal static string Theme {
             get {
                 return ResourceManager.GetString("Theme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There was an error adding dnGrep to Explorer right-click menu. See the error log for details: .
+        /// </summary>
+        internal static string ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu {
+            get {
+                return ResourceManager.GetString("ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu", resourceCulture);
             }
         }
         
@@ -3049,6 +3211,24 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There was an error registering auto startup. See the error log for details: .
+        /// </summary>
+        internal static string ThereWasAnErrorRegisteringAutoStartup {
+            get {
+                return ResourceManager.GetString("ThereWasAnErrorRegisteringAutoStartup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There was an error removing dnGrep from the Explorer right-click menu. See the error log for details: .
+        /// </summary>
+        internal static string ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu {
+            get {
+                return ResourceManager.GetString("ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There was an error reverting files. See the error log for details: .
         /// </summary>
         internal static string ThereWasAnErrorRevertingFiles {
@@ -3072,6 +3252,15 @@ namespace dnGREP.WPF.Properties {
         internal static string ThereWasAnErrorSavingOptions {
             get {
                 return ResourceManager.GetString("ThereWasAnErrorSavingOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There was an error unregistering auto startup. See the error log for details: .
+        /// </summary>
+        internal static string ThereWasAnErrorUnregisteringAutoStartup {
+            get {
+                return ResourceManager.GetString("ThereWasAnErrorUnregisteringAutoStartup", resourceCulture);
             }
         }
         
@@ -3265,6 +3454,15 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Undo.
+        /// </summary>
+        internal static string Undo {
+            get {
+                return ResourceManager.GetString("Undo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Undo.
         /// </summary>
         internal static string Undo_ {
@@ -3414,6 +3612,15 @@ namespace dnGREP.WPF.Properties {
         internal static string WindowTitle {
             get {
                 return ResourceManager.GetString("WindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Window Title: {0}.
+        /// </summary>
+        internal static string WindowTitleIsName {
+            get {
+                return ResourceManager.GetString("WindowTitleIsName", resourceCulture);
             }
         }
         

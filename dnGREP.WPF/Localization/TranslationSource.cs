@@ -13,6 +13,10 @@ namespace dnGREP.WPF
     {
         public static TranslationSource Instance { get; } = new TranslationSource();
 
+        private TranslationSource()
+        {
+            Common.TranslationSource.QueryString += QueryStringHandler;
+        }
 
         // WPF bindings register PropertyChanged event if the object supports it and update themselves when it is raised
         public event PropertyChangedEventHandler PropertyChanged;
@@ -36,6 +40,11 @@ namespace dnGREP.WPF
         }
 
         public string this[string key] => Properties.Resources.ResourceManager.GetString(key, currentCulture) ?? $"#{key}";
+
+        private void QueryStringHandler(object sender, Common.QueryStringEventArgs e)
+        {
+            e.Value = this[e.Key];
+        }
 
         private CultureInfo currentCulture = CultureInfo.GetCultureInfoByIetfLanguageTag("en-US");
         public CultureInfo CurrentCulture

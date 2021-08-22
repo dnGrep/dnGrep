@@ -67,8 +67,8 @@ namespace dnGREP.WPF
             catch (Exception ex)
             {
                 logger.Error(ex, "Failure in application startup");
-                MessageBox.Show("Something broke down in dnGrep. See the error log for details: " + LogDir,
-                    "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(WPF.Properties.Resources.SomethingBrokeDownInDnGrep + LogDir,
+                    WPF.Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -86,16 +86,16 @@ namespace dnGREP.WPF
             catch (Exception ex)
             {
                 logger.Error(ex, "Failure in application exit");
-                MessageBox.Show("Something broke down in dnGrep. See the error log for details: " + LogDir,
-                    "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(WPF.Properties.Resources.SomethingBrokeDownInDnGrep + LogDir,
+                    WPF.Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             logger.Error(e.Exception, "Unhandled exception caught");
-            MessageBox.Show("Something broke down in dnGrep. See the error log for details: " + LogDir,
-                    "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);;
+            MessageBox.Show(WPF.Properties.Resources.SomethingBrokeDownInDnGrep + LogDir,
+                    WPF.Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);;
             e.Handled = true;
         }
     }

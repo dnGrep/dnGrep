@@ -135,6 +135,7 @@
     <Compile Include="GrepCaptureGroup.cs" />
     <Compile Include="GrepLine.cs" />
     <Compile Include="GrepMatch.cs" />
+    <Compile Include="Localization\TranslationSource.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="PathSearchText.cs" />
     <Compile Include="SafeDirectory.cs" />

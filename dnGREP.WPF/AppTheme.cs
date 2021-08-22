@@ -325,8 +325,8 @@ namespace dnGREP.WPF
 
             if (!valid)
             {
-                MessageBox.Show($"Could not load theme '{name}', See the error log for details: " + App.LogDir,
-                    "dnGrep - Load Theme", MessageBoxButton.OK);
+                MessageBox.Show(string.Format(Properties.Resources.CouldNotLoadTheme, name) + App.LogDir,
+                    Properties.Resources.DnGrep, MessageBoxButton.OK);
             }
 
             return valid;

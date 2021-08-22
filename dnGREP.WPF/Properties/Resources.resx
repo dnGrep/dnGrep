@@ -1265,4 +1265,73 @@
   <data name="Preview_UseRegularExpressions" xml:space="preserve">
     <value>Use regular expressions</value>
   </data>
+  <data name="ErrorSettingClipboardTextTheClipboardIsLockedBy" xml:space="preserve">
+    <value>Error setting clipboard text, the clipboard is locked by</value>
+  </data>
+  <data name="WindowTitleIsName" xml:space="preserve">
+    <value>Window Title: {0}</value>
+  </data>
+  <data name="TheFile0AlreadyExistsIn1OverwriteExisting" xml:space="preserve">
+    <value>The file '{0}' already exists in {1}, overwrite existing?</value>
+  </data>
+  <data name="SomethingBrokeDownInDnGrep" xml:space="preserve">
+    <value>Something broke down in dnGrep. See the error log for details: </value>
+  </data>
+  <data name="CouldNotLoadTheme" xml:space="preserve">
+    <value>Could not load theme '{0}', See the error log for details: </value>
+  </data>
+  <data name="ResourcesFile0IsNotAResxFile" xml:space="preserve">
+    <value>Resources file '{0}', is not a resx file.</value>
+  </data>
+  <data name="LoadResources" xml:space="preserve">
+    <value>Load Resources</value>
+  </data>
+  <data name="CouldNotLoadResourcesFile0" xml:space="preserve">
+    <value>Could not load resources file '{0}', See the error log for details: </value>
+  </data>
+  <data name="RenameFailed" xml:space="preserve">
+    <value>Rename failed: </value>
+  </data>
+  <data name="PluginErrors" xml:space="preserve">
+    <value>Plugin Errors</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>Replace</value>
+  </data>
+  <data name="Undo" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="CopyFiles" xml:space="preserve">
+    <value>Copy Files</value>
+  </data>
+  <data name="MoveFiles" xml:space="preserve">
+    <value>Move Files</value>
+  </data>
+  <data name="DeleteFiles" xml:space="preserve">
+    <value>Delete Files</value>
+  </data>
+  <data name="RunDnGrepAsAdministrator" xml:space="preserve">
+    <value>Run dnGrep as Administrator to change showing dnGrep in Explorer right-click menu</value>
+  </data>
+  <data name="ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu" xml:space="preserve">
+    <value>There was an error adding dnGrep to Explorer right-click menu. See the error log for details: </value>
+  </data>
+  <data name="ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu" xml:space="preserve">
+    <value>There was an error removing dnGrep from the Explorer right-click menu. See the error log for details: </value>
+  </data>
+  <data name="RunDnGrepAsAdministratorToChangeStartupRegister" xml:space="preserve">
+    <value>Run dnGrep as Administrator to change Startup Register</value>
+  </data>
+  <data name="ThereWasAnErrorRegisteringAutoStartup" xml:space="preserve">
+    <value>There was an error registering auto startup. See the error log for details: </value>
+  </data>
+  <data name="ThereWasAnErrorUnregisteringAutoStartup" xml:space="preserve">
+    <value>There was an error unregistering auto startup. See the error log for details: </value>
+  </data>
+  <data name="ReplaceTextIsNotValidXML" xml:space="preserve">
+    <value>Replace text is not valid XML!</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error: </value>
+  </data>
 </root>

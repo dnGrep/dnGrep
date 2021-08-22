@@ -118,8 +118,9 @@ namespace dnGREP.Common
                         if (destinationFileInfo.Exists && action == OverwriteFile.Prompt)
                         {
                             var answer = MessageBox.Show(
-                                $"The file '{destinationFileInfo.Name}' already exists in {destinationFileInfo.DirectoryName}, overwrite existing?",
-                                "dnGrep - Overwrite File", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
+                                string.Format(TranslationSource.Instance["TheFile0AlreadyExistsIn1OverwriteExisting"],
+                                    destinationFileInfo.Name, destinationFileInfo.DirectoryName),
+                                TranslationSource.Instance["dnGrep"], MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
 
                             if (answer == MessageBoxResult.Cancel)
                                 return count;
@@ -185,8 +186,9 @@ namespace dnGREP.Common
                         if (destinationFileInfo.Exists && action == OverwriteFile.Prompt)
                         {
                             var answer = MessageBox.Show(
-                                $"The file '{destinationFileInfo.Name}' already exists in {destinationFileInfo.DirectoryName}, overwrite existing?",
-                                "dnGrep - Overwrite File", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
+                                string.Format(TranslationSource.Instance["TheFile0AlreadyExistsIn1OverwriteExisting"],
+                                    destinationFileInfo.Name, destinationFileInfo.DirectoryName),
+                                TranslationSource.Instance["dnGrep"], MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
 
                             if (answer == MessageBoxResult.Cancel)
                                 return count;

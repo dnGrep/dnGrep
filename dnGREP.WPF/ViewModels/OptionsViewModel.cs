@@ -1215,14 +1215,14 @@ namespace dnGREP.WPF
                 catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
                 {
                     IsAdministrator = false;
-                    MessageBox.Show("Run dnGrep as Administrator to change showing dnGrep in Explorer right-click menu",
-                        "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Properties.Resources.RunDnGrepAsAdministrator,
+                        Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 catch (Exception ex)
                 {
                     logger.Error(ex, "Failed to register dnGrep with Explorer context menu");
-                    MessageBox.Show("There was an error adding dnGrep to Explorer right-click menu. See the error log for details: " + App.LogDir,
-                        "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Properties.Resources.ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu + App.LogDir,
+                        Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -1251,14 +1251,14 @@ namespace dnGREP.WPF
             catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
             {
                 IsAdministrator = false;
-                MessageBox.Show("Run dnGrep as Administrator to change showing dnGrep in Explorer right-click menu",
-                    "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Properties.Resources.RunDnGrepAsAdministrator,
+                    Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (Exception ex)
             {
                 logger.Error(ex, "Failed to remove dnGrep from Explorer context menu");
-                MessageBox.Show("There was an error removing dnGrep from the Explorer right-click menu. See the error log for details: " + App.LogDir,
-                    "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Properties.Resources.ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu + App.LogDir,
+                    Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -1293,14 +1293,14 @@ namespace dnGREP.WPF
                 }
                 catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
                 {
-                    MessageBox.Show("Run dnGrep as Administrator to change Startup Register",
-                        "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Properties.Resources.RunDnGrepAsAdministratorToChangeStartupRegister,
+                        Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 catch (Exception ex)
                 {
                     logger.Error(ex, "Failed to register auto startup");
-                    MessageBox.Show("There was an error registering auto startup. See the error log for details: " + App.LogDir,
-                        "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Properties.Resources.ThereWasAnErrorRegisteringAutoStartup + App.LogDir,
+                        Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -1320,14 +1320,14 @@ namespace dnGREP.WPF
                 }
                 catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
                 {
-                    MessageBox.Show("Run dnGrep as Administrator to change Startup Register",
-                        "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Properties.Resources.RunDnGrepAsAdministratorToChangeStartupRegister,
+                        Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 catch (Exception ex)
                 {
                     logger.Error(ex, "Failed to unregister auto startup");
-                    MessageBox.Show("There was an error unregistering auto startup. See the error log for details: " + App.LogDir,
-                        "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Properties.Resources.ThereWasAnErrorUnregisteringAutoStartup + App.LogDir,
+                        Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
