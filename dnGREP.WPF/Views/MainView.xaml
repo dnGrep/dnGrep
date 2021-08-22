@@ -829,7 +829,7 @@
                             </Button.ContextMenu>
                         </Button>
                         <Button Margin="3,3,8,3" Padding="8,3"
-                                Content="{my:Loc Key='Cancel_'}"
+                                Content="{my:Loc Key='Cancel'}"
                                 Command="{Binding CancelCommand}"
                                 TabIndex="87" />
                     </WrapPanel>

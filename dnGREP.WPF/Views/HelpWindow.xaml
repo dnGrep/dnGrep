@@ -20,7 +20,7 @@
                Grid.IsSharedSizeScope="True">
 
         <Button DockPanel.Dock="Bottom" Width="90" Margin="0,10,0,0"
-                Height="28" HorizontalAlignment="Right" Content="OK"
+                Height="28" HorizontalAlignment="Right" Content="{my:Loc Key='OK'}"
                 IsDefault="True" IsCancel="True" Click="OkButton_Click"/>
 
         <TextBlock DockPanel.Dock="Top" x:Name="WarningMsg"

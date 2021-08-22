@@ -57,14 +57,14 @@
             <TextBlock Grid.Column="0" Text="{my:Loc Key='ThisBookmarkAlreadyExists'}" 
                        Style="{StaticResource labelStyle}"  Margin="0,0,18,0"
                        Visibility="{Binding ElementName=okBtn, Path=IsEnabled, Converter={StaticResource InvBoolToVisibilityConverter}}"/>
-            <Button Grid.Column="1" x:Name="okBtn" Content="{my:Loc Key='OK_'}" IsDefault="True" 
+            <Button Grid.Column="1" x:Name="okBtn" Content="{my:Loc Key='OK'}" IsDefault="True" 
                     Command="{Binding SaveCommand}" Click="OkButton_Click" />
-            <Button Grid.Column="2" Content="{my:Loc Key='Cancel_'}" IsCancel="True" />
+            <Button Grid.Column="2" Content="{my:Loc Key='Cancel'}" IsCancel="True" />
         </Grid>
 
         <DockPanel Margin="0,0,0,18">
 
-            <GroupBox Margin="0,0,0,8" DockPanel.Dock="Top" Header="Type">
+            <GroupBox Margin="0,0,0,8" DockPanel.Dock="Top" Header="{my:Loc Key='TypeHeader'}">
                 <StackPanel Orientation="Horizontal">
                     <RadioButton Content="{my:Loc Key='Regex_'}" GroupName="SearchType"
                                  IsChecked="{Binding TypeOfSearch, ConverterParameter=Regex, Converter={StaticResource ebc}}"
@@ -102,7 +102,7 @@
             <TextBlock DockPanel.Dock="Top" Style="{StaticResource labelStyle}" Text="{my:Loc Key='IgnorePattern'}" />
             <TextBox DockPanel.Dock="Top" Text="{Binding IgnoreFilePattern}" />
 
-            <GroupBox Margin="0,3,0,8" DockPanel.Dock="Top" Header="File Pattern Type">
+            <GroupBox Margin="0,3,0,8" DockPanel.Dock="Top" Header="{my:Loc Key='FilePatternType'}">
                 <StackPanel Orientation="Horizontal">
                     <RadioButton GroupName="FileSearchType" Content="{my:Loc Key='Regex'}"
                                  IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}"

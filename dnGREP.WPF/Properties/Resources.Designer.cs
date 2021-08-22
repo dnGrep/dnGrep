@@ -331,11 +331,20 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Cancel.
+        ///   Looks up a localized string similar to Cancel.
         /// </summary>
-        internal static string Cancel_ {
+        internal static string Cancel {
             get {
-                return ResourceManager.GetString("Cancel_", resourceCulture);
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel all replacements.
+        /// </summary>
+        internal static string CancelAllReplacements {
+            get {
+                return ResourceManager.GetString("CancelAllReplacements", resourceCulture);
             }
         }
         
@@ -363,6 +372,15 @@ namespace dnGREP.WPF.Properties {
         internal static string CaseSensitive_ {
             get {
                 return ResourceManager.GetString("CaseSensitive_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changes text editor zoom.
+        /// </summary>
+        internal static string ChangesTextEditorZoom {
+            get {
+                return ResourceManager.GetString("ChangesTextEditorZoom", resourceCulture);
             }
         }
         
@@ -448,6 +466,15 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Collapse all.
+        /// </summary>
+        internal static string CollapseAll {
+            get {
+                return ResourceManager.GetString("CollapseAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Combine multiple search patterns using &apos;AND&apos; or &apos;OR&apos;.
         /// </summary>
         internal static string CombineMultipleSearchPatternsUsingANDOrOR {
@@ -471,6 +498,15 @@ namespace dnGREP.WPF.Properties {
         internal static string CompareApplication {
             get {
                 return ResourceManager.GetString("CompareApplication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Compare files.
+        /// </summary>
+        internal static string CompareFiles {
+            get {
+                return ResourceManager.GetString("CompareFiles", resourceCulture);
             }
         }
         
@@ -507,6 +543,24 @@ namespace dnGREP.WPF.Properties {
         internal static string CopyFiles_ {
             get {
                 return ResourceManager.GetString("CopyFiles_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy full file paths.
+        /// </summary>
+        internal static string CopyFullFilePaths {
+            get {
+                return ResourceManager.GetString("CopyFullFilePaths", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy Lines of text.
+        /// </summary>
+        internal static string CopyLinesOfText {
+            get {
+                return ResourceManager.GetString("CopyLinesOfText", resourceCulture);
             }
         }
         
@@ -961,6 +1015,24 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exclude from results.
+        /// </summary>
+        internal static string ExcludeFromResults {
+            get {
+                return ResourceManager.GetString("ExcludeFromResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expand all.
+        /// </summary>
+        internal static string ExpandAll {
+            get {
+                return ResourceManager.GetString("ExpandAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Extensions:.
         /// </summary>
         internal static string Extensions {
@@ -993,6 +1065,24 @@ namespace dnGREP.WPF.Properties {
         internal static string FilePatternHeader {
             get {
                 return ResourceManager.GetString("FilePatternHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Pattern Type.
+        /// </summary>
+        internal static string FilePatternType {
+            get {
+                return ResourceManager.GetString("FilePatternType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Files.
+        /// </summary>
+        internal static string Files {
+            get {
+                return ResourceManager.GetString("Files", resourceCulture);
             }
         }
         
@@ -1137,6 +1227,15 @@ namespace dnGREP.WPF.Properties {
         internal static string HighlightRegularExpressionGroups {
             get {
                 return ResourceManager.GetString("HighlightRegularExpressionGroups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Highlights disabled: too many matches found..
+        /// </summary>
+        internal static string HighlightsDisabledTooManyMatchesFound {
+            get {
+                return ResourceManager.GetString("HighlightsDisabledTooManyMatchesFound", resourceCulture);
             }
         }
         
@@ -1330,6 +1429,33 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mark all matches in this file for replacement [Ctrl+A].
+        /// </summary>
+        internal static string MarkAllMatchesInThisFileForReplacement {
+            get {
+                return ResourceManager.GetString("MarkAllMatchesInThisFileForReplacement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mark match for replacement [Ctrl+R].
+        /// </summary>
+        internal static string MarkMatchForReplacement {
+            get {
+                return ResourceManager.GetString("MarkMatchForReplacement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Matches.
+        /// </summary>
+        internal static string Matches {
+            get {
+                return ResourceManager.GetString("Matches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 0 - match everything; 1.0 - exact match.
         /// </summary>
         internal static string MatchEverythingToExactMatch {
@@ -1407,6 +1533,24 @@ namespace dnGREP.WPF.Properties {
         internal static string MoveFiles_ {
             get {
                 return ResourceManager.GetString("MoveFiles_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move to the next match in this file [Ctrl+Left].
+        /// </summary>
+        internal static string MoveToTheNextMatchInThisFile {
+            get {
+                return ResourceManager.GetString("MoveToTheNextMatchInThisFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move to the previous match in this file [Ctrl+Right].
+        /// </summary>
+        internal static string MoveToThePreviousMatchInThisFile {
+            get {
+                return ResourceManager.GetString("MoveToThePreviousMatchInThisFile", resourceCulture);
             }
         }
         
@@ -1501,6 +1645,15 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New name:.
+        /// </summary>
+        internal static string NewName {
+            get {
+                return ResourceManager.GetString("NewName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New version.
         /// </summary>
         internal static string NewVersion {
@@ -1515,6 +1668,24 @@ namespace dnGREP.WPF.Properties {
         internal static string NewVersionOfDnGREP0IsAvailableForDownload {
             get {
                 return ResourceManager.GetString("NewVersionOfDnGREP0IsAvailableForDownload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Next.
+        /// </summary>
+        internal static string Next_ {
+            get {
+                return ResourceManager.GetString("Next_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Next _File.
+        /// </summary>
+        internal static string NextFile_ {
+            get {
+                return ResourceManager.GetString("NextFile_", resourceCulture);
             }
         }
         
@@ -1582,11 +1753,11 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _OK.
+        ///   Looks up a localized string similar to OK.
         /// </summary>
-        internal static string OK_ {
+        internal static string OK {
             get {
-                return ResourceManager.GetString("OK_", resourceCulture);
+                return ResourceManager.GetString("OK", resourceCulture);
             }
         }
         
@@ -1596,6 +1767,33 @@ namespace dnGREP.WPF.Properties {
         internal static string OnMainPanel {
             get {
                 return ResourceManager.GetString("OnMainPanel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open.
+        /// </summary>
+        internal static string Open {
+            get {
+                return ResourceManager.GetString("Open", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open containing folder.
+        /// </summary>
+        internal static string OpenContainingFolder {
+            get {
+                return ResourceManager.GetString("OpenContainingFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open with custom editor.
+        /// </summary>
+        internal static string OpenWithCustomEditor {
+            get {
+                return ResourceManager.GetString("OpenWithCustomEditor", resourceCulture);
             }
         }
         
@@ -1735,11 +1933,38 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Preview anyway.
+        /// </summary>
+        internal static string PreviewAnyway {
+            get {
+                return ResourceManager.GetString("PreviewAnyway", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pre_view file.
         /// </summary>
         internal static string PreviewFile_ {
             get {
                 return ResourceManager.GetString("PreviewFile_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Previous.
+        /// </summary>
+        internal static string Previous_ {
+            get {
+                return ResourceManager.GetString("Previous_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Previous File.
+        /// </summary>
+        internal static string PreviousFile_ {
+            get {
+                return ResourceManager.GetString("PreviousFile_", resourceCulture);
             }
         }
         
@@ -1834,11 +2059,38 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Replace.
+        ///   Looks up a localized string similar to Rename File.
+        /// </summary>
+        internal static string RenameFile {
+            get {
+                return ResourceManager.GetString("RenameFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rename file.
+        /// </summary>
+        internal static string RenameFileL {
+            get {
+                return ResourceManager.GetString("RenameFileL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Replace.
         /// </summary>
         internal static string Replace_ {
             get {
                 return ResourceManager.GetString("Replace_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace all matches in all files, and apply [F10].
+        /// </summary>
+        internal static string ReplaceAllMatchesInAllFilesAndApply {
+            get {
+                return ResourceManager.GetString("ReplaceAllMatchesInAllFilesAndApply", resourceCulture);
             }
         }
         
@@ -1888,11 +2140,47 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Replace in All Files.
+        /// </summary>
+        internal static string ReplaceInAllFiles_ {
+            get {
+                return ResourceManager.GetString("ReplaceInAllFiles_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace in File.
+        /// </summary>
+        internal static string ReplaceInFile_ {
+            get {
+                return ResourceManager.GetString("ReplaceInFile_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace matches marked for replacement.
+        /// </summary>
+        internal static string ReplaceMatchesMarkedForReplacement {
+            get {
+                return ResourceManager.GetString("ReplaceMatchesMarkedForReplacement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Replace result:.
         /// </summary>
         internal static string ReplaceResult {
             get {
                 return ResourceManager.GetString("ReplaceResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace Text.
+        /// </summary>
+        internal static string ReplaceText {
+            get {
+                return ResourceManager.GetString("ReplaceText", resourceCulture);
             }
         }
         
@@ -1942,11 +2230,29 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reset and skip all matches in this file [Ctrl+T].
+        /// </summary>
+        internal static string ResetAndSkipAllMatchesInThisFile {
+            get {
+                return ResourceManager.GetString("ResetAndSkipAllMatchesInThisFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Reset Options.
         /// </summary>
         internal static string ResetOptions_ {
             get {
                 return ResourceManager.GetString("ResetOptions_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset zoom.
+        /// </summary>
+        internal static string ResetZoom {
+            get {
+                return ResourceManager.GetString("ResetZoom", resourceCulture);
             }
         }
         
@@ -1965,6 +2271,60 @@ namespace dnGREP.WPF.Properties {
         internal static string ResultsOptions {
             get {
                 return ResourceManager.GetString("ResultsOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File.
+        /// </summary>
+        internal static string RplA1_File {
+            get {
+                return ResourceManager.GetString("RplA1_File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to of.
+        /// </summary>
+        internal static string RplA2_Of {
+            get {
+                return ResourceManager.GetString("RplA2_Of", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to text.
+        /// </summary>
+        internal static string RplB1_Text {
+            get {
+                return ResourceManager.GetString("RplB1_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected Match.
+        /// </summary>
+        internal static string RplB2_SelectedMatch {
+            get {
+                return ResourceManager.GetString("RplB2_SelectedMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace Match.
+        /// </summary>
+        internal static string RplB3_ReplaceMatch {
+            get {
+                return ResourceManager.GetString("RplB3_ReplaceMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skip Match.
+        /// </summary>
+        internal static string RplB4_SkipMatch {
+            get {
+                return ResourceManager.GetString("RplB4_SkipMatch", resourceCulture);
             }
         }
         
@@ -2284,6 +2644,15 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show file properties.
+        /// </summary>
+        internal static string ShowFileProperties {
+            get {
+                return ResourceManager.GetString("ShowFileProperties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show result lines in context.
         /// </summary>
         internal static string ShowResultLinesInContext {
@@ -2316,6 +2685,24 @@ namespace dnGREP.WPF.Properties {
         internal static string ShowSearchOptions {
             get {
                 return ResourceManager.GetString("ShowSearchOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show the next file [Ctrl+PgDn].
+        /// </summary>
+        internal static string ShowTheNextFile {
+            get {
+                return ResourceManager.GetString("ShowTheNextFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show the previous file [Ctrl+PgUp].
+        /// </summary>
+        internal static string ShowThePreviousFile {
+            get {
+                return ResourceManager.GetString("ShowThePreviousFile", resourceCulture);
             }
         }
         
@@ -2635,6 +3022,15 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This file is either binary or too large to preview..
+        /// </summary>
+        internal static string ThisFileIsEitherBinaryOrTooLargeToPreview {
+            get {
+                return ResourceManager.GetString("ThisFileIsEitherBinaryOrTooLargeToPreview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to those.
         /// </summary>
         internal static string Those {
@@ -2784,6 +3180,24 @@ namespace dnGREP.WPF.Properties {
         internal static string Undo_ {
             get {
                 return ResourceManager.GetString("Undo_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Undo File.
+        /// </summary>
+        internal static string UndoFile_ {
+            get {
+                return ResourceManager.GetString("UndoFile_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Undo mark replace on this match [Ctrl+U].
+        /// </summary>
+        internal static string UndoMarkReplaceOnThisMatch {
+            get {
+                return ResourceManager.GetString("UndoMarkReplaceOnThisMatch", resourceCulture);
             }
         }
         

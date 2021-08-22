@@ -143,9 +143,6 @@
   <data name="Acknowledgments" xml:space="preserve">
     <value>Acknowledgments</value>
   </data>
-  <data name="OK_" xml:space="preserve">
-    <value>_OK</value>
-  </data>
   <data name="LibraryForReadingArchiveFiles" xml:space="preserve">
     <value>Library for reading archive files</value>
   </data>
@@ -369,7 +366,7 @@
     <value>_Search</value>
   </data>
   <data name="Replace_" xml:space="preserve">
-    <value>Replace</value>
+    <value>_Replace</value>
   </data>
   <data name="Sort_" xml:space="preserve">
     <value>Sort</value>
@@ -404,8 +401,8 @@
   <data name="MoreArrow_" xml:space="preserve">
     <value>_More ⏷</value>
   </data>
-  <data name="Cancel_" xml:space="preserve">
-    <value>_Cancel</value>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
   <data name="CopyFiles_" xml:space="preserve">
     <value>Copy files...</value>
@@ -1096,5 +1093,161 @@
   </data>
   <data name="CopyToClipboard" xml:space="preserve">
     <value>Copy to clipboard</value>
+  </data>
+  <data name="PreviewAnyway" xml:space="preserve">
+    <value>Preview anyway</value>
+  </data>
+  <data name="ThisFileIsEitherBinaryOrTooLargeToPreview" xml:space="preserve">
+    <value>This file is either binary or too large to preview.</value>
+  </data>
+  <data name="HighlightsDisabledTooManyMatchesFound" xml:space="preserve">
+    <value>Highlights disabled: too many matches found.</value>
+  </data>
+  <data name="RenameFile" xml:space="preserve">
+    <value>Rename File</value>
+  </data>
+  <data name="NewName" xml:space="preserve">
+    <value>New name:</value>
+  </data>
+  <data name="ReplaceText" xml:space="preserve">
+    <value>Replace Text</value>
+  </data>
+  <data name="PreviousFile_" xml:space="preserve">
+    <value>Previous File</value>
+  </data>
+  <data name="NextFile_" xml:space="preserve">
+    <value>Next _File</value>
+  </data>
+  <data name="ReplaceInFile_" xml:space="preserve">
+    <value>Replace in File</value>
+  </data>
+  <data name="ShowThePreviousFile" xml:space="preserve">
+    <value>Show the previous file [Ctrl+PgUp]</value>
+  </data>
+  <data name="ShowTheNextFile" xml:space="preserve">
+    <value>Show the next file [Ctrl+PgDn]</value>
+  </data>
+  <data name="MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
+    <value>Mark all matches in this file for replacement [Ctrl+A]</value>
+  </data>
+  <data name="UndoFile_" xml:space="preserve">
+    <value>Undo File</value>
+  </data>
+  <data name="ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
+    <value>Reset and skip all matches in this file [Ctrl+T]</value>
+  </data>
+  <data name="ReplaceInAllFiles_" xml:space="preserve">
+    <value>Replace in All Files</value>
+  </data>
+  <data name="ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
+    <value>Replace all matches in all files, and apply [F10]</value>
+  </data>
+  <data name="Previous_" xml:space="preserve">
+    <value>_Previous</value>
+  </data>
+  <data name="MoveToTheNextMatchInThisFile" xml:space="preserve">
+    <value>Move to the next match in this file [Ctrl+Left]</value>
+  </data>
+  <data name="Next_" xml:space="preserve">
+    <value>_Next</value>
+  </data>
+  <data name="MoveToThePreviousMatchInThisFile" xml:space="preserve">
+    <value>Move to the previous match in this file [Ctrl+Right]</value>
+  </data>
+  <data name="MarkMatchForReplacement" xml:space="preserve">
+    <value>Mark match for replacement [Ctrl+R]</value>
+  </data>
+  <data name="UndoMarkReplaceOnThisMatch" xml:space="preserve">
+    <value>Undo mark replace on this match [Ctrl+U]</value>
+  </data>
+  <data name="ChangesTextEditorZoom" xml:space="preserve">
+    <value>Changes text editor zoom</value>
+  </data>
+  <data name="CancelAllReplacements" xml:space="preserve">
+    <value>Cancel all replacements</value>
+  </data>
+  <data name="ReplaceMatchesMarkedForReplacement" xml:space="preserve">
+    <value>Replace matches marked for replacement</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>Files</value>
+  </data>
+  <data name="Matches" xml:space="preserve">
+    <value>Matches</value>
+  </data>
+  <data name="RplA1_File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="RplA2_Of" xml:space="preserve">
+    <value>of</value>
+  </data>
+  <data name="RplB1_Text" xml:space="preserve">
+    <value>text</value>
+  </data>
+  <data name="RplB2_SelectedMatch" xml:space="preserve">
+    <value>Selected Match</value>
+  </data>
+  <data name="RplB3_ReplaceMatch" xml:space="preserve">
+    <value>Replace Match</value>
+  </data>
+  <data name="RplB4_SkipMatch" xml:space="preserve">
+    <value>Skip Match</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="OpenWithCustomEditor" xml:space="preserve">
+    <value>Open with custom editor</value>
+  </data>
+  <data name="OpenContainingFolder" xml:space="preserve">
+    <value>Open containing folder</value>
+  </data>
+  <data name="ShowFileProperties" xml:space="preserve">
+    <value>Show file properties</value>
+  </data>
+  <data name="CompareFiles" xml:space="preserve">
+    <value>Compare files</value>
+  </data>
+  <data name="RenameFileL" xml:space="preserve">
+    <value>Rename file</value>
+  </data>
+  <data name="CopyFullFilePaths" xml:space="preserve">
+    <value>Copy full file paths</value>
+  </data>
+  <data name="CopyLinesOfText" xml:space="preserve">
+    <value>Copy Lines of text</value>
+  </data>
+  <data name="ExcludeFromResults" xml:space="preserve">
+    <value>Exclude from results</value>
+  </data>
+  <data name="ExpandAll" xml:space="preserve">
+    <value>Expand all</value>
+  </data>
+  <data name="CollapseAll" xml:space="preserve">
+    <value>Collapse all</value>
+  </data>
+  <data name="ResetZoom" xml:space="preserve">
+    <value>Reset zoom</value>
+  </data>
+  <data name="FilePatternType" xml:space="preserve">
+    <value>File Pattern Type</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>File:</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type:</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Size:</value>
+  </data>
+  <data name="DateModified" xml:space="preserve">
+    <value>Date Modified:</value>
+  </data>
+  <data name="Colon" xml:space="preserve">
+    <value>:</value>
   </data>
 </root>

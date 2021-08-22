@@ -57,24 +57,24 @@
                                 <ToolTip  Visibility="{Binding ShowFileInfoTooltips, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Margin="3,0" Text="File:"/>
+                                            <TextBlock Margin="3,0" Text="{my:Loc Key='File'}"/>
                                             <TextBlock Margin="3,0" Text="{Binding GrepResult.FileInfo.Name}"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Margin="3,0" Text="Type:"/>
+                                            <TextBlock Margin="3,0" Text="{my:Loc Key='Type'}"/>
                                             <TextBlock Margin="3,0" Text="{Binding GrepResult.FileType}"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Margin="3,0" Text="Encoding:"/>
+                                            <TextBlock Margin="3,0" Text="{my:Loc Key='Encoding'}"/>
                                             <TextBlock Margin="3,0" Text="{Binding GrepResult.Encoding.EncodingName}"/>
                                             <TextBlock Margin="3,0" Text="{Binding GrepResult.Encoding.CodePage, StringFormat=cp{0}}"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Margin="3,0" Text="Size:"/>
+                                            <TextBlock Margin="3,0" Text="{my:Loc Key='Size'}"/>
                                             <TextBlock Margin="3,0" Text="{Binding GrepResult.FileSize}"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Margin="3,0" Text="Date Modified:"/>
+                                            <TextBlock Margin="3,0" Text="{my:Loc Key='DateModified'}"/>
                                             <TextBlock Margin="3,0" Text="{Binding GrepResult.FileInfo.LastWriteTime, StringFormat={}{0:g}}"/>
                                         </StackPanel>
                                     </StackPanel>
@@ -133,24 +133,24 @@
         </TreeView.Resources>
         <TreeView.ContextMenu>
             <ContextMenu>
-                <MenuItem Header="Open" Click="btnOpenFile_Click" IsEnabled="{Binding HasSelection}" />
-                <MenuItem Header="Open with custom editor" Click="btnOpenFileCustomEditor_Click"
+                <MenuItem Header="{my:Loc Key='Open'}" Click="btnOpenFile_Click" IsEnabled="{Binding HasSelection}" />
+                <MenuItem Header="{my:Loc Key='OpenWithCustomEditor'}" Click="btnOpenFileCustomEditor_Click"
                           IsEnabled="{Binding HasSelection}"
                           Visibility="{Binding CustomEditorConfigured, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                <MenuItem Header="Open containing folder" Click="btnOpenContainingFolder_Click" IsEnabled="{Binding HasSelection}" />
-                <MenuItem Header="Show file properties" Click="btnShowFileProperties_Click" IsEnabled="{Binding HasSelection}" />
-                <MenuItem Header="Compare files" Command="{Binding CompareFilesCommand}"
+                <MenuItem Header="{my:Loc Key='OpenContainingFolder'}" Click="btnOpenContainingFolder_Click" IsEnabled="{Binding HasSelection}" />
+                <MenuItem Header="{my:Loc Key='ShowFileProperties'}" Click="btnShowFileProperties_Click" IsEnabled="{Binding HasSelection}" />
+                <MenuItem Header="{my:Loc Key='CompareFiles'}" Command="{Binding CompareFilesCommand}"
                           Visibility="{Binding CompareApplicationConfigured, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 <Separator />
-                <MenuItem Header="Rename file" Click="btnRenameFile_Click" IsEnabled="{Binding HasSingleSelection}" />
-                <MenuItem Header="Copy file names" Click="btnCopyFileNames_Click" IsEnabled="{Binding HasSelection}" />
-                <MenuItem Header="Copy full file paths" Click="btnCopyFullFilePath_Click" IsEnabled="{Binding HasSelection}" />
-                <MenuItem Header="Copy Lines of text" Click="btnCopyGrepLine_Click" IsEnabled="{Binding HasGrepLineSelection}" />
+                <MenuItem Header="{my:Loc Key='RenameFileL'}" Click="btnRenameFile_Click" IsEnabled="{Binding HasSingleSelection}" />
+                <MenuItem Header="{my:Loc Key='CopyFileNames_'}" Click="btnCopyFileNames_Click" IsEnabled="{Binding HasSelection}" />
+                <MenuItem Header="{my:Loc Key='CopyFullFilePaths'}" Click="btnCopyFullFilePath_Click" IsEnabled="{Binding HasSelection}" />
+                <MenuItem Header="{my:Loc Key='CopyLinesOfText'}" Click="btnCopyGrepLine_Click" IsEnabled="{Binding HasGrepLineSelection}" />
                 <Separator />
-                <MenuItem Header="Exclude from results" Click="btnExclude_Click" IsEnabled="{Binding HasSelection}" />
-                <MenuItem Header="Expand all" Click="btnExpandAll_Click" />
-                <MenuItem Header="Collapse all" Click="btnCollapseAll_Click" />
-                <MenuItem Header="Reset zoom" Click="btnResetZoom_Click" />
+                <MenuItem Header="{my:Loc Key='ExcludeFromResults'}" Click="btnExclude_Click" IsEnabled="{Binding HasSelection}" />
+                <MenuItem Header="{my:Loc Key='ExpandAll'}" Click="btnExpandAll_Click" />
+                <MenuItem Header="{my:Loc Key='CollapseAll'}" Click="btnCollapseAll_Click" />
+                <MenuItem Header="{my:Loc Key='ResetZoom'}" Click="btnResetZoom_Click" />
             </ContextMenu>
         </TreeView.ContextMenu>
         <TreeView.ItemContainerStyle>

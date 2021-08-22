@@ -28,21 +28,21 @@
             <DockPanel Name="previewPanel" DockPanel.Dock="Top"
                        Background="{DynamicResource StatusBar.Static.Background}"
                        Visibility="{Binding Path=IsLargeOrBinary, Converter={StaticResource BoolToVisibilityConverter}}">
-                <Label VerticalContentAlignment="Center" Content="This file is either binary or too large to preview." Foreground="{DynamicResource StatusBar.Static.Foreground}" />
+                <Label VerticalContentAlignment="Center" Content="{my:Loc Key='ThisFileIsEitherBinaryOrTooLargeToPreview'}" Foreground="{DynamicResource StatusBar.Static.Foreground}" />
                 <Button Margin="3" Padding="6" HorizontalAlignment="Right"
-                        Content="Preview anyway" 
+                        Content="{my:Loc Key='PreviewAnyway'}" 
                         FontSize="{Binding MainFormFontSize, Converter={StaticResource TitleSizeConverter}, ConverterParameter=2, FallbackValue=14}" 
                         Click="Button_Click" />
             </DockPanel>
             <Label VerticalContentAlignment="Center" DockPanel.Dock="Top"
-                   Content="Highlights disabled: too many matches found."
+                   Content="{my:Loc Key='HighlightsDisabledTooManyMatchesFound'}"
                    Background="{DynamicResource StatusBar.Static.Background}"
                    Foreground="{DynamicResource StatusBar.Static.Foreground}"
                    Visibility="{Binding HighlightDisabled, Converter={StaticResource BoolToVisibilityConverter}}" />
             <WrapPanel Name="statusBar" DockPanel.Dock="Bottom"
                        Margin="3" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="Zoom:" Margin="0,0,3,0" 
+                    <TextBlock Text="{my:Loc Key='Zoom'}" Margin="0,0,3,0" 
                                HorizontalAlignment="Center" 
                                VerticalAlignment="Center"
                                Style="{DynamicResource LabelTextBlockStyle}"/>
@@ -51,7 +51,7 @@
                             VerticalContentAlignment="Center" ToolTip="Changes text editor zoom" 
                             Minimum="9" Maximum="30" Value="12" />
                 </StackPanel>
-                <CheckBox Name="cbWrapText" Content="Wrap Text"
+                <CheckBox Name="cbWrapText" Content="{my:Loc Key='WrapText_'}"
                           Margin="3,0,3,0" VerticalAlignment="Center"
                           VerticalContentAlignment="Center"/>
                 <ComboBox Name="cbHighlighter" Margin="3,0,3,0" MinWidth="80"

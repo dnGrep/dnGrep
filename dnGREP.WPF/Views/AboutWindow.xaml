@@ -82,7 +82,7 @@
         </Grid>
 
         <Button DockPanel.Dock="Bottom" Width="90" Margin="0,10,0,0"
-                Height="28" HorizontalAlignment="Right" Content="{my:Loc Key='OK_'}"
+                Height="28" HorizontalAlignment="Right" Content="{my:Loc Key='OK'}"
                 IsDefault="True" IsCancel="True" />
 
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
