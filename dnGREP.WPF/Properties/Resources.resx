@@ -1250,4 +1250,19 @@
   <data name="Colon" xml:space="preserve">
     <value>:</value>
   </data>
+  <data name="Preview_FindPrevious" xml:space="preserve">
+    <value>Find previous (Shift+F3)</value>
+  </data>
+  <data name="Preview_FindNext" xml:space="preserve">
+    <value>Find next (F3)</value>
+  </data>
+  <data name="Preview_MatchCase" xml:space="preserve">
+    <value>Match case</value>
+  </data>
+  <data name="Preview_MatchWholeWords" xml:space="preserve">
+    <value>Match whole words</value>
+  </data>
+  <data name="Preview_UseRegularExpressions" xml:space="preserve">
+    <value>Use regular expressions</value>
+  </data>
 </root>

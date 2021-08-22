@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:my="clr-namespace:dnGREP.WPF"
     xmlns:ae="clr-namespace:ICSharpCode.AvalonEdit.Search;assembly=ICSharpCode.AvalonEdit">
 
     <Style TargetType="{x:Type ae:SearchPanel}">
@@ -30,11 +31,11 @@
                             </TextBox>
                             <Button Width="24" Height="24" Margin="3"
                                     Command="ae:SearchCommands.FindPrevious"
-                                    ToolTip="{Binding Localization.FindPreviousText, RelativeSource={RelativeSource TemplatedParent}}">
+                                    ToolTip="{my:Loc Key='Preview_FindPrevious'}">
                                 <Image Width="16" Height="16" Source="prev.png" Stretch="Fill" />
                             </Button>
                             <Button Width="24" Height="24" Margin="3" Command="ae:SearchCommands.FindNext"
-                                    ToolTip="{Binding Localization.FindNextText, RelativeSource={RelativeSource TemplatedParent}}">
+                                    ToolTip="{my:Loc Key='Preview_FindNext'}">
                                 <Image Width="16" Height="16" Source="next.png" Stretch="Fill" />
                             </Button>
                             
@@ -44,21 +45,21 @@
                                     FontFamily="Consolas,Courier New,Courier" FontWeight="Bold"
                                     IsChecked="{Binding MatchCase, RelativeSource={RelativeSource TemplatedParent}}"
                                     Style="{DynamicResource ThemedToggleButton}"
-                                    ToolTip="{Binding Localization.MatchCaseText, RelativeSource={RelativeSource TemplatedParent}}" />
+                                    ToolTip="{my:Loc Key='Preview_MatchCase'}"/>
 
                                 <ToggleButton Width="24" Height="24" Margin="0"
                                     Content="Ab" Cursor="Hand"
                                     FontFamily="Consolas,Courier New,Courier" FontWeight="Bold"
                                     IsChecked="{Binding WholeWords, RelativeSource={RelativeSource TemplatedParent}}"
                                     Style="{DynamicResource ThemedToggleButton}"
-                                    ToolTip="{Binding Localization.MatchWholeWordsText, RelativeSource={RelativeSource TemplatedParent}}" />
+                                    ToolTip="{my:Loc Key='Preview_MatchWholeWords'}"/>
 
                                 <ToggleButton Width="24" Height="24" Margin="0"
                                     Content="a*" Cursor="Hand"
                                     FontFamily="Consolas,Courier New,Courier" FontWeight="Bold"
                                     IsChecked="{Binding UseRegex, RelativeSource={RelativeSource TemplatedParent}}"
                                     Style="{DynamicResource ThemedToggleButton}"
-                                    ToolTip="{Binding Localization.UseRegexText, RelativeSource={RelativeSource TemplatedParent}}" />
+                                    ToolTip="{my:Loc Key='Preview_UseRegularExpressions'}"/>
                             </StackPanel>
 
                             <Button Width="16" Height="16" Margin="3,0,0,0"
