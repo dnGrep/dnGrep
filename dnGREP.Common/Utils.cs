@@ -281,9 +281,9 @@ namespace dnGREP.Common
             int matchCount = source.Sum(s => s.Matches == null ? 0 : s.Matches.Count);
 
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("dnGrep Search Results").AppendLine();
+            sb.AppendLine(TranslationSource.Instance["Report_DnGrepSearchResults"]).AppendLine();
             sb.Append(options).AppendLine();
-            sb.AppendFormat("Found {0} matches on {1} lines in {2} files",
+            sb.AppendFormat(TranslationSource.Instance["Report_Found0MatchesOn1LinesIn2Files"],
                 matchCount.ToString("#,##0"), lineCount.ToString("#,##0"), fileCount.ToString("#,##0"))
                 .AppendLine().AppendLine();
             sb.Append(GetResultLinesWithContext(source, orClauses));

@@ -1334,4 +1334,16 @@
   <data name="Error" xml:space="preserve">
     <value>Error: </value>
   </data>
+  <data name="BooleanOperators" xml:space="preserve">
+    <value>Boolean operators</value>
+  </data>
+  <data name="StopAfterFirstMatch" xml:space="preserve">
+    <value>Stop after frist match</value>
+  </data>
+  <data name="Report_Found0MatchesOn1LinesIn2Files" xml:space="preserve">
+    <value>Found {0} matches on {1} lines in {2} files</value>
+  </data>
+  <data name="Report_DnGrepSearchResults" xml:space="preserve">
+    <value>dnGrep Search Results</value>
+  </data>
 </root>

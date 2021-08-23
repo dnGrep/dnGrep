@@ -279,6 +279,15 @@ namespace dnGREP.WPF.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Boolean operators.
         /// </summary>
+        internal static string BooleanOperators {
+            get {
+                return ResourceManager.GetString("BooleanOperators", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Boolean operators.
+        /// </summary>
         internal static string BooleanOperators_ {
             get {
                 return ResourceManager.GetString("BooleanOperators_", resourceCulture);
@@ -2392,6 +2401,24 @@ namespace dnGREP.WPF.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to dnGrep Search Results.
+        /// </summary>
+        internal static string Report_DnGrepSearchResults {
+            get {
+                return ResourceManager.GetString("Report_DnGrepSearchResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Found {0} matches on {1} lines in {2} files.
+        /// </summary>
+        internal static string Report_Found0MatchesOn1LinesIn2Files {
+            get {
+                return ResourceManager.GetString("Report_Found0MatchesOn1LinesIn2Files", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Report file format.
         /// </summary>
         internal static string ReportFileFormat {
@@ -3081,6 +3108,15 @@ namespace dnGREP.WPF.Properties {
         internal static string StartupOptions {
             get {
                 return ResourceManager.GetString("StartupOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop after frist match.
+        /// </summary>
+        internal static string StopAfterFirstMatch {
+            get {
+                return ResourceManager.GetString("StopAfterFirstMatch", resourceCulture);
             }
         }
         

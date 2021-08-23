@@ -2305,9 +2305,9 @@ namespace dnGREP.WPF
             if (WholeWord) options.Add(Resources.WholeWord);
             if (Multiline) options.Add(Resources.Multiline);
             if (Singleline) options.Add(Resources.DotAsNewline);
-            if (BooleanOperators) options.Add(Resources.BooleanOperators_);
+            if (BooleanOperators) options.Add(Resources.BooleanOperators);
             if (SearchInResultsContent) options.Add(Resources.SearchInResults);
-            if (StopAfterFirstMatch) options.Add(Resources.StopAfterFirstMatch_);
+            if (StopAfterFirstMatch) options.Add(Resources.StopAfterFirstMatch);
             if (options.Count > 0)
                 sb.AppendLine(string.Join(", ", options.ToArray()));
             sb.AppendLine();
