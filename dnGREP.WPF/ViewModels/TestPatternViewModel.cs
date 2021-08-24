@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Xml;
 using dnGREP.Common;
 using dnGREP.Engines;
+using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
 {
@@ -287,8 +288,8 @@ namespace dnGREP.WPF
                 }
                 catch (ArgumentException ex)
                 {
-                    MessageBox.Show(Properties.Resources.IncorrectPattern + ex.Message, 
-                        Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show(Resources.IncorrectPattern + ex.Message, 
+                        Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
 
@@ -369,16 +370,16 @@ namespace dnGREP.WPF
             }
             catch (ArgumentException ex)
             {
-                MessageBox.Show(Properties.Resources.IncorrectPattern + ex.Message, 
-                    Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(Resources.IncorrectPattern + ex.Message, 
+                    Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             catch (XmlException)
             {
-                ReplaceErrorText = Properties.Resources.ReplaceTextIsNotValidXML;
+                ReplaceErrorText = Resources.ReplaceTextIsNotValidXML;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Properties.Resources.Error + ex.Message, Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Resources.Error + ex.Message, Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             Paragraph paragraph = new Paragraph();

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:my="clr-namespace:dnGREP.WPF"
+             xmlns:l="clr-namespace:dnGREP.Localization;assembly=dnGREP.Localization"
              xmlns:Controls="clr-namespace:dnGREP.WPF.UserControls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              d:DesignHeight="300"
@@ -57,24 +58,24 @@
                                 <ToolTip  Visibility="{Binding ShowFileInfoTooltips, Converter={StaticResource BooleanToVisibilityConverter}}">
                                     <StackPanel Orientation="Vertical">
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Margin="3,0" Text="{my:Loc Key='File'}"/>
+                                            <TextBlock Margin="3,0" Text="{l:Loc Key='File'}"/>
                                             <TextBlock Margin="3,0" Text="{Binding GrepResult.FileInfo.Name}"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Margin="3,0" Text="{my:Loc Key='Type'}"/>
+                                            <TextBlock Margin="3,0" Text="{l:Loc Key='Type'}"/>
                                             <TextBlock Margin="3,0" Text="{Binding GrepResult.FileType}"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Margin="3,0" Text="{my:Loc Key='Encoding'}"/>
+                                            <TextBlock Margin="3,0" Text="{l:Loc Key='Encoding'}"/>
                                             <TextBlock Margin="3,0" Text="{Binding GrepResult.Encoding.EncodingName}"/>
                                             <TextBlock Margin="3,0" Text="{Binding GrepResult.Encoding.CodePage, StringFormat=cp{0}}"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Margin="3,0" Text="{my:Loc Key='Size'}"/>
+                                            <TextBlock Margin="3,0" Text="{l:Loc Key='Size'}"/>
                                             <TextBlock Margin="3,0" Text="{Binding GrepResult.FileSize}"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Margin="3,0" Text="{my:Loc Key='DateModified'}"/>
+                                            <TextBlock Margin="3,0" Text="{l:Loc Key='DateModified'}"/>
                                             <TextBlock Margin="3,0" Text="{Binding GrepResult.FileInfo.LastWriteTime, StringFormat={}{0:g}}"/>
                                         </StackPanel>
                                     </StackPanel>
@@ -133,24 +134,24 @@
         </TreeView.Resources>
         <TreeView.ContextMenu>
             <ContextMenu>
-                <MenuItem Header="{my:Loc Key='Open'}" Click="btnOpenFile_Click" IsEnabled="{Binding HasSelection}" />
-                <MenuItem Header="{my:Loc Key='OpenWithCustomEditor'}" Click="btnOpenFileCustomEditor_Click"
+                <MenuItem Header="{l:Loc Key='Open'}" Click="btnOpenFile_Click" IsEnabled="{Binding HasSelection}" />
+                <MenuItem Header="{l:Loc Key='OpenWithCustomEditor'}" Click="btnOpenFileCustomEditor_Click"
                           IsEnabled="{Binding HasSelection}"
                           Visibility="{Binding CustomEditorConfigured, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                <MenuItem Header="{my:Loc Key='OpenContainingFolder'}" Click="btnOpenContainingFolder_Click" IsEnabled="{Binding HasSelection}" />
-                <MenuItem Header="{my:Loc Key='ShowFileProperties'}" Click="btnShowFileProperties_Click" IsEnabled="{Binding HasSelection}" />
-                <MenuItem Header="{my:Loc Key='CompareFiles'}" Command="{Binding CompareFilesCommand}"
+                <MenuItem Header="{l:Loc Key='OpenContainingFolder'}" Click="btnOpenContainingFolder_Click" IsEnabled="{Binding HasSelection}" />
+                <MenuItem Header="{l:Loc Key='ShowFileProperties'}" Click="btnShowFileProperties_Click" IsEnabled="{Binding HasSelection}" />
+                <MenuItem Header="{l:Loc Key='CompareFiles'}" Command="{Binding CompareFilesCommand}"
                           Visibility="{Binding CompareApplicationConfigured, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 <Separator />
-                <MenuItem Header="{my:Loc Key='RenameFileL'}" Click="btnRenameFile_Click" IsEnabled="{Binding HasSingleSelection}" />
-                <MenuItem Header="{my:Loc Key='CopyFileNames_'}" Click="btnCopyFileNames_Click" IsEnabled="{Binding HasSelection}" />
-                <MenuItem Header="{my:Loc Key='CopyFullFilePaths'}" Click="btnCopyFullFilePath_Click" IsEnabled="{Binding HasSelection}" />
-                <MenuItem Header="{my:Loc Key='CopyLinesOfText'}" Click="btnCopyGrepLine_Click" IsEnabled="{Binding HasGrepLineSelection}" />
+                <MenuItem Header="{l:Loc Key='RenameFileL'}" Click="btnRenameFile_Click" IsEnabled="{Binding HasSingleSelection}" />
+                <MenuItem Header="{l:Loc Key='CopyFileNames_'}" Click="btnCopyFileNames_Click" IsEnabled="{Binding HasSelection}" />
+                <MenuItem Header="{l:Loc Key='CopyFullFilePaths'}" Click="btnCopyFullFilePath_Click" IsEnabled="{Binding HasSelection}" />
+                <MenuItem Header="{l:Loc Key='CopyLinesOfText'}" Click="btnCopyGrepLine_Click" IsEnabled="{Binding HasGrepLineSelection}" />
                 <Separator />
-                <MenuItem Header="{my:Loc Key='ExcludeFromResults'}" Click="btnExclude_Click" IsEnabled="{Binding HasSelection}" />
-                <MenuItem Header="{my:Loc Key='ExpandAll'}" Click="btnExpandAll_Click" />
-                <MenuItem Header="{my:Loc Key='CollapseAll'}" Click="btnCollapseAll_Click" />
-                <MenuItem Header="{my:Loc Key='ResetZoom'}" Click="btnResetZoom_Click" />
+                <MenuItem Header="{l:Loc Key='ExcludeFromResults'}" Click="btnExclude_Click" IsEnabled="{Binding HasSelection}" />
+                <MenuItem Header="{l:Loc Key='ExpandAll'}" Click="btnExpandAll_Click" />
+                <MenuItem Header="{l:Loc Key='CollapseAll'}" Click="btnCollapseAll_Click" />
+                <MenuItem Header="{l:Loc Key='ResetZoom'}" Click="btnResetZoom_Click" />
             </ContextMenu>
         </TreeView.ContextMenu>
         <TreeView.ItemContainerStyle>

@@ -7,6 +7,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using dnGREP.Common;
 using dnGREP.Everything;
+using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
 {
@@ -455,23 +456,23 @@ namespace dnGREP.WPF
         {
             var tempList = new List<string>();
             if (IncludeArchive)
-                tempList.Add(Properties.Resources.SearchInArchives);
+                tempList.Add(Resources.SearchInArchives);
             if (!IncludeSubfolders || (IncludeSubfolders && MaxSubfolderDepth == 0))
-                tempList.Add(Properties.Resources.NoSubfolders);
+                tempList.Add(Resources.NoSubfolders);
             if (IncludeSubfolders && MaxSubfolderDepth > 0)
-                tempList.Add(string.Format(Properties.Resources.MaxFolderDepth, MaxSubfolderDepth));
+                tempList.Add(string.Format(Resources.MaxFolderDepth, MaxSubfolderDepth));
             if (!IncludeHidden)
-                tempList.Add(Properties.Resources.NoHidden);
+                tempList.Add(Resources.NoHidden);
             if (!IncludeBinary)
-                tempList.Add(Properties.Resources.NoBinary);
+                tempList.Add(Resources.NoBinary);
             if (!FollowSymlinks)
-                tempList.Add(Properties.Resources.NoSymlinks);
+                tempList.Add(Resources.NoSymlinks);
             if (CaseSensitive)
-                tempList.Add(Properties.Resources.CaseSensitive);
+                tempList.Add(Resources.CaseSensitive);
             if (WholeWord)
-                tempList.Add(Properties.Resources.WholeWord);
+                tempList.Add(Resources.WholeWord);
             if (Multiline)
-                tempList.Add(Properties.Resources.Multiline);
+                tempList.Add(Resources.Multiline);
 
             if (tempList.Count == 0)
             {

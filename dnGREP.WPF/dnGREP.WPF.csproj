@@ -147,8 +147,6 @@
     <Compile Include="Controls\RadioMenuItem.cs" />
     <Compile Include="Controls\SplitButton.cs" />
     <Compile Include="Controls\ThemedWindow.cs" />
-    <Compile Include="Localization\ResourceManagerEx.cs" />
-    <Compile Include="Localization\ResxFile.cs" />
     <Compile Include="MVHelpers\BoolToTextWrappingConverter.cs" />
     <Compile Include="MVHelpers\BoolToScrollbarVisibilityConverter.cs" />
     <Compile Include="MVHelpers\DockSiteVisibilityConverter.cs" />
@@ -160,7 +158,6 @@
     <Compile Include="MVHelpers\ColorInverter.cs" />
     <Compile Include="MVHelpers\ResultSorter.cs" />
     <Compile Include="MVHelpers\StringNotNullOrEmptyConverter.cs" />
-    <Compile Include="Localization\TranslationSource.cs" />
     <Compile Include="MVHelpers\ValueRangeRule.cs" />
     <Compile Include="MVHelpers\TextBoxWidthConverter.cs" />
     <Compile Include="MVHelpers\TitleFontSizeConverter.cs" />
@@ -413,11 +410,6 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -431,17 +423,6 @@
     <Compile Include="Views\TestPatternView.xaml.cs">
       <DependentUpon>TestPatternView.xaml</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Properties\Resources.zh.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.en-US.resx">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
@@ -495,6 +476,10 @@
     <ProjectReference Include="..\dnGREP.Everything\dnGREP.Everything.csproj">
       <Project>{39c7bce4-7837-401e-8afa-2bcfe70c63f7}</Project>
       <Name>dnGREP.Everything</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\dnGREP.Localization\dnGREP.Localization.csproj">
+      <Project>{8ce89f78-57c4-48df-9473-e70ab05dc986}</Project>
+      <Name>dnGREP.Localization</Name>
     </ProjectReference>
     <ProjectReference Include="..\DockFloat\DockFloat.csproj">
       <Project>{86c22db6-4211-44a1-93ba-b21027cc90f9}</Project>

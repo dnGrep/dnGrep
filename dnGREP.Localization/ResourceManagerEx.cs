@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Resources;
 
-namespace dnGREP.WPF
+namespace dnGREP.Localization
 {
     public class ResourceManagerEx : ResourceManager
     {
@@ -13,8 +13,8 @@ namespace dnGREP.WPF
 
         public static void Initialize()
         {
-            Type resourcesType = typeof(dnGREP.WPF.Properties.Resources);
-            var manager = new ResourceManagerEx("dnGREP.WPF.Properties.Resources", resourcesType.Assembly);
+            Type resourcesType = typeof(dnGREP.Localization.Properties.Resources);
+            var manager = new ResourceManagerEx("dnGREP.Localization.Properties.Resources", resourcesType.Assembly);
 
             FieldInfo fi = resourcesType.GetField("resourceMan", BindingFlags.NonPublic | BindingFlags.Static);
             fi.SetValue(null, manager);

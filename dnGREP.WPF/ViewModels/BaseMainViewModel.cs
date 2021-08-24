@@ -8,6 +8,7 @@ using System.Xml;
 using System.Xml.XPath;
 using dnGREP.Common;
 using dnGREP.Everything;
+using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
 {
@@ -435,7 +436,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string searchTextBoxLabel = Properties.Resources.Folder_;
+        private string searchTextBoxLabel = Resources.Folder_;
         public string SearchTextBoxLabel
         {
             get { return searchTextBoxLabel; }
@@ -1070,7 +1071,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string windowTitle = Properties.Resources.DnGREP_Title;
+        private string windowTitle = Resources.DnGREP_Title;
         public string WindowTitle
         {
             get { return windowTitle; }
@@ -1244,13 +1245,13 @@ namespace dnGREP.WPF
                         UseGitignore = false;
                         IsEverythingSearchMode = true;
                         PatternColumnWidth = AUTO;
-                        SearchTextBoxLabel = Properties.Resources.EverythingSearch;
+                        SearchTextBoxLabel = Resources.EverythingSearch;
                     }
                     else
                     {
                         IsEverythingSearchMode = false;
                         PatternColumnWidth = STAR;
-                        SearchTextBoxLabel = Properties.Resources.Folder_;
+                        SearchTextBoxLabel = Resources.Folder_;
                     }
 
                     if (TypeOfFileSearch != FileSearchType.Regex)
@@ -1266,25 +1267,25 @@ namespace dnGREP.WPF
             {
                 var tempList = new List<string>();
                 if (!IncludeSubfolder || (IncludeSubfolder && MaxSubfolderDepth == 0))
-                    tempList.Add(Properties.Resources.NoSubfolders);
+                    tempList.Add(Resources.NoSubfolders);
                 if (IncludeSubfolder && MaxSubfolderDepth > 0)
-                    tempList.Add(string.Format(Properties.Resources.MaxFolderDepth, MaxSubfolderDepth));
+                    tempList.Add(string.Format(Resources.MaxFolderDepth, MaxSubfolderDepth));
                 if (!IncludeHidden)
-                    tempList.Add(Properties.Resources.NoHidden);
+                    tempList.Add(Resources.NoHidden);
                 if (!IncludeBinary)
-                    tempList.Add(Properties.Resources.NoBinary);
+                    tempList.Add(Resources.NoBinary);
                 if (!FollowSymlinks)
-                    tempList.Add(Properties.Resources.NoSymlinks);
+                    tempList.Add(Resources.NoSymlinks);
                 if (UseFileSizeFilter == FileSizeFilter.Yes)
-                    tempList.Add(Properties.Resources.BySize);
+                    tempList.Add(Resources.BySize);
                 if (UseFileDateFilter == FileDateFilter.Modified)
-                    tempList.Add(Properties.Resources.ByModifiedDate);
+                    tempList.Add(Resources.ByModifiedDate);
                 if (UseFileDateFilter == FileDateFilter.Created)
-                    tempList.Add(Properties.Resources.ByCreatedDate);
+                    tempList.Add(Resources.ByCreatedDate);
 
                 if (tempList.Count == 0)
                 {
-                    FileFiltersSummary = Properties.Resources.AllFiles;
+                    FileFiltersSummary = Resources.AllFiles;
                 }
                 else
                 {
@@ -1305,8 +1306,8 @@ namespace dnGREP.WPF
                 if (string.IsNullOrWhiteSpace(FileOrFolderPath))
                     WindowTitle = "dnGREP";
                 else
-                    WindowTitle = string.Format(Properties.Resources.WindowTitle,
-                        SearchFor == null ? Properties.Resources.Empty : SearchFor.Replace('\n', ' ').Replace('\r', ' '),
+                    WindowTitle = string.Format(Resources.WindowTitle,
+                        SearchFor == null ? Resources.Empty : SearchFor.Replace('\n', ' ').Replace('\r', ' '),
                         FileOrFolderPath);
             }
 
@@ -1350,12 +1351,12 @@ namespace dnGREP.WPF
                         {
                             nav = doc.CreateNavigator();
                             XPathExpression expr = nav.Compile(SearchFor);
-                            ValidationMessage = Properties.Resources.XPathIsOK;
+                            ValidationMessage = Resources.XPathIsOK;
                             IsValidPattern = true;
                         }
                         catch
                         {
-                            ValidationMessage = Properties.Resources.XPathIsNotValid;
+                            ValidationMessage = Resources.XPathIsNotValid;
                             IsValidPattern = false;
                         }
                     }
@@ -1462,12 +1463,12 @@ namespace dnGREP.WPF
             try
             {
                 Regex regex = new Regex(pattern);
-                ValidationMessage = Properties.Resources.RegexIsOK;
+                ValidationMessage = Resources.RegexIsOK;
                 IsValidPattern = true;
             }
             catch
             {
-                ValidationMessage = Properties.Resources.RegexIsNotValid;
+                ValidationMessage = Resources.RegexIsNotValid;
                 IsValidPattern = false;
             }
         }

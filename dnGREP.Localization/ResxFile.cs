@@ -6,11 +6,11 @@ using System.Resources;
 using System.Windows;
 using NLog;
 
-namespace dnGREP.WPF
+namespace dnGREP.Localization
 {
     internal class ResxFile
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         private readonly Dictionary<string, string> resources = new Dictionary<string, string>();
 
@@ -55,7 +55,7 @@ namespace dnGREP.WPF
             catch(Exception ex)
             {
                 logger.Error(ex, $"Failed to load resources file '{filePath}'");
-                MessageBox.Show(string.Format(Properties.Resources.CouldNotLoadResourcesFile0, filePath) + App.LogDir,
+                MessageBox.Show(string.Format(Properties.Resources.CouldNotLoadResourcesFile0, filePath) + ex.Message,
                     Properties.Resources.DnGrep + "  " + Properties.Resources.LoadResources, MessageBoxButton.OK);
             }
         }

@@ -40,6 +40,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dnGREP.Everything", "dnGREP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DockFloat", "DockFloat\DockFloat.csproj", "{86C22DB6-4211-44A1-93BA-B21027CC90F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dnGREP.Localization", "dnGREP.Localization\dnGREP.Localization.csproj", "{8CE89F78-57C4-48DF-9473-E70AB05DC986}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -134,6 +136,14 @@ Global
 		{86C22DB6-4211-44A1-93BA-B21027CC90F9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{86C22DB6-4211-44A1-93BA-B21027CC90F9}.Release|x86.ActiveCfg = Release|x86
 		{86C22DB6-4211-44A1-93BA-B21027CC90F9}.Release|x86.Build.0 = Release|x86
+		{8CE89F78-57C4-48DF-9473-E70AB05DC986}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CE89F78-57C4-48DF-9473-E70AB05DC986}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CE89F78-57C4-48DF-9473-E70AB05DC986}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8CE89F78-57C4-48DF-9473-E70AB05DC986}.Debug|x86.Build.0 = Debug|Any CPU
+		{8CE89F78-57C4-48DF-9473-E70AB05DC986}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CE89F78-57C4-48DF-9473-E70AB05DC986}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CE89F78-57C4-48DF-9473-E70AB05DC986}.Release|x86.ActiveCfg = Release|Any CPU
+		{8CE89F78-57C4-48DF-9473-E70AB05DC986}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -144,8 +154,9 @@ Global
 		{8312CAE2-B208-4186-B711-815593FEBB94} = {177DCA75-DAA1-4097-A3AB-EF944566600D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_MoveToResources = {"Items":[{"Extensions":".cs,.vb","Patterns":"$Namespace.$File.$Key|$File.$Key|StringResourceKey.$Key|$Namespace.StringResourceKey.$Key|nameof($File.$Key), ResourceType = typeof($File)|ErrorMessageResourceType = typeof($File), ErrorMessageResourceName = nameof($File.$Key)"},{"Extensions":".cshtml,.vbhtml","Patterns":"@$Namespace.$File.$Key|@$File.$Key|@StringResourceKey.$Key|@$Namespace.StringResourceKey.$Key"},{"Extensions":".cpp,.c,.hxx,.h","Patterns":"$File::$Key"},{"Extensions":".aspx,.ascx","Patterns":"<%$ Resources:$File,$Key %>|<%= $File.$Key %>|<%= $Namespace.$File.$Key %>"},{"Extensions":".xaml","Patterns":"\"{my:Loc Key='$Key'}\"|\"{x:Static properties:$File.$Key}\""},{"Extensions":".ts","Patterns":"resources.$Key"},{"Extensions":".html","Patterns":"{{ resources.$Key }}"}]}
+		RESX_SortFileContentOnSave = False
 		SolutionGuid = {835B141D-24DE-4FDA-805E-B7871861B348}
+		RESX_MoveToResources = {"Items":[{"Extensions":".cs,.vb","Patterns":"$Namespace.$File.$Key|$File.$Key|StringResourceKey.$Key|$Namespace.StringResourceKey.$Key|nameof($File.$Key), ResourceType = typeof($File)|ErrorMessageResourceType = typeof($File), ErrorMessageResourceName = nameof($File.$Key)"},{"Extensions":".cshtml,.vbhtml","Patterns":"@$Namespace.$File.$Key|@$File.$Key|@StringResourceKey.$Key|@$Namespace.StringResourceKey.$Key"},{"Extensions":".cpp,.c,.hxx,.h","Patterns":"$File::$Key"},{"Extensions":".aspx,.ascx","Patterns":"<%$ Resources:$File,$Key %>|<%= $File.$Key %>|<%= $Namespace.$File.$Key %>"},{"Extensions":".xaml","Patterns":"\"{my:Loc Key='$Key'}\"|\"{x:Static properties:$File.$Key}\""},{"Extensions":".ts","Patterns":"resources.$Key"},{"Extensions":".html","Patterns":"{{ resources.$Key }}"}]}
 	EndGlobalSection
 	GlobalSection(SharpSetup) = preSolution
 		Version = 1.2

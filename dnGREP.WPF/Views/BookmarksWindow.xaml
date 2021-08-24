@@ -4,7 +4,8 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:my="clr-namespace:dnGREP.WPF"
-                 Title="{my:Loc Key='Bookmarks'}"
+                 xmlns:l="clr-namespace:dnGREP.Localization;assembly=dnGREP.Localization"
+                 Title="{l:Loc Key='Bookmarks'}"
                  FontFamily="{Binding ApplicationFontFamily}"
                  FontSize="{Binding DialogFontSize}"
                  Width="860"
@@ -35,7 +36,7 @@
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Row="0">
-            <TextBlock Margin="3" Text="{my:Loc Key='Filter'}" Style="{StaticResource LabelTextBlockStyle}" />
+            <TextBlock Margin="3" Text="{l:Loc Key='Filter'}" Style="{StaticResource LabelTextBlockStyle}" />
             <TextBox Margin="3" Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" />
         </DockPanel>
 
@@ -52,18 +53,18 @@
 
 
             <DataGrid.Columns>
-                <DataGridTextColumn MinWidth="80" Header="{my:Loc Key='TypeHeader'}" IsReadOnly="True"
+                <DataGridTextColumn MinWidth="80" Header="{l:Loc Key='TypeHeader'}" IsReadOnly="True"
                                     Binding="{Binding TypeOfSearch, Converter={StaticResource tosConverter}}"
                                     SortMemberPath="TypeOfSearch" />
-                <DataGridTextColumn MinWidth="120" Header="{my:Loc Key='SearchForHeader'}" IsReadOnly="True"
+                <DataGridTextColumn MinWidth="120" Header="{l:Loc Key='SearchForHeader'}" IsReadOnly="True"
                                     Binding="{Binding SearchFor}" />
-                <DataGridTextColumn MinWidth="120" Header="{my:Loc Key='ReplaceWithHeader'}" IsReadOnly="True"
+                <DataGridTextColumn MinWidth="120" Header="{l:Loc Key='ReplaceWithHeader'}" IsReadOnly="True"
                                     Binding="{Binding ReplaceWith}" />
-                <DataGridTextColumn MinWidth="120" Header="{my:Loc Key='FilePatternHeader'}" IsReadOnly="True"
+                <DataGridTextColumn MinWidth="120" Header="{l:Loc Key='FilePatternHeader'}" IsReadOnly="True"
                                     Binding="{Binding FilePattern}" />
-                <DataGridTextColumn MinWidth="160" Header="{my:Loc Key='DescriptionHeader'}" IsReadOnly="True"
+                <DataGridTextColumn MinWidth="160" Header="{l:Loc Key='DescriptionHeader'}" IsReadOnly="True"
                                     Binding="{Binding Description}" />
-                <DataGridTextColumn MinWidth="20" Header="{my:Loc Key='OtherPropertiesHeader'}" IsReadOnly="True"
+                <DataGridTextColumn MinWidth="20" Header="{l:Loc Key='OtherPropertiesHeader'}" IsReadOnly="True"
                                     Binding="{Binding ExtendedProperties}" />
             </DataGrid.Columns>
             <DataGrid.RowStyle>
@@ -81,18 +82,18 @@
                     <ColumnDefinition SharedSizeGroup="A"/>
                     <ColumnDefinition SharedSizeGroup="A"/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="{my:Loc Key='Add_'}" Command="{Binding AddCommand}" />
-                <Button Grid.Column="1" Content="{my:Loc Key='Duplicate_'}" Command="{Binding DuplicateCommand}" />
-                <Button Grid.Column="2" Content="{my:Loc Key='Edit_'}" Command="{Binding EditCommand}" />
-                <Button Grid.Column="3" Content="{my:Loc Key='Delete_'}" Command="{Binding DeleteCommand}" />
+                <Button Grid.Column="0" Content="{l:Loc Key='Add_'}" Command="{Binding AddCommand}" />
+                <Button Grid.Column="1" Content="{l:Loc Key='Duplicate_'}" Command="{Binding DuplicateCommand}" />
+                <Button Grid.Column="2" Content="{l:Loc Key='Edit_'}" Command="{Binding EditCommand}" />
+                <Button Grid.Column="3" Content="{l:Loc Key='Delete_'}" Command="{Binding DeleteCommand}" />
             </Grid>
             <Grid DockPanel.Dock="Right">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition SharedSizeGroup="A"/>
                     <ColumnDefinition SharedSizeGroup="A"/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="{my:Loc Key='Close_'}" IsCancel="True" IsDefault="True" />
-                <Button Grid.Column="1" Content="{my:Loc Key='Use_'}" IsEnabled="{Binding HasSelection}" Click="UseButton_Click" />
+                <Button Grid.Column="0" Content="{l:Loc Key='Close_'}" IsCancel="True" IsDefault="True" />
+                <Button Grid.Column="1" Content="{l:Loc Key='Use_'}" IsEnabled="{Binding HasSelection}" Click="UseButton_Click" />
             </Grid>
         </DockPanel>
 

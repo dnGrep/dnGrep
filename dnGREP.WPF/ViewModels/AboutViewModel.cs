@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Reflection;
 using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
+using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
 {
@@ -10,8 +11,8 @@ namespace dnGREP.WPF
     {
         public AboutViewModel()
         {
-            Version = $"{Properties.Resources.Version} {AssemblyVersion}";
-            BuildDate = $"{Properties.Resources.BuiltOn} {AssemblyBuildDate.ToString(CultureInfo.CurrentUICulture)}";
+            Version = $"{Resources.Version} {AssemblyVersion}";
+            BuildDate = $"{Resources.BuiltOn} {AssemblyBuildDate.ToString(CultureInfo.CurrentUICulture)}";
             Copyright = AssemblyCopyright;
             Description = AssemblyDescription;
             ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);

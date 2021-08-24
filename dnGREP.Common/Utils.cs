@@ -19,6 +19,7 @@ using File = Alphaleonis.Win32.Filesystem.File;
 using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 using TextFieldParser = Microsoft.VisualBasic.FileIO.TextFieldParser;
+using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.Common
 {
@@ -118,9 +119,9 @@ namespace dnGREP.Common
                         if (destinationFileInfo.Exists && action == OverwriteFile.Prompt)
                         {
                             var answer = MessageBox.Show(
-                                string.Format(TranslationSource.Instance["TheFile0AlreadyExistsIn1OverwriteExisting"],
+                                string.Format(Resources.TheFile0AlreadyExistsIn1OverwriteExisting,
                                     destinationFileInfo.Name, destinationFileInfo.DirectoryName),
-                                TranslationSource.Instance["dnGrep"], MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
+                                Resources.DnGrep, MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
 
                             if (answer == MessageBoxResult.Cancel)
                                 return count;
@@ -186,9 +187,9 @@ namespace dnGREP.Common
                         if (destinationFileInfo.Exists && action == OverwriteFile.Prompt)
                         {
                             var answer = MessageBox.Show(
-                                string.Format(TranslationSource.Instance["TheFile0AlreadyExistsIn1OverwriteExisting"],
+                                string.Format(Resources.TheFile0AlreadyExistsIn1OverwriteExisting,
                                     destinationFileInfo.Name, destinationFileInfo.DirectoryName),
-                                TranslationSource.Instance["dnGrep"], MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
+                                Resources.DnGrep, MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
 
                             if (answer == MessageBoxResult.Cancel)
                                 return count;
@@ -281,9 +282,9 @@ namespace dnGREP.Common
             int matchCount = source.Sum(s => s.Matches == null ? 0 : s.Matches.Count);
 
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(TranslationSource.Instance["Report_DnGrepSearchResults"]).AppendLine();
+            sb.AppendLine(Resources.Report_DnGrepSearchResults).AppendLine();
             sb.Append(options).AppendLine();
-            sb.AppendFormat(TranslationSource.Instance["Report_Found0MatchesOn1LinesIn2Files"],
+            sb.AppendFormat(Resources.Report_Found0MatchesOn1LinesIn2Files,
                 matchCount.ToString("#,##0"), lineCount.ToString("#,##0"), fileCount.ToString("#,##0"))
                 .AppendLine().AppendLine();
             sb.Append(GetResultLinesWithContext(source, orClauses));
@@ -299,7 +300,7 @@ namespace dnGREP.Common
         public static string GetResultsAsCSV(List<GrepSearchResult> source)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("File Name,Line Number,String");
+            sb.AppendLine(Resources.ReportCSV_FileNameLineNumberString);
             foreach (GrepSearchResult result in source)
             {
                 if (result.SearchResults == null)
@@ -348,13 +349,13 @@ namespace dnGREP.Common
                     var misses = orClauses.Except(set);
                     if (hits.Any())
                     {
-                        orResults += "Found matches for " + string.Join(", ", hits.Select(s => "\'" + s + "\'"));
+                        orResults += Resources.FoundMatchesFor + string.Join(", ", hits.Select(s => "\'" + s + "\'"));
                     }
                     if (misses.Any())
                     {
                         if (!string.IsNullOrEmpty(orResults))
                             orResults += Environment.NewLine;
-                        orResults += "Found no matches for " + string.Join(", ", misses.Select(s => "\'" + s + "\'"));
+                        orResults += Resources.FoundNoMatchesFor + string.Join(", ", misses.Select(s => "\'" + s + "\'"));
                     }
                 }
 
@@ -362,12 +363,12 @@ namespace dnGREP.Common
                 var searchResults = result.SearchResults;
                 if (searchResults != null)
                 {
-                    int matchCount = (result.Matches == null ? 0 : result.Matches.Count);
+                    int matchCount = result.Matches == null ? 0 : result.Matches.Count;
                     var lineCount = result.Matches.Where(r => r.LineNumber > 0)
                         .Select(r => r.LineNumber).Distinct().Count();
 
                     sb.AppendLine(result.FileNameDisplayed)
-                      .AppendFormat("has {0} matches on {1} lines:", matchCount, lineCount).AppendLine();
+                      .AppendFormat(Resources.Has0MatchesOn1Lines, matchCount, lineCount).AppendLine();
 
                     if (!string.IsNullOrEmpty(orResults))
                         sb.AppendLine(orResults);
@@ -387,7 +388,7 @@ namespace dnGREP.Common
                     }
                     else
                     {
-                        sb.AppendLine("[File not found: has it been deleted or moved?]");
+                        sb.AppendLine(Resources.FileNotFoundHasItBeenDeletedOrMoved);
                     }
                 }
                 sb.AppendLine("--------------------------------------------------------------------------------").AppendLine();

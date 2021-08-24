@@ -27,6 +27,11 @@
           <netfx:NativeImage Id="ngen_dnGREP.Engines.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
         </File>
       </Component>
+      <Component Id="cmp6EE8C40DCE6342DD82D7118EAFE8AC1B" Guid="{ED505551-933C-4B9D-8ECF-3293BE9BA5AA}">
+        <File Id="filDB00706A949D4EEA8239FE1F18F446A7" KeyPath="yes" Source="$(var.dnGREP.Engines.TargetDir)\dnGREP.Localization.dll" >
+          <netfx:NativeImage Id="ngen_dnGREP.Localization.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
+        </File>
+      </Component>
       <Component Id="cmpE75E380769873171E1689F576B0BBBD1" Guid="{B7C5DBF9-8740-4677-8D55-E9C01BF58028}">
         <File Id="filE4BA9060B65A733C63D86942A6474C5E" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\dnGREP.exe" >
           <netfx:NativeImage Id="ngen_dnGREP.exe" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
@@ -103,6 +108,7 @@
       <ComponentRef Id="cmp4F755EB8AEA654DE0F6FB783BD274E79" />
       <ComponentRef Id="cmpD9FA0B07237DE16A4585D46BED20E933" />
       <ComponentRef Id="cmp5D64364BE848D8D880558DFAFA0DE81C" />
+      <ComponentRef Id="cmp6EE8C40DCE6342DD82D7118EAFE8AC1B" />
       <ComponentRef Id="cmpE75E380769873171E1689F576B0BBBD1" />
       <ComponentRef Id="cmp3C0B9E685307149FAB49326CFDE9664B" />
       <ComponentRef Id="cmp076536C5D88900C40C1A61CB5902CCD6" />

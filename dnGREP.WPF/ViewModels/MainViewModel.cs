@@ -20,6 +20,7 @@ using dnGREP.WPF.Properties;
 using DockFloat;
 using Microsoft.Win32;
 using NLog;
+using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
 {
