@@ -21,7 +21,7 @@ namespace dnGREP.Localization
         public Dictionary<string, string> AppCultures =>
             new Dictionary<string, string>
             {
-                { "en-US", Properties.Resources.Language_English },
+                { "en", Properties.Resources.Language_English },
                 { "zh", Properties.Resources.Language_Chinese },
             };
 
@@ -48,7 +48,6 @@ namespace dnGREP.Localization
 
                     currentCulture = value;
                     Properties.Resources.Culture = value;
-                    Thread.CurrentThread.CurrentCulture = value;
                     Thread.CurrentThread.CurrentUICulture = value;
 
                     // string.Empty/null indicates that all properties have changed

@@ -2014,20 +2014,11 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Phonetic.
+        ///   Looks up a localized string similar to _Phonetic.
         /// </summary>
         public static string Phonetic_ {
             get {
                 return ResourceManager.GetString("Phonetic_", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to _Phonetic.
-        /// </summary>
-        public static string Phonetic__Duplicate_1_ {
-            get {
-                return ResourceManager.GetString("Phonetic__Duplicate[1]", resourceCulture);
             }
         }
         

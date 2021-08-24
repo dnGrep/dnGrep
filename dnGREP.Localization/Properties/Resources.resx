@@ -477,6 +477,9 @@
   <data name="File" xml:space="preserve">
     <value>File:</value>
   </data>
+  <data name="FileNotFoundHasItBeenDeletedOrMoved" xml:space="preserve">
+    <value>[File not found: has it been deleted or moved?]</value>
+  </data>
   <data name="FilePattern" xml:space="preserve">
     <value>File pattern:</value>
   </data>
@@ -519,11 +522,17 @@
   <data name="FoundMatchesFor" xml:space="preserve">
     <value>Found matches for </value>
   </data>
+  <data name="FoundNoMatchesFor" xml:space="preserve">
+    <value>Found no matches for </value>
+  </data>
   <data name="FromTheStartOfTheDay" xml:space="preserve">
     <value>from the start of the day</value>
   </data>
   <data name="From_" xml:space="preserve">
     <value>From</value>
+  </data>
+  <data name="Has0MatchesOn1Lines" xml:space="preserve">
+    <value>has {0} matches on {1} lines:</value>
   </data>
   <data name="Help_" xml:space="preserve">
     <value>_Help</value>
@@ -765,9 +774,6 @@
     <value>Phonetic search</value>
   </data>
   <data name="Phonetic_" xml:space="preserve">
-    <value>Phonetic</value>
-  </data>
-  <data name="Phonetic__Duplicate[1]" xml:space="preserve">
     <value>_Phonetic</value>
   </data>
   <data name="PlainTextSearch" xml:space="preserve">
@@ -1351,14 +1357,5 @@
   </data>
   <data name="Zoom" xml:space="preserve">
     <value>Zoom:</value>
-  </data>
-  <data name="FoundNoMatchesFor" xml:space="preserve">
-    <value>Found no matches for </value>
-  </data>
-  <data name="Has0MatchesOn1Lines" xml:space="preserve">
-    <value>has {0} matches on {1} lines:</value>
-  </data>
-  <data name="FileNotFoundHasItBeenDeletedOrMoved" xml:space="preserve">
-    <value>[File not found: has it been deleted or moved?]</value>
   </data>
 </root>
