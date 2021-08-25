@@ -475,6 +475,28 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to dnGrep:  Search through text files, Word and Excel documents, PDFs, and archives using text, regular expression, XPath, and phonetic queries.
+        ///
+        ///Version {0} built on {1}
+        ///
+        ///Usage:
+        ///
+        ///dnGrep [arguments]
+        ///Using any combination of arguments from the list below.
+        ///Example:
+        ///dnGrep /f &quot;C:\Program Files\dnGrep&quot; /pm *.txt;*.xml /s t\w*t /st Regex
+        ///
+        ///dnGrep [folderPath] [searchFor]
+        ///One or two arguments without flags: the first argument is the folder to search, the second the regular expression to search for.
+        ///Examp [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string CmdLine_Help {
+            get {
+                return ResourceManager.GetString("CmdLine_Help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Collapse all.
         /// </summary>
         public static string CollapseAll {

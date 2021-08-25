@@ -255,6 +255,101 @@
   <data name="Close_" xml:space="preserve">
     <value>_Close</value>
   </data>
+  <data name="CmdLine_Help" xml:space="preserve">
+    <value>dnGrep:  Search through text files, Word and Excel documents, PDFs, and archives using text, regular expression, XPath, and phonetic queries.
+
+Version {0} built on {1}
+
+Usage:
+
+dnGrep [arguments]
+Using any combination of arguments from the list below.
+Example:
+dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex
+
+dnGrep [folderPath] [searchFor]
+One or two arguments without flags: the first argument is the folder to search, the second the regular expression to search for.
+Example:
+dnGrep "C:\Program Files\dnGrep" t\w*t
+
+Any arguments not specified will default to the last saved user settings.
+
+Arguments:
+
+/f [folderPath]
+-f [folderPath]
+-folder [folderPath]
+    Sets the folder path to search.  May be a comma or semi-colon separated list of folder paths.
+
+/pm [pattern]
+-pm [pattern]
+-pathToMatch [pattern]
+    Sets the file name pattern to match files in the search path. May be a comma or semi-colon separated list of patterns.
+
+/pi [pattern]
+-pi [pattern]
+-pathToIgnore [pattern]
+    Sets the file or directory name pattern to exclude files or folders in the search path. May be a comma or semi-colon separated list of patterns.
+
+/pt [type]
+-pt [type]
+-patternType [type]
+    Sets the type of match and ignore pattern - must be one of: Asterisk, Regex, or Everything (if the Everything search tool is installed).
+
+/s [searchFor]
+-s [searchFor]
+-searchFor [searchFor]
+    Sets the pattern or text to search for within the set of files.  When this argument is set, the search will be run automatically.
+
+/st [type]
+-st [type]
+-searchType [type]
+    Sets the type of search - must be one of: PlainText, Regex, XPath, or Soundex.
+
+/cs [True/False]
+-cs [True/False]
+-caseSensitive [True/False]
+    Sets case sensitive search flag - True or False.
+
+/ww [True/False]
+-ww [True/False]
+-wholeWord [True/False]
+    Sets the whole word search flag - True or False.
+
+/ml [True/False]
+-ml [True/False]
+-multiline [True/False]
+    Sets the multiline search flag - True or False.
+
+/dn [True/False]
+-dn [True/False]
+-dotAsNewline [True/False]
+    Sets the dot as newline search flag - True or False.
+
+/bo [True/False]
+-bo [True/False]
+-booleanOperators [True/False]
+    Sets the Boolean operators search flag - True or False.
+
+/rpt [filePath]
+-rpt [filePath]
+-report [filePath]
+    Create results file in report format after search is complete.
+
+/txt [filePath]
+-txt [filePath]
+-text [filePath]
+    Create results file in text format after search is complete.
+
+/csv [filePath]
+-csv [filePath]
+    Create results file in CSV format after search is complete.
+
+/x
+-x
+-exit
+    Exit dnGrep after command line operations are complete.</value>
+  </data>
   <data name="CollapseAll" xml:space="preserve">
     <value>Collapse all</value>
   </data>
