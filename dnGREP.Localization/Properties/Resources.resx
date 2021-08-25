@@ -117,14 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About_" xml:space="preserve">
+    <value>_About</value>
+  </data>
   <data name="AboutDnGREP" xml:space="preserve">
     <value>About dnGREP</value>
   </data>
   <data name="AboutDnGrep_" xml:space="preserve">
     <value>_About dnGrep...</value>
-  </data>
-  <data name="About_" xml:space="preserve">
-    <value>_About</value>
   </data>
   <data name="Acknowledgments" xml:space="preserve">
     <value>Acknowledgments</value>
@@ -132,11 +132,11 @@
   <data name="Add" xml:space="preserve">
     <value>Add:</value>
   </data>
-  <data name="AddSearchPatternToBookmarks" xml:space="preserve">
-    <value>Add search pattern to bookmarks</value>
-  </data>
   <data name="Add_" xml:space="preserve">
     <value>_Add</value>
+  </data>
+  <data name="AddSearchPatternToBookmarks" xml:space="preserve">
+    <value>Add search pattern to bookmarks</value>
   </data>
   <data name="After" xml:space="preserve">
     <value>after</value>
@@ -434,14 +434,14 @@ Arguments:
   <data name="DefaultEngineWasUsedInstead" xml:space="preserve">
     <value>Default engine was used instead.</value>
   </data>
+  <data name="Delete_" xml:space="preserve">
+    <value>_Delete</value>
+  </data>
   <data name="DeleteFiles" xml:space="preserve">
     <value>Delete Files</value>
   </data>
   <data name="DeleteFiles_" xml:space="preserve">
     <value>Delete files...</value>
-  </data>
-  <data name="Delete_" xml:space="preserve">
-    <value>_Delete</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description:</value>
@@ -458,14 +458,14 @@ Arguments:
   <data name="DnGrep" xml:space="preserve">
     <value>dnGrep</value>
   </data>
+  <data name="DnGREP_Title" xml:space="preserve">
+    <value>dnGREP</value>
+  </data>
   <data name="DnGrepOnGitHub" xml:space="preserve">
     <value>dnGrep on GitHub</value>
   </data>
   <data name="DnGrepWillAddTheSelectedFiles" xml:space="preserve">
     <value>dnGrep will add the selected files to the end of the command line.</value>
-  </data>
-  <data name="DnGREP_Title" xml:space="preserve">
-    <value>dnGREP</value>
   </data>
   <data name="DockBottom_" xml:space="preserve">
     <value>Dock Bottom</value>
@@ -485,14 +485,17 @@ Arguments:
   <data name="Duplicate_" xml:space="preserve">
     <value>Du_plicate</value>
   </data>
+  <data name="Edit_" xml:space="preserve">
+    <value>_Edit</value>
+  </data>
+  <data name="Editor1_UseKeywords" xml:space="preserve">
+    <value>Use keywords</value>
+  </data>
   <data name="Editor10_Column" xml:space="preserve">
     <value>%column</value>
   </data>
   <data name="Editor11_ForTheColumnNumberOfFirstMatchOnTheLine" xml:space="preserve">
     <value>for the column number of first match on the line</value>
-  </data>
-  <data name="Editor1_UseKeywords" xml:space="preserve">
-    <value>Use keywords</value>
   </data>
   <data name="Editor2_File" xml:space="preserve">
     <value>%file</value>
@@ -517,9 +520,6 @@ Arguments:
   </data>
   <data name="Editor9_OrTheFirstMatchedTextOnTheLineAnd" xml:space="preserve">
     <value>or the first matched text on the line, and </value>
-  </data>
-  <data name="Edit_" xml:space="preserve">
-    <value>_Edit</value>
   </data>
   <data name="Ellipsis" xml:space="preserve">
     <value>...</value>
@@ -548,14 +548,14 @@ Arguments:
   <data name="ErrorSettingClipboardTextTheClipboardIsLockedBy" xml:space="preserve">
     <value>Error setting clipboard text, the clipboard is locked by</value>
   </data>
+  <data name="Everything_" xml:space="preserve">
+    <value>Everything</value>
+  </data>
   <data name="EverythingIndexService" xml:space="preserve">
     <value>Everything Index Service</value>
   </data>
   <data name="EverythingSearch" xml:space="preserve">
     <value>Everything search:</value>
-  </data>
-  <data name="Everything_" xml:space="preserve">
-    <value>Everything</value>
   </data>
   <data name="ExcludeFromResults" xml:space="preserve">
     <value>Exclude from results</value>
@@ -620,11 +620,11 @@ Arguments:
   <data name="FoundNoMatchesFor" xml:space="preserve">
     <value>Found no matches for </value>
   </data>
-  <data name="FromTheStartOfTheDay" xml:space="preserve">
-    <value>from the start of the day</value>
-  </data>
   <data name="From_" xml:space="preserve">
     <value>From</value>
+  </data>
+  <data name="FromTheStartOfTheDay" xml:space="preserve">
+    <value>from the start of the day</value>
   </data>
   <data name="Has0MatchesOn1Lines" xml:space="preserve">
     <value>has {0} matches on {1} lines:</value>
@@ -799,11 +799,11 @@ Arguments:
   <data name="NewVersionOfDnGREP0IsAvailableForDownload" xml:space="preserve">
     <value>New version of dnGREP ({0}) is available for download.</value>
   </data>
-  <data name="NextFile_" xml:space="preserve">
-    <value>Next _File</value>
-  </data>
   <data name="Next_" xml:space="preserve">
     <value>_Next</value>
+  </data>
+  <data name="NextFile_" xml:space="preserve">
+    <value>Next _File</value>
   </data>
   <data name="NoArchives" xml:space="preserve">
     <value>No archives</value>
@@ -865,11 +865,11 @@ Arguments:
   <data name="PdfToTextExeCommandLineOptions" xml:space="preserve">
     <value>PdfToText.exe command line options:</value>
   </data>
-  <data name="PhoneticSearch" xml:space="preserve">
-    <value>Phonetic search</value>
-  </data>
   <data name="Phonetic_" xml:space="preserve">
     <value>_Phonetic</value>
+  </data>
+  <data name="PhoneticSearch" xml:space="preserve">
+    <value>Phonetic search</value>
   </data>
   <data name="PlainTextSearch" xml:space="preserve">
     <value>Plain text search</value>
@@ -886,12 +886,6 @@ Arguments:
   <data name="PressF1ForHelpOnOptions" xml:space="preserve">
     <value>Press F1 for help on Options</value>
   </data>
-  <data name="PreviewAnyway" xml:space="preserve">
-    <value>Preview anyway</value>
-  </data>
-  <data name="PreviewFile_" xml:space="preserve">
-    <value>Pre_view file</value>
-  </data>
   <data name="Preview_FindNext" xml:space="preserve">
     <value>Find next (F3)</value>
   </data>
@@ -907,14 +901,23 @@ Arguments:
   <data name="Preview_UseRegularExpressions" xml:space="preserve">
     <value>Use regular expressions</value>
   </data>
-  <data name="PreviousFile_" xml:space="preserve">
-    <value>Previous File</value>
+  <data name="PreviewAnyway" xml:space="preserve">
+    <value>Preview anyway</value>
+  </data>
+  <data name="PreviewFile_" xml:space="preserve">
+    <value>Pre_view file</value>
   </data>
   <data name="Previous_" xml:space="preserve">
     <value>_Previous</value>
   </data>
+  <data name="PreviousFile_" xml:space="preserve">
+    <value>Previous File</value>
+  </data>
   <data name="Regex" xml:space="preserve">
     <value>Regex</value>
+  </data>
+  <data name="Regex_" xml:space="preserve">
+    <value>_Regex</value>
   </data>
   <data name="RegexIsNotValid" xml:space="preserve">
     <value>Regex is not valid!</value>
@@ -925,17 +928,14 @@ Arguments:
   <data name="RegexOptions" xml:space="preserve">
     <value>Regex Options</value>
   </data>
-  <data name="Regex_" xml:space="preserve">
-    <value>_Regex</value>
-  </data>
   <data name="RegularExpressionSearch" xml:space="preserve">
     <value>Regular expression search</value>
   </data>
-  <data name="ReloadTheCurrentThemeFile" xml:space="preserve">
-    <value>Reload the current theme file [Ctrl+F5]</value>
-  </data>
   <data name="Reload_" xml:space="preserve">
     <value>Reload</value>
+  </data>
+  <data name="ReloadTheCurrentThemeFile" xml:space="preserve">
+    <value>Reload the current theme file [Ctrl+F5]</value>
   </data>
   <data name="Remove" xml:space="preserve">
     <value>Remove:</value>
@@ -954,6 +954,9 @@ Arguments:
   </data>
   <data name="Replace" xml:space="preserve">
     <value>Replace</value>
+  </data>
+  <data name="Replace_" xml:space="preserve">
+    <value>_Replace</value>
   </data>
   <data name="ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
     <value>Replace all matches in all files, and apply [F10]</value>
@@ -997,23 +1000,20 @@ Arguments:
   <data name="ReplaceWithHeader" xml:space="preserve">
     <value>Replace With</value>
   </data>
-  <data name="Replace_" xml:space="preserve">
-    <value>_Replace</value>
-  </data>
   <data name="Replacing" xml:space="preserve">
     <value>Replacing...</value>
-  </data>
-  <data name="ReportCSV_FileNameLineNumberString" xml:space="preserve">
-    <value>File Name,Line Number,String</value>
-  </data>
-  <data name="ReportFileFormat" xml:space="preserve">
-    <value>Report file format</value>
   </data>
   <data name="Report_DnGrepSearchResults" xml:space="preserve">
     <value>dnGrep Search Results</value>
   </data>
   <data name="Report_Found0MatchesOn1LinesIn2Files" xml:space="preserve">
     <value>Found {0} matches on {1} lines in {2} files</value>
+  </data>
+  <data name="ReportCSV_FileNameLineNumberString" xml:space="preserve">
+    <value>File Name,Line Number,String</value>
+  </data>
+  <data name="ReportFileFormat" xml:space="preserve">
+    <value>Report file format</value>
   </data>
   <data name="Reset" xml:space="preserve">
     <value>Reset</value>
@@ -1066,9 +1066,6 @@ Arguments:
   <data name="SampleText" xml:space="preserve">
     <value>Sample Text</value>
   </data>
-  <data name="SaveResults_" xml:space="preserve">
-    <value>Save results</value>
-  </data>
   <data name="Save_" xml:space="preserve">
     <value>Save</value>
   </data>
@@ -1081,11 +1078,17 @@ Arguments:
   <data name="Save_TextResults_" xml:space="preserve">
     <value>Text Results</value>
   </data>
+  <data name="SaveResults_" xml:space="preserve">
+    <value>Save results</value>
+  </data>
   <data name="SavingResultsToFile" xml:space="preserve">
     <value>Saving results to file...</value>
   </data>
   <data name="Search" xml:space="preserve">
     <value>Search</value>
+  </data>
+  <data name="Search_" xml:space="preserve">
+    <value>_Search</value>
   </data>
   <data name="SearchCanceled" xml:space="preserve">
     <value>Search Canceled</value>
@@ -1143,9 +1146,6 @@ Arguments:
   </data>
   <data name="SearchResult" xml:space="preserve">
     <value>Search result:</value>
-  </data>
-  <data name="Search_" xml:space="preserve">
-    <value>_Search</value>
   </data>
   <data name="Seconds" xml:space="preserve">
     <value>seconds</value>
@@ -1372,6 +1372,9 @@ Arguments:
   <data name="Undo" xml:space="preserve">
     <value>Undo</value>
   </data>
+  <data name="Undo_" xml:space="preserve">
+    <value>_Undo</value>
+  </data>
   <data name="UndoFile_" xml:space="preserve">
     <value>Undo File</value>
   </data>
@@ -1381,11 +1384,11 @@ Arguments:
   <data name="UndoWillRevertModifiedFiles" xml:space="preserve">
     <value>Undo will revert modified file(s) back to their original state. Any changes made to the file(s) after the replace will be overwritten. Are you sure you want to proceed?</value>
   </data>
-  <data name="Undo_" xml:space="preserve">
-    <value>_Undo</value>
-  </data>
   <data name="Unicode" xml:space="preserve">
     <value>Unicode</value>
+  </data>
+  <data name="Use_" xml:space="preserve">
+    <value>_Use</value>
   </data>
   <data name="UseCaptureGroupsFromPathsToMatch" xml:space="preserve">
     <value>Use capture groups from 'Paths to match' in the 'Search for' pattern</value>
@@ -1393,14 +1396,11 @@ Arguments:
   <data name="UseDefault_" xml:space="preserve">
     <value>Use Default</value>
   </data>
-  <data name="UseGitignoreToFilterFiles" xml:space="preserve">
-    <value>Use .gitignore to filter files</value>
-  </data>
   <data name="UseGitignore_" xml:space="preserve">
     <value>Use .gitignore</value>
   </data>
-  <data name="Use_" xml:space="preserve">
-    <value>_Use</value>
+  <data name="UseGitignoreToFilterFiles" xml:space="preserve">
+    <value>Use .gitignore to filter files</value>
   </data>
   <data name="Using" xml:space="preserve">
     <value>Using</value>
@@ -1435,6 +1435,9 @@ Arguments:
   <data name="WrapText_" xml:space="preserve">
     <value>Wrap Text</value>
   </data>
+  <data name="XPath_" xml:space="preserve">
+    <value>_XPath</value>
+  </data>
   <data name="XPathIsNotValid" xml:space="preserve">
     <value>XPath is not valid!</value>
   </data>
@@ -1443,9 +1446,6 @@ Arguments:
   </data>
   <data name="XPathSearchXMLDocumentsOnly" xml:space="preserve">
     <value>XPath search (XML documents only)</value>
-  </data>
-  <data name="XPath_" xml:space="preserve">
-    <value>_XPath</value>
   </data>
   <data name="YouAreAboutToDeleteFilesFoundDuringSearch" xml:space="preserve">
     <value>Attention, you are about to delete files found during search.</value>
