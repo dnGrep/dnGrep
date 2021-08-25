@@ -117,4 +117,1340 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About_" xml:space="preserve">
+    <value>_A关于</value>
+  </data>
+  <data name="AboutDnGREP" xml:space="preserve">
+    <value>关于 dnGREP</value>
+  </data>
+  <data name="AboutDnGrep_" xml:space="preserve">
+    <value>_A关于 dnGrep...</value>
+  </data>
+  <data name="Acknowledgments" xml:space="preserve">
+    <value>Acknowledgments</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add:</value>
+  </data>
+  <data name="Add_" xml:space="preserve">
+    <value>_Add</value>
+  </data>
+  <data name="AddSearchPatternToBookmarks" xml:space="preserve">
+    <value>Add search pattern to bookmarks</value>
+  </data>
+  <data name="After" xml:space="preserve">
+    <value>after</value>
+  </data>
+  <data name="AllDates_" xml:space="preserve">
+    <value>所有日期</value>
+  </data>
+  <data name="AllFiles" xml:space="preserve">
+    <value>All files</value>
+  </data>
+  <data name="AllSizes" xml:space="preserve">
+    <value>所有大小</value>
+  </data>
+  <data name="ApplicationFonts" xml:space="preserve">
+    <value>Application Fonts</value>
+  </data>
+  <data name="ArchiveOptions" xml:space="preserve">
+    <value>Archive Options</value>
+  </data>
+  <data name="AreYouSureYouWantToContinue" xml:space="preserve">
+    <value>Are you sure you want to continue?</value>
+  </data>
+  <data name="AreYouSureYouWantToReplaceSearchPatternWithEmptyString" xml:space="preserve">
+    <value>Are you sure you want to replace search pattern with empty string?</value>
+  </data>
+  <data name="Arguments" xml:space="preserve">
+    <value>Arguments</value>
+  </data>
+  <data name="AssociateBookmarkWithFolder" xml:space="preserve">
+    <value>Associate bookmark with folder</value>
+  </data>
+  <data name="AssociatedFolders" xml:space="preserve">
+    <value>Associated Folders:</value>
+  </data>
+  <data name="AsteriskPattern_" xml:space="preserve">
+    <value>Asterisk pattern</value>
+  </data>
+  <data name="AutoPosition_" xml:space="preserve">
+    <value>Auto Position</value>
+  </data>
+  <data name="BeforeAnd" xml:space="preserve">
+    <value>before and</value>
+  </data>
+  <data name="BookmarkDetails" xml:space="preserve">
+    <value>Bookmark Details</value>
+  </data>
+  <data name="Bookmarks" xml:space="preserve">
+    <value>书签</value>
+  </data>
+  <data name="Bookmarks_" xml:space="preserve">
+    <value>_书签...</value>
+  </data>
+  <data name="BooleanOperators" xml:space="preserve">
+    <value>Boolean operators</value>
+  </data>
+  <data name="BooleanOperators_" xml:space="preserve">
+    <value>Boolean operators</value>
+  </data>
+  <data name="BrowseForFolderOrFiles" xml:space="preserve">
+    <value>Browse for folder or files</value>
+  </data>
+  <data name="BuiltOn" xml:space="preserve">
+    <value>编译日期</value>
+  </data>
+  <data name="ByCreatedDate" xml:space="preserve">
+    <value>By Created Date</value>
+  </data>
+  <data name="ByModifiedDate" xml:space="preserve">
+    <value>By Modified Date</value>
+  </data>
+  <data name="BySize" xml:space="preserve">
+    <value>By Size</value>
+  </data>
+  <data name="Cancel_" xml:space="preserve">
+    <value>_C取消</value>
+  </data>
+  <data name="CancelAllReplacements" xml:space="preserve">
+    <value>Cancel all replacements</value>
+  </data>
+  <data name="CaptureGroupSearch_" xml:space="preserve">
+    <value>Capture group search</value>
+  </data>
+  <data name="CaseSensitive" xml:space="preserve">
+    <value>大小写敏感</value>
+  </data>
+  <data name="CaseSensitive_" xml:space="preserve">
+    <value>大小写敏感</value>
+  </data>
+  <data name="ChangesTextEditorZoom" xml:space="preserve">
+    <value>Changes text editor zoom</value>
+  </data>
+  <data name="ChangesTheResultsTreeZoom" xml:space="preserve">
+    <value>Changes the results tree zoom</value>
+  </data>
+  <data name="CheckEditorPath" xml:space="preserve">
+    <value>Check editor path via "Options...".</value>
+  </data>
+  <data name="CheckForUpdatesWhenWindowsStarts" xml:space="preserve">
+    <value>Check for updates when Windows starts</value>
+  </data>
+  <data name="CheckingForUpdates" xml:space="preserve">
+    <value>Checking for updates</value>
+  </data>
+  <data name="ClearBookmark" xml:space="preserve">
+    <value>Clear bookmark</value>
+  </data>
+  <data name="ClearingThisBookmarkWillAlsoClearThatBookmark" xml:space="preserve">
+    <value>Clearing this bookmark will also clear that bookmark.</value>
+  </data>
+  <data name="ClearingThisBookmarkWillAlsoRemoveThoseBookmarks" xml:space="preserve">
+    <value>Clearing this bookmark will also remove those bookmarks.</value>
+  </data>
+  <data name="ClearOldSearches" xml:space="preserve">
+    <value>Clear old searches</value>
+  </data>
+  <data name="Close_" xml:space="preserve">
+    <value>_Close</value>
+  </data>
+  <data name="CmdLine_Help" xml:space="preserve">
+    <value>dnGrep:  Search through text files, Word and Excel documents, PDFs, and archives using text, regular expression, XPath, and phonetic queries.
+
+Version {0} built on {1}
+
+Usage:
+
+dnGrep [arguments]
+Using any combination of arguments from the list below.
+Example:
+dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex
+
+dnGrep [folderPath] [searchFor]
+One or two arguments without flags: the first argument is the folder to search, the second the regular expression to search for.
+Example:
+dnGrep "C:\Program Files\dnGrep" t\w*t
+
+Any arguments not specified will default to the last saved user settings.
+
+Arguments:
+
+/f [folderPath]
+-f [folderPath]
+-folder [folderPath]
+    Sets the folder path to search.  May be a comma or semi-colon separated list of folder paths.
+
+/pm [pattern]
+-pm [pattern]
+-pathToMatch [pattern]
+    Sets the file name pattern to match files in the search path. May be a comma or semi-colon separated list of patterns.
+
+/pi [pattern]
+-pi [pattern]
+-pathToIgnore [pattern]
+    Sets the file or directory name pattern to exclude files or folders in the search path. May be a comma or semi-colon separated list of patterns.
+
+/pt [type]
+-pt [type]
+-patternType [type]
+    Sets the type of match and ignore pattern - must be one of: Asterisk, Regex, or Everything (if the Everything search tool is installed).
+
+/s [searchFor]
+-s [searchFor]
+-searchFor [searchFor]
+    Sets the pattern or text to search for within the set of files.  When this argument is set, the search will be run automatically.
+
+/st [type]
+-st [type]
+-searchType [type]
+    Sets the type of search - must be one of: PlainText, Regex, XPath, or Soundex.
+
+/cs [True/False]
+-cs [True/False]
+-caseSensitive [True/False]
+    Sets case sensitive search flag - True or False.
+
+/ww [True/False]
+-ww [True/False]
+-wholeWord [True/False]
+    Sets the whole word search flag - True or False.
+
+/ml [True/False]
+-ml [True/False]
+-multiline [True/False]
+    Sets the multiline search flag - True or False.
+
+/dn [True/False]
+-dn [True/False]
+-dotAsNewline [True/False]
+    Sets the dot as newline search flag - True or False.
+
+/bo [True/False]
+-bo [True/False]
+-booleanOperators [True/False]
+    Sets the Boolean operators search flag - True or False.
+
+/rpt [filePath]
+-rpt [filePath]
+-report [filePath]
+    Create results file in report format after search is complete.
+
+/txt [filePath]
+-txt [filePath]
+-text [filePath]
+    Create results file in text format after search is complete.
+
+/csv [filePath]
+-csv [filePath]
+    Create results file in CSV format after search is complete.
+
+/x
+-x
+-exit
+    Exit dnGrep after command line operations are complete.</value>
+  </data>
+  <data name="CollapseAll" xml:space="preserve">
+    <value>Collapse all</value>
+  </data>
+  <data name="Colon" xml:space="preserve">
+    <value>:</value>
+  </data>
+  <data name="CombineMultipleSearchPatternsUsingANDOrOR" xml:space="preserve">
+    <value>Combine multiple search patterns using 'AND' or 'OR'</value>
+  </data>
+  <data name="Command" xml:space="preserve">
+    <value>Command</value>
+  </data>
+  <data name="CompareApplication" xml:space="preserve">
+    <value>Compare application</value>
+  </data>
+  <data name="CompareFiles" xml:space="preserve">
+    <value>Compare files</value>
+  </data>
+  <data name="ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
+    <value>Context changes Will be applied in next search</value>
+  </data>
+  <data name="ConvertsPDFFilesToPlainText" xml:space="preserve">
+    <value>Converts PDF files to plain text</value>
+  </data>
+  <data name="CopyFileNames_" xml:space="preserve">
+    <value>Copy file names</value>
+  </data>
+  <data name="CopyFiles" xml:space="preserve">
+    <value>Copy Files</value>
+  </data>
+  <data name="CopyFiles_" xml:space="preserve">
+    <value>Copy files...</value>
+  </data>
+  <data name="CopyFullFilePaths" xml:space="preserve">
+    <value>Copy full file paths</value>
+  </data>
+  <data name="CopyLinesOfText" xml:space="preserve">
+    <value>Copy Lines of text</value>
+  </data>
+  <data name="CopyResults_" xml:space="preserve">
+    <value>Copy results</value>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Copy to clipboard</value>
+  </data>
+  <data name="CouldNotLoadResourcesFile0" xml:space="preserve">
+    <value>Could not load resources file '{0}': </value>
+  </data>
+  <data name="CouldNotLoadTheme" xml:space="preserve">
+    <value>Could not load theme '{0}', See the error log for details: </value>
+  </data>
+  <data name="CountFilesHaveBeenSuccessfullyCopied" xml:space="preserve">
+    <value>{0} files have been successfully copied.</value>
+  </data>
+  <data name="CountFilesHaveBeenSuccessfullyDeleted" xml:space="preserve">
+    <value>{0} files have been successfully deleted.</value>
+  </data>
+  <data name="CountFilesHaveBeenSuccessfullyMoved" xml:space="preserve">
+    <value>{0} files have been successfully moved.</value>
+  </data>
+  <data name="Created_" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="CSVFileFormat" xml:space="preserve">
+    <value>CSV file format</value>
+  </data>
+  <data name="CustomEditor" xml:space="preserve">
+    <value>Custom editor</value>
+  </data>
+  <data name="CustomEditorFileOpenError" xml:space="preserve">
+    <value>There was an error opening file by custom editor.</value>
+  </data>
+  <data name="DateModified" xml:space="preserve">
+    <value>Date Modified:</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>days</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Default:</value>
+  </data>
+  <data name="DefaultEngineWasUsedInstead" xml:space="preserve">
+    <value>Default engine was used instead.</value>
+  </data>
+  <data name="Delete_" xml:space="preserve">
+    <value>_Delete</value>
+  </data>
+  <data name="DeleteFiles" xml:space="preserve">
+    <value>Delete Files</value>
+  </data>
+  <data name="DeleteFiles_" xml:space="preserve">
+    <value>Delete files...</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description:</value>
+  </data>
+  <data name="DescriptionHeader" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
+    <value>Detect file encoding when searching for file name pattern only</value>
+  </data>
+  <data name="DialogFontSize" xml:space="preserve">
+    <value>Dialog Font Size</value>
+  </data>
+  <data name="DnGrep" xml:space="preserve">
+    <value>dnGrep</value>
+  </data>
+  <data name="DnGREP_Title" xml:space="preserve">
+    <value>dnGREP</value>
+  </data>
+  <data name="DnGrepOnGitHub" xml:space="preserve">
+    <value>dnGrep on GitHub</value>
+  </data>
+  <data name="DnGrepWillAddTheSelectedFiles" xml:space="preserve">
+    <value>dnGrep will add the selected files to the end of the command line.</value>
+  </data>
+  <data name="DockBottom_" xml:space="preserve">
+    <value>Dock Bottom</value>
+  </data>
+  <data name="DockRight_" xml:space="preserve">
+    <value>Dock Right</value>
+  </data>
+  <data name="DotAsNewline" xml:space="preserve">
+    <value>Dot as newline</value>
+  </data>
+  <data name="DotAsNewline_" xml:space="preserve">
+    <value>_Dot as newline</value>
+  </data>
+  <data name="DoYouWantToContinue" xml:space="preserve">
+    <value>Do you want to continue?</value>
+  </data>
+  <data name="Duplicate_" xml:space="preserve">
+    <value>Du_plicate</value>
+  </data>
+  <data name="Edit_" xml:space="preserve">
+    <value>_Edit</value>
+  </data>
+  <data name="Editor1_UseKeywords" xml:space="preserve">
+    <value>Use keywords</value>
+  </data>
+  <data name="Editor10_Column" xml:space="preserve">
+    <value>%column</value>
+  </data>
+  <data name="Editor11_ForTheColumnNumberOfFirstMatchOnTheLine" xml:space="preserve">
+    <value>for the column number of first match on the line</value>
+  </data>
+  <data name="Editor2_File" xml:space="preserve">
+    <value>%file</value>
+  </data>
+  <data name="Editor3_ForFileLocation" xml:space="preserve">
+    <value>for file location,</value>
+  </data>
+  <data name="Editor4_Line" xml:space="preserve">
+    <value>%line</value>
+  </data>
+  <data name="Editor5_ForTheLineNumber" xml:space="preserve">
+    <value>for the line number,</value>
+  </data>
+  <data name="Editor6_Pattern" xml:space="preserve">
+    <value>%pattern</value>
+  </data>
+  <data name="Editor7_ForTheSearchPattern" xml:space="preserve">
+    <value>for the search pattern,</value>
+  </data>
+  <data name="Editor8_Match" xml:space="preserve">
+    <value>%match</value>
+  </data>
+  <data name="Editor9_OrTheFirstMatchedTextOnTheLineAnd" xml:space="preserve">
+    <value>or the first matched text on the line, and </value>
+  </data>
+  <data name="Ellipsis" xml:space="preserve">
+    <value>...</value>
+  </data>
+  <data name="Empty" xml:space="preserve">
+    <value>Empty</value>
+  </data>
+  <data name="EnableAutomaticCheckingEvery_" xml:space="preserve">
+    <value>Enable automatic checking every</value>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Enabled</value>
+  </data>
+  <data name="Encoding" xml:space="preserve">
+    <value>Encoding:</value>
+  </data>
+  <data name="EncodingAutoDetection" xml:space="preserve">
+    <value>Auto detection (default)</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error: </value>
+  </data>
+  <data name="ErrorOpeningFile" xml:space="preserve">
+    <value>There was an error opening file. See the error log for details: </value>
+  </data>
+  <data name="ErrorSettingClipboardTextTheClipboardIsLockedBy" xml:space="preserve">
+    <value>Error setting clipboard text, the clipboard is locked by</value>
+  </data>
+  <data name="Everything_" xml:space="preserve">
+    <value>Everything</value>
+  </data>
+  <data name="EverythingIndexService" xml:space="preserve">
+    <value>Everything Index Service</value>
+  </data>
+  <data name="EverythingSearch" xml:space="preserve">
+    <value>Everything search:</value>
+  </data>
+  <data name="ExcludeFromResults" xml:space="preserve">
+    <value>Exclude from results</value>
+  </data>
+  <data name="ExpandAll" xml:space="preserve">
+    <value>Expand all</value>
+  </data>
+  <data name="Extensions" xml:space="preserve">
+    <value>Extensions:</value>
+  </data>
+  <data name="FailedToExtractFileFromArchive" xml:space="preserve">
+    <value>Failed to extract file from archive. See the error log for details: </value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>File:</value>
+  </data>
+  <data name="FileNotFoundHasItBeenDeletedOrMoved" xml:space="preserve">
+    <value>[File not found: has it been deleted or moved?]</value>
+  </data>
+  <data name="FilePattern" xml:space="preserve">
+    <value>File pattern:</value>
+  </data>
+  <data name="FilePatternHeader" xml:space="preserve">
+    <value>File Pattern</value>
+  </data>
+  <data name="FilePatternType" xml:space="preserve">
+    <value>File Pattern Type</value>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>Files</value>
+  </data>
+  <data name="FilesHaveBeenSuccessfullyReverted" xml:space="preserve">
+    <value>Files have been successfully reverted.</value>
+  </data>
+  <data name="FileSystemIndexingLocateFilesInstantly" xml:space="preserve">
+    <value>File system indexing, locate files instantly</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter:</value>
+  </data>
+  <data name="Folder_" xml:space="preserve">
+    <value>文件夹:</value>
+  </data>
+  <data name="FollowSymbolicLinks_" xml:space="preserve">
+    <value>Follow symbolic links</value>
+  </data>
+  <data name="FollowWindowsTheme_" xml:space="preserve">
+    <value>Follow Windows Theme</value>
+  </data>
+  <data name="FontFamily" xml:space="preserve">
+    <value>Font Family</value>
+  </data>
+  <data name="ForExampleAsteriskPattern" xml:space="preserve">
+    <value>e.g. file??.*</value>
+  </data>
+  <data name="ForExampleRegularExpession" xml:space="preserve">
+    <value>e.g. file[0-9]{1,2}\\.txt</value>
+  </data>
+  <data name="FoundMatchesFor" xml:space="preserve">
+    <value>Found matches for </value>
+  </data>
+  <data name="FoundNoMatchesFor" xml:space="preserve">
+    <value>Found no matches for </value>
+  </data>
+  <data name="From_" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="FromTheStartOfTheDay" xml:space="preserve">
+    <value>from the start of the day</value>
+  </data>
+  <data name="Has0MatchesOn1Lines" xml:space="preserve">
+    <value>has {0} matches on {1} lines:</value>
+  </data>
+  <data name="Help_" xml:space="preserve">
+    <value>_H帮助</value>
+  </data>
+  <data name="HideResultOptions" xml:space="preserve">
+    <value>Hide result options</value>
+  </data>
+  <data name="HighlightGroups_" xml:space="preserve">
+    <value>Highlight Groups</value>
+  </data>
+  <data name="HighlightMatches_" xml:space="preserve">
+    <value>Highlight Matches</value>
+  </data>
+  <data name="HighlightRegularExpressionGroups" xml:space="preserve">
+    <value>Highlight regular expression groups - changes will be applied in next search</value>
+  </data>
+  <data name="HighlightsDisabledTooManyMatchesFound" xml:space="preserve">
+    <value>Highlights disabled: too many matches found.</value>
+  </data>
+  <data name="HistoryLists" xml:space="preserve">
+    <value>History Lists</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>hours</value>
+  </data>
+  <data name="IgnorePattern" xml:space="preserve">
+    <value>Ignore pattern:</value>
+  </data>
+  <data name="IncludeBinaryFiles_" xml:space="preserve">
+    <value>Include binary files</value>
+  </data>
+  <data name="IncludeHiddenFolders_" xml:space="preserve">
+    <value>Include hidden folders</value>
+  </data>
+  <data name="IncludeSubfolders_" xml:space="preserve">
+    <value>包括子目录</value>
+  </data>
+  <data name="IncorrectPattern" xml:space="preserve">
+    <value>Incorrect pattern: </value>
+  </data>
+  <data name="InOptionsExpander" xml:space="preserve">
+    <value>in options expander</value>
+  </data>
+  <data name="ItemsShownInFileFilterHistoryLists" xml:space="preserve">
+    <value>items shown in file filter history lists</value>
+  </data>
+  <data name="ItemsShownInPathHistoryList" xml:space="preserve">
+    <value>items shown in path history list</value>
+  </data>
+  <data name="ItemsShownInSearchAndReplaceHistoryLists" xml:space="preserve">
+    <value>items shown in search and replace history lists</value>
+  </data>
+  <data name="JsonFrameworkForNET" xml:space="preserve">
+    <value>Json framework for .NET</value>
+  </data>
+  <data name="KB" xml:space="preserve">
+    <value>KB</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Language_Chinese" xml:space="preserve">
+    <value></value>
+    <comment>@Invariant</comment>
+  </data>
+  <data name="Language_English" xml:space="preserve">
+    <value></value>
+    <comment>@Invariant</comment>
+  </data>
+  <data name="Layout" xml:space="preserve">
+    <value>Layout</value>
+  </data>
+  <data name="LibraryForReadingArchiveFiles" xml:space="preserve">
+    <value>Library for reading archive files</value>
+  </data>
+  <data name="LoadFromFile_" xml:space="preserve">
+    <value>Load from file...</value>
+  </data>
+  <data name="LoadResources" xml:space="preserve">
+    <value>Load Resources</value>
+  </data>
+  <data name="LoggingFrameworkForNET" xml:space="preserve">
+    <value>Logging framework for .NET</value>
+  </data>
+  <data name="MainFontSize" xml:space="preserve">
+    <value>Main Font Size</value>
+  </data>
+  <data name="MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
+    <value>Mark all matches in this file for replacement [Ctrl+A]</value>
+  </data>
+  <data name="MarkMatchForReplacement" xml:space="preserve">
+    <value>Mark match for replacement [Ctrl+R]</value>
+  </data>
+  <data name="Matches" xml:space="preserve">
+    <value>Matches</value>
+  </data>
+  <data name="MatchEverythingToExactMatch" xml:space="preserve">
+    <value>0 - match everything; 1.0 - exact match</value>
+  </data>
+  <data name="MatchThreshold" xml:space="preserve">
+    <value>Match threshold (from 0 to 1.0)</value>
+  </data>
+  <data name="MatchTimeout" xml:space="preserve">
+    <value>Match timeout</value>
+  </data>
+  <data name="MaxDepth" xml:space="preserve">
+    <value>最大深度</value>
+  </data>
+  <data name="MaxFolderDepth" xml:space="preserve">
+    <value>Max folder depth {0}</value>
+  </data>
+  <data name="Modified_" xml:space="preserve">
+    <value>Modified</value>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>更多...</value>
+  </data>
+  <data name="MoreArrow_" xml:space="preserve">
+    <value>更多 ⏷</value>
+  </data>
+  <data name="MoveFiles" xml:space="preserve">
+    <value>Move Files</value>
+  </data>
+  <data name="MoveFiles_" xml:space="preserve">
+    <value>Move files...</value>
+  </data>
+  <data name="MoveToTheNextMatchInThisFile" xml:space="preserve">
+    <value>Move to the next match in this file [Ctrl+Left]</value>
+  </data>
+  <data name="MoveToThePreviousMatchInThisFile" xml:space="preserve">
+    <value>Move to the previous match in this file [Ctrl+Right]</value>
+  </data>
+  <data name="Multiline" xml:space="preserve">
+    <value>Multiline</value>
+  </data>
+  <data name="Multiline_" xml:space="preserve">
+    <value>_Multiline</value>
+  </data>
+  <data name="NETLibraryFor7Zip" xml:space="preserve">
+    <value>.NET library for 7-Zip</value>
+  </data>
+  <data name="NETLibraryForCharacterSetDetection" xml:space="preserve">
+    <value>.NET library for character set detection</value>
+  </data>
+  <data name="NETLibraryForExtendedLengthPaths" xml:space="preserve">
+    <value>.NET library for extended length paths</value>
+  </data>
+  <data name="NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
+    <value>.NET library for reading Microsoft Excel files</value>
+  </data>
+  <data name="NETLibraryToParseECMA376Numbers" xml:space="preserve">
+    <value>.NET library to parse ECMA-376 numbers</value>
+  </data>
+  <data name="NETLibraryToWorkWithWordAndExcelDocuments" xml:space="preserve">
+    <value>.NET library to work with Word and Excel documents</value>
+  </data>
+  <data name="NETWPFScreenHelperUtility" xml:space="preserve">
+    <value>.NET WPF screen helper utility</value>
+  </data>
+  <data name="NETWPFTextEditorComponent" xml:space="preserve">
+    <value>.NET WPF text editor component</value>
+  </data>
+  <data name="NewName" xml:space="preserve">
+    <value>New name:</value>
+  </data>
+  <data name="NewVersion" xml:space="preserve">
+    <value>New version</value>
+  </data>
+  <data name="NewVersionOfDnGREP0IsAvailableForDownload" xml:space="preserve">
+    <value>New version of dnGREP ({0}) is available for download.</value>
+  </data>
+  <data name="Next_" xml:space="preserve">
+    <value>_Next</value>
+  </data>
+  <data name="NextFile_" xml:space="preserve">
+    <value>Next _File</value>
+  </data>
+  <data name="NoArchives" xml:space="preserve">
+    <value>No archives</value>
+  </data>
+  <data name="NoBinary" xml:space="preserve">
+    <value>No binary</value>
+  </data>
+  <data name="NoBinaryFiles" xml:space="preserve">
+    <value>No binary files</value>
+  </data>
+  <data name="NoHidden" xml:space="preserve">
+    <value>No hidden</value>
+  </data>
+  <data name="NoHiddenFiles" xml:space="preserve">
+    <value>No hidden files</value>
+  </data>
+  <data name="NoSubfolders" xml:space="preserve">
+    <value>No subfolders</value>
+  </data>
+  <data name="NoSymlinks" xml:space="preserve">
+    <value>No symlinks</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OnMainPanel" xml:space="preserve">
+    <value>on main panel</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="OpenContainingFolder" xml:space="preserve">
+    <value>Open containing folder</value>
+  </data>
+  <data name="OpenWithCustomEditor" xml:space="preserve">
+    <value>Open with custom editor</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="Options_" xml:space="preserve">
+    <value>_Options...</value>
+  </data>
+  <data name="OtherPropertiesHeader" xml:space="preserve">
+    <value>Other Properties</value>
+  </data>
+  <data name="Past_" xml:space="preserve">
+    <value>Past</value>
+  </data>
+  <data name="PathsToIgnore" xml:space="preserve">
+    <value>Paths to ignore:</value>
+  </data>
+  <data name="PathsToMatch" xml:space="preserve">
+    <value>Paths to match:</value>
+  </data>
+  <data name="PDFToText" xml:space="preserve">
+    <value>PDF to Text</value>
+  </data>
+  <data name="PdfToTextExeCommandLineOptions" xml:space="preserve">
+    <value>PdfToText.exe command line options:</value>
+  </data>
+  <data name="Phonetic_" xml:space="preserve">
+    <value>_Phonetic</value>
+  </data>
+  <data name="PhoneticSearch" xml:space="preserve">
+    <value>Phonetic search</value>
+  </data>
+  <data name="PlainTextSearch" xml:space="preserve">
+    <value>Plain text search</value>
+  </data>
+  <data name="PleaseSelectAnotherDirectoryAndTryAgain" xml:space="preserve">
+    <value>Please select another directory and try again.</value>
+  </data>
+  <data name="PluginErrors" xml:space="preserve">
+    <value>Plugin Errors</value>
+  </data>
+  <data name="PluginOptions" xml:space="preserve">
+    <value>Plugin Options</value>
+  </data>
+  <data name="PressF1ForHelpOnOptions" xml:space="preserve">
+    <value>Press F1 for help on Options</value>
+  </data>
+  <data name="Preview_FindNext" xml:space="preserve">
+    <value>Find next (F3)</value>
+  </data>
+  <data name="Preview_FindPrevious" xml:space="preserve">
+    <value>Find previous (Shift+F3)</value>
+  </data>
+  <data name="Preview_MatchCase" xml:space="preserve">
+    <value>Match case</value>
+  </data>
+  <data name="Preview_MatchWholeWords" xml:space="preserve">
+    <value>Match whole words</value>
+  </data>
+  <data name="Preview_UseRegularExpressions" xml:space="preserve">
+    <value>Use regular expressions</value>
+  </data>
+  <data name="PreviewAnyway" xml:space="preserve">
+    <value>Preview anyway</value>
+  </data>
+  <data name="PreviewFile_" xml:space="preserve">
+    <value>Pre_view file</value>
+  </data>
+  <data name="Previous_" xml:space="preserve">
+    <value>_Previous</value>
+  </data>
+  <data name="PreviousFile_" xml:space="preserve">
+    <value>Previous File</value>
+  </data>
+  <data name="Regex" xml:space="preserve">
+    <value>Regex</value>
+  </data>
+  <data name="Regex_" xml:space="preserve">
+    <value>_Regex</value>
+  </data>
+  <data name="RegexIsNotValid" xml:space="preserve">
+    <value>Regex is not valid!</value>
+  </data>
+  <data name="RegexIsOK" xml:space="preserve">
+    <value>Regex is OK!</value>
+  </data>
+  <data name="RegexOptions" xml:space="preserve">
+    <value>Regex Options</value>
+  </data>
+  <data name="RegularExpressionSearch" xml:space="preserve">
+    <value>Regular expression search</value>
+  </data>
+  <data name="Reload_" xml:space="preserve">
+    <value>Reload</value>
+  </data>
+  <data name="ReloadTheCurrentThemeFile" xml:space="preserve">
+    <value>Reload the current theme file [Ctrl+F5]</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove:</value>
+  </data>
+  <data name="RemoveFolderFromBookmarkAssociation" xml:space="preserve">
+    <value>Remove folder from bookmark association</value>
+  </data>
+  <data name="RenameFailed" xml:space="preserve">
+    <value>Rename failed: </value>
+  </data>
+  <data name="RenameFile" xml:space="preserve">
+    <value>Rename File</value>
+  </data>
+  <data name="RenameFileL" xml:space="preserve">
+    <value>Rename file</value>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>Replace</value>
+  </data>
+  <data name="Replace_" xml:space="preserve">
+    <value>_Replace</value>
+  </data>
+  <data name="ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
+    <value>Replace all matches in all files, and apply [F10]</value>
+  </data>
+  <data name="ReplaceCanceled" xml:space="preserve">
+    <value>Replace Canceled</value>
+  </data>
+  <data name="ReplaceComplete0FilesReplaced" xml:space="preserve">
+    <value>Replace Complete - {0} files replaced.</value>
+  </data>
+  <data name="ReplaceFailed" xml:space="preserve">
+    <value>Replace Failed.</value>
+  </data>
+  <data name="ReplaceFailedError" xml:space="preserve">
+    <value>Replace failed! See the error log for details: </value>
+  </data>
+  <data name="ReplaceFontSize" xml:space="preserve">
+    <value>Replace Font Size</value>
+  </data>
+  <data name="ReplaceInAllFiles_" xml:space="preserve">
+    <value>Replace in All Files</value>
+  </data>
+  <data name="ReplaceInFile_" xml:space="preserve">
+    <value>Replace in File</value>
+  </data>
+  <data name="ReplaceMatchesMarkedForReplacement" xml:space="preserve">
+    <value>Replace matches marked for replacement</value>
+  </data>
+  <data name="ReplaceResult" xml:space="preserve">
+    <value>Replace result:</value>
+  </data>
+  <data name="ReplaceText" xml:space="preserve">
+    <value>Replace Text</value>
+  </data>
+  <data name="ReplaceTextIsNotValidXML" xml:space="preserve">
+    <value>Replace text is not valid XML!</value>
+  </data>
+  <data name="ReplaceWith" xml:space="preserve">
+    <value>Replace with:</value>
+  </data>
+  <data name="ReplaceWithHeader" xml:space="preserve">
+    <value>Replace With</value>
+  </data>
+  <data name="Replacing" xml:space="preserve">
+    <value>Replacing...</value>
+  </data>
+  <data name="Report_DnGrepSearchResults" xml:space="preserve">
+    <value>dnGrep Search Results</value>
+  </data>
+  <data name="Report_Found0MatchesOn1LinesIn2Files" xml:space="preserve">
+    <value>Found {0} matches on {1} lines in {2} files</value>
+  </data>
+  <data name="ReportCSV_FileNameLineNumberString" xml:space="preserve">
+    <value>File Name,Line Number,String</value>
+  </data>
+  <data name="ReportFileFormat" xml:space="preserve">
+    <value>Report file format</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
+    <value>Reset and skip all matches in this file [Ctrl+T]</value>
+  </data>
+  <data name="ResetOptions_" xml:space="preserve">
+    <value>Reset Options</value>
+  </data>
+  <data name="ResetZoom" xml:space="preserve">
+    <value>Reset zoom</value>
+  </data>
+  <data name="ResourcesFile0IsNotAResxFile" xml:space="preserve">
+    <value>Resources file '{0}', is not a resx file.</value>
+  </data>
+  <data name="ResultsFileFormat" xml:space="preserve">
+    <value>Results file format</value>
+  </data>
+  <data name="ResultsOptions" xml:space="preserve">
+    <value>Results Options</value>
+  </data>
+  <data name="RplA1_File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="RplA2_Of" xml:space="preserve">
+    <value>of</value>
+  </data>
+  <data name="RplB1_Text" xml:space="preserve">
+    <value>text</value>
+  </data>
+  <data name="RplB2_SelectedMatch" xml:space="preserve">
+    <value>Selected Match</value>
+  </data>
+  <data name="RplB3_ReplaceMatch" xml:space="preserve">
+    <value>Replace Match</value>
+  </data>
+  <data name="RplB4_SkipMatch" xml:space="preserve">
+    <value>Skip Match</value>
+  </data>
+  <data name="RunDnGrepAsAdministrator" xml:space="preserve">
+    <value>Run dnGrep as Administrator to change showing dnGrep in Explorer right-click menu</value>
+  </data>
+  <data name="RunDnGrepAsAdministratorToChangeStartupRegister" xml:space="preserve">
+    <value>Run dnGrep as Administrator to change Startup Register</value>
+  </data>
+  <data name="SampleInputText" xml:space="preserve">
+    <value>Sample input text:</value>
+  </data>
+  <data name="SampleText" xml:space="preserve">
+    <value>Sample Text</value>
+  </data>
+  <data name="Save_" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Save_CSVResults_" xml:space="preserve">
+    <value>CSV Results</value>
+  </data>
+  <data name="Save_Report_" xml:space="preserve">
+    <value>Report</value>
+  </data>
+  <data name="Save_TextResults_" xml:space="preserve">
+    <value>Text Results</value>
+  </data>
+  <data name="SaveResults_" xml:space="preserve">
+    <value>Save results</value>
+  </data>
+  <data name="SavingResultsToFile" xml:space="preserve">
+    <value>Saving results to file...</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Search_" xml:space="preserve">
+    <value>_Search</value>
+  </data>
+  <data name="SearchCanceled" xml:space="preserve">
+    <value>Search Canceled</value>
+  </data>
+  <data name="SearchCanceledOrFailed" xml:space="preserve">
+    <value>Search Canceled or Failed</value>
+  </data>
+  <data name="SearchCompleteSearched0FilesFound1FilesIn2" xml:space="preserve">
+    <value>Search Complete - Searched {0} files. Found {1} files in {2}.</value>
+  </data>
+  <data name="Searched0FilesFound1MatchingFiles" xml:space="preserve">
+    <value>Searched {0} files. Found {1} matching files.</value>
+  </data>
+  <data name="Searched0FilesFound1MatchingFilesProcessing2" xml:space="preserve">
+    <value>Searched {0} files. Found {1} matching files - processing {2}</value>
+  </data>
+  <data name="SearchFailedError" xml:space="preserve">
+    <value>Search failed! See the error log for details: </value>
+  </data>
+  <data name="SearchFilesInMultipleThreads" xml:space="preserve">
+    <value>Search files in multiple threads</value>
+  </data>
+  <data name="SearchFor" xml:space="preserve">
+    <value>Search for:</value>
+  </data>
+  <data name="SearchForHeader" xml:space="preserve">
+    <value>Search For</value>
+  </data>
+  <data name="SearchIn" xml:space="preserve">
+    <value>Search in</value>
+  </data>
+  <data name="SearchInArchives" xml:space="preserve">
+    <value>Search in archives</value>
+  </data>
+  <data name="SearchInArchives_" xml:space="preserve">
+    <value>Search in ar_chives</value>
+  </data>
+  <data name="Searching" xml:space="preserve">
+    <value>Searching...</value>
+  </data>
+  <data name="SearchInResults" xml:space="preserve">
+    <value>Search in results</value>
+  </data>
+  <data name="SearchInResults_" xml:space="preserve">
+    <value>Search _in results</value>
+  </data>
+  <data name="SearchL" xml:space="preserve">
+    <value>search</value>
+  </data>
+  <data name="SearchOrReplaceFailed" xml:space="preserve">
+    <value>Search or replace failed! See the error log for details: </value>
+  </data>
+  <data name="SearchParallel_" xml:space="preserve">
+    <value>Search Paralle_l</value>
+  </data>
+  <data name="SearchResult" xml:space="preserve">
+    <value>Search result:</value>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>seconds</value>
+  </data>
+  <data name="SelectedTheme" xml:space="preserve">
+    <value>Selected Theme</value>
+  </data>
+  <data name="ShowContextLines" xml:space="preserve">
+    <value>Show context lines</value>
+  </data>
+  <data name="ShowDnGrepInExplorerRightClickMenu_" xml:space="preserve">
+    <value>Show dnGrep in Explorer right-click menu</value>
+  </data>
+  <data name="ShowFileInfoToolTips" xml:space="preserve">
+    <value>Show file info tool tips</value>
+  </data>
+  <data name="ShowFilePathInResultsPanel" xml:space="preserve">
+    <value>Show file path in results panel</value>
+  </data>
+  <data name="ShowFileProperties" xml:space="preserve">
+    <value>Show file properties</value>
+  </data>
+  <data name="ShowResultLinesInContext" xml:space="preserve">
+    <value>Show result lines in context</value>
+  </data>
+  <data name="ShowResultOptions" xml:space="preserve">
+    <value>Show result options</value>
+  </data>
+  <data name="ShowResultsTreeExpanded" xml:space="preserve">
+    <value>Show results tree expanded</value>
+  </data>
+  <data name="ShowSearchOptions" xml:space="preserve">
+    <value>Show search options:</value>
+  </data>
+  <data name="ShowTheNextFile" xml:space="preserve">
+    <value>Show the next file [Ctrl+PgDn]</value>
+  </data>
+  <data name="ShowThePreviousFile" xml:space="preserve">
+    <value>Show the previous file [Ctrl+PgUp]</value>
+  </data>
+  <data name="ShowVerboseMatchCount" xml:space="preserve">
+    <value>Show verbose match count</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Size:</value>
+  </data>
+  <data name="SizeFrom0To1KB" xml:space="preserve">
+    <value>Size from {0} to {1} KB</value>
+  </data>
+  <data name="SizeIs" xml:space="preserve">
+    <value>Size is</value>
+  </data>
+  <data name="SomeOfTheFilesAreLocatedInTheSelectedDirectory" xml:space="preserve">
+    <value>Attention, some of the files are located in the selected directory.</value>
+  </data>
+  <data name="SomeOfTheFilesCannotBeModifiedIfYouContinueTheseFilesWillBeSkipped" xml:space="preserve">
+    <value>Some of the files cannot be modified. If you continue, these files will be skipped.</value>
+  </data>
+  <data name="SomethingBrokeDownInDnGrep" xml:space="preserve">
+    <value>Something broke down in dnGrep. See the error log for details: </value>
+  </data>
+  <data name="Sort_" xml:space="preserve">
+    <value>排序</value>
+  </data>
+  <data name="Sort_Ascending" xml:space="preserve">
+    <value>Ascending</value>
+  </data>
+  <data name="Sort_Descending" xml:space="preserve">
+    <value>Descending</value>
+  </data>
+  <data name="Sort_FileNameOnly" xml:space="preserve">
+    <value>File name only</value>
+  </data>
+  <data name="Sort_FileSize" xml:space="preserve">
+    <value>File size</value>
+  </data>
+  <data name="Sort_FileTypeAndName" xml:space="preserve">
+    <value>File type and name</value>
+  </data>
+  <data name="Sort_LastWriteTime" xml:space="preserve">
+    <value>Last write time</value>
+  </data>
+  <data name="Sort_MatchCount" xml:space="preserve">
+    <value>Match count</value>
+  </data>
+  <data name="Sort_PathAndFileNameBreadthFirst" xml:space="preserve">
+    <value>Path and file name, breadth-first</value>
+  </data>
+  <data name="Sort_PathAndFileNameDepthFirst" xml:space="preserve">
+    <value>Path and file name, depth-first</value>
+  </data>
+  <data name="Star" xml:space="preserve">
+    <value>*</value>
+  </data>
+  <data name="StartupOptions" xml:space="preserve">
+    <value>Startup options</value>
+  </data>
+  <data name="StopAfterFirstMatch" xml:space="preserve">
+    <value>Stop after frist match</value>
+  </data>
+  <data name="StopAfterFirstMatch_" xml:space="preserve">
+    <value>Stop after first match</value>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="TestExpression_" xml:space="preserve">
+    <value>Test Expression</value>
+  </data>
+  <data name="Text_" xml:space="preserve">
+    <value>_Text</value>
+  </data>
+  <data name="TheFile0AlreadyExistsIn1OverwriteExisting" xml:space="preserve">
+    <value>The file '{0}' already exists in {1}, overwrite existing?</value>
+  </data>
+  <data name="TheFilePattern0IsNotAValidRegularExpression12" xml:space="preserve">
+    <value>The file pattern '{0}' is not a valid regular expression:{1}{2}</value>
+  </data>
+  <data name="TheFollowingPluginsFailedToLoad" xml:space="preserve">
+    <value>The following plugins failed to load:</value>
+  </data>
+  <data name="TheMatchTimeoutLimits" xml:space="preserve">
+    <value>The match timeout limits how long the regular expression engine will attempt to resolve a regular expression before it times out. This prevents processing expressions and input strings that require excessive backtracking.</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu" xml:space="preserve">
+    <value>There was an error adding dnGrep to Explorer right-click menu. See the error log for details: </value>
+  </data>
+  <data name="ThereWasAnErrorCopyingFiles" xml:space="preserve">
+    <value>There was an error copying files. See the error log for details: </value>
+  </data>
+  <data name="ThereWasAnErrorCreatingTheFile" xml:space="preserve">
+    <value>There was an error creating the file. See the error log for details: </value>
+  </data>
+  <data name="ThereWasAnErrorDeletingFiles" xml:space="preserve">
+    <value>There was an error deleting files. See the error log for details: </value>
+  </data>
+  <data name="ThereWasAnErrorMovingFiles" xml:space="preserve">
+    <value>There was an error moving files. See the error log for details: </value>
+  </data>
+  <data name="ThereWasAnErrorRegisteringAutoStartup" xml:space="preserve">
+    <value>There was an error registering auto startup. See the error log for details: </value>
+  </data>
+  <data name="ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu" xml:space="preserve">
+    <value>There was an error removing dnGrep from the Explorer right-click menu. See the error log for details: </value>
+  </data>
+  <data name="ThereWasAnErrorRevertingFiles" xml:space="preserve">
+    <value>There was an error reverting files. See the error log for details: </value>
+  </data>
+  <data name="ThereWasAnErrorRunningRegexTest" xml:space="preserve">
+    <value>There was an error running regex test. See the error log for details: </value>
+  </data>
+  <data name="ThereWasAnErrorSavingOptions" xml:space="preserve">
+    <value>There was an error saving options. See the error log for details: </value>
+  </data>
+  <data name="ThereWasAnErrorUnregisteringAutoStartup" xml:space="preserve">
+    <value>There was an error unregistering auto startup. See the error log for details: </value>
+  </data>
+  <data name="ThisBookmarkAlreadyExists" xml:space="preserve">
+    <value>This bookmark already exists</value>
+  </data>
+  <data name="ThisBookmarkIsAssociatedWith0OtherFolders" xml:space="preserve">
+    <value>This bookmark is associated with {0} other folders:</value>
+  </data>
+  <data name="ThisBookmarkIsAssociatedWithOneOtherFolder" xml:space="preserve">
+    <value>This bookmark is associated with one other folder</value>
+  </data>
+  <data name="ThisFileIsEitherBinaryOrTooLargeToPreview" xml:space="preserve">
+    <value>This file is either binary or too large to preview.</value>
+  </data>
+  <data name="Those" xml:space="preserve">
+    <value>those</value>
+  </data>
+  <data name="ThroughTheEndOfTheDay" xml:space="preserve">
+    <value>through the end of the day</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>to</value>
+  </data>
+  <data name="TTA1_MatchesAllCharacters" xml:space="preserve">
+    <value>. matches all characters</value>
+  </data>
+  <data name="TTA2_MatchesAlphaNumerics" xml:space="preserve">
+    <value>\w matches alpha-numerics</value>
+  </data>
+  <data name="TTA3_MatchesDigits" xml:space="preserve">
+    <value>\d matches digits</value>
+  </data>
+  <data name="TTA4_MatchesSpace" xml:space="preserve">
+    <value>\s matches space</value>
+  </data>
+  <data name="TTA5_MatchesAnyNumberOfCharacters" xml:space="preserve">
+    <value>* matches any number of characters</value>
+  </data>
+  <data name="TTA6_Matches1To3Characters" xml:space="preserve">
+    <value>{1,3} matches 1 to 3 characters</value>
+  </data>
+  <data name="TTA7_ForMoreRegexPatternsHitF1" xml:space="preserve">
+    <value>For more Regex patterns hit F1</value>
+  </data>
+  <data name="TTB1_ReplacesEntireRegex" xml:space="preserve">
+    <value>$&amp; replaces entire regex</value>
+  </data>
+  <data name="TTB2_InsertsTheTextMatchedIntoTheReplacementText" xml:space="preserve">
+    <value>$1, $2, $3, etc... inserts the text matched between capturing parentheses into the replacement text</value>
+  </data>
+  <data name="TTB3_InsertsASingleDollarSignIntoTheReplacementText" xml:space="preserve">
+    <value>$$ inserts a single dollar sign into the replacement text</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type:</value>
+  </data>
+  <data name="Type0DateFrom1To2" xml:space="preserve">
+    <value>{0} date from {1} to {2}</value>
+  </data>
+  <data name="Type0DateInPast1To2Hours" xml:space="preserve">
+    <value>{0} date in past {1} to {2} hours</value>
+  </data>
+  <data name="TypeHeader" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="Undo" xml:space="preserve">
+    <value>撤销</value>
+  </data>
+  <data name="Undo_" xml:space="preserve">
+    <value>_U撤销</value>
+  </data>
+  <data name="UndoFile_" xml:space="preserve">
+    <value>Undo File</value>
+  </data>
+  <data name="UndoMarkReplaceOnThisMatch" xml:space="preserve">
+    <value>Undo mark replace on this match [Ctrl+U]</value>
+  </data>
+  <data name="UndoWillRevertModifiedFiles" xml:space="preserve">
+    <value>Undo will revert modified file(s) back to their original state. Any changes made to the file(s) after the replace will be overwritten. Are you sure you want to proceed?</value>
+  </data>
+  <data name="Unicode" xml:space="preserve">
+    <value>Unicode</value>
+  </data>
+  <data name="Use_" xml:space="preserve">
+    <value>_Use</value>
+  </data>
+  <data name="UseCaptureGroupsFromPathsToMatch" xml:space="preserve">
+    <value>Use capture groups from 'Paths to match' in the 'Search for' pattern</value>
+  </data>
+  <data name="UseDefault_" xml:space="preserve">
+    <value>Use Default</value>
+  </data>
+  <data name="UseGitignore_" xml:space="preserve">
+    <value>Use .gitignore</value>
+  </data>
+  <data name="UseGitignoreToFilterFiles" xml:space="preserve">
+    <value>Use .gitignore to filter files</value>
+  </data>
+  <data name="Using" xml:space="preserve">
+    <value>Using</value>
+  </data>
+  <data name="UsingEverythingIndexSearch" xml:space="preserve">
+    <value>Using Everything index search</value>
+  </data>
+  <data name="UsingRegexFilePattern" xml:space="preserve">
+    <value>Using regex file pattern</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>版本</value>
+  </data>
+  <data name="WholeWord" xml:space="preserve">
+    <value>Whole word</value>
+  </data>
+  <data name="WholeWord_" xml:space="preserve">
+    <value>_Whole word</value>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>{0} in "{1}" - dnGREP</value>
+  </data>
+  <data name="WindowTitleIsName" xml:space="preserve">
+    <value>Window Title: {0}</value>
+  </data>
+  <data name="WouldYouLikeToContinue" xml:space="preserve">
+    <value>Would you like to continue?</value>
+  </data>
+  <data name="WouldYouLikeToDownloadItNow" xml:space="preserve">
+    <value>Would you like to download it now?</value>
+  </data>
+  <data name="WrapText_" xml:space="preserve">
+    <value>Wrap Text</value>
+  </data>
+  <data name="XPath_" xml:space="preserve">
+    <value>_XPath</value>
+  </data>
+  <data name="XPathIsNotValid" xml:space="preserve">
+    <value>XPath is not valid!</value>
+  </data>
+  <data name="XPathIsOK" xml:space="preserve">
+    <value>XPath is OK!</value>
+  </data>
+  <data name="XPathSearchXMLDocumentsOnly" xml:space="preserve">
+    <value>XPath search (XML documents only)</value>
+  </data>
+  <data name="YouAreAboutToDeleteFilesFoundDuringSearch" xml:space="preserve">
+    <value>Attention, you are about to delete files found during search.</value>
+  </data>
+  <data name="Zoom" xml:space="preserve">
+    <value>Zoom:</value>
+  </data>
 </root>
