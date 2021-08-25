@@ -25,7 +25,7 @@
                 IsDefault="True" IsCancel="True" Click="OkButton_Click"/>
 
         <TextBlock DockPanel.Dock="Top" x:Name="WarningMsg"
-                   Text="One or more arguments are invalid."
+                   Text="{l:Loc Key='OneOrMoreArgumentsAreInvalid'}"
                    Margin="3" HorizontalAlignment="Center"
                    Style="{StaticResource ThemedTextBlock}"
                    FontWeight="SemiBold"

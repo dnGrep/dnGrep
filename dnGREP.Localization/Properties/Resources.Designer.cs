@@ -1964,6 +1964,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to One or more arguments are invalid..
+        /// </summary>
+        public static string OneOrMoreArgumentsAreInvalid {
+            get {
+                return ResourceManager.GetString("OneOrMoreArgumentsAreInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to on main panel.
         /// </summary>
         public static string OnMainPanel {
