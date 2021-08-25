@@ -151,6 +151,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Allow searching for file name pattern only when &apos;Search for&apos; is empty.
+        /// </summary>
+        public static string AllowSearchingForFileNamePatternOnly {
+            get {
+                return ResourceManager.GetString("AllowSearchingForFileNamePatternOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All sizes.
         /// </summary>
         public static string AllSizes {

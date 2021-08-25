@@ -383,7 +383,7 @@
                         <CheckBox Name="cbSearchFileNameOnly" Margin="3"
                                   IsChecked="{Binding Path=AllowSearchWithEmptyPattern}">
                             <CheckBox.Content>
-                                <TextBlock>Allow searching for file name pattern only when &quot;search for&quot; is empty</TextBlock>
+                                <TextBlock Text="{l:Loc Key='AllowSearchingForFileNamePatternOnly'}"/>
                             </CheckBox.Content>
                         </CheckBox>
 

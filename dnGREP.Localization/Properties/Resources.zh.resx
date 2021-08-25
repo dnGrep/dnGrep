@@ -147,6 +147,9 @@
   <data name="AllFiles" xml:space="preserve">
     <value>All files</value>
   </data>
+  <data name="AllowSearchingForFileNamePatternOnly" xml:space="preserve">
+    <value>Allow searching for file name pattern only when 'Search for' is empty</value>
+  </data>
   <data name="AllSizes" xml:space="preserve">
     <value>所有大小</value>
   </data>
@@ -572,9 +575,6 @@ Arguments:
   <data name="ExcludePattern" xml:space="preserve">
     <value>Exclude pattern:</value>
   </data>
-  <data name="PatternsToExclude_" xml:space="preserve">
-    <value>Patterns to exclude:</value>
-  </data>
   <data name="ExpandAll" xml:space="preserve">
     <value>Expand all</value>
   </data>
@@ -592,9 +592,6 @@ Arguments:
   </data>
   <data name="FilePattern" xml:space="preserve">
     <value>File pattern:</value>
-  </data>
-  <data name="PatternsToMatch_" xml:space="preserve">
-    <value>Patterns to match:</value>
   </data>
   <data name="FilePatternHeader" xml:space="preserve">
     <value>File Pattern</value>
@@ -879,6 +876,12 @@ Arguments:
   </data>
   <data name="Past_" xml:space="preserve">
     <value>Past</value>
+  </data>
+  <data name="PatternsToExclude_" xml:space="preserve">
+    <value>Patterns to exclude:</value>
+  </data>
+  <data name="PatternsToMatch_" xml:space="preserve">
+    <value>Patterns to match:</value>
   </data>
   <data name="PDFToText" xml:space="preserve">
     <value>PDF to Text</value>
