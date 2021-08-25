@@ -866,7 +866,7 @@ Arguments:
     <value>PdfToText.exe command line options:</value>
   </data>
   <data name="Phonetic_" xml:space="preserve">
-    <value>_Phonetic</value>
+    <value>Phonetic</value>
   </data>
   <data name="PhoneticSearch" xml:space="preserve">
     <value>Phonetic search</value>
@@ -997,6 +997,9 @@ Arguments:
   <data name="ReplaceWith" xml:space="preserve">
     <value>Replace with:</value>
   </data>
+  <data name="ReplaceWith_" xml:space="preserve">
+    <value>Re_place with:</value>
+  </data>
   <data name="ReplaceWithHeader" xml:space="preserve">
     <value>Replace With</value>
   </data>
@@ -1113,6 +1116,9 @@ Arguments:
   </data>
   <data name="SearchFor" xml:space="preserve">
     <value>Search for:</value>
+  </data>
+  <data name="Searchfor_" xml:space="preserve">
+    <value>Search _for:</value>
   </data>
   <data name="SearchForHeader" xml:space="preserve">
     <value>Search For</value>

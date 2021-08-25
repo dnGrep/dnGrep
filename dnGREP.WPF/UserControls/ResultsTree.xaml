@@ -151,6 +151,8 @@
                 <MenuItem Header="{l:Loc Key='ExcludeFromResults'}" Click="btnExclude_Click" IsEnabled="{Binding HasSelection}" />
                 <MenuItem Header="{l:Loc Key='ExpandAll'}" Click="btnExpandAll_Click" />
                 <MenuItem Header="{l:Loc Key='CollapseAll'}" Click="btnCollapseAll_Click" />
+                <MenuItem Header="{l:Loc Key='ExpandAll'}" Click="btnExpandAll_Click" InputGestureText="F6" />
+                <MenuItem Header="{l:Loc Key='CollapseAll'}" Click="btnCollapseAll_Click" InputGestureText="Shift+F6"/>
                 <MenuItem Header="{l:Loc Key='ResetZoom'}" Click="btnResetZoom_Click" />
             </ContextMenu>
         </TreeView.ContextMenu>

@@ -4,6 +4,13 @@
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                     mc:Ignorable="d">
 
+    <Style x:Key="ThemedLabel" TargetType="Label">
+        <Setter Property="Foreground" Value="{DynamicResource Control.Foreground}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Padding" Value="2" />
+    </Style>
+
     <Style x:Key="ThemedTextBlock" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{DynamicResource Control.Foreground}" />
         <Setter Property="VerticalAlignment" Value="Center" />

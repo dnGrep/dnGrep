@@ -2036,7 +2036,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Phonetic.
+        ///   Looks up a localized string similar to Phonetic.
         /// </summary>
         public static string Phonetic_ {
             get {
@@ -2432,6 +2432,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Re_place with:.
+        /// </summary>
+        public static string ReplaceWith_ {
+            get {
+                return ResourceManager.GetString("ReplaceWith_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Replace With.
         /// </summary>
         public static string ReplaceWithHeader {
@@ -2779,6 +2788,15 @@ namespace dnGREP.Localization.Properties {
         public static string SearchFor {
             get {
                 return ResourceManager.GetString("SearchFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search _for:.
+        /// </summary>
+        public static string Searchfor_ {
+            get {
+                return ResourceManager.GetString("Searchfor_", resourceCulture);
             }
         }
         
