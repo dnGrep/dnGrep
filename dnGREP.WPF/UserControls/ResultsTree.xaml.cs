@@ -135,6 +135,16 @@ namespace dnGREP.WPF.UserControls
                 Previous();
                 e.Handled = true;
             }
+            else if (e.Key == Key.F6 && Keyboard.Modifiers == ModifierKeys.None)
+            {
+                btnExpandAll_Click(this, e);
+                e.Handled = true;
+            }
+            else if (e.Key == Key.F6 && Keyboard.Modifiers == ModifierKeys.Shift)
+            {
+                btnCollapseAll_Click(this, e);
+                e.Handled = true;
+            }
         }
 
         private void SelectAll()
@@ -410,6 +420,16 @@ namespace dnGREP.WPF.UserControls
         private void btnExclude_Click(object sender, RoutedEventArgs e)
         {
             ExcludeLines();
+        }
+
+        private void btnNextMatch_Click(object sender, RoutedEventArgs e)
+        {
+            Next();
+        }
+
+        private void btnPreviousMatch_Click(object sender, RoutedEventArgs e)
+        {
+            Previous();
         }
 
         private async void btnExpandAll_Click(object sender, RoutedEventArgs e)
