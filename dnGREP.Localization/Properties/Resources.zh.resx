@@ -252,6 +252,9 @@
   <data name="ClearOldSearches" xml:space="preserve">
     <value>Clear old searches</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
   <data name="Close_" xml:space="preserve">
     <value>_Close</value>
   </data>
@@ -472,6 +475,9 @@ Arguments:
   </data>
   <data name="DockRight_" xml:space="preserve">
     <value>Dock Right</value>
+  </data>
+  <data name="DockThisPopUpBackIntoTheMainWindow" xml:space="preserve">
+    <value>Dock this pop-up back into the main window</value>
   </data>
   <data name="DotAsNewline" xml:space="preserve">
     <value>Dot as newline</value>
@@ -739,6 +745,12 @@ Arguments:
   <data name="MaxFolderDepth" xml:space="preserve">
     <value>Max folder depth {0}</value>
   </data>
+  <data name="Maximize" xml:space="preserve">
+    <value>Maximize</value>
+  </data>
+  <data name="Minimize" xml:space="preserve">
+    <value>Minimize</value>
+  </data>
   <data name="Modified_" xml:space="preserve">
     <value>Modified</value>
   </data>
@@ -882,6 +894,9 @@ Arguments:
   </data>
   <data name="PluginOptions" xml:space="preserve">
     <value>Plugin Options</value>
+  </data>
+  <data name="PopThisPanelOutIntoItsOwnWindow" xml:space="preserve">
+    <value>Pop this panel out into its own window</value>
   </data>
   <data name="PressF1ForHelpOnOptions" xml:space="preserve">
     <value>Press F1 for help on Options</value>
@@ -1032,6 +1047,9 @@ Arguments:
   </data>
   <data name="ResourcesFile0IsNotAResxFile" xml:space="preserve">
     <value>Resources file '{0}', is not a resx file.</value>
+  </data>
+  <data name="RestoreDown" xml:space="preserve">
+    <value>Restore Down</value>
   </data>
   <data name="ResultsFileFormat" xml:space="preserve">
     <value>Results file format</value>

@@ -466,6 +466,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Close.
         /// </summary>
         public static string Close_ {
@@ -862,6 +871,15 @@ namespace dnGREP.Localization.Properties {
         public static string DockRight_ {
             get {
                 return ResourceManager.GetString("DockRight_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dock this pop-up back into the main window.
+        /// </summary>
+        public static string DockThisPopUpBackIntoTheMainWindow {
+            get {
+                return ResourceManager.GetString("DockThisPopUpBackIntoTheMainWindow", resourceCulture);
             }
         }
         
@@ -1658,6 +1676,24 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Maximize.
+        /// </summary>
+        public static string Maximize {
+            get {
+                return ResourceManager.GetString("Maximize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimize.
+        /// </summary>
+        public static string Minimize {
+            get {
+                return ResourceManager.GetString("Minimize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Modified.
         /// </summary>
         public static string Modified_ {
@@ -2086,6 +2122,15 @@ namespace dnGREP.Localization.Properties {
         public static string PluginOptions {
             get {
                 return ResourceManager.GetString("PluginOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pop this panel out into its own window.
+        /// </summary>
+        public static string PopThisPanelOutIntoItsOwnWindow {
+            get {
+                return ResourceManager.GetString("PopThisPanelOutIntoItsOwnWindow", resourceCulture);
             }
         }
         
@@ -2536,6 +2581,15 @@ namespace dnGREP.Localization.Properties {
         public static string ResourcesFile0IsNotAResxFile {
             get {
                 return ResourceManager.GetString("ResourcesFile0IsNotAResxFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore Down.
+        /// </summary>
+        public static string RestoreDown {
+            get {
+                return ResourceManager.GetString("RestoreDown", resourceCulture);
             }
         }
         
