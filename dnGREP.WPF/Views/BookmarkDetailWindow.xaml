@@ -100,7 +100,7 @@
             <TextBlock DockPanel.Dock="Top" Style="{StaticResource labelStyle}" Text="{l:Loc Key='FilePattern'}" />
             <TextBox DockPanel.Dock="Top" Text="{Binding FilePattern}" />
 
-            <TextBlock DockPanel.Dock="Top" Style="{StaticResource labelStyle}" Text="{l:Loc Key='IgnorePattern'}" />
+            <TextBlock DockPanel.Dock="Top" Style="{StaticResource labelStyle}" Text="{l:Loc Key='ExcludePattern'}" />
             <TextBox DockPanel.Dock="Top" Text="{Binding IgnoreFilePattern}" />
 
             <GroupBox Margin="0,3,0,8" DockPanel.Dock="Top" Header="{l:Loc Key='FilePatternType'}">

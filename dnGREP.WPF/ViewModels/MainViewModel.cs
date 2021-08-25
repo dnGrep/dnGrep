@@ -2314,9 +2314,9 @@ namespace dnGREP.WPF
             sb.AppendLine();
 
             sb.Append(Resources.SearchIn).Append(": ").AppendLine(FileOrFolderPath)
-              .Append(Resources.PathsToMatch).Append(" ").AppendLine(FilePattern);
+              .Append(Resources.FilePattern).Append(" ").AppendLine(FilePattern);
             if (!string.IsNullOrWhiteSpace(FilePatternIgnore))
-                sb.Append(Resources.PathsToIgnore).Append(" ").AppendLine(FilePatternIgnore);
+                sb.Append(Resources.ExcludePattern).Append(" ").AppendLine(FilePatternIgnore);
             if (TypeOfFileSearch == FileSearchType.Regex)
                 sb.AppendLine(Resources.UsingRegexFilePattern);
             else if (TypeOfFileSearch == FileSearchType.Everything)

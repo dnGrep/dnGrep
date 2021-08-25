@@ -1136,11 +1136,29 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Exclude files by type and folders by name.
+        /// </summary>
+        public static string ExcludeFilesByTypeAndFoldersByName {
+            get {
+                return ResourceManager.GetString("ExcludeFilesByTypeAndFoldersByName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exclude from results.
         /// </summary>
         public static string ExcludeFromResults {
             get {
                 return ResourceManager.GetString("ExcludeFromResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exclude pattern:.
+        /// </summary>
+        public static string ExcludePattern {
+            get {
+                return ResourceManager.GetString("ExcludePattern", resourceCulture);
             }
         }
         
@@ -1424,20 +1442,20 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ignore pattern:.
-        /// </summary>
-        public static string IgnorePattern {
-            get {
-                return ResourceManager.GetString("IgnorePattern", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Include binary files.
         /// </summary>
         public static string IncludeBinaryFiles_ {
             get {
                 return ResourceManager.GetString("IncludeBinaryFiles_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include files by name or type.
+        /// </summary>
+        public static string IncludeFilesByNameOrType {
+            get {
+                return ResourceManager.GetString("IncludeFilesByNameOrType", resourceCulture);
             }
         }
         
@@ -2045,20 +2063,20 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Paths to ignore:.
+        ///   Looks up a localized string similar to Patterns to exclude:.
         /// </summary>
-        public static string PathsToIgnore {
+        public static string PatternsToExclude_ {
             get {
-                return ResourceManager.GetString("PathsToIgnore", resourceCulture);
+                return ResourceManager.GetString("PatternsToExclude_", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Paths to match:.
+        ///   Looks up a localized string similar to Patterns to match:.
         /// </summary>
-        public static string PathsToMatch {
+        public static string PatternsToMatch_ {
             get {
-                return ResourceManager.GetString("PathsToMatch", resourceCulture);
+                return ResourceManager.GetString("PatternsToMatch_", resourceCulture);
             }
         }
         

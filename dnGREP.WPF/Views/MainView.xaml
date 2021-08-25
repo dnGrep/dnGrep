@@ -578,10 +578,13 @@
                             </Border>
                         </Expander>
                         <!--  must be *after* the Expander so they are higher in the z-order  -->
-                        <TextBlock Grid.Row="0" Grid.Column="3" Margin="3,8"
-                                   Text="{l:Loc Key='PathsToMatch'}"
-                                   Style="{StaticResource LabelTextBlockStyle}"
-                                   Visibility="{Binding IsEverythingSearchMode, Converter={StaticResource InverseBoolToVisibilityConverter}}" />
+                        <Label Grid.Row="0" Grid.Column="3" Margin="3,8"
+                               Content="{l:Loc Key='PatternsToMatch_'}"
+                               ToolTip="{l:Loc Key='IncludeFilesByNameOrType'}"
+                               Style="{DynamicResource ThemedLabel}"
+                               HorizontalAlignment="Right"
+                               Target="{Binding ElementName=tbFilePattern}"
+                               Visibility="{Binding IsEverythingSearchMode, Converter={StaticResource InverseBoolToVisibilityConverter}}" />
                         <ComboBox Name="tbFilePattern" Grid.Row="0" Grid.Column="4"
                                   Margin="3,4" my:DiginesisHelpProvider.HelpKeyword="SearchReplace"
                                   my:DiginesisHelpProvider.HelpNavigator="Topic"
@@ -596,12 +599,13 @@
                                   IsChecked="{Binding Path=IncludeArchive}"
                                   TabIndex="13" Content="{l:Loc Key='SearchInArchives_'}"
                                   Visibility="{Binding CanSearchArchives, Converter={StaticResource BoolToVisibilityConverter}}" />
-                        <TextBlock Name="pathsToIgnoreLabel" Grid.Row="1" Grid.Column="3"
-                                   Margin="3,8,3,0" HorizontalAlignment="Left" VerticalAlignment="Top"
-                                   Text="{l:Loc Key='PathsToIgnore'}"
-                                   Style="{StaticResource GrayedOutFilePattern}"
-                                   TextWrapping="NoWrap"
-                                   Visibility="{Binding IsEverythingSearchMode, Converter={StaticResource InverseBoolToVisibilityConverter}}" />
+                        <Label Name="pathsToIgnoreLabel" Grid.Row="1" Grid.Column="3"
+                               Margin="3,3,3,0" HorizontalAlignment="Right" VerticalAlignment="Top"
+                               Content="{l:Loc Key='PatternsToExclude_'}"
+                               ToolTip="{l:Loc Key='ExcludeFilesByTypeAndFoldersByName'}"
+                               Style="{DynamicResource ThemedLabel}"
+                               Target="{Binding ElementName=tbFilePatternIgnore}"
+                               Visibility="{Binding IsEverythingSearchMode, Converter={StaticResource InverseBoolToVisibilityConverter}}" />
                         <ComboBox Name="tbFilePatternIgnore" Grid.Row="1" Grid.Column="4"
                                   Margin="3,4,3,0" VerticalAlignment="Top"
                                   my:DiginesisHelpProvider.HelpKeyword="SearchReplace"

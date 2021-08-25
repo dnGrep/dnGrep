@@ -563,8 +563,17 @@ Arguments:
   <data name="EverythingSearch" xml:space="preserve">
     <value>Everything search:</value>
   </data>
+  <data name="ExcludeFilesByTypeAndFoldersByName" xml:space="preserve">
+    <value>Exclude files by type and folders by name</value>
+  </data>
   <data name="ExcludeFromResults" xml:space="preserve">
     <value>Exclude from results</value>
+  </data>
+  <data name="ExcludePattern" xml:space="preserve">
+    <value>Exclude pattern:</value>
+  </data>
+  <data name="PatternsToExclude_" xml:space="preserve">
+    <value>Patterns to exclude:</value>
   </data>
   <data name="ExpandAll" xml:space="preserve">
     <value>Expand all</value>
@@ -583,6 +592,9 @@ Arguments:
   </data>
   <data name="FilePattern" xml:space="preserve">
     <value>File pattern:</value>
+  </data>
+  <data name="PatternsToMatch_" xml:space="preserve">
+    <value>Patterns to match:</value>
   </data>
   <data name="FilePatternHeader" xml:space="preserve">
     <value>File Pattern</value>
@@ -659,11 +671,11 @@ Arguments:
   <data name="Hours" xml:space="preserve">
     <value>hours</value>
   </data>
-  <data name="IgnorePattern" xml:space="preserve">
-    <value>Ignore pattern:</value>
-  </data>
   <data name="IncludeBinaryFiles_" xml:space="preserve">
     <value>Include binary files</value>
+  </data>
+  <data name="IncludeFilesByNameOrType" xml:space="preserve">
+    <value>Include files by name or type</value>
   </data>
   <data name="IncludeHiddenFolders_" xml:space="preserve">
     <value>Include hidden folders</value>
@@ -867,12 +879,6 @@ Arguments:
   </data>
   <data name="Past_" xml:space="preserve">
     <value>Past</value>
-  </data>
-  <data name="PathsToIgnore" xml:space="preserve">
-    <value>Paths to ignore:</value>
-  </data>
-  <data name="PathsToMatch" xml:space="preserve">
-    <value>Paths to match:</value>
   </data>
   <data name="PDFToText" xml:space="preserve">
     <value>PDF to Text</value>
