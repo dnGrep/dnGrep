@@ -46,7 +46,7 @@
                     Content="{l:Loc Key='OK'}" IsDefault="True" Click="OK_Click"/>
 
             <Button x:Name="btnCancel" MinWidth="80" Padding="6,3" Margin="3"
-                    Content="{l:Loc Key='Cancel'}" IsCancel="True" Click="Cancel_Click"/>
+                    Content="{l:Loc Key='Cancel_'}" IsCancel="True" Click="Cancel_Click"/>
         </StackPanel>
 
     </Grid>

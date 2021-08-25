@@ -340,11 +340,11 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancel.
+        ///   Looks up a localized string similar to _Cancel.
         /// </summary>
-        public static string Cancel {
+        public static string Cancel_ {
             get {
-                return ResourceManager.GetString("Cancel", resourceCulture);
+                return ResourceManager.GetString("Cancel_", resourceCulture);
             }
         }
         

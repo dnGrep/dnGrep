@@ -60,7 +60,7 @@
                        Visibility="{Binding ElementName=okBtn, Path=IsEnabled, Converter={StaticResource InvBoolToVisibilityConverter}}"/>
             <Button Grid.Column="1" x:Name="okBtn" Content="{l:Loc Key='OK'}" IsDefault="True" 
                     Command="{Binding SaveCommand}" Click="OkButton_Click" />
-            <Button Grid.Column="2" Content="{l:Loc Key='Cancel'}" IsCancel="True" />
+            <Button Grid.Column="2" Content="{l:Loc Key='Cancel_'}" IsCancel="True" />
         </Grid>
 
         <DockPanel Margin="0,0,0,18">

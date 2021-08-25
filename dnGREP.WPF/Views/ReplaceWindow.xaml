@@ -221,7 +221,7 @@
 
             <DockPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
                        Margin="3" HorizontalAlignment="Right" LastChildFill="False">
-                <Button x:Name="btnCancel" DockPanel.Dock="Right" Content="{l:Loc Key='Cancel'}"
+                <Button x:Name="btnCancel" DockPanel.Dock="Right" Content="{l:Loc Key='Cancel_'}"
                         TabIndex="20" IsCancel="True" Click="CancelButton_Click"
                         ToolTip="{l:Loc Key='CancelAllReplacements'}"
                         Style="{StaticResource ReplaceButton}"/>

@@ -210,8 +210,8 @@
   <data name="BySize" xml:space="preserve">
     <value>By Size</value>
   </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+  <data name="Cancel_" xml:space="preserve">
+    <value>_Cancel</value>
   </data>
   <data name="CancelAllReplacements" xml:space="preserve">
     <value>Cancel all replacements</value>
