@@ -478,9 +478,12 @@ Arguments:
   </data>
   <data name="DnGrep" xml:space="preserve">
     <value>dnGrep</value>
+    <comment>@Invariant</comment>
   </data>
   <data name="DnGREP_Title" xml:space="preserve">
     <value>dnGREP</value>
+    
+    <comment>@Invariant</comment>
   </data>
   <data name="DnGrepOnGitHub" xml:space="preserve">
     <value>dnGrep on GitHub</value>
@@ -557,6 +560,9 @@ Arguments:
   <data name="Enabled" xml:space="preserve">
     <value>Enabled</value>
   </data>
+  <data name="EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu" xml:space="preserve">
+    <value>Enables starting dnGrep from the Windows Explorer right-click context menu.</value>
+  </data>
   <data name="Encoding" xml:space="preserve">
     <value>Encoding:</value>
   </data>
@@ -571,6 +577,9 @@ Arguments:
   </data>
   <data name="ErrorSettingClipboardTextTheClipboardIsLockedBy" xml:space="preserve">
     <value>Error setting clipboard text, the clipboard is locked by</value>
+  </data>
+  <data name="ErrorThisIsABinaryFile" xml:space="preserve">
+    <value>Error: this is a binary file</value>
   </data>
   <data name="Everything_" xml:space="preserve">
     <value>Everything</value>
@@ -733,6 +742,9 @@ Arguments:
   <data name="LibraryForReadingArchiveFiles" xml:space="preserve">
     <value>Library for reading archive files</value>
   </data>
+  <data name="Lines" xml:space="preserve">
+    <value>lines</value>
+  </data>
   <data name="LoadFromFile_" xml:space="preserve">
     <value>Load from file...</value>
   </data>
@@ -753,6 +765,9 @@ Arguments:
   </data>
   <data name="Matches" xml:space="preserve">
     <value>Matches</value>
+  </data>
+  <data name="MatchesOn" xml:space="preserve">
+    <value>matches on</value>
   </data>
   <data name="MatchEverythingToExactMatch" xml:space="preserve">
     <value>0 - match everything; 1.0 - exact match</value>
@@ -862,6 +877,9 @@ Arguments:
   <data name="NoHiddenFiles" xml:space="preserve">
     <value>No hidden files</value>
   </data>
+  <data name="NoMatchesFound" xml:space="preserve">
+    <value>No matches found</value>
+  </data>
   <data name="NoSubfolders" xml:space="preserve">
     <value>No subfolders</value>
   </data>
@@ -957,6 +975,9 @@ Arguments:
   </data>
   <data name="PreviewFile_" xml:space="preserve">
     <value>Pre_view file</value>
+  </data>
+  <data name="PreviewSyntax_None" xml:space="preserve">
+    <value>None</value>
   </data>
   <data name="Previous_" xml:space="preserve">
     <value>_Previous</value>
@@ -1378,6 +1399,9 @@ Arguments:
   <data name="ThisBookmarkIsAssociatedWithOneOtherFolder" xml:space="preserve">
     <value>This bookmark is associated with one other folder</value>
   </data>
+  <data name="ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
+    <value>This file contains too many matches for individual replace.  To replace all of them, click 'Replace in File'</value>
+  </data>
   <data name="ThisFileIsEitherBinaryOrTooLargeToPreview" xml:space="preserve">
     <value>This file is either binary or too large to preview.</value>
   </data>
@@ -1389,6 +1413,9 @@ Arguments:
   </data>
   <data name="To" xml:space="preserve">
     <value>to</value>
+  </data>
+  <data name="ToChangeThisSettingRunDnGREPAsAdministrator" xml:space="preserve">
+    <value>To change this setting run dnGREP as Administrator.</value>
   </data>
   <data name="TTA1_MatchesAllCharacters" xml:space="preserve">
     <value>. matches all characters</value>

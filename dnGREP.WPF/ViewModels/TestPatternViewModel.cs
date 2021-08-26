@@ -319,7 +319,7 @@ namespace dnGREP.WPF
             }
             else
             {
-                paragraph.Inlines.Add(new Run("No matches found"));
+                paragraph.Inlines.Add(new Run(Resources.NoMatchesFound));
             }
             SearchOutput = paragraph.Inlines;
         }

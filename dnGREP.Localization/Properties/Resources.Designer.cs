@@ -1118,6 +1118,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enables starting dnGrep from the Windows Explorer right-click context menu..
+        /// </summary>
+        public static string EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu {
+            get {
+                return ResourceManager.GetString("EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Encoding:.
         /// </summary>
         public static string Encoding {
@@ -1159,6 +1168,15 @@ namespace dnGREP.Localization.Properties {
         public static string ErrorSettingClipboardTextTheClipboardIsLockedBy {
             get {
                 return ResourceManager.GetString("ErrorSettingClipboardTextTheClipboardIsLockedBy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: this is a binary file.
+        /// </summary>
+        public static string ErrorThisIsABinaryFile {
+            get {
+                return ResourceManager.GetString("ErrorThisIsABinaryFile", resourceCulture);
             }
         }
         
@@ -1640,6 +1658,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to lines.
+        /// </summary>
+        public static string Lines {
+            get {
+                return ResourceManager.GetString("Lines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Load from file....
         /// </summary>
         public static string LoadFromFile_ {
@@ -1699,6 +1726,15 @@ namespace dnGREP.Localization.Properties {
         public static string Matches {
             get {
                 return ResourceManager.GetString("Matches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to matches on.
+        /// </summary>
+        public static string MatchesOn {
+            get {
+                return ResourceManager.GetString("MatchesOn", resourceCulture);
             }
         }
         
@@ -2027,6 +2063,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No matches found.
+        /// </summary>
+        public static string NoMatchesFound {
+            get {
+                return ResourceManager.GetString("NoMatchesFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No subfolders.
         /// </summary>
         public static string NoSubfolders {
@@ -2311,6 +2356,15 @@ namespace dnGREP.Localization.Properties {
         public static string PreviewFile_ {
             get {
                 return ResourceManager.GetString("PreviewFile_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string PreviewSyntax_None {
+            get {
+                return ResourceManager.GetString("PreviewSyntax_None", resourceCulture);
             }
         }
         
@@ -3575,6 +3629,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This file contains too many matches for individual replace.  To replace all of them, click &apos;Replace in File&apos;.
+        /// </summary>
+        public static string ThisFileContainsTooManyMatchesForIndividualReplace {
+            get {
+                return ResourceManager.GetString("ThisFileContainsTooManyMatchesForIndividualReplace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This file is either binary or too large to preview..
         /// </summary>
         public static string ThisFileIsEitherBinaryOrTooLargeToPreview {
@@ -3607,6 +3670,15 @@ namespace dnGREP.Localization.Properties {
         public static string To {
             get {
                 return ResourceManager.GetString("To", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To change this setting run dnGREP as Administrator..
+        /// </summary>
+        public static string ToChangeThisSettingRunDnGREPAsAdministrator {
+            get {
+                return ResourceManager.GetString("ToChangeThisSettingRunDnGREPAsAdministrator", resourceCulture);
             }
         }
         

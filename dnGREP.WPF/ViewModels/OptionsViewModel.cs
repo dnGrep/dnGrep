@@ -927,11 +927,11 @@ namespace dnGREP.WPF
             CheckIfAdmin();
             if (!IsAdministrator)
             {
-                PanelTooltip = "To change this setting run dnGREP as Administrator.";
+                PanelTooltip = Resources.ToChangeThisSettingRunDnGREPAsAdministrator;
             }
             else
             {
-                WindowsIntegrationTooltip = "Enables starting dnGrep from the Windows Explorer right-click context menu.";
+                WindowsIntegrationTooltip = Resources.EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu;
             }
             EnableWindowsIntegration = IsShellRegistered("Directory");
             EnableRunAtStartup = IsStartupRegistered();

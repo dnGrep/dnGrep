@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
+using dnGREP.Localization.Properties;
 using ICSharpCode.AvalonEdit.Highlighting;
 using NLog;
 
@@ -18,8 +19,8 @@ namespace dnGREP.WPF
         {
             Highlighters = ThemedHighlightingManager.Instance.HighlightingNames.ToList();
             Highlighters.Sort();
-            Highlighters.Insert(0, "None");
-            CurrentSyntax = "None";
+            Highlighters.Insert(0, Resources.PreviewSyntax_None);
+            CurrentSyntax = Resources.PreviewSyntax_None;
 
             HighlightsOn = GrepSettings.Instance.Get<bool>(GrepSettings.Key.HighlightMatches);
 
@@ -223,7 +224,7 @@ namespace dnGREP.WPF
                     if (definition != null)
                         CurrentSyntax = definition.Name;
                     else
-                        CurrentSyntax = "None";
+                        CurrentSyntax = Resources.PreviewSyntax_None;
 
                     try
                     {
