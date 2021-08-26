@@ -115,6 +115,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to additional matches:.
+        /// </summary>
+        public static string AdditionalMatches {
+            get {
+                return ResourceManager.GetString("AdditionalMatches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add search pattern to bookmarks.
         /// </summary>
         public static string AddSearchPatternToBookmarks {
@@ -237,6 +246,24 @@ namespace dnGREP.Localization.Properties {
         public static string AsteriskPattern_ {
             get {
                 return ResourceManager.GetString("AsteriskPattern_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (at end of line).
+        /// </summary>
+        public static string AtEndOfLine {
+            get {
+                return ResourceManager.GetString("AtEndOfLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to at position {0}.
+        /// </summary>
+        public static string AtPosition {
+            get {
+                return ResourceManager.GetString("AtPosition", resourceCulture);
             }
         }
         
@@ -668,6 +695,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ...(+{0:n0} characters).
+        /// </summary>
+        public static string CountAdditionalCharacters {
+            get {
+                return ResourceManager.GetString("CountAdditionalCharacters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} files have been successfully copied..
         /// </summary>
         public static string CountFilesHaveBeenSuccessfullyCopied {
@@ -691,6 +727,15 @@ namespace dnGREP.Localization.Properties {
         public static string CountFilesHaveBeenSuccessfullyMoved {
             get {
                 return ResourceManager.GetString("CountFilesHaveBeenSuccessfullyMoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} ({1} matches on {2} lines).
+        /// </summary>
+        public static string CountMatchesOnLines {
+            get {
+                return ResourceManager.GetString("CountMatchesOnLines", resourceCulture);
             }
         }
         
@@ -1685,6 +1730,24 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Match {0}{1}{2}.
+        /// </summary>
+        public static string MatchToolTip1 {
+            get {
+                return ResourceManager.GetString("MatchToolTip1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Match {0}{1}Group {2}:   {3}.
+        /// </summary>
+        public static string MatchToolTip2 {
+            get {
+                return ResourceManager.GetString("MatchToolTip2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Max depth.
         /// </summary>
         public static string MaxDepth {
@@ -2162,6 +2225,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to , +{0} more matches.
+        /// </summary>
+        public static string PlusCountMoreMatches {
+            get {
+                return ResourceManager.GetString("PlusCountMoreMatches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pop this panel out into its own window.
         /// </summary>
         public static string PopThisPanelOutIntoItsOwnWindow {
@@ -2257,6 +2329,15 @@ namespace dnGREP.Localization.Properties {
         public static string PreviousFile_ {
             get {
                 return ResourceManager.GetString("PreviousFile_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to [read-only].
+        /// </summary>
+        public static string ReadOnly {
+            get {
+                return ResourceManager.GetString("ReadOnly", resourceCulture);
             }
         }
         

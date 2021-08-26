@@ -34,7 +34,7 @@ namespace dnGREP.WPF.MVHelpers
         public int LineNumberColumnWidth
         {
             get { return lineNumberColumnWidth; }
-            set { lineNumberColumnWidth = value; OnPropertyChanged("LineNumberColumnWidth"); }
+            set { lineNumberColumnWidth = value; OnPropertyChanged(nameof(LineNumberColumnWidth)); }
         }
 
         public async Task<bool> LoadAsync()

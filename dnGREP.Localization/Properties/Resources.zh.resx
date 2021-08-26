@@ -135,6 +135,9 @@
   <data name="Add_" xml:space="preserve">
     <value>_Add</value>
   </data>
+  <data name="AdditionalMatches" xml:space="preserve">
+    <value>additional matches:</value>
+  </data>
   <data name="AddSearchPatternToBookmarks" xml:space="preserve">
     <value>Add search pattern to bookmarks</value>
   </data>
@@ -176,6 +179,12 @@
   </data>
   <data name="AsteriskPattern_" xml:space="preserve">
     <value>Asterisk pattern</value>
+  </data>
+  <data name="AtEndOfLine" xml:space="preserve">
+    <value>(at end of line)</value>
+  </data>
+  <data name="AtPosition" xml:space="preserve">
+    <value>at position {0}</value>
   </data>
   <data name="AutoPosition_" xml:space="preserve">
     <value>Auto Position</value>
@@ -407,6 +416,9 @@ Arguments:
   <data name="CouldNotLoadTheme" xml:space="preserve">
     <value>Could not load theme '{0}', See the error log for details: </value>
   </data>
+  <data name="CountAdditionalCharacters" xml:space="preserve">
+    <value>...(+{0:n0} characters)</value>
+  </data>
   <data name="CountFilesHaveBeenSuccessfullyCopied" xml:space="preserve">
     <value>{0} files have been successfully copied.</value>
   </data>
@@ -415,6 +427,9 @@ Arguments:
   </data>
   <data name="CountFilesHaveBeenSuccessfullyMoved" xml:space="preserve">
     <value>{0} files have been successfully moved.</value>
+  </data>
+  <data name="CountMatchesOnLines" xml:space="preserve">
+    <value>{0} ({1} matches on {2} lines)</value>
   </data>
   <data name="Created_" xml:space="preserve">
     <value>Created</value>
@@ -748,6 +763,12 @@ Arguments:
   <data name="MatchTimeout" xml:space="preserve">
     <value>Match timeout</value>
   </data>
+  <data name="MatchToolTip1" xml:space="preserve">
+    <value>Match {0}{1}{2}</value>
+  </data>
+  <data name="MatchToolTip2" xml:space="preserve">
+    <value>Match {0}{1}Group {2}:   {3}</value>
+  </data>
   <data name="MaxDepth" xml:space="preserve">
     <value>最大深度</value>
   </data>
@@ -907,6 +928,9 @@ Arguments:
   <data name="PluginOptions" xml:space="preserve">
     <value>Plugin Options</value>
   </data>
+  <data name="PlusCountMoreMatches" xml:space="preserve">
+    <value>, +{0} more matches</value>
+  </data>
   <data name="PopThisPanelOutIntoItsOwnWindow" xml:space="preserve">
     <value>Pop this panel out into its own window</value>
   </data>
@@ -939,6 +963,9 @@ Arguments:
   </data>
   <data name="PreviousFile_" xml:space="preserve">
     <value>Previous File</value>
+  </data>
+  <data name="ReadOnly" xml:space="preserve">
+    <value>[read-only]</value>
   </data>
   <data name="Regex" xml:space="preserve">
     <value>Regex</value>

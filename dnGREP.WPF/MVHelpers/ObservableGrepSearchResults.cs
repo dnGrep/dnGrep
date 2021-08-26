@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using dnGREP.Common;
 using dnGREP.Common.UI;
+using dnGREP.Localization.Properties;
 using dnGREP.WPF.MVHelpers;
 using dnGREP.WPF.UserControls;
 using Path = Alphaleonis.Win32.Filesystem.Path;
@@ -90,7 +91,7 @@ namespace dnGREP.WPF
 
         private class SelectionComparer : IComparer<ITreeItem>
         {
-            private ObservableGrepSearchResults orderBy;
+            private readonly ObservableGrepSearchResults orderBy;
             public SelectionComparer(ObservableGrepSearchResults orderBy)
             {
                 this.orderBy = orderBy;
@@ -108,10 +109,10 @@ namespace dnGREP.WPF
                 if (fileY == null && lineY != null)
                     fileY = lineY.Parent;
 
-
-                int posX = 0, posY = 0;
                 if (fileX != null && fileY != null)
                 {
+                    int posX;
+                    int posY;
                     if (fileX == fileY && lineX != null && lineY != null)
                     {
                         posX = fileX.FormattedLines.IndexOf(lineX);
@@ -188,8 +189,10 @@ namespace dnGREP.WPF
         {
             foreach (var l in list)
             {
-                var fmtResult = new FormattedGrepResult(l, folderPath);
-                fmtResult.WrapText = WrapText;
+                var fmtResult = new FormattedGrepResult(l, folderPath)
+                {
+                    WrapText = WrapText
+                };
                 Add(fmtResult);
 
                 // moved this check out of FormattedGrepResult constructor:
@@ -494,7 +497,7 @@ namespace dnGREP.WPF
                     IsLoading = true;
                     Task.Run(() => FormattedLines.LoadAsync());
                 }
-                OnPropertyChanged("IsExpanded");
+                OnPropertyChanged(nameof(IsExpanded));
             }
         }
 
@@ -505,7 +508,7 @@ namespace dnGREP.WPF
             set
             {
                 isLoading = value;
-                OnPropertyChanged("IsLoading");
+                OnPropertyChanged(nameof(IsLoading));
             }
         }
 
@@ -520,7 +523,7 @@ namespace dnGREP.WPF
 
                 isSelected = value;
                 ObservableGrepSearchResults.SearchResultsMessenger.NotifyColleagues("IsSelectedChanged", this);
-                OnPropertyChanged("IsSelected");
+                OnPropertyChanged(nameof(IsSelected));
             }
         }
 
@@ -528,14 +531,14 @@ namespace dnGREP.WPF
         public int LineNumberColumnWidth
         {
             get { return lineNumberColumnWidth; }
-            set { lineNumberColumnWidth = value; OnPropertyChanged("LineNumberColumnWidth"); }
+            set { lineNumberColumnWidth = value; OnPropertyChanged(nameof(LineNumberColumnWidth)); }
         }
 
         public BitmapSource Icon { get; set; }
 
         public LazyResultsList FormattedLines { get; private set; }
 
-        private string searchFolderPath;
+        private readonly string searchFolderPath;
 
         public FormattedGrepResult(GrepSearchResult result, string folderPath)
         {
@@ -585,7 +588,7 @@ namespace dnGREP.WPF
                 {
                     var lineCount = GrepResult.Matches.Where(r => r.LineNumber > 0)
                        .Select(r => r.LineNumber).Distinct().Count();
-                    displayedName = string.Format("{0} ({1} matches on {2} lines)", displayedName, matchCount, lineCount);
+                    displayedName = string.Format(Resources.CountMatchesOnLines, displayedName, matchCount, lineCount);
                 }
                 else
                 {
@@ -594,7 +597,7 @@ namespace dnGREP.WPF
             }
             if (isFileReadOnly)
             {
-                displayedName = displayedName + " [read-only]";
+                displayedName = displayedName + " " + Resources.ReadOnly;
             }
 
             Label = displayedName;
@@ -631,7 +634,7 @@ namespace dnGREP.WPF
                     item.WrapText = value;
                 }
 
-                base.OnPropertyChanged("WrapText");
+                base.OnPropertyChanged(nameof(WrapText));
             }
         }
 
@@ -699,7 +702,7 @@ namespace dnGREP.WPF
 
                 isSelected = value;
                 ObservableGrepSearchResults.SearchResultsMessenger.NotifyColleagues("IsSelectedChanged", this);
-                OnPropertyChanged("IsSelected");
+                OnPropertyChanged(nameof(IsSelected));
             }
         }
 
@@ -715,7 +718,7 @@ namespace dnGREP.WPF
                 }
 
                 isSectionBreak = value;
-                OnPropertyChanged("IsSectionBreak");
+                OnPropertyChanged(nameof(IsSectionBreak));
             }
         }
 
@@ -725,7 +728,7 @@ namespace dnGREP.WPF
         public int LineNumberColumnWidth
         {
             get { return lineNumberColumnWidth; }
-            set { lineNumberColumnWidth = value; OnPropertyChanged("LineNumberColumnWidth"); }
+            set { lineNumberColumnWidth = value; OnPropertyChanged(nameof(LineNumberColumnWidth)); }
         }
 
         void Parent_PropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -754,7 +757,7 @@ namespace dnGREP.WPF
 
                 MaxLineLength = wrapText ? 10000 : 500;
 
-                base.OnPropertyChanged("WrapText");
+                base.OnPropertyChanged(nameof(WrapText));
             }
         }
 
@@ -859,7 +862,7 @@ namespace dnGREP.WPF
                 }
                 if (line.LineText.Length > MaxLineLength)
                 {
-                    string msg = string.Format("...(+{0:n0} characters)", line.LineText.Length - MaxLineLength);
+                    string msg = string.Format(Resources.CountAdditionalCharacters, line.LineText.Length - MaxLineLength);
 
                     var msgRun = new Run(msg);
                     msgRun.SetResourceReference(Run.ForegroundProperty, "TreeView.Message.Highlight.Foreground");
@@ -869,7 +872,7 @@ namespace dnGREP.WPF
                     var hiddenMatches = line.Matches.Where(m => m.StartLocation > MaxLineLength).Select(m => m);
                     int count = hiddenMatches.Count();
                     if (count > 0)
-                        paragraph.Inlines.Add(new Run(" additional matches:"));
+                        paragraph.Inlines.Add(new Run(" " + Resources.AdditionalMatches));
 
                     // if close to getting them all, then take them all,
                     // otherwise, stop at 20 and just show the remaining count
@@ -887,15 +890,15 @@ namespace dnGREP.WPF
                             paragraph.Inlines.Add(run);
 
                             if (m.StartLocation + m.Length == line.LineText.Length)
-                                paragraph.Inlines.Add(new Run(" (at end of line)"));
+                                paragraph.Inlines.Add(new Run(" " + Resources.AtEndOfLine));
                             else
-                                paragraph.Inlines.Add(new Run($" at position {m.StartLocation}"));
+                                paragraph.Inlines.Add(new Run(" " + string.Format(Resources.AtPosition, m.StartLocation)));
                         }
                     }
 
                     if (count > takeCount)
                     {
-                        paragraph.Inlines.Add(new Run($", +{count - takeCount} more matches"));
+                        paragraph.Inlines.Add(new Run(string.Format(Resources.PlusCountMoreMatches, count - takeCount)));
                     }
                 }
             }
@@ -915,7 +918,7 @@ namespace dnGREP.WPF
                 {
                     run.SetResourceReference(Run.ForegroundProperty, "Match.Highlight.Foreground");
                     run.SetResourceReference(Run.BackgroundProperty, "Match.Highlight.Background");
-                    run.ToolTip = $"Match {Parent.MatchIdx}{Environment.NewLine}{fmtLine}";
+                    run.ToolTip = string.Format(Resources.MatchToolTip1, Parent.MatchIdx, Environment.NewLine, fmtLine);
                     paragraph.Inlines.Add(run);
                 }
                 else
@@ -928,7 +931,8 @@ namespace dnGREP.WPF
                     }
                     run.SetResourceReference(Run.ForegroundProperty, "Match.Highlight.Foreground");
                     run.SetResourceReference(Run.BackgroundProperty, bgColor);
-                    run.ToolTip = $"Match {Parent.MatchIdx}{Environment.NewLine}Group {range.Group.Name}:   {range.Group.Value}";
+                    run.ToolTip = string.Format(Resources.MatchToolTip2,
+                        Parent.MatchIdx, Environment.NewLine, range.Group.Name, range.Group.Value);
                     paragraph.Inlines.Add(run);
                 }
             }
