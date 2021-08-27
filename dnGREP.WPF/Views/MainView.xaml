@@ -403,7 +403,7 @@
                                                          IsChecked="{Binding Path=TypeOfTimeRangeFilter, Converter={StaticResource ebc}, ConverterParameter=Dates}"
                                                          IsEnabled="{Binding Path=IsDateFilterSet}"
                                                          TabIndex="33" />
-                                            <DatePicker Grid.Row="0" Grid.Column="1"
+                                            <DatePicker x:Name="dpFrom" Grid.Row="0" Grid.Column="1"
                                                         Margin="3,0,3,2" TabIndex="34"
                                                         ToolTip="{l:Loc Key='FromTheStartOfTheDay'}"
                                                         CalendarStyle="{StaticResource CalendarStyle}"
@@ -414,7 +414,7 @@
                                             <TextBlock Grid.Row="1" Grid.Column="0" Margin="20,0,0,6"
                                                        Text="{l:Loc Key='To'}"
                                                        Style="{StaticResource LabelTextBlockStyle}" />
-                                            <DatePicker Grid.Row="1" Grid.Column="1"
+                                            <DatePicker x:Name="dpTo" Grid.Row="1" Grid.Column="1"
                                                         Margin="3,0,3,2" TabIndex="35"
                                                         ToolTip="{l:Loc Key='ThroughTheEndOfTheDay'}"
                                                         CalendarStyle="{StaticResource CalendarStyle}"

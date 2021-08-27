@@ -3134,6 +3134,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select a date.
+        /// </summary>
+        public static string SelectADate {
+            get {
+                return ResourceManager.GetString("SelectADate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Selected Theme.
         /// </summary>
         public static string SelectedTheme {

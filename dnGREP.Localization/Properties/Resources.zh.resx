@@ -1225,6 +1225,9 @@ Arguments:
   <data name="Seconds" xml:space="preserve">
     <value>seconds</value>
   </data>
+  <data name="SelectADate" xml:space="preserve">
+    <value>Select a date</value>
+  </data>
   <data name="SelectedTheme" xml:space="preserve">
     <value>Selected Theme</value>
   </data>
