@@ -985,9 +985,81 @@ namespace dnGREP.Localization.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Use keywords.
         /// </summary>
-        public static string Editor1_UseKeywords {
+        public static string Editor01_UseKeywords {
             get {
-                return ResourceManager.GetString("Editor1_UseKeywords", resourceCulture);
+                return ResourceManager.GetString("Editor01_UseKeywords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to %file.
+        /// </summary>
+        public static string Editor02_File {
+            get {
+                return ResourceManager.GetString("Editor02_File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to for file location,.
+        /// </summary>
+        public static string Editor03_ForFileLocation {
+            get {
+                return ResourceManager.GetString("Editor03_ForFileLocation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to %line.
+        /// </summary>
+        public static string Editor04_Line {
+            get {
+                return ResourceManager.GetString("Editor04_Line", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to for the line number,.
+        /// </summary>
+        public static string Editor05_ForTheLineNumber {
+            get {
+                return ResourceManager.GetString("Editor05_ForTheLineNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to %pattern.
+        /// </summary>
+        public static string Editor06_Pattern {
+            get {
+                return ResourceManager.GetString("Editor06_Pattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to for the search pattern,.
+        /// </summary>
+        public static string Editor07_ForTheSearchPattern {
+            get {
+                return ResourceManager.GetString("Editor07_ForTheSearchPattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to %match.
+        /// </summary>
+        public static string Editor08_Match {
+            get {
+                return ResourceManager.GetString("Editor08_Match", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to or the first matched text on the line, and .
+        /// </summary>
+        public static string Editor09_OrTheFirstMatchedTextOnTheLineAnd {
+            get {
+                return ResourceManager.GetString("Editor09_OrTheFirstMatchedTextOnTheLineAnd", resourceCulture);
             }
         }
         
@@ -1006,78 +1078,6 @@ namespace dnGREP.Localization.Properties {
         public static string Editor11_ForTheColumnNumberOfFirstMatchOnTheLine {
             get {
                 return ResourceManager.GetString("Editor11_ForTheColumnNumberOfFirstMatchOnTheLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to %file.
-        /// </summary>
-        public static string Editor2_File {
-            get {
-                return ResourceManager.GetString("Editor2_File", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to for file location,.
-        /// </summary>
-        public static string Editor3_ForFileLocation {
-            get {
-                return ResourceManager.GetString("Editor3_ForFileLocation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to %line.
-        /// </summary>
-        public static string Editor4_Line {
-            get {
-                return ResourceManager.GetString("Editor4_Line", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to for the line number,.
-        /// </summary>
-        public static string Editor5_ForTheLineNumber {
-            get {
-                return ResourceManager.GetString("Editor5_ForTheLineNumber", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to %pattern.
-        /// </summary>
-        public static string Editor6_Pattern {
-            get {
-                return ResourceManager.GetString("Editor6_Pattern", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to for the search pattern,.
-        /// </summary>
-        public static string Editor7_ForTheSearchPattern {
-            get {
-                return ResourceManager.GetString("Editor7_ForTheSearchPattern", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to %match.
-        /// </summary>
-        public static string Editor8_Match {
-            get {
-                return ResourceManager.GetString("Editor8_Match", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to or the first matched text on the line, and .
-        /// </summary>
-        public static string Editor9_OrTheFirstMatchedTextOnTheLineAnd {
-            get {
-                return ResourceManager.GetString("Editor9_OrTheFirstMatchedTextOnTheLineAnd", resourceCulture);
             }
         }
         
