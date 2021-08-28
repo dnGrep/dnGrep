@@ -3125,6 +3125,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search path in the &apos;{0}&apos; field is not valid, search canceled..
+        /// </summary>
+        public static string SearchPathInTheFieldIsNotValid {
+            get {
+                return ResourceManager.GetString("SearchPathInTheFieldIsNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search result:.
         /// </summary>
         public static string SearchResult {

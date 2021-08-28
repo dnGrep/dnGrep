@@ -1528,8 +1528,8 @@ namespace dnGREP.WPF
                 // first, check for valid path
                 if (!PathSearchText.IsValidPath)
                 {
-                    MessageBox.Show(string.Format("Search path in the '{0}' field is not valid, search canceled.", SearchTextBoxLabel),
-                        "dnGrep", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show(TranslationSource.Format(Resources.SearchPathInTheFieldIsNotValid, SearchTextBoxLabel),
+                        Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 

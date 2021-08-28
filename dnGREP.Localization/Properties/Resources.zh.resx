@@ -1222,6 +1222,9 @@ Arguments:
   <data name="SearchParallel_" xml:space="preserve">
     <value>Search Paralle_l</value>
   </data>
+  <data name="SearchPathInTheFieldIsNotValid" xml:space="preserve">
+    <value>Search path in the '{0}' field is not valid, search canceled.</value>
+  </data>
   <data name="SearchResult" xml:space="preserve">
     <value>Search result:</value>
   </data>
