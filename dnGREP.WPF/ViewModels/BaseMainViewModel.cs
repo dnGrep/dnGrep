@@ -1365,9 +1365,9 @@ namespace dnGREP.WPF
             }
 
             //Can search
-            if (name == "FileOrFolderPath" || name == "TypeOfFileSearch" || name == "CurrentGrepOperation" || name == "SearchFor" || name == "IsSaveInProgress")
+            if (name == "CurrentGrepOperation" || name == "SearchFor" || name == "IsSaveInProgress")
             {
-                if (PathSearchText.IsValidPath && CurrentGrepOperation == GrepOperation.None && !IsSaveInProgress &&
+                if (CurrentGrepOperation == GrepOperation.None && !IsSaveInProgress &&
                     (!string.IsNullOrEmpty(SearchFor) || settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern)))
                 {
                     CanSearch = true;
