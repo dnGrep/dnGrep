@@ -1208,6 +1208,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sheet [{0}].
+        /// </summary>
+        public static string ExcelSheetName {
+            get {
+                return ResourceManager.GetString("ExcelSheetName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Exclude files by type and folders by name.
         /// </summary>
         public static string ExcludeFilesByTypeAndFoldersByName {

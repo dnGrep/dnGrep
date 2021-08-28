@@ -12,6 +12,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using dnGREP.Everything;
+using dnGREP.Localization;
 using NLog;
 using UtfUnknown;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
@@ -119,7 +120,7 @@ namespace dnGREP.Common
                         if (destinationFileInfo.Exists && action == OverwriteFile.Prompt)
                         {
                             var answer = MessageBox.Show(
-                                string.Format(Resources.TheFile0AlreadyExistsIn1OverwriteExisting,
+                                TranslationSource.Format(Resources.TheFile0AlreadyExistsIn1OverwriteExisting,
                                     destinationFileInfo.Name, destinationFileInfo.DirectoryName),
                                 Resources.DnGrep, MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
 
@@ -187,7 +188,7 @@ namespace dnGREP.Common
                         if (destinationFileInfo.Exists && action == OverwriteFile.Prompt)
                         {
                             var answer = MessageBox.Show(
-                                string.Format(Resources.TheFile0AlreadyExistsIn1OverwriteExisting,
+                                TranslationSource.Format(Resources.TheFile0AlreadyExistsIn1OverwriteExisting,
                                     destinationFileInfo.Name, destinationFileInfo.DirectoryName),
                                 Resources.DnGrep, MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
 
@@ -612,7 +613,7 @@ namespace dnGREP.Common
             if (!string.IsNullOrWhiteSpace(ext))
             {
                 // regex extensions may have a 'match end of line' char: remove it
-                ext = ext.TrimStart('.').TrimEnd('$').ToLower(CultureInfo.CurrentUICulture);
+                ext = ext.TrimStart('.').TrimEnd('$').ToLower(CultureInfo.CurrentCulture);
                 return ArchiveExtensions.Contains(ext);
             }
             return false;

@@ -8,6 +8,7 @@ using System.Xml;
 using System.Xml.XPath;
 using dnGREP.Common;
 using dnGREP.Everything;
+using dnGREP.Localization;
 using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
@@ -1269,7 +1270,7 @@ namespace dnGREP.WPF
                 if (!IncludeSubfolder || (IncludeSubfolder && MaxSubfolderDepth == 0))
                     tempList.Add(Resources.NoSubfolders);
                 if (IncludeSubfolder && MaxSubfolderDepth > 0)
-                    tempList.Add(string.Format(Resources.MaxFolderDepth, MaxSubfolderDepth));
+                    tempList.Add(TranslationSource.Format(Resources.MaxFolderDepth, MaxSubfolderDepth));
                 if (!IncludeHidden)
                     tempList.Add(Resources.NoHidden);
                 if (!IncludeBinary)
@@ -1306,7 +1307,7 @@ namespace dnGREP.WPF
                 if (string.IsNullOrWhiteSpace(FileOrFolderPath))
                     WindowTitle = "dnGREP";
                 else
-                    WindowTitle = string.Format(Resources.WindowTitle,
+                    WindowTitle = TranslationSource.Format(Resources.WindowTitle,
                         SearchFor == null ? Resources.Empty : SearchFor.Replace('\n', ' ').Replace('\r', ' '),
                         FileOrFolderPath);
             }

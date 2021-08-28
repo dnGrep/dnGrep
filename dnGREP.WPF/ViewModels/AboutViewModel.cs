@@ -12,7 +12,7 @@ namespace dnGREP.WPF
         public AboutViewModel()
         {
             Version = $"{Resources.Version} {AssemblyVersion}";
-            BuildDate = $"{Resources.BuiltOn} {AssemblyBuildDate.ToString(CultureInfo.CurrentUICulture)}";
+            BuildDate = $"{Resources.BuiltOn} {AssemblyBuildDate.ToString(CultureInfo.CurrentCulture)}";
             Copyright = AssemblyCopyright;
             Description = AssemblyDescription;
             ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);

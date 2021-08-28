@@ -15,6 +15,7 @@ using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
 using dnGREP.Common.UI;
 using dnGREP.Engines;
+using dnGREP.Localization;
 using dnGREP.WPF.MVHelpers;
 using dnGREP.WPF.Properties;
 using DockFloat;
@@ -1360,12 +1361,12 @@ namespace dnGREP.WPF
                 // UI periodically when the dispatcher is idle.
                 if (!string.IsNullOrWhiteSpace(fileName))
                 {
-                    latestStatusMessage = string.Format(Resources.Searched0FilesFound1MatchingFilesProcessing2,
+                    latestStatusMessage = TranslationSource.Format(Resources.Searched0FilesFound1MatchingFilesProcessing2,
                         progress.ProcessedFiles, progress.SuccessfulFiles, fileName);
                 }
                 else
                 {
-                    latestStatusMessage = string.Format(Resources.Searched0FilesFound1MatchingFiles,
+                    latestStatusMessage = TranslationSource.Format(Resources.Searched0FilesFound1MatchingFiles,
                         progress.ProcessedFiles, progress.SuccessfulFiles);
                 }
             }
@@ -1396,7 +1397,7 @@ namespace dnGREP.WPF
                         if (e.Result is List<GrepSearchResult> results)
                             successCount = results.Where(r => r.IsSuccess).Count();
 
-                        StatusMessage = string.Format(Resources.SearchCompleteSearched0FilesFound1FilesIn2,
+                        StatusMessage = TranslationSource.Format(Resources.SearchCompleteSearched0FilesFound1FilesIn2,
                             processedFiles, successCount, duration.GetPrettyString());
                     }
                     else
@@ -1426,7 +1427,7 @@ namespace dnGREP.WPF
                         }
                         else
                         {
-                            StatusMessage = string.Format(Resources.ReplaceComplete0FilesReplaced,
+                            StatusMessage = TranslationSource.Format(Resources.ReplaceComplete0FilesReplaced,
                                 (int)e.Result);
                             CanUndo = undoList.Count > 0;
                         }
@@ -1570,7 +1571,7 @@ namespace dnGREP.WPF
                     string msg = ValidateRegex(pattern);
                     if (!string.IsNullOrWhiteSpace(msg))
                     {
-                        MessageBox.Show(string.Format(Resources.TheFilePattern0IsNotAValidRegularExpression12, pattern, Environment.NewLine, msg),
+                        MessageBox.Show(TranslationSource.Format(Resources.TheFilePattern0IsNotAValidRegularExpression12, pattern, Environment.NewLine, msg),
                             Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                         return false;
                     }
@@ -1584,7 +1585,7 @@ namespace dnGREP.WPF
                     string msg = ValidateRegex(pattern);
                     if (!string.IsNullOrWhiteSpace(msg))
                     {
-                        MessageBox.Show(string.Format(Resources.TheFilePattern0IsNotAValidRegularExpression12, pattern, Environment.NewLine, msg),
+                        MessageBox.Show(TranslationSource.Format(Resources.TheFilePattern0IsNotAValidRegularExpression12, pattern, Environment.NewLine, msg),
                             Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                         return false;
                     }
@@ -1958,7 +1959,7 @@ namespace dnGREP.WPF
                             }
                             else
                             {
-                                message = string.Format(Resources.ThisBookmarkIsAssociatedWith0OtherFolders, count) +
+                                message = TranslationSource.Format(Resources.ThisBookmarkIsAssociatedWith0OtherFolders, count) +
                                     Environment.NewLine + Resources.ClearingThisBookmarkWillAlsoRemoveThoseBookmarks;
 
                             }
@@ -2040,7 +2041,7 @@ namespace dnGREP.WPF
                             // without a common base path, copy all files to a single directory 
                             count = Utils.CopyFiles(fileList, destinationFolder, OverwriteFile.Prompt);
                         }
-                        MessageBox.Show(string.Format(Resources.CountFilesHaveBeenSuccessfullyCopied, count),
+                        MessageBox.Show(TranslationSource.Format(Resources.CountFilesHaveBeenSuccessfullyCopied, count),
                             Resources.DnGrep + "  " + Resources.CopyFiles,
                             MessageBoxButton.OK, MessageBoxImage.Information);
                     }
@@ -2086,7 +2087,7 @@ namespace dnGREP.WPF
                             // without a common base path, move all files to a single directory 
                             count = Utils.MoveFiles(fileList, destinationFolder, OverwriteFile.Prompt);
                         }
-                        MessageBox.Show(string.Format(Resources.CountFilesHaveBeenSuccessfullyMoved, count),
+                        MessageBox.Show(TranslationSource.Format(Resources.CountFilesHaveBeenSuccessfullyMoved, count),
                             Resources.DnGrep + "  " + Resources.MoveFiles, MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                     catch (Exception ex)
@@ -2116,7 +2117,7 @@ namespace dnGREP.WPF
                     }
 
                     int count = Utils.DeleteFiles(SearchResults.GetList());
-                    MessageBox.Show(string.Format(Resources.CountFilesHaveBeenSuccessfullyDeleted, count),
+                    MessageBox.Show(TranslationSource.Format(Resources.CountFilesHaveBeenSuccessfullyDeleted, count),
                         Resources.DnGrep + "  " + Resources.DeleteFiles, MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
@@ -2324,7 +2325,7 @@ namespace dnGREP.WPF
 
             options.Clear();
             if (!IncludeSubfolder || (IncludeSubfolder && MaxSubfolderDepth == 0)) options.Add(Resources.NoSubfolders);
-            if (IncludeSubfolder && MaxSubfolderDepth > 0) options.Add(string.Format(Resources.MaxFolderDepth, MaxSubfolderDepth));
+            if (IncludeSubfolder && MaxSubfolderDepth > 0) options.Add(TranslationSource.Format(Resources.MaxFolderDepth, MaxSubfolderDepth));
             if (!IncludeHidden) options.Add(Resources.NoHiddenFiles);
             if (!IncludeBinary) options.Add(Resources.NoBinaryFiles);
             if (!IncludeArchive) options.Add(Resources.NoArchives);
@@ -2390,7 +2391,7 @@ namespace dnGREP.WPF
                             string currentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
                             if (PublishedVersionExtractor.IsUpdateNeeded(currentVersion, version))
                             {
-                                if (MessageBox.Show(string.Format(Resources.NewVersionOfDnGREP0IsAvailableForDownload, version) +
+                                if (MessageBox.Show(TranslationSource.Format(Resources.NewVersionOfDnGREP0IsAvailableForDownload, version) +
                                     Environment.NewLine + Resources.WouldYouLikeToDownloadItNow,
                                     Resources.DnGrep + "  " + Resources.NewVersion, MessageBoxButton.YesNo, MessageBoxImage.Information) == MessageBoxResult.Yes)
                                 {

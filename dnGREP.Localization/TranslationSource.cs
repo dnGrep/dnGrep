@@ -36,7 +36,7 @@ namespace dnGREP.Localization
 
         public string this[string key] => Properties.Resources.ResourceManager.GetString(key, currentCulture) ?? $"#{key}";
 
-        private CultureInfo currentCulture = CultureInfo.GetCultureInfoByIetfLanguageTag("en-US");
+        private CultureInfo currentCulture = CultureInfo.GetCultureInfoByIetfLanguageTag("en");
         public CultureInfo CurrentCulture
         {
             get { return currentCulture; }
@@ -69,6 +69,18 @@ namespace dnGREP.Localization
                 return true;
             }
             return false;
+        }
+
+        public static string Format(string format, params object[] args)
+        {
+            try
+            {
+                return string.Format(CultureInfo.CurrentCulture, format, args);
+            }
+            catch (FormatException)
+            {
+                return "Missing placeholder {?}: " + format;
+            }
         }
     }
 

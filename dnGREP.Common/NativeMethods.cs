@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
+using dnGREP.Localization;
 using NLog;
 using Resources = dnGREP.Localization.Properties.Resources;
 
@@ -116,7 +117,7 @@ namespace dnGREP.Common
                         string msg = Resources.ErrorSettingClipboardTextTheClipboardIsLockedBy + Environment.NewLine;
                         msg += (process.MainModule != null && !string.IsNullOrEmpty(process.MainModule.FileName) ?
                             process.MainModule.FileName : process.ProcessName) + Environment.NewLine +
-                            string.Format(Resources.WindowTitleIsName, process.MainWindowTitle);
+                            TranslationSource.Format(Resources.WindowTitleIsName, process.MainWindowTitle);
                         logger.Error(msg);
                         System.Windows.MessageBox.Show(msg, Resources.DnGrep,
                             System.Windows.MessageBoxButton.OK,

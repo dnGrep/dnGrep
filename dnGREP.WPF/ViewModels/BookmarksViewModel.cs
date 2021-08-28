@@ -7,6 +7,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using dnGREP.Common;
 using dnGREP.Everything;
+using dnGREP.Localization;
 using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
@@ -460,7 +461,7 @@ namespace dnGREP.WPF
             if (!IncludeSubfolders || (IncludeSubfolders && MaxSubfolderDepth == 0))
                 tempList.Add(Resources.NoSubfolders);
             if (IncludeSubfolders && MaxSubfolderDepth > 0)
-                tempList.Add(string.Format(Resources.MaxFolderDepth, MaxSubfolderDepth));
+                tempList.Add(TranslationSource.Format(Resources.MaxFolderDepth, MaxSubfolderDepth));
             if (!IncludeHidden)
                 tempList.Add(Resources.NoHidden);
             if (!IncludeBinary)

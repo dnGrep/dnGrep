@@ -590,6 +590,9 @@ Arguments:
   <data name="EverythingSearch" xml:space="preserve">
     <value>Everything search:</value>
   </data>
+  <data name="ExcelSheetName" xml:space="preserve">
+    <value>Sheet [{0}]</value>
+  </data>
   <data name="ExcludeFilesByTypeAndFoldersByName" xml:space="preserve">
     <value>Exclude files by type and folders by name</value>
   </data>

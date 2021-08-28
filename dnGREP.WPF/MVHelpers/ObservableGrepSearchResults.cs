@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using dnGREP.Common;
 using dnGREP.Common.UI;
+using dnGREP.Localization;
 using dnGREP.Localization.Properties;
 using dnGREP.WPF.MVHelpers;
 using dnGREP.WPF.UserControls;
@@ -588,7 +589,7 @@ namespace dnGREP.WPF
                 {
                     var lineCount = GrepResult.Matches.Where(r => r.LineNumber > 0)
                        .Select(r => r.LineNumber).Distinct().Count();
-                    displayedName = string.Format(Resources.CountMatchesOnLines, displayedName, matchCount, lineCount);
+                    displayedName = TranslationSource.Format(Resources.CountMatchesOnLines, displayedName, matchCount, lineCount);
                 }
                 else
                 {
@@ -862,7 +863,7 @@ namespace dnGREP.WPF
                 }
                 if (line.LineText.Length > MaxLineLength)
                 {
-                    string msg = string.Format(Resources.CountAdditionalCharacters, line.LineText.Length - MaxLineLength);
+                    string msg = TranslationSource.Format(Resources.CountAdditionalCharacters, line.LineText.Length - MaxLineLength);
 
                     var msgRun = new Run(msg);
                     msgRun.SetResourceReference(Run.ForegroundProperty, "TreeView.Message.Highlight.Foreground");
@@ -892,13 +893,13 @@ namespace dnGREP.WPF
                             if (m.StartLocation + m.Length == line.LineText.Length)
                                 paragraph.Inlines.Add(new Run(" " + Resources.AtEndOfLine));
                             else
-                                paragraph.Inlines.Add(new Run(" " + string.Format(Resources.AtPosition, m.StartLocation)));
+                                paragraph.Inlines.Add(new Run(" " + TranslationSource.Format(Resources.AtPosition, m.StartLocation)));
                         }
                     }
 
                     if (count > takeCount)
                     {
-                        paragraph.Inlines.Add(new Run(string.Format(Resources.PlusCountMoreMatches, count - takeCount)));
+                        paragraph.Inlines.Add(new Run(TranslationSource.Format(Resources.PlusCountMoreMatches, count - takeCount)));
                     }
                 }
             }
@@ -918,7 +919,7 @@ namespace dnGREP.WPF
                 {
                     run.SetResourceReference(Run.ForegroundProperty, "Match.Highlight.Foreground");
                     run.SetResourceReference(Run.BackgroundProperty, "Match.Highlight.Background");
-                    run.ToolTip = string.Format(Resources.MatchToolTip1, Parent.MatchIdx, Environment.NewLine, fmtLine);
+                    run.ToolTip = TranslationSource.Format(Resources.MatchToolTip1, Parent.MatchIdx, Environment.NewLine, fmtLine);
                     paragraph.Inlines.Add(run);
                 }
                 else
@@ -931,7 +932,7 @@ namespace dnGREP.WPF
                     }
                     run.SetResourceReference(Run.ForegroundProperty, "Match.Highlight.Foreground");
                     run.SetResourceReference(Run.BackgroundProperty, bgColor);
-                    run.ToolTip = string.Format(Resources.MatchToolTip2,
+                    run.ToolTip = TranslationSource.Format(Resources.MatchToolTip2,
                         Parent.MatchIdx, Environment.NewLine, range.Group.Name, range.Group.Value);
                     paragraph.Inlines.Add(run);
                 }

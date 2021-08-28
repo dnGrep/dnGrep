@@ -77,8 +77,8 @@ namespace dnGREP.WPF
                 {
                     var lineCount = item.Matches.Where(r => r.LineNumber > 0)
                        .Select(r => r.LineNumber).Distinct().Count();
-                    label = $"{item.FileNameReal}  ({matchCount.ToString("N0", CultureInfo.CurrentUICulture)} " +
-                        Resources.MatchesOn + $" {lineCount.ToString("N0", CultureInfo.CurrentUICulture)} " + 
+                    label = $"{item.FileNameReal}  ({matchCount.ToString("N0", CultureInfo.CurrentCulture)} " +
+                        Resources.MatchesOn + $" {lineCount.ToString("N0", CultureInfo.CurrentCulture)} " + 
                         Resources.Lines + ")";
                 }
 

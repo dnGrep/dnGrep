@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using dnGREP.Common;
+using dnGREP.Localization;
 
 namespace dnGREP.WPF
 {
@@ -405,9 +406,9 @@ namespace dnGREP.WPF
         public string GetHelpString()
         {
             string assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            string buildDate = AboutViewModel.GetLinkerTime(Assembly.GetExecutingAssembly()).ToString(CultureInfo.CurrentUICulture);
+            string buildDate = AboutViewModel.GetLinkerTime(Assembly.GetExecutingAssembly()).ToString(CultureInfo.CurrentCulture);
 
-            return string.Format(dnGREP.Localization.Properties.Resources.CmdLine_Help,
+            return TranslationSource.Format(Localization.Properties.Resources.CmdLine_Help,
                 assemblyVersion, buildDate);
         }
     }

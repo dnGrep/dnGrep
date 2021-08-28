@@ -120,6 +120,10 @@
       <Name>dnGREP.Engines</Name>
       <Private>False</Private>
     </ProjectReference>
+    <ProjectReference Include="..\dnGREP.Localization\dnGREP.Localization.csproj">
+      <Project>{8ce89f78-57c4-48df-9473-e70ab05dc986}</Project>
+      <Name>dnGREP.Localization</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="dnGREP.Engines.OpenXml.plugin">
