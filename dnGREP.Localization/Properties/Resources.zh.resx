@@ -443,6 +443,9 @@ Arguments:
   <data name="CustomEditorFileOpenError" xml:space="preserve">
     <value>There was an error opening file by custom editor.</value>
   </data>
+  <data name="CustomEditorHelp" xml:space="preserve">
+    <value>Use keywords '{0}' for file location, '{1}' for the line number, '{2}' for the search pattern, '{3}' for the first matched text on the line, and '{4}' for the column number of the first match on the line.</value>
+  </data>
   <data name="DateModified" xml:space="preserve">
     <value>Date Modified:</value>
   </data>
@@ -505,39 +508,6 @@ Arguments:
   </data>
   <data name="Edit_" xml:space="preserve">
     <value>_Edit</value>
-  </data>
-  <data name="Editor01_UseKeywords" xml:space="preserve">
-    <value>Use keywords</value>
-  </data>
-  <data name="Editor02_File" xml:space="preserve">
-    <value>%file</value>
-  </data>
-  <data name="Editor03_ForFileLocation" xml:space="preserve">
-    <value>for file location,</value>
-  </data>
-  <data name="Editor04_Line" xml:space="preserve">
-    <value>%line</value>
-  </data>
-  <data name="Editor05_ForTheLineNumber" xml:space="preserve">
-    <value>for the line number,</value>
-  </data>
-  <data name="Editor06_Pattern" xml:space="preserve">
-    <value>%pattern</value>
-  </data>
-  <data name="Editor07_ForTheSearchPattern" xml:space="preserve">
-    <value>for the search pattern,</value>
-  </data>
-  <data name="Editor08_Match" xml:space="preserve">
-    <value>%match</value>
-  </data>
-  <data name="Editor09_OrTheFirstMatchedTextOnTheLineAnd" xml:space="preserve">
-    <value>or the first matched text on the line, and </value>
-  </data>
-  <data name="Editor10_Column" xml:space="preserve">
-    <value>%column</value>
-  </data>
-  <data name="Editor11_ForTheColumnNumberOfFirstMatchOnTheLine" xml:space="preserve">
-    <value>for the column number of first match on the line</value>
   </data>
   <data name="Ellipsis" xml:space="preserve">
     <value>...</value>
@@ -607,6 +577,9 @@ Arguments:
   </data>
   <data name="FileNotFoundHasItBeenDeletedOrMoved" xml:space="preserve">
     <value>[File not found: has it been deleted or moved?]</value>
+  </data>
+  <data name="FileNumberOfCountName" xml:space="preserve">
+    <value>File {0} of {1}: {2}</value>
   </data>
   <data name="FilePattern" xml:space="preserve">
     <value>File pattern:</value>
@@ -1043,6 +1016,18 @@ Arguments:
   <data name="ReplaceInFile_" xml:space="preserve">
     <value>Replace in File</value>
   </data>
+  <data name="ReplaceKey1_Text" xml:space="preserve">
+    <value>text</value>
+  </data>
+  <data name="ReplaceKey2_SelectedMatch" xml:space="preserve">
+    <value>Selected Match</value>
+  </data>
+  <data name="ReplaceKey3_ReplaceMatch" xml:space="preserve">
+    <value>Replace Match</value>
+  </data>
+  <data name="ReplaceKey4_SkipMatch" xml:space="preserve">
+    <value>Skip Match</value>
+  </data>
   <data name="ReplaceMatchesMarkedForReplacement" xml:space="preserve">
     <value>Replace matches marked for replacement</value>
   </data>
@@ -1102,24 +1087,6 @@ Arguments:
   </data>
   <data name="ResultsOptions" xml:space="preserve">
     <value>Results Options</value>
-  </data>
-  <data name="RplA1_File" xml:space="preserve">
-    <value>File</value>
-  </data>
-  <data name="RplA2_Of" xml:space="preserve">
-    <value>of</value>
-  </data>
-  <data name="RplB1_Text" xml:space="preserve">
-    <value>text</value>
-  </data>
-  <data name="RplB2_SelectedMatch" xml:space="preserve">
-    <value>Selected Match</value>
-  </data>
-  <data name="RplB3_ReplaceMatch" xml:space="preserve">
-    <value>Replace Match</value>
-  </data>
-  <data name="RplB4_SkipMatch" xml:space="preserve">
-    <value>Skip Match</value>
   </data>
   <data name="RunDnGrepAsAdministrator" xml:space="preserve">
     <value>Run dnGrep as Administrator to change showing dnGrep in Explorer right-click menu</value>

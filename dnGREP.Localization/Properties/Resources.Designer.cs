@@ -776,6 +776,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use keywords &apos;{0}&apos; for file location, &apos;{1}&apos; for the line number, &apos;{2}&apos; for the search pattern, &apos;{3}&apos; for the first matched text on the line, and &apos;{4}&apos; for the column number of the first match on the line..
+        /// </summary>
+        public static string CustomEditorHelp {
+            get {
+                return ResourceManager.GetString("CustomEditorHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date Modified:.
         /// </summary>
         public static string DateModified {
@@ -983,105 +992,6 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use keywords.
-        /// </summary>
-        public static string Editor01_UseKeywords {
-            get {
-                return ResourceManager.GetString("Editor01_UseKeywords", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to %file.
-        /// </summary>
-        public static string Editor02_File {
-            get {
-                return ResourceManager.GetString("Editor02_File", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to for file location,.
-        /// </summary>
-        public static string Editor03_ForFileLocation {
-            get {
-                return ResourceManager.GetString("Editor03_ForFileLocation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to %line.
-        /// </summary>
-        public static string Editor04_Line {
-            get {
-                return ResourceManager.GetString("Editor04_Line", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to for the line number,.
-        /// </summary>
-        public static string Editor05_ForTheLineNumber {
-            get {
-                return ResourceManager.GetString("Editor05_ForTheLineNumber", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to %pattern.
-        /// </summary>
-        public static string Editor06_Pattern {
-            get {
-                return ResourceManager.GetString("Editor06_Pattern", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to for the search pattern,.
-        /// </summary>
-        public static string Editor07_ForTheSearchPattern {
-            get {
-                return ResourceManager.GetString("Editor07_ForTheSearchPattern", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to %match.
-        /// </summary>
-        public static string Editor08_Match {
-            get {
-                return ResourceManager.GetString("Editor08_Match", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to or the first matched text on the line, and .
-        /// </summary>
-        public static string Editor09_OrTheFirstMatchedTextOnTheLineAnd {
-            get {
-                return ResourceManager.GetString("Editor09_OrTheFirstMatchedTextOnTheLineAnd", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to %column.
-        /// </summary>
-        public static string Editor10_Column {
-            get {
-                return ResourceManager.GetString("Editor10_Column", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to for the column number of first match on the line.
-        /// </summary>
-        public static string Editor11_ForTheColumnNumberOfFirstMatchOnTheLine {
-            get {
-                return ResourceManager.GetString("Editor11_ForTheColumnNumberOfFirstMatchOnTheLine", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to ....
         /// </summary>
         public static string Ellipsis {
@@ -1285,6 +1195,15 @@ namespace dnGREP.Localization.Properties {
         public static string FileNotFoundHasItBeenDeletedOrMoved {
             get {
                 return ResourceManager.GetString("FileNotFoundHasItBeenDeletedOrMoved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File {0} of {1}: {2}.
+        /// </summary>
+        public static string FileNumberOfCountName {
+            get {
+                return ResourceManager.GetString("FileNumberOfCountName", resourceCulture);
             }
         }
         
@@ -2612,6 +2531,42 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to text.
+        /// </summary>
+        public static string ReplaceKey1_Text {
+            get {
+                return ResourceManager.GetString("ReplaceKey1_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Selected Match.
+        /// </summary>
+        public static string ReplaceKey2_SelectedMatch {
+            get {
+                return ResourceManager.GetString("ReplaceKey2_SelectedMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace Match.
+        /// </summary>
+        public static string ReplaceKey3_ReplaceMatch {
+            get {
+                return ResourceManager.GetString("ReplaceKey3_ReplaceMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skip Match.
+        /// </summary>
+        public static string ReplaceKey4_SkipMatch {
+            get {
+                return ResourceManager.GetString("ReplaceKey4_SkipMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Replace matches marked for replacement.
         /// </summary>
         public static string ReplaceMatchesMarkedForReplacement {
@@ -2788,60 +2743,6 @@ namespace dnGREP.Localization.Properties {
         public static string ResultsOptions {
             get {
                 return ResourceManager.GetString("ResultsOptions", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to File.
-        /// </summary>
-        public static string RplA1_File {
-            get {
-                return ResourceManager.GetString("RplA1_File", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to of.
-        /// </summary>
-        public static string RplA2_Of {
-            get {
-                return ResourceManager.GetString("RplA2_Of", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to text.
-        /// </summary>
-        public static string RplB1_Text {
-            get {
-                return ResourceManager.GetString("RplB1_Text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Selected Match.
-        /// </summary>
-        public static string RplB2_SelectedMatch {
-            get {
-                return ResourceManager.GetString("RplB2_SelectedMatch", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Replace Match.
-        /// </summary>
-        public static string RplB3_ReplaceMatch {
-            get {
-                return ResourceManager.GetString("RplB3_ReplaceMatch", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Skip Match.
-        /// </summary>
-        public static string RplB4_SkipMatch {
-            get {
-                return ResourceManager.GetString("RplB4_SkipMatch", resourceCulture);
             }
         }
         

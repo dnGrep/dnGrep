@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using dnGREP.Common;
+using dnGREP.Localization;
 using dnGREP.Localization.Properties;
 using ICSharpCode.AvalonEdit.Highlighting;
 
@@ -297,6 +298,27 @@ namespace dnGREP.WPF
             }
         }
 
+        private string fileStatus;
+        public string FileStatus
+        {
+            get { return fileStatus; }
+            set
+            {
+                if (value == fileStatus)
+                    return;
+
+                fileStatus = value;
+
+                base.OnPropertyChanged(() => FileStatus);
+            }
+        }
+
+        private void FormatFileStatus()
+        {
+            FileStatus = TranslationSource.Format(Resources.FileNumberOfCountName,
+                FileNumber, FileCount, FileLabel);
+        }
+
         private int fileCount = 0;
         public int FileCount
         {
@@ -308,6 +330,7 @@ namespace dnGREP.WPF
 
                 fileCount = value;
                 base.OnPropertyChanged(() => FileCount);
+                FormatFileStatus();
             }
         }
 
@@ -322,6 +345,7 @@ namespace dnGREP.WPF
 
                 fileNumber = value;
                 base.OnPropertyChanged(() => FileNumber);
+                FormatFileStatus();
             }
         }
 
@@ -338,6 +362,7 @@ namespace dnGREP.WPF
 
                 fileLabel = value;
                 base.OnPropertyChanged(() => FileLabel);
+                FormatFileStatus();
             }
         }
 

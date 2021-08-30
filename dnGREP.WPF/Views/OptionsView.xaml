@@ -286,19 +286,8 @@
                                    Text="{l:Loc Key='Arguments'}" />
                         <TextBox Grid.Row="1" Grid.Column="1" Margin="3"
                                  Text="{Binding Path=CustomEditorArgs, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBlock Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Margin="3">
-                            <Run Text="{l:Loc Key='Editor01_UseKeywords'}"/>
-                            <Run FontWeight="Bold" Text="{l:Loc Key='Editor02_File'}"/>
-                            <Run Text="{l:Loc Key='Editor03_ForFileLocation'}"/>
-                            <Run FontWeight="Bold" Text="{l:Loc Key='Editor04_Line'}"/>
-                            <Run Text="{l:Loc Key='Editor05_ForTheLineNumber'}"/>
-                            <Run FontWeight="Bold" Text="{l:Loc Key='Editor06_Pattern'}"/>
-                            <Run Text="{l:Loc Key='Editor07_ForTheSearchPattern'}"/>
-                            <Run FontWeight="Bold" Text="{l:Loc Key='Editor08_Match'}"/>
-                            <Run Text="{l:Loc Key='Editor09_OrTheFirstMatchedTextOnTheLineAnd'}"/>
-                            <Run FontWeight="Bold" Text="{l:Loc Key='Editor10_Column'}"/>
-                            <Run Text="{l:Loc Key='Editor11_ForTheColumnNumberOfFirstMatchOnTheLine'}"/>
-                        </TextBlock>
+                        <TextBlock Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Margin="3"
+                                   Text="{Binding CustomEditorHelp}"/>
                     </Grid>
                 </GroupBox>
 

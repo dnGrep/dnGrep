@@ -36,11 +36,22 @@ namespace dnGREP.WPF
             {
                 CurrentTheme = AppTheme.Instance.CurrentThemeName;
             };
+
+            TranslationSource.Instance.CurrentCultureChanged += (s, e) =>
+            {
+                CustomEditorHelp = TranslationSource.Format(Resources.CustomEditorHelp,
+                    File, Line, Pattern, Match, Column);
+            };
         }
 
         #region Private Variables and Properties
         private static readonly string SHELL_KEY_NAME = "dnGREP";
         private static readonly string SHELL_MENU_TEXT = "dnGREP...";
+        private const string File = "%file";
+        private const string Line = "%line";
+        private const string Pattern = "%pattern";
+        private const string Match = "%match";
+        private const string Column = "%column";
         private GrepSettings Settings
         {
             get { return GrepSettings.Instance; }
@@ -306,6 +317,20 @@ namespace dnGREP.WPF
                 customEditorArgs = value;
 
                 base.OnPropertyChanged(() => CustomEditorArgs);
+            }
+        }
+
+        private string customEditorHelp;
+        public string CustomEditorHelp
+        {
+            get { return customEditorHelp; }
+            set
+            {
+                if (value == customEditorHelp)
+                    return;
+
+                customEditorHelp = value;
+                base.OnPropertyChanged(() => CustomEditorHelp);
             }
         }
 
@@ -967,6 +992,9 @@ namespace dnGREP.WPF
                 ValueOrDefault(GrepSettings.Key.ReplaceFormFontSize, SystemFonts.MessageFontSize);
             DialogFontSize = EditDialogFontSize =
                 ValueOrDefault(GrepSettings.Key.DialogFontSize, SystemFonts.MessageFontSize);
+
+            CustomEditorHelp = TranslationSource.Format(Resources.CustomEditorHelp,
+                File, Line, Pattern, Match, Column);
 
             // current values may not equal the saved settings value
             CurrentTheme = AppTheme.Instance.CurrentThemeName;

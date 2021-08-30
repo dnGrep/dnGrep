@@ -110,15 +110,9 @@
                     </Grid.ColumnDefinitions>
 
                     <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                               Margin="3,8,3,3" FontWeight="Medium">
-                        <Run Text="{l:Loc Key='RplA1_File'}" />
-                        <Run Text="{Binding FileNumber, FallbackValue=0}" />
-                        <Run Text="{l:Loc Key='RplA2_Of'}" />
-                        <Run Text="{Binding FileCount, FallbackValue=6}" />
-                        <Run Text="{l:Loc Key='Colon'}" />
-                        <Run/>
-                        <Run Text="{Binding FileLabel}" />
-                    </TextBlock>
+                               Margin="3,8,3,3" FontWeight="Medium"
+                               Text="{Binding FileStatus}"/>
+
                     <ProgressBar Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                                  Margin="6"
                                  Maximum="{Binding FileCount}"
@@ -204,17 +198,17 @@
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="24,1,3,1" Padding="2" VerticalAlignment="Center"
-                                   Text="{l:Loc Key='RplB1_Text'}" TextDecorations="Underline"
+                                   Text="{l:Loc Key='ReplaceKey1_Text'}" TextDecorations="Underline"
                                    Background="{DynamicResource Match.Skip.Background}"
                                    Foreground="{DynamicResource Match.Skip.Foreground}"
                                    FontFamily="Consolas" />
-                        <TextBlock Text="{l:Loc Key='RplB2_SelectedMatch'}" />
+                        <TextBlock Text="{l:Loc Key='ReplaceKey2_SelectedMatch'}" />
                         <Rectangle Width="40" Height="18" Margin="24,0,3,0"
                                    Fill="{DynamicResource Match.Replace.Background}" />
-                        <TextBlock Text="{l:Loc Key='RplB3_ReplaceMatch'}" />
+                        <TextBlock Text="{l:Loc Key='ReplaceKey3_ReplaceMatch'}" />
                         <Rectangle Width="40" Height="18" Margin="24,0,3,0"
                                    Fill="{DynamicResource Match.Skip.Background}" />
-                        <TextBlock Text="{l:Loc Key='RplB4_SkipMatch'}" />
+                        <TextBlock Text="{l:Loc Key='ReplaceKey4_SkipMatch'}" />
                     </StackPanel>
                 </StackPanel>
             </GroupBox>
