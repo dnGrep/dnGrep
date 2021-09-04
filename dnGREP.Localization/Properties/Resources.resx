@@ -785,6 +785,9 @@ Arguments:
     <value>_Help</value>
     <comment>Main window main menu</comment>
   </data>
+  <data name="HelpTranslateDnGrep" xml:space="preserve">
+    <value>Help translate dnGrep.</value>
+  </data>
   <data name="HideResultOptions" xml:space="preserve">
     <value>Hide result options</value>
     <comment>Main window, result options expander button tooltip (bottom of window)</comment>
@@ -1289,6 +1292,22 @@ Arguments:
     <value>Replace in File</value>
     <comment>Replace window label</comment>
   </data>
+  <data name="ReplaceKey1_Text" xml:space="preserve">
+    <value>text</value>
+    <comment>Replace window label</comment>
+  </data>
+  <data name="ReplaceKey2_SelectedMatch" xml:space="preserve">
+    <value>Selected Match</value>
+    <comment>Replace window label</comment>
+  </data>
+  <data name="ReplaceKey3_ReplaceMatch" xml:space="preserve">
+    <value>Replace Match</value>
+    <comment>Replace window label</comment>
+  </data>
+  <data name="ReplaceKey4_SkipMatch" xml:space="preserve">
+    <value>Skip Match</value>
+    <comment>Replace window label</comment>
+  </data>
   <data name="ReplaceMatchesMarkedForReplacement" xml:space="preserve">
     <value>Replace matches marked for replacement</value>
     <comment>Replace window label</comment>
@@ -1368,22 +1387,6 @@ Arguments:
   <data name="ResultsOptions" xml:space="preserve">
     <value>Results Options</value>
     <comment>Options dialog label</comment>
-  </data>
-  <data name="ReplaceKey1_Text" xml:space="preserve">
-    <value>text</value>
-    <comment>Replace window label</comment>
-  </data>
-  <data name="ReplaceKey2_SelectedMatch" xml:space="preserve">
-    <value>Selected Match</value>
-    <comment>Replace window label</comment>
-  </data>
-  <data name="ReplaceKey3_ReplaceMatch" xml:space="preserve">
-    <value>Replace Match</value>
-    <comment>Replace window label</comment>
-  </data>
-  <data name="ReplaceKey4_SkipMatch" xml:space="preserve">
-    <value>Skip Match</value>
-    <comment>Replace window label</comment>
   </data>
   <data name="RunDnGrepAsAdministrator" xml:space="preserve">
     <value>Run dnGrep as Administrator to change showing dnGrep in Explorer right-click menu</value>
@@ -1872,6 +1875,9 @@ Arguments:
   <data name="Version" xml:space="preserve">
     <value>Version</value>
     <comment>About dialog label</comment>
+  </data>
+  <data name="WantADifferentLanguage" xml:space="preserve">
+    <value>Want a different language?</value>
   </data>
   <data name="WholeWord" xml:space="preserve">
     <value>Whole word</value>

@@ -22,7 +22,7 @@ namespace dnGREP.Localization
             new Dictionary<string, string>
             {
                 { "en", Properties.Resources.Language_English },
-                { "zh", Properties.Resources.Language_Chinese },
+                //{ "zh", Properties.Resources.Language_Chinese },
             };
 
         public void SetCulture(string ietfLanguateTag)

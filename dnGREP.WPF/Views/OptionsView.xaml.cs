@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using System.Windows.Navigation;
 
 namespace dnGREP.WPF
 {
@@ -40,6 +41,10 @@ namespace dnGREP.WPF
                     return false;
             }
             return true;
+        }
+        private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            System.Diagnostics.Process.Start(e.Uri.ToString());
         }
     }
 }

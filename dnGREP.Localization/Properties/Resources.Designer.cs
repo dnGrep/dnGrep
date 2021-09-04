@@ -1370,6 +1370,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Help translate dnGrep..
+        /// </summary>
+        public static string HelpTranslateDnGrep {
+            get {
+                return ResourceManager.GetString("HelpTranslateDnGrep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hide result options.
         /// </summary>
         public static string HideResultOptions {
@@ -3814,6 +3823,15 @@ namespace dnGREP.Localization.Properties {
         public static string Version {
             get {
                 return ResourceManager.GetString("Version", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Want a different language?.
+        /// </summary>
+        public static string WantADifferentLanguage {
+            get {
+                return ResourceManager.GetString("WantADifferentLanguage", resourceCulture);
             }
         }
         

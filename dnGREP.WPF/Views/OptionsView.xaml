@@ -131,22 +131,31 @@
                 </GroupBox>
 
                 <GroupBox Header="{l:Loc Key='Language'}">
-                    <StackPanel Orientation="Horizontal">
-                        <ComboBox Margin="6,3"
-                                  ItemsSource="{Binding Path=CultureNames}"
-                                  SelectedValuePath="Key"
-                                  DisplayMemberPath="Value"
-                                  SelectedValue="{Binding Path=CurrentCulture, Mode=TwoWay}">
-                            <ComboBox.Width>
-                                <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="250" FallbackValue="250">
-                                    <Binding RelativeSource="{RelativeSource Mode=Self}"/>
-                                    <Binding Path="ApplicationFontFamily"/>
-                                    <Binding Path="DialogFontSize"/>
-                                </MultiBinding>
-                            </ComboBox.Width>
-                        </ComboBox>
-                        <Button Margin="6,3" Padding="12,3" Content="{l:Loc Key='LoadFromFile_'}"
-                                    Command="{Binding LoadResxCommand}" />
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <ComboBox Margin="3,3"
+                                      ItemsSource="{Binding Path=CultureNames}"
+                                      SelectedValuePath="Key"
+                                      DisplayMemberPath="Value"
+                                      SelectedValue="{Binding Path=CurrentCulture, Mode=TwoWay}">
+                                <ComboBox.Width>
+                                    <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="250" FallbackValue="250">
+                                        <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                        <Binding Path="ApplicationFontFamily"/>
+                                        <Binding Path="DialogFontSize"/>
+                                    </MultiBinding>
+                                </ComboBox.Width>
+                            </ComboBox>
+                            <Button Margin="6,3" Padding="12,3" Content="{l:Loc Key='LoadFromFile_'}"
+                                        Command="{Binding LoadResxCommand}" />
+                        </StackPanel>
+                        <TextBlock>
+                            <Run Text="{l:Loc Key='WantADifferentLanguage'}"/>
+                            <Hyperlink NavigateUri="https://github.com/dnGrep/dnGrep/discussions/538" 
+                                       RequestNavigate="Hyperlink_RequestNavigate">
+                                <Run Text="{l:Loc Key='HelpTranslateDnGrep'}"/>
+                            </Hyperlink>
+                        </TextBlock>
                     </StackPanel>
                 </GroupBox>
 
