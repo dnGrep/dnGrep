@@ -19,32 +19,16 @@
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\AnyCPU\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <OutputPath>bin\AnyCPU\Release\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>pdbonly</DebugType>
@@ -138,11 +122,11 @@
   -->
   <PropertyGroup>
     <PostBuildEvent>REM Debug setup
-xcopy /Y /R "$(TargetDir)dnGREP.Engines.OpenXml.plugin" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\"
-xcopy /Y /R "$(TargetDir)dnGREP.Engines.OpenXml.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\OpenXmlSearch\"
-xcopy /Y /R "$(TargetDir)dnGREP.Engines.OpenXml.pdb" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\OpenXmlSearch\"
-xcopy /Y /R "$(TargetDir)DocumentFormat.OpenXml.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\OpenXmlSearch\"
-xcopy /Y /R "$(TargetDir)ExcelDataReader.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\OpenXmlSearch\"
-xcopy /Y /R "$(TargetDir)ExcelNumberFormat.dll" "$(SolutionDir)dnGREP.WPF\bin\$(PlatformName)\$(ConfigurationName)\Plugins\OpenXmlSearch\"</PostBuildEvent>
+xcopy /Y /R "$(TargetDir)dnGREP.Engines.OpenXml.plugin" "$(SolutionDir)dnGREP.WPF\bin\$(ConfigurationName)\Plugins\"
+xcopy /Y /R "$(TargetDir)dnGREP.Engines.OpenXml.dll" "$(SolutionDir)dnGREP.WPF\bin\$(ConfigurationName)\Plugins\OpenXmlSearch\"
+xcopy /Y /R "$(TargetDir)dnGREP.Engines.OpenXml.pdb" "$(SolutionDir)dnGREP.WPF\bin\$(ConfigurationName)\Plugins\OpenXmlSearch\"
+xcopy /Y /R "$(TargetDir)DocumentFormat.OpenXml.dll" "$(SolutionDir)dnGREP.WPF\bin\$(ConfigurationName)\Plugins\OpenXmlSearch\"
+xcopy /Y /R "$(TargetDir)ExcelDataReader.dll" "$(SolutionDir)dnGREP.WPF\bin\$(ConfigurationName)\Plugins\OpenXmlSearch\"
+xcopy /Y /R "$(TargetDir)ExcelNumberFormat.dll" "$(SolutionDir)dnGREP.WPF\bin\$(ConfigurationName)\Plugins\OpenXmlSearch\"</PostBuildEvent>
   </PropertyGroup>
 </Project>
