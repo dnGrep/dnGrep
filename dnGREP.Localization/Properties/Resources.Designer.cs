@@ -551,15 +551,6 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to :.
-        /// </summary>
-        public static string Colon {
-            get {
-                return ResourceManager.GetString("Colon", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Combine multiple search patterns using &apos;AND&apos; or &apos;OR&apos;.
         /// </summary>
         public static string CombineMultipleSearchPatternsUsingANDOrOR {
@@ -1199,7 +1190,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File {0} of {1}: {2}.
+        ///   Looks up a localized string similar to File {0} of {1}: {2}  ({3} matches on {4} lines).
         /// </summary>
         public static string FileNumberOfCountName {
             get {
@@ -1586,15 +1577,6 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to lines.
-        /// </summary>
-        public static string Lines {
-            get {
-                return ResourceManager.GetString("Lines", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Load from file....
         /// </summary>
         public static string LoadFromFile_ {
@@ -1654,15 +1636,6 @@ namespace dnGREP.Localization.Properties {
         public static string Matches {
             get {
                 return ResourceManager.GetString("Matches", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to matches on.
-        /// </summary>
-        public static string MatchesOn {
-            get {
-                return ResourceManager.GetString("MatchesOn", resourceCulture);
             }
         }
         
@@ -3323,15 +3296,6 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to *.
-        /// </summary>
-        public static string Star {
-            get {
-                return ResourceManager.GetString("Star", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Startup options.
         /// </summary>
         public static string StartupOptions {
@@ -3503,7 +3467,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There was an error running regex test. See the error log for details: .
+        ///   Looks up a localized string similar to There was an error running the test window. See the error log for details: .
         /// </summary>
         public static string ThereWasAnErrorRunningRegexTest {
             get {
@@ -3571,15 +3535,6 @@ namespace dnGREP.Localization.Properties {
         public static string ThisFileIsEitherBinaryOrTooLargeToPreview {
             get {
                 return ResourceManager.GetString("ThisFileIsEitherBinaryOrTooLargeToPreview", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to those.
-        /// </summary>
-        public static string Those {
-            get {
-                return ResourceManager.GetString("Those", resourceCulture);
             }
         }
         
@@ -3778,15 +3733,6 @@ namespace dnGREP.Localization.Properties {
         public static string UndoWillRevertModifiedFiles {
             get {
                 return ResourceManager.GetString("UndoWillRevertModifiedFiles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unicode.
-        /// </summary>
-        public static string Unicode {
-            get {
-                return ResourceManager.GetString("Unicode", resourceCulture);
             }
         }
         

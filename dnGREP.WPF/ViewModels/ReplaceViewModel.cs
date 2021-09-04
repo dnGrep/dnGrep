@@ -43,7 +43,7 @@ namespace dnGREP.WPF
 
                 SelectedSearchResult = SearchResults[fileIndex];
 
-                FormatLabel();
+                FormatFileStatus();
 
                 matchIndex = -1;
                 SelectNextMatch();
@@ -59,37 +59,44 @@ namespace dnGREP.WPF
 
                 SelectedSearchResult = SearchResults[fileIndex];
 
-                FormatLabel();
+                FormatFileStatus();
 
                 matchIndex = -1;
                 SelectNextMatch();
             }
         }
 
-        private void FormatLabel()
+        private void FormatFileStatus()
         {
-            string label = string.Empty;
-
             var item = SelectedSearchResult;
             if (item != null)
             {
+                string matchStr = string.Empty;
+                string lineStr = string.Empty;
                 int matchCount = item.Matches == null ? 0 : item.Matches.Count;
                 if (matchCount > 0)
                 {
                     var lineCount = item.Matches.Where(r => r.LineNumber > 0)
                        .Select(r => r.LineNumber).Distinct().Count();
-                    label = $"{item.FileNameReal}  ({matchCount.ToString("N0", CultureInfo.CurrentCulture)} " +
-                        Resources.MatchesOn + $" {lineCount.ToString("N0", CultureInfo.CurrentCulture)} " + 
-                        Resources.Lines + ")";
+
+                    matchStr = matchCount.ToString("N0", CultureInfo.CurrentCulture);
+                    lineStr = lineCount.ToString("N0", CultureInfo.CurrentCulture);
                 }
+
+                string formattedText = TranslationSource.Format(Resources.FileNumberOfCountName,
+                   FileNumber, FileCount, item.FileNameReal, matchStr, lineStr);
 
                 if (Utils.IsReadOnly(item))
                 {
-                    label += " " + Resources.ReadOnly;
+                    formattedText += " " + Resources.ReadOnly;
                 }
-            }
 
-            FileLabel = label;
+                FileStatus = formattedText;
+            }
+            else
+            {
+                FileStatus = string.Empty;
+            }
         }
 
         private void SelectNextMatch()
@@ -313,12 +320,6 @@ namespace dnGREP.WPF
             }
         }
 
-        private void FormatFileStatus()
-        {
-            FileStatus = TranslationSource.Format(Resources.FileNumberOfCountName,
-                FileNumber, FileCount, FileLabel);
-        }
-
         private int fileCount = 0;
         public int FileCount
         {
@@ -345,23 +346,6 @@ namespace dnGREP.WPF
 
                 fileNumber = value;
                 base.OnPropertyChanged(() => FileNumber);
-                FormatFileStatus();
-            }
-        }
-
-        private string fileLabel = string.Empty;
-        public string FileLabel
-        {
-            get { return fileLabel; }
-            set
-            {
-                if (fileLabel == value)
-                {
-                    return;
-                }
-
-                fileLabel = value;
-                base.OnPropertyChanged(() => FileLabel);
                 FormatFileStatus();
             }
         }

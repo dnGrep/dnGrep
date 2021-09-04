@@ -2375,7 +2375,7 @@ namespace dnGREP.WPF
             }
             catch (Exception ex)
             {
-                logger.Error(ex, "Error running regex");
+                logger.Error(ex, "Error running test pattern view");
                 MessageBox.Show(Resources.ThereWasAnErrorRunningRegexTest + App.LogDir,
                     Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -2439,7 +2439,7 @@ namespace dnGREP.WPF
             foreach (EncodingInfo ei in Encoding.GetEncodings())
             {
                 Encoding e = ei.GetEncoding();
-                if (e.EncodingName.Contains(Resources.Unicode, StringComparison.OrdinalIgnoreCase))
+                if (e.EncodingName.Contains("Unicode", StringComparison.OrdinalIgnoreCase))
                     tempUni.Add(new KeyValuePair<string, int>(e.EncodingName, e.CodePage));
                 else
                     tempEnc.Add(new KeyValuePair<string, int>(e.EncodingName, e.CodePage));

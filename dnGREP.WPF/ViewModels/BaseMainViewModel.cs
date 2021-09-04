@@ -1308,7 +1308,7 @@ namespace dnGREP.WPF
                     WindowTitle = "dnGREP";
                 else
                     WindowTitle = TranslationSource.Format(Resources.WindowTitle,
-                        SearchFor == null ? Resources.Empty : SearchFor.Replace('\n', ' ').Replace('\r', ' '),
+                        string.IsNullOrEmpty(SearchFor) ? Resources.Empty : SearchFor.Replace('\n', ' ').Replace('\r', ' '),
                         FileOrFolderPath);
             }
 
