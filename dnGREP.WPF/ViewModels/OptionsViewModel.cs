@@ -11,14 +11,16 @@ using System.Windows.Input;
 using System.Windows.Media;
 using dnGREP.Common;
 using dnGREP.Engines;
+using dnGREP.Localization;
 using Microsoft.Win32;
 using NLog;
+using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
 {
     public class OptionsViewModel : ViewModelBase
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         public OptionsViewModel()
         {
@@ -27,16 +29,29 @@ namespace dnGREP.WPF
             foreach (string name in AppTheme.Instance.ThemeNames)
                 ThemeNames.Add(name);
 
+            CultureNames = TranslationSource.Instance.AppCultures.ToArray();
+
             hasWindowsThemes = AppTheme.HasWindowsThemes;
             AppTheme.Instance.CurrentThemeChanged += (s, e) =>
             {
                 CurrentTheme = AppTheme.Instance.CurrentThemeName;
+            };
+
+            TranslationSource.Instance.CurrentCultureChanged += (s, e) =>
+            {
+                CustomEditorHelp = TranslationSource.Format(Resources.CustomEditorHelp,
+                    File, Line, Pattern, Match, Column);
             };
         }
 
         #region Private Variables and Properties
         private static readonly string SHELL_KEY_NAME = "dnGREP";
         private static readonly string SHELL_MENU_TEXT = "dnGREP...";
+        private const string File = "%file";
+        private const string Line = "%line";
+        private const string Pattern = "%pattern";
+        private const string Match = "%match";
+        private const string Column = "%column";
         private GrepSettings Settings
         {
             get { return GrepSettings.Instance; }
@@ -74,6 +89,7 @@ namespace dnGREP.WPF
                     PanelSelection.MainPanel : PanelSelection.OptionsExpander) ||
                 FollowWindowsTheme != Settings.Get<bool>(GrepSettings.Key.FollowWindowsTheme) ||
                 CurrentTheme != Settings.Get<string>(GrepSettings.Key.CurrentTheme) ||
+                CurrentCulture != Settings.Get<string>(GrepSettings.Key.CurrentCulture) ||
                 UseDefaultFont != Settings.Get<bool>(GrepSettings.Key.UseDefaultFont) ||
                 EditApplicationFontFamily != Settings.Get<string>(GrepSettings.Key.ApplicationFontFamily) ||
                 EditMainFormFontSize != Settings.Get<double>(GrepSettings.Key.MainFormFontSize) ||
@@ -83,9 +99,13 @@ namespace dnGREP.WPF
                 ArchiveOptions.IsChanged ||
                 IsChanged(Plugins)
                 )
-                    return true;
+                {
+                    return CurrentCulture != null;
+                }
                 else
+                {
                     return false;
+                }
             }
         }
 
@@ -183,7 +203,7 @@ namespace dnGREP.WPF
 
                 checkForUpdatesInterval = value;
 
-                base.OnPropertyChanged("CheckForUpdatesInterval");
+                base.OnPropertyChanged(nameof(CheckForUpdatesInterval));
             }
         }
 
@@ -212,7 +232,7 @@ namespace dnGREP.WPF
                     return;
 
                 followWindowsTheme = value;
-                OnPropertyChanged("FollowWindowsTheme");
+                OnPropertyChanged(nameof(FollowWindowsTheme));
 
                 AppTheme.Instance.FollowWindowsThemeChanged(followWindowsTheme, CurrentTheme);
 
@@ -231,7 +251,7 @@ namespace dnGREP.WPF
                     return;
 
                 hasWindowsThemes = value;
-                OnPropertyChanged("HasWindowsThemes");
+                OnPropertyChanged(nameof(HasWindowsThemes));
             }
         }
 
@@ -245,13 +265,30 @@ namespace dnGREP.WPF
                     return;
 
                 currentTheme = value;
-                OnPropertyChanged("CurrentTheme");
+                OnPropertyChanged(nameof(CurrentTheme));
 
                 AppTheme.Instance.CurrentThemeName = currentTheme;
             }
         }
 
         public ObservableCollection<string> ThemeNames { get; } = new ObservableCollection<string>();
+
+        private string currentCulture;
+        public string CurrentCulture
+        {
+            get { return currentCulture; }
+            set
+            {
+                if (currentCulture == value)
+                    return;
+
+                currentCulture = value;
+                OnPropertyChanged(nameof(CurrentCulture));
+                TranslationSource.Instance.SetCulture(value);
+            }
+        }
+
+        public KeyValuePair<string, string>[] CultureNames { get;  }
 
         private string customEditorPath;
         public string CustomEditorPath
@@ -280,6 +317,20 @@ namespace dnGREP.WPF
                 customEditorArgs = value;
 
                 base.OnPropertyChanged(() => CustomEditorArgs);
+            }
+        }
+
+        private string customEditorHelp;
+        public string CustomEditorHelp
+        {
+            get { return customEditorHelp; }
+            set
+            {
+                if (value == customEditorHelp)
+                    return;
+
+                customEditorHelp = value;
+                base.OnPropertyChanged(() => CustomEditorHelp);
             }
         }
 
@@ -731,7 +782,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private RelayCommand _browseEditiorCommand;
+        private RelayCommand _browseEditorCommand;
         /// <summary>
         /// Returns a command that opens file browse dialog.
         /// </summary>
@@ -739,13 +790,13 @@ namespace dnGREP.WPF
         {
             get
             {
-                if (_browseEditiorCommand == null)
+                if (_browseEditorCommand == null)
                 {
-                    _browseEditiorCommand = new RelayCommand(
+                    _browseEditorCommand = new RelayCommand(
                         param => BrowseToEditor()
                         );
                 }
-                return _browseEditiorCommand;
+                return _browseEditorCommand;
             }
         }
 
@@ -803,6 +854,24 @@ namespace dnGREP.WPF
             }
         }
 
+        private RelayCommand _loadResxCommand;
+        /// <summary>
+        /// Returns a command that loads an external resx file.
+        /// </summary>
+        public ICommand LoadResxCommand
+        {
+            get
+            {
+                if (_loadResxCommand == null)
+                {
+                    _loadResxCommand = new RelayCommand(
+                        param => LoadResxFile()
+                        );
+                }
+                return _loadResxCommand;
+            }
+        }
+
         private RelayCommand _resetPdfToTextOptionCommand;
         public ICommand ResetPdfToTextOptionCommand
         {
@@ -832,6 +901,22 @@ namespace dnGREP.WPF
         #endregion // Public Methods
 
         #region Private Methods
+
+        private void LoadResxFile()
+        {
+            var dlg = new OpenFileDialog();
+            dlg.Filter = "resx files|*.resx";
+            dlg.CheckFileExists = true;
+            dlg.DefaultExt = "resx";
+            var result = dlg.ShowDialog();
+            if (result.HasValue && result.Value)
+            {
+                if (TranslationSource.Instance.LoadResxFile(dlg.FileName))
+                {
+                    CurrentCulture = null;
+                }
+            }
+        }
 
         public void BrowseToEditor()
         {
@@ -867,11 +952,11 @@ namespace dnGREP.WPF
             CheckIfAdmin();
             if (!IsAdministrator)
             {
-                PanelTooltip = "To change this setting run dnGREP as Administrator.";
+                PanelTooltip = Resources.ToChangeThisSettingRunDnGREPAsAdministrator;
             }
             else
             {
-                WindowsIntegrationTooltip = "Enables starting dnGrep from the Windows Explorer right-click context menu.";
+                WindowsIntegrationTooltip = Resources.EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu;
             }
             EnableWindowsIntegration = IsShellRegistered("Directory");
             EnableRunAtStartup = IsStartupRegistered();
@@ -908,9 +993,13 @@ namespace dnGREP.WPF
             DialogFontSize = EditDialogFontSize =
                 ValueOrDefault(GrepSettings.Key.DialogFontSize, SystemFonts.MessageFontSize);
 
+            CustomEditorHelp = TranslationSource.Format(Resources.CustomEditorHelp,
+                File, Line, Pattern, Match, Column);
+
             // current values may not equal the saved settings value
             CurrentTheme = AppTheme.Instance.CurrentThemeName;
             FollowWindowsTheme = AppTheme.Instance.FollowWindowsTheme;
+            CurrentCulture = TranslationSource.Instance.CurrentCulture.Name;
 
             PdfToTextOptions = Settings.Get<string>(GrepSettings.Key.PdfToTextOptions);
 
@@ -1023,6 +1112,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.OptionsOnMainPanel, OptionsLocation == PanelSelection.MainPanel);
             Settings.Set(GrepSettings.Key.FollowWindowsTheme, FollowWindowsTheme);
             Settings.Set(GrepSettings.Key.CurrentTheme, CurrentTheme);
+            Settings.Set(GrepSettings.Key.CurrentCulture, CurrentCulture);
             Settings.Set(GrepSettings.Key.UseDefaultFont, UseDefaultFont);
             Settings.Set(GrepSettings.Key.ApplicationFontFamily, ApplicationFontFamily);
             Settings.Set(GrepSettings.Key.MainFormFontSize, MainFormFontSize);
@@ -1155,14 +1245,14 @@ namespace dnGREP.WPF
                 catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
                 {
                     IsAdministrator = false;
-                    MessageBox.Show("Run dnGrep as Administrator to change showing dnGrep in Explorer right-click menu",
-                        "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Resources.RunDnGrepAsAdministrator,
+                        Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 catch (Exception ex)
                 {
                     logger.Error(ex, "Failed to register dnGrep with Explorer context menu");
-                    MessageBox.Show("There was an error adding dnGrep to Explorer right-click menu. See the error log for details: " + App.LogDir,
-                        "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Resources.ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu + App.LogDir,
+                        Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -1191,14 +1281,14 @@ namespace dnGREP.WPF
             catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
             {
                 IsAdministrator = false;
-                MessageBox.Show("Run dnGrep as Administrator to change showing dnGrep in Explorer right-click menu",
-                    "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Resources.RunDnGrepAsAdministrator,
+                    Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (Exception ex)
             {
                 logger.Error(ex, "Failed to remove dnGrep from Explorer context menu");
-                MessageBox.Show("There was an error removing dnGrep from the Explorer right-click menu. See the error log for details: " + App.LogDir,
-                    "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Resources.ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu + App.LogDir,
+                    Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -1233,14 +1323,14 @@ namespace dnGREP.WPF
                 }
                 catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
                 {
-                    MessageBox.Show("Run dnGrep as Administrator to change Startup Register",
-                        "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Resources.RunDnGrepAsAdministratorToChangeStartupRegister,
+                        Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 catch (Exception ex)
                 {
                     logger.Error(ex, "Failed to register auto startup");
-                    MessageBox.Show("There was an error registering auto startup. See the error log for details: " + App.LogDir,
-                        "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Resources.ThereWasAnErrorRegisteringAutoStartup + App.LogDir,
+                        Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -1260,14 +1350,14 @@ namespace dnGREP.WPF
                 }
                 catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
                 {
-                    MessageBox.Show("Run dnGrep as Administrator to change Startup Register",
-                        "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Resources.RunDnGrepAsAdministratorToChangeStartupRegister,
+                        Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 catch (Exception ex)
                 {
                     logger.Error(ex, "Failed to unregister auto startup");
-                    MessageBox.Show("There was an error unregistering auto startup. See the error log for details: " + App.LogDir,
-                        "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Resources.ThereWasAnErrorUnregisteringAutoStartup + App.LogDir,
+                        Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }

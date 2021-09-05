@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using dnGREP.Common;
+using dnGREP.Localization;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
@@ -17,6 +18,7 @@ using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
 using File = Alphaleonis.Win32.Filesystem.File;
 using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.Engines.OpenXml
 {
@@ -95,7 +97,7 @@ namespace dnGREP.Engines.OpenXml
                     {
                         GrepSearchResult result = new GrepSearchResult(file, searchPattern, lines, Encoding.Default)
                         {
-                            AdditionalInformation = string.Format(" Sheet [{0}]", kvPair.Key)
+                            AdditionalInformation = " " + TranslationSource.Format(Resources.ExcelSheetName, kvPair.Key)
                         };
                         using (StringReader reader = new StringReader(kvPair.Value))
                         {

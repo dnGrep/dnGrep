@@ -2,9 +2,10 @@
                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:my="clr-namespace:dnGREP.WPF"
+                 xmlns:l="clr-namespace:dnGREP.Localization;assembly=dnGREP.Localization"
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                 Title="Rename File"
+                 Title="{l:Loc Key='RenameFile'}"
                  FontFamily="{Binding ApplicationFontFamily}"
                  FontSize="{Binding DialogFontSize}"
                  Icon="/dnGREP;component/nGREP.ico"
@@ -33,7 +34,7 @@
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Row="0" LastChildFill="True">
-            <TextBlock DockPanel.Dock="Left" Text="New name:" />
+            <TextBlock DockPanel.Dock="Left" Text="{l:Loc Key='NewName'}" />
             <TextBox x:Name="txtName" TextChanged="Name_TextChanged" 
                      Margin="3,10"/>
         </DockPanel>
@@ -42,10 +43,10 @@
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
             <Button x:Name="btnOK" MinWidth="80" Padding="6,3" Margin="3"
-                    Content="OK" IsDefault="True" Click="OK_Click"/>
+                    Content="{l:Loc Key='OK'}" IsDefault="True" Click="OK_Click"/>
 
             <Button x:Name="btnCancel" MinWidth="80" Padding="6,3" Margin="3"
-                    Content="Cancel" IsCancel="True" Click="Cancel_Click"/>
+                    Content="{l:Loc Key='Cancel_'}" IsCancel="True" Click="Cancel_Click"/>
         </StackPanel>
 
     </Grid>

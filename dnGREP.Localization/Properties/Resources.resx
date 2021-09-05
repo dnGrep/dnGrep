@@ -1,0 +1,1934 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About_" xml:space="preserve">
+    <value>_About</value>
+    <comment>Main window main menu</comment>
+  </data>
+  <data name="AboutDnGREP" xml:space="preserve">
+    <value>About dnGREP</value>
+    <comment>About window title</comment>
+  </data>
+  <data name="AboutDnGrep_" xml:space="preserve">
+    <value>_About dnGrep...</value>
+    <comment>Main window main menu</comment>
+  </data>
+  <data name="Acknowledgments" xml:space="preserve">
+    <value>Acknowledgments</value>
+    <comment>About window text</comment>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>Add:</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="Add_" xml:space="preserve">
+    <value>_Add</value>
+    <comment>Bookmarks dialog label</comment>
+  </data>
+  <data name="AdditionalMatches" xml:space="preserve">
+    <value>additional matches:</value>
+    <comment>Main window, search results text</comment>
+  </data>
+  <data name="AddSearchPatternToBookmarks" xml:space="preserve">
+    <value>Add search pattern to bookmarks</value>
+    <comment>Main window, bookmark button tooltip</comment>
+  </data>
+  <data name="After" xml:space="preserve">
+    <value>after</value>
+    <comment>Main window, Options dialog show lines in context</comment>
+  </data>
+  <data name="AllDates_" xml:space="preserve">
+    <value>All dates</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="AllFiles" xml:space="preserve">
+    <value>All files</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="AllowSearchingForFileNamePatternOnly" xml:space="preserve">
+    <value>Allow searching for file name pattern only when 'Search for' is empty</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="AllSizes" xml:space="preserve">
+    <value>All sizes</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="ApplicationFonts" xml:space="preserve">
+    <value>Application Fonts</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="ArchiveOptions" xml:space="preserve">
+    <value>Archive Options</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="AreYouSureYouWantToContinue" xml:space="preserve">
+    <value>Are you sure you want to continue?</value>
+    <comment>Delete files message box</comment>
+  </data>
+  <data name="AreYouSureYouWantToReplaceSearchPatternWithEmptyString" xml:space="preserve">
+    <value>Are you sure you want to replace search pattern with empty string?</value>
+    <comment>Replace text message box</comment>
+  </data>
+  <data name="Arguments" xml:space="preserve">
+    <value>Arguments</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="AssociateBookmarkWithFolder" xml:space="preserve">
+    <value>Associate bookmark with folder</value>
+    <comment>Main window, folder bookmark button tooltip</comment>
+  </data>
+  <data name="AssociatedFolders" xml:space="preserve">
+    <value>Associated Folders:</value>
+    <comment>Bookmark detail dialog label</comment>
+  </data>
+  <data name="AsteriskPattern_" xml:space="preserve">
+    <value>Asterisk pattern</value>
+    <comment>Main window, Bookmark detail dialog label</comment>
+  </data>
+  <data name="AtEndOfLine" xml:space="preserve">
+    <value>(at end of line)</value>
+    <comment>Main window, search results text</comment>
+  </data>
+  <data name="AtPosition" xml:space="preserve">
+    <value>at position {0}</value>
+    <comment>Main window, search results text</comment>
+  </data>
+  <data name="AutoPosition_" xml:space="preserve">
+    <value>Auto Position</value>
+    <comment>Main window docking context menu</comment>
+  </data>
+  <data name="BeforeAnd" xml:space="preserve">
+    <value>before and</value>
+    <comment>Main window, Options dialog show lines in context</comment>
+  </data>
+  <data name="BookmarkDetails" xml:space="preserve">
+    <value>Bookmark Details</value>
+    <comment>Bookmark details dialog title</comment>
+  </data>
+  <data name="Bookmarks" xml:space="preserve">
+    <value>Bookmarks</value>
+    <comment>Bookmarks dialog title</comment>
+  </data>
+  <data name="Bookmarks_" xml:space="preserve">
+    <value>_Bookmarks...</value>
+    <comment>Main window main menu</comment>
+  </data>
+  <data name="BooleanOperators" xml:space="preserve">
+    <value>Boolean operators</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="BooleanOperators_" xml:space="preserve">
+    <value>Boolean operators</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="BrowseForFolderOrFiles" xml:space="preserve">
+    <value>Browse for folder or files</value>
+    <comment>Main window tooltip</comment>
+  </data>
+  <data name="BuiltOn" xml:space="preserve">
+    <value>Built on</value>
+    <comment>About dnGrep dialog</comment>
+  </data>
+  <data name="ByCreatedDate" xml:space="preserve">
+    <value>By Created Date</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="ByModifiedDate" xml:space="preserve">
+    <value>By Modified Date</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="BySize" xml:space="preserve">
+    <value>By Size</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Cancel_" xml:space="preserve">
+    <value>_Cancel</value>
+    <comment>Cancel button label</comment>
+  </data>
+  <data name="CancelAllReplacements" xml:space="preserve">
+    <value>Cancel all replacements</value>
+    <comment>Replace window tooltip</comment>
+  </data>
+  <data name="CaptureGroupSearch_" xml:space="preserve">
+    <value>Capture group search</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="CaseSensitive" xml:space="preserve">
+    <value>Case sensitive</value>
+    <comment>Report search options summary; Bookmarks summary</comment>
+  </data>
+  <data name="CaseSensitive_" xml:space="preserve">
+    <value>C_ase sensitive</value>
+    <comment>Main window, Text window, Bookmark detail label</comment>
+  </data>
+  <data name="ChangesTextEditorZoom" xml:space="preserve">
+    <value>Changes text editor zoom</value>
+    <comment>Replace window tooltip</comment>
+  </data>
+  <data name="ChangesTheResultsTreeZoom" xml:space="preserve">
+    <value>Changes the results tree zoom</value>
+    <comment>Main window tooltip</comment>
+  </data>
+  <data name="CheckEditorPath" xml:space="preserve">
+    <value>Check editor path via "Options...".</value>
+    <comment>Open file failed message box</comment>
+  </data>
+  <data name="CheckForUpdatesWhenWindowsStarts" xml:space="preserve">
+    <value>Check for updates when Windows starts</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="CheckingForUpdates" xml:space="preserve">
+    <value>Checking for updates</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="ClearBookmark" xml:space="preserve">
+    <value>Clear bookmark</value>
+    <comment>Main window, bookmark button tooltip</comment>
+  </data>
+  <data name="ClearingThisBookmarkWillAlsoClearThatBookmark" xml:space="preserve">
+    <value>Clearing this bookmark will also clear that bookmark.</value>
+    <comment>Main window, bookmark button message box</comment>
+  </data>
+  <data name="ClearingThisBookmarkWillAlsoRemoveThoseBookmarks" xml:space="preserve">
+    <value>Clearing this bookmark will also remove those bookmarks.</value>
+    <comment>Main window, bookmark button message box</comment>
+  </data>
+  <data name="ClearOldSearches" xml:space="preserve">
+    <value>Clear old searches</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+    <comment>Main window title bar close button tooltip</comment>
+  </data>
+  <data name="Close_" xml:space="preserve">
+    <value>_Close</value>
+    <comment>Close button text</comment>
+  </data>
+  <data name="CmdLine_Help" xml:space="preserve">
+    <value>dnGrep:  Search through text files, Word and Excel documents, PDFs, and archives using text, regular expression, XPath, and phonetic queries.
+
+Version {0} built on {1}
+
+Usage:
+
+dnGrep [arguments]
+Using any combination of arguments from the list below.
+Example:
+dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex
+
+dnGrep [folderPath] [searchFor]
+One or two arguments without flags: the first argument is the folder to search, the second the regular expression to search for.
+Example:
+dnGrep "C:\Program Files\dnGrep" t\w*t
+
+Any arguments not specified will default to the last saved user settings.
+
+Arguments:
+
+/f [folderPath]
+-f [folderPath]
+-folder [folderPath]
+    Sets the folder path to search.  May be a comma or semi-colon separated list of folder paths.
+
+/pm [pattern]
+-pm [pattern]
+-pathToMatch [pattern]
+    Sets the file name pattern to match files in the search path. May be a comma or semi-colon separated list of patterns.
+
+/pi [pattern]
+-pi [pattern]
+-pathToIgnore [pattern]
+    Sets the file or directory name pattern to exclude files or folders in the search path. May be a comma or semi-colon separated list of patterns.
+
+/pt [type]
+-pt [type]
+-patternType [type]
+    Sets the type of match and ignore pattern - must be one of: Asterisk, Regex, or Everything (if the Everything search tool is installed).
+
+/s [searchFor]
+-s [searchFor]
+-searchFor [searchFor]
+    Sets the pattern or text to search for within the set of files.  When this argument is set, the search will be run automatically.
+
+/st [type]
+-st [type]
+-searchType [type]
+    Sets the type of search - must be one of: PlainText, Regex, XPath, or Soundex.
+
+/cs [True/False]
+-cs [True/False]
+-caseSensitive [True/False]
+    Sets case sensitive search flag - True or False.
+
+/ww [True/False]
+-ww [True/False]
+-wholeWord [True/False]
+    Sets the whole word search flag - True or False.
+
+/ml [True/False]
+-ml [True/False]
+-multiline [True/False]
+    Sets the multiline search flag - True or False.
+
+/dn [True/False]
+-dn [True/False]
+-dotAsNewline [True/False]
+    Sets the dot as newline search flag - True or False.
+
+/bo [True/False]
+-bo [True/False]
+-booleanOperators [True/False]
+    Sets the Boolean operators search flag - True or False.
+
+/rpt [filePath]
+-rpt [filePath]
+-report [filePath]
+    Create results file in report format after search is complete.
+
+/txt [filePath]
+-txt [filePath]
+-text [filePath]
+    Create results file in text format after search is complete.
+
+/csv [filePath]
+-csv [filePath]
+    Create results file in CSV format after search is complete.
+
+/x
+-x
+-exit
+    Exit dnGrep after command line operations are complete.</value>
+    <comment>Help dialog text when running dnGrep from the command line</comment>
+  </data>
+  <data name="CollapseAll" xml:space="preserve">
+    <value>Collapse all</value>
+    <comment>Main window results list context menu</comment>
+  </data>
+  <data name="CombineMultipleSearchPatternsUsingANDOrOR" xml:space="preserve">
+    <value>Combine multiple search patterns using 'AND' or 'OR'</value>
+    <comment>Main window tooltip</comment>
+  </data>
+  <data name="Command" xml:space="preserve">
+    <value>Command</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="CompareApplication" xml:space="preserve">
+    <value>Compare application</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="CompareFiles" xml:space="preserve">
+    <value>Compare files</value>
+    <comment>Main window results list context menu</comment>
+  </data>
+  <data name="ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
+    <value>Context changes Will be applied in next search</value>
+    <comment>Main window tooltip</comment>
+  </data>
+  <data name="ConvertsPDFFilesToPlainText" xml:space="preserve">
+    <value>Converts PDF files to plain text</value>
+    <comment>About dialog text</comment>
+  </data>
+  <data name="CopyFileNames_" xml:space="preserve">
+    <value>Copy file names</value>
+    <comment>Main window results list context menu and More menu</comment>
+  </data>
+  <data name="CopyFiles" xml:space="preserve">
+    <value>Copy Files</value>
+    <comment>Copy files message box</comment>
+  </data>
+  <data name="CopyFiles_" xml:space="preserve">
+    <value>Copy files...</value>
+    <comment>Main window More menu</comment>
+  </data>
+  <data name="CopyFullFilePaths" xml:space="preserve">
+    <value>Copy full file paths</value>
+    <comment>Main window results list context menu</comment>
+  </data>
+  <data name="CopyLinesOfText" xml:space="preserve">
+    <value>Copy Lines of text</value>
+    <comment>Main window results list context menu</comment>
+  </data>
+  <data name="CopyResults_" xml:space="preserve">
+    <value>Copy results</value>
+    <comment>Main window More menu</comment>
+  </data>
+  <data name="CopyToClipboard" xml:space="preserve">
+    <value>Copy to clipboard</value>
+    <comment>Test window context menu</comment>
+  </data>
+  <data name="CouldNotLoadResourcesFile0" xml:space="preserve">
+    <value>Could not load resources file '{0}': </value>
+    <comment>Load language resource message box</comment>
+  </data>
+  <data name="CouldNotLoadTheme" xml:space="preserve">
+    <value>Could not load theme '{0}', See the error log for details: </value>
+    <comment>Load theme resource message box</comment>
+  </data>
+  <data name="CountAdditionalCharacters" xml:space="preserve">
+    <value>...(+{0:n0} characters)</value>
+    <comment>Main window search results text</comment>
+  </data>
+  <data name="CountFilesHaveBeenSuccessfullyCopied" xml:space="preserve">
+    <value>{0} files have been successfully copied.</value>
+    <comment>Copy files message box</comment>
+  </data>
+  <data name="CountFilesHaveBeenSuccessfullyDeleted" xml:space="preserve">
+    <value>{0} files have been successfully deleted.</value>
+    <comment>Delete files message box</comment>
+  </data>
+  <data name="CountFilesHaveBeenSuccessfullyMoved" xml:space="preserve">
+    <value>{0} files have been successfully moved.</value>
+    <comment>Move files message box</comment>
+  </data>
+  <data name="CountMatchesOnLines" xml:space="preserve">
+    <value>{0} ({1} matches on {2} lines)</value>
+    <comment>Main window search results text</comment>
+  </data>
+  <data name="Created_" xml:space="preserve">
+    <value>Created</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="CSVFileFormat" xml:space="preserve">
+    <value>CSV file format</value>
+    <comment>Report CSV format</comment>
+  </data>
+  <data name="CustomEditor" xml:space="preserve">
+    <value>Custom editor</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="CustomEditorFileOpenError" xml:space="preserve">
+    <value>There was an error opening file by custom editor.</value>
+    <comment>Open file with custom editor message box</comment>
+  </data>
+  <data name="CustomEditorHelp" xml:space="preserve">
+    <value>Use keywords '{0}' for file location, '{1}' for the line number, '{2}' for the search pattern, '{3}' for the first matched text on the line, and '{4}' for the column number of the first match on the line.</value>
+    <comment>Options dialog custom editor help text</comment>
+  </data>
+  <data name="DateModified" xml:space="preserve">
+    <value>Date Modified:</value>
+    <comment>Main window results list file attributes tooltip</comment>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>days</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>Default:</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="DefaultEngineWasUsedInstead" xml:space="preserve">
+    <value>Default engine was used instead.</value>
+    <comment>Plugin failed to load error message box</comment>
+  </data>
+  <data name="Delete_" xml:space="preserve">
+    <value>_Delete</value>
+    <comment>Bookmarks dialog button label</comment>
+  </data>
+  <data name="DeleteFiles" xml:space="preserve">
+    <value>Delete Files</value>
+    <comment>Delete files message box</comment>
+  </data>
+  <data name="DeleteFiles_" xml:space="preserve">
+    <value>Delete files...</value>
+    <comment>Main window More menu</comment>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description:</value>
+    <comment>Bookmarks and Bookmarks Details dialog label</comment>
+  </data>
+  <data name="DescriptionHeader" xml:space="preserve">
+    <value>Description</value>
+    <comment>Bookmarks dialog heading</comment>
+  </data>
+  <data name="DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
+    <value>Detect file encoding when searching for file name pattern only</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="DialogFontSize" xml:space="preserve">
+    <value>Dialog Font Size</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="DnGrep" xml:space="preserve">
+    <value>dnGrep</value>
+    <comment>@Invariant</comment>
+  </data>
+  <data name="DnGREP_Title" xml:space="preserve">
+    <value>dnGREP</value>
+    <comment>@Invariant</comment>
+  </data>
+  <data name="DnGrepOnGitHub" xml:space="preserve">
+    <value>dnGrep on GitHub</value>
+    <comment>About dialog text</comment>
+  </data>
+  <data name="DnGrepWillAddTheSelectedFiles" xml:space="preserve">
+    <value>dnGrep will add the selected files to the end of the command line.</value>
+    <comment>Options dialog help text</comment>
+  </data>
+  <data name="DockBottom_" xml:space="preserve">
+    <value>Dock Bottom</value>
+    <comment>Main window docking context menu</comment>
+  </data>
+  <data name="DockRight_" xml:space="preserve">
+    <value>Dock Right</value>
+    <comment>Main window docking context menu</comment>
+  </data>
+  <data name="DockThisPopUpBackIntoTheMainWindow" xml:space="preserve">
+    <value>Dock this pop-up back into the main window</value>
+    <comment>Main window docking button tooltip</comment>
+  </data>
+  <data name="DotAsNewline" xml:space="preserve">
+    <value>Dot as newline</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="DotAsNewline_" xml:space="preserve">
+    <value>_Dot as newline</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="DoYouWantToContinue" xml:space="preserve">
+    <value>Do you want to continue?</value>
+    <comment>Main window, bookmark button message box</comment>
+  </data>
+  <data name="Duplicate_" xml:space="preserve">
+    <value>Du_plicate</value>
+    <comment>Bookmarks dialog label</comment>
+  </data>
+  <data name="Edit_" xml:space="preserve">
+    <value>_Edit</value>
+    <comment>Bookmarks dialog label</comment>
+  </data>
+  <data name="Ellipsis" xml:space="preserve">
+    <value>...</value>
+    <comment>Main window and Options dialog button label</comment>
+  </data>
+  <data name="Empty" xml:space="preserve">
+    <value>Empty</value>
+    <comment>Main window title prefix when search for is empty</comment>
+  </data>
+  <data name="EnableAutomaticCheckingEvery_" xml:space="preserve">
+    <value>Enable automatic checking every</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="Enabled" xml:space="preserve">
+    <value>Enabled</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu" xml:space="preserve">
+    <value>Enables starting dnGrep from the Windows Explorer right-click context menu.</value>
+    <comment>Option dialog - explorer right click menu checkbox tooltip</comment>
+  </data>
+  <data name="Encoding" xml:space="preserve">
+    <value>Encoding:</value>
+    <comment>Report search options summary, Main window results list file attributes tooltip</comment>
+  </data>
+  <data name="EncodingAutoDetection" xml:space="preserve">
+    <value>Auto detection (default)</value>
+    <comment>Main window encoding auto select text</comment>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error: </value>
+    <comment>Test expression window, replace error message box</comment>
+  </data>
+  <data name="ErrorOpeningFile" xml:space="preserve">
+    <value>There was an error opening file. See the error log for details: </value>
+    <comment>Open file error message box</comment>
+  </data>
+  <data name="ErrorSettingClipboardTextTheClipboardIsLockedBy" xml:space="preserve">
+    <value>Error setting clipboard text, the clipboard is locked by</value>
+    <comment>Copy to clipboard error message box</comment>
+  </data>
+  <data name="ErrorThisIsABinaryFile" xml:space="preserve">
+    <value>Error: this is a binary file</value>
+    <comment>Replace window attempt to replace in binary file</comment>
+  </data>
+  <data name="Everything_" xml:space="preserve">
+    <value>Everything</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="EverythingIndexService" xml:space="preserve">
+    <value>Everything Index Service</value>
+    <comment>Main window tooltip</comment>
+  </data>
+  <data name="EverythingSearch" xml:space="preserve">
+    <value>Everything search:</value>
+    <comment>Main window folder caption when Everything search is enabled</comment>
+  </data>
+  <data name="ExcelSheetName" xml:space="preserve">
+    <value>Sheet [{0}]</value>
+    <comment>Main window results list for Excel file data</comment>
+  </data>
+  <data name="ExcludeFilesByTypeAndFoldersByName" xml:space="preserve">
+    <value>Exclude files by type and folders by name</value>
+    <comment>Main window tooltip</comment>
+  </data>
+  <data name="ExcludeFromResults" xml:space="preserve">
+    <value>Exclude from results</value>
+    <comment>Main window results list context menu</comment>
+  </data>
+  <data name="ExcludePattern" xml:space="preserve">
+    <value>Exclude pattern:</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ExpandAll" xml:space="preserve">
+    <value>Expand all</value>
+    <comment>Main window results list context menu</comment>
+  </data>
+  <data name="Extensions" xml:space="preserve">
+    <value>Extensions:</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="FailedToExtractFileFromArchive" xml:space="preserve">
+    <value>Failed to extract file from archive. See the error log for details: </value>
+    <comment>Preview window archive error message box</comment>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>File:</value>
+    <comment>Main window results list file attributes tooltip</comment>
+  </data>
+  <data name="FileNotFoundHasItBeenDeletedOrMoved" xml:space="preserve">
+    <value>[File not found: has it been deleted or moved?]</value>
+    <comment>Report extract lines from file error</comment>
+  </data>
+  <data name="FileNumberOfCountName" xml:space="preserve">
+    <value>File {0} of {1}: {2}  ({3} matches on {4} lines)</value>
+    <comment>Replace window file progress line</comment>
+  </data>
+  <data name="FilePattern" xml:space="preserve">
+    <value>File pattern:</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="FilePatternHeader" xml:space="preserve">
+    <value>File Pattern</value>
+    <comment>Bookmarks dialog grid header</comment>
+  </data>
+  <data name="FilePatternType" xml:space="preserve">
+    <value>File Pattern Type</value>
+    <comment>Bookmark detail dialog label</comment>
+  </data>
+  <data name="Files" xml:space="preserve">
+    <value>Files</value>
+    <comment>Replace window label</comment>
+  </data>
+  <data name="FilesHaveBeenSuccessfullyReverted" xml:space="preserve">
+    <value>Files have been successfully reverted.</value>
+    <comment>Main window undo replace success message box</comment>
+  </data>
+  <data name="FileSystemIndexingLocateFilesInstantly" xml:space="preserve">
+    <value>File system indexing, locate files instantly</value>
+    <comment>About dialog label</comment>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>Filter:</value>
+    <comment>Bookmarks dialog label</comment>
+  </data>
+  <data name="Folder_" xml:space="preserve">
+    <value>Folder:</value>
+    <comment>Main window folder caption</comment>
+  </data>
+  <data name="FollowSymbolicLinks_" xml:space="preserve">
+    <value>Follow symbolic links</value>
+    <comment>Main window and Bookmark details dialog labels</comment>
+  </data>
+  <data name="FollowWindowsTheme_" xml:space="preserve">
+    <value>Follow Windows Theme</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="FontFamily" xml:space="preserve">
+    <value>Font Family</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="ForExampleAsteriskPattern" xml:space="preserve">
+    <value>e.g. file??.*</value>
+    <comment>Main window and Bookmark details dialog tooltips</comment>
+  </data>
+  <data name="ForExampleRegularExpession" xml:space="preserve">
+    <value>e.g. file[0-9]{1,2}\\.txt</value>
+    <comment>Main window and Bookmark details dialog tooltips</comment>
+  </data>
+  <data name="FoundMatchesFor" xml:space="preserve">
+    <value>Found matches for </value>
+    <comment>Report contents</comment>
+  </data>
+  <data name="FoundNoMatchesFor" xml:space="preserve">
+    <value>Found no matches for </value>
+    <comment>Report contents</comment>
+  </data>
+  <data name="From_" xml:space="preserve">
+    <value>From</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="FromTheStartOfTheDay" xml:space="preserve">
+    <value>from the start of the day</value>
+    <comment>Main window tooltip</comment>
+  </data>
+  <data name="Has0MatchesOn1Lines" xml:space="preserve">
+    <value>has {0} matches on {1} lines:</value>
+    <comment>Report contents</comment>
+  </data>
+  <data name="Help_" xml:space="preserve">
+    <value>_Help</value>
+    <comment>Main window main menu</comment>
+  </data>
+  <data name="HelpTranslateDnGrep" xml:space="preserve">
+    <value>Help translate dnGrep.</value>
+  </data>
+  <data name="HideResultOptions" xml:space="preserve">
+    <value>Hide result options</value>
+    <comment>Main window, result options expander button tooltip (bottom of window)</comment>
+  </data>
+  <data name="HighlightGroups_" xml:space="preserve">
+    <value>Highlight Groups</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="HighlightMatches_" xml:space="preserve">
+    <value>Highlight Matches</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="HighlightRegularExpressionGroups" xml:space="preserve">
+    <value>Highlight regular expression groups - changes will be applied in next search</value>
+    <comment>Main window tooltip</comment>
+  </data>
+  <data name="HighlightsDisabledTooManyMatchesFound" xml:space="preserve">
+    <value>Highlights disabled: too many matches found.</value>
+    <comment>Preview window warning text</comment>
+  </data>
+  <data name="HistoryLists" xml:space="preserve">
+    <value>History Lists</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>hours</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="IncludeBinaryFiles_" xml:space="preserve">
+    <value>Include binary files</value>
+    <comment>Main window and Bookmark details dialog labels</comment>
+  </data>
+  <data name="IncludeFilesByNameOrType" xml:space="preserve">
+    <value>Include files by name or type</value>
+    <comment>Main window tooltip</comment>
+  </data>
+  <data name="IncludeHiddenFolders_" xml:space="preserve">
+    <value>Include hidden folders</value>
+    <comment>Main window and Bookmark details dialog labels</comment>
+  </data>
+  <data name="IncludeSubfolders_" xml:space="preserve">
+    <value>Include subfolders</value>
+    <comment>Main window and Bookmark details dialog labels</comment>
+  </data>
+  <data name="IncorrectPattern" xml:space="preserve">
+    <value>Incorrect pattern: </value>
+    <comment>Main window and Test window, incorrect regular expression</comment>
+  </data>
+  <data name="InOptionsExpander" xml:space="preserve">
+    <value>in options expander</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="ItemsShownInFileFilterHistoryLists" xml:space="preserve">
+    <value>items shown in file filter history lists</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="ItemsShownInPathHistoryList" xml:space="preserve">
+    <value>items shown in path history list</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="ItemsShownInSearchAndReplaceHistoryLists" xml:space="preserve">
+    <value>items shown in search and replace history lists</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="JsonFrameworkForNET" xml:space="preserve">
+    <value>Json framework for .NET</value>
+    <comment>About dialog label</comment>
+  </data>
+  <data name="KB" xml:space="preserve">
+    <value>KB</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="Language_Chinese" xml:space="preserve">
+    <value>中文</value>
+    <comment>@Invariant</comment>
+  </data>
+  <data name="Language_English" xml:space="preserve">
+    <value>English</value>
+    <comment>@Invariant</comment>
+  </data>
+  <data name="Layout" xml:space="preserve">
+    <value>Layout</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="LibraryForReadingArchiveFiles" xml:space="preserve">
+    <value>Library for reading archive files</value>
+    <comment>About dialog label</comment>
+  </data>
+  <data name="LoadFromFile_" xml:space="preserve">
+    <value>Load from file...</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="LoadResources" xml:space="preserve">
+    <value>Load Resources</value>
+    <comment>Load resources message box title</comment>
+  </data>
+  <data name="LoggingFrameworkForNET" xml:space="preserve">
+    <value>Logging framework for .NET</value>
+    <comment>About dialog label</comment>
+  </data>
+  <data name="MainFontSize" xml:space="preserve">
+    <value>Main Font Size</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
+    <value>Mark all matches in this file for replacement [Ctrl+A]</value>
+    <comment>Replace window label</comment>
+  </data>
+  <data name="MarkMatchForReplacement" xml:space="preserve">
+    <value>Mark match for replacement [Ctrl+R]</value>
+    <comment>Replace window label</comment>
+  </data>
+  <data name="Matches" xml:space="preserve">
+    <value>Matches</value>
+    <comment>Replace window label</comment>
+  </data>
+  <data name="MatchEverythingToExactMatch" xml:space="preserve">
+    <value>0 - match everything; 1.0 - exact match</value>
+    <comment>Options dialog help text</comment>
+  </data>
+  <data name="MatchThreshold" xml:space="preserve">
+    <value>Match threshold (from 0 to 1.0)</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="MatchTimeout" xml:space="preserve">
+    <value>Match timeout</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="MatchToolTip1" xml:space="preserve">
+    <value>Match {0}{1}{2}</value>
+    <comment>Main window results, capture group tooltip {1} is a new line</comment>
+  </data>
+  <data name="MatchToolTip2" xml:space="preserve">
+    <value>Match {0}{1}Group {2}:   {3}</value>
+    <comment>Main window results, capture group tooltip {1} is a new line</comment>
+  </data>
+  <data name="MaxDepth" xml:space="preserve">
+    <value>Max depth</value>
+    <comment>Main window and Bookmark details dialog labels</comment>
+  </data>
+  <data name="MaxFolderDepth" xml:space="preserve">
+    <value>Max folder depth {0}</value>
+    <comment>Report search options summary; Bookmarks summary</comment>
+  </data>
+  <data name="Maximize" xml:space="preserve">
+    <value>Maximize</value>
+    <comment>Main window title bar button tooltip</comment>
+  </data>
+  <data name="Minimize" xml:space="preserve">
+    <value>Minimize</value>
+    <comment>Main window title bar button tooltip</comment>
+  </data>
+  <data name="Modified_" xml:space="preserve">
+    <value>Modified</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="More" xml:space="preserve">
+    <value>More...</value>
+    <comment>Main window expander label</comment>
+  </data>
+  <data name="MoreArrow_" xml:space="preserve">
+    <value>_More ⏷</value>
+    <comment>Main window button label</comment>
+  </data>
+  <data name="MoveFiles" xml:space="preserve">
+    <value>Move Files</value>
+    <comment>Move files message box title</comment>
+  </data>
+  <data name="MoveFiles_" xml:space="preserve">
+    <value>Move files...</value>
+    <comment>Main window More menu</comment>
+  </data>
+  <data name="MoveToTheNextMatchInThisFile" xml:space="preserve">
+    <value>Move to the next match in this file [Ctrl+Left]</value>
+    <comment>Replace windows label</comment>
+  </data>
+  <data name="MoveToThePreviousMatchInThisFile" xml:space="preserve">
+    <value>Move to the previous match in this file [Ctrl+Right]</value>
+    <comment>Replace window label</comment>
+  </data>
+  <data name="Multiline" xml:space="preserve">
+    <value>Multiline</value>
+    <comment>Report search options summary; Bookmarks summary</comment>
+  </data>
+  <data name="Multiline_" xml:space="preserve">
+    <value>_Multiline</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="NETLibraryFor7Zip" xml:space="preserve">
+    <value>.NET library for 7-Zip</value>
+    <comment>About dnGrep acknowledgments</comment>
+  </data>
+  <data name="NETLibraryForCharacterSetDetection" xml:space="preserve">
+    <value>.NET library for character set detection</value>
+    <comment>About dnGrep acknowledgments</comment>
+  </data>
+  <data name="NETLibraryForExtendedLengthPaths" xml:space="preserve">
+    <value>.NET library for extended length paths</value>
+    <comment>About dnGrep acknowledgments</comment>
+  </data>
+  <data name="NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
+    <value>.NET library for reading Microsoft Excel files</value>
+    <comment>About dnGrep acknowledgments</comment>
+  </data>
+  <data name="NETLibraryToParseECMA376Numbers" xml:space="preserve">
+    <value>.NET library to parse ECMA-376 numbers</value>
+    <comment>About dnGrep acknowledgments</comment>
+  </data>
+  <data name="NETLibraryToWorkWithWordAndExcelDocuments" xml:space="preserve">
+    <value>.NET library to work with Word and Excel documents</value>
+    <comment>About dnGrep acknowledgments</comment>
+  </data>
+  <data name="NETWPFScreenHelperUtility" xml:space="preserve">
+    <value>.NET WPF screen helper utility</value>
+    <comment>About dnGrep acknowledgments</comment>
+  </data>
+  <data name="NETWPFTextEditorComponent" xml:space="preserve">
+    <value>.NET WPF text editor component</value>
+    <comment>About dnGrep acknowledgments</comment>
+  </data>
+  <data name="NewName" xml:space="preserve">
+    <value>New name:</value>
+    <comment>File rename window label</comment>
+  </data>
+  <data name="NewVersion" xml:space="preserve">
+    <value>New version</value>
+    <comment>New dnGrep version message box title</comment>
+  </data>
+  <data name="NewVersionOfDnGREP0IsAvailableForDownload" xml:space="preserve">
+    <value>New version of dnGREP ({0}) is available for download.</value>
+    <comment>New dnGrep version message box text</comment>
+  </data>
+  <data name="Next_" xml:space="preserve">
+    <value>_Next</value>
+    <comment>Replace window label</comment>
+  </data>
+  <data name="NextFile_" xml:space="preserve">
+    <value>Next _File</value>
+    <comment>Replace window label</comment>
+  </data>
+  <data name="NoArchives" xml:space="preserve">
+    <value>No archives</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="NoBinary" xml:space="preserve">
+    <value>No binary</value>
+    <comment>Main window options summary</comment>
+  </data>
+  <data name="NoBinaryFiles" xml:space="preserve">
+    <value>No binary files</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="NoHidden" xml:space="preserve">
+    <value>No hidden</value>
+    <comment>Main windows options summary; Bookmarks summary</comment>
+  </data>
+  <data name="NoHiddenFiles" xml:space="preserve">
+    <value>No hidden files</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="NoMatchesFound" xml:space="preserve">
+    <value>No matches found</value>
+    <comment>Test window</comment>
+  </data>
+  <data name="NoSubfolders" xml:space="preserve">
+    <value>No subfolders</value>
+    <comment>Main window, Report; Bookmarks options summary</comment>
+  </data>
+  <data name="NoSymlinks" xml:space="preserve">
+    <value>No symlinks</value>
+    <comment>Main window, Report; Bookmarks options summary</comment>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Button label</comment>
+  </data>
+  <data name="OneOrMoreArgumentsAreInvalid" xml:space="preserve">
+    <value>One or more arguments are invalid.</value>
+    <comment>Help window label</comment>
+  </data>
+  <data name="OnMainPanel" xml:space="preserve">
+    <value>on main panel</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Open</value>
+    <comment>Main window results list context menu</comment>
+  </data>
+  <data name="OpenContainingFolder" xml:space="preserve">
+    <value>Open containing folder</value>
+    <comment>Main window results list context menu</comment>
+  </data>
+  <data name="OpenWithCustomEditor" xml:space="preserve">
+    <value>Open with custom editor</value>
+    <comment>Main window results list context menu</comment>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Options</value>
+    <comment>Options dialog title</comment>
+  </data>
+  <data name="Options_" xml:space="preserve">
+    <value>_Options...</value>
+    <comment>Main window main menu</comment>
+  </data>
+  <data name="OtherPropertiesHeader" xml:space="preserve">
+    <value>Other Properties</value>
+    <comment>Bookmarks dialog grid header</comment>
+  </data>
+  <data name="Past_" xml:space="preserve">
+    <value>Past</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="PatternsToExclude_" xml:space="preserve">
+    <value>Patterns to exclude:</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="PatternsToMatch_" xml:space="preserve">
+    <value>Patterns to match:</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="PDFToText" xml:space="preserve">
+    <value>PDF to Text</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="PdfToTextExeCommandLineOptions" xml:space="preserve">
+    <value>PdfToText.exe command line options:</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="Phonetic_" xml:space="preserve">
+    <value>Phonetic</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="PhoneticSearch" xml:space="preserve">
+    <value>Phonetic search</value>
+    <comment>Main window tooltip; Bookmark detail and Options dialog labels</comment>
+  </data>
+  <data name="PlainTextSearch" xml:space="preserve">
+    <value>Plain text search</value>
+    <comment>Main window tooltip; Bookmark detail dialog label</comment>
+  </data>
+  <data name="PleaseSelectAnotherDirectoryAndTryAgain" xml:space="preserve">
+    <value>Please select another directory and try again.</value>
+    <comment>Copy files and Move files message box (destination overlaps source)</comment>
+  </data>
+  <data name="PluginErrors" xml:space="preserve">
+    <value>Plugin Errors</value>
+    <comment>Plugin errors message box title</comment>
+  </data>
+  <data name="PluginOptions" xml:space="preserve">
+    <value>Plugin Options</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="PlusCountMoreMatches" xml:space="preserve">
+    <value>, +{0} more matches</value>
+    <comment>Main window results list text</comment>
+  </data>
+  <data name="PopThisPanelOutIntoItsOwnWindow" xml:space="preserve">
+    <value>Pop this panel out into its own window</value>
+    <comment>Docking window button tooltip</comment>
+  </data>
+  <data name="PressF1ForHelpOnOptions" xml:space="preserve">
+    <value>Press F1 for help on Options</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="Preview_FindNext" xml:space="preserve">
+    <value>Find next (F3)</value>
+    <comment>Preview window search tooltip</comment>
+  </data>
+  <data name="Preview_FindPrevious" xml:space="preserve">
+    <value>Find previous (Shift+F3)</value>
+    <comment>Preview window search tooltip</comment>
+  </data>
+  <data name="Preview_MatchCase" xml:space="preserve">
+    <value>Match case</value>
+    <comment>Preview window search tooltip</comment>
+  </data>
+  <data name="Preview_MatchWholeWords" xml:space="preserve">
+    <value>Match whole words</value>
+    <comment>Preview window search tooltip</comment>
+  </data>
+  <data name="Preview_UseRegularExpressions" xml:space="preserve">
+    <value>Use regular expressions</value>
+    <comment>Preview window search tooltip</comment>
+  </data>
+  <data name="PreviewAnyway" xml:space="preserve">
+    <value>Preview anyway</value>
+    <comment>Preview window warning label</comment>
+  </data>
+  <data name="PreviewFile_" xml:space="preserve">
+    <value>Pre_view file</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="PreviewSyntax_None" xml:space="preserve">
+    <value>None</value>
+    <comment>Preview and Replace window syntax hightlight option</comment>
+  </data>
+  <data name="Previous_" xml:space="preserve">
+    <value>_Previous</value>
+    <comment>Replace window label</comment>
+  </data>
+  <data name="PreviousFile_" xml:space="preserve">
+    <value>Previous File</value>
+    <comment>Replace window label</comment>
+  </data>
+  <data name="ReadOnly" xml:space="preserve">
+    <value>[read-only]</value>
+    <comment>Main window results list text; Replace window</comment>
+  </data>
+  <data name="Regex" xml:space="preserve">
+    <value>Regex</value>
+    <comment>Various windows label</comment>
+  </data>
+  <data name="Regex_" xml:space="preserve">
+    <value>_Regex</value>
+    <comment>Various windows label</comment>
+  </data>
+  <data name="RegexIsNotValid" xml:space="preserve">
+    <value>Regex is not valid!</value>
+    <comment>Main window, Test window regular expression status</comment>
+  </data>
+  <data name="RegexIsOK" xml:space="preserve">
+    <value>Regex is OK!</value>
+    <comment>Main window, Test window regular expression status</comment>
+  </data>
+  <data name="RegexOptions" xml:space="preserve">
+    <value>Regex Options</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="RegularExpressionSearch" xml:space="preserve">
+    <value>Regular expression search</value>
+    <comment>Main window tooltip</comment>
+  </data>
+  <data name="Reload_" xml:space="preserve">
+    <value>Reload</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="ReloadTheCurrentThemeFile" xml:space="preserve">
+    <value>Reload the current theme file [Ctrl+F5]</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove:</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="RemoveFolderFromBookmarkAssociation" xml:space="preserve">
+    <value>Remove folder from bookmark association</value>
+    <comment>Main window, folder bookmark button tooltip</comment>
+  </data>
+  <data name="RenameFailed" xml:space="preserve">
+    <value>Rename failed: </value>
+    <comment>Main window file rename message box</comment>
+  </data>
+  <data name="RenameFile" xml:space="preserve">
+    <value>Rename File</value>
+    <comment>File rename message box title</comment>
+  </data>
+  <data name="RenameFileL" xml:space="preserve">
+    <value>Rename file</value>
+    <comment>Main window results list context menu</comment>
+  </data>
+  <data name="Replace" xml:space="preserve">
+    <value>Replace</value>
+    <comment>Replace message box title</comment>
+  </data>
+  <data name="Replace_" xml:space="preserve">
+    <value>_Replace</value>
+    <comment>Main window and Repalce window label</comment>
+  </data>
+  <data name="ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
+    <value>Replace all matches in all files, and apply [F10]</value>
+    <comment>Replace window label</comment>
+  </data>
+  <data name="ReplaceCanceled" xml:space="preserve">
+    <value>Replace Canceled</value>
+    <comment>Main window status message</comment>
+  </data>
+  <data name="ReplaceComplete0FilesReplaced" xml:space="preserve">
+    <value>Replace Complete - {0} files replaced.</value>
+    <comment>Main window status message</comment>
+  </data>
+  <data name="ReplaceFailed" xml:space="preserve">
+    <value>Replace Failed.</value>
+    <comment>Main window status message</comment>
+  </data>
+  <data name="ReplaceFailedError" xml:space="preserve">
+    <value>Replace failed! See the error log for details: </value>
+    <comment>Main window message box text</comment>
+  </data>
+  <data name="ReplaceFontSize" xml:space="preserve">
+    <value>Replace Font Size</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="ReplaceInAllFiles_" xml:space="preserve">
+    <value>Replace in All Files</value>
+    <comment>Replace window label</comment>
+  </data>
+  <data name="ReplaceInFile_" xml:space="preserve">
+    <value>Replace in File</value>
+    <comment>Replace window label</comment>
+  </data>
+  <data name="ReplaceKey1_Text" xml:space="preserve">
+    <value>text</value>
+    <comment>Replace window label</comment>
+  </data>
+  <data name="ReplaceKey2_SelectedMatch" xml:space="preserve">
+    <value>Selected Match</value>
+    <comment>Replace window label</comment>
+  </data>
+  <data name="ReplaceKey3_ReplaceMatch" xml:space="preserve">
+    <value>Replace Match</value>
+    <comment>Replace window label</comment>
+  </data>
+  <data name="ReplaceKey4_SkipMatch" xml:space="preserve">
+    <value>Skip Match</value>
+    <comment>Replace window label</comment>
+  </data>
+  <data name="ReplaceMatchesMarkedForReplacement" xml:space="preserve">
+    <value>Replace matches marked for replacement</value>
+    <comment>Replace window label</comment>
+  </data>
+  <data name="ReplaceResult" xml:space="preserve">
+    <value>Replace result:</value>
+    <comment>Test window label</comment>
+  </data>
+  <data name="ReplaceText" xml:space="preserve">
+    <value>Replace Text</value>
+    <comment>Replace window label</comment>
+  </data>
+  <data name="ReplaceTextIsNotValidXML" xml:space="preserve">
+    <value>Replace text is not valid XML!</value>
+    <comment>Test window error text</comment>
+  </data>
+  <data name="ReplaceWith" xml:space="preserve">
+    <value>Replace with:</value>
+    <comment>Various windows label</comment>
+  </data>
+  <data name="ReplaceWith_" xml:space="preserve">
+    <value>Re_place with:</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="ReplaceWithHeader" xml:space="preserve">
+    <value>Replace With</value>
+    <comment>Bookmarks dialog grid header</comment>
+  </data>
+  <data name="Replacing" xml:space="preserve">
+    <value>Replacing...</value>
+    <comment>Main window status message</comment>
+  </data>
+  <data name="Report_DnGrepSearchResults" xml:space="preserve">
+    <value>dnGrep Search Results</value>
+    <comment>Report text</comment>
+  </data>
+  <data name="Report_Found0MatchesOn1LinesIn2Files" xml:space="preserve">
+    <value>Found {0} matches on {1} lines in {2} files</value>
+    <comment>Report text</comment>
+  </data>
+  <data name="ReportCSV_FileNameLineNumberString" xml:space="preserve">
+    <value>File Name,Line Number,String</value>
+    <comment>Report text</comment>
+  </data>
+  <data name="ReportFileFormat" xml:space="preserve">
+    <value>Report file format</value>
+    <comment>Report type selection text</comment>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>Reset</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
+    <value>Reset and skip all matches in this file [Ctrl+T]</value>
+    <comment>Replace window label</comment>
+  </data>
+  <data name="ResetOptions_" xml:space="preserve">
+    <value>Reset Options</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="ResetZoom" xml:space="preserve">
+    <value>Reset zoom</value>
+    <comment>Main window results list context menu</comment>
+  </data>
+  <data name="ResourcesFile0IsNotAResxFile" xml:space="preserve">
+    <value>Resources file '{0}', is not a resx file.</value>
+    <comment>Load language resource file error message box</comment>
+  </data>
+  <data name="RestoreDown" xml:space="preserve">
+    <value>Restore Down</value>
+    <comment>Main window title bar button tooltip</comment>
+  </data>
+  <data name="ResultsFileFormat" xml:space="preserve">
+    <value>Results file format</value>
+    <comment>Report type selection text</comment>
+  </data>
+  <data name="ResultsOptions" xml:space="preserve">
+    <value>Results Options</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="RunDnGrepAsAdministrator" xml:space="preserve">
+    <value>Run dnGrep as Administrator to change showing dnGrep in Explorer right-click menu</value>
+    <comment>Options dialog message box text</comment>
+  </data>
+  <data name="RunDnGrepAsAdministratorToChangeStartupRegister" xml:space="preserve">
+    <value>Run dnGrep as Administrator to change Startup Register</value>
+    <comment>Options dialog message box text</comment>
+  </data>
+  <data name="SampleInputText" xml:space="preserve">
+    <value>Sample input text:</value>
+    <comment>Test window label</comment>
+  </data>
+  <data name="SampleText" xml:space="preserve">
+    <value>Sample Text</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="Save_" xml:space="preserve">
+    <value>Save</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="Save_CSVResults_" xml:space="preserve">
+    <value>CSV Results</value>
+    <comment>Main window More button menu</comment>
+  </data>
+  <data name="Save_Report_" xml:space="preserve">
+    <value>Report</value>
+    <comment>Main window More button menu</comment>
+  </data>
+  <data name="Save_TextResults_" xml:space="preserve">
+    <value>Text Results</value>
+    <comment>Main window More button menu</comment>
+  </data>
+  <data name="SaveResults_" xml:space="preserve">
+    <value>Save results</value>
+    <comment>Main window More button menu</comment>
+  </data>
+  <data name="SavingResultsToFile" xml:space="preserve">
+    <value>Saving results to file...</value>
+    <comment>Main window status message</comment>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+    <comment>Main window and test window label</comment>
+  </data>
+  <data name="Search_" xml:space="preserve">
+    <value>_Search</value>
+    <comment>Main window button label</comment>
+  </data>
+  <data name="SearchCanceled" xml:space="preserve">
+    <value>Search Canceled</value>
+    <comment>Main window status message</comment>
+  </data>
+  <data name="SearchCanceledOrFailed" xml:space="preserve">
+    <value>Search Canceled or Failed</value>
+    <comment>Main window status message</comment>
+  </data>
+  <data name="SearchCompleteSearched0FilesFound1FilesIn2" xml:space="preserve">
+    <value>Search Complete - Searched {0} files. Found {1} files in {2}.</value>
+    <comment>Main window status message</comment>
+  </data>
+  <data name="Searched0FilesFound1MatchingFiles" xml:space="preserve">
+    <value>Searched {0} files. Found {1} matching files.</value>
+    <comment>Main window status message</comment>
+  </data>
+  <data name="Searched0FilesFound1MatchingFilesProcessing2" xml:space="preserve">
+    <value>Searched {0} files. Found {1} matching files - processing {2}</value>
+    <comment>Main window status message</comment>
+  </data>
+  <data name="SearchFailedError" xml:space="preserve">
+    <value>Search failed! See the error log for details: </value>
+    <comment>Main window error message box text</comment>
+  </data>
+  <data name="SearchFilesInMultipleThreads" xml:space="preserve">
+    <value>Search files in multiple threads</value>
+    <comment>Main window tooltip</comment>
+  </data>
+  <data name="SearchFor" xml:space="preserve">
+    <value>Search for:</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="Searchfor_" xml:space="preserve">
+    <value>Search _for:</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="SearchForHeader" xml:space="preserve">
+    <value>Search For</value>
+    <comment>Bookmarks dialog grid header</comment>
+  </data>
+  <data name="SearchIn" xml:space="preserve">
+    <value>Search in</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="SearchInArchives" xml:space="preserve">
+    <value>Search in archives</value>
+    <comment>Bookmark options summary</comment>
+  </data>
+  <data name="SearchInArchives_" xml:space="preserve">
+    <value>Search in ar_chives</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="Searching" xml:space="preserve">
+    <value>Searching...</value>
+    <comment>Main window status message</comment>
+  </data>
+  <data name="SearchInResults" xml:space="preserve">
+    <value>Search in results</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="SearchInResults_" xml:space="preserve">
+    <value>Search _in results</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="SearchL" xml:space="preserve">
+    <value>search</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="SearchOrReplaceFailed" xml:space="preserve">
+    <value>Search or replace failed! See the error log for details: </value>
+    <comment>Main window error message box text</comment>
+  </data>
+  <data name="SearchParallel_" xml:space="preserve">
+    <value>Search Paralle_l</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="SearchPathInTheFieldIsNotValid" xml:space="preserve">
+    <value>Search path in the '{0}' field is not valid, search canceled.</value>
+    <comment>Main window error message box text</comment>
+  </data>
+  <data name="SearchResult" xml:space="preserve">
+    <value>Search result:</value>
+    <comment>Test window label</comment>
+  </data>
+  <data name="Seconds" xml:space="preserve">
+    <value>seconds</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="SelectADate" xml:space="preserve">
+    <value>Select a date</value>
+    <comment>Main window date picker</comment>
+  </data>
+  <data name="SelectedTheme" xml:space="preserve">
+    <value>Selected Theme</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="ShowContextLines" xml:space="preserve">
+    <value>Show context lines</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="ShowDnGrepInExplorerRightClickMenu_" xml:space="preserve">
+    <value>Show dnGrep in Explorer right-click menu</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="ShowFileInfoToolTips" xml:space="preserve">
+    <value>Show file info tool tips</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="ShowFilePathInResultsPanel" xml:space="preserve">
+    <value>Show file path in results panel</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="ShowFileProperties" xml:space="preserve">
+    <value>Show file properties</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="ShowResultLinesInContext" xml:space="preserve">
+    <value>Show result lines in context</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="ShowResultOptions" xml:space="preserve">
+    <value>Show result options</value>
+    <comment>Main window, result options expander button tooltip (bottom of window)</comment>
+  </data>
+  <data name="ShowResultsTreeExpanded" xml:space="preserve">
+    <value>Show results tree expanded</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="ShowSearchOptions" xml:space="preserve">
+    <value>Show search options:</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="ShowTheNextFile" xml:space="preserve">
+    <value>Show the next file [Ctrl+PgDn]</value>
+    <comment>Replace window label</comment>
+  </data>
+  <data name="ShowThePreviousFile" xml:space="preserve">
+    <value>Show the previous file [Ctrl+PgUp]</value>
+    <comment>Replace window label</comment>
+  </data>
+  <data name="ShowVerboseMatchCount" xml:space="preserve">
+    <value>Show verbose match count</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Size:</value>
+    <comment>Main window results list file attributes tooltip</comment>
+  </data>
+  <data name="SizeFrom0To1KB" xml:space="preserve">
+    <value>Size from {0} to {1} KB</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="SizeIs" xml:space="preserve">
+    <value>Size is</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="SomeOfTheFilesAreLocatedInTheSelectedDirectory" xml:space="preserve">
+    <value>Attention, some of the files are located in the selected directory.</value>
+    <comment>Copy files and Move files message box (destination overlaps source)</comment>
+  </data>
+  <data name="SomeOfTheFilesCannotBeModifiedIfYouContinueTheseFilesWillBeSkipped" xml:space="preserve">
+    <value>Some of the files cannot be modified. If you continue, these files will be skipped.</value>
+    <comment>Main window replace warning message box text</comment>
+  </data>
+  <data name="SomethingBrokeDownInDnGrep" xml:space="preserve">
+    <value>Something broke down in dnGrep. See the error log for details: </value>
+    <comment>Unknown error message box text</comment>
+  </data>
+  <data name="Sort_" xml:space="preserve">
+    <value>Sort</value>
+    <comment>Main window sort button</comment>
+  </data>
+  <data name="Sort_Ascending" xml:space="preserve">
+    <value>Ascending</value>
+    <comment>Main window sort options</comment>
+  </data>
+  <data name="Sort_Descending" xml:space="preserve">
+    <value>Descending</value>
+    <comment>Main window sort options</comment>
+  </data>
+  <data name="Sort_FileNameOnly" xml:space="preserve">
+    <value>File name only</value>
+    <comment>Main window sort options</comment>
+  </data>
+  <data name="Sort_FileSize" xml:space="preserve">
+    <value>File size</value>
+    <comment>Main window sort options</comment>
+  </data>
+  <data name="Sort_FileTypeAndName" xml:space="preserve">
+    <value>File type and name</value>
+    <comment>Main window sort options</comment>
+  </data>
+  <data name="Sort_LastWriteTime" xml:space="preserve">
+    <value>Last write time</value>
+    <comment>Main window sort options</comment>
+  </data>
+  <data name="Sort_MatchCount" xml:space="preserve">
+    <value>Match count</value>
+    <comment>Main window sort options</comment>
+  </data>
+  <data name="Sort_PathAndFileNameBreadthFirst" xml:space="preserve">
+    <value>Path and file name, breadth-first</value>
+    <comment>Main window sort options</comment>
+  </data>
+  <data name="Sort_PathAndFileNameDepthFirst" xml:space="preserve">
+    <value>Path and file name, depth-first</value>
+    <comment>Main window sort options</comment>
+  </data>
+  <data name="StartupOptions" xml:space="preserve">
+    <value>Startup options</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="StopAfterFirstMatch" xml:space="preserve">
+    <value>Stop after frist match</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="StopAfterFirstMatch_" xml:space="preserve">
+    <value>Stop after first match</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="Test" xml:space="preserve">
+    <value>Test</value>
+    <comment>Test window label</comment>
+  </data>
+  <data name="TestExpression_" xml:space="preserve">
+    <value>Test Expression</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="Text_" xml:space="preserve">
+    <value>_Text</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="TheFile0AlreadyExistsIn1OverwriteExisting" xml:space="preserve">
+    <value>The file '{0}' already exists in {1}, overwrite existing?</value>
+    <comment>Copy or Move files message box text</comment>
+  </data>
+  <data name="TheFilePattern0IsNotAValidRegularExpression12" xml:space="preserve">
+    <value>The file pattern '{0}' is not a valid regular expression:{1}{2}</value>
+    <comment>Main window regex file pattern error message box text</comment>
+  </data>
+  <data name="TheFollowingPluginsFailedToLoad" xml:space="preserve">
+    <value>The following plugins failed to load:</value>
+    <comment>Main window message box text</comment>
+  </data>
+  <data name="TheMatchTimeoutLimits" xml:space="preserve">
+    <value>The match timeout limits how long the regular expression engine will attempt to resolve a regular expression before it times out. This prevents processing expressions and input strings that require excessive backtracking.</value>
+    <comment>Options dialog help text</comment>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Theme</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu" xml:space="preserve">
+    <value>There was an error adding dnGrep to Explorer right-click menu. See the error log for details: </value>
+    <comment>Options dialog error message box text</comment>
+  </data>
+  <data name="ThereWasAnErrorCopyingFiles" xml:space="preserve">
+    <value>There was an error copying files. See the error log for details: </value>
+    <comment>Main window error message box text</comment>
+  </data>
+  <data name="ThereWasAnErrorCreatingTheFile" xml:space="preserve">
+    <value>There was an error creating the file. See the error log for details: </value>
+    <comment>Main window error message box text</comment>
+  </data>
+  <data name="ThereWasAnErrorDeletingFiles" xml:space="preserve">
+    <value>There was an error deleting files. See the error log for details: </value>
+    <comment>Main window error message box text</comment>
+  </data>
+  <data name="ThereWasAnErrorMovingFiles" xml:space="preserve">
+    <value>There was an error moving files. See the error log for details: </value>
+    <comment>Main window error message box text</comment>
+  </data>
+  <data name="ThereWasAnErrorRegisteringAutoStartup" xml:space="preserve">
+    <value>There was an error registering auto startup. See the error log for details: </value>
+    <comment>Options dialog error message box text</comment>
+  </data>
+  <data name="ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu" xml:space="preserve">
+    <value>There was an error removing dnGrep from the Explorer right-click menu. See the error log for details: </value>
+    <comment>Options dialog error message box text</comment>
+  </data>
+  <data name="ThereWasAnErrorRevertingFiles" xml:space="preserve">
+    <value>There was an error reverting files. See the error log for details: </value>
+    <comment>Main window error message box text</comment>
+  </data>
+  <data name="ThereWasAnErrorRunningRegexTest" xml:space="preserve">
+    <value>There was an error running the test window. See the error log for details: </value>
+    <comment>Main window error message box text</comment>
+  </data>
+  <data name="ThereWasAnErrorSavingOptions" xml:space="preserve">
+    <value>There was an error saving options. See the error log for details: </value>
+    <comment>Main window error message box text</comment>
+  </data>
+  <data name="ThereWasAnErrorUnregisteringAutoStartup" xml:space="preserve">
+    <value>There was an error unregistering auto startup. See the error log for details: </value>
+    <comment>Options dialog error message box text</comment>
+  </data>
+  <data name="ThisBookmarkAlreadyExists" xml:space="preserve">
+    <value>This bookmark already exists</value>
+    <comment>Bookmark details dialog label</comment>
+  </data>
+  <data name="ThisBookmarkIsAssociatedWith0OtherFolders" xml:space="preserve">
+    <value>This bookmark is associated with {0} other folders:</value>
+    <comment>Main window bookmark delete message box text</comment>
+  </data>
+  <data name="ThisBookmarkIsAssociatedWithOneOtherFolder" xml:space="preserve">
+    <value>This bookmark is associated with one other folder</value>
+    <comment>Main window bookmark delete message box text</comment>
+  </data>
+  <data name="ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
+    <value>This file contains too many matches for individual replace.  To replace all of them, click 'Replace in File'</value>
+    <comment>Replace window warning message box text</comment>
+  </data>
+  <data name="ThisFileIsEitherBinaryOrTooLargeToPreview" xml:space="preserve">
+    <value>This file is either binary or too large to preview.</value>
+    <comment>Preview window warning messages</comment>
+  </data>
+  <data name="ThroughTheEndOfTheDay" xml:space="preserve">
+    <value>through the end of the day</value>
+    <comment>Main window tooltip</comment>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>to</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="ToChangeThisSettingRunDnGREPAsAdministrator" xml:space="preserve">
+    <value>To change this setting run dnGREP as Administrator.</value>
+    <comment>Options view tooltip</comment>
+  </data>
+  <data name="TTA1_MatchesAllCharacters" xml:space="preserve">
+    <value>. matches all characters</value>
+    <comment>Main window and Test window tooltip</comment>
+  </data>
+  <data name="TTA2_MatchesAlphaNumerics" xml:space="preserve">
+    <value>\w matches alpha-numerics</value>
+    <comment>Main window and Test window tooltip</comment>
+  </data>
+  <data name="TTA3_MatchesDigits" xml:space="preserve">
+    <value>\d matches digits</value>
+    <comment>Main window and Test window tooltip</comment>
+  </data>
+  <data name="TTA4_MatchesSpace" xml:space="preserve">
+    <value>\s matches space</value>
+    <comment>Main window and Test window tooltip</comment>
+  </data>
+  <data name="TTA5_MatchesAnyNumberOfCharacters" xml:space="preserve">
+    <value>* matches any number of characters</value>
+    <comment>Main window and Test window tooltip</comment>
+  </data>
+  <data name="TTA6_Matches1To3Characters" xml:space="preserve">
+    <value>{1,3} matches 1 to 3 characters</value>
+    <comment>Main window and Test window tooltip</comment>
+  </data>
+  <data name="TTA7_ForMoreRegexPatternsHitF1" xml:space="preserve">
+    <value>For more Regex patterns hit F1</value>
+    <comment>Main window and Test window tooltip</comment>
+  </data>
+  <data name="TTB1_ReplacesEntireRegex" xml:space="preserve">
+    <value>$&amp; replaces entire regex</value>
+    <comment>Main window and Test window tooltip</comment>
+  </data>
+  <data name="TTB2_InsertsTheTextMatchedIntoTheReplacementText" xml:space="preserve">
+    <value>$1, $2, $3, etc... inserts the text matched between capturing parentheses into the replacement text</value>
+    <comment>Main window and Test window tooltip</comment>
+  </data>
+  <data name="TTB3_InsertsASingleDollarSignIntoTheReplacementText" xml:space="preserve">
+    <value>$$ inserts a single dollar sign into the replacement text</value>
+    <comment>Main window and Test window tooltip</comment>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type:</value>
+    <comment>Main window results list file attributes tooltip</comment>
+  </data>
+  <data name="Type0DateFrom1To2" xml:space="preserve">
+    <value>{0} date from {1} to {2}</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="Type0DateInPast1To2Hours" xml:space="preserve">
+    <value>{0} date in past {1} to {2} hours</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="TypeHeader" xml:space="preserve">
+    <value>Type</value>
+    <comment>Bookmarks dialog grid header</comment>
+  </data>
+  <data name="Undo" xml:space="preserve">
+    <value>Undo</value>
+    <comment>Main window Undo message box title</comment>
+  </data>
+  <data name="Undo_" xml:space="preserve">
+    <value>_Undo</value>
+    <comment>Main window main menu</comment>
+  </data>
+  <data name="UndoFile_" xml:space="preserve">
+    <value>Undo File</value>
+    <comment>Replace window label</comment>
+  </data>
+  <data name="UndoMarkReplaceOnThisMatch" xml:space="preserve">
+    <value>Undo mark replace on this match [Ctrl+U]</value>
+    <comment>Replace window label</comment>
+  </data>
+  <data name="UndoWillRevertModifiedFiles" xml:space="preserve">
+    <value>Undo will revert modified file(s) back to their original state. Any changes made to the file(s) after the replace will be overwritten. Are you sure you want to proceed?</value>
+    <comment>Main window Undo message box text</comment>
+  </data>
+  <data name="Use_" xml:space="preserve">
+    <value>_Use</value>
+    <comment>Bookmarks dialog label</comment>
+  </data>
+  <data name="UseCaptureGroupsFromPathsToMatch" xml:space="preserve">
+    <value>Use capture groups from 'Paths to match' in the 'Search for' pattern</value>
+    <comment>Main window tooltip</comment>
+  </data>
+  <data name="UseDefault_" xml:space="preserve">
+    <value>Use Default</value>
+    <comment>Options dialog label</comment>
+  </data>
+  <data name="UseGitignore_" xml:space="preserve">
+    <value>Use .gitignore</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="UseGitignoreToFilterFiles" xml:space="preserve">
+    <value>Use .gitignore to filter files</value>
+    <comment>Main window tooltip</comment>
+  </data>
+  <data name="Using" xml:space="preserve">
+    <value>Using</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="UsingEverythingIndexSearch" xml:space="preserve">
+    <value>Using Everything index search</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="UsingRegexFilePattern" xml:space="preserve">
+    <value>Using regex file pattern</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>Version</value>
+    <comment>About dialog label</comment>
+  </data>
+  <data name="WantADifferentLanguage" xml:space="preserve">
+    <value>Want a different language?</value>
+  </data>
+  <data name="WholeWord" xml:space="preserve">
+    <value>Whole word</value>
+    <comment>Report search options summary; Bookmarks summary</comment>
+  </data>
+  <data name="WholeWord_" xml:space="preserve">
+    <value>_Whole word</value>
+    <comment>Main window label</comment>
+  </data>
+  <data name="WindowTitle" xml:space="preserve">
+    <value>{0} in "{1}" - dnGREP</value>
+    <comment>Main window title</comment>
+  </data>
+  <data name="WindowTitleIsName" xml:space="preserve">
+    <value>Window Title: {0}</value>
+    <comment>Clipboard set text error, clipboard locked by application name</comment>
+  </data>
+  <data name="WouldYouLikeToContinue" xml:space="preserve">
+    <value>Would you like to continue?</value>
+    <comment>Replace window warning message box text</comment>
+  </data>
+  <data name="WouldYouLikeToDownloadItNow" xml:space="preserve">
+    <value>Would you like to download it now?</value>
+    <comment>New dnGrep version message box text</comment>
+  </data>
+  <data name="WrapText_" xml:space="preserve">
+    <value>Wrap Text</value>
+    <comment>Main window, Preview window and Replace window label</comment>
+  </data>
+  <data name="XPath_" xml:space="preserve">
+    <value>_XPath</value>
+    <comment>Main window, Test window label</comment>
+  </data>
+  <data name="XPathIsNotValid" xml:space="preserve">
+    <value>XPath is not valid!</value>
+    <comment>Main window, Test window XPath status</comment>
+  </data>
+  <data name="XPathIsOK" xml:space="preserve">
+    <value>XPath is OK!</value>
+    <comment>Main window, Test window XPath status</comment>
+  </data>
+  <data name="XPathSearchXMLDocumentsOnly" xml:space="preserve">
+    <value>XPath search (XML documents only)</value>
+    <comment>Main window tooltip</comment>
+  </data>
+  <data name="YouAreAboutToDeleteFilesFoundDuringSearch" xml:space="preserve">
+    <value>Attention, you are about to delete files found during search.</value>
+    <comment>Main window delete files warning message box text</comment>
+  </data>
+  <data name="Zoom" xml:space="preserve">
+    <value>Zoom:</value>
+    <comment>Main window, Preview window and Replace window label</comment>
+  </data>
+</root>

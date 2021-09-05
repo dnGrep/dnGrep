@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Xml;
 using dnGREP.Common;
 using dnGREP.Engines;
+using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
 {
@@ -287,7 +288,8 @@ namespace dnGREP.WPF
                 }
                 catch (ArgumentException ex)
                 {
-                    MessageBox.Show("Incorrect pattern: " + ex.Message, "dnGrep", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show(Resources.IncorrectPattern + ex.Message, 
+                        Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
 
@@ -317,7 +319,7 @@ namespace dnGREP.WPF
             }
             else
             {
-                paragraph.Inlines.Add(new Run("No matches found"));
+                paragraph.Inlines.Add(new Run(Resources.NoMatchesFound));
             }
             SearchOutput = paragraph.Inlines;
         }
@@ -368,15 +370,16 @@ namespace dnGREP.WPF
             }
             catch (ArgumentException ex)
             {
-                MessageBox.Show("Incorrect pattern: " + ex.Message, "dnGrep", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(Resources.IncorrectPattern + ex.Message, 
+                    Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             catch (XmlException)
             {
-                ReplaceErrorText = "Replace text is not valid XML!";
+                ReplaceErrorText = Resources.ReplaceTextIsNotValidXML;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error: " + ex.Message, "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Resources.Error + ex.Message, Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             Paragraph paragraph = new Paragraph();

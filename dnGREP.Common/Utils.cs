@@ -12,6 +12,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using dnGREP.Everything;
+using dnGREP.Localization;
 using NLog;
 using UtfUnknown;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
@@ -19,6 +20,7 @@ using File = Alphaleonis.Win32.Filesystem.File;
 using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 using TextFieldParser = Microsoft.VisualBasic.FileIO.TextFieldParser;
+using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.Common
 {
@@ -118,8 +120,9 @@ namespace dnGREP.Common
                         if (destinationFileInfo.Exists && action == OverwriteFile.Prompt)
                         {
                             var answer = MessageBox.Show(
-                                $"The file '{destinationFileInfo.Name}' already exists in {destinationFileInfo.DirectoryName}, overwrite existing?",
-                                "dnGrep - Overwrite File", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
+                                TranslationSource.Format(Resources.TheFile0AlreadyExistsIn1OverwriteExisting,
+                                    destinationFileInfo.Name, destinationFileInfo.DirectoryName),
+                                Resources.DnGrep, MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
 
                             if (answer == MessageBoxResult.Cancel)
                                 return count;
@@ -185,8 +188,9 @@ namespace dnGREP.Common
                         if (destinationFileInfo.Exists && action == OverwriteFile.Prompt)
                         {
                             var answer = MessageBox.Show(
-                                $"The file '{destinationFileInfo.Name}' already exists in {destinationFileInfo.DirectoryName}, overwrite existing?",
-                                "dnGrep - Overwrite File", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
+                                TranslationSource.Format(Resources.TheFile0AlreadyExistsIn1OverwriteExisting,
+                                    destinationFileInfo.Name, destinationFileInfo.DirectoryName),
+                                Resources.DnGrep, MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
 
                             if (answer == MessageBoxResult.Cancel)
                                 return count;
@@ -279,9 +283,9 @@ namespace dnGREP.Common
             int matchCount = source.Sum(s => s.Matches == null ? 0 : s.Matches.Count);
 
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("dnGrep Search Results").AppendLine();
+            sb.AppendLine(Resources.Report_DnGrepSearchResults).AppendLine();
             sb.Append(options).AppendLine();
-            sb.AppendFormat("Found {0} matches on {1} lines in {2} files",
+            sb.AppendFormat(Resources.Report_Found0MatchesOn1LinesIn2Files,
                 matchCount.ToString("#,##0"), lineCount.ToString("#,##0"), fileCount.ToString("#,##0"))
                 .AppendLine().AppendLine();
             sb.Append(GetResultLinesWithContext(source, orClauses));
@@ -297,7 +301,7 @@ namespace dnGREP.Common
         public static string GetResultsAsCSV(List<GrepSearchResult> source)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("File Name,Line Number,String");
+            sb.AppendLine(Resources.ReportCSV_FileNameLineNumberString);
             foreach (GrepSearchResult result in source)
             {
                 if (result.SearchResults == null)
@@ -346,13 +350,13 @@ namespace dnGREP.Common
                     var misses = orClauses.Except(set);
                     if (hits.Any())
                     {
-                        orResults += "Found matches for " + string.Join(", ", hits.Select(s => "\'" + s + "\'"));
+                        orResults += Resources.FoundMatchesFor + string.Join(", ", hits.Select(s => "\'" + s + "\'"));
                     }
                     if (misses.Any())
                     {
                         if (!string.IsNullOrEmpty(orResults))
                             orResults += Environment.NewLine;
-                        orResults += "Found no matches for " + string.Join(", ", misses.Select(s => "\'" + s + "\'"));
+                        orResults += Resources.FoundNoMatchesFor + string.Join(", ", misses.Select(s => "\'" + s + "\'"));
                     }
                 }
 
@@ -360,12 +364,12 @@ namespace dnGREP.Common
                 var searchResults = result.SearchResults;
                 if (searchResults != null)
                 {
-                    int matchCount = (result.Matches == null ? 0 : result.Matches.Count);
+                    int matchCount = result.Matches == null ? 0 : result.Matches.Count;
                     var lineCount = result.Matches.Where(r => r.LineNumber > 0)
                         .Select(r => r.LineNumber).Distinct().Count();
 
                     sb.AppendLine(result.FileNameDisplayed)
-                      .AppendFormat("has {0} matches on {1} lines:", matchCount, lineCount).AppendLine();
+                      .AppendFormat(Resources.Has0MatchesOn1Lines, matchCount, lineCount).AppendLine();
 
                     if (!string.IsNullOrEmpty(orResults))
                         sb.AppendLine(orResults);
@@ -385,7 +389,7 @@ namespace dnGREP.Common
                     }
                     else
                     {
-                        sb.AppendLine("[File not found: has it been deleted or moved?]");
+                        sb.AppendLine(Resources.FileNotFoundHasItBeenDeletedOrMoved);
                     }
                 }
                 sb.AppendLine("--------------------------------------------------------------------------------").AppendLine();
@@ -609,7 +613,7 @@ namespace dnGREP.Common
             if (!string.IsNullOrWhiteSpace(ext))
             {
                 // regex extensions may have a 'match end of line' char: remove it
-                ext = ext.TrimStart('.').TrimEnd('$').ToLower(CultureInfo.CurrentUICulture);
+                ext = ext.TrimStart('.').TrimEnd('$').ToLower(CultureInfo.CurrentCulture);
                 return ArchiveExtensions.Contains(ext);
             }
             return false;
@@ -1382,103 +1386,6 @@ namespace dnGREP.Common
                 }
             }
             return defaultValue;
-        }
-
-        /// <summary>
-        /// Parses text into double
-        /// </summary>
-        /// <param name="value">String. May include null, empty string or text with spaces before or after.</param>
-        /// <returns>Attempts to parse string. Otherwise returns double.MinValue</returns>
-        public static double ParseDouble(string value)
-        {
-            return ParseDouble(value, double.MinValue);
-        }
-
-        /// <summary>
-        /// Parses text into double
-        /// </summary>
-        /// <param name="value">String. May include null, empty string or text with spaces before or after.</param>
-        /// <param name="defaultValue">Default value if fails to parse.</param>
-        /// <returns>Attempts to parse string. Otherwise returns defaultValue</returns>
-        public static double ParseDouble(string value, double defaultValue)
-        {
-            if (value != null && value.Length != 0)
-            {
-                value = value.Trim();
-                if (double.TryParse(value, out double output))
-                {
-                    return output;
-                }
-            }
-            return defaultValue;
-        }
-
-        /// <summary>
-        /// Parses text into bool
-        /// </summary>
-        /// <param name="value">String. May include null, empty string or text with spaces before or after.
-        /// Text may be in the format of True/False, Yes/No, Y/N, On/Off, 1/0</param>
-        /// <returns></returns>
-        public static bool ParseBoolean(string value)
-        {
-            return ParseBoolean(value, false);
-        }
-
-        /// <summary>
-        /// Parses text into bool
-        /// </summary>
-        /// <param name="value">String. May include null, empty string or text with spaces before or after.
-        /// Text may be in the format of True/False, Yes/No, Y/N, On/Off, 1/0</param>
-        /// <param name="defaultValue">Default value</param>
-        /// <returns></returns>
-        public static bool ParseBoolean(string value, bool defaultValue)
-        {
-            if (value != null && value.Length != 0)
-            {
-                switch (value.Trim().ToLower())
-                {
-                    case "true":
-                    case "yes":
-                    case "y":
-                    case "on":
-                    case "1":
-                        return true;
-                    case "false":
-                    case "no":
-                    case "n":
-                    case "off":
-                    case "0":
-                        return false;
-                }
-            }
-            return defaultValue;
-        }
-
-        /// <summary>
-        /// Parses text into enum
-        /// </summary>
-        /// <typeparam name="T">Type of enum</typeparam>
-        /// <param name="value">Value to parse</param>
-        /// <param name="defaultValue">Default value</param>
-        /// <returns></returns>
-        public static T ParseEnum<T>(string value, T defaultValue)
-        {
-            if (string.IsNullOrWhiteSpace(value))
-                return defaultValue;
-
-            T result = defaultValue;
-            try
-            {
-                // Check if enum is nullable
-                var enumType = Nullable.GetUnderlyingType(typeof(T));
-                if (enumType == null)
-                    result = (T)Enum.Parse(typeof(T), value);
-                else
-                    result = (T)Enum.Parse(enumType, value);
-            }
-            catch { }
-
-            return result;
         }
 
         /// <summary>

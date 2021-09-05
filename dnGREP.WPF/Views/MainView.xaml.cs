@@ -7,6 +7,8 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System.Windows.Markup;
+using dnGREP.Localization;
 using dnGREP.WPF.Properties;
 using DockFloat;
 
@@ -78,6 +80,9 @@ namespace dnGREP.WPF
 
                     this.ConstrainToScreen();
                 };
+
+                OnCurrentCultureChanged(null, EventArgs.Empty);
+                TranslationSource.Instance.CurrentCultureChanged += OnCurrentCultureChanged;
             }
             this.isVisible = isVisible;
 
@@ -96,6 +101,12 @@ namespace dnGREP.WPF
             PreviewKeyDown += MainFormEx_PreviewKeyDown;
             PreviewKeyUp += MainFormEx_PreviewKeyUp;
             KeyDown += MainForm_KeyDown;
+        }
+
+        private void OnCurrentCultureChanged(object s, EventArgs e)
+        {
+            dpFrom.Language = XmlLanguage.GetLanguage(TranslationSource.Instance.CurrentCulture.IetfLanguageTag);
+            dpTo.Language = XmlLanguage.GetLanguage(TranslationSource.Instance.CurrentCulture.IetfLanguageTag);
         }
 
         [DllImport("user32.dll")]

@@ -33,7 +33,7 @@ namespace dnGREP.WPF
                 int digits = (int)Math.Floor(Math.Log10(LineNumbers.Max()) + 1);
 
                 FormattedText text = new FormattedText(
-                    new string('9', digits), CultureInfo.CurrentUICulture, TextView.FlowDirection,
+                    new string('9', digits), CultureInfo.CurrentCulture, TextView.FlowDirection,
                     typeface, emSize, Brushes.Black, 1.0);
                 return new Size(text.Width, 0);
             }
@@ -61,7 +61,7 @@ namespace dnGREP.WPF
                         if (lineIndex >= 0 && lineIndex < LineNumbers.Count)
                         {
                             FormattedText text = new FormattedText(LineNumbers[lineIndex].ToString(),
-                                CultureInfo.CurrentUICulture, textView.FlowDirection,
+                                CultureInfo.CurrentCulture, textView.FlowDirection,
                                 typeface, emSize, foreground, pixelsPerDip);
 
                             double y = line.GetTextLineVisualYPosition(line.TextLines[0], VisualYPosition.TextTop);

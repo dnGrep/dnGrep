@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Input;
 using dnGREP.Common;
+using dnGREP.Localization;
+using dnGREP.Localization.Properties;
 using ICSharpCode.AvalonEdit.Highlighting;
 
 namespace dnGREP.WPF
@@ -26,8 +28,8 @@ namespace dnGREP.WPF
         {
             Highlighters = ThemedHighlightingManager.Instance.HighlightingNames.ToList();
             Highlighters.Sort();
-            Highlighters.Insert(0, "None");
-            CurrentSyntax = "None";
+            Highlighters.Insert(0, Resources.PreviewSyntax_None);
+            CurrentSyntax = Resources.PreviewSyntax_None;
             ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
             ReplaceFormFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.ReplaceFormFontSize);
         }
@@ -41,7 +43,7 @@ namespace dnGREP.WPF
 
                 SelectedSearchResult = SearchResults[fileIndex];
 
-                FormatLabel();
+                FormatFileStatus();
 
                 matchIndex = -1;
                 SelectNextMatch();
@@ -57,35 +59,44 @@ namespace dnGREP.WPF
 
                 SelectedSearchResult = SearchResults[fileIndex];
 
-                FormatLabel();
+                FormatFileStatus();
 
                 matchIndex = -1;
                 SelectNextMatch();
             }
         }
 
-        private void FormatLabel()
+        private void FormatFileStatus()
         {
-            string label = string.Empty;
-
             var item = SelectedSearchResult;
             if (item != null)
             {
-                int matchCount = (item.Matches == null ? 0 : item.Matches.Count);
+                string matchStr = string.Empty;
+                string lineStr = string.Empty;
+                int matchCount = item.Matches == null ? 0 : item.Matches.Count;
                 if (matchCount > 0)
                 {
                     var lineCount = item.Matches.Where(r => r.LineNumber > 0)
                        .Select(r => r.LineNumber).Distinct().Count();
-                    label = $"{item.FileNameReal}  ({matchCount.ToString("N0", CultureInfo.CurrentUICulture)} matches on {lineCount.ToString("N0", CultureInfo.CurrentUICulture)} lines)";
+
+                    matchStr = matchCount.ToString("N0", CultureInfo.CurrentCulture);
+                    lineStr = lineCount.ToString("N0", CultureInfo.CurrentCulture);
                 }
+
+                string formattedText = TranslationSource.Format(Resources.FileNumberOfCountName,
+                   FileNumber, FileCount, item.FileNameReal, matchStr, lineStr);
 
                 if (Utils.IsReadOnly(item))
                 {
-                    label += " [read-only]";
+                    formattedText += " " + Resources.ReadOnly;
                 }
-            }
 
-            FileLabel = label;
+                FileStatus = formattedText;
+            }
+            else
+            {
+                FileStatus = string.Empty;
+            }
         }
 
         private void SelectNextMatch()
@@ -176,7 +187,7 @@ namespace dnGREP.WPF
                 _selectedSearchResult = value;
                 base.OnPropertyChanged(() => SelectedSearchResult);
 
-                CurrentSyntax = "None"; // by default, turn off syntax highlighting (easier to see the match highlights)
+                CurrentSyntax = Resources.PreviewSyntax_None; // by default, turn off syntax highlighting (easier to see the match highlights)
                 Encoding = _selectedSearchResult.Encoding;
                 LineNumbers.Clear();
                 FileText = string.Empty;
@@ -186,12 +197,12 @@ namespace dnGREP.WPF
                 FileInfo fileInfo = new FileInfo(_selectedSearchResult.FileNameReal);
                 if (Utils.IsBinary(_selectedSearchResult.FileNameReal))
                 {
-                    FileText = "Error: this is a binary file";
+                    FileText = Resources.ErrorThisIsABinaryFile;
                     IndividualReplaceEnabled = false;
                 }
                 else if (_selectedSearchResult.Matches.Count > 5000)
                 {
-                    FileText = $"This file contains too many matches for individual replace.  To replace all of them, click 'Replace in File'";
+                    FileText = Resources.ThisFileContainsTooManyMatchesForIndividualReplace;
                     IndividualReplaceEnabled = false;
                 }
                 else
@@ -294,6 +305,21 @@ namespace dnGREP.WPF
             }
         }
 
+        private string fileStatus;
+        public string FileStatus
+        {
+            get { return fileStatus; }
+            set
+            {
+                if (value == fileStatus)
+                    return;
+
+                fileStatus = value;
+
+                base.OnPropertyChanged(() => FileStatus);
+            }
+        }
+
         private int fileCount = 0;
         public int FileCount
         {
@@ -305,6 +331,7 @@ namespace dnGREP.WPF
 
                 fileCount = value;
                 base.OnPropertyChanged(() => FileCount);
+                FormatFileStatus();
             }
         }
 
@@ -319,22 +346,7 @@ namespace dnGREP.WPF
 
                 fileNumber = value;
                 base.OnPropertyChanged(() => FileNumber);
-            }
-        }
-
-        private string fileLabel = string.Empty;
-        public string FileLabel
-        {
-            get { return fileLabel; }
-            set
-            {
-                if (fileLabel == value)
-                {
-                    return;
-                }
-
-                fileLabel = value;
-                base.OnPropertyChanged(() => FileLabel);
+                FormatFileStatus();
             }
         }
 
