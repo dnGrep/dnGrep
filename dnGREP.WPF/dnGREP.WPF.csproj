@@ -65,7 +65,7 @@
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xaml"/>
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -453,7 +453,7 @@
       <Version>6.1.2.30</Version>
     </PackageReference>
     <PackageReference Include="NLog">
-      <Version>4.7.10</Version>
+      <Version>4.7.11</Version>
     </PackageReference>
     <PackageReference Include="StrongNamer">
       <Version>0.2.5</Version>
