@@ -80,7 +80,9 @@ namespace dnGREP.WPF.MVHelpers
                 }
 
                 currentLine = line.LineNumber;
-                if (currentLine <= 999 && LineNumberColumnWidth < 30)
+                if (line.IsHexFile)
+                    LineNumberColumnWidth = 80;
+                else if (currentLine <= 999 && LineNumberColumnWidth < 30)
                     LineNumberColumnWidth = 30;
                 else if (currentLine > 999 && LineNumberColumnWidth < 35)
                     LineNumberColumnWidth = 35;
@@ -88,6 +90,7 @@ namespace dnGREP.WPF.MVHelpers
                     LineNumberColumnWidth = 47;
                 else if (currentLine > 99999 && LineNumberColumnWidth < 50)
                     LineNumberColumnWidth = 50;
+
                 tempList.Add(new FormattedGrepLine(line, formattedResult, LineNumberColumnWidth, isSectionBreak));
             }
 

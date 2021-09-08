@@ -70,7 +70,7 @@ namespace dnGREP.Engines.Pdf
                 if (encoding == Encoding.Default)
                     encoding = Utils.GetFileEncoding(tempFile);
 
-                IGrepEngine engine = GrepEngineFactory.GetSearchEngine(tempFile, initParams, FileFilter);
+                IGrepEngine engine = GrepEngineFactory.GetSearchEngine(tempFile, initParams, FileFilter, searchType);
                 List<GrepSearchResult> results = engine.Search(tempFile, searchPattern, searchType, searchOptions, encoding);
 
                 if (results.Count > 0)

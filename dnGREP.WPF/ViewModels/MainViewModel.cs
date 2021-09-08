@@ -93,12 +93,14 @@ namespace dnGREP.WPF
 
         void SearchResults_PreviewFileRequest(object sender, GrepResultEventArgs e)
         {
-            PreviewFile(e.FormattedGrepResult);
+            if (!e.FormattedGrepResult.GrepResult.IsHexFile)
+                PreviewFile(e.FormattedGrepResult);
         }
 
         void SearchResults_PreviewFileLineRequest(object sender, GrepLineEventArgs e)
         {
-            PreviewFile(e.FormattedGrepLine);
+            if (!e.FormattedGrepLine.GrepLine.IsHexFile)
+                PreviewFile(e.FormattedGrepLine);
         }
 
         #region Private Variables and Properties
@@ -999,7 +1001,7 @@ namespace dnGREP.WPF
                 }
                 else
                 {
-                    IGrepEngine engine = GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, GrepEngineInitParams.Default, new FileFilter());
+                    IGrepEngine engine = GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, GrepEngineInitParams.Default, new FileFilter(), TypeOfSearch);
                     if (engine != null)
                     {
                         engine.OpenFile(fileArg);
@@ -1055,7 +1057,7 @@ namespace dnGREP.WPF
                 }
                 else
                 {
-                    IGrepEngine engine = GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, GrepEngineInitParams.Default, new FileFilter());
+                    IGrepEngine engine = GrepEngineFactory.GetSearchEngine(result.GrepResult.FileNameReal, GrepEngineInitParams.Default, new FileFilter(), TypeOfSearch);
                     if (engine != null)
                     {
                         engine.OpenFile(fileArg);
@@ -1709,7 +1711,7 @@ namespace dnGREP.WPF
                     bool result = core.Undo(undoList);
                     if (result)
                     {
-                        MessageBox.Show(Resources.FilesHaveBeenSuccessfullyReverted, 
+                        MessageBox.Show(Resources.FilesHaveBeenSuccessfullyReverted,
                             Resources.DnGrep + "  " + Resources.Undo, MessageBoxButton.OK, MessageBoxImage.Information);
                         Utils.DeleteTempFolder();
                         undoList.Clear();

@@ -37,7 +37,6 @@
         <my:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed" />
         <my:BoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" TrueValue="Collapsed"
                                       FalseValue="Visible" />
-        <my:GridLengthConverter x:Key="GridLengthConverter" />
         <my:IntOrEmptyValueConverter x:Key="IntConverter"/>
         <my:TitleFontSizeConverter x:Key="TitleSizeConverter"/>
         <my:TextBoxWidthConverter x:Key="TextBoxWidthConverter"/>
@@ -649,6 +648,9 @@
                                 <RadioButton Margin="3" Content="{l:Loc Key='Phonetic_'}" GroupName="SearchSoundex"
                                              IsChecked="{Binding TypeOfSearch, ConverterParameter=Soundex, Converter={StaticResource ebc}}"
                                              ToolTip="{l:Loc Key='PhoneticSearch'}" TabIndex="53" />
+                                <RadioButton Margin="3" Content="{l:Loc Key='Hex'}" GroupName="SearchHex"
+                                             IsChecked="{Binding TypeOfSearch, ConverterParameter=Hex, Converter={StaticResource ebc}}"
+                                             ToolTip="{l:Loc Key='ReadFileAsBinaryAndSearchForBytes'}" TabIndex="54" />
                             </StackPanel>
                             <Label HorizontalAlignment="Center" Content="{Binding ValidationMessage}" />
                         </DockPanel>

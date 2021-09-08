@@ -722,6 +722,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} ({1} matches).
+        /// </summary>
+        public static string CountMatches {
+            get {
+                return ResourceManager.GetString("CountMatches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} ({1} matches on {2} lines).
         /// </summary>
         public static string CountMatchesOnLines {
@@ -1375,6 +1384,15 @@ namespace dnGREP.Localization.Properties {
         public static string HelpTranslateDnGrep {
             get {
                 return ResourceManager.GetString("HelpTranslateDnGrep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hex.
+        /// </summary>
+        public static string Hex {
+            get {
+                return ResourceManager.GetString("Hex", resourceCulture);
             }
         }
         
@@ -2293,6 +2311,15 @@ namespace dnGREP.Localization.Properties {
         public static string PreviousFile_ {
             get {
                 return ResourceManager.GetString("PreviousFile_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Read file as binary and search for bytes as hexadecimal digits: 68 65 78 20.
+        /// </summary>
+        public static string ReadFileAsBinaryAndSearchForBytes {
+            get {
+                return ResourceManager.GetString("ReadFileAsBinaryAndSearchForBytes", resourceCulture);
             }
         }
         

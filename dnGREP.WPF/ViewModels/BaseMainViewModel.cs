@@ -1361,6 +1361,20 @@ namespace dnGREP.WPF
                             IsValidPattern = false;
                         }
                     }
+                    else if (TypeOfSearch == SearchType.Hex)
+                    {
+                        string[] parts = SearchFor.TrimEnd().Split(' ');
+                        bool valid = true;
+                        foreach (string num in parts)
+                        {
+                            if (!byte.TryParse(num, System.Globalization.NumberStyles.HexNumber, null, out byte result))
+                            {
+                                valid = false;
+                            }
+                        }
+                        ValidationMessage = valid ? "Hex string is OK" : "Hex string is not valid";
+                        isValidPattern = valid;
+                    }
                 }
             }
 
@@ -1455,6 +1469,21 @@ namespace dnGREP.WPF
                     IsWholeWordEnabled = true;
                     IsBooleanOperatorsEnabled = true;
                     IsHighlightGroupsEnabled = true;
+                }
+                else if (TypeOfSearch == SearchType.Hex)
+                {
+                    IsCaseSensitiveEnabled = false;
+                    IsMultilineEnabled = false;
+                    IsSinglelineEnabled = false;
+                    IsWholeWordEnabled = false;
+                    IsBooleanOperatorsEnabled = false;
+                    IsHighlightGroupsEnabled = false;
+                    CaseSensitive = false;
+                    Multiline = false;
+                    Singleline = false;
+                    WholeWord = false;
+                    BooleanOperators = false;
+                    HighlightCaptureGroups = false;
                 }
             }
         }

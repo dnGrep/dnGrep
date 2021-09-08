@@ -55,6 +55,8 @@ namespace dnGREP.Common
 
         public string EOL { get; set; }
 
+        public bool IsHexFile { get; set; }
+
         public string FileNameDisplayed { get; set; }
 
         public string InnerFileName { get; set; }
@@ -150,9 +152,21 @@ namespace dnGREP.Common
                     EOL = Utils.GetEOL(FileNameReal, Encoding);
 
                     using (FileStream reader = File.Open(FileNameReal, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                    using (StreamReader streamReader = new StreamReader(reader, Encoding))
                     {
-                        searchResults = Utils.GetLinesEx(streamReader, Matches, linesBefore, linesAfter);
+                        if (IsHexFile)
+                        {
+                            using (BinaryReader readStream = new BinaryReader(reader))
+                            { 
+                                searchResults = Utils.GetLinesHexFormat(readStream, Matches, linesBefore, linesAfter);
+                            }
+                        }
+                        else
+                        {
+                            using (StreamReader streamReader = new StreamReader(reader, Encoding))
+                            {
+                                searchResults = Utils.GetLinesEx(streamReader, Matches, linesBefore, linesAfter);
+                            }
+                        }
                     }
                 }
                 else

@@ -21,6 +21,7 @@ namespace dnGREP.Common
         public string LineText { get; }
 
         public bool IsContext { get; } = false;
+        public bool IsHexFile { get; set; }
 
         public List<GrepMatch> Matches { get; }
 
