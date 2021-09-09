@@ -43,7 +43,7 @@ namespace dnGREP.Engines
         {
             List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
 
-            byte[] searchArray = ToByteArray(searchPattern);
+            byte?[] searchArray = ToByteArray(searchPattern);
 
             const int bufferSize = 4096;
             byte[] buffer1, buffer2;
@@ -76,14 +76,18 @@ namespace dnGREP.Engines
             return searchResults;
         }
 
-        private byte[] ToByteArray(string searchPattern)
+        private byte?[] ToByteArray(string searchPattern)
         {
             // the expected search pattern is a space separated list of byte values in hexadecimal: 20 68 74
-            List<byte> list = new List<byte>();
+            List<byte?> list = new List<byte?>();
             string[] parts = searchPattern.TrimEnd().Split(' ');
             foreach (string num in parts)
             {
-                if (byte.TryParse(num, NumberStyles.HexNumber, null, out byte result))
+                if (num == "?" || num == "??")
+                {
+                    list.Add(null);
+                }
+                else if (byte.TryParse(num, NumberStyles.HexNumber, null, out byte result))
                 {
                     list.Add(result);
                 }
@@ -91,7 +95,7 @@ namespace dnGREP.Engines
             return list.ToArray();
         }
 
-        private List<GrepMatch> DoByteArraySearch(byte[] buffer1, byte[] buffer2, byte[] searchArray, int index, string searchPattern)
+        private List<GrepMatch> DoByteArraySearch(byte[] buffer1, byte[] buffer2, byte?[] searchArray, int index, string searchPattern)
         {
             List<GrepMatch> globalMatches = new List<GrepMatch>();
             foreach (var match in ByteArraySearchIterator(buffer1, buffer2, searchArray, index, searchPattern))
@@ -107,21 +111,27 @@ namespace dnGREP.Engines
             return globalMatches;
         }
 
-        private IEnumerable<GrepMatch> ByteArraySearchIterator(byte[] buffer1, byte[] buffer2, byte[] searchArray, int startIndex, string searchPattern)
+        private IEnumerable<GrepMatch> ByteArraySearchIterator(byte[] buffer1, byte[] buffer2, byte?[] searchArray, int startIndex, string searchPattern)
         {
             int combinedLength = buffer1.Length + (buffer2 == null ? 0 : buffer2.Length);
 
             for (int idx = 0; idx < buffer1.Length; idx++)
             {
-                if (buffer1[idx] == searchArray[0])
+                if (buffer1[idx] == searchArray[0] || !searchArray[0].HasValue)
                 {
                     bool hasMatch = true;
+                    bool compareComplete = searchArray.Length == 1;
                     for (int jdx = 1; jdx < searchArray.Length && idx + jdx < combinedLength && hasMatch; jdx++)
                     {
+                        compareComplete = jdx == searchArray.Length - 1;
+                        if (!searchArray[jdx].HasValue)
+                        {
+                            continue;
+                        }
                         hasMatch = GetByte(buffer1, buffer2, idx + jdx) == searchArray[jdx];
                     }
 
-                    if (hasMatch)
+                    if (hasMatch && compareComplete)
                     {
                         yield return new GrepMatch(searchPattern, 0, startIndex + idx, searchArray.Length);
                     }

@@ -1365,12 +1365,24 @@ namespace dnGREP.WPF
                     {
                         string[] parts = SearchFor.TrimEnd().Split(' ');
                         bool valid = true;
+                        bool hasDigit = false;  // need at least 1 byte specified
                         foreach (string num in parts)
                         {
-                            if (!byte.TryParse(num, System.Globalization.NumberStyles.HexNumber, null, out byte result))
+                            if (num != "?" && num != "??")
                             {
-                                valid = false;
+                                if (byte.TryParse(num, System.Globalization.NumberStyles.HexNumber, null, out byte result))
+                                {
+                                    hasDigit = true;
+                                }
+                                else
+                                {
+                                    valid = false;
+                                }
                             }
+                        }
+                        if (!hasDigit)
+                        {
+                            valid = false;
                         }
                         ValidationMessage = valid ? "Hex string is OK" : "Hex string is not valid";
                         isValidPattern = valid;
