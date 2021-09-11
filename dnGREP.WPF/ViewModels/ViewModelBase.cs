@@ -95,7 +95,7 @@ namespace dnGREP.WPF
         /// </summary>
         ~ViewModelBase()
         {
-            string msg = string.Format($"{GetType().Name} ({GetHashCode()}) Finalized");
+            string msg = $"{GetType().Name} ({GetHashCode()}) Finalized";
             System.Diagnostics.Debug.WriteLine(msg);
         }
 #endif

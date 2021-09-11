@@ -43,7 +43,7 @@ namespace dnGREP.WPF
         private Size MeasureString(string candidate, Typeface typeface, double fontSize, FrameworkElement control)
         {
             var formattedText = new FormattedText(candidate,
-                                                  CultureInfo.CurrentUICulture,
+                                                  CultureInfo.CurrentCulture,
                                                   FlowDirection.LeftToRight,
                                                   typeface,
                                                   fontSize,

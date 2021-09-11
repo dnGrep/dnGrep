@@ -7,34 +7,34 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <!--<ResourceDictionary Source="Themes\DarkBrushes.xaml" />-->
-                <ResourceDictionary Source="Themes\LightBrushes.xaml" />
+                <!--<ResourceDictionary Source="pack://application:,,,/Themes/DarkBrushes.xaml" />-->
+                <ResourceDictionary Source="pack://application:,,,/Themes/LightBrushes.xaml" />
 
-                <ResourceDictionary Source="ThemedControls\ThemedWindow.xaml" />
-                <ResourceDictionary Source="ThemedControls\FloatWindow.xaml" />
-                <ResourceDictionary Source="ThemedControls\PreviewControl.xaml" />
-                <ResourceDictionary Source="ThemedControls\TextBox.xaml" />
-                <ResourceDictionary Source="ThemedControls\Button.xaml" />
-                <ResourceDictionary Source="ThemedControls\CheckBox.xaml" />
-                <ResourceDictionary Source="ThemedControls\ComboBox.xaml" />
-                <ResourceDictionary Source="ThemedControls\CustomTemplates.xaml" />
-                <ResourceDictionary Source="ThemedControls\DataGrid.xaml" />
-                <ResourceDictionary Source="ThemedControls\DatePicker.xaml" />
-                <ResourceDictionary Source="ThemedControls\DockSite.xaml" />
-                <ResourceDictionary Source="ThemedControls\Expander.xaml" />
-                <ResourceDictionary Source="ThemedControls\GroupBox.xaml" />
-                <ResourceDictionary Source="ThemedControls\Menu.xaml" />
-                <ResourceDictionary Source="ThemedControls\ProgressBar.xaml" />
-                <ResourceDictionary Source="ThemedControls\RadioButton.xaml" />
-                <ResourceDictionary Source="ThemedControls\SplitButton.xaml" />
-                <ResourceDictionary Source="ThemedControls\SearchPanel.xaml" />
-                <ResourceDictionary Source="ThemedControls\StatusBar.xaml" />
-                <ResourceDictionary Source="ThemedControls\ScrollViewer.xaml" />
-                <ResourceDictionary Source="ThemedControls\Slider.xaml" />
-                <ResourceDictionary Source="ThemedControls\ToggleButton.xaml" />
-                <ResourceDictionary Source="ThemedControls\TreeView.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ThemedControls/ThemedWindow.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ThemedControls/FloatWindow.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ThemedControls/PreviewControl.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ThemedControls/TextBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ThemedControls/Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ThemedControls/CheckBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ThemedControls/ComboBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ThemedControls/CustomTemplates.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ThemedControls/DataGrid.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ThemedControls/DatePicker.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ThemedControls/DockSite.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ThemedControls/Expander.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ThemedControls/GroupBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ThemedControls/Menu.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ThemedControls/ProgressBar.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ThemedControls/RadioButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ThemedControls/SplitButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ThemedControls/SearchPanel.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ThemedControls/StatusBar.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ThemedControls/ScrollViewer.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ThemedControls/Slider.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ThemedControls/ToggleButton.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ThemedControls/TreeView.xaml" />
 
-                <ResourceDictionary Source="ThemedControls\Styles.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ThemedControls/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

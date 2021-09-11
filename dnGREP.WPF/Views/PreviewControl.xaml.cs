@@ -142,7 +142,6 @@ namespace dnGREP.WPF
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //Title = string.Format("Previewing \"{0}\"", ViewModel.DisplayFileName);
             textEditor.Load(ViewModel.FilePath);
             ViewModel.IsLargeOrBinary = false;
             textEditor.ScrollTo(ViewModel.LineNumber, 0);

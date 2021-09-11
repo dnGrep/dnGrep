@@ -11,6 +11,7 @@ using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
 using dnGREP.Common;
+using dnGREP.Localization;
 using Microsoft.Win32;
 using NLog;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
@@ -325,8 +326,8 @@ namespace dnGREP.WPF
 
             if (!valid)
             {
-                MessageBox.Show($"Could not load theme '{name}', See the error log for details: " + App.LogDir,
-                    "dnGrep - Load Theme", MessageBoxButton.OK);
+                MessageBox.Show(TranslationSource.Format(Localization.Properties.Resources.CouldNotLoadTheme, name) + App.LogDir,
+                    Localization.Properties.Resources.DnGrep, MessageBoxButton.OK);
             }
 
             return valid;

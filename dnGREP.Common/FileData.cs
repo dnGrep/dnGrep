@@ -18,7 +18,7 @@ namespace dnGREP.Common
     {
         private readonly FileInfo systemFileInfo;
         private readonly string archiveFileName;
-        private readonly ArchiveFileInfo sevenZipFileInfo;
+        private readonly ArchiveFileInfo? sevenZipFileInfo;
         private readonly EverythingFileInfo everythingFileInfo;
 
         public FileData(string fileName)
@@ -42,7 +42,7 @@ namespace dnGREP.Common
             get
             {
                 return systemFileInfo != null ? systemFileInfo.FullName :
-                    sevenZipFileInfo != null ? (archiveFileName ?? string.Empty) + ArchiveDirectory.ArchiveSeparator + sevenZipFileInfo.FileName :
+                    sevenZipFileInfo != null ? (archiveFileName ?? string.Empty) + ArchiveDirectory.ArchiveSeparator + sevenZipFileInfo.Value.FileName :
                     everythingFileInfo != null ? everythingFileInfo.FullName :
                     string.Empty;
             }
@@ -53,7 +53,7 @@ namespace dnGREP.Common
             get
             {
                 return systemFileInfo != null ? systemFileInfo.Name :
-                    sevenZipFileInfo != null ? Path.GetFileName(sevenZipFileInfo.FileName) :
+                    sevenZipFileInfo != null ? Path.GetFileName(sevenZipFileInfo.Value.FileName) :
                     everythingFileInfo != null ? everythingFileInfo.Name :
                     string.Empty;
             }
@@ -64,7 +64,7 @@ namespace dnGREP.Common
             get
             {
                 return systemFileInfo != null ? systemFileInfo.DirectoryName :
-                    sevenZipFileInfo != null ? Path.GetDirectoryName(sevenZipFileInfo.FileName) :
+                    sevenZipFileInfo != null ? Path.GetDirectoryName(sevenZipFileInfo.Value.FileName) :
                     everythingFileInfo != null ? everythingFileInfo.DirectoryName :
                     string.Empty;
             }
@@ -75,7 +75,7 @@ namespace dnGREP.Common
             get
             {
                 return systemFileInfo != null ? systemFileInfo.Extension :
-                    sevenZipFileInfo != null ? Path.GetExtension(sevenZipFileInfo.FileName) :
+                    sevenZipFileInfo != null ? Path.GetExtension(sevenZipFileInfo.Value.FileName) :
                     everythingFileInfo != null ? everythingFileInfo.Extension :
                     string.Empty;
             }
@@ -97,7 +97,7 @@ namespace dnGREP.Common
             get
             {
                 return systemFileInfo != null ? systemFileInfo.Attributes :
-                    sevenZipFileInfo != null ? (FileAttributes)sevenZipFileInfo.Attributes :
+                    sevenZipFileInfo != null ? (FileAttributes)sevenZipFileInfo.Value.Attributes :
                     everythingFileInfo != null ? everythingFileInfo.Attributes :
                     FileAttributes.Normal;
             }
@@ -119,7 +119,7 @@ namespace dnGREP.Common
             get
             {
                 return systemFileInfo != null ? systemFileInfo.Length :
-                    sevenZipFileInfo != null ? ToLong(sevenZipFileInfo.Size) :
+                    sevenZipFileInfo != null ? ToLong(sevenZipFileInfo.Value.Size) :
                     everythingFileInfo != null ? everythingFileInfo.Length :
                     0;
             }
@@ -130,7 +130,7 @@ namespace dnGREP.Common
             get
             {
                 return systemFileInfo != null ? systemFileInfo.CreationTimeUtc :
-                    sevenZipFileInfo != null ? sevenZipFileInfo.CreationTime.ToUniversalTime() :
+                    sevenZipFileInfo != null ? sevenZipFileInfo.Value.CreationTime.ToUniversalTime() :
                     everythingFileInfo != null ? everythingFileInfo.CreationTimeUtc :
                     DateTime.MinValue;
             }
@@ -141,7 +141,7 @@ namespace dnGREP.Common
             get
             {
                 return systemFileInfo != null ? systemFileInfo.CreationTime :
-                    sevenZipFileInfo != null ? sevenZipFileInfo.CreationTime :
+                    sevenZipFileInfo != null ? sevenZipFileInfo.Value.CreationTime :
                     everythingFileInfo != null ? everythingFileInfo.CreationTime :
                     DateTime.MinValue;
             }
@@ -152,7 +152,7 @@ namespace dnGREP.Common
             get
             {
                 return systemFileInfo != null ? systemFileInfo.LastWriteTimeUtc :
-                    sevenZipFileInfo != null ? sevenZipFileInfo.LastWriteTime.ToUniversalTime() :
+                    sevenZipFileInfo != null ? sevenZipFileInfo.Value.LastWriteTime.ToUniversalTime() :
                     everythingFileInfo != null ? everythingFileInfo.LastWriteTimeUtc :
                     DateTime.MinValue;
             }
@@ -163,7 +163,7 @@ namespace dnGREP.Common
             get
             {
                 return systemFileInfo != null ? systemFileInfo.LastWriteTime :
-                    sevenZipFileInfo != null ? sevenZipFileInfo.LastWriteTime :
+                    sevenZipFileInfo != null ? sevenZipFileInfo.Value.LastWriteTime :
                     everythingFileInfo != null ? everythingFileInfo.LastWriteTime :
                     DateTime.MinValue;
             }

@@ -2,7 +2,9 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
+using dnGREP.Localization;
 using NLog;
+using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.Common
 {
@@ -112,12 +114,12 @@ namespace dnGREP.Common
                     var process = ProcessHoldingClipboard();
                     if (process != null)
                     {
-                        string msg = $"Error setting clipboard text, the clipboard is locked by" + Environment.NewLine;
+                        string msg = Resources.ErrorSettingClipboardTextTheClipboardIsLockedBy + Environment.NewLine;
                         msg += (process.MainModule != null && !string.IsNullOrEmpty(process.MainModule.FileName) ?
                             process.MainModule.FileName : process.ProcessName) + Environment.NewLine +
-                            $"Window Title: {process.MainWindowTitle}";
+                            TranslationSource.Format(Resources.WindowTitleIsName, process.MainWindowTitle);
                         logger.Error(msg);
-                        System.Windows.MessageBox.Show(msg, "dnGrep - Copy",
+                        System.Windows.MessageBox.Show(msg, Resources.DnGrep,
                             System.Windows.MessageBoxButton.OK,
                             System.Windows.MessageBoxImage.Error);
                     }

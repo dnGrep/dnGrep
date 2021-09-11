@@ -4,7 +4,8 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:my="clr-namespace:dnGREP.WPF"
-                 Title="Bookmark Details"
+                 xmlns:l="clr-namespace:dnGREP.Localization;assembly=dnGREP.Localization"
+                 Title="{l:Loc Key='BookmarkDetails'}"
                  FontFamily="{Binding ApplicationFontFamily}"
                  FontSize="{Binding DialogFontSize}"
                  SizeToContent="WidthAndHeight"
@@ -54,75 +55,75 @@
                 <ColumnDefinition SharedSizeGroup="A"/>
                 <ColumnDefinition SharedSizeGroup="A"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="This bookmark already exists" 
+            <TextBlock Grid.Column="0" Text="{l:Loc Key='ThisBookmarkAlreadyExists'}" 
                        Style="{StaticResource labelStyle}"  Margin="0,0,18,0"
                        Visibility="{Binding ElementName=okBtn, Path=IsEnabled, Converter={StaticResource InvBoolToVisibilityConverter}}"/>
-            <Button Grid.Column="1" x:Name="okBtn" Content="OK" IsDefault="True" 
+            <Button Grid.Column="1" x:Name="okBtn" Content="{l:Loc Key='OK'}" IsDefault="True" 
                     Command="{Binding SaveCommand}" Click="OkButton_Click" />
-            <Button Grid.Column="2" Content="Cancel" IsCancel="True" />
+            <Button Grid.Column="2" Content="{l:Loc Key='Cancel_'}" IsCancel="True" />
         </Grid>
 
         <DockPanel Margin="0,0,0,18">
 
-            <GroupBox Margin="0,0,0,8" DockPanel.Dock="Top" Header="Type">
+            <GroupBox Margin="0,0,0,8" DockPanel.Dock="Top" Header="{l:Loc Key='TypeHeader'}">
                 <StackPanel Orientation="Horizontal">
-                    <RadioButton Content="_Regex" GroupName="SearchType"
+                    <RadioButton Content="{l:Loc Key='Regex_'}" GroupName="SearchType"
                                  IsChecked="{Binding TypeOfSearch, ConverterParameter=Regex, Converter={StaticResource ebc}}"
-                                 ToolTip="Regular expression search" />
-                    <RadioButton Content="_XPath" GroupName="SearchType"
+                                 ToolTip="{l:Loc Key='RegularExpressionSearch'}" />
+                    <RadioButton Content="{l:Loc Key='XPath_'}" GroupName="SearchType"
                                  IsChecked="{Binding TypeOfSearch, ConverterParameter=XPath, Converter={StaticResource ebc}}"
-                                 ToolTip="XPath search (XML documents only)" />
-                    <RadioButton Content="_Text" GroupName="SearchType"
+                                 ToolTip="{l:Loc Key='XPathSearchXMLDocumentsOnly'}" />
+                    <RadioButton Content="{l:Loc Key='Text_'}" GroupName="SearchType"
                                  IsChecked="{Binding TypeOfSearch, ConverterParameter=PlainText, Converter={StaticResource ebc}}"
-                                 ToolTip="Plain text search" />
-                    <RadioButton Content="_Phonetic" GroupName="SearchType"
+                                 ToolTip="{l:Loc Key='PlainTextSearch'}" />
+                    <RadioButton Content="{l:Loc Key='Phonetic_'}" GroupName="SearchType"
                                  IsChecked="{Binding TypeOfSearch, ConverterParameter=Soundex, Converter={StaticResource ebc}}"
-                                 ToolTip="Phonetic search" />
+                                 ToolTip="{l:Loc Key='PhoneticSearch'}" />
                 </StackPanel>
             </GroupBox>
 
-            <TextBlock DockPanel.Dock="Top" Style="{StaticResource labelStyle}" Text="Search for:" />
+            <TextBlock DockPanel.Dock="Top" Style="{StaticResource labelStyle}" Text="{l:Loc Key='SearchFor'}" />
             <TextBox DockPanel.Dock="Top" Text="{Binding SearchFor}" />
 
-            <TextBlock DockPanel.Dock="Top" Style="{StaticResource labelStyle}" Text="Replace with:" />
+            <TextBlock DockPanel.Dock="Top" Style="{StaticResource labelStyle}" Text="{l:Loc Key='ReplaceWith'}" />
             <TextBox DockPanel.Dock="Top" Text="{Binding ReplaceWith}" />
 
             <StackPanel Margin="0,0,0,16" DockPanel.Dock="Top" Orientation="Horizontal">
-                <CheckBox IsChecked="{Binding CaseSensitive}" IsEnabled="{Binding IsCaseSensitiveEnabled}" Content="C_ase sensitive" />
-                <CheckBox IsChecked="{Binding WholeWord}" IsEnabled="{Binding IsWholeWordEnabled}" Content="_Whole word" />
-                <CheckBox IsChecked="{Binding Multiline}" IsEnabled="{Binding IsMultilineEnabled}" Content="_Multiline" />
-                <CheckBox IsChecked="{Binding Singleline}" IsEnabled="{Binding IsSinglelineEnabled}" Content="_Dot as newline" />
-                <CheckBox IsChecked="{Binding BooleanOperators}" IsEnabled="{Binding IsBooleanOperatorsEnabled}" Content="Boolean Operators" />
+                <CheckBox IsChecked="{Binding CaseSensitive}" IsEnabled="{Binding IsCaseSensitiveEnabled}" Content="{l:Loc Key='CaseSensitive_'}" />
+                <CheckBox IsChecked="{Binding WholeWord}" IsEnabled="{Binding IsWholeWordEnabled}" Content="{l:Loc Key='WholeWord_'}" />
+                <CheckBox IsChecked="{Binding Multiline}" IsEnabled="{Binding IsMultilineEnabled}" Content="{l:Loc Key='Multiline_'}" />
+                <CheckBox IsChecked="{Binding Singleline}" IsEnabled="{Binding IsSinglelineEnabled}" Content="{l:Loc Key='DotAsNewline_'}" />
+                <CheckBox IsChecked="{Binding BooleanOperators}" IsEnabled="{Binding IsBooleanOperatorsEnabled}" Content="{l:Loc Key='Boolean Operators'}" />
             </StackPanel>
 
 
-            <TextBlock DockPanel.Dock="Top" Style="{StaticResource labelStyle}" Text="File pattern:" />
+            <TextBlock DockPanel.Dock="Top" Style="{StaticResource labelStyle}" Text="{l:Loc Key='FilePattern'}" />
             <TextBox DockPanel.Dock="Top" Text="{Binding FilePattern}" />
 
-            <TextBlock DockPanel.Dock="Top" Style="{StaticResource labelStyle}" Text="Ignore pattern:" />
+            <TextBlock DockPanel.Dock="Top" Style="{StaticResource labelStyle}" Text="{l:Loc Key='ExcludePattern'}" />
             <TextBox DockPanel.Dock="Top" Text="{Binding IgnoreFilePattern}" />
 
-            <GroupBox Margin="0,3,0,8" DockPanel.Dock="Top" Header="File Pattern Type">
+            <GroupBox Margin="0,3,0,8" DockPanel.Dock="Top" Header="{l:Loc Key='FilePatternType'}">
                 <StackPanel Orientation="Horizontal">
-                    <RadioButton GroupName="FileSearchType" Content="Regex"
+                    <RadioButton GroupName="FileSearchType" Content="{l:Loc Key='Regex'}"
                                  IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}"
-                                 ToolTip="e.g. file[0-9]{1,2}\\.txt" />
-                    <RadioButton Name="rbFileAsterisk" GroupName="FileSearchType" Content="Asterisk pattern"
+                                 ToolTip="{l:Loc Key='ForExampleRegularExpession'}" />
+                    <RadioButton Name="rbFileAsterisk" GroupName="FileSearchType" Content="{l:Loc Key='AsteriskPattern_'}"
                                  IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Asterisk}"
-                                 ToolTip="e.g. *.txt" />
-                    <RadioButton Name="rbFileEverything" GroupName="FileSearchType" Content="Everything"
+                                 ToolTip="{l:Loc Key='ForExampleAsteriskPattern'}" />
+                    <RadioButton Name="rbFileEverything" GroupName="FileSearchType" Content="{l:Loc Key='Everything_'}"
                                  IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Everything}"
-                                 ToolTip="Everything Index Service"
+                                 ToolTip="{l:Loc Key='EverythingIndexService'}"
                                  Visibility="{Binding Path=IsEverythingAvailable, Converter={StaticResource BoolToVisibilityConverter}}" />
                 </StackPanel>
             </GroupBox>
 
             <UniformGrid DockPanel.Dock="Top">
-                <CheckBox IsChecked="{Binding Path=IncludeSubfolders}" Content="Include subfolders" />
-                <CheckBox IsChecked="{Binding Path=IncludeHidden}" Content="Include hidden folders" />
-                <CheckBox IsChecked="{Binding Path=IncludeBinary}" Content="Include binary files" />
+                <CheckBox IsChecked="{Binding Path=IncludeSubfolders}" Content="{l:Loc Key='IncludeSubfolders_'}" />
+                <CheckBox IsChecked="{Binding Path=IncludeHidden}" Content="{l:Loc Key='IncludeHiddenFolders_'}" />
+                <CheckBox IsChecked="{Binding Path=IncludeBinary}" Content="{l:Loc Key='IncludeBinaryFiles_'}" />
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="3,0,3,3" Text="Max depth"
+                    <TextBlock Margin="3,0,3,3" Text="{l:Loc Key='MaxDepth'}"
                                Style="{StaticResource LabelTextBlockStyle}" />
                     <my:DepthTextBox Margin="3,0,3,3"
                                      IsEnabled="{Binding Path=IncludeSubfolder}"
@@ -145,15 +146,15 @@
                         </TextBox.Width>
                     </my:DepthTextBox>
                 </StackPanel>
-                <CheckBox IsChecked="{Binding Path=IncludeArchive}" Content="Search in archives" />
-                <CheckBox IsChecked="{Binding Path=FollowSymlinks}" Content="Follow symbolic links" />
-                <CheckBox IsChecked="{Binding Path=UseGitignore}" Content="Use .gitignore" 
-                          ToolTip="Use .gitignore to filter files"
+                <CheckBox IsChecked="{Binding Path=IncludeArchive}" Content="{l:Loc Key='SearchInArchives_'}" />
+                <CheckBox IsChecked="{Binding Path=FollowSymlinks}" Content="{l:Loc Key='FollowSymbolicLinks_'}" />
+                <CheckBox IsChecked="{Binding Path=UseGitignore}" Content="{l:Loc Key='UseGitignore_'}" 
+                          ToolTip="{l:Loc Key='UseGitignoreToFilterFiles'}"
                           Visibility="{Binding IsGitInstalled, Converter={StaticResource BoolToVisibilityConverter}}" />
             </UniformGrid>
 
             <StackPanel Margin="0,3,0,16" DockPanel.Dock="Top" Orientation="Horizontal">
-                <TextBlock Margin="3,0,3,3" Text="Encoding:"
+                <TextBlock Margin="3,0,3,3" Text="{l:Loc Key='Encoding'}"
                            Style="{StaticResource LabelTextBlockStyle}" />
                 <ComboBox Name="cbEncoding"
                           Margin="3,0,3,3" HorizontalContentAlignment="Center"
@@ -179,9 +180,9 @@
             <TextBox DockPanel.Dock="Bottom" Text="{Binding PathReferences}" Height="48"
                      TextWrapping="NoWrap" AcceptsReturn="True" IsReadOnly="True"
                      ScrollViewer.VerticalScrollBarVisibility="Auto"/>
-            <TextBlock DockPanel.Dock="Bottom" Style="{StaticResource labelStyle}" Text="Associated Folders:" />
+            <TextBlock DockPanel.Dock="Bottom" Style="{StaticResource labelStyle}" Text="{l:Loc Key='AssociatedFolders'}" />
             
-            <TextBlock DockPanel.Dock="Top" Style="{StaticResource labelStyle}" Text="Description:" Margin="0,16,0,0"/>
+            <TextBlock DockPanel.Dock="Top" Style="{StaticResource labelStyle}" Text="{l:Loc Key='Description'}" Margin="0,16,0,0"/>
             <TextBox MinHeight="48" VerticalContentAlignment="Stretch"
                      Text="{Binding Description}"
                      TextWrapping="Wrap" AcceptsReturn="True" />

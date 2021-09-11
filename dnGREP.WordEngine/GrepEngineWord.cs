@@ -27,6 +27,7 @@ namespace dnGREP.Engines.Word
         private object wordDocuments;
 
         private readonly object MISSING_VALUE = Missing.Value;
+        private const int msoAutomationSecurityForceDisable = 3;
 
         #region Initialization and disposal
         public GrepEngineWord()
@@ -205,6 +206,10 @@ namespace dnGREP.Engines.Word
                     // set visible state
                     wordApplication.GetType().InvokeMember("Visible", BindingFlags.SetProperty, null,
                         wordApplication, new object[1] { visible });
+
+                    // set automation security
+                    wordApplication.GetType().InvokeMember("AutomationSecurity", BindingFlags.SetProperty, null,
+                        wordApplication, new object[1] { msoAutomationSecurityForceDisable });
 
                     // get Documents Property
                     wordDocuments = wordApplication.GetType().InvokeMember("Documents", BindingFlags.GetProperty,

@@ -7,7 +7,8 @@ namespace dnGREP.Common
         PlainText,
         Regex,
         XPath,
-        Soundex
+        Soundex,
+        Hex
     }
 
     public enum FileOpenEditor

@@ -12,6 +12,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using dnGREP.Everything;
+using dnGREP.Localization;
 using NLog;
 using UtfUnknown;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
@@ -19,6 +20,7 @@ using File = Alphaleonis.Win32.Filesystem.File;
 using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 using TextFieldParser = Microsoft.VisualBasic.FileIO.TextFieldParser;
+using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.Common
 {
@@ -118,8 +120,9 @@ namespace dnGREP.Common
                         if (destinationFileInfo.Exists && action == OverwriteFile.Prompt)
                         {
                             var answer = MessageBox.Show(
-                                $"The file '{destinationFileInfo.Name}' already exists in {destinationFileInfo.DirectoryName}, overwrite existing?",
-                                "dnGrep - Overwrite File", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
+                                TranslationSource.Format(Resources.TheFile0AlreadyExistsIn1OverwriteExisting,
+                                    destinationFileInfo.Name, destinationFileInfo.DirectoryName),
+                                Resources.DnGrep, MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
 
                             if (answer == MessageBoxResult.Cancel)
                                 return count;
@@ -185,8 +188,9 @@ namespace dnGREP.Common
                         if (destinationFileInfo.Exists && action == OverwriteFile.Prompt)
                         {
                             var answer = MessageBox.Show(
-                                $"The file '{destinationFileInfo.Name}' already exists in {destinationFileInfo.DirectoryName}, overwrite existing?",
-                                "dnGrep - Overwrite File", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
+                                TranslationSource.Format(Resources.TheFile0AlreadyExistsIn1OverwriteExisting,
+                                    destinationFileInfo.Name, destinationFileInfo.DirectoryName),
+                                Resources.DnGrep, MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
 
                             if (answer == MessageBoxResult.Cancel)
                                 return count;
@@ -279,9 +283,9 @@ namespace dnGREP.Common
             int matchCount = source.Sum(s => s.Matches == null ? 0 : s.Matches.Count);
 
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("dnGrep Search Results").AppendLine();
+            sb.AppendLine(Resources.Report_DnGrepSearchResults).AppendLine();
             sb.Append(options).AppendLine();
-            sb.AppendFormat("Found {0} matches on {1} lines in {2} files",
+            sb.AppendFormat(Resources.Report_Found0MatchesOn1LinesIn2Files,
                 matchCount.ToString("#,##0"), lineCount.ToString("#,##0"), fileCount.ToString("#,##0"))
                 .AppendLine().AppendLine();
             sb.Append(GetResultLinesWithContext(source, orClauses));
@@ -297,7 +301,7 @@ namespace dnGREP.Common
         public static string GetResultsAsCSV(List<GrepSearchResult> source)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("File Name,Line Number,String");
+            sb.AppendLine(Resources.ReportCSV_FileNameLineNumberString);
             foreach (GrepSearchResult result in source)
             {
                 if (result.SearchResults == null)
@@ -346,13 +350,13 @@ namespace dnGREP.Common
                     var misses = orClauses.Except(set);
                     if (hits.Any())
                     {
-                        orResults += "Found matches for " + string.Join(", ", hits.Select(s => "\'" + s + "\'"));
+                        orResults += Resources.FoundMatchesFor + string.Join(", ", hits.Select(s => "\'" + s + "\'"));
                     }
                     if (misses.Any())
                     {
                         if (!string.IsNullOrEmpty(orResults))
                             orResults += Environment.NewLine;
-                        orResults += "Found no matches for " + string.Join(", ", misses.Select(s => "\'" + s + "\'"));
+                        orResults += Resources.FoundNoMatchesFor + string.Join(", ", misses.Select(s => "\'" + s + "\'"));
                     }
                 }
 
@@ -360,12 +364,12 @@ namespace dnGREP.Common
                 var searchResults = result.SearchResults;
                 if (searchResults != null)
                 {
-                    int matchCount = (result.Matches == null ? 0 : result.Matches.Count);
+                    int matchCount = result.Matches == null ? 0 : result.Matches.Count;
                     var lineCount = result.Matches.Where(r => r.LineNumber > 0)
                         .Select(r => r.LineNumber).Distinct().Count();
 
                     sb.AppendLine(result.FileNameDisplayed)
-                      .AppendFormat("has {0} matches on {1} lines:", matchCount, lineCount).AppendLine();
+                      .AppendFormat(Resources.Has0MatchesOn1Lines, matchCount, lineCount).AppendLine();
 
                     if (!string.IsNullOrEmpty(orResults))
                         sb.AppendLine(orResults);
@@ -385,7 +389,7 @@ namespace dnGREP.Common
                     }
                     else
                     {
-                        sb.AppendLine("[File not found: has it been deleted or moved?]");
+                        sb.AppendLine(Resources.FileNotFoundHasItBeenDeletedOrMoved);
                     }
                 }
                 sb.AppendLine("--------------------------------------------------------------------------------").AppendLine();
@@ -609,7 +613,7 @@ namespace dnGREP.Common
             if (!string.IsNullOrWhiteSpace(ext))
             {
                 // regex extensions may have a 'match end of line' char: remove it
-                ext = ext.TrimStart('.').TrimEnd('$').ToLower(CultureInfo.CurrentUICulture);
+                ext = ext.TrimStart('.').TrimEnd('$').ToLower(CultureInfo.CurrentCulture);
                 return ArchiveExtensions.Contains(ext);
             }
             return false;
@@ -1114,6 +1118,16 @@ namespace dnGREP.Common
                 searchString += "|*." + string.Join("|*.", ArchiveExtensions);
             }
 
+            if (filter.SizeFrom > 0 || filter.SizeTo > 0)
+            {
+                searchString = AddEverythingSizeFilters(filter, searchString);
+            }
+
+            if (filter.DateFilter != FileDateFilter.None)
+            {
+                searchString = AddEverythingDateFilters(filter, searchString);
+            }
+
             foreach (var fileInfo in EverythingSearch.FindFiles(searchString, filter.IncludeHidden))
             {
                 FileData fileData = new FileData(fileInfo);
@@ -1132,6 +1146,48 @@ namespace dnGREP.Common
                     yield return fileInfo.FullName;
                 }
             }
+        }
+
+        private static string AddEverythingSizeFilters(FileFilter filter, string searchString)
+        {
+            if ((filter.SizeFrom > 0 || filter.SizeTo > 0) && !searchString.Contains("size:"))
+            {
+                if (filter.SizeFrom == 0)
+                {
+                    searchString += $" size:<={filter.SizeTo}kb";
+                }
+                else if (filter.SizeTo == 0)
+                {
+                    searchString += $" size:>={filter.SizeFrom}kb";
+                }
+                else
+                {
+                    searchString += $" size:{filter.SizeFrom}kb-{filter.SizeTo}kb";
+                }
+            }
+            return searchString;
+        }
+
+        private static string AddEverythingDateFilters(FileFilter filter, string searchString)
+        {
+            DateTime startTime = filter.StartTime.HasValue ? filter.StartTime.Value : new DateTime(1970, 01, 01, 0, 0, 0, DateTimeKind.Local);
+            DateTime endTime = filter.EndTime.HasValue ? filter.EndTime.Value : DateTime.Today.AddDays(1);
+
+            if (filter.DateFilter == FileDateFilter.Modified)
+            {
+                if (!searchString.Contains("datemodified:") && !searchString.Contains("dm:"))
+                {
+                    searchString += $" dm:{startTime.ToIso8601DateTime()}-{endTime.ToIso8601DateTime()}"; 
+                }
+            }
+            else if (filter.DateFilter == FileDateFilter.Created)
+            {
+                if (!searchString.Contains("datecreated:") && !searchString.Contains("dc:"))
+                {
+                    searchString += $" dc:{startTime.ToIso8601DateTime()}-{endTime.ToIso8601DateTime()}";
+                }
+            }
+            return searchString;
         }
 
         private static IEnumerable<string> EnumerateArchiveFiles(string filePath, FileFilter filter,
@@ -1174,7 +1230,7 @@ namespace dnGREP.Common
                     }
                 }
 
-                if (filter.SizeFrom > 0 || filter.SizeTo > 0)
+                if ((filter.SizeFrom > 0 || filter.SizeTo > 0) && !filter.UseEverything) // Everything search has size filter in query
                 {
                     if (fileInfo == null)
                         fileInfo = new FileData(filePath);
@@ -1189,7 +1245,7 @@ namespace dnGREP.Common
                         return false;
                     }
                 }
-                if (filter.DateFilter != FileDateFilter.None)
+                if (filter.DateFilter != FileDateFilter.None && !filter.UseEverything) // Everything search has date filter in query
                 {
                     if (fileInfo == null)
                         fileInfo = new FileData(filePath);
@@ -1382,103 +1438,6 @@ namespace dnGREP.Common
                 }
             }
             return defaultValue;
-        }
-
-        /// <summary>
-        /// Parses text into double
-        /// </summary>
-        /// <param name="value">String. May include null, empty string or text with spaces before or after.</param>
-        /// <returns>Attempts to parse string. Otherwise returns double.MinValue</returns>
-        public static double ParseDouble(string value)
-        {
-            return ParseDouble(value, double.MinValue);
-        }
-
-        /// <summary>
-        /// Parses text into double
-        /// </summary>
-        /// <param name="value">String. May include null, empty string or text with spaces before or after.</param>
-        /// <param name="defaultValue">Default value if fails to parse.</param>
-        /// <returns>Attempts to parse string. Otherwise returns defaultValue</returns>
-        public static double ParseDouble(string value, double defaultValue)
-        {
-            if (value != null && value.Length != 0)
-            {
-                value = value.Trim();
-                if (double.TryParse(value, out double output))
-                {
-                    return output;
-                }
-            }
-            return defaultValue;
-        }
-
-        /// <summary>
-        /// Parses text into bool
-        /// </summary>
-        /// <param name="value">String. May include null, empty string or text with spaces before or after.
-        /// Text may be in the format of True/False, Yes/No, Y/N, On/Off, 1/0</param>
-        /// <returns></returns>
-        public static bool ParseBoolean(string value)
-        {
-            return ParseBoolean(value, false);
-        }
-
-        /// <summary>
-        /// Parses text into bool
-        /// </summary>
-        /// <param name="value">String. May include null, empty string or text with spaces before or after.
-        /// Text may be in the format of True/False, Yes/No, Y/N, On/Off, 1/0</param>
-        /// <param name="defaultValue">Default value</param>
-        /// <returns></returns>
-        public static bool ParseBoolean(string value, bool defaultValue)
-        {
-            if (value != null && value.Length != 0)
-            {
-                switch (value.Trim().ToLower())
-                {
-                    case "true":
-                    case "yes":
-                    case "y":
-                    case "on":
-                    case "1":
-                        return true;
-                    case "false":
-                    case "no":
-                    case "n":
-                    case "off":
-                    case "0":
-                        return false;
-                }
-            }
-            return defaultValue;
-        }
-
-        /// <summary>
-        /// Parses text into enum
-        /// </summary>
-        /// <typeparam name="T">Type of enum</typeparam>
-        /// <param name="value">Value to parse</param>
-        /// <param name="defaultValue">Default value</param>
-        /// <returns></returns>
-        public static T ParseEnum<T>(string value, T defaultValue)
-        {
-            if (string.IsNullOrWhiteSpace(value))
-                return defaultValue;
-
-            T result = defaultValue;
-            try
-            {
-                // Check if enum is nullable
-                var enumType = Nullable.GetUnderlyingType(typeof(T));
-                if (enumType == null)
-                    result = (T)Enum.Parse(typeof(T), value);
-                else
-                    result = (T)Enum.Parse(enumType, value);
-            }
-            catch { }
-
-            return result;
         }
 
         /// <summary>
@@ -1834,6 +1793,11 @@ namespace dnGREP.Common
 
         public static bool IsReadOnly(GrepSearchResult result)
         {
+            if (result.IsHexFile)
+            {
+                return true;
+            }
+
             if (File.Exists(result.FileNameReal))
             {
                 if (File.GetAttributes(result.FileNameReal).HasFlag(FileAttributes.ReadOnly) || result.ReadOnly)
@@ -2015,7 +1979,7 @@ namespace dnGREP.Common
             // Removing duplicate lines (when more than 1 match is on the same line) and grouping all matches belonging to the same line
             for (int i = 0; i < matches.Count; i++)
             {
-                AddGrepMatch(results, matches[i], lineStrings[matches[i].LineNumber]);
+                AddGrepMatch(results, matches[i], lineStrings[matches[i].LineNumber], false);
             }
             for (int i = 0; i < contextLines.Count; i++)
             {
@@ -2026,10 +1990,193 @@ namespace dnGREP.Common
             return results.Values.OrderBy(l => l.LineNumber).ToList();
         }
 
-        private static void AddGrepMatch(Dictionary<int, GrepLine> lines, GrepMatch match, string lineText)
+        public static List<GrepLine> GetLinesHexFormat(BinaryReader body, List<GrepMatch> bodyMatches, int beforeLines, int afterLines)
+        {
+            if (body == null || bodyMatches == null)
+                return new List<GrepLine>();
+
+            //List<GrepMatch> bodyMatchesClone = new List<GrepMatch>(bodyMatches);
+            Dictionary<int, GrepLine> results = new Dictionary<int, GrepLine>();
+            List<GrepLine> contextLines = new List<GrepLine>();
+            Dictionary<int, string> lineStrings = new Dictionary<int, string>();
+            List<int> lineNumbers = new List<int>();
+            List<GrepMatch> matches = new List<GrepMatch>();
+
+            // Context line (before)
+            Queue<string> beforeQueue = new Queue<string>();
+            // Context line (after)
+            int currentAfterLine = 0;
+            bool startRecordingAfterLines = false;
+            // Current line
+            int lineNumber = 0;
+            // Current index of character
+            int currentIndex = 0;
+            int startIndex = 0;
+            int tempLinesTotalLength = 0;
+            int startLine = 0;
+            bool startMatched = false;
+            Queue<string> lineQueue = new Queue<string>();
+
+            const int bufferSize = 16;
+            byte[] buffer = new byte[bufferSize];
+            long length = body.BaseStream.Length;
+
+            List<GrepMatch> bodyMatchesClone = ConvertGrepMatchesToHexLines(bodyMatches, bufferSize);
+
+            while (body.BaseStream.Position < length && (bodyMatchesClone.Count > 0 || startRecordingAfterLines))
+            {
+                buffer = body.ReadBytes(bufferSize);
+                string line = GetHexText(buffer);
+                lineNumber++;
+                bool moreMatches = true;
+                // Building context queue
+                if (beforeLines > 0)
+                {
+                    if (beforeQueue.Count >= beforeLines + 1)
+                        beforeQueue.Dequeue();
+
+                    beforeQueue.Enqueue(line.TrimEndOfLine());
+                }
+                if (startRecordingAfterLines && currentAfterLine < afterLines)
+                {
+                    currentAfterLine++;
+                    contextLines.Add(new GrepLine(lineNumber, line.TrimEndOfLine(), true, null) { IsHexFile = true });
+                }
+                else if (currentAfterLine == afterLines)
+                {
+                    currentAfterLine = 0;
+                    startRecordingAfterLines = false;
+                }
+
+                while (moreMatches && bodyMatchesClone.Count > 0)
+                {
+                    // Head of match found
+                    if (bodyMatchesClone[0].StartLocation >= currentIndex && bodyMatchesClone[0].StartLocation < currentIndex + line.Length && !startMatched)
+                    {
+                        startMatched = true;
+                        moreMatches = true;
+                        lineQueue = new Queue<string>();
+                        startLine = lineNumber;
+                        startIndex = bodyMatchesClone[0].StartLocation - currentIndex;
+                        tempLinesTotalLength = 0;
+
+                        // Recording the before match context lines
+                        while (beforeQueue.Count > 0)
+                        {
+                            // If only 1 line - it is the same as matched line
+                            if (beforeQueue.Count == 1)
+                                beforeQueue.Dequeue();
+                            else
+                                contextLines.Add(new GrepLine(startLine - beforeQueue.Count + 1 + (lineNumber - startLine),
+                                    beforeQueue.Dequeue(), true, null) { IsHexFile = true });
+                        }
+                    }
+
+                    // Add line to queue
+                    if (startMatched)
+                    {
+                        lineQueue.Enqueue(line);
+                        tempLinesTotalLength += line.Length;
+                    }
+
+                    // Tail of match found
+                    if (bodyMatchesClone[0].StartLocation + bodyMatchesClone[0].Length <= currentIndex + line.Length && startMatched)
+                    {
+                        startMatched = false;
+                        moreMatches = false;
+                        // Start creating matches
+                        for (int i = startLine; i <= lineNumber; i++)
+                        {
+                            lineNumbers.Add(i);
+                            string tempLine = lineQueue.Dequeue();
+                            lineStrings[i] = tempLine;
+
+                            string fileMatchId = bodyMatchesClone[0].FileMatchId;
+                            // First and only line
+                            if (i == startLine && i == lineNumber)
+                                matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, startIndex, bodyMatchesClone[0].Length, bodyMatchesClone[0].Groups));
+                            // First but not last line
+                            else if (i == startLine)
+                                matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, startIndex, tempLine.TrimEndOfLine().Length - startIndex, bodyMatchesClone[0].Groups));
+                            // Middle line
+                            else if (i > startLine && i < lineNumber)
+                                matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, 0, tempLine.TrimEndOfLine().Length, bodyMatchesClone[0].Groups));
+                            // Last line
+                            else
+                                matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, 0, bodyMatchesClone[0].Length - tempLinesTotalLength + line.Length + startIndex, bodyMatchesClone[0].Groups));
+
+                            startRecordingAfterLines = true;
+                        }
+                        bodyMatchesClone.RemoveAt(0);
+                    }
+
+                    // Another match on this line
+                    if (bodyMatchesClone.Count > 0 && bodyMatchesClone[0].StartLocation >= currentIndex && bodyMatchesClone[0].StartLocation < currentIndex + line.Length && !startMatched)
+                        moreMatches = true;
+                    else
+                        moreMatches = false;
+                }
+
+                currentIndex += line.Length;
+            }
+
+            if (lineStrings.Count == 0)
+            {
+                return new List<GrepLine>();
+            }
+
+            // Removing duplicate lines (when more than 1 match is on the same line) and grouping all matches belonging to the same line
+            for (int i = 0; i < matches.Count; i++)
+            {
+                AddGrepMatch(results, matches[i], lineStrings[matches[i].LineNumber], true);
+            }
+            for (int i = 0; i < contextLines.Count; i++)
+            {
+                if (!results.ContainsKey(contextLines[i].LineNumber))
+                    results[contextLines[i].LineNumber] = contextLines[i];
+            }
+
+            return results.Values.OrderBy(l => l.LineNumber).ToList();
+        }
+
+        private static List<GrepMatch> ConvertGrepMatchesToHexLines(List<GrepMatch> bodyMatches, int bufferSize)
+        {
+            // 2 digit hex number plus space for each byte
+            // and trailing space is removed
+            int lineLength = bufferSize * 3 - 1;
+
+            List<GrepMatch> list = new List<GrepMatch>();
+            foreach (GrepMatch match in bodyMatches)
+            {
+                int lineNum = match.StartLocation / bufferSize;
+                int lineStart = match.StartLocation % bufferSize;
+                int startLocation = lineNum * lineLength + lineStart * 3;
+                int matchLength = match.Length * 3 - 1;
+
+                int newLines = (match.StartLocation % 16 + match.Length - 1) / 16;
+                matchLength -= newLines;
+
+                list.Add(new GrepMatch(match.SearchPattern, lineNum, startLocation, matchLength));
+            }
+            return list;
+        }
+
+        private static string GetHexText(byte[] buffer)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            for (int idx = 0; idx < buffer.Length; idx++)
+            {
+                sb.AppendFormat("{0:x2}", buffer[idx]).Append(" ");
+            }
+
+            return sb.ToString().TrimEnd();
+        }
+
+        private static void AddGrepMatch(Dictionary<int, GrepLine> lines, GrepMatch match, string lineText, bool isHexFile)
         {
             if (!lines.ContainsKey(match.LineNumber))
-                lines[match.LineNumber] = new GrepLine(match.LineNumber, lineText.TrimEndOfLine(), false, null);
+                lines[match.LineNumber] = new GrepLine(match.LineNumber, lineText.TrimEndOfLine(), false, null) { IsHexFile = isHexFile };
             lines[match.LineNumber].Matches.Add(match);
         }
 

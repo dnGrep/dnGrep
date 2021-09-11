@@ -188,7 +188,7 @@ namespace dnGREP.Engines
             }
         }
 
-        public static IGrepEngine GetSearchEngine(string fileName, GrepEngineInitParams param, FileFilter filter)
+        public static IGrepEngine GetSearchEngine(string fileName, GrepEngineInitParams param, FileFilter filter, SearchType searchType)
         {
             Debug.Assert(param != null);
             Debug.Assert(filter != null);
@@ -199,6 +199,11 @@ namespace dnGREP.Engines
 
             lock (lockObj)
             {
+                if (searchType == SearchType.Hex)
+                {
+                    return GetHexEngine(param, filter);
+                }
+
                 IGrepEngine poolEngine = FetchFromPool(fileExtension);
                 if (poolEngine != null)
                 {
@@ -275,6 +280,14 @@ namespace dnGREP.Engines
             }
 
             IGrepEngine engine = new GrepEnginePlainText();
+            loadedEngines.Add(engine);
+            engine.Initialize(param, filter);
+            return engine;
+        }
+
+        private static IGrepEngine GetHexEngine(GrepEngineInitParams param, FileFilter filter)
+        {
+            IGrepEngine engine = new GrepEngineHex();
             loadedEngines.Add(engine);
             engine.Initialize(param, filter);
             return engine;

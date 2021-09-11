@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Windows;
 using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
+using dnGREP.Localization;
 using NLog;
 
 namespace dnGREP.WPF
@@ -34,6 +35,8 @@ namespace dnGREP.WPF
                 else
                     SevenZip.SevenZipBase.SetLibraryPath(Path.Combine(path, @"7z.dll"));
 
+                ResourceManagerEx.Initialize();
+                TranslationSource.Instance.SetCulture(GrepSettings.Instance.Get<string>(GrepSettings.Key.CurrentCulture));
                 AppTheme.Instance.Initialize();
 
                 AppArgs = new CommandLineArgs(Environment.CommandLine);
@@ -65,8 +68,8 @@ namespace dnGREP.WPF
             catch (Exception ex)
             {
                 logger.Error(ex, "Failure in application startup");
-                MessageBox.Show("Something broke down in dnGrep. See the error log for details: " + LogDir,
-                    "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Localization.Properties.Resources.SomethingBrokeDownInDnGrep + LogDir,
+                    Localization.Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -84,16 +87,16 @@ namespace dnGREP.WPF
             catch (Exception ex)
             {
                 logger.Error(ex, "Failure in application exit");
-                MessageBox.Show("Something broke down in dnGrep. See the error log for details: " + LogDir,
-                    "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Localization.Properties.Resources.SomethingBrokeDownInDnGrep + LogDir,
+                    Localization.Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             logger.Error(e.Exception, "Unhandled exception caught");
-            MessageBox.Show("Something broke down in dnGrep. See the error log for details: " + LogDir,
-                    "dnGrep", MessageBoxButton.OK, MessageBoxImage.Error);;
+            MessageBox.Show(Localization.Properties.Resources.SomethingBrokeDownInDnGrep + LogDir,
+                    Localization.Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);;
             e.Handled = true;
         }
     }
