@@ -1946,6 +1946,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Next Match.
+        /// </summary>
+        public static string NextMatch {
+            get {
+                return ResourceManager.GetString("NextMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No archives.
         /// </summary>
         public static string NoArchives {
@@ -2311,6 +2320,15 @@ namespace dnGREP.Localization.Properties {
         public static string PreviousFile_ {
             get {
                 return ResourceManager.GetString("PreviousFile_", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Previous Match.
+        /// </summary>
+        public static string PreviousMatch {
+            get {
+                return ResourceManager.GetString("PreviousMatch", resourceCulture);
             }
         }
         

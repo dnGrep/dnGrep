@@ -156,8 +156,8 @@
                 <MenuItem Header="{l:Loc Key='CopyLinesOfText'}" Click="btnCopyGrepLine_Click" IsEnabled="{Binding HasGrepLineSelection}" />
                 <Separator />
                 <MenuItem Header="{l:Loc Key='ExcludeFromResults'}" Click="btnExclude_Click" IsEnabled="{Binding HasSelection}" />
-                <MenuItem Header="{l:Loc Key='ExpandAll'}" Click="btnExpandAll_Click" />
-                <MenuItem Header="{l:Loc Key='CollapseAll'}" Click="btnCollapseAll_Click" />
+                <MenuItem Header="{l:Loc Key='NextMatch'}" Click="btnNextMatch_Click" InputGestureText="F3" />
+                <MenuItem Header="{l:Loc Key='PreviousMatch'}" Click="btnPreviousMatch_Click" InputGestureText="F4"/>
                 <MenuItem Header="{l:Loc Key='ExpandAll'}" Click="btnExpandAll_Click" InputGestureText="F6" />
                 <MenuItem Header="{l:Loc Key='CollapseAll'}" Click="btnCollapseAll_Click" InputGestureText="Shift+F6"/>
                 <MenuItem Header="{l:Loc Key='ResetZoom'}" Click="btnResetZoom_Click" />
