@@ -37,6 +37,7 @@
         <my:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed" />
         <my:BoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" TrueValue="Collapsed"
                                       FalseValue="Visible" />
+        <my:GridLengthConverter x:Key="GridLengthConverter" />
         <my:IntOrEmptyValueConverter x:Key="IntConverter"/>
         <my:TitleFontSizeConverter x:Key="TitleSizeConverter"/>
         <my:TextBoxWidthConverter x:Key="TextBoxWidthConverter"/>
@@ -238,10 +239,10 @@
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="62*" />
+                            <ColumnDefinition Width="2*" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="31*" />
+                            <ColumnDefinition Width="{Binding PatternColumnWidth, Converter={StaticResource GridLengthConverter}}" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Row="0" Grid.Column="0" Margin="3,8"
                                    Text="{Binding SearchTextBoxLabel, FallbackValue='Folder:'}"
