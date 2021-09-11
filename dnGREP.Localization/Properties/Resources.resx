@@ -1041,6 +1041,10 @@ Arguments:
     <value>Next _File</value>
     <comment>Replace window label</comment>
   </data>
+  <data name="NextMatch" xml:space="preserve">
+    <value>Next Match</value>
+    <comment>Main windows results list context menu</comment>
+  </data>
   <data name="NoArchives" xml:space="preserve">
     <value>No archives</value>
     <comment>Report search options summary</comment>
@@ -1204,6 +1208,10 @@ Arguments:
   <data name="PreviousFile_" xml:space="preserve">
     <value>Previous File</value>
     <comment>Replace window label</comment>
+  </data>
+  <data name="PreviousMatch" xml:space="preserve">
+    <value>Previous Match</value>
+    <comment>Main windows results list context menu</comment>
   </data>
   <data name="ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
     <value>Read file as binary and search for bytes as hexadecimal digits: 68 65 78 20</value>
