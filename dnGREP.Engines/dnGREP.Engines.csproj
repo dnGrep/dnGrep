@@ -64,6 +64,7 @@
     <Compile Include="GoogleMatch.cs" />
     <Compile Include="GrepCore.cs" />
     <Compile Include="GrepEngineFactory.cs" />
+    <Compile Include="GrepEngineHex.cs" />
     <Compile Include="GrepEnginePlainText.cs" />
     <Compile Include="GrepPlugin.cs" />
     <Compile Include="IGrepEngine.cs" />

@@ -211,7 +211,7 @@ namespace dnGREP.Common
             {
                 ProcessedFile(this, new ProgressStatus(true, processedFilesCount, foundfilesCount, null, file));
 
-                IGrepEngine engine = GrepEngineFactory.GetSearchEngine(file, SearchParams, FileFilter);
+                IGrepEngine engine = GrepEngineFactory.GetSearchEngine(file, SearchParams, FileFilter, searchType);
 
                 Interlocked.Increment(ref processedFilesCount);
 

@@ -1741,6 +1741,11 @@ namespace dnGREP.Common
 
         public static bool IsReadOnly(GrepSearchResult result)
         {
+            if (result.IsHexFile)
+            {
+                return true;
+            }
+
             if (File.Exists(result.FileNameReal))
             {
                 if (File.GetAttributes(result.FileNameReal).HasFlag(FileAttributes.ReadOnly) || result.ReadOnly)
@@ -1922,7 +1927,7 @@ namespace dnGREP.Common
             // Removing duplicate lines (when more than 1 match is on the same line) and grouping all matches belonging to the same line
             for (int i = 0; i < matches.Count; i++)
             {
-                AddGrepMatch(results, matches[i], lineStrings[matches[i].LineNumber]);
+                AddGrepMatch(results, matches[i], lineStrings[matches[i].LineNumber], false);
             }
             for (int i = 0; i < contextLines.Count; i++)
             {
@@ -1933,10 +1938,193 @@ namespace dnGREP.Common
             return results.Values.OrderBy(l => l.LineNumber).ToList();
         }
 
-        private static void AddGrepMatch(Dictionary<int, GrepLine> lines, GrepMatch match, string lineText)
+        public static List<GrepLine> GetLinesHexFormat(BinaryReader body, List<GrepMatch> bodyMatches, int beforeLines, int afterLines)
+        {
+            if (body == null || bodyMatches == null)
+                return new List<GrepLine>();
+
+            //List<GrepMatch> bodyMatchesClone = new List<GrepMatch>(bodyMatches);
+            Dictionary<int, GrepLine> results = new Dictionary<int, GrepLine>();
+            List<GrepLine> contextLines = new List<GrepLine>();
+            Dictionary<int, string> lineStrings = new Dictionary<int, string>();
+            List<int> lineNumbers = new List<int>();
+            List<GrepMatch> matches = new List<GrepMatch>();
+
+            // Context line (before)
+            Queue<string> beforeQueue = new Queue<string>();
+            // Context line (after)
+            int currentAfterLine = 0;
+            bool startRecordingAfterLines = false;
+            // Current line
+            int lineNumber = 0;
+            // Current index of character
+            int currentIndex = 0;
+            int startIndex = 0;
+            int tempLinesTotalLength = 0;
+            int startLine = 0;
+            bool startMatched = false;
+            Queue<string> lineQueue = new Queue<string>();
+
+            const int bufferSize = 16;
+            byte[] buffer = new byte[bufferSize];
+            long length = body.BaseStream.Length;
+
+            List<GrepMatch> bodyMatchesClone = ConvertGrepMatchesToHexLines(bodyMatches, bufferSize);
+
+            while (body.BaseStream.Position < length && (bodyMatchesClone.Count > 0 || startRecordingAfterLines))
+            {
+                buffer = body.ReadBytes(bufferSize);
+                string line = GetHexText(buffer);
+                lineNumber++;
+                bool moreMatches = true;
+                // Building context queue
+                if (beforeLines > 0)
+                {
+                    if (beforeQueue.Count >= beforeLines + 1)
+                        beforeQueue.Dequeue();
+
+                    beforeQueue.Enqueue(line.TrimEndOfLine());
+                }
+                if (startRecordingAfterLines && currentAfterLine < afterLines)
+                {
+                    currentAfterLine++;
+                    contextLines.Add(new GrepLine(lineNumber, line.TrimEndOfLine(), true, null) { IsHexFile = true });
+                }
+                else if (currentAfterLine == afterLines)
+                {
+                    currentAfterLine = 0;
+                    startRecordingAfterLines = false;
+                }
+
+                while (moreMatches && bodyMatchesClone.Count > 0)
+                {
+                    // Head of match found
+                    if (bodyMatchesClone[0].StartLocation >= currentIndex && bodyMatchesClone[0].StartLocation < currentIndex + line.Length && !startMatched)
+                    {
+                        startMatched = true;
+                        moreMatches = true;
+                        lineQueue = new Queue<string>();
+                        startLine = lineNumber;
+                        startIndex = bodyMatchesClone[0].StartLocation - currentIndex;
+                        tempLinesTotalLength = 0;
+
+                        // Recording the before match context lines
+                        while (beforeQueue.Count > 0)
+                        {
+                            // If only 1 line - it is the same as matched line
+                            if (beforeQueue.Count == 1)
+                                beforeQueue.Dequeue();
+                            else
+                                contextLines.Add(new GrepLine(startLine - beforeQueue.Count + 1 + (lineNumber - startLine),
+                                    beforeQueue.Dequeue(), true, null) { IsHexFile = true });
+                        }
+                    }
+
+                    // Add line to queue
+                    if (startMatched)
+                    {
+                        lineQueue.Enqueue(line);
+                        tempLinesTotalLength += line.Length;
+                    }
+
+                    // Tail of match found
+                    if (bodyMatchesClone[0].StartLocation + bodyMatchesClone[0].Length <= currentIndex + line.Length && startMatched)
+                    {
+                        startMatched = false;
+                        moreMatches = false;
+                        // Start creating matches
+                        for (int i = startLine; i <= lineNumber; i++)
+                        {
+                            lineNumbers.Add(i);
+                            string tempLine = lineQueue.Dequeue();
+                            lineStrings[i] = tempLine;
+
+                            string fileMatchId = bodyMatchesClone[0].FileMatchId;
+                            // First and only line
+                            if (i == startLine && i == lineNumber)
+                                matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, startIndex, bodyMatchesClone[0].Length, bodyMatchesClone[0].Groups));
+                            // First but not last line
+                            else if (i == startLine)
+                                matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, startIndex, tempLine.TrimEndOfLine().Length - startIndex, bodyMatchesClone[0].Groups));
+                            // Middle line
+                            else if (i > startLine && i < lineNumber)
+                                matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, 0, tempLine.TrimEndOfLine().Length, bodyMatchesClone[0].Groups));
+                            // Last line
+                            else
+                                matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, 0, bodyMatchesClone[0].Length - tempLinesTotalLength + line.Length + startIndex, bodyMatchesClone[0].Groups));
+
+                            startRecordingAfterLines = true;
+                        }
+                        bodyMatchesClone.RemoveAt(0);
+                    }
+
+                    // Another match on this line
+                    if (bodyMatchesClone.Count > 0 && bodyMatchesClone[0].StartLocation >= currentIndex && bodyMatchesClone[0].StartLocation < currentIndex + line.Length && !startMatched)
+                        moreMatches = true;
+                    else
+                        moreMatches = false;
+                }
+
+                currentIndex += line.Length;
+            }
+
+            if (lineStrings.Count == 0)
+            {
+                return new List<GrepLine>();
+            }
+
+            // Removing duplicate lines (when more than 1 match is on the same line) and grouping all matches belonging to the same line
+            for (int i = 0; i < matches.Count; i++)
+            {
+                AddGrepMatch(results, matches[i], lineStrings[matches[i].LineNumber], true);
+            }
+            for (int i = 0; i < contextLines.Count; i++)
+            {
+                if (!results.ContainsKey(contextLines[i].LineNumber))
+                    results[contextLines[i].LineNumber] = contextLines[i];
+            }
+
+            return results.Values.OrderBy(l => l.LineNumber).ToList();
+        }
+
+        private static List<GrepMatch> ConvertGrepMatchesToHexLines(List<GrepMatch> bodyMatches, int bufferSize)
+        {
+            // 2 digit hex number plus space for each byte
+            // and trailing space is removed
+            int lineLength = bufferSize * 3 - 1;
+
+            List<GrepMatch> list = new List<GrepMatch>();
+            foreach(GrepMatch match in bodyMatches)
+            {
+                int lineNum = match.StartLocation / bufferSize;
+                int lineStart = match.StartLocation % bufferSize;
+                int startLocation = lineNum * lineLength + lineStart * 3;
+                int matchLength = match.Length * 3 - 1;
+
+                int newLines = (match.StartLocation % 16 + match.Length - 1) / 16;
+                matchLength -= newLines;
+
+                list.Add(new GrepMatch(match.SearchPattern, lineNum, startLocation, matchLength));
+            }
+            return list;
+        }
+
+        private static string GetHexText(byte[] buffer)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            for (int idx = 0; idx < buffer.Length; idx++)
+            {
+                sb.AppendFormat("{0:x2}", buffer[idx]).Append(" ");
+            }
+
+            return sb.ToString().TrimEnd();
+        }
+
+        private static void AddGrepMatch(Dictionary<int, GrepLine> lines, GrepMatch match, string lineText, bool isHexFile)
         {
             if (!lines.ContainsKey(match.LineNumber))
-                lines[match.LineNumber] = new GrepLine(match.LineNumber, lineText.TrimEndOfLine(), false, null);
+                lines[match.LineNumber] = new GrepLine(match.LineNumber, lineText.TrimEndOfLine(), false, null) { IsHexFile = isHexFile };
             lines[match.LineNumber].Matches.Add(match);
         }
 

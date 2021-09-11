@@ -582,10 +582,10 @@ namespace dnGREP.WPF
             {
                 displayedName += " " + GrepResult.AdditionalInformation + " ";
             }
-            int matchCount = (GrepResult.Matches == null ? 0 : GrepResult.Matches.Count);
+            int matchCount = GrepResult.Matches == null ? 0 : GrepResult.Matches.Count;
             if (matchCount > 0)
             {
-                if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount))
+                if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount) && !GrepResult.IsHexFile)
                 {
                     var lineCount = GrepResult.Matches.Where(r => r.LineNumber > 0)
                        .Select(r => r.LineNumber).Distinct().Count();
@@ -593,7 +593,7 @@ namespace dnGREP.WPF
                 }
                 else
                 {
-                    displayedName = string.Format("{0} ({1})", displayedName, matchCount);
+                    displayedName = string.Format(Resources.CountMatches, displayedName, matchCount);
                 }
             }
             if (isFileReadOnly)
@@ -655,7 +655,9 @@ namespace dnGREP.WPF
             IsSectionBreak = breakSection;
             WrapText = Parent.WrapText;
 
-            FormattedLineNumber = line.LineNumber == -1 ? string.Empty : line.LineNumber.ToString();
+            FormattedLineNumber = line.LineNumber == -1 ? string.Empty :
+                line.IsHexFile ? string.Format("{0:X8}", (line.LineNumber - 1) * 16) :
+                line.LineNumber.ToString();
 
             //string fullText = lineSummary;
             if (line.IsContext)
@@ -686,6 +688,55 @@ namespace dnGREP.WPF
             if (formattedText == null || formattedText.Count == 0)
             {
                 formattedText = FormatLine(GrepLine);
+
+                if (GrepLine.IsHexFile)
+                {
+                    IsHexData = true;
+                    HexPanelWidth = "*";
+                    FormattedHexValues = FormatHexValues(GrepLine);
+                }
+            }
+        }
+
+        private string formattedHexValues;
+        public string FormattedHexValues
+        {
+            get { return formattedHexValues; }
+            set
+            {
+                if (formattedHexValues == value)
+                    return;
+
+                formattedHexValues = value;
+                OnPropertyChanged(nameof(FormattedHexValues));
+            }
+        }
+
+        private bool isHexData;
+        public bool IsHexData
+        {
+            get { return isHexData; }
+            set
+            {
+                if (isHexData == value)
+                    return;
+
+                isHexData = value;
+                OnPropertyChanged(nameof(IsHexData));
+            }
+        }
+
+        private string hexPanelWidth = "0";
+        public string HexPanelWidth
+        {
+            get { return hexPanelWidth; }
+            set
+            {
+                if (hexPanelWidth == value)
+                    return;
+
+                hexPanelWidth = value;
+                OnPropertyChanged(nameof(HexPanelWidth));
             }
         }
 
@@ -937,6 +988,33 @@ namespace dnGREP.WPF
                     paragraph.Inlines.Add(run);
                 }
             }
+        }
+
+        private string FormatHexValues(GrepLine grepLine)
+        {
+            string[] parts = grepLine.LineText.TrimEnd().Split(' ');
+            List<byte> list = new List<byte>();
+            foreach (string num in parts)
+            {
+                if (byte.TryParse(num, System.Globalization.NumberStyles.HexNumber, null, out byte result))
+                {
+                    list.Add(result);
+                }
+            }
+            string text = Parent.GrepResult.Encoding.GetString(list.ToArray());
+            List<char> nonPrintableChars = new List<char>();
+            for (int idx = 0; idx < text.Length; idx++)
+            {
+                if (!char.IsLetterOrDigit(text[idx]) && !char.IsPunctuation(text[idx]) && text[idx] != ' ')
+                {
+                    nonPrintableChars.Add(text[idx]);
+                }
+            }
+            foreach (char c in nonPrintableChars)
+            {
+                text = text.Replace(c, '.');
+            }
+            return text;
         }
 
         private class GroupMap

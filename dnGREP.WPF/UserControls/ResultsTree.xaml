@@ -14,6 +14,7 @@
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
         <my:BoolToScollBarVisibilityConverter x:Key="BoolToScollBarVisibilityConverter"/>
         <my:BoolToTextWrappingConverter x:Key="BoolToTextWrappingConverter"/>
+        <my:GridLengthConverter x:Key="GridLengthConverter" />
         <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource ThemedContextMenu}">
             <Setter Property="FontFamily" Value="{Binding Path=DataContext.ApplicationFontFamily, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
             <Setter Property="FontSize" Value="{Binding Path=DataContext.MainFormFontSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
@@ -119,6 +120,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" SharedSizeGroup="NUM"/>
                             <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="{Binding Path=HexPanelWidth, Converter={StaticResource GridLengthConverter}}"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0"
                                    Width="{Binding LineNumberColumnWidth}"
@@ -128,6 +130,11 @@
                         <my:InlineTextBlock Grid.Column="1" 
                                             Margin="6,0,0,0" InlineCollection="{Binding FormattedText}" FontFamily="Consolas" 
                                             TextWrapping="{Binding WrapText, Converter={StaticResource BoolToTextWrappingConverter}}"/>
+                        <TextBlock Grid.Column="2"
+                                   Margin="12,0,0,0" Text="{Binding FormattedHexValues}"
+                                   FontFamily="Consolas"
+                                   Style="{StaticResource ThemedTextBlock}"
+                                   Visibility="{Binding IsHexData, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     </Grid>
                 </Border>
             </DataTemplate>
