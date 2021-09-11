@@ -61,13 +61,22 @@ namespace dnGREP.Common
                     if (codePage > -1)
                         encoding = Encoding.GetEncoding(codePage);
 
-                    if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.DetectEncodingForFileNamePattern))
+                    try
                     {
-                        if (codePage == -1 && !Utils.IsArchive(file) && !Utils.IsBinary(file) && !Utils.IsPdfFile(file))
-                            encoding = Utils.GetFileEncoding(file);
-                    }
+                        if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.DetectEncodingForFileNamePattern))
+                        {
+                            if (codePage == -1 && !Utils.IsArchive(file) && !Utils.IsBinary(file) && !Utils.IsPdfFile(file))
+                                encoding = Utils.GetFileEncoding(file);
+                        }
 
-                    searchResults.Add(new GrepSearchResult(file, searchPattern, null, encoding));
+                        searchResults.Add(new GrepSearchResult(file, searchPattern, null, encoding));
+                    }
+                    catch (Exception ex)
+                    {
+                        // will catch file not found errors (Everything search):
+                        logger.Error(ex, "Failed in File Search");
+                        AddSearchResult(new GrepSearchResult(file, searchPattern, ex.Message, false));
+                    }
 
                     if (searchOptions.HasFlag(GrepSearchOption.StopAfterFirstMatch))
                         break;
