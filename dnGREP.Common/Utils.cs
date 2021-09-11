@@ -1118,6 +1118,16 @@ namespace dnGREP.Common
                 searchString += "|*." + string.Join("|*.", ArchiveExtensions);
             }
 
+            if (filter.SizeFrom > 0 || filter.SizeTo > 0)
+            {
+                searchString = AddEverythingSizeFilters(filter, searchString);
+            }
+
+            if (filter.DateFilter != FileDateFilter.None)
+            {
+                searchString = AddEverythingDateFilters(filter, searchString);
+            }
+
             foreach (var fileInfo in EverythingSearch.FindFiles(searchString, filter.IncludeHidden))
             {
                 FileData fileData = new FileData(fileInfo);
@@ -1136,6 +1146,48 @@ namespace dnGREP.Common
                     yield return fileInfo.FullName;
                 }
             }
+        }
+
+        private static string AddEverythingSizeFilters(FileFilter filter, string searchString)
+        {
+            if ((filter.SizeFrom > 0 || filter.SizeTo > 0) && !searchString.Contains("size:"))
+            {
+                if (filter.SizeFrom == 0)
+                {
+                    searchString += $" size:<={filter.SizeTo}kb";
+                }
+                else if (filter.SizeTo == 0)
+                {
+                    searchString += $" size:>={filter.SizeFrom}kb";
+                }
+                else
+                {
+                    searchString += $" size:{filter.SizeFrom}kb-{filter.SizeTo}kb";
+                }
+            }
+            return searchString;
+        }
+
+        private static string AddEverythingDateFilters(FileFilter filter, string searchString)
+        {
+            DateTime startTime = filter.StartTime.HasValue ? filter.StartTime.Value : new DateTime(1970, 01, 01, 0, 0, 0, DateTimeKind.Local);
+            DateTime endTime = filter.EndTime.HasValue ? filter.EndTime.Value : DateTime.Today.AddDays(1);
+
+            if (filter.DateFilter == FileDateFilter.Modified)
+            {
+                if (!searchString.Contains("datemodified:") && !searchString.Contains("dm:"))
+                {
+                    searchString += $" dm:{startTime.ToIso8601DateTime()}-{endTime.ToIso8601DateTime()}"; 
+                }
+            }
+            else if (filter.DateFilter == FileDateFilter.Created)
+            {
+                if (!searchString.Contains("datecreated:") && !searchString.Contains("dc:"))
+                {
+                    searchString += $" dc:{startTime.ToIso8601DateTime()}-{endTime.ToIso8601DateTime()}";
+                }
+            }
+            return searchString;
         }
 
         private static IEnumerable<string> EnumerateArchiveFiles(string filePath, FileFilter filter,
@@ -1178,7 +1230,7 @@ namespace dnGREP.Common
                     }
                 }
 
-                if (filter.SizeFrom > 0 || filter.SizeTo > 0)
+                if ((filter.SizeFrom > 0 || filter.SizeTo > 0) && !filter.UseEverything) // Everything search has size filter in query
                 {
                     if (fileInfo == null)
                         fileInfo = new FileData(filePath);
@@ -1193,7 +1245,7 @@ namespace dnGREP.Common
                         return false;
                     }
                 }
-                if (filter.DateFilter != FileDateFilter.None)
+                if (filter.DateFilter != FileDateFilter.None && !filter.UseEverything) // Everything search has date filter in query
                 {
                     if (fileInfo == null)
                         fileInfo = new FileData(filePath);
@@ -2094,7 +2146,7 @@ namespace dnGREP.Common
             int lineLength = bufferSize * 3 - 1;
 
             List<GrepMatch> list = new List<GrepMatch>();
-            foreach(GrepMatch match in bodyMatches)
+            foreach (GrepMatch match in bodyMatches)
             {
                 int lineNum = match.StartLocation / bufferSize;
                 int lineStart = match.StartLocation % bufferSize;

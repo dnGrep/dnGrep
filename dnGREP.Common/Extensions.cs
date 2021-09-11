@@ -88,5 +88,20 @@ namespace dnGREP.Common
             }
             return sb.ToString();
         }
-    }
+
+        public static string ToIso8601Date(this DateTime input)
+        {
+            return input.ToString("yyyyMMdd");
+        }
+
+        public static string ToIso8601DateTime(this DateTime input)
+        {
+            return input.ToString("yyyyMMddTHHmmss");
+        }
+
+        public static string ToIso8601DateTimeWithZone(this DateTime input)
+        {
+            return input.ToString("yyyyMMddTHHmmss.fffzzz");
+        }
+    } 
 }
