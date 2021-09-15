@@ -190,7 +190,7 @@ namespace dnGREP.WPF
         {
             foreach (var l in list)
             {
-                var fmtResult = new FormattedGrepResult(l, folderPath)
+                var fmtResult = new FormattedGrepResult(l, FolderPath)
                 {
                     WrapText = WrapText
                 };
@@ -209,7 +209,7 @@ namespace dnGREP.WPF
         {
             foreach (var l in list)
             {
-                Add(new FormattedGrepResult(l, folderPath));
+                Add(new FormattedGrepResult(l, FolderPath));
             }
         }
 
@@ -219,12 +219,7 @@ namespace dnGREP.WPF
                 Add(item);
         }
 
-        private string folderPath = "";
-        public string FolderPath
-        {
-            get { return folderPath; }
-            set { folderPath = value; }
-        }
+        public string FolderPath { get; set; } = string.Empty;
 
         [DllImport("gdi32.dll")]
         static extern bool DeleteObject(IntPtr hObject);

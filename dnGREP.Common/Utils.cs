@@ -915,7 +915,7 @@ namespace dnGREP.Common
             if (!string.IsNullOrWhiteSpace(path))
             {
                 string parent = Path.GetDirectoryName(path);
-                if (Directory.Exists(parent))
+                if (!string.IsNullOrWhiteSpace(parent) && Directory.Exists(parent))
                 {
                     string pattern = Path.GetFileName(path);
                     if (pattern.Contains(Path.WildcardQuestion) || pattern.Contains(Path.WildcardStarMatchAll))
