@@ -1418,9 +1418,6 @@ namespace dnGREP.WPF
                 }
             }
 
-            //searchResults
-            searchResults.FolderPath = PathSearchText.BaseFolder;
-
             //btnCancel
             if (name == "CurrentGrepOperation")
             {

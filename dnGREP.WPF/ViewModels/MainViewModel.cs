@@ -1544,6 +1544,10 @@ namespace dnGREP.WPF
                         return;
                 }
 
+                // set base folder for results display
+                SearchResults.FolderPath = PathSearchText.BaseFolder;
+
+
                 if (SearchInResultsContent && CanSearchInResults)
                     CurrentGrepOperation = GrepOperation.SearchInResults;
                 else
@@ -2244,7 +2248,7 @@ namespace dnGREP.WPF
         {
             get
             {
-                return PathSearchText.IsValidBaseFolder && FilesFound && CurrentGrepOperation == GrepOperation.None &&
+                return FilesFound && CurrentGrepOperation == GrepOperation.None &&
                         !IsSaveInProgress && !string.IsNullOrEmpty(SearchFor) && SearchResults.GetWritableList().Count > 0 &&
                         // can only replace using the same parameters as was used for the search
                         !SearchParametersChanged &&
