@@ -1170,24 +1170,44 @@ namespace dnGREP.Common
 
         private static string AddEverythingDateFilters(FileFilter filter, string searchString)
         {
-            DateTime startTime = filter.StartTime.HasValue ? filter.StartTime.Value : new DateTime(1970, 01, 01, 0, 0, 0, DateTimeKind.Local);
-            DateTime endTime = filter.EndTime.HasValue ? filter.EndTime.Value : DateTime.Today.AddDays(1);
+            if (!filter.StartTime.HasValue && !filter.EndTime.HasValue)
+            {
+                return searchString;
+            }
 
+            string function = string.Empty;
             if (filter.DateFilter == FileDateFilter.Modified)
             {
                 if (!searchString.Contains("datemodified:") && !searchString.Contains("dm:"))
                 {
-                    searchString += $" dm:{startTime.ToIso8601DateTime()}-{endTime.ToIso8601DateTime()}"; 
+                    function += " dm:"; 
                 }
             }
             else if (filter.DateFilter == FileDateFilter.Created)
             {
                 if (!searchString.Contains("datecreated:") && !searchString.Contains("dc:"))
                 {
-                    searchString += $" dc:{startTime.ToIso8601DateTime()}-{endTime.ToIso8601DateTime()}";
+                    function += " dc:";
                 }
             }
-            return searchString;
+
+            if (!string.IsNullOrEmpty(function))
+            {
+                if (filter.StartTime.HasValue && filter.EndTime.HasValue)
+                {
+                    function += $"{filter.StartTime.Value.ToIso8601DateTime()}-{filter.EndTime.Value.ToIso8601DateTime()}";
+                }
+                else if (filter.StartTime.HasValue)
+                {
+                    function += $">={filter.StartTime.Value.ToIso8601DateTime()}";
+                }
+                else if (filter.EndTime.HasValue)
+                {
+                    function += $"<={filter.EndTime.Value.ToIso8601DateTime()}";
+                }
+            }
+
+            return searchString + function;
         }
 
         private static IEnumerable<string> EnumerateArchiveFiles(string filePath, FileFilter filter,
