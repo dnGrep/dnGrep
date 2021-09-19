@@ -49,14 +49,14 @@ namespace dnGREP.Localization
                 else
                 {
                     MessageBox.Show(TranslationSource.Format(Properties.Resources.ResourcesFile0IsNotAResxFile, filePath),
-                        Properties.Resources.DnGrep + "  " + Properties.Resources.LoadResources, MessageBoxButton.OK);
+                        Properties.Resources.MessageBox_DnGrep + "  " + Properties.Resources.LoadResources, MessageBoxButton.OK);
                 }
             }
             catch(Exception ex)
             {
                 logger.Error(ex, $"Failed to load resources file '{filePath}'");
                 MessageBox.Show(TranslationSource.Format(Properties.Resources.CouldNotLoadResourcesFile0, filePath) + ex.Message,
-                    Properties.Resources.DnGrep + "  " + Properties.Resources.LoadResources, MessageBoxButton.OK);
+                    Properties.Resources.MessageBox_DnGrep + "  " + Properties.Resources.LoadResources, MessageBoxButton.OK);
             }
         }
 

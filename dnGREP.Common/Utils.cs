@@ -120,9 +120,9 @@ namespace dnGREP.Common
                         if (destinationFileInfo.Exists && action == OverwriteFile.Prompt)
                         {
                             var answer = MessageBox.Show(
-                                TranslationSource.Format(Resources.TheFile0AlreadyExistsIn1OverwriteExisting,
+                                TranslationSource.Format(Resources.MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting,
                                     destinationFileInfo.Name, destinationFileInfo.DirectoryName),
-                                Resources.DnGrep, MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
+                                Resources.MessageBox_DnGrep, MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
 
                             if (answer == MessageBoxResult.Cancel)
                                 return count;
@@ -188,9 +188,9 @@ namespace dnGREP.Common
                         if (destinationFileInfo.Exists && action == OverwriteFile.Prompt)
                         {
                             var answer = MessageBox.Show(
-                                TranslationSource.Format(Resources.TheFile0AlreadyExistsIn1OverwriteExisting,
+                                TranslationSource.Format(Resources.MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting,
                                     destinationFileInfo.Name, destinationFileInfo.DirectoryName),
-                                Resources.DnGrep, MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
+                                Resources.MessageBox_DnGrep, MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
 
                             if (answer == MessageBoxResult.Cancel)
                                 return count;

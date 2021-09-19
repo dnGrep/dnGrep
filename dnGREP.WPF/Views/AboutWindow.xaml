@@ -5,7 +5,7 @@
                  xmlns:l="clr-namespace:dnGREP.Localization;assembly=dnGREP.Localization"
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                 Title="{l:Loc Key='AboutDnGREP'}"
+                 Title="{l:Loc Key='About_AboutDnGREP'}"
                  FontFamily="{Binding ApplicationFontFamily}"
                  FontSize="{Binding DialogFontSize}"
                  Height="500"
@@ -49,12 +49,12 @@
             </Border>
 
             <StackPanel Grid.Row="0" Grid.Column="1"  Orientation="Horizontal">
-                <TextBlock Text="{l:Loc Key='DnGREP_Title'}" FontWeight="DemiBold" 
+                <TextBlock Text="{l:Loc Key='About_DnGREP_Title'}" FontWeight="DemiBold" 
                        FontSize="{Binding DialogFontSize, Converter={StaticResource TitleSizeConverter}, ConverterParameter=2, FallbackValue=14}" 
                        Style="{StaticResource ThemedTextBlock}"/>
                 <TextBlock Style="{StaticResource ThemedTextBlock}" Margin="30,0,0,0">
                 <Hyperlink NavigateUri="http://dngrep.github.io/" RequestNavigate="Hyperlink_RequestNavigate">
-                    <TextBlock Text="{l:Loc Key='DnGrepOnGitHub'}"/>
+                    <TextBlock Text="{l:Loc Key='About_DnGrepOnGitHub'}"/>
                 </Hyperlink>
                 </TextBlock>
             </StackPanel>
@@ -78,12 +78,12 @@
                            Style="{StaticResource ThemedTextBlock}" />
             </Border>
 
-            <TextBlock Grid.Row="5" Grid.Column="0" Text="{l:Loc Key='Acknowledgments'}" 
+            <TextBlock Grid.Row="5" Grid.Column="0" Text="{l:Loc Key='About_Acknowledgments'}" 
                     Style="{StaticResource ThemedTextBlock}" FontWeight="DemiBold" Margin="0,12,6,0"/>
         </Grid>
 
         <Button DockPanel.Dock="Bottom" Width="90" Margin="0,10,0,0"
-                Height="28" HorizontalAlignment="Right" Content="{l:Loc Key='OK'}"
+                Height="28" HorizontalAlignment="Right" Content="{l:Loc Key='About_OK'}"
                 IsDefault="True" IsCancel="True" />
 
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
@@ -112,79 +112,79 @@
                     <Hyperlink NavigateUri="https://www.7-zip.org/" RequestNavigate="Hyperlink_RequestNavigate">
                         <TextBlock Text="7-Zip"/>
                     </Hyperlink>
-                    <TextBlock Text="{l:Loc Key='LibraryForReadingArchiveFiles'}" Style="{StaticResource Decription}"/>
+                    <TextBlock Text="{l:Loc Key='About_LibraryForReadingArchiveFiles'}" Style="{StaticResource Decription}"/>
                 </TextBlock>
                 <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
                     <Hyperlink NavigateUri="https://github.com/dnGrep/SevenZipSharp/" RequestNavigate="Hyperlink_RequestNavigate">
                         <TextBlock Text="SevenZipSharp"/>
                     </Hyperlink>
-                    <TextBlock Text="{l:Loc Key='NETLibraryFor7Zip'}" Style="{StaticResource Decription}"/>
+                    <TextBlock Text="{l:Loc Key='About_NETLibraryFor7Zip'}" Style="{StaticResource Decription}"/>
                 </TextBlock>
                 <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
                     <Hyperlink NavigateUri="http://alphafs.alphaleonis.com/" RequestNavigate="Hyperlink_RequestNavigate">
                         <TextBlock Text="AlphaFS"/>
                     </Hyperlink>
-                    <TextBlock Text="{l:Loc Key='NETLibraryForExtendedLengthPaths'}" Style="{StaticResource Decription}"/>
+                    <TextBlock Text="{l:Loc Key='About_NETLibraryForExtendedLengthPaths'}" Style="{StaticResource Decription}"/>
                 </TextBlock>
                 <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
                     <Hyperlink NavigateUri="https://www.voidtools.com/" RequestNavigate="Hyperlink_RequestNavigate">
                         <TextBlock Text="Everything"/>
                     </Hyperlink>
-                    <TextBlock Text="{l:Loc Key='FileSystemIndexingLocateFilesInstantly'}" Style="{StaticResource Decription}"/>
+                    <TextBlock Text="{l:Loc Key='About_FileSystemIndexingLocateFilesInstantly'}" Style="{StaticResource Decription}"/>
                 </TextBlock>
                 <TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
                     <Hyperlink NavigateUri="http://avalonedit.net/" RequestNavigate="Hyperlink_RequestNavigate">
                         <TextBlock Text="Avalon Edit"/>
                     </Hyperlink>
-                    <TextBlock Text="{l:Loc Key='NETWPFTextEditorComponent'}" Style="{StaticResource Decription}"/>
+                    <TextBlock Text="{l:Loc Key='About_NETWPFTextEditorComponent'}" Style="{StaticResource Decription}"/>
                 </TextBlock>
                 <TextBlock Grid.Row="5" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
                     <Hyperlink NavigateUri="https://www.newtonsoft.com/json" RequestNavigate="Hyperlink_RequestNavigate">
                         <TextBlock Text="Newtonsoft Json"/>
                     </Hyperlink>
-                    <TextBlock Text="{l:Loc Key='JsonFrameworkForNET'}" Style="{StaticResource Decription}"/>
+                    <TextBlock Text="{l:Loc Key='About_JsonFrameworkForNET'}" Style="{StaticResource Decription}"/>
                 </TextBlock>
                 <TextBlock Grid.Row="6" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
                     <Hyperlink NavigateUri="https://nlog-project.org/" RequestNavigate="Hyperlink_RequestNavigate">
                         <TextBlock Text="NLog"/>
                     </Hyperlink>
-                    <TextBlock Text="{l:Loc Key='LoggingFrameworkForNET'}" Style="{StaticResource Decription}"/>
+                    <TextBlock Text="{l:Loc Key='About_LoggingFrameworkForNET'}" Style="{StaticResource Decription}"/>
                 </TextBlock>
                 <TextBlock Grid.Row="7" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
                     <Hyperlink NavigateUri="https://github.com/CharsetDetector/UTF-unknown" RequestNavigate="Hyperlink_RequestNavigate">
                         <TextBlock Text="UtfKnown"/>
                     </Hyperlink>
-                    <TextBlock Text="{l:Loc Key='NETLibraryForCharacterSetDetection'}" Style="{StaticResource Decription}"/>
+                    <TextBlock Text="{l:Loc Key='About_NETLibraryForCharacterSetDetection'}" Style="{StaticResource Decription}"/>
                 </TextBlock>
                 <TextBlock Grid.Row="8" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
                     <Hyperlink NavigateUri="https://github.com/micdenny/WpfScreenHelper" RequestNavigate="Hyperlink_RequestNavigate">
                         <TextBlock Text="WpfScreenHelper"/>
                     </Hyperlink>
-                    <TextBlock Text="{l:Loc Key='NETWPFScreenHelperUtility'}" Style="{StaticResource Decription}"/>
+                    <TextBlock Text="{l:Loc Key='About_NETWPFScreenHelperUtility'}" Style="{StaticResource Decription}"/>
                 </TextBlock>
                 <TextBlock Grid.Row="9" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
                     <Hyperlink NavigateUri="https://github.com/OfficeDev/Open-XML-SDK" RequestNavigate="Hyperlink_RequestNavigate">
                         <TextBlock Text="Open XML"/>
                     </Hyperlink>
-                    <TextBlock Text="{l:Loc Key='NETLibraryToWorkWithWordAndExcelDocuments'}" Style="{StaticResource Decription}"/>
+                    <TextBlock Text="{l:Loc Key='About_NETLibraryToWorkWithWordAndExcelDocuments'}" Style="{StaticResource Decription}"/>
                 </TextBlock>
                 <TextBlock Grid.Row="10" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
                     <Hyperlink NavigateUri="https://github.com/ExcelDataReader/ExcelDataReader" RequestNavigate="Hyperlink_RequestNavigate">
                         <TextBlock Text="Excel Data Reader"/>
                     </Hyperlink>
-                    <TextBlock Text="{l:Loc Key='NETLibraryForReadingMicrosoftExcelFiles'}" Style="{StaticResource Decription}"/>
+                    <TextBlock Text="{l:Loc Key='About_NETLibraryForReadingMicrosoftExcelFiles'}" Style="{StaticResource Decription}"/>
                 </TextBlock>
                 <TextBlock Grid.Row="11" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
                     <Hyperlink NavigateUri="https://github.com/andersnm/ExcelNumberFormat" RequestNavigate="Hyperlink_RequestNavigate">
                         <TextBlock Text="Excel Number Format"/>
                     </Hyperlink>
-                    <TextBlock Text="{l:Loc Key='NETLibraryToParseECMA376Numbers'}" Style="{StaticResource Decription}"/>
+                    <TextBlock Text="{l:Loc Key='About_NETLibraryToParseECMA376Numbers'}" Style="{StaticResource Decription}"/>
                 </TextBlock>
                 <TextBlock Grid.Row="12" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
                     <Hyperlink NavigateUri="https://www.xpdfreader.com/pdftotext-man.html" RequestNavigate="Hyperlink_RequestNavigate">
                         <TextBlock Text="pdftotext"/>
                     </Hyperlink>
-                    <TextBlock Text="{l:Loc Key='ConvertsPDFFilesToPlainText'}" Style="{StaticResource Decription}"/>
+                    <TextBlock Text="{l:Loc Key='About_ConvertsPDFFilesToPlainText'}" Style="{StaticResource Decription}"/>
                 </TextBlock>
             </Grid>
         </ScrollViewer>

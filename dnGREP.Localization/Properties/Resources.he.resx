@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -118,195 +118,174 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About_AboutDnGREP" xml:space="preserve">
-    <value>About dnGREP</value>
+    <value>אודות dnGREP</value>
     <comment>About window title</comment>
   </data>
   <data name="About_Acknowledgments" xml:space="preserve">
-    <value>Acknowledgments</value>
+    <value></value>
     <comment>About window text</comment>
   </data>
   <data name="About_ConvertsPDFFilesToPlainText" xml:space="preserve">
-    <value>Converts PDF files to plain text</value>
+    <value>ממיר קבצי PDF לטקסט רגיל</value>
     <comment>About dialog text</comment>
   </data>
   <data name="About_DnGrepOnGitHub" xml:space="preserve">
-    <value>dnGrep on GitHub</value>
+    <value>dnGrep ב- GitHub</value>
     <comment>About dialog text</comment>
   </data>
   <data name="About_DnGREP_Title" xml:space="preserve">
     <value>dnGREP</value>
-    <comment>About window</comment>
   </data>
   <data name="About_FileSystemIndexingLocateFilesInstantly" xml:space="preserve">
     <value>File system indexing, locate files instantly</value>
     <comment>About dialog label</comment>
   </data>
   <data name="About_JsonFrameworkForNET" xml:space="preserve">
-    <value>Json framework for .NET</value>
+    <value></value>
     <comment>About dialog label</comment>
   </data>
   <data name="About_LibraryForReadingArchiveFiles" xml:space="preserve">
-    <value>Library for reading archive files</value>
+    <value></value>
     <comment>About dialog label</comment>
   </data>
   <data name="About_LoggingFrameworkForNET" xml:space="preserve">
-    <value>Logging framework for .NET</value>
+    <value></value>
     <comment>About dialog label</comment>
   </data>
   <data name="About_NETLibraryFor7Zip" xml:space="preserve">
-    <value>.NET library for 7-Zip</value>
+    <value></value>
     <comment>About dnGrep acknowledgments</comment>
   </data>
   <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
-    <value>.NET library for character set detection</value>
+    <value></value>
     <comment>About dnGrep acknowledgments</comment>
   </data>
   <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>.NET library for extended length paths</value>
+    <value></value>
     <comment>About dnGrep acknowledgments</comment>
   </data>
   <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
-    <value>.NET library for reading Microsoft Excel files</value>
+    <value></value>
     <comment>About dnGrep acknowledgments</comment>
   </data>
   <data name="About_NETLibraryToParseECMA376Numbers" xml:space="preserve">
-    <value>.NET library to parse ECMA-376 numbers</value>
+    <value></value>
     <comment>About dnGrep acknowledgments</comment>
   </data>
   <data name="About_NETLibraryToWorkWithWordAndExcelDocuments" xml:space="preserve">
-    <value>.NET library to work with Word and Excel documents</value>
+    <value></value>
     <comment>About dnGrep acknowledgments</comment>
   </data>
   <data name="About_NETWPFScreenHelperUtility" xml:space="preserve">
-    <value>.NET WPF screen helper utility</value>
+    <value></value>
     <comment>About dnGrep acknowledgments</comment>
   </data>
   <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
-    <value>.NET WPF text editor component</value>
+    <value></value>
     <comment>About dnGrep acknowledgments</comment>
   </data>
   <data name="About_OK" xml:space="preserve">
-    <value>OK</value>
+    <value>אישור</value>
     <comment>Button label</comment>
   </data>
   <data name="Add" xml:space="preserve">
-    <value>Add:</value>
+    <value>הוסף:</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="Main_ResultList_AdditionalMatches" xml:space="preserve">
-    <value>additional matches:</value>
+    <value>התאמות נוספות:</value>
     <comment>Main window, search results text</comment>
   </data>
   <data name="Add_" xml:space="preserve">
-    <value>_Add</value>
+    <value>_הוסף</value>
     <comment>Bookmarks dialog label</comment>
   </data>
   <data name="AllowSearchingForFileNamePatternOnly" xml:space="preserve">
-    <value>Allow searching for file name pattern only when 'Search for' is empty</value>
+    <value>אפשר חיפוש תבנית שם קובץ רק כאשר 'חיפוש' ריק</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="ApplicationFonts" xml:space="preserve">
-    <value>Application Fonts</value>
+    <value>גופני יישומים</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="ArchiveOptions" xml:space="preserve">
-    <value>Archive Options</value>
+    <value>אפשרויות ארכיון</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="Arguments" xml:space="preserve">
-    <value>Arguments</value>
+    <value></value>
     <comment>Options dialog label</comment>
   </data>
   <data name="AssociatedFolders" xml:space="preserve">
-    <value>Associated Folders:</value>
+    <value>תיקיות הקשורות:</value>
     <comment>Bookmark detail dialog label</comment>
   </data>
   <data name="Main_ResultList_AtEndOfLine" xml:space="preserve">
-    <value>(at end of line)</value>
+    <value>(בסוף הקו)</value>
     <comment>Main window, search results text</comment>
   </data>
   <data name="Main_ResultList_AtPosition" xml:space="preserve">
-    <value>at position {0}</value>
+    <value>במיקום {0}</value>
     <comment>Main window, search results text</comment>
   </data>
   <data name="BookmarkDetails" xml:space="preserve">
-    <value>Bookmark Details</value>
+    <value>פרטי סימנייה</value>
     <comment>Bookmark details dialog title</comment>
   </data>
-  <data name="Bookmarks_Summary_CaseSensitive" xml:space="preserve">
-    <value>Case sensitive</value>
-    <comment>Bookmarks dialog, Other Properties summary</comment>
-  </data>
-  <data name="Bookmarks_Summary_MaxFolderDepth" xml:space="preserve">
-    <value>Max folder depth {0}</value>
-    <comment>Bookmarks dialog, Other Properties summary</comment>
-  </data>
-  <data name="Bookmarks_Summary_Multiline" xml:space="preserve">
-    <value>Multiline</value>
-    <comment>Bookmarks dialog, Other Properties summary</comment>
-  </data>
   <data name="Bookmarks_Summary_NoBinary" xml:space="preserve">
-    <value>No binary</value>
-    <comment>Bookmarks dialog, Other Properties summary</comment>
+    <value>אין בינארי</value>
   </data>
   <data name="Bookmarks_Summary_NoHidden" xml:space="preserve">
-    <value>No hidden</value>
-    <comment>Bookmarks dialog, Other Properties summary</comment>
+    <value>אין מוסתר</value>
   </data>
   <data name="Bookmarks_Summary_NoSubfolders" xml:space="preserve">
-    <value>No subfolders</value>
-    <comment>Bookmarks dialog, Other Properties summary</comment>
-  </data>
-  <data name="Bookmarks_Summary_NoSymlinks" xml:space="preserve">
-    <value>No symlinks</value>
-    <comment>Bookmarks dialog, Other Properties summary</comment>
+    <value>אין תיקיות משנה</value>
   </data>
   <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
-    <value>Search in archives</value>
-    <comment>Bookmarks dialog, Other Properties summary</comment>
+    <value>חיפוש בארכיונים</value>
+    <comment>Bookmark options summary</comment>
   </data>
   <data name="Bookmarks_Summary_WholeWord" xml:space="preserve">
-    <value>Whole word</value>
-    <comment>Bookmarks dialog, Other Properties summary</comment>
+    <value>מילה שלמה</value>
   </data>
   <data name="Bookmarks_TItle" xml:space="preserve">
-    <value>Bookmarks</value>
+    <value>סימניות</value>
     <comment>Bookmarks dialog title</comment>
   </data>
   <data name="BuiltOn" xml:space="preserve">
-    <value>Built on</value>
+    <value>בנוי על</value>
     <comment>About dnGrep dialog</comment>
   </data>
   <data name="CancelAllReplacements" xml:space="preserve">
-    <value>Cancel all replacements</value>
+    <value>בטל את כל ההחלפות</value>
     <comment>Replace window tooltip</comment>
   </data>
   <data name="ChangesTextEditorZoom" xml:space="preserve">
-    <value>Changes text editor zoom</value>
+    <value></value>
     <comment>Replace window tooltip</comment>
   </data>
   <data name="ChangesTheResultsTreeZoom" xml:space="preserve">
-    <value>Changes the results tree zoom</value>
+    <value></value>
     <comment>Main window tooltip</comment>
   </data>
   <data name="CheckForUpdatesWhenWindowsStarts" xml:space="preserve">
-    <value>Check for updates when Windows starts</value>
+    <value>בדוק אם קיימים עדכונים כאשר Windows מתחיל</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="CheckingForUpdates" xml:space="preserve">
-    <value>Checking for updates</value>
+    <value>בדיקת עדכונים.</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="ClearOldSearches" xml:space="preserve">
-    <value>Clear old searches</value>
+    <value>נקה חיפושים ישנים</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="Close" xml:space="preserve">
-    <value>Close</value>
+    <value>סגור</value>
     <comment>Main window title bar close button tooltip</comment>
   </data>
   <data name="CmdLine_Help" xml:space="preserve">
-    <value>dnGrep:  Search through text files, Word and Excel documents, PDFs, and archives using text, regular expression, XPath, and phonetic queries.
+    <value>dnGrep:  חיפוש בקבצי טקסט, Word ומסמכי Excel, PDFs, וארכיונים שמכילים טקסט, regular expression, XPath, ושאילתות פונטיות.
 
 Version {0} built on {1}
 
@@ -402,99 +381,99 @@ Arguments:
     <comment>Help dialog text when running dnGrep from the command line</comment>
   </data>
   <data name="Command" xml:space="preserve">
-    <value>Command</value>
+    <value>פקודה</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="CompareApplication" xml:space="preserve">
-    <value>Compare application</value>
+    <value></value>
     <comment>Options dialog label</comment>
   </data>
   <data name="CouldNotLoadResourcesFile0" xml:space="preserve">
-    <value>Could not load resources file '{0}': </value>
+    <value>לא ניתן לטעון קובץ משאבים '{0}': </value>
     <comment>Load language resource message box</comment>
   </data>
   <data name="Main_ResultList_CountAdditionalCharacters" xml:space="preserve">
-    <value>...(+{0:n0} characters)</value>
-    <comment>Main window, search results text</comment>
+    <value></value>
+    <comment>Main window search results text</comment>
   </data>
   <data name="Main_ResultList_CountMatches" xml:space="preserve">
-    <value>{0} ({1} matches)</value>
-    <comment>Main window, search results text</comment>
+    <value>{0} ({1} התאמות)</value>
+    <comment>Main window search results text</comment>
   </data>
   <data name="Main_ResultList_CountMatchesOnLines" xml:space="preserve">
-    <value>{0} ({1} matches on {2} lines)</value>
-    <comment>Main window, search results text</comment>
+    <value>{0} ({1} התאמות ב- {2} שורות)</value>
+    <comment>Main window search results text</comment>
   </data>
   <data name="CustomEditor" xml:space="preserve">
-    <value>Custom editor</value>
+    <value>עורך מותאם אישית</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="Days" xml:space="preserve">
-    <value>days</value>
+    <value>ימים</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="Default" xml:space="preserve">
-    <value>Default:</value>
+    <value>ברירת מחדל:</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="Delete_" xml:space="preserve">
-    <value>_Delete</value>
+    <value>_מחק</value>
     <comment>Bookmarks dialog button label</comment>
   </data>
   <data name="Description" xml:space="preserve">
-    <value>Description:</value>
+    <value>תיאור:</value>
     <comment>Bookmarks and Bookmarks Details dialog label</comment>
   </data>
   <data name="DescriptionHeader" xml:space="preserve">
-    <value>Description</value>
+    <value>תיאור</value>
     <comment>Bookmarks dialog heading</comment>
   </data>
   <data name="DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
-    <value>Detect file encoding when searching for file name pattern only</value>
+    <value></value>
     <comment>Options dialog label</comment>
   </data>
   <data name="DialogFontSize" xml:space="preserve">
-    <value>Dialog Font Size</value>
+    <value>גודל גופן דיאלוג</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="DnGrepWillAddTheSelectedFiles" xml:space="preserve">
-    <value>dnGrep will add the selected files to the end of the command line.</value>
+    <value>dnGrep יוסיף את הקבצים שנבחרו לסוף שורת הפקודה.</value>
     <comment>Options dialog help text</comment>
   </data>
   <data name="DockThisPopUpBackIntoTheMainWindow" xml:space="preserve">
-    <value>Dock this pop-up back into the main window</value>
+    <value>עגון את החלון המוקפץ הזה בחזרה לחלון הראשי</value>
     <comment>Main window docking button tooltip</comment>
   </data>
   <data name="Duplicate_" xml:space="preserve">
-    <value>Du_plicate</value>
+    <value>כפול</value>
     <comment>Bookmarks dialog label</comment>
   </data>
   <data name="Edit_" xml:space="preserve">
-    <value>_Edit</value>
+    <value>_ערוך</value>
     <comment>Bookmarks dialog label</comment>
   </data>
   <data name="EnableAutomaticCheckingEvery_" xml:space="preserve">
-    <value>Enable automatic checking every</value>
+    <value>אפשר בדיקה אוטומטית כל</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="Enabled" xml:space="preserve">
-    <value>Enabled</value>
+    <value>מאופשר</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="Replace_ErrorThisIsABinaryFile" xml:space="preserve">
-    <value>Error: this is a binary file</value>
+    <value></value>
     <comment>Replace window attempt to replace in binary file</comment>
   </data>
   <data name="ExcelSheetName" xml:space="preserve">
-    <value>Sheet [{0}]</value>
+    <value></value>
     <comment>Main window results list for Excel file data</comment>
   </data>
   <data name="Extensions" xml:space="preserve">
-    <value>Extensions:</value>
+    <value></value>
     <comment>Options dialog label</comment>
   </data>
   <data name="FileNotFoundHasItBeenDeletedOrMoved" xml:space="preserve">
-    <value>[File not found: has it been deleted or moved?]</value>
+    <value>[הקובץ לא נמצא: האם הוא נמחק או הועבר?]</value>
     <comment>Report extract lines from file error</comment>
   </data>
   <data name="Replace_FileNumberOfCountName" xml:space="preserve">
@@ -502,15 +481,15 @@ Arguments:
     <comment>Replace window file progress line</comment>
   </data>
   <data name="FilePatternHeader" xml:space="preserve">
-    <value>File Pattern</value>
+    <value>תבנית קובץ</value>
     <comment>Bookmarks dialog grid header</comment>
   </data>
   <data name="FilePatternType" xml:space="preserve">
-    <value>File Pattern Type</value>
+    <value>סוג תבנית קובץ</value>
     <comment>Bookmark detail dialog label</comment>
   </data>
   <data name="Files" xml:space="preserve">
-    <value>Files</value>
+    <value>קבצים</value>
     <comment>Replace window label</comment>
   </data>
   <data name="Filter" xml:space="preserve">
@@ -518,19 +497,19 @@ Arguments:
     <comment>Bookmarks dialog label</comment>
   </data>
   <data name="FollowWindowsTheme_" xml:space="preserve">
-    <value>Follow Windows Theme</value>
+    <value>התאם לערכת נושא של ווינדוס</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="FontFamily" xml:space="preserve">
-    <value>Font Family</value>
+    <value>שם גופן</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="FoundMatchesFor" xml:space="preserve">
-    <value>Found matches for </value>
+    <value>נמצאו התאמות עבור </value>
     <comment>Report contents</comment>
   </data>
   <data name="FoundNoMatchesFor" xml:space="preserve">
-    <value>Found no matches for </value>
+    <value>לא נמצאו התאמות עבור </value>
     <comment>Report contents</comment>
   </data>
   <data name="Has0MatchesOn1Lines" xml:space="preserve">
@@ -538,1370 +517,1324 @@ Arguments:
     <comment>Report contents</comment>
   </data>
   <data name="HelpTranslateDnGrep" xml:space="preserve">
-    <value>Help translate dnGrep.</value>
+    <value></value>
+    <comment>@Invariant</comment>
   </data>
   <data name="Preview_HighlightsDisabledTooManyMatchesFound" xml:space="preserve">
-    <value>Highlights disabled: too many matches found.</value>
-    <comment>Preview window, warning text</comment>
+    <value></value>
+    <comment>Preview window warning text</comment>
   </data>
   <data name="HistoryLists" xml:space="preserve">
-    <value>History Lists</value>
+    <value></value>
     <comment>Options dialog label</comment>
   </data>
   <data name="InOptionsExpander" xml:space="preserve">
-    <value>in options expander</value>
+    <value></value>
     <comment>Options dialog label</comment>
   </data>
   <data name="ItemsShownInFileFilterHistoryLists" xml:space="preserve">
-    <value>items shown in file filter history lists</value>
+    <value></value>
     <comment>Options dialog label</comment>
   </data>
   <data name="ItemsShownInPathHistoryList" xml:space="preserve">
-    <value>items shown in path history list</value>
+    <value></value>
     <comment>Options dialog label</comment>
   </data>
   <data name="ItemsShownInSearchAndReplaceHistoryLists" xml:space="preserve">
-    <value>items shown in search and replace history lists</value>
+    <value></value>
     <comment>Options dialog label</comment>
   </data>
   <data name="Language" xml:space="preserve">
-    <value>Language</value>
+    <value>שפה</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="Layout" xml:space="preserve">
-    <value>Layout</value>
+    <value></value>
     <comment>Options dialog label</comment>
   </data>
   <data name="LoadFromFile_" xml:space="preserve">
-    <value>Load from file...</value>
+    <value>טען מקובץ....</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="LoadResources" xml:space="preserve">
-    <value>Load Resources</value>
+    <value></value>
     <comment>Load resources message box title</comment>
   </data>
   <data name="Main UseGitignore" xml:space="preserve">
-    <value>Use .gitignore</value>
-    <comment>Main window, search option checkbox label (accel)</comment>
+    <value></value>
+    <comment>Main window label</comment>
   </data>
   <data name="MainFontSize" xml:space="preserve">
-    <value>Main Font Size</value>
+    <value>גודל הגופן הראשי</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="Main_AddSearchPatternToBookmarks" xml:space="preserve">
-    <value>Add search pattern to bookmarks</value>
+    <value>הוסף תבנית חיפוש לסימניות</value>
     <comment>Main window, bookmark button tooltip</comment>
   </data>
   <data name="Main_AllDates" xml:space="preserve">
-    <value>All dates</value>
-    <comment>Main window, filter files by date radio button label (accel)</comment>
+    <value>כל התאריכים</value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_AllSizes" xml:space="preserve">
-    <value>All sizes</value>
-    <comment>Main window, size filter radio button label (accel)</comment>
+    <value>כל המידות</value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_AssociateBookmarkWithFolder" xml:space="preserve">
-    <value>Associate bookmark with folder</value>
+    <value>שיוך סימניה לתיקייה</value>
     <comment>Main window, folder bookmark button tooltip</comment>
   </data>
   <data name="Main_Attributes_DateModified" xml:space="preserve">
-    <value>Date Modified:</value>
-    <comment>Main window, results list, file attributes tooltip label</comment>
-  </data>
-  <data name="Main_Attributes_Encoding" xml:space="preserve">
-    <value>Encoding:</value>
-    <comment>Main window, results list, file attributes tooltip label</comment>
+    <value>תאריך שינוי:</value>
+    <comment>Main window results list file attributes tooltip</comment>
   </data>
   <data name="Main_Attributes_File" xml:space="preserve">
-    <value>File:</value>
-    <comment>Main window, results list, file attributes tooltip label</comment>
+    <value>קוֹבֶץ:</value>
+    <comment>Main window results list file attributes tooltip</comment>
   </data>
   <data name="Main_Attributes_Size" xml:space="preserve">
-    <value>Size:</value>
-    <comment>Main window, results list, file attributes tooltip label</comment>
+    <value>גודל:</value>
+    <comment>Main window results list file attributes tooltip</comment>
   </data>
   <data name="Main_Attributes_Type" xml:space="preserve">
-    <value>Type:</value>
-    <comment>Main window, results list, file attributes tooltip label</comment>
+    <value></value>
+    <comment>Main window results list file attributes tooltip</comment>
   </data>
   <data name="Main_AutoPosition" xml:space="preserve">
-    <value>Auto Position</value>
-    <comment>Main window, docking context menu item label (accel)</comment>
+    <value>מיקום אוטומטי.</value>
+    <comment>Main window docking context menu</comment>
   </data>
   <data name="Main_BooleanOperators" xml:space="preserve">
-    <value>Boolean operators</value>
-    <comment>Main window, search options checkbox label (accel)</comment>
+    <value></value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_BrowseForFolderOrFiles" xml:space="preserve">
-    <value>Browse for folder or files</value>
-    <comment>Main window, open folder tooltip</comment>
+    <value>עיין בתיקייה או בקבצים</value>
+    <comment>Main window tooltip</comment>
   </data>
   <data name="Main_CancelButton" xml:space="preserve">
-    <value>_Cancel</value>
-    <comment>Main window, Cancel button label (accel)</comment>
+    <value>_ביטול</value>
+    <comment>Cancel button label</comment>
   </data>
   <data name="Main_CaptureGroupSearch" xml:space="preserve">
-    <value>Capture group search</value>
-    <comment>Main window, search options checkbox label (accel)</comment>
+    <value></value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_CaseSensitive" xml:space="preserve">
-    <value>C_ase sensitive</value>
-    <comment>Main window, search option checkbox label (accel)</comment>
+    <value></value>
+    <comment>Main window, Text window, Bookmark detail label</comment>
   </data>
   <data name="Main_ClearBookmark" xml:space="preserve">
-    <value>Clear bookmark</value>
+    <value>נקה סימניות</value>
     <comment>Main window, bookmark button tooltip</comment>
   </data>
   <data name="Main_CombineMultipleSearchPatternsUsingANDOrOR" xml:space="preserve">
-    <value>Combine multiple search patterns using 'AND' or 'OR'</value>
-    <comment>Main window, search option Boolean Operators tooltip</comment>
+    <value></value>
+    <comment>Main window tooltip</comment>
   </data>
   <data name="Main_ContextAfter" xml:space="preserve">
-    <value>after</value>
-    <comment>Main window, result options context lines label</comment>
+    <value></value>
+    <comment>Main window, Options dialog show lines in context</comment>
   </data>
   <data name="Main_ContextBeforeAnd" xml:space="preserve">
-    <value>before and</value>
-    <comment>Main window, results options context lines label</comment>
+    <value></value>
+    <comment>Main window, Options dialog show lines in context</comment>
   </data>
   <data name="Main_ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
-    <value>Context changes Will be applied in next search</value>
-    <comment>Main window, result options context lines tooltip</comment>
+    <value></value>
+    <comment>Main window tooltip</comment>
   </data>
   <data name="Main_ContextShowLines" xml:space="preserve">
-    <value>Show context lines</value>
-    <comment>Main window, results options checkbox label (accel)</comment>
+    <value></value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_Created" xml:space="preserve">
-    <value>Created</value>
-    <comment>Main window, filter files by date radio button label (accel)</comment>
+    <value>נוצר</value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_DateFrom" xml:space="preserve">
-    <value>From</value>
-    <comment>Main window, filter files by date radio button label (accel)</comment>
+    <value>מ-</value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_DatePast" xml:space="preserve">
-    <value>Past</value>
-    <comment>Main window, filter files by date radio button label (accel)</comment>
+    <value></value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_DatePastHours" xml:space="preserve">
-    <value>hours</value>
-    <comment>Main window, filter files by date time unit label</comment>
-  </data>
-  <data name="Main_DateTo" xml:space="preserve">
-    <value>to</value>
-    <comment>Main window, filter files by date label</comment>
+    <value>שעות</value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_DnGREP_Title" xml:space="preserve">
     <value>dnGREP</value>
-    <comment>Main window, title label - near menu bar</comment>
+    <comment>@Invariant</comment>
   </data>
   <data name="Main_DockBottom" xml:space="preserve">
-    <value>Dock Bottom</value>
-    <comment>Main window docking context menu item label (accel)</comment>
+    <value>עגינה תחתונה</value>
+    <comment>Main window docking context menu</comment>
   </data>
   <data name="Main_DockRight" xml:space="preserve">
-    <value>Dock Right</value>
-    <comment>Main window docking context menu label (accel)</comment>
+    <value>עגינה ימינה</value>
+    <comment>Main window docking context menu</comment>
   </data>
   <data name="Main_DotAsNewline" xml:space="preserve">
-    <value>_Dot as newline</value>
-    <comment>Main window, search option checkbox label (accel)</comment>
+    <value>_עגון בשורה חדשה</value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_Empty" xml:space="preserve">
-    <value>Empty</value>
+    <value>ריק</value>
     <comment>Main window title prefix when search for is empty</comment>
   </data>
   <data name="Main_Encoding" xml:space="preserve">
-    <value>Encoding:</value>
-    <comment>Main window, search options encoding combo box label (accel) </comment>
+    <value>הצפנה:</value>
+    <comment>Report search options summary, Main window results list file attributes tooltip</comment>
   </data>
   <data name="Main_EncodingAutoDetection" xml:space="preserve">
-    <value>Auto detection (default)</value>
+    <value>איתור אוטומטי (ברירת מחדל)</value>
     <comment>Main window encoding auto select text</comment>
   </data>
   <data name="Main_EverythingIndexService" xml:space="preserve">
-    <value>Everything Index Service</value>
-    <comment>Main window, pattern type option Everything tooltip</comment>
+    <value></value>
+    <comment>Main window tooltip</comment>
   </data>
   <data name="Main_EverythingSearch" xml:space="preserve">
-    <value>Everything search:</value>
-    <comment>Main window, folder input caption when Everything search is enabled (accel)</comment>
+    <value></value>
+    <comment>Main window folder caption when Everything search is enabled</comment>
   </data>
   <data name="Main_ExcludeFilesByTypeAndFoldersByName" xml:space="preserve">
-    <value>Exclude files by type and folders by name</value>
-    <comment>Main window, Patterns to exclude label tooltip</comment>
+    <value></value>
+    <comment>Main window tooltip</comment>
   </data>
   <data name="Main_FilterSummary_AllFiles" xml:space="preserve">
-    <value>All files</value>
+    <value>כל הקבצים</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_ByCreatedDate" xml:space="preserve">
-    <value>By Created Date</value>
+    <value>לפי תאריך נוצר</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_ByModifiedDate" xml:space="preserve">
-    <value>By Modified Date</value>
+    <value>לפי תאריך שונה</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_BySize" xml:space="preserve">
-    <value>By Size</value>
-    <comment>Main window, file filters summary</comment>
-  </data>
-  <data name="Main_FilterSummary_MaxFolderDepth" xml:space="preserve">
-    <value>Max folder depth {0}</value>
+    <value>לפי גודל</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_NoBinary" xml:space="preserve">
-    <value>No binary</value>
-    <comment>Main window, file filters summary</comment>
+    <value>אין בינארי</value>
   </data>
   <data name="Main_FilterSummary_NoHidden" xml:space="preserve">
-    <value>No hidden</value>
-    <comment>Main window, file filters summary</comment>
+    <value>אין מוסתר</value>
+    <comment>Main windows options summary; Bookmarks summary</comment>
   </data>
   <data name="Main_FilterSummary_NoSubfolders" xml:space="preserve">
-    <value>No subfolders</value>
-    <comment>Main window, file filters summary</comment>
-  </data>
-  <data name="Main_FilterSummary_NoSymlinks" xml:space="preserve">
-    <value>No symlinks</value>
-    <comment>Main window, file filters summary</comment>
+    <value>אין תיקיות משנה</value>
   </data>
   <data name="Main_Folder" xml:space="preserve">
-    <value>Folder:</value>
-    <comment>Main window, folder input caption (accel)</comment>
+    <value>תיקייה:</value>
+    <comment>Main window folder caption</comment>
   </data>
   <data name="Main_FollowSymbolicLinks" xml:space="preserve">
     <value>Follow symbolic links</value>
-    <comment>Main window, filter files checkbox label (accel)</comment>
+    <comment>Main window and Bookmark details dialog labels</comment>
   </data>
   <data name="Main_ForExampleAsteriskPattern" xml:space="preserve">
     <value>e.g. file??.*</value>
-    <comment>Main window, pattern type option Asterisk tooltip</comment>
+    <comment>Main window and Bookmark details dialog tooltips</comment>
   </data>
   <data name="Main_ForExampleRegularExpession" xml:space="preserve">
     <value>e.g. file[0-9]{1,2}\\.txt</value>
-    <comment>Main window, pattern type option Regex tooltip</comment>
+    <comment>Main window and Bookmark details dialog tooltips</comment>
   </data>
   <data name="Main_FromTheStartOfTheDay" xml:space="preserve">
     <value>from the start of the day</value>
-    <comment>Main window, filter file by date, start date tooltip</comment>
+    <comment>Main window tooltip</comment>
   </data>
   <data name="Main_HideResultOptions" xml:space="preserve">
-    <value>Hide result options</value>
+    <value>הסתר אפשרויות תוצאה</value>
     <comment>Main window, result options expander button tooltip (bottom of window)</comment>
   </data>
   <data name="Main_HighlightGroups" xml:space="preserve">
-    <value>Highlight Groups</value>
-    <comment>Main window, results options checkbox label (accel)</comment>
+    <value></value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_HighlightMatches" xml:space="preserve">
-    <value>Highlight Matches</value>
-    <comment>Main window, results options checkbox label (accel)</comment>
+    <value></value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_HighlightRegularExpressionGroups" xml:space="preserve">
-    <value>Highlight regular expression groups - changes will be applied in next search</value>
-    <comment>Main window, result options highlight groups tooltip</comment>
+    <value></value>
+    <comment>Main window tooltip</comment>
   </data>
   <data name="Main_IncludeBinaryFiles" xml:space="preserve">
-    <value>Include binary files</value>
-    <comment>Main window, filter files checkbox label (accel)</comment>
+    <value>כלול קבצים בינאריים</value>
+    <comment>Main window and Bookmark details dialog labels</comment>
   </data>
   <data name="Main_IncludeFilesByNameOrType" xml:space="preserve">
-    <value>Include files by name or type</value>
-    <comment>Main window, Patterns to include label tooltip</comment>
+    <value>כלול קבצים לפי שם או סוג</value>
+    <comment>Main window tooltip</comment>
   </data>
   <data name="Main_IncludeHiddenFolders" xml:space="preserve">
-    <value>Include hidden folders</value>
-    <comment>Main window, filter files checkbox label (accel)</comment>
+    <value>כלול תיקיות מוסתרות</value>
+    <comment>Main window and Bookmark details dialog labels</comment>
   </data>
   <data name="Main_IncludeSubfolders" xml:space="preserve">
-    <value>Include subfolders</value>
-    <comment>Main window, filter path depth checkbox label (accel)</comment>
+    <value>כלול תיקיות משנה</value>
+    <comment>Main window and Bookmark details dialog labels</comment>
   </data>
   <data name="Main_MaxDepth" xml:space="preserve">
-    <value>Max depth</value>
-    <comment>Main window, filter path depth text box label (accel)</comment>
+    <value></value>
+    <comment>Main window and Bookmark details dialog labels</comment>
   </data>
   <data name="Main_Menu_About" xml:space="preserve">
-    <value>_About</value>
-    <comment>Main window, main menu label (accel)</comment>
+    <value>_אודות</value>
+    <comment>Main window main menu</comment>
   </data>
   <data name="Main_Menu_About_AboutDnGrep" xml:space="preserve">
-    <value>_About dnGrep...</value>
-    <comment>Main window, main menu subitem label (accel)</comment>
+    <value>_אודות dnGrep...</value>
+    <comment>Main window main menu</comment>
   </data>
   <data name="Main_Menu_About_Help" xml:space="preserve">
-    <value>_Help</value>
-    <comment>Main window, main menu subitem label (accel)</comment>
+    <value>_עזרה</value>
+    <comment>Main window main menu</comment>
   </data>
   <data name="Main_Menu_Bookmarks" xml:space="preserve">
-    <value>_Bookmarks...</value>
-    <comment>Main window, main menu item label (accel)</comment>
+    <value>_סימניות...</value>
+    <comment>Main window main menu</comment>
   </data>
   <data name="Main_Menu_Options" xml:space="preserve">
-    <value>_Options...</value>
-    <comment>Main window, main menu item label (accel)</comment>
+    <value>_אפשרויות...</value>
+    <comment>Main window main menu</comment>
   </data>
   <data name="Main_Menu_Undo" xml:space="preserve">
-    <value>_Undo</value>
-    <comment>Main window, main menu item label (accel)</comment>
+    <value>_לבטל</value>
+    <comment>Main window main menu</comment>
   </data>
   <data name="Main_Modified" xml:space="preserve">
-    <value>Modified</value>
-    <comment>Main window, filter files by date radio button label (accel)</comment>
+    <value>שונה</value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_More" xml:space="preserve">
-    <value>Mor_e...</value>
-    <comment>Main window, filters expander label (accel)</comment>
+    <value>יותר...</value>
+    <comment>Main window expander label</comment>
   </data>
   <data name="Main_MoreArrowButton" xml:space="preserve">
-    <value>_More ⏷</value>
-    <comment>Main window, More button label with down arrow (accel)</comment>
+    <value>_יותר ⏷</value>
+    <comment>Main window button label</comment>
   </data>
   <data name="Main_MoreMenu_CopyFileNames" xml:space="preserve">
-    <value>Copy file names</value>
-    <comment>Main window, More button menu item label (accel)</comment>
+    <value>העתקת שמות קבצים</value>
+    <comment>Main window results list context menu and More menu</comment>
   </data>
   <data name="Main_MoreMenu_CopyFiles" xml:space="preserve">
-    <value>Copy files...</value>
-    <comment>Main window, More button menu item label (accel)</comment>
+    <value>העתקת קבצים...</value>
+    <comment>Main window More menu</comment>
   </data>
   <data name="Main_MoreMenu_CopyResults" xml:space="preserve">
-    <value>Copy results</value>
-    <comment>Main window, More button menu item label (accel)</comment>
+    <value>העתקת תוצאות</value>
+    <comment>Main window More menu</comment>
   </data>
   <data name="Main_MoreMenu_DeleteFiles" xml:space="preserve">
-    <value>Delete files...</value>
-    <comment>Main window, More button menu item label (accel)</comment>
+    <value>מחק קבצים...</value>
+    <comment>Main window More menu</comment>
   </data>
   <data name="Main_MoreMenu_MoveFiles" xml:space="preserve">
-    <value>Move files...</value>
-    <comment>Main window, More button menu item label (accel)</comment>
+    <value>העבר קבצים...</value>
+    <comment>Main window More menu</comment>
   </data>
   <data name="Main_MoreMenu_SaveResults" xml:space="preserve">
-    <value>Save results</value>
-    <comment>Main window, More button menu item label (accel)</comment>
+    <value>שמור תוצאות</value>
+    <comment>Main window More button menu</comment>
   </data>
   <data name="Main_MoreMenu_Save_CSVResults" xml:space="preserve">
-    <value>CSV Results</value>
-    <comment>Main window, More button menu item label (accel)</comment>
+    <value></value>
+    <comment>Main window More button menu</comment>
   </data>
   <data name="Main_MoreMenu_Save_Report" xml:space="preserve">
-    <value>Report</value>
-    <comment>Main window, More button menu item label (accel)</comment>
+    <value></value>
+    <comment>Main window More button menu</comment>
   </data>
   <data name="Main_MoreMenu_Save_TextResults" xml:space="preserve">
-    <value>Text Results</value>
-    <comment>Main window, More button menu item label (accel)</comment>
+    <value>תוצאות טקסט</value>
+    <comment>Main window More button menu</comment>
   </data>
   <data name="Main_Multiline" xml:space="preserve">
-    <value>_Multiline</value>
-    <comment>Main window, search option checkbox label (accel)</comment>
+    <value></value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_OpenFolder" xml:space="preserve">
     <value>...</value>
-    <comment>Main window, open folder button label (accel)</comment>
-  </data>
-  <data name="Main_PastDateTo" xml:space="preserve">
-    <value>to</value>
-    <comment>Main window, filter files by date, past time label</comment>
+    <comment>Main window and Options dialog button label</comment>
   </data>
   <data name="Main_PatternsToExclude" xml:space="preserve">
-    <value>Patterns to exclude:</value>
-    <comment>Main window, Patterns to exclude label (accel)</comment>
+    <value></value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_PatternsToMatch" xml:space="preserve">
-    <value>Patterns to match:</value>
-    <comment>Main window, Patterns to match label (accel)</comment>
+    <value></value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_PatternType_Asterisk" xml:space="preserve">
-    <value>Asterisk pattern</value>
-    <comment>Main window, pattern type radio button label (accel)</comment>
+    <value></value>
+    <comment>Main window, Bookmark detail dialog label</comment>
   </data>
   <data name="Main_PatternType_Everything" xml:space="preserve">
-    <value>Everything</value>
-    <comment>Main window, pattern type radio button label (accel)</comment>
+    <value></value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_PatternType_Regex" xml:space="preserve">
     <value>_Regex</value>
-    <comment>Main window, patter type radio button label (accel)</comment>
+    <comment>Various windows label</comment>
   </data>
   <data name="Main_PreviewFile" xml:space="preserve">
-    <value>Pre_view file</value>
-    <comment>Main window, search options checkbox label (accel)</comment>
+    <value></value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_RemoveFolderFromBookmarkAssociation" xml:space="preserve">
-    <value>Remove folder from bookmark association</value>
+    <value>הסר תיקייה מהאיגוד הסימניות</value>
     <comment>Main window, folder bookmark button tooltip</comment>
   </data>
   <data name="Main_ReplaceButton" xml:space="preserve">
-    <value>_Replace</value>
-    <comment>Main window replace button label (accel)</comment>
+    <value>_החלף</value>
+    <comment>Main window and Repalce window label</comment>
   </data>
   <data name="Main_ReplaceWith" xml:space="preserve">
-    <value>Re_place with:</value>
-    <comment>Main window, replace text input box label (accel)</comment>
+    <value>להחליף ב:</value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_ReportOption_CSVFileFormat" xml:space="preserve">
-    <value>CSV file format</value>
-    <comment>Main window, save report, report type format label</comment>
+    <value>פורמט קובץ CSV</value>
+    <comment>Report CSV format</comment>
   </data>
   <data name="Main_ReportOption_ReportFileFormat" xml:space="preserve">
-    <value>Report file format</value>
-    <comment>Main window, save report, report type format label</comment>
+    <value></value>
+    <comment>Report type selection text</comment>
   </data>
   <data name="Main_ReportOption_ResultsFileFormat" xml:space="preserve">
-    <value>Results file format</value>
-    <comment>Main window, save report, report type format label</comment>
+    <value></value>
+    <comment>Report type selection text</comment>
   </data>
   <data name="Main_ResetOptions" xml:space="preserve">
-    <value>Reset Options</value>
-    <comment>Main window, search options, reset button label (accel)</comment>
+    <value>איפוס אפשרויות</value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_Results_CollapseAll" xml:space="preserve">
-    <value>Collapse all</value>
-    <comment>Main window, results list, context menu item label</comment>
+    <value>לסגור הכל</value>
+    <comment>Main window results list context menu</comment>
   </data>
   <data name="Main_Results_CompareFiles" xml:space="preserve">
-    <value>Compare files</value>
-    <comment>Main window, results list, context menu item label</comment>
-  </data>
-  <data name="Main_Results_CopyFileNames" xml:space="preserve">
-    <value>Copy file names</value>
-    <comment>Main window, results list, context menu item label</comment>
+    <value>השווה קבצים</value>
+    <comment>Main window results list context menu</comment>
   </data>
   <data name="Main_Results_CopyFullFilePaths" xml:space="preserve">
-    <value>Copy full file paths</value>
-    <comment>Main window, results list, context menu item label</comment>
+    <value>העתק נתיבי קבצים מלאים</value>
+    <comment>Main window results list context menu</comment>
   </data>
   <data name="Main_Results_CopyLinesOfText" xml:space="preserve">
-    <value>Copy Lines of text</value>
-    <comment>Main window, results list, context menu item label</comment>
+    <value>העתק שורות טקסט</value>
+    <comment>Main window results list context menu</comment>
   </data>
   <data name="Main_Results_ExcludeFromResults" xml:space="preserve">
-    <value>Exclude from results</value>
-    <comment>Main window, results list, context menu item label</comment>
+    <value></value>
+    <comment>Main window results list context menu</comment>
   </data>
   <data name="Main_Results_ExpandAll" xml:space="preserve">
-    <value>Expand all</value>
-    <comment>Main window, results list, context menu item label</comment>
+    <value></value>
+    <comment>Main window results list context menu</comment>
   </data>
   <data name="Main_Results_NextMatch" xml:space="preserve">
-    <value>Next Match</value>
-    <comment>Main windows, results list, context menu item label</comment>
+    <value></value>
+    <comment>Main windows results list context menu</comment>
   </data>
   <data name="Main_Results_Open" xml:space="preserve">
-    <value>Open</value>
-    <comment>Main window, results list context menu item label</comment>
+    <value>פתח</value>
+    <comment>Main window results list context menu</comment>
   </data>
   <data name="Main_Results_OpenContainingFolder" xml:space="preserve">
-    <value>Open containing folder</value>
-    <comment>Main window, results list, context menu item label</comment>
+    <value>פתח את התיקייה המכילה</value>
+    <comment>Main window results list context menu</comment>
   </data>
   <data name="Main_Results_OpenWithCustomEditor" xml:space="preserve">
-    <value>Open with custom editor</value>
-    <comment>Main window, results list, context menu item label</comment>
+    <value>פתח עם עורך מותאם אישית</value>
+    <comment>Main window results list context menu</comment>
   </data>
   <data name="Main_Results_PreviousMatch" xml:space="preserve">
-    <value>Previous Match</value>
-    <comment>Main windows, results list, context menu item label</comment>
+    <value>התאמה קודמת</value>
+    <comment>Main windows results list context menu</comment>
   </data>
   <data name="Main_Results_RenameFile" xml:space="preserve">
-    <value>Rename file</value>
-    <comment>Main window, results list, context menu item label</comment>
+    <value>שנה שם קובץ</value>
+    <comment>Main window results list context menu</comment>
   </data>
   <data name="Main_Results_ResetZoom" xml:space="preserve">
-    <value>Reset zoom</value>
-    <comment>Main window, results list, context menu item label</comment>
+    <value>איפוס זום</value>
+    <comment>Main window results list context menu</comment>
   </data>
   <data name="Main_Results_ShowFileProperties" xml:space="preserve">
-    <value>Show file properties</value>
-    <comment>Main window, results list, context menu item label</comment>
+    <value>הצג מאפייני קובץ</value>
+    <comment>Options dialog label</comment>
   </data>
   <data name="Main_SavingResultsToFile" xml:space="preserve">
-    <value>Saving results to file...</value>
-    <comment>Main window, status message</comment>
+    <value>שמירת תוצאות לקובץ...</value>
+    <comment>Main window status message</comment>
   </data>
   <data name="Main_SearchButton" xml:space="preserve">
-    <value>_Search</value>
-    <comment>Main window, search button label (accel)</comment>
+    <value>_חיפוש</value>
+    <comment>Main window button label</comment>
   </data>
   <data name="Main_SearchFilesInMultipleThreads" xml:space="preserve">
-    <value>Search files in multiple threads</value>
-    <comment>Main window, search option parallel tooltip</comment>
+    <value></value>
+    <comment>Main window tooltip</comment>
   </data>
   <data name="Main_SearchFor" xml:space="preserve">
-    <value>Search _for:</value>
-    <comment>Main window, search pattern text input box label (accel)</comment>
+    <value></value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_SearchGroup" xml:space="preserve">
-    <value>Search</value>
-    <comment>Main window, search group heading</comment>
+    <value>חיפוש</value>
+    <comment>Main window and test window label</comment>
   </data>
   <data name="Main_SearchInArchives" xml:space="preserve">
-    <value>Search in ar_chives</value>
-    <comment>Main window, checkbox label (accel)</comment>
+    <value>חיפוש בארכיונים</value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_SearchInGroup" xml:space="preserve">
-    <value>Search in</value>
-    <comment>Main window Search In group heading</comment>
+    <value>חפש ב-</value>
+    <comment>Report search options summary</comment>
   </data>
   <data name="Main_SearchInResults" xml:space="preserve">
-    <value>Search _in results</value>
-    <comment>Main window, search options checkbox label (accel)</comment>
+    <value>חיפוש _בתוצאות</value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_SearchParallel" xml:space="preserve">
-    <value>Search Paralle_l</value>
-    <comment>Main window, search option checkbox label (accel)</comment>
+    <value></value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_SearchType_Hex" xml:space="preserve">
     <value>Hex</value>
-    <comment>Main window, search type radio button label (accel)</comment>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value>Phonetic</value>
-    <comment>Main window, search type radio button label (accel)</comment>
+    <value></value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Phonetic search</value>
-    <comment>Main window, search type Phonetic tooltip</comment>
+    <value></value>
+    <comment>Main window tooltip; Bookmark detail and Options dialog labels</comment>
   </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
-    <value>Plain text search</value>
-    <comment>Main window, search type Text tooltip</comment>
+    <value>חיפוש טקסט רגיל</value>
+    <comment>Main window tooltip; Bookmark detail dialog label</comment>
   </data>
   <data name="Main_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
-    <value>Read file as binary and search for bytes as hexadecimal digits: 68 65 78 20</value>
-    <comment>Main window, search type Hex tooltip</comment>
-  </data>
-  <data name="Main_SearchType_Regex" xml:space="preserve">
-    <value>_Regex</value>
-    <comment>Main window, search type radio button label (accel)</comment>
+    <value>קרא קובץ כמו בינארי וחפש בתים כמו ספרות הקסדצימלי: 68 65 78 20</value>
+    <comment>Main window tooltip</comment>
   </data>
   <data name="Main_SearchType_RegularExpressionSearch" xml:space="preserve">
-    <value>Regular expression search</value>
-    <comment>Main window, search type Regex tooltip</comment>
+    <value>חיפוש ביטוי רגיל</value>
+    <comment>Main window tooltip</comment>
   </data>
   <data name="Main_SearchType_Text" xml:space="preserve">
-    <value>_Text</value>
-    <comment>Main window, search type radio button label (accel)</comment>
+    <value></value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_SearchType_XPath" xml:space="preserve">
-    <value>_XPath</value>
-    <comment>Main window, search type radio button label (accel)</comment>
+    <value></value>
+    <comment>Main window, Test window label</comment>
   </data>
   <data name="Main_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
-    <value>XPath search (XML documents only)</value>
-    <comment>Main window, search type XPath tooltip</comment>
+    <value></value>
+    <comment>Main window tooltip</comment>
   </data>
   <data name="Main_SelectADate" xml:space="preserve">
-    <value>Select a date</value>
-    <comment>Main window, filter files by date, date picker watermark</comment>
+    <value>בחר תאריך</value>
+    <comment>Main window date picker</comment>
   </data>
   <data name="Main_ShowResultOptions" xml:space="preserve">
-    <value>Show result options</value>
+    <value>הצג אפשרויות תוצאה</value>
     <comment>Main window, result options expander button tooltip (bottom of window)</comment>
   </data>
   <data name="Main_SizeIs" xml:space="preserve">
-    <value>Size is</value>
-    <comment>Main window, filter size radio button label (accel)</comment>
+    <value>הגודל הוא</value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_SizeKB" xml:space="preserve">
     <value>KB</value>
-    <comment>Main window, filter by size label</comment>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_SizeTo" xml:space="preserve">
-    <value>to</value>
-    <comment>Main window, filter by size label</comment>
+    <value></value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_SortButton" xml:space="preserve">
-    <value>Sort</value>
-    <comment>Main window, sort button label (accel)</comment>
+    <value></value>
+    <comment>Main window sort button</comment>
   </data>
   <data name="Main_SortMenu_Ascending" xml:space="preserve">
-    <value>Ascending</value>
-    <comment>Main window sort button options menu label (accel)</comment>
+    <value></value>
+    <comment>Main window sort options</comment>
   </data>
   <data name="Main_SortMenu_Descending" xml:space="preserve">
-    <value>Descending</value>
-    <comment>Main window sort options options menu label (accel)</comment>
+    <value></value>
+    <comment>Main window sort options</comment>
   </data>
   <data name="Main_SortMenu_FileNameOnly" xml:space="preserve">
-    <value>File name only</value>
-    <comment>Main window sort options options menu label (accel)</comment>
+    <value>שם קובץ בלבד</value>
+    <comment>Main window sort options</comment>
   </data>
   <data name="Main_SortMenu_FileSize" xml:space="preserve">
-    <value>File size</value>
-    <comment>Main window sort options options menu label (accel)</comment>
+    <value>גודל הקובץ</value>
+    <comment>Main window sort options</comment>
   </data>
   <data name="Main_SortMenu_FileTypeAndName" xml:space="preserve">
-    <value>File type and name</value>
-    <comment>Main window sort options options menu label (accel)</comment>
+    <value></value>
+    <comment>Main window sort options</comment>
   </data>
   <data name="Main_SortMenu_LastWriteTime" xml:space="preserve">
-    <value>Last write time</value>
-    <comment>Main window sort options options menu label (accel)</comment>
+    <value></value>
+    <comment>Main window sort options</comment>
   </data>
   <data name="Main_SortMenu_MatchCount" xml:space="preserve">
-    <value>Match count</value>
-    <comment>Main window sort options options menu label (accel)</comment>
+    <value>ספירת התאמה</value>
+    <comment>Main window sort options</comment>
   </data>
   <data name="Main_SortMenu_PathAndFileNameBreadthFirst" xml:space="preserve">
-    <value>Path and file name, breadth-first</value>
-    <comment>Main window sort options options menu label (accel)</comment>
+    <value>נתיב ושם קובץ, רוחב ראשון</value>
+    <comment>Main window sort options</comment>
   </data>
   <data name="Main_SortMenu_PathAndFileNameDepthFirst" xml:space="preserve">
-    <value>Path and file name, depth-first</value>
-    <comment>Main window sort options options menu label (accel)</comment>
+    <value>נתיב ושם קובץ, עומק ראשון</value>
+    <comment>Main window sort options</comment>
   </data>
   <data name="Main_Status_ReplaceCanceled" xml:space="preserve">
-    <value>Replace Canceled</value>
-    <comment>Main window, status bar message</comment>
+    <value>החלפה בוטלה</value>
+    <comment>Main window status message</comment>
   </data>
   <data name="Main_Status_ReplaceComplete0FilesReplaced" xml:space="preserve">
-    <value>Replace Complete - {0} files replaced.</value>
-    <comment>Main window, status bar message</comment>
+    <value>החלפה הסתיימה - {0} קבצים הוחלפו.</value>
+    <comment>Main window status message</comment>
   </data>
   <data name="Main_Status_ReplaceFailed" xml:space="preserve">
-    <value>Replace Failed.</value>
-    <comment>Main window, status bar message</comment>
+    <value>החלף נכשלה.</value>
+    <comment>Main window status message</comment>
   </data>
   <data name="Main_Status_Replacing" xml:space="preserve">
-    <value>Replacing...</value>
-    <comment>Main window, status bar message</comment>
+    <value>מחליף...</value>
+    <comment>Main window status message</comment>
   </data>
   <data name="Main_Status_SearchCanceled" xml:space="preserve">
-    <value>Search Canceled</value>
-    <comment>Main window, status bar message</comment>
+    <value>החיפוש בוטל</value>
+    <comment>Main window status message</comment>
   </data>
   <data name="Main_Status_SearchCanceledOrFailed" xml:space="preserve">
-    <value>Search Canceled or Failed</value>
-    <comment>Main window, status bar message</comment>
+    <value>החיפוש בוטל או נכשל</value>
+    <comment>Main window status message</comment>
   </data>
   <data name="Main_Status_SearchCompleteSearched0FilesFound1FilesIn2" xml:space="preserve">
-    <value>Search Complete - Searched {0} files. Found {1} files in {2}.</value>
-    <comment>Main window, status bar message</comment>
+    <value>החיפוש הסתיים - חופשו {0} קבצים. נמצאו {1} קבצים ב- {2}.</value>
+    <comment>Main window status message</comment>
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFiles" xml:space="preserve">
-    <value>Searched {0} files. Found {1} matching files.</value>
-    <comment>Main window, status bar message</comment>
+    <value>חופשו {0} קבצים. נמצאו {1} התאמות קבצים.</value>
+    <comment>Main window status message</comment>
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFilesProcessing2" xml:space="preserve">
-    <value>Searched {0} files. Found {1} matching files - processing {2}</value>
-    <comment>Main window, status bar message</comment>
+    <value>חופשו {0} קבצים. נמצאו {1} התאמת קבצים - מעבד {2}</value>
+    <comment>Main window status message</comment>
   </data>
   <data name="Main_Status_Searching" xml:space="preserve">
-    <value>Searching...</value>
-    <comment>Main window, status bar message</comment>
+    <value>מחפש...</value>
+    <comment>Main window status message</comment>
   </data>
   <data name="Main_StopAfterFirstMatch" xml:space="preserve">
-    <value>Stop after first match</value>
-    <comment>Main window, search options checkbox label (accel)</comment>
+    <value>עצור לאחר ההתאמה הראשונה</value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_TestExpression" xml:space="preserve">
-    <value>Test Expression</value>
-    <comment>Main window, test search expression button label (accel)</comment>
+    <value></value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_ThroughTheEndOfTheDay" xml:space="preserve">
-    <value>through the end of the day</value>
-    <comment>Main window, filter file by date, end date tooltip</comment>
+    <value></value>
+    <comment>Main window tooltip</comment>
   </data>
   <data name="Main_UseGitignoreToFilterFiles" xml:space="preserve">
-    <value>Use .gitignore to filter files</value>
-    <comment>Main window, search option checkbox tooltip</comment>
-  </data>
-  <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
-    <value>Hex string is not valid</value>
-    <comment>Main window, hexadecimal expression status</comment>
-  </data>
-  <data name="Main_Validation_HexStringIsOK" xml:space="preserve">
-    <value>Hex string is OK</value>
-    <comment>Main window, hexadecimal expression status</comment>
+    <value></value>
+    <comment>Main window tooltip</comment>
   </data>
   <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">
-    <value>Regex is not valid!</value>
-    <comment>Main window, regular expression status</comment>
+    <value>Regex לא תקף!</value>
+    <comment>Main window, Test window regular expression status</comment>
   </data>
   <data name="Main_Validation_RegexIsOK" xml:space="preserve">
-    <value>Regex is OK!</value>
-    <comment>Main window, regular expression status</comment>
+    <value>Regex בסדר!</value>
+    <comment>Main window, Test window regular expression status</comment>
   </data>
   <data name="Main_Validation_XPathIsNotValid" xml:space="preserve">
-    <value>XPath is not valid!</value>
-    <comment>Main window, XPath status</comment>
+    <value></value>
+    <comment>Main window, Test window XPath status</comment>
   </data>
   <data name="Main_Validation_XPathIsOK" xml:space="preserve">
-    <value>XPath is OK!</value>
-    <comment>Main window, XPath status</comment>
+    <value></value>
+    <comment>Main window, Test window XPath status</comment>
   </data>
   <data name="Main_WholeWord" xml:space="preserve">
-    <value>_Whole word</value>
-    <comment>Main window, search option checkbox label (accel)</comment>
+    <value>_מילה שלמה</value>
+    <comment>Main window label</comment>
   </data>
   <data name="Main_WindowTitle" xml:space="preserve">
-    <value>{0} in "{1}" - dnGREP</value>
+    <value>{0} ב- "{1}" - dnGREP</value>
     <comment>Main window title</comment>
   </data>
   <data name="Main_WrapText" xml:space="preserve">
-    <value>Wrap Text</value>
-    <comment>Main window, results options checkbox label (accel)</comment>
+    <value></value>
+    <comment>Main window, Preview window and Replace window label</comment>
   </data>
   <data name="Main_Zoom" xml:space="preserve">
-    <value>Zoom:</value>
-    <comment>Main window, results options zoom slider label</comment>
+    <value></value>
+    <comment>Main window, Preview window and Replace window label</comment>
   </data>
   <data name="MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
-    <value>Mark all matches in this file for replacement [Ctrl+A]</value>
+    <value>סמן את כל ההתאמות בקובץ זה להחלפה [Ctrl+A]</value>
     <comment>Replace window label</comment>
   </data>
   <data name="MarkMatchForReplacement" xml:space="preserve">
-    <value>Mark match for replacement [Ctrl+R]</value>
+    <value>סימן התאמה להחלפה [Ctrl+R]</value>
     <comment>Replace window label</comment>
   </data>
   <data name="Matches" xml:space="preserve">
-    <value>Matches</value>
+    <value>התאמות</value>
     <comment>Replace window label</comment>
   </data>
   <data name="MatchEverythingToExactMatch" xml:space="preserve">
-    <value>0 - match everything; 1.0 - exact match</value>
+    <value></value>
     <comment>Options dialog help text</comment>
   </data>
   <data name="MatchThreshold" xml:space="preserve">
-    <value>Match threshold (from 0 to 1.0)</value>
+    <value></value>
     <comment>Options dialog label</comment>
   </data>
   <data name="MatchTimeout" xml:space="preserve">
-    <value>Match timeout</value>
+    <value></value>
     <comment>Options dialog label</comment>
   </data>
   <data name="Main_ResultList_MatchToolTip1" xml:space="preserve">
-    <value>Match {0}{1}{2}</value>
+    <value>התאמה {0}{1}{2}</value>
     <comment>Main window results, capture group tooltip {1} is a new line</comment>
   </data>
   <data name="Main_ResultList_MatchToolTip2" xml:space="preserve">
-    <value>Match {0}{1}Group {2}:   {3}</value>
+    <value>התאמה {0}{1}קבוצה {2}:   {3}</value>
     <comment>Main window results, capture group tooltip {1} is a new line</comment>
   </data>
   <data name="Maximize" xml:space="preserve">
-    <value>Maximize</value>
+    <value>הגדל</value>
     <comment>Main window title bar button tooltip</comment>
   </data>
   <data name="MessageBox_AreYouSureYouWantToContinue" xml:space="preserve">
-    <value>Are you sure you want to continue?</value>
-    <comment>Message box text for: Delete files</comment>
+    <value>האם אתה בטוח שברצונך להמשיך?</value>
+    <comment>Delete files message box</comment>
   </data>
   <data name="MessageBox_AreYouSureYouWantToReplaceSearchPatternWithEmptyString" xml:space="preserve">
-    <value>Are you sure you want to replace search pattern with empty string?</value>
-    <comment>Message box text for: Replace text</comment>
+    <value>האם אתה בטוח שברצונך להחליף את תבנית החיפוש עם מחרוזת ריקה?</value>
+    <comment>Replace text message box</comment>
   </data>
   <data name="MessageBox_CheckEditorPath" xml:space="preserve">
-    <value>Check editor path via "Options...".</value>
-    <comment>Message box text for: Open file failed</comment>
+    <value>בדוק את נתיב העורך באמצעות "אפשרויות...".</value>
+    <comment>Open file failed message box</comment>
   </data>
   <data name="MessageBox_ClearingThisBookmarkWillAlsoClearThatBookmark" xml:space="preserve">
-    <value>Clearing this bookmark will also clear that bookmark.</value>
-    <comment>Message box text for: Main window, bookmark button</comment>
+    <value>ניקוי סימניה זו ינקה גם את הסימנייה הזאת.</value>
+    <comment>Main window, bookmark button message box</comment>
   </data>
   <data name="MessageBox_ClearingThisBookmarkWillAlsoRemoveThoseBookmarks" xml:space="preserve">
-    <value>Clearing this bookmark will also remove those bookmarks.</value>
-    <comment>Message box text for: Main window, bookmark button</comment>
+    <value>ניקוי סימניה זו יסיר גם את הסימניות האלו.</value>
+    <comment>Main window, bookmark button message box</comment>
   </data>
   <data name="MessageBox_CopyFiles" xml:space="preserve">
-    <value>Copy Files</value>
-    <comment>Message box title for: Copy files</comment>
+    <value>העתקת קבצים</value>
+    <comment>Copy files message box</comment>
   </data>
   <data name="MessageBox_CouldNotLoadTheme" xml:space="preserve">
-    <value>Could not load theme '{0}', See the error log for details: </value>
+    <value></value>
     <comment>Load theme resource message box</comment>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyCopied" xml:space="preserve">
-    <value>{0} files have been successfully copied.</value>
-    <comment>Message box text for: Copy files</comment>
+    <value>{0} קבצים הועתקו בהצלחה.</value>
+    <comment>Copy files message box</comment>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyDeleted" xml:space="preserve">
-    <value>{0} files have been successfully deleted.</value>
-    <comment>Message box text for: Delete files</comment>
+    <value>{0} קבצים נמחקו בהצלחה.</value>
+    <comment>Delete files message box</comment>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyMoved" xml:space="preserve">
-    <value>{0} files have been successfully moved.</value>
-    <comment>Message box text for: Move files</comment>
+    <value>{0} קבצים הועברו בהצלחה.</value>
+    <comment>Move files message box</comment>
   </data>
   <data name="MessageBox_CustomEditorFileOpenError" xml:space="preserve">
-    <value>There was an error opening file by custom editor.</value>
-    <comment>Message box text for: Open file with custom editor</comment>
+    <value>אירעה שגיאה קובץ פתיחה על ידי עורך מותאם אישית.</value>
+    <comment>Open file with custom editor message box</comment>
   </data>
   <data name="MessageBox_DefaultEngineWasUsedInstead" xml:space="preserve">
-    <value>Default engine was used instead.</value>
-    <comment>Message box text for: Plugin failed to load error</comment>
+    <value>השתמשנו במנוע ברירת המחדל במקום.</value>
+    <comment>Plugin failed to load error message box</comment>
   </data>
   <data name="MessageBox_DeleteFiles" xml:space="preserve">
-    <value>Delete Files</value>
-    <comment>Message box title for: Delete files</comment>
+    <value>מחק קבצים</value>
+    <comment>Delete files message box</comment>
   </data>
   <data name="MessageBox_DnGrep" xml:space="preserve">
     <value>dnGrep</value>
-    <comment>Message box title</comment>
+    <comment>@Invariant</comment>
   </data>
   <data name="MessageBox_DoYouWantToContinue" xml:space="preserve">
-    <value>Do you want to continue?</value>
-    <comment>Message box text for: Main window, bookmark button</comment>
+    <value>האם אתה רוצה להמשיך?</value>
+    <comment>Main window, bookmark button message box</comment>
   </data>
   <data name="MessageBox_Error" xml:space="preserve">
-    <value>Error: </value>
-    <comment>Message box text for: general error message</comment>
+    <value>שגיאה: </value>
+    <comment>Test expression window, replace error message box</comment>
   </data>
   <data name="MessageBox_ErrorOpeningFile" xml:space="preserve">
-    <value>There was an error opening file. See the error log for details: </value>
-    <comment>Message box text for: Open file error</comment>
+    <value>אירעה שגיאה בפתיחת קובץ. ראה את יומן השגיאה לקבלת פרטים: </value>
+    <comment>Open file error message box</comment>
   </data>
   <data name="MessageBox_ErrorSettingClipboardTextTheClipboardIsLockedBy" xml:space="preserve">
-    <value>Error setting clipboard text, the clipboard is locked by</value>
+    <value></value>
     <comment>Copy to clipboard error message box</comment>
   </data>
   <data name="MessageBox_FailedToExtractFileFromArchive" xml:space="preserve">
-    <value>Failed to extract file from archive. See the error log for details: </value>
-    <comment>Message box text for: Preview window archive error</comment>
+    <value></value>
+    <comment>Preview window archive error message box</comment>
   </data>
   <data name="MessageBox_FilesHaveBeenSuccessfullyReverted" xml:space="preserve">
-    <value>Files have been successfully reverted.</value>
-    <comment>Message box text for: Main window undo replace success</comment>
+    <value>קבצים הוחזרו בהצלחה.</value>
+    <comment>Main window undo replace success message box</comment>
   </data>
   <data name="MessageBox_IncorrectPattern" xml:space="preserve">
-    <value>Incorrect pattern: </value>
-    <comment>Message box text for: Incorrect regular expression</comment>
+    <value>דפוס שגוי: </value>
+    <comment>Main window and Test window, incorrect regular expression</comment>
   </data>
   <data name="MessageBox_MoveFiles" xml:space="preserve">
-    <value>Move Files</value>
-    <comment>Message box title for: Move files</comment>
+    <value>העבר קבצים</value>
+    <comment>Move files message box title</comment>
   </data>
   <data name="MessageBox_NewVersion" xml:space="preserve">
-    <value>New version</value>
-    <comment>Message box title for: New dnGrep version</comment>
+    <value>גרסה חדשה</value>
+    <comment>New dnGrep version message box title</comment>
   </data>
   <data name="MessageBox_NewVersionOfDnGREP0IsAvailableForDownload" xml:space="preserve">
-    <value>New version of dnGREP ({0}) is available for download.</value>
-    <comment>Message box text for: New dnGrep version</comment>
+    <value>גרסה חדשה של dnGREP ({0}) זמינה להורדה.</value>
+    <comment>New dnGrep version message box text</comment>
   </data>
   <data name="MessageBox_PleaseSelectAnotherDirectoryAndTryAgain" xml:space="preserve">
-    <value>Please select another directory and try again.</value>
-    <comment>Message box text for: Copy files and Move files (destination overlaps source)</comment>
+    <value>בחר ספרייה אחרת ונסה שוב.</value>
+    <comment>Copy files and Move files message box (destination overlaps source)</comment>
   </data>
   <data name="MessageBox_PluginErrors" xml:space="preserve">
-    <value>Plugin Errors</value>
-    <comment>Message box title for: Plugin errors</comment>
+    <value>שגיאות תוסף.</value>
+    <comment>Plugin errors message box title</comment>
   </data>
   <data name="MessageBox_RenameFailed" xml:space="preserve">
-    <value>Rename failed: </value>
-    <comment>Message box text for: Rename file</comment>
+    <value>שינוי שם נכשל: </value>
+    <comment>Main window file rename message box</comment>
   </data>
   <data name="MessageBox_RenameFile" xml:space="preserve">
-    <value>Rename File</value>
-    <comment>Message box title for: Rename file</comment>
+    <value>שנה שם קובץ</value>
+    <comment>File rename message box title</comment>
   </data>
   <data name="MessageBox_Replace" xml:space="preserve">
-    <value>Replace</value>
-    <comment>Message box text for: Replace message</comment>
+    <value>החלף</value>
+    <comment>Replace message box title</comment>
   </data>
   <data name="MessageBox_ReplaceFailedError" xml:space="preserve">
-    <value>Replace failed! See the error log for details: </value>
-    <comment>Message box text for: Replace failed</comment>
+    <value>החלפה נכשלה! ראה את יומן השגיאה לקבלת פרטים: </value>
+    <comment>Main window message box text</comment>
   </data>
   <data name="MessageBox_RunDnGrepAsAdministrator" xml:space="preserve">
-    <value>Run dnGrep as Administrator to change showing dnGrep in Explorer right-click menu</value>
-    <comment>Message box text for: Options dialog, changing Windows integration options</comment>
+    <value>הפעל את dnGrep לשנות הצגה של dnGrep תפריט לחצן ימני בסייר הקבצים</value>
+    <comment>Options dialog message box text</comment>
   </data>
   <data name="MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister" xml:space="preserve">
-    <value>Run dnGrep as Administrator to change Startup Register</value>
-    <comment>Message box text for: Options dialog, changing Windows integration options</comment>
+    <value>הפעל את dnGrep כמנהל כדי לשנות את רישום ההפעלה</value>
+    <comment>Options dialog message box text</comment>
   </data>
   <data name="MessageBox_SearchFailedError" xml:space="preserve">
-    <value>Search failed! See the error log for details: </value>
-    <comment>Message box text for: Search failed</comment>
+    <value></value>
+    <comment>Main window error message box text</comment>
   </data>
   <data name="MessageBox_SearchOrReplaceFailed" xml:space="preserve">
-    <value>Search or replace failed! See the error log for details: </value>
-    <comment>Message box text for: Search or Replace failed</comment>
+    <value>חיפוש או החלפה נכשל! ראה את יומן השגיאה לקבלת פרטים: </value>
+    <comment>Main window error message box text</comment>
   </data>
   <data name="MessageBox_SearchPathInTheFieldIsNotValid" xml:space="preserve">
-    <value>Search path in the '{0}' field is not valid, search canceled.</value>
-    <comment>Message box text for: Main window search path invalid</comment>
+    <value></value>
+    <comment>Main window error message box text</comment>
   </data>
   <data name="MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory" xml:space="preserve">
-    <value>Attention, some of the files are located in the selected directory.</value>
-    <comment>Message box text for: Copy files and Move files (destination overlaps source)</comment>
+    <value>תשומת לב, חלק מהקבצים ממוקמים בספריה שנבחרה.</value>
+    <comment>Copy files and Move files message box (destination overlaps source)</comment>
   </data>
   <data name="MessageBox_SomeOfTheFilesCannotBeModifiedIfYouContinueTheseFilesWillBeSkipped" xml:space="preserve">
-    <value>Some of the files cannot be modified. If you continue, these files will be skipped.</value>
-    <comment>Message box text for: Main window replace warning</comment>
+    <value></value>
+    <comment>Main window replace warning message box text</comment>
   </data>
   <data name="MessageBox_SomethingBrokeDownInDnGrep" xml:space="preserve">
-    <value>Something broke down in dnGrep. See the error log for details: </value>
+    <value></value>
     <comment>Unknown error message box text</comment>
   </data>
   <data name="MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting" xml:space="preserve">
-    <value>The file '{0}' already exists in {1}, overwrite existing?</value>
+    <value></value>
     <comment>Copy or Move files message box text</comment>
   </data>
   <data name="MessageBox_TheFilePattern0IsNotAValidRegularExpression12" xml:space="preserve">
-    <value>The file pattern '{0}' is not a valid regular expression:{1}{2}</value>
-    <comment>Message box text for: Main window regex file pattern error</comment>
+    <value></value>
+    <comment>Main window regex file pattern error message box text</comment>
   </data>
   <data name="MessageBox_TheFollowingPluginsFailedToLoad" xml:space="preserve">
-    <value>The following plugins failed to load:</value>
-    <comment>Message box text for: plugin load errors</comment>
+    <value></value>
+    <comment>Main window message box text</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu" xml:space="preserve">
-    <value>There was an error adding dnGrep to Explorer right-click menu. See the error log for details: </value>
-    <comment>Message box text for: set Explorer context menu error</comment>
+    <value></value>
+    <comment>Options dialog error message box text</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorCopyingFiles" xml:space="preserve">
-    <value>There was an error copying files. See the error log for details: </value>
-    <comment>Message box text for: Copy files</comment>
+    <value></value>
+    <comment>Main window error message box text</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorCreatingTheFile" xml:space="preserve">
-    <value>There was an error creating the file. See the error log for details: </value>
-    <comment>Message box text for: Create file</comment>
+    <value></value>
+    <comment>Main window error message box text</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorDeletingFiles" xml:space="preserve">
-    <value>There was an error deleting files. See the error log for details: </value>
-    <comment>Message box text for: Delete file</comment>
+    <value></value>
+    <comment>Main window error message box text</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorMovingFiles" xml:space="preserve">
-    <value>There was an error moving files. See the error log for details: </value>
-    <comment>Message box text for: Move file</comment>
+    <value></value>
+    <comment>Main window error message box text</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorRegisteringAutoStartup" xml:space="preserve">
-    <value>There was an error registering auto startup. See the error log for details: </value>
-    <comment>Message box text for: set startup option error</comment>
+    <value></value>
+    <comment>Options dialog error message box text</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu" xml:space="preserve">
-    <value>There was an error removing dnGrep from the Explorer right-click menu. See the error log for details: </value>
-    <comment>Message box text for: unset Explorer context menu error</comment>
+    <value></value>
+    <comment>Options dialog error message box text</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorRevertingFiles" xml:space="preserve">
-    <value>There was an error reverting files. See the error log for details: </value>
-    <comment>Message box text for: Undo replace error</comment>
+    <value></value>
+    <comment>Main window error message box text</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorRunningRegexTest" xml:space="preserve">
-    <value>There was an error running the test window. See the error log for details: </value>
-    <comment>Message box text for: Main window start test dialog error</comment>
+    <value></value>
+    <comment>Main window error message box text</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorSavingOptions" xml:space="preserve">
-    <value>There was an error saving options. See the error log for details: </value>
-    <comment>Message box text for: Saving user options</comment>
+    <value></value>
+    <comment>Main window error message box text</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorUnregisteringAutoStartup" xml:space="preserve">
-    <value>There was an error unregistering auto startup. See the error log for details: </value>
-    <comment>Message box text for: unsetting auto start error</comment>
+    <value></value>
+    <comment>Options dialog error message box text</comment>
   </data>
   <data name="MessageBox_ThisBookmarkIsAssociatedWith0OtherFolders" xml:space="preserve">
-    <value>This bookmark is associated with {0} other folders:</value>
-    <comment>Message box text for: Main window bookmark delete</comment>
+    <value></value>
+    <comment>Main window bookmark delete message box text</comment>
   </data>
   <data name="MessageBox_ThisBookmarkIsAssociatedWithOneOtherFolder" xml:space="preserve">
-    <value>This bookmark is associated with one other folder</value>
-    <comment>Message box text for: Main window bookmark delete</comment>
+    <value></value>
+    <comment>Main window bookmark delete message box text</comment>
   </data>
   <data name="MessageBox_Undo" xml:space="preserve">
-    <value>Undo</value>
-    <comment>Message box title for: Main window Undo</comment>
+    <value>לבטל</value>
+    <comment>Main window Undo message box title</comment>
   </data>
   <data name="MessageBox_UndoWillRevertModifiedFiles" xml:space="preserve">
-    <value>Undo will revert modified file(s) back to their original state. Any changes made to the file(s) after the replace will be overwritten. Are you sure you want to proceed?</value>
-    <comment>Message box text for: Main window Undo</comment>
+    <value></value>
+    <comment>Main window Undo message box text</comment>
   </data>
   <data name="MessageBox_WouldYouLikeToContinue" xml:space="preserve">
-    <value>Would you like to continue?</value>
-    <comment>Message box text for: Replace window warning</comment>
+    <value>תרצה להמשיך?</value>
+    <comment>Replace window warning message box text</comment>
   </data>
   <data name="MessageBox_WouldYouLikeToDownloadItNow" xml:space="preserve">
-    <value>Would you like to download it now?</value>
-    <comment>Message box text for: New dnGrep version</comment>
+    <value>האם אתה רוצה להוריד אותו עכשיו?</value>
+    <comment>New dnGrep version message box text</comment>
   </data>
   <data name="MessageBox_YouAreAboutToDeleteFilesFoundDuringSearch" xml:space="preserve">
-    <value>Attention, you are about to delete files found during search.</value>
-    <comment>Message box text for: Delete files warning</comment>
+    <value></value>
+    <comment>Main window delete files warning message box text</comment>
   </data>
   <data name="Minimize" xml:space="preserve">
-    <value>Minimize</value>
+    <value>מזער</value>
     <comment>Main window title bar button tooltip</comment>
   </data>
   <data name="MoveToTheNextMatchInThisFile" xml:space="preserve">
-    <value>Move to the next match in this file [Ctrl+Left]</value>
+    <value>עבור אל ההתאמה הבאה בקובץ זה [Ctrl+Left]</value>
     <comment>Replace windows label</comment>
   </data>
   <data name="MoveToThePreviousMatchInThisFile" xml:space="preserve">
-    <value>Move to the previous match in this file [Ctrl+Right]</value>
+    <value>עבור אל ההתאמה הקודמת בקובץ זה [Ctrl+Right]</value>
     <comment>Replace window label</comment>
   </data>
   <data name="NextFile_" xml:space="preserve">
-    <value>Next _File</value>
+    <value></value>
     <comment>Replace window label</comment>
   </data>
   <data name="Next_" xml:space="preserve">
-    <value>_Next</value>
+    <value></value>
     <comment>Replace window label</comment>
   </data>
   <data name="OneOrMoreArgumentsAreInvalid" xml:space="preserve">
-    <value>One or more arguments are invalid.</value>
+    <value></value>
     <comment>Help window label</comment>
   </data>
   <data name="OnMainPanel" xml:space="preserve">
-    <value>on main panel</value>
+    <value></value>
     <comment>Options dialog label</comment>
   </data>
   <data name="Options" xml:space="preserve">
-    <value>Options</value>
+    <value>אפשרויות</value>
     <comment>Options dialog title</comment>
   </data>
   <data name="Options_BrowseFileLocation" xml:space="preserve">
     <value>...</value>
-    <comment>Options dialog, browse for file button label</comment>
   </data>
   <data name="Options_CustomEditorHelp" xml:space="preserve">
     <value>Use keywords '{0}' for file location, '{1}' for the line number, '{2}' for the search pattern, '{3}' for the first matched text on the line, and '{4}' for the column number of the first match on the line.</value>
     <comment>Options dialog custom editor help text</comment>
   </data>
   <data name="Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu" xml:space="preserve">
-    <value>Enables starting dnGrep from the Windows Explorer right-click context menu.</value>
+    <value></value>
     <comment>Option dialog - explorer right click menu checkbox tooltip</comment>
   </data>
   <data name="Options_ToChangeThisSettingRunDnGREPAsAdministrator" xml:space="preserve">
-    <value>To change this setting run dnGREP as Administrator.</value>
-    <comment>Options view, Explorer right-click tooltip</comment>
+    <value></value>
+    <comment>Options view tooltip</comment>
   </data>
   <data name="OtherPropertiesHeader" xml:space="preserve">
-    <value>Other Properties</value>
+    <value>מאפיינים אחרים</value>
     <comment>Bookmarks dialog grid header</comment>
   </data>
   <data name="PDFToText" xml:space="preserve">
-    <value>PDF to Text</value>
+    <value>PDF לטקסט</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="PdfToTextExeCommandLineOptions" xml:space="preserve">
-    <value>PdfToText.exe command line options:</value>
+    <value>PdfToText.exe אפשרויות שורת הפקודה:</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="PluginOptions" xml:space="preserve">
-    <value>Plugin Options</value>
+    <value>אפשרויות תוסף</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="Main_ResultList_PlusCountMoreMatches" xml:space="preserve">
-    <value>, +{0} more matches</value>
-    <comment>Main window, search results text</comment>
+    <value>, +{0} עוד התאמות</value>
+    <comment>Main window results list text</comment>
   </data>
   <data name="PopThisPanelOutIntoItsOwnWindow" xml:space="preserve">
-    <value>Pop this panel out into its own window</value>
+    <value></value>
     <comment>Docking window button tooltip</comment>
   </data>
   <data name="PressF1ForHelpOnOptions" xml:space="preserve">
-    <value>Press F1 for help on Options</value>
+    <value>הקש F1 לקבלת עזרה באפשרויות</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="Preview_PreviewAnyway" xml:space="preserve">
-    <value>Preview anyway</value>
-    <comment>Preview window, warning label</comment>
+    <value>תצוגה מקדימה בכל מקרה</value>
+    <comment>Preview window warning label</comment>
   </data>
   <data name="Preview_SyntaxNone" xml:space="preserve">
-    <value>None</value>
-    <comment>Preview window, syntax coloring option for no syntax coloring</comment>
+    <value></value>
+    <comment>Preview and Replace window syntax hightlight option</comment>
   </data>
   <data name="Preview_FindNext" xml:space="preserve">
-    <value>Find next (F3)</value>
-    <comment>Preview window, search tool window tooltip</comment>
+    <value>מצא הבא (F3)</value>
+    <comment>Preview window search tooltip</comment>
   </data>
   <data name="Preview_FindPrevious" xml:space="preserve">
-    <value>Find previous (Shift+F3)</value>
-    <comment>Preview window, search tool window tooltip</comment>
+    <value>מצא את הקודם (Shift+F3)</value>
+    <comment>Preview window search tooltip</comment>
   </data>
   <data name="Preview_MatchCase" xml:space="preserve">
-    <value>Match case</value>
-    <comment>Preview window, search tool window tooltip</comment>
+    <value></value>
+    <comment>Preview window search tooltip</comment>
   </data>
   <data name="Preview_MatchWholeWords" xml:space="preserve">
-    <value>Match whole words</value>
-    <comment>Preview window, search tool window tooltip</comment>
+    <value>התאם מילים שלמות</value>
+    <comment>Preview window search tooltip</comment>
   </data>
   <data name="Preview_UseRegularExpressions" xml:space="preserve">
-    <value>Use regular expressions</value>
-    <comment>Preview window, search tool window tooltip</comment>
+    <value>השתמש בביטויים רגילים</value>
+    <comment>Preview window search tooltip</comment>
   </data>
   <data name="PreviousFile_" xml:space="preserve">
-    <value>Previous File</value>
+    <value>קובץ קודם</value>
     <comment>Replace window label</comment>
   </data>
   <data name="Previous_" xml:space="preserve">
-    <value>_Previous</value>
+    <value>_הקודם</value>
     <comment>Replace window label</comment>
   </data>
   <data name="Replace_ReadOnly" xml:space="preserve">
-    <value>[read-only]</value>
-    <comment>Replace window</comment>
+    <value>[לקריאה בלבד]</value>
+    <comment>Main window results list text; Replace window</comment>
   </data>
   <data name="Regex" xml:space="preserve">
     <value>Regex</value>
     <comment>Various windows label</comment>
   </data>
   <data name="RegexOptions" xml:space="preserve">
-    <value>Regex Options</value>
+    <value>Regex אפשרויות</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="ReloadTheCurrentThemeFile" xml:space="preserve">
-    <value>Reload the current theme file [Ctrl+F5]</value>
+    <value>טען מחדש את קובץ ערכת  הנושא הנוכחי [Ctrl+F5]</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="Reload_" xml:space="preserve">
-    <value>Reload</value>
+    <value>טען מחדש</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="Remove" xml:space="preserve">
-    <value>Remove:</value>
+    <value>הסר:</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="Rename_Cancel" xml:space="preserve">
-    <value>Cancel</value>
-    <comment>Rename file dialog button label</comment>
+    <value>_ביטול</value>
   </data>
   <data name="Rename_NewName" xml:space="preserve">
-    <value>New name:</value>
-    <comment>Rename file dialog input label</comment>
+    <value>שם חדש:</value>
+    <comment>File rename window label</comment>
   </data>
   <data name="Rename_OK" xml:space="preserve">
-    <value>OK</value>
-    <comment>Rename file dialog button label</comment>
+    <value>אישור</value>
   </data>
   <data name="Rename_Title" xml:space="preserve">
-    <value>Rename file</value>
-    <comment>Rename file dialog title</comment>
+    <value>שנה שם קובץ</value>
   </data>
   <data name="ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
-    <value>Replace all matches in all files, and apply [F10]</value>
+    <value>החלף את כל ההתאמות בכל הקבצים, והחל [F10]</value>
     <comment>Replace window label</comment>
   </data>
   <data name="ReplaceFontSize" xml:space="preserve">
-    <value>Replace Font Size</value>
+    <value>החלף את גודל הגופן</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="ReplaceInAllFiles_" xml:space="preserve">
-    <value>Replace in All Files</value>
+    <value>החלף בכל הקבצים</value>
     <comment>Replace window label</comment>
   </data>
   <data name="ReplaceInFile_" xml:space="preserve">
-    <value>Replace in File</value>
+    <value></value>
     <comment>Replace window label</comment>
   </data>
   <data name="ReplaceKey1_Text" xml:space="preserve">
-    <value>text</value>
+    <value>טקסט</value>
     <comment>Replace window label</comment>
   </data>
   <data name="ReplaceKey2_SelectedMatch" xml:space="preserve">
-    <value>Selected Match</value>
+    <value>התאמה נבחרת</value>
     <comment>Replace window label</comment>
   </data>
   <data name="ReplaceKey3_ReplaceMatch" xml:space="preserve">
-    <value>Replace Match</value>
+    <value>החלף את ההתאמה</value>
     <comment>Replace window label</comment>
   </data>
   <data name="ReplaceKey4_SkipMatch" xml:space="preserve">
-    <value>Skip Match</value>
+    <value>דלג על התאמה</value>
     <comment>Replace window label</comment>
   </data>
   <data name="ReplaceMatchesMarkedForReplacement" xml:space="preserve">
-    <value>Replace matches marked for replacement</value>
+    <value></value>
     <comment>Replace window label</comment>
   </data>
   <data name="ReplaceText" xml:space="preserve">
-    <value>Replace Text</value>
+    <value>החלף טקסט</value>
     <comment>Replace window label</comment>
   </data>
   <data name="ReplaceWithHeader" xml:space="preserve">
-    <value>Replace With</value>
+    <value>להחליף ב</value>
     <comment>Bookmarks dialog grid header</comment>
   </data>
   <data name="ReportCSV_FileNameLineNumberString" xml:space="preserve">
-    <value>File Name,Line Number,String</value>
+    <value>שם קובץ,מספר שורה,טקסט</value>
     <comment>Report text</comment>
   </data>
   <data name="ReportSummary_BooleanOperators" xml:space="preserve">
-    <value>Boolean operators</value>
+    <value></value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_CaseSensitive" xml:space="preserve">
-    <value>Case sensitive</value>
-    <comment>Report search options summary</comment>
+    <value></value>
+    <comment>Report search options summary; Bookmarks summary</comment>
   </data>
   <data name="ReportSummary_DotAsNewline" xml:space="preserve">
-    <value>Dot as newline</value>
+    <value>עגון בשורה חדשה</value>
     <comment>Report search options summary</comment>
-  </data>
-  <data name="ReportSummary_Encoding" xml:space="preserve">
-    <value>Encoding:</value>
-    <comment>Report search options summary label</comment>
   </data>
   <data name="ReportSummary_ExcludePattern" xml:space="preserve">
-    <value>Exclude pattern:</value>
-    <comment>Report search options summary label</comment>
+    <value></value>
+    <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_FilePattern" xml:space="preserve">
-    <value>File pattern:</value>
-    <comment>Report search options summary label</comment>
+    <value>תבנית קובץ:</value>
+    <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_MaxFolderDepth" xml:space="preserve">
-    <value>Max folder depth {0}</value>
-    <comment>Report search options summary</comment>
+    <value></value>
+    <comment>Report search options summary; Bookmarks summary</comment>
   </data>
   <data name="ReportSummary_Multiline" xml:space="preserve">
-    <value>Multiline</value>
-    <comment>Report search options summary</comment>
+    <value></value>
+    <comment>Report search options summary; Bookmarks summary</comment>
   </data>
   <data name="ReportSummary_NoArchives" xml:space="preserve">
-    <value>No archives</value>
+    <value>אין ארכיון</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_NoBinary" xml:space="preserve">
-    <value>No binary</value>
+    <value>אין בינארי</value>
     <comment>Main window options summary</comment>
   </data>
   <data name="ReportSummary_NoBinaryFiles" xml:space="preserve">
-    <value>No binary files</value>
+    <value>אין קבצים בינאריים</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_NoHiddenFiles" xml:space="preserve">
-    <value>No hidden files</value>
+    <value>אין קבצים מוסתרים</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_NoSubfolders" xml:space="preserve">
-    <value>No subfolders</value>
-    <comment>Report search options summary</comment>
+    <value>אין תיקיות משנה</value>
+    <comment>Main window, Report; Bookmarks options summary</comment>
   </data>
   <data name="ReportSummary_NoSymlinks" xml:space="preserve">
-    <value>No symlinks</value>
-    <comment>Report search options summary</comment>
+    <value></value>
+    <comment>Main window, Report; Bookmarks options summary</comment>
   </data>
   <data name="ReportSummary_SearchFor" xml:space="preserve">
-    <value>Search for:</value>
-    <comment>Report search options summary label</comment>
+    <value></value>
+    <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_SearchIn" xml:space="preserve">
-    <value>Search in:</value>
-    <comment>Report search options summary label</comment>
+    <value>חפש ב-:</value>
   </data>
   <data name="ReportSummary_SearchInResults" xml:space="preserve">
-    <value>Search in results</value>
+    <value>חיפוש בתוצאות</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_SizeFrom0To1KB" xml:space="preserve">
-    <value>Size from {0} to {1} KB</value>
+    <value>גודל מ- {0} ל- {1} KB</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_StopAfterFirstMatch" xml:space="preserve">
-    <value>Stop after frist match</value>
+    <value>עצור לאחר ההתאמה הראשונה</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_Type0DateFrom1To2" xml:space="preserve">
-    <value>{0} date from {1} to {2}</value>
+    <value>{0} תאריך מ {1} ל {2}</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_Type0DateInPast1To2Hours" xml:space="preserve">
-    <value>{0} date in past {1} to {2} hours</value>
+    <value>{0} תאריך בעבר {1} ל- {2} שעות</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_UsingEverythingIndexSearch" xml:space="preserve">
-    <value>Using Everything index search</value>
+    <value></value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_UsingRegexFilePattern" xml:space="preserve">
-    <value>Using regex file pattern</value>
+    <value></value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_UsingTypeOfSeach" xml:space="preserve">
-    <value>Using {0} search</value>
-    <comment>Report search options summary type of search</comment>
-  </data>
-  <data name="ReportSummary_WholeWord" xml:space="preserve">
-    <value>Whole word</value>
+    <value></value>
     <comment>Report search options summary</comment>
   </data>
+  <data name="ReportSummary_WholeWord" xml:space="preserve">
+    <value>מילה שלמה</value>
+    <comment>Report search options summary; Bookmarks summary</comment>
+  </data>
   <data name="Report_DnGrepSearchResults" xml:space="preserve">
-    <value>dnGrep Search Results</value>
+    <value>dnGrep תוצאות חיפוש</value>
     <comment>Report text</comment>
   </data>
   <data name="Report_Found0MatchesOn1LinesIn2Files" xml:space="preserve">
-    <value>Found {0} matches on {1} lines in {2} files</value>
+    <value>מצא {0} התאמות ב- {1} שורות ב- {2} קבצים</value>
     <comment>Report text</comment>
   </data>
   <data name="Reset" xml:space="preserve">
-    <value>Reset</value>
+    <value>איפוס</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
-    <value>Reset and skip all matches in this file [Ctrl+T]</value>
+    <value>אפס ודלג על כל ההתאמות בקובץ זה [Ctrl+T]</value>
     <comment>Replace window label</comment>
   </data>
   <data name="ResourcesFile0IsNotAResxFile" xml:space="preserve">
-    <value>Resources file '{0}', is not a resx file.</value>
+    <value></value>
     <comment>Load language resource file error message box</comment>
   </data>
   <data name="RestoreDown" xml:space="preserve">
-    <value>Restore Down</value>
+    <value></value>
     <comment>Main window title bar button tooltip</comment>
   </data>
   <data name="ResultsOptions" xml:space="preserve">
-    <value>Results Options</value>
+    <value>אפשרויות תוצאות</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="SampleText" xml:space="preserve">
-    <value>Sample Text</value>
+    <value></value>
     <comment>Options dialog label</comment>
   </data>
   <data name="Save_" xml:space="preserve">
-    <value>Save</value>
+    <value>שמור</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="SearchForHeader" xml:space="preserve">
-    <value>Search For</value>
+    <value></value>
     <comment>Bookmarks dialog grid header</comment>
   </data>
   <data name="Seconds" xml:space="preserve">
-    <value>seconds</value>
+    <value>שניות</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="SelectedTheme" xml:space="preserve">
-    <value>Selected Theme</value>
+    <value>ערכת נושא פעילה</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="ShowDnGrepInExplorerRightClickMenu_" xml:space="preserve">
-    <value>Show dnGrep in Explorer right-click menu</value>
+    <value></value>
     <comment>Options dialog label</comment>
   </data>
   <data name="ShowFileInfoToolTips" xml:space="preserve">
-    <value>Show file info tool tips</value>
+    <value></value>
     <comment>Options dialog label</comment>
   </data>
   <data name="ShowFilePathInResultsPanel" xml:space="preserve">
-    <value>Show file path in results panel</value>
+    <value></value>
     <comment>Options dialog label</comment>
   </data>
   <data name="ShowResultLinesInContext" xml:space="preserve">
-    <value>Show result lines in context</value>
+    <value></value>
     <comment>Options dialog label</comment>
   </data>
   <data name="ShowResultsTreeExpanded" xml:space="preserve">
-    <value>Show results tree expanded</value>
+    <value></value>
     <comment>Options dialog label</comment>
   </data>
   <data name="ShowSearchOptions" xml:space="preserve">
-    <value>Show search options:</value>
+    <value>הצג אפשרויות חיפוש:</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="ShowTheNextFile" xml:space="preserve">
-    <value>Show the next file [Ctrl+PgDn]</value>
+    <value>הצג את הקובץ הבא [Ctrl+PgDn]</value>
     <comment>Replace window label</comment>
   </data>
   <data name="ShowThePreviousFile" xml:space="preserve">
-    <value>Show the previous file [Ctrl+PgUp]</value>
+    <value>הצג את הקובץ הקודם [Ctrl+PgUp]</value>
     <comment>Replace window label</comment>
   </data>
   <data name="ShowVerboseMatchCount" xml:space="preserve">
@@ -1909,202 +1842,151 @@ Arguments:
     <comment>Options dialog label</comment>
   </data>
   <data name="StartupOptions" xml:space="preserve">
-    <value>Startup options</value>
+    <value>אפשרויות הפעלה</value>
     <comment>Options dialog label</comment>
   </data>
-  <data name="Test_BooleanOperators" xml:space="preserve">
-    <value>Boolean operators</value>
-    <comment>Test window, search options checkbox label (accel)</comment>
-  </data>
-  <data name="Test_CaseSensitive" xml:space="preserve">
-    <value>C_ase sensitive</value>
-    <comment>Test window, search options checkbox label (accel)</comment>
-  </data>
   <data name="Test_Close" xml:space="preserve">
-    <value>_Close</value>
-    <comment>Test window, Close button text</comment>
+    <value>_סגור</value>
+    <comment>Close button text</comment>
   </data>
   <data name="Test_CopyToClipboard" xml:space="preserve">
-    <value>Copy to clipboard</value>
-    <comment>Test window, context menu item label</comment>
+    <value>העתק ללוח</value>
+    <comment>Test window context menu</comment>
   </data>
   <data name="Test_DotAsNewline" xml:space="preserve">
-    <value>_Dot as newline</value>
-    <comment>Test window, search options checkbox label (accel)</comment>
-  </data>
-  <data name="Test_HighlightGroups" xml:space="preserve">
-    <value>Highlight Groups</value>
-    <comment>Test window, search options checkbox label (accel)</comment>
-  </data>
-  <data name="Test_Multiline" xml:space="preserve">
-    <value>_Multiline</value>
-    <comment>Test window, search options checkbox label (accel)</comment>
+    <value>_עגון בשורה חדשה</value>
   </data>
   <data name="Test_NoMatchesFound" xml:space="preserve">
-    <value>No matches found</value>
-    <comment>Test window, results box message text</comment>
+    <value>לא נמצאו תוצאות תואמות</value>
+    <comment>Test window</comment>
   </data>
   <data name="Test_ReplaceResult" xml:space="preserve">
-    <value>Replace result:</value>
-    <comment>Test window, output results label</comment>
+    <value>החלף את התוצאה:</value>
+    <comment>Test window label</comment>
   </data>
   <data name="Test_ReplaceTextIsNotValidXML" xml:space="preserve">
-    <value>Replace text is not valid XML!</value>
-    <comment>Test window, error text</comment>
+    <value>החלף טקסט אינו חוקי XML!</value>
+    <comment>Test window error text</comment>
   </data>
   <data name="Test_ReplaceWith" xml:space="preserve">
-    <value>Replace with:</value>
-    <comment>Test window, search input label</comment>
+    <value>להחליף ב:</value>
+    <comment>Various windows label</comment>
   </data>
   <data name="Test_SampleInputText" xml:space="preserve">
-    <value>Sample input text:</value>
-    <comment>Test window, search input label</comment>
-  </data>
-  <data name="Test_SearchFor" xml:space="preserve">
-    <value>Search for:</value>
-    <comment>Test window, search input label</comment>
+    <value></value>
+    <comment>Test window label</comment>
   </data>
   <data name="Test_SearchGroup" xml:space="preserve">
-    <value>Search</value>
-    <comment>Test window, search group box heading</comment>
+    <value>חיפוש</value>
   </data>
   <data name="Test_SearchResult" xml:space="preserve">
-    <value>Search result:</value>
-    <comment>Test window, output results label</comment>
-  </data>
-  <data name="Test_SearchType_Phonetic" xml:space="preserve">
-    <value>Phonetic</value>
-    <comment>Test window, search type radio button label (accel)</comment>
-  </data>
-  <data name="Test_SearchType_Regex" xml:space="preserve">
-    <value>_Regex</value>
-    <comment>Test window, search type radio button label (accel)</comment>
-  </data>
-  <data name="Test_SearchType_Text" xml:space="preserve">
-    <value>_Text</value>
-    <comment>Test window, search type radio button label (accel)</comment>
-  </data>
-  <data name="Test_SearchType_XPath" xml:space="preserve">
-    <value>_XPath</value>
-    <comment>Test window, search type radio button label (accel)</comment>
+    <value>תוצאות חיפוש:</value>
+    <comment>Test window label</comment>
   </data>
   <data name="Test_Title" xml:space="preserve">
-    <value>Test</value>
-    <comment>Test window title</comment>
+    <value></value>
+    <comment>Test window label</comment>
   </data>
   <data name="Test_WholeWord" xml:space="preserve">
-    <value>_Whole word</value>
-    <comment>Test window, search options checkbox label (accel)</comment>
+    <value>_מילה שלמה</value>
   </data>
   <data name="TheMatchTimeoutLimits" xml:space="preserve">
-    <value>The match timeout limits how long the regular expression engine will attempt to resolve a regular expression before it times out. This prevents processing expressions and input strings that require excessive backtracking.</value>
+    <value></value>
     <comment>Options dialog help text</comment>
   </data>
   <data name="Theme" xml:space="preserve">
-    <value>Theme</value>
+    <value>ערכת נושא</value>
     <comment>Options dialog label</comment>
   </data>
   <data name="ThisBookmarkAlreadyExists" xml:space="preserve">
-    <value>This bookmark already exists</value>
+    <value></value>
     <comment>Bookmark details dialog label</comment>
   </data>
   <data name="Replace_ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
-    <value>This file contains too many matches for individual replace.  To replace all of them, click 'Replace in File'</value>
-    <comment>Replace window, warning message box text</comment>
+    <value></value>
+    <comment>Replace window warning message box text</comment>
   </data>
   <data name="Preview_ThisFileIsEitherBinaryOrTooLargeToPreview" xml:space="preserve">
-    <value>This file is either binary or too large to preview.</value>
-    <comment>Preview window, warning message</comment>
+    <value></value>
+    <comment>Preview window warning messages</comment>
   </data>
   <data name="TTA1_MatchesAllCharacters" xml:space="preserve">
-    <value>. matches all characters</value>
+    <value></value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTA2_MatchesAlphaNumerics" xml:space="preserve">
-    <value>\w matches alpha-numerics</value>
+    <value></value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTA3_MatchesDigits" xml:space="preserve">
-    <value>\d matches digits</value>
+    <value></value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTA4_MatchesSpace" xml:space="preserve">
-    <value>\s matches space</value>
+    <value></value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTA5_MatchesAnyNumberOfCharacters" xml:space="preserve">
-    <value>* matches any number of characters</value>
+    <value></value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTA6_Matches1To3Characters" xml:space="preserve">
-    <value>{1,3} matches 1 to 3 characters</value>
+    <value></value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTA7_ForMoreRegexPatternsHitF1" xml:space="preserve">
-    <value>For more Regex patterns hit F1</value>
+    <value></value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTB1_ReplacesEntireRegex" xml:space="preserve">
-    <value>$&amp; replaces entire regex</value>
+    <value></value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTB2_InsertsTheTextMatchedIntoTheReplacementText" xml:space="preserve">
-    <value>$1, $2, $3, etc... inserts the text matched between capturing parentheses into the replacement text</value>
+    <value></value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTB3_InsertsASingleDollarSignIntoTheReplacementText" xml:space="preserve">
-    <value>$$ inserts a single dollar sign into the replacement text</value>
+    <value></value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TypeHeader" xml:space="preserve">
-    <value>Type</value>
+    <value></value>
     <comment>Bookmarks dialog grid header</comment>
   </data>
   <data name="UndoFile_" xml:space="preserve">
-    <value>Undo File</value>
+    <value>בטל קובץ</value>
     <comment>Replace window label</comment>
   </data>
   <data name="UndoMarkReplaceOnThisMatch" xml:space="preserve">
-    <value>Undo mark replace on this match [Ctrl+U]</value>
+    <value></value>
     <comment>Replace window label</comment>
   </data>
   <data name="UseCaptureGroupsFromPathsToMatch" xml:space="preserve">
-    <value>Use capture groups from 'Paths to match' in the 'Search for' pattern</value>
+    <value></value>
     <comment>Main window tooltip</comment>
   </data>
   <data name="UseDefault_" xml:space="preserve">
-    <value>Use Default</value>
+    <value></value>
     <comment>Options dialog label</comment>
   </data>
   <data name="Use_" xml:space="preserve">
-    <value>_Use</value>
+    <value></value>
     <comment>Bookmarks dialog label</comment>
   </data>
   <data name="Version" xml:space="preserve">
-    <value>Version</value>
+    <value>גרסה</value>
     <comment>About dialog label</comment>
   </data>
   <data name="WantADifferentLanguage" xml:space="preserve">
-    <value>Want a different language?</value>
+    <value></value>
+    <comment>@Invariant</comment>
   </data>
   <data name="WindowTitleIsName" xml:space="preserve">
-    <value>Window Title: {0}</value>
+    <value>כותרת חלון: {0}</value>
     <comment>Clipboard set text error, clipboard locked by application name</comment>
   </data>
-  <data name="Preview_Zoom" xml:space="preserve">
-    <value>Zoom:</value>
-    <comment>Preview window, results options zoom slider label</comment>
-  </data>
-  <data name="Preview_WrapText" xml:space="preserve">
-    <value>Wrap Text</value>
-    <comment>Preview window, results options checkbox label (accel)</comment>
-  </data>
-  <data name="Replace_SyntaxNone" xml:space="preserve">
-    <value>None</value>
-    <comment>Replace window, syntax coloring option for no syntax coloring</comment>
-  </data>
   <data name="Main_ResultList_ReadOnly" xml:space="preserve">
-    <value>[read-only]</value>
-    <comment>Main window, search results text</comment>
+    <value>[לקריאה בלבד]</value>
   </data>
 </root>

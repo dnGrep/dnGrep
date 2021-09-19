@@ -4,7 +4,7 @@
                  xmlns:my="clr-namespace:dnGREP.WPF"
                  xmlns:l="clr-namespace:dnGREP.Localization;assembly=dnGREP.Localization"
                  Title="{l:Loc Key='Options'}"
-                 Height="600"
+                 Height="1600"
                  MinWidth="500"
                  FontFamily="{Binding ApplicationFontFamily}"
                  FontSize="{Binding DialogFontSize}"
@@ -281,7 +281,7 @@
                                    Text="{l:Loc Key='Command'}" />
                         <TextBox Grid.Row="0" Grid.Column="1" Margin="3"
                                  Text="{Binding Path=CustomEditorPath, UpdateSourceTrigger=PropertyChanged}" />
-                        <Button Grid.Column="2" Content="{l:Loc Key='Ellipsis'}" Margin="3"
+                        <Button Grid.Column="2" Content="{l:Loc Key='Options_BrowseFileLocation'}" Margin="3"
                                 Command="{Binding Path=BrowseEditorCommand}">
                             <Button.Width>
                                 <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
@@ -316,7 +316,7 @@
                                    Text="{l:Loc Key='Command'}" />
                         <TextBox Grid.Row="0" Grid.Column="1" Margin="3"
                                  Text="{Binding Path=CompareApplicationPath, UpdateSourceTrigger=PropertyChanged}" />
-                        <Button Grid.Column="2" Content="{l:Loc Key='Ellipsis'}" Margin="3"
+                        <Button Grid.Column="2" Content="{l:Loc Key='Options_BrowseFileLocation'}" Margin="3"
                                 Command="{Binding Path=BrowseCompareCommand}">
                             <Button.Width>
                                 <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">

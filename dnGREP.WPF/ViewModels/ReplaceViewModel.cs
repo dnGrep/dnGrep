@@ -28,8 +28,8 @@ namespace dnGREP.WPF
         {
             Highlighters = ThemedHighlightingManager.Instance.HighlightingNames.ToList();
             Highlighters.Sort();
-            Highlighters.Insert(0, Resources.PreviewSyntax_None);
-            CurrentSyntax = Resources.PreviewSyntax_None;
+            Highlighters.Insert(0, Resources.Replace_SyntaxNone);
+            CurrentSyntax = Resources.Replace_SyntaxNone;
             ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
             ReplaceFormFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.ReplaceFormFontSize);
         }
@@ -83,12 +83,12 @@ namespace dnGREP.WPF
                     lineStr = lineCount.ToString("N0", CultureInfo.CurrentCulture);
                 }
 
-                string formattedText = TranslationSource.Format(Resources.FileNumberOfCountName,
+                string formattedText = TranslationSource.Format(Resources.Replace_FileNumberOfCountName,
                    FileNumber, FileCount, item.FileNameReal, matchStr, lineStr);
 
                 if (Utils.IsReadOnly(item))
                 {
-                    formattedText += " " + Resources.ReadOnly;
+                    formattedText += " " + Resources.Replace_ReadOnly;
                 }
 
                 FileStatus = formattedText;
@@ -187,7 +187,7 @@ namespace dnGREP.WPF
                 _selectedSearchResult = value;
                 base.OnPropertyChanged(() => SelectedSearchResult);
 
-                CurrentSyntax = Resources.PreviewSyntax_None; // by default, turn off syntax highlighting (easier to see the match highlights)
+                CurrentSyntax = Resources.Replace_SyntaxNone; // by default, turn off syntax highlighting (easier to see the match highlights)
                 Encoding = _selectedSearchResult.Encoding;
                 LineNumbers.Clear();
                 FileText = string.Empty;
@@ -197,12 +197,12 @@ namespace dnGREP.WPF
                 FileInfo fileInfo = new FileInfo(_selectedSearchResult.FileNameReal);
                 if (Utils.IsBinary(_selectedSearchResult.FileNameReal))
                 {
-                    FileText = Resources.ErrorThisIsABinaryFile;
+                    FileText = Resources.Replace_ErrorThisIsABinaryFile;
                     IndividualReplaceEnabled = false;
                 }
                 else if (_selectedSearchResult.Matches.Count > 5000)
                 {
-                    FileText = Resources.ThisFileContainsTooManyMatchesForIndividualReplace;
+                    FileText = Resources.Replace_ThisFileContainsTooManyMatchesForIndividualReplace;
                     IndividualReplaceEnabled = false;
                 }
                 else

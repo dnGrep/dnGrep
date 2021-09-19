@@ -68,8 +68,8 @@ namespace dnGREP.WPF
             catch (Exception ex)
             {
                 logger.Error(ex, "Failure in application startup");
-                MessageBox.Show(Localization.Properties.Resources.SomethingBrokeDownInDnGrep + LogDir,
-                    Localization.Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Localization.Properties.Resources.MessageBox_SomethingBrokeDownInDnGrep + LogDir,
+                    Localization.Properties.Resources.MessageBox_DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -87,16 +87,16 @@ namespace dnGREP.WPF
             catch (Exception ex)
             {
                 logger.Error(ex, "Failure in application exit");
-                MessageBox.Show(Localization.Properties.Resources.SomethingBrokeDownInDnGrep + LogDir,
-                    Localization.Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Localization.Properties.Resources.MessageBox_SomethingBrokeDownInDnGrep + LogDir,
+                    Localization.Properties.Resources.MessageBox_DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void Application_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
         {
             logger.Error(e.Exception, "Unhandled exception caught");
-            MessageBox.Show(Localization.Properties.Resources.SomethingBrokeDownInDnGrep + LogDir,
-                    Localization.Properties.Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);;
+            MessageBox.Show(Localization.Properties.Resources.MessageBox_SomethingBrokeDownInDnGrep + LogDir,
+                    Localization.Properties.Resources.MessageBox_DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);;
             e.Handled = true;
         }
     }

@@ -288,8 +288,8 @@ namespace dnGREP.WPF
                 }
                 catch (ArgumentException ex)
                 {
-                    MessageBox.Show(Resources.IncorrectPattern + ex.Message, 
-                        Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show(Resources.MessageBox_IncorrectPattern + ex.Message, 
+                        Resources.MessageBox_DnGrep, MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
 
@@ -319,7 +319,7 @@ namespace dnGREP.WPF
             }
             else
             {
-                paragraph.Inlines.Add(new Run(Resources.NoMatchesFound));
+                paragraph.Inlines.Add(new Run(Resources.Test_NoMatchesFound));
             }
             SearchOutput = paragraph.Inlines;
         }
@@ -370,16 +370,16 @@ namespace dnGREP.WPF
             }
             catch (ArgumentException ex)
             {
-                MessageBox.Show(Resources.IncorrectPattern + ex.Message, 
-                    Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(Resources.MessageBox_IncorrectPattern + ex.Message, 
+                    Resources.MessageBox_DnGrep, MessageBoxButton.OK, MessageBoxImage.Warning);
             }
             catch (XmlException)
             {
-                ReplaceErrorText = Resources.ReplaceTextIsNotValidXML;
+                ReplaceErrorText = Resources.Test_ReplaceTextIsNotValidXML;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Resources.Error + ex.Message, Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Resources.MessageBox_Error + ex.Message, Resources.MessageBox_DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
             Paragraph paragraph = new Paragraph();

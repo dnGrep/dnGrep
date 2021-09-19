@@ -21,8 +21,8 @@ namespace dnGREP.Localization
         public Dictionary<string, string> AppCultures =>
             new Dictionary<string, string>
             {
-                { "en", Properties.Resources.Language_English },
-                //{ "zh", Properties.Resources.Language_Chinese },
+                { "en", "English" },
+                //{ "zh", "中文" },
             };
 
         public void SetCulture(string ietfLanguateTag)
@@ -49,6 +49,9 @@ namespace dnGREP.Localization
                     currentCulture = value;
                     Properties.Resources.Culture = value;
                     Thread.CurrentThread.CurrentUICulture = value;
+#if DEBUG
+                    Thread.CurrentThread.CurrentCulture = value;
+#endif
 
                     // string.Empty/null indicates that all properties have changed
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(string.Empty));

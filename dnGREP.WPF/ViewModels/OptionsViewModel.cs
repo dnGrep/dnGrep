@@ -39,7 +39,7 @@ namespace dnGREP.WPF
 
             TranslationSource.Instance.CurrentCultureChanged += (s, e) =>
             {
-                CustomEditorHelp = TranslationSource.Format(Resources.CustomEditorHelp,
+                CustomEditorHelp = TranslationSource.Format(Resources.Options_CustomEditorHelp,
                     File, Line, Pattern, Match, Column);
             };
         }
@@ -952,11 +952,11 @@ namespace dnGREP.WPF
             CheckIfAdmin();
             if (!IsAdministrator)
             {
-                PanelTooltip = Resources.ToChangeThisSettingRunDnGREPAsAdministrator;
+                PanelTooltip = Resources.Options_ToChangeThisSettingRunDnGREPAsAdministrator;
             }
             else
             {
-                WindowsIntegrationTooltip = Resources.EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu;
+                WindowsIntegrationTooltip = Resources.Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu;
             }
             EnableWindowsIntegration = IsShellRegistered("Directory");
             EnableRunAtStartup = IsStartupRegistered();
@@ -993,7 +993,7 @@ namespace dnGREP.WPF
             DialogFontSize = EditDialogFontSize =
                 ValueOrDefault(GrepSettings.Key.DialogFontSize, SystemFonts.MessageFontSize);
 
-            CustomEditorHelp = TranslationSource.Format(Resources.CustomEditorHelp,
+            CustomEditorHelp = TranslationSource.Format(Resources.Options_CustomEditorHelp,
                 File, Line, Pattern, Match, Column);
 
             // current values may not equal the saved settings value
@@ -1245,14 +1245,14 @@ namespace dnGREP.WPF
                 catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
                 {
                     IsAdministrator = false;
-                    MessageBox.Show(Resources.RunDnGrepAsAdministrator,
-                        Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Resources.MessageBox_RunDnGrepAsAdministrator,
+                        Resources.MessageBox_DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 catch (Exception ex)
                 {
                     logger.Error(ex, "Failed to register dnGrep with Explorer context menu");
-                    MessageBox.Show(Resources.ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu + App.LogDir,
-                        Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Resources.MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu + App.LogDir,
+                        Resources.MessageBox_DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -1281,14 +1281,14 @@ namespace dnGREP.WPF
             catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
             {
                 IsAdministrator = false;
-                MessageBox.Show(Resources.RunDnGrepAsAdministrator,
-                    Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Resources.MessageBox_RunDnGrepAsAdministrator,
+                    Resources.MessageBox_DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
             }
             catch (Exception ex)
             {
                 logger.Error(ex, "Failed to remove dnGrep from Explorer context menu");
-                MessageBox.Show(Resources.ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu + App.LogDir,
-                    Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Resources.MessageBox_ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu + App.LogDir,
+                    Resources.MessageBox_DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -1323,14 +1323,14 @@ namespace dnGREP.WPF
                 }
                 catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
                 {
-                    MessageBox.Show(Resources.RunDnGrepAsAdministratorToChangeStartupRegister,
-                        Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Resources.MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister,
+                        Resources.MessageBox_DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 catch (Exception ex)
                 {
                     logger.Error(ex, "Failed to register auto startup");
-                    MessageBox.Show(Resources.ThereWasAnErrorRegisteringAutoStartup + App.LogDir,
-                        Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Resources.MessageBox_ThereWasAnErrorRegisteringAutoStartup + App.LogDir,
+                        Resources.MessageBox_DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -1350,14 +1350,14 @@ namespace dnGREP.WPF
                 }
                 catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
                 {
-                    MessageBox.Show(Resources.RunDnGrepAsAdministratorToChangeStartupRegister,
-                        Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Resources.MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister,
+                        Resources.MessageBox_DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 catch (Exception ex)
                 {
                     logger.Error(ex, "Failed to unregister auto startup");
-                    MessageBox.Show(Resources.ThereWasAnErrorUnregisteringAutoStartup + App.LogDir,
-                        Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show(Resources.MessageBox_ThereWasAnErrorUnregisteringAutoStartup + App.LogDir,
+                        Resources.MessageBox_DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }

@@ -457,23 +457,23 @@ namespace dnGREP.WPF
         {
             var tempList = new List<string>();
             if (IncludeArchive)
-                tempList.Add(Resources.SearchInArchives);
+                tempList.Add(Resources.Bookmarks_Summary_SearchInArchives);
             if (!IncludeSubfolders || (IncludeSubfolders && MaxSubfolderDepth == 0))
-                tempList.Add(Resources.NoSubfolders);
+                tempList.Add(Resources.Bookmarks_Summary_NoSubfolders);
             if (IncludeSubfolders && MaxSubfolderDepth > 0)
-                tempList.Add(TranslationSource.Format(Resources.MaxFolderDepth, MaxSubfolderDepth));
+                tempList.Add(TranslationSource.Format(Resources.Bookmarks_Summary_MaxFolderDepth, MaxSubfolderDepth));
             if (!IncludeHidden)
-                tempList.Add(Resources.NoHidden);
+                tempList.Add(Resources.Bookmarks_Summary_NoHidden);
             if (!IncludeBinary)
-                tempList.Add(Resources.NoBinary);
+                tempList.Add(Resources.Bookmarks_Summary_NoBinary);
             if (!FollowSymlinks)
-                tempList.Add(Resources.NoSymlinks);
+                tempList.Add(Resources.Bookmarks_Summary_NoSymlinks);
             if (CaseSensitive)
-                tempList.Add(Resources.CaseSensitive);
+                tempList.Add(Resources.Bookmarks_Summary_CaseSensitive);
             if (WholeWord)
-                tempList.Add(Resources.WholeWord);
+                tempList.Add(Resources.Bookmarks_Summary_WholeWord);
             if (Multiline)
-                tempList.Add(Resources.Multiline);
+                tempList.Add(Resources.Bookmarks_Summary_Multiline);
 
             if (tempList.Count == 0)
             {
