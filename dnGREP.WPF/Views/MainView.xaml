@@ -689,7 +689,7 @@
                                           IsChecked="{Binding CaptureGroupSearch}"
                                           IsEnabled="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}"
                                           TabIndex="75" Content="{l:Loc Key='Main_CaptureGroupSearch'}" 
-                                          ToolTip="{l:Loc Key='UseCaptureGroupsFromPathsToMatch'}"/>
+                                          ToolTip="{l:Loc Key='Main_UseCaptureGroupsFromPathsToMatch'}"/>
                             </WrapPanel>
                         </StackPanel>
                         <Grid>

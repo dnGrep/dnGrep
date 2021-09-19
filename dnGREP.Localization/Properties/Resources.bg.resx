@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -119,1624 +119,1350 @@
   </resheader>
   <data name="About_AboutDnGREP" xml:space="preserve">
     <value>Относно dnGREP</value>
-    <comment>About window title</comment>
   </data>
   <data name="About_Acknowledgments" xml:space="preserve">
     <value>Благодарности</value>
-    <comment>About window text</comment>
+  </data>
+  <data name="About_BuiltOn" xml:space="preserve">
+    <value>Компилирано на</value>
   </data>
   <data name="About_ConvertsPDFFilesToPlainText" xml:space="preserve">
-    <value></value>
-    <comment>About dialog text</comment>
+    <value />
+  </data>
+  <data name="About_DnGREP" xml:space="preserve">
+    <value>dnGREP</value>
   </data>
   <data name="About_DnGrepOnGitHub" xml:space="preserve">
     <value>dnGrep в GitHub</value>
-    <comment>About dialog text</comment>
-  </data>
-  <data name="About_DnGREP_Title" xml:space="preserve">
-    <value>dnGREP</value>
   </data>
   <data name="About_FileSystemIndexingLocateFilesInstantly" xml:space="preserve">
-    <value></value>
-    <comment>About dialog label</comment>
+    <value />
   </data>
   <data name="About_JsonFrameworkForNET" xml:space="preserve">
-    <value></value>
-    <comment>About dialog label</comment>
+    <value />
   </data>
   <data name="About_LibraryForReadingArchiveFiles" xml:space="preserve">
-    <value></value>
-    <comment>About dialog label</comment>
+    <value />
   </data>
   <data name="About_LoggingFrameworkForNET" xml:space="preserve">
-    <value></value>
-    <comment>About dialog label</comment>
+    <value />
   </data>
   <data name="About_NETLibraryFor7Zip" xml:space="preserve">
-    <value></value>
-    <comment>About dnGrep acknowledgments</comment>
+    <value />
   </data>
   <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
-    <value></value>
-    <comment>About dnGrep acknowledgments</comment>
+    <value />
   </data>
   <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value></value>
-    <comment>About dnGrep acknowledgments</comment>
+    <value />
   </data>
   <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
-    <value></value>
-    <comment>About dnGrep acknowledgments</comment>
+    <value />
   </data>
   <data name="About_NETLibraryToParseECMA376Numbers" xml:space="preserve">
-    <value></value>
-    <comment>About dnGrep acknowledgments</comment>
+    <value />
   </data>
   <data name="About_NETLibraryToWorkWithWordAndExcelDocuments" xml:space="preserve">
-    <value></value>
-    <comment>About dnGrep acknowledgments</comment>
+    <value />
   </data>
   <data name="About_NETWPFScreenHelperUtility" xml:space="preserve">
-    <value></value>
-    <comment>About dnGrep acknowledgments</comment>
+    <value />
   </data>
   <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
-    <value></value>
-    <comment>About dnGrep acknowledgments</comment>
+    <value />
   </data>
   <data name="About_OK" xml:space="preserve">
     <value>Добре</value>
-    <comment>Button label</comment>
   </data>
-  <data name="Add" xml:space="preserve">
-    <value>Добавяне:</value>
-    <comment>Options dialog label</comment>
+  <data name="About_Version" xml:space="preserve">
+    <value>Издание</value>
   </data>
-  <data name="Main_ResultList_AdditionalMatches" xml:space="preserve">
-    <value>допълнителни съвпадения:</value>
-    <comment>Main window, search results text</comment>
-  </data>
-  <data name="Add_" xml:space="preserve">
-    <value>_Добавяне</value>
-    <comment>Bookmarks dialog label</comment>
-  </data>
-  <data name="AllowSearchingForFileNamePatternOnly" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="ApplicationFonts" xml:space="preserve">
-    <value>Шрифт</value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="ArchiveOptions" xml:space="preserve">
-    <value>Настройки за архиви</value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="Arguments" xml:space="preserve">
-    <value>Аргументи</value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="AssociatedFolders" xml:space="preserve">
+  <data name="BookmarkDetails_AssociatedFolders" xml:space="preserve">
     <value>Свързани папки:</value>
-    <comment>Bookmark detail dialog label</comment>
   </data>
-  <data name="Main_ResultList_AtEndOfLine" xml:space="preserve">
-    <value></value>
-    <comment>Main window, search results text</comment>
+  <data name="BookmarkDetails_BooleanOperators" xml:space="preserve">
+    <value>Булеви оператори</value>
   </data>
-  <data name="Main_ResultList_AtPosition" xml:space="preserve">
-    <value></value>
-    <comment>Main window, search results text</comment>
+  <data name="BookmarkDetails_Cancel" xml:space="preserve">
+    <value>Отказ</value>
   </data>
-  <data name="BookmarkDetails" xml:space="preserve">
+  <data name="BookmarkDetails_CaseSensitive" xml:space="preserve">
+    <value>Съвпадение на _регистъра</value>
+  </data>
+  <data name="BookmarkDetails_Description" xml:space="preserve">
+    <value>Описание:</value>
+  </data>
+  <data name="BookmarkDetails_EverythingIndexService" xml:space="preserve">
+    <value>Услуга за индексиране на Everything</value>
+  </data>
+  <data name="BookmarkDetails_FilePatternType" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BookmarkDetails_FollowSymbolicLinks" xml:space="preserve">
+    <value>Следване на символни връзки</value>
+  </data>
+  <data name="BookmarkDetails_ForExampleAsteriskPattern" xml:space="preserve">
+    <value>например file??.*</value>
+  </data>
+  <data name="BookmarkDetails_ForExampleRegularExpession" xml:space="preserve">
+    <value>например file??.*</value>
+  </data>
+  <data name="BookmarkDetails_IncludeBinaryFiles" xml:space="preserve">
+    <value>Включително двоични файлове</value>
+  </data>
+  <data name="BookmarkDetails_IncludeHiddenFolders" xml:space="preserve">
+    <value>Include hidden folders</value>
+  </data>
+  <data name="BookmarkDetails_IncludeSubfolders" xml:space="preserve">
+    <value>Включително подпапки</value>
+  </data>
+  <data name="BookmarkDetails_MaxDepth" xml:space="preserve">
+    <value>Максимална дълбочина</value>
+  </data>
+  <data name="BookmarkDetails_OK" xml:space="preserve">
+    <value>Добре</value>
+  </data>
+  <data name="BookmarkDetails_PatternType_Regex" xml:space="preserve">
+    <value>_Регулярен израз</value>
+  </data>
+  <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
+    <value>Заменяне с:</value>
+  </data>
+  <data name="BookmarkDetails_SearchFor" xml:space="preserve">
+    <value>Търсене на:</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
+    <value>Фонетично търсене</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
+    <value>Търсене на текст</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_RegularExpressionSearch" xml:space="preserve">
+    <value>Търсене с регулярен израз</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Text" xml:space="preserve">
+    <value>_Текст</value>
+  </data>
+  <data name="BookmarkDetails_ThisBookmarkAlreadyExists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="BookmarkDetails_Title" xml:space="preserve">
     <value>Детайли на отметка</value>
-    <comment>Bookmark details dialog title</comment>
+  </data>
+  <data name="BookmarkDetails_TypeHeader" xml:space="preserve">
+    <value>Вид</value>
+  </data>
+  <data name="BookmarkDetails_WholeWord" xml:space="preserve">
+    <value>Цели _думи</value>
+  </data>
+  <data name="Bookmarks_Add" xml:space="preserve">
+    <value>_Добавяне</value>
+  </data>
+  <data name="Bookmarks_Close" xml:space="preserve">
+    <value>_Затваряне</value>
+  </data>
+  <data name="Bookmarks_Delete" xml:space="preserve">
+    <value>_Изтриване</value>
+  </data>
+  <data name="Bookmarks_DescriptionHeader" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="Bookmarks_Duplicate" xml:space="preserve">
+    <value>Ду_блиране</value>
+  </data>
+  <data name="Bookmarks_Edit" xml:space="preserve">
+    <value>_Редактиране</value>
+  </data>
+  <data name="Bookmarks_FilePatternHeader" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Bookmarks_Filter" xml:space="preserve">
+    <value>Филтър:</value>
+  </data>
+  <data name="Bookmarks_OtherPropertiesHeader" xml:space="preserve">
+    <value>Други свойства</value>
+  </data>
+  <data name="Bookmarks_ReplaceWithHeader" xml:space="preserve">
+    <value>Заменяне с</value>
+  </data>
+  <data name="Bookmarks_SearchForHeader" xml:space="preserve">
+    <value>Търсене на</value>
   </data>
   <data name="Bookmarks_Summary_CaseSensitive" xml:space="preserve">
     <value>Съвпадение на регистъра</value>
   </data>
   <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
-    <value></value>
-    <comment>Bookmark options summary</comment>
+    <value />
   </data>
-  <data name="Bookmarks_TItle" xml:space="preserve">
+  <data name="Bookmarks_Title" xml:space="preserve">
     <value>Отметки</value>
-    <comment>Bookmarks dialog title</comment>
   </data>
-  <data name="BuiltOn" xml:space="preserve">
-    <value>Компилирано на</value>
-    <comment>About dnGrep dialog</comment>
+  <data name="Bookmarks_TypeHeader" xml:space="preserve">
+    <value>Вид</value>
   </data>
-  <data name="CancelAllReplacements" xml:space="preserve">
-    <value>Отказ от всички заменяния</value>
-    <comment>Replace window tooltip</comment>
+  <data name="Bookmarks_Use" xml:space="preserve">
+    <value>Из_ползване</value>
   </data>
-  <data name="ChangesTextEditorZoom" xml:space="preserve">
-    <value></value>
-    <comment>Replace window tooltip</comment>
+  <data name="Help_CmdLine" xml:space="preserve">
+    <value />
   </data>
-  <data name="ChangesTheResultsTreeZoom" xml:space="preserve">
-    <value></value>
-    <comment>Main window tooltip</comment>
+  <data name="Help_OK" xml:space="preserve">
+    <value>Добре</value>
   </data>
-  <data name="CheckForUpdatesWhenWindowsStarts" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="CheckingForUpdates" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="ClearOldSearches" xml:space="preserve">
-    <value>Премахване на стари търсения</value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="Close" xml:space="preserve">
-    <value>Затваряне</value>
-    <comment>Main window title bar close button tooltip</comment>
-  </data>
-  <data name="CmdLine_Help" xml:space="preserve">
-    <value></value>
-    <comment>Help dialog text when running dnGrep from the command line</comment>
-  </data>
-  <data name="Command" xml:space="preserve">
-    <value>Команда</value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="CompareApplication" xml:space="preserve">
-    <value>Приложение за сравняване</value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="CouldNotLoadResourcesFile0" xml:space="preserve">
-    <value></value>
-    <comment>Load language resource message box</comment>
-  </data>
-  <data name="Main_ResultList_CountAdditionalCharacters" xml:space="preserve">
-    <value></value>
-    <comment>Main window search results text</comment>
-  </data>
-  <data name="Main_ResultList_CountMatches" xml:space="preserve">
-    <value>{0} ({1} съвпадения)</value>
-    <comment>Main window search results text</comment>
-  </data>
-  <data name="Main_ResultList_CountMatchesOnLines" xml:space="preserve">
-    <value>{0} ({1} съвпадения на {2} реда)</value>
-    <comment>Main window search results text</comment>
-  </data>
-  <data name="CustomEditor" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="Days" xml:space="preserve">
-    <value>дни</value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="Default" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="Delete_" xml:space="preserve">
-    <value>_Изтриване</value>
-    <comment>Bookmarks dialog button label</comment>
-  </data>
-  <data name="Description" xml:space="preserve">
-    <value>Описание:</value>
-    <comment>Bookmarks and Bookmarks Details dialog label</comment>
-  </data>
-  <data name="DescriptionHeader" xml:space="preserve">
-    <value>Описание</value>
-    <comment>Bookmarks dialog heading</comment>
-  </data>
-  <data name="DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="DialogFontSize" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="DnGrepWillAddTheSelectedFiles" xml:space="preserve">
-    <value>имената на избраните файлове ще бъдат добавени накрая на командата.</value>
-    <comment>Options dialog help text</comment>
-  </data>
-  <data name="DockThisPopUpBackIntoTheMainWindow" xml:space="preserve">
-    <value></value>
-    <comment>Main window docking button tooltip</comment>
-  </data>
-  <data name="Duplicate_" xml:space="preserve">
-    <value>Ду_блиране</value>
-    <comment>Bookmarks dialog label</comment>
-  </data>
-  <data name="Edit_" xml:space="preserve">
-    <value>_Редактиране</value>
-    <comment>Bookmarks dialog label</comment>
-  </data>
-  <data name="EnableAutomaticCheckingEvery_" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="Enabled" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="Replace_ErrorThisIsABinaryFile" xml:space="preserve">
-    <value></value>
-    <comment>Replace window attempt to replace in binary file</comment>
-  </data>
-  <data name="ExcelSheetName" xml:space="preserve">
-    <value>Лист [{0}]</value>
-    <comment>Main window results list for Excel file data</comment>
-  </data>
-  <data name="Extensions" xml:space="preserve">
-    <value>Разширения:</value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="FileNotFoundHasItBeenDeletedOrMoved" xml:space="preserve">
-    <value>[Файлът не е намерен: дали не е преместен или премахнат?]</value>
-    <comment>Report extract lines from file error</comment>
-  </data>
-  <data name="Replace_FileNumberOfCountName" xml:space="preserve">
-    <value></value>
-    <comment>Replace window file progress line</comment>
-  </data>
-  <data name="FilePatternHeader" xml:space="preserve">
-    <value></value>
-    <comment>Bookmarks dialog grid header</comment>
-  </data>
-  <data name="FilePatternType" xml:space="preserve">
-    <value></value>
-    <comment>Bookmark detail dialog label</comment>
-  </data>
-  <data name="Files" xml:space="preserve">
-    <value>Файлове</value>
-    <comment>Replace window label</comment>
-  </data>
-  <data name="Filter" xml:space="preserve">
-    <value>Филтър:</value>
-    <comment>Bookmarks dialog label</comment>
-  </data>
-  <data name="FollowWindowsTheme_" xml:space="preserve">
-    <value>Следва темата на Windows</value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="FontFamily" xml:space="preserve">
-    <value>Фамилия на шрифта</value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="FoundMatchesFor" xml:space="preserve">
-    <value></value>
-    <comment>Report contents</comment>
-  </data>
-  <data name="FoundNoMatchesFor" xml:space="preserve">
-    <value></value>
-    <comment>Report contents</comment>
-  </data>
-  <data name="Has0MatchesOn1Lines" xml:space="preserve">
-    <value></value>
-    <comment>Report contents</comment>
-  </data>
-  <data name="HelpTranslateDnGrep" xml:space="preserve">
-    <value></value>
-    <comment>@Invariant</comment>
-  </data>
-  <data name="Preview_HighlightsDisabledTooManyMatchesFound" xml:space="preserve">
-    <value></value>
-    <comment>Preview window warning text</comment>
-  </data>
-  <data name="HistoryLists" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="InOptionsExpander" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="ItemsShownInFileFilterHistoryLists" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="ItemsShownInPathHistoryList" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="ItemsShownInSearchAndReplaceHistoryLists" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="Language" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="Layout" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="LoadFromFile_" xml:space="preserve">
-    <value>От файл…</value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="LoadResources" xml:space="preserve">
-    <value></value>
-    <comment>Load resources message box title</comment>
-  </data>
-  <data name="Main UseGitignore" xml:space="preserve">
-    <value></value>
-    <comment>Main window label</comment>
-  </data>
-  <data name="MainFontSize" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
+  <data name="Help_OneOrMoreArgumentsAreInvalid" xml:space="preserve">
+    <value>Един или повече аргумента са недействителни.</value>
   </data>
   <data name="Main_AddSearchPatternToBookmarks" xml:space="preserve">
     <value>Добавяне на шаблон за търсене в отметките</value>
-    <comment>Main window, bookmark button tooltip</comment>
   </data>
   <data name="Main_AllDates" xml:space="preserve">
     <value>Всички дати</value>
-    <comment>Main window label</comment>
   </data>
   <data name="Main_AllSizes" xml:space="preserve">
     <value>Всякаква големина</value>
-    <comment>Main window label</comment>
   </data>
   <data name="Main_AssociateBookmarkWithFolder" xml:space="preserve">
     <value>Свързване на отметка с папка</value>
-    <comment>Main window, folder bookmark button tooltip</comment>
   </data>
   <data name="Main_Attributes_DateModified" xml:space="preserve">
     <value>Дата на промяна:</value>
-    <comment>Main window results list file attributes tooltip</comment>
   </data>
   <data name="Main_Attributes_File" xml:space="preserve">
     <value>Файл:</value>
-    <comment>Main window results list file attributes tooltip</comment>
   </data>
   <data name="Main_Attributes_Size" xml:space="preserve">
     <value>Големина:</value>
-    <comment>Main window results list file attributes tooltip</comment>
   </data>
   <data name="Main_Attributes_Type" xml:space="preserve">
     <value>Вид:</value>
-    <comment>Main window results list file attributes tooltip</comment>
   </data>
   <data name="Main_AutoPosition" xml:space="preserve">
-    <value></value>
-    <comment>Main window docking context menu</comment>
+    <value />
   </data>
   <data name="Main_BooleanOperators" xml:space="preserve">
     <value>Булеви оператори</value>
-    <comment>Main window label</comment>
   </data>
   <data name="Main_BrowseForFolderOrFiles" xml:space="preserve">
-    <value></value>
-    <comment>Main window tooltip</comment>
+    <value />
   </data>
   <data name="Main_CancelButton" xml:space="preserve">
     <value>Отка_з</value>
-    <comment>Cancel button label</comment>
   </data>
   <data name="Main_CaptureGroupSearch" xml:space="preserve">
-    <value></value>
-    <comment>Main window label</comment>
+    <value />
   </data>
   <data name="Main_CaseSensitive" xml:space="preserve">
     <value>Съвпадение на _регистъра</value>
-    <comment>Main window, Text window, Bookmark detail label</comment>
+  </data>
+  <data name="Main_ChangesTheResultsTreeZoom" xml:space="preserve">
+    <value />
   </data>
   <data name="Main_ClearBookmark" xml:space="preserve">
-    <value></value>
-    <comment>Main window, bookmark button tooltip</comment>
+    <value />
   </data>
   <data name="Main_CombineMultipleSearchPatternsUsingANDOrOR" xml:space="preserve">
     <value>Комбиниране на няколко модела за търсене с помощта на „AND“ или „OR“</value>
-    <comment>Main window tooltip</comment>
   </data>
   <data name="Main_ContextAfter" xml:space="preserve">
     <value>след</value>
-    <comment>Main window, Options dialog show lines in context</comment>
   </data>
   <data name="Main_ContextBeforeAnd" xml:space="preserve">
     <value>преди и</value>
-    <comment>Main window, Options dialog show lines in context</comment>
   </data>
   <data name="Main_ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
-    <value></value>
-    <comment>Main window tooltip</comment>
+    <value />
   </data>
   <data name="Main_ContextShowLines" xml:space="preserve">
-    <value></value>
-    <comment>Main window label</comment>
+    <value />
   </data>
   <data name="Main_Created" xml:space="preserve">
     <value>Създаване</value>
-    <comment>Main window label</comment>
   </data>
   <data name="Main_DateFrom" xml:space="preserve">
     <value>От</value>
-    <comment>Main window label</comment>
   </data>
   <data name="Main_DatePast" xml:space="preserve">
     <value>Между</value>
-    <comment>Main window label</comment>
   </data>
   <data name="Main_DatePastHours" xml:space="preserve">
     <value>часа</value>
-    <comment>Main window label</comment>
   </data>
   <data name="Main_DateTo" xml:space="preserve">
     <value>до</value>
   </data>
   <data name="Main_DnGREP_Title" xml:space="preserve">
     <value>dnGREP</value>
-    <comment>@Invariant</comment>
   </data>
   <data name="Main_DockBottom" xml:space="preserve">
     <value>Закотвяне отдолу</value>
-    <comment>Main window docking context menu</comment>
   </data>
   <data name="Main_DockRight" xml:space="preserve">
     <value>Закотвяне вдясно</value>
-    <comment>Main window docking context menu</comment>
   </data>
   <data name="Main_DotAsNewline" xml:space="preserve">
-    <value></value>
-    <comment>Main window label</comment>
+    <value />
   </data>
   <data name="Main_Empty" xml:space="preserve">
     <value>Празно</value>
-    <comment>Main window title prefix when search for is empty</comment>
   </data>
   <data name="Main_Encoding" xml:space="preserve">
-    <value></value>
-    <comment>Report search options summary, Main window results list file attributes tooltip</comment>
+    <value />
   </data>
   <data name="Main_EncodingAutoDetection" xml:space="preserve">
-    <value></value>
-    <comment>Main window encoding auto select text</comment>
+    <value />
   </data>
   <data name="Main_EverythingIndexService" xml:space="preserve">
     <value>Услуга за индексиране на Everything</value>
-    <comment>Main window tooltip</comment>
   </data>
   <data name="Main_EverythingSearch" xml:space="preserve">
     <value>Търсене с Everything:</value>
-    <comment>Main window folder caption when Everything search is enabled</comment>
+  </data>
+  <data name="Main_ExcelSheetName" xml:space="preserve">
+    <value>Лист [{0}]</value>
   </data>
   <data name="Main_ExcludeFilesByTypeAndFoldersByName" xml:space="preserve">
-    <value></value>
-    <comment>Main window tooltip</comment>
+    <value />
   </data>
   <data name="Main_FilterSummary_AllFiles" xml:space="preserve">
     <value>Всички файлове</value>
-    <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_ByCreatedDate" xml:space="preserve">
     <value>По дата на създаване</value>
-    <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_ByModifiedDate" xml:space="preserve">
     <value>По дата на промяна</value>
-    <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_BySize" xml:space="preserve">
     <value>По големина</value>
-    <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_NoHidden" xml:space="preserve">
-    <value></value>
-    <comment>Main windows options summary; Bookmarks summary</comment>
+    <value />
   </data>
   <data name="Main_Folder" xml:space="preserve">
     <value>Папка:</value>
-    <comment>Main window folder caption</comment>
   </data>
   <data name="Main_FollowSymbolicLinks" xml:space="preserve">
     <value>Следване на символни връзки</value>
-    <comment>Main window and Bookmark details dialog labels</comment>
   </data>
   <data name="Main_ForExampleAsteriskPattern" xml:space="preserve">
     <value>например file??.*</value>
-    <comment>Main window and Bookmark details dialog tooltips</comment>
   </data>
   <data name="Main_ForExampleRegularExpession" xml:space="preserve">
     <value>например file[0-9]{1,2}\\.txt</value>
-    <comment>Main window and Bookmark details dialog tooltips</comment>
   </data>
   <data name="Main_FromTheStartOfTheDay" xml:space="preserve">
     <value>от началото на деня</value>
-    <comment>Main window tooltip</comment>
   </data>
   <data name="Main_HideResultOptions" xml:space="preserve">
     <value>Скрива настройки на резултатите</value>
-    <comment>Main window, result options expander button tooltip (bottom of window)</comment>
   </data>
   <data name="Main_HighlightGroups" xml:space="preserve">
-    <value></value>
-    <comment>Main window label</comment>
+    <value />
   </data>
   <data name="Main_HighlightMatches" xml:space="preserve">
-    <value></value>
-    <comment>Main window label</comment>
+    <value />
   </data>
   <data name="Main_HighlightRegularExpressionGroups" xml:space="preserve">
-    <value></value>
-    <comment>Main window tooltip</comment>
+    <value />
   </data>
   <data name="Main_IncludeBinaryFiles" xml:space="preserve">
     <value>Включително двоични файлове</value>
-    <comment>Main window and Bookmark details dialog labels</comment>
   </data>
   <data name="Main_IncludeFilesByNameOrType" xml:space="preserve">
     <value>Включително файлове по име или вид</value>
-    <comment>Main window tooltip</comment>
   </data>
   <data name="Main_IncludeHiddenFolders" xml:space="preserve">
     <value>Включително скрити папки</value>
-    <comment>Main window and Bookmark details dialog labels</comment>
   </data>
   <data name="Main_IncludeSubfolders" xml:space="preserve">
     <value>Включително подпапки</value>
-    <comment>Main window and Bookmark details dialog labels</comment>
   </data>
   <data name="Main_MaxDepth" xml:space="preserve">
     <value>Максимална дълбочина</value>
-    <comment>Main window and Bookmark details dialog labels</comment>
   </data>
   <data name="Main_Menu_About" xml:space="preserve">
     <value>_Относно</value>
-    <comment>Main window main menu</comment>
   </data>
   <data name="Main_Menu_About_AboutDnGrep" xml:space="preserve">
     <value>_Относно dnGrep...</value>
-    <comment>Main window main menu</comment>
   </data>
   <data name="Main_Menu_About_Help" xml:space="preserve">
     <value>_Помощ</value>
-    <comment>Main window main menu</comment>
   </data>
   <data name="Main_Menu_Bookmarks" xml:space="preserve">
     <value>_Отметки</value>
-    <comment>Main window main menu</comment>
   </data>
   <data name="Main_Menu_Options" xml:space="preserve">
     <value>_Настройки</value>
-    <comment>Main window main menu</comment>
   </data>
   <data name="Main_Menu_Undo" xml:space="preserve">
     <value>_Отменяне</value>
-    <comment>Main window main menu</comment>
   </data>
   <data name="Main_Modified" xml:space="preserve">
     <value>Промяна</value>
-    <comment>Main window label</comment>
   </data>
   <data name="Main_More" xml:space="preserve">
     <value>Повече...</value>
-    <comment>Main window expander label</comment>
   </data>
   <data name="Main_MoreArrowButton" xml:space="preserve">
     <value>_Повече ⏷</value>
-    <comment>Main window button label</comment>
   </data>
   <data name="Main_MoreMenu_CopyFileNames" xml:space="preserve">
-    <value></value>
-    <comment>Main window results list context menu and More menu</comment>
+    <value />
   </data>
   <data name="Main_MoreMenu_CopyFiles" xml:space="preserve">
-    <value></value>
-    <comment>Main window More menu</comment>
+    <value />
   </data>
   <data name="Main_MoreMenu_CopyResults" xml:space="preserve">
-    <value></value>
-    <comment>Main window More menu</comment>
+    <value />
   </data>
   <data name="Main_MoreMenu_DeleteFiles" xml:space="preserve">
-    <value></value>
-    <comment>Main window More menu</comment>
+    <value />
   </data>
   <data name="Main_MoreMenu_MoveFiles" xml:space="preserve">
-    <value></value>
-    <comment>Main window More menu</comment>
+    <value />
+  </data>
+  <data name="Main_MoreMenu_Save_CSVResults" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Main_MoreMenu_Save_Report" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Main_MoreMenu_Save_TextResults" xml:space="preserve">
+    <value />
   </data>
   <data name="Main_MoreMenu_SaveResults" xml:space="preserve">
     <value>Запазване на резултати</value>
-    <comment>Main window More button menu</comment>
-  </data>
-  <data name="Main_MoreMenu_Save_CSVResults" xml:space="preserve">
-    <value></value>
-    <comment>Main window More button menu</comment>
-  </data>
-  <data name="Main_MoreMenu_Save_Report" xml:space="preserve">
-    <value></value>
-    <comment>Main window More button menu</comment>
-  </data>
-  <data name="Main_MoreMenu_Save_TextResults" xml:space="preserve">
-    <value></value>
-    <comment>Main window More button menu</comment>
   </data>
   <data name="Main_Multiline" xml:space="preserve">
-    <value></value>
-    <comment>Main window label</comment>
+    <value />
   </data>
   <data name="Main_OpenFolder" xml:space="preserve">
     <value>…</value>
-    <comment>Main window and Options dialog button label</comment>
   </data>
   <data name="Main_PatternsToExclude" xml:space="preserve">
-    <value></value>
-    <comment>Main window label</comment>
+    <value />
   </data>
   <data name="Main_PatternsToMatch" xml:space="preserve">
-    <value></value>
-    <comment>Main window label</comment>
+    <value />
   </data>
   <data name="Main_PatternType_Asterisk" xml:space="preserve">
-    <value></value>
-    <comment>Main window, Bookmark detail dialog label</comment>
+    <value />
   </data>
   <data name="Main_PatternType_Everything" xml:space="preserve">
-    <value></value>
-    <comment>Main window label</comment>
+    <value />
   </data>
   <data name="Main_PatternType_Regex" xml:space="preserve">
     <value>_Регулярен израз</value>
-    <comment>Various windows label</comment>
   </data>
   <data name="Main_PreviewFile" xml:space="preserve">
     <value>Пре_глед на файла</value>
-    <comment>Main window label</comment>
   </data>
   <data name="Main_RemoveFolderFromBookmarkAssociation" xml:space="preserve">
-    <value></value>
-    <comment>Main window, folder bookmark button tooltip</comment>
+    <value />
   </data>
   <data name="Main_ReplaceButton" xml:space="preserve">
     <value>З_аменяне</value>
-    <comment>Main window and Repalce window label</comment>
   </data>
   <data name="Main_ReplaceWith" xml:space="preserve">
-    <value></value>
-    <comment>Main window label</comment>
+    <value />
   </data>
   <data name="Main_ReportOption_CSVFileFormat" xml:space="preserve">
-    <value></value>
-    <comment>Report CSV format</comment>
+    <value />
   </data>
   <data name="Main_ReportOption_ReportFileFormat" xml:space="preserve">
-    <value></value>
-    <comment>Report type selection text</comment>
+    <value />
   </data>
   <data name="Main_ReportOption_ResultsFileFormat" xml:space="preserve">
-    <value></value>
-    <comment>Report type selection text</comment>
+    <value />
   </data>
   <data name="Main_ResetOptions" xml:space="preserve">
     <value>Нулиране на настройки</value>
-    <comment>Main window label</comment>
+  </data>
+  <data name="Main_ResultList_AdditionalMatches" xml:space="preserve">
+    <value>допълнителни съвпадения:</value>
+  </data>
+  <data name="Main_ResultList_AtEndOfLine" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Main_ResultList_AtPosition" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Main_ResultList_CountAdditionalCharacters" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Main_ResultList_CountMatches" xml:space="preserve">
+    <value>{0} ({1} съвпадения)</value>
+  </data>
+  <data name="Main_ResultList_CountMatchesOnLines" xml:space="preserve">
+    <value>{0} ({1} съвпадения на {2} реда)</value>
+  </data>
+  <data name="Main_ResultList_MatchToolTip1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Main_ResultList_MatchToolTip2" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Main_ResultList_PlusCountMoreMatches" xml:space="preserve">
+    <value>, + още {0} съвпадения</value>
   </data>
   <data name="Main_Results_CollapseAll" xml:space="preserve">
     <value>Свиване на всички</value>
-    <comment>Main window results list context menu</comment>
   </data>
   <data name="Main_Results_CompareFiles" xml:space="preserve">
-    <value></value>
-    <comment>Main window results list context menu</comment>
+    <value />
   </data>
   <data name="Main_Results_CopyFullFilePaths" xml:space="preserve">
-    <value></value>
-    <comment>Main window results list context menu</comment>
+    <value />
   </data>
   <data name="Main_Results_CopyLinesOfText" xml:space="preserve">
-    <value></value>
-    <comment>Main window results list context menu</comment>
+    <value />
   </data>
   <data name="Main_Results_ExcludeFromResults" xml:space="preserve">
-    <value></value>
-    <comment>Main window results list context menu</comment>
+    <value />
   </data>
   <data name="Main_Results_ExpandAll" xml:space="preserve">
-    <value></value>
-    <comment>Main window results list context menu</comment>
+    <value />
   </data>
   <data name="Main_Results_NextMatch" xml:space="preserve">
-    <value></value>
-    <comment>Main windows results list context menu</comment>
+    <value />
   </data>
   <data name="Main_Results_Open" xml:space="preserve">
-    <value></value>
-    <comment>Main window results list context menu</comment>
+    <value />
   </data>
   <data name="Main_Results_OpenContainingFolder" xml:space="preserve">
-    <value></value>
-    <comment>Main window results list context menu</comment>
+    <value />
   </data>
   <data name="Main_Results_OpenWithCustomEditor" xml:space="preserve">
-    <value></value>
-    <comment>Main window results list context menu</comment>
+    <value />
   </data>
   <data name="Main_Results_PreviousMatch" xml:space="preserve">
-    <value></value>
-    <comment>Main windows results list context menu</comment>
+    <value />
   </data>
   <data name="Main_Results_RenameFile" xml:space="preserve">
-    <value></value>
-    <comment>Main window results list context menu</comment>
+    <value />
   </data>
   <data name="Main_Results_ResetZoom" xml:space="preserve">
-    <value></value>
-    <comment>Main window results list context menu</comment>
+    <value />
   </data>
   <data name="Main_Results_ShowFileProperties" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
+    <value />
   </data>
   <data name="Main_SavingResultsToFile" xml:space="preserve">
-    <value></value>
-    <comment>Main window status message</comment>
+    <value />
   </data>
   <data name="Main_SearchButton" xml:space="preserve">
     <value>_Търсене</value>
-    <comment>Main window button label</comment>
   </data>
   <data name="Main_SearchFilesInMultipleThreads" xml:space="preserve">
-    <value></value>
-    <comment>Main window tooltip</comment>
+    <value />
   </data>
   <data name="Main_SearchFor" xml:space="preserve">
     <value>Търсене _на:</value>
-    <comment>Main window label</comment>
   </data>
   <data name="Main_SearchGroup" xml:space="preserve">
     <value>Търсене</value>
-    <comment>Main window and test window label</comment>
   </data>
   <data name="Main_SearchInArchives" xml:space="preserve">
-    <value></value>
-    <comment>Main window label</comment>
+    <value />
   </data>
   <data name="Main_SearchInGroup" xml:space="preserve">
     <value>Търсене в</value>
-    <comment>Report search options summary</comment>
   </data>
   <data name="Main_SearchInResults" xml:space="preserve">
-    <value></value>
-    <comment>Main window label</comment>
+    <value />
   </data>
   <data name="Main_SearchParallel" xml:space="preserve">
-    <value></value>
-    <comment>Main window label</comment>
+    <value />
   </data>
   <data name="Main_SearchType_Hex" xml:space="preserve">
-    <value></value>
-    <comment>Main window label</comment>
+    <value />
   </data>
   <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value></value>
-    <comment>Main window label</comment>
+    <value />
   </data>
   <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
     <value>Фонетично търсене</value>
-    <comment>Main window tooltip; Bookmark detail and Options dialog labels</comment>
   </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Търсене на текст</value>
-    <comment>Main window tooltip; Bookmark detail dialog label</comment>
   </data>
   <data name="Main_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
-    <value></value>
-    <comment>Main window tooltip</comment>
+    <value />
   </data>
   <data name="Main_SearchType_RegularExpressionSearch" xml:space="preserve">
     <value>Търсене с регулярен израз</value>
-    <comment>Main window tooltip</comment>
   </data>
   <data name="Main_SearchType_Text" xml:space="preserve">
     <value>_Текст</value>
-    <comment>Main window label</comment>
   </data>
   <data name="Main_SearchType_XPath" xml:space="preserve">
-    <value></value>
-    <comment>Main window, Test window label</comment>
+    <value />
   </data>
   <data name="Main_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
-    <value></value>
-    <comment>Main window tooltip</comment>
+    <value />
   </data>
   <data name="Main_SelectADate" xml:space="preserve">
     <value>Изберете дата</value>
-    <comment>Main window date picker</comment>
   </data>
   <data name="Main_ShowResultOptions" xml:space="preserve">
     <value>Показва настройки на резултатите</value>
-    <comment>Main window, result options expander button tooltip (bottom of window)</comment>
   </data>
   <data name="Main_SizeIs" xml:space="preserve">
     <value>Големина от</value>
-    <comment>Main window label</comment>
   </data>
   <data name="Main_SizeKB" xml:space="preserve">
     <value>КБ</value>
-    <comment>Main window label</comment>
   </data>
   <data name="Main_SizeTo" xml:space="preserve">
     <value>до</value>
-    <comment>Main window label</comment>
   </data>
   <data name="Main_SortButton" xml:space="preserve">
     <value>Сортиране</value>
-    <comment>Main window sort button</comment>
   </data>
   <data name="Main_SortMenu_Ascending" xml:space="preserve">
     <value>Възходящ ред</value>
-    <comment>Main window sort options</comment>
   </data>
   <data name="Main_SortMenu_Descending" xml:space="preserve">
     <value>Низходящ ред</value>
-    <comment>Main window sort options</comment>
   </data>
   <data name="Main_SortMenu_FileNameOnly" xml:space="preserve">
-    <value></value>
-    <comment>Main window sort options</comment>
+    <value />
   </data>
   <data name="Main_SortMenu_FileSize" xml:space="preserve">
-    <value></value>
-    <comment>Main window sort options</comment>
+    <value />
   </data>
   <data name="Main_SortMenu_FileTypeAndName" xml:space="preserve">
     <value>Вид и име на файл</value>
-    <comment>Main window sort options</comment>
   </data>
   <data name="Main_SortMenu_LastWriteTime" xml:space="preserve">
-    <value></value>
-    <comment>Main window sort options</comment>
+    <value />
   </data>
   <data name="Main_SortMenu_MatchCount" xml:space="preserve">
-    <value></value>
-    <comment>Main window sort options</comment>
+    <value />
   </data>
   <data name="Main_SortMenu_PathAndFileNameBreadthFirst" xml:space="preserve">
-    <value></value>
-    <comment>Main window sort options</comment>
+    <value />
   </data>
   <data name="Main_SortMenu_PathAndFileNameDepthFirst" xml:space="preserve">
-    <value></value>
-    <comment>Main window sort options</comment>
+    <value />
   </data>
   <data name="Main_Status_ReplaceCanceled" xml:space="preserve">
-    <value></value>
-    <comment>Main window status message</comment>
+    <value />
   </data>
   <data name="Main_Status_ReplaceComplete0FilesReplaced" xml:space="preserve">
-    <value></value>
-    <comment>Main window status message</comment>
+    <value />
   </data>
   <data name="Main_Status_ReplaceFailed" xml:space="preserve">
-    <value></value>
-    <comment>Main window status message</comment>
+    <value />
   </data>
   <data name="Main_Status_Replacing" xml:space="preserve">
-    <value></value>
-    <comment>Main window status message</comment>
+    <value />
   </data>
   <data name="Main_Status_SearchCanceled" xml:space="preserve">
-    <value></value>
-    <comment>Main window status message</comment>
+    <value />
   </data>
   <data name="Main_Status_SearchCanceledOrFailed" xml:space="preserve">
-    <value></value>
-    <comment>Main window status message</comment>
+    <value />
   </data>
   <data name="Main_Status_SearchCompleteSearched0FilesFound1FilesIn2" xml:space="preserve">
     <value>Търсенето е завършено - Претърсени {0} файла. Намерени {1} файла в {2}.</value>
-    <comment>Main window status message</comment>
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFiles" xml:space="preserve">
-    <value></value>
-    <comment>Main window status message</comment>
+    <value />
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFilesProcessing2" xml:space="preserve">
-    <value></value>
-    <comment>Main window status message</comment>
+    <value />
   </data>
   <data name="Main_Status_Searching" xml:space="preserve">
-    <value></value>
-    <comment>Main window status message</comment>
+    <value />
   </data>
   <data name="Main_StopAfterFirstMatch" xml:space="preserve">
     <value>Спиране след първо съвпадение</value>
-    <comment>Main window label</comment>
   </data>
   <data name="Main_TestExpression" xml:space="preserve">
     <value>Проверка на израза</value>
-    <comment>Main window label</comment>
   </data>
   <data name="Main_ThroughTheEndOfTheDay" xml:space="preserve">
     <value>до края на деня</value>
-    <comment>Main window tooltip</comment>
+  </data>
+  <data name="Main_UseCaptureGroupsFromPathsToMatch" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Main_UseGitignore" xml:space="preserve">
+    <value />
   </data>
   <data name="Main_UseGitignoreToFilterFiles" xml:space="preserve">
-    <value></value>
-    <comment>Main window tooltip</comment>
+    <value />
   </data>
   <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">
-    <value></value>
-    <comment>Main window, Test window regular expression status</comment>
+    <value />
   </data>
   <data name="Main_Validation_RegexIsOK" xml:space="preserve">
-    <value></value>
-    <comment>Main window, Test window regular expression status</comment>
+    <value />
   </data>
   <data name="Main_Validation_XPathIsNotValid" xml:space="preserve">
-    <value></value>
-    <comment>Main window, Test window XPath status</comment>
+    <value />
   </data>
   <data name="Main_Validation_XPathIsOK" xml:space="preserve">
-    <value></value>
-    <comment>Main window, Test window XPath status</comment>
+    <value />
   </data>
   <data name="Main_WholeWord" xml:space="preserve">
     <value>Цели _думи</value>
-    <comment>Main window label</comment>
   </data>
   <data name="Main_WindowTitle" xml:space="preserve">
-    <value></value>
-    <comment>Main window title</comment>
+    <value />
   </data>
   <data name="Main_WrapText" xml:space="preserve">
-    <value></value>
-    <comment>Main window, Preview window and Replace window label</comment>
+    <value />
   </data>
   <data name="Main_Zoom" xml:space="preserve">
-    <value></value>
-    <comment>Main window, Preview window and Replace window label</comment>
-  </data>
-  <data name="MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
-    <value></value>
-    <comment>Replace window label</comment>
-  </data>
-  <data name="MarkMatchForReplacement" xml:space="preserve">
-    <value></value>
-    <comment>Replace window label</comment>
-  </data>
-  <data name="Matches" xml:space="preserve">
-    <value></value>
-    <comment>Replace window label</comment>
-  </data>
-  <data name="MatchEverythingToExactMatch" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog help text</comment>
-  </data>
-  <data name="MatchThreshold" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="MatchTimeout" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="Main_ResultList_MatchToolTip1" xml:space="preserve">
-    <value></value>
-    <comment>Main window results, capture group tooltip {1} is a new line</comment>
-  </data>
-  <data name="Main_ResultList_MatchToolTip2" xml:space="preserve">
-    <value></value>
-    <comment>Main window results, capture group tooltip {1} is a new line</comment>
-  </data>
-  <data name="Maximize" xml:space="preserve">
-    <value></value>
-    <comment>Main window title bar button tooltip</comment>
+    <value />
   </data>
   <data name="MessageBox_AreYouSureYouWantToContinue" xml:space="preserve">
     <value>Сигурни ли сте, че желаете да продължите?</value>
-    <comment>Delete files message box</comment>
   </data>
   <data name="MessageBox_AreYouSureYouWantToReplaceSearchPatternWithEmptyString" xml:space="preserve">
     <value>Сигурни ли сте, че желаете да замените търсения шаблон с празен низ?</value>
-    <comment>Replace text message box</comment>
   </data>
   <data name="MessageBox_CheckEditorPath" xml:space="preserve">
-    <value></value>
-    <comment>Open file failed message box</comment>
+    <value />
   </data>
   <data name="MessageBox_ClearingThisBookmarkWillAlsoClearThatBookmark" xml:space="preserve">
-    <value></value>
-    <comment>Main window, bookmark button message box</comment>
+    <value />
   </data>
   <data name="MessageBox_ClearingThisBookmarkWillAlsoRemoveThoseBookmarks" xml:space="preserve">
-    <value></value>
-    <comment>Main window, bookmark button message box</comment>
+    <value />
   </data>
   <data name="MessageBox_CopyFiles" xml:space="preserve">
     <value>Копиране на файлове</value>
-    <comment>Copy files message box</comment>
+  </data>
+  <data name="MessageBox_CouldNotLoadResourcesFile0" xml:space="preserve">
+    <value />
   </data>
   <data name="MessageBox_CouldNotLoadTheme" xml:space="preserve">
-    <value></value>
-    <comment>Load theme resource message box</comment>
+    <value />
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyCopied" xml:space="preserve">
     <value>{0} файла са успешно копирани.</value>
-    <comment>Copy files message box</comment>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyDeleted" xml:space="preserve">
-    <value></value>
-    <comment>Delete files message box</comment>
+    <value />
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyMoved" xml:space="preserve">
-    <value></value>
-    <comment>Move files message box</comment>
+    <value />
   </data>
   <data name="MessageBox_CustomEditorFileOpenError" xml:space="preserve">
-    <value></value>
-    <comment>Open file with custom editor message box</comment>
+    <value />
   </data>
   <data name="MessageBox_DefaultEngineWasUsedInstead" xml:space="preserve">
-    <value></value>
-    <comment>Plugin failed to load error message box</comment>
+    <value />
   </data>
   <data name="MessageBox_DeleteFiles" xml:space="preserve">
-    <value></value>
-    <comment>Delete files message box</comment>
+    <value />
   </data>
   <data name="MessageBox_DnGrep" xml:space="preserve">
     <value>dnGrep</value>
-    <comment>@Invariant</comment>
   </data>
   <data name="MessageBox_DoYouWantToContinue" xml:space="preserve">
-    <value></value>
-    <comment>Main window, bookmark button message box</comment>
+    <value />
   </data>
   <data name="MessageBox_Error" xml:space="preserve">
     <value>Грешка: </value>
-    <comment>Test expression window, replace error message box</comment>
   </data>
   <data name="MessageBox_ErrorOpeningFile" xml:space="preserve">
-    <value></value>
-    <comment>Open file error message box</comment>
+    <value />
   </data>
   <data name="MessageBox_ErrorSettingClipboardTextTheClipboardIsLockedBy" xml:space="preserve">
-    <value></value>
-    <comment>Copy to clipboard error message box</comment>
+    <value />
   </data>
   <data name="MessageBox_FailedToExtractFileFromArchive" xml:space="preserve">
-    <value></value>
-    <comment>Preview window archive error message box</comment>
+    <value />
   </data>
   <data name="MessageBox_FilesHaveBeenSuccessfullyReverted" xml:space="preserve">
-    <value></value>
-    <comment>Main window undo replace success message box</comment>
+    <value />
   </data>
   <data name="MessageBox_IncorrectPattern" xml:space="preserve">
-    <value></value>
-    <comment>Main window and Test window, incorrect regular expression</comment>
+    <value />
+  </data>
+  <data name="MessageBox_LoadResources" xml:space="preserve">
+    <value />
   </data>
   <data name="MessageBox_MoveFiles" xml:space="preserve">
-    <value></value>
-    <comment>Move files message box title</comment>
+    <value />
   </data>
   <data name="MessageBox_NewVersion" xml:space="preserve">
     <value>Ново издание</value>
-    <comment>New dnGrep version message box title</comment>
   </data>
   <data name="MessageBox_NewVersionOfDnGREP0IsAvailableForDownload" xml:space="preserve">
     <value>Ново издание на dnGREP ({0}) е налично за изтегляне.</value>
-    <comment>New dnGrep version message box text</comment>
   </data>
   <data name="MessageBox_PleaseSelectAnotherDirectoryAndTryAgain" xml:space="preserve">
     <value>Изберете друга папка и опитайте отново.</value>
-    <comment>Copy files and Move files message box (destination overlaps source)</comment>
   </data>
   <data name="MessageBox_PluginErrors" xml:space="preserve">
-    <value></value>
-    <comment>Plugin errors message box title</comment>
+    <value />
   </data>
   <data name="MessageBox_RenameFailed" xml:space="preserve">
-    <value></value>
-    <comment>Main window file rename message box</comment>
+    <value />
   </data>
   <data name="MessageBox_RenameFile" xml:space="preserve">
-    <value></value>
-    <comment>File rename message box title</comment>
+    <value />
   </data>
   <data name="MessageBox_Replace" xml:space="preserve">
     <value>Заменяне</value>
-    <comment>Replace message box title</comment>
   </data>
   <data name="MessageBox_ReplaceFailedError" xml:space="preserve">
-    <value></value>
-    <comment>Main window message box text</comment>
+    <value />
+  </data>
+  <data name="MessageBox_ResourcesFile0IsNotAResxFile" xml:space="preserve">
+    <value />
   </data>
   <data name="MessageBox_RunDnGrepAsAdministrator" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog message box text</comment>
+    <value />
   </data>
   <data name="MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog message box text</comment>
+    <value />
   </data>
   <data name="MessageBox_SearchFailedError" xml:space="preserve">
-    <value></value>
-    <comment>Main window error message box text</comment>
+    <value />
   </data>
   <data name="MessageBox_SearchOrReplaceFailed" xml:space="preserve">
-    <value></value>
-    <comment>Main window error message box text</comment>
+    <value />
   </data>
   <data name="MessageBox_SearchPathInTheFieldIsNotValid" xml:space="preserve">
-    <value></value>
-    <comment>Main window error message box text</comment>
+    <value />
   </data>
   <data name="MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory" xml:space="preserve">
     <value>Внимание, някои от файловете се намират в избраната папка.</value>
-    <comment>Copy files and Move files message box (destination overlaps source)</comment>
   </data>
   <data name="MessageBox_SomeOfTheFilesCannotBeModifiedIfYouContinueTheseFilesWillBeSkipped" xml:space="preserve">
-    <value></value>
-    <comment>Main window replace warning message box text</comment>
+    <value />
   </data>
   <data name="MessageBox_SomethingBrokeDownInDnGrep" xml:space="preserve">
-    <value></value>
-    <comment>Unknown error message box text</comment>
+    <value />
   </data>
   <data name="MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting" xml:space="preserve">
-    <value></value>
-    <comment>Copy or Move files message box text</comment>
+    <value />
   </data>
   <data name="MessageBox_TheFilePattern0IsNotAValidRegularExpression12" xml:space="preserve">
-    <value></value>
-    <comment>Main window regex file pattern error message box text</comment>
+    <value />
   </data>
   <data name="MessageBox_TheFollowingPluginsFailedToLoad" xml:space="preserve">
-    <value></value>
-    <comment>Main window message box text</comment>
+    <value />
   </data>
   <data name="MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog error message box text</comment>
+    <value />
   </data>
   <data name="MessageBox_ThereWasAnErrorCopyingFiles" xml:space="preserve">
-    <value></value>
-    <comment>Main window error message box text</comment>
+    <value />
   </data>
   <data name="MessageBox_ThereWasAnErrorCreatingTheFile" xml:space="preserve">
-    <value></value>
-    <comment>Main window error message box text</comment>
+    <value />
   </data>
   <data name="MessageBox_ThereWasAnErrorDeletingFiles" xml:space="preserve">
-    <value></value>
-    <comment>Main window error message box text</comment>
+    <value />
   </data>
   <data name="MessageBox_ThereWasAnErrorMovingFiles" xml:space="preserve">
-    <value></value>
-    <comment>Main window error message box text</comment>
+    <value />
   </data>
   <data name="MessageBox_ThereWasAnErrorRegisteringAutoStartup" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog error message box text</comment>
+    <value />
   </data>
   <data name="MessageBox_ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog error message box text</comment>
+    <value />
   </data>
   <data name="MessageBox_ThereWasAnErrorRevertingFiles" xml:space="preserve">
-    <value></value>
-    <comment>Main window error message box text</comment>
+    <value />
   </data>
   <data name="MessageBox_ThereWasAnErrorRunningRegexTest" xml:space="preserve">
-    <value></value>
-    <comment>Main window error message box text</comment>
+    <value />
   </data>
   <data name="MessageBox_ThereWasAnErrorSavingOptions" xml:space="preserve">
-    <value></value>
-    <comment>Main window error message box text</comment>
+    <value />
   </data>
   <data name="MessageBox_ThereWasAnErrorUnregisteringAutoStartup" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog error message box text</comment>
+    <value />
   </data>
   <data name="MessageBox_ThisBookmarkIsAssociatedWith0OtherFolders" xml:space="preserve">
-    <value></value>
-    <comment>Main window bookmark delete message box text</comment>
+    <value />
   </data>
   <data name="MessageBox_ThisBookmarkIsAssociatedWithOneOtherFolder" xml:space="preserve">
-    <value></value>
-    <comment>Main window bookmark delete message box text</comment>
+    <value />
   </data>
   <data name="MessageBox_Undo" xml:space="preserve">
-    <value></value>
-    <comment>Main window Undo message box title</comment>
+    <value />
   </data>
   <data name="MessageBox_UndoWillRevertModifiedFiles" xml:space="preserve">
-    <value></value>
-    <comment>Main window Undo message box text</comment>
+    <value />
+  </data>
+  <data name="MessageBox_WindowTitleIsName" xml:space="preserve">
+    <value>Заглавие на прозореца: {0}</value>
   </data>
   <data name="MessageBox_WouldYouLikeToContinue" xml:space="preserve">
-    <value></value>
-    <comment>Replace window warning message box text</comment>
+    <value />
   </data>
   <data name="MessageBox_WouldYouLikeToDownloadItNow" xml:space="preserve">
-    <value></value>
-    <comment>New dnGrep version message box text</comment>
+    <value />
   </data>
   <data name="MessageBox_YouAreAboutToDeleteFilesFoundDuringSearch" xml:space="preserve">
-    <value></value>
-    <comment>Main window delete files warning message box text</comment>
+    <value />
   </data>
-  <data name="Minimize" xml:space="preserve">
-    <value></value>
-    <comment>Main window title bar button tooltip</comment>
+  <data name="Options_AllowSearchingForFileNamePatternOnly" xml:space="preserve">
+    <value />
   </data>
-  <data name="MoveToTheNextMatchInThisFile" xml:space="preserve">
-    <value></value>
-    <comment>Replace windows label</comment>
+  <data name="Options_ApplicationFonts" xml:space="preserve">
+    <value>Шрифт</value>
   </data>
-  <data name="MoveToThePreviousMatchInThisFile" xml:space="preserve">
-    <value></value>
-    <comment>Replace window label</comment>
+  <data name="Options_ArchiveAdd" xml:space="preserve">
+    <value>Добавяне:</value>
   </data>
-  <data name="NextFile_" xml:space="preserve">
-    <value></value>
-    <comment>Replace window label</comment>
+  <data name="Options_ArchiveDefault" xml:space="preserve">
+    <value />
   </data>
-  <data name="Next_" xml:space="preserve">
-    <value>На_пред</value>
-    <comment>Replace window label</comment>
+  <data name="Options_ArchiveExtensions" xml:space="preserve">
+    <value>Разширения:</value>
   </data>
-  <data name="OneOrMoreArgumentsAreInvalid" xml:space="preserve">
-    <value>Един или повече аргумента са недействителни.</value>
-    <comment>Help window label</comment>
+  <data name="Options_ArchiveOptions" xml:space="preserve">
+    <value>Настройки за архиви</value>
   </data>
-  <data name="OnMainPanel" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="Options" xml:space="preserve">
-    <value>Настройки</value>
-    <comment>Options dialog title</comment>
+  <data name="Options_ArchiveRemove" xml:space="preserve">
+    <value />
   </data>
   <data name="Options_BrowseFileLocation" xml:space="preserve">
     <value>…</value>
   </data>
+  <data name="Options_CheckDays" xml:space="preserve">
+    <value>дни</value>
+  </data>
+  <data name="Options_CheckForUpdatesWhenWindowsStarts" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_CheckingForUpdates" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_ClearOldSearches" xml:space="preserve">
+    <value>Премахване на стари търсения</value>
+  </data>
+  <data name="Options_Close" xml:space="preserve">
+    <value>_Затваряне</value>
+  </data>
+  <data name="Options_CompareApplication" xml:space="preserve">
+    <value>Приложение за сравняване</value>
+  </data>
+  <data name="Options_CompareArguments" xml:space="preserve">
+    <value>Аргументи</value>
+  </data>
+  <data name="Options_CompareCommand" xml:space="preserve">
+    <value>Команда</value>
+  </data>
+  <data name="Options_ContextAfter" xml:space="preserve">
+    <value>след</value>
+  </data>
+  <data name="Options_ContextBeforeAnd" xml:space="preserve">
+    <value>преди и</value>
+  </data>
+  <data name="Options_CustomEditor" xml:space="preserve">
+    <value />
+  </data>
   <data name="Options_CustomEditorHelp" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog custom editor help text</comment>
+    <value />
+  </data>
+  <data name="Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_DialogFontSize" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_DnGrepWillAddTheSelectedFiles" xml:space="preserve">
+    <value>имената на избраните файлове ще бъдат добавени накрая на командата.</value>
+  </data>
+  <data name="Options_EditorArguments" xml:space="preserve">
+    <value>Аргументи</value>
+  </data>
+  <data name="Options_EditorCommand" xml:space="preserve">
+    <value>Команда</value>
+  </data>
+  <data name="Options_EnableAutomaticCheckingEvery" xml:space="preserve">
+    <value />
   </data>
   <data name="Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu" xml:space="preserve">
-    <value></value>
-    <comment>Option dialog - explorer right click menu checkbox tooltip</comment>
+    <value />
+  </data>
+  <data name="Options_FollowWindowsTheme" xml:space="preserve">
+    <value>Следва темата на Windows</value>
+  </data>
+  <data name="Options_FontFamily" xml:space="preserve">
+    <value>Фамилия на шрифта</value>
+  </data>
+  <data name="Options_HelpTranslateDnGrep" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_HistoryLists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_InOptionsExpander" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_ItemsShownInFileFilterHistoryLists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_ItemsShownInPathHistoryList" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_ItemsShownInSearchAndReplaceHistoryLists" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_Language" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_Layout" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_LoadFromFile" xml:space="preserve">
+    <value>От файл…</value>
+  </data>
+  <data name="Options_MainFontSize" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_MatchEverythingToExactMatch" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_MatchThreshold" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_MatchTimeout" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_OnMainPanel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_OptionsTitle" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="Options_PDFToText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_PdfToTextExeCommandLineOptions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_PdfToTextReset" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_PhoneticSearch" xml:space="preserve">
+    <value>Фонетично търсене</value>
+  </data>
+  <data name="Options_PluginAdd" xml:space="preserve">
+    <value>Добавяне:</value>
+  </data>
+  <data name="Options_PluginEnabled" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_PluginExtensions" xml:space="preserve">
+    <value>Разширения:</value>
+  </data>
+  <data name="Options_PluginOptions" xml:space="preserve">
+    <value>Настройки на добавки</value>
+  </data>
+  <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_RegexOptions" xml:space="preserve">
+    <value>Настройки на регулярни изрази</value>
+  </data>
+  <data name="Options_Reload" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_ReplaceFontSize" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_ResultsOptions" xml:space="preserve">
+    <value>Настройки на резултати</value>
+  </data>
+  <data name="Options_SampleText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_Save" xml:space="preserve">
+    <value>Запазване</value>
+  </data>
+  <data name="Options_SelectedTheme" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_ShowDnGrepInExplorerRightClickMenu_" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_ShowFileInfoToolTips" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_ShowFilePathInResultsPanel" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_ShowResultLinesInContext" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_ShowResultsTreeExpanded" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_ShowSearchOptions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_ShowVerboseMatchCount" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_StartupOptions" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_TheMatchTimeoutLimits" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_Theme" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Options_TimeoutSeconds" xml:space="preserve">
+    <value />
   </data>
   <data name="Options_ToChangeThisSettingRunDnGREPAsAdministrator" xml:space="preserve">
-    <value></value>
-    <comment>Options view tooltip</comment>
+    <value />
   </data>
-  <data name="OtherPropertiesHeader" xml:space="preserve">
-    <value>Други свойства</value>
-    <comment>Bookmarks dialog grid header</comment>
+  <data name="Options_UseDefault" xml:space="preserve">
+    <value />
   </data>
-  <data name="PDFToText" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="PdfToTextExeCommandLineOptions" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="PluginOptions" xml:space="preserve">
-    <value>Настройки на добавки</value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="Main_ResultList_PlusCountMoreMatches" xml:space="preserve">
-    <value>, + още {0} съвпадения</value>
-    <comment>Main window results list text</comment>
-  </data>
-  <data name="PopThisPanelOutIntoItsOwnWindow" xml:space="preserve">
-    <value></value>
-    <comment>Docking window button tooltip</comment>
-  </data>
-  <data name="PressF1ForHelpOnOptions" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="Preview_PreviewAnyway" xml:space="preserve">
-    <value></value>
-    <comment>Preview window warning label</comment>
-  </data>
-  <data name="Preview_SyntaxNone" xml:space="preserve">
-    <value></value>
-    <comment>Preview and Replace window syntax hightlight option</comment>
+  <data name="Options_WantADifferentLanguage" xml:space="preserve">
+    <value />
   </data>
   <data name="Preview_FindNext" xml:space="preserve">
-    <value></value>
-    <comment>Preview window search tooltip</comment>
+    <value />
   </data>
   <data name="Preview_FindPrevious" xml:space="preserve">
-    <value></value>
-    <comment>Preview window search tooltip</comment>
+    <value />
+  </data>
+  <data name="Preview_HighlightsDisabledTooManyMatchesFound" xml:space="preserve">
+    <value />
   </data>
   <data name="Preview_MatchCase" xml:space="preserve">
-    <value></value>
-    <comment>Preview window search tooltip</comment>
+    <value />
   </data>
   <data name="Preview_MatchWholeWords" xml:space="preserve">
-    <value></value>
-    <comment>Preview window search tooltip</comment>
+    <value />
+  </data>
+  <data name="Preview_PreviewAnyway" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Preview_SyntaxNone" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Preview_ThisFileIsEitherBinaryOrTooLargeToPreview" xml:space="preserve">
+    <value />
   </data>
   <data name="Preview_UseRegularExpressions" xml:space="preserve">
-    <value></value>
-    <comment>Preview window search tooltip</comment>
-  </data>
-  <data name="PreviousFile_" xml:space="preserve">
-    <value></value>
-    <comment>Replace window label</comment>
-  </data>
-  <data name="Previous_" xml:space="preserve">
-    <value>Наза_д</value>
-    <comment>Replace window label</comment>
-  </data>
-  <data name="Replace_ReadOnly" xml:space="preserve">
-    <value></value>
-    <comment>Main window results list text; Replace window</comment>
-  </data>
-  <data name="Regex" xml:space="preserve">
-    <value></value>
-    <comment>Various windows label</comment>
-  </data>
-  <data name="RegexOptions" xml:space="preserve">
-    <value>Настройки на регулярни изрази</value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="ReloadTheCurrentThemeFile" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="Reload_" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="Remove" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
+    <value />
   </data>
   <data name="Rename_Cancel" xml:space="preserve">
     <value>Отказ</value>
   </data>
   <data name="Rename_NewName" xml:space="preserve">
-    <value></value>
-    <comment>File rename window label</comment>
+    <value />
   </data>
   <data name="Rename_OK" xml:space="preserve">
     <value>Добре</value>
   </data>
-  <data name="ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
-    <value></value>
-    <comment>Replace window label</comment>
+  <data name="Replace_CancelAllReplacements" xml:space="preserve">
+    <value>Отказ от всички заменяния</value>
   </data>
-  <data name="ReplaceFontSize" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
+  <data name="Replace_ChangesTextEditorZoom" xml:space="preserve">
+    <value />
   </data>
-  <data name="ReplaceInAllFiles_" xml:space="preserve">
-    <value></value>
-    <comment>Replace window label</comment>
+  <data name="Replace_ErrorThisIsABinaryFile" xml:space="preserve">
+    <value />
   </data>
-  <data name="ReplaceInFile_" xml:space="preserve">
-    <value></value>
-    <comment>Replace window label</comment>
+  <data name="Replace_FileNumberOfCountName" xml:space="preserve">
+    <value />
   </data>
-  <data name="ReplaceKey1_Text" xml:space="preserve">
-    <value></value>
-    <comment>Replace window label</comment>
+  <data name="Replace_Files" xml:space="preserve">
+    <value>Файлове</value>
   </data>
-  <data name="ReplaceKey2_SelectedMatch" xml:space="preserve">
-    <value></value>
-    <comment>Replace window label</comment>
+  <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
+    <value />
   </data>
-  <data name="ReplaceKey3_ReplaceMatch" xml:space="preserve">
-    <value></value>
-    <comment>Replace window label</comment>
+  <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
+    <value />
   </data>
-  <data name="ReplaceKey4_SkipMatch" xml:space="preserve">
-    <value></value>
-    <comment>Replace window label</comment>
+  <data name="Replace_Matches" xml:space="preserve">
+    <value />
   </data>
-  <data name="ReplaceMatchesMarkedForReplacement" xml:space="preserve">
-    <value></value>
-    <comment>Replace window label</comment>
+  <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
+    <value />
   </data>
-  <data name="ReplaceText" xml:space="preserve">
-    <value></value>
-    <comment>Replace window label</comment>
+  <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
+    <value />
   </data>
-  <data name="ReplaceWithHeader" xml:space="preserve">
-    <value>Заменяне с</value>
-    <comment>Bookmarks dialog grid header</comment>
+  <data name="Replace_Next" xml:space="preserve">
+    <value>На_пред</value>
   </data>
-  <data name="ReportCSV_FileNameLineNumberString" xml:space="preserve">
-    <value></value>
-    <comment>Report text</comment>
+  <data name="Replace_NextFile" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Replace_Previous" xml:space="preserve">
+    <value>Наза_д</value>
+  </data>
+  <data name="Replace_PreviousFile" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Replace_ReadOnly" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Replace_ReplaceButton" xml:space="preserve">
+    <value>З_аменяне</value>
+  </data>
+  <data name="Replace_ReplaceInAllFiles" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Replace_ReplaceInFile" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Replace_ReplaceKey1_Text" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Replace_ReplaceKey2_SelectedMatch" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Replace_ReplaceKey3_ReplaceMatch" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Replace_ReplaceKey4_SkipMatch" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Replace_ReplaceMatchesMarkedForReplacement" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Replace_ReplaceWith" xml:space="preserve">
+    <value>Заменяне с:</value>
+  </data>
+  <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Replace_SearchFor" xml:space="preserve">
+    <value>Търсене на:</value>
+  </data>
+  <data name="Replace_ShowTheNextFile" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Replace_ShowThePreviousFile" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Replace_ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Replace_Title" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Replace_Undo" xml:space="preserve">
+    <value>_Отменяне</value>
+  </data>
+  <data name="Replace_UndoFile" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Report_CSVRecordHeaderText" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Report_DnGrepSearchResults" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Report_FileNotFoundHasItBeenDeletedOrMoved" xml:space="preserve">
+    <value>[Файлът не е намерен: дали не е преместен или премахнат?]</value>
+  </data>
+  <data name="Report_Found0MatchesOn1LinesIn2Files" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Report_FoundMatchesFor" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Report_FoundNoMatchesFor" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Report_Has0MatchesOn1Lines" xml:space="preserve">
+    <value />
   </data>
   <data name="ReportSummary_BooleanOperators" xml:space="preserve">
     <value>Булеви оператори</value>
-    <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_CaseSensitive" xml:space="preserve">
     <value>Съвпадение на регистъра</value>
-    <comment>Report search options summary; Bookmarks summary</comment>
   </data>
   <data name="ReportSummary_DotAsNewline" xml:space="preserve">
-    <value></value>
-    <comment>Report search options summary</comment>
+    <value />
   </data>
   <data name="ReportSummary_ExcludePattern" xml:space="preserve">
-    <value></value>
-    <comment>Report search options summary</comment>
+    <value />
   </data>
   <data name="ReportSummary_FilePattern" xml:space="preserve">
-    <value></value>
-    <comment>Report search options summary</comment>
+    <value />
   </data>
   <data name="ReportSummary_MaxFolderDepth" xml:space="preserve">
-    <value></value>
-    <comment>Report search options summary; Bookmarks summary</comment>
+    <value />
   </data>
   <data name="ReportSummary_Multiline" xml:space="preserve">
-    <value></value>
-    <comment>Report search options summary; Bookmarks summary</comment>
+    <value />
   </data>
   <data name="ReportSummary_NoArchives" xml:space="preserve">
-    <value></value>
-    <comment>Report search options summary</comment>
+    <value />
   </data>
   <data name="ReportSummary_NoBinary" xml:space="preserve">
-    <value></value>
-    <comment>Main window options summary</comment>
+    <value />
   </data>
   <data name="ReportSummary_NoBinaryFiles" xml:space="preserve">
-    <value></value>
-    <comment>Report search options summary</comment>
+    <value />
   </data>
   <data name="ReportSummary_NoHiddenFiles" xml:space="preserve">
-    <value></value>
-    <comment>Report search options summary</comment>
+    <value />
   </data>
   <data name="ReportSummary_NoSubfolders" xml:space="preserve">
-    <value></value>
-    <comment>Main window, Report; Bookmarks options summary</comment>
+    <value />
   </data>
   <data name="ReportSummary_NoSymlinks" xml:space="preserve">
-    <value></value>
-    <comment>Main window, Report; Bookmarks options summary</comment>
+    <value />
   </data>
   <data name="ReportSummary_SearchFor" xml:space="preserve">
     <value>Търсене на:</value>
-    <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_SearchIn" xml:space="preserve">
     <value>Търсене в:</value>
   </data>
   <data name="ReportSummary_SearchInResults" xml:space="preserve">
-    <value></value>
-    <comment>Report search options summary</comment>
+    <value />
   </data>
   <data name="ReportSummary_SizeFrom0To1KB" xml:space="preserve">
     <value>Големина от  {0} до {1} КБ</value>
-    <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_StopAfterFirstMatch" xml:space="preserve">
     <value>Спиране след първо съвпадение</value>
-    <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_Type0DateFrom1To2" xml:space="preserve">
-    <value></value>
-    <comment>Report search options summary</comment>
+    <value />
   </data>
   <data name="ReportSummary_Type0DateInPast1To2Hours" xml:space="preserve">
-    <value></value>
-    <comment>Report search options summary</comment>
+    <value />
   </data>
   <data name="ReportSummary_UsingEverythingIndexSearch" xml:space="preserve">
-    <value></value>
-    <comment>Report search options summary</comment>
+    <value />
   </data>
   <data name="ReportSummary_UsingRegexFilePattern" xml:space="preserve">
-    <value></value>
-    <comment>Report search options summary</comment>
+    <value />
   </data>
   <data name="ReportSummary_UsingTypeOfSeach" xml:space="preserve">
-    <value></value>
-    <comment>Report search options summary</comment>
+    <value />
   </data>
   <data name="ReportSummary_WholeWord" xml:space="preserve">
-    <value></value>
-    <comment>Report search options summary; Bookmarks summary</comment>
-  </data>
-  <data name="Report_DnGrepSearchResults" xml:space="preserve">
-    <value></value>
-    <comment>Report text</comment>
-  </data>
-  <data name="Report_Found0MatchesOn1LinesIn2Files" xml:space="preserve">
-    <value></value>
-    <comment>Report text</comment>
-  </data>
-  <data name="Reset" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
-    <value></value>
-    <comment>Replace window label</comment>
-  </data>
-  <data name="ResourcesFile0IsNotAResxFile" xml:space="preserve">
-    <value></value>
-    <comment>Load language resource file error message box</comment>
-  </data>
-  <data name="RestoreDown" xml:space="preserve">
-    <value></value>
-    <comment>Main window title bar button tooltip</comment>
-  </data>
-  <data name="ResultsOptions" xml:space="preserve">
-    <value>Настройки на резултати</value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="SampleText" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="Save_" xml:space="preserve">
-    <value>Запазване</value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="SearchForHeader" xml:space="preserve">
-    <value>Търсене на</value>
-    <comment>Bookmarks dialog grid header</comment>
-  </data>
-  <data name="Seconds" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="SelectedTheme" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="ShowDnGrepInExplorerRightClickMenu_" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="ShowFileInfoToolTips" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="ShowFilePathInResultsPanel" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="ShowResultLinesInContext" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="ShowResultsTreeExpanded" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="ShowSearchOptions" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="ShowTheNextFile" xml:space="preserve">
-    <value></value>
-    <comment>Replace window label</comment>
-  </data>
-  <data name="ShowThePreviousFile" xml:space="preserve">
-    <value></value>
-    <comment>Replace window label</comment>
-  </data>
-  <data name="ShowVerboseMatchCount" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="StartupOptions" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
+    <value />
   </data>
   <data name="Test_BooleanOperators" xml:space="preserve">
     <value>Булеви оператори</value>
@@ -1746,31 +1472,24 @@
   </data>
   <data name="Test_Close" xml:space="preserve">
     <value>_Затваряне</value>
-    <comment>Close button text</comment>
   </data>
   <data name="Test_CopyToClipboard" xml:space="preserve">
-    <value></value>
-    <comment>Test window context menu</comment>
+    <value />
   </data>
   <data name="Test_NoMatchesFound" xml:space="preserve">
-    <value></value>
-    <comment>Test window</comment>
+    <value />
   </data>
   <data name="Test_ReplaceResult" xml:space="preserve">
-    <value></value>
-    <comment>Test window label</comment>
+    <value />
   </data>
   <data name="Test_ReplaceTextIsNotValidXML" xml:space="preserve">
-    <value></value>
-    <comment>Test window error text</comment>
+    <value />
   </data>
   <data name="Test_ReplaceWith" xml:space="preserve">
     <value>Заменяне с:</value>
-    <comment>Various windows label</comment>
   </data>
   <data name="Test_SampleInputText" xml:space="preserve">
-    <value></value>
-    <comment>Test window label</comment>
+    <value />
   </data>
   <data name="Test_SearchFor" xml:space="preserve">
     <value>Търсене на:</value>
@@ -1779,113 +1498,63 @@
     <value>Търсене</value>
   </data>
   <data name="Test_SearchResult" xml:space="preserve">
-    <value></value>
-    <comment>Test window label</comment>
+    <value />
   </data>
   <data name="Test_SearchType_Text" xml:space="preserve">
     <value>_Текст</value>
   </data>
   <data name="Test_Title" xml:space="preserve">
     <value>Проверка</value>
-    <comment>Test window label</comment>
   </data>
   <data name="Test_WholeWord" xml:space="preserve">
     <value>Цели _думи</value>
   </data>
-  <data name="TheMatchTimeoutLimits" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog help text</comment>
-  </data>
-  <data name="Theme" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
-  </data>
-  <data name="ThisBookmarkAlreadyExists" xml:space="preserve">
-    <value></value>
-    <comment>Bookmark details dialog label</comment>
-  </data>
-  <data name="Replace_ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
-    <value></value>
-    <comment>Replace window warning message box text</comment>
-  </data>
-  <data name="Preview_ThisFileIsEitherBinaryOrTooLargeToPreview" xml:space="preserve">
-    <value></value>
-    <comment>Preview window warning messages</comment>
-  </data>
   <data name="TTA1_MatchesAllCharacters" xml:space="preserve">
-    <value></value>
-    <comment>Main window and Test window tooltip</comment>
+    <value />
   </data>
   <data name="TTA2_MatchesAlphaNumerics" xml:space="preserve">
-    <value></value>
-    <comment>Main window and Test window tooltip</comment>
+    <value />
   </data>
   <data name="TTA3_MatchesDigits" xml:space="preserve">
-    <value></value>
-    <comment>Main window and Test window tooltip</comment>
+    <value />
   </data>
   <data name="TTA4_MatchesSpace" xml:space="preserve">
-    <value></value>
-    <comment>Main window and Test window tooltip</comment>
+    <value />
   </data>
   <data name="TTA5_MatchesAnyNumberOfCharacters" xml:space="preserve">
-    <value></value>
-    <comment>Main window and Test window tooltip</comment>
+    <value />
   </data>
   <data name="TTA6_Matches1To3Characters" xml:space="preserve">
-    <value></value>
-    <comment>Main window and Test window tooltip</comment>
+    <value />
   </data>
   <data name="TTA7_ForMoreRegexPatternsHitF1" xml:space="preserve">
-    <value></value>
-    <comment>Main window and Test window tooltip</comment>
+    <value />
   </data>
   <data name="TTB1_ReplacesEntireRegex" xml:space="preserve">
-    <value></value>
-    <comment>Main window and Test window tooltip</comment>
+    <value />
   </data>
   <data name="TTB2_InsertsTheTextMatchedIntoTheReplacementText" xml:space="preserve">
-    <value></value>
-    <comment>Main window and Test window tooltip</comment>
+    <value />
   </data>
   <data name="TTB3_InsertsASingleDollarSignIntoTheReplacementText" xml:space="preserve">
-    <value></value>
-    <comment>Main window and Test window tooltip</comment>
+    <value />
   </data>
-  <data name="TypeHeader" xml:space="preserve">
-    <value>Вид</value>
-    <comment>Bookmarks dialog grid header</comment>
+  <data name="Window_Close" xml:space="preserve">
+    <value>Затваряне</value>
   </data>
-  <data name="UndoFile_" xml:space="preserve">
-    <value></value>
-    <comment>Replace window label</comment>
+  <data name="Window_DockThisPopUpBackIntoTheMainWindow" xml:space="preserve">
+    <value />
   </data>
-  <data name="UndoMarkReplaceOnThisMatch" xml:space="preserve">
-    <value></value>
-    <comment>Replace window label</comment>
+  <data name="Window_Maximize" xml:space="preserve">
+    <value />
   </data>
-  <data name="UseCaptureGroupsFromPathsToMatch" xml:space="preserve">
-    <value></value>
-    <comment>Main window tooltip</comment>
+  <data name="Window_Minimize" xml:space="preserve">
+    <value />
   </data>
-  <data name="UseDefault_" xml:space="preserve">
-    <value></value>
-    <comment>Options dialog label</comment>
+  <data name="Window_PopThisPanelOutIntoItsOwnWindow" xml:space="preserve">
+    <value />
   </data>
-  <data name="Use_" xml:space="preserve">
-    <value>Из_ползване</value>
-    <comment>Bookmarks dialog label</comment>
-  </data>
-  <data name="Version" xml:space="preserve">
-    <value>Издание</value>
-    <comment>About dialog label</comment>
-  </data>
-  <data name="WantADifferentLanguage" xml:space="preserve">
-    <value></value>
-    <comment>@Invariant</comment>
-  </data>
-  <data name="WindowTitleIsName" xml:space="preserve">
-    <value>Заглавие на прозореца: {0}</value>
-    <comment>Clipboard set text error, clipboard locked by application name</comment>
+  <data name="Window_RestoreDown" xml:space="preserve">
+    <value />
   </data>
 </root>

@@ -34,7 +34,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="ToolTip" Value="{l:Loc Key='DockThisPopUpBackIntoTheMainWindow'}" />
+        <Setter Property="ToolTip" Value="{l:Loc Key='Window_DockThisPopUpBackIntoTheMainWindow'}" />
     </Style>
 
     <Style x:Key="CaptionButtonStyle" TargetType="Button">
@@ -94,28 +94,28 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="ToolTip" Value="{l:Loc Key='Close'}" />
+        <Setter Property="ToolTip" Value="{l:Loc Key='Window_Close'}" />
     </Style>
 
     <Style x:Key="MinimizeButtonStyle" TargetType="Button"
            BasedOn="{StaticResource CaptionButtonStyle}">
         <Setter Property="Content" Value="&#x30;" />
         <!--<Setter Property="Content" Value="&#xE949;"/> win10 -->
-        <Setter Property="ToolTip" Value="{l:Loc Key='Minimize'}" />
+        <Setter Property="ToolTip" Value="{l:Loc Key='Window_Minimize'}" />
     </Style>
 
     <Style x:Key="MaximizeButtonStyle" TargetType="Button"
            BasedOn="{StaticResource CaptionButtonStyle}">
         <Setter Property="Content" Value="&#x31;" />
         <!--<Setter Property="Content" Value="&#xE739;"/> win10 -->
-        <Setter Property="ToolTip" Value="{l:Loc Key='Maximize'}" />
+        <Setter Property="ToolTip" Value="{l:Loc Key='Window_Maximize'}" />
     </Style>
 
     <Style x:Key="RestoreButtonStyle" TargetType="Button"
            BasedOn="{StaticResource CaptionButtonStyle}">
         <Setter Property="Content" Value="&#x32;" />
         <!--<Setter Property="Content" Value="&#xE923;"/> win10 -->
-        <Setter Property="ToolTip" Value="{l:Loc Key='RestoreDown'}" />
+        <Setter Property="ToolTip" Value="{l:Loc Key='Window_RestoreDown'}" />
     </Style>
 
     <Style xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework" TargetType="local:FloatWindow">

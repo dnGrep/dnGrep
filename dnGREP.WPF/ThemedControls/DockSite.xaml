@@ -21,7 +21,7 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-        <Setter Property="ToolTip" Value="{l:Loc Key='PopThisPanelOutIntoItsOwnWindow'}" />
+        <Setter Property="ToolTip" Value="{l:Loc Key='Window_PopThisPanelOutIntoItsOwnWindow'}" />
     </Style>
 
     <Style x:Key="ThemedDockSite" TargetType="{x:Type df:DockSite}" BasedOn="{StaticResource previewVisibilityStyle}">

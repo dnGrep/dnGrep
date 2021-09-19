@@ -49,7 +49,7 @@
             </Border>
 
             <StackPanel Grid.Row="0" Grid.Column="1"  Orientation="Horizontal">
-                <TextBlock Text="{l:Loc Key='About_DnGREP_Title'}" FontWeight="DemiBold" 
+                <TextBlock Text="{l:Loc Key='About_DnGREP'}" FontWeight="DemiBold" 
                        FontSize="{Binding DialogFontSize, Converter={StaticResource TitleSizeConverter}, ConverterParameter=2, FallbackValue=14}" 
                        Style="{StaticResource ThemedTextBlock}"/>
                 <TextBlock Style="{StaticResource ThemedTextBlock}" Margin="30,0,0,0">

@@ -408,7 +408,7 @@ namespace dnGREP.WPF
             string assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             string buildDate = AboutViewModel.GetLinkerTime(Assembly.GetExecutingAssembly()).ToString(CultureInfo.CurrentCulture);
 
-            return TranslationSource.Format(Localization.Properties.Resources.CmdLine_Help,
+            return TranslationSource.Format(Localization.Properties.Resources.Help_CmdLine,
                 assemblyVersion, buildDate);
         }
     }

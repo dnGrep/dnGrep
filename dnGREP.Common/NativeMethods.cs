@@ -117,7 +117,7 @@ namespace dnGREP.Common
                         string msg = Resources.MessageBox_ErrorSettingClipboardTextTheClipboardIsLockedBy + Environment.NewLine;
                         msg += (process.MainModule != null && !string.IsNullOrEmpty(process.MainModule.FileName) ?
                             process.MainModule.FileName : process.ProcessName) + Environment.NewLine +
-                            TranslationSource.Format(Resources.WindowTitleIsName, process.MainWindowTitle);
+                            TranslationSource.Format(Resources.MessageBox_WindowTitleIsName, process.MainWindowTitle);
                         logger.Error(msg);
                         System.Windows.MessageBox.Show(msg, Resources.MessageBox_DnGrep,
                             System.Windows.MessageBoxButton.OK,
