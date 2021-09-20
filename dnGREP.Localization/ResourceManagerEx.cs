@@ -33,17 +33,30 @@ namespace dnGREP.Localization
             {
                 if (FileResources.Resources.TryGetValue(name, out string value))
                 {
+                    if (string.IsNullOrEmpty(value))
+                    {
+                        return base.GetString(name, CultureInfo.InvariantCulture);
+                    }
                     return value;
                 }
                 else
                 {
                     return null;
-                } 
-                    
+                }
             }
             else
             {
-                return base.GetString(name, culture);
+                if (culture != null && culture.Name != null && culture.Name.Equals("en"))
+                {
+                    return base.GetString(name, CultureInfo.InvariantCulture);
+                }
+
+                string str = base.GetString(name, culture);
+                if (!string.IsNullOrEmpty(str))
+                {
+                    str = base.GetString(name, CultureInfo.InvariantCulture);
+                }
+                return str;
             }
         }
     }

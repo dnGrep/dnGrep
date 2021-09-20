@@ -13,6 +13,11 @@ namespace dnGREP.Localization
     {
         public static TranslationSource Instance { get; } = new TranslationSource();
 
+        private TranslationSource()
+        {
+            CurrentCulture = CultureInfo.GetCultureInfoByIetfLanguageTag("en");
+        }
+
         // WPF bindings register PropertyChanged event if the object supports it and update themselves when it is raised
         public event PropertyChangedEventHandler PropertyChanged;
         public event EventHandler CurrentCultureChanging;
@@ -21,7 +26,9 @@ namespace dnGREP.Localization
         public Dictionary<string, string> AppCultures =>
             new Dictionary<string, string>
             {
+                //{ "bg", "Български" },
                 { "en", "English" },
+                //{ "he", "עברית" }
                 //{ "zh", "中文" },
             };
 
@@ -36,7 +43,7 @@ namespace dnGREP.Localization
 
         public string this[string key] => Properties.Resources.ResourceManager.GetString(key, currentCulture) ?? $"#{key}";
 
-        private CultureInfo currentCulture = CultureInfo.GetCultureInfoByIetfLanguageTag("en");
+        private CultureInfo currentCulture = CultureInfo.InvariantCulture;
         public CultureInfo CurrentCulture
         {
             get { return currentCulture; }
@@ -76,13 +83,20 @@ namespace dnGREP.Localization
 
         public static string Format(string format, params object[] args)
         {
-            try
+            if (!string.IsNullOrWhiteSpace(format))
             {
-                return string.Format(CultureInfo.CurrentCulture, format, args);
+                try
+                {
+                    return string.Format(CultureInfo.CurrentCulture, format, args);
+                }
+                catch (FormatException)
+                {
+                    return "Missing placeholder {?}: " + format;
+                }
             }
-            catch (FormatException)
+            else
             {
-                return "Missing placeholder {?}: " + format;
+                return "Missing resource";
             }
         }
     }
