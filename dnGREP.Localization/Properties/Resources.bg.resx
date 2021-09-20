@@ -1191,7 +1191,7 @@
   <data name="Options_SelectedTheme" xml:space="preserve">
     <value />
   </data>
-  <data name="Options_ShowDnGrepInExplorerRightClickMenu_" xml:space="preserve">
+  <data name="Options_ShowDnGrepInExplorerRightClickMenu" xml:space="preserve">
     <value />
   </data>
   <data name="Options_ShowFileInfoToolTips" xml:space="preserve">

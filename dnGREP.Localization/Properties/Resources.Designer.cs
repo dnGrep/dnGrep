@@ -3622,9 +3622,9 @@ namespace dnGREP.Localization.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Show dnGrep in Explorer right-click menu.
         /// </summary>
-        public static string Options_ShowDnGrepInExplorerRightClickMenu_ {
+        public static string Options_ShowDnGrepInExplorerRightClickMenu {
             get {
-                return ResourceManager.GetString("Options_ShowDnGrepInExplorerRightClickMenu_", resourceCulture);
+                return ResourceManager.GetString("Options_ShowDnGrepInExplorerRightClickMenu", resourceCulture);
             }
         }
         

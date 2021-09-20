@@ -1785,7 +1785,7 @@ Arguments:
     <value>Selected Theme</value>
     <comment>Options dialog, theme selector label</comment>
   </data>
-  <data name="Options_ShowDnGrepInExplorerRightClickMenu_" xml:space="preserve">
+  <data name="Options_ShowDnGrepInExplorerRightClickMenu" xml:space="preserve">
     <value>Show dnGrep in Explorer right-click menu</value>
     <comment>Options dialog, startup options, checkbox label (accel)</comment>
   </data>

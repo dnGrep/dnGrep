@@ -73,7 +73,7 @@
 
                 <GroupBox Header="{l:Loc Key='Options_StartupOptions'}" ToolTip="{Binding Path=PanelTooltip}">
                     <StackPanel Orientation="Vertical">
-                        <CheckBox Margin="0,6,0,3" Content="{l:Loc Key='Options_ShowDnGrepInExplorerRightClickMenu_'}"
+                        <CheckBox Margin="0,6,0,3" Content="{l:Loc Key='Options_ShowDnGrepInExplorerRightClickMenu'}"
                                   IsChecked="{Binding Path=EnableWindowsIntegration}"
                                   ToolTip="{Binding Path=WindowsIntegrationTooltip}"
                                   IsEnabled="{Binding Path=IsAdministrator}" />
