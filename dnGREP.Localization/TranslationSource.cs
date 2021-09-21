@@ -99,6 +99,10 @@ namespace dnGREP.Localization
                 return "Missing resource";
             }
         }
+
+        public MessageBoxOptions FlowDirection => CurrentCulture.TextInfo.IsRightToLeft ? 
+            MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign : MessageBoxOptions.None;
+
     }
 
     [MarkupExtensionReturnType(typeof(string))]

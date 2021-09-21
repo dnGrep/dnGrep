@@ -8,6 +8,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              d:DesignHeight="300"
              d:DesignWidth="600"
+             FlowDirection="{Binding CultureFlowDirection}"
              FontFamily="{Binding ApplicationFontFamily}"
              FontSize="{Binding MainFormFontSize}"
              mc:Ignorable="d">

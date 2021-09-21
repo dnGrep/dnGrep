@@ -12,6 +12,7 @@
                  MinWidth="500"
                  MinHeight="485"
                  d:DesignWidth="900"
+                 FlowDirection="{Binding CultureFlowDirection}"
                  FontFamily="{Binding ApplicationFontFamily}"
                  FontSize="{Binding MainFormFontSize}"
                  my:DiginesisHelpProvider.HelpKeyword="Search-Window"

@@ -12,7 +12,7 @@ using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
 {
-    public class BookmarkListViewModel : ViewModelBase
+    public class BookmarkListViewModel : CultureAwareViewModel
     {
         readonly Action<Bookmark> ClearStar;
         readonly Window ownerWnd;
@@ -360,7 +360,7 @@ namespace dnGREP.WPF
         }
     }
 
-    public class BookmarkViewModel : ViewModelBase
+    public class BookmarkViewModel : CultureAwareViewModel
     {
         public static ObservableCollection<KeyValuePair<string, int>> Encodings { get; } = new ObservableCollection<KeyValuePair<string, int>>();
 

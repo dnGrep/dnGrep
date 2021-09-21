@@ -18,7 +18,7 @@ using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
 {
-    public class OptionsViewModel : ViewModelBase
+    public class OptionsViewModel : CultureAwareViewModel
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
@@ -927,7 +927,7 @@ namespace dnGREP.WPF
                 CustomEditorPath = dlg.FileName;
             }
         }
-
+        
         public void BrowseToCompareApp()
         {
             var dlg = new OpenFileDialog();
@@ -1246,13 +1246,17 @@ namespace dnGREP.WPF
                 {
                     IsAdministrator = false;
                     MessageBox.Show(Resources.MessageBox_RunDnGrepAsAdministrator,
-                        Resources.MessageBox_DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
+                        Resources.MessageBox_DnGrep, 
+                        MessageBoxButton.OK, MessageBoxImage.Error,
+                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                 }
                 catch (Exception ex)
                 {
                     logger.Error(ex, "Failed to register dnGrep with Explorer context menu");
                     MessageBox.Show(Resources.MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu + App.LogDir,
-                        Resources.MessageBox_DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
+                        Resources.MessageBox_DnGrep, 
+                        MessageBoxButton.OK, MessageBoxImage.Error,
+                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                 }
             }
         }
@@ -1282,13 +1286,17 @@ namespace dnGREP.WPF
             {
                 IsAdministrator = false;
                 MessageBox.Show(Resources.MessageBox_RunDnGrepAsAdministrator,
-                    Resources.MessageBox_DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
+                    Resources.MessageBox_DnGrep, 
+                    MessageBoxButton.OK, MessageBoxImage.Error,
+                    MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
             }
             catch (Exception ex)
             {
                 logger.Error(ex, "Failed to remove dnGrep from Explorer context menu");
                 MessageBox.Show(Resources.MessageBox_ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu + App.LogDir,
-                    Resources.MessageBox_DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
+                    Resources.MessageBox_DnGrep, 
+                    MessageBoxButton.OK, MessageBoxImage.Error,
+                    MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
             }
         }
 
@@ -1324,13 +1332,17 @@ namespace dnGREP.WPF
                 catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
                 {
                     MessageBox.Show(Resources.MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister,
-                        Resources.MessageBox_DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
+                        Resources.MessageBox_DnGrep, 
+                        MessageBoxButton.OK, MessageBoxImage.Error,
+                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                 }
                 catch (Exception ex)
                 {
                     logger.Error(ex, "Failed to register auto startup");
                     MessageBox.Show(Resources.MessageBox_ThereWasAnErrorRegisteringAutoStartup + App.LogDir,
-                        Resources.MessageBox_DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
+                        Resources.MessageBox_DnGrep, 
+                        MessageBoxButton.OK, MessageBoxImage.Error,
+                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                 }
             }
         }
@@ -1351,13 +1363,17 @@ namespace dnGREP.WPF
                 catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
                 {
                     MessageBox.Show(Resources.MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister,
-                        Resources.MessageBox_DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
+                        Resources.MessageBox_DnGrep, 
+                        MessageBoxButton.OK, MessageBoxImage.Error,
+                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                 }
                 catch (Exception ex)
                 {
                     logger.Error(ex, "Failed to unregister auto startup");
                     MessageBox.Show(Resources.MessageBox_ThereWasAnErrorUnregisteringAutoStartup + App.LogDir,
-                        Resources.MessageBox_DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
+                        Resources.MessageBox_DnGrep, 
+                        MessageBoxButton.OK, MessageBoxImage.Error,
+                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                 }
             }
         }
@@ -1382,7 +1398,7 @@ namespace dnGREP.WPF
         #endregion
     }
 
-    public class PluginOptions : ViewModelBase
+    public class PluginOptions : CultureAwareViewModel
     {
         public PluginOptions(string name, bool enabled, string defExt, string addExt, string remExt)
         {

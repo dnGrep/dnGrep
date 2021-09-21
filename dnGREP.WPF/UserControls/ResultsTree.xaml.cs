@@ -391,7 +391,8 @@ namespace dnGREP.WPF.UserControls
                         {
                             MessageBox.Show(Localization.Properties.Resources.MessageBox_RenameFailed + ex.Message,
                                 Localization.Properties.Resources.MessageBox_DnGrep + "  " + Localization.Properties.Resources.MessageBox_RenameFile,
-                                MessageBoxButton.OK, MessageBoxImage.Error);
+                                MessageBoxButton.OK, MessageBoxImage.Error,
+                                MessageBoxResult.OK, Localization.TranslationSource.Instance.FlowDirection);
                         }
                     }
                 }

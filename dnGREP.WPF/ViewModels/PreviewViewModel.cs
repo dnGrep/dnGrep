@@ -11,7 +11,7 @@ using NLog;
 
 namespace dnGREP.WPF
 {
-    public class PreviewViewModel : ViewModelBase, INotifyPropertyChanged
+    public class PreviewViewModel : CultureAwareViewModel, INotifyPropertyChanged
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 

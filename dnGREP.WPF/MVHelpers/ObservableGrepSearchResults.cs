@@ -423,7 +423,7 @@ namespace dnGREP.WPF
         }
     }
 
-    public class FormattedGrepResult : ViewModelBase, ITreeItem
+    public class FormattedGrepResult : CultureAwareViewModel, ITreeItem
     {
         public GrepSearchResult GrepResult { get; private set; } = new GrepSearchResult();
 
@@ -639,7 +639,7 @@ namespace dnGREP.WPF
         public IEnumerable<ITreeItem> Children => FormattedLines;
     }
 
-    public class FormattedGrepLine : ViewModelBase, ITreeItem
+    public class FormattedGrepLine : CultureAwareViewModel, ITreeItem
     {
         public FormattedGrepLine(GrepLine line, FormattedGrepResult parent, int initialColumnWidth, bool breakSection)
         {
@@ -1166,7 +1166,7 @@ namespace dnGREP.WPF
         }
     }
 
-    public class FormattedGrepMatch : ViewModelBase
+    public class FormattedGrepMatch : CultureAwareViewModel
     {
         public FormattedGrepMatch(GrepMatch match)
         {

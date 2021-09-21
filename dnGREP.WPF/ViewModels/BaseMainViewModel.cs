@@ -13,7 +13,7 @@ using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
 {
-    public class BaseMainViewModel : ViewModelBase, IDataErrorInfo
+    public class BaseMainViewModel : CultureAwareViewModel, IDataErrorInfo
     {
         public static readonly int FastBookmarkCapacity = 20;
         public static readonly string STAR = "*";

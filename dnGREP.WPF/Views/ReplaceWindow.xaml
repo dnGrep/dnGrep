@@ -9,6 +9,7 @@
                  Title="{l:Loc Key='Replace_Title'}"
                  Width="980"
                  Height="800"
+                 FlowDirection="{Binding CultureFlowDirection}"
                  FontFamily="{Binding ApplicationFontFamily}"
                  FontSize="{Binding ReplaceFormFontSize}"
                  Icon="/dnGREP;component/nGREP.ico"

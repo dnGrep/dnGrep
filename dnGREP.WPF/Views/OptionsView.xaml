@@ -6,6 +6,7 @@
                  Title="{l:Loc Key='Options_OptionsTitle'}"
                  Height="600"
                  MinWidth="500"
+                 FlowDirection="{Binding CultureFlowDirection}"
                  FontFamily="{Binding ApplicationFontFamily}"
                  FontSize="{Binding DialogFontSize}"
                  my:DiginesisHelpProvider.HelpKeyword="Options"

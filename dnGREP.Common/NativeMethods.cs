@@ -120,8 +120,8 @@ namespace dnGREP.Common
                             TranslationSource.Format(Resources.MessageBox_WindowTitleIsName, process.MainWindowTitle);
                         logger.Error(msg);
                         System.Windows.MessageBox.Show(msg, Resources.MessageBox_DnGrep,
-                            System.Windows.MessageBoxButton.OK,
-                            System.Windows.MessageBoxImage.Error);
+                            System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error,
+                            System.Windows.MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                     }
                 }
                 else

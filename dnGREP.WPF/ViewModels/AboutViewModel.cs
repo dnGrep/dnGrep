@@ -7,7 +7,7 @@ using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
 {
-    public class AboutViewModel : ViewModelBase
+    public class AboutViewModel : CultureAwareViewModel
     {
         public AboutViewModel()
         {

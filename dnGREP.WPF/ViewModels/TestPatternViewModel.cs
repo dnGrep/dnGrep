@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Xml;
 using dnGREP.Common;
 using dnGREP.Engines;
+using dnGREP.Localization;
 using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
@@ -289,7 +290,9 @@ namespace dnGREP.WPF
                 catch (ArgumentException ex)
                 {
                     MessageBox.Show(Resources.MessageBox_IncorrectPattern + ex.Message, 
-                        Resources.MessageBox_DnGrep, MessageBoxButton.OK, MessageBoxImage.Warning);
+                        Resources.MessageBox_DnGrep, 
+                        MessageBoxButton.OK, MessageBoxImage.Warning,
+                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                 }
             }
 
@@ -371,7 +374,9 @@ namespace dnGREP.WPF
             catch (ArgumentException ex)
             {
                 MessageBox.Show(Resources.MessageBox_IncorrectPattern + ex.Message, 
-                    Resources.MessageBox_DnGrep, MessageBoxButton.OK, MessageBoxImage.Warning);
+                    Resources.MessageBox_DnGrep, 
+                    MessageBoxButton.OK, MessageBoxImage.Warning,
+                    MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
             }
             catch (XmlException)
             {
@@ -379,7 +384,9 @@ namespace dnGREP.WPF
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Resources.MessageBox_Error + ex.Message, Resources.MessageBox_DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Resources.MessageBox_Error + ex.Message, Resources.MessageBox_DnGrep, 
+                    MessageBoxButton.OK, MessageBoxImage.Error,
+                    MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
             }
 
             Paragraph paragraph = new Paragraph();

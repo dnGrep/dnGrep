@@ -122,7 +122,9 @@ namespace dnGREP.Common
                             var answer = MessageBox.Show(
                                 TranslationSource.Format(Resources.MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting,
                                     destinationFileInfo.Name, destinationFileInfo.DirectoryName),
-                                Resources.MessageBox_DnGrep, MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
+                                Resources.MessageBox_DnGrep, 
+                                MessageBoxButton.YesNoCancel, MessageBoxImage.Question, 
+                                MessageBoxResult.No, TranslationSource.Instance.FlowDirection);
 
                             if (answer == MessageBoxResult.Cancel)
                                 return count;
@@ -190,7 +192,9 @@ namespace dnGREP.Common
                             var answer = MessageBox.Show(
                                 TranslationSource.Format(Resources.MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting,
                                     destinationFileInfo.Name, destinationFileInfo.DirectoryName),
-                                Resources.MessageBox_DnGrep, MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
+                                Resources.MessageBox_DnGrep, 
+                                MessageBoxButton.YesNoCancel, MessageBoxImage.Question, 
+                                MessageBoxResult.No, TranslationSource.Instance.FlowDirection);
 
                             if (answer == MessageBoxResult.Cancel)
                                 return count;

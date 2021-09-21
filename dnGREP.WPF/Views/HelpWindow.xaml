@@ -9,6 +9,7 @@
         Title="{l:Loc Key='Help_DnGrepHelp'}" 
         Height="600" 
         Width="450"
+        FlowDirection="{Binding CultureFlowDirection}"
         FontFamily="{Binding ApplicationFontFamily}"
         FontSize="{Binding DialogFontSize}"
         Icon="/dnGREP;component/nGREP.ico"

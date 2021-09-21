@@ -11,6 +11,8 @@ namespace dnGREP.WPF
         {
             InitializeComponent();
 
+            DataContext = new CultureAwareViewModel();
+
             WarningMsg.Visibility = showWarning ? Visibility.Visible : Visibility.Collapsed;
             HelpText.Text = helpString;
         }

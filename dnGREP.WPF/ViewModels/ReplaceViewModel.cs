@@ -15,7 +15,7 @@ namespace dnGREP.WPF
     /// <summary>
     /// View model for the replace dialog
     /// </summary>
-    public class ReplaceViewModel : ViewModelBase
+    public class ReplaceViewModel : CultureAwareViewModel
     {
         public event EventHandler LoadFile;
         public event EventHandler ReplaceMatch;
