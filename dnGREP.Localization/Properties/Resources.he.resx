@@ -121,7 +121,7 @@
     <value>אודות dnGREP</value>
   </data>
   <data name="About_Acknowledgments" xml:space="preserve">
-    <value />
+    <value>הכרות תודה</value>
   </data>
   <data name="About_BuiltOn" xml:space="preserve">
     <value>בנוי על</value>
@@ -136,40 +136,40 @@
     <value>dnGrep ב- GitHub</value>
   </data>
   <data name="About_FileSystemIndexingLocateFilesInstantly" xml:space="preserve">
-    <value>File system indexing, locate files instantly</value>
+    <value>אינדקס מערכת קבצים, מצא קבצים מיידית</value>
   </data>
   <data name="About_JsonFrameworkForNET" xml:space="preserve">
-    <value />
+    <value>Json framework ל- .NET</value>
   </data>
   <data name="About_LibraryForReadingArchiveFiles" xml:space="preserve">
-    <value />
+    <value>ספרייה לקריאת קבצי ארכיון</value>
   </data>
   <data name="About_LoggingFrameworkForNET" xml:space="preserve">
-    <value />
+    <value>רישום framework עבור .NET</value>
   </data>
   <data name="About_NETLibraryFor7Zip" xml:space="preserve">
-    <value />
+    <value>ספריית .NET ל- 7-Zip</value>
   </data>
   <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
-    <value />
+    <value>ספריית .NET לאיתור ערכות תווים</value>
   </data>
   <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value />
+    <value>ספריית .NET לנתיבים באורך מורחב</value>
   </data>
   <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
-    <value />
+    <value>ספריית .NET לקריאת קבצי Microsoft Excel</value>
   </data>
   <data name="About_NETLibraryToParseECMA376Numbers" xml:space="preserve">
-    <value />
+    <value>ספריית .NET לנתח מספרי ECMA-376</value>
   </data>
   <data name="About_NETLibraryToWorkWithWordAndExcelDocuments" xml:space="preserve">
-    <value />
+    <value>ספריית .NET לעבודה עם מסמכי Word ו- Excel</value>
   </data>
   <data name="About_NETWPFScreenHelperUtility" xml:space="preserve">
-    <value />
+    <value>.NET WPF כלי עזר למסכים</value>
   </data>
   <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
-    <value />
+    <value>.NET WPF רכיב עורך טקסט</value>
   </data>
   <data name="About_OK" xml:space="preserve">
     <value>אישור</value>
@@ -180,8 +180,14 @@
   <data name="BookmarkDetails_AssociatedFolders" xml:space="preserve">
     <value>תיקיות הקשורות:</value>
   </data>
+  <data name="BookmarkDetails_BooleanOperators" xml:space="preserve">
+    <value>אופרטורים בוליאניים</value>
+  </data>
   <data name="BookmarkDetails_Cancel" xml:space="preserve">
     <value>_ביטול</value>
+  </data>
+  <data name="BookmarkDetails_CaseSensitive" xml:space="preserve">
+    <value>תלוי רישיות</value>
   </data>
   <data name="BookmarkDetails_Description" xml:space="preserve">
     <value>תיאור:</value>
@@ -192,8 +198,14 @@
   <data name="BookmarkDetails_Encoding" xml:space="preserve">
     <value>הצפנה:</value>
   </data>
+  <data name="BookmarkDetails_EverythingIndexService" xml:space="preserve">
+    <value>שירות אינדקס של Everything</value>
+  </data>
   <data name="BookmarkDetails_FilePatternType" xml:space="preserve">
     <value>סוג תבנית קובץ</value>
+  </data>
+  <data name="BookmarkDetails_FollowSymbolicLinks" xml:space="preserve">
+    <value>Follow symbolic links</value>
   </data>
   <data name="BookmarkDetails_ForExampleAsteriskPattern" xml:space="preserve">
     <value>e.g. file??.*</value>
@@ -210,26 +222,77 @@
   <data name="BookmarkDetails_IncludeSubfolders" xml:space="preserve">
     <value>כלול תיקיות משנה</value>
   </data>
+  <data name="BookmarkDetails_MaxDepth" xml:space="preserve">
+    <value>עומק מרבי</value>
+  </data>
+  <data name="BookmarkDetails_Multiline" xml:space="preserve">
+    <value>_Multiline</value>
+  </data>
   <data name="BookmarkDetails_OK" xml:space="preserve">
     <value>אישור</value>
+  </data>
+  <data name="BookmarkDetails_PatternsToExclude" xml:space="preserve">
+    <value>תבניות לאי הכללה:</value>
+  </data>
+  <data name="BookmarkDetails_PatternsToMatch" xml:space="preserve">
+    <value>תבניות להתאמה:</value>
+  </data>
+  <data name="BookmarkDetails_PatternType_AsteriskPattern" xml:space="preserve">
+    <value>תבנית כוכבית</value>
+  </data>
+  <data name="BookmarkDetails_PatternType_Everything" xml:space="preserve">
+    <value>Everything</value>
+  </data>
+  <data name="BookmarkDetails_PatternType_Regex" xml:space="preserve">
+    <value>_Regex</value>
   </data>
   <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
     <value>להחליף ב:</value>
   </data>
+  <data name="BookmarkDetails_SearchFor" xml:space="preserve">
+    <value>חפש את:</value>
+  </data>
   <data name="BookmarkDetails_SearchInArchives" xml:space="preserve">
     <value>חיפוש בארכיונים</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
+    <value>Phonetic</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
+    <value>Phonetic search</value>
   </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
     <value>חיפוש טקסט רגיל</value>
   </data>
+  <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
+    <value>_Regex</value>
+  </data>
   <data name="BookmarkDetails_SearchType_RegularExpressionSearch" xml:space="preserve">
     <value>חיפוש ביטוי רגיל</value>
   </data>
+  <data name="BookmarkDetails_SearchType_Text" xml:space="preserve">
+    <value>_טקסט</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_XPath" xml:space="preserve">
+    <value>_XPath</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
+    <value>חיפוש XPath (מסמכי XML בלבד)</value>
+  </data>
   <data name="BookmarkDetails_ThisBookmarkAlreadyExists" xml:space="preserve">
-    <value />
+    <value>סימניה זו כבר קיימת</value>
   </data>
   <data name="BookmarkDetails_Title" xml:space="preserve">
     <value>פרטי סימנייה</value>
+  </data>
+  <data name="BookmarkDetails_TypeHeader" xml:space="preserve">
+    <value>סוג</value>
+  </data>
+  <data name="BookmarkDetails_UseGitignore" xml:space="preserve">
+    <value>Use .gitignore</value>
+  </data>
+  <data name="BookmarkDetails_UseGitignoreToFilterFiles" xml:space="preserve">
+    <value>Use .gitignore to filter files</value>
   </data>
   <data name="BookmarkDetails_WholeWord" xml:space="preserve">
     <value>_מילה שלמה</value>
@@ -256,7 +319,7 @@
     <value>תבנית קובץ</value>
   </data>
   <data name="Bookmarks_Filter" xml:space="preserve">
-    <value />
+    <value>מסנן:</value>
   </data>
   <data name="Bookmarks_OtherPropertiesHeader" xml:space="preserve">
     <value>מאפיינים אחרים</value>
@@ -265,7 +328,16 @@
     <value>להחליף ב</value>
   </data>
   <data name="Bookmarks_SearchForHeader" xml:space="preserve">
-    <value />
+    <value>חפש את</value>
+  </data>
+  <data name="Bookmarks_Summary_CaseSensitive" xml:space="preserve">
+    <value>תלוי רישיות</value>
+  </data>
+  <data name="Bookmarks_Summary_MaxFolderDepth" xml:space="preserve">
+    <value>עומק התיקיה המרבי {0}</value>
+  </data>
+  <data name="Bookmarks_Summary_Multiline" xml:space="preserve">
+    <value>Multiline</value>
   </data>
   <data name="Bookmarks_Summary_NoBinary" xml:space="preserve">
     <value>אין בינארי</value>
@@ -275,6 +347,9 @@
   </data>
   <data name="Bookmarks_Summary_NoSubfolders" xml:space="preserve">
     <value>אין תיקיות משנה</value>
+  </data>
+  <data name="Bookmarks_Summary_NoSymlinks" xml:space="preserve">
+    <value>ללא קישורים סימבולים</value>
   </data>
   <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
     <value>חיפוש בארכיונים</value>
@@ -286,10 +361,10 @@
     <value>סימניות</value>
   </data>
   <data name="Bookmarks_TypeHeader" xml:space="preserve">
-    <value />
+    <value>סוג</value>
   </data>
   <data name="Bookmarks_Use" xml:space="preserve">
-    <value />
+    <value>_Use</value>
   </data>
   <data name="Help_CmdLine" xml:space="preserve">
     <value>dnGrep:  חיפוש בקבצי טקסט, Word ומסמכי Excel, PDFs, וארכיונים שמכילים טקסט, regular expression, XPath, ושאילתות פונטיות.
@@ -386,11 +461,14 @@ Arguments:
 -exit
     Exit dnGrep after command line operations are complete.</value>
   </data>
+  <data name="Help_DnGrepHelp" xml:space="preserve">
+    <value>עזרה dnGrep</value>
+  </data>
   <data name="Help_OK" xml:space="preserve">
     <value>אישור</value>
   </data>
   <data name="Help_OneOrMoreArgumentsAreInvalid" xml:space="preserve">
-    <value />
+    <value>One or more arguments are invalid.</value>
   </data>
   <data name="Main_AddSearchPatternToBookmarks" xml:space="preserve">
     <value>הוסף תבנית חיפוש לסימניות</value>
@@ -417,13 +495,13 @@ Arguments:
     <value>גודל:</value>
   </data>
   <data name="Main_Attributes_Type" xml:space="preserve">
-    <value />
+    <value>סוג:</value>
   </data>
   <data name="Main_AutoPosition" xml:space="preserve">
     <value>מיקום אוטומטי.</value>
   </data>
   <data name="Main_BooleanOperators" xml:space="preserve">
-    <value />
+    <value>אופרטורים בוליאניים</value>
   </data>
   <data name="Main_BrowseForFolderOrFiles" xml:space="preserve">
     <value>עיין בתיקייה או בקבצים</value>
@@ -432,31 +510,31 @@ Arguments:
     <value>_ביטול</value>
   </data>
   <data name="Main_CaptureGroupSearch" xml:space="preserve">
-    <value />
+    <value>Capture group search</value>
   </data>
   <data name="Main_CaseSensitive" xml:space="preserve">
-    <value />
+    <value>תלוי רישיות</value>
   </data>
   <data name="Main_ChangesTheResultsTreeZoom" xml:space="preserve">
-    <value />
+    <value>Changes the results tree zoom</value>
   </data>
   <data name="Main_ClearBookmark" xml:space="preserve">
     <value>נקה סימניות</value>
   </data>
   <data name="Main_CombineMultipleSearchPatternsUsingANDOrOR" xml:space="preserve">
-    <value />
+    <value>Combine multiple search patterns using 'AND' or 'OR'</value>
   </data>
   <data name="Main_ContextAfter" xml:space="preserve">
-    <value />
+    <value>אחרי</value>
   </data>
   <data name="Main_ContextBeforeAnd" xml:space="preserve">
-    <value />
+    <value>לפני</value>
   </data>
   <data name="Main_ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
-    <value />
+    <value>Context changes Will be applied in next search</value>
   </data>
   <data name="Main_ContextShowLines" xml:space="preserve">
-    <value />
+    <value>Show context lines</value>
   </data>
   <data name="Main_Created" xml:space="preserve">
     <value>נוצר</value>
@@ -465,10 +543,13 @@ Arguments:
     <value>מ-</value>
   </data>
   <data name="Main_DatePast" xml:space="preserve">
-    <value />
+    <value>עבר</value>
   </data>
   <data name="Main_DatePastHours" xml:space="preserve">
     <value>שעות</value>
+  </data>
+  <data name="Main_DateTo" xml:space="preserve">
+    <value>ל</value>
   </data>
   <data name="Main_DnGREP_Title" xml:space="preserve">
     <value>dnGREP</value>
@@ -492,16 +573,16 @@ Arguments:
     <value>איתור אוטומטי (ברירת מחדל)</value>
   </data>
   <data name="Main_EverythingIndexService" xml:space="preserve">
-    <value />
+    <value>שירות אינדקס של Everything</value>
   </data>
   <data name="Main_EverythingSearch" xml:space="preserve">
-    <value />
+    <value>חיפוש של Everything:</value>
   </data>
   <data name="Main_ExcelSheetName" xml:space="preserve">
-    <value />
+    <value>Sheet [{0}]</value>
   </data>
   <data name="Main_ExcludeFilesByTypeAndFoldersByName" xml:space="preserve">
-    <value />
+    <value>אל תכלול קבצים לפי סוג ותיקיות לפי שם</value>
   </data>
   <data name="Main_FilterSummary_AllFiles" xml:space="preserve">
     <value>כל הקבצים</value>
@@ -515,6 +596,9 @@ Arguments:
   <data name="Main_FilterSummary_BySize" xml:space="preserve">
     <value>לפי גודל</value>
   </data>
+  <data name="Main_FilterSummary_MaxFolderDepth" xml:space="preserve">
+    <value>עומק התיקיה המרבי {0}</value>
+  </data>
   <data name="Main_FilterSummary_NoBinary" xml:space="preserve">
     <value>אין בינארי</value>
   </data>
@@ -524,8 +608,14 @@ Arguments:
   <data name="Main_FilterSummary_NoSubfolders" xml:space="preserve">
     <value>אין תיקיות משנה</value>
   </data>
+  <data name="Main_FilterSummary_NoSymlinks" xml:space="preserve">
+    <value>ללא קישורים סימבולים</value>
+  </data>
   <data name="Main_Folder" xml:space="preserve">
     <value>תיקייה:</value>
+  </data>
+  <data name="Main_FollowSymbolicLinks" xml:space="preserve">
+    <value>Follow symbolic links</value>
   </data>
   <data name="Main_ForExampleAsteriskPattern" xml:space="preserve">
     <value>e.g. file??.*</value>
@@ -534,19 +624,19 @@ Arguments:
     <value>e.g. file[0-9]{1,2}\\.txt</value>
   </data>
   <data name="Main_FromTheStartOfTheDay" xml:space="preserve">
-    <value>from the start of the day</value>
+    <value>מתחילת היום</value>
   </data>
   <data name="Main_HideResultOptions" xml:space="preserve">
     <value>הסתר אפשרויות תוצאה</value>
   </data>
   <data name="Main_HighlightGroups" xml:space="preserve">
-    <value />
+    <value>Highlight Groups</value>
   </data>
   <data name="Main_HighlightMatches" xml:space="preserve">
-    <value />
+    <value>Highlight Matches</value>
   </data>
   <data name="Main_HighlightRegularExpressionGroups" xml:space="preserve">
-    <value />
+    <value>Highlight regular expression groups - changes will be applied in next search</value>
   </data>
   <data name="Main_IncludeBinaryFiles" xml:space="preserve">
     <value>כלול קבצים בינאריים</value>
@@ -561,7 +651,7 @@ Arguments:
     <value>כלול תיקיות משנה</value>
   </data>
   <data name="Main_MaxDepth" xml:space="preserve">
-    <value />
+    <value>עומק מרבי</value>
   </data>
   <data name="Main_Menu_About" xml:space="preserve">
     <value>_אודות</value>
@@ -606,10 +696,10 @@ Arguments:
     <value>העבר קבצים...</value>
   </data>
   <data name="Main_MoreMenu_Save_CSVResults" xml:space="preserve">
-    <value />
+    <value>תוצאות CSV</value>
   </data>
   <data name="Main_MoreMenu_Save_Report" xml:space="preserve">
-    <value />
+    <value>דוח</value>
   </data>
   <data name="Main_MoreMenu_Save_TextResults" xml:space="preserve">
     <value>תוצאות טקסט</value>
@@ -618,28 +708,31 @@ Arguments:
     <value>שמור תוצאות</value>
   </data>
   <data name="Main_Multiline" xml:space="preserve">
-    <value />
+    <value>_Multiline</value>
   </data>
   <data name="Main_OpenFolder" xml:space="preserve">
     <value>...</value>
   </data>
+  <data name="Main_PastDateTo" xml:space="preserve">
+    <value>ל</value>
+  </data>
   <data name="Main_PatternsToExclude" xml:space="preserve">
-    <value />
+    <value>תבניות לאי הכללה:</value>
   </data>
   <data name="Main_PatternsToMatch" xml:space="preserve">
-    <value />
+    <value>תבניות להתאמה:</value>
   </data>
   <data name="Main_PatternType_Asterisk" xml:space="preserve">
-    <value />
+    <value>תבנית כוכבית</value>
   </data>
   <data name="Main_PatternType_Everything" xml:space="preserve">
-    <value />
+    <value>Everything</value>
   </data>
   <data name="Main_PatternType_Regex" xml:space="preserve">
-    <value />
+    <value>_Regex</value>
   </data>
   <data name="Main_PreviewFile" xml:space="preserve">
-    <value />
+    <value>תצוגה מקדימה לקובץ</value>
   </data>
   <data name="Main_RemoveFolderFromBookmarkAssociation" xml:space="preserve">
     <value>הסר תיקייה מהאיגוד הסימניות</value>
@@ -654,10 +747,10 @@ Arguments:
     <value>פורמט קובץ CSV</value>
   </data>
   <data name="Main_ReportOption_ReportFileFormat" xml:space="preserve">
-    <value />
+    <value>Report file format</value>
   </data>
   <data name="Main_ReportOption_ResultsFileFormat" xml:space="preserve">
-    <value />
+    <value>Results file format</value>
   </data>
   <data name="Main_ResetOptions" xml:space="preserve">
     <value>איפוס אפשרויות</value>
@@ -672,7 +765,7 @@ Arguments:
     <value>במיקום {0}</value>
   </data>
   <data name="Main_ResultList_CountAdditionalCharacters" xml:space="preserve">
-    <value />
+    <value>...(+{0:n0} characters)</value>
   </data>
   <data name="Main_ResultList_CountMatches" xml:space="preserve">
     <value>{0} ({1} התאמות)</value>
@@ -698,6 +791,9 @@ Arguments:
   <data name="Main_Results_CompareFiles" xml:space="preserve">
     <value>השווה קבצים</value>
   </data>
+  <data name="Main_Results_CopyFileNames" xml:space="preserve">
+    <value>העתק שמות קבצים</value>
+  </data>
   <data name="Main_Results_CopyFullFilePaths" xml:space="preserve">
     <value>העתק נתיבי קבצים מלאים</value>
   </data>
@@ -705,13 +801,13 @@ Arguments:
     <value>העתק שורות טקסט</value>
   </data>
   <data name="Main_Results_ExcludeFromResults" xml:space="preserve">
-    <value />
+    <value>אל תכלול בתוצאה</value>
   </data>
   <data name="Main_Results_ExpandAll" xml:space="preserve">
-    <value />
+    <value>הרחב הכל</value>
   </data>
   <data name="Main_Results_NextMatch" xml:space="preserve">
-    <value />
+    <value>התאמה הבאה</value>
   </data>
   <data name="Main_Results_Open" xml:space="preserve">
     <value>פתח</value>
@@ -741,10 +837,10 @@ Arguments:
     <value>_חיפוש</value>
   </data>
   <data name="Main_SearchFilesInMultipleThreads" xml:space="preserve">
-    <value />
+    <value>Search files in multiple threads</value>
   </data>
   <data name="Main_SearchFor" xml:space="preserve">
-    <value />
+    <value>חפש _את:</value>
   </data>
   <data name="Main_SearchGroup" xml:space="preserve">
     <value>חיפוש</value>
@@ -759,16 +855,16 @@ Arguments:
     <value>חיפוש _בתוצאות</value>
   </data>
   <data name="Main_SearchParallel" xml:space="preserve">
-    <value />
+    <value>Search Paralle_l</value>
   </data>
   <data name="Main_SearchType_Hex" xml:space="preserve">
-    <value />
+    <value>Hex</value>
   </data>
   <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value />
+    <value>Phonetic</value>
   </data>
   <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
-    <value />
+    <value>Phonetic search</value>
   </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
     <value>חיפוש טקסט רגיל</value>
@@ -776,17 +872,20 @@ Arguments:
   <data name="Main_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
     <value>קרא קובץ כמו בינארי וחפש בתים כמו ספרות הקסדצימלי: 68 65 78 20</value>
   </data>
+  <data name="Main_SearchType_Regex" xml:space="preserve">
+    <value>_Regex</value>
+  </data>
   <data name="Main_SearchType_RegularExpressionSearch" xml:space="preserve">
     <value>חיפוש ביטוי רגיל</value>
   </data>
   <data name="Main_SearchType_Text" xml:space="preserve">
-    <value />
+    <value>_טקסט</value>
   </data>
   <data name="Main_SearchType_XPath" xml:space="preserve">
-    <value />
+    <value>_XPath</value>
   </data>
   <data name="Main_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
-    <value />
+    <value>חיפוש XPath (מסמכי XML בלבד)</value>
   </data>
   <data name="Main_SelectADate" xml:space="preserve">
     <value>בחר תאריך</value>
@@ -798,19 +897,19 @@ Arguments:
     <value>הגודל הוא</value>
   </data>
   <data name="Main_SizeKB" xml:space="preserve">
-    <value />
+    <value>KB</value>
   </data>
   <data name="Main_SizeTo" xml:space="preserve">
-    <value />
+    <value>ל</value>
   </data>
   <data name="Main_SortButton" xml:space="preserve">
-    <value />
+    <value>מיין</value>
   </data>
   <data name="Main_SortMenu_Ascending" xml:space="preserve">
-    <value />
+    <value>עולה</value>
   </data>
   <data name="Main_SortMenu_Descending" xml:space="preserve">
-    <value />
+    <value>יורד</value>
   </data>
   <data name="Main_SortMenu_FileNameOnly" xml:space="preserve">
     <value>שם קובץ בלבד</value>
@@ -819,10 +918,10 @@ Arguments:
     <value>גודל הקובץ</value>
   </data>
   <data name="Main_SortMenu_FileTypeAndName" xml:space="preserve">
-    <value />
+    <value>סוג קובץ ושם</value>
   </data>
   <data name="Main_SortMenu_LastWriteTime" xml:space="preserve">
-    <value />
+    <value>זמן כתיבה אחרון</value>
   </data>
   <data name="Main_SortMenu_MatchCount" xml:space="preserve">
     <value>ספירת התאמה</value>
@@ -867,31 +966,37 @@ Arguments:
     <value>עצור לאחר ההתאמה הראשונה</value>
   </data>
   <data name="Main_TestExpression" xml:space="preserve">
-    <value />
+    <value>Test Expression</value>
   </data>
   <data name="Main_ThroughTheEndOfTheDay" xml:space="preserve">
-    <value />
+    <value>עד סוף היום</value>
   </data>
   <data name="Main_UseCaptureGroupsFromPathsToMatch" xml:space="preserve">
-    <value />
+    <value>השתמש בקבוצות לכידה מתוך 'נתיבים להתאמה' בתבנית 'חפש'</value>
   </data>
   <data name="Main_UseGitignore" xml:space="preserve">
-    <value />
+    <value>Use .gitignore</value>
   </data>
   <data name="Main_UseGitignoreToFilterFiles" xml:space="preserve">
-    <value />
+    <value>Use .gitignore to filter files</value>
+  </data>
+  <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
+    <value>מחרוזת Hex אינה תקינה</value>
+  </data>
+  <data name="Main_Validation_HexStringIsOK" xml:space="preserve">
+    <value>מחרוזת Hex תקינה</value>
   </data>
   <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">
-    <value>Regex לא תקף!</value>
+    <value>Regex לא תקין!</value>
   </data>
   <data name="Main_Validation_RegexIsOK" xml:space="preserve">
     <value>Regex בסדר!</value>
   </data>
   <data name="Main_Validation_XPathIsNotValid" xml:space="preserve">
-    <value />
+    <value>XPath אינו תקין!</value>
   </data>
   <data name="Main_Validation_XPathIsOK" xml:space="preserve">
-    <value />
+    <value>XPath בסדר!</value>
   </data>
   <data name="Main_WholeWord" xml:space="preserve">
     <value>_מילה שלמה</value>
@@ -900,10 +1005,10 @@ Arguments:
     <value>{0} ב- "{1}" - dnGREP</value>
   </data>
   <data name="Main_WrapText" xml:space="preserve">
-    <value />
+    <value>Wrap Text</value>
   </data>
   <data name="Main_Zoom" xml:space="preserve">
-    <value />
+    <value>זום:</value>
   </data>
   <data name="MessageBox_AreYouSureYouWantToContinue" xml:space="preserve">
     <value>האם אתה בטוח שברצונך להמשיך?</value>
@@ -927,7 +1032,7 @@ Arguments:
     <value>לא ניתן לטעון קובץ משאבים '{0}': </value>
   </data>
   <data name="MessageBox_CouldNotLoadTheme" xml:space="preserve">
-    <value />
+    <value>לא ניתן לטעון את ערכת הנושא '{0}', עיין ביומן השגיאות לפרטים:</value>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyCopied" xml:space="preserve">
     <value>{0} קבצים הועתקו בהצלחה.</value>
@@ -960,10 +1065,10 @@ Arguments:
     <value>אירעה שגיאה בפתיחת קובץ. ראה את יומן השגיאה לקבלת פרטים: </value>
   </data>
   <data name="MessageBox_ErrorSettingClipboardTextTheClipboardIsLockedBy" xml:space="preserve">
-    <value />
+    <value>Error setting clipboard text, the clipboard is locked by</value>
   </data>
   <data name="MessageBox_FailedToExtractFileFromArchive" xml:space="preserve">
-    <value />
+    <value>Failed to extract file from archive. See the error log for details: </value>
   </data>
   <data name="MessageBox_FilesHaveBeenSuccessfullyReverted" xml:space="preserve">
     <value>קבצים הוחזרו בהצלחה.</value>
@@ -972,7 +1077,7 @@ Arguments:
     <value>דפוס שגוי: </value>
   </data>
   <data name="MessageBox_LoadResources" xml:space="preserve">
-    <value />
+    <value>טען משאבים</value>
   </data>
   <data name="MessageBox_MoveFiles" xml:space="preserve">
     <value>העבר קבצים</value>
@@ -1002,85 +1107,88 @@ Arguments:
     <value>החלפה נכשלה! ראה את יומן השגיאה לקבלת פרטים: </value>
   </data>
   <data name="MessageBox_ResourcesFile0IsNotAResxFile" xml:space="preserve">
-    <value />
+    <value>קובץ משאבים '{0}', אינו קובץ resx.</value>
   </data>
   <data name="MessageBox_RunDnGrepAsAdministrator" xml:space="preserve">
-    <value>הפעל את dnGrep לשנות הצגה של dnGrep תפריט לחצן ימני בסייר הקבצים</value>
+    <value>הפעל את dnGrep כמנהל לשנות הצגה של dnGrep בתפריט ההקשר בסייר הקבצים</value>
   </data>
   <data name="MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister" xml:space="preserve">
     <value>הפעל את dnGrep כמנהל כדי לשנות את רישום ההפעלה</value>
   </data>
   <data name="MessageBox_SearchFailedError" xml:space="preserve">
-    <value />
+    <value>החיפוש נכשל! עיין ביומן השגיאות לפרטים:</value>
   </data>
   <data name="MessageBox_SearchOrReplaceFailed" xml:space="preserve">
     <value>חיפוש או החלפה נכשל! ראה את יומן השגיאה לקבלת פרטים: </value>
   </data>
   <data name="MessageBox_SearchPathInTheFieldIsNotValid" xml:space="preserve">
-    <value />
+    <value>נתיב החיפוש בשדה '{0}' אינו חוקי, החיפוש בוטל.</value>
   </data>
   <data name="MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory" xml:space="preserve">
     <value>תשומת לב, חלק מהקבצים ממוקמים בספריה שנבחרה.</value>
   </data>
   <data name="MessageBox_SomeOfTheFilesCannotBeModifiedIfYouContinueTheseFilesWillBeSkipped" xml:space="preserve">
-    <value />
+    <value>לא ניתן לשנות חלק מהקבצים. אם תמשיך, קבצים אלה ידולגו.</value>
   </data>
   <data name="MessageBox_SomethingBrokeDownInDnGrep" xml:space="preserve">
-    <value />
+    <value>משהו התקלקל ב- dnGrep. עיין ביומן השגיאות לפרטים:</value>
   </data>
   <data name="MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting" xml:space="preserve">
-    <value />
+    <value>הקובץ '{0}' כבר קיים ב-{1}, להחליף את הקיים?</value>
   </data>
   <data name="MessageBox_TheFilePattern0IsNotAValidRegularExpression12" xml:space="preserve">
-    <value />
+    <value>תבנית הקובץ '{0}' אינה ביטוי רגיל תקף:{1}{2}</value>
   </data>
   <data name="MessageBox_TheFollowingPluginsFailedToLoad" xml:space="preserve">
-    <value />
+    <value>הטעינה של התוספים הבאים לא הצליחה:</value>
   </data>
   <data name="MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu" xml:space="preserve">
-    <value />
+    <value>94 / 5000
+ 
+תוצאות התרגום
+אירעה שגיאה בהוספת dnGrep לתפריט לחיצה ימנית בסייר הקבצים. עיין ביומן השגיאות לפרטים:</value>
   </data>
   <data name="MessageBox_ThereWasAnErrorCopyingFiles" xml:space="preserve">
-    <value />
+    <value>There was an error copying files. See the error log for details: </value>
   </data>
   <data name="MessageBox_ThereWasAnErrorCreatingTheFile" xml:space="preserve">
-    <value />
+    <value>There was an error creating the file. See the error log for details: </value>
   </data>
   <data name="MessageBox_ThereWasAnErrorDeletingFiles" xml:space="preserve">
-    <value />
+    <value>There was an error deleting files. See the error log for details: </value>
   </data>
   <data name="MessageBox_ThereWasAnErrorMovingFiles" xml:space="preserve">
-    <value />
+    <value>There was an error moving files. See the error log for details: </value>
   </data>
   <data name="MessageBox_ThereWasAnErrorRegisteringAutoStartup" xml:space="preserve">
-    <value />
+    <value>There was an error registering auto startup. See the error log for details: </value>
   </data>
   <data name="MessageBox_ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu" xml:space="preserve">
-    <value />
+    <value>אירעה שגיאה בהסרת dnGrep מתפריט הלחיצה הימנית של סייר. עיין ביומן השגיאות לפרטים:</value>
   </data>
   <data name="MessageBox_ThereWasAnErrorRevertingFiles" xml:space="preserve">
-    <value />
+    <value>There was an error reverting files. See the error log for details: </value>
   </data>
   <data name="MessageBox_ThereWasAnErrorRunningRegexTest" xml:space="preserve">
-    <value />
+    <value>There was an error running the test window. See the error log for details: </value>
   </data>
   <data name="MessageBox_ThereWasAnErrorSavingOptions" xml:space="preserve">
-    <value />
+    <value>There was an error saving options. See the error log for details: </value>
   </data>
   <data name="MessageBox_ThereWasAnErrorUnregisteringAutoStartup" xml:space="preserve">
-    <value />
+    <value>There was an error unregistering auto startup. See the error log for details: </value>
   </data>
   <data name="MessageBox_ThisBookmarkIsAssociatedWith0OtherFolders" xml:space="preserve">
-    <value />
+    <value>This bookmark is associated with {0} other folders:</value>
   </data>
   <data name="MessageBox_ThisBookmarkIsAssociatedWithOneOtherFolder" xml:space="preserve">
-    <value />
+    <value>This bookmark is associated with one other folder</value>
   </data>
   <data name="MessageBox_Undo" xml:space="preserve">
     <value>לבטל</value>
   </data>
   <data name="MessageBox_UndoWillRevertModifiedFiles" xml:space="preserve">
-    <value />
+    <value>Undo will revert modified file(s) back to their original state. Any changes made to the file(s) after the replace will be overwritten. Are you sure you want to proceed?</value>
   </data>
   <data name="MessageBox_WindowTitleIsName" xml:space="preserve">
     <value>כותרת חלון: {0}</value>
@@ -1092,7 +1200,7 @@ Arguments:
     <value>האם אתה רוצה להוריד אותו עכשיו?</value>
   </data>
   <data name="MessageBox_YouAreAboutToDeleteFilesFoundDuringSearch" xml:space="preserve">
-    <value />
+    <value>Attention, you are about to delete files found during search.</value>
   </data>
   <data name="Options_AllowSearchingForFileNamePatternOnly" xml:space="preserve">
     <value>אפשר חיפוש תבנית שם קובץ רק כאשר 'חיפוש' ריק</value>
@@ -1107,7 +1215,7 @@ Arguments:
     <value>ברירת מחדל:</value>
   </data>
   <data name="Options_ArchiveExtensions" xml:space="preserve">
-    <value />
+    <value>סיומות קבצים:</value>
   </data>
   <data name="Options_ArchiveOptions" xml:space="preserve">
     <value>אפשרויות ארכיון</value>
@@ -1134,19 +1242,28 @@ Arguments:
     <value>_סגור</value>
   </data>
   <data name="Options_CompareApplication" xml:space="preserve">
-    <value />
+    <value>Compare application</value>
+  </data>
+  <data name="Options_CompareArguments" xml:space="preserve">
+    <value>Arguments</value>
   </data>
   <data name="Options_CompareCommand" xml:space="preserve">
     <value>פקודה</value>
+  </data>
+  <data name="Options_ContextAfter" xml:space="preserve">
+    <value>אחרי</value>
+  </data>
+  <data name="Options_ContextBeforeAnd" xml:space="preserve">
+    <value>לפני</value>
   </data>
   <data name="Options_CustomEditor" xml:space="preserve">
     <value>עורך מותאם אישית</value>
   </data>
   <data name="Options_CustomEditorHelp" xml:space="preserve">
-    <value />
+    <value>השתמש במילות מפתח '{0}' למיקום הקובץ, '{1}' עבור מספר השורה, '{2}' לדפוס החיפוש, '{3}' עבור הטקסט התואם הראשון בשורה, ו- '{4}' עבור מספר העמודה של ההתאמה הראשונה בשורה.</value>
   </data>
   <data name="Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
-    <value />
+    <value>Detect file encoding when searching for file name pattern only</value>
   </data>
   <data name="Options_DialogFontSize" xml:space="preserve">
     <value>גודל גופן דיאלוג</value>
@@ -1155,7 +1272,7 @@ Arguments:
     <value>dnGrep יוסיף את הקבצים שנבחרו לסוף שורת הפקודה.</value>
   </data>
   <data name="Options_EditorArguments" xml:space="preserve">
-    <value />
+    <value>Arguments</value>
   </data>
   <data name="Options_EditorCommand" xml:space="preserve">
     <value>פקודה</value>
@@ -1164,7 +1281,7 @@ Arguments:
     <value>אפשר בדיקה אוטומטית כל</value>
   </data>
   <data name="Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu" xml:space="preserve">
-    <value />
+    <value>מאפשר הפעלת dnGrep מתפריט ההקשר באמצעות לחצן העכבר הימני של סייר Windows.</value>
   </data>
   <data name="Options_FollowWindowsTheme" xml:space="preserve">
     <value>התאם לערכת נושא של ווינדוס</value>
@@ -1173,28 +1290,28 @@ Arguments:
     <value>שם גופן</value>
   </data>
   <data name="Options_HelpTranslateDnGrep" xml:space="preserve">
-    <value />
+    <value>עזור לתרגם את dnGrep.</value>
   </data>
   <data name="Options_HistoryLists" xml:space="preserve">
-    <value />
+    <value>רשימת היסטוריה</value>
   </data>
   <data name="Options_InOptionsExpander" xml:space="preserve">
-    <value />
+    <value>in options expander</value>
   </data>
   <data name="Options_ItemsShownInFileFilterHistoryLists" xml:space="preserve">
-    <value />
+    <value>items shown in file filter history lists</value>
   </data>
   <data name="Options_ItemsShownInPathHistoryList" xml:space="preserve">
-    <value />
+    <value>items shown in path history list</value>
   </data>
   <data name="Options_ItemsShownInSearchAndReplaceHistoryLists" xml:space="preserve">
-    <value />
+    <value>items shown in search and replace history lists</value>
   </data>
   <data name="Options_Language" xml:space="preserve">
     <value>שפה</value>
   </data>
   <data name="Options_Layout" xml:space="preserve">
-    <value />
+    <value>Layout</value>
   </data>
   <data name="Options_LoadFromFile" xml:space="preserve">
     <value>טען מקובץ....</value>
@@ -1203,28 +1320,31 @@ Arguments:
     <value>גודל הגופן הראשי</value>
   </data>
   <data name="Options_MatchEverythingToExactMatch" xml:space="preserve">
-    <value />
+    <value>0 - match everything; 1.0 - exact match</value>
   </data>
   <data name="Options_MatchThreshold" xml:space="preserve">
-    <value />
+    <value>Match threshold (from 0 to 1.0)</value>
   </data>
   <data name="Options_MatchTimeout" xml:space="preserve">
-    <value />
+    <value>Match timeout</value>
   </data>
   <data name="Options_OnMainPanel" xml:space="preserve">
-    <value />
+    <value>on main panel</value>
   </data>
   <data name="Options_OptionsTitle" xml:space="preserve">
     <value>אפשרויות</value>
   </data>
   <data name="Options_PDFToText" xml:space="preserve">
-    <value>PDF לטקסט</value>
+    <value>המרת PDF לטקסט</value>
   </data>
   <data name="Options_PdfToTextExeCommandLineOptions" xml:space="preserve">
     <value>PdfToText.exe אפשרויות שורת הפקודה:</value>
   </data>
   <data name="Options_PdfToTextReset" xml:space="preserve">
     <value>איפוס</value>
+  </data>
+  <data name="Options_PhoneticSearch" xml:space="preserve">
+    <value>Phonetic search</value>
   </data>
   <data name="Options_PluginAdd" xml:space="preserve">
     <value>הוסף:</value>
@@ -1235,6 +1355,9 @@ Arguments:
   <data name="Options_PluginEnabled" xml:space="preserve">
     <value>מאופשר</value>
   </data>
+  <data name="Options_PluginExtensions" xml:space="preserve">
+    <value>סיומות קבצים:</value>
+  </data>
   <data name="Options_PluginOptions" xml:space="preserve">
     <value>אפשרויות תוסף</value>
   </data>
@@ -1243,6 +1366,9 @@ Arguments:
   </data>
   <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
     <value>הקש F1 לקבלת עזרה באפשרויות</value>
+  </data>
+  <data name="Options_PreviewToolForTranslators" xml:space="preserve">
+    <value>כלי תצוגה מקדימה למתרגמים</value>
   </data>
   <data name="Options_RegexOptions" xml:space="preserve">
     <value>Regex אפשרויות</value>
@@ -1260,7 +1386,7 @@ Arguments:
     <value>אפשרויות תוצאות</value>
   </data>
   <data name="Options_SampleText" xml:space="preserve">
-    <value />
+    <value>טקסט לדוגמה</value>
   </data>
   <data name="Options_Save" xml:space="preserve">
     <value>שמור</value>
@@ -1269,31 +1395,31 @@ Arguments:
     <value>ערכת נושא פעילה</value>
   </data>
   <data name="Options_ShowDnGrepInExplorerRightClickMenu" xml:space="preserve">
-    <value />
+    <value>הצג את dnGrep בתפריט לחיצה ימנית בסייר הקבצים</value>
   </data>
   <data name="Options_ShowFileInfoToolTips" xml:space="preserve">
-    <value />
+    <value>Show file info tool tips</value>
   </data>
   <data name="Options_ShowFilePathInResultsPanel" xml:space="preserve">
-    <value />
+    <value>Show file path in results panel</value>
   </data>
   <data name="Options_ShowResultLinesInContext" xml:space="preserve">
-    <value />
+    <value>Show result lines in context</value>
   </data>
   <data name="Options_ShowResultsTreeExpanded" xml:space="preserve">
-    <value />
+    <value>Show results tree expanded</value>
   </data>
   <data name="Options_ShowSearchOptions" xml:space="preserve">
     <value>הצג אפשרויות חיפוש:</value>
   </data>
   <data name="Options_ShowVerboseMatchCount" xml:space="preserve">
-    <value />
+    <value>Show verbose match count</value>
   </data>
   <data name="Options_StartupOptions" xml:space="preserve">
     <value>אפשרויות הפעלה</value>
   </data>
   <data name="Options_TheMatchTimeoutLimits" xml:space="preserve">
-    <value />
+    <value>The match timeout limits how long the regular expression engine will attempt to resolve a regular expression before it times out. This prevents processing expressions and input strings that require excessive backtracking.</value>
   </data>
   <data name="Options_Theme" xml:space="preserve">
     <value>ערכת נושא</value>
@@ -1302,13 +1428,13 @@ Arguments:
     <value>שניות</value>
   </data>
   <data name="Options_ToChangeThisSettingRunDnGREPAsAdministrator" xml:space="preserve">
-    <value />
+    <value>כדי לשנות הגדרה זו הפעל את dnGREP כמנהל.</value>
   </data>
   <data name="Options_UseDefault" xml:space="preserve">
-    <value />
+    <value>השתמש בברירת המחדל</value>
   </data>
   <data name="Options_WantADifferentLanguage" xml:space="preserve">
-    <value />
+    <value>אתה רוצה שפה אחרת?</value>
   </data>
   <data name="Preview_FindNext" xml:space="preserve">
     <value>מצא הבא (F3)</value>
@@ -1317,10 +1443,10 @@ Arguments:
     <value>מצא את הקודם (Shift+F3)</value>
   </data>
   <data name="Preview_HighlightsDisabledTooManyMatchesFound" xml:space="preserve">
-    <value />
+    <value>Highlights disabled: too many matches found.</value>
   </data>
   <data name="Preview_MatchCase" xml:space="preserve">
-    <value />
+    <value>Match case</value>
   </data>
   <data name="Preview_MatchWholeWords" xml:space="preserve">
     <value>התאם מילים שלמות</value>
@@ -1329,13 +1455,19 @@ Arguments:
     <value>תצוגה מקדימה בכל מקרה</value>
   </data>
   <data name="Preview_SyntaxNone" xml:space="preserve">
-    <value />
+    <value>כלום</value>
   </data>
   <data name="Preview_ThisFileIsEitherBinaryOrTooLargeToPreview" xml:space="preserve">
-    <value />
+    <value>This file is either binary or too large to preview.</value>
   </data>
   <data name="Preview_UseRegularExpressions" xml:space="preserve">
     <value>השתמש בביטויים רגילים</value>
+  </data>
+  <data name="Preview_WrapText" xml:space="preserve">
+    <value>Wrap Text</value>
+  </data>
+  <data name="Preview_Zoom" xml:space="preserve">
+    <value>זום:</value>
   </data>
   <data name="Rename_Cancel" xml:space="preserve">
     <value>_ביטול</value>
@@ -1353,10 +1485,10 @@ Arguments:
     <value>בטל את כל ההחלפות</value>
   </data>
   <data name="Replace_ChangesTextEditorZoom" xml:space="preserve">
-    <value />
+    <value>Changes text editor zoom</value>
   </data>
   <data name="Replace_ErrorThisIsABinaryFile" xml:space="preserve">
-    <value />
+    <value>Error: this is a binary file</value>
   </data>
   <data name="Replace_FileNumberOfCountName" xml:space="preserve">
     <value>File {0} of {1}: {2}  ({3} matches on {4} lines)</value>
@@ -1380,10 +1512,10 @@ Arguments:
     <value>עבור אל ההתאמה הקודמת בקובץ זה [Ctrl+Right]</value>
   </data>
   <data name="Replace_Next" xml:space="preserve">
-    <value />
+    <value>_הבא</value>
   </data>
   <data name="Replace_NextFile" xml:space="preserve">
-    <value />
+    <value>קובץ _הבא:</value>
   </data>
   <data name="Replace_Previous" xml:space="preserve">
     <value>_הקודם</value>
@@ -1404,7 +1536,7 @@ Arguments:
     <value>החלף בכל הקבצים</value>
   </data>
   <data name="Replace_ReplaceInFile" xml:space="preserve">
-    <value />
+    <value>Replace in File</value>
   </data>
   <data name="Replace_ReplaceKey1_Text" xml:space="preserve">
     <value>טקסט</value>
@@ -1419,10 +1551,16 @@ Arguments:
     <value>דלג על התאמה</value>
   </data>
   <data name="Replace_ReplaceMatchesMarkedForReplacement" xml:space="preserve">
-    <value />
+    <value>החלף התאמות המסומנות להחלפה</value>
+  </data>
+  <data name="Replace_ReplaceWith" xml:space="preserve">
+    <value>החלף עם:</value>
   </data>
   <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
     <value>אפס ודלג על כל ההתאמות בקובץ זה [Ctrl+T]</value>
+  </data>
+  <data name="Replace_SearchFor" xml:space="preserve">
+    <value>חפש את:</value>
   </data>
   <data name="Replace_ShowTheNextFile" xml:space="preserve">
     <value>הצג את הקובץ הבא [Ctrl+PgDn]</value>
@@ -1430,8 +1568,11 @@ Arguments:
   <data name="Replace_ShowThePreviousFile" xml:space="preserve">
     <value>הצג את הקובץ הקודם [Ctrl+PgUp]</value>
   </data>
+  <data name="Replace_SyntaxNone" xml:space="preserve">
+    <value>כלום</value>
+  </data>
   <data name="Replace_ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
-    <value />
+    <value>This file contains too many matches for individual replace.  To replace all of them, click 'Replace in File'</value>
   </data>
   <data name="Replace_Title" xml:space="preserve">
     <value>החלף טקסט</value>
@@ -1443,7 +1584,13 @@ Arguments:
     <value>בטל קובץ</value>
   </data>
   <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
-    <value />
+    <value>Undo mark replace on this match [Ctrl+U]</value>
+  </data>
+  <data name="Replace_WrapText" xml:space="preserve">
+    <value>Wrap Text</value>
+  </data>
+  <data name="Replace_Zoom" xml:space="preserve">
+    <value>זום:</value>
   </data>
   <data name="Report_CSVRecordHeaderText" xml:space="preserve">
     <value>שם קובץ,מספר שורה,טקסט</value>
@@ -1464,13 +1611,13 @@ Arguments:
     <value>לא נמצאו התאמות עבור </value>
   </data>
   <data name="Report_Has0MatchesOn1Lines" xml:space="preserve">
-    <value />
+    <value>מכיל {0} התאמות ב-{1} שורות:</value>
   </data>
   <data name="ReportSummary_BooleanOperators" xml:space="preserve">
-    <value />
+    <value>אופרטורים בוליאניים</value>
   </data>
   <data name="ReportSummary_CaseSensitive" xml:space="preserve">
-    <value />
+    <value>תלוי רישיות</value>
   </data>
   <data name="ReportSummary_DotAsNewline" xml:space="preserve">
     <value>עגון בשורה חדשה</value>
@@ -1479,16 +1626,16 @@ Arguments:
     <value>הצפנה:</value>
   </data>
   <data name="ReportSummary_ExcludePattern" xml:space="preserve">
-    <value />
+    <value>תבנית אי הכללה:</value>
   </data>
   <data name="ReportSummary_FilePattern" xml:space="preserve">
     <value>תבנית קובץ:</value>
   </data>
   <data name="ReportSummary_MaxFolderDepth" xml:space="preserve">
-    <value />
+    <value>עומק התיקיה המרבי {0}</value>
   </data>
   <data name="ReportSummary_Multiline" xml:space="preserve">
-    <value />
+    <value>Multiline</value>
   </data>
   <data name="ReportSummary_NoArchives" xml:space="preserve">
     <value>אין ארכיון</value>
@@ -1506,10 +1653,10 @@ Arguments:
     <value>אין תיקיות משנה</value>
   </data>
   <data name="ReportSummary_NoSymlinks" xml:space="preserve">
-    <value />
+    <value>ללא קישורים סימבולים</value>
   </data>
   <data name="ReportSummary_SearchFor" xml:space="preserve">
-    <value />
+    <value>חפש את:</value>
   </data>
   <data name="ReportSummary_SearchIn" xml:space="preserve">
     <value>חפש ב-:</value>
@@ -1530,16 +1677,22 @@ Arguments:
     <value>{0} תאריך בעבר {1} ל- {2} שעות</value>
   </data>
   <data name="ReportSummary_UsingEverythingIndexSearch" xml:space="preserve">
-    <value />
+    <value>השתמש באינדקס החיפוש של Everything</value>
   </data>
   <data name="ReportSummary_UsingRegexFilePattern" xml:space="preserve">
-    <value />
+    <value>Using regex file pattern</value>
   </data>
   <data name="ReportSummary_UsingTypeOfSeach" xml:space="preserve">
-    <value />
+    <value>Using {0} search</value>
   </data>
   <data name="ReportSummary_WholeWord" xml:space="preserve">
     <value>מילה שלמה</value>
+  </data>
+  <data name="Test_BooleanOperators" xml:space="preserve">
+    <value>אופרטורים בוליאניים</value>
+  </data>
+  <data name="Test_CaseSensitive" xml:space="preserve">
+    <value>תלוי רישיות</value>
   </data>
   <data name="Test_Close" xml:space="preserve">
     <value>_סגור</value>
@@ -1549,6 +1702,12 @@ Arguments:
   </data>
   <data name="Test_DotAsNewline" xml:space="preserve">
     <value>_עגון בשורה חדשה</value>
+  </data>
+  <data name="Test_HighlightGroups" xml:space="preserve">
+    <value>Highlight Groups</value>
+  </data>
+  <data name="Test_Multiline" xml:space="preserve">
+    <value>_Multiline</value>
   </data>
   <data name="Test_NoMatchesFound" xml:space="preserve">
     <value>לא נמצאו תוצאות תואמות</value>
@@ -1563,7 +1722,10 @@ Arguments:
     <value>להחליף ב:</value>
   </data>
   <data name="Test_SampleInputText" xml:space="preserve">
-    <value />
+    <value>Sample input text:</value>
+  </data>
+  <data name="Test_SearchFor" xml:space="preserve">
+    <value>חפש את:</value>
   </data>
   <data name="Test_SearchGroup" xml:space="preserve">
     <value>חיפוש</value>
@@ -1571,41 +1733,53 @@ Arguments:
   <data name="Test_SearchResult" xml:space="preserve">
     <value>תוצאות חיפוש:</value>
   </data>
+  <data name="Test_SearchType_Phonetic" xml:space="preserve">
+    <value>Phonetic</value>
+  </data>
+  <data name="Test_SearchType_Regex" xml:space="preserve">
+    <value>_Regex</value>
+  </data>
+  <data name="Test_SearchType_Text" xml:space="preserve">
+    <value>_טקסט</value>
+  </data>
+  <data name="Test_SearchType_XPath" xml:space="preserve">
+    <value>_XPath</value>
+  </data>
   <data name="Test_Title" xml:space="preserve">
-    <value />
+    <value>Test</value>
   </data>
   <data name="Test_WholeWord" xml:space="preserve">
     <value>_מילה שלמה</value>
   </data>
   <data name="TTA1_MatchesAllCharacters" xml:space="preserve">
-    <value />
+    <value>. matches all characters</value>
   </data>
   <data name="TTA2_MatchesAlphaNumerics" xml:space="preserve">
-    <value />
+    <value>\w matches alpha-numerics</value>
   </data>
   <data name="TTA3_MatchesDigits" xml:space="preserve">
-    <value />
+    <value>\d matches digits</value>
   </data>
   <data name="TTA4_MatchesSpace" xml:space="preserve">
-    <value />
+    <value>\s matches space</value>
   </data>
   <data name="TTA5_MatchesAnyNumberOfCharacters" xml:space="preserve">
-    <value />
+    <value>* matches any number of characters</value>
   </data>
   <data name="TTA6_Matches1To3Characters" xml:space="preserve">
-    <value />
+    <value>{1,3} matches 1 to 3 characters</value>
   </data>
   <data name="TTA7_ForMoreRegexPatternsHitF1" xml:space="preserve">
-    <value />
+    <value>For more Regex patterns hit F1</value>
   </data>
   <data name="TTB1_ReplacesEntireRegex" xml:space="preserve">
-    <value />
+    <value>$&amp; replaces entire regex</value>
   </data>
   <data name="TTB2_InsertsTheTextMatchedIntoTheReplacementText" xml:space="preserve">
-    <value />
+    <value>$1, $2, $3, etc... inserts the text matched between capturing parentheses into the replacement text</value>
   </data>
   <data name="TTB3_InsertsASingleDollarSignIntoTheReplacementText" xml:space="preserve">
-    <value />
+    <value>$$ inserts a single dollar sign into the replacement text</value>
   </data>
   <data name="Window_Close" xml:space="preserve">
     <value>סגור</value>
@@ -1620,9 +1794,9 @@ Arguments:
     <value>מזער</value>
   </data>
   <data name="Window_PopThisPanelOutIntoItsOwnWindow" xml:space="preserve">
-    <value />
+    <value>Pop this panel out into its own window</value>
   </data>
   <data name="Window_RestoreDown" xml:space="preserve">
-    <value />
+    <value>Restore Down</value>
   </data>
 </root>
