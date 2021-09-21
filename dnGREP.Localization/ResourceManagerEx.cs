@@ -52,7 +52,7 @@ namespace dnGREP.Localization
                 }
 
                 string str = base.GetString(name, culture);
-                if (!string.IsNullOrEmpty(str))
+                if (string.IsNullOrEmpty(str))
                 {
                     str = base.GetString(name, CultureInfo.InvariantCulture);
                 }
