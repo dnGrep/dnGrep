@@ -678,7 +678,7 @@ Arguments:
     <value>{0} ({1} התאמות)</value>
   </data>
   <data name="Main_ResultList_CountMatchesOnLines" xml:space="preserve">
-    <value>{0} ({1} התאמות ב- {2} שורות)</value>
+    <value>{0} \u200f({1} התאמות ב- {2} שורות)</value>
   </data>
   <data name="Main_ResultList_MatchToolTip1" xml:space="preserve">
     <value>התאמה {0}{1}{2}</value>
