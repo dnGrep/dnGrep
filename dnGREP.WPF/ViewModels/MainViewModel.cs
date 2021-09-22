@@ -77,8 +77,22 @@ namespace dnGREP.WPF
                 ToggleHighlights();
             };
 
+            TranslationSource.Instance.CurrentCultureChanged += CurrentCultureChanged;
+
             idleTimer.Interval = TimeSpan.FromMilliseconds(250);
             idleTimer.Tick += IdleTimer_Tick;
+        }
+
+        private void CurrentCultureChanged(object sender, EventArgs e)
+        {
+            // reload the Encodings list, the "Auto" encoding name (at least) has changed languages
+            int value = CodePage;
+            CodePage = -2;
+            PopulateEncodings();
+            CodePage = value;
+            // this call will repopulate the FileFiltersSummary
+            // IncludeSubfolder didn't really change, but triggers the refresh
+            UpdateState(nameof(IncludeSubfolder));
         }
 
         void SearchResults_OpenFileRequest(object sender, GrepResultEventArgs e)
