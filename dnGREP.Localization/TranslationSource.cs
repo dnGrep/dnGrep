@@ -87,9 +87,6 @@ namespace dnGREP.Localization
             {
                 try
                 {
-                    format = format.Replace($"\\u200e", char.ConvertFromUtf32(0x200e));
-                    format = format.Replace($"\\u200f", char.ConvertFromUtf32(0x200f));
-
                     return string.Format(CultureInfo.CurrentCulture, format, args);
                 }
                 catch (FormatException)
