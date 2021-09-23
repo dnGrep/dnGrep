@@ -131,7 +131,7 @@ namespace dnGREP.Common
             public const string FollowWindowsTheme = "FollowWindowsTheme";
             [DefaultValue("Light")]
             public const string CurrentTheme = "CurrentTheme";
-            [DefaultValue("en-US")]
+            [DefaultValue("en")]
             public const string CurrentCulture = "CurrentCulture";
             [DefaultValue(SortType.FileNameDepthFirst)]
             public const string TypeOfSort = "TypeOfSort";

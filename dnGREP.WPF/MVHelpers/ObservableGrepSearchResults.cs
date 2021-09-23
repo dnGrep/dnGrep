@@ -423,7 +423,7 @@ namespace dnGREP.WPF
         }
     }
 
-    public class FormattedGrepResult : ViewModelBase, ITreeItem
+    public class FormattedGrepResult : CultureAwareViewModel, ITreeItem
     {
         public GrepSearchResult GrepResult { get; private set; } = new GrepSearchResult();
 
@@ -584,16 +584,16 @@ namespace dnGREP.WPF
                 {
                     var lineCount = GrepResult.Matches.Where(r => r.LineNumber > 0)
                        .Select(r => r.LineNumber).Distinct().Count();
-                    displayedName = TranslationSource.Format(Resources.CountMatchesOnLines, displayedName, matchCount, lineCount);
+                    displayedName = TranslationSource.Format(Resources.Main_ResultList_CountMatchesOnLines, displayedName, matchCount, lineCount);
                 }
                 else
                 {
-                    displayedName = string.Format(Resources.CountMatches, displayedName, matchCount);
+                    displayedName = string.Format(Resources.Main_ResultList_CountMatches, displayedName, matchCount);
                 }
             }
             if (isFileReadOnly)
             {
-                displayedName = displayedName + " " + Resources.ReadOnly;
+                displayedName = displayedName + " " + Resources.Main_ResultList_ReadOnly;
             }
 
             Label = displayedName;
@@ -639,7 +639,7 @@ namespace dnGREP.WPF
         public IEnumerable<ITreeItem> Children => FormattedLines;
     }
 
-    public class FormattedGrepLine : ViewModelBase, ITreeItem
+    public class FormattedGrepLine : CultureAwareViewModel, ITreeItem
     {
         public FormattedGrepLine(GrepLine line, FormattedGrepResult parent, int initialColumnWidth, bool breakSection)
         {
@@ -909,7 +909,7 @@ namespace dnGREP.WPF
                 }
                 if (line.LineText.Length > MaxLineLength)
                 {
-                    string msg = TranslationSource.Format(Resources.CountAdditionalCharacters, line.LineText.Length - MaxLineLength);
+                    string msg = TranslationSource.Format(Resources.Main_ResultList_CountAdditionalCharacters, line.LineText.Length - MaxLineLength);
 
                     var msgRun = new Run(msg);
                     msgRun.SetResourceReference(Run.ForegroundProperty, "TreeView.Message.Highlight.Foreground");
@@ -919,7 +919,7 @@ namespace dnGREP.WPF
                     var hiddenMatches = line.Matches.Where(m => m.StartLocation > MaxLineLength).Select(m => m);
                     int count = hiddenMatches.Count();
                     if (count > 0)
-                        paragraph.Inlines.Add(new Run(" " + Resources.AdditionalMatches));
+                        paragraph.Inlines.Add(new Run(" " + Resources.Main_ResultList_AdditionalMatches));
 
                     // if close to getting them all, then take them all,
                     // otherwise, stop at 20 and just show the remaining count
@@ -937,15 +937,15 @@ namespace dnGREP.WPF
                             paragraph.Inlines.Add(run);
 
                             if (m.StartLocation + m.Length == line.LineText.Length)
-                                paragraph.Inlines.Add(new Run(" " + Resources.AtEndOfLine));
+                                paragraph.Inlines.Add(new Run(" " + Resources.Main_ResultList_AtEndOfLine));
                             else
-                                paragraph.Inlines.Add(new Run(" " + TranslationSource.Format(Resources.AtPosition, m.StartLocation)));
+                                paragraph.Inlines.Add(new Run(" " + TranslationSource.Format(Resources.Main_ResultList_AtPosition, m.StartLocation)));
                         }
                     }
 
                     if (count > takeCount)
                     {
-                        paragraph.Inlines.Add(new Run(TranslationSource.Format(Resources.PlusCountMoreMatches, count - takeCount)));
+                        paragraph.Inlines.Add(new Run(TranslationSource.Format(Resources.Main_ResultList_PlusCountMoreMatches, count - takeCount)));
                     }
                 }
             }
@@ -965,7 +965,7 @@ namespace dnGREP.WPF
                 {
                     run.SetResourceReference(Run.ForegroundProperty, "Match.Highlight.Foreground");
                     run.SetResourceReference(Run.BackgroundProperty, "Match.Highlight.Background");
-                    run.ToolTip = TranslationSource.Format(Resources.MatchToolTip1, Parent.MatchIdx, Environment.NewLine, fmtLine);
+                    run.ToolTip = TranslationSource.Format(Resources.Main_ResultList_MatchToolTip1, Parent.MatchIdx, Environment.NewLine, fmtLine);
                     paragraph.Inlines.Add(run);
                 }
                 else
@@ -978,7 +978,7 @@ namespace dnGREP.WPF
                     }
                     run.SetResourceReference(Run.ForegroundProperty, "Match.Highlight.Foreground");
                     run.SetResourceReference(Run.BackgroundProperty, bgColor);
-                    run.ToolTip = TranslationSource.Format(Resources.MatchToolTip2,
+                    run.ToolTip = TranslationSource.Format(Resources.Main_ResultList_MatchToolTip2,
                         Parent.MatchIdx, Environment.NewLine, range.Group.Name, range.Group.Value);
                     paragraph.Inlines.Add(run);
                 }
@@ -1166,7 +1166,7 @@ namespace dnGREP.WPF
         }
     }
 
-    public class FormattedGrepMatch : ViewModelBase
+    public class FormattedGrepMatch : CultureAwareViewModel
     {
         public FormattedGrepMatch(GrepMatch match)
         {

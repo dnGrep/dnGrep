@@ -6,9 +6,10 @@
                  xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
                  xmlns:my="clr-namespace:dnGREP.WPF"
                  xmlns:l="clr-namespace:dnGREP.Localization;assembly=dnGREP.Localization"
-                 Title="{l:Loc Key='ReplaceText'}"
+                 Title="{l:Loc Key='Replace_Title'}"
                  Width="980"
                  Height="800"
+                 FlowDirection="{Binding CultureFlowDirection}"
                  FontFamily="{Binding ApplicationFontFamily}"
                  FontSize="{Binding ReplaceFormFontSize}"
                  Icon="/dnGREP;component/nGREP.ico"
@@ -81,7 +82,7 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right"
-                       Text="{l:Loc Key='SearchFor'}" />
+                       Text="{l:Loc Key='Replace_SearchFor'}" />
             <Border Grid.Row="0" Grid.Column="1" Margin="6,3"
                     BorderBrush="{DynamicResource GroupBox.Border}"
                     BorderThickness="1">
@@ -89,7 +90,7 @@
             </Border>
 
             <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right"
-                       Text="{l:Loc Key='ReplaceWith'}" />
+                       Text="{l:Loc Key='Replace_ReplaceWith'}" />
             <Border Grid.Row="1" Grid.Column="1" Margin="6,3"
                     BorderBrush="{DynamicResource GroupBox.Border}"
                     BorderThickness="1">
@@ -97,7 +98,7 @@
             </Border>
 
             <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                      Header="{l:Loc Key='Files'}">
+                      Header="{l:Loc Key='Replace_Files'}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition />
@@ -120,28 +121,28 @@
 
                     <StackPanel Grid.Row="2" Grid.Column="0" Margin="3"
                                 Orientation="Horizontal">
-                        <Button Content="{l:Loc Key='PreviousFile_'}" TabIndex="1"
+                        <Button Content="{l:Loc Key='Replace_PreviousFile'}" TabIndex="1"
                                 Command="{Binding PrevFileCommand}"
-                                ToolTip="{l:Loc Key='ShowThePreviousFile'}" 
+                                ToolTip="{l:Loc Key='Replace_ShowThePreviousFile'}" 
                                 Style="{StaticResource ReplaceButton}"/>
-                        <Button Content="{l:Loc Key='NextFile_'}" TabIndex="2"
+                        <Button Content="{l:Loc Key='Replace_NextFile'}" TabIndex="2"
                                 Command="{Binding NextFileCommand}"
-                                ToolTip="{l:Loc Key='ShowTheNextFile'}"
+                                ToolTip="{l:Loc Key='Replace_ShowTheNextFile'}"
                                 Style="{StaticResource ReplaceButton}"/>
-                        <Button Margin="16,3,3,3" Content="{l:Loc Key='ReplaceInFile_'}" TabIndex="3"
+                        <Button Margin="16,3,3,3" Content="{l:Loc Key='Replace_ReplaceInFile'}" TabIndex="3"
                                 Command="{Binding ReplaceAllInFileCommand}"
-                                ToolTip="{l:Loc Key='MarkAllMatchesInThisFileForReplacement'}"
+                                ToolTip="{l:Loc Key='Replace_MarkAllMatchesInThisFileForReplacement'}"
                                 Style="{StaticResource ReplaceButton}"/>
-                        <Button Content="{l:Loc Key='UndoFile_'}" TabIndex="4"
+                        <Button Content="{l:Loc Key='Replace_UndoFile'}" TabIndex="4"
                                 Command="{Binding UndoFileCommand}"
-                                ToolTip="{l:Loc Key='ResetAndSkipAllMatchesInThisFile'}"
+                                ToolTip="{l:Loc Key='Replace_ResetAndSkipAllMatchesInThisFile'}"
                                 Style="{StaticResource ReplaceButton}"/>
                     </StackPanel>
                     <StackPanel Grid.Row="2" Grid.Column="1" Margin="3"
                                 Orientation="Horizontal">
-                        <Button HorizontalAlignment="Right" Content="{l:Loc Key='ReplaceInAllFiles_'}" TabIndex="5"
+                        <Button HorizontalAlignment="Right" Content="{l:Loc Key='Replace_ReplaceInAllFiles'}" TabIndex="5"
                                 Command="{Binding ReplaceAllCommand}"
-                                ToolTip="{l:Loc Key='ReplaceAllMatchesInAllFilesAndApply'}"
+                                ToolTip="{l:Loc Key='Replace_ReplaceAllMatchesInAllFilesAndApply'}"
                                 Style="{StaticResource ReplaceButton}"/>
                     </StackPanel>
                 </Grid>
@@ -163,12 +164,12 @@
 
             <StackPanel Name="statusBar" Grid.Row="4" Grid.Column="0"
                         Grid.ColumnSpan="2" ClipToBounds="False" Orientation="Horizontal">
-                <TextBlock Margin="24,3,3,3" VerticalAlignment="Center" Text="{l:Loc Key='Zoom'}" />
+                <TextBlock Margin="24,3,3,3" VerticalAlignment="Center" Text="{l:Loc Key='Replace_Zoom'}" />
                 <Slider Name="zoomSlider" Width="200" Margin="0,0,3,0"
-                        VerticalAlignment="Center" ToolTip="{l:Loc Key='ChangesTextEditorZoom'}" Minimum="9"
+                        VerticalAlignment="Center" ToolTip="{l:Loc Key='Replace_ChangesTextEditorZoom'}" Minimum="9"
                         Maximum="30" TabIndex="7" Value="14" />
                 <CheckBox Name="cbWrapText" Margin="12,0,3,0" VerticalAlignment="Center"
-                          IsChecked="True" Content="{l:Loc Key='WrapText_'}" TabIndex="8" />
+                          IsChecked="True" Content="{l:Loc Key='Replace_WrapText'}" TabIndex="8" />
                 <ComboBox Name="cbHighlighter" Margin="12,0,3,0"
                           ItemsSource="{Binding Path=Highlighters}"
                           SelectedValue="{Binding Path=CurrentSyntax}"
@@ -176,52 +177,52 @@
             </StackPanel>
 
             <GroupBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
-                      Margin="3" Header="{l:Loc Key='Matches'}">
+                      Margin="3" Header="{l:Loc Key='Replace_Matches'}">
                 <StackPanel>
                     <StackPanel Margin="3" Orientation="Horizontal">
-                        <Button Content="{l:Loc Key='Previous_'}" TabIndex="10"
+                        <Button Content="{l:Loc Key='Replace_Previous'}" TabIndex="10"
                                 Command="{Binding PrevMatchCommand}"
-                                ToolTip="{l:Loc Key='MoveToTheNextMatchInThisFile'}"
+                                ToolTip="{l:Loc Key='Replace_MoveToTheNextMatchInThisFile'}"
                                 Style="{StaticResource ReplaceButton}"/>
-                        <Button Content="{l:Loc Key='Next_'}" TabIndex="11"
+                        <Button Content="{l:Loc Key='Replace_Next'}" TabIndex="11"
                                 Command="{Binding NextMatchCommand}"
-                                ToolTip="{l:Loc Key='MoveToThePreviousMatchInThisFile'}"
+                                ToolTip="{l:Loc Key='Replace_MoveToThePreviousMatchInThisFile'}"
                                 Style="{StaticResource ReplaceButton}"/>
-                        <Button Margin="24,3,3,3" Content="{l:Loc Key='Replace_'}" TabIndex="12"
+                        <Button Margin="24,3,3,3" Content="{l:Loc Key='Replace_ReplaceButton'}" TabIndex="12"
                                 Command="{Binding ReplaceMatchCommand}"
-                                ToolTip="{l:Loc Key='MarkMatchForReplacement'}"
+                                ToolTip="{l:Loc Key='Replace_MarkMatchForReplacement'}"
                                 Style="{StaticResource ReplaceButton}"/>
-                        <Button Content="{l:Loc Key='Undo_'}" TabIndex="13"
+                        <Button Content="{l:Loc Key='Replace_Undo'}" TabIndex="13"
                                 Command="{Binding UndoMatchCommand}"
-                                ToolTip="{l:Loc Key='UndoMarkReplaceOnThisMatch'}"
+                                ToolTip="{l:Loc Key='Replace_UndoMarkReplaceOnThisMatch'}"
                                 Style="{StaticResource ReplaceButton}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Margin="24,1,3,1" Padding="2" VerticalAlignment="Center"
-                                   Text="{l:Loc Key='ReplaceKey1_Text'}" TextDecorations="Underline"
+                                   Text="{l:Loc Key='Replace_ReplaceKey1_Text'}" TextDecorations="Underline"
                                    Background="{DynamicResource Match.Skip.Background}"
                                    Foreground="{DynamicResource Match.Skip.Foreground}"
                                    FontFamily="Consolas" />
-                        <TextBlock Text="{l:Loc Key='ReplaceKey2_SelectedMatch'}" />
+                        <TextBlock Text="{l:Loc Key='Replace_ReplaceKey2_SelectedMatch'}" />
                         <Rectangle Width="40" Height="18" Margin="24,0,3,0"
                                    Fill="{DynamicResource Match.Replace.Background}" />
-                        <TextBlock Text="{l:Loc Key='ReplaceKey3_ReplaceMatch'}" />
+                        <TextBlock Text="{l:Loc Key='Replace_ReplaceKey3_ReplaceMatch'}" />
                         <Rectangle Width="40" Height="18" Margin="24,0,3,0"
                                    Fill="{DynamicResource Match.Skip.Background}" />
-                        <TextBlock Text="{l:Loc Key='ReplaceKey4_SkipMatch'}" />
+                        <TextBlock Text="{l:Loc Key='Replace_ReplaceKey4_SkipMatch'}" />
                     </StackPanel>
                 </StackPanel>
             </GroupBox>
 
             <DockPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
                        Margin="3" HorizontalAlignment="Right" LastChildFill="False">
-                <Button x:Name="btnCancel" DockPanel.Dock="Right" Content="{l:Loc Key='Cancel_'}"
+                <Button x:Name="btnCancel" DockPanel.Dock="Right" Content="{l:Loc Key='Replace_Cancel'}"
                         TabIndex="20" IsCancel="True" Click="CancelButton_Click"
-                        ToolTip="{l:Loc Key='CancelAllReplacements'}"
+                        ToolTip="{l:Loc Key='Replace_CancelAllReplacements'}"
                         Style="{StaticResource ReplaceButton}"/>
-                <Button DockPanel.Dock="Right" Content="{l:Loc Key='OK'}" TabIndex="21"
+                <Button DockPanel.Dock="Right" Content="{l:Loc Key='Replace_OK'}" TabIndex="21"
                         Click="OKButton_Click" 
-                        ToolTip="{l:Loc Key='ReplaceMatchesMarkedForReplacement'}"
+                        ToolTip="{l:Loc Key='Replace_ReplaceMatchesMarkedForReplacement'}"
                         Style="{StaticResource ReplaceButton}"/>
             </DockPanel>
 

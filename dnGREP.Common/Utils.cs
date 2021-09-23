@@ -120,9 +120,11 @@ namespace dnGREP.Common
                         if (destinationFileInfo.Exists && action == OverwriteFile.Prompt)
                         {
                             var answer = MessageBox.Show(
-                                TranslationSource.Format(Resources.TheFile0AlreadyExistsIn1OverwriteExisting,
+                                TranslationSource.Format(Resources.MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting,
                                     destinationFileInfo.Name, destinationFileInfo.DirectoryName),
-                                Resources.DnGrep, MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
+                                Resources.MessageBox_DnGrep, 
+                                MessageBoxButton.YesNoCancel, MessageBoxImage.Question, 
+                                MessageBoxResult.No, TranslationSource.Instance.FlowDirection);
 
                             if (answer == MessageBoxResult.Cancel)
                                 return count;
@@ -188,9 +190,11 @@ namespace dnGREP.Common
                         if (destinationFileInfo.Exists && action == OverwriteFile.Prompt)
                         {
                             var answer = MessageBox.Show(
-                                TranslationSource.Format(Resources.TheFile0AlreadyExistsIn1OverwriteExisting,
+                                TranslationSource.Format(Resources.MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting,
                                     destinationFileInfo.Name, destinationFileInfo.DirectoryName),
-                                Resources.DnGrep, MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.No);
+                                Resources.MessageBox_DnGrep, 
+                                MessageBoxButton.YesNoCancel, MessageBoxImage.Question, 
+                                MessageBoxResult.No, TranslationSource.Instance.FlowDirection);
 
                             if (answer == MessageBoxResult.Cancel)
                                 return count;
@@ -301,7 +305,7 @@ namespace dnGREP.Common
         public static string GetResultsAsCSV(List<GrepSearchResult> source)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(Resources.ReportCSV_FileNameLineNumberString);
+            sb.AppendLine(Resources.Report_CSVRecordHeaderText);
             foreach (GrepSearchResult result in source)
             {
                 if (result.SearchResults == null)
@@ -350,13 +354,13 @@ namespace dnGREP.Common
                     var misses = orClauses.Except(set);
                     if (hits.Any())
                     {
-                        orResults += Resources.FoundMatchesFor + string.Join(", ", hits.Select(s => "\'" + s + "\'"));
+                        orResults += Resources.Report_FoundMatchesFor + string.Join(", ", hits.Select(s => "\'" + s + "\'"));
                     }
                     if (misses.Any())
                     {
                         if (!string.IsNullOrEmpty(orResults))
                             orResults += Environment.NewLine;
-                        orResults += Resources.FoundNoMatchesFor + string.Join(", ", misses.Select(s => "\'" + s + "\'"));
+                        orResults += Resources.Report_FoundNoMatchesFor + string.Join(", ", misses.Select(s => "\'" + s + "\'"));
                     }
                 }
 
@@ -369,7 +373,7 @@ namespace dnGREP.Common
                         .Select(r => r.LineNumber).Distinct().Count();
 
                     sb.AppendLine(result.FileNameDisplayed)
-                      .AppendFormat(Resources.Has0MatchesOn1Lines, matchCount, lineCount).AppendLine();
+                      .AppendFormat(Resources.Report_Has0MatchesOn1Lines, matchCount, lineCount).AppendLine();
 
                     if (!string.IsNullOrEmpty(orResults))
                         sb.AppendLine(orResults);
@@ -389,7 +393,7 @@ namespace dnGREP.Common
                     }
                     else
                     {
-                        sb.AppendLine(Resources.FileNotFoundHasItBeenDeletedOrMoved);
+                        sb.AppendLine(Resources.Report_FileNotFoundHasItBeenDeletedOrMoved);
                     }
                 }
                 sb.AppendLine("--------------------------------------------------------------------------------").AppendLine();

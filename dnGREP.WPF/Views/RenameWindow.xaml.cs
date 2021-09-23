@@ -61,7 +61,7 @@ namespace dnGREP.WPF
             DialogResult = false;
         }
 
-        public class RenameViewModel : ViewModelBase
+        public class RenameViewModel : CultureAwareViewModel
         {
             public RenameViewModel()
             {

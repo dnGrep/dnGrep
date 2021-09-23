@@ -118,22 +118,22 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About_AboutDnGREP" xml:space="preserve">
-    <value />
+    <value>Относно dnGREP</value>
   </data>
   <data name="About_Acknowledgments" xml:space="preserve">
-    <value />
+    <value>Благодарности</value>
   </data>
   <data name="About_BuiltOn" xml:space="preserve">
-    <value />
+    <value>Компилирано на</value>
   </data>
   <data name="About_ConvertsPDFFilesToPlainText" xml:space="preserve">
     <value />
   </data>
   <data name="About_DnGREP" xml:space="preserve">
-    <value />
+    <value>dnGREP</value>
   </data>
   <data name="About_DnGrepOnGitHub" xml:space="preserve">
-    <value />
+    <value>dnGrep в GitHub</value>
   </data>
   <data name="About_FileSystemIndexingLocateFilesInstantly" xml:space="preserve">
     <value />
@@ -172,256 +172,187 @@
     <value />
   </data>
   <data name="About_OK" xml:space="preserve">
-    <value />
+    <value>Добре</value>
   </data>
   <data name="About_Version" xml:space="preserve">
-    <value />
+    <value>Издание</value>
   </data>
   <data name="BookmarkDetails_AssociatedFolders" xml:space="preserve">
-    <value />
+    <value>Свързани папки:</value>
   </data>
   <data name="BookmarkDetails_BooleanOperators" xml:space="preserve">
-    <value />
+    <value>Булеви оператори</value>
   </data>
   <data name="BookmarkDetails_Cancel" xml:space="preserve">
-    <value />
+    <value>Отказ</value>
   </data>
   <data name="BookmarkDetails_CaseSensitive" xml:space="preserve">
-    <value />
+    <value>Съвпадение на _регистъра</value>
   </data>
   <data name="BookmarkDetails_Description" xml:space="preserve">
-    <value />
-  </data>
-  <data name="BookmarkDetails_DotAsNewline" xml:space="preserve">
-    <value />
-  </data>
-  <data name="BookmarkDetails_Encoding" xml:space="preserve">
-    <value />
+    <value>Описание:</value>
   </data>
   <data name="BookmarkDetails_EverythingIndexService" xml:space="preserve">
-    <value />
+    <value>Услуга за индексиране на Everything</value>
   </data>
   <data name="BookmarkDetails_FilePatternType" xml:space="preserve">
     <value />
   </data>
   <data name="BookmarkDetails_FollowSymbolicLinks" xml:space="preserve">
-    <value />
+    <value>Следване на символни връзки</value>
   </data>
   <data name="BookmarkDetails_ForExampleAsteriskPattern" xml:space="preserve">
-    <value />
+    <value>например file??.*</value>
   </data>
   <data name="BookmarkDetails_ForExampleRegularExpession" xml:space="preserve">
-    <value />
+    <value>например file??.*</value>
   </data>
   <data name="BookmarkDetails_IncludeBinaryFiles" xml:space="preserve">
-    <value />
+    <value>Включително двоични файлове</value>
   </data>
   <data name="BookmarkDetails_IncludeHiddenFolders" xml:space="preserve">
-    <value />
+    <value>Include hidden folders</value>
   </data>
   <data name="BookmarkDetails_IncludeSubfolders" xml:space="preserve">
-    <value />
+    <value>Включително подпапки</value>
   </data>
   <data name="BookmarkDetails_MaxDepth" xml:space="preserve">
-    <value />
-  </data>
-  <data name="BookmarkDetails_Multiline" xml:space="preserve">
-    <value />
+    <value>Максимална дълбочина</value>
   </data>
   <data name="BookmarkDetails_OK" xml:space="preserve">
-    <value />
-  </data>
-  <data name="BookmarkDetails_PatternsToExclude" xml:space="preserve">
-    <value />
-  </data>
-  <data name="BookmarkDetails_PatternsToMatch" xml:space="preserve">
-    <value />
-  </data>
-  <data name="BookmarkDetails_PatternType_AsteriskPattern" xml:space="preserve">
-    <value />
-  </data>
-  <data name="BookmarkDetails_PatternType_Everything" xml:space="preserve">
-    <value />
+    <value>Добре</value>
   </data>
   <data name="BookmarkDetails_PatternType_Regex" xml:space="preserve">
-    <value />
+    <value>_Регулярен израз</value>
   </data>
   <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
-    <value />
+    <value>Заменяне с:</value>
   </data>
   <data name="BookmarkDetails_SearchFor" xml:space="preserve">
-    <value />
-  </data>
-  <data name="BookmarkDetails_SearchInArchives" xml:space="preserve">
-    <value />
-  </data>
-  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
-    <value />
+    <value>Търсене на:</value>
   </data>
   <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
-    <value />
+    <value>Фонетично търсене</value>
   </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
-    <value />
-  </data>
-  <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
-    <value />
+    <value>Търсене на текст</value>
   </data>
   <data name="BookmarkDetails_SearchType_RegularExpressionSearch" xml:space="preserve">
-    <value />
+    <value>Търсене с регулярен израз</value>
   </data>
   <data name="BookmarkDetails_SearchType_Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="BookmarkDetails_SearchType_XPath" xml:space="preserve">
-    <value />
-  </data>
-  <data name="BookmarkDetails_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
-    <value />
+    <value>_Текст</value>
   </data>
   <data name="BookmarkDetails_ThisBookmarkAlreadyExists" xml:space="preserve">
     <value />
   </data>
   <data name="BookmarkDetails_Title" xml:space="preserve">
-    <value />
+    <value>Детайли на отметка</value>
   </data>
   <data name="BookmarkDetails_TypeHeader" xml:space="preserve">
-    <value />
-  </data>
-  <data name="BookmarkDetails_UseGitignore" xml:space="preserve">
-    <value />
-  </data>
-  <data name="BookmarkDetails_UseGitignoreToFilterFiles" xml:space="preserve">
-    <value />
+    <value>Вид</value>
   </data>
   <data name="BookmarkDetails_WholeWord" xml:space="preserve">
-    <value />
+    <value>Цели _думи</value>
   </data>
   <data name="Bookmarks_Add" xml:space="preserve">
-    <value />
+    <value>_Добавяне</value>
   </data>
   <data name="Bookmarks_Close" xml:space="preserve">
-    <value />
+    <value>_Затваряне</value>
   </data>
   <data name="Bookmarks_Delete" xml:space="preserve">
-    <value />
+    <value>_Изтриване</value>
   </data>
   <data name="Bookmarks_DescriptionHeader" xml:space="preserve">
-    <value />
+    <value>Описание</value>
   </data>
   <data name="Bookmarks_Duplicate" xml:space="preserve">
-    <value />
+    <value>Ду_блиране</value>
   </data>
   <data name="Bookmarks_Edit" xml:space="preserve">
-    <value />
+    <value>_Редактиране</value>
   </data>
   <data name="Bookmarks_FilePatternHeader" xml:space="preserve">
     <value />
   </data>
   <data name="Bookmarks_Filter" xml:space="preserve">
-    <value />
+    <value>Филтър:</value>
   </data>
   <data name="Bookmarks_OtherPropertiesHeader" xml:space="preserve">
-    <value />
+    <value>Други свойства</value>
   </data>
   <data name="Bookmarks_ReplaceWithHeader" xml:space="preserve">
-    <value />
+    <value>Заменяне с</value>
   </data>
   <data name="Bookmarks_SearchForHeader" xml:space="preserve">
-    <value />
+    <value>Търсене на</value>
   </data>
   <data name="Bookmarks_Summary_CaseSensitive" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Bookmarks_Summary_MaxFolderDepth" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Bookmarks_Summary_Multiline" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Bookmarks_Summary_NoBinary" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Bookmarks_Summary_NoHidden" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Bookmarks_Summary_NoSubfolders" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Bookmarks_Summary_NoSymlinks" xml:space="preserve">
-    <value />
+    <value>Съвпадение на регистъра</value>
   </data>
   <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
     <value />
   </data>
-  <data name="Bookmarks_Summary_WholeWord" xml:space="preserve">
-    <value />
-  </data>
   <data name="Bookmarks_Title" xml:space="preserve">
-    <value />
+    <value>Отметки</value>
   </data>
   <data name="Bookmarks_TypeHeader" xml:space="preserve">
-    <value />
+    <value>Вид</value>
   </data>
   <data name="Bookmarks_Use" xml:space="preserve">
-    <value />
+    <value>Из_ползване</value>
   </data>
   <data name="Help_CmdLine" xml:space="preserve">
     <value />
   </data>
-  <data name="Help_DnGrepHelp" xml:space="preserve">
-    <value />
-  </data>
   <data name="Help_OK" xml:space="preserve">
-    <value />
+    <value>Добре</value>
   </data>
   <data name="Help_OneOrMoreArgumentsAreInvalid" xml:space="preserve">
-    <value />
+    <value>Един или повече аргумента са недействителни.</value>
   </data>
   <data name="Main_AddSearchPatternToBookmarks" xml:space="preserve">
-    <value />
+    <value>Добавяне на шаблон за търсене в отметките</value>
   </data>
   <data name="Main_AllDates" xml:space="preserve">
-    <value />
+    <value>Всички дати</value>
   </data>
   <data name="Main_AllSizes" xml:space="preserve">
-    <value />
+    <value>Всякаква големина</value>
   </data>
   <data name="Main_AssociateBookmarkWithFolder" xml:space="preserve">
-    <value />
+    <value>Свързване на отметка с папка</value>
   </data>
   <data name="Main_Attributes_DateModified" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Main_Attributes_Encoding" xml:space="preserve">
-    <value />
+    <value>Дата на промяна:</value>
   </data>
   <data name="Main_Attributes_File" xml:space="preserve">
-    <value />
+    <value>Файл:</value>
   </data>
   <data name="Main_Attributes_Size" xml:space="preserve">
-    <value />
+    <value>Големина:</value>
   </data>
   <data name="Main_Attributes_Type" xml:space="preserve">
-    <value />
+    <value>Вид:</value>
   </data>
   <data name="Main_AutoPosition" xml:space="preserve">
     <value />
   </data>
   <data name="Main_BooleanOperators" xml:space="preserve">
-    <value />
+    <value>Булеви оператори</value>
   </data>
   <data name="Main_BrowseForFolderOrFiles" xml:space="preserve">
     <value />
   </data>
   <data name="Main_CancelButton" xml:space="preserve">
-    <value />
+    <value>Отка_з</value>
   </data>
   <data name="Main_CaptureGroupSearch" xml:space="preserve">
     <value />
   </data>
   <data name="Main_CaseSensitive" xml:space="preserve">
-    <value />
+    <value>Съвпадение на _регистъра</value>
   </data>
   <data name="Main_ChangesTheResultsTreeZoom" xml:space="preserve">
     <value />
@@ -430,13 +361,13 @@
     <value />
   </data>
   <data name="Main_CombineMultipleSearchPatternsUsingANDOrOR" xml:space="preserve">
-    <value />
+    <value>Комбиниране на няколко модела за търсене с помощта на „AND“ или „OR“</value>
   </data>
   <data name="Main_ContextAfter" xml:space="preserve">
-    <value />
+    <value>след</value>
   </data>
   <data name="Main_ContextBeforeAnd" xml:space="preserve">
-    <value />
+    <value>преди и</value>
   </data>
   <data name="Main_ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
     <value />
@@ -445,34 +376,34 @@
     <value />
   </data>
   <data name="Main_Created" xml:space="preserve">
-    <value />
+    <value>Създаване</value>
   </data>
   <data name="Main_DateFrom" xml:space="preserve">
-    <value />
+    <value>От</value>
   </data>
   <data name="Main_DatePast" xml:space="preserve">
-    <value />
+    <value>Между</value>
   </data>
   <data name="Main_DatePastHours" xml:space="preserve">
-    <value />
+    <value>часа</value>
   </data>
   <data name="Main_DateTo" xml:space="preserve">
-    <value />
+    <value>до</value>
   </data>
   <data name="Main_DnGREP_Title" xml:space="preserve">
-    <value />
+    <value>dnGREP</value>
   </data>
   <data name="Main_DockBottom" xml:space="preserve">
-    <value />
+    <value>Закотвяне отдолу</value>
   </data>
   <data name="Main_DockRight" xml:space="preserve">
-    <value />
+    <value>Закотвяне вдясно</value>
   </data>
   <data name="Main_DotAsNewline" xml:space="preserve">
     <value />
   </data>
   <data name="Main_Empty" xml:space="preserve">
-    <value />
+    <value>Празно</value>
   </data>
   <data name="Main_Encoding" xml:space="preserve">
     <value />
@@ -481,61 +412,49 @@
     <value />
   </data>
   <data name="Main_EverythingIndexService" xml:space="preserve">
-    <value />
+    <value>Услуга за индексиране на Everything</value>
   </data>
   <data name="Main_EverythingSearch" xml:space="preserve">
-    <value />
+    <value>Търсене с Everything:</value>
   </data>
   <data name="Main_ExcelSheetName" xml:space="preserve">
-    <value />
+    <value>Лист [{0}]</value>
   </data>
   <data name="Main_ExcludeFilesByTypeAndFoldersByName" xml:space="preserve">
     <value />
   </data>
   <data name="Main_FilterSummary_AllFiles" xml:space="preserve">
-    <value />
+    <value>Всички файлове</value>
   </data>
   <data name="Main_FilterSummary_ByCreatedDate" xml:space="preserve">
-    <value />
+    <value>По дата на създаване</value>
   </data>
   <data name="Main_FilterSummary_ByModifiedDate" xml:space="preserve">
-    <value />
+    <value>По дата на промяна</value>
   </data>
   <data name="Main_FilterSummary_BySize" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Main_FilterSummary_MaxFolderDepth" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Main_FilterSummary_NoBinary" xml:space="preserve">
-    <value />
+    <value>По големина</value>
   </data>
   <data name="Main_FilterSummary_NoHidden" xml:space="preserve">
     <value />
   </data>
-  <data name="Main_FilterSummary_NoSubfolders" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Main_FilterSummary_NoSymlinks" xml:space="preserve">
-    <value />
-  </data>
   <data name="Main_Folder" xml:space="preserve">
-    <value />
+    <value>Папка:</value>
   </data>
   <data name="Main_FollowSymbolicLinks" xml:space="preserve">
-    <value />
+    <value>Следване на символни връзки</value>
   </data>
   <data name="Main_ForExampleAsteriskPattern" xml:space="preserve">
-    <value />
+    <value>например file??.*</value>
   </data>
   <data name="Main_ForExampleRegularExpession" xml:space="preserve">
-    <value />
+    <value>например file[0-9]{1,2}\\.txt</value>
   </data>
   <data name="Main_FromTheStartOfTheDay" xml:space="preserve">
-    <value />
+    <value>от началото на деня</value>
   </data>
   <data name="Main_HideResultOptions" xml:space="preserve">
-    <value />
+    <value>Скрива настройки на резултатите</value>
   </data>
   <data name="Main_HighlightGroups" xml:space="preserve">
     <value />
@@ -547,46 +466,46 @@
     <value />
   </data>
   <data name="Main_IncludeBinaryFiles" xml:space="preserve">
-    <value />
+    <value>Включително двоични файлове</value>
   </data>
   <data name="Main_IncludeFilesByNameOrType" xml:space="preserve">
-    <value />
+    <value>Включително файлове по име или вид</value>
   </data>
   <data name="Main_IncludeHiddenFolders" xml:space="preserve">
-    <value />
+    <value>Включително скрити папки</value>
   </data>
   <data name="Main_IncludeSubfolders" xml:space="preserve">
-    <value />
+    <value>Включително подпапки</value>
   </data>
   <data name="Main_MaxDepth" xml:space="preserve">
-    <value />
+    <value>Максимална дълбочина</value>
   </data>
   <data name="Main_Menu_About" xml:space="preserve">
-    <value />
+    <value>_Относно</value>
   </data>
   <data name="Main_Menu_About_AboutDnGrep" xml:space="preserve">
-    <value />
+    <value>_Относно dnGrep...</value>
   </data>
   <data name="Main_Menu_About_Help" xml:space="preserve">
-    <value />
+    <value>_Помощ</value>
   </data>
   <data name="Main_Menu_Bookmarks" xml:space="preserve">
-    <value />
+    <value>_Отметки</value>
   </data>
   <data name="Main_Menu_Options" xml:space="preserve">
-    <value />
+    <value>_Настройки</value>
   </data>
   <data name="Main_Menu_Undo" xml:space="preserve">
-    <value />
+    <value>_Отменяне</value>
   </data>
   <data name="Main_Modified" xml:space="preserve">
-    <value />
+    <value>Промяна</value>
   </data>
   <data name="Main_More" xml:space="preserve">
-    <value />
+    <value>Повече...</value>
   </data>
   <data name="Main_MoreArrowButton" xml:space="preserve">
-    <value />
+    <value>_Повече ⏷</value>
   </data>
   <data name="Main_MoreMenu_CopyFileNames" xml:space="preserve">
     <value />
@@ -613,16 +532,13 @@
     <value />
   </data>
   <data name="Main_MoreMenu_SaveResults" xml:space="preserve">
-    <value />
+    <value>Запазване на резултати</value>
   </data>
   <data name="Main_Multiline" xml:space="preserve">
     <value />
   </data>
   <data name="Main_OpenFolder" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Main_PastDateTo" xml:space="preserve">
-    <value />
+    <value>…</value>
   </data>
   <data name="Main_PatternsToExclude" xml:space="preserve">
     <value />
@@ -637,16 +553,16 @@
     <value />
   </data>
   <data name="Main_PatternType_Regex" xml:space="preserve">
-    <value />
+    <value>_Регулярен израз</value>
   </data>
   <data name="Main_PreviewFile" xml:space="preserve">
-    <value />
+    <value>Пре_глед на файла</value>
   </data>
   <data name="Main_RemoveFolderFromBookmarkAssociation" xml:space="preserve">
     <value />
   </data>
   <data name="Main_ReplaceButton" xml:space="preserve">
-    <value />
+    <value>З_аменяне</value>
   </data>
   <data name="Main_ReplaceWith" xml:space="preserve">
     <value />
@@ -661,10 +577,10 @@
     <value />
   </data>
   <data name="Main_ResetOptions" xml:space="preserve">
-    <value />
+    <value>Нулиране на настройки</value>
   </data>
   <data name="Main_ResultList_AdditionalMatches" xml:space="preserve">
-    <value />
+    <value>допълнителни съвпадения:</value>
   </data>
   <data name="Main_ResultList_AtEndOfLine" xml:space="preserve">
     <value />
@@ -676,10 +592,10 @@
     <value />
   </data>
   <data name="Main_ResultList_CountMatches" xml:space="preserve">
-    <value />
+    <value>{0} ({1} съвпадения)</value>
   </data>
   <data name="Main_ResultList_CountMatchesOnLines" xml:space="preserve">
-    <value />
+    <value>{0} ({1} съвпадения на {2} реда)</value>
   </data>
   <data name="Main_ResultList_MatchToolTip1" xml:space="preserve">
     <value />
@@ -688,18 +604,12 @@
     <value />
   </data>
   <data name="Main_ResultList_PlusCountMoreMatches" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Main_ResultList_ReadOnly" xml:space="preserve">
-    <value />
+    <value>, + още {0} съвпадения</value>
   </data>
   <data name="Main_Results_CollapseAll" xml:space="preserve">
-    <value />
+    <value>Свиване на всички</value>
   </data>
   <data name="Main_Results_CompareFiles" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Main_Results_CopyFileNames" xml:space="preserve">
     <value />
   </data>
   <data name="Main_Results_CopyFullFilePaths" xml:space="preserve">
@@ -742,22 +652,22 @@
     <value />
   </data>
   <data name="Main_SearchButton" xml:space="preserve">
-    <value />
+    <value>_Търсене</value>
   </data>
   <data name="Main_SearchFilesInMultipleThreads" xml:space="preserve">
     <value />
   </data>
   <data name="Main_SearchFor" xml:space="preserve">
-    <value />
+    <value>Търсене _на:</value>
   </data>
   <data name="Main_SearchGroup" xml:space="preserve">
-    <value />
+    <value>Търсене</value>
   </data>
   <data name="Main_SearchInArchives" xml:space="preserve">
     <value />
   </data>
   <data name="Main_SearchInGroup" xml:space="preserve">
-    <value />
+    <value>Търсене в</value>
   </data>
   <data name="Main_SearchInResults" xml:space="preserve">
     <value />
@@ -772,22 +682,19 @@
     <value />
   </data>
   <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
-    <value />
+    <value>Фонетично търсене</value>
   </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
-    <value />
+    <value>Търсене на текст</value>
   </data>
   <data name="Main_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
     <value />
   </data>
-  <data name="Main_SearchType_Regex" xml:space="preserve">
-    <value />
-  </data>
   <data name="Main_SearchType_RegularExpressionSearch" xml:space="preserve">
-    <value />
+    <value>Търсене с регулярен израз</value>
   </data>
   <data name="Main_SearchType_Text" xml:space="preserve">
-    <value />
+    <value>_Текст</value>
   </data>
   <data name="Main_SearchType_XPath" xml:space="preserve">
     <value />
@@ -796,28 +703,28 @@
     <value />
   </data>
   <data name="Main_SelectADate" xml:space="preserve">
-    <value />
+    <value>Изберете дата</value>
   </data>
   <data name="Main_ShowResultOptions" xml:space="preserve">
-    <value />
+    <value>Показва настройки на резултатите</value>
   </data>
   <data name="Main_SizeIs" xml:space="preserve">
-    <value />
+    <value>Големина от</value>
   </data>
   <data name="Main_SizeKB" xml:space="preserve">
-    <value />
+    <value>КБ</value>
   </data>
   <data name="Main_SizeTo" xml:space="preserve">
-    <value />
+    <value>до</value>
   </data>
   <data name="Main_SortButton" xml:space="preserve">
-    <value />
+    <value>Сортиране</value>
   </data>
   <data name="Main_SortMenu_Ascending" xml:space="preserve">
-    <value />
+    <value>Възходящ ред</value>
   </data>
   <data name="Main_SortMenu_Descending" xml:space="preserve">
-    <value />
+    <value>Низходящ ред</value>
   </data>
   <data name="Main_SortMenu_FileNameOnly" xml:space="preserve">
     <value />
@@ -826,7 +733,7 @@
     <value />
   </data>
   <data name="Main_SortMenu_FileTypeAndName" xml:space="preserve">
-    <value />
+    <value>Вид и име на файл</value>
   </data>
   <data name="Main_SortMenu_LastWriteTime" xml:space="preserve">
     <value />
@@ -859,7 +766,7 @@
     <value />
   </data>
   <data name="Main_Status_SearchCompleteSearched0FilesFound1FilesIn2" xml:space="preserve">
-    <value />
+    <value>Търсенето е завършено - Претърсени {0} файла. Намерени {1} файла в {2}.</value>
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFiles" xml:space="preserve">
     <value />
@@ -871,13 +778,13 @@
     <value />
   </data>
   <data name="Main_StopAfterFirstMatch" xml:space="preserve">
-    <value />
+    <value>Спиране след първо съвпадение</value>
   </data>
   <data name="Main_TestExpression" xml:space="preserve">
-    <value />
+    <value>Проверка на израза</value>
   </data>
   <data name="Main_ThroughTheEndOfTheDay" xml:space="preserve">
-    <value />
+    <value>до края на деня</value>
   </data>
   <data name="Main_UseCaptureGroupsFromPathsToMatch" xml:space="preserve">
     <value />
@@ -886,12 +793,6 @@
     <value />
   </data>
   <data name="Main_UseGitignoreToFilterFiles" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Main_Validation_HexStringIsOK" xml:space="preserve">
     <value />
   </data>
   <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">
@@ -907,7 +808,7 @@
     <value />
   </data>
   <data name="Main_WholeWord" xml:space="preserve">
-    <value />
+    <value>Цели _думи</value>
   </data>
   <data name="Main_WindowTitle" xml:space="preserve">
     <value />
@@ -919,10 +820,10 @@
     <value />
   </data>
   <data name="MessageBox_AreYouSureYouWantToContinue" xml:space="preserve">
-    <value />
+    <value>Сигурни ли сте, че желаете да продължите?</value>
   </data>
   <data name="MessageBox_AreYouSureYouWantToReplaceSearchPatternWithEmptyString" xml:space="preserve">
-    <value />
+    <value>Сигурни ли сте, че желаете да замените търсения шаблон с празен низ?</value>
   </data>
   <data name="MessageBox_CheckEditorPath" xml:space="preserve">
     <value />
@@ -934,7 +835,7 @@
     <value />
   </data>
   <data name="MessageBox_CopyFiles" xml:space="preserve">
-    <value />
+    <value>Копиране на файлове</value>
   </data>
   <data name="MessageBox_CouldNotLoadResourcesFile0" xml:space="preserve">
     <value />
@@ -943,7 +844,7 @@
     <value />
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyCopied" xml:space="preserve">
-    <value />
+    <value>{0} файла са успешно копирани.</value>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyDeleted" xml:space="preserve">
     <value />
@@ -961,13 +862,13 @@
     <value />
   </data>
   <data name="MessageBox_DnGrep" xml:space="preserve">
-    <value />
+    <value>dnGrep</value>
   </data>
   <data name="MessageBox_DoYouWantToContinue" xml:space="preserve">
     <value />
   </data>
   <data name="MessageBox_Error" xml:space="preserve">
-    <value />
+    <value>Грешка: </value>
   </data>
   <data name="MessageBox_ErrorOpeningFile" xml:space="preserve">
     <value />
@@ -991,13 +892,13 @@
     <value />
   </data>
   <data name="MessageBox_NewVersion" xml:space="preserve">
-    <value />
+    <value>Ново издание</value>
   </data>
   <data name="MessageBox_NewVersionOfDnGREP0IsAvailableForDownload" xml:space="preserve">
-    <value />
+    <value>Ново издание на dnGREP ({0}) е налично за изтегляне.</value>
   </data>
   <data name="MessageBox_PleaseSelectAnotherDirectoryAndTryAgain" xml:space="preserve">
-    <value />
+    <value>Изберете друга папка и опитайте отново.</value>
   </data>
   <data name="MessageBox_PluginErrors" xml:space="preserve">
     <value />
@@ -1009,7 +910,7 @@
     <value />
   </data>
   <data name="MessageBox_Replace" xml:space="preserve">
-    <value />
+    <value>Заменяне</value>
   </data>
   <data name="MessageBox_ReplaceFailedError" xml:space="preserve">
     <value />
@@ -1033,7 +934,7 @@
     <value />
   </data>
   <data name="MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory" xml:space="preserve">
-    <value />
+    <value>Внимание, някои от файловете се намират в избраната папка.</value>
   </data>
   <data name="MessageBox_SomeOfTheFilesCannotBeModifiedIfYouContinueTheseFilesWillBeSkipped" xml:space="preserve">
     <value />
@@ -1096,7 +997,7 @@
     <value />
   </data>
   <data name="MessageBox_WindowTitleIsName" xml:space="preserve">
-    <value />
+    <value>Заглавие на прозореца: {0}</value>
   </data>
   <data name="MessageBox_WouldYouLikeToContinue" xml:space="preserve">
     <value />
@@ -1111,28 +1012,28 @@
     <value />
   </data>
   <data name="Options_ApplicationFonts" xml:space="preserve">
-    <value />
+    <value>Шрифт</value>
   </data>
   <data name="Options_ArchiveAdd" xml:space="preserve">
-    <value />
+    <value>Добавяне:</value>
   </data>
   <data name="Options_ArchiveDefault" xml:space="preserve">
     <value />
   </data>
   <data name="Options_ArchiveExtensions" xml:space="preserve">
-    <value />
+    <value>Разширения:</value>
   </data>
   <data name="Options_ArchiveOptions" xml:space="preserve">
-    <value />
+    <value>Настройки за архиви</value>
   </data>
   <data name="Options_ArchiveRemove" xml:space="preserve">
     <value />
   </data>
   <data name="Options_BrowseFileLocation" xml:space="preserve">
-    <value />
+    <value>…</value>
   </data>
   <data name="Options_CheckDays" xml:space="preserve">
-    <value />
+    <value>дни</value>
   </data>
   <data name="Options_CheckForUpdatesWhenWindowsStarts" xml:space="preserve">
     <value />
@@ -1141,25 +1042,25 @@
     <value />
   </data>
   <data name="Options_ClearOldSearches" xml:space="preserve">
-    <value />
+    <value>Премахване на стари търсения</value>
   </data>
   <data name="Options_Close" xml:space="preserve">
-    <value />
+    <value>_Затваряне</value>
   </data>
   <data name="Options_CompareApplication" xml:space="preserve">
-    <value />
+    <value>Приложение за сравняване</value>
   </data>
   <data name="Options_CompareArguments" xml:space="preserve">
-    <value />
+    <value>Аргументи</value>
   </data>
   <data name="Options_CompareCommand" xml:space="preserve">
-    <value />
+    <value>Команда</value>
   </data>
   <data name="Options_ContextAfter" xml:space="preserve">
-    <value />
+    <value>след</value>
   </data>
   <data name="Options_ContextBeforeAnd" xml:space="preserve">
-    <value />
+    <value>преди и</value>
   </data>
   <data name="Options_CustomEditor" xml:space="preserve">
     <value />
@@ -1174,13 +1075,13 @@
     <value />
   </data>
   <data name="Options_DnGrepWillAddTheSelectedFiles" xml:space="preserve">
-    <value />
+    <value>имената на избраните файлове ще бъдат добавени накрая на командата.</value>
   </data>
   <data name="Options_EditorArguments" xml:space="preserve">
-    <value />
+    <value>Аргументи</value>
   </data>
   <data name="Options_EditorCommand" xml:space="preserve">
-    <value />
+    <value>Команда</value>
   </data>
   <data name="Options_EnableAutomaticCheckingEvery" xml:space="preserve">
     <value />
@@ -1189,10 +1090,10 @@
     <value />
   </data>
   <data name="Options_FollowWindowsTheme" xml:space="preserve">
-    <value />
+    <value>Следва темата на Windows</value>
   </data>
   <data name="Options_FontFamily" xml:space="preserve">
-    <value />
+    <value>Фамилия на шрифта</value>
   </data>
   <data name="Options_HelpTranslateDnGrep" xml:space="preserve">
     <value />
@@ -1219,7 +1120,7 @@
     <value />
   </data>
   <data name="Options_LoadFromFile" xml:space="preserve">
-    <value />
+    <value>От файл…</value>
   </data>
   <data name="Options_MainFontSize" xml:space="preserve">
     <value />
@@ -1237,7 +1138,7 @@
     <value />
   </data>
   <data name="Options_OptionsTitle" xml:space="preserve">
-    <value />
+    <value>Настройки</value>
   </data>
   <data name="Options_PDFToText" xml:space="preserve">
     <value />
@@ -1249,34 +1150,25 @@
     <value />
   </data>
   <data name="Options_PhoneticSearch" xml:space="preserve">
-    <value />
+    <value>Фонетично търсене</value>
   </data>
   <data name="Options_PluginAdd" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Options_PluginDefault" xml:space="preserve">
-    <value />
+    <value>Добавяне:</value>
   </data>
   <data name="Options_PluginEnabled" xml:space="preserve">
     <value />
   </data>
   <data name="Options_PluginExtensions" xml:space="preserve">
-    <value />
+    <value>Разширения:</value>
   </data>
   <data name="Options_PluginOptions" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Options_PluginRemove" xml:space="preserve">
-    <value />
+    <value>Настройки на добавки</value>
   </data>
   <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
     <value />
   </data>
-  <data name="Options_PreviewToolForTranslators" xml:space="preserve">
-    <value />
-  </data>
   <data name="Options_RegexOptions" xml:space="preserve">
-    <value />
+    <value>Настройки на регулярни изрази</value>
   </data>
   <data name="Options_Reload" xml:space="preserve">
     <value />
@@ -1288,13 +1180,13 @@
     <value />
   </data>
   <data name="Options_ResultsOptions" xml:space="preserve">
-    <value />
+    <value>Настройки на резултати</value>
   </data>
   <data name="Options_SampleText" xml:space="preserve">
     <value />
   </data>
   <data name="Options_Save" xml:space="preserve">
-    <value />
+    <value>Запазване</value>
   </data>
   <data name="Options_SelectedTheme" xml:space="preserve">
     <value />
@@ -1368,26 +1260,17 @@
   <data name="Preview_UseRegularExpressions" xml:space="preserve">
     <value />
   </data>
-  <data name="Preview_WrapText" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Preview_Zoom" xml:space="preserve">
-    <value />
-  </data>
   <data name="Rename_Cancel" xml:space="preserve">
-    <value />
+    <value>Отказ</value>
   </data>
   <data name="Rename_NewName" xml:space="preserve">
     <value />
   </data>
   <data name="Rename_OK" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Rename_Title" xml:space="preserve">
-    <value />
+    <value>Добре</value>
   </data>
   <data name="Replace_CancelAllReplacements" xml:space="preserve">
-    <value />
+    <value>Отказ от всички заменяния</value>
   </data>
   <data name="Replace_ChangesTextEditorZoom" xml:space="preserve">
     <value />
@@ -1399,7 +1282,7 @@
     <value />
   </data>
   <data name="Replace_Files" xml:space="preserve">
-    <value />
+    <value>Файлове</value>
   </data>
   <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
     <value />
@@ -1417,13 +1300,13 @@
     <value />
   </data>
   <data name="Replace_Next" xml:space="preserve">
-    <value />
+    <value>На_пред</value>
   </data>
   <data name="Replace_NextFile" xml:space="preserve">
     <value />
   </data>
   <data name="Replace_Previous" xml:space="preserve">
-    <value />
+    <value>Наза_д</value>
   </data>
   <data name="Replace_PreviousFile" xml:space="preserve">
     <value />
@@ -1435,7 +1318,7 @@
     <value />
   </data>
   <data name="Replace_ReplaceButton" xml:space="preserve">
-    <value />
+    <value>З_аменяне</value>
   </data>
   <data name="Replace_ReplaceInAllFiles" xml:space="preserve">
     <value />
@@ -1459,21 +1342,18 @@
     <value />
   </data>
   <data name="Replace_ReplaceWith" xml:space="preserve">
-    <value />
+    <value>Заменяне с:</value>
   </data>
   <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
     <value />
   </data>
   <data name="Replace_SearchFor" xml:space="preserve">
-    <value />
+    <value>Търсене на:</value>
   </data>
   <data name="Replace_ShowTheNextFile" xml:space="preserve">
     <value />
   </data>
   <data name="Replace_ShowThePreviousFile" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Replace_SyntaxNone" xml:space="preserve">
     <value />
   </data>
   <data name="Replace_ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
@@ -1483,18 +1363,12 @@
     <value />
   </data>
   <data name="Replace_Undo" xml:space="preserve">
-    <value />
+    <value>_Отменяне</value>
   </data>
   <data name="Replace_UndoFile" xml:space="preserve">
     <value />
   </data>
   <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Replace_WrapText" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Replace_Zoom" xml:space="preserve">
     <value />
   </data>
   <data name="Report_CSVRecordHeaderText" xml:space="preserve">
@@ -1504,7 +1378,7 @@
     <value />
   </data>
   <data name="Report_FileNotFoundHasItBeenDeletedOrMoved" xml:space="preserve">
-    <value />
+    <value>[Файлът не е намерен: дали не е преместен или премахнат?]</value>
   </data>
   <data name="Report_Found0MatchesOn1LinesIn2Files" xml:space="preserve">
     <value />
@@ -1519,15 +1393,12 @@
     <value />
   </data>
   <data name="ReportSummary_BooleanOperators" xml:space="preserve">
-    <value />
+    <value>Булеви оператори</value>
   </data>
   <data name="ReportSummary_CaseSensitive" xml:space="preserve">
-    <value />
+    <value>Съвпадение на регистъра</value>
   </data>
   <data name="ReportSummary_DotAsNewline" xml:space="preserve">
-    <value />
-  </data>
-  <data name="ReportSummary_Encoding" xml:space="preserve">
     <value />
   </data>
   <data name="ReportSummary_ExcludePattern" xml:space="preserve">
@@ -1561,19 +1432,19 @@
     <value />
   </data>
   <data name="ReportSummary_SearchFor" xml:space="preserve">
-    <value />
+    <value>Търсене на:</value>
   </data>
   <data name="ReportSummary_SearchIn" xml:space="preserve">
-    <value />
+    <value>Търсене в:</value>
   </data>
   <data name="ReportSummary_SearchInResults" xml:space="preserve">
     <value />
   </data>
   <data name="ReportSummary_SizeFrom0To1KB" xml:space="preserve">
-    <value />
+    <value>Големина от  {0} до {1} КБ</value>
   </data>
   <data name="ReportSummary_StopAfterFirstMatch" xml:space="preserve">
-    <value />
+    <value>Спиране след първо съвпадение</value>
   </data>
   <data name="ReportSummary_Type0DateFrom1To2" xml:space="preserve">
     <value />
@@ -1594,24 +1465,15 @@
     <value />
   </data>
   <data name="Test_BooleanOperators" xml:space="preserve">
-    <value />
+    <value>Булеви оператори</value>
   </data>
   <data name="Test_CaseSensitive" xml:space="preserve">
-    <value />
+    <value>Съвпадение на _регистъра</value>
   </data>
   <data name="Test_Close" xml:space="preserve">
-    <value />
+    <value>_Затваряне</value>
   </data>
   <data name="Test_CopyToClipboard" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Test_DotAsNewline" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Test_HighlightGroups" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Test_Multiline" xml:space="preserve">
     <value />
   </data>
   <data name="Test_NoMatchesFound" xml:space="preserve">
@@ -1624,37 +1486,28 @@
     <value />
   </data>
   <data name="Test_ReplaceWith" xml:space="preserve">
-    <value />
+    <value>Заменяне с:</value>
   </data>
   <data name="Test_SampleInputText" xml:space="preserve">
     <value />
   </data>
   <data name="Test_SearchFor" xml:space="preserve">
-    <value />
+    <value>Търсене на:</value>
   </data>
   <data name="Test_SearchGroup" xml:space="preserve">
-    <value />
+    <value>Търсене</value>
   </data>
   <data name="Test_SearchResult" xml:space="preserve">
     <value />
   </data>
-  <data name="Test_SearchType_Phonetic" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Test_SearchType_Regex" xml:space="preserve">
-    <value />
-  </data>
   <data name="Test_SearchType_Text" xml:space="preserve">
-    <value />
-  </data>
-  <data name="Test_SearchType_XPath" xml:space="preserve">
-    <value />
+    <value>_Текст</value>
   </data>
   <data name="Test_Title" xml:space="preserve">
-    <value />
+    <value>Проверка</value>
   </data>
   <data name="Test_WholeWord" xml:space="preserve">
-    <value />
+    <value>Цели _думи</value>
   </data>
   <data name="TTA1_MatchesAllCharacters" xml:space="preserve">
     <value />
@@ -1687,7 +1540,7 @@
     <value />
   </data>
   <data name="Window_Close" xml:space="preserve">
-    <value />
+    <value>Затваряне</value>
   </data>
   <data name="Window_DockThisPopUpBackIntoTheMainWindow" xml:space="preserve">
     <value />

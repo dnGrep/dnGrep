@@ -326,8 +326,10 @@ namespace dnGREP.WPF
 
             if (!valid)
             {
-                MessageBox.Show(TranslationSource.Format(Localization.Properties.Resources.CouldNotLoadTheme, name) + App.LogDir,
-                    Localization.Properties.Resources.DnGrep, MessageBoxButton.OK);
+                MessageBox.Show(TranslationSource.Format(Localization.Properties.Resources.MessageBox_CouldNotLoadTheme, name) + App.LogDir,
+                    Localization.Properties.Resources.MessageBox_DnGrep, 
+                    MessageBoxButton.OK, MessageBoxImage.Error,
+                    MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
             }
 
             return valid;

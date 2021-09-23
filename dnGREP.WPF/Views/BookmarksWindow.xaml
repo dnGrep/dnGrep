@@ -5,7 +5,8 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:my="clr-namespace:dnGREP.WPF"
                  xmlns:l="clr-namespace:dnGREP.Localization;assembly=dnGREP.Localization"
-                 Title="{l:Loc Key='Bookmarks'}"
+                 Title="{l:Loc Key='Bookmarks_Title'}"
+                 FlowDirection="{Binding CultureFlowDirection}"
                  FontFamily="{Binding ApplicationFontFamily}"
                  FontSize="{Binding DialogFontSize}"
                  Width="860"
@@ -36,7 +37,7 @@
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Row="0">
-            <TextBlock Margin="3" Text="{l:Loc Key='Filter'}" Style="{StaticResource LabelTextBlockStyle}" />
+            <TextBlock Margin="3" Text="{l:Loc Key='Bookmarks_Filter'}" Style="{StaticResource LabelTextBlockStyle}" />
             <TextBox Margin="3" Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" />
         </DockPanel>
 
@@ -53,18 +54,18 @@
 
 
             <DataGrid.Columns>
-                <DataGridTextColumn MinWidth="80" Header="{l:Loc Key='TypeHeader'}" IsReadOnly="True"
+                <DataGridTextColumn MinWidth="80" Header="{l:Loc Key='Bookmarks_TypeHeader'}" IsReadOnly="True"
                                     Binding="{Binding TypeOfSearch, Converter={StaticResource tosConverter}}"
                                     SortMemberPath="TypeOfSearch" />
-                <DataGridTextColumn MinWidth="120" Header="{l:Loc Key='SearchForHeader'}" IsReadOnly="True"
+                <DataGridTextColumn MinWidth="120" Header="{l:Loc Key='Bookmarks_SearchForHeader'}" IsReadOnly="True"
                                     Binding="{Binding SearchFor}" />
-                <DataGridTextColumn MinWidth="120" Header="{l:Loc Key='ReplaceWithHeader'}" IsReadOnly="True"
+                <DataGridTextColumn MinWidth="120" Header="{l:Loc Key='Bookmarks_ReplaceWithHeader'}" IsReadOnly="True"
                                     Binding="{Binding ReplaceWith}" />
-                <DataGridTextColumn MinWidth="120" Header="{l:Loc Key='FilePatternHeader'}" IsReadOnly="True"
+                <DataGridTextColumn MinWidth="120" Header="{l:Loc Key='Bookmarks_FilePatternHeader'}" IsReadOnly="True"
                                     Binding="{Binding FilePattern}" />
-                <DataGridTextColumn MinWidth="160" Header="{l:Loc Key='DescriptionHeader'}" IsReadOnly="True"
+                <DataGridTextColumn MinWidth="160" Header="{l:Loc Key='Bookmarks_DescriptionHeader'}" IsReadOnly="True"
                                     Binding="{Binding Description}" />
-                <DataGridTextColumn MinWidth="20" Header="{l:Loc Key='OtherPropertiesHeader'}" IsReadOnly="True"
+                <DataGridTextColumn MinWidth="20" Header="{l:Loc Key='Bookmarks_OtherPropertiesHeader'}" IsReadOnly="True"
                                     Binding="{Binding ExtendedProperties}" />
             </DataGrid.Columns>
             <DataGrid.RowStyle>
@@ -82,18 +83,18 @@
                     <ColumnDefinition SharedSizeGroup="A"/>
                     <ColumnDefinition SharedSizeGroup="A"/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="{l:Loc Key='Add_'}" Command="{Binding AddCommand}" />
-                <Button Grid.Column="1" Content="{l:Loc Key='Duplicate_'}" Command="{Binding DuplicateCommand}" />
-                <Button Grid.Column="2" Content="{l:Loc Key='Edit_'}" Command="{Binding EditCommand}" />
-                <Button Grid.Column="3" Content="{l:Loc Key='Delete_'}" Command="{Binding DeleteCommand}" />
+                <Button Grid.Column="0" Content="{l:Loc Key='Bookmarks_Add'}" Command="{Binding AddCommand}" />
+                <Button Grid.Column="1" Content="{l:Loc Key='Bookmarks_Duplicate'}" Command="{Binding DuplicateCommand}" />
+                <Button Grid.Column="2" Content="{l:Loc Key='Bookmarks_Edit'}" Command="{Binding EditCommand}" />
+                <Button Grid.Column="3" Content="{l:Loc Key='Bookmarks_Delete'}" Command="{Binding DeleteCommand}" />
             </Grid>
             <Grid DockPanel.Dock="Right">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition SharedSizeGroup="A"/>
                     <ColumnDefinition SharedSizeGroup="A"/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="{l:Loc Key='Close_'}" IsCancel="True" IsDefault="True" />
-                <Button Grid.Column="1" Content="{l:Loc Key='Use_'}" IsEnabled="{Binding HasSelection}" Click="UseButton_Click" />
+                <Button Grid.Column="0" Content="{l:Loc Key='Bookmarks_Close'}" IsCancel="True" IsDefault="True" />
+                <Button Grid.Column="1" Content="{l:Loc Key='Bookmarks_Use'}" IsEnabled="{Binding HasSelection}" Click="UseButton_Click" />
             </Grid>
         </DockPanel>
 

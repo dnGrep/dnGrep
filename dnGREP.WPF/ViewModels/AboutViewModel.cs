@@ -7,12 +7,12 @@ using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
 {
-    public class AboutViewModel : ViewModelBase
+    public class AboutViewModel : CultureAwareViewModel
     {
         public AboutViewModel()
         {
-            Version = $"{Resources.Version} {AssemblyVersion}";
-            BuildDate = $"{Resources.BuiltOn} {AssemblyBuildDate.ToString(CultureInfo.CurrentCulture)}";
+            Version = $"{Resources.About_Version} {AssemblyVersion}";
+            BuildDate = $"{Resources.About_BuiltOn} {AssemblyBuildDate.ToString(CultureInfo.CurrentCulture)}";
             Copyright = AssemblyCopyright;
             Description = AssemblyDescription;
             ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
