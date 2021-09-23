@@ -579,7 +579,7 @@ Arguments:
     <value>חיפוש של Everything:</value>
   </data>
   <data name="Main_ExcelSheetName" xml:space="preserve">
-    <value>Sheet [{0}]</value>
+    <value>Sheet \u200f[{0}]</value>
   </data>
   <data name="Main_ExcludeFilesByTypeAndFoldersByName" xml:space="preserve">
     <value>אל תכלול קבצים לפי סוג ותיקיות לפי שם</value>
@@ -768,7 +768,7 @@ Arguments:
     <value>...(+{0:n0} characters)</value>
   </data>
   <data name="Main_ResultList_CountMatches" xml:space="preserve">
-    <value>{0} ({1} התאמות)</value>
+    <value>{0} \u200f({1} התאמות)</value>
   </data>
   <data name="Main_ResultList_CountMatchesOnLines" xml:space="preserve">
     <value>{0} \u200f({1} התאמות ב- {2} שורות)</value>
@@ -1086,7 +1086,7 @@ Arguments:
     <value>גרסה חדשה</value>
   </data>
   <data name="MessageBox_NewVersionOfDnGREP0IsAvailableForDownload" xml:space="preserve">
-    <value>גרסה חדשה של dnGREP ({0}) זמינה להורדה.</value>
+    <value>גרסה חדשה של dnGREP \u200f({0}) זמינה להורדה.</value>
   </data>
   <data name="MessageBox_PleaseSelectAnotherDirectoryAndTryAgain" xml:space="preserve">
     <value>בחר ספרייה אחרת ונסה שוב.</value>
@@ -1491,7 +1491,7 @@ Arguments:
     <value>Error: this is a binary file</value>
   </data>
   <data name="Replace_FileNumberOfCountName" xml:space="preserve">
-    <value>File {0} of {1}: {2}  ({3} matches on {4} lines)</value>
+    <value>File {0} of {1}: {2}  \u200f({3} matches on {4} lines)</value>
   </data>
   <data name="Replace_Files" xml:space="preserve">
     <value>קבצים</value>
