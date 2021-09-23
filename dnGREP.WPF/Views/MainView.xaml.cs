@@ -4,7 +4,6 @@ using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Markup;
@@ -98,8 +97,6 @@ namespace dnGREP.WPF
             Loaded += Window_Loaded;
             Closing += MainForm_Closing;
 
-            PreviewKeyDown += MainFormEx_PreviewKeyDown;
-            PreviewKeyUp += MainFormEx_PreviewKeyUp;
             KeyDown += MainForm_KeyDown;
         }
 
@@ -370,25 +367,6 @@ namespace dnGREP.WPF
                 tbFilePatternIgnore.ActualWidth - tbFilePatternIgnore.Margin.Left - tbFilePatternIgnore.Margin.Right;
 
             viewModel.MaxFileFiltersSummaryWidth = Math.Max(0, maxWidth);
-        }
-
-        void MainFormEx_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt))
-            {
-                fileOptions.Inlines.Clear();
-                fileOptions.Inlines.Add(new Run("Mor"));
-                fileOptions.Inlines.Add(new Underline(new Run("e")));
-                fileOptions.Inlines.Add(new Run("..."));
-            }
-        }
-
-        void MainFormEx_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            if (Keyboard.IsKeyUp(Key.LeftAlt) && Keyboard.IsKeyUp(Key.RightAlt))
-            {
-                fileOptions.Text = "More...";
-            }
         }
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)

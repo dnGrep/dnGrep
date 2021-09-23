@@ -11,7 +11,7 @@ using NLog;
 
 namespace dnGREP.WPF
 {
-    public class PreviewViewModel : ViewModelBase, INotifyPropertyChanged
+    public class PreviewViewModel : CultureAwareViewModel, INotifyPropertyChanged
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
@@ -19,8 +19,8 @@ namespace dnGREP.WPF
         {
             Highlighters = ThemedHighlightingManager.Instance.HighlightingNames.ToList();
             Highlighters.Sort();
-            Highlighters.Insert(0, Resources.PreviewSyntax_None);
-            CurrentSyntax = Resources.PreviewSyntax_None;
+            Highlighters.Insert(0, Resources.Preview_SyntaxNone);
+            CurrentSyntax = Resources.Preview_SyntaxNone;
 
             HighlightsOn = GrepSettings.Instance.Get<bool>(GrepSettings.Key.HighlightMatches);
 
@@ -224,7 +224,7 @@ namespace dnGREP.WPF
                     if (definition != null)
                         CurrentSyntax = definition.Name;
                     else
-                        CurrentSyntax = Resources.PreviewSyntax_None;
+                        CurrentSyntax = Resources.Preview_SyntaxNone;
 
                     try
                     {

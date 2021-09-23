@@ -29,22 +29,43 @@ namespace dnGREP.Localization
 
         public override string GetString(string name, CultureInfo culture)
         {
+            string result = null;
             if (FileResources != null)
             {
                 if (FileResources.Resources.TryGetValue(name, out string value))
                 {
-                    return value;
+                    result = value;
                 }
-                else
+
+                if (string.IsNullOrEmpty(result))
                 {
-                    return null;
-                } 
-                    
+                    // no need to check for RTL language
+                    return base.GetString(name, CultureInfo.InvariantCulture);
+                }
             }
             else
             {
-                return base.GetString(name, culture);
+                if (culture != null && culture.Name != null && culture.Name.Equals("en"))
+                {
+                    // no need to check for RTL language
+                    return base.GetString(name, CultureInfo.InvariantCulture);
+                }
+
+                result = base.GetString(name, culture);
+                if (string.IsNullOrEmpty(result))
+                {
+                    // no need to check for RTL language
+                    return base.GetString(name, CultureInfo.InvariantCulture);
+                }
             }
+
+            if (!string.IsNullOrWhiteSpace(result) && TranslationSource.Instance.CurrentCulture.TextInfo.IsRightToLeft)
+            {
+                result = result.Replace($"\\u200e", char.ConvertFromUtf32(0x200e));
+                result = result.Replace($"\\u200f", char.ConvertFromUtf32(0x200f));
+            }
+
+            return result;
         }
     }
 }

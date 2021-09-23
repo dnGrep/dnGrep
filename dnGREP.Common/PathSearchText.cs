@@ -21,7 +21,6 @@ namespace dnGREP.Common
                     return;
 
                 baseFolder = null;
-                isValidBaseFolder = null;
                 isValidPath = null;
                 fileOrFolderPath = value;
             }
@@ -72,22 +71,6 @@ namespace dnGREP.Common
             }
         }
 
-        private bool? isValidBaseFolder;
-        /// <summary>
-        /// Gets a flag indicating the BaseFolder is valid
-        /// </summary>
-        public bool IsValidBaseFolder
-        {
-            get
-            {
-                if (!isValidBaseFolder.HasValue)
-                {
-                    isValidBaseFolder = Utils.IsPathValid(BaseFolder);
-                }
-                return isValidBaseFolder.Value;
-            }
-        }
-
         private bool? isValidPath;
         /// <summary>
         /// Gets a flag indicating the path or set of paths are valid
@@ -101,7 +84,8 @@ namespace dnGREP.Common
                     if (TypeOfFileSearch == FileSearchType.Everything)
                         isValidPath = !string.IsNullOrWhiteSpace(FileOrFolderPath);
                     else
-                        isValidPath = Utils.IsPathValid(fileOrFolderPath);
+                        isValidPath = !string.IsNullOrWhiteSpace(FileOrFolderPath) && 
+                            Utils.IsPathValid(fileOrFolderPath);
                 }
                 return isValidPath.Value;
             }

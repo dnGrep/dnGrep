@@ -114,14 +114,14 @@ namespace dnGREP.Common
                     var process = ProcessHoldingClipboard();
                     if (process != null)
                     {
-                        string msg = Resources.ErrorSettingClipboardTextTheClipboardIsLockedBy + Environment.NewLine;
+                        string msg = Resources.MessageBox_ErrorSettingClipboardTextTheClipboardIsLockedBy + Environment.NewLine;
                         msg += (process.MainModule != null && !string.IsNullOrEmpty(process.MainModule.FileName) ?
                             process.MainModule.FileName : process.ProcessName) + Environment.NewLine +
-                            TranslationSource.Format(Resources.WindowTitleIsName, process.MainWindowTitle);
+                            TranslationSource.Format(Resources.MessageBox_WindowTitleIsName, process.MainWindowTitle);
                         logger.Error(msg);
-                        System.Windows.MessageBox.Show(msg, Resources.DnGrep,
-                            System.Windows.MessageBoxButton.OK,
-                            System.Windows.MessageBoxImage.Error);
+                        System.Windows.MessageBox.Show(msg, Resources.MessageBox_DnGrep,
+                            System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error,
+                            System.Windows.MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                     }
                 }
                 else

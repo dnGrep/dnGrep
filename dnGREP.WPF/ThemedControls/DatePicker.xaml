@@ -9,7 +9,7 @@
         <Setter Property="BorderBrush" Value="{DynamicResource Control.Static.Border}" />
         <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst" />
         <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
-        <Setter Property="Text" Value="{l:Loc Key='SelectADate'}"/>
+        <Setter Property="Text" Value="{l:Loc Key='Main_SelectADate'}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type DatePickerTextBox}">

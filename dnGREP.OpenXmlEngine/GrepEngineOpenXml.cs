@@ -97,7 +97,7 @@ namespace dnGREP.Engines.OpenXml
                     {
                         GrepSearchResult result = new GrepSearchResult(file, searchPattern, lines, Encoding.Default)
                         {
-                            AdditionalInformation = " " + TranslationSource.Format(Resources.ExcelSheetName, kvPair.Key)
+                            AdditionalInformation = " " + TranslationSource.Format(Resources.Main_ExcelSheetName, kvPair.Key)
                         };
                         using (StringReader reader = new StringReader(kvPair.Value))
                         {
