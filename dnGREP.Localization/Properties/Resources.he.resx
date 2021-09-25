@@ -264,6 +264,9 @@
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
     <value>חיפוש טקסט רגיל</value>
   </data>
+  <data name="BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
+    <value>קרא קובץ כמו בינארי וחפש בתים כמו ספרות הקסדצימלי: 68 65 78 20</value>
+  </data>
   <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
     <value>_Regex</value>
   </data>

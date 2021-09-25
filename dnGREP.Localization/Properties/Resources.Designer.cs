@@ -475,6 +475,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hex.
+        /// </summary>
+        public static string BookmarkDetails_SearchType_Hex {
+            get {
+                return ResourceManager.GetString("BookmarkDetails_SearchType_Hex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Phonetic.
         /// </summary>
         public static string BookmarkDetails_SearchType_Phonetic {
@@ -498,6 +507,15 @@ namespace dnGREP.Localization.Properties {
         public static string BookmarkDetails_SearchType_PlainTextSearch {
             get {
                 return ResourceManager.GetString("BookmarkDetails_SearchType_PlainTextSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Read file as binary and search for bytes as hexadecimal digits: 68 65 78 20.
+        /// </summary>
+        public static string BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes {
+            get {
+                return ResourceManager.GetString("BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes", resourceCulture);
             }
         }
         
