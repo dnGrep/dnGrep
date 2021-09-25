@@ -407,7 +407,7 @@
   </data>
   <data name="Bookmarks_Summary_MaxFolderDepth" xml:space="preserve">
     <value>Max folder depth {0}</value>
-    <comment>Bookmarks dialog, Other Properties summary</comment>
+    <comment>Bookmarks dialog, Other Properties summary: {0} is a number</comment>
   </data>
   <data name="Bookmarks_Summary_Multiline" xml:space="preserve">
     <value>Multiline</value>
@@ -543,7 +543,7 @@ Arguments:
 -x
 -exit
     Exit dnGrep after command line operations are complete.</value>
-    <comment>Help dialog text when running dnGrep from the command line</comment>
+    <comment>Help dialog text when running dnGrep from the command line: {0} is the installed dnGrep version number; {1} is the installed dnGrep build date</comment>
   </data>
   <data name="Help_DnGrepHelp" xml:space="preserve">
     <value>dnGrep Help</value>
@@ -703,7 +703,7 @@ Arguments:
   </data>
   <data name="Main_ExcelSheetName" xml:space="preserve">
     <value>Sheet [{0}]</value>
-    <comment>Main window results list for Excel file data</comment>
+    <comment>Main window results list for Excel file data: {0} is a string, the name of the worksheet in the Excel document</comment>
   </data>
   <data name="Main_ExcludeFilesByTypeAndFoldersByName" xml:space="preserve">
     <value>Exclude files by type and folders by name</value>
@@ -727,7 +727,7 @@ Arguments:
   </data>
   <data name="Main_FilterSummary_MaxFolderDepth" xml:space="preserve">
     <value>Max folder depth {0}</value>
-    <comment>Main window, file filters summary</comment>
+    <comment>Main window, file filters summary: {0} is a number</comment>
   </data>
   <data name="Main_FilterSummary_NoBinary" xml:space="preserve">
     <value>No binary</value>
@@ -947,7 +947,7 @@ Arguments:
   </data>
   <data name="Main_ResultList_AtPosition" xml:space="preserve">
     <value>at position {0}</value>
-    <comment>Main window, search results text</comment>
+    <comment>Main window, search results text: {0} is number, the offset from the start of the line</comment>
   </data>
   <data name="Main_ResultList_CountAdditionalCharacters" xml:space="preserve">
     <value>...(+{0:n0} characters)</value>
@@ -955,23 +955,24 @@ Arguments:
   </data>
   <data name="Main_ResultList_CountMatches" xml:space="preserve">
     <value>{0} ({1} matches)</value>
-    <comment>Main window, search results text</comment>
+    <comment>Main window, search results text: {0} is the partial path and file name; {1} is the number of matches in the file</comment>
   </data>
   <data name="Main_ResultList_CountMatchesOnLines" xml:space="preserve">
     <value>{0} ({1} matches on {2} lines)</value>
-    <comment>Main window, search results text</comment>
+    <comment>Main window, search results text: {0} is the partial path and file name; {1} is the number of matches in the file; {2} is the number of lines with matches</comment>
   </data>
   <data name="Main_ResultList_MatchToolTip1" xml:space="preserve">
     <value>Match {0}{1}{2}</value>
-    <comment>Main window results, capture group tooltip {1} is a new line</comment>
+    
+    <comment>Main window results, capture group tooltip: {0} is the match index; {1} is a new line; {2} is text of in the group</comment>
   </data>
   <data name="Main_ResultList_MatchToolTip2" xml:space="preserve">
     <value>Match {0}{1}Group {2}:   {3}</value>
-    <comment>Main window results, capture group tooltip {1} is a new line</comment>
+    <comment>Main window results, capture group tooltip: {0} is the match index; {1} is a new line; {2} is the named group name; {3} is the text in the group</comment>
   </data>
   <data name="Main_ResultList_PlusCountMoreMatches" xml:space="preserve">
     <value>, +{0} more matches</value>
-    <comment>Main window, search results text</comment>
+    <comment>Main window, search results text: {0} is the number of additional matches found on the line</comment>
   </data>
   <data name="Main_ResultList_ReadOnly" xml:space="preserve">
     <value>[read-only]</value>
@@ -1179,7 +1180,7 @@ Arguments:
   </data>
   <data name="Main_Status_ReplaceComplete0FilesReplaced" xml:space="preserve">
     <value>Replace Complete - {0} files replaced.</value>
-    <comment>Main window, status bar message</comment>
+    <comment>Main window, status bar message: {0} is the number of files modified by the replace operation</comment>
   </data>
   <data name="Main_Status_ReplaceFailed" xml:space="preserve">
     <value>Replace Failed.</value>
@@ -1199,15 +1200,15 @@ Arguments:
   </data>
   <data name="Main_Status_SearchCompleteSearched0FilesFound1FilesIn2" xml:space="preserve">
     <value>Search Complete - Searched {0} files. Found {1} files in {2}.</value>
-    <comment>Main window, status bar message</comment>
+    <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found; {2} is the duration of the search</comment>
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFiles" xml:space="preserve">
     <value>Searched {0} files. Found {1} matching files.</value>
-    <comment>Main window, status bar message</comment>
+    <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found</comment>
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFilesProcessing2" xml:space="preserve">
     <value>Searched {0} files. Found {1} matching files - processing {2}</value>
-    <comment>Main window, status bar message</comment>
+    <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found; {2} is the current file name being searched</comment>
   </data>
   <data name="Main_Status_Searching" xml:space="preserve">
     <value>Searching...</value>
@@ -1267,7 +1268,7 @@ Arguments:
   </data>
   <data name="Main_WindowTitle" xml:space="preserve">
     <value>{0} in "{1}" - dnGREP</value>
-    <comment>Main window title</comment>
+    <comment>Main window title: {0} is the current search pattern; {1} is the current search folder</comment>
   </data>
   <data name="Main_WrapText" xml:space="preserve">
     <value>Wrap Text</value>
@@ -1303,23 +1304,23 @@ Arguments:
   </data>
   <data name="MessageBox_CouldNotLoadResourcesFile0" xml:space="preserve">
     <value>Could not load resources file '{0}': </value>
-    <comment>Message box text for: Load language resource</comment>
+    <comment>Message box text for: Load language resource: {0} is the name of the file that failed to load</comment>
   </data>
   <data name="MessageBox_CouldNotLoadTheme" xml:space="preserve">
     <value>Could not load theme '{0}', See the error log for details: </value>
-    <comment>Message box text for: Load theme resource</comment>
+    <comment>Message box text for: Load theme resource: {0} is the name of the file that failed to load</comment>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyCopied" xml:space="preserve">
     <value>{0} files have been successfully copied.</value>
-    <comment>Message box text for: Copy files</comment>
+    <comment>Message box text for: Copy file: {0} is the number of files</comment>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyDeleted" xml:space="preserve">
     <value>{0} files have been successfully deleted.</value>
-    <comment>Message box text for: Delete files</comment>
+    <comment>Message box text for: Delete files: {0} is the number of files</comment>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyMoved" xml:space="preserve">
     <value>{0} files have been successfully moved.</value>
-    <comment>Message box text for: Move files</comment>
+    <comment>Message box text for: Move files: {0} is the number of files</comment>
   </data>
   <data name="MessageBox_CustomEditorFileOpenError" xml:space="preserve">
     <value>There was an error opening file by custom editor.</value>
@@ -1379,7 +1380,7 @@ Arguments:
   </data>
   <data name="MessageBox_NewVersionOfDnGREP0IsAvailableForDownload" xml:space="preserve">
     <value>New version of dnGREP ({0}) is available for download.</value>
-    <comment>Message box text for: New dnGrep version</comment>
+    <comment>Message box text for: New dnGrep version: {0} is the new version number</comment>
   </data>
   <data name="MessageBox_PleaseSelectAnotherDirectoryAndTryAgain" xml:space="preserve">
     <value>Please select another directory and try again.</value>
@@ -1407,7 +1408,7 @@ Arguments:
   </data>
   <data name="MessageBox_ResourcesFile0IsNotAResxFile" xml:space="preserve">
     <value>Resources file '{0}', is not a resx file.</value>
-    <comment>Message box text for: Load language resource file error</comment>
+    <comment>Message box text for: Load language resource file error: {0} is the name of the file that failed to load</comment>
   </data>
   <data name="MessageBox_RunDnGrepAsAdministrator" xml:space="preserve">
     <value>Run dnGrep as Administrator to change showing dnGrep in Explorer right-click menu</value>
@@ -1427,7 +1428,7 @@ Arguments:
   </data>
   <data name="MessageBox_SearchPathInTheFieldIsNotValid" xml:space="preserve">
     <value>Search path in the '{0}' field is not valid, search canceled.</value>
-    <comment>Message box text for: Main window search path invalid</comment>
+    <comment>Message box text for: Main window search path invalid: {0} is the name of search path field (Folder or Everything search)</comment>
   </data>
   <data name="MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory" xml:space="preserve">
     <value>Attention, some of the files are located in the selected directory.</value>
@@ -1443,11 +1444,11 @@ Arguments:
   </data>
   <data name="MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting" xml:space="preserve">
     <value>The file '{0}' already exists in {1}, overwrite existing?</value>
-    <comment>Message box text for: Copy or Move files</comment>
+    <comment>Message box text for: Copy or Move files: {0} is a file name; {1} is a folder name</comment>
   </data>
   <data name="MessageBox_TheFilePattern0IsNotAValidRegularExpression12" xml:space="preserve">
     <value>The file pattern '{0}' is not a valid regular expression:{1}{2}</value>
-    <comment>Message box text for: Main window regex file pattern error</comment>
+    <comment>Message box text for: Main window regex file pattern error: {0} is the invalid regular expression; {1} is a newline; {2} is the reason the expression is invalid</comment>
   </data>
   <data name="MessageBox_TheFollowingPluginsFailedToLoad" xml:space="preserve">
     <value>The following plugins failed to load:</value>
@@ -1499,7 +1500,7 @@ Arguments:
   </data>
   <data name="MessageBox_ThisBookmarkIsAssociatedWith0OtherFolders" xml:space="preserve">
     <value>This bookmark is associated with {0} other folders:</value>
-    <comment>Message box text for: Main window bookmark delete</comment>
+    <comment>Message box text for: Main window bookmark delete: {0} is the number of folders</comment>
   </data>
   <data name="MessageBox_ThisBookmarkIsAssociatedWithOneOtherFolder" xml:space="preserve">
     <value>This bookmark is associated with one other folder</value>
@@ -1515,7 +1516,7 @@ Arguments:
   </data>
   <data name="MessageBox_WindowTitleIsName" xml:space="preserve">
     <value>Window Title: {0}</value>
-    <comment>Message box text for: Clipboard set text error, clipboard locked by application name</comment>
+    <comment>Message box text for: Clipboard set text error, clipboard locked by application name: {0} is the window title of the application locking clipboard</comment>
   </data>
   <data name="MessageBox_WouldYouLikeToContinue" xml:space="preserve">
     <value>Would you like to continue?</value>
@@ -1607,7 +1608,7 @@ Arguments:
   </data>
   <data name="Options_CustomEditorHelp" xml:space="preserve">
     <value>Use keywords '{0}' for file location, '{1}' for the line number, '{2}' for the search pattern, '{3}' for the first matched text on the line, and '{4}' for the column number of the first match on the line.</value>
-    <comment>Options dialog, custom editor help text</comment>
+    <comment>Options dialog, custom editor help text: the placeholder are non-localizable expressions used as arguments when starting the custom editor</comment>
   </data>
   <data name="Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
     <value>Detect file encoding when searching for file name pattern only</value>
@@ -1915,7 +1916,7 @@ Arguments:
   </data>
   <data name="Replace_FileNumberOfCountName" xml:space="preserve">
     <value>File {0} of {1}: {2}  ({3} matches on {4} lines)</value>
-    <comment>Replace window, file name progress line</comment>
+    <comment>Replace window, file name progress line: {0} is the index of the current file; {1} is the total number of files; {2} is the name of the current file; {3} is the number of matches found in the current file; {4} is the number of lines in the current file with matches</comment>
   </data>
   <data name="Replace_Files" xml:space="preserve">
     <value>Files</value>
@@ -2063,7 +2064,7 @@ Arguments:
   </data>
   <data name="Report_Found0MatchesOn1LinesIn2Files" xml:space="preserve">
     <value>Found {0} matches on {1} lines in {2} files</value>
-    <comment>Report content text</comment>
+    <comment>Report content text: {0} is the number of matches; {1] is the number of lines with matches; {2} is the number of files with matches</comment>
   </data>
   <data name="Report_FoundMatchesFor" xml:space="preserve">
     <value>Found matches for </value>
@@ -2075,7 +2076,7 @@ Arguments:
   </data>
   <data name="Report_Has0MatchesOn1Lines" xml:space="preserve">
     <value>has {0} matches on {1} lines:</value>
-    <comment>Report content text</comment>
+    <comment>Report content text: {0} is the number of matches in a file; {1} is the number of lines in a file with matches</comment>
   </data>
   <data name="ReportSummary_BooleanOperators" xml:space="preserve">
     <value>Boolean operators</value>
@@ -2103,7 +2104,7 @@ Arguments:
   </data>
   <data name="ReportSummary_MaxFolderDepth" xml:space="preserve">
     <value>Max folder depth {0}</value>
-    <comment>Report search options summary</comment>
+    <comment>Report search options summary: {0} is the user input folder depth</comment>
   </data>
   <data name="ReportSummary_Multiline" xml:space="preserve">
     <value>Multiline</value>
@@ -2147,7 +2148,7 @@ Arguments:
   </data>
   <data name="ReportSummary_SizeFrom0To1KB" xml:space="preserve">
     <value>Size from {0} to {1} KB</value>
-    <comment>Report search options summary</comment>
+    <comment>Report search options summary: {0} and {1} are the user input size range</comment>
   </data>
   <data name="ReportSummary_StopAfterFirstMatch" xml:space="preserve">
     <value>Stop after frist match</value>
@@ -2155,11 +2156,11 @@ Arguments:
   </data>
   <data name="ReportSummary_Type0DateFrom1To2" xml:space="preserve">
     <value>{0} date from {1} to {2}</value>
-    <comment>Report search options summary</comment>
+    <comment>Report search options summary: {0} is the date type (modified or created); {1} and {2} are the user input dates</comment>
   </data>
   <data name="ReportSummary_Type0DateInPast1To2Hours" xml:space="preserve">
     <value>{0} date in past {1} to {2} hours</value>
-    <comment>Report search options summary</comment>
+    <comment>Report search options summary: {0} is the date type (modified or created); {1} and {2} are the user input dates</comment>
   </data>
   <data name="ReportSummary_UsingEverythingIndexSearch" xml:space="preserve">
     <value>Using Everything index search</value>
@@ -2171,7 +2172,7 @@ Arguments:
   </data>
   <data name="ReportSummary_UsingTypeOfSeach" xml:space="preserve">
     <value>Using {0} search</value>
-    <comment>Report search options summary type of search</comment>
+    <comment>Report search options summary type of search: {0} is the type of search</comment>
   </data>
   <data name="ReportSummary_WholeWord" xml:space="preserve">
     <value>Whole word</value>
