@@ -637,7 +637,8 @@
                                       Template="{DynamicResource PlusMetroButtonTemplate}"
                                       IsChecked="{Binding IsFolderBookmarked}"
                                       Command="{Binding FolderBookmarkAddCommand}"
-                                      DockPanel.Dock="Right" TabIndex="55" />
+                                      DockPanel.Dock="Right" TabIndex="55" 
+                                      Visibility="{Binding IsEverythingSearchMode, Converter={StaticResource InverseBoolToVisibilityConverter}}"/>
                             <CheckBox Margin="0,0,3,0"
                                       ToolTip="{Binding IsBookmarkedTooltip}"
                                       Template="{DynamicResource FavsMetroButtonTemplate}"
