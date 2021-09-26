@@ -1443,6 +1443,11 @@ namespace dnGREP.WPF
 
                         StatusMessage = TranslationSource.Format(Resources.Main_Status_SearchCompleteSearched0FilesFound1FilesIn2,
                             processedFiles, successCount, duration.GetPrettyString());
+
+                        if (IsEverythingSearchMode && Everything.EverythingSearch.CountMissingFiles > 0)
+                        {
+                            StatusMessage += "  " + TranslationSource.Format(Resources.Main_Status_Excluded0MissingFiles, Everything.EverythingSearch.CountMissingFiles);
+                        }
                     }
                     else
                     {

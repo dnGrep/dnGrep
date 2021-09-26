@@ -2243,6 +2243,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Excluded {0} missing files..
+        /// </summary>
+        public static string Main_Status_Excluded0MissingFiles {
+            get {
+                return ResourceManager.GetString("Main_Status_Excluded0MissingFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Replace Canceled.
         /// </summary>
         public static string Main_Status_ReplaceCanceled {

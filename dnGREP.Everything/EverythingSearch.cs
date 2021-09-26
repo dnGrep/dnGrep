@@ -72,10 +72,15 @@ namespace dnGREP.Everything
             }
         }
 
+        public static int CountMissingFiles { get; private set; }
+
         public static IEnumerable<EverythingFileInfo> FindFiles(string searchString, bool includeHidden)
         {
             if (!IsDbLoaded)
                 yield break;
+
+            List<string> invalidDrives = new List<string>();
+            CountMissingFiles = 0;
 
             NativeMethods.Everything_SetSort((uint)SortType.NameAscending);
 
@@ -108,9 +113,32 @@ namespace dnGREP.Everything
                     EverythingFileInfo fileInfo = new EverythingFileInfo(fullName, attr, length, createdTime, lastWriteTime);
 
                     if (!includeHidden && fileInfo.Attributes.HasFlag(FileAttributes.Hidden))
+                    {
                         continue;
+                    }
 
-                    yield return fileInfo;
+                    var root = Directory.GetDirectoryRoot(fullName);
+                    if (invalidDrives.Contains(root))
+                    {
+                        CountMissingFiles++;
+                        continue;
+                    }
+
+                    if (!Directory.ExistsDrive(root))
+                    {
+                        CountMissingFiles++;
+                        invalidDrives.Add(root);
+                        continue;
+                    }
+
+                    if (File.Exists(fullName))
+                    {
+                        yield return fileInfo;
+                    }
+                    else
+                    {
+                        CountMissingFiles++;
+                    }
                 }
             }
         }

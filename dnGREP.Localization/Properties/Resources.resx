@@ -1174,6 +1174,10 @@ Arguments:
     <value>Path and file name, depth-first</value>
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
+  <data name="Main_Status_Excluded0MissingFiles" xml:space="preserve">
+    <value>Excluded {0} missing files.</value>
+    <comment>Main window, status bar message appended on search complete when in Everything mode</comment>
+  </data>
   <data name="Main_Status_ReplaceCanceled" xml:space="preserve">
     <value>Replace Canceled</value>
     <comment>Main window, status bar message</comment>
