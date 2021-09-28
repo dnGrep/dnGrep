@@ -301,6 +301,10 @@
     <value>Search in ar_chives</value>
     <comment>Bookmark details dialog, checkbox label (accel)</comment>
   </data>
+  <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
+    <value>Hex</value>
+    <comment>Bookmark details dialog, search type radio button label (accel)</comment>
+  </data>
   <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
     <value>Phonetic</value>
     <comment>Bookmark details dialog, search type radio button label (accel)</comment>
@@ -312,6 +316,10 @@
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Plain text search</value>
     <comment>Bookmark details dialog, search type Text tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
+    <value>Read file as binary and search for bytes as hexadecimal digits: 68 65 78 20</value>
+    <comment>Bookmark details dialog, search type Hex tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
     <value>_Regex</value>
@@ -1173,6 +1181,10 @@ Arguments:
   <data name="Main_SortMenu_PathAndFileNameDepthFirst" xml:space="preserve">
     <value>Path and file name, depth-first</value>
     <comment>Main window sort options options menu label (accel)</comment>
+  </data>
+  <data name="Main_Status_Excluded0MissingFiles" xml:space="preserve">
+    <value>Excluded {0} missing files.</value>
+    <comment>Main window, status bar message appended on search complete when in Everything mode</comment>
   </data>
   <data name="Main_Status_ReplaceCanceled" xml:space="preserve">
     <value>Replace Canceled</value>
