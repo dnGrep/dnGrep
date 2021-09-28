@@ -1842,6 +1842,10 @@ Arguments:
     <value>Do you want a different language?</value>
     <comment>Options dialog, language request label</comment>
   </data>
+  <data name="Preview_ChangesTextEditorZoom" xml:space="preserve">
+    <value>Changes text editor zoom</value>
+    <comment>Preview window, zoom slider tooltip</comment>
+  </data>
   <data name="Preview_FindNext" xml:space="preserve">
     <value>Find next (F3)</value>
     <comment>Preview window, search tool window tooltip</comment>
@@ -1902,6 +1906,10 @@ Arguments:
     <value>Rename file</value>
     <comment>Rename file dialog title</comment>
   </data>
+  <data name="Replace_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+    <comment>Replace window, Cancel button text</comment>
+  </data>
   <data name="Replace_CancelAllReplacements" xml:space="preserve">
     <value>Cancel all replacements</value>
     <comment>Replace window, Cancel button tooltip</comment>
@@ -1949,6 +1957,10 @@ Arguments:
   <data name="Replace_NextFile" xml:space="preserve">
     <value>Next _File</value>
     <comment>Replace window, Next file button label (accel)</comment>
+  </data>
+  <data name="Replace_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Replace window, OK button text</comment>
   </data>
   <data name="Replace_Previous" xml:space="preserve">
     <value>_Previous</value>

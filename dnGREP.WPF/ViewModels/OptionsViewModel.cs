@@ -41,6 +41,8 @@ namespace dnGREP.WPF
             {
                 CustomEditorHelp = TranslationSource.Format(Resources.Options_CustomEditorHelp,
                     File, Line, Pattern, Match, Column);
+                PanelTooltip = IsAdministrator ? string.Empty : Resources.Options_ToChangeThisSettingRunDnGREPAsAdministrator;
+                WindowsIntegrationTooltip = IsAdministrator ? Resources.Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu : string.Empty;
             };
         }
 
