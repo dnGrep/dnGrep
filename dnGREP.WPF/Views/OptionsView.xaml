@@ -629,7 +629,7 @@
             <Button x:Name="btnSave" Padding="24,3" Margin="0,5,10,5"
                     IsDefault="True" Content="{l:Loc Key='Options_Save'}"
                     Command="{Binding Path=SaveCommand}" 
-                    Width="{Binding ElementName=btnClose, Path=ActualWidth}"/>
+                    MinWidth="{Binding ElementName=btnClose, Path=ActualWidth}"/>
             <Button x:Name="btnClose" Padding="24,3" Margin="0,5,15,5"
                     IsCancel="True" Content="{l:Loc Key='Options_Close'}" />
         </WrapPanel>
