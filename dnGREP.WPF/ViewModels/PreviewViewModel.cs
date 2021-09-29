@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
+using dnGREP.Localization;
 using dnGREP.Localization.Properties;
 using ICSharpCode.AvalonEdit.Highlighting;
 using NLog;
@@ -17,10 +18,7 @@ namespace dnGREP.WPF
 
         public PreviewViewModel()
         {
-            Highlighters = ThemedHighlightingManager.Instance.HighlightingNames.ToList();
-            Highlighters.Sort();
-            Highlighters.Insert(0, Resources.Preview_SyntaxNone);
-            CurrentSyntax = Resources.Preview_SyntaxNone;
+            InitializeHighlighters();
 
             HighlightsOn = GrepSettings.Instance.Get<bool>(GrepSettings.Key.HighlightMatches);
 
@@ -28,6 +26,30 @@ namespace dnGREP.WPF
             MainFormFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.MainFormFontSize);
 
             PropertyChanged += PreviewViewModel_PropertyChanged;
+
+            TranslationSource.Instance.CurrentCultureChanged += (s, e) =>
+            {
+                bool resetCurrentSyntax = CurrentSyntax == Highlighters[0];
+                Highlighters[0] = Resources.Preview_SyntaxNone;
+                if (resetCurrentSyntax)
+                {
+                    CurrentSyntax = Resources.Preview_SyntaxNone;
+                }
+            };
+        }
+
+        private void InitializeHighlighters()
+        {
+            var items = ThemedHighlightingManager.Instance.HighlightingNames.ToList();
+            items.Sort();
+            items.Insert(0, Resources.Preview_SyntaxNone);
+            Highlighters.Clear();
+            foreach (var item in items)
+            {
+                Highlighters.Add(item);
+            }
+
+            CurrentSyntax = Resources.Preview_SyntaxNone;
         }
 
         public event EventHandler<ShowEventArgs> ShowPreview;
@@ -68,7 +90,7 @@ namespace dnGREP.WPF
             get { return currentSyntax; }
             set
             {
-                if (value == currentSyntax)
+                if (value == currentSyntax || value == null)
                     return;
 
                 currentSyntax = value;
@@ -77,7 +99,7 @@ namespace dnGREP.WPF
             }
         }
 
-        public List<string> Highlighters { get; set; }
+        public ObservableCollection<string> Highlighters { get; } = new ObservableCollection<string>();
 
         public Encoding Encoding { get; set; }
 

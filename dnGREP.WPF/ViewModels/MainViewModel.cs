@@ -90,9 +90,23 @@ namespace dnGREP.WPF
             CodePage = -2;
             PopulateEncodings();
             CodePage = value;
+
             // this call will repopulate the FileFiltersSummary
             // IncludeSubfolder didn't really change, but triggers the refresh
             UpdateState(nameof(IncludeSubfolder));
+            // this call will update the validation message, if visible
+            UpdateState(nameof(TypeOfSearch));
+            // this call will update the Folder/Everything label
+            UpdateState(nameof(TypeOfFileSearch));
+            // this call will update the window title
+            UpdateState(nameof(FileOrFolderPath));
+
+            base.OnPropertyChanged(nameof(IsBookmarkedTooltip));
+            base.OnPropertyChanged(nameof(IsFolderBookmarkedTooltip));
+            base.OnPropertyChanged(nameof(ResultOptionsButtonTooltip));
+
+            StatusMessage = string.Empty;
+            SearchResults.Clear();
         }
 
         void SearchResults_OpenFileRequest(object sender, GrepResultEventArgs e)
