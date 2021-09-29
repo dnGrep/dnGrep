@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Markup;
@@ -80,7 +81,6 @@ namespace dnGREP.WPF
                     this.ConstrainToScreen();
                 };
 
-                OnCurrentCultureChanged(null, EventArgs.Empty);
                 TranslationSource.Instance.CurrentCultureChanged += OnCurrentCultureChanged;
             }
             this.isVisible = isVisible;
@@ -104,6 +104,9 @@ namespace dnGREP.WPF
         {
             dpFrom.Language = XmlLanguage.GetLanguage(TranslationSource.Instance.CurrentCulture.IetfLanguageTag);
             dpTo.Language = XmlLanguage.GetLanguage(TranslationSource.Instance.CurrentCulture.IetfLanguageTag);
+
+            SetWatermark(dpFrom);
+            SetWatermark(dpTo);
         }
 
         [DllImport("user32.dll")]
@@ -135,6 +138,8 @@ namespace dnGREP.WPF
             DataObject.AddPastingHandler(tbSearchFor, new DataObjectPastingEventHandler(OnPaste));
             DataObject.AddPastingHandler(tbReplaceWith, new DataObjectPastingEventHandler(OnPaste));
 
+            OnCurrentCultureChanged(null, EventArgs.Empty);
+
             if (tbSearchFor.Template.FindName("PART_EditableTextBox", tbSearchFor) is TextBox textBox && !tbSearchFor.IsDropDownOpen)
             {
                 Dispatcher.BeginInvoke(new Action(() =>
@@ -146,6 +151,19 @@ namespace dnGREP.WPF
 
             SetActivePreviewDockSite();
             DockSite.InitFloatingWindows();
+        }
+
+        private void SetWatermark(DatePicker dp)
+        {
+            if (dp == null) return;
+
+            var tb = dp.GetChildOfType<DatePickerTextBox>();
+            if (tb == null) return;
+
+            var wm = tb.Template.FindName("PART_Watermark", tb) as ContentControl;
+            if (wm == null) return;
+
+            wm.Content = Localization.Properties.Resources.Main_SelectADate;
         }
 
         private void SetActivePreviewDockSite()

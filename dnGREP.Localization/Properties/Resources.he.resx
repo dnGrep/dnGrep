@@ -124,7 +124,7 @@
     <value>הכרות תודה</value>
   </data>
   <data name="About_BuiltOn" xml:space="preserve">
-    <value>בנוי על</value>
+    <value>תאריך בנייה</value>
   </data>
   <data name="About_ConvertsPDFFilesToPlainText" xml:space="preserve">
     <value>ממיר קבצי PDF לטקסט רגיל</value>
@@ -205,7 +205,7 @@
     <value>סוג תבנית קובץ</value>
   </data>
   <data name="BookmarkDetails_FollowSymbolicLinks" xml:space="preserve">
-    <value>Follow symbolic links</value>
+    <value>כלול קישורים סימבולים</value>
   </data>
   <data name="BookmarkDetails_ForExampleAsteriskPattern" xml:space="preserve">
     <value>e.g. file??.*</value>
@@ -232,10 +232,10 @@
     <value>אישור</value>
   </data>
   <data name="BookmarkDetails_PatternsToExclude" xml:space="preserve">
-    <value>תבניות לאי הכללה:</value>
+    <value>אל תכלול:</value>
   </data>
   <data name="BookmarkDetails_PatternsToMatch" xml:space="preserve">
-    <value>תבניות להתאמה:</value>
+    <value>כלול קבצים אלו:</value>
   </data>
   <data name="BookmarkDetails_PatternType_AsteriskPattern" xml:space="preserve">
     <value>תבנית כוכבית</value>
@@ -263,6 +263,9 @@
   </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
     <value>חיפוש טקסט רגיל</value>
+  </data>
+  <data name="BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
+    <value>קרא קובץ כמו בינארי וחפש בתים כמו ספרות הקסדצימלי: 68 65 78 20</value>
   </data>
   <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
     <value>_Regex</value>
@@ -369,18 +372,18 @@
   <data name="Help_CmdLine" xml:space="preserve">
     <value>dnGrep:  חיפוש בקבצי טקסט, Word ומסמכי Excel, PDFs, וארכיונים שמכילים טקסט, regular expression, XPath, ושאילתות פונטיות.
 
-Version {0} built on {1}
+גרסה {0} תאריך בנייה {1}
 
-Usage:
+שימוש:
 
 dnGrep [arguments]
-Using any combination of arguments from the list below.
-Example:
+שימוש בכל שילוב של ארגומנטים מהרשימה שלהלן.
+דוגמה:
 dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex
 
 dnGrep [folderPath] [searchFor]
 One or two arguments without flags: the first argument is the folder to search, the second the regular expression to search for.
-Example:
+דוגמה:
 dnGrep "C:\Program Files\dnGrep" t\w*t
 
 Any arguments not specified will default to the last saved user settings.
@@ -435,31 +438,31 @@ Arguments:
 /dn [True/False]
 -dn [True/False]
 -dotAsNewline [True/False]
-    Sets the dot as newline search flag - True or False.
+    מגדיר את "נקודה" כהגדרת חיפוש של "שורה חדשה" - נכון או לא נכון.
 
 /bo [True/False]
 -bo [True/False]
 -booleanOperators [True/False]
-    Sets the Boolean operators search flag - True or False.
+    קובע את הגדרת החיפוש של האופרטורים הבולאניים - נכון או לא נכון.
 
 /rpt [filePath]
 -rpt [filePath]
 -report [filePath]
-    Create results file in report format after search is complete.
+    צור קובץ תוצאות בפורמט דוח לאחר סיום החיפוש.
 
 /txt [filePath]
 -txt [filePath]
 -text [filePath]
-    Create results file in text format after search is complete.
+    צור קובץ תוצאות בפורמט טקסט לאחר סיום החיפוש.
 
 /csv [filePath]
 -csv [filePath]
-    Create results file in CSV format after search is complete.
+    צור קובץ תוצאות בפורמט CSV לאחר סיום החיפוש.
 
 /x
 -x
 -exit
-    Exit dnGrep after command line operations are complete.</value>
+    צא מ- dnGrep לאחר השלמת פעולות שורת הפקודה.</value>
   </data>
   <data name="Help_DnGrepHelp" xml:space="preserve">
     <value>עזרה dnGrep</value>
@@ -480,7 +483,7 @@ Arguments:
     <value>כל המידות</value>
   </data>
   <data name="Main_AssociateBookmarkWithFolder" xml:space="preserve">
-    <value>שיוך סימניה לתיקייה</value>
+    <value>שייך סימניה לתיקייה</value>
   </data>
   <data name="Main_Attributes_DateModified" xml:space="preserve">
     <value>תאריך שינוי:</value>
@@ -543,13 +546,13 @@ Arguments:
     <value>מ-</value>
   </data>
   <data name="Main_DatePast" xml:space="preserve">
-    <value>עבר</value>
+    <value>ב-</value>
   </data>
   <data name="Main_DatePastHours" xml:space="preserve">
-    <value>שעות</value>
+    <value>שעות אחרונות</value>
   </data>
   <data name="Main_DateTo" xml:space="preserve">
-    <value>ל</value>
+    <value>עד</value>
   </data>
   <data name="Main_DnGREP_Title" xml:space="preserve">
     <value>dnGREP</value>
@@ -615,7 +618,7 @@ Arguments:
     <value>תיקייה:</value>
   </data>
   <data name="Main_FollowSymbolicLinks" xml:space="preserve">
-    <value>Follow symbolic links</value>
+    <value>כלול קישורים סימבולים</value>
   </data>
   <data name="Main_ForExampleAsteriskPattern" xml:space="preserve">
     <value>e.g. file??.*</value>
@@ -714,13 +717,13 @@ Arguments:
     <value>...</value>
   </data>
   <data name="Main_PastDateTo" xml:space="preserve">
-    <value>ל</value>
+    <value>עד</value>
   </data>
   <data name="Main_PatternsToExclude" xml:space="preserve">
-    <value>תבניות לאי הכללה:</value>
+    <value>אל תכלול:</value>
   </data>
   <data name="Main_PatternsToMatch" xml:space="preserve">
-    <value>תבניות להתאמה:</value>
+    <value>כלול קבצים אלו:</value>
   </data>
   <data name="Main_PatternType_Asterisk" xml:space="preserve">
     <value>תבנית כוכבית</value>
@@ -900,7 +903,7 @@ Arguments:
     <value>KB</value>
   </data>
   <data name="Main_SizeTo" xml:space="preserve">
-    <value>ל</value>
+    <value>עד</value>
   </data>
   <data name="Main_SortButton" xml:space="preserve">
     <value>מיין</value>
@@ -1436,6 +1439,9 @@ Arguments:
   <data name="Options_WantADifferentLanguage" xml:space="preserve">
     <value>אתה רוצה שפה אחרת?</value>
   </data>
+  <data name="Preview_ChangesTextEditorZoom" xml:space="preserve">
+    <value>שנה את הגודל של עורך הטקסט</value>
+  </data>
   <data name="Preview_FindNext" xml:space="preserve">
     <value>מצא הבא (F3)</value>
   </data>
@@ -1485,7 +1491,7 @@ Arguments:
     <value>בטל את כל ההחלפות</value>
   </data>
   <data name="Replace_ChangesTextEditorZoom" xml:space="preserve">
-    <value>Changes text editor zoom</value>
+    <value>שנה את הגודל של עורך הטקסט</value>
   </data>
   <data name="Replace_ErrorThisIsABinaryFile" xml:space="preserve">
     <value>Error: this is a binary file</value>
@@ -1516,6 +1522,9 @@ Arguments:
   </data>
   <data name="Replace_NextFile" xml:space="preserve">
     <value>קובץ _הבא:</value>
+  </data>
+  <data name="Replace_OK" xml:space="preserve">
+    <value>אישור</value>
   </data>
   <data name="Replace_Previous" xml:space="preserve">
     <value>_הקודם</value>

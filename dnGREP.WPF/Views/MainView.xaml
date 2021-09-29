@@ -585,7 +585,7 @@
                             </Border>
                         </Expander>
                         <!--  must be *after* the Expander so they are higher in the z-order  -->
-                        <Label Grid.Row="0" Grid.Column="3" Margin="3,8"
+                        <Label Grid.Row="0" Grid.Column="3" Margin="3"
                                Content="{l:Loc Key='Main_PatternsToMatch'}"
                                ToolTip="{l:Loc Key='Main_IncludeFilesByNameOrType'}"
                                Style="{DynamicResource ThemedLabel}"
@@ -601,13 +601,13 @@
                                   GotFocus="TextBoxFocus" IsEditable="True"
                                   Visibility="{Binding IsEverythingSearchMode, Converter={StaticResource InverseBoolToVisibilityConverter}}" />
                         <CheckBox Name="cbIncludeArchives" Grid.Row="1" Grid.Column="1"
-                                  Grid.ColumnSpan="2" Margin="3,8,8,3" HorizontalAlignment="Right"
+                                  Grid.ColumnSpan="2" Margin="3,10,8,3" HorizontalAlignment="Right"
                                   VerticalAlignment="Top"
                                   IsChecked="{Binding Path=IncludeArchive}"
                                   TabIndex="13" Content="{l:Loc Key='Main_SearchInArchives'}"
                                   Visibility="{Binding CanSearchArchives, Converter={StaticResource BoolToVisibilityConverter}}" />
                         <Label Name="pathsToIgnoreLabel" Grid.Row="1" Grid.Column="3"
-                               Margin="3,3,3,0" HorizontalAlignment="Right" VerticalAlignment="Top"
+                               Margin="3,8" HorizontalAlignment="Right" VerticalAlignment="Top"
                                Content="{l:Loc Key='Main_PatternsToExclude'}"
                                ToolTip="{l:Loc Key='Main_ExcludeFilesByTypeAndFoldersByName'}"
                                Style="{DynamicResource ThemedLabel}"
@@ -615,6 +615,7 @@
                                Visibility="{Binding IsEverythingSearchMode, Converter={StaticResource InverseBoolToVisibilityConverter}}" />
                         <ComboBox Name="tbFilePatternIgnore" Grid.Row="1" Grid.Column="4"
                                   Margin="3,4,3,0" VerticalAlignment="Top"
+                                  Height="{Binding ElementName=tbFilePattern, Path=ActualHeight}"
                                   my:DiginesisHelpProvider.HelpKeyword="SearchReplace"
                                   my:DiginesisHelpProvider.HelpNavigator="Topic"
                                   my:DiginesisHelpProvider.ShowHelp="True" TabIndex="14"
@@ -636,7 +637,8 @@
                                       Template="{DynamicResource PlusMetroButtonTemplate}"
                                       IsChecked="{Binding IsFolderBookmarked}"
                                       Command="{Binding FolderBookmarkAddCommand}"
-                                      DockPanel.Dock="Right" TabIndex="55" />
+                                      DockPanel.Dock="Right" TabIndex="55" 
+                                      Visibility="{Binding IsEverythingSearchMode, Converter={StaticResource InverseBoolToVisibilityConverter}}"/>
                             <CheckBox Margin="0,0,3,0"
                                       ToolTip="{Binding IsBookmarkedTooltip}"
                                       Template="{DynamicResource FavsMetroButtonTemplate}"

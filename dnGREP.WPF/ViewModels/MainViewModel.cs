@@ -90,9 +90,23 @@ namespace dnGREP.WPF
             CodePage = -2;
             PopulateEncodings();
             CodePage = value;
+
             // this call will repopulate the FileFiltersSummary
             // IncludeSubfolder didn't really change, but triggers the refresh
             UpdateState(nameof(IncludeSubfolder));
+            // this call will update the validation message, if visible
+            UpdateState(nameof(TypeOfSearch));
+            // this call will update the Folder/Everything label
+            UpdateState(nameof(TypeOfFileSearch));
+            // this call will update the window title
+            UpdateState(nameof(FileOrFolderPath));
+
+            base.OnPropertyChanged(nameof(IsBookmarkedTooltip));
+            base.OnPropertyChanged(nameof(IsFolderBookmarkedTooltip));
+            base.OnPropertyChanged(nameof(ResultOptionsButtonTooltip));
+
+            StatusMessage = string.Empty;
+            SearchResults.Clear();
         }
 
         void SearchResults_OpenFileRequest(object sender, GrepResultEventArgs e)
@@ -1443,6 +1457,11 @@ namespace dnGREP.WPF
 
                         StatusMessage = TranslationSource.Format(Resources.Main_Status_SearchCompleteSearched0FilesFound1FilesIn2,
                             processedFiles, successCount, duration.GetPrettyString());
+
+                        if (IsEverythingSearchMode && Everything.EverythingSearch.CountMissingFiles > 0)
+                        {
+                            StatusMessage += "  " + TranslationSource.Format(Resources.Main_Status_Excluded0MissingFiles, Everything.EverythingSearch.CountMissingFiles);
+                        }
                     }
                     else
                     {
@@ -1944,6 +1963,7 @@ namespace dnGREP.WPF
         {
             nameof(SearchFor),
             nameof(ReplaceWith),
+            nameof(FileOrFolderPath), // when in Everything mode
             nameof(FilePattern),
             nameof(FilePatternIgnore),
             nameof(TypeOfFileSearch),
@@ -1965,7 +1985,9 @@ namespace dnGREP.WPF
 
         public Bookmark CurrentBookmarkSettings()
         {
-            return new Bookmark(SearchFor, ReplaceWith, FilePattern)
+            return new Bookmark(SearchFor, ReplaceWith,
+                // when in Everything mode, save the Everything search in the bookmark's FileNames property
+                TypeOfFileSearch == FileSearchType.Everything ? FileOrFolderPath : FilePattern)
             {
                 IgnoreFilePattern = FilePatternIgnore,
                 TypeOfFileSearch = TypeOfFileSearch,
@@ -2557,12 +2579,21 @@ namespace dnGREP.WPF
             var bmk = bookmarkWindow.ViewModel.SelectedBookmark;
             if (bmk != null)
             {
-                FilePattern = bmk.FilePattern;
+                // set type of search first to handle Everything mode
+                TypeOfFileSearch = bmk.TypeOfFileSearch;
+
+                if (TypeOfFileSearch == FileSearchType.Everything)
+                {
+                    FileOrFolderPath = bmk.FilePattern;
+                }
+                else
+                {
+                    FilePattern = bmk.FilePattern;
+                }
+
                 SearchFor = bmk.SearchFor;
                 ReplaceWith = bmk.ReplaceWith;
-
                 FilePatternIgnore = bmk.IgnoreFilePattern;
-                TypeOfFileSearch = bmk.TypeOfFileSearch;
                 IncludeSubfolder = bmk.IncludeSubfolders;
                 MaxSubfolderDepth = bmk.MaxSubfolderDepth;
                 IncludeHidden = bmk.IncludeHidden;
@@ -2585,30 +2616,37 @@ namespace dnGREP.WPF
         {
             if (bmk != null)
             {
-                FilePattern = bmk.FileNames;
+                // set type of search first to handle Everything mode
+                TypeOfFileSearch = bmk.TypeOfFileSearch;
+
+                if (TypeOfFileSearch == FileSearchType.Everything)
+                {
+                    FileOrFolderPath = bmk.FileNames;
+                }
+                else
+                {
+                    FilePattern = bmk.FileNames;
+                }
+
                 SearchFor = bmk.SearchPattern;
                 ReplaceWith = bmk.ReplacePattern;
 
-                if (bmk.Version > 1)
-                {
-                    FilePatternIgnore = bmk.IgnoreFilePattern;
-                    TypeOfFileSearch = bmk.TypeOfFileSearch;
-                    IncludeSubfolder = bmk.IncludeSubfolders;
-                    MaxSubfolderDepth = bmk.MaxSubfolderDepth;
-                    IncludeHidden = bmk.IncludeHiddenFiles;
-                    IncludeBinary = bmk.IncludeBinaryFiles;
-                    IncludeArchive = bmk.IncludeArchive;
-                    FollowSymlinks = bmk.FollowSymlinks;
-                    UseGitignore = bmk.UseGitignore;
-                    CodePage = bmk.CodePage;
+                FilePatternIgnore = bmk.IgnoreFilePattern;
+                IncludeSubfolder = bmk.IncludeSubfolders;
+                MaxSubfolderDepth = bmk.MaxSubfolderDepth;
+                IncludeHidden = bmk.IncludeHiddenFiles;
+                IncludeBinary = bmk.IncludeBinaryFiles;
+                IncludeArchive = bmk.IncludeArchive;
+                FollowSymlinks = bmk.FollowSymlinks;
+                UseGitignore = bmk.UseGitignore;
+                CodePage = bmk.CodePage;
 
-                    TypeOfSearch = bmk.TypeOfSearch;
-                    CaseSensitive = bmk.CaseSensitive;
-                    WholeWord = bmk.WholeWord;
-                    Multiline = bmk.Multiline;
-                    Singleline = bmk.Singleline;
-                    BooleanOperators = bmk.BooleanOperators;
-                }
+                TypeOfSearch = bmk.TypeOfSearch;
+                CaseSensitive = bmk.CaseSensitive;
+                WholeWord = bmk.WholeWord;
+                Multiline = bmk.Multiline;
+                Singleline = bmk.Singleline;
+                BooleanOperators = bmk.BooleanOperators;
             }
         }
 
