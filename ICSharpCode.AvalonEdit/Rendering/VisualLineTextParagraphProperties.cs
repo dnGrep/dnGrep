@@ -28,12 +28,12 @@ namespace ICSharpCode.AvalonEdit.Rendering
 		internal double tabSize;
 		internal double indent;
 		internal bool firstLineInParagraph;
-
+		internal FlowDirection flowDirection;
 		public override double DefaultIncrementalTab {
 			get { return tabSize; }
 		}
 
-		public override FlowDirection FlowDirection { get { return FlowDirection.LeftToRight; } }
+		public override FlowDirection FlowDirection { get { return flowDirection; } }
 		public override TextAlignment TextAlignment { get { return TextAlignment.Left; } }
 		public override double LineHeight { get { return double.NaN; } }
 		public override bool FirstLineInParagraph { get { return firstLineInParagraph; } }

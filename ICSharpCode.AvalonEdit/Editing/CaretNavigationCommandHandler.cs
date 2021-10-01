@@ -191,6 +191,19 @@ namespace ICSharpCode.AvalonEdit.Editing
 		internal static void MoveCaret(TextArea textArea, CaretMovementType direction)
 		{
 			double desiredXPos = textArea.Caret.DesiredXPos;
+
+			if (textArea.FlowDirection == FlowDirection.RightToLeft) {
+				if (direction == CaretMovementType.CharLeft) {
+					direction = CaretMovementType.CharRight;
+				} else if (direction == CaretMovementType.CharRight) {
+					direction = CaretMovementType.CharLeft;
+				} else if (direction == CaretMovementType.WordRight) {
+					direction = CaretMovementType.WordLeft;
+				} else if (direction == CaretMovementType.WordLeft) {
+					direction = CaretMovementType.WordRight;
+				}
+			}
+
 			textArea.Caret.Position = GetNewCaretPosition(textArea.TextView, textArea.Caret.Position, direction, textArea.Selection.EnableVirtualSpace, ref desiredXPos);
 			textArea.Caret.DesiredXPos = desiredXPos;
 		}

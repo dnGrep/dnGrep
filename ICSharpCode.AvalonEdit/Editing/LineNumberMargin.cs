@@ -87,7 +87,14 @@ namespace ICSharpCode.AvalonEdit.Editing
 						typeface, emSize, foreground
 					);
 					double y = line.GetTextLineVisualYPosition(line.TextLines[0], VisualYPosition.TextTop);
+					if (this.FlowDirection == FlowDirection.LeftToRight) {
 					drawingContext.DrawText(text, new Point(renderSize.Width - text.Width, y - textView.VerticalOffset));
+					} else {
+						MatrixTransform antiMirror = new MatrixTransform(-1, 0, 0, 1, renderSize.Width, 0);
+						drawingContext.PushTransform(antiMirror);
+						drawingContext.DrawText(text, new Point(renderSize.Width - text.Width, y - textView.VerticalOffset));
+						drawingContext.Pop();
+					}
 				}
 			}
 		}

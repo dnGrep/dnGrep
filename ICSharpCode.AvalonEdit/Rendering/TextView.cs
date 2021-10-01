@@ -1054,7 +1054,8 @@ namespace ICSharpCode.AvalonEdit.Rendering
 			return new VisualLineTextParagraphProperties {
 				defaultTextRunProperties = defaultTextRunProperties,
 				textWrapping = canHorizontallyScroll ? TextWrapping.NoWrap : TextWrapping.Wrap,
-				tabSize = Options.IndentationSize * WideSpaceWidth
+				tabSize = Options.IndentationSize * WideSpaceWidth,
+				flowDirection = FlowDirection
 			};
 		}
 
@@ -1561,7 +1562,10 @@ namespace ICSharpCode.AvalonEdit.Rendering
 				using (var line = formatter.FormatLine(
 					new SimpleTextSource("x", textRunProperties),
 					0, 32000,
-					new VisualLineTextParagraphProperties { defaultTextRunProperties = textRunProperties },
+					new VisualLineTextParagraphProperties {
+						defaultTextRunProperties = textRunProperties,
+						flowDirection = FlowDirection
+					},
 					null)) {
 					wideSpaceWidth = Math.Max(1, line.WidthIncludingTrailingWhitespace);
 					defaultBaseline = Math.Max(1, line.Baseline);
