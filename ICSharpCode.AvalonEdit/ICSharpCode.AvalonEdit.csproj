@@ -1,0 +1,74 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFrameworks>net5.0-windows;netcoreapp3.1;net40;net45</TargetFrameworks>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <DefineConstants>TRACE</DefineConstants>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>ICSharpCode.AvalonEdit.snk</AssemblyOriginatorKeyFile>
+    <Company>ic#code</Company>
+    <Copyright>2000-2021 AlphaSierraPapa for the SharpDevelop Team</Copyright>
+    <Description>AvalonEdit is the WPF-based text editor used in SharpDevelop. There are four builds of AvalonEdit included in this package: .NET Framework 4.5 and 4.0, .NET Core 3.1, .NET 5.0 for Windows.</Description>
+    <Version>6.1</Version>
+    <AssemblyVersion>6.1.0.0</AssemblyVersion>
+    <FileVersion>6.1.0.0</FileVersion>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>AvalonEdit</PackageId>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <RepositoryUrl>https://github.com/icsharpcode/AvalonEdit.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Authors>AvalonEdit Contributors</Authors>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>http://www.avalonedit.net</PackageProjectUrl>
+    <PackageIcon>images\AvalonEditNuGetPackageIcon.png</PackageIcon>
+    <PackageTags>WPF Text Editor SharpDevelop AvalonEdit</PackageTags>
+    <PackageReleaseNotes>Changes are detailed at https://github.com/icsharpcode/AvalonEdit/blob/master/ChangeLog.md</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net5.0-windows' ">
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net40' ">
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' ">
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net40' ">
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Search\next.png" />
+    <None Remove="Search\prev.png" />
+    <None Remove="themes\RightArrow.cur" />
+    <None Include="AvalonEditNuGetPackageIcon.png">
+      <Pack>True</Pack>
+      <PackagePath>images</PackagePath>
+    </None>
+    <Resource Include="Search\next.png" />
+    <Resource Include="Search\prev.png" />
+    <Resource Include="themes\RightArrow.cur" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Highlighting\Resources\*" />
+    <EmbeddedResource Include="Highlighting\Resources\*" />
+    <EmbeddedResource Remove="Highlighting\Resources\Resources.cs" />
+    <Resource Include="Highlighting\Resources\Resources.cs" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+</Project>
