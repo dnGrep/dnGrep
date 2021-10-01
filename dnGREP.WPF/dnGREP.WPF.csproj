@@ -431,6 +431,10 @@
       <Project>{86c22db6-4211-44a1-93ba-b21027cc90f9}</Project>
       <Name>DockFloat</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ICSharpCode.AvalonEdit\ICSharpCode.AvalonEdit.csproj">
+      <Project>{a18eeae0-260f-4fc1-bdf2-6bf0ba335cb7}</Project>
+      <Name>ICSharpCode.AvalonEdit</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\applications-graphics.png" />
@@ -449,9 +453,6 @@
   <ItemGroup>
     <PackageReference Include="AlphaFS">
       <Version>2.2.6</Version>
-    </PackageReference>
-    <PackageReference Include="AvalonEdit">
-      <Version>6.1.2.30</Version>
     </PackageReference>
     <PackageReference Include="NLog">
       <Version>4.7.10</Version>
