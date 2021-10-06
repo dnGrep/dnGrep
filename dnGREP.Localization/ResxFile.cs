@@ -27,9 +27,30 @@ namespace dnGREP.Localization
                     if (!string.IsNullOrEmpty(fileName))
                     {
                         int pos = fileName.IndexOf(".");
+                        if (pos < 0)
+                        {
+                            // try the file name format used by Transifex downloads:
+                            // for_use_dngrep-application_resourcesresx_he.resx
+                            // for_use_dngrep-application_resourcesresx_he_IL.resx
+                            // get the first underscore after the first 'resx'
+                            pos = fileName.IndexOf("resx");
+                            if (pos > -1)
+                            {
+                                pos = fileName.IndexOf("_", pos);
+                            }
+                        }
                         if (pos > -1)
                         {
                             var tag = fileName.Substring(pos + 1);
+                            if (!string.IsNullOrEmpty(tag) && tag.Contains("("))
+                            {
+                                // remove file numbers: 'he (1)'
+                                pos = tag.IndexOf("(");
+                                if (pos > -1)
+                                {
+                                    tag = tag.Substring(0, tag.Length - pos).Trim();
+                                }
+                            }
                             if (!string.IsNullOrEmpty(tag))
                             {
                                 IetfLanguateTag = tag;
