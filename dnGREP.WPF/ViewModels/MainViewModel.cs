@@ -85,6 +85,9 @@ namespace dnGREP.WPF
 
         private void CurrentCultureChanged(object sender, EventArgs e)
         {
+            PreviewModel.FilePath = string.Empty;
+            PreviewTitle = string.Empty;
+
             // reload the Encodings list, the "Auto" encoding name (at least) has changed languages
             int value = CodePage;
             CodePage = -2;
