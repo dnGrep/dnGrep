@@ -124,9 +124,9 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0"
                                    Width="{Binding LineNumberColumnWidth}"
-                                   Margin="-3" Padding="0,0,3,0"
+                                   Margin="-3" Padding="3,0,3,0"
                                    Text="{Binding FormattedLineNumber}"
-                                   TextAlignment="Right" />
+                                   TextAlignment="{Binding LineNumberAlignment}" />
                         <my:InlineTextBlock Grid.Column="1" 
                                             Margin="6,0,0,0" InlineCollection="{Binding FormattedText}" FontFamily="Consolas" 
                                             TextWrapping="{Binding WrapText, Converter={StaticResource BoolToTextWrappingConverter}}"/>
