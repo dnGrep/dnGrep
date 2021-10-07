@@ -18,6 +18,14 @@ namespace dnGREP.WPF
     /// </summary>
     public class ReplaceViewLineNumberMargin : LineNumberMargin
     {
+        public ReplaceViewLineNumberMargin()
+            : base()
+        {
+            // override Property Value Inheritance, and always render
+            // the line number margin left-to-right
+            FlowDirection = FlowDirection.LeftToRight;
+        }
+
         /// <summary>
         /// The ordered list of line numbers from the original source file
         /// </summary>
@@ -30,11 +38,13 @@ namespace dnGREP.WPF
 
             if (LineNumbers.Count > 0)
             {
+                double pixelsPerDip = VisualTreeHelper.GetDpi(this).PixelsPerDip;
                 int digits = (int)Math.Floor(Math.Log10(LineNumbers.Max()) + 1);
 
                 FormattedText text = new FormattedText(
                     new string('9', digits), CultureInfo.CurrentCulture, TextView.FlowDirection,
-                    typeface, emSize, Brushes.Black, 1.0);
+                    typeface, emSize, Brushes.Black, null,
+                    TextOptions.GetTextFormattingMode(this), pixelsPerDip);
                 return new Size(text.Width, 0);
             }
             else
@@ -60,10 +70,16 @@ namespace dnGREP.WPF
 
                         if (lineIndex >= 0 && lineIndex < LineNumbers.Count)
                         {
-                            FormattedText text = new FormattedText(LineNumbers[lineIndex].ToString(),
-                                CultureInfo.CurrentCulture, textView.FlowDirection,
-                                typeface, emSize, foreground, pixelsPerDip);
-
+                            FormattedText text = new FormattedText(
+                                            LineNumbers[lineIndex].ToString(),
+                                            CultureInfo.CurrentCulture,
+                                            FlowDirection.LeftToRight,
+                                            typeface,
+                                            emSize,
+                                            foreground,
+                                            null,
+                                            TextOptions.GetTextFormattingMode(this),
+                                            pixelsPerDip);
                             double y = line.GetTextLineVisualYPosition(line.TextLines[0], VisualYPosition.TextTop);
                             drawingContext.DrawText(text, new Point(renderSize.Width - text.Width, y - textView.VerticalOffset));
                         }
