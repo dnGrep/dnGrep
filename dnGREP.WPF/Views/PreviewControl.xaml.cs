@@ -89,8 +89,6 @@ namespace dnGREP.WPF
                         {
                             bool isRTL = Utils.IsRTL(ViewModel.FilePath, ViewModel.Encoding);
                             textEditor.FlowDirection = isRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
-                            // add space next to line numbers on the appropriate side
-                            root.Margin = isRTL ? new Thickness(0, 0, 3, 0) : new Thickness(3, 0, 0, 0);
 
                             using (FileStream stream = File.Open(ViewModel.FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                             {
