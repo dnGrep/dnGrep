@@ -198,7 +198,6 @@ namespace dnGREP.Engines.Pdf
 
         public override void OpenFile(OpenFileArgs args)
         {
-            args.UseCustomEditor = false;
             Utils.OpenFile(args);
         }
     }
