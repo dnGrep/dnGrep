@@ -1251,11 +1251,11 @@ Arguments:
     <comment>Main window, search option checkbox tooltip</comment>
   </data>
   <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
-    <value>Hex string is not valid</value>
+    <value>Hex string is not valid!</value>
     <comment>Main window, hexadecimal expression status</comment>
   </data>
   <data name="Main_Validation_HexStringIsOK" xml:space="preserve">
-    <value>Hex string is OK</value>
+    <value>Hex string is OK!</value>
     <comment>Main window, hexadecimal expression status</comment>
   </data>
   <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">
