@@ -1934,7 +1934,7 @@ Arguments:
     <comment>Replace window, File text when attempt to replace in binary file</comment>
   </data>
   <data name="Replace_FileNumberOfCountName" xml:space="preserve">
-    <value>File {0} of {1}: {2}  ({3} matches on {4} lines)</value>
+    <value>第 {0} 个 共 {1} 个文件: {2}  ({3} 个匹配 {4} 行)</value>
     <comment>Replace window, file name progress line: {0} is the index of the current file; {1} is the total number of files; {2} is the name of the current file; {3} is the number of matches found in the current file; {4} is the number of lines in the current file with matches</comment>
   </data>
   <data name="Replace_Files" xml:space="preserve">
@@ -2006,11 +2006,11 @@ Arguments:
     <comment>Replace window, first color and highlight key label</comment>
   </data>
   <data name="Replace_ReplaceKey2_SelectedMatch" xml:space="preserve">
-    <value>Selected Match</value>
+    <value>已选择匹配</value>
     <comment>Replace window, second color and highlight key label</comment>
   </data>
   <data name="Replace_ReplaceKey3_ReplaceMatch" xml:space="preserve">
-    <value>Replace Match</value>
+    <value>替换匹配</value>
     <comment>Replace window, third color and highlight key label</comment>
   </data>
   <data name="Replace_ReplaceKey4_SkipMatch" xml:space="preserve">
@@ -2018,7 +2018,7 @@ Arguments:
     <comment>Replace window, fourth color and highlight key label</comment>
   </data>
   <data name="Replace_ReplaceMatchesMarkedForReplacement" xml:space="preserve">
-    <value>Replace matches marked for replacement</value>
+    <value>对标记项执行替换</value>
     <comment>Replace window, OK button tooltip</comment>
   </data>
   <data name="Replace_ReplaceWith" xml:space="preserve">
@@ -2026,7 +2026,7 @@ Arguments:
     <comment>Replace window, replace text input box label</comment>
   </data>
   <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
-    <value>Reset and skip all matches in this file [Ctrl+T]</value>
+    <value>重置并取消该文件中所有匹配项 [Ctrl+T]</value>
     <comment>Replace window, Undo file button tooltip</comment>
   </data>
   <data name="Replace_SearchFor" xml:space="preserve">
@@ -2046,7 +2046,7 @@ Arguments:
     <comment>Replace window, syntax coloring option for no syntax coloring</comment>
   </data>
   <data name="Replace_ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
-    <value>This file contains too many matches for individual replace.  To replace all of them, click 'Replace in File'</value>
+    <value>此文件有太多匹配的替换项. 点击 '文件替换' 来替换所有</value>
     <comment>Replace window, warning message box text</comment>
   </data>
   <data name="Replace_Title" xml:space="preserve">
@@ -2062,7 +2062,7 @@ Arguments:
     <comment>Replace window, Undo file button label (accel)</comment>
   </data>
   <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
-    <value>Undo mark replace on this match [Ctrl+U]</value>
+    <value>撤销标记替换内容 [Ctrl+U]</value>
     <comment>Replace window, Undo button tooltip</comment>
   </data>
   <data name="Replace_WrapText" xml:space="preserve">
