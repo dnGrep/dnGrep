@@ -1,0 +1,1 @@
+Including the AvalonEdit source code in dnGrep is intended to be temporary until the main project supports RightToLeft reading languages.
