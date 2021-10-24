@@ -2314,15 +2314,15 @@ Arguments:
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTB1_ReplacesEntireRegex" xml:space="preserve">
-    <value>$&amp; 替换整个正则表达式</value>
+    <value>$&amp; 插入整个正则表达式匹配项</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTB2_InsertsTheTextMatchedIntoTheReplacementText" xml:space="preserve">
-    <value>$1, $2, $3, etc... inserts the text matched between capturing parentheses into the replacement text</value>
+    <value>$1, $2, $3, etc... 插入整个表达式相应的匹配组到替换文本</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTB3_InsertsASingleDollarSignIntoTheReplacementText" xml:space="preserve">
-    <value>$$ 在替换字符中插入一个 $ 符号</value>
+    <value>$$ 在替换字符中插入一个 $ 符号 (转义)</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="Window_Close" xml:space="preserve">
