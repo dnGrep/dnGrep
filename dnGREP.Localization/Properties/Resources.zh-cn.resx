@@ -298,7 +298,7 @@
     <comment>Bookmark details dialog, search pattern text input box label</comment>
   </data>
   <data name="BookmarkDetails_SearchInArchives" xml:space="preserve">
-    <value>在存档中搜索(_C)</value>
+    <value>在归档中搜索(_C)</value>
     <comment>Bookmark details dialog, checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
@@ -438,7 +438,7 @@
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
-    <value>在存档中搜索</value>
+    <value>在归档中搜索</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_WholeWord" xml:space="preserve">
@@ -1066,7 +1066,7 @@ Arguments:
     <comment>Main window, search group heading</comment>
   </data>
   <data name="Main_SearchInArchives" xml:space="preserve">
-    <value>在存档中搜索(_C)</value>
+    <value>在归档中搜索(_C)</value>
     <comment>Main window, checkbox label (accel)</comment>
   </data>
   <data name="Main_SearchInGroup" xml:space="preserve">
@@ -1302,11 +1302,11 @@ Arguments:
     <comment>Message box text for: Open file failed</comment>
   </data>
   <data name="MessageBox_ClearingThisBookmarkWillAlsoClearThatBookmark" xml:space="preserve">
-    <value>Clearing this bookmark will also clear that bookmark.</value>
+    <value>清除当前书签也会清除另一书签.</value>
     <comment>Message box text for: Main window, bookmark button</comment>
   </data>
   <data name="MessageBox_ClearingThisBookmarkWillAlsoRemoveThoseBookmarks" xml:space="preserve">
-    <value>Clearing this bookmark will also remove those bookmarks.</value>
+    <value>清除当前书签也会清除另一些书签.</value>
     <comment>Message box text for: Main window, bookmark button</comment>
   </data>
   <data name="MessageBox_CopyFiles" xml:space="preserve">
@@ -1334,11 +1334,11 @@ Arguments:
     <comment>Message box text for: Move files: {0} is the number of files</comment>
   </data>
   <data name="MessageBox_CustomEditorFileOpenError" xml:space="preserve">
-    <value>There was an error opening file by custom editor.</value>
+    <value>使用自定义编辑器打开文件时发生错误.</value>
     <comment>Message box text for: Open file with custom editor</comment>
   </data>
   <data name="MessageBox_DefaultEngineWasUsedInstead" xml:space="preserve">
-    <value>已使用默认引擎.</value>
+    <value>已使用默认搜索引擎.</value>
     <comment>Message box text for: Plugin failed to load error</comment>
   </data>
   <data name="MessageBox_DeleteFiles" xml:space="preserve">
@@ -1358,7 +1358,7 @@ Arguments:
     <comment>Message box text for: general error message</comment>
   </data>
   <data name="MessageBox_ErrorOpeningFile" xml:space="preserve">
-    <value>There was an error opening file. See the error log for details: </value>
+    <value>打开文件时发生错误. 日志查看详情: </value>
     <comment>Message box text for: Open file error</comment>
   </data>
   <data name="MessageBox_ErrorSettingClipboardTextTheClipboardIsLockedBy" xml:space="preserve">
@@ -1366,7 +1366,7 @@ Arguments:
     <comment>Message box text for: Copy to clipboard error</comment>
   </data>
   <data name="MessageBox_FailedToExtractFileFromArchive" xml:space="preserve">
-    <value>Failed to extract file from archive. See the error log for details: </value>
+    <value>从归档中解压文件时发生错入. 日志查看详情: </value>
     <comment>Message box text for: Preview window archive error</comment>
   </data>
   <data name="MessageBox_FilesHaveBeenSuccessfullyReverted" xml:space="preserve">
@@ -1414,11 +1414,11 @@ Arguments:
     <comment>Message box text for: Replace message</comment>
   </data>
   <data name="MessageBox_ReplaceFailedError" xml:space="preserve">
-    <value>替换失败! See the error log for details: </value>
+    <value>替换失败! 日志查看详情: </value>
     <comment>Message box text for: Replace failed</comment>
   </data>
   <data name="MessageBox_ResourcesFile0IsNotAResxFile" xml:space="preserve">
-    <value>Resources file '{0}', is not a resx file.</value>
+    <value>资源文件 '{0}' 并不是 resx 文件.</value>
     <comment>Message box text for: Load language resource file error: {0} is the name of the file that failed to load</comment>
   </data>
   <data name="MessageBox_RunDnGrepAsAdministrator" xml:space="preserve">
@@ -1434,7 +1434,7 @@ Arguments:
     <comment>Message box text for: Search failed</comment>
   </data>
   <data name="MessageBox_SearchOrReplaceFailed" xml:space="preserve">
-    <value>Search or replace failed! See the error log for details: </value>
+    <value>Search or replace failed! 日志查看详情: </value>
     <comment>Message box text for: Search or Replace failed</comment>
   </data>
   <data name="MessageBox_SearchPathInTheFieldIsNotValid" xml:space="preserve">
@@ -1450,11 +1450,11 @@ Arguments:
     <comment>Message box text for: Main window replace warning</comment>
   </data>
   <data name="MessageBox_SomethingBrokeDownInDnGrep" xml:space="preserve">
-    <value>Something broke down in dnGrep. See the error log for details: </value>
+    <value>dnGrep 部分损坏. 日志查看详情: </value>
     <comment>Message box text for: Unknown error</comment>
   </data>
   <data name="MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting" xml:space="preserve">
-    <value>The file '{0}' already exists in {1}, overwrite existing?</value>
+    <value>文件 '{0}' 已存在于文件夹 {1}, 覆盖?</value>
     <comment>Message box text for: Copy or Move files: {0} is a file name; {1} is a folder name</comment>
   </data>
   <data name="MessageBox_TheFilePattern0IsNotAValidRegularExpression12" xml:space="preserve">
@@ -1462,59 +1462,59 @@ Arguments:
     <comment>Message box text for: Main window regex file pattern error: {0} is the invalid regular expression; {1} is a newline; {2} is the reason the expression is invalid</comment>
   </data>
   <data name="MessageBox_TheFollowingPluginsFailedToLoad" xml:space="preserve">
-    <value>The following plugins failed to load:</value>
+    <value>以下插件载入失败:</value>
     <comment>Message box text for: plugin load errors</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu" xml:space="preserve">
-    <value>There was an error adding dnGrep to Explorer right-click menu. See the error log for details: </value>
+    <value>There was an error adding dnGrep to Explorer right-click menu. 日志查看详情: </value>
     <comment>Message box text for: set Explorer context menu error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorCopyingFiles" xml:space="preserve">
-    <value>There was an error copying files. See the error log for details: </value>
+    <value>复制文件时发生错误. 日志查看详情: </value>
     <comment>Message box text for: Copy files</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorCreatingTheFile" xml:space="preserve">
-    <value>There was an error creating the file. See the error log for details: </value>
+    <value>创建文件时发生错误. 日志查看详情: </value>
     <comment>Message box text for: Create file</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorDeletingFiles" xml:space="preserve">
-    <value>There was an error deleting files. See the error log for details: </value>
+    <value>删除文件时发生错误. 日志查看详情: </value>
     <comment>Message box text for: Delete file</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorMovingFiles" xml:space="preserve">
-    <value>There was an error moving files. See the error log for details: </value>
+    <value>移动文件时发生错误. 日志查看详情: </value>
     <comment>Message box text for: Move file</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorRegisteringAutoStartup" xml:space="preserve">
-    <value>There was an error registering auto startup. See the error log for details: </value>
+    <value>设置开机启动时发生错误. 日志查看详情: </value>
     <comment>Message box text for: set startup option error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu" xml:space="preserve">
-    <value>There was an error removing dnGrep from the Explorer right-click menu. See the error log for details: </value>
+    <value>There was an error removing dnGrep from the Explorer right-click menu. 日志查看详情: </value>
     <comment>Message box text for: unset Explorer context menu error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorRevertingFiles" xml:space="preserve">
-    <value>There was an error reverting files. See the error log for details: </value>
+    <value>还原文件时发生错误. 日志查看详情: </value>
     <comment>Message box text for: Undo replace error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorRunningRegexTest" xml:space="preserve">
-    <value>There was an error running the test window. See the error log for details: </value>
+    <value>There was an error running the test window. 日志查看详情: </value>
     <comment>Message box text for: Main window start test dialog error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorSavingOptions" xml:space="preserve">
-    <value>There was an error saving options. See the error log for details: </value>
+    <value>保存选项时发生错误. 日志查看详情: </value>
     <comment>Message box text for: Saving user options</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorUnregisteringAutoStartup" xml:space="preserve">
-    <value>There was an error unregistering auto startup. See the error log for details: </value>
+    <value>取消开机启动时发生错误. 日志查看详情: </value>
     <comment>Message box text for: unsetting auto start error</comment>
   </data>
   <data name="MessageBox_ThisBookmarkIsAssociatedWith0OtherFolders" xml:space="preserve">
-    <value>This bookmark is associated with {0} other folders:</value>
+    <value>当前书签和以下 {0} 个书签关联:</value>
     <comment>Message box text for: Main window bookmark delete: {0} is the number of folders</comment>
   </data>
   <data name="MessageBox_ThisBookmarkIsAssociatedWithOneOtherFolder" xml:space="preserve">
-    <value>This bookmark is associated with one other folder</value>
+    <value>当前书签和以下书签关联:</value>
     <comment>Message box text for: Main window bookmark delete</comment>
   </data>
   <data name="MessageBox_Undo" xml:space="preserve">
@@ -1562,7 +1562,7 @@ Arguments:
     <comment>Options dialog, archive options label</comment>
   </data>
   <data name="Options_ArchiveOptions" xml:space="preserve">
-    <value>存档选项</value>
+    <value>归档选项</value>
     <comment>Options dialog, archive options group header label</comment>
   </data>
   <data name="Options_ArchiveRemove" xml:space="preserve">
@@ -1578,7 +1578,7 @@ Arguments:
     <comment>Options dialog, check for updates label</comment>
   </data>
   <data name="Options_CheckForUpdatesWhenWindowsStarts" xml:space="preserve">
-    <value>Check for updates when Windows starts</value>
+    <value>在 Windows 启动时检查更新</value>
     <comment>Options dialog, check for updates checkbox label (accel)</comment>
   </data>
   <data name="Options_CheckingForUpdates" xml:space="preserve">
@@ -1586,7 +1586,7 @@ Arguments:
     <comment>Options dialog, check for updates group header label</comment>
   </data>
   <data name="Options_ClearOldSearches" xml:space="preserve">
-    <value>Clear old searches</value>
+    <value>清除已有的搜索</value>
     <comment>Options dialog, history list button label (accel)</comment>
   </data>
   <data name="Options_Close" xml:space="preserve">
@@ -1610,7 +1610,7 @@ Arguments:
     <comment>Options dialog, results options context label</comment>
   </data>
   <data name="Options_ContextBeforeAnd" xml:space="preserve">
-    <value>before and</value>
+    <value>前</value>
     <comment>Options dialog, results options context label</comment>
   </data>
   <data name="Options_CustomEditor" xml:space="preserve">
@@ -1642,11 +1642,11 @@ Arguments:
     <comment>Options dialog, custom editor command input box label</comment>
   </data>
   <data name="Options_EnableAutomaticCheckingEvery" xml:space="preserve">
-    <value>Enable automatic checking every</value>
+    <value>启用自动更新, 每</value>
     <comment>Options dialog, check for updates, checkbox label (accel)</comment>
   </data>
   <data name="Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu" xml:space="preserve">
-    <value>Enables starting dnGrep from the Windows Explorer right-click context menu.</value>
+    <value>在 Windows 右键菜单中能够启动 dnGrep</value>
     <comment>Options dialog, explorer right click menu checkbox tooltip</comment>
   </data>
   <data name="Options_FollowWindowsTheme" xml:space="preserve">
@@ -1702,7 +1702,7 @@ Arguments:
     <comment>Options dialog, phonetic help text</comment>
   </data>
   <data name="Options_MatchThreshold" xml:space="preserve">
-    <value>Match threshold (from 0 to 1.0)</value>
+    <value>匹配阈值 (从 0 到 1.0)</value>
     <comment>Options dialog, phonetic options text input label</comment>
   </data>
   <data name="Options_MatchTimeout" xml:space="preserve">
@@ -1758,7 +1758,7 @@ Arguments:
     <comment>Options dialog, plugin options text input label</comment>
   </data>
   <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
-    <value>Press F1 for help on Options</value>
+    <value>按 F1 获取选项相关相关帮助</value>
     <comment>Options dialog, help label</comment>
   </data>
   <data name="Options_PreviewToolForTranslators" xml:space="preserve">
@@ -1778,7 +1778,7 @@ Arguments:
     <comment>Options dialog, theme reload button tooltip</comment>
   </data>
   <data name="Options_ReplaceFontSize" xml:space="preserve">
-    <value>Replace Font Size</value>
+    <value>替换内容字体大小</value>
     <comment>Options dialog, font size input label</comment>
   </data>
   <data name="Options_ResultsOptions" xml:space="preserve">
@@ -1786,7 +1786,7 @@ Arguments:
     <comment>Options dialog, results options group header label</comment>
   </data>
   <data name="Options_SampleText" xml:space="preserve">
-    <value>Sample Text</value>
+    <value>Sample Text 示例文本</value>
     <comment>Options dialog, font family and size sample text </comment>
   </data>
   <data name="Options_Save" xml:space="preserve">
@@ -1798,23 +1798,23 @@ Arguments:
     <comment>Options dialog, theme selector label</comment>
   </data>
   <data name="Options_ShowDnGrepInExplorerRightClickMenu" xml:space="preserve">
-    <value>Show dnGrep in Explorer right-click menu</value>
+    <value>在 Windows 右键菜单中添加 dnGrep</value>
     <comment>Options dialog, startup options, checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowFileInfoToolTips" xml:space="preserve">
-    <value>Show file info tool tips</value>
+    <value>在提示中显示文件信息</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowFilePathInResultsPanel" xml:space="preserve">
-    <value>Show file path in results panel</value>
+    <value>在搜索结果中显示文件路径</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowResultLinesInContext" xml:space="preserve">
-    <value>Show result lines in context</value>
+    <value>显示搜索结果上下文</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowResultsTreeExpanded" xml:space="preserve">
-    <value>Show results tree expanded</value>
+    <value>展开显示搜索结果</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowSearchOptions" xml:space="preserve">
@@ -1822,7 +1822,7 @@ Arguments:
     <comment>Options dialog, layout options label</comment>
   </data>
   <data name="Options_ShowVerboseMatchCount" xml:space="preserve">
-    <value>Show verbose match count</value>
+    <value>显示详细的匹配数量</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_StartupOptions" xml:space="preserve">
@@ -1830,7 +1830,7 @@ Arguments:
     <comment>Options dialog, startup group header label</comment>
   </data>
   <data name="Options_TheMatchTimeoutLimits" xml:space="preserve">
-    <value>The match timeout limits how long the regular expression engine will attempt to resolve a regular expression before it times out. This prevents processing expressions and input strings that require excessive backtracking.</value>
+    <value>限定了正则表达式引擎最多能花费多少时间来匹配内容. 该设置用来避免过度回溯.</value>
     <comment>Options dialog, regex options help text</comment>
   </data>
   <data name="Options_Theme" xml:space="preserve">
@@ -1850,7 +1850,7 @@ Arguments:
     <comment>Options dialog, fonts default checkbox label (accel)</comment>
   </data>
   <data name="Options_WantADifferentLanguage" xml:space="preserve">
-    <value>Do you want a different language?</value>
+    <value>使用其他语言?</value>
     <comment>Options dialog, language request label</comment>
   </data>
   <data name="Preview_ChangesTextEditorZoom" xml:space="preserve">
@@ -2106,7 +2106,7 @@ Arguments:
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_NoArchives" xml:space="preserve">
-    <value>非存档</value>
+    <value>非归档</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_NoBinary" xml:space="preserve">
