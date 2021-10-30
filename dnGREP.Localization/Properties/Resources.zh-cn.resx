@@ -626,7 +626,7 @@ Arguments:
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_ChangesTheResultsTreeZoom" xml:space="preserve">
-    <value>改变搜索结果显示缩放</value>
+    <value>改变搜索搜索结果显示缩放</value>
     <comment>Main window tooltip</comment>
   </data>
   <data name="Main_ClearBookmark" xml:space="preserve">
@@ -774,7 +774,7 @@ Arguments:
     <comment>Main window, filter file by date, start date tooltip</comment>
   </data>
   <data name="Main_HideResultOptions" xml:space="preserve">
-    <value>隐藏结果选项</value>
+    <value>隐藏搜索结果选项</value>
     <comment>Main window, result options expander button tooltip (bottom of window)</comment>
   </data>
   <data name="Main_HighlightGroups" xml:space="preserve">
@@ -854,7 +854,7 @@ Arguments:
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_CopyResults" xml:space="preserve">
-    <value>复制结果</value>
+    <value>复制搜索结果</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_DeleteFiles" xml:space="preserve">
@@ -866,11 +866,11 @@ Arguments:
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_SaveResults" xml:space="preserve">
-    <value>保存结果</value>
+    <value>保存搜索结果</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_Save_CSVResults" xml:space="preserve">
-    <value>CSV 结果</value>
+    <value>CSV 搜索结果</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_Save_Report" xml:space="preserve">
@@ -878,7 +878,7 @@ Arguments:
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_Save_TextResults" xml:space="preserve">
-    <value>文本结果</value>
+    <value>文本搜索结果</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_Multiline" xml:space="preserve">
@@ -938,7 +938,7 @@ Arguments:
     <comment>Main window, save report, report type format label</comment>
   </data>
   <data name="Main_ReportOption_ResultsFileFormat" xml:space="preserve">
-    <value>结果文件格式</value>
+    <value>搜索结果文件格式</value>
     <comment>Main window, save report, report type format label</comment>
   </data>
   <data name="Main_ResetOptions" xml:space="preserve">
@@ -1006,7 +1006,7 @@ Arguments:
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_ExcludeFromResults" xml:space="preserve">
-    <value>从结果中排除</value>
+    <value>从搜索结果中排除</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_ExpandAll" xml:space="preserve">
@@ -1046,7 +1046,7 @@ Arguments:
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_SavingResultsToFile" xml:space="preserve">
-    <value>保存结果到文件...</value>
+    <value>保存搜索结果到文件...</value>
     <comment>Main window, status message</comment>
   </data>
   <data name="Main_SearchButton" xml:space="preserve">
@@ -1074,7 +1074,7 @@ Arguments:
     <comment>Main window Search In group heading</comment>
   </data>
   <data name="Main_SearchInResults" xml:space="preserve">
-    <value>在结果中搜索(_i)</value>
+    <value>在搜索结果中搜索(_i)</value>
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_SearchParallel" xml:space="preserve">
@@ -1126,7 +1126,7 @@ Arguments:
     <comment>Main window, filter files by date, date picker watermark</comment>
   </data>
   <data name="Main_ShowResultOptions" xml:space="preserve">
-    <value>显示结果选项</value>
+    <value>显示搜索结果选项</value>
     <comment>Main window, result options expander button tooltip (bottom of window)</comment>
   </data>
   <data name="Main_SizeIs" xml:space="preserve">
@@ -1294,7 +1294,7 @@ Arguments:
     <comment>Message box text for: Delete files</comment>
   </data>
   <data name="MessageBox_AreYouSureYouWantToReplaceSearchPatternWithEmptyString" xml:space="preserve">
-    <value>将搜索结果替换为空?</value>
+    <value>将搜索结果匹配项替换为空白字符?</value>
     <comment>Message box text for: Replace text</comment>
   </data>
   <data name="MessageBox_CheckEditorPath" xml:space="preserve">
@@ -1782,7 +1782,7 @@ Arguments:
     <comment>Options dialog, font size input label</comment>
   </data>
   <data name="Options_ResultsOptions" xml:space="preserve">
-    <value>结果选项</value>
+    <value>搜索结果选项</value>
     <comment>Options dialog, results options group header label</comment>
   </data>
   <data name="Options_SampleText" xml:space="preserve">
@@ -2138,7 +2138,7 @@ Arguments:
     <comment>Report search options summary label</comment>
   </data>
   <data name="ReportSummary_SearchInResults" xml:space="preserve">
-    <value>在结果中搜索</value>
+    <value>在搜索结果中搜索</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_SizeFrom0To1KB" xml:space="preserve">
@@ -2234,7 +2234,7 @@ Arguments:
     <comment>Test window, results box message text</comment>
   </data>
   <data name="Test_ReplaceResult" xml:space="preserve">
-    <value>替换结果:</value>
+    <value>替换搜索结果:</value>
     <comment>Test window, output results label</comment>
   </data>
   <data name="Test_ReplaceTextIsNotValidXML" xml:space="preserve">
