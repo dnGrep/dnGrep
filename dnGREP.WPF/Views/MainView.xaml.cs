@@ -157,8 +157,14 @@ namespace dnGREP.WPF
         {
             if (dp == null) return;
 
+            // force visual tree to be built, even if control is not visible
+            dp.ApplyTemplate();
+
             var tb = dp.GetChildOfType<DatePickerTextBox>();
             if (tb == null) return;
+
+            // force visual tree to be built, even if control is not visible
+            tb.ApplyTemplate();
 
             var wm = tb.Template.FindName("PART_Watermark", tb) as ContentControl;
             if (wm == null) return;
