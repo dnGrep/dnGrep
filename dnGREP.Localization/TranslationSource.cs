@@ -29,7 +29,7 @@ namespace dnGREP.Localization
                 //{ "bg", "Български" },
                 { "en", "English" },
                 //{ "he", "עברית" }
-                //{ "zh", "中文" },
+                { "zh-cn", "简体中文" },
             };
 
         public void SetCulture(string ietfLanguateTag)
