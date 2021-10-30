@@ -21,6 +21,7 @@
 
     <!-- Properties -->
     <Property Id="INSTALLLEVEL" Value="3" />
+    <Property Id="REINSTALLMODE" Value="amus" />
     
     <!-- uncomment the next line to write verbose logs to %temp%\MSIxxxxx.LOG -->
     <!--<Property Id="MsiLogging" Value="v" />-->
