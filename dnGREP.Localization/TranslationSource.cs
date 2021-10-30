@@ -26,10 +26,10 @@ namespace dnGREP.Localization
         public Dictionary<string, string> AppCultures =>
             new Dictionary<string, string>
             {
-                //{ "bg", "Български" },
+                { "bg", "Български" },
                 { "en", "English" },
-                //{ "he", "עברית" }
-                { "zh-cn", "简体中文" },
+                { "he", "עברית" },
+                { "zh-CN", "简体中文" },
             };
 
         public void SetCulture(string ietfLanguateTag)
