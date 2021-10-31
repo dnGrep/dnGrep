@@ -23,7 +23,7 @@ namespace dnGREP.TestLocalizedStrings
                 { "bg", "Български" },
                 { "en", "English" },
                 { "he", "עברית" },
-                { "zh-cn", "简体中文" },
+                { "zh-CN", "简体中文" },
             };
 
         public TestStringsViewModel()
