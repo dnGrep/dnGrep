@@ -1904,6 +1904,8 @@ namespace dnGREP.WPF
             if (CurrentGrepOperation != GrepOperation.None)
             {
                 Utils.CancelSearch = true;
+                if (workerSearchReplace.IsBusy)
+                    workerSearchReplace.CancelAsync();
             }
         }
 
