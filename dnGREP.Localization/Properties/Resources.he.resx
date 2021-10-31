@@ -1226,6 +1226,9 @@ Arguments:
     <value>מחפש...</value>
     <comment>Main window, status bar message</comment>
   </data>
+  <data name="Main_Status_SearchingForGitignore" xml:space="preserve">
+    <value>מחפש .gitignore</value>
+  </data>
   <data name="Main_StopAfterFirstMatch" xml:space="preserve">
     <value>עצור לאחר ההתאמה הראשונה</value>
     <comment>Main window, search options checkbox label (accel)</comment>
@@ -2204,9 +2207,6 @@ Arguments:
   <data name="ReportSummary_WholeWord" xml:space="preserve">
     <value>מילה שלמה</value>
     <comment>Report search options summary</comment>
-  </data>
-  <data name="SearchingForGitignore" xml:space="preserve">
-    <value>  מחפש .gitignore</value>
   </data>
   <data name="Test_BooleanOperators" xml:space="preserve">
     <value>אופרטורים בוליאניים</value>

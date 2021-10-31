@@ -27,6 +27,7 @@ namespace dnGREP.Localization
             new Dictionary<string, string>
             {
                 { "bg", "Български" },
+                { "de", "Deutsch" },
                 { "en", "English" },
                 { "he", "עברית" },
                 { "zh-CN", "简体中文" },
