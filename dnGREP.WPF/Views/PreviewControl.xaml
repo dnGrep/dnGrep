@@ -25,7 +25,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Border BorderBrush="{DynamicResource Control.Static.Border}" BorderThickness="0,1,0,0">
+    <Border BorderBrush="{DynamicResource Control.Static.Border}" BorderThickness="0,1,0,0" Margin="3,0">
         <DockPanel>
             <DockPanel Name="previewPanel" DockPanel.Dock="Top"
                        Background="{DynamicResource StatusBar.Static.Background}"

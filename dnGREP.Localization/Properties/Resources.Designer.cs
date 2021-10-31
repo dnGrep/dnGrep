@@ -2360,6 +2360,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Searching for .gitignore.
+        /// </summary>
+        public static string Main_Status_SearchingForGitignore {
+            get {
+                return ResourceManager.GetString("Main_Status_SearchingForGitignore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stop after first match.
         /// </summary>
         public static string Main_StopAfterFirstMatch {
@@ -2414,7 +2423,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hex string is not valid.
+        ///   Looks up a localized string similar to Hex string is not valid!.
         /// </summary>
         public static string Main_Validation_HexStringIsNotValid {
             get {
@@ -2423,7 +2432,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hex string is OK.
+        ///   Looks up a localized string similar to Hex string is OK!.
         /// </summary>
         public static string Main_Validation_HexStringIsOK {
             get {
@@ -3773,6 +3782,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Changes text editor zoom.
+        /// </summary>
+        public static string Preview_ChangesTextEditorZoom {
+            get {
+                return ResourceManager.GetString("Preview_ChangesTextEditorZoom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Find next (F3).
         /// </summary>
         public static string Preview_FindNext {
@@ -3908,6 +3926,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Replace_Cancel {
+            get {
+                return ResourceManager.GetString("Replace_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel all replacements.
         /// </summary>
         public static string Replace_CancelAllReplacements {
@@ -4012,6 +4039,15 @@ namespace dnGREP.Localization.Properties {
         public static string Replace_NextFile {
             get {
                 return ResourceManager.GetString("Replace_NextFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string Replace_OK {
+            get {
+                return ResourceManager.GetString("Replace_OK", resourceCulture);
             }
         }
         

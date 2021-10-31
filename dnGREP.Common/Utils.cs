@@ -542,6 +542,38 @@ namespace dnGREP.Common
             }
         }
 
+        public static bool IsRTL(string srcFile, Encoding encoding)
+        {
+            if (File.Exists(srcFile))
+            {
+                using (FileStream readStream = File.Open(srcFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                {
+                    return IsRTL(readStream, encoding);
+                }
+            }
+            return false;
+        }
+
+        public static bool IsRTL(Stream stream, Encoding encoding)
+        {
+            using (StreamReader streamReader = new StreamReader(stream, encoding))
+            {
+                string line = streamReader.ReadLine();
+                return IsRTL(line);
+            }
+        }
+
+        public static bool IsRTL(string text)
+        {
+            bool isRtl = false;
+            if (!string.IsNullOrWhiteSpace(text))
+            {
+                Regex regex = new Regex(@"\p{IsArabic}|\p{IsHebrew}");
+                isRtl = regex.IsMatch(text);
+            }
+            return isRtl;
+        }
+
         /// <summary>
         /// Returns true if the source file extension is ".pdf"
         /// </summary>

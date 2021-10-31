@@ -21,9 +21,10 @@ namespace dnGREP.TestLocalizedStrings
             new Dictionary<string, string>
             {
                 { "bg", "Български" },
+                { "de", "Deutsch" },
                 { "en", "English" },
                 { "he", "עברית" },
-                //{ "zh", "中文" },
+                { "zh-CN", "简体中文" },
             };
 
         public TestStringsViewModel()

@@ -87,6 +87,9 @@ namespace dnGREP.WPF
                     {
                         if (!string.IsNullOrWhiteSpace(ViewModel.FilePath))
                         {
+                            bool isRTL = Utils.IsRTL(ViewModel.FilePath, ViewModel.Encoding);
+                            textEditor.FlowDirection = isRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+
                             using (FileStream stream = File.Open(ViewModel.FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                             {
                                 textEditor.Load(stream);

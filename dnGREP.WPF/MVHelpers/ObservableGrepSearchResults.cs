@@ -650,6 +650,7 @@ namespace dnGREP.WPF
             IsSectionBreak = breakSection;
             WrapText = Parent.WrapText;
 
+            LineNumberAlignment = TranslationSource.Instance.CurrentCulture.TextInfo.IsRightToLeft ? TextAlignment.Left : TextAlignment.Right;
             FormattedLineNumber = line.LineNumber == -1 ? string.Empty :
                 line.IsHexFile ? string.Format("{0:X8}", (line.LineNumber - 1) * 16) :
                 line.LineNumber.ToString();
@@ -667,6 +668,8 @@ namespace dnGREP.WPF
 
         public GrepLine GrepLine { get; private set; }
         public string FormattedLineNumber { get; private set; }
+
+        public TextAlignment LineNumberAlignment { get; private set; } = TextAlignment.Right;
 
         private InlineCollection formattedText;
         public InlineCollection FormattedText

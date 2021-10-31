@@ -85,6 +85,9 @@ namespace dnGREP.WPF
 
         private void CurrentCultureChanged(object sender, EventArgs e)
         {
+            PreviewModel.FilePath = string.Empty;
+            PreviewTitle = string.Empty;
+
             // reload the Encodings list, the "Auto" encoding name (at least) has changed languages
             int value = CodePage;
             CodePage = -2;
@@ -1283,6 +1286,13 @@ namespace dnGREP.WPF
                         if (StopAfterFirstMatch)
                             searchOptions |= GrepSearchOption.StopAfterFirstMatch;
 
+                        if (UseGitignore)
+                        {
+                            // this will be the first search performed, and may take a long time
+                            // the message will allow the user to see the cost of the operation
+                            StatusMessage = Resources.Main_Status_SearchingForGitignore;
+                        }
+
                         grep.ProcessedFile += GrepCore_ProcessedFile;
 
                         if (CaptureGroupSearch && param.TypeOfFileSearch == FileSearchType.Regex &&
@@ -1901,6 +1911,8 @@ namespace dnGREP.WPF
             if (CurrentGrepOperation != GrepOperation.None)
             {
                 Utils.CancelSearch = true;
+                if (workerSearchReplace.IsBusy)
+                    workerSearchReplace.CancelAsync();
             }
         }
 

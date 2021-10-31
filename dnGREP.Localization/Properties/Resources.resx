@@ -1226,6 +1226,10 @@ Arguments:
     <value>Searching...</value>
     <comment>Main window, status bar message</comment>
   </data>
+  <data name="Main_Status_SearchingForGitignore" xml:space="preserve">
+    <value>Searching for .gitignore</value>
+    <comment>Main window, status bar message</comment>
+  </data>
   <data name="Main_StopAfterFirstMatch" xml:space="preserve">
     <value>Stop after first match</value>
     <comment>Main window, search options checkbox label (accel)</comment>
@@ -1251,11 +1255,11 @@ Arguments:
     <comment>Main window, search option checkbox tooltip</comment>
   </data>
   <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
-    <value>Hex string is not valid</value>
+    <value>Hex string is not valid!</value>
     <comment>Main window, hexadecimal expression status</comment>
   </data>
   <data name="Main_Validation_HexStringIsOK" xml:space="preserve">
-    <value>Hex string is OK</value>
+    <value>Hex string is OK!</value>
     <comment>Main window, hexadecimal expression status</comment>
   </data>
   <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">

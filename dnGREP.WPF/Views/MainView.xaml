@@ -60,6 +60,7 @@
                LastChildFill="true">
 
         <df:DockSite x:Name="dockSiteRight" 
+                     Margin="0,0,3,0"
                      Width="{Binding PreviewDockedWidth, Mode=TwoWay, FallbackValue=100}"
                      DockPanel.Dock="Right"
                      Background="{StaticResource GradientBackground}"

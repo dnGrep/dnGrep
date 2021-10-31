@@ -96,26 +96,31 @@
       <Component Id="cmp2026EEE4D24E41B4BF43B79B16CE7A4E" Guid="{392076A3-06CF-4212-941B-DD82FB72075D}">
         <File Id="filA5A20558D688414DA4A216589F40877A" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\Everything$(var.App.PlatformShort).dll" />
       </Component>
-      <!--<Directory Id="dir528DD5B50872449DA6A3648CB53FDE3D" Name="bg">
+      <Directory Id="dir528DD5B50872449DA6A3648CB53FDE3D" Name="bg">
         <Component Id="cmp8AF052AF90A94A149802DFD1021B8D87" Guid="{88B0763B-FB63-4CFF-B66A-AEEE32E3B65E}">
           <File Id="fil71BB7E77AF4B43D987CEA8E0CEC1E595" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\bg\dnGREP.Localization.resources.dll" />
         </Component>
-      </Directory>-->
+      </Directory>
+      <Directory Id="dirFEDF38D3805A4CD3B0EDB1085F8C162C" Name="de">
+        <Component Id="cmp8D7FBFB745324AA7BF5C3EAC73E04285" Guid="{A0CE09E4-4B7E-406F-942A-C02C672C8B9F}">
+          <File Id="fil9AFBB24F44D84772869B72F56738B572" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\de\dnGREP.Localization.resources.dll" />
+        </Component>
+      </Directory>
       <!--<Directory Id="dir79AC8D54042448679F587647B620C045" Name="en">
         <Component Id="cmp8765E4C9E5AE45DDAAB4EA4CC093FD56" Guid="{F9CF1C3C-12E7-406C-A0C9-E7E3FA4811D0}">
           <File Id="fil55D7697C4684436C86BB290DA58B2114" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\en\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>-->
-      <!--<Directory Id="dirAEEF453D55A8468BA4FA3E1AD977AE28" Name="he">
+      <Directory Id="dirAEEF453D55A8468BA4FA3E1AD977AE28" Name="he">
         <Component Id="cmp6E066DAA55234C4DB9125224795D9984" Guid="{6E066DAA-5523-4C4D-B912-5224795D9984}">
           <File Id="fil7E6AA28F928A422D9C52A627B4EF71CE" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\he\dnGREP.Localization.resources.dll" />
         </Component>
-      </Directory>-->
-      <!--<Directory Id="dir0504FAEF173645618FE93CEF2595F0E7" Name="zh">
+      </Directory>
+      <Directory Id="dir0504FAEF173645618FE93CEF2595F0E7" Name="zh-CN">
         <Component Id="cmp1CCA4DCF77DD449B91F005A1D4A7489B" Guid="{343F46B0-10E1-4EBF-A079-64AB1A433833}">
-          <File Id="filE3928064176646DB84256E32A69D9983" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\zh\dnGREP.Localization.resources.dll" />
+          <File Id="filE3928064176646DB84256E32A69D9983" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\zh-CN\dnGREP.Localization.resources.dll" />
         </Component>
-      </Directory>-->
+      </Directory>
       <Directory Id="dirA21EF341F58C4CD8A3652F9814E52748" Name="Themes">
         <Component Id="cmp9870824B781A4C4094CD594CACFBDE9E" Guid="{1E306AFA-D718-4B0A-93E8-B6242A094BF9}">
           <File Id="fil2766C07E80EC4076B2B54F770E60FF44" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\Themes\Sunset.xaml" />
@@ -143,10 +148,11 @@
       <ComponentRef Id="cmp10B3F70BED274CCC836FFC1BB5B515F8" />
       <ComponentRef Id="cmp7DD353A5178A4A3EAE13CB71CD8CEAE2" />
       <ComponentRef Id="cmp2026EEE4D24E41B4BF43B79B16CE7A4E" />
-      <!--<ComponentRef Id="cmp8AF052AF90A94A149802DFD1021B8D87" />-->
+      <ComponentRef Id="cmp8AF052AF90A94A149802DFD1021B8D87" />
+      <ComponentRef Id="cmp8D7FBFB745324AA7BF5C3EAC73E04285" />
       <!--<ComponentRef Id="cmp8765E4C9E5AE45DDAAB4EA4CC093FD56" />-->
-      <!--<ComponentRef Id="cmp6E066DAA55234C4DB9125224795D9984" />-->
-      <!--<ComponentRef Id="cmp1CCA4DCF77DD449B91F005A1D4A7489B" />-->
+      <ComponentRef Id="cmp6E066DAA55234C4DB9125224795D9984" />
+      <ComponentRef Id="cmp1CCA4DCF77DD449B91F005A1D4A7489B" />
       <ComponentRef Id="cmp9870824B781A4C4094CD594CACFBDE9E" />
     </ComponentGroup>
   </Fragment>
