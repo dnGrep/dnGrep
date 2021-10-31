@@ -2202,6 +2202,10 @@ Arguments:
     <value>Whole word</value>
     <comment>Report search options summary</comment>
   </data>
+  <data name="SearchingForGitignore" xml:space="preserve">
+    <value>Searching for .gitignore</value>
+    <comment>Main window, status bar message</comment>
+  </data>
   <data name="Test_BooleanOperators" xml:space="preserve">
     <value>Boolean operators</value>
     <comment>Test window, search options checkbox label (accel)</comment>
