@@ -1226,6 +1226,10 @@ Arguments:
     <value>Searching...</value>
     <comment>Main window, status bar message</comment>
   </data>
+  <data name="Main_Status_SearchingForGitignore" xml:space="preserve">
+    <value>Searching for .gitignore</value>
+    <comment>Main window, status bar message</comment>
+  </data>
   <data name="Main_StopAfterFirstMatch" xml:space="preserve">
     <value>Stop after first match</value>
     <comment>Main window, search options checkbox label (accel)</comment>
@@ -2201,10 +2205,6 @@ Arguments:
   <data name="ReportSummary_WholeWord" xml:space="preserve">
     <value>Whole word</value>
     <comment>Report search options summary</comment>
-  </data>
-  <data name="SearchingForGitignore" xml:space="preserve">
-    <value>Searching for .gitignore</value>
-    <comment>Main window, status bar message</comment>
   </data>
   <data name="Test_BooleanOperators" xml:space="preserve">
     <value>Boolean operators</value>

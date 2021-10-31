@@ -2360,6 +2360,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Searching for .gitignore.
+        /// </summary>
+        public static string Main_Status_SearchingForGitignore {
+            get {
+                return ResourceManager.GetString("Main_Status_SearchingForGitignore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stop after first match.
         /// </summary>
         public static string Main_StopAfterFirstMatch {
@@ -4552,15 +4561,6 @@ namespace dnGREP.Localization.Properties {
         public static string ReportSummary_WholeWord {
             get {
                 return ResourceManager.GetString("ReportSummary_WholeWord", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Searching for .gitignore.
-        /// </summary>
-        public static string SearchingForGitignore {
-            get {
-                return ResourceManager.GetString("SearchingForGitignore", resourceCulture);
             }
         }
         

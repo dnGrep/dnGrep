@@ -1290,7 +1290,7 @@ namespace dnGREP.WPF
                         {
                             // this will be the first search performed, and may take a long time
                             // the message will allow the user to see the cost of the operation
-                            StatusMessage = Resources.SearchingForGitignore;
+                            StatusMessage = Resources.Main_Status_SearchingForGitignore;
                         }
 
                         grep.ProcessedFile += GrepCore_ProcessedFile;
