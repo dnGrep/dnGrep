@@ -43,6 +43,18 @@ namespace dnGREP.Common
                 fileOptions &= ~DirectoryEnumerationOptions.SkipReparsePoints;
 
             List<string> dontRecurseBelow = new List<string>();
+            dontRecurseBelow.Add(@"C:\$Recycle.Bin");
+            foreach (var sf in new[]
+                {
+                    Environment.SpecialFolder.Windows,
+                    Environment.SpecialFolder.ProgramFiles,
+                    Environment.SpecialFolder.ProgramFilesX86,
+                })
+            {
+                string p = Environment.GetFolderPath(sf);
+                if (!string.IsNullOrEmpty(p))
+                    dontRecurseBelow.Add(p);
+            }
 
             DirectoryEnumerationFilters fileFilters = new DirectoryEnumerationFilters
             {
@@ -56,7 +68,7 @@ namespace dnGREP.Common
                     if (Utils.CancelSearch)
                         throw new OperationCanceledException();
 
-                    if (fsei.IsDirectory && dontRecurseBelow.Any(p => fsei.FullPath.StartsWith(p, StringComparison.CurrentCulture)))
+                    if (fsei.IsDirectory && dontRecurseBelow.Any(p => fsei.FullPath.StartsWith(p, true, CultureInfo.CurrentCulture)))
                         return false;
                     return true;
                 },
