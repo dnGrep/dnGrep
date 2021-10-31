@@ -53,12 +53,18 @@ namespace dnGREP.Common
                 },
                 RecursionFilter = fsei =>
                 {
+                    if (Utils.CancelSearch)
+                        throw new OperationCanceledException();
+
                     if (fsei.IsDirectory && dontRecurseBelow.Any(p => fsei.FullPath.StartsWith(p, StringComparison.CurrentCulture)))
                         return false;
                     return true;
                 },
                 InclusionFilter = fsei =>
                 {
+                    if (Utils.CancelSearch)
+                        throw new OperationCanceledException();
+
                     if (fsei.FileName == ".gitignore")
                     {
                         dontRecurseBelow.Add(Path.GetDirectoryName(fsei.FullPath));
@@ -68,25 +74,34 @@ namespace dnGREP.Common
                 }
             };
 
-            var list = Directory.EnumerateFiles(path, fileOptions, fileFilters, PathFormat.FullPath)
-                .Select(s => Path.GetDirectoryName(s)).ToList();
-
-            if (list.Count == 0)
+            try
             {
-                DirectoryInfo di = new DirectoryInfo(path);
-                while (di.Parent != null)
+                // search down subdirectories
+                var list = Directory.EnumerateFiles(path, fileOptions, fileFilters, PathFormat.FullPath)
+                    .Select(s => Path.GetDirectoryName(s)).ToList();
+
+                if (list.Count == 0)
                 {
-                    if (File.Exists(Path.Combine(di.Parent.FullName, ".gitignore")))
+                    // not found, search up the tree
+                    DirectoryInfo di = new DirectoryInfo(path);
+                    while (di.Parent != null)
                     {
-                        list.Add(path);
-                        break;
+                        if (File.Exists(Path.Combine(di.Parent.FullName, ".gitignore")))
+                        {
+                            list.Add(path);
+                            break;
+                        }
+
+                        di = di.Parent;
                     }
-
-                    di = di.Parent;
                 }
-            }
 
-            return list;
+                return list;
+            }
+            catch (OperationCanceledException)
+            {
+                return new List<string>();
+            }
         }
 
         public static IEnumerable<string> EnumerateFiles(string path, IList<string> patterns,
@@ -302,10 +317,17 @@ namespace dnGREP.Common
                         return false;
                     }
 
-                    foreach (string pattern in patterns)
+                    if (patterns.Count > 0)
                     {
-                        if (WildcardMatch(fsei.FileName, pattern, true))
-                            return true;
+                        foreach (string pattern in patterns)
+                        {
+                            if (WildcardMatch(fsei.FileName, pattern, true))
+                                return true;
+                        }
+                    }
+                    else
+                    {
+                        return true;
                     }
 
                     if (filter.IncludeArchive)
