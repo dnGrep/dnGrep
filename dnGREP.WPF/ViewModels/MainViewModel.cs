@@ -1286,6 +1286,13 @@ namespace dnGREP.WPF
                         if (StopAfterFirstMatch)
                             searchOptions |= GrepSearchOption.StopAfterFirstMatch;
 
+                        if (UseGitignore)
+                        {
+                            // this will be the first search performed, and may take a long time
+                            // the message will allow the user to see the cost of the operation
+                            StatusMessage = Resources.SearchingForGitignore;
+                        }
+
                         grep.ProcessedFile += GrepCore_ProcessedFile;
 
                         if (CaptureGroupSearch && param.TypeOfFileSearch == FileSearchType.Regex &&
@@ -1904,6 +1911,8 @@ namespace dnGREP.WPF
             if (CurrentGrepOperation != GrepOperation.None)
             {
                 Utils.CancelSearch = true;
+                if (workerSearchReplace.IsBusy)
+                    workerSearchReplace.CancelAsync();
             }
         }
 

@@ -865,10 +865,6 @@ Arguments:
     <value>移动文件...</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
-  <data name="Main_MoreMenu_SaveResults" xml:space="preserve">
-    <value>保存搜索结果</value>
-    <comment>Main window, More button menu item label (accel)</comment>
-  </data>
   <data name="Main_MoreMenu_Save_CSVResults" xml:space="preserve">
     <value>CSV 搜索结果</value>
     <comment>Main window, More button menu item label (accel)</comment>
@@ -879,6 +875,10 @@ Arguments:
   </data>
   <data name="Main_MoreMenu_Save_TextResults" xml:space="preserve">
     <value>文本搜索结果</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_SaveResults" xml:space="preserve">
+    <value>保存搜索结果</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_Multiline" xml:space="preserve">
@@ -2073,6 +2073,34 @@ Arguments:
     <value>缩放:</value>
     <comment>Replace window, results options zoom slider label</comment>
   </data>
+  <data name="Report_CSVRecordHeaderText" xml:space="preserve">
+    <value>文件名,行号,字符串</value>
+    <comment>Report, CSV report header text</comment>
+  </data>
+  <data name="Report_DnGrepSearchResults" xml:space="preserve">
+    <value>dnGrep 搜索结果</value>
+    <comment>Report content text</comment>
+  </data>
+  <data name="Report_FileNotFoundHasItBeenDeletedOrMoved" xml:space="preserve">
+    <value>[文件未找到: 已被删除或移动过?]</value>
+    <comment>Report extract lines from file error</comment>
+  </data>
+  <data name="Report_Found0MatchesOn1LinesIn2Files" xml:space="preserve">
+    <value>找到 {0} 个匹配 {1} 行 {2} 个文件</value>
+    <comment>Report content text: {0} is the number of matches; {1] is the number of lines with matches; {2} is the number of files with matches</comment>
+  </data>
+  <data name="Report_FoundMatchesFor" xml:space="preserve">
+    <value>找到匹配</value>
+    <comment>Report content text</comment>
+  </data>
+  <data name="Report_FoundNoMatchesFor" xml:space="preserve">
+    <value>未找到匹配</value>
+    <comment>Report content text</comment>
+  </data>
+  <data name="Report_Has0MatchesOn1Lines" xml:space="preserve">
+    <value>{0} 个匹配 {1} 行:</value>
+    <comment>Report content text: {0} is the number of matches in a file; {1} is the number of lines in a file with matches</comment>
+  </data>
   <data name="ReportSummary_BooleanOperators" xml:space="preserve">
     <value>布尔操作</value>
     <comment>Report search options summary</comment>
@@ -2173,33 +2201,8 @@ Arguments:
     <value>全字匹配</value>
     <comment>Report search options summary</comment>
   </data>
-  <data name="Report_CSVRecordHeaderText" xml:space="preserve">
-    <value>文件名,行号,字符串</value>
-    <comment>Report, CSV report header text</comment>
-  </data>
-  <data name="Report_DnGrepSearchResults" xml:space="preserve">
-    <value>dnGrep 搜索结果</value>
-    <comment>Report content text</comment>
-  </data>
-  <data name="Report_FileNotFoundHasItBeenDeletedOrMoved" xml:space="preserve">
-    <value>[文件未找到: 已被删除或移动过?]</value>
-    <comment>Report extract lines from file error</comment>
-  </data>
-  <data name="Report_Found0MatchesOn1LinesIn2Files" xml:space="preserve">
-    <value>找到 {0} 个匹配 {1} 行 {2} 个文件</value>
-    <comment>Report content text: {0} is the number of matches; {1] is the number of lines with matches; {2} is the number of files with matches</comment>
-  </data>
-  <data name="Report_FoundMatchesFor" xml:space="preserve">
-    <value>找到匹配</value>
-    <comment>Report content text</comment>
-  </data>
-  <data name="Report_FoundNoMatchesFor" xml:space="preserve">
-    <value>未找到匹配</value>
-    <comment>Report content text</comment>
-  </data>
-  <data name="Report_Has0MatchesOn1Lines" xml:space="preserve">
-    <value>{0} 个匹配 {1} 行:</value>
-    <comment>Report content text: {0} is the number of matches in a file; {1} is the number of lines in a file with matches</comment>
+  <data name="SearchingForGitignore" xml:space="preserve">
+    <value>正在搜索 .gitignore</value>
   </data>
   <data name="Test_BooleanOperators" xml:space="preserve">
     <value>布尔操作</value>

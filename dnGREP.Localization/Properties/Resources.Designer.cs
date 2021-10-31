@@ -4556,6 +4556,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Searching for .gitignore.
+        /// </summary>
+        public static string SearchingForGitignore {
+            get {
+                return ResourceManager.GetString("SearchingForGitignore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Boolean operators.
         /// </summary>
         public static string Test_BooleanOperators {
