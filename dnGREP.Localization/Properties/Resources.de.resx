@@ -777,7 +777,7 @@ Argumente:
     <value>{0} ({1} Fundstellen)</value>
   </data>
   <data name="Main_ResultList_CountMatchesOnLines" xml:space="preserve">
-    <value>{0} ({1}Fundstellen in {2} Zeilen)</value>
+    <value>{0} ({1} Fundstellen in {2} Zeilen)</value>
   </data>
   <data name="Main_ResultList_MatchToolTip1" xml:space="preserve">
     <value>Übereinstimmung {0}{1}{2}</value>
@@ -1590,7 +1590,7 @@ Argumente:
     <value>Nicht</value>
   </data>
   <data name="Replace_ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
-    <value>Diese Datei enthält zu viele Fundstellen für eine einzelne Ersetzung. Um Alle zu ersetzen, klicken Sie auf 'In Datei ersetzen'</value>
+    <value>Diese Datei enthält zu viele Fundstellen für eine einzelne Ersetzung. Um Alle zu ersetzen, klicken Sie auf 'Ersetze in der Datei'</value>
   </data>
   <data name="Replace_Title" xml:space="preserve">
     <value>Text ersetzen</value>
