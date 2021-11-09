@@ -307,7 +307,7 @@
     <comment>Main window, pattern type radio button label (accel)</comment>
   </data>
   <data name="About_Acknowledgments" xml:space="preserve">
-    <value>Acknowledgments</value>
+    <value>Kunngjøringer</value>
     <comment>About dialog text</comment>
   </data>
   <data name="About_NETLibraryToParseECMA376Numbers" xml:space="preserve">
@@ -559,7 +559,7 @@ Arguments:
     <comment>Help dialog text when running dnGrep from the command line: {0} is the installed dnGrep version number; {1} is the installed dnGrep build date</comment>
   </data>
   <data name="Help_DnGrepHelp" xml:space="preserve">
-    <value>dnGrep Help</value>
+    <value>dnGrep-hjelp</value>
     <comment>Help dialog window title</comment>
   </data>
   <data name="Help_OK" xml:space="preserve">
@@ -575,11 +575,11 @@ Arguments:
     <comment>Main window, bookmark button tooltip</comment>
   </data>
   <data name="Main_AllDates" xml:space="preserve">
-    <value>All dates</value>
+    <value>Alle datoer</value>
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_AllSizes" xml:space="preserve">
-    <value>All sizes</value>
+    <value>Alle størrelser</value>
     <comment>Main window, size filter radio button label (accel)</comment>
   </data>
   <data name="Main_AssociateBookmarkWithFolder" xml:space="preserve">
@@ -587,19 +587,19 @@ Arguments:
     <comment>Main window, folder bookmark button tooltip</comment>
   </data>
   <data name="Main_Attributes_DateModified" xml:space="preserve">
-    <value>Date Modified:</value>
+    <value>Endringsdato:</value>
     <comment>Main window, results list, file attributes tooltip label</comment>
   </data>
   <data name="Main_Attributes_Encoding" xml:space="preserve">
-    <value>Encoding:</value>
+    <value>Tegnkoding:</value>
     <comment>Main window, results list, file attributes tooltip label</comment>
   </data>
   <data name="Main_Attributes_File" xml:space="preserve">
-    <value>File:</value>
+    <value>Fil:</value>
     <comment>Main window, results list, file attributes tooltip label</comment>
   </data>
   <data name="Main_Attributes_Size" xml:space="preserve">
-    <value>Size:</value>
+    <value>Størrelse:</value>
     <comment>Main window, results list, file attributes tooltip label</comment>
   </data>
   <data name="Main_Attributes_Type" xml:space="preserve">
@@ -619,7 +619,7 @@ Arguments:
     <comment>Main window, open folder tooltip</comment>
   </data>
   <data name="Main_CancelButton" xml:space="preserve">
-    <value>_Cancel</value>
+    <value>_Avbryt</value>
     <comment>Main window, Cancel button label (accel)</comment>
   </data>
   <data name="Main_CaptureGroupSearch" xml:space="preserve">
@@ -635,7 +635,7 @@ Arguments:
     <comment>Main window tooltip</comment>
   </data>
   <data name="Main_ClearBookmark" xml:space="preserve">
-    <value>Clear bookmark</value>
+    <value>Tøm bokmerke</value>
     <comment>Main window, bookmark button tooltip</comment>
   </data>
   <data name="Main_CombineMultipleSearchPatternsUsingANDOrOR" xml:space="preserve">
@@ -643,11 +643,11 @@ Arguments:
     <comment>Main window, search option Boolean Operators tooltip</comment>
   </data>
   <data name="Main_ContextAfter" xml:space="preserve">
-    <value>after</value>
+    <value>etter</value>
     <comment>Main window, result options context lines label</comment>
   </data>
   <data name="Main_ContextBeforeAnd" xml:space="preserve">
-    <value>before and</value>
+    <value>før og</value>
     <comment>Main window, results options context lines label</comment>
   </data>
   <data name="Main_ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
@@ -659,11 +659,11 @@ Arguments:
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_Created" xml:space="preserve">
-    <value>Created</value>
+    <value>Opprettet</value>
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_DateFrom" xml:space="preserve">
-    <value>From</value>
+    <value>Fra</value>
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_DatePast" xml:space="preserve">
@@ -671,15 +671,15 @@ Arguments:
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_DatePastHours" xml:space="preserve">
-    <value>hours</value>
+    <value>timer</value>
     <comment>Main window, filter files by date time unit label</comment>
   </data>
   <data name="Main_DateTo" xml:space="preserve">
-    <value>to</value>
+    <value>til</value>
     <comment>Main window, filter files by date label</comment>
   </data>
   <data name="Main_DnGREP_Title" xml:space="preserve">
-    <value>dnGREP</value>
+    <value>dnGrep</value>
     <comment>Main window, title label - near menu bar</comment>
   </data>
   <data name="Main_DockBottom" xml:space="preserve">
@@ -791,19 +791,19 @@ Arguments:
     <comment>Main window, filter path depth text box label (accel)</comment>
   </data>
   <data name="Main_Menu_About" xml:space="preserve">
-    <value>_About</value>
+    <value>_Om</value>
     <comment>Main window, main menu label (accel)</comment>
   </data>
   <data name="Main_Menu_About_AboutDnGrep" xml:space="preserve">
-    <value>_About dnGrep...</value>
+    <value>_Om dnGrep …</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="Main_Menu_About_Help" xml:space="preserve">
-    <value>_Help</value>
+    <value>_Hjelp</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="Main_Menu_Bookmarks" xml:space="preserve">
-    <value>_Bookmarks...</value>
+    <value>_Bokmerker …</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Menu_Options" xml:space="preserve">
@@ -811,19 +811,19 @@ Arguments:
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Menu_Undo" xml:space="preserve">
-    <value>_Undo</value>
+    <value>_Angre</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Modified" xml:space="preserve">
-    <value>Modified</value>
+    <value>Endret</value>
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_More" xml:space="preserve">
-    <value>Mor_e...</value>
+    <value>Me_r …</value>
     <comment>Main window, filters expander label (accel)</comment>
   </data>
   <data name="Main_MoreArrowButton" xml:space="preserve">
-    <value>_More ⏷</value>
+    <value>_Mer ⏷</value>
     <comment>Main window, More button label with down arrow (accel)</comment>
   </data>
   <data name="Main_MoreMenu_CopyFileNames" xml:space="preserve">
@@ -863,7 +863,7 @@ Arguments:
     <comment>Main window, folder bookmark button tooltip</comment>
   </data>
   <data name="Main_ReplaceButton" xml:space="preserve">
-    <value>_Replace</value>
+    <value>_Erstatt</value>
     <comment>Main window replace button label (accel)</comment>
   </data>
   <data name="Main_ReplaceWith" xml:space="preserve">
@@ -871,7 +871,7 @@ Arguments:
     <comment>Main window, replace text input box label (accel)</comment>
   </data>
   <data name="Main_ReportOption_CSVFileFormat" xml:space="preserve">
-    <value>CSV file format</value>
+    <value>CSV-filformat</value>
     <comment>Main window, save report, report type format label</comment>
   </data>
   <data name="Main_ReportOption_ReportFileFormat" xml:space="preserve">
@@ -959,11 +959,11 @@ Arguments:
     <comment>Main windows, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_Open" xml:space="preserve">
-    <value>Open</value>
+    <value>Åpne</value>
     <comment>Main window, results list context menu item label</comment>
   </data>
   <data name="Main_Results_OpenContainingFolder" xml:space="preserve">
-    <value>Open containing folder</value>
+    <value>Åpne inneholdende mappe</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_OpenWithCustomEditor" xml:space="preserve">
@@ -971,19 +971,19 @@ Arguments:
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_PreviousMatch" xml:space="preserve">
-    <value>Previous Match</value>
+    <value>Forrige treff</value>
     <comment>Main windows, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_RenameFile" xml:space="preserve">
-    <value>Rename file</value>
+    <value>Gi filen nytt navn</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_ResetZoom" xml:space="preserve">
-    <value>Reset zoom</value>
+    <value>Tilbakestill forstørrelse</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_ShowFileProperties" xml:space="preserve">
-    <value>Show file properties</value>
+    <value>Vis filegenskaper</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_SavingResultsToFile" xml:space="preserve">
@@ -991,7 +991,7 @@ Arguments:
     <comment>Main window, status message</comment>
   </data>
   <data name="Main_SearchButton" xml:space="preserve">
-    <value>_Search</value>
+    <value>_Søk</value>
     <comment>Main window, search button label (accel)</comment>
   </data>
   <data name="Main_SearchFilesInMultipleThreads" xml:space="preserve">
@@ -999,11 +999,11 @@ Arguments:
     <comment>Main window, search option parallel tooltip</comment>
   </data>
   <data name="Main_SearchFor" xml:space="preserve">
-    <value>Search _for:</value>
+    <value>Søk _etter:</value>
     <comment>Main window, search pattern text input box label (accel)</comment>
   </data>
   <data name="Main_SearchGroup" xml:space="preserve">
-    <value>Search</value>
+    <value>Søk</value>
     <comment>Main window, search group heading</comment>
   </data>
   <data name="Main_SearchInArchives" xml:space="preserve">
@@ -1011,7 +1011,7 @@ Arguments:
     <comment>Main window, checkbox label (accel)</comment>
   </data>
   <data name="Main_SearchInGroup" xml:space="preserve">
-    <value>Search in</value>
+    <value>Søk i</value>
     <comment>Main window Search In group heading</comment>
   </data>
   <data name="Main_SearchInResults" xml:space="preserve">
@@ -1187,11 +1187,11 @@ Arguments:
     <comment>Main window, search option capture group tooltip</comment>
   </data>
   <data name="Main_UseGitignore" xml:space="preserve">
-    <value>Use .gitignore</value>
+    <value>Bruk .gitignore</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_UseGitignoreToFilterFiles" xml:space="preserve">
-    <value>Use .gitignore to filter files</value>
+    <value>Bruk .gitignore for å filtrere filer</value>
     <comment>Main window, search option checkbox tooltip</comment>
   </data>
   <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
@@ -1511,15 +1511,15 @@ Arguments:
     <comment>Options dialog, archive options group header label</comment>
   </data>
   <data name="Options_ArchiveRemove" xml:space="preserve">
-    <value>Remove:</value>
+    <value>Fjern:</value>
     <comment>Options dialog, archive options text input label</comment>
   </data>
   <data name="Options_BrowseFileLocation" xml:space="preserve">
-    <value>...</value>
+    <value>…</value>
     <comment>Options dialog, browse for file button label</comment>
   </data>
   <data name="Options_CheckDays" xml:space="preserve">
-    <value>days</value>
+    <value>dager</value>
     <comment>Options dialog, check for updates label</comment>
   </data>
   <data name="Options_CheckForUpdatesWhenWindowsStarts" xml:space="preserve">
@@ -1535,7 +1535,7 @@ Arguments:
     <comment>Options dialog, history list button label (accel)</comment>
   </data>
   <data name="Options_Close" xml:space="preserve">
-    <value>_Close</value>
+    <value>_Lukk</value>
     <comment>Options dialog, close button text (accel)</comment>
   </data>
   <data name="Options_CompareApplication" xml:space="preserve">
@@ -1543,11 +1543,11 @@ Arguments:
     <comment>Options dialog, compare application group header label</comment>
   </data>
   <data name="Options_CompareArguments" xml:space="preserve">
-    <value>Arguments</value>
+    <value>Argumenter</value>
     <comment>Options dialog, compare arguments input box label</comment>
   </data>
   <data name="Options_CompareCommand" xml:space="preserve">
-    <value>Command</value>
+    <value>Kommando</value>
     <comment>Options dialog, compare command input box label</comment>
   </data>
   <data name="Options_ContextAfter" xml:space="preserve">
