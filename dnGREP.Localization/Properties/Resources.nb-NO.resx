@@ -62,4 +62,248 @@
     <value>Om dnGrep</value>
     <comment>About dialog window title</comment>
   </data>
+  <data name="About_BuiltOn" xml:space="preserve">
+    <value>Bygd</value>
+    <comment>About dialog label</comment>
+  </data>
+  <data name="About_ConvertsPDFFilesToPlainText" xml:space="preserve">
+    <value>Konverterer PDF-filer til klartekst</value>
+    <comment>About dnGrep acknowledgments</comment>
+  </data>
+  <data name="About_LibraryForReadingArchiveFiles" xml:space="preserve">
+    <value>Bibliotek for lesing av arkivfiler</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_LoggingFrameworkForNET" xml:space="preserve">
+    <value>Loggføringsrammeverk for .NET</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryFor7Zip" xml:space="preserve">
+    <value>.NET-bibliotek for 7-Zip</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
+    <value>.NET-bibliotek for stier med ekstra lengde</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="BookmarkDetails_Cancel" xml:space="preserve">
+    <value>Avbryt</value>
+    <comment>Bookmark details dialog, cancel button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Encoding" xml:space="preserve">
+    <value>Tegnkoding:</value>
+    <comment>Bookmark details dialog, search options encoding combo box label (accel) </comment>
+  </data>
+  <data name="BookmarkDetails_FilePatternType" xml:space="preserve">
+    <value>Filmønstertype</value>
+    <comment>Bookmark details dialog, file pattern group header label</comment>
+  </data>
+  <data name="BookmarkDetails_FollowSymbolicLinks" xml:space="preserve">
+    <value>Følg symbolske lenker</value>
+    <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="Bookmarks_FilePatternHeader" xml:space="preserve">
+    <value>Filmønster</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_OtherPropertiesHeader" xml:space="preserve">
+    <value>Andre egenskaper</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_ReplaceWithHeader" xml:space="preserve">
+    <value>Erstatt med</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_SearchForHeader" xml:space="preserve">
+    <value>Søk etter</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Main_FilterSummary_AllFiles" xml:space="preserve">
+    <value>Alle filer</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Main_FilterSummary_ByModifiedDate" xml:space="preserve">
+    <value>Etter endringsdato</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Main_MoreMenu_Save_TextResults" xml:space="preserve">
+    <value>Tekstresultater</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_SaveResults" xml:space="preserve">
+    <value>Lagre resultater</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="About_Version" xml:space="preserve">
+    <value>Versjon</value>
+    <comment>About dialog label</comment>
+  </data>
+  <data name="BookmarkDetails_AssociatedFolders" xml:space="preserve">
+    <value>Tilknyttede filer:</value>
+    <comment>Bookmark details dialog, text input box label</comment>
+  </data>
+  <data name="BookmarkDetails_Description" xml:space="preserve">
+    <value>Beskrivelse:</value>
+    <comment>Bookmark details dialog, text input box label</comment>
+  </data>
+  <data name="BookmarkDetails_IncludeHiddenFolders" xml:space="preserve">
+    <value>Inkluder skjulte mapper</value>
+    <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_PatternsToExclude" xml:space="preserve">
+    <value>Mønster å utelukke:</value>
+    <comment>Bookmark details dialog, Patterns to exclude label</comment>
+  </data>
+  <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
+    <value>.NET-bibliotek for lesing av Microsoft Excel-filer</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="BookmarkDetails_DotAsNewline" xml:space="preserve">
+    <value>_Punktum som linjeskift</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_EverythingIndexService" xml:space="preserve">
+    <value>Tjeneste for indeksering av alt</value>
+    <comment>Bookmark details dialog, pattern type option Everything tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_Text" xml:space="preserve">
+    <value>_Tekst</value>
+    <comment>Bookmark details dialog, search type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Title" xml:space="preserve">
+    <value>Bokmerkedetaljer</value>
+    <comment>Bookmark details dialog, window title</comment>
+  </data>
+  <data name="Main_PatternsToExclude" xml:space="preserve">
+    <value>Mønster å utelukke:</value>
+    <comment>Main window, Patterns to exclude label (accel)</comment>
+  </data>
+  <data name="About_DnGREP" xml:space="preserve">
+    <value>dnGrep</value>
+    <comment>About dialog text</comment>
+  </data>
+  <data name="About_DnGrepOnGitHub" xml:space="preserve">
+    <value>dnGrep på GitHub</value>
+    <comment>About dialog text</comment>
+  </data>
+  <data name="BookmarkDetails_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Bookmark details dialog, button label</comment>
+  </data>
+  <data name="About_FileSystemIndexingLocateFilesInstantly" xml:space="preserve">
+    <value>Filsystemindeksering. Finn filer umiddelbart.</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_JsonFrameworkForNET" xml:space="preserve">
+    <value>JSON-rammeverk for .NET</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
+    <value>.NET-bibliotek for tegnsettsoppdagelse</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>About dialog button label</comment>
+  </data>
+  <data name="BookmarkDetails_IncludeBinaryFiles" xml:space="preserve">
+    <value>Inkluder kjørbare filer</value>
+    <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_IncludeSubfolders" xml:space="preserve">
+    <value>Inkluder undermapper</value>
+    <comment>Bookmark details dialog, filter path depth checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_MaxDepth" xml:space="preserve">
+    <value>Maks. dybde</value>
+    <comment>Bookmark details dialog, filter path depth text box label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_PatternType_Everything" xml:space="preserve">
+    <value>Alt</value>
+    <comment>Bookmark details dialog, pattern type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
+    <value>Erstatt med:</value>
+    <comment>Bookmark details dialog, replace text input box label</comment>
+  </data>
+  <data name="BookmarkDetails_SearchFor" xml:space="preserve">
+    <value>Søk etter:</value>
+    <comment>Bookmark details dialog, search pattern text input box label</comment>
+  </data>
+  <data name="BookmarkDetails_TypeHeader" xml:space="preserve">
+    <value>Type</value>
+    <comment>Bookmark details dialog, type group header label</comment>
+  </data>
+  <data name="Bookmarks_Close" xml:space="preserve">
+    <value>_Lukk</value>
+    <comment>Bookmarks dialog, button text (accel)</comment>
+  </data>
+  <data name="Bookmarks_Delete" xml:space="preserve">
+    <value>_Slett</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_DescriptionHeader" xml:space="preserve">
+    <value>Beskrivelse</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_Edit" xml:space="preserve">
+    <value>_Rediger</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_UseGitignore" xml:space="preserve">
+    <value>Bruk .gitignore</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Bookmarks_Add" xml:space="preserve">
+    <value>_Legg til</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_Summary_CaseSensitive" xml:space="preserve">
+    <value>Forskjell på små og store bokstaver</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Main_DotAsNewline" xml:space="preserve">
+    <value>_Punktum som linjeskift</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_FilterSummary_ByCreatedDate" xml:space="preserve">
+    <value>Etter opprettelsesdato</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Main_FilterSummary_BySize" xml:space="preserve">
+    <value>Etter størrelse</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Main_MoreMenu_CopyFiles" xml:space="preserve">
+    <value>Kopier filer …</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_Empty" xml:space="preserve">
+    <value>Tom</value>
+    <comment>Main window title prefix when search for is empty</comment>
+  </data>
+  <data name="Main_MoreMenu_CopyResults" xml:space="preserve">
+    <value>Kopier resultater</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_Save_CSVResults" xml:space="preserve">
+    <value>CSV-resultater</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_PastDateTo" xml:space="preserve">
+    <value>til</value>
+    <comment>Main window, filter files by date, past time label</comment>
+  </data>
+  <data name="Main_MoreMenu_DeleteFiles" xml:space="preserve">
+    <value>Slett filer …</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_MoveFiles" xml:space="preserve">
+    <value>Flytt filer …</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_PatternType_Everything" xml:space="preserve">
+    <value>Alt</value>
+    <comment>Main window, pattern type radio button label (accel)</comment>
+  </data>
 </root>
