@@ -9,6 +9,6 @@ including about the continuous build and release process.
 
 ### Translate
 You can [translate dnGrep on Hosted Weblate](https://hosted.weblate.org/engage/dngrep/). \
-[![Translation status](https://hosted.weblate.org/widgets/superfreezz/-/multi-auto.svg)](https://hosted.weblate.org/engage/dngrep/?utm_source=widget)
+[![Translation status](https://hosted.weblate.org/widgets/dngrep/-/multi-auto.svg)](https://hosted.weblate.org/engage/dngrep/?utm_source=widget)
 
 You can always add other lanuages.
