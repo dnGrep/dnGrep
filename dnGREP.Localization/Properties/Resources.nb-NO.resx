@@ -379,7 +379,7 @@
     <comment>Bookmark details dialog, search type Text tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
-    <value>Read file as binary and search for bytes as hexadecimal digits: 68 65 78 20</value>
+    <value>Les fil som kjørbar og søk etter byte som heksadesimale nummer: 68 65 78 20</value>
     <comment>Bookmark details dialog, search type Hex tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
@@ -651,11 +651,11 @@ Arguments:
     <comment>Main window, results options context lines label</comment>
   </data>
   <data name="Main_ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
-    <value>Context changes Will be applied in next search</value>
+    <value>Endringer i bindeleddsinformasjon vil tre i kraft ved neste søk</value>
     <comment>Main window, result options context lines tooltip</comment>
   </data>
   <data name="Main_ContextShowLines" xml:space="preserve">
-    <value>Show context lines</value>
+    <value>Vis linjer tilknyttet bindeleddsinfo</value>
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_Created" xml:space="preserve">
@@ -831,7 +831,7 @@ Arguments:
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_Save_Report" xml:space="preserve">
-    <value>Report</value>
+    <value>Rapport</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_Multiline" xml:space="preserve">
@@ -911,11 +911,11 @@ Arguments:
     <comment>Main window, search results text: {0} is the partial path and file name; {1} is the number of matches in the file; {2} is the number of lines with matches</comment>
   </data>
   <data name="Main_ResultList_MatchToolTip1" xml:space="preserve">
-    <value>Match {0}{1}{2}</value>
+    <value>Treff {0}{1}{2}</value>
     <comment>Main window results, capture group tooltip: {0} is the match index; {1} is a new line; {2} is text of in the group</comment>
   </data>
   <data name="Main_ResultList_MatchToolTip2" xml:space="preserve">
-    <value>Match {0}{1}Group {2}:   {3}</value>
+    <value>Treff {0}{1}Gruppe {2}:   {3}</value>
     <comment>Main window results, capture group tooltip: {0} is the match index; {1} is a new line; {2} is the named group name; {3} is the text in the group</comment>
   </data>
   <data name="Main_ResultList_PlusCountMoreMatches" xml:space="preserve">
@@ -995,7 +995,7 @@ Arguments:
     <comment>Main window, search button label (accel)</comment>
   </data>
   <data name="Main_SearchFilesInMultipleThreads" xml:space="preserve">
-    <value>Search files in multiple threads</value>
+    <value>Bruk flere tråder til å søke etter filer</value>
     <comment>Main window, search option parallel tooltip</comment>
   </data>
   <data name="Main_SearchFor" xml:space="preserve">
@@ -1063,7 +1063,7 @@ Arguments:
     <comment>Main window, search type XPath tooltip</comment>
   </data>
   <data name="Main_SelectADate" xml:space="preserve">
-    <value>Select a date</value>
+    <value>Velg en dato</value>
     <comment>Main window, filter files by date, date picker watermark</comment>
   </data>
   <data name="Main_ShowResultOptions" xml:space="preserve">
@@ -1071,7 +1071,7 @@ Arguments:
     <comment>Main window, result options expander button tooltip (bottom of window)</comment>
   </data>
   <data name="Main_SizeIs" xml:space="preserve">
-    <value>Size is</value>
+    <value>Størrelsen er</value>
     <comment>Main window, filter size radio button label (accel)</comment>
   </data>
   <data name="Main_SizeKB" xml:space="preserve">
@@ -1083,23 +1083,23 @@ Arguments:
     <comment>Main window, filter by size label</comment>
   </data>
   <data name="Main_SortButton" xml:space="preserve">
-    <value>Sort</value>
+    <value>Sortering</value>
     <comment>Main window, sort button label (accel)</comment>
   </data>
   <data name="Main_SortMenu_Ascending" xml:space="preserve">
-    <value>Ascending</value>
+    <value>Stigende</value>
     <comment>Main window sort button options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_Descending" xml:space="preserve">
-    <value>Descending</value>
+    <value>Synkende</value>
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_FileNameOnly" xml:space="preserve">
-    <value>File name only</value>
+    <value>Kun filnavn</value>
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_FileSize" xml:space="preserve">
-    <value>File size</value>
+    <value>Filstørrelse</value>
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_FileTypeAndName" xml:space="preserve">
@@ -1107,23 +1107,23 @@ Arguments:
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_LastWriteTime" xml:space="preserve">
-    <value>Last write time</value>
+    <value>Siste endringstidspunkt</value>
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_MatchCount" xml:space="preserve">
-    <value>Match count</value>
+    <value>Antall treff</value>
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_PathAndFileNameBreadthFirst" xml:space="preserve">
-    <value>Path and file name, breadth-first</value>
+    <value>Sti og filnavn, bredde først</value>
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_PathAndFileNameDepthFirst" xml:space="preserve">
-    <value>Path and file name, depth-first</value>
+    <value>Sti og filnavn, dybde først</value>
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_Status_Excluded0MissingFiles" xml:space="preserve">
-    <value>Excluded {0} missing files.</value>
+    <value>{0} manglende filer utelatt</value>
     <comment>Main window, status bar message appended on search complete when in Everything mode</comment>
   </data>
   <data name="Main_Status_ReplaceCanceled" xml:space="preserve">
@@ -1151,15 +1151,15 @@ Arguments:
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_SearchCompleteSearched0FilesFound1FilesIn2" xml:space="preserve">
-    <value>Search Complete - Searched {0} files. Found {1} files in {2}.</value>
+    <value>Søk fullført. Søkte gjennom {0} filer. Fant{1} filer i {2}.</value>
     <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found; {2} is the duration of the search</comment>
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFiles" xml:space="preserve">
-    <value>Searched {0} files. Found {1} matching files.</value>
+    <value>Søkte gjennom {0} filer. Fant {1} samsvarende filer.</value>
     <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found</comment>
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFilesProcessing2" xml:space="preserve">
-    <value>Searched {0} files. Found {1} matching files - processing {2}</value>
+    <value>Søkte gjennom {0} filer. Fant {1} samsvarende filer. Behandler {2} …</value>
     <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found; {2} is the current file name being searched</comment>
   </data>
   <data name="Main_Status_Searching" xml:space="preserve">
@@ -1175,7 +1175,7 @@ Arguments:
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_TestExpression" xml:space="preserve">
-    <value>Test Expression</value>
+    <value>Test-uttrykk</value>
     <comment>Main window, test search expression button label (accel)</comment>
   </data>
   <data name="Main_ThroughTheEndOfTheDay" xml:space="preserve">
@@ -1267,15 +1267,15 @@ Arguments:
     <comment>Message box text for: Load theme resource: {0} is the name of the file that failed to load</comment>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyCopied" xml:space="preserve">
-    <value>{0} files have been successfully copied.</value>
+    <value>{0} filer har blitt kopiert.</value>
     <comment>Message box text for: Copy file: {0} is the number of files</comment>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyDeleted" xml:space="preserve">
-    <value>{0} files have been successfully deleted.</value>
+    <value>{0} filer har blitt slettet.</value>
     <comment>Message box text for: Delete files: {0} is the number of files</comment>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyMoved" xml:space="preserve">
-    <value>{0} files have been successfully moved.</value>
+    <value>{0} filer har blitt flyttet.</value>
     <comment>Message box text for: Move files: {0} is the number of files</comment>
   </data>
   <data name="MessageBox_CustomEditorFileOpenError" xml:space="preserve">
@@ -1319,11 +1319,11 @@ Arguments:
     <comment>Message box text for: Main window undo replace success</comment>
   </data>
   <data name="MessageBox_IncorrectPattern" xml:space="preserve">
-    <value>Incorrect pattern: </value>
+    <value>Uriktig mønster: </value>
     <comment>Message box text for: Incorrect regular expression</comment>
   </data>
   <data name="MessageBox_LoadResources" xml:space="preserve">
-    <value>Load Resources</value>
+    <value>Last inn ressurser</value>
     <comment>Message box title for: Load resources</comment>
   </data>
   <data name="MessageBox_MoveFiles" xml:space="preserve">
@@ -1399,15 +1399,15 @@ Arguments:
     <comment>Message box text for: Unknown error</comment>
   </data>
   <data name="MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting" xml:space="preserve">
-    <value>The file '{0}' already exists in {1}, overwrite existing?</value>
+    <value>Filen «{0}» finnes allerede i «{1}». Overskriv eksisterende?</value>
     <comment>Message box text for: Copy or Move files: {0} is a file name; {1} is a folder name</comment>
   </data>
   <data name="MessageBox_TheFilePattern0IsNotAValidRegularExpression12" xml:space="preserve">
-    <value>The file pattern '{0}' is not a valid regular expression:{1}{2}</value>
+    <value>Filmønsteret «{0}» er ikke et gyldig regulært uttrykk:{1}{2}</value>
     <comment>Message box text for: Main window regex file pattern error: {0} is the invalid regular expression; {1} is a newline; {2} is the reason the expression is invalid</comment>
   </data>
   <data name="MessageBox_TheFollowingPluginsFailedToLoad" xml:space="preserve">
-    <value>The following plugins failed to load:</value>
+    <value>Følgende programtillegg kunne ikke lastes inn:</value>
     <comment>Message box text for: plugin load errors</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu" xml:space="preserve">
@@ -1463,7 +1463,7 @@ Arguments:
     <comment>Message box text for: Main window bookmark delete</comment>
   </data>
   <data name="MessageBox_Undo" xml:space="preserve">
-    <value>Undo</value>
+    <value>Angre</value>
     <comment>Message box title for: Main window Undo</comment>
   </data>
   <data name="MessageBox_UndoWillRevertModifiedFiles" xml:space="preserve">
@@ -1471,15 +1471,15 @@ Arguments:
     <comment>Message box text for: Main window Undo</comment>
   </data>
   <data name="MessageBox_WindowTitleIsName" xml:space="preserve">
-    <value>Window Title: {0}</value>
+    <value>Vindustittel: {0}</value>
     <comment>Message box text for: Clipboard set text error, clipboard locked by application name: {0} is the window title of the application locking clipboard</comment>
   </data>
   <data name="MessageBox_WouldYouLikeToContinue" xml:space="preserve">
-    <value>Would you like to continue?</value>
+    <value>Fortsett?</value>
     <comment>Message box text for: Replace window warning</comment>
   </data>
   <data name="MessageBox_WouldYouLikeToDownloadItNow" xml:space="preserve">
-    <value>Would you like to download it now?</value>
+    <value>Last det ned nå?</value>
     <comment>Message box text for: New dnGrep version</comment>
   </data>
   <data name="MessageBox_YouAreAboutToDeleteFilesFoundDuringSearch" xml:space="preserve">
@@ -1491,7 +1491,7 @@ Arguments:
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ApplicationFonts" xml:space="preserve">
-    <value>Application Fonts</value>
+    <value>Programskrifter</value>
     <comment>Options dialog, fonts group header label</comment>
   </data>
   <data name="Options_ArchiveAdd" xml:space="preserve">
@@ -1507,7 +1507,7 @@ Arguments:
     <comment>Options dialog, archive options label</comment>
   </data>
   <data name="Options_ArchiveOptions" xml:space="preserve">
-    <value>Archive Options</value>
+    <value>Arkiveringsalternativer</value>
     <comment>Options dialog, archive options group header label</comment>
   </data>
   <data name="Options_ArchiveRemove" xml:space="preserve">
@@ -1523,15 +1523,15 @@ Arguments:
     <comment>Options dialog, check for updates label</comment>
   </data>
   <data name="Options_CheckForUpdatesWhenWindowsStarts" xml:space="preserve">
-    <value>Check for updates when Windows starts</value>
+    <value>Se etter nye versjoner når Windows starter</value>
     <comment>Options dialog, check for updates checkbox label (accel)</comment>
   </data>
   <data name="Options_CheckingForUpdates" xml:space="preserve">
-    <value>Checking for updates</value>
+    <value>Ser etter nye versjoner …</value>
     <comment>Options dialog, check for updates group header label</comment>
   </data>
   <data name="Options_ClearOldSearches" xml:space="preserve">
-    <value>Clear old searches</value>
+    <value>Tøm gamle søk</value>
     <comment>Options dialog, history list button label (accel)</comment>
   </data>
   <data name="Options_Close" xml:space="preserve">
@@ -1571,11 +1571,11 @@ Arguments:
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_DialogFontSize" xml:space="preserve">
-    <value>Dialog Font Size</value>
+    <value>Dialog-skriftstørrelse</value>
     <comment>Options dialog, font size selector label</comment>
   </data>
   <data name="Options_DnGrepWillAddTheSelectedFiles" xml:space="preserve">
-    <value>dnGrep will add the selected files to the end of the command line.</value>
+    <value>dnGrep vil legge til valgte filer til på slutten av kommandolinjen.</value>
     <comment>Options dialog, compare arguments help text</comment>
   </data>
   <data name="Options_EditorArguments" xml:space="preserve">
@@ -1587,7 +1587,7 @@ Arguments:
     <comment>Options dialog, custom editor command input box label</comment>
   </data>
   <data name="Options_EnableAutomaticCheckingEvery" xml:space="preserve">
-    <value>Enable automatic checking every</value>
+    <value>Automatisk sjekking hvert</value>
     <comment>Options dialog, check for updates, checkbox label (accel)</comment>
   </data>
   <data name="Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu" xml:space="preserve">
@@ -1595,7 +1595,7 @@ Arguments:
     <comment>Options dialog, explorer right click menu checkbox tooltip</comment>
   </data>
   <data name="Options_FollowWindowsTheme" xml:space="preserve">
-    <value>Follow Windows Theme</value>
+    <value>Følg Windows-drakt</value>
     <comment>Options dialog, theme checkbox label (accel)</comment>
   </data>
   <data name="Options_FontFamily" xml:space="preserve">
@@ -1731,7 +1731,7 @@ Arguments:
     <comment>Options dialog, results options group header label</comment>
   </data>
   <data name="Options_SampleText" xml:space="preserve">
-    <value>Sample Text</value>
+    <value>Eksempeltekst</value>
     <comment>Options dialog, font family and size sample text </comment>
   </data>
   <data name="Options_Save" xml:space="preserve">
@@ -1979,11 +1979,11 @@ Arguments:
     <comment>Replace window, search pattern label</comment>
   </data>
   <data name="Replace_ShowTheNextFile" xml:space="preserve">
-    <value>Show the next file [Ctrl+PgDn]</value>
+    <value>Vis neste fil [Ctrl+PgDn]</value>
     <comment>Replace window, Next file button tooltip</comment>
   </data>
   <data name="Replace_ShowThePreviousFile" xml:space="preserve">
-    <value>Show the previous file [Ctrl+PgUp]</value>
+    <value>Vis forrige fil [Ctrl+PgUp]</value>
     <comment>Replace window, Previous file button tooltip</comment>
   </data>
   <data name="Replace_SyntaxNone" xml:space="preserve">
@@ -2019,7 +2019,7 @@ Arguments:
     <comment>Replace window, results options zoom slider label</comment>
   </data>
   <data name="Report_CSVRecordHeaderText" xml:space="preserve">
-    <value>File Name,Line Number,String</value>
+    <value>Filnavn, linjenavn, streng</value>
     <comment>Report, CSV report header text</comment>
   </data>
   <data name="Report_DnGrepSearchResults" xml:space="preserve">
@@ -2271,7 +2271,7 @@ Arguments:
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="Window_Close" xml:space="preserve">
-    <value>Close</value>
+    <value>Lukk</value>
     <comment>Window title bar close button tooltip</comment>
   </data>
   <data name="Window_DockThisPopUpBackIntoTheMainWindow" xml:space="preserve">
