@@ -179,11 +179,11 @@
     <comment>Main window, Patterns to exclude label (accel)</comment>
   </data>
   <data name="About_DnGREP" xml:space="preserve">
-    <value>dnGrep</value>
+    <value>dnGREP</value>
     <comment>About dialog text</comment>
   </data>
   <data name="About_DnGrepOnGitHub" xml:space="preserve">
-    <value>dnGrep på GitHub</value>
+    <value>dn</value>
     <comment>About dialog text</comment>
   </data>
   <data name="BookmarkDetails_OK" xml:space="preserve">
@@ -355,7 +355,7 @@
     <comment>Bookmark details dialog, pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_PatternType_Regex" xml:space="preserve">
-    <value>_Regulært utrrykk</value>
+    <value>_Regulært uttrykk</value>
     <comment>Bookmark details dialog, pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchInArchives" xml:space="preserve">
@@ -407,7 +407,7 @@
     <comment>Bookmark details dialog, search option checkbox tooltip</comment>
   </data>
   <data name="BookmarkDetails_WholeWord" xml:space="preserve">
-    <value>_Hele ordet</value>
+    <value>_Helt ord</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="Bookmarks_Duplicate" xml:space="preserve">
@@ -679,7 +679,7 @@ Arguments:
     <comment>Main window, filter files by date label</comment>
   </data>
   <data name="Main_DnGREP_Title" xml:space="preserve">
-    <value>dnGrep</value>
+    <value>dnGREP</value>
     <comment>Main window, title label - near menu bar</comment>
   </data>
   <data name="Main_DockBottom" xml:space="preserve">
@@ -699,7 +699,7 @@ Arguments:
     <comment>Main window encoding auto select text</comment>
   </data>
   <data name="Main_EverythingIndexService" xml:space="preserve">
-    <value>Everything Index Service</value>
+    <value>Tjeneste for indeksering av alt</value>
     <comment>Main window, pattern type option Everything tooltip</comment>
   </data>
   <data name="Main_EverythingSearch" xml:space="preserve">
@@ -1047,7 +1047,7 @@ Arguments:
     <comment>Main window, search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_RegularExpressionSearch" xml:space="preserve">
-    <value>Regular expression search</value>
+    <value>Regulært uttrykkssøk</value>
     <comment>Main window, search type Regex tooltip</comment>
   </data>
   <data name="Main_SearchType_Text" xml:space="preserve">
@@ -1059,7 +1059,7 @@ Arguments:
     <comment>Main window, search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
-    <value>XPath search (XML documents only)</value>
+    <value>XPath-søk (kun for XML-dokumenter)</value>
     <comment>Main window, search type XPath tooltip</comment>
   </data>
   <data name="Main_SelectADate" xml:space="preserve">
@@ -1079,7 +1079,7 @@ Arguments:
     <comment>Main window, filter by size label</comment>
   </data>
   <data name="Main_SizeTo" xml:space="preserve">
-    <value>to</value>
+    <value>til</value>
     <comment>Main window, filter by size label</comment>
   </data>
   <data name="Main_SortButton" xml:space="preserve">
@@ -1495,15 +1495,15 @@ Arguments:
     <comment>Options dialog, fonts group header label</comment>
   </data>
   <data name="Options_ArchiveAdd" xml:space="preserve">
-    <value>Add:</value>
+    <value>Legg til:</value>
     <comment>Options dialog, archive options text input label</comment>
   </data>
   <data name="Options_ArchiveDefault" xml:space="preserve">
-    <value>Default:</value>
+    <value>Forvalg:</value>
     <comment>Options dialog, archive options text input label</comment>
   </data>
   <data name="Options_ArchiveExtensions" xml:space="preserve">
-    <value>Extensions:</value>
+    <value>Utvidelser:</value>
     <comment>Options dialog, archive options label</comment>
   </data>
   <data name="Options_ArchiveOptions" xml:space="preserve">
@@ -1579,11 +1579,11 @@ Arguments:
     <comment>Options dialog, compare arguments help text</comment>
   </data>
   <data name="Options_EditorArguments" xml:space="preserve">
-    <value>Arguments</value>
+    <value>Argumenter</value>
     <comment>Options dialog, custom editor arguments input box label</comment>
   </data>
   <data name="Options_EditorCommand" xml:space="preserve">
-    <value>Command</value>
+    <value>Kommando</value>
     <comment>Options dialog, custom editor command input box label</comment>
   </data>
   <data name="Options_EnableAutomaticCheckingEvery" xml:space="preserve">
@@ -1927,7 +1927,7 @@ Arguments:
     <comment>Replace window, Previous file button label (accel)</comment>
   </data>
   <data name="Replace_ReadOnly" xml:space="preserve">
-    <value>[read-only]</value>
+    <value>[skrivebeskyttet]</value>
     <comment>Replace window, conditional file name suffix</comment>
   </data>
   <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
@@ -2047,11 +2047,11 @@ Arguments:
     <comment>Report content text: {0} is the number of matches in a file; {1} is the number of lines in a file with matches</comment>
   </data>
   <data name="ReportSummary_BooleanOperators" xml:space="preserve">
-    <value>Boolean operators</value>
+    <value>Boolske operatorer</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_CaseSensitive" xml:space="preserve">
-    <value>Case sensitive</value>
+    <value>Forskjell på små og store bokstaver</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_DotAsNewline" xml:space="preserve">
@@ -2059,7 +2059,7 @@ Arguments:
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_Encoding" xml:space="preserve">
-    <value>Encoding:</value>
+    <value>Tegnkoding:</value>
     <comment>Report search options summary label</comment>
   </data>
   <data name="ReportSummary_ExcludePattern" xml:space="preserve">
@@ -2071,11 +2071,11 @@ Arguments:
     <comment>Report search options summary label</comment>
   </data>
   <data name="ReportSummary_MaxFolderDepth" xml:space="preserve">
-    <value>Max folder depth {0}</value>
+    <value>Maks. mappedybde {0}</value>
     <comment>Report search options summary: {0} is the user input folder depth</comment>
   </data>
   <data name="ReportSummary_Multiline" xml:space="preserve">
-    <value>Multiline</value>
+    <value>Flerlinje</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_NoArchives" xml:space="preserve">
@@ -2083,7 +2083,7 @@ Arguments:
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_NoBinary" xml:space="preserve">
-    <value>No binary</value>
+    <value>Ingen kjørbar fil</value>
     <comment>Main window options summary</comment>
   </data>
   <data name="ReportSummary_NoBinaryFiles" xml:space="preserve">
@@ -2143,15 +2143,15 @@ Arguments:
     <comment>Report search options summary type of search: {0} is the type of search</comment>
   </data>
   <data name="ReportSummary_WholeWord" xml:space="preserve">
-    <value>Whole word</value>
+    <value>Hele ordet</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="Test_BooleanOperators" xml:space="preserve">
-    <value>Boolean operators</value>
+    <value>Boolske operatorer</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_CaseSensitive" xml:space="preserve">
-    <value>C_ase sensitive</value>
+    <value>_Forskjell på små og store bokstaver</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_Close" xml:space="preserve">
@@ -2163,11 +2163,11 @@ Arguments:
     <comment>Test window, context menu item label</comment>
   </data>
   <data name="Test_DotAsNewline" xml:space="preserve">
-    <value>_Dot as newline</value>
+    <value>_Punktum som linjeskift</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_HighlightGroups" xml:space="preserve">
-    <value>Highlight Groups</value>
+    <value>Framhev grupper</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_Multiline" xml:space="preserve">
@@ -2227,7 +2227,7 @@ Arguments:
     <comment>Test window title</comment>
   </data>
   <data name="Test_WholeWord" xml:space="preserve">
-    <value>_Whole word</value>
+    <value>_Helt ord</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="TTA1_MatchesAllCharacters" xml:space="preserve">
