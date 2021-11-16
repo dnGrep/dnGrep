@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -958,7 +958,7 @@ Arguments:
     <comment>Main window, search results text: {0} is number, the offset from the start of the line</comment>
   </data>
   <data name="Main_ResultList_CountAdditionalCharacters" xml:space="preserve">
-    <value>...(+{0:n0} characters)</value>
+    <value>…(+{0:n0} знака)</value>
     <comment>Main window, search results text</comment>
   </data>
   <data name="Main_ResultList_CountMatches" xml:space="preserve">
@@ -970,8 +970,7 @@ Arguments:
     <comment>Main window, search results text: {0} is the partial path and file name; {1} is the number of matches in the file; {2} is the number of lines with matches</comment>
   </data>
   <data name="Main_ResultList_MatchToolTip1" xml:space="preserve">
-    <value>Match {0}{1}{2}</value>
-    
+    <value>Съвпадение {0}{1}{2}</value>
     <comment>Main window results, capture group tooltip: {0} is the match index; {1} is a new line; {2} is text of in the group</comment>
   </data>
   <data name="Main_ResultList_MatchToolTip2" xml:space="preserve">
@@ -1027,7 +1026,7 @@ Arguments:
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_OpenWithCustomEditor" xml:space="preserve">
-    <value>Open with custom editor</value>
+    <value>Отваряне с потребителски редактор</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_PreviousMatch" xml:space="preserve">
@@ -1686,7 +1685,7 @@ Arguments:
     <comment>Options dialog, history list text input label</comment>
   </data>
   <data name="Options_Language" xml:space="preserve">
-    <value>Език:</value>
+    <value>Език</value>
     <comment>Options dialog, language group header label</comment>
   </data>
   <data name="Options_Layout" xml:space="preserve">
@@ -2174,7 +2173,7 @@ Arguments:
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_SizeFrom0To1KB" xml:space="preserve">
-    <value>Големина от  {0} до {1} КБ</value>
+    <value>Големина от {0} до {1} КБ</value>
     <comment>Report search options summary: {0} and {1} are the user input size range</comment>
   </data>
   <data name="ReportSummary_StopAfterFirstMatch" xml:space="preserve">
