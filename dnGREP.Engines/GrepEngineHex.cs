@@ -21,13 +21,9 @@ namespace dnGREP.Engines
 
         public Version FrameworkVersion => Assembly.GetAssembly(typeof(IGrepEngine)).GetName().Version;
 
-        public override void OpenFile(OpenFileArgs args)
-        {
-            throw new NotImplementedException();
-        }
-
         public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepMatch> replaceItems)
         {
+            // should not get here, replace is not allowed from a Hex search
             throw new NotImplementedException();
         }
 

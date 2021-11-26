@@ -2073,7 +2073,7 @@ namespace dnGREP.Common
             bool startMatched = false;
             Queue<string> lineQueue = new Queue<string>();
 
-            const int bufferSize = 16;
+            int bufferSize = GrepSettings.Instance.Get<int>(GrepSettings.Key.HexResultByteLength);
             byte[] buffer = new byte[bufferSize];
             long length = body.BaseStream.Length;
 
@@ -2209,7 +2209,7 @@ namespace dnGREP.Common
                 int startLocation = lineNum * lineLength + lineStart * 3;
                 int matchLength = match.Length * 3 - 1;
 
-                int newLines = (match.StartLocation % 16 + match.Length - 1) / 16;
+                int newLines = (match.StartLocation % bufferSize + match.Length - 1) / bufferSize;
                 matchLength -= newLines;
 
                 list.Add(new GrepMatch(match.SearchPattern, lineNum, startLocation, matchLength));

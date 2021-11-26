@@ -400,6 +400,13 @@
                         <CheckBox Name="cbShowFileInfoToolTips" Margin="3" Content="{l:Loc Key='Options_ShowFileInfoToolTips'}"
                                   IsChecked="{Binding Path=ShowFileInfoTooltips}" />
 
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{l:Loc Key='Options_HexSearchResultLineLength'}"/>
+                            <ComboBox Margin="3"
+                                ItemsSource="{Binding Path=HexLengthOptions}"
+                                Width="60"
+                                SelectedValue="{Binding Path=HexResultByteLength, Mode=TwoWay}"/>
+                        </StackPanel>
                     </StackPanel>
                 </GroupBox>
 

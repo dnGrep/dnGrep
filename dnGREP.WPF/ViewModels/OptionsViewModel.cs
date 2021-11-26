@@ -31,6 +31,8 @@ namespace dnGREP.WPF
 
             CultureNames = TranslationSource.Instance.AppCultures.ToArray();
 
+            HexLengthOptions = new List<int> { 8, 16, 32, 64, 128 };
+
             hasWindowsThemes = AppTheme.HasWindowsThemes;
             AppTheme.Instance.CurrentThemeChanged += (s, e) =>
             {
@@ -97,6 +99,7 @@ namespace dnGREP.WPF
                 EditMainFormFontSize != Settings.Get<double>(GrepSettings.Key.MainFormFontSize) ||
                 EditReplaceFormFontSize != Settings.Get<double>(GrepSettings.Key.ReplaceFormFontSize) ||
                 EditDialogFontSize != Settings.Get<double>(GrepSettings.Key.DialogFontSize) ||
+                HexResultByteLength != Settings.Get<int>(GrepSettings.Key.HexResultByteLength) ||
                 PdfToTextOptions != Settings.Get<string>(GrepSettings.Key.PdfToTextOptions) ||
                 ArchiveOptions.IsChanged ||
                 IsChanged(Plugins)
@@ -290,7 +293,7 @@ namespace dnGREP.WPF
             }
         }
 
-        public KeyValuePair<string, string>[] CultureNames { get;  }
+        public KeyValuePair<string, string>[] CultureNames { get; }
 
         private string customEditorPath;
         public string CustomEditorPath
@@ -590,6 +593,22 @@ namespace dnGREP.WPF
                 optionsLocation = value;
 
                 base.OnPropertyChanged(() => OptionsLocation);
+            }
+        }
+
+        public List<int> HexLengthOptions { get; }
+
+        private int hexResultByteLength = 16;
+        public int HexResultByteLength
+        {
+            get { return hexResultByteLength; }
+            set
+            {
+                if (hexResultByteLength == value)
+                    return;
+
+                hexResultByteLength = value;
+                OnPropertyChanged(nameof(HexResultByteLength));
             }
         }
 
@@ -929,7 +948,7 @@ namespace dnGREP.WPF
                 CustomEditorPath = dlg.FileName;
             }
         }
-        
+
         public void BrowseToCompareApp()
         {
             var dlg = new OpenFileDialog();
@@ -1003,6 +1022,7 @@ namespace dnGREP.WPF
             FollowWindowsTheme = AppTheme.Instance.FollowWindowsTheme;
             CurrentCulture = TranslationSource.Instance.CurrentCulture.Name;
 
+            HexResultByteLength = Settings.Get<int>(GrepSettings.Key.HexResultByteLength);
             PdfToTextOptions = Settings.Get<string>(GrepSettings.Key.PdfToTextOptions);
 
             {
@@ -1120,6 +1140,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.MainFormFontSize, MainFormFontSize);
             Settings.Set(GrepSettings.Key.ReplaceFormFontSize, ReplaceFormFontSize);
             Settings.Set(GrepSettings.Key.DialogFontSize, DialogFontSize);
+            Settings.Set(GrepSettings.Key.HexResultByteLength, HexResultByteLength);
             Settings.Set(GrepSettings.Key.PdfToTextOptions, PdfToTextOptions);
 
             if (ArchiveOptions.IsChanged)
@@ -1248,7 +1269,7 @@ namespace dnGREP.WPF
                 {
                     IsAdministrator = false;
                     MessageBox.Show(Resources.MessageBox_RunDnGrepAsAdministrator,
-                        Resources.MessageBox_DnGrep, 
+                        Resources.MessageBox_DnGrep,
                         MessageBoxButton.OK, MessageBoxImage.Error,
                         MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                 }
@@ -1256,7 +1277,7 @@ namespace dnGREP.WPF
                 {
                     logger.Error(ex, "Failed to register dnGrep with Explorer context menu");
                     MessageBox.Show(Resources.MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu + App.LogDir,
-                        Resources.MessageBox_DnGrep, 
+                        Resources.MessageBox_DnGrep,
                         MessageBoxButton.OK, MessageBoxImage.Error,
                         MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                 }
@@ -1288,7 +1309,7 @@ namespace dnGREP.WPF
             {
                 IsAdministrator = false;
                 MessageBox.Show(Resources.MessageBox_RunDnGrepAsAdministrator,
-                    Resources.MessageBox_DnGrep, 
+                    Resources.MessageBox_DnGrep,
                     MessageBoxButton.OK, MessageBoxImage.Error,
                     MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
             }
@@ -1296,7 +1317,7 @@ namespace dnGREP.WPF
             {
                 logger.Error(ex, "Failed to remove dnGrep from Explorer context menu");
                 MessageBox.Show(Resources.MessageBox_ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu + App.LogDir,
-                    Resources.MessageBox_DnGrep, 
+                    Resources.MessageBox_DnGrep,
                     MessageBoxButton.OK, MessageBoxImage.Error,
                     MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
             }
@@ -1334,7 +1355,7 @@ namespace dnGREP.WPF
                 catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
                 {
                     MessageBox.Show(Resources.MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister,
-                        Resources.MessageBox_DnGrep, 
+                        Resources.MessageBox_DnGrep,
                         MessageBoxButton.OK, MessageBoxImage.Error,
                         MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                 }
@@ -1342,7 +1363,7 @@ namespace dnGREP.WPF
                 {
                     logger.Error(ex, "Failed to register auto startup");
                     MessageBox.Show(Resources.MessageBox_ThereWasAnErrorRegisteringAutoStartup + App.LogDir,
-                        Resources.MessageBox_DnGrep, 
+                        Resources.MessageBox_DnGrep,
                         MessageBoxButton.OK, MessageBoxImage.Error,
                         MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                 }
@@ -1365,7 +1386,7 @@ namespace dnGREP.WPF
                 catch (Exception ex) when (ex is SecurityException || ex is UnauthorizedAccessException)
                 {
                     MessageBox.Show(Resources.MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister,
-                        Resources.MessageBox_DnGrep, 
+                        Resources.MessageBox_DnGrep,
                         MessageBoxButton.OK, MessageBoxImage.Error,
                         MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                 }
@@ -1373,7 +1394,7 @@ namespace dnGREP.WPF
                 {
                     logger.Error(ex, "Failed to unregister auto startup");
                     MessageBox.Show(Resources.MessageBox_ThereWasAnErrorUnregisteringAutoStartup + App.LogDir,
-                        Resources.MessageBox_DnGrep, 
+                        Resources.MessageBox_DnGrep,
                         MessageBoxButton.OK, MessageBoxImage.Error,
                         MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                 }
