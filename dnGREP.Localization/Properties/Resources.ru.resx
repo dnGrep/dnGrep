@@ -1,64 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
   <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
@@ -118,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About_AboutDnGREP" xml:space="preserve">
-    <value>Относно dnGREP</value>
+    <value>О dnGREP</value>
     <comment>About dialog window title</comment>
   </data>
   <data name="About_Acknowledgments" xml:space="preserve">
@@ -126,11 +67,11 @@
     <comment>About dialog text</comment>
   </data>
   <data name="About_BuiltOn" xml:space="preserve">
-    <value>Компилирано на</value>
+    <value>Built on</value>
     <comment>About dialog label</comment>
   </data>
   <data name="About_ConvertsPDFFilesToPlainText" xml:space="preserve">
-    <value>Преобразува файлове на PDF в текст</value>
+    <value>Converts PDF files to plain text</value>
     <comment>About dnGrep acknowledgments</comment>
   </data>
   <data name="About_DnGREP" xml:space="preserve">
@@ -138,79 +79,79 @@
     <comment>About dialog text</comment>
   </data>
   <data name="About_DnGrepOnGitHub" xml:space="preserve">
-    <value>dnGrep в GitHub</value>
+    <value>dnGrep on GitHub</value>
     <comment>About dialog text</comment>
   </data>
   <data name="About_FileSystemIndexingLocateFilesInstantly" xml:space="preserve">
-    <value>Индексиране на файлова система, мигновено намиране на файлове</value>
+    <value>File system indexing, locate files instantly</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_JsonFrameworkForNET" xml:space="preserve">
-    <value>Софтуерна рамка на .NET за JSON</value>
+    <value>Json framework for .NET</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_LibraryForReadingArchiveFiles" xml:space="preserve">
-    <value>Библиотека за четене на архиви</value>
+    <value>Library for reading archive files</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_LoggingFrameworkForNET" xml:space="preserve">
-    <value>Софтуерна рамка на .NET за дневници</value>
+    <value>Logging framework for .NET</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryFor7Zip" xml:space="preserve">
-    <value>Библиотека на .NET за 7-Zip</value>
+    <value>.NET library for 7-Zip</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
-    <value>Библиотека на .NET за разпознаване на знаци</value>
+    <value>.NET library for character set detection</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>Библиотека на .NET за работа с дълги пътища</value>
+    <value>.NET library for extended length paths</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
-    <value>Библиотека на .NET за прочитане на файлове на Microsoft Excel</value>
+    <value>.NET library for reading Microsoft Excel files</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryToParseECMA376Numbers" xml:space="preserve">
-    <value>Библиотека на .NET за анализ на числа на ECMA-376</value>
+    <value>.NET library to parse ECMA-376 numbers</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryToWorkWithWordAndExcelDocuments" xml:space="preserve">
-    <value>Библиотека на .NET за работа с документи на Word и Excel</value>
+    <value>.NET library to work with Word and Excel documents</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETWPFScreenHelperUtility" xml:space="preserve">
-    <value>Инструмент за работа с екрана на .NET WPF</value>
+    <value>.NET WPF screen helper utility</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
-    <value>Компонент за текстов редактор на .NET WPF</value>
+    <value>.NET WPF text editor component</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_OK" xml:space="preserve">
-    <value>Добре</value>
+    <value>ОК</value>
     <comment>About dialog button label</comment>
   </data>
   <data name="About_Version" xml:space="preserve">
-    <value>Издание</value>
+    <value>Версия</value>
     <comment>About dialog label</comment>
   </data>
   <data name="BookmarkDetails_AssociatedFolders" xml:space="preserve">
-    <value>Свързани папки:</value>
+    <value>Associated Folders:</value>
     <comment>Bookmark details dialog, text input box label</comment>
   </data>
   <data name="BookmarkDetails_BooleanOperators" xml:space="preserve">
-    <value>Булеви оператори</value>
+    <value>Boolean operators</value>
     <comment>Bookmark details dialog, search options checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Cancel" xml:space="preserve">
-    <value>Отказ</value>
+    <value>Отмена</value>
     <comment>Bookmark details dialog, cancel button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_CaseSensitive" xml:space="preserve">
-    <value>Съвпадение на _регистъра</value>
+    <value>C_ase sensitive</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Description" xml:space="preserve">
@@ -218,67 +159,67 @@
     <comment>Bookmark details dialog, text input box label</comment>
   </data>
   <data name="BookmarkDetails_DotAsNewline" xml:space="preserve">
-    <value>Точка за _нов ред</value>
+    <value>_Dot as newline</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Encoding" xml:space="preserve">
-    <value>Кодиране:</value>
+    <value>Encoding:</value>
     <comment>Bookmark details dialog, search options encoding combo box label (accel) </comment>
   </data>
   <data name="BookmarkDetails_EverythingIndexService" xml:space="preserve">
-    <value>Услуга за индексиране на Everything</value>
+    <value>Everything Index Service</value>
     <comment>Bookmark details dialog, pattern type option Everything tooltip</comment>
   </data>
   <data name="BookmarkDetails_FilePatternType" xml:space="preserve">
-    <value>Модел на вида на файла</value>
+    <value>File Pattern Type</value>
     <comment>Bookmark details dialog, file pattern group header label</comment>
   </data>
   <data name="BookmarkDetails_FollowSymbolicLinks" xml:space="preserve">
-    <value>Следване на символни връзки</value>
+    <value>Follow symbolic links</value>
     <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_ForExampleAsteriskPattern" xml:space="preserve">
-    <value>например file??.*</value>
+    <value>e.g. file??.*</value>
     <comment>Bookmark details dialog, pattern type option Asterisk tooltip</comment>
   </data>
   <data name="BookmarkDetails_ForExampleRegularExpession" xml:space="preserve">
-    <value>например file[0-9]{1,2}\\.txt</value>
+    <value>e.g. file[0-9]{1,2}\\.txt</value>
     <comment>Bookmark details dialog, pattern type option Regex tooltip</comment>
   </data>
   <data name="BookmarkDetails_IncludeBinaryFiles" xml:space="preserve">
-    <value>Включително двоични файлове</value>
+    <value>Include binary files</value>
     <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_IncludeHiddenFolders" xml:space="preserve">
-    <value>Включително скрити папки</value>
+    <value>Include hidden folders</value>
     <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_IncludeSubfolders" xml:space="preserve">
-    <value>Включително подпапки</value>
+    <value>Include subfolders</value>
     <comment>Bookmark details dialog, filter path depth checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_MaxDepth" xml:space="preserve">
-    <value>Максимална дълбочина</value>
+    <value>Max depth</value>
     <comment>Bookmark details dialog, filter path depth text box label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Multiline" xml:space="preserve">
-    <value>_Многоредово</value>
+    <value>_Multiline</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_OK" xml:space="preserve">
-    <value>Добре</value>
+    <value>ОК</value>
     <comment>Bookmark details dialog, button label</comment>
   </data>
   <data name="BookmarkDetails_PatternsToExclude" xml:space="preserve">
-    <value>Модели на изключване:</value>
+    <value>Patterns to exclude:</value>
     <comment>Bookmark details dialog, Patterns to exclude label</comment>
   </data>
   <data name="BookmarkDetails_PatternsToMatch" xml:space="preserve">
-    <value>Модели на съвпадение:</value>
+    <value>Patterns to match:</value>
     <comment>Bookmark details dialog, Patterns to match label</comment>
   </data>
   <data name="BookmarkDetails_PatternType_AsteriskPattern" xml:space="preserve">
-    <value>Заместващи символи</value>
+    <value>Asterisk pattern</value>
     <comment>Bookmark details dialog, pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_PatternType_Everything" xml:space="preserve">
@@ -286,47 +227,47 @@
     <comment>Bookmark details dialog, pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_PatternType_Regex" xml:space="preserve">
-    <value>_Регулярен израз</value>
+    <value>_Regex</value>
     <comment>Bookmark details dialog, pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
-    <value>Заменяне:</value>
+    <value>Replace with:</value>
     <comment>Bookmark details dialog, replace text input box label</comment>
   </data>
   <data name="BookmarkDetails_SearchFor" xml:space="preserve">
-    <value>Търсене:</value>
+    <value>Search for:</value>
     <comment>Bookmark details dialog, search pattern text input box label</comment>
   </data>
   <data name="BookmarkDetails_SearchInArchives" xml:space="preserve">
-    <value>Търсене в ар_хиви</value>
+    <value>Search in ar_chives</value>
     <comment>Bookmark details dialog, checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
-    <value>Шестнадесетично</value>
+    <value>Hex</value>
     <comment>Bookmark details dialog, search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
-    <value>Фонетично</value>
+    <value>Phonetic</value>
     <comment>Bookmark details dialog, search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Фонетично търсене</value>
+    <value>Phonetic search</value>
     <comment>Bookmark details dialog, search type Phonetic tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
-    <value>Търсене на текст</value>
+    <value>Plain text search</value>
     <comment>Bookmark details dialog, search type Text tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
-    <value>Прочита файла като двоични стойности и търси за битове като десетични числа: 68 65 78 20</value>
+    <value>Read file as binary and search for bytes as hexadecimal digits: 68 65 78 20</value>
     <comment>Bookmark details dialog, search type Hex tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
-    <value>_Регулярен израз</value>
+    <value>_Regex</value>
     <comment>Bookmark details dialog, search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_RegularExpressionSearch" xml:space="preserve">
-    <value>Търсене с регулярен израз</value>
+    <value>Regular expression search</value>
     <comment>Bookmark details dialog, search type Regex tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Text" xml:space="preserve">
@@ -338,43 +279,43 @@
     <comment>Bookmark details dialog, search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
-    <value>Търсене с XPath (само за документи на XML)</value>
+    <value>XPath search (XML documents only)</value>
     <comment>Bookmark details dialog, search type XPath tooltip</comment>
   </data>
   <data name="BookmarkDetails_ThisBookmarkAlreadyExists" xml:space="preserve">
-    <value>Такава отметка вече съществува</value>
+    <value>This bookmark already exists</value>
     <comment>Bookmark details dialog, error text</comment>
   </data>
   <data name="BookmarkDetails_Title" xml:space="preserve">
-    <value>Детайли на отметка</value>
+    <value>Bookmark Details</value>
     <comment>Bookmark details dialog, window title</comment>
   </data>
   <data name="BookmarkDetails_TypeHeader" xml:space="preserve">
-    <value>Вид</value>
+    <value>Тип</value>
     <comment>Bookmark details dialog, type group header label</comment>
   </data>
   <data name="BookmarkDetails_UseGitignore" xml:space="preserve">
-    <value>Използване на .gitignore</value>
+    <value>Use .gitignore</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_UseGitignoreToFilterFiles" xml:space="preserve">
-    <value>Използва файла .gitignore за изключване на файлове</value>
+    <value>Use .gitignore to filter files</value>
     <comment>Bookmark details dialog, search option checkbox tooltip</comment>
   </data>
   <data name="BookmarkDetails_WholeWord" xml:space="preserve">
-    <value>Цели _думи</value>
+    <value>_Whole word</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="Bookmarks_Add" xml:space="preserve">
-    <value>_Добавяне</value>
+    <value>_Добавить</value>
     <comment>Bookmarks dialog, button label (accel)</comment>
   </data>
   <data name="Bookmarks_Close" xml:space="preserve">
-    <value>_Затваряне</value>
+    <value>_Закрыть</value>
     <comment>Bookmarks dialog, button text (accel)</comment>
   </data>
   <data name="Bookmarks_Delete" xml:space="preserve">
-    <value>_Изтриване</value>
+    <value>_Удалить</value>
     <comment>Bookmarks dialog, button label (accel)</comment>
   </data>
   <data name="Bookmarks_DescriptionHeader" xml:space="preserve">
@@ -382,79 +323,79 @@
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Bookmarks_Duplicate" xml:space="preserve">
-    <value>Ду_блиране</value>
+    <value>Du_plicate</value>
     <comment>Bookmarks dialog, button label (accel)</comment>
   </data>
   <data name="Bookmarks_Edit" xml:space="preserve">
-    <value>_Редактиране</value>
+    <value>_Редактировать</value>
     <comment>Bookmarks dialog, button label (accel)</comment>
   </data>
   <data name="Bookmarks_FilePatternHeader" xml:space="preserve">
-    <value>Модел на файла</value>
+    <value>File Pattern</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Bookmarks_Filter" xml:space="preserve">
-    <value>Филтър:</value>
+    <value>Фильтр:</value>
     <comment>Bookmarks dialog, filter input box label</comment>
   </data>
   <data name="Bookmarks_OtherPropertiesHeader" xml:space="preserve">
-    <value>Други свойства</value>
+    <value>Other Properties</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Bookmarks_ReplaceWithHeader" xml:space="preserve">
-    <value>Заменяне</value>
+    <value>Replace With</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Bookmarks_SearchForHeader" xml:space="preserve">
-    <value>Търсене</value>
+    <value>Search For</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Bookmarks_Summary_CaseSensitive" xml:space="preserve">
-    <value>Съвпадение на регистъра</value>
+    <value>Case sensitive</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_MaxFolderDepth" xml:space="preserve">
-    <value>Дълбочина на подпапките {0}</value>
+    <value>Max folder depth {0}</value>
     <comment>Bookmarks dialog, Other Properties summary: {0} is a number</comment>
   </data>
   <data name="Bookmarks_Summary_Multiline" xml:space="preserve">
-    <value>Многоредово</value>
+    <value>Multiline</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_NoBinary" xml:space="preserve">
-    <value>Не двоични</value>
+    <value>No binary</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_NoHidden" xml:space="preserve">
-    <value>Не скрити</value>
+    <value>No hidden</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_NoSubfolders" xml:space="preserve">
-    <value>Без подпапки</value>
+    <value>No subfolders</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_NoSymlinks" xml:space="preserve">
-    <value>Без символни връзки</value>
+    <value>No symlinks</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
-    <value>Търсене в архиви</value>
+    <value>Search in archives</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_WholeWord" xml:space="preserve">
-    <value>Цели думи</value>
+    <value>Whole word</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Title" xml:space="preserve">
-    <value>Отметки</value>
+    <value>Закладки</value>
     <comment>Bookmarks dialog title</comment>
   </data>
   <data name="Bookmarks_TypeHeader" xml:space="preserve">
-    <value>Вид</value>
+    <value>Тип</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Bookmarks_Use" xml:space="preserve">
-    <value>Из_ползване</value>
+    <value>_Use</value>
     <comment>Bookmarks dialog, button text (accel)</comment>
   </data>
   <data name="Help_CmdLine" xml:space="preserve">
@@ -554,39 +495,39 @@ Arguments:
     <comment>Help dialog text when running dnGrep from the command line: {0} is the installed dnGrep version number; {1} is the installed dnGrep build date</comment>
   </data>
   <data name="Help_DnGrepHelp" xml:space="preserve">
-    <value>Помощ за dnGrep</value>
+    <value>dnGrep Help</value>
     <comment>Help dialog window title</comment>
   </data>
   <data name="Help_OK" xml:space="preserve">
-    <value>Добре</value>
+    <value>ОК</value>
     <comment>Help dialog button label</comment>
   </data>
   <data name="Help_OneOrMoreArgumentsAreInvalid" xml:space="preserve">
-    <value>Един или повече аргумента са недействителни.</value>
+    <value>One or more arguments are invalid.</value>
     <comment>Help dialog header text</comment>
   </data>
   <data name="Main_AddSearchPatternToBookmarks" xml:space="preserve">
-    <value>Добавяне на шаблон за търсене в отметките</value>
+    <value>Add search pattern to bookmarks</value>
     <comment>Main window, bookmark button tooltip</comment>
   </data>
   <data name="Main_AllDates" xml:space="preserve">
-    <value>Всички дати</value>
+    <value>All dates</value>
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_AllSizes" xml:space="preserve">
-    <value>Всякаква големина</value>
+    <value>All sizes</value>
     <comment>Main window, size filter radio button label (accel)</comment>
   </data>
   <data name="Main_AssociateBookmarkWithFolder" xml:space="preserve">
-    <value>Свързване на отметка с папка</value>
+    <value>Associate bookmark with folder</value>
     <comment>Main window, folder bookmark button tooltip</comment>
   </data>
   <data name="Main_Attributes_DateModified" xml:space="preserve">
-    <value>Дата на промяна:</value>
+    <value>Date Modified:</value>
     <comment>Main window, results list, file attributes tooltip label</comment>
   </data>
   <data name="Main_Attributes_Encoding" xml:space="preserve">
-    <value>Кодиране:</value>
+    <value>Encoding:</value>
     <comment>Main window, results list, file attributes tooltip label</comment>
   </data>
   <data name="Main_Attributes_File" xml:space="preserve">
@@ -594,83 +535,83 @@ Arguments:
     <comment>Main window, results list, file attributes tooltip label</comment>
   </data>
   <data name="Main_Attributes_Size" xml:space="preserve">
-    <value>Големина:</value>
+    <value>Размер:</value>
     <comment>Main window, results list, file attributes tooltip label</comment>
   </data>
   <data name="Main_Attributes_Type" xml:space="preserve">
-    <value>Вид:</value>
+    <value>Тип:</value>
     <comment>Main window, results list, file attributes tooltip label</comment>
   </data>
   <data name="Main_AutoPosition" xml:space="preserve">
-    <value>Автоматично позициониране</value>
+    <value>Auto Position</value>
     <comment>Main window, docking context menu item label (accel)</comment>
   </data>
   <data name="Main_BooleanOperators" xml:space="preserve">
-    <value>Булеви оператори</value>
+    <value>Boolean operators</value>
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_BrowseForFolderOrFiles" xml:space="preserve">
-    <value>Избиране на папки и файлове</value>
+    <value>Browse for folder or files</value>
     <comment>Main window, open folder tooltip</comment>
   </data>
   <data name="Main_CancelButton" xml:space="preserve">
-    <value>Отка_з</value>
+    <value>_Отмена</value>
     <comment>Main window, Cancel button label (accel)</comment>
   </data>
   <data name="Main_CaptureGroupSearch" xml:space="preserve">
-    <value>Търсене от групи за улавяне</value>
+    <value>Capture group search</value>
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_CaseSensitive" xml:space="preserve">
-    <value>Съвпадение на _регистъра</value>
+    <value>C_ase sensitive</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_ChangesTheResultsTreeZoom" xml:space="preserve">
-    <value>Променя мащаба на дървото с резултати</value>
+    <value>Changes the results tree zoom</value>
     <comment>Main window tooltip</comment>
   </data>
   <data name="Main_ClearBookmark" xml:space="preserve">
-    <value>Изчистване на отметка</value>
+    <value>Clear bookmark</value>
     <comment>Main window, bookmark button tooltip</comment>
   </data>
   <data name="Main_CombineMultipleSearchPatternsUsingANDOrOR" xml:space="preserve">
-    <value>Дава възможност за комбиниране на няколко модела за търсене с помощта на „AND“ или „OR“</value>
+    <value>Combine multiple search patterns using 'AND' or 'OR'</value>
     <comment>Main window, search option Boolean Operators tooltip</comment>
   </data>
   <data name="Main_ContextAfter" xml:space="preserve">
-    <value>реда след</value>
+    <value>after</value>
     <comment>Main window, result options context lines label</comment>
   </data>
   <data name="Main_ContextBeforeAnd" xml:space="preserve">
-    <value>реда преди и</value>
+    <value>before and</value>
     <comment>Main window, results options context lines label</comment>
   </data>
   <data name="Main_ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
-    <value>Промените в контекста ще бъдат приложени при следващо търсене</value>
+    <value>Context changes Will be applied in next search</value>
     <comment>Main window, result options context lines tooltip</comment>
   </data>
   <data name="Main_ContextShowLines" xml:space="preserve">
-    <value>Контекст от</value>
+    <value>Show context lines</value>
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_Created" xml:space="preserve">
-    <value>Създаване</value>
+    <value>Created</value>
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_DateFrom" xml:space="preserve">
-    <value>От</value>
+    <value>From</value>
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_DatePast" xml:space="preserve">
-    <value>Между</value>
+    <value>Past</value>
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_DatePastHours" xml:space="preserve">
-    <value>часа</value>
+    <value>hours</value>
     <comment>Main window, filter files by date time unit label</comment>
   </data>
   <data name="Main_DateTo" xml:space="preserve">
-    <value>и</value>
+    <value>to</value>
     <comment>Main window, filter files by date label</comment>
   </data>
   <data name="Main_DnGREP_Title" xml:space="preserve">
@@ -678,79 +619,79 @@ Arguments:
     <comment>Main window, title label - near menu bar</comment>
   </data>
   <data name="Main_DockBottom" xml:space="preserve">
-    <value>Закотвяне отдолу</value>
+    <value>Dock Bottom</value>
     <comment>Main window docking context menu item label (accel)</comment>
   </data>
   <data name="Main_DockRight" xml:space="preserve">
-    <value>Закотвяне вдясно</value>
+    <value>Dock Right</value>
     <comment>Main window docking context menu label (accel)</comment>
   </data>
   <data name="Main_DotAsNewline" xml:space="preserve">
-    <value>Точка за _нов ред</value>
+    <value>_Dot as newline</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_Empty" xml:space="preserve">
-    <value>Празно</value>
+    <value>Empty</value>
     <comment>Main window title prefix when search for is empty</comment>
   </data>
   <data name="Main_Encoding" xml:space="preserve">
-    <value>Кодиране:</value>
+    <value>Encoding:</value>
     <comment>Main window, search options encoding combo box label (accel) </comment>
   </data>
   <data name="Main_EncodingAutoDetection" xml:space="preserve">
-    <value>Автоматично (по подразбиране)</value>
+    <value>Auto detection (default)</value>
     <comment>Main window encoding auto select text</comment>
   </data>
   <data name="Main_EverythingIndexService" xml:space="preserve">
-    <value>Услуга за индексиране на Everything</value>
+    <value>Everything Index Service</value>
     <comment>Main window, pattern type option Everything tooltip</comment>
   </data>
   <data name="Main_EverythingSearch" xml:space="preserve">
-    <value>Търсене с Everything:</value>
+    <value>Everything search:</value>
     <comment>Main window, folder input caption when Everything search is enabled (accel)</comment>
   </data>
   <data name="Main_ExcelSheetName" xml:space="preserve">
-    <value>Лист [{0}]</value>
+    <value>Sheet [{0}]</value>
     <comment>Main window results list for Excel file data: {0} is a string, the name of the worksheet in the Excel document</comment>
   </data>
   <data name="Main_ExcludeFilesByTypeAndFoldersByName" xml:space="preserve">
-    <value>Изключване на файлове според вида и папки според името</value>
+    <value>Exclude files by type and folders by name</value>
     <comment>Main window, Patterns to exclude label tooltip</comment>
   </data>
   <data name="Main_FilterSummary_AllFiles" xml:space="preserve">
-    <value>Всички файлове</value>
+    <value>All files</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_ByCreatedDate" xml:space="preserve">
-    <value>По дата на създаване</value>
+    <value>By Created Date</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_ByModifiedDate" xml:space="preserve">
-    <value>По дата на промяна</value>
+    <value>By Modified Date</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_BySize" xml:space="preserve">
-    <value>По големина</value>
+    <value>By Size</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_MaxFolderDepth" xml:space="preserve">
-    <value>Дълбочина на подпапките {0}</value>
+    <value>Max folder depth {0}</value>
     <comment>Main window, file filters summary: {0} is a number</comment>
   </data>
   <data name="Main_FilterSummary_NoBinary" xml:space="preserve">
-    <value>Не двоични</value>
+    <value>No binary</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_NoHidden" xml:space="preserve">
-    <value>Не скрити</value>
+    <value>No hidden</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_NoSubfolders" xml:space="preserve">
-    <value>Без подпапки</value>
+    <value>No subfolders</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_NoSymlinks" xml:space="preserve">
-    <value>Без символни връзки</value>
+    <value>No symlinks</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_Folder" xml:space="preserve">
@@ -758,151 +699,151 @@ Arguments:
     <comment>Main window, folder input caption (accel)</comment>
   </data>
   <data name="Main_FollowSymbolicLinks" xml:space="preserve">
-    <value>Следване на символни връзки</value>
+    <value>Follow symbolic links</value>
     <comment>Main window, filter files checkbox label (accel)</comment>
   </data>
   <data name="Main_ForExampleAsteriskPattern" xml:space="preserve">
-    <value>например file??.*</value>
+    <value>e.g. file??.*</value>
     <comment>Main window, pattern type option Asterisk tooltip</comment>
   </data>
   <data name="Main_ForExampleRegularExpession" xml:space="preserve">
-    <value>например file[0-9]{1,2}\\.txt</value>
+    <value>e.g. file[0-9]{1,2}\\.txt</value>
     <comment>Main window, pattern type option Regex tooltip</comment>
   </data>
   <data name="Main_FromTheStartOfTheDay" xml:space="preserve">
-    <value>от началото на деня</value>
+    <value>from the start of the day</value>
     <comment>Main window, filter file by date, start date tooltip</comment>
   </data>
   <data name="Main_HideResultOptions" xml:space="preserve">
-    <value>Скрива настройките на резултатите</value>
+    <value>Hide result options</value>
     <comment>Main window, result options expander button tooltip (bottom of window)</comment>
   </data>
   <data name="Main_HighlightGroups" xml:space="preserve">
-    <value>Открояване на групите</value>
+    <value>Highlight Groups</value>
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_HighlightMatches" xml:space="preserve">
-    <value>Открояване на съвпаденията</value>
+    <value>Highlight Matches</value>
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_HighlightRegularExpressionGroups" xml:space="preserve">
-    <value>Откроява групите на регулярния израз - промените ще бъдат приложени при следващото търсене</value>
+    <value>Highlight regular expression groups - changes will be applied in next search</value>
     <comment>Main window, result options highlight groups tooltip</comment>
   </data>
   <data name="Main_IncludeBinaryFiles" xml:space="preserve">
-    <value>Включително двоични файлове</value>
+    <value>Include binary files</value>
     <comment>Main window, filter files checkbox label (accel)</comment>
   </data>
   <data name="Main_IncludeFilesByNameOrType" xml:space="preserve">
-    <value>Включително файлове по име или вид</value>
+    <value>Include files by name or type</value>
     <comment>Main window, Patterns to include label tooltip</comment>
   </data>
   <data name="Main_IncludeHiddenFolders" xml:space="preserve">
-    <value>Включително скрити папки</value>
+    <value>Include hidden folders</value>
     <comment>Main window, filter files checkbox label (accel)</comment>
   </data>
   <data name="Main_IncludeSubfolders" xml:space="preserve">
-    <value>Включително подпапки</value>
+    <value>Include subfolders</value>
     <comment>Main window, filter path depth checkbox label (accel)</comment>
   </data>
   <data name="Main_MaxDepth" xml:space="preserve">
-    <value>Максимална дълбочина</value>
+    <value>Max depth</value>
     <comment>Main window, filter path depth text box label (accel)</comment>
   </data>
   <data name="Main_Menu_About" xml:space="preserve">
-    <value>_Относно</value>
+    <value>_About</value>
     <comment>Main window, main menu label (accel)</comment>
   </data>
   <data name="Main_Menu_About_AboutDnGrep" xml:space="preserve">
-    <value>_Относно dnGrep...</value>
+    <value>_About dnGrep...</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="Main_Menu_About_Help" xml:space="preserve">
-    <value>_Помощ</value>
+    <value>_Help</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="Main_Menu_Bookmarks" xml:space="preserve">
-    <value>_Отметки</value>
+    <value>_Закладки...</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Menu_Options" xml:space="preserve">
-    <value>_Настройки</value>
+    <value>_Параметры...</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Menu_Undo" xml:space="preserve">
-    <value>_Отменяне</value>
+    <value>_Отменить</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Modified" xml:space="preserve">
-    <value>Промяна</value>
+    <value>Modified</value>
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_More" xml:space="preserve">
-    <value>Повече...</value>
+    <value>Mor_e...</value>
     <comment>Main window, filters expander label (accel)</comment>
   </data>
   <data name="Main_MoreArrowButton" xml:space="preserve">
-    <value>_Повече ⏷</value>
+    <value>_More ⏷</value>
     <comment>Main window, More button label with down arrow (accel)</comment>
   </data>
   <data name="Main_MoreMenu_CopyFileNames" xml:space="preserve">
-    <value>Копиране на имената</value>
+    <value>Copy file names</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_CopyFiles" xml:space="preserve">
-    <value>Копиране на файлове…</value>
+    <value>Copy files...</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_CopyResults" xml:space="preserve">
-    <value>Копиране на резултатите</value>
+    <value>Copy results</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_DeleteFiles" xml:space="preserve">
-    <value>Изтриване на файлове…</value>
+    <value>Delete files...</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_MoveFiles" xml:space="preserve">
-    <value>Преместване на файлове…</value>
+    <value>Move files...</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_Save_CSVResults" xml:space="preserve">
-    <value>Като CSV</value>
+    <value>CSV Results</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_Save_Report" xml:space="preserve">
-    <value>Като отчет</value>
+    <value>Report</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_Save_TextResults" xml:space="preserve">
-    <value>Като текст</value>
+    <value>Text Results</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_SaveResults" xml:space="preserve">
-    <value>Запазване на резултатите</value>
+    <value>Save results</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_Multiline" xml:space="preserve">
-    <value>_Многоредово</value>
+    <value>_Multiline</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_OpenFolder" xml:space="preserve">
-    <value>…</value>
+    <value>...</value>
     <comment>Main window, open folder button label (accel)</comment>
   </data>
   <data name="Main_PastDateTo" xml:space="preserve">
-    <value>до</value>
+    <value>to</value>
     <comment>Main window, filter files by date, past time label</comment>
   </data>
   <data name="Main_PatternsToExclude" xml:space="preserve">
-    <value>Модели на изключване:</value>
+    <value>Patterns to exclude:</value>
     <comment>Main window, Patterns to exclude label (accel)</comment>
   </data>
   <data name="Main_PatternsToMatch" xml:space="preserve">
-    <value>Модели на съвпадение:</value>
+    <value>Patterns to match:</value>
     <comment>Main window, Patterns to match label (accel)</comment>
   </data>
   <data name="Main_PatternType_Asterisk" xml:space="preserve">
-    <value>Заместващи символи</value>
+    <value>Asterisk pattern</value>
     <comment>Main window, pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_PatternType_Everything" xml:space="preserve">
@@ -910,203 +851,203 @@ Arguments:
     <comment>Main window, pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_PatternType_Regex" xml:space="preserve">
-    <value>_Регулярен израз</value>
+    <value>_Regex</value>
     <comment>Main window, pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_PreviewFile" xml:space="preserve">
-    <value>Пре_глед на файла</value>
+    <value>Pre_view file</value>
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_RemoveFolderFromBookmarkAssociation" xml:space="preserve">
-    <value>Премахва папката от отметката</value>
+    <value>Remove folder from bookmark association</value>
     <comment>Main window, folder bookmark button tooltip</comment>
   </data>
   <data name="Main_ReplaceButton" xml:space="preserve">
-    <value>З_аменяне</value>
+    <value>_Replace</value>
     <comment>Main window replace button label (accel)</comment>
   </data>
   <data name="Main_ReplaceWith" xml:space="preserve">
-    <value>_Заменяне:</value>
+    <value>Re_place with:</value>
     <comment>Main window, replace text input box label (accel)</comment>
   </data>
   <data name="Main_ReportOption_CSVFileFormat" xml:space="preserve">
-    <value>Файл на CSV</value>
+    <value>CSV file format</value>
     <comment>Main window, save report, report type format label</comment>
   </data>
   <data name="Main_ReportOption_ReportFileFormat" xml:space="preserve">
-    <value>Файл на отчет</value>
+    <value>Report file format</value>
     <comment>Main window, save report, report type format label</comment>
   </data>
   <data name="Main_ReportOption_ResultsFileFormat" xml:space="preserve">
-    <value>Файл на резултат</value>
+    <value>Results file format</value>
     <comment>Main window, save report, report type format label</comment>
   </data>
   <data name="Main_ResetOptions" xml:space="preserve">
-    <value>Нулиране на настройки</value>
+    <value>Reset Options</value>
     <comment>Main window, search options, reset button label (accel)</comment>
   </data>
   <data name="Main_ResultList_AdditionalMatches" xml:space="preserve">
-    <value>допълнителни съвпадения:</value>
+    <value>additional matches:</value>
     <comment>Main window, search results text</comment>
   </data>
   <data name="Main_ResultList_AtEndOfLine" xml:space="preserve">
-    <value>(на края на реда)</value>
+    <value>(at end of line)</value>
     <comment>Main window, search results text</comment>
   </data>
   <data name="Main_ResultList_AtPosition" xml:space="preserve">
-    <value>знак {0} на реда</value>
+    <value>at position {0}</value>
     <comment>Main window, search results text: {0} is number, the offset from the start of the line</comment>
   </data>
   <data name="Main_ResultList_CountAdditionalCharacters" xml:space="preserve">
-    <value>…(+{0:n0} знака)</value>
+    <value>...(+{0:n0} characters)</value>
     <comment>Main window, search results text</comment>
   </data>
   <data name="Main_ResultList_CountMatches" xml:space="preserve">
-    <value>{0} ({1} съвпадения)</value>
+    <value>{0} ({1} matches)</value>
     <comment>Main window, search results text: {0} is the partial path and file name; {1} is the number of matches in the file</comment>
   </data>
   <data name="Main_ResultList_CountMatchesOnLines" xml:space="preserve">
-    <value>{0} ({1} съвпадения на {2} реда)</value>
+    <value>{0} ({1} matches on {2} lines)</value>
     <comment>Main window, search results text: {0} is the partial path and file name; {1} is the number of matches in the file; {2} is the number of lines with matches</comment>
   </data>
   <data name="Main_ResultList_MatchToolTip1" xml:space="preserve">
-    <value>Съвпадение {0}{1}{2}</value>
+    <value>Match {0}{1}{2}</value>
     <comment>Main window results, capture group tooltip: {0} is the match index; {1} is a new line; {2} is text of in the group</comment>
   </data>
   <data name="Main_ResultList_MatchToolTip2" xml:space="preserve">
-    <value>Съвпадение {0}{1}Група {2}: {3}</value>
+    <value>Match {0}{1}Group {2}:   {3}</value>
     <comment>Main window results, capture group tooltip: {0} is the match index; {1} is a new line; {2} is the named group name; {3} is the text in the group</comment>
   </data>
   <data name="Main_ResultList_PlusCountMoreMatches" xml:space="preserve">
-    <value>, + още {0} съвпадения</value>
+    <value>, +{0} more matches</value>
     <comment>Main window, search results text: {0} is the number of additional matches found on the line</comment>
   </data>
   <data name="Main_ResultList_ReadOnly" xml:space="preserve">
-    <value>[само за четене]</value>
+    <value>[только чтение]</value>
     <comment>Main window, search results text</comment>
   </data>
   <data name="Main_Results_CollapseAll" xml:space="preserve">
-    <value>Свиване на всички</value>
+    <value>Collapse all</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_CompareFiles" xml:space="preserve">
-    <value>Сравняване на файловете</value>
+    <value>Compare files</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_CopyFileNames" xml:space="preserve">
-    <value>Копиране на имената</value>
+    <value>Copy file names</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_CopyFullFilePaths" xml:space="preserve">
-    <value>Копиране на пълните пътища</value>
+    <value>Copy full file paths</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_CopyLinesOfText" xml:space="preserve">
-    <value>Копиране на редовете текст</value>
+    <value>Copy Lines of text</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_ExcludeFromResults" xml:space="preserve">
-    <value>Изключване от резултатите</value>
+    <value>Exclude from results</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_ExpandAll" xml:space="preserve">
-    <value>Разтваряне на всички</value>
+    <value>Expand all</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_NextMatch" xml:space="preserve">
-    <value>Следващо съвпадение</value>
+    <value>Next Match</value>
     <comment>Main windows, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_Open" xml:space="preserve">
-    <value>Отваряне</value>
+    <value>Открыть</value>
     <comment>Main window, results list context menu item label</comment>
   </data>
   <data name="Main_Results_OpenContainingFolder" xml:space="preserve">
-    <value>Отваряне на папката</value>
+    <value>Open containing folder</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_OpenWithCustomEditor" xml:space="preserve">
-    <value>Отваряне с потребителски редактор</value>
+    <value>Open with custom editor</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_PreviousMatch" xml:space="preserve">
-    <value>Предишно съвпадение</value>
+    <value>Previous Match</value>
     <comment>Main windows, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_RenameFile" xml:space="preserve">
-    <value>Преименуване на файл</value>
+    <value>Rename file</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_ResetZoom" xml:space="preserve">
-    <value>Нулиране на мащаба</value>
+    <value>Reset zoom</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_ShowFileProperties" xml:space="preserve">
-    <value>Атрибути на файла</value>
+    <value>Show file properties</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_SavingResultsToFile" xml:space="preserve">
-    <value>Запазва резултата във файл…</value>
+    <value>Saving results to file...</value>
     <comment>Main window, status message</comment>
   </data>
   <data name="Main_SearchButton" xml:space="preserve">
-    <value>_Търсене</value>
+    <value>_Поиск</value>
     <comment>Main window, search button label (accel)</comment>
   </data>
   <data name="Main_SearchFilesInMultipleThreads" xml:space="preserve">
-    <value>Търси файлове с помощта на няколко нишки</value>
+    <value>Search files in multiple threads</value>
     <comment>Main window, search option parallel tooltip</comment>
   </data>
   <data name="Main_SearchFor" xml:space="preserve">
-    <value>_Търсене:</value>
+    <value>Search _for:</value>
     <comment>Main window, search pattern text input box label (accel)</comment>
   </data>
   <data name="Main_SearchGroup" xml:space="preserve">
-    <value>Търсене</value>
+    <value>Поиск</value>
     <comment>Main window, search group heading</comment>
   </data>
   <data name="Main_SearchInArchives" xml:space="preserve">
-    <value>Търсене в ар_хиви</value>
+    <value>Search in ar_chives</value>
     <comment>Main window, checkbox label (accel)</comment>
   </data>
   <data name="Main_SearchInGroup" xml:space="preserve">
-    <value>Търсене в</value>
+    <value>Search in</value>
     <comment>Main window Search In group heading</comment>
   </data>
   <data name="Main_SearchInResults" xml:space="preserve">
-    <value>Търсене в _резултатите</value>
+    <value>Search _in results</value>
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_SearchParallel" xml:space="preserve">
-    <value>_Паралелно търсене</value>
+    <value>Search Paralle_l</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_SearchType_Hex" xml:space="preserve">
-    <value>Шестнадесетично</value>
+    <value>Hex</value>
     <comment>Main window, search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value>Фонетично</value>
+    <value>Phonetic</value>
     <comment>Main window, search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>Фонетично търсене</value>
+    <value>Phonetic search</value>
     <comment>Main window, search type Phonetic tooltip</comment>
   </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
-    <value>Търсене на текст</value>
+    <value>Plain text search</value>
     <comment>Main window, search type Text tooltip</comment>
   </data>
   <data name="Main_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
-    <value>Прочита файла като двоични стойности и търси за битове като десетични числа: 68 65 78 20</value>
+    <value>Read file as binary and search for bytes as hexadecimal digits: 68 65 78 20</value>
     <comment>Main window, search type Hex tooltip</comment>
   </data>
   <data name="Main_SearchType_Regex" xml:space="preserve">
-    <value>_Регулярен израз</value>
+    <value>_Regex</value>
     <comment>Main window, search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_RegularExpressionSearch" xml:space="preserve">
-    <value>Търсене с регулярен израз</value>
+    <value>Regular expression search</value>
     <comment>Main window, search type Regex tooltip</comment>
   </data>
   <data name="Main_SearchType_Text" xml:space="preserve">
@@ -1118,19 +1059,19 @@ Arguments:
     <comment>Main window, search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
-    <value>Търсене с XPath (само за документи на XML)</value>
+    <value>XPath search (XML documents only)</value>
     <comment>Main window, search type XPath tooltip</comment>
   </data>
   <data name="Main_SelectADate" xml:space="preserve">
-    <value>Изберете дата</value>
+    <value>Select a date</value>
     <comment>Main window, filter files by date, date picker watermark</comment>
   </data>
   <data name="Main_ShowResultOptions" xml:space="preserve">
-    <value>Показва настройките на резултатите</value>
+    <value>Show result options</value>
     <comment>Main window, result options expander button tooltip (bottom of window)</comment>
   </data>
   <data name="Main_SizeIs" xml:space="preserve">
-    <value>Големина от</value>
+    <value>Size is</value>
     <comment>Main window, filter size radio button label (accel)</comment>
   </data>
   <data name="Main_SizeKB" xml:space="preserve">
@@ -1138,39 +1079,39 @@ Arguments:
     <comment>Main window, filter by size label</comment>
   </data>
   <data name="Main_SizeTo" xml:space="preserve">
-    <value>до</value>
+    <value>to</value>
     <comment>Main window, filter by size label</comment>
   </data>
   <data name="Main_SortButton" xml:space="preserve">
-    <value>Сортиране</value>
+    <value>Sort</value>
     <comment>Main window, sort button label (accel)</comment>
   </data>
   <data name="Main_SortMenu_Ascending" xml:space="preserve">
-    <value>Възходящ ред</value>
+    <value>По возрастанию</value>
     <comment>Main window sort button options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_Descending" xml:space="preserve">
-    <value>Низходящ ред</value>
+    <value>По убыванию</value>
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_FileNameOnly" xml:space="preserve">
-    <value>Само по име на файла</value>
+    <value>File name only</value>
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_FileSize" xml:space="preserve">
-    <value>По големина на файла</value>
+    <value>File size</value>
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_FileTypeAndName" xml:space="preserve">
-    <value>По вид и име на файла</value>
+    <value>File type and name</value>
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_LastWriteTime" xml:space="preserve">
-    <value>Време на последа промяна</value>
+    <value>Last write time</value>
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_MatchCount" xml:space="preserve">
-    <value>Брой съвпадения</value>
+    <value>Match count</value>
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_PathAndFileNameBreadthFirst" xml:space="preserve">
@@ -1182,11 +1123,11 @@ Arguments:
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_Status_Excluded0MissingFiles" xml:space="preserve">
-    <value>Пропуснати са {0} липсващи файла.</value>
+    <value>Excluded {0} missing files.</value>
     <comment>Main window, status bar message appended on search complete when in Everything mode</comment>
   </data>
   <data name="Main_Status_ReplaceCanceled" xml:space="preserve">
-    <value>Заменянето е отказано</value>
+    <value>Replace Canceled</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_ReplaceComplete0FilesReplaced" xml:space="preserve">
@@ -1198,7 +1139,7 @@ Arguments:
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_Replacing" xml:space="preserve">
-    <value>Replacing...</value>
+    <value>Замена...</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_SearchCanceled" xml:space="preserve">
@@ -1210,7 +1151,7 @@ Arguments:
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_SearchCompleteSearched0FilesFound1FilesIn2" xml:space="preserve">
-    <value>Търсенето е завършено - Претърсени {0} файла. Намерени {1} файла за {2}.</value>
+    <value>Search Complete - Searched {0} files. Found {1} files in {2}.</value>
     <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found; {2} is the duration of the search</comment>
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFiles" xml:space="preserve">
@@ -1222,22 +1163,23 @@ Arguments:
     <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found; {2} is the current file name being searched</comment>
   </data>
   <data name="Main_Status_Searching" xml:space="preserve">
-    <value>Търсене…</value>
+    <value>Поиск...</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_SearchingForGitignore" xml:space="preserve">
-    <value>Търсене .gitignore</value>
+    <value>Searching for .gitignore</value>
+    <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_StopAfterFirstMatch" xml:space="preserve">
-    <value>Спиране след първо съвпадение</value>
+    <value>Stop after first match</value>
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_TestExpression" xml:space="preserve">
-    <value>Проверка на израза</value>
+    <value>Test Expression</value>
     <comment>Main window, test search expression button label (accel)</comment>
   </data>
   <data name="Main_ThroughTheEndOfTheDay" xml:space="preserve">
-    <value>до края на деня</value>
+    <value>through the end of the day</value>
     <comment>Main window, filter file by date, end date tooltip</comment>
   </data>
   <data name="Main_UseCaptureGroupsFromPathsToMatch" xml:space="preserve">
@@ -1253,31 +1195,31 @@ Arguments:
     <comment>Main window, search option checkbox tooltip</comment>
   </data>
   <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
-    <value>Шестнадесетичният низ не е валиден!</value>
+    <value>Hex string is not valid!</value>
     <comment>Main window, hexadecimal expression status</comment>
   </data>
   <data name="Main_Validation_HexStringIsOK" xml:space="preserve">
-    <value>Шестнадесетичният низ е валиден!</value>
+    <value>Hex string is OK!</value>
     <comment>Main window, hexadecimal expression status</comment>
   </data>
   <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">
-    <value>Регулярният израз не е валиден!</value>
+    <value>Regex is not valid!</value>
     <comment>Main window, regular expression status</comment>
   </data>
   <data name="Main_Validation_RegexIsOK" xml:space="preserve">
-    <value>Регулярният израз е валиден!</value>
+    <value>Regex is OK!</value>
     <comment>Main window, regular expression status</comment>
   </data>
   <data name="Main_Validation_XPathIsNotValid" xml:space="preserve">
-    <value>Изразът на XPath не е валиден!</value>
+    <value>XPath is not valid!</value>
     <comment>Main window, XPath status</comment>
   </data>
   <data name="Main_Validation_XPathIsOK" xml:space="preserve">
-    <value>Изразът на XPath е валиден!</value>
+    <value>XPath is OK!</value>
     <comment>Main window, XPath status</comment>
   </data>
   <data name="Main_WholeWord" xml:space="preserve">
-    <value>Цели _думи</value>
+    <value>_Whole word</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_WindowTitle" xml:space="preserve">
@@ -1293,11 +1235,11 @@ Arguments:
     <comment>Main window, results options zoom slider label</comment>
   </data>
   <data name="MessageBox_AreYouSureYouWantToContinue" xml:space="preserve">
-    <value>Сигурни ли сте, че желаете да продължите?</value>
+    <value>Are you sure you want to continue?</value>
     <comment>Message box text for: Delete files</comment>
   </data>
   <data name="MessageBox_AreYouSureYouWantToReplaceSearchPatternWithEmptyString" xml:space="preserve">
-    <value>Сигурни ли сте, че желаете да замените търсения шаблон с празен низ?</value>
+    <value>Are you sure you want to replace search pattern with empty string?</value>
     <comment>Message box text for: Replace text</comment>
   </data>
   <data name="MessageBox_CheckEditorPath" xml:space="preserve">
@@ -1313,7 +1255,7 @@ Arguments:
     <comment>Message box text for: Main window, bookmark button</comment>
   </data>
   <data name="MessageBox_CopyFiles" xml:space="preserve">
-    <value>Копиране на файлове</value>
+    <value>Copy Files</value>
     <comment>Message box title for: Copy files</comment>
   </data>
   <data name="MessageBox_CouldNotLoadResourcesFile0" xml:space="preserve">
@@ -1325,7 +1267,7 @@ Arguments:
     <comment>Message box text for: Load theme resource: {0} is the name of the file that failed to load</comment>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyCopied" xml:space="preserve">
-    <value>{0} файла са успешно копирани.</value>
+    <value>{0} files have been successfully copied.</value>
     <comment>Message box text for: Copy file: {0} is the number of files</comment>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyDeleted" xml:space="preserve">
@@ -1357,7 +1299,7 @@ Arguments:
     <comment>Message box text for: Main window, bookmark button</comment>
   </data>
   <data name="MessageBox_Error" xml:space="preserve">
-    <value>Грешка: </value>
+    <value>Ошибка: </value>
     <comment>Message box text for: general error message</comment>
   </data>
   <data name="MessageBox_ErrorOpeningFile" xml:space="preserve">
@@ -1389,15 +1331,15 @@ Arguments:
     <comment>Message box title for: Move files</comment>
   </data>
   <data name="MessageBox_NewVersion" xml:space="preserve">
-    <value>Ново издание</value>
+    <value>New version</value>
     <comment>Message box title for: New dnGrep version</comment>
   </data>
   <data name="MessageBox_NewVersionOfDnGREP0IsAvailableForDownload" xml:space="preserve">
-    <value>Ново издание на dnGREP ({0}) е налично за изтегляне.</value>
+    <value>New version of dnGREP ({0}) is available for download.</value>
     <comment>Message box text for: New dnGrep version: {0} is the new version number</comment>
   </data>
   <data name="MessageBox_PleaseSelectAnotherDirectoryAndTryAgain" xml:space="preserve">
-    <value>Изберете друга папка и опитайте отново.</value>
+    <value>Please select another directory and try again.</value>
     <comment>Message box text for: Copy files and Move files (destination overlaps source)</comment>
   </data>
   <data name="MessageBox_PluginErrors" xml:space="preserve">
@@ -1413,7 +1355,7 @@ Arguments:
     <comment>Message box title for: Rename file</comment>
   </data>
   <data name="MessageBox_Replace" xml:space="preserve">
-    <value>Заменяне</value>
+    <value>Заменить</value>
     <comment>Message box text for: Replace message</comment>
   </data>
   <data name="MessageBox_ReplaceFailedError" xml:space="preserve">
@@ -1445,7 +1387,7 @@ Arguments:
     <comment>Message box text for: Main window search path invalid: {0} is the name of search path field (Folder or Everything search)</comment>
   </data>
   <data name="MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory" xml:space="preserve">
-    <value>Внимание, някои от файловете се намират в избраната папка.</value>
+    <value>Attention, some of the files are located in the selected directory.</value>
     <comment>Message box text for: Copy files and Move files (destination overlaps source)</comment>
   </data>
   <data name="MessageBox_SomeOfTheFilesCannotBeModifiedIfYouContinueTheseFilesWillBeSkipped" xml:space="preserve">
@@ -1521,7 +1463,7 @@ Arguments:
     <comment>Message box text for: Main window bookmark delete</comment>
   </data>
   <data name="MessageBox_Undo" xml:space="preserve">
-    <value>Undo</value>
+    <value>Отменить</value>
     <comment>Message box title for: Main window Undo</comment>
   </data>
   <data name="MessageBox_UndoWillRevertModifiedFiles" xml:space="preserve">
@@ -1529,7 +1471,7 @@ Arguments:
     <comment>Message box text for: Main window Undo</comment>
   </data>
   <data name="MessageBox_WindowTitleIsName" xml:space="preserve">
-    <value>Заглавие на прозореца: {0}</value>
+    <value>Window Title: {0}</value>
     <comment>Message box text for: Clipboard set text error, clipboard locked by application name: {0} is the window title of the application locking clipboard</comment>
   </data>
   <data name="MessageBox_WouldYouLikeToContinue" xml:space="preserve">
@@ -1549,59 +1491,59 @@ Arguments:
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ApplicationFonts" xml:space="preserve">
-    <value>Шрифт</value>
+    <value>Application Fonts</value>
     <comment>Options dialog, fonts group header label</comment>
   </data>
   <data name="Options_ArchiveAdd" xml:space="preserve">
-    <value>Добавяне:</value>
+    <value>Добавить:</value>
     <comment>Options dialog, archive options text input label</comment>
   </data>
   <data name="Options_ArchiveDefault" xml:space="preserve">
-    <value>Default:</value>
+    <value>По умолчанию:</value>
     <comment>Options dialog, archive options text input label</comment>
   </data>
   <data name="Options_ArchiveExtensions" xml:space="preserve">
-    <value>Разширения:</value>
+    <value>Расширения:</value>
     <comment>Options dialog, archive options label</comment>
   </data>
   <data name="Options_ArchiveOptions" xml:space="preserve">
-    <value>Настройки за архиви</value>
+    <value>Archive Options</value>
     <comment>Options dialog, archive options group header label</comment>
   </data>
   <data name="Options_ArchiveRemove" xml:space="preserve">
-    <value>Премахване:</value>
+    <value>Удалить:</value>
     <comment>Options dialog, archive options text input label</comment>
   </data>
   <data name="Options_BrowseFileLocation" xml:space="preserve">
-    <value>…</value>
+    <value>...</value>
     <comment>Options dialog, browse for file button label</comment>
   </data>
   <data name="Options_CheckDays" xml:space="preserve">
-    <value>дни</value>
+    <value>days</value>
     <comment>Options dialog, check for updates label</comment>
   </data>
   <data name="Options_CheckForUpdatesWhenWindowsStarts" xml:space="preserve">
-    <value>Проверяване за обновяване със стартиране на Windows</value>
+    <value>Check for updates when Windows starts</value>
     <comment>Options dialog, check for updates checkbox label (accel)</comment>
   </data>
   <data name="Options_CheckingForUpdates" xml:space="preserve">
-    <value>Проверяване за обновяване</value>
+    <value>Checking for updates</value>
     <comment>Options dialog, check for updates group header label</comment>
   </data>
   <data name="Options_ClearOldSearches" xml:space="preserve">
-    <value>Премахване на стари търсения</value>
+    <value>Clear old searches</value>
     <comment>Options dialog, history list button label (accel)</comment>
   </data>
   <data name="Options_Close" xml:space="preserve">
-    <value>_Затваряне</value>
+    <value>_Закрыть</value>
     <comment>Options dialog, close button text (accel)</comment>
   </data>
   <data name="Options_CompareApplication" xml:space="preserve">
-    <value>Приложение за сравняване</value>
+    <value>Compare application</value>
     <comment>Options dialog, compare application group header label</comment>
   </data>
   <data name="Options_CompareArguments" xml:space="preserve">
-    <value>Аргументи</value>
+    <value>Аргументы</value>
     <comment>Options dialog, compare arguments input box label</comment>
   </data>
   <data name="Options_CompareCommand" xml:space="preserve">
@@ -1609,15 +1551,15 @@ Arguments:
     <comment>Options dialog, compare command input box label</comment>
   </data>
   <data name="Options_ContextAfter" xml:space="preserve">
-    <value>след</value>
+    <value>after</value>
     <comment>Options dialog, results options context label</comment>
   </data>
   <data name="Options_ContextBeforeAnd" xml:space="preserve">
-    <value>преди и</value>
+    <value>before and</value>
     <comment>Options dialog, results options context label</comment>
   </data>
   <data name="Options_CustomEditor" xml:space="preserve">
-    <value>Потребителски редактор</value>
+    <value>Custom editor</value>
     <comment>Options dialog, custom editor group header label</comment>
   </data>
   <data name="Options_CustomEditorHelp" xml:space="preserve">
@@ -1633,11 +1575,11 @@ Arguments:
     <comment>Options dialog, font size selector label</comment>
   </data>
   <data name="Options_DnGrepWillAddTheSelectedFiles" xml:space="preserve">
-    <value>Имената на избраните файлове ще бъдат добавени накрая на командата.</value>
+    <value>dnGrep will add the selected files to the end of the command line.</value>
     <comment>Options dialog, compare arguments help text</comment>
   </data>
   <data name="Options_EditorArguments" xml:space="preserve">
-    <value>Аргументи</value>
+    <value>Аргументы</value>
     <comment>Options dialog, custom editor arguments input box label</comment>
   </data>
   <data name="Options_EditorCommand" xml:space="preserve">
@@ -1645,7 +1587,7 @@ Arguments:
     <comment>Options dialog, custom editor command input box label</comment>
   </data>
   <data name="Options_EnableAutomaticCheckingEvery" xml:space="preserve">
-    <value>Автоматична проверка през</value>
+    <value>Enable automatic checking every</value>
     <comment>Options dialog, check for updates, checkbox label (accel)</comment>
   </data>
   <data name="Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu" xml:space="preserve">
@@ -1653,15 +1595,15 @@ Arguments:
     <comment>Options dialog, explorer right click menu checkbox tooltip</comment>
   </data>
   <data name="Options_FollowWindowsTheme" xml:space="preserve">
-    <value>Следва темата на Windows</value>
+    <value>Follow Windows Theme</value>
     <comment>Options dialog, theme checkbox label (accel)</comment>
   </data>
   <data name="Options_FontFamily" xml:space="preserve">
-    <value>Фамилия на шрифта</value>
+    <value>Font Family</value>
     <comment>Options dialog, font selector label</comment>
   </data>
   <data name="Options_HelpTranslateDnGrep" xml:space="preserve">
-    <value>Помогнете за превода на dnGrep.</value>
+    <value>Help translate dnGrep.</value>
     <comment>Options dialog, language request label</comment>
   </data>
   <data name="Options_HistoryLists" xml:space="preserve">
@@ -1685,15 +1627,15 @@ Arguments:
     <comment>Options dialog, history list text input label</comment>
   </data>
   <data name="Options_Language" xml:space="preserve">
-    <value>Език</value>
+    <value>Язык</value>
     <comment>Options dialog, language group header label</comment>
   </data>
   <data name="Options_Layout" xml:space="preserve">
-    <value>Подредба</value>
+    <value>Layout</value>
     <comment>Options dialog, layout group header label</comment>
   </data>
   <data name="Options_LoadFromFile" xml:space="preserve">
-    <value>От файл…</value>
+    <value>Load from file...</value>
     <comment>Options dialog, language load button label (accel)</comment>
   </data>
   <data name="Options_MainFontSize" xml:space="preserve">
@@ -1717,7 +1659,7 @@ Arguments:
     <comment>Options dialog, layout option radio button label (accel)</comment>
   </data>
   <data name="Options_OptionsTitle" xml:space="preserve">
-    <value>Настройки</value>
+    <value>Параметры</value>
     <comment>Options dialog, window title</comment>
   </data>
   <data name="Options_PDFToText" xml:space="preserve">
@@ -1729,35 +1671,35 @@ Arguments:
     <comment>Options dialog, PDF text input label</comment>
   </data>
   <data name="Options_PdfToTextReset" xml:space="preserve">
-    <value>Reset</value>
+    <value>Сброс</value>
     <comment>Options dialog, PDF arguments button label (accel)</comment>
   </data>
   <data name="Options_PhoneticSearch" xml:space="preserve">
-    <value>Фонетично търсене</value>
+    <value>Phonetic search</value>
     <comment>Options dialog, phonetic group header label</comment>
   </data>
   <data name="Options_PluginAdd" xml:space="preserve">
-    <value>Добавяне:</value>
+    <value>Добавить:</value>
     <comment>Options dialog, plugin options text input label</comment>
   </data>
   <data name="Options_PluginDefault" xml:space="preserve">
-    <value>Default:</value>
+    <value>По умолчанию:</value>
     <comment>Options dialog, plugin options text input label</comment>
   </data>
   <data name="Options_PluginEnabled" xml:space="preserve">
-    <value>Enabled</value>
+    <value>Включено</value>
     <comment>Options dialog, plugins checkbox label</comment>
   </data>
   <data name="Options_PluginExtensions" xml:space="preserve">
-    <value>Разширения:</value>
+    <value>Расширения:</value>
     <comment>Options dialog, plugin options label</comment>
   </data>
   <data name="Options_PluginOptions" xml:space="preserve">
-    <value>Настройки на добавки</value>
+    <value>Plugin Options</value>
     <comment>Options dialog, plugin options group header label</comment>
   </data>
   <data name="Options_PluginRemove" xml:space="preserve">
-    <value>Премахване:</value>
+    <value>Удалить:</value>
     <comment>Options dialog, plugin options text input label</comment>
   </data>
   <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
@@ -1769,7 +1711,7 @@ Arguments:
     <comment>Options dialog, load language button tooltip</comment>
   </data>
   <data name="Options_RegexOptions" xml:space="preserve">
-    <value>Настройки на регулярни изрази</value>
+    <value>Regex Options</value>
     <comment>Options dialog, regex options group heading label</comment>
   </data>
   <data name="Options_Reload" xml:space="preserve">
@@ -1785,7 +1727,7 @@ Arguments:
     <comment>Options dialog, font size input label</comment>
   </data>
   <data name="Options_ResultsOptions" xml:space="preserve">
-    <value>Настройки на резултати</value>
+    <value>Results Options</value>
     <comment>Options dialog, results options group header label</comment>
   </data>
   <data name="Options_SampleText" xml:space="preserve">
@@ -1793,7 +1735,7 @@ Arguments:
     <comment>Options dialog, font family and size sample text </comment>
   </data>
   <data name="Options_Save" xml:space="preserve">
-    <value>Запазване</value>
+    <value>Сохранить</value>
     <comment>Options dialog, save button label (accel)</comment>
   </data>
   <data name="Options_SelectedTheme" xml:space="preserve">
@@ -1837,7 +1779,7 @@ Arguments:
     <comment>Options dialog, regex options help text</comment>
   </data>
   <data name="Options_Theme" xml:space="preserve">
-    <value>Theme</value>
+    <value>Тема</value>
     <comment>Options dialog, theme group header label</comment>
   </data>
   <data name="Options_TimeoutSeconds" xml:space="preserve">
@@ -1853,7 +1795,7 @@ Arguments:
     <comment>Options dialog, fonts default checkbox label (accel)</comment>
   </data>
   <data name="Options_WantADifferentLanguage" xml:space="preserve">
-    <value>Търсите друг език?</value>
+    <value>Do you want a different language?</value>
     <comment>Options dialog, language request label</comment>
   </data>
   <data name="Preview_ChangesTextEditorZoom" xml:space="preserve">
@@ -1905,27 +1847,27 @@ Arguments:
     <comment>Preview window, results options zoom slider label</comment>
   </data>
   <data name="Rename_Cancel" xml:space="preserve">
-    <value>Отказ</value>
+    <value>Отмена</value>
     <comment>Rename file dialog button label</comment>
   </data>
   <data name="Rename_NewName" xml:space="preserve">
-    <value>Ново име:</value>
+    <value>New name:</value>
     <comment>Rename file dialog input label</comment>
   </data>
   <data name="Rename_OK" xml:space="preserve">
-    <value>Добре</value>
+    <value>ОК</value>
     <comment>Rename file dialog button label</comment>
   </data>
   <data name="Rename_Title" xml:space="preserve">
-    <value>Преименуване на файл</value>
+    <value>Rename file</value>
     <comment>Rename file dialog title</comment>
   </data>
   <data name="Replace_Cancel" xml:space="preserve">
-    <value>Отказ</value>
+    <value>Отмена</value>
     <comment>Replace window, Cancel button text</comment>
   </data>
   <data name="Replace_CancelAllReplacements" xml:space="preserve">
-    <value>Отказ от всички заменяния</value>
+    <value>Cancel all replacements</value>
     <comment>Replace window, Cancel button tooltip</comment>
   </data>
   <data name="Replace_ChangesTextEditorZoom" xml:space="preserve">
@@ -1941,7 +1883,7 @@ Arguments:
     <comment>Replace window, file name progress line: {0} is the index of the current file; {1} is the total number of files; {2} is the name of the current file; {3} is the number of matches found in the current file; {4} is the number of lines in the current file with matches</comment>
   </data>
   <data name="Replace_Files" xml:space="preserve">
-    <value>Файлове</value>
+    <value>Файлы</value>
     <comment>Replace window, Files group header label</comment>
   </data>
   <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
@@ -1965,7 +1907,7 @@ Arguments:
     <comment>Replace window, Previous button tooltip</comment>
   </data>
   <data name="Replace_Next" xml:space="preserve">
-    <value>На_пред</value>
+    <value>_Next</value>
     <comment>Replace window, Next button label (accel)</comment>
   </data>
   <data name="Replace_NextFile" xml:space="preserve">
@@ -1973,11 +1915,11 @@ Arguments:
     <comment>Replace window, Next file button label (accel)</comment>
   </data>
   <data name="Replace_OK" xml:space="preserve">
-    <value>Добре</value>
+    <value>ОК</value>
     <comment>Replace window, OK button text</comment>
   </data>
   <data name="Replace_Previous" xml:space="preserve">
-    <value>Наза_д</value>
+    <value>_Previous</value>
     <comment>Replace window, Previous button label (accel)</comment>
   </data>
   <data name="Replace_PreviousFile" xml:space="preserve">
@@ -1985,7 +1927,7 @@ Arguments:
     <comment>Replace window, Previous file button label (accel)</comment>
   </data>
   <data name="Replace_ReadOnly" xml:space="preserve">
-    <value>[само за четене]</value>
+    <value>[только чтение]</value>
     <comment>Replace window, conditional file name suffix</comment>
   </data>
   <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
@@ -1993,7 +1935,7 @@ Arguments:
     <comment>Replace window, Replace in all files button tooltip</comment>
   </data>
   <data name="Replace_ReplaceButton" xml:space="preserve">
-    <value>З_аменяне</value>
+    <value>_Replace</value>
     <comment>Replace window, Replace button label (accel)</comment>
   </data>
   <data name="Replace_ReplaceInAllFiles" xml:space="preserve">
@@ -2005,7 +1947,7 @@ Arguments:
     <comment>Replace window, Replace in file button label (accel)</comment>
   </data>
   <data name="Replace_ReplaceKey1_Text" xml:space="preserve">
-    <value>text</value>
+    <value>текст</value>
     <comment>Replace window, first color and highlight key label</comment>
   </data>
   <data name="Replace_ReplaceKey2_SelectedMatch" xml:space="preserve">
@@ -2025,7 +1967,7 @@ Arguments:
     <comment>Replace window, OK button tooltip</comment>
   </data>
   <data name="Replace_ReplaceWith" xml:space="preserve">
-    <value>Заменяне:</value>
+    <value>Replace with:</value>
     <comment>Replace window, replace text input box label</comment>
   </data>
   <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
@@ -2033,7 +1975,7 @@ Arguments:
     <comment>Replace window, Undo file button tooltip</comment>
   </data>
   <data name="Replace_SearchFor" xml:space="preserve">
-    <value>Търсене:</value>
+    <value>Search for:</value>
     <comment>Replace window, search pattern label</comment>
   </data>
   <data name="Replace_ShowTheNextFile" xml:space="preserve">
@@ -2057,7 +1999,7 @@ Arguments:
     <comment>Replace window, window title</comment>
   </data>
   <data name="Replace_Undo" xml:space="preserve">
-    <value>_Отменяне</value>
+    <value>_Отменить</value>
     <comment>Replace window, Undo button label (accel)</comment>
   </data>
   <data name="Replace_UndoFile" xml:space="preserve">
@@ -2081,11 +2023,11 @@ Arguments:
     <comment>Report, CSV report header text</comment>
   </data>
   <data name="Report_DnGrepSearchResults" xml:space="preserve">
-    <value>Резултати от търсене с dnGrep</value>
+    <value>dnGrep Search Results</value>
     <comment>Report content text</comment>
   </data>
   <data name="Report_FileNotFoundHasItBeenDeletedOrMoved" xml:space="preserve">
-    <value>[Файлът не е намерен: дали не е преместен или премахнат?]</value>
+    <value>[File not found: has it been deleted or moved?]</value>
     <comment>Report extract lines from file error</comment>
   </data>
   <data name="Report_Found0MatchesOn1LinesIn2Files" xml:space="preserve">
@@ -2105,19 +2047,19 @@ Arguments:
     <comment>Report content text: {0} is the number of matches in a file; {1} is the number of lines in a file with matches</comment>
   </data>
   <data name="ReportSummary_BooleanOperators" xml:space="preserve">
-    <value>Булеви оператори</value>
+    <value>Boolean operators</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_CaseSensitive" xml:space="preserve">
-    <value>Съвпадение на регистъра</value>
+    <value>Case sensitive</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_DotAsNewline" xml:space="preserve">
-    <value>Точка за _нов ред</value>
+    <value>Dot as newline</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_Encoding" xml:space="preserve">
-    <value>Кодиране:</value>
+    <value>Encoding:</value>
     <comment>Report search options summary label</comment>
   </data>
   <data name="ReportSummary_ExcludePattern" xml:space="preserve">
@@ -2125,59 +2067,59 @@ Arguments:
     <comment>Report search options summary label</comment>
   </data>
   <data name="ReportSummary_FilePattern" xml:space="preserve">
-    <value>Модел на файла:</value>
+    <value>File pattern:</value>
     <comment>Report search options summary label</comment>
   </data>
   <data name="ReportSummary_MaxFolderDepth" xml:space="preserve">
-    <value>Дълбочина на подпапките {0}</value>
+    <value>Max folder depth {0}</value>
     <comment>Report search options summary: {0} is the user input folder depth</comment>
   </data>
   <data name="ReportSummary_Multiline" xml:space="preserve">
-    <value>Многоредово</value>
+    <value>Multiline</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_NoArchives" xml:space="preserve">
-    <value>Без архиви</value>
+    <value>No archives</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_NoBinary" xml:space="preserve">
-    <value>Не двоични</value>
+    <value>No binary</value>
     <comment>Main window options summary</comment>
   </data>
   <data name="ReportSummary_NoBinaryFiles" xml:space="preserve">
-    <value>Не двоични файлове</value>
+    <value>No binary files</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_NoHiddenFiles" xml:space="preserve">
-    <value>Не скрити файлове</value>
+    <value>No hidden files</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_NoSubfolders" xml:space="preserve">
-    <value>Без подпапки</value>
+    <value>No subfolders</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_NoSymlinks" xml:space="preserve">
-    <value>Без символни връзки</value>
+    <value>No symlinks</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_SearchFor" xml:space="preserve">
-    <value>Търсене:</value>
+    <value>Search for:</value>
     <comment>Report search options summary label</comment>
   </data>
   <data name="ReportSummary_SearchIn" xml:space="preserve">
-    <value>Търсене в:</value>
+    <value>Search in:</value>
     <comment>Report search options summary label</comment>
   </data>
   <data name="ReportSummary_SearchInResults" xml:space="preserve">
-    <value>Търсене в резултатите</value>
+    <value>Search in results</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_SizeFrom0To1KB" xml:space="preserve">
-    <value>Големина от {0} до {1} КБ</value>
+    <value>Size from {0} to {1} KB</value>
     <comment>Report search options summary: {0} and {1} are the user input size range</comment>
   </data>
   <data name="ReportSummary_StopAfterFirstMatch" xml:space="preserve">
-    <value>Спиране след първо съвпадение</value>
+    <value>Stop after frist match</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_Type0DateFrom1To2" xml:space="preserve">
@@ -2201,19 +2143,19 @@ Arguments:
     <comment>Report search options summary type of search: {0} is the type of search</comment>
   </data>
   <data name="ReportSummary_WholeWord" xml:space="preserve">
-    <value>Цели думи</value>
+    <value>Whole word</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="Test_BooleanOperators" xml:space="preserve">
-    <value>Булеви оператори</value>
+    <value>Boolean operators</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_CaseSensitive" xml:space="preserve">
-    <value>Съвпадение на _регистъра</value>
+    <value>C_ase sensitive</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_Close" xml:space="preserve">
-    <value>_Затваряне</value>
+    <value>_Закрыть</value>
     <comment>Test window, Close button text (accel)</comment>
   </data>
   <data name="Test_CopyToClipboard" xml:space="preserve">
@@ -2221,15 +2163,15 @@ Arguments:
     <comment>Test window, context menu item label</comment>
   </data>
   <data name="Test_DotAsNewline" xml:space="preserve">
-    <value>Точка за _нов ред</value>
+    <value>_Dot as newline</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_HighlightGroups" xml:space="preserve">
-    <value>Открояване на групите</value>
+    <value>Highlight Groups</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_Multiline" xml:space="preserve">
-    <value>_Многоредово</value>
+    <value>_Multiline</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_NoMatchesFound" xml:space="preserve">
@@ -2245,7 +2187,7 @@ Arguments:
     <comment>Test window, error text</comment>
   </data>
   <data name="Test_ReplaceWith" xml:space="preserve">
-    <value>Заменяне:</value>
+    <value>Replace with:</value>
     <comment>Test window, search input label</comment>
   </data>
   <data name="Test_SampleInputText" xml:space="preserve">
@@ -2253,11 +2195,11 @@ Arguments:
     <comment>Test window, search input label</comment>
   </data>
   <data name="Test_SearchFor" xml:space="preserve">
-    <value>Търсене:</value>
+    <value>Search for:</value>
     <comment>Test window, search input label</comment>
   </data>
   <data name="Test_SearchGroup" xml:space="preserve">
-    <value>Търсене</value>
+    <value>Поиск</value>
     <comment>Test window, search group box heading</comment>
   </data>
   <data name="Test_SearchResult" xml:space="preserve">
@@ -2265,11 +2207,11 @@ Arguments:
     <comment>Test window, output results label</comment>
   </data>
   <data name="Test_SearchType_Phonetic" xml:space="preserve">
-    <value>Фонетично</value>
+    <value>Phonetic</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">
-    <value>_Регулярен израз</value>
+    <value>_Regex</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_SearchType_Text" xml:space="preserve">
@@ -2281,11 +2223,11 @@ Arguments:
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_Title" xml:space="preserve">
-    <value>Проверка</value>
+    <value>Тест</value>
     <comment>Test window title</comment>
   </data>
   <data name="Test_WholeWord" xml:space="preserve">
-    <value>Цели _думи</value>
+    <value>_Whole word</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="TTA1_MatchesAllCharacters" xml:space="preserve">
@@ -2329,7 +2271,7 @@ Arguments:
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="Window_Close" xml:space="preserve">
-    <value>Затваряне</value>
+    <value>Закрыть</value>
     <comment>Window title bar close button tooltip</comment>
   </data>
   <data name="Window_DockThisPopUpBackIntoTheMainWindow" xml:space="preserve">

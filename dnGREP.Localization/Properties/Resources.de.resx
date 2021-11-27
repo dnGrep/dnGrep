@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -1086,7 +1086,7 @@ Argumente:
     <value>Dateienänderungen wurden erfolgreich rückgängig gemacht.</value>
   </data>
   <data name="MessageBox_IncorrectPattern" xml:space="preserve">
-    <value>falsches Suchmuster: </value>
+    <value>Falsches Suchmuster: </value>
   </data>
   <data name="MessageBox_LoadResources" xml:space="preserve">
     <value>Quellen laden</value>
@@ -1227,7 +1227,7 @@ Argumente:
     <value>Erweiterungen:</value>
   </data>
   <data name="Options_ArchiveOptions" xml:space="preserve">
-    <value>Archiv Suche</value>
+    <value>Archivalternativ</value>
   </data>
   <data name="Options_ArchiveRemove" xml:space="preserve">
     <value>Entfernen:</value>
