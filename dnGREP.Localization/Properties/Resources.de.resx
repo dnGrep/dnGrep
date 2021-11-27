@@ -1086,7 +1086,7 @@ Argumente:
     <value>Dateienänderungen wurden erfolgreich rückgängig gemacht.</value>
   </data>
   <data name="MessageBox_IncorrectPattern" xml:space="preserve">
-    <value>Falsches Suchmuster: </value>
+    <value>falsches Suchmuster: </value>
   </data>
   <data name="MessageBox_LoadResources" xml:space="preserve">
     <value>Quellen laden</value>
@@ -1227,7 +1227,7 @@ Argumente:
     <value>Erweiterungen:</value>
   </data>
   <data name="Options_ArchiveOptions" xml:space="preserve">
-    <value>Archivalternativ</value>
+    <value>Archiv Suche</value>
   </data>
   <data name="Options_ArchiveRemove" xml:space="preserve">
     <value>Entfernen:</value>
