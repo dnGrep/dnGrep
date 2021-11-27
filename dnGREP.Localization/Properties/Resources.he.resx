@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -971,7 +971,6 @@ Arguments:
   </data>
   <data name="Main_ResultList_MatchToolTip1" xml:space="preserve">
     <value>התאמה {0}{1}{2}</value>
-    
     <comment>Main window results, capture group tooltip: {0} is the match index; {1} is a new line; {2} is text of in the group</comment>
   </data>
   <data name="Main_ResultList_MatchToolTip2" xml:space="preserve">
@@ -2355,5 +2354,9 @@ Arguments:
   <data name="Window_RestoreDown" xml:space="preserve">
     <value>שחזור למטה</value>
     <comment>Window title bar button tooltip</comment>
+  </data>
+  <data name="Options_HexSearchResultLineLength" xml:space="preserve">
+    <value>Hex search result line length</value>
+    <comment>Options dialog, results options combo box label</comment>
   </data>
 </root>

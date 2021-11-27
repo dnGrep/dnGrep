@@ -1817,4 +1817,8 @@ Argumente:
   <data name="Window_RestoreDown" xml:space="preserve">
     <value>verkleinern</value>
   </data>
+  <data name="Options_HexSearchResultLineLength" xml:space="preserve">
+    <value>Hex search result line length</value>
+    <comment>Options dialog, results options combo box label</comment>
+  </data>
 </root>

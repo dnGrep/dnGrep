@@ -2294,4 +2294,8 @@ Arguments:
     <value>Restore Down</value>
     <comment>Window title bar button tooltip</comment>
   </data>
+  <data name="Options_HexSearchResultLineLength" xml:space="preserve">
+    <value>Hex search result line length</value>
+    <comment>Options dialog, results options combo box label</comment>
+  </data>
 </root>
