@@ -649,10 +649,11 @@ namespace dnGREP.WPF
             LineNumberColumnWidth = initialColumnWidth;
             IsSectionBreak = breakSection;
             WrapText = Parent.WrapText;
+            int lineSize = GrepSettings.Instance.Get<int>(GrepSettings.Key.HexResultByteLength);
 
             LineNumberAlignment = TranslationSource.Instance.CurrentCulture.TextInfo.IsRightToLeft ? TextAlignment.Left : TextAlignment.Right;
             FormattedLineNumber = line.LineNumber == -1 ? string.Empty :
-                line.IsHexFile ? string.Format("{0:X8}", (line.LineNumber - 1) * 16) :
+                line.IsHexFile ? string.Format("{0:X8}", (line.LineNumber - 1) * lineSize) :
                 line.LineNumber.ToString();
 
             //string fullText = lineSummary;
@@ -690,8 +691,17 @@ namespace dnGREP.WPF
                 if (GrepLine.IsHexFile)
                 {
                     IsHexData = true;
-                    HexPanelWidth = "*";
+                    ResultColumn1Width = "Auto";
+                    ResultColumn2Width = "Auto";
+                    ResultColumn1SharedSizeGroupName = "COL1";
                     FormattedHexValues = FormatHexValues(GrepLine);
+                }
+                else
+                {
+                    IsHexData = false;
+                    ResultColumn1Width = "*";
+                    ResultColumn2Width = "0";
+                    ResultColumn1SharedSizeGroupName = string.Empty;
                 }
             }
         }
@@ -724,17 +734,45 @@ namespace dnGREP.WPF
             }
         }
 
-        private string hexPanelWidth = "0";
-        public string HexPanelWidth
+        private string resultColumn1SharedSizeGroupName = "";
+        public string ResultColumn1SharedSizeGroupName
         {
-            get { return hexPanelWidth; }
+            get { return resultColumn1SharedSizeGroupName; }
             set
             {
-                if (hexPanelWidth == value)
+                if (resultColumn1SharedSizeGroupName == value)
                     return;
 
-                hexPanelWidth = value;
-                OnPropertyChanged(nameof(HexPanelWidth));
+                resultColumn1SharedSizeGroupName = value;
+                OnPropertyChanged(nameof(ResultColumn1SharedSizeGroupName));
+            }
+        }
+
+        private string resultColumn1Width = "*";
+        public string ResultColumn1Width
+        {
+            get { return resultColumn1Width; }
+            set
+            {
+                if (resultColumn1Width == value)
+                    return;
+
+                resultColumn1Width = value;
+                OnPropertyChanged(nameof(ResultColumn1Width));
+            }
+        }
+
+        private string resultColumn2Width = "0";
+        public string ResultColumn2Width
+        {
+            get { return resultColumn2Width; }
+            set
+            {
+                if (resultColumn2Width == value)
+                    return;
+
+                resultColumn2Width = value;
+                OnPropertyChanged(nameof(ResultColumn2Width));
             }
         }
 

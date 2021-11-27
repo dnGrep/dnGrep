@@ -173,6 +173,8 @@ namespace dnGREP.Common
             public const string PreviewAutoPosition = "PreviewAutoPosition";
             [DefaultValue(false)]
             public const string CaptureGroupSearch = "CaptureGroupSearch";
+            [DefaultValue(16)]
+            public const string HexResultByteLength = "HexResultByteLength";
         }
 
         private static GrepSettings instance;

@@ -1666,6 +1666,10 @@ Arguments:
     <value>Help translate dnGrep.</value>
     <comment>Options dialog, language request label</comment>
   </data>
+  <data name="Options_HexSearchResultLineLength" xml:space="preserve">
+    <value>Hex search result line length</value>
+    <comment>Options dialog, results options combo box label</comment>
+  </data>
   <data name="Options_HistoryLists" xml:space="preserve">
     <value>History Lists</value>
     <comment>Options dialog, history group heading label</comment>
