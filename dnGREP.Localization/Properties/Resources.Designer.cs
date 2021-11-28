@@ -3323,6 +3323,24 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to files and individual matches.
+        /// </summary>
+        public static string Options_FilesAndIndividualMatches {
+            get {
+                return ResourceManager.GetString("Options_FilesAndIndividualMatches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to files only.
+        /// </summary>
+        public static string Options_FilesOnly {
+            get {
+                return ResourceManager.GetString("Options_FilesOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Follow Windows Theme.
         /// </summary>
         public static string Options_FollowWindowsTheme {
@@ -3616,6 +3634,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_ReloadTheCurrentThemeFile {
             get {
                 return ResourceManager.GetString("Options_ReloadTheCurrentThemeFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace dialog Layout:.
+        /// </summary>
+        public static string Options_ReplaceDialogLayout {
+            get {
+                return ResourceManager.GetString("Options_ReplaceDialogLayout", resourceCulture);
             }
         }
         
@@ -4048,6 +4075,15 @@ namespace dnGREP.Localization.Properties {
         public static string Replace_NextFile {
             get {
                 return ResourceManager.GetString("Replace_NextFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} of {1} matches marked for replacement.
+        /// </summary>
+        public static string Replace_NumberOfMatchesMarkedForReplacement {
+            get {
+                return ResourceManager.GetString("Replace_NumberOfMatchesMarkedForReplacement", resourceCulture);
             }
         }
         

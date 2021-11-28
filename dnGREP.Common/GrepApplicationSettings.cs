@@ -175,6 +175,8 @@ namespace dnGREP.Common
             public const string CaptureGroupSearch = "CaptureGroupSearch";
             [DefaultValue(16)]
             public const string HexResultByteLength = "HexResultByteLength";
+            [DefaultValue(true)]
+            public const string ShowFullReplaceDialog = "ShowFullReplaceDialog";
         }
 
         private static GrepSettings instance;
@@ -469,12 +471,12 @@ namespace dnGREP.Common
             }
             FieldInfo info = constantKeys.Find(fi => fi.Name == key);
             if (info == null)
-                return default(T);
+                return default;
 
             if (info.GetCustomAttributes(typeof(DefaultValueAttribute), false) is DefaultValueAttribute[] attr && attr.Length == 1)
                 return (T)attr[0].Value;
 
-            return default(T);
+            return default;
         }
     }
 

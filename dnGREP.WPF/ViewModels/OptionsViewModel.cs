@@ -91,6 +91,8 @@ namespace dnGREP.WPF
                 MaxExtensionBookmarks != Settings.Get<int>(GrepSettings.Key.MaxExtensionBookmarks) ||
                 OptionsLocation != (Settings.Get<bool>(GrepSettings.Key.OptionsOnMainPanel) ?
                     PanelSelection.MainPanel : PanelSelection.OptionsExpander) ||
+                ReplaceDialogLayout != (Settings.Get<bool>(GrepSettings.Key.ShowFullReplaceDialog) ?
+                    ReplaceDialogConfiguration.FullDialog : ReplaceDialogConfiguration.FilesOnly) ||
                 FollowWindowsTheme != Settings.Get<bool>(GrepSettings.Key.FollowWindowsTheme) ||
                 CurrentTheme != Settings.Get<string>(GrepSettings.Key.CurrentTheme) ||
                 CurrentCulture != Settings.Get<string>(GrepSettings.Key.CurrentCulture) ||
@@ -596,6 +598,22 @@ namespace dnGREP.WPF
             }
         }
 
+        public enum ReplaceDialogConfiguration { FullDialog = 0, FilesOnly }
+
+        private ReplaceDialogConfiguration replaceDialogLayout;
+        public ReplaceDialogConfiguration ReplaceDialogLayout
+        {
+            get { return replaceDialogLayout; }
+            set
+            {
+                if (replaceDialogLayout == value)
+                    return;
+
+                replaceDialogLayout = value;
+                OnPropertyChanged(nameof(ReplaceDialogLayout));
+            }
+        }
+
         public List<int> HexLengthOptions { get; }
 
         private int hexResultByteLength = 16;
@@ -1003,6 +1021,8 @@ namespace dnGREP.WPF
             MaxExtensionBookmarks = Settings.Get<int>(GrepSettings.Key.MaxExtensionBookmarks);
             OptionsLocation = Settings.Get<bool>(GrepSettings.Key.OptionsOnMainPanel) ?
                 PanelSelection.MainPanel : PanelSelection.OptionsExpander;
+            ReplaceDialogLayout = Settings.Get<bool>(GrepSettings.Key.ShowFullReplaceDialog) ?
+                ReplaceDialogConfiguration.FullDialog : ReplaceDialogConfiguration.FilesOnly;
 
             UseDefaultFont = Settings.Get<bool>(GrepSettings.Key.UseDefaultFont);
             ApplicationFontFamily = EditApplicationFontFamily =
@@ -1132,6 +1152,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.MaxPathBookmarks, MaxPathBookmarks);
             Settings.Set(GrepSettings.Key.MaxExtensionBookmarks, MaxExtensionBookmarks);
             Settings.Set(GrepSettings.Key.OptionsOnMainPanel, OptionsLocation == PanelSelection.MainPanel);
+            Settings.Set(GrepSettings.Key.ShowFullReplaceDialog, ReplaceDialogLayout == ReplaceDialogConfiguration.FullDialog);
             Settings.Set(GrepSettings.Key.FollowWindowsTheme, FollowWindowsTheme);
             Settings.Set(GrepSettings.Key.CurrentTheme, CurrentTheme);
             Settings.Set(GrepSettings.Key.CurrentCulture, CurrentCulture);
