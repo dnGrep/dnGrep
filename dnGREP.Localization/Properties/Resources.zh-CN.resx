@@ -2356,4 +2356,20 @@ Arguments:
     <value>Hex search result line length</value>
     <comment>Options dialog, results options combo box label</comment>
   </data>
+  <data name="Options_FilesAndIndividualMatches" xml:space="preserve">
+    <value>files and individual matches</value>
+    <comment>Options dialog, Replace layout option radio button label (accel)</comment>
+  </data>
+  <data name="Options_FilesOnly" xml:space="preserve">
+    <value>files only</value>
+    <comment>Options dialog, Replace window layout radio button label (accel)</comment>
+  </data>
+  <data name="Options_ReplaceDialogLayout" xml:space="preserve">
+    <value>Replace dialog Layout:</value>
+    <comment>Options dialog, replace view options label</comment>
+  </data>
+  <data name="Replace_NumberOfMatchesMarkedForReplacement" xml:space="preserve">
+    <value>{0} of {1} matches marked for replacement</value>
+    <comment>Replace window, file name progress line: {0} is number of matches marked for replacement; {1} is the number of matches found in the current file</comment>
+  </data>
 </root>
