@@ -171,7 +171,7 @@ namespace DockFloat
             var bounds = window.FromDevicePixels(screen.WorkingArea);
             if (window.Left + window.ActualWidth > bounds.Right)
             {
-                window.Width = Math.Min(20, bounds.Right - window.Left);  // can't be negative!
+                window.Width = Math.Max(100, bounds.Right - window.Left);  // can't be negative!
             }
         }
 

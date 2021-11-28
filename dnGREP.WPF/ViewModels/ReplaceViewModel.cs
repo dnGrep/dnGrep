@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
 using dnGREP.Common;
 using dnGREP.Localization;
@@ -32,6 +33,8 @@ namespace dnGREP.WPF
             CurrentSyntax = Resources.Replace_SyntaxNone;
             ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
             ReplaceFormFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.ReplaceFormFontSize);
+
+            IsFullDialog = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowFullReplaceDialog);
         }
 
         public void SelectNextFile()
@@ -44,9 +47,13 @@ namespace dnGREP.WPF
                 SelectedSearchResult = SearchResults[fileIndex];
 
                 FormatFileStatus();
+                FormatFileReplaceStatus();
 
                 matchIndex = -1;
-                SelectNextMatch();
+                if (IsFullDialog)
+                {
+                    SelectNextMatch();
+                }
             }
         }
 
@@ -60,9 +67,13 @@ namespace dnGREP.WPF
                 SelectedSearchResult = SearchResults[fileIndex];
 
                 FormatFileStatus();
+                FormatFileReplaceStatus();
 
                 matchIndex = -1;
-                SelectNextMatch();
+                if (IsFullDialog)
+                {
+                    SelectNextMatch();
+                }
             }
         }
 
@@ -96,6 +107,39 @@ namespace dnGREP.WPF
             else
             {
                 FileStatus = string.Empty;
+            }
+        }
+
+        private void FormatFileReplaceStatus()
+        {
+            var item = SelectedSearchResult;
+            if (item != null)
+            {
+                string matchStr = string.Empty;
+                string replaceStr = string.Empty;
+                int matchCount = item.Matches == null ? 0 : item.Matches.Count;
+                int replaceCount = 0;
+                if (matchCount > 0)
+                {
+                    replaceCount = item.Matches.Count(r => r.ReplaceMatch);
+                }
+
+                matchStr = matchCount.ToString("N0", CultureInfo.CurrentCulture);
+                replaceStr = replaceCount.ToString("N0", CultureInfo.CurrentCulture);
+
+                string formattedText = TranslationSource.Format(Resources.Replace_NumberOfMatchesMarkedForReplacement,
+                   replaceStr, matchStr);
+
+                if (Utils.IsReadOnly(item))
+                {
+                    formattedText += " " + Resources.Replace_ReadOnly;
+                }
+
+                FileReplaceStatus = formattedText;
+            }
+            else
+            {
+                FileReplaceStatus = string.Empty;
             }
         }
 
@@ -187,51 +231,56 @@ namespace dnGREP.WPF
                 _selectedSearchResult = value;
                 base.OnPropertyChanged(() => SelectedSearchResult);
 
-                CurrentSyntax = Resources.Replace_SyntaxNone; // by default, turn off syntax highlighting (easier to see the match highlights)
-                Encoding = _selectedSearchResult.Encoding;
-                LineNumbers.Clear();
-                FileText = string.Empty;
-                FilePath = string.Empty;
-                IndividualReplaceEnabled = true;
+                IndividualReplaceEnabled = false;
 
-                FileInfo fileInfo = new FileInfo(_selectedSearchResult.FileNameReal);
-                if (Utils.IsBinary(_selectedSearchResult.FileNameReal))
+                if (IsFullDialog)
                 {
-                    FileText = Resources.Replace_ErrorThisIsABinaryFile;
-                    IndividualReplaceEnabled = false;
-                }
-                else if (_selectedSearchResult.Matches.Count > 5000)
-                {
-                    FileText = Resources.Replace_ThisFileContainsTooManyMatchesForIndividualReplace;
-                    IndividualReplaceEnabled = false;
-                }
-                else
-                {
-                    if (fileInfo.Length > 50000)
+                    CurrentSyntax = Resources.Replace_SyntaxNone; // by default, turn off syntax highlighting (easier to see the match highlights)
+                    Encoding = _selectedSearchResult.Encoding;
+                    LineNumbers.Clear();
+                    FileText = string.Empty;
+                    FilePath = string.Empty;
+                    IndividualReplaceEnabled = true;
+
+                    FileInfo fileInfo = new FileInfo(_selectedSearchResult.FileNameReal);
+                    if (Utils.IsBinary(_selectedSearchResult.FileNameReal))
                     {
-                        // Large files:  
-                        // Use the already parsed matches and context lines only
-                        // and map the original line numbers to clipped file
-
-                        StringBuilder sb = new StringBuilder();
-                        int tempLineNum = 1;
-                        foreach (var line in _selectedSearchResult.SearchResults)
-                        {
-                            line.ClippedFileLineNumber = tempLineNum;
-                            sb.Append(line.LineText).Append(_selectedSearchResult.EOL);
-                            LineNumbers.Add(line.LineNumber);
-
-                            tempLineNum++;
-                        }
-                        FileText = sb.ToString();
+                        FileText = Resources.Replace_ErrorThisIsABinaryFile;
+                        IndividualReplaceEnabled = false;
+                    }
+                    else if (_selectedSearchResult.Matches.Count > 5000)
+                    {
+                        FileText = Resources.Replace_ThisFileContainsTooManyMatchesForIndividualReplace;
+                        IndividualReplaceEnabled = false;
                     }
                     else
                     {
-                        FilePath = _selectedSearchResult.FileNameReal;
-                    }
-                }
+                        if (fileInfo.Length > 50000)
+                        {
+                            // Large files:  
+                            // Use the already parsed matches and context lines only
+                            // and map the original line numbers to clipped file
 
-                LoadFile?.Invoke(this, EventArgs.Empty);
+                            StringBuilder sb = new StringBuilder();
+                            int tempLineNum = 1;
+                            foreach (var line in _selectedSearchResult.SearchResults)
+                            {
+                                line.ClippedFileLineNumber = tempLineNum;
+                                sb.Append(line.LineText).Append(_selectedSearchResult.EOL);
+                                LineNumbers.Add(line.LineNumber);
+
+                                tempLineNum++;
+                            }
+                            FileText = sb.ToString();
+                        }
+                        else
+                        {
+                            FilePath = _selectedSearchResult.FileNameReal;
+                        }
+                    }
+
+                    LoadFile?.Invoke(this, EventArgs.Empty);
+                }
             }
         }
 
@@ -272,6 +321,38 @@ namespace dnGREP.WPF
                 }
 
                 base.OnPropertyChanged(() => SelectedGrepMatch);
+            }
+        }
+
+        private bool isFullDialog = true;
+        public bool IsFullDialog
+        {
+            get { return isFullDialog; }
+            set
+            {
+                if (isFullDialog == value)
+                    return;
+
+                isFullDialog = value;
+
+                base.OnPropertyChanged(() => IsFullDialog);
+
+                DialogSize = isFullDialog ? new Size(980, 800) : new Size(680, 340);
+            }
+        }
+
+        private Size dialogSize = new Size(980, 800);
+        public Size DialogSize
+        {
+            get { return dialogSize; }
+            set
+            {
+                if (dialogSize == value)
+                    return;
+
+                dialogSize = value;
+
+                base.OnPropertyChanged(() => DialogSize);
             }
         }
 
@@ -317,6 +398,21 @@ namespace dnGREP.WPF
                 fileStatus = value;
 
                 base.OnPropertyChanged(() => FileStatus);
+            }
+        }
+
+        private string fileReplaceStatus;
+        public string FileReplaceStatus
+        {
+            get { return fileReplaceStatus; }
+            set
+            {
+                if (value == fileReplaceStatus)
+                    return;
+
+                fileReplaceStatus = value;
+
+                base.OnPropertyChanged(() => FileReplaceStatus);
             }
         }
 
@@ -457,6 +553,7 @@ namespace dnGREP.WPF
                     foreach (var m in gsr.Matches)
                         m.ReplaceMatch = true;
                 }
+                FormatFileReplaceStatus();
 
                 ReplaceMatch?.Invoke(this, EventArgs.Empty);
             }
@@ -472,6 +569,8 @@ namespace dnGREP.WPF
                 {
                     match.ReplaceMatch = true;
                 }
+                FormatFileReplaceStatus();
+
                 ReplaceMatch?.Invoke(this, EventArgs.Empty);
             }
         }
@@ -484,6 +583,8 @@ namespace dnGREP.WPF
                 {
                     match.ReplaceMatch = false;
                 }
+                FormatFileReplaceStatus();
+
                 ReplaceMatch?.Invoke(this, EventArgs.Empty);
             }
         }
@@ -493,6 +594,7 @@ namespace dnGREP.WPF
             if (SelectedGrepMatch != null)
             {
                 SelectedGrepMatch.ReplaceMatch = true;
+                FormatFileReplaceStatus();
                 ReplaceMatch?.Invoke(this, EventArgs.Empty);
             }
 
@@ -504,6 +606,7 @@ namespace dnGREP.WPF
             if (SelectedGrepMatch != null)
             {
                 SelectedGrepMatch.ReplaceMatch = false;
+                FormatFileReplaceStatus();
                 ReplaceMatch?.Invoke(this, EventArgs.Empty);
             }
         }

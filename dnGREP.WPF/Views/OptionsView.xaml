@@ -339,12 +339,21 @@
                 </GroupBox>
 
                 <GroupBox Header="{l:Loc Key='Options_Layout'}">
-                    <StackPanel Margin="0,6,0,0" Orientation="Horizontal">
-                        <TextBlock Text="{l:Loc Key='Options_ShowSearchOptions'}" />
-                        <RadioButton Margin="18,0" Content="{l:Loc Key='Options_OnMainPanel'}" GroupName="searchLocation"
-                                     IsChecked="{Binding OptionsLocation, Converter={StaticResource ebc}, ConverterParameter=MainPanel}" />
-                        <RadioButton Margin="3,0" Content="{l:Loc Key='Options_InOptionsExpander'}" GroupName="searchLocation"
-                                     IsChecked="{Binding OptionsLocation, Converter={StaticResource ebc}, ConverterParameter=OptionsExpander}" />
+                    <StackPanel>
+                        <StackPanel Margin="0,6,0,0" Orientation="Horizontal">
+                            <TextBlock Text="{l:Loc Key='Options_ShowSearchOptions'}" />
+                            <RadioButton Margin="18,0" Content="{l:Loc Key='Options_OnMainPanel'}" GroupName="searchLocation"
+                                         IsChecked="{Binding OptionsLocation, Converter={StaticResource ebc}, ConverterParameter=MainPanel}" />
+                            <RadioButton Margin="3,0" Content="{l:Loc Key='Options_InOptionsExpander'}" GroupName="searchLocation"
+                                         IsChecked="{Binding OptionsLocation, Converter={StaticResource ebc}, ConverterParameter=OptionsExpander}" />
+                        </StackPanel>
+                        <StackPanel Margin="0,6,0,0" Orientation="Horizontal">
+                            <TextBlock Text="{l:Loc Key='Options_ReplaceDialogLayout'}" />
+                            <RadioButton Margin="18,0" Content="{l:Loc Key='Options_FilesAndIndividualMatches'}" GroupName="replaceLayout"
+                                         IsChecked="{Binding ReplaceDialogLayout, Converter={StaticResource ebc}, ConverterParameter=FullDialog}" />
+                            <RadioButton Margin="3,0" Content="{l:Loc Key='Options_FilesOnly'}" GroupName="replaceLayout"
+                                         IsChecked="{Binding ReplaceDialogLayout, Converter={StaticResource ebc}, ConverterParameter=FilesOnly}" />
+                        </StackPanel>
                     </StackPanel>
                 </GroupBox>
 
