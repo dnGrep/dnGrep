@@ -704,7 +704,7 @@ namespace Tests
             Utils.SaveResultsAsCSV(results, destinationFolder + "\\test.csv");
             string[] stringLines = File.ReadAllLines(destinationFolder + "\\test.csv");
             Assert.Equal(177, stringLines.Length);
-            Assert.Equal("File name", stringLines[0].Split(',')[0].Trim());
+            Assert.Equal("File Name", stringLines[0].Split(',')[0].Trim());
             Assert.Equal("1", stringLines[1].Split(',')[1].Trim());
             Assert.Equal("\"\tstring returnedLine = Utils.GetLine(body", stringLines[2].Split(',')[2].Trim());
         }
@@ -723,7 +723,7 @@ namespace Tests
             Utils.SaveResultsAsCSV(results, longDestinationFolder + "\\test.csv");
             string[] stringLines = File.ReadAllLines(longDestinationFolder + "\\test.csv");
             Assert.Equal(177, stringLines.Length);
-            Assert.Equal("File name", stringLines[0].Split(',')[0].Trim());
+            Assert.Equal("File Name", stringLines[0].Split(',')[0].Trim());
             Assert.Equal("1", stringLines[1].Split(',')[1].Trim());
             Assert.Equal("\"\tstring returnedLine = Utils.GetLine(body", stringLines[2].Split(',')[2].Trim());
         }
