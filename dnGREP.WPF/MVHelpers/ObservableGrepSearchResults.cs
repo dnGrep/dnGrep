@@ -641,6 +641,8 @@ namespace dnGREP.WPF
 
     public class FormattedGrepLine : CultureAwareViewModel, ITreeItem
     {
+        private readonly string enQuad = char.ConvertFromUtf32(0x2000);
+
         public FormattedGrepLine(GrepLine line, FormattedGrepResult parent, int initialColumnWidth, bool breakSection)
         {
             Parent = parent;
@@ -970,7 +972,7 @@ namespace dnGREP.WPF
                     {
                         if (m.StartLocation + m.Length <= line.LineText.Length)
                         {
-                            paragraph.Inlines.Add(new Run("  "));
+                            paragraph.Inlines.Add(new Run(enQuad));
                             string fmtLine = line.LineText.Substring(m.StartLocation, m.Length);
                             var run = new Run(fmtLine);
                             run.SetResourceReference(Run.ForegroundProperty, "Match.Highlight.Foreground");
