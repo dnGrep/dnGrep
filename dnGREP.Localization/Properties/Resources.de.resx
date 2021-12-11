@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About_AboutDnGREP" xml:space="preserve">
-    <value>Über dnGrep</value>
+    <value>About dnGrep</value>
   </data>
   <data name="About_Acknowledgments" xml:space="preserve">
     <value>Komponenten</value>
@@ -139,7 +139,7 @@
     <value>Dateinsystem indizieren, lokale Dateien ersatzweise</value>
   </data>
   <data name="About_JsonFrameworkForNET" xml:space="preserve">
-    <value>Json Framework für .NET</value>
+    <value>JSON framework for .NET</value>
   </data>
   <data name="About_LibraryForReadingArchiveFiles" xml:space="preserve">
     <value>Lese-Bibliothek für Archive Dateien</value>
@@ -178,7 +178,7 @@
     <value>Version</value>
   </data>
   <data name="BookmarkDetails_AssociatedFolders" xml:space="preserve">
-    <value>dazugehörige Verzeichnisse:</value>
+    <value>Associated folders:</value>
   </data>
   <data name="BookmarkDetails_BooleanOperators" xml:space="preserve">
     <value>Boolische Operatoren</value>
@@ -199,19 +199,19 @@
     <value>Zeichencodierung:</value>
   </data>
   <data name="BookmarkDetails_EverythingIndexService" xml:space="preserve">
-    <value>Everything Index Dienst</value>
+    <value>Everything index service</value>
   </data>
   <data name="BookmarkDetails_FilePatternType" xml:space="preserve">
-    <value>Datei-Suchmuster</value>
+    <value>File pattern type</value>
   </data>
   <data name="BookmarkDetails_FollowSymbolicLinks" xml:space="preserve">
     <value>Symbolische Links folgen</value>
   </data>
   <data name="BookmarkDetails_ForExampleAsteriskPattern" xml:space="preserve">
-    <value>z.B. datei??.*</value>
+    <value>For example: *.txt;*.xml</value>
   </data>
   <data name="BookmarkDetails_ForExampleRegularExpession" xml:space="preserve">
-    <value>z.B. datei[0-9]{1,2}\\.txt</value>
+    <value>For example: file[0-9]{1,2}\\.txt</value>
   </data>
   <data name="BookmarkDetails_IncludeBinaryFiles" xml:space="preserve">
     <value>einschließlich Binärdateien</value>
@@ -238,13 +238,13 @@
     <value>Suchmuster:</value>
   </data>
   <data name="BookmarkDetails_PatternType_AsteriskPattern" xml:space="preserve">
-    <value>Sternchenmuster</value>
+    <value>Wildcard</value>
   </data>
   <data name="BookmarkDetails_PatternType_Everything" xml:space="preserve">
     <value>Alles</value>
   </data>
   <data name="BookmarkDetails_PatternType_Regex" xml:space="preserve">
-    <value>_Regex</value>
+    <value>_Regular expression</value>
   </data>
   <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
     <value>Ersetze mit:</value>
@@ -256,7 +256,7 @@
     <value>Suche in Archiven</value>
   </data>
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
-    <value>Hex</value>
+    <value>Byte</value>
   </data>
   <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
     <value>Phonetisch</value>
@@ -268,10 +268,10 @@
     <value>reine Textsuche</value>
   </data>
   <data name="BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
-    <value>Lese Dateien binär und suche nach Bytes im hexadezimal Format: 68 65 78 20</value>
+    <value>Byte search: read file as binary and search for bytes as hexadecimal digits: 68 65 78 20</value>
   </data>
   <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
-    <value>_Regex</value>
+    <value>_Regular expression</value>
   </data>
   <data name="BookmarkDetails_SearchType_RegularExpressionSearch" xml:space="preserve">
     <value>Suche mit regulären Ausdrücken</value>
@@ -283,7 +283,7 @@
     <value>_XPath</value>
   </data>
   <data name="BookmarkDetails_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
-    <value>XPath Suche (nur XML Dokumente)</value>
+    <value>XPath search (only for XML documents)</value>
   </data>
   <data name="BookmarkDetails_ThisBookmarkAlreadyExists" xml:space="preserve">
     <value>Diese Lesezeichen gibt es bereits</value>
@@ -292,7 +292,7 @@
     <value>Leisezeichendetails</value>
   </data>
   <data name="BookmarkDetails_TypeHeader" xml:space="preserve">
-    <value>Type</value>
+    <value>Search type</value>
   </data>
   <data name="BookmarkDetails_UseGitignore" xml:space="preserve">
     <value>benutze .gitignore</value>
@@ -322,25 +322,25 @@
     <value>_Editieren</value>
   </data>
   <data name="Bookmarks_FilePatternHeader" xml:space="preserve">
-    <value>Dateimuster</value>
+    <value>File pattern</value>
   </data>
   <data name="Bookmarks_Filter" xml:space="preserve">
     <value>Filter:</value>
   </data>
   <data name="Bookmarks_OtherPropertiesHeader" xml:space="preserve">
-    <value>andere Eigenschaften</value>
+    <value>Other properties</value>
   </data>
   <data name="Bookmarks_ReplaceWithHeader" xml:space="preserve">
-    <value>Ersetze mit</value>
+    <value>Replace with</value>
   </data>
   <data name="Bookmarks_SearchForHeader" xml:space="preserve">
-    <value>Suche nach</value>
+    <value>Search for</value>
   </data>
   <data name="Bookmarks_Summary_CaseSensitive" xml:space="preserve">
     <value>Groß-/Kleinschreibung</value>
   </data>
   <data name="Bookmarks_Summary_MaxFolderDepth" xml:space="preserve">
-    <value>maximale Verzeichnistiefe {0}</value>
+    <value>Max folder depth: {0}</value>
   </data>
   <data name="Bookmarks_Summary_Multiline" xml:space="preserve">
     <value>Mehrzeilig</value>
@@ -355,7 +355,7 @@
     <value>keine Unterverzeichnisse</value>
   </data>
   <data name="Bookmarks_Summary_NoSymlinks" xml:space="preserve">
-    <value>keine Symbolichen Links</value>
+    <value>No symbolic links</value>
   </data>
   <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
     <value>Suche in Archiven</value>
@@ -373,99 +373,99 @@
     <value>_Anwenden</value>
   </data>
   <data name="Help_CmdLine" xml:space="preserve">
-    <value>dnGrep: Durchsucht Textdateien, Word- und Excel-Dokumente, PDFs und Archive mit Hilfe von Text, regulären Ausdrücken, XPath und phonetischen Abfragen.
+    <value>dnGrep:  Search through text files, Word and Excel documents, PDFs, and archives using text, regular expression, XPath, and phonetic queries.
 
-Version {0} aufbauend auf {1}
+Version {0} built on {1}
 
-Verwendung:
+Usage:
 
-dnGrep [Argumente]
-Mit einer beliebigen Kombination von Argumenten aus der folgenden Liste.
-Beispiel:
-dnGrep /f "C:\Programme\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex
+dnGrep [arguments]
+Using any combination of arguments from the list below.
+Example:
+dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex
 
 dnGrep [folderPath] [searchFor]
-Ein oder zwei Argumente ohne Flags: Das erste Argument ist der zu durchsuchende Ordner, das zweite der reguläre Ausdruck, nach dem gesucht werden soll.
-Beispiel:
-dnGrep "C:\Programmdateien\dnGrep" t\w*t
+One or two arguments without flags: the first argument is the folder to search, the second the regular expression to search for.
+Example:
+dnGrep "C:\Program Files\dnGrep" t\w*t
 
-Wenn keine Argumente angegeben werden, werden die zuletzt gespeicherten Benutzereinstellungen verwendet.
+Any arguments not specified will default to the last saved user settings.
 
-Argumente:
+Arguments:
 
 /f [folderPath]
 -f [folderPath]
 -folder [folderPath]
-    Legt den zu durchsuchenden Ordnerpfad fest. Kann eine durch Komma oder Semikolon getrennte Liste von Ordnerpfaden sein.
+    Sets the folder path to search.  May be a comma- or semicolon-separated list of folder paths.
 
 /pm [pattern]
 -pm [pattern]
 -pathToMatch [pattern]
-    Legt das Muster für den Dateinamen fest, der mit den Dateien im Suchpfad übereinstimmen soll. Kann eine durch Komma oder Semikolon getrennte Liste von Mustern sein.
+    Sets the file name pattern to match files in the search path. May be a comma- or semicolon-separated list of patterns.
 
 /pi [pattern]
 -pi [pattern]
 -pathToIgnore [pattern]
-    Legt das Muster für den Datei- oder Verzeichnisnamen fest, um Dateien oder Ordner im Suchpfad auszuschließen. Kann eine durch Komma oder Semikolon getrennte Liste von Mustern sein.
+    Sets the file or directory name pattern to exclude files or folders in the search path. May be a comma- or semicolon-separated list of patterns.
 
 /pt [type]
 -pt [type]
 -patternType [type]
-    Legt den Typ des Übereinstimmungs- und Ignoriermusters fest - muss einer der folgenden sein: Asterisk, Regex oder Everything (wenn das Suchwerkzeug Everything installiert ist).
+    Sets the type of match and ignore pattern – must be one of: "Asterisk" (wildcard), "Regex" (regular expression), or "Everything" (if the Everything search tool is installed).
 
 /s [searchFor]
 -s [searchFor]
 -searchFor [searchFor]
-    Legt das Muster oder den Text fest, nach dem innerhalb der Dateimenge gesucht werden soll. Wenn dieses Argument gesetzt ist, wird die Suche automatisch ausgeführt.
+    Sets the pattern or text to search for within the set of files.  When this argument is set, the search will be run automatically.
 
 /st [type]
 -st [type]
 -searchType [type]
-    Legt den Typ der Suche fest - muss einer der folgenden sein: PlainText, Regex, XPath, oder Soundex.
+    Sets the type of search – must be one of: "PlainText", "Regex" (regular expression), "XPath", or "Soundex" (phonetic).
 
 /cs [True/False]
 -cs [True/False]
 -caseSensitive [True/False]
-    Setzt das Suchflag für Groß- und Kleinschreibung - Wahr oder Falsch.
+    Sets case-sensitive search flag – True or False.
 
 /ww [True/False]
 -ww [True/False]
 -wholeWord [True/False]
-    Setzt das Flag für die Suche nach ganzen Wörtern - Wahr oder Falsch.
+    Sets the whole word search flag – True or False.
 
 /ml [True/False]
 -ml [True/False]
 -multiline [True/False]
-    Setzt das Flag für die mehrzeilige Suche - Wahr oder Falsch.
+    Sets the multiline search flag – True or False.
 
 /dn [True/False]
 -dn [True/False]
 -dotAsNewline [True/False]
-    Setzt das Suchflag "Punkt als neue Zeile" - Wahr oder Falsch.
+    Sets the dot as newline search flag – True or False.
 
 /bo [True/False]
 -bo [True/False]
 -booleanOperators [True/False]
-    Setzt das Suchflag für Boolesche Operatoren - Wahr oder Falsch.
+    Sets the Boolean operators search flag – True or False.
 
 /rpt [filePath]
 -rpt [filePath]
 -report [filePath]
-    Erstellt nach Abschluss der Suche eine Ergebnisdatei im Berichtsformat.
+    Create results file in report format after search is complete.
 
 /txt [filePath]
 -txt [filePath]
 -text [filePath]
-    Erstellt nach Abschluss der Suche eine Ergebnisdatei im Textformat.
+    Create results file in text format after search is complete.
 
 /csv [filePath]
 -csv [filePath]
-    Erstellt nach Abschluss der Suche eine Ergebnisdatei im CSV-Format.
+    Create results file in CSV format after search is complete.
 
 /x
 -x
 -exit
-    Beendet dnGrep, nachdem die Befehlszeilenoperationen abgeschlossen sind.</value>
+    Exit dnGrep after command-line operations are complete.</value>
   </data>
   <data name="Help_DnGrepHelp" xml:space="preserve">
     <value>dnGrep Hilfe</value>
@@ -474,7 +474,7 @@ Argumente:
     <value>OK</value>
   </data>
   <data name="Help_OneOrMoreArgumentsAreInvalid" xml:space="preserve">
-    <value>Ein oder mehre Argumente sind falsch.</value>
+    <value>One or more arguments are not valid.</value>
   </data>
   <data name="Main_AddSearchPatternToBookmarks" xml:space="preserve">
     <value>Suchmuster-Lesezeichen hinzufügen</value>
@@ -489,7 +489,7 @@ Argumente:
     <value>Verknüpfe Lesezeichen mit Verzeichniss</value>
   </data>
   <data name="Main_Attributes_DateModified" xml:space="preserve">
-    <value>Änderungsdatum:</value>
+    <value>Date modified:</value>
   </data>
   <data name="Main_Attributes_Encoding" xml:space="preserve">
     <value>Zeichencodierung:</value>
@@ -504,7 +504,7 @@ Argumente:
     <value>Typ:</value>
   </data>
   <data name="Main_AutoPosition" xml:space="preserve">
-    <value>automatisch Positionieren</value>
+    <value>Auto position</value>
   </data>
   <data name="Main_BooleanOperators" xml:space="preserve">
     <value>Boolische Operatoren</value>
@@ -522,7 +522,7 @@ Argumente:
     <value>_Groß-/Kleinschreibung</value>
   </data>
   <data name="Main_ChangesTheResultsTreeZoom" xml:space="preserve">
-    <value>Verändere den Ergebnisbaumauflösung</value>
+    <value>Changes the zoom level of the results tree</value>
   </data>
   <data name="Main_ClearBookmark" xml:space="preserve">
     <value>Lesezeichen löschen</value>
@@ -537,7 +537,7 @@ Argumente:
     <value>vor und</value>
   </data>
   <data name="Main_ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
-    <value>Kontextänderungen werden bei der nächsten Suche übernommen</value>
+    <value>Context line changes will be applied in next search</value>
   </data>
   <data name="Main_ContextShowLines" xml:space="preserve">
     <value>Kontextzeilen einblenden</value>
@@ -561,10 +561,10 @@ Argumente:
     <value>dnGrep</value>
   </data>
   <data name="Main_DockBottom" xml:space="preserve">
-    <value>Anbindung unten</value>
+    <value>Dock bottom</value>
   </data>
   <data name="Main_DockRight" xml:space="preserve">
-    <value>Anbindung rechts</value>
+    <value>Dock right</value>
   </data>
   <data name="Main_DotAsNewline" xml:space="preserve">
     <value>_Punkt als neue Zeile</value>
@@ -579,7 +579,7 @@ Argumente:
     <value>automatische Erkennung (vorbelegt)</value>
   </data>
   <data name="Main_EverythingIndexService" xml:space="preserve">
-    <value>Everything Indizierungsdienst</value>
+    <value>Everything index service</value>
   </data>
   <data name="Main_EverythingSearch" xml:space="preserve">
     <value>Everything Suche:</value>
@@ -594,16 +594,16 @@ Argumente:
     <value>Alle Dateien</value>
   </data>
   <data name="Main_FilterSummary_ByCreatedDate" xml:space="preserve">
-    <value>über Erstelldatum</value>
+    <value>By created date</value>
   </data>
   <data name="Main_FilterSummary_ByModifiedDate" xml:space="preserve">
-    <value>über Änderungsdatum</value>
+    <value>By modified date</value>
   </data>
   <data name="Main_FilterSummary_BySize" xml:space="preserve">
-    <value>über Größe</value>
+    <value>By size</value>
   </data>
   <data name="Main_FilterSummary_MaxFolderDepth" xml:space="preserve">
-    <value>Maximale Verzeichnistiefe {0}</value>
+    <value>Max folder depth: {0}</value>
   </data>
   <data name="Main_FilterSummary_NoBinary" xml:space="preserve">
     <value>keine binären Dateien</value>
@@ -615,7 +615,7 @@ Argumente:
     <value>keine Unterverzeichnisse</value>
   </data>
   <data name="Main_FilterSummary_NoSymlinks" xml:space="preserve">
-    <value>keine Symboliklinks</value>
+    <value>No symbolic links</value>
   </data>
   <data name="Main_Folder" xml:space="preserve">
     <value>Verzeichnis:</value>
@@ -624,10 +624,10 @@ Argumente:
     <value>Folge Symbolischen Links</value>
   </data>
   <data name="Main_ForExampleAsteriskPattern" xml:space="preserve">
-    <value>z.B. Datei??.*</value>
+    <value>For example: *.txt;*.xml</value>
   </data>
   <data name="Main_ForExampleRegularExpession" xml:space="preserve">
-    <value>z.B. Datei[0-9]{1,2}\\.txt</value>
+    <value>For example: file[0-9]{1,2}\\.txt</value>
   </data>
   <data name="Main_FromTheStartOfTheDay" xml:space="preserve">
     <value>von Begin des Tages</value>
@@ -636,13 +636,13 @@ Argumente:
     <value>unterdrücke Ergbnisoptionen</value>
   </data>
   <data name="Main_HighlightGroups" xml:space="preserve">
-    <value>Gruppen hervorheben</value>
+    <value>Highlight groups</value>
   </data>
   <data name="Main_HighlightMatches" xml:space="preserve">
-    <value>Fundstellen hervorheben</value>
+    <value>Highlight matches</value>
   </data>
   <data name="Main_HighlightRegularExpressionGroups" xml:space="preserve">
-    <value>Gruppen von Regulären Ausdrücken hervorheben - Änderungen werden bei der nächsten Suche übernommen</value>
+    <value>Highlight regular expression groups. Changes will be applied in next search.</value>
   </data>
   <data name="Main_IncludeBinaryFiles" xml:space="preserve">
     <value>Binärdateien einschliessen</value>
@@ -663,16 +663,16 @@ Argumente:
     <value>_Über</value>
   </data>
   <data name="Main_Menu_About_AboutDnGrep" xml:space="preserve">
-    <value>_Über dnGrep...</value>
+    <value>_About dnGrep…</value>
   </data>
   <data name="Main_Menu_About_Help" xml:space="preserve">
     <value>_Hilfe</value>
   </data>
   <data name="Main_Menu_Bookmarks" xml:space="preserve">
-    <value>_Lesezeichen...</value>
+    <value>_Bookmarks…</value>
   </data>
   <data name="Main_Menu_Options" xml:space="preserve">
-    <value>_Optionen...</value>
+    <value>_Options…</value>
   </data>
   <data name="Main_Menu_Undo" xml:space="preserve">
     <value>_Zurücknehmen</value>
@@ -681,7 +681,7 @@ Argumente:
     <value>geändert</value>
   </data>
   <data name="Main_More" xml:space="preserve">
-    <value>M_ehr...</value>
+    <value>Mor_e…</value>
   </data>
   <data name="Main_MoreArrowButton" xml:space="preserve">
     <value>_Mehr ⏷</value>
@@ -690,25 +690,25 @@ Argumente:
     <value>Dateinname kopieren</value>
   </data>
   <data name="Main_MoreMenu_CopyFiles" xml:space="preserve">
-    <value>Datei kopieren...</value>
+    <value>Copy files…</value>
   </data>
   <data name="Main_MoreMenu_CopyResults" xml:space="preserve">
     <value>Ergebnis kopieren</value>
   </data>
   <data name="Main_MoreMenu_DeleteFiles" xml:space="preserve">
-    <value>Datei löschen...</value>
+    <value>Delete files…</value>
   </data>
   <data name="Main_MoreMenu_MoveFiles" xml:space="preserve">
-    <value>Datei verschieben...</value>
+    <value>Move files…</value>
   </data>
   <data name="Main_MoreMenu_Save_CSVResults" xml:space="preserve">
-    <value>CSV Ergebnisse</value>
+    <value>CSV results</value>
   </data>
   <data name="Main_MoreMenu_Save_Report" xml:space="preserve">
     <value>Bericht</value>
   </data>
   <data name="Main_MoreMenu_Save_TextResults" xml:space="preserve">
-    <value>Text Ergebnisse</value>
+    <value>Text results</value>
   </data>
   <data name="Main_MoreMenu_SaveResults" xml:space="preserve">
     <value>Ergebisse sichern</value>
@@ -717,7 +717,7 @@ Argumente:
     <value>_Mehrzeilig</value>
   </data>
   <data name="Main_OpenFolder" xml:space="preserve">
-    <value>...</value>
+    <value>…</value>
   </data>
   <data name="Main_PastDateTo" xml:space="preserve">
     <value>zu</value>
@@ -729,13 +729,13 @@ Argumente:
     <value>Suchmuster:</value>
   </data>
   <data name="Main_PatternType_Asterisk" xml:space="preserve">
-    <value>Sternchenmuster</value>
+    <value>Wildcard</value>
   </data>
   <data name="Main_PatternType_Everything" xml:space="preserve">
     <value>Alles</value>
   </data>
   <data name="Main_PatternType_Regex" xml:space="preserve">
-    <value>_Regex</value>
+    <value>_Regular expression</value>
   </data>
   <data name="Main_PreviewFile" xml:space="preserve">
     <value>Datei_vorschau</value>
@@ -750,28 +750,28 @@ Argumente:
     <value>Er_setze mit:</value>
   </data>
   <data name="Main_ReportOption_CSVFileFormat" xml:space="preserve">
-    <value>CSV Dateiformat</value>
+    <value>CSV (comma separated)</value>
   </data>
   <data name="Main_ReportOption_ReportFileFormat" xml:space="preserve">
-    <value>Berichts Dateiformat</value>
+    <value>Report format</value>
   </data>
   <data name="Main_ReportOption_ResultsFileFormat" xml:space="preserve">
-    <value>Ergebnis Dateiformat</value>
+    <value>Text file</value>
   </data>
   <data name="Main_ResetOptions" xml:space="preserve">
-    <value>Zurücksetzen</value>
+    <value>Reset filters</value>
   </data>
   <data name="Main_ResultList_AdditionalMatches" xml:space="preserve">
     <value>zusätzliche Muster:</value>
   </data>
   <data name="Main_ResultList_AtEndOfLine" xml:space="preserve">
-    <value>(am Ende einer Zeile)</value>
+    <value>(at end of the line)</value>
   </data>
   <data name="Main_ResultList_AtPosition" xml:space="preserve">
     <value>an Position {0}</value>
   </data>
   <data name="Main_ResultList_CountAdditionalCharacters" xml:space="preserve">
-    <value>...(+{0:n0} Zeichen)</value>
+    <value>…(+{0:n0} characters)</value>
   </data>
   <data name="Main_ResultList_CountMatches" xml:space="preserve">
     <value>{0} ({1} Fundstellen)</value>
@@ -783,7 +783,7 @@ Argumente:
     <value>Übereinstimmung {0}{1}{2}</value>
   </data>
   <data name="Main_ResultList_MatchToolTip2" xml:space="preserve">
-    <value>Überienstimmung {0}{1}Gruppe {2}:   {3}</value>
+    <value>Match {0}{1}Group {2}: {3}</value>
   </data>
   <data name="Main_ResultList_PlusCountMoreMatches" xml:space="preserve">
     <value>, +{0} mehre Fundstellen</value>
@@ -804,7 +804,7 @@ Argumente:
     <value>Kompletten Verzeichnispfad kopieren</value>
   </data>
   <data name="Main_Results_CopyLinesOfText" xml:space="preserve">
-    <value>Textzeilen kopieren</value>
+    <value>Copy lines of text</value>
   </data>
   <data name="Main_Results_ExcludeFromResults" xml:space="preserve">
     <value>vom Ergebnis ausschliessen</value>
@@ -813,7 +813,7 @@ Argumente:
     <value>Alles anzeigen</value>
   </data>
   <data name="Main_Results_NextMatch" xml:space="preserve">
-    <value>Nexte Fundstelle</value>
+    <value>Next match</value>
   </data>
   <data name="Main_Results_Open" xml:space="preserve">
     <value>Öffnen</value>
@@ -825,7 +825,7 @@ Argumente:
     <value>Öffne mit benutzerdefiniertem Editor</value>
   </data>
   <data name="Main_Results_PreviousMatch" xml:space="preserve">
-    <value>vorherige Fundstelle</value>
+    <value>Previous match</value>
   </data>
   <data name="Main_Results_RenameFile" xml:space="preserve">
     <value>Datei umbenennen</value>
@@ -837,7 +837,7 @@ Argumente:
     <value>Dateieigenschaften zeigen</value>
   </data>
   <data name="Main_SavingResultsToFile" xml:space="preserve">
-    <value>sichere Ergebnis in eine Datei...</value>
+    <value>Saving results to file…</value>
   </data>
   <data name="Main_SearchButton" xml:space="preserve">
     <value>_Suche</value>
@@ -861,10 +861,10 @@ Argumente:
     <value>Suche _in Ergebnissen</value>
   </data>
   <data name="Main_SearchParallel" xml:space="preserve">
-    <value>Suche paralle_l</value>
+    <value>Search paralle_l</value>
   </data>
   <data name="Main_SearchType_Hex" xml:space="preserve">
-    <value>Hex</value>
+    <value>Byte</value>
   </data>
   <data name="Main_SearchType_Phonetic" xml:space="preserve">
     <value>Phonetisch</value>
@@ -876,10 +876,10 @@ Argumente:
     <value>Klartextsuche</value>
   </data>
   <data name="Main_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
-    <value>Lese Dateien binär und suche nach Bytes im hexadezimal Format: 68 65 78 20</value>
+    <value>Byte search: read file as binary and search for bytes as hexadecimal digits: 68 65 78 20</value>
   </data>
   <data name="Main_SearchType_Regex" xml:space="preserve">
-    <value>_Regex</value>
+    <value>_Regular expression</value>
   </data>
   <data name="Main_SearchType_RegularExpressionSearch" xml:space="preserve">
     <value>Suche mit regulären Ausdrücken</value>
@@ -891,7 +891,7 @@ Argumente:
     <value>_XPath</value>
   </data>
   <data name="Main_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
-    <value>XPath Suche (nur XML Dokumente)</value>
+    <value>XPath search (only for XML documents)</value>
   </data>
   <data name="Main_SelectADate" xml:space="preserve">
     <value>wähle ein Datum</value>
@@ -942,34 +942,34 @@ Argumente:
     <value>Ausgeschlossene {0} fehlende Dateien.</value>
   </data>
   <data name="Main_Status_ReplaceCanceled" xml:space="preserve">
-    <value>Ersetzen abgebrochen</value>
+    <value>Replace canceled</value>
   </data>
   <data name="Main_Status_ReplaceComplete0FilesReplaced" xml:space="preserve">
-    <value>Ersetzen abgeschlossen - {0} Dateien bearbeitet.</value>
+    <value>Replace completed – replaced text in {0} files.</value>
   </data>
   <data name="Main_Status_ReplaceFailed" xml:space="preserve">
-    <value>Ersetzen fehlerhaft.</value>
+    <value>Replace failed</value>
   </data>
   <data name="Main_Status_Replacing" xml:space="preserve">
-    <value>Ersetzen...</value>
+    <value>Replacing…</value>
   </data>
   <data name="Main_Status_SearchCanceled" xml:space="preserve">
-    <value>Suche abbrechen</value>
+    <value>Search canceled</value>
   </data>
   <data name="Main_Status_SearchCanceledOrFailed" xml:space="preserve">
-    <value>Suche abgebrochen oder fehlerhaft</value>
+    <value>Search canceled or failed</value>
   </data>
   <data name="Main_Status_SearchCompleteSearched0FilesFound1FilesIn2" xml:space="preserve">
-    <value>Suche abgeschlossen - Durchsucht {0} Dateien. Gefunden {1} Dateien in {2}.</value>
+    <value>Search completed – searched {0} files, found {1} files in {2}.</value>
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFiles" xml:space="preserve">
-    <value>Durchsucht {0} Dateien. Gefunden {1} passende Dateien.</value>
+    <value>Searched {0} files, found {1} matching files.</value>
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFilesProcessing2" xml:space="preserve">
-    <value>Durchsucht {0} Dateien. Gefunden {1} passende Dateien - Verarbeitung {2}</value>
+    <value>Searched {0} files, found {1} matching files – processing {2}</value>
   </data>
   <data name="Main_Status_Searching" xml:space="preserve">
-    <value>Durchsuche...</value>
+    <value>Searching…</value>
   </data>
   <data name="Main_Status_SearchingForGitignore" xml:space="preserve">
     <value>Suche nach .gitignore</value>
@@ -978,13 +978,13 @@ Argumente:
     <value>Stop nach erstem Treffer</value>
   </data>
   <data name="Main_TestExpression" xml:space="preserve">
-    <value>Ausdruck-Test</value>
+    <value>Test expression</value>
   </data>
   <data name="Main_ThroughTheEndOfTheDay" xml:space="preserve">
     <value>bis zum Ende des Tages</value>
   </data>
   <data name="Main_UseCaptureGroupsFromPathsToMatch" xml:space="preserve">
-    <value>Verwenden Sie Capture-Gruppen aus 'Pfade, die übereinstimmen' im Muster 'Suchen nach'</value>
+    <value>Use capture groups from 'Patterns to match' in the 'Search for' pattern</value>
   </data>
   <data name="Main_UseGitignore" xml:space="preserve">
     <value>benutze .gitignore</value>
@@ -993,73 +993,73 @@ Argumente:
     <value>benutze .gitignore zur Dateifilterung</value>
   </data>
   <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
-    <value>Hex Zeichen ist nicht gültig</value>
+    <value>Byte string is not valid!</value>
   </data>
   <data name="Main_Validation_HexStringIsOK" xml:space="preserve">
-    <value>Hex Zeichen ist OK</value>
+    <value>Byte string is OK</value>
   </data>
   <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">
-    <value>Regex ist nicht gültig!</value>
+    <value>Regular expression is not valid!</value>
   </data>
   <data name="Main_Validation_RegexIsOK" xml:space="preserve">
-    <value>Regex ist OK!</value>
+    <value>Regular expression is OK</value>
   </data>
   <data name="Main_Validation_XPathIsNotValid" xml:space="preserve">
     <value>XPtah ist nicht gültig!</value>
   </data>
   <data name="Main_Validation_XPathIsOK" xml:space="preserve">
-    <value>XPath ist OK!</value>
+    <value>XPath is OK</value>
   </data>
   <data name="Main_WholeWord" xml:space="preserve">
     <value>_Ganze Wörter</value>
   </data>
   <data name="Main_WindowTitle" xml:space="preserve">
-    <value>{0} in "{1}" - dnGREP</value>
+    <value>{0} in "{1}" – dnGrep</value>
   </data>
   <data name="Main_WrapText" xml:space="preserve">
-    <value>Textumbruch</value>
+    <value>Wrap text</value>
   </data>
   <data name="Main_Zoom" xml:space="preserve">
     <value>Vergrößern:</value>
   </data>
   <data name="MessageBox_AreYouSureYouWantToContinue" xml:space="preserve">
-    <value>Wollen Sie wirklich fortzufahren?</value>
+    <value>Continue?</value>
   </data>
   <data name="MessageBox_AreYouSureYouWantToReplaceSearchPatternWithEmptyString" xml:space="preserve">
-    <value>Wollen Sie das Suchmuster durch eine leere Zeichenkette ersetzen?</value>
+    <value>Replace the search pattern with an empty string?</value>
   </data>
   <data name="MessageBox_CheckEditorPath" xml:space="preserve">
-    <value>Überprüfen den Editorpfad über "Optionen...".</value>
+    <value>Check editor path via "Options…".</value>
   </data>
   <data name="MessageBox_ClearingThisBookmarkWillAlsoClearThatBookmark" xml:space="preserve">
-    <value>Löschung des Lesezeichen löscht diese Lesezeichen.</value>
+    <value>Clearing this bookmark also clears that bookmark.</value>
   </data>
   <data name="MessageBox_ClearingThisBookmarkWillAlsoRemoveThoseBookmarks" xml:space="preserve">
-    <value>Löschung des Lesezeichens entfernt das Lesezeichen.</value>
+    <value>Clearing this bookmark also removes those bookmarks.</value>
   </data>
   <data name="MessageBox_CopyFiles" xml:space="preserve">
     <value>Dateien kopieren</value>
   </data>
   <data name="MessageBox_CouldNotLoadResourcesFile0" xml:space="preserve">
-    <value>Kann die Sprachdatei '{0}' nicht laden: </value>
+    <value>Could not load the '{0}' resources file: </value>
   </data>
   <data name="MessageBox_CouldNotLoadTheme" xml:space="preserve">
-    <value>Kann die Themendatei '{0}' nicht laden, für Details siehe Fehlerprotokoll: </value>
+    <value>Could not load the '{0}' theme. Check the error log for details: </value>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyCopied" xml:space="preserve">
-    <value>{0} Dateien wurden erfolgreich kopiert.</value>
+    <value>{0} files have been copied.</value>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyDeleted" xml:space="preserve">
-    <value>{0} Dateien wurden erfolgreich gelöscht.</value>
+    <value>{0} files have been deleted.</value>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyMoved" xml:space="preserve">
-    <value>{0} Dateien wurden erfolgreich verschoben.</value>
+    <value>{0} files have been moved.</value>
   </data>
   <data name="MessageBox_CustomEditorFileOpenError" xml:space="preserve">
-    <value>Es gab eine Fehler beim Öffnen der Datei mit dem externen Editor.</value>
+    <value>Could not open the file with the custom editor.</value>
   </data>
   <data name="MessageBox_DefaultEngineWasUsedInstead" xml:space="preserve">
-    <value>Die Standard Komponente wurde ersatzweise benutzt.</value>
+    <value>The default engine was used instead.</value>
   </data>
   <data name="MessageBox_DeleteFiles" xml:space="preserve">
     <value>Dateien löschen</value>
@@ -1068,22 +1068,22 @@ Argumente:
     <value>dnGrep</value>
   </data>
   <data name="MessageBox_DoYouWantToContinue" xml:space="preserve">
-    <value>Fortfahren?</value>
+    <value>Continue?</value>
   </data>
   <data name="MessageBox_Error" xml:space="preserve">
     <value>Fehler: </value>
   </data>
   <data name="MessageBox_ErrorOpeningFile" xml:space="preserve">
-    <value>Fehler beim Laden der Datei, für Details siehe Fehlerprotokoll: </value>
+    <value>Could not open the file. Check the error log for details: </value>
   </data>
   <data name="MessageBox_ErrorSettingClipboardTextTheClipboardIsLockedBy" xml:space="preserve">
-    <value>Fehler beim Übertragen in die Zwischenablage, die Zwischenablage ist gesperrt durch</value>
+    <value>Could not set clipboard text. The clipboard is locked by</value>
   </data>
   <data name="MessageBox_FailedToExtractFileFromArchive" xml:space="preserve">
-    <value>Datei konnte nicht aus dem Archiv extrahiert werden. Für Details siehe Fehlerprotokoll: </value>
+    <value>Could not extract file from archive. Check the error log for details: </value>
   </data>
   <data name="MessageBox_FilesHaveBeenSuccessfullyReverted" xml:space="preserve">
-    <value>Dateienänderungen wurden erfolgreich rückgängig gemacht.</value>
+    <value>Files have been reverted.</value>
   </data>
   <data name="MessageBox_IncorrectPattern" xml:space="preserve">
     <value>falsches Suchmuster: </value>
@@ -1095,19 +1095,19 @@ Argumente:
     <value>Dateien verschieben</value>
   </data>
   <data name="MessageBox_NewVersion" xml:space="preserve">
-    <value>Neue Version</value>
+    <value>New Version</value>
   </data>
   <data name="MessageBox_NewVersionOfDnGREP0IsAvailableForDownload" xml:space="preserve">
-    <value>Neue Version von dnGREP ({0}) steht bereit für den Download.</value>
+    <value>New version of dnGrep ({0}) is available for download.</value>
   </data>
   <data name="MessageBox_PleaseSelectAnotherDirectoryAndTryAgain" xml:space="preserve">
     <value>Bitte ein anderes Verzeichnis wählen und erneut versuchen.</value>
   </data>
   <data name="MessageBox_PluginErrors" xml:space="preserve">
-    <value>Fehler in der Erweiterung</value>
+    <value>Plug-in Errors</value>
   </data>
   <data name="MessageBox_RenameFailed" xml:space="preserve">
-    <value>Umbenennungsfehler: </value>
+    <value>Could not rename the file: </value>
   </data>
   <data name="MessageBox_RenameFile" xml:space="preserve">
     <value>Dateiumbenennung</value>
@@ -1116,25 +1116,25 @@ Argumente:
     <value>Ersetze</value>
   </data>
   <data name="MessageBox_ReplaceFailedError" xml:space="preserve">
-    <value>Fehler beim Ersetzen, für Details siehe Fehlerprotokoll: </value>
+    <value>Could not replace text in files. Check the error log for details: </value>
   </data>
   <data name="MessageBox_ResourcesFile0IsNotAResxFile" xml:space="preserve">
     <value>Quelldatei '{0}', ist keine resx-Datein.</value>
   </data>
   <data name="MessageBox_RunDnGrepAsAdministrator" xml:space="preserve">
-    <value>Starte dnGrep als Administrator zur Aktivierung der Ansicht von dnGrep im Explorer Context Menu</value>
+    <value>Run dnGrep as Administrator to change showing dnGrep in Windows Explorer right-click menu</value>
   </data>
   <data name="MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister" xml:space="preserve">
-    <value>Starte dnGrep als Administrator zur Änderung der Startup Parameter</value>
+    <value>Run dnGrep as Administrator to change application startup option.</value>
   </data>
   <data name="MessageBox_SearchFailedError" xml:space="preserve">
-    <value>Fehler beim Suchen, für Details siehe Fehlerprotokoll: </value>
+    <value>Could not complete the search. Check the error log for details: </value>
   </data>
   <data name="MessageBox_SearchOrReplaceFailed" xml:space="preserve">
-    <value>Fehler beim Suchen oder Ersetzen, für Details siehe Fehlerprotokoll: </value>
+    <value>Could not complete the search or replace. Check the error log for details: </value>
   </data>
   <data name="MessageBox_SearchPathInTheFieldIsNotValid" xml:space="preserve">
-    <value>Suchpfad im '{0}' Feld ist nicht möglich, Suche abgebrochen.</value>
+    <value>The search path in the '{0}' field is not valid, search canceled.</value>
   </data>
   <data name="MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory" xml:space="preserve">
     <value>Achtung, einige der Dateien befinden sich im selektierten Verzeichnis.</value>
@@ -1143,55 +1143,55 @@ Argumente:
     <value>Einige Dateien könne nicht verschoben werden. Bei Fortführung werden diese Dateien übersprungen.</value>
   </data>
   <data name="MessageBox_SomethingBrokeDownInDnGrep" xml:space="preserve">
-    <value>Abbruch von dnGrep, für Details siehe Fehlerprotokoll: </value>
+    <value>Something broke down in dnGrep. Check the error log for details: </value>
   </data>
   <data name="MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting" xml:space="preserve">
-    <value>Die Datei '{0}' existiert bereits in {1}, überschreiben?</value>
+    <value>The file '{0}' already exists in {1}. Overwrite existing?</value>
   </data>
   <data name="MessageBox_TheFilePattern0IsNotAValidRegularExpression12" xml:space="preserve">
     <value>Das Datei Suchmuster '{0}' ist kein gültiger Rregulärer Ausdruck{1}{2}</value>
   </data>
   <data name="MessageBox_TheFollowingPluginsFailedToLoad" xml:space="preserve">
-    <value>Die folgende Erweiterung konnte nicht geladen werden:</value>
+    <value>Could not load the following plug-ins:</value>
   </data>
   <data name="MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu" xml:space="preserve">
-    <value>Fehler beim Hinzufügen von dnGrep zum Explorer Context Menu, für Details siehe Fehlerprotokoll: </value>
+    <value>Could not add dnGrep to the Windows Explorer right-click menu. Check the error log for details: </value>
   </data>
   <data name="MessageBox_ThereWasAnErrorCopyingFiles" xml:space="preserve">
-    <value>Fehler beim Dateikopieren, für Details siehe Fehlerprotokoll: </value>
+    <value>Could not copy the files. Check the error log for details: </value>
   </data>
   <data name="MessageBox_ThereWasAnErrorCreatingTheFile" xml:space="preserve">
-    <value>Fehler beim Dateierzeugen, für Details siehe Fehlerprotokoll: </value>
+    <value>Could not create the file. Check the error log for details: </value>
   </data>
   <data name="MessageBox_ThereWasAnErrorDeletingFiles" xml:space="preserve">
-    <value>Fehler beim Dateilöschen, für Details siehe Fehlerprotokoll: </value>
+    <value>Could not delete the files. Check the error log for details: </value>
   </data>
   <data name="MessageBox_ThereWasAnErrorMovingFiles" xml:space="preserve">
-    <value>Fehler beim Dateiverschieben, für Details siehe Fehlerprotokoll: </value>
+    <value>Could not move the files. Check the error log for details: </value>
   </data>
   <data name="MessageBox_ThereWasAnErrorRegisteringAutoStartup" xml:space="preserve">
-    <value>Fehler beim der Registrierung des Autostarts, für Details siehe Fehlerprotokoll: </value>
+    <value>Could not register auto startup. Check the error log for details: </value>
   </data>
   <data name="MessageBox_ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu" xml:space="preserve">
-    <value>Fehler beim Entfernen von dnGrep aus dem Explorer Context Menu, für Details siehe Fehlerprotokoll: </value>
+    <value>Could not remove dnGrep from the Windows Explorer right-click menu. Check the error log for details: </value>
   </data>
   <data name="MessageBox_ThereWasAnErrorRevertingFiles" xml:space="preserve">
-    <value>Fehler beim Rückgängig machen in Dateien, für Details siehe Fehlerprotokoll: </value>
+    <value>Could not revert files. Check the error log for details: </value>
   </data>
   <data name="MessageBox_ThereWasAnErrorRunningRegexTest" xml:space="preserve">
-    <value>Fehler beim Ausführen des Test-Fensters, für Details siehe Fehlerprotokoll: </value>
+    <value>Could not open the test window. Check the error log for details: </value>
   </data>
   <data name="MessageBox_ThereWasAnErrorSavingOptions" xml:space="preserve">
-    <value>Fehler beim Sichern der Optionen, für Details siehe Fehlerprotokoll: </value>
+    <value>Could not save options. Check the error log for details: </value>
   </data>
   <data name="MessageBox_ThereWasAnErrorUnregisteringAutoStartup" xml:space="preserve">
-    <value>Fehler beim Deaktivieren des Autostarts , für Details siehe Fehlerprotokoll: </value>
+    <value>Could not unregister auto startup. Check the error log for details: </value>
   </data>
   <data name="MessageBox_ThisBookmarkIsAssociatedWith0OtherFolders" xml:space="preserve">
-    <value>Diese Lesezeichen ist verknüpft mit {0} anderen Verzeichnissen:</value>
+    <value>This bookmark is associated with {0} other folders.</value>
   </data>
   <data name="MessageBox_ThisBookmarkIsAssociatedWithOneOtherFolder" xml:space="preserve">
-    <value>Diese Lesezeichen ist verknüpft mit einem anderen Verzeichniss</value>
+    <value>This bookmark is associated with one other folder.</value>
   </data>
   <data name="MessageBox_Undo" xml:space="preserve">
     <value>Rückgängig machen</value>
@@ -1200,49 +1200,49 @@ Argumente:
     <value>Rückgängig machen versetzt die geänderte(n) Datei(en) wieder in ihren ursprünglichen Zustand zurück. Alle Änderungen, die nach dem Ersetzen an der/den Datei(en) vorgenommen wurden, werden überschrieben. Sind Sie sicher, dass Sie fortfahren möchten?</value>
   </data>
   <data name="MessageBox_WindowTitleIsName" xml:space="preserve">
-    <value>Fenster Titel: {0}</value>
+    <value>Window title: {0}</value>
   </data>
   <data name="MessageBox_WouldYouLikeToContinue" xml:space="preserve">
-    <value>Wollen Sie fortfahren?</value>
+    <value>Continue?</value>
   </data>
   <data name="MessageBox_WouldYouLikeToDownloadItNow" xml:space="preserve">
-    <value>Wollen Sie jetzt herunterladen?</value>
+    <value>Download it now?</value>
   </data>
   <data name="MessageBox_YouAreAboutToDeleteFilesFoundDuringSearch" xml:space="preserve">
     <value>Achtung, sind Sie sich bewusst, das die gefunden Dateien durch die Suche gelöscht werden.</value>
   </data>
   <data name="Options_AllowSearchingForFileNamePatternOnly" xml:space="preserve">
-    <value>Suche über Dateinamensmuster nur möglich, wenn 'Suchen nach' leer ist</value>
+    <value>List files using the file name pattern when the 'Search for' field is empty</value>
   </data>
   <data name="Options_ApplicationFonts" xml:space="preserve">
-    <value>Schriftarten</value>
+    <value>Application fonts</value>
   </data>
   <data name="Options_ArchiveAdd" xml:space="preserve">
-    <value>Hinzufügen:</value>
+    <value>Add</value>
   </data>
   <data name="Options_ArchiveDefault" xml:space="preserve">
-    <value>Voreinstellung:</value>
+    <value>Default</value>
   </data>
   <data name="Options_ArchiveExtensions" xml:space="preserve">
     <value>Erweiterungen:</value>
   </data>
   <data name="Options_ArchiveOptions" xml:space="preserve">
-    <value>Archiv Suche</value>
+    <value>Archive files</value>
   </data>
   <data name="Options_ArchiveRemove" xml:space="preserve">
-    <value>Entfernen:</value>
+    <value>Remove</value>
   </data>
   <data name="Options_BrowseFileLocation" xml:space="preserve">
-    <value>...</value>
+    <value>…</value>
   </data>
   <data name="Options_CheckDays" xml:space="preserve">
     <value>Tage</value>
   </data>
   <data name="Options_CheckForUpdatesWhenWindowsStarts" xml:space="preserve">
-    <value>Beim Windowsstart auf Update prüfen</value>
+    <value>Check for new versions when Windows starts</value>
   </data>
   <data name="Options_CheckingForUpdates" xml:space="preserve">
-    <value>Auf Update prüfen</value>
+    <value>New versions</value>
   </data>
   <data name="Options_ClearOldSearches" xml:space="preserve">
     <value>Alte Suchvorgänge löschen</value>
@@ -1272,13 +1272,13 @@ Argumente:
     <value>Verwenden Sie die Schlüsselwörter '{0}' für den Speicherort der Datei, '{1}' für die Zeilennummer, '{2}' für das Suchmuster, '{3}' für den ersten übereinstimmenden Text in der Zeile und '{4}' für die Spaltennummer der ersten Übereinstimmung in der Zeile.</value>
   </data>
   <data name="Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
-    <value>Erkennung der Dateikodierung, nur wenn nach Dateinamensmustern gesucht wird</value>
+    <value>Detect file encoding when listing files using the file name pattern</value>
   </data>
   <data name="Options_DialogFontSize" xml:space="preserve">
-    <value>Dialog Schritgröße</value>
+    <value>Other windows font size</value>
   </data>
   <data name="Options_DnGrepWillAddTheSelectedFiles" xml:space="preserve">
-    <value>dnGrep fügt die ausgewählten Dateien an das Ende der Befehlszeile an.</value>
+    <value>dnGrep will add the selected files to the end of the command-line.</value>
   </data>
   <data name="Options_EditorArguments" xml:space="preserve">
     <value>Argumente</value>
@@ -1287,22 +1287,22 @@ Argumente:
     <value>Kommando</value>
   </data>
   <data name="Options_EnableAutomaticCheckingEvery" xml:space="preserve">
-    <value>Aktiviert die automatische Prüfung alle</value>
+    <value>Check automatically every</value>
   </data>
   <data name="Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu" xml:space="preserve">
     <value>Aktiviert dnGrep im Windows Explorer Context Menu.</value>
   </data>
   <data name="Options_FollowWindowsTheme" xml:space="preserve">
-    <value>Angepasst am Windows Theme</value>
+    <value>Follow Windows theme</value>
   </data>
   <data name="Options_FontFamily" xml:space="preserve">
-    <value>Schriftartenfamilie</value>
+    <value>Font family</value>
   </data>
   <data name="Options_HelpTranslateDnGrep" xml:space="preserve">
     <value>Hilfe beim dnGrep-Übersetzten.</value>
   </data>
   <data name="Options_HistoryLists" xml:space="preserve">
-    <value>Historie Anzeige</value>
+    <value>History lists</value>
   </data>
   <data name="Options_InOptionsExpander" xml:space="preserve">
     <value>Optionenbereich (erweitert)</value>
@@ -1323,13 +1323,13 @@ Argumente:
     <value>Layout</value>
   </data>
   <data name="Options_LoadFromFile" xml:space="preserve">
-    <value>von Datei laden...</value>
+    <value>Load from file…</value>
   </data>
   <data name="Options_MainFontSize" xml:space="preserve">
-    <value>Hauptschriftgröße</value>
+    <value>Main window font size</value>
   </data>
   <data name="Options_MatchEverythingToExactMatch" xml:space="preserve">
-    <value>0 - unscharfe Suche;  1.0 - genaue Suche</value>
+    <value>0 – match everything; 1.0 – exact match</value>
   </data>
   <data name="Options_MatchThreshold" xml:space="preserve">
     <value>Such-Schwelle (von 0 bis 1.0)</value>
@@ -1338,16 +1338,16 @@ Argumente:
     <value>Such Timeout</value>
   </data>
   <data name="Options_OnMainPanel" xml:space="preserve">
-    <value>im Suchbereich</value>
+    <value>on the main panel</value>
   </data>
   <data name="Options_OptionsTitle" xml:space="preserve">
     <value>Optionen</value>
   </data>
   <data name="Options_PDFToText" xml:space="preserve">
-    <value>PDF zu Text</value>
+    <value>PDF to text</value>
   </data>
   <data name="Options_PdfToTextExeCommandLineOptions" xml:space="preserve">
-    <value>PdfToText.exe Kommandozeilenoptionen:</value>
+    <value>PdfToText.exe command-line options:</value>
   </data>
   <data name="Options_PdfToTextReset" xml:space="preserve">
     <value>Zurücksetzen</value>
@@ -1356,10 +1356,10 @@ Argumente:
     <value>Phonetische Suche</value>
   </data>
   <data name="Options_PluginAdd" xml:space="preserve">
-    <value>Hinzufügen:</value>
+    <value>Add</value>
   </data>
   <data name="Options_PluginDefault" xml:space="preserve">
-    <value>Voreinstellung:</value>
+    <value>Default</value>
   </data>
   <data name="Options_PluginEnabled" xml:space="preserve">
     <value>Aktiviert</value>
@@ -1368,19 +1368,19 @@ Argumente:
     <value>Erweiterungen:</value>
   </data>
   <data name="Options_PluginOptions" xml:space="preserve">
-    <value>Plugin Optionen</value>
+    <value>Plug-ins</value>
   </data>
   <data name="Options_PluginRemove" xml:space="preserve">
-    <value>Entfernen:</value>
+    <value>Remove</value>
   </data>
   <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
-    <value>F1 für Hilfe</value>
+    <value>Press F1 for help on options</value>
   </data>
   <data name="Options_PreviewToolForTranslators" xml:space="preserve">
     <value>Vorschautool für Übersetzer</value>
   </data>
   <data name="Options_RegexOptions" xml:space="preserve">
-    <value>Regex Optionen</value>
+    <value>Regular expressions</value>
   </data>
   <data name="Options_Reload" xml:space="preserve">
     <value>neu laden</value>
@@ -1389,28 +1389,28 @@ Argumente:
     <value>neu laden der aktuellen Theme-Datei [Strg+F5]</value>
   </data>
   <data name="Options_ReplaceFontSize" xml:space="preserve">
-    <value>Ersetze Schriftgröße</value>
+    <value>Replace window font size</value>
   </data>
   <data name="Options_ResultsOptions" xml:space="preserve">
-    <value>Ergebnisanzeige</value>
+    <value>Search results</value>
   </data>
   <data name="Options_SampleText" xml:space="preserve">
-    <value>Text-Beispiel</value>
+    <value>Sample text</value>
   </data>
   <data name="Options_Save" xml:space="preserve">
     <value>Sichern</value>
   </data>
   <data name="Options_SelectedTheme" xml:space="preserve">
-    <value>Theme wählen</value>
+    <value>Selected theme</value>
   </data>
   <data name="Options_ShowDnGrepInExplorerRightClickMenu" xml:space="preserve">
-    <value>zeige dnGrep im Explorer Context Menu</value>
+    <value>Show dnGrep in the right-click menu of Windows Explorer</value>
   </data>
   <data name="Options_ShowFileInfoToolTips" xml:space="preserve">
-    <value>zeige Dateiinfo ToolTips</value>
+    <value>Show file info tooltips</value>
   </data>
   <data name="Options_ShowFilePathInResultsPanel" xml:space="preserve">
-    <value>zeige Dateipfad im Ergebnispanel</value>
+    <value>Show file path in the results panel</value>
   </data>
   <data name="Options_ShowResultLinesInContext" xml:space="preserve">
     <value>zeige Ergebniszeilen im Kontext</value>
@@ -1419,16 +1419,16 @@ Argumente:
     <value>zeige Ergebnisbaum ausführlich</value>
   </data>
   <data name="Options_ShowSearchOptions" xml:space="preserve">
-    <value>zeige Suchoptionen:</value>
+    <value>Show search options</value>
   </data>
   <data name="Options_ShowVerboseMatchCount" xml:space="preserve">
-    <value>zeige Anzahl der Übereinstimmungen</value>
+    <value>Show additional details about the matches found</value>
   </data>
   <data name="Options_StartupOptions" xml:space="preserve">
-    <value>Startoptionen</value>
+    <value>Startup</value>
   </data>
   <data name="Options_TheMatchTimeoutLimits" xml:space="preserve">
-    <value>Zeitüberschreitung begrenzen; Zeit wie lange die Engine für reguläre Ausdrücke versucht, einen regulären Ausdruck aufzulösen, bevor der Prozess eine Zeitüberschreitung verursacht. Dies verhindert die Verarbeitung von Ausdrücken und Eingabezeichenfolgen, die ein übermäßiges Backtracking erfordern.</value>
+    <value>The match timeout limits how long the regular expression engine attempts to resolve a regular expression before it times out. It prevents processing expressions and input strings requiring excessive backtracking.</value>
   </data>
   <data name="Options_Theme" xml:space="preserve">
     <value>Theme</value>
@@ -1437,10 +1437,10 @@ Argumente:
     <value>Sekunden</value>
   </data>
   <data name="Options_ToChangeThisSettingRunDnGREPAsAdministrator" xml:space="preserve">
-    <value>Um das Setup zu ändern, starte dnGrep als Administrator.</value>
+    <value>Run dnGrep as Administrator to change this setting.</value>
   </data>
   <data name="Options_UseDefault" xml:space="preserve">
-    <value>Vorgaben benutzen</value>
+    <value>Use default font</value>
   </data>
   <data name="Options_WantADifferentLanguage" xml:space="preserve">
     <value>Wollen Sie eine andere Sprache?</value>
@@ -1455,7 +1455,7 @@ Argumente:
     <value>Suche rückwärts (Umschalt + F3)</value>
   </data>
   <data name="Preview_HighlightsDisabledTooManyMatchesFound" xml:space="preserve">
-    <value>Hervorhebung deaktiviert: zu viele Suchergebnisse gefunden.</value>
+    <value>Not showing highlights because too many matches were found.</value>
   </data>
   <data name="Preview_MatchCase" xml:space="preserve">
     <value>Such-Fall</value>
@@ -1470,13 +1470,13 @@ Argumente:
     <value>Nichts</value>
   </data>
   <data name="Preview_ThisFileIsEitherBinaryOrTooLargeToPreview" xml:space="preserve">
-    <value>Diese Datei ist binär oder zu groß für die Vorschau.</value>
+    <value>This file is either binary, or too large to be shown.</value>
   </data>
   <data name="Preview_UseRegularExpressions" xml:space="preserve">
     <value>Benutze Reguläre Asudrücke</value>
   </data>
   <data name="Preview_WrapText" xml:space="preserve">
-    <value>Text mit Zeilenumbrüchen</value>
+    <value>Wrap text</value>
   </data>
   <data name="Preview_Zoom" xml:space="preserve">
     <value>Auflösung:</value>
@@ -1506,7 +1506,7 @@ Argumente:
     <value>Fehler: die ist eine binäre Datei</value>
   </data>
   <data name="Replace_FileNumberOfCountName" xml:space="preserve">
-    <value>Datei {0} von {1}: {2}  ({3} Suchermuster passt bei  {4} Zeilen)</value>
+    <value>File {0} of {1}: {2} ({3} matches on {4} lines)</value>
   </data>
   <data name="Replace_Files" xml:space="preserve">
     <value>Dateien</value>
@@ -1530,7 +1530,7 @@ Argumente:
     <value>_Weiter</value>
   </data>
   <data name="Replace_NextFile" xml:space="preserve">
-    <value>Nächste _Datei</value>
+    <value>Next _file</value>
   </data>
   <data name="Replace_OK" xml:space="preserve">
     <value>OK</value>
@@ -1539,7 +1539,7 @@ Argumente:
     <value>_Zurück</value>
   </data>
   <data name="Replace_PreviousFile" xml:space="preserve">
-    <value>Vorherige Datei</value>
+    <value>Previous file</value>
   </data>
   <data name="Replace_ReadOnly" xml:space="preserve">
     <value>[Schreibgeschützt]</value>
@@ -1551,22 +1551,22 @@ Argumente:
     <value>_Ersetze</value>
   </data>
   <data name="Replace_ReplaceInAllFiles" xml:space="preserve">
-    <value>Ersetze in allen Dateien</value>
+    <value>Replace in all files</value>
   </data>
   <data name="Replace_ReplaceInFile" xml:space="preserve">
-    <value>Ersetze in der Datei</value>
+    <value>Replace in file</value>
   </data>
   <data name="Replace_ReplaceKey1_Text" xml:space="preserve">
     <value>Text</value>
   </data>
   <data name="Replace_ReplaceKey2_SelectedMatch" xml:space="preserve">
-    <value>Fundstelle selektiert</value>
+    <value>Selected match</value>
   </data>
   <data name="Replace_ReplaceKey3_ReplaceMatch" xml:space="preserve">
-    <value>Fundstelle ersetzt</value>
+    <value>Replace match</value>
   </data>
   <data name="Replace_ReplaceKey4_SkipMatch" xml:space="preserve">
-    <value>Fundstelle</value>
+    <value>Skip match</value>
   </data>
   <data name="Replace_ReplaceMatchesMarkedForReplacement" xml:space="preserve">
     <value>Fundstelle(n) ersetzen</value>
@@ -1590,7 +1590,7 @@ Argumente:
     <value>Nicht</value>
   </data>
   <data name="Replace_ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
-    <value>Diese Datei enthält zu viele Fundstellen für eine einzelne Ersetzung. Um Alle zu ersetzen, klicken Sie auf 'Ersetze in der Datei'</value>
+    <value>This file contains too many matches for individual replace. Click 'Replace in file' to replace all of them.</value>
   </data>
   <data name="Replace_Title" xml:space="preserve">
     <value>Text ersetzen</value>
@@ -1599,13 +1599,13 @@ Argumente:
     <value>_Rückgängig</value>
   </data>
   <data name="Replace_UndoFile" xml:space="preserve">
-    <value>Rückgängig Datei</value>
+    <value>Undo file</value>
   </data>
   <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
     <value>Zurücknahme der Ersetzung an dieser Fundstelle [Strg+U]</value>
   </data>
   <data name="Replace_WrapText" xml:space="preserve">
-    <value>Text mit Zeilenumbrüchen</value>
+    <value>Wrap text</value>
   </data>
   <data name="Replace_Zoom" xml:space="preserve">
     <value>Auflösung:</value>
@@ -1644,13 +1644,13 @@ Argumente:
     <value>Zeichencodierung:</value>
   </data>
   <data name="ReportSummary_ExcludePattern" xml:space="preserve">
-    <value>Ausgeschlossen Suchmuster:</value>
+    <value>Exclude file pattern:</value>
   </data>
   <data name="ReportSummary_FilePattern" xml:space="preserve">
-    <value>Datei Suchmuster:</value>
+    <value>Include file pattern:</value>
   </data>
   <data name="ReportSummary_MaxFolderDepth" xml:space="preserve">
-    <value>Maximale Verzeichnistiefe {0}</value>
+    <value>Max folder depth: {0}</value>
   </data>
   <data name="ReportSummary_Multiline" xml:space="preserve">
     <value>Mehrzeilig</value>
@@ -1671,7 +1671,7 @@ Argumente:
     <value>keine Unterverzeichnisse</value>
   </data>
   <data name="ReportSummary_NoSymlinks" xml:space="preserve">
-    <value>keine Symbolische Links</value>
+    <value>No symbolic links</value>
   </data>
   <data name="ReportSummary_SearchFor" xml:space="preserve">
     <value>Suche nach:</value>
@@ -1686,7 +1686,7 @@ Argumente:
     <value>Größe von {0} bis {1} KB</value>
   </data>
   <data name="ReportSummary_StopAfterFirstMatch" xml:space="preserve">
-    <value>Halt nach erster Fundstelle</value>
+    <value>Stop after first match</value>
   </data>
   <data name="ReportSummary_Type0DateFrom1To2" xml:space="preserve">
     <value>{0} Datum vom {1} bis {2}</value>
@@ -1698,7 +1698,7 @@ Argumente:
     <value>Benutze Everything Index Suche</value>
   </data>
   <data name="ReportSummary_UsingRegexFilePattern" xml:space="preserve">
-    <value>Benutze RegEx für Dateisuchmuster</value>
+    <value>Using regular expression file pattern</value>
   </data>
   <data name="ReportSummary_UsingTypeOfSeach" xml:space="preserve">
     <value>Benutze {0} Suche</value>
@@ -1734,7 +1734,7 @@ Argumente:
     <value>Ersetzungsergebnis:</value>
   </data>
   <data name="Test_ReplaceTextIsNotValidXML" xml:space="preserve">
-    <value>Ersetzter Text ist kein gültiges XML!</value>
+    <value>The replace text is not valid XML!</value>
   </data>
   <data name="Test_ReplaceWith" xml:space="preserve">
     <value>Ersetzen mit:</value>
@@ -1755,7 +1755,7 @@ Argumente:
     <value>Phonetisch</value>
   </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">
-    <value>_Regex</value>
+    <value>_Regular expression</value>
   </data>
   <data name="Test_SearchType_Text" xml:space="preserve">
     <value>_Text</value>
@@ -1788,13 +1788,13 @@ Argumente:
     <value>{1,3} sucht 1 bis 3 Zeichen</value>
   </data>
   <data name="TTA7_ForMoreRegexPatternsHitF1" xml:space="preserve">
-    <value>Für mehr Regex Suchmuster drücke F1 (Hilfe)</value>
+    <value>Hit F1 for more regular expression patterns</value>
   </data>
   <data name="TTB1_ReplacesEntireRegex" xml:space="preserve">
-    <value>$&amp; ersetzt die gesamte Regex</value>
+    <value>$&amp; replaces entire regular expression</value>
   </data>
   <data name="TTB2_InsertsTheTextMatchedIntoTheReplacementText" xml:space="preserve">
-    <value>$1, $2, $3, etc... fügt die mit Klammern eingeschlossenen Fundstelle(n) in den durchsuchten Text ein</value>
+    <value>$1, $2, $3, etc… inserts the text matched between capturing parentheses into the replacement text</value>
   </data>
   <data name="TTB3_InsertsASingleDollarSignIntoTheReplacementText" xml:space="preserve">
     <value>$$ fügt ein einzelnes Dollarzeichen in den Ersetzungstext ein</value>
@@ -1818,7 +1818,7 @@ Argumente:
     <value>verkleinern</value>
   </data>
   <data name="Options_HexSearchResultLineLength" xml:space="preserve">
-    <value>Hex search result line length</value>
+    <value>Byte search result line length</value>
     <comment>Options dialog, results options combo box label</comment>
   </data>
   <data name="Options_FilesAndIndividualMatches" xml:space="preserve">
@@ -1830,7 +1830,7 @@ Argumente:
     <comment>Options dialog, Replace window layout radio button label (accel)</comment>
   </data>
   <data name="Options_ReplaceDialogLayout" xml:space="preserve">
-    <value>Replace dialog Layout:</value>
+    <value>Replace window layout</value>
     <comment>Options dialog, replace view options label</comment>
   </data>
   <data name="Replace_NumberOfMatchesMarkedForReplacement" xml:space="preserve">
