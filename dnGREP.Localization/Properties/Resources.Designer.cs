@@ -331,7 +331,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to e.g. file??.*.
+        ///   Looks up a localized string similar to For example: *.txt;*.xml.
         /// </summary>
         public static string BookmarkDetails_ForExampleAsteriskPattern {
             get {
@@ -340,7 +340,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to e.g. file[0-9]{1,2}\\.txt.
+        ///   Looks up a localized string similar to For example: file[0-9]{1,2}\\.txt.
         /// </summary>
         public static string BookmarkDetails_ForExampleRegularExpession {
             get {
@@ -421,7 +421,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Asterisk pattern.
+        ///   Looks up a localized string similar to Wildcard.
         /// </summary>
         public static string BookmarkDetails_PatternType_AsteriskPattern {
             get {
@@ -439,7 +439,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Regex.
+        ///   Looks up a localized string similar to _Regular expression.
         /// </summary>
         public static string BookmarkDetails_PatternType_Regex {
             get {
@@ -475,7 +475,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hex.
+        ///   Looks up a localized string similar to Byte.
         /// </summary>
         public static string BookmarkDetails_SearchType_Hex {
             get {
@@ -511,7 +511,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Read file as binary and search for bytes as hexadecimal digits: 68 65 78 20.
+        ///   Looks up a localized string similar to Byte search: read file as binary and search for bytes as hexadecimal digits: 68 65 78 20.
         /// </summary>
         public static string BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes {
             get {
@@ -520,7 +520,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Regex.
+        ///   Looks up a localized string similar to _Regular expression.
         /// </summary>
         public static string BookmarkDetails_SearchType_Regex {
             get {
@@ -1316,7 +1316,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to e.g. file??.*.
+        ///   Looks up a localized string similar to For example: *.txt;*.xml.
         /// </summary>
         public static string Main_ForExampleAsteriskPattern {
             get {
@@ -1325,7 +1325,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to e.g. file[0-9]{1,2}\\.txt.
+        ///   Looks up a localized string similar to For example: file[0-9]{1,2}\\.txt.
         /// </summary>
         public static string Main_ForExampleRegularExpession {
             get {
@@ -1568,7 +1568,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Text Results.
+        ///   Looks up a localized string similar to Text results.
         /// </summary>
         public static string Main_MoreMenu_Save_TextResults {
             get {
@@ -1631,7 +1631,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Asterisk pattern.
+        ///   Looks up a localized string similar to Wildcard.
         /// </summary>
         public static string Main_PatternType_Asterisk {
             get {
@@ -1649,7 +1649,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Regex.
+        ///   Looks up a localized string similar to _Regular expression.
         /// </summary>
         public static string Main_PatternType_Regex {
             get {
@@ -1694,7 +1694,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CSV (comma delimited).
+        ///   Looks up a localized string similar to CSV (comma separated).
         /// </summary>
         public static string Main_ReportOption_CSVFileFormat {
             get {
@@ -2027,7 +2027,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search Paralle_l.
+        ///   Looks up a localized string similar to Search paralle_l.
         /// </summary>
         public static string Main_SearchParallel {
             get {
@@ -2036,7 +2036,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hex.
+        ///   Looks up a localized string similar to Byte.
         /// </summary>
         public static string Main_SearchType_Hex {
             get {
@@ -2072,7 +2072,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Read file as binary and search for bytes as hexadecimal digits: 68 65 78 20.
+        ///   Looks up a localized string similar to Byte search: read file as binary and search for bytes as hexadecimal digits: 68 65 78 20.
         /// </summary>
         public static string Main_SearchType_ReadFileAsBinaryAndSearchForBytes {
             get {
@@ -2081,7 +2081,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Regex.
+        ///   Looks up a localized string similar to _Regular expression.
         /// </summary>
         public static string Main_SearchType_Regex {
             get {
@@ -2090,7 +2090,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search using regular expressions.
+        ///   Looks up a localized string similar to Regular expression search.
         /// </summary>
         public static string Main_SearchType_RegularExpressionSearch {
             get {
@@ -2279,7 +2279,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Replace complete – replaced text in {0} files..
+        ///   Looks up a localized string similar to Replace completed – replaced text in {0} files..
         /// </summary>
         public static string Main_Status_ReplaceComplete0FilesReplaced {
             get {
@@ -2324,7 +2324,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search Complete – searched {0} files, found {1} files in {2}..
+        ///   Looks up a localized string similar to Search completed – searched {0} files, found {1} files in {2}..
         /// </summary>
         public static string Main_Status_SearchCompleteSearched0FilesFound1FilesIn2 {
             get {
@@ -2423,7 +2423,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hex string is not valid!.
+        ///   Looks up a localized string similar to Byte string is not valid!.
         /// </summary>
         public static string Main_Validation_HexStringIsNotValid {
             get {
@@ -2432,7 +2432,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hex string is OK.
+        ///   Looks up a localized string similar to Byte string is OK.
         /// </summary>
         public static string Main_Validation_HexStringIsOK {
             get {
@@ -2441,7 +2441,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Regex is not valid!.
+        ///   Looks up a localized string similar to Regular expression is not valid!.
         /// </summary>
         public static string Main_Validation_RegexIsNotValid {
             get {
@@ -2450,7 +2450,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Regex is OK.
+        ///   Looks up a localized string similar to Regular expression is OK.
         /// </summary>
         public static string Main_Validation_RegexIsOK {
             get {
@@ -2729,7 +2729,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New version.
+        ///   Looks up a localized string similar to New Version.
         /// </summary>
         public static string MessageBox_NewVersion {
             get {
@@ -3089,7 +3089,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Application Fonts.
+        ///   Looks up a localized string similar to Application fonts.
         /// </summary>
         public static string Options_ApplicationFonts {
             get {
@@ -3368,7 +3368,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hex search result line length.
+        ///   Looks up a localized string similar to Byte search result line length.
         /// </summary>
         public static string Options_HexSearchResultLineLength {
             get {
@@ -3503,7 +3503,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PDF to Text.
+        ///   Looks up a localized string similar to PDF to text.
         /// </summary>
         public static string Options_PDFToText {
             get {
@@ -3665,7 +3665,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sample Text.
+        ///   Looks up a localized string similar to Sample text.
         /// </summary>
         public static string Options_SampleText {
             get {
@@ -3800,7 +3800,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use Default.
+        ///   Looks up a localized string similar to Use default font.
         /// </summary>
         public static string Options_UseDefault {
             get {
@@ -4583,7 +4583,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Using regex file pattern.
+        ///   Looks up a localized string similar to Using regular expression file pattern.
         /// </summary>
         public static string ReportSummary_UsingRegexFilePattern {
             get {
@@ -4754,7 +4754,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Regex.
+        ///   Looks up a localized string similar to _Regular expression.
         /// </summary>
         public static string Test_SearchType_Regex {
             get {
@@ -4853,7 +4853,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hit F1 for more regex patterns.
+        ///   Looks up a localized string similar to Hit F1 for more regular expression patterns.
         /// </summary>
         public static string TTA7_ForMoreRegexPatternsHitF1 {
             get {
@@ -4862,7 +4862,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $&amp; replaces entire regex.
+        ///   Looks up a localized string similar to $&amp; replaces entire regular expression.
         /// </summary>
         public static string TTB1_ReplacesEntireRegex {
             get {

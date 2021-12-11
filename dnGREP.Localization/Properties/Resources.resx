@@ -227,7 +227,7 @@
   </data>
   <data name="BookmarkDetails_EverythingIndexService" xml:space="preserve">
     <value>Everything index service</value>
-    <comment>Bookmark details dialog, pattern type option Everything tooltip</comment>
+    <comment>Bookmark details dialog, Everything pattern type option tooltip</comment>
   </data>
   <data name="BookmarkDetails_FilePatternType" xml:space="preserve">
     <value>File pattern type</value>
@@ -238,18 +238,18 @@
     <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_ForExampleAsteriskPattern" xml:space="preserve">
-    <value>e.g. file??.*</value>
-    <comment>Bookmark details dialog, pattern type option Asterisk tooltip</comment>
+    <value>For example: *.txt;*.xml</value>
+    <comment>Bookmark details dialog, Wildcard pattern type option tooltip</comment>
   </data>
   <data name="BookmarkDetails_ForExampleRegularExpession" xml:space="preserve">
-    <value>e.g. file[0-9]{1,2}\\.txt</value>
-    <comment>Bookmark details dialog, pattern type option Regex tooltip</comment>
+    <value>For example: file[0-9]{1,2}\\.txt</value>
+    <comment>Bookmark details dialog, regular expression pattern type option tooltip</comment>
   </data>
   <data name="BookmarkDetails_IncludeBinaryFiles" xml:space="preserve">
     <value>Include binary files</value>
     <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
   </data>
-  <data name="BookmarkDetails_IncludeHiddenFolders" xml:space="preserve">    
+  <data name="BookmarkDetails_IncludeHiddenFolders" xml:space="preserve">
     <value>Include hidden folders</value>
     <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
   </data>
@@ -278,16 +278,16 @@
     <comment>Bookmark details dialog, Patterns to match label</comment>
   </data>
   <data name="BookmarkDetails_PatternType_AsteriskPattern" xml:space="preserve">
-    <value>Asterisk pattern</value>
-    <comment>Bookmark details dialog, pattern type radio button label (accel)</comment>
+    <value>Wildcard</value>
+    <comment>Bookmark details dialog, Wildcard pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_PatternType_Everything" xml:space="preserve">
     <value>Everything</value>
-    <comment>Bookmark details dialog, pattern type radio button label (accel)</comment>
+    <comment>Bookmark details dialog, Everything pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_PatternType_Regex" xml:space="preserve">
-    <value>_Regex</value>
-    <comment>Bookmark details dialog, pattern type radio button label (accel)</comment>
+    <value>_Regular expression</value>
+    <comment>Bookmark details dialog, Regular expression pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
     <value>Replace with:</value>
@@ -302,32 +302,32 @@
     <comment>Bookmark details dialog, checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
-    <value>Hex</value>
-    <comment>Bookmark details dialog, search type radio button label (accel)</comment>
+    <value>Byte</value>
+    <comment>Bookmark details dialog, Byte search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
     <value>Phonetic</value>
-    <comment>Bookmark details dialog, search type radio button label (accel)</comment>
+    <comment>Bookmark details dialog, Phonetic search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
     <value>Phonetic search</value>
-    <comment>Bookmark details dialog, search type Phonetic tooltip</comment>
+    <comment>Bookmark details dialog, Phonetic search type tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Plain text search</value>
-    <comment>Bookmark details dialog, search type Text tooltip</comment>
+    <comment>Bookmark details dialog, Text search type tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
-    <value>Read file as binary and search for bytes as hexadecimal digits: 68 65 78 20</value>
-    <comment>Bookmark details dialog, search type Hex tooltip</comment>
+    <value>Byte search: read file as binary and search for bytes as hexadecimal digits: 68 65 78 20</value>
+    <comment>Bookmark details dialog, Byte search type tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
-    <value>_Regex</value>
+    <value>_Regular expression</value>
     <comment>Bookmark details dialog, search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_RegularExpressionSearch" xml:space="preserve">
     <value>Regular expression search</value>
-    <comment>Bookmark details dialog, search type Regex tooltip</comment>
+    <comment>Bookmark details dialog, search type regular expression tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Text" xml:space="preserve">
     <value>_Text</value>
@@ -496,7 +496,7 @@ Arguments:
 /pt [type]
 -pt [type]
 -patternType [type]
-    Sets the type of match and ignore pattern – must be one of: "Asterisk", "Regex", or "Everything" (if the Everything search tool is installed).
+    Sets the type of match and ignore pattern – must be one of: "Asterisk" (wildcard), "Regex" (regular expression), or "Everything" (if the Everything search tool is installed).
 
 /s [searchFor]
 -s [searchFor]
@@ -506,7 +506,7 @@ Arguments:
 /st [type]
 -st [type]
 -searchType [type]
-    Sets the type of search – must be one of: "PlainText", "Regex", "XPath", or "Soundex".
+    Sets the type of search – must be one of: "PlainText", "Regex" (regular expression), "XPath", or "Soundex" (phonetic).
 
 /cs [True/False]
 -cs [True/False]
@@ -762,12 +762,12 @@ Arguments:
     <comment>Main window, filter files checkbox label (accel)</comment>
   </data>
   <data name="Main_ForExampleAsteriskPattern" xml:space="preserve">
-    <value>e.g. file??.*</value>
-    <comment>Main window, pattern type option Asterisk tooltip</comment>
+    <value>For example: *.txt;*.xml</value>
+    <comment>Main window, Wildcard pattern type option tooltip</comment>
   </data>
   <data name="Main_ForExampleRegularExpession" xml:space="preserve">
-    <value>e.g. file[0-9]{1,2}\\.txt</value>
-    <comment>Main window, pattern type option Regex tooltip</comment>
+    <value>For example: file[0-9]{1,2}\\.txt</value>
+    <comment>Main window, Regular expression pattern type option tooltip</comment>
   </data>
   <data name="Main_FromTheStartOfTheDay" xml:space="preserve">
     <value>from the start of the day</value>
@@ -874,7 +874,7 @@ Arguments:
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_Save_TextResults" xml:space="preserve">
-    <value>Text Results</value>
+    <value>Text results</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_SaveResults" xml:space="preserve">
@@ -902,16 +902,16 @@ Arguments:
     <comment>Main window, Patterns to match label (accel)</comment>
   </data>
   <data name="Main_PatternType_Asterisk" xml:space="preserve">
-    <value>Asterisk pattern</value>
-    <comment>Main window, pattern type radio button label (accel)</comment>
+    <value>Wildcard</value>
+    <comment>Main window, Wildcard pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_PatternType_Everything" xml:space="preserve">
     <value>Everything</value>
-    <comment>Main window, pattern type radio button label (accel)</comment>
+    <comment>Main window, Everything pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_PatternType_Regex" xml:space="preserve">
-    <value>_Regex</value>
-    <comment>Main window, pattern type radio button label (accel)</comment>
+    <value>_Regular expression</value>
+    <comment>Main window, Regular expression pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_PreviewFile" xml:space="preserve">
     <value>Pre_view file</value>
@@ -930,7 +930,7 @@ Arguments:
     <comment>Main window, replace text input box label (accel)</comment>
   </data>
   <data name="Main_ReportOption_CSVFileFormat" xml:space="preserve">
-    <value>CSV (comma delimited)</value>
+    <value>CSV (comma separated)</value>
     <comment>Main window, save report, report type format label</comment>
   </data>
   <data name="Main_ReportOption_ReportFileFormat" xml:space="preserve">
@@ -1078,48 +1078,48 @@ Arguments:
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_SearchParallel" xml:space="preserve">
-    <value>Search Paralle_l</value>
+    <value>Search paralle_l</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_SearchType_Hex" xml:space="preserve">
-    <value>Hex</value>
-    <comment>Main window, search type radio button label (accel)</comment>
+    <value>Byte</value>
+    <comment>Main window, Byte search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_Phonetic" xml:space="preserve">
     <value>Phonetic</value>
-    <comment>Main window, search type radio button label (accel)</comment>
+    <comment>Main window, Phonetic search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
     <value>Phonetic search</value>
-    <comment>Main window, search type Phonetic tooltip</comment>
+    <comment>Main window, Phonetic search type tooltip</comment>
   </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Plain text search</value>
-    <comment>Main window, search type Text tooltip</comment>
+    <comment>Main window, Text search type tooltip</comment>
   </data>
   <data name="Main_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
-    <value>Read file as binary and search for bytes as hexadecimal digits: 68 65 78 20</value>
-    <comment>Main window, search type Hex tooltip</comment>
+    <value>Byte search: read file as binary and search for bytes as hexadecimal digits: 68 65 78 20</value>
+    <comment>Main window, Byte search type tooltip</comment>
   </data>
   <data name="Main_SearchType_Regex" xml:space="preserve">
-    <value>_Regex</value>
-    <comment>Main window, search type radio button label (accel)</comment>
+    <value>_Regular expression</value>
+    <comment>Main window, Regular expression search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_RegularExpressionSearch" xml:space="preserve">
-    <value>Search using regular expressions</value>
-    <comment>Main window, search type Regex tooltip</comment>
+    <value>Regular expression search</value>
+    <comment>Main window, Regular expression search type tooltip</comment>
   </data>
   <data name="Main_SearchType_Text" xml:space="preserve">
     <value>_Text</value>
-    <comment>Main window, search type radio button label (accel)</comment>
+    <comment>Main window, Text search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_XPath" xml:space="preserve">
     <value>_XPath</value>
-    <comment>Main window, search type radio button label (accel)</comment>
+    <comment>Main window, XPath search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
     <value>XPath search (only for XML documents)</value>
-    <comment>Main window, search type XPath tooltip</comment>
+    <comment>Main window, XPath search type tooltip</comment>
   </data>
   <data name="Main_SelectADate" xml:space="preserve">
     <value>Select a date</value>
@@ -1190,7 +1190,7 @@ Arguments:
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_ReplaceComplete0FilesReplaced" xml:space="preserve">
-    <value>Replace complete – replaced text in {0} files.</value>
+    <value>Replace completed – replaced text in {0} files.</value>
     <comment>Main window, status bar message: {0} is the number of files modified by the replace operation</comment>
   </data>
   <data name="Main_Status_ReplaceFailed" xml:space="preserve">
@@ -1210,7 +1210,7 @@ Arguments:
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_SearchCompleteSearched0FilesFound1FilesIn2" xml:space="preserve">
-    <value>Search Complete – searched {0} files, found {1} files in {2}.</value>
+    <value>Search completed – searched {0} files, found {1} files in {2}.</value>
     <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found; {2} is the duration of the search</comment>
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFiles" xml:space="preserve">
@@ -1254,19 +1254,19 @@ Arguments:
     <comment>Main window, search option checkbox tooltip</comment>
   </data>
   <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
-    <value>Hex string is not valid!</value>
+    <value>Byte string is not valid!</value>
     <comment>Main window, hexadecimal expression status</comment>
   </data>
   <data name="Main_Validation_HexStringIsOK" xml:space="preserve">
-    <value>Hex string is OK</value>
+    <value>Byte string is OK</value>
     <comment>Main window, hexadecimal expression status</comment>
   </data>
   <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">
-    <value>Regex is not valid!</value>
+    <value>Regular expression is not valid!</value>
     <comment>Main window, regular expression status</comment>
   </data>
   <data name="Main_Validation_RegexIsOK" xml:space="preserve">
-    <value>Regex is OK</value>
+    <value>Regular expression is OK</value>
     <comment>Main window, regular expression status</comment>
   </data>
   <data name="Main_Validation_XPathIsNotValid" xml:space="preserve">
@@ -1390,7 +1390,7 @@ Arguments:
     <comment>Message box title for: Move files</comment>
   </data>
   <data name="MessageBox_NewVersion" xml:space="preserve">
-    <value>New version</value>
+    <value>New Version</value>
     <comment>Message box title for: New dnGrep version</comment>
   </data>
   <data name="MessageBox_NewVersionOfDnGREP0IsAvailableForDownload" xml:space="preserve">
@@ -1463,7 +1463,7 @@ Arguments:
   </data>
   <data name="MessageBox_TheFilePattern0IsNotAValidRegularExpression12" xml:space="preserve">
     <value>The file pattern '{0}' is not a valid regular expression:{1}{2}</value>
-    <comment>Message box text for: Main window regex file pattern error: {0} is the invalid regular expression; {1} is a newline; {2} is the reason the expression is invalid</comment>
+    <comment>Message box text for: Main window regular expression file pattern error: {0} is the invalid regular expression; {1} is a newline; {2} is the reason the expression is invalid</comment>
   </data>
   <data name="MessageBox_TheFollowingPluginsFailedToLoad" xml:space="preserve">
     <value>Could not load the following plug-ins:</value>
@@ -1550,7 +1550,7 @@ Arguments:
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ApplicationFonts" xml:space="preserve">
-    <value>Application Fonts</value>
+    <value>Application fonts</value>
     <comment>Options dialog, Application fonts group header label</comment>
   </data>
   <data name="Options_ArchiveAdd" xml:space="preserve">
@@ -1674,7 +1674,7 @@ Arguments:
     <comment>Options dialog, language request label</comment>
   </data>
   <data name="Options_HexSearchResultLineLength" xml:space="preserve">
-    <value>Hex search result line length</value>
+    <value>Byte search result line length</value>
     <comment>Options dialog, results options combo box label</comment>
   </data>
   <data name="Options_HistoryLists" xml:space="preserve">
@@ -1723,7 +1723,7 @@ Arguments:
   </data>
   <data name="Options_MatchTimeout" xml:space="preserve">
     <value>Match timeout</value>
-    <comment>Options dialog, regex options text input label</comment>
+    <comment>Options dialog, regular expression options text input label</comment>
   </data>
   <data name="Options_OnMainPanel" xml:space="preserve">
     <value>on the main panel</value>
@@ -1734,7 +1734,7 @@ Arguments:
     <comment>Options dialog, window title</comment>
   </data>
   <data name="Options_PDFToText" xml:space="preserve">
-    <value>PDF to Text</value>
+    <value>PDF to text</value>
     <comment>Options dialog, PDF to text group header label</comment>
   </data>
   <data name="Options_PdfToTextExeCommandLineOptions" xml:space="preserve">
@@ -1783,7 +1783,7 @@ Arguments:
   </data>
   <data name="Options_RegexOptions" xml:space="preserve">
     <value>Regular expressions</value>
-    <comment>Options dialog, Regular expressions group heading label</comment>
+    <comment>Options dialog, regular expressions group heading label</comment>
   </data>
   <data name="Options_Reload" xml:space="preserve">
     <value>Reload</value>
@@ -1806,7 +1806,7 @@ Arguments:
     <comment>Options dialog, Search results group header label</comment>
   </data>
   <data name="Options_SampleText" xml:space="preserve">
-    <value>Sample Text</value>
+    <value>Sample text</value>
     <comment>Options dialog, font family and size sample text </comment>
   </data>
   <data name="Options_Save" xml:space="preserve">
@@ -1851,7 +1851,7 @@ Arguments:
   </data>
   <data name="Options_TheMatchTimeoutLimits" xml:space="preserve">
     <value>The match timeout limits how long the regular expression engine attempts to resolve a regular expression before it times out. It prevents processing expressions and input strings requiring excessive backtracking.</value>
-    <comment>Options dialog, regex options help text</comment>
+    <comment>Options dialog, regular expression options help text</comment>
   </data>
   <data name="Options_Theme" xml:space="preserve">
     <value>Theme</value>
@@ -1859,14 +1859,14 @@ Arguments:
   </data>
   <data name="Options_TimeoutSeconds" xml:space="preserve">
     <value>seconds</value>
-    <comment>Options dialog, regex options timeout input label</comment>
+    <comment>Options dialog, regular expression options timeout input label</comment>
   </data>
   <data name="Options_ToChangeThisSettingRunDnGREPAsAdministrator" xml:space="preserve">
     <value>Run dnGrep as Administrator to change this setting.</value>
     <comment>Options dialog, Explorer right-click tooltip</comment>
   </data>
   <data name="Options_UseDefault" xml:space="preserve">
-    <value>Use Default</value>
+    <value>Use default font</value>
     <comment>Options dialog, fonts default checkbox label (accel)</comment>
   </data>
   <data name="Options_WantADifferentLanguage" xml:space="preserve">
@@ -2099,7 +2099,7 @@ Arguments:
   </data>
   <data name="Report_CSVRecordHeaderText" xml:space="preserve">
     <value>File Name,Line Number,String</value>
-    <comment>Report, CSV report header text</comment>
+    <comment>Report, CSV report - these are the column headers in the generated CSV file</comment>
   </data>
   <data name="Report_DnGrepSearchResults" xml:space="preserve">
     <value>dnGrep Search Results</value>
@@ -2214,7 +2214,7 @@ Arguments:
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_UsingRegexFilePattern" xml:space="preserve">
-    <value>Using regex file pattern</value>
+    <value>Using regular expression file pattern</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_UsingTypeOfSeach" xml:space="preserve">
@@ -2290,7 +2290,7 @@ Arguments:
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">
-    <value>_Regex</value>
+    <value>_Regular expression</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_SearchType_Text" xml:space="preserve">
@@ -2334,11 +2334,11 @@ Arguments:
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTA7_ForMoreRegexPatternsHitF1" xml:space="preserve">
-    <value>Hit F1 for more regex patterns</value>
+    <value>Hit F1 for more regular expression patterns</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTB1_ReplacesEntireRegex" xml:space="preserve">
-    <value>$&amp; replaces entire regex</value>
+    <value>$&amp; replaces entire regular expression</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTB2_InsertsTheTextMatchedIntoTheReplacementText" xml:space="preserve">
