@@ -61,7 +61,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to About dnGREP.
+        ///   Looks up a localized string similar to About dnGrep.
         /// </summary>
         public static string About_AboutDnGREP {
             get {
@@ -97,7 +97,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to dnGREP.
+        ///   Looks up a localized string similar to dnGrep.
         /// </summary>
         public static string About_DnGREP {
             get {
@@ -124,7 +124,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Json framework for .NET.
+        ///   Looks up a localized string similar to JSON framework for .NET.
         /// </summary>
         public static string About_JsonFrameworkForNET {
             get {
@@ -241,7 +241,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Associated Folders:.
+        ///   Looks up a localized string similar to Associated folders:.
         /// </summary>
         public static string BookmarkDetails_AssociatedFolders {
             get {
@@ -304,7 +304,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Everything Index Service.
+        ///   Looks up a localized string similar to Everything index service.
         /// </summary>
         public static string BookmarkDetails_EverythingIndexService {
             get {
@@ -313,7 +313,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File Pattern Type.
+        ///   Looks up a localized string similar to File pattern type.
         /// </summary>
         public static string BookmarkDetails_FilePatternType {
             get {
@@ -331,7 +331,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to e.g. file??.*.
+        ///   Looks up a localized string similar to For example: *.txt;*.xml.
         /// </summary>
         public static string BookmarkDetails_ForExampleAsteriskPattern {
             get {
@@ -340,7 +340,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to e.g. file[0-9]{1,2}\\.txt.
+        ///   Looks up a localized string similar to For example: file[0-9]{1,2}\\.txt.
         /// </summary>
         public static string BookmarkDetails_ForExampleRegularExpession {
             get {
@@ -421,7 +421,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Asterisk pattern.
+        ///   Looks up a localized string similar to Wildcard.
         /// </summary>
         public static string BookmarkDetails_PatternType_AsteriskPattern {
             get {
@@ -439,7 +439,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Regex.
+        ///   Looks up a localized string similar to _Regular expression.
         /// </summary>
         public static string BookmarkDetails_PatternType_Regex {
             get {
@@ -475,7 +475,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hex.
+        ///   Looks up a localized string similar to Byte.
         /// </summary>
         public static string BookmarkDetails_SearchType_Hex {
             get {
@@ -511,7 +511,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Read file as binary and search for bytes as hexadecimal digits: 68 65 78 20.
+        ///   Looks up a localized string similar to Byte search: read file as binary and search for bytes as hexadecimal digits: 68 65 78 20.
         /// </summary>
         public static string BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes {
             get {
@@ -520,7 +520,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Regex.
+        ///   Looks up a localized string similar to _Regular expression.
         /// </summary>
         public static string BookmarkDetails_SearchType_Regex {
             get {
@@ -556,7 +556,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to XPath search (XML documents only).
+        ///   Looks up a localized string similar to XPath search (only for XML documents).
         /// </summary>
         public static string BookmarkDetails_SearchType_XPathSearchXMLDocumentsOnly {
             get {
@@ -583,7 +583,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type.
+        ///   Looks up a localized string similar to Search type.
         /// </summary>
         public static string BookmarkDetails_TypeHeader {
             get {
@@ -673,7 +673,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File Pattern.
+        ///   Looks up a localized string similar to File pattern.
         /// </summary>
         public static string Bookmarks_FilePatternHeader {
             get {
@@ -691,7 +691,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Other Properties.
+        ///   Looks up a localized string similar to Other properties.
         /// </summary>
         public static string Bookmarks_OtherPropertiesHeader {
             get {
@@ -700,7 +700,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Replace With.
+        ///   Looks up a localized string similar to Replace with.
         /// </summary>
         public static string Bookmarks_ReplaceWithHeader {
             get {
@@ -709,7 +709,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search For.
+        ///   Looks up a localized string similar to Search for.
         /// </summary>
         public static string Bookmarks_SearchForHeader {
             get {
@@ -727,7 +727,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Max folder depth {0}.
+        ///   Looks up a localized string similar to Max folder depth: {0}.
         /// </summary>
         public static string Bookmarks_Summary_MaxFolderDepth {
             get {
@@ -772,7 +772,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No symlinks.
+        ///   Looks up a localized string similar to No symbolic links.
         /// </summary>
         public static string Bookmarks_Summary_NoSymlinks {
             get {
@@ -866,7 +866,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to One or more arguments are invalid..
+        ///   Looks up a localized string similar to One or more arguments are not valid..
         /// </summary>
         public static string Help_OneOrMoreArgumentsAreInvalid {
             get {
@@ -911,7 +911,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Date Modified:.
+        ///   Looks up a localized string similar to Date modified:.
         /// </summary>
         public static string Main_Attributes_DateModified {
             get {
@@ -956,7 +956,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Auto Position.
+        ///   Looks up a localized string similar to Auto position.
         /// </summary>
         public static string Main_AutoPosition {
             get {
@@ -1010,7 +1010,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Changes the results tree zoom.
+        ///   Looks up a localized string similar to Changes the zoom level of the results tree.
         /// </summary>
         public static string Main_ChangesTheResultsTreeZoom {
             get {
@@ -1055,7 +1055,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Context changes Will be applied in next search.
+        ///   Looks up a localized string similar to Context line changes will be applied in next search.
         /// </summary>
         public static string Main_ContextChangesWillBeAppliedInNextSearch {
             get {
@@ -1118,7 +1118,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to dnGREP.
+        ///   Looks up a localized string similar to dnGrep.
         /// </summary>
         public static string Main_DnGREP_Title {
             get {
@@ -1127,7 +1127,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dock Bottom.
+        ///   Looks up a localized string similar to Dock bottom.
         /// </summary>
         public static string Main_DockBottom {
             get {
@@ -1136,7 +1136,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dock Right.
+        ///   Looks up a localized string similar to Dock right.
         /// </summary>
         public static string Main_DockRight {
             get {
@@ -1181,7 +1181,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Everything Index Service.
+        ///   Looks up a localized string similar to Everything index service.
         /// </summary>
         public static string Main_EverythingIndexService {
             get {
@@ -1226,7 +1226,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to By Created Date.
+        ///   Looks up a localized string similar to By created date.
         /// </summary>
         public static string Main_FilterSummary_ByCreatedDate {
             get {
@@ -1235,7 +1235,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to By Modified Date.
+        ///   Looks up a localized string similar to By modified date.
         /// </summary>
         public static string Main_FilterSummary_ByModifiedDate {
             get {
@@ -1244,7 +1244,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to By Size.
+        ///   Looks up a localized string similar to By size.
         /// </summary>
         public static string Main_FilterSummary_BySize {
             get {
@@ -1253,7 +1253,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Max folder depth {0}.
+        ///   Looks up a localized string similar to Max folder depth: {0}.
         /// </summary>
         public static string Main_FilterSummary_MaxFolderDepth {
             get {
@@ -1289,7 +1289,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No symlinks.
+        ///   Looks up a localized string similar to No symbolic links.
         /// </summary>
         public static string Main_FilterSummary_NoSymlinks {
             get {
@@ -1316,7 +1316,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to e.g. file??.*.
+        ///   Looks up a localized string similar to For example: *.txt;*.xml.
         /// </summary>
         public static string Main_ForExampleAsteriskPattern {
             get {
@@ -1325,7 +1325,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to e.g. file[0-9]{1,2}\\.txt.
+        ///   Looks up a localized string similar to For example: file[0-9]{1,2}\\.txt.
         /// </summary>
         public static string Main_ForExampleRegularExpession {
             get {
@@ -1352,7 +1352,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Highlight Groups.
+        ///   Looks up a localized string similar to Highlight groups.
         /// </summary>
         public static string Main_HighlightGroups {
             get {
@@ -1361,7 +1361,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Highlight Matches.
+        ///   Looks up a localized string similar to Highlight matches.
         /// </summary>
         public static string Main_HighlightMatches {
             get {
@@ -1370,7 +1370,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Highlight regular expression groups - changes will be applied in next search.
+        ///   Looks up a localized string similar to Highlight regular expression groups. Changes will be applied in next search..
         /// </summary>
         public static string Main_HighlightRegularExpressionGroups {
             get {
@@ -1433,7 +1433,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _About dnGrep....
+        ///   Looks up a localized string similar to _About dnGrep….
         /// </summary>
         public static string Main_Menu_About_AboutDnGrep {
             get {
@@ -1451,7 +1451,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Bookmarks....
+        ///   Looks up a localized string similar to _Bookmarks….
         /// </summary>
         public static string Main_Menu_Bookmarks {
             get {
@@ -1460,7 +1460,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Options....
+        ///   Looks up a localized string similar to _Options….
         /// </summary>
         public static string Main_Menu_Options {
             get {
@@ -1487,7 +1487,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Mor_e....
+        ///   Looks up a localized string similar to Mor_e….
         /// </summary>
         public static string Main_More {
             get {
@@ -1514,7 +1514,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copy files....
+        ///   Looks up a localized string similar to Copy files….
         /// </summary>
         public static string Main_MoreMenu_CopyFiles {
             get {
@@ -1532,7 +1532,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete files....
+        ///   Looks up a localized string similar to Delete files….
         /// </summary>
         public static string Main_MoreMenu_DeleteFiles {
             get {
@@ -1541,7 +1541,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Move files....
+        ///   Looks up a localized string similar to Move files….
         /// </summary>
         public static string Main_MoreMenu_MoveFiles {
             get {
@@ -1550,7 +1550,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CSV Results.
+        ///   Looks up a localized string similar to CSV results.
         /// </summary>
         public static string Main_MoreMenu_Save_CSVResults {
             get {
@@ -1568,7 +1568,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Text Results.
+        ///   Looks up a localized string similar to Text results.
         /// </summary>
         public static string Main_MoreMenu_Save_TextResults {
             get {
@@ -1595,7 +1595,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ....
+        ///   Looks up a localized string similar to ….
         /// </summary>
         public static string Main_OpenFolder {
             get {
@@ -1631,7 +1631,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Asterisk pattern.
+        ///   Looks up a localized string similar to Wildcard.
         /// </summary>
         public static string Main_PatternType_Asterisk {
             get {
@@ -1649,7 +1649,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Regex.
+        ///   Looks up a localized string similar to _Regular expression.
         /// </summary>
         public static string Main_PatternType_Regex {
             get {
@@ -1694,7 +1694,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to CSV file format.
+        ///   Looks up a localized string similar to CSV (comma separated).
         /// </summary>
         public static string Main_ReportOption_CSVFileFormat {
             get {
@@ -1703,7 +1703,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Report file format.
+        ///   Looks up a localized string similar to Report format.
         /// </summary>
         public static string Main_ReportOption_ReportFileFormat {
             get {
@@ -1712,7 +1712,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Results file format.
+        ///   Looks up a localized string similar to Text file.
         /// </summary>
         public static string Main_ReportOption_ResultsFileFormat {
             get {
@@ -1721,7 +1721,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reset Options.
+        ///   Looks up a localized string similar to Reset filters.
         /// </summary>
         public static string Main_ResetOptions {
             get {
@@ -1739,7 +1739,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to (at end of line).
+        ///   Looks up a localized string similar to (at end of the line).
         /// </summary>
         public static string Main_ResultList_AtEndOfLine {
             get {
@@ -1757,7 +1757,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ...(+{0:n0} characters).
+        ///   Looks up a localized string similar to …(+{0:n0} characters).
         /// </summary>
         public static string Main_ResultList_CountAdditionalCharacters {
             get {
@@ -1793,7 +1793,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Match {0}{1}Group {2}:   {3}.
+        ///   Looks up a localized string similar to Match {0}{1}Group {2}: {3}.
         /// </summary>
         public static string Main_ResultList_MatchToolTip2 {
             get {
@@ -1856,7 +1856,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copy Lines of text.
+        ///   Looks up a localized string similar to Copy lines of text.
         /// </summary>
         public static string Main_Results_CopyLinesOfText {
             get {
@@ -1883,7 +1883,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Next Match.
+        ///   Looks up a localized string similar to Next match.
         /// </summary>
         public static string Main_Results_NextMatch {
             get {
@@ -1919,7 +1919,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Previous Match.
+        ///   Looks up a localized string similar to Previous match.
         /// </summary>
         public static string Main_Results_PreviousMatch {
             get {
@@ -1955,7 +1955,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Saving results to file....
+        ///   Looks up a localized string similar to Saving results to file….
         /// </summary>
         public static string Main_SavingResultsToFile {
             get {
@@ -2027,7 +2027,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search Paralle_l.
+        ///   Looks up a localized string similar to Search paralle_l.
         /// </summary>
         public static string Main_SearchParallel {
             get {
@@ -2036,7 +2036,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hex.
+        ///   Looks up a localized string similar to Byte.
         /// </summary>
         public static string Main_SearchType_Hex {
             get {
@@ -2072,7 +2072,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Read file as binary and search for bytes as hexadecimal digits: 68 65 78 20.
+        ///   Looks up a localized string similar to Byte search: read file as binary and search for bytes as hexadecimal digits: 68 65 78 20.
         /// </summary>
         public static string Main_SearchType_ReadFileAsBinaryAndSearchForBytes {
             get {
@@ -2081,7 +2081,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Regex.
+        ///   Looks up a localized string similar to _Regular expression.
         /// </summary>
         public static string Main_SearchType_Regex {
             get {
@@ -2117,7 +2117,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to XPath search (XML documents only).
+        ///   Looks up a localized string similar to XPath search (only for XML documents).
         /// </summary>
         public static string Main_SearchType_XPathSearchXMLDocumentsOnly {
             get {
@@ -2270,7 +2270,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Replace Canceled.
+        ///   Looks up a localized string similar to Replace canceled.
         /// </summary>
         public static string Main_Status_ReplaceCanceled {
             get {
@@ -2279,7 +2279,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Replace Complete - {0} files replaced..
+        ///   Looks up a localized string similar to Replace completed – replaced text in {0} files..
         /// </summary>
         public static string Main_Status_ReplaceComplete0FilesReplaced {
             get {
@@ -2288,7 +2288,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Replace Failed..
+        ///   Looks up a localized string similar to Replace failed.
         /// </summary>
         public static string Main_Status_ReplaceFailed {
             get {
@@ -2297,7 +2297,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Replacing....
+        ///   Looks up a localized string similar to Replacing….
         /// </summary>
         public static string Main_Status_Replacing {
             get {
@@ -2306,7 +2306,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search Canceled.
+        ///   Looks up a localized string similar to Search canceled.
         /// </summary>
         public static string Main_Status_SearchCanceled {
             get {
@@ -2315,7 +2315,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search Canceled or Failed.
+        ///   Looks up a localized string similar to Search canceled or failed.
         /// </summary>
         public static string Main_Status_SearchCanceledOrFailed {
             get {
@@ -2324,7 +2324,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search Complete - Searched {0} files. Found {1} files in {2}..
+        ///   Looks up a localized string similar to Search completed – searched {0} files, found {1} files in {2}..
         /// </summary>
         public static string Main_Status_SearchCompleteSearched0FilesFound1FilesIn2 {
             get {
@@ -2333,7 +2333,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Searched {0} files. Found {1} matching files..
+        ///   Looks up a localized string similar to Searched {0} files, found {1} matching files..
         /// </summary>
         public static string Main_Status_Searched0FilesFound1MatchingFiles {
             get {
@@ -2342,7 +2342,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Searched {0} files. Found {1} matching files - processing {2}.
+        ///   Looks up a localized string similar to Searched {0} files, found {1} matching files – processing {2}.
         /// </summary>
         public static string Main_Status_Searched0FilesFound1MatchingFilesProcessing2 {
             get {
@@ -2351,7 +2351,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Searching....
+        ///   Looks up a localized string similar to Searching….
         /// </summary>
         public static string Main_Status_Searching {
             get {
@@ -2378,7 +2378,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Test Expression.
+        ///   Looks up a localized string similar to Test expression.
         /// </summary>
         public static string Main_TestExpression {
             get {
@@ -2396,7 +2396,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use capture groups from &apos;Paths to match&apos; in the &apos;Search for&apos; pattern.
+        ///   Looks up a localized string similar to Use capture groups from &apos;Patterns to match&apos; in the &apos;Search for&apos; pattern.
         /// </summary>
         public static string Main_UseCaptureGroupsFromPathsToMatch {
             get {
@@ -2423,7 +2423,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hex string is not valid!.
+        ///   Looks up a localized string similar to Byte string is not valid!.
         /// </summary>
         public static string Main_Validation_HexStringIsNotValid {
             get {
@@ -2432,7 +2432,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hex string is OK!.
+        ///   Looks up a localized string similar to Byte string is OK.
         /// </summary>
         public static string Main_Validation_HexStringIsOK {
             get {
@@ -2441,7 +2441,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Regex is not valid!.
+        ///   Looks up a localized string similar to Regular expression is not valid!.
         /// </summary>
         public static string Main_Validation_RegexIsNotValid {
             get {
@@ -2450,7 +2450,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Regex is OK!.
+        ///   Looks up a localized string similar to Regular expression is OK.
         /// </summary>
         public static string Main_Validation_RegexIsOK {
             get {
@@ -2468,7 +2468,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to XPath is OK!.
+        ///   Looks up a localized string similar to XPath is OK.
         /// </summary>
         public static string Main_Validation_XPathIsOK {
             get {
@@ -2486,7 +2486,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} in &quot;{1}&quot; - dnGREP.
+        ///   Looks up a localized string similar to {0} in &quot;{1}&quot; – dnGrep.
         /// </summary>
         public static string Main_WindowTitle {
             get {
@@ -2495,7 +2495,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wrap Text.
+        ///   Looks up a localized string similar to Wrap text.
         /// </summary>
         public static string Main_WrapText {
             get {
@@ -2513,7 +2513,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to continue?.
+        ///   Looks up a localized string similar to Continue?.
         /// </summary>
         public static string MessageBox_AreYouSureYouWantToContinue {
             get {
@@ -2522,7 +2522,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to replace search pattern with empty string?.
+        ///   Looks up a localized string similar to Replace the search pattern with an empty string?.
         /// </summary>
         public static string MessageBox_AreYouSureYouWantToReplaceSearchPatternWithEmptyString {
             get {
@@ -2531,7 +2531,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check editor path via &quot;Options...&quot;..
+        ///   Looks up a localized string similar to Check editor path via &quot;Options…&quot;..
         /// </summary>
         public static string MessageBox_CheckEditorPath {
             get {
@@ -2540,7 +2540,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clearing this bookmark will also clear that bookmark..
+        ///   Looks up a localized string similar to Clearing this bookmark also clears that bookmark..
         /// </summary>
         public static string MessageBox_ClearingThisBookmarkWillAlsoClearThatBookmark {
             get {
@@ -2549,7 +2549,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clearing this bookmark will also remove those bookmarks..
+        ///   Looks up a localized string similar to Clearing this bookmark also removes those bookmarks..
         /// </summary>
         public static string MessageBox_ClearingThisBookmarkWillAlsoRemoveThoseBookmarks {
             get {
@@ -2567,7 +2567,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not load resources file &apos;{0}&apos;: .
+        ///   Looks up a localized string similar to Could not load the &apos;{0}&apos; resources file: .
         /// </summary>
         public static string MessageBox_CouldNotLoadResourcesFile0 {
             get {
@@ -2576,7 +2576,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Could not load theme &apos;{0}&apos;, See the error log for details: .
+        ///   Looks up a localized string similar to Could not load the &apos;{0}&apos; theme. Check the error log for details: .
         /// </summary>
         public static string MessageBox_CouldNotLoadTheme {
             get {
@@ -2585,7 +2585,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} files have been successfully copied..
+        ///   Looks up a localized string similar to {0} files have been copied..
         /// </summary>
         public static string MessageBox_CountFilesHaveBeenSuccessfullyCopied {
             get {
@@ -2594,7 +2594,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} files have been successfully deleted..
+        ///   Looks up a localized string similar to {0} files have been deleted..
         /// </summary>
         public static string MessageBox_CountFilesHaveBeenSuccessfullyDeleted {
             get {
@@ -2603,7 +2603,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} files have been successfully moved..
+        ///   Looks up a localized string similar to {0} files have been moved..
         /// </summary>
         public static string MessageBox_CountFilesHaveBeenSuccessfullyMoved {
             get {
@@ -2612,7 +2612,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There was an error opening file by custom editor..
+        ///   Looks up a localized string similar to Could not open the file with the custom editor..
         /// </summary>
         public static string MessageBox_CustomEditorFileOpenError {
             get {
@@ -2621,7 +2621,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Default engine was used instead..
+        ///   Looks up a localized string similar to The default engine was used instead..
         /// </summary>
         public static string MessageBox_DefaultEngineWasUsedInstead {
             get {
@@ -2648,7 +2648,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you want to continue?.
+        ///   Looks up a localized string similar to Continue?.
         /// </summary>
         public static string MessageBox_DoYouWantToContinue {
             get {
@@ -2666,7 +2666,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There was an error opening file. See the error log for details: .
+        ///   Looks up a localized string similar to Could not open the file. Check the error log for details: .
         /// </summary>
         public static string MessageBox_ErrorOpeningFile {
             get {
@@ -2675,7 +2675,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error setting clipboard text, the clipboard is locked by.
+        ///   Looks up a localized string similar to Could not set clipboard text. The clipboard is locked by.
         /// </summary>
         public static string MessageBox_ErrorSettingClipboardTextTheClipboardIsLockedBy {
             get {
@@ -2684,7 +2684,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Failed to extract file from archive. See the error log for details: .
+        ///   Looks up a localized string similar to Could not extract file from archive. Check the error log for details: .
         /// </summary>
         public static string MessageBox_FailedToExtractFileFromArchive {
             get {
@@ -2693,7 +2693,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Files have been successfully reverted..
+        ///   Looks up a localized string similar to Files have been reverted..
         /// </summary>
         public static string MessageBox_FilesHaveBeenSuccessfullyReverted {
             get {
@@ -2729,7 +2729,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New version.
+        ///   Looks up a localized string similar to New Version.
         /// </summary>
         public static string MessageBox_NewVersion {
             get {
@@ -2738,7 +2738,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New version of dnGREP ({0}) is available for download..
+        ///   Looks up a localized string similar to New version of dnGrep ({0}) is available for download..
         /// </summary>
         public static string MessageBox_NewVersionOfDnGREP0IsAvailableForDownload {
             get {
@@ -2756,7 +2756,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Plugin Errors.
+        ///   Looks up a localized string similar to Plug-in Errors.
         /// </summary>
         public static string MessageBox_PluginErrors {
             get {
@@ -2765,7 +2765,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Rename failed: .
+        ///   Looks up a localized string similar to Could not rename the file: .
         /// </summary>
         public static string MessageBox_RenameFailed {
             get {
@@ -2792,7 +2792,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Replace failed! See the error log for details: .
+        ///   Looks up a localized string similar to Could not replace text in files. Check the error log for details: .
         /// </summary>
         public static string MessageBox_ReplaceFailedError {
             get {
@@ -2810,7 +2810,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Run dnGrep as Administrator to change showing dnGrep in Explorer right-click menu.
+        ///   Looks up a localized string similar to Run dnGrep as Administrator to change showing dnGrep in Windows Explorer right-click menu.
         /// </summary>
         public static string MessageBox_RunDnGrepAsAdministrator {
             get {
@@ -2819,7 +2819,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Run dnGrep as Administrator to change Startup Register.
+        ///   Looks up a localized string similar to Run dnGrep as Administrator to change application startup option..
         /// </summary>
         public static string MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister {
             get {
@@ -2828,7 +2828,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search failed! See the error log for details: .
+        ///   Looks up a localized string similar to Could not complete the search. Check the error log for details: .
         /// </summary>
         public static string MessageBox_SearchFailedError {
             get {
@@ -2837,7 +2837,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search or replace failed! See the error log for details: .
+        ///   Looks up a localized string similar to Could not complete the search or replace. Check the error log for details: .
         /// </summary>
         public static string MessageBox_SearchOrReplaceFailed {
             get {
@@ -2846,7 +2846,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search path in the &apos;{0}&apos; field is not valid, search canceled..
+        ///   Looks up a localized string similar to The search path in the &apos;{0}&apos; field is not valid, search canceled..
         /// </summary>
         public static string MessageBox_SearchPathInTheFieldIsNotValid {
             get {
@@ -2873,7 +2873,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Something broke down in dnGrep. See the error log for details: .
+        ///   Looks up a localized string similar to Something broke down in dnGrep. Check the error log for details: .
         /// </summary>
         public static string MessageBox_SomethingBrokeDownInDnGrep {
             get {
@@ -2882,7 +2882,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The file &apos;{0}&apos; already exists in {1}, overwrite existing?.
+        ///   Looks up a localized string similar to The file &apos;{0}&apos; already exists in {1}. Overwrite existing?.
         /// </summary>
         public static string MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting {
             get {
@@ -2900,7 +2900,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The following plugins failed to load:.
+        ///   Looks up a localized string similar to Could not load the following plug-ins:.
         /// </summary>
         public static string MessageBox_TheFollowingPluginsFailedToLoad {
             get {
@@ -2909,7 +2909,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There was an error adding dnGrep to Explorer right-click menu. See the error log for details: .
+        ///   Looks up a localized string similar to Could not add dnGrep to the Windows Explorer right-click menu. Check the error log for details: .
         /// </summary>
         public static string MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu {
             get {
@@ -2918,7 +2918,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There was an error copying files. See the error log for details: .
+        ///   Looks up a localized string similar to Could not copy the files. Check the error log for details: .
         /// </summary>
         public static string MessageBox_ThereWasAnErrorCopyingFiles {
             get {
@@ -2927,7 +2927,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There was an error creating the file. See the error log for details: .
+        ///   Looks up a localized string similar to Could not create the file. Check the error log for details: .
         /// </summary>
         public static string MessageBox_ThereWasAnErrorCreatingTheFile {
             get {
@@ -2936,7 +2936,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There was an error deleting files. See the error log for details: .
+        ///   Looks up a localized string similar to Could not delete the files. Check the error log for details: .
         /// </summary>
         public static string MessageBox_ThereWasAnErrorDeletingFiles {
             get {
@@ -2945,7 +2945,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There was an error moving files. See the error log for details: .
+        ///   Looks up a localized string similar to Could not move the files. Check the error log for details: .
         /// </summary>
         public static string MessageBox_ThereWasAnErrorMovingFiles {
             get {
@@ -2954,7 +2954,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There was an error registering auto startup. See the error log for details: .
+        ///   Looks up a localized string similar to Could not register auto startup. Check the error log for details: .
         /// </summary>
         public static string MessageBox_ThereWasAnErrorRegisteringAutoStartup {
             get {
@@ -2963,7 +2963,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There was an error removing dnGrep from the Explorer right-click menu. See the error log for details: .
+        ///   Looks up a localized string similar to Could not remove dnGrep from the Windows Explorer right-click menu. Check the error log for details: .
         /// </summary>
         public static string MessageBox_ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu {
             get {
@@ -2972,7 +2972,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There was an error reverting files. See the error log for details: .
+        ///   Looks up a localized string similar to Could not revert files. Check the error log for details: .
         /// </summary>
         public static string MessageBox_ThereWasAnErrorRevertingFiles {
             get {
@@ -2981,7 +2981,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There was an error running the test window. See the error log for details: .
+        ///   Looks up a localized string similar to Could not open the test window. Check the error log for details: .
         /// </summary>
         public static string MessageBox_ThereWasAnErrorRunningRegexTest {
             get {
@@ -2990,7 +2990,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There was an error saving options. See the error log for details: .
+        ///   Looks up a localized string similar to Could not save options. Check the error log for details: .
         /// </summary>
         public static string MessageBox_ThereWasAnErrorSavingOptions {
             get {
@@ -2999,7 +2999,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There was an error unregistering auto startup. See the error log for details: .
+        ///   Looks up a localized string similar to Could not unregister auto startup. Check the error log for details: .
         /// </summary>
         public static string MessageBox_ThereWasAnErrorUnregisteringAutoStartup {
             get {
@@ -3008,7 +3008,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This bookmark is associated with {0} other folders:.
+        ///   Looks up a localized string similar to This bookmark is associated with {0} other folders..
         /// </summary>
         public static string MessageBox_ThisBookmarkIsAssociatedWith0OtherFolders {
             get {
@@ -3017,7 +3017,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This bookmark is associated with one other folder.
+        ///   Looks up a localized string similar to This bookmark is associated with one other folder..
         /// </summary>
         public static string MessageBox_ThisBookmarkIsAssociatedWithOneOtherFolder {
             get {
@@ -3044,7 +3044,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Window Title: {0}.
+        ///   Looks up a localized string similar to Window title: {0}.
         /// </summary>
         public static string MessageBox_WindowTitleIsName {
             get {
@@ -3053,7 +3053,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Would you like to continue?.
+        ///   Looks up a localized string similar to Continue?.
         /// </summary>
         public static string MessageBox_WouldYouLikeToContinue {
             get {
@@ -3062,7 +3062,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Would you like to download it now?.
+        ///   Looks up a localized string similar to Download it now?.
         /// </summary>
         public static string MessageBox_WouldYouLikeToDownloadItNow {
             get {
@@ -3080,7 +3080,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Allow searching for file name pattern only when &apos;Search for&apos; is empty.
+        ///   Looks up a localized string similar to List files using the file name pattern when the &apos;Search for&apos; field is empty.
         /// </summary>
         public static string Options_AllowSearchingForFileNamePatternOnly {
             get {
@@ -3089,7 +3089,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Application Fonts.
+        ///   Looks up a localized string similar to Application fonts.
         /// </summary>
         public static string Options_ApplicationFonts {
             get {
@@ -3098,7 +3098,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add:.
+        ///   Looks up a localized string similar to Add.
         /// </summary>
         public static string Options_ArchiveAdd {
             get {
@@ -3107,7 +3107,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Default:.
+        ///   Looks up a localized string similar to Default.
         /// </summary>
         public static string Options_ArchiveDefault {
             get {
@@ -3125,7 +3125,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Archive Options.
+        ///   Looks up a localized string similar to Archive files.
         /// </summary>
         public static string Options_ArchiveOptions {
             get {
@@ -3134,7 +3134,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove:.
+        ///   Looks up a localized string similar to Remove.
         /// </summary>
         public static string Options_ArchiveRemove {
             get {
@@ -3143,7 +3143,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ....
+        ///   Looks up a localized string similar to ….
         /// </summary>
         public static string Options_BrowseFileLocation {
             get {
@@ -3161,7 +3161,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Check for updates when Windows starts.
+        ///   Looks up a localized string similar to Check for new versions when Windows starts.
         /// </summary>
         public static string Options_CheckForUpdatesWhenWindowsStarts {
             get {
@@ -3170,7 +3170,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Checking for updates.
+        ///   Looks up a localized string similar to New versions.
         /// </summary>
         public static string Options_CheckingForUpdates {
             get {
@@ -3260,7 +3260,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Detect file encoding when searching for file name pattern only.
+        ///   Looks up a localized string similar to Detect file encoding when listing files using the file name pattern.
         /// </summary>
         public static string Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly {
             get {
@@ -3269,7 +3269,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Dialog Font Size.
+        ///   Looks up a localized string similar to Other windows font size.
         /// </summary>
         public static string Options_DialogFontSize {
             get {
@@ -3278,7 +3278,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to dnGrep will add the selected files to the end of the command line..
+        ///   Looks up a localized string similar to dnGrep will add the selected files to the end of the command-line..
         /// </summary>
         public static string Options_DnGrepWillAddTheSelectedFiles {
             get {
@@ -3305,7 +3305,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enable automatic checking every.
+        ///   Looks up a localized string similar to Check automatically every.
         /// </summary>
         public static string Options_EnableAutomaticCheckingEvery {
             get {
@@ -3341,7 +3341,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Follow Windows Theme.
+        ///   Looks up a localized string similar to Follow Windows theme.
         /// </summary>
         public static string Options_FollowWindowsTheme {
             get {
@@ -3350,7 +3350,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Font Family.
+        ///   Looks up a localized string similar to Font family.
         /// </summary>
         public static string Options_FontFamily {
             get {
@@ -3368,7 +3368,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hex search result line length.
+        ///   Looks up a localized string similar to Byte search result line length.
         /// </summary>
         public static string Options_HexSearchResultLineLength {
             get {
@@ -3377,7 +3377,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to History Lists.
+        ///   Looks up a localized string similar to History lists.
         /// </summary>
         public static string Options_HistoryLists {
             get {
@@ -3440,7 +3440,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Load from file....
+        ///   Looks up a localized string similar to Load from file….
         /// </summary>
         public static string Options_LoadFromFile {
             get {
@@ -3449,7 +3449,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Main Font Size.
+        ///   Looks up a localized string similar to Main window font size.
         /// </summary>
         public static string Options_MainFontSize {
             get {
@@ -3458,7 +3458,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 0 - match everything; 1.0 - exact match.
+        ///   Looks up a localized string similar to 0 – match everything; 1.0 – exact match.
         /// </summary>
         public static string Options_MatchEverythingToExactMatch {
             get {
@@ -3485,7 +3485,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to on main panel.
+        ///   Looks up a localized string similar to on the main panel.
         /// </summary>
         public static string Options_OnMainPanel {
             get {
@@ -3503,7 +3503,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PDF to Text.
+        ///   Looks up a localized string similar to PDF to text.
         /// </summary>
         public static string Options_PDFToText {
             get {
@@ -3512,7 +3512,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PdfToText.exe command line options:.
+        ///   Looks up a localized string similar to PdfToText.exe command-line options:.
         /// </summary>
         public static string Options_PdfToTextExeCommandLineOptions {
             get {
@@ -3539,7 +3539,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add:.
+        ///   Looks up a localized string similar to Add.
         /// </summary>
         public static string Options_PluginAdd {
             get {
@@ -3548,7 +3548,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Default:.
+        ///   Looks up a localized string similar to Default.
         /// </summary>
         public static string Options_PluginDefault {
             get {
@@ -3575,7 +3575,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Plugin Options.
+        ///   Looks up a localized string similar to Plug-ins.
         /// </summary>
         public static string Options_PluginOptions {
             get {
@@ -3584,7 +3584,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove:.
+        ///   Looks up a localized string similar to Remove.
         /// </summary>
         public static string Options_PluginRemove {
             get {
@@ -3593,7 +3593,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Press F1 for help on Options.
+        ///   Looks up a localized string similar to Press F1 for help on options.
         /// </summary>
         public static string Options_PressF1ForHelpOnOptions {
             get {
@@ -3611,7 +3611,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Regex Options.
+        ///   Looks up a localized string similar to Regular expressions.
         /// </summary>
         public static string Options_RegexOptions {
             get {
@@ -3638,7 +3638,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Replace dialog Layout:.
+        ///   Looks up a localized string similar to Replace window layout.
         /// </summary>
         public static string Options_ReplaceDialogLayout {
             get {
@@ -3647,7 +3647,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Replace Font Size.
+        ///   Looks up a localized string similar to Replace window font size.
         /// </summary>
         public static string Options_ReplaceFontSize {
             get {
@@ -3656,7 +3656,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Results Options.
+        ///   Looks up a localized string similar to Search results.
         /// </summary>
         public static string Options_ResultsOptions {
             get {
@@ -3665,7 +3665,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sample Text.
+        ///   Looks up a localized string similar to Sample text.
         /// </summary>
         public static string Options_SampleText {
             get {
@@ -3683,7 +3683,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Selected Theme.
+        ///   Looks up a localized string similar to Selected theme.
         /// </summary>
         public static string Options_SelectedTheme {
             get {
@@ -3692,7 +3692,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show dnGrep in Explorer right-click menu.
+        ///   Looks up a localized string similar to Show dnGrep in the right-click menu of Windows Explorer.
         /// </summary>
         public static string Options_ShowDnGrepInExplorerRightClickMenu {
             get {
@@ -3701,7 +3701,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show file info tool tips.
+        ///   Looks up a localized string similar to Show file info tooltips.
         /// </summary>
         public static string Options_ShowFileInfoToolTips {
             get {
@@ -3710,7 +3710,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show file path in results panel.
+        ///   Looks up a localized string similar to Show file path in the results panel.
         /// </summary>
         public static string Options_ShowFilePathInResultsPanel {
             get {
@@ -3737,7 +3737,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show search options:.
+        ///   Looks up a localized string similar to Show search options.
         /// </summary>
         public static string Options_ShowSearchOptions {
             get {
@@ -3746,7 +3746,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Show verbose match count.
+        ///   Looks up a localized string similar to Show additional details about the matches found.
         /// </summary>
         public static string Options_ShowVerboseMatchCount {
             get {
@@ -3755,7 +3755,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Startup options.
+        ///   Looks up a localized string similar to Startup.
         /// </summary>
         public static string Options_StartupOptions {
             get {
@@ -3764,7 +3764,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The match timeout limits how long the regular expression engine will attempt to resolve a regular expression before it times out. This prevents processing expressions and input strings that require excessive backtracking..
+        ///   Looks up a localized string similar to The match timeout limits how long the regular expression engine attempts to resolve a regular expression before it times out. It prevents processing expressions and input strings requiring excessive backtracking..
         /// </summary>
         public static string Options_TheMatchTimeoutLimits {
             get {
@@ -3791,7 +3791,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to To change this setting run dnGREP as Administrator..
+        ///   Looks up a localized string similar to Run dnGrep as Administrator to change this setting..
         /// </summary>
         public static string Options_ToChangeThisSettingRunDnGREPAsAdministrator {
             get {
@@ -3800,7 +3800,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Use Default.
+        ///   Looks up a localized string similar to Use default font.
         /// </summary>
         public static string Options_UseDefault {
             get {
@@ -3845,7 +3845,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Highlights disabled: too many matches found..
+        ///   Looks up a localized string similar to Not showing highlights because too many matches were found..
         /// </summary>
         public static string Preview_HighlightsDisabledTooManyMatchesFound {
             get {
@@ -3890,7 +3890,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This file is either binary or too large to preview..
+        ///   Looks up a localized string similar to This file is either binary, or too large to be shown..
         /// </summary>
         public static string Preview_ThisFileIsEitherBinaryOrTooLargeToPreview {
             get {
@@ -3908,7 +3908,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wrap Text.
+        ///   Looks up a localized string similar to Wrap text.
         /// </summary>
         public static string Preview_WrapText {
             get {
@@ -3998,7 +3998,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File {0} of {1}: {2}  ({3} matches on {4} lines).
+        ///   Looks up a localized string similar to File {0} of {1}: {2} ({3} matches on {4} lines).
         /// </summary>
         public static string Replace_FileNumberOfCountName {
             get {
@@ -4070,7 +4070,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Next _File.
+        ///   Looks up a localized string similar to Next _file.
         /// </summary>
         public static string Replace_NextFile {
             get {
@@ -4106,7 +4106,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Previous File.
+        ///   Looks up a localized string similar to Previous file.
         /// </summary>
         public static string Replace_PreviousFile {
             get {
@@ -4142,7 +4142,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Replace in All Files.
+        ///   Looks up a localized string similar to Replace in all files.
         /// </summary>
         public static string Replace_ReplaceInAllFiles {
             get {
@@ -4151,7 +4151,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Replace in File.
+        ///   Looks up a localized string similar to Replace in file.
         /// </summary>
         public static string Replace_ReplaceInFile {
             get {
@@ -4169,7 +4169,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Selected Match.
+        ///   Looks up a localized string similar to Selected match.
         /// </summary>
         public static string Replace_ReplaceKey2_SelectedMatch {
             get {
@@ -4178,7 +4178,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Replace Match.
+        ///   Looks up a localized string similar to Replace match.
         /// </summary>
         public static string Replace_ReplaceKey3_ReplaceMatch {
             get {
@@ -4187,7 +4187,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Skip Match.
+        ///   Looks up a localized string similar to Skip match.
         /// </summary>
         public static string Replace_ReplaceKey4_SkipMatch {
             get {
@@ -4259,7 +4259,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This file contains too many matches for individual replace.  To replace all of them, click &apos;Replace in File&apos;.
+        ///   Looks up a localized string similar to This file contains too many matches for individual replace. Click &apos;Replace in file&apos; to replace all of them..
         /// </summary>
         public static string Replace_ThisFileContainsTooManyMatchesForIndividualReplace {
             get {
@@ -4286,7 +4286,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Undo File.
+        ///   Looks up a localized string similar to Undo file.
         /// </summary>
         public static string Replace_UndoFile {
             get {
@@ -4304,7 +4304,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wrap Text.
+        ///   Looks up a localized string similar to Wrap text.
         /// </summary>
         public static string Replace_WrapText {
             get {
@@ -4421,7 +4421,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exclude pattern:.
+        ///   Looks up a localized string similar to Exclude file pattern:.
         /// </summary>
         public static string ReportSummary_ExcludePattern {
             get {
@@ -4430,7 +4430,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to File pattern:.
+        ///   Looks up a localized string similar to Include file pattern:.
         /// </summary>
         public static string ReportSummary_FilePattern {
             get {
@@ -4439,7 +4439,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Max folder depth {0}.
+        ///   Looks up a localized string similar to Max folder depth: {0}.
         /// </summary>
         public static string ReportSummary_MaxFolderDepth {
             get {
@@ -4502,7 +4502,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No symlinks.
+        ///   Looks up a localized string similar to No symbolic links.
         /// </summary>
         public static string ReportSummary_NoSymlinks {
             get {
@@ -4547,7 +4547,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Stop after frist match.
+        ///   Looks up a localized string similar to Stop after first match.
         /// </summary>
         public static string ReportSummary_StopAfterFirstMatch {
             get {
@@ -4583,7 +4583,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Using regex file pattern.
+        ///   Looks up a localized string similar to Using regular expression file pattern.
         /// </summary>
         public static string ReportSummary_UsingRegexFilePattern {
             get {
@@ -4691,7 +4691,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Replace text is not valid XML!.
+        ///   Looks up a localized string similar to The replace text is not valid XML!.
         /// </summary>
         public static string Test_ReplaceTextIsNotValidXML {
             get {
@@ -4754,7 +4754,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Regex.
+        ///   Looks up a localized string similar to _Regular expression.
         /// </summary>
         public static string Test_SearchType_Regex {
             get {
@@ -4853,7 +4853,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to For more Regex patterns hit F1.
+        ///   Looks up a localized string similar to Hit F1 for more regular expression patterns.
         /// </summary>
         public static string TTA7_ForMoreRegexPatternsHitF1 {
             get {
@@ -4862,7 +4862,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $&amp; replaces entire regex.
+        ///   Looks up a localized string similar to $&amp; replaces entire regular expression.
         /// </summary>
         public static string TTB1_ReplacesEntireRegex {
             get {
@@ -4871,7 +4871,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to $1, $2, $3, etc... inserts the text matched between capturing parentheses into the replacement text.
+        ///   Looks up a localized string similar to $1, $2, $3, etc… inserts the text matched between capturing parentheses into the replacement text.
         /// </summary>
         public static string TTB2_InsertsTheTextMatchedIntoTheReplacementText {
             get {

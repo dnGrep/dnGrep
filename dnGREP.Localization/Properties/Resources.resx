@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About_AboutDnGREP" xml:space="preserve">
-    <value>About dnGREP</value>
+    <value>About dnGrep</value>
     <comment>About dialog window title</comment>
   </data>
   <data name="About_Acknowledgments" xml:space="preserve">
@@ -134,7 +134,7 @@
     <comment>About dnGrep acknowledgments</comment>
   </data>
   <data name="About_DnGREP" xml:space="preserve">
-    <value>dnGREP</value>
+    <value>dnGrep</value>
     <comment>About dialog text</comment>
   </data>
   <data name="About_DnGrepOnGitHub" xml:space="preserve">
@@ -146,7 +146,7 @@
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_JsonFrameworkForNET" xml:space="preserve">
-    <value>Json framework for .NET</value>
+    <value>JSON framework for .NET</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_LibraryForReadingArchiveFiles" xml:space="preserve">
@@ -198,7 +198,7 @@
     <comment>About dialog label</comment>
   </data>
   <data name="BookmarkDetails_AssociatedFolders" xml:space="preserve">
-    <value>Associated Folders:</value>
+    <value>Associated folders:</value>
     <comment>Bookmark details dialog, text input box label</comment>
   </data>
   <data name="BookmarkDetails_BooleanOperators" xml:space="preserve">
@@ -226,11 +226,11 @@
     <comment>Bookmark details dialog, search options encoding combo box label (accel) </comment>
   </data>
   <data name="BookmarkDetails_EverythingIndexService" xml:space="preserve">
-    <value>Everything Index Service</value>
-    <comment>Bookmark details dialog, pattern type option Everything tooltip</comment>
+    <value>Everything index service</value>
+    <comment>Bookmark details dialog, Everything pattern type option tooltip</comment>
   </data>
   <data name="BookmarkDetails_FilePatternType" xml:space="preserve">
-    <value>File Pattern Type</value>
+    <value>File pattern type</value>
     <comment>Bookmark details dialog, file pattern group header label</comment>
   </data>
   <data name="BookmarkDetails_FollowSymbolicLinks" xml:space="preserve">
@@ -238,12 +238,12 @@
     <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_ForExampleAsteriskPattern" xml:space="preserve">
-    <value>e.g. file??.*</value>
-    <comment>Bookmark details dialog, pattern type option Asterisk tooltip</comment>
+    <value>For example: *.txt;*.xml</value>
+    <comment>Bookmark details dialog, Wildcard pattern type option tooltip</comment>
   </data>
   <data name="BookmarkDetails_ForExampleRegularExpession" xml:space="preserve">
-    <value>e.g. file[0-9]{1,2}\\.txt</value>
-    <comment>Bookmark details dialog, pattern type option Regex tooltip</comment>
+    <value>For example: file[0-9]{1,2}\\.txt</value>
+    <comment>Bookmark details dialog, regular expression pattern type option tooltip</comment>
   </data>
   <data name="BookmarkDetails_IncludeBinaryFiles" xml:space="preserve">
     <value>Include binary files</value>
@@ -278,16 +278,16 @@
     <comment>Bookmark details dialog, Patterns to match label</comment>
   </data>
   <data name="BookmarkDetails_PatternType_AsteriskPattern" xml:space="preserve">
-    <value>Asterisk pattern</value>
-    <comment>Bookmark details dialog, pattern type radio button label (accel)</comment>
+    <value>Wildcard</value>
+    <comment>Bookmark details dialog, Wildcard pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_PatternType_Everything" xml:space="preserve">
     <value>Everything</value>
-    <comment>Bookmark details dialog, pattern type radio button label (accel)</comment>
+    <comment>Bookmark details dialog, Everything pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_PatternType_Regex" xml:space="preserve">
-    <value>_Regex</value>
-    <comment>Bookmark details dialog, pattern type radio button label (accel)</comment>
+    <value>_Regular expression</value>
+    <comment>Bookmark details dialog, Regular expression pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
     <value>Replace with:</value>
@@ -302,32 +302,32 @@
     <comment>Bookmark details dialog, checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
-    <value>Hex</value>
-    <comment>Bookmark details dialog, search type radio button label (accel)</comment>
+    <value>Byte</value>
+    <comment>Bookmark details dialog, Byte search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
     <value>Phonetic</value>
-    <comment>Bookmark details dialog, search type radio button label (accel)</comment>
+    <comment>Bookmark details dialog, Phonetic search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
     <value>Phonetic search</value>
-    <comment>Bookmark details dialog, search type Phonetic tooltip</comment>
+    <comment>Bookmark details dialog, Phonetic search type tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Plain text search</value>
-    <comment>Bookmark details dialog, search type Text tooltip</comment>
+    <comment>Bookmark details dialog, Text search type tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
-    <value>Read file as binary and search for bytes as hexadecimal digits: 68 65 78 20</value>
-    <comment>Bookmark details dialog, search type Hex tooltip</comment>
+    <value>Byte search: read file as binary and search for bytes as hexadecimal digits: 68 65 78 20</value>
+    <comment>Bookmark details dialog, Byte search type tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
-    <value>_Regex</value>
+    <value>_Regular expression</value>
     <comment>Bookmark details dialog, search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_RegularExpressionSearch" xml:space="preserve">
     <value>Regular expression search</value>
-    <comment>Bookmark details dialog, search type Regex tooltip</comment>
+    <comment>Bookmark details dialog, search type regular expression tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Text" xml:space="preserve">
     <value>_Text</value>
@@ -338,7 +338,7 @@
     <comment>Bookmark details dialog, search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
-    <value>XPath search (XML documents only)</value>
+    <value>XPath search (only for XML documents)</value>
     <comment>Bookmark details dialog, search type XPath tooltip</comment>
   </data>
   <data name="BookmarkDetails_ThisBookmarkAlreadyExists" xml:space="preserve">
@@ -350,8 +350,8 @@
     <comment>Bookmark details dialog, window title</comment>
   </data>
   <data name="BookmarkDetails_TypeHeader" xml:space="preserve">
-    <value>Type</value>
-    <comment>Bookmark details dialog, type group header label</comment>
+    <value>Search type</value>
+    <comment>Bookmark details dialog, search type group header label</comment>
   </data>
   <data name="BookmarkDetails_UseGitignore" xml:space="preserve">
     <value>Use .gitignore</value>
@@ -390,7 +390,7 @@
     <comment>Bookmarks dialog, button label (accel)</comment>
   </data>
   <data name="Bookmarks_FilePatternHeader" xml:space="preserve">
-    <value>File Pattern</value>
+    <value>File pattern</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Bookmarks_Filter" xml:space="preserve">
@@ -398,15 +398,15 @@
     <comment>Bookmarks dialog, filter input box label</comment>
   </data>
   <data name="Bookmarks_OtherPropertiesHeader" xml:space="preserve">
-    <value>Other Properties</value>
+    <value>Other properties</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Bookmarks_ReplaceWithHeader" xml:space="preserve">
-    <value>Replace With</value>
+    <value>Replace with</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Bookmarks_SearchForHeader" xml:space="preserve">
-    <value>Search For</value>
+    <value>Search for</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Bookmarks_Summary_CaseSensitive" xml:space="preserve">
@@ -414,7 +414,7 @@
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_MaxFolderDepth" xml:space="preserve">
-    <value>Max folder depth {0}</value>
+    <value>Max folder depth: {0}</value>
     <comment>Bookmarks dialog, Other Properties summary: {0} is a number</comment>
   </data>
   <data name="Bookmarks_Summary_Multiline" xml:space="preserve">
@@ -434,7 +434,7 @@
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_NoSymlinks" xml:space="preserve">
-    <value>No symlinks</value>
+    <value>No symbolic links</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
@@ -481,22 +481,22 @@ Arguments:
 /f [folderPath]
 -f [folderPath]
 -folder [folderPath]
-    Sets the folder path to search.  May be a comma or semi-colon separated list of folder paths.
+    Sets the folder path to search.  May be a comma- or semicolon-separated list of folder paths.
 
 /pm [pattern]
 -pm [pattern]
 -pathToMatch [pattern]
-    Sets the file name pattern to match files in the search path. May be a comma or semi-colon separated list of patterns.
+    Sets the file name pattern to match files in the search path. May be a comma- or semicolon-separated list of patterns.
 
 /pi [pattern]
 -pi [pattern]
 -pathToIgnore [pattern]
-    Sets the file or directory name pattern to exclude files or folders in the search path. May be a comma or semi-colon separated list of patterns.
+    Sets the file or directory name pattern to exclude files or folders in the search path. May be a comma- or semicolon-separated list of patterns.
 
 /pt [type]
 -pt [type]
 -patternType [type]
-    Sets the type of match and ignore pattern - must be one of: Asterisk, Regex, or Everything (if the Everything search tool is installed).
+    Sets the type of match and ignore pattern – must be one of: "Asterisk" (wildcard), "Regex" (regular expression), or "Everything" (if the Everything search tool is installed).
 
 /s [searchFor]
 -s [searchFor]
@@ -506,32 +506,32 @@ Arguments:
 /st [type]
 -st [type]
 -searchType [type]
-    Sets the type of search - must be one of: PlainText, Regex, XPath, or Soundex.
+    Sets the type of search – must be one of: "PlainText", "Regex" (regular expression), "XPath", or "Soundex" (phonetic).
 
 /cs [True/False]
 -cs [True/False]
 -caseSensitive [True/False]
-    Sets case sensitive search flag - True or False.
+    Sets case-sensitive search flag – True or False.
 
 /ww [True/False]
 -ww [True/False]
 -wholeWord [True/False]
-    Sets the whole word search flag - True or False.
+    Sets the whole word search flag – True or False.
 
 /ml [True/False]
 -ml [True/False]
 -multiline [True/False]
-    Sets the multiline search flag - True or False.
+    Sets the multiline search flag – True or False.
 
 /dn [True/False]
 -dn [True/False]
 -dotAsNewline [True/False]
-    Sets the dot as newline search flag - True or False.
+    Sets the dot as newline search flag – True or False.
 
 /bo [True/False]
 -bo [True/False]
 -booleanOperators [True/False]
-    Sets the Boolean operators search flag - True or False.
+    Sets the Boolean operators search flag – True or False.
 
 /rpt [filePath]
 -rpt [filePath]
@@ -550,8 +550,8 @@ Arguments:
 /x
 -x
 -exit
-    Exit dnGrep after command line operations are complete.</value>
-    <comment>Help dialog text when running dnGrep from the command line: {0} is the installed dnGrep version number; {1} is the installed dnGrep build date</comment>
+    Exit dnGrep after command-line operations are complete.</value>
+    <comment>Help dialog text when running dnGrep from the command-line: {0} is the installed dnGrep version number; {1} is the installed dnGrep build date</comment>
   </data>
   <data name="Help_DnGrepHelp" xml:space="preserve">
     <value>dnGrep Help</value>
@@ -562,7 +562,7 @@ Arguments:
     <comment>Help dialog button label</comment>
   </data>
   <data name="Help_OneOrMoreArgumentsAreInvalid" xml:space="preserve">
-    <value>One or more arguments are invalid.</value>
+    <value>One or more arguments are not valid.</value>
     <comment>Help dialog header text</comment>
   </data>
   <data name="Main_AddSearchPatternToBookmarks" xml:space="preserve">
@@ -582,7 +582,7 @@ Arguments:
     <comment>Main window, folder bookmark button tooltip</comment>
   </data>
   <data name="Main_Attributes_DateModified" xml:space="preserve">
-    <value>Date Modified:</value>
+    <value>Date modified:</value>
     <comment>Main window, results list, file attributes tooltip label</comment>
   </data>
   <data name="Main_Attributes_Encoding" xml:space="preserve">
@@ -602,7 +602,7 @@ Arguments:
     <comment>Main window, results list, file attributes tooltip label</comment>
   </data>
   <data name="Main_AutoPosition" xml:space="preserve">
-    <value>Auto Position</value>
+    <value>Auto position</value>
     <comment>Main window, docking context menu item label (accel)</comment>
   </data>
   <data name="Main_BooleanOperators" xml:space="preserve">
@@ -626,7 +626,7 @@ Arguments:
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_ChangesTheResultsTreeZoom" xml:space="preserve">
-    <value>Changes the results tree zoom</value>
+    <value>Changes the zoom level of the results tree</value>
     <comment>Main window tooltip</comment>
   </data>
   <data name="Main_ClearBookmark" xml:space="preserve">
@@ -646,7 +646,7 @@ Arguments:
     <comment>Main window, results options context lines label</comment>
   </data>
   <data name="Main_ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
-    <value>Context changes Will be applied in next search</value>
+    <value>Context line changes will be applied in next search</value>
     <comment>Main window, result options context lines tooltip</comment>
   </data>
   <data name="Main_ContextShowLines" xml:space="preserve">
@@ -674,15 +674,15 @@ Arguments:
     <comment>Main window, filter files by date label</comment>
   </data>
   <data name="Main_DnGREP_Title" xml:space="preserve">
-    <value>dnGREP</value>
-    <comment>Main window, title label - near menu bar</comment>
+    <value>dnGrep</value>
+    <comment>Main window, title label – near menu bar</comment>
   </data>
   <data name="Main_DockBottom" xml:space="preserve">
-    <value>Dock Bottom</value>
+    <value>Dock bottom</value>
     <comment>Main window docking context menu item label (accel)</comment>
   </data>
   <data name="Main_DockRight" xml:space="preserve">
-    <value>Dock Right</value>
+    <value>Dock right</value>
     <comment>Main window docking context menu label (accel)</comment>
   </data>
   <data name="Main_DotAsNewline" xml:space="preserve">
@@ -702,7 +702,7 @@ Arguments:
     <comment>Main window encoding auto select text</comment>
   </data>
   <data name="Main_EverythingIndexService" xml:space="preserve">
-    <value>Everything Index Service</value>
+    <value>Everything index service</value>
     <comment>Main window, pattern type option Everything tooltip</comment>
   </data>
   <data name="Main_EverythingSearch" xml:space="preserve">
@@ -722,19 +722,19 @@ Arguments:
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_ByCreatedDate" xml:space="preserve">
-    <value>By Created Date</value>
+    <value>By created date</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_ByModifiedDate" xml:space="preserve">
-    <value>By Modified Date</value>
+    <value>By modified date</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_BySize" xml:space="preserve">
-    <value>By Size</value>
+    <value>By size</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_MaxFolderDepth" xml:space="preserve">
-    <value>Max folder depth {0}</value>
+    <value>Max folder depth: {0}</value>
     <comment>Main window, file filters summary: {0} is a number</comment>
   </data>
   <data name="Main_FilterSummary_NoBinary" xml:space="preserve">
@@ -750,7 +750,7 @@ Arguments:
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_NoSymlinks" xml:space="preserve">
-    <value>No symlinks</value>
+    <value>No symbolic links</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_Folder" xml:space="preserve">
@@ -762,12 +762,12 @@ Arguments:
     <comment>Main window, filter files checkbox label (accel)</comment>
   </data>
   <data name="Main_ForExampleAsteriskPattern" xml:space="preserve">
-    <value>e.g. file??.*</value>
-    <comment>Main window, pattern type option Asterisk tooltip</comment>
+    <value>For example: *.txt;*.xml</value>
+    <comment>Main window, Wildcard pattern type option tooltip</comment>
   </data>
   <data name="Main_ForExampleRegularExpession" xml:space="preserve">
-    <value>e.g. file[0-9]{1,2}\\.txt</value>
-    <comment>Main window, pattern type option Regex tooltip</comment>
+    <value>For example: file[0-9]{1,2}\\.txt</value>
+    <comment>Main window, Regular expression pattern type option tooltip</comment>
   </data>
   <data name="Main_FromTheStartOfTheDay" xml:space="preserve">
     <value>from the start of the day</value>
@@ -778,15 +778,15 @@ Arguments:
     <comment>Main window, result options expander button tooltip (bottom of window)</comment>
   </data>
   <data name="Main_HighlightGroups" xml:space="preserve">
-    <value>Highlight Groups</value>
+    <value>Highlight groups</value>
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_HighlightMatches" xml:space="preserve">
-    <value>Highlight Matches</value>
+    <value>Highlight matches</value>
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_HighlightRegularExpressionGroups" xml:space="preserve">
-    <value>Highlight regular expression groups - changes will be applied in next search</value>
+    <value>Highlight regular expression groups. Changes will be applied in next search.</value>
     <comment>Main window, result options highlight groups tooltip</comment>
   </data>
   <data name="Main_IncludeBinaryFiles" xml:space="preserve">
@@ -814,7 +814,7 @@ Arguments:
     <comment>Main window, main menu label (accel)</comment>
   </data>
   <data name="Main_Menu_About_AboutDnGrep" xml:space="preserve">
-    <value>_About dnGrep...</value>
+    <value>_About dnGrep…</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="Main_Menu_About_Help" xml:space="preserve">
@@ -822,11 +822,11 @@ Arguments:
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="Main_Menu_Bookmarks" xml:space="preserve">
-    <value>_Bookmarks...</value>
+    <value>_Bookmarks…</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Menu_Options" xml:space="preserve">
-    <value>_Options...</value>
+    <value>_Options…</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Menu_Undo" xml:space="preserve">
@@ -838,7 +838,7 @@ Arguments:
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_More" xml:space="preserve">
-    <value>Mor_e...</value>
+    <value>Mor_e…</value>
     <comment>Main window, filters expander label (accel)</comment>
   </data>
   <data name="Main_MoreArrowButton" xml:space="preserve">
@@ -850,7 +850,7 @@ Arguments:
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_CopyFiles" xml:space="preserve">
-    <value>Copy files...</value>
+    <value>Copy files…</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_CopyResults" xml:space="preserve">
@@ -858,15 +858,15 @@ Arguments:
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_DeleteFiles" xml:space="preserve">
-    <value>Delete files...</value>
+    <value>Delete files…</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_MoveFiles" xml:space="preserve">
-    <value>Move files...</value>
+    <value>Move files…</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_Save_CSVResults" xml:space="preserve">
-    <value>CSV Results</value>
+    <value>CSV results</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_Save_Report" xml:space="preserve">
@@ -874,7 +874,7 @@ Arguments:
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_Save_TextResults" xml:space="preserve">
-    <value>Text Results</value>
+    <value>Text results</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_SaveResults" xml:space="preserve">
@@ -886,7 +886,7 @@ Arguments:
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_OpenFolder" xml:space="preserve">
-    <value>...</value>
+    <value>…</value>
     <comment>Main window, open folder button label (accel)</comment>
   </data>
   <data name="Main_PastDateTo" xml:space="preserve">
@@ -902,16 +902,16 @@ Arguments:
     <comment>Main window, Patterns to match label (accel)</comment>
   </data>
   <data name="Main_PatternType_Asterisk" xml:space="preserve">
-    <value>Asterisk pattern</value>
-    <comment>Main window, pattern type radio button label (accel)</comment>
+    <value>Wildcard</value>
+    <comment>Main window, Wildcard pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_PatternType_Everything" xml:space="preserve">
     <value>Everything</value>
-    <comment>Main window, pattern type radio button label (accel)</comment>
+    <comment>Main window, Everything pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_PatternType_Regex" xml:space="preserve">
-    <value>_Regex</value>
-    <comment>Main window, pattern type radio button label (accel)</comment>
+    <value>_Regular expression</value>
+    <comment>Main window, Regular expression pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_PreviewFile" xml:space="preserve">
     <value>Pre_view file</value>
@@ -930,19 +930,19 @@ Arguments:
     <comment>Main window, replace text input box label (accel)</comment>
   </data>
   <data name="Main_ReportOption_CSVFileFormat" xml:space="preserve">
-    <value>CSV file format</value>
+    <value>CSV (comma separated)</value>
     <comment>Main window, save report, report type format label</comment>
   </data>
   <data name="Main_ReportOption_ReportFileFormat" xml:space="preserve">
-    <value>Report file format</value>
+    <value>Report format</value>
     <comment>Main window, save report, report type format label</comment>
   </data>
   <data name="Main_ReportOption_ResultsFileFormat" xml:space="preserve">
-    <value>Results file format</value>
+    <value>Text file</value>
     <comment>Main window, save report, report type format label</comment>
   </data>
   <data name="Main_ResetOptions" xml:space="preserve">
-    <value>Reset Options</value>
+    <value>Reset filters</value>
     <comment>Main window, search options, reset button label (accel)</comment>
   </data>
   <data name="Main_ResultList_AdditionalMatches" xml:space="preserve">
@@ -950,7 +950,7 @@ Arguments:
     <comment>Main window, search results text</comment>
   </data>
   <data name="Main_ResultList_AtEndOfLine" xml:space="preserve">
-    <value>(at end of line)</value>
+    <value>(at end of the line)</value>
     <comment>Main window, search results text</comment>
   </data>
   <data name="Main_ResultList_AtPosition" xml:space="preserve">
@@ -958,7 +958,7 @@ Arguments:
     <comment>Main window, search results text: {0} is number, the offset from the start of the line</comment>
   </data>
   <data name="Main_ResultList_CountAdditionalCharacters" xml:space="preserve">
-    <value>...(+{0:n0} characters)</value>
+    <value>…(+{0:n0} characters)</value>
     <comment>Main window, search results text</comment>
   </data>
   <data name="Main_ResultList_CountMatches" xml:space="preserve">
@@ -971,11 +971,10 @@ Arguments:
   </data>
   <data name="Main_ResultList_MatchToolTip1" xml:space="preserve">
     <value>Match {0}{1}{2}</value>
-    
     <comment>Main window results, capture group tooltip: {0} is the match index; {1} is a new line; {2} is text of in the group</comment>
   </data>
   <data name="Main_ResultList_MatchToolTip2" xml:space="preserve">
-    <value>Match {0}{1}Group {2}:   {3}</value>
+    <value>Match {0}{1}Group {2}: {3}</value>
     <comment>Main window results, capture group tooltip: {0} is the match index; {1} is a new line; {2} is the named group name; {3} is the text in the group</comment>
   </data>
   <data name="Main_ResultList_PlusCountMoreMatches" xml:space="preserve">
@@ -1003,7 +1002,7 @@ Arguments:
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_CopyLinesOfText" xml:space="preserve">
-    <value>Copy Lines of text</value>
+    <value>Copy lines of text</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_ExcludeFromResults" xml:space="preserve">
@@ -1015,7 +1014,7 @@ Arguments:
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_NextMatch" xml:space="preserve">
-    <value>Next Match</value>
+    <value>Next match</value>
     <comment>Main windows, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_Open" xml:space="preserve">
@@ -1031,7 +1030,7 @@ Arguments:
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_PreviousMatch" xml:space="preserve">
-    <value>Previous Match</value>
+    <value>Previous match</value>
     <comment>Main windows, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_RenameFile" xml:space="preserve">
@@ -1047,7 +1046,7 @@ Arguments:
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_SavingResultsToFile" xml:space="preserve">
-    <value>Saving results to file...</value>
+    <value>Saving results to file…</value>
     <comment>Main window, status message</comment>
   </data>
   <data name="Main_SearchButton" xml:space="preserve">
@@ -1079,48 +1078,48 @@ Arguments:
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_SearchParallel" xml:space="preserve">
-    <value>Search Paralle_l</value>
+    <value>Search paralle_l</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_SearchType_Hex" xml:space="preserve">
-    <value>Hex</value>
-    <comment>Main window, search type radio button label (accel)</comment>
+    <value>Byte</value>
+    <comment>Main window, Byte search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_Phonetic" xml:space="preserve">
     <value>Phonetic</value>
-    <comment>Main window, search type radio button label (accel)</comment>
+    <comment>Main window, Phonetic search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
     <value>Phonetic search</value>
-    <comment>Main window, search type Phonetic tooltip</comment>
+    <comment>Main window, Phonetic search type tooltip</comment>
   </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
     <value>Plain text search</value>
-    <comment>Main window, search type Text tooltip</comment>
+    <comment>Main window, Text search type tooltip</comment>
   </data>
   <data name="Main_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
-    <value>Read file as binary and search for bytes as hexadecimal digits: 68 65 78 20</value>
-    <comment>Main window, search type Hex tooltip</comment>
+    <value>Byte search: read file as binary and search for bytes as hexadecimal digits: 68 65 78 20</value>
+    <comment>Main window, Byte search type tooltip</comment>
   </data>
   <data name="Main_SearchType_Regex" xml:space="preserve">
-    <value>_Regex</value>
-    <comment>Main window, search type radio button label (accel)</comment>
+    <value>_Regular expression</value>
+    <comment>Main window, Regular expression search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_RegularExpressionSearch" xml:space="preserve">
     <value>Regular expression search</value>
-    <comment>Main window, search type Regex tooltip</comment>
+    <comment>Main window, Regular expression search type tooltip</comment>
   </data>
   <data name="Main_SearchType_Text" xml:space="preserve">
     <value>_Text</value>
-    <comment>Main window, search type radio button label (accel)</comment>
+    <comment>Main window, Text search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_XPath" xml:space="preserve">
     <value>_XPath</value>
-    <comment>Main window, search type radio button label (accel)</comment>
+    <comment>Main window, XPath search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
-    <value>XPath search (XML documents only)</value>
-    <comment>Main window, search type XPath tooltip</comment>
+    <value>XPath search (only for XML documents)</value>
+    <comment>Main window, XPath search type tooltip</comment>
   </data>
   <data name="Main_SelectADate" xml:space="preserve">
     <value>Select a date</value>
@@ -1152,78 +1151,78 @@ Arguments:
   </data>
   <data name="Main_SortMenu_Descending" xml:space="preserve">
     <value>Descending</value>
-    <comment>Main window sort options options menu label (accel)</comment>
+    <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_FileNameOnly" xml:space="preserve">
     <value>File name only</value>
-    <comment>Main window sort options options menu label (accel)</comment>
+    <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_FileSize" xml:space="preserve">
     <value>File size</value>
-    <comment>Main window sort options options menu label (accel)</comment>
+    <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_FileTypeAndName" xml:space="preserve">
     <value>File type and name</value>
-    <comment>Main window sort options options menu label (accel)</comment>
+    <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_LastWriteTime" xml:space="preserve">
     <value>Last write time</value>
-    <comment>Main window sort options options menu label (accel)</comment>
+    <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_MatchCount" xml:space="preserve">
     <value>Match count</value>
-    <comment>Main window sort options options menu label (accel)</comment>
+    <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_PathAndFileNameBreadthFirst" xml:space="preserve">
     <value>Path and file name, breadth-first</value>
-    <comment>Main window sort options options menu label (accel)</comment>
+    <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_PathAndFileNameDepthFirst" xml:space="preserve">
     <value>Path and file name, depth-first</value>
-    <comment>Main window sort options options menu label (accel)</comment>
+    <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_Status_Excluded0MissingFiles" xml:space="preserve">
     <value>Excluded {0} missing files.</value>
     <comment>Main window, status bar message appended on search complete when in Everything mode</comment>
   </data>
   <data name="Main_Status_ReplaceCanceled" xml:space="preserve">
-    <value>Replace Canceled</value>
+    <value>Replace canceled</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_ReplaceComplete0FilesReplaced" xml:space="preserve">
-    <value>Replace Complete - {0} files replaced.</value>
+    <value>Replace completed – replaced text in {0} files.</value>
     <comment>Main window, status bar message: {0} is the number of files modified by the replace operation</comment>
   </data>
   <data name="Main_Status_ReplaceFailed" xml:space="preserve">
-    <value>Replace Failed.</value>
+    <value>Replace failed</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_Replacing" xml:space="preserve">
-    <value>Replacing...</value>
+    <value>Replacing…</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_SearchCanceled" xml:space="preserve">
-    <value>Search Canceled</value>
+    <value>Search canceled</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_SearchCanceledOrFailed" xml:space="preserve">
-    <value>Search Canceled or Failed</value>
+    <value>Search canceled or failed</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_SearchCompleteSearched0FilesFound1FilesIn2" xml:space="preserve">
-    <value>Search Complete - Searched {0} files. Found {1} files in {2}.</value>
+    <value>Search completed – searched {0} files, found {1} files in {2}.</value>
     <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found; {2} is the duration of the search</comment>
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFiles" xml:space="preserve">
-    <value>Searched {0} files. Found {1} matching files.</value>
+    <value>Searched {0} files, found {1} matching files.</value>
     <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found</comment>
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFilesProcessing2" xml:space="preserve">
-    <value>Searched {0} files. Found {1} matching files - processing {2}</value>
+    <value>Searched {0} files, found {1} matching files – processing {2}</value>
     <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found; {2} is the current file name being searched</comment>
   </data>
   <data name="Main_Status_Searching" xml:space="preserve">
-    <value>Searching...</value>
+    <value>Searching…</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_SearchingForGitignore" xml:space="preserve">
@@ -1235,7 +1234,7 @@ Arguments:
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_TestExpression" xml:space="preserve">
-    <value>Test Expression</value>
+    <value>Test expression</value>
     <comment>Main window, test search expression button label (accel)</comment>
   </data>
   <data name="Main_ThroughTheEndOfTheDay" xml:space="preserve">
@@ -1243,7 +1242,7 @@ Arguments:
     <comment>Main window, filter file by date, end date tooltip</comment>
   </data>
   <data name="Main_UseCaptureGroupsFromPathsToMatch" xml:space="preserve">
-    <value>Use capture groups from 'Paths to match' in the 'Search for' pattern</value>
+    <value>Use capture groups from 'Patterns to match' in the 'Search for' pattern</value>
     <comment>Main window, search option capture group tooltip</comment>
   </data>
   <data name="Main_UseGitignore" xml:space="preserve">
@@ -1255,19 +1254,19 @@ Arguments:
     <comment>Main window, search option checkbox tooltip</comment>
   </data>
   <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
-    <value>Hex string is not valid!</value>
+    <value>Byte string is not valid!</value>
     <comment>Main window, hexadecimal expression status</comment>
   </data>
   <data name="Main_Validation_HexStringIsOK" xml:space="preserve">
-    <value>Hex string is OK!</value>
+    <value>Byte string is OK</value>
     <comment>Main window, hexadecimal expression status</comment>
   </data>
   <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">
-    <value>Regex is not valid!</value>
+    <value>Regular expression is not valid!</value>
     <comment>Main window, regular expression status</comment>
   </data>
   <data name="Main_Validation_RegexIsOK" xml:space="preserve">
-    <value>Regex is OK!</value>
+    <value>Regular expression is OK</value>
     <comment>Main window, regular expression status</comment>
   </data>
   <data name="Main_Validation_XPathIsNotValid" xml:space="preserve">
@@ -1275,7 +1274,7 @@ Arguments:
     <comment>Main window, XPath status</comment>
   </data>
   <data name="Main_Validation_XPathIsOK" xml:space="preserve">
-    <value>XPath is OK!</value>
+    <value>XPath is OK</value>
     <comment>Main window, XPath status</comment>
   </data>
   <data name="Main_WholeWord" xml:space="preserve">
@@ -1283,11 +1282,11 @@ Arguments:
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_WindowTitle" xml:space="preserve">
-    <value>{0} in "{1}" - dnGREP</value>
+    <value>{0} in "{1}" – dnGrep</value>
     <comment>Main window title: {0} is the current search pattern; {1} is the current search folder</comment>
   </data>
   <data name="Main_WrapText" xml:space="preserve">
-    <value>Wrap Text</value>
+    <value>Wrap text</value>
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_Zoom" xml:space="preserve">
@@ -1295,23 +1294,23 @@ Arguments:
     <comment>Main window, results options zoom slider label</comment>
   </data>
   <data name="MessageBox_AreYouSureYouWantToContinue" xml:space="preserve">
-    <value>Are you sure you want to continue?</value>
+    <value>Continue?</value>
     <comment>Message box text for: Delete files</comment>
   </data>
   <data name="MessageBox_AreYouSureYouWantToReplaceSearchPatternWithEmptyString" xml:space="preserve">
-    <value>Are you sure you want to replace search pattern with empty string?</value>
+    <value>Replace the search pattern with an empty string?</value>
     <comment>Message box text for: Replace text</comment>
   </data>
   <data name="MessageBox_CheckEditorPath" xml:space="preserve">
-    <value>Check editor path via "Options...".</value>
+    <value>Check editor path via "Options…".</value>
     <comment>Message box text for: Open file failed</comment>
   </data>
   <data name="MessageBox_ClearingThisBookmarkWillAlsoClearThatBookmark" xml:space="preserve">
-    <value>Clearing this bookmark will also clear that bookmark.</value>
+    <value>Clearing this bookmark also clears that bookmark.</value>
     <comment>Message box text for: Main window, bookmark button</comment>
   </data>
   <data name="MessageBox_ClearingThisBookmarkWillAlsoRemoveThoseBookmarks" xml:space="preserve">
-    <value>Clearing this bookmark will also remove those bookmarks.</value>
+    <value>Clearing this bookmark also removes those bookmarks.</value>
     <comment>Message box text for: Main window, bookmark button</comment>
   </data>
   <data name="MessageBox_CopyFiles" xml:space="preserve">
@@ -1319,32 +1318,32 @@ Arguments:
     <comment>Message box title for: Copy files</comment>
   </data>
   <data name="MessageBox_CouldNotLoadResourcesFile0" xml:space="preserve">
-    <value>Could not load resources file '{0}': </value>
+    <value>Could not load the '{0}' resources file: </value>
     <comment>Message box text for: Load language resource: {0} is the name of the file that failed to load</comment>
   </data>
   <data name="MessageBox_CouldNotLoadTheme" xml:space="preserve">
-    <value>Could not load theme '{0}', See the error log for details: </value>
+    <value>Could not load the '{0}' theme. Check the error log for details: </value>
     <comment>Message box text for: Load theme resource: {0} is the name of the file that failed to load</comment>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyCopied" xml:space="preserve">
-    <value>{0} files have been successfully copied.</value>
+    <value>{0} files have been copied.</value>
     <comment>Message box text for: Copy file: {0} is the number of files</comment>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyDeleted" xml:space="preserve">
-    <value>{0} files have been successfully deleted.</value>
+    <value>{0} files have been deleted.</value>
     <comment>Message box text for: Delete files: {0} is the number of files</comment>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyMoved" xml:space="preserve">
-    <value>{0} files have been successfully moved.</value>
+    <value>{0} files have been moved.</value>
     <comment>Message box text for: Move files: {0} is the number of files</comment>
   </data>
   <data name="MessageBox_CustomEditorFileOpenError" xml:space="preserve">
-    <value>There was an error opening file by custom editor.</value>
+    <value>Could not open the file with the custom editor.</value>
     <comment>Message box text for: Open file with custom editor</comment>
   </data>
   <data name="MessageBox_DefaultEngineWasUsedInstead" xml:space="preserve">
-    <value>Default engine was used instead.</value>
-    <comment>Message box text for: Plugin failed to load error</comment>
+    <value>The default engine was used instead.</value>
+    <comment>Message box text for: Plug-in failed to load error</comment>
   </data>
   <data name="MessageBox_DeleteFiles" xml:space="preserve">
     <value>Delete Files</value>
@@ -1355,7 +1354,7 @@ Arguments:
     <comment>Message box title</comment>
   </data>
   <data name="MessageBox_DoYouWantToContinue" xml:space="preserve">
-    <value>Do you want to continue?</value>
+    <value>Continue?</value>
     <comment>Message box text for: Main window, bookmark button</comment>
   </data>
   <data name="MessageBox_Error" xml:space="preserve">
@@ -1363,19 +1362,19 @@ Arguments:
     <comment>Message box text for: general error message</comment>
   </data>
   <data name="MessageBox_ErrorOpeningFile" xml:space="preserve">
-    <value>There was an error opening file. See the error log for details: </value>
+    <value>Could not open the file. Check the error log for details: </value>
     <comment>Message box text for: Open file error</comment>
   </data>
   <data name="MessageBox_ErrorSettingClipboardTextTheClipboardIsLockedBy" xml:space="preserve">
-    <value>Error setting clipboard text, the clipboard is locked by</value>
+    <value>Could not set clipboard text. The clipboard is locked by</value>
     <comment>Message box text for: Copy to clipboard error</comment>
   </data>
   <data name="MessageBox_FailedToExtractFileFromArchive" xml:space="preserve">
-    <value>Failed to extract file from archive. See the error log for details: </value>
+    <value>Could not extract file from archive. Check the error log for details: </value>
     <comment>Message box text for: Preview window archive error</comment>
   </data>
   <data name="MessageBox_FilesHaveBeenSuccessfullyReverted" xml:space="preserve">
-    <value>Files have been successfully reverted.</value>
+    <value>Files have been reverted.</value>
     <comment>Message box text for: Main window undo replace success</comment>
   </data>
   <data name="MessageBox_IncorrectPattern" xml:space="preserve">
@@ -1391,11 +1390,11 @@ Arguments:
     <comment>Message box title for: Move files</comment>
   </data>
   <data name="MessageBox_NewVersion" xml:space="preserve">
-    <value>New version</value>
+    <value>New Version</value>
     <comment>Message box title for: New dnGrep version</comment>
   </data>
   <data name="MessageBox_NewVersionOfDnGREP0IsAvailableForDownload" xml:space="preserve">
-    <value>New version of dnGREP ({0}) is available for download.</value>
+    <value>New version of dnGrep ({0}) is available for download.</value>
     <comment>Message box text for: New dnGrep version: {0} is the new version number</comment>
   </data>
   <data name="MessageBox_PleaseSelectAnotherDirectoryAndTryAgain" xml:space="preserve">
@@ -1403,11 +1402,11 @@ Arguments:
     <comment>Message box text for: Copy files and Move files (destination overlaps source)</comment>
   </data>
   <data name="MessageBox_PluginErrors" xml:space="preserve">
-    <value>Plugin Errors</value>
-    <comment>Message box title for: Plugin errors</comment>
+    <value>Plug-in Errors</value>
+    <comment>Message box title for: Plug-in errors</comment>
   </data>
   <data name="MessageBox_RenameFailed" xml:space="preserve">
-    <value>Rename failed: </value>
+    <value>Could not rename the file: </value>
     <comment>Message box text for: Rename file</comment>
   </data>
   <data name="MessageBox_RenameFile" xml:space="preserve">
@@ -1419,7 +1418,7 @@ Arguments:
     <comment>Message box text for: Replace message</comment>
   </data>
   <data name="MessageBox_ReplaceFailedError" xml:space="preserve">
-    <value>Replace failed! See the error log for details: </value>
+    <value>Could not replace text in files. Check the error log for details: </value>
     <comment>Message box text for: Replace failed</comment>
   </data>
   <data name="MessageBox_ResourcesFile0IsNotAResxFile" xml:space="preserve">
@@ -1427,23 +1426,23 @@ Arguments:
     <comment>Message box text for: Load language resource file error: {0} is the name of the file that failed to load</comment>
   </data>
   <data name="MessageBox_RunDnGrepAsAdministrator" xml:space="preserve">
-    <value>Run dnGrep as Administrator to change showing dnGrep in Explorer right-click menu</value>
+    <value>Run dnGrep as Administrator to change showing dnGrep in Windows Explorer right-click menu</value>
     <comment>Message box text for: Options dialog, changing Windows integration options</comment>
   </data>
   <data name="MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister" xml:space="preserve">
-    <value>Run dnGrep as Administrator to change Startup Register</value>
+    <value>Run dnGrep as Administrator to change application startup option.</value>
     <comment>Message box text for: Options dialog, changing Windows integration options</comment>
   </data>
   <data name="MessageBox_SearchFailedError" xml:space="preserve">
-    <value>Search failed! See the error log for details: </value>
+    <value>Could not complete the search. Check the error log for details: </value>
     <comment>Message box text for: Search failed</comment>
   </data>
   <data name="MessageBox_SearchOrReplaceFailed" xml:space="preserve">
-    <value>Search or replace failed! See the error log for details: </value>
+    <value>Could not complete the search or replace. Check the error log for details: </value>
     <comment>Message box text for: Search or Replace failed</comment>
   </data>
   <data name="MessageBox_SearchPathInTheFieldIsNotValid" xml:space="preserve">
-    <value>Search path in the '{0}' field is not valid, search canceled.</value>
+    <value>The search path in the '{0}' field is not valid, search canceled.</value>
     <comment>Message box text for: Main window search path invalid: {0} is the name of search path field (Folder or Everything search)</comment>
   </data>
   <data name="MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory" xml:space="preserve">
@@ -1455,71 +1454,71 @@ Arguments:
     <comment>Message box text for: Main window replace warning</comment>
   </data>
   <data name="MessageBox_SomethingBrokeDownInDnGrep" xml:space="preserve">
-    <value>Something broke down in dnGrep. See the error log for details: </value>
+    <value>Something broke down in dnGrep. Check the error log for details: </value>
     <comment>Message box text for: Unknown error</comment>
   </data>
   <data name="MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting" xml:space="preserve">
-    <value>The file '{0}' already exists in {1}, overwrite existing?</value>
-    <comment>Message box text for: Copy or Move files: {0} is a file name; {1} is a folder name</comment>
+    <value>The file '{0}' already exists in {1}. Overwrite existing?</value>
+    <comment>Message box text for: Copy or Move files: {0} is a file name; {1} is the name of a folder</comment>
   </data>
   <data name="MessageBox_TheFilePattern0IsNotAValidRegularExpression12" xml:space="preserve">
     <value>The file pattern '{0}' is not a valid regular expression:{1}{2}</value>
-    <comment>Message box text for: Main window regex file pattern error: {0} is the invalid regular expression; {1} is a newline; {2} is the reason the expression is invalid</comment>
+    <comment>Message box text for: Main window regular expression file pattern error: {0} is the invalid regular expression; {1} is a newline; {2} is the reason the expression is invalid</comment>
   </data>
   <data name="MessageBox_TheFollowingPluginsFailedToLoad" xml:space="preserve">
-    <value>The following plugins failed to load:</value>
-    <comment>Message box text for: plugin load errors</comment>
+    <value>Could not load the following plug-ins:</value>
+    <comment>Message box text for: plug-in load errors</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu" xml:space="preserve">
-    <value>There was an error adding dnGrep to Explorer right-click menu. See the error log for details: </value>
+    <value>Could not add dnGrep to the Windows Explorer right-click menu. Check the error log for details: </value>
     <comment>Message box text for: set Explorer context menu error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorCopyingFiles" xml:space="preserve">
-    <value>There was an error copying files. See the error log for details: </value>
+    <value>Could not copy the files. Check the error log for details: </value>
     <comment>Message box text for: Copy files</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorCreatingTheFile" xml:space="preserve">
-    <value>There was an error creating the file. See the error log for details: </value>
+    <value>Could not create the file. Check the error log for details: </value>
     <comment>Message box text for: Create file</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorDeletingFiles" xml:space="preserve">
-    <value>There was an error deleting files. See the error log for details: </value>
+    <value>Could not delete the files. Check the error log for details: </value>
     <comment>Message box text for: Delete file</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorMovingFiles" xml:space="preserve">
-    <value>There was an error moving files. See the error log for details: </value>
+    <value>Could not move the files. Check the error log for details: </value>
     <comment>Message box text for: Move file</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorRegisteringAutoStartup" xml:space="preserve">
-    <value>There was an error registering auto startup. See the error log for details: </value>
+    <value>Could not register auto startup. Check the error log for details: </value>
     <comment>Message box text for: set startup option error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu" xml:space="preserve">
-    <value>There was an error removing dnGrep from the Explorer right-click menu. See the error log for details: </value>
+    <value>Could not remove dnGrep from the Windows Explorer right-click menu. Check the error log for details: </value>
     <comment>Message box text for: unset Explorer context menu error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorRevertingFiles" xml:space="preserve">
-    <value>There was an error reverting files. See the error log for details: </value>
+    <value>Could not revert files. Check the error log for details: </value>
     <comment>Message box text for: Undo replace error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorRunningRegexTest" xml:space="preserve">
-    <value>There was an error running the test window. See the error log for details: </value>
+    <value>Could not open the test window. Check the error log for details: </value>
     <comment>Message box text for: Main window start test dialog error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorSavingOptions" xml:space="preserve">
-    <value>There was an error saving options. See the error log for details: </value>
+    <value>Could not save options. Check the error log for details: </value>
     <comment>Message box text for: Saving user options</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorUnregisteringAutoStartup" xml:space="preserve">
-    <value>There was an error unregistering auto startup. See the error log for details: </value>
+    <value>Could not unregister auto startup. Check the error log for details: </value>
     <comment>Message box text for: unsetting auto start error</comment>
   </data>
   <data name="MessageBox_ThisBookmarkIsAssociatedWith0OtherFolders" xml:space="preserve">
-    <value>This bookmark is associated with {0} other folders:</value>
+    <value>This bookmark is associated with {0} other folders.</value>
     <comment>Message box text for: Main window bookmark delete: {0} is the number of folders</comment>
   </data>
   <data name="MessageBox_ThisBookmarkIsAssociatedWithOneOtherFolder" xml:space="preserve">
-    <value>This bookmark is associated with one other folder</value>
+    <value>This bookmark is associated with one other folder.</value>
     <comment>Message box text for: Main window bookmark delete</comment>
   </data>
   <data name="MessageBox_Undo" xml:space="preserve">
@@ -1531,15 +1530,15 @@ Arguments:
     <comment>Message box text for: Main window Undo</comment>
   </data>
   <data name="MessageBox_WindowTitleIsName" xml:space="preserve">
-    <value>Window Title: {0}</value>
+    <value>Window title: {0}</value>
     <comment>Message box text for: Clipboard set text error, clipboard locked by application name: {0} is the window title of the application locking clipboard</comment>
   </data>
   <data name="MessageBox_WouldYouLikeToContinue" xml:space="preserve">
-    <value>Would you like to continue?</value>
+    <value>Continue?</value>
     <comment>Message box text for: Replace window warning</comment>
   </data>
   <data name="MessageBox_WouldYouLikeToDownloadItNow" xml:space="preserve">
-    <value>Would you like to download it now?</value>
+    <value>Download it now?</value>
     <comment>Message box text for: New dnGrep version</comment>
   </data>
   <data name="MessageBox_YouAreAboutToDeleteFilesFoundDuringSearch" xml:space="preserve">
@@ -1547,19 +1546,19 @@ Arguments:
     <comment>Message box text for: Delete files warning</comment>
   </data>
   <data name="Options_AllowSearchingForFileNamePatternOnly" xml:space="preserve">
-    <value>Allow searching for file name pattern only when 'Search for' is empty</value>
+    <value>List files using the file name pattern when the 'Search for' field is empty</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ApplicationFonts" xml:space="preserve">
-    <value>Application Fonts</value>
-    <comment>Options dialog, fonts group header label</comment>
+    <value>Application fonts</value>
+    <comment>Options dialog, Application fonts group header label</comment>
   </data>
   <data name="Options_ArchiveAdd" xml:space="preserve">
-    <value>Add:</value>
+    <value>Add</value>
     <comment>Options dialog, archive options text input label</comment>
   </data>
   <data name="Options_ArchiveDefault" xml:space="preserve">
-    <value>Default:</value>
+    <value>Default</value>
     <comment>Options dialog, archive options text input label</comment>
   </data>
   <data name="Options_ArchiveExtensions" xml:space="preserve">
@@ -1567,15 +1566,15 @@ Arguments:
     <comment>Options dialog, archive options label</comment>
   </data>
   <data name="Options_ArchiveOptions" xml:space="preserve">
-    <value>Archive Options</value>
-    <comment>Options dialog, archive options group header label</comment>
+    <value>Archive files</value>
+    <comment>Options dialog, Archive files group header label</comment>
   </data>
   <data name="Options_ArchiveRemove" xml:space="preserve">
-    <value>Remove:</value>
+    <value>Remove</value>
     <comment>Options dialog, archive options text input label</comment>
   </data>
   <data name="Options_BrowseFileLocation" xml:space="preserve">
-    <value>...</value>
+    <value>…</value>
     <comment>Options dialog, browse for file button label</comment>
   </data>
   <data name="Options_CheckDays" xml:space="preserve">
@@ -1583,12 +1582,12 @@ Arguments:
     <comment>Options dialog, check for updates label</comment>
   </data>
   <data name="Options_CheckForUpdatesWhenWindowsStarts" xml:space="preserve">
-    <value>Check for updates when Windows starts</value>
+    <value>Check for new versions when Windows starts</value>
     <comment>Options dialog, check for updates checkbox label (accel)</comment>
   </data>
   <data name="Options_CheckingForUpdates" xml:space="preserve">
-    <value>Checking for updates</value>
-    <comment>Options dialog, check for updates group header label</comment>
+    <value>New versions</value>
+    <comment>Options dialog, New versions group header label</comment>
   </data>
   <data name="Options_ClearOldSearches" xml:space="preserve">
     <value>Clear old searches</value>
@@ -1624,18 +1623,18 @@ Arguments:
   </data>
   <data name="Options_CustomEditorHelp" xml:space="preserve">
     <value>Use keywords '{0}' for file location, '{1}' for the line number, '{2}' for the search pattern, '{3}' for the first matched text on the line, and '{4}' for the column number of the first match on the line.</value>
-    <comment>Options dialog, custom editor help text: the placeholder are non-localizable expressions used as arguments when starting the custom editor</comment>
+    <comment>Options dialog, custom editor help text: the placeholders are non-localized expressions used as arguments when starting the custom editor</comment>
   </data>
   <data name="Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
-    <value>Detect file encoding when searching for file name pattern only</value>
+    <value>Detect file encoding when listing files using the file name pattern</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_DialogFontSize" xml:space="preserve">
-    <value>Dialog Font Size</value>
+    <value>Other windows font size</value>
     <comment>Options dialog, font size selector label</comment>
   </data>
   <data name="Options_DnGrepWillAddTheSelectedFiles" xml:space="preserve">
-    <value>dnGrep will add the selected files to the end of the command line.</value>
+    <value>dnGrep will add the selected files to the end of the command-line.</value>
     <comment>Options dialog, compare arguments help text</comment>
   </data>
   <data name="Options_EditorArguments" xml:space="preserve">
@@ -1647,27 +1646,27 @@ Arguments:
     <comment>Options dialog, custom editor command input box label</comment>
   </data>
   <data name="Options_EnableAutomaticCheckingEvery" xml:space="preserve">
-    <value>Enable automatic checking every</value>
+    <value>Check automatically every</value>
     <comment>Options dialog, check for updates, checkbox label (accel)</comment>
   </data>
   <data name="Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu" xml:space="preserve">
     <value>Enables starting dnGrep from the Windows Explorer right-click context menu.</value>
-    <comment>Options dialog, explorer right click menu checkbox tooltip</comment>
+    <comment>Options dialog, explorer right-click menu checkbox tooltip</comment>
   </data>
   <data name="Options_FilesAndIndividualMatches" xml:space="preserve">
     <value>files and individual matches</value>
-    <comment>Options dialog, Replace layout option radio button label (accel)</comment>
+    <comment>Options dialog, Replace window layout option radio button label (accel)</comment>
   </data>
   <data name="Options_FilesOnly" xml:space="preserve">
     <value>files only</value>
     <comment>Options dialog, Replace window layout radio button label (accel)</comment>
   </data>
   <data name="Options_FollowWindowsTheme" xml:space="preserve">
-    <value>Follow Windows Theme</value>
+    <value>Follow Windows theme</value>
     <comment>Options dialog, theme checkbox label (accel)</comment>
   </data>
   <data name="Options_FontFamily" xml:space="preserve">
-    <value>Font Family</value>
+    <value>Font family</value>
     <comment>Options dialog, font selector label</comment>
   </data>
   <data name="Options_HelpTranslateDnGrep" xml:space="preserve">
@@ -1675,12 +1674,12 @@ Arguments:
     <comment>Options dialog, language request label</comment>
   </data>
   <data name="Options_HexSearchResultLineLength" xml:space="preserve">
-    <value>Hex search result line length</value>
+    <value>Byte search result line length</value>
     <comment>Options dialog, results options combo box label</comment>
   </data>
   <data name="Options_HistoryLists" xml:space="preserve">
-    <value>History Lists</value>
-    <comment>Options dialog, history group heading label</comment>
+    <value>History lists</value>
+    <comment>Options dialog, History group heading label</comment>
   </data>
   <data name="Options_InOptionsExpander" xml:space="preserve">
     <value>in options expander</value>
@@ -1707,15 +1706,15 @@ Arguments:
     <comment>Options dialog, layout group header label</comment>
   </data>
   <data name="Options_LoadFromFile" xml:space="preserve">
-    <value>Load from file...</value>
+    <value>Load from file…</value>
     <comment>Options dialog, language load button label (accel)</comment>
   </data>
   <data name="Options_MainFontSize" xml:space="preserve">
-    <value>Main Font Size</value>
+    <value>Main window font size</value>
     <comment>Options dialog, font size input label</comment>
   </data>
   <data name="Options_MatchEverythingToExactMatch" xml:space="preserve">
-    <value>0 - match everything; 1.0 - exact match</value>
+    <value>0 – match everything; 1.0 – exact match</value>
     <comment>Options dialog, phonetic help text</comment>
   </data>
   <data name="Options_MatchThreshold" xml:space="preserve">
@@ -1724,10 +1723,10 @@ Arguments:
   </data>
   <data name="Options_MatchTimeout" xml:space="preserve">
     <value>Match timeout</value>
-    <comment>Options dialog, regex options text input label</comment>
+    <comment>Options dialog, regular expression options text input label</comment>
   </data>
   <data name="Options_OnMainPanel" xml:space="preserve">
-    <value>on main panel</value>
+    <value>on the main panel</value>
     <comment>Options dialog, layout option radio button label (accel)</comment>
   </data>
   <data name="Options_OptionsTitle" xml:space="preserve">
@@ -1735,11 +1734,11 @@ Arguments:
     <comment>Options dialog, window title</comment>
   </data>
   <data name="Options_PDFToText" xml:space="preserve">
-    <value>PDF to Text</value>
+    <value>PDF to text</value>
     <comment>Options dialog, PDF to text group header label</comment>
   </data>
   <data name="Options_PdfToTextExeCommandLineOptions" xml:space="preserve">
-    <value>PdfToText.exe command line options:</value>
+    <value>PdfToText.exe command-line options:</value>
     <comment>Options dialog, PDF text input label</comment>
   </data>
   <data name="Options_PdfToTextReset" xml:space="preserve">
@@ -1751,31 +1750,31 @@ Arguments:
     <comment>Options dialog, phonetic group header label</comment>
   </data>
   <data name="Options_PluginAdd" xml:space="preserve">
-    <value>Add:</value>
-    <comment>Options dialog, plugin options text input label</comment>
+    <value>Add</value>
+    <comment>Options dialog, plug-in options text input label</comment>
   </data>
   <data name="Options_PluginDefault" xml:space="preserve">
-    <value>Default:</value>
-    <comment>Options dialog, plugin options text input label</comment>
+    <value>Default</value>
+    <comment>Options dialog, plug-in options text input label</comment>
   </data>
   <data name="Options_PluginEnabled" xml:space="preserve">
     <value>Enabled</value>
-    <comment>Options dialog, plugins checkbox label</comment>
+    <comment>Options dialog, plug-ins checkbox label</comment>
   </data>
   <data name="Options_PluginExtensions" xml:space="preserve">
     <value>Extensions:</value>
-    <comment>Options dialog, plugin options label</comment>
+    <comment>Options dialog, plug-in options label</comment>
   </data>
   <data name="Options_PluginOptions" xml:space="preserve">
-    <value>Plugin Options</value>
-    <comment>Options dialog, plugin options group header label</comment>
+    <value>Plug-ins</value>
+    <comment>Options dialog, Plug-ins group header label</comment>
   </data>
   <data name="Options_PluginRemove" xml:space="preserve">
-    <value>Remove:</value>
-    <comment>Options dialog, plugin options text input label</comment>
+    <value>Remove</value>
+    <comment>Options dialog, plug-in options text input label</comment>
   </data>
   <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
-    <value>Press F1 for help on Options</value>
+    <value>Press F1 for help on options</value>
     <comment>Options dialog, help label</comment>
   </data>
   <data name="Options_PreviewToolForTranslators" xml:space="preserve">
@@ -1783,8 +1782,8 @@ Arguments:
     <comment>Options dialog, load language button tooltip</comment>
   </data>
   <data name="Options_RegexOptions" xml:space="preserve">
-    <value>Regex Options</value>
-    <comment>Options dialog, regex options group heading label</comment>
+    <value>Regular expressions</value>
+    <comment>Options dialog, regular expressions group heading label</comment>
   </data>
   <data name="Options_Reload" xml:space="preserve">
     <value>Reload</value>
@@ -1795,19 +1794,19 @@ Arguments:
     <comment>Options dialog, theme reload button tooltip</comment>
   </data>
   <data name="Options_ReplaceDialogLayout" xml:space="preserve">
-    <value>Replace dialog Layout:</value>
-    <comment>Options dialog, replace view options label</comment>
+    <value>Replace window layout</value>
+    <comment>Options dialog, Replace window layout options label</comment>
   </data>
   <data name="Options_ReplaceFontSize" xml:space="preserve">
-    <value>Replace Font Size</value>
+    <value>Replace window font size</value>
     <comment>Options dialog, font size input label</comment>
   </data>
   <data name="Options_ResultsOptions" xml:space="preserve">
-    <value>Results Options</value>
-    <comment>Options dialog, results options group header label</comment>
+    <value>Search results</value>
+    <comment>Options dialog, Search results group header label</comment>
   </data>
   <data name="Options_SampleText" xml:space="preserve">
-    <value>Sample Text</value>
+    <value>Sample text</value>
     <comment>Options dialog, font family and size sample text </comment>
   </data>
   <data name="Options_Save" xml:space="preserve">
@@ -1815,19 +1814,19 @@ Arguments:
     <comment>Options dialog, save button label (accel)</comment>
   </data>
   <data name="Options_SelectedTheme" xml:space="preserve">
-    <value>Selected Theme</value>
+    <value>Selected theme</value>
     <comment>Options dialog, theme selector label</comment>
   </data>
   <data name="Options_ShowDnGrepInExplorerRightClickMenu" xml:space="preserve">
-    <value>Show dnGrep in Explorer right-click menu</value>
+    <value>Show dnGrep in the right-click menu of Windows Explorer</value>
     <comment>Options dialog, startup options, checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowFileInfoToolTips" xml:space="preserve">
-    <value>Show file info tool tips</value>
+    <value>Show file info tooltips</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowFilePathInResultsPanel" xml:space="preserve">
-    <value>Show file path in results panel</value>
+    <value>Show file path in the results panel</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowResultLinesInContext" xml:space="preserve">
@@ -1839,20 +1838,20 @@ Arguments:
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowSearchOptions" xml:space="preserve">
-    <value>Show search options:</value>
+    <value>Show search options</value>
     <comment>Options dialog, layout options label</comment>
   </data>
   <data name="Options_ShowVerboseMatchCount" xml:space="preserve">
-    <value>Show verbose match count</value>
+    <value>Show additional details about the matches found</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_StartupOptions" xml:space="preserve">
-    <value>Startup options</value>
+    <value>Startup</value>
     <comment>Options dialog, startup group header label</comment>
   </data>
   <data name="Options_TheMatchTimeoutLimits" xml:space="preserve">
-    <value>The match timeout limits how long the regular expression engine will attempt to resolve a regular expression before it times out. This prevents processing expressions and input strings that require excessive backtracking.</value>
-    <comment>Options dialog, regex options help text</comment>
+    <value>The match timeout limits how long the regular expression engine attempts to resolve a regular expression before it times out. It prevents processing expressions and input strings requiring excessive backtracking.</value>
+    <comment>Options dialog, regular expression options help text</comment>
   </data>
   <data name="Options_Theme" xml:space="preserve">
     <value>Theme</value>
@@ -1860,14 +1859,14 @@ Arguments:
   </data>
   <data name="Options_TimeoutSeconds" xml:space="preserve">
     <value>seconds</value>
-    <comment>Options dialog, regex options timeout input label</comment>
+    <comment>Options dialog, regular expression options timeout input label</comment>
   </data>
   <data name="Options_ToChangeThisSettingRunDnGREPAsAdministrator" xml:space="preserve">
-    <value>To change this setting run dnGREP as Administrator.</value>
+    <value>Run dnGrep as Administrator to change this setting.</value>
     <comment>Options dialog, Explorer right-click tooltip</comment>
   </data>
   <data name="Options_UseDefault" xml:space="preserve">
-    <value>Use Default</value>
+    <value>Use default font</value>
     <comment>Options dialog, fonts default checkbox label (accel)</comment>
   </data>
   <data name="Options_WantADifferentLanguage" xml:space="preserve">
@@ -1887,7 +1886,7 @@ Arguments:
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Preview_HighlightsDisabledTooManyMatchesFound" xml:space="preserve">
-    <value>Highlights disabled: too many matches found.</value>
+    <value>Not showing highlights because too many matches were found.</value>
     <comment>Preview window, warning text</comment>
   </data>
   <data name="Preview_MatchCase" xml:space="preserve">
@@ -1907,7 +1906,7 @@ Arguments:
     <comment>Preview window, syntax coloring option for no syntax coloring</comment>
   </data>
   <data name="Preview_ThisFileIsEitherBinaryOrTooLargeToPreview" xml:space="preserve">
-    <value>This file is either binary or too large to preview.</value>
+    <value>This file is either binary, or too large to be shown.</value>
     <comment>Preview window, warning message</comment>
   </data>
   <data name="Preview_UseRegularExpressions" xml:space="preserve">
@@ -1915,7 +1914,7 @@ Arguments:
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Preview_WrapText" xml:space="preserve">
-    <value>Wrap Text</value>
+    <value>Wrap text</value>
     <comment>Preview window, results options checkbox label (accel)</comment>
   </data>
   <data name="Preview_Zoom" xml:space="preserve">
@@ -1955,7 +1954,7 @@ Arguments:
     <comment>Replace window, File text when attempt to replace in binary file</comment>
   </data>
   <data name="Replace_FileNumberOfCountName" xml:space="preserve">
-    <value>File {0} of {1}: {2}  ({3} matches on {4} lines)</value>
+    <value>File {0} of {1}: {2} ({3} matches on {4} lines)</value>
     <comment>Replace window, file name progress line: {0} is the index of the current file; {1} is the total number of files; {2} is the name of the current file; {3} is the number of matches found in the current file; {4} is the number of lines in the current file with matches</comment>
   </data>
   <data name="Replace_Files" xml:space="preserve">
@@ -1964,7 +1963,7 @@ Arguments:
   </data>
   <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
     <value>Mark all matches in this file for replacement [Ctrl+A]</value>
-    <comment>Replace window, Replace in File button tooltip</comment>
+    <comment>Replace window, Replace in file button tooltip</comment>
   </data>
   <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
     <value>Mark match for replacement [Ctrl+R]</value>
@@ -1987,7 +1986,7 @@ Arguments:
     <comment>Replace window, Next button label (accel)</comment>
   </data>
   <data name="Replace_NextFile" xml:space="preserve">
-    <value>Next _File</value>
+    <value>Next _file</value>
     <comment>Replace window, Next file button label (accel)</comment>
   </data>
   <data name="Replace_NumberOfMatchesMarkedForReplacement" xml:space="preserve">
@@ -2003,7 +2002,7 @@ Arguments:
     <comment>Replace window, Previous button label (accel)</comment>
   </data>
   <data name="Replace_PreviousFile" xml:space="preserve">
-    <value>Previous File</value>
+    <value>Previous file</value>
     <comment>Replace window, Previous file button label (accel)</comment>
   </data>
   <data name="Replace_ReadOnly" xml:space="preserve">
@@ -2019,11 +2018,11 @@ Arguments:
     <comment>Replace window, Replace button label (accel)</comment>
   </data>
   <data name="Replace_ReplaceInAllFiles" xml:space="preserve">
-    <value>Replace in All Files</value>
+    <value>Replace in all files</value>
     <comment>Replace window, Replace in all files button label (accel)</comment>
   </data>
   <data name="Replace_ReplaceInFile" xml:space="preserve">
-    <value>Replace in File</value>
+    <value>Replace in file</value>
     <comment>Replace window, Replace in file button label (accel)</comment>
   </data>
   <data name="Replace_ReplaceKey1_Text" xml:space="preserve">
@@ -2031,15 +2030,15 @@ Arguments:
     <comment>Replace window, first color and highlight key label</comment>
   </data>
   <data name="Replace_ReplaceKey2_SelectedMatch" xml:space="preserve">
-    <value>Selected Match</value>
+    <value>Selected match</value>
     <comment>Replace window, second color and highlight key label</comment>
   </data>
   <data name="Replace_ReplaceKey3_ReplaceMatch" xml:space="preserve">
-    <value>Replace Match</value>
+    <value>Replace match</value>
     <comment>Replace window, third color and highlight key label</comment>
   </data>
   <data name="Replace_ReplaceKey4_SkipMatch" xml:space="preserve">
-    <value>Skip Match</value>
+    <value>Skip match</value>
     <comment>Replace window, fourth color and highlight key label</comment>
   </data>
   <data name="Replace_ReplaceMatchesMarkedForReplacement" xml:space="preserve">
@@ -2071,7 +2070,7 @@ Arguments:
     <comment>Replace window, syntax coloring option for no syntax coloring</comment>
   </data>
   <data name="Replace_ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
-    <value>This file contains too many matches for individual replace.  To replace all of them, click 'Replace in File'</value>
+    <value>This file contains too many matches for individual replace. Click 'Replace in file' to replace all of them.</value>
     <comment>Replace window, warning message box text</comment>
   </data>
   <data name="Replace_Title" xml:space="preserve">
@@ -2083,7 +2082,7 @@ Arguments:
     <comment>Replace window, Undo button label (accel)</comment>
   </data>
   <data name="Replace_UndoFile" xml:space="preserve">
-    <value>Undo File</value>
+    <value>Undo file</value>
     <comment>Replace window, Undo file button label (accel)</comment>
   </data>
   <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
@@ -2091,7 +2090,7 @@ Arguments:
     <comment>Replace window, Undo button tooltip</comment>
   </data>
   <data name="Replace_WrapText" xml:space="preserve">
-    <value>Wrap Text</value>
+    <value>Wrap text</value>
     <comment>Replace window, results options checkbox label (accel)</comment>
   </data>
   <data name="Replace_Zoom" xml:space="preserve">
@@ -2100,7 +2099,7 @@ Arguments:
   </data>
   <data name="Report_CSVRecordHeaderText" xml:space="preserve">
     <value>File Name,Line Number,String</value>
-    <comment>Report, CSV report header text</comment>
+    <comment>Report, CSV report - these are the column headers in the generated CSV file</comment>
   </data>
   <data name="Report_DnGrepSearchResults" xml:space="preserve">
     <value>dnGrep Search Results</value>
@@ -2143,15 +2142,15 @@ Arguments:
     <comment>Report search options summary label</comment>
   </data>
   <data name="ReportSummary_ExcludePattern" xml:space="preserve">
-    <value>Exclude pattern:</value>
+    <value>Exclude file pattern:</value>
     <comment>Report search options summary label</comment>
   </data>
   <data name="ReportSummary_FilePattern" xml:space="preserve">
-    <value>File pattern:</value>
+    <value>Include file pattern:</value>
     <comment>Report search options summary label</comment>
   </data>
   <data name="ReportSummary_MaxFolderDepth" xml:space="preserve">
-    <value>Max folder depth {0}</value>
+    <value>Max folder depth: {0}</value>
     <comment>Report search options summary: {0} is the user input folder depth</comment>
   </data>
   <data name="ReportSummary_Multiline" xml:space="preserve">
@@ -2179,7 +2178,7 @@ Arguments:
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_NoSymlinks" xml:space="preserve">
-    <value>No symlinks</value>
+    <value>No symbolic links</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_SearchFor" xml:space="preserve">
@@ -2199,7 +2198,7 @@ Arguments:
     <comment>Report search options summary: {0} and {1} are the user input size range</comment>
   </data>
   <data name="ReportSummary_StopAfterFirstMatch" xml:space="preserve">
-    <value>Stop after frist match</value>
+    <value>Stop after first match</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_Type0DateFrom1To2" xml:space="preserve">
@@ -2215,7 +2214,7 @@ Arguments:
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_UsingRegexFilePattern" xml:space="preserve">
-    <value>Using regex file pattern</value>
+    <value>Using regular expression file pattern</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_UsingTypeOfSeach" xml:space="preserve">
@@ -2263,7 +2262,7 @@ Arguments:
     <comment>Test window, output results label</comment>
   </data>
   <data name="Test_ReplaceTextIsNotValidXML" xml:space="preserve">
-    <value>Replace text is not valid XML!</value>
+    <value>The replace text is not valid XML!</value>
     <comment>Test window, error text</comment>
   </data>
   <data name="Test_ReplaceWith" xml:space="preserve">
@@ -2291,7 +2290,7 @@ Arguments:
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">
-    <value>_Regex</value>
+    <value>_Regular expression</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_SearchType_Text" xml:space="preserve">
@@ -2335,15 +2334,15 @@ Arguments:
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTA7_ForMoreRegexPatternsHitF1" xml:space="preserve">
-    <value>For more Regex patterns hit F1</value>
+    <value>Hit F1 for more regular expression patterns</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTB1_ReplacesEntireRegex" xml:space="preserve">
-    <value>$&amp; replaces entire regex</value>
+    <value>$&amp; replaces entire regular expression</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTB2_InsertsTheTextMatchedIntoTheReplacementText" xml:space="preserve">
-    <value>$1, $2, $3, etc... inserts the text matched between capturing parentheses into the replacement text</value>
+    <value>$1, $2, $3, etc… inserts the text matched between capturing parentheses into the replacement text</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTB3_InsertsASingleDollarSignIntoTheReplacementText" xml:space="preserve">
