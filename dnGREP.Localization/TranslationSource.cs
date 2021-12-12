@@ -30,6 +30,8 @@ namespace dnGREP.Localization
                 { "de", "Deutsch" },
                 { "en", "English" },
                 { "he", "עברית" },
+                { "nb-NO", "Bokmål" },
+                { "ru", "Русский" },
                 { "zh-CN", "简体中文" },
             };
 
