@@ -116,6 +116,16 @@
           <File Id="fil7E6AA28F928A422D9C52A627B4EF71CE" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\he\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>
+      <Directory Id="dir29A125086A5142CD82967C90D4B30F84" Name="nb-NO">
+        <Component Id="cmp95D9BA8868AD4AABB595EFEE7C9A571C" Guid="{CDCE4971-655F-42EB-938D-8752607B9651}">
+          <File Id="filD67EB47A35A94821A13404D45FD785DF" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\nb-NO\dnGREP.Localization.resources.dll" />
+        </Component>
+      </Directory>
+      <Directory Id="dir5BBA0090F3134A669D79AF8493E1ED07" Name="ru">
+        <Component Id="cmp2B23830370BC47F1B72CDB2222A8F99C" Guid="{5AAAC353-B2EF-4BEF-8428-B223A91B090A}">
+          <File Id="fil1517188218DF424C9025E074D9897EA1" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\ru\dnGREP.Localization.resources.dll" />
+        </Component>
+      </Directory>
       <Directory Id="dir0504FAEF173645618FE93CEF2595F0E7" Name="zh-CN">
         <Component Id="cmp1CCA4DCF77DD449B91F005A1D4A7489B" Guid="{343F46B0-10E1-4EBF-A079-64AB1A433833}">
           <File Id="filE3928064176646DB84256E32A69D9983" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\zh-CN\dnGREP.Localization.resources.dll" />
@@ -152,6 +162,8 @@
       <ComponentRef Id="cmp8D7FBFB745324AA7BF5C3EAC73E04285" />
       <!--<ComponentRef Id="cmp8765E4C9E5AE45DDAAB4EA4CC093FD56" />-->
       <ComponentRef Id="cmp6E066DAA55234C4DB9125224795D9984" />
+      <ComponentRef Id="cmp95D9BA8868AD4AABB595EFEE7C9A571C" />
+      <ComponentRef Id="cmp2B23830370BC47F1B72CDB2222A8F99C" />
       <ComponentRef Id="cmp1CCA4DCF77DD449B91F005A1D4A7489B" />
       <ComponentRef Id="cmp9870824B781A4C4094CD594CACFBDE9E" />
     </ComponentGroup>
