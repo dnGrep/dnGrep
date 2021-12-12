@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About_AboutDnGREP" xml:space="preserve">
-    <value>אודות dnGREP</value>
+    <value>אודות dnGrep</value>
     <comment>About dialog window title</comment>
   </data>
   <data name="About_Acknowledgments" xml:space="preserve">
@@ -134,7 +134,7 @@
     <comment>About dnGrep acknowledgments</comment>
   </data>
   <data name="About_DnGREP" xml:space="preserve">
-    <value>dnGREP</value>
+    <value>dnGrep</value>
     <comment>About dialog text</comment>
   </data>
   <data name="About_DnGrepOnGitHub" xml:space="preserve">
@@ -227,7 +227,7 @@
   </data>
   <data name="BookmarkDetails_EverythingIndexService" xml:space="preserve">
     <value>שירות אינדקס של Everything</value>
-    <comment>Bookmark details dialog, pattern type option Everything tooltip</comment>
+    <comment>Bookmark details dialog, Everything pattern type option tooltip</comment>
   </data>
   <data name="BookmarkDetails_FilePatternType" xml:space="preserve">
     <value>סוג תבנית קובץ</value>
@@ -239,11 +239,11 @@
   </data>
   <data name="BookmarkDetails_ForExampleAsteriskPattern" xml:space="preserve">
     <value>e.g. file??.*</value>
-    <comment>Bookmark details dialog, pattern type option Asterisk tooltip</comment>
+    <comment>Bookmark details dialog, Wildcard pattern type option tooltip</comment>
   </data>
   <data name="BookmarkDetails_ForExampleRegularExpession" xml:space="preserve">
     <value>e.g. file[0-9]{1,2}\\.txt</value>
-    <comment>Bookmark details dialog, pattern type option Regex tooltip</comment>
+    <comment>Bookmark details dialog, regular expression pattern type option tooltip</comment>
   </data>
   <data name="BookmarkDetails_IncludeBinaryFiles" xml:space="preserve">
     <value>כלול קבצים בינאריים</value>
@@ -279,15 +279,15 @@
   </data>
   <data name="BookmarkDetails_PatternType_AsteriskPattern" xml:space="preserve">
     <value>תבנית כוכבית</value>
-    <comment>Bookmark details dialog, pattern type radio button label (accel)</comment>
+    <comment>Bookmark details dialog, Wildcard pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_PatternType_Everything" xml:space="preserve">
     <value>Everything</value>
-    <comment>Bookmark details dialog, pattern type radio button label (accel)</comment>
+    <comment>Bookmark details dialog, Everything pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_PatternType_Regex" xml:space="preserve">
     <value>_Regex</value>
-    <comment>Bookmark details dialog, pattern type radio button label (accel)</comment>
+    <comment>Bookmark details dialog, Regular expression pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
     <value>להחליף ב:</value>
@@ -303,23 +303,23 @@
   </data>
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
     <value>Hex</value>
-    <comment>Bookmark details dialog, search type radio button label (accel)</comment>
+    <comment>Bookmark details dialog, Byte search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
     <value>פונטי</value>
-    <comment>Bookmark details dialog, search type radio button label (accel)</comment>
+    <comment>Bookmark details dialog, Phonetic search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
     <value>חיפוש פונטי</value>
-    <comment>Bookmark details dialog, search type Phonetic tooltip</comment>
+    <comment>Bookmark details dialog, Phonetic search type tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
     <value>חיפוש טקסט רגיל</value>
-    <comment>Bookmark details dialog, search type Text tooltip</comment>
+    <comment>Bookmark details dialog, Text search type tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
     <value>קרא קובץ כמו בינארי וחפש בתים כמו ספרות הקסדצימלי: 68 65 78 20</value>
-    <comment>Bookmark details dialog, search type Hex tooltip</comment>
+    <comment>Bookmark details dialog, Byte search type tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
     <value>_Regex</value>
@@ -327,7 +327,7 @@
   </data>
   <data name="BookmarkDetails_SearchType_RegularExpressionSearch" xml:space="preserve">
     <value>חיפוש ביטוי רגיל</value>
-    <comment>Bookmark details dialog, search type Regex tooltip</comment>
+    <comment>Bookmark details dialog, search type regular expression tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Text" xml:space="preserve">
     <value>_טקסט</value>
@@ -351,7 +351,7 @@
   </data>
   <data name="BookmarkDetails_TypeHeader" xml:space="preserve">
     <value>סוג</value>
-    <comment>Bookmark details dialog, type group header label</comment>
+    <comment>Bookmark details dialog, search type group header label</comment>
   </data>
   <data name="BookmarkDetails_UseGitignore" xml:space="preserve">
     <value>השתמש ב- .gitignore</value>
@@ -551,7 +551,7 @@ Arguments:
 -x
 -exit
     צא מ- dnGrep לאחר השלמת פעולות שורת הפקודה.</value>
-    <comment>Help dialog text when running dnGrep from the command line: {0} is the installed dnGrep version number; {1} is the installed dnGrep build date</comment>
+    <comment>Help dialog text when running dnGrep from the command-line: {0} is the installed dnGrep version number; {1} is the installed dnGrep build date</comment>
   </data>
   <data name="Help_DnGrepHelp" xml:space="preserve">
     <value>עזרה dnGrep</value>
@@ -674,8 +674,8 @@ Arguments:
     <comment>Main window, filter files by date label</comment>
   </data>
   <data name="Main_DnGREP_Title" xml:space="preserve">
-    <value>dnGREP</value>
-    <comment>Main window, title label - near menu bar</comment>
+    <value>dnGrep</value>
+    <comment>Main window, title label – near menu bar</comment>
   </data>
   <data name="Main_DockBottom" xml:space="preserve">
     <value>עגינה תחתונה</value>
@@ -763,11 +763,11 @@ Arguments:
   </data>
   <data name="Main_ForExampleAsteriskPattern" xml:space="preserve">
     <value>e.g. file??.*</value>
-    <comment>Main window, pattern type option Asterisk tooltip</comment>
+    <comment>Main window, Wildcard pattern type option tooltip</comment>
   </data>
   <data name="Main_ForExampleRegularExpession" xml:space="preserve">
     <value>e.g. file[0-9]{1,2}\\.txt</value>
-    <comment>Main window, pattern type option Regex tooltip</comment>
+    <comment>Main window, Regular expression pattern type option tooltip</comment>
   </data>
   <data name="Main_FromTheStartOfTheDay" xml:space="preserve">
     <value>מתחילת היום</value>
@@ -903,15 +903,15 @@ Arguments:
   </data>
   <data name="Main_PatternType_Asterisk" xml:space="preserve">
     <value>תבנית כוכבית</value>
-    <comment>Main window, pattern type radio button label (accel)</comment>
+    <comment>Main window, Wildcard pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_PatternType_Everything" xml:space="preserve">
     <value>Everything</value>
-    <comment>Main window, pattern type radio button label (accel)</comment>
+    <comment>Main window, Everything pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_PatternType_Regex" xml:space="preserve">
     <value>_Regex</value>
-    <comment>Main window, pattern type radio button label (accel)</comment>
+    <comment>Main window, Regular expression pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_PreviewFile" xml:space="preserve">
     <value>תצוגה מקדימה לקובץ</value>
@@ -971,7 +971,6 @@ Arguments:
   </data>
   <data name="Main_ResultList_MatchToolTip1" xml:space="preserve">
     <value>התאמה {0}{1}{2}</value>
-    
     <comment>Main window results, capture group tooltip: {0} is the match index; {1} is a new line; {2} is text of in the group</comment>
   </data>
   <data name="Main_ResultList_MatchToolTip2" xml:space="preserve">
@@ -1084,43 +1083,43 @@ Arguments:
   </data>
   <data name="Main_SearchType_Hex" xml:space="preserve">
     <value>Hex</value>
-    <comment>Main window, search type radio button label (accel)</comment>
+    <comment>Main window, Byte search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_Phonetic" xml:space="preserve">
     <value>פונטי</value>
-    <comment>Main window, search type radio button label (accel)</comment>
+    <comment>Main window, Phonetic search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
     <value>חיפוש פונטי</value>
-    <comment>Main window, search type Phonetic tooltip</comment>
+    <comment>Main window, Phonetic search type tooltip</comment>
   </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
     <value>חיפוש טקסט רגיל</value>
-    <comment>Main window, search type Text tooltip</comment>
+    <comment>Main window, Text search type tooltip</comment>
   </data>
   <data name="Main_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
     <value>קרא קובץ כמו בינארי וחפש בתים כמו ספרות הקסדצימלי: 68 65 78 20</value>
-    <comment>Main window, search type Hex tooltip</comment>
+    <comment>Main window, Byte search type tooltip</comment>
   </data>
   <data name="Main_SearchType_Regex" xml:space="preserve">
     <value>_Regex</value>
-    <comment>Main window, search type radio button label (accel)</comment>
+    <comment>Main window, Regular expression search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_RegularExpressionSearch" xml:space="preserve">
     <value>חיפוש ביטוי רגיל</value>
-    <comment>Main window, search type Regex tooltip</comment>
+    <comment>Main window, Regular expression search type tooltip</comment>
   </data>
   <data name="Main_SearchType_Text" xml:space="preserve">
     <value>_טקסט</value>
-    <comment>Main window, search type radio button label (accel)</comment>
+    <comment>Main window, Text search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_XPath" xml:space="preserve">
     <value>_XPath</value>
-    <comment>Main window, search type radio button label (accel)</comment>
+    <comment>Main window, XPath search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
     <value>חיפוש XPath (מסמכי XML בלבד)</value>
-    <comment>Main window, search type XPath tooltip</comment>
+    <comment>Main window, XPath search type tooltip</comment>
   </data>
   <data name="Main_SelectADate" xml:space="preserve">
     <value>בחר תאריך</value>
@@ -1152,35 +1151,35 @@ Arguments:
   </data>
   <data name="Main_SortMenu_Descending" xml:space="preserve">
     <value>יורד</value>
-    <comment>Main window sort options options menu label (accel)</comment>
+    <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_FileNameOnly" xml:space="preserve">
     <value>שם קובץ בלבד</value>
-    <comment>Main window sort options options menu label (accel)</comment>
+    <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_FileSize" xml:space="preserve">
     <value>גודל הקובץ</value>
-    <comment>Main window sort options options menu label (accel)</comment>
+    <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_FileTypeAndName" xml:space="preserve">
     <value>סוג קובץ ושם</value>
-    <comment>Main window sort options options menu label (accel)</comment>
+    <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_LastWriteTime" xml:space="preserve">
     <value>זמן כתיבה אחרון</value>
-    <comment>Main window sort options options menu label (accel)</comment>
+    <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_MatchCount" xml:space="preserve">
     <value>ספירת התאמה</value>
-    <comment>Main window sort options options menu label (accel)</comment>
+    <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_PathAndFileNameBreadthFirst" xml:space="preserve">
     <value>נתיב ושם קובץ, רוחב ראשון</value>
-    <comment>Main window sort options options menu label (accel)</comment>
+    <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_PathAndFileNameDepthFirst" xml:space="preserve">
     <value>נתיב ושם קובץ, עומק ראשון</value>
-    <comment>Main window sort options options menu label (accel)</comment>
+    <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="Main_Status_Excluded0MissingFiles" xml:space="preserve">
     <value>אל תכלול {0} קבצים חסרים.</value>
@@ -1227,7 +1226,8 @@ Arguments:
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_SearchingForGitignore" xml:space="preserve">
-    <value>מחפש .gitignore</value>
+    <value>מחפש .gitignore</value>
+    <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_StopAfterFirstMatch" xml:space="preserve">
     <value>עצור לאחר ההתאמה הראשונה</value>
@@ -1282,7 +1282,7 @@ Arguments:
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_WindowTitle" xml:space="preserve">
-    <value>{0} ב- "{1}" - dnGREP</value>
+    <value>{0} ב- "{1}" - dnGrep</value>
     <comment>Main window title: {0} is the current search pattern; {1} is the current search folder</comment>
   </data>
   <data name="Main_WrapText" xml:space="preserve">
@@ -1343,7 +1343,7 @@ Arguments:
   </data>
   <data name="MessageBox_DefaultEngineWasUsedInstead" xml:space="preserve">
     <value>השתמשנו במנוע ברירת המחדל במקום.</value>
-    <comment>Message box text for: Plugin failed to load error</comment>
+    <comment>Message box text for: Plug-in failed to load error</comment>
   </data>
   <data name="MessageBox_DeleteFiles" xml:space="preserve">
     <value>מחק קבצים</value>
@@ -1394,7 +1394,7 @@ Arguments:
     <comment>Message box title for: New dnGrep version</comment>
   </data>
   <data name="MessageBox_NewVersionOfDnGREP0IsAvailableForDownload" xml:space="preserve">
-    <value>גרסה חדשה של dnGREP \u200f({0}) זמינה להורדה.</value>
+    <value>גרסה חדשה של dnGrep \u200f({0}) זמינה להורדה.</value>
     <comment>Message box text for: New dnGrep version: {0} is the new version number</comment>
   </data>
   <data name="MessageBox_PleaseSelectAnotherDirectoryAndTryAgain" xml:space="preserve">
@@ -1403,7 +1403,7 @@ Arguments:
   </data>
   <data name="MessageBox_PluginErrors" xml:space="preserve">
     <value>שגיאות תוסף.</value>
-    <comment>Message box title for: Plugin errors</comment>
+    <comment>Message box title for: Plug-in errors</comment>
   </data>
   <data name="MessageBox_RenameFailed" xml:space="preserve">
     <value>שינוי שם נכשל: </value>
@@ -1459,15 +1459,15 @@ Arguments:
   </data>
   <data name="MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting" xml:space="preserve">
     <value>הקובץ '{0}' כבר קיים ב-{1}, להחליף את הקיים?</value>
-    <comment>Message box text for: Copy or Move files: {0} is a file name; {1} is a folder name</comment>
+    <comment>Message box text for: Copy or Move files: {0} is a file name; {1} is the name of a folder</comment>
   </data>
   <data name="MessageBox_TheFilePattern0IsNotAValidRegularExpression12" xml:space="preserve">
     <value>תבנית הקובץ '{0}' אינה ביטוי רגיל תקף:{1}{2}</value>
-    <comment>Message box text for: Main window regex file pattern error: {0} is the invalid regular expression; {1} is a newline; {2} is the reason the expression is invalid</comment>
+    <comment>Message box text for: Main window regular expression file pattern error: {0} is the invalid regular expression; {1} is a newline; {2} is the reason the expression is invalid</comment>
   </data>
   <data name="MessageBox_TheFollowingPluginsFailedToLoad" xml:space="preserve">
     <value>הטעינה של התוספים הבאים לא הצליחה:</value>
-    <comment>Message box text for: plugin load errors</comment>
+    <comment>Message box text for: plug-in load errors</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu" xml:space="preserve">
     <value>94 / 5000
@@ -1554,7 +1554,7 @@ Arguments:
   </data>
   <data name="Options_ApplicationFonts" xml:space="preserve">
     <value>גופני יישומים</value>
-    <comment>Options dialog, fonts group header label</comment>
+    <comment>Options dialog, Application fonts group header label</comment>
   </data>
   <data name="Options_ArchiveAdd" xml:space="preserve">
     <value>הוסף:</value>
@@ -1570,7 +1570,7 @@ Arguments:
   </data>
   <data name="Options_ArchiveOptions" xml:space="preserve">
     <value>אפשרויות ארכיון</value>
-    <comment>Options dialog, archive options group header label</comment>
+    <comment>Options dialog, Archive files group header label</comment>
   </data>
   <data name="Options_ArchiveRemove" xml:space="preserve">
     <value>הסר:</value>
@@ -1590,7 +1590,7 @@ Arguments:
   </data>
   <data name="Options_CheckingForUpdates" xml:space="preserve">
     <value>בדיקת עדכונים.</value>
-    <comment>Options dialog, check for updates group header label</comment>
+    <comment>Options dialog, New versions group header label</comment>
   </data>
   <data name="Options_ClearOldSearches" xml:space="preserve">
     <value>נקה חיפושים ישנים</value>
@@ -1626,7 +1626,7 @@ Arguments:
   </data>
   <data name="Options_CustomEditorHelp" xml:space="preserve">
     <value>השתמש במילות מפתח '{0}' למיקום הקובץ, '{1}' עבור מספר השורה, '{2}' לדפוס החיפוש, '{3}' עבור הטקסט התואם הראשון בשורה, ו- '{4}' עבור מספר העמודה של ההתאמה הראשונה בשורה.</value>
-    <comment>Options dialog, custom editor help text: the placeholder are non-localizable expressions used as arguments when starting the custom editor</comment>
+    <comment>Options dialog, custom editor help text: the placeholders are non-localized expressions used as arguments when starting the custom editor</comment>
   </data>
   <data name="Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
     <value>זיהוי קידוד קבצים רק בעת חיפוש שם קובץ</value>
@@ -1654,7 +1654,15 @@ Arguments:
   </data>
   <data name="Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu" xml:space="preserve">
     <value>מאפשר הפעלת dnGrep מתפריט ההקשר באמצעות לחצן העכבר הימני של סייר Windows.</value>
-    <comment>Options dialog, explorer right click menu checkbox tooltip</comment>
+    <comment>Options dialog, explorer right-click menu checkbox tooltip</comment>
+  </data>
+  <data name="Options_FilesAndIndividualMatches" xml:space="preserve">
+    <value>קבצים והתאמות בודדות</value>
+    <comment>Options dialog, Replace window layout option radio button label (accel)</comment>
+  </data>
+  <data name="Options_FilesOnly" xml:space="preserve">
+    <value>קבצים בלבד</value>
+    <comment>Options dialog, Replace window layout radio button label (accel)</comment>
   </data>
   <data name="Options_FollowWindowsTheme" xml:space="preserve">
     <value>התאם לערכת נושא של ווינדוס</value>
@@ -1668,9 +1676,13 @@ Arguments:
     <value>עזור לתרגם את dnGrep.</value>
     <comment>Options dialog, language request label</comment>
   </data>
+  <data name="Options_HexSearchResultLineLength" xml:space="preserve">
+    <value>Hex search result line length</value>
+    <comment>Options dialog, results options combo box label</comment>
+  </data>
   <data name="Options_HistoryLists" xml:space="preserve">
     <value>רשימת היסטוריה</value>
-    <comment>Options dialog, history group heading label</comment>
+    <comment>Options dialog, History group heading label</comment>
   </data>
   <data name="Options_InOptionsExpander" xml:space="preserve">
     <value>באפשרויות המורחבות</value>
@@ -1714,7 +1726,7 @@ Arguments:
   </data>
   <data name="Options_MatchTimeout" xml:space="preserve">
     <value>משך הזמן למציאת התאמה</value>
-    <comment>Options dialog, regex options text input label</comment>
+    <comment>Options dialog, regular expression options text input label</comment>
   </data>
   <data name="Options_OnMainPanel" xml:space="preserve">
     <value>בחלון הראשי</value>
@@ -1742,27 +1754,27 @@ Arguments:
   </data>
   <data name="Options_PluginAdd" xml:space="preserve">
     <value>הוסף:</value>
-    <comment>Options dialog, plugin options text input label</comment>
+    <comment>Options dialog, plug-in options text input label</comment>
   </data>
   <data name="Options_PluginDefault" xml:space="preserve">
     <value>ברירת מחדל:</value>
-    <comment>Options dialog, plugin options text input label</comment>
+    <comment>Options dialog, plug-in options text input label</comment>
   </data>
   <data name="Options_PluginEnabled" xml:space="preserve">
     <value>מאופשר</value>
-    <comment>Options dialog, plugins checkbox label</comment>
+    <comment>Options dialog, plug-ins checkbox label</comment>
   </data>
   <data name="Options_PluginExtensions" xml:space="preserve">
     <value>סיומות קבצים:</value>
-    <comment>Options dialog, plugin options label</comment>
+    <comment>Options dialog, plug-in options label</comment>
   </data>
   <data name="Options_PluginOptions" xml:space="preserve">
     <value>אפשרויות תוסף</value>
-    <comment>Options dialog, plugin options group header label</comment>
+    <comment>Options dialog, Plug-ins group header label</comment>
   </data>
   <data name="Options_PluginRemove" xml:space="preserve">
     <value>הסר:</value>
-    <comment>Options dialog, plugin options text input label</comment>
+    <comment>Options dialog, plug-in options text input label</comment>
   </data>
   <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
     <value>הקש F1 לקבלת עזרה באפשרויות</value>
@@ -1774,7 +1786,7 @@ Arguments:
   </data>
   <data name="Options_RegexOptions" xml:space="preserve">
     <value>Regex אפשרויות</value>
-    <comment>Options dialog, regex options group heading label</comment>
+    <comment>Options dialog, regular expressions group heading label</comment>
   </data>
   <data name="Options_Reload" xml:space="preserve">
     <value>טען מחדש</value>
@@ -1784,13 +1796,17 @@ Arguments:
     <value>טען מחדש את קובץ ערכת  הנושא הנוכחי [Ctrl+F5]</value>
     <comment>Options dialog, theme reload button tooltip</comment>
   </data>
+  <data name="Options_ReplaceDialogLayout" xml:space="preserve">
+    <value>Replace dialog Layout:</value>
+    <comment>Options dialog, Replace window layout options label</comment>
+  </data>
   <data name="Options_ReplaceFontSize" xml:space="preserve">
     <value>החלף את גודל הגופן</value>
     <comment>Options dialog, font size input label</comment>
   </data>
   <data name="Options_ResultsOptions" xml:space="preserve">
     <value>אפשרויות תוצאות</value>
-    <comment>Options dialog, results options group header label</comment>
+    <comment>Options dialog, Search results group header label</comment>
   </data>
   <data name="Options_SampleText" xml:space="preserve">
     <value>טקסט לדוגמה</value>
@@ -1838,7 +1854,7 @@ Arguments:
   </data>
   <data name="Options_TheMatchTimeoutLimits" xml:space="preserve">
     <value>משך הזמן למציאת התאמה מגביל את משך הזמן שמנוע הביטוי הרגיל ינסה לפתור ביטוי רגיל לפני שיפסק הזמן. זה מונע עיבוד ביטויים ומחרוזות קלט הדורשים חזרה לאחור.</value>
-    <comment>Options dialog, regex options help text</comment>
+    <comment>Options dialog, regular expression options help text</comment>
   </data>
   <data name="Options_Theme" xml:space="preserve">
     <value>ערכת נושא</value>
@@ -1846,10 +1862,10 @@ Arguments:
   </data>
   <data name="Options_TimeoutSeconds" xml:space="preserve">
     <value>שניות</value>
-    <comment>Options dialog, regex options timeout input label</comment>
+    <comment>Options dialog, regular expression options timeout input label</comment>
   </data>
   <data name="Options_ToChangeThisSettingRunDnGREPAsAdministrator" xml:space="preserve">
-    <value>כדי לשנות הגדרה זו הפעל את dnGREP כמנהל.</value>
+    <value>כדי לשנות הגדרה זו הפעל את dnGrep כמנהל.</value>
     <comment>Options dialog, Explorer right-click tooltip</comment>
   </data>
   <data name="Options_UseDefault" xml:space="preserve">
@@ -1950,7 +1966,7 @@ Arguments:
   </data>
   <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
     <value>סמן את כל ההתאמות בקובץ זה להחלפה [Ctrl+A]</value>
-    <comment>Replace window, Replace in File button tooltip</comment>
+    <comment>Replace window, Replace in file button tooltip</comment>
   </data>
   <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
     <value>סימן התאמה להחלפה [Ctrl+R]</value>
@@ -1975,6 +1991,10 @@ Arguments:
   <data name="Replace_NextFile" xml:space="preserve">
     <value>קובץ _הבא:</value>
     <comment>Replace window, Next file button label (accel)</comment>
+  </data>
+  <data name="Replace_NumberOfMatchesMarkedForReplacement" xml:space="preserve">
+    <value>{0} מ-{1} התאמות סומנו להחלפה</value>
+    <comment>Replace window, file name progress line: {0} is number of matches marked for replacement; {1} is the number of matches found in the current file</comment>
   </data>
   <data name="Replace_OK" xml:space="preserve">
     <value>אישור</value>
@@ -2082,7 +2102,7 @@ Arguments:
   </data>
   <data name="Report_CSVRecordHeaderText" xml:space="preserve">
     <value>שם קובץ,מספר שורה,טקסט</value>
-    <comment>Report, CSV report header text</comment>
+    <comment>Report, CSV report - these are the column headers in the generated CSV file</comment>
   </data>
   <data name="Report_DnGrepSearchResults" xml:space="preserve">
     <value>dnGrep תוצאות חיפוש</value>

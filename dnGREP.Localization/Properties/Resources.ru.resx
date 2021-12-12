@@ -1,65 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <!-- 
-    Microsoft ResX Schema 
-    
-    Version 2.0
-    
-    The primary goals of this format is to allow a simple XML format 
-    that is mostly human readable. The generation and parsing of the 
-    various data types are done through the TypeConverter classes 
-    associated with the data types.
-    
-    Example:
-    
-    ... ado.net/XML headers & schema ...
-    <resheader name="resmimetype">text/microsoft-resx</resheader>
-    <resheader name="version">2.0</resheader>
-    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
-    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
-    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
-    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
-    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
-        <value>[base64 mime encoded serialized .NET Framework object]</value>
-    </data>
-    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
-        <comment>This is a comment</comment>
-    </data>
-                
-    There are any number of "resheader" rows that contain simple 
-    name/value pairs.
-    
-    Each data row contains a name, and value. The row also contains a 
-    type or mimetype. Type corresponds to a .NET class that support 
-    text/value conversion through the TypeConverter architecture. 
-    Classes that don't support this are serialized and stored with the 
-    mimetype set.
-    
-    The mimetype is used for serialized objects, and tells the 
-    ResXResourceReader how to depersist the object. This is currently not 
-    extensible. For a given mimetype the value must be set accordingly:
-    
-    Note - application/x-microsoft.net.object.binary.base64 is the format 
-    that the ResXResourceWriter will generate, however the reader can 
-    read any of the formats listed below.
-    
-    mimetype: application/x-microsoft.net.object.binary.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
-            : and then encoded with base64 encoding.
-    
-    mimetype: application/x-microsoft.net.object.soap.base64
-    value   : The object must be serialized with 
-            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
-            : and then encoded with base64 encoding.
-
-    mimetype: application/x-microsoft.net.object.bytearray.base64
-    value   : The object must be serialized into a byte array 
-            : using a System.ComponentModel.TypeConverter
-            : and then encoded with base64 encoding.
-    -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -118,15 +59,15 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About_AboutDnGREP" xml:space="preserve">
-    <value>关于 dnGrep</value>
+    <value>About dnGrep</value>
     <comment>About dialog window title</comment>
   </data>
   <data name="About_Acknowledgments" xml:space="preserve">
-    <value>特别鸣谢</value>
+    <value>Благодарности</value>
     <comment>About dialog text</comment>
   </data>
   <data name="About_BuiltOn" xml:space="preserve">
-    <value>构建于</value>
+    <value>Built on</value>
     <comment>About dialog label</comment>
   </data>
   <data name="About_ConvertsPDFFilesToPlainText" xml:space="preserve">
@@ -190,95 +131,95 @@
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_OK" xml:space="preserve">
-    <value>确定</value>
+    <value>ОК</value>
     <comment>About dialog button label</comment>
   </data>
   <data name="About_Version" xml:space="preserve">
-    <value>版本</value>
+    <value>Версия</value>
     <comment>About dialog label</comment>
   </data>
   <data name="BookmarkDetails_AssociatedFolders" xml:space="preserve">
-    <value>关联的文件夹:</value>
+    <value>Associated folders:</value>
     <comment>Bookmark details dialog, text input box label</comment>
   </data>
   <data name="BookmarkDetails_BooleanOperators" xml:space="preserve">
-    <value>布尔操作</value>
+    <value>Boolean operators</value>
     <comment>Bookmark details dialog, search options checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Cancel" xml:space="preserve">
-    <value>取消</value>
+    <value>Отмена</value>
     <comment>Bookmark details dialog, cancel button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_CaseSensitive" xml:space="preserve">
-    <value>大小写敏感(_A)</value>
+    <value>C_ase sensitive</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Description" xml:space="preserve">
-    <value>描述:</value>
+    <value>Описание:</value>
     <comment>Bookmark details dialog, text input box label</comment>
   </data>
   <data name="BookmarkDetails_DotAsNewline" xml:space="preserve">
-    <value>点号作为新行(_D)</value>
+    <value>_Dot as newline</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Encoding" xml:space="preserve">
-    <value>编码:</value>
+    <value>Encoding:</value>
     <comment>Bookmark details dialog, search options encoding combo box label (accel) </comment>
   </data>
   <data name="BookmarkDetails_EverythingIndexService" xml:space="preserve">
-    <value>Everything 索引服务</value>
+    <value>Everything index service</value>
     <comment>Bookmark details dialog, pattern type option Everything tooltip</comment>
   </data>
   <data name="BookmarkDetails_FilePatternType" xml:space="preserve">
-    <value>模式类型</value>
+    <value>File pattern type</value>
     <comment>Bookmark details dialog, file pattern group header label</comment>
   </data>
   <data name="BookmarkDetails_FollowSymbolicLinks" xml:space="preserve">
-    <value>跟随符号连接</value>
+    <value>Follow symbolic links</value>
     <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_ForExampleAsteriskPattern" xml:space="preserve">
-    <value>例: file??.*</value>
+    <value>For example: *.txt;*.xml</value>
     <comment>Bookmark details dialog, pattern type option Asterisk tooltip</comment>
   </data>
   <data name="BookmarkDetails_ForExampleRegularExpession" xml:space="preserve">
-    <value>例: file[0-9]{1,2}\\.txt</value>
+    <value>For example: file[0-9]{1,2}\\.txt</value>
     <comment>Bookmark details dialog, pattern type option Regex tooltip</comment>
   </data>
   <data name="BookmarkDetails_IncludeBinaryFiles" xml:space="preserve">
-    <value>包括二进制文件</value>
+    <value>Include binary files</value>
     <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_IncludeHiddenFolders" xml:space="preserve">
-    <value>包括隐藏文件夹</value>
+    <value>Include hidden folders</value>
     <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_IncludeSubfolders" xml:space="preserve">
-    <value>包括子文件夹</value>
+    <value>Include subfolders</value>
     <comment>Bookmark details dialog, filter path depth checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_MaxDepth" xml:space="preserve">
-    <value>最大深度</value>
+    <value>Max depth</value>
     <comment>Bookmark details dialog, filter path depth text box label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Multiline" xml:space="preserve">
-    <value>多行(_M)</value>
+    <value>_Multiline</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_OK" xml:space="preserve">
-    <value>确定</value>
+    <value>ОК</value>
     <comment>Bookmark details dialog, button label</comment>
   </data>
   <data name="BookmarkDetails_PatternsToExclude" xml:space="preserve">
-    <value>排除文件名:</value>
+    <value>Patterns to exclude:</value>
     <comment>Bookmark details dialog, Patterns to exclude label</comment>
   </data>
   <data name="BookmarkDetails_PatternsToMatch" xml:space="preserve">
-    <value>匹配文件名:</value>
+    <value>Patterns to match:</value>
     <comment>Bookmark details dialog, Patterns to match label</comment>
   </data>
   <data name="BookmarkDetails_PatternType_AsteriskPattern" xml:space="preserve">
-    <value>星号模式</value>
+    <value>Wildcard</value>
     <comment>Bookmark details dialog, pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_PatternType_Everything" xml:space="preserve">
@@ -286,51 +227,51 @@
     <comment>Bookmark details dialog, pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_PatternType_Regex" xml:space="preserve">
-    <value>正则表达式(_R)</value>
+    <value>_Regular expression</value>
     <comment>Bookmark details dialog, pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
-    <value>替换为:</value>
+    <value>Replace with:</value>
     <comment>Bookmark details dialog, replace text input box label</comment>
   </data>
   <data name="BookmarkDetails_SearchFor" xml:space="preserve">
-    <value>搜索:</value>
+    <value>Search for:</value>
     <comment>Bookmark details dialog, search pattern text input box label</comment>
   </data>
   <data name="BookmarkDetails_SearchInArchives" xml:space="preserve">
-    <value>在归档中搜索(_C)</value>
+    <value>Search in ar_chives</value>
     <comment>Bookmark details dialog, checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
-    <value>16 进制</value>
+    <value>Byte</value>
     <comment>Bookmark details dialog, search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
-    <value>注音</value>
+    <value>Phonetic</value>
     <comment>Bookmark details dialog, search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>注音搜索</value>
+    <value>Phonetic search</value>
     <comment>Bookmark details dialog, search type Phonetic tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
-    <value>纯文本搜索</value>
+    <value>Plain text search</value>
     <comment>Bookmark details dialog, search type Text tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
-    <value>二进制方式读取文件并使用16进制来搜索字节, 如: 68 65 78 20</value>
+    <value>Byte search: read file as binary and search for bytes as hexadecimal digits: 68 65 78 20</value>
     <comment>Bookmark details dialog, search type Hex tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
-    <value>正则表达式(_R)</value>
+    <value>_Regular expression</value>
     <comment>Bookmark details dialog, search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_RegularExpressionSearch" xml:space="preserve">
-    <value>正则表达式搜索</value>
+    <value>Regular expression search</value>
     <comment>Bookmark details dialog, search type Regex tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Text" xml:space="preserve">
-    <value>文本(_T)</value>
+    <value>_Текст</value>
     <comment>Bookmark details dialog, search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_XPath" xml:space="preserve">
@@ -338,123 +279,123 @@
     <comment>Bookmark details dialog, search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
-    <value>XPath 搜索 (仅限于 XML 文档)</value>
+    <value>XPath search (only for XML documents)</value>
     <comment>Bookmark details dialog, search type XPath tooltip</comment>
   </data>
   <data name="BookmarkDetails_ThisBookmarkAlreadyExists" xml:space="preserve">
-    <value>该书签已存在</value>
+    <value>This bookmark already exists</value>
     <comment>Bookmark details dialog, error text</comment>
   </data>
   <data name="BookmarkDetails_Title" xml:space="preserve">
-    <value>书签详情</value>
+    <value>Bookmark Details</value>
     <comment>Bookmark details dialog, window title</comment>
   </data>
   <data name="BookmarkDetails_TypeHeader" xml:space="preserve">
-    <value>搜索类型</value>
+    <value>Search type</value>
     <comment>Bookmark details dialog, type group header label</comment>
   </data>
   <data name="BookmarkDetails_UseGitignore" xml:space="preserve">
-    <value>使用 .gitignore</value>
+    <value>Use .gitignore</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_UseGitignoreToFilterFiles" xml:space="preserve">
-    <value>使用 .gitignore 来过滤文件</value>
+    <value>Use .gitignore to filter files</value>
     <comment>Bookmark details dialog, search option checkbox tooltip</comment>
   </data>
   <data name="BookmarkDetails_WholeWord" xml:space="preserve">
-    <value>全字匹配(_W)</value>
+    <value>_Whole word</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="Bookmarks_Add" xml:space="preserve">
-    <value>新增(_A)</value>
+    <value>_Добавить</value>
     <comment>Bookmarks dialog, button label (accel)</comment>
   </data>
   <data name="Bookmarks_Close" xml:space="preserve">
-    <value>关闭(_C)</value>
+    <value>_Закрыть</value>
     <comment>Bookmarks dialog, button text (accel)</comment>
   </data>
   <data name="Bookmarks_Delete" xml:space="preserve">
-    <value>删除(_D)</value>
+    <value>_Удалить</value>
     <comment>Bookmarks dialog, button label (accel)</comment>
   </data>
   <data name="Bookmarks_DescriptionHeader" xml:space="preserve">
-    <value>描述</value>
+    <value>Описание</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Bookmarks_Duplicate" xml:space="preserve">
-    <value>复制(_P)</value>
+    <value>Du_plicate</value>
     <comment>Bookmarks dialog, button label (accel)</comment>
   </data>
   <data name="Bookmarks_Edit" xml:space="preserve">
-    <value>编辑(_E)</value>
+    <value>_Редактировать</value>
     <comment>Bookmarks dialog, button label (accel)</comment>
   </data>
   <data name="Bookmarks_FilePatternHeader" xml:space="preserve">
-    <value>文件模式</value>
+    <value>File pattern</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Bookmarks_Filter" xml:space="preserve">
-    <value>过滤器:</value>
+    <value>Фильтр:</value>
     <comment>Bookmarks dialog, filter input box label</comment>
   </data>
   <data name="Bookmarks_OtherPropertiesHeader" xml:space="preserve">
-    <value>其他属性</value>
+    <value>Other properties</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Bookmarks_ReplaceWithHeader" xml:space="preserve">
-    <value>替换为</value>
+    <value>Replace with</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Bookmarks_SearchForHeader" xml:space="preserve">
-    <value>查找</value>
+    <value>Search for</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Bookmarks_Summary_CaseSensitive" xml:space="preserve">
-    <value>大小写敏感</value>
+    <value>Case sensitive</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_MaxFolderDepth" xml:space="preserve">
-    <value>最大文件夹深度 {0}</value>
+    <value>Max folder depth: {0}</value>
     <comment>Bookmarks dialog, Other Properties summary: {0} is a number</comment>
   </data>
   <data name="Bookmarks_Summary_Multiline" xml:space="preserve">
-    <value>多行</value>
+    <value>Multiline</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_NoBinary" xml:space="preserve">
-    <value>非二进制</value>
+    <value>No binary</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_NoHidden" xml:space="preserve">
-    <value>非隐藏</value>
+    <value>No hidden</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_NoSubfolders" xml:space="preserve">
-    <value>非子文件夹</value>
+    <value>No subfolders</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_NoSymlinks" xml:space="preserve">
-    <value>非符号连接</value>
+    <value>No symbolic links</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
-    <value>在归档中搜索</value>
+    <value>Search in archives</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_WholeWord" xml:space="preserve">
-    <value>全字匹配</value>
+    <value>Whole word</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Title" xml:space="preserve">
-    <value>书签</value>
+    <value>Закладки</value>
     <comment>Bookmarks dialog title</comment>
   </data>
   <data name="Bookmarks_TypeHeader" xml:space="preserve">
-    <value>搜索类型</value>
+    <value>Тип</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Bookmarks_Use" xml:space="preserve">
-    <value>使用(_U)</value>
+    <value>_Use</value>
     <comment>Bookmarks dialog, button text (accel)</comment>
   </data>
   <data name="Help_CmdLine" xml:space="preserve">
@@ -554,123 +495,123 @@ Arguments:
     <comment>Help dialog text when running dnGrep from the command line: {0} is the installed dnGrep version number; {1} is the installed dnGrep build date</comment>
   </data>
   <data name="Help_DnGrepHelp" xml:space="preserve">
-    <value>dnGrep 帮助</value>
+    <value>dnGrep Help</value>
     <comment>Help dialog window title</comment>
   </data>
   <data name="Help_OK" xml:space="preserve">
-    <value>确定</value>
+    <value>ОК</value>
     <comment>Help dialog button label</comment>
   </data>
   <data name="Help_OneOrMoreArgumentsAreInvalid" xml:space="preserve">
-    <value>一个或多个参数不合法.</value>
+    <value>One or more arguments are not valid.</value>
     <comment>Help dialog header text</comment>
   </data>
   <data name="Main_AddSearchPatternToBookmarks" xml:space="preserve">
-    <value>给书签添加搜索模式</value>
+    <value>Add search pattern to bookmarks</value>
     <comment>Main window, bookmark button tooltip</comment>
   </data>
   <data name="Main_AllDates" xml:space="preserve">
-    <value>所有日期</value>
+    <value>All dates</value>
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_AllSizes" xml:space="preserve">
-    <value>所有大小</value>
+    <value>All sizes</value>
     <comment>Main window, size filter radio button label (accel)</comment>
   </data>
   <data name="Main_AssociateBookmarkWithFolder" xml:space="preserve">
-    <value>将书签关联到文件夹</value>
+    <value>Associate bookmark with folder</value>
     <comment>Main window, folder bookmark button tooltip</comment>
   </data>
   <data name="Main_Attributes_DateModified" xml:space="preserve">
-    <value>修改时间:</value>
+    <value>Date modified:</value>
     <comment>Main window, results list, file attributes tooltip label</comment>
   </data>
   <data name="Main_Attributes_Encoding" xml:space="preserve">
-    <value>编码:</value>
+    <value>Encoding:</value>
     <comment>Main window, results list, file attributes tooltip label</comment>
   </data>
   <data name="Main_Attributes_File" xml:space="preserve">
-    <value>文件:</value>
+    <value>Файл:</value>
     <comment>Main window, results list, file attributes tooltip label</comment>
   </data>
   <data name="Main_Attributes_Size" xml:space="preserve">
-    <value>大小:</value>
+    <value>Размер:</value>
     <comment>Main window, results list, file attributes tooltip label</comment>
   </data>
   <data name="Main_Attributes_Type" xml:space="preserve">
-    <value>类型:</value>
+    <value>Тип:</value>
     <comment>Main window, results list, file attributes tooltip label</comment>
   </data>
   <data name="Main_AutoPosition" xml:space="preserve">
-    <value>自动位置</value>
+    <value>Auto position</value>
     <comment>Main window, docking context menu item label (accel)</comment>
   </data>
   <data name="Main_BooleanOperators" xml:space="preserve">
-    <value>布尔操作</value>
+    <value>Boolean operators</value>
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_BrowseForFolderOrFiles" xml:space="preserve">
-    <value>浏览文件夹或文件</value>
+    <value>Browse for folder or files</value>
     <comment>Main window, open folder tooltip</comment>
   </data>
   <data name="Main_CancelButton" xml:space="preserve">
-    <value>取消(_C)</value>
+    <value>_Отмена</value>
     <comment>Main window, Cancel button label (accel)</comment>
   </data>
   <data name="Main_CaptureGroupSearch" xml:space="preserve">
-    <value>捕获搜索群组</value>
+    <value>Capture group search</value>
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_CaseSensitive" xml:space="preserve">
-    <value>大小写敏感(_A)</value>
+    <value>C_ase sensitive</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_ChangesTheResultsTreeZoom" xml:space="preserve">
-    <value>改变搜索搜索结果显示缩放</value>
+    <value>Changes the zoom level of the results tree</value>
     <comment>Main window tooltip</comment>
   </data>
   <data name="Main_ClearBookmark" xml:space="preserve">
-    <value>清除书签</value>
+    <value>Clear bookmark</value>
     <comment>Main window, bookmark button tooltip</comment>
   </data>
   <data name="Main_CombineMultipleSearchPatternsUsingANDOrOR" xml:space="preserve">
-    <value>使用 'AND' 或 'OR' 来组合多个搜索模式条件</value>
+    <value>Combine multiple search patterns using 'AND' or 'OR'</value>
     <comment>Main window, search option Boolean Operators tooltip</comment>
   </data>
   <data name="Main_ContextAfter" xml:space="preserve">
-    <value>后</value>
+    <value>after</value>
     <comment>Main window, result options context lines label</comment>
   </data>
   <data name="Main_ContextBeforeAnd" xml:space="preserve">
-    <value>前 和</value>
+    <value>before and</value>
     <comment>Main window, results options context lines label</comment>
   </data>
   <data name="Main_ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
-    <value>上下文设置将在下次搜索时生效</value>
+    <value>Context line changes will be applied in next search</value>
     <comment>Main window, result options context lines tooltip</comment>
   </data>
   <data name="Main_ContextShowLines" xml:space="preserve">
-    <value>显示上下文行数</value>
+    <value>Show context lines</value>
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_Created" xml:space="preserve">
-    <value>新建</value>
+    <value>Created</value>
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_DateFrom" xml:space="preserve">
-    <value>从</value>
+    <value>From</value>
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_DatePast" xml:space="preserve">
-    <value>过去</value>
+    <value>Past</value>
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_DatePastHours" xml:space="preserve">
-    <value>小时</value>
+    <value>hours</value>
     <comment>Main window, filter files by date time unit label</comment>
   </data>
   <data name="Main_DateTo" xml:space="preserve">
-    <value>到</value>
+    <value>to</value>
     <comment>Main window, filter files by date label</comment>
   </data>
   <data name="Main_DnGREP_Title" xml:space="preserve">
@@ -678,211 +619,211 @@ Arguments:
     <comment>Main window, title label - near menu bar</comment>
   </data>
   <data name="Main_DockBottom" xml:space="preserve">
-    <value>向下停靠</value>
+    <value>Dock bottom</value>
     <comment>Main window docking context menu item label (accel)</comment>
   </data>
   <data name="Main_DockRight" xml:space="preserve">
-    <value>向右停靠</value>
+    <value>Dock right</value>
     <comment>Main window docking context menu label (accel)</comment>
   </data>
   <data name="Main_DotAsNewline" xml:space="preserve">
-    <value>点号作为新行(_D)</value>
+    <value>_Dot as newline</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_Empty" xml:space="preserve">
-    <value>空</value>
+    <value>Empty</value>
     <comment>Main window title prefix when search for is empty</comment>
   </data>
   <data name="Main_Encoding" xml:space="preserve">
-    <value>编码:</value>
+    <value>Encoding:</value>
     <comment>Main window, search options encoding combo box label (accel) </comment>
   </data>
   <data name="Main_EncodingAutoDetection" xml:space="preserve">
-    <value>自动检测 (默认)</value>
+    <value>Auto detection (default)</value>
     <comment>Main window encoding auto select text</comment>
   </data>
   <data name="Main_EverythingIndexService" xml:space="preserve">
-    <value>Everything 索引服务</value>
+    <value>Everything index service</value>
     <comment>Main window, pattern type option Everything tooltip</comment>
   </data>
   <data name="Main_EverythingSearch" xml:space="preserve">
-    <value>Everything 搜索:</value>
+    <value>Everything search:</value>
     <comment>Main window, folder input caption when Everything search is enabled (accel)</comment>
   </data>
   <data name="Main_ExcelSheetName" xml:space="preserve">
-    <value>工作表 [{0}]</value>
+    <value>Sheet [{0}]</value>
     <comment>Main window results list for Excel file data: {0} is a string, the name of the worksheet in the Excel document</comment>
   </data>
   <data name="Main_ExcludeFilesByTypeAndFoldersByName" xml:space="preserve">
-    <value>根据文件类型和文件名排除</value>
+    <value>Exclude files by type and folders by name</value>
     <comment>Main window, Patterns to exclude label tooltip</comment>
   </data>
   <data name="Main_FilterSummary_AllFiles" xml:space="preserve">
-    <value>所有文件</value>
+    <value>All files</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_ByCreatedDate" xml:space="preserve">
-    <value>根据新建时间</value>
+    <value>By created date</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_ByModifiedDate" xml:space="preserve">
-    <value>根据修改时间</value>
+    <value>By modified date</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_BySize" xml:space="preserve">
-    <value>根据大小</value>
+    <value>By size</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_MaxFolderDepth" xml:space="preserve">
-    <value>最大文件夹深度 {0}</value>
+    <value>Max folder depth: {0}</value>
     <comment>Main window, file filters summary: {0} is a number</comment>
   </data>
   <data name="Main_FilterSummary_NoBinary" xml:space="preserve">
-    <value>非二进制</value>
+    <value>No binary</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_NoHidden" xml:space="preserve">
-    <value>非隐藏</value>
+    <value>No hidden</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_NoSubfolders" xml:space="preserve">
-    <value>非子文件夹</value>
+    <value>No subfolders</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_NoSymlinks" xml:space="preserve">
-    <value>非符号连接</value>
+    <value>No symbolic links</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_Folder" xml:space="preserve">
-    <value>文件夹:</value>
+    <value>Папка:</value>
     <comment>Main window, folder input caption (accel)</comment>
   </data>
   <data name="Main_FollowSymbolicLinks" xml:space="preserve">
-    <value>跟随符号连接</value>
+    <value>Follow symbolic links</value>
     <comment>Main window, filter files checkbox label (accel)</comment>
   </data>
   <data name="Main_ForExampleAsteriskPattern" xml:space="preserve">
-    <value>例. file??.*</value>
+    <value>For example: *.txt;*.xml</value>
     <comment>Main window, pattern type option Asterisk tooltip</comment>
   </data>
   <data name="Main_ForExampleRegularExpession" xml:space="preserve">
-    <value>例. file[0-9]{1,2}\\.txt</value>
+    <value>For example: file[0-9]{1,2}\\.txt</value>
     <comment>Main window, pattern type option Regex tooltip</comment>
   </data>
   <data name="Main_FromTheStartOfTheDay" xml:space="preserve">
-    <value>从这一天开始</value>
+    <value>from the start of the day</value>
     <comment>Main window, filter file by date, start date tooltip</comment>
   </data>
   <data name="Main_HideResultOptions" xml:space="preserve">
-    <value>隐藏搜索结果选项</value>
+    <value>Hide result options</value>
     <comment>Main window, result options expander button tooltip (bottom of window)</comment>
   </data>
   <data name="Main_HighlightGroups" xml:space="preserve">
-    <value>高亮群组</value>
+    <value>Highlight groups</value>
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_HighlightMatches" xml:space="preserve">
-    <value>高亮匹配</value>
+    <value>Highlight matches</value>
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_HighlightRegularExpressionGroups" xml:space="preserve">
-    <value>高亮正则表达式群组 - 下次搜索时生效</value>
+    <value>Highlight regular expression groups. Changes will be applied in next search.</value>
     <comment>Main window, result options highlight groups tooltip</comment>
   </data>
   <data name="Main_IncludeBinaryFiles" xml:space="preserve">
-    <value>包含二进制文件</value>
+    <value>Include binary files</value>
     <comment>Main window, filter files checkbox label (accel)</comment>
   </data>
   <data name="Main_IncludeFilesByNameOrType" xml:space="preserve">
-    <value>包含文件名或文件类型</value>
+    <value>Include files by name or type</value>
     <comment>Main window, Patterns to include label tooltip</comment>
   </data>
   <data name="Main_IncludeHiddenFolders" xml:space="preserve">
-    <value>包含隐藏文件夹</value>
+    <value>Include hidden folders</value>
     <comment>Main window, filter files checkbox label (accel)</comment>
   </data>
   <data name="Main_IncludeSubfolders" xml:space="preserve">
-    <value>包含子文件夹</value>
+    <value>Include subfolders</value>
     <comment>Main window, filter path depth checkbox label (accel)</comment>
   </data>
   <data name="Main_MaxDepth" xml:space="preserve">
-    <value>最大深度</value>
+    <value>Max depth</value>
     <comment>Main window, filter path depth text box label (accel)</comment>
   </data>
   <data name="Main_Menu_About" xml:space="preserve">
-    <value>关于(_A)</value>
+    <value>_About</value>
     <comment>Main window, main menu label (accel)</comment>
   </data>
   <data name="Main_Menu_About_AboutDnGrep" xml:space="preserve">
-    <value>关于 dnGrep(_A)...</value>
+    <value>_About dnGrep…</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="Main_Menu_About_Help" xml:space="preserve">
-    <value>帮助(_H)</value>
+    <value>_Help</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="Main_Menu_Bookmarks" xml:space="preserve">
-    <value>书签(_B)...</value>
+    <value>_Bookmarks…</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Menu_Options" xml:space="preserve">
-    <value>选项(_O)...</value>
+    <value>_Options…</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Menu_Undo" xml:space="preserve">
-    <value>撤销(_U)</value>
+    <value>_Отменить</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Modified" xml:space="preserve">
-    <value>修改</value>
+    <value>Modified</value>
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_More" xml:space="preserve">
-    <value>更多(_E)...</value>
+    <value>Mor_e…</value>
     <comment>Main window, filters expander label (accel)</comment>
   </data>
   <data name="Main_MoreArrowButton" xml:space="preserve">
-    <value>更多(_M) ⏷</value>
+    <value>_More ⏷</value>
     <comment>Main window, More button label with down arrow (accel)</comment>
   </data>
   <data name="Main_MoreMenu_CopyFileNames" xml:space="preserve">
-    <value>复制文件名</value>
+    <value>Copy file names</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_CopyFiles" xml:space="preserve">
-    <value>复制文件...</value>
+    <value>Copy files…</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_CopyResults" xml:space="preserve">
-    <value>复制搜索结果</value>
+    <value>Copy results</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_DeleteFiles" xml:space="preserve">
-    <value>删除文件...</value>
+    <value>Delete files…</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_MoveFiles" xml:space="preserve">
-    <value>移动文件...</value>
+    <value>Move files…</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_Save_CSVResults" xml:space="preserve">
-    <value>CSV 搜索结果</value>
+    <value>CSV results</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_Save_Report" xml:space="preserve">
-    <value>报告</value>
+    <value>Report</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_Save_TextResults" xml:space="preserve">
-    <value>文本搜索结果</value>
+    <value>Text results</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_SaveResults" xml:space="preserve">
-    <value>保存搜索结果</value>
+    <value>Save results</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_Multiline" xml:space="preserve">
-    <value>多行(_M)</value>
+    <value>_Multiline</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_OpenFolder" xml:space="preserve">
@@ -890,19 +831,19 @@ Arguments:
     <comment>Main window, open folder button label (accel)</comment>
   </data>
   <data name="Main_PastDateTo" xml:space="preserve">
-    <value>到</value>
+    <value>to</value>
     <comment>Main window, filter files by date, past time label</comment>
   </data>
   <data name="Main_PatternsToExclude" xml:space="preserve">
-    <value>排除文件名:</value>
+    <value>Patterns to exclude:</value>
     <comment>Main window, Patterns to exclude label (accel)</comment>
   </data>
   <data name="Main_PatternsToMatch" xml:space="preserve">
-    <value>匹配文件名:</value>
+    <value>Patterns to match:</value>
     <comment>Main window, Patterns to match label (accel)</comment>
   </data>
   <data name="Main_PatternType_Asterisk" xml:space="preserve">
-    <value>星号模式</value>
+    <value>Wildcard</value>
     <comment>Main window, pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_PatternType_Everything" xml:space="preserve">
@@ -910,207 +851,207 @@ Arguments:
     <comment>Main window, pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_PatternType_Regex" xml:space="preserve">
-    <value>正则(_R)</value>
+    <value>_Regular expression</value>
     <comment>Main window, pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_PreviewFile" xml:space="preserve">
-    <value>预览文件(_V)</value>
+    <value>Pre_view file</value>
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_RemoveFolderFromBookmarkAssociation" xml:space="preserve">
-    <value>从书签中移除关联文件夹</value>
+    <value>Remove folder from bookmark association</value>
     <comment>Main window, folder bookmark button tooltip</comment>
   </data>
   <data name="Main_ReplaceButton" xml:space="preserve">
-    <value>替换(_R)</value>
+    <value>_Replace</value>
     <comment>Main window replace button label (accel)</comment>
   </data>
   <data name="Main_ReplaceWith" xml:space="preserve">
-    <value>替换为(_P):</value>
+    <value>Re_place with:</value>
     <comment>Main window, replace text input box label (accel)</comment>
   </data>
   <data name="Main_ReportOption_CSVFileFormat" xml:space="preserve">
-    <value>CSV 文件格式</value>
+    <value>CSV (comma separated)</value>
     <comment>Main window, save report, report type format label</comment>
   </data>
   <data name="Main_ReportOption_ReportFileFormat" xml:space="preserve">
-    <value>报告文件格式</value>
+    <value>Report format</value>
     <comment>Main window, save report, report type format label</comment>
   </data>
   <data name="Main_ReportOption_ResultsFileFormat" xml:space="preserve">
-    <value>搜索结果文件格式</value>
+    <value>Text file</value>
     <comment>Main window, save report, report type format label</comment>
   </data>
   <data name="Main_ResetOptions" xml:space="preserve">
-    <value>重置选项</value>
+    <value>Reset filters</value>
     <comment>Main window, search options, reset button label (accel)</comment>
   </data>
   <data name="Main_ResultList_AdditionalMatches" xml:space="preserve">
-    <value>额外匹配:</value>
+    <value>additional matches:</value>
     <comment>Main window, search results text</comment>
   </data>
   <data name="Main_ResultList_AtEndOfLine" xml:space="preserve">
-    <value>(行尾)</value>
+    <value>(at end of the line)</value>
     <comment>Main window, search results text</comment>
   </data>
   <data name="Main_ResultList_AtPosition" xml:space="preserve">
-    <value>位于 {0}</value>
+    <value>at position {0}</value>
     <comment>Main window, search results text: {0} is number, the offset from the start of the line</comment>
   </data>
   <data name="Main_ResultList_CountAdditionalCharacters" xml:space="preserve">
-    <value>...(+{0:n0} 字符)</value>
+    <value>…(+{0:n0} characters)</value>
     <comment>Main window, search results text</comment>
   </data>
   <data name="Main_ResultList_CountMatches" xml:space="preserve">
-    <value>{0} ({1} 个匹配)</value>
+    <value>{0} ({1} matches)</value>
     <comment>Main window, search results text: {0} is the partial path and file name; {1} is the number of matches in the file</comment>
   </data>
   <data name="Main_ResultList_CountMatchesOnLines" xml:space="preserve">
-    <value>{0} ({1} 个匹配在 {2} 行)</value>
+    <value>{0} ({1} matches on {2} lines)</value>
     <comment>Main window, search results text: {0} is the partial path and file name; {1} is the number of matches in the file; {2} is the number of lines with matches</comment>
   </data>
   <data name="Main_ResultList_MatchToolTip1" xml:space="preserve">
-    <value>匹配 {0}{1}{2}</value>
+    <value>Match {0}{1}{2}</value>
     <comment>Main window results, capture group tooltip: {0} is the match index; {1} is a new line; {2} is text of in the group</comment>
   </data>
   <data name="Main_ResultList_MatchToolTip2" xml:space="preserve">
-    <value>匹配 {0}{1}组名 {2}:   {3}</value>
+    <value>Match {0}{1}Group {2}: {3}</value>
     <comment>Main window results, capture group tooltip: {0} is the match index; {1} is a new line; {2} is the named group name; {3} is the text in the group</comment>
   </data>
   <data name="Main_ResultList_PlusCountMoreMatches" xml:space="preserve">
-    <value>, +{0} 更多匹配</value>
+    <value>, +{0} more matches</value>
     <comment>Main window, search results text: {0} is the number of additional matches found on the line</comment>
   </data>
   <data name="Main_ResultList_ReadOnly" xml:space="preserve">
-    <value>[只读]</value>
+    <value>[только чтение]</value>
     <comment>Main window, search results text</comment>
   </data>
   <data name="Main_Results_CollapseAll" xml:space="preserve">
-    <value>全部折叠</value>
+    <value>Collapse all</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_CompareFiles" xml:space="preserve">
-    <value>文件对比</value>
+    <value>Compare files</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_CopyFileNames" xml:space="preserve">
-    <value>复制文件名</value>
+    <value>Copy file names</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_CopyFullFilePaths" xml:space="preserve">
-    <value>复制完整文件路径</value>
+    <value>Copy full file paths</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_CopyLinesOfText" xml:space="preserve">
-    <value>复制文本行</value>
+    <value>Copy lines of text</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_ExcludeFromResults" xml:space="preserve">
-    <value>从搜索结果中排除</value>
+    <value>Exclude from results</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_ExpandAll" xml:space="preserve">
-    <value>全部展开</value>
+    <value>Expand all</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_NextMatch" xml:space="preserve">
-    <value>下一匹配</value>
+    <value>Next match</value>
     <comment>Main windows, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_Open" xml:space="preserve">
-    <value>打开</value>
+    <value>Открыть</value>
     <comment>Main window, results list context menu item label</comment>
   </data>
   <data name="Main_Results_OpenContainingFolder" xml:space="preserve">
-    <value>打开所在文件夹</value>
+    <value>Open containing folder</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_OpenWithCustomEditor" xml:space="preserve">
-    <value>使用自定义编辑器打开</value>
+    <value>Open with custom editor</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_PreviousMatch" xml:space="preserve">
-    <value>上一匹配</value>
+    <value>Previous match</value>
     <comment>Main windows, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_RenameFile" xml:space="preserve">
-    <value>重命名文件</value>
+    <value>Rename file</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_ResetZoom" xml:space="preserve">
-    <value>重置缩放</value>
+    <value>Reset zoom</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_ShowFileProperties" xml:space="preserve">
-    <value>显示文件属性</value>
+    <value>Show file properties</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_SavingResultsToFile" xml:space="preserve">
-    <value>保存搜索结果到文件...</value>
+    <value>Saving results to file…</value>
     <comment>Main window, status message</comment>
   </data>
   <data name="Main_SearchButton" xml:space="preserve">
-    <value>搜索(_S)</value>
+    <value>_Поиск</value>
     <comment>Main window, search button label (accel)</comment>
   </data>
   <data name="Main_SearchFilesInMultipleThreads" xml:space="preserve">
-    <value>多线程搜索文件</value>
+    <value>Search files in multiple threads</value>
     <comment>Main window, search option parallel tooltip</comment>
   </data>
   <data name="Main_SearchFor" xml:space="preserve">
-    <value>搜索(_F):</value>
+    <value>Search _for:</value>
     <comment>Main window, search pattern text input box label (accel)</comment>
   </data>
   <data name="Main_SearchGroup" xml:space="preserve">
-    <value>搜索</value>
+    <value>Поиск</value>
     <comment>Main window, search group heading</comment>
   </data>
   <data name="Main_SearchInArchives" xml:space="preserve">
-    <value>在归档中搜索(_C)</value>
+    <value>Search in ar_chives</value>
     <comment>Main window, checkbox label (accel)</comment>
   </data>
   <data name="Main_SearchInGroup" xml:space="preserve">
-    <value>搜索文件</value>
+    <value>Search in</value>
     <comment>Main window Search In group heading</comment>
   </data>
   <data name="Main_SearchInResults" xml:space="preserve">
-    <value>在搜索结果中搜索(_i)</value>
+    <value>Search _in results</value>
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_SearchParallel" xml:space="preserve">
-    <value>并行搜索(_L)</value>
+    <value>Search paralle_l</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_SearchType_Hex" xml:space="preserve">
-    <value>16 进制</value>
+    <value>Byte</value>
     <comment>Main window, search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_Phonetic" xml:space="preserve">
-    <value>注音</value>
+    <value>Phonetic</value>
     <comment>Main window, search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
-    <value>注音搜索</value>
+    <value>Phonetic search</value>
     <comment>Main window, search type Phonetic tooltip</comment>
   </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
-    <value>纯文本搜索</value>
+    <value>Plain text search</value>
     <comment>Main window, search type Text tooltip</comment>
   </data>
   <data name="Main_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
-    <value>二进制方式读取文件并使用16进制来搜索字节, 如: 68 65 78 20</value>
+    <value>Byte search: read file as binary and search for bytes as hexadecimal digits: 68 65 78 20</value>
     <comment>Main window, search type Hex tooltip</comment>
   </data>
   <data name="Main_SearchType_Regex" xml:space="preserve">
-    <value>正则(_R)</value>
+    <value>_Regular expression</value>
     <comment>Main window, search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_RegularExpressionSearch" xml:space="preserve">
-    <value>正则表达式搜索</value>
+    <value>Regular expression search</value>
     <comment>Main window, search type Regex tooltip</comment>
   </data>
   <data name="Main_SearchType_Text" xml:space="preserve">
-    <value>文本(_T)</value>
+    <value>_Текст</value>
     <comment>Main window, search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_XPath" xml:space="preserve">
@@ -1118,234 +1059,235 @@ Arguments:
     <comment>Main window, search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
-    <value>XPath 搜索 (仅限于 XML 文档)</value>
+    <value>XPath search (only for XML documents)</value>
     <comment>Main window, search type XPath tooltip</comment>
   </data>
   <data name="Main_SelectADate" xml:space="preserve">
-    <value>选择日期</value>
+    <value>Select a date</value>
     <comment>Main window, filter files by date, date picker watermark</comment>
   </data>
   <data name="Main_ShowResultOptions" xml:space="preserve">
-    <value>显示搜索结果选项</value>
+    <value>Show result options</value>
     <comment>Main window, result options expander button tooltip (bottom of window)</comment>
   </data>
   <data name="Main_SizeIs" xml:space="preserve">
-    <value>大小</value>
+    <value>Size is</value>
     <comment>Main window, filter size radio button label (accel)</comment>
   </data>
   <data name="Main_SizeKB" xml:space="preserve">
-    <value>KB</value>
+    <value>КБ</value>
     <comment>Main window, filter by size label</comment>
   </data>
   <data name="Main_SizeTo" xml:space="preserve">
-    <value>到</value>
+    <value>to</value>
     <comment>Main window, filter by size label</comment>
   </data>
   <data name="Main_SortButton" xml:space="preserve">
-    <value>排序</value>
+    <value>Sort</value>
     <comment>Main window, sort button label (accel)</comment>
   </data>
   <data name="Main_SortMenu_Ascending" xml:space="preserve">
-    <value>升序</value>
+    <value>По возрастанию</value>
     <comment>Main window sort button options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_Descending" xml:space="preserve">
-    <value>降序</value>
+    <value>По убыванию</value>
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_FileNameOnly" xml:space="preserve">
-    <value>仅文件名</value>
+    <value>File name only</value>
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_FileSize" xml:space="preserve">
-    <value>文件大小</value>
+    <value>File size</value>
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_FileTypeAndName" xml:space="preserve">
-    <value>文件类型和文件名</value>
+    <value>File type and name</value>
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_LastWriteTime" xml:space="preserve">
-    <value>最后写入时间</value>
+    <value>Last write time</value>
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_MatchCount" xml:space="preserve">
-    <value>匹配计数</value>
+    <value>Match count</value>
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_PathAndFileNameBreadthFirst" xml:space="preserve">
-    <value>路径和文件名, 广度优先</value>
+    <value>Path and file name, breadth-first</value>
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_PathAndFileNameDepthFirst" xml:space="preserve">
-    <value>路径和文件名, 深度优先</value>
+    <value>Path and file name, depth-first</value>
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_Status_Excluded0MissingFiles" xml:space="preserve">
-    <value>排出了 {0} 个丢失的文件.</value>
+    <value>Excluded {0} missing files.</value>
     <comment>Main window, status bar message appended on search complete when in Everything mode</comment>
   </data>
   <data name="Main_Status_ReplaceCanceled" xml:space="preserve">
-    <value>替换已取消</value>
+    <value>Replace canceled</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_ReplaceComplete0FilesReplaced" xml:space="preserve">
-    <value>替换完成 - {0} 个文件内容已被替换.</value>
+    <value>Replace completed – replaced text in {0} files.</value>
     <comment>Main window, status bar message: {0} is the number of files modified by the replace operation</comment>
   </data>
   <data name="Main_Status_ReplaceFailed" xml:space="preserve">
-    <value>替换失败.</value>
+    <value>Replace failed</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_Replacing" xml:space="preserve">
-    <value>正在替换...</value>
+    <value>Replacing…</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_SearchCanceled" xml:space="preserve">
-    <value>搜索已取消</value>
+    <value>Search canceled</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_SearchCanceledOrFailed" xml:space="preserve">
-    <value>搜索失败或被取消</value>
+    <value>Search canceled or failed</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_SearchCompleteSearched0FilesFound1FilesIn2" xml:space="preserve">
-    <value>搜索完成 - 搜索了 {0} 个文件. 找到 {1} 个文件 花费 {2}.</value>
+    <value>Search completed – searched {0} files, found {1} files in {2}.</value>
     <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found; {2} is the duration of the search</comment>
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFiles" xml:space="preserve">
-    <value>搜索了 {0} 个文件. 找到 {1} 个文件.</value>
+    <value>Searched {0} files, found {1} matching files.</value>
     <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found</comment>
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFilesProcessing2" xml:space="preserve">
-    <value>搜索了 {0} 个文件. 找到 {1} 个文件 - 正在处理 {2}</value>
+    <value>Searched {0} files, found {1} matching files – processing {2}</value>
     <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found; {2} is the current file name being searched</comment>
   </data>
   <data name="Main_Status_Searching" xml:space="preserve">
-    <value>正在搜索...</value>
+    <value>Searching…</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_SearchingForGitignore" xml:space="preserve">
-    <value>正在搜索 .gitignore</value>
+    <value>Searching for .gitignore</value>
+    <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_StopAfterFirstMatch" xml:space="preserve">
-    <value>首次匹配后停止</value>
+    <value>Stop after first match</value>
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_TestExpression" xml:space="preserve">
-    <value>测试表达式</value>
+    <value>Test expression</value>
     <comment>Main window, test search expression button label (accel)</comment>
   </data>
   <data name="Main_ThroughTheEndOfTheDay" xml:space="preserve">
-    <value>到这一天的结束时间</value>
+    <value>through the end of the day</value>
     <comment>Main window, filter file by date, end date tooltip</comment>
   </data>
   <data name="Main_UseCaptureGroupsFromPathsToMatch" xml:space="preserve">
-    <value>在 '搜索' 模式的 '匹配路径' 中捕获群组</value>
+    <value>Use capture groups from 'Patterns to match' in the 'Search for' pattern</value>
     <comment>Main window, search option capture group tooltip</comment>
   </data>
   <data name="Main_UseGitignore" xml:space="preserve">
-    <value>使用 .gitignore</value>
+    <value>Use .gitignore</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_UseGitignoreToFilterFiles" xml:space="preserve">
-    <value>使用 .gitignore 来过滤文件</value>
+    <value>Use .gitignore to filter files</value>
     <comment>Main window, search option checkbox tooltip</comment>
   </data>
   <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
-    <value>16进制串不合法!</value>
+    <value>Byte string is not valid!</value>
     <comment>Main window, hexadecimal expression status</comment>
   </data>
   <data name="Main_Validation_HexStringIsOK" xml:space="preserve">
-    <value>16进制串没问题!</value>
+    <value>Byte string is OK</value>
     <comment>Main window, hexadecimal expression status</comment>
   </data>
   <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">
-    <value>正则表达式不合法!</value>
+    <value>Regular expression is not valid!</value>
     <comment>Main window, regular expression status</comment>
   </data>
   <data name="Main_Validation_RegexIsOK" xml:space="preserve">
-    <value>正则表达式没问题!</value>
+    <value>Regular expression is OK</value>
     <comment>Main window, regular expression status</comment>
   </data>
   <data name="Main_Validation_XPathIsNotValid" xml:space="preserve">
-    <value>XPath 不合法!</value>
+    <value>XPath is not valid!</value>
     <comment>Main window, XPath status</comment>
   </data>
   <data name="Main_Validation_XPathIsOK" xml:space="preserve">
-    <value>XPath 没问题!</value>
+    <value>XPath is OK</value>
     <comment>Main window, XPath status</comment>
   </data>
   <data name="Main_WholeWord" xml:space="preserve">
-    <value>全字匹配(_W)</value>
+    <value>_Whole word</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_WindowTitle" xml:space="preserve">
-    <value>{0} 在 "{1}" - dnGrep</value>
+    <value>{0} in "{1}" – dnGrep</value>
     <comment>Main window title: {0} is the current search pattern; {1} is the current search folder</comment>
   </data>
   <data name="Main_WrapText" xml:space="preserve">
-    <value>自动换行</value>
+    <value>Wrap text</value>
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_Zoom" xml:space="preserve">
-    <value>缩放:</value>
+    <value>Zoom:</value>
     <comment>Main window, results options zoom slider label</comment>
   </data>
   <data name="MessageBox_AreYouSureYouWantToContinue" xml:space="preserve">
-    <value>是否继续?</value>
+    <value>Continue?</value>
     <comment>Message box text for: Delete files</comment>
   </data>
   <data name="MessageBox_AreYouSureYouWantToReplaceSearchPatternWithEmptyString" xml:space="preserve">
-    <value>将搜索结果匹配项替换为空白字符?</value>
+    <value>Replace the search pattern with an empty string?</value>
     <comment>Message box text for: Replace text</comment>
   </data>
   <data name="MessageBox_CheckEditorPath" xml:space="preserve">
-    <value>在 "选项..." 中检查编辑器路径.</value>
+    <value>Check editor path via "Options…".</value>
     <comment>Message box text for: Open file failed</comment>
   </data>
   <data name="MessageBox_ClearingThisBookmarkWillAlsoClearThatBookmark" xml:space="preserve">
-    <value>清除当前书签也会清除另一书签.</value>
+    <value>Clearing this bookmark also clears that bookmark.</value>
     <comment>Message box text for: Main window, bookmark button</comment>
   </data>
   <data name="MessageBox_ClearingThisBookmarkWillAlsoRemoveThoseBookmarks" xml:space="preserve">
-    <value>清除当前书签也会清除另一些书签.</value>
+    <value>Clearing this bookmark also removes those bookmarks.</value>
     <comment>Message box text for: Main window, bookmark button</comment>
   </data>
   <data name="MessageBox_CopyFiles" xml:space="preserve">
-    <value>复制文件</value>
+    <value>Copy Files</value>
     <comment>Message box title for: Copy files</comment>
   </data>
   <data name="MessageBox_CouldNotLoadResourcesFile0" xml:space="preserve">
-    <value>无法读取资源文件 '{0}': </value>
+    <value>Could not load the '{0}' resources file: </value>
     <comment>Message box text for: Load language resource: {0} is the name of the file that failed to load</comment>
   </data>
   <data name="MessageBox_CouldNotLoadTheme" xml:space="preserve">
-    <value>无法读取主题 '{0}', 日志查看详情: </value>
+    <value>Could not load the '{0}' theme. Check the error log for details: </value>
     <comment>Message box text for: Load theme resource: {0} is the name of the file that failed to load</comment>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyCopied" xml:space="preserve">
-    <value>{0} 文件已被成功复制.</value>
+    <value>{0} files have been copied.</value>
     <comment>Message box text for: Copy file: {0} is the number of files</comment>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyDeleted" xml:space="preserve">
-    <value>{0} 文件已被成功删除.</value>
+    <value>{0} files have been deleted.</value>
     <comment>Message box text for: Delete files: {0} is the number of files</comment>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyMoved" xml:space="preserve">
-    <value>{0} 文件已被成功移动.</value>
+    <value>{0} files have been moved.</value>
     <comment>Message box text for: Move files: {0} is the number of files</comment>
   </data>
   <data name="MessageBox_CustomEditorFileOpenError" xml:space="preserve">
-    <value>使用自定义编辑器打开文件时发生错误.</value>
+    <value>Could not open the file with the custom editor.</value>
     <comment>Message box text for: Open file with custom editor</comment>
   </data>
   <data name="MessageBox_DefaultEngineWasUsedInstead" xml:space="preserve">
-    <value>已使用默认搜索引擎.</value>
+    <value>The default engine was used instead.</value>
     <comment>Message box text for: Plugin failed to load error</comment>
   </data>
   <data name="MessageBox_DeleteFiles" xml:space="preserve">
-    <value>删除文件</value>
+    <value>Delete Files</value>
     <comment>Message box title for: Delete files</comment>
   </data>
   <data name="MessageBox_DnGrep" xml:space="preserve">
@@ -1353,311 +1295,311 @@ Arguments:
     <comment>Message box title</comment>
   </data>
   <data name="MessageBox_DoYouWantToContinue" xml:space="preserve">
-    <value>是否继续?</value>
+    <value>Continue?</value>
     <comment>Message box text for: Main window, bookmark button</comment>
   </data>
   <data name="MessageBox_Error" xml:space="preserve">
-    <value>错误 </value>
+    <value>Ошибка: </value>
     <comment>Message box text for: general error message</comment>
   </data>
   <data name="MessageBox_ErrorOpeningFile" xml:space="preserve">
-    <value>打开文件时发生错误. 日志查看详情: </value>
+    <value>Could not open the file. Check the error log for details: </value>
     <comment>Message box text for: Open file error</comment>
   </data>
   <data name="MessageBox_ErrorSettingClipboardTextTheClipboardIsLockedBy" xml:space="preserve">
-    <value>设置剪贴板文本时发生错误, 剪贴板被锁定:</value>
+    <value>Could not set clipboard text. The clipboard is locked by</value>
     <comment>Message box text for: Copy to clipboard error</comment>
   </data>
   <data name="MessageBox_FailedToExtractFileFromArchive" xml:space="preserve">
-    <value>从归档中解压文件时发生错入. 日志查看详情: </value>
+    <value>Could not extract file from archive. Check the error log for details: </value>
     <comment>Message box text for: Preview window archive error</comment>
   </data>
   <data name="MessageBox_FilesHaveBeenSuccessfullyReverted" xml:space="preserve">
-    <value>文件已成功复原.</value>
+    <value>Files have been reverted.</value>
     <comment>Message box text for: Main window undo replace success</comment>
   </data>
   <data name="MessageBox_IncorrectPattern" xml:space="preserve">
-    <value>模式错误: </value>
+    <value>Incorrect pattern: </value>
     <comment>Message box text for: Incorrect regular expression</comment>
   </data>
   <data name="MessageBox_LoadResources" xml:space="preserve">
-    <value>读取资源</value>
+    <value>Load Resources</value>
     <comment>Message box title for: Load resources</comment>
   </data>
   <data name="MessageBox_MoveFiles" xml:space="preserve">
-    <value>移动文件</value>
+    <value>Move Files</value>
     <comment>Message box title for: Move files</comment>
   </data>
   <data name="MessageBox_NewVersion" xml:space="preserve">
-    <value>新版本</value>
+    <value>New Version</value>
     <comment>Message box title for: New dnGrep version</comment>
   </data>
   <data name="MessageBox_NewVersionOfDnGREP0IsAvailableForDownload" xml:space="preserve">
-    <value>新版本的 dnGrep ({0}) 可供下载.</value>
+    <value>New version of dnGrep ({0}) is available for download.</value>
     <comment>Message box text for: New dnGrep version: {0} is the new version number</comment>
   </data>
   <data name="MessageBox_PleaseSelectAnotherDirectoryAndTryAgain" xml:space="preserve">
-    <value>请选择其他文件夹并重试.</value>
+    <value>Please select another directory and try again.</value>
     <comment>Message box text for: Copy files and Move files (destination overlaps source)</comment>
   </data>
   <data name="MessageBox_PluginErrors" xml:space="preserve">
-    <value>插件错误</value>
+    <value>Plug-in Errors</value>
     <comment>Message box title for: Plugin errors</comment>
   </data>
   <data name="MessageBox_RenameFailed" xml:space="preserve">
-    <value>重命名失败: </value>
+    <value>Could not rename the file: </value>
     <comment>Message box text for: Rename file</comment>
   </data>
   <data name="MessageBox_RenameFile" xml:space="preserve">
-    <value>重命名文件</value>
+    <value>Rename File</value>
     <comment>Message box title for: Rename file</comment>
   </data>
   <data name="MessageBox_Replace" xml:space="preserve">
-    <value>替换</value>
+    <value>Заменить</value>
     <comment>Message box text for: Replace message</comment>
   </data>
   <data name="MessageBox_ReplaceFailedError" xml:space="preserve">
-    <value>替换失败! 日志查看详情: </value>
+    <value>Could not replace text in files. Check the error log for details: </value>
     <comment>Message box text for: Replace failed</comment>
   </data>
   <data name="MessageBox_ResourcesFile0IsNotAResxFile" xml:space="preserve">
-    <value>资源文件 '{0}' 并不是 resx 文件.</value>
+    <value>Resources file '{0}', is not a resx file.</value>
     <comment>Message box text for: Load language resource file error: {0} is the name of the file that failed to load</comment>
   </data>
   <data name="MessageBox_RunDnGrepAsAdministrator" xml:space="preserve">
-    <value>以管理员模式运行 dnGrep 来设置右键菜单选项</value>
+    <value>Run dnGrep as Administrator to change showing dnGrep in Windows Explorer right-click menu</value>
     <comment>Message box text for: Options dialog, changing Windows integration options</comment>
   </data>
   <data name="MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister" xml:space="preserve">
-    <value>以管理员模式运行 dnGrep 来设置开机启动选项</value>
+    <value>Run dnGrep as Administrator to change application startup option.</value>
     <comment>Message box text for: Options dialog, changing Windows integration options</comment>
   </data>
   <data name="MessageBox_SearchFailedError" xml:space="preserve">
-    <value>搜索失败! 日志查看详情: </value>
+    <value>Could not complete the search. Check the error log for details: </value>
     <comment>Message box text for: Search failed</comment>
   </data>
   <data name="MessageBox_SearchOrReplaceFailed" xml:space="preserve">
-    <value>搜索或替换失败! 日志查看详情: </value>
+    <value>Could not complete the search or replace. Check the error log for details: </value>
     <comment>Message box text for: Search or Replace failed</comment>
   </data>
   <data name="MessageBox_SearchPathInTheFieldIsNotValid" xml:space="preserve">
-    <value>'{0}' 中的搜索路径不合法, 搜索已取消.</value>
+    <value>The search path in the '{0}' field is not valid, search canceled.</value>
     <comment>Message box text for: Main window search path invalid: {0} is the name of search path field (Folder or Everything search)</comment>
   </data>
   <data name="MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory" xml:space="preserve">
-    <value>注意, 选择的路径中已存在文件</value>
+    <value>Attention, some of the files are located in the selected directory.</value>
     <comment>Message box text for: Copy files and Move files (destination overlaps source)</comment>
   </data>
   <data name="MessageBox_SomeOfTheFilesCannotBeModifiedIfYouContinueTheseFilesWillBeSkipped" xml:space="preserve">
-    <value>部分文件无法被修改. 如果继续, 这些文件将会被跳过.</value>
+    <value>Some of the files cannot be modified. If you continue, these files will be skipped.</value>
     <comment>Message box text for: Main window replace warning</comment>
   </data>
   <data name="MessageBox_SomethingBrokeDownInDnGrep" xml:space="preserve">
-    <value>dnGrep 部分损坏. 日志查看详情: </value>
+    <value>Something broke down in dnGrep. Check the error log for details: </value>
     <comment>Message box text for: Unknown error</comment>
   </data>
   <data name="MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting" xml:space="preserve">
-    <value>文件 '{0}' 已存在于文件夹 {1}, 覆盖?</value>
+    <value>The file '{0}' already exists in {1}. Overwrite existing?</value>
     <comment>Message box text for: Copy or Move files: {0} is a file name; {1} is a folder name</comment>
   </data>
   <data name="MessageBox_TheFilePattern0IsNotAValidRegularExpression12" xml:space="preserve">
-    <value>文件名模式 '{0}' 不是合法的正则表达式:{1}{2}</value>
+    <value>The file pattern '{0}' is not a valid regular expression:{1}{2}</value>
     <comment>Message box text for: Main window regex file pattern error: {0} is the invalid regular expression; {1} is a newline; {2} is the reason the expression is invalid</comment>
   </data>
   <data name="MessageBox_TheFollowingPluginsFailedToLoad" xml:space="preserve">
-    <value>以下插件载入失败:</value>
+    <value>Could not load the following plug-ins:</value>
     <comment>Message box text for: plugin load errors</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu" xml:space="preserve">
-    <value>将 dnGrep 从添加到右键菜单时发生错误. 日志查看详情: </value>
+    <value>Could not add dnGrep to the Windows Explorer right-click menu. Check the error log for details: </value>
     <comment>Message box text for: set Explorer context menu error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorCopyingFiles" xml:space="preserve">
-    <value>复制文件时发生错误. 日志查看详情: </value>
+    <value>Could not copy the files. Check the error log for details: </value>
     <comment>Message box text for: Copy files</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorCreatingTheFile" xml:space="preserve">
-    <value>创建文件时发生错误. 日志查看详情: </value>
+    <value>Could not create the file. Check the error log for details: </value>
     <comment>Message box text for: Create file</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorDeletingFiles" xml:space="preserve">
-    <value>删除文件时发生错误. 日志查看详情: </value>
+    <value>Could not delete the files. Check the error log for details: </value>
     <comment>Message box text for: Delete file</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorMovingFiles" xml:space="preserve">
-    <value>移动文件时发生错误. 日志查看详情: </value>
+    <value>Could not move the files. Check the error log for details: </value>
     <comment>Message box text for: Move file</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorRegisteringAutoStartup" xml:space="preserve">
-    <value>设置开机启动时发生错误. 日志查看详情: </value>
+    <value>Could not register auto startup. Check the error log for details: </value>
     <comment>Message box text for: set startup option error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu" xml:space="preserve">
-    <value>将 dnGrep 从右键菜单中移除时发生错误. 日志查看详情: </value>
+    <value>Could not remove dnGrep from the Windows Explorer right-click menu. Check the error log for details: </value>
     <comment>Message box text for: unset Explorer context menu error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorRevertingFiles" xml:space="preserve">
-    <value>还原文件时发生错误. 日志查看详情: </value>
+    <value>Could not revert files. Check the error log for details: </value>
     <comment>Message box text for: Undo replace error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorRunningRegexTest" xml:space="preserve">
-    <value>打开测试窗口时发生错误. 日志查看详情: </value>
+    <value>Could not open the test window. Check the error log for details: </value>
     <comment>Message box text for: Main window start test dialog error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorSavingOptions" xml:space="preserve">
-    <value>保存选项时发生错误. 日志查看详情: </value>
+    <value>Could not save options. Check the error log for details: </value>
     <comment>Message box text for: Saving user options</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorUnregisteringAutoStartup" xml:space="preserve">
-    <value>取消开机启动时发生错误. 日志查看详情: </value>
+    <value>Could not unregister auto startup. Check the error log for details: </value>
     <comment>Message box text for: unsetting auto start error</comment>
   </data>
   <data name="MessageBox_ThisBookmarkIsAssociatedWith0OtherFolders" xml:space="preserve">
-    <value>当前书签和以下 {0} 个书签关联:</value>
+    <value>This bookmark is associated with {0} other folders.</value>
     <comment>Message box text for: Main window bookmark delete: {0} is the number of folders</comment>
   </data>
   <data name="MessageBox_ThisBookmarkIsAssociatedWithOneOtherFolder" xml:space="preserve">
-    <value>当前书签和以下书签关联:</value>
+    <value>This bookmark is associated with one other folder.</value>
     <comment>Message box text for: Main window bookmark delete</comment>
   </data>
   <data name="MessageBox_Undo" xml:space="preserve">
-    <value>撤销</value>
+    <value>Отменить</value>
     <comment>Message box title for: Main window Undo</comment>
   </data>
   <data name="MessageBox_UndoWillRevertModifiedFiles" xml:space="preserve">
-    <value>撤销操作会将文件还原到他们原始的状态. 任何修改将会丢失. 确定要这么做?</value>
+    <value>Undo will revert modified file(s) back to their original state. Any changes made to the file(s) after the replace will be overwritten. Are you sure you want to proceed?</value>
     <comment>Message box text for: Main window Undo</comment>
   </data>
   <data name="MessageBox_WindowTitleIsName" xml:space="preserve">
-    <value>窗口标题: {0}</value>
+    <value>Window title: {0}</value>
     <comment>Message box text for: Clipboard set text error, clipboard locked by application name: {0} is the window title of the application locking clipboard</comment>
   </data>
   <data name="MessageBox_WouldYouLikeToContinue" xml:space="preserve">
-    <value>是否继续?</value>
+    <value>Continue?</value>
     <comment>Message box text for: Replace window warning</comment>
   </data>
   <data name="MessageBox_WouldYouLikeToDownloadItNow" xml:space="preserve">
-    <value>立刻下载?</value>
+    <value>Download it now?</value>
     <comment>Message box text for: New dnGrep version</comment>
   </data>
   <data name="MessageBox_YouAreAboutToDeleteFilesFoundDuringSearch" xml:space="preserve">
-    <value>注意, 你将删除搜索结果中的文件.</value>
+    <value>Attention, you are about to delete files found during search.</value>
     <comment>Message box text for: Delete files warning</comment>
   </data>
   <data name="Options_AllowSearchingForFileNamePatternOnly" xml:space="preserve">
-    <value>允许仅搜索文件名模式当搜索关键词为空</value>
+    <value>List files using the file name pattern when the 'Search for' field is empty</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ApplicationFonts" xml:space="preserve">
-    <value>应用程序字体</value>
+    <value>Application fonts</value>
     <comment>Options dialog, fonts group header label</comment>
   </data>
   <data name="Options_ArchiveAdd" xml:space="preserve">
-    <value>添加:</value>
+    <value>Add</value>
     <comment>Options dialog, archive options text input label</comment>
   </data>
   <data name="Options_ArchiveDefault" xml:space="preserve">
-    <value>默认:</value>
+    <value>Default</value>
     <comment>Options dialog, archive options text input label</comment>
   </data>
   <data name="Options_ArchiveExtensions" xml:space="preserve">
-    <value>扩展:</value>
+    <value>Расширения:</value>
     <comment>Options dialog, archive options label</comment>
   </data>
   <data name="Options_ArchiveOptions" xml:space="preserve">
-    <value>归档选项</value>
+    <value>Archive files</value>
     <comment>Options dialog, archive options group header label</comment>
   </data>
   <data name="Options_ArchiveRemove" xml:space="preserve">
-    <value>移除:</value>
+    <value>Remove</value>
     <comment>Options dialog, archive options text input label</comment>
   </data>
   <data name="Options_BrowseFileLocation" xml:space="preserve">
-    <value>...</value>
+    <value>…</value>
     <comment>Options dialog, browse for file button label</comment>
   </data>
   <data name="Options_CheckDays" xml:space="preserve">
-    <value>天</value>
+    <value>days</value>
     <comment>Options dialog, check for updates label</comment>
   </data>
   <data name="Options_CheckForUpdatesWhenWindowsStarts" xml:space="preserve">
-    <value>在 Windows 启动时检查更新</value>
+    <value>Check for new versions when Windows starts</value>
     <comment>Options dialog, check for updates checkbox label (accel)</comment>
   </data>
   <data name="Options_CheckingForUpdates" xml:space="preserve">
-    <value>正在检查更新</value>
+    <value>New versions</value>
     <comment>Options dialog, check for updates group header label</comment>
   </data>
   <data name="Options_ClearOldSearches" xml:space="preserve">
-    <value>清除已有的搜索</value>
+    <value>Clear old searches</value>
     <comment>Options dialog, history list button label (accel)</comment>
   </data>
   <data name="Options_Close" xml:space="preserve">
-    <value>关闭(_C)</value>
+    <value>_Закрыть</value>
     <comment>Options dialog, close button text (accel)</comment>
   </data>
   <data name="Options_CompareApplication" xml:space="preserve">
-    <value>对比软件</value>
+    <value>Compare application</value>
     <comment>Options dialog, compare application group header label</comment>
   </data>
   <data name="Options_CompareArguments" xml:space="preserve">
-    <value>参数</value>
+    <value>Аргументы</value>
     <comment>Options dialog, compare arguments input box label</comment>
   </data>
   <data name="Options_CompareCommand" xml:space="preserve">
-    <value>命令</value>
+    <value>Команда</value>
     <comment>Options dialog, compare command input box label</comment>
   </data>
   <data name="Options_ContextAfter" xml:space="preserve">
-    <value>后</value>
+    <value>after</value>
     <comment>Options dialog, results options context label</comment>
   </data>
   <data name="Options_ContextBeforeAnd" xml:space="preserve">
-    <value>前</value>
+    <value>before and</value>
     <comment>Options dialog, results options context label</comment>
   </data>
   <data name="Options_CustomEditor" xml:space="preserve">
-    <value>自定义编辑器</value>
+    <value>Custom editor</value>
     <comment>Options dialog, custom editor group header label</comment>
   </data>
   <data name="Options_CustomEditorHelp" xml:space="preserve">
-    <value>关键词: '{0}' 表示文件路径, '{1}' 表示行号, '{2}' 表示搜索词, '{3}' 表示文件中第一个匹配的词, '{4}' 表示第一个匹配的词所在的列.</value>
+    <value>Use keywords '{0}' for file location, '{1}' for the line number, '{2}' for the search pattern, '{3}' for the first matched text on the line, and '{4}' for the column number of the first match on the line.</value>
     <comment>Options dialog, custom editor help text: the placeholder are non-localizable expressions used as arguments when starting the custom editor</comment>
   </data>
   <data name="Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
-    <value>仅当搜索文件名模式时检测文件编码</value>
+    <value>Detect file encoding when listing files using the file name pattern</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_DialogFontSize" xml:space="preserve">
-    <value>对话框字体大小</value>
+    <value>Other windows font size</value>
     <comment>Options dialog, font size selector label</comment>
   </data>
   <data name="Options_DnGrepWillAddTheSelectedFiles" xml:space="preserve">
-    <value>dnGrep 将把已选的文件添加到命令行末尾.</value>
+    <value>dnGrep will add the selected files to the end of the command-line.</value>
     <comment>Options dialog, compare arguments help text</comment>
   </data>
   <data name="Options_EditorArguments" xml:space="preserve">
-    <value>参数</value>
+    <value>Аргументы</value>
     <comment>Options dialog, custom editor arguments input box label</comment>
   </data>
   <data name="Options_EditorCommand" xml:space="preserve">
-    <value>命令</value>
+    <value>Команда</value>
     <comment>Options dialog, custom editor command input box label</comment>
   </data>
   <data name="Options_EnableAutomaticCheckingEvery" xml:space="preserve">
-    <value>启用自动更新, 每</value>
+    <value>Check automatically every</value>
     <comment>Options dialog, check for updates, checkbox label (accel)</comment>
   </data>
   <data name="Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu" xml:space="preserve">
-    <value>在 Windows 右键菜单中能够启动 dnGrep</value>
+    <value>Enables starting dnGrep from the Windows Explorer right-click context menu.</value>
     <comment>Options dialog, explorer right click menu checkbox tooltip</comment>
   </data>
   <data name="Options_FollowWindowsTheme" xml:space="preserve">
-    <value>同系统主题</value>
+    <value>Follow Windows theme</value>
     <comment>Options dialog, theme checkbox label (accel)</comment>
   </data>
   <data name="Options_FontFamily" xml:space="preserve">
-    <value>字体</value>
+    <value>Font family</value>
     <comment>Options dialog, font selector label</comment>
   </data>
   <data name="Options_HelpTranslateDnGrep" xml:space="preserve">
@@ -1665,103 +1607,103 @@ Arguments:
     <comment>Options dialog, language request label</comment>
   </data>
   <data name="Options_HistoryLists" xml:space="preserve">
-    <value>历史列表</value>
+    <value>History lists</value>
     <comment>Options dialog, history group heading label</comment>
   </data>
   <data name="Options_InOptionsExpander" xml:space="preserve">
-    <value>在扩展选项</value>
+    <value>in options expander</value>
     <comment>Options dialog, layout option radio button label (accel)</comment>
   </data>
   <data name="Options_ItemsShownInFileFilterHistoryLists" xml:space="preserve">
-    <value>个文件过滤器历</value>
+    <value>items shown in file filter history lists</value>
     <comment>Options dialog, history list text input label</comment>
   </data>
   <data name="Options_ItemsShownInPathHistoryList" xml:space="preserve">
-    <value>个路径历史</value>
+    <value>items shown in path history list</value>
     <comment>Options dialog, history list text input label</comment>
   </data>
   <data name="Options_ItemsShownInSearchAndReplaceHistoryLists" xml:space="preserve">
-    <value>个搜索和替换历史</value>
+    <value>items shown in search and replace history lists</value>
     <comment>Options dialog, history list text input label</comment>
   </data>
   <data name="Options_Language" xml:space="preserve">
-    <value>Language</value>
+    <value>Язык</value>
     <comment>Options dialog, language group header label</comment>
   </data>
   <data name="Options_Layout" xml:space="preserve">
-    <value>布局</value>
+    <value>Layout</value>
     <comment>Options dialog, layout group header label</comment>
   </data>
   <data name="Options_LoadFromFile" xml:space="preserve">
-    <value>从文件载入...</value>
+    <value>Load from file…</value>
     <comment>Options dialog, language load button label (accel)</comment>
   </data>
   <data name="Options_MainFontSize" xml:space="preserve">
-    <value>字体大小</value>
+    <value>Main window font size</value>
     <comment>Options dialog, font size input label</comment>
   </data>
   <data name="Options_MatchEverythingToExactMatch" xml:space="preserve">
-    <value>0 - 模糊匹配; 1.0 - 精确匹配</value>
+    <value>0 – match everything; 1.0 – exact match</value>
     <comment>Options dialog, phonetic help text</comment>
   </data>
   <data name="Options_MatchThreshold" xml:space="preserve">
-    <value>匹配阈值 (从 0 到 1.0)</value>
+    <value>Match threshold (from 0 to 1.0)</value>
     <comment>Options dialog, phonetic options text input label</comment>
   </data>
   <data name="Options_MatchTimeout" xml:space="preserve">
-    <value>匹配超时</value>
+    <value>Match timeout</value>
     <comment>Options dialog, regex options text input label</comment>
   </data>
   <data name="Options_OnMainPanel" xml:space="preserve">
-    <value>在主面板</value>
+    <value>on the main panel</value>
     <comment>Options dialog, layout option radio button label (accel)</comment>
   </data>
   <data name="Options_OptionsTitle" xml:space="preserve">
-    <value>选项</value>
+    <value>Параметры</value>
     <comment>Options dialog, window title</comment>
   </data>
   <data name="Options_PDFToText" xml:space="preserve">
-    <value>PDF 转文本</value>
+    <value>PDF to text</value>
     <comment>Options dialog, PDF to text group header label</comment>
   </data>
   <data name="Options_PdfToTextExeCommandLineOptions" xml:space="preserve">
-    <value>PdfToText.exe 命令行选项:</value>
+    <value>PdfToText.exe command-line options:</value>
     <comment>Options dialog, PDF text input label</comment>
   </data>
   <data name="Options_PdfToTextReset" xml:space="preserve">
-    <value>重置</value>
+    <value>Сброс</value>
     <comment>Options dialog, PDF arguments button label (accel)</comment>
   </data>
   <data name="Options_PhoneticSearch" xml:space="preserve">
-    <value>注音搜索</value>
+    <value>Phonetic search</value>
     <comment>Options dialog, phonetic group header label</comment>
   </data>
   <data name="Options_PluginAdd" xml:space="preserve">
-    <value>添加:</value>
+    <value>Add</value>
     <comment>Options dialog, plugin options text input label</comment>
   </data>
   <data name="Options_PluginDefault" xml:space="preserve">
-    <value>默认:</value>
+    <value>Default</value>
     <comment>Options dialog, plugin options text input label</comment>
   </data>
   <data name="Options_PluginEnabled" xml:space="preserve">
-    <value>已启用</value>
+    <value>Включено</value>
     <comment>Options dialog, plugins checkbox label</comment>
   </data>
   <data name="Options_PluginExtensions" xml:space="preserve">
-    <value>扩展:</value>
+    <value>Расширения:</value>
     <comment>Options dialog, plugin options label</comment>
   </data>
   <data name="Options_PluginOptions" xml:space="preserve">
-    <value>插件选项</value>
+    <value>Plug-ins</value>
     <comment>Options dialog, plugin options group header label</comment>
   </data>
   <data name="Options_PluginRemove" xml:space="preserve">
-    <value>移除:</value>
+    <value>Remove</value>
     <comment>Options dialog, plugin options text input label</comment>
   </data>
   <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
-    <value>按 F1 获取选项相关相关帮助</value>
+    <value>Press F1 for help on options</value>
     <comment>Options dialog, help label</comment>
   </data>
   <data name="Options_PreviewToolForTranslators" xml:space="preserve">
@@ -1769,511 +1711,511 @@ Arguments:
     <comment>Options dialog, load language button tooltip</comment>
   </data>
   <data name="Options_RegexOptions" xml:space="preserve">
-    <value>正则选项</value>
+    <value>Regular expressions</value>
     <comment>Options dialog, regex options group heading label</comment>
   </data>
   <data name="Options_Reload" xml:space="preserve">
-    <value>重新载入</value>
+    <value>Reload</value>
     <comment>Options dialog, theme reload button label (accel)</comment>
   </data>
   <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
-    <value>重新读取当前主题文件 [Ctrl+F5]</value>
+    <value>Reload the current theme file [Ctrl+F5]</value>
     <comment>Options dialog, theme reload button tooltip</comment>
   </data>
   <data name="Options_ReplaceFontSize" xml:space="preserve">
-    <value>替换内容字体大小</value>
+    <value>Replace window font size</value>
     <comment>Options dialog, font size input label</comment>
   </data>
   <data name="Options_ResultsOptions" xml:space="preserve">
-    <value>搜索结果选项</value>
+    <value>Search results</value>
     <comment>Options dialog, results options group header label</comment>
   </data>
   <data name="Options_SampleText" xml:space="preserve">
-    <value>Sample Text 示例文本</value>
+    <value>Sample text</value>
     <comment>Options dialog, font family and size sample text </comment>
   </data>
   <data name="Options_Save" xml:space="preserve">
-    <value>保存</value>
+    <value>Сохранить</value>
     <comment>Options dialog, save button label (accel)</comment>
   </data>
   <data name="Options_SelectedTheme" xml:space="preserve">
-    <value>选择的主题</value>
+    <value>Selected theme</value>
     <comment>Options dialog, theme selector label</comment>
   </data>
   <data name="Options_ShowDnGrepInExplorerRightClickMenu" xml:space="preserve">
-    <value>在 Windows 右键菜单中添加 dnGrep</value>
+    <value>Show dnGrep in the right-click menu of Windows Explorer</value>
     <comment>Options dialog, startup options, checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowFileInfoToolTips" xml:space="preserve">
-    <value>在提示中显示文件信息</value>
+    <value>Show file info tooltips</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowFilePathInResultsPanel" xml:space="preserve">
-    <value>在搜索结果中显示文件路径</value>
+    <value>Show file path in the results panel</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowResultLinesInContext" xml:space="preserve">
-    <value>显示搜索结果上下文</value>
+    <value>Show result lines in context</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowResultsTreeExpanded" xml:space="preserve">
-    <value>展开显示搜索结果</value>
+    <value>Show results tree expanded</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowSearchOptions" xml:space="preserve">
-    <value>显示搜索选项:</value>
+    <value>Show search options</value>
     <comment>Options dialog, layout options label</comment>
   </data>
   <data name="Options_ShowVerboseMatchCount" xml:space="preserve">
-    <value>显示详细的匹配数量</value>
+    <value>Show additional details about the matches found</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_StartupOptions" xml:space="preserve">
-    <value>启动选项</value>
+    <value>Startup</value>
     <comment>Options dialog, startup group header label</comment>
   </data>
   <data name="Options_TheMatchTimeoutLimits" xml:space="preserve">
-    <value>限定了正则表达式引擎最多能花费多少时间来匹配内容. 该设置用来避免过度回溯.</value>
+    <value>The match timeout limits how long the regular expression engine attempts to resolve a regular expression before it times out. It prevents processing expressions and input strings requiring excessive backtracking.</value>
     <comment>Options dialog, regex options help text</comment>
   </data>
   <data name="Options_Theme" xml:space="preserve">
-    <value>主题</value>
+    <value>Тема</value>
     <comment>Options dialog, theme group header label</comment>
   </data>
   <data name="Options_TimeoutSeconds" xml:space="preserve">
-    <value>秒</value>
+    <value>seconds</value>
     <comment>Options dialog, regex options timeout input label</comment>
   </data>
   <data name="Options_ToChangeThisSettingRunDnGREPAsAdministrator" xml:space="preserve">
-    <value>需要以管理员身份运行 dnGrep 来更改此项设置.</value>
+    <value>Run dnGrep as Administrator to change this setting.</value>
     <comment>Options dialog, Explorer right-click tooltip</comment>
   </data>
   <data name="Options_UseDefault" xml:space="preserve">
-    <value>使用默认</value>
+    <value>Use default font</value>
     <comment>Options dialog, fonts default checkbox label (accel)</comment>
   </data>
   <data name="Options_WantADifferentLanguage" xml:space="preserve">
-    <value>使用其他语言?</value>
+    <value>Do you want a different language?</value>
     <comment>Options dialog, language request label</comment>
   </data>
   <data name="Preview_ChangesTextEditorZoom" xml:space="preserve">
-    <value>改变文本编辑器缩放</value>
+    <value>Changes text editor zoom</value>
     <comment>Preview window, zoom slider tooltip</comment>
   </data>
   <data name="Preview_FindNext" xml:space="preserve">
-    <value>查找下一个 (F3)</value>
+    <value>Find next (F3)</value>
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Preview_FindPrevious" xml:space="preserve">
-    <value>查找上一个 (Shift+F3)</value>
+    <value>Find previous (Shift+F3)</value>
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Preview_HighlightsDisabledTooManyMatchesFound" xml:space="preserve">
-    <value>高亮已禁用: 匹配项过多.</value>
+    <value>Not showing highlights because too many matches were found.</value>
     <comment>Preview window, warning text</comment>
   </data>
   <data name="Preview_MatchCase" xml:space="preserve">
-    <value>匹配大小写</value>
+    <value>Match case</value>
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Preview_MatchWholeWords" xml:space="preserve">
-    <value>全字匹配</value>
+    <value>Match whole words</value>
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Preview_PreviewAnyway" xml:space="preserve">
-    <value>仍然预览</value>
+    <value>Preview anyway</value>
     <comment>Preview window, warning label</comment>
   </data>
   <data name="Preview_SyntaxNone" xml:space="preserve">
-    <value>无</value>
+    <value>None</value>
     <comment>Preview window, syntax coloring option for no syntax coloring</comment>
   </data>
   <data name="Preview_ThisFileIsEitherBinaryOrTooLargeToPreview" xml:space="preserve">
-    <value>无法预览. 二进制文件或体积过大.</value>
+    <value>This file is either binary, or too large to be shown.</value>
     <comment>Preview window, warning message</comment>
   </data>
   <data name="Preview_UseRegularExpressions" xml:space="preserve">
-    <value>使用正则表达式</value>
+    <value>Use regular expressions</value>
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Preview_WrapText" xml:space="preserve">
-    <value>自动换行</value>
+    <value>Wrap text</value>
     <comment>Preview window, results options checkbox label (accel)</comment>
   </data>
   <data name="Preview_Zoom" xml:space="preserve">
-    <value>缩放:</value>
+    <value>Zoom:</value>
     <comment>Preview window, results options zoom slider label</comment>
   </data>
   <data name="Rename_Cancel" xml:space="preserve">
-    <value>取消</value>
+    <value>Отмена</value>
     <comment>Rename file dialog button label</comment>
   </data>
   <data name="Rename_NewName" xml:space="preserve">
-    <value>新文件名:</value>
+    <value>New name:</value>
     <comment>Rename file dialog input label</comment>
   </data>
   <data name="Rename_OK" xml:space="preserve">
-    <value>确定</value>
+    <value>ОК</value>
     <comment>Rename file dialog button label</comment>
   </data>
   <data name="Rename_Title" xml:space="preserve">
-    <value>重命名文件</value>
+    <value>Rename file</value>
     <comment>Rename file dialog title</comment>
   </data>
   <data name="Replace_Cancel" xml:space="preserve">
-    <value>取消</value>
+    <value>Отмена</value>
     <comment>Replace window, Cancel button text</comment>
   </data>
   <data name="Replace_CancelAllReplacements" xml:space="preserve">
-    <value>取消所有替换</value>
+    <value>Cancel all replacements</value>
     <comment>Replace window, Cancel button tooltip</comment>
   </data>
   <data name="Replace_ChangesTextEditorZoom" xml:space="preserve">
-    <value>改变文本编辑器缩放</value>
+    <value>Changes text editor zoom</value>
     <comment>Replace window, Zoom slider tooltip</comment>
   </data>
   <data name="Replace_ErrorThisIsABinaryFile" xml:space="preserve">
-    <value>错误 : 这是一个二进制文件</value>
+    <value>Error: this is a binary file</value>
     <comment>Replace window, File text when attempt to replace in binary file</comment>
   </data>
   <data name="Replace_FileNumberOfCountName" xml:space="preserve">
-    <value>第 {0} 个 共 {1} 个文件: {2}  ({3} 个匹配 {4} 行)</value>
+    <value>File {0} of {1}: {2} ({3} matches on {4} lines)</value>
     <comment>Replace window, file name progress line: {0} is the index of the current file; {1} is the total number of files; {2} is the name of the current file; {3} is the number of matches found in the current file; {4} is the number of lines in the current file with matches</comment>
   </data>
   <data name="Replace_Files" xml:space="preserve">
-    <value>文件</value>
+    <value>Файлы</value>
     <comment>Replace window, Files group header label</comment>
   </data>
   <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
-    <value>标记替换当前文件中的所有匹配项 [Ctrl+A]</value>
+    <value>Mark all matches in this file for replacement [Ctrl+A]</value>
     <comment>Replace window, Replace in File button tooltip</comment>
   </data>
   <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
-    <value>标记替换匹配项 [Ctrl+R]</value>
+    <value>Mark match for replacement [Ctrl+R]</value>
     <comment>Replace window, Replace button tooltip</comment>
   </data>
   <data name="Replace_Matches" xml:space="preserve">
-    <value>匹配</value>
+    <value>Matches</value>
     <comment>Replace window, Matches group header label</comment>
   </data>
   <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
-    <value>移动到当前文件的下一个匹配项 [Ctrl+Left]</value>
+    <value>Move to the next match in this file [Ctrl+Left]</value>
     <comment>Replace window, Next button tooltip</comment>
   </data>
   <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
-    <value>移动到当前文件的上一个匹配项 [Ctrl+Right]</value>
+    <value>Move to the previous match in this file [Ctrl+Right]</value>
     <comment>Replace window, Previous button tooltip</comment>
   </data>
   <data name="Replace_Next" xml:space="preserve">
-    <value>下一个(_N)</value>
+    <value>_Next</value>
     <comment>Replace window, Next button label (accel)</comment>
   </data>
   <data name="Replace_NextFile" xml:space="preserve">
-    <value>下一个文件(_F)</value>
+    <value>Next _file</value>
     <comment>Replace window, Next file button label (accel)</comment>
   </data>
   <data name="Replace_OK" xml:space="preserve">
-    <value>确定</value>
+    <value>ОК</value>
     <comment>Replace window, OK button text</comment>
   </data>
   <data name="Replace_Previous" xml:space="preserve">
-    <value>上一个(_P)</value>
+    <value>_Previous</value>
     <comment>Replace window, Previous button label (accel)</comment>
   </data>
   <data name="Replace_PreviousFile" xml:space="preserve">
-    <value>上一个文件</value>
+    <value>Previous file</value>
     <comment>Replace window, Previous file button label (accel)</comment>
   </data>
   <data name="Replace_ReadOnly" xml:space="preserve">
-    <value>[只读]</value>
+    <value>[только чтение]</value>
     <comment>Replace window, conditional file name suffix</comment>
   </data>
   <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
-    <value>替换所有文件中的所有匹配项 [F10]</value>
+    <value>Replace all matches in all files, and apply [F10]</value>
     <comment>Replace window, Replace in all files button tooltip</comment>
   </data>
   <data name="Replace_ReplaceButton" xml:space="preserve">
-    <value>替换(_R)</value>
+    <value>_Replace</value>
     <comment>Replace window, Replace button label (accel)</comment>
   </data>
   <data name="Replace_ReplaceInAllFiles" xml:space="preserve">
-    <value>在所有文件中替换</value>
+    <value>Replace in all files</value>
     <comment>Replace window, Replace in all files button label (accel)</comment>
   </data>
   <data name="Replace_ReplaceInFile" xml:space="preserve">
-    <value>在文件中替换</value>
+    <value>Replace in file</value>
     <comment>Replace window, Replace in file button label (accel)</comment>
   </data>
   <data name="Replace_ReplaceKey1_Text" xml:space="preserve">
-    <value>文本</value>
+    <value>текст</value>
     <comment>Replace window, first color and highlight key label</comment>
   </data>
   <data name="Replace_ReplaceKey2_SelectedMatch" xml:space="preserve">
-    <value>已选择匹配</value>
+    <value>Selected match</value>
     <comment>Replace window, second color and highlight key label</comment>
   </data>
   <data name="Replace_ReplaceKey3_ReplaceMatch" xml:space="preserve">
-    <value>替换匹配</value>
+    <value>Replace match</value>
     <comment>Replace window, third color and highlight key label</comment>
   </data>
   <data name="Replace_ReplaceKey4_SkipMatch" xml:space="preserve">
-    <value>跳过匹配</value>
+    <value>Skip match</value>
     <comment>Replace window, fourth color and highlight key label</comment>
   </data>
   <data name="Replace_ReplaceMatchesMarkedForReplacement" xml:space="preserve">
-    <value>对标记项执行替换</value>
+    <value>Replace matches marked for replacement</value>
     <comment>Replace window, OK button tooltip</comment>
   </data>
   <data name="Replace_ReplaceWith" xml:space="preserve">
-    <value>替换为:</value>
+    <value>Replace with:</value>
     <comment>Replace window, replace text input box label</comment>
   </data>
   <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
-    <value>重置并取消该文件中所有匹配项 [Ctrl+T]</value>
+    <value>Reset and skip all matches in this file [Ctrl+T]</value>
     <comment>Replace window, Undo file button tooltip</comment>
   </data>
   <data name="Replace_SearchFor" xml:space="preserve">
-    <value>搜索:</value>
+    <value>Search for:</value>
     <comment>Replace window, search pattern label</comment>
   </data>
   <data name="Replace_ShowTheNextFile" xml:space="preserve">
-    <value>显示下一文件 [Ctrl+PgDn]</value>
+    <value>Show the next file [Ctrl+PgDn]</value>
     <comment>Replace window, Next file button tooltip</comment>
   </data>
   <data name="Replace_ShowThePreviousFile" xml:space="preserve">
-    <value>显示上一文件 [Ctrl+PgUp]</value>
+    <value>Show the previous file [Ctrl+PgUp]</value>
     <comment>Replace window, Previous file button tooltip</comment>
   </data>
   <data name="Replace_SyntaxNone" xml:space="preserve">
-    <value>无</value>
+    <value>None</value>
     <comment>Replace window, syntax coloring option for no syntax coloring</comment>
   </data>
   <data name="Replace_ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
-    <value>此文件有太多匹配的替换项. 点击 '文件替换' 来替换所有</value>
+    <value>This file contains too many matches for individual replace. Click 'Replace in file' to replace all of them.</value>
     <comment>Replace window, warning message box text</comment>
   </data>
   <data name="Replace_Title" xml:space="preserve">
-    <value>替换文本</value>
+    <value>Replace Text</value>
     <comment>Replace window, window title</comment>
   </data>
   <data name="Replace_Undo" xml:space="preserve">
-    <value>撤销(_U)</value>
+    <value>_Отменить</value>
     <comment>Replace window, Undo button label (accel)</comment>
   </data>
   <data name="Replace_UndoFile" xml:space="preserve">
-    <value>撤销文件</value>
+    <value>Undo file</value>
     <comment>Replace window, Undo file button label (accel)</comment>
   </data>
   <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
-    <value>撤销标记替换内容 [Ctrl+U]</value>
+    <value>Undo mark replace on this match [Ctrl+U]</value>
     <comment>Replace window, Undo button tooltip</comment>
   </data>
   <data name="Replace_WrapText" xml:space="preserve">
-    <value>自动换行</value>
+    <value>Wrap text</value>
     <comment>Replace window, results options checkbox label (accel)</comment>
   </data>
   <data name="Replace_Zoom" xml:space="preserve">
-    <value>缩放:</value>
+    <value>Zoom:</value>
     <comment>Replace window, results options zoom slider label</comment>
   </data>
   <data name="Report_CSVRecordHeaderText" xml:space="preserve">
-    <value>文件名,行号,字符串</value>
+    <value>File Name,Line Number,String</value>
     <comment>Report, CSV report header text</comment>
   </data>
   <data name="Report_DnGrepSearchResults" xml:space="preserve">
-    <value>dnGrep 搜索结果</value>
+    <value>dnGrep Search Results</value>
     <comment>Report content text</comment>
   </data>
   <data name="Report_FileNotFoundHasItBeenDeletedOrMoved" xml:space="preserve">
-    <value>[文件未找到: 已被删除或移动过?]</value>
+    <value>[File not found: has it been deleted or moved?]</value>
     <comment>Report extract lines from file error</comment>
   </data>
   <data name="Report_Found0MatchesOn1LinesIn2Files" xml:space="preserve">
-    <value>找到 {0} 个匹配 {1} 行 {2} 个文件</value>
+    <value>Found {0} matches on {1} lines in {2} files</value>
     <comment>Report content text: {0} is the number of matches; {1] is the number of lines with matches; {2} is the number of files with matches</comment>
   </data>
   <data name="Report_FoundMatchesFor" xml:space="preserve">
-    <value>找到匹配</value>
+    <value>Found matches for </value>
     <comment>Report content text</comment>
   </data>
   <data name="Report_FoundNoMatchesFor" xml:space="preserve">
-    <value>未找到匹配</value>
+    <value>Found no matches for </value>
     <comment>Report content text</comment>
   </data>
   <data name="Report_Has0MatchesOn1Lines" xml:space="preserve">
-    <value>{0} 个匹配 {1} 行:</value>
+    <value>has {0} matches on {1} lines:</value>
     <comment>Report content text: {0} is the number of matches in a file; {1} is the number of lines in a file with matches</comment>
   </data>
   <data name="ReportSummary_BooleanOperators" xml:space="preserve">
-    <value>布尔操作</value>
+    <value>Boolean operators</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_CaseSensitive" xml:space="preserve">
-    <value>大小写敏感</value>
+    <value>Case sensitive</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_DotAsNewline" xml:space="preserve">
-    <value>点号作为新行</value>
+    <value>Dot as newline</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_Encoding" xml:space="preserve">
-    <value>编码:</value>
+    <value>Encoding:</value>
     <comment>Report search options summary label</comment>
   </data>
   <data name="ReportSummary_ExcludePattern" xml:space="preserve">
-    <value>排除文件名:</value>
+    <value>Exclude file pattern:</value>
     <comment>Report search options summary label</comment>
   </data>
   <data name="ReportSummary_FilePattern" xml:space="preserve">
-    <value>文件模式:</value>
+    <value>Include file pattern:</value>
     <comment>Report search options summary label</comment>
   </data>
   <data name="ReportSummary_MaxFolderDepth" xml:space="preserve">
-    <value>最大文件夹深度 {0}</value>
+    <value>Max folder depth: {0}</value>
     <comment>Report search options summary: {0} is the user input folder depth</comment>
   </data>
   <data name="ReportSummary_Multiline" xml:space="preserve">
-    <value>多行</value>
+    <value>Multiline</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_NoArchives" xml:space="preserve">
-    <value>非归档</value>
+    <value>No archives</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_NoBinary" xml:space="preserve">
-    <value>非二进制</value>
+    <value>No binary</value>
     <comment>Main window options summary</comment>
   </data>
   <data name="ReportSummary_NoBinaryFiles" xml:space="preserve">
-    <value>非二进制文件</value>
+    <value>No binary files</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_NoHiddenFiles" xml:space="preserve">
-    <value>非隐藏文件</value>
+    <value>No hidden files</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_NoSubfolders" xml:space="preserve">
-    <value>非子文件夹</value>
+    <value>No subfolders</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_NoSymlinks" xml:space="preserve">
-    <value>非符号连接</value>
+    <value>No symbolic links</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_SearchFor" xml:space="preserve">
-    <value>搜索:</value>
+    <value>Search for:</value>
     <comment>Report search options summary label</comment>
   </data>
   <data name="ReportSummary_SearchIn" xml:space="preserve">
-    <value>搜索文件:</value>
+    <value>Search in:</value>
     <comment>Report search options summary label</comment>
   </data>
   <data name="ReportSummary_SearchInResults" xml:space="preserve">
-    <value>在搜索结果中搜索</value>
+    <value>Search in results</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_SizeFrom0To1KB" xml:space="preserve">
-    <value>大小介于 {0} 到 {1} KB</value>
+    <value>Size from {0} to {1} KB</value>
     <comment>Report search options summary: {0} and {1} are the user input size range</comment>
   </data>
   <data name="ReportSummary_StopAfterFirstMatch" xml:space="preserve">
-    <value>首次匹配后停止</value>
+    <value>Stop after first match</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_Type0DateFrom1To2" xml:space="preserve">
-    <value>{0} 时间自 {1} 至 {2}</value>
+    <value>{0} date from {1} to {2}</value>
     <comment>Report search options summary: {0} is the date type (modified or created); {1} and {2} are the user input dates</comment>
   </data>
   <data name="ReportSummary_Type0DateInPast1To2Hours" xml:space="preserve">
-    <value>{0} 时间在过去的 {1} 至 {2} 小时之间</value>
+    <value>{0} date in past {1} to {2} hours</value>
     <comment>Report search options summary: {0} is the date type (modified or created); {1} and {2} are the user input dates</comment>
   </data>
   <data name="ReportSummary_UsingEverythingIndexSearch" xml:space="preserve">
-    <value>使用 Everything 索引搜索</value>
+    <value>Using Everything index search</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_UsingRegexFilePattern" xml:space="preserve">
-    <value>使用正则表达式文件名</value>
+    <value>Using regular expression file pattern</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_UsingTypeOfSeach" xml:space="preserve">
-    <value>使用 {0} 搜索</value>
+    <value>Using {0} search</value>
     <comment>Report search options summary type of search: {0} is the type of search</comment>
   </data>
   <data name="ReportSummary_WholeWord" xml:space="preserve">
-    <value>全字匹配</value>
+    <value>Whole word</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="Test_BooleanOperators" xml:space="preserve">
-    <value>布尔操作</value>
+    <value>Boolean operators</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_CaseSensitive" xml:space="preserve">
-    <value>大小写敏感(_A)</value>
+    <value>C_ase sensitive</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_Close" xml:space="preserve">
-    <value>关闭(_C)</value>
+    <value>_Закрыть</value>
     <comment>Test window, Close button text (accel)</comment>
   </data>
   <data name="Test_CopyToClipboard" xml:space="preserve">
-    <value>复制到剪贴板</value>
+    <value>Copy to clipboard</value>
     <comment>Test window, context menu item label</comment>
   </data>
   <data name="Test_DotAsNewline" xml:space="preserve">
-    <value>点号作为新行(_D)</value>
+    <value>_Dot as newline</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_HighlightGroups" xml:space="preserve">
-    <value>高亮群组</value>
+    <value>Highlight Groups</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_Multiline" xml:space="preserve">
-    <value>多行(_M)</value>
+    <value>_Multiline</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_NoMatchesFound" xml:space="preserve">
-    <value>无匹配</value>
+    <value>No matches found</value>
     <comment>Test window, results box message text</comment>
   </data>
   <data name="Test_ReplaceResult" xml:space="preserve">
-    <value>替换搜索结果:</value>
+    <value>Replace result:</value>
     <comment>Test window, output results label</comment>
   </data>
   <data name="Test_ReplaceTextIsNotValidXML" xml:space="preserve">
-    <value>替换文本不是合法的 XML!</value>
+    <value>The replace text is not valid XML!</value>
     <comment>Test window, error text</comment>
   </data>
   <data name="Test_ReplaceWith" xml:space="preserve">
-    <value>替换为:</value>
+    <value>Replace with:</value>
     <comment>Test window, search input label</comment>
   </data>
   <data name="Test_SampleInputText" xml:space="preserve">
-    <value>输入文本样例:</value>
+    <value>Sample input text:</value>
     <comment>Test window, search input label</comment>
   </data>
   <data name="Test_SearchFor" xml:space="preserve">
-    <value>搜索:</value>
+    <value>Search for:</value>
     <comment>Test window, search input label</comment>
   </data>
   <data name="Test_SearchGroup" xml:space="preserve">
-    <value>搜索</value>
+    <value>Поиск</value>
     <comment>Test window, search group box heading</comment>
   </data>
   <data name="Test_SearchResult" xml:space="preserve">
-    <value>搜索结果:</value>
+    <value>Search result:</value>
     <comment>Test window, output results label</comment>
   </data>
   <data name="Test_SearchType_Phonetic" xml:space="preserve">
-    <value>注音</value>
+    <value>Phonetic</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">
-    <value>正则(_R)</value>
+    <value>_Regular expression</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_SearchType_Text" xml:space="preserve">
-    <value>文本(_T)</value>
+    <value>_Текст</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_SearchType_XPath" xml:space="preserve">
@@ -2281,75 +2223,75 @@ Arguments:
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_Title" xml:space="preserve">
-    <value>测试</value>
+    <value>Тест</value>
     <comment>Test window title</comment>
   </data>
   <data name="Test_WholeWord" xml:space="preserve">
-    <value>全字匹配(_W)</value>
+    <value>_Whole word</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="TTA1_MatchesAllCharacters" xml:space="preserve">
-    <value>. 匹配所有字符</value>
+    <value>. matches all characters</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTA2_MatchesAlphaNumerics" xml:space="preserve">
-    <value>\w 匹配字母或数字或下划线或汉字</value>
+    <value>\w matches alpha-numerics</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTA3_MatchesDigits" xml:space="preserve">
-    <value>\d 匹配数字</value>
+    <value>\d matches digits</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTA4_MatchesSpace" xml:space="preserve">
-    <value>\s 匹配空格</value>
+    <value>\s matches space</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTA5_MatchesAnyNumberOfCharacters" xml:space="preserve">
-    <value>* 匹配任意数量字符</value>
+    <value>* matches any number of characters</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTA6_Matches1To3Characters" xml:space="preserve">
-    <value>{1,3} 匹配 1 至 3 个字符</value>
+    <value>{1,3} matches 1 to 3 characters</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTA7_ForMoreRegexPatternsHitF1" xml:space="preserve">
-    <value>按 F1 查看更多正则表达式内容</value>
+    <value>Hit F1 for more regular expression patterns</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTB1_ReplacesEntireRegex" xml:space="preserve">
-    <value>$&amp; 插入整个正则表达式匹配项</value>
+    <value>$&amp; replaces entire regular expression</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTB2_InsertsTheTextMatchedIntoTheReplacementText" xml:space="preserve">
-    <value>$1, $2, $3, etc... 插入整个表达式相应的匹配组到替换文本</value>
+    <value>$1, $2, $3, etc… inserts the text matched between capturing parentheses into the replacement text</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTB3_InsertsASingleDollarSignIntoTheReplacementText" xml:space="preserve">
-    <value>$$ 在替换字符中插入一个 $ 符号 (转义)</value>
+    <value>$$ inserts a single dollar sign into the replacement text</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="Window_Close" xml:space="preserve">
-    <value>关闭</value>
+    <value>Закрыть</value>
     <comment>Window title bar close button tooltip</comment>
   </data>
   <data name="Window_DockThisPopUpBackIntoTheMainWindow" xml:space="preserve">
-    <value>停靠回主窗口</value>
+    <value>Dock this pop-up back into the main window</value>
     <comment>Docking window docking button tooltip</comment>
   </data>
   <data name="Window_Maximize" xml:space="preserve">
-    <value>最大化</value>
+    <value>Maximize</value>
     <comment>Window title bar button tooltip</comment>
   </data>
   <data name="Window_Minimize" xml:space="preserve">
-    <value>最小化</value>
+    <value>Minimize</value>
     <comment>Window title bar button tooltip</comment>
   </data>
   <data name="Window_PopThisPanelOutIntoItsOwnWindow" xml:space="preserve">
-    <value>弹出到独立窗口</value>
+    <value>Pop this panel out into its own window</value>
     <comment>Docking window button tooltip</comment>
   </data>
   <data name="Window_RestoreDown" xml:space="preserve">
-    <value>还原</value>
+    <value>Restore Down</value>
     <comment>Window title bar button tooltip</comment>
   </data>
   <data name="Options_HexSearchResultLineLength" xml:space="preserve">
