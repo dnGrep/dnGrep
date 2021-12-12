@@ -637,25 +637,12 @@
                 </GroupBox>
                 <GroupBox Header="{l:Loc Key='Main_SearchGroup'}" DockPanel.Dock="Top">
                     <DockPanel Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                        <DockPanel Margin="0,0,0,5" DockPanel.Dock="Top">
-                            <Button Margin="3,0" Padding="8,3"
-                                    Content="{l:Loc Key='Main_TestExpression'}"
-                                    Command="{Binding TestCommand}"
-                                    DockPanel.Dock="Right" TabIndex="56" />
-                            <CheckBox Margin="0,0,3,0"
-                                      ToolTip="{Binding IsFolderBookmarkedTooltip}"
-                                      Template="{DynamicResource PlusMetroButtonTemplate}"
-                                      IsChecked="{Binding IsFolderBookmarked}"
-                                      Command="{Binding FolderBookmarkAddCommand}"
-                                      DockPanel.Dock="Right" TabIndex="55" 
-                                      Visibility="{Binding IsEverythingSearchMode, Converter={StaticResource InverseBoolToVisibilityConverter}}"/>
-                            <CheckBox Margin="0,0,3,0"
-                                      ToolTip="{Binding IsBookmarkedTooltip}"
-                                      Template="{DynamicResource FavsMetroButtonTemplate}"
-                                      IsChecked="{Binding IsBookmarked}"
-                                      Command="{Binding BookmarkAddCommand}"
-                                      DockPanel.Dock="Right" TabIndex="54" />
-                            <StackPanel Margin="0,0,0,0" Orientation="Horizontal" DockPanel.Dock="Left">
+                        <Grid Margin="0,0,0,5" DockPanel.Dock="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <WrapPanel Margin="0,3,0,0" Orientation="Horizontal" Grid.Column="0">
                                 <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_Regex'}" GroupName="SearchRegex"
                                              IsChecked="{Binding TypeOfSearch, ConverterParameter=Regex, Converter={StaticResource ebc}}"
                                              ToolTip="{l:Loc Key='Main_SearchType_RegularExpressionSearch'}" TabIndex="50" />
@@ -671,9 +658,29 @@
                                 <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_Hex'}" GroupName="SearchHex"
                                              IsChecked="{Binding TypeOfSearch, ConverterParameter=Hex, Converter={StaticResource ebc}}"
                                              ToolTip="{l:Loc Key='Main_SearchType_ReadFileAsBinaryAndSearchForBytes'}" TabIndex="54" />
-                            </StackPanel>
-                            <Label HorizontalAlignment="Center" Content="{Binding ValidationMessage}" />
-                        </DockPanel>
+                            </WrapPanel>
+                            <DockPanel Grid.Column="1">
+                                <Button Margin="3,0" Padding="8,3"
+                                        Content="{l:Loc Key='Main_TestExpression'}"
+                                        Command="{Binding TestCommand}"
+                                        DockPanel.Dock="Right" TabIndex="56" />
+                                <CheckBox Margin="0,0,3,0"
+                                          ToolTip="{Binding IsFolderBookmarkedTooltip}"
+                                          Template="{DynamicResource PlusMetroButtonTemplate}"
+                                          IsChecked="{Binding IsFolderBookmarked}"
+                                          Command="{Binding FolderBookmarkAddCommand}"
+                                          DockPanel.Dock="Right" TabIndex="55" 
+                                          Visibility="{Binding IsEverythingSearchMode, Converter={StaticResource InverseBoolToVisibilityConverter}}"/>
+                                <CheckBox Margin="0,0,3,0"
+                                          ToolTip="{Binding IsBookmarkedTooltip}"
+                                          Template="{DynamicResource FavsMetroButtonTemplate}"
+                                          IsChecked="{Binding IsBookmarked}"
+                                          Command="{Binding BookmarkAddCommand}"
+                                          DockPanel.Dock="Right" TabIndex="54" />
+                                <Label HorizontalAlignment="Center"
+                                       Content="{Binding ValidationMessage}" />
+                            </DockPanel>
+                        </Grid>
                         <StackPanel Margin="0,5,0,3" DockPanel.Dock="Bottom"
                                     Visibility="{Binding OptionsOnMainPanel, Converter={StaticResource BoolToVisibilityConverter}}">
                             <WrapPanel Margin="0,0,0,0" Orientation="Horizontal">
