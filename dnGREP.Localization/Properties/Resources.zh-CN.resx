@@ -2049,7 +2049,7 @@ Arguments:
     <comment>Replace window, syntax coloring option for no syntax coloring</comment>
   </data>
   <data name="Replace_ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
-    <value>这个文件包含了太多的匹配项。点击“文件替换”来替换所有的文件。</value>
+    <value>这个文件包含了太多单个替换的匹配项。点击“文件替换”来替换所有的匹配。</value>
     <comment>Replace window, warning message box text</comment>
   </data>
   <data name="Replace_Title" xml:space="preserve">
