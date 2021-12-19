@@ -11,12 +11,6 @@ namespace dnGREP.Common
         Hex
     }
 
-    public enum FileOpenEditor
-    {
-        Default,
-        Custom
-    }
-
     public enum FileSearchType
     {
         Asterisk,
