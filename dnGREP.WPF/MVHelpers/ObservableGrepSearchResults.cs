@@ -882,7 +882,7 @@ namespace dnGREP.WPF
                     int matchLength = m.Length;
                     if (matchStartLocation < counter)
                     {
-                        // overlapping match
+                        // overlapping match: continue highlight from previous end
                         int overlap = counter - matchStartLocation;
                         matchStartLocation = counter;
                         matchLength -= overlap;
@@ -938,14 +938,20 @@ namespace dnGREP.WPF
                     }
                     catch
                     {
+                        // on error show the whole line with no highlights
+                        paragraph.Inlines.Clear();
                         Run regularRun = new Run(fullLine);
                         paragraph.Inlines.Add(regularRun);
+                        // set position to end of line
+                        matchStartLocation = fullLine.Length;
+                        matchLength = 0;
                     }
                     finally
                     {
                         counter = matchStartLocation + matchLength;
                     }
                 }
+
                 if (counter < fullLine.Length)
                 {
                     try
@@ -960,6 +966,7 @@ namespace dnGREP.WPF
                         paragraph.Inlines.Add(regularRun);
                     }
                 }
+
                 if (line.LineText.Length > MaxLineLength)
                 {
                     string msg = TranslationSource.Format(Resources.Main_ResultList_CountAdditionalCharacters, line.LineText.Length - MaxLineLength);
