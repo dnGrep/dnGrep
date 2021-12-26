@@ -1,0 +1,40 @@
+version: 2.9.{build}.0
+branches:
+  only:
+  - master
+  - DraftPrereleaseToGitHub
+skip_tags: true
+image: Visual Studio 2019
+configuration:
+- Debug
+- Release
+platform:
+- x86
+- x64
+assembly_info:
+  patch: true
+  file: AssemblyVersionCommon.cs
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
+before_build:
+- cmd: nuget restore
+build:
+  project: dnGREP.WPF.sln
+  parallel: true
+  verbosity: normal
+artifacts:
+- path: Release\x86\*.msi
+  name: 32-bit MSI
+- path: Release\x64\*.msi
+  name: 64-bit MSI
+deploy:
+- provider: GitHub
+  tag: v$(appveyor_build_version)
+  release: v$(appveyor_build_version) (beta)
+  auth_token:
+    secure: q0bGZDcjkoPwfHqzHbftJAHUR2q/I0dQIJCP5uAX2wjwzDsZS77IFSc26XFaD1pA
+  draft: true
+  prerelease: true
+  on:
+    branch: DraftPrereleaseToGitHub
