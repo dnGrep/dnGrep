@@ -1467,7 +1467,7 @@ Arguments:
     <comment>Message box title for: Main window Undo</comment>
   </data>
   <data name="MessageBox_UndoWillRevertModifiedFiles" xml:space="preserve">
-    <value>Undo will revert modified file(s) back to their original state. Any changes made to the file(s) after the replace will be overwritten. Are you sure you want to proceed?</value>
+    <value>Undo will revert modified file(s) back to their original state. Any changes made to the file(s) after the replace will be overwritten. Continue?</value>
     <comment>Message box text for: Main window Undo</comment>
   </data>
   <data name="MessageBox_WindowTitleIsName" xml:space="preserve">

@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -1197,7 +1197,7 @@ Argumente:
     <value>Rückgängig machen</value>
   </data>
   <data name="MessageBox_UndoWillRevertModifiedFiles" xml:space="preserve">
-    <value>Rückgängig machen versetzt die geänderte(n) Datei(en) wieder in ihren ursprünglichen Zustand zurück. Alle Änderungen, die nach dem Ersetzen an der/den Datei(en) vorgenommen wurden, werden überschrieben. Sind Sie sicher, dass Sie fortfahren möchten?</value>
+    <value>Undo will revert modified file(s) back to their original state. Any changes made to the file(s) after the replace will be overwritten. Continue?</value>
   </data>
   <data name="MessageBox_WindowTitleIsName" xml:space="preserve">
     <value>Fenster Titel: {0}</value>
