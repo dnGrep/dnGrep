@@ -118,9 +118,12 @@
                             </Style>
                         </Grid.Resources>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" SharedSizeGroup="NUM"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="{Binding Path=HexPanelWidth, Converter={StaticResource GridLengthConverter}}"/>
+                            <ColumnDefinition Width="Auto" 
+                                              SharedSizeGroup="NUM"/>
+                            <ColumnDefinition Width="{Binding Path=ResultColumn1Width, Converter={StaticResource GridLengthConverter}}" 
+                                              SharedSizeGroup="{Binding ResultColumn1SharedSizeGroupName}"/>
+                            <ColumnDefinition Width="{Binding Path=ResultColumn2Width, Converter={StaticResource GridLengthConverter}}" 
+                                              SharedSizeGroup="COL2"/>
                         </Grid.ColumnDefinitions>
                         <TextBlock Grid.Column="0"
                                    Width="{Binding LineNumberColumnWidth}"
@@ -131,7 +134,7 @@
                                             Margin="6,0,0,0" InlineCollection="{Binding FormattedText}" FontFamily="Consolas" 
                                             TextWrapping="{Binding WrapText, Converter={StaticResource BoolToTextWrappingConverter}}"/>
                         <TextBlock Grid.Column="2"
-                                   Margin="12,0,0,0" Text="{Binding FormattedHexValues}"
+                                   Margin="24,0,0,0" Text="{Binding FormattedHexValues}"
                                    FontFamily="Consolas"
                                    Style="{StaticResource ThemedTextBlock}"
                                    Visibility="{Binding IsHexData, Converter={StaticResource BooleanToVisibilityConverter}}"/>

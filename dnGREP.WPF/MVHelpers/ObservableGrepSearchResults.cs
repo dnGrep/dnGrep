@@ -641,6 +641,8 @@ namespace dnGREP.WPF
 
     public class FormattedGrepLine : CultureAwareViewModel, ITreeItem
     {
+        private readonly string enQuad = char.ConvertFromUtf32(0x2000);
+
         public FormattedGrepLine(GrepLine line, FormattedGrepResult parent, int initialColumnWidth, bool breakSection)
         {
             Parent = parent;
@@ -649,10 +651,11 @@ namespace dnGREP.WPF
             LineNumberColumnWidth = initialColumnWidth;
             IsSectionBreak = breakSection;
             WrapText = Parent.WrapText;
+            int lineSize = GrepSettings.Instance.Get<int>(GrepSettings.Key.HexResultByteLength);
 
             LineNumberAlignment = TranslationSource.Instance.CurrentCulture.TextInfo.IsRightToLeft ? TextAlignment.Left : TextAlignment.Right;
             FormattedLineNumber = line.LineNumber == -1 ? string.Empty :
-                line.IsHexFile ? string.Format("{0:X8}", (line.LineNumber - 1) * 16) :
+                line.IsHexFile ? string.Format("{0:X8}", (line.LineNumber - 1) * lineSize) :
                 line.LineNumber.ToString();
 
             //string fullText = lineSummary;
@@ -690,8 +693,17 @@ namespace dnGREP.WPF
                 if (GrepLine.IsHexFile)
                 {
                     IsHexData = true;
-                    HexPanelWidth = "*";
+                    ResultColumn1Width = "Auto";
+                    ResultColumn2Width = "Auto";
+                    ResultColumn1SharedSizeGroupName = "COL1";
                     FormattedHexValues = FormatHexValues(GrepLine);
+                }
+                else
+                {
+                    IsHexData = false;
+                    ResultColumn1Width = "*";
+                    ResultColumn2Width = "0";
+                    ResultColumn1SharedSizeGroupName = string.Empty;
                 }
             }
         }
@@ -724,17 +736,45 @@ namespace dnGREP.WPF
             }
         }
 
-        private string hexPanelWidth = "0";
-        public string HexPanelWidth
+        private string resultColumn1SharedSizeGroupName = "";
+        public string ResultColumn1SharedSizeGroupName
         {
-            get { return hexPanelWidth; }
+            get { return resultColumn1SharedSizeGroupName; }
             set
             {
-                if (hexPanelWidth == value)
+                if (resultColumn1SharedSizeGroupName == value)
                     return;
 
-                hexPanelWidth = value;
-                OnPropertyChanged(nameof(HexPanelWidth));
+                resultColumn1SharedSizeGroupName = value;
+                OnPropertyChanged(nameof(ResultColumn1SharedSizeGroupName));
+            }
+        }
+
+        private string resultColumn1Width = "*";
+        public string ResultColumn1Width
+        {
+            get { return resultColumn1Width; }
+            set
+            {
+                if (resultColumn1Width == value)
+                    return;
+
+                resultColumn1Width = value;
+                OnPropertyChanged(nameof(ResultColumn1Width));
+            }
+        }
+
+        private string resultColumn2Width = "0";
+        public string ResultColumn2Width
+        {
+            get { return resultColumn2Width; }
+            set
+            {
+                if (resultColumn2Width == value)
+                    return;
+
+                resultColumn2Width = value;
+                OnPropertyChanged(nameof(ResultColumn2Width));
             }
         }
 
@@ -838,23 +878,33 @@ namespace dnGREP.WPF
                 foreach (GrepMatch m in lineMatches)
                 {
                     Parent.MatchIdx++;
+                    int matchStartLocation = m.StartLocation;
+                    int matchLength = m.Length;
+                    if (matchStartLocation < counter)
+                    {
+                        // overlapping match: continue highlight from previous end
+                        int overlap = counter - matchStartLocation;
+                        matchStartLocation = counter;
+                        matchLength -= overlap;
+                    }
+
                     try
                     {
                         string regLine = null;
                         string fmtLine = null;
-                        if (m.StartLocation < fullLine.Length)
+                        if (matchStartLocation < fullLine.Length)
                         {
-                            regLine = fullLine.Substring(counter, m.StartLocation - counter);
+                            regLine = fullLine.Substring(counter, matchStartLocation - counter);
                         }
 
-                        if (m.StartLocation + m.Length <= fullLine.Length)
+                        if (matchStartLocation + matchLength <= fullLine.Length)
                         {
-                            fmtLine = fullLine.Substring(m.StartLocation, m.Length);
+                            fmtLine = fullLine.Substring(matchStartLocation, matchLength);
                         }
-                        else if (fullLine.Length > m.StartLocation)
+                        else if (fullLine.Length > matchStartLocation)
                         {
                             // match may include the non-printing newline chars at the end of the line: don't overflow the length
-                            fmtLine = fullLine.Substring(m.StartLocation, fullLine.Length - m.StartLocation);
+                            fmtLine = fullLine.Substring(matchStartLocation, fullLine.Length - matchStartLocation);
                         }
                         else
                         {
@@ -888,14 +938,20 @@ namespace dnGREP.WPF
                     }
                     catch
                     {
+                        // on error show the whole line with no highlights
+                        paragraph.Inlines.Clear();
                         Run regularRun = new Run(fullLine);
                         paragraph.Inlines.Add(regularRun);
+                        // set position to end of line
+                        matchStartLocation = fullLine.Length;
+                        matchLength = 0;
                     }
                     finally
                     {
-                        counter = m.StartLocation + m.Length;
+                        counter = matchStartLocation + matchLength;
                     }
                 }
+
                 if (counter < fullLine.Length)
                 {
                     try
@@ -910,6 +966,7 @@ namespace dnGREP.WPF
                         paragraph.Inlines.Add(regularRun);
                     }
                 }
+
                 if (line.LineText.Length > MaxLineLength)
                 {
                     string msg = TranslationSource.Format(Resources.Main_ResultList_CountAdditionalCharacters, line.LineText.Length - MaxLineLength);
@@ -932,7 +989,7 @@ namespace dnGREP.WPF
                     {
                         if (m.StartLocation + m.Length <= line.LineText.Length)
                         {
-                            paragraph.Inlines.Add(new Run("  "));
+                            paragraph.Inlines.Add(new Run(enQuad));
                             string fmtLine = line.LineText.Substring(m.StartLocation, m.Length);
                             var run = new Run(fmtLine);
                             run.SetResourceReference(Run.ForegroundProperty, "Match.Highlight.Foreground");

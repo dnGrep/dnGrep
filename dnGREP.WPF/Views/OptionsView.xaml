@@ -339,12 +339,21 @@
                 </GroupBox>
 
                 <GroupBox Header="{l:Loc Key='Options_Layout'}">
-                    <StackPanel Margin="0,6,0,0" Orientation="Horizontal">
-                        <TextBlock Text="{l:Loc Key='Options_ShowSearchOptions'}" />
-                        <RadioButton Margin="18,0" Content="{l:Loc Key='Options_OnMainPanel'}" GroupName="searchLocation"
-                                     IsChecked="{Binding OptionsLocation, Converter={StaticResource ebc}, ConverterParameter=MainPanel}" />
-                        <RadioButton Margin="3,0" Content="{l:Loc Key='Options_InOptionsExpander'}" GroupName="searchLocation"
-                                     IsChecked="{Binding OptionsLocation, Converter={StaticResource ebc}, ConverterParameter=OptionsExpander}" />
+                    <StackPanel>
+                        <StackPanel Margin="0,6,0,0">
+                            <TextBlock Text="{l:Loc Key='Options_ShowSearchOptions'}" />
+                            <RadioButton Margin="18,3" Content="{l:Loc Key='Options_OnMainPanel'}" GroupName="searchLocation"
+                                         IsChecked="{Binding OptionsLocation, Converter={StaticResource ebc}, ConverterParameter=MainPanel}" />
+                            <RadioButton Margin="18,3" Content="{l:Loc Key='Options_InOptionsExpander'}" GroupName="searchLocation"
+                                         IsChecked="{Binding OptionsLocation, Converter={StaticResource ebc}, ConverterParameter=OptionsExpander}" />
+                        </StackPanel>
+                        <StackPanel Margin="0,6,0,0">
+                            <TextBlock Text="{l:Loc Key='Options_ReplaceDialogLayout'}" />
+                            <RadioButton Margin="18,3" Content="{l:Loc Key='Options_FilesAndIndividualMatches'}" GroupName="replaceLayout"
+                                         IsChecked="{Binding ReplaceDialogLayout, Converter={StaticResource ebc}, ConverterParameter=FullDialog}" />
+                            <RadioButton Margin="18,3" Content="{l:Loc Key='Options_FilesOnly'}" GroupName="replaceLayout"
+                                         IsChecked="{Binding ReplaceDialogLayout, Converter={StaticResource ebc}, ConverterParameter=FilesOnly}" />
+                        </StackPanel>
                     </StackPanel>
                 </GroupBox>
 
@@ -381,25 +390,33 @@
                             <Label Content="{l:Loc Key='Options_ContextAfter'}" />
                         </StackPanel>
 
-                        <CheckBox Name="cbSearchFileNameOnly" Margin="3"
-                                  IsChecked="{Binding Path=AllowSearchWithEmptyPattern}">
-                            <CheckBox.Content>
-                                <TextBlock Text="{l:Loc Key='Options_AllowSearchingForFileNamePatternOnly'}"/>
-                            </CheckBox.Content>
-                        </CheckBox>
+                        <CheckBox Name="cbSearchFileNameOnly" Margin="3" 
+                                  Content="{l:Loc Key='Options_AllowSearchingForFileNamePatternOnly'}"
+                                  IsChecked="{Binding Path=AllowSearchWithEmptyPattern}"/>
 
-                        <CheckBox Name="cbCheckEncoding" Margin="3" Content="{l:Loc Key='Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly'}"
-                                  IsChecked="{Binding Path=DetectEncodingForFileNamePattern}" />
+                        <CheckBox Name="cbCheckEncoding" Margin="3"
+                                  Content="{l:Loc Key='Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly'}"
+                                  IsChecked="{Binding Path=DetectEncodingForFileNamePattern}"/>
 
-                        <CheckBox Name="cbExpandResult" Margin="3" Content="{l:Loc Key='Options_ShowResultsTreeExpanded'}"
+                        <CheckBox Name="cbExpandResult" Margin="3" 
+                                  Content="{l:Loc Key='Options_ShowResultsTreeExpanded'}"
                                   IsChecked="{Binding Path=AutoExpandSearchTree}" />
 
-                        <CheckBox Name="cbShowMatchVerbose" Margin="3" Content="{l:Loc Key='Options_ShowVerboseMatchCount'}"
+                        <CheckBox Name="cbShowMatchVerbose" Margin="3" 
+                                  Content="{l:Loc Key='Options_ShowVerboseMatchCount'}"
                                   IsChecked="{Binding Path=ShowVerboseMatchCount}" />
 
-                        <CheckBox Name="cbShowFileInfoToolTips" Margin="3" Content="{l:Loc Key='Options_ShowFileInfoToolTips'}"
+                        <CheckBox Name="cbShowFileInfoToolTips" Margin="3" 
+                                  Content="{l:Loc Key='Options_ShowFileInfoToolTips'}"
                                   IsChecked="{Binding Path=ShowFileInfoTooltips}" />
 
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="{l:Loc Key='Options_HexSearchResultLineLength'}"/>
+                            <ComboBox Margin="3"
+                                ItemsSource="{Binding Path=HexLengthOptions}"
+                                Width="60"
+                                SelectedValue="{Binding Path=HexResultByteLength, Mode=TwoWay}"/>
+                        </StackPanel>
                     </StackPanel>
                 </GroupBox>
 

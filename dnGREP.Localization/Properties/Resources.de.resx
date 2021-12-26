@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -139,7 +139,7 @@
     <value>Dateinsystem indizieren, lokale Dateien ersatzweise</value>
   </data>
   <data name="About_JsonFrameworkForNET" xml:space="preserve">
-    <value>Json Framework für .NET</value>
+    <value>JSON Framework für .NET</value>
   </data>
   <data name="About_LibraryForReadingArchiveFiles" xml:space="preserve">
     <value>Lese-Bibliothek für Archive Dateien</value>
@@ -244,7 +244,7 @@
     <value>Alles</value>
   </data>
   <data name="BookmarkDetails_PatternType_Regex" xml:space="preserve">
-    <value>_Regex</value>
+    <value>_Regular expression</value>
   </data>
   <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
     <value>Ersetze mit:</value>
@@ -256,7 +256,7 @@
     <value>Suche in Archiven</value>
   </data>
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
-    <value>Hex</value>
+    <value>Byte</value>
   </data>
   <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
     <value>Phonetisch</value>
@@ -271,7 +271,7 @@
     <value>Lese Dateien binär und suche nach Bytes im hexadezimal Format: 68 65 78 20</value>
   </data>
   <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
-    <value>_Regex</value>
+    <value>_Regular expression</value>
   </data>
   <data name="BookmarkDetails_SearchType_RegularExpressionSearch" xml:space="preserve">
     <value>Suche mit regulären Ausdrücken</value>
@@ -717,7 +717,7 @@ Argumente:
     <value>_Mehrzeilig</value>
   </data>
   <data name="Main_OpenFolder" xml:space="preserve">
-    <value>...</value>
+    <value>…</value>
   </data>
   <data name="Main_PastDateTo" xml:space="preserve">
     <value>zu</value>
@@ -735,7 +735,7 @@ Argumente:
     <value>Alles</value>
   </data>
   <data name="Main_PatternType_Regex" xml:space="preserve">
-    <value>_Regex</value>
+    <value>_Regular expression</value>
   </data>
   <data name="Main_PreviewFile" xml:space="preserve">
     <value>Datei_vorschau</value>
@@ -777,7 +777,7 @@ Argumente:
     <value>{0} ({1} Fundstellen)</value>
   </data>
   <data name="Main_ResultList_CountMatchesOnLines" xml:space="preserve">
-    <value>{0} ({1}Fundstellen in {2} Zeilen)</value>
+    <value>{0} ({1} Fundstellen in {2} Zeilen)</value>
   </data>
   <data name="Main_ResultList_MatchToolTip1" xml:space="preserve">
     <value>Übereinstimmung {0}{1}{2}</value>
@@ -864,7 +864,7 @@ Argumente:
     <value>Suche paralle_l</value>
   </data>
   <data name="Main_SearchType_Hex" xml:space="preserve">
-    <value>Hex</value>
+    <value>Byte</value>
   </data>
   <data name="Main_SearchType_Phonetic" xml:space="preserve">
     <value>Phonetisch</value>
@@ -879,7 +879,7 @@ Argumente:
     <value>Lese Dateien binär und suche nach Bytes im hexadezimal Format: 68 65 78 20</value>
   </data>
   <data name="Main_SearchType_Regex" xml:space="preserve">
-    <value>_Regex</value>
+    <value>_Regular expression</value>
   </data>
   <data name="Main_SearchType_RegularExpressionSearch" xml:space="preserve">
     <value>Suche mit regulären Ausdrücken</value>
@@ -999,10 +999,10 @@ Argumente:
     <value>Hex Zeichen ist OK</value>
   </data>
   <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">
-    <value>Regex ist nicht gültig!</value>
+    <value>Regular Expression ist nicht gültig!</value>
   </data>
   <data name="Main_Validation_RegexIsOK" xml:space="preserve">
-    <value>Regex ist OK!</value>
+    <value>Regular Expression ist OK!</value>
   </data>
   <data name="Main_Validation_XPathIsNotValid" xml:space="preserve">
     <value>XPtah ist nicht gültig!</value>
@@ -1014,7 +1014,7 @@ Argumente:
     <value>_Ganze Wörter</value>
   </data>
   <data name="Main_WindowTitle" xml:space="preserve">
-    <value>{0} in "{1}" - dnGREP</value>
+    <value>{0} in "{1}" - dnGrep</value>
   </data>
   <data name="Main_WrapText" xml:space="preserve">
     <value>Textumbruch</value>
@@ -1098,7 +1098,7 @@ Argumente:
     <value>Neue Version</value>
   </data>
   <data name="MessageBox_NewVersionOfDnGREP0IsAvailableForDownload" xml:space="preserve">
-    <value>Neue Version von dnGREP ({0}) steht bereit für den Download.</value>
+    <value>Neue Version von dnGrep ({0}) steht bereit für den Download.</value>
   </data>
   <data name="MessageBox_PleaseSelectAnotherDirectoryAndTryAgain" xml:space="preserve">
     <value>Bitte ein anderes Verzeichnis wählen und erneut versuchen.</value>
@@ -1380,7 +1380,7 @@ Argumente:
     <value>Vorschautool für Übersetzer</value>
   </data>
   <data name="Options_RegexOptions" xml:space="preserve">
-    <value>Regex Optionen</value>
+    <value>Regular Expression Optionen</value>
   </data>
   <data name="Options_Reload" xml:space="preserve">
     <value>neu laden</value>
@@ -1590,7 +1590,7 @@ Argumente:
     <value>Nicht</value>
   </data>
   <data name="Replace_ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
-    <value>Diese Datei enthält zu viele Fundstellen für eine einzelne Ersetzung. Um Alle zu ersetzen, klicken Sie auf 'In Datei ersetzen'</value>
+    <value>Diese Datei enthält zu viele Fundstellen für eine einzelne Ersetzung. Um Alle zu ersetzen, klicken Sie auf 'Ersetze in der Datei'</value>
   </data>
   <data name="Replace_Title" xml:space="preserve">
     <value>Text ersetzen</value>
@@ -1698,7 +1698,7 @@ Argumente:
     <value>Benutze Everything Index Suche</value>
   </data>
   <data name="ReportSummary_UsingRegexFilePattern" xml:space="preserve">
-    <value>Benutze RegEx für Dateisuchmuster</value>
+    <value>Benutze Regular Expression für Dateisuchmuster</value>
   </data>
   <data name="ReportSummary_UsingTypeOfSeach" xml:space="preserve">
     <value>Benutze {0} Suche</value>
@@ -1755,7 +1755,7 @@ Argumente:
     <value>Phonetisch</value>
   </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">
-    <value>_Regex</value>
+    <value>_Regular Expression</value>
   </data>
   <data name="Test_SearchType_Text" xml:space="preserve">
     <value>_Text</value>
@@ -1788,10 +1788,10 @@ Argumente:
     <value>{1,3} sucht 1 bis 3 Zeichen</value>
   </data>
   <data name="TTA7_ForMoreRegexPatternsHitF1" xml:space="preserve">
-    <value>Für mehr Regex Suchmuster drücke F1 (Hilfe)</value>
+    <value>Für mehr Regular Expression Suchmuster drücke F1 (Hilfe)</value>
   </data>
   <data name="TTB1_ReplacesEntireRegex" xml:space="preserve">
-    <value>$&amp; ersetzt die gesamte Regex</value>
+    <value>$&amp; ersetzt die gesamte Regular Expression</value>
   </data>
   <data name="TTB2_InsertsTheTextMatchedIntoTheReplacementText" xml:space="preserve">
     <value>$1, $2, $3, etc... fügt die mit Klammern eingeschlossenen Fundstelle(n) in den durchsuchten Text ein</value>
@@ -1816,5 +1816,25 @@ Argumente:
   </data>
   <data name="Window_RestoreDown" xml:space="preserve">
     <value>verkleinern</value>
+  </data>
+  <data name="Options_HexSearchResultLineLength" xml:space="preserve">
+    <value>Byte search result line length</value>
+    <comment>Options dialog, results options combo box label</comment>
+  </data>
+  <data name="Options_FilesAndIndividualMatches" xml:space="preserve">
+    <value>files and individual matches</value>
+    <comment>Options dialog, Replace layout option radio button label (accel)</comment>
+  </data>
+  <data name="Options_FilesOnly" xml:space="preserve">
+    <value>files only</value>
+    <comment>Options dialog, Replace window layout radio button label (accel)</comment>
+  </data>
+  <data name="Options_ReplaceDialogLayout" xml:space="preserve">
+    <value>Replace window layout</value>
+    <comment>Options dialog, replace view options label</comment>
+  </data>
+  <data name="Replace_NumberOfMatchesMarkedForReplacement" xml:space="preserve">
+    <value>{0} of {1} matches marked for replacement</value>
+    <comment>Replace window, file name progress line: {0} is number of matches marked for replacement; {1} is the number of matches found in the current file</comment>
   </data>
 </root>

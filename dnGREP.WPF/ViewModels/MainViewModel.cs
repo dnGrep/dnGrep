@@ -33,6 +33,8 @@ namespace dnGREP.WPF
         private Brush highlightForeground;
         private Brush highlightBackground;
 
+        private readonly string enQuad = char.ConvertFromUtf32(0x2000);
+
         public MainViewModel()
             : base()
         {
@@ -1051,14 +1053,14 @@ namespace dnGREP.WPF
                 {
                     MessageBox.Show(Resources.MessageBox_CustomEditorFileOpenError + Environment.NewLine +
                         Resources.MessageBox_CheckEditorPath,
-                        Resources.MessageBox_DnGrep, 
+                        Resources.MessageBox_DnGrep,
                         MessageBoxButton.OK, MessageBoxImage.Error,
                         MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                 }
                 else
                 {
                     MessageBox.Show(Resources.MessageBox_ErrorOpeningFile + App.LogDir,
-                        Resources.MessageBox_DnGrep, 
+                        Resources.MessageBox_DnGrep,
                         MessageBoxButton.OK, MessageBoxImage.Error,
                         MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                 }
@@ -1115,14 +1117,14 @@ namespace dnGREP.WPF
                 {
                     MessageBox.Show(Resources.MessageBox_CustomEditorFileOpenError + Environment.NewLine +
                         Resources.MessageBox_CheckEditorPath,
-                        Resources.MessageBox_DnGrep, 
+                        Resources.MessageBox_DnGrep,
                         MessageBoxButton.OK, MessageBoxImage.Error,
                         MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                 }
                 else
                 {
                     MessageBox.Show(Resources.MessageBox_ErrorOpeningFile + App.LogDir,
-                        Resources.MessageBox_DnGrep, 
+                        Resources.MessageBox_DnGrep,
                         MessageBoxButton.OK, MessageBoxImage.Error,
                         MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                 }
@@ -1250,7 +1252,7 @@ namespace dnGREP.WPF
                             catch (ArgumentException regException)
                             {
                                 MessageBox.Show(Resources.MessageBox_IncorrectPattern + regException.Message,
-                                    Resources.MessageBox_DnGrep, 
+                                    Resources.MessageBox_DnGrep,
                                     MessageBoxButton.OK, MessageBoxImage.Warning,
                                     MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                                 e.Result = null;
@@ -1351,14 +1353,14 @@ namespace dnGREP.WPF
                 if (isSearch)
                 {
                     MessageBox.Show(Resources.MessageBox_SearchFailedError + App.LogDir,
-                        Resources.MessageBox_DnGrep, 
+                        Resources.MessageBox_DnGrep,
                         MessageBoxButton.OK, MessageBoxImage.Error,
                         MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                 }
                 else
                 {
                     MessageBox.Show(Resources.MessageBox_ReplaceFailedError + App.LogDir,
-                        Resources.MessageBox_DnGrep, 
+                        Resources.MessageBox_DnGrep,
                         MessageBoxButton.OK, MessageBoxImage.Error,
                         MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                 }
@@ -1389,7 +1391,7 @@ namespace dnGREP.WPF
             {
                 logger.Error(ex, "Failure in search progress changed");
                 MessageBox.Show(Resources.MessageBox_SearchOrReplaceFailed + App.LogDir,
-                    Resources.MessageBox_DnGrep, 
+                    Resources.MessageBox_DnGrep,
                     MessageBoxButton.OK, MessageBoxImage.Error,
                     MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
             }
@@ -1470,7 +1472,7 @@ namespace dnGREP.WPF
 
                         if (IsEverythingSearchMode && Everything.EverythingSearch.CountMissingFiles > 0)
                         {
-                            StatusMessage += "  " + TranslationSource.Format(Resources.Main_Status_Excluded0MissingFiles, Everything.EverythingSearch.CountMissingFiles);
+                            StatusMessage += enQuad + TranslationSource.Format(Resources.Main_Status_Excluded0MissingFiles, Everything.EverythingSearch.CountMissingFiles);
                         }
                     }
                     else
@@ -1496,7 +1498,7 @@ namespace dnGREP.WPF
                         {
                             StatusMessage = Resources.Main_Status_ReplaceFailed;
                             MessageBox.Show(Resources.MessageBox_ReplaceFailedError + App.LogDir,
-                                Resources.MessageBox_DnGrep, 
+                                Resources.MessageBox_DnGrep,
                                 MessageBoxButton.OK, MessageBoxImage.Error,
                                 MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                         }
@@ -1524,7 +1526,7 @@ namespace dnGREP.WPF
                         Environment.NewLine + Environment.NewLine +
                         outdatedEngines + Environment.NewLine + Environment.NewLine +
                         Resources.MessageBox_DefaultEngineWasUsedInstead,
-                        Resources.MessageBox_DnGrep + "  " + Resources.MessageBox_PluginErrors, 
+                        Resources.MessageBox_DnGrep + " " + Resources.MessageBox_PluginErrors,
                         MessageBoxButton.OK, MessageBoxImage.Warning,
                         MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                 }
@@ -1533,7 +1535,7 @@ namespace dnGREP.WPF
             {
                 logger.Error(ex, "Failure in search complete update");
                 MessageBox.Show(Resources.MessageBox_SearchOrReplaceFailed + App.LogDir,
-                    Resources.MessageBox_DnGrep, 
+                    Resources.MessageBox_DnGrep,
                     MessageBoxButton.OK, MessageBoxImage.Error,
                     MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
             }
@@ -1608,7 +1610,7 @@ namespace dnGREP.WPF
                 if (!PathSearchText.IsValidPath)
                 {
                     MessageBox.Show(TranslationSource.Format(Resources.MessageBox_SearchPathInTheFieldIsNotValid, SearchTextBoxLabel),
-                        Resources.MessageBox_DnGrep, 
+                        Resources.MessageBox_DnGrep,
                         MessageBoxButton.OK, MessageBoxImage.Warning,
                         MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                     return;
@@ -1665,7 +1667,7 @@ namespace dnGREP.WPF
                     if (!string.IsNullOrWhiteSpace(msg))
                     {
                         MessageBox.Show(TranslationSource.Format(Resources.MessageBox_TheFilePattern0IsNotAValidRegularExpression12, pattern, Environment.NewLine, msg),
-                            Resources.MessageBox_DnGrep, 
+                            Resources.MessageBox_DnGrep,
                             MessageBoxButton.OK, MessageBoxImage.Error,
                             MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                         return false;
@@ -1681,7 +1683,7 @@ namespace dnGREP.WPF
                     if (!string.IsNullOrWhiteSpace(msg))
                     {
                         MessageBox.Show(TranslationSource.Format(Resources.MessageBox_TheFilePattern0IsNotAValidRegularExpression12, pattern, Environment.NewLine, msg),
-                            Resources.MessageBox_DnGrep, 
+                            Resources.MessageBox_DnGrep,
                             MessageBoxButton.OK, MessageBoxImage.Error,
                             MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                         return false;
@@ -1712,7 +1714,7 @@ namespace dnGREP.WPF
                 if (string.IsNullOrEmpty(ReplaceWith))
                 {
                     if (MessageBox.Show(Resources.MessageBox_AreYouSureYouWantToReplaceSearchPatternWithEmptyString,
-                        Resources.MessageBox_DnGrep + "  " + Resources.MessageBox_Replace, 
+                        Resources.MessageBox_DnGrep + " " + Resources.MessageBox_Replace,
                         MessageBoxButton.YesNo, MessageBoxImage.Question,
                         MessageBoxResult.Yes, TranslationSource.Instance.FlowDirection) != MessageBoxResult.Yes)
                     {
@@ -1731,7 +1733,7 @@ namespace dnGREP.WPF
                     {
                         sb.AppendLine(" - " + new FileInfo(fileName).Name);
                     }
-                    if (MessageBox.Show(sb.ToString(), Resources.MessageBox_DnGrep + "  " + Resources.MessageBox_Replace,
+                    if (MessageBox.Show(sb.ToString(), Resources.MessageBox_DnGrep + " " + Resources.MessageBox_Replace,
                         MessageBoxButton.YesNo, MessageBoxImage.Question,
                         MessageBoxResult.Yes, TranslationSource.Instance.FlowDirection) != MessageBoxResult.Yes)
                     {
@@ -1794,8 +1796,8 @@ namespace dnGREP.WPF
             {
                 MessageBoxResult response = MessageBox.Show(
                     Resources.MessageBox_UndoWillRevertModifiedFiles,
-                    Resources.MessageBox_DnGrep + "  " + Resources.MessageBox_Undo, 
-                    MessageBoxButton.YesNo, MessageBoxImage.Warning, 
+                    Resources.MessageBox_DnGrep + " " + Resources.MessageBox_Undo,
+                    MessageBoxButton.YesNo, MessageBoxImage.Warning,
                     MessageBoxResult.No, TranslationSource.Instance.FlowDirection);
                 if (response == MessageBoxResult.Yes)
                 {
@@ -1804,7 +1806,7 @@ namespace dnGREP.WPF
                     if (result)
                     {
                         MessageBox.Show(Resources.MessageBox_FilesHaveBeenSuccessfullyReverted,
-                            Resources.MessageBox_DnGrep + "  " + Resources.MessageBox_Undo, 
+                            Resources.MessageBox_DnGrep + " " + Resources.MessageBox_Undo,
                             MessageBoxButton.OK, MessageBoxImage.Information,
                             MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                         Utils.DeleteTempFolder();
@@ -1813,7 +1815,7 @@ namespace dnGREP.WPF
                     else
                     {
                         MessageBox.Show(Resources.MessageBox_ThereWasAnErrorRevertingFiles + App.LogDir,
-                            Resources.MessageBox_DnGrep + "  " + Resources.MessageBox_Undo, 
+                            Resources.MessageBox_DnGrep + " " + Resources.MessageBox_Undo,
                             MessageBoxButton.OK, MessageBoxImage.Error,
                             MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                     }
@@ -1931,7 +1933,7 @@ namespace dnGREP.WPF
             {
                 logger.Error(ex, "Error saving options");
                 MessageBox.Show(Resources.MessageBox_ThereWasAnErrorSavingOptions + App.LogDir,
-                    Resources.MessageBox_DnGrep, 
+                    Resources.MessageBox_DnGrep,
                     MessageBoxButton.OK, MessageBoxImage.Error,
                     MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
             }
@@ -2141,7 +2143,7 @@ namespace dnGREP.WPF
                         {
                             MessageBox.Show(Resources.MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory + Environment.NewLine +
                                 Resources.MessageBox_PleaseSelectAnotherDirectoryAndTryAgain,
-                                Resources.MessageBox_DnGrep + "  " + Resources.MessageBox_CopyFiles, 
+                                Resources.MessageBox_DnGrep + " " + Resources.MessageBox_CopyFiles,
                                 MessageBoxButton.OK, MessageBoxImage.Warning,
                                 MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                             return;
@@ -2158,7 +2160,7 @@ namespace dnGREP.WPF
                             count = Utils.CopyFiles(fileList, destinationFolder, OverwriteFile.Prompt);
                         }
                         MessageBox.Show(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyCopied, count),
-                            Resources.MessageBox_DnGrep + "  " + Resources.MessageBox_CopyFiles,
+                            Resources.MessageBox_DnGrep + " " + Resources.MessageBox_CopyFiles,
                             MessageBoxButton.OK, MessageBoxImage.Information,
                             MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                     }
@@ -2166,7 +2168,7 @@ namespace dnGREP.WPF
                     {
                         logger.Error(ex, "Error copying files");
                         MessageBox.Show(Resources.MessageBox_ThereWasAnErrorCopyingFiles + App.LogDir,
-                            Resources.MessageBox_DnGrep, 
+                            Resources.MessageBox_DnGrep,
                             MessageBoxButton.OK, MessageBoxImage.Error,
                             MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                     }
@@ -2192,7 +2194,7 @@ namespace dnGREP.WPF
                         {
                             MessageBox.Show(Resources.MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory + Environment.NewLine +
                                 Resources.MessageBox_PleaseSelectAnotherDirectoryAndTryAgain,
-                                Resources.MessageBox_DnGrep + "  " + Resources.MessageBox_MoveFiles, 
+                                Resources.MessageBox_DnGrep + " " + Resources.MessageBox_MoveFiles,
                                 MessageBoxButton.OK, MessageBoxImage.Warning,
                                 MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                             return;
@@ -2209,7 +2211,7 @@ namespace dnGREP.WPF
                             count = Utils.MoveFiles(fileList, destinationFolder, OverwriteFile.Prompt);
                         }
                         MessageBox.Show(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyMoved, count),
-                            Resources.MessageBox_DnGrep + "  " + Resources.MessageBox_MoveFiles, 
+                            Resources.MessageBox_DnGrep + " " + Resources.MessageBox_MoveFiles,
                             MessageBoxButton.OK, MessageBoxImage.Information,
                             MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                     }
@@ -2217,7 +2219,7 @@ namespace dnGREP.WPF
                     {
                         logger.Error(ex, "Error moving files");
                         MessageBox.Show(Resources.MessageBox_ThereWasAnErrorMovingFiles + App.LogDir,
-                            Resources.MessageBox_DnGrep, 
+                            Resources.MessageBox_DnGrep,
                             MessageBoxButton.OK, MessageBoxImage.Error,
                             MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                     }
@@ -2236,7 +2238,7 @@ namespace dnGREP.WPF
                 {
                     if (MessageBox.Show(Resources.MessageBox_YouAreAboutToDeleteFilesFoundDuringSearch + Environment.NewLine +
                         Resources.MessageBox_AreYouSureYouWantToContinue,
-                        Resources.MessageBox_DnGrep + "  " + Resources.MessageBox_DeleteFiles, 
+                        Resources.MessageBox_DnGrep + " " + Resources.MessageBox_DeleteFiles,
                         MessageBoxButton.YesNo, MessageBoxImage.Warning,
                         MessageBoxResult.No, TranslationSource.Instance.FlowDirection) != MessageBoxResult.Yes)
                     {
@@ -2245,7 +2247,7 @@ namespace dnGREP.WPF
 
                     int count = Utils.DeleteFiles(SearchResults.GetList());
                     MessageBox.Show(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyDeleted, count),
-                        Resources.MessageBox_DnGrep + "  " + Resources.MessageBox_DeleteFiles, 
+                        Resources.MessageBox_DnGrep + " " + Resources.MessageBox_DeleteFiles,
                         MessageBoxButton.OK, MessageBoxImage.Information,
                         MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                 }
@@ -2253,7 +2255,7 @@ namespace dnGREP.WPF
                 {
                     logger.Error(ex, "Error deleting files");
                     MessageBox.Show(Resources.MessageBox_ThereWasAnErrorDeletingFiles + App.LogDir,
-                        Resources.MessageBox_DnGrep, 
+                        Resources.MessageBox_DnGrep,
                         MessageBoxButton.OK, MessageBoxImage.Error,
                         MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                 }
@@ -2331,7 +2333,7 @@ namespace dnGREP.WPF
                     {
                         logger.Error(ex, "Error creating results file");
                         MessageBox.Show(Resources.MessageBox_ThereWasAnErrorCreatingTheFile + App.LogDir,
-                            Resources.MessageBox_DnGrep, 
+                            Resources.MessageBox_DnGrep,
                             MessageBoxButton.OK, MessageBoxImage.Error,
                             MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                     }
@@ -2434,7 +2436,7 @@ namespace dnGREP.WPF
             List<string> options = new List<string>();
 
             sb.Append(Resources.ReportSummary_SearchFor).Append(" '").Append(SearchFor).AppendLine("'")
-              .AppendFormat(Resources.ReportSummary_UsingTypeOfSeach, TypeOfSearch.ToString().ToLower());
+              .AppendFormat(Resources.ReportSummary_UsingTypeOfSeach, TypeOfSearch.ToLocalizedString());
 
             if (CaseSensitive) options.Add(Resources.ReportSummary_CaseSensitive);
             if (WholeWord) options.Add(Resources.ReportSummary_WholeWord);
@@ -2470,12 +2472,12 @@ namespace dnGREP.WPF
                 sb.AppendFormat(Resources.ReportSummary_SizeFrom0To1KB, SizeFrom, SizeTo).AppendLine();
 
             if (UseFileDateFilter != FileDateFilter.None && TypeOfTimeRangeFilter == FileTimeRange.Dates)
-                sb.AppendFormat(Resources.ReportSummary_Type0DateFrom1To2, UseFileDateFilter.ToString(),
+                sb.AppendFormat(Resources.ReportSummary_Type0DateFrom1To2, UseFileDateFilter.ToLocalizedString(),
                     StartDate.HasValue ? StartDate.Value.ToShortDateString() : "*",
                     EndDate.HasValue ? EndDate.Value.ToShortDateString() : "*").AppendLine();
 
             if (UseFileDateFilter != FileDateFilter.None && TypeOfTimeRangeFilter == FileTimeRange.Hours)
-                sb.AppendFormat(Resources.ReportSummary_Type0DateInPast1To2Hours, UseFileDateFilter.ToString(), HoursFrom, HoursTo)
+                sb.AppendFormat(Resources.ReportSummary_Type0DateInPast1To2Hours, UseFileDateFilter.ToLocalizedString(), HoursFrom, HoursTo)
                   .AppendLine();
 
             if (CodePage != -1)
@@ -2502,7 +2504,7 @@ namespace dnGREP.WPF
             {
                 logger.Error(ex, "Error running test pattern view");
                 MessageBox.Show(Resources.MessageBox_ThereWasAnErrorRunningRegexTest + App.LogDir,
-                    Resources.MessageBox_DnGrep, 
+                    Resources.MessageBox_DnGrep,
                     MessageBoxButton.OK, MessageBoxImage.Error,
                     MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
             }
@@ -2528,7 +2530,7 @@ namespace dnGREP.WPF
                             {
                                 if (MessageBox.Show(TranslationSource.Format(Resources.MessageBox_NewVersionOfDnGREP0IsAvailableForDownload, version) +
                                     Environment.NewLine + Resources.MessageBox_WouldYouLikeToDownloadItNow,
-                                    Resources.MessageBox_DnGrep + "  " + Resources.MessageBox_NewVersion, 
+                                    Resources.MessageBox_DnGrep + " " + Resources.MessageBox_NewVersion,
                                     MessageBoxButton.YesNo, MessageBoxImage.Information,
                                     MessageBoxResult.Yes, TranslationSource.Instance.FlowDirection) == MessageBoxResult.Yes)
                                 {
@@ -2710,7 +2712,7 @@ namespace dnGREP.WPF
                     if (string.IsNullOrWhiteSpace(tempFile))
                     {
                         MessageBox.Show(Resources.MessageBox_FailedToExtractFileFromArchive + App.LogDir,
-                            Resources.MessageBox_DnGrep, 
+                            Resources.MessageBox_DnGrep,
                             MessageBoxButton.OK, MessageBoxImage.Error,
                             MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                         return;
