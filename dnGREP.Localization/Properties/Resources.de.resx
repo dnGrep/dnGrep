@@ -1197,7 +1197,7 @@ Argumente:
     <value>Rückgängig machen</value>
   </data>
   <data name="MessageBox_UndoWillRevertModifiedFiles" xml:space="preserve">
-    <value>Undo will revert modified file(s) back to their original state. Any changes made to the file(s) after the replace will be overwritten. Continue?</value>
+    <value>Rückgängig machen versetzt die geänderte(n) Datei(en) wieder in ihren ursprünglichen Zustand zurück. Alle Änderungen, die nach dem Ersetzen an der/den Datei(en) vorgenommen wurden, werden überschrieben. Sind Sie sicher, dass Sie fortfahren möchten?</value>
   </data>
   <data name="MessageBox_WindowTitleIsName" xml:space="preserve">
     <value>Fenster Titel: {0}</value>
