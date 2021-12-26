@@ -1526,7 +1526,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Message box title for: Main window Undo</comment>
   </data>
   <data name="MessageBox_UndoWillRevertModifiedFiles" xml:space="preserve">
-    <value>Undo will revert modified file(s) back to their original state. Any changes made to the file(s) after the replace will be overwritten. Continue?</value>
+    <value>Отмена вернет измененные файлы в исходное состояние. Любые изменения, внесенные в файл(ы) после замены, будут перезаписаны. Вы уверены, что хотите продолжить?</value>
     <comment>Message box text for: Main window Undo</comment>
   </data>
   <data name="MessageBox_WindowTitleIsName" xml:space="preserve">
