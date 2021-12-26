@@ -878,23 +878,33 @@ namespace dnGREP.WPF
                 foreach (GrepMatch m in lineMatches)
                 {
                     Parent.MatchIdx++;
+                    int matchStartLocation = m.StartLocation;
+                    int matchLength = m.Length;
+                    if (matchStartLocation < counter)
+                    {
+                        // overlapping match: continue highlight from previous end
+                        int overlap = counter - matchStartLocation;
+                        matchStartLocation = counter;
+                        matchLength -= overlap;
+                    }
+
                     try
                     {
                         string regLine = null;
                         string fmtLine = null;
-                        if (m.StartLocation < fullLine.Length)
+                        if (matchStartLocation < fullLine.Length)
                         {
-                            regLine = fullLine.Substring(counter, m.StartLocation - counter);
+                            regLine = fullLine.Substring(counter, matchStartLocation - counter);
                         }
 
-                        if (m.StartLocation + m.Length <= fullLine.Length)
+                        if (matchStartLocation + matchLength <= fullLine.Length)
                         {
-                            fmtLine = fullLine.Substring(m.StartLocation, m.Length);
+                            fmtLine = fullLine.Substring(matchStartLocation, matchLength);
                         }
-                        else if (fullLine.Length > m.StartLocation)
+                        else if (fullLine.Length > matchStartLocation)
                         {
                             // match may include the non-printing newline chars at the end of the line: don't overflow the length
-                            fmtLine = fullLine.Substring(m.StartLocation, fullLine.Length - m.StartLocation);
+                            fmtLine = fullLine.Substring(matchStartLocation, fullLine.Length - matchStartLocation);
                         }
                         else
                         {
@@ -928,14 +938,20 @@ namespace dnGREP.WPF
                     }
                     catch
                     {
+                        // on error show the whole line with no highlights
+                        paragraph.Inlines.Clear();
                         Run regularRun = new Run(fullLine);
                         paragraph.Inlines.Add(regularRun);
+                        // set position to end of line
+                        matchStartLocation = fullLine.Length;
+                        matchLength = 0;
                     }
                     finally
                     {
-                        counter = m.StartLocation + m.Length;
+                        counter = matchStartLocation + matchLength;
                     }
                 }
+
                 if (counter < fullLine.Length)
                 {
                     try
@@ -950,6 +966,7 @@ namespace dnGREP.WPF
                         paragraph.Inlines.Add(regularRun);
                     }
                 }
+
                 if (line.LineText.Length > MaxLineLength)
                 {
                     string msg = TranslationSource.Format(Resources.Main_ResultList_CountAdditionalCharacters, line.LineText.Length - MaxLineLength);
