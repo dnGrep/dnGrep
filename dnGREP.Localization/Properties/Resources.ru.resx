@@ -59,7 +59,7 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -971,7 +971,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
   </data>
   <data name="Main_ResultList_MatchToolTip1" xml:space="preserve">
     <value>Совпадение {0}{1}{2}</value>
-    
     <comment>Main window results, capture group tooltip: {0} is the match index; {1} is a new line; {2} is text of in the group</comment>
   </data>
   <data name="Main_ResultList_MatchToolTip2" xml:space="preserve">
@@ -1123,7 +1122,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window, search type XPath tooltip</comment>
   </data>
   <data name="Main_SelectADate" xml:space="preserve">
-    <value>Выбрать дату -></value>
+    <value>Выбрать дату -&gt;</value>
     <comment>Main window, filter files by date, date picker watermark</comment>
   </data>
   <data name="Main_ShowResultOptions" xml:space="preserve">
