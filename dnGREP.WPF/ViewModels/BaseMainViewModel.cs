@@ -13,7 +13,7 @@ using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
 {
-    public class BaseMainViewModel : ViewModelBase, IDataErrorInfo
+    public class BaseMainViewModel : CultureAwareViewModel, IDataErrorInfo
     {
         public static readonly int FastBookmarkCapacity = 20;
         public static readonly string STAR = "*";
@@ -437,7 +437,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string searchTextBoxLabel = Resources.Folder_;
+        private string searchTextBoxLabel = Resources.Main_Folder;
         public string SearchTextBoxLabel
         {
             get { return searchTextBoxLabel; }
@@ -1072,7 +1072,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private string windowTitle = Resources.DnGREP_Title;
+        private string windowTitle = Resources.Main_DnGREP_Title;
         public string WindowTitle
         {
             get { return windowTitle; }
@@ -1246,13 +1246,13 @@ namespace dnGREP.WPF
                         UseGitignore = false;
                         IsEverythingSearchMode = true;
                         PatternColumnWidth = AUTO;
-                        SearchTextBoxLabel = Resources.EverythingSearch;
+                        SearchTextBoxLabel = Resources.Main_EverythingSearch;
                     }
                     else
                     {
                         IsEverythingSearchMode = false;
                         PatternColumnWidth = STAR;
-                        SearchTextBoxLabel = Resources.Folder_;
+                        SearchTextBoxLabel = Resources.Main_Folder;
                     }
 
                     if (TypeOfFileSearch != FileSearchType.Regex)
@@ -1268,25 +1268,25 @@ namespace dnGREP.WPF
             {
                 var tempList = new List<string>();
                 if (!IncludeSubfolder || (IncludeSubfolder && MaxSubfolderDepth == 0))
-                    tempList.Add(Resources.NoSubfolders);
+                    tempList.Add(Resources.Main_FilterSummary_NoSubfolders);
                 if (IncludeSubfolder && MaxSubfolderDepth > 0)
-                    tempList.Add(TranslationSource.Format(Resources.MaxFolderDepth, MaxSubfolderDepth));
+                    tempList.Add(TranslationSource.Format(Resources.Main_FilterSummary_MaxFolderDepth, MaxSubfolderDepth));
                 if (!IncludeHidden)
-                    tempList.Add(Resources.NoHidden);
+                    tempList.Add(Resources.Main_FilterSummary_NoHidden);
                 if (!IncludeBinary)
-                    tempList.Add(Resources.NoBinary);
+                    tempList.Add(Resources.Main_FilterSummary_NoBinary);
                 if (!FollowSymlinks)
-                    tempList.Add(Resources.NoSymlinks);
+                    tempList.Add(Resources.Main_FilterSummary_NoSymlinks);
                 if (UseFileSizeFilter == FileSizeFilter.Yes)
-                    tempList.Add(Resources.BySize);
+                    tempList.Add(Resources.Main_FilterSummary_BySize);
                 if (UseFileDateFilter == FileDateFilter.Modified)
-                    tempList.Add(Resources.ByModifiedDate);
+                    tempList.Add(Resources.Main_FilterSummary_ByModifiedDate);
                 if (UseFileDateFilter == FileDateFilter.Created)
-                    tempList.Add(Resources.ByCreatedDate);
+                    tempList.Add(Resources.Main_FilterSummary_ByCreatedDate);
 
                 if (tempList.Count == 0)
                 {
-                    FileFiltersSummary = Resources.AllFiles;
+                    FileFiltersSummary = Resources.Main_FilterSummary_AllFiles;
                 }
                 else
                 {
@@ -1307,8 +1307,8 @@ namespace dnGREP.WPF
                 if (string.IsNullOrWhiteSpace(FileOrFolderPath))
                     WindowTitle = "dnGREP";
                 else
-                    WindowTitle = TranslationSource.Format(Resources.WindowTitle,
-                        string.IsNullOrEmpty(SearchFor) ? Resources.Empty : SearchFor.Replace('\n', ' ').Replace('\r', ' '),
+                    WindowTitle = TranslationSource.Format(Resources.Main_WindowTitle,
+                        string.IsNullOrEmpty(SearchFor) ? Resources.Main_Empty : SearchFor.Replace('\n', ' ').Replace('\r', ' '),
                         FileOrFolderPath);
             }
 
@@ -1352,14 +1352,40 @@ namespace dnGREP.WPF
                         {
                             nav = doc.CreateNavigator();
                             XPathExpression expr = nav.Compile(SearchFor);
-                            ValidationMessage = Resources.XPathIsOK;
+                            ValidationMessage = Resources.Main_Validation_XPathIsOK;
                             IsValidPattern = true;
                         }
                         catch
                         {
-                            ValidationMessage = Resources.XPathIsNotValid;
+                            ValidationMessage = Resources.Main_Validation_XPathIsNotValid;
                             IsValidPattern = false;
                         }
+                    }
+                    else if (TypeOfSearch == SearchType.Hex)
+                    {
+                        string[] parts = SearchFor.TrimEnd().Split(' ');
+                        bool valid = true;
+                        bool hasDigit = false;  // need at least 1 byte specified
+                        foreach (string num in parts)
+                        {
+                            if (num != "?" && num != "??")
+                            {
+                                if (byte.TryParse(num, System.Globalization.NumberStyles.HexNumber, null, out byte result))
+                                {
+                                    hasDigit = true;
+                                }
+                                else
+                                {
+                                    valid = false;
+                                }
+                            }
+                        }
+                        if (!hasDigit)
+                        {
+                            valid = false;
+                        }
+                        ValidationMessage = valid ? Resources.Main_Validation_HexStringIsOK : Resources.Main_Validation_HexStringIsNotValid;
+                        isValidPattern = valid;
                     }
                 }
             }
@@ -1391,9 +1417,6 @@ namespace dnGREP.WPF
                     CanSearchInResults = false;
                 }
             }
-
-            //searchResults
-            searchResults.FolderPath = PathSearchText.BaseFolder;
 
             //btnCancel
             if (name == "CurrentGrepOperation")
@@ -1456,6 +1479,21 @@ namespace dnGREP.WPF
                     IsBooleanOperatorsEnabled = true;
                     IsHighlightGroupsEnabled = true;
                 }
+                else if (TypeOfSearch == SearchType.Hex)
+                {
+                    IsCaseSensitiveEnabled = false;
+                    IsMultilineEnabled = false;
+                    IsSinglelineEnabled = false;
+                    IsWholeWordEnabled = false;
+                    IsBooleanOperatorsEnabled = false;
+                    IsHighlightGroupsEnabled = false;
+                    CaseSensitive = false;
+                    Multiline = false;
+                    Singleline = false;
+                    WholeWord = false;
+                    BooleanOperators = false;
+                    HighlightCaptureGroups = false;
+                }
             }
         }
 
@@ -1464,12 +1502,12 @@ namespace dnGREP.WPF
             try
             {
                 Regex regex = new Regex(pattern);
-                ValidationMessage = Resources.RegexIsOK;
+                ValidationMessage = Resources.Main_Validation_RegexIsOK;
                 IsValidPattern = true;
             }
             catch
             {
-                ValidationMessage = Resources.RegexIsNotValid;
+                ValidationMessage = Resources.Main_Validation_RegexIsNotValid;
                 IsValidPattern = false;
             }
         }

@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using dnGREP.Localization.Properties;
 
 namespace dnGREP.Common
 {
@@ -87,6 +86,81 @@ namespace dnGREP.Common
                 }
             }
             return sb.ToString();
+        }
+
+        public static string ToIso8601Date(this DateTime input)
+        {
+            return input.ToString("yyyyMMdd");
+        }
+
+        public static string ToIso8601DateTime(this DateTime input)
+        {
+            return input.ToString("yyyyMMddTHHmmss");
+        }
+
+        public static string ToIso8601DateTimeWithZone(this DateTime input)
+        {
+            return input.ToString("yyyyMMddTHHmmss.fffzzz");
+        }
+
+        public static string ToLocalizedString(this SearchType typeOfSearch)
+        {
+            string result = string.Empty;
+            switch (typeOfSearch)
+            {
+                case SearchType.XPath:
+                    result = Resources.Main_SearchType_XPath;
+                    break;
+                case SearchType.PlainText:
+                    result = Resources.Main_SearchType_Text;
+                    break;
+                case SearchType.Hex:
+                    result = Resources.Main_SearchType_Hex;
+                    break;
+                case SearchType.Regex:
+                    result = Resources.Main_SearchType_Regex;
+                    break;
+                case SearchType.Soundex:
+                    result = Resources.Main_SearchType_Phonetic;
+                    break;
+            }
+            return result.Replace("_", string.Empty);
+        }
+
+        public static string ToLocalizedString(this FileSearchType fileSearchType)
+        {
+            string result = string.Empty;
+            switch (fileSearchType)
+            {
+                case FileSearchType.Regex:
+                    result = Resources.Main_PatternType_Regex;
+                    break;
+                case FileSearchType.Asterisk:
+                    result = Resources.Main_PatternType_Asterisk;
+                    break;
+                case FileSearchType.Everything:
+                    result = Resources.Main_PatternType_Everything;
+                    break;
+            }
+            return result.Replace("_", string.Empty);
+        }
+
+        public static string ToLocalizedString(this FileDateFilter fileDateFilter)
+        {
+            string result = string.Empty;
+            switch (fileDateFilter)
+            {
+                case FileDateFilter.None:
+                    result = Resources.Main_AllDates;
+                    break;
+                case FileDateFilter.Created:
+                    result = Resources.Main_Created;
+                    break;
+                case FileDateFilter.Modified:
+                    result = Resources.Main_Modified;
+                    break;
+            }
+            return result.Replace("_", string.Empty);
         }
     }
 }

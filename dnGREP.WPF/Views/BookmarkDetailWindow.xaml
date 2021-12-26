@@ -5,7 +5,8 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:my="clr-namespace:dnGREP.WPF"
                  xmlns:l="clr-namespace:dnGREP.Localization;assembly=dnGREP.Localization"
-                 Title="{l:Loc Key='BookmarkDetails'}"
+                 Title="{l:Loc Key='BookmarkDetails_Title'}"
+                 FlowDirection="{Binding CultureFlowDirection}"
                  FontFamily="{Binding ApplicationFontFamily}"
                  FontSize="{Binding DialogFontSize}"
                  SizeToContent="WidthAndHeight"
@@ -55,75 +56,44 @@
                 <ColumnDefinition SharedSizeGroup="A"/>
                 <ColumnDefinition SharedSizeGroup="A"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0" Text="{l:Loc Key='ThisBookmarkAlreadyExists'}" 
+            <TextBlock Grid.Column="0" Text="{l:Loc Key='BookmarkDetails_ThisBookmarkAlreadyExists'}" 
                        Style="{StaticResource labelStyle}"  Margin="0,0,18,0"
                        Visibility="{Binding ElementName=okBtn, Path=IsEnabled, Converter={StaticResource InvBoolToVisibilityConverter}}"/>
-            <Button Grid.Column="1" x:Name="okBtn" Content="{l:Loc Key='OK'}" IsDefault="True" 
+            <Button Grid.Column="1" x:Name="okBtn" Content="{l:Loc Key='BookmarkDetails_OK'}" IsDefault="True" 
                     Command="{Binding SaveCommand}" Click="OkButton_Click" />
-            <Button Grid.Column="2" Content="{l:Loc Key='Cancel_'}" IsCancel="True" />
+            <Button Grid.Column="2" Content="{l:Loc Key='BookmarkDetails_Cancel'}" IsCancel="True" />
         </Grid>
 
         <DockPanel Margin="0,0,0,18">
 
-            <GroupBox Margin="0,0,0,8" DockPanel.Dock="Top" Header="{l:Loc Key='TypeHeader'}">
-                <StackPanel Orientation="Horizontal">
-                    <RadioButton Content="{l:Loc Key='Regex_'}" GroupName="SearchType"
-                                 IsChecked="{Binding TypeOfSearch, ConverterParameter=Regex, Converter={StaticResource ebc}}"
-                                 ToolTip="{l:Loc Key='RegularExpressionSearch'}" />
-                    <RadioButton Content="{l:Loc Key='XPath_'}" GroupName="SearchType"
-                                 IsChecked="{Binding TypeOfSearch, ConverterParameter=XPath, Converter={StaticResource ebc}}"
-                                 ToolTip="{l:Loc Key='XPathSearchXMLDocumentsOnly'}" />
-                    <RadioButton Content="{l:Loc Key='Text_'}" GroupName="SearchType"
-                                 IsChecked="{Binding TypeOfSearch, ConverterParameter=PlainText, Converter={StaticResource ebc}}"
-                                 ToolTip="{l:Loc Key='PlainTextSearch'}" />
-                    <RadioButton Content="{l:Loc Key='Phonetic_'}" GroupName="SearchType"
-                                 IsChecked="{Binding TypeOfSearch, ConverterParameter=Soundex, Converter={StaticResource ebc}}"
-                                 ToolTip="{l:Loc Key='PhoneticSearch'}" />
-                </StackPanel>
-            </GroupBox>
 
-            <TextBlock DockPanel.Dock="Top" Style="{StaticResource labelStyle}" Text="{l:Loc Key='SearchFor'}" />
-            <TextBox DockPanel.Dock="Top" Text="{Binding SearchFor}" />
-
-            <TextBlock DockPanel.Dock="Top" Style="{StaticResource labelStyle}" Text="{l:Loc Key='ReplaceWith'}" />
-            <TextBox DockPanel.Dock="Top" Text="{Binding ReplaceWith}" />
-
-            <StackPanel Margin="0,0,0,16" DockPanel.Dock="Top" Orientation="Horizontal">
-                <CheckBox IsChecked="{Binding CaseSensitive}" IsEnabled="{Binding IsCaseSensitiveEnabled}" Content="{l:Loc Key='CaseSensitive_'}" />
-                <CheckBox IsChecked="{Binding WholeWord}" IsEnabled="{Binding IsWholeWordEnabled}" Content="{l:Loc Key='WholeWord_'}" />
-                <CheckBox IsChecked="{Binding Multiline}" IsEnabled="{Binding IsMultilineEnabled}" Content="{l:Loc Key='Multiline_'}" />
-                <CheckBox IsChecked="{Binding Singleline}" IsEnabled="{Binding IsSinglelineEnabled}" Content="{l:Loc Key='DotAsNewline_'}" />
-                <CheckBox IsChecked="{Binding BooleanOperators}" IsEnabled="{Binding IsBooleanOperatorsEnabled}" Content="{l:Loc Key='Boolean Operators'}" />
-            </StackPanel>
-
-
-            <TextBlock DockPanel.Dock="Top" Style="{StaticResource labelStyle}" Text="{l:Loc Key='FilePattern'}" />
+            <TextBlock DockPanel.Dock="Top" Style="{StaticResource labelStyle}" Text="{l:Loc Key='BookmarkDetails_PatternsToMatch'}" />
             <TextBox DockPanel.Dock="Top" Text="{Binding FilePattern}" />
 
-            <TextBlock DockPanel.Dock="Top" Style="{StaticResource labelStyle}" Text="{l:Loc Key='ExcludePattern'}" />
+            <TextBlock DockPanel.Dock="Top" Style="{StaticResource labelStyle}" Text="{l:Loc Key='BookmarkDetails_PatternsToExclude'}" />
             <TextBox DockPanel.Dock="Top" Text="{Binding IgnoreFilePattern}" />
 
-            <GroupBox Margin="0,3,0,8" DockPanel.Dock="Top" Header="{l:Loc Key='FilePatternType'}">
+            <GroupBox Margin="0,3,0,8" DockPanel.Dock="Top" Header="{l:Loc Key='BookmarkDetails_FilePatternType'}">
                 <StackPanel Orientation="Horizontal">
-                    <RadioButton GroupName="FileSearchType" Content="{l:Loc Key='Regex'}"
+                    <RadioButton GroupName="FileSearchType" Content="{l:Loc Key='BookmarkDetails_PatternType_Regex'}"
                                  IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}"
-                                 ToolTip="{l:Loc Key='ForExampleRegularExpession'}" />
-                    <RadioButton Name="rbFileAsterisk" GroupName="FileSearchType" Content="{l:Loc Key='AsteriskPattern_'}"
+                                 ToolTip="{l:Loc Key='BookmarkDetails_ForExampleRegularExpession'}" />
+                    <RadioButton Name="rbFileAsterisk" GroupName="FileSearchType" Content="{l:Loc Key='BookmarkDetails_PatternType_AsteriskPattern'}"
                                  IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Asterisk}"
-                                 ToolTip="{l:Loc Key='ForExampleAsteriskPattern'}" />
-                    <RadioButton Name="rbFileEverything" GroupName="FileSearchType" Content="{l:Loc Key='Everything_'}"
+                                 ToolTip="{l:Loc Key='BookmarkDetails_ForExampleAsteriskPattern'}" />
+                    <RadioButton Name="rbFileEverything" GroupName="FileSearchType" Content="{l:Loc Key='BookmarkDetails_PatternType_Everything'}"
                                  IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Everything}"
-                                 ToolTip="{l:Loc Key='EverythingIndexService'}"
+                                 ToolTip="{l:Loc Key='BookmarkDetails_EverythingIndexService'}"
                                  Visibility="{Binding Path=IsEverythingAvailable, Converter={StaticResource BoolToVisibilityConverter}}" />
                 </StackPanel>
             </GroupBox>
 
             <UniformGrid DockPanel.Dock="Top">
-                <CheckBox IsChecked="{Binding Path=IncludeSubfolders}" Content="{l:Loc Key='IncludeSubfolders_'}" />
-                <CheckBox IsChecked="{Binding Path=IncludeHidden}" Content="{l:Loc Key='IncludeHiddenFolders_'}" />
-                <CheckBox IsChecked="{Binding Path=IncludeBinary}" Content="{l:Loc Key='IncludeBinaryFiles_'}" />
+                <CheckBox IsChecked="{Binding Path=IncludeSubfolders}" Content="{l:Loc Key='BookmarkDetails_IncludeSubfolders'}" />
+                <CheckBox IsChecked="{Binding Path=IncludeHidden}" Content="{l:Loc Key='BookmarkDetails_IncludeHiddenFolders'}" />
+                <CheckBox IsChecked="{Binding Path=IncludeBinary}" Content="{l:Loc Key='BookmarkDetails_IncludeBinaryFiles'}" />
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="3,0,3,3" Text="{l:Loc Key='MaxDepth'}"
+                    <TextBlock Margin="3,0,3,3" Text="{l:Loc Key='BookmarkDetails_MaxDepth'}"
                                Style="{StaticResource LabelTextBlockStyle}" />
                     <my:DepthTextBox Margin="3,0,3,3"
                                      IsEnabled="{Binding Path=IncludeSubfolder}"
@@ -146,15 +116,15 @@
                         </TextBox.Width>
                     </my:DepthTextBox>
                 </StackPanel>
-                <CheckBox IsChecked="{Binding Path=IncludeArchive}" Content="{l:Loc Key='SearchInArchives_'}" />
-                <CheckBox IsChecked="{Binding Path=FollowSymlinks}" Content="{l:Loc Key='FollowSymbolicLinks_'}" />
-                <CheckBox IsChecked="{Binding Path=UseGitignore}" Content="{l:Loc Key='UseGitignore_'}" 
-                          ToolTip="{l:Loc Key='UseGitignoreToFilterFiles'}"
+                <CheckBox IsChecked="{Binding Path=IncludeArchive}" Content="{l:Loc Key='BookmarkDetails_SearchInArchives'}" />
+                <CheckBox IsChecked="{Binding Path=FollowSymlinks}" Content="{l:Loc Key='BookmarkDetails_FollowSymbolicLinks'}" />
+                <CheckBox IsChecked="{Binding Path=UseGitignore}" Content="{l:Loc Key='BookmarkDetails_UseGitignore'}" 
+                          ToolTip="{l:Loc Key='BookmarkDetails_UseGitignoreToFilterFiles'}"
                           Visibility="{Binding IsGitInstalled, Converter={StaticResource BoolToVisibilityConverter}}" />
             </UniformGrid>
 
             <StackPanel Margin="0,3,0,16" DockPanel.Dock="Top" Orientation="Horizontal">
-                <TextBlock Margin="3,0,3,3" Text="{l:Loc Key='Encoding'}"
+                <TextBlock Margin="3,0,3,3" Text="{l:Loc Key='BookmarkDetails_Encoding'}"
                            Style="{StaticResource LabelTextBlockStyle}" />
                 <ComboBox Name="cbEncoding"
                           Margin="3,0,3,3" HorizontalContentAlignment="Center"
@@ -177,12 +147,46 @@
                 </ComboBox>
             </StackPanel>
 
+            <GroupBox Margin="0,0,0,8" DockPanel.Dock="Top" Header="{l:Loc Key='BookmarkDetails_TypeHeader'}">
+                <StackPanel Orientation="Horizontal">
+                    <RadioButton Content="{l:Loc Key='BookmarkDetails_SearchType_Regex'}" GroupName="SearchType"
+                                 IsChecked="{Binding TypeOfSearch, ConverterParameter=Regex, Converter={StaticResource ebc}}"
+                                 ToolTip="{l:Loc Key='BookmarkDetails_SearchType_RegularExpressionSearch'}" />
+                    <RadioButton Content="{l:Loc Key='BookmarkDetails_SearchType_XPath'}" GroupName="SearchType"
+                                 IsChecked="{Binding TypeOfSearch, ConverterParameter=XPath, Converter={StaticResource ebc}}"
+                                 ToolTip="{l:Loc Key='BookmarkDetails_SearchType_XPathSearchXMLDocumentsOnly'}" />
+                    <RadioButton Content="{l:Loc Key='BookmarkDetails_SearchType_Text'}" GroupName="SearchType"
+                                 IsChecked="{Binding TypeOfSearch, ConverterParameter=PlainText, Converter={StaticResource ebc}}"
+                                 ToolTip="{l:Loc Key='BookmarkDetails_SearchType_PlainTextSearch'}" />
+                    <RadioButton Content="{l:Loc Key='BookmarkDetails_SearchType_Phonetic'}" GroupName="SearchType"
+                                 IsChecked="{Binding TypeOfSearch, ConverterParameter=Soundex, Converter={StaticResource ebc}}"
+                                 ToolTip="{l:Loc Key='BookmarkDetails_SearchType_PhoneticSearch'}" />
+                    <RadioButton Content="{l:Loc Key='BookmarkDetails_SearchType_Hex'}" GroupName="SearchHex"
+                                 IsChecked="{Binding TypeOfSearch, ConverterParameter=Hex, Converter={StaticResource ebc}}"
+                                 ToolTip="{l:Loc Key='BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes'}" />
+                </StackPanel>
+            </GroupBox>
+
+            <TextBlock DockPanel.Dock="Top" Style="{StaticResource labelStyle}" Text="{l:Loc Key='BookmarkDetails_SearchFor'}" />
+            <TextBox DockPanel.Dock="Top" Text="{Binding SearchFor}" />
+
+            <TextBlock DockPanel.Dock="Top" Style="{StaticResource labelStyle}" Text="{l:Loc Key='BookmarkDetails_ReplaceWith'}" />
+            <TextBox DockPanel.Dock="Top" Text="{Binding ReplaceWith}" />
+
+            <StackPanel Margin="0,0,0,16" DockPanel.Dock="Top" Orientation="Horizontal">
+                <CheckBox IsChecked="{Binding CaseSensitive}" IsEnabled="{Binding IsCaseSensitiveEnabled}" Content="{l:Loc Key='BookmarkDetails_CaseSensitive'}" />
+                <CheckBox IsChecked="{Binding WholeWord}" IsEnabled="{Binding IsWholeWordEnabled}" Content="{l:Loc Key='BookmarkDetails_WholeWord'}" />
+                <CheckBox IsChecked="{Binding Multiline}" IsEnabled="{Binding IsMultilineEnabled}" Content="{l:Loc Key='BookmarkDetails_Multiline'}" />
+                <CheckBox IsChecked="{Binding Singleline}" IsEnabled="{Binding IsSinglelineEnabled}" Content="{l:Loc Key='BookmarkDetails_DotAsNewline'}" />
+                <CheckBox IsChecked="{Binding BooleanOperators}" IsEnabled="{Binding IsBooleanOperatorsEnabled}" Content="{l:Loc Key='BookmarkDetails_BooleanOperators'}" />
+            </StackPanel>
+
             <TextBox DockPanel.Dock="Bottom" Text="{Binding PathReferences}" Height="48"
                      TextWrapping="NoWrap" AcceptsReturn="True" IsReadOnly="True"
                      ScrollViewer.VerticalScrollBarVisibility="Auto"/>
-            <TextBlock DockPanel.Dock="Bottom" Style="{StaticResource labelStyle}" Text="{l:Loc Key='AssociatedFolders'}" />
-            
-            <TextBlock DockPanel.Dock="Top" Style="{StaticResource labelStyle}" Text="{l:Loc Key='Description'}" Margin="0,16,0,0"/>
+            <TextBlock DockPanel.Dock="Bottom" Style="{StaticResource labelStyle}" Text="{l:Loc Key='BookmarkDetails_AssociatedFolders'}" />
+
+            <TextBlock DockPanel.Dock="Top" Style="{StaticResource labelStyle}" Text="{l:Loc Key='BookmarkDetails_Description'}" Margin="0,16,0,0"/>
             <TextBox MinHeight="48" VerticalContentAlignment="Stretch"
                      Text="{Binding Description}"
                      TextWrapping="Wrap" AcceptsReturn="True" />

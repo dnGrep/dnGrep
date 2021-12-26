@@ -1,0 +1,46 @@
+﻿<Window x:Class="dnGREP.TestLocalizedStrings.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:dnGREP.TestLocalizedStrings"
+        mc:Ignorable="d"
+        FlowDirection="{Binding CultureFlowDirection}"
+        FontSize="14"
+        Title="Test Localized Strings" Height="450" Width="1000">
+    
+    <DockPanel LastChildFill="True">
+        <GroupBox Header="Language" DockPanel.Dock="Top">
+            <StackPanel Orientation="Horizontal">
+                <ComboBox Margin="3,3"
+                            ItemsSource="{Binding Path=CultureNames}"
+                            SelectedValuePath="Key"
+                            DisplayMemberPath="Value"
+                            Width="300"
+                            SelectedValue="{Binding Path=CurrentCulture, Mode=TwoWay}">
+                </ComboBox>
+            </StackPanel>
+        </GroupBox>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="8">
+            <ItemsControl ItemsSource="{Binding ListOfStrings}" Grid.IsSharedSizeScope="True">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Vertical">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" SharedSizeGroup="A"/>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0" Text="{Binding Name}" HorizontalAlignment="Right"
+                                         IsReadOnly="True" Margin="0,0,20,0" BorderThickness="0"/>
+                                <TextBlock Grid.Column="1" Text="{Binding Value}"/>
+                            </Grid>
+                            <Rectangle HorizontalAlignment="Stretch" Fill="LightGray" Height="1" Margin="0,3"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </DockPanel>
+</Window>

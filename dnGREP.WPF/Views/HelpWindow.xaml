@@ -6,9 +6,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="dnGrep" 
+        Title="{l:Loc Key='Help_DnGrepHelp'}" 
         Height="600" 
         Width="450"
+        FlowDirection="{Binding CultureFlowDirection}"
         FontFamily="{Binding ApplicationFontFamily}"
         FontSize="{Binding DialogFontSize}"
         Icon="/dnGREP;component/nGREP.ico"
@@ -21,11 +22,11 @@
                Grid.IsSharedSizeScope="True">
 
         <Button DockPanel.Dock="Bottom" Width="90" Margin="0,10,0,0"
-                Height="28" HorizontalAlignment="Right" Content="{l:Loc Key='OK'}"
+                Height="28" HorizontalAlignment="Right" Content="{l:Loc Key='Help_OK'}"
                 IsDefault="True" IsCancel="True" Click="OkButton_Click"/>
 
         <TextBlock DockPanel.Dock="Top" x:Name="WarningMsg"
-                   Text="{l:Loc Key='OneOrMoreArgumentsAreInvalid'}"
+                   Text="{l:Loc Key='Help_OneOrMoreArgumentsAreInvalid'}"
                    Margin="3" HorizontalAlignment="Center"
                    Style="{StaticResource ThemedTextBlock}"
                    FontWeight="SemiBold"

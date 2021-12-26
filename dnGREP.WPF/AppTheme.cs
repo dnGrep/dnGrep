@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Management;
 using System.Reflection;
 using System.Security.Cryptography;
@@ -76,9 +77,12 @@ namespace dnGREP.WPF
                 }
                 else
                 {
-                    string dataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "dnGrep");
-                    string path = Path.Combine(dataFolder, CurrentThemeName + ".xaml");
-                    if (File.Exists(path))
+                    string dataFolder = Utils.GetDataFolderPath();
+                    string fileName = CurrentThemeName + ".xaml";
+                    string path = Directory.GetFiles(dataFolder, "*.xaml", SearchOption.AllDirectories)
+                        .Where(p => Path.GetFileName(p).Equals(fileName))
+                        .FirstOrDefault();
+                    if (!string.IsNullOrWhiteSpace(path) && File.Exists(path))
                     {
                         Application.Current.Resources.MergedDictionaries[0].Source = new Uri(path, UriKind.Absolute);
                     }
@@ -326,8 +330,10 @@ namespace dnGREP.WPF
 
             if (!valid)
             {
-                MessageBox.Show(TranslationSource.Format(Localization.Properties.Resources.CouldNotLoadTheme, name) + App.LogDir,
-                    Localization.Properties.Resources.DnGrep, MessageBoxButton.OK);
+                MessageBox.Show(TranslationSource.Format(Localization.Properties.Resources.MessageBox_CouldNotLoadTheme, name) + App.LogDir,
+                    Localization.Properties.Resources.MessageBox_DnGrep, 
+                    MessageBoxButton.OK, MessageBoxImage.Error,
+                    MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
             }
 
             return valid;

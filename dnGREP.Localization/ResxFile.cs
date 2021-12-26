@@ -27,9 +27,30 @@ namespace dnGREP.Localization
                     if (!string.IsNullOrEmpty(fileName))
                     {
                         int pos = fileName.IndexOf(".");
+                        if (pos < 0)
+                        {
+                            // try the file name format used by Transifex downloads:
+                            // for_use_dngrep-application_resourcesresx_he.resx
+                            // for_use_dngrep-application_resourcesresx_he_IL.resx
+                            // get the first underscore after the first 'resx'
+                            pos = fileName.IndexOf("resx");
+                            if (pos > -1)
+                            {
+                                pos = fileName.IndexOf("_", pos);
+                            }
+                        }
                         if (pos > -1)
                         {
                             var tag = fileName.Substring(pos + 1);
+                            if (!string.IsNullOrEmpty(tag) && tag.Contains("("))
+                            {
+                                // remove file numbers: 'he (1)'
+                                pos = tag.IndexOf("(");
+                                if (pos > -1)
+                                {
+                                    tag = tag.Substring(0, tag.Length - pos).Trim();
+                                }
+                            }
                             if (!string.IsNullOrEmpty(tag))
                             {
                                 IetfLanguateTag = tag;
@@ -48,15 +69,19 @@ namespace dnGREP.Localization
                 }
                 else
                 {
-                    MessageBox.Show(TranslationSource.Format(Properties.Resources.ResourcesFile0IsNotAResxFile, filePath),
-                        Properties.Resources.DnGrep + "  " + Properties.Resources.LoadResources, MessageBoxButton.OK);
+                    MessageBox.Show(TranslationSource.Format(Properties.Resources.MessageBox_ResourcesFile0IsNotAResxFile, filePath),
+                        Properties.Resources.MessageBox_DnGrep + " " + Properties.Resources.MessageBox_LoadResources, 
+                        MessageBoxButton.OK, MessageBoxImage.Error, 
+                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                 }
             }
             catch(Exception ex)
             {
                 logger.Error(ex, $"Failed to load resources file '{filePath}'");
-                MessageBox.Show(TranslationSource.Format(Properties.Resources.CouldNotLoadResourcesFile0, filePath) + ex.Message,
-                    Properties.Resources.DnGrep + "  " + Properties.Resources.LoadResources, MessageBoxButton.OK);
+                MessageBox.Show(TranslationSource.Format(Properties.Resources.MessageBox_CouldNotLoadResourcesFile0, filePath) + ex.Message,
+                    Properties.Resources.MessageBox_DnGrep + " " + Properties.Resources.MessageBox_LoadResources, 
+                    MessageBoxButton.OK, MessageBoxImage.Error,
+                    MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
             }
         }
 

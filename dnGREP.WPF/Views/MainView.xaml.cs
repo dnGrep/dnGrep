@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Markup;
@@ -81,7 +81,6 @@ namespace dnGREP.WPF
                     this.ConstrainToScreen();
                 };
 
-                OnCurrentCultureChanged(null, EventArgs.Empty);
                 TranslationSource.Instance.CurrentCultureChanged += OnCurrentCultureChanged;
             }
             this.isVisible = isVisible;
@@ -98,8 +97,6 @@ namespace dnGREP.WPF
             Loaded += Window_Loaded;
             Closing += MainForm_Closing;
 
-            PreviewKeyDown += MainFormEx_PreviewKeyDown;
-            PreviewKeyUp += MainFormEx_PreviewKeyUp;
             KeyDown += MainForm_KeyDown;
         }
 
@@ -107,6 +104,9 @@ namespace dnGREP.WPF
         {
             dpFrom.Language = XmlLanguage.GetLanguage(TranslationSource.Instance.CurrentCulture.IetfLanguageTag);
             dpTo.Language = XmlLanguage.GetLanguage(TranslationSource.Instance.CurrentCulture.IetfLanguageTag);
+
+            SetWatermark(dpFrom);
+            SetWatermark(dpTo);
         }
 
         [DllImport("user32.dll")]
@@ -138,6 +138,8 @@ namespace dnGREP.WPF
             DataObject.AddPastingHandler(tbSearchFor, new DataObjectPastingEventHandler(OnPaste));
             DataObject.AddPastingHandler(tbReplaceWith, new DataObjectPastingEventHandler(OnPaste));
 
+            OnCurrentCultureChanged(null, EventArgs.Empty);
+
             if (tbSearchFor.Template.FindName("PART_EditableTextBox", tbSearchFor) is TextBox textBox && !tbSearchFor.IsDropDownOpen)
             {
                 Dispatcher.BeginInvoke(new Action(() =>
@@ -149,6 +151,25 @@ namespace dnGREP.WPF
 
             SetActivePreviewDockSite();
             DockSite.InitFloatingWindows();
+        }
+
+        private void SetWatermark(DatePicker dp)
+        {
+            if (dp == null) return;
+
+            // force visual tree to be built, even if control is not visible
+            dp.ApplyTemplate();
+
+            var tb = dp.GetChildOfType<DatePickerTextBox>();
+            if (tb == null) return;
+
+            // force visual tree to be built, even if control is not visible
+            tb.ApplyTemplate();
+
+            var wm = tb.Template.FindName("PART_Watermark", tb) as ContentControl;
+            if (wm == null) return;
+
+            wm.Content = Localization.Properties.Resources.Main_SelectADate;
         }
 
         private void SetActivePreviewDockSite()
@@ -346,17 +367,6 @@ namespace dnGREP.WPF
                 ((ComboBox)sender).SelectedIndex = 0;
         }
 
-        private void WrapPanel_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            var panel = (WrapPanel)sender;
-
-            var maxWidth = panel.ActualWidth -
-                LeftFileOptions.ActualWidth - LeftFileOptions.Margin.Left - LeftFileOptions.Margin.Right -
-                MiddleFileOptions.ActualWidth - MiddleFileOptions.Margin.Left - MiddleFileOptions.Margin.Right -
-                RightFileOptions.ActualWidth - RightFileOptions.Margin.Left - RightFileOptions.Margin.Right;
-            SpacerFileOptions.Width = Math.Max(0, maxWidth);
-        }
-
         private void Expander_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             // set the max width of the File Filters Summary text block so the Search In Archives checkbox does not overlap it
@@ -370,25 +380,6 @@ namespace dnGREP.WPF
                 tbFilePatternIgnore.ActualWidth - tbFilePatternIgnore.Margin.Left - tbFilePatternIgnore.Margin.Right;
 
             viewModel.MaxFileFiltersSummaryWidth = Math.Max(0, maxWidth);
-        }
-
-        void MainFormEx_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt))
-            {
-                fileOptions.Inlines.Clear();
-                fileOptions.Inlines.Add(new Run("Mor"));
-                fileOptions.Inlines.Add(new Underline(new Run("e")));
-                fileOptions.Inlines.Add(new Run("..."));
-            }
-        }
-
-        void MainFormEx_PreviewKeyUp(object sender, KeyEventArgs e)
-        {
-            if (Keyboard.IsKeyUp(Key.LeftAlt) && Keyboard.IsKeyUp(Key.RightAlt))
-            {
-                fileOptions.Text = "More...";
-            }
         }
 
         private void MainForm_KeyDown(object sender, KeyEventArgs e)

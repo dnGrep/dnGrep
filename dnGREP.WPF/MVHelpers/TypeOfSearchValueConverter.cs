@@ -11,7 +11,7 @@ namespace dnGREP.WPF
         {
             if (value is SearchType typeOfSearch)
             {
-                return typeOfSearch.ToString();
+                return typeOfSearch.ToLocalizedString();
             }
             return string.Empty;
         }

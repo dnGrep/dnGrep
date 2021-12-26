@@ -1,7 +1,11 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:my="clr-namespace:dnGREP.WPF">
+                    xmlns:my="clr-namespace:dnGREP.WPF"
+                    xmlns:s="clr-namespace:System;assembly=mscorlib">
 
+
+    <s:Boolean x:Key="BooleanTrue">True</s:Boolean>
+    <s:Boolean x:Key="BooleanFalse">False</s:Boolean>
 
     <Style x:Key="ThemedTextBox" TargetType="{x:Type TextBoxBase}" BasedOn="{x:Null}">
         <Setter Property="Foreground" Value="{DynamicResource Control.Foreground}" />
@@ -74,7 +78,7 @@
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Foreground" Value="{DynamicResource Control.Disabled.Forground}" />
                         </Trigger>
-                        <Trigger Property="IsReadOnly" Value="true">
+                        <Trigger Property="IsReadOnly" Value="{StaticResource BooleanTrue}">
                             <Setter Property="Foreground" Value="{DynamicResource Control.Disabled.Forground}" />
                         </Trigger>
                         <Trigger Property="IsFocused" Value="true">
@@ -82,7 +86,7 @@
                         </Trigger>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>
-                                <Condition Property="IsReadOnly" Value="False" />
+                                <Condition Property="IsReadOnly" Value="{StaticResource BooleanFalse}" />
                                 <Condition Property="IsEnabled" Value="True" />
                                 <Condition Property="IsMouseOver" Value="True" />
                             </MultiTrigger.Conditions>

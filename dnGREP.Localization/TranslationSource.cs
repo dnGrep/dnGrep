@@ -13,6 +13,11 @@ namespace dnGREP.Localization
     {
         public static TranslationSource Instance { get; } = new TranslationSource();
 
+        private TranslationSource()
+        {
+            CurrentCulture = CultureInfo.GetCultureInfoByIetfLanguageTag("en");
+        }
+
         // WPF bindings register PropertyChanged event if the object supports it and update themselves when it is raised
         public event PropertyChangedEventHandler PropertyChanged;
         public event EventHandler CurrentCultureChanging;
@@ -21,8 +26,13 @@ namespace dnGREP.Localization
         public Dictionary<string, string> AppCultures =>
             new Dictionary<string, string>
             {
-                { "en", Properties.Resources.Language_English },
-                //{ "zh", Properties.Resources.Language_Chinese },
+                { "bg", "Български" },
+                { "de", "Deutsch" },
+                { "en", "English" },
+                { "he", "עברית" },
+                { "nb-NO", "Bokmål" },
+                { "ru", "Русский" },
+                { "zh-CN", "简体中文" },
             };
 
         public void SetCulture(string ietfLanguateTag)
@@ -36,7 +46,7 @@ namespace dnGREP.Localization
 
         public string this[string key] => Properties.Resources.ResourceManager.GetString(key, currentCulture) ?? $"#{key}";
 
-        private CultureInfo currentCulture = CultureInfo.GetCultureInfoByIetfLanguageTag("en");
+        private CultureInfo currentCulture = CultureInfo.InvariantCulture;
         public CultureInfo CurrentCulture
         {
             get { return currentCulture; }
@@ -49,6 +59,9 @@ namespace dnGREP.Localization
                     currentCulture = value;
                     Properties.Resources.Culture = value;
                     Thread.CurrentThread.CurrentUICulture = value;
+#if DEBUG
+                    Thread.CurrentThread.CurrentCulture = value;
+#endif
 
                     // string.Empty/null indicates that all properties have changed
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(string.Empty));
@@ -73,15 +86,26 @@ namespace dnGREP.Localization
 
         public static string Format(string format, params object[] args)
         {
-            try
+            if (!string.IsNullOrWhiteSpace(format))
             {
-                return string.Format(CultureInfo.CurrentCulture, format, args);
+                try
+                {
+                    return string.Format(CultureInfo.CurrentCulture, format, args);
+                }
+                catch (FormatException)
+                {
+                    return "Missing placeholder {?}: " + format;
+                }
             }
-            catch (FormatException)
+            else
             {
-                return "Missing placeholder {?}: " + format;
+                return "Missing resource";
             }
         }
+
+        public MessageBoxOptions FlowDirection => CurrentCulture.TextInfo.IsRightToLeft ? 
+            MessageBoxOptions.RtlReading | MessageBoxOptions.RightAlign : MessageBoxOptions.None;
+
     }
 
     [MarkupExtensionReturnType(typeof(string))]

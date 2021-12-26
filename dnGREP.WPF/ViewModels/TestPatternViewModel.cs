@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Xml;
 using dnGREP.Common;
 using dnGREP.Engines;
+using dnGREP.Localization;
 using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
@@ -288,8 +289,10 @@ namespace dnGREP.WPF
                 }
                 catch (ArgumentException ex)
                 {
-                    MessageBox.Show(Resources.IncorrectPattern + ex.Message, 
-                        Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show(Resources.MessageBox_IncorrectPattern + ex.Message, 
+                        Resources.MessageBox_DnGrep, 
+                        MessageBoxButton.OK, MessageBoxImage.Warning,
+                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                 }
             }
 
@@ -319,7 +322,7 @@ namespace dnGREP.WPF
             }
             else
             {
-                paragraph.Inlines.Add(new Run(Resources.NoMatchesFound));
+                paragraph.Inlines.Add(new Run(Resources.Test_NoMatchesFound));
             }
             SearchOutput = paragraph.Inlines;
         }
@@ -370,16 +373,20 @@ namespace dnGREP.WPF
             }
             catch (ArgumentException ex)
             {
-                MessageBox.Show(Resources.IncorrectPattern + ex.Message, 
-                    Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(Resources.MessageBox_IncorrectPattern + ex.Message, 
+                    Resources.MessageBox_DnGrep, 
+                    MessageBoxButton.OK, MessageBoxImage.Warning,
+                    MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
             }
             catch (XmlException)
             {
-                ReplaceErrorText = Resources.ReplaceTextIsNotValidXML;
+                ReplaceErrorText = Resources.Test_ReplaceTextIsNotValidXML;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Resources.Error + ex.Message, Resources.DnGrep, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(Resources.MessageBox_Error + ex.Message, Resources.MessageBox_DnGrep, 
+                    MessageBoxButton.OK, MessageBoxImage.Error,
+                    MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
             }
 
             Paragraph paragraph = new Paragraph();

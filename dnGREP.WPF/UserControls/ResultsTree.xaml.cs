@@ -389,9 +389,10 @@ namespace dnGREP.WPF.UserControls
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show(Localization.Properties.Resources.RenameFailed + ex.Message,
-                                Localization.Properties.Resources.DnGrep + "  " + Localization.Properties.Resources.RenameFile,
-                                MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBox.Show(Localization.Properties.Resources.MessageBox_RenameFailed + ex.Message,
+                                Localization.Properties.Resources.MessageBox_DnGrep + " " + Localization.Properties.Resources.MessageBox_RenameFile,
+                                MessageBoxButton.OK, MessageBoxImage.Error,
+                                MessageBoxResult.OK, Localization.TranslationSource.Instance.FlowDirection);
                         }
                     }
                 }
