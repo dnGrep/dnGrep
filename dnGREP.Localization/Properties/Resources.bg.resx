@@ -1421,7 +1421,7 @@ Arguments:
     <comment>Message box text for: Replace failed</comment>
   </data>
   <data name="MessageBox_ResourcesFile0IsNotAResxFile" xml:space="preserve">
-    <value>Resources file '{0}', is not a resx file.</value>
+    <value>Файлът с ресурси „{0}“, не е файл на resx.</value>
     <comment>Message box text for: Load language resource file error: {0} is the name of the file that failed to load</comment>
   </data>
   <data name="MessageBox_RunDnGrepAsAdministrator" xml:space="preserve">
