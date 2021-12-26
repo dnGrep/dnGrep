@@ -3035,7 +3035,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Undo will revert modified file(s) back to their original state. Any changes made to the file(s) after the replace will be overwritten. Are you sure you want to proceed?.
+        ///   Looks up a localized string similar to Undo will revert modified file(s) back to their original state. Any changes made to the file(s) after the replace will be overwritten. Continue?.
         /// </summary>
         public static string MessageBox_UndoWillRevertModifiedFiles {
             get {
