@@ -35,6 +35,7 @@ deploy:
      secure: oqysNCCp784oQkBNcokE3RGknlKkaUv9xDHUReEKrW1ijaHCyMG5b25L7UslPRSU42SxzjTy0ptl+uRmA1BkbQ==
   on:
     branch: DraftPrereleaseToGitHub
+    configuration: Release
 - provider: GitHub
   tag: v$(appveyor_build_version)
   release: v$(appveyor_build_version) (beta)
@@ -44,3 +45,4 @@ deploy:
   prerelease: true
   on:
     branch: DraftPrereleaseToGitHub
+    configuration: Release
