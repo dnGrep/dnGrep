@@ -6,10 +6,10 @@ branches:
 skip_tags: true
 image: Visual Studio 2019
 configuration:
-- Debug
+#- Debug
 - Release
 platform:
-- x86
+#- x86
 - x64
 assembly_info:
   patch: true
@@ -24,11 +24,18 @@ build:
   parallel: true
   verbosity: normal
 artifacts:
-- path: Release\x86\*.msi
-  name: 32-bit MSI
+#- path: Release\x86\*.msi
+#  name: 32-bit MSI
 - path: Release\x64\*.msi
   name: 64-bit MSI
 deploy:
+- provider: Webhook
+  url: https://app.signpath.io/API/v1/736ab30b-dc3e-41ee-800d-c5674d702ed8/Integrations/AppVeyor?ProjectSlug=dnGrep&SigningPolicySlug=test-signing
+  authorization:
+     secure: +b4UCV2LUyweG3/0jfhRHXzKYGdSbwb4ZZ2roGLdbuIuu3tGHNZppkiVSCBEHRTtoBnhI7K+j0vuRmRhUcMkrQ==
+  on:
+    branch: DraftPrereleaseToGitHub
+    configuration: Release
 - provider: GitHub
   tag: v$(appveyor_build_version)
   release: v$(appveyor_build_version) (beta)
