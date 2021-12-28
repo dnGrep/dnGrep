@@ -32,7 +32,7 @@ deploy:
 - provider: Webhook
   url: https://app.signpath.io/API/v1/736ab30b-dc3e-41ee-800d-c5674d702ed8/Integrations/AppVeyor?ProjectSlug=dnGrep&SigningPolicySlug=test-signing
   authorization:
-     secure: oqysNCCp784oQkBNcokE3RGknlKkaUv9xDHUReEKrW1ijaHCyMG5b25L7UslPRSU42SxzjTy0ptl+uRmA1BkbQ==
+     secure: +b4UCV2LUyweG3/0jfhRHXzKYGdSbwb4ZZ2roGLdbuIuu3tGHNZppkiVSCBEHRTtoBnhI7K+j0vuRmRhUcMkrQ==
   on:
     branch: DraftPrereleaseToGitHub
     configuration: Release
