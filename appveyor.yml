@@ -6,10 +6,10 @@ branches:
 skip_tags: true
 image: Visual Studio 2019
 configuration:
-- Debug
+#- Debug
 - Release
 platform:
-- x86
+#- x86
 - x64
 assembly_info:
   patch: true
@@ -24,8 +24,8 @@ build:
   parallel: true
   verbosity: normal
 artifacts:
-- path: Release\x86\*.msi
-  name: 32-bit MSI
+#- path: Release\x86\*.msi
+#  name: 32-bit MSI
 - path: Release\x64\*.msi
   name: 64-bit MSI
 deploy:
