@@ -36,13 +36,3 @@ deploy:
   on:
     branch: DraftPrereleaseToGitHub
     configuration: Release
-- provider: GitHub
-  tag: v$(appveyor_build_version)
-  release: v$(appveyor_build_version) (beta)
-  auth_token:
-    secure: q0bGZDcjkoPwfHqzHbftJAHUR2q/I0dQIJCP5uAX2wjwzDsZS77IFSc26XFaD1pA
-  draft: true
-  prerelease: true
-  on:
-    branch: DraftPrereleaseToGitHub
-    configuration: Release
