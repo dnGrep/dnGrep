@@ -298,7 +298,7 @@ namespace dnGREP.Common
 
             string filePath = ExtractToTempFile(args.SearchResult);
 
-            if (Utils.IsPdfFile(filePath) || Utils.IsWordFile(filePath) || Utils.IsExcelFile(filePath))
+            if (Utils.IsWordFile(filePath) || Utils.IsExcelFile(filePath) || Utils.IsPowerPointFile(filePath))
                 args.UseCustomEditor = false;
 
             GrepSearchResult newResult = new GrepSearchResult
