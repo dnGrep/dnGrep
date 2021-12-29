@@ -19,8 +19,8 @@ using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
 using Path = Alphaleonis.Win32.Filesystem.Path;
-using TextFieldParser = Microsoft.VisualBasic.FileIO.TextFieldParser;
 using Resources = dnGREP.Localization.Properties.Resources;
+using TextFieldParser = Microsoft.VisualBasic.FileIO.TextFieldParser;
 
 namespace dnGREP.Common
 {
@@ -122,8 +122,8 @@ namespace dnGREP.Common
                             var answer = MessageBox.Show(
                                 TranslationSource.Format(Resources.MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting,
                                     destinationFileInfo.Name, destinationFileInfo.DirectoryName),
-                                Resources.MessageBox_DnGrep, 
-                                MessageBoxButton.YesNoCancel, MessageBoxImage.Question, 
+                                Resources.MessageBox_DnGrep,
+                                MessageBoxButton.YesNoCancel, MessageBoxImage.Question,
                                 MessageBoxResult.No, TranslationSource.Instance.FlowDirection);
 
                             if (answer == MessageBoxResult.Cancel)
@@ -192,8 +192,8 @@ namespace dnGREP.Common
                             var answer = MessageBox.Show(
                                 TranslationSource.Format(Resources.MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting,
                                     destinationFileInfo.Name, destinationFileInfo.DirectoryName),
-                                Resources.MessageBox_DnGrep, 
-                                MessageBoxButton.YesNoCancel, MessageBoxImage.Question, 
+                                Resources.MessageBox_DnGrep,
+                                MessageBoxButton.YesNoCancel, MessageBoxImage.Question,
                                 MessageBoxResult.No, TranslationSource.Instance.FlowDirection);
 
                             if (answer == MessageBoxResult.Cancel)
@@ -621,6 +621,21 @@ namespace dnGREP.Common
         }
 
         /// <summary>
+        /// Returns true if the source file extension is ".pptx" or ".pptm"
+        /// </summary>
+        /// <param name="srcFile"></param>
+        /// <returns></returns>
+        public static bool IsPowerPointFile(string srcFile)
+        {
+            string ext = Path.GetExtension(srcFile);
+            if (!string.IsNullOrWhiteSpace(ext) &&
+                (ext.Equals(".PPTX", StringComparison.CurrentCultureIgnoreCase) ||
+                 ext.Equals(".PPTM", StringComparison.CurrentCultureIgnoreCase)))
+                return true;
+            return false;
+        }
+
+        /// <summary>
         /// Returns true if the source file extension is a recognized archive file
         /// </summary>
         /// <param name="srcFile">a file name</param>
@@ -982,7 +997,7 @@ namespace dnGREP.Common
                 var includePatterns = SplitPattern(filter.NamePatternToInclude);
                 foreach (var pattern in includePatterns)
                 {
-                    if (pattern == "*.doc" || pattern == "*.xls")
+                    if (pattern == "*.doc" || pattern == "*.xls" || pattern == "*.ppt")
                         includeSearchPatterns.Add(pattern + "*");
                     else
                         includeSearchPatterns.Add(pattern);
@@ -1216,7 +1231,7 @@ namespace dnGREP.Common
             {
                 if (!searchString.Contains("datemodified:") && !searchString.Contains("dm:"))
                 {
-                    function += " dm:"; 
+                    function += " dm:";
                 }
             }
             else if (filter.DateFilter == FileDateFilter.Created)
@@ -1321,11 +1336,12 @@ namespace dnGREP.Common
                 {
                     bool isExcelMatch = IsExcelFile(filePath) && includeSearchPatterns.Contains(".xls", StringComparison.OrdinalIgnoreCase);
                     bool isWordMatch = IsWordFile(filePath) && includeSearchPatterns.Contains(".doc", StringComparison.OrdinalIgnoreCase);
+                    bool isPowerPointMatch = IsPowerPointFile(filePath) && includeSearchPatterns.Contains(".ppt", StringComparison.OrdinalIgnoreCase);
 
-                    // When searching for Excel and Word files, skip the binary file check:
+                    // When searching for Excel, Word, or PowerPoint files, skip the binary file check:
                     // If someone is searching for Excel or Word, don't make them include binary to 
                     // find their files.  No need to include PDF, it doesn't test positive as a binary file.
-                    if (!(isExcelMatch || isWordMatch) && IsBinary(filePath))
+                    if (!(isExcelMatch || isWordMatch || isPowerPointMatch) && IsBinary(filePath))
                     {
                         return false;
                     }
@@ -2121,10 +2137,17 @@ namespace dnGREP.Common
                         {
                             // If only 1 line - it is the same as matched line
                             if (beforeQueue.Count == 1)
+                            {
                                 beforeQueue.Dequeue();
+                            }
                             else
+                            {
                                 contextLines.Add(new GrepLine(startLine - beforeQueue.Count + 1 + (lineNumber - startLine),
-                                    beforeQueue.Dequeue(), true, null) { IsHexFile = true });
+                                    beforeQueue.Dequeue(), true, null)
+                                {
+                                    IsHexFile = true
+                                });
+                            }
                         }
                     }
 
