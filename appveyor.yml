@@ -1,6 +1,4 @@
 version: 2.9.{build}.0
-environment:
-  short_version: 2.9.{build}
 branches:
   only:
   - master
@@ -55,11 +53,11 @@ deploy:
 
     ### Checksum information
 
-    Name: dnGrep.%short_version%.x64.msi
+    Name: 
     SHA256: 
 
-    Name: dnGrep.%short_version%.x86.msi
+    Name: 
     SHA256: 
 
-    Free code signing provided by SignPath.io(https://signpath.io/), certificate by SignPath Foundation(https://signpath.org/).
+    Free code signing provided by [SignPath.io](https://signpath.io/), certificate by [SignPath Foundation](https://signpath.org/).
 
