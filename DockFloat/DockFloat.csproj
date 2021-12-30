@@ -60,7 +60,6 @@
   <ItemGroup>
     <Compile Include="ContentState.cs" />
     <Compile Include="DockPanelSplitter.cs" />
-    <Compile Include="NativeMethods.cs" />
     <Compile Include="TopOrSideConverter.cs" />
     <Page Include="App.xaml">
       <SubType>Designer</SubType>
@@ -88,7 +87,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Extensions.cs" />
     <Compile Include="FloatWindow.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -117,11 +115,12 @@
     <PackageReference Include="StrongNamer">
       <Version>0.2.5</Version>
     </PackageReference>
-    <PackageReference Include="WpfScreenHelper">
-      <Version>1.0.0</Version>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\dnGREP.Common.UI\dnGREP.Common.UI.csproj">
+      <Project>{da182974-5fd2-4dfb-938d-dcdc2d232547}</Project>
+      <Name>dnGREP.Common.UI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\dnGREP.Localization\dnGREP.Localization.csproj">
       <Project>{8ce89f78-57c4-48df-9473-e70ab05dc986}</Project>
       <Name>dnGREP.Localization</Name>

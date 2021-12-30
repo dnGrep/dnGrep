@@ -205,15 +205,6 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .NET WPF screen helper utility.
-        /// </summary>
-        public static string About_NETWPFScreenHelperUtility {
-            get {
-                return ResourceManager.GetString("About_NETWPFScreenHelperUtility", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to .NET WPF text editor component.
         /// </summary>
         public static string About_NETWPFTextEditorComponent {

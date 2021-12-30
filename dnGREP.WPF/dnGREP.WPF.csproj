@@ -460,9 +460,6 @@
     <PackageReference Include="StrongNamer">
       <Version>0.2.5</Version>
     </PackageReference>
-    <PackageReference Include="WpfScreenHelper">
-      <Version>1.0.0</Version>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

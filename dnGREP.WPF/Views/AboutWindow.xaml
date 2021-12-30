@@ -157,12 +157,6 @@
                     </Hyperlink>
                     <TextBlock Text="{l:Loc Key='About_NETLibraryForCharacterSetDetection'}" Style="{StaticResource Decription}"/>
                 </TextBlock>
-                <TextBlock Grid.Row="8" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
-                    <Hyperlink NavigateUri="https://github.com/micdenny/WpfScreenHelper" RequestNavigate="Hyperlink_RequestNavigate">
-                        <TextBlock Text="WpfScreenHelper"/>
-                    </Hyperlink>
-                    <TextBlock Text="{l:Loc Key='About_NETWPFScreenHelperUtility'}" Style="{StaticResource Decription}"/>
-                </TextBlock>
                 <TextBlock Grid.Row="9" Grid.Column="1" Style="{StaticResource ThemedTextBlock}">
                     <Hyperlink NavigateUri="https://github.com/OfficeDev/Open-XML-SDK" RequestNavigate="Hyperlink_RequestNavigate">
                         <TextBlock Text="Open XML"/>
