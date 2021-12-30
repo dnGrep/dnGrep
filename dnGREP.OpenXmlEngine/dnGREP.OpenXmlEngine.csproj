@@ -61,9 +61,12 @@
     <Compile Include="..\AssemblyVersionCommon.cs">
       <Link>Properties\AssemblyVersionCommon.cs</Link>
     </Compile>
+    <Compile Include="ExcelReader.cs" />
     <Compile Include="GrepEngineOpenXml.cs" />
     <Compile Include="ListManager.cs" />
+    <Compile Include="PowerPointReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WordReader.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\dnGREP.Common\dnGREP.Common.csproj">

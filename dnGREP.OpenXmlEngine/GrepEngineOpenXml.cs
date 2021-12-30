@@ -1,17 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Reflection;
 using System.Text;
 using dnGREP.Common;
 using dnGREP.Localization;
-using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Wordprocessing;
-using ExcelDataReader;
-using ExcelNumberFormat;
 using NLog;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
@@ -31,11 +24,8 @@ namespace dnGREP.Engines.OpenXml
 
         public IList<string> DefaultFileExtensions
         {
-            get { return new string[] { "docx", "docm", "xls", "xlsx", "xlsm" }; }
+            get { return new string[] { "docx", "docm", "xls", "xlsx", "xlsm", "pptx", "pptm" }; }
         }
-
-        private readonly Dictionary<string, Dictionary<string, Level>> numberFormats = new Dictionary<string, Dictionary<string, Level>>();
-
 
         public List<GrepSearchResult> Search(string fileName, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
         {
@@ -81,6 +71,10 @@ namespace dnGREP.Engines.OpenXml
             {
                 SearchExcel(input, file, searchPattern, searchOptions, searchMethod, searchResults);
             }
+            else if (ext.StartsWith(".ppt", StringComparison.OrdinalIgnoreCase))
+            {
+                SearchPowerPoint(input, file, searchPattern, searchOptions, searchMethod, searchResults);
+            }
 
             return searchResults;
         }
@@ -89,7 +83,7 @@ namespace dnGREP.Engines.OpenXml
         {
             try
             {
-                var sheets = ExtractExcelText(stream);
+                var sheets = ExcelReader.ExtractExcelText(stream);
                 foreach (var kvPair in sheets)
                 {
                     var lines = searchMethod(-1, 0, kvPair.Value, searchPattern, searchOptions, true);
@@ -114,54 +108,11 @@ namespace dnGREP.Engines.OpenXml
             }
         }
 
-        private List<KeyValuePair<string, string>> ExtractExcelText(Stream stream)
-        {
-            List<KeyValuePair<string, string>> results = new List<KeyValuePair<string, string>>();
-
-            // Auto-detect format, supports:
-            //  - Binary Excel files (2.0-2003 format; *.xls)
-            //  - OpenXml Excel files (2007 format; *.xlsx)
-            using (var reader = ExcelReaderFactory.CreateReader(stream))
-            {
-                do
-                {
-                    StringBuilder sb = new StringBuilder();
-                    while (reader.Read())
-                    {
-                        for (int col = 0; col < reader.FieldCount; col++)
-                        {
-                            sb.Append(GetFormattedValue(reader, col, CultureInfo.CurrentCulture)).Append('\t');
-                        }
-
-                        sb.Append(Environment.NewLine);
-                    }
-
-                    results.Add(new KeyValuePair<string, string>(reader.Name, sb.ToString()));
-
-                } while (reader.NextResult());
-
-            }
-
-            return results;
-        }
-
-        private string GetFormattedValue(IExcelDataReader reader, int columnIndex, CultureInfo culture)
-        {
-            var value = reader.GetValue(columnIndex);
-            var formatString = reader.GetNumberFormatString(columnIndex);
-            if (formatString != null)
-            {
-                var format = new NumberFormat(formatString);
-                return format.Format(value, culture);
-            }
-            return Convert.ToString(value, culture);
-        }
-
         private void SearchWord(Stream stream, string file, string searchPattern, GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod, List<GrepSearchResult> searchResults)
         {
             try
             {
-                var text = ExtractWordText(stream);
+                var text = WordReader.ExtractWordText(stream);
 
                 var lines = searchMethod(-1, 0, text, searchPattern, searchOptions, true);
                 if (lines.Count > 0)
@@ -181,112 +132,36 @@ namespace dnGREP.Engines.OpenXml
             }
         }
 
-        private string ExtractWordText(Stream stream)
+        private void SearchPowerPoint(Stream stream, string file, string searchPattern, GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod, List<GrepSearchResult> searchResults)
         {
-            StringBuilder sb = new StringBuilder();
-
-            // Open a given Word document as readonly
-            using (WordprocessingDocument doc = WordprocessingDocument.Open(stream, false))
+            try
             {
-                var body = doc.MainDocumentPart.Document.Body;
-                var docStyles = doc.MainDocumentPart.StyleDefinitionsPart.Styles
-                    .Where(r => r is Style).Select(r => r as Style);
+                var slides = PowerPointReader.ExtractPowerPointText(stream);
 
-                WordListManager wlm = WordListManager.Empty;
-                if (doc.MainDocumentPart.NumberingDefinitionsPart != null && doc.MainDocumentPart.NumberingDefinitionsPart.Numbering != null)
+                foreach (var slide in slides)
                 {
-                    wlm = new WordListManager(doc.MainDocumentPart.NumberingDefinitionsPart.Numbering);
-                }
-
-                ExtractText(body, docStyles, wlm, sb);
-            }
-
-            return sb.ToString();
-        }
-
-        private bool isInTableRow;
-        private void ExtractText(OpenXmlElement elem, IEnumerable<Style> docStyles, WordListManager wlm, StringBuilder sb)
-        {
-            if (elem is Paragraph)
-            {
-                var para = elem as Paragraph;
-
-                string indent = GetIndent(para, docStyles);
-                string fmtNum = wlm.GetFormattedNumber(para);
-
-                if (isInTableRow)
-                    sb.Append(indent).Append(fmtNum).Append(elem.InnerText).Append('\t');
-                else
-                    sb.Append(indent).Append(fmtNum).AppendLine(elem.InnerText);
-            }
-            else if (elem is TableRow)
-            {
-                isInTableRow = true;
-
-                sb.Append('\t');
-
-                foreach (var child in elem)
-                {
-                    ExtractText(child, docStyles, wlm, sb);
-                }
-
-                sb.AppendLine();
-
-                isInTableRow = false;
-            }
-            else
-            {
-                foreach (var child in elem)
-                {
-                    ExtractText(child, docStyles, wlm, sb);
-                }
-            }
-        }
-
-        private string GetIndent(Paragraph para, IEnumerable<Style> docStyles)
-        {
-            string indent = string.Empty;
-            if (para != null && para.ParagraphProperties != null && para.ParagraphProperties.Indentation != null)
-            {
-                var indentation = para.ParagraphProperties.Indentation;
-                if (indentation.Left != null && indentation.Left.HasValue)
-                {
-                    indent = WordListManager.TwipsToSpaces(indentation.Left);
-                }
-                else if (indentation.Start != null && indentation.Start.HasValue)
-                {
-                    indent = WordListManager.TwipsToSpaces(indentation.Start);
-                }
-            }
-            if (para != null && para.ParagraphProperties != null && para.ParagraphProperties.ParagraphStyleId != null &&
-                para.ParagraphProperties.ParagraphStyleId.Val != null &&
-                para.ParagraphProperties.ParagraphStyleId.Val.HasValue)
-            {
-                var style = docStyles.Where(r => r.StyleId == para.ParagraphProperties.ParagraphStyleId.Val.Value)
-                    .Select(r => r).FirstOrDefault();
-
-                if (style != null)
-                {
-                    var pp = style.Where(r => r is StyleParagraphProperties)
-                        .Select(r => r as StyleParagraphProperties).FirstOrDefault();
-
-                    if (pp != null && pp.Indentation != null)
+                    var lines = searchMethod(-1, 0, slide.Item2, searchPattern, searchOptions, true);
+                    if (lines.Count > 0)
                     {
-                        if (pp.Indentation.Left != null && pp.Indentation.Left.HasValue)
+                        GrepSearchResult result = new GrepSearchResult(file, searchPattern, lines, Encoding.Default)
                         {
-                            indent = WordListManager.TwipsToSpaces(pp.Indentation.Left);
-                        }
-                        else if (pp.Indentation.Start != null && pp.Indentation.Start.HasValue)
+                            AdditionalInformation = " " + TranslationSource.Format(Resources.Main_PowerPointSlideNumber, slide.Item1)
+                        };
+
+                        using (StringReader reader = new StringReader(slide.Item2))
                         {
-                            indent = WordListManager.TwipsToSpaces(pp.Indentation.Start);
+                            result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
                         }
+                        result.ReadOnly = true;
+                        searchResults.Add(result);
                     }
                 }
             }
-
-            return indent;
+            catch (Exception ex)
+            {
+                logger.Error(ex, string.Format("Failed to search inside PowerPoint file '{0}'", file));
+            }
         }
-
 
         public bool IsSearchOnly { get { return true; } }
 

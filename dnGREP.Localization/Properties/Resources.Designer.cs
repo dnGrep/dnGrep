@@ -1658,6 +1658,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Slide {0}.
+        /// </summary>
+        public static string Main_PowerPointSlideNumber {
+            get {
+                return ResourceManager.GetString("Main_PowerPointSlideNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pre_view file.
         /// </summary>
         public static string Main_PreviewFile {
