@@ -2376,4 +2376,8 @@ Arguments:
     <value>שחזור למטה</value>
     <comment>Window title bar button tooltip</comment>
   </data>
+  <data name="Main_PowerPointSlideNumber" xml:space="preserve">
+    <value>Slide {0}</value>
+    <comment>Main window, results list label for PowerPoint files: {0} is the slide number in the PowerPoint document</comment>
+  </data>
 </root>

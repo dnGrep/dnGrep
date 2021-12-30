@@ -2372,4 +2372,8 @@ Arguments:
     <value>{0} 处匹配被标记为替换，共 {1} 处匹配</value>
     <comment>Replace window, file name progress line: {0} is number of matches marked for replacement; {1} is the number of matches found in the current file</comment>
   </data>
+  <data name="Main_PowerPointSlideNumber" xml:space="preserve">
+    <value>Slide {0}</value>
+    <comment>Main window, results list label for PowerPoint files: {0} is the slide number in the PowerPoint document</comment>
+  </data>
 </root>
