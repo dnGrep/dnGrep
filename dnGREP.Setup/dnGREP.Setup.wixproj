@@ -75,6 +75,14 @@
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
+    <ProjectReference Include="..\dnGREP.DockFloat\dnGREP.DockFloat.csproj">
+      <Name>dnGREP.DockFloat</Name>
+      <Project>{86C22DB6-4211-44A1-93BA-B21027CC90F9}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
     <ProjectReference Include="..\dnGREP.Engines\dnGREP.Engines.csproj">
       <Name>dnGREP.Engines</Name>
       <Project>{db68b5d3-5e4b-47d0-aa86-83d7c181a1e4}</Project>
