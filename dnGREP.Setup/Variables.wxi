@@ -15,7 +15,7 @@
   <!-- Version number. Should be overwritten during build. Revision is NOT used by Windows Installer during upgrade procedure. -->
   <?define MajorVersion="2" ?>
   <?define MinorVersion="9" ?>
-  <?define BuildVersion="406" ?>
+  <?define BuildVersion="496" ?>
   <?define Revision="0" ?>
   <!-- Full version number to display -->
   <?define ProductVersion="$(var.MajorVersion).$(var.MinorVersion).$(var.BuildVersion).$(var.Revision)" ?>
