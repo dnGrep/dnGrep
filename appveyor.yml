@@ -1,4 +1,6 @@
 version: 2.9.{build}.0
+environment:
+  short_version: 2.9.{build}
 branches:
   only:
   - master
@@ -45,3 +47,19 @@ deploy:
   on:
     branch: DraftPrereleaseToGitHub
     configuration: Release
+  description: |
+    [![$(APPVEYOR_REPO_TAG_NAME)](https://img.shields.io/github/downloads/$(APPVEYOR_REPO_NAME)/$(APPVEYOR_REPO_TAG_NAME)/total.svg)](https://github.com/$(APPVEYOR_REPO_NAME)/releases/tag/$(APPVEYOR_REPO_TAG_NAME))
+    
+    ## Changes in this release:
+
+
+    ### Checksum information
+
+    Name: dnGrep.%short_version%.x64.msi
+    SHA256: 
+
+    Name: dnGrep.%short_version%.x86.msi
+    SHA256: 
+
+    Free code signing provided by SignPath.io(https://signpath.io/), certificate by SignPath Foundation(https://signpath.org/).
+
