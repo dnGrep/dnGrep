@@ -4,7 +4,7 @@
                  xmlns:my="clr-namespace:dnGREP.WPF"
                  xmlns:l="clr-namespace:dnGREP.Localization;assembly=dnGREP.Localization"
                  xmlns:uc="clr-namespace:dnGREP.WPF.UserControls"
-                 xmlns:df="clr-namespace:DockFloat;assembly=DockFloat"
+                 xmlns:df="clr-namespace:dnGREP.DockFloat;assembly=dnGREP.DockFloat"
                  xmlns:sys="clr-namespace:System;assembly=mscorlib"
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"

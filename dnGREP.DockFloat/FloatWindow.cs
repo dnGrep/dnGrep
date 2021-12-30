@@ -6,7 +6,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
 
-namespace DockFloat
+namespace dnGREP.DockFloat
 {
     [TemplatePart(Name = "PART_CloseButton", Type = typeof(ButtonBase))]
     [TemplatePart(Name = "PART_RestoreButton", Type = typeof(ButtonBase))]

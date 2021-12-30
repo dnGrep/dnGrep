@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace DockFloat
+namespace dnGREP.DockFloat
 {
     class ContentState
     {
