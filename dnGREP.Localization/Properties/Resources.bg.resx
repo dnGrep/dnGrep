@@ -181,10 +181,6 @@
     <value>Библиотека на .NET за работа с документи на Word и Excel</value>
     <comment>About dialog acknowledgments</comment>
   </data>
-  <data name="About_NETWPFScreenHelperUtility" xml:space="preserve">
-    <value>Инструмент за работа с екрана на .NET WPF</value>
-    <comment>About dialog acknowledgments</comment>
-  </data>
   <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
     <value>Компонент за текстов редактор на .NET WPF</value>
     <comment>About dialog acknowledgments</comment>
