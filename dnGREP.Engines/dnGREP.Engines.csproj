@@ -86,6 +86,9 @@
     <PackageReference Include="NLog">
       <Version>4.7.13</Version>
     </PackageReference>
+    <PackageReference Include="Squid-Box.SevenZipSharp">
+      <Version>1.5.0.366</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

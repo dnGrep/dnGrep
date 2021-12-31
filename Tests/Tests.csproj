@@ -161,6 +161,9 @@
     <PackageReference Include="AlphaFS">
       <Version>2.2.6</Version>
     </PackageReference>
+    <PackageReference Include="Squid-Box.SevenZipSharp">
+      <Version>1.5.0.366</Version>
+    </PackageReference>
     <PackageReference Include="xunit">
       <Version>2.4.1</Version>
     </PackageReference>

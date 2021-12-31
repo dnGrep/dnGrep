@@ -454,6 +454,9 @@
     <PackageReference Include="NLog">
       <Version>4.7.13</Version>
     </PackageReference>
+    <PackageReference Include="Squid-Box.SevenZipSharp">
+      <Version>1.5.0.366</Version>
+    </PackageReference>
     <PackageReference Include="StrongNamer">
       <Version>0.2.5</Version>
     </PackageReference>
