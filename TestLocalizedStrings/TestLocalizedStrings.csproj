@@ -59,6 +59,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="..\AssemblyInfoCommon.cs">
+      <Link>Properties\AssemblyInfoCommon.cs</Link>
+    </Compile>
+    <Compile Include="..\AssemblyVersionCommon.cs">
+      <Link>Properties\AssemblyVersionCommon.cs</Link>
+    </Compile>
     <Compile Include="CultureAwareViewModel.cs" />
     <Compile Include="TestStringsViewModel.cs" />
     <Compile Include="ViewModelBase.cs" />
