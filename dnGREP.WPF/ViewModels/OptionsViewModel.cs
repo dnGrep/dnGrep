@@ -50,7 +50,7 @@ namespace dnGREP.WPF
 
         #region Private Variables and Properties
         private static readonly string SHELL_KEY_NAME = "dnGREP";
-        private static readonly string SHELL_MENU_TEXT = "dnGREP...";
+        private static readonly string SHELL_MENU_TEXT = "dnGrep...";
         private const string File = "%file";
         private const string Line = "%line";
         private const string Pattern = "%pattern";
