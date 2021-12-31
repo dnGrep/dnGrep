@@ -427,9 +427,9 @@
       <Project>{8ce89f78-57c4-48df-9473-e70ab05dc986}</Project>
       <Name>dnGREP.Localization</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DockFloat\DockFloat.csproj">
+    <ProjectReference Include="..\dnGREP.DockFloat\dnGREP.DockFloat.csproj">
       <Project>{86c22db6-4211-44a1-93ba-b21027cc90f9}</Project>
-      <Name>DockFloat</Name>
+      <Name>dnGREP.DockFloat</Name>
     </ProjectReference>
     <ProjectReference Include="..\ICSharpCode.AvalonEdit\ICSharpCode.AvalonEdit.csproj">
       <Project>{a18eeae0-260f-4fc1-bdf2-6bf0ba335cb7}</Project>
@@ -459,9 +459,6 @@
     </PackageReference>
     <PackageReference Include="StrongNamer">
       <Version>0.2.5</Version>
-    </PackageReference>
-    <PackageReference Include="WpfScreenHelper">
-      <Version>1.0.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup />

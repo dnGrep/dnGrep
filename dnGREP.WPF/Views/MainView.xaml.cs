@@ -8,9 +8,10 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Markup;
+using dnGREP.Common.UI;
+using dnGREP.DockFloat;
 using dnGREP.Localization;
 using dnGREP.WPF.Properties;
-using DockFloat;
 
 namespace dnGREP.WPF
 {

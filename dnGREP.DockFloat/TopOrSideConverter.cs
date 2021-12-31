@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace DockFloat
+namespace dnGREP.DockFloat
 {
     /// <summary>
     /// Used so extra spacing is on the right of wide panels, but top of narrow ones.

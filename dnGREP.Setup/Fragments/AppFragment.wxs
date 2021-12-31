@@ -22,7 +22,12 @@
           <netfx:NativeImage Id="ngen_dnGREP.Common.UI.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
         </File>
       </Component>
-      <Component Id="cmp5D64364BE848D8D880558DFAFA0DE81C" Guid="{A053CA7D-4AA0-4D90-AB08-2ACF54D0A9EC}">
+        <Component Id="cmp75D49E08A41A489AA6863E3C25D5FDA5" Guid="{A2875238-4A08-48F9-8FF1-31BA88D48C80}">
+            <File Id="filA804AD15B1CD497CB618C6EBDD22719D" KeyPath="yes" Source="$(var.dnGREP.DockFloat.TargetDir)\dnGREP.DockFloat.dll" >
+                <netfx:NativeImage Id="ngen_dnGREP.DockFloat.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
+            </File>
+        </Component>
+        <Component Id="cmp5D64364BE848D8D880558DFAFA0DE81C" Guid="{A053CA7D-4AA0-4D90-AB08-2ACF54D0A9EC}">
         <File Id="fil0A2118AB81362AE13EE6DDBA78E994BC" KeyPath="yes" Source="$(var.dnGREP.Engines.TargetDir)\dnGREP.Engines.dll" >
           <netfx:NativeImage Id="ngen_dnGREP.Engines.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
         </File>
@@ -58,11 +63,6 @@
           <netfx:NativeImage Id="ngen_AlphaFS.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
         </File>
       </Component>
-      <Component Id="cmp75D49E08A41A489AA6863E3C25D5FDA5" Guid="{A2875238-4A08-48F9-8FF1-31BA88D48C80}">
-        <File Id="filA804AD15B1CD497CB618C6EBDD22719D" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\DockFloat.dll" >
-          <netfx:NativeImage Id="ngen_DockFloat.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
-        </File>
-      </Component>
       <Component Id="cmp0E16CB47C3F6B22E2FFDD2CC515AD1C8" Guid="{499E357F-9822-4945-A800-82BF6979E072}">
         <File Id="fil6D3D5546417727749907FC9E19D97FF8" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\ICSharpCode.AvalonEdit.dll" >
           <netfx:NativeImage Id="ngen_ICSharpCode.AvalonEdit.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
@@ -81,11 +81,6 @@
       <Component Id="cmp1890E8AA2A3B456C8D741C549EAC7823" Guid="{8974E33B-2F69-48A6-9A83-728F1C85ECDC}">
         <File Id="filDD627B0779CB4C17B55C2B55AE5B0873" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\UtfUnknown.dll" >
           <netfx:NativeImage Id="ngen_UtfUnknown.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
-        </File>
-      </Component>
-      <Component Id="cmp10B3F70BED274CCC836FFC1BB5B515F8" Guid="{42E05F1E-9EE2-4385-9A67-5FD4699FC273}">
-        <File Id="filAD3747C57F2547AE986D06DF7B4E8C17" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\WpfScreenHelper.dll" >
-          <netfx:NativeImage Id="ngen_WpfScreenHelper.dll" Platform="$(var.NGenPlatform)" Priority="0" AppBaseDirectory="INSTALLDIR"/>
         </File>
       </Component>
       <Component Id="cmp7DD353A5178A4A3EAE13CB71CD8CEAE2" Guid="{0384FEB4-AF1A-414A-BAA6-4A5CB2BBF9C7}">
@@ -155,7 +150,6 @@
       <ComponentRef Id="cmp0459596434A34BA899AD1B009417DEEB" />
       <ComponentRef Id="cmp770B497917674F316826C902746C0409" />
       <ComponentRef Id="cmp1890E8AA2A3B456C8D741C549EAC7823" />
-      <ComponentRef Id="cmp10B3F70BED274CCC836FFC1BB5B515F8" />
       <ComponentRef Id="cmp7DD353A5178A4A3EAE13CB71CD8CEAE2" />
       <ComponentRef Id="cmp2026EEE4D24E41B4BF43B79B16CE7A4E" />
       <ComponentRef Id="cmp8AF052AF90A94A149802DFD1021B8D87" />

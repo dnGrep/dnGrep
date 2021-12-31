@@ -181,10 +181,6 @@
     <value>.NET library to work with Word and Excel documents</value>
     <comment>About dialog acknowledgments</comment>
   </data>
-  <data name="About_NETWPFScreenHelperUtility" xml:space="preserve">
-    <value>.NET WPF screen helper utility</value>
-    <comment>About dialog acknowledgments</comment>
-  </data>
   <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
     <value>.NET WPF text editor component</value>
     <comment>About dialog acknowledgments</comment>
