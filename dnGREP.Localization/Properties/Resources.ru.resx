@@ -1254,7 +1254,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window, hexadecimal expression status</comment>
   </data>
   <data name="Main_Validation_HexStringIsOK" xml:space="preserve">
-    <value>Байтовая строка в норме!</value>
+    <value>Байтовая строка в норме</value>
     <comment>Main window, hexadecimal expression status</comment>
   </data>
   <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">
@@ -1262,7 +1262,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window, regular expression status</comment>
   </data>
   <data name="Main_Validation_RegexIsOK" xml:space="preserve">
-    <value>Regex в норме!</value>
+    <value>Regex в норме</value>
     <comment>Main window, regular expression status</comment>
   </data>
   <data name="Main_Validation_XPathIsNotValid" xml:space="preserve">
@@ -1270,7 +1270,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window, XPath status</comment>
   </data>
   <data name="Main_Validation_XPathIsOK" xml:space="preserve">
-    <value>XPath в норме!</value>
+    <value>XPath в норме</value>
     <comment>Main window, XPath status</comment>
   </data>
   <data name="Main_WholeWord" xml:space="preserve">
