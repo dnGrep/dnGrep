@@ -96,10 +96,6 @@ namespace dnGREP.WPF
                         replaceHash = rHash;
                     }
                     break;
-
-                case nameof(ValidationMessage):
-                    HasValidationMessage = !string.IsNullOrWhiteSpace(ValidationMessage);
-                    break;
             }
         }
 
@@ -130,23 +126,6 @@ namespace dnGREP.WPF
                 base.OnPropertyChanged(() => DialogFontSize);
             }
         }
-
-
-        private bool hasValidationMessage;
-
-        public bool HasValidationMessage
-        {
-            get { return hasValidationMessage; }
-            set
-            {
-                if (value == hasValidationMessage)
-                    return;
-
-                hasValidationMessage = value;
-                base.OnPropertyChanged(() => HasValidationMessage);
-            }
-        }
-
 
         private static string sampleText;
         public string SampleText

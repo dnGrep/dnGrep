@@ -42,6 +42,7 @@
         <my:IntOrEmptyValueConverter x:Key="IntConverter"/>
         <my:TitleFontSizeConverter x:Key="TitleSizeConverter"/>
         <my:TextBoxWidthConverter x:Key="TextBoxWidthConverter"/>
+        <my:ValidationColorConverter x:Key="validationColor" />
 
         <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource ThemedContextMenu}">
             <Setter Property="FontFamily" Value="{Binding ApplicationFontFamily}"/>
@@ -677,8 +678,15 @@
                                           IsChecked="{Binding IsBookmarked}"
                                           Command="{Binding BookmarkAddCommand}"
                                           DockPanel.Dock="Right" TabIndex="54" />
-                                <Label HorizontalAlignment="Center"
-                                       Content="{Binding ValidationMessage}" />
+                                <Border HorizontalAlignment="Center"
+                                        Background="#12FFFFFF" CornerRadius="3" 
+                                        Visibility="{Binding HasValidationMessage, Converter={StaticResource BoolToVisibilityConverter}}">
+                                    <Label HorizontalAlignment="Center" Padding="12,3" 
+                                           Content="{Binding ValidationMessage}"
+                                           Foreground="{Binding IsValidPattern, Converter={StaticResource validationColor}}"
+                                           Background="Transparent"
+                                           Visibility="{Binding HasValidationMessage, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                </Border>
                             </DockPanel>
                         </Grid>
                         <StackPanel Margin="0,5,0,3" DockPanel.Dock="Bottom"
