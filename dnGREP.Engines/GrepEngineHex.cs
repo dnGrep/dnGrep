@@ -13,7 +13,7 @@ using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.Engines
 {
-    class GrepEngineHex : GrepEngineBase, IGrepEngine
+    public class GrepEngineHex : GrepEngineBase, IGrepEngine
     {
         public IList<string> DefaultFileExtensions => new string[0];
 

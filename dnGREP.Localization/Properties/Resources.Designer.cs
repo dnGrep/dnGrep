@@ -4745,6 +4745,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Byte.
+        /// </summary>
+        public static string Test_SearchType_Hex {
+            get {
+                return ResourceManager.GetString("Test_SearchType_Hex", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Phonetic.
         /// </summary>
         public static string Test_SearchType_Phonetic {

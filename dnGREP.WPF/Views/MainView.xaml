@@ -644,19 +644,19 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <WrapPanel Margin="0,3,0,0" Orientation="Horizontal" Grid.Column="0">
-                                <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_Regex'}" GroupName="SearchRegex"
+                                <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_Regex'}" GroupName="SearchType"
                                              IsChecked="{Binding TypeOfSearch, ConverterParameter=Regex, Converter={StaticResource ebc}}"
                                              ToolTip="{l:Loc Key='Main_SearchType_RegularExpressionSearch'}" TabIndex="50" />
-                                <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_XPath'}" GroupName="SearchXPath"
+                                <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_XPath'}" GroupName="SearchType"
                                              IsChecked="{Binding TypeOfSearch, ConverterParameter=XPath, Converter={StaticResource ebc}}"
                                              ToolTip="{l:Loc Key='Main_SearchType_XPathSearchXMLDocumentsOnly'}" TabIndex="51" />
-                                <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_Text'}" GroupName="SearchText"
+                                <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_Text'}" GroupName="SearchType"
                                              IsChecked="{Binding TypeOfSearch, ConverterParameter=PlainText, Converter={StaticResource ebc}}"
                                              ToolTip="{l:Loc Key='Main_SearchType_PlainTextSearch'}" TabIndex="52" />
-                                <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_Phonetic'}" GroupName="SearchSoundex"
+                                <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_Phonetic'}" GroupName="SearchType"
                                              IsChecked="{Binding TypeOfSearch, ConverterParameter=Soundex, Converter={StaticResource ebc}}"
                                              ToolTip="{l:Loc Key='Main_SearchType_PhoneticSearch'}" TabIndex="53" />
-                                <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_Hex'}" GroupName="SearchHex"
+                                <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_Hex'}" GroupName="SearchType"
                                              IsChecked="{Binding TypeOfSearch, ConverterParameter=Hex, Converter={StaticResource ebc}}"
                                              ToolTip="{l:Loc Key='Main_SearchType_ReadFileAsBinaryAndSearchForBytes'}" TabIndex="54" />
                             </WrapPanel>

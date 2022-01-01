@@ -57,18 +57,21 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <WrapPanel Grid.Row="0" Orientation="Horizontal">
-                        <RadioButton Content="{l:Loc Key='Test_SearchType_Regex'}" Margin="3,4,3,3" GroupName="SearchRegex"
+                        <RadioButton Content="{l:Loc Key='Test_SearchType_Regex'}" Margin="3,4,3,3" GroupName="SearchType"
                                      IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, 
-                                        ConverterParameter=Regex}"/>
-                        <RadioButton Content="{l:Loc Key='Test_SearchType_XPath'}" Margin="3,4,3,3" GroupName="SearchXPath"
+                                     ConverterParameter=Regex}"/>
+                        <RadioButton Content="{l:Loc Key='Test_SearchType_XPath'}" Margin="3,4,3,3" GroupName="SearchType"
                                      IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, 
-                                        ConverterParameter=XPath}"/>
-                        <RadioButton Content="{l:Loc Key='Test_SearchType_Text'}" Margin="3,4,3,3" GroupName="SearchText"
+                                     ConverterParameter=XPath}"/>
+                        <RadioButton Content="{l:Loc Key='Test_SearchType_Text'}" Margin="3,4,3,3" GroupName="SearchType"
                                      IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, 
-                                        ConverterParameter=PlainText}"/>
-                        <RadioButton Content="{l:Loc Key='Test_SearchType_Phonetic'}" Margin="3,4,3,3" GroupName="SearchSoundex"
+                                     ConverterParameter=PlainText}"/>
+                        <RadioButton Content="{l:Loc Key='Test_SearchType_Phonetic'}" Margin="3,4,3,3" GroupName="SearchType"
                                      IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, 
-                                        ConverterParameter=Soundex}"/>
+                                     ConverterParameter=Soundex}"/>
+                        <RadioButton Content="{l:Loc Key='Test_SearchType_Hex'}" Margin="3,4,3,3" GroupName="SearchType"
+                                     IsChecked="{Binding Path=TypeOfSearch, Converter={StaticResource ebc}, 
+                                     ConverterParameter=Hex}"/>
                     </WrapPanel>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
@@ -121,7 +124,8 @@
                         <TextBox Grid.Row="1"
                                  Text="{Binding Path=ReplaceWith, UpdateSourceTrigger=PropertyChanged}"
                                  VerticalScrollBarVisibility="Auto"
-                                 Style="{StaticResource ExpandedTextbox}">
+                                 Style="{StaticResource ExpandedTextbox}"
+                                 IsReadOnly="{Binding IsReplaceReadOnly}">
                             <TextBox.ToolTip>
                                 <TextBlock>
                                     <Run Text="{l:Loc Key='TTB1_ReplacesEntireRegex'}"/>
