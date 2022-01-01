@@ -146,7 +146,7 @@
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_JsonFrameworkForNET" xml:space="preserve">
-    <value>JSON Фреймворк для .NET</value>
+    <value>JSON-фреймворк для .NET</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_LibraryForReadingArchiveFiles" xml:space="preserve">
@@ -182,7 +182,7 @@
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
-    <value>.NET WPF компонент текстового редактора</value>
+    <value>.NET WPF-компонент текстового редактора</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_OK" xml:space="preserve">
