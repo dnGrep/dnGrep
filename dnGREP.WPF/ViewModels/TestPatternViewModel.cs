@@ -352,10 +352,16 @@ namespace dnGREP.WPF
                     // Copy children Inline to a temporary array.
                     if (TypeOfSearch == SearchType.Hex)
                     {
-                        paragraph.Inlines.Add(new Run(line.FormattedLineNumber + "    "));
+                        var run = new Run(line.FormattedLineNumber)
+                        {
+                            Background = new SolidColorBrush(Color.FromArgb(92, 180, 180, 180)),
+                            FontFamily = new FontFamily(ApplicationFontFamily),
+                        };
+                        paragraph.Inlines.Add(run);
+                        paragraph.Inlines.Add(new Run(" "));
                         paragraph.Inlines.AddRange(line.FormattedText.ToList());
                         int length = GetLineLength(line.FormattedText);
-                        int spaces = (hexLineSize * 3) - length + 4;
+                        int spaces = (hexLineSize * 3) - length + 3;
                         paragraph.Inlines.Add(new Run(new string(' ', spaces) + line.FormattedHexValues));
                     }
                     else
