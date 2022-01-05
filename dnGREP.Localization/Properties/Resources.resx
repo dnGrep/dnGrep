@@ -1801,6 +1801,18 @@ Arguments:
     <value>Replace window font size</value>
     <comment>Options dialog, font size input label</comment>
   </data>
+  <data name="Options_ResultsFontFamily" xml:space="preserve">
+    <value>Results font family</value>
+    <comment>Options dialog, results font selector label</comment>
+  </data>
+  <data name="Options_ResultsFontSize" xml:space="preserve">
+    <value>Results font size</value>
+    <comment>Options dialog, results font size label</comment>
+  </data>
+  <data name="Options_ResultsFontUsuallyAFixedWidthFont" xml:space="preserve">
+    <value>Font used in search results, usually a fixed width font</value>
+    <comment>Options dialog, replace font selector tooltip</comment>
+  </data>
   <data name="Options_ResultsOptions" xml:space="preserve">
     <value>Search results</value>
     <comment>Options dialog, Search results group header label</comment>

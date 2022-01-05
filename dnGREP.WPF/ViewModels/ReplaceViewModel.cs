@@ -33,6 +33,7 @@ namespace dnGREP.WPF
             CurrentSyntax = Resources.Replace_SyntaxNone;
             ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
             ReplaceFormFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.ReplaceFormFontSize);
+            ResultsFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ResultsFontFamily);
 
             IsFullDialog = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowFullReplaceDialog);
         }
@@ -539,6 +540,20 @@ namespace dnGREP.WPF
 
                 replaceFormfontSize = value;
                 base.OnPropertyChanged(() => ReplaceFormFontSize);
+            }
+        }
+
+        private string resultsFontFamily;
+        public string ResultsFontFamily
+        {
+            get { return resultsFontFamily; }
+            set
+            {
+                if (resultsFontFamily == value)
+                    return;
+
+                resultsFontFamily = value;
+                base.OnPropertyChanged(() => ResultsFontFamily);
             }
         }
 

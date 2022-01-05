@@ -174,7 +174,8 @@
                 <TextBox MinHeight="60"
                          Margin="5" AcceptsReturn="True" TextWrapping="Wrap"
                          VerticalScrollBarVisibility="Auto"
-                         FontFamily="Consolas"
+                         FontFamily="{Binding ResultsFontFamily}"
+                         FontSize="{Binding ResultsFontSize}"
                          Text="{Binding Path=SampleText, UpdateSourceTrigger=PropertyChanged}" />
             </DockPanel>
             <GridSplitter Grid.Row="1" Height="2" Background="{DynamicResource Splitter.Background}" 
@@ -189,7 +190,8 @@
                         <my:InlineTextBlock Margin="3,0,0,0" MinHeight="60"
                                             HorizontalAlignment="Stretch" VerticalAlignment="Top"
                                             InlineCollection="{Binding SearchOutput}"
-                                            FontFamily="Consolas"
+                                            FontFamily="{Binding ResultsFontFamily}"
+                                            FontSize="{Binding ResultsFontSize}"
                                             Style="{StaticResource ThemedTextBlock}" />
                     </ScrollViewer>
                 </Border>
@@ -210,7 +212,8 @@
                         <my:InlineTextBlock Margin="3,0,0,0" MinHeight="60"
                                             HorizontalAlignment="Stretch" VerticalAlignment="Top"
                                             InlineCollection="{Binding ReplaceOutput}"
-                                            FontFamily="Consolas"
+                                            FontFamily="{Binding ResultsFontFamily}"
+                                            FontSize="{Binding ResultsFontSize}"
                                             Style="{StaticResource ThemedTextBlock}" />
                     </ScrollViewer>
                     <Border.ContextMenu>

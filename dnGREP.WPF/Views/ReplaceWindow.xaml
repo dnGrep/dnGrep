@@ -193,7 +193,7 @@
                                    Text="{l:Loc Key='Replace_ReplaceKey1_Text'}" TextDecorations="Underline"
                                    Background="{DynamicResource Match.Skip.Background}"
                                    Foreground="{DynamicResource Match.Skip.Foreground}"
-                                   FontFamily="Consolas" />
+                                   FontFamily="{Binding ResultsFontFamily}" />
                         <TextBlock Text="{l:Loc Key='Replace_ReplaceKey2_SelectedMatch'}" />
                         <Rectangle Width="40" Height="18" Margin="24,0,3,0"
                                    Fill="{DynamicResource Match.Replace.Background}" />
@@ -224,7 +224,7 @@
                     BorderBrush="{DynamicResource GroupBox.Border}"
                     BorderThickness="1" CornerRadius="4"
                     Visibility="{Binding IsFullDialog, Converter={StaticResource BoolToVisibilityConverter}}">
-                <ae:TextEditor Name="textEditor" Margin="3" FontFamily="Consolas"
+                <ae:TextEditor Name="textEditor" Margin="3" FontFamily="{Binding ResultsFontFamily}"
                                FontSize="{Binding ElementName=zoomSlider, Path=Value}"
                                Foreground="{DynamicResource AvalonEdit.Foreground}"
                                Background="{DynamicResource AvalonEdit.Background}"

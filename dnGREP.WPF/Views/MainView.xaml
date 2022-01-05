@@ -744,7 +744,7 @@
                                       ItemsSource="{Binding FastSearchBookmarks}"
                                       Style="{DynamicResource MultilineComboBoxStyle}"
                                       IsTextSearchCaseSensitive="True" 
-                                      FontFamily="Consolas" FontSize="{Binding MainFormFontSize}"
+                                      FontFamily="{Binding ResultsFontFamily}" FontSize="{Binding ResultsFontSize}"
                                       TabIndex="60">
                                 <ComboBox.ToolTip>
                                     <TextBlock>
@@ -775,7 +775,7 @@
                                       ItemsSource="{Binding FastReplaceBookmarks}"
                                       Style="{DynamicResource MultilineComboBoxStyle}"
                                       IsTextSearchCaseSensitive="True" 
-                                      FontFamily="Consolas" FontSize="{Binding MainFormFontSize}"
+                                      FontFamily="{Binding ResultsFontFamily}" FontSize="{Binding ResultsFontSize}"
                                       TabIndex="61">
                                 <ComboBox.ToolTip>
                                     <TextBlock>

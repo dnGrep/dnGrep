@@ -155,6 +155,8 @@ namespace dnGREP.Common
             public const string MainFormFontSize = "MainFormFontSize";
             public const string ReplaceFormFontSize = "ReplaceFormFontSize";
             public const string DialogFontSize = "DialogFontSize";
+            public const string ResultsFontFamily = "ResultsFontFamily";
+            public const string ResultsFontSize = "ResultsFontSize";
             [DefaultValue("-layout -enc UTF-8 -bom")]
             public const string PdfToTextOptions = "PdfToTextOptions";
             [DefaultValue(false)]
@@ -183,6 +185,7 @@ namespace dnGREP.Common
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
         private const string storageFileName = "dnGREP.Settings.dat";
         private const string mutexId = "{83D660FA-E399-4BBC-A3FC-09897115D2E2}";
+        public readonly static string DefaultMonospaceFontFamily = "Consolas";
 
         private GrepSettings() { }
 
@@ -257,6 +260,17 @@ namespace dnGREP.Common
             if (Get<double>(Key.DialogFontSize) == 0)
             {
                 Set(Key.DialogFontSize, SystemFonts.MessageFontSize);
+            }
+
+            if (!TryGetValue(Key.ResultsFontFamily, out string value2) ||
+                string.IsNullOrWhiteSpace(value2))
+            {
+                Set(Key.ResultsFontFamily, DefaultMonospaceFontFamily);
+            }
+
+            if (Get<double>(Key.ResultsFontSize) == 0)
+            {
+                Set(Key.ResultsFontSize, SystemFonts.MessageFontSize);
             }
         }
 

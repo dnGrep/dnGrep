@@ -175,6 +175,8 @@
                             <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
                         </Grid.RowDefinitions>
                         <CheckBox Grid.Row="0" Grid.ColumnSpan="2" Margin="0,6,0,3" Content="{l:Loc Key='Options_UseDefault'}"
                                   IsChecked="{Binding Path=UseDefaultFont}" />
@@ -183,6 +185,8 @@
                         <ComboBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="6,3"
                                   HorizontalAlignment="Left"
                                   ItemsSource="{Binding Path=FontFamilies}"
+                                  DisplayMemberPath="FamilyName"
+                                  SelectedValuePath="FamilyName"
                                   SelectedValue="{Binding Path=EditApplicationFontFamily}"
                                   IsEnabled="{Binding Path=UseDefaultFont, Converter={StaticResource not}}">
                             <ComboBox.Width>
@@ -265,6 +269,64 @@
                         <TextBlock Grid.Row="4" Grid.Column="2" Margin="12,3" Text="{l:Loc Key='Options_SampleText'}"
                                    FontFamily="{Binding Path=EditApplicationFontFamily}"
                                    FontSize="{Binding Path=EditDialogFontSize}"/>
+
+                        <TextBlock Grid.Row="5" Grid.Column="0" Margin="0,3" 
+                                   HorizontalAlignment="Right" Text="{l:Loc Key='Options_ResultsFontFamily'}" 
+                                   ToolTip="{l:Loc Key='Options_ResultsFontUsuallyAFixedWidthFont'}"/>
+                        <ComboBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Margin="6,3"
+                                  HorizontalAlignment="Left"
+                                  ItemsSource="{Binding Path=FontFamilies}"
+                                  SelectedValuePath="FamilyName"
+                                  SelectedValue="{Binding Path=EditResultsFontFamily}"
+                                  IsEnabled="{Binding Path=UseDefaultFont, Converter={StaticResource not}}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding FamilyName}">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding IsMonospaced}" Value="True">
+                                                        <Setter Property="FontWeight" Value="Bold"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                            <ComboBox.Width>
+                                <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="200" FallbackValue="200">
+                                    <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                    <Binding Path="ApplicationFontFamily"/>
+                                    <Binding Path="DialogFontSize"/>
+                                </MultiBinding>
+                            </ComboBox.Width>
+                        </ComboBox>
+
+                        <TextBlock Grid.Row="6" Grid.Column="0" Margin="0,3" 
+                                   HorizontalAlignment="Right" Text="{l:Loc Key='Options_ResultsFontSize'}" />
+                        <TextBox Grid.Row="6" Grid.Column="1" Margin="6,3"
+                                 IsEnabled="{Binding Path=UseDefaultFont, Converter={StaticResource not}}">
+                            <TextBox.Text>
+                                <Binding Path="EditResultsFontSize" Mode="TwoWay" 
+                                         UpdateSourceTrigger="PropertyChanged" Delay="1250">
+                                    <Binding.ValidationRules>
+                                        <my:ValueRangeRule Min="8" Max="24"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                            <TextBox.Width>
+                                <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="48" FallbackValue="48">
+                                    <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                    <Binding Path="ApplicationFontFamily"/>
+                                    <Binding Path="DialogFontSize"/>
+                                </MultiBinding>
+                            </TextBox.Width>
+                        </TextBox>
+                        <TextBlock Grid.Row="6" Grid.Column="2" Margin="12,3" Text="{l:Loc Key='Options_SampleText'}"
+                                   FontFamily="{Binding Path=EditResultsFontFamily}"
+                                   FontSize="{Binding Path=EditResultsFontSize}"/>
+
                     </Grid>
                 </GroupBox>
 

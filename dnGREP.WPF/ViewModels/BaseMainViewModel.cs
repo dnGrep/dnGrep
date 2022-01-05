@@ -1205,6 +1205,34 @@ namespace dnGREP.WPF
             }
         }
 
+        private string resultsFontFamily;
+        public string ResultsFontFamily
+        {
+            get { return resultsFontFamily; }
+            set
+            {
+                if (resultsFontFamily == value)
+                    return;
+
+                resultsFontFamily = value;
+                base.OnPropertyChanged(() => ResultsFontFamily);
+            }
+        }
+
+        private double resultsfontSize;
+        public double ResultsFontSize
+        {
+            get { return resultsfontSize; }
+            set
+            {
+                if (resultsfontSize == value)
+                    return;
+
+                resultsfontSize = value;
+                base.OnPropertyChanged(() => ResultsFontSize);
+            }
+        }
+
 
 
         public bool IsOperationInProgress
