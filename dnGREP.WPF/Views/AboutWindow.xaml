@@ -46,7 +46,7 @@
             <Border Grid.Row="0" Grid.RowSpan="4" Grid.Column="0"
                 Margin="8" Background="#80ffffff" CornerRadius="12">
                 <Image Width="72" Height="72" Margin="8"
-                   Source="/dnGREP;component/Images/dnGrep80.png" />
+                   Source="/dnGREP;component/Images/dnGrep96.png" />
             </Border>
 
             <StackPanel Grid.Row="0" Grid.Column="1"  Orientation="Horizontal">

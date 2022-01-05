@@ -275,8 +275,10 @@
       <Link>7z64.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\dnGrep48.png" />
     <Resource Include="ThemedControls\next.png" />
     <Resource Include="ThemedControls\prev.png" />
+    <Resource Include="Images\dnGrep96.png" />
     <Content Include="Themes\Sunset.xaml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -435,20 +437,6 @@
       <Project>{a18eeae0-260f-4fc1-bdf2-6bf0ba335cb7}</Project>
       <Name>ICSharpCode.AvalonEdit</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\applications-graphics.png" />
-    <Resource Include="Images\preferences-system.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\system-search.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Images\splash.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\dnGrep48.png" />
-    <Resource Include="Images\dnGrep80.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AlphaFS">
