@@ -863,7 +863,9 @@ namespace dnGREP.WPF
 
             string fullLine = line.LineText;
             if (line.LineText.Length > MaxLineLength)
+            {
                 fullLine = line.LineText.Substring(0, MaxLineLength);
+            }
 
             if (line.Matches.Count == 0)
             {
@@ -908,8 +910,7 @@ namespace dnGREP.WPF
                         }
                         else
                         {
-                            // binary file?
-                            regLine = fullLine;
+                            // past the end of the line: line may be truncated, or it may be the newline chars
                         }
 
                         if (regLine != null)
@@ -979,7 +980,9 @@ namespace dnGREP.WPF
                     var hiddenMatches = line.Matches.Where(m => m.StartLocation > MaxLineLength).Select(m => m);
                     int count = hiddenMatches.Count();
                     if (count > 0)
+                    {
                         paragraph.Inlines.Add(new Run(" " + Resources.Main_ResultList_AdditionalMatches));
+                    }
 
                     // if close to getting them all, then take them all,
                     // otherwise, stop at 20 and just show the remaining count
