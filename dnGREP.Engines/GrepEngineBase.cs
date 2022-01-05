@@ -214,6 +214,11 @@ namespace dnGREP.Engines
             var matches = regex.Matches(text);
             foreach (Match match in matches)
             {
+                if (match.Length < 1)
+                {
+                    continue;
+                }
+
                 if (initParams.VerboseMatchCount && lineEndIndexes.Count > 0)
                     lineNumber = lineEndIndexes.FindIndex(i => i > match.Index) + 1;
 
