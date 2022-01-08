@@ -1838,4 +1838,20 @@ Argumente:
     <value>Slide {0}</value>
     <comment>Main window, results list label for PowerPoint files: {0} is the slide number in the PowerPoint document</comment>
   </data>
+  <data name="Options_ResultsFontFamily" xml:space="preserve">
+    <value>Results font family</value>
+    <comment>Options dialog, results font selector label</comment>
+  </data>
+  <data name="Options_ResultsFontSize" xml:space="preserve">
+    <value>Results font size</value>
+    <comment>Options dialog, results font size label</comment>
+  </data>
+  <data name="Options_ResultsFontUsuallyAFixedWidthFont" xml:space="preserve">
+    <value>Font used in search results, usually a fixed width font</value>
+    <comment>Options dialog, replace font selector tooltip</comment>
+  </data>
+  <data name="Test_SearchType_Hex" xml:space="preserve">
+    <value>Byte</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
 </root>
