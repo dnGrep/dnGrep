@@ -3656,6 +3656,33 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Results font family.
+        /// </summary>
+        public static string Options_ResultsFontFamily {
+            get {
+                return ResourceManager.GetString("Options_ResultsFontFamily", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Results font size.
+        /// </summary>
+        public static string Options_ResultsFontSize {
+            get {
+                return ResourceManager.GetString("Options_ResultsFontSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Font used in search results, usually a fixed width font.
+        /// </summary>
+        public static string Options_ResultsFontUsuallyAFixedWidthFont {
+            get {
+                return ResourceManager.GetString("Options_ResultsFontUsuallyAFixedWidthFont", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search results.
         /// </summary>
         public static string Options_ResultsOptions {
@@ -4741,6 +4768,15 @@ namespace dnGREP.Localization.Properties {
         public static string Test_SearchResult {
             get {
                 return ResourceManager.GetString("Test_SearchResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Byte.
+        /// </summary>
+        public static string Test_SearchType_Hex {
+            get {
+                return ResourceManager.GetString("Test_SearchType_Hex", resourceCulture);
             }
         }
         

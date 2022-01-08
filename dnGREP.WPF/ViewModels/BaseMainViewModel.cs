@@ -1072,6 +1072,21 @@ namespace dnGREP.WPF
             }
         }
 
+        private bool hasValidationMessage;
+
+        public bool HasValidationMessage
+        {
+            get { return hasValidationMessage; }
+            set
+            {
+                if (value == hasValidationMessage)
+                    return;
+
+                hasValidationMessage = value;
+                base.OnPropertyChanged(() => HasValidationMessage);
+            }
+        }
+
         private string windowTitle = Resources.Main_DnGREP_Title;
         public string WindowTitle
         {
@@ -1187,6 +1202,34 @@ namespace dnGREP.WPF
 
                 canSearchArchives = value;
                 base.OnPropertyChanged(() => CanSearchArchives);
+            }
+        }
+
+        private string resultsFontFamily;
+        public string ResultsFontFamily
+        {
+            get { return resultsFontFamily; }
+            set
+            {
+                if (resultsFontFamily == value)
+                    return;
+
+                resultsFontFamily = value;
+                base.OnPropertyChanged(() => ResultsFontFamily);
+            }
+        }
+
+        private double resultsfontSize;
+        public double ResultsFontSize
+        {
+            get { return resultsfontSize; }
+            set
+            {
+                if (resultsfontSize == value)
+                    return;
+
+                resultsfontSize = value;
+                base.OnPropertyChanged(() => ResultsFontSize);
             }
         }
 
@@ -1385,9 +1428,14 @@ namespace dnGREP.WPF
                             valid = false;
                         }
                         ValidationMessage = valid ? Resources.Main_Validation_HexStringIsOK : Resources.Main_Validation_HexStringIsNotValid;
-                        isValidPattern = valid;
+                        IsValidPattern = valid;
                     }
                 }
+            }
+
+            if (name == nameof(ValidationMessage))
+            {
+                HasValidationMessage = !string.IsNullOrWhiteSpace(ValidationMessage);
             }
 
             //Can search

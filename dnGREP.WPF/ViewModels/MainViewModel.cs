@@ -972,11 +972,14 @@ namespace dnGREP.WPF
 
             ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
             MainFormFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.MainFormFontSize);
+            ResultsFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ResultsFontFamily);
+            ResultsFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.ResultsFontSize);
 
             if (PreviewModel != null)
             {
                 PreviewModel.ApplicationFontFamily = ApplicationFontFamily;
                 PreviewModel.MainFormFontSize = MainFormFontSize;
+                PreviewModel.ResultsFontFamily = ResultsFontFamily;
             }
         }
 

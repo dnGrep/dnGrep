@@ -61,7 +61,7 @@
                           ItemsSource="{Binding Path=Highlighters}"
                           SelectedValue="{Binding Path=CurrentSyntax}" />
             </WrapPanel>
-            <ae:TextEditor Name="textEditor" FontFamily="Consolas"
+            <ae:TextEditor Name="textEditor" FontFamily="{Binding ResultsFontFamily}"
                            FontSize="{Binding ElementName=zoomSlider, Path=Value}"
                            Foreground="{DynamicResource AvalonEdit.Foreground}"
                            Background="{DynamicResource AvalonEdit.Background}"

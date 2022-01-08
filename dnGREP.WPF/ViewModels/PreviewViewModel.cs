@@ -228,6 +228,20 @@ namespace dnGREP.WPF
             }
         }
 
+        private string resultsFontFamily;
+        public string ResultsFontFamily
+        {
+            get { return resultsFontFamily; }
+            set
+            {
+                if (resultsFontFamily == value)
+                    return;
+
+                resultsFontFamily = value;
+                base.OnPropertyChanged(() => ResultsFontFamily);
+            }
+        }
+
         void PreviewViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             UpdateState(e.PropertyName);

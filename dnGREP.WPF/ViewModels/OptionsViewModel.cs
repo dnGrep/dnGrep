@@ -101,6 +101,8 @@ namespace dnGREP.WPF
                 EditMainFormFontSize != Settings.Get<double>(GrepSettings.Key.MainFormFontSize) ||
                 EditReplaceFormFontSize != Settings.Get<double>(GrepSettings.Key.ReplaceFormFontSize) ||
                 EditDialogFontSize != Settings.Get<double>(GrepSettings.Key.DialogFontSize) ||
+                EditResultsFontFamily != Settings.Get<string>(GrepSettings.Key.ResultsFontFamily) ||
+                EditResultsFontSize != Settings.Get<double>(GrepSettings.Key.ResultsFontSize) ||
                 HexResultByteLength != Settings.Get<int>(GrepSettings.Key.HexResultByteLength) ||
                 PdfToTextOptions != Settings.Get<string>(GrepSettings.Key.PdfToTextOptions) ||
                 ArchiveOptions.IsChanged ||
@@ -658,9 +660,9 @@ namespace dnGREP.WPF
 
         public ObservableCollection<PluginOptions> Plugins { get; set; } = new ObservableCollection<PluginOptions>();
 
-        public IList<string> FontFamilies
+        public IList<FontInfo> FontFamilies
         {
-            get { return Fonts.SystemFontFamilies.Select(r => r.Source).ToList(); }
+            get { return Fonts.SystemFontFamilies.Select(r => new FontInfo(r.Source)).ToList(); }
         }
 
         private bool useDefaultFont = true;
@@ -680,6 +682,8 @@ namespace dnGREP.WPF
                     EditMainFormFontSize = SystemFonts.MessageFontSize;
                     EditReplaceFormFontSize = SystemFonts.MessageFontSize;
                     EditDialogFontSize = SystemFonts.MessageFontSize;
+                    EditResultsFontFamily = GrepSettings.DefaultMonospaceFontFamily;
+                    EditResultsFontSize = SystemFonts.MessageFontSize;
                 }
 
                 base.OnPropertyChanged(() => UseDefaultFont);
@@ -795,6 +799,62 @@ namespace dnGREP.WPF
 
                 editDialogFontSize = value;
                 base.OnPropertyChanged(() => EditDialogFontSize);
+            }
+        }
+
+        private string resultsFontFamily;
+        public string ResultsFontFamily
+        {
+            get { return resultsFontFamily; }
+            set
+            {
+                if (resultsFontFamily == value)
+                    return;
+
+                resultsFontFamily = value;
+                base.OnPropertyChanged(() => ResultsFontFamily);
+            }
+        }
+
+        private string editResultsFontFamily;
+        public string EditResultsFontFamily
+        {
+            get { return editResultsFontFamily; }
+            set
+            {
+                if (editResultsFontFamily == value)
+                    return;
+
+                editResultsFontFamily = value;
+                base.OnPropertyChanged(() => EditResultsFontFamily);
+            }
+        }
+
+        private double resultsFontSize;
+        public double ResultsFontSize
+        {
+            get { return resultsFontSize; }
+            set
+            {
+                if (resultsFontSize == value)
+                    return;
+
+                resultsFontSize = value;
+                base.OnPropertyChanged(() => ResultsFontSize);
+            }
+        }
+
+        private double editResultsFontSize;
+        public double EditResultsFontSize
+        {
+            get { return editResultsFontSize; }
+            set
+            {
+                if (editResultsFontSize == value)
+                    return;
+
+                editResultsFontSize = value;
+                base.OnPropertyChanged(() => EditResultsFontSize);
             }
         }
 
@@ -1033,6 +1093,10 @@ namespace dnGREP.WPF
                 ValueOrDefault(GrepSettings.Key.ReplaceFormFontSize, SystemFonts.MessageFontSize);
             DialogFontSize = EditDialogFontSize =
                 ValueOrDefault(GrepSettings.Key.DialogFontSize, SystemFonts.MessageFontSize);
+            ResultsFontFamily = EditResultsFontFamily =
+                ValueOrDefault(GrepSettings.Key.ResultsFontFamily, GrepSettings.DefaultMonospaceFontFamily);
+            ResultsFontSize = EditResultsFontSize =
+                ValueOrDefault(GrepSettings.Key.ResultsFontSize, SystemFonts.MessageFontSize);
 
             CustomEditorHelp = TranslationSource.Format(Resources.Options_CustomEditorHelp,
                 File, Line, Pattern, Match, Column);
@@ -1130,6 +1194,8 @@ namespace dnGREP.WPF
             MainFormFontSize = EditMainFormFontSize;
             ReplaceFormFontSize = EditReplaceFormFontSize;
             DialogFontSize = EditDialogFontSize;
+            ResultsFontFamily = EditResultsFontFamily;
+            ResultsFontSize = EditResultsFontSize;
 
             Settings.Set(GrepSettings.Key.EnableUpdateChecking, EnableCheckForUpdates);
             Settings.Set(GrepSettings.Key.UpdateCheckInterval, CheckForUpdatesInterval);
@@ -1161,6 +1227,8 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.MainFormFontSize, MainFormFontSize);
             Settings.Set(GrepSettings.Key.ReplaceFormFontSize, ReplaceFormFontSize);
             Settings.Set(GrepSettings.Key.DialogFontSize, DialogFontSize);
+            Settings.Set(GrepSettings.Key.ResultsFontFamily, ResultsFontFamily);
+            Settings.Set(GrepSettings.Key.ResultsFontSize, ResultsFontSize);
             Settings.Set(GrepSettings.Key.HexResultByteLength, HexResultByteLength);
             Settings.Set(GrepSettings.Key.PdfToTextOptions, PdfToTextOptions);
 
@@ -1539,4 +1607,31 @@ namespace dnGREP.WPF
             origRemExtensions = remExtensions;
         }
     }
+
+    public class FontInfo
+    {
+        public FontInfo(string familyName)
+        {
+            FamilyName = familyName;
+            IsMonospaced = GetIsMonospaced(familyName);
+        }
+        public string FamilyName { get; private set; }
+        public bool IsMonospaced { get; private set; }
+
+        private static bool GetIsMonospaced(string familyName)
+        {
+            Typeface typeface = new Typeface(new FontFamily(familyName), SystemFonts.MessageFontStyle, 
+                SystemFonts.MessageFontWeight, FontStretches.Normal);
+
+            var narrowChar = new FormattedText("i", TranslationSource.Instance.CurrentCulture,
+                TranslationSource.Instance.CurrentCulture.TextInfo.IsRightToLeft ? FlowDirection.RightToLeft : FlowDirection.LeftToRight,
+                typeface, 12, Brushes.Black, null, 1);
+            var wideChar = new FormattedText("w", TranslationSource.Instance.CurrentCulture,
+                TranslationSource.Instance.CurrentCulture.TextInfo.IsRightToLeft ? FlowDirection.RightToLeft : FlowDirection.LeftToRight,
+                typeface, 12, Brushes.Black, null, 1);
+
+            return narrowChar.Width == wideChar.Width;
+        }
+    }
+
 }

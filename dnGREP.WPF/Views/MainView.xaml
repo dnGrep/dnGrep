@@ -42,6 +42,7 @@
         <my:IntOrEmptyValueConverter x:Key="IntConverter"/>
         <my:TitleFontSizeConverter x:Key="TitleSizeConverter"/>
         <my:TextBoxWidthConverter x:Key="TextBoxWidthConverter"/>
+        <my:ValidationColorConverter x:Key="validationColor" />
 
         <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource ThemedContextMenu}">
             <Setter Property="FontFamily" Value="{Binding ApplicationFontFamily}"/>
@@ -643,19 +644,19 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
                             <WrapPanel Margin="0,3,0,0" Orientation="Horizontal" Grid.Column="0">
-                                <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_Regex'}" GroupName="SearchRegex"
+                                <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_Regex'}" GroupName="SearchType"
                                              IsChecked="{Binding TypeOfSearch, ConverterParameter=Regex, Converter={StaticResource ebc}}"
                                              ToolTip="{l:Loc Key='Main_SearchType_RegularExpressionSearch'}" TabIndex="50" />
-                                <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_XPath'}" GroupName="SearchXPath"
+                                <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_XPath'}" GroupName="SearchType"
                                              IsChecked="{Binding TypeOfSearch, ConverterParameter=XPath, Converter={StaticResource ebc}}"
                                              ToolTip="{l:Loc Key='Main_SearchType_XPathSearchXMLDocumentsOnly'}" TabIndex="51" />
-                                <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_Text'}" GroupName="SearchText"
+                                <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_Text'}" GroupName="SearchType"
                                              IsChecked="{Binding TypeOfSearch, ConverterParameter=PlainText, Converter={StaticResource ebc}}"
                                              ToolTip="{l:Loc Key='Main_SearchType_PlainTextSearch'}" TabIndex="52" />
-                                <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_Phonetic'}" GroupName="SearchSoundex"
+                                <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_Phonetic'}" GroupName="SearchType"
                                              IsChecked="{Binding TypeOfSearch, ConverterParameter=Soundex, Converter={StaticResource ebc}}"
                                              ToolTip="{l:Loc Key='Main_SearchType_PhoneticSearch'}" TabIndex="53" />
-                                <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_Hex'}" GroupName="SearchHex"
+                                <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_Hex'}" GroupName="SearchType"
                                              IsChecked="{Binding TypeOfSearch, ConverterParameter=Hex, Converter={StaticResource ebc}}"
                                              ToolTip="{l:Loc Key='Main_SearchType_ReadFileAsBinaryAndSearchForBytes'}" TabIndex="54" />
                             </WrapPanel>
@@ -677,8 +678,15 @@
                                           IsChecked="{Binding IsBookmarked}"
                                           Command="{Binding BookmarkAddCommand}"
                                           DockPanel.Dock="Right" TabIndex="54" />
-                                <Label HorizontalAlignment="Center"
-                                       Content="{Binding ValidationMessage}" />
+                                <Border HorizontalAlignment="Center"
+                                        Background="#12FFFFFF" CornerRadius="3" 
+                                        Visibility="{Binding HasValidationMessage, Converter={StaticResource BoolToVisibilityConverter}}">
+                                    <Label HorizontalAlignment="Center" Padding="12,3" 
+                                           Content="{Binding ValidationMessage}"
+                                           Foreground="{Binding IsValidPattern, Converter={StaticResource validationColor}}"
+                                           Background="Transparent"
+                                           Visibility="{Binding HasValidationMessage, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                </Border>
                             </DockPanel>
                         </Grid>
                         <StackPanel Margin="0,5,0,3" DockPanel.Dock="Bottom"
@@ -736,7 +744,7 @@
                                       ItemsSource="{Binding FastSearchBookmarks}"
                                       Style="{DynamicResource MultilineComboBoxStyle}"
                                       IsTextSearchCaseSensitive="True" 
-                                      FontFamily="Consolas" FontSize="{Binding MainFormFontSize}"
+                                      FontFamily="{Binding ResultsFontFamily}" FontSize="{Binding ResultsFontSize}"
                                       TabIndex="60">
                                 <ComboBox.ToolTip>
                                     <TextBlock>
@@ -767,7 +775,7 @@
                                       ItemsSource="{Binding FastReplaceBookmarks}"
                                       Style="{DynamicResource MultilineComboBoxStyle}"
                                       IsTextSearchCaseSensitive="True" 
-                                      FontFamily="Consolas" FontSize="{Binding MainFormFontSize}"
+                                      FontFamily="{Binding ResultsFontFamily}" FontSize="{Binding ResultsFontSize}"
                                       TabIndex="61">
                                 <ComboBox.ToolTip>
                                     <TextBlock>
