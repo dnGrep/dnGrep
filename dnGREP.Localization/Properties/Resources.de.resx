@@ -165,9 +165,6 @@
   <data name="About_NETLibraryToWorkWithWordAndExcelDocuments" xml:space="preserve">
     <value>.NET Bibliothek zur Verarbeitung von Word und Excel Dokumenten</value>
   </data>
-  <data name="About_NETWPFScreenHelperUtility" xml:space="preserve">
-    <value>.NET WPF Bildschirm Hilfewerkzeuge</value>
-  </data>
   <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
     <value>.NET WPF Texteditor Komponenten</value>
   </data>

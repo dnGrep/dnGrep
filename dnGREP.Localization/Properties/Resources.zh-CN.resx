@@ -181,10 +181,6 @@
     <value>处理 Word 和 Excel 文档的 .NET 库</value>
     <comment>About dialog acknowledgments</comment>
   </data>
-  <data name="About_NETWPFScreenHelperUtility" xml:space="preserve">
-    <value>.NET WPF 屏幕帮助工具</value>
-    <comment>About dialog acknowledgments</comment>
-  </data>
   <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
     <value>.NET WPF 文本编辑器组件</value>
     <comment>About dialog acknowledgments</comment>

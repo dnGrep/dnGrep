@@ -181,10 +181,6 @@
     <value>ספריית .NET לעבודה עם מסמכי Word ו- Excel</value>
     <comment>About dialog acknowledgments</comment>
   </data>
-  <data name="About_NETWPFScreenHelperUtility" xml:space="preserve">
-    <value>.NET WPF כלי עזר למסכים</value>
-    <comment>About dialog acknowledgments</comment>
-  </data>
   <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
     <value>.NET WPF רכיב עורך טקסט</value>
     <comment>About dialog acknowledgments</comment>
