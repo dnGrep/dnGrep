@@ -2373,15 +2373,15 @@ Arguments:
     <comment>Main window, results list label for PowerPoint files: {0} is the slide number in the PowerPoint document</comment>
   </data>
   <data name="Options_ResultsFontFamily" xml:space="preserve">
-    <value>Results font family</value>
+    <value>结果字体族</value>
     <comment>Options dialog, results font selector label</comment>
   </data>
   <data name="Options_ResultsFontSize" xml:space="preserve">
-    <value>Results font size</value>
+    <value>结果字体大小</value>
     <comment>Options dialog, results font size label</comment>
   </data>
   <data name="Options_ResultsFontUsuallyAFixedWidthFont" xml:space="preserve">
-    <value>Font used in search results, usually a fixed width font</value>
+    <value>在搜索结果中使用的字体，通常是一种等宽字体</value>
     <comment>Options dialog, replace font selector tooltip</comment>
   </data>
   <data name="Test_SearchType_Hex" xml:space="preserve">
