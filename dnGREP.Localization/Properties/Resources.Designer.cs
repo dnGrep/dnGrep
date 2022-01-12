@@ -763,6 +763,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sections.
+        /// </summary>
+        public static string Bookmarks_SectionsHeader {
+            get {
+                return ResourceManager.GetString("Bookmarks_SectionsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Case sensitive.
         /// </summary>
         public static string Bookmarks_Summary_CaseSensitive {

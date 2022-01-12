@@ -209,6 +209,14 @@
     <value>C_ase sensitive</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
+  <data name="BookmarkDetails_Content_Group" xml:space="preserve">
+    <value>Content</value>
+    <comment>Bookmark details dialog, search group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Content_Group_Tooltip" xml:space="preserve">
+    <value>Include content search properties in bookmark</value>
+    <comment>Bookmark details dialog, search group header tooltip</comment>
+  </data>
   <data name="BookmarkDetails_Description" xml:space="preserve">
     <value>Description:</value>
     <comment>Bookmark details dialog, text input box label</comment>
@@ -304,14 +312,6 @@
   <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
     <value>Replace with:</value>
     <comment>Bookmark details dialog, replace text input box label</comment>
-  </data>
-  <data name="BookmarkDetails_Content_Group" xml:space="preserve">
-    <value>Content</value>
-    <comment>Bookmark details dialog, search group header label (accel)</comment>
-  </data>
-  <data name="BookmarkDetails_Content_Group_Tooltip" xml:space="preserve">
-    <value>Include content search properties in bookmark</value>
-    <comment>Bookmark details dialog, search group header tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchFor" xml:space="preserve">
     <value>Search for:</value>
@@ -427,6 +427,10 @@
   </data>
   <data name="Bookmarks_SearchForHeader" xml:space="preserve">
     <value>Search for</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_SectionsHeader" xml:space="preserve">
+    <value>Sections</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Bookmarks_Summary_CaseSensitive" xml:space="preserve">

@@ -224,6 +224,7 @@ namespace dnGREP.WPF
                 var result = dlg.ShowDialog();
                 if (result.HasValue && result.Value)
                 {
+                    editBmk.UpdateSectionIndex();
                     editBmk.SetExtendedProperties();
 
                     if (SelectedBookmark != editBmk)
@@ -287,6 +288,7 @@ namespace dnGREP.WPF
                 var result = dlg.ShowDialog();
                 if (result.HasValue && result.Value)
                 {
+                    duplicateBmk.UpdateSectionIndex();
                     duplicateBmk.SetExtendedProperties();
 
                     var newBmk = new Bookmark(duplicateBmk.SearchFor, duplicateBmk.ReplaceWith, duplicateBmk.FilePattern)
@@ -333,6 +335,7 @@ namespace dnGREP.WPF
             var result = dlg.ShowDialog();
             if (result.HasValue && result.Value)
             {
+                editBmk.UpdateSectionIndex();
                 editBmk.SetExtendedProperties();
 
                 var newBmk = new Bookmark(editBmk.SearchFor, editBmk.ReplaceWith, editBmk.FilePattern)
@@ -466,6 +469,7 @@ namespace dnGREP.WPF
             ApplyFilePropertyFilters = toCopy.ApplyFilePropertyFilters;
             ApplyContentSearchFilters = toCopy.ApplyContentSearchFilters;
 
+            UpdateSectionIndex();
             SetExtendedProperties();
 
             ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
@@ -1095,7 +1099,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private void UpdateSectionIndex()
+        internal void UpdateSectionIndex()
         {
             int value = 0;
             if (ApplyFileSourceFilters)
