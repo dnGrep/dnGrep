@@ -126,6 +126,11 @@
           <File Id="filE3928064176646DB84256E32A69D9983" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\zh-CN\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>
+      <Directory Id="dir682790AA5ECC4AF1B7EF8FDB268EE8F1" Name="zh-Hant">
+        <Component Id="cmp7D0B9E2CE183452ABEC776D1BBB033A1" Guid="{12AD663A-BE3C-475C-8344-51E7FC2FA65F}">
+          <File Id="filC43A3ED192864BC5AF4112F21427A756" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\zh-Hant\dnGREP.Localization.resources.dll" />
+        </Component>
+      </Directory>
       <Directory Id="dirA21EF341F58C4CD8A3652F9814E52748" Name="Themes">
         <Component Id="cmp9870824B781A4C4094CD594CACFBDE9E" Guid="{1E306AFA-D718-4B0A-93E8-B6242A094BF9}">
           <File Id="fil2766C07E80EC4076B2B54F770E60FF44" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\Themes\Sunset.xaml" />
@@ -159,6 +164,7 @@
       <ComponentRef Id="cmp95D9BA8868AD4AABB595EFEE7C9A571C" />
       <ComponentRef Id="cmp2B23830370BC47F1B72CDB2222A8F99C" />
       <ComponentRef Id="cmp1CCA4DCF77DD449B91F005A1D4A7489B" />
+      <ComponentRef Id="cmp7D0B9E2CE183452ABEC776D1BBB033A1" />
       <ComponentRef Id="cmp9870824B781A4C4094CD594CACFBDE9E" />
     </ComponentGroup>
   </Fragment>
