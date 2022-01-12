@@ -55,7 +55,7 @@
 
 
             <DataGrid.Columns>
-                <DataGridTemplateColumn MinWidth="20" Header="Sections" IsReadOnly="True">
+                <DataGridTemplateColumn MinWidth="20" Header="{l:Loc Key='Bookmarks_SectionsHeader'}" IsReadOnly="True">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
