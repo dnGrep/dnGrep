@@ -98,6 +98,7 @@
     <Compile Include="MVHelpers\FileDragDropHelper.cs" />
     <Compile Include="MVHelpers\IntOrEmptyValueConverter.cs" />
     <Compile Include="MVHelpers\Messenger.cs" />
+    <Compile Include="MVHelpers\IntToImageValueConverter.cs" />
     <Compile Include="MVHelpers\PercentValueConverter.cs" />
     <Compile Include="MVHelpers\ResizeModeConverter.cs" />
     <Compile Include="MVHelpers\ColorInverter.cs" />
@@ -279,6 +280,14 @@
     <Resource Include="ThemedControls\next.png" />
     <Resource Include="ThemedControls\prev.png" />
     <Resource Include="Images\dnGrep96.png" />
+    <Resource Include="Images\checks0.png" />
+    <Resource Include="Images\checks1.png" />
+    <Resource Include="Images\checks2.png" />
+    <Resource Include="Images\checks3.png" />
+    <Resource Include="Images\checks4.png" />
+    <Resource Include="Images\checks5.png" />
+    <Resource Include="Images\checks6.png" />
+    <Resource Include="Images\checks7.png" />
     <Content Include="Themes\Sunset.xaml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

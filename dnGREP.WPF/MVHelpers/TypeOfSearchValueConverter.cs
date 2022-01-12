@@ -5,18 +5,21 @@ using dnGREP.Common;
 
 namespace dnGREP.WPF
 {
-    public class TypeOfSearchValueConverter : IValueConverter
+    public class TypeOfSearchValueConverter : IMultiValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is SearchType typeOfSearch)
+            if (values.Length > 1 && values[0] is SearchType typeOfSearch && values[1] is bool applyContentSearchFilters)
             {
-                return typeOfSearch.ToLocalizedString();
+                if (applyContentSearchFilters)
+                {
+                    return typeOfSearch.ToLocalizedString();
+                }
             }
             return string.Empty;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
