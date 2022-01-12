@@ -9,9 +9,9 @@
                  FlowDirection="{Binding CultureFlowDirection}"
                  FontFamily="{Binding ApplicationFontFamily}"
                  FontSize="{Binding DialogFontSize}"
-                 Width="860"
+                 Width="1000"
                  Height="440"
-                 MinWidth="520"
+                 MinWidth="640"
                  MinHeight="300"
                  Background="{DynamicResource Dialog.Background}"
                  CaptionBackground="{DynamicResource Caption.Dialog.Background}"
@@ -22,6 +22,7 @@
 
     <Window.Resources>
         <my:TypeOfSearchValueConverter x:Key="tosConverter" />
+        <my:IntToImageValueConverter x:Key="imageConverter" />
 
         <Style TargetType="Button" BasedOn="{StaticResource ThemedButton}">
             <Setter Property="Padding" Value="20,3" />
@@ -54,9 +55,27 @@
 
 
             <DataGrid.Columns>
+                <DataGridTemplateColumn MinWidth="20" Header="Sections" IsReadOnly="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{Binding Path=SectionIndex, Converter={StaticResource imageConverter}}" 
+                                       Stretch="Uniform" Height="16" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
                 <DataGridTextColumn MinWidth="80" Header="{l:Loc Key='Bookmarks_TypeHeader'}" IsReadOnly="True"
-                                    Binding="{Binding TypeOfSearch, Converter={StaticResource tosConverter}}"
-                                    SortMemberPath="TypeOfSearch" />
+                                    SortMemberPath="TypeOfSearch">
+                    <DataGridTextColumn.Binding>
+                        <MultiBinding Converter="{StaticResource tosConverter}">
+                            <MultiBinding.Bindings>
+                                <Binding Path="TypeOfSearch"/>
+                                <Binding Path="ApplyContentSearchFilters"/>
+                            </MultiBinding.Bindings>
+                        </MultiBinding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
                 <DataGridTextColumn MinWidth="120" Header="{l:Loc Key='Bookmarks_SearchForHeader'}" IsReadOnly="True"
                                     Binding="{Binding SearchFor}" />
                 <DataGridTextColumn MinWidth="120" Header="{l:Loc Key='Bookmarks_ReplaceWithHeader'}" IsReadOnly="True"

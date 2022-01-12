@@ -268,6 +268,24 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Content.
+        /// </summary>
+        public static string BookmarkDetails_Content_Group {
+            get {
+                return ResourceManager.GetString("BookmarkDetails_Content_Group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include content search properties in bookmark.
+        /// </summary>
+        public static string BookmarkDetails_Content_Group_Tooltip {
+            get {
+                return ResourceManager.GetString("BookmarkDetails_Content_Group_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description:.
         /// </summary>
         public static string BookmarkDetails_Description {
@@ -309,6 +327,42 @@ namespace dnGREP.Localization.Properties {
         public static string BookmarkDetails_FilePatternType {
             get {
                 return ResourceManager.GetString("BookmarkDetails_FilePatternType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File source.
+        /// </summary>
+        public static string BookmarkDetails_FileSource_Group {
+            get {
+                return ResourceManager.GetString("BookmarkDetails_FileSource_Group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include file source properties in bookmark.
+        /// </summary>
+        public static string BookmarkDetails_FileSource_Group_Tooltip {
+            get {
+                return ResourceManager.GetString("BookmarkDetails_FileSource_Group_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File filters.
+        /// </summary>
+        public static string BookmarkDetails_Filters_Group {
+            get {
+                return ResourceManager.GetString("BookmarkDetails_Filters_Group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include file filter properties in bookmark.
+        /// </summary>
+        public static string BookmarkDetails_Filters_Group_Tooltip {
+            get {
+                return ResourceManager.GetString("BookmarkDetails_Filters_Group_Tooltip", resourceCulture);
             }
         }
         

@@ -229,6 +229,22 @@
     <value>File pattern type</value>
     <comment>Bookmark details dialog, file pattern group header label</comment>
   </data>
+  <data name="BookmarkDetails_FileSource_Group" xml:space="preserve">
+    <value>File source</value>
+    <comment>Bookmark details dialog, file type group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_FileSource_Group_Tooltip" xml:space="preserve">
+    <value>Include file source properties in bookmark</value>
+    <comment>Bookmark details dialog, file type group header tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_Filters_Group" xml:space="preserve">
+    <value>File filters</value>
+    <comment>Bookmark details dialog, filters group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Filters_Group_Tooltip" xml:space="preserve">
+    <value>Include file filter properties in bookmark</value>
+    <comment>Bookmark details dialog, filters group header tooltip</comment>
+  </data>
   <data name="BookmarkDetails_FollowSymbolicLinks" xml:space="preserve">
     <value>Follow symbolic links</value>
     <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
@@ -288,6 +304,14 @@
   <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
     <value>Replace with:</value>
     <comment>Bookmark details dialog, replace text input box label</comment>
+  </data>
+  <data name="BookmarkDetails_Content_Group" xml:space="preserve">
+    <value>Content</value>
+    <comment>Bookmark details dialog, search group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Content_Group_Tooltip" xml:space="preserve">
+    <value>Include content search properties in bookmark</value>
+    <comment>Bookmark details dialog, search group header tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchFor" xml:space="preserve">
     <value>Search for:</value>

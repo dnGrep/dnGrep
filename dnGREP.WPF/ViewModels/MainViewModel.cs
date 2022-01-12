@@ -2022,6 +2022,9 @@ namespace dnGREP.WPF
                 IncludeArchive = IncludeArchive,
                 FollowSymlinks = FollowSymlinks,
                 CodePage = CodePage,
+                ApplyFileSourceFilters = true,
+                ApplyFilePropertyFilters = true,
+                ApplyContentSearchFilters = true,
             };
         }
 
@@ -2596,36 +2599,46 @@ namespace dnGREP.WPF
             var bmk = bookmarkWindow.ViewModel.SelectedBookmark;
             if (bmk != null)
             {
-                // set type of search first to handle Everything mode
-                TypeOfFileSearch = bmk.TypeOfFileSearch;
-
-                if (TypeOfFileSearch == FileSearchType.Everything)
+                if (bmk.ApplyFileSourceFilters)
                 {
-                    FileOrFolderPath = bmk.FilePattern;
+                    // set type of search first to handle Everything mode
+                    TypeOfFileSearch = bmk.TypeOfFileSearch;
+
+                    if (TypeOfFileSearch == FileSearchType.Everything)
+                    {
+                        FileOrFolderPath = bmk.FilePattern;
+                    }
+                    else
+                    {
+                        FilePattern = bmk.FilePattern;
+                    }
+                    FilePatternIgnore = bmk.IgnoreFilePattern;
+                    IncludeArchive = bmk.IncludeArchive;
+                    UseGitignore = bmk.UseGitignore;
+                    CodePage = bmk.CodePage;
                 }
-                else
+
+                if (bmk.ApplyFilePropertyFilters)
                 {
-                    FilePattern = bmk.FilePattern;
+                    IncludeSubfolder = bmk.IncludeSubfolders;
+                    MaxSubfolderDepth = bmk.MaxSubfolderDepth;
+                    IncludeHidden = bmk.IncludeHidden;
+                    IncludeBinary = bmk.IncludeBinary;
+                    FollowSymlinks = bmk.FollowSymlinks;
                 }
 
-                SearchFor = bmk.SearchFor;
-                ReplaceWith = bmk.ReplaceWith;
-                FilePatternIgnore = bmk.IgnoreFilePattern;
-                IncludeSubfolder = bmk.IncludeSubfolders;
-                MaxSubfolderDepth = bmk.MaxSubfolderDepth;
-                IncludeHidden = bmk.IncludeHidden;
-                IncludeBinary = bmk.IncludeBinary;
-                IncludeArchive = bmk.IncludeArchive;
-                FollowSymlinks = bmk.FollowSymlinks;
-                UseGitignore = bmk.UseGitignore;
-                CodePage = bmk.CodePage;
+                if (bmk.ApplyContentSearchFilters)
+                {
+                    TypeOfSearch = bmk.TypeOfSearch;
+                    SearchFor = bmk.SearchFor;
+                    ReplaceWith = bmk.ReplaceWith;
 
-                TypeOfSearch = bmk.TypeOfSearch;
-                CaseSensitive = bmk.CaseSensitive;
-                WholeWord = bmk.WholeWord;
-                Multiline = bmk.Multiline;
-                Singleline = bmk.Singleline;
-                BooleanOperators = bmk.BooleanOperators;
+                    CaseSensitive = bmk.CaseSensitive;
+                    WholeWord = bmk.WholeWord;
+                    Multiline = bmk.Multiline;
+                    Singleline = bmk.Singleline;
+                    BooleanOperators = bmk.BooleanOperators;
+                }
             }
         }
 
@@ -2633,37 +2646,46 @@ namespace dnGREP.WPF
         {
             if (bmk != null)
             {
-                // set type of search first to handle Everything mode
-                TypeOfFileSearch = bmk.TypeOfFileSearch;
-
-                if (TypeOfFileSearch == FileSearchType.Everything)
+                if (bmk.ApplyFileSourceFilters)
                 {
-                    FileOrFolderPath = bmk.FileNames;
+                    // set type of search first to handle Everything mode
+                    TypeOfFileSearch = bmk.TypeOfFileSearch;
+
+                    if (TypeOfFileSearch == FileSearchType.Everything)
+                    {
+                        FileOrFolderPath = bmk.FileNames;
+                    }
+                    else
+                    {
+                        FilePattern = bmk.FileNames;
+                    }
+                    FilePatternIgnore = bmk.IgnoreFilePattern;
+                    IncludeArchive = bmk.IncludeArchive;
+                    UseGitignore = bmk.UseGitignore;
+                    CodePage = bmk.CodePage;
                 }
-                else
+
+                if (bmk.ApplyFilePropertyFilters)
                 {
-                    FilePattern = bmk.FileNames;
+                    IncludeSubfolder = bmk.IncludeSubfolders;
+                    MaxSubfolderDepth = bmk.MaxSubfolderDepth;
+                    IncludeHidden = bmk.IncludeHiddenFiles;
+                    IncludeBinary = bmk.IncludeBinaryFiles;
+                    FollowSymlinks = bmk.FollowSymlinks;
                 }
 
-                SearchFor = bmk.SearchPattern;
-                ReplaceWith = bmk.ReplacePattern;
+                if (bmk.ApplyContentSearchFilters)
+                {
+                    TypeOfSearch = bmk.TypeOfSearch;
+                    SearchFor = bmk.SearchPattern;
+                    ReplaceWith = bmk.ReplacePattern;
 
-                FilePatternIgnore = bmk.IgnoreFilePattern;
-                IncludeSubfolder = bmk.IncludeSubfolders;
-                MaxSubfolderDepth = bmk.MaxSubfolderDepth;
-                IncludeHidden = bmk.IncludeHiddenFiles;
-                IncludeBinary = bmk.IncludeBinaryFiles;
-                IncludeArchive = bmk.IncludeArchive;
-                FollowSymlinks = bmk.FollowSymlinks;
-                UseGitignore = bmk.UseGitignore;
-                CodePage = bmk.CodePage;
-
-                TypeOfSearch = bmk.TypeOfSearch;
-                CaseSensitive = bmk.CaseSensitive;
-                WholeWord = bmk.WholeWord;
-                Multiline = bmk.Multiline;
-                Singleline = bmk.Singleline;
-                BooleanOperators = bmk.BooleanOperators;
+                    CaseSensitive = bmk.CaseSensitive;
+                    WholeWord = bmk.WholeWord;
+                    Multiline = bmk.Multiline;
+                    Singleline = bmk.Singleline;
+                    BooleanOperators = bmk.BooleanOperators;
+                }
             }
         }
 

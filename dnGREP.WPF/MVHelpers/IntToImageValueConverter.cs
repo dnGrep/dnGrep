@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Globalization;
-using System.Windows;
 using System.Windows.Data;
-using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace dnGREP.WPF
 {
-    public class ValidationColorConverter : IValueConverter
+    public class IntToImageValueConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is bool isValid && !isValid)
+            if (value is int intValue && 0 <= intValue && intValue <= 7)
             {
-                return Brushes.Red;
+                var uriString = $@"pack://application:,,,/dnGREP;component/Images/checks{intValue}.png";
+                return new BitmapImage(new Uri(uriString));
             }
-            return new SolidColorBrush(Color.FromRgb(54, 163, 0));
+            return null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

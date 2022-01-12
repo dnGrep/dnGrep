@@ -257,6 +257,9 @@ namespace dnGREP.WPF
                         IncludeArchive = editBmk.IncludeArchive,
                         FollowSymlinks = editBmk.FollowSymlinks,
                         CodePage = editBmk.CodePage,
+                        ApplyFileSourceFilters = editBmk.ApplyFileSourceFilters,
+                        ApplyFilePropertyFilters = editBmk.ApplyFilePropertyFilters,
+                        ApplyContentSearchFilters = editBmk.ApplyContentSearchFilters,
                     };
                     string[] paths = editBmk.PathReferences.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
                     newBmk.FolderReferences.AddRange(paths);
@@ -305,6 +308,9 @@ namespace dnGREP.WPF
                         IncludeArchive = duplicateBmk.IncludeArchive,
                         FollowSymlinks = duplicateBmk.FollowSymlinks,
                         CodePage = duplicateBmk.CodePage,
+                        ApplyFileSourceFilters = duplicateBmk.ApplyFileSourceFilters,
+                        ApplyFilePropertyFilters = duplicateBmk.ApplyFilePropertyFilters,
+                        ApplyContentSearchFilters = duplicateBmk.ApplyContentSearchFilters,
                     };
                     BookmarkLibrary.Instance.Bookmarks.Add(newBmk);
                     BookmarkLibrary.Save();
@@ -348,6 +354,9 @@ namespace dnGREP.WPF
                     IncludeArchive = editBmk.IncludeArchive,
                     FollowSymlinks = editBmk.FollowSymlinks,
                     CodePage = editBmk.CodePage,
+                    ApplyFileSourceFilters = editBmk.ApplyFileSourceFilters,
+                    ApplyFilePropertyFilters = editBmk.ApplyFilePropertyFilters,
+                    ApplyContentSearchFilters = editBmk.ApplyContentSearchFilters,
                 };
                 string[] paths = editBmk.PathReferences.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
                 newBmk.FolderReferences.AddRange(paths);
@@ -400,6 +409,12 @@ namespace dnGREP.WPF
             CodePage = bk.CodePage;
             PathReferences = string.Join(Environment.NewLine, bk.FolderReferences);
 
+            ApplyFileSourceFilters = bk.ApplyFileSourceFilters;
+            ApplyFilePropertyFilters = bk.ApplyFilePropertyFilters;
+            ApplyContentSearchFilters = bk.ApplyContentSearchFilters;
+
+            UpdateSectionIndex();
+
             UpdateTypeOfSearchState();
 
             SetExtendedProperties();
@@ -447,6 +462,10 @@ namespace dnGREP.WPF
             BooleanOperators = toCopy.BooleanOperators;
             IsBooleanOperatorsEnabled = toCopy.IsBooleanOperatorsEnabled;
 
+            ApplyFileSourceFilters = toCopy.ApplyFileSourceFilters;
+            ApplyFilePropertyFilters = toCopy.ApplyFilePropertyFilters;
+            ApplyContentSearchFilters = toCopy.ApplyContentSearchFilters;
+
             SetExtendedProperties();
 
             ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
@@ -456,24 +475,31 @@ namespace dnGREP.WPF
         internal void SetExtendedProperties()
         {
             var tempList = new List<string>();
-            if (IncludeArchive)
-                tempList.Add(Resources.Bookmarks_Summary_SearchInArchives);
-            if (!IncludeSubfolders || (IncludeSubfolders && MaxSubfolderDepth == 0))
-                tempList.Add(Resources.Bookmarks_Summary_NoSubfolders);
-            if (IncludeSubfolders && MaxSubfolderDepth > 0)
-                tempList.Add(TranslationSource.Format(Resources.Bookmarks_Summary_MaxFolderDepth, MaxSubfolderDepth));
-            if (!IncludeHidden)
-                tempList.Add(Resources.Bookmarks_Summary_NoHidden);
-            if (!IncludeBinary)
-                tempList.Add(Resources.Bookmarks_Summary_NoBinary);
-            if (!FollowSymlinks)
-                tempList.Add(Resources.Bookmarks_Summary_NoSymlinks);
-            if (CaseSensitive)
-                tempList.Add(Resources.Bookmarks_Summary_CaseSensitive);
-            if (WholeWord)
-                tempList.Add(Resources.Bookmarks_Summary_WholeWord);
-            if (Multiline)
-                tempList.Add(Resources.Bookmarks_Summary_Multiline);
+            if (ApplyFilePropertyFilters)
+            {
+                if (IncludeArchive)
+                    tempList.Add(Resources.Bookmarks_Summary_SearchInArchives);
+                if (!IncludeSubfolders || (IncludeSubfolders && MaxSubfolderDepth == 0))
+                    tempList.Add(Resources.Bookmarks_Summary_NoSubfolders);
+                if (IncludeSubfolders && MaxSubfolderDepth > 0)
+                    tempList.Add(TranslationSource.Format(Resources.Bookmarks_Summary_MaxFolderDepth, MaxSubfolderDepth));
+                if (!IncludeHidden)
+                    tempList.Add(Resources.Bookmarks_Summary_NoHidden);
+                if (!IncludeBinary)
+                    tempList.Add(Resources.Bookmarks_Summary_NoBinary);
+                if (!FollowSymlinks)
+                    tempList.Add(Resources.Bookmarks_Summary_NoSymlinks);
+            }
+
+            if (ApplyContentSearchFilters)
+            {
+                if (CaseSensitive)
+                    tempList.Add(Resources.Bookmarks_Summary_CaseSensitive);
+                if (WholeWord)
+                    tempList.Add(Resources.Bookmarks_Summary_WholeWord);
+                if (Multiline)
+                    tempList.Add(Resources.Bookmarks_Summary_Multiline);
+            }
 
             if (tempList.Count == 0)
             {
@@ -506,7 +532,10 @@ namespace dnGREP.WPF
                 IncludeArchive = IncludeArchive,
                 FollowSymlinks = FollowSymlinks,
                 CodePage = CodePage,
-                FolderReferences = PathReferences.Split(new char[] { '\n', '\r'}, StringSplitOptions.RemoveEmptyEntries).ToList()
+                ApplyFileSourceFilters = ApplyFileSourceFilters,
+                ApplyFilePropertyFilters = ApplyFilePropertyFilters,
+                ApplyContentSearchFilters = ApplyContentSearchFilters,
+                FolderReferences = PathReferences.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries).ToList()
             };
         }
 
@@ -1011,6 +1040,87 @@ namespace dnGREP.WPF
             }
         }
 
+        private bool applyFileSourceFilters = true;
+        public bool ApplyFileSourceFilters
+        {
+            get { return applyFileSourceFilters; }
+            set
+            {
+                if (applyFileSourceFilters == value)
+                    return;
+
+                if (!value)
+                {
+                    FilePattern = null;
+                    IgnoreFilePattern = null;
+                }
+                applyFileSourceFilters = value;
+                OnPropertyChanged(nameof(ApplyFileSourceFilters));
+                UpdateSectionIndex();
+            }
+        }
+
+        private bool applyFilePropertyFilters = true;
+        public bool ApplyFilePropertyFilters
+        {
+            get { return applyFilePropertyFilters; }
+            set
+            {
+                if (applyFilePropertyFilters == value)
+                    return;
+
+                applyFilePropertyFilters = value;
+                OnPropertyChanged(nameof(ApplyFilePropertyFilters));
+                UpdateSectionIndex();
+            }
+        }
+
+        private bool applyContentSearchFilters = true;
+        public bool ApplyContentSearchFilters
+        {
+            get { return applyContentSearchFilters; }
+            set
+            {
+                if (applyContentSearchFilters == value)
+                    return;
+
+                if (!value)
+                {
+                    SearchFor = null;
+                    ReplaceWith = null;
+                }
+                applyContentSearchFilters = value;
+                OnPropertyChanged(nameof(ApplyContentSearchFilters));
+                UpdateSectionIndex();
+            }
+        }
+
+        private void UpdateSectionIndex()
+        {
+            int value = 0;
+            if (ApplyFileSourceFilters)
+                value += 1;
+            if (ApplyFilePropertyFilters)
+                value += 2;
+            if (ApplyContentSearchFilters)
+                value += 4;
+            SectionIndex = value;
+        }
+
+        private int sectionIndex = 0;
+        public int SectionIndex
+        {
+            get { return sectionIndex; }
+            set
+            {
+                if (sectionIndex == value)
+                    return;
+
+                sectionIndex = value;
+                OnPropertyChanged(nameof(SectionIndex));
+            }
+        }
+
         RelayCommand _saveCommand;
         /// <summary>
         /// Returns a command that copies files
@@ -1034,8 +1144,10 @@ namespace dnGREP.WPF
         {
             // if this bookmark matches another bookmark, disable save
             // when in edit mode, it may equal the original value
-            var bmk = BookmarkLibrary.Instance.Find(this.ToBookmark());
-            bool isUnique = bmk == null || ToBookmark() == _original;
+            var current = ToBookmark();
+            var bmk = BookmarkLibrary.Instance.Find(current);
+            bool isUnique = bmk == null || bmk != current ||
+                current.Equals(_original);
             return isUnique;
         }
 
@@ -1072,7 +1184,10 @@ namespace dnGREP.WPF
                 MaxSubfolderDepth == otherVM.MaxSubfolderDepth &&
                 UseGitignore == otherVM.UseGitignore &&
                 IncludeArchive == otherVM.IncludeArchive &&
-                CodePage == otherVM.CodePage;
+                CodePage == otherVM.CodePage &&
+                ApplyFileSourceFilters == otherVM.ApplyFileSourceFilters &&
+                ApplyFilePropertyFilters == otherVM.ApplyFilePropertyFilters &&
+                ApplyContentSearchFilters == otherVM.ApplyContentSearchFilters;
         }
 
         public override int GetHashCode()
@@ -1099,6 +1214,9 @@ namespace dnGREP.WPF
                 hashCode = (hashCode * 17) ^ IncludeArchive.GetHashCode();
                 hashCode = (hashCode * 17) ^ FollowSymlinks.GetHashCode();
                 hashCode = (hashCode * 17) ^ CodePage.GetHashCode();
+                hashCode = (hashCode * 17) ^ ApplyFileSourceFilters.GetHashCode();
+                hashCode = (hashCode * 17) ^ ApplyFilePropertyFilters.GetHashCode();
+                hashCode = (hashCode * 17) ^ ApplyContentSearchFilters.GetHashCode();
                 return hashCode;
             }
         }
