@@ -2393,7 +2393,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Bookmark details dialog, file type group header label (accel)</comment>
   </data>
   <data name="BookmarkDetails_FileSource_Group_Tooltip" xml:space="preserve">
-    <value>Include file source properties in bookmark</value>
+    <value>在书签中包含文件源属性</value>
     <comment>Bookmark details dialog, file type group header tooltip</comment>
   </data>
   <data name="BookmarkDetails_Filters_Group" xml:space="preserve">
@@ -2401,7 +2401,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Bookmark details dialog, filters group header label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Filters_Group_Tooltip" xml:space="preserve">
-    <value>Include file filter properties in bookmark</value>
+    <value>在书签中包含文件筛选器属性</value>
     <comment>Bookmark details dialog, filters group header tooltip</comment>
   </data>
   <data name="BookmarkDetails_Content_Group" xml:space="preserve">
@@ -2409,7 +2409,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Bookmark details dialog, search group header label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Content_Group_Tooltip" xml:space="preserve">
-    <value>Include content search properties in bookmark</value>
+    <value>在书签中包含内容搜索属性</value>
     <comment>Bookmark details dialog, search group header tooltip</comment>
   </data>
 </root>
