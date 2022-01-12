@@ -2388,4 +2388,28 @@ Arguments:
     <value>Byte</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
+  <data name="BookmarkDetails_FileSource_Group" xml:space="preserve">
+    <value>File source</value>
+    <comment>Bookmark details dialog, file type group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_FileSource_Group_Tooltip" xml:space="preserve">
+    <value>Include file source properties in bookmark</value>
+    <comment>Bookmark details dialog, file type group header tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_Filters_Group" xml:space="preserve">
+    <value>File filters</value>
+    <comment>Bookmark details dialog, filters group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Filters_Group_Tooltip" xml:space="preserve">
+    <value>Include file filter properties in bookmark</value>
+    <comment>Bookmark details dialog, filters group header tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_Content_Group" xml:space="preserve">
+    <value>Content</value>
+    <comment>Bookmark details dialog, search group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Content_Group_Tooltip" xml:space="preserve">
+    <value>Include content search properties in bookmark</value>
+    <comment>Bookmark details dialog, search group header tooltip</comment>
+  </data>
 </root>
