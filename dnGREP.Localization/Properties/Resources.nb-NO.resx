@@ -2354,4 +2354,8 @@ Arguments:
     <value>Include content search properties in bookmark</value>
     <comment>Bookmark details dialog, search group header tooltip</comment>
   </data>
+  <data name="Bookmarks_SectionsHeader" xml:space="preserve">
+    <value>Sections</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
 </root>
