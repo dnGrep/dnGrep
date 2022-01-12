@@ -93,6 +93,7 @@
     <EmbeddedResource Include="Properties\Resources.bg.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.zh-Hant.resx" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NLog">

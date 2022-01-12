@@ -33,6 +33,7 @@ namespace dnGREP.Localization
                 { "nb-NO", "Bokmål" },
                 { "ru", "Русский" },
                 { "zh-CN", "简体中文" },
+                { "zh-Hant", "中文" },
             };
 
         public void SetCulture(string ietfLanguateTag)
