@@ -83,7 +83,7 @@
     <comment>About dialog text</comment>
   </data>
   <data name="About_FileSystemIndexingLocateFilesInstantly" xml:space="preserve">
-    <value>檔案系統索引, 立即定位檔案</value>
+    <value>檔案系統索引中, 立即定位檔案</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_JsonFrameworkForNET" xml:space="preserve">
@@ -407,7 +407,7 @@ dnGrep [arguments]
 dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex
 
 dnGrep [folderPath] [searchFor]
-一個或二個無旗號參數: 第一個參數為搜尋資料夾, 第二個參數為搜尋的正則運算式.
+一個或二個無旗標參數: 第一個參數為搜尋資料夾路徑, 第二個參數為用於搜尋的正則運算式.
 範例:
 dnGrep "C:\Program Files\dnGrep" t\w*t
 
@@ -418,17 +418,17 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
 /f [folderPath]
 -f [folderPath]
 -folder [folderPath]
-    設定搜尋資料夾, 可能是以逗號或分隔符號的檔案路徑列表.
+    設定搜尋資料夾路徑, 可以是逗號或分隔符號的檔案路徑列表.
 
 /pm [pattern]
 -pm [pattern]
 -pathToMatch [pattern]
-    設定搜尋路徑中的檔案名稱樣式, 可能是以逗號或分隔符號的樣式.
+    設定搜尋路徑中的檔案名稱樣式, 可以是逗號或分隔符號的樣式.
 
 /pi [pattern]
 -pi [pattern]
 -pathToIgnore [pattern]
-    設定搜尋路徑中的排除檔案名稱或目錄樣式, 可能是以逗號或分隔符號的樣式.
+    設定搜尋路徑中的排除檔案名稱或目錄樣式, 可以是逗號或分隔符號的樣式.
 
 /pt [type]
 -pt [type]
@@ -448,27 +448,27 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
 /cs [True/False]
 -cs [True/False]
 -caseSensitive [True/False]
-    設定區分大小寫旗號 - 真或假.
+    設定區分大小寫旗標 - True 或 False.
 
 /ww [True/False]
 -ww [True/False]
 -wholeWord [True/False]
-    設定全字符合搜尋旗號 - 真或假.
+    設定全字符合搜尋旗標 - True 或 False.
 
 /ml [True/False]
 -ml [True/False]
 -multiline [True/False]
-    設定多行搜尋旗號 - 真或假.
+    設定多行搜尋旗標 - True 或 False.
 
 /dn [True/False]
 -dn [True/False]
 -dotAsNewline [True/False]
-    設定點號作為新行搜尋旗號 - 真或假.
+    設定點號作為新行搜尋旗標 - True 或 False.
 
 /bo [True/False]
 -bo [True/False]
 -booleanOperators [True/False]
-    設定布林運算元搜尋旗號 - 真或假.
+    設定布林運算元搜尋旗標 - True 或 False.
 
 /rpt [filePath]
 -rpt [filePath]
@@ -715,15 +715,15 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window, result options expander button tooltip (bottom of window)</comment>
   </data>
   <data name="Main_HighlightGroups" xml:space="preserve">
-    <value>強調顯示群組</value>
+    <value>醒目顏色標出群組</value>
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_HighlightMatches" xml:space="preserve">
-    <value>強調顯示符合項</value>
+    <value>醒目顏色標出符合項</value>
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_HighlightRegularExpressionGroups" xml:space="preserve">
-    <value>強調顯示正則運算式組, 更改將於下次搜尋時生效.</value>
+    <value>醒目顏色標出正則運算式群組, 更改將於下次搜尋時生效.</value>
     <comment>Main window, result options highlight groups tooltip</comment>
   </data>
   <data name="Main_IncludeBinaryFiles" xml:space="preserve">
@@ -1147,19 +1147,19 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_SearchCanceledOrFailed" xml:space="preserve">
-    <value>搜尋失敗或被取消</value>
+    <value>搜尋失敗或取消</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_SearchCompleteSearched0FilesFound1FilesIn2" xml:space="preserve">
-    <value>搜尋完成 - 搜尋了 {0} 個檔案, 找到 {1} 個檔案. 花費 {2}.</value>
+    <value>搜尋完成 - 搜尋 {0} 個檔案, 找到 {1} 個檔案. 花費 {2}.</value>
     <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found; {2} is the duration of the search</comment>
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFiles" xml:space="preserve">
-    <value>搜尋了 {0} 個檔案, 找到 {1} 個符合檔案.</value>
+    <value>搜尋 {0} 個檔案, 找到 {1} 個符合檔案.</value>
     <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found</comment>
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFilesProcessing2" xml:space="preserve">
-    <value>搜尋了 {0} 個檔案, 找到 {1} 個檔案 - 正在處理 {2}</value>
+    <value>搜尋 {0} 個檔案, 找到 {1} 個檔案 - 正在處理 {2}</value>
     <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found; {2} is the current file name being searched</comment>
   </data>
   <data name="Main_Status_Searching" xml:space="preserve">
@@ -2187,7 +2187,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_HighlightGroups" xml:space="preserve">
-    <value>強調顯示群組</value>
+    <value>醒目顏色標出群組</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_Multiline" xml:space="preserve">
@@ -2279,15 +2279,15 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTB1_ReplacesEntireRegex" xml:space="preserve">
-    <value>$&amp; 取代整個正則運算式符合項</value>
+    <value>$&amp; 取代整個正則運算式</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTB2_InsertsTheTextMatchedIntoTheReplacementText" xml:space="preserve">
-    <value>$1, $2, $3, 等… 插入整個運算式相應的符合組到取代文字</value>
+    <value>$1, $2, $3, 等… 將擷取括號間符合的文字插入為取代文字</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTB3_InsertsASingleDollarSignIntoTheReplacementText" xml:space="preserve">
-    <value>$$ 在取代字元中插入一個 $ 符號(轉義)</value>
+    <value>$$ 在取代字元中插入一個 $ 符號</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="Window_Close" xml:space="preserve">
@@ -2327,31 +2327,35 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Options dialog, replace font selector tooltip</comment>
   </data>
   <data name="Test_SearchType_Hex" xml:space="preserve">
-    <value>Byte</value>
+    <value>位元組</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_FileSource_Group" xml:space="preserve">
-    <value>File source</value>
+    <value>檔案來源</value>
     <comment>Bookmark details dialog, file type group header label (accel)</comment>
   </data>
   <data name="BookmarkDetails_FileSource_Group_Tooltip" xml:space="preserve">
-    <value>Include file source properties in bookmark</value>
+    <value>在書籤中包含檔案來源屬性</value>
     <comment>Bookmark details dialog, file type group header tooltip</comment>
   </data>
   <data name="BookmarkDetails_Filters_Group" xml:space="preserve">
-    <value>File filters</value>
+    <value>檔案過濾器</value>
     <comment>Bookmark details dialog, filters group header label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Filters_Group_Tooltip" xml:space="preserve">
-    <value>Include file filter properties in bookmark</value>
+    <value>在書籤中包含檔案過濾器屬性</value>
     <comment>Bookmark details dialog, filters group header tooltip</comment>
   </data>
   <data name="BookmarkDetails_Content_Group" xml:space="preserve">
-    <value>Content</value>
+    <value>內容</value>
     <comment>Bookmark details dialog, search group header label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Content_Group_Tooltip" xml:space="preserve">
-    <value>Include content search properties in bookmark</value>
+    <value>在書籤中包含內容搜尋屬性</value>
     <comment>Bookmark details dialog, search group header tooltip</comment>
+  </data>
+  <data name="Bookmarks_SectionsHeader" xml:space="preserve">
+    <value>區段</value>
+    <comment>Bookmarks dialog, grid header</comment>
   </data>
 </root>
