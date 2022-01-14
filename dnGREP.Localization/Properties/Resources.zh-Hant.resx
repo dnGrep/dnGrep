@@ -2011,7 +2011,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Replace window, syntax coloring option for no syntax coloring</comment>
   </data>
   <data name="Replace_ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
-    <value>此檔案包含了太多單個符合項, 點擊 '取代此檔案' 來取代所有的符合項.</value>
+    <value>此檔案包含了太多單個符合項, 點擊 '取代此檔案' 取代所有的符合項.</value>
     <comment>Replace window, warning message box text</comment>
   </data>
   <data name="Replace_Title" xml:space="preserve">
@@ -2039,7 +2039,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Replace window, results options zoom slider label</comment>
   </data>
   <data name="Report_CSVRecordHeaderText" xml:space="preserve">
-    <value>檔案名稱,行號,字串</value>
+    <value>檔案名稱, 行號, 字串</value>
     <comment>Report, CSV report - these are the column headers in the generated CSV file</comment>
   </data>
   <data name="Report_DnGrepSearchResults" xml:space="preserve">
