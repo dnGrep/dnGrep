@@ -24,7 +24,10 @@ namespace dnGREP.TestLocalizedStrings
                 { "de", "Deutsch" },
                 { "en", "English" },
                 { "he", "עברית" },
+                { "nb-NO", "Bokmål" },
+                { "ru", "Русский" },
                 { "zh-CN", "简体中文" },
+                { "zh-Hant", "中文" },
             };
 
         public TestStringsViewModel()
@@ -52,6 +55,7 @@ namespace dnGREP.TestLocalizedStrings
             list.Add(new ResourceString("Bookmarks_Summary_MaxFolderDepth", TranslationSource.Format(Resources.Bookmarks_Summary_MaxFolderDepth, 3)));
             list.Add(new ResourceString("Main_ExcelSheetName", TranslationSource.Format(Resources.Main_ExcelSheetName, "Sheet1")));
             list.Add(new ResourceString("Main_FilterSummary_MaxFolderDepth", TranslationSource.Format(Resources.Main_FilterSummary_MaxFolderDepth, 2)));
+            list.Add(new ResourceString("Main_PowerPointSlideNumber", TranslationSource.Format(Resources.Main_PowerPointSlideNumber, 3)));
             list.Add(new ResourceString("Main_ResultList_AtPosition", TranslationSource.Format(Resources.Main_ResultList_AtPosition, 234)));
             list.Add(new ResourceString("Main_ResultList_CountMatches", TranslationSource.Format(Resources.Main_ResultList_CountMatches, @"folder\testFile1.text", 14)));
             list.Add(new ResourceString("Main_ResultList_CountMatchesOnLines", TranslationSource.Format(Resources.Main_ResultList_CountMatchesOnLines, @"folder\testFile1.text", 14, 5)));
@@ -77,6 +81,7 @@ namespace dnGREP.TestLocalizedStrings
             list.Add(new ResourceString("MessageBox_WindowTitleIsName", TranslationSource.Format(Resources.MessageBox_WindowTitleIsName, "Word")));
             list.Add(new ResourceString("Options_CustomEditorHelp", TranslationSource.Format(Resources.Options_CustomEditorHelp, sFile, Line, Pattern, Match, Column)));
             list.Add(new ResourceString("Replace_FileNumberOfCountName", TranslationSource.Format(Resources.Replace_FileNumberOfCountName, 1, 3, "test.xml", "9", "6")));
+            list.Add(new ResourceString("Replace_NumberOfMatchesMarkedForReplacement", TranslationSource.Format(Resources.Replace_NumberOfMatchesMarkedForReplacement, 1, 3)));
             list.Add(new ResourceString("Report_Found0MatchesOn1LinesIn2Files", TranslationSource.Format(Resources.Report_Found0MatchesOn1LinesIn2Files, 138, 83, 6)));
             list.Add(new ResourceString("Report_Has0MatchesOn1Lines", TranslationSource.Format(Resources.Report_Has0MatchesOn1Lines, 14, 6)));
             list.Add(new ResourceString("ReportSummary_MaxFolderDepth", TranslationSource.Format(Resources.ReportSummary_MaxFolderDepth, 2)));
