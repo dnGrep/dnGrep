@@ -1,4 +1,4 @@
-![logo](dnGREP.WPF/Images/Logo-small.gif)
+![logo](dnGREP.WPF/Images/dnGrep96.png)
 
 Users, see the **[main web site](http://dngrep.github.io/)** to download and install dnGrep.
 
@@ -17,7 +17,8 @@ Free code signing provided by [SignPath.io](https://signpath.io/), certificate b
 Starting with v3.0, the dnGrep MSI installers and binary files are signed. Code signing is applied only to dnGrep project code in the [dnGrep git repository](https://github.com/dnGrep/dnGrep) release branch and built on AppVeyor.  The dnGrep install kit contains third-party libraries used by dnGrep, which may or may not be signed.  
 
 ### Translate
-You can [translate dnGrep on Hosted Weblate](https://hosted.weblate.org/engage/dngrep/). \
+You can [translate dnGrep on Hosted Weblate](https://hosted.weblate.org/engage/dngrep/).  
+You can always add other languages.\
 [![Translation status](https://hosted.weblate.org/widgets/dngrep/-/multi-auto.svg)](https://hosted.weblate.org/engage/dngrep/?utm_source=widget)
 
-You can always add other languages.
+See [Translate dnGrep](https://github.com/dnGrep/dnGrep/wiki/Translate-dnGrep) for more information. 
