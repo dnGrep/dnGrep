@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using System.Windows.Data;
@@ -85,10 +86,19 @@ namespace dnGREP.Localization
             return false;
         }
 
+        private static readonly Regex placeholderRegex = new Regex(@"{\d+}");
+
         public static string Format(string format, params object[] args)
         {
             if (!string.IsNullOrWhiteSpace(format))
             {
+#if DEBUG
+                var matchCount = placeholderRegex.Matches(format).Count;
+                if (matchCount != args.Length)
+                {
+                    return "Missing placeholder {?}: " + format;
+                }
+#endif
                 try
                 {
                     return string.Format(CultureInfo.CurrentCulture, format, args);

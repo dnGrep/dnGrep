@@ -154,7 +154,7 @@
                         </StackPanel>
                         <TextBlock>
                             <Run Text="{l:Loc Key='Options_WantADifferentLanguage'}"/>
-                            <Hyperlink NavigateUri="https://github.com/dnGrep/dnGrep/discussions/538" 
+                            <Hyperlink NavigateUri="https://github.com/dnGrep/dnGrep/wiki/Translate-dnGrep" 
                                        RequestNavigate="Hyperlink_RequestNavigate">
                                 <Run Text="{l:Loc Key='Options_HelpTranslateDnGrep'}"/>
                             </Hyperlink>
