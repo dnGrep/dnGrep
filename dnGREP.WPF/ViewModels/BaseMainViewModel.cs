@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using System.Xml;
@@ -1580,11 +1581,15 @@ namespace dnGREP.WPF
         virtual public void LoadSettings()
         {
             List<string> fsb = settings.Get<List<string>>(GrepSettings.Key.FastSearchBookmarks);
-
             string _searchFor = settings.Get<string>(GrepSettings.Key.SearchFor);
-            FastSearchBookmarks.Clear();
             if (fsb != null)
             {
+                var toRemove = FastSearchBookmarks.Except(fsb).ToList();
+                foreach (var item in toRemove)
+                {
+                    FastSearchBookmarks.Remove(item);
+                }
+
                 foreach (string bookmark in fsb)
                 {
                     if (!FastSearchBookmarks.Contains(bookmark))
@@ -1594,10 +1599,15 @@ namespace dnGREP.WPF
             settings[GrepSettings.Key.SearchFor] = _searchFor;
 
             string _replaceWith = settings.Get<string>(GrepSettings.Key.ReplaceWith);
-            FastReplaceBookmarks.Clear();
             List<string> frb = settings.Get<List<string>>(GrepSettings.Key.FastReplaceBookmarks);
             if (frb != null)
             {
+                var toRemove = FastReplaceBookmarks.Except(frb).ToList();
+                foreach (var item in toRemove)
+                {
+                    FastReplaceBookmarks.Remove(item);
+                }
+
                 foreach (string bookmark in frb)
                 {
                     if (!FastReplaceBookmarks.Contains(bookmark))
@@ -1607,10 +1617,15 @@ namespace dnGREP.WPF
             settings[GrepSettings.Key.ReplaceWith] = _replaceWith;
 
             string _filePattern = settings.Get<string>(GrepSettings.Key.FilePattern);
-            FastFileMatchBookmarks.Clear();
             List<string> ffmb = settings.Get<List<string>>(GrepSettings.Key.FastFileMatchBookmarks);
             if (ffmb != null)
             {
+                var toRemove = FastFileMatchBookmarks.Except(ffmb).ToList();
+                foreach (var item in toRemove)
+                {
+                    FastFileMatchBookmarks.Remove(item);
+                }
+
                 foreach (string bookmark in ffmb)
                 {
                     if (!FastFileMatchBookmarks.Contains(bookmark))
@@ -1620,10 +1635,15 @@ namespace dnGREP.WPF
             settings[GrepSettings.Key.FilePattern] = _filePattern;
 
             string _filePatternIgnore = settings.Get<string>(GrepSettings.Key.FilePatternIgnore);
-            FastFileNotMatchBookmarks.Clear();
             List<string> ffnmb = settings.Get<List<string>>(GrepSettings.Key.FastFileNotMatchBookmarks);
             if (ffnmb != null)
             {
+                var toRemove = FastFileNotMatchBookmarks.Except(ffmb).ToList();
+                foreach (var item in toRemove)
+                {
+                    FastFileNotMatchBookmarks.Remove(item);
+                }
+
                 foreach (string bookmark in ffnmb)
                 {
                     if (!FastFileNotMatchBookmarks.Contains(bookmark))
@@ -1632,10 +1652,15 @@ namespace dnGREP.WPF
             }
             settings[GrepSettings.Key.FilePatternIgnore] = _filePatternIgnore;
 
-            FastPathBookmarks.Clear();
             List<string> pb = settings.Get<List<string>>(GrepSettings.Key.FastPathBookmarks);
             if (pb != null)
             {
+                var toRemove = FastPathBookmarks.Except(pb).ToList();
+                foreach(var item in toRemove)
+                {
+                    FastPathBookmarks.Remove(item);
+                }
+
                 foreach (string bookmark in pb)
                 {
                     if (!FastPathBookmarks.Contains(bookmark))
