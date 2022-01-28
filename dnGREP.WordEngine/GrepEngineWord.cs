@@ -242,7 +242,7 @@ namespace dnGREP.Engines.Word
                 try
                 {
                     wordApplication.GetType().InvokeMember("Quit", BindingFlags.InvokeMethod, null,
-                        wordApplication, new object[] { });
+                        wordApplication, new object[] { wdDoNotSaveChanges });
                 }
                 catch (Exception ex)
                 {
