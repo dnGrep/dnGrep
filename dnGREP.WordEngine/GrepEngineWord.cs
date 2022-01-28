@@ -28,6 +28,7 @@ namespace dnGREP.Engines.Word
 
         private readonly object MISSING_VALUE = Missing.Value;
         private const int msoAutomationSecurityForceDisable = 3;
+        private const int wdDoNotSaveChanges = 0;
 
         #region Initialization and disposal
         public GrepEngineWord()
@@ -241,7 +242,7 @@ namespace dnGREP.Engines.Word
                 try
                 {
                     wordApplication.GetType().InvokeMember("Quit", BindingFlags.InvokeMethod, null,
-                        wordApplication, new object[] { });
+                        wordApplication, new object[] { wdDoNotSaveChanges });
                 }
                 catch (Exception ex)
                 {
@@ -293,7 +294,9 @@ namespace dnGREP.Engines.Word
         private void CloseDocument(object doc)
         {
             if (isAvailable && doc != null)
-                doc.GetType().InvokeMember("Close", BindingFlags.InvokeMethod, null, doc, new object[] { });
+                doc.GetType().InvokeMember("Close", BindingFlags.InvokeMethod, null, doc, 
+                    new object[] { wdDoNotSaveChanges });
+
         }
 
         /// <summary>
