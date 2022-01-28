@@ -234,11 +234,11 @@
     <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_ForExampleAsteriskPattern" xml:space="preserve">
-    <value>например file??.*</value>
+    <value>Например: *.txt;*.xml</value>
     <comment>Bookmark details dialog, pattern type option Asterisk tooltip</comment>
   </data>
   <data name="BookmarkDetails_ForExampleRegularExpession" xml:space="preserve">
-    <value>например file[0-9]{1,2}\\.txt</value>
+    <value>Например: file[0-9]{1,2}\\.txt</value>
     <comment>Bookmark details dialog, pattern type option Regex tooltip</comment>
   </data>
   <data name="BookmarkDetails_IncludeBinaryFiles" xml:space="preserve">
@@ -642,7 +642,7 @@ Arguments:
     <comment>Main window, results options context lines label</comment>
   </data>
   <data name="Main_ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
-    <value>Промените в контекста ще бъдат приложени при следващо търсене</value>
+    <value>Промените в контекста ще бъдат приложени при последващо търсене</value>
     <comment>Main window, result options context lines tooltip</comment>
   </data>
   <data name="Main_ContextShowLines" xml:space="preserve">
@@ -782,7 +782,7 @@ Arguments:
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_HighlightRegularExpressionGroups" xml:space="preserve">
-    <value>Откроява групите на регулярния израз - промените ще бъдат приложени при следващото търсене</value>
+    <value>Откроява групите на регулярния израз - промените ще бъдат приложени при последващо търсене</value>
     <comment>Main window, result options highlight groups tooltip</comment>
   </data>
   <data name="Main_IncludeBinaryFiles" xml:space="preserve">
@@ -1170,11 +1170,11 @@ Arguments:
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_PathAndFileNameBreadthFirst" xml:space="preserve">
-    <value>Path and file name, breadth-first</value>
+    <value>Път и име на файла, обхождане по ширина</value>
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_SortMenu_PathAndFileNameDepthFirst" xml:space="preserve">
-    <value>Path and file name, depth-first</value>
+    <value>Път и име на файла, обхождане по дълбочина</value>
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_Status_Excluded0MissingFiles" xml:space="preserve">
@@ -1186,11 +1186,11 @@ Arguments:
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_ReplaceComplete0FilesReplaced" xml:space="preserve">
-    <value>Replace completed – replaced text in {0} files.</value>
+    <value>Заменянето е завършено - има замени в {0} файла.</value>
     <comment>Main window, status bar message: {0} is the number of files modified by the replace operation</comment>
   </data>
   <data name="Main_Status_ReplaceFailed" xml:space="preserve">
-    <value>Грешка при заменяне.</value>
+    <value>Грешка при заменяне</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_Replacing" xml:space="preserve">
@@ -1198,11 +1198,11 @@ Arguments:
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_SearchCanceled" xml:space="preserve">
-    <value>Search canceled</value>
+    <value>Търсенето е спряно</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_SearchCanceledOrFailed" xml:space="preserve">
-    <value>Search canceled or failed</value>
+    <value>Търсенето е спряно или има грешка</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_SearchCompleteSearched0FilesFound1FilesIn2" xml:space="preserve">
@@ -1210,11 +1210,11 @@ Arguments:
     <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found; {2} is the duration of the search</comment>
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFiles" xml:space="preserve">
-    <value>Searched {0} files, found {1} matching files.</value>
+    <value>Претърсени {0} файла, намерени {1} съвпадащи файла</value>
     <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found</comment>
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFilesProcessing2" xml:space="preserve">
-    <value>Searched {0} files, found {1} matching files – processing {2}</value>
+    <value>Претърсени {0} файла, намерени {1} съвпадащи файла - търсене в {2}</value>
     <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found; {2} is the current file name being searched</comment>
   </data>
   <data name="Main_Status_Searching" xml:space="preserve">
@@ -2389,7 +2389,7 @@ Arguments:
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_FileSource_Group" xml:space="preserve">
-    <value>File source</value>
+    <value>Изходен файл</value>
     <comment>Bookmark details dialog, file type group header label (accel)</comment>
   </data>
   <data name="BookmarkDetails_FileSource_Group_Tooltip" xml:space="preserve">
@@ -2397,7 +2397,7 @@ Arguments:
     <comment>Bookmark details dialog, file type group header tooltip</comment>
   </data>
   <data name="BookmarkDetails_Filters_Group" xml:space="preserve">
-    <value>File filters</value>
+    <value>Филтри за файлове</value>
     <comment>Bookmark details dialog, filters group header label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Filters_Group_Tooltip" xml:space="preserve">
@@ -2413,7 +2413,7 @@ Arguments:
     <comment>Bookmark details dialog, search group header tooltip</comment>
   </data>
   <data name="Bookmarks_SectionsHeader" xml:space="preserve">
-    <value>Sections</value>
+    <value>Секции</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
 </root>
