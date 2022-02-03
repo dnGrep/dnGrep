@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Interop;
+using dnGREP.Common.UI;
 
 namespace dnGREP.DockFloat
 {
@@ -40,12 +41,27 @@ namespace dnGREP.DockFloat
 
         private IntPtr HookProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
-            if (msg == 0x0084 /*WM_NCHITTEST*/ )
+            if (msg == Native.WM_NCHITTEST)
             {
-                // This prevents a crash in WindowChromeWorker._HandleNCHitTest
                 try
                 {
+                    // This prevents a crash in WindowChromeWorker._HandleNCHitTest
                     lParam.ToInt32();
+
+                    // Support snap layouts for desktop apps on Windows 11
+                    // https://docs.microsoft.com/en-us/windows/apps/desktop/modernize/apply-snap-layout-menu
+                    var point = PointFromScreen(Native.GetPoint(lParam));
+                    if (GetTemplateChild("PART_RestoreButton") is Button restoreButton)
+                    {
+                        var buttonRect = restoreButton.TransformToVisual(this)
+                            .TransformBounds(new Rect(restoreButton.RenderSize));
+
+                        if (buttonRect.Contains(point))
+                        {
+                            handled = true;
+                            return Native.HTMAXBUTTON;
+                        }
+                    }
                 }
                 catch (OverflowException)
                 {
