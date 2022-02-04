@@ -83,7 +83,7 @@
     <comment>About dialog text</comment>
   </data>
   <data name="About_FileSystemIndexingLocateFilesInstantly" xml:space="preserve">
-    <value>檔案系統索引中, 立即定位檔案</value>
+    <value>檔案系統索引, 立即定位檔案</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_JsonFrameworkForNET" xml:space="preserve">
@@ -283,7 +283,7 @@
     <comment>Bookmark details dialog, error text</comment>
   </data>
   <data name="BookmarkDetails_Title" xml:space="preserve">
-    <value>書籤詳情</value>
+    <value>書籤詳細資訊</value>
     <comment>Bookmark details dialog, window title</comment>
   </data>
   <data name="BookmarkDetails_TypeHeader" xml:space="preserve">
@@ -375,7 +375,7 @@
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
-    <value>搜尋壓縮檔</value>
+    <value>於壓縮檔中搜尋</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_WholeWord" xml:space="preserve">
@@ -402,23 +402,23 @@
 用法:
 
 dnGrep [arguments]
-使用下列任一組合參數.
+使用下列任一組合引數.
 範例:
 dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex
 
 dnGrep [folderPath] [searchFor]
-一個或二個無旗標參數: 第一個參數為搜尋資料夾路徑, 第二個參數為用於搜尋的正則運算式.
+一個或二個無旗標引數: 第一個引數為搜尋資料夾路徑, 第二個引數為用於搜尋的正則運算式.
 範例:
 dnGrep "C:\Program Files\dnGrep" t\w*t
 
-任何未指定的參數將預設為最後儲存的使用者設定.
+任何未指定的引數將預設為最後儲存的使用者設定.
 
-參數:
+引數:
 
 /f [folderPath]
 -f [folderPath]
 -folder [folderPath]
-    設定搜尋資料夾路徑, 可以是逗號或分隔符號的檔案路徑列表.
+    設定搜尋資料夾路徑, 可以是逗號或分隔符號的檔案路徑清單.
 
 /pm [pattern]
 -pm [pattern]
@@ -438,7 +438,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
 /s [searchFor]
 -s [searchFor]
 -searchFor [searchFor]
-    設定所欲搜尋樣式或文字. 當此參數已設定, 將會自動搜尋.
+    設定所欲搜尋樣式或文字. 當此引數已設定, 將會自動搜尋.
 
 /st [type]
 -st [type]
@@ -491,7 +491,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Help dialog text when running dnGrep from the command-line: {0} is the installed dnGrep version number; {1} is the installed dnGrep build date</comment>
   </data>
   <data name="Help_DnGrepHelp" xml:space="preserve">
-    <value>dnGrep 說明</value>
+    <value>dnGrep 輔助說明</value>
     <comment>Help dialog window title</comment>
   </data>
   <data name="Help_OK" xml:space="preserve">
@@ -499,7 +499,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Help dialog button label</comment>
   </data>
   <data name="Help_OneOrMoreArgumentsAreInvalid" xml:space="preserve">
-    <value>一個或多個參數不合法.</value>
+    <value>一個或多個引數不合法.</value>
     <comment>Help dialog header text</comment>
   </data>
   <data name="Main_AddSearchPatternToBookmarks" xml:space="preserve">
@@ -939,7 +939,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_CopyFullFilePaths" xml:space="preserve">
-    <value>複製完整檔路徑</value>
+    <value>複製完整檔案路徑</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_CopyLinesOfText" xml:space="preserve">
@@ -1007,7 +1007,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window, search group heading</comment>
   </data>
   <data name="Main_SearchInArchives" xml:space="preserve">
-    <value>搜尋壓縮檔</value>
+    <value>於壓縮檔中搜尋</value>
     <comment>Main window, checkbox label (accel)</comment>
   </data>
   <data name="Main_SearchInGroup" xml:space="preserve">
@@ -1411,7 +1411,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Message box text for: plug-in load errors</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu" xml:space="preserve">
-    <value>將 dnGrep 添加到右鍵功能表時發生錯誤. 日誌查看詳情: </value>
+    <value>將 dnGrep 增加到右鍵功能表時發生錯誤. 日誌查看詳情: </value>
     <comment>Message box text for: set Explorer context menu error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorCopyingFiles" xml:space="preserve">
@@ -1495,7 +1495,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Options dialog, Application fonts group header label</comment>
   </data>
   <data name="Options_ArchiveAdd" xml:space="preserve">
-    <value>添加</value>
+    <value>增加</value>
     <comment>Options dialog, archive options text input label</comment>
   </data>
   <data name="Options_ArchiveDefault" xml:space="preserve">
@@ -1503,7 +1503,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Options dialog, archive options text input label</comment>
   </data>
   <data name="Options_ArchiveExtensions" xml:space="preserve">
-    <value>擴展:</value>
+    <value>擴充功能:</value>
     <comment>Options dialog, archive options label</comment>
   </data>
   <data name="Options_ArchiveOptions" xml:space="preserve">
@@ -1531,7 +1531,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Options dialog, New versions group header label</comment>
   </data>
   <data name="Options_ClearOldSearches" xml:space="preserve">
-    <value>清除已有的搜尋</value>
+    <value>清除舊有搜尋</value>
     <comment>Options dialog, history list button label (accel)</comment>
   </data>
   <data name="Options_Close" xml:space="preserve">
@@ -1543,7 +1543,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Options dialog, compare application group header label</comment>
   </data>
   <data name="Options_CompareArguments" xml:space="preserve">
-    <value>參數</value>
+    <value>引數</value>
     <comment>Options dialog, compare arguments input box label</comment>
   </data>
   <data name="Options_CompareCommand" xml:space="preserve">
@@ -1563,7 +1563,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Options dialog, custom editor group header label</comment>
   </data>
   <data name="Options_CustomEditorHelp" xml:space="preserve">
-    <value>關鍵字: '{0}' 表示檔案路徑, '{1}' 表示行號, '{2}' 表示搜尋樣式, '{3}' 表示檔案中第一個符合的文字, '{4}' 表示第一個符合的文字所在列.</value>
+    <value>關鍵字: '{0}' 表示為檔案路徑, '{1}' 表示為行號, '{2}' 表示為搜尋樣式, '{3}' 表示為檔案中首個符合文字, '{4}' 表示為首個符合文字的所在列.</value>
     <comment>Options dialog, custom editor help text: the placeholders are non-localized expressions used as arguments when starting the custom editor</comment>
   </data>
   <data name="Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
@@ -1575,11 +1575,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Options dialog, font size selector label</comment>
   </data>
   <data name="Options_DnGrepWillAddTheSelectedFiles" xml:space="preserve">
-    <value>dnGrep 將把已選的檔案添加到命令列末尾.</value>
+    <value>dnGrep 將把選擇的檔案增加到命令列末尾.</value>
     <comment>Options dialog, compare arguments help text</comment>
   </data>
   <data name="Options_EditorArguments" xml:space="preserve">
-    <value>參數</value>
+    <value>引數</value>
     <comment>Options dialog, custom editor arguments input box label</comment>
   </data>
   <data name="Options_EditorCommand" xml:space="preserve">
@@ -1619,7 +1619,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Options dialog, results options combo box label</comment>
   </data>
   <data name="Options_HistoryLists" xml:space="preserve">
-    <value>歷程列表</value>
+    <value>歷程清單</value>
     <comment>Options dialog, History group heading label</comment>
   </data>
   <data name="Options_InOptionsExpander" xml:space="preserve">
@@ -1691,7 +1691,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Options dialog, phonetic group header label</comment>
   </data>
   <data name="Options_PluginAdd" xml:space="preserve">
-    <value>添加</value>
+    <value>增加</value>
     <comment>Options dialog, plug-in options text input label</comment>
   </data>
   <data name="Options_PluginDefault" xml:space="preserve">
@@ -1699,11 +1699,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Options dialog, plug-in options text input label</comment>
   </data>
   <data name="Options_PluginEnabled" xml:space="preserve">
-    <value>已啟用</value>
+    <value>啟用</value>
     <comment>Options dialog, plug-ins checkbox label</comment>
   </data>
   <data name="Options_PluginExtensions" xml:space="preserve">
-    <value>擴展:</value>
+    <value>擴充功能:</value>
     <comment>Options dialog, plug-in options label</comment>
   </data>
   <data name="Options_PluginOptions" xml:space="preserve">
@@ -1759,7 +1759,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Options dialog, theme selector label</comment>
   </data>
   <data name="Options_ShowDnGrepInExplorerRightClickMenu" xml:space="preserve">
-    <value>於檔案總管右鍵功能表中添加 dnGrep</value>
+    <value>將 dnGrep 增加於右鍵功能表中</value>
     <comment>Options dialog, startup options, checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowFileInfoToolTips" xml:space="preserve">
@@ -2255,7 +2255,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTA2_MatchesAlphaNumerics" xml:space="preserve">
-    <value>\w 符合文數字(alpha-numerics)</value>
+    <value>\w 符合文數字 (alpha-numerics)</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTA3_MatchesDigits" xml:space="preserve">
@@ -2355,7 +2355,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Bookmark details dialog, search group header tooltip</comment>
   </data>
   <data name="Bookmarks_SectionsHeader" xml:space="preserve">
-    <value>區段</value>
+    <value>段</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
 </root>
