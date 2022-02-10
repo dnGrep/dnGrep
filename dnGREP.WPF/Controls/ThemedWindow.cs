@@ -38,9 +38,6 @@ namespace dnGREP.WPF
             {
                 try
                 {
-                    // This prevents a crash in WindowChromeWorker._HandleNCHitTest
-                    lParam.ToInt32();
-
                     // Support snap layouts for desktop apps on Windows 11
                     // https://docs.microsoft.com/en-us/windows/apps/desktop/modernize/apply-snap-layout-menu
                     var point = PointFromScreen(Native.GetPoint(lParam));
@@ -55,6 +52,9 @@ namespace dnGREP.WPF
                             return Native.HTMAXBUTTON;
                         }
                     }
+
+                    // This prevents a crash in WindowChromeWorker._HandleNCHitTest
+                    lParam.ToInt32();
                 }
                 catch (OverflowException)
                 {
