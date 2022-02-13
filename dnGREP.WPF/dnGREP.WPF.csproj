@@ -97,6 +97,7 @@
     <Compile Include="MVHelpers\DockSiteVisibilityConverter.cs" />
     <Compile Include="MVHelpers\FileDragDropHelper.cs" />
     <Compile Include="MVHelpers\IntOrEmptyValueConverter.cs" />
+    <Compile Include="MVHelpers\LeadingTextTrimming.cs" />
     <Compile Include="MVHelpers\Messenger.cs" />
     <Compile Include="MVHelpers\IntToImageValueConverter.cs" />
     <Compile Include="MVHelpers\PercentValueConverter.cs" />

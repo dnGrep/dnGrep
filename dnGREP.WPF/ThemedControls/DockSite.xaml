@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:l="clr-namespace:dnGREP.Localization;assembly=dnGREP.Localization"
+                    xmlns:my="clr-namespace:dnGREP.WPF"
                     xmlns:df="clr-namespace:dnGREP.DockFloat;assembly=dnGREP.DockFloat">
 
     <Style x:Key="PopOutButtonStyle" TargetType="Button">
@@ -33,10 +34,10 @@
                     <Border Background="{DynamicResource Control.Static.Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
                         <Grid>
                             <DockPanel>
-                                <TextBlock x:Name="header" Margin="3,0,0,0" DockPanel.Dock="Top"
+                                <TextBlock x:Name="header" Margin="3,0,20,0" DockPanel.Dock="Top"
                                            FontSize="{Binding FontSize, RelativeSource={RelativeSource TemplatedParent}}"
                                            Foreground="{DynamicResource Control.Foreground}"
-                                           Text="{Binding Heading, RelativeSource={RelativeSource TemplatedParent}}" />
+                                           my:LeadingTextTrimming.FullText="{Binding Heading, RelativeSource={RelativeSource TemplatedParent}}" />
                                 <!--  Spacer for when ButtonOverlapsContent is not set  -->
                                 <Border x:Name="spacer" Width="{Binding ActualWidth, ElementName=PART_PopOutButton}" Height="{Binding ActualHeight, ElementName=PART_PopOutButton}">
                                     <Border.Style>
