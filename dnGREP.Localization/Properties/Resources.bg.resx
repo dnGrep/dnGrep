@@ -1222,7 +1222,7 @@ Arguments:
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_SearchingForGitignore" xml:space="preserve">
-    <value>Търсене .gitignore</value>
+    <value>Търсене на .gitignore</value>
   </data>
   <data name="Main_StopAfterFirstMatch" xml:space="preserve">
     <value>Спиране след първо съвпадение</value>
@@ -1237,7 +1237,7 @@ Arguments:
     <comment>Main window, filter file by date, end date tooltip</comment>
   </data>
   <data name="Main_UseCaptureGroupsFromPathsToMatch" xml:space="preserve">
-    <value>Използване на групи за улавяне от 'Patterns to match' в шаблона 'Search for'</value>
+    <value>Използване на групи за улавяне от 'Модели на съвпадение' в полето 'Търсене'</value>
     <comment>Main window, search option capture group tooltip</comment>
   </data>
   <data name="Main_UseGitignore" xml:space="preserve">
@@ -1429,11 +1429,11 @@ Arguments:
     <comment>Message box text for: Options dialog, changing Windows integration options</comment>
   </data>
   <data name="MessageBox_SearchFailedError" xml:space="preserve">
-    <value>Could not complete the search. Check the error log for details: </value>
+    <value>Търсенето не може да бъде завършено. Проверете дневника за подробности: </value>
     <comment>Message box text for: Search failed</comment>
   </data>
   <data name="MessageBox_SearchOrReplaceFailed" xml:space="preserve">
-    <value>Could not complete the search or replace. Check the error log for details: </value>
+    <value>Търсенето или замяната не могат да бъдат завършени. Проверете дневника за подробности: </value>
     <comment>Message box text for: Search or Replace failed</comment>
   </data>
   <data name="MessageBox_SearchPathInTheFieldIsNotValid" xml:space="preserve">
