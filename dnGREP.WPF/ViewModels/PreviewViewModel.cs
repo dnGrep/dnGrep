@@ -104,21 +104,6 @@ namespace dnGREP.WPF
 
         public Encoding Encoding { get; set; }
 
-        private string displayFileName;
-        public string DisplayFileName
-        {
-            get { return displayFileName; }
-            set
-            {
-                if (value == displayFileName)
-                    return;
-
-                displayFileName = value;
-
-                base.OnPropertyChanged(() => DisplayFileName);
-            }
-        }
-
         private string filePath;
         public string FilePath
         {

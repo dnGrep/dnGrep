@@ -2749,12 +2749,18 @@ namespace dnGREP.WPF
                     }
                 }
 
-                PreviewTitle = Path.GetFileName(displayfileName);
+                string basePath = PathSearchText.BaseFolder;
+                if (!string.IsNullOrWhiteSpace(basePath) &&
+                    displayfileName.Contains(basePath, StringComparison.CurrentCultureIgnoreCase))
+                {
+                    displayfileName = displayfileName.Substring(basePath.Length + 1).TrimStart('\\');
+                }
+
+                PreviewTitle = displayfileName;
 
                 PreviewModel.GrepResult = result;
                 PreviewModel.LineNumber = line;
                 PreviewModel.Encoding = result.Encoding;
-                PreviewModel.DisplayFileName = displayfileName;
                 PreviewModel.FilePath = filePath;
 
                 if (!IsPreviewDocked)
