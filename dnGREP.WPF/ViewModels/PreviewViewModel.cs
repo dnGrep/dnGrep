@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -101,6 +102,8 @@ namespace dnGREP.WPF
         }
 
         public ObservableCollection<string> Highlighters { get; } = new ObservableCollection<string>();
+
+        public ObservableCollection<double> Positions { get; } = new ObservableCollection<double>();
 
         public Encoding Encoding { get; set; }
 
@@ -228,6 +231,8 @@ namespace dnGREP.WPF
             }
         }
 
+        public List<int> MarkerLineNumbers = new List<int>();
+
         void PreviewViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             UpdateState(e.PropertyName);
@@ -235,18 +240,25 @@ namespace dnGREP.WPF
 
         private void UpdateState(string name)
         {
+            if (name == nameof(GrepResult))
+            {
+                MarkerLineNumbers = GrepResult.SearchResults.Where(sr => !sr.IsContext)
+                    .Select(sr => sr.LineNumber).Distinct().ToList();
+
+            }
+
             if (name == nameof(FilePath))
             {
+                ClearPositionMarkers();
                 if (!string.IsNullOrEmpty(filePath) &&
                     File.Exists(FilePath))
                 {
                     // Set current definition
                     var fileInfo = new FileInfo(FilePath);
                     var definition = ThemedHighlightingManager.Instance.GetDefinitionByExtension(fileInfo.Extension);
-                    if (definition != null)
-                        CurrentSyntax = definition.Name;
-                    else
-                        CurrentSyntax = Resources.Preview_SyntaxNone;
+                    // set the field directly to avoid raising the property changed event and
+                    // causing the file to be loaded (twice)
+                    currentSyntax = definition != null ? definition.Name : Resources.Preview_SyntaxNone;
 
                     try
                     {
@@ -285,6 +297,28 @@ namespace dnGREP.WPF
                 // Tell View to show window and clear content
                 ShowPreview?.Invoke(this, new ShowEventArgs { ClearContent = true });
             }
+        }
+
+        internal void ClearPositionMarkers()
+        {
+            Positions.Clear();
+            OnPropertyChanged("Positions");
+        }
+
+        internal void BeginUpdateMarkers()
+        {
+            Positions.Clear();
+        }
+
+        internal void AddMarker(double linePosition, double documentHeight, double trackHeight)
+        {
+            double position = (documentHeight < trackHeight) ? linePosition : linePosition * trackHeight / documentHeight;
+            Positions.Add(position);
+        }
+
+        internal void EndUpdateMarkers()
+        {
+            OnPropertyChanged("Positions");
         }
     }
 

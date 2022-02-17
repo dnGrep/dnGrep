@@ -2758,6 +2758,7 @@ namespace dnGREP.WPF
 
                 PreviewTitle = displayfileName;
 
+                // order of property setting matters here:
                 PreviewModel.GrepResult = result;
                 PreviewModel.LineNumber = line;
                 PreviewModel.Encoding = result.Encoding;
