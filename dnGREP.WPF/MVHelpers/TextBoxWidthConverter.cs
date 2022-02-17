@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
+using dnGREP.Common.UI;
 
 namespace dnGREP.WPF
 {
@@ -21,11 +22,11 @@ namespace dnGREP.WPF
                 // when initializing, the size may be 0 (which throws an exception)
                 if (fontSize < 8) fontSize = 12;
 
-                Size defaultSize = MeasureString(candiate,
+                Size defaultSize = candiate.MeasureString(
                     new Typeface(SystemFonts.MessageFontFamily, SystemFonts.MessageFontStyle, SystemFonts.MessageFontWeight, FontStretches.Normal),
                         SystemFonts.MessageFontSize, ctl);
 
-                Size currentSize = MeasureString(candiate,
+                Size currentSize = candiate.MeasureString(
                     new Typeface(new FontFamily(fontFamily), SystemFonts.MessageFontStyle, SystemFonts.MessageFontWeight, FontStretches.Normal),
                         fontSize, ctl);
 
@@ -38,19 +39,6 @@ namespace dnGREP.WPF
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
-        }
-
-        private Size MeasureString(string candidate, Typeface typeface, double fontSize, FrameworkElement control)
-        {
-            var formattedText = new FormattedText(candidate,
-                                                  CultureInfo.CurrentCulture,
-                                                  FlowDirection.LeftToRight,
-                                                  typeface,
-                                                  fontSize,
-                                                  Brushes.Black,
-                                                  VisualTreeHelper.GetDpi(control).PixelsPerDip);
-
-            return new Size(formattedText.Width, formattedText.Height);
         }
     }
 }

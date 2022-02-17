@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using dnGREP.Common.UI;
 
 namespace dnGREP.WPF
 {
@@ -60,14 +61,14 @@ namespace dnGREP.WPF
             {
                 var typeFace = new Typeface(textBlock.FontFamily, textBlock.FontStyle, textBlock.FontWeight, textBlock.FontStretch);
 
-                var sz = MeasureString(text, typeFace, textBlock.FontSize, textBlock);
+                var sz = text.MeasureString(typeFace, textBlock.FontSize, textBlock);
 
                 if (sz.Width > actualWidth)
                 {
                     while (sz.Width > actualWidth)
                     {
                         text = text.Substring(1);
-                        sz = MeasureString(AddPrefix(text), typeFace, textBlock.FontSize, textBlock);
+                        sz = AddPrefix(text).MeasureString(typeFace, textBlock.FontSize, textBlock);
                     }
 
                     text = AddPrefix(text);
@@ -87,20 +88,5 @@ namespace dnGREP.WPF
                 return string.Concat(ellipses, text);
             }
         }
-
-        private static Size MeasureString(string candidate, Typeface typeface, double fontSize, FrameworkElement control)
-        {
-            var formattedText = new FormattedText(candidate,
-                                                  CultureInfo.CurrentUICulture,
-                                                  FlowDirection.LeftToRight,
-                                                  typeface,
-                                                  fontSize,
-                                                  Brushes.Black,
-                                                  VisualTreeHelper.GetDpi(control).PixelsPerDip);
-
-            return new Size(formattedText.Width, formattedText.Height);
-        }
-
-
     }
 }
