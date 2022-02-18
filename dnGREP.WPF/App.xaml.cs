@@ -63,13 +63,18 @@ namespace dnGREP.WPF
 
                 MainWindow.Show();
                 if (AppArgs.ExecuteSearch && MainWindow.DataContext != null)
-                    ((MainViewModel)MainWindow.DataContext).SearchCommand.Execute(null);
+                {
+                    if (MainWindow is MainForm mainView)
+                    {
+                        mainView.ViewModel.SearchCommand.Execute(null);
+                    }
+                }
             }
             catch (Exception ex)
             {
                 logger.Error(ex, "Failure in application startup");
                 MessageBox.Show(Localization.Properties.Resources.MessageBox_SomethingBrokeDownInDnGrep + LogDir,
-                    Localization.Properties.Resources.MessageBox_DnGrep, 
+                    Localization.Properties.Resources.MessageBox_DnGrep,
                     MessageBoxButton.OK, MessageBoxImage.Error,
                     MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
             }
@@ -90,7 +95,7 @@ namespace dnGREP.WPF
             {
                 logger.Error(ex, "Failure in application exit");
                 MessageBox.Show(Localization.Properties.Resources.MessageBox_SomethingBrokeDownInDnGrep + LogDir,
-                    Localization.Properties.Resources.MessageBox_DnGrep, 
+                    Localization.Properties.Resources.MessageBox_DnGrep,
                     MessageBoxButton.OK, MessageBoxImage.Error,
                     MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
             }
@@ -100,7 +105,7 @@ namespace dnGREP.WPF
         {
             logger.Error(e.Exception, "Unhandled exception caught");
             MessageBox.Show(Localization.Properties.Resources.MessageBox_SomethingBrokeDownInDnGrep + LogDir,
-                    Localization.Properties.Resources.MessageBox_DnGrep, 
+                    Localization.Properties.Resources.MessageBox_DnGrep,
                     MessageBoxButton.OK, MessageBoxImage.Error,
                     MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
             e.Handled = true;
