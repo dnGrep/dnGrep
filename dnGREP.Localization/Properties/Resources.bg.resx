@@ -1222,7 +1222,7 @@ Arguments:
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_SearchingForGitignore" xml:space="preserve">
-    <value>Търсене .gitignore</value>
+    <value>Търсене на .gitignore</value>
   </data>
   <data name="Main_StopAfterFirstMatch" xml:space="preserve">
     <value>Спиране след първо съвпадение</value>
@@ -1237,15 +1237,15 @@ Arguments:
     <comment>Main window, filter file by date, end date tooltip</comment>
   </data>
   <data name="Main_UseCaptureGroupsFromPathsToMatch" xml:space="preserve">
-    <value>Use capture groups from 'Patterns to match' in the 'Search for' pattern</value>
+    <value>Използване на групи за улавяне от 'Модели на съвпадение' в полето 'Търсене'</value>
     <comment>Main window, search option capture group tooltip</comment>
   </data>
   <data name="Main_UseGitignore" xml:space="preserve">
-    <value>Use .gitignore</value>
+    <value>Използване на .gitignore</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_UseGitignoreToFilterFiles" xml:space="preserve">
-    <value>Use .gitignore to filter files</value>
+    <value>Използва файла .gitignore за изключване на файлове</value>
     <comment>Main window, search option checkbox tooltip</comment>
   </data>
   <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
@@ -1281,7 +1281,7 @@ Arguments:
     <comment>Main window title: {0} is the current search pattern; {1} is the current search folder</comment>
   </data>
   <data name="Main_WrapText" xml:space="preserve">
-    <value>Wrap text</value>
+    <value>Пренасяне на текста</value>
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_Zoom" xml:space="preserve">
@@ -1297,7 +1297,7 @@ Arguments:
     <comment>Message box text for: Replace text</comment>
   </data>
   <data name="MessageBox_CheckEditorPath" xml:space="preserve">
-    <value>Check editor path via "Options…".</value>
+    <value>Проверете пътя към редактора в настройките.</value>
     <comment>Message box text for: Open file failed</comment>
   </data>
   <data name="MessageBox_ClearingThisBookmarkWillAlsoClearThatBookmark" xml:space="preserve">
@@ -1325,15 +1325,15 @@ Arguments:
     <comment>Message box text for: Copy file: {0} is the number of files</comment>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyDeleted" xml:space="preserve">
-    <value>{0} files have been deleted.</value>
+    <value>{0} файла са премахнати.</value>
     <comment>Message box text for: Delete files: {0} is the number of files</comment>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyMoved" xml:space="preserve">
-    <value>{0} files have been moved.</value>
+    <value>{0} файла са преместени.</value>
     <comment>Message box text for: Move files: {0} is the number of files</comment>
   </data>
   <data name="MessageBox_CustomEditorFileOpenError" xml:space="preserve">
-    <value>Could not open the file with the custom editor.</value>
+    <value>Файлът не може да бъде отворен с избрания редактор.</value>
     <comment>Message box text for: Open file with custom editor</comment>
   </data>
   <data name="MessageBox_DefaultEngineWasUsedInstead" xml:space="preserve">
@@ -1349,7 +1349,7 @@ Arguments:
     <comment>Message box title</comment>
   </data>
   <data name="MessageBox_DoYouWantToContinue" xml:space="preserve">
-    <value>Continue?</value>
+    <value>Продължаване?</value>
     <comment>Message box text for: Main window, bookmark button</comment>
   </data>
   <data name="MessageBox_Error" xml:space="preserve">
@@ -1361,7 +1361,7 @@ Arguments:
     <comment>Message box text for: Open file error</comment>
   </data>
   <data name="MessageBox_ErrorSettingClipboardTextTheClipboardIsLockedBy" xml:space="preserve">
-    <value>Could not set clipboard text. The clipboard is locked by</value>
+    <value>Грешка при поставяне на текст в междинната памет. Тя е заключена от</value>
     <comment>Message box text for: Copy to clipboard error</comment>
   </data>
   <data name="MessageBox_FailedToExtractFileFromArchive" xml:space="preserve">
@@ -1429,11 +1429,11 @@ Arguments:
     <comment>Message box text for: Options dialog, changing Windows integration options</comment>
   </data>
   <data name="MessageBox_SearchFailedError" xml:space="preserve">
-    <value>Could not complete the search. Check the error log for details: </value>
+    <value>Търсенето не може да бъде завършено. Проверете дневника за подробности: </value>
     <comment>Message box text for: Search failed</comment>
   </data>
   <data name="MessageBox_SearchOrReplaceFailed" xml:space="preserve">
-    <value>Could not complete the search or replace. Check the error log for details: </value>
+    <value>Търсенето или замяната не могат да бъдат завършени. Проверете дневника за подробности: </value>
     <comment>Message box text for: Search or Replace failed</comment>
   </data>
   <data name="MessageBox_SearchPathInTheFieldIsNotValid" xml:space="preserve">
@@ -2393,7 +2393,7 @@ Arguments:
     <comment>Bookmark details dialog, file type group header label (accel)</comment>
   </data>
   <data name="BookmarkDetails_FileSource_Group_Tooltip" xml:space="preserve">
-    <value>Include file source properties in bookmark</value>
+    <value>Включване на свойствата на изходния файл в отметката</value>
     <comment>Bookmark details dialog, file type group header tooltip</comment>
   </data>
   <data name="BookmarkDetails_Filters_Group" xml:space="preserve">
@@ -2401,7 +2401,7 @@ Arguments:
     <comment>Bookmark details dialog, filters group header label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Filters_Group_Tooltip" xml:space="preserve">
-    <value>Include file filter properties in bookmark</value>
+    <value>Включване на свойствата на филтъра за файлове в отметката</value>
     <comment>Bookmark details dialog, filters group header tooltip</comment>
   </data>
   <data name="BookmarkDetails_Content_Group" xml:space="preserve">
@@ -2409,7 +2409,7 @@ Arguments:
     <comment>Bookmark details dialog, search group header label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Content_Group_Tooltip" xml:space="preserve">
-    <value>Include content search properties in bookmark</value>
+    <value>Включване на свойствата за търсене на съдържание в отметката</value>
     <comment>Bookmark details dialog, search group header tooltip</comment>
   </data>
   <data name="Bookmarks_SectionsHeader" xml:space="preserve">
