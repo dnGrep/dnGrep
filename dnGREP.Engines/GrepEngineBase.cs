@@ -152,8 +152,11 @@ namespace dnGREP.Engines
 
             // Note: in Singleline mode, need to capture the new line chars
 
-            bool searchPatternEndsWithDot = searchPattern.EndsWith(".") || searchPattern.EndsWith(".*") ||
-                searchPattern.EndsWith(".?") || searchPattern.EndsWith(".+");
+            bool searchPatternEndsWithDot =
+                (searchPattern.EndsWith(".") && !searchPattern.EndsWith(@"\.")) ||
+                (searchPattern.EndsWith(".*") && !searchPattern.EndsWith(@"\.*")) ||
+                (searchPattern.EndsWith(".?") && !searchPattern.EndsWith(@"\.?")) ||
+                (searchPattern.EndsWith(".+") && !searchPattern.EndsWith(@"\.+"));
 
             int extraChars = 0;
 
