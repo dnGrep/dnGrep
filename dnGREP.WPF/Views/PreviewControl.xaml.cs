@@ -31,6 +31,8 @@ namespace dnGREP.WPF
             ViewModel.PropertyChanged += ViewModel_PropertyChanged;
             cbWrapText.IsChecked = GrepSettings.Instance.Get<bool?>(GrepSettings.Key.PreviewWindowWrap);
             zoomSlider.Value = GrepSettings.Instance.Get<int>(GrepSettings.Key.PreviewWindowFont);
+            zoomSlider.ValueChanged += ZoomSlider_ValueChanged;
+            textEditor.TextArea.TextView.SizeChanged += TextView_SizeChanged;
 
             AppTheme.Instance.CurrentThemeChanged += (s, e) =>
             {
@@ -61,7 +63,7 @@ namespace dnGREP.WPF
         {
             if (!e.ClearContent)
             {
-                if (textEditor.IsLoaded)
+                if (!string.IsNullOrEmpty(textEditor.Text))
                 {
                     textEditor.ScrollTo(ViewModel.LineNumber, 0);
                 }
@@ -94,23 +96,56 @@ namespace dnGREP.WPF
                             {
                                 textEditor.Load(stream);
                             }
-                            if (textEditor.IsLoaded)
+                            if (!string.IsNullOrEmpty(textEditor.Text))
                             {
+                                UpdatePositionMarkers();
+
                                 textEditor.ScrollTo(ViewModel.LineNumber, 0);
                             }
                         }
                         else
                         {
-                            //Title = "No files to preview.";
                             textEditor.Text = "";
+                            ViewModel.ClearPositionMarkers();
                         }
                     }
-                    //Show();
                 }
                 catch (Exception ex)
                 {
                     textEditor.Text = "Error opening the file: " + ex.Message;
                 }
+            }
+        }
+
+        private void TextView_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (e.HeightChanged)
+            {
+                UpdatePositionMarkers();
+            }
+        }
+
+        private void ZoomSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            UpdatePositionMarkers();
+        }
+
+        private void UpdatePositionMarkers()
+        {
+            if (textEditor != null && textEditor.ViewportHeight > 0 && !string.IsNullOrEmpty(textEditor.Text))
+            {
+                textEditor.TextArea.TextView.EnsureVisualLines();
+                double trackHeight = textEditor.TextArea.TextView.ActualHeight - 2 * SystemParameters.VerticalScrollBarButtonHeight;
+
+                ViewModel.BeginUpdateMarkers();
+                var documentHeight = textEditor.TextArea.TextView.DocumentHeight;
+                foreach (var lineNumber in ViewModel.MarkerLineNumbers)
+                {
+                    var linePosition = textEditor.TextArea.TextView.GetVisualTopByDocumentLine(lineNumber);
+
+                    ViewModel.AddMarker(linePosition, documentHeight, trackHeight);
+                }
+                ViewModel.EndUpdateMarkers();
             }
         }
 

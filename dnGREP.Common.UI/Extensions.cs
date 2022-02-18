@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Interop;
@@ -227,5 +228,20 @@ namespace dnGREP.Common.UI
             if (window.Top + window.Height > wa.Bottom)
                 window.Top = wa.Bottom - window.Height;
         }
+
+
+        public static Size MeasureString(this string candidate, Typeface typeface, double fontSize, FrameworkElement control)
+        {
+            var formattedText = new FormattedText(candidate,
+                                                  CultureInfo.CurrentUICulture,
+                                                  FlowDirection.LeftToRight,
+                                                  typeface,
+                                                  fontSize,
+                                                  Brushes.Black,
+                                                  VisualTreeHelper.GetDpi(control).PixelsPerDip);
+
+            return new Size(formattedText.Width, formattedText.Height);
+        }
+
     }
 }

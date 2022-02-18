@@ -30,6 +30,7 @@
                 <ResourceDictionary Source="pack://application:,,,/ThemedControls/SearchPanel.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ThemedControls/StatusBar.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ThemedControls/ScrollViewer.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ThemedControls/MarkerScrollViewer.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ThemedControls/Slider.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ThemedControls/ToggleButton.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ThemedControls/TreeView.xaml" />
