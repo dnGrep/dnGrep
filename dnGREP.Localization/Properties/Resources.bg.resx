@@ -758,7 +758,7 @@ Arguments:
     <comment>Main window, filter files checkbox label (accel)</comment>
   </data>
   <data name="Main_ForExampleAsteriskPattern" xml:space="preserve">
-    <value>например file??.*</value>
+    <value>Например: *.txt;*.xml</value>
     <comment>Main window, pattern type option Asterisk tooltip</comment>
   </data>
   <data name="Main_ForExampleRegularExpession" xml:space="preserve">
@@ -1186,7 +1186,7 @@ Arguments:
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_ReplaceComplete0FilesReplaced" xml:space="preserve">
-    <value>Заменянето е завършено - има замени в {0} файла.</value>
+    <value>Заменянето е завършено - има замяна в {0} файла.</value>
     <comment>Main window, status bar message: {0} is the number of files modified by the replace operation</comment>
   </data>
   <data name="Main_Status_ReplaceFailed" xml:space="preserve">
@@ -1225,7 +1225,7 @@ Arguments:
     <value>Търсене на .gitignore</value>
   </data>
   <data name="Main_StopAfterFirstMatch" xml:space="preserve">
-    <value>Спиране след първо съвпадение</value>
+    <value>Спиране при съвпадение</value>
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_TestExpression" xml:space="preserve">
@@ -1237,7 +1237,7 @@ Arguments:
     <comment>Main window, filter file by date, end date tooltip</comment>
   </data>
   <data name="Main_UseCaptureGroupsFromPathsToMatch" xml:space="preserve">
-    <value>Използване на групи за улавяне от 'Модели на съвпадение' в полето 'Търсене'</value>
+    <value>Използват се групите за улавяне от „Модели на съвпадение“ в полето „Търсене“</value>
     <comment>Main window, search option capture group tooltip</comment>
   </data>
   <data name="Main_UseGitignore" xml:space="preserve">
@@ -1245,7 +1245,7 @@ Arguments:
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_UseGitignoreToFilterFiles" xml:space="preserve">
-    <value>Използва файла .gitignore за изключване на файлове</value>
+    <value>За изключване на файлове се използва файла .gitignore</value>
     <comment>Main window, search option checkbox tooltip</comment>
   </data>
   <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
@@ -1285,7 +1285,7 @@ Arguments:
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_Zoom" xml:space="preserve">
-    <value>Zoom:</value>
+    <value>Мащаб:</value>
     <comment>Main window, results options zoom slider label</comment>
   </data>
   <data name="MessageBox_AreYouSureYouWantToContinue" xml:space="preserve">
@@ -1313,11 +1313,11 @@ Arguments:
     <comment>Message box title for: Copy files</comment>
   </data>
   <data name="MessageBox_CouldNotLoadResourcesFile0" xml:space="preserve">
-    <value>Could not load the '{0}' resources file: </value>
+    <value>Файлът с ресурси „{0}“ не може да бъде отворен: </value>
     <comment>Message box text for: Load language resource: {0} is the name of the file that failed to load</comment>
   </data>
   <data name="MessageBox_CouldNotLoadTheme" xml:space="preserve">
-    <value>Could not load the '{0}' theme. Check the error log for details: </value>
+    <value>Темата „{0}“ не може да бъде отворена. Проверете дневника за подробности: </value>
     <comment>Message box text for: Load theme resource: {0} is the name of the file that failed to load</comment>
   </data>
   <data name="MessageBox_CountFilesHaveBeenSuccessfullyCopied" xml:space="preserve">
@@ -1337,11 +1337,11 @@ Arguments:
     <comment>Message box text for: Open file with custom editor</comment>
   </data>
   <data name="MessageBox_DefaultEngineWasUsedInstead" xml:space="preserve">
-    <value>The default engine was used instead.</value>
+    <value>Вместо това ще бъде използван алгоритъмът по подразбиране.</value>
     <comment>Message box text for: Plugin failed to load error</comment>
   </data>
   <data name="MessageBox_DeleteFiles" xml:space="preserve">
-    <value>Delete Files</value>
+    <value>Премахване на файлове</value>
     <comment>Message box title for: Delete files</comment>
   </data>
   <data name="MessageBox_DnGrep" xml:space="preserve">
@@ -1357,7 +1357,7 @@ Arguments:
     <comment>Message box text for: general error message</comment>
   </data>
   <data name="MessageBox_ErrorOpeningFile" xml:space="preserve">
-    <value>Could not open the file. Check the error log for details: </value>
+    <value>Файлът не може да бъде отворен. Проверете дневника за подробности: </value>
     <comment>Message box text for: Open file error</comment>
   </data>
   <data name="MessageBox_ErrorSettingClipboardTextTheClipboardIsLockedBy" xml:space="preserve">
@@ -1365,7 +1365,7 @@ Arguments:
     <comment>Message box text for: Copy to clipboard error</comment>
   </data>
   <data name="MessageBox_FailedToExtractFileFromArchive" xml:space="preserve">
-    <value>Could not extract file from archive. Check the error log for details: </value>
+    <value>Файловете от архива не могат да бъдат извлечени. Проверете дневника за подробности: </value>
     <comment>Message box text for: Preview window archive error</comment>
   </data>
   <data name="MessageBox_FilesHaveBeenSuccessfullyReverted" xml:space="preserve">
@@ -1397,15 +1397,15 @@ Arguments:
     <comment>Message box text for: Copy files and Move files (destination overlaps source)</comment>
   </data>
   <data name="MessageBox_PluginErrors" xml:space="preserve">
-    <value>Plug-in Errors</value>
+    <value>Грешка в добавка</value>
     <comment>Message box title for: Plugin errors</comment>
   </data>
   <data name="MessageBox_RenameFailed" xml:space="preserve">
-    <value>Could not rename the file: </value>
+    <value>Файлът не може да бъде преименуван: </value>
     <comment>Message box text for: Rename file</comment>
   </data>
   <data name="MessageBox_RenameFile" xml:space="preserve">
-    <value>Rename File</value>
+    <value>Преименуване на файл</value>
     <comment>Message box title for: Rename file</comment>
   </data>
   <data name="MessageBox_Replace" xml:space="preserve">
@@ -1413,7 +1413,7 @@ Arguments:
     <comment>Message box text for: Replace message</comment>
   </data>
   <data name="MessageBox_ReplaceFailedError" xml:space="preserve">
-    <value>Could not replace text in files. Check the error log for details: </value>
+    <value>В някои от файловете текстът не може да бъде заменен. Проверете дневника за подробности: </value>
     <comment>Message box text for: Replace failed</comment>
   </data>
   <data name="MessageBox_ResourcesFile0IsNotAResxFile" xml:space="preserve">
@@ -1449,7 +1449,7 @@ Arguments:
     <comment>Message box text for: Main window replace warning</comment>
   </data>
   <data name="MessageBox_SomethingBrokeDownInDnGrep" xml:space="preserve">
-    <value>Something broke down in dnGrep. Check the error log for details: </value>
+    <value>Нещо в dnGrep не е наред. Проверете дневника за подробности: </value>
     <comment>Message box text for: Unknown error</comment>
   </data>
   <data name="MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting" xml:space="preserve">
@@ -1461,51 +1461,51 @@ Arguments:
     <comment>Message box text for: Main window regex file pattern error: {0} is the invalid regular expression; {1} is a newline; {2} is the reason the expression is invalid</comment>
   </data>
   <data name="MessageBox_TheFollowingPluginsFailedToLoad" xml:space="preserve">
-    <value>Could not load the following plug-ins:</value>
+    <value>Следните добавки не могат да бъдат заредени:</value>
     <comment>Message box text for: plugin load errors</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu" xml:space="preserve">
-    <value>Could not add dnGrep to the Windows Explorer right-click menu. Check the error log for details: </value>
+    <value>dnGrep не може да бъде добавен към контекстуалното меню на Windows Explorer. Проверете дневника за подробности: </value>
     <comment>Message box text for: set Explorer context menu error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorCopyingFiles" xml:space="preserve">
-    <value>Could not copy the files. Check the error log for details: </value>
+    <value>Файловете не могат да бъдат копирани. Проверете дневника за подробности: </value>
     <comment>Message box text for: Copy files</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorCreatingTheFile" xml:space="preserve">
-    <value>Could not create the file. Check the error log for details: </value>
+    <value>Файлът не може да бъде създаден. Проверете дневника за подробности: </value>
     <comment>Message box text for: Create file</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorDeletingFiles" xml:space="preserve">
-    <value>Could not delete the files. Check the error log for details: </value>
+    <value>Файловете не могат да бъдат премахнати. Проверете дневника за подробности: </value>
     <comment>Message box text for: Delete file</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorMovingFiles" xml:space="preserve">
-    <value>Could not move the files. Check the error log for details: </value>
+    <value>Файловете не могат да бъдат преместени. Проверете дневника за подробности: </value>
     <comment>Message box text for: Move file</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorRegisteringAutoStartup" xml:space="preserve">
-    <value>Could not register auto startup. Check the error log for details: </value>
+    <value>Не може да бъде направена регистрация за автоматично стартиране. Проверете дневника за подробности: </value>
     <comment>Message box text for: set startup option error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu" xml:space="preserve">
-    <value>Could not remove dnGrep from the Windows Explorer right-click menu. Check the error log for details: </value>
+    <value>dnGrep не може да бъде премахнат от контекстуалното меню на Windows Explorer. Проверете дневника за подробности: </value>
     <comment>Message box text for: unset Explorer context menu error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorRevertingFiles" xml:space="preserve">
-    <value>Could not revert files. Check the error log for details: </value>
+    <value>Файловете не могат да бъдат възстановени. Проверете дневника за подробности: </value>
     <comment>Message box text for: Undo replace error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorRunningRegexTest" xml:space="preserve">
-    <value>Could not open the test window. Check the error log for details: </value>
+    <value>Не може да бъде отворен тестов прозорец. Проверете дневника за подробности: </value>
     <comment>Message box text for: Main window start test dialog error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorSavingOptions" xml:space="preserve">
-    <value>Could not save options. Check the error log for details: </value>
+    <value>Настройките не могат да бъдат запазени. Проверете дневника за подробности: </value>
     <comment>Message box text for: Saving user options</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorUnregisteringAutoStartup" xml:space="preserve">
-    <value>Could not unregister auto startup. Check the error log for details: </value>
+    <value>Не може да бъде премахната регистрацията за автоматично стартиране. Проверете дневника за подробности: </value>
     <comment>Message box text for: unsetting auto start error</comment>
   </data>
   <data name="MessageBox_ThisBookmarkIsAssociatedWith0OtherFolders" xml:space="preserve">
@@ -1517,7 +1517,7 @@ Arguments:
     <comment>Message box text for: Main window bookmark delete</comment>
   </data>
   <data name="MessageBox_Undo" xml:space="preserve">
-    <value>Undo</value>
+    <value>Отменяне</value>
     <comment>Message box title for: Main window Undo</comment>
   </data>
   <data name="MessageBox_UndoWillRevertModifiedFiles" xml:space="preserve">
@@ -1553,7 +1553,7 @@ Arguments:
     <comment>Options dialog, archive options text input label</comment>
   </data>
   <data name="Options_ArchiveDefault" xml:space="preserve">
-    <value>Default</value>
+    <value>Подразбирани</value>
     <comment>Options dialog, archive options text input label</comment>
   </data>
   <data name="Options_ArchiveExtensions" xml:space="preserve">
@@ -1577,7 +1577,7 @@ Arguments:
     <comment>Options dialog, check for updates label</comment>
   </data>
   <data name="Options_CheckForUpdatesWhenWindowsStarts" xml:space="preserve">
-    <value>Проверяване за обновяване със стартиране на Windows</value>
+    <value>Проверка за обновяване със стартиране на Windows</value>
     <comment>Options dialog, check for updates checkbox label (accel)</comment>
   </data>
   <data name="Options_CheckingForUpdates" xml:space="preserve">
@@ -2369,7 +2369,7 @@ Arguments:
     <comment>Replace window, file name progress line: {0} is number of matches marked for replacement; {1} is the number of matches found in the current file</comment>
   </data>
   <data name="Main_PowerPointSlideNumber" xml:space="preserve">
-    <value>Slide {0}</value>
+    <value>Кадър {0}</value>
     <comment>Main window, results list label for PowerPoint files: {0} is the slide number in the PowerPoint document</comment>
   </data>
   <data name="Options_ResultsFontFamily" xml:space="preserve">
