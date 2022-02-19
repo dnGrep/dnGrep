@@ -101,6 +101,8 @@ namespace dnGREP.WPF
             KeyDown += MainForm_KeyDown;
         }
 
+        public MainViewModel ViewModel => viewModel;
+
         private void OnCurrentCultureChanged(object s, EventArgs e)
         {
             dpFrom.Language = XmlLanguage.GetLanguage(TranslationSource.Instance.CurrentCulture.IetfLanguageTag);
