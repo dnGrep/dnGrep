@@ -241,7 +241,7 @@
     <value>Alles</value>
   </data>
   <data name="BookmarkDetails_PatternType_Regex" xml:space="preserve">
-    <value>_Regular expression</value>
+    <value>_Regulären Ausdruck</value>
   </data>
   <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
     <value>Ersetze mit:</value>
@@ -268,7 +268,7 @@
     <value>Lese Dateien binär und suche nach Bytes im hexadezimal Format: 68 65 78 20</value>
   </data>
   <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
-    <value>_Regular expression</value>
+    <value>_Regulären Ausdruck</value>
   </data>
   <data name="BookmarkDetails_SearchType_RegularExpressionSearch" xml:space="preserve">
     <value>Suche mit regulären Ausdrücken</value>
@@ -660,16 +660,16 @@ Argumente:
     <value>_Über</value>
   </data>
   <data name="Main_Menu_About_AboutDnGrep" xml:space="preserve">
-    <value>_Über dnGrep...</value>
+    <value>_Über dnGrep…</value>
   </data>
   <data name="Main_Menu_About_Help" xml:space="preserve">
     <value>_Hilfe</value>
   </data>
   <data name="Main_Menu_Bookmarks" xml:space="preserve">
-    <value>_Lesezeichen...</value>
+    <value>_Lesezeichen…</value>
   </data>
   <data name="Main_Menu_Options" xml:space="preserve">
-    <value>_Optionen...</value>
+    <value>_Optionen…</value>
   </data>
   <data name="Main_Menu_Undo" xml:space="preserve">
     <value>_Zurücknehmen</value>
@@ -678,7 +678,7 @@ Argumente:
     <value>geändert</value>
   </data>
   <data name="Main_More" xml:space="preserve">
-    <value>M_ehr...</value>
+    <value>M_ehr…</value>
   </data>
   <data name="Main_MoreArrowButton" xml:space="preserve">
     <value>_Mehr ⏷</value>
@@ -687,16 +687,16 @@ Argumente:
     <value>Dateinname kopieren</value>
   </data>
   <data name="Main_MoreMenu_CopyFiles" xml:space="preserve">
-    <value>Datei kopieren...</value>
+    <value>Datei kopieren…</value>
   </data>
   <data name="Main_MoreMenu_CopyResults" xml:space="preserve">
     <value>Ergebnis kopieren</value>
   </data>
   <data name="Main_MoreMenu_DeleteFiles" xml:space="preserve">
-    <value>Datei löschen...</value>
+    <value>Datei löschen…</value>
   </data>
   <data name="Main_MoreMenu_MoveFiles" xml:space="preserve">
-    <value>Datei verschieben...</value>
+    <value>Datei verschieben…</value>
   </data>
   <data name="Main_MoreMenu_Save_CSVResults" xml:space="preserve">
     <value>CSV Ergebnisse</value>
@@ -732,7 +732,7 @@ Argumente:
     <value>Alles</value>
   </data>
   <data name="Main_PatternType_Regex" xml:space="preserve">
-    <value>_Regular expression</value>
+    <value>_Regulären Ausdruck</value>
   </data>
   <data name="Main_PreviewFile" xml:space="preserve">
     <value>Datei_vorschau</value>
@@ -780,7 +780,7 @@ Argumente:
     <value>Übereinstimmung {0}{1}{2}</value>
   </data>
   <data name="Main_ResultList_MatchToolTip2" xml:space="preserve">
-    <value>Überienstimmung {0}{1}Gruppe {2}:   {3}</value>
+    <value>Überienstimmung {0}{1}Gruppe {2}: {3}</value>
   </data>
   <data name="Main_ResultList_PlusCountMoreMatches" xml:space="preserve">
     <value>, +{0} mehre Fundstellen</value>
@@ -834,7 +834,7 @@ Argumente:
     <value>Dateieigenschaften zeigen</value>
   </data>
   <data name="Main_SavingResultsToFile" xml:space="preserve">
-    <value>sichere Ergebnis in eine Datei...</value>
+    <value>sichere Ergebnis in eine Datei…</value>
   </data>
   <data name="Main_SearchButton" xml:space="preserve">
     <value>_Suche</value>
@@ -876,7 +876,7 @@ Argumente:
     <value>Lese Dateien binär und suche nach Bytes im hexadezimal Format: 68 65 78 20</value>
   </data>
   <data name="Main_SearchType_Regex" xml:space="preserve">
-    <value>_Regular expression</value>
+    <value>_Regulären Ausdruck</value>
   </data>
   <data name="Main_SearchType_RegularExpressionSearch" xml:space="preserve">
     <value>Suche mit regulären Ausdrücken</value>
@@ -948,7 +948,7 @@ Argumente:
     <value>Ersetzen fehlerhaft.</value>
   </data>
   <data name="Main_Status_Replacing" xml:space="preserve">
-    <value>Ersetzen...</value>
+    <value>Ersetzen…</value>
   </data>
   <data name="Main_Status_SearchCanceled" xml:space="preserve">
     <value>Suche abbrechen</value>
@@ -966,7 +966,7 @@ Argumente:
     <value>Durchsucht {0} Dateien. Gefunden {1} passende Dateien - Verarbeitung {2}</value>
   </data>
   <data name="Main_Status_Searching" xml:space="preserve">
-    <value>Durchsuche...</value>
+    <value>Durchsuche…</value>
   </data>
   <data name="Main_Status_SearchingForGitignore" xml:space="preserve">
     <value>Suche nach .gitignore</value>
@@ -990,16 +990,16 @@ Argumente:
     <value>benutze .gitignore zur Dateifilterung</value>
   </data>
   <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
-    <value>Hex Zeichen ist nicht gültig</value>
+    <value>Byte-Zeichenfolge ist ungültig!</value>
   </data>
   <data name="Main_Validation_HexStringIsOK" xml:space="preserve">
-    <value>Hex Zeichen ist OK</value>
+    <value>Byte zeichenfolge ist OK</value>
   </data>
   <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">
-    <value>Regular Expression ist nicht gültig!</value>
+    <value>Regulärer Ausdruck ist nicht gültig!</value>
   </data>
   <data name="Main_Validation_RegexIsOK" xml:space="preserve">
-    <value>Regular Expression ist OK!</value>
+    <value>Regulärer Ausdruck ist OK</value>
   </data>
   <data name="Main_Validation_XPathIsNotValid" xml:space="preserve">
     <value>XPtah ist nicht gültig!</value>
@@ -1146,7 +1146,7 @@ Argumente:
     <value>Die Datei '{0}' existiert bereits in {1}, überschreiben?</value>
   </data>
   <data name="MessageBox_TheFilePattern0IsNotAValidRegularExpression12" xml:space="preserve">
-    <value>Das Datei Suchmuster '{0}' ist kein gültiger Rregulärer Ausdruck{1}{2}</value>
+    <value>Das Datei Suchmuster '{0}' ist kein gültiger Regulärer Ausdruck{1}{2}</value>
   </data>
   <data name="MessageBox_TheFollowingPluginsFailedToLoad" xml:space="preserve">
     <value>Die folgende Erweiterung konnte nicht geladen werden:</value>
@@ -1230,7 +1230,7 @@ Argumente:
     <value>Entfernen:</value>
   </data>
   <data name="Options_BrowseFileLocation" xml:space="preserve">
-    <value>...</value>
+    <value>…</value>
   </data>
   <data name="Options_CheckDays" xml:space="preserve">
     <value>Tage</value>
@@ -1320,13 +1320,13 @@ Argumente:
     <value>Layout</value>
   </data>
   <data name="Options_LoadFromFile" xml:space="preserve">
-    <value>von Datei laden...</value>
+    <value>von Datei laden…</value>
   </data>
   <data name="Options_MainFontSize" xml:space="preserve">
     <value>Hauptschriftgröße</value>
   </data>
   <data name="Options_MatchEverythingToExactMatch" xml:space="preserve">
-    <value>0 - unscharfe Suche;  1.0 - genaue Suche</value>
+    <value>0 - unscharfe Suche; 1.0 - genaue Suche</value>
   </data>
   <data name="Options_MatchThreshold" xml:space="preserve">
     <value>Such-Schwelle (von 0 bis 1.0)</value>
@@ -1377,7 +1377,7 @@ Argumente:
     <value>Vorschautool für Übersetzer</value>
   </data>
   <data name="Options_RegexOptions" xml:space="preserve">
-    <value>Regular Expression Optionen</value>
+    <value>Reguläre Ausdrücke</value>
   </data>
   <data name="Options_Reload" xml:space="preserve">
     <value>neu laden</value>
@@ -1503,7 +1503,7 @@ Argumente:
     <value>Fehler: die ist eine binäre Datei</value>
   </data>
   <data name="Replace_FileNumberOfCountName" xml:space="preserve">
-    <value>Datei {0} von {1}: {2}  ({3} Suchermuster passt bei  {4} Zeilen)</value>
+    <value>Datei {0} von {1}: {2} ({3} Suchermuster passt bei {4} Zeilen)</value>
   </data>
   <data name="Replace_Files" xml:space="preserve">
     <value>Dateien</value>
@@ -1695,7 +1695,7 @@ Argumente:
     <value>Benutze Everything Index Suche</value>
   </data>
   <data name="ReportSummary_UsingRegexFilePattern" xml:space="preserve">
-    <value>Benutze Regular Expression für Dateisuchmuster</value>
+    <value>Benutze reguläre Ausdrücke für Dateisuchmuster</value>
   </data>
   <data name="ReportSummary_UsingTypeOfSeach" xml:space="preserve">
     <value>Benutze {0} Suche</value>
@@ -1752,7 +1752,7 @@ Argumente:
     <value>Phonetisch</value>
   </data>
   <data name="Test_SearchType_Regex" xml:space="preserve">
-    <value>_Regular Expression</value>
+    <value>_Regulären Ausdruck</value>
   </data>
   <data name="Test_SearchType_Text" xml:space="preserve">
     <value>_Text</value>
@@ -1785,10 +1785,10 @@ Argumente:
     <value>{1,3} sucht 1 bis 3 Zeichen</value>
   </data>
   <data name="TTA7_ForMoreRegexPatternsHitF1" xml:space="preserve">
-    <value>Für mehr Regular Expression Suchmuster drücke F1 (Hilfe)</value>
+    <value>Für mehr reguläre Ausdrücke Suchmuster drücke F1 (Hilfe)</value>
   </data>
   <data name="TTB1_ReplacesEntireRegex" xml:space="preserve">
-    <value>$&amp; ersetzt die gesamte Regular Expression</value>
+    <value>$&amp; ersetzt die gesamte reguläre Ausdrücke</value>
   </data>
   <data name="TTB2_InsertsTheTextMatchedIntoTheReplacementText" xml:space="preserve">
     <value>$1, $2, $3, etc... fügt die mit Klammern eingeschlossenen Fundstelle(n) in den durchsuchten Text ein</value>
@@ -1815,39 +1815,39 @@ Argumente:
     <value>verkleinern</value>
   </data>
   <data name="Options_HexSearchResultLineLength" xml:space="preserve">
-    <value>Byte search result line length</value>
+    <value>Länge der Byte-Suchergebniszeile</value>
     <comment>Options dialog, results options combo box label</comment>
   </data>
   <data name="Options_FilesAndIndividualMatches" xml:space="preserve">
-    <value>files and individual matches</value>
+    <value>dateien und individuelle Übereinstimmungen</value>
     <comment>Options dialog, Replace layout option radio button label (accel)</comment>
   </data>
   <data name="Options_FilesOnly" xml:space="preserve">
-    <value>files only</value>
+    <value>nur Dateien</value>
     <comment>Options dialog, Replace window layout radio button label (accel)</comment>
   </data>
   <data name="Options_ReplaceDialogLayout" xml:space="preserve">
-    <value>Replace window layout</value>
+    <value>Fensterlayout ersetzen</value>
     <comment>Options dialog, replace view options label</comment>
   </data>
   <data name="Replace_NumberOfMatchesMarkedForReplacement" xml:space="preserve">
-    <value>{0} of {1} matches marked for replacement</value>
+    <value>{0} von {1} Übereinstimmungen zum Ersetzen markiert</value>
     <comment>Replace window, file name progress line: {0} is number of matches marked for replacement; {1} is the number of matches found in the current file</comment>
   </data>
   <data name="Main_PowerPointSlideNumber" xml:space="preserve">
-    <value>Slide {0}</value>
+    <value>Folie {0}</value>
     <comment>Main window, results list label for PowerPoint files: {0} is the slide number in the PowerPoint document</comment>
   </data>
   <data name="Options_ResultsFontFamily" xml:space="preserve">
-    <value>Results font family</value>
+    <value>Ergebnisse Schriftfamilie</value>
     <comment>Options dialog, results font selector label</comment>
   </data>
   <data name="Options_ResultsFontSize" xml:space="preserve">
-    <value>Results font size</value>
+    <value>Ergebnisse Schriftgröße</value>
     <comment>Options dialog, results font size label</comment>
   </data>
   <data name="Options_ResultsFontUsuallyAFixedWidthFont" xml:space="preserve">
-    <value>Font used in search results, usually a fixed width font</value>
+    <value>In Suchergebnissen verwendete Schriftart, in der Regel eine Schriftart mit fester Breite</value>
     <comment>Options dialog, replace font selector tooltip</comment>
   </data>
   <data name="Test_SearchType_Hex" xml:space="preserve">
@@ -1859,7 +1859,7 @@ Argumente:
     <comment>Bookmark details dialog, file type group header label (accel)</comment>
   </data>
   <data name="BookmarkDetails_FileSource_Group_Tooltip" xml:space="preserve">
-    <value>Include file source properties in bookmark</value>
+    <value>Dateiquelleigenschaften in Lesezeichen einschließen</value>
     <comment>Bookmark details dialog, file type group header tooltip</comment>
   </data>
   <data name="BookmarkDetails_Filters_Group" xml:space="preserve">
@@ -1867,7 +1867,7 @@ Argumente:
     <comment>Bookmark details dialog, filters group header label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Filters_Group_Tooltip" xml:space="preserve">
-    <value>Include file filter properties in bookmark</value>
+    <value>Dateifiltereigenschaften in Lesezeichen einschließen</value>
     <comment>Bookmark details dialog, filters group header tooltip</comment>
   </data>
   <data name="BookmarkDetails_Content_Group" xml:space="preserve">
@@ -1875,11 +1875,11 @@ Argumente:
     <comment>Bookmark details dialog, search group header label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Content_Group_Tooltip" xml:space="preserve">
-    <value>Include content search properties in bookmark</value>
+    <value>Inhaltssucheigenschaften in Lesezeichen einschließen</value>
     <comment>Bookmark details dialog, search group header tooltip</comment>
   </data>
   <data name="Bookmarks_SectionsHeader" xml:space="preserve">
-    <value>Sections</value>
+    <value>Abschnitte</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
 </root>
