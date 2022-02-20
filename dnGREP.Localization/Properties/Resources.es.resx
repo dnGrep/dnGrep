@@ -555,44 +555,44 @@
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Help_CmdLine" xml:space="preserve">
-    <value>dnGrep: Busque en archivos de texto, documentos de Word y Excel, PDF y archivos utilizando texto, expresión regular, XPath y consultas fonéticas_x000D_
-_x000D_
-Versión {0} basada en {1}_x000D_
-_x000D_
-Uso:_x000D_
-_x000D_
-dnGrep [argumentos]_x000D_
-Utilizando cualquier combinación de argumentos de la siguiente lista_x000D_
-Ejemplo:_x000D_
-dnGrep/f «» C :\Archivos de programa\dnGrep «»/pm * .txt; * .xml/s t\w * t/st Regex_x000D_
-_x000D_
-dnGrep [_x000D_
-Uno o dos argumentos sin indicadores: el primer argumento es la carpeta a buscar, el segundo la expresión regular a buscar._x000D_
-Ejemplo:_x000D_
-dnGrep «» C :\Archivos de programa\dnGrep «» t\w * t_x000D_
-_x000D_
-Cualquier argumento no especificado será predeterminado a la última configuración de usuario guardada._x000D_
-_x000D_
-Argumentos:_x000D_
-_x000D_
-/ f [ruta de acceso]_x000D_
--f [vía de acceso]_x000D_
--folder [vía de acceso]_x000D_
-Establece la ruta de la carpeta para buscar. Puede ser una lista de rutas de carpeta separadas por coma o punto y coma_x000D_
-_x000D_
-/ pm [patrón]_x000D_
--pm [patrón]_x000D_
--pathToMatch [patrón]_x000D_
-Establece el patrón de nombre de archivo para que coincida con los archivos de la ruta de búsqueda. Puede ser una lista de patrones separados por coma o punto y coma_x000D_
-_x000D_
-/ pi [patrón]_x000D_
--pi [patrón]_x000D_
--pathToIgnore [patrón]_x000D_
-Establece el patrón de nombre de archivo o directorio para excluir archivos o carpetas en la ruta de búsqueda. Puede ser una lista de patrones separados por coma o punto y coma_x000D_
-_x000D_
-/ pt [tipo]_x000D_
--pt [tipo]_x000D_
--patternType [type]_x000D_
+    <value>dnGrep: Busque en archivos de texto, documentos de Word y Excel, PDF y archivos utilizando texto, expresión regular, XPath y consultas fonéticas
+
+Versión {0} basada en {1}
+
+Uso:
+
+dnGrep [argumentos]
+Utilizando cualquier combinación de argumentos de la siguiente lista
+Ejemplo:
+dnGrep/f «» C :\Archivos de programa\dnGrep «»/pm * .txt; * .xml/s t\w * t/st Regex
+
+dnGrep [
+Uno o dos argumentos sin indicadores: el primer argumento es la carpeta a buscar, el segundo la expresión regular a buscar.
+Ejemplo:
+dnGrep «» C :\Archivos de programa\dnGrep «» t\w * t
+
+Cualquier argumento no especificado será predeterminado a la última configuración de usuario guardada.
+
+Argumentos:
+
+/ f [ruta de acceso]
+-f [vía de acceso]
+-folder [vía de acceso]
+Establece la ruta de la carpeta para buscar. Puede ser una lista de rutas de carpeta separadas por coma o punto y coma
+
+/ pm [patrón]
+-pm [patrón]
+-pathToMatch [patrón]
+Establece el patrón de nombre de archivo para que coincida con los archivos de la ruta de búsqueda. Puede ser una lista de patrones separados por coma o punto y coma
+
+/ pi [patrón]
+-pi [patrón]
+-pathToIgnore [patrón]
+Establece el patrón de nombre de archivo o directorio para excluir archivos o carpetas en la ruta de búsqueda. Puede ser una lista de patrones separados por coma o punto y coma
+
+/ pt [tipo]
+-pt [tipo]
+-patternType [type]
 Establece el tipo de coincidencia e ignorar el patrón â € debe ser uno de:" "Asterisco" "(comodín)," "Regex" "(expresión regular), o" "Todo" "(si la herramienta de búsqueda Todo es. instalado).</value>
     <comment>Help dialog text when running dnGrep from the command-line: {0} is the installed dnGrep version number; {1} is the installed dnGrep build date</comment>
   </data>
