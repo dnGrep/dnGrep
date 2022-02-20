@@ -30,19 +30,20 @@ namespace dnGREP.Localization
                 { "bg", "Български" },
                 { "de", "Deutsch" },
                 { "en", "English" },
+                { "es", "español" },
                 { "he", "עברית" },
                 { "nb-NO", "Bokmål" },
-                { "ru", "Русский" },
+                { "ru", "pусский" },
                 { "zh-CN", "简体中文" },
                 { "zh-Hant", "中文" },
             };
 
-        public void SetCulture(string ietfLanguateTag)
+        public void SetCulture(string ietfLanguageTag)
         {
-            if (!string.IsNullOrWhiteSpace(ietfLanguateTag) && AppCultures.ContainsKey(ietfLanguateTag))
+            if (!string.IsNullOrWhiteSpace(ietfLanguageTag) && AppCultures.ContainsKey(ietfLanguageTag))
             {
                 ResourceManagerEx.Instance.FileResources = null;
-                CurrentCulture = CultureInfo.GetCultureInfoByIetfLanguageTag(ietfLanguateTag);
+                CurrentCulture = CultureInfo.GetCultureInfoByIetfLanguageTag(ietfLanguageTag);
             }
         }
 
@@ -80,7 +81,7 @@ namespace dnGREP.Localization
             if (resxFile.IsValid)
             {
                 ResourceManagerEx.Instance.FileResources = resxFile;
-                CurrentCulture = CultureInfo.GetCultureInfoByIetfLanguageTag(resxFile.IetfLanguateTag);
+                CurrentCulture = CultureInfo.GetCultureInfoByIetfLanguageTag(resxFile.IetfLanguageTag);
                 return true;
             }
             return false;

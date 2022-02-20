@@ -23,9 +23,10 @@ namespace dnGREP.TestLocalizedStrings
                 { "bg", "Български" },
                 { "de", "Deutsch" },
                 { "en", "English" },
+                { "es", "español" },
                 { "he", "עברית" },
                 { "nb-NO", "Bokmål" },
-                { "ru", "Русский" },
+                { "ru", "pусский" },
                 { "zh-CN", "简体中文" },
                 { "zh-Hant", "中文" },
             };

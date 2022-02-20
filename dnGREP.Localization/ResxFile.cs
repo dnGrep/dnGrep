@@ -17,7 +17,7 @@ namespace dnGREP.Localization
         public void ReadFile(string filePath)
         {
             resources.Clear();
-            IetfLanguateTag = string.Empty;
+            IetfLanguageTag = string.Empty;
 
             try
             {
@@ -62,7 +62,7 @@ namespace dnGREP.Localization
                             }
                             if (!string.IsNullOrEmpty(tag))
                             {
-                                IetfLanguateTag = tag;
+                                IetfLanguageTag = tag;
 
                                 using (ResXResourceReader rsxr = new ResXResourceReader(filePath))
                                 {
@@ -94,9 +94,9 @@ namespace dnGREP.Localization
             }
         }
 
-        public bool IsValid => !string.IsNullOrEmpty(IetfLanguateTag) && resources.Count > 0;
+        public bool IsValid => !string.IsNullOrEmpty(IetfLanguageTag) && resources.Count > 0;
 
-        public string IetfLanguateTag { get; private set; } = string.Empty;
+        public string IetfLanguageTag { get; private set; } = string.Empty;
 
 
         public IDictionary<string, string> Resources => resources;
