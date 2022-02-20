@@ -77,6 +77,7 @@
     <EmbeddedResource Include="Properties\Resources.de.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.es.resx" />
     <EmbeddedResource Include="Properties\Resources.he.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -101,6 +102,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="AddingTranslations.md" />
     <None Include="dnGrep.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
