@@ -379,11 +379,11 @@
     <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_ForExampleAsteriskPattern" xml:space="preserve">
-    <value>Por ejemplo: * .txt; * .xml</value>
+    <value>Por ejemplo: *.txt;*.xml</value>
     <comment>Bookmark details dialog, Wildcard pattern type option tooltip</comment>
   </data>
   <data name="BookmarkDetails_ForExampleRegularExpession" xml:space="preserve">
-    <value>Por ejemplo: archivo [0-9] {1,2 }\\.txt</value>
+    <value>Por ejemplo: archivo[0-9]{1,2}\\.txt</value>
     <comment>Bookmark details dialog, regular expression pattern type option tooltip</comment>
   </data>
   <data name="BookmarkDetails_IncludeBinaryFiles" xml:space="preserve">
@@ -793,11 +793,11 @@ Establece el tipo de coincidencia e ignorar el patrón â € debe ser uno de:" 
     <comment>Main window, filter files checkbox label (accel)</comment>
   </data>
   <data name="Main_ForExampleAsteriskPattern" xml:space="preserve">
-    <value>Por ejemplo: * .txt; * .xml</value>
+    <value>Por ejemplo: *.txt;*.xml</value>
     <comment>Main window, Wildcard pattern type option tooltip</comment>
   </data>
   <data name="Main_ForExampleRegularExpession" xml:space="preserve">
-    <value>Por ejemplo: archivo [0-9] {1,2 }\\.txt</value>
+    <value>Por ejemplo: archivo[0-9] {1,2 }\\.txt</value>
     <comment>Main window, Regular expression pattern type option tooltip</comment>
   </data>
   <data name="Main_FromTheStartOfTheDay" xml:space="preserve">
