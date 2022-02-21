@@ -151,11 +151,11 @@
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTB1_ReplacesEntireRegex" xml:space="preserve">
-    <value>$ &amp; reemplaza la expresión regular completa</value>
+    <value>$&amp; reemplaza la expresión regular completa</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTB3_InsertsASingleDollarSignIntoTheReplacementText" xml:space="preserve">
-    <value>$ $ inserta un solo signo de dólar en el texto de reemplazo</value>
+    <value>$$ inserta un solo signo de dólar en el texto de reemplazo</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="Window_DockThisPopUpBackIntoTheMainWindow" xml:space="preserve">
@@ -243,15 +243,15 @@
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTA2_MatchesAlphaNumerics" xml:space="preserve">
-    <value>\ w coincide con alfanuméricos</value>
+    <value>\w coincide con alfanuméricos</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTA3_MatchesDigits" xml:space="preserve">
-    <value>\ d coincide con dígitos</value>
+    <value>\d coincide con dígitos</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTA4_MatchesSpace" xml:space="preserve">
-    <value>\ s coincide con el espacio</value>
+    <value>\s coincide con el espacio</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="About_BuiltOn" xml:space="preserve">
@@ -315,7 +315,7 @@
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_OK" xml:space="preserve">
-    <value>OK</value>
+    <value>BIEN</value>
     <comment>About dialog button label</comment>
   </data>
   <data name="About_Version" xml:space="preserve">
@@ -351,7 +351,7 @@
     <comment>Bookmark details dialog, search options encoding combo box label (accel) </comment>
   </data>
   <data name="BookmarkDetails_EverythingIndexService" xml:space="preserve">
-    <value>Todo servicio de índice</value>
+    <value>Everything servicio de índice</value>
     <comment>Bookmark details dialog, Everything pattern type option tooltip</comment>
   </data>
   <data name="BookmarkDetails_FilePatternType" xml:space="preserve">
@@ -419,7 +419,7 @@
     <comment>Bookmark details dialog, Wildcard pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_PatternType_Everything" xml:space="preserve">
-    <value>Todo</value>
+    <value>Everything</value>
     <comment>Bookmark details dialog, Everything pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
@@ -787,11 +787,11 @@ Salga de dnGrep una vez completadas las operaciones de la línea de comandos.</v
     <comment>Main window encoding auto select text</comment>
   </data>
   <data name="Main_EverythingIndexService" xml:space="preserve">
-    <value>Todo servicio de índice</value>
+    <value>Everything servicio de índice</value>
     <comment>Main window, pattern type option Everything tooltip</comment>
   </data>
   <data name="Main_EverythingSearch" xml:space="preserve">
-    <value>Todo busca:</value>
+    <value>Everything busca:</value>
     <comment>Main window, folder input caption when Everything search is enabled (accel)</comment>
   </data>
   <data name="Main_ExcelSheetName" xml:space="preserve">
@@ -851,7 +851,7 @@ Salga de dnGrep una vez completadas las operaciones de la línea de comandos.</v
     <comment>Main window, Wildcard pattern type option tooltip</comment>
   </data>
   <data name="Main_ForExampleRegularExpession" xml:space="preserve">
-    <value>Por ejemplo: archivo[0-9] {1,2 }\\.txt</value>
+    <value>Por ejemplo: archivo[0-9]{1,2}\\.txt</value>
     <comment>Main window, Regular expression pattern type option tooltip</comment>
   </data>
   <data name="Main_FromTheStartOfTheDay" xml:space="preserve">
@@ -951,7 +951,7 @@ Salga de dnGrep una vez completadas las operaciones de la línea de comandos.</v
     <comment>Main window, Wildcard pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_PatternType_Everything" xml:space="preserve">
-    <value>Todo</value>
+    <value>Everything</value>
     <comment>Main window, Everything pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_PowerPointSlideNumber" xml:space="preserve">
@@ -2103,7 +2103,7 @@ Salga de dnGrep una vez completadas las operaciones de la línea de comandos.</v
     <comment>Report search options summary: {0} is the date type (modified or created); {1} and {2} are the user input dates</comment>
   </data>
   <data name="ReportSummary_UsingEverythingIndexSearch" xml:space="preserve">
-    <value>Usando Todo búsqueda de índice</value>
+    <value>Usando Everything búsqueda de índice</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_UsingRegexFilePattern" xml:space="preserve">
@@ -2159,7 +2159,7 @@ Salga de dnGrep una vez completadas las operaciones de la línea de comandos.</v
     <comment>Bookmark details dialog, search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Text" xml:space="preserve">
-    <value>_Text</value>
+    <value>_Texto</value>
     <comment>Bookmark details dialog, search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_XPath" xml:space="preserve">
