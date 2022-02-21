@@ -79,7 +79,7 @@
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_SearchCompleteSearched0FilesFound1FilesIn2" xml:space="preserve">
-    <value>Búsqueda completada â € "buscado {0} archivos, encontrado {1} archivos en {2}.</value>
+    <value>Búsqueda completada - buscado {0} archivos, encontrado {1} archivos en {2}.</value>
     <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found; {2} is the duration of the search</comment>
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFiles" xml:space="preserve">
@@ -564,36 +564,90 @@ Uso:
 dnGrep [argumentos]
 Utilizando cualquier combinación de argumentos de la siguiente lista
 Ejemplo:
-dnGrep/f «» C :\Archivos de programa\dnGrep «»/pm * .txt; * .xml/s t\w * t/st Regex
+dnGrep /f "C:\Archivos de programa\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex
 
-dnGrep [
+dnGrep [ruta del archivo] [buscar]
 Uno o dos argumentos sin indicadores: el primer argumento es la carpeta a buscar, el segundo la expresión regular a buscar.
 Ejemplo:
-dnGrep «» C :\Archivos de programa\dnGrep «» t\w * t
+dnGrep "C:\Archivos de programa\dnGrep" t\w*t
 
 Cualquier argumento no especificado será predeterminado a la última configuración de usuario guardada.
 
 Argumentos:
 
-/ f [ruta de acceso]
--f [vía de acceso]
--folder [vía de acceso]
+/f [ruta de acceso]
+-f [ruta de acceso]
+-folder [ruta de acceso]
 Establece la ruta de la carpeta para buscar. Puede ser una lista de rutas de carpeta separadas por coma o punto y coma
 
-/ pm [patrón]
+/pm [patrón]
 -pm [patrón]
 -pathToMatch [patrón]
 Establece el patrón de nombre de archivo para que coincida con los archivos de la ruta de búsqueda. Puede ser una lista de patrones separados por coma o punto y coma
 
-/ pi [patrón]
+/pi [patrón]
 -pi [patrón]
 -pathToIgnore [patrón]
 Establece el patrón de nombre de archivo o directorio para excluir archivos o carpetas en la ruta de búsqueda. Puede ser una lista de patrones separados por coma o punto y coma
 
-/ pt [tipo]
+/pt [tipo]
 -pt [tipo]
--patternType [type]
-Establece el tipo de coincidencia e ignorar el patrón â € debe ser uno de:" "Asterisco" "(comodín)," "Regex" "(expresión regular), o" "Todo" "(si la herramienta de búsqueda Todo es. instalado).</value>
+-patternType [tipo]
+Establece el tipo de patrón de coincidencia e ignorar: debe ser uno de: "Asterisk" "(comodín)," "Regex" "(expresión regular), o" "Everything" "(si la herramienta de búsqueda Everything es instalado).
+
+/s [buscar]
+-s [buscar]
+-searchFor [buscar]
+Establece el patrón o el texto que se va a buscar dentro del conjunto de archivos. Cuando se establece este argumento, la búsqueda se ejecutará automáticamente.
+
+/st [tipo]
+-st [tipo]
+-searchType [tipo]
+Establece el tipo de búsqueda: debe ser uno de: "PlainText" (texto sin formato), "Regex" (expresión regular), "XPath", o "Soundex" (fonético).
+
+/cs [True/False]
+-cs [True/False]
+-caseSensitive [True/False]
+Establece un indicador de búsqueda que distingue entre mayúsculas y minúsculas: True o False.
+
+/ww [True/False]
+-ww [True/False]
+-wholeWord [True/False]
+Establece el indicador de búsqueda de palabras completas: True o False.
+
+/ml [True/False]
+-ml [True/False]
+-multiline [True/False]
+Establece el indicador de búsqueda multilínea: True o False.
+
+/dn [True/False]
+-dn [True/False]
+-dotAsNewline [True/False]
+Establece el punto como indicador de búsqueda de nueva línea: True o False.
+
+/bo [True/False]
+-bo [True/False]
+-booleanOperators [True/False]
+Establece el indicador de búsqueda de operadores booleanos: True o False.
+
+/rpt [ruta del archivo]
+-rpt [ruta del archivo]
+-report [ruta del archivo]
+Cree un archivo de resultados en formato de informe una vez completada la búsqueda.
+
+/txt [ruta del archivo]
+-txt [ruta del archivo]
+-text [ruta del archivo]
+Cree un archivo de resultados en formato de texto después de completar la búsqueda.
+
+/csv [ruta del archivo]
+-csv [ruta del archivo]
+Cree un archivo de resultados en formato CSV una vez completada la búsqueda.
+
+/x
+-x
+-exit
+Salga de dnGrep una vez completadas las operaciones de la línea de comandos.</value>
     <comment>Help dialog text when running dnGrep from the command-line: {0} is the installed dnGrep version number; {1} is the installed dnGrep build date</comment>
   </data>
   <data name="Help_DnGrepHelp" xml:space="preserve">
@@ -2161,7 +2215,7 @@ Establece el tipo de coincidencia e ignorar el patrón â € debe ser uno de:" 
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Menu_Options" xml:space="preserve">
-    <value>_Options…</value>
+    <value>_Opciones…</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Menu_Undo" xml:space="preserve">
@@ -2169,7 +2223,7 @@ Establece el tipo de coincidencia e ignorar el patrón â € debe ser uno de:" 
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_More" xml:space="preserve">
-    <value>Mor_e…</value>
+    <value>Más…</value>
     <comment>Main window, filters expander label (accel)</comment>
   </data>
   <data name="Main_MoreArrowButton" xml:space="preserve">
