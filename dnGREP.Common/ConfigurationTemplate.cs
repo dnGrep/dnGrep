@@ -28,7 +28,7 @@ namespace dnGREP.Common
             {"P4Merge", new ConfigurationTemplate("p4merge.exe", string.Empty, "ProgramFiles") },
             {"WinMerge", new ConfigurationTemplate("WinMergeU.exe", @"/e /u /x", "ProgramFiles") },
             {"VSCode", new ConfigurationTemplate("code.exe", @"-d", "AppDataLocal", "ProgramFiles") },
-            {"VsDiffMerge", new ConfigurationTemplate("vsDiffMerge.exe", string.Empty, "ProgramFiles") },
+            {"VsDiffMerge", new ConfigurationTemplate("vsDiffMerge.exe", string.Empty, "ProgramFiles", "ProgramFilesx86") },
         };
 
         private static Dictionary<string, string> SearchPaths = new Dictionary<string, string>
@@ -40,7 +40,7 @@ namespace dnGREP.Common
 
         static ConfigurationTemplate()
         {
-            var root = Directory.GetDirectoryRoot(Assembly.GetExecutingAssembly().FullName);
+            var root = Directory.GetDirectoryRoot(Assembly.GetEntryAssembly().Location);
             if (!string.IsNullOrEmpty(root) && !root.Equals("C:\\", StringComparison.OrdinalIgnoreCase))
             {
                 SearchPaths.Add("Portable", root);
@@ -75,7 +75,8 @@ namespace dnGREP.Common
                     FileFilter fileParams = new FileFilter(path, template.ExeFileName, string.Empty,
                         false, false, false, true, -1, true, true, false, false, 0, 0, FileDateFilter.None, null, null);
 
-                    var exePath = Utils.GetFileListEx(fileParams).FirstOrDefault();
+                    var exePath = SafeDirectory.EnumerateFiles(path, new string[] { template.ExeFileName }, 
+                        null, fileParams).FirstOrDefault();
 
                     if (!string.IsNullOrEmpty(exePath))
                     {
