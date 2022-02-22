@@ -9,9 +9,11 @@ using System.Security.Principal;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Threading;
 using dnGREP.Common;
 using dnGREP.Engines;
 using dnGREP.Localization;
+using dnGREP.WPF.MVHelpers;
 using Microsoft.Win32;
 using NLog;
 using Resources = dnGREP.Localization.Properties.Resources;
@@ -21,6 +23,7 @@ namespace dnGREP.WPF
     public class OptionsViewModel : CultureAwareViewModel
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly string ellipsis = char.ConvertFromUtf32(0x2026);
 
         public OptionsViewModel()
         {
@@ -30,6 +33,9 @@ namespace dnGREP.WPF
                 ThemeNames.Add(name);
 
             CultureNames = TranslationSource.Instance.AppCultures.ToArray();
+
+            CustomEditorTemplates = ConfigurationTemplate.EditorConfigurationTemplates.ToArray();
+            CompareApplicationTemplates = ConfigurationTemplate.CompareConfigurationTemplates.ToArray();
 
             HexLengthOptions = new List<int> { 8, 16, 32, 64, 128 };
 
@@ -299,6 +305,45 @@ namespace dnGREP.WPF
 
         public KeyValuePair<string, string>[] CultureNames { get; }
 
+        public KeyValuePair<string, ConfigurationTemplate>[] CustomEditorTemplates { get; }
+
+        private void ApplyCustomEditorTemplate(ConfigurationTemplate template)
+        {
+            if (template != null)
+            {
+                CustomEditorPath = ellipsis + template.ExeFileName;
+                CustomEditorArgs = template.Arguments;
+
+                Dispatcher.CurrentDispatcher.InvokeAsync(() =>
+                {
+                    UIServices.SetBusyState();
+                    string fullPath = ConfigurationTemplate.FindExePath(template);
+                    if (!string.IsNullOrEmpty(fullPath))
+                    {
+                        CustomEditorPath = fullPath;
+                        CustomEditorArgs = template.Arguments;
+                    }
+                }, DispatcherPriority.ApplicationIdle);
+            }
+        }
+
+        private ConfigurationTemplate customEditorTemplate = null;
+
+        public ConfigurationTemplate CustomEditorTemplate
+        {
+            get { return customEditorTemplate; }
+            set
+            {
+                if (value == customEditorTemplate)
+                    return;
+
+                customEditorTemplate = value;
+                ApplyCustomEditorTemplate(customEditorTemplate);
+
+                base.OnPropertyChanged(nameof(CustomEditorTemplate));
+            }
+        }
+
         private string customEditorPath;
         public string CustomEditorPath
         {
@@ -310,7 +355,7 @@ namespace dnGREP.WPF
 
                 customEditorPath = value;
 
-                base.OnPropertyChanged(() => CustomEditorPath);
+                base.OnPropertyChanged(nameof(CustomEditorPath));
             }
         }
 
@@ -340,6 +385,45 @@ namespace dnGREP.WPF
 
                 customEditorHelp = value;
                 base.OnPropertyChanged(() => CustomEditorHelp);
+            }
+        }
+
+        public KeyValuePair<string, ConfigurationTemplate>[] CompareApplicationTemplates { get; }
+
+        private void ApplyCompareApplicationTemplate(ConfigurationTemplate template)
+        {
+            if (template != null)
+            {
+                CompareApplicationPath = ellipsis + template.ExeFileName;
+                CompareApplicationArgs = template.Arguments;
+
+                Dispatcher.CurrentDispatcher.InvokeAsync(() =>
+                {
+                    UIServices.SetBusyState();
+                    string fullPath = ConfigurationTemplate.FindExePath(template);
+                    if (!string.IsNullOrEmpty(fullPath))
+                    {
+                        CompareApplicationPath = fullPath;
+                        CompareApplicationArgs = template.Arguments;
+                    }
+                }, DispatcherPriority.ApplicationIdle);
+            }
+        }
+
+        private ConfigurationTemplate compareApplicationTemplate = null;
+
+        public ConfigurationTemplate CompareApplicationTemplate
+        {
+            get { return compareApplicationTemplate; }
+            set
+            {
+                if (value == compareApplicationTemplate)
+                    return;
+
+                compareApplicationTemplate = value;
+                ApplyCompareApplicationTemplate(compareApplicationTemplate);
+
+                base.OnPropertyChanged(nameof(CompareApplicationTemplate));
             }
         }
 
@@ -1620,7 +1704,7 @@ namespace dnGREP.WPF
 
         private static bool GetIsMonospaced(string familyName)
         {
-            Typeface typeface = new Typeface(new FontFamily(familyName), SystemFonts.MessageFontStyle, 
+            Typeface typeface = new Typeface(new FontFamily(familyName), SystemFonts.MessageFontStyle,
                 SystemFonts.MessageFontWeight, FontStretches.Normal);
 
             var narrowChar = new FormattedText("i", TranslationSource.Instance.CurrentCulture,
