@@ -336,6 +336,7 @@
                             <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
+                            <RowDefinition />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -360,7 +361,20 @@
                                    Text="{l:Loc Key='Options_EditorArguments'}" />
                         <TextBox Grid.Row="1" Grid.Column="1" Margin="3"
                                  Text="{Binding Path=CustomEditorArgs, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBlock Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Margin="3"
+                        <ComboBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="3"
+                                  ItemsSource="{Binding Path=CustomEditorTemplates}"
+                                  DisplayMemberPath="Key"
+                                  SelectedValuePath="Value"
+                                  SelectedValue="{Binding Path=CustomEditorTemplate}">
+                            <ComboBox.Width>
+                                <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="150" FallbackValue="150">
+                                    <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                    <Binding Path="ApplicationFontFamily"/>
+                                    <Binding Path="DialogFontSize"/>
+                                </MultiBinding>
+                            </ComboBox.Width>
+                        </ComboBox>
+                        <TextBlock Grid.Row="3" Grid.Column="1" TextWrapping="Wrap" Margin="3"
                                    Text="{Binding CustomEditorHelp}"/>
                     </Grid>
                 </GroupBox>
@@ -368,6 +382,7 @@
                 <GroupBox Header="{l:Loc Key='Options_CompareApplication'}">
                     <Grid Margin="0,0,12,0">
                         <Grid.RowDefinitions>
+                            <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
                             <RowDefinition />
@@ -395,7 +410,20 @@
                                    Text="{l:Loc Key='Options_CompareArguments'}" />
                         <TextBox Grid.Row="1" Grid.Column="1" Margin="3"
                                  Text="{Binding Path=CompareApplicationArgs, UpdateSourceTrigger=PropertyChanged}" />
-                        <TextBlock Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Margin="3" 
+                        <ComboBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Left" Margin="3"
+                                  ItemsSource="{Binding Path=CompareApplicationTemplates}"
+                                  DisplayMemberPath="Key"
+                                  SelectedValuePath="Value"
+                                  SelectedValue="{Binding Path=CompareApplicationTemplate}">
+                            <ComboBox.Width>
+                                <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="150" FallbackValue="150">
+                                    <Binding RelativeSource="{RelativeSource Mode=Self}"/>
+                                    <Binding Path="ApplicationFontFamily"/>
+                                    <Binding Path="DialogFontSize"/>
+                                </MultiBinding>
+                            </ComboBox.Width>
+                        </ComboBox>
+                        <TextBlock Grid.Row="3" Grid.Column="1" TextWrapping="Wrap" Margin="3" 
                                    Text="{l:Loc Key='Options_DnGrepWillAddTheSelectedFiles'}"/>
                     </Grid>
                 </GroupBox>
