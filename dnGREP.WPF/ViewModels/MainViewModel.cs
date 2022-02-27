@@ -2753,7 +2753,7 @@ namespace dnGREP.WPF
                 if (!string.IsNullOrWhiteSpace(basePath) &&
                     displayfileName.Contains(basePath, StringComparison.CurrentCultureIgnoreCase))
                 {
-                    displayfileName = displayfileName.Substring(basePath.Length + 1).TrimStart('\\');
+                    displayfileName = displayfileName.Substring(basePath.Length).TrimStart('\\');
                 }
 
                 PreviewTitle = displayfileName;

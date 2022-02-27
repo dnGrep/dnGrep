@@ -562,14 +562,14 @@ namespace dnGREP.WPF
         {
             bool isFileReadOnly = Utils.IsReadOnly(GrepResult);
 
-            string basePath = string.IsNullOrWhiteSpace(searchFolderPath) ? string.Empty : searchFolderPath.TrimEnd('\\');
+            string basePath = string.IsNullOrWhiteSpace(searchFolderPath) ? string.Empty : searchFolderPath;
             string displayedName = Path.GetFileName(GrepResult.FileNameDisplayed);
 
             if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowFilePathInResults) &&
                 GrepResult.FileNameDisplayed.Contains(basePath, StringComparison.CurrentCultureIgnoreCase))
             {
                 if (!string.IsNullOrWhiteSpace(basePath))
-                    displayedName = GrepResult.FileNameDisplayed.Substring(basePath.Length + 1).TrimStart('\\');
+                    displayedName = GrepResult.FileNameDisplayed.Substring(basePath.Length).TrimStart('\\');
                 else
                     displayedName = GrepResult.FileNameDisplayed;
             }
