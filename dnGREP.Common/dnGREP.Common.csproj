@@ -83,6 +83,8 @@
     <Compile Include="GrepCaptureGroup.cs" />
     <Compile Include="GrepLine.cs" />
     <Compile Include="GrepMatch.cs" />
+    <Compile Include="Boolean\BooleanExpression.cs" />
+    <Compile Include="Boolean\BooleanToken.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="PathSearchText.cs" />
     <Compile Include="SafeDirectory.cs" />
@@ -99,6 +101,10 @@
     <Compile Include="SearchDelegates.cs" />
     <Compile Include="GrepApplicationSettings.cs" />
     <Compile Include="ReplaceDef.cs" />
+    <Compile Include="Boolean\Token.cs" />
+    <Compile Include="Boolean\BooleanTokenizer.cs" />
+    <Compile Include="Boolean\TokenMatch.cs" />
+    <Compile Include="Boolean\TokenType.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>

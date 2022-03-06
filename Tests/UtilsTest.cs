@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Security.Principal;
 using System.Text;
 using dnGREP.Common;
 using dnGREP.WPF;
@@ -1435,6 +1434,225 @@ namespace Tests
         {
             bool actual = input.ConstainsNotEscaped(toCheck);
             Assert.Equal(expected, actual);
+        }
+
+        [Theory]
+        [InlineData(@"one two AND three", @"a AND b")]
+        [InlineData(@"one two NAND three", @"a NAND b")]
+        [InlineData(@"one AND two two AND three", @"a AND b AND c")]
+        [InlineData(@"one AND two AND NOT three four", @"a AND b AND NOT c")]
+        [InlineData(@"one OR two", @"a OR b")]
+        [InlineData(@"one NOR two", @"a NOR b")]
+        [InlineData(@"one OR two OR three", @"a OR b OR c")]
+        [InlineData(@"one OR two OR NOT three", @"a OR b OR NOT c")]
+        [InlineData(@"(one OR two) AND NOT three", @"( a OR b ) AND NOT c")]
+        [InlineData(@"false OR true AND (false OR false)", @"a OR b AND ( c OR d )")]
+        [InlineData(@"(false OR true) AND false OR false", @"( a OR b ) AND c OR d")]
+        [InlineData(@"\w+\s+\w* AND `\p{Sc}*(\s?\d+[.,]?\d*)\p{Sc}*`", @"a AND b")]
+        [InlineData(@"`\w+\s+\w*` AND `\p{Sc}*(\s?\d+[.,]?\d*)\p{Sc}*`", @"a AND b")]
+        [InlineData(@"`((\"".+?\"")|('.+?'))` AND `test`", @"a AND b")]
+        [InlineData(@"<((\"".+?\"")|('.+?'))> AND <test>", @"a AND b")]
+        [InlineData(@"sand AND floor", @"a AND b")]
+        [InlineData(@"<sand > AND < floor>", @"a AND b")]
+        [InlineData(@"`(?<double>\w)\k<double>` AND ` floor`", @"a AND b")]
+        public void TestParseBooleanOperators(string input, string expected)
+        {
+            BooleanExpression exp = new BooleanExpression();
+            bool success = exp.TryParse(input);
+            Assert.True(success);
+            Assert.Equal(expected, exp.Expression);
+        }
+
+        [Theory]
+        [InlineData("not a", "a not", false, true)]
+        [InlineData("not a", "a not", true, false)]
+
+        [InlineData("a and b", "a b and", false, false, false)]
+        [InlineData("a and b", "a b and", false, true, false)]
+        [InlineData("a and b", "a b and", true, false, false)]
+        [InlineData("a and b", "a b and", true, true, true)]
+
+        [InlineData("a nand b", "a b nand", false, false, true)]
+        [InlineData("a nand b", "a b nand", false, true, true)]
+        [InlineData("a nand b", "a b nand", true, false, true)]
+        [InlineData("a nand b", "a b nand", true, true, false)]
+
+        [InlineData("a or b", "a b or", false, false, false)]
+        [InlineData("a or b", "a b or", false, true, true)]
+        [InlineData("a or b", "a b or", true, false, true)]
+        [InlineData("a or b", "a b or", true, true, true)]
+
+        [InlineData("a nor b", "a b nor", false, false, true)]
+        [InlineData("a nor b", "a b nor", false, true, false)]
+        [InlineData("a nor b", "a b nor", true, false, false)]
+        [InlineData("a nor b", "a b nor", true, true, false)]
+
+        [InlineData("a and b or c", "a b and c or", false, false, false, false)]
+        [InlineData("a and b or c", "a b and c or", false, false, true, true)]
+        [InlineData("a and b or c", "a b and c or", false, true, false, false)]
+        [InlineData("a and b or c", "a b and c or", false, true, true, true)]
+        [InlineData("a and b or c", "a b and c or", true, false, false, false)]
+        [InlineData("a and b or c", "a b and c or", true, false, true, true)]
+        [InlineData("a and b or c", "a b and c or", true, true, false, true)]
+        [InlineData("a and b or c", "a b and c or", true, true, true, true)]
+
+        [InlineData("a or b and c", "a b c and or", false, false, false, false)]
+        [InlineData("a or b and c", "a b c and or", false, false, true, false)]
+        [InlineData("a or b and c", "a b c and or", false, true, false, false)]
+        [InlineData("a or b and c", "a b c and or", false, true, true, true)]
+        [InlineData("a or b and c", "a b c and or", true, false, false, true)]
+        [InlineData("a or b and c", "a b c and or", true, false, true, true)]
+        [InlineData("a or b and c", "a b c and or", true, true, false, true)]
+        [InlineData("a or b and c", "a b c and or", true, true, true, true)]
+
+        [InlineData("a and (b or c)", "a b c or and", false, false, false, false)]
+        [InlineData("a and (b or c)", "a b c or and", false, false, true, false)]
+        [InlineData("a and (b or c)", "a b c or and", false, true, false, false)]
+        [InlineData("a and (b or c)", "a b c or and", false, true, true, false)]
+        [InlineData("a and (b or c)", "a b c or and", true, false, false, false)]
+        [InlineData("a and (b or c)", "a b c or and", true, false, true, true)]
+        [InlineData("a and (b or c)", "a b c or and", true, true, false, true)]
+        [InlineData("a and (b or c)", "a b c or and", true, true, true, true)]
+
+        [InlineData("( a or b ) and c", "a b or c and", false, false, false, false)]
+        [InlineData("( a or b ) and c", "a b or c and", false, false, true, false)]
+        [InlineData("( a or b ) and c", "a b or c and", false, true, false, false)]
+        [InlineData("( a or b ) and c", "a b or c and", false, true, true, true)]
+        [InlineData("( a or b ) and c", "a b or c and", true, false, false, false)]
+        [InlineData("( a or b ) and c", "a b or c and", true, false, true, true)]
+        [InlineData("( a or b ) and c", "a b or c and", true, true, false, false)]
+        [InlineData("( a or b ) and c", "a b or c and", true, true, true, true)]
+
+        [InlineData("not a and b or c", "a not b and c or", false, false, false, false)]
+        [InlineData("not a and b or c", "a not b and c or", false, false, true, true)]
+        [InlineData("not a and b or c", "a not b and c or", false, true, false, true)]
+        [InlineData("not a and b or c", "a not b and c or", false, true, true, true)]
+        [InlineData("not a and b or c", "a not b and c or", true, false, false, false)]
+        [InlineData("not a and b or c", "a not b and c or", true, false, true, true)]
+        [InlineData("not a and b or c", "a not b and c or", true, true, false, false)]
+        [InlineData("not a and b or c", "a not b and c or", true, true, true, true)]
+
+        [InlineData("a or b and not c", "a b c not and or", false, false, false, false)]
+        [InlineData("a or b and not c", "a b c not and or", false, false, true, false)]
+        [InlineData("a or b and not c", "a b c not and or", false, true, false, true)]
+        [InlineData("a or b and not c", "a b c not and or", false, true, true, false)]
+        [InlineData("a or b and not c", "a b c not and or", true, false, false, true)]
+        [InlineData("a or b and not c", "a b c not and or", true, false, true, true)]
+        [InlineData("a or b and not c", "a b c not and or", true, true, false, true)]
+        [InlineData("a or b and not c", "a b c not and or", true, true, true, true)]
+
+        [InlineData("a or b or not c", "a b c not or or", false, false, false, true)]
+        [InlineData("a or b or not c", "a b c not or or", false, false, true, false)]
+        [InlineData("a or b or not c", "a b c not or or", false, true, false, true)]
+        [InlineData("a or b or not c", "a b c not or or", false, true, true, true)]
+        [InlineData("a or b or not c", "a b c not or or", true, false, false, true)]
+        [InlineData("a or b or not c", "a b c not or or", true, false, true, true)]
+        [InlineData("a or b or not c", "a b c not or or", true, true, false, true)]
+        [InlineData("a or b or not c", "a b c not or or", true, true, true, true)]
+
+        [InlineData("a and b and not c", "a b c not and and", false, false, false, false)]
+        [InlineData("a and b and not c", "a b c not and and", false, false, true, false)]
+        [InlineData("a and b and not c", "a b c not and and", false, true, false, false)]
+        [InlineData("a and b and not c", "a b c not and and", false, true, true, false)]
+        [InlineData("a and b and not c", "a b c not and and", true, false, false, false)]
+        [InlineData("a and b and not c", "a b c not and and", true, false, true, false)]
+        [InlineData("a and b and not c", "a b c not and and", true, true, false, true)]
+        [InlineData("a and b and not c", "a b c not and and", true, true, true, false)]
+
+        [InlineData("( a and b ) and not c", "a b and c not and", false, false, false, false)]
+        [InlineData("( a and b ) and not c", "a b and c not and", false, false, true, false)]
+        [InlineData("( a and b ) and not c", "a b and c not and", false, true, false, false)]
+        [InlineData("( a and b ) and not c", "a b and c not and", false, true, true, false)]
+        [InlineData("( a and b ) and not c", "a b and c not and", true, false, false, false)]
+        [InlineData("( a and b ) and not c", "a b and c not and", true, false, true, false)]
+        [InlineData("( a and b ) and not c", "a b and c not and", true, true, false, true)]
+        [InlineData("( a and b ) and not c", "a b and c not and", true, true, true, false)]
+
+        [InlineData("( a or b ) and not c", "a b or c not and", false, false, false, false)]
+        [InlineData("( a or b ) and not c", "a b or c not and", false, false, true, false)]
+        [InlineData("( a or b ) and not c", "a b or c not and", false, true, false, true)]
+        [InlineData("( a or b ) and not c", "a b or c not and", false, true, true, false)]
+        [InlineData("( a or b ) and not c", "a b or c not and", true, false, false, true)]
+        [InlineData("( a or b ) and not c", "a b or c not and", true, false, true, false)]
+        [InlineData("( a or b ) and not c", "a b or c not and", true, true, false, true)]
+        [InlineData("( a or b ) and not c", "a b or c not and", true, true, true, false)]
+
+        [InlineData("a or ( b and not c )", "a b c not and or", false, false, false, false)]
+        [InlineData("a or ( b and not c )", "a b c not and or", false, false, true, false)]
+        [InlineData("a or ( b and not c )", "a b c not and or", false, true, false, true)]
+        [InlineData("a or ( b and not c )", "a b c not and or", false, true, true, false)]
+        [InlineData("a or ( b and not c )", "a b c not and or", true, false, false, true)]
+        [InlineData("a or ( b and not c )", "a b c not and or", true, false, true, true)]
+        [InlineData("a or ( b and not c )", "a b c not and or", true, true, false, true)]
+        [InlineData("a or ( b and not c )", "a b c not and or", true, true, true, true)]
+
+        [InlineData("( a or b ) and ( c or d )", "a b or c d or and", false, false, false, false, false)]
+        [InlineData("( a or b ) and ( c or d )", "a b or c d or and", false, false, false, true, false)]
+        [InlineData("( a or b ) and ( c or d )", "a b or c d or and", false, false, true, false, false)]
+        [InlineData("( a or b ) and ( c or d )", "a b or c d or and", false, false, true, true, false)]
+        [InlineData("( a or b ) and ( c or d )", "a b or c d or and", false, true, false, false, false)]
+        [InlineData("( a or b ) and ( c or d )", "a b or c d or and", false, true, false, true, true)]
+        [InlineData("( a or b ) and ( c or d )", "a b or c d or and", false, true, true, false, true)]
+        [InlineData("( a or b ) and ( c or d )", "a b or c d or and", false, true, true, true, true)]
+        [InlineData("( a or b ) and ( c or d )", "a b or c d or and", true, false, false, false, false)]
+        [InlineData("( a or b ) and ( c or d )", "a b or c d or and", true, false, false, true, true)]
+        [InlineData("( a or b ) and ( c or d )", "a b or c d or and", true, false, true, false, true)]
+        [InlineData("( a or b ) and ( c or d )", "a b or c d or and", true, false, true, true, true)]
+        [InlineData("( a or b ) and ( c or d )", "a b or c d or and", true, true, false, false, false)]
+        [InlineData("( a or b ) and ( c or d )", "a b or c d or and", true, true, false, true, true)]
+        [InlineData("( a or b ) and ( c or d )", "a b or c d or and", true, true, true, false, true)]
+        [InlineData("( a or b ) and ( c or d )", "a b or c d or and", true, true, true, true, true)]
+
+        [InlineData("( a and b ) or ( c and d )", "a b and c d and or", false, false, false, false, false)]
+        [InlineData("( a and b ) or ( c and d )", "a b and c d and or", false, false, false, true, false)]
+        [InlineData("( a and b ) or ( c and d )", "a b and c d and or", false, false, true, false, false)]
+        [InlineData("( a and b ) or ( c and d )", "a b and c d and or", false, false, true, true, true)]
+        [InlineData("( a and b ) or ( c and d )", "a b and c d and or", false, true, false, false, false)]
+        [InlineData("( a and b ) or ( c and d )", "a b and c d and or", false, true, false, true, false)]
+        [InlineData("( a and b ) or ( c and d )", "a b and c d and or", false, true, true, false, false)]
+        [InlineData("( a and b ) or ( c and d )", "a b and c d and or", false, true, true, true, true)]
+        [InlineData("( a and b ) or ( c and d )", "a b and c d and or", true, false, false, false, false)]
+        [InlineData("( a and b ) or ( c and d )", "a b and c d and or", true, false, false, true, false)]
+        [InlineData("( a and b ) or ( c and d )", "a b and c d and or", true, false, true, false, false)]
+        [InlineData("( a and b ) or ( c and d )", "a b and c d and or", true, false, true, true, true)]
+        [InlineData("( a and b ) or ( c and d )", "a b and c d and or", true, true, false, false, true)]
+        [InlineData("( a and b ) or ( c and d )", "a b and c d and or", true, true, false, true, true)]
+        [InlineData("( a and b ) or ( c and d )", "a b and c d and or", true, true, true, false, true)]
+        [InlineData("( a and b ) or ( c and d )", "a b and c d and or", true, true, true, true, true)]
+
+        [InlineData("a and b and c or d", "a b c and and d or", false, false, false, false, false)]
+        [InlineData("a and b and c or d", "a b c and and d or", false, false, false, true, true)]
+        [InlineData("a and b and c or d", "a b c and and d or", false, false, true, false, false)]
+        [InlineData("a and b and c or d", "a b c and and d or", false, false, true, true, true)]
+        [InlineData("a and b and c or d", "a b c and and d or", false, true, false, false, false)]
+        [InlineData("a and b and c or d", "a b c and and d or", false, true, false, true, true)]
+        [InlineData("a and b and c or d", "a b c and and d or", false, true, true, false, false)]
+        [InlineData("a and b and c or d", "a b c and and d or", false, true, true, true, true)]
+        [InlineData("a and b and c or d", "a b c and and d or", true, false, false, false, false)]
+        [InlineData("a and b and c or d", "a b c and and d or", true, false, false, true, true)]
+        [InlineData("a and b and c or d", "a b c and and d or", true, false, true, false, false)]
+        [InlineData("a and b and c or d", "a b c and and d or", true, false, true, true, true)]
+        [InlineData("a and b and c or d", "a b c and and d or", true, true, false, false, false)]
+        [InlineData("a and b and c or d", "a b c and and d or", true, true, false, true, true)]
+        [InlineData("a and b and c or d", "a b c and and d or", true, true, true, false, true)]
+        [InlineData("a and b and c or d", "a b c and and d or", true, true, true, true, true)]
+        public void TestEvaluateBooleanExpressions(string input, string postfixExpression, params bool[] values)
+        {
+            BooleanExpression exp = new BooleanExpression();
+            bool success = exp.TryParse(input);
+            Assert.True(success);
+
+            Assert.Equal(postfixExpression, exp.PostfixExpression);
+
+            var operands = exp.Operands.ToList();
+            // the last value is the expected result for the input values
+            Assert.Equal(values.Length - 1, operands.Count);
+            for(int i = 0; i < values.Length - 1; i++)
+            {
+                operands[i].EvaluatedResult = values[i];
+            }
+
+            Assert.Equal(values.Last(), exp.Evaluate());
         }
     }
 }
