@@ -1467,6 +1467,8 @@ namespace Tests
         [InlineData("not a", "a not", false, true)]
         [InlineData("not a", "a not", true, false)]
 
+        //[InlineData("a (and) b", "a b and", false, false, false)]
+
         [InlineData("a and b", "a b and", false, false, false)]
         [InlineData("a and b", "a b and", false, true, false)]
         [InlineData("a and b", "a b and", true, false, false)]
@@ -1653,6 +1655,67 @@ namespace Tests
             }
 
             Assert.Equal(values.Last(), exp.Evaluate());
+        }
+
+        [Theory]
+        [InlineData("a and b", false, false, null)]
+        [InlineData("a and b", false, null, false)]
+        [InlineData("a or b", true, true, null)]
+        [InlineData("a or b", true, null, true)]
+        [InlineData("a and (b or c)", null, true, null, null)]
+        [InlineData("a and (b or c)", null, true, false, null)]
+        [InlineData("a and (b or c)", true, true, true, null)]
+        [InlineData("a and (b or c)", false, false, null, null)]
+        [InlineData("(a or b) and c", null, true, null, null)]
+        [InlineData("(a or b) and c", null, true, true, null)]
+        [InlineData("(a or b) and c", null, true, false, null)]
+        public void TestShortCircuitResult(string input, bool? expectedResult, params bool?[] values)
+        {
+            BooleanExpression exp = new BooleanExpression();
+            bool success = exp.TryParse(input);
+            Assert.True(success);
+
+            var operands = exp.Operands.ToList();
+            for (int i = 0; i < values.Length; i++)
+            {
+                operands[i].EvaluatedResult = values[i];
+            }
+
+            bool? result = exp.ShortCircuitResult();
+            Assert.Equal(expectedResult, result);
+        }
+
+        [Theory]
+        [InlineData("not a", true)]
+        [InlineData("a nand b", true)]
+        [InlineData("a nand (b or c)", true)]
+        [InlineData("a nor (b or c)", true)]
+        public void TestForNegativeExpression(string input, bool expectedResult)
+        {
+            BooleanExpression exp = new BooleanExpression();
+            bool success = exp.TryParse(input);
+            Assert.True(success);
+
+            Assert.Equal(expectedResult, exp.IsNegativeExpression());
+        }
+
+        [Theory]
+        [InlineData("a (and) b", ParserErrorState.InvalidExpression)]
+        [InlineData("a (b and) c", ParserErrorState.InvalidExpression)]
+        [InlineData("a and b and", ParserErrorState.InvalidExpression)]
+        [InlineData("a not b", ParserErrorState.InvalidExpression)]
+        [InlineData("a and or b", ParserErrorState.InvalidExpression)]
+        [InlineData("a and or not b", ParserErrorState.InvalidExpression)]
+        [InlineData("a and (b or c", ParserErrorState.MismatchedParentheses)]
+        [InlineData("(a and b) or c)", ParserErrorState.MismatchedParentheses)]
+        [InlineData("a and b) or c", ParserErrorState.MismatchedParentheses)]
+        public void TestInvalidExpression(string input, ParserErrorState expectedResult)
+        {
+            BooleanExpression exp = new BooleanExpression();
+            bool success = exp.TryParse(input);
+            Assert.False(success);
+
+            Assert.Equal(expectedResult, exp.ParserState);
         }
     }
 }
