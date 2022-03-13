@@ -683,6 +683,7 @@
                                         Visibility="{Binding HasValidationMessage, Converter={StaticResource BoolToVisibilityConverter}}">
                                     <Label HorizontalAlignment="Center" Padding="12,3" 
                                            Content="{Binding ValidationMessage}"
+                                           ToolTip="{Binding ValidationToolTip}"
                                            Foreground="{Binding IsValidPattern, Converter={StaticResource validationColor}}"
                                            Background="Transparent"
                                            Visibility="{Binding HasValidationMessage, Converter={StaticResource BoolToVisibilityConverter}}"/>

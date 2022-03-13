@@ -1073,6 +1073,21 @@ namespace dnGREP.WPF
             }
         }
 
+        private string validationToolTip;
+        public string ValidationToolTip
+        {
+            get { return validationToolTip; }
+            set
+            {
+                if (value == validationToolTip)
+                    return;
+
+                validationToolTip = value;
+
+                base.OnPropertyChanged(() => ValidationToolTip);
+            }
+        }
+
         private bool hasValidationMessage;
 
         public bool HasValidationMessage
@@ -1360,30 +1375,23 @@ namespace dnGREP.WPF
             if (name == "SearchFor" || name == "TypeOfSearch" || name == "BooleanOperators")
             {
                 ValidationMessage = string.Empty;
+                ValidationToolTip = null;
                 IsValidPattern = true;
 
                 if (!string.IsNullOrWhiteSpace(SearchFor))
                 {
-                    if (TypeOfSearch == SearchType.Regex)
+                    if (TypeOfSearch == SearchType.PlainText)
                     {
                         if (BooleanOperators)
                         {
-                            Utils.ParseBooleanOperators(SearchFor, out List<string> andClauses, out List<string> orClauses);
-
-                            if (andClauses != null)
-                            {
-                                foreach (var pattern in andClauses)
-                                {
-                                    ValidateRegex(pattern);
-                                }
-                            }
-                            if (orClauses != null)
-                            {
-                                foreach (var pattern in orClauses)
-                                {
-                                    ValidateRegex(pattern);
-                                }
-                            }
+                            ValidateBooleanExpression();
+                        }
+                    }
+                    else if (TypeOfSearch == SearchType.Regex)
+                    {
+                        if (BooleanOperators)
+                        {
+                            ValidateBooleanExpression();
                         }
                         else
                         {
@@ -1399,9 +1407,10 @@ namespace dnGREP.WPF
                             ValidationMessage = Resources.Main_Validation_XPathIsOK;
                             IsValidPattern = true;
                         }
-                        catch
+                        catch (XPathException ex)
                         {
                             ValidationMessage = Resources.Main_Validation_XPathIsNotValid;
+                            ValidationToolTip = ex.Message;
                             IsValidPattern = false;
                         }
                     }
@@ -1546,7 +1555,59 @@ namespace dnGREP.WPF
             }
         }
 
-        private void ValidateRegex(string pattern)
+        protected bool ValidateBooleanExpression()
+        {
+            if (BooleanOperators && !string.IsNullOrEmpty(SearchFor))
+            {
+                BooleanExpression exp = new BooleanExpression();
+                if (exp.TryParse(SearchFor))
+                {
+                    if (exp.Operands.Count > 0 && TypeOfSearch == SearchType.Regex)
+                    {
+                        foreach (string pattern in exp.Operands.Select(o => o.Value))
+                        {
+                            if (!ValidateRegex(pattern))
+                                return false;
+                        }
+                    }
+                }
+                else
+                {
+                    ValidationMessage = "Boolean expression is not valid";
+                    ReportParserState(SearchFor, exp.ParserState);
+                    IsValidPattern = false;
+                    return false;
+                }
+            }
+            ValidationMessage = "Boolean expression is OK";
+            return true;
+        }
+
+        protected void ReportParserState(string expression, ParserErrorState parserState)
+        {
+            string msg = "'" + expression + "' ";
+            switch (parserState)
+            {
+                case ParserErrorState.InvalidExpression:
+                    msg += "is an invalid expression";
+                    break;
+                case ParserErrorState.MismatchedParentheses:
+                    msg += "has mismatched parentheses";
+                    break;
+                case ParserErrorState.UnknownToken:
+                    msg += "contains an unknown token";
+                    break;
+                case ParserErrorState.UnknownError:
+                    msg += "has an unknown error";
+                    break;
+            }
+            //MessageBox.Show(msg, Resources.MessageBox_DnGrep + " " + "Boolean Expression",
+            //    MessageBoxButton.OK, MessageBoxImage.Error,
+            //    MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+            ValidationToolTip = msg;
+        }
+
+        private bool ValidateRegex(string pattern)
         {
             try
             {
@@ -1554,11 +1615,13 @@ namespace dnGREP.WPF
                 ValidationMessage = Resources.Main_Validation_RegexIsOK;
                 IsValidPattern = true;
             }
-            catch
+            catch (Exception ex)
             {
                 ValidationMessage = Resources.Main_Validation_RegexIsNotValid;
+                ValidationToolTip = ex.Message;
                 IsValidPattern = false;
             }
+            return isValidPattern;
         }
 
         protected void ResetOptions()
@@ -1656,7 +1719,7 @@ namespace dnGREP.WPF
             if (pb != null)
             {
                 var toRemove = FastPathBookmarks.Except(pb).ToList();
-                foreach(var item in toRemove)
+                foreach (var item in toRemove)
                 {
                     FastPathBookmarks.Remove(item);
                 }

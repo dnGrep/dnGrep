@@ -10,25 +10,49 @@ namespace dnGREP.Common
     {
         public ParserErrorState ParserState { get; private set; } = ParserErrorState.None;
 
+        /// <summary>
+        /// Gets a simplified expression logically the same as the parser input string
+        /// </summary>
         public string Expression { get; private set; }
 
+        /// <summary>
+        /// Gets the parser input string in postfix order
+        /// </summary>
         public string PostfixExpression { get; private set; }
 
+        /// <summary>
+        /// Gets the parsed input as list of tokens in postfix order
+        /// </summary>
         public List<BooleanToken> PostfixTokens { get; private set; }
 
+        /// <summary>
+        /// Gets the list of operands from the parsed input
+        /// </summary>
         public IList<BooleanToken> Operands => PostfixTokens.Where(r => r.IsOperand).ToList();
 
-        public bool? Evaluate()
+        /// <summary>
+        /// Returns true if at least one operator is an "OR"
+        /// </summary>
+        public bool HasOrExpression => PostfixTokens.Where(r => r.TokenType == TokenType.OR).Any();
+
+        /// <summary>
+        /// Returns true if all the operands have results
+        /// </summary>
+        public bool IsComplete => Operands.All(o => o.EvaluatedResult.HasValue);
+
+        /// <summary>
+        /// Evaluates the expression if all the operands have results
+        /// </summary>
+        /// <returns></returns>
+        public EvaluationResult Evaluate()
         {
-            bool? result = null;
+            EvaluationResult result = EvaluationResult.Undetermined;
 
             try
             {
-                bool isComplete = Operands.All(o => o.EvaluatedResult.HasValue);
-
-                if (isComplete)
+                if (IsComplete)
                 {
-                    result = EvaluateExpression();
+                    result = EvaluateExpression(true) ? EvaluationResult.True : EvaluationResult.False;
                 }
             }
             catch (Exception ex)
@@ -40,10 +64,18 @@ namespace dnGREP.Common
         }
 
         /// <summary>
-        /// Tests if the expression will evaluate to true or false with any combination of remaining inputs
+        /// Tests if the expression will evaluate False with any combination of remaining inputs
         /// </summary>
-        /// <returns>null if indeterminate, otherwise the result of true or false
-        public bool? ShortCircuitResult()
+        /// <returns>true if all possible combinations result in a False evaluation</returns>
+        /// <remarks>
+        /// This determines if the search for operands may be halted before the end of the list.
+        /// For example, the expression 'a AND b' can be halted if 'a' is false because it does not
+        /// matter what 'b' is. Conversely, the expression 'a OR b' cannot be halted if 'a' is false 
+        /// since 'b' can be true. Even if the expression is known to be True before evaluating all
+        /// the operands, processing operands should continue to find all the matches in the remaining 
+        /// operands.
+        /// </remarks>
+        public bool IsShortCircuitFalse()
         {
             var savedState = Operands.Select(o => o.EvaluatedResult).ToList();
 
@@ -60,7 +92,7 @@ namespace dnGREP.Common
                 }
             }
 
-            bool? result = null;
+            EvaluationResult result = EvaluationResult.Undetermined;
 
             foreach (var row in values)
             {
@@ -72,7 +104,7 @@ namespace dnGREP.Common
                     }
                 }
 
-                bool rowResult = EvaluateExpression();
+                EvaluationResult rowResult = EvaluateExpression(false) ? EvaluationResult.True : EvaluationResult.False;
 
                 // restore original state
                 for (int col = 0; col < Operands.Count; col++)
@@ -80,17 +112,17 @@ namespace dnGREP.Common
                     Operands[col].EvaluatedResult = savedState[col];
                 }
 
-                if (result == null)
+                if (result == EvaluationResult.Undetermined)
                 {
                     result = rowResult;
                 }
                 else if (result != rowResult)
                 {
-                    return null;
+                    return false;
                 }
             }
 
-            return result;
+            return result == EvaluationResult.False;
         }
 
         /// <summary>
@@ -107,7 +139,7 @@ namespace dnGREP.Common
                 op.EvaluatedResult = false;
             }
 
-            result = EvaluateExpression();
+            result = EvaluateExpression(false);
 
             // restore original state
             for (int col = 0; col < Operands.Count; col++)
@@ -118,9 +150,12 @@ namespace dnGREP.Common
             return result;
         }
 
-        private bool EvaluateExpression()
+        private bool EvaluateExpression(bool modifyMatches)
         {
             Stack<bool> operandStack = new Stack<bool>();
+            // this stack is used to remove matches from sub-expressions
+            // that evaluate to false.
+            Stack<List<BooleanToken>> tokens = new Stack<List<BooleanToken>>();
 
             foreach (var token in PostfixTokens)
             {
@@ -130,6 +165,10 @@ namespace dnGREP.Common
                         if (token.EvaluatedResult.HasValue)
                         {
                             operandStack.Push(token.EvaluatedResult.Value);
+                            if (modifyMatches)
+                            {
+                                tokens.Push(new List<BooleanToken> { token });
+                            }
                         }
                         else
                         {
@@ -140,6 +179,16 @@ namespace dnGREP.Common
                         {
                             bool a = operandStack.Pop();
                             operandStack.Push(!a);
+
+                            if (modifyMatches)
+                            {
+                                var bta = tokens.Pop();
+                                if (operandStack.Peek() == false)
+                                {
+                                    bta.ForEach(x => x.Matches = null);
+                                }
+                                tokens.Push(bta);
+                            }
                         }
                         break;
                     case TokenType.AND:
@@ -147,6 +196,18 @@ namespace dnGREP.Common
                             bool b = operandStack.Pop();
                             bool a = operandStack.Pop();
                             operandStack.Push(a && b);
+
+                            if (modifyMatches)
+                            {
+                                var btb = tokens.Pop();
+                                var bta = tokens.Pop();
+                                if (operandStack.Peek() == false)
+                                {
+                                    btb.ForEach(x => x.Matches = null);
+                                    bta.ForEach(x => x.Matches = null);
+                                }
+                                tokens.Push(btb.Concat(bta).ToList());
+                            }
                         }
                         break;
                     case TokenType.NAND:
@@ -154,6 +215,18 @@ namespace dnGREP.Common
                             bool b = operandStack.Pop();
                             bool a = operandStack.Pop();
                             operandStack.Push(!(a && b));
+
+                            if (modifyMatches)
+                            {
+                                var btb = tokens.Pop();
+                                var bta = tokens.Pop();
+                                if (operandStack.Peek() == false)
+                                {
+                                    btb.ForEach(x => x.Matches = null);
+                                    bta.ForEach(x => x.Matches = null);
+                                }
+                                tokens.Push(btb.Concat(bta).ToList());
+                            }
                         }
                         break;
                     case TokenType.OR:
@@ -161,6 +234,13 @@ namespace dnGREP.Common
                             bool b = operandStack.Pop();
                             bool a = operandStack.Pop();
                             operandStack.Push(a || b);
+
+                            if (modifyMatches)
+                            {
+                                var btb = tokens.Pop();
+                                var bta = tokens.Pop();
+                                tokens.Push(btb.Concat(bta).ToList());
+                            }
                         }
                         break;
                     case TokenType.NOR:
@@ -168,6 +248,13 @@ namespace dnGREP.Common
                             bool b = operandStack.Pop();
                             bool a = operandStack.Pop();
                             operandStack.Push(!(a || b));
+
+                            if (modifyMatches)
+                            {
+                                var btb = tokens.Pop();
+                                var bta = tokens.Pop();
+                                tokens.Push(btb.Concat(bta).ToList());
+                            }
                         }
                         break;
                 }
@@ -332,6 +419,13 @@ namespace dnGREP.Common
         MismatchedParentheses,
         InvalidExpression,
         UnknownError,
+    }
+
+    public enum EvaluationResult
+    {
+        Undetermined = -1,
+        False = 0,
+        True = 1,
     }
 
     public class InvalidStateException : Exception

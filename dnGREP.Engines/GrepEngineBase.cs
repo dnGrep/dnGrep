@@ -116,18 +116,11 @@ namespace dnGREP.Engines
 
             if (searchOptions.HasFlag(GrepSearchOption.BooleanOperators))
             {
-                Utils.ParseBooleanOperators(searchPattern, out List<string> andClauses, out List<string> orClauses);
-
-                if (andClauses != null && andClauses.Count > 1)
+                BooleanExpression exp = new BooleanExpression();
+                if (exp.TryParse(searchPattern))
                 {
-                    return RegexSearchIteratorAnd(lineNumber, filePosition,
-                        text, andClauses, isWholeWord, regexOptions);
-                }
-
-                if (orClauses != null && orClauses.Count > 1)
-                {
-                    return RegexSearchIteratorOr(lineNumber, filePosition,
-                        text, orClauses, isWholeWord, regexOptions);
+                    return RegexSearchIteratorBoolean(lineNumber, filePosition,
+                        text, exp, isWholeWord, regexOptions);
                 }
             }
 
@@ -258,45 +251,48 @@ namespace dnGREP.Engines
                 yield return grepMatch;
             }
         }
-
-        private IEnumerable<GrepMatch> RegexSearchIteratorAnd(int lineNumber, int filePosition, string text,
-            List<string> andClauses, bool isWholeWord, RegexOptions regexOptions)
+        private IEnumerable<GrepMatch> RegexSearchIteratorBoolean(int lineNumber, int filePosition, string text,
+            BooleanExpression expression, bool isWholeWord, RegexOptions regexOptions)
         {
             List<GrepMatch> results = new List<GrepMatch>();
-            foreach (string searchPattern in andClauses)
+            foreach (var operand in expression.Operands)
             {
                 var matches = RegexSearchIterator(lineNumber, filePosition, text,
-                    searchPattern, isWholeWord, regexOptions);
+                    operand.Value, isWholeWord, regexOptions);
 
-                if (matches.Any())
+                operand.EvaluatedResult = matches.Any();
+                operand.Matches = matches.ToList();
+
+                if (!expression.IsComplete && expression.IsShortCircuitFalse())
                 {
-                    results.AddRange(matches);
-                }
-                else
-                {
-                    results.Clear();
-                    break;
+                    return results;
                 }
             }
-            GrepMatch.Normalize(results);
-            return results;
-        }
 
-        private IEnumerable<GrepMatch> RegexSearchIteratorOr(int lineNumber, int filePosition, string text,
-            List<string> orClauses, bool isWholeWord, RegexOptions regexOptions)
-        {
-            List<GrepMatch> results = new List<GrepMatch>();
-            foreach (string searchPattern in orClauses)
+            if (expression.IsComplete)
             {
-                var matches = RegexSearchIterator(lineNumber, filePosition, text,
-                    searchPattern, isWholeWord, regexOptions);
-
-                if (matches.Any())
+                var evalResult = expression.Evaluate();
+                if (evalResult == EvaluationResult.True)
                 {
-                    results.AddRange(matches);
+                    foreach (var operand in expression.Operands)
+                    {
+                        if (operand.Matches != null)
+                        {
+                            results.AddRange(operand.Matches);
+                        }
+                    }
+
+                    // if the expression evaluated to true, then the expression is searching
+                    // for things that do not match the operands. Return the whole line
+                    if (results.Count == 0)
+                    {
+                        string temp = text.TrimEndOfLine();
+                        results.Add(new GrepMatch(string.Empty, lineNumber, filePosition, temp.Length));
+                    }
+
+                    GrepMatch.Normalize(results);
                 }
             }
-            GrepMatch.Normalize(results);
             return results;
         }
 
@@ -440,18 +436,11 @@ namespace dnGREP.Engines
 
             if (searchOptions.HasFlag(GrepSearchOption.BooleanOperators))
             {
-                Utils.ParseBooleanOperators(searchText, out List<string> andClauses, out List<string> orClauses);
-
-                if (andClauses != null && andClauses.Count > 1)
+                BooleanExpression exp = new BooleanExpression();
+                if (exp.TryParse(searchText))
                 {
-                    return TextSearchIteratorAnd(lineNumber, filePosition,
-                        text, andClauses, lineEndIndexes, isWholeWord, comparisonType);
-                }
-
-                if (orClauses != null && orClauses.Count > 1)
-                {
-                    return TextSearchIteratorOr(lineNumber, filePosition,
-                        text, orClauses, lineEndIndexes, isWholeWord, comparisonType);
+                    return TextSearchIteratorBoolean(lineNumber, filePosition,
+                        text, exp, lineEndIndexes, isWholeWord, comparisonType);
                 }
             }
 
@@ -485,44 +474,49 @@ namespace dnGREP.Engines
             }
         }
 
-        private IEnumerable<GrepMatch> TextSearchIteratorAnd(int lineNumber, int filePosition, string text,
-            List<string> andClauses, List<int> lineEndIndexes, bool isWholeWord, StringComparison comparisonType)
+        private IEnumerable<GrepMatch> TextSearchIteratorBoolean(int lineNumber, int filePosition, string text,
+            BooleanExpression expression, List<int> lineEndIndexes, bool isWholeWord, StringComparison comparisonType)
         {
             List<GrepMatch> results = new List<GrepMatch>();
-            foreach (string searchText in andClauses)
+            foreach (var operand in expression.Operands)
             {
-                var matches = TextSearchIterator(lineNumber, filePosition, text, searchText,
+                var matches = TextSearchIterator(lineNumber, filePosition, text, operand.Value,
                     lineEndIndexes, isWholeWord, comparisonType);
 
-                if (matches.Any())
+                operand.EvaluatedResult = matches.Any();
+                operand.Matches = matches.ToList();
+
+                if (!expression.IsComplete && expression.IsShortCircuitFalse())
                 {
-                    results.AddRange(matches);
-                }
-                else
-                {
-                    results.Clear();
-                    break;
+                    return results;
                 }
             }
-            GrepMatch.Normalize(results);
-            return results;
-        }
 
-        private IEnumerable<GrepMatch> TextSearchIteratorOr(int lineNumber, int filePosition, string text,
-            List<string> orClauses, List<int> lineEndIndexes, bool isWholeWord, StringComparison comparisonType)
-        {
-            List<GrepMatch> results = new List<GrepMatch>();
-            foreach (string searchText in orClauses)
+            if (expression.IsComplete)
             {
-                var matches = TextSearchIterator(lineNumber, filePosition, text, searchText,
-                    lineEndIndexes, isWholeWord, comparisonType);
-
-                if (matches.Any())
+                var evalResult = expression.Evaluate();
+                if (evalResult == EvaluationResult.True)
                 {
-                    results.AddRange(matches);
+                    foreach (var operand in expression.Operands)
+                    {
+                        if (operand.Matches != null)
+                        {
+                            results.AddRange(operand.Matches);
+                        }
+                    }
+
+                    // if the expression evaluated to true, then the expression is searching
+                    // for things that do not match the operands. Return the whole line
+                    if (results.Count == 0)
+                    {
+                        string temp = text.TrimEndOfLine();
+                        results.Add(new GrepMatch(string.Empty, lineNumber, filePosition, temp.Length));
+                    }
+
+                    GrepMatch.Normalize(results);
                 }
             }
-            GrepMatch.Normalize(results);
+
             return results;
         }
 

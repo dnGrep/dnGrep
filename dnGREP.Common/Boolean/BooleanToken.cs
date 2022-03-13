@@ -1,4 +1,6 @@
-﻿namespace dnGREP.Common
+﻿using System.Collections.Generic;
+
+namespace dnGREP.Common
 {
     public class BooleanToken
     {
@@ -30,6 +32,8 @@
         public bool IsOperand => TokenType == TokenType.StringValue;
 
         public bool? EvaluatedResult { get; set; }
+
+        public List<GrepMatch>  Matches { get; set; }
 
         public override string ToString()
         {

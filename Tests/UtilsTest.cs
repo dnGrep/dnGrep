@@ -1654,22 +1654,24 @@ namespace Tests
                 operands[i].EvaluatedResult = values[i];
             }
 
-            Assert.Equal(values.Last(), exp.Evaluate());
+            EvaluationResult expected = values.Last() ? EvaluationResult.True : EvaluationResult.False;
+
+            Assert.Equal(expected, exp.Evaluate());
         }
 
         [Theory]
-        [InlineData("a and b", false, false, null)]
-        [InlineData("a and b", false, null, false)]
-        [InlineData("a or b", true, true, null)]
-        [InlineData("a or b", true, null, true)]
-        [InlineData("a and (b or c)", null, true, null, null)]
-        [InlineData("a and (b or c)", null, true, false, null)]
-        [InlineData("a and (b or c)", true, true, true, null)]
-        [InlineData("a and (b or c)", false, false, null, null)]
-        [InlineData("(a or b) and c", null, true, null, null)]
-        [InlineData("(a or b) and c", null, true, true, null)]
-        [InlineData("(a or b) and c", null, true, false, null)]
-        public void TestShortCircuitResult(string input, bool? expectedResult, params bool?[] values)
+        [InlineData("a and b", true, false, null)]
+        [InlineData("a and b", true, null, false)]
+        [InlineData("a or b", false, true, null)]
+        [InlineData("a or b", false, null, true)]
+        [InlineData("a and (b or c)", false, true, null, null)]
+        [InlineData("a and (b or c)", false, true, false, null)]
+        [InlineData("a and (b or c)", false, true, true, null)]
+        [InlineData("a and (b or c)", true, false, null, null)]
+        [InlineData("(a or b) and c", false, true, null, null)]
+        [InlineData("(a or b) and c", false, true, true, null)]
+        [InlineData("(a or b) and c", false, true, false, null)]
+        public void TestShortCircuitResult(string input, bool expectedResult, params bool?[] values)
         {
             BooleanExpression exp = new BooleanExpression();
             bool success = exp.TryParse(input);
@@ -1681,7 +1683,7 @@ namespace Tests
                 operands[i].EvaluatedResult = values[i];
             }
 
-            bool? result = exp.ShortCircuitResult();
+            var result = exp.IsShortCircuitFalse();
             Assert.Equal(expectedResult, result);
         }
 
