@@ -1588,11 +1588,14 @@ namespace dnGREP.WPF
             string msg = "'" + expression + "' ";
             switch (parserState)
             {
-                case ParserErrorState.InvalidExpression:
-                    msg += "is an invalid expression";
-                    break;
                 case ParserErrorState.MismatchedParentheses:
                     msg += "has mismatched parentheses";
+                    break;
+                case ParserErrorState.MissingOperator:
+                    msg += "is missing an operator";
+                    break;
+                case ParserErrorState.MissingOperand:
+                    msg += "is missing an operand";
                     break;
                 case ParserErrorState.UnknownToken:
                     msg += "contains an unknown token";
@@ -1601,9 +1604,6 @@ namespace dnGREP.WPF
                     msg += "has an unknown error";
                     break;
             }
-            //MessageBox.Show(msg, Resources.MessageBox_DnGrep + " " + "Boolean Expression",
-            //    MessageBoxButton.OK, MessageBoxImage.Error,
-            //    MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
             ValidationToolTip = msg;
         }
 

@@ -285,9 +285,9 @@ namespace dnGREP.Common
                 int numBinaryOperators = PostfixTokens.Where(t => TokenType.Operator.HasFlag(t.TokenType)).Count() - numUnaryOperators;
                 int numOperands = Operands.Count();
 
-                if (numBinaryOperators != numOperands - 1)
+                if (numBinaryOperators < numOperands - 1)
                 {
-                    ParserState = ParserErrorState.InvalidExpression;
+                    ParserState = ParserErrorState.MissingOperator;
                     result = false;
                 }
             }
@@ -315,6 +315,11 @@ namespace dnGREP.Common
                 throw new InvalidStateException(ParserErrorState.MismatchedParentheses);
             }
 
+            if (tokens.Any() && TokenType.Operator.HasFlag(tokens.Last().TokenType))
+            {
+                throw new InvalidStateException(ParserErrorState.MissingOperand);
+            }
+
             var stack = new Stack<BooleanToken>();
             TokenType previousToken = TokenType.NotDefined;
             foreach (var token in tokens)
@@ -339,7 +344,7 @@ namespace dnGREP.Common
                         }
                         else
                         {
-                            throw new InvalidStateException(ParserErrorState.InvalidExpression);
+                            throw new InvalidStateException(ParserErrorState.MissingOperand);
                         }
                         break;
 
@@ -356,6 +361,10 @@ namespace dnGREP.Common
                         break;
 
                     case TokenType.CloseParens:
+                        if (TokenType.Operator.HasFlag(previousToken))
+                        {
+                            throw new InvalidStateException(ParserErrorState.MismatchedParentheses);
+                        }
                         while (stack.Peek().TokenType != TokenType.OpenParens)
                         {
                             yield return stack.Pop();
@@ -420,9 +429,10 @@ namespace dnGREP.Common
     public enum ParserErrorState
     {
         None = 0,
-        UnknownToken,
         MismatchedParentheses,
-        InvalidExpression,
+        MissingOperator,
+        MissingOperand,
+        UnknownToken,
         UnknownError,
     }
 
