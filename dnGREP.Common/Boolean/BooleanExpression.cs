@@ -220,7 +220,7 @@ namespace dnGREP.Common
                             {
                                 var btb = tokens.Pop();
                                 var bta = tokens.Pop();
-                                if (operandStack.Peek() == false)
+                                if (operandStack.Peek() == true)
                                 {
                                     btb.ForEach(x => x.Matches = null);
                                     bta.ForEach(x => x.Matches = null);
@@ -253,6 +253,11 @@ namespace dnGREP.Common
                             {
                                 var btb = tokens.Pop();
                                 var bta = tokens.Pop();
+                                if (operandStack.Peek() == false)
+                                {
+                                    btb.ForEach(x => x.Matches = null);
+                                    bta.ForEach(x => x.Matches = null);
+                                }
                                 tokens.Push(btb.Concat(bta).ToList());
                             }
                         }
