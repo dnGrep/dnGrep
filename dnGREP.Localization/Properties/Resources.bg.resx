@@ -2444,4 +2444,12 @@ Arguments:
     <value>Boolean expression is OK</value>
     <comment>Main window, Boolean expression status</comment>
   </data>
+  <data name="Main_Menu_About_CheckForUpdates" xml:space="preserve">
+    <value>_Check for updates</value>
+    <comment>Main window, main menu subitem label (accel)</comment>
+  </data>
+  <data name="MessageBox_DnGrepIsUpToDate" xml:space="preserve">
+    <value>dnGrep is up to date.</value>
+    <comment>Message box text for: Check for updates response</comment>
+  </data>
 </root>
