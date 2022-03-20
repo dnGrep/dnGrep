@@ -2486,6 +2486,69 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Boolean expression contains an unknown token.
+        /// </summary>
+        public static string Main_Validation_BooleanExpressionContainsAnUnknownToken {
+            get {
+                return ResourceManager.GetString("Main_Validation_BooleanExpressionContainsAnUnknownToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Boolean expression has an unknown error.
+        /// </summary>
+        public static string Main_Validation_BooleanExpressionHasAnUnknownError {
+            get {
+                return ResourceManager.GetString("Main_Validation_BooleanExpressionHasAnUnknownError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Boolean expression has mismatched parentheses.
+        /// </summary>
+        public static string Main_Validation_BooleanExpressionHasMismatchedParentheses {
+            get {
+                return ResourceManager.GetString("Main_Validation_BooleanExpressionHasMismatchedParentheses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Boolean expression is missing a Boolean operator.
+        /// </summary>
+        public static string Main_Validation_BooleanExpressionIsMissingABooleanOperator {
+            get {
+                return ResourceManager.GetString("Main_Validation_BooleanExpressionIsMissingABooleanOperator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Boolean expression is missing a search pattern.
+        /// </summary>
+        public static string Main_Validation_BooleanExpressionIsMissingASearchPattern {
+            get {
+                return ResourceManager.GetString("Main_Validation_BooleanExpressionIsMissingASearchPattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Boolean expression is not valid.
+        /// </summary>
+        public static string Main_Validation_BooleanExpressionIsNotValid {
+            get {
+                return ResourceManager.GetString("Main_Validation_BooleanExpressionIsNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Boolean expression is OK.
+        /// </summary>
+        public static string Main_Validation_BooleanExpressionIsOK {
+            get {
+                return ResourceManager.GetString("Main_Validation_BooleanExpressionIsOK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Byte string is not valid!.
         /// </summary>
         public static string Main_Validation_HexStringIsNotValid {

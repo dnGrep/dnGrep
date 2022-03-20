@@ -1619,6 +1619,15 @@ namespace dnGREP.WPF
                     return;
                 }
 
+                if (!IsValidPattern)
+                {
+                    MessageBox.Show(ValidationMessage + Environment.NewLine + ValidationToolTip,
+                        Resources.MessageBox_DnGrep,
+                        MessageBoxButton.OK, MessageBoxImage.Warning,
+                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                    return;
+                }
+
                 SaveSettings();
                 SearchParametersChanged = false;
 
@@ -1666,7 +1675,7 @@ namespace dnGREP.WPF
             {
                 foreach (string pattern in Utils.SplitPattern(FilePattern))
                 {
-                    string msg = ValidateRegex(pattern);
+                    string msg = GetValidateRegexMsg(pattern);
                     if (!string.IsNullOrWhiteSpace(msg))
                     {
                         MessageBox.Show(TranslationSource.Format(Resources.MessageBox_TheFilePattern0IsNotAValidRegularExpression12, pattern, Environment.NewLine, msg),
@@ -1682,7 +1691,7 @@ namespace dnGREP.WPF
             {
                 foreach (string pattern in Utils.SplitPattern(FilePatternIgnore))
                 {
-                    string msg = ValidateRegex(pattern);
+                    string msg = GetValidateRegexMsg(pattern);
                     if (!string.IsNullOrWhiteSpace(msg))
                     {
                         MessageBox.Show(TranslationSource.Format(Resources.MessageBox_TheFilePattern0IsNotAValidRegularExpression12, pattern, Environment.NewLine, msg),
@@ -1697,7 +1706,7 @@ namespace dnGREP.WPF
             return true;
         }
 
-        private string ValidateRegex(string FilePattern)
+        private string GetValidateRegexMsg(string FilePattern)
         {
             try
             {

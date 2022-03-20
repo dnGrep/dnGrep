@@ -1073,6 +1073,21 @@ namespace dnGREP.WPF
             }
         }
 
+        private string validationToolTip;
+        public string ValidationToolTip
+        {
+            get { return validationToolTip; }
+            set
+            {
+                if (value == validationToolTip)
+                    return;
+
+                validationToolTip = value;
+
+                base.OnPropertyChanged(() => ValidationToolTip);
+            }
+        }
+
         private bool hasValidationMessage;
 
         public bool HasValidationMessage
@@ -1252,22 +1267,22 @@ namespace dnGREP.WPF
 
             switch (name)
             {
-                case "Multiline":
-                case "Singleline":
-                case "WholeWord":
-                case "CaseSensitive":
-                case "StopAfterFirstMatch":
+                case nameof(Multiline):
+                case nameof(Singleline):
+                case nameof(WholeWord):
+                case nameof(CaseSensitive):
+                case nameof(StopAfterFirstMatch):
                     if (Multiline)
                         TextBoxStyle = "{StaticResource ExpandedTextbox}";
                     else
                         TextBoxStyle = "";
                     break;
 
-                case "UseFileSizeFilter":
+                case nameof(UseFileSizeFilter):
                     IsSizeFilterSet = UseFileSizeFilter == FileSizeFilter.Yes;
                     break;
 
-                case "UseFileDateFilter":
+                case nameof(UseFileDateFilter):
                     IsDateFilterSet = UseFileDateFilter != FileDateFilter.None;
                     IsDatesRangeSet = IsDateFilterSet && TypeOfTimeRangeFilter == FileTimeRange.Dates;
                     IsHoursRangeSet = IsDateFilterSet && TypeOfTimeRangeFilter == FileTimeRange.Hours;
@@ -1277,12 +1292,12 @@ namespace dnGREP.WPF
                         TypeOfTimeRangeFilter = FileTimeRange.Dates;
                     break;
 
-                case "TypeOfTimeRangeFilter":
+                case nameof(TypeOfTimeRangeFilter):
                     IsDatesRangeSet = IsDateFilterSet && TypeOfTimeRangeFilter == FileTimeRange.Dates;
                     IsHoursRangeSet = IsDateFilterSet && TypeOfTimeRangeFilter == FileTimeRange.Hours;
                     break;
 
-                case "TypeOfFileSearch":
+                case nameof(TypeOfFileSearch):
                     if (TypeOfFileSearch == FileSearchType.Everything)
                     {
                         FilePattern = string.Empty;
@@ -1306,9 +1321,9 @@ namespace dnGREP.WPF
                     break;
             }
 
-            if (name == "IncludeSubfolder" || name == "MaxSubfolderDepth" || name == "IncludeHidden" ||
-                name == "IncludeBinary" || name == "UseFileSizeFilter" || name == "UseFileDateFilter" ||
-                name == "FollowSymlinks")
+            if (name == nameof(IncludeSubfolder) || name == nameof(MaxSubfolderDepth) || name == nameof(IncludeHidden) ||
+                name == nameof(IncludeBinary) || name == nameof(UseFileSizeFilter) || name == nameof(UseFileDateFilter) ||
+                name == nameof(FollowSymlinks))
             {
                 var tempList = new List<string>();
                 if (!IncludeSubfolder || (IncludeSubfolder && MaxSubfolderDepth == 0))
@@ -1339,17 +1354,17 @@ namespace dnGREP.WPF
             }
 
             //Files found
-            if (name == "FileOrFolderPath" || name == "SearchFor" || name == "FilePattern" ||
-                name == "FilePatternIgnore" || name == "UseGitignore")
+            if (name == nameof(FileOrFolderPath) || name == nameof(SearchFor) || name == nameof(FilePattern) ||
+                name == nameof(FilePatternIgnore) || name == nameof(UseGitignore))
             {
                 FilesFound = false;
             }
 
             //Change title
-            if (name == "FileOrFolderPath" || name == "SearchFor")
+            if (name == nameof(FileOrFolderPath) || name == nameof(SearchFor))
             {
                 if (string.IsNullOrWhiteSpace(FileOrFolderPath))
-                    WindowTitle = "dnGREP";
+                    WindowTitle = Resources.Main_DnGREP_Title;
                 else
                     WindowTitle = TranslationSource.Format(Resources.Main_WindowTitle,
                         string.IsNullOrEmpty(SearchFor) ? Resources.Main_Empty : SearchFor.Replace('\n', ' ').Replace('\r', ' '),
@@ -1357,33 +1372,26 @@ namespace dnGREP.WPF
             }
 
             //Change validation
-            if (name == "SearchFor" || name == "TypeOfSearch" || name == "BooleanOperators")
+            if (name == nameof(SearchFor) || name == nameof(TypeOfSearch) || name == nameof(BooleanOperators))
             {
                 ValidationMessage = string.Empty;
+                ValidationToolTip = null;
                 IsValidPattern = true;
 
                 if (!string.IsNullOrWhiteSpace(SearchFor))
                 {
-                    if (TypeOfSearch == SearchType.Regex)
+                    if (TypeOfSearch == SearchType.PlainText)
                     {
                         if (BooleanOperators)
                         {
-                            Utils.ParseBooleanOperators(SearchFor, out List<string> andClauses, out List<string> orClauses);
-
-                            if (andClauses != null)
-                            {
-                                foreach (var pattern in andClauses)
-                                {
-                                    ValidateRegex(pattern);
-                                }
-                            }
-                            if (orClauses != null)
-                            {
-                                foreach (var pattern in orClauses)
-                                {
-                                    ValidateRegex(pattern);
-                                }
-                            }
+                            ValidateBooleanExpression();
+                        }
+                    }
+                    else if (TypeOfSearch == SearchType.Regex)
+                    {
+                        if (BooleanOperators)
+                        {
+                            ValidateBooleanExpression();
                         }
                         else
                         {
@@ -1399,9 +1407,10 @@ namespace dnGREP.WPF
                             ValidationMessage = Resources.Main_Validation_XPathIsOK;
                             IsValidPattern = true;
                         }
-                        catch
+                        catch (XPathException ex)
                         {
                             ValidationMessage = Resources.Main_Validation_XPathIsNotValid;
+                            ValidationToolTip = ex.Message;
                             IsValidPattern = false;
                         }
                     }
@@ -1440,7 +1449,7 @@ namespace dnGREP.WPF
             }
 
             //Can search
-            if (name == "CurrentGrepOperation" || name == "SearchFor" || name == "IsSaveInProgress")
+            if (name == nameof(CurrentGrepOperation) || name == nameof(SearchFor) || name == nameof(IsSaveInProgress))
             {
                 if (CurrentGrepOperation == GrepOperation.None && !IsSaveInProgress &&
                     (!string.IsNullOrEmpty(SearchFor) || settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern)))
@@ -1455,7 +1464,7 @@ namespace dnGREP.WPF
                 CommandManager.InvalidateRequerySuggested();
             }
 
-            if (name == "CurrentGrepOperation" || name == "IsSaveInProgress")
+            if (name == nameof(CurrentGrepOperation) || name == nameof(IsSaveInProgress))
             {
                 if (searchResults.Count > 0 && !IsSaveInProgress)
                 {
@@ -1468,7 +1477,7 @@ namespace dnGREP.WPF
             }
 
             //btnCancel
-            if (name == "CurrentGrepOperation")
+            if (name == nameof(CurrentGrepOperation))
             {
                 if (CurrentGrepOperation != GrepOperation.None)
                 {
@@ -1481,7 +1490,7 @@ namespace dnGREP.WPF
             }
 
             //Search type specific options
-            if (name == "TypeOfSearch")
+            if (name == nameof(TypeOfSearch))
             {
                 if (TypeOfSearch == SearchType.XPath)
                 {
@@ -1546,7 +1555,59 @@ namespace dnGREP.WPF
             }
         }
 
-        private void ValidateRegex(string pattern)
+        protected bool ValidateBooleanExpression()
+        {
+            if (BooleanOperators && !string.IsNullOrEmpty(SearchFor))
+            {
+                BooleanExpression exp = new BooleanExpression();
+                if (exp.TryParse(SearchFor))
+                {
+                    if (exp.Operands.Count > 0 && TypeOfSearch == SearchType.Regex)
+                    {
+                        foreach (string pattern in exp.Operands.Select(o => o.Value))
+                        {
+                            if (!ValidateRegex(pattern))
+                                return false;
+                        }
+                    }
+                }
+                else
+                {
+                    ValidationMessage = dnGREP.Localization.Properties.Resources.Main_Validation_BooleanExpressionIsNotValid;
+                    ReportParserState(SearchFor, exp.ParserState);
+                    IsValidPattern = false;
+                    return false;
+                }
+            }
+            ValidationMessage = Resources.Main_Validation_BooleanExpressionIsOK;
+            return true;
+        }
+
+        protected void ReportParserState(string expression, ParserErrorState parserState)
+        {
+            string msg = string.Empty;
+            switch (parserState)
+            {
+                case ParserErrorState.MismatchedParentheses:
+                    msg += Resources.Main_Validation_BooleanExpressionHasMismatchedParentheses;
+                    break;
+                case ParserErrorState.MissingOperator:
+                    msg += Resources.Main_Validation_BooleanExpressionIsMissingABooleanOperator;
+                    break;
+                case ParserErrorState.MissingOperand:
+                    msg += Resources.Main_Validation_BooleanExpressionIsMissingASearchPattern;
+                    break;
+                case ParserErrorState.UnknownToken:
+                    msg += Resources.Main_Validation_BooleanExpressionContainsAnUnknownToken;
+                    break;
+                case ParserErrorState.UnknownError:
+                    msg += Resources.Main_Validation_BooleanExpressionHasAnUnknownError;
+                    break;
+            }
+            ValidationToolTip = msg;
+        }
+
+        private bool ValidateRegex(string pattern)
         {
             try
             {
@@ -1554,11 +1615,13 @@ namespace dnGREP.WPF
                 ValidationMessage = Resources.Main_Validation_RegexIsOK;
                 IsValidPattern = true;
             }
-            catch
+            catch (Exception ex)
             {
                 ValidationMessage = Resources.Main_Validation_RegexIsNotValid;
+                ValidationToolTip = ex.Message;
                 IsValidPattern = false;
             }
+            return isValidPattern;
         }
 
         protected void ResetOptions()
@@ -1656,7 +1719,7 @@ namespace dnGREP.WPF
             if (pb != null)
             {
                 var toRemove = FastPathBookmarks.Except(pb).ToList();
-                foreach(var item in toRemove)
+                foreach (var item in toRemove)
                 {
                     FastPathBookmarks.Remove(item);
                 }
