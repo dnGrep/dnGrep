@@ -2139,7 +2139,7 @@ Salga de dnGrep una vez completadas las operaciones de la línea de comandos.</v
     <comment>Window title bar button tooltip</comment>
   </data>
   <data name="BookmarkDetails_CaseSensitive" xml:space="preserve">
-    <value>Distingue mayúsculas y minúsculas</value>
+    <value>Distingue entre mayúsculas y minús</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_DotAsNewline" xml:space="preserve">
@@ -2183,7 +2183,7 @@ Salga de dnGrep una vez completadas las operaciones de la línea de comandos.</v
     <comment>Bookmarks dialog, button label (accel)</comment>
   </data>
   <data name="Bookmarks_Duplicate" xml:space="preserve">
-    <value>Duplicar</value>
+    <value>Du_plicate</value>
     <comment>Bookmarks dialog, button label (accel)</comment>
   </data>
   <data name="Bookmarks_Edit" xml:space="preserve">
@@ -2207,7 +2207,7 @@ Salga de dnGrep una vez completadas las operaciones de la línea de comandos.</v
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_Menu_About" xml:space="preserve">
-    <value>_Sobre</value>
+    <value>_About</value>
     <comment>Main window, main menu label (accel)</comment>
   </data>
   <data name="Main_Menu_Bookmarks" xml:space="preserve">
@@ -2255,7 +2255,7 @@ Salga de dnGrep una vez completadas las operaciones de la línea de comandos.</v
     <comment>Main window replace button label (accel)</comment>
   </data>
   <data name="Main_ReplaceWith" xml:space="preserve">
-    <value>Reemplazar con:</value>
+    <value>Re_place with:</value>
     <comment>Main window, replace text input box label (accel)</comment>
   </data>
   <data name="Main_ResultList_CountAdditionalCharacters" xml:space="preserve">
@@ -2291,7 +2291,7 @@ Salga de dnGrep una vez completadas las operaciones de la línea de comandos.</v
     <comment>Options dialog, close button text (accel)</comment>
   </data>
   <data name="Options_MatchEverythingToExactMatch" xml:space="preserve">
-    <value>0: coincide con todo; 1.0 - coincidencia exacta</value>
+    <value>0 – match everything; 1.0 – exact match</value>
     <comment>Options dialog, phonetic help text</comment>
   </data>
   <data name="Options_PdfToTextExeCommandLineOptions" xml:space="preserve">
@@ -2307,7 +2307,7 @@ Salga de dnGrep una vez completadas las operaciones de la línea de comandos.</v
     <comment>Replace window, Next button label (accel)</comment>
   </data>
   <data name="Replace_Previous" xml:space="preserve">
-    <value>_Anterior</value>
+    <value>_Previous</value>
     <comment>Replace window, Previous button label (accel)</comment>
   </data>
   <data name="Replace_ReplaceButton" xml:space="preserve">
@@ -2351,7 +2351,7 @@ Salga de dnGrep una vez completadas las operaciones de la línea de comandos.</v
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="TTB2_InsertsTheTextMatchedIntoTheReplacementText" xml:space="preserve">
-    <value>$1, $2, $3, etc... inserta el texto que coincide entre los paréntesis de captura en el texto de reemplazo</value>
+    <value>$1, $2, $3, etc… inserts the text matched between capturing parentheses into the replacement text</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="Window_Close" xml:space="preserve">
