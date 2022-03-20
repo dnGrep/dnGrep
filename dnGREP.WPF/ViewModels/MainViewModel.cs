@@ -554,6 +554,10 @@ namespace dnGREP.WPF
                 return _aboutCommand;
             }
         }
+
+        public ICommand CheckForUpdatesCommand => new RelayCommand(
+            param => CheckForUpdates(true));
+
         RelayCommand _browseCommand;
         /// <summary>
         /// Returns a command that opens file browse dialog.
@@ -2525,38 +2529,49 @@ namespace dnGREP.WPF
             }
         }
 
-        private async void CheckVersion()
+        private void CheckVersion()
+        {
+            if (settings.Get<bool>(GrepSettings.Key.EnableUpdateChecking))
+            {
+                DateTime lastCheck = settings.Get<DateTime>(GrepSettings.Key.LastCheckedVersion);
+                TimeSpan duration = DateTime.Now.Subtract(lastCheck);
+                if (duration.TotalDays >= settings.Get<int>(GrepSettings.Key.UpdateCheckInterval))
+                {
+                    CheckForUpdates(false);
+                }
+            }
+        }
+
+        private async void CheckForUpdates(bool fromCommand)
         {
             try
             {
-                if (settings.Get<bool>(GrepSettings.Key.EnableUpdateChecking))
+                var versionChk = new PublishedVersionExtractor();
+                string version = await versionChk.QueryLatestVersion();
+
+                if (!string.IsNullOrEmpty(version))
                 {
-                    DateTime lastCheck = settings.Get<DateTime>(GrepSettings.Key.LastCheckedVersion);
-                    TimeSpan duration = DateTime.Now.Subtract(lastCheck);
-                    if (duration.TotalDays >= settings.Get<int>(GrepSettings.Key.UpdateCheckInterval))
+                    string currentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                    if (PublishedVersionExtractor.IsUpdateNeeded(currentVersion, version))
                     {
-                        var versionChk = new PublishedVersionExtractor();
-                        string version = await versionChk.QueryLatestVersion();
-
-                        if (!string.IsNullOrEmpty(version))
+                        if (MessageBox.Show(TranslationSource.Format(Resources.MessageBox_NewVersionOfDnGREP0IsAvailableForDownload, version) +
+                            Environment.NewLine + Resources.MessageBox_WouldYouLikeToDownloadItNow,
+                            Resources.MessageBox_DnGrep + " " + Resources.MessageBox_NewVersion,
+                            MessageBoxButton.YesNo, MessageBoxImage.Information,
+                            MessageBoxResult.Yes, TranslationSource.Instance.FlowDirection) == MessageBoxResult.Yes)
                         {
-                            string currentVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
-                            if (PublishedVersionExtractor.IsUpdateNeeded(currentVersion, version))
-                            {
-                                if (MessageBox.Show(TranslationSource.Format(Resources.MessageBox_NewVersionOfDnGREP0IsAvailableForDownload, version) +
-                                    Environment.NewLine + Resources.MessageBox_WouldYouLikeToDownloadItNow,
-                                    Resources.MessageBox_DnGrep + " " + Resources.MessageBox_NewVersion,
-                                    MessageBoxButton.YesNo, MessageBoxImage.Information,
-                                    MessageBoxResult.Yes, TranslationSource.Instance.FlowDirection) == MessageBoxResult.Yes)
-                                {
-                                    System.Diagnostics.Process.Start("http://dngrep.github.io/");
-                                }
-                            }
+                            System.Diagnostics.Process.Start("https://github.com/dnGrep/dnGrep/releases/latest");
                         }
-
-                        settings.Set<DateTime>(GrepSettings.Key.LastCheckedVersion, DateTime.Now);
+                    }
+                    else if (fromCommand)
+                    {
+                        MessageBox.Show(Resources.MessageBox_DnGrepIsUpToDate,
+                            Resources.MessageBox_DnGrep, MessageBoxButton.OK, MessageBoxImage.Information,
+                            MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                     }
                 }
+
+                settings.Set(GrepSettings.Key.LastCheckedVersion, DateTime.Now);
             }
             catch (Exception ex)
             {

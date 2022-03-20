@@ -1496,6 +1496,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to _Check for updates.
+        /// </summary>
+        public static string Main_Menu_About_CheckForUpdates {
+            get {
+                return ResourceManager.GetString("Main_Menu_About_CheckForUpdates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Help.
         /// </summary>
         public static string Main_Menu_About_Help {
@@ -2770,6 +2779,15 @@ namespace dnGREP.Localization.Properties {
         public static string MessageBox_DnGrep {
             get {
                 return ResourceManager.GetString("MessageBox_DnGrep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to dnGrep is up to date..
+        /// </summary>
+        public static string MessageBox_DnGrepIsUpToDate {
+            get {
+                return ResourceManager.GetString("MessageBox_DnGrepIsUpToDate", resourceCulture);
             }
         }
         

@@ -145,6 +145,7 @@
                               TabIndex="2" />
                     <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Menu_About'}" TabIndex="3">
                         <MenuItem Command="{Binding HelpCommand}" Header="{l:Loc Key='Main_Menu_About_Help'}" />
+                        <MenuItem Command="{Binding CheckForUpdatesCommand}" Header="{l:Loc Key='Main_Menu_About_CheckForUpdates'}"/>
                         <MenuItem Command="{Binding AboutCommand}" Header="{l:Loc Key='Main_Menu_About_AboutDnGrep'}" />
                     </MenuItem>
                 </Menu>
