@@ -151,63 +151,33 @@ namespace dnGREP.Engines
                 (searchPattern.EndsWith(".?") && !searchPattern.EndsWith(@"\.?")) ||
                 (searchPattern.EndsWith(".+") && !searchPattern.EndsWith(@"\.+"));
 
-            int extraChars = 0;
+            string textToSearch = text;
+            bool convertedFromWindowsNewline = false;
+            List<int> newlineIndexes = null;
 
-            if (text.Contains("\r\n"))
+            if (searchPattern.ConstainsNotEscaped("$") || searchPatternEndsWithDot)
             {
-                if (searchPattern.ConstainsNotEscaped("$"))
+                if (text.Contains("\r\n"))
                 {
-                    if (regexOptions.HasFlag(RegexOptions.Singleline))
-                    {
-                        searchPattern = searchPattern.ReplaceIfNotEscaped("$", "\r?$");
-                    }
-                    else
-                    {
-                        searchPattern = searchPattern.ReplaceIfNotEscaped("$", "(?=\r?$)");
-
-                        // can't make this pattern work if the multi line text does not end in a newline
-                        if (regexOptions.HasFlag(RegexOptions.Multiline) && !text.EndsWith("\r\n"))
-                        {
-                            text += "\r\n";
-                            extraChars = 2;
-                        }
-                    }
+                    // the match index will be off by one for each line where the \r was dropped
+                    searchPattern = searchPattern.Replace("\r\n", "\n").Replace('\r', '\n');
+                    textToSearch = ConvertNewLines(text, out newlineIndexes);
+                    convertedFromWindowsNewline = true;
                 }
-
-                // if the patten ends with a dot in some form, it will match the \r path of \r\n
-                // modify the search pattern to capture or exclude the \r 
-                if (searchPatternEndsWithDot)
+                else if (text.Contains("\r"))
                 {
-                    if (regexOptions.HasFlag(RegexOptions.Singleline))
-                    {
-                        searchPattern += "\r?$";
-                    }
-                    else
-                    {
-                        searchPattern += "(?=\r?$)";
-
-                        // can't make this pattern work if the multi line text does not end in a newline
-                        if (regexOptions.HasFlag(RegexOptions.Multiline) && !text.EndsWith("\r\n"))
-                        {
-                            text += "\r\n";
-                            extraChars = 2;
-                        }
-                    }
+                    // this will be the same length, just change the newline char while searching
+                    searchPattern = searchPattern.Replace("\r\n", "\n").Replace('\r', '\n');
+                    textToSearch = text.Replace('\r', '\n');
                 }
             }
-            else if (text.Contains("\r") && (searchPattern.ConstainsNotEscaped("$") || searchPatternEndsWithDot))
-            {
-                // for this case, it's easiest to change the newline char while searching
-                searchPattern = searchPattern.Replace('\r', '\n');
-                text = text.Replace('\r', '\n');
-            }
 
-            var lineEndIndexes = GetLineEndIndexes((initParams.VerboseMatchCount && lineNumber == -1) ? text : null);
+            var lineEndIndexes = GetLineEndIndexes((initParams.VerboseMatchCount && lineNumber == -1) ? textToSearch : null);
 
             List<GrepMatch> globalMatches = new List<GrepMatch>();
 
             var regex = new Regex(searchPattern, regexOptions, MatchTimeout);
-            var matches = regex.Matches(text);
+            var matches = regex.Matches(textToSearch);
             foreach (Match match in matches)
             {
                 if (match.Length < 1)
@@ -218,17 +188,17 @@ namespace dnGREP.Engines
                 if (initParams.VerboseMatchCount && lineEndIndexes.Count > 0)
                     lineNumber = lineEndIndexes.FindIndex(i => i > match.Index) + 1;
 
+                int matchStart = match.Index;
                 int length = match.Length;
-                if (match.Index + filePosition + match.Length > text.Length)
-                    length -= extraChars;
+                if (convertedFromWindowsNewline && newlineIndexes != null)
+                {
+                    // since the search text is shorter by one for each converted newline,
+                    // move the match start by one for each converted Windows newline
+                    matchStart += CountWindowsNewLines(0, match.Index, newlineIndexes);
+                    length += CountWindowsNewLines(match.Index, match.Index + length, newlineIndexes);
+                }
 
-                // The pattern (?=\r?$) fixes most problems trying to make \r\n process like \n
-                // but it does capture the leading \r in the match. When that happens, set the 
-                // match length back one to exclude it
-                if (!regexOptions.HasFlag(RegexOptions.Singleline) && match.Value.EndsWith("\r"))
-                    length -= 1;
-
-                var grepMatch = new GrepMatch(searchPattern, lineNumber, match.Index + filePosition, length);
+                var grepMatch = new GrepMatch(searchPattern, lineNumber, matchStart + filePosition, length);
 
                 if (match.Groups.Count > 1)
                 {
@@ -251,6 +221,54 @@ namespace dnGREP.Engines
                 yield return grepMatch;
             }
         }
+
+        /// <summary>
+        /// Counts the number of Windows newlines that were converted to Unix newlines
+        /// between the start and end indexes
+        /// </summary>
+        /// <param name="startIndex"></param>
+        /// <param name="endIndex"></param>
+        /// <param name="newlineIndexes"></param>
+        /// <returns></returns>
+        private int CountWindowsNewLines(int startIndex, int endIndex, List<int> newlineIndexes)
+        {
+            var count = newlineIndexes.Count(idx => startIndex < idx && endIndex >= idx);
+            return count;
+        }
+
+        /// <summary>
+        /// Converts \r\n to \n and stores the index of the output string where
+        /// each conversion was done.
+        /// </summary>
+        /// <remarks>
+        /// Need to know which line ends were converted to handle mixed Windows and Unix newlines.
+        /// </remarks>
+        /// <param name="text">input text with Windows newlines</param>
+        /// <param name="newlineIndexes">the indexes where newlines were converted</param>
+        /// <returns>output text with Unix newlines</returns>
+        private string ConvertNewLines(string text, out List<int> newlineIndexes)
+        {
+            newlineIndexes = new List<int>();
+            string output = string.Empty;
+            int start = 0, pos;
+            while (start < text.Length)
+            {
+                pos = text.IndexOf("\r\n", start);
+                if (pos > -1)
+                {
+                    output += text.Substring(start, pos - start) + "\n";
+                    newlineIndexes.Add(output.Length);
+                    start = pos + 2;
+                }
+                else
+                {
+                    output += text.Substring(start, text.Length - start);
+                    break;
+                }
+            }
+            return output.Replace('\r', '\n'); // for that rare case
+        }
+
         private IEnumerable<GrepMatch> RegexSearchIteratorBoolean(int lineNumber, int filePosition, string text,
             BooleanExpression expression, bool isWholeWord, RegexOptions regexOptions)
         {
