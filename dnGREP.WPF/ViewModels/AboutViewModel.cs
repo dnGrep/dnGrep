@@ -105,13 +105,7 @@ namespace dnGREP.WPF
         }
 
 
-        public string AssemblyVersion
-        {
-            get
-            {
-                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            }
-        }
+        public string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         public string AssemblyDescription
         {
@@ -141,10 +135,7 @@ namespace dnGREP.WPF
             }
         }
 
-        public DateTime AssemblyBuildDate
-        {
-            get { return GetLinkerTime(Assembly.GetExecutingAssembly()); }
-        }
+        public DateTime AssemblyBuildDate => GetLinkerTime(Assembly.GetExecutingAssembly());
 
         // http://stackoverflow.com/questions/1600962/displaying-the-build-date
         public static DateTime GetLinkerTime(Assembly assembly, TimeZoneInfo target = null)

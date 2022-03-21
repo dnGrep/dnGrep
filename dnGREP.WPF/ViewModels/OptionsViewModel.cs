@@ -139,7 +139,6 @@ namespace dnGREP.WPF
                     return;
 
                 enableWindowsIntegration = value;
-
                 base.OnPropertyChanged(nameof(EnableWindowsIntegration));
             }
         }
@@ -154,7 +153,6 @@ namespace dnGREP.WPF
                     return;
 
                 windowsIntegrationTooltip = value;
-
                 base.OnPropertyChanged(nameof(WindowsIntegrationTooltip));
             }
         }
@@ -169,7 +167,6 @@ namespace dnGREP.WPF
                     return;
 
                 panelTooltip = value;
-
                 base.OnPropertyChanged(nameof(PanelTooltip));
             }
         }
@@ -184,7 +181,6 @@ namespace dnGREP.WPF
                     return;
 
                 isAdministrator = value;
-
                 base.OnPropertyChanged(nameof(IsAdministrator));
             }
         }
@@ -199,7 +195,6 @@ namespace dnGREP.WPF
                     return;
 
                 enableCheckForUpdates = value;
-
                 base.OnPropertyChanged(nameof(EnableCheckForUpdates));
 
                 if (!enableCheckForUpdates)
@@ -217,7 +212,6 @@ namespace dnGREP.WPF
                     return;
 
                 checkForUpdatesInterval = value;
-
                 base.OnPropertyChanged(nameof(CheckForUpdatesInterval));
             }
         }
@@ -232,7 +226,6 @@ namespace dnGREP.WPF
                     return;
 
                 enableRunAtStartup = value;
-
                 base.OnPropertyChanged(nameof(EnableRunAtStartup));
             }
         }
@@ -354,7 +347,6 @@ namespace dnGREP.WPF
                     return;
 
                 customEditorPath = value;
-
                 base.OnPropertyChanged(nameof(CustomEditorPath));
             }
         }
@@ -369,7 +361,6 @@ namespace dnGREP.WPF
                     return;
 
                 customEditorArgs = value;
-
                 base.OnPropertyChanged(nameof(CustomEditorArgs));
             }
         }
@@ -422,7 +413,6 @@ namespace dnGREP.WPF
 
                 compareApplicationTemplate = value;
                 ApplyCompareApplicationTemplate(compareApplicationTemplate);
-
                 base.OnPropertyChanged(nameof(CompareApplicationTemplate));
             }
         }
@@ -437,7 +427,6 @@ namespace dnGREP.WPF
                     return;
 
                 compareApplicationPath = value;
-
                 base.OnPropertyChanged(nameof(CompareApplicationPath));
             }
         }
@@ -452,7 +441,6 @@ namespace dnGREP.WPF
                     return;
 
                 compareApplicationArgs = value;
-
                 base.OnPropertyChanged(nameof(CompareApplicationArgs));
             }
         }
@@ -467,7 +455,6 @@ namespace dnGREP.WPF
                     return;
 
                 showFilePathInResults = value;
-
                 base.OnPropertyChanged(nameof(ShowFilePathInResults));
             }
         }
@@ -482,7 +469,6 @@ namespace dnGREP.WPF
                     return;
 
                 showLinesInContext = value;
-
                 base.OnPropertyChanged(nameof(ShowLinesInContext));
             }
         }
@@ -497,7 +483,6 @@ namespace dnGREP.WPF
                     return;
 
                 contextLinesBefore = value;
-
                 base.OnPropertyChanged(nameof(ContextLinesBefore));
             }
         }
@@ -512,7 +497,6 @@ namespace dnGREP.WPF
                     return;
 
                 contextLinesAfter = value;
-
                 base.OnPropertyChanged(nameof(ContextLinesAfter));
             }
         }
@@ -527,7 +511,6 @@ namespace dnGREP.WPF
                     return;
 
                 allowSearchWithEmptyPattern = value;
-
                 base.OnPropertyChanged(nameof(AllowSearchWithEmptyPattern));
             }
         }
@@ -542,7 +525,6 @@ namespace dnGREP.WPF
                     return;
 
                 detectEncodingForFileNamePattern = value;
-
                 base.OnPropertyChanged(nameof(DetectEncodingForFileNamePattern));
             }
         }
@@ -557,7 +539,6 @@ namespace dnGREP.WPF
                     return;
 
                 autoExpandSearchTree = value;
-
                 base.OnPropertyChanged(nameof(AutoExpandSearchTree));
             }
         }
@@ -572,7 +553,6 @@ namespace dnGREP.WPF
                     return;
 
                 showVerboseMatchCount = value;
-
                 base.OnPropertyChanged(nameof(ShowVerboseMatchCount));
             }
         }
@@ -587,7 +567,6 @@ namespace dnGREP.WPF
                     return;
 
                 showFileInfoTooltips = value;
-
                 base.OnPropertyChanged(nameof(ShowFileInfoTooltips));
             }
         }
@@ -602,7 +581,6 @@ namespace dnGREP.WPF
                     return;
 
                 matchTimeout = value;
-
                 base.OnPropertyChanged(nameof(MatchTimeout));
             }
         }
@@ -617,7 +595,6 @@ namespace dnGREP.WPF
                     return;
 
                 matchThreshold = value;
-
                 base.OnPropertyChanged(nameof(MatchThreshold));
             }
         }
@@ -632,7 +609,6 @@ namespace dnGREP.WPF
                     return;
 
                 maxPathBookmarks = value;
-
                 base.OnPropertyChanged(nameof(MaxPathBookmarks));
             }
         }
@@ -647,7 +623,6 @@ namespace dnGREP.WPF
                     return;
 
                 maxSearchBookmarks = value;
-
                 base.OnPropertyChanged(nameof(MaxSearchBookmarks));
             }
         }
@@ -662,7 +637,6 @@ namespace dnGREP.WPF
                     return;
 
                 maxExtensionBookmarks = value;
-
                 base.OnPropertyChanged(nameof(MaxExtensionBookmarks));
             }
         }
@@ -679,7 +653,6 @@ namespace dnGREP.WPF
                     return;
 
                 optionsLocation = value;
-
                 base.OnPropertyChanged(nameof(OptionsLocation));
             }
         }
@@ -736,8 +709,10 @@ namespace dnGREP.WPF
             get { return archiveOptions; }
             set
             {
-                archiveOptions = value;
+                if (archiveOptions == value)
+                    return;
 
+                archiveOptions = value;
                 base.OnPropertyChanged(nameof(ArchiveOptions));
             }
         }
@@ -944,7 +919,7 @@ namespace dnGREP.WPF
 
         #endregion
 
-        #region Presentation Properties
+        #region Commands
 
         /// <summary>
         /// Returns a command that saves the form
@@ -998,7 +973,7 @@ namespace dnGREP.WPF
             SaveSettings();
         }
 
-        #endregion // Public Methods
+        #endregion
 
         #region Private Methods
 
@@ -1549,7 +1524,6 @@ namespace dnGREP.WPF
                     return;
 
                 isEnabled = value;
-
                 base.OnPropertyChanged(nameof(IsEnabled));
             }
         }
@@ -1565,7 +1539,6 @@ namespace dnGREP.WPF
                     return;
 
                 addExtensions = value;
-
                 base.OnPropertyChanged(nameof(AddExtensions));
             }
         }
@@ -1581,7 +1554,6 @@ namespace dnGREP.WPF
                     return;
 
                 remExtensions = value;
-
                 base.OnPropertyChanged(nameof(RemExtensions));
             }
         }
@@ -1596,7 +1568,6 @@ namespace dnGREP.WPF
                     return;
 
                 defaultExtensions = value;
-
                 base.OnPropertyChanged(nameof(DefaultExtensions));
             }
         }
@@ -1634,5 +1605,4 @@ namespace dnGREP.WPF
             return narrowChar.Width == wideChar.Width;
         }
     }
-
 }

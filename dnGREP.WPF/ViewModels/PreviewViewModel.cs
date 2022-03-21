@@ -15,7 +15,7 @@ namespace dnGREP.WPF
 {
     public class PreviewViewModel : CultureAwareViewModel, INotifyPropertyChanged
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         public PreviewViewModel()
         {
@@ -66,7 +66,6 @@ namespace dnGREP.WPF
                     return;
 
                 isLargeOrBinary = value;
-
                 base.OnPropertyChanged(nameof(IsLargeOrBinary));
             }
         }
@@ -81,7 +80,6 @@ namespace dnGREP.WPF
                     return;
 
                 isPdf = value;
-
                 base.OnPropertyChanged(nameof(IsPdf));
             }
         }
@@ -96,7 +94,6 @@ namespace dnGREP.WPF
                     return;
 
                 currentSyntax = value;
-
                 base.OnPropertyChanged(nameof(CurrentSyntax));
             }
         }
@@ -117,7 +114,6 @@ namespace dnGREP.WPF
                     return;
 
                 filePath = value;
-
                 base.OnPropertyChanged(nameof(FilePath));
             }
         }
@@ -132,7 +128,6 @@ namespace dnGREP.WPF
                     return;
 
                 grepResult = value;
-
                 base.OnPropertyChanged(nameof(GrepResult));
             }
         }
@@ -147,7 +142,6 @@ namespace dnGREP.WPF
                     return;
 
                 lineNumber = value;
-
                 base.OnPropertyChanged(nameof(LineNumber));
             }
         }
@@ -176,7 +170,6 @@ namespace dnGREP.WPF
                     return;
 
                 highlightDisabled = value;
-
                 base.OnPropertyChanged(nameof(HighlightDisabled));
             }
         }

@@ -352,7 +352,6 @@ namespace dnGREP.WPF
                     return;
 
                 dialogSize = value;
-
                 base.OnPropertyChanged(nameof(DialogSize));
             }
         }
@@ -367,7 +366,6 @@ namespace dnGREP.WPF
                     return;
 
                 searchFor = value;
-
                 base.OnPropertyChanged(nameof(SearchFor));
             }
         }
@@ -382,7 +380,6 @@ namespace dnGREP.WPF
                     return;
 
                 replaceWith = value;
-
                 base.OnPropertyChanged(nameof(ReplaceWith));
             }
         }
@@ -397,7 +394,6 @@ namespace dnGREP.WPF
                     return;
 
                 fileStatus = value;
-
                 base.OnPropertyChanged(nameof(FileStatus));
             }
         }
@@ -412,7 +408,6 @@ namespace dnGREP.WPF
                     return;
 
                 fileReplaceStatus = value;
-
                 base.OnPropertyChanged(nameof(FileReplaceStatus));
             }
         }
@@ -457,7 +452,6 @@ namespace dnGREP.WPF
                     return;
 
                 currentSyntax = value;
-
                 base.OnPropertyChanged(nameof(CurrentSyntax));
             }
         }
@@ -472,7 +466,6 @@ namespace dnGREP.WPF
                     return;
 
                 lineNumber = value;
-
                 base.OnPropertyChanged(nameof(LineNumber));
             }
         }
@@ -487,7 +480,6 @@ namespace dnGREP.WPF
                     return;
 
                 colNumber = value;
-
                 base.OnPropertyChanged(nameof(ColNumber));
             }
         }
@@ -502,18 +494,11 @@ namespace dnGREP.WPF
                     return;
 
                 individualReplaceEnabled = value;
-
                 base.OnPropertyChanged(nameof(IndividualReplaceEnabled));
             }
         }
 
-        public IHighlightingDefinition HighlightingDefinition
-        {
-            get
-            {
-                return ThemedHighlightingManager.Instance.GetDefinition(CurrentSyntax);
-            }
-        }
+        public IHighlightingDefinition HighlightingDefinition => ThemedHighlightingManager.Instance.GetDefinition(CurrentSyntax);
 
         private string applicationFontFamily;
         public string ApplicationFontFamily

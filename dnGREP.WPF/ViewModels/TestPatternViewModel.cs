@@ -65,7 +65,7 @@ namespace dnGREP.WPF
 
             if (name == nameof(HighlightCaptureGroups))
             {
-                settings.Set(GrepSettings.Key.HighlightCaptureGroups, HighlightCaptureGroups);
+                Settings.Set(GrepSettings.Key.HighlightCaptureGroups, HighlightCaptureGroups);
             }
 
             switch (name)
@@ -204,8 +204,6 @@ namespace dnGREP.WPF
                 if (value == replaceOutputText)
                     return;
 
-                replaceOutputText = value;
-
                 base.OnPropertyChanged(nameof(ReplaceOutputText));
             }
         }
@@ -220,7 +218,6 @@ namespace dnGREP.WPF
                     return;
 
                 replaceErrorText = value;
-
                 base.OnPropertyChanged(nameof(ReplaceErrorText));
             }
         }

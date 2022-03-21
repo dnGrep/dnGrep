@@ -51,7 +51,7 @@ namespace dnGREP.WPF
             }
             _previewDockedHeight = Math.Min(LayoutProperties.PreviewDockedHeight, maxPreviewHeight);
             _isPreviewHidden = LayoutProperties.PreviewHidden;
-            _previewAutoPosition = settings.Get<bool>(GrepSettings.Key.PreviewAutoPosition);
+            _previewAutoPosition = Settings.Get<bool>(GrepSettings.Key.PreviewAutoPosition);
 
             SearchResults.PreviewFileLineRequest += SearchResults_PreviewFileLineRequest;
             SearchResults.PreviewFileRequest += SearchResults_PreviewFileRequest;
@@ -154,7 +154,7 @@ namespace dnGREP.WPF
 
         public Window ParentWindow { get; set; }
 
-        public PreviewViewModel PreviewModel { get; set; }
+        public PreviewViewModel PreviewModel { get; internal set; }
 
         #endregion
 
@@ -733,15 +733,15 @@ namespace dnGREP.WPF
         {
             CopyBookmarksToSettings();
 
-            settings.Set(GrepSettings.Key.SortDirection, SortDirection);
-            settings.Set(GrepSettings.Key.TypeOfSort, SortType);
-            settings.Set(GrepSettings.Key.ShowResultOptions, IsResultOptionsExpanded);
-            settings.Set(GrepSettings.Key.ResultsTreeScale, SearchResults.ResultsScale);
-            settings.Set(GrepSettings.Key.ResultsTreeWrap, SearchResults.WrapText);
-            settings.Set(GrepSettings.Key.HighlightMatches, HighlightsOn);
-            settings.Set(GrepSettings.Key.ShowLinesInContext, ShowLinesInContext);
-            settings.Set(GrepSettings.Key.ContextLinesBefore, ContextLinesBefore);
-            settings.Set(GrepSettings.Key.ContextLinesAfter, ContextLinesAfter);
+            Settings.Set(GrepSettings.Key.SortDirection, SortDirection);
+            Settings.Set(GrepSettings.Key.TypeOfSort, SortType);
+            Settings.Set(GrepSettings.Key.ShowResultOptions, IsResultOptionsExpanded);
+            Settings.Set(GrepSettings.Key.ResultsTreeScale, SearchResults.ResultsScale);
+            Settings.Set(GrepSettings.Key.ResultsTreeWrap, SearchResults.WrapText);
+            Settings.Set(GrepSettings.Key.HighlightMatches, HighlightsOn);
+            Settings.Set(GrepSettings.Key.ShowLinesInContext, ShowLinesInContext);
+            Settings.Set(GrepSettings.Key.ContextLinesBefore, ContextLinesBefore);
+            Settings.Set(GrepSettings.Key.ContextLinesAfter, ContextLinesAfter);
 
             LayoutProperties.PreviewBounds = PreviewWindowBounds;
             LayoutProperties.PreviewWindowState = PreviewWindowState;
@@ -751,7 +751,7 @@ namespace dnGREP.WPF
             LayoutProperties.PreviewDockedHeight = PreviewDockedHeight;
             LayoutProperties.PreviewHidden = IsPreviewHidden;
 
-            settings.Set(GrepSettings.Key.PreviewAutoPosition, PreviewAutoPosition);
+            Settings.Set(GrepSettings.Key.PreviewAutoPosition, PreviewAutoPosition);
 
             base.SaveSettings();
         }
@@ -774,8 +774,8 @@ namespace dnGREP.WPF
 
                 FormattedGrepResult result = selectedNode.Parent;
                 OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, matchText, columnNumber,
-                    useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor),
-                    settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
+                    useCustomEditor, Settings.Get<string>(GrepSettings.Key.CustomEditor),
+                    Settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
                 bool isInArchive = Utils.IsArchive(result.GrepResult.FileNameReal);
                 if (isInArchive)
                 {
@@ -791,8 +791,8 @@ namespace dnGREP.WPF
                     }
                     if (fileArg.UseBaseEngine)
                         Utils.OpenFile(new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, matchText, columnNumber,
-                            useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor),
-                            settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
+                            useCustomEditor, Settings.Get<string>(GrepSettings.Key.CustomEditor),
+                            Settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
                 }
             }
             catch (Exception ex)
@@ -839,8 +839,8 @@ namespace dnGREP.WPF
                 }
 
                 OpenFileArgs fileArg = new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, matchText, columnNumber,
-                    useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor),
-                    settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
+                    useCustomEditor, Settings.Get<string>(GrepSettings.Key.CustomEditor),
+                    Settings.Get<string>(GrepSettings.Key.CustomEditorArgs));
                 if (Utils.IsArchive(result.GrepResult.FileNameReal))
                 {
                     ArchiveDirectory.OpenFile(fileArg);
@@ -855,8 +855,8 @@ namespace dnGREP.WPF
                     }
                     if (fileArg.UseBaseEngine)
                         Utils.OpenFile(new OpenFileArgs(result.GrepResult, result.GrepResult.Pattern, lineNumber, matchText, columnNumber,
-                            useCustomEditor, settings.Get<string>(GrepSettings.Key.CustomEditor),
-                            settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
+                            useCustomEditor, Settings.Get<string>(GrepSettings.Key.CustomEditor),
+                            Settings.Get<string>(GrepSettings.Key.CustomEditorArgs)));
                 }
             }
             catch (Exception ex)
@@ -1011,11 +1011,11 @@ namespace dnGREP.WPF
 
                         GrepCore grep = new GrepCore();
                         grep.SearchParams = new GrepEngineInitParams(
-                            settings.Get<bool>(GrepSettings.Key.ShowLinesInContext),
-                            settings.Get<int>(GrepSettings.Key.ContextLinesBefore),
-                            settings.Get<int>(GrepSettings.Key.ContextLinesAfter),
-                            settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold),
-                            settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount),
+                            Settings.Get<bool>(GrepSettings.Key.ShowLinesInContext),
+                            Settings.Get<int>(GrepSettings.Key.ContextLinesBefore),
+                            Settings.Get<int>(GrepSettings.Key.ContextLinesAfter),
+                            Settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold),
+                            Settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount),
                             SearchParallel);
 
                         grep.FileFilter = new FileFilter(FileOrFolderPath, filePatternInclude, filePatternExclude,
@@ -1061,11 +1061,11 @@ namespace dnGREP.WPF
                     {
                         GrepCore grep = new GrepCore();
                         grep.SearchParams = new GrepEngineInitParams(
-                            settings.Get<bool>(GrepSettings.Key.ShowLinesInContext),
-                            settings.Get<int>(GrepSettings.Key.ContextLinesBefore),
-                            settings.Get<int>(GrepSettings.Key.ContextLinesAfter),
-                            settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold),
-                            settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount),
+                            Settings.Get<bool>(GrepSettings.Key.ShowLinesInContext),
+                            Settings.Get<int>(GrepSettings.Key.ContextLinesBefore),
+                            Settings.Get<int>(GrepSettings.Key.ContextLinesAfter),
+                            Settings.Get<double>(GrepSettings.Key.FuzzyMatchThreshold),
+                            Settings.Get<bool>(GrepSettings.Key.ShowVerboseMatchCount),
                             SearchParallel);
 
                         GrepSearchOption searchOptions = GrepSearchOption.None;
@@ -1587,9 +1587,9 @@ namespace dnGREP.WPF
         {
             inUpdateBookmarks = true;
 
-            int maxSearchReplaceCount = settings.Get<int>(GrepSettings.Key.MaxSearchBookmarks);
-            int maxPathCount = settings.Get<int>(GrepSettings.Key.MaxPathBookmarks);
-            int maxExtCount = settings.Get<int>(GrepSettings.Key.MaxExtensionBookmarks);
+            int maxSearchReplaceCount = Settings.Get<int>(GrepSettings.Key.MaxSearchBookmarks);
+            int maxPathCount = Settings.Get<int>(GrepSettings.Key.MaxPathBookmarks);
+            int maxExtCount = Settings.Get<int>(GrepSettings.Key.MaxExtensionBookmarks);
 
             // Update bookmarks, moving current to the top of the list
             if (FastSearchBookmarks.IndexOf(SearchFor) != 0)
@@ -2273,11 +2273,11 @@ namespace dnGREP.WPF
 
         private void CheckVersion()
         {
-            if (settings.Get<bool>(GrepSettings.Key.EnableUpdateChecking))
+            if (Settings.Get<bool>(GrepSettings.Key.EnableUpdateChecking))
             {
-                DateTime lastCheck = settings.Get<DateTime>(GrepSettings.Key.LastCheckedVersion);
+                DateTime lastCheck = Settings.Get<DateTime>(GrepSettings.Key.LastCheckedVersion);
                 TimeSpan duration = DateTime.Now.Subtract(lastCheck);
-                if (duration.TotalDays >= settings.Get<int>(GrepSettings.Key.UpdateCheckInterval))
+                if (duration.TotalDays >= Settings.Get<int>(GrepSettings.Key.UpdateCheckInterval))
                 {
                     CheckForUpdates(false);
                 }
@@ -2313,7 +2313,7 @@ namespace dnGREP.WPF
                     }
                 }
 
-                settings.Set(GrepSettings.Key.LastCheckedVersion, DateTime.Now);
+                Settings.Set(GrepSettings.Key.LastCheckedVersion, DateTime.Now);
             }
             catch (Exception ex)
             {
@@ -2463,31 +2463,31 @@ namespace dnGREP.WPF
             {
                 fsb.Add(FastSearchBookmarks[i]);
             }
-            settings.Set<List<string>>(GrepSettings.Key.FastSearchBookmarks, fsb);
+            Settings.Set(GrepSettings.Key.FastSearchBookmarks, fsb);
             List<string> frb = new List<string>();
             for (int i = 0; i < FastReplaceBookmarks.Count && i < MainViewModel.FastBookmarkCapacity; i++)
             {
                 frb.Add(FastReplaceBookmarks[i]);
             }
-            settings.Set<List<string>>(GrepSettings.Key.FastReplaceBookmarks, frb);
+            Settings.Set(GrepSettings.Key.FastReplaceBookmarks, frb);
             List<string> ffmb = new List<string>();
             for (int i = 0; i < FastFileMatchBookmarks.Count && i < MainViewModel.FastBookmarkCapacity; i++)
             {
                 ffmb.Add(FastFileMatchBookmarks[i]);
             }
-            settings.Set<List<string>>(GrepSettings.Key.FastFileMatchBookmarks, ffmb);
+            Settings.Set(GrepSettings.Key.FastFileMatchBookmarks, ffmb);
             List<string> ffnmb = new List<string>();
             for (int i = 0; i < FastFileNotMatchBookmarks.Count && i < MainViewModel.FastBookmarkCapacity; i++)
             {
                 ffnmb.Add(FastFileNotMatchBookmarks[i]);
             }
-            settings.Set<List<string>>(GrepSettings.Key.FastFileNotMatchBookmarks, ffnmb);
+            Settings.Set(GrepSettings.Key.FastFileNotMatchBookmarks, ffnmb);
             List<string> fpb = new List<string>();
             for (int i = 0; i < FastPathBookmarks.Count && i < MainViewModel.FastBookmarkCapacity; i++)
             {
                 fpb.Add(FastPathBookmarks[i]);
             }
-            settings.Set<List<string>>(GrepSettings.Key.FastPathBookmarks, fpb);
+            Settings.Set(GrepSettings.Key.FastPathBookmarks, fpb);
         }
 
         private void PreviewFile(string filePath, GrepSearchResult result, int line)
