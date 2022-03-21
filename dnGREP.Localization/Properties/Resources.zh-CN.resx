@@ -2417,27 +2417,27 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionContainsAnUnknownToken" xml:space="preserve">
-    <value>Boolean expression contains an unknown token</value>
+    <value>布尔表达式包含一个未知的标记</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionHasAnUnknownError" xml:space="preserve">
-    <value>Boolean expression has an unknown error</value>
+    <value>布尔表达式有未知错误</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionHasMismatchedParentheses" xml:space="preserve">
-    <value>Boolean expression has mismatched parentheses</value>
+    <value>布尔表达式有不匹配的括号</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsMissingABooleanOperator" xml:space="preserve">
-    <value>Boolean expression is missing a Boolean operator</value>
+    <value>布尔表达式缺少一个布尔运算符</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsMissingASearchPattern" xml:space="preserve">
-    <value>Boolean expression is missing a search pattern</value>
+    <value>布尔表达式缺少一个搜索模式</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsNotValid" xml:space="preserve">
-    <value>Boolean expression is not valid</value>
+    <value>布尔表达式无效</value>
     <comment>Main window, Boolean expression status</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsOK" xml:space="preserve">
@@ -2445,7 +2445,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window, Boolean expression status</comment>
   </data>
   <data name="Main_Menu_About_CheckForUpdates" xml:space="preserve">
-    <value>_Check for updates</value>
+    <value>检查更新(_C)</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="MessageBox_DnGrepIsUpToDate" xml:space="preserve">
