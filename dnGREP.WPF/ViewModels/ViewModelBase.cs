@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq.Expressions;
 
 namespace dnGREP.WPF
 {
@@ -31,7 +30,7 @@ namespace dnGREP.WPF
             {
                 string msg = "Invalid property name: " + propertyName;
 
-                if (this.ThrowOnInvalidPropertyName)
+                if (ThrowOnInvalidPropertyName)
                     throw new Exception(msg);
                 else
                     Debug.Fail(msg);
@@ -55,38 +54,11 @@ namespace dnGREP.WPF
         /// Raises this object's PropertyChanged event.
         /// </summary>
         /// <param name="propertyName">The property that has a new value.</param>
-        protected virtual void OnPropertyChanged<T>(Expression<Func<T>> expression)
-        {
-            string propertyName = GetPropertyName(expression);
-            OnPropertyChanged(propertyName);
-        }
-
-        /// <summary>
-        /// Raises this object's PropertyChanged event.
-        /// </summary>
-        /// <param name="propertyName">The property that has a new value.</param>
         protected virtual void OnPropertyChanged(string propertyName)
         {
-            this.VerifyPropertyName(propertyName);
+            VerifyPropertyName(propertyName);
 
-            PropertyChangedEventHandler handler = this.PropertyChanged;
-            if (handler != null)
-            {
-                var e = new PropertyChangedEventArgs(propertyName);
-                handler(this, e);
-            }
-        }
-
-        /// <summary>
-        /// Get the string name for the property
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="expression"></param>
-        /// <returns></returns>
-        protected string GetPropertyName<T>(Expression<Func<T>> expression)
-        {
-            MemberExpression memberExpression = (MemberExpression)expression.Body;
-            return memberExpression.Member.Name;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
 #if DEBUG_FINALIZE
@@ -99,11 +71,5 @@ namespace dnGREP.WPF
             System.Diagnostics.Debug.WriteLine(msg);
         }
 #endif
-
-        public static string GetPropertyName<T, V>(Expression<Func<T, V>> expression)
-        {
-            MemberExpression memberExpression = (MemberExpression)expression.Body;
-            return memberExpression.Member.Name;
-        }
     }
 }

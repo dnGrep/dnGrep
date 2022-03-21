@@ -121,7 +121,7 @@ namespace dnGREP.WPF
                     return;
 
                 applicationFontFamily = value;
-                base.OnPropertyChanged(() => ApplicationFontFamily);
+                base.OnPropertyChanged(nameof(ApplicationFontFamily));
             }
         }
 
@@ -135,7 +135,7 @@ namespace dnGREP.WPF
                     return;
 
                 dialogfontSize = value;
-                base.OnPropertyChanged(() => DialogFontSize);
+                base.OnPropertyChanged(nameof(DialogFontSize));
             }
         }
 
@@ -149,7 +149,7 @@ namespace dnGREP.WPF
                     return;
 
                 sampleText = value;
-                base.OnPropertyChanged(() => SampleText);
+                base.OnPropertyChanged(nameof(SampleText));
             }
         }
 
@@ -177,7 +177,7 @@ namespace dnGREP.WPF
                     return;
 
                 searchOutput = value;
-                base.OnPropertyChanged(() => SearchOutput);
+                base.OnPropertyChanged(nameof(SearchOutput));
             }
         }
 
@@ -191,7 +191,7 @@ namespace dnGREP.WPF
                     return;
 
                 replaceOutput = value;
-                base.OnPropertyChanged(() => ReplaceOutput);
+                base.OnPropertyChanged(nameof(ReplaceOutput));
             }
         }
 
@@ -206,7 +206,7 @@ namespace dnGREP.WPF
 
                 replaceOutputText = value;
 
-                base.OnPropertyChanged(() => ReplaceOutputText);
+                base.OnPropertyChanged(nameof(ReplaceOutputText));
             }
         }
 
@@ -221,7 +221,7 @@ namespace dnGREP.WPF
 
                 replaceErrorText = value;
 
-                base.OnPropertyChanged(() => ReplaceErrorText);
+                base.OnPropertyChanged(nameof(ReplaceErrorText));
             }
         }
 

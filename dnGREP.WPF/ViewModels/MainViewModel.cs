@@ -170,7 +170,7 @@ namespace dnGREP.WPF
                     return;
 
                 applicationFontFamily = value;
-                base.OnPropertyChanged(() => ApplicationFontFamily);
+                base.OnPropertyChanged(nameof(ApplicationFontFamily));
             }
         }
 
@@ -184,7 +184,7 @@ namespace dnGREP.WPF
                     return;
 
                 mainFormfontSize = value;
-                base.OnPropertyChanged(() => MainFormFontSize);
+                base.OnPropertyChanged(nameof(MainFormFontSize));
             }
         }
 
@@ -199,8 +199,8 @@ namespace dnGREP.WPF
 
                 isBookmarked = value;
 
-                base.OnPropertyChanged(() => IsBookmarked);
-                base.OnPropertyChanged(() => IsBookmarkedTooltip);
+                base.OnPropertyChanged(nameof(IsBookmarked));
+                base.OnPropertyChanged(nameof(IsBookmarkedTooltip));
             }
         }
 
@@ -226,8 +226,8 @@ namespace dnGREP.WPF
 
                 isFolderBookmarked = value;
 
-                base.OnPropertyChanged(() => IsFolderBookmarked);
-                base.OnPropertyChanged(() => IsFolderBookmarkedTooltip);
+                base.OnPropertyChanged(nameof(IsFolderBookmarked));
+                base.OnPropertyChanged(nameof(IsFolderBookmarkedTooltip));
             }
         }
 
@@ -252,7 +252,7 @@ namespace dnGREP.WPF
                     return;
 
                 _previewTitle = value;
-                base.OnPropertyChanged(() => PreviewTitle);
+                base.OnPropertyChanged(nameof(PreviewTitle));
             }
         }
 
@@ -266,7 +266,7 @@ namespace dnGREP.WPF
                     return;
 
                 _previewWindowBounds = value;
-                base.OnPropertyChanged(() => PreviewWindowBounds);
+                base.OnPropertyChanged(nameof(PreviewWindowBounds));
             }
         }
 
@@ -280,7 +280,7 @@ namespace dnGREP.WPF
                     return;
 
                 _previewWindowState = value;
-                base.OnPropertyChanged(() => PreviewWindowState);
+                base.OnPropertyChanged(nameof(PreviewWindowState));
             }
         }
 
@@ -294,7 +294,7 @@ namespace dnGREP.WPF
                     return;
 
                 _isPreviewDocked = value;
-                base.OnPropertyChanged(() => IsPreviewDocked);
+                base.OnPropertyChanged(nameof(IsPreviewDocked));
             }
         }
 
@@ -308,7 +308,7 @@ namespace dnGREP.WPF
                     return;
 
                 _previewAutoPosition = value;
-                base.OnPropertyChanged(() => PreviewAutoPosition);
+                base.OnPropertyChanged(nameof(PreviewAutoPosition));
             }
         }
 
@@ -322,7 +322,7 @@ namespace dnGREP.WPF
                     return;
 
                 _previewDockSide = value;
-                base.OnPropertyChanged(() => PreviewDockSide);
+                base.OnPropertyChanged(nameof(PreviewDockSide));
             }
         }
 
@@ -336,7 +336,7 @@ namespace dnGREP.WPF
                     return;
 
                 _isPreviewHidden = value;
-                base.OnPropertyChanged(() => IsPreviewHidden);
+                base.OnPropertyChanged(nameof(IsPreviewHidden));
             }
         }
 
@@ -350,7 +350,7 @@ namespace dnGREP.WPF
                     return;
 
                 _previewDockedWidth = Math.Max(value, 25);
-                base.OnPropertyChanged(() => PreviewDockedWidth);
+                base.OnPropertyChanged(nameof(PreviewDockedWidth));
             }
         }
 
@@ -364,7 +364,7 @@ namespace dnGREP.WPF
                     return;
 
                 _previewDockedHeight = Math.Max(value, 25);
-                base.OnPropertyChanged(() => PreviewDockedHeight);
+                base.OnPropertyChanged(nameof(PreviewDockedHeight));
             }
         }
 
@@ -377,7 +377,7 @@ namespace dnGREP.WPF
                 if (sortType != value)
                 {
                     sortType = value;
-                    base.OnPropertyChanged(() => SortType);
+                    base.OnPropertyChanged(nameof(SortType));
                 }
                 SortResults();
             }
@@ -392,7 +392,7 @@ namespace dnGREP.WPF
                 if (sortDirection != value)
                 {
                     sortDirection = value;
-                    base.OnPropertyChanged(() => SortDirection);
+                    base.OnPropertyChanged(nameof(SortDirection));
                 }
                 SortResults();
             }
@@ -408,7 +408,7 @@ namespace dnGREP.WPF
                     return;
 
                 highlightsOn = value;
-                base.OnPropertyChanged(() => HighlightsOn);
+                base.OnPropertyChanged(nameof(HighlightsOn));
             }
         }
 
@@ -423,7 +423,7 @@ namespace dnGREP.WPF
 
                 showLinesInContext = value;
 
-                base.OnPropertyChanged(() => ShowLinesInContext);
+                base.OnPropertyChanged(nameof(ShowLinesInContext));
             }
         }
 
@@ -438,7 +438,7 @@ namespace dnGREP.WPF
 
                 contextLinesBefore = value;
 
-                base.OnPropertyChanged(() => ContextLinesBefore);
+                base.OnPropertyChanged(nameof(ContextLinesBefore));
             }
         }
 
@@ -453,7 +453,7 @@ namespace dnGREP.WPF
 
                 contextLinesAfter = value;
 
-                base.OnPropertyChanged(() => ContextLinesAfter);
+                base.OnPropertyChanged(nameof(ContextLinesAfter));
             }
         }
 
@@ -468,8 +468,8 @@ namespace dnGREP.WPF
 
                 isResultOptionsExpanded = value;
 
-                base.OnPropertyChanged(() => IsResultOptionsExpanded);
-                base.OnPropertyChanged(() => ResultOptionsButtonTooltip);
+                base.OnPropertyChanged(nameof(IsResultOptionsExpanded));
+                base.OnPropertyChanged(nameof(ResultOptionsButtonTooltip));
             }
         }
 
@@ -484,407 +484,149 @@ namespace dnGREP.WPF
             }
         }
 
-        RelayCommand _undoCommand;
+        #endregion
+
+        #region Commands
+
         /// <summary>
         /// Returns an undo command
         /// </summary>
-        public ICommand UndoCommand
-        {
-            get
-            {
-                if (_undoCommand == null)
-                {
-                    _undoCommand = new RelayCommand(
-                        param => this.Undo(),
-                        param => CanUndo
-                        );
-                }
-                return _undoCommand;
-            }
-        }
+        public ICommand UndoCommand => new RelayCommand(
+            param => Undo(),
+            param => CanUndo);
 
-        RelayCommand _optionsCommand;
         /// <summary>
         /// Returns an options command
         /// </summary>
-        public ICommand OptionsCommand
-        {
-            get
-            {
-                if (_optionsCommand == null)
-                {
-                    _optionsCommand = new RelayCommand(
-                        param => this.ShowOptions()
-                        );
-                }
-                return _optionsCommand;
-            }
-        }
-        RelayCommand _helpCommand;
+        public ICommand OptionsCommand => new RelayCommand(
+            param => ShowOptions());
+
         /// <summary>
         /// Returns a help command
         /// </summary>
-        public ICommand HelpCommand
-        {
-            get
-            {
-                if (_helpCommand == null)
-                {
-                    _helpCommand = new RelayCommand(
-                        param => this.ShowHelp()
-                        );
-                }
-                return _helpCommand;
-            }
-        }
-        RelayCommand _aboutCommand;
+        public ICommand HelpCommand => new RelayCommand(
+            param => ShowHelp());
+
         /// <summary>
         /// Returns an about command
         /// </summary>
-        public ICommand AboutCommand
-        {
-            get
-            {
-                if (_aboutCommand == null)
-                {
-                    _aboutCommand = new RelayCommand(
-                        param => this.ShowAbout()
-                        );
-                }
-                return _aboutCommand;
-            }
-        }
+        public ICommand AboutCommand => new RelayCommand(
+            param => ShowAbout());
 
         public ICommand CheckForUpdatesCommand => new RelayCommand(
             param => CheckForUpdates(true));
 
-        RelayCommand _browseCommand;
         /// <summary>
         /// Returns a command that opens file browse dialog.
         /// </summary>
-        public ICommand BrowseCommand
-        {
-            get
-            {
-                if (_browseCommand == null)
-                {
-                    _browseCommand = new RelayCommand(
-                        param => this.Browse()
-                        );
-                }
-                return _browseCommand;
-            }
-        }
-        RelayCommand _searchCommand;
+        public ICommand BrowseCommand => new RelayCommand(
+            param => Browse());
+
         /// <summary>
         /// Returns a command that starts a search.
         /// </summary>
-        public ICommand SearchCommand
-        {
-            get
-            {
-                if (_searchCommand == null)
-                {
-                    _searchCommand = new RelayCommand(
-                        param => Search(),
-                        param => CanSearch
-                        );
-                }
-                return _searchCommand;
-            }
-        }
-        RelayCommand _replaceCommand;
+        public ICommand SearchCommand => new RelayCommand(
+            param => Search(),
+            param => CanSearch);
+
         /// <summary>
         /// Returns a command that starts a search in results.
         /// </summary>
-        public ICommand ReplaceCommand
-        {
-            get
-            {
-                if (_replaceCommand == null)
-                {
-                    _replaceCommand = new RelayCommand(
-                        param => Replace(),
-                        param => CanReplace
-                        );
-                }
-                return _replaceCommand;
-            }
-        }
+        public ICommand ReplaceCommand => new RelayCommand(
+            param => Replace(),
+            param => CanReplace);
 
-        RelayCommand _sortCommand;
         /// <summary>
         /// Returns a command that sorts the results.
         /// </summary>
-        public ICommand SortCommand
-        {
-            get
-            {
-                if (_sortCommand == null)
-                {
-                    _sortCommand = new RelayCommand(
-                        param => SortResults(),
-                        param => CanSortResults
-                        );
-                }
-                return _sortCommand;
-            }
-        }
+        public ICommand SortCommand => new RelayCommand(
+            param => SortResults(),
+            param => CanSortResults);
 
-        RelayCommand _copyFilesCommand;
         /// <summary>
         /// Returns a command that copies files
         /// </summary>
-        public ICommand CopyFilesCommand
-        {
-            get
-            {
-                if (_copyFilesCommand == null)
-                {
-                    _copyFilesCommand = new RelayCommand(
-                        param => this.CopyFiles()
-                        );
-                }
-                return _copyFilesCommand;
-            }
-        }
-        RelayCommand _moveFilesCommand;
+        public ICommand CopyFilesCommand => new RelayCommand(
+            param => CopyFiles());
+
         /// <summary>
         /// Returns a command that moves files
         /// </summary>
-        public ICommand MoveFilesCommand
-        {
-            get
-            {
-                if (_moveFilesCommand == null)
-                {
-                    _moveFilesCommand = new RelayCommand(
-                        param => this.MoveFiles()
-                        );
-                }
-                return _moveFilesCommand;
-            }
-        }
-        RelayCommand _deleteFilesCommand;
+        public ICommand MoveFilesCommand => new RelayCommand(
+            param => MoveFiles());
+
         /// <summary>
         /// Returns a command that deletes files
         /// </summary>
-        public ICommand DeleteFilesCommand
-        {
-            get
-            {
-                if (_deleteFilesCommand == null)
-                {
-                    _deleteFilesCommand = new RelayCommand(
-                        param => this.DeleteFiles()
-                        );
-                }
-                return _deleteFilesCommand;
-            }
-        }
-        RelayCommand _copyToClipboardCommand;
+        public ICommand DeleteFilesCommand => new RelayCommand(
+            param => DeleteFiles());
+
         /// <summary>
         /// Returns a command that copies content to clipboard
         /// </summary>
-        public ICommand CopyToClipboardCommand
-        {
-            get
-            {
-                if (_copyToClipboardCommand == null)
-                {
-                    _copyToClipboardCommand = new RelayCommand(
-                        param => this.CopyToClipboard()
-                        );
-                }
-                return _copyToClipboardCommand;
-            }
-        }
-        RelayCommand _saveResultsCommand;
+        public ICommand CopyToClipboardCommand => new RelayCommand(
+            param => CopyToClipboard());
+
         /// <summary>
         /// Returns a command that copies content to clipboard
         /// </summary>
-        public ICommand SaveResultsCommand
-        {
-            get
-            {
-                if (_saveResultsCommand == null)
-                {
-                    _saveResultsCommand = new RelayCommand(
-                        param => SaveResultsToFile(param as string)
-                        );
-                }
-                return _saveResultsCommand;
-            }
-        }
-        RelayCommand _copyMatchingLinesCommand;
+        public ICommand SaveResultsCommand => new RelayCommand(
+            param => SaveResultsToFile(param as string));
+
         /// <summary>
         /// Returns a command that copies matching lines to clipboard
         /// </summary>
-        public ICommand CopyMatchingLinesCommand
-        {
-            get
-            {
-                if (_copyMatchingLinesCommand == null)
-                {
-                    _copyMatchingLinesCommand = new RelayCommand(
-                        param => CopyResults()
-                        );
-                }
-                return _copyMatchingLinesCommand;
-            }
-        }
-        RelayCommand _cancelCommand;
+        public ICommand CopyMatchingLinesCommand => new RelayCommand(
+            param => CopyResults());
+
         /// <summary>
         /// Returns a command that cancels search
         /// </summary>
-        public ICommand CancelCommand
-        {
-            get
-            {
-                if (_cancelCommand == null)
-                {
-                    _cancelCommand = new RelayCommand(
-                        param => this.Cancel(),
-                        param => CanCancel
-                        );
-                }
-                return _cancelCommand;
-            }
-        }
-        RelayCommand _highlightsCommand;
+        public ICommand CancelCommand => new RelayCommand(
+            param => Cancel(),
+            param => CanCancel);
+
         /// <summary>
         /// Returns a command that toggles match highlights
         /// </summary>
-        public ICommand HighlightsCommand
-        {
-            get
-            {
-                if (_highlightsCommand == null)
-                {
-                    _highlightsCommand = new RelayCommand(
-                        param => ToggleHighlights()
-                        );
-                }
-                return _highlightsCommand;
-            }
-        }
+        public ICommand HighlightsCommand => new RelayCommand(
+            param => ToggleHighlights());
 
-        RelayCommand _testCommand;
         /// <summary>
         /// Returns a command that opens test view
         /// </summary>
-        public ICommand TestCommand
-        {
-            get
-            {
-                if (_testCommand == null)
-                {
-                    _testCommand = new RelayCommand(
-                        param => this.Test()
-                        );
-                }
-                return _testCommand;
-            }
-        }
-        RelayCommand _bookmarkAddCommand;
-        public ICommand BookmarkAddCommand
-        {
-            get
-            {
-                if (_bookmarkAddCommand == null)
-                {
-                    _bookmarkAddCommand = new RelayCommand(
-                        param => this.BookmarkAddRemove(false)
-                        );
-                }
-                return _bookmarkAddCommand;
-            }
-        }
-        RelayCommand _folderBookmarkAddCommand;
-        public ICommand FolderBookmarkAddCommand
-        {
-            get
-            {
-                if (_folderBookmarkAddCommand == null)
-                {
-                    _folderBookmarkAddCommand = new RelayCommand(
-                        param => this.BookmarkAddRemove(true)
-                        );
-                }
-                return _folderBookmarkAddCommand;
-            }
-        }
-        RelayCommand _bookmarkOpenCommand;
+        public ICommand TestCommand => new RelayCommand(
+            param => Test());
+
+        public ICommand BookmarkAddCommand => new RelayCommand(
+            param => BookmarkAddRemove(false));
+
+        public ICommand FolderBookmarkAddCommand => new RelayCommand(
+            param => BookmarkAddRemove(true));
+
         /// <summary>
         /// Returns a command that opens file browse dialog.
         /// </summary>
-        public ICommand BookmarkOpenCommand
-        {
-            get
-            {
-                if (_bookmarkOpenCommand == null)
-                {
-                    _bookmarkOpenCommand = new RelayCommand(
-                        param => this.BookmarkOpen()
-                        );
-                }
-                return _bookmarkOpenCommand;
-            }
-        }
+        public ICommand BookmarkOpenCommand => new RelayCommand(
+            param => BookmarkOpen());
 
-        RelayCommand _resetOptionsCommand;
         /// <summary>
         /// Returns a command that resets the search options.
         /// </summary>
-        public ICommand ResetOptionsCommand
-        {
-            get
-            {
-                if (_resetOptionsCommand == null)
-                {
-                    _resetOptionsCommand = new RelayCommand(
-                        param => this.ResetOptions()
-                        );
-                }
-                return _resetOptionsCommand;
-            }
-        }
+        public ICommand ResetOptionsCommand => new RelayCommand(
+            param => ResetOptions());
 
-        RelayCommand _toggleFileOptionsCommand;
         /// <summary>
         /// Returns a command that resets the search options.
         /// </summary>
-        public ICommand ToggleFileOptionsCommand
-        {
-            get
-            {
-                if (_toggleFileOptionsCommand == null)
-                {
-                    _toggleFileOptionsCommand = new RelayCommand(
-                        param => IsFiltersExpanded = !IsFiltersExpanded
-                        );
-                }
-                return _toggleFileOptionsCommand;
-            }
-        }
+        public ICommand ToggleFileOptionsCommand => new RelayCommand(
+            param => IsFiltersExpanded = !IsFiltersExpanded);
 
-        RelayCommand _reloadThemeCommand;
         /// <summary>
         /// Returns a command that reloads the current theme file.
         /// </summary>
-        public ICommand ReloadThemeCommand
-        {
-            get
-            {
-                if (_reloadThemeCommand == null)
-                {
-                    _reloadThemeCommand = new RelayCommand(
-                        param => AppTheme.Instance.ReloadCurrentTheme()
-                        );
-                }
-                return _reloadThemeCommand;
-            }
-        }
+        public ICommand ReloadThemeCommand => new RelayCommand(
+            param => AppTheme.Instance.ReloadCurrentTheme());
 
         #endregion
 
@@ -1489,7 +1231,7 @@ namespace dnGREP.WPF
                     if (SearchResults.Count > 0)
                         FilesFound = true;
                     CurrentGrepOperation = GrepOperation.None;
-                    base.OnPropertyChanged(() => CurrentGrepOperation);
+                    base.OnPropertyChanged(nameof(CurrentGrepOperation));
                     CanSearch = true;
 
                     if (Application.Current is App app)
@@ -1521,7 +1263,7 @@ namespace dnGREP.WPF
                         StatusMessage = Resources.Main_Status_ReplaceCanceled;
                     }
                     CurrentGrepOperation = GrepOperation.None;
-                    base.OnPropertyChanged(() => CurrentGrepOperation);
+                    base.OnPropertyChanged(nameof(CurrentGrepOperation));
                     CanSearch = true;
                     SearchResults.Clear();
                 }

@@ -42,7 +42,7 @@ namespace dnGREP.WPF
                     return;
 
                 applicationFontFamily = value;
-                base.OnPropertyChanged(() => ApplicationFontFamily);
+                base.OnPropertyChanged(nameof(ApplicationFontFamily));
             }
         }
 
@@ -56,7 +56,7 @@ namespace dnGREP.WPF
                     return;
 
                 dialogfontSize = value;
-                base.OnPropertyChanged(() => DialogFontSize);
+                base.OnPropertyChanged(nameof(DialogFontSize));
             }
         }
 
@@ -128,68 +128,20 @@ namespace dnGREP.WPF
         }
 
 
-        RelayCommand _addCommand;
-        public ICommand AddCommand
-        {
-            get
-            {
-                if (_addCommand == null)
-                {
-                    _addCommand = new RelayCommand(
-                        param => AddBookmark()
-                        );
-                }
-                return _addCommand;
-            }
-        }
+        public ICommand AddCommand => new RelayCommand(
+            param => AddBookmark());
 
-        RelayCommand _editCommand;
-        public ICommand EditCommand
-        {
-            get
-            {
-                if (_editCommand == null)
-                {
-                    _editCommand = new RelayCommand(
-                        param => Edit(),
-                        param => SelectedBookmark != null
-                        );
-                }
-                return _editCommand;
-            }
-        }
+        public ICommand EditCommand => new RelayCommand(
+            param => Edit(),
+            param => SelectedBookmark != null);
 
-        RelayCommand _duplicateCommand;
-        public ICommand DuplicateCommand
-        {
-            get
-            {
-                if (_duplicateCommand == null)
-                {
-                    _duplicateCommand = new RelayCommand(
-                        param => Duplicate(),
-                        param => SelectedBookmark != null
-                        );
-                }
-                return _duplicateCommand;
-            }
-        }
+        public ICommand DuplicateCommand => new RelayCommand(
+            param => Duplicate(),
+            param => SelectedBookmark != null);
 
-        RelayCommand _deleteCommand;
-        public ICommand DeleteCommand
-        {
-            get
-            {
-                if (_deleteCommand == null)
-                {
-                    _deleteCommand = new RelayCommand(
-                        param => Delete(),
-                        param => SelectedBookmark != null
-                        );
-                }
-                return _deleteCommand;
-            }
-        }
+        public ICommand DeleteCommand => new RelayCommand(
+            param => Delete(),
+            param => SelectedBookmark != null);
 
         private void Delete()
         {
@@ -591,7 +543,7 @@ namespace dnGREP.WPF
                     return;
 
                 applicationFontFamily = value;
-                base.OnPropertyChanged(() => ApplicationFontFamily);
+                base.OnPropertyChanged(nameof(ApplicationFontFamily));
             }
         }
 
@@ -605,7 +557,7 @@ namespace dnGREP.WPF
                     return;
 
                 dialogfontSize = value;
-                base.OnPropertyChanged(() => DialogFontSize);
+                base.OnPropertyChanged(nameof(DialogFontSize));
             }
         }
 
@@ -895,7 +847,7 @@ namespace dnGREP.WPF
 
                 maxSubfolderDepth = value;
 
-                base.OnPropertyChanged(() => MaxSubfolderDepth);
+                base.OnPropertyChanged(nameof(MaxSubfolderDepth));
             }
         }
 
@@ -1125,24 +1077,12 @@ namespace dnGREP.WPF
             }
         }
 
-        RelayCommand _saveCommand;
         /// <summary>
-        /// Returns a command that copies files
+        /// Returns a command that checks for can save
         /// </summary>
-        public ICommand SaveCommand
-        {
-            get
-            {
-                if (_saveCommand == null)
-                {
-                    _saveCommand = new RelayCommand(
-                        param => { /*nothing to do here*/ },
-                        param => CanSave()
-                        );
-                }
-                return _saveCommand;
-            }
-        }
+        public ICommand SaveCommand => new RelayCommand(
+            param => { /*nothing to do here*/ },
+            param => CanSave());
 
         private bool CanSave()
         {

@@ -140,7 +140,7 @@ namespace dnGREP.WPF
 
                 enableWindowsIntegration = value;
 
-                base.OnPropertyChanged(() => EnableWindowsIntegration);
+                base.OnPropertyChanged(nameof(EnableWindowsIntegration));
             }
         }
 
@@ -155,7 +155,7 @@ namespace dnGREP.WPF
 
                 windowsIntegrationTooltip = value;
 
-                base.OnPropertyChanged(() => WindowsIntegrationTooltip);
+                base.OnPropertyChanged(nameof(WindowsIntegrationTooltip));
             }
         }
 
@@ -170,7 +170,7 @@ namespace dnGREP.WPF
 
                 panelTooltip = value;
 
-                base.OnPropertyChanged(() => PanelTooltip);
+                base.OnPropertyChanged(nameof(PanelTooltip));
             }
         }
 
@@ -185,7 +185,7 @@ namespace dnGREP.WPF
 
                 isAdministrator = value;
 
-                base.OnPropertyChanged(() => IsAdministrator);
+                base.OnPropertyChanged(nameof(IsAdministrator));
             }
         }
 
@@ -200,7 +200,7 @@ namespace dnGREP.WPF
 
                 enableCheckForUpdates = value;
 
-                base.OnPropertyChanged(() => EnableCheckForUpdates);
+                base.OnPropertyChanged(nameof(EnableCheckForUpdates));
 
                 if (!enableCheckForUpdates)
                     EnableRunAtStartup = false;
@@ -233,7 +233,7 @@ namespace dnGREP.WPF
 
                 enableRunAtStartup = value;
 
-                base.OnPropertyChanged(() => EnableRunAtStartup);
+                base.OnPropertyChanged(nameof(EnableRunAtStartup));
             }
         }
 
@@ -370,7 +370,7 @@ namespace dnGREP.WPF
 
                 customEditorArgs = value;
 
-                base.OnPropertyChanged(() => CustomEditorArgs);
+                base.OnPropertyChanged(nameof(CustomEditorArgs));
             }
         }
 
@@ -384,7 +384,7 @@ namespace dnGREP.WPF
                     return;
 
                 customEditorHelp = value;
-                base.OnPropertyChanged(() => CustomEditorHelp);
+                base.OnPropertyChanged(nameof(CustomEditorHelp));
             }
         }
 
@@ -438,7 +438,7 @@ namespace dnGREP.WPF
 
                 compareApplicationPath = value;
 
-                base.OnPropertyChanged(() => CompareApplicationPath);
+                base.OnPropertyChanged(nameof(CompareApplicationPath));
             }
         }
 
@@ -453,7 +453,7 @@ namespace dnGREP.WPF
 
                 compareApplicationArgs = value;
 
-                base.OnPropertyChanged(() => CompareApplicationArgs);
+                base.OnPropertyChanged(nameof(CompareApplicationArgs));
             }
         }
 
@@ -468,7 +468,7 @@ namespace dnGREP.WPF
 
                 showFilePathInResults = value;
 
-                base.OnPropertyChanged(() => ShowFilePathInResults);
+                base.OnPropertyChanged(nameof(ShowFilePathInResults));
             }
         }
 
@@ -483,7 +483,7 @@ namespace dnGREP.WPF
 
                 showLinesInContext = value;
 
-                base.OnPropertyChanged(() => ShowLinesInContext);
+                base.OnPropertyChanged(nameof(ShowLinesInContext));
             }
         }
 
@@ -498,7 +498,7 @@ namespace dnGREP.WPF
 
                 contextLinesBefore = value;
 
-                base.OnPropertyChanged(() => ContextLinesBefore);
+                base.OnPropertyChanged(nameof(ContextLinesBefore));
             }
         }
 
@@ -513,7 +513,7 @@ namespace dnGREP.WPF
 
                 contextLinesAfter = value;
 
-                base.OnPropertyChanged(() => ContextLinesAfter);
+                base.OnPropertyChanged(nameof(ContextLinesAfter));
             }
         }
 
@@ -528,7 +528,7 @@ namespace dnGREP.WPF
 
                 allowSearchWithEmptyPattern = value;
 
-                base.OnPropertyChanged(() => AllowSearchWithEmptyPattern);
+                base.OnPropertyChanged(nameof(AllowSearchWithEmptyPattern));
             }
         }
 
@@ -543,7 +543,7 @@ namespace dnGREP.WPF
 
                 detectEncodingForFileNamePattern = value;
 
-                base.OnPropertyChanged(() => DetectEncodingForFileNamePattern);
+                base.OnPropertyChanged(nameof(DetectEncodingForFileNamePattern));
             }
         }
 
@@ -558,7 +558,7 @@ namespace dnGREP.WPF
 
                 autoExpandSearchTree = value;
 
-                base.OnPropertyChanged(() => AutoExpandSearchTree);
+                base.OnPropertyChanged(nameof(AutoExpandSearchTree));
             }
         }
 
@@ -573,7 +573,7 @@ namespace dnGREP.WPF
 
                 showVerboseMatchCount = value;
 
-                base.OnPropertyChanged(() => ShowVerboseMatchCount);
+                base.OnPropertyChanged(nameof(ShowVerboseMatchCount));
             }
         }
 
@@ -588,7 +588,7 @@ namespace dnGREP.WPF
 
                 showFileInfoTooltips = value;
 
-                base.OnPropertyChanged(() => ShowFileInfoTooltips);
+                base.OnPropertyChanged(nameof(ShowFileInfoTooltips));
             }
         }
 
@@ -603,7 +603,7 @@ namespace dnGREP.WPF
 
                 matchTimeout = value;
 
-                base.OnPropertyChanged(() => MatchTimeout);
+                base.OnPropertyChanged(nameof(MatchTimeout));
             }
         }
 
@@ -618,7 +618,7 @@ namespace dnGREP.WPF
 
                 matchThreshold = value;
 
-                base.OnPropertyChanged(() => MatchThreshold);
+                base.OnPropertyChanged(nameof(MatchThreshold));
             }
         }
 
@@ -633,7 +633,7 @@ namespace dnGREP.WPF
 
                 maxPathBookmarks = value;
 
-                base.OnPropertyChanged(() => MaxPathBookmarks);
+                base.OnPropertyChanged(nameof(MaxPathBookmarks));
             }
         }
 
@@ -648,7 +648,7 @@ namespace dnGREP.WPF
 
                 maxSearchBookmarks = value;
 
-                base.OnPropertyChanged(() => MaxSearchBookmarks);
+                base.OnPropertyChanged(nameof(MaxSearchBookmarks));
             }
         }
 
@@ -663,7 +663,7 @@ namespace dnGREP.WPF
 
                 maxExtensionBookmarks = value;
 
-                base.OnPropertyChanged(() => MaxExtensionBookmarks);
+                base.OnPropertyChanged(nameof(MaxExtensionBookmarks));
             }
         }
 
@@ -680,7 +680,7 @@ namespace dnGREP.WPF
 
                 optionsLocation = value;
 
-                base.OnPropertyChanged(() => OptionsLocation);
+                base.OnPropertyChanged(nameof(OptionsLocation));
             }
         }
 
@@ -738,7 +738,7 @@ namespace dnGREP.WPF
             {
                 archiveOptions = value;
 
-                base.OnPropertyChanged(() => ArchiveOptions);
+                base.OnPropertyChanged(nameof(ArchiveOptions));
             }
         }
 
@@ -770,7 +770,7 @@ namespace dnGREP.WPF
                     EditResultsFontSize = SystemFonts.MessageFontSize;
                 }
 
-                base.OnPropertyChanged(() => UseDefaultFont);
+                base.OnPropertyChanged(nameof(UseDefaultFont));
             }
         }
 
@@ -784,7 +784,7 @@ namespace dnGREP.WPF
                     return;
 
                 applicationFontFamily = value;
-                base.OnPropertyChanged(() => ApplicationFontFamily);
+                base.OnPropertyChanged(nameof(ApplicationFontFamily));
             }
         }
 
@@ -798,7 +798,7 @@ namespace dnGREP.WPF
                     return;
 
                 editApplicationFontFamily = value;
-                base.OnPropertyChanged(() => EditApplicationFontFamily);
+                base.OnPropertyChanged(nameof(EditApplicationFontFamily));
             }
         }
 
@@ -812,7 +812,7 @@ namespace dnGREP.WPF
                     return;
 
                 mainFormFontSize = value;
-                base.OnPropertyChanged(() => MainFormFontSize);
+                base.OnPropertyChanged(nameof(MainFormFontSize));
             }
         }
 
@@ -826,7 +826,7 @@ namespace dnGREP.WPF
                     return;
 
                 editMainFormFontSize = value;
-                base.OnPropertyChanged(() => EditMainFormFontSize);
+                base.OnPropertyChanged(nameof(EditMainFormFontSize));
             }
         }
 
@@ -840,7 +840,7 @@ namespace dnGREP.WPF
                     return;
 
                 replaceFormFontSize = value;
-                base.OnPropertyChanged(() => ReplaceFormFontSize);
+                base.OnPropertyChanged(nameof(ReplaceFormFontSize));
             }
         }
 
@@ -854,7 +854,7 @@ namespace dnGREP.WPF
                     return;
 
                 editReplaceFormFontSize = value;
-                base.OnPropertyChanged(() => EditReplaceFormFontSize);
+                base.OnPropertyChanged(nameof(EditReplaceFormFontSize));
             }
         }
 
@@ -868,7 +868,7 @@ namespace dnGREP.WPF
                     return;
 
                 dialogFontSize = value;
-                base.OnPropertyChanged(() => DialogFontSize);
+                base.OnPropertyChanged(nameof(DialogFontSize));
             }
         }
 
@@ -882,7 +882,7 @@ namespace dnGREP.WPF
                     return;
 
                 editDialogFontSize = value;
-                base.OnPropertyChanged(() => EditDialogFontSize);
+                base.OnPropertyChanged(nameof(EditDialogFontSize));
             }
         }
 
@@ -896,7 +896,7 @@ namespace dnGREP.WPF
                     return;
 
                 resultsFontFamily = value;
-                base.OnPropertyChanged(() => ResultsFontFamily);
+                base.OnPropertyChanged(nameof(ResultsFontFamily));
             }
         }
 
@@ -910,7 +910,7 @@ namespace dnGREP.WPF
                     return;
 
                 editResultsFontFamily = value;
-                base.OnPropertyChanged(() => EditResultsFontFamily);
+                base.OnPropertyChanged(nameof(EditResultsFontFamily));
             }
         }
 
@@ -924,7 +924,7 @@ namespace dnGREP.WPF
                     return;
 
                 resultsFontSize = value;
-                base.OnPropertyChanged(() => ResultsFontSize);
+                base.OnPropertyChanged(nameof(ResultsFontSize));
             }
         }
 
@@ -938,7 +938,7 @@ namespace dnGREP.WPF
                     return;
 
                 editResultsFontSize = value;
-                base.OnPropertyChanged(() => EditResultsFontSize);
+                base.OnPropertyChanged(nameof(EditResultsFontSize));
             }
         }
 
@@ -946,129 +946,46 @@ namespace dnGREP.WPF
 
         #region Presentation Properties
 
-        private RelayCommand _saveCommand;
         /// <summary>
         /// Returns a command that saves the form
         /// </summary>
-        public ICommand SaveCommand
-        {
-            get
-            {
-                if (_saveCommand == null)
-                {
-                    _saveCommand = new RelayCommand(
-                        param => Save(),
-                        param => CanSave
-                        );
-                }
-                return _saveCommand;
-            }
-        }
+        public ICommand SaveCommand => new RelayCommand(
+            param => Save(),
+            param => CanSave);
 
-        private RelayCommand _browseEditorCommand;
         /// <summary>
         /// Returns a command that opens file browse dialog.
         /// </summary>
-        public ICommand BrowseEditorCommand
-        {
-            get
-            {
-                if (_browseEditorCommand == null)
-                {
-                    _browseEditorCommand = new RelayCommand(
-                        param => BrowseToEditor()
-                        );
-                }
-                return _browseEditorCommand;
-            }
-        }
+        public ICommand BrowseEditorCommand => new RelayCommand(
+            param => BrowseToEditor());
 
-        private RelayCommand _browseCompareCommand;
         /// <summary>
         /// Returns a command that opens file browse dialog.
         /// </summary>
-        public ICommand BrowseCompareCommand
-        {
-            get
-            {
-                if (_browseCompareCommand == null)
-                {
-                    _browseCompareCommand = new RelayCommand(
-                        param => BrowseToCompareApp()
-                        );
-                }
-                return _browseCompareCommand;
-            }
-        }
+        public ICommand BrowseCompareCommand => new RelayCommand(
+            param => BrowseToCompareApp());
 
-        private RelayCommand _clearSearchesCommand;
         /// <summary>
         /// Returns a command that clears old searches.
         /// </summary>
-        public ICommand ClearSearchesCommand
-        {
-            get
-            {
-                if (_clearSearchesCommand == null)
-                {
-                    _clearSearchesCommand = new RelayCommand(
-                        param => ClearSearches()
-                        );
-                }
-                return _clearSearchesCommand;
-            }
-        }
+        public ICommand ClearSearchesCommand => new RelayCommand(
+            param => ClearSearches());
 
-        private RelayCommand _reloadThemeCommand;
         /// <summary>
         /// Returns a command that reloads the current theme file.
         /// </summary>
-        public ICommand ReloadThemeCommand
-        {
-            get
-            {
-                if (_reloadThemeCommand == null)
-                {
-                    _reloadThemeCommand = new RelayCommand(
-                        param => AppTheme.Instance.ReloadCurrentTheme()
-                        );
-                }
-                return _reloadThemeCommand;
-            }
-        }
+        public ICommand ReloadThemeCommand => new RelayCommand(
+            param => AppTheme.Instance.ReloadCurrentTheme());
 
-        private RelayCommand _loadResxCommand;
         /// <summary>
         /// Returns a command that loads an external resx file.
         /// </summary>
-        public ICommand LoadResxCommand
-        {
-            get
-            {
-                if (_loadResxCommand == null)
-                {
-                    _loadResxCommand = new RelayCommand(
-                        param => LoadResxFile()
-                        );
-                }
-                return _loadResxCommand;
-            }
-        }
+        public ICommand LoadResxCommand => new RelayCommand(
+            param => LoadResxFile());
 
-        private RelayCommand _resetPdfToTextOptionCommand;
-        public ICommand ResetPdfToTextOptionCommand
-        {
-            get
-            {
-                if (_resetPdfToTextOptionCommand == null)
-                {
-                    _resetPdfToTextOptionCommand = new RelayCommand(
-                        param => PdfToTextOptions = "-layout -enc UTF-8 -bom"
-                        );
-                }
-                return _resetPdfToTextOptionCommand;
-            }
-        }
+        public ICommand ResetPdfToTextOptionCommand => new RelayCommand(
+            param => PdfToTextOptions = "-layout -enc UTF-8 -bom");
+
         #endregion
 
         #region Public Methods
@@ -1617,7 +1534,7 @@ namespace dnGREP.WPF
                     return;
 
                 name = value;
-                base.OnPropertyChanged(() => Name);
+                base.OnPropertyChanged(nameof(Name));
             }
         }
 
@@ -1633,7 +1550,7 @@ namespace dnGREP.WPF
 
                 isEnabled = value;
 
-                base.OnPropertyChanged(() => IsEnabled);
+                base.OnPropertyChanged(nameof(IsEnabled));
             }
         }
 
@@ -1649,7 +1566,7 @@ namespace dnGREP.WPF
 
                 addExtensions = value;
 
-                base.OnPropertyChanged(() => AddExtensions);
+                base.OnPropertyChanged(nameof(AddExtensions));
             }
         }
 
@@ -1665,7 +1582,7 @@ namespace dnGREP.WPF
 
                 remExtensions = value;
 
-                base.OnPropertyChanged(() => RemExtensions);
+                base.OnPropertyChanged(nameof(RemExtensions));
             }
         }
 
@@ -1680,7 +1597,7 @@ namespace dnGREP.WPF
 
                 defaultExtensions = value;
 
-                base.OnPropertyChanged(() => DefaultExtensions);
+                base.OnPropertyChanged(nameof(DefaultExtensions));
             }
         }
 

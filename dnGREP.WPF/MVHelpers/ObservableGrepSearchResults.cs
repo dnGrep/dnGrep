@@ -459,7 +459,7 @@ namespace dnGREP.WPF
         // some settings have changed, raise property changed events to update the UI
         public void RaiseSettingsPropertiesChanged()
         {
-            base.OnPropertyChanged(() => ShowFileInfoTooltips);
+            base.OnPropertyChanged(nameof (ShowFileInfoTooltips));
         }
 
         public async Task ExpandTreeNode()
@@ -1257,7 +1257,7 @@ namespace dnGREP.WPF
                     return;
 
                 replaceMatch = value;
-                OnPropertyChanged(() => ReplaceMatch);
+                OnPropertyChanged(nameof(ReplaceMatch));
 
                 Match.ReplaceMatch = value;
 
@@ -1275,7 +1275,7 @@ namespace dnGREP.WPF
                     return;
 
                 background = value;
-                OnPropertyChanged(() => Background);
+                OnPropertyChanged(nameof(Background));
             }
         }
 
@@ -1289,7 +1289,7 @@ namespace dnGREP.WPF
                     return;
 
                 fontSize = value;
-                OnPropertyChanged(() => FontSize);
+                OnPropertyChanged(nameof(FontSize));
             }
         }
 
@@ -1303,7 +1303,7 @@ namespace dnGREP.WPF
                     return;
 
                 fontWeight = value;
-                OnPropertyChanged(() => FontWeight);
+                OnPropertyChanged(nameof(FontWeight));
             }
         }
     }
