@@ -1421,11 +1421,11 @@ Arguments:
     <comment>Message box text for: Load language resource file error: {0} is the name of the file that failed to load</comment>
   </data>
   <data name="MessageBox_RunDnGrepAsAdministrator" xml:space="preserve">
-    <value>Run dnGrep as Administrator to change showing dnGrep in Windows Explorer right-click menu</value>
+    <value>За да промените контекстуалното меню на Windows Explorer отворете dnGrep като администратор</value>
     <comment>Message box text for: Options dialog, changing Windows integration options</comment>
   </data>
   <data name="MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister" xml:space="preserve">
-    <value>Run dnGrep as Administrator to change application startup option.</value>
+    <value>За да промените настройките за стартиране отворете dnGrep като администратор</value>
     <comment>Message box text for: Options dialog, changing Windows integration options</comment>
   </data>
   <data name="MessageBox_SearchFailedError" xml:space="preserve">
@@ -1437,7 +1437,7 @@ Arguments:
     <comment>Message box text for: Search or Replace failed</comment>
   </data>
   <data name="MessageBox_SearchPathInTheFieldIsNotValid" xml:space="preserve">
-    <value>The search path in the '{0}' field is not valid, search canceled.</value>
+    <value>Пътят в полето „{0}“ е недействителен и търсенето е отменено.</value>
     <comment>Message box text for: Main window search path invalid: {0} is the name of search path field (Folder or Everything search)</comment>
   </data>
   <data name="MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory" xml:space="preserve">
@@ -1529,11 +1529,11 @@ Arguments:
     <comment>Message box text for: Clipboard set text error, clipboard locked by application name: {0} is the window title of the application locking clipboard</comment>
   </data>
   <data name="MessageBox_WouldYouLikeToContinue" xml:space="preserve">
-    <value>Continue?</value>
+    <value>Желаете ли да продължите?</value>
     <comment>Message box text for: Replace window warning</comment>
   </data>
   <data name="MessageBox_WouldYouLikeToDownloadItNow" xml:space="preserve">
-    <value>Download it now?</value>
+    <value>Желаете ли да бъде изтеглено сега?</value>
     <comment>Message box text for: New dnGrep version</comment>
   </data>
   <data name="MessageBox_YouAreAboutToDeleteFilesFoundDuringSearch" xml:space="preserve">
@@ -1625,7 +1625,7 @@ Arguments:
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_DialogFontSize" xml:space="preserve">
-    <value>Other windows font size</value>
+    <value>Размер на шрифта в другите прозорци</value>
     <comment>Options dialog, font size selector label</comment>
   </data>
   <data name="Options_DnGrepWillAddTheSelectedFiles" xml:space="preserve">
@@ -1693,7 +1693,7 @@ Arguments:
     <comment>Options dialog, language load button label (accel)</comment>
   </data>
   <data name="Options_MainFontSize" xml:space="preserve">
-    <value>Main window font size</value>
+    <value>Размер на основния на шрифт</value>
     <comment>Options dialog, font size input label</comment>
   </data>
   <data name="Options_MatchEverythingToExactMatch" xml:space="preserve">
@@ -1777,7 +1777,7 @@ Arguments:
     <comment>Options dialog, theme reload button tooltip</comment>
   </data>
   <data name="Options_ReplaceFontSize" xml:space="preserve">
-    <value>Replace window font size</value>
+    <value>Размер на шрифта в екрана за замяна</value>
     <comment>Options dialog, font size input label</comment>
   </data>
   <data name="Options_ResultsOptions" xml:space="preserve">
@@ -2353,11 +2353,11 @@ Arguments:
     <comment>Options dialog, results options combo box label</comment>
   </data>
   <data name="Options_FilesAndIndividualMatches" xml:space="preserve">
-    <value>files and individual matches</value>
+    <value>файлове и отделни съвпадения</value>
     <comment>Options dialog, Replace layout option radio button label (accel)</comment>
   </data>
   <data name="Options_FilesOnly" xml:space="preserve">
-    <value>files only</value>
+    <value>само файлове</value>
     <comment>Options dialog, Replace window layout radio button label (accel)</comment>
   </data>
   <data name="Options_ReplaceDialogLayout" xml:space="preserve">
@@ -2417,35 +2417,35 @@ Arguments:
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionContainsAnUnknownToken" xml:space="preserve">
-    <value>Boolean expression contains an unknown token</value>
+    <value>Булевият израз съдържа неизвестен маркер</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionHasAnUnknownError" xml:space="preserve">
-    <value>Boolean expression has an unknown error</value>
+    <value>Неизвестна грешка в булевия израз</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionHasMismatchedParentheses" xml:space="preserve">
-    <value>Boolean expression has mismatched parentheses</value>
+    <value>Булевият израз съдържа несъответстващи скоби</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsMissingABooleanOperator" xml:space="preserve">
-    <value>Boolean expression is missing a Boolean operator</value>
+    <value>В булевия израз липсва булев оператор</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsMissingASearchPattern" xml:space="preserve">
-    <value>Boolean expression is missing a search pattern</value>
+    <value>В булевия израз липсва шаблон за търсене</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsNotValid" xml:space="preserve">
-    <value>Boolean expression is not valid</value>
+    <value>Булевият израз е недействителен</value>
     <comment>Main window, Boolean expression status</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsOK" xml:space="preserve">
-    <value>Boolean expression is OK</value>
+    <value>Булевият израз е наред</value>
     <comment>Main window, Boolean expression status</comment>
   </data>
   <data name="Main_Menu_About_CheckForUpdates" xml:space="preserve">
-    <value>_Check for updates</value>
+    <value>_Проверка за обновяване</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="MessageBox_DnGrepIsUpToDate" xml:space="preserve">
