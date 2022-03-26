@@ -12,10 +12,11 @@ namespace dnGREP.Common
 
         private readonly IList<Token> tokenDefinitions = new List<Token>
         {
-            new Token(TokenType.NOT, @"\bnot\b", 3), // highest precedence
-            new Token(TokenType.AND, @"\band\b", 2),
-            new Token(TokenType.NAND, @"\bnand\b", 2),
-            new Token(TokenType.OR, @"\bor\b", 1),
+            new Token(TokenType.NOT, @"\bnot\b", 6), // highest precedence
+            new Token(TokenType.AND, @"\band\b", 5),
+            new Token(TokenType.NAND, @"\bnand\b", 4),
+            new Token(TokenType.XOR, @"\bxor\b", 3),
+            new Token(TokenType.OR, @"\bor\b", 2),
             new Token(TokenType.NOR, @"\bnor\b", 1),
             new Token(TokenType.CloseParens, @"\)", 0),
             new Token(TokenType.OpenParens, @"\(", 0),

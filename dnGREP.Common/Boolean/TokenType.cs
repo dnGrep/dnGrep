@@ -13,8 +13,9 @@ namespace dnGREP.Common
         NOT = 8,
         AND = 16,
         NAND = 32,
-        OR = 64,
-        NOR = 128,
-        Operator = NOT | AND | NAND | OR | NOR,
+        XOR = 64,
+        OR = 128,
+        NOR = 256,
+        Operator = NOT | AND | NAND | XOR | OR | NOR,
     }
 }

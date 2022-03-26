@@ -33,7 +33,7 @@ namespace dnGREP.Common
         /// <summary>
         /// Returns true if at least one operator is an "OR"
         /// </summary>
-        public bool HasOrExpression => PostfixTokens.Where(r => r.TokenType == TokenType.OR).Any();
+        public bool HasOrExpression => PostfixTokens.Where(r => r.TokenType == TokenType.OR || r.TokenType == TokenType.XOR).Any();
 
         /// <summary>
         /// Returns true if all the operands have results
@@ -229,6 +229,20 @@ namespace dnGREP.Common
                             }
                         }
                         break;
+                    case TokenType.XOR:
+                        {
+                            bool b = operandStack.Pop();
+                            bool a = operandStack.Pop();
+                            operandStack.Push((a || b) && !(a && b));
+
+                            if (modifyMatches)
+                            {
+                                var btb = tokens.Pop();
+                                var bta = tokens.Pop();
+                                tokens.Push(btb.Concat(bta).ToList());
+                            }
+                        }
+                        break;
                     case TokenType.OR:
                         {
                             bool b = operandStack.Pop();
@@ -332,6 +346,7 @@ namespace dnGREP.Common
 
                     case TokenType.AND:
                     case TokenType.NAND:
+                    case TokenType.XOR:
                     case TokenType.OR:
                     case TokenType.NOR:
                         if (previousToken == TokenType.StringValue || previousToken == TokenType.CloseParens)
