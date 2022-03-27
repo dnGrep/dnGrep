@@ -65,7 +65,7 @@ namespace dnGREP.WPF
 
             if (name == nameof(HighlightCaptureGroups))
             {
-                settings.Set(GrepSettings.Key.HighlightCaptureGroups, HighlightCaptureGroups);
+                Settings.Set(GrepSettings.Key.HighlightCaptureGroups, HighlightCaptureGroups);
             }
 
             switch (name)
@@ -121,7 +121,7 @@ namespace dnGREP.WPF
                     return;
 
                 applicationFontFamily = value;
-                base.OnPropertyChanged(() => ApplicationFontFamily);
+                base.OnPropertyChanged(nameof(ApplicationFontFamily));
             }
         }
 
@@ -135,7 +135,7 @@ namespace dnGREP.WPF
                     return;
 
                 dialogfontSize = value;
-                base.OnPropertyChanged(() => DialogFontSize);
+                base.OnPropertyChanged(nameof(DialogFontSize));
             }
         }
 
@@ -149,7 +149,7 @@ namespace dnGREP.WPF
                     return;
 
                 sampleText = value;
-                base.OnPropertyChanged(() => SampleText);
+                base.OnPropertyChanged(nameof(SampleText));
             }
         }
 
@@ -177,7 +177,7 @@ namespace dnGREP.WPF
                     return;
 
                 searchOutput = value;
-                base.OnPropertyChanged(() => SearchOutput);
+                base.OnPropertyChanged(nameof(SearchOutput));
             }
         }
 
@@ -191,7 +191,7 @@ namespace dnGREP.WPF
                     return;
 
                 replaceOutput = value;
-                base.OnPropertyChanged(() => ReplaceOutput);
+                base.OnPropertyChanged(nameof(ReplaceOutput));
             }
         }
 
@@ -204,9 +204,7 @@ namespace dnGREP.WPF
                 if (value == replaceOutputText)
                     return;
 
-                replaceOutputText = value;
-
-                base.OnPropertyChanged(() => ReplaceOutputText);
+                base.OnPropertyChanged(nameof(ReplaceOutputText));
             }
         }
 
@@ -220,8 +218,7 @@ namespace dnGREP.WPF
                     return;
 
                 replaceErrorText = value;
-
-                base.OnPropertyChanged(() => ReplaceErrorText);
+                base.OnPropertyChanged(nameof(ReplaceErrorText));
             }
         }
 

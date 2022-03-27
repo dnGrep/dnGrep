@@ -169,10 +169,10 @@ namespace dnGREP.WPF
             // force visual tree to be built, even if control is not visible
             tb.ApplyTemplate();
 
-            var wm = tb.Template.FindName("PART_Watermark", tb) as ContentControl;
-            if (wm == null) return;
-
-            wm.Content = Localization.Properties.Resources.Main_SelectADate;
+            if (tb.Template.FindName("PART_Watermark", tb) is ContentControl wm)
+            {
+                wm.Content = Localization.Properties.Resources.Main_SelectADate;
+            }
         }
 
         private void SetActivePreviewDockSite()
@@ -305,9 +305,9 @@ namespace dnGREP.WPF
         #region UI fixes
         private void TextBoxFocus(object sender, RoutedEventArgs e)
         {
-            if (e.Source is TextBox)
+            if (e.Source is TextBox box)
             {
-                ((TextBox)e.Source).SelectAll();
+                box.SelectAll();
             }
         }
 

@@ -15,7 +15,7 @@ namespace dnGREP.WPF
 {
     public class PreviewViewModel : CultureAwareViewModel, INotifyPropertyChanged
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         public PreviewViewModel()
         {
@@ -66,8 +66,7 @@ namespace dnGREP.WPF
                     return;
 
                 isLargeOrBinary = value;
-
-                base.OnPropertyChanged(() => IsLargeOrBinary);
+                base.OnPropertyChanged(nameof(IsLargeOrBinary));
             }
         }
 
@@ -81,8 +80,7 @@ namespace dnGREP.WPF
                     return;
 
                 isPdf = value;
-
-                base.OnPropertyChanged(() => IsPdf);
+                base.OnPropertyChanged(nameof(IsPdf));
             }
         }
 
@@ -96,8 +94,7 @@ namespace dnGREP.WPF
                     return;
 
                 currentSyntax = value;
-
-                base.OnPropertyChanged(() => CurrentSyntax);
+                base.OnPropertyChanged(nameof(CurrentSyntax));
             }
         }
 
@@ -117,8 +114,7 @@ namespace dnGREP.WPF
                     return;
 
                 filePath = value;
-
-                base.OnPropertyChanged(() => FilePath);
+                base.OnPropertyChanged(nameof(FilePath));
             }
         }
 
@@ -132,8 +128,7 @@ namespace dnGREP.WPF
                     return;
 
                 grepResult = value;
-
-                base.OnPropertyChanged(() => GrepResult);
+                base.OnPropertyChanged(nameof(GrepResult));
             }
         }
 
@@ -147,8 +142,7 @@ namespace dnGREP.WPF
                     return;
 
                 lineNumber = value;
-
-                base.OnPropertyChanged(() => LineNumber);
+                base.OnPropertyChanged(nameof(LineNumber));
             }
         }
 
@@ -162,7 +156,7 @@ namespace dnGREP.WPF
                     return;
 
                 highlightsOn = value;
-                base.OnPropertyChanged(() => HighlightsOn);
+                base.OnPropertyChanged(nameof(HighlightsOn));
             }
         }
 
@@ -176,8 +170,7 @@ namespace dnGREP.WPF
                     return;
 
                 highlightDisabled = value;
-
-                base.OnPropertyChanged(() => HighlightDisabled);
+                base.OnPropertyChanged(nameof(HighlightDisabled));
             }
         }
 
@@ -199,7 +192,7 @@ namespace dnGREP.WPF
                     return;
 
                 applicationFontFamily = value;
-                base.OnPropertyChanged(() => ApplicationFontFamily);
+                base.OnPropertyChanged(nameof(ApplicationFontFamily));
             }
         }
 
@@ -213,7 +206,7 @@ namespace dnGREP.WPF
                     return;
 
                 mainFormfontSize = value;
-                base.OnPropertyChanged(() => MainFormFontSize);
+                base.OnPropertyChanged(nameof(MainFormFontSize));
             }
         }
 
@@ -227,7 +220,7 @@ namespace dnGREP.WPF
                     return;
 
                 resultsFontFamily = value;
-                base.OnPropertyChanged(() => ResultsFontFamily);
+                base.OnPropertyChanged(nameof(ResultsFontFamily));
             }
         }
 
