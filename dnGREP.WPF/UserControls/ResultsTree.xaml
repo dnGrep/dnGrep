@@ -131,11 +131,14 @@
                                    Text="{Binding FormattedLineNumber}"
                                    TextAlignment="{Binding LineNumberAlignment}" />
                         <my:InlineTextBlock Grid.Column="1" 
-                                            Margin="6,0,0,0" InlineCollection="{Binding FormattedText}" FontFamily="Consolas" 
+                                            Margin="6,0,0,0" InlineCollection="{Binding FormattedText}" 
+                                            FontFamily="{Binding Path=DataContext.ResultsFontFamily, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" 
+                                            FontSize="{Binding Path=DataContext.ResultsFontSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" 
                                             TextWrapping="{Binding WrapText, Converter={StaticResource BoolToTextWrappingConverter}}"/>
                         <TextBlock Grid.Column="2"
                                    Margin="24,0,0,0" Text="{Binding FormattedHexValues}"
-                                   FontFamily="Consolas"
+                                   FontFamily="{Binding Path=DataContext.ResultsFontFamily, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                                   FontSize="{Binding Path=DataContext.ResultsFontSize, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                                    Style="{StaticResource ThemedTextBlock}"
                                    Visibility="{Binding IsHexData, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                     </Grid>

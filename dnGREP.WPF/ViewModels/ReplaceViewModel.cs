@@ -33,6 +33,7 @@ namespace dnGREP.WPF
             CurrentSyntax = Resources.Replace_SyntaxNone;
             ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
             ReplaceFormFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.ReplaceFormFontSize);
+            ResultsFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ResultsFontFamily);
 
             IsFullDialog = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowFullReplaceDialog);
         }
@@ -215,7 +216,7 @@ namespace dnGREP.WPF
                 FileCount = _searchResults.Count;
                 fileIndex = -1;
 
-                base.OnPropertyChanged(() => SearchResults);
+                base.OnPropertyChanged(nameof(SearchResults));
             }
         }
 
@@ -229,7 +230,7 @@ namespace dnGREP.WPF
                     return;
 
                 _selectedSearchResult = value;
-                base.OnPropertyChanged(() => SelectedSearchResult);
+                base.OnPropertyChanged(nameof(SelectedSearchResult));
 
                 IndividualReplaceEnabled = false;
 
@@ -320,7 +321,7 @@ namespace dnGREP.WPF
                     }
                 }
 
-                base.OnPropertyChanged(() => SelectedGrepMatch);
+                base.OnPropertyChanged(nameof(SelectedGrepMatch));
             }
         }
 
@@ -335,7 +336,7 @@ namespace dnGREP.WPF
 
                 isFullDialog = value;
 
-                base.OnPropertyChanged(() => IsFullDialog);
+                base.OnPropertyChanged(nameof(IsFullDialog));
 
                 DialogSize = isFullDialog ? new Size(980, 800) : new Size(680, 340);
             }
@@ -351,8 +352,7 @@ namespace dnGREP.WPF
                     return;
 
                 dialogSize = value;
-
-                base.OnPropertyChanged(() => DialogSize);
+                base.OnPropertyChanged(nameof(DialogSize));
             }
         }
 
@@ -366,8 +366,7 @@ namespace dnGREP.WPF
                     return;
 
                 searchFor = value;
-
-                base.OnPropertyChanged(() => SearchFor);
+                base.OnPropertyChanged(nameof(SearchFor));
             }
         }
 
@@ -381,8 +380,7 @@ namespace dnGREP.WPF
                     return;
 
                 replaceWith = value;
-
-                base.OnPropertyChanged(() => ReplaceWith);
+                base.OnPropertyChanged(nameof(ReplaceWith));
             }
         }
 
@@ -396,8 +394,7 @@ namespace dnGREP.WPF
                     return;
 
                 fileStatus = value;
-
-                base.OnPropertyChanged(() => FileStatus);
+                base.OnPropertyChanged(nameof(FileStatus));
             }
         }
 
@@ -411,8 +408,7 @@ namespace dnGREP.WPF
                     return;
 
                 fileReplaceStatus = value;
-
-                base.OnPropertyChanged(() => FileReplaceStatus);
+                base.OnPropertyChanged(nameof(FileReplaceStatus));
             }
         }
 
@@ -426,7 +422,7 @@ namespace dnGREP.WPF
                     return;
 
                 fileCount = value;
-                base.OnPropertyChanged(() => FileCount);
+                base.OnPropertyChanged(nameof(FileCount));
                 FormatFileStatus();
             }
         }
@@ -441,7 +437,7 @@ namespace dnGREP.WPF
                     return;
 
                 fileNumber = value;
-                base.OnPropertyChanged(() => FileNumber);
+                base.OnPropertyChanged(nameof(FileNumber));
                 FormatFileStatus();
             }
         }
@@ -456,8 +452,7 @@ namespace dnGREP.WPF
                     return;
 
                 currentSyntax = value;
-
-                base.OnPropertyChanged(() => CurrentSyntax);
+                base.OnPropertyChanged(nameof(CurrentSyntax));
             }
         }
 
@@ -471,8 +466,7 @@ namespace dnGREP.WPF
                     return;
 
                 lineNumber = value;
-
-                base.OnPropertyChanged(() => LineNumber);
+                base.OnPropertyChanged(nameof(LineNumber));
             }
         }
 
@@ -486,8 +480,7 @@ namespace dnGREP.WPF
                     return;
 
                 colNumber = value;
-
-                base.OnPropertyChanged(() => ColNumber);
+                base.OnPropertyChanged(nameof(ColNumber));
             }
         }
 
@@ -501,18 +494,11 @@ namespace dnGREP.WPF
                     return;
 
                 individualReplaceEnabled = value;
-
-                base.OnPropertyChanged(() => IndividualReplaceEnabled);
+                base.OnPropertyChanged(nameof(IndividualReplaceEnabled));
             }
         }
 
-        public IHighlightingDefinition HighlightingDefinition
-        {
-            get
-            {
-                return ThemedHighlightingManager.Instance.GetDefinition(CurrentSyntax);
-            }
-        }
+        public IHighlightingDefinition HighlightingDefinition => ThemedHighlightingManager.Instance.GetDefinition(CurrentSyntax);
 
         private string applicationFontFamily;
         public string ApplicationFontFamily
@@ -524,7 +510,7 @@ namespace dnGREP.WPF
                     return;
 
                 applicationFontFamily = value;
-                base.OnPropertyChanged(() => ApplicationFontFamily);
+                base.OnPropertyChanged(nameof(ApplicationFontFamily));
             }
         }
 
@@ -538,7 +524,21 @@ namespace dnGREP.WPF
                     return;
 
                 replaceFormfontSize = value;
-                base.OnPropertyChanged(() => ReplaceFormFontSize);
+                base.OnPropertyChanged(nameof(ReplaceFormFontSize));
+            }
+        }
+
+        private string resultsFontFamily;
+        public string ResultsFontFamily
+        {
+            get { return resultsFontFamily; }
+            set
+            {
+                if (resultsFontFamily == value)
+                    return;
+
+                resultsFontFamily = value;
+                base.OnPropertyChanged(nameof(ResultsFontFamily));
             }
         }
 
@@ -611,149 +611,41 @@ namespace dnGREP.WPF
             }
         }
 
-        private RelayCommand _replaceAllCommand;
-        public ICommand ReplaceAllCommand
-        {
-            get
-            {
-                if (_replaceAllCommand == null)
-                {
-                    _replaceAllCommand = new RelayCommand(
-                        p => ReplaceAll(),
-                        q => SearchResults != null
-                        );
-                }
-                return _replaceAllCommand;
-            }
-        }
+        public ICommand ReplaceAllCommand => new RelayCommand(
+            p => ReplaceAll(),
+            q => SearchResults != null);
 
-        private RelayCommand _nextFileCommand;
-        public ICommand NextFileCommand
-        {
-            get
-            {
-                if (_nextFileCommand == null)
-                {
-                    _nextFileCommand = new RelayCommand(
-                        p => SelectNextFile(),
-                        q => SearchResults != null && SearchResults.Count > 1 && fileIndex < SearchResults.Count - 1
-                        );
-                }
-                return _nextFileCommand;
-            }
-        }
+        public ICommand NextFileCommand => new RelayCommand(
+            p => SelectNextFile(),
+            q => SearchResults != null && SearchResults.Count > 1 && fileIndex < SearchResults.Count - 1);
 
-        private RelayCommand _prevFileCommand;
-        public ICommand PrevFileCommand
-        {
-            get
-            {
-                if (_prevFileCommand == null)
-                {
-                    _prevFileCommand = new RelayCommand(
-                        p => SelectPrevFile(),
-                        q => SearchResults != null && SearchResults.Count > 1 && fileIndex > 0
-                        );
-                }
-                return _prevFileCommand;
-            }
-        }
+        public ICommand PrevFileCommand => new RelayCommand(
+            p => SelectPrevFile(),
+            q => SearchResults != null && SearchResults.Count > 1 && fileIndex > 0);
 
-        private RelayCommand _prevMatchCommand;
-        public ICommand PrevMatchCommand
-        {
-            get
-            {
-                if (_prevMatchCommand == null)
-                {
-                    _prevMatchCommand = new RelayCommand(
-                        p => SelectPrevMatch(),
-                        q => SelectedSearchResult != null && SelectedSearchResult.Matches.Count > 1 && IndividualReplaceEnabled
-                        );
-                }
-                return _prevMatchCommand;
-            }
-        }
+        public ICommand PrevMatchCommand => new RelayCommand(
+            p => SelectPrevMatch(),
+            q => SelectedSearchResult != null && SelectedSearchResult.Matches.Count > 1 && IndividualReplaceEnabled);
 
-        private RelayCommand _nextMatchCommand;
-        public ICommand NextMatchCommand
-        {
-            get
-            {
-                if (_nextMatchCommand == null)
-                {
-                    _nextMatchCommand = new RelayCommand(
-                        p => SelectNextMatch(),
-                        q => SelectedSearchResult != null && SelectedSearchResult.Matches.Count > 1 && IndividualReplaceEnabled
-                        );
-                }
-                return _nextMatchCommand;
-            }
-        }
+        public ICommand NextMatchCommand => new RelayCommand(
+            p => SelectNextMatch(),
+            q => SelectedSearchResult != null && SelectedSearchResult.Matches.Count > 1 && IndividualReplaceEnabled);
 
-        private RelayCommand _replaceAllInFileCommand;
-        public ICommand ReplaceAllInFileCommand
-        {
-            get
-            {
-                if (_replaceAllInFileCommand == null)
-                {
-                    _replaceAllInFileCommand = new RelayCommand(
-                        p => MarkAllInFile(),
-                        q => SelectedSearchResult != null && !SelectedSearchResult.Matches.All(m => m.ReplaceMatch)
-                        );
-                }
-                return _replaceAllInFileCommand;
-            }
-        }
+        public ICommand ReplaceAllInFileCommand => new RelayCommand(
+            p => MarkAllInFile(),
+            q => SelectedSearchResult != null && !SelectedSearchResult.Matches.All(m => m.ReplaceMatch));
 
-        RelayCommand _undoFileCommand;
-        public ICommand UndoFileCommand
-        {
-            get
-            {
-                if (_undoFileCommand == null)
-                {
-                    _undoFileCommand = new RelayCommand(
-                        param => this.UndoAllMarksInFile(),
-                        param => SelectedSearchResult != null && SelectedSearchResult.Matches.Any(m => m.ReplaceMatch)
-                        );
-                }
-                return _undoFileCommand;
-            }
-        }
+        public ICommand UndoFileCommand => new RelayCommand(
+            p => UndoAllMarksInFile(),
+            q => SelectedSearchResult != null && SelectedSearchResult.Matches.Any(m => m.ReplaceMatch));
 
-        private RelayCommand _replaceMatchCommand;
-        public ICommand ReplaceMatchCommand
-        {
-            get
-            {
-                if (_replaceMatchCommand == null)
-                {
-                    _replaceMatchCommand = new RelayCommand(
-                        p => MarkMatchForReplace(),
-                        q => SelectedGrepMatch != null && !SelectedGrepMatch.ReplaceMatch
-                        );
-                }
-                return _replaceMatchCommand;
-            }
-        }
+        public ICommand ReplaceMatchCommand => new RelayCommand(
+            p => MarkMatchForReplace(),
+            q => SelectedGrepMatch != null && !SelectedGrepMatch.ReplaceMatch);
 
-        RelayCommand _undoMatchCommand;
-        public ICommand UndoMatchCommand
-        {
-            get
-            {
-                if (_undoMatchCommand == null)
-                {
-                    _undoMatchCommand = new RelayCommand(
-                        param => UndoMarkMatchForReplace(),
-                        param => SelectedGrepMatch != null && SelectedGrepMatch.ReplaceMatch
-                        );
-                }
-                return _undoMatchCommand;
-            }
-        }
+        public ICommand UndoMatchCommand => new RelayCommand(
+            p => UndoMarkMatchForReplace(),
+            q => SelectedGrepMatch != null && SelectedGrepMatch.ReplaceMatch);
 
         #endregion
     }

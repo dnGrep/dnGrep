@@ -29,7 +29,7 @@ namespace dnGREP.WPF
                     return;
 
                 applicationFontFamily = value;
-                base.OnPropertyChanged(() => ApplicationFontFamily);
+                base.OnPropertyChanged(nameof(ApplicationFontFamily));
             }
         }
 
@@ -43,7 +43,7 @@ namespace dnGREP.WPF
                     return;
 
                 dialogfontSize = value;
-                base.OnPropertyChanged(() => DialogFontSize);
+                base.OnPropertyChanged(nameof(DialogFontSize));
             }
         }
 
@@ -58,7 +58,7 @@ namespace dnGREP.WPF
                     return;
 
                 _version = value;
-                OnPropertyChanged(() => Version);
+                OnPropertyChanged(nameof(Version));
             }
         }
 
@@ -72,7 +72,7 @@ namespace dnGREP.WPF
                     return;
 
                 _buildDate = value;
-                OnPropertyChanged(() => BuildDate);
+                OnPropertyChanged(nameof(BuildDate));
             }
         }
 
@@ -86,7 +86,7 @@ namespace dnGREP.WPF
                     return;
 
                 _copyright = value;
-                OnPropertyChanged(() => Copyright);
+                OnPropertyChanged(nameof(Copyright));
             }
         }
 
@@ -100,18 +100,12 @@ namespace dnGREP.WPF
                     return;
 
                 _description = value;
-                OnPropertyChanged(() => Description);
+                OnPropertyChanged(nameof(Description));
             }
         }
 
 
-        public string AssemblyVersion
-        {
-            get
-            {
-                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            }
-        }
+        public string AssemblyVersion => Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         public string AssemblyDescription
         {
@@ -141,10 +135,7 @@ namespace dnGREP.WPF
             }
         }
 
-        public DateTime AssemblyBuildDate
-        {
-            get { return GetLinkerTime(Assembly.GetExecutingAssembly()); }
-        }
+        public DateTime AssemblyBuildDate => GetLinkerTime(Assembly.GetExecutingAssembly());
 
         // http://stackoverflow.com/questions/1600962/displaying-the-build-date
         public static DateTime GetLinkerTime(Assembly assembly, TimeZoneInfo target = null)

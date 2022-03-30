@@ -1,6 +1,8 @@
 ﻿using ICSharpCode.AvalonEdit.Highlighting;
 using System;
+using System.IO;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace dnGREP.WPF
 {
@@ -131,6 +133,59 @@ namespace dnGREP.WPF
                 B = (byte)(shift + c.B),
             };
             return result;
+        }
+
+        public static BitmapSource Invert(BitmapImage source)
+        {
+            // Calculate stride of source
+            int stride = (source.PixelWidth * source.Format.BitsPerPixel + 7) / 8;
+
+            // Create data array to hold source pixel data
+            int length = stride * source.PixelHeight;
+            byte[] data = new byte[length];
+
+            // Copy source image pixels to the data array
+            source.CopyPixels(data, stride, 0);
+
+            // Change this loop for other formats
+            for (int i = 0; i < length; i += 4)
+            {
+                data[i] = (byte)(255 - data[i]); //R
+                data[i + 1] = (byte)(255 - data[i + 1]); //G
+                data[i + 2] = (byte)(255 - data[i + 2]); //B
+                //data[i + 3] = (byte)(255 - data[i + 3]); //A
+            }
+
+            // Create a new BitmapSource from the inverted pixel buffer
+            return BitmapSource.Create(
+                source.PixelWidth, source.PixelHeight,
+                source.DpiX, source.DpiY, source.Format,
+                null, data, stride);
+        }
+
+        public static BitmapImage Convert(BitmapSource bitmapSource)
+        {
+            if (!(bitmapSource is BitmapImage bitmapImage))
+            {
+                bitmapImage = new BitmapImage();
+
+                PngBitmapEncoder encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
+
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    encoder.Save(memoryStream);
+                    memoryStream.Position = 0;
+
+                    bitmapImage.BeginInit();
+                    bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmapImage.StreamSource = memoryStream;
+                    bitmapImage.EndInit();
+                    bitmapImage.Freeze();
+                }
+            }
+
+            return bitmapImage;
         }
     }
 }

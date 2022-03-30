@@ -209,6 +209,14 @@
     <value>C_ase sensitive</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
+  <data name="BookmarkDetails_Content_Group" xml:space="preserve">
+    <value>Content</value>
+    <comment>Bookmark details dialog, search group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Content_Group_Tooltip" xml:space="preserve">
+    <value>Include content search properties in bookmark</value>
+    <comment>Bookmark details dialog, search group header tooltip</comment>
+  </data>
   <data name="BookmarkDetails_Description" xml:space="preserve">
     <value>Description:</value>
     <comment>Bookmark details dialog, text input box label</comment>
@@ -228,6 +236,22 @@
   <data name="BookmarkDetails_FilePatternType" xml:space="preserve">
     <value>File pattern type</value>
     <comment>Bookmark details dialog, file pattern group header label</comment>
+  </data>
+  <data name="BookmarkDetails_FileSource_Group" xml:space="preserve">
+    <value>File source</value>
+    <comment>Bookmark details dialog, file type group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_FileSource_Group_Tooltip" xml:space="preserve">
+    <value>Include file source properties in bookmark</value>
+    <comment>Bookmark details dialog, file type group header tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_Filters_Group" xml:space="preserve">
+    <value>File filters</value>
+    <comment>Bookmark details dialog, filters group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Filters_Group_Tooltip" xml:space="preserve">
+    <value>Include file filter properties in bookmark</value>
+    <comment>Bookmark details dialog, filters group header tooltip</comment>
   </data>
   <data name="BookmarkDetails_FollowSymbolicLinks" xml:space="preserve">
     <value>Follow symbolic links</value>
@@ -403,6 +427,10 @@
   </data>
   <data name="Bookmarks_SearchForHeader" xml:space="preserve">
     <value>Search for</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_SectionsHeader" xml:space="preserve">
+    <value>Sections</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Bookmarks_Summary_CaseSensitive" xml:space="preserve">
@@ -811,6 +839,10 @@ Arguments:
   </data>
   <data name="Main_Menu_About_AboutDnGrep" xml:space="preserve">
     <value>_About dnGrep…</value>
+    <comment>Main window, main menu subitem label (accel)</comment>
+  </data>
+  <data name="Main_Menu_About_CheckForUpdates" xml:space="preserve">
+    <value>_Check for updates</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="Main_Menu_About_Help" xml:space="preserve">
@@ -1253,6 +1285,34 @@ Arguments:
     <value>Use .gitignore to filter files</value>
     <comment>Main window, search option checkbox tooltip</comment>
   </data>
+  <data name="Main_Validation_BooleanExpressionContainsAnUnknownToken" xml:space="preserve">
+    <value>Boolean expression contains an unknown token</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionHasAnUnknownError" xml:space="preserve">
+    <value>Boolean expression has an unknown error</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionHasMismatchedParentheses" xml:space="preserve">
+    <value>Boolean expression has mismatched parentheses</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsMissingABooleanOperator" xml:space="preserve">
+    <value>Boolean expression is missing a Boolean operator</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsMissingASearchPattern" xml:space="preserve">
+    <value>Boolean expression is missing a search pattern</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsNotValid" xml:space="preserve">
+    <value>Boolean expression is not valid</value>
+    <comment>Main window, Boolean expression status</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsOK" xml:space="preserve">
+    <value>Boolean expression is OK</value>
+    <comment>Main window, Boolean expression status</comment>
+  </data>
   <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
     <value>Byte string is not valid!</value>
     <comment>Main window, hexadecimal expression status</comment>
@@ -1352,6 +1412,10 @@ Arguments:
   <data name="MessageBox_DnGrep" xml:space="preserve">
     <value>dnGrep</value>
     <comment>Message box title</comment>
+  </data>
+  <data name="MessageBox_DnGrepIsUpToDate" xml:space="preserve">
+    <value>dnGrep is up to date.</value>
+    <comment>Message box text for: Check for updates response</comment>
   </data>
   <data name="MessageBox_DoYouWantToContinue" xml:space="preserve">
     <value>Continue?</value>
@@ -1800,6 +1864,18 @@ Arguments:
   <data name="Options_ReplaceFontSize" xml:space="preserve">
     <value>Replace window font size</value>
     <comment>Options dialog, font size input label</comment>
+  </data>
+  <data name="Options_ResultsFontFamily" xml:space="preserve">
+    <value>Results font family</value>
+    <comment>Options dialog, results font selector label</comment>
+  </data>
+  <data name="Options_ResultsFontSize" xml:space="preserve">
+    <value>Results font size</value>
+    <comment>Options dialog, results font size label</comment>
+  </data>
+  <data name="Options_ResultsFontUsuallyAFixedWidthFont" xml:space="preserve">
+    <value>Font used in search results, usually a fixed width font</value>
+    <comment>Options dialog, replace font selector tooltip</comment>
   </data>
   <data name="Options_ResultsOptions" xml:space="preserve">
     <value>Search results</value>
@@ -2284,6 +2360,10 @@ Arguments:
   <data name="Test_SearchResult" xml:space="preserve">
     <value>Search result:</value>
     <comment>Test window, output results label</comment>
+  </data>
+  <data name="Test_SearchType_Hex" xml:space="preserve">
+    <value>Byte</value>
+    <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_SearchType_Phonetic" xml:space="preserve">
     <value>Phonetic</value>

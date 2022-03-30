@@ -11,7 +11,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>dnGREP.WPF</RootNamespace>
     <AssemblyName>dnGREP</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -19,7 +19,6 @@
     <Utf8Output>true</Utf8Output>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
@@ -94,7 +93,9 @@
     <Compile Include="MVHelpers\DockSiteVisibilityConverter.cs" />
     <Compile Include="MVHelpers\FileDragDropHelper.cs" />
     <Compile Include="MVHelpers\IntOrEmptyValueConverter.cs" />
+    <Compile Include="MVHelpers\LeadingTextTrimming.cs" />
     <Compile Include="MVHelpers\Messenger.cs" />
+    <Compile Include="MVHelpers\IntToImageValueConverter.cs" />
     <Compile Include="MVHelpers\PercentValueConverter.cs" />
     <Compile Include="MVHelpers\ResizeModeConverter.cs" />
     <Compile Include="MVHelpers\ColorInverter.cs" />
@@ -252,6 +253,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="ThemedControls\MarkerScrollViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\DarkBrushes.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -272,8 +277,18 @@
       <Link>7z64.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Images\dnGrep48.png" />
     <Resource Include="ThemedControls\next.png" />
     <Resource Include="ThemedControls\prev.png" />
+    <Resource Include="Images\dnGrep96.png" />
+    <Resource Include="Images\checks0.png" />
+    <Resource Include="Images\checks1.png" />
+    <Resource Include="Images\checks2.png" />
+    <Resource Include="Images\checks3.png" />
+    <Resource Include="Images\checks4.png" />
+    <Resource Include="Images\checks5.png" />
+    <Resource Include="Images\checks6.png" />
+    <Resource Include="Images\checks7.png" />
     <Content Include="Themes\Sunset.xaml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -432,20 +447,6 @@
       <Project>{a18eeae0-260f-4fc1-bdf2-6bf0ba335cb7}</Project>
       <Name>ICSharpCode.AvalonEdit</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\applications-graphics.png" />
-    <Resource Include="Images\preferences-system.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\system-search.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Images\splash.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\dnGrep48.png" />
-    <Resource Include="Images\dnGrep80.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AlphaFS">

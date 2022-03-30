@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
 using System.Xml;
@@ -76,51 +77,24 @@ namespace dnGREP.WPF
             nameof(WholeWord),
         };
 
-        protected GrepSettings settings
-        {
-            get { return GrepSettings.Instance; }
-        }
+        protected GrepSettings Settings => GrepSettings.Instance;
 
         protected PathSearchText PathSearchText { get; private set; } = new PathSearchText();
         #endregion
 
         #region Properties
 
-        private readonly ObservableGrepSearchResults searchResults = new ObservableGrepSearchResults();
-        public ObservableGrepSearchResults SearchResults
-        {
-            get { return searchResults; }
-        }
+        public ObservableGrepSearchResults SearchResults { get; } = new ObservableGrepSearchResults();
 
-        private readonly ObservableCollection<string> fastSearchBookmarks = new ObservableCollection<string>();
-        public ObservableCollection<string> FastSearchBookmarks
-        {
-            get { return fastSearchBookmarks; }
-        }
+        public ObservableCollection<string> FastSearchBookmarks { get; } = new ObservableCollection<string>();
 
-        private readonly ObservableCollection<string> fastReplaceBookmarks = new ObservableCollection<string>();
-        public ObservableCollection<string> FastReplaceBookmarks
-        {
-            get { return fastReplaceBookmarks; }
-        }
+        public ObservableCollection<string> FastReplaceBookmarks { get; } = new ObservableCollection<string>();
 
-        private readonly ObservableCollection<string> fastFileMatchBookmarks = new ObservableCollection<string>();
-        public ObservableCollection<string> FastFileMatchBookmarks
-        {
-            get { return fastFileMatchBookmarks; }
-        }
+        public ObservableCollection<string> FastFileMatchBookmarks { get; } = new ObservableCollection<string>();
 
-        private readonly ObservableCollection<string> fastFileNotMatchBookmarks = new ObservableCollection<string>();
-        public ObservableCollection<string> FastFileNotMatchBookmarks
-        {
-            get { return fastFileNotMatchBookmarks; }
-        }
+        public ObservableCollection<string> FastFileNotMatchBookmarks { get; } = new ObservableCollection<string>();
 
-        private readonly ObservableCollection<string> fastPathBookmarks = new ObservableCollection<string>();
-        public ObservableCollection<string> FastPathBookmarks
-        {
-            get { return fastPathBookmarks; }
-        }
+        public ObservableCollection<string> FastPathBookmarks { get; } = new ObservableCollection<string>();
 
         public ObservableCollection<KeyValuePair<string, int>> Encodings { get; } = new ObservableCollection<KeyValuePair<string, int>>();
 
@@ -134,7 +108,7 @@ namespace dnGREP.WPF
                     return;
 
                 searchParametersChanged = value;
-                base.OnPropertyChanged(() => SearchParametersChanged);
+                base.OnPropertyChanged(nameof(SearchParametersChanged));
             }
         }
 
@@ -149,8 +123,7 @@ namespace dnGREP.WPF
 
                 fileOrFolderPath = value;
                 PathSearchText.FileOrFolderPath = value;
-
-                base.OnPropertyChanged(() => FileOrFolderPath);
+                base.OnPropertyChanged(nameof(FileOrFolderPath));
             }
         }
 
@@ -164,8 +137,7 @@ namespace dnGREP.WPF
                     return;
 
                 searchFor = value;
-
-                base.OnPropertyChanged(() => SearchFor);
+                base.OnPropertyChanged(nameof(SearchFor));
             }
         }
 
@@ -179,8 +151,7 @@ namespace dnGREP.WPF
                     return;
 
                 replaceWith = value;
-
-                base.OnPropertyChanged(() => ReplaceWith);
+                base.OnPropertyChanged(nameof(ReplaceWith));
             }
         }
 
@@ -194,8 +165,7 @@ namespace dnGREP.WPF
                     return;
 
                 isFiltersExpanded = value;
-
-                base.OnPropertyChanged(() => IsFiltersExpanded);
+                base.OnPropertyChanged(nameof(IsFiltersExpanded));
             }
         }
 
@@ -209,8 +179,7 @@ namespace dnGREP.WPF
                     return;
 
                 filePattern = value;
-
-                base.OnPropertyChanged(() => FilePattern);
+                base.OnPropertyChanged(nameof(FilePattern));
             }
         }
 
@@ -224,8 +193,7 @@ namespace dnGREP.WPF
                     return;
 
                 filePatternIgnore = value;
-
-                base.OnPropertyChanged(() => FilePatternIgnore);
+                base.OnPropertyChanged(nameof(FilePatternIgnore));
             }
         }
 
@@ -239,8 +207,7 @@ namespace dnGREP.WPF
                     return;
 
                 useGitignore = value;
-
-                base.OnPropertyChanged(() => UseGitignore);
+                base.OnPropertyChanged(nameof(UseGitignore));
             }
         }
 
@@ -259,8 +226,7 @@ namespace dnGREP.WPF
                     return;
 
                 includeSubfolder = value;
-
-                base.OnPropertyChanged(() => IncludeSubfolder);
+                base.OnPropertyChanged(nameof(IncludeSubfolder));
 
                 if (!includeSubfolder)
                 {
@@ -279,8 +245,7 @@ namespace dnGREP.WPF
                     return;
 
                 maxSubfolderDepth = value;
-
-                base.OnPropertyChanged(() => MaxSubfolderDepth);
+                base.OnPropertyChanged(nameof(MaxSubfolderDepth));
             }
         }
 
@@ -294,8 +259,7 @@ namespace dnGREP.WPF
                     return;
 
                 includeHidden = value;
-
-                base.OnPropertyChanged(() => IncludeHidden);
+                base.OnPropertyChanged(nameof(IncludeHidden));
             }
         }
 
@@ -309,8 +273,7 @@ namespace dnGREP.WPF
                     return;
 
                 includeBinary = value;
-
-                base.OnPropertyChanged(() => IncludeBinary);
+                base.OnPropertyChanged(nameof(IncludeBinary));
             }
         }
 
@@ -324,8 +287,7 @@ namespace dnGREP.WPF
                     return;
 
                 followSymlinks = value;
-
-                base.OnPropertyChanged(() => FollowSymlinks);
+                base.OnPropertyChanged(nameof(FollowSymlinks));
             }
         }
 
@@ -339,8 +301,7 @@ namespace dnGREP.WPF
                     return;
 
                 includeArchive = value;
-
-                base.OnPropertyChanged(() => IncludeArchive);
+                base.OnPropertyChanged(nameof(IncludeArchive));
             }
         }
 
@@ -355,8 +316,7 @@ namespace dnGREP.WPF
                     return;
 
                 searchParallel = value;
-
-                base.OnPropertyChanged(() => SearchParallel);
+                base.OnPropertyChanged(nameof(SearchParallel));
             }
         }
 
@@ -370,8 +330,7 @@ namespace dnGREP.WPF
                     return;
 
                 typeOfSearch = value;
-
-                base.OnPropertyChanged(() => TypeOfSearch);
+                base.OnPropertyChanged(nameof(TypeOfSearch));
             }
         }
 
@@ -386,8 +345,7 @@ namespace dnGREP.WPF
 
                 typeOfFileSearch = value;
                 PathSearchText.TypeOfFileSearch = value;
-
-                base.OnPropertyChanged(() => TypeOfFileSearch);
+                base.OnPropertyChanged(nameof(TypeOfFileSearch));
             }
         }
 
@@ -401,8 +359,7 @@ namespace dnGREP.WPF
                     return;
 
                 isEverythingAvailable = value;
-
-                base.OnPropertyChanged(() => IsEverythingAvailable);
+                base.OnPropertyChanged(nameof(IsEverythingAvailable));
             }
         }
 
@@ -417,8 +374,7 @@ namespace dnGREP.WPF
                     return;
 
                 isEverythingSearchMode = value;
-
-                base.OnPropertyChanged(() => IsEverythingSearchMode);
+                base.OnPropertyChanged(nameof(IsEverythingSearchMode));
             }
         }
 
@@ -432,8 +388,7 @@ namespace dnGREP.WPF
                     return;
 
                 patternColumnWidth = value;
-
-                base.OnPropertyChanged(() => PatternColumnWidth);
+                base.OnPropertyChanged(nameof(PatternColumnWidth));
             }
         }
 
@@ -447,8 +402,7 @@ namespace dnGREP.WPF
                     return;
 
                 searchTextBoxLabel = value;
-
-                base.OnPropertyChanged(() => SearchTextBoxLabel);
+                base.OnPropertyChanged(nameof(SearchTextBoxLabel));
             }
         }
 
@@ -462,8 +416,7 @@ namespace dnGREP.WPF
                     return;
 
                 useFileSizeFilter = value;
-
-                base.OnPropertyChanged(() => UseFileSizeFilter);
+                base.OnPropertyChanged(nameof(UseFileSizeFilter));
             }
         }
 
@@ -477,8 +430,7 @@ namespace dnGREP.WPF
                     return;
 
                 sizeFrom = value;
-
-                base.OnPropertyChanged(() => SizeFrom);
+                base.OnPropertyChanged(nameof(SizeFrom));
             }
         }
 
@@ -492,8 +444,7 @@ namespace dnGREP.WPF
                     return;
 
                 sizeTo = value;
-
-                base.OnPropertyChanged(() => SizeTo);
+                base.OnPropertyChanged(nameof(SizeTo));
             }
         }
 
@@ -507,8 +458,7 @@ namespace dnGREP.WPF
                     return;
 
                 useFileDateFilter = value;
-
-                base.OnPropertyChanged(() => UseFileDateFilter);
+                base.OnPropertyChanged(nameof(UseFileDateFilter));
             }
         }
 
@@ -522,8 +472,7 @@ namespace dnGREP.WPF
                     return;
 
                 typeOfTimeRangeFilter = value;
-
-                base.OnPropertyChanged(() => TypeOfTimeRangeFilter);
+                base.OnPropertyChanged(nameof(TypeOfTimeRangeFilter));
             }
         }
 
@@ -539,8 +488,7 @@ namespace dnGREP.WPF
                     return;
 
                 minStartDate = value;
-
-                base.OnPropertyChanged(() => MinStartDate);
+                base.OnPropertyChanged(nameof(MinStartDate));
             }
         }
 
@@ -565,7 +513,7 @@ namespace dnGREP.WPF
                     MinEndDate = minDate;
                 }
 
-                base.OnPropertyChanged(() => StartDate);
+                base.OnPropertyChanged(nameof(StartDate));
             }
         }
 
@@ -579,8 +527,7 @@ namespace dnGREP.WPF
                     return;
 
                 minEndDate = value;
-
-                base.OnPropertyChanged(() => MinEndDate);
+                base.OnPropertyChanged(nameof(MinEndDate));
             }
         }
 
@@ -594,8 +541,7 @@ namespace dnGREP.WPF
                     return;
 
                 endDate = value;
-
-                base.OnPropertyChanged(() => EndDate);
+                base.OnPropertyChanged(nameof(EndDate));
             }
         }
 
@@ -609,8 +555,7 @@ namespace dnGREP.WPF
                     return;
 
                 hoursFrom = value;
-
-                base.OnPropertyChanged(() => HoursFrom);
+                base.OnPropertyChanged(nameof(HoursFrom));
             }
         }
 
@@ -624,8 +569,7 @@ namespace dnGREP.WPF
                     return;
 
                 hoursTo = value;
-
-                base.OnPropertyChanged(() => HoursTo);
+                base.OnPropertyChanged(nameof(HoursTo));
             }
         }
 
@@ -639,8 +583,7 @@ namespace dnGREP.WPF
                     return;
 
                 isDateFilterSet = value;
-
-                base.OnPropertyChanged(() => IsDateFilterSet);
+                base.OnPropertyChanged(nameof(IsDateFilterSet));
             }
         }
 
@@ -654,8 +597,7 @@ namespace dnGREP.WPF
                     return;
 
                 isDatesRangeSet = value;
-
-                base.OnPropertyChanged(() => IsDatesRangeSet);
+                base.OnPropertyChanged(nameof(IsDatesRangeSet));
             }
         }
 
@@ -669,8 +611,7 @@ namespace dnGREP.WPF
                     return;
 
                 isHoursRangeSet = value;
-
-                base.OnPropertyChanged(() => IsHoursRangeSet);
+                base.OnPropertyChanged(nameof(IsHoursRangeSet));
             }
         }
 
@@ -684,8 +625,7 @@ namespace dnGREP.WPF
                     return;
 
                 caseSensitive = value;
-
-                base.OnPropertyChanged(() => CaseSensitive);
+                base.OnPropertyChanged(nameof(CaseSensitive));
             }
         }
 
@@ -699,8 +639,7 @@ namespace dnGREP.WPF
                     return;
 
                 previewFileContent = value;
-
-                base.OnPropertyChanged(() => PreviewFileContent);
+                base.OnPropertyChanged(nameof(PreviewFileContent));
             }
         }
 
@@ -714,8 +653,7 @@ namespace dnGREP.WPF
                     return;
 
                 isCaseSensitiveEnabled = value;
-
-                base.OnPropertyChanged(() => IsCaseSensitiveEnabled);
+                base.OnPropertyChanged(nameof(IsCaseSensitiveEnabled));
             }
         }
 
@@ -729,8 +667,7 @@ namespace dnGREP.WPF
                     return;
 
                 multiline = value;
-
-                base.OnPropertyChanged(() => Multiline);
+                base.OnPropertyChanged(nameof(Multiline));
             }
         }
 
@@ -744,8 +681,7 @@ namespace dnGREP.WPF
                     return;
 
                 isMultilineEnabled = value;
-
-                base.OnPropertyChanged(() => IsMultilineEnabled);
+                base.OnPropertyChanged(nameof(IsMultilineEnabled));
             }
         }
 
@@ -762,8 +698,7 @@ namespace dnGREP.WPF
                     Multiline = true;
 
                 singleline = value;
-
-                base.OnPropertyChanged(() => Singleline);
+                base.OnPropertyChanged(nameof(Singleline));
             }
         }
 
@@ -777,8 +712,7 @@ namespace dnGREP.WPF
                     return;
 
                 isSinglelineEnabled = value;
-
-                base.OnPropertyChanged(() => IsSinglelineEnabled);
+                base.OnPropertyChanged(nameof(IsSinglelineEnabled));
             }
         }
 
@@ -792,7 +726,7 @@ namespace dnGREP.WPF
                     return;
 
                 highlightCaptureGroups = value;
-                base.OnPropertyChanged(() => HighlightCaptureGroups);
+                base.OnPropertyChanged(nameof(HighlightCaptureGroups));
             }
         }
 
@@ -806,7 +740,7 @@ namespace dnGREP.WPF
                     return;
 
                 isHighlightGroupsEnabled = value;
-                base.OnPropertyChanged(() => IsHighlightGroupsEnabled);
+                base.OnPropertyChanged(nameof(IsHighlightGroupsEnabled));
             }
         }
 
@@ -820,8 +754,7 @@ namespace dnGREP.WPF
                     return;
 
                 stopAfterFirstMatch = value;
-
-                base.OnPropertyChanged(() => StopAfterFirstMatch);
+                base.OnPropertyChanged(nameof(StopAfterFirstMatch));
             }
         }
 
@@ -835,8 +768,7 @@ namespace dnGREP.WPF
                     return;
 
                 wholeWord = value;
-
-                base.OnPropertyChanged(() => WholeWord);
+                base.OnPropertyChanged(nameof(WholeWord));
             }
         }
 
@@ -850,8 +782,7 @@ namespace dnGREP.WPF
                     return;
 
                 isWholeWordEnabled = value;
-
-                base.OnPropertyChanged(() => IsWholeWordEnabled);
+                base.OnPropertyChanged(nameof(IsWholeWordEnabled));
             }
         }
 
@@ -865,8 +796,7 @@ namespace dnGREP.WPF
                     return;
 
                 booleanOperators = value;
-
-                base.OnPropertyChanged(() => BooleanOperators);
+                base.OnPropertyChanged(nameof(BooleanOperators));
             }
         }
 
@@ -880,8 +810,7 @@ namespace dnGREP.WPF
                     return;
 
                 isBooleanOperatorsEnabled = value;
-
-                base.OnPropertyChanged(() => IsBooleanOperatorsEnabled);
+                base.OnPropertyChanged(nameof(IsBooleanOperatorsEnabled));
             }
         }
 
@@ -895,8 +824,7 @@ namespace dnGREP.WPF
                     return;
 
                 captureGroupSearch = value;
-
-                base.OnPropertyChanged(() => CaptureGroupSearch);
+                base.OnPropertyChanged(nameof(CaptureGroupSearch));
             }
         }
 
@@ -910,8 +838,7 @@ namespace dnGREP.WPF
                     return;
 
                 isSizeFilterSet = value;
-
-                base.OnPropertyChanged(() => IsSizeFilterSet);
+                base.OnPropertyChanged(nameof(IsSizeFilterSet));
             }
         }
 
@@ -925,8 +852,7 @@ namespace dnGREP.WPF
                     return;
 
                 filesFound = value;
-
-                base.OnPropertyChanged(() => FilesFound);
+                base.OnPropertyChanged(nameof(FilesFound));
             }
         }
 
@@ -940,8 +866,7 @@ namespace dnGREP.WPF
                     return;
 
                 canSearch = value;
-
-                base.OnPropertyChanged(() => CanSearch);
+                base.OnPropertyChanged(nameof(CanSearch));
                 // Refresh buttons
                 CommandManager.InvalidateRequerySuggested();
             }
@@ -957,8 +882,7 @@ namespace dnGREP.WPF
                     return;
 
                 canSearchInResults = value;
-
-                base.OnPropertyChanged(() => CanSearchInResults);
+                base.OnPropertyChanged(nameof(CanSearchInResults));
                 // Refresh buttons
                 CommandManager.InvalidateRequerySuggested();
             }
@@ -974,8 +898,7 @@ namespace dnGREP.WPF
                     return;
 
                 searchInResultsContent = value;
-
-                base.OnPropertyChanged(() => SearchInResultsContent);
+                base.OnPropertyChanged(nameof(SearchInResultsContent));
             }
         }
 
@@ -989,8 +912,7 @@ namespace dnGREP.WPF
                     return;
 
                 canCancel = value;
-
-                base.OnPropertyChanged(() => CanCancel);
+                base.OnPropertyChanged(nameof(CanCancel));
                 // Refresh buttons
                 CommandManager.InvalidateRequerySuggested();
             }
@@ -1006,9 +928,8 @@ namespace dnGREP.WPF
                     return;
 
                 currentGrepOperation = value;
-
-                base.OnPropertyChanged(() => CurrentGrepOperation);
-                base.OnPropertyChanged(() => IsOperationInProgress);
+                base.OnPropertyChanged(nameof(CurrentGrepOperation));
+                base.OnPropertyChanged(nameof(IsOperationInProgress));
             }
         }
 
@@ -1022,8 +943,7 @@ namespace dnGREP.WPF
                     return;
 
                 fileFiltersSummary = value;
-
-                base.OnPropertyChanged(() => FileFiltersSummary);
+                base.OnPropertyChanged(nameof(FileFiltersSummary));
             }
         }
 
@@ -1037,8 +957,7 @@ namespace dnGREP.WPF
                     return;
 
                 maxFileFiltersSummaryWidth = value;
-
-                base.OnPropertyChanged(() => MaxFileFiltersSummaryWidth);
+                base.OnPropertyChanged(nameof(MaxFileFiltersSummaryWidth));
             }
         }
 
@@ -1053,7 +972,7 @@ namespace dnGREP.WPF
                     return;
 
                 isValidPattern = value;
-                base.OnPropertyChanged(() => IsValidPattern);
+                base.OnPropertyChanged(nameof(IsValidPattern));
             }
         }
 
@@ -1067,8 +986,36 @@ namespace dnGREP.WPF
                     return;
 
                 validationMessage = value;
+                base.OnPropertyChanged(nameof(ValidationMessage));
+            }
+        }
 
-                base.OnPropertyChanged(() => ValidationMessage);
+        private string validationToolTip;
+        public string ValidationToolTip
+        {
+            get { return validationToolTip; }
+            set
+            {
+                if (value == validationToolTip)
+                    return;
+
+                validationToolTip = value;
+                base.OnPropertyChanged(nameof(ValidationToolTip));
+            }
+        }
+
+        private bool hasValidationMessage;
+
+        public bool HasValidationMessage
+        {
+            get { return hasValidationMessage; }
+            set
+            {
+                if (value == hasValidationMessage)
+                    return;
+
+                hasValidationMessage = value;
+                base.OnPropertyChanged(nameof(HasValidationMessage));
             }
         }
 
@@ -1082,8 +1029,7 @@ namespace dnGREP.WPF
                     return;
 
                 windowTitle = value;
-
-                base.OnPropertyChanged(() => WindowTitle);
+                base.OnPropertyChanged(nameof(WindowTitle));
             }
         }
 
@@ -1097,8 +1043,7 @@ namespace dnGREP.WPF
                     return;
 
                 textBoxStyle = value;
-
-                base.OnPropertyChanged(() => TextBoxStyle);
+                base.OnPropertyChanged(nameof(TextBoxStyle));
             }
         }
 
@@ -1112,8 +1057,7 @@ namespace dnGREP.WPF
                     return;
 
                 codePage = value;
-
-                base.OnPropertyChanged(() => CodePage);
+                base.OnPropertyChanged(nameof(CodePage));
             }
         }
 
@@ -1127,8 +1071,7 @@ namespace dnGREP.WPF
                     return;
 
                 canUndo = value;
-
-                base.OnPropertyChanged(() => CanUndo);
+                base.OnPropertyChanged(nameof(CanUndo));
             }
         }
 
@@ -1142,8 +1085,7 @@ namespace dnGREP.WPF
                     return;
 
                 statusMessage = value;
-
-                base.OnPropertyChanged(() => StatusMessage);
+                base.OnPropertyChanged(nameof(StatusMessage));
             }
         }
 
@@ -1157,8 +1099,7 @@ namespace dnGREP.WPF
                     return;
 
                 isSaveInProgress = value;
-
-                base.OnPropertyChanged(() => IsSaveInProgress);
+                base.OnPropertyChanged(nameof(IsSaveInProgress));
             }
         }
 
@@ -1172,7 +1113,7 @@ namespace dnGREP.WPF
                     return;
 
                 optionsOnMainPanel = value;
-                base.OnPropertyChanged(() => OptionsOnMainPanel);
+                base.OnPropertyChanged(nameof(OptionsOnMainPanel));
             }
         }
 
@@ -1186,11 +1127,37 @@ namespace dnGREP.WPF
                     return;
 
                 canSearchArchives = value;
-                base.OnPropertyChanged(() => CanSearchArchives);
+                base.OnPropertyChanged(nameof(CanSearchArchives));
             }
         }
 
+        private string resultsFontFamily;
+        public string ResultsFontFamily
+        {
+            get { return resultsFontFamily; }
+            set
+            {
+                if (resultsFontFamily == value)
+                    return;
 
+                resultsFontFamily = value;
+                base.OnPropertyChanged(nameof(ResultsFontFamily));
+            }
+        }
+
+        private double resultsfontSize;
+        public double ResultsFontSize
+        {
+            get { return resultsfontSize; }
+            set
+            {
+                if (resultsfontSize == value)
+                    return;
+
+                resultsfontSize = value;
+                base.OnPropertyChanged(nameof(ResultsFontSize));
+            }
+        }
 
         public bool IsOperationInProgress
         {
@@ -1208,22 +1175,22 @@ namespace dnGREP.WPF
 
             switch (name)
             {
-                case "Multiline":
-                case "Singleline":
-                case "WholeWord":
-                case "CaseSensitive":
-                case "StopAfterFirstMatch":
+                case nameof(Multiline):
+                case nameof(Singleline):
+                case nameof(WholeWord):
+                case nameof(CaseSensitive):
+                case nameof(StopAfterFirstMatch):
                     if (Multiline)
                         TextBoxStyle = "{StaticResource ExpandedTextbox}";
                     else
                         TextBoxStyle = "";
                     break;
 
-                case "UseFileSizeFilter":
+                case nameof(UseFileSizeFilter):
                     IsSizeFilterSet = UseFileSizeFilter == FileSizeFilter.Yes;
                     break;
 
-                case "UseFileDateFilter":
+                case nameof(UseFileDateFilter):
                     IsDateFilterSet = UseFileDateFilter != FileDateFilter.None;
                     IsDatesRangeSet = IsDateFilterSet && TypeOfTimeRangeFilter == FileTimeRange.Dates;
                     IsHoursRangeSet = IsDateFilterSet && TypeOfTimeRangeFilter == FileTimeRange.Hours;
@@ -1233,12 +1200,12 @@ namespace dnGREP.WPF
                         TypeOfTimeRangeFilter = FileTimeRange.Dates;
                     break;
 
-                case "TypeOfTimeRangeFilter":
+                case nameof(TypeOfTimeRangeFilter):
                     IsDatesRangeSet = IsDateFilterSet && TypeOfTimeRangeFilter == FileTimeRange.Dates;
                     IsHoursRangeSet = IsDateFilterSet && TypeOfTimeRangeFilter == FileTimeRange.Hours;
                     break;
 
-                case "TypeOfFileSearch":
+                case nameof(TypeOfFileSearch):
                     if (TypeOfFileSearch == FileSearchType.Everything)
                     {
                         FilePattern = string.Empty;
@@ -1262,9 +1229,9 @@ namespace dnGREP.WPF
                     break;
             }
 
-            if (name == "IncludeSubfolder" || name == "MaxSubfolderDepth" || name == "IncludeHidden" ||
-                name == "IncludeBinary" || name == "UseFileSizeFilter" || name == "UseFileDateFilter" ||
-                name == "FollowSymlinks")
+            if (name == nameof(IncludeSubfolder) || name == nameof(MaxSubfolderDepth) || name == nameof(IncludeHidden) ||
+                name == nameof(IncludeBinary) || name == nameof(UseFileSizeFilter) || name == nameof(UseFileDateFilter) ||
+                name == nameof(FollowSymlinks))
             {
                 var tempList = new List<string>();
                 if (!IncludeSubfolder || (IncludeSubfolder && MaxSubfolderDepth == 0))
@@ -1295,17 +1262,17 @@ namespace dnGREP.WPF
             }
 
             //Files found
-            if (name == "FileOrFolderPath" || name == "SearchFor" || name == "FilePattern" ||
-                name == "FilePatternIgnore" || name == "UseGitignore")
+            if (name == nameof(FileOrFolderPath) || name == nameof(SearchFor) || name == nameof(FilePattern) ||
+                name == nameof(FilePatternIgnore) || name == nameof(UseGitignore))
             {
                 FilesFound = false;
             }
 
             //Change title
-            if (name == "FileOrFolderPath" || name == "SearchFor")
+            if (name == nameof(FileOrFolderPath) || name == nameof(SearchFor))
             {
                 if (string.IsNullOrWhiteSpace(FileOrFolderPath))
-                    WindowTitle = "dnGREP";
+                    WindowTitle = Resources.Main_DnGREP_Title;
                 else
                     WindowTitle = TranslationSource.Format(Resources.Main_WindowTitle,
                         string.IsNullOrEmpty(SearchFor) ? Resources.Main_Empty : SearchFor.Replace('\n', ' ').Replace('\r', ' '),
@@ -1313,33 +1280,26 @@ namespace dnGREP.WPF
             }
 
             //Change validation
-            if (name == "SearchFor" || name == "TypeOfSearch" || name == "BooleanOperators")
+            if (name == nameof(SearchFor) || name == nameof(TypeOfSearch) || name == nameof(BooleanOperators))
             {
                 ValidationMessage = string.Empty;
+                ValidationToolTip = null;
                 IsValidPattern = true;
 
                 if (!string.IsNullOrWhiteSpace(SearchFor))
                 {
-                    if (TypeOfSearch == SearchType.Regex)
+                    if (TypeOfSearch == SearchType.PlainText)
                     {
                         if (BooleanOperators)
                         {
-                            Utils.ParseBooleanOperators(SearchFor, out List<string> andClauses, out List<string> orClauses);
-
-                            if (andClauses != null)
-                            {
-                                foreach (var pattern in andClauses)
-                                {
-                                    ValidateRegex(pattern);
-                                }
-                            }
-                            if (orClauses != null)
-                            {
-                                foreach (var pattern in orClauses)
-                                {
-                                    ValidateRegex(pattern);
-                                }
-                            }
+                            ValidateBooleanExpression();
+                        }
+                    }
+                    else if (TypeOfSearch == SearchType.Regex)
+                    {
+                        if (BooleanOperators)
+                        {
+                            ValidateBooleanExpression();
                         }
                         else
                         {
@@ -1355,9 +1315,10 @@ namespace dnGREP.WPF
                             ValidationMessage = Resources.Main_Validation_XPathIsOK;
                             IsValidPattern = true;
                         }
-                        catch
+                        catch (XPathException ex)
                         {
                             ValidationMessage = Resources.Main_Validation_XPathIsNotValid;
+                            ValidationToolTip = ex.Message;
                             IsValidPattern = false;
                         }
                     }
@@ -1385,16 +1346,21 @@ namespace dnGREP.WPF
                             valid = false;
                         }
                         ValidationMessage = valid ? Resources.Main_Validation_HexStringIsOK : Resources.Main_Validation_HexStringIsNotValid;
-                        isValidPattern = valid;
+                        IsValidPattern = valid;
                     }
                 }
             }
 
+            if (name == nameof(ValidationMessage))
+            {
+                HasValidationMessage = !string.IsNullOrWhiteSpace(ValidationMessage);
+            }
+
             //Can search
-            if (name == "CurrentGrepOperation" || name == "SearchFor" || name == "IsSaveInProgress")
+            if (name == nameof(CurrentGrepOperation) || name == nameof(SearchFor) || name == nameof(IsSaveInProgress))
             {
                 if (CurrentGrepOperation == GrepOperation.None && !IsSaveInProgress &&
-                    (!string.IsNullOrEmpty(SearchFor) || settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern)))
+                    (!string.IsNullOrEmpty(SearchFor) || Settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern)))
                 {
                     CanSearch = true;
                 }
@@ -1406,9 +1372,9 @@ namespace dnGREP.WPF
                 CommandManager.InvalidateRequerySuggested();
             }
 
-            if (name == "CurrentGrepOperation" || name == "IsSaveInProgress")
+            if (name == nameof(CurrentGrepOperation) || name == nameof(IsSaveInProgress))
             {
-                if (searchResults.Count > 0 && !IsSaveInProgress)
+                if (SearchResults.Count > 0 && !IsSaveInProgress)
                 {
                     CanSearchInResults = true;
                 }
@@ -1419,7 +1385,7 @@ namespace dnGREP.WPF
             }
 
             //btnCancel
-            if (name == "CurrentGrepOperation")
+            if (name == nameof(CurrentGrepOperation))
             {
                 if (CurrentGrepOperation != GrepOperation.None)
                 {
@@ -1432,7 +1398,7 @@ namespace dnGREP.WPF
             }
 
             //Search type specific options
-            if (name == "TypeOfSearch")
+            if (name == nameof(TypeOfSearch))
             {
                 if (TypeOfSearch == SearchType.XPath)
                 {
@@ -1497,7 +1463,59 @@ namespace dnGREP.WPF
             }
         }
 
-        private void ValidateRegex(string pattern)
+        protected bool ValidateBooleanExpression()
+        {
+            if (BooleanOperators && !string.IsNullOrEmpty(SearchFor))
+            {
+                BooleanExpression exp = new BooleanExpression();
+                if (exp.TryParse(SearchFor))
+                {
+                    if (exp.Operands.Count > 0 && TypeOfSearch == SearchType.Regex)
+                    {
+                        foreach (string pattern in exp.Operands.Select(o => o.Value))
+                        {
+                            if (!ValidateRegex(pattern))
+                                return false;
+                        }
+                    }
+                }
+                else
+                {
+                    ValidationMessage = Resources.Main_Validation_BooleanExpressionIsNotValid;
+                    ReportParserState(exp.ParserState);
+                    IsValidPattern = false;
+                    return false;
+                }
+            }
+            ValidationMessage = Resources.Main_Validation_BooleanExpressionIsOK;
+            return true;
+        }
+
+        protected void ReportParserState(ParserErrorState parserState)
+        {
+            string msg = string.Empty;
+            switch (parserState)
+            {
+                case ParserErrorState.MismatchedParentheses:
+                    msg += Resources.Main_Validation_BooleanExpressionHasMismatchedParentheses;
+                    break;
+                case ParserErrorState.MissingOperator:
+                    msg += Resources.Main_Validation_BooleanExpressionIsMissingABooleanOperator;
+                    break;
+                case ParserErrorState.MissingOperand:
+                    msg += Resources.Main_Validation_BooleanExpressionIsMissingASearchPattern;
+                    break;
+                case ParserErrorState.UnknownToken:
+                    msg += Resources.Main_Validation_BooleanExpressionContainsAnUnknownToken;
+                    break;
+                case ParserErrorState.UnknownError:
+                    msg += Resources.Main_Validation_BooleanExpressionHasAnUnknownError;
+                    break;
+            }
+            ValidationToolTip = msg;
+        }
+
+        private bool ValidateRegex(string pattern)
         {
             try
             {
@@ -1505,11 +1523,13 @@ namespace dnGREP.WPF
                 ValidationMessage = Resources.Main_Validation_RegexIsOK;
                 IsValidPattern = true;
             }
-            catch
+            catch (Exception ex)
             {
                 ValidationMessage = Resources.Main_Validation_RegexIsNotValid;
+                ValidationToolTip = ex.Message;
                 IsValidPattern = false;
             }
+            return isValidPattern;
         }
 
         protected void ResetOptions()
@@ -1531,63 +1551,87 @@ namespace dnGREP.WPF
 
         virtual public void LoadSettings()
         {
-            List<string> fsb = settings.Get<List<string>>(GrepSettings.Key.FastSearchBookmarks);
-
-            string _searchFor = settings.Get<string>(GrepSettings.Key.SearchFor);
-            FastSearchBookmarks.Clear();
+            List<string> fsb = Settings.Get<List<string>>(GrepSettings.Key.FastSearchBookmarks);
+            string _searchFor = Settings.Get<string>(GrepSettings.Key.SearchFor);
             if (fsb != null)
             {
+                var toRemove = FastSearchBookmarks.Except(fsb).ToList();
+                foreach (var item in toRemove)
+                {
+                    FastSearchBookmarks.Remove(item);
+                }
+
                 foreach (string bookmark in fsb)
                 {
                     if (!FastSearchBookmarks.Contains(bookmark))
                         FastSearchBookmarks.Add(bookmark);
                 }
             }
-            settings[GrepSettings.Key.SearchFor] = _searchFor;
+            Settings[GrepSettings.Key.SearchFor] = _searchFor;
 
-            string _replaceWith = settings.Get<string>(GrepSettings.Key.ReplaceWith);
-            FastReplaceBookmarks.Clear();
-            List<string> frb = settings.Get<List<string>>(GrepSettings.Key.FastReplaceBookmarks);
+            string _replaceWith = Settings.Get<string>(GrepSettings.Key.ReplaceWith);
+            List<string> frb = Settings.Get<List<string>>(GrepSettings.Key.FastReplaceBookmarks);
             if (frb != null)
             {
+                var toRemove = FastReplaceBookmarks.Except(frb).ToList();
+                foreach (var item in toRemove)
+                {
+                    FastReplaceBookmarks.Remove(item);
+                }
+
                 foreach (string bookmark in frb)
                 {
                     if (!FastReplaceBookmarks.Contains(bookmark))
                         FastReplaceBookmarks.Add(bookmark);
                 }
             }
-            settings[GrepSettings.Key.ReplaceWith] = _replaceWith;
+            Settings[GrepSettings.Key.ReplaceWith] = _replaceWith;
 
-            string _filePattern = settings.Get<string>(GrepSettings.Key.FilePattern);
-            FastFileMatchBookmarks.Clear();
-            List<string> ffmb = settings.Get<List<string>>(GrepSettings.Key.FastFileMatchBookmarks);
+            string _filePattern = Settings.Get<string>(GrepSettings.Key.FilePattern);
+            List<string> ffmb = Settings.Get<List<string>>(GrepSettings.Key.FastFileMatchBookmarks);
             if (ffmb != null)
             {
+                var toRemove = FastFileMatchBookmarks.Except(ffmb).ToList();
+                foreach (var item in toRemove)
+                {
+                    FastFileMatchBookmarks.Remove(item);
+                }
+
                 foreach (string bookmark in ffmb)
                 {
                     if (!FastFileMatchBookmarks.Contains(bookmark))
                         FastFileMatchBookmarks.Add(bookmark);
                 }
             }
-            settings[GrepSettings.Key.FilePattern] = _filePattern;
+            Settings[GrepSettings.Key.FilePattern] = _filePattern;
 
-            string _filePatternIgnore = settings.Get<string>(GrepSettings.Key.FilePatternIgnore);
-            FastFileNotMatchBookmarks.Clear();
-            List<string> ffnmb = settings.Get<List<string>>(GrepSettings.Key.FastFileNotMatchBookmarks);
+            string _filePatternIgnore = Settings.Get<string>(GrepSettings.Key.FilePatternIgnore);
+            List<string> ffnmb = Settings.Get<List<string>>(GrepSettings.Key.FastFileNotMatchBookmarks);
             if (ffnmb != null)
             {
+                var toRemove = FastFileNotMatchBookmarks.Except(ffmb).ToList();
+                foreach (var item in toRemove)
+                {
+                    FastFileNotMatchBookmarks.Remove(item);
+                }
+
                 foreach (string bookmark in ffnmb)
                 {
                     if (!FastFileNotMatchBookmarks.Contains(bookmark))
                         FastFileNotMatchBookmarks.Add(bookmark);
                 }
             }
-            settings[GrepSettings.Key.FilePatternIgnore] = _filePatternIgnore;
+            Settings[GrepSettings.Key.FilePatternIgnore] = _filePatternIgnore;
 
-            FastPathBookmarks.Clear();
-            List<string> pb = settings.Get<List<string>>(GrepSettings.Key.FastPathBookmarks);
+            List<string> pb = Settings.Get<List<string>>(GrepSettings.Key.FastPathBookmarks);
             if (pb != null)
             {
+                var toRemove = FastPathBookmarks.Except(pb).ToList();
+                foreach (var item in toRemove)
+                {
+                    FastPathBookmarks.Remove(item);
+                }
+
                 foreach (string bookmark in pb)
                 {
                     if (!FastPathBookmarks.Contains(bookmark))
@@ -1595,84 +1639,84 @@ namespace dnGREP.WPF
                 }
             }
 
-            SearchFor = settings.Get<string>(GrepSettings.Key.SearchFor);
-            ReplaceWith = settings.Get<string>(GrepSettings.Key.ReplaceWith);
-            IncludeHidden = settings.Get<bool>(GrepSettings.Key.IncludeHidden);
-            IncludeBinary = settings.Get<bool>(GrepSettings.Key.IncludeBinary);
-            IncludeArchive = settings.Get<bool>(GrepSettings.Key.IncludeArchive) && Utils.ArchiveExtensions.Count > 0;
-            SearchParallel = settings.Get<bool>(GrepSettings.Key.SearchParallel);
-            IncludeSubfolder = settings.Get<bool>(GrepSettings.Key.IncludeSubfolder);
-            MaxSubfolderDepth = settings.Get<int>(GrepSettings.Key.MaxSubfolderDepth);
-            FollowSymlinks = settings.Get<bool>(GrepSettings.Key.FollowSymlinks);
-            TypeOfSearch = settings.Get<SearchType>(GrepSettings.Key.TypeOfSearch);
-            TypeOfFileSearch = settings.Get<FileSearchType>(GrepSettings.Key.TypeOfFileSearch);
+            SearchFor = Settings.Get<string>(GrepSettings.Key.SearchFor);
+            ReplaceWith = Settings.Get<string>(GrepSettings.Key.ReplaceWith);
+            IncludeHidden = Settings.Get<bool>(GrepSettings.Key.IncludeHidden);
+            IncludeBinary = Settings.Get<bool>(GrepSettings.Key.IncludeBinary);
+            IncludeArchive = Settings.Get<bool>(GrepSettings.Key.IncludeArchive) && Utils.ArchiveExtensions.Count > 0;
+            SearchParallel = Settings.Get<bool>(GrepSettings.Key.SearchParallel);
+            IncludeSubfolder = Settings.Get<bool>(GrepSettings.Key.IncludeSubfolder);
+            MaxSubfolderDepth = Settings.Get<int>(GrepSettings.Key.MaxSubfolderDepth);
+            FollowSymlinks = Settings.Get<bool>(GrepSettings.Key.FollowSymlinks);
+            TypeOfSearch = Settings.Get<SearchType>(GrepSettings.Key.TypeOfSearch);
+            TypeOfFileSearch = Settings.Get<FileSearchType>(GrepSettings.Key.TypeOfFileSearch);
             // FileOrFolderPath depends on TypeOfFileSearch, so must be after
-            FileOrFolderPath = settings.Get<string>(GrepSettings.Key.SearchFolder);
-            CodePage = settings.Get<int>(GrepSettings.Key.CodePage);
-            FilePattern = settings.Get<string>(GrepSettings.Key.FilePattern);
-            FilePatternIgnore = settings.Get<string>(GrepSettings.Key.FilePatternIgnore);
-            UseGitignore = settings.Get<bool>(GrepSettings.Key.UseGitignore) && Utils.IsGitInstalled;
-            UseFileSizeFilter = settings.Get<FileSizeFilter>(GrepSettings.Key.UseFileSizeFilter);
-            CaseSensitive = settings.Get<bool>(GrepSettings.Key.CaseSensitive);
-            Multiline = settings.Get<bool>(GrepSettings.Key.Multiline);
-            Singleline = settings.Get<bool>(GrepSettings.Key.Singleline);
-            StopAfterFirstMatch = settings.Get<bool>(GrepSettings.Key.StopAfterFirstMatch);
-            WholeWord = settings.Get<bool>(GrepSettings.Key.WholeWord);
-            BooleanOperators = settings.Get<bool>(GrepSettings.Key.BooleanOperators);
+            FileOrFolderPath = Settings.Get<string>(GrepSettings.Key.SearchFolder);
+            CodePage = Settings.Get<int>(GrepSettings.Key.CodePage);
+            FilePattern = Settings.Get<string>(GrepSettings.Key.FilePattern);
+            FilePatternIgnore = Settings.Get<string>(GrepSettings.Key.FilePatternIgnore);
+            UseGitignore = Settings.Get<bool>(GrepSettings.Key.UseGitignore) && Utils.IsGitInstalled;
+            UseFileSizeFilter = Settings.Get<FileSizeFilter>(GrepSettings.Key.UseFileSizeFilter);
+            CaseSensitive = Settings.Get<bool>(GrepSettings.Key.CaseSensitive);
+            Multiline = Settings.Get<bool>(GrepSettings.Key.Multiline);
+            Singleline = Settings.Get<bool>(GrepSettings.Key.Singleline);
+            StopAfterFirstMatch = Settings.Get<bool>(GrepSettings.Key.StopAfterFirstMatch);
+            WholeWord = Settings.Get<bool>(GrepSettings.Key.WholeWord);
+            BooleanOperators = Settings.Get<bool>(GrepSettings.Key.BooleanOperators);
             CaptureGroupSearch = GrepSettings.Instance.Get<bool>(GrepSettings.Key.CaptureGroupSearch);
-            HighlightCaptureGroups = settings.Get<bool>(GrepSettings.Key.HighlightCaptureGroups);
-            SizeFrom = settings.Get<int>(GrepSettings.Key.SizeFrom);
-            SizeTo = settings.Get<int>(GrepSettings.Key.SizeTo);
-            IsFiltersExpanded = settings.Get<bool>(GrepSettings.Key.IsFiltersExpanded);
-            PreviewFileContent = settings.Get<bool>(GrepSettings.Key.PreviewFileContent);
-            OptionsOnMainPanel = settings.Get<bool>(GrepSettings.Key.OptionsOnMainPanel);
-            UseFileDateFilter = settings.Get<FileDateFilter>(GrepSettings.Key.UseFileDateFilter);
-            TypeOfTimeRangeFilter = settings.Get<FileTimeRange>(GrepSettings.Key.TypeOfTimeRangeFilter);
-            StartDate = settings.GetNullableDateTime(GrepSettings.Key.StartDate);
-            EndDate = settings.GetNullableDateTime(GrepSettings.Key.EndDate);
-            HoursFrom = settings.Get<int>(GrepSettings.Key.HoursFrom);
-            HoursTo = settings.Get<int>(GrepSettings.Key.HoursTo);
+            HighlightCaptureGroups = Settings.Get<bool>(GrepSettings.Key.HighlightCaptureGroups);
+            SizeFrom = Settings.Get<int>(GrepSettings.Key.SizeFrom);
+            SizeTo = Settings.Get<int>(GrepSettings.Key.SizeTo);
+            IsFiltersExpanded = Settings.Get<bool>(GrepSettings.Key.IsFiltersExpanded);
+            PreviewFileContent = Settings.Get<bool>(GrepSettings.Key.PreviewFileContent);
+            OptionsOnMainPanel = Settings.Get<bool>(GrepSettings.Key.OptionsOnMainPanel);
+            UseFileDateFilter = Settings.Get<FileDateFilter>(GrepSettings.Key.UseFileDateFilter);
+            TypeOfTimeRangeFilter = Settings.Get<FileTimeRange>(GrepSettings.Key.TypeOfTimeRangeFilter);
+            StartDate = Settings.GetNullableDateTime(GrepSettings.Key.StartDate);
+            EndDate = Settings.GetNullableDateTime(GrepSettings.Key.EndDate);
+            HoursFrom = Settings.Get<int>(GrepSettings.Key.HoursFrom);
+            HoursTo = Settings.Get<int>(GrepSettings.Key.HoursTo);
         }
 
         public virtual void SaveSettings()
         {
-            settings.Set<string>(GrepSettings.Key.SearchFolder, FileOrFolderPath);
-            settings.Set<string>(GrepSettings.Key.SearchFor, SearchFor);
-            settings.Set<string>(GrepSettings.Key.ReplaceWith, ReplaceWith);
-            settings.Set<bool>(GrepSettings.Key.IncludeHidden, IncludeHidden);
-            settings.Set<bool>(GrepSettings.Key.IncludeBinary, IncludeBinary);
-            settings.Set<bool>(GrepSettings.Key.IncludeArchive, IncludeArchive);
-            settings.Set<bool>(GrepSettings.Key.SearchParallel, SearchParallel);
-            settings.Set<bool>(GrepSettings.Key.IncludeSubfolder, IncludeSubfolder);
-            settings.Set<int>(GrepSettings.Key.MaxSubfolderDepth, MaxSubfolderDepth);
-            settings.Set<bool>(GrepSettings.Key.FollowSymlinks, FollowSymlinks);
-            settings.Set<SearchType>(GrepSettings.Key.TypeOfSearch, TypeOfSearch);
-            settings.Set<int>(GrepSettings.Key.CodePage, CodePage);
-            settings.Set<FileSearchType>(GrepSettings.Key.TypeOfFileSearch, TypeOfFileSearch);
-            settings.Set<string>(GrepSettings.Key.FilePattern, FilePattern);
-            settings.Set<string>(GrepSettings.Key.FilePatternIgnore, FilePatternIgnore);
-            settings.Set<bool>(GrepSettings.Key.UseGitignore, UseGitignore);
-            settings.Set<FileSizeFilter>(GrepSettings.Key.UseFileSizeFilter, UseFileSizeFilter);
-            settings.Set<bool>(GrepSettings.Key.CaseSensitive, CaseSensitive);
-            settings.Set<bool>(GrepSettings.Key.Multiline, Multiline);
-            settings.Set<bool>(GrepSettings.Key.Singleline, Singleline);
-            settings.Set<bool>(GrepSettings.Key.StopAfterFirstMatch, StopAfterFirstMatch);
-            settings.Set<bool>(GrepSettings.Key.WholeWord, WholeWord);
-            settings.Set<bool>(GrepSettings.Key.BooleanOperators, BooleanOperators);
-            settings.Set<bool>(GrepSettings.Key.CaptureGroupSearch, CaptureGroupSearch);
-            settings.Set<bool>(GrepSettings.Key.HighlightCaptureGroups, HighlightCaptureGroups);
-            settings.Set<int>(GrepSettings.Key.SizeFrom, SizeFrom);
-            settings.Set<int>(GrepSettings.Key.SizeTo, SizeTo);
-            settings.Set<bool>(GrepSettings.Key.IsFiltersExpanded, IsFiltersExpanded);
-            settings.Set<bool>(GrepSettings.Key.PreviewFileContent, PreviewFileContent);
-            settings.Set<FileDateFilter>(GrepSettings.Key.UseFileDateFilter, UseFileDateFilter);
-            settings.Set<FileTimeRange>(GrepSettings.Key.TypeOfTimeRangeFilter, TypeOfTimeRangeFilter);
-            settings.SetNullableDateTime(GrepSettings.Key.StartDate, StartDate);
-            settings.SetNullableDateTime(GrepSettings.Key.EndDate, EndDate);
-            settings.Set<int>(GrepSettings.Key.HoursFrom, HoursFrom);
-            settings.Set<int>(GrepSettings.Key.HoursTo, HoursTo);
+            Settings.Set(GrepSettings.Key.SearchFolder, FileOrFolderPath);
+            Settings.Set(GrepSettings.Key.SearchFor, SearchFor);
+            Settings.Set(GrepSettings.Key.ReplaceWith, ReplaceWith);
+            Settings.Set(GrepSettings.Key.IncludeHidden, IncludeHidden);
+            Settings.Set(GrepSettings.Key.IncludeBinary, IncludeBinary);
+            Settings.Set(GrepSettings.Key.IncludeArchive, IncludeArchive);
+            Settings.Set(GrepSettings.Key.SearchParallel, SearchParallel);
+            Settings.Set(GrepSettings.Key.IncludeSubfolder, IncludeSubfolder);
+            Settings.Set(GrepSettings.Key.MaxSubfolderDepth, MaxSubfolderDepth);
+            Settings.Set(GrepSettings.Key.FollowSymlinks, FollowSymlinks);
+            Settings.Set(GrepSettings.Key.TypeOfSearch, TypeOfSearch);
+            Settings.Set(GrepSettings.Key.CodePage, CodePage);
+            Settings.Set(GrepSettings.Key.TypeOfFileSearch, TypeOfFileSearch);
+            Settings.Set(GrepSettings.Key.FilePattern, FilePattern);
+            Settings.Set(GrepSettings.Key.FilePatternIgnore, FilePatternIgnore);
+            Settings.Set(GrepSettings.Key.UseGitignore, UseGitignore);
+            Settings.Set(GrepSettings.Key.UseFileSizeFilter, UseFileSizeFilter);
+            Settings.Set(GrepSettings.Key.CaseSensitive, CaseSensitive);
+            Settings.Set(GrepSettings.Key.Multiline, Multiline);
+            Settings.Set(GrepSettings.Key.Singleline, Singleline);
+            Settings.Set(GrepSettings.Key.StopAfterFirstMatch, StopAfterFirstMatch);
+            Settings.Set(GrepSettings.Key.WholeWord, WholeWord);
+            Settings.Set(GrepSettings.Key.BooleanOperators, BooleanOperators);
+            Settings.Set(GrepSettings.Key.CaptureGroupSearch, CaptureGroupSearch);
+            Settings.Set(GrepSettings.Key.HighlightCaptureGroups, HighlightCaptureGroups);
+            Settings.Set(GrepSettings.Key.SizeFrom, SizeFrom);
+            Settings.Set(GrepSettings.Key.SizeTo, SizeTo);
+            Settings.Set(GrepSettings.Key.IsFiltersExpanded, IsFiltersExpanded);
+            Settings.Set(GrepSettings.Key.PreviewFileContent, PreviewFileContent);
+            Settings.Set(GrepSettings.Key.UseFileDateFilter, UseFileDateFilter);
+            Settings.Set(GrepSettings.Key.TypeOfTimeRangeFilter, TypeOfTimeRangeFilter);
+            Settings.SetNullableDateTime(GrepSettings.Key.StartDate, StartDate);
+            Settings.SetNullableDateTime(GrepSettings.Key.EndDate, EndDate);
+            Settings.Set(GrepSettings.Key.HoursFrom, HoursFrom);
+            Settings.Set(GrepSettings.Key.HoursTo, HoursTo);
 
-            settings.Save();
+            Settings.Save();
         }
 
         #endregion

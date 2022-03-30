@@ -279,7 +279,11 @@ namespace dnGREP.Common
             List<string> orClauses = null;
             if (booleanOperators)
             {
-                ParseBooleanOperators(searchText, out List<string> andClauses, out orClauses);
+                BooleanExpression exp = new BooleanExpression();
+                if (exp.TryParse(searchText) && exp.HasOrExpression)
+                {
+                    orClauses = exp.Operands.Select(o => o.Value).ToList();
+                }
             }
 
             int fileCount = source.Where(r => !string.IsNullOrWhiteSpace(r.FileNameReal)).Select(r => r.FileNameReal).Distinct().Count();
@@ -2567,43 +2571,6 @@ namespace dnGREP.Common
 
         public static bool IsGitInstalled => GitUtil.IsGitInstalled;
 
-        private const string AND = " AND ";
-        private const string OR = " OR ";
-
-        public static void ParseBooleanOperators(string text, out List<string> andClauses, out List<string> orClauses)
-        {
-            andClauses = null;
-            orClauses = null;
-            if (text.Contains(AND, StringComparison.InvariantCultureIgnoreCase))
-            {
-                andClauses = new List<string>();
-                SplitClauses(text, AND, andClauses);
-            }
-            else if (text.Contains(OR, StringComparison.InvariantCultureIgnoreCase))
-            {
-                orClauses = new List<string>();
-                SplitClauses(text, OR, orClauses);
-            }
-        }
-
-        private static void SplitClauses(string text, string key, List<string> clauses)
-        {
-            int pos1 = 0;
-            while (pos1 > -1 && pos1 < text.Length)
-            {
-                int pos2 = text.IndexOf(key, pos1, StringComparison.InvariantCultureIgnoreCase);
-                if (pos2 > -1)
-                {
-                    clauses.Add(text.Substring(pos1, pos2 - pos1));
-                    pos1 = pos2 + key.Length;
-                }
-                else
-                {
-                    clauses.Add(text.Substring(pos1));
-                    pos1 = text.Length;
-                }
-            }
-        }
         public static bool ValidateRegex(string pattern)
         {
             try

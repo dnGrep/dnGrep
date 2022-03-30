@@ -106,6 +106,11 @@
           <File Id="fil55D7697C4684436C86BB290DA58B2114" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\en\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>-->
+      <Directory Id="dir7671653C5C9D478F9935E69613AF190D" Name="es">
+        <Component Id="cmp48F018EF814747AA81FDB804DEBA6026" Guid="{65CBC2BA-3267-485D-8354-09F3091BC7D8}">
+          <File Id="fil97C098545B9C4080AFAE8BABC80031D6" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\es\dnGREP.Localization.resources.dll" />
+        </Component>
+      </Directory>
       <Directory Id="dirAEEF453D55A8468BA4FA3E1AD977AE28" Name="he">
         <Component Id="cmp6E066DAA55234C4DB9125224795D9984" Guid="{6E066DAA-5523-4C4D-B912-5224795D9984}">
           <File Id="fil7E6AA28F928A422D9C52A627B4EF71CE" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\he\dnGREP.Localization.resources.dll" />
@@ -124,6 +129,11 @@
       <Directory Id="dir0504FAEF173645618FE93CEF2595F0E7" Name="zh-CN">
         <Component Id="cmp1CCA4DCF77DD449B91F005A1D4A7489B" Guid="{343F46B0-10E1-4EBF-A079-64AB1A433833}">
           <File Id="filE3928064176646DB84256E32A69D9983" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\zh-CN\dnGREP.Localization.resources.dll" />
+        </Component>
+      </Directory>
+      <Directory Id="dir682790AA5ECC4AF1B7EF8FDB268EE8F1" Name="zh-Hant">
+        <Component Id="cmp7D0B9E2CE183452ABEC776D1BBB033A1" Guid="{12AD663A-BE3C-475C-8344-51E7FC2FA65F}">
+          <File Id="filC43A3ED192864BC5AF4112F21427A756" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\zh-Hant\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>
       <Directory Id="dirA21EF341F58C4CD8A3652F9814E52748" Name="Themes">
@@ -155,10 +165,12 @@
       <ComponentRef Id="cmp8AF052AF90A94A149802DFD1021B8D87" />
       <ComponentRef Id="cmp8D7FBFB745324AA7BF5C3EAC73E04285" />
       <!--<ComponentRef Id="cmp8765E4C9E5AE45DDAAB4EA4CC093FD56" />-->
+      <ComponentRef Id="cmp48F018EF814747AA81FDB804DEBA6026" />
       <ComponentRef Id="cmp6E066DAA55234C4DB9125224795D9984" />
       <ComponentRef Id="cmp95D9BA8868AD4AABB595EFEE7C9A571C" />
       <ComponentRef Id="cmp2B23830370BC47F1B72CDB2222A8F99C" />
       <ComponentRef Id="cmp1CCA4DCF77DD449B91F005A1D4A7489B" />
+      <ComponentRef Id="cmp7D0B9E2CE183452ABEC776D1BBB033A1" />
       <ComponentRef Id="cmp9870824B781A4C4094CD594CACFBDE9E" />
     </ComponentGroup>
   </Fragment>

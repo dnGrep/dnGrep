@@ -268,6 +268,24 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Content.
+        /// </summary>
+        public static string BookmarkDetails_Content_Group {
+            get {
+                return ResourceManager.GetString("BookmarkDetails_Content_Group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include content search properties in bookmark.
+        /// </summary>
+        public static string BookmarkDetails_Content_Group_Tooltip {
+            get {
+                return ResourceManager.GetString("BookmarkDetails_Content_Group_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description:.
         /// </summary>
         public static string BookmarkDetails_Description {
@@ -309,6 +327,42 @@ namespace dnGREP.Localization.Properties {
         public static string BookmarkDetails_FilePatternType {
             get {
                 return ResourceManager.GetString("BookmarkDetails_FilePatternType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File source.
+        /// </summary>
+        public static string BookmarkDetails_FileSource_Group {
+            get {
+                return ResourceManager.GetString("BookmarkDetails_FileSource_Group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include file source properties in bookmark.
+        /// </summary>
+        public static string BookmarkDetails_FileSource_Group_Tooltip {
+            get {
+                return ResourceManager.GetString("BookmarkDetails_FileSource_Group_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File filters.
+        /// </summary>
+        public static string BookmarkDetails_Filters_Group {
+            get {
+                return ResourceManager.GetString("BookmarkDetails_Filters_Group", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include file filter properties in bookmark.
+        /// </summary>
+        public static string BookmarkDetails_Filters_Group_Tooltip {
+            get {
+                return ResourceManager.GetString("BookmarkDetails_Filters_Group_Tooltip", resourceCulture);
             }
         }
         
@@ -705,6 +759,15 @@ namespace dnGREP.Localization.Properties {
         public static string Bookmarks_SearchForHeader {
             get {
                 return ResourceManager.GetString("Bookmarks_SearchForHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sections.
+        /// </summary>
+        public static string Bookmarks_SectionsHeader {
+            get {
+                return ResourceManager.GetString("Bookmarks_SectionsHeader", resourceCulture);
             }
         }
         
@@ -1429,6 +1492,15 @@ namespace dnGREP.Localization.Properties {
         public static string Main_Menu_About_AboutDnGrep {
             get {
                 return ResourceManager.GetString("Main_Menu_About_AboutDnGrep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Check for updates.
+        /// </summary>
+        public static string Main_Menu_About_CheckForUpdates {
+            get {
+                return ResourceManager.GetString("Main_Menu_About_CheckForUpdates", resourceCulture);
             }
         }
         
@@ -2423,6 +2495,69 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Boolean expression contains an unknown token.
+        /// </summary>
+        public static string Main_Validation_BooleanExpressionContainsAnUnknownToken {
+            get {
+                return ResourceManager.GetString("Main_Validation_BooleanExpressionContainsAnUnknownToken", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Boolean expression has an unknown error.
+        /// </summary>
+        public static string Main_Validation_BooleanExpressionHasAnUnknownError {
+            get {
+                return ResourceManager.GetString("Main_Validation_BooleanExpressionHasAnUnknownError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Boolean expression has mismatched parentheses.
+        /// </summary>
+        public static string Main_Validation_BooleanExpressionHasMismatchedParentheses {
+            get {
+                return ResourceManager.GetString("Main_Validation_BooleanExpressionHasMismatchedParentheses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Boolean expression is missing a Boolean operator.
+        /// </summary>
+        public static string Main_Validation_BooleanExpressionIsMissingABooleanOperator {
+            get {
+                return ResourceManager.GetString("Main_Validation_BooleanExpressionIsMissingABooleanOperator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Boolean expression is missing a search pattern.
+        /// </summary>
+        public static string Main_Validation_BooleanExpressionIsMissingASearchPattern {
+            get {
+                return ResourceManager.GetString("Main_Validation_BooleanExpressionIsMissingASearchPattern", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Boolean expression is not valid.
+        /// </summary>
+        public static string Main_Validation_BooleanExpressionIsNotValid {
+            get {
+                return ResourceManager.GetString("Main_Validation_BooleanExpressionIsNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Boolean expression is OK.
+        /// </summary>
+        public static string Main_Validation_BooleanExpressionIsOK {
+            get {
+                return ResourceManager.GetString("Main_Validation_BooleanExpressionIsOK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Byte string is not valid!.
         /// </summary>
         public static string Main_Validation_HexStringIsNotValid {
@@ -2644,6 +2779,15 @@ namespace dnGREP.Localization.Properties {
         public static string MessageBox_DnGrep {
             get {
                 return ResourceManager.GetString("MessageBox_DnGrep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to dnGrep is up to date..
+        /// </summary>
+        public static string MessageBox_DnGrepIsUpToDate {
+            get {
+                return ResourceManager.GetString("MessageBox_DnGrepIsUpToDate", resourceCulture);
             }
         }
         
@@ -3652,6 +3796,33 @@ namespace dnGREP.Localization.Properties {
         public static string Options_ReplaceFontSize {
             get {
                 return ResourceManager.GetString("Options_ReplaceFontSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Results font family.
+        /// </summary>
+        public static string Options_ResultsFontFamily {
+            get {
+                return ResourceManager.GetString("Options_ResultsFontFamily", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Results font size.
+        /// </summary>
+        public static string Options_ResultsFontSize {
+            get {
+                return ResourceManager.GetString("Options_ResultsFontSize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Font used in search results, usually a fixed width font.
+        /// </summary>
+        public static string Options_ResultsFontUsuallyAFixedWidthFont {
+            get {
+                return ResourceManager.GetString("Options_ResultsFontUsuallyAFixedWidthFont", resourceCulture);
             }
         }
         
@@ -4741,6 +4912,15 @@ namespace dnGREP.Localization.Properties {
         public static string Test_SearchResult {
             get {
                 return ResourceManager.GetString("Test_SearchResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Byte.
+        /// </summary>
+        public static string Test_SearchType_Hex {
+            get {
+                return ResourceManager.GetString("Test_SearchType_Hex", resourceCulture);
             }
         }
         

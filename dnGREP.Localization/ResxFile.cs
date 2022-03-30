@@ -17,7 +17,7 @@ namespace dnGREP.Localization
         public void ReadFile(string filePath)
         {
             resources.Clear();
-            IetfLanguateTag = string.Empty;
+            IetfLanguageTag = string.Empty;
 
             try
             {
@@ -27,7 +27,7 @@ namespace dnGREP.Localization
                     if (!string.IsNullOrEmpty(fileName))
                     {
                         int pos = fileName.IndexOf(".");
-                        if (pos < 0)
+                        if (pos < 0 && fileName.Contains("resourcesresx"))
                         {
                             // try the file name format used by Transifex downloads:
                             // for_use_dngrep-application_resourcesresx_he.resx
@@ -39,21 +39,30 @@ namespace dnGREP.Localization
                                 pos = fileName.IndexOf("_", pos);
                             }
                         }
+                        if (pos < 0)
+                        {
+                            // try the file name format used by Weblate downloads:
+                            // dngrep-dngrep-application-de.resx
+                            // dngrep-dngrep-application-zh_Hans.resx
+                            // dngrep-dngrep-application-zh_Hans (1).resx
+                            // get the last dash in the filename
+                            pos = fileName.LastIndexOf("-");
+                        }
                         if (pos > -1)
                         {
-                            var tag = fileName.Substring(pos + 1);
+                            var tag = fileName.Substring(pos + 1).Replace('_', '-');
                             if (!string.IsNullOrEmpty(tag) && tag.Contains("("))
                             {
                                 // remove file numbers: 'he (1)'
                                 pos = tag.IndexOf("(");
                                 if (pos > -1)
                                 {
-                                    tag = tag.Substring(0, tag.Length - pos).Trim();
+                                    tag = tag.Substring(0, pos).Trim();
                                 }
                             }
                             if (!string.IsNullOrEmpty(tag))
                             {
-                                IetfLanguateTag = tag;
+                                IetfLanguageTag = tag;
 
                                 using (ResXResourceReader rsxr = new ResXResourceReader(filePath))
                                 {
@@ -85,9 +94,9 @@ namespace dnGREP.Localization
             }
         }
 
-        public bool IsValid => !string.IsNullOrEmpty(IetfLanguateTag) && resources.Count > 0;
+        public bool IsValid => !string.IsNullOrEmpty(IetfLanguageTag) && resources.Count > 0;
 
-        public string IetfLanguateTag { get; private set; } = string.Empty;
+        public string IetfLanguageTag { get; private set; } = string.Empty;
 
 
         public IDictionary<string, string> Resources => resources;

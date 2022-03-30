@@ -130,7 +130,7 @@
     <comment>About dialog label</comment>
   </data>
   <data name="About_ConvertsPDFFilesToPlainText" xml:space="preserve">
-    <value>Converts PDF files to plain text</value>
+    <value>Преобразует PDF-файлы в обычный текст</value>
     <comment>About dnGrep acknowledgments</comment>
   </data>
   <data name="About_DnGREP" xml:space="preserve">
@@ -142,51 +142,47 @@
     <comment>About dialog text</comment>
   </data>
   <data name="About_FileSystemIndexingLocateFilesInstantly" xml:space="preserve">
-    <value>File system indexing, locate files instantly</value>
+    <value>Индексирование файловой системы, мгновенный поиск файлов</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_JsonFrameworkForNET" xml:space="preserve">
-    <value>JSON framework for .NET</value>
+    <value>JSON-фреймворк для .NET</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_LibraryForReadingArchiveFiles" xml:space="preserve">
-    <value>Library for reading archive files</value>
+    <value>Библиотека для чтения файлов-архивов</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_LoggingFrameworkForNET" xml:space="preserve">
-    <value>Logging framework for .NET</value>
+    <value>Фреймворк логирования для .NET</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryFor7Zip" xml:space="preserve">
-    <value>.NET library for 7-Zip</value>
+    <value>.NET-библиотека для 7-Zip</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
-    <value>.NET library for character set detection</value>
+    <value>.NET-библиотека для определения набора символов</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>.NET library for extended length paths</value>
+    <value>.NET-библиотека для путей расширенной длины</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
-    <value>.NET library for reading Microsoft Excel files</value>
+    <value>.NET-библиотека для чтения Microsoft Excel-файлов</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryToParseECMA376Numbers" xml:space="preserve">
-    <value>.NET library to parse ECMA-376 numbers</value>
+    <value>.NET-библиотека для парсинга номеров ECMA-376</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryToWorkWithWordAndExcelDocuments" xml:space="preserve">
-    <value>.NET library to work with Word and Excel documents</value>
-    <comment>About dialog acknowledgments</comment>
-  </data>
-  <data name="About_NETWPFScreenHelperUtility" xml:space="preserve">
-    <value>.NET WPF screen helper utility</value>
+    <value>.NET-библиотека для работы с документами Word и Excel</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
-    <value>.NET WPF text editor component</value>
+    <value>.NET WPF-компонент текстового редактора</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_OK" xml:space="preserve">
@@ -302,7 +298,7 @@
     <comment>Bookmark details dialog, checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
-    <value>Hex (Шестнадцатеричный)</value>
+    <value>Байтовый (Шестнадцатеричный)</value>
     <comment>Bookmark details dialog, search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
@@ -786,7 +782,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_HighlightRegularExpressionGroups" xml:space="preserve">
-    <value>Подсвечивать группы регулярных выражений - изменения будут применены при следующем поиске</value>
+    <value>Подсвечивать группы регулярных выражений - изменения будут применены при следующем поиске.</value>
     <comment>Main window, result options highlight groups tooltip</comment>
   </data>
   <data name="Main_IncludeBinaryFiles" xml:space="preserve">
@@ -814,7 +810,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window, main menu label (accel)</comment>
   </data>
   <data name="Main_Menu_About_AboutDnGrep" xml:space="preserve">
-    <value>_О программе dnGrep...</value>
+    <value>_О программе dnGrep…</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="Main_Menu_About_Help" xml:space="preserve">
@@ -822,11 +818,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="Main_Menu_Bookmarks" xml:space="preserve">
-    <value>_Закладки...</value>
+    <value>_Закладки…</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Menu_Options" xml:space="preserve">
-    <value>_Опции...</value>
+    <value>_Опции…</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Menu_Undo" xml:space="preserve">
@@ -838,7 +834,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_More" xml:space="preserve">
-    <value>Подробне_е...</value>
+    <value>Подробне_е…</value>
     <comment>Main window, filters expander label (accel)</comment>
   </data>
   <data name="Main_MoreArrowButton" xml:space="preserve">
@@ -850,7 +846,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_CopyFiles" xml:space="preserve">
-    <value>Копировать файлы...</value>
+    <value>Копировать файлы…</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_CopyResults" xml:space="preserve">
@@ -858,11 +854,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_DeleteFiles" xml:space="preserve">
-    <value>Удалить файлы...</value>
+    <value>Удалить файлы…</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_MoveFiles" xml:space="preserve">
-    <value>Переместить файлы...</value>
+    <value>Переместить файлы…</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_Save_CSVResults" xml:space="preserve">
@@ -886,7 +882,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_OpenFolder" xml:space="preserve">
-    <value>...</value>
+    <value>…</value>
     <comment>Main window, open folder button label (accel)</comment>
   </data>
   <data name="Main_PastDateTo" xml:space="preserve">
@@ -958,7 +954,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window, search results text: {0} is number, the offset from the start of the line</comment>
   </data>
   <data name="Main_ResultList_CountAdditionalCharacters" xml:space="preserve">
-    <value>...(+{0:n0} символов)</value>
+    <value>…(+{0:n0} символов)</value>
     <comment>Main window, search results text</comment>
   </data>
   <data name="Main_ResultList_CountMatches" xml:space="preserve">
@@ -1046,7 +1042,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_SavingResultsToFile" xml:space="preserve">
-    <value>Сохранение результатов в файл...</value>
+    <value>Сохранение результатов в файл…</value>
     <comment>Main window, status message</comment>
   </data>
   <data name="Main_SearchButton" xml:space="preserve">
@@ -1082,7 +1078,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_SearchType_Hex" xml:space="preserve">
-    <value>Hex (Шестнадцатеричный)</value>
+    <value>Байтовый (Шестнадцатеричный)</value>
     <comment>Main window, search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_Phonetic" xml:space="preserve">
@@ -1194,11 +1190,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window, status bar message: {0} is the number of files modified by the replace operation</comment>
   </data>
   <data name="Main_Status_ReplaceFailed" xml:space="preserve">
-    <value>Замена не удалась.</value>
+    <value>Замена не удалась</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_Replacing" xml:space="preserve">
-    <value>Замена...</value>
+    <value>Замена…</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_SearchCanceled" xml:space="preserve">
@@ -1222,7 +1218,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found; {2} is the current file name being searched</comment>
   </data>
   <data name="Main_Status_Searching" xml:space="preserve">
-    <value>Поиск...</value>
+    <value>Поиск…</value>
     <comment>Main window, status bar message</comment>
   </data>
   <data name="Main_Status_SearchingForGitignore" xml:space="preserve">
@@ -1254,11 +1250,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window, search option checkbox tooltip</comment>
   </data>
   <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
-    <value>Недопустимая Hex-строка!</value>
+    <value>Недопустимая Байтовая строка!</value>
     <comment>Main window, hexadecimal expression status</comment>
   </data>
   <data name="Main_Validation_HexStringIsOK" xml:space="preserve">
-    <value>Hex-строка в норме!</value>
+    <value>Байтовая строка в норме</value>
     <comment>Main window, hexadecimal expression status</comment>
   </data>
   <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">
@@ -1266,7 +1262,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window, regular expression status</comment>
   </data>
   <data name="Main_Validation_RegexIsOK" xml:space="preserve">
-    <value>Regex в норме!</value>
+    <value>Regex в норме</value>
     <comment>Main window, regular expression status</comment>
   </data>
   <data name="Main_Validation_XPathIsNotValid" xml:space="preserve">
@@ -1274,7 +1270,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window, XPath status</comment>
   </data>
   <data name="Main_Validation_XPathIsOK" xml:space="preserve">
-    <value>XPath в норме!</value>
+    <value>XPath в норме</value>
     <comment>Main window, XPath status</comment>
   </data>
   <data name="Main_WholeWord" xml:space="preserve">
@@ -1302,7 +1298,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Message box text for: Replace text</comment>
   </data>
   <data name="MessageBox_CheckEditorPath" xml:space="preserve">
-    <value>Проверьте путь к редактору через "Опции...".</value>
+    <value>Проверьте путь к редактору через "Опции…".</value>
     <comment>Message box text for: Open file failed</comment>
   </data>
   <data name="MessageBox_ClearingThisBookmarkWillAlsoClearThatBookmark" xml:space="preserve">
@@ -1430,7 +1426,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Message box text for: Options dialog, changing Windows integration options</comment>
   </data>
   <data name="MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister" xml:space="preserve">
-    <value>Запустите dnGrep от имени администратора, чтобы изменить параметры запуска</value>
+    <value>Запустите dnGrep от имени администратора, чтобы изменить параметры запуска.</value>
     <comment>Message box text for: Options dialog, changing Windows integration options</comment>
   </data>
   <data name="MessageBox_SearchFailedError" xml:space="preserve">
@@ -1514,11 +1510,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Message box text for: unsetting auto start error</comment>
   </data>
   <data name="MessageBox_ThisBookmarkIsAssociatedWith0OtherFolders" xml:space="preserve">
-    <value>Эта закладка связана с {0} другими папками:</value>
+    <value>Эта закладка связана с {0} другими папками.</value>
     <comment>Message box text for: Main window bookmark delete: {0} is the number of folders</comment>
   </data>
   <data name="MessageBox_ThisBookmarkIsAssociatedWithOneOtherFolder" xml:space="preserve">
-    <value>Эта закладка связана с другой папкой</value>
+    <value>Эта закладка связана с другой папкой.</value>
     <comment>Message box text for: Main window bookmark delete</comment>
   </data>
   <data name="MessageBox_Undo" xml:space="preserve">
@@ -1574,7 +1570,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Options dialog, archive options text input label</comment>
   </data>
   <data name="Options_BrowseFileLocation" xml:space="preserve">
-    <value>...</value>
+    <value>…</value>
     <comment>Options dialog, browse for file button label</comment>
   </data>
   <data name="Options_CheckDays" xml:space="preserve">
@@ -1674,7 +1670,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Options dialog, language request label</comment>
   </data>
   <data name="Options_HexSearchResultLineLength" xml:space="preserve">
-    <value>Длина строки результата шестнадцатеричного поиска</value>
+    <value>Длина строки результата байтового (шестнадцатеричного) поиска</value>
     <comment>Options dialog, results options combo box label</comment>
   </data>
   <data name="Options_HistoryLists" xml:space="preserve">
@@ -1706,7 +1702,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Options dialog, layout group header label</comment>
   </data>
   <data name="Options_LoadFromFile" xml:space="preserve">
-    <value>Загрузить из файла...</value>
+    <value>Загрузить из файла…</value>
     <comment>Options dialog, language load button label (accel)</comment>
   </data>
   <data name="Options_MainFontSize" xml:space="preserve">
@@ -1794,7 +1790,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Options dialog, theme reload button tooltip</comment>
   </data>
   <data name="Options_ReplaceDialogLayout" xml:space="preserve">
-    <value>Макет диалога замены:</value>
+    <value>Макет диалога замены</value>
     <comment>Options dialog, replace view options label</comment>
   </data>
   <data name="Options_ReplaceFontSize" xml:space="preserve">
@@ -1838,7 +1834,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowSearchOptions" xml:space="preserve">
-    <value>Показывать параметры поиска содержимого:</value>
+    <value>Показывать параметры поиска содержимого</value>
     <comment>Options dialog, layout options label</comment>
   </data>
   <data name="Options_ShowVerboseMatchCount" xml:space="preserve">
@@ -2372,5 +2368,89 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
   <data name="Window_RestoreDown" xml:space="preserve">
     <value>Восстановить</value>
     <comment>Window title bar button tooltip</comment>
+  </data>
+  <data name="Main_PowerPointSlideNumber" xml:space="preserve">
+    <value>Слайд:{0}</value>
+    <comment>Main window, results list label for PowerPoint files: {0} is the slide number in the PowerPoint document</comment>
+  </data>
+  <data name="Options_ResultsFontFamily" xml:space="preserve">
+    <value>Семейство шрифтов в результатах</value>
+    <comment>Options dialog, results font selector label</comment>
+  </data>
+  <data name="Options_ResultsFontSize" xml:space="preserve">
+    <value>Размер шрифта в результатах</value>
+    <comment>Options dialog, results font size label</comment>
+  </data>
+  <data name="Options_ResultsFontUsuallyAFixedWidthFont" xml:space="preserve">
+    <value>Шрифт, используемый в результатах поиска, обычно шрифт фиксированной ширины</value>
+    <comment>Options dialog, replace font selector tooltip</comment>
+  </data>
+  <data name="Test_SearchType_Hex" xml:space="preserve">
+    <value>Байтовый (Шестнадцатеричный)</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_FileSource_Group" xml:space="preserve">
+    <value>Файловый источник</value>
+    <comment>Bookmark details dialog, file type group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_FileSource_Group_Tooltip" xml:space="preserve">
+    <value>Включить свойства файлового источника в закладку</value>
+    <comment>Bookmark details dialog, file type group header tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_Filters_Group" xml:space="preserve">
+    <value>Файловые фильтры</value>
+    <comment>Bookmark details dialog, filters group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Filters_Group_Tooltip" xml:space="preserve">
+    <value>Включить свойства файлового фильтра в закладку</value>
+    <comment>Bookmark details dialog, filters group header tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_Content_Group" xml:space="preserve">
+    <value>Содержимое</value>
+    <comment>Bookmark details dialog, search group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Content_Group_Tooltip" xml:space="preserve">
+    <value>Включить свойства поиска содержимого в закладку</value>
+    <comment>Bookmark details dialog, search group header tooltip</comment>
+  </data>
+  <data name="Bookmarks_SectionsHeader" xml:space="preserve">
+    <value>Секции</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionContainsAnUnknownToken" xml:space="preserve">
+    <value>Boolean expression contains an unknown token</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionHasAnUnknownError" xml:space="preserve">
+    <value>Boolean expression has an unknown error</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionHasMismatchedParentheses" xml:space="preserve">
+    <value>Boolean expression has mismatched parentheses</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsMissingABooleanOperator" xml:space="preserve">
+    <value>Boolean expression is missing a Boolean operator</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsMissingASearchPattern" xml:space="preserve">
+    <value>Boolean expression is missing a search pattern</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsNotValid" xml:space="preserve">
+    <value>Boolean expression is not valid</value>
+    <comment>Main window, Boolean expression status</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsOK" xml:space="preserve">
+    <value>Boolean expression is OK</value>
+    <comment>Main window, Boolean expression status</comment>
+  </data>
+  <data name="Main_Menu_About_CheckForUpdates" xml:space="preserve">
+    <value>_Check for updates</value>
+    <comment>Main window, main menu subitem label (accel)</comment>
+  </data>
+  <data name="MessageBox_DnGrepIsUpToDate" xml:space="preserve">
+    <value>dnGrep is up to date.</value>
+    <comment>Message box text for: Check for updates response</comment>
   </data>
 </root>

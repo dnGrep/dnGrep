@@ -84,7 +84,35 @@ namespace dnGREP.Common
 
         public Bookmark Find(Bookmark bookmark)
         {
-            return Bookmarks.FirstOrDefault(bk => bk == bookmark);
+            if (!Bookmarks.Any()) return null;
+
+            var item = Bookmarks.FirstOrDefault(bk => bk.Equals(bookmark)) ??
+
+                Bookmarks.FirstOrDefault(bk => bk.ApplyFileSourceFilters && bk.FileSourceEquals(bookmark) && 
+                    bk.ApplyFilePropertyFilters && bk.FilePropertiesEquals(bookmark) &&
+                    !bk.ApplyContentSearchFilters) ??
+
+                Bookmarks.FirstOrDefault(bk => bk.ApplyFileSourceFilters && bk.FileSourceEquals(bookmark) && 
+                    bk.ApplyContentSearchFilters && bk.ContentSearchEquals(bookmark) &&
+                    !bk.ApplyFilePropertyFilters) ??
+
+                Bookmarks.FirstOrDefault(bk => bk.ApplyFilePropertyFilters && bk.FilePropertiesEquals(bookmark) &&
+                    bk.ApplyContentSearchFilters && bk.ContentSearchEquals(bookmark) &&
+                    !bk.ApplyFileSourceFilters) ??
+
+                Bookmarks.FirstOrDefault(bk => bk.ApplyFileSourceFilters && bk.FileSourceEquals(bookmark) &&
+                    !bk.ApplyFilePropertyFilters &&
+                    !bk.ApplyContentSearchFilters) ??
+
+                Bookmarks.FirstOrDefault(bk => bk.ApplyFilePropertyFilters && bk.FilePropertiesEquals(bookmark) &&
+                    !bk.ApplyFileSourceFilters &&
+                    !bk.ApplyContentSearchFilters) ??
+
+                Bookmarks.FirstOrDefault(bk => bk.ApplyContentSearchFilters && bk.ContentSearchEquals(bookmark) &&
+                    !bk.ApplyFileSourceFilters &&
+                    !bk.ApplyFilePropertyFilters);
+
+            return item;
         }
 
         public void AddFolderReference(Bookmark bookmark, string folder)
@@ -106,7 +134,7 @@ namespace dnGREP.Common
         public Bookmark() { }
         public Bookmark(string searchFor, string replaceWith, string filePattern)
         {
-            Version = 2;
+            Version = 3;
             SearchPattern = searchFor;
             ReplacePattern = replaceWith;
             FileNames = filePattern;
@@ -136,6 +164,9 @@ namespace dnGREP.Common
         public bool FollowSymlinks { get; set; }
         public int CodePage { get; set; } = -1;
         public List<string> FolderReferences { get; set; } = new List<string>();
+        public bool ApplyFileSourceFilters { get; set; } = true;
+        public bool ApplyFilePropertyFilters { get; set; } = true;
+        public bool ApplyContentSearchFilters { get; set; } = true;
 
 
         // do not write v2 properties if the user hasn't updated the bookmark
@@ -156,6 +187,9 @@ namespace dnGREP.Common
         public bool ShouldSerializeFollowSymlinks() { return Version > 1; }
         public bool ShouldSerializeCodePage() { return Version > 1; }
         public bool ShouldSerializeFolderReferences() { return Version > 1; }
+        public bool ShouldSerializeApplyFileSourceFilters() { return Version > 2; }
+        public bool ShouldSerializeApplyFilePropertyFilters() { return Version > 2; }
+        public bool ShouldSerializeApplySearchFilters() { return Version > 2; }
 
         public override bool Equals(object obj)
         {
@@ -166,15 +200,55 @@ namespace dnGREP.Common
             return false;
         }
 
+        public bool FileSourceEquals(Bookmark otherBookmark)
+        {
+            return TypeOfFileSearch == otherBookmark.TypeOfFileSearch &&
+                FileNames == otherBookmark.FileNames &&
+                IgnoreFilePattern == otherBookmark.IgnoreFilePattern &&
+                IncludeArchive == otherBookmark.IncludeArchive &&
+                UseGitignore == otherBookmark.UseGitignore &&
+                CodePage == otherBookmark.CodePage;
+        }
+
+        public bool FilePropertiesEquals(Bookmark otherBookmark)
+        {
+            return IncludeSubfolders == otherBookmark.IncludeSubfolders &&
+                MaxSubfolderDepth == otherBookmark.MaxSubfolderDepth &&
+                IncludeHiddenFiles == otherBookmark.IncludeHiddenFiles &&
+                IncludeBinaryFiles == otherBookmark.IncludeBinaryFiles &&
+                FollowSymlinks == otherBookmark.FollowSymlinks;
+        }
+
+        public bool ContentSearchEquals(Bookmark otherBookmark)
+        {
+            return TypeOfSearch == otherBookmark.TypeOfSearch &&
+                    SearchPattern == otherBookmark.SearchPattern &&
+                    ReplacePattern == otherBookmark.ReplacePattern &&
+                    CaseSensitive == otherBookmark.CaseSensitive &&
+                    WholeWord == otherBookmark.WholeWord &&
+                    Multiline == otherBookmark.Multiline &&
+                    Singleline == otherBookmark.Singleline &&
+                    BooleanOperators == otherBookmark.BooleanOperators;
+        }
+
         public bool Equals(Bookmark otherBookmark)
         {
             if (otherBookmark is null)
                 return false;
 
-            return
-                TypeOfFileSearch == otherBookmark.TypeOfFileSearch &&
+            return TypeOfFileSearch == otherBookmark.TypeOfFileSearch &&
                 FileNames == otherBookmark.FileNames &&
                 IgnoreFilePattern == otherBookmark.IgnoreFilePattern &&
+                UseGitignore == otherBookmark.UseGitignore &&
+                IncludeArchive == otherBookmark.IncludeArchive &&
+                CodePage == otherBookmark.CodePage &&
+
+                IncludeSubfolders == otherBookmark.IncludeSubfolders &&
+                MaxSubfolderDepth == otherBookmark.MaxSubfolderDepth &&
+                IncludeHiddenFiles == otherBookmark.IncludeHiddenFiles &&
+                IncludeBinaryFiles == otherBookmark.IncludeBinaryFiles &&
+                FollowSymlinks == otherBookmark.FollowSymlinks &&
+
                 TypeOfSearch == otherBookmark.TypeOfSearch &&
                 SearchPattern == otherBookmark.SearchPattern &&
                 ReplacePattern == otherBookmark.ReplacePattern &&
@@ -183,14 +257,10 @@ namespace dnGREP.Common
                 Multiline == otherBookmark.Multiline &&
                 Singleline == otherBookmark.Singleline &&
                 BooleanOperators == otherBookmark.BooleanOperators &&
-                IncludeSubfolders == otherBookmark.IncludeSubfolders &&
-                IncludeHiddenFiles == otherBookmark.IncludeHiddenFiles &&
-                IncludeBinaryFiles == otherBookmark.IncludeBinaryFiles &&
-                MaxSubfolderDepth == otherBookmark.MaxSubfolderDepth &&
-                UseGitignore == otherBookmark.UseGitignore &&
-                IncludeArchive == otherBookmark.IncludeArchive &&
-                FollowSymlinks == otherBookmark.FollowSymlinks &&
-                CodePage == otherBookmark.CodePage;
+
+                ApplyFileSourceFilters == otherBookmark.ApplyFileSourceFilters &&
+                ApplyFilePropertyFilters == otherBookmark.ApplyFilePropertyFilters &&
+                ApplyContentSearchFilters == otherBookmark.ApplyContentSearchFilters;
         }
 
         public override int GetHashCode()
@@ -201,6 +271,16 @@ namespace dnGREP.Common
                 hashCode = (hashCode * 17) ^ TypeOfFileSearch.GetHashCode();
                 hashCode = (hashCode * 17) ^ FileNames?.GetHashCode() ?? 5;
                 hashCode = (hashCode * 17) ^ IgnoreFilePattern?.GetHashCode() ?? 5;
+                hashCode = (hashCode * 17) ^ UseGitignore.GetHashCode();
+                hashCode = (hashCode * 17) ^ IncludeArchive.GetHashCode();
+                hashCode = (hashCode * 17) ^ CodePage.GetHashCode();
+
+                hashCode = (hashCode * 17) ^ IncludeSubfolders.GetHashCode();
+                hashCode = (hashCode * 17) ^ MaxSubfolderDepth.GetHashCode();
+                hashCode = (hashCode * 17) ^ IncludeHiddenFiles.GetHashCode();
+                hashCode = (hashCode * 17) ^ IncludeBinaryFiles.GetHashCode();
+                hashCode = (hashCode * 17) ^ FollowSymlinks.GetHashCode();
+
                 hashCode = (hashCode * 17) ^ TypeOfSearch.GetHashCode();
                 hashCode = (hashCode * 17) ^ SearchPattern?.GetHashCode() ?? 5;
                 hashCode = (hashCode * 17) ^ ReplacePattern?.GetHashCode() ?? 5;
@@ -209,14 +289,11 @@ namespace dnGREP.Common
                 hashCode = (hashCode * 17) ^ Multiline.GetHashCode();
                 hashCode = (hashCode * 17) ^ Singleline.GetHashCode();
                 hashCode = (hashCode * 17) ^ BooleanOperators.GetHashCode();
-                hashCode = (hashCode * 17) ^ IncludeSubfolders.GetHashCode();
-                hashCode = (hashCode * 17) ^ IncludeHiddenFiles.GetHashCode();
-                hashCode = (hashCode * 17) ^ IncludeBinaryFiles.GetHashCode();
-                hashCode = (hashCode * 17) ^ MaxSubfolderDepth.GetHashCode();
-                hashCode = (hashCode * 17) ^ UseGitignore.GetHashCode();
-                hashCode = (hashCode * 17) ^ IncludeArchive.GetHashCode();
-                hashCode = (hashCode * 17) ^ FollowSymlinks.GetHashCode();
-                hashCode = (hashCode * 17) ^ CodePage.GetHashCode();
+
+                hashCode = (hashCode * 17) ^ ApplyFileSourceFilters.GetHashCode();
+                hashCode = (hashCode * 17) ^ ApplyFilePropertyFilters.GetHashCode();
+                hashCode = (hashCode * 17) ^ ApplyContentSearchFilters.GetHashCode();
+
                 return hashCode;
             }
         }

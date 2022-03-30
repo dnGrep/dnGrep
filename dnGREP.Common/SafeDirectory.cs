@@ -170,8 +170,16 @@ namespace dnGREP.Common
                 {
                     foreach (string pattern in patterns)
                     {
-                        if (WildcardMatch(fsei.FileName, pattern, true))
-                            return true;
+                        if (pattern.Contains('*') || pattern.Contains('?'))
+                        {
+                            if (WildcardMatch(fsei.FileName, pattern, true))
+                                return true;
+                        }
+                        else
+                        {
+                            if (fsei.FileName.Equals(pattern, StringComparison.OrdinalIgnoreCase))
+                                return true;
+                        }
                     }
 
                     if (includeArchive)

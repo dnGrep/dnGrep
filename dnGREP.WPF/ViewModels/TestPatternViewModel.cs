@@ -21,11 +21,14 @@ namespace dnGREP.WPF
         private int replaceHash;
         private List<GrepSearchResult> grepResults = new List<GrepSearchResult>();
         private readonly string horizontalBar = new string(char.ConvertFromUtf32(0x2015)[0], 80);
+        private readonly int hexLineSize = GrepSettings.Instance.Get<int>(GrepSettings.Key.HexResultByteLength);
 
         public TestPatternViewModel()
         {
             ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
             DialogFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.DialogFontSize);
+            ResultsFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ResultsFontFamily);
+            ResultsFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.ResultsFontSize);
         }
 
         private int GetSearchHash()
@@ -62,7 +65,7 @@ namespace dnGREP.WPF
 
             if (name == nameof(HighlightCaptureGroups))
             {
-                settings.Set(GrepSettings.Key.HighlightCaptureGroups, HighlightCaptureGroups);
+                Settings.Set(GrepSettings.Key.HighlightCaptureGroups, HighlightCaptureGroups);
             }
 
             switch (name)
@@ -80,25 +83,30 @@ namespace dnGREP.WPF
                     if (IsValidPattern && sHash != searchHash)
                     {
                         Search();
-                        Replace();
+                        if (TypeOfSearch != SearchType.Hex)
+                        {
+                            Replace();
+                        }
 
                         searchHash = sHash;
                         replaceHash = GetReplaceHash();
+                    }
+
+                    IsReplaceReadOnly = TypeOfSearch == SearchType.Hex;
+                    if (IsReplaceReadOnly)
+                    {
+                        ReplaceWith = string.Empty;
                     }
                     break;
 
                 case nameof(ReplaceWith):
                     int rHash = GetReplaceHash();
-                    if (IsValidPattern && rHash != replaceHash)
+                    if (IsValidPattern && rHash != replaceHash && TypeOfSearch != SearchType.Hex)
                     {
                         Replace();
 
                         replaceHash = rHash;
                     }
-                    break;
-
-                case nameof(ValidationMessage):
-                    HasValidationMessage = !string.IsNullOrWhiteSpace(ValidationMessage);
                     break;
             }
         }
@@ -113,7 +121,7 @@ namespace dnGREP.WPF
                     return;
 
                 applicationFontFamily = value;
-                base.OnPropertyChanged(() => ApplicationFontFamily);
+                base.OnPropertyChanged(nameof(ApplicationFontFamily));
             }
         }
 
@@ -127,26 +135,9 @@ namespace dnGREP.WPF
                     return;
 
                 dialogfontSize = value;
-                base.OnPropertyChanged(() => DialogFontSize);
+                base.OnPropertyChanged(nameof(DialogFontSize));
             }
         }
-
-
-        private bool hasValidationMessage;
-
-        public bool HasValidationMessage
-        {
-            get { return hasValidationMessage; }
-            set
-            {
-                if (value == hasValidationMessage)
-                    return;
-
-                hasValidationMessage = value;
-                base.OnPropertyChanged(() => HasValidationMessage);
-            }
-        }
-
 
         private static string sampleText;
         public string SampleText
@@ -158,7 +149,21 @@ namespace dnGREP.WPF
                     return;
 
                 sampleText = value;
-                base.OnPropertyChanged(() => SampleText);
+                base.OnPropertyChanged(nameof(SampleText));
+            }
+        }
+
+        private bool isReplaceReadOnly;
+        public bool IsReplaceReadOnly
+        {
+            get { return isReplaceReadOnly; }
+            set
+            {
+                if (value == isReplaceReadOnly)
+                    return;
+
+                isReplaceReadOnly = value;
+                base.OnPropertyChanged(nameof(IsReplaceReadOnly));
             }
         }
 
@@ -172,7 +177,7 @@ namespace dnGREP.WPF
                     return;
 
                 searchOutput = value;
-                base.OnPropertyChanged(() => SearchOutput);
+                base.OnPropertyChanged(nameof(SearchOutput));
             }
         }
 
@@ -186,7 +191,7 @@ namespace dnGREP.WPF
                     return;
 
                 replaceOutput = value;
-                base.OnPropertyChanged(() => ReplaceOutput);
+                base.OnPropertyChanged(nameof(ReplaceOutput));
             }
         }
 
@@ -199,9 +204,7 @@ namespace dnGREP.WPF
                 if (value == replaceOutputText)
                     return;
 
-                replaceOutputText = value;
-
-                base.OnPropertyChanged(() => ReplaceOutputText);
+                base.OnPropertyChanged(nameof(ReplaceOutputText));
             }
         }
 
@@ -215,8 +218,7 @@ namespace dnGREP.WPF
                     return;
 
                 replaceErrorText = value;
-
-                base.OnPropertyChanged(() => ReplaceErrorText);
+                base.OnPropertyChanged(nameof(ReplaceErrorText));
             }
         }
 
@@ -265,32 +267,64 @@ namespace dnGREP.WPF
                 return;
             }
 
-            GrepEnginePlainText engine = new GrepEnginePlainText();
+            IGrepEngine engine;
+            Encoding encoding;
+            if (TypeOfSearch == SearchType.Hex)
+            {
+                engine = new GrepEngineHex();
+                encoding = Encoding.UTF8;
+            }
+            else
+            {
+                engine = new GrepEnginePlainText();
+                encoding = Encoding.Unicode;
+            }
             engine.Initialize(InitParameters, new FileFilter());
 
-            using (Stream inputStream = new MemoryStream(Encoding.Unicode.GetBytes(SampleText)))
+            using (Stream inputStream = new MemoryStream(encoding.GetBytes(SampleText)))
             {
                 try
                 {
                     grepResults = engine.Search(inputStream, "test.txt", SearchFor, TypeOfSearch,
-                        SearchOptions, Encoding.Unicode);
+                        SearchOptions, encoding);
 
                     if (grepResults != null)
                     {
-                        using (StringReader reader = new StringReader(SampleText))
+                        if (TypeOfSearch == SearchType.Hex)
                         {
-                            foreach (var result in grepResults)
+                            using (Stream stream = new MemoryStream(encoding.GetBytes(SampleText)))
                             {
-                                if (!result.HasSearchResults)
-                                    result.SearchResults = Utils.GetLinesEx(reader, result.Matches, 0, 0);
+                                using (BinaryReader reader = new BinaryReader(stream))
+                                {
+                                    foreach (var result in grepResults)
+                                    {
+                                        if (!result.HasSearchResults)
+                                        {
+                                            result.SearchResults = Utils.GetLinesHexFormat(reader, result.Matches, 0, 0);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            using (StringReader reader = new StringReader(SampleText))
+                            {
+                                foreach (var result in grepResults)
+                                {
+                                    if (!result.HasSearchResults)
+                                    {
+                                        result.SearchResults = Utils.GetLinesEx(reader, result.Matches, 0, 0);
+                                    }
+                                }
                             }
                         }
                     }
                 }
                 catch (ArgumentException ex)
                 {
-                    MessageBox.Show(Resources.MessageBox_IncorrectPattern + ex.Message, 
-                        Resources.MessageBox_DnGrep, 
+                    MessageBox.Show(Resources.MessageBox_IncorrectPattern + ex.Message,
+                        Resources.MessageBox_DnGrep,
                         MessageBoxButton.OK, MessageBoxImage.Warning,
                         MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
                 }
@@ -315,7 +349,24 @@ namespace dnGREP.WPF
                     }
 
                     // Copy children Inline to a temporary array.
-                    paragraph.Inlines.AddRange(line.FormattedText.ToList());
+                    if (TypeOfSearch == SearchType.Hex)
+                    {
+                        var run = new Run(line.FormattedLineNumber)
+                        {
+                            Background = new SolidColorBrush(Color.FromArgb(92, 180, 180, 180)),
+                            FontFamily = new FontFamily(ApplicationFontFamily),
+                        };
+                        paragraph.Inlines.Add(run);
+                        paragraph.Inlines.Add(new Run(" "));
+                        paragraph.Inlines.AddRange(line.FormattedText.ToList());
+                        int length = GetLineLength(line.FormattedText);
+                        int spaces = (hexLineSize * 3) - length + 3;
+                        paragraph.Inlines.Add(new Run(new string(' ', spaces) + line.FormattedHexValues));
+                    }
+                    else
+                    {
+                        paragraph.Inlines.AddRange(line.FormattedText.ToList());
+                    }
                     paragraph.Inlines.Add(new LineBreak());
                     hasMatches = true;
                 }
@@ -325,6 +376,19 @@ namespace dnGREP.WPF
                 paragraph.Inlines.Add(new Run(Resources.Test_NoMatchesFound));
             }
             SearchOutput = paragraph.Inlines;
+        }
+
+        private int GetLineLength(InlineCollection formattedText)
+        {
+            int length = 0;
+            foreach (var inline in formattedText)
+            {
+                if (inline is Run run)
+                {
+                    length += run.Text.Length;
+                }
+            }
+            return length;
         }
 
         private void Replace()
@@ -373,8 +437,8 @@ namespace dnGREP.WPF
             }
             catch (ArgumentException ex)
             {
-                MessageBox.Show(Resources.MessageBox_IncorrectPattern + ex.Message, 
-                    Resources.MessageBox_DnGrep, 
+                MessageBox.Show(Resources.MessageBox_IncorrectPattern + ex.Message,
+                    Resources.MessageBox_DnGrep,
                     MessageBoxButton.OK, MessageBoxImage.Warning,
                     MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
             }
@@ -384,7 +448,7 @@ namespace dnGREP.WPF
             }
             catch (Exception ex)
             {
-                MessageBox.Show(Resources.MessageBox_Error + ex.Message, Resources.MessageBox_DnGrep, 
+                MessageBox.Show(Resources.MessageBox_Error + ex.Message, Resources.MessageBox_DnGrep,
                     MessageBoxButton.OK, MessageBoxImage.Error,
                     MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
             }

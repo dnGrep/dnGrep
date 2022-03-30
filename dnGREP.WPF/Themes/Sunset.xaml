@@ -191,11 +191,11 @@
     <SolidColorBrush x:Key="ScrollBar.MouseOver.Background" po:Freeze="true" Color="#FF252525" />
     <SolidColorBrush x:Key="ScrollBar.MouseOver.Border" po:Freeze="true" Color="#FF252525" />
     <SolidColorBrush x:Key="ScrollBar.MouseOver.Glyph" po:Freeze="true" Color="#FFFFFFFF" />
-    <SolidColorBrush x:Key="ScrollBar.MouseOver.Thumb" po:Freeze="true" Color="#FF989898" />
+    <SolidColorBrush x:Key="ScrollBar.MouseOver.Thumb" po:Freeze="true" Color="#FF858585" />
     <SolidColorBrush x:Key="ScrollBar.Pressed.Background" po:Freeze="true" Color="#FF8B552C" />
     <SolidColorBrush x:Key="ScrollBar.Pressed.Border" po:Freeze="true" Color="#FF8B552C" />
     <SolidColorBrush x:Key="ScrollBar.Pressed.Glyph" po:Freeze="true" Color="#FFFFFFFF" />
-    <SolidColorBrush x:Key="ScrollBar.Pressed.Thumb" po:Freeze="true" Color="#FFA6A6A6" />
+    <SolidColorBrush x:Key="ScrollBar.Pressed.Thumb" po:Freeze="true" Color="#FF989898" />
     <SolidColorBrush x:Key="ScrollBar.Disabled.Background" po:Freeze="true" Color="#FF252525" />
     <SolidColorBrush x:Key="ScrollBar.Disabled.Border" po:Freeze="true" Color="#FF252525" />
     <SolidColorBrush x:Key="ScrollBar.Disabled.Glyph" po:Freeze="true" Color="#FFE0E0E0" />

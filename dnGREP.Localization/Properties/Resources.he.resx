@@ -181,10 +181,6 @@
     <value>ספריית .NET לעבודה עם מסמכי Word ו- Excel</value>
     <comment>About dialog acknowledgments</comment>
   </data>
-  <data name="About_NETWPFScreenHelperUtility" xml:space="preserve">
-    <value>.NET WPF כלי עזר למסכים</value>
-    <comment>About dialog acknowledgments</comment>
-  </data>
   <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
     <value>.NET WPF רכיב עורך טקסט</value>
     <comment>About dialog acknowledgments</comment>
@@ -2375,5 +2371,89 @@ Arguments:
   <data name="Window_RestoreDown" xml:space="preserve">
     <value>שחזור למטה</value>
     <comment>Window title bar button tooltip</comment>
+  </data>
+  <data name="Main_PowerPointSlideNumber" xml:space="preserve">
+    <value>שקופית {0}</value>
+    <comment>Main window, results list label for PowerPoint files: {0} is the slide number in the PowerPoint document</comment>
+  </data>
+  <data name="Options_ResultsFontFamily" xml:space="preserve">
+    <value>Results font family</value>
+    <comment>Options dialog, results font selector label</comment>
+  </data>
+  <data name="Options_ResultsFontSize" xml:space="preserve">
+    <value>Results font size</value>
+    <comment>Options dialog, results font size label</comment>
+  </data>
+  <data name="Options_ResultsFontUsuallyAFixedWidthFont" xml:space="preserve">
+    <value>Font used in search results, usually a fixed width font</value>
+    <comment>Options dialog, replace font selector tooltip</comment>
+  </data>
+  <data name="Test_SearchType_Hex" xml:space="preserve">
+    <value>Byte</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_FileSource_Group" xml:space="preserve">
+    <value>File source</value>
+    <comment>Bookmark details dialog, file type group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_FileSource_Group_Tooltip" xml:space="preserve">
+    <value>Include file source properties in bookmark</value>
+    <comment>Bookmark details dialog, file type group header tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_Filters_Group" xml:space="preserve">
+    <value>File filters</value>
+    <comment>Bookmark details dialog, filters group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Filters_Group_Tooltip" xml:space="preserve">
+    <value>Include file filter properties in bookmark</value>
+    <comment>Bookmark details dialog, filters group header tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_Content_Group" xml:space="preserve">
+    <value>Content</value>
+    <comment>Bookmark details dialog, search group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Content_Group_Tooltip" xml:space="preserve">
+    <value>Include content search properties in bookmark</value>
+    <comment>Bookmark details dialog, search group header tooltip</comment>
+  </data>
+  <data name="Bookmarks_SectionsHeader" xml:space="preserve">
+    <value>Sections</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionContainsAnUnknownToken" xml:space="preserve">
+    <value>Boolean expression contains an unknown token</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionHasAnUnknownError" xml:space="preserve">
+    <value>Boolean expression has an unknown error</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionHasMismatchedParentheses" xml:space="preserve">
+    <value>Boolean expression has mismatched parentheses</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsMissingABooleanOperator" xml:space="preserve">
+    <value>Boolean expression is missing a Boolean operator</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsMissingASearchPattern" xml:space="preserve">
+    <value>Boolean expression is missing a search pattern</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsNotValid" xml:space="preserve">
+    <value>Boolean expression is not valid</value>
+    <comment>Main window, Boolean expression status</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsOK" xml:space="preserve">
+    <value>Boolean expression is OK</value>
+    <comment>Main window, Boolean expression status</comment>
+  </data>
+  <data name="Main_Menu_About_CheckForUpdates" xml:space="preserve">
+    <value>_Check for updates</value>
+    <comment>Main window, main menu subitem label (accel)</comment>
+  </data>
+  <data name="MessageBox_DnGrepIsUpToDate" xml:space="preserve">
+    <value>dnGrep is up to date.</value>
+    <comment>Message box text for: Check for updates response</comment>
   </data>
 </root>

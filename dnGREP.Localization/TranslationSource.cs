@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows;
 using System.Windows.Data;
@@ -29,18 +30,20 @@ namespace dnGREP.Localization
                 { "bg", "Български" },
                 { "de", "Deutsch" },
                 { "en", "English" },
+                { "es", "español" },
                 { "he", "עברית" },
                 { "nb-NO", "Bokmål" },
-                { "ru", "Русский" },
+                { "ru", "pусский" },
                 { "zh-CN", "简体中文" },
+                { "zh-Hant", "中文" },
             };
 
-        public void SetCulture(string ietfLanguateTag)
+        public void SetCulture(string ietfLanguageTag)
         {
-            if (!string.IsNullOrWhiteSpace(ietfLanguateTag) && AppCultures.ContainsKey(ietfLanguateTag))
+            if (!string.IsNullOrWhiteSpace(ietfLanguageTag) && AppCultures.ContainsKey(ietfLanguageTag))
             {
                 ResourceManagerEx.Instance.FileResources = null;
-                CurrentCulture = CultureInfo.GetCultureInfoByIetfLanguageTag(ietfLanguateTag);
+                CurrentCulture = CultureInfo.GetCultureInfoByIetfLanguageTag(ietfLanguageTag);
             }
         }
 
@@ -78,16 +81,25 @@ namespace dnGREP.Localization
             if (resxFile.IsValid)
             {
                 ResourceManagerEx.Instance.FileResources = resxFile;
-                CurrentCulture = CultureInfo.GetCultureInfoByIetfLanguageTag(resxFile.IetfLanguateTag);
+                CurrentCulture = CultureInfo.GetCultureInfoByIetfLanguageTag(resxFile.IetfLanguageTag);
                 return true;
             }
             return false;
         }
 
+        private static readonly Regex placeholderRegex = new Regex(@"{\d+}");
+
         public static string Format(string format, params object[] args)
         {
             if (!string.IsNullOrWhiteSpace(format))
             {
+#if DEBUG
+                var matchCount = placeholderRegex.Matches(format).Count;
+                if (matchCount != args.Length)
+                {
+                    return "Missing placeholder {?}: " + format;
+                }
+#endif
                 try
                 {
                     return string.Format(CultureInfo.CurrentCulture, format, args);

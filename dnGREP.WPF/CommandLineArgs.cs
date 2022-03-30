@@ -39,7 +39,10 @@ namespace dnGREP.WPF
                 {
                     s = s.Substring(1, s.Length - 2);
                 }
-                result.Add(s);
+                if (!string.IsNullOrWhiteSpace(s))
+                {
+                    result.Add(s);
+                }
             }
             return result.Skip(1).ToArray(); // Drop the program path, and return array of all strings
         }

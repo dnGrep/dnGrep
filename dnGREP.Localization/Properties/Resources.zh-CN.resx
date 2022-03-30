@@ -181,10 +181,6 @@
     <value>处理 Word 和 Excel 文档的 .NET 库</value>
     <comment>About dialog acknowledgments</comment>
   </data>
-  <data name="About_NETWPFScreenHelperUtility" xml:space="preserve">
-    <value>.NET WPF 屏幕帮助工具</value>
-    <comment>About dialog acknowledgments</comment>
-  </data>
   <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
     <value>.NET WPF 文本编辑器组件</value>
     <comment>About dialog acknowledgments</comment>
@@ -238,7 +234,7 @@
     <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_ForExampleAsteriskPattern" xml:space="preserve">
-    <value>例: file??.*</value>
+    <value>例: *.txt;*.xml</value>
     <comment>Bookmark details dialog, pattern type option Asterisk tooltip</comment>
   </data>
   <data name="BookmarkDetails_ForExampleRegularExpession" xml:space="preserve">
@@ -458,99 +454,99 @@
     <comment>Bookmarks dialog, button text (accel)</comment>
   </data>
   <data name="Help_CmdLine" xml:space="preserve">
-    <value>dnGrep:  Search through text files, Word and Excel documents, PDFs, and archives using text, regular expression, XPath, and phonetic queries.
+    <value>dnGrep:  搜索纯文本文件, Word 和 Excel 文档, PDF, 压缩文件, 正则表达式, XPath, 以及注音查询.
 
-Version {0} built on {1}
+版本 {0} 编译于 {1}
 
-Usage:
+使用方法:
 
 dnGrep [arguments]
-Using any combination of arguments from the list below.
-Example:
+使用下列任意组合参数.
+举例:
 dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex
 
 dnGrep [folderPath] [searchFor]
-One or two arguments without flags: the first argument is the folder to search, the second the regular expression to search for.
-Example:
+一个或两个无 flag 参数: 第一个参数为搜索文件夹,第二个参数是搜索用正则表达式.
+举例:
 dnGrep "C:\Program Files\dnGrep" t\w*t
 
-Any arguments not specified will default to the last saved user settings.
+任何未指定的参数将预设为最后保存过的用户设置.
 
-Arguments:
+参数列表:
 
 /f [folderPath]
 -f [folderPath]
 -folder [folderPath]
-    Sets the folder path to search.  May be a comma- or semicolon-separated list of folder paths.
+    搜索文件夹, 可以是以逗号或分号分隔的多个路径.
 
 /pm [pattern]
 -pm [pattern]
 -pathToMatch [pattern]
-    Sets the file name pattern to match files in the search path. May be a comma- or semicolon-separated list of patterns.
+    搜索路径中的文件名模式匹配, 可以是以逗号或分号分隔的多个模式.
 
 /pi [pattern]
 -pi [pattern]
 -pathToIgnore [pattern]
-    Sets the file or directory name pattern to exclude files or folders in the search path. May be a comma- or semicolon-separated list of patterns.
+    搜索路径中的需要排除的文件名或文件夹模式匹配, 可以是以逗号或分号分隔的多个模式.
 
 /pt [type]
 -pt [type]
 -patternType [type]
-    Sets the type of match and ignore pattern – must be one of: "Asterisk" (wildcard), "Regex" (regular expression), or "Everything" (if the Everything search tool is installed).
+    符合或忽略匹配的模式类型 - 必须为其一: "Asterisk" (通配符), "Regex" (正则表达式), 或 "Everything" (需安装 Everything 搜索软件).
 
 /s [searchFor]
 -s [searchFor]
 -searchFor [searchFor]
-    Sets the pattern or text to search for within the set of files.  When this argument is set, the search will be run automatically.
+    要搜索的模式内容或文本. 若给定此参数, 将自动开始搜索.
 
 /st [type]
 -st [type]
 -searchType [type]
-    Sets the type of search – must be one of: "PlainText", "Regex" (regular expression), "XPath", or "Soundex" (phonetic).
+    搜索类型 - 必须为其一:  "PlainText", "Regex" (正则表达式), "XPath", 或 "Soundex" (注音).
 
 /cs [True/False]
 -cs [True/False]
 -caseSensitive [True/False]
-    Sets case-sensitive search flag – True or False.
+    大小写敏感 - True 或 False.
 
 /ww [True/False]
 -ww [True/False]
 -wholeWord [True/False]
-    Sets the whole word search flag – True or False.
+    全字匹配 - True 或 False.
 
 /ml [True/False]
 -ml [True/False]
 -multiline [True/False]
-    Sets the multiline search flag – True or False.
+    设定多行搜索 - True 或 False.
 
 /dn [True/False]
 -dn [True/False]
 -dotAsNewline [True/False]
-    Sets the dot as newline search flag – True or False.
+    设定点号作为新行 - True 或 False.
 
 /bo [True/False]
 -bo [True/False]
 -booleanOperators [True/False]
-    Sets the Boolean operators search flag – True or False.
+    布尔运算操作 - True 或 False.
 
 /rpt [filePath]
 -rpt [filePath]
 -report [filePath]
-    Create results file in report format after search is complete.
+    搜索完成后输出搜索结果为报告文件.
 
 /txt [filePath]
 -txt [filePath]
 -text [filePath]
-    Create results file in text format after search is complete.
+    搜索完成后输出搜索结果为文本文件.
 
 /csv [filePath]
 -csv [filePath]
-    Create results file in CSV format after search is complete.
+    搜索完成后输出搜索结果为CSV文件.
 
 /x
 -x
 -exit
-    Exit dnGrep after command-line operations are complete.</value>
+    退出 dnGrep.</value>
     <comment>Help dialog text when running dnGrep from the command line: {0} is the installed dnGrep version number; {1} is the installed dnGrep build date</comment>
   </data>
   <data name="Help_DnGrepHelp" xml:space="preserve">
@@ -1253,11 +1249,11 @@ Arguments:
     <comment>Main window, search option checkbox tooltip</comment>
   </data>
   <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
-    <value>16进制串不合法!</value>
+    <value>16 进制串不合法!</value>
     <comment>Main window, hexadecimal expression status</comment>
   </data>
   <data name="Main_Validation_HexStringIsOK" xml:space="preserve">
-    <value>字节串没问题</value>
+    <value>16 进制串没问题</value>
     <comment>Main window, hexadecimal expression status</comment>
   </data>
   <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">
@@ -1661,7 +1657,7 @@ Arguments:
     <comment>Options dialog, font selector label</comment>
   </data>
   <data name="Options_HelpTranslateDnGrep" xml:space="preserve">
-    <value>帮忙翻译 dnGrep.</value>
+    <value>帮助翻译 dnGrep.</value>
     <comment>Options dialog, language request label</comment>
   </data>
   <data name="Options_HistoryLists" xml:space="preserve">
@@ -2371,5 +2367,89 @@ Arguments:
   <data name="Replace_NumberOfMatchesMarkedForReplacement" xml:space="preserve">
     <value>{0} 处匹配被标记为替换，共 {1} 处匹配</value>
     <comment>Replace window, file name progress line: {0} is number of matches marked for replacement; {1} is the number of matches found in the current file</comment>
+  </data>
+  <data name="Main_PowerPointSlideNumber" xml:space="preserve">
+    <value>幻灯片 {0}</value>
+    <comment>Main window, results list label for PowerPoint files: {0} is the slide number in the PowerPoint document</comment>
+  </data>
+  <data name="Options_ResultsFontFamily" xml:space="preserve">
+    <value>搜索结果字体</value>
+    <comment>Options dialog, results font selector label</comment>
+  </data>
+  <data name="Options_ResultsFontSize" xml:space="preserve">
+    <value>搜索结果字体大小</value>
+    <comment>Options dialog, results font size label</comment>
+  </data>
+  <data name="Options_ResultsFontUsuallyAFixedWidthFont" xml:space="preserve">
+    <value>在搜索结果中使用的字体，通常是一种等宽字体</value>
+    <comment>Options dialog, replace font selector tooltip</comment>
+  </data>
+  <data name="Test_SearchType_Hex" xml:space="preserve">
+    <value>16 进制</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_FileSource_Group" xml:space="preserve">
+    <value>文件来源</value>
+    <comment>Bookmark details dialog, file type group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_FileSource_Group_Tooltip" xml:space="preserve">
+    <value>在书签中包含文件源属性</value>
+    <comment>Bookmark details dialog, file type group header tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_Filters_Group" xml:space="preserve">
+    <value>文件筛选器</value>
+    <comment>Bookmark details dialog, filters group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Filters_Group_Tooltip" xml:space="preserve">
+    <value>在书签中包含文件筛选器属性</value>
+    <comment>Bookmark details dialog, filters group header tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_Content_Group" xml:space="preserve">
+    <value>内容</value>
+    <comment>Bookmark details dialog, search group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Content_Group_Tooltip" xml:space="preserve">
+    <value>在书签中包含内容搜索属性</value>
+    <comment>Bookmark details dialog, search group header tooltip</comment>
+  </data>
+  <data name="Bookmarks_SectionsHeader" xml:space="preserve">
+    <value>段</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionContainsAnUnknownToken" xml:space="preserve">
+    <value>布尔表达式包含一个未知的标记</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionHasAnUnknownError" xml:space="preserve">
+    <value>布尔表达式有未知错误</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionHasMismatchedParentheses" xml:space="preserve">
+    <value>布尔表达式有不匹配的括号</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsMissingABooleanOperator" xml:space="preserve">
+    <value>布尔表达式缺少一个布尔运算符</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsMissingASearchPattern" xml:space="preserve">
+    <value>布尔表达式缺少一个搜索模式</value>
+    <comment>Main window, Boolean expression detail error message</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsNotValid" xml:space="preserve">
+    <value>布尔表达式无效</value>
+    <comment>Main window, Boolean expression status</comment>
+  </data>
+  <data name="Main_Validation_BooleanExpressionIsOK" xml:space="preserve">
+    <value>Boolean expression is OK</value>
+    <comment>Main window, Boolean expression status</comment>
+  </data>
+  <data name="Main_Menu_About_CheckForUpdates" xml:space="preserve">
+    <value>检查更新(_C)</value>
+    <comment>Main window, main menu subitem label (accel)</comment>
+  </data>
+  <data name="MessageBox_DnGrepIsUpToDate" xml:space="preserve">
+    <value>dnGrep is up to date.</value>
+    <comment>Message box text for: Check for updates response</comment>
   </data>
 </root>

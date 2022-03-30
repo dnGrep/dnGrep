@@ -14,7 +14,7 @@ namespace dnGREP.WPF
             {
                 return Brushes.Red;
             }
-            return Application.Current.Resources["Control.Foreground"] as Brush;
+            return new SolidColorBrush(Color.FromRgb(54, 163, 0));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

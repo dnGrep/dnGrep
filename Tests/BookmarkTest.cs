@@ -118,5 +118,69 @@ namespace Tests
             Assert.Single(bmk2.FolderReferences);
             Assert.Empty(bmk.FolderReferences);
         }
+
+        [Fact]
+        public void TestFindBookmarkWithSection()
+        {
+            BookmarkLibrary.Instance.Bookmarks.Clear();
+            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark("", "", "*.cs") 
+                { 
+                    Description = "Search for cs",
+                    TypeOfFileSearch = FileSearchType.Asterisk,
+                    ApplyFilePropertyFilters = false,
+                    ApplyContentSearchFilters = false,
+                });
+            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark("", "", "*.xml")
+                {
+                    Description = "Search for xml",
+                    TypeOfFileSearch = FileSearchType.Asterisk,
+                    ApplyFilePropertyFilters = false,
+                    ApplyContentSearchFilters = false,
+                });
+            Assert.Equal(2, BookmarkLibrary.Instance.Bookmarks.Count);
+
+            var currentBookmarkSettings = new Bookmark(@"\w+\s\w+", "", "*.cs")
+                { 
+                    TypeOfFileSearch = FileSearchType.Asterisk,
+                    TypeOfSearch = SearchType.Regex,
+                    Multiline = true,
+                    ApplyFilePropertyFilters = true,
+                    ApplyContentSearchFilters = true,
+                };
+
+            Bookmark bk = BookmarkLibrary.Instance.Find(currentBookmarkSettings);
+
+            Assert.NotNull(bk);
+            Assert.Equal("Search for cs", bk.Description);
+        }
+
+        [Fact]
+        public void TestNotFindBookmarkWithSection()
+        {
+            // this test verifies that 'Find' will not return a bookmark
+            // that matches on some enabled sections, but not all enabled sections
+            BookmarkLibrary.Instance.Bookmarks.Clear();
+            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark("", "", "*.cs") 
+                { 
+                    Description = "Search for cs",
+                    TypeOfFileSearch = FileSearchType.Asterisk,
+                    ApplyFilePropertyFilters = false,
+                    ApplyContentSearchFilters = false,
+                });
+            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark("", "", "*.xml")
+                {
+                    Description = "Search for xml",
+                    TypeOfFileSearch = FileSearchType.Asterisk,
+                    ApplyFilePropertyFilters = true,
+                    ApplyContentSearchFilters = true,
+                });
+            Assert.Equal(2, BookmarkLibrary.Instance.Bookmarks.Count);
+
+            var currentBookmarkSettings = new Bookmark(@"\w+\s\w+", "", "*.json");
+
+            Bookmark bk = BookmarkLibrary.Instance.Find(currentBookmarkSettings);
+
+            Assert.Null(bk);
+        }
     }
 }

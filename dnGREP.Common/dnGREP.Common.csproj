@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>dnGREP.Common</RootNamespace>
     <AssemblyName>dnGREP.Common</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -71,6 +71,7 @@
     </Compile>
     <Compile Include="ArchiveDirectory.cs" />
     <Compile Include="BookmarkLibrary.cs" />
+    <Compile Include="ConfigurationTemplate.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="FileData.cs" />
@@ -79,6 +80,8 @@
     <Compile Include="GrepCaptureGroup.cs" />
     <Compile Include="GrepLine.cs" />
     <Compile Include="GrepMatch.cs" />
+    <Compile Include="Boolean\BooleanExpression.cs" />
+    <Compile Include="Boolean\BooleanToken.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="PathSearchText.cs" />
     <Compile Include="SafeDirectory.cs" />
@@ -95,12 +98,17 @@
     <Compile Include="SearchDelegates.cs" />
     <Compile Include="GrepApplicationSettings.cs" />
     <Compile Include="ReplaceDef.cs" />
+    <Compile Include="Boolean\Token.cs" />
+    <Compile Include="Boolean\BooleanTokenizer.cs" />
+    <Compile Include="Boolean\TokenMatch.cs" />
+    <Compile Include="Boolean\TokenType.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
