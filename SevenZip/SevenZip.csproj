@@ -113,10 +113,21 @@
     <Compile Include="ZipEncryptionMethod.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="arch\Test.txt" />
     <Content Include="gpl.txt" />
     <Content Include="lgpl.txt" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="arch\Test.bzip2.7z" />
+    <EmbeddedResource Include="arch\Test.lzma.7z" />
+    <EmbeddedResource Include="arch\Test.lzma2.7z" />
+    <EmbeddedResource Include="arch\Test.ppmd.7z" />
+    <EmbeddedResource Include="arch\Test.rar" />
+    <EmbeddedResource Include="arch\Test.tar" />
+    <EmbeddedResource Include="arch\Test.txt.bz2" />
+    <EmbeddedResource Include="arch\Test.txt.gz" />
+    <EmbeddedResource Include="arch\Test.txt.xz" />
+    <EmbeddedResource Include="arch\Test.zip" />
     <None Include="SevenZip.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

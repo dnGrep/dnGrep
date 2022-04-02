@@ -109,6 +109,10 @@
       <Project>{cbc7aec0-59ff-4050-b02d-adb15359ced4}</Project>
       <Name>dnGREP.WPF</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SevenZip\SevenZip.csproj">
+      <Project>{ce51eb4c-0c64-4162-b95e-527ae438cfd8}</Project>
+      <Name>SevenZip</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -160,9 +164,6 @@
   <ItemGroup>
     <PackageReference Include="AlphaFS">
       <Version>2.2.6</Version>
-    </PackageReference>
-    <PackageReference Include="Squid-Box.SevenZipSharp">
-      <Version>1.5.0.366</Version>
     </PackageReference>
     <PackageReference Include="xunit">
       <Version>2.4.1</Version>

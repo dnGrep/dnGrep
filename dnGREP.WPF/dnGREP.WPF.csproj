@@ -447,6 +447,10 @@
       <Project>{a18eeae0-260f-4fc1-bdf2-6bf0ba335cb7}</Project>
       <Name>ICSharpCode.AvalonEdit</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SevenZip\SevenZip.csproj">
+      <Project>{ce51eb4c-0c64-4162-b95e-527ae438cfd8}</Project>
+      <Name>SevenZip</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AlphaFS">
@@ -454,9 +458,6 @@
     </PackageReference>
     <PackageReference Include="NLog">
       <Version>4.7.13</Version>
-    </PackageReference>
-    <PackageReference Include="Squid-Box.SevenZipSharp">
-      <Version>1.5.0.366</Version>
     </PackageReference>
     <PackageReference Include="StrongNamer">
       <Version>0.2.5</Version>
