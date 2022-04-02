@@ -127,6 +127,10 @@
       <Project>{8ce89f78-57c4-48df-9473-e70ab05dc986}</Project>
       <Name>dnGREP.Localization</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SevenZip\SevenZip.csproj">
+      <Project>{ce51eb4c-0c64-4162-b95e-527ae438cfd8}</Project>
+      <Name>SevenZip</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AlphaFS">
@@ -137,9 +141,6 @@
     </PackageReference>
     <PackageReference Include="NLog">
       <Version>4.7.13</Version>
-    </PackageReference>
-    <PackageReference Include="Squid-Box.SevenZipSharp">
-      <Version>1.5.0.366</Version>
     </PackageReference>
     <PackageReference Include="UTF.Unknown">
       <Version>2.5.0</Version>
