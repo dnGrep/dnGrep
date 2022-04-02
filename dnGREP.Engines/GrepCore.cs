@@ -13,7 +13,7 @@ namespace dnGREP.Common
 {
     public class GrepCore
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         public delegate void SearchProgressHandler(object sender, ProgressStatus files);
         public event SearchProgressHandler ProcessedFile = delegate { };
@@ -28,7 +28,7 @@ namespace dnGREP.Common
         public FileFilter FileFilter { get; set; }
 
 
-        private List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
+        private readonly List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
         private readonly object lockObj = new object();
         private CancellationTokenSource cancellationTokenSource;
         private int processedFilesCount;
@@ -222,6 +222,11 @@ namespace dnGREP.Common
 
                 IGrepEngine engine = GrepEngineFactory.GetSearchEngine(file, SearchParams, FileFilter, searchType);
 
+                if (engine is ArchiveEngine archiveEngine)
+                {
+                    archiveEngine.SetSearchOptions(FileFilter, SearchParams);
+                }
+
                 Interlocked.Increment(ref processedFilesCount);
 
                 bool isArchive = file.Contains(ArchiveDirectory.ArchiveSeparator);
@@ -242,7 +247,7 @@ namespace dnGREP.Common
                 List<GrepSearchResult> fileSearchResults = null;
                 if (isArchive)
                 {
-                    fileSearchResults = ArchiveEngine.Search(engine, file, searchPattern, searchType, searchOptions, encoding);
+                    //fileSearchResults = ArchiveEngine.Search(engine, file, searchPattern, searchType, searchOptions, encoding);
                 }
                 else
                 {

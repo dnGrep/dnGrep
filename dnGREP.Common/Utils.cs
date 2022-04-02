@@ -1114,9 +1114,11 @@ namespace dnGREP.Common
                     {
                         if (filter.IncludeArchive)
                         {
-                            foreach (var innerFile in EnumerateArchiveFiles(subPath, filter, hasSearchPattern,
-                            includeSearchPatterns, includeRegexPatterns, excludeRegexPatterns))
-                                yield return innerFile;
+                            matches.Add(subPath);
+                            yield return subPath;
+                            //foreach (var innerFile in EnumerateArchiveFiles(subPath, filter, hasSearchPattern,
+                            //    includeSearchPatterns, includeRegexPatterns, excludeRegexPatterns))
+                            //    yield return innerFile;
                         }
                     }
                     else if (IncludeFile(subPath, filter, null, hasSearchPattern, includeSearchPatterns,
@@ -1148,9 +1150,11 @@ namespace dnGREP.Common
                     {
                         if (filter.IncludeArchive)
                         {
-                            foreach (var innerFile in EnumerateArchiveFiles(filePath, filter, hasSearchPattern,
-                                includeSearchPatterns, includeRegexPatterns, excludeRegexPatterns))
-                                yield return innerFile;
+                            matches.Add(filePath);
+                            yield return filePath;
+                            //foreach (var innerFile in EnumerateArchiveFiles(filePath, filter, hasSearchPattern,
+                            //    includeSearchPatterns, includeRegexPatterns, excludeRegexPatterns))
+                            //    yield return innerFile;
                         }
                     }
                     else if (IncludeFile(filePath, filter, null, hasSearchPattern, includeSearchPatterns,
@@ -1287,7 +1291,7 @@ namespace dnGREP.Common
         /// <summary>
         /// Evaluates if a file should be included in the search results
         /// </summary>
-        private static bool IncludeFile(string filePath, FileFilter filter, FileData fileInfo,
+        public static bool IncludeFile(string filePath, FileFilter filter, FileData fileInfo,
             bool hasSearchPattern, IList<string> includeSearchPatterns,
             IList<Regex> includeRegexPatterns, IList<Regex> excludeRegexPatterns)
         {
