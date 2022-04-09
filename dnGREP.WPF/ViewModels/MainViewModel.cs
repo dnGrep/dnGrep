@@ -968,7 +968,8 @@ namespace dnGREP.WPF
                         if (!string.IsNullOrEmpty(param.FilePatternIgnore))
                             filePatternExclude = param.FilePatternIgnore;
 
-                        IEnumerable<string> files;
+                        IEnumerable<FileData> fileInfos = null;
+                        IEnumerable<string> files = null;
 
                         Utils.CancelSearch = false;
 
@@ -977,7 +978,12 @@ namespace dnGREP.WPF
                             param.IncludeSubfolder, param.MaxSubfolderDepth, param.IncludeHidden, param.IncludeBinary, param.IncludeArchive,
                             param.FollowSymlinks, sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime);
 
-                        if (param.Operation == GrepOperation.SearchInResults)
+                        if (string.IsNullOrWhiteSpace(SearchFor) &&
+                            Settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern))
+                        {
+                            fileInfos = Utils.GetFileListIncludingArchives(fileParams);
+                        }
+                        else if (param.Operation == GrepOperation.SearchInResults)
                         {
                             files = param.SearchInFiles;
                         }
@@ -1047,13 +1053,17 @@ namespace dnGREP.WPF
                         grep.ProcessedFile += GrepCore_ProcessedFile;
 
                         if (CaptureGroupSearch && param.TypeOfFileSearch == FileSearchType.Regex &&
-                            !string.IsNullOrEmpty(param.SearchFor))
+                            !string.IsNullOrEmpty(param.SearchFor) && files != null)
                         {
                             e.Result = grep.CaptureGroupSearch(files, filePatternInclude, searchOptions, param.TypeOfSearch, param.SearchFor, param.CodePage);
                         }
-                        else
+                        else if (files != null)
                         {
                             e.Result = grep.Search(files, param.TypeOfSearch, param.SearchFor, searchOptions, param.CodePage);
+                        }
+                        else if (fileInfos != null)    
+                        {
+                            e.Result = grep.ListFiles(fileInfos, searchOptions, param.CodePage);
                         }
                         grep.ProcessedFile -= GrepCore_ProcessedFile;
                     }

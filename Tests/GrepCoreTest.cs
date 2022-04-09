@@ -317,9 +317,12 @@ namespace Tests
             Assert.True(results.Count > 1);
             results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "public", GrepSearchOption.StopAfterFirstMatch, -1);
             Assert.Single(results);
-            results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "", GrepSearchOption.CaseSensitive, -1);
+
+            var fileData = Utils.GetFileListIncludingArchives(new FileFilter(destFolder, "*.*", string.Empty, false, false,
+                false, true, -1, true, true, true, false, 0, 0, FileDateFilter.None, null, null));
+            results = core.ListFiles(fileData, GrepSearchOption.CaseSensitive, -1);
             Assert.True(results.Count > 1);
-            results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "", GrepSearchOption.StopAfterFirstMatch, -1);
+            results = core.ListFiles(fileData, GrepSearchOption.StopAfterFirstMatch, -1);
             Assert.Single(results);
         }
 

@@ -891,8 +891,11 @@ namespace Tests
                 Directory.Copy(testCase17, destFolder);
             }
 
-            string[] files = Utils.GetFileList(destFolder, namePattern, null, false, false, true, true,
-                true, true, false, 0, 0, FileDateFilter.None, null, null, false, -1);
+            FileFilter filter = new FileFilter(destFolder, namePattern, null, false, false, false, true, -1, true,
+                true, true, false, 0, 0, FileDateFilter.None, null, null);
+
+            var files = Utils.GetFileListIncludingArchives(filter).ToArray();
+
             Assert.Equal(expected, files.Length);
         }
 
@@ -911,8 +914,11 @@ namespace Tests
                 Directory.Copy(testCase17, destFolder);
             }
 
-            string[] files = Utils.GetFileList(destFolder, namePattern, null, false, false, true, true,
-                true, true, false, 0, 0, FileDateFilter.None, null, null, false, -1);
+            FileFilter filter = new FileFilter(destFolder, namePattern, null, false, false, false, true, -1, true,
+                true, true, false, 0, 0, FileDateFilter.None, null, null);
+
+            var files = Utils.GetFileListIncludingArchives(filter).ToArray();
+
             Assert.Equal(expected, files.Length);
         }
 
@@ -1375,10 +1381,10 @@ namespace Tests
         [InlineData(@" -f c:\temp\testData\ -s p\w* -csv c:\temp\report.csv", 6, false, false, @"c:\temp\testData\", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, null, @"c:\temp\report.csv", false)]
         [InlineData(@" -f c:\temp\testData\ -s p\w* -csv c:\temp\report.csv -x", 7, false, false, @"c:\temp\testData\", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, null, @"c:\temp\report.csv", true)]
         [InlineData(@" -f c:\temp\testData\ -s p\w* -x -csv c:\temp\report.csv", 7, false, false, @"c:\temp\testData\", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, null, @"c:\temp\report.csv", true)]
-        public void SplitCommandLineTest(string commandLine, int argCount, 
-            bool expInvalidArgument, bool expIsWarmUp, string expSearchPath, string expSearchFor, 
-            SearchType? expSearchType, string expPatternToInclude, string expPatternToExclude, 
-            FileSearchType? expTypeOfFileSearch, bool? expCaseSensitive, bool? expWholeWord, 
+        public void SplitCommandLineTest(string commandLine, int argCount,
+            bool expInvalidArgument, bool expIsWarmUp, string expSearchPath, string expSearchFor,
+            SearchType? expSearchType, string expPatternToInclude, string expPatternToExclude,
+            FileSearchType? expTypeOfFileSearch, bool? expCaseSensitive, bool? expWholeWord,
             bool? expMultiline, bool? expDotAsNewLine, bool? expBooleanOperators, bool expExecuteSearch,
             string expReportPath, string expTextPath, string expCsvPath, bool expExit)
         {
@@ -1649,7 +1655,7 @@ namespace Tests
             var operands = exp.Operands.ToList();
             // the last value is the expected result for the input values
             Assert.Equal(values.Length - 1, operands.Count);
-            for(int i = 0; i < values.Length - 1; i++)
+            for (int i = 0; i < values.Length - 1; i++)
             {
                 operands[i].EvaluatedResult = values[i];
             }

@@ -213,7 +213,7 @@ namespace dnGREP.Engines
 
                 if (ArchiveDirectory.Extensions.Contains(fileExtension))
                 {
-                    return GetArchiveEngine(param, filter);
+                    return GetArchiveEngine(fileExtension, param, filter);
                 }
 
                 if (fileTypeEngines.ContainsKey(fileExtension))
@@ -290,8 +290,20 @@ namespace dnGREP.Engines
             return engine;
         }
 
-        private static IGrepEngine GetArchiveEngine(GrepEngineInitParams param, FileFilter filter)
+        private static IGrepEngine GetArchiveEngine(string fileExtension, GrepEngineInitParams param, FileFilter filter)
         {
+            if (!poolKeys.ContainsKey(fileExtension))
+            {
+                poolKeys.Add(fileExtension, "GrepArchiveEngine");
+            }
+
+            IGrepEngine poolEngine = FetchFromPool(fileExtension);
+            if (poolEngine != null)
+            {
+                poolEngine.Initialize(param, filter);
+                return poolEngine;
+            }
+
             IGrepEngine engine = new ArchiveEngine();
             loadedEngines.Add(engine);
             engine.Initialize(param, filter);

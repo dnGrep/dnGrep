@@ -72,6 +72,7 @@
     <Compile Include="ArchiveDirectory.cs" />
     <Compile Include="BookmarkLibrary.cs" />
     <Compile Include="ConfigurationTemplate.cs" />
+    <Compile Include="DataEventArgs.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="FileData.cs" />

@@ -37,6 +37,8 @@ namespace dnGREP.Common
             everythingFileInfo = fileInfo;
         }
 
+        public string ErrorMsg { get; set; }
+
         public string FullName
         {
             get

@@ -1060,6 +1060,24 @@ namespace dnGREP.Common
             }
         }
 
+        public static IEnumerable<FileData> GetFileListIncludingArchives(FileFilter filter)
+        {
+            foreach (var file in GetFileListEx(filter))
+            {
+                if (IsArchive(file))
+                {
+                    foreach (var innerFile in ArchiveDirectory.EnumerateFiles(file, filter))
+                    {
+                        yield return innerFile;
+                    }
+                }
+                else
+                {
+                    yield return new FileData(file);
+                }
+            }
+        }
+
         /// <summary>
         /// Iterator based file search
         /// Searches folder and it's subfolders for files that match pattern and
@@ -1110,16 +1128,10 @@ namespace dnGREP.Common
             {
                 if (File.Exists(subPath))
                 {
-                    if (IsArchive(subPath))
+                    if (IsArchive(subPath) && filter.IncludeArchive)
                     {
-                        if (filter.IncludeArchive)
-                        {
-                            matches.Add(subPath);
-                            yield return subPath;
-                            //foreach (var innerFile in EnumerateArchiveFiles(subPath, filter, hasSearchPattern,
-                            //    includeSearchPatterns, includeRegexPatterns, excludeRegexPatterns))
-                            //    yield return innerFile;
-                        }
+                        matches.Add(subPath);
+                        yield return subPath;
                     }
                     else if (IncludeFile(subPath, filter, null, hasSearchPattern, includeSearchPatterns,
                         includeRegexPatterns, excludeRegexPatterns) && !matches.Contains(subPath))
@@ -1146,16 +1158,10 @@ namespace dnGREP.Common
 
                 foreach (var filePath in SafeDirectory.EnumerateFiles(subPath, includeSearchPatterns, gitignore, filter))
                 {
-                    if (IsArchive(filePath))
+                    if (IsArchive(filePath) && filter.IncludeArchive)
                     {
-                        if (filter.IncludeArchive)
-                        {
-                            matches.Add(filePath);
-                            yield return filePath;
-                            //foreach (var innerFile in EnumerateArchiveFiles(filePath, filter, hasSearchPattern,
-                            //    includeSearchPatterns, includeRegexPatterns, excludeRegexPatterns))
-                            //    yield return innerFile;
-                        }
+                        matches.Add(filePath);
+                        yield return filePath;
                     }
                     else if (IncludeFile(filePath, filter, null, hasSearchPattern, includeSearchPatterns,
                         includeRegexPatterns, excludeRegexPatterns) && !matches.Contains(filePath))
@@ -1170,7 +1176,6 @@ namespace dnGREP.Common
         private static IEnumerable<string> GetFileListEverything(FileFilter filter, IList<Regex> includeRegexPatterns, IList<Regex> excludeRegexPatterns)
         {
             string searchString = filter.Path.Trim();
-            List<string> includeSearchPatterns = new List<string> { "*.*" };// if including archives, return everything inside archives
             if (filter.IncludeArchive)
             {
                 // to search in archives, ask Everything to return all archive files
@@ -1193,11 +1198,7 @@ namespace dnGREP.Common
 
                 if (filter.IncludeArchive && IsArchive(fileInfo.FullName))
                 {
-                    foreach (var innerFile in EnumerateArchiveFiles(fileInfo.FullName, filter, true,
-                        includeSearchPatterns, includeRegexPatterns, excludeRegexPatterns))
-                    {
-                        yield return innerFile;
-                    }
+                    yield return fileInfo.FullName;
                 }
                 else if (IncludeFile(fileInfo.FullName, filter, fileData, true, new List<string>(),
                     includeRegexPatterns, excludeRegexPatterns))
@@ -1267,20 +1268,6 @@ namespace dnGREP.Common
             }
 
             return searchString + function;
-        }
-
-        private static IEnumerable<string> EnumerateArchiveFiles(string filePath, FileFilter filter,
-            bool hasSearchPattern, IList<string> includeSearchPatterns,
-            IList<Regex> includeRegexPatterns, IList<Regex> excludeRegexPatterns)
-        {
-            foreach (var fileData in ArchiveDirectory.EnumerateFiles(filePath, includeSearchPatterns, filter))
-            {
-                if (IncludeFile(fileData.FullName, filter, fileData, hasSearchPattern, includeSearchPatterns,
-                    includeRegexPatterns, excludeRegexPatterns))
-                {
-                    yield return fileData.FullName;
-                }
-            }
         }
 
         public static string Quote(string text)
