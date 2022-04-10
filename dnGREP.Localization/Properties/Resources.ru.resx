@@ -2418,35 +2418,35 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionContainsAnUnknownToken" xml:space="preserve">
-    <value>Boolean expression contains an unknown token</value>
+    <value>Булево выражение содержит неизвестный токен</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionHasAnUnknownError" xml:space="preserve">
-    <value>Boolean expression has an unknown error</value>
+    <value>Булево выражение содержит неизвестную ошибку</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionHasMismatchedParentheses" xml:space="preserve">
-    <value>Boolean expression has mismatched parentheses</value>
+    <value>Булево выражение имеет несоответствующие круглые скобки</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsMissingABooleanOperator" xml:space="preserve">
-    <value>Boolean expression is missing a Boolean operator</value>
+    <value>В булевом выражении отсутствует оператор</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsMissingASearchPattern" xml:space="preserve">
-    <value>Boolean expression is missing a search pattern</value>
+    <value>В булевом выражении отсутствует шаблон поиска</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsNotValid" xml:space="preserve">
-    <value>Boolean expression is not valid</value>
+    <value>Булево выражение некорректно</value>
     <comment>Main window, Boolean expression status</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsOK" xml:space="preserve">
-    <value>Boolean expression is OK</value>
+    <value>Булево выражение в порядке</value>
     <comment>Main window, Boolean expression status</comment>
   </data>
   <data name="Main_Menu_About_CheckForUpdates" xml:space="preserve">
-    <value>_Check for updates</value>
+    <value>_Проверить наличие обновлений</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="MessageBox_DnGrepIsUpToDate" xml:space="preserve">
