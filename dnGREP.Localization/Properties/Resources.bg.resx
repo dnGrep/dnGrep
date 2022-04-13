@@ -1253,7 +1253,7 @@ Arguments:
     <comment>Main window, hexadecimal expression status</comment>
   </data>
   <data name="Main_Validation_HexStringIsOK" xml:space="preserve">
-    <value>Шестнадесетичният низ е валиден!</value>
+    <value>Шестнадесетичният низ е валиден</value>
     <comment>Main window, hexadecimal expression status</comment>
   </data>
   <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">
@@ -1261,7 +1261,7 @@ Arguments:
     <comment>Main window, regular expression status</comment>
   </data>
   <data name="Main_Validation_RegexIsOK" xml:space="preserve">
-    <value>Регулярният израз е валиден!</value>
+    <value>Регулярният израз е валиден</value>
     <comment>Main window, regular expression status</comment>
   </data>
   <data name="Main_Validation_XPathIsNotValid" xml:space="preserve">
@@ -1269,7 +1269,7 @@ Arguments:
     <comment>Main window, XPath status</comment>
   </data>
   <data name="Main_Validation_XPathIsOK" xml:space="preserve">
-    <value>Изразът на XPath е валиден!</value>
+    <value>Изразът на XPath е валиден</value>
     <comment>Main window, XPath status</comment>
   </data>
   <data name="Main_WholeWord" xml:space="preserve">
@@ -1653,7 +1653,7 @@ Arguments:
     <comment>Options dialog, theme checkbox label (accel)</comment>
   </data>
   <data name="Options_FontFamily" xml:space="preserve">
-    <value>Фамилия на шрифта</value>
+    <value>Семейство на шрифта</value>
     <comment>Options dialog, font selector label</comment>
   </data>
   <data name="Options_HelpTranslateDnGrep" xml:space="preserve">
@@ -1725,7 +1725,7 @@ Arguments:
     <comment>Options dialog, PDF text input label</comment>
   </data>
   <data name="Options_PdfToTextReset" xml:space="preserve">
-    <value>Reset</value>
+    <value>Нулиране</value>
     <comment>Options dialog, PDF arguments button label (accel)</comment>
   </data>
   <data name="Options_PhoneticSearch" xml:space="preserve">
@@ -1733,15 +1733,15 @@ Arguments:
     <comment>Options dialog, phonetic group header label</comment>
   </data>
   <data name="Options_PluginAdd" xml:space="preserve">
-    <value>Добавяне:</value>
+    <value>Добавяне</value>
     <comment>Options dialog, plugin options text input label</comment>
   </data>
   <data name="Options_PluginDefault" xml:space="preserve">
-    <value>Default:</value>
+    <value>Подразбирани</value>
     <comment>Options dialog, plugin options text input label</comment>
   </data>
   <data name="Options_PluginEnabled" xml:space="preserve">
-    <value>Enabled</value>
+    <value>Включване</value>
     <comment>Options dialog, plugins checkbox label</comment>
   </data>
   <data name="Options_PluginExtensions" xml:space="preserve">
@@ -1753,15 +1753,15 @@ Arguments:
     <comment>Options dialog, plugin options group header label</comment>
   </data>
   <data name="Options_PluginRemove" xml:space="preserve">
-    <value>Премахване:</value>
+    <value>Премахване</value>
     <comment>Options dialog, plugin options text input label</comment>
   </data>
   <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
-    <value>Press F1 for help on options</value>
+    <value>Натиснете F1 за помощ с настройките</value>
     <comment>Options dialog, help label</comment>
   </data>
   <data name="Options_PreviewToolForTranslators" xml:space="preserve">
-    <value>Preview tool for translators</value>
+    <value>Предварителен преглед на преводи</value>
     <comment>Options dialog, load language button tooltip</comment>
   </data>
   <data name="Options_RegexOptions" xml:space="preserve">
@@ -1769,11 +1769,11 @@ Arguments:
     <comment>Options dialog, regex options group heading label</comment>
   </data>
   <data name="Options_Reload" xml:space="preserve">
-    <value>Reload</value>
+    <value>Презареждане</value>
     <comment>Options dialog, theme reload button label (accel)</comment>
   </data>
   <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
-    <value>Reload the current theme file [Ctrl+F5]</value>
+    <value>Презарежда файла на текущата тема [Ctrl+F5]</value>
     <comment>Options dialog, theme reload button tooltip</comment>
   </data>
   <data name="Options_ReplaceFontSize" xml:space="preserve">
@@ -1785,7 +1785,7 @@ Arguments:
     <comment>Options dialog, results options group header label</comment>
   </data>
   <data name="Options_SampleText" xml:space="preserve">
-    <value>Sample text</value>
+    <value>Текстов образец</value>
     <comment>Options dialog, font family and size sample text </comment>
   </data>
   <data name="Options_Save" xml:space="preserve">
@@ -1793,7 +1793,7 @@ Arguments:
     <comment>Options dialog, save button label (accel)</comment>
   </data>
   <data name="Options_SelectedTheme" xml:space="preserve">
-    <value>Selected theme</value>
+    <value>Избрана тема</value>
     <comment>Options dialog, theme selector label</comment>
   </data>
   <data name="Options_ShowDnGrepInExplorerRightClickMenu" xml:space="preserve">
@@ -2345,7 +2345,7 @@ Arguments:
     <comment>Docking window button tooltip</comment>
   </data>
   <data name="Window_RestoreDown" xml:space="preserve">
-    <value>Restore Down</value>
+    <value>Възстановяване</value>
     <comment>Window title bar button tooltip</comment>
   </data>
   <data name="Options_HexSearchResultLineLength" xml:space="preserve">
@@ -2373,15 +2373,15 @@ Arguments:
     <comment>Main window, results list label for PowerPoint files: {0} is the slide number in the PowerPoint document</comment>
   </data>
   <data name="Options_ResultsFontFamily" xml:space="preserve">
-    <value>Results font family</value>
+    <value>Семейство на шрифта в резултатите</value>
     <comment>Options dialog, results font selector label</comment>
   </data>
   <data name="Options_ResultsFontSize" xml:space="preserve">
-    <value>Results font size</value>
+    <value>Размер на шрифта в резултатите</value>
     <comment>Options dialog, results font size label</comment>
   </data>
   <data name="Options_ResultsFontUsuallyAFixedWidthFont" xml:space="preserve">
-    <value>Font used in search results, usually a fixed width font</value>
+    <value>Шрифт, използван в резултатите от търсенето, обикновено е равноширок</value>
     <comment>Options dialog, replace font selector tooltip</comment>
   </data>
   <data name="Test_SearchType_Hex" xml:space="preserve">
