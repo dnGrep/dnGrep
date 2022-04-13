@@ -1697,11 +1697,11 @@ Arguments:
     <comment>Options dialog, font size input label</comment>
   </data>
   <data name="Options_MatchEverythingToExactMatch" xml:space="preserve">
-    <value>0 – match everything; 1.0 – exact match</value>
+    <value>0 – съвпадение с всичко; 1.0 – точно съвпадение</value>
     <comment>Options dialog, phonetic help text</comment>
   </data>
   <data name="Options_MatchThreshold" xml:space="preserve">
-    <value>Match threshold (from 0 to 1.0)</value>
+    <value>Праг на съвпадане (от 0 до 1.0)</value>
     <comment>Options dialog, phonetic options text input label</comment>
   </data>
   <data name="Options_MatchTimeout" xml:space="preserve">
