@@ -2442,7 +2442,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window, Boolean expression status</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsOK" xml:space="preserve">
-    <value>Булево выражение в порядке</value>
+    <value>Булево выражение в норме</value>
     <comment>Main window, Boolean expression status</comment>
   </data>
   <data name="Main_Menu_About_CheckForUpdates" xml:space="preserve">
@@ -2450,7 +2450,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="MessageBox_DnGrepIsUpToDate" xml:space="preserve">
-    <value>dnGrep is up to date.</value>
+    <value>dnGrep в актуальном состоянии. Обновление не требуется.</value>
     <comment>Message box text for: Check for updates response</comment>
   </data>
 </root>
