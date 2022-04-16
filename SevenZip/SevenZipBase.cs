@@ -15,7 +15,8 @@ namespace SevenZip
     {
         private readonly bool _reportErrors;
         private readonly int _uniqueID;
-        private static readonly List<int> Identifiers = new List<int>();
+        private static readonly object _uniqueIdLock = new object();
+        private static uint _lastUniqueId = 0;
 
         /// <summary>
         /// True if the instance of the class needs to be recreated in new thread context; otherwise, false.
@@ -103,21 +104,12 @@ namespace SevenZip
 
         private static int GetUniqueID()
         {
-            lock (Identifiers)
+            lock (_uniqueIdLock)
             {
-                int id;
-
-                var rnd = new Random(DateTime.Now.Millisecond);
-
-                do
+                unchecked
                 {
-                    id = rnd.Next(int.MaxValue);
+                    return (int)_lastUniqueId++;
                 }
-                while (Identifiers.Contains(id));
-
-                Identifiers.Add(id);
-
-                return id;
             }
         }
 
@@ -130,18 +122,6 @@ namespace SevenZip
             Password = password;
             _reportErrors = true;
             _uniqueID = GetUniqueID();
-        }
-
-        /// <summary>
-        /// Removes the UniqueID from the list.
-        /// </summary>
-        ~SevenZipBase()
-        {
-            // This lock probably isn't necessary but just in case...
-            lock (Identifiers)
-            {
-                Identifiers.Remove(_uniqueID);
-            }
         }
 
         /// <summary>
