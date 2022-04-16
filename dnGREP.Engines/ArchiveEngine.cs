@@ -82,7 +82,7 @@ namespace dnGREP.Engines
                 file = @"\\?\" + file;
             }
 
-            using (FileStream fileStream = File.Open(file, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.RandomAccess))
+            using (FileStream fileStream = File.Open(file, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, FileOptions.SequentialScan))
             {
                 foreach (var item in Search(fileStream, file, searchPattern, searchType, searchOptions, encoding))
                 {
@@ -125,8 +125,13 @@ namespace dnGREP.Engines
 
         private IEnumerable<List<GrepSearchResult>> SearchInsideArchive(Stream input, string fileName, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
         {
-            using (SevenZipExtractor extractor = new SevenZipExtractor(input))
+            using (SevenZipExtractor extractor = new SevenZipExtractor(input, true))
             {
+                if (extractor.IsSolid)
+                {
+                    System.Diagnostics.Debug.WriteLine("Solid: " + fileName + " is Solid");
+                }
+
                 foreach (var fileInfo in extractor.ArchiveFileData)
                 {
                     FileData fileData = new FileData(fileName, fileInfo);
@@ -206,11 +211,6 @@ namespace dnGREP.Engines
                             {
                                 if (SafeDirectory.WildcardMatch(innerFileName, pattern, true))
                                 {
-                                    if (!fileFilter.IncludeBinary)
-                                    {
-                                        fileData.IsBinary = IsBinary(extractor, index);
-                                    }
-
                                     if (Utils.IncludeFile(innerFileName, fileFilter, fileData, true,
                                         includeSearchPatterns, includeRegexPatterns, excludeRegexPatterns))
                                     {
@@ -225,11 +225,6 @@ namespace dnGREP.Engines
                         }
                         else
                         {
-                            if (!fileFilter.IncludeBinary)
-                            {
-                                fileData.IsBinary = IsBinary(extractor, index);
-                            }
-
                             if (Utils.IncludeFile(innerFileName, fileFilter, fileData, false,
                                 includeSearchPatterns, includeRegexPatterns, excludeRegexPatterns))
                             {
@@ -252,17 +247,22 @@ namespace dnGREP.Engines
             List<GrepSearchResult> innerFileResults = new List<GrepSearchResult>();
             try
             {
-                using (Stream stream = new MemoryStream())
+                using (Stream stream = new MemoryStream((int)fileInfo.Length))
                 {
                     extractor.ExtractFile(index, stream);
-                    stream.Seek(0, SeekOrigin.Begin);
+
+                    // the isBinary flag is needed for the Encoding check below
+                    fileInfo.IsBinary = Utils.IsBinary(stream);
+                    if (!fileFilter.IncludeBinary && fileInfo.IsBinary)
+                    {
+                        return innerFileResults;
+                    }
 
                     // Need to check the encoding of each file in the archive. If the encoding parameter is not default
                     // then it is the user-specified code page.  If the encoding parameter *is* the default,
                     // then it most likely not been set, so get the encoding of the extracted text file:
-                    if (encoding == Encoding.Default && !Utils.IsBinary(stream))
+                    if (encoding == Encoding.Default && !fileInfo.IsBinary)
                     {
-                        stream.Seek(0, SeekOrigin.Begin);
                         encoding = Utils.GetFileEncoding(stream);
                     }
 
@@ -270,31 +270,27 @@ namespace dnGREP.Engines
 
                     IGrepEngine engine = GrepEngineFactory.GetSearchEngine(innerFileName, searchParams, fileFilter, searchType);
                     innerFileResults = engine.Search(stream, innerFileName, searchPattern, searchType, searchOptions, encoding);
-                    GrepEngineFactory.ReturnToPool(innerFileName, engine);
 
                     if (innerFileResults.Any())
                     {
-                        using (Stream readStream = new MemoryStream())
+                        //stream.Seek(0, SeekOrigin.Begin);
+                        //using (StreamReader streamReader = new StreamReader(stream, encoding, false, 4096, true))
+                        //{
+                        foreach (var result in innerFileResults)
                         {
-                            extractor.ExtractFile(index, readStream);
-                            readStream.Seek(0, SeekOrigin.Begin);
-                            using (StreamReader streamReader = new StreamReader(readStream, encoding))
-                            {
-                                foreach (var result in innerFileResults)
-                                {
-                                    // file info is known, set it now
-                                    result.FileInfo = fileInfo;
+                            // file info is known, set it now
+                            result.FileInfo = fileInfo;
 
-                                    if (Utils.CancelSearch)
-                                        break;
+                            if (Utils.CancelSearch)
+                                break;
 
-                                    if (!result.HasSearchResults)
-                                        result.SearchResults = Utils.GetLinesEx(streamReader, result.Matches, engine.LinesBefore, engine.LinesAfter);
-                                }
-                            }
+                            //    // pre-cache the search results since the text is available
+                            //    // this could create too much memory use, but will save reopening the archive
+                            //    result.SearchResults = Utils.GetLinesEx(streamReader, result.Matches, engine.LinesBefore, engine.LinesAfter);
                         }
-
+                        //}
                     }
+                    GrepEngineFactory.ReturnToPool(innerFileName, engine);
                 }
             }
             catch (Exception ex)
@@ -303,17 +299,6 @@ namespace dnGREP.Engines
             }
 
             return innerFileResults;
-        }
-
-        private bool IsBinary(SevenZipExtractor extractor, int index)
-        {
-            using (Stream stream = new MemoryStream())
-            {
-                extractor.ExtractFile(index, stream);
-                stream.Seek(0, SeekOrigin.Begin);
-
-                return Utils.IsBinary(stream);
-            }
         }
     }
 }

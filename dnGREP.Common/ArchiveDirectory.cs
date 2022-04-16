@@ -155,7 +155,7 @@ namespace dnGREP.Common
             List<Regex> includeRegexPatterns, List<Regex> excludeRegexPatterns,
             HashSet<string> hiddenDirectories)
         {
-            using (SevenZipExtractor extractor = new SevenZipExtractor(input))
+            using (SevenZipExtractor extractor = new SevenZipExtractor(input, true))
             {
                 foreach (var fileInfo in extractor.ArchiveFileData)
                 {
@@ -237,6 +237,10 @@ namespace dnGREP.Common
                                     if (!filter.IncludeBinary)
                                     {
                                         fileData.IsBinary = IsBinary(extractor, index);
+                                        if (fileData.IsBinary)
+                                        {
+                                            continue;
+                                        }
                                     }
 
                                     if (Utils.IncludeFile(innerFileName, filter, fileData, true,
@@ -254,6 +258,10 @@ namespace dnGREP.Common
                             if (!filter.IncludeBinary)
                             {
                                 fileData.IsBinary = IsBinary(extractor, index);
+                                if (fileData.IsBinary)
+                                {
+                                    continue;
+                                }
                             }
 
                             if (Utils.IncludeFile(innerFileName, filter, fileData, true,
@@ -348,7 +356,7 @@ namespace dnGREP.Common
 
         private static void ExtractToTempFile(Stream input, string filePath, string diskFile, string innerFileName, string[] intermediateFiles)
         {
-            using (SevenZipExtractor extractor = new SevenZipExtractor(input))
+            using (SevenZipExtractor extractor = new SevenZipExtractor(input, true))
             {
                 if (intermediateFiles.Length > 0)
                 {
