@@ -18,16 +18,20 @@
         /// </summary>
         public Stream Source { get; }
 
+        readonly bool leaveOpen = false;
+
         /// <summary>
         /// Initializes a new instance of the ArchiveEmulationStream class.
         /// </summary>
         /// <param name="stream">The stream to wrap.</param>
         /// <param name="offset">The stream offset.</param>
-        public ArchiveEmulationStreamProxy(Stream stream, int offset)
+        /// <param name="leaveOpen">true to leave the wrapped stream open after the ArchiveEmulationStreamProxy object is disposed; otherwise, false.</param>
+        public ArchiveEmulationStreamProxy(Stream stream, int offset, bool leaveOpen = false)
         {
             Source = stream;
             Offset = offset;
             Source.Position = offset;
+            this.leaveOpen = leaveOpen;
         }
 
         public override bool CanRead => Source.CanRead;
@@ -72,12 +76,14 @@
 
         public new void Dispose()
         {
-            Source.Dispose();
+            if (!leaveOpen)
+                Source.Dispose();
         }
 
         public override void Close()
         {
-            Source.Close();
+            if (!leaveOpen)
+                Source.Close();
         }
     }
 }
