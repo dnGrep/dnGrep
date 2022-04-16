@@ -526,6 +526,7 @@ namespace dnGREP.Common
 
         public static bool IsBinary(Stream stream)
         {
+            bool result = false;
             try
             {
                 byte[] buffer = new byte[1024];
@@ -535,15 +536,20 @@ namespace dnGREP.Common
                     // check for 4 consecutive nulls - 2 will give false positive on UTF-32
                     if (buffer[i] == 0 && buffer[i + 1] == 0 && buffer[i + 2] == 0 && buffer[i + 3] == 0)
                     {
-                        return true;
+                        result = true;
                     }
                 }
-                return false;
             }
             catch
             {
-                return false;
+                result = false;
             }
+            finally
+            {
+                // reset the stream back to the beginning
+                stream.Seek(0, SeekOrigin.Begin);
+            }
+            return result;
         }
 
         public static bool IsRTL(string srcFile, Encoding encoding)

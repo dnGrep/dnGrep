@@ -75,8 +75,8 @@ namespace dnGREP.Engines.Pdf
 
                 if (results.Count > 0)
                 {
-                    using (FileStream reader = File.Open(tempFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                    using (StreamReader streamReader = new StreamReader(reader, encoding))
+                    using (FileStream reader = File.Open(tempFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite, 4096, FileOptions.SequentialScan))
+                    using (StreamReader streamReader = new StreamReader(reader, encoding, false, 4096, true))
                     {
                         foreach (var result in results)
                         {
