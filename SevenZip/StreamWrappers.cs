@@ -274,19 +274,20 @@ namespace SevenZip
 
         protected static string VolumeNumber(int num)
         {
+            string prefix;
             if (num < 10)
             {
-                return ".00" + num.ToString(CultureInfo.InvariantCulture);
+                prefix = ".00";
             }
-            if (num > 9 && num < 100)
+            else if (num < 100)
             {
-                return ".0" + num.ToString(CultureInfo.InvariantCulture);
+                prefix = ".0";
             }
-            if (num > 99 && num < 1000)
+            else
             {
-                return "." + num.ToString(CultureInfo.InvariantCulture);
+                prefix = ".";
             }
-            return String.Empty;
+            return prefix + num.ToString(CultureInfo.InvariantCulture);
         }
 
         private int StreamNumberByOffset(long offset)
