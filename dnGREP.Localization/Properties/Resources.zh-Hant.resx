@@ -155,7 +155,7 @@
     <comment>Bookmark details dialog, text input box label</comment>
   </data>
   <data name="BookmarkDetails_DotAsNewline" xml:space="preserve">
-    <value>點號(.)作為新行</value>
+    <value>點號(.)搜尋包含換行字元</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Encoding" xml:space="preserve">
@@ -463,7 +463,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
 /dn [True/False]
 -dn [True/False]
 -dotAsNewline [True/False]
-    設定點號作為新行搜尋旗標 - True 或 False.
+    設定點號(.)搜尋包含換行字元搜尋旗標 - True 或 False.
 
 /bo [True/False]
 -bo [True/False]
@@ -623,7 +623,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window docking context menu label (accel)</comment>
   </data>
   <data name="Main_DotAsNewline" xml:space="preserve">
-    <value>點號(.)作為新行</value>
+    <value>點號(.)搜尋包含換行字元</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_Empty" xml:space="preserve">
@@ -2075,7 +2075,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_DotAsNewline" xml:space="preserve">
-    <value>點號(.)作為新行</value>
+    <value>點號(.)搜尋包含換行字元</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_Encoding" xml:space="preserve">
@@ -2183,7 +2183,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Test window, context menu item label</comment>
   </data>
   <data name="Test_DotAsNewline" xml:space="preserve">
-    <value>點號(.)作為新行</value>
+    <value>點號(.)搜尋包含換行字元</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_HighlightGroups" xml:space="preserve">
