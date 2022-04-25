@@ -32,6 +32,7 @@ namespace dnGREP.Engines
         private List<string> includeSearchPatterns;
         private List<Regex> includeRegexPatterns;
         private List<Regex> excludeRegexPatterns;
+        private List<Regex> includeShebangPatterns;
         private readonly HashSet<string> hiddenDirectories = new HashSet<string>();
 
         public void SetSearchOptions(FileFilter filter, GrepEngineInitParams initParams)
@@ -43,7 +44,8 @@ namespace dnGREP.Engines
 
             includeRegexPatterns = new List<Regex>();
             excludeRegexPatterns = new List<Regex>();
-            Utils.PrepareFilters(filter, includeRegexPatterns, excludeRegexPatterns, hasSearchPattern);
+            includeShebangPatterns = new List<Regex>();
+            Utils.PrepareFilters(filter, includeRegexPatterns, excludeRegexPatterns, includeShebangPatterns, hasSearchPattern);
 
             hiddenDirectories.Clear();
         }
@@ -97,7 +99,7 @@ namespace dnGREP.Engines
                 searchOptions, encoding).GetEnumerator();
             while (true)
             {
-                List<GrepSearchResult> ret = null;
+                List<GrepSearchResult> ret;
                 try
                 {
                     if (!enumerator.MoveNext())
@@ -111,10 +113,11 @@ namespace dnGREP.Engines
                     string msg = string.Format(CultureInfo.CurrentCulture, "Failed to search inside archive '{0}'", fileName);
                     logger.Error(ex, msg);
 
-                    FileData fileData = new FileData(fileName);
-                    fileData.ErrorMsg = msg + ": " + ex.Message;
-                    GrepSearchResult result = new GrepSearchResult(fileData, encoding);
-                    ret = new List<GrepSearchResult> { result };
+                    FileData fileData = new FileData(fileName)
+                    {
+                        ErrorMsg = msg + ": " + ex.Message
+                    };
+                    ret = new List<GrepSearchResult> { new GrepSearchResult(fileData, encoding) };
                 }
                 if (ret != null)
                 {
@@ -123,15 +126,11 @@ namespace dnGREP.Engines
             }
         }
 
-        private IEnumerable<List<GrepSearchResult>> SearchInsideArchive(Stream input, string fileName, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
+        private IEnumerable<List<GrepSearchResult>> SearchInsideArchive(Stream input, string fileName,
+            string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
         {
             using (SevenZipExtractor extractor = new SevenZipExtractor(input, true))
             {
-                if (extractor.IsSolid)
-                {
-                    System.Diagnostics.Debug.WriteLine("Solid: " + fileName + " is Solid");
-                }
-
                 foreach (var fileInfo in extractor.ArchiveFileData)
                 {
                     FileData fileData = new FileData(fileName, fileInfo);
@@ -151,21 +150,37 @@ namespace dnGREP.Engines
 
                     if (fileInfo.IsDirectory)
                     {
-                        if (!fileFilter.IncludeHidden && attr.HasFlag(FileAttributes.Hidden) && !hiddenDirectories.Contains(innerFileName))
-                            hiddenDirectories.Add(innerFileName);
+                        if (!fileFilter.IncludeHidden && attr.HasFlag(FileAttributes.Hidden) &&
+                            !hiddenDirectories.Contains(innerFileName))
+                        {
+                            hiddenDirectories.Add(innerFileName + Path.DirectorySeparator);
+                        }
 
                         continue;
                     }
 
                     if (!fileFilter.IncludeHidden)
                     {
-                        string path = Path.GetDirectoryName(innerFileName);
-                        if (hiddenDirectories.Contains(path))
+                        if (attr.HasFlag(FileAttributes.Hidden))
+                        {
+                            continue;
+                        }
+
+                        bool excludeFile = false;
+                        foreach (string dir in hiddenDirectories)
+                        {
+                            if (innerFileName.StartsWith(dir))
+                            {
+                                excludeFile = true;
+                                break;
+                            }
+                        }
+
+                        if (excludeFile)
                         {
                             continue;
                         }
                     }
-
 
                     if (Utils.IsArchive(innerFileName))
                     {
@@ -193,8 +208,7 @@ namespace dnGREP.Engines
                                     logger.Error(ex, msg);
 
                                     fileData.ErrorMsg = msg + ": " + ex.Message;
-                                    GrepSearchResult result = new GrepSearchResult(fileData, encoding);
-                                    ret = new List<GrepSearchResult> { result };
+                                    ret = new List<GrepSearchResult> { new GrepSearchResult(fileData, encoding) };
                                 }
                                 if (ret != null)
                                 {
@@ -205,32 +219,19 @@ namespace dnGREP.Engines
                     }
                     else
                     {
-                        if (includeSearchPatterns != null && includeSearchPatterns.Count > 0)
+                        if (ArchiveDirectory.IncludeFile(extractor, index, 
+                            innerFileName, fileName + ArchiveDirectory.ArchiveSeparator + innerFileName,
+                            fileFilter, fileData, true,
+                            includeSearchPatterns, includeRegexPatterns, 
+                            excludeRegexPatterns, includeShebangPatterns))
                         {
-                            foreach (string pattern in includeSearchPatterns)
-                            {
-                                if (SafeDirectory.WildcardMatch(innerFileName, pattern, true))
-                                {
-                                    if (Utils.IncludeFile(innerFileName, fileFilter, fileData, true,
-                                        includeSearchPatterns, includeRegexPatterns, excludeRegexPatterns))
-                                    {
-                                        yield return SearchInnerFile(extractor, index, fileData,
-                                            fileName + ArchiveDirectory.ArchiveSeparator + innerFileName,
-                                            searchPattern, searchType, searchOptions, encoding);
-                                    }
+                            var res = SearchInnerFile(extractor, index, fileData,
+                                fileName + ArchiveDirectory.ArchiveSeparator + innerFileName,
+                                searchPattern, searchType, searchOptions, encoding);
 
-                                    break;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (Utils.IncludeFile(innerFileName, fileFilter, fileData, false,
-                                includeSearchPatterns, includeRegexPatterns, excludeRegexPatterns))
+                            if (res != null)
                             {
-                                yield return SearchInnerFile(extractor, index, fileData,
-                                    fileName + ArchiveDirectory.ArchiveSeparator + innerFileName,
-                                    searchPattern, searchType, searchOptions, encoding);
+                                yield return res;
                             }
                         }
                     }
@@ -244,26 +245,21 @@ namespace dnGREP.Engines
             FileData fileInfo, string innerFileName, string searchPattern, SearchType searchType,
             GrepSearchOption searchOptions, Encoding encoding)
         {
-            List<GrepSearchResult> innerFileResults = new List<GrepSearchResult>();
+            List<GrepSearchResult> innerFileResults = null;
             try
             {
                 using (Stream stream = new MemoryStream((int)fileInfo.Length))
                 {
                     extractor.ExtractFile(index, stream);
+                    stream.Seek(0, SeekOrigin.Begin);
 
-                    // the isBinary flag is needed for the Encoding check below
-                    fileInfo.IsBinary = Utils.IsBinary(stream);
-                    if (!fileFilter.IncludeBinary && fileInfo.IsBinary)
-                    {
-                        return innerFileResults;
-                    }
-
-                    // Need to check the encoding of each file in the archive. If the encoding parameter is not default
-                    // then it is the user-specified code page.  If the encoding parameter *is* the default,
-                    // then it most likely not been set, so get the encoding of the extracted text file:
+                    // The IncludeFile method determined the encoding of the file in the archive.
+                    // If the encoding parameter is not default then it is the user-specified code page.
+                    // If the encoding parameter *is* the default, then it most likely not been set, so
+                    // use the encoding of the extracted text file
                     if (encoding == Encoding.Default && !fileInfo.IsBinary)
                     {
-                        encoding = Utils.GetFileEncoding(stream);
+                        encoding = fileInfo.Encoding;
                     }
 
                     StartingFileSearch?.Invoke(this, new DataEventArgs<string>(innerFileName));
@@ -286,9 +282,14 @@ namespace dnGREP.Engines
 
                             //    // pre-cache the search results since the text is available
                             //    // this could create too much memory use, but will save reopening the archive
-                            //    result.SearchResults = Utils.GetLinesEx(streamReader, result.Matches, engine.LinesBefore, engine.LinesAfter);
+                            //result.SearchResults = Utils.GetLinesEx(streamReader, result.Matches, engine.LinesBefore, engine.LinesAfter);
                         }
                         //}
+                    }
+                    else
+                    {
+                        // short circuit this file
+                        innerFileResults = null;
                     }
                     GrepEngineFactory.ReturnToPool(innerFileName, engine);
                 }

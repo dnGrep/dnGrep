@@ -42,8 +42,10 @@ namespace dnGREP.Common
             if (followSymlinks)
                 fileOptions &= ~DirectoryEnumerationOptions.SkipReparsePoints;
 
-            List<string> dontRecurseBelow = new List<string>();
-            dontRecurseBelow.Add(@"C:\$Recycle.Bin");
+            List<string> dontRecurseBelow = new List<string>
+            {
+                @"C:\$Recycle.Bin"
+            };
             foreach (var sf in new[]
                 {
                     Environment.SpecialFolder.Windows,

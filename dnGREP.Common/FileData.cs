@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using dnGREP.Everything;
 using SevenZip;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
@@ -172,6 +173,8 @@ namespace dnGREP.Common
         }
 
         public bool IsBinary { get; set; }
+
+        public Encoding Encoding { get; set; }
 
         private static long ToLong(ulong size)
         {

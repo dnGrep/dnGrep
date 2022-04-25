@@ -172,22 +172,29 @@ namespace dnGREP.Common
             {
                 if (File.Exists(FileNameReal))
                 {
-                    EOL = Utils.GetEOL(FileNameReal, Encoding);
-
-                    using (FileStream reader = File.Open(FileNameReal, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    if (Utils.IsArchive(FileNameReal))
                     {
-                        if (IsHexFile)
+                        searchResults = ArchiveDirectory.GetLinesWithContext(this, linesBefore, linesAfter);
+                    }
+                    else
+                    {
+                        EOL = Utils.GetEOL(FileNameReal, Encoding);
+
+                        using (FileStream reader = File.Open(FileNameReal, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                         {
-                            using (BinaryReader readStream = new BinaryReader(reader))
+                            if (IsHexFile)
                             {
-                                searchResults = Utils.GetLinesHexFormat(readStream, Matches, linesBefore, linesAfter);
+                                using (BinaryReader readStream = new BinaryReader(reader))
+                                {
+                                    searchResults = Utils.GetLinesHexFormat(readStream, Matches, linesBefore, linesAfter);
+                                }
                             }
-                        }
-                        else
-                        {
-                            using (StreamReader streamReader = new StreamReader(reader, Encoding))
+                            else
                             {
-                                searchResults = Utils.GetLinesEx(streamReader, Matches, linesBefore, linesAfter);
+                                using (StreamReader streamReader = new StreamReader(reader, Encoding))
+                                {
+                                    searchResults = Utils.GetLinesEx(streamReader, Matches, linesBefore, linesAfter);
+                                }
                             }
                         }
                     }

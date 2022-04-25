@@ -117,15 +117,18 @@ namespace dnGREP.Common
 
             List<Regex> includeRegexPatterns = new List<Regex>();
             List<Regex> excludeRegexPatterns = new List<Regex>();
-            Utils.PrepareFilters(filter, includeRegexPatterns, excludeRegexPatterns, hasSearchPattern);
+            List<Regex> includeShebangPatterns = new List<Regex>();
+            Utils.PrepareFilters(filter, includeRegexPatterns, excludeRegexPatterns, includeShebangPatterns, hasSearchPattern);
 
             HashSet<string> hiddenDirectories = new HashSet<string>();
 
-            var enumerator = EnumerateFiles(input, fileName, filter, includeSearchPatterns,
-                    includeRegexPatterns, excludeRegexPatterns, hiddenDirectories).GetEnumerator();
+            bool checkEncoding = GrepSettings.Instance.Get<bool>(GrepSettings.Key.DetectEncodingForFileNamePattern);
+
+            var enumerator = EnumerateFiles(input, fileName, filter, checkEncoding, includeSearchPatterns,
+                    includeRegexPatterns, excludeRegexPatterns, includeShebangPatterns, hiddenDirectories).GetEnumerator();
             while (true)
             {
-                FileData ret = null;
+                FileData ret;
                 try
                 {
                     if (!enumerator.MoveNext())
@@ -139,9 +142,10 @@ namespace dnGREP.Common
                     string msg = string.Format(CultureInfo.CurrentCulture, "Failed to search inside archive '{0}'", fileName);
                     logger.Error(ex, msg);
 
-                    FileData fileData = new FileData(fileName);
-                    fileData.ErrorMsg = msg + ": " + ex.Message;
-                    ret = fileData;
+                    ret = new FileData(fileName)
+                    {
+                        ErrorMsg = msg + ": " + ex.Message
+                    };
                 }
                 if (ret != null)
                 {
@@ -150,41 +154,59 @@ namespace dnGREP.Common
             }
         }
 
-        private static IEnumerable<FileData> EnumerateFiles(Stream input, string file,
-            FileFilter filter, List<string> includeSearchPatterns,
+        private static IEnumerable<FileData> EnumerateFiles(Stream input, string fileName,
+            FileFilter fileFilter, bool checkEncoding, List<string> includeSearchPatterns,
             List<Regex> includeRegexPatterns, List<Regex> excludeRegexPatterns,
-            HashSet<string> hiddenDirectories)
+            List<Regex> includeShebangPatterns, HashSet<string> hiddenDirectories)
         {
             using (SevenZipExtractor extractor = new SevenZipExtractor(input, true))
             {
                 foreach (var fileInfo in extractor.ArchiveFileData)
                 {
-                    FileData fileData = new FileData(file, fileInfo);
+                    FileData fileData = new FileData(fileName, fileInfo);
 
                     var attr = (FileAttributes)fileInfo.Attributes;
                     string innerFileName = fileInfo.FileName;
+
                     int index = fileInfo.Index;
                     if (innerFileName == "[no name]" && extractor.ArchiveFileData.Count == 1)
                     {
                         index = 0;
-                        innerFileName = Path.GetFileNameWithoutExtension(file);
+                        innerFileName = Path.GetFileNameWithoutExtension(fileName);
                         ArchiveFileInfo temp = Copy(fileInfo);
                         temp.FileName = innerFileName;
-                        fileData = new FileData(file, temp);
+                        fileData = new FileData(fileName, temp);
                     }
 
                     if (fileInfo.IsDirectory)
                     {
-                        if (!filter.IncludeHidden && attr.HasFlag(FileAttributes.Hidden) && !hiddenDirectories.Contains(innerFileName))
-                            hiddenDirectories.Add(innerFileName);
+                        if (!fileFilter.IncludeHidden && attr.HasFlag(FileAttributes.Hidden) &&
+                            !hiddenDirectories.Contains(innerFileName))
+                        {
+                            hiddenDirectories.Add(innerFileName + Path.DirectorySeparator);
+                        }
 
                         continue;
                     }
 
-                    if (!filter.IncludeHidden)
+                    if (!fileFilter.IncludeHidden)
                     {
-                        string path = Path.GetDirectoryName(innerFileName);
-                        if (hiddenDirectories.Contains(path))
+                        if (attr.HasFlag(FileAttributes.Hidden))
+                        {
+                            continue;
+                        }
+
+                        bool excludeFile = false;
+                        foreach (string dir in hiddenDirectories)
+                        {
+                            if (innerFileName.StartsWith(dir))
+                            {
+                                excludeFile = true;
+                                break;
+                            }
+                        }
+
+                        if (excludeFile)
                         {
                             continue;
                         }
@@ -196,9 +218,9 @@ namespace dnGREP.Common
                         {
                             extractor.ExtractFile(index, stream);
 
-                            var enumerator = EnumerateFiles(stream, file + ArchiveSeparator + innerFileName,
-                                filter, includeSearchPatterns, includeRegexPatterns, excludeRegexPatterns,
-                                hiddenDirectories).GetEnumerator();
+                            var enumerator = EnumerateFiles(stream, fileName + ArchiveSeparator + innerFileName,
+                                fileFilter, checkEncoding, includeSearchPatterns, includeRegexPatterns, 
+                                excludeRegexPatterns, includeShebangPatterns, hiddenDirectories).GetEnumerator();
 
                             while (true)
                             {
@@ -213,7 +235,7 @@ namespace dnGREP.Common
                                 }
                                 catch (Exception ex)
                                 {
-                                    string msg = string.Format(CultureInfo.CurrentCulture, "Failed to search inside archive '{0}'", file + ArchiveSeparator + innerFileName);
+                                    string msg = string.Format(CultureInfo.CurrentCulture, "Failed to search inside archive '{0}'", fileName + ArchiveSeparator + innerFileName);
                                     logger.Error(ex, msg);
 
                                     fileData.ErrorMsg = msg + ": " + ex.Message;
@@ -228,47 +250,13 @@ namespace dnGREP.Common
                     }
                     else
                     {
-                        if (includeSearchPatterns != null && includeSearchPatterns.Count > 0)
+                        if (IncludeFile(extractor, index, innerFileName,
+                            fileName + ArchiveSeparator + innerFileName,
+                            fileFilter, fileData, checkEncoding,
+                            includeSearchPatterns, includeRegexPatterns, 
+                            excludeRegexPatterns, includeShebangPatterns))
                         {
-                            foreach (string pattern in includeSearchPatterns)
-                            {
-                                if (SafeDirectory.WildcardMatch(innerFileName, pattern, true))
-                                {
-                                    if (!filter.IncludeBinary)
-                                    {
-                                        fileData.IsBinary = IsBinary(extractor, index);
-                                        if (fileData.IsBinary)
-                                        {
-                                            continue;
-                                        }
-                                    }
-
-                                    if (Utils.IncludeFile(innerFileName, filter, fileData, true,
-                                        includeSearchPatterns, includeRegexPatterns, excludeRegexPatterns))
-                                    {
-                                        yield return fileData;
-                                    }
-
-                                    break;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (!filter.IncludeBinary)
-                            {
-                                fileData.IsBinary = IsBinary(extractor, index);
-                                if (fileData.IsBinary)
-                                {
-                                    continue;
-                                }
-                            }
-
-                            if (Utils.IncludeFile(innerFileName, filter, fileData, true,
-                                includeSearchPatterns, includeRegexPatterns, excludeRegexPatterns))
-                            {
-                                yield return fileData;
-                            }
+                            yield return fileData;
                         }
                     }
 
@@ -276,6 +264,148 @@ namespace dnGREP.Common
                         break;
                 }
             }
+        }
+
+        /// <summary>
+        /// Evaluates if a file should be included in the search results
+        /// </summary>
+        public static bool IncludeFile(SevenZipExtractor extractor, int index,
+            string fileName, string compositeFileName, FileFilter filter, FileData
+            fileInfo, bool checkEncoding, IList<string> includeSearchPatterns,
+            IList<Regex> includeRegexPatterns, IList<Regex> excludeRegexPatterns, 
+            IList<Regex> includeShebangPatterns)
+        {
+            try
+            {
+                // only check filters that do not extract/read the file...
+
+                if (includeSearchPatterns != null && includeSearchPatterns.Count > 0)
+                {
+                    bool include = false;
+                    foreach (string pattern in includeSearchPatterns)
+                    {
+                        if (SafeDirectory.WildcardMatch(fileName, pattern, true))
+                        {
+                            include = true;
+                            break;
+                        }
+                    }
+                    if (!include)
+                    {
+                        return false;
+                    }
+                }
+
+                if (includeRegexPatterns != null && includeRegexPatterns.Count > 0)
+                {
+                    bool include = false;
+                    foreach (var pattern in includeRegexPatterns)
+                    {
+                        if (pattern.IsMatch(fileName))
+                        {
+                            include = true;
+                            break;
+                        }
+                    }
+                    if (!include)
+                    {
+                        return false;
+                    }
+                }
+
+                // exclude this file?
+                // wildcard exclude files are converted to regex
+                foreach (var pattern in excludeRegexPatterns)
+                {
+                    if (pattern.IsMatch(fileName))
+                    {
+                        return false;
+                    }
+                }
+
+                if (filter.SizeFrom > 0 || filter.SizeTo > 0)
+                {
+                    long sizeKB = fileInfo.Length / 1000;
+                    if (filter.SizeFrom > 0 && sizeKB < filter.SizeFrom)
+                    {
+                        return false;
+                    }
+                    if (filter.SizeTo > 0 && sizeKB > filter.SizeTo)
+                    {
+                        return false;
+                    }
+                }
+
+                if (filter.DateFilter != FileDateFilter.None)
+                {
+                    DateTime fileDate = filter.DateFilter == FileDateFilter.Created ? fileInfo.CreationTime : fileInfo.LastWriteTime;
+                    if (filter.StartTime.HasValue && fileDate < filter.StartTime.Value)
+                    {
+                        return false;
+                    }
+                    if (filter.EndTime.HasValue && fileDate >= filter.EndTime.Value)
+                    {
+                        return false;
+                    }
+                }
+
+                bool hasSheBangPattern = includeShebangPatterns.Any();
+                if (!filter.IncludeBinary || checkEncoding || hasSheBangPattern)
+                {
+                    bool isExcelMatch = Utils.IsExcelFile(fileName) && includeSearchPatterns.Contains(".xls", StringComparison.OrdinalIgnoreCase);
+                    bool isWordMatch = Utils.IsWordFile(fileName) && includeSearchPatterns.Contains(".doc", StringComparison.OrdinalIgnoreCase);
+                    bool isPowerPointMatch = Utils.IsPowerPointFile(fileName) && includeSearchPatterns.Contains(".ppt", StringComparison.OrdinalIgnoreCase);
+                    bool isPdfMatch = Utils.IsPdfFile(fileName) && includeSearchPatterns.Contains(".pdf", StringComparison.OrdinalIgnoreCase);
+
+                    // When searching for Excel, Word, PowerPoint, or PDF files, skip the binary file check
+                    // and the encoding check.
+                    // If someone is searching for one of these types, don't make them include binary to 
+                    // find their files.
+                    if (!(isExcelMatch || isWordMatch || isPowerPointMatch || isPdfMatch) || hasSheBangPattern)
+                    {
+                        // this means the file has to be extracted
+                        using (Stream stream = new MemoryStream((int)fileInfo.Length))
+                        {
+                            extractor.ExtractFile(index, stream);
+                            stream.Seek(0, SeekOrigin.Begin);
+
+                            // the isBinary flag is needed for the Encoding check below
+                            fileInfo.IsBinary = Utils.IsBinary(stream);
+                            if (!filter.IncludeBinary && fileInfo.IsBinary)
+                            {
+                                return false;
+                            }
+
+                            if (checkEncoding && !fileInfo.IsBinary)
+                            {
+                                fileInfo.Encoding = Utils.GetFileEncoding(stream);
+                            }
+
+                            if (hasSheBangPattern)
+                            {
+                                bool include = false;
+                                foreach (var pattern in includeShebangPatterns)
+                                {
+                                    if (Utils.CheckShebang(stream, pattern.ToString()))
+                                    {
+                                        include = true;
+                                        break;
+                                    }
+                                }
+                                if (!include)
+                                {
+                                    return false;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, string.Format(CultureInfo.CurrentCulture, "Failed to search inside archive '{0}'", compositeFileName));
+            }
+            return true;
         }
 
         public static ArchiveFileInfo Copy(ArchiveFileInfo fileInfo)
@@ -314,6 +444,106 @@ namespace dnGREP.Common
             OpenFileArgs newArgs = new OpenFileArgs(newResult, args.Pattern, args.LineNumber, args.FirstMatch, args.ColumnNumber, args.UseCustomEditor, args.CustomEditor, args.CustomEditorArgs);
             newArgs.SearchResult.FileNameDisplayed = filePath;
             Utils.OpenFile(newArgs);
+        }
+
+        public static List<GrepLine> GetLinesWithContext(GrepSearchResult searchResult, int linesBefore, int linesAfter)
+        {
+            if (searchResult == null)
+                throw new ArgumentNullException(nameof(searchResult));
+
+            string[] parts = searchResult.FileNameDisplayed.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+            if (!searchResult.FileNameDisplayed.Contains(ArchiveSeparator) || parts.Length < 2)
+            {
+                return new List<GrepLine>();
+            }
+
+            string innerFileName = parts.Last();
+            string[] intermediateFiles = parts.Skip(1).Take(parts.Length - 2).ToArray();
+
+            string zipFile = searchResult.FileNameReal;
+            if (zipFile.Length > 260 && !zipFile.StartsWith(@"\\?\", StringComparison.InvariantCulture))
+            {
+                zipFile = @"\\?\" + zipFile;
+            }
+
+            using (FileStream input = File.Open(zipFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            {
+                return GetLinesWithContext(input, searchResult, linesBefore, linesAfter, innerFileName, intermediateFiles);
+            }
+        }
+
+        private static List<GrepLine> GetLinesWithContext(Stream input, GrepSearchResult searchResult, int linesBefore, int linesAfter, string innerFileName, string[] intermediateFiles)
+        {
+            List<GrepLine> results = new List<GrepLine>();
+
+            using (SevenZipExtractor extractor = new SevenZipExtractor(input, true))
+            {
+                if (intermediateFiles.Length > 0)
+                {
+                    int index = -1;
+                    if (extractor.ArchiveFileData.Count == 1)
+                    {
+                        index = 0;
+                    }
+                    else
+                    {
+                        string name = intermediateFiles.First();
+                        var fd = extractor.ArchiveFileData.FirstOrDefault(f => string.Equals(f.FileName, name));
+                        if (fd != null)
+                        {
+                            index = fd.Index;
+                        }
+                    }
+
+                    if (index > -1)
+                    {
+                        using (Stream stream = new MemoryStream())
+                        {
+                            extractor.ExtractFile(index, stream);
+                            string[] newIntermediateFiles = intermediateFiles.Skip(1).ToArray();
+
+                            results = GetLinesWithContext(stream, searchResult, linesBefore, linesAfter, innerFileName, newIntermediateFiles);
+                        }
+                    }
+                }
+                else
+                {
+                    int index = -1;
+                    if (extractor.ArchiveFileData.Count == 1)
+                    {
+                        index = 0;
+                    }
+                    else
+                    {
+                        var fd = extractor.ArchiveFileData.FirstOrDefault(f => string.Equals(f.FileName, innerFileName));
+                        if (fd != null)
+                        {
+                            index = fd.Index;
+                        }
+                    }
+
+                    if (index > -1)
+                    {
+                        using (Stream stream = new MemoryStream())
+                        {
+                            try
+                            {
+                                extractor.ExtractFile(index, stream);
+                                stream.Seek(0, SeekOrigin.Begin);
+                                using (StreamReader reader = new StreamReader(stream))
+                                {
+                                    results = Utils.GetLinesEx(reader, searchResult.Matches, linesBefore, linesAfter);
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                logger.Error(ex, string.Format(CultureInfo.CurrentCulture, "Failed extract file {0} from archive '{1}'", innerFileName, searchResult.FileNameReal));
+                            }
+                        }
+                    }
+                }
+            }
+            return results;
         }
 
         public static string ExtractToTempFile(GrepSearchResult searchResult)
@@ -417,17 +647,6 @@ namespace dnGREP.Common
                         }
                     }
                 }
-            }
-        }
-
-        private static bool IsBinary(SevenZipExtractor extractor, int index)
-        {
-            using (Stream stream = new MemoryStream())
-            {
-                extractor.ExtractFile(index, stream);
-                stream.Seek(0, SeekOrigin.Begin);
-
-                return Utils.IsBinary(stream);
             }
         }
     }
