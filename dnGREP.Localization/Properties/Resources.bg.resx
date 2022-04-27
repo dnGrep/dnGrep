@@ -1445,7 +1445,7 @@ Arguments:
     <comment>Message box text for: Copy files and Move files (destination overlaps source)</comment>
   </data>
   <data name="MessageBox_SomeOfTheFilesCannotBeModifiedIfYouContinueTheseFilesWillBeSkipped" xml:space="preserve">
-    <value>Some of the files cannot be modified. If you continue, these files will be skipped.</value>
+    <value>Някои от файловете не могат да бъдат променяни. Ако продължите ще бъдат пропуснсти.</value>
     <comment>Message box text for: Main window replace warning</comment>
   </data>
   <data name="MessageBox_SomethingBrokeDownInDnGrep" xml:space="preserve">
