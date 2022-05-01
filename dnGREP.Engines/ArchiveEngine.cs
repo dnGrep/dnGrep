@@ -184,7 +184,7 @@ namespace dnGREP.Engines
 
                     if (Utils.IsArchive(innerFileName))
                     {
-                        using (Stream stream = new MemoryStream())
+                        using (Stream stream = new MemoryStream(4096))
                         {
                             extractor.ExtractFile(index, stream);
 
@@ -219,13 +219,12 @@ namespace dnGREP.Engines
                     }
                     else
                     {
-                        if (ArchiveDirectory.IncludeFile(extractor, index, 
-                            innerFileName, fileName + ArchiveDirectory.ArchiveSeparator + innerFileName,
-                            fileFilter, fileData, true,
-                            includeSearchPatterns, includeRegexPatterns, 
-                            excludeRegexPatterns, includeShebangPatterns))
+                        if (ArchiveDirectory.IncludeFile(innerFileName,
+                            fileName + ArchiveDirectory.ArchiveSeparator + innerFileName,
+                            fileFilter, fileData, includeSearchPatterns,
+                            includeRegexPatterns, excludeRegexPatterns))
                         {
-                            var res = SearchInnerFile(extractor, index, fileData,
+                            var res = SearchInnerFile(extractor, index, fileFilter, fileData,
                                 fileName + ArchiveDirectory.ArchiveSeparator + innerFileName,
                                 searchPattern, searchType, searchOptions, encoding);
 
@@ -242,24 +241,30 @@ namespace dnGREP.Engines
         }
 
         private List<GrepSearchResult> SearchInnerFile(SevenZipExtractor extractor, int index,
-            FileData fileInfo, string innerFileName, string searchPattern, SearchType searchType,
-            GrepSearchOption searchOptions, Encoding encoding)
+            FileFilter fileFilter, FileData fileData, string innerFileName, string searchPattern,
+            SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
         {
             List<GrepSearchResult> innerFileResults = null;
             try
             {
-                using (Stream stream = new MemoryStream((int)fileInfo.Length))
+                using (Stream stream = new MemoryStream(4096))
                 {
                     extractor.ExtractFile(index, stream);
                     stream.Seek(0, SeekOrigin.Begin);
 
-                    // The IncludeFile method determined the encoding of the file in the archive.
+                    if (!ArchiveDirectory.IncludeFileStream(stream,
+                        fileFilter, fileData, true, includeShebangPatterns))
+                    {
+                        return innerFileResults;
+                    }
+
+                    // The IncludeFileStream method determined the encoding of the file in the archive.
                     // If the encoding parameter is not default then it is the user-specified code page.
                     // If the encoding parameter *is* the default, then it most likely not been set, so
                     // use the encoding of the extracted text file
-                    if (encoding == Encoding.Default && !fileInfo.IsBinary)
+                    if (encoding == Encoding.Default && !fileData.IsBinary)
                     {
-                        encoding = fileInfo.Encoding;
+                        encoding = fileData.Encoding;
                     }
 
                     StartingFileSearch?.Invoke(this, new DataEventArgs<string>(innerFileName));
@@ -275,7 +280,7 @@ namespace dnGREP.Engines
                         foreach (var result in innerFileResults)
                         {
                             // file info is known, set it now
-                            result.FileInfo = fileInfo;
+                            result.FileInfo = fileData;
 
                             if (Utils.CancelSearch)
                                 break;

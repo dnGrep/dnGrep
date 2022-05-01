@@ -219,7 +219,7 @@ namespace dnGREP.Common
                             extractor.ExtractFile(index, stream);
 
                             var enumerator = EnumerateFiles(stream, fileName + ArchiveSeparator + innerFileName,
-                                fileFilter, checkEncoding, includeSearchPatterns, includeRegexPatterns, 
+                                fileFilter, checkEncoding, includeSearchPatterns, includeRegexPatterns,
                                 excludeRegexPatterns, includeShebangPatterns, hiddenDirectories).GetEnumerator();
 
                             while (true)
@@ -250,13 +250,29 @@ namespace dnGREP.Common
                     }
                     else
                     {
-                        if (IncludeFile(extractor, index, innerFileName,
+                        if (IncludeFile(innerFileName,
                             fileName + ArchiveSeparator + innerFileName,
-                            fileFilter, fileData, checkEncoding,
-                            includeSearchPatterns, includeRegexPatterns, 
-                            excludeRegexPatterns, includeShebangPatterns))
+                            fileFilter, fileData, includeSearchPatterns,
+                            includeRegexPatterns, excludeRegexPatterns))
                         {
-                            yield return fileData;
+                            if (NeedsIncludeFileStream(fileName, fileFilter, checkEncoding,
+                                includeSearchPatterns, includeShebangPatterns))
+                            {
+                                using (Stream stream = new MemoryStream(4096))
+                                {
+                                    extractor.ExtractFile(index, stream);
+
+                                    if (IncludeFileStream(stream, fileFilter, fileData,
+                                        checkEncoding, includeShebangPatterns))
+                                    {
+                                        yield return fileData;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                yield return fileData;
+                            }
                         }
                     }
 
@@ -268,17 +284,16 @@ namespace dnGREP.Common
 
         /// <summary>
         /// Evaluates if a file should be included in the search results
+        /// only checks filters that do not extract/read the file...
+        /// call NeedsIncludeFileStream and IncludeFileStream if file needs
+        /// to be extracted and read to evaluate
         /// </summary>
-        public static bool IncludeFile(SevenZipExtractor extractor, int index,
-            string fileName, string compositeFileName, FileFilter filter, FileData
-            fileInfo, bool checkEncoding, IList<string> includeSearchPatterns,
-            IList<Regex> includeRegexPatterns, IList<Regex> excludeRegexPatterns, 
-            IList<Regex> includeShebangPatterns)
+        public static bool IncludeFile(string fileName, string compositeFileName,
+            FileFilter filter, FileData fileData, IList<string> includeSearchPatterns,
+            IList<Regex> includeRegexPatterns, IList<Regex> excludeRegexPatterns)
         {
             try
             {
-                // only check filters that do not extract/read the file...
-
                 if (includeSearchPatterns != null && includeSearchPatterns.Count > 0)
                 {
                     bool include = false;
@@ -325,7 +340,7 @@ namespace dnGREP.Common
 
                 if (filter.SizeFrom > 0 || filter.SizeTo > 0)
                 {
-                    long sizeKB = fileInfo.Length / 1000;
+                    long sizeKB = fileData.Length / 1000;
                     if (filter.SizeFrom > 0 && sizeKB < filter.SizeFrom)
                     {
                         return false;
@@ -338,7 +353,7 @@ namespace dnGREP.Common
 
                 if (filter.DateFilter != FileDateFilter.None)
                 {
-                    DateTime fileDate = filter.DateFilter == FileDateFilter.Created ? fileInfo.CreationTime : fileInfo.LastWriteTime;
+                    DateTime fileDate = filter.DateFilter == FileDateFilter.Created ? fileData.CreationTime : fileData.LastWriteTime;
                     if (filter.StartTime.HasValue && fileDate < filter.StartTime.Value)
                     {
                         return false;
@@ -348,63 +363,102 @@ namespace dnGREP.Common
                         return false;
                     }
                 }
-
-                bool hasSheBangPattern = includeShebangPatterns.Any();
-                if (!filter.IncludeBinary || checkEncoding || hasSheBangPattern)
-                {
-                    bool isExcelMatch = Utils.IsExcelFile(fileName) && includeSearchPatterns.Contains(".xls", StringComparison.OrdinalIgnoreCase);
-                    bool isWordMatch = Utils.IsWordFile(fileName) && includeSearchPatterns.Contains(".doc", StringComparison.OrdinalIgnoreCase);
-                    bool isPowerPointMatch = Utils.IsPowerPointFile(fileName) && includeSearchPatterns.Contains(".ppt", StringComparison.OrdinalIgnoreCase);
-                    bool isPdfMatch = Utils.IsPdfFile(fileName) && includeSearchPatterns.Contains(".pdf", StringComparison.OrdinalIgnoreCase);
-
-                    // When searching for Excel, Word, PowerPoint, or PDF files, skip the binary file check
-                    // and the encoding check.
-                    // If someone is searching for one of these types, don't make them include binary to 
-                    // find their files.
-                    if (!(isExcelMatch || isWordMatch || isPowerPointMatch || isPdfMatch) || hasSheBangPattern)
-                    {
-                        // this means the file has to be extracted
-                        using (Stream stream = new MemoryStream((int)fileInfo.Length))
-                        {
-                            extractor.ExtractFile(index, stream);
-                            stream.Seek(0, SeekOrigin.Begin);
-
-                            // the isBinary flag is needed for the Encoding check below
-                            fileInfo.IsBinary = Utils.IsBinary(stream);
-                            if (!filter.IncludeBinary && fileInfo.IsBinary)
-                            {
-                                return false;
-                            }
-
-                            if (checkEncoding && !fileInfo.IsBinary)
-                            {
-                                fileInfo.Encoding = Utils.GetFileEncoding(stream);
-                            }
-
-                            if (hasSheBangPattern)
-                            {
-                                bool include = false;
-                                foreach (var pattern in includeShebangPatterns)
-                                {
-                                    if (Utils.CheckShebang(stream, pattern.ToString()))
-                                    {
-                                        include = true;
-                                        break;
-                                    }
-                                }
-                                if (!include)
-                                {
-                                    return false;
-                                }
-                            }
-                        }
-                    }
-                }
             }
             catch (Exception ex)
             {
                 logger.Error(ex, string.Format(CultureInfo.CurrentCulture, "Failed to search inside archive '{0}'", compositeFileName));
             }
+            return true;
+        }
+
+        public static bool NeedsIncludeFileStream(
+            string fileName, FileFilter filter, bool checkEncoding,
+            IList<string> includeSearchPatterns, IList<Regex> includeShebangPatterns)
+        {
+            if (includeShebangPatterns.Any())
+            {
+                return true;
+            }
+
+            if (!filter.IncludeBinary || checkEncoding)
+            {
+                bool isExcelMatch = Utils.IsExcelFile(fileName) && includeSearchPatterns.Contains(".xls", StringComparison.OrdinalIgnoreCase);
+                bool isWordMatch = Utils.IsWordFile(fileName) && includeSearchPatterns.Contains(".doc", StringComparison.OrdinalIgnoreCase);
+                bool isPowerPointMatch = Utils.IsPowerPointFile(fileName) && includeSearchPatterns.Contains(".ppt", StringComparison.OrdinalIgnoreCase);
+                bool isPdfMatch = Utils.IsPdfFile(fileName) && includeSearchPatterns.Contains(".pdf", StringComparison.OrdinalIgnoreCase);
+
+                // When searching for Excel, Word, PowerPoint, or PDF files, skip the binary file check
+                // and the encoding check.
+                // If someone is searching for one of these types, don't make them include binary to 
+                // find their files.
+                if (!(isExcelMatch || isWordMatch || isPowerPointMatch || isPdfMatch))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Evaluates if a file should be included in the search results
+        /// </summary>
+        public static bool IncludeFileStream(Stream stream, FileFilter filter, 
+            FileData fileData, bool checkEncoding, IList<Regex> includeShebangPatterns)
+        {
+            if (stream != null)
+            {
+                //if (!filter.IncludeBinary || checkEncoding || hasSheBangPattern)
+                //{
+                //    bool isExcelMatch = Utils.IsExcelFile(fileName) && includeSearchPatterns.Contains(".xls", StringComparison.OrdinalIgnoreCase);
+                //    bool isWordMatch = Utils.IsWordFile(fileName) && includeSearchPatterns.Contains(".doc", StringComparison.OrdinalIgnoreCase);
+                //    bool isPowerPointMatch = Utils.IsPowerPointFile(fileName) && includeSearchPatterns.Contains(".ppt", StringComparison.OrdinalIgnoreCase);
+                //    bool isPdfMatch = Utils.IsPdfFile(fileName) && includeSearchPatterns.Contains(".pdf", StringComparison.OrdinalIgnoreCase);
+
+                //    // When searching for Excel, Word, PowerPoint, or PDF files, skip the binary file check
+                //    // and the encoding check.
+                //    // If someone is searching for one of these types, don't make them include binary to 
+                //    // find their files.
+                //    if (!(isExcelMatch || isWordMatch || isPowerPointMatch || isPdfMatch) || hasSheBangPattern)
+                //    {
+                //        // this means the file has to be extracted
+                //        using (Stream stream = new MemoryStream(4096))
+                //        {
+                //            extractor.ExtractFile(index, stream);
+                stream.Seek(0, SeekOrigin.Begin);
+
+                // the isBinary flag is needed for the Encoding check below
+                fileData.IsBinary = Utils.IsBinary(stream);
+                if (!filter.IncludeBinary && fileData.IsBinary)
+                {
+                    return false;
+                }
+
+                if (checkEncoding && !fileData.IsBinary)
+                {
+                    fileData.Encoding = Utils.GetFileEncoding(stream);
+                }
+
+                bool hasSheBangPattern = includeShebangPatterns.Any();
+                if (hasSheBangPattern)
+                {
+                    bool include = false;
+                    foreach (var pattern in includeShebangPatterns)
+                    {
+                        if (Utils.CheckShebang(stream, pattern.ToString()))
+                        {
+                            include = true;
+                            break;
+                        }
+                    }
+                    if (!include)
+                    {
+                        return false;
+                    }
+                }
+            }
+            //    }
+            //}
             return true;
         }
 
@@ -497,7 +551,7 @@ namespace dnGREP.Common
 
                     if (index > -1)
                     {
-                        using (Stream stream = new MemoryStream())
+                        using (Stream stream = new MemoryStream(4096))
                         {
                             extractor.ExtractFile(index, stream);
                             string[] newIntermediateFiles = intermediateFiles.Skip(1).ToArray();
@@ -524,7 +578,7 @@ namespace dnGREP.Common
 
                     if (index > -1)
                     {
-                        using (Stream stream = new MemoryStream())
+                        using (Stream stream = new MemoryStream(4096))
                         {
                             try
                             {
@@ -607,7 +661,7 @@ namespace dnGREP.Common
 
                     if (index > -1)
                     {
-                        using (Stream stream = new MemoryStream())
+                        using (Stream stream = new MemoryStream(4096))
                         {
                             extractor.ExtractFile(index, stream);
                             string[] newIntermediateFiles = intermediateFiles.Skip(1).ToArray();

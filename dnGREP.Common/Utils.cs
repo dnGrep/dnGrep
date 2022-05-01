@@ -1443,9 +1443,10 @@ namespace dnGREP.Common
 
         public static bool CheckShebang(Stream stream, string pattern)
         {
+            bool result = false;
             if (HasShebangPattern(pattern))
             {
-                using (StreamReader streamReader = new StreamReader(stream))
+                using (StreamReader streamReader = new StreamReader(stream, GetFileEncoding(stream), false, 4096, true))
                 {
                     string firstLine = streamReader.ReadLine();
                     // Check if first 2 bytes are '#!'
@@ -1460,16 +1461,12 @@ namespace dnGREP.Common
                                 break;
                             }
                         }
-                        return Regex.IsMatch(firstLine.Substring(2).Trim(), pattern.Substring(2), RegexOptions.IgnoreCase);
-                    }
-                    else
-                    {
-                        // Does not have shebang
-                        return false;
+                        result = Regex.IsMatch(firstLine.Substring(2).Trim(), pattern.Substring(2), RegexOptions.IgnoreCase);
                     }
                 }
+                stream.Seek(0, SeekOrigin.Begin);
             }
-            return false;
+            return result;
         }
 
         /// <summary>
