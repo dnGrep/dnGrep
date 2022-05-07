@@ -403,28 +403,11 @@ namespace dnGREP.Common
         /// <summary>
         /// Evaluates if a file should be included in the search results
         /// </summary>
-        public static bool IncludeFileStream(Stream stream, FileFilter filter, 
+        public static bool IncludeFileStream(Stream stream, FileFilter filter,
             FileData fileData, bool checkEncoding, IList<Regex> includeShebangPatterns)
         {
             if (stream != null)
             {
-                //if (!filter.IncludeBinary || checkEncoding || hasSheBangPattern)
-                //{
-                //    bool isExcelMatch = Utils.IsExcelFile(fileName) && includeSearchPatterns.Contains(".xls", StringComparison.OrdinalIgnoreCase);
-                //    bool isWordMatch = Utils.IsWordFile(fileName) && includeSearchPatterns.Contains(".doc", StringComparison.OrdinalIgnoreCase);
-                //    bool isPowerPointMatch = Utils.IsPowerPointFile(fileName) && includeSearchPatterns.Contains(".ppt", StringComparison.OrdinalIgnoreCase);
-                //    bool isPdfMatch = Utils.IsPdfFile(fileName) && includeSearchPatterns.Contains(".pdf", StringComparison.OrdinalIgnoreCase);
-
-                //    // When searching for Excel, Word, PowerPoint, or PDF files, skip the binary file check
-                //    // and the encoding check.
-                //    // If someone is searching for one of these types, don't make them include binary to 
-                //    // find their files.
-                //    if (!(isExcelMatch || isWordMatch || isPowerPointMatch || isPdfMatch) || hasSheBangPattern)
-                //    {
-                //        // this means the file has to be extracted
-                //        using (Stream stream = new MemoryStream(4096))
-                //        {
-                //            extractor.ExtractFile(index, stream);
                 stream.Seek(0, SeekOrigin.Begin);
 
                 // the isBinary flag is needed for the Encoding check below
@@ -457,8 +440,6 @@ namespace dnGREP.Common
                     }
                 }
             }
-            //    }
-            //}
             return true;
         }
 
