@@ -526,6 +526,7 @@ namespace dnGREP.Common
 
         public static bool IsBinary(Stream stream)
         {
+            bool result = false;
             try
             {
                 byte[] buffer = new byte[1024];
@@ -535,15 +536,20 @@ namespace dnGREP.Common
                     // check for 4 consecutive nulls - 2 will give false positive on UTF-32
                     if (buffer[i] == 0 && buffer[i + 1] == 0 && buffer[i + 2] == 0 && buffer[i + 3] == 0)
                     {
-                        return true;
+                        result = true;
                     }
                 }
-                return false;
             }
             catch
             {
-                return false;
+                result = false;
             }
+            finally
+            {
+                // reset the stream back to the beginning
+                stream.Seek(0, SeekOrigin.Begin);
+            }
+            return result;
         }
 
         public static bool IsRTL(string srcFile, Encoding encoding)
@@ -1013,16 +1019,24 @@ namespace dnGREP.Common
 
         public static void PrepareFilters(FileFilter filter,
             List<Regex> includeRegexPatterns, List<Regex> excludeRegexPatterns,
-            bool includePatternHandled = false)
+            List<Regex> includeShebangPatterns, bool includePatternHandled)
         {
-            if (includeRegexPatterns == null || excludeRegexPatterns == null)
+            if (includeRegexPatterns == null || excludeRegexPatterns == null || includeShebangPatterns == null)
                 return;
+
+            var includePatterns = SplitPattern(filter.NamePatternToInclude);
+            if (HasShebangPattern(includePatterns))
+            {
+                foreach (var pattern in includePatterns.Where(p => HasShebangPattern(p)))
+                {
+                    includeShebangPatterns.Add(GetRegex(pattern, filter.IsRegex));
+                }
+            }
 
             // non-regex include patterns are used as search patterns in the call to EnumerateFiles
             if (filter.IsRegex || !includePatternHandled)
             {
-                var includePatterns = SplitPattern(filter.NamePatternToInclude);
-                foreach (var pattern in includePatterns)
+                foreach (var pattern in includePatterns.Where(p => !HasShebangPattern(p)))
                 {
                     includeRegexPatterns.Add(GetRegex(pattern, filter.IsRegex));
                 }
@@ -1060,6 +1074,24 @@ namespace dnGREP.Common
             }
         }
 
+        public static IEnumerable<FileData> GetFileListIncludingArchives(FileFilter filter)
+        {
+            foreach (var file in GetFileListEx(filter))
+            {
+                if (IsArchive(file))
+                {
+                    foreach (var innerFile in ArchiveDirectory.EnumerateFiles(file, filter))
+                    {
+                        yield return innerFile;
+                    }
+                }
+                else
+                {
+                    yield return new FileData(file);
+                }
+            }
+        }
+
         /// <summary>
         /// Iterator based file search
         /// Searches folder and it's subfolders for files that match pattern and
@@ -1089,11 +1121,12 @@ namespace dnGREP.Common
 
             var includeRegexPatterns = new List<Regex>();
             var excludeRegexPatterns = new List<Regex>();
-            PrepareFilters(filter, includeRegexPatterns, excludeRegexPatterns, hasSearchPattern);
+            var includeShebangPatterns = new List<Regex>();
+            PrepareFilters(filter, includeRegexPatterns, excludeRegexPatterns, includeShebangPatterns, hasSearchPattern);
 
             if (filter.UseEverything)
             {
-                var files = GetFileListEverything(filter, includeRegexPatterns, excludeRegexPatterns);
+                var files = GetFileListEverything(filter, includeRegexPatterns, excludeRegexPatterns, includeShebangPatterns);
                 foreach (var file in files)
                 {
                     if (!matches.Contains(file))
@@ -1110,17 +1143,14 @@ namespace dnGREP.Common
             {
                 if (File.Exists(subPath))
                 {
-                    if (IsArchive(subPath))
+                    if (IsArchive(subPath) && filter.IncludeArchive)
                     {
-                        if (filter.IncludeArchive)
-                        {
-                            foreach (var innerFile in EnumerateArchiveFiles(subPath, filter, hasSearchPattern,
-                            includeSearchPatterns, includeRegexPatterns, excludeRegexPatterns))
-                                yield return innerFile;
-                        }
+                        matches.Add(subPath);
+                        yield return subPath;
                     }
                     else if (IncludeFile(subPath, filter, null, hasSearchPattern, includeSearchPatterns,
-                        includeRegexPatterns, excludeRegexPatterns) && !matches.Contains(subPath))
+                        includeRegexPatterns, excludeRegexPatterns, includeShebangPatterns) && 
+                        !matches.Contains(subPath))
                     {
                         matches.Add(subPath);
                         yield return subPath;
@@ -1148,13 +1178,13 @@ namespace dnGREP.Common
                     {
                         if (filter.IncludeArchive)
                         {
-                            foreach (var innerFile in EnumerateArchiveFiles(filePath, filter, hasSearchPattern,
-                                includeSearchPatterns, includeRegexPatterns, excludeRegexPatterns))
-                                yield return innerFile;
+                            matches.Add(filePath);
+                            yield return filePath;
                         }
                     }
                     else if (IncludeFile(filePath, filter, null, hasSearchPattern, includeSearchPatterns,
-                        includeRegexPatterns, excludeRegexPatterns) && !matches.Contains(filePath))
+                        includeRegexPatterns, excludeRegexPatterns, includeShebangPatterns) && 
+                        !matches.Contains(filePath))
                     {
                         matches.Add(filePath);
                         yield return filePath;
@@ -1163,10 +1193,10 @@ namespace dnGREP.Common
             }
         }
 
-        private static IEnumerable<string> GetFileListEverything(FileFilter filter, IList<Regex> includeRegexPatterns, IList<Regex> excludeRegexPatterns)
+        private static IEnumerable<string> GetFileListEverything(FileFilter filter, IList<Regex> includeRegexPatterns, 
+            IList<Regex> excludeRegexPatterns, IList<Regex> includeShebangPatterns)
         {
             string searchString = filter.Path.Trim();
-            List<string> includeSearchPatterns = new List<string> { "*.*" };// if including archives, return everything inside archives
             if (filter.IncludeArchive)
             {
                 // to search in archives, ask Everything to return all archive files
@@ -1189,14 +1219,10 @@ namespace dnGREP.Common
 
                 if (filter.IncludeArchive && IsArchive(fileInfo.FullName))
                 {
-                    foreach (var innerFile in EnumerateArchiveFiles(fileInfo.FullName, filter, true,
-                        includeSearchPatterns, includeRegexPatterns, excludeRegexPatterns))
-                    {
-                        yield return innerFile;
-                    }
+                    yield return fileInfo.FullName;
                 }
                 else if (IncludeFile(fileInfo.FullName, filter, fileData, true, new List<string>(),
-                    includeRegexPatterns, excludeRegexPatterns))
+                    includeRegexPatterns, excludeRegexPatterns, includeShebangPatterns))
                 {
                     yield return fileInfo.FullName;
                 }
@@ -1265,20 +1291,6 @@ namespace dnGREP.Common
             return searchString + function;
         }
 
-        private static IEnumerable<string> EnumerateArchiveFiles(string filePath, FileFilter filter,
-            bool hasSearchPattern, IList<string> includeSearchPatterns,
-            IList<Regex> includeRegexPatterns, IList<Regex> excludeRegexPatterns)
-        {
-            foreach (var fileData in ArchiveDirectory.EnumerateFiles(filePath, includeSearchPatterns, filter))
-            {
-                if (IncludeFile(fileData.FullName, filter, fileData, hasSearchPattern, includeSearchPatterns,
-                    includeRegexPatterns, excludeRegexPatterns))
-                {
-                    yield return fileData.FullName;
-                }
-            }
-        }
-
         public static string Quote(string text)
         {
             return "\"" + text + "\"";
@@ -1287,16 +1299,35 @@ namespace dnGREP.Common
         /// <summary>
         /// Evaluates if a file should be included in the search results
         /// </summary>
-        private static bool IncludeFile(string filePath, FileFilter filter, FileData fileInfo,
+        public static bool IncludeFile(string filePath, FileFilter filter, FileData fileInfo,
             bool hasSearchPattern, IList<string> includeSearchPatterns,
-            IList<Regex> includeRegexPatterns, IList<Regex> excludeRegexPatterns)
+            IList<Regex> includeRegexPatterns, IList<Regex> excludeRegexPatterns,
+            IList<Regex> includeShebangPatterns)
         {
-            bool includeMatch = false;
             try
             {
                 // check filters that do not read the file first...
 
+                // regex include
+                if (includeRegexPatterns != null && includeRegexPatterns.Count > 0)
+                {
+                    bool include = false;
+                    foreach (var pattern in includeRegexPatterns)
+                    {
+                        if (pattern.IsMatch(filePath))
+                        {
+                            include = true;
+                            break;
+                        }
+                    }
+                    if (!include)
+                    {
+                        return false;
+                    }
+                }
+
                 // exclude this file?
+                // wildcard exclude files are converted to regex
                 foreach (var pattern in excludeRegexPatterns)
                 {
                     if (pattern.IsMatch(filePath))
@@ -1320,6 +1351,7 @@ namespace dnGREP.Common
                         return false;
                     }
                 }
+
                 if (filter.DateFilter != FileDateFilter.None && !filter.UseEverything) // Everything search has date filter in query
                 {
                     if (fileInfo == null)
@@ -1341,45 +1373,35 @@ namespace dnGREP.Common
                     bool isExcelMatch = IsExcelFile(filePath) && includeSearchPatterns.Contains(".xls", StringComparison.OrdinalIgnoreCase);
                     bool isWordMatch = IsWordFile(filePath) && includeSearchPatterns.Contains(".doc", StringComparison.OrdinalIgnoreCase);
                     bool isPowerPointMatch = IsPowerPointFile(filePath) && includeSearchPatterns.Contains(".ppt", StringComparison.OrdinalIgnoreCase);
+                    bool isPdfMatch = IsPdfFile(filePath) && includeSearchPatterns.Contains(".pdf", StringComparison.OrdinalIgnoreCase);
 
-                    // When searching for Excel, Word, or PowerPoint files, skip the binary file check:
-                    // If someone is searching for Excel or Word, don't make them include binary to 
-                    // find their files.  No need to include PDF, it doesn't test positive as a binary file.
-                    if (!(isExcelMatch || isWordMatch || isPowerPointMatch) && IsBinary(filePath))
+                    // When searching for Excel, Word, PowerPoint, or PDF files, skip the binary file check:
+                    // If someone is searching for one of these types, don't make them include binary to 
+                    // find their files.
+                    if (!(isExcelMatch || isWordMatch || isPowerPointMatch || isPdfMatch) && IsBinary(filePath))
                     {
                         return false;
                     }
                 }
 
-                if (hasSearchPattern)
+                if (includeShebangPatterns != null && includeShebangPatterns.Any())
                 {
-                    // already filtered in call to EnumerateFile
-                    includeMatch = true;
-                }
-                else if (includeRegexPatterns.Count > 0)
-                {
-                    foreach (var pattern in includeRegexPatterns)
-                    {
-                        if (pattern.IsMatch(filePath) || CheckShebang(filePath, pattern.ToString()))
-                        {
-                            includeMatch = true;
-                            break;
-                        }
-                    }
-                }
-
-                if (includeMatch)
-                {
-                    foreach (var pattern in excludeRegexPatterns)
+                    bool include = false;
+                    foreach (var pattern in includeShebangPatterns)
                     {
                         if (CheckShebang(filePath, pattern.ToString()))
                         {
-                            return false;
+                            include = true;
+                            break;
                         }
+                    }
+                    if (!include)
+                    {
+                        return false;
                     }
                 }
 
-                return includeMatch;
+                return true;
             }
             catch (Exception ex)
             {
@@ -1389,18 +1411,46 @@ namespace dnGREP.Common
             }
         }
 
+        public static bool HasShebangPattern(IList<string> patterns)
+        {
+            if (patterns != null)
+            {
+                foreach (var pattern in patterns)
+                {
+                    if (HasShebangPattern(pattern))
+                        return true;
+                }
+            }
+            return false;
+        }
+
+        public static bool HasShebangPattern(string pattern)
+        {
+            return pattern != null && pattern.Length > 2 && pattern[0] == '#' && pattern[1] == '!';
+        }
+
         public static bool CheckShebang(string file, string pattern)
         {
-            if (pattern == null || pattern.Length <= 2 || (pattern[0] != '#' && pattern[1] != '!'))
-                return false;
-            try
+            if (HasShebangPattern(pattern))
             {
                 using (FileStream readStream = File.Open(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                using (StreamReader streamReader = new StreamReader(readStream))
+                {
+                    return CheckShebang(readStream, pattern);
+                }
+            }
+            return false;
+        }
+
+        public static bool CheckShebang(Stream stream, string pattern)
+        {
+            bool result = false;
+            if (HasShebangPattern(pattern))
+            {
+                using (StreamReader streamReader = new StreamReader(stream, GetFileEncoding(stream), false, 4096, true))
                 {
                     string firstLine = streamReader.ReadLine();
                     // Check if first 2 bytes are '#!'
-                    if (firstLine[0] == 0x23 && firstLine[1] == 0x21)
+                    if (firstLine[0] == '#' && firstLine[1] == '!')
                     {
                         // Do more reading (start from 3rd character in case there is a space after #!)
                         for (int i = 3; i < firstLine.Length; i++)
@@ -1411,19 +1461,12 @@ namespace dnGREP.Common
                                 break;
                             }
                         }
-                        return Regex.IsMatch(firstLine.Substring(2).Trim(), pattern.Substring(2), RegexOptions.IgnoreCase);
-                    }
-                    else
-                    {
-                        // Does not have shebang
-                        return false;
+                        result = Regex.IsMatch(firstLine.Substring(2).Trim(), pattern.Substring(2), RegexOptions.IgnoreCase);
                     }
                 }
+                stream.Seek(0, SeekOrigin.Begin);
             }
-            catch (IOException)
-            {
-                return false;
-            }
+            return result;
         }
 
         /// <summary>

@@ -47,9 +47,6 @@
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="SevenZipSharp">
-      <HintPath>..\Dependencies\SevenZipSharp.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -75,6 +72,7 @@
     <Compile Include="ArchiveDirectory.cs" />
     <Compile Include="BookmarkLibrary.cs" />
     <Compile Include="ConfigurationTemplate.cs" />
+    <Compile Include="DataEventArgs.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="FileData.cs" />
@@ -129,6 +127,10 @@
     <ProjectReference Include="..\dnGREP.Localization\dnGREP.Localization.csproj">
       <Project>{8ce89f78-57c4-48df-9473-e70ab05dc986}</Project>
       <Name>dnGREP.Localization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SevenZip\SevenZip.csproj">
+      <Project>{ce51eb4c-0c64-4162-b95e-527ae438cfd8}</Project>
+      <Name>SevenZip</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

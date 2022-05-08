@@ -818,7 +818,7 @@ namespace Tests
         [InlineData(".*\\.txt", true, true, true, 0, 0, 3)]
         [InlineData(".*\\.txt", true, false, true, 0, 0, 2)]
         [InlineData(null, true, false, true, 0, 0, 0)]
-        [InlineData("", true, true, true, 0, 0, 0)]
+        [InlineData("", true, true, true, 0, 0, 5)]
         public void GetFileListTest(string namePattern, bool isRegex, bool includeSubfolders, bool includeHidden, int sizeFrom, int sizeTo, int expected)
         {
             string testCase2 = Path.Combine(sourceFolder, @"TestCase2");
@@ -851,7 +851,7 @@ namespace Tests
         [InlineData(".*\\.txt", true, true, true, 0, 0, 3)]
         [InlineData(".*\\.txt", true, false, true, 0, 0, 2)]
         [InlineData(null, true, false, true, 0, 0, 0)]
-        [InlineData("", true, true, true, 0, 0, 0)]
+        [InlineData("", true, true, true, 0, 0, 5)]
         public void GetFileListTestLongPath(string namePattern, bool isRegex, bool includeSubfolders, bool includeHidden, int sizeFrom, int sizeTo, int expected)
         {
             string longDestinationFolder = GetLongPathDestination(Guid.NewGuid().ToString());
@@ -891,8 +891,11 @@ namespace Tests
                 Directory.Copy(testCase17, destFolder);
             }
 
-            string[] files = Utils.GetFileList(destFolder, namePattern, null, false, false, true, true,
-                true, true, false, 0, 0, FileDateFilter.None, null, null, false, -1);
+            FileFilter filter = new FileFilter(destFolder, namePattern, null, false, false, false, true, -1, true,
+                true, true, false, 0, 0, FileDateFilter.None, null, null);
+
+            var files = Utils.GetFileListIncludingArchives(filter).ToArray();
+
             Assert.Equal(expected, files.Length);
         }
 
@@ -911,9 +914,101 @@ namespace Tests
                 Directory.Copy(testCase17, destFolder);
             }
 
-            string[] files = Utils.GetFileList(destFolder, namePattern, null, false, false, true, true,
-                true, true, false, 0, 0, FileDateFilter.None, null, null, false, -1);
+            FileFilter filter = new FileFilter(destFolder, namePattern, null, false, false, false, true, -1, true,
+                true, true, false, 0, 0, FileDateFilter.None, null, null);
+
+            var files = Utils.GetFileListIncludingArchives(filter).ToArray();
+
             Assert.Equal(expected, files.Length);
+        }
+
+        [Fact]
+        public void TestArchiveFilters()
+        {
+            // this test is repeated from the same in GrepCoreTest because
+            // ArchiveEngine and ArchiveDirectory each have code to enumerate 
+            // and filter files in archives
+
+            string testCase19 = Path.Combine(sourceFolder, @"TestCase19");
+            string destFolder = Path.Combine(destinationFolder, @"TestCase19");
+            DirectoryInfo di = new DirectoryInfo(destFolder);
+            if (!di.Exists)
+            {
+                di.Create();
+                Directory.Copy(testCase19, destFolder);
+            }
+
+            // all files
+            FileFilter filter = new FileFilter(destFolder, "*.*", null, false, false, false, true, -1, true,
+                true, true, false, 0, 0, FileDateFilter.None, null, null);
+            var files = Utils.GetFileListIncludingArchives(filter).ToArray();
+            Assert.Equal(18, files.Length);
+
+            // all .ttt files
+            filter = new FileFilter(destFolder, "*.ttt", null, false, false, false, true, -1, true,
+                true, true, false, 0, 0, FileDateFilter.None, null, null);
+            files = Utils.GetFileListIncludingArchives(filter).ToArray();
+            Assert.Equal(13, files.Length);
+
+            // all but .ttt files
+            filter = new FileFilter(destFolder, "*.*", "*.ttt", false, false, false, true, -1, true,
+                true, true, false, 0, 0, FileDateFilter.None, null, null);
+            files = Utils.GetFileListIncludingArchives(filter).ToArray();
+            Assert.Equal(5, files.Length);
+
+            // all .md files
+            filter = new FileFilter(destFolder, "*.md", null, false, false, false, true, -1, true,
+                true, true, false, 0, 0, FileDateFilter.None, null, null);
+            files = Utils.GetFileListIncludingArchives(filter).ToArray();
+            Assert.Single(files);
+
+            // exclude below depth2
+            filter = new FileFilter(destFolder, "*.ttt", @"depth2\*", false, false, false, true, -1, true,
+                true, true, false, 0, 0, FileDateFilter.None, null, null);
+            files = Utils.GetFileListIncludingArchives(filter).ToArray();
+            Assert.Equal(8, files.Length);
+
+            // regex filter
+            filter = new FileFilter(destFolder, @"\bl.*", null, true, false, false, true, -1, true,
+                true, true, false, 0, 0, FileDateFilter.None, null, null);
+            files = Utils.GetFileListIncludingArchives(filter).ToArray();
+            Assert.Equal(2, files.Length);
+
+            // regex exclude filter
+            filter = new FileFilter(destFolder, ".*", @"\b[abl]", true, false, false, true, -1, true,
+                true, true, false, 0, 0, FileDateFilter.None, null, null);
+            files = Utils.GetFileListIncludingArchives(filter).ToArray();
+            Assert.Equal(13, files.Length);
+
+            // exclude hidden
+            filter = new FileFilter(destFolder, "*.ttt", null, false, false, false, true, -1, false,
+                true, true, false, 0, 0, FileDateFilter.None, null, null);
+            files = Utils.GetFileListIncludingArchives(filter).ToArray();
+            Assert.Equal(10, files.Length);
+
+            // exclude binary
+            filter = new FileFilter(destFolder, "*.*", null, false, false, false, true, -1, true,
+                false, true, false, 0, 0, FileDateFilter.None, null, null);
+            files = Utils.GetFileListIncludingArchives(filter).ToArray();
+            Assert.Equal(17, files.Length);
+
+            // size filter
+            filter = new FileFilter(destFolder, "*.ttt", null, false, false, false, true, -1, true,
+                true, true, false, 0, 10, FileDateFilter.None, null, null);
+            files = Utils.GetFileListIncludingArchives(filter).ToArray();
+            Assert.Equal(12, files.Length);
+
+            // date filter
+            filter = new FileFilter(destFolder, "*.ttt", null, false, false, false, true, -1, true,
+                true, true, false, 0, 0, FileDateFilter.Modified, null, new DateTime(2019, 1, 1));
+            files = Utils.GetFileListIncludingArchives(filter).ToArray();
+            Assert.Equal(4, files.Length);
+
+            // shebang filter
+            filter = new FileFilter(destFolder, "#!*python", null, false, false, false, true, -1, true,
+                true, true, false, 0, 0, FileDateFilter.None, null, null);
+            files = Utils.GetFileListIncludingArchives(filter).ToArray();
+            Assert.Equal(2, files.Length);
         }
 
         [IgnoreIfNotAdministratorTheory] // must run as Administrator to create symbolic link
@@ -1288,7 +1383,6 @@ namespace Tests
         }
 
         [Theory]
-        //[InlineData("\\Difficulty", "*.cs", 1)]
         [InlineData("\\TestCase2", "*.txt", 2)]
         [InlineData("\\TestCase2", "*.txt;*.xls", 3)]
         [InlineData("\\TestCase2", null, 0)]
@@ -1375,10 +1469,10 @@ namespace Tests
         [InlineData(@" -f c:\temp\testData\ -s p\w* -csv c:\temp\report.csv", 6, false, false, @"c:\temp\testData\", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, null, @"c:\temp\report.csv", false)]
         [InlineData(@" -f c:\temp\testData\ -s p\w* -csv c:\temp\report.csv -x", 7, false, false, @"c:\temp\testData\", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, null, @"c:\temp\report.csv", true)]
         [InlineData(@" -f c:\temp\testData\ -s p\w* -x -csv c:\temp\report.csv", 7, false, false, @"c:\temp\testData\", @"p\w*", null, null, null, null, null, null, null, null, null, true, null, null, @"c:\temp\report.csv", true)]
-        public void SplitCommandLineTest(string commandLine, int argCount, 
-            bool expInvalidArgument, bool expIsWarmUp, string expSearchPath, string expSearchFor, 
-            SearchType? expSearchType, string expPatternToInclude, string expPatternToExclude, 
-            FileSearchType? expTypeOfFileSearch, bool? expCaseSensitive, bool? expWholeWord, 
+        public void SplitCommandLineTest(string commandLine, int argCount,
+            bool expInvalidArgument, bool expIsWarmUp, string expSearchPath, string expSearchFor,
+            SearchType? expSearchType, string expPatternToInclude, string expPatternToExclude,
+            FileSearchType? expTypeOfFileSearch, bool? expCaseSensitive, bool? expWholeWord,
             bool? expMultiline, bool? expDotAsNewLine, bool? expBooleanOperators, bool expExecuteSearch,
             string expReportPath, string expTextPath, string expCsvPath, bool expExit)
         {
@@ -1649,7 +1743,7 @@ namespace Tests
             var operands = exp.Operands.ToList();
             // the last value is the expected result for the input values
             Assert.Equal(values.Length - 1, operands.Count);
-            for(int i = 0; i < values.Length - 1; i++)
+            for (int i = 0; i < values.Length - 1; i++)
             {
                 operands[i].EvaluatedResult = values[i];
             }

@@ -17,6 +17,30 @@ namespace dnGREP.Common
             IsSuccess = true;
         }
 
+        public GrepSearchResult(FileData fileInfo, Encoding encoding)
+        {
+            FileInfo = fileInfo;
+
+            FileNameDisplayed = fileInfo.FullName;
+            Pattern = string.Empty;
+            Encoding = encoding;
+            IsSuccess = string.IsNullOrEmpty(fileInfo.ErrorMsg);
+
+            if (!string.IsNullOrEmpty(fileInfo.ErrorMsg))
+            {
+                searchResults = new List<GrepLine> { new GrepLine(-1, fileInfo.ErrorMsg, false, null) };
+            }
+
+            int pos = fileInfo.FullName.IndexOf(ArchiveDirectory.ArchiveSeparator);
+            if (pos > -1)
+            {
+                ReadOnly = true;
+
+                FileNameReal = fileInfo.FullName.Substring(0, pos);
+                InnerFileName = fileInfo.FullName.Substring(pos + ArchiveDirectory.ArchiveSeparator.Length);
+            }
+        }
+
         public GrepSearchResult(string file, string pattern, List<GrepMatch> matches, Encoding encoding)
             : this(file, pattern, matches, encoding, true)
         {
@@ -31,14 +55,17 @@ namespace dnGREP.Common
             Encoding = encoding;
             IsSuccess = success;
 
-            if (file.Contains(ArchiveDirectory.ArchiveSeparator))
+            int pos = file.IndexOf(ArchiveDirectory.ArchiveSeparator);
+            if (pos > -1)
             {
                 ReadOnly = true;
-                string[] parts = file.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
-                if (parts.Length > 0)
-                    FileNameReal = parts[0];
-                if (parts.Length > 1)
-                    InnerFileName = parts[1];
+
+                FileNameReal = file.Substring(0, pos);
+                InnerFileName = file.Substring(pos + ArchiveDirectory.ArchiveSeparator.Length);
+            }
+            else
+            {
+                FileInfo = new FileData(file);
             }
         }
 
@@ -49,6 +76,7 @@ namespace dnGREP.Common
             searchResults = new List<GrepLine> { new GrepLine(-1, errorMessage, false, null) };
             Pattern = pattern;
             IsSuccess = success;
+            FileInfo = new FileData(file);
         }
 
         public Encoding Encoding { get; }
@@ -92,17 +120,12 @@ namespace dnGREP.Common
             {
                 if (fileInfo == null)
                 {
-                    if (!string.IsNullOrEmpty(InnerFileName))
-                    {
-                        fileInfo = ArchiveDirectory.GetFileData(this);
-                    }
-                    else
-                    {
-                        fileInfo = new FileData(FileNameReal);
-                    }
+                    fileInfo = new FileData(FileNameReal);
                 }
                 return fileInfo;
+
             }
+            set { fileInfo = value; }
         }
 
         public string FileSize
@@ -149,22 +172,29 @@ namespace dnGREP.Common
             {
                 if (File.Exists(FileNameReal))
                 {
-                    EOL = Utils.GetEOL(FileNameReal, Encoding);
-
-                    using (FileStream reader = File.Open(FileNameReal, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    if (Utils.IsArchive(FileNameReal))
                     {
-                        if (IsHexFile)
+                        searchResults = ArchiveDirectory.GetLinesWithContext(this, linesBefore, linesAfter);
+                    }
+                    else
+                    {
+                        EOL = Utils.GetEOL(FileNameReal, Encoding);
+
+                        using (FileStream reader = File.Open(FileNameReal, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                         {
-                            using (BinaryReader readStream = new BinaryReader(reader))
-                            { 
-                                searchResults = Utils.GetLinesHexFormat(readStream, Matches, linesBefore, linesAfter);
-                            }
-                        }
-                        else
-                        {
-                            using (StreamReader streamReader = new StreamReader(reader, Encoding))
+                            if (IsHexFile)
                             {
-                                searchResults = Utils.GetLinesEx(streamReader, Matches, linesBefore, linesAfter);
+                                using (BinaryReader readStream = new BinaryReader(reader))
+                                {
+                                    searchResults = Utils.GetLinesHexFormat(readStream, Matches, linesBefore, linesAfter);
+                                }
+                            }
+                            else
+                            {
+                                using (StreamReader streamReader = new StreamReader(reader, Encoding))
+                                {
+                                    searchResults = Utils.GetLinesEx(streamReader, Matches, linesBefore, linesAfter);
+                                }
                             }
                         }
                     }

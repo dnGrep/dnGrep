@@ -41,9 +41,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="SevenZipSharp">
-      <HintPath>..\Dependencies\SevenZipSharp.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -77,6 +74,14 @@
       <Project>{32DF5B77-EE00-4A94-BF4C-19BCBB1940A4}</Project>
       <Name>dnGREP.Common</Name>
       <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\dnGREP.Everything\dnGREP.Everything.csproj">
+      <Project>{39c7bce4-7837-401e-8afa-2bcfe70c63f7}</Project>
+      <Name>dnGREP.Everything</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SevenZip\SevenZip.csproj">
+      <Project>{ce51eb4c-0c64-4162-b95e-527ae438cfd8}</Project>
+      <Name>SevenZip</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

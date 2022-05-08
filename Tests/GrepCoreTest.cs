@@ -317,9 +317,12 @@ namespace Tests
             Assert.True(results.Count > 1);
             results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "public", GrepSearchOption.StopAfterFirstMatch, -1);
             Assert.Single(results);
-            results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "", GrepSearchOption.CaseSensitive, -1);
+
+            var fileData = Utils.GetFileListIncludingArchives(new FileFilter(destFolder, "*.*", string.Empty, false, false,
+                false, true, -1, true, true, true, false, 0, 0, FileDateFilter.None, null, null));
+            results = core.ListFiles(fileData, GrepSearchOption.CaseSensitive, -1);
             Assert.True(results.Count > 1);
-            results = core.Search(Directory.GetFiles(Path.Combine(destFolder, "TestCase3"), "*.*"), SearchType.PlainText, "", GrepSearchOption.StopAfterFirstMatch, -1);
+            results = core.ListFiles(fileData, GrepSearchOption.StopAfterFirstMatch, -1);
             Assert.Single(results);
         }
 
@@ -1530,6 +1533,109 @@ namespace Tests
             string fileContent = File.ReadAllText(file, Encoding.UTF8);
 
             Assert.Equal(expected, fileContent);
+        }
+
+        [Fact]
+        public void TestArchiveFilters()
+        {
+            // this test is repeated from the same in UtilsTest because
+            // ArchiveEngine and ArchiveDirectory each have code to enumerate 
+            // and filter files in archives
+
+            string testCase19 = Path.Combine(sourceFolder, @"TestCase19");
+            string destFolder = Path.Combine(destinationFolder, @"TestCase19");
+            DirectoryInfo di = new DirectoryInfo(destFolder);
+            if (!di.Exists)
+            {
+                di.Create();
+                Directory.Copy(testCase19, destFolder);
+            }
+
+            GrepCore core = new GrepCore();
+
+            // all files
+            core.FileFilter = new FileFilter(destFolder, "*.*", null, false, false, false, true, -1, true,
+                true, true, false, 0, 0, FileDateFilter.None, null, null);
+            var results = core.Search(Directory.GetFiles(destFolder, "*.*"), SearchType.Regex, @"\w+", 
+                GrepSearchOption.None, -1);
+            Assert.Equal(18, results.Count);
+
+            // all .ttt files
+            core.FileFilter = new FileFilter(destFolder, "*.ttt", null, false, false, false, true, -1, true,
+                true, true, false, 0, 0, FileDateFilter.None, null, null);
+            results = core.Search(Directory.GetFiles(destFolder, "*.*"), SearchType.Regex, @"\w+",
+                GrepSearchOption.None, -1);
+            Assert.Equal(13, results.Count);
+
+            // all but .ttt files
+            core.FileFilter = new FileFilter(destFolder, "*.*", "*.ttt", false, false, false, true, -1, true,
+                true, true, false, 0, 0, FileDateFilter.None, null, null);
+            results = core.Search(Directory.GetFiles(destFolder, "*.*"), SearchType.Regex, @"\w+",
+                GrepSearchOption.None, -1);
+            Assert.Equal(5, results.Count);
+
+            // all .md files
+            core.FileFilter = new FileFilter(destFolder, "*.md", null, false, false, false, true, -1, true,
+                true, true, false, 0, 0, FileDateFilter.None, null, null);
+            results = core.Search(Directory.GetFiles(destFolder, "*.*"), SearchType.Regex, @"\w+",
+                GrepSearchOption.None, -1);
+            Assert.Single(results);
+
+            // exclude below depth2
+            core.FileFilter = new FileFilter(destFolder, "*.ttt", @"depth2\*", false, false, false, true, -1, true,
+                true, true, false, 0, 0, FileDateFilter.None, null, null);
+            results = core.Search(Directory.GetFiles(destFolder, "*.*"), SearchType.Regex, @"\w+",
+                GrepSearchOption.None, -1);
+            Assert.Equal(8, results.Count);
+
+            // regex filter
+            core.FileFilter = new FileFilter(destFolder, @"\bl.*", null, true, false, false, true, -1, true,
+                true, true, false, 0, 0, FileDateFilter.None, null, null);
+            results = core.Search(Directory.GetFiles(destFolder, "*.*"), SearchType.Regex, @"\w+",
+                GrepSearchOption.None, -1);
+            Assert.Equal(2, results.Count);
+
+            // regex exclude filter
+            core.FileFilter = new FileFilter(destFolder, ".*", @"\b[abl]", true, false, false, true, -1, true,
+                true, true, false, 0, 0, FileDateFilter.None, null, null);
+            results = core.Search(Directory.GetFiles(destFolder, "*.*"), SearchType.Regex, @"\w+",
+                GrepSearchOption.None, -1);
+            Assert.Equal(13, results.Count);
+
+            // exclude hidden
+            core.FileFilter = new FileFilter(destFolder, "*.ttt", null, false, false, false, true, -1, false,
+                true, true, false, 0, 0, FileDateFilter.None, null, null);
+            results = core.Search(Directory.GetFiles(destFolder, "*.*"), SearchType.Regex, @"\w+",
+                GrepSearchOption.None, -1);
+            Assert.Equal(10, results.Count);
+
+            // exclude binary
+            core.FileFilter = new FileFilter(destFolder, "*.*", null, false, false, false, true, -1, true,
+                false, true, false, 0, 0, FileDateFilter.None, null, null);
+            results = core.Search(Directory.GetFiles(destFolder, "*.*"), SearchType.Regex, @"\w+",
+                GrepSearchOption.None, -1);
+            Assert.Equal(17, results.Count);
+
+            // size filter
+            core.FileFilter = new FileFilter(destFolder, "*.ttt", null, false, false, false, true, -1, true,
+                true, true, false, 0, 10, FileDateFilter.None, null, null);
+            results = core.Search(Directory.GetFiles(destFolder, "*.*"), SearchType.Regex, @"\w+",
+                GrepSearchOption.None, -1);
+            Assert.Equal(12, results.Count);
+
+            // date filter
+            core.FileFilter = new FileFilter(destFolder, "*.ttt", null, false, false, false, true, -1, true,
+                true, true, false, 0, 0, FileDateFilter.Modified, null, new DateTime(2019, 1, 1));
+            results = core.Search(Directory.GetFiles(destFolder, "*.*"), SearchType.Regex, @"\w+",
+                GrepSearchOption.None, -1);
+            Assert.Equal(4, results.Count);
+
+            // shebang filter
+            core.FileFilter = new FileFilter(destFolder, "#!*python", null, false, false, false, true, -1, true,
+                true, true, false, 0, 0, FileDateFilter.None, null, null);
+            results = core.Search(Directory.GetFiles(destFolder, "*.*"), SearchType.Regex, @"\w+",
+                GrepSearchOption.None, -1);
+            Assert.Equal(2, results.Count);
         }
     }
 }

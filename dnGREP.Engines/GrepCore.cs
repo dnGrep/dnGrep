@@ -13,7 +13,7 @@ namespace dnGREP.Common
 {
     public class GrepCore
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         public delegate void SearchProgressHandler(object sender, ProgressStatus files);
         public event SearchProgressHandler ProcessedFile = delegate { };
@@ -28,11 +28,61 @@ namespace dnGREP.Common
         public FileFilter FileFilter { get; set; }
 
 
-        private List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
+        private readonly List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
         private readonly object lockObj = new object();
         private CancellationTokenSource cancellationTokenSource;
         private int processedFilesCount;
         private int foundfilesCount;
+
+        public List<GrepSearchResult> ListFiles(IEnumerable<FileData> files, GrepSearchOption searchOptions, int codePage)
+        {
+            searchResults.Clear();
+
+            if (files == null)
+                return searchResults;
+
+            int successful = 0;
+            foreach (FileData fileInfo in files)
+            {
+                ProcessedFile(this, new ProgressStatus(true, searchResults.Count, successful, null, fileInfo.FullName));
+
+                Encoding encoding = Encoding.Default;
+                if (codePage > -1)
+                    encoding = Encoding.GetEncoding(codePage);
+
+                try
+                {
+                    if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.DetectEncodingForFileNamePattern))
+                    {
+                        if (codePage == -1 && !fileInfo.FullName.Contains(ArchiveDirectory.ArchiveSeparator) &&
+                            !Utils.IsArchive(fileInfo.FullName) && !Utils.IsBinary(fileInfo.FullName) &&
+                            !Utils.IsPdfFile(fileInfo.FullName))
+                        {
+                            encoding = Utils.GetFileEncoding(fileInfo.FullName);
+                        }
+                    }
+
+                    searchResults.Add(new GrepSearchResult(fileInfo, encoding));
+                    successful++;
+                }
+                catch (Exception ex)
+                {
+                    // will catch file not found errors (Everything search):
+                    logger.Error(ex, "Failed in ListFiles");
+                    fileInfo.ErrorMsg = ex.Message;
+                    AddSearchResult(new GrepSearchResult(fileInfo, encoding));
+                }
+
+                if (searchOptions.HasFlag(GrepSearchOption.StopAfterFirstMatch))
+                    break;
+                if (Utils.CancelSearch)
+                    break;
+            }
+
+            ProcessedFile(this, new ProgressStatus(false, searchResults.Count, successful, searchResults, null));
+
+            return new List<GrepSearchResult>(searchResults);
+        }
 
         /// <summary>
         /// Searches folder for files whose content matches regex
@@ -47,99 +97,60 @@ namespace dnGREP.Common
             if (files == null)
                 return searchResults;
 
+            if (string.IsNullOrEmpty(searchPattern))
+                return searchResults;
+
             Utils.CancelSearch = false;
 
-            if (searchPattern == null || searchPattern.Trim() == "")
+            processedFilesCount = 0;
+            foundfilesCount = 0;
+
+            try
             {
-                int count = 0;
-                foreach (string file in files)
+                if (SearchParams.SearchParallel)
                 {
-                    count++;
-                    ProcessedFile(this, new ProgressStatus(true, searchResults.Count, count, null, file));
+                    cancellationTokenSource = new CancellationTokenSource();
 
-                    Encoding encoding = Encoding.Default;
-                    if (codePage > -1)
-                        encoding = Encoding.GetEncoding(codePage);
-
-                    try
+                    ParallelOptions po = new ParallelOptions
                     {
-                        if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.DetectEncodingForFileNamePattern))
-                        {
-                            if (codePage == -1 && !Utils.IsArchive(file) && !Utils.IsBinary(file) && !Utils.IsPdfFile(file))
-                                encoding = Utils.GetFileEncoding(file);
-                        }
-
-                        searchResults.Add(new GrepSearchResult(file, searchPattern, null, encoding));
-                    }
-                    catch (Exception ex)
-                    {
-                        // will catch file not found errors (Everything search):
-                        logger.Error(ex, "Failed in File Search");
-                        AddSearchResult(new GrepSearchResult(file, searchPattern, ex.Message, false));
-                    }
-
-                    if (searchOptions.HasFlag(GrepSearchOption.StopAfterFirstMatch))
-                        break;
-                    if (Utils.CancelSearch)
-                        break;
+                        MaxDegreeOfParallelism = Math.Max(1, Environment.ProcessorCount * 4 / 5),
+                        CancellationToken = cancellationTokenSource.Token
+                    };
+                    Parallel.ForEach(files, po, f => Search(f, searchType, searchPattern, searchOptions, codePage));
                 }
+                else
+                {
+                    foreach (var file in files)
+                    {
+                        Search(file, searchType, searchPattern, searchOptions, codePage);
 
-                ProcessedFile(this, new ProgressStatus(false, searchResults.Count, count, searchResults, null));
+                        if (searchOptions.HasFlag(GrepSearchOption.StopAfterFirstMatch) && searchResults.Count > 0)
+                            break;
 
-                return new List<GrepSearchResult>(searchResults);
+                        if (Utils.CancelSearch)
+                            break;
+                    }
+                }
             }
-            else
+            catch (OperationCanceledException)
             {
-                processedFilesCount = 0;
-                foundfilesCount = 0;
-
-                try
-                {
-                    if (SearchParams.SearchParallel)
-                    {
-                        cancellationTokenSource = new CancellationTokenSource();
-
-                        ParallelOptions po = new ParallelOptions
-                        {
-                            MaxDegreeOfParallelism = Math.Max(1, Environment.ProcessorCount * 4 / 5),
-                            CancellationToken = cancellationTokenSource.Token
-                        };
-                        Parallel.ForEach(files, po, f => Search(f, searchType, searchPattern, searchOptions, codePage));
-                    }
-                    else
-                    {
-                        foreach (var file in files)
-                        {
-                            Search(file, searchType, searchPattern, searchOptions, codePage);
-
-                            if (searchOptions.HasFlag(GrepSearchOption.StopAfterFirstMatch) && searchResults.Count > 0)
-                                break;
-
-                            if (Utils.CancelSearch)
-                                break;
-                        }
-                    }
-                }
-                catch (OperationCanceledException)
-                {
-                    // expected for stop after first match or user cancel
-                }
-                catch (Exception ex)
-                {
-                    logger.Error(ex, "Failed in search in files");
-                }
-                finally
-                {
-                    if (cancellationTokenSource != null)
-                    {
-                        cancellationTokenSource.Dispose();
-                        cancellationTokenSource = null;
-                    }
-                    GrepEngineFactory.UnloadEngines();
-                }
-
-                return new List<GrepSearchResult>(searchResults);
+                // expected for stop after first match or user cancel
             }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Failed in search in files");
+            }
+            finally
+            {
+                if (cancellationTokenSource != null)
+                {
+                    cancellationTokenSource.Dispose();
+                    cancellationTokenSource = null;
+                }
+                GrepEngineFactory.UnloadEngines();
+            }
+
+            return new List<GrepSearchResult>(searchResults);
         }
 
         public List<GrepSearchResult> CaptureGroupSearch(IEnumerable<string> files, string filePatternInclude,
@@ -222,9 +233,7 @@ namespace dnGREP.Common
 
                 IGrepEngine engine = GrepEngineFactory.GetSearchEngine(file, SearchParams, FileFilter, searchType);
 
-                Interlocked.Increment(ref processedFilesCount);
-
-                bool isArchive = file.Contains(ArchiveDirectory.ArchiveSeparator);
+                bool isArchive = Utils.IsArchive(file);
 
                 Encoding encoding = Encoding.Default;
                 if (codePage > -1)
@@ -239,24 +248,39 @@ namespace dnGREP.Common
                     return;
                 }
 
-                List<GrepSearchResult> fileSearchResults = null;
-                if (isArchive)
+                if (isArchive && engine is ArchiveEngine archiveEngine)
                 {
-                    fileSearchResults = ArchiveEngine.Search(engine, file, searchPattern, searchType, searchOptions, encoding);
+                    archiveEngine.SetSearchOptions(FileFilter, SearchParams);
+                    archiveEngine.StartingFileSearch += ArchiveEngine_StartingFileSearch;
+
+                    foreach (var fileSearchResults in archiveEngine.Search(file, searchPattern, searchType, searchOptions, encoding))
+                    {
+                        if (fileSearchResults != null && fileSearchResults.Count > 0)
+                        {
+                            AddSearchResults(fileSearchResults);
+                        }
+                        int hits = fileSearchResults.Where(r => r.IsSuccess).Count();
+                        Interlocked.Add(ref foundfilesCount, hits);
+
+                        ProcessedFile(this, new ProgressStatus(false, processedFilesCount, foundfilesCount, fileSearchResults, file));
+                    }
+                    archiveEngine.StartingFileSearch -= ArchiveEngine_StartingFileSearch;
                 }
                 else
                 {
-                    fileSearchResults = engine.Search(file, searchPattern, searchType, searchOptions, encoding);
-                }
+                    Interlocked.Increment(ref processedFilesCount);
 
-                if (fileSearchResults != null && fileSearchResults.Count > 0)
-                {
-                    AddSearchResults(fileSearchResults);
-                }
-                int hits = fileSearchResults.Where(r => r.IsSuccess).Count();
-                Interlocked.Add(ref foundfilesCount, hits);
+                    var fileSearchResults = engine.Search(file, searchPattern, searchType, searchOptions, encoding).ToList();
 
-                ProcessedFile(this, new ProgressStatus(false, processedFilesCount, foundfilesCount, fileSearchResults, file));
+                    if (fileSearchResults != null && fileSearchResults.Count > 0)
+                    {
+                        AddSearchResults(fileSearchResults);
+                    }
+                    int hits = fileSearchResults.Where(r => r.IsSuccess).Count();
+                    Interlocked.Add(ref foundfilesCount, hits);
+
+                    ProcessedFile(this, new ProgressStatus(false, processedFilesCount, foundfilesCount, fileSearchResults, file));
+                }
 
                 GrepEngineFactory.ReturnToPool(file, engine);
             }
@@ -281,6 +305,12 @@ namespace dnGREP.Common
                         cancellationTokenSource.Cancel();
                 }
             }
+        }
+
+        private void ArchiveEngine_StartingFileSearch(object sender, DataEventArgs<string> e)
+        {
+            ProcessedFile(this, new ProgressStatus(true, processedFilesCount, foundfilesCount, null, e.Data));
+            Interlocked.Increment(ref processedFilesCount);
         }
 
         public int Replace(IEnumerable<ReplaceDef> files, SearchType searchType, string searchPattern, string replacePattern, GrepSearchOption searchOptions, int codePage)

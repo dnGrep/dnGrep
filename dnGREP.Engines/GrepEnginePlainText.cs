@@ -117,7 +117,7 @@ namespace dnGREP.Engines
         {
             List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
 
-            using (StreamReader baseReader = new StreamReader(input, encoding))
+            using (StreamReader baseReader = new StreamReader(input, encoding, false, 4096, true))
             {
                 using (EolReader readStream = new EolReader(baseReader))
                 {
@@ -158,7 +158,7 @@ namespace dnGREP.Engines
         {
             List<GrepSearchResult> searchResults = new List<GrepSearchResult>();
 
-            using (StreamReader readStream = new StreamReader(input, encoding))
+            using (StreamReader readStream = new StreamReader(input, encoding, false, 4096, true))
             {
                 string fileBody = readStream.ReadToEnd();
                 var matches = searchMethod(-1, 0, fileBody, searchPattern, searchOptions, true);
@@ -174,7 +174,7 @@ namespace dnGREP.Engines
         private bool Replace(Stream inputStream, Stream outputStream, string searchPattern, string replacePattern, GrepSearchOption searchOptions,
             SearchDelegates.DoReplace replaceMethod, Encoding encoding, IEnumerable<GrepMatch> replaceItems)
         {
-            using (StreamReader readStream = new StreamReader(inputStream, encoding))
+            using (StreamReader readStream = new StreamReader(inputStream, encoding, false, 4096, true))
             {
                 bool hasUtf8bom = encoding == Encoding.UTF8 && Utils.HasUtf8ByteOrderMark(inputStream);
                 var outputEncoding = encoding;
@@ -216,7 +216,7 @@ namespace dnGREP.Engines
         private bool ReplaceMultiline(Stream inputStream, Stream outputStream, string searchPattern, string replacePattern, GrepSearchOption searchOptions,
             SearchDelegates.DoReplace replaceMethod, Encoding encoding, IEnumerable<GrepMatch> replaceItems)
         {
-            using (StreamReader readStream = new StreamReader(inputStream, encoding))
+            using (StreamReader readStream = new StreamReader(inputStream, encoding, false, 4096, true))
             {
                 StreamWriter writeStream = new StreamWriter(outputStream, encoding);
 

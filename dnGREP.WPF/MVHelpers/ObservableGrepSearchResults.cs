@@ -548,7 +548,13 @@ namespace dnGREP.WPF
                 GrepResult.ReadOnly = true;
                 Style = "ReadOnly";
             }
+
             if (!GrepResult.IsSuccess)
+            {
+                Style = "Error";
+            }
+
+            if (!string.IsNullOrEmpty(GrepResult.FileInfo.ErrorMsg))
             {
                 Style = "Error";
             }

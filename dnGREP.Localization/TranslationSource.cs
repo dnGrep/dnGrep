@@ -87,7 +87,7 @@ namespace dnGREP.Localization
             return false;
         }
 
-        private static readonly Regex placeholderRegex = new Regex(@"{\d+}");
+        private static readonly Regex placeholderRegex = new Regex(@"{\d+(:\w+)?}");
 
         public static string Format(string format, params object[] args)
         {
