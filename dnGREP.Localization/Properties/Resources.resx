@@ -1045,6 +1045,10 @@ Arguments:
     <value>Expand all</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
+  <data name="Main_Results_NextFile" xml:space="preserve">
+    <value>Next file</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
   <data name="Main_Results_NextMatch" xml:space="preserve">
     <value>Next match</value>
     <comment>Main windows, results list, context menu item label</comment>
@@ -1060,6 +1064,10 @@ Arguments:
   <data name="Main_Results_OpenWithCustomEditor" xml:space="preserve">
     <value>Open with custom editor</value>
     <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_PreviousFile" xml:space="preserve">
+    <value>Previous file</value>
+    <comment>Main windows, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_PreviousMatch" xml:space="preserve">
     <value>Previous match</value>
