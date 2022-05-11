@@ -2452,4 +2452,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <value>dnGrep is up to date.</value>
     <comment>Message box text for: Check for updates response</comment>
   </data>
+  <data name="Main_Results_NextFile" xml:space="preserve">
+    <value>下一个文件</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_PreviousFile" xml:space="preserve">
+    <value>上一个文件</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
 </root>

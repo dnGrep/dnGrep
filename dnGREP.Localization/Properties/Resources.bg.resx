@@ -314,7 +314,7 @@
     <comment>Bookmark details dialog, search type Text tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
-    <value>Прочита файла като двоични стойности и търси за битове като десетични числа: 68 65 78 20</value>
+    <value>Прочита файла като двоични стойности и търси байтове във вид на шестнадесетични числа: 68 65 78 20</value>
     <comment>Bookmark details dialog, search type Hex tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
@@ -1094,7 +1094,7 @@ Arguments:
     <comment>Main window, search type Text tooltip</comment>
   </data>
   <data name="Main_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
-    <value>Прочита файла като двоични стойности и търси за битове като десетични числа: 68 65 78 20</value>
+    <value>Прочита файла като двоични стойности и търси байтове във вид на шестадесетични числа: 68 65 78 20</value>
     <comment>Main window, search type Hex tooltip</comment>
   </data>
   <data name="Main_SearchType_Regex" xml:space="preserve">
@@ -1253,7 +1253,7 @@ Arguments:
     <comment>Main window, hexadecimal expression status</comment>
   </data>
   <data name="Main_Validation_HexStringIsOK" xml:space="preserve">
-    <value>Шестнадесетичният низ е валиден!</value>
+    <value>Шестнадесетичният низ е валиден</value>
     <comment>Main window, hexadecimal expression status</comment>
   </data>
   <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">
@@ -1261,7 +1261,7 @@ Arguments:
     <comment>Main window, regular expression status</comment>
   </data>
   <data name="Main_Validation_RegexIsOK" xml:space="preserve">
-    <value>Регулярният израз е валиден!</value>
+    <value>Регулярният израз е валиден</value>
     <comment>Main window, regular expression status</comment>
   </data>
   <data name="Main_Validation_XPathIsNotValid" xml:space="preserve">
@@ -1269,7 +1269,7 @@ Arguments:
     <comment>Main window, XPath status</comment>
   </data>
   <data name="Main_Validation_XPathIsOK" xml:space="preserve">
-    <value>Изразът на XPath е валиден!</value>
+    <value>Изразът на XPath е валиден</value>
     <comment>Main window, XPath status</comment>
   </data>
   <data name="Main_WholeWord" xml:space="preserve">
@@ -1425,7 +1425,7 @@ Arguments:
     <comment>Message box text for: Options dialog, changing Windows integration options</comment>
   </data>
   <data name="MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister" xml:space="preserve">
-    <value>За да промените настройките за стартиране отворете dnGrep като администратор</value>
+    <value>За да промените настройките за стартиране отворете dnGrep като администратор.</value>
     <comment>Message box text for: Options dialog, changing Windows integration options</comment>
   </data>
   <data name="MessageBox_SearchFailedError" xml:space="preserve">
@@ -1445,7 +1445,7 @@ Arguments:
     <comment>Message box text for: Copy files and Move files (destination overlaps source)</comment>
   </data>
   <data name="MessageBox_SomeOfTheFilesCannotBeModifiedIfYouContinueTheseFilesWillBeSkipped" xml:space="preserve">
-    <value>Some of the files cannot be modified. If you continue, these files will be skipped.</value>
+    <value>Някои от файловете не могат да бъдат променяни. Ако продължите ще бъдат пропуснсти.</value>
     <comment>Message box text for: Main window replace warning</comment>
   </data>
   <data name="MessageBox_SomethingBrokeDownInDnGrep" xml:space="preserve">
@@ -1453,11 +1453,11 @@ Arguments:
     <comment>Message box text for: Unknown error</comment>
   </data>
   <data name="MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting" xml:space="preserve">
-    <value>The file '{0}' already exists in {1}. Overwrite existing?</value>
+    <value>Файлът „{0}“ вече съществува в {1}. Да бъде ли презаписан?</value>
     <comment>Message box text for: Copy or Move files: {0} is a file name; {1} is a folder name</comment>
   </data>
   <data name="MessageBox_TheFilePattern0IsNotAValidRegularExpression12" xml:space="preserve">
-    <value>The file pattern '{0}' is not a valid regular expression:{1}{2}</value>
+    <value>Моделът на файл „{0}“ е недопустим регулярен израз:{1}{2}</value>
     <comment>Message box text for: Main window regex file pattern error: {0} is the invalid regular expression; {1} is a newline; {2} is the reason the expression is invalid</comment>
   </data>
   <data name="MessageBox_TheFollowingPluginsFailedToLoad" xml:space="preserve">
@@ -1537,7 +1537,7 @@ Arguments:
     <comment>Message box text for: New dnGrep version</comment>
   </data>
   <data name="MessageBox_YouAreAboutToDeleteFilesFoundDuringSearch" xml:space="preserve">
-    <value>Attention, you are about to delete files found during search.</value>
+    <value>Внимание! Напът сте да премахнете намерените файлове.</value>
     <comment>Message box text for: Delete files warning</comment>
   </data>
   <data name="Options_AllowSearchingForFileNamePatternOnly" xml:space="preserve">
@@ -1653,7 +1653,7 @@ Arguments:
     <comment>Options dialog, theme checkbox label (accel)</comment>
   </data>
   <data name="Options_FontFamily" xml:space="preserve">
-    <value>Фамилия на шрифта</value>
+    <value>Семейство на шрифта</value>
     <comment>Options dialog, font selector label</comment>
   </data>
   <data name="Options_HelpTranslateDnGrep" xml:space="preserve">
@@ -1661,7 +1661,7 @@ Arguments:
     <comment>Options dialog, language request label</comment>
   </data>
   <data name="Options_HistoryLists" xml:space="preserve">
-    <value>History lists</value>
+    <value>Списъци с хронология</value>
     <comment>Options dialog, history group heading label</comment>
   </data>
   <data name="Options_InOptionsExpander" xml:space="preserve">
@@ -1697,15 +1697,15 @@ Arguments:
     <comment>Options dialog, font size input label</comment>
   </data>
   <data name="Options_MatchEverythingToExactMatch" xml:space="preserve">
-    <value>0 – match everything; 1.0 – exact match</value>
+    <value>0 – съвпадение с всичко; 1.0 – точно съвпадение</value>
     <comment>Options dialog, phonetic help text</comment>
   </data>
   <data name="Options_MatchThreshold" xml:space="preserve">
-    <value>Match threshold (from 0 to 1.0)</value>
+    <value>Праг на съвпадане (от 0 до 1.0)</value>
     <comment>Options dialog, phonetic options text input label</comment>
   </data>
   <data name="Options_MatchTimeout" xml:space="preserve">
-    <value>Match timeout</value>
+    <value>Време за изчакване на съвпадение</value>
     <comment>Options dialog, regex options text input label</comment>
   </data>
   <data name="Options_OnMainPanel" xml:space="preserve">
@@ -1725,7 +1725,7 @@ Arguments:
     <comment>Options dialog, PDF text input label</comment>
   </data>
   <data name="Options_PdfToTextReset" xml:space="preserve">
-    <value>Reset</value>
+    <value>Нулиране</value>
     <comment>Options dialog, PDF arguments button label (accel)</comment>
   </data>
   <data name="Options_PhoneticSearch" xml:space="preserve">
@@ -1733,15 +1733,15 @@ Arguments:
     <comment>Options dialog, phonetic group header label</comment>
   </data>
   <data name="Options_PluginAdd" xml:space="preserve">
-    <value>Добавяне:</value>
+    <value>Добавяне</value>
     <comment>Options dialog, plugin options text input label</comment>
   </data>
   <data name="Options_PluginDefault" xml:space="preserve">
-    <value>Default:</value>
+    <value>Подразбирани</value>
     <comment>Options dialog, plugin options text input label</comment>
   </data>
   <data name="Options_PluginEnabled" xml:space="preserve">
-    <value>Enabled</value>
+    <value>Включване</value>
     <comment>Options dialog, plugins checkbox label</comment>
   </data>
   <data name="Options_PluginExtensions" xml:space="preserve">
@@ -1753,15 +1753,15 @@ Arguments:
     <comment>Options dialog, plugin options group header label</comment>
   </data>
   <data name="Options_PluginRemove" xml:space="preserve">
-    <value>Премахване:</value>
+    <value>Премахване</value>
     <comment>Options dialog, plugin options text input label</comment>
   </data>
   <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
-    <value>Press F1 for help on options</value>
+    <value>Натиснете F1 за помощ с настройките</value>
     <comment>Options dialog, help label</comment>
   </data>
   <data name="Options_PreviewToolForTranslators" xml:space="preserve">
-    <value>Preview tool for translators</value>
+    <value>Предварителен преглед на преводи</value>
     <comment>Options dialog, load language button tooltip</comment>
   </data>
   <data name="Options_RegexOptions" xml:space="preserve">
@@ -1769,11 +1769,11 @@ Arguments:
     <comment>Options dialog, regex options group heading label</comment>
   </data>
   <data name="Options_Reload" xml:space="preserve">
-    <value>Reload</value>
+    <value>Презареждане</value>
     <comment>Options dialog, theme reload button label (accel)</comment>
   </data>
   <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
-    <value>Reload the current theme file [Ctrl+F5]</value>
+    <value>Презарежда файла на текущата тема [Ctrl+F5]</value>
     <comment>Options dialog, theme reload button tooltip</comment>
   </data>
   <data name="Options_ReplaceFontSize" xml:space="preserve">
@@ -1785,7 +1785,7 @@ Arguments:
     <comment>Options dialog, results options group header label</comment>
   </data>
   <data name="Options_SampleText" xml:space="preserve">
-    <value>Sample text</value>
+    <value>Текстов образец</value>
     <comment>Options dialog, font family and size sample text </comment>
   </data>
   <data name="Options_Save" xml:space="preserve">
@@ -1793,7 +1793,7 @@ Arguments:
     <comment>Options dialog, save button label (accel)</comment>
   </data>
   <data name="Options_SelectedTheme" xml:space="preserve">
-    <value>Selected theme</value>
+    <value>Избрана тема</value>
     <comment>Options dialog, theme selector label</comment>
   </data>
   <data name="Options_ShowDnGrepInExplorerRightClickMenu" xml:space="preserve">
@@ -1817,7 +1817,7 @@ Arguments:
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowSearchOptions" xml:space="preserve">
-    <value>Show search options</value>
+    <value>Показване на параметрите на търсенето</value>
     <comment>Options dialog, layout options label</comment>
   </data>
   <data name="Options_ShowVerboseMatchCount" xml:space="preserve">
@@ -1825,7 +1825,7 @@ Arguments:
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_StartupOptions" xml:space="preserve">
-    <value>Startup</value>
+    <value>Стартиране</value>
     <comment>Options dialog, startup group header label</comment>
   </data>
   <data name="Options_TheMatchTimeoutLimits" xml:space="preserve">
@@ -1837,7 +1837,7 @@ Arguments:
     <comment>Options dialog, theme group header label</comment>
   </data>
   <data name="Options_TimeoutSeconds" xml:space="preserve">
-    <value>seconds</value>
+    <value>секунди</value>
     <comment>Options dialog, regex options timeout input label</comment>
   </data>
   <data name="Options_ToChangeThisSettingRunDnGREPAsAdministrator" xml:space="preserve">
@@ -1845,7 +1845,7 @@ Arguments:
     <comment>Options dialog, Explorer right-click tooltip</comment>
   </data>
   <data name="Options_UseDefault" xml:space="preserve">
-    <value>Use default font</value>
+    <value>Използване на системния</value>
     <comment>Options dialog, fonts default checkbox label (accel)</comment>
   </data>
   <data name="Options_WantADifferentLanguage" xml:space="preserve">
@@ -1857,11 +1857,11 @@ Arguments:
     <comment>Preview window, zoom slider tooltip</comment>
   </data>
   <data name="Preview_FindNext" xml:space="preserve">
-    <value>Find next (F3)</value>
+    <value>Следващо съвпадение (F3)</value>
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Preview_FindPrevious" xml:space="preserve">
-    <value>Find previous (Shift+F3)</value>
+    <value>Предишно съвпадение (Shift+F3)</value>
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Preview_HighlightsDisabledTooManyMatchesFound" xml:space="preserve">
@@ -1869,15 +1869,15 @@ Arguments:
     <comment>Preview window, warning text</comment>
   </data>
   <data name="Preview_MatchCase" xml:space="preserve">
-    <value>Match case</value>
+    <value>Съвпадение на регистъра</value>
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Preview_MatchWholeWords" xml:space="preserve">
-    <value>Match whole words</value>
+    <value>Цели думи</value>
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Preview_PreviewAnyway" xml:space="preserve">
-    <value>Preview anyway</value>
+    <value>Преглед въпреки това</value>
     <comment>Preview window, warning label</comment>
   </data>
   <data name="Preview_SyntaxNone" xml:space="preserve">
@@ -1889,11 +1889,11 @@ Arguments:
     <comment>Preview window, warning message</comment>
   </data>
   <data name="Preview_UseRegularExpressions" xml:space="preserve">
-    <value>Use regular expressions</value>
+    <value>Използване на регулярни изрази</value>
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Preview_WrapText" xml:space="preserve">
-    <value>Wrap text</value>
+    <value>Пренасяне на текста</value>
     <comment>Preview window, results options checkbox label (accel)</comment>
   </data>
   <data name="Preview_Zoom" xml:space="preserve">
@@ -1929,7 +1929,7 @@ Arguments:
     <comment>Replace window, Zoom slider tooltip</comment>
   </data>
   <data name="Replace_ErrorThisIsABinaryFile" xml:space="preserve">
-    <value>Error: this is a binary file</value>
+    <value>Грешка: файлът е двоичен</value>
     <comment>Replace window, File text when attempt to replace in binary file</comment>
   </data>
   <data name="Replace_FileNumberOfCountName" xml:space="preserve">
@@ -1949,7 +1949,7 @@ Arguments:
     <comment>Replace window, Replace button tooltip</comment>
   </data>
   <data name="Replace_Matches" xml:space="preserve">
-    <value>Matches</value>
+    <value>Съвпадения</value>
     <comment>Replace window, Matches group header label</comment>
   </data>
   <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
@@ -1977,7 +1977,7 @@ Arguments:
     <comment>Replace window, Previous button label (accel)</comment>
   </data>
   <data name="Replace_PreviousFile" xml:space="preserve">
-    <value>Previous file</value>
+    <value>Предишен файл</value>
     <comment>Replace window, Previous file button label (accel)</comment>
   </data>
   <data name="Replace_ReadOnly" xml:space="preserve">
@@ -1997,7 +1997,7 @@ Arguments:
     <comment>Replace window, Replace in all files button label (accel)</comment>
   </data>
   <data name="Replace_ReplaceInFile" xml:space="preserve">
-    <value>Replace in file</value>
+    <value>Заменяне във файла</value>
     <comment>Replace window, Replace in file button label (accel)</comment>
   </data>
   <data name="Replace_ReplaceKey1_Text" xml:space="preserve">
@@ -2005,15 +2005,15 @@ Arguments:
     <comment>Replace window, first color and highlight key label</comment>
   </data>
   <data name="Replace_ReplaceKey2_SelectedMatch" xml:space="preserve">
-    <value>Selected match</value>
+    <value>Избрано съвпадение</value>
     <comment>Replace window, second color and highlight key label</comment>
   </data>
   <data name="Replace_ReplaceKey3_ReplaceMatch" xml:space="preserve">
-    <value>Replace match</value>
+    <value>Заменяно съвпадение</value>
     <comment>Replace window, third color and highlight key label</comment>
   </data>
   <data name="Replace_ReplaceKey4_SkipMatch" xml:space="preserve">
-    <value>Skip match</value>
+    <value>Пропускано съвпадение</value>
     <comment>Replace window, fourth color and highlight key label</comment>
   </data>
   <data name="Replace_ReplaceMatchesMarkedForReplacement" xml:space="preserve">
@@ -2049,7 +2049,7 @@ Arguments:
     <comment>Replace window, warning message box text</comment>
   </data>
   <data name="Replace_Title" xml:space="preserve">
-    <value>Replace Text</value>
+    <value>Заменяне на текст</value>
     <comment>Replace window, window title</comment>
   </data>
   <data name="Replace_Undo" xml:space="preserve">
@@ -2057,7 +2057,7 @@ Arguments:
     <comment>Replace window, Undo button label (accel)</comment>
   </data>
   <data name="Replace_UndoFile" xml:space="preserve">
-    <value>Undo file</value>
+    <value>Отменяне във файла</value>
     <comment>Replace window, Undo file button label (accel)</comment>
   </data>
   <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
@@ -2065,7 +2065,7 @@ Arguments:
     <comment>Replace window, Undo button tooltip</comment>
   </data>
   <data name="Replace_WrapText" xml:space="preserve">
-    <value>Wrap text</value>
+    <value>Пренасяне на текста</value>
     <comment>Replace window, results options checkbox label (accel)</comment>
   </data>
   <data name="Replace_Zoom" xml:space="preserve">
@@ -2085,19 +2085,19 @@ Arguments:
     <comment>Report extract lines from file error</comment>
   </data>
   <data name="Report_Found0MatchesOn1LinesIn2Files" xml:space="preserve">
-    <value>Found {0} matches on {1} lines in {2} files</value>
+    <value>Намерени са {0} съвпадения на {1} реда в {2} файла</value>
     <comment>Report content text: {0} is the number of matches; {1] is the number of lines with matches; {2} is the number of files with matches</comment>
   </data>
   <data name="Report_FoundMatchesFor" xml:space="preserve">
-    <value>Found matches for </value>
+    <value>Намерени съвпадения за </value>
     <comment>Report content text</comment>
   </data>
   <data name="Report_FoundNoMatchesFor" xml:space="preserve">
-    <value>Found no matches for </value>
+    <value>Не са намерени съвпадения за </value>
     <comment>Report content text</comment>
   </data>
   <data name="Report_Has0MatchesOn1Lines" xml:space="preserve">
-    <value>has {0} matches on {1} lines:</value>
+    <value>има {0} съвпадения от {1} реда:</value>
     <comment>Report content text: {0} is the number of matches in a file; {1} is the number of lines in a file with matches</comment>
   </data>
   <data name="ReportSummary_BooleanOperators" xml:space="preserve">
@@ -2177,11 +2177,11 @@ Arguments:
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_Type0DateFrom1To2" xml:space="preserve">
-    <value>{0} date from {1} to {2}</value>
+    <value>Датата на {0} е между {1} и {2}</value>
     <comment>Report search options summary: {0} is the date type (modified or created); {1} and {2} are the user input dates</comment>
   </data>
   <data name="ReportSummary_Type0DateInPast1To2Hours" xml:space="preserve">
-    <value>{0} date in past {1} to {2} hours</value>
+    <value>Датата на {0} е в последните от {1} до {2} часа</value>
     <comment>Report search options summary: {0} is the date type (modified or created); {1} and {2} are the user input dates</comment>
   </data>
   <data name="ReportSummary_UsingEverythingIndexSearch" xml:space="preserve">
@@ -2213,7 +2213,7 @@ Arguments:
     <comment>Test window, Close button text (accel)</comment>
   </data>
   <data name="Test_CopyToClipboard" xml:space="preserve">
-    <value>Copy to clipboard</value>
+    <value>Копиране в междинната памет</value>
     <comment>Test window, context menu item label</comment>
   </data>
   <data name="Test_DotAsNewline" xml:space="preserve">
@@ -2229,15 +2229,15 @@ Arguments:
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_NoMatchesFound" xml:space="preserve">
-    <value>No matches found</value>
+    <value>Няма съвпадения</value>
     <comment>Test window, results box message text</comment>
   </data>
   <data name="Test_ReplaceResult" xml:space="preserve">
-    <value>Replace result:</value>
+    <value>Резултат от замяната:</value>
     <comment>Test window, output results label</comment>
   </data>
   <data name="Test_ReplaceTextIsNotValidXML" xml:space="preserve">
-    <value>The replace text is not valid XML!</value>
+    <value>Текстът за заменяне не е валиден XML!</value>
     <comment>Test window, error text</comment>
   </data>
   <data name="Test_ReplaceWith" xml:space="preserve">
@@ -2245,7 +2245,7 @@ Arguments:
     <comment>Test window, search input label</comment>
   </data>
   <data name="Test_SampleInputText" xml:space="preserve">
-    <value>Sample input text:</value>
+    <value>Примерен входен текст:</value>
     <comment>Test window, search input label</comment>
   </data>
   <data name="Test_SearchFor" xml:space="preserve">
@@ -2257,7 +2257,7 @@ Arguments:
     <comment>Test window, search group box heading</comment>
   </data>
   <data name="Test_SearchResult" xml:space="preserve">
-    <value>Search result:</value>
+    <value>Резултат от търсенето:</value>
     <comment>Test window, output results label</comment>
   </data>
   <data name="Test_SearchType_Phonetic" xml:space="preserve">
@@ -2285,43 +2285,43 @@ Arguments:
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="TTA1_MatchesAllCharacters" xml:space="preserve">
-    <value>. matches all characters</value>
+    <value>. съвпада с всички знаци</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTA2_MatchesAlphaNumerics" xml:space="preserve">
-    <value>\w matches alpha-numerics</value>
+    <value>\w съвпада с буквено-цифрови знаци</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTA3_MatchesDigits" xml:space="preserve">
-    <value>\d matches digits</value>
+    <value>\d съвпада с цифри</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTA4_MatchesSpace" xml:space="preserve">
-    <value>\s matches space</value>
+    <value>\s съвпада с интервал</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTA5_MatchesAnyNumberOfCharacters" xml:space="preserve">
-    <value>* matches any number of characters</value>
+    <value>* съвпада с произволен брой знаци</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTA6_Matches1To3Characters" xml:space="preserve">
-    <value>{1,3} matches 1 to 3 characters</value>
+    <value>{1,3} съвпада с от 1 до 3 знака</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTA7_ForMoreRegexPatternsHitF1" xml:space="preserve">
-    <value>Hit F1 for more regular expression patterns</value>
+    <value>За примерни регулярни изрази натиснете F1</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTB1_ReplacesEntireRegex" xml:space="preserve">
-    <value>$&amp; replaces entire regular expression</value>
+    <value>$&amp; заменя целия регулярен израз</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTB2_InsertsTheTextMatchedIntoTheReplacementText" xml:space="preserve">
-    <value>$1, $2, $3, etc… inserts the text matched between capturing parentheses into the replacement text</value>
+    <value>$1, $2, $3, и т.н - вмъква попадащото между улавящите скоби в текста за заменяне</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="TTB3_InsertsASingleDollarSignIntoTheReplacementText" xml:space="preserve">
-    <value>$$ inserts a single dollar sign into the replacement text</value>
+    <value>$$ вмъква един знак за долар в текста за заменяне</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="Window_Close" xml:space="preserve">
@@ -2329,27 +2329,27 @@ Arguments:
     <comment>Window title bar close button tooltip</comment>
   </data>
   <data name="Window_DockThisPopUpBackIntoTheMainWindow" xml:space="preserve">
-    <value>Dock this pop-up back into the main window</value>
+    <value>Сливане с основния прозорец</value>
     <comment>Docking window docking button tooltip</comment>
   </data>
   <data name="Window_Maximize" xml:space="preserve">
-    <value>Maximize</value>
+    <value>Увеличаване</value>
     <comment>Window title bar button tooltip</comment>
   </data>
   <data name="Window_Minimize" xml:space="preserve">
-    <value>Minimize</value>
+    <value>Скриване</value>
     <comment>Window title bar button tooltip</comment>
   </data>
   <data name="Window_PopThisPanelOutIntoItsOwnWindow" xml:space="preserve">
-    <value>Pop this panel out into its own window</value>
+    <value>Отваряне в отделен прозорец</value>
     <comment>Docking window button tooltip</comment>
   </data>
   <data name="Window_RestoreDown" xml:space="preserve">
-    <value>Restore Down</value>
+    <value>Възстановяване</value>
     <comment>Window title bar button tooltip</comment>
   </data>
   <data name="Options_HexSearchResultLineLength" xml:space="preserve">
-    <value>Byte search result line length</value>
+    <value>Дължина на реда на резултата от шестнадесетично търсене</value>
     <comment>Options dialog, results options combo box label</comment>
   </data>
   <data name="Options_FilesAndIndividualMatches" xml:space="preserve">
@@ -2361,11 +2361,11 @@ Arguments:
     <comment>Options dialog, Replace window layout radio button label (accel)</comment>
   </data>
   <data name="Options_ReplaceDialogLayout" xml:space="preserve">
-    <value>Replace window layout</value>
+    <value>Подредба на прозореца за замяна</value>
     <comment>Options dialog, replace view options label</comment>
   </data>
   <data name="Replace_NumberOfMatchesMarkedForReplacement" xml:space="preserve">
-    <value>{0} of {1} matches marked for replacement</value>
+    <value>Отбелязани за замяна са {0} от {1} съвпадения</value>
     <comment>Replace window, file name progress line: {0} is number of matches marked for replacement; {1} is the number of matches found in the current file</comment>
   </data>
   <data name="Main_PowerPointSlideNumber" xml:space="preserve">
@@ -2373,19 +2373,19 @@ Arguments:
     <comment>Main window, results list label for PowerPoint files: {0} is the slide number in the PowerPoint document</comment>
   </data>
   <data name="Options_ResultsFontFamily" xml:space="preserve">
-    <value>Results font family</value>
+    <value>Семейство на шрифта в резултатите</value>
     <comment>Options dialog, results font selector label</comment>
   </data>
   <data name="Options_ResultsFontSize" xml:space="preserve">
-    <value>Results font size</value>
+    <value>Размер на шрифта в резултатите</value>
     <comment>Options dialog, results font size label</comment>
   </data>
   <data name="Options_ResultsFontUsuallyAFixedWidthFont" xml:space="preserve">
-    <value>Font used in search results, usually a fixed width font</value>
+    <value>Шрифт, използван в резултатите от търсенето, обикновено е равноширок</value>
     <comment>Options dialog, replace font selector tooltip</comment>
   </data>
   <data name="Test_SearchType_Hex" xml:space="preserve">
-    <value>Byte</value>
+    <value>Шестнадесетично</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_FileSource_Group" xml:space="preserve">
@@ -2449,7 +2449,15 @@ Arguments:
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="MessageBox_DnGrepIsUpToDate" xml:space="preserve">
-    <value>dnGrep is up to date.</value>
+    <value>Приложението dnGrep е последно издание.</value>
     <comment>Message box text for: Check for updates response</comment>
+  </data>
+  <data name="Main_Results_NextFile" xml:space="preserve">
+    <value>Следващ файл</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_PreviousFile" xml:space="preserve">
+    <value>Предишен файл</value>
+    <comment>Main windows, results list, context menu item label</comment>
   </data>
 </root>

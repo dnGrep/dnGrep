@@ -155,7 +155,7 @@
     <comment>Bookmark details dialog, text input box label</comment>
   </data>
   <data name="BookmarkDetails_DotAsNewline" xml:space="preserve">
-    <value>點號(.)作為新行</value>
+    <value>點號(.)搜尋包含換行字元</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Encoding" xml:space="preserve">
@@ -463,7 +463,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
 /dn [True/False]
 -dn [True/False]
 -dotAsNewline [True/False]
-    設定點號作為新行搜尋旗標 - True 或 False.
+    設定點號(.)搜尋包含換行字元搜尋旗標 - True 或 False.
 
 /bo [True/False]
 -bo [True/False]
@@ -623,7 +623,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Main window docking context menu label (accel)</comment>
   </data>
   <data name="Main_DotAsNewline" xml:space="preserve">
-    <value>點號(.)作為新行</value>
+    <value>點號(.)搜尋包含換行字元</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_Empty" xml:space="preserve">
@@ -2075,7 +2075,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_DotAsNewline" xml:space="preserve">
-    <value>點號(.)作為新行</value>
+    <value>點號(.)搜尋包含換行字元</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_Encoding" xml:space="preserve">
@@ -2183,7 +2183,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Test window, context menu item label</comment>
   </data>
   <data name="Test_DotAsNewline" xml:space="preserve">
-    <value>點號(.)作為新行</value>
+    <value>點號(.)搜尋包含換行字元</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_HighlightGroups" xml:space="preserve">
@@ -2359,39 +2359,43 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionContainsAnUnknownToken" xml:space="preserve">
-    <value>Boolean expression contains an unknown token</value>
+    <value>布林運算式含有未知的標記</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionHasAnUnknownError" xml:space="preserve">
-    <value>Boolean expression has an unknown error</value>
+    <value>布林運算式有未知錯誤</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionHasMismatchedParentheses" xml:space="preserve">
-    <value>Boolean expression has mismatched parentheses</value>
+    <value>布林運算式的括號不匹配</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsMissingABooleanOperator" xml:space="preserve">
-    <value>Boolean expression is missing a Boolean operator</value>
+    <value>布林運算式缺少布林運算元</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsMissingASearchPattern" xml:space="preserve">
-    <value>Boolean expression is missing a search pattern</value>
+    <value>布林運算式缺少搜尋樣式</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsNotValid" xml:space="preserve">
-    <value>Boolean expression is not valid</value>
+    <value>布林運算式不合法</value>
     <comment>Main window, Boolean expression status</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsOK" xml:space="preserve">
-    <value>Boolean expression is OK</value>
+    <value>布林運算式正確</value>
     <comment>Main window, Boolean expression status</comment>
   </data>
   <data name="Main_Menu_About_CheckForUpdates" xml:space="preserve">
-    <value>_Check for updates</value>
+    <value>檢查版本更新</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="MessageBox_DnGrepIsUpToDate" xml:space="preserve">
     <value>dnGrep is up to date.</value>
     <comment>Message box text for: Check for updates response</comment>
+  </data>
+  <data name="Main_Results_PreviousFile" xml:space="preserve">
+    <value>上一個檔案</value>
+    <comment>Main windows, results list, context menu item label</comment>
   </data>
 </root>
