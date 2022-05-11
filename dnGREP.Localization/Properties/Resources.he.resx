@@ -2456,4 +2456,8 @@ Arguments:
     <value>dnGrep is up to date.</value>
     <comment>Message box text for: Check for updates response</comment>
   </data>
+  <data name="Main_Results_PreviousFile" xml:space="preserve">
+    <value>Previous file</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
 </root>
