@@ -130,9 +130,19 @@ namespace dnGREP.WPF.UserControls
                 Next();
                 e.Handled = true;
             }
+            else if (e.Key == Key.F3 && Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
+            {
+                NextFile();
+                e.Handled = true;
+            }
             else if (e.Key == Key.F4 && Keyboard.Modifiers == ModifierKeys.None)
             {
                 Previous();
+                e.Handled = true;
+            }
+            else if (e.Key == Key.F4 && Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
+            {
+                PreviousFile();
                 e.Handled = true;
             }
             else if (e.Key == Key.F6 && Keyboard.Modifiers == ModifierKeys.None)
@@ -140,7 +150,7 @@ namespace dnGREP.WPF.UserControls
                 btnExpandAll_Click(this, e);
                 e.Handled = true;
             }
-            else if (e.Key == Key.F6 && Keyboard.Modifiers == ModifierKeys.Shift)
+            else if (e.Key == Key.F6 && Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
             {
                 btnCollapseAll_Click(this, e);
                 e.Handled = true;
@@ -260,12 +270,38 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
+        internal async void NextFile()
+        {
+            try
+            {
+                Cursor = Cursors.Wait;
+                await NextFileMatch();
+            }
+            finally
+            {
+                Cursor = Cursors.Arrow;
+            }
+        }
+
         internal async void Previous()
         {
             try
             {
                 Cursor = Cursors.Wait;
                 await PreviousLineMatch();
+            }
+            finally
+            {
+                Cursor = Cursors.Arrow;
+            }
+        }
+
+        internal async void PreviousFile()
+        {
+            try
+            {
+                Cursor = Cursors.Wait;
+                await PreviousFileMatch();
             }
             finally
             {
@@ -305,6 +341,34 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
+        private async Task NextFileMatch()
+        {
+            FormattedGrepResult selectedResult = inputData.SelectedNodes.OfType<FormattedGrepResult>()
+                .Where(n => n != null)
+                .LastOrDefault();
+            FormattedGrepLine selectedLine = inputData.SelectedNodes.OfType<FormattedGrepLine>()
+                .Where(n => n != null)
+                .OrderBy(n => n.GrepLine.LineNumber)
+                .LastOrDefault();
+
+            if (selectedResult == null && selectedLine == null)
+            {
+                var firstResult = inputData.FirstOrDefault();
+                if (firstResult != null)
+                {
+                    await SelectFirstChild(firstResult);
+                }
+            }
+            else if (selectedLine != null)
+            {
+                await SelectNextResult(selectedLine);
+            }
+            else
+            {
+                await SelectNextResult(selectedResult.FormattedLines.First());
+            }
+        }
+
         private async Task PreviousLineMatch()
         {
             FormattedGrepResult selectedResult = inputData.SelectedNodes.OfType<FormattedGrepResult>()
@@ -330,6 +394,34 @@ namespace dnGREP.WPF.UserControls
                     selectedLine.Parent.IsExpanded = false;
                     await SelectPreviousResult(selectedLine);
                 }
+            }
+            else
+            {
+                await SelectPreviousResult(selectedResult);
+            }
+        }
+
+        private async Task PreviousFileMatch()
+        {
+            FormattedGrepResult selectedResult = inputData.SelectedNodes.OfType<FormattedGrepResult>()
+                .Where(n => n != null)
+                .FirstOrDefault();
+            FormattedGrepLine selectedLine = inputData.SelectedNodes.OfType<FormattedGrepLine>()
+                .Where(n => n != null)
+                .OrderBy(n => n.GrepLine.LineNumber)
+                .FirstOrDefault();
+
+            if (selectedResult == null && selectedLine == null)
+            {
+                var lastResult = inputData.LastOrDefault();
+                if (lastResult != null)
+                {
+                    await SelectLastChild(lastResult);
+                }
+            }
+            else if (selectedLine != null)
+            {
+                await SelectPreviousResult(selectedLine);
             }
             else
             {
@@ -429,9 +521,19 @@ namespace dnGREP.WPF.UserControls
             Next();
         }
 
+        private void btnNextFile_Click(object sender, RoutedEventArgs e)
+        {
+            NextFile();
+        }
+
         private void btnPreviousMatch_Click(object sender, RoutedEventArgs e)
         {
             Previous();
+        }
+
+        private void btnPreviousFile_Click(object sender, RoutedEventArgs e)
+        {
+            PreviousFile();
         }
 
         private async void btnExpandAll_Click(object sender, RoutedEventArgs e)

@@ -123,6 +123,11 @@ namespace dnGREP.WPF.UserControls
         {
             if (treeViewItem != null && treeView != null)
             {
+                bool isFunctionKeyDown = Keyboard.IsKeyDown(Key.F1) || Keyboard.IsKeyDown(Key.F2) || Keyboard.IsKeyDown(Key.F3) ||
+                    Keyboard.IsKeyDown(Key.F4) || Keyboard.IsKeyDown(Key.F5) || Keyboard.IsKeyDown(Key.F6) ||
+                    Keyboard.IsKeyDown(Key.F7) || Keyboard.IsKeyDown(Key.F7) || Keyboard.IsKeyDown(Key.F9) ||
+                    Keyboard.IsKeyDown(Key.F10) || Keyboard.IsKeyDown(Key.F11) || Keyboard.IsKeyDown(Key.F12);
+
                 if (treeView.MultiSelectRootLevelOnly)
                 {
                     bool isRoot = ItemsControl.ItemsControlFromItemContainer(treeViewItem) == treeView;
@@ -130,15 +135,15 @@ namespace dnGREP.WPF.UserControls
                     {
                         treeView.DeselectAllChildItems();
 
-                        if ((Keyboard.Modifiers & (ModifierKeys.Control | ModifierKeys.Shift)) == (ModifierKeys.Control | ModifierKeys.Shift))
+                        if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control | ModifierKeys.Shift) && !isFunctionKeyDown)
                         {
                             SelectMultipleItemsContinuously(treeView, treeViewItem, true);
                         }
-                        else if (Keyboard.Modifiers == ModifierKeys.Control)
+                        else if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control) && !isFunctionKeyDown)
                         {
                             SelectMultipleItemsRandomly(treeView, treeViewItem);
                         }
-                        else if (Keyboard.Modifiers == ModifierKeys.Shift)
+                        else if (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift) && !isFunctionKeyDown)
                         {
                             SelectMultipleItemsContinuously(treeView, treeViewItem);
                         }
@@ -154,15 +159,15 @@ namespace dnGREP.WPF.UserControls
                 }
                 else
                 {
-                    if ((Keyboard.Modifiers & (ModifierKeys.Control | ModifierKeys.Shift)) == (ModifierKeys.Control | ModifierKeys.Shift))
+                    if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control | ModifierKeys.Shift) && !isFunctionKeyDown)
                     {
                         SelectMultipleItemsContinuously(treeView, treeViewItem, true);
                     }
-                    else if (Keyboard.Modifiers == ModifierKeys.Control)
+                    else if (Keyboard.Modifiers.HasFlag(ModifierKeys.Control) && !isFunctionKeyDown)
                     {
                         SelectMultipleItemsRandomly(treeView, treeViewItem);
                     }
-                    else if (Keyboard.Modifiers == ModifierKeys.Shift)
+                    else if (Keyboard.Modifiers.HasFlag(ModifierKeys.Shift) && !isFunctionKeyDown)
                     {
                         SelectMultipleItemsContinuously(treeView, treeViewItem);
                     }

@@ -1955,6 +1955,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Next file.
+        /// </summary>
+        public static string Main_Results_NextFile {
+            get {
+                return ResourceManager.GetString("Main_Results_NextFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Next match.
         /// </summary>
         public static string Main_Results_NextMatch {
@@ -1987,6 +1996,15 @@ namespace dnGREP.Localization.Properties {
         public static string Main_Results_OpenWithCustomEditor {
             get {
                 return ResourceManager.GetString("Main_Results_OpenWithCustomEditor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Previous file.
+        /// </summary>
+        public static string Main_Results_PreviousFile {
+            get {
+                return ResourceManager.GetString("Main_Results_PreviousFile", resourceCulture);
             }
         }
         
