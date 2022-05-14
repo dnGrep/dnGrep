@@ -27,6 +27,7 @@ namespace dnGREP.Engines
 
         public bool IsSearchOnly => true;
 
+        private bool precacheResults;
         private FileFilter fileFilter;
         private GrepEngineInitParams searchParams;
         private List<string> includeSearchPatterns;
@@ -37,6 +38,7 @@ namespace dnGREP.Engines
 
         public void SetSearchOptions(FileFilter filter, GrepEngineInitParams initParams)
         {
+            precacheResults = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ExpandResults);
             fileFilter = filter;
             searchParams = initParams;
             includeSearchPatterns = new List<string>();
@@ -274,22 +276,38 @@ namespace dnGREP.Engines
 
                     if (innerFileResults.Any())
                     {
-                        //stream.Seek(0, SeekOrigin.Begin);
-                        //using (StreamReader streamReader = new StreamReader(stream, encoding, false, 4096, true))
-                        //{
-                        foreach (var result in innerFileResults)
+                        if (precacheResults)
                         {
-                            // file info is known, set it now
-                            result.FileInfo = fileData;
+                            // pre-cache the search results since the text is available.
+                            // user has set the option to auto-expand the results tree, so all the
+                            // search results data will be needed, and this will save reopening the
+                            // archive for each file
+                            stream.Seek(0, SeekOrigin.Begin);
+                            using (StreamReader streamReader = new StreamReader(stream, encoding, false, 4096, true))
+                            {
+                                foreach (var result in innerFileResults)
+                                {
+                                    // file info is known, set it now
+                                    result.FileInfo = fileData;
 
-                            if (Utils.CancelSearch)
-                                break;
+                                    if (Utils.CancelSearch)
+                                        break;
 
-                            //    // pre-cache the search results since the text is available
-                            //    // this could create too much memory use, but will save reopening the archive
-                            //result.SearchResults = Utils.GetLinesEx(streamReader, result.Matches, engine.LinesBefore, engine.LinesAfter);
+                                    result.SearchResults = Utils.GetLinesEx(streamReader, result.Matches, engine.LinesBefore, engine.LinesAfter);
+                                }
+                            }
                         }
-                        //}
+                        else
+                        {
+                            foreach (var result in innerFileResults)
+                            {
+                                // file info is known, set it now
+                                result.FileInfo = fileData;
+
+                                if (Utils.CancelSearch)
+                                    break;
+                            }
+                        }
                     }
                     else
                     {
