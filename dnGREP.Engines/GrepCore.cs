@@ -309,8 +309,8 @@ namespace dnGREP.Common
 
         private void ArchiveEngine_StartingFileSearch(object sender, DataEventArgs<string> e)
         {
-            ProcessedFile(this, new ProgressStatus(true, processedFilesCount, foundfilesCount, null, e.Data));
             Interlocked.Increment(ref processedFilesCount);
+            ProcessedFile(this, new ProgressStatus(true, processedFilesCount, foundfilesCount, null, e.Data));
         }
 
         public int Replace(IEnumerable<ReplaceDef> files, SearchType searchType, string searchPattern, string replacePattern, GrepSearchOption searchOptions, int codePage)
