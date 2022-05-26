@@ -174,4 +174,80 @@
     <value>Codifica:</value>
     <comment>Bookmark details dialog, search options encoding combo box label (accel) </comment>
   </data>
+  <data name="Rename_Cancel" xml:space="preserve">
+    <value>Annulla</value>
+    <comment>Rename file dialog button label</comment>
+  </data>
+  <data name="BookmarkDetails_OK" xml:space="preserve">
+    <value>Conferma</value>
+    <comment>Bookmark details dialog, button label</comment>
+  </data>
+  <data name="Help_OK" xml:space="preserve">
+    <value>Conferma</value>
+    <comment>Help dialog button label</comment>
+  </data>
+  <data name="Main_Attributes_Encoding" xml:space="preserve">
+    <value>Codifica:</value>
+    <comment>Main window, results list, file attributes tooltip label</comment>
+  </data>
+  <data name="Main_BooleanOperators" xml:space="preserve">
+    <value>Operatori booleani</value>
+    <comment>Main window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_CaseSensitive" xml:space="preserve">
+    <value>C_ase sensitive</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_DnGREP_Title" xml:space="preserve">
+    <value>dnGrep</value>
+    <comment>Main window, title label – near menu bar</comment>
+  </data>
+  <data name="Main_DotAsNewline" xml:space="preserve">
+    <value>_Dot come nuova linea</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_Encoding" xml:space="preserve">
+    <value>Codifica:</value>
+    <comment>Main window, search options encoding combo box label (accel) </comment>
+  </data>
+  <data name="Main_EverythingIndexService" xml:space="preserve">
+    <value>Sevrizion di Indicizzazione di Everything</value>
+    <comment>Main window, pattern type option Everything tooltip</comment>
+  </data>
+  <data name="MessageBox_DnGrep" xml:space="preserve">
+    <value>dnGrep</value>
+    <comment>Message box title</comment>
+  </data>
+  <data name="Rename_OK" xml:space="preserve">
+    <value>Conferma</value>
+    <comment>Rename file dialog button label</comment>
+  </data>
+  <data name="Replace_Cancel" xml:space="preserve">
+    <value>Annulla</value>
+    <comment>Replace window, Cancel button text</comment>
+  </data>
+  <data name="Replace_OK" xml:space="preserve">
+    <value>Conferma</value>
+    <comment>Replace window, OK button text</comment>
+  </data>
+  <data name="ReportSummary_BooleanOperators" xml:space="preserve">
+    <value>Operatori booleani</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_Encoding" xml:space="preserve">
+    <value>Codifica:</value>
+    <comment>Report search options summary label</comment>
+  </data>
+  <data name="Test_BooleanOperators" xml:space="preserve">
+    <value>Operatori booleani</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Test_CaseSensitive" xml:space="preserve">
+    <value>C_ase sensitive</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Test_DotAsNewline" xml:space="preserve">
+    <value>_Dot come nuova linea</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
 </root>
