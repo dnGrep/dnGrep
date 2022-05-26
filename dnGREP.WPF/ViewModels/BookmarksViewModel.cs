@@ -207,6 +207,7 @@ namespace dnGREP.WPF
                         IncludeHiddenFiles = editBmk.IncludeHidden,
                         IncludeBinaryFiles = editBmk.IncludeBinary,
                         UseGitignore = editBmk.UseGitignore,
+                        SkipRemoteCloudStorageFiles = editBmk.SkipRemoteCloudStorageFiles,
                         IncludeArchive = editBmk.IncludeArchive,
                         FollowSymlinks = editBmk.FollowSymlinks,
                         CodePage = editBmk.CodePage,
@@ -259,6 +260,7 @@ namespace dnGREP.WPF
                         IncludeHiddenFiles = duplicateBmk.IncludeHidden,
                         IncludeBinaryFiles = duplicateBmk.IncludeBinary,
                         UseGitignore = duplicateBmk.UseGitignore,
+                        SkipRemoteCloudStorageFiles = duplicateBmk.SkipRemoteCloudStorageFiles,
                         IncludeArchive = duplicateBmk.IncludeArchive,
                         FollowSymlinks = duplicateBmk.FollowSymlinks,
                         CodePage = duplicateBmk.CodePage,
@@ -306,6 +308,7 @@ namespace dnGREP.WPF
                     IncludeHiddenFiles = editBmk.IncludeHidden,
                     IncludeBinaryFiles = editBmk.IncludeBinary,
                     UseGitignore = editBmk.UseGitignore,
+                    SkipRemoteCloudStorageFiles = editBmk.SkipRemoteCloudStorageFiles,
                     IncludeArchive = editBmk.IncludeArchive,
                     FollowSymlinks = editBmk.FollowSymlinks,
                     CodePage = editBmk.CodePage,
@@ -359,6 +362,7 @@ namespace dnGREP.WPF
             IncludeSubfolders = bk.IncludeSubfolders;
             MaxSubfolderDepth = bk.MaxSubfolderDepth;
             UseGitignore = bk.UseGitignore;
+            SkipRemoteCloudStorageFiles = bk.SkipRemoteCloudStorageFiles;
             IncludeArchive = bk.IncludeArchive;
             FollowSymlinks = bk.FollowSymlinks;
             CodePage = bk.CodePage;
@@ -397,6 +401,7 @@ namespace dnGREP.WPF
             IncludeSubfolders = toCopy.IncludeSubfolders;
             MaxSubfolderDepth = toCopy.MaxSubfolderDepth;
             UseGitignore = toCopy.UseGitignore;
+            SkipRemoteCloudStorageFiles = toCopy.SkipRemoteCloudStorageFiles;
             IncludeArchive = toCopy.IncludeArchive;
             FollowSymlinks = toCopy.FollowSymlinks;
             CodePage = toCopy.CodePage;
@@ -431,10 +436,15 @@ namespace dnGREP.WPF
         internal void SetExtendedProperties()
         {
             var tempList = new List<string>();
-            if (ApplyFilePropertyFilters)
+
+            if (ApplyFileSourceFilters)
             {
                 if (IncludeArchive)
                     tempList.Add(Resources.Bookmarks_Summary_SearchInArchives);
+            }
+
+            if (ApplyFilePropertyFilters)
+            {
                 if (!IncludeSubfolders || (IncludeSubfolders && MaxSubfolderDepth == 0))
                     tempList.Add(Resources.Bookmarks_Summary_NoSubfolders);
                 if (IncludeSubfolders && MaxSubfolderDepth > 0)
@@ -485,6 +495,7 @@ namespace dnGREP.WPF
                 IncludeBinaryFiles = IncludeBinary,
                 MaxSubfolderDepth = MaxSubfolderDepth,
                 UseGitignore = UseGitignore,
+                SkipRemoteCloudStorageFiles = SkipRemoteCloudStorageFiles,
                 IncludeArchive = IncludeArchive,
                 FollowSymlinks = FollowSymlinks,
                 CodePage = CodePage,
@@ -893,6 +904,20 @@ namespace dnGREP.WPF
             }
         }
 
+        private bool skipRemoteCloudStorageFiles = true;
+        public bool SkipRemoteCloudStorageFiles
+        {
+            get { return skipRemoteCloudStorageFiles; }
+            set
+            {
+                if (skipRemoteCloudStorageFiles == value)
+                    return;
+
+                skipRemoteCloudStorageFiles = value;
+                OnPropertyChanged(nameof(SkipRemoteCloudStorageFiles));
+            }
+        }
+
         private bool includeArchive = false;
         public bool IncludeArchive
         {
@@ -1127,6 +1152,7 @@ namespace dnGREP.WPF
                 FollowSymlinks == otherVM.FollowSymlinks &&
                 MaxSubfolderDepth == otherVM.MaxSubfolderDepth &&
                 UseGitignore == otherVM.UseGitignore &&
+                SkipRemoteCloudStorageFiles == otherVM.SkipRemoteCloudStorageFiles &&
                 IncludeArchive == otherVM.IncludeArchive &&
                 CodePage == otherVM.CodePage &&
                 ApplyFileSourceFilters == otherVM.ApplyFileSourceFilters &&
@@ -1155,6 +1181,7 @@ namespace dnGREP.WPF
                 hashCode = (hashCode * 17) ^ IncludeBinary.GetHashCode();
                 hashCode = (hashCode * 17) ^ MaxSubfolderDepth.GetHashCode();
                 hashCode = (hashCode * 17) ^ UseGitignore.GetHashCode();
+                hashCode = (hashCode * 17) ^ SkipRemoteCloudStorageFiles.GetHashCode();
                 hashCode = (hashCode * 17) ^ IncludeArchive.GetHashCode();
                 hashCode = (hashCode * 17) ^ FollowSymlinks.GetHashCode();
                 hashCode = (hashCode * 17) ^ CodePage.GetHashCode();

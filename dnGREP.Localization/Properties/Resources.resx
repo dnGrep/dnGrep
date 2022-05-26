@@ -193,6 +193,10 @@
     <value>Version</value>
     <comment>About dialog label</comment>
   </data>
+  <data name="BookmarkDetails_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>Skip remote cloud storage files</value>
+    <comment>Bookmark details dialog, checkbox label (accel)</comment>
+  </data>
   <data name="BookmarkDetails_AssociatedFolders" xml:space="preserve">
     <value>Associated folders:</value>
     <comment>Bookmark details dialog, text input box label</comment>
@@ -1180,6 +1184,10 @@ Arguments:
   <data name="Main_SizeTo" xml:space="preserve">
     <value>to</value>
     <comment>Main window, filter by size label</comment>
+  </data>
+  <data name="Main_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>Skip remote cloud storage files</value>
+    <comment>Main window, search option label</comment>
   </data>
   <data name="Main_SortButton" xml:space="preserve">
     <value>Sort</value>

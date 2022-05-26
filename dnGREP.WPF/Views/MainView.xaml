@@ -297,6 +297,7 @@
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
@@ -329,13 +330,16 @@
                                                   Content="{l:Loc Key='Main_UseGitignore'}" TabIndex="43"
                                                   Visibility="{Binding IsGitInstalled, Converter={StaticResource BoolToVisibilityConverter}}"
                                                   ToolTip="{l:Loc Key='Main_UseGitignoreToFilterFiles'}" />
-                                        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                                        <CheckBox Grid.Row="2" Grid.Column="0" Margin="3,3,3,3"
+                                                  IsChecked="{Binding Path=SkipRemoteCloudStorageFiles}"
+                                                  TabIndex="44" Content="{l:Loc Key='Main_SkipRemoteCloudStorageFiles'}"/>
+                                        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
                                                     Margin="3" VerticalAlignment="Center" Orientation="Horizontal">
                                             <Label Margin="3,0,3,3" Content="{l:Loc Key='Main_Encoding'}"
                                                    Style="{DynamicResource ThemedLabel}"
                                                    Target="{Binding ElementName=cbEncoding}"/>
                                             <ComboBox Name="cbEncoding" 
-                                                      Margin="3,0,3,3" HorizontalContentAlignment="Center" TabIndex="44"
+                                                      Margin="3,0,3,3" HorizontalContentAlignment="Center" TabIndex="45"
                                                       DisplayMemberPath="Key" SelectedValuePath="Value"
                                                       ItemsSource="{Binding Path=Encodings}"
                                                       SelectedValue="{Binding Path=CodePage}"
@@ -354,13 +358,13 @@
                                                 </ComboBox.Width>
                                             </ComboBox>
                                         </StackPanel>
-                                        <Button Grid.Row="3" Grid.Column="1"
+                                        <Button Grid.Row="4" Grid.Column="1"
                                                 Margin="3,0,3,3"  Padding="8,3" HorizontalAlignment="Right"
                                                 HorizontalContentAlignment="Center" 
                                                 Content="{l:Loc Key='Main_ResetOptions'}"
                                                 Command="{Binding ResetOptionsCommand}"
                                                 TabIndex="49" />
-                                        <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+                                        <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
                                               Margin="4,3,3,3"
                                               Visibility="{Binding OptionsOnMainPanel, Converter={StaticResource InverseBoolToVisibilityConverter}}">
                                             <Grid.RowDefinitions>

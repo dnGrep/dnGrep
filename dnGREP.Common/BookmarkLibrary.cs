@@ -14,7 +14,7 @@ namespace dnGREP.Common
 {
     public class BookmarkLibrary
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         private static BookmarkEntity bookmarks;
 
@@ -134,7 +134,7 @@ namespace dnGREP.Common
         public Bookmark() { }
         public Bookmark(string searchFor, string replaceWith, string filePattern)
         {
-            Version = 3;
+            Version = 4;
             SearchPattern = searchFor;
             ReplacePattern = replaceWith;
             FileNames = filePattern;
@@ -160,6 +160,7 @@ namespace dnGREP.Common
         public bool IncludeBinaryFiles { get; set; }
         public int MaxSubfolderDepth { get; set; } = -1;
         public bool UseGitignore { get; set; }
+        public bool SkipRemoteCloudStorageFiles { get; set; } = true;
         public bool IncludeArchive { get; set; }
         public bool FollowSymlinks { get; set; }
         public int CodePage { get; set; } = -1;
@@ -190,6 +191,7 @@ namespace dnGREP.Common
         public bool ShouldSerializeApplyFileSourceFilters() { return Version > 2; }
         public bool ShouldSerializeApplyFilePropertyFilters() { return Version > 2; }
         public bool ShouldSerializeApplySearchFilters() { return Version > 2; }
+        public bool ShouldSerializeSkipRemoteCloudStorageFiles() { return Version > 3; }
 
         public override bool Equals(object obj)
         {
@@ -207,6 +209,7 @@ namespace dnGREP.Common
                 IgnoreFilePattern == otherBookmark.IgnoreFilePattern &&
                 IncludeArchive == otherBookmark.IncludeArchive &&
                 UseGitignore == otherBookmark.UseGitignore &&
+                SkipRemoteCloudStorageFiles == otherBookmark.SkipRemoteCloudStorageFiles &&
                 CodePage == otherBookmark.CodePage;
         }
 
@@ -240,6 +243,7 @@ namespace dnGREP.Common
                 FileNames == otherBookmark.FileNames &&
                 IgnoreFilePattern == otherBookmark.IgnoreFilePattern &&
                 UseGitignore == otherBookmark.UseGitignore &&
+                SkipRemoteCloudStorageFiles == otherBookmark.SkipRemoteCloudStorageFiles &&
                 IncludeArchive == otherBookmark.IncludeArchive &&
                 CodePage == otherBookmark.CodePage &&
 
@@ -272,6 +276,7 @@ namespace dnGREP.Common
                 hashCode = (hashCode * 17) ^ FileNames?.GetHashCode() ?? 5;
                 hashCode = (hashCode * 17) ^ IgnoreFilePattern?.GetHashCode() ?? 5;
                 hashCode = (hashCode * 17) ^ UseGitignore.GetHashCode();
+                hashCode = (hashCode * 17) ^ SkipRemoteCloudStorageFiles.GetHashCode();
                 hashCode = (hashCode * 17) ^ IncludeArchive.GetHashCode();
                 hashCode = (hashCode * 17) ^ CodePage.GetHashCode();
 

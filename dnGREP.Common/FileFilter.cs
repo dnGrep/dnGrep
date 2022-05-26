@@ -34,7 +34,7 @@ namespace dnGREP.Common
         /// <param name="endTime">end of time range</param>
         public FileFilter(string path, string namePatternToInclude, string namePatternToExclude, bool isRegex, bool useGitignore, bool useEverything,
             bool includeSubfolders, int maxSbufolderDepth, bool includeHidden, bool includeBinary, bool includeArchive, bool followSymlinks,
-            int sizeFrom, int sizeTo, FileDateFilter dateFilter, DateTime? startTime, DateTime? endTime)
+            int sizeFrom, int sizeTo, FileDateFilter dateFilter, DateTime? startTime, DateTime? endTime, bool skipRemoteCloudStorageFiles = true)
         {
             Path = path;
             NamePatternToInclude = namePatternToInclude;
@@ -53,6 +53,7 @@ namespace dnGREP.Common
             DateFilter = dateFilter;
             StartTime = startTime;
             EndTime = endTime;
+            SkipRemoteCloudStorageFiles = skipRemoteCloudStorageFiles;
         }
 
         public FileFilter ChangePath(string path)
@@ -88,7 +89,8 @@ namespace dnGREP.Common
                 SizeTo,
                 DateFilter,
                 StartTime,
-                EndTime
+                EndTime,
+                SkipRemoteCloudStorageFiles
                 );
         }
 
@@ -133,7 +135,8 @@ namespace dnGREP.Common
                 SizeTo,
                 DateFilter,
                 StartTime,
-                EndTime
+                EndTime,
+                SkipRemoteCloudStorageFiles
                 );
         }
 
@@ -154,5 +157,6 @@ namespace dnGREP.Common
         public FileDateFilter DateFilter { get; private set; }
         public DateTime? StartTime { get; private set; }
         public DateTime? EndTime { get; private set; }
+        public bool SkipRemoteCloudStorageFiles { get; private set; }
     }
 }
