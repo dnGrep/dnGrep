@@ -516,7 +516,7 @@ namespace dnGREP.Engines.OpenXml
                 {
                     // 1440 twips = 1 inch
                     // make 1 inch == 6 spaces
-                    int spaces = num / 240;
+                    int spaces = Math.Max(1, num / 240);
 
                     return new string(' ', spaces);
                 }
