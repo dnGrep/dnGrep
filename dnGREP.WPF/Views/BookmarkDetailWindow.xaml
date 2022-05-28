@@ -151,6 +151,10 @@
                             </ComboBox.Width>
                         </ComboBox>
                     </StackPanel>
+                    <StackPanel Margin="0,6" DockPanel.Dock="Top" Orientation="Horizontal">
+                        <CheckBox Margin="12,3" IsChecked="{Binding Path=SkipRemoteCloudStorageFiles}" 
+                                  Content="{l:Loc Key='BookmarkDetails_SkipRemoteCloudStorageFiles'}" />
+                    </StackPanel>
                 </DockPanel>
             </GroupBox>
 

@@ -231,8 +231,6 @@ namespace dnGREP.Common
             {
                 ProcessedFile(this, new ProgressStatus(true, processedFilesCount, foundfilesCount, null, file));
 
-                IGrepEngine engine = GrepEngineFactory.GetSearchEngine(file, SearchParams, FileFilter, searchType);
-
                 bool isArchive = Utils.IsArchive(file);
 
                 Encoding encoding = Encoding.Default;
@@ -247,6 +245,8 @@ namespace dnGREP.Common
                         cancellationTokenSource.Cancel();
                     return;
                 }
+
+                IGrepEngine engine = GrepEngineFactory.GetSearchEngine(file, SearchParams, FileFilter, searchType);
 
                 if (isArchive && engine is ArchiveEngine archiveEngine)
                 {

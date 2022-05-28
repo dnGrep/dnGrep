@@ -179,6 +179,8 @@ namespace dnGREP.Common
             public const string HexResultByteLength = "HexResultByteLength";
             [DefaultValue(true)]
             public const string ShowFullReplaceDialog = "ShowFullReplaceDialog";
+            [DefaultValue(true)]
+            public const string SkipRemoteCloudStorageFiles = "SkipRemoteCloudStorageFiles";
         }
 
         private static GrepSettings instance;

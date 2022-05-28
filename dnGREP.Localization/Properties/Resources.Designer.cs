@@ -610,6 +610,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Skip remote cloud storage files.
+        /// </summary>
+        public static string BookmarkDetails_SkipRemoteCloudStorageFiles {
+            get {
+                return ResourceManager.GetString("BookmarkDetails_SkipRemoteCloudStorageFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This bookmark already exists.
         /// </summary>
         public static string BookmarkDetails_ThisBookmarkAlreadyExists {
@@ -2257,6 +2266,15 @@ namespace dnGREP.Localization.Properties {
         public static string Main_SizeTo {
             get {
                 return ResourceManager.GetString("Main_SizeTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skip remote cloud storage files.
+        /// </summary>
+        public static string Main_SkipRemoteCloudStorageFiles {
+            get {
+                return ResourceManager.GetString("Main_SkipRemoteCloudStorageFiles", resourceCulture);
             }
         }
         

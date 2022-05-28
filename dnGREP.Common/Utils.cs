@@ -461,7 +461,7 @@ namespace dnGREP.Common
         /// <param name="path"></param>
         public static void DeleteFolder(string path)
         {
-            string[] files = GetFileList(path, "*.*", null, false, false, true, true, true, false, false, 0, 0, FileDateFilter.None, null, null, false, -1);
+            string[] files = GetFileList(path, "*.*", null, false, false, true, true, true, false, false, 0, 0, FileDateFilter.None, null, null, false, -1, true);
             foreach (string file in files)
             {
                 File.SetAttributes(file, FileAttributes.Normal);
@@ -1336,6 +1336,18 @@ namespace dnGREP.Common
                     }
                 }
 
+                if (filter.SkipRemoteCloudStorageFiles)
+                {
+                    var attr = (uint)File.GetAttributes(filePath);
+                    bool FILE_ATTRIBUTE_RECALL_ON_OPEN = (attr & 0x40000) == 0x40000;
+                    bool FILE_ATTRIBUTE_RECALL_ON_DATA_ACCESS = (attr & 0x400000) == 0x400000;
+
+                    if (FILE_ATTRIBUTE_RECALL_ON_DATA_ACCESS || FILE_ATTRIBUTE_RECALL_ON_OPEN)
+                    {
+                        return false;
+                    }
+                }
+
                 if ((filter.SizeFrom > 0 || filter.SizeTo > 0) && !filter.UseEverything) // Everything search has size filter in query
                 {
                     if (fileInfo == null)
@@ -1495,11 +1507,12 @@ namespace dnGREP.Common
         public static string[] GetFileList(string path, string namePatternToInclude, string namePatternToExclude, bool isRegex,
             bool useEverything, bool includeSubfolders, bool includeHidden, bool includeBinary, bool includeArchive,
             bool followSymlinks, int sizeFrom, int sizeTo, FileDateFilter dateFilter,
-            DateTime? startTime, DateTime? endTime, bool useGitignore, int maxSubfolderDepth)
+            DateTime? startTime, DateTime? endTime, bool useGitignore, int maxSubfolderDepth, 
+            bool skipRemoteCloudStorageFiles = true)
         {
             var filter = new FileFilter(path, namePatternToInclude, namePatternToExclude, isRegex, useGitignore, useEverything,
                 includeSubfolders, maxSubfolderDepth, includeHidden, includeBinary, includeArchive, followSymlinks, sizeFrom, sizeTo,
-                dateFilter, startTime, endTime);
+                dateFilter, startTime, endTime, skipRemoteCloudStorageFiles);
             return GetFileListEx(filter).ToArray();
         }
 

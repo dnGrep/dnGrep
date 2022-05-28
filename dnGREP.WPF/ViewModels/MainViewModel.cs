@@ -976,7 +976,8 @@ namespace dnGREP.WPF
                         FileFilter fileParams = new FileFilter(FileOrFolderPath, filePatternInclude, filePatternExclude,
                             param.TypeOfFileSearch == FileSearchType.Regex, param.UseGitIgnore, param.TypeOfFileSearch == FileSearchType.Everything,
                             param.IncludeSubfolder, param.MaxSubfolderDepth, param.IncludeHidden, param.IncludeBinary, param.IncludeArchive,
-                            param.FollowSymlinks, sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime);
+                            param.FollowSymlinks, sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime,
+                            SkipRemoteCloudStorageFiles);
 
                         if (string.IsNullOrWhiteSpace(SearchFor) &&
                             Settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern))
@@ -1027,7 +1028,8 @@ namespace dnGREP.WPF
                         grep.FileFilter = new FileFilter(FileOrFolderPath, filePatternInclude, filePatternExclude,
                             param.TypeOfFileSearch == FileSearchType.Regex, param.UseGitIgnore, param.TypeOfFileSearch == FileSearchType.Everything,
                             param.IncludeSubfolder, param.MaxSubfolderDepth, param.IncludeHidden, param.IncludeBinary, param.IncludeArchive,
-                            param.FollowSymlinks, sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime);
+                            param.FollowSymlinks, sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime,
+                            SkipRemoteCloudStorageFiles);
 
                         GrepSearchOption searchOptions = GrepSearchOption.None;
                         if (Multiline)
@@ -1061,7 +1063,7 @@ namespace dnGREP.WPF
                         {
                             e.Result = grep.Search(files, param.TypeOfSearch, param.SearchFor, searchOptions, param.CodePage);
                         }
-                        else if (fileInfos != null)    
+                        else if (fileInfos != null)
                         {
                             e.Result = grep.ListFiles(fileInfos, searchOptions, param.CodePage);
                         }
@@ -1761,6 +1763,7 @@ namespace dnGREP.WPF
             nameof(FollowSymlinks),
             nameof(MaxSubfolderDepth),
             nameof(UseGitignore),
+            nameof(SkipRemoteCloudStorageFiles),
             nameof(IncludeArchive),
             nameof(CodePage),
         };
@@ -1784,6 +1787,7 @@ namespace dnGREP.WPF
                 IncludeBinaryFiles = IncludeBinary,
                 MaxSubfolderDepth = MaxSubfolderDepth,
                 UseGitignore = UseGitignore,
+                SkipRemoteCloudStorageFiles = SkipRemoteCloudStorageFiles,
                 IncludeArchive = IncludeArchive,
                 FollowSymlinks = FollowSymlinks,
                 CodePage = CodePage,
@@ -2391,6 +2395,7 @@ namespace dnGREP.WPF
                     FilePatternIgnore = bmk.IgnoreFilePattern;
                     IncludeArchive = bmk.IncludeArchive;
                     UseGitignore = bmk.UseGitignore;
+                    SkipRemoteCloudStorageFiles = bmk.SkipRemoteCloudStorageFiles;
                     CodePage = bmk.CodePage;
                 }
 
@@ -2438,6 +2443,7 @@ namespace dnGREP.WPF
                     FilePatternIgnore = bmk.IgnoreFilePattern;
                     IncludeArchive = bmk.IncludeArchive;
                     UseGitignore = bmk.UseGitignore;
+                    SkipRemoteCloudStorageFiles = bmk.SkipRemoteCloudStorageFiles;
                     CodePage = bmk.CodePage;
                 }
 

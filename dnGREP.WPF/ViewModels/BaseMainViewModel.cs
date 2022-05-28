@@ -67,6 +67,7 @@ namespace dnGREP.WPF
             nameof(Singleline),
             nameof(SizeFrom),
             nameof(SizeTo),
+            nameof(SkipRemoteCloudStorageFiles),
             nameof(StartDate),
             nameof(TypeOfFileSearch),
             nameof(TypeOfSearch),
@@ -288,6 +289,22 @@ namespace dnGREP.WPF
 
                 followSymlinks = value;
                 base.OnPropertyChanged(nameof(FollowSymlinks));
+            }
+        }
+
+
+        private bool skipRemoteCloudStorageFiles;
+        public bool SkipRemoteCloudStorageFiles
+        {
+            get { return skipRemoteCloudStorageFiles; }
+            set
+            {
+                if (value == skipRemoteCloudStorageFiles)
+                    return;
+
+                skipRemoteCloudStorageFiles = value;
+
+                base.OnPropertyChanged(nameof(SkipRemoteCloudStorageFiles));
             }
         }
 
@@ -1541,6 +1558,7 @@ namespace dnGREP.WPF
             MaxSubfolderDepth = -1;
             IncludeArchive = Utils.ArchiveExtensions.Count > 0;
             FollowSymlinks = false;
+            SkipRemoteCloudStorageFiles = true;
             UseFileDateFilter = FileDateFilter.None;
             TypeOfTimeRangeFilter = FileTimeRange.None;
             FilePattern = "*";
@@ -1648,6 +1666,7 @@ namespace dnGREP.WPF
             IncludeSubfolder = Settings.Get<bool>(GrepSettings.Key.IncludeSubfolder);
             MaxSubfolderDepth = Settings.Get<int>(GrepSettings.Key.MaxSubfolderDepth);
             FollowSymlinks = Settings.Get<bool>(GrepSettings.Key.FollowSymlinks);
+            SkipRemoteCloudStorageFiles = Settings.Get<bool>(GrepSettings.Key.SkipRemoteCloudStorageFiles);
             TypeOfSearch = Settings.Get<SearchType>(GrepSettings.Key.TypeOfSearch);
             TypeOfFileSearch = Settings.Get<FileSearchType>(GrepSettings.Key.TypeOfFileSearch);
             // FileOrFolderPath depends on TypeOfFileSearch, so must be after
@@ -1690,6 +1709,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.IncludeSubfolder, IncludeSubfolder);
             Settings.Set(GrepSettings.Key.MaxSubfolderDepth, MaxSubfolderDepth);
             Settings.Set(GrepSettings.Key.FollowSymlinks, FollowSymlinks);
+            Settings.Set(GrepSettings.Key.SkipRemoteCloudStorageFiles, SkipRemoteCloudStorageFiles);
             Settings.Set(GrepSettings.Key.TypeOfSearch, TypeOfSearch);
             Settings.Set(GrepSettings.Key.CodePage, CodePage);
             Settings.Set(GrepSettings.Key.TypeOfFileSearch, TypeOfFileSearch);

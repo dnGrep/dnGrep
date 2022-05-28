@@ -31,7 +31,7 @@ namespace dnGREP.Common
             {"VsDiffMerge", new ConfigurationTemplate("vsDiffMerge.exe", string.Empty, "ProgramFiles", "ProgramFilesx86") },
         };
 
-        private static Dictionary<string, string> SearchPaths = new Dictionary<string, string>
+        private static readonly Dictionary<string, string> SearchPaths = new Dictionary<string, string>
         {
             { "ProgramFiles", Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles) },
             { "ProgramFilesx86", Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86) },
@@ -73,7 +73,7 @@ namespace dnGREP.Common
                 foreach (string path in GetSearchPaths(template.HintPath))
                 {
                     FileFilter fileParams = new FileFilter(path, template.ExeFileName, string.Empty,
-                        false, false, false, true, -1, true, true, false, false, 0, 0, FileDateFilter.None, null, null);
+                        false, false, false, true, -1, true, true, false, false, 0, 0, FileDateFilter.None, null, null, true);
 
                     var exePath = SafeDirectory.EnumerateFiles(path, new string[] { template.ExeFileName }, 
                         null, fileParams).FirstOrDefault();
