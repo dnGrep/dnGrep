@@ -1645,7 +1645,7 @@ Arguments:
     <comment>Options dialog, check for updates, checkbox label (accel)</comment>
   </data>
   <data name="Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu" xml:space="preserve">
-    <value>Enables starting dnGrep from the Windows Explorer right-click context menu.</value>
+    <value>Дава възможност за стартиране на dnGrep от контекстуалното меню на Windows Explorer</value>
     <comment>Options dialog, explorer right click menu checkbox tooltip</comment>
   </data>
   <data name="Options_FollowWindowsTheme" xml:space="preserve">
@@ -1705,7 +1705,7 @@ Arguments:
     <comment>Options dialog, phonetic options text input label</comment>
   </data>
   <data name="Options_MatchTimeout" xml:space="preserve">
-    <value>Време за изчакване на съвпадение</value>
+    <value>Изчакване на съвпадение</value>
     <comment>Options dialog, regex options text input label</comment>
   </data>
   <data name="Options_OnMainPanel" xml:space="preserve">
@@ -1797,7 +1797,7 @@ Arguments:
     <comment>Options dialog, theme selector label</comment>
   </data>
   <data name="Options_ShowDnGrepInExplorerRightClickMenu" xml:space="preserve">
-    <value>Show dnGrep in the right-click menu of Windows Explorer</value>
+    <value>Показване на dnGrep в контекстуалното меню на Windows Explorer</value>
     <comment>Options dialog, startup options, checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowFileInfoToolTips" xml:space="preserve">
@@ -1805,7 +1805,7 @@ Arguments:
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowFilePathInResultsPanel" xml:space="preserve">
-    <value>Show file path in the results panel</value>
+    <value>Показване на пътя към файла в панела с резултатите</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowResultLinesInContext" xml:space="preserve">
@@ -1821,7 +1821,7 @@ Arguments:
     <comment>Options dialog, layout options label</comment>
   </data>
   <data name="Options_ShowVerboseMatchCount" xml:space="preserve">
-    <value>Show additional details about the matches found</value>
+    <value>Подробности за намерените съвпадения</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_StartupOptions" xml:space="preserve">
@@ -1829,7 +1829,7 @@ Arguments:
     <comment>Options dialog, startup group header label</comment>
   </data>
   <data name="Options_TheMatchTimeoutLimits" xml:space="preserve">
-    <value>The match timeout limits how long the regular expression engine attempts to resolve a regular expression before it times out. It prevents processing expressions and input strings requiring excessive backtracking.</value>
+    <value>Изчакването на съвпадение ограничава времето, през което машината за регулярни изрази се опитва да приложи даден регулярен израз, преди да прекъсне. По този начин се предотвратява обработката на изрази и входни низове, изискващи прекомерно връщане назад.</value>
     <comment>Options dialog, regex options help text</comment>
   </data>
   <data name="Options_Theme" xml:space="preserve">
@@ -1841,7 +1841,7 @@ Arguments:
     <comment>Options dialog, regex options timeout input label</comment>
   </data>
   <data name="Options_ToChangeThisSettingRunDnGREPAsAdministrator" xml:space="preserve">
-    <value>Run dnGrep as Administrator to change this setting.</value>
+    <value>За да промените тази настройка, стартирайте dnGrep като администратор.</value>
     <comment>Options dialog, Explorer right-click tooltip</comment>
   </data>
   <data name="Options_UseDefault" xml:space="preserve">
@@ -1885,7 +1885,7 @@ Arguments:
     <comment>Preview window, syntax coloring option for no syntax coloring</comment>
   </data>
   <data name="Preview_ThisFileIsEitherBinaryOrTooLargeToPreview" xml:space="preserve">
-    <value>This file is either binary, or too large to be shown.</value>
+    <value>Файлът или е двоичен, или е много голям, за да бъде показан.</value>
     <comment>Preview window, warning message</comment>
   </data>
   <data name="Preview_UseRegularExpressions" xml:space="preserve">
@@ -1933,7 +1933,7 @@ Arguments:
     <comment>Replace window, File text when attempt to replace in binary file</comment>
   </data>
   <data name="Replace_FileNumberOfCountName" xml:space="preserve">
-    <value>File {0} of {1}: {2} ({3} matches on {4} lines)</value>
+    <value>Файл {0} от {1}: {2} ({3} съвпадения на {4} реда)</value>
     <comment>Replace window, file name progress line: {0} is the index of the current file; {1} is the total number of files; {2} is the name of the current file; {3} is the number of matches found in the current file; {4} is the number of lines in the current file with matches</comment>
   </data>
   <data name="Replace_Files" xml:space="preserve">
@@ -1941,7 +1941,7 @@ Arguments:
     <comment>Replace window, Files group header label</comment>
   </data>
   <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
-    <value>Mark all matches in this file for replacement [Ctrl+A]</value>
+    <value>Отбелязване на съвпаденията във файла за заменяне [Ctrl+A]</value>
     <comment>Replace window, Replace in File button tooltip</comment>
   </data>
   <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
@@ -2025,7 +2025,7 @@ Arguments:
     <comment>Replace window, replace text input box label</comment>
   </data>
   <data name="Replace_ResetAndSkipAllMatchesInThisFile" xml:space="preserve">
-    <value>Reset and skip all matches in this file [Ctrl+T]</value>
+    <value>Нулиране и пропускане на съвпаденията във файла [Ctrl+T]</value>
     <comment>Replace window, Undo file button tooltip</comment>
   </data>
   <data name="Replace_SearchFor" xml:space="preserve">
@@ -2061,7 +2061,7 @@ Arguments:
     <comment>Replace window, Undo file button label (accel)</comment>
   </data>
   <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
-    <value>Undo mark replace on this match [Ctrl+U]</value>
+    <value>Връщане на заменената отметка за съвпадението [Ctrl+U]</value>
     <comment>Replace window, Undo button tooltip</comment>
   </data>
   <data name="Replace_WrapText" xml:space="preserve">
@@ -2193,7 +2193,7 @@ Arguments:
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_UsingTypeOfSeach" xml:space="preserve">
-    <value>Using {0} search</value>
+    <value>Търсене от вида {0}</value>
     <comment>Report search options summary type of search: {0} is the type of search</comment>
   </data>
   <data name="ReportSummary_WholeWord" xml:space="preserve">
@@ -2459,5 +2459,13 @@ Arguments:
   <data name="Main_Results_PreviousFile" xml:space="preserve">
     <value>Предишен файл</value>
     <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="Main_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>Пропускане на отдалечените облачни файлове</value>
+    <comment>Main window, search option label</comment>
+  </data>
+  <data name="BookmarkDetails_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>Пропускане на отдалечените облачни файлове</value>
+    <comment>Bookmark details dialog, checkbox label (accel)</comment>
   </data>
 </root>
