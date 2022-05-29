@@ -2460,4 +2460,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <value>上一个文件</value>
     <comment>Main windows, results list, context menu item label</comment>
   </data>
+  <data name="Main_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>跳过换成云存储文件</value>
+    <comment>Main window, search option label</comment>
+  </data>
+  <data name="BookmarkDetails_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>跳过远程云存储文件</value>
+    <comment>Bookmark details dialog, checkbox label (accel)</comment>
+  </data>
 </root>
