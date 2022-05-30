@@ -72,7 +72,7 @@ namespace ICSharpCode.AvalonEdit.Search
 		}
 	}
 
-	class SearchResult : TextSegment, ISearchResult
+	public class SearchResult : TextSegment, ISearchResult
 	{
 		public Match Data { get; set; }
 

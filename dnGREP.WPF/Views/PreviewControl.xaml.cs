@@ -25,6 +25,7 @@ namespace dnGREP.WPF
             DataContext = ViewModel;
 
             searchPanel = SearchPanel.Install(textEditor);
+            searchPanel.SearchResultsChanged += SearchPanel_SearchResultsChanged;
             searchPanel.MarkerBrush = Application.Current.Resources["Match.Highlight.Background"] as Brush;
 
             ViewModel.ShowPreview += ViewModel_ShowPreview;
@@ -117,6 +118,11 @@ namespace dnGREP.WPF
             }
         }
 
+        private void SearchPanel_SearchResultsChanged(object sender, EventArgs e)
+        {
+            UpdatePositionMarkers();
+        }
+
         private void TextView_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (e.HeightChanged)
@@ -143,8 +149,17 @@ namespace dnGREP.WPF
                 {
                     var linePosition = textEditor.TextArea.TextView.GetVisualTopByDocumentLine(lineNumber);
 
-                    ViewModel.AddMarker(linePosition, documentHeight, trackHeight);
+                    ViewModel.AddMarker(linePosition, documentHeight, trackHeight, MarkerType.Global);
                 }
+
+                foreach (SearchResult item in searchPanel.SearchResults)
+                {
+                    var docLine = textEditor.Document.GetLineByOffset(item.StartOffset);
+                    var linePosition = textEditor.TextArea.TextView.GetVisualTopByDocumentLine(docLine.LineNumber);
+
+                    ViewModel.AddMarker(linePosition, documentHeight, trackHeight, MarkerType.Local);
+                }
+
                 ViewModel.EndUpdateMarkers();
             }
         }

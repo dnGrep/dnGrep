@@ -224,6 +224,16 @@ namespace ICSharpCode.AvalonEdit.Search
 			textArea.DefaultInputHandler.NestedInputHandlers.Remove(handler);
 		}
 
+		/// <summary>
+		/// Gets the collection of search results
+		/// </summary>
+		public TextSegmentCollection<SearchResult> SearchResults => renderer.CurrentResults;
+
+		/// <summary>
+		/// Is raised when the SearchResults collection has changed
+		/// </summary>
+		public event EventHandler SearchResultsChanged;
+
 		void AttachInternal(TextArea textArea)
 		{
 			this.textArea = textArea;
@@ -355,6 +365,7 @@ namespace ICSharpCode.AvalonEdit.Search
 					messageView.IsOpen = false;
 			}
 			textArea.TextView.InvalidateLayer(KnownLayer.Selection);
+			SearchResultsChanged?.Invoke(this, EventArgs.Empty);
 		}
 
 		void SelectResult(SearchResult result)
@@ -416,6 +427,7 @@ namespace ICSharpCode.AvalonEdit.Search
 
 			// Clear existing search results so that the segments don't have to be maintained
 			renderer.CurrentResults.Clear();
+			SearchResultsChanged?.Invoke(this, EventArgs.Empty);
 		}
 
 		/// <summary>
