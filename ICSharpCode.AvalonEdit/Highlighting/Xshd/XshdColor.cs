@@ -130,7 +130,6 @@ namespace ICSharpCode.AvalonEdit.Highlighting.Xshd
 			if (this.Strikethrough.HasValue)
 				info.AddValue("Strikethrough", this.Strikethrough.Value);
 			info.AddValue("HasWeight", this.FontWeight.HasValue);
-			info.AddValue("HasWeight", this.FontWeight.HasValue);
 			if (this.FontWeight.HasValue)
 				info.AddValue("Weight", this.FontWeight.Value.ToOpenTypeWeight());
 			info.AddValue("HasStyle", this.FontStyle.HasValue);

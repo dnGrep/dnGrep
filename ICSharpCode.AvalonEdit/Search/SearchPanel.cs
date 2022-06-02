@@ -120,6 +120,57 @@ namespace ICSharpCode.AvalonEdit.Search
 			set { SetValue(MarkerBrushProperty, value); }
 		}
 
+		private static void MarkerBrushChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			if (d is SearchPanel panel) {
+				panel.renderer.MarkerBrush = (Brush)e.NewValue;
+			}
+		}
+
+		/// <summary>
+		/// Dependency property for <see cref="MarkerPen"/>.
+		/// </summary>
+		public static readonly DependencyProperty MarkerPenProperty =
+			DependencyProperty.Register("MarkerPen", typeof(Pen), typeof(SearchPanel),
+										new PropertyMetadata(null, MarkerPenChangedCallback));
+
+		/// <summary>
+		/// Gets/sets the Pen used for marking search results in the TextView.
+		/// </summary>
+		public Pen MarkerPen {
+			get { return (Pen)GetValue(MarkerPenProperty); }
+			set { SetValue(MarkerPenProperty, value); }
+		}
+
+		private static void MarkerPenChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			if (d is SearchPanel panel) {
+				panel.renderer.MarkerPen = (Pen)e.NewValue;
+			}
+		}
+
+		/// <summary>
+		/// Dependency property for <see cref="MarkerCornerRadius"/>.
+		/// </summary>
+		public static readonly DependencyProperty MarkerCornerRadiusProperty =
+			DependencyProperty.Register("MarkerCornerRadius", typeof(double), typeof(SearchPanel),
+										new PropertyMetadata(3.0, MarkerCornerRadiusChangedCallback));
+
+		/// <summary>
+		/// Gets/sets the corner-radius used for marking search results in the TextView.
+		/// </summary>
+		public double MarkerCornerRadius {
+			get { return (double)GetValue(MarkerCornerRadiusProperty); }
+			set { SetValue(MarkerCornerRadiusProperty, value); }
+		}
+
+		private static void MarkerCornerRadiusChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			if (d is SearchPanel panel) {
+				panel.renderer.MarkerCornerRadius = (double)e.NewValue;
+			}
+		}
+
 		/// <summary>
 		/// Dependency property for <see cref="Localization"/>.
 		/// </summary>
@@ -135,14 +186,6 @@ namespace ICSharpCode.AvalonEdit.Search
 			set { SetValue(LocalizationProperty, value); }
 		}
 		#endregion
-
-		static void MarkerBrushChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
-		{
-			SearchPanel panel = d as SearchPanel;
-			if (panel != null) {
-				panel.renderer.MarkerBrush = (Brush)e.NewValue;
-			}
-		}
 
 		static SearchPanel()
 		{

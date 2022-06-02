@@ -42,20 +42,14 @@ namespace ICSharpCode.AvalonEdit.Search
 
 		public SearchResultBackgroundRenderer()
 		{
-			markerBrush = Brushes.LightGreen;
-			markerPen = new Pen(markerBrush, 1);
+			MarkerBrush = Brushes.LightGreen;
+			MarkerPen = null;
+			MarkerCornerRadius = 3.0;
 		}
 
-		Brush markerBrush;
-		Pen markerPen;
-
-		public Brush MarkerBrush {
-			get { return markerBrush; }
-			set {
-				this.markerBrush = value;
-				markerPen = new Pen(markerBrush, 1);
-			}
-		}
+		public Brush MarkerBrush { get; set; }
+		public Pen MarkerPen { get; set; }
+		public double MarkerCornerRadius { get; set; }
 
 		public void Draw(TextView textView, DrawingContext drawingContext)
 		{
@@ -74,11 +68,16 @@ namespace ICSharpCode.AvalonEdit.Search
 			int viewStart = visualLines.First().FirstDocumentLine.Offset;
 			int viewEnd = visualLines.Last().LastDocumentLine.EndOffset;
 
+			Brush markerBrush = MarkerBrush;
+			Pen markerPen = MarkerPen;
+			double markerCornerRadius = MarkerCornerRadius;
+			double markerPenThickness = markerPen != null ? markerPen.Thickness : 0;
+
 			foreach (SearchResult result in currentResults.FindOverlappingSegments(viewStart, viewEnd - viewStart)) {
 				BackgroundGeometryBuilder geoBuilder = new BackgroundGeometryBuilder();
 				geoBuilder.AlignToWholePixels = true;
-				geoBuilder.BorderThickness = markerPen != null ? markerPen.Thickness : 0;
-				geoBuilder.CornerRadius = 3;
+				geoBuilder.BorderThickness = markerPenThickness;
+				geoBuilder.CornerRadius = markerCornerRadius;
 				geoBuilder.AddSegment(textView, result);
 				Geometry geometry = geoBuilder.CreateGeometry();
 				if (geometry != null) {

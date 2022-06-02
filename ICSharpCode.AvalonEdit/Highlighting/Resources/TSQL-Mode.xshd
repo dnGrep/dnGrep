@@ -30,9 +30,6 @@
 		<Span color="Char">
 			<Begin>'</Begin>
 			<End>'</End>
-			<RuleSet>
-				<Span begin="\\" end="."/>
-			</RuleSet>
 		</Span>
 
 		<Keywords color="Keywords">
