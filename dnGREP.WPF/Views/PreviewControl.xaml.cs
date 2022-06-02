@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -145,21 +146,33 @@ namespace dnGREP.WPF
 
                 ViewModel.BeginUpdateMarkers();
                 var documentHeight = textEditor.TextArea.TextView.DocumentHeight;
-                foreach (var lineNumber in ViewModel.MarkerLineNumbers)
-                {
-                    var linePosition = textEditor.TextArea.TextView.GetVisualTopByDocumentLine(lineNumber);
+                var maxMarkers = trackHeight / 3; //marker height is 3
 
-                    ViewModel.AddMarker(linePosition, documentHeight, trackHeight, MarkerType.Global);
+                if (ViewModel.MarkerLineNumbers.Count < maxMarkers)
+                {
+                    foreach (int lineNumber in ViewModel.MarkerLineNumbers)
+                    {
+                        var linePosition = textEditor.TextArea.TextView.GetVisualTopByDocumentLine(lineNumber);
+
+                        ViewModel.AddMarker(linePosition, documentHeight, trackHeight, MarkerType.Global);
+                    }
                 }
 
-                foreach (SearchResult item in searchPanel.SearchResults)
+                if (searchPanel.SearchResults.Count < 1000)
                 {
-                    var docLine = textEditor.Document.GetLineByOffset(item.StartOffset);
-                    var linePosition = textEditor.TextArea.TextView.GetVisualTopByDocumentLine(docLine.LineNumber);
+                    var lineNumbers = searchPanel.SearchResults
+                        .Select(item => textEditor.Document.GetLineByOffset(item.StartOffset).LineNumber).Distinct();
 
-                    ViewModel.AddMarker(linePosition, documentHeight, trackHeight, MarkerType.Local);
+                    if (lineNumbers.Count() < maxMarkers)
+                    {
+                        foreach (int lineNumber in lineNumbers)
+                        {
+                            var linePosition = textEditor.TextArea.TextView.GetVisualTopByDocumentLine(lineNumber);
+
+                            ViewModel.AddMarker(linePosition, documentHeight, trackHeight, MarkerType.Local);
+                        }
+                    }
                 }
-
                 ViewModel.EndUpdateMarkers();
             }
         }
