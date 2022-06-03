@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -25,6 +26,7 @@ namespace dnGREP.WPF
             DataContext = ViewModel;
 
             searchPanel = SearchPanel.Install(textEditor);
+            searchPanel.SearchResultsChanged += SearchPanel_SearchResultsChanged;
             searchPanel.MarkerBrush = Application.Current.Resources["Match.Highlight.Background"] as Brush;
 
             ViewModel.ShowPreview += ViewModel_ShowPreview;
@@ -117,6 +119,11 @@ namespace dnGREP.WPF
             }
         }
 
+        private void SearchPanel_SearchResultsChanged(object sender, EventArgs e)
+        {
+            UpdatePositionMarkers();
+        }
+
         private void TextView_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             if (e.HeightChanged)
@@ -139,11 +146,32 @@ namespace dnGREP.WPF
 
                 ViewModel.BeginUpdateMarkers();
                 var documentHeight = textEditor.TextArea.TextView.DocumentHeight;
-                foreach (var lineNumber in ViewModel.MarkerLineNumbers)
-                {
-                    var linePosition = textEditor.TextArea.TextView.GetVisualTopByDocumentLine(lineNumber);
+                var maxMarkers = trackHeight / 3; //marker height is 3
 
-                    ViewModel.AddMarker(linePosition, documentHeight, trackHeight);
+                if (ViewModel.MarkerLineNumbers.Count < maxMarkers)
+                {
+                    foreach (int lineNumber in ViewModel.MarkerLineNumbers)
+                    {
+                        var linePosition = textEditor.TextArea.TextView.GetVisualTopByDocumentLine(lineNumber);
+
+                        ViewModel.AddMarker(linePosition, documentHeight, trackHeight, MarkerType.Global);
+                    }
+                }
+
+                if (searchPanel.SearchResults.Count < 1000)
+                {
+                    var lineNumbers = searchPanel.SearchResults
+                        .Select(item => textEditor.Document.GetLineByOffset(item.StartOffset).LineNumber).Distinct();
+
+                    if (lineNumbers.Count() < maxMarkers)
+                    {
+                        foreach (int lineNumber in lineNumbers)
+                        {
+                            var linePosition = textEditor.TextArea.TextView.GetVisualTopByDocumentLine(lineNumber);
+
+                            ViewModel.AddMarker(linePosition, documentHeight, trackHeight, MarkerType.Local);
+                        }
+                    }
                 }
                 ViewModel.EndUpdateMarkers();
             }

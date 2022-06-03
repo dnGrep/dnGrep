@@ -2,6 +2,17 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:AvalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit">
 
+    <Style x:Key="Marker" TargetType="Rectangle">
+        <Style.Setters>
+            <Setter Property="Fill" Value="{DynamicResource Match.Group.1.Highlight.Background}"/>
+        </Style.Setters>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Path=MarkerType}" Value="Local">
+                <Setter Property="Fill" Value="{DynamicResource Match.Group.3.Highlight.Background}" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    
     <Style x:Key="ThemedMarkerScrollBar" TargetType="{x:Type ScrollBar}">
         <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false" />
         <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
@@ -47,16 +58,15 @@
                         </Track>
                         <ItemsControl Grid.Row="1" HorizontalAlignment="Stretch" Margin="3,0"
                                       IsHitTestVisible="False"
-                                      ItemsSource="{Binding Positions, UpdateSourceTrigger=PropertyChanged}">
+                                      ItemsSource="{Binding Markers, UpdateSourceTrigger=PropertyChanged}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <Rectangle Fill="{DynamicResource Match.Group.1.Highlight.Background}" 
-                                               Width="10" Height="3"/>
+                                    <Rectangle Style="{StaticResource Marker}" Width="10" Height="3"/>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
                             <ItemsControl.ItemContainerStyle>
                                 <Style TargetType="ContentPresenter">
-                                    <Setter Property="Canvas.Top" Value="{Binding }" />
+                                    <Setter Property="Canvas.Top" Value="{Binding Path=Position}" />
                                 </Style>
                             </ItemsControl.ItemContainerStyle>
                             <ItemsControl.ItemsPanel>

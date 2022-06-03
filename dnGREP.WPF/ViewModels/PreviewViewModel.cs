@@ -100,7 +100,7 @@ namespace dnGREP.WPF
 
         public ObservableCollection<string> Highlighters { get; } = new ObservableCollection<string>();
 
-        public ObservableCollection<double> Positions { get; } = new ObservableCollection<double>();
+        public ObservableCollection<Marker> Markers { get; } = new ObservableCollection<Marker>();
 
         public Encoding Encoding { get; set; }
 
@@ -294,24 +294,24 @@ namespace dnGREP.WPF
 
         internal void ClearPositionMarkers()
         {
-            Positions.Clear();
-            OnPropertyChanged("Positions");
+            Markers.Clear();
+            OnPropertyChanged(nameof(Markers));
         }
 
         internal void BeginUpdateMarkers()
         {
-            Positions.Clear();
+            Markers.Clear();
         }
 
-        internal void AddMarker(double linePosition, double documentHeight, double trackHeight)
+        internal void AddMarker(double linePosition, double documentHeight, double trackHeight, MarkerType markerType)
         {
             double position = (documentHeight < trackHeight) ? linePosition : linePosition * trackHeight / documentHeight;
-            Positions.Add(position);
+            Markers.Add(new Marker(position, markerType));
         }
 
         internal void EndUpdateMarkers()
         {
-            OnPropertyChanged("Positions");
+            OnPropertyChanged(nameof(Markers));
         }
     }
 
@@ -319,4 +319,19 @@ namespace dnGREP.WPF
     {
         public bool ClearContent { get; set; }
     }
+
+    public enum MarkerType { Global, Local }
+
+    public class Marker
+    {
+        public Marker(double position, MarkerType markerType)
+        {
+            Position = position;
+            MarkerType = markerType;
+        }
+
+        public double Position { get; private set; }
+        public MarkerType MarkerType { get; private set; }
+    }
+
 }

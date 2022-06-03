@@ -24,7 +24,7 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-
+using System.Windows.Threading;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Rendering;
@@ -43,6 +43,8 @@ namespace ICSharpCode.AvalonEdit.Search
 		TextBox searchTextBox;
 		Popup dropdownPopup;
 		SearchPanelAdorner adorner;
+		DispatcherTimer searchTimer;
+		bool lastChangeSelection;
 
 		#region DependencyProperties
 		/// <summary>
@@ -267,6 +269,22 @@ namespace ICSharpCode.AvalonEdit.Search
 			textArea.DefaultInputHandler.NestedInputHandlers.Remove(handler);
 		}
 
+		/// <summary>
+		/// Gets or sets the delay in milliseconds between typing a character
+		/// and executing the search
+		/// </summary>
+		public int DelayBeforeSearch { get; set; } = 250;
+
+		/// <summary>
+		/// Gets the collection of search results
+		/// </summary>
+		public TextSegmentCollection<SearchResult> SearchResults => renderer.CurrentResults;
+
+		/// <summary>
+		/// Is raised when the SearchResults collection has changed
+		/// </summary>
+		public event EventHandler SearchResultsChanged;
+
 		void AttachInternal(TextArea textArea)
 		{
 			this.textArea = textArea;
@@ -375,6 +393,25 @@ namespace ICSharpCode.AvalonEdit.Search
 		{
 			if (IsClosed)
 				return;
+
+			lastChangeSelection = changeSelection;
+
+			if (searchTimer == null)
+			{
+				searchTimer = new DispatcherTimer();
+				searchTimer.Tick += OnSearchTimerTick;
+			}
+			searchTimer.Stop();
+			searchTimer.Interval = TimeSpan.FromMilliseconds(Math.Max(0, DelayBeforeSearch));
+			searchTimer.Start();
+		}
+
+		private void OnSearchTimerTick(object sender, EventArgs e)
+		{
+			searchTimer?.Stop();
+
+			var changeSelection = lastChangeSelection;
+			
 			renderer.CurrentResults.Clear();
 
 			if (!string.IsNullOrEmpty(SearchPattern)) {
@@ -398,6 +435,7 @@ namespace ICSharpCode.AvalonEdit.Search
 					messageView.IsOpen = false;
 			}
 			textArea.TextView.InvalidateLayer(KnownLayer.Selection);
+			SearchResultsChanged?.Invoke(this, EventArgs.Empty);
 		}
 
 		void SelectResult(SearchResult result)
@@ -459,6 +497,7 @@ namespace ICSharpCode.AvalonEdit.Search
 
 			// Clear existing search results so that the segments don't have to be maintained
 			renderer.CurrentResults.Clear();
+			SearchResultsChanged?.Invoke(this, EventArgs.Empty);
 		}
 
 		/// <summary>
