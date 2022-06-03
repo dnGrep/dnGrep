@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -58,4 +58,68 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About_AboutDnGREP" xml:space="preserve">
+    <value>dnGrep Hakkında</value>
+    <comment>About dialog window title</comment>
+  </data>
+  <data name="About_BuiltOn" xml:space="preserve">
+    <value>Sürüm tarihi</value>
+    <comment>About dialog label</comment>
+  </data>
+  <data name="About_DnGREP" xml:space="preserve">
+    <value>dnGrep</value>
+    <comment>About dialog text</comment>
+  </data>
+  <data name="About_DnGrepOnGitHub" xml:space="preserve">
+    <value>GitHub'da dnGrep</value>
+    <comment>About dialog text</comment>
+  </data>
+  <data name="BookmarkDetails_AssociatedFolders" xml:space="preserve">
+    <value>İlişkili klasörler:</value>
+    <comment>Bookmark details dialog, text input box label</comment>
+  </data>
+  <data name="BookmarkDetails_Cancel" xml:space="preserve">
+    <value>İptal</value>
+    <comment>Bookmark details dialog, cancel button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_DescriptionHeader" xml:space="preserve">
+    <value>Tanım</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_Duplicate" xml:space="preserve">
+    <value>Çoğalt</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_Edit" xml:space="preserve">
+    <value>Düzenle</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_ReplaceWithHeader" xml:space="preserve">
+    <value>şununla değiştir</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Options_FontFamily" xml:space="preserve">
+    <value>Yazı tipi</value>
+    <comment>Options dialog, font selector label</comment>
+  </data>
+  <data name="About_OK" xml:space="preserve">
+    <value>Tamam</value>
+    <comment>About dialog button label</comment>
+  </data>
+  <data name="About_Version" xml:space="preserve">
+    <value>Sürüm</value>
+    <comment>About dialog label</comment>
+  </data>
+  <data name="Bookmarks_Add" xml:space="preserve">
+    <value>Ekle</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_Close" xml:space="preserve">
+    <value>Kapat</value>
+    <comment>Bookmarks dialog, button text (accel)</comment>
+  </data>
+  <data name="Bookmarks_Delete" xml:space="preserve">
+    <value>Sil</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
 </root>
