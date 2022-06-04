@@ -122,4 +122,36 @@
     <value>Sil</value>
     <comment>Bookmarks dialog, button label (accel)</comment>
   </data>
+  <data name="BookmarkDetails_OK" xml:space="preserve">
+    <value>Tamam</value>
+    <comment>Bookmark details dialog, button label</comment>
+  </data>
+  <data name="Help_OK" xml:space="preserve">
+    <value>Tamam</value>
+    <comment>Help dialog button label</comment>
+  </data>
+  <data name="MessageBox_DnGrep" xml:space="preserve">
+    <value>dnGrep</value>
+    <comment>Message box title</comment>
+  </data>
+  <data name="Main_DnGREP_Title" xml:space="preserve">
+    <value>dnGrep</value>
+    <comment>Main window, title label – near menu bar</comment>
+  </data>
+  <data name="Rename_Cancel" xml:space="preserve">
+    <value>İptal</value>
+    <comment>Rename file dialog button label</comment>
+  </data>
+  <data name="Rename_OK" xml:space="preserve">
+    <value>Tamam</value>
+    <comment>Rename file dialog button label</comment>
+  </data>
+  <data name="Replace_Cancel" xml:space="preserve">
+    <value>İptal</value>
+    <comment>Replace window, Cancel button text</comment>
+  </data>
+  <data name="Replace_OK" xml:space="preserve">
+    <value>Tamam</value>
+    <comment>Replace window, OK button text</comment>
+  </data>
 </root>
