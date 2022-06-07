@@ -170,9 +170,9 @@
                 <StatusBarItem HorizontalAlignment="Right">
                     <StackPanel Orientation="Horizontal" Visibility="{Binding IsSaveInProgress, Converter={StaticResource BoolToVisibilityConverter}}">
                         <ProgressBar Width="150" Height="18" Margin="3,0"
-                                     IsIndeterminate="true" />
+                                         IsIndeterminate="true" />
                         <TextBlock Margin="3,0,12,0" Text="{l:Loc Key='Main_SavingResultsToFile'}"
-                                   Style="{StaticResource LabelTextBlockStyle}" />
+                                       Style="{StaticResource LabelTextBlockStyle}" />
                     </StackPanel>
                 </StatusBarItem>
             </StatusBar>
@@ -196,7 +196,7 @@
                     <TextBox Margin="3,0,0,0"
                              Text="{Binding Path=ContextLinesBefore, UpdateSourceTrigger=PropertyChanged}"
                              IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}" 
-                             TabIndex="94">
+                             TabIndex="94" Height="20">
                         <TextBox.Width>
                             <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
                                 <Binding RelativeSource="{RelativeSource Mode=Self}"/>
@@ -208,7 +208,7 @@
                     <Label Content="{l:Loc Key='Main_ContextBeforeAnd'}" />
                     <TextBox Text="{Binding Path=ContextLinesAfter, UpdateSourceTrigger=PropertyChanged}"
                              IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}" 
-                             TabIndex="95">
+                             TabIndex="95" Height="20">
                         <TextBox.Width>
                             <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
                                 <Binding RelativeSource="{RelativeSource Mode=Self}"/>
@@ -218,17 +218,6 @@
                         </TextBox.Width>
                     </TextBox>
                     <Label Content="{l:Loc Key='Main_ContextAfter'}" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Label Margin="12,0,3,0" Content="{l:Loc Key='Main_Zoom'}" 
-                           ToolTip="{l:Loc Key='Main_ChangesTheResultsTreeZoom'}"/>
-                    <Slider Width="180" Margin="0,0,3,0" VerticalAlignment="Center"
-                            Minimum="0.8" Maximum="2.0" LargeChange=".05" SmallChange=".01"
-                            Value="{Binding SearchResults.ResultsScale}" TabIndex="97">
-                        <Slider.ToolTip>
-                            <ToolTip Content="{Binding SearchResults.ResultsScale}" ContentStringFormat="P1"/>
-                        </Slider.ToolTip>
-                    </Slider>
                 </StackPanel>
                 <CheckBox Content="{l:Loc Key='Main_WrapText'}" Margin="10,3,6,3"                                  
                           IsChecked="{Binding SearchResults.WrapText}"
@@ -302,11 +291,13 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                                                    Margin="3,0" HorizontalAlignment="Right">
-                                            <StackPanel Orientation="Horizontal">
-                                                <RadioButton Name="rbFileRegex" Margin="3,0,3,3" GroupName="FileSearchType"
+                                        <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4"
+                                                    Margin="3,0,0,3" HorizontalAlignment="Left">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                                                <RadioButton Name="rbFileRegex" Margin="0,0,3,3" GroupName="FileSearchType"
                                                              TabIndex="40" Content="{l:Loc Key='Main_PatternType_Regex'}"
                                                              IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}"
                                                              ToolTip="{l:Loc Key='Main_ForExampleRegularExpession'}" />
@@ -315,26 +306,26 @@
                                                              IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Asterisk}"
                                                              ToolTip="{l:Loc Key='Main_ForExampleAsteriskPattern'}" />
                                                 <RadioButton Name="rbFileEverything" Margin="3,0,3,3" GroupName="FileSearchType"
-                                                             TabIndex="41" Content="{l:Loc Key='Main_PatternType_Everything'}"
+                                                             TabIndex="42" Content="{l:Loc Key='Main_PatternType_Everything'}"
                                                              IsChecked="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Everything}"
                                                              ToolTip="{l:Loc Key='Main_EverythingIndexService'}"
                                                              Visibility="{Binding Path=IsEverythingAvailable, Converter={StaticResource BoolToVisibilityConverter}}" />
                                             </StackPanel>
                                         </StackPanel>
-                                        <CheckBox Grid.Row="1" Grid.Column="0" Margin="3,3,3,6"
+                                        <CheckBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="7,3,3,3"
                                                   IsChecked="{Binding SearchParallel}"
                                                   Content="{l:Loc Key='Main_SearchParallel'}" TabIndex="42"
-                                                  ToolTip="{l:Loc Key='Main_SearchFilesInMultipleThreads'}" />
-                                        <CheckBox Grid.Row="1" Grid.Column="1" Margin="3,3,3,6"
+                                                  ToolTip="{l:Loc Key='Main_SearchFilesInMultipleThreads'}" VerticalAlignment="Top" />
+                                        <CheckBox Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Margin="3,3,3,0"
                                                   IsChecked="{Binding UseGitignore}"
                                                   Content="{l:Loc Key='Main_UseGitignore'}" TabIndex="43"
                                                   Visibility="{Binding IsGitInstalled, Converter={StaticResource BoolToVisibilityConverter}}"
-                                                  ToolTip="{l:Loc Key='Main_UseGitignoreToFilterFiles'}" />
-                                        <CheckBox Grid.Row="2" Grid.Column="0" Margin="3,3,3,3"
+                                                  ToolTip="{l:Loc Key='Main_UseGitignoreToFilterFiles'}" VerticalAlignment="Top" />
+                                        <CheckBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="4" Margin="7,3,3,3"
                                                   IsChecked="{Binding Path=SkipRemoteCloudStorageFiles}"
                                                   TabIndex="44" Content="{l:Loc Key='Main_SkipRemoteCloudStorageFiles'}"/>
-                                        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
-                                                    Margin="3" VerticalAlignment="Center" Orientation="Horizontal">
+                                        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4"
+                                                    Margin="3,0,3,0" VerticalAlignment="Center" Orientation="Horizontal">
                                             <Label Margin="3,0,3,3" Content="{l:Loc Key='Main_Encoding'}"
                                                    Style="{DynamicResource ThemedLabel}"
                                                    Target="{Binding ElementName=cbEncoding}"/>
@@ -357,17 +348,17 @@
                                                     </MultiBinding>
                                                 </ComboBox.Width>
                                             </ComboBox>
+                                            <Button Margin="0,0,3,3"  Padding="8,3" HorizontalAlignment="Right"
+                                                    HorizontalContentAlignment="Center" 
+                                                    Content="{l:Loc Key='Main_ResetOptions'}"
+                                                    Command="{Binding ResetOptionsCommand}"
+                                                    TabIndex="49" />
                                         </StackPanel>
-                                        <Button Grid.Row="4" Grid.Column="1"
-                                                Margin="3,0,3,3"  Padding="8,3" HorizontalAlignment="Right"
-                                                HorizontalContentAlignment="Center" 
-                                                Content="{l:Loc Key='Main_ResetOptions'}"
-                                                Command="{Binding ResetOptionsCommand}"
-                                                TabIndex="49" />
-                                        <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
+                                        <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4"
                                               Margin="4,3,3,3"
                                               Visibility="{Binding OptionsOnMainPanel, Converter={StaticResource InverseBoolToVisibilityConverter}}">
                                             <Grid.RowDefinitions>
+                                                <RowDefinition/>
                                                 <RowDefinition/>
                                                 <RowDefinition/>
                                                 <RowDefinition/>
@@ -376,7 +367,7 @@
                                                 <ColumnDefinition/>
                                                 <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
-                                            <CheckBox Grid.Row="0" Grid.Column="0" Margin="3,0,3,3"
+                                            <CheckBox Grid.Row="0" Grid.Column="0" Margin="3,3,3,3"
                                                       IsChecked="{Binding CaseSensitive}"
                                                       IsEnabled="{Binding IsCaseSensitiveEnabled}"
                                                       TabIndex="45" Content="{l:Loc Key='Main_CaseSensitive'}" />
@@ -384,7 +375,7 @@
                                                       IsChecked="{Binding WholeWord}"
                                                       IsEnabled="{Binding IsWholeWordEnabled}"
                                                       TabIndex="46" Content="{l:Loc Key='Main_WholeWord'}" />
-                                            <CheckBox Grid.Row="0" Grid.Column="1" Margin="3,0,3,3"
+                                            <CheckBox Grid.Row="0" Grid.Column="1" Margin="3,3,3,3"
                                                       IsChecked="{Binding Multiline}"
                                                       IsEnabled="{Binding IsMultilineEnabled}"
                                                       TabIndex="47" Content="{l:Loc Key='Main_Multiline'}" />
@@ -402,6 +393,10 @@
                                                       IsEnabled="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}"
                                                       TabIndex="48" Content="{l:Loc Key='Main_CaptureGroupSearch'}" 
                                                       ToolTip="{l:Loc Key='Main_UseCaptureGroupsFromPathsToMatch'}"/>
+                                            <CheckBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                                                      Margin="3,0,3,3" Content="{l:Loc Key=Main_StopAfterFirstMatch}"
+                                                      IsChecked="{Binding StopAfterFirstMatch}"
+                                                      TabIndex="82" />
                                         </Grid>
                                     </Grid>
                                     <!-- Left and middle panels in the expander wrap for narrow windows -->
@@ -502,9 +497,9 @@
                                         <!--  middle panel -->
                                         <StackPanel x:Name="MiddleFileOptions" Margin="3,5,15,3" VerticalAlignment="Top"
                                                     Orientation="Vertical">
-                                            <StackPanel Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
+                                            <StackPanel Margin="8,0,0,7" HorizontalAlignment="Left" VerticalAlignment="Center"
                                                         Orientation="Horizontal">
-                                                <RadioButton Margin="3,0,3,3" GroupName="DateFilter" Content="{l:Loc Key='Main_AllDates'}"
+                                                <RadioButton Margin="3,0,3,0" GroupName="DateFilter" Content="{l:Loc Key='Main_AllDates'}"
                                                              TabIndex="30"
                                                              IsChecked="{Binding Path=UseFileDateFilter, Converter={StaticResource ebc}, ConverterParameter=None}" />
                                                 <RadioButton Margin="3,0,3,3" GroupName="DateFilter" Content="{l:Loc Key='Main_Modified'}"
@@ -536,7 +531,7 @@
                                                             DisplayDateStart="{Binding MinStartDate}"
                                                             SelectedDate="{Binding StartDate}"
                                                             IsEnabled="{Binding IsDatesRangeSet}" />
-                                                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="3,0,6,6"
+                                                <TextBlock Grid.Row="1" Grid.Column="0" Margin="3,0,6,6"
                                                            HorizontalAlignment="Right"
                                                            Text="{l:Loc Key='Main_DateTo'}"
                                                            Style="{StaticResource LabelTextBlockStyle}" />
@@ -549,7 +544,7 @@
                                                             SelectedDate="{Binding EndDate}"
                                                             IsEnabled="{Binding IsDatesRangeSet}" />
                                             </Grid>
-                                            <StackPanel Margin="8,0,0,0" Orientation="Horizontal">
+                                            <StackPanel Margin="8,7,0,0" Orientation="Horizontal">
                                                 <RadioButton Margin="3,0,3,3" GroupName="TimeRange" 
                                                              Content="{l:Loc Key='Main_DatePast'}"
                                                              IsChecked="{Binding Path=TypeOfTimeRangeFilter, Converter={StaticResource ebc}, ConverterParameter=Hours}"
@@ -670,19 +665,19 @@
                                         Content="{l:Loc Key='Main_TestExpression'}"
                                         Command="{Binding TestCommand}"
                                         DockPanel.Dock="Right" TabIndex="56" />
-                                <CheckBox Margin="0,0,3,0"
+                                <CheckBox Margin="0,0,7,0"
                                           ToolTip="{Binding IsFolderBookmarkedTooltip}"
                                           Template="{DynamicResource PlusMetroButtonTemplate}"
                                           IsChecked="{Binding IsFolderBookmarked}"
                                           Command="{Binding FolderBookmarkAddCommand}"
                                           DockPanel.Dock="Right" TabIndex="55" 
-                                          Visibility="{Binding IsEverythingSearchMode, Converter={StaticResource InverseBoolToVisibilityConverter}}"/>
-                                <CheckBox Margin="0,0,3,0"
+                                          Visibility="{Binding IsEverythingSearchMode, Converter={StaticResource InverseBoolToVisibilityConverter}}" Width="20" Height="20"/>
+                                <CheckBox Margin="0,0,7,0"
                                           ToolTip="{Binding IsBookmarkedTooltip}"
                                           Template="{DynamicResource FavsMetroButtonTemplate}"
                                           IsChecked="{Binding IsBookmarked}"
                                           Command="{Binding BookmarkAddCommand}"
-                                          DockPanel.Dock="Right" TabIndex="54" />
+                                          DockPanel.Dock="Right" TabIndex="54" Height="20" Width="20" HorizontalAlignment="Stretch" />
                                 <Border HorizontalAlignment="Center"
                                         Background="#12FFFFFF" CornerRadius="3" 
                                         Visibility="{Binding HasValidationMessage, Converter={StaticResource BoolToVisibilityConverter}}">
@@ -695,7 +690,7 @@
                                 </Border>
                             </DockPanel>
                         </Grid>
-                        <StackPanel Margin="0,5,0,3" DockPanel.Dock="Bottom"
+                        <StackPanel Margin="0,5,0,0" DockPanel.Dock="Bottom"
                                     Visibility="{Binding OptionsOnMainPanel, Converter={StaticResource BoolToVisibilityConverter}}">
                             <WrapPanel Margin="0,0,0,0" Orientation="Horizontal">
                                 <CheckBox Margin="3"
@@ -724,6 +719,9 @@
                                           IsEnabled="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}"
                                           TabIndex="75" Content="{l:Loc Key='Main_CaptureGroupSearch'}" 
                                           ToolTip="{l:Loc Key='Main_UseCaptureGroupsFromPathsToMatch'}"/>
+                                <CheckBox Margin="3,0" Content="{l:Loc Key=Main_StopAfterFirstMatch}"
+                                  IsChecked="{Binding StopAfterFirstMatch}"
+                                  TabIndex="82" />
                             </WrapPanel>
                         </StackPanel>
                         <Grid>
@@ -735,6 +733,7 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <Label Grid.Row="0" Grid.Column="0" Margin="3,3,3,3"
                                    Content="{l:Loc Key='Main_SearchFor'}"
@@ -770,6 +769,10 @@
                                     </TextBlock>
                                 </ComboBox.ToolTip>
                             </my:MultilineComboBox>
+                            <Button Grid.Row="0" Grid.Column="2"
+                                Content="{l:Loc Key=Main_SearchButton}" IsDefault="True"
+                                Command="{Binding SearchCommand}"
+                                TabIndex="83" FontWeight="Normal" Margin="3,0,3,0" Padding="15,1,15,1" />
                             <Label Grid.Row="2" Grid.Column="0" Margin="3,3,3,4"
                                    Content="{l:Loc Key='Main_ReplaceWith'}" 
                                    Style="{DynamicResource ThemedLabel}"
@@ -793,95 +796,100 @@
                                     </TextBlock>
                                 </ComboBox.ToolTip>
                             </my:MultilineComboBox>
+                            <Button Grid.Row="2" Grid.Column="2"
+                                Content="{l:Loc Key=Main_ReplaceButton}"
+                                Command="{Binding ReplaceCommand}"
+                                TabIndex="84" Margin="3,0,3,0" />
                         </Grid>
                     </DockPanel>
                 </GroupBox>
-                <Grid DockPanel.Dock="Top">
+                <Grid DockPanel.Dock="Top" HorizontalAlignment="Stretch" >
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
+                        <ColumnDefinition Width="90*" />
+                        <ColumnDefinition Width="30*" />
                     </Grid.ColumnDefinitions>
-                    <WrapPanel Grid.Column="0" HorizontalAlignment="Right" Orientation="Horizontal">
-                        <CheckBox Margin="3,0" Content="{l:Loc Key='Main_SearchInResults'}"
-                                  IsChecked="{Binding SearchInResultsContent}"
-                                  Visibility="{Binding CanSearchInResults, Converter={StaticResource BoolToVisibilityConverter}}"
-                                  TabIndex="80" />
-                        <CheckBox x:Name="chkPreview" Margin="3,0" Content="{l:Loc Key='Main_PreviewFile'}"
-                                  IsChecked="{Binding PreviewFileContent}"
-                                  TabIndex="81" />
-                        <CheckBox Margin="3,0" Content="{l:Loc Key='Main_StopAfterFirstMatch'}"
-                                  IsChecked="{Binding StopAfterFirstMatch}"
-                                  TabIndex="82" />
-                        <Button Margin="3" Padding="8,3"
-                                Content="{l:Loc Key='Main_SearchButton'}" IsDefault="True"
-                                Command="{Binding SearchCommand}"
-                                TabIndex="83" />
-                        <Button Margin="3" Padding="8,3"
-                                Content="{l:Loc Key='Main_ReplaceButton'}"
-                                Command="{Binding ReplaceCommand}"
-                                TabIndex="84" />
+                    <WrapPanel HorizontalAlignment="Left" Orientation="Horizontal" Grid.Column="0">
                         <my:SplitButton Margin="3" Padding="8,3"
-                                Content="{l:Loc Key='Main_SortButton'}"
+                                Content="{l:Loc Key=Main_SortButton}"
                                 Command="{Binding SortCommand}"
                                 TabIndex="85">
                             <my:SplitButton.ContextMenu>
                                 <ContextMenu>
-                                    <my:RadioMenuItem Header="{l:Loc Key='Main_SortMenu_PathAndFileNameDepthFirst'}"
+                                    <my:RadioMenuItem Header="{l:Loc Key=Main_SortMenu_PathAndFileNameDepthFirst}"
                                                       GroupName="S1" 
-                                                      IsChecked="{Binding Path=SortType, Converter={StaticResource ebc}, ConverterParameter=FileNameDepthFirst}"/>
-                                    <my:RadioMenuItem Header="{l:Loc Key='Main_SortMenu_PathAndFileNameBreadthFirst'}"
+                                                      IsChecked="{Binding SortType, ConverterParameter=FileNameDepthFirst, Converter={StaticResource ebc}}"/>
+                                    <my:RadioMenuItem Header="{l:Loc Key=Main_SortMenu_PathAndFileNameBreadthFirst}"
                                                       GroupName="S1" 
-                                                      IsChecked="{Binding Path=SortType, Converter={StaticResource ebc}, ConverterParameter=FileNameBreadthFirst}"/>
-                                    <my:RadioMenuItem Header="{l:Loc Key='Main_SortMenu_FileNameOnly'}"
+                                                      IsChecked="{Binding SortType, ConverterParameter=FileNameBreadthFirst, Converter={StaticResource ebc}}"/>
+                                    <my:RadioMenuItem Header="{l:Loc Key=Main_SortMenu_FileNameOnly}"
                                                       GroupName="S1" 
-                                                      IsChecked="{Binding Path=SortType, Converter={StaticResource ebc}, ConverterParameter=FileNameOnly}"/>
-                                    <my:RadioMenuItem Header="{l:Loc Key='Main_SortMenu_FileTypeAndName'}"
+                                                      IsChecked="{Binding SortType, ConverterParameter=FileNameOnly, Converter={StaticResource ebc}}"/>
+                                    <my:RadioMenuItem Header="{l:Loc Key=Main_SortMenu_FileTypeAndName}"
                                                       GroupName="S1" 
-                                                      IsChecked="{Binding Path=SortType, Converter={StaticResource ebc}, ConverterParameter=FileTypeAndName}"/>
-                                    <my:RadioMenuItem Header="{l:Loc Key='Main_SortMenu_FileSize'}"
+                                                      IsChecked="{Binding SortType, ConverterParameter=FileTypeAndName, Converter={StaticResource ebc}}"/>
+                                    <my:RadioMenuItem Header="{l:Loc Key=Main_SortMenu_FileSize}"
                                                       GroupName="S1" 
-                                                      IsChecked="{Binding Path=SortType, Converter={StaticResource ebc}, ConverterParameter=Size}"/>
-                                    <my:RadioMenuItem Header="{l:Loc Key='Main_SortMenu_LastWriteTime'}"
+                                                      IsChecked="{Binding SortType, ConverterParameter=Size, Converter={StaticResource ebc}}"/>
+                                    <my:RadioMenuItem Header="{l:Loc Key=Main_SortMenu_LastWriteTime}"
                                                       GroupName="S1" 
-                                                      IsChecked="{Binding Path=SortType, Converter={StaticResource ebc}, ConverterParameter=Date}"/>
-                                    <my:RadioMenuItem Header="{l:Loc Key='Main_SortMenu_MatchCount'}"
+                                                      IsChecked="{Binding SortType, ConverterParameter=Date, Converter={StaticResource ebc}}"/>
+                                    <my:RadioMenuItem Header="{l:Loc Key=Main_SortMenu_MatchCount}"
                                                       GroupName="S1" 
-                                                      IsChecked="{Binding Path=SortType, Converter={StaticResource ebc}, ConverterParameter=MatchCount}"/>
+                                                      IsChecked="{Binding SortType, ConverterParameter=MatchCount, Converter={StaticResource ebc}}"/>
                                     <Separator/>
-                                    <my:RadioMenuItem Header="{l:Loc Key='Main_SortMenu_Ascending'}"
+                                    <my:RadioMenuItem Header="{l:Loc Key=Main_SortMenu_Ascending}"
                                                       GroupName="S2" 
-                                                      IsChecked="{Binding Path=SortDirection, Converter={StaticResource ebc}, ConverterParameter=Ascending}"/>
-                                    <my:RadioMenuItem Header="{l:Loc Key='Main_SortMenu_Descending'}"
+                                                      IsChecked="{Binding SortDirection, ConverterParameter=Ascending, Converter={StaticResource ebc}}"/>
+                                    <my:RadioMenuItem Header="{l:Loc Key=Main_SortMenu_Descending}"
                                                       GroupName="S2" 
-                                                      IsChecked="{Binding Path=SortDirection, Converter={StaticResource ebc}, ConverterParameter=Descending}"/>
+                                                      IsChecked="{Binding SortDirection, ConverterParameter=Descending, Converter={StaticResource ebc}}"/>
                                 </ContextMenu>
                             </my:SplitButton.ContextMenu>
                         </my:SplitButton>
                         <Button Margin="3" Padding="8,3"
-                                Content="{l:Loc Key='Main_MoreArrowButton'}"
+                                Content="{l:Loc Key=Main_MoreArrowButton}"
                                 Click="ButtonOtherActions_Click"
                                 ContextMenuService.Placement="Bottom"
                                 IsEnabled="{Binding CanSearchInResults}"
                                 TabIndex="86">
                             <Button.ContextMenu>
                                 <ContextMenu x:Name="advanceContextMenu">
-                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_CopyFiles'}" Command="{Binding CopyFilesCommand}" />
-                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_MoveFiles'}" Command="{Binding MoveFilesCommand}" />
-                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_DeleteFiles'}" Command="{Binding DeleteFilesCommand}" />
+                                    <MenuItem Header="{l:Loc Key=Main_MoreMenu_CopyFiles}" Command="{Binding CopyFilesCommand}" />
+                                    <MenuItem Header="{l:Loc Key=Main_MoreMenu_MoveFiles}" Command="{Binding MoveFilesCommand}" />
+                                    <MenuItem Header="{l:Loc Key=Main_MoreMenu_DeleteFiles}" Command="{Binding DeleteFilesCommand}" />
                                     <Separator />
-                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_CopyFileNames'}" Command="{Binding CopyToClipboardCommand}" />
-                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_CopyResults'}" Command="{Binding CopyMatchingLinesCommand}" />
-                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_SaveResults'}">
-                                        <MenuItem Header="{l:Loc Key='Main_MoreMenu_Save_Report'}" Command="{Binding SaveResultsCommand}" CommandParameter="Report" />
-                                        <MenuItem Header="{l:Loc Key='Main_MoreMenu_Save_TextResults'}" Command="{Binding SaveResultsCommand}" CommandParameter="Text" />
-                                        <MenuItem Header="{l:Loc Key='Main_MoreMenu_Save_CSVResults'}" Command="{Binding SaveResultsCommand}" CommandParameter="CSV" />
+                                    <MenuItem Header="{l:Loc Key=Main_MoreMenu_CopyFileNames}" Command="{Binding CopyToClipboardCommand}" />
+                                    <MenuItem Header="{l:Loc Key=Main_MoreMenu_CopyResults}" Command="{Binding CopyMatchingLinesCommand}" />
+                                    <MenuItem Header="{l:Loc Key=Main_MoreMenu_SaveResults}">
+                                        <MenuItem Header="{l:Loc Key=Main_MoreMenu_Save_Report}" Command="{Binding SaveResultsCommand}" CommandParameter="Report" />
+                                        <MenuItem Header="{l:Loc Key=Main_MoreMenu_Save_TextResults}" Command="{Binding SaveResultsCommand}" CommandParameter="Text" />
+                                        <MenuItem Header="{l:Loc Key=Main_MoreMenu_Save_CSVResults}" Command="{Binding SaveResultsCommand}" CommandParameter="CSV" />
                                     </MenuItem>
                                 </ContextMenu>
                             </Button.ContextMenu>
                         </Button>
                         <Button Margin="3,3,8,3" Padding="8,3"
-                                Content="{l:Loc Key='Main_CancelButton'}"
+                                Content="{l:Loc Key=Main_CancelButton}"
                                 Command="{Binding CancelCommand}"
                                 TabIndex="87" />
+                        <Label Margin="5,0,3,0" Content="{l:Loc Key='Main_Zoom'}" 
+                        ToolTip="{l:Loc Key='Main_ChangesTheResultsTreeZoom'}"/>
+                        <Slider Width="120" VerticalAlignment="Center"
+                        Minimum="0.8" Maximum="2.0" LargeChange=".05" SmallChange=".01"
+                        Value="{Binding SearchResults.ResultsScale}" TabIndex="97">
+                            <Slider.ToolTip>
+                                <ToolTip Content="{Binding SearchResults.ResultsScale}" ContentStringFormat="P1"/>
+                            </Slider.ToolTip>
+                        </Slider>
+                        <CheckBox Margin="5,0,3,0" Content="{l:Loc Key=Main_SearchInResults}"
+                                  IsChecked="{Binding SearchInResultsContent}"
+                                  Visibility="{Binding CanSearchInResults, Converter={StaticResource BoolToVisibilityConverter}}"
+                                  TabIndex="80" />
+                    </WrapPanel>
+                    <WrapPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Column="1">
+                        <CheckBox x:Name="chkPreview" Margin="3,7,15,0" Content="{l:Loc Key=Main_PreviewFile}"
+                                  IsChecked="{Binding PreviewFileContent}"
+                                  TabIndex="81" />
                     </WrapPanel>
                 </Grid>
                 <uc:ResultsTree x:Name="resultsTree" DataContext="{Binding SearchResults}" TabIndex="90" />
