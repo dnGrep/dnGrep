@@ -72,6 +72,15 @@ namespace dnGREP.WPF
             }
             else
             {
+                bool reopenSearchPanel = false;
+                if (!searchPanel.IsClosed)
+                {
+                    reopenSearchPanel = true;
+                    // no callback from the close call
+                    searchPanel.SearchResultsChanged -= SearchPanel_SearchResultsChanged;
+                    searchPanel.Close();
+                }
+
                 textEditor.Clear();
                 textEditor.Encoding = ViewModel.Encoding;
                 textEditor.SyntaxHighlighting = ViewModel.HighlightingDefinition;
@@ -100,6 +109,11 @@ namespace dnGREP.WPF
                             }
                             if (!string.IsNullOrEmpty(textEditor.Text))
                             {
+                                if (reopenSearchPanel)
+                                {
+                                    searchPanel.Open();
+                                }
+
                                 UpdatePositionMarkers();
 
                                 textEditor.ScrollTo(ViewModel.LineNumber, 0);
@@ -115,6 +129,13 @@ namespace dnGREP.WPF
                 catch (Exception ex)
                 {
                     textEditor.Text = "Error opening the file: " + ex.Message;
+                }
+                finally
+                {
+                    if (reopenSearchPanel)
+                    {
+                        searchPanel.SearchResultsChanged += SearchPanel_SearchResultsChanged;
+                    }
                 }
             }
         }
