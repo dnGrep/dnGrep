@@ -296,7 +296,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 			if (!visualColumnValid) {
 				TextDocument document = textArea.Document;
 				if (document != null) {
-					Debug.WriteLine("Explicit validation of caret column");
+					//Debug.WriteLine("Explicit validation of caret column");
 					var documentLine = document.GetLineByNumber(position.Line);
 					RevalidateVisualColumn(textView.GetOrConstructVisualLine(documentLine));
 				}

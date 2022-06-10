@@ -256,7 +256,7 @@ namespace ICSharpCode.AvalonEdit.CodeCompletion
 		void CloseIfFocusLost()
 		{
 			if (CloseOnFocusLost) {
-				Debug.WriteLine("CloseIfFocusLost: this.IsActive=" + this.IsActive + " IsTextAreaFocused=" + IsTextAreaFocused);
+				//Debug.WriteLine("CloseIfFocusLost: this.IsActive=" + this.IsActive + " IsTextAreaFocused=" + IsTextAreaFocused);
 				if (!this.IsActive && !IsTextAreaFocused) {
 					Close();
 				}
