@@ -138,20 +138,15 @@ namespace dnGREP.DockFloat
         public static readonly DependencyProperty IsHiddenProperty =
             DependencyProperty.Register("IsHidden", typeof(bool), typeof(DockSite), new PropertyMetadata(false));
 
-        public override void OnApplyTemplate()
-        {
-            base.OnApplyTemplate();
-            var popOutButton = GetTemplateChild("PART_PopOutButton") as Button;
-            popOutButton.Click += (s, e) => PopOut(false);
-        }
-
         public static void InitFloatingWindows()
         {
             var sites = Application.Current.MainWindow.FindLogicalChildren<DockSite>()
                 .Where(d => !d.IsDocked).ToArray();
 
             foreach (var dockSite in sites)
+            {
                 dockSite.PopOut(dockSite.IsHidden);
+            }
         }
 
         private void SavePlacement()
@@ -166,7 +161,7 @@ namespace dnGREP.DockFloat
             IsHidden = floatingWindow.Visibility != Visibility.Visible;
         }
 
-        void PopOut(bool hidden)
+        public void PopOut(bool hidden)
         {
             IsDocked = false;
             SaveContentFromDock();
@@ -180,7 +175,9 @@ namespace dnGREP.DockFloat
             RestoreContentToDock();
 
             if (!mainWindowClosing)
+            {
                 IsDocked = true;
+            }
         }
 
         void SaveContentFromDock()

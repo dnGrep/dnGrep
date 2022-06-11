@@ -18,6 +18,7 @@ namespace dnGREP.WPF
     public partial class PreviewControl : UserControl
     {
         private readonly SearchPanel searchPanel;
+        private DockFloat.DockSite dockSite;
 
         public PreviewControl()
         {
@@ -35,7 +36,22 @@ namespace dnGREP.WPF
             zoomSlider.Value = GrepSettings.Instance.Get<int>(GrepSettings.Key.PreviewWindowFont);
             zoomSlider.ValueChanged += ZoomSlider_ValueChanged;
             textEditor.TextArea.TextView.SizeChanged += TextView_SizeChanged;
+            var popOutButton = statusBar.FindName("btnPopOutButton") as Button;
+            popOutButton.Click += (s, e) =>
+            {
+                var ds = VisualTreeHelper.GetParent(previewPanel);
+                do ds = VisualTreeHelper.GetParent(ds);
+                while (!(ds is DockFloat.DockSite));
+                dockSite = ds as DockFloat.DockSite;
+                if (dockSite != null)
+                {
+                    dockSite.PopOut(false);
+                }
+                else
+                {
 
+                }
+            };
             AppTheme.Instance.CurrentThemeChanged += (s, e) =>
             {
                 textEditor.SyntaxHighlighting = ViewModel.HighlightingDefinition;

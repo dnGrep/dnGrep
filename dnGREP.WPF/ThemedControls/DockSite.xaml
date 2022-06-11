@@ -32,36 +32,33 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type df:DockSite}">
                     <Border Background="{DynamicResource Control.Static.Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                        <Grid>
-                            <DockPanel>
-                                <TextBlock x:Name="header" Margin="3,0,20,0" DockPanel.Dock="Top"
-                                           FontSize="{Binding FontSize, RelativeSource={RelativeSource TemplatedParent}}"
-                                           Foreground="{DynamicResource Control.Foreground}"
-                                           my:LeadingTextTrimming.FullText="{Binding Heading, RelativeSource={RelativeSource TemplatedParent}}" />
-                                <!--  Spacer for when ButtonOverlapsContent is not set  -->
-                                <Border x:Name="spacer" Width="{Binding ActualWidth, ElementName=PART_PopOutButton}" Height="{Binding ActualHeight, ElementName=PART_PopOutButton}">
-                                    <Border.Style>
-                                        <Style TargetType="Border">
-                                            <Setter Property="DockPanel.Dock">
-                                                <Setter.Value>
-                                                    <MultiBinding Converter="{x:Static df:TopOrSideConverter.Instance}">
-                                                        <Binding Path="ActualHeight" RelativeSource="{RelativeSource TemplatedParent}" />
-                                                        <Binding Path="ActualWidth" RelativeSource="{RelativeSource TemplatedParent}" />
-                                                    </MultiBinding>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </Style>
-                                    </Border.Style>
-                                </Border>
-                                <ContentPresenter x:Name="presenter" />
-                            </DockPanel>
-                            <Button x:Name="PART_PopOutButton" Margin="1" Padding="0"
-                                    HorizontalAlignment="Right" VerticalAlignment="Top"
-                                    Style="{StaticResource PopOutButtonStyle}" />
-                        </Grid>
+                        <DockPanel>
+                            <!--<TextBlock x:Name="header" Margin="0,0,20,0" DockPanel.Dock="Top"
+                                        FontSize="{Binding FontSize, RelativeSource={RelativeSource TemplatedParent}}"
+                                        Foreground="{DynamicResource Control.Foreground}"
+                                        my:LeadingTextTrimming.FullText="{Binding Heading, RelativeSource={RelativeSource TemplatedParent}}" />
+                            -->
+                            <!--  Spacer for when ButtonOverlapsContent is not set  -->
+                            <!--
+                            <Border x:Name="spacer" Width="{Binding ActualWidth, ElementName=PART_PopOutButton}" Height="{Binding ActualHeight, ElementName=PART_PopOutButton}">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="DockPanel.Dock">
+                                            <Setter.Value>
+                                                <MultiBinding Converter="{x:Static df:TopOrSideConverter.Instance}">
+                                                    <Binding Path="ActualHeight" RelativeSource="{RelativeSource TemplatedParent}" />
+                                                    <Binding Path="ActualWidth" RelativeSource="{RelativeSource TemplatedParent}" />
+                                                </MultiBinding>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Border.Style>
+                            </Border>-->
+                            <ContentPresenter x:Name="presenter" />
+                        </DockPanel>
                     </Border>
 
-                    <ControlTemplate.Triggers>
+                    <!--<ControlTemplate.Triggers>
                         <Trigger Property="ShowHeader" Value="False">
                             <Setter TargetName="header" Property="Visibility" Value="Collapsed" />
                         </Trigger>
@@ -71,7 +68,7 @@
                         <Trigger Property="ButtonOverlapsContent" Value="True">
                             <Setter TargetName="spacer" Property="Visibility" Value="Collapsed" />
                         </Trigger>
-                    </ControlTemplate.Triggers>
+                    </ControlTemplate.Triggers>-->
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

@@ -196,7 +196,7 @@
                     <TextBox Margin="3,0,0,0"
                              Text="{Binding Path=ContextLinesBefore, UpdateSourceTrigger=PropertyChanged}"
                              IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}" 
-                             TabIndex="94" Height="20">
+                             TabIndex="94">
                         <TextBox.Width>
                             <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
                                 <Binding RelativeSource="{RelativeSource Mode=Self}"/>
@@ -208,7 +208,7 @@
                     <Label Content="{l:Loc Key='Main_ContextBeforeAnd'}" />
                     <TextBox Text="{Binding Path=ContextLinesAfter, UpdateSourceTrigger=PropertyChanged}"
                              IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}" 
-                             TabIndex="95" Height="20">
+                             TabIndex="95">
                         <TextBox.Width>
                             <MultiBinding Converter="{StaticResource TextBoxWidthConverter}" ConverterParameter="32" FallbackValue="32">
                                 <Binding RelativeSource="{RelativeSource Mode=Self}"/>
@@ -221,7 +221,7 @@
                 </StackPanel>
                 <CheckBox Content="{l:Loc Key='Main_WrapText'}" Margin="10,3,6,3"                                  
                           IsChecked="{Binding SearchResults.WrapText}"
-                          TabIndex="98"/>
+                          TabIndex="96"/>
             </WrapPanel>
 
             <DockPanel Margin="4,0" LastChildFill="True">
@@ -370,33 +370,33 @@
                                             <CheckBox Grid.Row="0" Grid.Column="0" Margin="3,3,3,3"
                                                       IsChecked="{Binding CaseSensitive}"
                                                       IsEnabled="{Binding IsCaseSensitiveEnabled}"
-                                                      TabIndex="45" Content="{l:Loc Key='Main_CaseSensitive'}" />
+                                                      TabIndex="50" Content="{l:Loc Key='Main_CaseSensitive'}" />
                                             <CheckBox Grid.Row="1" Grid.Column="0" Margin="3,0,3,3"
                                                       IsChecked="{Binding WholeWord}"
                                                       IsEnabled="{Binding IsWholeWordEnabled}"
-                                                      TabIndex="46" Content="{l:Loc Key='Main_WholeWord'}" />
+                                                      TabIndex="51" Content="{l:Loc Key='Main_WholeWord'}" />
                                             <CheckBox Grid.Row="0" Grid.Column="1" Margin="3,3,3,3"
                                                       IsChecked="{Binding Multiline}"
                                                       IsEnabled="{Binding IsMultilineEnabled}"
-                                                      TabIndex="47" Content="{l:Loc Key='Main_Multiline'}" />
+                                                      TabIndex="52" Content="{l:Loc Key='Main_Multiline'}" />
                                             <CheckBox Grid.Row="1" Grid.Column="1" Margin="3,0,3,3"
                                                       IsChecked="{Binding Singleline}"
                                                       IsEnabled="{Binding IsSinglelineEnabled}"
-                                                      TabIndex="48" Content="{l:Loc Key='Main_DotAsNewline'}" />
+                                                      TabIndex="53" Content="{l:Loc Key='Main_DotAsNewline'}" />
                                             <CheckBox Grid.Row="2" Grid.Column="0" Margin="3,0,3,3"
                                                       IsChecked="{Binding BooleanOperators}"
                                                       IsEnabled="{Binding IsBooleanOperatorsEnabled}"
-                                                      TabIndex="48" Content="{l:Loc Key='Main_BooleanOperators'}" 
+                                                      TabIndex="54" Content="{l:Loc Key='Main_BooleanOperators'}" 
                                                       ToolTip="{l:Loc Key='Main_CombineMultipleSearchPatternsUsingANDOrOR'}"/>
                                             <CheckBox Grid.Row="2" Grid.Column="1" Margin="3,0,3,3"
                                                       IsChecked="{Binding CaptureGroupSearch}"
                                                       IsEnabled="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}"
-                                                      TabIndex="48" Content="{l:Loc Key='Main_CaptureGroupSearch'}" 
+                                                      TabIndex="55" Content="{l:Loc Key='Main_CaptureGroupSearch'}" 
                                                       ToolTip="{l:Loc Key='Main_UseCaptureGroupsFromPathsToMatch'}"/>
                                             <CheckBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
                                                       Margin="3,0,3,3" Content="{l:Loc Key=Main_StopAfterFirstMatch}"
                                                       IsChecked="{Binding StopAfterFirstMatch}"
-                                                      TabIndex="82" />
+                                                      TabIndex="56" />
                                         </Grid>
                                     </Grid>
                                     <!-- Left and middle panels in the expander wrap for narrow windows -->
@@ -721,7 +721,7 @@
                                           ToolTip="{l:Loc Key='Main_UseCaptureGroupsFromPathsToMatch'}"/>
                                 <CheckBox Margin="3,0" Content="{l:Loc Key=Main_StopAfterFirstMatch}"
                                   IsChecked="{Binding StopAfterFirstMatch}"
-                                  TabIndex="82" />
+                                  TabIndex="76" />
                             </WrapPanel>
                         </StackPanel>
                         <Grid>
@@ -772,7 +772,7 @@
                             <Button Grid.Row="0" Grid.Column="2"
                                 Content="{l:Loc Key=Main_SearchButton}" IsDefault="True"
                                 Command="{Binding SearchCommand}"
-                                TabIndex="83" FontWeight="Normal" Margin="3,0,3,0" Padding="15,1,15,1" />
+                                TabIndex="61" FontWeight="Normal" Margin="3,0,3,0" Padding="15,1,15,1" />
                             <Label Grid.Row="2" Grid.Column="0" Margin="3,3,3,4"
                                    Content="{l:Loc Key='Main_ReplaceWith'}" 
                                    Style="{DynamicResource ThemedLabel}"
@@ -785,7 +785,7 @@
                                       Style="{DynamicResource MultilineComboBoxStyle}"
                                       IsTextSearchCaseSensitive="True" 
                                       FontFamily="{Binding ResultsFontFamily}" FontSize="{Binding ResultsFontSize}"
-                                      TabIndex="61">
+                                      TabIndex="62">
                                 <ComboBox.ToolTip>
                                     <TextBlock>
                                     <Run Text="{l:Loc Key='TTB1_ReplacesEntireRegex'}"/>
@@ -799,11 +799,11 @@
                             <Button Grid.Row="2" Grid.Column="2"
                                 Content="{l:Loc Key=Main_ReplaceButton}"
                                 Command="{Binding ReplaceCommand}"
-                                TabIndex="84" Margin="3,0,3,0" />
+                                TabIndex="63" Margin="3,0,3,0" />
                         </Grid>
                     </DockPanel>
                 </GroupBox>
-                <Grid DockPanel.Dock="Top" HorizontalAlignment="Stretch" >
+                <Grid DockPanel.Dock="Top" HorizontalAlignment="Stretch">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="90*" />
                         <ColumnDefinition Width="30*" />
@@ -876,7 +876,7 @@
                         ToolTip="{l:Loc Key='Main_ChangesTheResultsTreeZoom'}"/>
                         <Slider Width="120" VerticalAlignment="Center"
                         Minimum="0.8" Maximum="2.0" LargeChange=".05" SmallChange=".01"
-                        Value="{Binding SearchResults.ResultsScale}" TabIndex="97">
+                        Value="{Binding SearchResults.ResultsScale}" TabIndex="87">
                             <Slider.ToolTip>
                                 <ToolTip Content="{Binding SearchResults.ResultsScale}" ContentStringFormat="P1"/>
                             </Slider.ToolTip>
@@ -884,12 +884,12 @@
                         <CheckBox Margin="5,0,3,0" Content="{l:Loc Key=Main_SearchInResults}"
                                   IsChecked="{Binding SearchInResultsContent}"
                                   Visibility="{Binding CanSearchInResults, Converter={StaticResource BoolToVisibilityConverter}}"
-                                  TabIndex="80" />
+                                  TabIndex="87" />
                     </WrapPanel>
                     <WrapPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Column="1">
                         <CheckBox x:Name="chkPreview" Margin="3,7,15,0" Content="{l:Loc Key=Main_PreviewFile}"
                                   IsChecked="{Binding PreviewFileContent}"
-                                  TabIndex="81" />
+                                  TabIndex="88" />
                     </WrapPanel>
                 </Grid>
                 <uc:ResultsTree x:Name="resultsTree" DataContext="{Binding SearchResults}" TabIndex="90" />
