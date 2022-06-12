@@ -120,14 +120,14 @@
                               ProportionalResize="True" />
 
         <DockPanel>
-            <DockPanel Margin="5,5,5,0" DockPanel.Dock="Top"
+            <DockPanel Margin="5,0,5,0" DockPanel.Dock="Top"
                        Background="{DynamicResource Menu.Normal.Background}">
-                <TextBlock DockPanel.Dock="Left" 
+                <TextBlock DockPanel.Dock="Left" VerticalAlignment="Top"
                            FontSize="{Binding MainFormFontSize, Converter={StaticResource TitleSizeConverter}, ConverterParameter=4}" 
                            FontWeight="DemiBold"
                            Text="{l:Loc Key='Main_DnGREP_Title'}"
                            Style="{StaticResource ThemedTextBlock}" />
-                <Menu HorizontalAlignment="Right">
+                <Menu HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,5,0,0">
                     <Menu.Resources>
                         <Style BasedOn="{StaticResource ThemedMenuItem}" TargetType="{x:Type MenuItem}">
                             <Setter Property="FontFamily" Value="{Binding ApplicationFontFamily}"/>

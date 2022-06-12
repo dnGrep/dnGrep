@@ -10,7 +10,8 @@
                 <ControlTemplate TargetType="{x:Type local:DockPanelSplitter}">
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}" Opacity="0.3" CornerRadius="7,0,0,0">
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            Opacity="0.3" CornerRadius="7,0,0,0" Margin="0,20,0,0">
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

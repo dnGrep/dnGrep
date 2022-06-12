@@ -33,11 +33,11 @@
                 <ControlTemplate TargetType="{x:Type df:DockSite}">
                     <Border Background="{DynamicResource Control.Static.Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
                         <DockPanel>
-                            <!--<TextBlock x:Name="header" Margin="0,0,20,0" DockPanel.Dock="Top"
+                            <TextBlock x:Name="header" DockPanel.Dock="Top" TextAlignment="Center"
                                         FontSize="{Binding FontSize, RelativeSource={RelativeSource TemplatedParent}}"
                                         Foreground="{DynamicResource Control.Foreground}"
                                         my:LeadingTextTrimming.FullText="{Binding Heading, RelativeSource={RelativeSource TemplatedParent}}" />
-                            -->
+                            
                             <!--  Spacer for when ButtonOverlapsContent is not set  -->
                             <!--
                             <Border x:Name="spacer" Width="{Binding ActualWidth, ElementName=PART_PopOutButton}" Height="{Binding ActualHeight, ElementName=PART_PopOutButton}">
@@ -54,21 +54,21 @@
                                     </Style>
                                 </Border.Style>
                             </Border>-->
-                            <ContentPresenter x:Name="presenter" />
+                            <ContentPresenter x:Name="presenter" Margin="0,2,0,0" />
                         </DockPanel>
                     </Border>
 
-                    <!--<ControlTemplate.Triggers>
+                    <ControlTemplate.Triggers>
                         <Trigger Property="ShowHeader" Value="False">
                             <Setter TargetName="header" Property="Visibility" Value="Collapsed" />
                         </Trigger>
                         <Trigger Property="Content" Value="{x:Null}">
                             <Setter Property="Visibility" Value="Collapsed" />
                         </Trigger>
-                        <Trigger Property="ButtonOverlapsContent" Value="True">
+                        <!--<Trigger Property="ButtonOverlapsContent" Value="True">
                             <Setter TargetName="spacer" Property="Visibility" Value="Collapsed" />
-                        </Trigger>
-                    </ControlTemplate.Triggers>-->
+                        </Trigger>-->
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
