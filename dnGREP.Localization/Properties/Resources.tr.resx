@@ -154,4 +154,88 @@
     <value>Tamam</value>
     <comment>Replace window, OK button text</comment>
   </data>
+  <data name="Options_PluginEnabled" xml:space="preserve">
+    <value>Etkinleştir</value>
+    <comment>Options dialog, plug-ins checkbox label</comment>
+  </data>
+  <data name="Options_PluginOptions" xml:space="preserve">
+    <value>Eklentiler</value>
+    <comment>Options dialog, Plug-ins group header label</comment>
+  </data>
+  <data name="BookmarkDetails_Content_Group" xml:space="preserve">
+    <value>İçerik</value>
+    <comment>Bookmark details dialog, search group header label (accel)</comment>
+  </data>
+  <data name="Options_HelpTranslateDnGrep" xml:space="preserve">
+    <value>dnGrep tercümesine yardım et.</value>
+    <comment>Options dialog, language request label</comment>
+  </data>
+  <data name="Options_Language" xml:space="preserve">
+    <value>Dil</value>
+    <comment>Options dialog, language group header label</comment>
+  </data>
+  <data name="Options_PdfToTextReset" xml:space="preserve">
+    <value>Sıfırla</value>
+    <comment>Options dialog, PDF arguments button label (accel)</comment>
+  </data>
+  <data name="Options_PluginAdd" xml:space="preserve">
+    <value>Ekle</value>
+    <comment>Options dialog, plug-in options text input label</comment>
+  </data>
+  <data name="Options_PluginDefault" xml:space="preserve">
+    <value>Varsayılan</value>
+    <comment>Options dialog, plug-in options text input label</comment>
+  </data>
+  <data name="Options_PluginExtensions" xml:space="preserve">
+    <value>Uzantılar:</value>
+    <comment>Options dialog, plug-in options label</comment>
+  </data>
+  <data name="Options_PluginRemove" xml:space="preserve">
+    <value>Çıkar</value>
+    <comment>Options dialog, plug-in options text input label</comment>
+  </data>
+  <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
+    <value>Seçeneklerle ilgili yardım için F1'e basın</value>
+    <comment>Options dialog, help label</comment>
+  </data>
+  <data name="Options_Reload" xml:space="preserve">
+    <value>Yeniden yükle</value>
+    <comment>Options dialog, theme reload button label (accel)</comment>
+  </data>
+  <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
+    <value>Geçerli tema dosyasını yeniden yükleyin [Ctrl+F5]</value>
+    <comment>Options dialog, theme reload button tooltip</comment>
+  </data>
+  <data name="Options_SelectedTheme" xml:space="preserve">
+    <value>Seçili tema</value>
+    <comment>Options dialog, theme selector label</comment>
+  </data>
+  <data name="Options_ShowDnGrepInExplorerRightClickMenu" xml:space="preserve">
+    <value>Windows sağ tıklama menüsünde dnGrep'i göster</value>
+    <comment>Options dialog, startup options, checkbox label (accel)</comment>
+  </data>
+  <data name="Options_ShowFilePathInResultsPanel" xml:space="preserve">
+    <value>Dosya konumunu sonuç panelinde göster</value>
+    <comment>Options dialog, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Window_Close" xml:space="preserve">
+    <value>Kapat</value>
+    <comment>Window title bar close button tooltip</comment>
+  </data>
+  <data name="Window_DockThisPopUpBackIntoTheMainWindow" xml:space="preserve">
+    <value>Bu ayrık pencereyi ana pencereyle birleştir</value>
+    <comment>Docking window docking button tooltip</comment>
+  </data>
+  <data name="Window_Maximize" xml:space="preserve">
+    <value>Ekranı Kapla</value>
+    <comment>Window title bar button tooltip</comment>
+  </data>
+  <data name="Window_Minimize" xml:space="preserve">
+    <value>Simge Durumuna</value>
+    <comment>Window title bar button tooltip</comment>
+  </data>
+  <data name="Window_PopThisPanelOutIntoItsOwnWindow" xml:space="preserve">
+    <value>Bu paneli ana pencereden ayır</value>
+    <comment>Docking window button tooltip</comment>
+  </data>
 </root>
