@@ -238,4 +238,8 @@
     <value>Bu paneli ana pencereden ayır</value>
     <comment>Docking window button tooltip</comment>
   </data>
+  <data name="Bookmarks_FilePatternHeader" xml:space="preserve">
+    <value>Dosya uzantısı</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
 </root>
