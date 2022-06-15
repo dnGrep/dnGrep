@@ -1865,7 +1865,7 @@ Arguments:
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Preview_HighlightsDisabledTooManyMatchesFound" xml:space="preserve">
-    <value>Not showing highlights because too many matches were found.</value>
+    <value>Оцветяването е изключено, защото има твърде много съвпадения.</value>
     <comment>Preview window, warning text</comment>
   </data>
   <data name="Preview_MatchCase" xml:space="preserve">
@@ -1953,11 +1953,11 @@ Arguments:
     <comment>Replace window, Matches group header label</comment>
   </data>
   <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
-    <value>Move to the next match in this file [Ctrl+Left]</value>
+    <value>Към следващото съвпадение във файла [Ctrl+Left]</value>
     <comment>Replace window, Next button tooltip</comment>
   </data>
   <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
-    <value>Move to the previous match in this file [Ctrl+Right]</value>
+    <value>Към предишното съвпадение във файла [Ctrl+Right]</value>
     <comment>Replace window, Previous button tooltip</comment>
   </data>
   <data name="Replace_Next" xml:space="preserve">
@@ -1985,7 +1985,7 @@ Arguments:
     <comment>Replace window, conditional file name suffix</comment>
   </data>
   <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
-    <value>Replace all matches in all files, and apply [F10]</value>
+    <value>Заменяне на съвпаденията във всички файлове и прилагане [F10]</value>
     <comment>Replace window, Replace in all files button tooltip</comment>
   </data>
   <data name="Replace_ReplaceButton" xml:space="preserve">
@@ -2189,7 +2189,7 @@ Arguments:
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_UsingRegexFilePattern" xml:space="preserve">
-    <value>Using regular expression file pattern</value>
+    <value>Използва се режулярен израз за модел на файла</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_UsingTypeOfSeach" xml:space="preserve">
