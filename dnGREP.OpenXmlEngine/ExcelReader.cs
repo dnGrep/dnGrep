@@ -43,14 +43,19 @@ namespace dnGREP.Engines.OpenXml
 
         private static string GetFormattedValue(IExcelDataReader reader, int columnIndex, CultureInfo culture)
         {
+            string result;
             var value = reader.GetValue(columnIndex);
             var formatString = reader.GetNumberFormatString(columnIndex);
             if (formatString != null)
             {
                 var format = new NumberFormat(formatString);
-                return format.Format(value, culture);
+                result = format.Format(value, culture);
             }
-            return Convert.ToString(value, culture);
+            else
+            {
+                result = Convert.ToString(value, culture);
+            }
+            return result.Replace('\r', ' ').Replace('\n', ' ');
         }
     }
 }
