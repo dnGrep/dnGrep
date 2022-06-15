@@ -2398,4 +2398,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <value>上一個檔案</value>
     <comment>Main windows, results list, context menu item label</comment>
   </data>
+  <data name="Main_Results_NextFile" xml:space="preserve">
+    <value>下一個檔案</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="BookmarkDetails_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>跳過遠程雲端儲存檔案</value>
+    <comment>Bookmark details dialog, checkbox label (accel)</comment>
+  </data>
+  <data name="Main_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>跳過遠程雲端儲存檔案</value>
+    <comment>Main window, search option label</comment>
+  </data>
 </root>
