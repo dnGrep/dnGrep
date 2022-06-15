@@ -1953,18 +1953,23 @@ namespace dnGREP.Common
 
         public static string GetEOL(string path, Encoding encoding)
         {
-            using (FileStream reader = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-            using (StreamReader streamReader = new StreamReader(reader, encoding))
-            using (EolReader eolReader = new EolReader(streamReader))
+            if (!string.IsNullOrWhiteSpace(path) && File.Exists(path))
             {
-                string line = eolReader.ReadLine();
-
-                if (line.EndsWith("\r\n"))
-                    return "\r\n";
-                else if (line.EndsWith("\n"))
-                    return "\n";
-                else if (line.EndsWith("\r"))
-                    return "\r";
+                using (FileStream reader = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                using (StreamReader streamReader = new StreamReader(reader, encoding))
+                using (EolReader eolReader = new EolReader(streamReader))
+                {
+                    string line = eolReader.ReadLine();
+                    if (!string.IsNullOrEmpty(line))
+                    {
+                        if (line.EndsWith("\r\n"))
+                            return "\r\n";
+                        else if (line.EndsWith("\n"))
+                            return "\n";
+                        else if (line.EndsWith("\r"))
+                            return "\r";
+                    }
+                }
             }
             return string.Empty;
         }
