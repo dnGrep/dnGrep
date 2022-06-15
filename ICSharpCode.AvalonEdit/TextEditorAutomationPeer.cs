@@ -36,7 +36,7 @@ namespace ICSharpCode.AvalonEdit
 		/// </summary>
 		public TextEditorAutomationPeer(TextEditor owner) : base(owner)
 		{
-			Debug.WriteLine("TextEditorAutomationPeer was created");
+			//Debug.WriteLine("TextEditorAutomationPeer was created");
 		}
 
 		private TextEditor TextEditor {

@@ -58,7 +58,7 @@ namespace ICSharpCode.AvalonEdit.Editing
 		[Conditional("DEBUG")]
 		static void Log(string format, params object[] args)
 		{
-			Debug.WriteLine(string.Format(format, args));
+			//Debug.WriteLine(string.Format(format, args));
 		}
 
 		public void AddToSelection()

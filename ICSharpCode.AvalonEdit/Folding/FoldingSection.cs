@@ -70,7 +70,7 @@ namespace ICSharpCode.AvalonEdit.Folding
 					if (collapsedSection == null || collapsedSection.Start != startLinePlusOne || collapsedSection.End != endLine) {
 						// recreate this collapsed section
 						if (collapsedSection != null) {
-							Debug.WriteLine("CollapsedLineSection validation - recreate collapsed section from " + startLinePlusOne + " to " + endLine);
+							//Debug.WriteLine("CollapsedLineSection validation - recreate collapsed section from " + startLinePlusOne + " to " + endLine);
 							collapsedSection.Uncollapse();
 						}
 						collapsedSections[i] = manager.textViews[i].CollapseLines(startLinePlusOne, endLine);

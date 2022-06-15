@@ -68,7 +68,7 @@ namespace ICSharpCode.AvalonEdit.Highlighting
 			int endFragment = startFragment + Encoding.UTF8.GetByteCount(htmlFragment);
 			int endHTML = endFragment + htmlEnd.Length;
 			string cf_html = BuildHeader(startHTML, endHTML, startFragment, endFragment) + htmlStart + htmlFragment + htmlEnd;
-			Debug.WriteLine(cf_html);
+			//Debug.WriteLine(cf_html);
 			dataObject.SetText(cf_html, TextDataFormat.Html);
 		}
 

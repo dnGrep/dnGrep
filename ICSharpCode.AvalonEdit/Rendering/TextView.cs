@@ -884,7 +884,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 			// Sometimes we still have invalid lines after UpdateLayout - work around the problem
 			// by calling MeasureOverride directly.
 			if (!VisualLinesValid) {
-				Debug.WriteLine("UpdateLayout() failed in EnsureVisualLines");
+				//Debug.WriteLine("UpdateLayout() failed in EnsureVisualLines");
 				MeasureOverride(lastAvailableSize);
 			}
 			if (!VisualLinesValid)
@@ -973,7 +973,7 @@ namespace ICSharpCode.AvalonEdit.Rendering
 			TextRunProperties globalTextRunProperties = CreateGlobalTextRunProperties();
 			VisualLineTextParagraphProperties paragraphProperties = CreateParagraphProperties(globalTextRunProperties);
 
-			Debug.WriteLine("Measure availableSize=" + availableSize + ", scrollOffset=" + scrollOffset);
+			//Debug.WriteLine("Measure availableSize=" + availableSize + ", scrollOffset=" + scrollOffset);
 			var firstLineInView = heightTree.GetLineByVisualPosition(scrollOffset.Y);
 
 			// number of pixels clipped from the first visual line(s)
