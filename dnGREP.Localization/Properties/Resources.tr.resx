@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About_AboutDnGREP" xml:space="preserve">
+    <value>dnGrep Hakkında</value>
+    <comment>About dialog window title</comment>
+  </data>
+  <data name="About_BuiltOn" xml:space="preserve">
+    <value>Sürüm tarihi</value>
+    <comment>About dialog label</comment>
+  </data>
+  <data name="About_DnGREP" xml:space="preserve">
+    <value>dnGrep</value>
+    <comment>About dialog text</comment>
+  </data>
+  <data name="About_DnGrepOnGitHub" xml:space="preserve">
+    <value>GitHub'da dnGrep</value>
+    <comment>About dialog text</comment>
+  </data>
+  <data name="BookmarkDetails_AssociatedFolders" xml:space="preserve">
+    <value>İlişkili klasörler:</value>
+    <comment>Bookmark details dialog, text input box label</comment>
+  </data>
+  <data name="BookmarkDetails_Cancel" xml:space="preserve">
+    <value>İptal</value>
+    <comment>Bookmark details dialog, cancel button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_DescriptionHeader" xml:space="preserve">
+    <value>Tanım</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_Duplicate" xml:space="preserve">
+    <value>Çoğalt</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_Edit" xml:space="preserve">
+    <value>Düzenle</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_ReplaceWithHeader" xml:space="preserve">
+    <value>şununla değiştir</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Options_FontFamily" xml:space="preserve">
+    <value>Yazı tipi</value>
+    <comment>Options dialog, font selector label</comment>
+  </data>
+  <data name="About_OK" xml:space="preserve">
+    <value>Tamam</value>
+    <comment>About dialog button label</comment>
+  </data>
+  <data name="About_Version" xml:space="preserve">
+    <value>Sürüm</value>
+    <comment>About dialog label</comment>
+  </data>
+  <data name="Bookmarks_Add" xml:space="preserve">
+    <value>Ekle</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_Close" xml:space="preserve">
+    <value>Kapat</value>
+    <comment>Bookmarks dialog, button text (accel)</comment>
+  </data>
+  <data name="Bookmarks_Delete" xml:space="preserve">
+    <value>Sil</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_OK" xml:space="preserve">
+    <value>Tamam</value>
+    <comment>Bookmark details dialog, button label</comment>
+  </data>
+  <data name="Help_OK" xml:space="preserve">
+    <value>Tamam</value>
+    <comment>Help dialog button label</comment>
+  </data>
+  <data name="MessageBox_DnGrep" xml:space="preserve">
+    <value>dnGrep</value>
+    <comment>Message box title</comment>
+  </data>
+  <data name="Main_DnGREP_Title" xml:space="preserve">
+    <value>dnGrep</value>
+    <comment>Main window, title label – near menu bar</comment>
+  </data>
+  <data name="Rename_Cancel" xml:space="preserve">
+    <value>İptal</value>
+    <comment>Rename file dialog button label</comment>
+  </data>
+  <data name="Rename_OK" xml:space="preserve">
+    <value>Tamam</value>
+    <comment>Rename file dialog button label</comment>
+  </data>
+  <data name="Replace_Cancel" xml:space="preserve">
+    <value>İptal</value>
+    <comment>Replace window, Cancel button text</comment>
+  </data>
+  <data name="Replace_OK" xml:space="preserve">
+    <value>Tamam</value>
+    <comment>Replace window, OK button text</comment>
+  </data>
+  <data name="Options_PluginEnabled" xml:space="preserve">
+    <value>Etkinleştir</value>
+    <comment>Options dialog, plug-ins checkbox label</comment>
+  </data>
+  <data name="Options_PluginOptions" xml:space="preserve">
+    <value>Eklentiler</value>
+    <comment>Options dialog, Plug-ins group header label</comment>
+  </data>
+  <data name="BookmarkDetails_Content_Group" xml:space="preserve">
+    <value>İçerik</value>
+    <comment>Bookmark details dialog, search group header label (accel)</comment>
+  </data>
+  <data name="Options_HelpTranslateDnGrep" xml:space="preserve">
+    <value>dnGrep tercümesine yardım et.</value>
+    <comment>Options dialog, language request label</comment>
+  </data>
+  <data name="Options_Language" xml:space="preserve">
+    <value>Dil</value>
+    <comment>Options dialog, language group header label</comment>
+  </data>
+  <data name="Options_PdfToTextReset" xml:space="preserve">
+    <value>Sıfırla</value>
+    <comment>Options dialog, PDF arguments button label (accel)</comment>
+  </data>
+  <data name="Options_PluginAdd" xml:space="preserve">
+    <value>Ekle</value>
+    <comment>Options dialog, plug-in options text input label</comment>
+  </data>
+  <data name="Options_PluginDefault" xml:space="preserve">
+    <value>Varsayılan</value>
+    <comment>Options dialog, plug-in options text input label</comment>
+  </data>
+  <data name="Options_PluginExtensions" xml:space="preserve">
+    <value>Uzantılar:</value>
+    <comment>Options dialog, plug-in options label</comment>
+  </data>
+  <data name="Options_PluginRemove" xml:space="preserve">
+    <value>Çıkar</value>
+    <comment>Options dialog, plug-in options text input label</comment>
+  </data>
+  <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
+    <value>Seçeneklerle ilgili yardım için F1'e basın</value>
+    <comment>Options dialog, help label</comment>
+  </data>
+  <data name="Options_Reload" xml:space="preserve">
+    <value>Yeniden yükle</value>
+    <comment>Options dialog, theme reload button label (accel)</comment>
+  </data>
+  <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
+    <value>Geçerli tema dosyasını yeniden yükleyin [Ctrl+F5]</value>
+    <comment>Options dialog, theme reload button tooltip</comment>
+  </data>
+  <data name="Options_SelectedTheme" xml:space="preserve">
+    <value>Seçili tema</value>
+    <comment>Options dialog, theme selector label</comment>
+  </data>
+  <data name="Options_ShowDnGrepInExplorerRightClickMenu" xml:space="preserve">
+    <value>Windows sağ tıklama menüsünde dnGrep'i göster</value>
+    <comment>Options dialog, startup options, checkbox label (accel)</comment>
+  </data>
+  <data name="Options_ShowFilePathInResultsPanel" xml:space="preserve">
+    <value>Dosya konumunu sonuç panelinde göster</value>
+    <comment>Options dialog, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Window_Close" xml:space="preserve">
+    <value>Kapat</value>
+    <comment>Window title bar close button tooltip</comment>
+  </data>
+  <data name="Window_DockThisPopUpBackIntoTheMainWindow" xml:space="preserve">
+    <value>Bu ayrık pencereyi ana pencereyle birleştir</value>
+    <comment>Docking window docking button tooltip</comment>
+  </data>
+  <data name="Window_Maximize" xml:space="preserve">
+    <value>Ekranı Kapla</value>
+    <comment>Window title bar button tooltip</comment>
+  </data>
+  <data name="Window_Minimize" xml:space="preserve">
+    <value>Simge Durumuna</value>
+    <comment>Window title bar button tooltip</comment>
+  </data>
+  <data name="Window_PopThisPanelOutIntoItsOwnWindow" xml:space="preserve">
+    <value>Bu paneli ana pencereden ayır</value>
+    <comment>Docking window button tooltip</comment>
+  </data>
+</root>
