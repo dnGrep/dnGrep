@@ -2457,4 +2457,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <value>Предыдущий файл</value>
     <comment>Main windows, results list, context menu item label</comment>
   </data>
+  <data name="Main_Results_NextFile" xml:space="preserve">
+    <value>Следующий файл</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="Main_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>Пропускать файлы удаленного облачного хранилища</value>
+    <comment>Main window, search option label</comment>
+  </data>
+  <data name="BookmarkDetails_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>Пропускать файлы удаленного облачного хранилища</value>
+    <comment>Bookmark details dialog, checkbox label (accel)</comment>
+  </data>
 </root>
