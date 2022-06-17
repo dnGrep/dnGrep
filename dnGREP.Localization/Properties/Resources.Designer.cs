@@ -2432,11 +2432,11 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search completed – searched {0} files, found {1} files in {2}..
+        ///   Looks up a localized string similar to Search completed in {0} – {1} matches found in {2} files of {3} searched..
         /// </summary>
-        public static string Main_Status_SearchCompleteSearched0FilesFound1FilesIn2 {
+        public static string Main_Status_SearchCompletedIn0_1MatchesFoundIn2FilesOf3Searched {
             get {
-                return ResourceManager.GetString("Main_Status_SearchCompleteSearched0FilesFound1FilesIn2", resourceCulture);
+                return ResourceManager.GetString("Main_Status_SearchCompletedIn0_1MatchesFoundIn2FilesOf3Searched", resourceCulture);
             }
         }
         
