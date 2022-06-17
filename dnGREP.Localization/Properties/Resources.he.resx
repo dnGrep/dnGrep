@@ -1205,10 +1205,6 @@ Arguments:
     <value>החיפוש בוטל או נכשל</value>
     <comment>Main window, status bar message</comment>
   </data>
-  <data name="Main_Status_SearchCompleteSearched0FilesFound1FilesIn2" xml:space="preserve">
-    <value>החיפוש הסתיים - חופשו {0} קבצים. נמצאו {1} קבצים ב- {2}.</value>
-    <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found; {2} is the duration of the search</comment>
-  </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFiles" xml:space="preserve">
     <value>חופשו {0} קבצים. נמצאו {1} התאמות קבצים.</value>
     <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found</comment>
