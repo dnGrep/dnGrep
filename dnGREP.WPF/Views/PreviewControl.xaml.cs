@@ -18,7 +18,6 @@ namespace dnGREP.WPF
     public partial class PreviewControl : UserControl
     {
         private readonly SearchPanel searchPanel;
-        private DockFloat.DockSite dockSite;
 
         public PreviewControl()
         {
@@ -40,17 +39,17 @@ namespace dnGREP.WPF
             popOutButton.Click += (s, e) =>
             {
                 var ds = VisualTreeHelper.GetParent(previewPanel);
-                do ds = VisualTreeHelper.GetParent(ds);
-                while (!(ds is DockFloat.DockSite));
-                dockSite = ds as DockFloat.DockSite;
-                if (dockSite != null)
+                do
                 {
-                    dockSite.PopOut(false);
+                    ds = VisualTreeHelper.GetParent(ds);
+                    if (ds is DockFloat.DockSite)
+                    {
+                        (s as Button).Visibility = Visibility.Hidden;
+                        (ds as DockFloat.DockSite).PopOut(false);
+                        break;
+                    }
                 }
-                else
-                {
-
-                }
+                while (ds != null);
             };
             AppTheme.Instance.CurrentThemeChanged += (s, e) =>
             {

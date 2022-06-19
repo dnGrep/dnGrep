@@ -171,8 +171,8 @@ namespace dnGREP.DockFloat
         void DockIn()
         {
             BindingOperations.ClearAllBindings(floatingWindow);
-            floatingWindow = null;
             RestoreContentToDock();
+            floatingWindow = null;
 
             if (!mainWindowClosing)
             {
@@ -198,6 +198,9 @@ namespace dnGREP.DockFloat
             if (savedContentState != null)
             {
                 Content = savedContentState.Restore();
+                var popOutButton = Content.FindChild<Button>("btnPopOutButton");
+                if (popOutButton != null)
+                    popOutButton.Visibility = Visibility.Visible;
             }
             savedContentState = null;
         }

@@ -277,28 +277,36 @@ namespace dnGREP.WPF
 
         private void ViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "IsPreviewDocked")
+            switch (e.PropertyName)
             {
-                AutoPosistionPreviewWindow(ActualWidth / ActualHeight);
-            }
-            else if (e.PropertyName == "PreviewAutoPosition")
-            {
-                AutoPosistionPreviewWindow(ActualWidth / ActualHeight);
-            }
-            else if (e.PropertyName == "PreviewDockSide")
-            {
-                SetActivePreviewDockSite();
+                case "IsPreviewDocked":
+                case "PreviewAutoPosition":
+                    AutoPosistionPreviewWindow(ActualWidth / ActualHeight);
+                    break;
+                case "PreviewFileContent":
+                    if (chkPreview.IsChecked == true)
+                        ViewModel_PreviewHide(sender, e);
+                    else
+                        ViewModel_PreviewShow(sender, e);
+                    break;
+                case "IsPreviewHidden":
+                    // TODO when the float window close the preview checkbox should be unchecked
+                    //chkPreview.IsChecked = false;
+                    break;
+                case "PreviewDockSide":
+                    SetActivePreviewDockSite();
 
-                // if the user manually selects the other dock location, turn off auto positioning
-                double ratio = ActualWidth / ActualHeight;
-                if (ratio > UpperThreshold && viewModel.PreviewDockSide == Dock.Bottom)
-                {
-                    viewModel.PreviewAutoPosition = false;
-                }
-                else if (ratio < LowerThreshold && viewModel.PreviewDockSide == Dock.Right)
-                {
-                    viewModel.PreviewAutoPosition = false;
-                }
+                    // if the user manually selects the other dock location, turn off auto positioning
+                    double ratio = ActualWidth / ActualHeight;
+                    if (ratio > UpperThreshold && viewModel.PreviewDockSide == Dock.Bottom)
+                    {
+                        viewModel.PreviewAutoPosition = false;
+                    }
+                    else if (ratio < LowerThreshold && viewModel.PreviewDockSide == Dock.Right)
+                    {
+                        viewModel.PreviewAutoPosition = false;
+                    }
+                    break;
             }
         }
 
