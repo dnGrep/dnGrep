@@ -1721,7 +1721,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Regular expression.
+        ///   Looks up a localized string similar to _Regex.
         /// </summary>
         public static string Main_PatternType_Regex {
             get {
@@ -2180,7 +2180,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Regular expression.
+        ///   Looks up a localized string similar to _Regex.
         /// </summary>
         public static string Main_SearchType_Regex {
             get {
@@ -2189,7 +2189,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Regular expression search.
+        ///   Looks up a localized string similar to Regex search.
         /// </summary>
         public static string Main_SearchType_RegularExpressionSearch {
             get {

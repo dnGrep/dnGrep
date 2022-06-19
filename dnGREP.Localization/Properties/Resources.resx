@@ -942,7 +942,7 @@ Arguments:
     <comment>Main window, Everything pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_PatternType_Regex" xml:space="preserve">
-    <value>_Regular expression</value>
+    <value>_Regex</value>
     <comment>Main window, Regular expression pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_PowerPointSlideNumber" xml:space="preserve">
@@ -1146,11 +1146,11 @@ Arguments:
     <comment>Main window, Byte search type tooltip</comment>
   </data>
   <data name="Main_SearchType_Regex" xml:space="preserve">
-    <value>_Regular expression</value>
+    <value>_Regex</value>
     <comment>Main window, Regular expression search type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchType_RegularExpressionSearch" xml:space="preserve">
-    <value>Regular expression search</value>
+    <value>Regex search</value>
     <comment>Main window, Regular expression search type tooltip</comment>
   </data>
   <data name="Main_SearchType_Text" xml:space="preserve">
