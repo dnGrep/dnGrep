@@ -1225,11 +1225,15 @@ namespace dnGREP.WPF
                     {
                         TimeSpan duration = DateTime.Now.Subtract(timer);
                         int successCount = 0;
+                        int matchCount = 0;
                         if (e.Result is List<GrepSearchResult> results)
+                        {
                             successCount = results.Where(r => r.IsSuccess).Count();
+                            matchCount = results.Where(r => r.IsSuccess).SelectMany(r => r.Matches).Count();
+                        }
 
-                        StatusMessage = TranslationSource.Format(Resources.Main_Status_SearchCompleteSearched0FilesFound1FilesIn2,
-                            processedFiles, successCount, duration.GetPrettyString());
+                        StatusMessage = TranslationSource.Format(Resources.Main_Status_SearchCompletedIn0_1MatchesFoundIn2FilesOf3Searched,
+                            duration.GetPrettyString(), matchCount, successCount, processedFiles);
 
                         if (IsEverythingSearchMode && Everything.EverythingSearch.CountMissingFiles > 0)
                         {

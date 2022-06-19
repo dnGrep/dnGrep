@@ -238,7 +238,7 @@ namespace ICSharpCode.AvalonEdit.Utils
 			if (condition) {
 				string output = DateTime.Now.ToString("hh:MM:ss") + ": " + string.Format(format, args) + Environment.NewLine + Environment.StackTrace;
 				Console.WriteLine(output);
-				Debug.WriteLine(output);
+				//Debug.WriteLine(output);
 			}
 		}
 	}

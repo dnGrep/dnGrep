@@ -204,6 +204,7 @@ namespace dnGREP.WPF
                 if (value == replaceOutputText)
                     return;
 
+                replaceOutputText = value;
                 base.OnPropertyChanged(nameof(ReplaceOutputText));
             }
         }

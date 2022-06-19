@@ -64,7 +64,7 @@ namespace dnGREP.TestLocalizedStrings
             list.Add(new ResourceString("Main_ResultList_MatchToolTip2", TranslationSource.Format(Resources.Main_ResultList_MatchToolTip2, 2, Environment.NewLine, 1, "fox")));
             list.Add(new ResourceString("Main_ResultList_PlusCountMoreMatches", TranslationSource.Format(Resources.Main_ResultList_PlusCountMoreMatches, 7)));
             list.Add(new ResourceString("Main_Status_ReplaceComplete0FilesReplaced", TranslationSource.Format(Resources.Main_Status_ReplaceComplete0FilesReplaced, 6)));
-            list.Add(new ResourceString("Main_Status_SearchCompleteSearched0FilesFound1FilesIn2", TranslationSource.Format(Resources.Main_Status_SearchCompleteSearched0FilesFound1FilesIn2, 7, 3, "0.184s")));
+            list.Add(new ResourceString("Main_Status_SearchCompletedIn0_1MatchesFoundIn2FilesOf3Searched", TranslationSource.Format(Resources.Main_Status_SearchCompletedIn0_1MatchesFoundIn2FilesOf3Searched, "0.184s", 42, 3, 7)));
             list.Add(new ResourceString("Main_Status_Searched0FilesFound1MatchingFiles", TranslationSource.Format(Resources.Main_Status_Searched0FilesFound1MatchingFiles, 7, 3)));
             list.Add(new ResourceString("Main_Status_Searched0FilesFound1MatchingFilesProcessing2", TranslationSource.Format(Resources.Main_Status_Searched0FilesFound1MatchingFilesProcessing2, 4, 2, "large.xml")));
             list.Add(new ResourceString("Main_WindowTitle", TranslationSource.Format(Resources.Main_WindowTitle, "test", @"C:\testFiles\test")));

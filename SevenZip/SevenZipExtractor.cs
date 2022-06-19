@@ -573,7 +573,7 @@ namespace SevenZip
                                 }
                                 else
                                 {
-                                    Debug.WriteLine($"An unknown archive property encountered (code {((int)propId).ToString(CultureInfo.InvariantCulture)})");
+                                    //Debug.WriteLine($"An unknown archive property encountered (code {((int)propId).ToString(CultureInfo.InvariantCulture)})");
                                 }
                             }
 

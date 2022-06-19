@@ -1257,9 +1257,9 @@ Arguments:
     <value>Search canceled or failed</value>
     <comment>Main window, status bar message</comment>
   </data>
-  <data name="Main_Status_SearchCompleteSearched0FilesFound1FilesIn2" xml:space="preserve">
-    <value>Search completed – searched {0} files, found {1} files in {2}.</value>
-    <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found; {2} is the duration of the search</comment>
+  <data name="Main_Status_SearchCompletedIn0_1MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
+    <value>Search completed in {0} – {1} matches found in {2} files of {3} searched.</value>
+    <comment>Main window, status bar message: {0} is the duration of the search; {1}  is the total number of matches found; {2} is the number of files with matches found; {3} is the total number of files searched; </comment>
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFiles" xml:space="preserve">
     <value>Searched {0} files, found {1} matching files.</value>
