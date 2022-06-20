@@ -136,13 +136,17 @@
                     </Menu.Resources>
                     <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Menu_Undo'}"
                               Command="{Binding UndoCommand}"
-                              TabIndex="0" />
-                    <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Menu_Options'}"
-                              Command="{Binding OptionsCommand}"
-                              TabIndex="1" />
+                              TabIndex="0" 
+                              Visibility="{Binding ReplaceVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                    <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Menu_Settings'}" TabIndex="1">
+                        <MenuItem Header="{l:Loc Key='Main_Menu_Personalize'}" IsCheckable="True" IsChecked="{Binding PersonalizationOn}"/>
+                        <MenuItem Header="{l:Loc Key='Main_Menu_Options'}"
+                              Command="{Binding OptionsCommand}"/>
+                    </MenuItem>
                     <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Menu_Bookmarks'}"
                               Command="{Binding BookmarkOpenCommand}"
-                              TabIndex="2" />
+                              TabIndex="2"
+                              Visibility="{Binding BookmarksVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                     <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Menu_About'}" TabIndex="3">
                         <MenuItem Command="{Binding HelpCommand}" Header="{l:Loc Key='Main_Menu_About_Help'}" />
                         <MenuItem Command="{Binding CheckForUpdatesCommand}" Header="{l:Loc Key='Main_Menu_About_CheckForUpdates'}"/>
@@ -159,7 +163,8 @@
                         <CheckBox Margin="3,0,10,0" Background="{DynamicResource Control.Static.Background}"
                                   ToolTip="{Binding ResultOptionsButtonTooltip}"
                                   Template="{DynamicResource ExpanderButtonTemplate}"
-                                  IsChecked="{Binding IsResultOptionsExpanded}" />
+                                  IsChecked="{Binding IsResultOptionsExpanded}"
+                                  Visibility="{Binding ResultsTreeOptionsExpanderVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                         <ProgressBar Width="150" Height="18" Margin="3,0"
                                      IsIndeterminate="{Binding IsOperationInProgress}" />
                         <TextBlock Margin="3,0"
@@ -182,18 +187,21 @@
                 <CheckBox Content="{l:Loc Key='Main_HighlightMatches'}" Margin="10,3,6,3"                                  
                           IsChecked="{Binding HighlightsOn}"
                           Command="{Binding HighlightsCommand}" 
-                          TabIndex="91"/>
+                          TabIndex="91"
+                          Visibility="{Binding HighlightMatchesVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                 <CheckBox Content="{l:Loc Key='Main_HighlightGroups'}" Margin="6,3"                                  
-                            IsChecked="{Binding HighlightCaptureGroups}"
-                            IsEnabled="{Binding Path=IsHighlightGroupsEnabled}"
-                            ToolTip="{l:Loc Key='Main_HighlightRegularExpressionGroups'}"
-                            TabIndex="92"/>
-                <StackPanel Orientation="Horizontal">
+                          IsChecked="{Binding HighlightCaptureGroups}"
+                          IsEnabled="{Binding Path=IsHighlightGroupsEnabled}"
+                          ToolTip="{l:Loc Key='Main_HighlightRegularExpressionGroups'}"
+                          TabIndex="92"
+                          Visibility="{Binding HighlightGroupsVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                <StackPanel Orientation="Horizontal"
+                            Visibility="{Binding ShowContextLinesVisible, Converter={StaticResource BoolToVisibilityConverter}}">
                     <CheckBox Content="{l:Loc Key='Main_ContextShowLines'}" Name="cbShowContext" Margin="6,3,3,3" HorizontalAlignment="Center"
                               ToolTip="{l:Loc Key='Main_ContextChangesWillBeAppliedInNextSearch'}"
                               IsChecked="{Binding Path=ShowLinesInContext}"
                               TabIndex="93"/>
-                    <TextBox Margin="3,0,0,0"
+                    <TextBox Margin="3,3,0,0"
                              Text="{Binding Path=ContextLinesBefore, UpdateSourceTrigger=PropertyChanged}"
                              IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}" 
                              TabIndex="94">
@@ -206,7 +214,8 @@
                         </TextBox.Width>
                     </TextBox>
                     <Label Content="{l:Loc Key='Main_ContextBeforeAnd'}" />
-                    <TextBox Text="{Binding Path=ContextLinesAfter, UpdateSourceTrigger=PropertyChanged}"
+                    <TextBox Margin="0,3,0,0"
+                             Text="{Binding Path=ContextLinesAfter, UpdateSourceTrigger=PropertyChanged}"
                              IsEnabled="{Binding ElementName=cbShowContext, Path=IsChecked}" 
                              TabIndex="95">
                         <TextBox.Width>
@@ -219,7 +228,8 @@
                     </TextBox>
                     <Label Content="{l:Loc Key='Main_ContextAfter'}" />
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal"
+                            Visibility="{Binding ZoomResultsTreeVisible, Converter={StaticResource BoolToVisibilityConverter}}">
                     <Label Margin="12,0,3,0" Content="{l:Loc Key='Main_Zoom'}" 
                            ToolTip="{l:Loc Key='Main_ChangesTheResultsTreeZoom'}"/>
                     <Slider Width="180" Margin="0,0,3,0" VerticalAlignment="Center"
@@ -232,7 +242,8 @@
                 </StackPanel>
                 <CheckBox Content="{l:Loc Key='Main_WrapText'}" Margin="10,3,6,3"                                  
                           IsChecked="{Binding SearchResults.WrapText}"
-                          TabIndex="98"/>
+                          TabIndex="98"
+                          Visibility="{Binding WrapTextResultsTreeVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
             </WrapPanel>
 
             <DockPanel Margin="4,0" LastChildFill="True">
@@ -324,17 +335,20 @@
                                         <CheckBox Grid.Row="1" Grid.Column="0" Margin="3,3,3,6"
                                                   IsChecked="{Binding SearchParallel}"
                                                   Content="{l:Loc Key='Main_SearchParallel'}" TabIndex="42"
-                                                  ToolTip="{l:Loc Key='Main_SearchFilesInMultipleThreads'}" />
+                                                  ToolTip="{l:Loc Key='Main_SearchFilesInMultipleThreads'}"
+                                                  Visibility="{Binding SearchParallelVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                         <CheckBox Grid.Row="1" Grid.Column="1" Margin="3,3,3,6"
                                                   IsChecked="{Binding UseGitignore}"
                                                   Content="{l:Loc Key='Main_UseGitignore'}" TabIndex="43"
-                                                  Visibility="{Binding IsGitInstalled, Converter={StaticResource BoolToVisibilityConverter}}"
-                                                  ToolTip="{l:Loc Key='Main_UseGitignoreToFilterFiles'}" />
+                                                  ToolTip="{l:Loc Key='Main_UseGitignoreToFilterFiles'}" 
+                                                  Visibility="{Binding CompositeUseGitIgnoreVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
                                         <CheckBox Grid.Row="2" Grid.Column="0" Margin="3,3,3,3"
                                                   IsChecked="{Binding Path=SkipRemoteCloudStorageFiles}"
-                                                  TabIndex="44" Content="{l:Loc Key='Main_SkipRemoteCloudStorageFiles'}"/>
+                                                  TabIndex="44" Content="{l:Loc Key='Main_SkipRemoteCloudStorageFiles'}"
+                                                  Visibility="{Binding SkipCloudStorageVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                         <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
-                                                    Margin="3" VerticalAlignment="Center" Orientation="Horizontal">
+                                                    Margin="3" VerticalAlignment="Center" Orientation="Horizontal"
+                                                    Visibility="{Binding EncodingVisible, Converter={StaticResource BoolToVisibilityConverter}}">
                                             <Label Margin="3,0,3,3" Content="{l:Loc Key='Main_Encoding'}"
                                                    Style="{DynamicResource ThemedLabel}"
                                                    Target="{Binding ElementName=cbEncoding}"/>
@@ -396,12 +410,14 @@
                                                       IsChecked="{Binding BooleanOperators}"
                                                       IsEnabled="{Binding IsBooleanOperatorsEnabled}"
                                                       TabIndex="48" Content="{l:Loc Key='Main_BooleanOperators'}" 
-                                                      ToolTip="{l:Loc Key='Main_CombineMultipleSearchPatternsUsingANDOrOR'}"/>
+                                                      ToolTip="{l:Loc Key='Main_CombineMultipleSearchPatternsUsingANDOrOR'}"
+                                                      Visibility="{Binding BooleanOperatorsVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                             <CheckBox Grid.Row="2" Grid.Column="1" Margin="3,0,3,3"
                                                       IsChecked="{Binding CaptureGroupSearch}"
                                                       IsEnabled="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}"
                                                       TabIndex="48" Content="{l:Loc Key='Main_CaptureGroupSearch'}" 
-                                                      ToolTip="{l:Loc Key='Main_UseCaptureGroupsFromPathsToMatch'}"/>
+                                                      ToolTip="{l:Loc Key='Main_UseCaptureGroupsFromPathsToMatch'}"
+                                                      Visibility="{Binding CaptureGroupSearchVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                         </Grid>
                                     </Grid>
                                     <!-- Left and middle panels in the expander wrap for narrow windows -->
@@ -410,8 +426,10 @@
                                         <StackPanel x:Name="LeftFileOptions" Margin="3,5,15,0">
                                             <RadioButton Name="rbFilterAllSizes" Margin="3,0,3,3" GroupName="SizeFilter"
                                                          TabIndex="20" Content="{l:Loc Key='Main_AllSizes'}"
-                                                         IsChecked="{Binding Path=UseFileSizeFilter, Converter={StaticResource ebc}, ConverterParameter=No}" />
-                                            <StackPanel Orientation="Horizontal">
+                                                         IsChecked="{Binding Path=UseFileSizeFilter, Converter={StaticResource ebc}, ConverterParameter=No}" 
+                                                         Visibility="{Binding SizeFilterVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            <StackPanel Orientation="Horizontal"
+                                                        Visibility="{Binding SizeFilterVisible, Converter={StaticResource BoolToVisibilityConverter}}">
                                                 <RadioButton Name="rbFilterSpecificSize" Margin="3,0,3,3" GroupName="SizeFilter"
                                                              TabIndex="21" Content="{l:Loc Key='Main_SizeIs'}"
                                                              IsChecked="{Binding Path=UseFileSizeFilter, Converter={StaticResource ebc}, ConverterParameter=Yes}" />
@@ -462,8 +480,10 @@
                                             </StackPanel>
                                             <CheckBox Name="cbIncludeSubfolders" Margin="3,0,3,3"
                                                       IsChecked="{Binding Path=IncludeSubfolder}"
-                                                      TabIndex="24" Content="{l:Loc Key='Main_IncludeSubfolders'}" />
-                                            <StackPanel Orientation="Horizontal" Margin="26,0">
+                                                      TabIndex="24" Content="{l:Loc Key='Main_IncludeSubfolders'}"
+                                                      Visibility="{Binding SubfoldersFilterVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                            <StackPanel Orientation="Horizontal" Margin="26,0"
+                                                        Visibility="{Binding SubfoldersFilterVisible, Converter={StaticResource BoolToVisibilityConverter}}">
                                                 <Label Margin="3,0,3,3" Content="{l:Loc Key='Main_MaxDepth'}"
                                                        Style="{DynamicResource ThemedLabel}"
                                                        Target="{Binding ElementName=tbMaxDepth}"/>
@@ -491,17 +511,21 @@
 
                                             <CheckBox Name="cbIncludeHiddenFolders" Margin="3,0,3,3"
                                                       IsChecked="{Binding Path=IncludeHidden}"
-                                                      TabIndex="26" Content="{l:Loc Key='Main_IncludeHiddenFolders'}" />
+                                                      TabIndex="26" Content="{l:Loc Key='Main_IncludeHiddenFolders'}"
+                                                      Visibility="{Binding HiddenFilterVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                             <CheckBox Name="cbIncludeBinary" Margin="3,0,3,3"
                                                       IsChecked="{Binding Path=IncludeBinary}"
-                                                      TabIndex="27" Content="{l:Loc Key='Main_IncludeBinaryFiles'}" />
+                                                      TabIndex="27" Content="{l:Loc Key='Main_IncludeBinaryFiles'}"
+                                                      Visibility="{Binding BinaryFilterVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                             <CheckBox Name="cbFollowSymlinks" Margin="3,0,3,3"
                                                       IsChecked="{Binding Path=FollowSymlinks}"
-                                                      TabIndex="28" Content="{l:Loc Key='Main_FollowSymbolicLinks'}" />
+                                                      TabIndex="28" Content="{l:Loc Key='Main_FollowSymbolicLinks'}"
+                                                      Visibility="{Binding SymbolicLinkFilterVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                         </StackPanel>
                                         <!--  middle panel -->
                                         <StackPanel x:Name="MiddleFileOptions" Margin="3,5,15,3" VerticalAlignment="Top"
-                                                    Orientation="Vertical">
+                                                    Orientation="Vertical"
+                                                    Visibility="{Binding DateFilterVisible, Converter={StaticResource BoolToVisibilityConverter}}">
                                             <StackPanel Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Center"
                                                         Orientation="Horizontal">
                                                 <RadioButton Margin="3,0,3,3" GroupName="DateFilter" Content="{l:Loc Key='Main_AllDates'}"
@@ -621,7 +645,7 @@
                                   VerticalAlignment="Top"
                                   IsChecked="{Binding Path=IncludeArchive}"
                                   TabIndex="13" Content="{l:Loc Key='Main_SearchInArchives'}"
-                                  Visibility="{Binding CanSearchArchives, Converter={StaticResource BoolToVisibilityConverter}}" />
+                                  Visibility="{Binding CompositeSearchInArchivesVisible, Converter={StaticResource BoolToVisibilityConverter}}" />
                         <Label Name="pathsToIgnoreLabel" Grid.Row="1" Grid.Column="3"
                                Margin="3,8" HorizontalAlignment="Right" VerticalAlignment="Top"
                                Content="{l:Loc Key='Main_PatternsToExclude'}"
@@ -651,38 +675,45 @@
                             <WrapPanel Margin="0,3,0,0" Orientation="Horizontal" Grid.Column="0">
                                 <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_Regex'}" GroupName="SearchType"
                                              IsChecked="{Binding TypeOfSearch, ConverterParameter=Regex, Converter={StaticResource ebc}}"
-                                             ToolTip="{l:Loc Key='Main_SearchType_RegularExpressionSearch'}" TabIndex="50" />
+                                             ToolTip="{l:Loc Key='Main_SearchType_RegularExpressionSearch'}" TabIndex="50" 
+                                             Visibility="{Binding SearchTypeRegexVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                 <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_XPath'}" GroupName="SearchType"
                                              IsChecked="{Binding TypeOfSearch, ConverterParameter=XPath, Converter={StaticResource ebc}}"
-                                             ToolTip="{l:Loc Key='Main_SearchType_XPathSearchXMLDocumentsOnly'}" TabIndex="51" />
+                                             ToolTip="{l:Loc Key='Main_SearchType_XPathSearchXMLDocumentsOnly'}" TabIndex="51" 
+                                             Visibility="{Binding SearchTypeXPathVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                 <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_Text'}" GroupName="SearchType"
                                              IsChecked="{Binding TypeOfSearch, ConverterParameter=PlainText, Converter={StaticResource ebc}}"
-                                             ToolTip="{l:Loc Key='Main_SearchType_PlainTextSearch'}" TabIndex="52" />
+                                             ToolTip="{l:Loc Key='Main_SearchType_PlainTextSearch'}" TabIndex="52" 
+                                             Visibility="{Binding SearchTypeTextVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                 <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_Phonetic'}" GroupName="SearchType"
                                              IsChecked="{Binding TypeOfSearch, ConverterParameter=Soundex, Converter={StaticResource ebc}}"
-                                             ToolTip="{l:Loc Key='Main_SearchType_PhoneticSearch'}" TabIndex="53" />
+                                             ToolTip="{l:Loc Key='Main_SearchType_PhoneticSearch'}" TabIndex="53" 
+                                             Visibility="{Binding SearchTypePhoneticVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                 <RadioButton Margin="3" Content="{l:Loc Key='Main_SearchType_Hex'}" GroupName="SearchType"
                                              IsChecked="{Binding TypeOfSearch, ConverterParameter=Hex, Converter={StaticResource ebc}}"
-                                             ToolTip="{l:Loc Key='Main_SearchType_ReadFileAsBinaryAndSearchForBytes'}" TabIndex="54" />
+                                             ToolTip="{l:Loc Key='Main_SearchType_ReadFileAsBinaryAndSearchForBytes'}" TabIndex="54" 
+                                             Visibility="{Binding SearchTypeByteVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                             </WrapPanel>
                             <DockPanel Grid.Column="1">
                                 <Button Margin="3,0" Padding="8,3"
                                         Content="{l:Loc Key='Main_TestExpression'}"
                                         Command="{Binding TestCommand}"
-                                        DockPanel.Dock="Right" TabIndex="56" />
+                                        DockPanel.Dock="Right" TabIndex="56" 
+                                        Visibility="{Binding TestExpressionVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                 <CheckBox Margin="0,0,3,0"
                                           ToolTip="{Binding IsFolderBookmarkedTooltip}"
                                           Template="{DynamicResource PlusMetroButtonTemplate}"
                                           IsChecked="{Binding IsFolderBookmarked}"
                                           Command="{Binding FolderBookmarkAddCommand}"
                                           DockPanel.Dock="Right" TabIndex="55" 
-                                          Visibility="{Binding IsEverythingSearchMode, Converter={StaticResource InverseBoolToVisibilityConverter}}"/>
+                                          Visibility="{Binding CompositeBookmarksVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                 <CheckBox Margin="0,0,3,0"
                                           ToolTip="{Binding IsBookmarkedTooltip}"
                                           Template="{DynamicResource FavsMetroButtonTemplate}"
                                           IsChecked="{Binding IsBookmarked}"
                                           Command="{Binding BookmarkAddCommand}"
-                                          DockPanel.Dock="Right" TabIndex="54" />
+                                          DockPanel.Dock="Right" TabIndex="54"
+                                          Visibility="{Binding BookmarksVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                 <Border HorizontalAlignment="Center"
                                         Background="#12FFFFFF" CornerRadius="3" 
                                         Visibility="{Binding HasValidationMessage, Converter={StaticResource BoolToVisibilityConverter}}">
@@ -713,17 +744,20 @@
                                 <CheckBox Margin="3"
                                           IsChecked="{Binding Singleline}"
                                           IsEnabled="{Binding IsSinglelineEnabled}"
-                                          TabIndex="73" Content="{l:Loc Key='Main_DotAsNewline'}" />
+                                          TabIndex="73" Content="{l:Loc Key='Main_DotAsNewline'}" 
+                                          Visibility="{Binding SearchTypeRegexVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                 <CheckBox Margin="3"
                                           IsChecked="{Binding BooleanOperators}"
                                           IsEnabled="{Binding IsBooleanOperatorsEnabled}"
                                           TabIndex="74" Content="{l:Loc Key='Main_BooleanOperators'}" 
-                                          ToolTip="{l:Loc Key='Main_CombineMultipleSearchPatternsUsingANDOrOR'}"/>
+                                          ToolTip="{l:Loc Key='Main_CombineMultipleSearchPatternsUsingANDOrOR'}"
+                                          Visibility="{Binding BooleanOperatorsVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                                 <CheckBox Margin="3"
                                           IsChecked="{Binding CaptureGroupSearch}"
                                           IsEnabled="{Binding Path=TypeOfFileSearch, Converter={StaticResource ebc}, ConverterParameter=Regex}"
                                           TabIndex="75" Content="{l:Loc Key='Main_CaptureGroupSearch'}" 
-                                          ToolTip="{l:Loc Key='Main_UseCaptureGroupsFromPathsToMatch'}"/>
+                                          ToolTip="{l:Loc Key='Main_UseCaptureGroupsFromPathsToMatch'}"
+                                          Visibility="{Binding CaptureGroupSearchVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                             </WrapPanel>
                         </StackPanel>
                         <Grid>
@@ -773,7 +807,8 @@
                             <Label Grid.Row="2" Grid.Column="0" Margin="3,3,3,4"
                                    Content="{l:Loc Key='Main_ReplaceWith'}" 
                                    Style="{DynamicResource ThemedLabel}"
-                                   Target="{Binding ElementName=tbReplaceWith}"/>
+                                   Target="{Binding ElementName=tbReplaceWith}"
+                                   Visibility="{Binding ReplaceVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                             <my:MultilineComboBox x:Name="tbReplaceWith" Grid.Row="2" Grid.Column="1"
                                       Margin="3,1,3,0" Padding="5"
                                       Text="{Binding ReplaceWith}"
@@ -782,7 +817,8 @@
                                       Style="{DynamicResource MultilineComboBoxStyle}"
                                       IsTextSearchCaseSensitive="True" 
                                       FontFamily="{Binding ResultsFontFamily}" FontSize="{Binding ResultsFontSize}"
-                                      TabIndex="61">
+                                      TabIndex="61"
+                                      Visibility="{Binding ReplaceVisible, Converter={StaticResource BoolToVisibilityConverter}}">
                                 <ComboBox.ToolTip>
                                     <TextBlock>
                                     <Run Text="{l:Loc Key='TTB1_ReplacesEntireRegex'}"/>
@@ -803,14 +839,16 @@
                     <WrapPanel Grid.Column="0" HorizontalAlignment="Right" Orientation="Horizontal">
                         <CheckBox Margin="3,0" Content="{l:Loc Key='Main_SearchInResults'}"
                                   IsChecked="{Binding SearchInResultsContent}"
-                                  Visibility="{Binding CanSearchInResults, Converter={StaticResource BoolToVisibilityConverter}}"
+                                  Visibility="{Binding CompositeSearchInResultsVisible, Converter={StaticResource BoolToVisibilityConverter}}"
                                   TabIndex="80" />
                         <CheckBox x:Name="chkPreview" Margin="3,0" Content="{l:Loc Key='Main_PreviewFile'}"
                                   IsChecked="{Binding PreviewFileContent}"
-                                  TabIndex="81" />
+                                  TabIndex="81" 
+                                  Visibility="{Binding PreviewFileVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                         <CheckBox Margin="3,0" Content="{l:Loc Key='Main_StopAfterFirstMatch'}"
                                   IsChecked="{Binding StopAfterFirstMatch}"
-                                  TabIndex="82" />
+                                  TabIndex="82" 
+                                  Visibility="{Binding StopAfterFirstMatchVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                         <Button Margin="3" Padding="8,3"
                                 Content="{l:Loc Key='Main_SearchButton'}" IsDefault="True"
                                 Command="{Binding SearchCommand}"
@@ -818,11 +856,13 @@
                         <Button Margin="3" Padding="8,3"
                                 Content="{l:Loc Key='Main_ReplaceButton'}"
                                 Command="{Binding ReplaceCommand}"
-                                TabIndex="84" />
+                                TabIndex="84" 
+                                Visibility="{Binding ReplaceVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                         <my:SplitButton Margin="3" Padding="8,3"
                                 Content="{l:Loc Key='Main_SortButton'}"
                                 Command="{Binding SortCommand}"
-                                TabIndex="85">
+                                TabIndex="85"
+                                Visibility="{Binding SortVisible, Converter={StaticResource BoolToVisibilityConverter}}">
                             <my:SplitButton.ContextMenu>
                                 <ContextMenu>
                                     <my:RadioMenuItem Header="{l:Loc Key='Main_SortMenu_PathAndFileNameDepthFirst'}"
@@ -861,7 +901,8 @@
                                 Click="ButtonOtherActions_Click"
                                 ContextMenuService.Placement="Bottom"
                                 IsEnabled="{Binding CanSearchInResults}"
-                                TabIndex="86">
+                                TabIndex="86"
+                                Visibility="{Binding MoreVisible, Converter={StaticResource BoolToVisibilityConverter}}">
                             <Button.ContextMenu>
                                 <ContextMenu x:Name="advanceContextMenu">
                                     <MenuItem Header="{l:Loc Key='Main_MoreMenu_CopyFiles'}" Command="{Binding CopyFilesCommand}" />
