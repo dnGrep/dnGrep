@@ -610,10 +610,6 @@
     <value>Search canceled or failed</value>
     <comment>Main window, status bar message</comment>
   </data>
-  <data name="Main_Status_SearchCompleteSearched0FilesFound1FilesIn2" xml:space="preserve">
-    <value>Search completed – searched {0} files, found {1} files in {2}.</value>
-    <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found; {2} is the duration of the search</comment>
-  </data>
   <data name="MessageBox_AreYouSureYouWantToContinue" xml:space="preserve">
     <value>Continue?</value>
     <comment>Message box text for: Delete files</comment>

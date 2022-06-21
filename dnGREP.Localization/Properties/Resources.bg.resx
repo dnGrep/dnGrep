@@ -226,7 +226,7 @@
     <comment>Bookmark details dialog, pattern type option Everything tooltip</comment>
   </data>
   <data name="BookmarkDetails_FilePatternType" xml:space="preserve">
-    <value>Модел на вида на файла</value>
+    <value>Вид на модела на файл</value>
     <comment>Bookmark details dialog, file pattern group header label</comment>
   </data>
   <data name="BookmarkDetails_FollowSymbolicLinks" xml:space="preserve">
@@ -562,7 +562,7 @@ Arguments:
     <comment>Help dialog header text</comment>
   </data>
   <data name="Main_AddSearchPatternToBookmarks" xml:space="preserve">
-    <value>Добавяне на шаблон за търсене в отметките</value>
+    <value>Добавяне на модела за търсене в отметките</value>
     <comment>Main window, bookmark button tooltip</comment>
   </data>
   <data name="Main_AllDates" xml:space="preserve">
@@ -782,7 +782,7 @@ Arguments:
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_HighlightRegularExpressionGroups" xml:space="preserve">
-    <value>Откроява групите на регулярния израз - промените ще бъдат приложени при последващо търсене</value>
+    <value>Откроява групите на регулярния израз - промените ще бъдат приложени при последващо търсене.</value>
     <comment>Main window, result options highlight groups tooltip</comment>
   </data>
   <data name="Main_IncludeBinaryFiles" xml:space="preserve">
@@ -1205,12 +1205,8 @@ Arguments:
     <value>Търсенето е спряно или има грешка</value>
     <comment>Main window, status bar message</comment>
   </data>
-  <data name="Main_Status_SearchCompleteSearched0FilesFound1FilesIn2" xml:space="preserve">
-    <value>Търсенето е завършено - Претърсени {0} файла. Намерени {1} файла за {2}.</value>
-    <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found; {2} is the duration of the search</comment>
-  </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFiles" xml:space="preserve">
-    <value>Претърсени {0} файла, намерени {1} съвпадащи файла</value>
+    <value>Претърсени {0} файла, намерени {1} съвпадащи файла.</value>
     <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found</comment>
   </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFilesProcessing2" xml:space="preserve">
@@ -1293,7 +1289,7 @@ Arguments:
     <comment>Message box text for: Delete files</comment>
   </data>
   <data name="MessageBox_AreYouSureYouWantToReplaceSearchPatternWithEmptyString" xml:space="preserve">
-    <value>Сигурни ли сте, че желаете да замените търсения шаблон с празен низ?</value>
+    <value>Сигурни ли сте, че желаете да замените търсения модел с празен низ?</value>
     <comment>Message box text for: Replace text</comment>
   </data>
   <data name="MessageBox_CheckEditorPath" xml:space="preserve">
@@ -1301,11 +1297,11 @@ Arguments:
     <comment>Message box text for: Open file failed</comment>
   </data>
   <data name="MessageBox_ClearingThisBookmarkWillAlsoClearThatBookmark" xml:space="preserve">
-    <value>Clearing this bookmark also clears that bookmark.</value>
+    <value>Премахването на тази отметка премахва и тази отметка.</value>
     <comment>Message box text for: Main window, bookmark button</comment>
   </data>
   <data name="MessageBox_ClearingThisBookmarkWillAlsoRemoveThoseBookmarks" xml:space="preserve">
-    <value>Clearing this bookmark also removes those bookmarks.</value>
+    <value>Премахването на тази отметка премахва и тези отметки.</value>
     <comment>Message box text for: Main window, bookmark button</comment>
   </data>
   <data name="MessageBox_CopyFiles" xml:space="preserve">
@@ -1521,7 +1517,7 @@ Arguments:
     <comment>Message box title for: Main window Undo</comment>
   </data>
   <data name="MessageBox_UndoWillRevertModifiedFiles" xml:space="preserve">
-    <value>Undo will revert modified file(s) back to their original state. Any changes made to the file(s) after the replace will be overwritten. Continue?</value>
+    <value>При отменяне променените файлове ще бъдат върнати в изходно състовние. Промените, направени след заменянето ще бъдат презаписани. Желаете ли да продължите?</value>
     <comment>Message box text for: Main window Undo</comment>
   </data>
   <data name="MessageBox_WindowTitleIsName" xml:space="preserve">
@@ -1541,7 +1537,7 @@ Arguments:
     <comment>Message box text for: Delete files warning</comment>
   </data>
   <data name="Options_AllowSearchingForFileNamePatternOnly" xml:space="preserve">
-    <value>List files using the file name pattern when the 'Search for' field is empty</value>
+    <value>Търсене на файлове спрямо модела на името ако полето „Търсене“ е празно</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_ApplicationFonts" xml:space="preserve">
@@ -1617,11 +1613,11 @@ Arguments:
     <comment>Options dialog, custom editor group header label</comment>
   </data>
   <data name="Options_CustomEditorHelp" xml:space="preserve">
-    <value>Use keywords '{0}' for file location, '{1}' for the line number, '{2}' for the search pattern, '{3}' for the first matched text on the line, and '{4}' for the column number of the first match on the line.</value>
+    <value>Използвайте ключовата дума „{0}“ за пътя до файла, „{1}“ за номера на реда, „{2}“ за низа на търсенето, „{3}“ за първия съвпадащ текст на реда, и „{4}“ за колоната на първия съвпадащ текст на реда.</value>
     <comment>Options dialog, custom editor help text: the placeholder are non-localizable expressions used as arguments when starting the custom editor</comment>
   </data>
   <data name="Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
-    <value>Detect file encoding when listing files using the file name pattern</value>
+    <value>Определяне на кодировката на файловете при търсене по модел на име на файл</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
   </data>
   <data name="Options_DialogFontSize" xml:space="preserve">
@@ -1645,7 +1641,7 @@ Arguments:
     <comment>Options dialog, check for updates, checkbox label (accel)</comment>
   </data>
   <data name="Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu" xml:space="preserve">
-    <value>Дава възможност за стартиране на dnGrep от контекстуалното меню на Windows Explorer</value>
+    <value>Дава възможност за стартиране на dnGrep от контекстуалното меню на Windows Explorer.</value>
     <comment>Options dialog, explorer right click menu checkbox tooltip</comment>
   </data>
   <data name="Options_FollowWindowsTheme" xml:space="preserve">
@@ -1865,7 +1861,7 @@ Arguments:
     <comment>Preview window, search tool window tooltip</comment>
   </data>
   <data name="Preview_HighlightsDisabledTooManyMatchesFound" xml:space="preserve">
-    <value>Not showing highlights because too many matches were found.</value>
+    <value>Оцветяването е изключено, защото има твърде много съвпадения.</value>
     <comment>Preview window, warning text</comment>
   </data>
   <data name="Preview_MatchCase" xml:space="preserve">
@@ -1953,11 +1949,11 @@ Arguments:
     <comment>Replace window, Matches group header label</comment>
   </data>
   <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
-    <value>Move to the next match in this file [Ctrl+Left]</value>
+    <value>Към следващото съвпадение във файла [Ctrl+Left]</value>
     <comment>Replace window, Next button tooltip</comment>
   </data>
   <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
-    <value>Move to the previous match in this file [Ctrl+Right]</value>
+    <value>Към предишното съвпадение във файла [Ctrl+Right]</value>
     <comment>Replace window, Previous button tooltip</comment>
   </data>
   <data name="Replace_Next" xml:space="preserve">
@@ -1985,7 +1981,7 @@ Arguments:
     <comment>Replace window, conditional file name suffix</comment>
   </data>
   <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
-    <value>Replace all matches in all files, and apply [F10]</value>
+    <value>Заменяне на съвпаденията във всички файлове и прилагане [F10]</value>
     <comment>Replace window, Replace in all files button tooltip</comment>
   </data>
   <data name="Replace_ReplaceButton" xml:space="preserve">
@@ -2045,7 +2041,7 @@ Arguments:
     <comment>Replace window, syntax coloring option for no syntax coloring</comment>
   </data>
   <data name="Replace_ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
-    <value>This file contains too many matches for individual replace. Click 'Replace in file' to replace all of them.</value>
+    <value>Във файла има твърде много съвпадения за индивидуална замяна. За да замените всички, натиснете „Заменяне във файла“.</value>
     <comment>Replace window, warning message box text</comment>
   </data>
   <data name="Replace_Title" xml:space="preserve">
@@ -2189,7 +2185,7 @@ Arguments:
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_UsingRegexFilePattern" xml:space="preserve">
-    <value>Using regular expression file pattern</value>
+    <value>Използва се режулярен израз за модел на файла</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_UsingTypeOfSeach" xml:space="preserve">
@@ -2433,7 +2429,7 @@ Arguments:
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsMissingASearchPattern" xml:space="preserve">
-    <value>В булевия израз липсва шаблон за търсене</value>
+    <value>В булевия израз липсва модел за търсене</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionIsNotValid" xml:space="preserve">
@@ -2467,5 +2463,9 @@ Arguments:
   <data name="BookmarkDetails_SkipRemoteCloudStorageFiles" xml:space="preserve">
     <value>Пропускане на отдалечените облачни файлове</value>
     <comment>Bookmark details dialog, checkbox label (accel)</comment>
+  </data>
+  <data name="Main_Status_SearchCompletedIn0_1MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
+    <value>Търсенето е завършено за {0} – намерени {1} съвпадения в {2} файла от {3} претърсени.</value>
+    <comment>Main window, status bar message: {0} is the duration of the search; {1}  is the total number of matches found; {2} is the number of files with matches found; {3} is the total number of files searched; </comment>
   </data>
 </root>

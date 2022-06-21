@@ -956,9 +956,6 @@ Argumente:
   <data name="Main_Status_SearchCanceledOrFailed" xml:space="preserve">
     <value>Suche abgebrochen oder fehlerhaft</value>
   </data>
-  <data name="Main_Status_SearchCompleteSearched0FilesFound1FilesIn2" xml:space="preserve">
-    <value>Suche abgeschlossen - Durchsucht {0} Dateien. Gefunden {1} Dateien in {2}.</value>
-  </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFiles" xml:space="preserve">
     <value>Durchsucht {0} Dateien. Gefunden {1} passende Dateien.</value>
   </data>
