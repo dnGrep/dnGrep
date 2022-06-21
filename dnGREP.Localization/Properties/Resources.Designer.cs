@@ -1541,6 +1541,24 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Personalize.
+        /// </summary>
+        public static string Main_Menu_Personalize {
+            get {
+                return ResourceManager.GetString("Main_Menu_Personalize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Settin_gs.
+        /// </summary>
+        public static string Main_Menu_Settings {
+            get {
+                return ResourceManager.GetString("Main_Menu_Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Undo.
         /// </summary>
         public static string Main_Menu_Undo {
@@ -3710,6 +3728,96 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Features.
+        /// </summary>
+        public static string Options_Personalize_Features {
+            get {
+                return ResourceManager.GetString("Options_Personalize_Features", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File filter.
+        /// </summary>
+        public static string Options_Personalize_FileFilter {
+            get {
+                return ResourceManager.GetString("Options_Personalize_FileFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preview window.
+        /// </summary>
+        public static string Options_Personalize_PreviewWindow {
+            get {
+                return ResourceManager.GetString("Options_Personalize_PreviewWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result options.
+        /// </summary>
+        public static string Options_Personalize_ResultOptions {
+            get {
+                return ResourceManager.GetString("Options_Personalize_ResultOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Results tree.
+        /// </summary>
+        public static string Options_Personalize_ResultsTree {
+            get {
+                return ResourceManager.GetString("Options_Personalize_ResultsTree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search options.
+        /// </summary>
+        public static string Options_Personalize_SearchOptions {
+            get {
+                return ResourceManager.GetString("Options_Personalize_SearchOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search type.
+        /// </summary>
+        public static string Options_Personalize_SearchType {
+            get {
+                return ResourceManager.GetString("Options_Personalize_SearchType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Special options.
+        /// </summary>
+        public static string Options_Personalize_SpecialOptions {
+            get {
+                return ResourceManager.GetString("Options_Personalize_SpecialOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Personalize control visibility.
+        /// </summary>
+        public static string Options_PersonalizeControlVisibility {
+            get {
+                return ResourceManager.GetString("Options_PersonalizeControlVisibility", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show or hide controls when Personalize is enabled.
+        /// </summary>
+        public static string Options_PersonalizeControlVisibility_Tooltip {
+            get {
+                return ResourceManager.GetString("Options_PersonalizeControlVisibility_Tooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Phonetic search.
         /// </summary>
         public static string Options_PhoneticSearch {
@@ -4084,6 +4192,15 @@ namespace dnGREP.Localization.Properties {
         public static string Preview_PreviewAnyway {
             get {
                 return ResourceManager.GetString("Preview_PreviewAnyway", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Syntax.
+        /// </summary>
+        public static string Preview_Syntax {
+            get {
+                return ResourceManager.GetString("Preview_Syntax", resourceCulture);
             }
         }
         

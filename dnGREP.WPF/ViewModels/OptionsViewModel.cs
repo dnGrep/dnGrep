@@ -51,7 +51,55 @@ namespace dnGREP.WPF
                     File, Line, Pattern, Match, Column);
                 PanelTooltip = IsAdministrator ? string.Empty : Resources.Options_ToChangeThisSettingRunDnGREPAsAdministrator;
                 WindowsIntegrationTooltip = IsAdministrator ? Resources.Options_EnablesStartingDnGrepFromTheWindowsExplorerRightClickContextMenu : string.Empty;
+
+                foreach (var item in VisibilityOptions)
+                {
+                    item.UpdateLabel();
+                }
             };
+
+
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_Features, nameof(Resources.Main_Menu_Bookmarks), GrepSettings.Key.BookmarksVisible));
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_Features, nameof(Resources.Main_TestExpression), GrepSettings.Key.TestExpressionVisible));
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_Features, nameof(Resources.Main_ReplaceButton), GrepSettings.Key.ReplaceVisible));
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_Features, nameof(Resources.Main_SortButton), GrepSettings.Key.SortVisible));
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_Features, nameof(Resources.Main_MoreArrowButton), GrepSettings.Key.MoreVisible));
+
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_FileFilter, nameof(Resources.Main_SearchInArchives), GrepSettings.Key.SearchInArchivesVisible));
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_FileFilter, nameof(Resources.Main_AllSizes), GrepSettings.Key.SizeFilterVisible));
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_FileFilter, nameof(Resources.Main_IncludeSubfolders), GrepSettings.Key.SubfoldersFilterVisible));
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_FileFilter, nameof(Resources.Main_IncludeHiddenFolders), GrepSettings.Key.HiddenFilterVisible));
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_FileFilter, nameof(Resources.Main_IncludeBinaryFiles), GrepSettings.Key.BinaryFilterVisible));
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_FileFilter, nameof(Resources.Main_FollowSymbolicLinks), GrepSettings.Key.SymbolicLinkFilterVisible));
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_FileFilter, nameof(Resources.Main_AllDates), GrepSettings.Key.DateFilterVisible));
+
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_SpecialOptions, nameof(Resources.Main_SearchParallel), GrepSettings.Key.SearchParallelVisible));
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_SpecialOptions, nameof(Resources.Main_UseGitignore), GrepSettings.Key.UseGitIgnoreVisible));
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_SpecialOptions, nameof(Resources.Main_SkipRemoteCloudStorageFiles), GrepSettings.Key.SkipCloudStorageVisible));
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_SpecialOptions, nameof(Resources.Main_Encoding), GrepSettings.Key.EncodingVisible));
+
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_SearchType, nameof(Resources.Main_SearchType_Regex), GrepSettings.Key.SearchTypeRegexVisible));
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_SearchType, nameof(Resources.Main_SearchType_XPath), GrepSettings.Key.SearchTypeXPathVisible));
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_SearchType, nameof(Resources.Main_SearchType_Text), GrepSettings.Key.SearchTypeTextVisible));
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_SearchType, nameof(Resources.Main_SearchType_Phonetic), GrepSettings.Key.SearchTypePhoneticVisible));
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_SearchType, nameof(Resources.Main_SearchType_Hex), GrepSettings.Key.SearchTypeByteVisible));
+
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_SearchOptions, nameof(Resources.Main_BooleanOperators), GrepSettings.Key.BooleanOperatorsVisible));
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_SearchOptions, nameof(Resources.Main_CaptureGroupSearch), GrepSettings.Key.CaptureGroupSearchVisible));
+
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_ResultOptions, nameof(Resources.Main_SearchInResults), GrepSettings.Key.SearchInResultsVisible));
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_ResultOptions, nameof(Resources.Main_PreviewFile), GrepSettings.Key.PreviewFileVisible));
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_ResultOptions, nameof(Resources.Main_StopAfterFirstMatch), GrepSettings.Key.StopAfterFirstMatchVisible));
+
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_ResultsTree, nameof(Resources.Main_HighlightMatches), GrepSettings.Key.HighlightMatchesVisible));
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_ResultsTree, nameof(Resources.Main_HighlightGroups), GrepSettings.Key.HighlightGroupsVisible));
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_ResultsTree, nameof(Resources.Main_ContextShowLines), GrepSettings.Key.ShowContextLinesVisible));
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_ResultsTree, nameof(Resources.Main_Zoom), GrepSettings.Key.ZoomResultsTreeVisible));
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_ResultsTree, nameof(Resources.Main_WrapText), GrepSettings.Key.WrapTextResultsTreeVisible));
+
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_PreviewWindow, nameof(Resources.Preview_Zoom), GrepSettings.Key.PreviewZoomWndVisible));
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_PreviewWindow, nameof(Resources.Preview_WrapText), GrepSettings.Key.WrapTextPreviewWndVisible));
+            VisibilityOptions.Add(new VisibilityOption(Resources.Options_Personalize_PreviewWindow, nameof(Resources.Preview_Syntax), GrepSettings.Key.SyntaxPreviewWndVisible));
         }
 
         #region Private Variables and Properties
@@ -112,7 +160,8 @@ namespace dnGREP.WPF
                 HexResultByteLength != Settings.Get<int>(GrepSettings.Key.HexResultByteLength) ||
                 PdfToTextOptions != Settings.Get<string>(GrepSettings.Key.PdfToTextOptions) ||
                 ArchiveOptions.IsChanged ||
-                IsChanged(Plugins)
+                IsChanged(Plugins) ||
+                IsChanged(VisibilityOptions)
                 )
                 {
                     return CurrentCulture != null;
@@ -128,6 +177,14 @@ namespace dnGREP.WPF
         {
             return plugins.Any(p => p.IsChanged);
         }
+
+        private bool IsChanged(IList<VisibilityOption> visibilityOptions)
+        {
+            return visibilityOptions.Any(p => p.IsChanged);
+        }
+
+        public ObservableCollection<VisibilityOption> VisibilityOptions { get; } = new ObservableCollection<VisibilityOption>();
+
 
         private bool enableWindowsIntegration;
         public bool EnableWindowsIntegration
@@ -717,7 +774,7 @@ namespace dnGREP.WPF
             }
         }
 
-        public ObservableCollection<PluginOptions> Plugins { get; set; } = new ObservableCollection<PluginOptions>();
+        public ObservableCollection<PluginOptions> Plugins { get; } = new ObservableCollection<PluginOptions>();
 
         public IList<FontInfo> FontFamilies
         {
@@ -1208,6 +1265,15 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.HexResultByteLength, HexResultByteLength);
             Settings.Set(GrepSettings.Key.PdfToTextOptions, PdfToTextOptions);
 
+            foreach (var visOpt in VisibilityOptions)
+            {
+                if (visOpt.IsChanged)
+                {
+                    visOpt.UpdateOption();
+                }
+            }
+
+
             if (ArchiveOptions.IsChanged)
             {
                 string nameKey = "Archive";
@@ -1579,6 +1645,55 @@ namespace dnGREP.WPF
             origRemExtensions = remExtensions;
         }
     }
+
+    public class VisibilityOption : CultureAwareViewModel
+    {
+        public VisibilityOption(string group, string labelKey, string optionKey)
+        {
+            Group = group;
+            LabelKey = labelKey;
+            OptionKey = optionKey;
+
+            isVisible = origIsVisible = GrepSettings.Instance.Get<bool>(OptionKey);
+        }
+
+        public string Group { get; private set; }
+        public string LabelKey { get; private set; }
+        public string OptionKey { get; private set; }
+
+        public string Label => TranslationSource.Instance[LabelKey].TrimEnd(':', '…');
+
+        public bool IsChanged => isVisible != origIsVisible;
+
+        public void UpdateOption()
+        {
+            GrepSettings.Instance.Set(OptionKey, isVisible);
+            origIsVisible = isVisible;
+        }
+
+        internal void UpdateLabel()
+        {
+            OnPropertyChanged(nameof(Label));
+        }
+
+        private bool origIsVisible;
+        private bool isVisible;
+        public bool IsVisible
+        {
+            get { return isVisible; }
+            set
+            {
+                if (isVisible == value)
+                {
+                    return;
+                }
+
+                isVisible = value;
+                OnPropertyChanged(nameof(IsVisible));
+            }
+        }
+    }
+
 
     public class FontInfo
     {

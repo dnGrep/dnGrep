@@ -26,6 +26,7 @@ namespace dnGREP.WPF
             ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
             MainFormFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.MainFormFontSize);
             ResultsFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ResultsFontFamily);
+            UpdatePersonalization(GrepSettings.Instance.Get<bool>(GrepSettings.Key.PersonalizationOn));
 
             PropertyChanged += PreviewViewModel_PropertyChanged;
 
@@ -312,6 +313,64 @@ namespace dnGREP.WPF
         internal void EndUpdateMarkers()
         {
             OnPropertyChanged(nameof(Markers));
+        }
+
+        internal void UpdatePersonalization(bool personalizationOn)
+        {
+            PreviewZoomWndVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.PreviewZoomWndVisible) : true;
+            WrapTextPreviewWndVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.WrapTextPreviewWndVisible) : true;
+            SyntaxPreviewWndVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.SyntaxPreviewWndVisible) : true;
+        }
+
+
+        private bool zoomPreviewWndVisible = true;
+        public bool PreviewZoomWndVisible
+        {
+            get { return zoomPreviewWndVisible; }
+            set
+            {
+                if (zoomPreviewWndVisible == value)
+                {
+                    return;
+                }
+
+                zoomPreviewWndVisible = value;
+                OnPropertyChanged(nameof(PreviewZoomWndVisible));
+            }
+        }
+
+
+        private bool wrapTextPreviewWndVisible = true;
+        public bool WrapTextPreviewWndVisible
+        {
+            get { return wrapTextPreviewWndVisible; }
+            set
+            {
+                if (wrapTextPreviewWndVisible == value)
+                {
+                    return;
+                }
+
+                wrapTextPreviewWndVisible = value;
+                OnPropertyChanged(nameof(WrapTextPreviewWndVisible));
+            }
+        }
+
+
+        private bool syntaxPreviewWndVisible = true;
+        public bool SyntaxPreviewWndVisible
+        {
+            get { return syntaxPreviewWndVisible; }
+            set
+            {
+                if (syntaxPreviewWndVisible == value)
+                {
+                    return;
+                }
+
+                syntaxPreviewWndVisible = value;
+                OnPropertyChanged(nameof(SyntaxPreviewWndVisible));
+            }
         }
     }
 

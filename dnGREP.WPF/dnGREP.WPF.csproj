@@ -108,6 +108,7 @@
     <Compile Include="MVHelpers\ValidationColorConverter.cs" />
     <Compile Include="Properties\LayoutProperties.cs" />
     <Compile Include="ThemedHighlightingManager.cs" />
+    <Compile Include="ViewModels\MainViewModelProps.cs" />
     <Compile Include="ViewModels\CultureAwareViewModel.cs" />
     <Compile Include="Views\RenameWindow.xaml.cs">
       <DependentUpon>RenameWindow.xaml</DependentUpon>

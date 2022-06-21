@@ -25,7 +25,7 @@ using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
 {
-    public class MainViewModel : BaseMainViewModel, IFileDragDropTarget
+    public partial class MainViewModel : BaseMainViewModel, IFileDragDropTarget
     {
         public event EventHandler PreviewHide;
         public event EventHandler PreviewShow;
@@ -80,6 +80,8 @@ namespace dnGREP.WPF
             };
 
             TranslationSource.Instance.CurrentCultureChanged += CurrentCultureChanged;
+
+            PropertyChanged += OnMainViewModel_PropertyChanged;
 
             idleTimer.Interval = TimeSpan.FromMilliseconds(250);
             idleTimer.Tick += IdleTimer_Tick;
@@ -721,11 +723,15 @@ namespace dnGREP.WPF
             ResultsFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ResultsFontFamily);
             ResultsFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.ResultsFontSize);
 
+            PersonalizationOn = GrepSettings.Instance.Get<bool>(GrepSettings.Key.PersonalizationOn);
+            UpdatePersonalization();
+
             if (PreviewModel != null)
             {
                 PreviewModel.ApplicationFontFamily = ApplicationFontFamily;
                 PreviewModel.MainFormFontSize = MainFormFontSize;
                 PreviewModel.ResultsFontFamily = ResultsFontFamily;
+                PreviewModel.UpdatePersonalization(PersonalizationOn);
             }
         }
 
@@ -742,6 +748,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.ShowLinesInContext, ShowLinesInContext);
             Settings.Set(GrepSettings.Key.ContextLinesBefore, ContextLinesBefore);
             Settings.Set(GrepSettings.Key.ContextLinesAfter, ContextLinesAfter);
+            Settings.Set(GrepSettings.Key.PersonalizationOn, PersonalizationOn);
 
             LayoutProperties.PreviewBounds = PreviewWindowBounds;
             LayoutProperties.PreviewWindowState = PreviewWindowState;
