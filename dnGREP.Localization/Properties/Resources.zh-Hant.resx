@@ -2406,4 +2406,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <value>跳過遠程雲端儲存檔案</value>
     <comment>Main window, search option label</comment>
   </data>
+  <data name="Options_Personalize_SearchType" xml:space="preserve">
+    <value>搜尋類型</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
 </root>
