@@ -1919,4 +1919,8 @@ Argumente:
     <value>Vorherige Datei</value>
     <comment>Main windows, results list, context menu item label</comment>
   </data>
+  <data name="Options_Personalize_SearchType" xml:space="preserve">
+    <value>Type</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
 </root>
