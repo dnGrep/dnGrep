@@ -2465,4 +2465,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <value>Пропускать файлы удаленного облачного хранилища</value>
     <comment>Bookmark details dialog, checkbox label (accel)</comment>
   </data>
+  <data name="Options_Personalize_SearchType" xml:space="preserve">
+    <value>Тип поиска содержимого</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
 </root>
