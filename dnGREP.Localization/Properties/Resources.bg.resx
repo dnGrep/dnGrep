@@ -346,7 +346,7 @@
     <comment>Bookmark details dialog, window title</comment>
   </data>
   <data name="BookmarkDetails_TypeHeader" xml:space="preserve">
-    <value>Вид</value>
+    <value>Вид на търсенето</value>
     <comment>Bookmark details dialog, type group header label</comment>
   </data>
   <data name="BookmarkDetails_UseGitignore" xml:space="preserve">
@@ -822,7 +822,7 @@ Arguments:
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Menu_Options" xml:space="preserve">
-    <value>_Настройки</value>
+    <value>Нас_тройки…</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Menu_Undo" xml:space="preserve">
@@ -2467,5 +2467,57 @@ Arguments:
   <data name="Main_Status_SearchCompletedIn0_1MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
     <value>Търсенето е завършено за {0} – намерени {1} съвпадения в {2} файла от {3} претърсени.</value>
     <comment>Main window, status bar message: {0} is the duration of the search; {1}  is the total number of matches found; {2} is the number of files with matches found; {3} is the total number of files searched; </comment>
+  </data>
+  <data name="Options_Personalize_PreviewWindow" xml:space="preserve">
+    <value>Прозорец за преглед</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_ResultOptions" xml:space="preserve">
+    <value>Настройки на резултатите</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_ResultsTree" xml:space="preserve">
+    <value>Дърво с резултатите</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_SearchOptions" xml:space="preserve">
+    <value>Настройки на търсене</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_SearchType" xml:space="preserve">
+    <value>Вид на търсенето</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_SpecialOptions" xml:space="preserve">
+    <value>Специални настройки</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_PersonalizeControlVisibility_Tooltip" xml:space="preserve">
+    <value>В режим на приспособяване, дадени контроли се скриват или показват</value>
+    <comment>Options dialog, control tooltip</comment>
+  </data>
+  <data name="Options_Personalize_Features" xml:space="preserve">
+    <value>Възможности</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_FileFilter" xml:space="preserve">
+    <value>Филтри за файлове</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Preview_Syntax" xml:space="preserve">
+    <value>Синтактично открояване</value>
+    <comment>Preview window, option label</comment>
+  </data>
+  <data name="Options_PersonalizeControlVisibility" xml:space="preserve">
+    <value>Видими контроли</value>
+    <comment>Options dialog, control label</comment>
+  </data>
+  <data name="Main_Menu_Personalize" xml:space="preserve">
+    <value>Приспособяване</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_Settings" xml:space="preserve">
+    <value>_Настройки</value>
+    <comment>Main window, main menu item label (accel)</comment>
   </data>
 </root>
