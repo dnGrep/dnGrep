@@ -2386,4 +2386,8 @@ Arguments:
     <value>Previous file</value>
     <comment>Main windows, results list, context menu item label</comment>
   </data>
+  <data name="Options_Personalize_SearchType" xml:space="preserve">
+    <value>Search type</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
 </root>
