@@ -55,7 +55,7 @@ namespace dnGREP.WPF
             CurrentSyntax = Resources.Preview_SyntaxNone;
         }
 
-        public event EventHandler<ShowEventArgs> ShowPreview;
+        public event EventHandler ShowPreview;
 
         private bool isLargeOrBinary;
         public bool IsLargeOrBinary
@@ -250,9 +250,7 @@ namespace dnGREP.WPF
                     // Set current definition
                     var fileInfo = new FileInfo(FilePath);
                     var definition = ThemedHighlightingManager.Instance.GetDefinitionByExtension(fileInfo.Extension);
-                    // set the field directly to avoid raising the property changed event and
-                    // causing the file to be loaded (twice)
-                    currentSyntax = definition != null ? definition.Name : Resources.Preview_SyntaxNone;
+                    CurrentSyntax = definition != null ? definition.Name : Resources.Preview_SyntaxNone;
 
                     try
                     {
@@ -271,26 +269,15 @@ namespace dnGREP.WPF
                     HighlightDisabled = GrepResult?.Matches?.Count > 5000;
 
                     // Tell View to show window
-                    ShowPreview?.Invoke(this, new ShowEventArgs { ClearContent = true });
+                    ShowPreview?.Invoke(this, EventArgs.Empty);
                 }
                 else
                 {
                     // Tell View to show window and clear content
-                    ShowPreview?.Invoke(this, new ShowEventArgs { ClearContent = true });
+                    ShowPreview?.Invoke(this, EventArgs.Empty);
                 }
             }
 
-            if (name == nameof(LineNumber))
-            {
-                // Tell View to show window but not clear content
-                ShowPreview?.Invoke(this, new ShowEventArgs { ClearContent = false });
-            }
-
-            if (name == nameof(CurrentSyntax))
-            {
-                // Tell View to show window and clear content
-                ShowPreview?.Invoke(this, new ShowEventArgs { ClearContent = true });
-            }
         }
 
         internal void ClearPositionMarkers()
@@ -372,11 +359,6 @@ namespace dnGREP.WPF
                 OnPropertyChanged(nameof(SyntaxPreviewWndVisible));
             }
         }
-    }
-
-    public class ShowEventArgs : EventArgs
-    {
-        public bool ClearContent { get; set; }
     }
 
     public enum MarkerType { Global, Local }
