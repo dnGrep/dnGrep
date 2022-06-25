@@ -1150,10 +1150,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <value>搜尋失敗或取消</value>
     <comment>Main window, status bar message</comment>
   </data>
-  <data name="Main_Status_SearchCompleteSearched0FilesFound1FilesIn2" xml:space="preserve">
-    <value>搜尋完成 - 搜尋 {0} 個檔案, 找到 {1} 個檔案. 花費 {2}.</value>
-    <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found; {2} is the duration of the search</comment>
-  </data>
   <data name="Main_Status_Searched0FilesFound1MatchingFiles" xml:space="preserve">
     <value>搜尋 {0} 個檔案, 找到 {1} 個符合檔案.</value>
     <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found</comment>
@@ -2397,5 +2393,21 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
   <data name="Main_Results_PreviousFile" xml:space="preserve">
     <value>上一個檔案</value>
     <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_NextFile" xml:space="preserve">
+    <value>下一個檔案</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="BookmarkDetails_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>跳過遠程雲端儲存檔案</value>
+    <comment>Bookmark details dialog, checkbox label (accel)</comment>
+  </data>
+  <data name="Main_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>跳過遠程雲端儲存檔案</value>
+    <comment>Main window, search option label</comment>
+  </data>
+  <data name="Options_Personalize_SearchType" xml:space="preserve">
+    <value>搜尋類型</value>
+    <comment>Options dialog, Personalization group</comment>
   </data>
 </root>
