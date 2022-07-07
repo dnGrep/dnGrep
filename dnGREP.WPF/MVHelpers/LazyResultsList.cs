@@ -50,10 +50,15 @@ namespace dnGREP.WPF.MVHelpers
             {
                 List<GrepLine> list = new List<GrepLine>();
                 if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext))
-                    list = result.GetLinesWithContext(GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
+                {
+                    list = result.GetLinesWithContext(
+                        GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
                         GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter));
+                }
                 else
+                {
                     list = result.GetLinesWithContext(0, 0);
+                }
 
                 return list;
             });
