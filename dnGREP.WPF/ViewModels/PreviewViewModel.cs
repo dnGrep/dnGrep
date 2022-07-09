@@ -26,6 +26,7 @@ namespace dnGREP.WPF
             ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
             MainFormFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.MainFormFontSize);
             ResultsFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ResultsFontFamily);
+            UpdatePersonalization(GrepSettings.Instance.Get<bool>(GrepSettings.Key.PersonalizationOn));
 
             PropertyChanged += PreviewViewModel_PropertyChanged;
 
@@ -54,7 +55,7 @@ namespace dnGREP.WPF
             CurrentSyntax = Resources.Preview_SyntaxNone;
         }
 
-        public event EventHandler<ShowEventArgs> ShowPreview;
+        public event EventHandler ShowPreview;
 
         private bool isLargeOrBinary;
         public bool IsLargeOrBinary
@@ -249,9 +250,7 @@ namespace dnGREP.WPF
                     // Set current definition
                     var fileInfo = new FileInfo(FilePath);
                     var definition = ThemedHighlightingManager.Instance.GetDefinitionByExtension(fileInfo.Extension);
-                    // set the field directly to avoid raising the property changed event and
-                    // causing the file to be loaded (twice)
-                    currentSyntax = definition != null ? definition.Name : Resources.Preview_SyntaxNone;
+                    CurrentSyntax = definition != null ? definition.Name : Resources.Preview_SyntaxNone;
 
                     try
                     {
@@ -270,26 +269,15 @@ namespace dnGREP.WPF
                     HighlightDisabled = GrepResult?.Matches?.Count > 5000;
 
                     // Tell View to show window
-                    ShowPreview?.Invoke(this, new ShowEventArgs { ClearContent = true });
+                    ShowPreview?.Invoke(this, EventArgs.Empty);
                 }
                 else
                 {
                     // Tell View to show window and clear content
-                    ShowPreview?.Invoke(this, new ShowEventArgs { ClearContent = true });
+                    ShowPreview?.Invoke(this, EventArgs.Empty);
                 }
             }
 
-            if (name == nameof(LineNumber))
-            {
-                // Tell View to show window but not clear content
-                ShowPreview?.Invoke(this, new ShowEventArgs { ClearContent = false });
-            }
-
-            if (name == nameof(CurrentSyntax))
-            {
-                // Tell View to show window and clear content
-                ShowPreview?.Invoke(this, new ShowEventArgs { ClearContent = true });
-            }
         }
 
         internal void ClearPositionMarkers()
@@ -313,11 +301,64 @@ namespace dnGREP.WPF
         {
             OnPropertyChanged(nameof(Markers));
         }
-    }
 
-    public class ShowEventArgs : EventArgs
-    {
-        public bool ClearContent { get; set; }
+        internal void UpdatePersonalization(bool personalizationOn)
+        {
+            PreviewZoomWndVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.PreviewZoomWndVisible) : true;
+            WrapTextPreviewWndVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.WrapTextPreviewWndVisible) : true;
+            SyntaxPreviewWndVisible = personalizationOn ? GrepSettings.Instance.Get<bool>(GrepSettings.Key.SyntaxPreviewWndVisible) : true;
+        }
+
+
+        private bool zoomPreviewWndVisible = true;
+        public bool PreviewZoomWndVisible
+        {
+            get { return zoomPreviewWndVisible; }
+            set
+            {
+                if (zoomPreviewWndVisible == value)
+                {
+                    return;
+                }
+
+                zoomPreviewWndVisible = value;
+                OnPropertyChanged(nameof(PreviewZoomWndVisible));
+            }
+        }
+
+
+        private bool wrapTextPreviewWndVisible = true;
+        public bool WrapTextPreviewWndVisible
+        {
+            get { return wrapTextPreviewWndVisible; }
+            set
+            {
+                if (wrapTextPreviewWndVisible == value)
+                {
+                    return;
+                }
+
+                wrapTextPreviewWndVisible = value;
+                OnPropertyChanged(nameof(WrapTextPreviewWndVisible));
+            }
+        }
+
+
+        private bool syntaxPreviewWndVisible = true;
+        public bool SyntaxPreviewWndVisible
+        {
+            get { return syntaxPreviewWndVisible; }
+            set
+            {
+                if (syntaxPreviewWndVisible == value)
+                {
+                    return;
+                }
+
+                syntaxPreviewWndVisible = value;
+                OnPropertyChanged(nameof(SyntaxPreviewWndVisible));
+            }
+        }
     }
 
     public enum MarkerType { Global, Local }

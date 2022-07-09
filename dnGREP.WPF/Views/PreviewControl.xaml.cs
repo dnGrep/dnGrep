@@ -72,85 +72,86 @@ namespace dnGREP.WPF
                 if (ViewModel.HighlightsOn && !ViewModel.HighlightDisabled && !ViewModel.IsPdf)
                     textEditor.TextArea.TextView.LineTransformers.Add(new PreviewHighlighter(ViewModel.GrepResult));
             }
-        }
-
-        public PreviewViewModel ViewModel { get; private set; } = new PreviewViewModel();
-
-        void ViewModel_ShowPreview(object sender, ShowEventArgs e)
-        {
-            if (!e.ClearContent)
+            else if (e.PropertyName == nameof(ViewModel.LineNumber))
             {
                 if (!string.IsNullOrEmpty(textEditor.Text))
                 {
                     textEditor.ScrollTo(ViewModel.LineNumber, 0);
                 }
             }
-            else
+            else if (e.PropertyName == nameof(ViewModel.CurrentSyntax))
             {
-                bool reopenSearchPanel = false;
-                if (!searchPanel.IsClosed)
-                {
-                    reopenSearchPanel = true;
-                    // no callback from the close call
-                    searchPanel.SearchResultsChanged -= SearchPanel_SearchResultsChanged;
-                    searchPanel.Close();
-                }
-
-                textEditor.Clear();
-                textEditor.Encoding = ViewModel.Encoding;
                 textEditor.SyntaxHighlighting = ViewModel.HighlightingDefinition;
-                textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["AvalonEdit.Link"] as Brush;
-                for (int i = textEditor.TextArea.TextView.LineTransformers.Count - 1; i >= 0; i--)
-                {
-                    if (textEditor.TextArea.TextView.LineTransformers[i] is PreviewHighlighter)
-                        textEditor.TextArea.TextView.LineTransformers.RemoveAt(i);
-                }
+            }
+        }
 
-                if (ViewModel.HighlightsOn && !ViewModel.HighlightDisabled && !ViewModel.IsPdf)
-                    textEditor.TextArea.TextView.LineTransformers.Add(new PreviewHighlighter(ViewModel.GrepResult));
+        public PreviewViewModel ViewModel { get; private set; } = new PreviewViewModel();
 
-                try
+        void ViewModel_ShowPreview(object sender, EventArgs e)
+        {
+            bool reopenSearchPanel = false;
+            if (!searchPanel.IsClosed)
+            {
+                reopenSearchPanel = true;
+                // no callback from the close call
+                searchPanel.SearchResultsChanged -= SearchPanel_SearchResultsChanged;
+                searchPanel.Close();
+            }
+
+            textEditor.Clear();
+            textEditor.Encoding = ViewModel.Encoding;
+            textEditor.SyntaxHighlighting = ViewModel.HighlightingDefinition;
+            textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["AvalonEdit.Link"] as Brush;
+            for (int i = textEditor.TextArea.TextView.LineTransformers.Count - 1; i >= 0; i--)
+            {
+                if (textEditor.TextArea.TextView.LineTransformers[i] is PreviewHighlighter)
+                    textEditor.TextArea.TextView.LineTransformers.RemoveAt(i);
+            }
+
+            if (ViewModel.HighlightsOn && !ViewModel.HighlightDisabled && !ViewModel.IsPdf)
+                textEditor.TextArea.TextView.LineTransformers.Add(new PreviewHighlighter(ViewModel.GrepResult));
+
+            try
+            {
+                if (!ViewModel.IsLargeOrBinary)
                 {
-                    if (!ViewModel.IsLargeOrBinary)
+                    if (!string.IsNullOrWhiteSpace(ViewModel.FilePath))
                     {
-                        if (!string.IsNullOrWhiteSpace(ViewModel.FilePath))
+                        bool isRTL = Utils.IsRTL(ViewModel.FilePath, ViewModel.Encoding);
+                        textEditor.FlowDirection = isRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
+
+                        using (FileStream stream = File.Open(ViewModel.FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                         {
-                            bool isRTL = Utils.IsRTL(ViewModel.FilePath, ViewModel.Encoding);
-                            textEditor.FlowDirection = isRTL ? FlowDirection.RightToLeft : FlowDirection.LeftToRight;
-
-                            using (FileStream stream = File.Open(ViewModel.FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                            {
-                                textEditor.Load(stream);
-                            }
-                            if (!string.IsNullOrEmpty(textEditor.Text))
-                            {
-                                if (reopenSearchPanel)
-                                {
-                                    searchPanel.Open();
-                                }
-
-                                UpdatePositionMarkers();
-
-                                textEditor.ScrollTo(ViewModel.LineNumber, 0);
-                            }
+                            textEditor.Load(stream);
                         }
-                        else
+                        if (!string.IsNullOrEmpty(textEditor.Text))
                         {
-                            textEditor.Text = "";
-                            ViewModel.ClearPositionMarkers();
+                            if (reopenSearchPanel)
+                            {
+                                searchPanel.Open();
+                            }
+
+                            UpdatePositionMarkers();
+
+                            textEditor.ScrollTo(ViewModel.LineNumber, 0);
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    textEditor.Text = "Error opening the file: " + ex.Message;
-                }
-                finally
-                {
-                    if (reopenSearchPanel)
+                    else
                     {
-                        searchPanel.SearchResultsChanged += SearchPanel_SearchResultsChanged;
+                        textEditor.Text = "";
+                        ViewModel.ClearPositionMarkers();
                     }
+                }
+            }
+            catch (Exception ex)
+            {
+                textEditor.Text = "Error opening the file: " + ex.Message;
+            }
+            finally
+            {
+                if (reopenSearchPanel)
+                {
+                    searchPanel.SearchResultsChanged += SearchPanel_SearchResultsChanged;
                 }
             }
         }

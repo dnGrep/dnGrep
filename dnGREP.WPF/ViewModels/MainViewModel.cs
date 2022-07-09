@@ -25,7 +25,7 @@ using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
 {
-    public class MainViewModel : BaseMainViewModel, IFileDragDropTarget
+    public partial class MainViewModel : BaseMainViewModel, IFileDragDropTarget
     {
         public event EventHandler PreviewHide;
         public event EventHandler PreviewShow;
@@ -80,6 +80,8 @@ namespace dnGREP.WPF
             };
 
             TranslationSource.Instance.CurrentCultureChanged += CurrentCultureChanged;
+
+            PropertyChanged += OnMainViewModel_PropertyChanged;
 
             idleTimer.Interval = TimeSpan.FromMilliseconds(250);
             idleTimer.Tick += IdleTimer_Tick;
@@ -144,6 +146,7 @@ namespace dnGREP.WPF
         private BookmarksWindow bookmarkWindow;
         private readonly HashSet<string> currentSearchFiles = new HashSet<string>();
         private int processedFiles;
+        private int totalFiles;
         private readonly List<ReplaceDef> undoList = new List<ReplaceDef>();
         private readonly DispatcherTimer idleTimer = new DispatcherTimer(DispatcherPriority.ContextIdle);
         private string latestStatusMessage;
@@ -721,11 +724,15 @@ namespace dnGREP.WPF
             ResultsFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ResultsFontFamily);
             ResultsFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.ResultsFontSize);
 
+            PersonalizationOn = GrepSettings.Instance.Get<bool>(GrepSettings.Key.PersonalizationOn);
+            UpdatePersonalization();
+
             if (PreviewModel != null)
             {
                 PreviewModel.ApplicationFontFamily = ApplicationFontFamily;
                 PreviewModel.MainFormFontSize = MainFormFontSize;
                 PreviewModel.ResultsFontFamily = ResultsFontFamily;
+                PreviewModel.UpdatePersonalization(PersonalizationOn);
             }
         }
 
@@ -742,6 +749,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.ShowLinesInContext, ShowLinesInContext);
             Settings.Set(GrepSettings.Key.ContextLinesBefore, ContextLinesBefore);
             Settings.Set(GrepSettings.Key.ContextLinesAfter, ContextLinesAfter);
+            Settings.Set(GrepSettings.Key.PersonalizationOn, PersonalizationOn);
 
             LayoutProperties.PreviewBounds = PreviewWindowBounds;
             LayoutProperties.PreviewWindowState = PreviewWindowState;
@@ -921,6 +929,8 @@ namespace dnGREP.WPF
         {
             try
             {
+                ProgressPercentage = 0;
+
                 if (e.Argument is SearchReplaceCriteria param && !workerSearchReplace.CancellationPending)
                 {
                     timer = DateTime.Now;
@@ -992,6 +1002,8 @@ namespace dnGREP.WPF
                         {
                             files = Utils.GetFileListEx(fileParams);
                         }
+
+                        totalFiles = files.Count();
 
                         if (Utils.CancelSearch)
                         {
@@ -1142,6 +1154,8 @@ namespace dnGREP.WPF
                         lock (lockObjOne)
                         {
                             SearchResults.AddRange(progress.SearchResults);
+
+                            ProgressPercentage = progress.ProcessedFiles * 100 / totalFiles;
                         }
                     }
 
@@ -1239,6 +1253,7 @@ namespace dnGREP.WPF
                         {
                             StatusMessage += enQuad + TranslationSource.Format(Resources.Main_Status_Excluded0MissingFiles, Everything.EverythingSearch.CountMissingFiles);
                         }
+                        ProgressPercentage = 100;
                     }
                     else
                     {
@@ -1273,6 +1288,7 @@ namespace dnGREP.WPF
                                 (int)e.Result);
                             CanUndo = undoList.Count > 0;
                         }
+                        ProgressPercentage = 100;
                     }
                     else
                     {

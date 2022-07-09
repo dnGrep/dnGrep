@@ -193,10 +193,6 @@
     <value>Version</value>
     <comment>About dialog label</comment>
   </data>
-  <data name="BookmarkDetails_SkipRemoteCloudStorageFiles" xml:space="preserve">
-    <value>Skip remote cloud storage files</value>
-    <comment>Bookmark details dialog, checkbox label (accel)</comment>
-  </data>
   <data name="BookmarkDetails_AssociatedFolders" xml:space="preserve">
     <value>Associated folders:</value>
     <comment>Bookmark details dialog, text input box label</comment>
@@ -364,6 +360,10 @@
   <data name="BookmarkDetails_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
     <value>XPath search (only for XML documents)</value>
     <comment>Bookmark details dialog, search type XPath tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>Skip remote cloud storage files</value>
+    <comment>Bookmark details dialog, checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_ThisBookmarkAlreadyExists" xml:space="preserve">
     <value>This bookmark already exists</value>
@@ -859,6 +859,14 @@ Arguments:
   </data>
   <data name="Main_Menu_Options" xml:space="preserve">
     <value>_Options…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_Personalize" xml:space="preserve">
+    <value>Personalize</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_Settings" xml:space="preserve">
+    <value>Settin_gs</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Menu_Undo" xml:space="preserve">
@@ -1825,6 +1833,46 @@ Arguments:
     <value>Reset</value>
     <comment>Options dialog, PDF arguments button label (accel)</comment>
   </data>
+  <data name="Options_Personalize_Features" xml:space="preserve">
+    <value>Features</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_FileFilter" xml:space="preserve">
+    <value>File filter</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_PreviewWindow" xml:space="preserve">
+    <value>Preview window</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_ResultOptions" xml:space="preserve">
+    <value>Result options</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_ResultsTree" xml:space="preserve">
+    <value>Results tree</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_SearchOptions" xml:space="preserve">
+    <value>Search options</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_SearchType" xml:space="preserve">
+    <value>Search type</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_SpecialOptions" xml:space="preserve">
+    <value>Special options</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_PersonalizeControlVisibility" xml:space="preserve">
+    <value>Personalize control visibility</value>
+    <comment>Options dialog, control label</comment>
+  </data>
+  <data name="Options_PersonalizeControlVisibility_Tooltip" xml:space="preserve">
+    <value>Show or hide controls when Personalize is enabled</value>
+    <comment>Options dialog, control tooltip</comment>
+  </data>
   <data name="Options_PhoneticSearch" xml:space="preserve">
     <value>Phonetic search</value>
     <comment>Options dialog, phonetic group header label</comment>
@@ -1992,6 +2040,10 @@ Arguments:
   <data name="Preview_PreviewAnyway" xml:space="preserve">
     <value>Preview anyway</value>
     <comment>Preview window, warning label</comment>
+  </data>
+  <data name="Preview_Syntax" xml:space="preserve">
+    <value>Syntax</value>
+    <comment>Preview window, option label</comment>
   </data>
   <data name="Preview_SyntaxNone" xml:space="preserve">
     <value>None</value>

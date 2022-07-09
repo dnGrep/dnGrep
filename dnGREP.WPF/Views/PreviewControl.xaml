@@ -45,7 +45,7 @@
             <Grid Name="statusBar" DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="48*" />
-                    <ColumnDefinition Width="45*" />
+                    <ColumnDefinition Width="35*" />
                     <ColumnDefinition Width="7*" />
                 </Grid.ColumnDefinitions>
                 <WrapPanel Grid.Column="0">
@@ -60,7 +60,7 @@
                 <WrapPanel HorizontalAlignment="Right" VerticalAlignment="Center" Grid.Column="1">
                     <TextBlock Text="{l:Loc Key='Preview_Zoom'}" Margin="0,0,3,0" 
                                 Style="{DynamicResource LabelTextBlockStyle}"/>
-                    <Slider Name="zoomSlider" VerticalAlignment="Center" Width="120" Margin="0,0,3,0"
+                    <Slider Name="zoomSlider" VerticalAlignment="Center" Width="60" Margin="0,0,3,0"
                             VerticalContentAlignment="Center" ToolTip="{l:Loc Key='Preview_ChangesTextEditorZoom'}" 
                             Minimum="9" Maximum="100" Value="12" />
                 </WrapPanel>

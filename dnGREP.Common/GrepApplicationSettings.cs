@@ -181,6 +181,77 @@ namespace dnGREP.Common
             public const string ShowFullReplaceDialog = "ShowFullReplaceDialog";
             [DefaultValue(true)]
             public const string SkipRemoteCloudStorageFiles = "SkipRemoteCloudStorageFiles";
+
+            [DefaultValue(false)]
+            public const string PersonalizationOn = "PersonalizationOn";
+            [DefaultValue(true)]
+            public const string BookmarksVisible = "BookmarksVisible";
+            [DefaultValue(true)]
+            public const string TestExpressionVisible = "TestExpressionVisible";
+            [DefaultValue(true)]
+            public const string ReplaceVisible = "ReplaceVisible";
+            [DefaultValue(true)]
+            public const string SortVisible = "SortVisible";
+            [DefaultValue(true)]
+            public const string MoreVisible = "MoreVisible";
+            [DefaultValue(true)]
+            public const string SearchInArchivesVisible = "SearchInArchivesVisible";
+            [DefaultValue(true)]
+            public const string SizeFilterVisible = "SizeFilterVisible";
+            [DefaultValue(true)]
+            public const string SubfoldersFilterVisible = "SubfoldersFilterVisible";
+            [DefaultValue(true)]
+            public const string HiddenFilterVisible = "HiddenFilterVisible";
+            [DefaultValue(true)]
+            public const string BinaryFilterVisible = "BinaryFilterVisible";
+            [DefaultValue(true)]
+            public const string SymbolicLinkFilterVisible = "SymbolicLinkFilterVisible";
+            [DefaultValue(true)]
+            public const string DateFilterVisible = "DateFilterVisible";
+            [DefaultValue(true)]
+            public const string SearchParallelVisible = "SearchParallelVisible";
+            [DefaultValue(true)]
+            public const string UseGitIgnoreVisible = "UseGitIgnoreVisible";
+            [DefaultValue(true)]
+            public const string SkipCloudStorageVisible = "SkipCloudStorageVisible";
+            [DefaultValue(true)]
+            public const string EncodingVisible = "EncodingVisible";
+            [DefaultValue(true)]
+            public const string SearchTypeRegexVisible = "SearchTypeRegexVisible";
+            [DefaultValue(true)]
+            public const string SearchTypeXPathVisible = "SearchTypeXPathVisible";
+            [DefaultValue(true)]
+            public const string SearchTypeTextVisible = "SearchTypeTextVisible";
+            [DefaultValue(true)]
+            public const string SearchTypePhoneticVisible = "SearchTypePhoneticVisible";
+            [DefaultValue(true)]
+            public const string SearchTypeByteVisible = "SearchTypeByteVisible";
+            [DefaultValue(true)]
+            public const string BooleanOperatorsVisible = "BooleanOperatorsVisible";
+            [DefaultValue(true)]
+            public const string CaptureGroupSearchVisible = "CaptureGroupSearchVisible";
+            [DefaultValue(true)]
+            public const string SearchInResultsVisible = "SearchInResultsVisible";
+            [DefaultValue(true)]
+            public const string PreviewFileVisible = "PreviewFileVisible";
+            [DefaultValue(true)]
+            public const string StopAfterFirstMatchVisible = "StopAfterFirstMatchVisible";
+            [DefaultValue(true)]
+            public const string HighlightMatchesVisible = "HighlightMatchesVisible";
+            [DefaultValue(true)]
+            public const string HighlightGroupsVisible = "HighlightGroupsVisible";
+            [DefaultValue(true)]
+            public const string ShowContextLinesVisible = "ShowContextLinesVisible";
+            [DefaultValue(true)]
+            public const string ZoomResultsTreeVisible = "ZoomResultsTreeVisible";
+            [DefaultValue(true)]
+            public const string WrapTextResultsTreeVisible = "WrapTextResultsTreeVisible";
+            [DefaultValue(true)]
+            public const string PreviewZoomWndVisible = "PreviewZoomWndVisible";
+            [DefaultValue(true)]
+            public const string WrapTextPreviewWndVisible = "WrapTextPreviewWndVisible";
+            [DefaultValue(true)]
+            public const string SyntaxPreviewWndVisible = "SyntaxPreviewWndVisible";
         }
 
         private static GrepSettings instance;

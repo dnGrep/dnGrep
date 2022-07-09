@@ -1176,6 +1176,17 @@ namespace dnGREP.WPF
             }
         }
 
+        private int progressPercentage;
+        public int ProgressPercentage
+        {
+            get { return progressPercentage; }
+            set {
+                if (value < 0) progressPercentage = 0;
+                else if (value > 100) progressPercentage = 100;
+                else progressPercentage = value;
+                base.OnPropertyChanged(nameof(ProgressPercentage));
+            }
+        }
         public bool IsOperationInProgress
         {
             get { return CurrentGrepOperation != GrepOperation.None; }
