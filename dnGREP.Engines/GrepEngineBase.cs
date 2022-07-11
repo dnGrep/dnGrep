@@ -487,7 +487,7 @@ namespace dnGREP.Engines
                     }
 
                     yield return new GrepMatch(searchText, lineNumber, index + filePosition, searchText.Length);
-                    index++;
+                    index += searchText.Length;
                 }
             }
         }
