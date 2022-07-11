@@ -37,14 +37,38 @@ namespace dnGREP.WPF.MVHelpers
             set { lineNumberColumnWidth = value; OnPropertyChanged(nameof(LineNumberColumnWidth)); }
         }
 
-        public async Task<bool> LoadAsync()
+        public bool Load()
         {
             if (IsLoaded || IsLoading)
                 return false;
 
             IsLoading = true;
 
-            int currentLine = -1;
+            List<GrepLine> linesWithContext;
+            if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowLinesInContext))
+            {
+                linesWithContext = result.GetLinesWithContext(GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesBefore),
+                        GrepSettings.Instance.Get<int>(GrepSettings.Key.ContextLinesAfter));
+            }
+            else
+            {
+                linesWithContext = result.GetLinesWithContext(0, 0);
+            }
+
+            FormatAndLoadLines(linesWithContext);
+
+            IsLoaded = true;
+            IsLoading = false;
+            LoadFinished?.Invoke(this, EventArgs.Empty);
+            return true;
+        }
+
+        public async Task<bool> LoadAsync()
+        {
+            if (IsLoaded || IsLoading)
+                return false;
+
+            IsLoading = true;
 
             List<GrepLine> linesWithContext = await Task.Run(() =>
             {
@@ -57,6 +81,18 @@ namespace dnGREP.WPF.MVHelpers
 
                 return list;
             });
+
+            FormatAndLoadLines(linesWithContext);
+
+            IsLoaded = true;
+            IsLoading = false;
+            LoadFinished?.Invoke(this, EventArgs.Empty);
+            return true;
+        }
+
+        private void FormatAndLoadLines(List<GrepLine> linesWithContext)
+        {
+            int currentLine = -1;
 
             if (this.Count == 1 && this[0].GrepLine.LineNumber == -1)
             {
@@ -100,10 +136,6 @@ namespace dnGREP.WPF.MVHelpers
                     foreach (var l in tempList) this.Add(l);
                 }
             ));
-            IsLoaded = true;
-            IsLoading = false;
-            LoadFinished?.Invoke(this, EventArgs.Empty);
-            return true;
         }
 
         public event EventHandler<PropertyChangedEventArgs> LineNumberColumnWidthChanged;

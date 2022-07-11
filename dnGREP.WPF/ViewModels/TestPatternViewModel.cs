@@ -257,7 +257,7 @@ namespace dnGREP.WPF
             }
         }
 
-        private async void Search()
+        private void Search()
         {
             hasMatches = false;
             grepResults.Clear();
@@ -336,7 +336,7 @@ namespace dnGREP.WPF
             Paragraph paragraph = new Paragraph();
             if (SearchResults.Count == 1)
             {
-                await SearchResults[0].FormattedLines.LoadAsync();
+                SearchResults[0].FormattedLines.Load();
                 foreach (FormattedGrepLine line in SearchResults[0].FormattedLines)
                 {
                     if (line.IsSectionBreak)
@@ -402,7 +402,7 @@ namespace dnGREP.WPF
                 return;
             }
 
-            string replaceString = ReplaceWith ?? string.Empty;
+            string replacePattern = Utils.ReplaceSpecialCharacters(ReplaceWith) ?? string.Empty;
 
             GrepEnginePlainText engine = new GrepEnginePlainText();
             engine.Initialize(InitParameters, new FileFilter());
@@ -427,7 +427,7 @@ namespace dnGREP.WPF
                 using (Stream inputStream = new MemoryStream(Encoding.Unicode.GetBytes(SampleText)))
                 using (Stream writeStream = new MemoryStream())
                 {
-                    engine.Replace(inputStream, writeStream, SearchFor, replaceString, TypeOfSearch,
+                    engine.Replace(inputStream, writeStream, SearchFor, replacePattern, TypeOfSearch,
                         SearchOptions, Encoding.Unicode, grepResults[0].Matches);
                     writeStream.Position = 0;
                     using (StreamReader reader = new StreamReader(writeStream))
