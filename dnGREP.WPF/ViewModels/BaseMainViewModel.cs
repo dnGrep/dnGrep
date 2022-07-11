@@ -1303,7 +1303,8 @@ namespace dnGREP.WPF
                 ValidationToolTip = null;
                 IsValidPattern = true;
 
-                if (!string.IsNullOrWhiteSpace(SearchFor))
+                // Whitespace is a valid search pattern for Text and Regex
+                if (!string.IsNullOrEmpty(SearchFor))
                 {
                     if (TypeOfSearch == SearchType.PlainText)
                     {
@@ -1323,7 +1324,11 @@ namespace dnGREP.WPF
                             ValidateRegex(SearchFor);
                         }
                     }
-                    else if (TypeOfSearch == SearchType.XPath)
+                }
+
+                if (!string.IsNullOrWhiteSpace(SearchFor))
+                {
+                    if (TypeOfSearch == SearchType.XPath)
                     {
                         try
                         {

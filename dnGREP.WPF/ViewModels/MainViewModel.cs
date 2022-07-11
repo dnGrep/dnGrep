@@ -986,7 +986,7 @@ namespace dnGREP.WPF
                             param.FollowSymlinks, sizeFrom, sizeTo, param.UseFileDateFilter, startTime, endTime,
                             SkipRemoteCloudStorageFiles);
 
-                        if (string.IsNullOrWhiteSpace(SearchFor) &&
+                        if (string.IsNullOrEmpty(SearchFor) &&
                             Settings.Get<bool>(GrepSettings.Key.AllowSearchingForFileNamePattern))
                         {
                             fileInfos = Utils.GetFileListIncludingArchives(fileParams);
@@ -1475,11 +1475,11 @@ namespace dnGREP.WPF
             return true;
         }
 
-        private string GetValidateRegexMsg(string FilePattern)
+        private string GetValidateRegexMsg(string pattern)
         {
             try
             {
-                Regex regex = new Regex(FilePattern);
+                Regex regex = new Regex(pattern);
                 return null;
             }
             catch (Exception ex)
@@ -2156,7 +2156,9 @@ namespace dnGREP.WPF
             get
             {
                 return FilesFound && CurrentGrepOperation == GrepOperation.None &&
-                        !IsSaveInProgress && !string.IsNullOrEmpty(SearchFor) && SearchResults.GetWritableList().Count > 0 &&
+                        !IsSaveInProgress && !string.IsNullOrEmpty(SearchFor) &&
+                        SearchResults.GetWritableList().Any() &&
+                        SearchResults.GetWritableList().SelectMany(m => m.Matches).Any() &&
                         // can only replace using the same parameters as was used for the search
                         !SearchParametersChanged &&
                         // if using boolean operators, only allow replace for plain text searches (not implemented for regex)
