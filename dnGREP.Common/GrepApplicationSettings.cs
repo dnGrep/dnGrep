@@ -604,11 +604,17 @@ namespace dnGREP.Common
 
         public void WriteXml(System.Xml.XmlWriter writer)
         {
+            writer.WriteAttributeString("xml", "http://www.w3.org/2000/xmlns/", "http://www.w3.org/XML/1998/namespace");
+
             foreach (var key in this.Keys)
             {
                 writer.WriteStartElement("item");
                 writer.WriteAttributeString("key", key);
                 string value = this[key];
+                if (!string.IsNullOrEmpty(value) && string.IsNullOrWhiteSpace(value))
+                {
+                    writer.WriteAttributeString("xml", "space", "http://www.w3.org/XML/1998/namespace", "preserve");
+                }
                 writer.WriteString(value);
                 writer.WriteEndElement();
             }

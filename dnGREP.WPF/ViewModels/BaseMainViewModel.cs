@@ -31,6 +31,7 @@ namespace dnGREP.WPF
             IsBooleanOperatorsEnabled = TypeOfSearch == SearchType.PlainText || TypeOfSearch == SearchType.Regex;
             CanSearchArchives = Utils.ArchiveExtensions.Count > 0;
             LoadSettings();
+            SetToolTipText();
 
             IsEverythingAvailable = EverythingSearch.IsAvailable;
         }
@@ -142,6 +143,40 @@ namespace dnGREP.WPF
             }
         }
 
+
+        private string searchToolTip = string.Empty;
+        public string SearchToolTip
+        {
+            get { return searchToolTip; }
+            set
+            {
+                if (searchToolTip == value)
+                {
+                    return;
+                }
+
+                searchToolTip = value;
+                OnPropertyChanged(nameof(SearchToolTip));
+            }
+        }
+
+
+        private bool searchToolTipVisible = false;
+        public bool SearchToolTipVisible
+        {
+            get { return searchToolTipVisible; }
+            set
+            {
+                if (searchToolTipVisible == value)
+                {
+                    return;
+                }
+
+                searchToolTipVisible = value;
+                OnPropertyChanged(nameof(SearchToolTipVisible));
+            }
+        }
+
         private string replaceWith;
         public string ReplaceWith
         {
@@ -154,6 +189,81 @@ namespace dnGREP.WPF
                 replaceWith = value;
                 base.OnPropertyChanged(nameof(ReplaceWith));
             }
+        }
+
+
+        private string replaceToolTip = string.Empty;
+        public string ReplaceToolTip
+        {
+            get { return replaceToolTip; }
+            set
+            {
+                if (replaceToolTip == value)
+                {
+                    return;
+                }
+
+                replaceToolTip = value;
+                OnPropertyChanged(nameof(ReplaceToolTip));
+            }
+        }
+
+
+        private bool replaceToolTipVisible = false;
+        public bool ReplaceToolTipVisible
+        {
+            get { return replaceToolTipVisible; }
+            set
+            {
+                if (replaceToolTipVisible == value)
+                {
+                    return;
+                }
+
+                replaceToolTipVisible = value;
+                OnPropertyChanged(nameof(ReplaceToolTipVisible));
+            }
+        }
+
+        private void SetToolTipText()
+        {
+            switch (TypeOfSearch)
+            {
+                case SearchType.PlainText:
+                case SearchType.Soundex:
+                    SearchToolTip = string.Empty;
+                    ReplaceToolTip = Resources.TTB0_InsertsTabNewline;
+                    break;
+
+                case SearchType.Regex:
+                    SearchToolTip = string.Join(Environment.NewLine, new string[]
+                    {
+                        Resources.TTA1_MatchesAllCharacters,
+                        Resources.TTA2_MatchesAlphaNumerics,
+                        Resources.TTA3_MatchesDigits,
+                        Resources.TTA4_MatchesSpace,
+                        Resources.TTA5_MatchesAnyNumberOfCharacters,
+                        Resources.TTA6_Matches1To3Characters,
+                        Resources.TTA7_ForMoreRegexPatternsHitF1,
+
+                    });
+
+                    ReplaceToolTip = string.Join(Environment.NewLine, new string[]
+                        {
+                            Resources.TTB0_InsertsTabNewline,
+                            Resources.TTB1_ReplacesEntireRegex,
+                            Resources.TTB2_InsertsTheTextMatchedIntoTheReplacementText,
+                            Resources.TTB3_InsertsASingleDollarSignIntoTheReplacementText,
+                        });
+                    break;
+                default:
+                    SearchToolTip = string.Empty;
+                    ReplaceToolTip = string.Empty;
+                    break;
+            }
+
+            SearchToolTipVisible = !string.IsNullOrEmpty(SearchToolTip);
+            ReplaceToolTipVisible = !string.IsNullOrEmpty(ReplaceToolTip);
         }
 
         private bool isFiltersExpanded;
@@ -1296,6 +1406,11 @@ namespace dnGREP.WPF
                         FileOrFolderPath);
             }
 
+            if (name == nameof(TypeOfSearch))
+            {
+                SetToolTipText();
+            }
+
             //Change validation
             if (name == nameof(SearchFor) || name == nameof(TypeOfSearch) || name == nameof(BooleanOperators))
             {
@@ -1303,7 +1418,8 @@ namespace dnGREP.WPF
                 ValidationToolTip = null;
                 IsValidPattern = true;
 
-                if (!string.IsNullOrWhiteSpace(SearchFor))
+                // Whitespace is a valid search pattern for Text and Regex
+                if (!string.IsNullOrEmpty(SearchFor))
                 {
                     if (TypeOfSearch == SearchType.PlainText)
                     {
@@ -1323,7 +1439,11 @@ namespace dnGREP.WPF
                             ValidateRegex(SearchFor);
                         }
                     }
-                    else if (TypeOfSearch == SearchType.XPath)
+                }
+
+                if (!string.IsNullOrWhiteSpace(SearchFor))
+                {
+                    if (TypeOfSearch == SearchType.XPath)
                     {
                         try
                         {

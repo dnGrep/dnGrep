@@ -5195,6 +5195,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to \\t inserts tab, \\r inserts return, \\n inserts newline.
+        /// </summary>
+        public static string TTB0_InsertsTabNewline {
+            get {
+                return ResourceManager.GetString("TTB0_InsertsTabNewline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to $&amp; replaces entire regular expression.
         /// </summary>
         public static string TTB1_ReplacesEntireRegex {

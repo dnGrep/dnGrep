@@ -2485,6 +2485,10 @@ Arguments:
     <value>Hit F1 for more regular expression patterns</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
+  <data name="TTB0_InsertsTabNewline" xml:space="preserve">
+    <value>\\t inserts tab, \\r inserts return, \\n inserts newline</value>
+    <comment>Main window and Test window tooltip</comment>
+  </data>
   <data name="TTB1_ReplacesEntireRegex" xml:space="preserve">
     <value>$&amp; replaces entire regular expression</value>
     <comment>Main window and Test window tooltip</comment>

@@ -38,6 +38,7 @@
         <my:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed" />
         <my:BoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter" TrueValue="Collapsed"
                                       FalseValue="Visible" />
+        <my:BoolToVisibilityConverter x:Key="BoolToHiddenVisibilityConverter" TrueValue="Visible" FalseValue="Hidden" />
         <my:GridLengthConverter x:Key="GridLengthConverter" />
         <my:IntOrEmptyValueConverter x:Key="IntConverter"/>
         <my:TitleFontSizeConverter x:Key="TitleSizeConverter"/>
@@ -787,21 +788,9 @@
                                       FontFamily="{Binding ResultsFontFamily}" FontSize="{Binding ResultsFontSize}"
                                       TabIndex="60">
                                 <ComboBox.ToolTip>
-                                    <TextBlock>
-                                    <Run Text="{l:Loc Key='TTA1_MatchesAllCharacters'}"/>
-                                    <LineBreak />
-                                    <Run Text="{l:Loc Key='TTA2_MatchesAlphaNumerics'}"/>
-                                    <LineBreak />
-                                    <Run Text="{l:Loc Key='TTA3_MatchesDigits'}"/>
-                                    <LineBreak />
-                                    <Run Text="{l:Loc Key='TTA4_MatchesSpace'}"/>
-                                    <LineBreak />
-                                    <Run Text="{l:Loc Key='TTA5_MatchesAnyNumberOfCharacters'}"/>
-                                    <LineBreak />
-                                    <Run Text="{l:Loc Key='TTA6_Matches1To3Characters'}"/>
-                                    <LineBreak />
-                                    <Run Text="{l:Loc Key='TTA7_ForMoreRegexPatternsHitF1'}"/>
-                                    </TextBlock>
+                                    <ToolTip Visibility="{Binding SearchToolTipVisible, Converter={StaticResource BoolToHiddenVisibilityConverter}}">
+                                        <TextBlock Text="{Binding SearchToolTip}"/>
+                                    </ToolTip>
                                 </ComboBox.ToolTip>
                             </my:MultilineComboBox>
                             <Label Grid.Row="2" Grid.Column="0" Margin="3,3,3,4"
@@ -820,13 +809,9 @@
                                       TabIndex="61"
                                       Visibility="{Binding ReplaceVisible, Converter={StaticResource BoolToVisibilityConverter}}">
                                 <ComboBox.ToolTip>
-                                    <TextBlock>
-                                    <Run Text="{l:Loc Key='TTB1_ReplacesEntireRegex'}"/>
-                                    <LineBreak />
-                                    <Run Text="{l:Loc Key='TTB2_InsertsTheTextMatchedIntoTheReplacementText'}"/>
-                                    <LineBreak />
-                                    <Run Text="{l:Loc Key='TTB3_InsertsASingleDollarSignIntoTheReplacementText'}"/>
-                                    </TextBlock>
+                                    <ToolTip Visibility="{Binding ReplaceToolTipVisible, Converter={StaticResource BoolToHiddenVisibilityConverter}}">
+                                        <TextBlock Text="{Binding ReplaceToolTip}"/> 
+                                    </ToolTip>
                                 </ComboBox.ToolTip>
                             </my:MultilineComboBox>
                         </Grid>
