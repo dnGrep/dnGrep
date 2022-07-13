@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About_ConvertsPDFFilesToPlainText" xml:space="preserve">
-    <value>Converts PDF files to plain text</value>
+    <value>PDF 파일을 일반 글자로 변환</value>
     <comment>About dnGrep acknowledgments</comment>
   </data>
   <data name="About_DnGREP" xml:space="preserve">
@@ -67,7 +67,7 @@
     <comment>About dialog text</comment>
   </data>
   <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
-    <value>.NET library for character set detection</value>
+    <value>문자열 탐지용 .NET 라이브러리</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
@@ -775,7 +775,7 @@
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="About_DnGrepOnGitHub" xml:space="preserve">
-    <value>dnGrep on GitHub</value>
+    <value>GitHub 페이지</value>
     <comment>About dialog text</comment>
   </data>
   <data name="About_OK" xml:space="preserve">
@@ -811,23 +811,23 @@
     <comment>Window title bar close button tooltip</comment>
   </data>
   <data name="About_FileSystemIndexingLocateFilesInstantly" xml:space="preserve">
-    <value>File system indexing, locate files instantly</value>
+    <value>파일 색인화, 빠른 파일 검색</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_JsonFrameworkForNET" xml:space="preserve">
-    <value>JSON framework for .NET</value>
+    <value>.NET을 위한 JSON 프레임워크</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_LibraryForReadingArchiveFiles" xml:space="preserve">
-    <value>Library for reading archive files</value>
+    <value>압축 파일을 읽기 위한 라이브러리</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_LoggingFrameworkForNET" xml:space="preserve">
-    <value>Logging framework for .NET</value>
+    <value>.NET용 로깅 체계</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryFor7Zip" xml:space="preserve">
-    <value>.NET library for 7-Zip</value>
+    <value>7-Zip용 .NET 라이브러리</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
@@ -2303,15 +2303,15 @@ Arguments:
     <comment>Window title bar button tooltip</comment>
   </data>
   <data name="About_AboutDnGREP" xml:space="preserve">
-    <value>About dnGrep</value>
+    <value>dnGrep 정보</value>
     <comment>About dialog window title</comment>
   </data>
   <data name="About_Acknowledgments" xml:space="preserve">
-    <value>Acknowledgments</value>
+    <value>아래 라이브러리를 사용합니다.</value>
     <comment>About dialog text</comment>
   </data>
   <data name="About_BuiltOn" xml:space="preserve">
-    <value>Built on</value>
+    <value>마지막 빌드</value>
     <comment>About dialog label</comment>
   </data>
   <data name="BookmarkDetails_OK" xml:space="preserve">
