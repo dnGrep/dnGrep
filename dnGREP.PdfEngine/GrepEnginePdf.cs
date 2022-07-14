@@ -56,7 +56,6 @@ namespace dnGREP.Engines.Pdf
 
         public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
         {
-            string tempFolder = Path.Combine(Utils.GetTempFolder(), "dnGREP-PDF");
             try
             {
                 // Extract text
@@ -87,10 +86,9 @@ namespace dnGREP.Engines.Pdf
                     foreach (GrepSearchResult result in results)
                     {
                         result.ReadOnly = true;
-                        if (file.Contains(tempFolder))
-                            result.FileNameDisplayed = file.Substring(tempFolder.Length + 1);
-                        else
-                            result.FileNameDisplayed = file;
+                        result.FileNameDisplayed = file;
+                        result.FileInfo.TempFile = tempFile;
+
                         result.FileNameReal = file;
                     }
                 }
@@ -112,7 +110,17 @@ namespace dnGREP.Engines.Pdf
             // write the stream to a temp folder, and run the file version of the search
             string tempFolder = Path.Combine(Utils.GetTempFolder(), "dnGREP-PDF");
             // the fileName may contain the partial path of the directory structure in the archive
-            string filePath = Path.Combine(tempFolder, fileName);
+            string extractFileName = fileName;
+            bool isInArchive = fileName.Contains(ArchiveDirectory.ArchiveSeparator);
+            if (isInArchive)
+            {
+                int pos = fileName.IndexOf(ArchiveDirectory.ArchiveSeparator);
+                if (pos > 0 && !fileName.EndsWith(ArchiveDirectory.ArchiveSeparator))
+                {
+                    extractFileName = fileName.Substring(pos + ArchiveDirectory.ArchiveSeparator.Length);
+                }
+            }
+            string filePath = Path.Combine(tempFolder, extractFileName);
 
             // use the directory name to also include folders within the archive
             string directory = Path.GetDirectoryName(filePath);
@@ -125,7 +133,15 @@ namespace dnGREP.Engines.Pdf
                 input.CopyTo(fileStream);
             }
 
-            return Search(filePath, searchPattern, searchType, searchOptions, encoding);
+            var results = Search(filePath, searchPattern, searchType, searchOptions, encoding);
+            if (isInArchive && results.Count > 0)
+            {
+                foreach (GrepSearchResult gsr in results)
+                {
+                    gsr.FileNameDisplayed = fileName;
+                }
+            }
+            return results;
         }
 
         private string ExtractText(string pdfFilePath)

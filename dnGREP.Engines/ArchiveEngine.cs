@@ -301,6 +301,9 @@ namespace dnGREP.Engines
                         {
                             foreach (var result in innerFileResults)
                             {
+                                // copy the temp file if set by the search engine
+                                fileData.TempFile = result.FileInfo.TempFile;
+
                                 // file info is known, set it now
                                 result.FileInfo = fileData;
 

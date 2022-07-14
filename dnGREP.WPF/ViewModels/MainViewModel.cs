@@ -2544,6 +2544,12 @@ namespace dnGREP.WPF
                     }
                 }
 
+                if (/*Utils.IsPdfFile(filePath) &&*/ !string.IsNullOrEmpty(result.FileInfo.TempFile))
+                {
+                    filePath = result.FileInfo.TempFile;
+                    displayfileName = result.FileNameDisplayed + " " + Resources.Preview_Title_AsText;
+                }
+
                 string basePath = PathSearchText.BaseFolder;
                 if (!string.IsNullOrWhiteSpace(basePath) &&
                     displayfileName.Contains(basePath, StringComparison.CurrentCultureIgnoreCase))

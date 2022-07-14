@@ -4223,6 +4223,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (as text).
+        /// </summary>
+        public static string Preview_Title_AsText {
+            get {
+                return ResourceManager.GetString("Preview_Title_AsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use regular expressions.
         /// </summary>
         public static string Preview_UseRegularExpressions {

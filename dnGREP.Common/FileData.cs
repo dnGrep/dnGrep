@@ -176,6 +176,8 @@ namespace dnGREP.Common
 
         public Encoding Encoding { get; set; }
 
+        public string TempFile { get; set; } = string.Empty;
+
         private static long ToLong(ulong size)
         {
             try

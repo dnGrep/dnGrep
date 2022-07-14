@@ -86,6 +86,7 @@ namespace dnGREP.Engines.OpenXml
                 var sheets = ExcelReader.ExtractExcelText(stream);
                 foreach (var kvPair in sheets)
                 {
+                    var tempFile = WriteTempFile(kvPair.Value, file, "XLS");
                     var lines = searchMethod(-1, 0, kvPair.Value, searchPattern, searchOptions, true);
                     if (lines.Count > 0)
                     {
@@ -98,6 +99,7 @@ namespace dnGREP.Engines.OpenXml
                             result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
                         }
                         result.ReadOnly = true;
+                        result.FileInfo.TempFile = tempFile;
                         searchResults.Add(result);
                     }
                 }
@@ -113,6 +115,7 @@ namespace dnGREP.Engines.OpenXml
             try
             {
                 var text = WordReader.ExtractWordText(stream);
+                var tempFile = WriteTempFile(text, file, "DOC");
 
                 var lines = searchMethod(-1, 0, text, searchPattern, searchOptions, true);
                 if (lines.Count > 0)
@@ -123,6 +126,7 @@ namespace dnGREP.Engines.OpenXml
                         result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
                     }
                     result.ReadOnly = true;
+                    result.FileInfo.TempFile = tempFile;
                     searchResults.Add(result);
                 }
             }
@@ -130,6 +134,20 @@ namespace dnGREP.Engines.OpenXml
             {
                 logger.Error(ex, string.Format("Failed to search inside Word file '{0}'", file));
             }
+        }
+
+        private string WriteTempFile(string text, string filePath, string app)
+        {
+            string tempFolder = Path.Combine(Utils.GetTempFolder(), $"dnGREP-{app}");
+            if (!Directory.Exists(tempFolder))
+                Directory.CreateDirectory(tempFolder);
+
+            // ensure each temp file is unique, even if the file name exists elsewhere in the search tree
+            string fileName = Path.GetFileNameWithoutExtension(filePath) + "_" + Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + ".txt";
+            string tempFileName = Path.Combine(tempFolder, fileName);
+
+            File.WriteAllText(tempFileName, text);
+            return tempFileName;
         }
 
         private void SearchPowerPoint(Stream stream, string file, string searchPattern, GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod, List<GrepSearchResult> searchResults)
@@ -140,6 +158,7 @@ namespace dnGREP.Engines.OpenXml
 
                 foreach (var slide in slides)
                 {
+                    var tempFile = WriteTempFile(slide.Item2, file, "PPT");
                     var lines = searchMethod(-1, 0, slide.Item2, searchPattern, searchOptions, true);
                     if (lines.Count > 0)
                     {
@@ -153,6 +172,7 @@ namespace dnGREP.Engines.OpenXml
                             result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
                         }
                         result.ReadOnly = true;
+                        result.FileInfo.TempFile = tempFile;
                         searchResults.Add(result);
                     }
                 }

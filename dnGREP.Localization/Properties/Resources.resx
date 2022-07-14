@@ -2053,6 +2053,10 @@ Arguments:
     <value>This file is either binary, or too large to be shown.</value>
     <comment>Preview window, warning message</comment>
   </data>
+  <data name="Preview_Title_AsText" xml:space="preserve">
+    <value>(as text)</value>
+    <comment>Preview window, file label when binary file is shown as text</comment>
+  </data>
   <data name="Preview_UseRegularExpressions" xml:space="preserve">
     <value>Use regular expressions</value>
     <comment>Preview window, search tool window tooltip</comment>
