@@ -410,9 +410,17 @@ namespace dnGREP.Common
             {
                 stream.Seek(0, SeekOrigin.Begin);
 
+                bool isExcelMatch = Utils.IsExcelFile(fileData.Name) && filter.NamePatternToInclude.Contains(".xls", StringComparison.OrdinalIgnoreCase);
+                bool isWordMatch = Utils.IsWordFile(fileData.Name) && filter.NamePatternToInclude.Contains(".doc", StringComparison.OrdinalIgnoreCase);
+                bool isPowerPointMatch = Utils.IsPowerPointFile(fileData.Name) && filter.NamePatternToInclude.Contains(".ppt", StringComparison.OrdinalIgnoreCase);
+                bool isPdfMatch = Utils.IsPdfFile(fileData.Name) && filter.NamePatternToInclude.Contains(".pdf", StringComparison.OrdinalIgnoreCase);
+
+                // When searching for Excel, Word, PowerPoint, or PDF files, skip the binary file check:
+                // If someone is searching for one of these types, don't make them include binary to 
+                // find their files.
                 // the isBinary flag is needed for the Encoding check below
                 fileData.IsBinary = Utils.IsBinary(stream);
-                if (!filter.IncludeBinary && fileData.IsBinary)
+                if (!(isExcelMatch || isWordMatch || isPowerPointMatch || isPdfMatch) && !filter.IncludeBinary && fileData.IsBinary)
                 {
                     return false;
                 }
