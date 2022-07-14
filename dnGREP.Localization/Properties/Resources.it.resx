@@ -346,4 +346,20 @@
     <value>e le</value>
     <comment>Main window, filter files by date label</comment>
   </data>
+  <data name="Options_ContextAfter" xml:space="preserve">
+    <value>dopo</value>
+    <comment>Options dialog, results options context label</comment>
+  </data>
+  <data name="Options_ContextBeforeAnd" xml:space="preserve">
+    <value>prima e</value>
+    <comment>Options dialog, results options context label</comment>
+  </data>
+  <data name="Main_PastDateTo" xml:space="preserve">
+    <value>e le</value>
+    <comment>Main window, filter files by date, past time label</comment>
+  </data>
+  <data name="Main_SizeTo" xml:space="preserve">
+    <value>e le</value>
+    <comment>Main window, filter by size label</comment>
+  </data>
 </root>
