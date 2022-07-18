@@ -1334,4 +1334,680 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <value>Заменити шаблон за претрагу празним низом?</value>
     <comment>Message box text for: Replace text</comment>
   </data>
+  <data name="Main_HighlightRegularExpressionGroups" xml:space="preserve">
+    <value>Истакните групе регуларних израза. Промене ће бити примењене у следећој претрази.</value>
+    <comment>Main window, result options highlight groups tooltip</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorCopyingFiles" xml:space="preserve">
+    <value>Није могуће копирати датотеке. Проверите извештај грешака: </value>
+    <comment>Message box text for: Copy files</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorCreatingTheFile" xml:space="preserve">
+    <value>Није могуће креирати датотеку. Проверите извештај грешака: </value>
+    <comment>Message box text for: Create file</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorDeletingFiles" xml:space="preserve">
+    <value>Није могуће избрисати датотеку. Проверите извештај грешака: </value>
+    <comment>Message box text for: Delete file</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorMovingFiles" xml:space="preserve">
+    <value>Није могуће преместити датотеке. Проверите извештај грешака: </value>
+    <comment>Message box text for: Move file</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorRevertingFiles" xml:space="preserve">
+    <value>Није могуће вратити датотеке. Проверите извештај грешака: </value>
+    <comment>Message box text for: Undo replace error</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorSavingOptions" xml:space="preserve">
+    <value>Није могуће сачувати опције. Проверите извештај грешака: </value>
+    <comment>Message box text for: Saving user options</comment>
+  </data>
+  <data name="MessageBox_ThisBookmarkIsAssociatedWith0OtherFolders" xml:space="preserve">
+    <value>Овај обележивач је повезан са {0} другим фасциклама.</value>
+    <comment>Message box text for: Main window bookmark delete: {0} is the number of folders</comment>
+  </data>
+  <data name="MessageBox_ThisBookmarkIsAssociatedWithOneOtherFolder" xml:space="preserve">
+    <value>Овај обележивач је повезан са још једној фасцикли.</value>
+    <comment>Message box text for: Main window bookmark delete</comment>
+  </data>
+  <data name="MessageBox_Undo" xml:space="preserve">
+    <value>Опозвати</value>
+    <comment>Message box title for: Main window Undo</comment>
+  </data>
+  <data name="MessageBox_WindowTitleIsName" xml:space="preserve">
+    <value>Наслов прозора: {0}</value>
+    <comment>Message box text for: Clipboard set text error, clipboard locked by application name: {0} is the window title of the application locking clipboard</comment>
+  </data>
+  <data name="MessageBox_WouldYouLikeToContinue" xml:space="preserve">
+    <value>Наставити?</value>
+    <comment>Message box text for: Replace window warning</comment>
+  </data>
+  <data name="MessageBox_WouldYouLikeToDownloadItNow" xml:space="preserve">
+    <value>Преузети сада?</value>
+    <comment>Message box text for: New dnGrep version</comment>
+  </data>
+  <data name="MessageBox_YouAreAboutToDeleteFilesFoundDuringSearch" xml:space="preserve">
+    <value>Пажња, управо ћете обрисати датотеке пронађене током претраге.</value>
+    <comment>Message box text for: Delete files warning</comment>
+  </data>
+  <data name="Options_ApplicationFonts" xml:space="preserve">
+    <value>Фонтови апликације</value>
+    <comment>Options dialog, Application fonts group header label</comment>
+  </data>
+  <data name="Options_ArchiveExtensions" xml:space="preserve">
+    <value>Додатци:</value>
+    <comment>Options dialog, archive options label</comment>
+  </data>
+  <data name="Options_ArchiveOptions" xml:space="preserve">
+    <value>Архивске датотеке</value>
+    <comment>Options dialog, Archive files group header label</comment>
+  </data>
+  <data name="Options_BrowseFileLocation" xml:space="preserve">
+    <value>…</value>
+    <comment>Options dialog, browse for file button label</comment>
+  </data>
+  <data name="Options_CheckDays" xml:space="preserve">
+    <value>дана</value>
+    <comment>Options dialog, check for updates label</comment>
+  </data>
+  <data name="Options_CompareApplication" xml:space="preserve">
+    <value>Апликација упореда</value>
+    <comment>Options dialog, compare application group header label</comment>
+  </data>
+  <data name="Options_ContextAfter" xml:space="preserve">
+    <value>после</value>
+    <comment>Options dialog, results options context label</comment>
+  </data>
+  <data name="Options_ContextBeforeAnd" xml:space="preserve">
+    <value>пре и</value>
+    <comment>Options dialog, results options context label</comment>
+  </data>
+  <data name="Options_CustomEditor" xml:space="preserve">
+    <value>Прилагођен уређивач</value>
+    <comment>Options dialog, custom editor group header label</comment>
+  </data>
+  <data name="Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
+    <value>Открити кодирање датотека када наводите датотеке користећи шаблон имена датотеке</value>
+    <comment>Options dialog, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Options_DialogFontSize" xml:space="preserve">
+    <value>Величина слова за друге прозоре</value>
+    <comment>Options dialog, font size selector label</comment>
+  </data>
+  <data name="Options_EditorArguments" xml:space="preserve">
+    <value>Аргументи</value>
+    <comment>Options dialog, custom editor arguments input box label</comment>
+  </data>
+  <data name="Options_EditorCommand" xml:space="preserve">
+    <value>Команда</value>
+    <comment>Options dialog, custom editor command input box label</comment>
+  </data>
+  <data name="Options_EnableAutomaticCheckingEvery" xml:space="preserve">
+    <value>Проверити свака</value>
+    <comment>Options dialog, check for updates, checkbox label (accel)</comment>
+  </data>
+  <data name="Options_FilesOnly" xml:space="preserve">
+    <value>само датотеке</value>
+    <comment>Options dialog, Replace window layout radio button label (accel)</comment>
+  </data>
+  <data name="Options_FollowWindowsTheme" xml:space="preserve">
+    <value>Прати тему система</value>
+    <comment>Options dialog, theme checkbox label (accel)</comment>
+  </data>
+  <data name="Options_FontFamily" xml:space="preserve">
+    <value>Породица фонтова</value>
+    <comment>Options dialog, font selector label</comment>
+  </data>
+  <data name="Options_HistoryLists" xml:space="preserve">
+    <value>Листе историје</value>
+    <comment>Options dialog, History group heading label</comment>
+  </data>
+  <data name="Options_ItemsShownInFileFilterHistoryLists" xml:space="preserve">
+    <value>ставке приказане у листама историје филтера датотека</value>
+    <comment>Options dialog, history list text input label</comment>
+  </data>
+  <data name="Options_ItemsShownInPathHistoryList" xml:space="preserve">
+    <value>ставке приказане у листи историје путања</value>
+    <comment>Options dialog, history list text input label</comment>
+  </data>
+  <data name="Options_Language" xml:space="preserve">
+    <value>Језик</value>
+    <comment>Options dialog, language group header label</comment>
+  </data>
+  <data name="Options_Layout" xml:space="preserve">
+    <value>Шаблон</value>
+    <comment>Options dialog, layout group header label</comment>
+  </data>
+  <data name="Options_LoadFromFile" xml:space="preserve">
+    <value>Учитати из датотеке…</value>
+    <comment>Options dialog, language load button label (accel)</comment>
+  </data>
+  <data name="Options_MainFontSize" xml:space="preserve">
+    <value>Величина слова главног прозора</value>
+    <comment>Options dialog, font size input label</comment>
+  </data>
+  <data name="Options_MatchTimeout" xml:space="preserve">
+    <value>Тајмаут налажења</value>
+    <comment>Options dialog, regular expression options text input label</comment>
+  </data>
+  <data name="Options_OnMainPanel" xml:space="preserve">
+    <value>на главном панелу</value>
+    <comment>Options dialog, layout option radio button label (accel)</comment>
+  </data>
+  <data name="Options_OptionsTitle" xml:space="preserve">
+    <value>Опције</value>
+    <comment>Options dialog, window title</comment>
+  </data>
+  <data name="Options_PDFToText" xml:space="preserve">
+    <value>PDF у текст</value>
+    <comment>Options dialog, PDF to text group header label</comment>
+  </data>
+  <data name="Options_PdfToTextExeCommandLineOptions" xml:space="preserve">
+    <value>Опције командне линије PdfToText.exe:</value>
+    <comment>Options dialog, PDF text input label</comment>
+  </data>
+  <data name="Options_PdfToTextReset" xml:space="preserve">
+    <value>Ресетовање</value>
+    <comment>Options dialog, PDF arguments button label (accel)</comment>
+  </data>
+  <data name="Options_Personalize_Features" xml:space="preserve">
+    <value>Способности</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_FileFilter" xml:space="preserve">
+    <value>Филтер датотеке</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_PreviewWindow" xml:space="preserve">
+    <value>Прозор за преглед</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_ResultsTree" xml:space="preserve">
+    <value>Дрво резултата</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_SearchOptions" xml:space="preserve">
+    <value>Опције претраге</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_SearchType" xml:space="preserve">
+    <value>Тип претраге</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_SpecialOptions" xml:space="preserve">
+    <value>Специјалне опције</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_PersonalizeControlVisibility" xml:space="preserve">
+    <value>Подесити видљивост контроле</value>
+    <comment>Options dialog, control label</comment>
+  </data>
+  <data name="Options_PersonalizeControlVisibility_Tooltip" xml:space="preserve">
+    <value>Приказати или сакрити контроле када је омогућена Персонализација</value>
+    <comment>Options dialog, control tooltip</comment>
+  </data>
+  <data name="Options_PhoneticSearch" xml:space="preserve">
+    <value>Фонетска претрага</value>
+    <comment>Options dialog, phonetic group header label</comment>
+  </data>
+  <data name="Options_PluginAdd" xml:space="preserve">
+    <value>Додати</value>
+    <comment>Options dialog, plug-in options text input label</comment>
+  </data>
+  <data name="Options_PluginDefault" xml:space="preserve">
+    <value>Подразумевано</value>
+    <comment>Options dialog, plug-in options text input label</comment>
+  </data>
+  <data name="Options_PluginRemove" xml:space="preserve">
+    <value>Уклонити</value>
+    <comment>Options dialog, plug-in options text input label</comment>
+  </data>
+  <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
+    <value>Притисните F1 за помоћ о опцијама</value>
+    <comment>Options dialog, help label</comment>
+  </data>
+  <data name="Options_PreviewToolForTranslators" xml:space="preserve">
+    <value>Алат за преглед за преводиоце</value>
+    <comment>Options dialog, load language button tooltip</comment>
+  </data>
+  <data name="Options_RegexOptions" xml:space="preserve">
+    <value>Регуларни изрази</value>
+    <comment>Options dialog, regular expressions group heading label</comment>
+  </data>
+  <data name="Options_Reload" xml:space="preserve">
+    <value>Освежити</value>
+    <comment>Options dialog, theme reload button label (accel)</comment>
+  </data>
+  <data name="Options_ReplaceDialogLayout" xml:space="preserve">
+    <value>Заменити изглед прозора</value>
+    <comment>Options dialog, Replace window layout options label</comment>
+  </data>
+  <data name="Options_ReplaceFontSize" xml:space="preserve">
+    <value>Заменити величину слова прозора</value>
+    <comment>Options dialog, font size input label</comment>
+  </data>
+  <data name="Options_ResultsFontSize" xml:space="preserve">
+    <value>Величина слова резултата</value>
+    <comment>Options dialog, results font size label</comment>
+  </data>
+  <data name="Options_ResultsOptions" xml:space="preserve">
+    <value>Резултати претраге</value>
+    <comment>Options dialog, Search results group header label</comment>
+  </data>
+  <data name="Options_SampleText" xml:space="preserve">
+    <value>Пример текста</value>
+    <comment>Options dialog, font family and size sample text </comment>
+  </data>
+  <data name="Options_Save" xml:space="preserve">
+    <value>Сачувати</value>
+    <comment>Options dialog, save button label (accel)</comment>
+  </data>
+  <data name="Options_ShowFileInfoToolTips" xml:space="preserve">
+    <value>Приказати информације о датотекама</value>
+    <comment>Options dialog, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
+    <value>Пречи на претходно налажење у овој датотеци [Ctrl+Right]</value>
+    <comment>Replace window, Previous button tooltip</comment>
+  </data>
+  <data name="Replace_Next" xml:space="preserve">
+    <value>Следеће</value>
+    <comment>Replace window, Next button label (accel)</comment>
+  </data>
+  <data name="Replace_PreviousFile" xml:space="preserve">
+    <value>Претходна датотека</value>
+    <comment>Replace window, Previous file button label (accel)</comment>
+  </data>
+  <data name="Replace_ReadOnly" xml:space="preserve">
+    <value>[само-читљиво]</value>
+    <comment>Replace window, conditional file name suffix</comment>
+  </data>
+  <data name="Replace_ReplaceAllMatchesInAllFilesAndApply" xml:space="preserve">
+    <value>Заменити сва налажења у свим датотекама и применити [F10]</value>
+    <comment>Replace window, Replace in all files button tooltip</comment>
+  </data>
+  <data name="Replace_ReplaceButton" xml:space="preserve">
+    <value>Заменити</value>
+    <comment>Replace window, Replace button label (accel)</comment>
+  </data>
+  <data name="Replace_ReplaceInAllFiles" xml:space="preserve">
+    <value>Заменити у свим датотекама</value>
+    <comment>Replace window, Replace in all files button label (accel)</comment>
+  </data>
+  <data name="Replace_ReplaceKey1_Text" xml:space="preserve">
+    <value>текст</value>
+    <comment>Replace window, first color and highlight key label</comment>
+  </data>
+  <data name="Replace_ReplaceKey2_SelectedMatch" xml:space="preserve">
+    <value>Одабрано налажење</value>
+    <comment>Replace window, second color and highlight key label</comment>
+  </data>
+  <data name="Replace_ReplaceKey4_SkipMatch" xml:space="preserve">
+    <value>Прескочити налажење</value>
+    <comment>Replace window, fourth color and highlight key label</comment>
+  </data>
+  <data name="Replace_ReplaceMatchesMarkedForReplacement" xml:space="preserve">
+    <value>Заменити налажења означена за замену</value>
+    <comment>Replace window, OK button tooltip</comment>
+  </data>
+  <data name="Replace_ReplaceWith" xml:space="preserve">
+    <value>Заменити са:</value>
+    <comment>Replace window, replace text input box label</comment>
+  </data>
+  <data name="Replace_SearchFor" xml:space="preserve">
+    <value>Претажити:</value>
+    <comment>Replace window, search pattern label</comment>
+  </data>
+  <data name="Replace_ShowTheNextFile" xml:space="preserve">
+    <value>Приказати следећу датотеку [Ctrl+PgDn]</value>
+    <comment>Replace window, Next file button tooltip</comment>
+  </data>
+  <data name="Replace_ShowThePreviousFile" xml:space="preserve">
+    <value>Приказати претходну датотеку [Ctrl+PgUp]</value>
+    <comment>Replace window, Previous file button tooltip</comment>
+  </data>
+  <data name="Replace_SyntaxNone" xml:space="preserve">
+    <value>Ниједан</value>
+    <comment>Replace window, syntax coloring option for no syntax coloring</comment>
+  </data>
+  <data name="Replace_Title" xml:space="preserve">
+    <value>Заменити текст</value>
+    <comment>Replace window, window title</comment>
+  </data>
+  <data name="Replace_Undo" xml:space="preserve">
+    <value>Опозвати</value>
+    <comment>Replace window, Undo button label (accel)</comment>
+  </data>
+  <data name="Replace_UndoFile" xml:space="preserve">
+    <value>Поништити датотеку</value>
+    <comment>Replace window, Undo file button label (accel)</comment>
+  </data>
+  <data name="Replace_WrapText" xml:space="preserve">
+    <value>Преломити текст</value>
+    <comment>Replace window, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Replace_Zoom" xml:space="preserve">
+    <value>Зум:</value>
+    <comment>Replace window, results options zoom slider label</comment>
+  </data>
+  <data name="Report_CSVRecordHeaderText" xml:space="preserve">
+    <value>Име датотеке,Број линије,Низ</value>
+    <comment>Report, CSV report - these are the column headers in the generated CSV file</comment>
+  </data>
+  <data name="Report_FileNotFoundHasItBeenDeletedOrMoved" xml:space="preserve">
+    <value>[Датотека није пронађена: да ли је избрисана или премештена?]</value>
+    <comment>Report extract lines from file error</comment>
+  </data>
+  <data name="Report_FoundMatchesFor" xml:space="preserve">
+    <value>Пронађено налажење за </value>
+    <comment>Report content text</comment>
+  </data>
+  <data name="Report_FoundNoMatchesFor" xml:space="preserve">
+    <value>Ништа није нађено за </value>
+    <comment>Report content text</comment>
+  </data>
+  <data name="ReportSummary_CaseSensitive" xml:space="preserve">
+    <value>Осетљиво на слова</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_DotAsNewline" xml:space="preserve">
+    <value>Тачка као нова линија</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_Encoding" xml:space="preserve">
+    <value>Енкодирање:</value>
+    <comment>Report search options summary label</comment>
+  </data>
+  <data name="ReportSummary_FilePattern" xml:space="preserve">
+    <value>Шаблон датотеке за урачунавање:</value>
+    <comment>Report search options summary label</comment>
+  </data>
+  <data name="ReportSummary_MaxFolderDepth" xml:space="preserve">
+    <value>Макс дубина фасцикле: {0}</value>
+    <comment>Report search options summary: {0} is the user input folder depth</comment>
+  </data>
+  <data name="ReportSummary_Multiline" xml:space="preserve">
+    <value>Вишелинијско</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_NoArchives" xml:space="preserve">
+    <value>Без архиве</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_NoBinary" xml:space="preserve">
+    <value>Без бинарно</value>
+    <comment>Main window options summary</comment>
+  </data>
+  <data name="ReportSummary_NoBinaryFiles" xml:space="preserve">
+    <value>Без бинарних датотека</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_NoSubfolders" xml:space="preserve">
+    <value>Без подфасцикла</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_SearchFor" xml:space="preserve">
+    <value>Претражити:</value>
+    <comment>Report search options summary label</comment>
+  </data>
+  <data name="ReportSummary_SearchIn" xml:space="preserve">
+    <value>Тражити у:</value>
+    <comment>Report search options summary label</comment>
+  </data>
+  <data name="ReportSummary_Type0DateInPast1To2Hours" xml:space="preserve">
+    <value>{0} датум у последња {1} до {2} сата</value>
+    <comment>Report search options summary: {0} is the date type (modified or created); {1} and {2} are the user input dates</comment>
+  </data>
+  <data name="ReportSummary_UsingRegexFilePattern" xml:space="preserve">
+    <value>Коришћење шаблона датотеке регуларног израза</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_UsingTypeOfSeach" xml:space="preserve">
+    <value>Употреба {0} претраге</value>
+    <comment>Report search options summary type of search: {0} is the type of search</comment>
+  </data>
+  <data name="ReportSummary_WholeWord" xml:space="preserve">
+    <value>Цела реч</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="Test_Close" xml:space="preserve">
+    <value>Затворити</value>
+    <comment>Test window, Close button text (accel)</comment>
+  </data>
+  <data name="Test_CopyToClipboard" xml:space="preserve">
+    <value>Копирати у оставу</value>
+    <comment>Test window, context menu item label</comment>
+  </data>
+  <data name="Test_HighlightGroups" xml:space="preserve">
+    <value>Истакнути групе</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Test_Multiline" xml:space="preserve">
+    <value>Вишелинијско</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Test_ReplaceResult" xml:space="preserve">
+    <value>Резултат замене:</value>
+    <comment>Test window, output results label</comment>
+  </data>
+  <data name="Test_ReplaceWith" xml:space="preserve">
+    <value>Заменити са:</value>
+    <comment>Test window, search input label</comment>
+  </data>
+  <data name="Test_SampleInputText" xml:space="preserve">
+    <value>Пример текста:</value>
+    <comment>Test window, search input label</comment>
+  </data>
+  <data name="Test_SearchFor" xml:space="preserve">
+    <value>Претражити:</value>
+    <comment>Test window, search input label</comment>
+  </data>
+  <data name="Test_SearchGroup" xml:space="preserve">
+    <value>Претражити</value>
+    <comment>Test window, search group box heading</comment>
+  </data>
+  <data name="Test_SearchResult" xml:space="preserve">
+    <value>Резултат претраге:</value>
+    <comment>Test window, output results label</comment>
+  </data>
+  <data name="Test_SearchType_Phonetic" xml:space="preserve">
+    <value>Фонетско</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Test_SearchType_Regex" xml:space="preserve">
+    <value>Регуларни израз</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Test_SearchType_Text" xml:space="preserve">
+    <value>Текст</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Test_Title" xml:space="preserve">
+    <value>Проба</value>
+    <comment>Test window title</comment>
+  </data>
+  <data name="Test_WholeWord" xml:space="preserve">
+    <value>Цела реч</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu" xml:space="preserve">
+    <value>Није могуће додати dnGrep у мени са десним кликом на Windows Explorer. Проверите извештај грешака: </value>
+    <comment>Message box text for: set Explorer context menu error</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorRegisteringAutoStartup" xml:space="preserve">
+    <value>Није могуће регистровати аутоматско покретање. Проверите извештај грешака: </value>
+    <comment>Message box text for: set startup option error</comment>
+  </data>
+  <data name="Options_Close" xml:space="preserve">
+    <value>Затворити</value>
+    <comment>Options dialog, close button text (accel)</comment>
+  </data>
+  <data name="MessageBox_ThereWasAnErrorRunningRegexTest" xml:space="preserve">
+    <value>Није могуће отворити прозор за тестирање. Проверите извештај грешака: </value>
+    <comment>Message box text for: Main window start test dialog error</comment>
+  </data>
+  <data name="Options_ArchiveDefault" xml:space="preserve">
+    <value>Подразумевано</value>
+    <comment>Options dialog, archive options text input label</comment>
+  </data>
+  <data name="Options_ArchiveRemove" xml:space="preserve">
+    <value>Уклонити</value>
+    <comment>Options dialog, archive options text input label</comment>
+  </data>
+  <data name="Options_CompareArguments" xml:space="preserve">
+    <value>Аргументи</value>
+    <comment>Options dialog, compare arguments input box label</comment>
+  </data>
+  <data name="Options_CompareCommand" xml:space="preserve">
+    <value>Команда</value>
+    <comment>Options dialog, compare command input box label</comment>
+  </data>
+  <data name="Options_DnGrepWillAddTheSelectedFiles" xml:space="preserve">
+    <value>dnGrep ће додати изабране датотеке на крај командне линије.</value>
+    <comment>Options dialog, compare arguments help text</comment>
+  </data>
+  <data name="Options_ArchiveAdd" xml:space="preserve">
+    <value>Додати</value>
+    <comment>Options dialog, archive options text input label</comment>
+  </data>
+  <data name="Options_CheckForUpdatesWhenWindowsStarts" xml:space="preserve">
+    <value>Проверити да ли постоје нове верзије када се покрене систем</value>
+    <comment>Options dialog, check for updates checkbox label (accel)</comment>
+  </data>
+  <data name="Options_CheckingForUpdates" xml:space="preserve">
+    <value>Новије верзије</value>
+    <comment>Options dialog, New versions group header label</comment>
+  </data>
+  <data name="Options_ClearOldSearches" xml:space="preserve">
+    <value>Обрисати старе претраге</value>
+    <comment>Options dialog, history list button label (accel)</comment>
+  </data>
+  <data name="Options_ItemsShownInSearchAndReplaceHistoryLists" xml:space="preserve">
+    <value>ставке приказане на листама историје претраге и замене</value>
+    <comment>Options dialog, history list text input label</comment>
+  </data>
+  <data name="Options_HelpTranslateDnGrep" xml:space="preserve">
+    <value>Помогните у преводу dnGrep-а.</value>
+    <comment>Options dialog, language request label</comment>
+  </data>
+  <data name="Options_Personalize_ResultOptions" xml:space="preserve">
+    <value>Опције резултата</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_PluginEnabled" xml:space="preserve">
+    <value>Омогућено</value>
+    <comment>Options dialog, plug-ins checkbox label</comment>
+  </data>
+  <data name="Options_PluginExtensions" xml:space="preserve">
+    <value>Додатци:</value>
+    <comment>Options dialog, plug-in options label</comment>
+  </data>
+  <data name="Options_SelectedTheme" xml:space="preserve">
+    <value>Одабрана тема</value>
+    <comment>Options dialog, theme selector label</comment>
+  </data>
+  <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
+    <value>Поново учитајте тренутну тему [Ctrl+F5]</value>
+    <comment>Options dialog, theme reload button tooltip</comment>
+  </data>
+  <data name="Options_ResultsFontFamily" xml:space="preserve">
+    <value>Породица слова резултата</value>
+    <comment>Options dialog, results font selector label</comment>
+  </data>
+  <data name="Options_ResultsFontUsuallyAFixedWidthFont" xml:space="preserve">
+    <value>Фонт који се користи у резултатима претраге, обично слово фиксне ширине</value>
+    <comment>Options dialog, replace font selector tooltip</comment>
+  </data>
+  <data name="Options_ShowFilePathInResultsPanel" xml:space="preserve">
+    <value>Приказати путању датотеке у табли са резултатима</value>
+    <comment>Options dialog, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Replace_ReplaceKey3_ReplaceMatch" xml:space="preserve">
+    <value>Заменити налажење</value>
+    <comment>Replace window, third color and highlight key label</comment>
+  </data>
+  <data name="Test_SearchType_Hex" xml:space="preserve">
+    <value>Бајт</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Replace_ReplaceInFile" xml:space="preserve">
+    <value>Заменити у датотеци</value>
+    <comment>Replace window, Replace in file button label (accel)</comment>
+  </data>
+  <data name="Replace_NextFile" xml:space="preserve">
+    <value>Следећа датотека</value>
+    <comment>Replace window, Next file button label (accel)</comment>
+  </data>
+  <data name="Replace_Previous" xml:space="preserve">
+    <value>Претходно</value>
+    <comment>Replace window, Previous button label (accel)</comment>
+  </data>
+  <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
+    <value>Пречи на следеће налажење у овој датотеци [Ctrl+Left]</value>
+    <comment>Replace window, Next button tooltip</comment>
+  </data>
+  <data name="Test_NoMatchesFound" xml:space="preserve">
+    <value>Ништа није нађено</value>
+    <comment>Test window, results box message text</comment>
+  </data>
+  <data name="Replace_NumberOfMatchesMarkedForReplacement" xml:space="preserve">
+    <value>{0} од {1} налажења означена за замену</value>
+    <comment>Replace window, file name progress line: {0} is number of matches marked for replacement; {1} is the number of matches found in the current file</comment>
+  </data>
+  <data name="Replace_ThisFileContainsTooManyMatchesForIndividualReplace" xml:space="preserve">
+    <value>Ова датотека садржи превише налажења за појединачну замену. Кликните на „Замени у датотеци“ да бисте све заменили.</value>
+    <comment>Replace window, warning message box text</comment>
+  </data>
+  <data name="ReportSummary_SearchInResults" xml:space="preserve">
+    <value>Тражити у резултате</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_Type0DateFrom1To2" xml:space="preserve">
+    <value>{0} датум од {1} до {2}</value>
+    <comment>Report search options summary: {0} is the date type (modified or created); {1} and {2} are the user input dates</comment>
+  </data>
+  <data name="Report_DnGrepSearchResults" xml:space="preserve">
+    <value>dnGrep резултати претраге</value>
+    <comment>Report content text</comment>
+  </data>
+  <data name="Report_Found0MatchesOn1LinesIn2Files" xml:space="preserve">
+    <value>Нађено {0} подударања у {1} линије у {2} датотеке</value>
+    <comment>Report content text: {0} is the number of matches; {1] is the number of lines with matches; {2} is the number of files with matches</comment>
+  </data>
+  <data name="Report_Has0MatchesOn1Lines" xml:space="preserve">
+    <value>има {0} налажења у {1} линија:</value>
+    <comment>Report content text: {0} is the number of matches in a file; {1} is the number of lines in a file with matches</comment>
+  </data>
+  <data name="ReportSummary_ExcludePattern" xml:space="preserve">
+    <value>Шаблон датотеке за изузимање:</value>
+    <comment>Report search options summary label</comment>
+  </data>
+  <data name="ReportSummary_NoHiddenFiles" xml:space="preserve">
+    <value>Без сакривених датотека</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_NoSymlinks" xml:space="preserve">
+    <value>Без симболичних веза</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_SizeFrom0To1KB" xml:space="preserve">
+    <value>Величина од {0} до {1} КБ</value>
+    <comment>Report search options summary: {0} and {1} are the user input size range</comment>
+  </data>
+  <data name="ReportSummary_StopAfterFirstMatch" xml:space="preserve">
+    <value>Заустави после првог налажења</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="Test_SearchType_XPath" xml:space="preserve">
+    <value>XPath</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Test_ReplaceTextIsNotValidXML" xml:space="preserve">
+    <value>Текст за замену није валидан XML!</value>
+    <comment>Test window, error text</comment>
+  </data>
+  <data name="TTA1_MatchesAllCharacters" xml:space="preserve">
+    <value>. налази сва слова</value>
+    <comment>Main window and Test window tooltip</comment>
+  </data>
 </root>
