@@ -527,7 +527,7 @@
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="BookmarkDetails_BooleanOperators" xml:space="preserve">
-    <value>Boolean operators</value>
+    <value>Boolean 연산자</value>
     <comment>Bookmark details dialog, search options checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_IncludeSubfolders" xml:space="preserve">
@@ -779,7 +779,7 @@
     <comment>About dialog text</comment>
   </data>
   <data name="About_OK" xml:space="preserve">
-    <value>OK</value>
+    <value>확인</value>
     <comment>About dialog button label</comment>
   </data>
   <data name="Bookmarks_Add" xml:space="preserve">
@@ -847,15 +847,15 @@
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="BookmarkDetails_Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>취소</value>
     <comment>Bookmark details dialog, cancel button label (accel)</comment>
   </data>
   <data name="About_Version" xml:space="preserve">
-    <value>Version</value>
+    <value>버전</value>
     <comment>About dialog label</comment>
   </data>
   <data name="BookmarkDetails_AssociatedFolders" xml:space="preserve">
-    <value>Associated folders:</value>
+    <value>관련 폴더:</value>
     <comment>Bookmark details dialog, text input box label</comment>
   </data>
   <data name="BookmarkDetails_CaseSensitive" xml:space="preserve">
