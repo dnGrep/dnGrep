@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About_ConvertsPDFFilesToPlainText" xml:space="preserve">
-    <value>Converts PDF files to plain text</value>
+    <value>PDF 파일을 일반 텍스트로 변환</value>
     <comment>About dnGrep acknowledgments</comment>
   </data>
   <data name="About_DnGREP" xml:space="preserve">
@@ -775,7 +775,7 @@
     <comment>Main window and Test window tooltip</comment>
   </data>
   <data name="About_DnGrepOnGitHub" xml:space="preserve">
-    <value>dnGrep on GitHub</value>
+    <value>GitHub 페이지</value>
     <comment>About dialog text</comment>
   </data>
   <data name="About_OK" xml:space="preserve">
@@ -2303,11 +2303,11 @@ Arguments:
     <comment>Window title bar button tooltip</comment>
   </data>
   <data name="About_AboutDnGREP" xml:space="preserve">
-    <value>About dnGrep</value>
+    <value>dnGrep 정보</value>
     <comment>About dialog window title</comment>
   </data>
   <data name="About_Acknowledgments" xml:space="preserve">
-    <value>Acknowledgments</value>
+    <value>라이브러리 출저</value>
     <comment>About dialog text</comment>
   </data>
   <data name="About_BuiltOn" xml:space="preserve">
