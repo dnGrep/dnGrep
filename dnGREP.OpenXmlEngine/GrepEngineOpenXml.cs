@@ -18,7 +18,7 @@ namespace dnGREP.Engines.OpenXml
     /// <summary>
     /// Plug-in for searching OpenXml Word and Excel documents
     /// </summary>
-    public class GrepEngineOpenXml : GrepEngineBase, IGrepEngine
+    public class GrepEngineOpenXml : GrepEngineBase, IGrepPluginEngine
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
@@ -26,6 +26,10 @@ namespace dnGREP.Engines.OpenXml
         {
             get { return new string[] { "docx", "docm", "xls", "xlsx", "xlsm", "pptx", "pptm" }; }
         }
+
+        public bool IsSearchOnly => true;
+
+        public bool PreviewPlainText { get; set; }
 
         public List<GrepSearchResult> Search(string fileName, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
         {
@@ -98,6 +102,10 @@ namespace dnGREP.Engines.OpenXml
                             result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
                         }
                         result.ReadOnly = true;
+                        if (PreviewPlainText)
+                        {
+                            result.FileInfo.TempFile = WriteTempFile(kvPair.Value, file, "XLS");
+                        }
                         searchResults.Add(result);
                     }
                 }
@@ -123,6 +131,10 @@ namespace dnGREP.Engines.OpenXml
                         result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
                     }
                     result.ReadOnly = true;
+                    if (PreviewPlainText)
+                    {
+                        result.FileInfo.TempFile = WriteTempFile(text, file, "DOC");
+                    }
                     searchResults.Add(result);
                 }
             }
@@ -153,6 +165,10 @@ namespace dnGREP.Engines.OpenXml
                             result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
                         }
                         result.ReadOnly = true;
+                        if (PreviewPlainText)
+                        {
+                            result.FileInfo.TempFile = WriteTempFile(slide.Item2, file, "PPT");
+                        }
                         searchResults.Add(result);
                     }
                 }
@@ -163,7 +179,19 @@ namespace dnGREP.Engines.OpenXml
             }
         }
 
-        public bool IsSearchOnly { get { return true; } }
+        private string WriteTempFile(string text, string filePath, string app)
+        {
+            string tempFolder = Path.Combine(Utils.GetTempFolder(), $"dnGREP-{app}");
+            if (!Directory.Exists(tempFolder))
+                Directory.CreateDirectory(tempFolder);
+
+            // ensure each temp file is unique, even if the file name exists elsewhere in the search tree
+            string fileName = Path.GetFileNameWithoutExtension(filePath) + "_" + Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + ".txt";
+            string tempFileName = Path.Combine(tempFolder, fileName);
+
+            File.WriteAllText(tempFileName, text);
+            return tempFileName;
+        }
 
         public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType,
             GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepMatch> replaceItems)

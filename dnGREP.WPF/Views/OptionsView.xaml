@@ -9,7 +9,7 @@
                  Title="{l:Loc Key='Options_OptionsTitle'}"
                  Height="600"
                  MinWidth="500"
-                 d:DesignHeight="1600"
+                 d:DesignHeight="2000"
                  FlowDirection="{Binding CultureFlowDirection}"
                  FontFamily="{Binding ApplicationFontFamily}"
                  FontSize="{Binding DialogFontSize}"
@@ -735,7 +735,8 @@
                                 <Grid Margin="0,0,0,12">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" SharedSizeGroup="A"/>
-                                        <ColumnDefinition Width="480"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="400"/>
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
                                         <RowDefinition/>
@@ -744,13 +745,17 @@
                                         <RowDefinition/>
                                     </Grid.RowDefinitions>
                                     <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Name}" FontWeight="Bold" Margin="0,3,6,3"/>
-                                    <CheckBox Grid.Row="0" Grid.Column="1" Content="{l:Loc Key='Options_PluginEnabled'}" IsChecked="{Binding IsEnabled}"/>
-                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{l:Loc Key='Options_PluginExtensions'}"/>
+                                    <CheckBox Grid.Row="0" Grid.Column="1" Margin="3,0"
+                                              Content="{l:Loc Key='Options_PluginEnabled'}" IsChecked="{Binding IsEnabled}"/>
+                                    <CheckBox Grid.Row="0" Grid.Column="2" Margin="6,0"
+                                              Content="{l:Loc Key='Options_PluginShowPlainTextInPreview'}" IsChecked="{Binding PreviewTextEnabled}"/>
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Margin="3,0"
+                                               Text="{l:Loc Key='Options_PluginExtensions'}"/>
                                     <TextBlock Grid.Row="2" Grid.Column="0" Text="{l:Loc Key='Options_PluginDefault'}" Margin="3" HorizontalAlignment="Right"/>
-                                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding DefaultExtensions}" 
+                                    <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding DefaultExtensions}" 
                                              IsReadOnly="True" Margin="3" HorizontalAlignment="Stretch"/>
 
-                                    <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+                                    <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" SharedSizeGroup="A"/>
                                             <ColumnDefinition Width="*" />

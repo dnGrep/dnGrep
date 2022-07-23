@@ -1877,6 +1877,10 @@ Arguments:
     <value>Phonetic search</value>
     <comment>Options dialog, phonetic group header label</comment>
   </data>
+  <data name="Options_PluginShowPlainTextInPreview" xml:space="preserve">
+    <value>Show plain text in preview</value>
+    <comment>Options dialog, plug-ins checkbox label</comment>
+  </data>
   <data name="Options_PluginAdd" xml:space="preserve">
     <value>Add</value>
     <comment>Options dialog, plug-in options text input label</comment>
@@ -2052,6 +2056,10 @@ Arguments:
   <data name="Preview_ThisFileIsEitherBinaryOrTooLargeToPreview" xml:space="preserve">
     <value>This file is either binary, or too large to be shown.</value>
     <comment>Preview window, warning message</comment>
+  </data>
+  <data name="Preview_Title_AsText" xml:space="preserve">
+    <value>(as text)</value>
+    <comment>Preview window, file label when binary file is shown as text</comment>
   </data>
   <data name="Preview_UseRegularExpressions" xml:space="preserve">
     <value>Use regular expressions</value>

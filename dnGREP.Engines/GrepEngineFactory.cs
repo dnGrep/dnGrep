@@ -221,6 +221,11 @@ namespace dnGREP.Engines
                     IGrepEngine engine = fileTypeEngines[fileExtension].CreateEngine();
                     if (engine != null && engine.Initialize(param, filter))
                     {
+                        if (engine is IGrepPluginEngine pluginEngine)
+                        {
+                            pluginEngine.PreviewPlainText = fileTypeEngines[fileExtension].PreviewPlainText;
+                        }
+
                         loadedEngines.Add(engine);
                         logger.Debug(string.Format("Using plugin: {0} for extension {1}", engine.ToString(), fileExtension));
                         return engine;

@@ -1418,7 +1418,8 @@ namespace dnGREP.WPF
 
                 PreviewModel.FilePath = string.Empty;
                 PreviewTitle = string.Empty;
-
+                // clear temp files from the previous search
+                Utils.DeleteTempFolder();
 
                 SearchReplaceCriteria workerParams = new SearchReplaceCriteria(this);
                 if (SearchInResultsContent && CanSearchInResults)
@@ -2542,6 +2543,12 @@ namespace dnGREP.WPF
                         displayfileName = result.FileNameDisplayed;
                         filePath = tempFile;
                     }
+                }
+
+                if (!string.IsNullOrEmpty(result.FileInfo.TempFile))
+                {
+                    filePath = result.FileInfo.TempFile;
+                    displayfileName = result.FileNameDisplayed + " " + Resources.Preview_Title_AsText;
                 }
 
                 string basePath = PathSearchText.BaseFolder;

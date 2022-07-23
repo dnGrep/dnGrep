@@ -3881,6 +3881,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show plain text in preview.
+        /// </summary>
+        public static string Options_PluginShowPlainTextInPreview {
+            get {
+                return ResourceManager.GetString("Options_PluginShowPlainTextInPreview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Press F1 for help on options.
         /// </summary>
         public static string Options_PressF1ForHelpOnOptions {
@@ -4219,6 +4228,15 @@ namespace dnGREP.Localization.Properties {
         public static string Preview_ThisFileIsEitherBinaryOrTooLargeToPreview {
             get {
                 return ResourceManager.GetString("Preview_ThisFileIsEitherBinaryOrTooLargeToPreview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (as text).
+        /// </summary>
+        public static string Preview_Title_AsText {
+            get {
+                return ResourceManager.GetString("Preview_Title_AsText", resourceCulture);
             }
         }
         

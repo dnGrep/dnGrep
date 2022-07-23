@@ -17,7 +17,7 @@ namespace dnGREP.Engines.Word
     /// <summary>
     /// Based on a MicrosoftWordPlugin class for AstroGrep by Curtis Beard. Thank you!
     /// </summary>
-    public class GrepEngineWord : GrepEngineBase, IGrepEngine, IDisposable
+    public class GrepEngineWord : GrepEngineBase, IGrepPluginEngine, IDisposable
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
         private bool isAvailable = false;
@@ -81,15 +81,12 @@ namespace dnGREP.Engines.Word
 
         #endregion
 
-        public IList<string> DefaultFileExtensions
-        {
-            get { return new string[] { "doc" }; }
-        }
+        public IList<string> DefaultFileExtensions => new string[] { "doc" };
 
-        public bool IsSearchOnly
-        {
-            get { return true; }
-        }
+        public bool IsSearchOnly => true;
+
+        public bool PreviewPlainText { get; set; }
+
 
         public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
         {
@@ -161,6 +158,10 @@ namespace dnGREP.Engines.Word
                             result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
                         }
                         result.ReadOnly = true;
+                        if (PreviewPlainText)
+                        {
+                            result.FileInfo.TempFile = WriteTempFile(docText, file);
+                        }
                         searchResults.Add(result);
                     }
                     CloseDocument(wordDocument);
@@ -171,6 +172,20 @@ namespace dnGREP.Engines.Word
                 logger.Error(ex, "Failed to search inside Word file");
             }
             return searchResults;
+        }
+
+        private string WriteTempFile(string text, string filePath)
+        {
+            string tempFolder = Path.Combine(Utils.GetTempFolder(), $"dnGREP-WORD");
+            if (!Directory.Exists(tempFolder))
+                Directory.CreateDirectory(tempFolder);
+
+            // ensure each temp file is unique, even if the file name exists elsewhere in the search tree
+            string fileName = Path.GetFileNameWithoutExtension(filePath) + "_" + Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + ".txt";
+            string tempFileName = Path.Combine(tempFolder, fileName);
+
+            File.WriteAllText(tempFileName, text);
+            return tempFileName;
         }
 
         public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType,

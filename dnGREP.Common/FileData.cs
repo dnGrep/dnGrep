@@ -38,6 +38,19 @@ namespace dnGREP.Common
             everythingFileInfo = fileInfo;
         }
 
+        public FileData(FileData toCopy)
+        {
+            systemFileInfo = toCopy.systemFileInfo;
+            archiveFileName = toCopy.archiveFileName;
+            sevenZipFileInfo = toCopy.sevenZipFileInfo;
+            everythingFileInfo = toCopy.everythingFileInfo;
+
+            ErrorMsg = toCopy.ErrorMsg;
+            IsBinary = toCopy.IsBinary;
+            Encoding = toCopy.Encoding;
+            TempFile = toCopy.TempFile;
+        }
+
         public string ErrorMsg { get; set; }
 
         public string FullName
@@ -175,6 +188,8 @@ namespace dnGREP.Common
         public bool IsBinary { get; set; }
 
         public Encoding Encoding { get; set; }
+
+        public string TempFile { get; set; } = string.Empty;
 
         private static long ToLong(ulong size)
         {

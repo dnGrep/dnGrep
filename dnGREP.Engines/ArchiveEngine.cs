@@ -287,8 +287,12 @@ namespace dnGREP.Engines
                             {
                                 foreach (var result in innerFileResults)
                                 {
+                                    // save the temp file if set by the search engine
+                                    string tempFile = result.FileInfo.TempFile;
+
                                     // file info is known, set it now
-                                    result.FileInfo = fileData;
+                                    result.FileInfo = new FileData(fileData);
+                                    result.FileInfo.TempFile = tempFile;
 
                                     if (Utils.CancelSearch)
                                         break;
@@ -301,8 +305,12 @@ namespace dnGREP.Engines
                         {
                             foreach (var result in innerFileResults)
                             {
+                                // save the temp file if set by the search engine
+                                string tempFile = result.FileInfo.TempFile;
+
                                 // file info is known, set it now
-                                result.FileInfo = fileData;
+                                result.FileInfo = new FileData(fileData);
+                                result.FileInfo.TempFile = tempFile;
 
                                 if (Utils.CancelSearch)
                                     break;

@@ -67,4 +67,10 @@ namespace dnGREP.Engines
         /// <param name="args"></param>
         void OpenFile(OpenFileArgs args);
     }
+
+    public interface IGrepPluginEngine : IGrepEngine
+    { 
+        bool PreviewPlainText { get; set; }
+    }
+
 }
