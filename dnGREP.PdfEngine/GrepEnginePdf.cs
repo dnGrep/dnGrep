@@ -15,9 +15,9 @@ using Path = Alphaleonis.Win32.Filesystem.Path;
 namespace dnGREP.Engines.Pdf
 {
     /// <summary>
-    /// Based on a MicrosoftWordPlugin class for AstroGrep by Curtis Beard. Thank you!
+    /// Plug-in for searching PDF documents
     /// </summary>
-    public class GrepEnginePdf : GrepEngineBase, IGrepEngine
+    public class GrepEnginePdf : GrepEngineBase, IGrepPluginEngine
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
         private string pathToPdfToText = "";
@@ -44,15 +44,11 @@ namespace dnGREP.Engines.Pdf
 
         #endregion
 
+        public IList<string> DefaultFileExtensions => new string[] { "pdf" };
 
-        public IList<string> DefaultFileExtensions
-        {
-            get { return new string[] { "pdf" }; }
-        }
-        public bool IsSearchOnly
-        {
-            get { return true; }
-        }
+        public bool IsSearchOnly => true;
+
+        public bool PreviewPlainText { get; set; }
 
         public List<GrepSearchResult> Search(string file, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
         {
@@ -87,8 +83,10 @@ namespace dnGREP.Engines.Pdf
                     {
                         result.ReadOnly = true;
                         result.FileNameDisplayed = file;
-                        result.FileInfo.TempFile = tempFile;
-
+                        if (PreviewPlainText)
+                        {
+                            result.FileInfo.TempFile = tempFile;
+                        }
                         result.FileNameReal = file;
                     }
                 }
@@ -109,23 +107,12 @@ namespace dnGREP.Engines.Pdf
         {
             // write the stream to a temp folder, and run the file version of the search
             string tempFolder = Path.Combine(Utils.GetTempFolder(), "dnGREP-PDF");
-            // the fileName may contain the partial path of the directory structure in the archive
-            string extractFileName = fileName;
-            bool isInArchive = fileName.Contains(ArchiveDirectory.ArchiveSeparator);
-            if (isInArchive)
-            {
-                int pos = fileName.IndexOf(ArchiveDirectory.ArchiveSeparator);
-                if (pos > 0 && !fileName.EndsWith(ArchiveDirectory.ArchiveSeparator))
-                {
-                    extractFileName = fileName.Substring(pos + ArchiveDirectory.ArchiveSeparator.Length);
-                }
-            }
-            string filePath = Path.Combine(tempFolder, extractFileName);
+            if (!Directory.Exists(tempFolder))
+                Directory.CreateDirectory(tempFolder);
 
-            // use the directory name to also include folders within the archive
-            string directory = Path.GetDirectoryName(filePath);
-            if (!Directory.Exists(directory))
-                Directory.CreateDirectory(directory);
+            // ensure each temp file is unique, even if the file name exists elsewhere in the search tree
+            string extractFileName = Path.GetFileNameWithoutExtension(fileName) + "_" + Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + ".pdf";
+            string filePath = Path.Combine(tempFolder, extractFileName);
 
             using (var fileStream = File.Create(filePath))
             {
@@ -134,6 +121,8 @@ namespace dnGREP.Engines.Pdf
             }
 
             var results = Search(filePath, searchPattern, searchType, searchOptions, encoding);
+
+            bool isInArchive = fileName.Contains(ArchiveDirectory.ArchiveSeparator);
             if (isInArchive && results.Count > 0)
             {
                 foreach (GrepSearchResult gsr in results)
@@ -149,7 +138,9 @@ namespace dnGREP.Engines.Pdf
             string tempFolder = Path.Combine(Utils.GetTempFolder(), "dnGREP-PDF");
             if (!Directory.Exists(tempFolder))
                 Directory.CreateDirectory(tempFolder);
-            string tempFileName = Path.Combine(tempFolder, Path.GetFileNameWithoutExtension(pdfFilePath) + ".txt");
+            // ensure each temp file is unique, even if the file name exists elsewhere in the search tree
+            string fileName = Path.GetFileNameWithoutExtension(pdfFilePath) + "_" + Path.GetFileNameWithoutExtension(Path.GetRandomFileName()) + ".txt";
+            string tempFileName = Path.Combine(tempFolder, fileName);
 
             if (pdfFilePath.Length > 260 && !pdfFilePath.StartsWith(@"\\?\"))
             {

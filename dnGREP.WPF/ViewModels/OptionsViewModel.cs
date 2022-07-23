@@ -1155,7 +1155,7 @@ namespace dnGREP.WPF
                 if (GrepSettings.Instance.ContainsKey(remKey))
                     remCsv = GrepSettings.Instance.Get<string>(remKey).Trim();
 
-                ArchiveOptions = new PluginOptions("Archive", true,
+                ArchiveOptions = new PluginOptions("Archive", true, false,
                     string.Join(", ", ArchiveDirectory.DefaultExtensions), addCsv, remCsv);
             }
 
@@ -1164,12 +1164,17 @@ namespace dnGREP.WPF
             {
                 string nameKey = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(plugin.Name);
                 string enabledkey = nameKey + "Enabled";
+                string previewTextKey = nameKey + "PreviewText";
                 string addKey = "Add" + nameKey + "Extensions";
                 string remKey = "Rem" + nameKey + "Extensions";
 
                 bool isEnabled = true;
                 if (GrepSettings.Instance.ContainsKey(enabledkey))
                     isEnabled = GrepSettings.Instance.Get<bool>(enabledkey);
+
+                bool previewTextEnabled = true;
+                if (GrepSettings.Instance.ContainsKey(previewTextKey))
+                    previewTextEnabled = GrepSettings.Instance.Get<bool>(previewTextKey);
 
                 string addCsv = string.Empty;
                 if (GrepSettings.Instance.ContainsKey(addKey))
@@ -1180,7 +1185,7 @@ namespace dnGREP.WPF
                     remCsv = GrepSettings.Instance.Get<string>(remKey).Trim();
 
                 var pluginOptions = new PluginOptions(
-                    plugin.Name, isEnabled, string.Join(", ", plugin.DefaultExtensions), addCsv, remCsv);
+                    plugin.Name, isEnabled, previewTextEnabled, string.Join(", ", plugin.DefaultExtensions), addCsv, remCsv);
                 Plugins.Add(pluginOptions);
             }
         }
@@ -1292,10 +1297,12 @@ namespace dnGREP.WPF
             {
                 string nameKey = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(plugin.Name);
                 string enabledkey = nameKey + "Enabled";
+                string previewTextKey = nameKey + "PreviewText";
                 string addKey = "Add" + nameKey + "Extensions";
                 string remKey = "Rem" + nameKey + "Extensions";
 
                 Settings.Set(enabledkey, plugin.IsEnabled);
+                Settings.Set(previewTextKey, plugin.PreviewTextEnabled);
                 Settings.Set(addKey, CleanExtensions(plugin.AddExtensions));
                 Settings.Set(remKey, CleanExtensions(plugin.RemExtensions));
 
@@ -1554,16 +1561,21 @@ namespace dnGREP.WPF
 
     public class PluginOptions : CultureAwareViewModel
     {
-        public PluginOptions(string name, bool enabled, string defExt, string addExt, string remExt)
+        public PluginOptions(string name, bool enabled, bool previewTextEnabled, 
+            string defExt, string addExt, string remExt)
         {
             Name = name;
             IsEnabled = origIsEnabled = enabled;
+            PreviewTextEnabled = origPreviewTextEnabled = previewTextEnabled;
             DefaultExtensions = defExt;
             AddExtensions = origAddExtensions = addExt;
             RemExtensions = origRemExtensions = remExt;
         }
 
-        public bool IsChanged => isEnabled != origIsEnabled || addExtensions != origAddExtensions || remExtensions != origRemExtensions;
+        public bool IsChanged => isEnabled != origIsEnabled || 
+            previewTextEnabled != origPreviewTextEnabled ||
+            addExtensions != origAddExtensions || 
+            remExtensions != origRemExtensions;
 
         private string name;
         public string Name
@@ -1591,6 +1603,24 @@ namespace dnGREP.WPF
 
                 isEnabled = value;
                 base.OnPropertyChanged(nameof(IsEnabled));
+            }
+        }
+
+
+        private bool origPreviewTextEnabled;
+        private bool previewTextEnabled;
+        public bool PreviewTextEnabled
+        {
+            get { return previewTextEnabled; }
+            set
+            {
+                if (previewTextEnabled == value)
+                {
+                    return;
+                }
+
+                previewTextEnabled = value;
+                OnPropertyChanged(nameof(PreviewTextEnabled));
             }
         }
 

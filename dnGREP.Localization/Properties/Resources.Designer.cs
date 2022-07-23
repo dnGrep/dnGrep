@@ -3881,6 +3881,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show plain text in preview.
+        /// </summary>
+        public static string Options_PluginShowPlainTextInPreview {
+            get {
+                return ResourceManager.GetString("Options_PluginShowPlainTextInPreview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Press F1 for help on options.
         /// </summary>
         public static string Options_PressF1ForHelpOnOptions {

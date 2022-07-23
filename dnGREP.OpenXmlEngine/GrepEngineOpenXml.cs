@@ -18,7 +18,7 @@ namespace dnGREP.Engines.OpenXml
     /// <summary>
     /// Plug-in for searching OpenXml Word and Excel documents
     /// </summary>
-    public class GrepEngineOpenXml : GrepEngineBase, IGrepEngine
+    public class GrepEngineOpenXml : GrepEngineBase, IGrepPluginEngine
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
@@ -26,6 +26,10 @@ namespace dnGREP.Engines.OpenXml
         {
             get { return new string[] { "docx", "docm", "xls", "xlsx", "xlsm", "pptx", "pptm" }; }
         }
+
+        public bool IsSearchOnly => true;
+
+        public bool PreviewPlainText { get; set; }
 
         public List<GrepSearchResult> Search(string fileName, string searchPattern, SearchType searchType, GrepSearchOption searchOptions, Encoding encoding)
         {
@@ -86,7 +90,6 @@ namespace dnGREP.Engines.OpenXml
                 var sheets = ExcelReader.ExtractExcelText(stream);
                 foreach (var kvPair in sheets)
                 {
-                    var tempFile = WriteTempFile(kvPair.Value, file, "XLS");
                     var lines = searchMethod(-1, 0, kvPair.Value, searchPattern, searchOptions, true);
                     if (lines.Count > 0)
                     {
@@ -99,7 +102,10 @@ namespace dnGREP.Engines.OpenXml
                             result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
                         }
                         result.ReadOnly = true;
-                        result.FileInfo.TempFile = tempFile;
+                        if (PreviewPlainText)
+                        {
+                            result.FileInfo.TempFile = WriteTempFile(kvPair.Value, file, "XLS");
+                        }
                         searchResults.Add(result);
                     }
                 }
@@ -115,7 +121,6 @@ namespace dnGREP.Engines.OpenXml
             try
             {
                 var text = WordReader.ExtractWordText(stream);
-                var tempFile = WriteTempFile(text, file, "DOC");
 
                 var lines = searchMethod(-1, 0, text, searchPattern, searchOptions, true);
                 if (lines.Count > 0)
@@ -126,13 +131,51 @@ namespace dnGREP.Engines.OpenXml
                         result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
                     }
                     result.ReadOnly = true;
-                    result.FileInfo.TempFile = tempFile;
+                    if (PreviewPlainText)
+                    {
+                        result.FileInfo.TempFile = WriteTempFile(text, file, "DOC");
+                    }
                     searchResults.Add(result);
                 }
             }
             catch (Exception ex)
             {
                 logger.Error(ex, string.Format("Failed to search inside Word file '{0}'", file));
+            }
+        }
+
+        private void SearchPowerPoint(Stream stream, string file, string searchPattern, GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod, List<GrepSearchResult> searchResults)
+        {
+            try
+            {
+                var slides = PowerPointReader.ExtractPowerPointText(stream);
+
+                foreach (var slide in slides)
+                {
+                    var lines = searchMethod(-1, 0, slide.Item2, searchPattern, searchOptions, true);
+                    if (lines.Count > 0)
+                    {
+                        GrepSearchResult result = new GrepSearchResult(file, searchPattern, lines, Encoding.Default)
+                        {
+                            AdditionalInformation = " " + TranslationSource.Format(Resources.Main_PowerPointSlideNumber, slide.Item1)
+                        };
+
+                        using (StringReader reader = new StringReader(slide.Item2))
+                        {
+                            result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
+                        }
+                        result.ReadOnly = true;
+                        if (PreviewPlainText)
+                        {
+                            result.FileInfo.TempFile = WriteTempFile(slide.Item2, file, "PPT");
+                        }
+                        searchResults.Add(result);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, string.Format("Failed to search inside PowerPoint file '{0}'", file));
             }
         }
 
@@ -149,41 +192,6 @@ namespace dnGREP.Engines.OpenXml
             File.WriteAllText(tempFileName, text);
             return tempFileName;
         }
-
-        private void SearchPowerPoint(Stream stream, string file, string searchPattern, GrepSearchOption searchOptions, SearchDelegates.DoSearch searchMethod, List<GrepSearchResult> searchResults)
-        {
-            try
-            {
-                var slides = PowerPointReader.ExtractPowerPointText(stream);
-
-                foreach (var slide in slides)
-                {
-                    var tempFile = WriteTempFile(slide.Item2, file, "PPT");
-                    var lines = searchMethod(-1, 0, slide.Item2, searchPattern, searchOptions, true);
-                    if (lines.Count > 0)
-                    {
-                        GrepSearchResult result = new GrepSearchResult(file, searchPattern, lines, Encoding.Default)
-                        {
-                            AdditionalInformation = " " + TranslationSource.Format(Resources.Main_PowerPointSlideNumber, slide.Item1)
-                        };
-
-                        using (StringReader reader = new StringReader(slide.Item2))
-                        {
-                            result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
-                        }
-                        result.ReadOnly = true;
-                        result.FileInfo.TempFile = tempFile;
-                        searchResults.Add(result);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex, string.Format("Failed to search inside PowerPoint file '{0}'", file));
-            }
-        }
-
-        public bool IsSearchOnly { get { return true; } }
 
         public bool Replace(string sourceFile, string destinationFile, string searchPattern, string replacePattern, SearchType searchType,
             GrepSearchOption searchOptions, Encoding encoding, IEnumerable<GrepMatch> replaceItems)

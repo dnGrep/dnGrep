@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection;
-using System.Text;
 using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
 using NLog;
@@ -21,7 +20,9 @@ namespace dnGREP.Engines
             try
             {
                 if (pluginType != null)
-                    engine = (IGrepEngine)Activator.CreateInstance(pluginType);
+                {
+                    engine = Activator.CreateInstance(pluginType) as IGrepEngine;
+                }
             }
             catch (Exception ex)
             {
@@ -55,6 +56,11 @@ namespace dnGREP.Engines
         /// Gets a flag indicating if this plugin should be loaded
         /// </summary>
         public bool Enabled { get; private set; }
+
+        /// <summary>
+        /// Gets a flag indicating if this plugin should create a temporary plain text file for the Preview window
+        /// </summary>
+        public bool PreviewPlainText { get; private set; }
 
         /// <summary>
         /// Returns true if engine supports search only. Returns false is engine supports replace as well.
@@ -132,7 +138,7 @@ namespace dnGREP.Engines
                     }
 
                     GetEnabledFromSettings(Name);
-
+                    GetPreviewPlainTextFromSettings(Name);
                     GetExtensionsFromSettings(Name, defaultExtensions);
 
                     result = pluginType != null;
@@ -153,6 +159,17 @@ namespace dnGREP.Engines
                 string key = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(name) + "Enabled";
                 if (GrepSettings.Instance.ContainsKey(key))
                     Enabled = GrepSettings.Instance.Get<bool>(key);
+            }
+        }
+
+        private void GetPreviewPlainTextFromSettings(string name)
+        {
+            PreviewPlainText = true;
+            if (!string.IsNullOrEmpty(name))
+            {
+                string key = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(name) + "PreviewText";
+                if (GrepSettings.Instance.ContainsKey(key))
+                    PreviewPlainText = GrepSettings.Instance.Get<bool>(key);
             }
         }
 

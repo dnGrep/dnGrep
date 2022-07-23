@@ -1418,7 +1418,8 @@ namespace dnGREP.WPF
 
                 PreviewModel.FilePath = string.Empty;
                 PreviewTitle = string.Empty;
-
+                // clear temp files from the previous search
+                Utils.DeleteTempFolder();
 
                 SearchReplaceCriteria workerParams = new SearchReplaceCriteria(this);
                 if (SearchInResultsContent && CanSearchInResults)
@@ -2544,7 +2545,7 @@ namespace dnGREP.WPF
                     }
                 }
 
-                if (/*Utils.IsPdfFile(filePath) &&*/ !string.IsNullOrEmpty(result.FileInfo.TempFile))
+                if (!string.IsNullOrEmpty(result.FileInfo.TempFile))
                 {
                     filePath = result.FileInfo.TempFile;
                     displayfileName = result.FileNameDisplayed + " " + Resources.Preview_Title_AsText;

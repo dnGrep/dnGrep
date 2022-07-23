@@ -1877,6 +1877,10 @@ Arguments:
     <value>Phonetic search</value>
     <comment>Options dialog, phonetic group header label</comment>
   </data>
+  <data name="Options_PluginShowPlainTextInPreview" xml:space="preserve">
+    <value>Show plain text in preview</value>
+    <comment>Options dialog, plug-ins checkbox label</comment>
+  </data>
   <data name="Options_PluginAdd" xml:space="preserve">
     <value>Add</value>
     <comment>Options dialog, plug-in options text input label</comment>
