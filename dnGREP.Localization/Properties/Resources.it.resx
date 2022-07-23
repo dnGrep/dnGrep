@@ -250,4 +250,116 @@
     <value>_Dot come nuova linea</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
+  <data name="Help_OneOrMoreArgumentsAreInvalid" xml:space="preserve">
+    <value>Uno o più argomenti non sono validi.</value>
+    <comment>Help dialog header text</comment>
+  </data>
+  <data name="Main_AllDates" xml:space="preserve">
+    <value>Ogni data</value>
+    <comment>Main window, filter files by date radio button label (accel)</comment>
+  </data>
+  <data name="Main_ClearBookmark" xml:space="preserve">
+    <value>Togli il segnalibro</value>
+    <comment>Main window, bookmark button tooltip</comment>
+  </data>
+  <data name="Main_DockBottom" xml:space="preserve">
+    <value>Ancora in basso</value>
+    <comment>Main window docking context menu item label (accel)</comment>
+  </data>
+  <data name="Main_DockRight" xml:space="preserve">
+    <value>Ancora a destra</value>
+    <comment>Main window docking context menu label (accel)</comment>
+  </data>
+  <data name="Main_Empty" xml:space="preserve">
+    <value>Vuoto</value>
+    <comment>Main window title prefix when search for is empty</comment>
+  </data>
+  <data name="Help_DnGrepHelp" xml:space="preserve">
+    <value>dnGrep Guida</value>
+    <comment>Help dialog window title</comment>
+  </data>
+  <data name="Main_AllSizes" xml:space="preserve">
+    <value>Qualunque dimensione</value>
+    <comment>Main window, size filter radio button label (accel)</comment>
+  </data>
+  <data name="Main_AssociateBookmarkWithFolder" xml:space="preserve">
+    <value>Associa il segnalibro alla cartella</value>
+    <comment>Main window, folder bookmark button tooltip</comment>
+  </data>
+  <data name="Main_Attributes_DateModified" xml:space="preserve">
+    <value>Ultima modifica:</value>
+    <comment>Main window, results list, file attributes tooltip label</comment>
+  </data>
+  <data name="Main_Attributes_File" xml:space="preserve">
+    <value>File:</value>
+    <comment>Main window, results list, file attributes tooltip label</comment>
+  </data>
+  <data name="Main_Attributes_Size" xml:space="preserve">
+    <value>Dimensioni:</value>
+    <comment>Main window, results list, file attributes tooltip label</comment>
+  </data>
+  <data name="Main_Attributes_Type" xml:space="preserve">
+    <value>Tipo:</value>
+    <comment>Main window, results list, file attributes tooltip label</comment>
+  </data>
+  <data name="Main_AutoPosition" xml:space="preserve">
+    <value>Posizione automatica</value>
+    <comment>Main window, docking context menu item label (accel)</comment>
+  </data>
+  <data name="Main_BrowseForFolderOrFiles" xml:space="preserve">
+    <value>Cerca file o cartelle</value>
+    <comment>Main window, open folder tooltip</comment>
+  </data>
+  <data name="Main_ChangesTheResultsTreeZoom" xml:space="preserve">
+    <value>Cambia lo zoom dei risultati</value>
+    <comment>Main window tooltip</comment>
+  </data>
+  <data name="Main_CombineMultipleSearchPatternsUsingANDOrOR" xml:space="preserve">
+    <value>Combina più pattern usando 'AND' oppure 'OR'</value>
+    <comment>Main window, search option Boolean Operators tooltip</comment>
+  </data>
+  <data name="Main_ContextAfter" xml:space="preserve">
+    <value>dopo</value>
+    <comment>Main window, result options context lines label</comment>
+  </data>
+  <data name="Main_ContextBeforeAnd" xml:space="preserve">
+    <value>prima e</value>
+    <comment>Main window, results options context lines label</comment>
+  </data>
+  <data name="Main_ContextShowLines" xml:space="preserve">
+    <value>Mostra righe adiacenti</value>
+    <comment>Main window, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_Created" xml:space="preserve">
+    <value>Creato</value>
+    <comment>Main window, filter files by date radio button label (accel)</comment>
+  </data>
+  <data name="Main_DateFrom" xml:space="preserve">
+    <value>Dal</value>
+    <comment>Main window, filter files by date radio button label (accel)</comment>
+  </data>
+  <data name="Main_DatePast" xml:space="preserve">
+    <value>Tra le ore</value>
+    <comment>Main window, filter files by date radio button label (accel)</comment>
+  </data>
+  <data name="Main_DateTo" xml:space="preserve">
+    <value>e le</value>
+    <comment>Main window, filter files by date label</comment>
+  </data>
+  <data name="Options_ContextAfter" xml:space="preserve">
+    <value>dopo</value>
+    <comment>Options dialog, results options context label</comment>
+  </data>
+  <data name="Options_ContextBeforeAnd" xml:space="preserve">
+    <value>prima e</value>
+    <comment>Options dialog, results options context label</comment>
+  </data>
+  <data name="Main_PastDateTo" xml:space="preserve">
+    <value>e le</value>
+    <comment>Main window, filter files by date, past time label</comment>
+  </data>
+  <data name="Main_SizeTo" xml:space="preserve">
+    <value>e le</value>
+    <comment>Main window, filter by size label</comment>
+  </data>
 </root>
