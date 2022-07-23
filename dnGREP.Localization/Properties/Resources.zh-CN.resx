@@ -2520,4 +2520,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <value>语法</value>
     <comment>Preview window, option label</comment>
   </data>
+  <data name="TTB0_InsertsTabNewline" xml:space="preserve">
+    <value>\\t 插入 tab, \\r 插入 return, \\n 插入 newline</value>
+    <comment>Main window and Test window tooltip</comment>
+  </data>
 </root>
