@@ -2524,4 +2524,12 @@ Arguments:
     <value>\\t вмъква табулатор, \\r вмъква знак за връщане на каретката, \\n вмъква знак за нов ред</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
+  <data name="Options_PluginShowPlainTextInPreview" xml:space="preserve">
+    <value>Показване на обикновен текст в прегледа</value>
+    <comment>Options dialog, plug-ins checkbox label</comment>
+  </data>
+  <data name="Preview_Title_AsText" xml:space="preserve">
+    <value>(като текст)</value>
+    <comment>Preview window, file label when binary file is shown as text</comment>
+  </data>
 </root>
