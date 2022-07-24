@@ -2071,6 +2071,7 @@ namespace dnGREP.Common
                         {
                             startMatched = false;
                             moreMatches = false;
+                            int startOfLineIndex = 0;
                             // Start creating matches
                             for (int i = startLine; i <= lineNumber; i++)
                             {
@@ -2079,19 +2080,27 @@ namespace dnGREP.Common
                                 lineStrings[i] = tempLine;
 
                                 string fileMatchId = bodyMatchesClone[0].FileMatchId;
+
+                                // for multiline regex, get just the groups on the current line
+                                var lineGroups = bodyMatchesClone[0].Groups.Where(g => g.StartLocation >= startOfLineIndex &&
+                                        g.StartLocation < startOfLineIndex + tempLine.Length)
+                                    .Select(g => new GrepCaptureGroup(g.Name, g.StartLocation - startOfLineIndex, g.Length, g.Value))
+                                    .ToList();
+
                                 // First and only line
                                 if (i == startLine && i == lineNumber)
-                                    matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, startIndex, bodyMatchesClone[0].Length, bodyMatchesClone[0].Groups));
+                                    matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, startIndex, bodyMatchesClone[0].Length, lineGroups));
                                 // First but not last line
                                 else if (i == startLine)
-                                    matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, startIndex, tempLine.TrimEndOfLine().Length - startIndex, bodyMatchesClone[0].Groups));
+                                    matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, startIndex, tempLine.TrimEndOfLine().Length - startIndex, lineGroups));
                                 // Middle line
                                 else if (i > startLine && i < lineNumber)
-                                    matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, 0, tempLine.TrimEndOfLine().Length, bodyMatchesClone[0].Groups));
+                                    matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, 0, tempLine.TrimEndOfLine().Length, lineGroups));
                                 // Last line
                                 else
-                                    matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, 0, bodyMatchesClone[0].Length - tempLinesTotalLength + line.Length + startIndex, bodyMatchesClone[0].Groups));
+                                    matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, 0, bodyMatchesClone[0].Length - tempLinesTotalLength + line.Length + startIndex, lineGroups));
 
+                                startOfLineIndex += tempLine.TrimEndOfLine().Length + 1; //add 1 for the \n character that was used when the regex was run
                                 startRecordingAfterLines = true;
                             }
                             bodyMatchesClone.RemoveAt(0);
