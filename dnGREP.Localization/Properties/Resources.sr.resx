@@ -2010,4 +2010,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <value>. налази сва слова</value>
     <comment>Main window and Test window tooltip</comment>
   </data>
+  <data name="Main_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
+    <value>Бајт претрага: читај датотеку као бинарну и тражи за бајтове као хегзадецималне цифре: 68 65 78 20</value>
+    <comment>Main window, Byte search type tooltip</comment>
+  </data>
+  <data name="MessageBox_DoYouWantToContinue" xml:space="preserve">
+    <value>Наставити?</value>
+    <comment>Message box text for: Main window, bookmark button</comment>
+  </data>
 </root>
