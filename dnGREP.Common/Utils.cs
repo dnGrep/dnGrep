@@ -1149,7 +1149,7 @@ namespace dnGREP.Common
                         yield return subPath;
                     }
                     else if (IncludeFile(subPath, filter, null, hasSearchPattern, includeSearchPatterns,
-                        includeRegexPatterns, excludeRegexPatterns, includeShebangPatterns) && 
+                        includeRegexPatterns, excludeRegexPatterns, includeShebangPatterns) &&
                         !matches.Contains(subPath))
                     {
                         matches.Add(subPath);
@@ -1183,7 +1183,7 @@ namespace dnGREP.Common
                         }
                     }
                     else if (IncludeFile(filePath, filter, null, hasSearchPattern, includeSearchPatterns,
-                        includeRegexPatterns, excludeRegexPatterns, includeShebangPatterns) && 
+                        includeRegexPatterns, excludeRegexPatterns, includeShebangPatterns) &&
                         !matches.Contains(filePath))
                     {
                         matches.Add(filePath);
@@ -1193,7 +1193,7 @@ namespace dnGREP.Common
             }
         }
 
-        private static IEnumerable<string> GetFileListEverything(FileFilter filter, IList<Regex> includeRegexPatterns, 
+        private static IEnumerable<string> GetFileListEverything(FileFilter filter, IList<Regex> includeRegexPatterns,
             IList<Regex> excludeRegexPatterns, IList<Regex> includeShebangPatterns)
         {
             string searchString = filter.Path.Trim();
@@ -1507,7 +1507,7 @@ namespace dnGREP.Common
         public static string[] GetFileList(string path, string namePatternToInclude, string namePatternToExclude, bool isRegex,
             bool useEverything, bool includeSubfolders, bool includeHidden, bool includeBinary, bool includeArchive,
             bool followSymlinks, int sizeFrom, int sizeTo, FileDateFilter dateFilter,
-            DateTime? startTime, DateTime? endTime, bool useGitignore, int maxSubfolderDepth, 
+            DateTime? startTime, DateTime? endTime, bool useGitignore, int maxSubfolderDepth,
             bool skipRemoteCloudStorageFiles = true)
         {
             var filter = new FileFilter(path, namePatternToInclude, namePatternToExclude, isRegex, useGitignore, useEverything,
@@ -2071,6 +2071,7 @@ namespace dnGREP.Common
                         {
                             startMatched = false;
                             moreMatches = false;
+                            bool multilineMatch = startLine != lineNumber;
                             int startOfLineIndex = 0;
                             // Start creating matches
                             for (int i = startLine; i <= lineNumber; i++)
@@ -2081,11 +2082,27 @@ namespace dnGREP.Common
 
                                 string fileMatchId = bodyMatchesClone[0].FileMatchId;
 
+                                bool multilineSearch = bodyMatchesClone[0].LineNumber == -1;
+                                List<GrepCaptureGroup> lineGroups;
                                 // for multiline regex, get just the groups on the current line
-                                var lineGroups = bodyMatchesClone[0].Groups.Where(g => g.StartLocation >= startOfLineIndex &&
-                                        g.StartLocation < startOfLineIndex + tempLine.Length)
-                                    .Select(g => new GrepCaptureGroup(g.Name, g.StartLocation - startOfLineIndex, g.Length, g.Value))
-                                    .ToList();
+                                if (multilineMatch)
+                                {
+                                    lineGroups = bodyMatchesClone[0].Groups.Where(g => g.StartLocation >= startOfLineIndex &&
+                                            g.StartLocation < startOfLineIndex + tempLine.Length)
+                                        .Select(g => new GrepCaptureGroup(g.Name, g.StartLocation - startOfLineIndex, g.Length, g.Value))
+                                        .ToList();
+                                }
+                                else if (multilineSearch)
+                                {
+                                    lineGroups = bodyMatchesClone[0].Groups.Where(g => g.StartLocation >= currentIndex &&
+                                            g.StartLocation < currentIndex + tempLine.Length)
+                                        .Select(g => new GrepCaptureGroup(g.Name, g.StartLocation - currentIndex, g.Length, g.Value))
+                                        .ToList();
+                                }
+                                else
+                                {
+                                    lineGroups = bodyMatchesClone[0].Groups;
+                                }
 
                                 // First and only line
                                 if (i == startLine && i == lineNumber)

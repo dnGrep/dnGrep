@@ -153,6 +153,35 @@ namespace Tests
         }
 
         [Fact]
+        public void TestGetCaptureGroups()
+        {
+            string test = "a1 b2 c3 d4";
+
+            List<GrepMatch> bodyMatches = new List<GrepMatch>();
+            List<GrepLine> lines = new List<GrepLine>();
+            using (StringReader reader = new StringReader(test))
+            {
+                bodyMatches.Clear();
+                bodyMatches.Add(new GrepMatch("", @"\w(\d)", 0, 0, 2, new[] { new GrepCaptureGroup("1", 1, 1, "1") }));
+                bodyMatches.Add(new GrepMatch("", @"\w(\d)", 0, 3, 2, new[] { new GrepCaptureGroup("2", 4, 1, "2") }));
+                bodyMatches.Add(new GrepMatch("", @"\w(\d)", 0, 6, 2, new[] { new GrepCaptureGroup("3", 7, 1, "3") }));
+                bodyMatches.Add(new GrepMatch("", @"\w(\d)", 0, 9, 2, new[] { new GrepCaptureGroup("4", 10, 1, "4") }));
+                lines = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
+            }
+
+            Assert.Single(lines);
+            GrepLine line = lines[0];
+            Assert.Equal(1, line.LineNumber);
+            Assert.Equal(test, line.LineText);
+            Assert.Equal(4, line.Matches.Count);
+            GrepMatch match = line.Matches[1];
+            Assert.Equal("b2", line.LineText.Substring(match.StartLocation, match.Length));
+            Assert.Single(match.Groups);
+            GrepCaptureGroup group = match.Groups[0];
+            Assert.Equal("2", line.LineText.Substring(group.StartLocation, group.Length));
+        }
+
+        [Fact]
         public void TestDefaultSettings()
         {
             var type = GrepSettings.Instance.Get<SearchType>(GrepSettings.Key.TypeOfSearch);
