@@ -198,7 +198,7 @@ namespace dnGREP.Engines
                     length += CountWindowsNewLines(match.Index, match.Index + length, newlineIndexes);
                 }
 
-                var grepMatch = new GrepMatch(searchPattern, lineNumber, matchStart + filePosition, length);
+                var grepMatch = new GrepMatch(searchPattern, lineNumber, matchStart + filePosition, length, regexOptions.HasFlag(RegexOptions.Multiline));
 
                 if (match.Groups.Count > 1)
                 {
@@ -305,7 +305,7 @@ namespace dnGREP.Engines
                     if (results.Count == 0)
                     {
                         string temp = text.TrimEndOfLine();
-                        results.Add(new GrepMatch(string.Empty, lineNumber, filePosition, temp.Length));
+                        results.Add(new GrepMatch(string.Empty, lineNumber, filePosition, temp.Length, regexOptions.HasFlag(RegexOptions.Multiline)));
                     }
 
                     GrepMatch.Normalize(results);
@@ -468,6 +468,7 @@ namespace dnGREP.Engines
         private IEnumerable<GrepMatch> TextSearchIterator(int lineNumber, int filePosition, string text,
             string searchText, List<int> lineEndIndexes, bool isWholeWord, StringComparison comparisonType)
         {
+            bool isMultiline = lineNumber == -1;
             int index = 0;
             while (index >= 0)
             {
@@ -486,7 +487,7 @@ namespace dnGREP.Engines
                         lineNumber = lineEndIndexes.FindIndex(i => i > index) + 1;
                     }
 
-                    yield return new GrepMatch(searchText, lineNumber, index + filePosition, searchText.Length);
+                    yield return new GrepMatch(searchText, lineNumber, index + filePosition, searchText.Length, isMultiline);
                     index += searchText.Length;
                 }
             }
@@ -495,6 +496,7 @@ namespace dnGREP.Engines
         private IEnumerable<GrepMatch> TextSearchIteratorBoolean(int lineNumber, int filePosition, string text,
             BooleanExpression expression, List<int> lineEndIndexes, bool isWholeWord, StringComparison comparisonType)
         {
+            bool isMultiline = lineNumber == -1;
             List<GrepMatch> results = new List<GrepMatch>();
             foreach (var operand in expression.Operands)
             {
@@ -528,7 +530,7 @@ namespace dnGREP.Engines
                     if (results.Count == 0)
                     {
                         string temp = text.TrimEndOfLine();
-                        results.Add(new GrepMatch(string.Empty, lineNumber, filePosition, temp.Length));
+                        results.Add(new GrepMatch(string.Empty, lineNumber, filePosition, temp.Length, isMultiline));
                     }
 
                     GrepMatch.Normalize(results);
@@ -777,7 +779,7 @@ namespace dnGREP.Engines
 
                                     if (XPathPositionsMatch(currPos, positions[i].Path))
                                     {
-                                        results[i] = new GrepMatch(string.Empty, lineInfo.LineNumber, GetAbsoluteCharPosition(lineInfo.LineNumber - 1, lineInfo.LinePosition - 2, text, lineLengths, false), 0);
+                                        results[i] = new GrepMatch(string.Empty, lineInfo.LineNumber, GetAbsoluteCharPosition(lineInfo.LineNumber - 1, lineInfo.LinePosition - 2, text, lineLengths, false), 0, true);
                                     }
 
                                     // If empty element (e.g.<element/>)
@@ -875,6 +877,7 @@ namespace dnGREP.Engines
 
         private IEnumerable<GrepMatch> FuzzySearchIterator(int lineNumber, int filePosition, string text, string searchPattern, GrepSearchOption searchOptions)
         {
+            bool isMultiline = lineNumber == -1;
             var lineEndIndexes = GetLineEndIndexes(initParams.VerboseMatchCount && lineNumber == -1 ? text : null);
 
             if (fuzzyMatchEngine == null)
@@ -907,7 +910,7 @@ namespace dnGREP.Engines
                 if (initParams.VerboseMatchCount && lineEndIndexes.Count > 0)
                     lineNumber = lineEndIndexes.FindIndex(i => i > matchLocation + counter) + 1;
 
-                yield return new GrepMatch(searchPattern, lineNumber, matchLocation + filePosition + counter, matchLength);
+                yield return new GrepMatch(searchPattern, lineNumber, matchLocation + filePosition + counter, matchLength, isMultiline);
 
                 counter = counter + matchLocation + matchLength;
             }

@@ -129,7 +129,7 @@ namespace dnGREP.Engines
 
                     if (hasMatch && compareComplete)
                     {
-                        yield return new GrepMatch(searchPattern, 0, startIndex + idx, searchArray.Length);
+                        yield return new GrepMatch(searchPattern, 0, startIndex + idx, searchArray.Length, false);
 
                         // move to the end of this match to begin the next search (no overlapping matches)
                         idx += searchArray.Length - 1;

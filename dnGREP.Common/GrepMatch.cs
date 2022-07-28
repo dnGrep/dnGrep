@@ -5,12 +5,13 @@ namespace dnGREP.Common
 {
     public class GrepMatch : IComparable<GrepMatch>, IComparable, IEquatable<GrepMatch>
     {
-        public GrepMatch(string searchPattern, int line, int start, int length)
+        public GrepMatch(string searchPattern, int line, int start, int length, bool isMultilineSearch)
         {
             SearchPattern = searchPattern;
             LineNumber = line;
             StartLocation = start;
             Length = length;
+            IsMultilineSearch = isMultilineSearch;
 
             FileMatchId = Guid.NewGuid().ToString();
         }
@@ -50,6 +51,8 @@ namespace dnGREP.Common
                 Length = value - StartLocation;
             }
         }
+
+        public bool IsMultilineSearch { get; private set; }
 
         public List<GrepCaptureGroup> Groups { get; } = new List<GrepCaptureGroup>();
 
@@ -172,7 +175,7 @@ namespace dnGREP.Common
             int end = Math.Max(one.EndPosition, two.EndPosition);
             int line = Math.Min(one.LineNumber, two.LineNumber);
 
-            return new GrepMatch(one.SearchPattern + " & " + two.SearchPattern, line, start, end - start);
+            return new GrepMatch(one.SearchPattern + " & " + two.SearchPattern, line, start, end - start, one.IsMultilineSearch);
         }
     }
 }

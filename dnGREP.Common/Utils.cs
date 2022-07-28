@@ -2082,7 +2082,7 @@ namespace dnGREP.Common
 
                                 string fileMatchId = bodyMatchesClone[0].FileMatchId;
 
-                                bool multilineSearch = bodyMatchesClone[0].LineNumber == -1;
+                                bool multilineSearch = bodyMatchesClone[0].IsMultilineSearch;
                                 List<GrepCaptureGroup> lineGroups;
                                 // for multiline regex, get just the groups on the current line
                                 if (multilineMatch)
@@ -2326,7 +2326,7 @@ namespace dnGREP.Common
                 int newLines = (match.StartLocation % bufferSize + match.Length - 1) / bufferSize;
                 matchLength -= newLines;
 
-                list.Add(new GrepMatch(match.SearchPattern, lineNum, startLocation, matchLength));
+                list.Add(new GrepMatch(match.SearchPattern, lineNum, startLocation, matchLength, false));
             }
             return list;
         }

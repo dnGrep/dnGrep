@@ -1639,14 +1639,21 @@ namespace Tests
         }
 
         [Theory]
-        [InlineData("a1111 b2222\r\nc3333 d4444")]
-        [InlineData(" a1111 b2222\r\n c3333 d4444")]
-        [InlineData("aa1111 b2222\r\ncc3333 d4444")]
-        [InlineData("a1111 b2222 \r\nc3333 d4444 ")]
-        [InlineData("zz a1111 b2222\r\nzz c3333 d4444")]
-        [InlineData("a1111 z b2222\r\nc3333 z d4444")]
-        [InlineData("zz a1111 zz b2222\r\nzz c3333 zz d4444")]
-        public void TestCaptureGroupHighlightMutlipleMatches1(string content)
+        [InlineData("a1111 b2222\r\nc3333 d4444", true)]
+        [InlineData(" a1111 b2222\r\n c3333 d4444", true)]
+        [InlineData("aa1111 b2222\r\ncc3333 d4444", true)]
+        [InlineData("a1111 b2222 \r\nc3333 d4444 ", true)]
+        [InlineData("zz a1111 b2222\r\nzz c3333 d4444", true)]
+        [InlineData("a1111 z b2222\r\nc3333 z d4444", true)]
+        [InlineData("zz a1111 zz b2222\r\nzz c3333 zz d4444", true)]
+        [InlineData("a1111 b2222\r\nc3333 d4444", false)]
+        [InlineData(" a1111 b2222\r\n c3333 d4444", false)]
+        [InlineData("aa1111 b2222\r\ncc3333 d4444", false)]
+        [InlineData("a1111 b2222 \r\nc3333 d4444 ", false)]
+        [InlineData("zz a1111 b2222\r\nzz c3333 d4444", false)]
+        [InlineData("a1111 z b2222\r\nc3333 z d4444", false)]
+        [InlineData("zz a1111 zz b2222\r\nzz c3333 zz d4444", false)]
+        public void TestCaptureGroupHighlightMutlipleMatches1(string content, bool verboseMatchCount)
         {
             string pattern = @"\w(\d+)";
             string[] textLines = content.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
@@ -1661,6 +1668,7 @@ namespace Tests
             var files = Directory.GetFiles(path, "*.txt");
 
             GrepCore core = new GrepCore();
+            core.SearchParams = new GrepEngineInitParams(false, 0, 0, 0, verboseMatchCount, false);
             var results = core.Search(files, SearchType.Regex, pattern, GrepSearchOption.None, -1);
 
             Assert.Single(results);
@@ -1710,14 +1718,21 @@ namespace Tests
         }
 
         [Theory]
-        [InlineData("a1111 b2222\r\nc3333 d4444")]
-        [InlineData(" a1111 b2222\r\n c3333 d4444")]
-        [InlineData("aa1111 b2222\r\ncc3333 d4444")]
-        [InlineData("a1111 b2222 \r\nc3333 d4444 ")]
-        [InlineData("zz a1111 b2222\r\nzz c3333 d4444")]
-        [InlineData("a1111 z b2222\r\nc3333 z d4444")]
-        [InlineData("zz a1111 zz b2222\r\nzz c3333 zz d4444")]
-        public void TestCaptureGroupHighlightMutlipleMatches2(string content)
+        [InlineData("a1111 b2222\r\nc3333 d4444", true)]
+        [InlineData(" a1111 b2222\r\n c3333 d4444", true)]
+        [InlineData("aa1111 b2222\r\ncc3333 d4444", true)]
+        [InlineData("a1111 b2222 \r\nc3333 d4444 ", true)]
+        [InlineData("zz a1111 b2222\r\nzz c3333 d4444", true)]
+        [InlineData("a1111 z b2222\r\nc3333 z d4444", true)]
+        [InlineData("zz a1111 zz b2222\r\nzz c3333 zz d4444", true)]
+        [InlineData("a1111 b2222\r\nc3333 d4444", false)]
+        [InlineData(" a1111 b2222\r\n c3333 d4444", false)]
+        [InlineData("aa1111 b2222\r\ncc3333 d4444", false)]
+        [InlineData("a1111 b2222 \r\nc3333 d4444 ", false)]
+        [InlineData("zz a1111 b2222\r\nzz c3333 d4444", false)]
+        [InlineData("a1111 z b2222\r\nc3333 z d4444", false)]
+        [InlineData("zz a1111 zz b2222\r\nzz c3333 zz d4444", false)]
+        public void TestCaptureGroupHighlightMutlipleMatches2(string content, bool verboseMatchCount)
         {
             string pattern = @"\w(\d+)";
             string[] textLines = content.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
@@ -1732,6 +1747,7 @@ namespace Tests
             var files = Directory.GetFiles(path, "*.txt");
 
             GrepCore core = new GrepCore();
+            core.SearchParams = new GrepEngineInitParams(false, 0, 0, 0, verboseMatchCount, false);
             var results = core.Search(files, SearchType.Regex, pattern, GrepSearchOption.Multiline | GrepSearchOption.SingleLine, -1);
 
             Assert.Single(results);
@@ -1781,14 +1797,21 @@ namespace Tests
         }
 
         [Theory]
-        [InlineData("a1111 b2222\r\nc3333 d4444")]
-        [InlineData(" a1111 b2222\r\n c3333 d4444")]
-        [InlineData("aa1111 b2222\r\ncc3333 d4444")]
-        [InlineData("a1111 b2222 \r\nc3333 d4444 ")]
-        [InlineData("zz a1111 b2222\r\nzz c3333 d4444")]
-        [InlineData("a1111 z b2222\r\nc3333 z d4444")]
-        [InlineData("zz a1111 zz b2222\r\nzz c3333 zz d4444")]
-        public void TestCaptureGroupHighlightSingleMatchesMultipleGroups(string content)
+        [InlineData("a1111 b2222\r\nc3333 d4444", true)]
+        [InlineData(" a1111 b2222\r\n c3333 d4444", true)]
+        [InlineData("aa1111 b2222\r\ncc3333 d4444", true)]
+        [InlineData("a1111 b2222 \r\nc3333 d4444 ", true)]
+        [InlineData("zz a1111 b2222\r\nzz c3333 d4444", true)]
+        [InlineData("a1111 z b2222\r\nc3333 z d4444", true)]
+        [InlineData("zz a1111 zz b2222\r\nzz c3333 zz d4444", true)]
+        [InlineData("a1111 b2222\r\nc3333 d4444", false)]
+        [InlineData(" a1111 b2222\r\n c3333 d4444", false)]
+        [InlineData("aa1111 b2222\r\ncc3333 d4444", false)]
+        [InlineData("a1111 b2222 \r\nc3333 d4444 ", false)]
+        [InlineData("zz a1111 b2222\r\nzz c3333 d4444", false)]
+        [InlineData("a1111 z b2222\r\nc3333 z d4444", false)]
+        [InlineData("zz a1111 zz b2222\r\nzz c3333 zz d4444", false)]
+        public void TestCaptureGroupHighlightSingleMatchesMultipleGroups(string content, bool verboseMatchCount)
         {
             string pattern = @"a(\d+).+b(\d+).+c(\d+).+d(\d+)\s?$";
             string[] textLines = content.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
@@ -1803,6 +1826,7 @@ namespace Tests
             var files = Directory.GetFiles(path, "*.txt");
 
             GrepCore core = new GrepCore();
+            core.SearchParams = new GrepEngineInitParams(false, 0, 0, 0, verboseMatchCount, false);
             var results = core.Search(files, SearchType.Regex, pattern, GrepSearchOption.Multiline | GrepSearchOption.SingleLine, -1);
 
             Assert.Single(results);
