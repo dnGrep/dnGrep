@@ -2071,7 +2071,9 @@ namespace dnGREP.Common
                         {
                             startMatched = false;
                             moreMatches = false;
+                            int firstLineLength = lineQueue.Peek().Length;
                             bool multilineMatch = startLine != lineNumber;
+                            bool multilineGroups = bodyMatchesClone.SelectMany(m => m.Groups).Any(g => g.StartLocation > firstLineLength);
                             int startOfLineIndex = 0;
                             // Start creating matches
                             for (int i = startLine; i <= lineNumber; i++)
@@ -2082,7 +2084,6 @@ namespace dnGREP.Common
 
                                 string fileMatchId = bodyMatchesClone[0].FileMatchId;
 
-                                bool multilineSearch = bodyMatchesClone[0].IsMultilineSearch;
                                 List<GrepCaptureGroup> lineGroups;
                                 // for multiline regex, get just the groups on the current line
                                 if (multilineMatch)
@@ -2092,7 +2093,7 @@ namespace dnGREP.Common
                                         .Select(g => new GrepCaptureGroup(g.Name, g.StartLocation - startOfLineIndex, g.Length, g.Value))
                                         .ToList();
                                 }
-                                else if (multilineSearch)
+                                else if (multilineGroups)
                                 {
                                     lineGroups = bodyMatchesClone[0].Groups.Where(g => g.StartLocation >= currentIndex &&
                                             g.StartLocation < currentIndex + tempLine.Length)
@@ -2326,7 +2327,7 @@ namespace dnGREP.Common
                 int newLines = (match.StartLocation % bufferSize + match.Length - 1) / bufferSize;
                 matchLength -= newLines;
 
-                list.Add(new GrepMatch(match.SearchPattern, lineNum, startLocation, matchLength, false));
+                list.Add(new GrepMatch(match.SearchPattern, lineNum, startLocation, matchLength));
             }
             return list;
         }

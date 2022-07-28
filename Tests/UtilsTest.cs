@@ -75,7 +75,7 @@ namespace Tests
             using (StringReader reader = new StringReader(test))
             {
                 bodyMatches.Clear();
-                bodyMatches.Add(new GrepMatch("", 0, 9, 2, true));
+                bodyMatches.Add(new GrepMatch("", 0, 9, 2));
                 lines = Utils.GetLinesEx(reader, bodyMatches, 2, 2);
             }
             Assert.Equal(5, lines.Count);
@@ -96,7 +96,7 @@ namespace Tests
             using (StringReader reader = new StringReader(test))
             {
                 bodyMatches.Clear();
-                bodyMatches.Add(new GrepMatch("", 0, 9, 2, true));
+                bodyMatches.Add(new GrepMatch("", 0, 9, 2));
                 lines = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
             Assert.Single(lines);
@@ -105,7 +105,7 @@ namespace Tests
             using (StringReader reader = new StringReader(test))
             {
                 bodyMatches.Clear();
-                bodyMatches.Add(new GrepMatch("", 0, 4, 1, true));
+                bodyMatches.Add(new GrepMatch("", 0, 4, 1));
                 lines = Utils.GetLinesEx(reader, bodyMatches, 10, 0);
             }
             Assert.Equal(2, lines.Count);
@@ -119,7 +119,7 @@ namespace Tests
             using (StringReader reader = new StringReader(test))
             {
                 bodyMatches.Clear();
-                bodyMatches.Add(new GrepMatch("", 0, 34, 1, true));
+                bodyMatches.Add(new GrepMatch("", 0, 34, 1));
                 lines = Utils.GetLinesEx(reader, bodyMatches, 1, 10);
             }
 
@@ -138,7 +138,7 @@ namespace Tests
             using (StringReader reader = new StringReader(test))
             {
                 bodyMatches.Clear();
-                bodyMatches.Add(new GrepMatch("", 4, 15, 21, true));
+                bodyMatches.Add(new GrepMatch("", 4, 15, 21));
                 lines = Utils.GetLinesEx(reader, bodyMatches, 2, 3);
             }
 
@@ -336,7 +336,7 @@ namespace Tests
             using (StringReader reader = new StringReader(text))
             {
                 bodyMatches.Clear();
-                bodyMatches.Add(new GrepMatch("", 0, 3, 2, true));
+                bodyMatches.Add(new GrepMatch("", 0, 3, 2));
                 results = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
 
@@ -348,7 +348,7 @@ namespace Tests
             using (StringReader reader = new StringReader(text))
             {
                 bodyMatches.Clear();
-                bodyMatches.Add(new GrepMatch("", 0, 14, 2, true));
+                bodyMatches.Add(new GrepMatch("", 0, 14, 2));
                 results = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
 
@@ -361,7 +361,7 @@ namespace Tests
             using (StringReader reader = new StringReader(text))
             {
                 bodyMatches.Clear();
-                bodyMatches.Add(new GrepMatch("", 0, 3, 11, true));
+                bodyMatches.Add(new GrepMatch("", 0, 3, 11));
                 results = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
 
@@ -376,7 +376,7 @@ namespace Tests
             using (StringReader reader = new StringReader(text))
             {
                 bodyMatches.Clear();
-                bodyMatches.Add(new GrepMatch("", 0, 3, 30, true));
+                bodyMatches.Add(new GrepMatch("", 0, 3, 30));
                 results = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
 
@@ -394,7 +394,7 @@ namespace Tests
             using (StringReader reader = new StringReader("test"))
             {
                 bodyMatches.Clear();
-                bodyMatches.Add(new GrepMatch("", 0, 2, 2, true));
+                bodyMatches.Add(new GrepMatch("", 0, 2, 2));
                 results = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
 
@@ -406,7 +406,7 @@ namespace Tests
             using (StringReader reader = new StringReader("test"))
             {
                 bodyMatches.Clear();
-                bodyMatches.Add(new GrepMatch("", 0, 0, 2, true));
+                bodyMatches.Add(new GrepMatch("", 0, 0, 2));
                 results = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
 
@@ -418,7 +418,7 @@ namespace Tests
             using (StringReader reader = new StringReader("test"))
             {
                 bodyMatches.Clear();
-                bodyMatches.Add(new GrepMatch("", 0, 10, 2, true));
+                bodyMatches.Add(new GrepMatch("", 0, 10, 2));
                 results = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
 
@@ -427,7 +427,7 @@ namespace Tests
             using (StringReader reader = new StringReader("test"))
             {
                 bodyMatches.Clear();
-                bodyMatches.Add(new GrepMatch("", 0, 2, 10, true));
+                bodyMatches.Add(new GrepMatch("", 0, 2, 10));
                 results = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
 
@@ -436,9 +436,9 @@ namespace Tests
             using (StringReader reader = new StringReader(text))
             {
                 bodyMatches.Clear();
-                bodyMatches.Add(new GrepMatch("", 0, 3, 2, true));
-                bodyMatches.Add(new GrepMatch("", 0, 6, 2, true));
-                bodyMatches.Add(new GrepMatch("", 0, 14, 2, true));
+                bodyMatches.Add(new GrepMatch("", 0, 3, 2));
+                bodyMatches.Add(new GrepMatch("", 0, 6, 2));
+                bodyMatches.Add(new GrepMatch("", 0, 14, 2));
                 results = Utils.GetLinesEx(reader, bodyMatches, 0, 0);
             }
 
