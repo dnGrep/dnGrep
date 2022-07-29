@@ -339,6 +339,11 @@ namespace dnGREP.WPF
 
                 _isPreviewHidden = value;
                 base.OnPropertyChanged(nameof(IsPreviewHidden));
+
+                if (IsPreviewHidden)
+                {
+                    PreviewFileContent = false;
+                }
             }
         }
 
@@ -696,9 +701,15 @@ namespace dnGREP.WPF
                             PreviewFile(grepResult);
                         }
                     }
+                    else if (IsPreviewHidden && !IsPreviewDocked)
+                    {
+                        PreviewShow?.Invoke(this, EventArgs.Empty);
+                    }
                 }
-                else
+                else if (!IsPreviewHidden)
+                {
                     PreviewHide?.Invoke(this, EventArgs.Empty);
+                }
             }
         }
 

@@ -234,6 +234,7 @@ namespace dnGREP.DockFloat
 
                 floatingWindow.ConstrainToScreen();
             };
+            floatingWindow.IsVisibleChanged += (s, e) => SavePlacement();
             floatingWindow.Closing += (s, e) => SavePlacement();
             floatingWindow.Closed += (s, e) => DockIn();
             if (!hidden)
