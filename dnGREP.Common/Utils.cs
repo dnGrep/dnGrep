@@ -2073,7 +2073,7 @@ namespace dnGREP.Common
                             moreMatches = false;
                             int firstLineLength = lineQueue.Peek().Length;
                             bool multilineMatch = startLine != lineNumber;
-                            bool multilineGroups = bodyMatchesClone.SelectMany(m => m.Groups).Any(g => g.StartLocation > firstLineLength);
+                            bool multilineGroups = bodyMatchesClone[0].Groups.Any(g => g.StartLocation > firstLineLength);
                             int startOfLineIndex = 0;
                             // Start creating matches
                             for (int i = startLine; i <= lineNumber; i++)
