@@ -1640,6 +1640,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Regular expression report options….
+        /// </summary>
+        public static string Main_MoreMenu_Regex_Report_Options {
+            get {
+                return ResourceManager.GetString("Main_MoreMenu_Regex_Report_Options", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CSV results.
         /// </summary>
         public static string Main_MoreMenu_Save_CSVResults {
@@ -4264,6 +4273,159 @@ namespace dnGREP.Localization.Properties {
         public static string Preview_Zoom {
             get {
                 return ResourceManager.GetString("Preview_Zoom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string RegexReportOptionsWindow_Cancel {
+            get {
+                return ResourceManager.GetString("RegexReportOptionsWindow_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Capture groups only.
+        /// </summary>
+        public static string RegexReportOptionsWindow_CaptureGroupsOnly {
+            get {
+                return ResourceManager.GetString("RegexReportOptionsWindow_CaptureGroupsOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to CSV.
+        /// </summary>
+        public static string RegexReportOptionsWindow_CSV {
+            get {
+                return ResourceManager.GetString("RegexReportOptionsWindow_CSV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter for unique values.
+        /// </summary>
+        public static string RegexReportOptionsWindow_FilterForUniqueValues {
+            get {
+                return ResourceManager.GetString("RegexReportOptionsWindow_FilterForUniqueValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Full lines.
+        /// </summary>
+        public static string RegexReportOptionsWindow_FullLines {
+            get {
+                return ResourceManager.GetString("RegexReportOptionsWindow_FullLines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Global.
+        /// </summary>
+        public static string RegexReportOptionsWindow_Global {
+            get {
+                return ResourceManager.GetString("RegexReportOptionsWindow_Global", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include file and line information.
+        /// </summary>
+        public static string RegexReportOptionsWindow_IncludeFileAndLineInformation {
+            get {
+                return ResourceManager.GetString("RegexReportOptionsWindow_IncludeFileAndLineInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Matches only.
+        /// </summary>
+        public static string RegexReportOptionsWindow_MatchesOnly {
+            get {
+                return ResourceManager.GetString("RegexReportOptionsWindow_MatchesOnly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Per file.
+        /// </summary>
+        public static string RegexReportOptionsWindow_PerFile {
+            get {
+                return ResourceManager.GetString("RegexReportOptionsWindow_PerFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Press F1 for help.
+        /// </summary>
+        public static string RegexReportOptionsWindow_PressF1ForHelp {
+            get {
+                return ResourceManager.GetString("RegexReportOptionsWindow_PressF1ForHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preview:.
+        /// </summary>
+        public static string RegexReportOptionsWindow_Preview {
+            get {
+                return ResourceManager.GetString("RegexReportOptionsWindow_Preview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Regular Expression Report Options.
+        /// </summary>
+        public static string RegexReportOptionsWindow_RegularExpressionReportOptions {
+            get {
+                return ResourceManager.GetString("RegexReportOptionsWindow_RegularExpressionReportOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string RegexReportOptionsWindow_Save {
+            get {
+                return ResourceManager.GetString("RegexReportOptionsWindow_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Separator for multiple matches or groups on a line.
+        /// </summary>
+        public static string RegexReportOptionsWindow_SeparatorForMultipleMatchesOrGroupsOnALine {
+            get {
+                return ResourceManager.GetString("RegexReportOptionsWindow_SeparatorForMultipleMatchesOrGroupsOnALine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show each match or group on separate line.
+        /// </summary>
+        public static string RegexReportOptionsWindow_ShowEachMatchOrGroupOnSeparateLine {
+            get {
+                return ResourceManager.GetString("RegexReportOptionsWindow_ShowEachMatchOrGroupOnSeparateLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text.
+        /// </summary>
+        public static string RegexReportOptionsWindow_Text {
+            get {
+                return ResourceManager.GetString("RegexReportOptionsWindow_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trim whitespace.
+        /// </summary>
+        public static string RegexReportOptionsWindow_TrimWhitespace {
+            get {
+                return ResourceManager.GetString("RegexReportOptionsWindow_TrimWhitespace", resourceCulture);
             }
         }
         

@@ -895,6 +895,8 @@
                                     <MenuItem Header="{l:Loc Key='Main_MoreMenu_DeleteFiles'}" Command="{Binding DeleteFilesCommand}" />
                                     <Separator />
                                     <MenuItem Header="{l:Loc Key='Main_MoreMenu_CopyFileNames'}" Command="{Binding CopyToClipboardCommand}" />
+                                    <Separator />
+                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_Regex_Report_Options'}" Command="{Binding RegexReportOptions}" />
                                     <MenuItem Header="{l:Loc Key='Main_MoreMenu_CopyResults'}" Command="{Binding CopyMatchingLinesCommand}" />
                                     <MenuItem Header="{l:Loc Key='Main_MoreMenu_SaveResults'}">
                                         <MenuItem Header="{l:Loc Key='Main_MoreMenu_Save_Report'}" Command="{Binding SaveResultsCommand}" CommandParameter="Report" />
