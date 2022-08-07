@@ -245,167 +245,6 @@ namespace dnGREP.Common
         }
 
         /// <summary>
-        /// Creates a CSV file from search results
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="destinationPath"></param>
-        public static void SaveResultsAsCSV(List<GrepSearchResult> source, string destinationPath)
-        {
-            if (File.Exists(destinationPath))
-                File.Delete(destinationPath);
-
-            File.WriteAllText(destinationPath, GetResultsAsCSV(source), Encoding.UTF8);
-        }
-
-        /// <summary>
-        /// Creates a text file from search results
-        /// </summary>
-        /// <param name="source">the search results</param>
-        /// <param name="destinationPath">the file name to save</param>
-        public static void SaveResultsAsText(List<GrepSearchResult> source, string destinationPath)
-        {
-            if (File.Exists(destinationPath))
-                File.Delete(destinationPath);
-
-            File.WriteAllText(destinationPath, GetResultLines(source), Encoding.UTF8);
-        }
-
-        public static void SaveResultsReport(List<GrepSearchResult> source, bool booleanOperators, string searchText,
-            string options, string destinationPath)
-        {
-            if (File.Exists(destinationPath))
-                File.Delete(destinationPath);
-
-            List<string> orClauses = null;
-            if (booleanOperators)
-            {
-                BooleanExpression exp = new BooleanExpression();
-                if (exp.TryParse(searchText) && exp.HasOrExpression)
-                {
-                    orClauses = exp.Operands.Select(o => o.Value).ToList();
-                }
-            }
-
-            int fileCount = source.Where(r => !string.IsNullOrWhiteSpace(r.FileNameReal)).Select(r => r.FileNameReal).Distinct().Count();
-            int lineCount = source.Sum(s => s.Matches.Where(r => r.LineNumber > 0).Select(r => r.LineNumber).Distinct().Count());
-            int matchCount = source.Sum(s => s.Matches == null ? 0 : s.Matches.Count);
-
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine(Resources.Report_DnGrepSearchResults).AppendLine();
-            sb.Append(options).AppendLine();
-            sb.AppendFormat(Resources.Report_Found0MatchesOn1LinesIn2Files,
-                matchCount.ToString("#,##0"), lineCount.ToString("#,##0"), fileCount.ToString("#,##0"))
-                .AppendLine().AppendLine();
-            sb.Append(GetResultLinesWithContext(source, orClauses));
-
-            File.WriteAllText(destinationPath, sb.ToString(), Encoding.UTF8);
-        }
-
-        /// <summary>
-        /// Returns a CSV structure from search results
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="destinationPath"></param>
-        public static string GetResultsAsCSV(List<GrepSearchResult> source)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine(Resources.Report_CSVRecordHeaderText);
-            foreach (GrepSearchResult result in source)
-            {
-                if (result.SearchResults == null)
-                {
-                    sb.AppendLine(Quote(result.FileNameDisplayed));
-                }
-                else
-                {
-                    foreach (GrepLine line in result.SearchResults)
-                    {
-                        if (!line.IsContext)
-                            sb.AppendLine("\"" + result.FileNameDisplayed + "\"," + line.LineNumber + ",\"" + line.LineText.Replace("\"", "\"\"") + "\"");
-                    }
-                }
-            }
-            return sb.ToString();
-        }
-
-        public static string GetResultLines(List<GrepSearchResult> source)
-        {
-            StringBuilder sb = new StringBuilder();
-            foreach (GrepSearchResult result in source)
-            {
-                if (result.SearchResults != null)
-                {
-                    foreach (GrepLine line in result.SearchResults)
-                    {
-                        if (!line.IsContext)
-                            sb.AppendLine(line.LineText);
-                    }
-                }
-            }
-            return sb.ToString();
-        }
-
-        public static string GetResultLinesWithContext(List<GrepSearchResult> source, List<string> orClauses)
-        {
-            StringBuilder sb = new StringBuilder();
-            foreach (var result in source)
-            {
-                string orResults = string.Empty;
-                if (orClauses != null && orClauses.Any())
-                {
-                    var set = result.Matches.Select(m => m.SearchPattern);
-                    var hits = orClauses.Intersect(set);
-                    var misses = orClauses.Except(set);
-                    if (hits.Any())
-                    {
-                        orResults += Resources.Report_FoundMatchesFor + string.Join(", ", hits.Select(s => "\'" + s + "\'"));
-                    }
-                    if (misses.Any())
-                    {
-                        if (!string.IsNullOrEmpty(orResults))
-                            orResults += Environment.NewLine;
-                        orResults += Resources.Report_FoundNoMatchesFor + string.Join(", ", misses.Select(s => "\'" + s + "\'"));
-                    }
-                }
-
-                // this call to SearchResults can be expensive if the results are not yet cached
-                var searchResults = result.SearchResults;
-                if (searchResults != null)
-                {
-                    int matchCount = result.Matches == null ? 0 : result.Matches.Count;
-                    var lineCount = result.Matches.Where(r => r.LineNumber > 0)
-                        .Select(r => r.LineNumber).Distinct().Count();
-
-                    sb.AppendLine(result.FileNameDisplayed)
-                      .AppendFormat(Resources.Report_Has0MatchesOn1Lines, matchCount, lineCount).AppendLine();
-
-                    if (!string.IsNullOrEmpty(orResults))
-                        sb.AppendLine(orResults);
-
-                    if (searchResults.Any())
-                    {
-                        int prevLineNum = -1;
-                        foreach (var line in searchResults)
-                        {
-                            // Adding separator
-                            if (line.LineNumber != prevLineNum + 1)
-                                sb.AppendLine();
-
-                            sb.Append(line.LineNumber.ToString().PadLeft(6, ' ')).Append(":  ").AppendLine(line.LineText);
-                            prevLineNum = line.LineNumber;
-                        }
-                    }
-                    else
-                    {
-                        sb.AppendLine(Resources.Report_FileNotFoundHasItBeenDeletedOrMoved);
-                    }
-                }
-                sb.AppendLine("--------------------------------------------------------------------------------").AppendLine();
-            }
-            return sb.ToString();
-        }
-
-        /// <summary>
         /// Deletes file based on search results. 
         /// </summary>
         /// <param name="source"></param>
@@ -1149,7 +988,7 @@ namespace dnGREP.Common
                         yield return subPath;
                     }
                     else if (IncludeFile(subPath, filter, null, hasSearchPattern, includeSearchPatterns,
-                        includeRegexPatterns, excludeRegexPatterns, includeShebangPatterns) && 
+                        includeRegexPatterns, excludeRegexPatterns, includeShebangPatterns) &&
                         !matches.Contains(subPath))
                     {
                         matches.Add(subPath);
@@ -1183,7 +1022,7 @@ namespace dnGREP.Common
                         }
                     }
                     else if (IncludeFile(filePath, filter, null, hasSearchPattern, includeSearchPatterns,
-                        includeRegexPatterns, excludeRegexPatterns, includeShebangPatterns) && 
+                        includeRegexPatterns, excludeRegexPatterns, includeShebangPatterns) &&
                         !matches.Contains(filePath))
                     {
                         matches.Add(filePath);
@@ -1193,7 +1032,7 @@ namespace dnGREP.Common
             }
         }
 
-        private static IEnumerable<string> GetFileListEverything(FileFilter filter, IList<Regex> includeRegexPatterns, 
+        private static IEnumerable<string> GetFileListEverything(FileFilter filter, IList<Regex> includeRegexPatterns,
             IList<Regex> excludeRegexPatterns, IList<Regex> includeShebangPatterns)
         {
             string searchString = filter.Path.Trim();
@@ -1507,7 +1346,7 @@ namespace dnGREP.Common
         public static string[] GetFileList(string path, string namePatternToInclude, string namePatternToExclude, bool isRegex,
             bool useEverything, bool includeSubfolders, bool includeHidden, bool includeBinary, bool includeArchive,
             bool followSymlinks, int sizeFrom, int sizeTo, FileDateFilter dateFilter,
-            DateTime? startTime, DateTime? endTime, bool useGitignore, int maxSubfolderDepth, 
+            DateTime? startTime, DateTime? endTime, bool useGitignore, int maxSubfolderDepth,
             bool skipRemoteCloudStorageFiles = true)
         {
             var filter = new FileFilter(path, namePatternToInclude, namePatternToExclude, isRegex, useGitignore, useEverything,
@@ -2071,6 +1910,10 @@ namespace dnGREP.Common
                         {
                             startMatched = false;
                             moreMatches = false;
+                            int firstLineLength = lineQueue.Peek().Length;
+                            bool multilineMatch = startLine != lineNumber;
+                            bool multilineGroups = bodyMatchesClone[0].Groups.Any(g => g.StartLocation > firstLineLength);
+                            int startOfLineIndex = 0;
                             // Start creating matches
                             for (int i = startLine; i <= lineNumber; i++)
                             {
@@ -2079,19 +1922,42 @@ namespace dnGREP.Common
                                 lineStrings[i] = tempLine;
 
                                 string fileMatchId = bodyMatchesClone[0].FileMatchId;
+
+                                List<GrepCaptureGroup> lineGroups;
+                                // for multiline regex, get just the groups on the current line
+                                if (multilineMatch)
+                                {
+                                    lineGroups = bodyMatchesClone[0].Groups.Where(g => g.StartLocation >= startOfLineIndex &&
+                                            g.StartLocation < startOfLineIndex + tempLine.Length)
+                                        .Select(g => new GrepCaptureGroup(g.Name, g.StartLocation - startOfLineIndex, g.Length, g.Value))
+                                        .ToList();
+                                }
+                                else if (multilineGroups)
+                                {
+                                    lineGroups = bodyMatchesClone[0].Groups.Where(g => g.StartLocation >= currentIndex &&
+                                            g.StartLocation < currentIndex + tempLine.Length)
+                                        .Select(g => new GrepCaptureGroup(g.Name, g.StartLocation - currentIndex, g.Length, g.Value))
+                                        .ToList();
+                                }
+                                else
+                                {
+                                    lineGroups = bodyMatchesClone[0].Groups;
+                                }
+
                                 // First and only line
                                 if (i == startLine && i == lineNumber)
-                                    matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, startIndex, bodyMatchesClone[0].Length, bodyMatchesClone[0].Groups));
+                                    matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, startIndex, bodyMatchesClone[0].Length, lineGroups));
                                 // First but not last line
                                 else if (i == startLine)
-                                    matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, startIndex, tempLine.TrimEndOfLine().Length - startIndex, bodyMatchesClone[0].Groups));
+                                    matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, startIndex, tempLine.TrimEndOfLine().Length - startIndex, lineGroups));
                                 // Middle line
                                 else if (i > startLine && i < lineNumber)
-                                    matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, 0, tempLine.TrimEndOfLine().Length, bodyMatchesClone[0].Groups));
+                                    matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, 0, tempLine.TrimEndOfLine().Length, lineGroups));
                                 // Last line
                                 else
-                                    matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, 0, bodyMatchesClone[0].Length - tempLinesTotalLength + line.Length + startIndex, bodyMatchesClone[0].Groups));
+                                    matches.Add(new GrepMatch(fileMatchId, bodyMatchesClone[0].SearchPattern, i, 0, bodyMatchesClone[0].Length - tempLinesTotalLength + line.Length + startIndex, lineGroups));
 
+                                startOfLineIndex += tempLine.TrimEndOfLine().Length + 1; //add 1 for the \n character that was used when the regex was run
                                 startRecordingAfterLines = true;
                             }
                             bodyMatchesClone.RemoveAt(0);

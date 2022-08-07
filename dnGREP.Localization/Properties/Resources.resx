@@ -905,6 +905,10 @@ Arguments:
     <value>Move files…</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
+  <data name="Main_MoreMenu_Report_Options" xml:space="preserve">
+    <value>Report options…</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
   <data name="Main_MoreMenu_Save_CSVResults" xml:space="preserve">
     <value>CSV results</value>
     <comment>Main window, More button menu item label (accel)</comment>
@@ -1877,10 +1881,6 @@ Arguments:
     <value>Phonetic search</value>
     <comment>Options dialog, phonetic group header label</comment>
   </data>
-  <data name="Options_PluginShowPlainTextInPreview" xml:space="preserve">
-    <value>Show plain text in preview</value>
-    <comment>Options dialog, plug-ins checkbox label</comment>
-  </data>
   <data name="Options_PluginAdd" xml:space="preserve">
     <value>Add</value>
     <comment>Options dialog, plug-in options text input label</comment>
@@ -1904,6 +1904,10 @@ Arguments:
   <data name="Options_PluginRemove" xml:space="preserve">
     <value>Remove</value>
     <comment>Options dialog, plug-in options text input label</comment>
+  </data>
+  <data name="Options_PluginShowPlainTextInPreview" xml:space="preserve">
+    <value>Show plain text in preview</value>
+    <comment>Options dialog, plug-ins checkbox label</comment>
   </data>
   <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
     <value>Press F1 for help on options</value>
@@ -2072,6 +2076,74 @@ Arguments:
   <data name="Preview_Zoom" xml:space="preserve">
     <value>Zoom:</value>
     <comment>Preview window, results options zoom slider label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+    <comment>Report options dialog, close button</comment>
+  </data>
+  <data name="ReportOptionsWindow_CaptureGroupsOnly" xml:space="preserve">
+    <value>Capture groups only</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_CSV" xml:space="preserve">
+    <value>CSV</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_FilterForUniqueValues" xml:space="preserve">
+    <value>Filter for unique values</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_FullLines" xml:space="preserve">
+    <value>Full lines</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Global" xml:space="preserve">
+    <value>Global</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_IncludeFileAndLineInformation" xml:space="preserve">
+    <value>Include file and line information</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_MatchesOnly" xml:space="preserve">
+    <value>Matches only</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_PerFile" xml:space="preserve">
+    <value>Per file</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_PressF1ForHelp" xml:space="preserve">
+    <value>Press F1 for help</value>
+    <comment>Report options dialog, help label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Preview" xml:space="preserve">
+    <value>Preview:</value>
+    <comment>Report options dialog, label</comment>
+  </data>
+  <data name="ReportOptionsWindow_ReportOptions" xml:space="preserve">
+    <value>Report Options</value>
+    <comment>Report options dialog, window title</comment>
+  </data>
+  <data name="ReportOptionsWindow_Save" xml:space="preserve">
+    <value>Save</value>
+    <comment>Report options dialog, button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_SeparatorForMultipleMatchesOrGroupsOnALine" xml:space="preserve">
+    <value>Separator for multiple matches or groups on a line</value>
+    <comment>Report options dialog, text box label</comment>
+  </data>
+  <data name="ReportOptionsWindow_ShowEachMatchOrGroupOnSeparateLine" xml:space="preserve">
+    <value>Show each match or group on separate line</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Text" xml:space="preserve">
+    <value>Text</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_TrimWhitespace" xml:space="preserve">
+    <value>Trim whitespace</value>
+    <comment>Report options dialog, checkbox label</comment>
   </data>
   <data name="Rename_Cancel" xml:space="preserve">
     <value>Cancel</value>

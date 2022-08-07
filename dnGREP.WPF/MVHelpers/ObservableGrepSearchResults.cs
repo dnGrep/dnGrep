@@ -220,6 +220,11 @@ namespace dnGREP.WPF
         }
 
         public string FolderPath { get; set; } = string.Empty;
+        
+        /// <summary>
+        /// Gets or sets the type of search used for these results
+        /// </summary>
+        public SearchType TypeOfSearch { get; set; }
 
         [DllImport("gdi32.dll")]
         static extern bool DeleteObject(IntPtr hObject);

@@ -895,12 +895,14 @@
                                     <MenuItem Header="{l:Loc Key='Main_MoreMenu_DeleteFiles'}" Command="{Binding DeleteFilesCommand}" />
                                     <Separator />
                                     <MenuItem Header="{l:Loc Key='Main_MoreMenu_CopyFileNames'}" Command="{Binding CopyToClipboardCommand}" />
+                                    <Separator />
                                     <MenuItem Header="{l:Loc Key='Main_MoreMenu_CopyResults'}" Command="{Binding CopyMatchingLinesCommand}" />
                                     <MenuItem Header="{l:Loc Key='Main_MoreMenu_SaveResults'}">
                                         <MenuItem Header="{l:Loc Key='Main_MoreMenu_Save_Report'}" Command="{Binding SaveResultsCommand}" CommandParameter="Report" />
                                         <MenuItem Header="{l:Loc Key='Main_MoreMenu_Save_TextResults'}" Command="{Binding SaveResultsCommand}" CommandParameter="Text" />
                                         <MenuItem Header="{l:Loc Key='Main_MoreMenu_Save_CSVResults'}" Command="{Binding SaveResultsCommand}" CommandParameter="CSV" />
                                     </MenuItem>
+                                    <MenuItem Header="{l:Loc Key='Main_MoreMenu_Report_Options'}" Command="{Binding ReportOptions}" />
                                 </ContextMenu>
                             </Button.ContextMenu>
                         </Button>

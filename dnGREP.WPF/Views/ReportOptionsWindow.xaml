@@ -1,0 +1,112 @@
+﻿<my:ThemedWindow x:Class="dnGREP.WPF.ReportOptionsWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:my="clr-namespace:dnGREP.WPF"
+                 xmlns:l="clr-namespace:dnGREP.Localization;assembly=dnGREP.Localization"
+                 mc:Ignorable="d"
+                 Title="{l:Loc Key='ReportOptionsWindow_ReportOptions'}"
+                 Height="640"
+                 Width="560"
+                 FlowDirection="{Binding CultureFlowDirection}"
+                 FontFamily="{Binding ApplicationFontFamily}"
+                 FontSize="{Binding DialogFontSize}"
+                 my:DiginesisHelpProvider.HelpKeyword="Report Options"
+                 my:DiginesisHelpProvider.HelpNavigator="Topic"
+                 my:DiginesisHelpProvider.ShowHelp="True"
+                 ResizeMode="CanResize"
+                 Background="{DynamicResource Dialog.Background}"
+                 CaptionBackground="{DynamicResource Caption.Dialog.Background}"
+                 Icon="/dnGREP;component/nGREP.ico"
+                 WindowStartupLocation="CenterOwner">
+
+    <Window.Resources>
+        <my:EnumBooleanConverter x:Key="ebc" />
+        <my:InverseBooleanConverter x:Key="not" />
+        <my:TextBoxWidthConverter x:Key="TextBoxWidthConverter"/>
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource LabelTextBlockStyle}" />
+    </Window.Resources>
+
+
+    <Grid Margin="20,20,20,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch">
+
+            <RadioButton Margin="3" Content="{l:Loc Key='ReportOptionsWindow_FullLines'}" GroupName="output" 
+                         IsChecked="{Binding ReportMode, ConverterParameter=FullLine, Converter={StaticResource ebc}}"/>
+            <RadioButton Margin="3" Content="{l:Loc Key='ReportOptionsWindow_MatchesOnly'}" GroupName="output"
+                         IsEnabled="{Binding ReportModeEditable}"
+                         IsChecked="{Binding ReportMode, ConverterParameter=Matches, Converter={StaticResource ebc}}"/>
+            <RadioButton Margin="3" Content="{l:Loc Key='ReportOptionsWindow_CaptureGroupsOnly'}" GroupName="output"
+                         IsEnabled="{Binding ReportModeEditable}"
+                         IsChecked="{Binding ReportMode, ConverterParameter=Groups, Converter={StaticResource ebc}}"/>
+            
+            <CheckBox Margin="3" Content="{l:Loc Key='ReportOptionsWindow_IncludeFileAndLineInformation'}"
+                      IsChecked="{Binding IncludeFileInformation}"/>
+            
+            <CheckBox Margin="3" Content="{l:Loc Key='ReportOptionsWindow_TrimWhitespace'}"
+                      IsChecked="{Binding TrimWhitespace}"/>
+            
+            <CheckBox Margin="3" Content="{l:Loc Key='ReportOptionsWindow_FilterForUniqueValues'}"
+                      IsChecked="{Binding FilterUniqueValues}"
+                      IsEnabled="{Binding FilterUniqueValuesEditable}"/>
+
+            <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
+                <RadioButton Margin="3" Content="{l:Loc Key='ReportOptionsWindow_Global'}" GroupName="filter"
+                             IsChecked="{Binding UniqueScope, ConverterParameter=Global, Converter={StaticResource ebc}}"
+                             IsEnabled="{Binding UniqueScopeEditable}"/>
+                <RadioButton Margin="3" Content="{l:Loc Key='ReportOptionsWindow_PerFile'}" GroupName="filter"
+                             IsChecked="{Binding UniqueScope, ConverterParameter=PerFile, Converter={StaticResource ebc}}"
+                             IsEnabled="{Binding UniqueScopeEditable}"/>
+            </StackPanel>
+            
+            <CheckBox Margin="3" Content="{l:Loc Key='ReportOptionsWindow_ShowEachMatchOrGroupOnSeparateLine'}"
+                      IsChecked="{Binding OutputOnSeparateLines}"
+                      IsEnabled="{Binding OutputOnSeparateLinesEditable}"/>
+            
+            <StackPanel Orientation="Horizontal">
+                <TextBox Margin="3,0" Width="40" 
+                         Text="{Binding ListItemSeparator, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding OutputOnSeparateLinesEditable}"
+                         FontFamily="{Binding ResultsFontFamily}"
+                         FontSize="{Binding ResultsFontSize}"/>
+                <Label Content="{l:Loc Key='ReportOptionsWindow_SeparatorForMultipleMatchesOrGroupsOnALine'}"/>
+            </StackPanel>
+
+            <StackPanel Margin="0,6,0,0" Orientation="Horizontal">
+                <Label Margin="0,0,6,0" Content="{l:Loc Key='ReportOptionsWindow_Preview'}"/>
+                <RadioButton Margin="3" Content="{l:Loc Key='ReportOptionsWindow_Text'}" GroupName="type"
+                             IsChecked="{Binding ReportType, ConverterParameter=Text, Converter={StaticResource ebc}}"/>
+                <RadioButton Margin="3" Content="{l:Loc Key='ReportOptionsWindow_CSV'}" GroupName="type"
+                             IsChecked="{Binding ReportType, ConverterParameter=CSV, Converter={StaticResource ebc}}"/>
+            </StackPanel>
+        </StackPanel>
+        
+        <TextBox Grid.Row="1" Margin="3,3,3,3" IsReadOnly="True" 
+                 Text="{Binding SampleText, Mode=OneWay}"
+                 VerticalScrollBarVisibility="Auto"
+                 HorizontalScrollBarVisibility="Auto"
+                 FontFamily="{Binding ResultsFontFamily}"
+                 FontSize="{Binding ResultsFontSize}"/>
+
+        <WrapPanel Grid.Row="2" Margin="0,8,0,0" HorizontalAlignment="Left"
+                   VerticalAlignment="Center">
+            <TextBlock Text="{l:Loc Key='ReportOptionsWindow_PressF1ForHelp'}" HorizontalAlignment="Left"/>
+        </WrapPanel>
+        <WrapPanel Grid.Row="2" Margin="0,8,0,0" HorizontalAlignment="Right"
+                   VerticalAlignment="Bottom">
+            <Button x:Name="btnSave" Padding="24,3" Margin="0,5,10,5"
+                    IsDefault="True" Content="{l:Loc Key='ReportOptionsWindow_Save'}"
+                    Command="{Binding Path=SaveCommand}" 
+                    MinWidth="{Binding ElementName=btnClose, Path=ActualWidth}"/>
+            <Button x:Name="btnClose" Padding="24,3" Margin="0,5,15,5"
+                    IsCancel="True" Content="{l:Loc Key='ReportOptionsWindow_Cancel'}" />
+        </WrapPanel>
+    </Grid>
+</my:ThemedWindow>

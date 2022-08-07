@@ -575,6 +575,12 @@ namespace dnGREP.WPF
             param => CopyToClipboard());
 
         /// <summary>
+        /// Returns a command that opens the report options window
+        /// </summary>
+        public ICommand ReportOptions => new RelayCommand(
+            p => ShowReportOptions());
+
+        /// <summary>
         /// Returns a command that copies content to clipboard
         /// </summary>
         public ICommand SaveResultsCommand => new RelayCommand(
@@ -1419,7 +1425,7 @@ namespace dnGREP.WPF
 
                 // set base folder for results display
                 SearchResults.FolderPath = PathSearchText.BaseFolder;
-
+                SearchResults.TypeOfSearch = TypeOfSearch;
 
                 if (SearchInResultsContent && CanSearchInResults)
                     CurrentGrepOperation = GrepOperation.SearchInResults;
@@ -2077,7 +2083,15 @@ namespace dnGREP.WPF
         {
             // can be a long process if the results are not yet cached
             UIServices.SetBusyState();
-            NativeMethods.SetClipboardText(Utils.GetResultLines(SearchResults.GetList()));
+            NativeMethods.SetClipboardText(ReportWriter.GetResultsAsText(SearchResults.GetList(), SearchResults.TypeOfSearch));
+        }
+
+        private void ShowReportOptions()
+        {
+            ReportOptionsViewModel vm = new ReportOptionsViewModel(SearchResults);
+            ReportOptionsWindow dlg = new ReportOptionsWindow(vm);
+            dlg.Owner = Application.Current.MainWindow;
+            dlg.ShowDialog();
         }
 
         private async void SaveResultsToFile(string reportType)
@@ -2115,13 +2129,13 @@ namespace dnGREP.WPF
                             switch (reportType)
                             {
                                 case "Report":
-                                    Utils.SaveResultsReport(SearchResults.GetList(), BooleanOperators, SearchFor, GetSearchOptions(), dlg.FileName);
+                                    ReportWriter.SaveResultsReport(SearchResults.GetList(), BooleanOperators, SearchFor, GetSearchOptions(), dlg.FileName);
                                     break;
                                 case "Text":
-                                    Utils.SaveResultsAsText(SearchResults.GetList(), dlg.FileName);
+                                    ReportWriter.SaveResultsAsText(SearchResults.GetList(), SearchResults.TypeOfSearch, dlg.FileName);
                                     break;
                                 case "CSV":
-                                    Utils.SaveResultsAsCSV(SearchResults.GetList(), dlg.FileName);
+                                    ReportWriter.SaveResultsAsCSV(SearchResults.GetList(), SearchResults.TypeOfSearch, dlg.FileName);
                                     break;
                             }
                         });
@@ -2147,15 +2161,15 @@ namespace dnGREP.WPF
         {
             if (!string.IsNullOrWhiteSpace(args.ReportPath))
             {
-                Utils.SaveResultsReport(SearchResults.GetList(), BooleanOperators, SearchFor, GetSearchOptions(), args.ReportPath);
+                ReportWriter.SaveResultsReport(SearchResults.GetList(), BooleanOperators, SearchFor, GetSearchOptions(), args.ReportPath);
             }
             if (!string.IsNullOrWhiteSpace(args.TextPath))
             {
-                Utils.SaveResultsAsText(SearchResults.GetList(), args.TextPath);
+                ReportWriter.SaveResultsAsText(SearchResults.GetList(), SearchResults.TypeOfSearch, args.TextPath);
             }
             if (!string.IsNullOrWhiteSpace(args.CsvPath))
             {
-                Utils.SaveResultsAsCSV(SearchResults.GetList(), args.CsvPath);
+                ReportWriter.SaveResultsAsCSV(SearchResults.GetList(), SearchResults.TypeOfSearch, args.CsvPath);
             }
             if (args.Exit)
             {

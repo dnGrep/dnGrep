@@ -76,4 +76,18 @@ namespace dnGREP.Common
         Date,
         MatchCount,
     }
+
+    public enum ReportMode 
+    { 
+        FullLine, 
+        Matches,
+        Groups
+    }
+
+    public enum UniqueScope
+    { 
+        PerFile,
+        Global
+    }
+
 }
