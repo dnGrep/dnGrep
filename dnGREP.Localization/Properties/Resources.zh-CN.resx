@@ -2564,4 +2564,44 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <value>包括文件和行信息</value>
     <comment>Report options dialog, checkbox label</comment>
   </data>
+  <data name="ReportOptionsWindow_SeparatorForMultipleMatchesOrGroupsOnALine" xml:space="preserve">
+    <value>一行上多个匹配项或组的分隔符</value>
+    <comment>Report options dialog, text box label</comment>
+  </data>
+  <data name="ReportOptionsWindow_PerFile" xml:space="preserve">
+    <value>每个文件</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_PressF1ForHelp" xml:space="preserve">
+    <value>按 F1 获取帮助</value>
+    <comment>Report options dialog, help label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Preview" xml:space="preserve">
+    <value>预览：</value>
+    <comment>Report options dialog, label</comment>
+  </data>
+  <data name="ReportOptionsWindow_ReportOptions" xml:space="preserve">
+    <value>报告选项</value>
+    <comment>Report options dialog, window title</comment>
+  </data>
+  <data name="ReportOptionsWindow_Save" xml:space="preserve">
+    <value>保存</value>
+    <comment>Report options dialog, button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_MatchesOnly" xml:space="preserve">
+    <value>仅匹配</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_ShowEachMatchOrGroupOnSeparateLine" xml:space="preserve">
+    <value>在单独的行上显示每个匹配项或组</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Text" xml:space="preserve">
+    <value>文本</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_TrimWhitespace" xml:space="preserve">
+    <value>去掉空白</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
 </root>
