@@ -7,9 +7,9 @@ namespace dnGREP.WPF
     /// <summary>
     /// Interaction logic for OptionsForm.xaml
     /// </summary>
-    public partial class RegexReportOptionsWindow : ThemedWindow
+    public partial class ReportOptionsWindow : ThemedWindow
     {
-        public RegexReportOptionsWindow(RegexReportOptionsViewModel viewModel)
+        public ReportOptionsWindow(ReportOptionsViewModel viewModel)
         {
             InitializeComponent();
 

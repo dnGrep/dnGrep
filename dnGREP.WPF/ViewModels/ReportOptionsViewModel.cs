@@ -8,14 +8,14 @@ namespace dnGREP.WPF
 {
     public enum ReportOutputType { Text, CSV }
 
-    public class RegexReportOptionsViewModel : CultureAwareViewModel
+    public class ReportOptionsViewModel : CultureAwareViewModel
     {
         public event EventHandler RequestClose;
 
-        private List<GrepSearchResult> searchResults;
-        private SearchType typeOfSearch;
+        private readonly List<GrepSearchResult> searchResults;
+        private readonly SearchType typeOfSearch;
 
-        public RegexReportOptionsViewModel(ObservableGrepSearchResults searchResults)
+        public ReportOptionsViewModel(ObservableGrepSearchResults searchResults)
         {
             this.searchResults = searchResults.GetList();
             typeOfSearch = searchResults.TypeOfSearch;
@@ -24,14 +24,14 @@ namespace dnGREP.WPF
             UpdateState();
             FormatSampleText();
 
-            PropertyChanged += RegexReportOptionsViewModel_PropertyChanged;
+            PropertyChanged += ReportOptionsViewModel_PropertyChanged;
         }
 
         private void UpdateState()
         {
             if (typeOfSearch != SearchType.Regex)
             {
-                ReportMode = RegexReportMode.FullLine;
+                ReportMode = ReportMode.FullLine;
                 ReportModeEditable = false;
             }
             else
@@ -39,8 +39,8 @@ namespace dnGREP.WPF
                 ReportModeEditable = true;
             }
 
-            FilterUniqueValuesEditable = reportMode != RegexReportMode.FullLine;
-            OutputOnSeparateLinesEditable = reportMode != RegexReportMode.FullLine;
+            FilterUniqueValuesEditable = reportMode != ReportMode.FullLine;
+            OutputOnSeparateLinesEditable = reportMode != ReportMode.FullLine;
             UniqueScopeEditable = FilterUniqueValues;
         }
 
@@ -51,18 +51,18 @@ namespace dnGREP.WPF
             ResultsFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ResultsFontFamily);
             ResultsFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.ResultsFontSize);
 
-            ReportMode = GrepSettings.Instance.Get<RegexReportMode>(GrepSettings.Key.RegularExpressionReportMode);
+            ReportMode = GrepSettings.Instance.Get<ReportMode>(GrepSettings.Key.ReportMode);
             IncludeFileInformation = GrepSettings.Instance.Get<bool>(GrepSettings.Key.IncludeFileInformation);
             TrimWhitespace = GrepSettings.Instance.Get<bool>(GrepSettings.Key.TrimWhitespace);
             FilterUniqueValues = GrepSettings.Instance.Get<bool>(GrepSettings.Key.FilterUniqueValues);
-            UniqueScope = GrepSettings.Instance.Get<RegexUniqueScope>(GrepSettings.Key.UniqueScope);
+            UniqueScope = GrepSettings.Instance.Get<UniqueScope>(GrepSettings.Key.UniqueScope);
             OutputOnSeparateLines = GrepSettings.Instance.Get<bool>(GrepSettings.Key.OutputOnSeparateLines);
             ListItemSeparator = GrepSettings.Instance.Get<string>(GrepSettings.Key.ListItemSeparator);
         }
 
         private void SaveSettings()
         {
-            GrepSettings.Instance.Set(GrepSettings.Key.RegularExpressionReportMode, ReportMode);
+            GrepSettings.Instance.Set(GrepSettings.Key.ReportMode, ReportMode);
             GrepSettings.Instance.Set(GrepSettings.Key.IncludeFileInformation, IncludeFileInformation);
             GrepSettings.Instance.Set(GrepSettings.Key.TrimWhitespace, TrimWhitespace);
             GrepSettings.Instance.Set(GrepSettings.Key.FilterUniqueValues, FilterUniqueValues);
@@ -85,29 +85,29 @@ namespace dnGREP.WPF
             get
             {
                 return
-                    ReportMode != GrepSettings.Instance.Get<RegexReportMode>(GrepSettings.Key.RegularExpressionReportMode) ||
+                    ReportMode != GrepSettings.Instance.Get<ReportMode>(GrepSettings.Key.ReportMode) ||
                     IncludeFileInformation != GrepSettings.Instance.Get<bool>(GrepSettings.Key.IncludeFileInformation) ||
                     TrimWhitespace != GrepSettings.Instance.Get<bool>(GrepSettings.Key.TrimWhitespace) ||
                     FilterUniqueValues != GrepSettings.Instance.Get<bool>(GrepSettings.Key.FilterUniqueValues) ||
-                    UniqueScope != GrepSettings.Instance.Get<RegexUniqueScope>(GrepSettings.Key.UniqueScope) ||
+                    UniqueScope != GrepSettings.Instance.Get<UniqueScope>(GrepSettings.Key.UniqueScope) ||
                     OutputOnSeparateLines != GrepSettings.Instance.Get<bool>(GrepSettings.Key.OutputOnSeparateLines) ||
                     ListItemSeparator != GrepSettings.Instance.Get<string>(GrepSettings.Key.ListItemSeparator);
             }
         }
 
-        private void RegexReportOptionsViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        private void ReportOptionsViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
                 case nameof(ReportMode):
 
-                    if (ReportMode == RegexReportMode.FullLine)
+                    if (ReportMode == ReportMode.FullLine)
                     {
                         FilterUniqueValues = false;
                         OutputOnSeparateLines = false;
                     }
-                    FilterUniqueValuesEditable = reportMode != RegexReportMode.FullLine;
-                    OutputOnSeparateLinesEditable = reportMode != RegexReportMode.FullLine;
+                    FilterUniqueValuesEditable = reportMode != ReportMode.FullLine;
+                    OutputOnSeparateLinesEditable = reportMode != ReportMode.FullLine;
 
                     break;
 
@@ -180,8 +180,8 @@ namespace dnGREP.WPF
         }
 
 
-        private RegexReportMode reportMode = RegexReportMode.FullLine;
-        public RegexReportMode ReportMode
+        private ReportMode reportMode = ReportMode.FullLine;
+        public ReportMode ReportMode
         {
             get { return reportMode; }
             set
@@ -282,8 +282,8 @@ namespace dnGREP.WPF
         }
 
 
-        private RegexUniqueScope uniqueScope;
-        public RegexUniqueScope UniqueScope
+        private UniqueScope uniqueScope;
+        public UniqueScope UniqueScope
         {
             get { return uniqueScope; }
             set

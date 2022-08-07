@@ -77,14 +77,14 @@ namespace dnGREP.Common
         MatchCount,
     }
 
-    public enum RegexReportMode 
+    public enum ReportMode 
     { 
         FullLine, 
         Matches,
         Groups
     }
 
-    public enum RegexUniqueScope
+    public enum UniqueScope
     { 
         PerFile,
         Global

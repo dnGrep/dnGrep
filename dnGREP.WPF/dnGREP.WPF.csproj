@@ -110,9 +110,9 @@
     <Compile Include="ThemedHighlightingManager.cs" />
     <Compile Include="ViewModels\MainViewModelProps.cs" />
     <Compile Include="ViewModels\CultureAwareViewModel.cs" />
-    <Compile Include="ViewModels\RegexReportOptionsViewModel.cs" />
-    <Compile Include="Views\RegexReportOptionsWindow.xaml.cs">
-      <DependentUpon>RegexReportOptionsWindow.xaml</DependentUpon>
+    <Compile Include="ViewModels\ReportOptionsViewModel.cs" />
+    <Compile Include="Views\ReportOptionsWindow.xaml.cs">
+      <DependentUpon>ReportOptionsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RenameWindow.xaml.cs">
       <DependentUpon>RenameWindow.xaml</DependentUpon>
@@ -298,7 +298,7 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Page Include="Views\RegexReportOptionsWindow.xaml">
+    <Page Include="Views\ReportOptionsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

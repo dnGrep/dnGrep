@@ -252,15 +252,15 @@ namespace dnGREP.Common
             public const string WrapTextPreviewWndVisible = "WrapTextPreviewWndVisible";
             [DefaultValue(true)]
             public const string SyntaxPreviewWndVisible = "SyntaxPreviewWndVisible";
-            [DefaultValue(RegexReportMode.FullLine)]
-            public const string RegularExpressionReportMode = "RegularExpressionReportMode";
+            [DefaultValue(Common.ReportMode.FullLine)]
+            public const string ReportMode = "ReportMode";
             [DefaultValue(true)]
             public const string IncludeFileInformation = "IncludeFileInformation";
             [DefaultValue(false)]
             public const string TrimWhitespace = "TrimWhitespace";
             [DefaultValue(false)]
             public const string FilterUniqueValues = "FilterUniqueValues";
-            [DefaultValue(RegexUniqueScope.PerFile)]
+            [DefaultValue(Common.UniqueScope.PerFile)]
             public const string UniqueScope = "UniqueScope";
             [DefaultValue(false)]
             public const string OutputOnSeparateLines = "OutputOnSeparateLines";

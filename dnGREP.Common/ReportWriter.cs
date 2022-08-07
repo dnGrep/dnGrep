@@ -37,15 +37,15 @@ namespace dnGREP.Common
                 {
                     return GetUniqueValuesAsText(source, options, limit);
                 }
-                else if (options.ReportMode == RegexReportMode.FullLine)
+                else if (options.ReportMode == ReportMode.FullLine)
                 {
                     return GetFullLinesAsText(source, options, limit);
                 }
-                else if (options.ReportMode == RegexReportMode.Matches)
+                else if (options.ReportMode == ReportMode.Matches)
                 {
                     return GetMatchesAsText(source, options, limit);
                 }
-                else if (options.ReportMode == RegexReportMode.Groups)
+                else if (options.ReportMode == ReportMode.Groups)
                 {
                     return GetGroupsAsText(source, options, limit);
                 }
@@ -66,15 +66,15 @@ namespace dnGREP.Common
                 {
                     return GetUniqueValuesAsCSV(source, options, limit);
                 }
-                else if (options.ReportMode == RegexReportMode.FullLine)
+                else if (options.ReportMode == ReportMode.FullLine)
                 {
                     return GetFullLinesAsCSV(source, options, limit);
                 }
-                else if (options.ReportMode == RegexReportMode.Matches)
+                else if (options.ReportMode == ReportMode.Matches)
                 {
                     return GetMatchesAsCSV(source, options, limit);
                 }
-                else if (options.ReportMode == RegexReportMode.Groups)
+                else if (options.ReportMode == ReportMode.Groups)
                 {
                     return GetGroupsAsCSV(source, options, limit);
                 }
@@ -450,7 +450,7 @@ namespace dnGREP.Common
         private static string GetUniqueValuesAsText(List<GrepSearchResult> source, ReportOptions options, int limit)
         {
             Dictionary<string, List<string>> values =
-                options.ReportMode == RegexReportMode.Matches ?
+                options.ReportMode == ReportMode.Matches ?
                 GetUniqueMatches(source, options, limit) :
                 GetUniqueGroups(source, options, limit);
 
@@ -505,14 +505,14 @@ namespace dnGREP.Common
             Dictionary<string, List<string>> resultSet = new Dictionary<string, List<string>>();
             List<string> values = new List<string>();
 
-            if (options.UniqueScope == RegexUniqueScope.Global)
+            if (options.UniqueScope == UniqueScope.Global)
             {
                 resultSet.Add(GLOBAL, values);
             }
 
             foreach (GrepSearchResult result in source)
             {
-                if (options.UniqueScope == RegexUniqueScope.PerFile)
+                if (options.UniqueScope == UniqueScope.PerFile)
                 {
                     unique.Clear();
                     values = new List<string>();
@@ -570,14 +570,14 @@ namespace dnGREP.Common
             Dictionary<string, List<string>> resultSet = new Dictionary<string, List<string>>();
             List<string> values = new List<string>();
 
-            if (options.UniqueScope == RegexUniqueScope.Global)
+            if (options.UniqueScope == UniqueScope.Global)
             {
                 resultSet.Add(GLOBAL, values);
             }
 
             foreach (GrepSearchResult result in source)
             {
-                if (options.UniqueScope == RegexUniqueScope.PerFile)
+                if (options.UniqueScope == UniqueScope.PerFile)
                 {
                     unique.Clear();
                     values = new List<string>();
@@ -891,7 +891,7 @@ namespace dnGREP.Common
         private static string GetUniqueValuesAsCSV(List<GrepSearchResult> source, ReportOptions options, int limit)
         {
             Dictionary<string, List<string>> values =
-                options.ReportMode == RegexReportMode.Matches ?
+                options.ReportMode == ReportMode.Matches ?
                 GetUniqueMatches(source, options, limit) :
                 GetUniqueGroups(source, options, limit);
 

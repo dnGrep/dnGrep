@@ -1,4 +1,4 @@
-﻿<my:ThemedWindow x:Class="dnGREP.WPF.RegexReportOptionsWindow"
+﻿<my:ThemedWindow x:Class="dnGREP.WPF.ReportOptionsWindow"
                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -71,7 +71,7 @@
                       IsEnabled="{Binding OutputOnSeparateLinesEditable}"/>
             
             <StackPanel Orientation="Horizontal">
-                <TextBox Margin="3,0" Width="28" 
+                <TextBox Margin="3,0" Width="40" 
                          Text="{Binding ListItemSeparator, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                          IsEnabled="{Binding OutputOnSeparateLinesEditable}"
                          FontFamily="{Binding ResultsFontFamily}"

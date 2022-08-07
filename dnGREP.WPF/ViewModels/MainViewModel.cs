@@ -2077,8 +2077,8 @@ namespace dnGREP.WPF
 
         private void ShowReportOptions()
         {
-            RegexReportOptionsViewModel vm = new RegexReportOptionsViewModel(SearchResults);
-            RegexReportOptionsWindow dlg = new RegexReportOptionsWindow(vm);
+            ReportOptionsViewModel vm = new ReportOptionsViewModel(SearchResults);
+            ReportOptionsWindow dlg = new ReportOptionsWindow(vm);
             dlg.Owner = Application.Current.MainWindow;
             dlg.ShowDialog();
         }
