@@ -454,99 +454,99 @@
     <comment>Bookmarks dialog, button text (accel)</comment>
   </data>
   <data name="Help_CmdLine" xml:space="preserve">
-    <value>dnGrep:  Search through text files, Word and Excel documents, PDFs, and archives using text, regular expression, XPath, and phonetic queries.
+    <value>dnGrep:  Търсене в текстови файлове, документи на Word и Excel, файлове на PDF и архиви с помощта на текстово търсене, регулярни изрази, XPath и фонетични заявки.
 
-Version {0} built on {1}
+Издание {0} създадено на {1}
 
-Usage:
+Използване:
 
-dnGrep [arguments]
-Using any combination of arguments from the list below.
-Example:
+dnGrep [аргументи]
+Използвайте произволна комбинация от аргументи от списъка по-долу.
+Пример:
 dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex
 
-dnGrep [folderPath] [searchFor]
-One or two arguments without flags: the first argument is the folder to search, the second the regular expression to search for.
-Example:
+dnGrep [папка] [търсене]
+Един или два аргумента без флагове: първият аргумент е папката, в която да бъде търсено, а вторият - регулярен израз на търсеното.
+Пример:
 dnGrep "C:\Program Files\dnGrep" t\w*t
 
-Any arguments not specified will default to the last saved user settings.
+За непосочените аргументи по подразбиране ще бъдат използвани последните запазени потребителски настройки.
 
-Arguments:
+Аргументи:
 
-/f [folderPath]
--f [folderPath]
--folder [folderPath]
-    Sets the folder path to search.  May be a comma- or semicolon-separated list of folder paths.
+/f [папка]
+-f [папка]
+-folder [папка]
+    Задава път до папката, в която да бъде търсено. Може да бъде списък от папки, разделени със запетая или точка и запетая.
 
-/pm [pattern]
--pm [pattern]
--pathToMatch [pattern]
-    Sets the file name pattern to match files in the search path. May be a comma- or semicolon-separated list of patterns.
+/pm [модел]
+-pm [модел]
+-pathToMatch [модел]
+    Задава модел на име на файл, на който да съответстват резултатите. Може да бъде списък от модели, разделени със запетая или точка и запетая.
 
-/pi [pattern]
--pi [pattern]
--pathToIgnore [pattern]
-    Sets the file or directory name pattern to exclude files or folders in the search path. May be a comma- or semicolon-separated list of patterns.
+/pi [модел]
+-pi [модел]
+-pathToIgnore [модел]
+    Задава модел на име на файл или папка, който при съвпадение да пренебрегва резултати. Може да бъде списък от модели, разделени със запетая или точка и запетая.
 
-/pt [type]
--pt [type]
--patternType [type]
-    Sets the type of match and ignore pattern – must be one of: "Asterisk" (wildcard), "Regex" (regular expression), or "Everything" (if the Everything search tool is installed).
+/pt [вид]
+-pt [вид]
+-patternType [вид]
+    Задава вида на модела за съвпадение и пренебрегване - трябва да е едно от: „Asterisk“ (заместващи символи), „Regex“ (регулярен израз), или „Everything“ (ако инструментът за търсене Everything е наличен).
 
-/s [searchFor]
--s [searchFor]
--searchFor [searchFor]
-    Sets the pattern or text to search for within the set of files.  When this argument is set, the search will be run automatically.
+/s [търсене]
+-s [търсене]
+-searchFor [търсене]
+    Задава модела или текста, който да бъде търсен. Когато този аргумент е зададен, търсенето ще започне автоматично.
 
-/st [type]
--st [type]
--searchType [type]
-    Sets the type of search – must be one of: "PlainText", "Regex" (regular expression), "XPath", or "Soundex" (phonetic).
+/st [вид]
+-st [вид]
+-searchType [вид]
+    Задава вида на търсенето – трябва да е едно от: „PlainText“, „Regex“ (регулярен израз), „XPath“, or „Soundex“ (фонетично).
 
 /cs [True/False]
 -cs [True/False]
 -caseSensitive [True/False]
-    Sets case-sensitive search flag – True or False.
+    Задава стойност на флага за търсене „съвпадение на регистъра“ – True (истина) или False (неистина).
 
 /ww [True/False]
 -ww [True/False]
 -wholeWord [True/False]
-    Sets the whole word search flag – True or False.
+    Задава стойност на флага за търсене „цели думи“ – True (истина) или False (неистина).
 
 /ml [True/False]
 -ml [True/False]
 -multiline [True/False]
-    Sets the multiline search flag – True or False.
+    Задава стойност на флага за търсене „многоредово“ – True (истина) или False (неистина).
 
 /dn [True/False]
 -dn [True/False]
 -dotAsNewline [True/False]
-    Sets the dot as newline search flag – True or False.
+    Задава стойност на флага за търсене „точка за нов ред“ – True (истина) или False (неистина).
 
 /bo [True/False]
 -bo [True/False]
 -booleanOperators [True/False]
-    Sets the Boolean operators search flag – True or False.
+    Задава стойност на флага за търсене „булеви оператори“ – True (истина) или False (неистина).
 
-/rpt [filePath]
--rpt [filePath]
--report [filePath]
-    Create results file in report format after search is complete.
+/rpt [файл]
+-rpt [файл]
+-report [файл]
+    Създава файл с резултатите във формат за доклади след приключване на търсенето.
 
-/txt [filePath]
--txt [filePath]
--text [filePath]
-    Create results file in text format after search is complete.
+/txt [файл]
+-txt [файл]
+-text [файл]
+    Създава текстов файл с резултатите след приключване на търсенето.
 
-/csv [filePath]
--csv [filePath]
-    Create results file in CSV format after search is complete.
+/csv [файл]
+-csv [файл]
+    Създава файл с резултатите във формат CSV след приключване на търсенето.
 
 /x
 -x
 -exit
-    Exit dnGrep after command-line operations are complete.</value>
+    Излиза от dnGrep след приключване на действията, зададени от командния ред.</value>
     <comment>Help dialog text when running dnGrep from the command line: {0} is the installed dnGrep version number; {1} is the installed dnGrep build date</comment>
   </data>
   <data name="Help_DnGrepHelp" xml:space="preserve">
@@ -2519,5 +2519,17 @@ Arguments:
   <data name="Main_Menu_Settings" xml:space="preserve">
     <value>_Настройки</value>
     <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="TTB0_InsertsTabNewline" xml:space="preserve">
+    <value>\\t вмъква табулатор, \\r вмъква знак за връщане на каретката, \\n вмъква знак за нов ред</value>
+    <comment>Main window and Test window tooltip</comment>
+  </data>
+  <data name="Options_PluginShowPlainTextInPreview" xml:space="preserve">
+    <value>Показване на обикновен текст в прегледа</value>
+    <comment>Options dialog, plug-ins checkbox label</comment>
+  </data>
+  <data name="Preview_Title_AsText" xml:space="preserve">
+    <value>(като текст)</value>
+    <comment>Preview window, file label when binary file is shown as text</comment>
   </data>
 </root>

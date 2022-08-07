@@ -2466,7 +2466,71 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <comment>Bookmark details dialog, checkbox label (accel)</comment>
   </data>
   <data name="Options_Personalize_SearchType" xml:space="preserve">
-    <value>Тип поиска содержимого</value>
+    <value>Тип поиска</value>
     <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Main_Menu_Settings" xml:space="preserve">
+    <value>Настрой_ки</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_Personalize" xml:space="preserve">
+    <value>Персонализировать</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Status_SearchCompletedIn0_1MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
+    <value>Поиск завершен за:{0} – найдено совпадений:{1}, в файлах:{2} из {3} искомых.</value>
+    <comment>Main window, status bar message: {0} is the duration of the search; {1}  is the total number of matches found; {2} is the number of files with matches found; {3} is the total number of files searched; </comment>
+  </data>
+  <data name="Options_Personalize_ResultsTree" xml:space="preserve">
+    <value>Дерево результатов поиска</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_Features" xml:space="preserve">
+    <value>Функциональные</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_FileFilter" xml:space="preserve">
+    <value>Файловый фильтр</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_ResultOptions" xml:space="preserve">
+    <value>Параметры результатов поиска</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_PreviewWindow" xml:space="preserve">
+    <value>Окно предварительного просмотра</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_SearchOptions" xml:space="preserve">
+    <value>Опции поиска</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_PersonalizeControlVisibility" xml:space="preserve">
+    <value>Персонализировать видимость элементов графического интерфейса</value>
+    <comment>Options dialog, control label</comment>
+  </data>
+  <data name="Options_PersonalizeControlVisibility_Tooltip" xml:space="preserve">
+    <value>Показывать или скрывать элементы управления, когда настройка персонализации включена</value>
+    <comment>Options dialog, control tooltip</comment>
+  </data>
+  <data name="Options_Personalize_SpecialOptions" xml:space="preserve">
+    <value>Специальные опции</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Preview_Syntax" xml:space="preserve">
+    <value>Синтаксис</value>
+    <comment>Preview window, option label</comment>
+  </data>
+  <data name="TTB0_InsertsTabNewline" xml:space="preserve">
+    <value>\\t вставляет табуляцию, \\r вставляет возврат каретки, \\n вставляет новую строку</value>
+    <comment>Main window and Test window tooltip</comment>
+  </data>
+  <data name="Preview_Title_AsText" xml:space="preserve">
+    <value>(в формате обычного текста)</value>
+    <comment>Preview window, file label when binary file is shown as text</comment>
+  </data>
+  <data name="Options_PluginShowPlainTextInPreview" xml:space="preserve">
+    <value>Показывать обычный текст в окне предварительного просмотра</value>
+    <comment>Options dialog, plug-ins checkbox label</comment>
   </data>
 </root>
