@@ -66,9 +66,9 @@ namespace dnGREP.WPF
             GrepSettings.Instance.Set(GrepSettings.Key.IncludeFileInformation, IncludeFileInformation);
             GrepSettings.Instance.Set(GrepSettings.Key.TrimWhitespace, TrimWhitespace);
             GrepSettings.Instance.Set(GrepSettings.Key.FilterUniqueValues, FilterUniqueValues);
+            GrepSettings.Instance.Set(GrepSettings.Key.UniqueScope, UniqueScope);
             GrepSettings.Instance.Set(GrepSettings.Key.OutputOnSeparateLines, OutputOnSeparateLines);
             GrepSettings.Instance.Set(GrepSettings.Key.ListItemSeparator, ListItemSeparator);
-            GrepSettings.Instance.Set(GrepSettings.Key.UniqueScope, UniqueScope);
 
             RequestClose(this, EventArgs.Empty);
         }

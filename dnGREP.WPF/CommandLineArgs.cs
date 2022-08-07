@@ -39,7 +39,7 @@ namespace dnGREP.WPF
                 {
                     s = s.Substring(1, s.Length - 2);
                 }
-                if (!string.IsNullOrWhiteSpace(s))
+                if (!string.IsNullOrEmpty(s))
                 {
                     result.Add(s);
                 }
@@ -55,7 +55,7 @@ namespace dnGREP.WPF
             {
                 string arg = args[idx];
 
-                if (!string.IsNullOrWhiteSpace(arg))
+                if (!string.IsNullOrEmpty(arg))
                 {
                     // old style command line args
                     if (idx < 2 && !(arg.StartsWith("/", StringComparison.InvariantCulture) ||
@@ -75,7 +75,7 @@ namespace dnGREP.WPF
                     else
                     {
                         string value = string.Empty;
-                        if (idx + 1 < args.Length && !string.IsNullOrWhiteSpace(args[idx + 1]))
+                        if (idx + 1 < args.Length && !string.IsNullOrEmpty(args[idx + 1]))
                         {
                             value = args[idx + 1];
                         }
@@ -257,6 +257,112 @@ namespace dnGREP.WPF
                                 }
                                 break;
 
+                            case "/mode":
+                            case "-mode":
+                            case "-reportmode":
+                                if (!string.IsNullOrWhiteSpace(value) && Enum.TryParse(value, out ReportMode rm))
+                                {
+                                    ReportMode = rm;
+                                    idx++;
+                                }
+                                else
+                                {
+                                    InvalidArgument = true;
+                                    ShowHelp = true;
+                                }
+                                break;
+
+                            case "/fi":
+                            case "-fi":
+                            case "-fileinformation":
+                                if (!string.IsNullOrWhiteSpace(value) && bool.TryParse(ti.ToTitleCase(value), out bool fileInformation))
+                                {
+                                    IncludeFileInformation = fileInformation;
+                                    idx++;
+                                }
+                                else
+                                {
+                                    InvalidArgument = true;
+                                    ShowHelp = true;
+                                }
+                                break;
+
+                            case "/trim":
+                            case "-trim":
+                            case "-trimwhitespace":
+                                if (!string.IsNullOrWhiteSpace(value) && bool.TryParse(ti.ToTitleCase(value), out bool trim))
+                                {
+                                    TrimWhitespace = trim;
+                                    idx++;
+                                }
+                                else
+                                {
+                                    InvalidArgument = true;
+                                    ShowHelp = true;
+                                }
+                                break;
+
+                            case "/unique":
+                            case "-unique":
+                            case "-uniqueValues":
+                                if (!string.IsNullOrWhiteSpace(value) && bool.TryParse(ti.ToTitleCase(value), out bool unique))
+                                {
+                                    FilterUniqueValues = unique;
+                                    idx++;
+                                }
+                                else
+                                {
+                                    InvalidArgument = true;
+                                    ShowHelp = true;
+                                }
+                                break;
+
+                            case "/scope":
+                            case "-scope":
+                            case "-uniquescope":
+                                if (!string.IsNullOrWhiteSpace(value) && Enum.TryParse(value, out UniqueScope scope))
+                                {
+                                    UniqueScope = scope;
+                                    idx++;
+                                }
+                                else
+                                {
+                                    InvalidArgument = true;
+                                    ShowHelp = true;
+                                }
+                                break;
+
+                            case "/sl":
+                            case "-sl":
+                            case "-separatelines":
+                                if (!string.IsNullOrWhiteSpace(value) && bool.TryParse(ti.ToTitleCase(value), out bool separatelines))
+                                {
+                                    OutputOnSeparateLines = separatelines;
+                                    idx++;
+                                }
+                                else
+                                {
+                                    InvalidArgument = true;
+                                    ShowHelp = true;
+                                }
+                                break;
+
+                            case "/sep":
+                            case "-sep":
+                            case "-listitemseparator":
+                                if (!string.IsNullOrEmpty(value))
+                                {
+                                    ListItemSeparator = value;
+                                    idx++;
+                                }
+                                else
+                                {
+                                    InvalidArgument = true;
+                                    ShowHelp = true;
+                                }
+
+                                break;
+
                             case "/rpt":
                             case "-rpt":
                             case "-report":
@@ -346,6 +452,14 @@ namespace dnGREP.WPF
         public string ReportPath { get; private set; }
         public string TextPath { get; private set; }
         public string CsvPath { get; private set; }
+        public ReportMode? ReportMode { get; private set; }
+        public bool? IncludeFileInformation { get; private set; }
+        public bool? TrimWhitespace { get; private set; }
+        public bool? FilterUniqueValues { get; private set; }
+        public UniqueScope? UniqueScope { get; private set; }
+        public bool? OutputOnSeparateLines { get; private set; }
+        public string ListItemSeparator { get; private set; }
+
         public bool Exit { get; private set; }
 
         public void ApplyArgs()
@@ -403,6 +517,41 @@ namespace dnGREP.WPF
             if (BooleanOperators.HasValue)
             {
                 GrepSettings.Instance.Set<bool>(GrepSettings.Key.BooleanOperators, BooleanOperators.Value);
+            }
+
+            if (ReportMode.HasValue)
+            {
+                GrepSettings.Instance.Set(GrepSettings.Key.ReportMode, ReportMode);
+            }
+
+            if (IncludeFileInformation.HasValue)
+            {
+                GrepSettings.Instance.Set(GrepSettings.Key.IncludeFileInformation, IncludeFileInformation);
+            }
+
+            if (TrimWhitespace.HasValue)
+            {
+                GrepSettings.Instance.Set(GrepSettings.Key.TrimWhitespace, TrimWhitespace);
+            }
+
+            if (FilterUniqueValues.HasValue)
+            {
+                GrepSettings.Instance.Set(GrepSettings.Key.FilterUniqueValues, FilterUniqueValues);
+            }
+
+            if (UniqueScope.HasValue)
+            {
+                GrepSettings.Instance.Set(GrepSettings.Key.UniqueScope, UniqueScope);
+            }
+
+            if (OutputOnSeparateLines.HasValue)
+            {
+                GrepSettings.Instance.Set(GrepSettings.Key.OutputOnSeparateLines, OutputOnSeparateLines);
+            }
+
+            if (!string.IsNullOrEmpty(ListItemSeparator))
+            {
+                GrepSettings.Instance.Set(GrepSettings.Key.ListItemSeparator, ListItemSeparator);
             }
         }
 
