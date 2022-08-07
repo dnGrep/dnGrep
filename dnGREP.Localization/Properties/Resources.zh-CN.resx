@@ -2520,4 +2520,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     <value>语法</value>
     <comment>Preview window, option label</comment>
   </data>
+  <data name="TTB0_InsertsTabNewline" xml:space="preserve">
+    <value>\\t 插入 tab, \\r 插入 return, \\n 插入 newline</value>
+    <comment>Main window and Test window tooltip</comment>
+  </data>
+  <data name="Preview_Title_AsText" xml:space="preserve">
+    <value>（显示为文本）</value>
+    <comment>Preview window, file label when binary file is shown as text</comment>
+  </data>
+  <data name="Options_PluginShowPlainTextInPreview" xml:space="preserve">
+    <value>在预览中显示纯文本</value>
+    <comment>Options dialog, plug-ins checkbox label</comment>
+  </data>
 </root>
