@@ -905,8 +905,8 @@ Arguments:
     <value>Move files…</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
-  <data name="Main_MoreMenu_Regex_Report_Options" xml:space="preserve">
-    <value>Regular expression report options…</value>
+  <data name="Main_MoreMenu_Report_Options" xml:space="preserve">
+    <value>Report options…</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="Main_MoreMenu_Save_CSVResults" xml:space="preserve">
@@ -2077,73 +2077,73 @@ Arguments:
     <value>Zoom:</value>
     <comment>Preview window, results options zoom slider label</comment>
   </data>
-  <data name="RegexReportOptionsWindow_Cancel" xml:space="preserve">
+  <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
     <value>Cancel</value>
-    <comment>Regex report options dialog, close button</comment>
+    <comment>Report options dialog, close button</comment>
   </data>
-  <data name="RegexReportOptionsWindow_CaptureGroupsOnly" xml:space="preserve">
+  <data name="ReportOptionsWindow_CaptureGroupsOnly" xml:space="preserve">
     <value>Capture groups only</value>
-    <comment>Regex report options dialog, radio button label</comment>
+    <comment>Report options dialog, radio button label</comment>
   </data>
-  <data name="RegexReportOptionsWindow_CSV" xml:space="preserve">
+  <data name="ReportOptionsWindow_CSV" xml:space="preserve">
     <value>CSV</value>
-    <comment>Regex report options dialog, radio button label</comment>
+    <comment>Report options dialog, radio button label</comment>
   </data>
-  <data name="RegexReportOptionsWindow_FilterForUniqueValues" xml:space="preserve">
+  <data name="ReportOptionsWindow_FilterForUniqueValues" xml:space="preserve">
     <value>Filter for unique values</value>
-    <comment>Regex report options dialog, checkbox label</comment>
+    <comment>Report options dialog, checkbox label</comment>
   </data>
-  <data name="RegexReportOptionsWindow_FullLines" xml:space="preserve">
+  <data name="ReportOptionsWindow_FullLines" xml:space="preserve">
     <value>Full lines</value>
-    <comment>Regex report options dialog, radio button label</comment>
+    <comment>Report options dialog, radio button label</comment>
   </data>
-  <data name="RegexReportOptionsWindow_Global" xml:space="preserve">
+  <data name="ReportOptionsWindow_Global" xml:space="preserve">
     <value>Global</value>
-    <comment>Regex report options dialog, radio button label</comment>
+    <comment>Report options dialog, radio button label</comment>
   </data>
-  <data name="RegexReportOptionsWindow_IncludeFileAndLineInformation" xml:space="preserve">
+  <data name="ReportOptionsWindow_IncludeFileAndLineInformation" xml:space="preserve">
     <value>Include file and line information</value>
-    <comment>Regex report options dialog, checkbox label</comment>
+    <comment>Report options dialog, checkbox label</comment>
   </data>
-  <data name="RegexReportOptionsWindow_MatchesOnly" xml:space="preserve">
+  <data name="ReportOptionsWindow_MatchesOnly" xml:space="preserve">
     <value>Matches only</value>
-    <comment>Regex report options dialog, radio button label</comment>
+    <comment>Report options dialog, radio button label</comment>
   </data>
-  <data name="RegexReportOptionsWindow_PerFile" xml:space="preserve">
+  <data name="ReportOptionsWindow_PerFile" xml:space="preserve">
     <value>Per file</value>
-    <comment>Regex report options dialog, radio button label</comment>
+    <comment>Report options dialog, radio button label</comment>
   </data>
-  <data name="RegexReportOptionsWindow_PressF1ForHelp" xml:space="preserve">
+  <data name="ReportOptionsWindow_PressF1ForHelp" xml:space="preserve">
     <value>Press F1 for help</value>
-    <comment>Regex report options dialog, help label</comment>
+    <comment>Report options dialog, help label</comment>
   </data>
-  <data name="RegexReportOptionsWindow_Preview" xml:space="preserve">
+  <data name="ReportOptionsWindow_Preview" xml:space="preserve">
     <value>Preview:</value>
-    <comment>Regex report options dialog, label</comment>
+    <comment>Report options dialog, label</comment>
   </data>
-  <data name="RegexReportOptionsWindow_RegularExpressionReportOptions" xml:space="preserve">
-    <value>Regular Expression Report Options</value>
-    <comment>Regex report options dialog, window title</comment>
+  <data name="ReportOptionsWindow_ReportOptions" xml:space="preserve">
+    <value>Report Options</value>
+    <comment>Report options dialog, window title</comment>
   </data>
-  <data name="RegexReportOptionsWindow_Save" xml:space="preserve">
+  <data name="ReportOptionsWindow_Save" xml:space="preserve">
     <value>Save</value>
-    <comment>Regex report options dialog, button label</comment>
+    <comment>Report options dialog, button label</comment>
   </data>
-  <data name="RegexReportOptionsWindow_SeparatorForMultipleMatchesOrGroupsOnALine" xml:space="preserve">
+  <data name="ReportOptionsWindow_SeparatorForMultipleMatchesOrGroupsOnALine" xml:space="preserve">
     <value>Separator for multiple matches or groups on a line</value>
-    <comment>Regex report options dialog, text box label</comment>
+    <comment>Report options dialog, text box label</comment>
   </data>
-  <data name="RegexReportOptionsWindow_ShowEachMatchOrGroupOnSeparateLine" xml:space="preserve">
+  <data name="ReportOptionsWindow_ShowEachMatchOrGroupOnSeparateLine" xml:space="preserve">
     <value>Show each match or group on separate line</value>
-    <comment>Regex report options dialog, checkbox label</comment>
+    <comment>Report options dialog, checkbox label</comment>
   </data>
-  <data name="RegexReportOptionsWindow_Text" xml:space="preserve">
+  <data name="ReportOptionsWindow_Text" xml:space="preserve">
     <value>Text</value>
-    <comment>Regex report options dialog, radio button label</comment>
+    <comment>Report options dialog, radio button label</comment>
   </data>
-  <data name="RegexReportOptionsWindow_TrimWhitespace" xml:space="preserve">
+  <data name="ReportOptionsWindow_TrimWhitespace" xml:space="preserve">
     <value>Trim whitespace</value>
-    <comment>Regex report options dialog, checkbox label</comment>
+    <comment>Report options dialog, checkbox label</comment>
   </data>
   <data name="Rename_Cancel" xml:space="preserve">
     <value>Cancel</value>

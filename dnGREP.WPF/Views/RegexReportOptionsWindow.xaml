@@ -6,13 +6,13 @@
                  xmlns:my="clr-namespace:dnGREP.WPF"
                  xmlns:l="clr-namespace:dnGREP.Localization;assembly=dnGREP.Localization"
                  mc:Ignorable="d"
-                 Title="{l:Loc Key='RegexReportOptionsWindow_RegularExpressionReportOptions'}"
+                 Title="{l:Loc Key='ReportOptionsWindow_ReportOptions'}"
                  Height="640"
                  Width="560"
                  FlowDirection="{Binding CultureFlowDirection}"
                  FontFamily="{Binding ApplicationFontFamily}"
                  FontSize="{Binding DialogFontSize}"
-                 my:DiginesisHelpProvider.HelpKeyword="Regular Expression Report Options"
+                 my:DiginesisHelpProvider.HelpKeyword="Report Options"
                  my:DiginesisHelpProvider.HelpNavigator="Topic"
                  my:DiginesisHelpProvider.ShowHelp="True"
                  ResizeMode="CanResize"
@@ -38,49 +38,52 @@
         
         <StackPanel Grid.Row="0" Grid.Column="0" HorizontalAlignment="Stretch">
 
-            <RadioButton Margin="3" Content="{l:Loc Key='RegexReportOptionsWindow_FullLines'}" GroupName="output" 
+            <RadioButton Margin="3" Content="{l:Loc Key='ReportOptionsWindow_FullLines'}" GroupName="output" 
                          IsChecked="{Binding ReportMode, ConverterParameter=FullLine, Converter={StaticResource ebc}}"/>
-            <RadioButton Margin="3" Content="{l:Loc Key='RegexReportOptionsWindow_MatchesOnly'}" GroupName="output"
+            <RadioButton Margin="3" Content="{l:Loc Key='ReportOptionsWindow_MatchesOnly'}" GroupName="output"
+                         IsEnabled="{Binding ReportModeEditable}"
                          IsChecked="{Binding ReportMode, ConverterParameter=Matches, Converter={StaticResource ebc}}"/>
-            <RadioButton Margin="3" Content="{l:Loc Key='RegexReportOptionsWindow_CaptureGroupsOnly'}" GroupName="output"
+            <RadioButton Margin="3" Content="{l:Loc Key='ReportOptionsWindow_CaptureGroupsOnly'}" GroupName="output"
+                         IsEnabled="{Binding ReportModeEditable}"
                          IsChecked="{Binding ReportMode, ConverterParameter=Groups, Converter={StaticResource ebc}}"/>
             
-            <CheckBox Margin="3" Content="{l:Loc Key='RegexReportOptionsWindow_IncludeFileAndLineInformation'}"
+            <CheckBox Margin="3" Content="{l:Loc Key='ReportOptionsWindow_IncludeFileAndLineInformation'}"
                       IsChecked="{Binding IncludeFileInformation}"/>
             
-            <CheckBox Margin="3" Content="{l:Loc Key='RegexReportOptionsWindow_TrimWhitespace'}"
+            <CheckBox Margin="3" Content="{l:Loc Key='ReportOptionsWindow_TrimWhitespace'}"
                       IsChecked="{Binding TrimWhitespace}"/>
             
-            <CheckBox Margin="3" Content="{l:Loc Key='RegexReportOptionsWindow_FilterForUniqueValues'}"
+            <CheckBox Margin="3" Content="{l:Loc Key='ReportOptionsWindow_FilterForUniqueValues'}"
                       IsChecked="{Binding FilterUniqueValues}"
                       IsEnabled="{Binding FilterUniqueValuesEditable}"/>
 
             <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
-                <RadioButton Margin="3" Content="{l:Loc Key='RegexReportOptionsWindow_Global'}" GroupName="filter"
+                <RadioButton Margin="3" Content="{l:Loc Key='ReportOptionsWindow_Global'}" GroupName="filter"
                              IsChecked="{Binding UniqueScope, ConverterParameter=Global, Converter={StaticResource ebc}}"
                              IsEnabled="{Binding UniqueScopeEditable}"/>
-                <RadioButton Margin="3" Content="{l:Loc Key='RegexReportOptionsWindow_PerFile'}" GroupName="filter"
+                <RadioButton Margin="3" Content="{l:Loc Key='ReportOptionsWindow_PerFile'}" GroupName="filter"
                              IsChecked="{Binding UniqueScope, ConverterParameter=PerFile, Converter={StaticResource ebc}}"
                              IsEnabled="{Binding UniqueScopeEditable}"/>
             </StackPanel>
             
-            <CheckBox Margin="3" Content="{l:Loc Key='RegexReportOptionsWindow_ShowEachMatchOrGroupOnSeparateLine'}"
+            <CheckBox Margin="3" Content="{l:Loc Key='ReportOptionsWindow_ShowEachMatchOrGroupOnSeparateLine'}"
                       IsChecked="{Binding OutputOnSeparateLines}"
                       IsEnabled="{Binding OutputOnSeparateLinesEditable}"/>
             
             <StackPanel Orientation="Horizontal">
                 <TextBox Margin="3,0" Width="28" 
-                         Text="{Binding ListItemSeparator, Mode=TwoWay}"
+                         Text="{Binding ListItemSeparator, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding OutputOnSeparateLinesEditable}"
                          FontFamily="{Binding ResultsFontFamily}"
                          FontSize="{Binding ResultsFontSize}"/>
-                <Label Content="{l:Loc Key='RegexReportOptionsWindow_SeparatorForMultipleMatchesOrGroupsOnALine'}"/>
+                <Label Content="{l:Loc Key='ReportOptionsWindow_SeparatorForMultipleMatchesOrGroupsOnALine'}"/>
             </StackPanel>
 
             <StackPanel Margin="0,6,0,0" Orientation="Horizontal">
-                <Label Margin="0,0,6,0" Content="{l:Loc Key='RegexReportOptionsWindow_Preview'}"/>
-                <RadioButton Margin="3" Content="{l:Loc Key='RegexReportOptionsWindow_Text'}" GroupName="type"
+                <Label Margin="0,0,6,0" Content="{l:Loc Key='ReportOptionsWindow_Preview'}"/>
+                <RadioButton Margin="3" Content="{l:Loc Key='ReportOptionsWindow_Text'}" GroupName="type"
                              IsChecked="{Binding ReportType, ConverterParameter=Text, Converter={StaticResource ebc}}"/>
-                <RadioButton Margin="3" Content="{l:Loc Key='RegexReportOptionsWindow_CSV'}" GroupName="type"
+                <RadioButton Margin="3" Content="{l:Loc Key='ReportOptionsWindow_CSV'}" GroupName="type"
                              IsChecked="{Binding ReportType, ConverterParameter=CSV, Converter={StaticResource ebc}}"/>
             </StackPanel>
         </StackPanel>
@@ -94,16 +97,16 @@
 
         <WrapPanel Grid.Row="2" Margin="0,8,0,0" HorizontalAlignment="Left"
                    VerticalAlignment="Center">
-            <TextBlock Text="{l:Loc Key='RegexReportOptionsWindow_PressF1ForHelp'}" HorizontalAlignment="Left"/>
+            <TextBlock Text="{l:Loc Key='ReportOptionsWindow_PressF1ForHelp'}" HorizontalAlignment="Left"/>
         </WrapPanel>
         <WrapPanel Grid.Row="2" Margin="0,8,0,0" HorizontalAlignment="Right"
                    VerticalAlignment="Bottom">
-            <Button x:Name="btnClose" Padding="24,3" Margin="0,5,15,5"
-                    IsCancel="True" Content="{l:Loc Key='RegexReportOptionsWindow_Cancel'}" />
             <Button x:Name="btnSave" Padding="24,3" Margin="0,5,10,5"
-                    IsDefault="True" Content="{l:Loc Key='RegexReportOptionsWindow_Save'}"
+                    IsDefault="True" Content="{l:Loc Key='ReportOptionsWindow_Save'}"
                     Command="{Binding Path=SaveCommand}" 
                     MinWidth="{Binding ElementName=btnClose, Path=ActualWidth}"/>
+            <Button x:Name="btnClose" Padding="24,3" Margin="0,5,15,5"
+                    IsCancel="True" Content="{l:Loc Key='ReportOptionsWindow_Cancel'}" />
         </WrapPanel>
     </Grid>
 </my:ThemedWindow>

@@ -2,9 +2,11 @@
 {
     public class ReportOptions
     {
-        public ReportOptions(bool isRegex, bool isCSV)
+        public ReportOptions(SearchType typeOfSearch)
         {
-            if (isRegex)
+            TypeOfSearch = typeOfSearch;
+
+            if (typeOfSearch == SearchType.Regex)
             {
                 ReportMode = GrepSettings.Instance.Get<RegexReportMode>(GrepSettings.Key.RegularExpressionReportMode);
                 IncludeFileInformation = GrepSettings.Instance.Get<bool>(GrepSettings.Key.IncludeFileInformation);
@@ -17,28 +19,48 @@
             else
             {
                 ReportMode = RegexReportMode.FullLine;
-                IncludeFileInformation = isCSV ? true : false;
-                TrimWhitespace = false;
+                IncludeFileInformation = GrepSettings.Instance.Get<bool>(GrepSettings.Key.IncludeFileInformation);
+                TrimWhitespace = GrepSettings.Instance.Get<bool>(GrepSettings.Key.TrimWhitespace);
                 FilterUniqueValues = false;
                 UniqueScope = RegexUniqueScope.PerFile;
                 OutputOnSeparateLines = false;
                 ListItemSeparator = string.Empty;
             }
+
+            HexLineSize = GrepSettings.Instance.Get<int>(GrepSettings.Key.HexResultByteLength);
         }
 
-        public ReportOptions(RegexReportMode reportMode, bool includeFileInformation, 
+        public ReportOptions(SearchType typeOfSearch, RegexReportMode reportMode, bool includeFileInformation, 
             bool trimWhitespace, bool filterUniqueValues, RegexUniqueScope uniqueScope,
             bool outputOnSeparateLines, string listItemSeparator)
         {
-            ReportMode = reportMode;
-            IncludeFileInformation = includeFileInformation;
-            TrimWhitespace = trimWhitespace;
-            FilterUniqueValues = filterUniqueValues;
-            UniqueScope = uniqueScope;
-            OutputOnSeparateLines = outputOnSeparateLines;
-            ListItemSeparator = listItemSeparator;
+            TypeOfSearch = typeOfSearch;
+
+            if (typeOfSearch == SearchType.Regex)
+            {
+                ReportMode = reportMode;
+                IncludeFileInformation = includeFileInformation;
+                TrimWhitespace = trimWhitespace;
+                FilterUniqueValues = filterUniqueValues;
+                UniqueScope = uniqueScope;
+                OutputOnSeparateLines = outputOnSeparateLines;
+                ListItemSeparator = listItemSeparator;
+            }
+            else
+            {
+                ReportMode = RegexReportMode.FullLine;
+                IncludeFileInformation = includeFileInformation;
+                TrimWhitespace = trimWhitespace;
+                FilterUniqueValues = false;
+                UniqueScope = RegexUniqueScope.PerFile;
+                OutputOnSeparateLines = false;
+                ListItemSeparator = string.Empty;
+            }
+
+            HexLineSize = GrepSettings.Instance.Get<int>(GrepSettings.Key.HexResultByteLength);
         }
 
+        public SearchType TypeOfSearch { get; private set; }
         public RegexReportMode ReportMode { get; private set; }
         public bool IncludeFileInformation { get; private set; }
         public bool TrimWhitespace { get; private set; }
@@ -46,6 +68,6 @@
         public RegexUniqueScope UniqueScope { get; private set; }
         public bool OutputOnSeparateLines { get; private set; }
         public string ListItemSeparator { get; private set; }
-
+        public int HexLineSize { get; private set; }
     }
 }

@@ -13,15 +13,35 @@ namespace dnGREP.WPF
         public event EventHandler RequestClose;
 
         private List<GrepSearchResult> searchResults;
+        private SearchType typeOfSearch;
 
-        public RegexReportOptionsViewModel(List<GrepSearchResult> searchResults)
+        public RegexReportOptionsViewModel(ObservableGrepSearchResults searchResults)
         {
-            this.searchResults = searchResults;
+            this.searchResults = searchResults.GetList();
+            typeOfSearch = searchResults.TypeOfSearch;
 
             LoadSettings();
+            UpdateState();
             FormatSampleText();
 
             PropertyChanged += RegexReportOptionsViewModel_PropertyChanged;
+        }
+
+        private void UpdateState()
+        {
+            if (typeOfSearch != SearchType.Regex)
+            {
+                ReportMode = RegexReportMode.FullLine;
+                ReportModeEditable = false;
+            }
+            else
+            {
+                ReportModeEditable = true;
+            }
+
+            FilterUniqueValuesEditable = reportMode != RegexReportMode.FullLine;
+            OutputOnSeparateLinesEditable = reportMode != RegexReportMode.FullLine;
+            UniqueScopeEditable = FilterUniqueValues;
         }
 
         private void LoadSettings()
@@ -173,6 +193,23 @@ namespace dnGREP.WPF
 
                 reportMode = value;
                 OnPropertyChanged(nameof(ReportMode));
+            }
+        }
+
+
+        private bool reportModeEditable;
+        public bool ReportModeEditable
+        {
+            get { return reportModeEditable; }
+            set
+            {
+                if (reportModeEditable == value)
+                {
+                    return;
+                }
+
+                reportModeEditable = value;
+                OnPropertyChanged(nameof(ReportModeEditable));
             }
         }
 
@@ -363,7 +400,7 @@ namespace dnGREP.WPF
 
         private void FormatSampleText()
         {
-            var options = new ReportOptions(ReportMode, IncludeFileInformation,
+            var options = new ReportOptions(typeOfSearch, ReportMode, IncludeFileInformation,
                 TrimWhitespace, FilterUniqueValues, UniqueScope,
                 OutputOnSeparateLines, ListItemSeparator);
 

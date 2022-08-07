@@ -570,11 +570,10 @@ namespace dnGREP.WPF
             param => CopyToClipboard());
 
         /// <summary>
-        /// Returns a command that opens the regex report options window
+        /// Returns a command that opens the report options window
         /// </summary>
-        public ICommand RegexReportOptions => new RelayCommand(
-            p => ShowRegexReportOptions(),
-            q => TypeOfSearch == SearchType.Regex);
+        public ICommand ReportOptions => new RelayCommand(
+            p => ShowReportOptions());
 
         /// <summary>
         /// Returns a command that copies content to clipboard
@@ -1415,7 +1414,7 @@ namespace dnGREP.WPF
 
                 // set base folder for results display
                 SearchResults.FolderPath = PathSearchText.BaseFolder;
-
+                SearchResults.TypeOfSearch = TypeOfSearch;
 
                 if (SearchInResultsContent && CanSearchInResults)
                     CurrentGrepOperation = GrepOperation.SearchInResults;
@@ -2073,13 +2072,12 @@ namespace dnGREP.WPF
         {
             // can be a long process if the results are not yet cached
             UIServices.SetBusyState();
-            bool isRegex = TypeOfSearch == SearchType.Regex;
-            NativeMethods.SetClipboardText(ReportWriter.GetResultsAsText(SearchResults.GetList(), isRegex));
+            NativeMethods.SetClipboardText(ReportWriter.GetResultsAsText(SearchResults.GetList(), SearchResults.TypeOfSearch));
         }
 
-        private void ShowRegexReportOptions()
+        private void ShowReportOptions()
         {
-            RegexReportOptionsViewModel vm = new RegexReportOptionsViewModel(SearchResults.GetList());
+            RegexReportOptionsViewModel vm = new RegexReportOptionsViewModel(SearchResults);
             RegexReportOptionsWindow dlg = new RegexReportOptionsWindow(vm);
             dlg.Owner = Application.Current.MainWindow;
             dlg.ShowDialog();
@@ -2114,7 +2112,6 @@ namespace dnGREP.WPF
                 {
                     try
                     {
-                        bool isRegex = TypeOfSearch == SearchType.Regex;
                         IsSaveInProgress = true;
                         await Task.Run(() =>
                         {
@@ -2124,10 +2121,10 @@ namespace dnGREP.WPF
                                     ReportWriter.SaveResultsReport(SearchResults.GetList(), BooleanOperators, SearchFor, GetSearchOptions(), dlg.FileName);
                                     break;
                                 case "Text":
-                                    ReportWriter.SaveResultsAsText(SearchResults.GetList(), isRegex, dlg.FileName);
+                                    ReportWriter.SaveResultsAsText(SearchResults.GetList(), SearchResults.TypeOfSearch, dlg.FileName);
                                     break;
                                 case "CSV":
-                                    ReportWriter.SaveResultsAsCSV(SearchResults.GetList(), isRegex, dlg.FileName);
+                                    ReportWriter.SaveResultsAsCSV(SearchResults.GetList(), SearchResults.TypeOfSearch, dlg.FileName);
                                     break;
                             }
                         });
@@ -2151,19 +2148,17 @@ namespace dnGREP.WPF
 
         private void ProcessCommands(CommandLineArgs args)
         {
-            bool isRegex = TypeOfSearch == SearchType.Regex;
-
             if (!string.IsNullOrWhiteSpace(args.ReportPath))
             {
                 ReportWriter.SaveResultsReport(SearchResults.GetList(), BooleanOperators, SearchFor, GetSearchOptions(), args.ReportPath);
             }
             if (!string.IsNullOrWhiteSpace(args.TextPath))
             {
-                ReportWriter.SaveResultsAsText(SearchResults.GetList(), isRegex, args.TextPath);
+                ReportWriter.SaveResultsAsText(SearchResults.GetList(), SearchResults.TypeOfSearch, args.TextPath);
             }
             if (!string.IsNullOrWhiteSpace(args.CsvPath))
             {
-                ReportWriter.SaveResultsAsCSV(SearchResults.GetList(), isRegex, args.CsvPath);
+                ReportWriter.SaveResultsAsCSV(SearchResults.GetList(), SearchResults.TypeOfSearch, args.CsvPath);
             }
             if (args.Exit)
             {

@@ -729,7 +729,7 @@ namespace Tests
             Assert.Equal(2, results.Count);
             Assert.Equal(3, results[0].Matches.Count);
             Assert.Equal(282, results[1].Matches.Count);
-            ReportWriter.SaveResultsAsCSV(results, false, destinationFolder + "\\test.csv");
+            ReportWriter.SaveResultsAsCSV(results, SearchType.PlainText, destinationFolder + "\\test.csv");
             string[] stringLines = File.ReadAllLines(destinationFolder + "\\test.csv");
             Assert.Equal(177, stringLines.Length);
             Assert.Equal("File Name", stringLines[0].Split(',')[0].Trim());
@@ -748,7 +748,7 @@ namespace Tests
             Assert.Equal(2, results.Count);
             Assert.Equal(3, results[0].Matches.Count);
             Assert.Equal(282, results[1].Matches.Count);
-            ReportWriter.SaveResultsAsCSV(results, false, longDestinationFolder + "\\test.csv");
+            ReportWriter.SaveResultsAsCSV(results, SearchType.PlainText, longDestinationFolder + "\\test.csv");
             string[] stringLines = File.ReadAllLines(longDestinationFolder + "\\test.csv");
             Assert.Equal(177, stringLines.Length);
             Assert.Equal("File Name", stringLines[0].Split(',')[0].Trim());

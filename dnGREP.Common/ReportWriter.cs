@@ -24,9 +24,9 @@ namespace dnGREP.Common
             return text;
         }
 
-        public static string GetResultsAsText(List<GrepSearchResult> source, bool isRegex)
+        public static string GetResultsAsText(List<GrepSearchResult> source, SearchType typeOfSearch)
         {
-            return GetResultsAsText(source, new ReportOptions(isRegex, false), -1);
+            return GetResultsAsText(source, new ReportOptions(typeOfSearch), -1);
         }
 
         public static string GetResultsAsText(List<GrepSearchResult> source, ReportOptions options, int limit)
@@ -53,9 +53,9 @@ namespace dnGREP.Common
             return string.Empty;
         }
 
-        public static string GetResultsAsCSV(List<GrepSearchResult> source, bool isRegex)
+        public static string GetResultsAsCSV(List<GrepSearchResult> source, SearchType typeOfSearch)
         {
-            return GetResultsAsCSV(source, new ReportOptions(isRegex, true), -1);
+            return GetResultsAsCSV(source, new ReportOptions(typeOfSearch), -1);
         }
 
         public static string GetResultsAsCSV(List<GrepSearchResult> source, ReportOptions options, int limit)
@@ -87,12 +87,12 @@ namespace dnGREP.Common
         /// </summary>
         /// <param name="source"></param>
         /// <param name="destinationPath"></param>
-        public static void SaveResultsAsCSV(List<GrepSearchResult> source, bool isRegex, string destinationPath)
+        public static void SaveResultsAsCSV(List<GrepSearchResult> source, SearchType typeOfSearch, string destinationPath)
         {
             if (File.Exists(destinationPath))
                 File.Delete(destinationPath);
 
-            File.WriteAllText(destinationPath, ReportWriter.GetResultsAsCSV(source, isRegex), Encoding.UTF8);
+            File.WriteAllText(destinationPath, GetResultsAsCSV(source, typeOfSearch), Encoding.UTF8);
         }
 
         /// <summary>
@@ -100,12 +100,12 @@ namespace dnGREP.Common
         /// </summary>
         /// <param name="source">the search results</param>
         /// <param name="destinationPath">the file name to save</param>
-        public static void SaveResultsAsText(List<GrepSearchResult> source, bool isRegex, string destinationPath)
+        public static void SaveResultsAsText(List<GrepSearchResult> source, SearchType typeOfSearch, string destinationPath)
         {
             if (File.Exists(destinationPath))
                 File.Delete(destinationPath);
 
-            File.WriteAllText(destinationPath, ReportWriter.GetResultsAsText(source, isRegex), Encoding.UTF8);
+            File.WriteAllText(destinationPath, GetResultsAsText(source, typeOfSearch), Encoding.UTF8);
         }
 
         public static void SaveResultsReport(List<GrepSearchResult> source, bool booleanOperators, string searchText,
@@ -141,6 +141,8 @@ namespace dnGREP.Common
 
         public static string GetResultLinesWithContext(List<GrepSearchResult> source, List<string> orClauses)
         {
+            int hexLineSize = GrepSettings.Instance.Get<int>(GrepSettings.Key.HexResultByteLength);
+
             StringBuilder sb = new StringBuilder();
             foreach (var result in source)
             {
@@ -185,7 +187,11 @@ namespace dnGREP.Common
                             if (line.LineNumber != prevLineNum + 1)
                                 sb.AppendLine();
 
-                            sb.Append(line.LineNumber.ToString().PadLeft(6, ' ')).Append(":  ").AppendLine(line.LineText);
+                            var formattedLineNumber = line.LineNumber == -1 ? string.Empty :
+                                line.IsHexFile ? string.Format("{0:X8}", (line.LineNumber - 1) * hexLineSize) :
+                                line.LineNumber.ToString().PadLeft(6, ' ');
+
+                            sb.Append(formattedLineNumber).Append(": ").AppendLine(line.LineText);
                             prevLineNum = line.LineNumber;
                         }
                     }
@@ -212,24 +218,25 @@ namespace dnGREP.Common
                     lineCount++;
                 }
 
-                if (options.ReportMode == RegexReportMode.FullLine)
+                if (result.SearchResults != null)
                 {
-                    if (result.SearchResults != null)
+                    foreach (GrepLine line in result.SearchResults.Where(l => !l.IsContext))
                     {
-                        foreach (GrepLine line in result.SearchResults.Where(l => !l.IsContext))
+                        if (options.IncludeFileInformation)
                         {
-                            if (options.IncludeFileInformation)
-                            {
-                                sb.Append(line.LineNumber.ToString().PadLeft(6, ' ')).Append(":  ");
-                            }
+                            var formattedLineNumber = line.LineNumber == -1 ? string.Empty :
+                                line.IsHexFile ? string.Format("{0:X8}", (line.LineNumber - 1) * options.HexLineSize) :
+                                line.LineNumber.ToString().PadLeft(6, ' ');
 
-                            sb.AppendLine(options.TrimWhitespace ? line.LineText.Trim() : line.LineText);
-                            lineCount++;
+                            sb.Append(formattedLineNumber).Append(": ");
+                        }
 
-                            if (limit > -1 && lineCount > limit)
-                            {
-                                break;
-                            }
+                        sb.AppendLine(options.TrimWhitespace ? line.LineText.Trim() : line.LineText);
+                        lineCount++;
+
+                        if (limit > -1 && lineCount > limit)
+                        {
+                            break;
                         }
                     }
                 }
@@ -262,6 +269,8 @@ namespace dnGREP.Common
 
                 if (result.SearchResults != null)
                 {
+                    bool mergeLines = !options.IncludeFileInformation && !options.OutputOnSeparateLines;
+
                     foreach (GrepLine line in result.SearchResults.Where(l => !l.IsContext))
                     {
                         int length = line.Matches.Count;
@@ -271,7 +280,11 @@ namespace dnGREP.Common
                         {
                             if (options.IncludeFileInformation && firstOne)
                             {
-                                sb.Append(line.LineNumber.ToString().PadLeft(6, ' ')).Append(":  ");
+                                var formattedLineNumber = line.LineNumber == -1 ? string.Empty :
+                                    line.IsHexFile ? string.Format("{0:X8}", (line.LineNumber - 1) * options.HexLineSize) :
+                                    line.LineNumber.ToString().PadLeft(6, ' ');
+
+                                sb.Append(formattedLineNumber).Append(": ");
                             }
 
                             string text = line.LineText.Substring(match.StartLocation, match.Length);
@@ -283,7 +296,7 @@ namespace dnGREP.Common
                                 sb.Append(Environment.NewLine);
                                 lineCount++;
                             }
-                            else if (count < length)
+                            else if (mergeLines || count < length)
                             {
                                 sb.Append(separator);
                                 firstOne = false;
@@ -296,7 +309,7 @@ namespace dnGREP.Common
                         }
 
                         // end of line
-                        if (!options.OutputOnSeparateLines)
+                        if (!mergeLines && !options.OutputOnSeparateLines)
                         {
                             sb.Append(Environment.NewLine);
                             firstOne = true;
@@ -307,6 +320,15 @@ namespace dnGREP.Common
                         {
                             break;
                         }
+                    }
+
+                    // end of file
+                    if (mergeLines)
+                    {
+                        sb.Remove(sb.Length - separator.Length, separator.Length);
+                        sb.Append(Environment.NewLine);
+                        firstOne = true;
+                        lineCount++;
                     }
                 }
 
@@ -344,6 +366,8 @@ namespace dnGREP.Common
 
                 if (result.SearchResults != null)
                 {
+                    bool mergeLines = !options.IncludeFileInformation && !options.OutputOnSeparateLines;
+
                     foreach (GrepLine line in result.SearchResults.Where(l => !l.IsContext))
                     {
                         int length = line.Matches.SelectMany(m => m.Groups).Count();
@@ -357,7 +381,11 @@ namespace dnGREP.Common
                             {
                                 if (options.IncludeFileInformation && firstOne)
                                 {
-                                    sb.Append(line.LineNumber.ToString().PadLeft(6, ' ')).Append(":  ");
+                                    var formattedLineNumber = line.LineNumber == -1 ? string.Empty :
+                                        line.IsHexFile ? string.Format("{0:X8}", (line.LineNumber - 1) * options.HexLineSize) :
+                                        line.LineNumber.ToString().PadLeft(6, ' ');
+
+                                    sb.Append(formattedLineNumber).Append(": ");
                                 }
 
                                 sb.Append(options.TrimWhitespace ? group.Value.Trim() : group.Value);
@@ -368,7 +396,7 @@ namespace dnGREP.Common
                                     sb.Append(Environment.NewLine);
                                     lineCount++;
                                 }
-                                else if (count < length)
+                                else if (mergeLines || count < length)
                                 {
                                     sb.Append(separator);
                                     firstOne = false;
@@ -387,7 +415,7 @@ namespace dnGREP.Common
                         }
 
                         // end of line
-                        if (lineHasGroups && !options.OutputOnSeparateLines)
+                        if (lineHasGroups && !mergeLines && !options.OutputOnSeparateLines)
                         {
                             sb.Append(Environment.NewLine);
                             firstOne = true;
@@ -398,6 +426,15 @@ namespace dnGREP.Common
                         {
                             break;
                         }
+                    }
+
+                    // end of file
+                    if (mergeLines)
+                    {
+                        sb.Remove(sb.Length - separator.Length, separator.Length);
+                        sb.Append(Environment.NewLine);
+                        firstOne = true;
+                        lineCount++;
                     }
                 }
 
@@ -661,6 +698,8 @@ namespace dnGREP.Common
                 }
                 else
                 {
+                    bool mergeLines = !options.IncludeFileInformation && !options.OutputOnSeparateLines;
+
                     foreach (GrepLine line in result.SearchResults.Where(l => !l.IsContext))
                     {
                         bool firstOne = true;
@@ -693,7 +732,7 @@ namespace dnGREP.Common
                                 lineCount++;
                                 firstOne = true;
                             }
-                            else if (count < length)
+                            else if (mergeLines || count < length)
                             {
                                 sb.Append(separator);
                                 firstOne = false;
@@ -706,7 +745,7 @@ namespace dnGREP.Common
                         }
 
                         // end of line
-                        if (!options.OutputOnSeparateLines)
+                        if (!mergeLines && !options.OutputOnSeparateLines)
                         {
                             sb.Append(Environment.NewLine);
                             lineCount++;
@@ -716,6 +755,14 @@ namespace dnGREP.Common
                         {
                             break;
                         }
+                    }
+
+                    // end of file
+                    if (mergeLines)
+                    {
+                        sb.Remove(sb.Length - separator.Length, separator.Length);
+                        sb.Append(Environment.NewLine);
+                        lineCount++;
                     }
 
                     if (limit > -1 && lineCount > limit)
@@ -755,6 +802,8 @@ namespace dnGREP.Common
                 }
                 else
                 {
+                    bool mergeLines = !options.IncludeFileInformation && !options.OutputOnSeparateLines;
+
                     foreach (GrepLine line in result.SearchResults.Where(l => !l.IsContext))
                     {
                         bool firstOne = true;
@@ -790,7 +839,7 @@ namespace dnGREP.Common
                                     lineCount++;
                                     firstOne = true;
                                 }
-                                else if (count < length)
+                                else if (mergeLines || count < length)
                                 {
                                     sb.Append(separator);
                                     firstOne = false;
@@ -809,7 +858,7 @@ namespace dnGREP.Common
                         }
 
                         // end of line
-                        if (lineHasGroups && !options.OutputOnSeparateLines)
+                        if (lineHasGroups && !mergeLines && !options.OutputOnSeparateLines)
                         {
                             sb.Append(Environment.NewLine);
                             lineCount++;
@@ -819,6 +868,14 @@ namespace dnGREP.Common
                         {
                             break;
                         }
+                    }
+
+                    // end of file
+                    if (mergeLines)
+                    {
+                        sb.Remove(sb.Length - separator.Length, separator.Length);
+                        sb.Append(Environment.NewLine);
+                        lineCount++;
                     }
                 }
 
