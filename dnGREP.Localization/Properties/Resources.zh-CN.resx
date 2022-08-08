@@ -2646,4 +2646,53 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>去掉空白</value>
     <comment>Report options dialog, checkbox label</comment>
   </data>
+  <data name="Help_CmdLineFileInformation" xml:space="preserve">
+    <value>/fi [True/False]
+-fi [True/False]
+-fileInformation [True/False]
+    设置标志确定是否在报告输出中包含文件和行信息 - True 或 False。</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineListItemSeparator" xml:space="preserve">
+    <value>/sep [separator character or text]
+-sep [separator character or text]
+-listItemSeparator [separator character or text]
+    设置字符或字符串以分隔报表输出中一行上的列表项。</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineReportMode" xml:space="preserve">
+    <value>/rm [mode]
+-rm [mode]
+-reportMode [mode]
+    设置正则表达式报告的报告输出模式 - 必须是以下之一： "FullLine"、"Matches"或"Groups"。</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineTrimWhitespace" xml:space="preserve">
+    <value>/trim [True/False]
+-trim [True/False]
+-trimWhitespace [True/False]
+    设置标志确定是否去掉报告输出中的空白 - True 或 False。</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUniqueScope" xml:space="preserve">
+    <value>/scope [scope]
+-scope [scope]
+-uniqueScope [scope]
+    设置标志以设定正则表达式报告输出中唯一值的范围 - 必须是以下之一："Global" 或 "PerFile"。</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineSeparateLines" xml:space="preserve">
+    <value>/sl [True/False]
+-sl [True/False]
+-separateLines [True/False]
+    设置标志确定是否在正则表达式报告输出中的单独行上输出每个匹配项或组 - True 或 False。</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUniqueValues" xml:space="preserve">
+    <value>/unique [True/False]
+-unique [True/False]
+-uniqueValues [True/False]
+    设置标志确定是否在正则表达式报告输出中输出唯一匹配或组值 - True 或 False。</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
 </root>
