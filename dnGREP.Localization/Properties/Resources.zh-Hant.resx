@@ -394,101 +394,143 @@
     <value>使用</value>
     <comment>Bookmarks dialog, button text (accel)</comment>
   </data>
-  <data name="Help_CmdLine" xml:space="preserve">
-    <value>dnGrep:  搜尋純文字檔案, Word 和 Excel 文檔, PDF, 壓縮檔, 正則運算式, XPath, 及拼音查詢.
-
-版本 {0} 編譯於 {1}
-
-用法:
-
-dnGrep [arguments]
-使用下列任一組合引數.
-範例:
-dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex
-
-dnGrep [folderPath] [searchFor]
-一個或二個無旗標引數: 第一個引數為搜尋資料夾路徑, 第二個引數為用於搜尋的正則運算式.
-範例:
-dnGrep "C:\Program Files\dnGrep" t\w*t
-
-任何未指定的引數將預設為最後儲存的使用者設定.
-
-引數:
-
-/f [folderPath]
--f [folderPath]
--folder [folderPath]
-    設定搜尋資料夾路徑, 可以是逗號或分隔符號的檔案路徑清單.
-
-/pm [pattern]
--pm [pattern]
--pathToMatch [pattern]
-    設定搜尋路徑中的檔案名稱樣式, 可以是逗號或分隔符號的樣式.
-
-/pi [pattern]
--pi [pattern]
--pathToIgnore [pattern]
-    設定搜尋路徑中的排除檔案名稱或目錄樣式, 可以是逗號或分隔符號的樣式.
-
-/pt [type]
--pt [type]
--patternType [type]
-    設定符合或忽略樣式的類型 - 必須為其一: "星號" (萬用字元), "Regex" (正則運算式), 或 "Everything" (若 Everything 搜尋工具已安裝).
-
-/s [searchFor]
--s [searchFor]
--searchFor [searchFor]
-    設定所欲搜尋樣式或文字. 當此引數已設定, 將會自動搜尋.
-
-/st [type]
--st [type]
--searchType [type]
-    設定搜尋類型 - 必須為其一:  "純文字", "Regex" (正則運算式), "XPath", 或 "Soundex" (拼音).
-
-/cs [True/False]
--cs [True/False]
--caseSensitive [True/False]
-    設定區分大小寫旗標 - True 或 False.
-
-/ww [True/False]
--ww [True/False]
--wholeWord [True/False]
-    設定全字符合搜尋旗標 - True 或 False.
-
-/ml [True/False]
--ml [True/False]
--multiline [True/False]
-    設定多行搜尋旗標 - True 或 False.
-
-/dn [True/False]
--dn [True/False]
--dotAsNewline [True/False]
-    設定點號(.)搜尋包含換行字元搜尋旗標 - True 或 False.
-
-/bo [True/False]
+  <data name="Help_CmdLineArguments" xml:space="preserve">
+    <value>引數:</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineBooleanOperators" xml:space="preserve">
+    <value>/bo [True/False]
 -bo [True/False]
 -booleanOperators [True/False]
-    設定布林運算元搜尋旗標 - True 或 False.
-
-/rpt [filePath]
--rpt [filePath]
--report [filePath]
-    搜尋完成後以報告格式建立搜尋結果檔案.
-
-/txt [filePath]
--txt [filePath]
--text [filePath]
-    搜尋完成後以文字格式建立搜尋結果檔案.
-
-/csv [filePath]
+    設定布林運算元搜尋旗標 - True 或 False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineCaseSensitive" xml:space="preserve">
+    <value>/cs [True/False]
+-cs [True/False]
+-caseSensitive [True/False]
+    設定區分大小寫旗標 - True 或 False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineCSVReport" xml:space="preserve">
+    <value>/csv [filePath]
 -csv [filePath]
-    搜尋完成後以 CSV 格式建立搜尋結果檔案.
-
-/x
+    搜尋完成後以 CSV 格式建立搜尋結果檔案.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineDefaultArguments" xml:space="preserve">
+    <value>任何未指定的引數將預設為最後儲存的使用者設定.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineDotAsNewline" xml:space="preserve">
+    <value>/dn [True/False]
+-dn [True/False]
+-dotAsNewline [True/False]
+    設定點號(.)搜尋包含換行字元搜尋旗標 - True 或 False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExample1" xml:space="preserve">
+    <value>dnGrep [arguments]
+使用下列任一組合引數.
+範例:
+dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExample2" xml:space="preserve">
+    <value>dnGrep [folderPath] [searchFor]
+一個或二個無旗標引數: 第一個引數為搜尋資料夾路徑, 第二個引數為用於搜尋的正則運算式.
+範例:
+dnGrep "C:\Program Files\dnGrep" t\w*t</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExit" xml:space="preserve">
+    <value>/x
 -x
 -exit
     離開 dnGrep.</value>
-    <comment>Help dialog text when running dnGrep from the command-line: {0} is the installed dnGrep version number; {1} is the installed dnGrep build date</comment>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineFolder" xml:space="preserve">
+    <value>/f [folderPath]
+-f [folderPath]
+-folder [folderPath]
+    設定搜尋資料夾路徑, 可以是逗號或分隔符號的檔案路徑清單.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineHeader" xml:space="preserve">
+    <value>dnGrep:  搜尋純文字檔案, Word 和 Excel 文檔, PDF, 壓縮檔, 正則運算式, XPath, 及拼音查詢.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineMultiline" xml:space="preserve">
+    <value>/ml [True/False]
+-ml [True/False]
+-multiline [True/False]
+    設定多行搜尋旗標 - True 或 False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePathToIgnore" xml:space="preserve">
+    <value>/pi [pattern]
+-pi [pattern]
+-pathToIgnore [pattern]
+    設定搜尋路徑中的排除檔案名稱或目錄樣式, 可以是逗號或分隔符號的樣式.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePathToMatch" xml:space="preserve">
+    <value>/pm [pattern]
+-pm [pattern]
+-pathToMatch [pattern]
+    設定搜尋路徑中的檔案名稱樣式, 可以是逗號或分隔符號的樣式.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePatternType" xml:space="preserve">
+    <value>/pt [type]
+-pt [type]
+-patternType [type]
+    設定符合或忽略樣式的類型 - 必須為其一: "星號" (萬用字元), "Regex" (正則運算式), 或 "Everything" (若 Everything 搜尋工具已安裝).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineReport" xml:space="preserve">
+    <value>/rpt [filePath]
+-rpt [filePath]
+-report [filePath]
+    搜尋完成後以報告格式建立搜尋結果檔案.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineSearchFor" xml:space="preserve">
+    <value>/s [searchFor]
+-s [searchFor]
+-searchFor [searchFor]
+    設定所欲搜尋樣式或文字. 當此引數已設定, 將會自動搜尋.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineSearchType" xml:space="preserve">
+    <value>/st [type]
+-st [type]
+-searchType [type]
+    設定搜尋類型 - 必須為其一:  "純文字", "Regex" (正則運算式), "XPath", 或 "Soundex" (拼音).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineTextReport" xml:space="preserve">
+    <value>/txt [filePath]
+-txt [filePath]
+-text [filePath]
+    搜尋完成後以文字格式建立搜尋結果檔案.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUsage" xml:space="preserve">
+    <value>用法:</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineVersion" xml:space="preserve">
+    <value>版本 {0} 編譯於 {1}</value>
+    <comment>Help dialog text when running dnGrep from the command-line: 0 is the installed dnGrep version number; 1 is the installed dnGrep build date</comment>
+  </data>
+  <data name="Help_CmdLineWholeWord" xml:space="preserve">
+    <value>/ww [True/False]
+-ww [True/False]
+-wholeWord [True/False]
+    設定全字符合搜尋旗標 - True 或 False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_DnGrepHelp" xml:space="preserve">
     <value>dnGrep 輔助說明</value>

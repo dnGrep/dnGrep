@@ -485,101 +485,192 @@
     <value>_Use</value>
     <comment>Bookmarks dialog, button text (accel)</comment>
   </data>
-  <data name="Help_CmdLine" xml:space="preserve">
-    <value>dnGrep:  Search through text files, Word and Excel documents, PDFs, and archives using text, regular expression, XPath, and phonetic queries.
-
-Version {0} built on {1}
-
-Usage:
-
-dnGrep [arguments]
-Using any combination of arguments from the list below.
-Example:
-dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex
-
-dnGrep [folderPath] [searchFor]
-One or two arguments without flags: the first argument is the folder to search, the second the regular expression to search for.
-Example:
-dnGrep "C:\Program Files\dnGrep" t\w*t
-
-Any arguments not specified will default to the last saved user settings.
-
-Arguments:
-
-/f [folderPath]
--f [folderPath]
--folder [folderPath]
-    Sets the folder path to search.  May be a comma- or semicolon-separated list of folder paths.
-
-/pm [pattern]
--pm [pattern]
--pathToMatch [pattern]
-    Sets the file name pattern to match files in the search path. May be a comma- or semicolon-separated list of patterns.
-
-/pi [pattern]
--pi [pattern]
--pathToIgnore [pattern]
-    Sets the file or directory name pattern to exclude files or folders in the search path. May be a comma- or semicolon-separated list of patterns.
-
-/pt [type]
--pt [type]
--patternType [type]
-    Sets the type of match and ignore pattern – must be one of: "Asterisk" (wildcard), "Regex" (regular expression), or "Everything" (if the Everything search tool is installed).
-
-/s [searchFor]
--s [searchFor]
--searchFor [searchFor]
-    Sets the pattern or text to search for within the set of files.  When this argument is set, the search will be run automatically.
-
-/st [type]
--st [type]
--searchType [type]
-    Sets the type of search – must be one of: "PlainText", "Regex" (regular expression), "XPath", or "Soundex" (phonetic).
-
-/cs [True/False]
--cs [True/False]
--caseSensitive [True/False]
-    Sets case-sensitive search flag – True or False.
-
-/ww [True/False]
--ww [True/False]
--wholeWord [True/False]
-    Sets the whole word search flag – True or False.
-
-/ml [True/False]
--ml [True/False]
--multiline [True/False]
-    Sets the multiline search flag – True or False.
-
-/dn [True/False]
--dn [True/False]
--dotAsNewline [True/False]
-    Sets the dot as newline search flag – True or False.
-
-/bo [True/False]
+  <data name="Help_CmdLineArguments" xml:space="preserve">
+    <value>Arguments:</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineBooleanOperators" xml:space="preserve">
+    <value>/bo [True/False]
 -bo [True/False]
 -booleanOperators [True/False]
-    Sets the Boolean operators search flag – True or False.
-
-/rpt [filePath]
--rpt [filePath]
--report [filePath]
-    Create results file in report format after search is complete.
-
-/txt [filePath]
--txt [filePath]
--text [filePath]
-    Create results file in text format after search is complete.
-
-/csv [filePath]
+    Sets the Boolean operators search flag – True or False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineCaseSensitive" xml:space="preserve">
+    <value>/cs [True/False]
+-cs [True/False]
+-caseSensitive [True/False]
+    Sets case-sensitive search flag – True or False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineCSVReport" xml:space="preserve">
+    <value>/csv [filePath]
 -csv [filePath]
-    Create results file in CSV format after search is complete.
-
-/x
+    Create results file in CSV format after search is complete.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineDefaultArguments" xml:space="preserve">
+    <value>Any arguments not specified will default to the last saved user settings.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineDotAsNewline" xml:space="preserve">
+    <value>/dn [True/False]
+-dn [True/False]
+-dotAsNewline [True/False]
+    Sets the dot as newline search flag – True or False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExample1" xml:space="preserve">
+    <value>dnGrep [arguments]
+Using any combination of arguments from the list below.
+Example:
+dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExample2" xml:space="preserve">
+    <value>dnGrep [folderPath] [searchFor]
+One or two arguments without flags: the first argument is the folder to search, the second the regular expression to search for.
+Example:
+dnGrep "C:\Program Files\dnGrep" t\w*t</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExit" xml:space="preserve">
+    <value>/x
 -x
 -exit
     Exit dnGrep after command-line operations are complete.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineFileInformation" xml:space="preserve">
+    <value>/fi [True/False]
+-fi [True/False]
+-fileInformation [True/False]
+    Sets flag to include file and line information in the report output – True or False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineFolder" xml:space="preserve">
+    <value>/f [folderPath]
+-f [folderPath]
+-folder [folderPath]
+    Sets the folder path to search.  May be a comma- or semicolon-separated list of folder paths.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineHeader" xml:space="preserve">
+    <value>dnGrep:  Search through text files, Word and Excel documents, PDFs, and archives using text, regular expression, XPath, and phonetic queries.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineListItemSeparator" xml:space="preserve">
+    <value>/sep [separator character or text]
+-sep [separator character or text]
+-listItemSeparator [separator character or text]
+    Sets the character or string to separate list items on a line in the report output.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineMultiline" xml:space="preserve">
+    <value>/ml [True/False]
+-ml [True/False]
+-multiline [True/False]
+    Sets the multiline search flag – True or False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePathToIgnore" xml:space="preserve">
+    <value>/pi [pattern]
+-pi [pattern]
+-pathToIgnore [pattern]
+    Sets the file or directory name pattern to exclude files or folders in the search path. May be a comma- or semicolon-separated list of patterns.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePathToMatch" xml:space="preserve">
+    <value>/pm [pattern]
+-pm [pattern]
+-pathToMatch [pattern]
+    Sets the file name pattern to match files in the search path. May be a comma- or semicolon-separated list of patterns.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePatternType" xml:space="preserve">
+    <value>/pt [type]
+-pt [type]
+-patternType [type]
+    Sets the type of match and ignore pattern – must be one of: "Asterisk" (wildcard), "Regex" (regular expression), or "Everything" (if the Everything search tool is installed).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineReport" xml:space="preserve">
+    <value>/rpt [filePath]
+-rpt [filePath]
+-report [filePath]
+    Create results file in report format after search is complete.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineReportMode" xml:space="preserve">
+    <value>/rm [mode]
+-rm [mode]
+-reportMode [mode]
+    Sets the report output mode for regular expression reports - must be one of: "FullLine", "Matches", or "Groups".</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineSearchFor" xml:space="preserve">
+    <value>/s [searchFor]
+-s [searchFor]
+-searchFor [searchFor]
+    Sets the pattern or text to search for within the set of files.  When this argument is set, the search will be run automatically.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineSearchType" xml:space="preserve">
+    <value>/st [type]
+-st [type]
+-searchType [type]
+    Sets the type of search – must be one of: "PlainText", "Regex" (regular expression), "XPath", or "Soundex" (phonetic).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineSeparateLines" xml:space="preserve">
+    <value>/sl [True/False]
+-sl [True/False]
+-separateLines [True/False]
+    Sets flag to output each match or group on a separate line in the regular expression report output – True or False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineTextReport" xml:space="preserve">
+    <value>/txt [filePath]
+-txt [filePath]
+-text [filePath]
+    Create results file in text format after search is complete.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineTrimWhitespace" xml:space="preserve">
+    <value>/trim [True/False]
+-trim [True/False]
+-trimWhitespace [True/False]
+    Sets flag to trim whitespace in the report output – True or False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUniqueScope" xml:space="preserve">
+    <value>/scope [scope]
+-scope [scope]
+-uniqueScope [scope]
+    Sets flag to set the scope of unique values in the regular expression report output – must be one of: "Global" or "PerFile".</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUniqueValues" xml:space="preserve">
+    <value>/unique [True/False]
+-unique [True/False]
+-uniqueValues [True/False]
+    Sets flag to output unique match or group values in the regular expression report output – True or False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUsage" xml:space="preserve">
+    <value>Usage:</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineVersion" xml:space="preserve">
+    <value>Version {0} built on {1}</value>
     <comment>Help dialog text when running dnGrep from the command-line: {0} is the installed dnGrep version number; {1} is the installed dnGrep build date</comment>
+  </data>
+  <data name="Help_CmdLineWholeWord" xml:space="preserve">
+    <value>/ww [True/False]
+-ww [True/False]
+-wholeWord [True/False]
+    Sets the whole word search flag – True or False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_DnGrepHelp" xml:space="preserve">
     <value>dnGrep Help</value>
@@ -2077,74 +2168,6 @@ Arguments:
     <value>Zoom:</value>
     <comment>Preview window, results options zoom slider label</comment>
   </data>
-  <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
-    <value>Cancel</value>
-    <comment>Report options dialog, close button</comment>
-  </data>
-  <data name="ReportOptionsWindow_CaptureGroupsOnly" xml:space="preserve">
-    <value>Capture groups only</value>
-    <comment>Report options dialog, radio button label</comment>
-  </data>
-  <data name="ReportOptionsWindow_CSV" xml:space="preserve">
-    <value>CSV</value>
-    <comment>Report options dialog, radio button label</comment>
-  </data>
-  <data name="ReportOptionsWindow_FilterForUniqueValues" xml:space="preserve">
-    <value>Filter for unique values</value>
-    <comment>Report options dialog, checkbox label</comment>
-  </data>
-  <data name="ReportOptionsWindow_FullLines" xml:space="preserve">
-    <value>Full lines</value>
-    <comment>Report options dialog, radio button label</comment>
-  </data>
-  <data name="ReportOptionsWindow_Global" xml:space="preserve">
-    <value>Global</value>
-    <comment>Report options dialog, radio button label</comment>
-  </data>
-  <data name="ReportOptionsWindow_IncludeFileAndLineInformation" xml:space="preserve">
-    <value>Include file and line information</value>
-    <comment>Report options dialog, checkbox label</comment>
-  </data>
-  <data name="ReportOptionsWindow_MatchesOnly" xml:space="preserve">
-    <value>Matches only</value>
-    <comment>Report options dialog, radio button label</comment>
-  </data>
-  <data name="ReportOptionsWindow_PerFile" xml:space="preserve">
-    <value>Per file</value>
-    <comment>Report options dialog, radio button label</comment>
-  </data>
-  <data name="ReportOptionsWindow_PressF1ForHelp" xml:space="preserve">
-    <value>Press F1 for help</value>
-    <comment>Report options dialog, help label</comment>
-  </data>
-  <data name="ReportOptionsWindow_Preview" xml:space="preserve">
-    <value>Preview:</value>
-    <comment>Report options dialog, label</comment>
-  </data>
-  <data name="ReportOptionsWindow_ReportOptions" xml:space="preserve">
-    <value>Report Options</value>
-    <comment>Report options dialog, window title</comment>
-  </data>
-  <data name="ReportOptionsWindow_Save" xml:space="preserve">
-    <value>Save</value>
-    <comment>Report options dialog, button label</comment>
-  </data>
-  <data name="ReportOptionsWindow_SeparatorForMultipleMatchesOrGroupsOnALine" xml:space="preserve">
-    <value>Separator for multiple matches or groups on a line</value>
-    <comment>Report options dialog, text box label</comment>
-  </data>
-  <data name="ReportOptionsWindow_ShowEachMatchOrGroupOnSeparateLine" xml:space="preserve">
-    <value>Show each match or group on separate line</value>
-    <comment>Report options dialog, checkbox label</comment>
-  </data>
-  <data name="ReportOptionsWindow_Text" xml:space="preserve">
-    <value>Text</value>
-    <comment>Report options dialog, radio button label</comment>
-  </data>
-  <data name="ReportOptionsWindow_TrimWhitespace" xml:space="preserve">
-    <value>Trim whitespace</value>
-    <comment>Report options dialog, checkbox label</comment>
-  </data>
   <data name="Rename_Cancel" xml:space="preserve">
     <value>Cancel</value>
     <comment>Rename file dialog button label</comment>
@@ -2348,6 +2371,74 @@ Arguments:
   <data name="Report_Has0MatchesOn1Lines" xml:space="preserve">
     <value>has {0} matches on {1} lines:</value>
     <comment>Report content text: {0} is the number of matches in a file; {1} is the number of lines in a file with matches</comment>
+  </data>
+  <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+    <comment>Report options dialog, close button</comment>
+  </data>
+  <data name="ReportOptionsWindow_CaptureGroupsOnly" xml:space="preserve">
+    <value>Capture groups only</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_CSV" xml:space="preserve">
+    <value>CSV</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_FilterForUniqueValues" xml:space="preserve">
+    <value>Filter for unique values</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_FullLines" xml:space="preserve">
+    <value>Full lines</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Global" xml:space="preserve">
+    <value>Global</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_IncludeFileAndLineInformation" xml:space="preserve">
+    <value>Include file and line information</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_MatchesOnly" xml:space="preserve">
+    <value>Matches only</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_PerFile" xml:space="preserve">
+    <value>Per file</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_PressF1ForHelp" xml:space="preserve">
+    <value>Press F1 for help</value>
+    <comment>Report options dialog, help label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Preview" xml:space="preserve">
+    <value>Preview:</value>
+    <comment>Report options dialog, label</comment>
+  </data>
+  <data name="ReportOptionsWindow_ReportOptions" xml:space="preserve">
+    <value>Report Options</value>
+    <comment>Report options dialog, window title</comment>
+  </data>
+  <data name="ReportOptionsWindow_Save" xml:space="preserve">
+    <value>Save</value>
+    <comment>Report options dialog, button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_SeparatorForMultipleMatchesOrGroupsOnALine" xml:space="preserve">
+    <value>Separator for multiple matches or groups on a line</value>
+    <comment>Report options dialog, text box label</comment>
+  </data>
+  <data name="ReportOptionsWindow_ShowEachMatchOrGroupOnSeparateLine" xml:space="preserve">
+    <value>Show each match or group on separate line</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Text" xml:space="preserve">
+    <value>Text</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_TrimWhitespace" xml:space="preserve">
+    <value>Trim whitespace</value>
+    <comment>Report options dialog, checkbox label</comment>
   </data>
   <data name="ReportSummary_BooleanOperators" xml:space="preserve">
     <value>Boolean operators</value>

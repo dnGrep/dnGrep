@@ -453,101 +453,143 @@
     <value>_Использовать</value>
     <comment>Bookmarks dialog, button text (accel)</comment>
   </data>
-  <data name="Help_CmdLine" xml:space="preserve">
-    <value>dnGrep:  Поиск в текстовых файлах, документах Word и Excel, PDF-файлах и архивах с использованием текстовых, регулярных выражений, XPath и фонетических запросов.
-
-Версия {0} Сборка {1}
-
-Использование:
-
-dnGrep [аргументы]
-Используя любую комбинацию аргументов из приведенного ниже списка.
-Пример:
-dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex
-
-dnGrep [Путь_к_папке] [Что_искать]
-Один или два аргумента без флагов: первый аргумент - папка для поиска, второй - регулярное выражение для поиска.
-Пример:
-dnGrep "C:\Program Files\dnGrep" t\w*t
-
-Любые не указанные аргументы будут по умолчанию соответствовать последним сохраненным пользовательским настройкам.
-
-Аргументы:
-
-/f [Путь_к_папке]
--f [Путь_к_папке]
--folder [Путь_к_папке]
-    Задает путь к папке для поиска. Может быть списком путей к папкам, разделенных запятой или точкой с запятой.
-
-/pm [шаблон]
--pm [шаблон]
--pathToMatch [шаблон]
-    Задает шаблон имени файла, соответствующий файлам в пути поиска. Может быть списком шаблонов, разделенных запятой или точкой с запятой.
-
-/pi [шаблон]
--pi [шаблон]
--pathToIgnore [шаблон]
-    Задает шаблон имени файла или каталога для исключения файлов / папок из пути поиска. Может быть списком шаблонов, разделенных запятой или точкой с запятой.
-
-/pt [тип]
--pt [тип]
--patternType [тип]
-    Задает тип шаблона совпадения и игнорирования - должен быть один из: Asterisk (подстановочный символ), Регулярное выражение или Everything (если установлен инструмент поиска Everything).
-
-/s [Что_искать]
--s [Что_искать]
--searchFor [Что_искать]
-    Задает шаблон или текст для поиска в множестве файлов. Если этот аргумент задан, поиск будет запущен автоматически.
-
-/st [тип]
--st [тип]
--searchType [тип]
-    Задает тип поиска - должен быть один из: Обычный текст, регулярное выражение, XPath или Soundex.
-
-/cs [True/False]
--cs [True/False]
--caseSensitive [True/False]
-    Устанавливает флаг поиска с учетом регистра - True (Истина) или False (Ложь).
-
-/ww [True/False]
--ww [True/False]
--wholeWord [True/False]
-    Устанавливает флаг поиска по всему слову - True (Истина) или False (Ложь).
-
-/ml [True/False]
--ml [True/False]
--multiline [True/False]
-    Устанавливает флаг многострочного поиска - True (Истина) или False (Ложь).
-
-/dn [True/False]
--dn [True/False]
--dotAsNewline [True/False]
-    Устанавливает точку в качестве флага поиска новой строки - True (Истина) или False (Ложь).
-
-/bo [True/False]
+  <data name="Help_CmdLineArguments" xml:space="preserve">
+    <value>Аргументы:</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineBooleanOperators" xml:space="preserve">
+    <value>/bo [True/False]
 -bo [True/False]
 -booleanOperators [True/False]
-    Устанавливает флаг поиска булевых операторов - True (Истина) или False (Ложь).
-
-/rpt [filePath]
--rpt [filePath]
--report [filePath]
-    Создает файл результатов в формате отчета после завершения поиска.
-
-/txt [filePath]
--txt [filePath]
--text [filePath]
-    Создает файл результатов в текстовом формате после завершения поиска.
-
-/csv [filePath]
+    Устанавливает флаг поиска булевых операторов - True (Истина) или False (Ложь).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineCaseSensitive" xml:space="preserve">
+    <value>/cs [True/False]
+-cs [True/False]
+-caseSensitive [True/False]
+    Устанавливает флаг поиска с учетом регистра - True (Истина) или False (Ложь).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineCSVReport" xml:space="preserve">
+    <value>/csv [filePath]
 -csv [filePath]
-    Создает файл результатов в формате CSV после завершения поиска.
-
-/x
+    Создает файл результатов в формате CSV после завершения поиска.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineDefaultArguments" xml:space="preserve">
+    <value>Любые не указанные аргументы будут по умолчанию соответствовать последним сохраненным пользовательским настройкам.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineDotAsNewline" xml:space="preserve">
+    <value>/dn [True/False]
+-dn [True/False]
+-dotAsNewline [True/False]
+    Устанавливает точку в качестве флага поиска новой строки - True (Истина) или False (Ложь).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExample1" xml:space="preserve">
+    <value>dnGrep [аргументы]
+Используя любую комбинацию аргументов из приведенного ниже списка.
+Пример:
+dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExample2" xml:space="preserve">
+    <value>dnGrep [Путь_к_папке] [Что_искать]
+Один или два аргумента без флагов: первый аргумент - папка для поиска, второй - регулярное выражение для поиска.
+Пример:
+dnGrep "C:\Program Files\dnGrep" t\w*t</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExit" xml:space="preserve">
+    <value>/x
 -x
 -exit
     Выйти из dnGrep после завершения операций командной строки.</value>
-    <comment>Help dialog text when running dnGrep from the command line: {0} is the installed dnGrep version number; {1} is the installed dnGrep build date</comment>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineFolder" xml:space="preserve">
+    <value>/f [Путь_к_папке]
+-f [Путь_к_папке]
+-folder [Путь_к_папке]
+    Задает путь к папке для поиска. Может быть списком путей к папкам, разделенных запятой или точкой с запятой.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineHeader" xml:space="preserve">
+    <value>dnGrep:  Поиск в текстовых файлах, документах Word и Excel, PDF-файлах и архивах с использованием текстовых, регулярных выражений, XPath и фонетических запросов.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineMultiline" xml:space="preserve">
+    <value>/ml [True/False]
+-ml [True/False]
+-multiline [True/False]
+    Устанавливает флаг многострочного поиска - True (Истина) или False (Ложь).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePathToIgnore" xml:space="preserve">
+    <value>/pi [шаблон]
+-pi [шаблон]
+-pathToIgnore [шаблон]
+    Задает шаблон имени файла или каталога для исключения файлов / папок из пути поиска. Может быть списком шаблонов, разделенных запятой или точкой с запятой.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePathToMatch" xml:space="preserve">
+    <value>/pm [шаблон]
+-pm [шаблон]
+-pathToMatch [шаблон]
+    Задает шаблон имени файла, соответствующий файлам в пути поиска. Может быть списком шаблонов, разделенных запятой или точкой с запятой.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePatternType" xml:space="preserve">
+    <value>/pt [тип]
+-pt [тип]
+-patternType [тип]
+    Задает тип шаблона совпадения и игнорирования - должен быть один из: Asterisk (подстановочный символ), Регулярное выражение или Everything (если установлен инструмент поиска Everything).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineReport" xml:space="preserve">
+    <value>/rpt [filePath]
+-rpt [filePath]
+-report [filePath]
+    Создает файл результатов в формате отчета после завершения поиска.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineSearchFor" xml:space="preserve">
+    <value>/s [Что_искать]
+-s [Что_искать]
+-searchFor [Что_искать]
+    Задает шаблон или текст для поиска в множестве файлов. Если этот аргумент задан, поиск будет запущен автоматически.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineSearchType" xml:space="preserve">
+    <value>/st [тип]
+-st [тип]
+-searchType [тип]
+    Задает тип поиска - должен быть один из: Обычный текст, регулярное выражение, XPath или Soundex.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineTextReport" xml:space="preserve">
+    <value>/txt [filePath]
+-txt [filePath]
+-text [filePath]
+    Создает файл результатов в текстовом формате после завершения поиска.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUsage" xml:space="preserve">
+    <value>Использование:</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineVersion" xml:space="preserve">
+    <value>Версия {0} Сборка {1}</value>
+    <comment>Help dialog text when running dnGrep from the command-line: 0 is the installed dnGrep version number; 1 is the installed dnGrep build date</comment>
+  </data>
+  <data name="Help_CmdLineWholeWord" xml:space="preserve">
+    <value>/ww [True/False]
+-ww [True/False]
+-wholeWord [True/False]
+    Устанавливает флаг поиска по всему слову - True (Истина) или False (Ложь).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_DnGrepHelp" xml:space="preserve">
     <value>dnGrep - Справка</value>
