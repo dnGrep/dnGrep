@@ -2502,4 +2502,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>סוג</value>
     <comment>Options dialog, Personalization group</comment>
   </data>
+  <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
+    <value>_ביטול</value>
+    <comment>Report options dialog, close button</comment>
+  </data>
+  <data name="ReportOptionsWindow_Save" xml:space="preserve">
+    <value>שמור</value>
+    <comment>Report options dialog, button label</comment>
+  </data>
 </root>
