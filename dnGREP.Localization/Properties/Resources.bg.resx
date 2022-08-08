@@ -549,6 +549,144 @@ dnGrep "C:\Program Files\dnGrep" t\w*t
     Излиза от dnGrep след приключване на действията, зададени от командния ред.</value>
     <comment>Help dialog text when running dnGrep from the command line: {0} is the installed dnGrep version number; {1} is the installed dnGrep build date</comment>
   </data>
+  <data name="Help_CmdLineArguments" xml:space="preserve">
+    <value>Аргументи:</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineBooleanOperators" xml:space="preserve">
+    <value>/bo [True/False]
+-bo [True/False]
+-booleanOperators [True/False]
+    Задава стойност на флага за търсене „булеви оператори“ – True (истина) или False (неистина).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineCaseSensitive" xml:space="preserve">
+    <value>/cs [True/False]
+-cs [True/False]
+-caseSensitive [True/False]
+    Задава стойност на флага за търсене „съвпадение на регистъра“ – True (истина) или False (неистина).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineCSVReport" xml:space="preserve">
+    <value>/csv [файл]
+-csv [файл]
+    Създава файл с резултатите във формат CSV след приключване на търсенето.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineDefaultArguments" xml:space="preserve">
+    <value>За непосочените аргументи по подразбиране ще бъдат използвани последните запазени потребителски настройки.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineDotAsNewline" xml:space="preserve">
+    <value>/dn [True/False]
+-dn [True/False]
+-dotAsNewline [True/False]
+    Задава стойност на флага за търсене „точка за нов ред“ – True (истина) или False (неистина).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExample1" xml:space="preserve">
+    <value>dnGrep [аргументи]
+Използвайте произволна комбинация от аргументи от списъка по-долу.
+Пример:
+dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExample2" xml:space="preserve">
+    <value>dnGrep [папка] [търсене]
+Един или два аргумента без флагове: първият аргумент е папката, в която да бъде търсено, а вторият - регулярен израз на търсеното.
+Пример:
+dnGrep "C:\Program Files\dnGrep" t\w*t</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExit" xml:space="preserve">
+    <value>/x
+-x
+-exit
+    Излиза от dnGrep след приключване на действията, зададени от командния ред.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineFolder" xml:space="preserve">
+    <value>/f [папка]
+-f [папка]
+-folder [папка]
+    Задава път до папката, в която да бъде търсено. Може да бъде списък от папки, разделени със запетая или точка и запетая.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineHeader" xml:space="preserve">
+    <value>dnGrep:  Търсене в текстови файлове, документи на Word и Excel, файлове на PDF и архиви с помощта на текстово търсене, регулярни изрази, XPath и фонетични заявки.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineMultiline" xml:space="preserve">
+    <value>/ml [True/False]
+-ml [True/False]
+-multiline [True/False]
+    Задава стойност на флага за търсене „многоредово“ – True (истина) или False (неистина).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePathToIgnore" xml:space="preserve">
+    <value>/pi [модел]
+-pi [модел]
+-pathToIgnore [модел]
+    Задава модел на име на файл или папка, който при съвпадение да пренебрегва резултати. Може да бъде списък от модели, разделени със запетая или точка и запетая.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePathToMatch" xml:space="preserve">
+    <value>/pm [модел]
+-pm [модел]
+-pathToMatch [модел]
+    Задава модел на име на файл, на който да съответстват резултатите. Може да бъде списък от модели, разделени със запетая или точка и запетая.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePatternType" xml:space="preserve">
+    <value>/pt [вид]
+-pt [вид]
+-patternType [вид]
+    Задава вида на модела за съвпадение и пренебрегване - трябва да е едно от: „Asterisk“ (заместващи символи), „Regex“ (регулярен израз), или „Everything“ (ако инструментът за търсене Everything е наличен).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineReport" xml:space="preserve">
+    <value>/rpt [файл]
+-rpt [файл]
+-report [файл]
+    Създава файл с резултатите във формат за доклади след приключване на търсенето.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineSearchFor" xml:space="preserve">
+    <value>/s [търсене]
+-s [търсене]
+-searchFor [търсене]
+    Задава модела или текста, който да бъде търсен. Когато този аргумент е зададен, търсенето ще започне автоматично.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineSearchType" xml:space="preserve">
+    <value>/st [вид]
+-st [вид]
+-searchType [вид]
+    Задава вида на търсенето – трябва да е едно от: „PlainText“, „Regex“ (регулярен израз), „XPath“, or „Soundex“ (фонетично).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineTextReport" xml:space="preserve">
+    <value>/txt [файл]
+-txt [файл]
+-text [файл]
+    Създава текстов файл с резултатите след приключване на търсенето.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUsage" xml:space="preserve">
+    <value>Използване:</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineVersion" xml:space="preserve">
+    <value>Издание {0} създадено на {1}</value>
+    <comment>Help dialog text when running dnGrep from the command-line: 0 is the installed dnGrep version number; 1 is the installed dnGrep build date</comment>
+  </data>
+  <data name="Help_CmdLineWholeWord" xml:space="preserve">
+    <value>/ww [True/False]
+-ww [True/False]
+-wholeWord [True/False]
+    Задава стойност на флага за търсене „цели думи“ – True (истина) или False (неистина).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
   <data name="Help_DnGrepHelp" xml:space="preserve">
     <value>Помощ за dnGrep</value>
     <comment>Help dialog window title</comment>

@@ -462,6 +462,144 @@
     <value>Употреби</value>
     <comment>Bookmarks dialog, button text (accel)</comment>
   </data>
+  <data name="Help_CmdLineArguments" xml:space="preserve">
+    <value>Аргументи:</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineBooleanOperators" xml:space="preserve">
+    <value>/bo [True/False]
+-bo [True/False]
+-booleanOperators [True/False]
+    Поставља ознаку за претрагу Булових оператора – Истинито или Лажно.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineCaseSensitive" xml:space="preserve">
+    <value>/cs [True/False]
+-cs [True/False]
+-caseSensitive [True/False]
+    Поставља ознаку за претрагу која разликује велика и мала слова – Истинито or Лажно.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineCSVReport" xml:space="preserve">
+    <value>/csv [путањаДатотеке]
+-csv [путањаДатотеке]
+    Креирајте датотеку резултата у CSV формату након што се претрага заврши.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineDefaultArguments" xml:space="preserve">
+    <value>Сви аргументи који нису наведени ће подразумевано користити последње сачуване поставке.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineDotAsNewline" xml:space="preserve">
+    <value>/dn [True/False]
+-dn [True/False]
+-dotAsNewline [True/False]
+    Поставља тачку као ознаку за претрагу новог реда – Истинито или Лажно.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExample1" xml:space="preserve">
+    <value>dnGrep [аргументи]
+Коришћење било које комбинације аргумената са листе испод.
+Пример:
+dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExample2" xml:space="preserve">
+    <value>dnGrep [путања] [претрага]
+Један или два аргумента без заставица: први аргумент је фасцикла за претрагу, други регуларни израз за претрагу.
+Пример:
+dnGrep "C:\Program Files\dnGrep" t\w*t</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExit" xml:space="preserve">
+    <value>/x
+-x
+-exit
+    Затворити dnGrep након што се операције командне линије заврше.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineFolder" xml:space="preserve">
+    <value>/f [фасцикла]
+-f [фасцикла]
+-folder [фасцикла]
+    Поставља путању фасцикле за претрагу.  Може бити листа путања фасцикли одвојена зарезом или тачком и зарезом.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineHeader" xml:space="preserve">
+    <value>dnGrep:  Претражите текстуалне датотеке, Word и Excel документе, PDF, и архиве користећи текст, регуларни израз, XPath, и фонетске претраге.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineMultiline" xml:space="preserve">
+    <value>/ml [True/False]
+-ml [True/False]
+-multiline [True/False]
+    Поставља ознаку вишелинијске претраге – Истинито или Лажно.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePathToIgnore" xml:space="preserve">
+    <value>/pi [шаблон]
+-pi [шаблон]
+-pathToIgnore [шаблон]
+    Поставља шаблон имена датотеке или директоријума да изузима датотеке или фасцикле на путањи за претрагу. Може бити листа шаблона одвојених зарезом или тачком и зарезом.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePathToMatch" xml:space="preserve">
+    <value>/pm [шаблон]
+-pm [шаблон]
+-pathToMatch [шаблон]
+    Поставља шаблон назива датотеке тако да одговара датотекама на путањи за претрагу. Може бити листа шаблона одвојених зарезом или тачком и зарезом.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePatternType" xml:space="preserve">
+    <value>/pt [тип]
+-pt [тип]
+-patternType [тип]
+    Поставља тип подударања и игнорисање шаблона – треба бити једно од: "Asterisk" (џокер), "Regex" (регуларни израз), или "Everything" (ако је алатка „Everything“ инсталирана).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineReport" xml:space="preserve">
+    <value>/rpt [путањаДатотеке]
+-rpt [путањаДатотеке]
+-report [путањаДатотеке]
+    Креирајте датотеку резултата у формату извештаја након што се претрага заврши.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineSearchFor" xml:space="preserve">
+    <value>/s [претрага]
+-s [претрага]
+-searchFor [претрага]
+    Поставља шаблон или текст за тражење унутар скупа датотека. Када је овај аргумент постављен, претрага ће се покренути аутоматски.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineSearchType" xml:space="preserve">
+    <value>/st [тип]
+-st [тип]
+-searchType [тип]
+    Поставља тип претраге – мора бити један од: "PlainText", "Regex" (регуларни израз), "XPath", or "Soundex" (фонетско).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineTextReport" xml:space="preserve">
+    <value>/txt [путањаДатотеке]
+-txt [путањаДатотеке]
+-text [путањаДатотеке]
+    Креирајте датотеку резултата у текстуалном формату након што се претрага заврши.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUsage" xml:space="preserve">
+    <value>Употреба:</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineVersion" xml:space="preserve">
+    <value>Верзија {0} креирана {1}</value>
+    <comment>Help dialog text when running dnGrep from the command-line: 0 is the installed dnGrep version number; 1 is the installed dnGrep build date</comment>
+  </data>
+  <data name="Help_CmdLineWholeWord" xml:space="preserve">
+    <value>/ww [True/False]
+-ww [True/False]
+-wholeWord [True/False]
+    Поставља ознаку за претрагу целе речи – Истинито или Лажно.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
   <data name="Help_DnGrepHelp" xml:space="preserve">
     <value>dnGrep Помоћ</value>
     <comment>Help dialog window title</comment>

@@ -911,6 +911,338 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arguments:.
+        /// </summary>
+        public static string Help_CmdLineArguments {
+            get {
+                return ResourceManager.GetString("Help_CmdLineArguments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /bo [True/False]
+        ///-bo [True/False]
+        ///-booleanOperators [True/False]
+        ///    Sets the Boolean operators search flag – True or False..
+        /// </summary>
+        public static string Help_CmdLineBooleanOperators {
+            get {
+                return ResourceManager.GetString("Help_CmdLineBooleanOperators", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /cs [True/False]
+        ///-cs [True/False]
+        ///-caseSensitive [True/False]
+        ///    Sets case-sensitive search flag – True or False..
+        /// </summary>
+        public static string Help_CmdLineCaseSensitive {
+            get {
+                return ResourceManager.GetString("Help_CmdLineCaseSensitive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /csv [filePath]
+        ///-csv [filePath]
+        ///    Create results file in CSV format after search is complete..
+        /// </summary>
+        public static string Help_CmdLineCSVReport {
+            get {
+                return ResourceManager.GetString("Help_CmdLineCSVReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Any arguments not specified will default to the last saved user settings..
+        /// </summary>
+        public static string Help_CmdLineDefaultArguments {
+            get {
+                return ResourceManager.GetString("Help_CmdLineDefaultArguments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /dn [True/False]
+        ///-dn [True/False]
+        ///-dotAsNewline [True/False]
+        ///    Sets the dot as newline search flag – True or False..
+        /// </summary>
+        public static string Help_CmdLineDotAsNewline {
+            get {
+                return ResourceManager.GetString("Help_CmdLineDotAsNewline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to dnGrep [arguments]
+        ///Using any combination of arguments from the list below.
+        ///Example:
+        ///dnGrep /f &quot;C:\Program Files\dnGrep&quot; /pm *.txt;*.xml /s t\w*t /st Regex.
+        /// </summary>
+        public static string Help_CmdLineExample1 {
+            get {
+                return ResourceManager.GetString("Help_CmdLineExample1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to dnGrep [folderPath] [searchFor]
+        ///One or two arguments without flags: the first argument is the folder to search, the second the regular expression to search for.
+        ///Example:
+        ///dnGrep &quot;C:\Program Files\dnGrep&quot; t\w*t.
+        /// </summary>
+        public static string Help_CmdLineExample2 {
+            get {
+                return ResourceManager.GetString("Help_CmdLineExample2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /x
+        ///-x
+        ///-exit
+        ///    Exit dnGrep after command-line operations are complete..
+        /// </summary>
+        public static string Help_CmdLineExit {
+            get {
+                return ResourceManager.GetString("Help_CmdLineExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /fi [True/False]
+        ///-fi [True/False]
+        ///-fileInformation [True/False]
+        ///    Sets flag to include file and line information in the report output – True or False..
+        /// </summary>
+        public static string Help_CmdLineFileInformation {
+            get {
+                return ResourceManager.GetString("Help_CmdLineFileInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /f [folderPath]
+        ///-f [folderPath]
+        ///-folder [folderPath]
+        ///    Sets the folder path to search.  May be a comma- or semicolon-separated list of folder paths..
+        /// </summary>
+        public static string Help_CmdLineFolder {
+            get {
+                return ResourceManager.GetString("Help_CmdLineFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to dnGrep:  Search through text files, Word and Excel documents, PDFs, and archives using text, regular expression, XPath, and phonetic queries..
+        /// </summary>
+        public static string Help_CmdLineHeader {
+            get {
+                return ResourceManager.GetString("Help_CmdLineHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /sep [separator character or text]
+        ///-sep [separator character or text]
+        ///-listItemSeparator [separator character or text]
+        ///    Sets the character or string to separate list items on a line in the report output..
+        /// </summary>
+        public static string Help_CmdLineListItemSeparator {
+            get {
+                return ResourceManager.GetString("Help_CmdLineListItemSeparator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /ml [True/False]
+        ///-ml [True/False]
+        ///-multiline [True/False]
+        ///    Sets the multiline search flag – True or False..
+        /// </summary>
+        public static string Help_CmdLineMultiline {
+            get {
+                return ResourceManager.GetString("Help_CmdLineMultiline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /pi [pattern]
+        ///-pi [pattern]
+        ///-pathToIgnore [pattern]
+        ///    Sets the file or directory name pattern to exclude files or folders in the search path. May be a comma- or semicolon-separated list of patterns..
+        /// </summary>
+        public static string Help_CmdLinePathToIgnore {
+            get {
+                return ResourceManager.GetString("Help_CmdLinePathToIgnore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /pm [pattern]
+        ///-pm [pattern]
+        ///-pathToMatch [pattern]
+        ///    Sets the file name pattern to match files in the search path. May be a comma- or semicolon-separated list of patterns..
+        /// </summary>
+        public static string Help_CmdLinePathToMatch {
+            get {
+                return ResourceManager.GetString("Help_CmdLinePathToMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /pt [type]
+        ///-pt [type]
+        ///-patternType [type]
+        ///    Sets the type of match and ignore pattern – must be one of: &quot;Asterisk&quot; (wildcard), &quot;Regex&quot; (regular expression), or &quot;Everything&quot; (if the Everything search tool is installed)..
+        /// </summary>
+        public static string Help_CmdLinePatternType {
+            get {
+                return ResourceManager.GetString("Help_CmdLinePatternType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /rpt [filePath]
+        ///-rpt [filePath]
+        ///-report [filePath]
+        ///    Create results file in report format after search is complete..
+        /// </summary>
+        public static string Help_CmdLineReport {
+            get {
+                return ResourceManager.GetString("Help_CmdLineReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /rm [mode]
+        ///-rm [mode]
+        ///-reportMode [mode]
+        ///    Sets the report output mode for regular expression reports - must be one of: &quot;FullLine&quot;, &quot;Matches&quot;, or &quot;Groups&quot;..
+        /// </summary>
+        public static string Help_CmdLineReportMode {
+            get {
+                return ResourceManager.GetString("Help_CmdLineReportMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /s [searchFor]
+        ///-s [searchFor]
+        ///-searchFor [searchFor]
+        ///    Sets the pattern or text to search for within the set of files.  When this argument is set, the search will be run automatically..
+        /// </summary>
+        public static string Help_CmdLineSearchFor {
+            get {
+                return ResourceManager.GetString("Help_CmdLineSearchFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /st [type]
+        ///-st [type]
+        ///-searchType [type]
+        ///    Sets the type of search – must be one of: &quot;PlainText&quot;, &quot;Regex&quot; (regular expression), &quot;XPath&quot;, or &quot;Soundex&quot; (phonetic)..
+        /// </summary>
+        public static string Help_CmdLineSearchType {
+            get {
+                return ResourceManager.GetString("Help_CmdLineSearchType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /sl [True/False]
+        ///-sl [True/False]
+        ///-separateLines [True/False]
+        ///    Sets flag to output each match or group on a separate line in the regular expression report output – True or False..
+        /// </summary>
+        public static string Help_CmdLineSeparateLines {
+            get {
+                return ResourceManager.GetString("Help_CmdLineSeparateLines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /txt [filePath]
+        ///-txt [filePath]
+        ///-text [filePath]
+        ///    Create results file in text format after search is complete..
+        /// </summary>
+        public static string Help_CmdLineTextReport {
+            get {
+                return ResourceManager.GetString("Help_CmdLineTextReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /trim [True/False]
+        ///-trim [True/False]
+        ///-trimWhitespace [True/False]
+        ///    Sets flag to trim whitespace in the report output – True or False..
+        /// </summary>
+        public static string Help_CmdLineTrimWhitespace {
+            get {
+                return ResourceManager.GetString("Help_CmdLineTrimWhitespace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /scope [scope]
+        ///-scope [scope]
+        ///-uniqueScope [scope]
+        ///    Sets flag to set the scope of unique values in the regular expression report output – must be one of: &quot;Global&quot; or &quot;PerFile&quot;..
+        /// </summary>
+        public static string Help_CmdLineUniqueScope {
+            get {
+                return ResourceManager.GetString("Help_CmdLineUniqueScope", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /unique [True/False]
+        ///-unique [True/False]
+        ///-uniqueValues [True/False]
+        ///    Sets flag to output unique match or group values in the regular expression report output – True or False..
+        /// </summary>
+        public static string Help_CmdLineUniqueValues {
+            get {
+                return ResourceManager.GetString("Help_CmdLineUniqueValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usage:.
+        /// </summary>
+        public static string Help_CmdLineUsage {
+            get {
+                return ResourceManager.GetString("Help_CmdLineUsage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version {0} built on {1}.
+        /// </summary>
+        public static string Help_CmdLineVersion {
+            get {
+                return ResourceManager.GetString("Help_CmdLineVersion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /ww [True/False]
+        ///-ww [True/False]
+        ///-wholeWord [True/False]
+        ///    Sets the whole word search flag – True or False..
+        /// </summary>
+        public static string Help_CmdLineWholeWord {
+            get {
+                return ResourceManager.GetString("Help_CmdLineWholeWord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to dnGrep Help.
         /// </summary>
         public static string Help_DnGrepHelp {

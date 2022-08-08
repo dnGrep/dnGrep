@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
 using dnGREP.Common;
 using dnGREP.Localization;
+using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
 {
@@ -560,8 +562,39 @@ namespace dnGREP.WPF
             string assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
             string buildDate = AboutViewModel.GetLinkerTime(Assembly.GetExecutingAssembly()).ToString(CultureInfo.CurrentCulture);
 
-            return TranslationSource.Format(Localization.Properties.Resources.Help_CmdLine,
-                assemblyVersion, buildDate);
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine(Resources.Help_CmdLineHeader).AppendLine();
+            sb.AppendLine(TranslationSource.Format(Resources.Help_CmdLineVersion, assemblyVersion, buildDate)).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLineUsage).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLineExample1).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLineExample2).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLineDefaultArguments).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLineArguments).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLineFolder).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLinePathToMatch).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLinePathToIgnore).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLinePatternType).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLineSearchFor).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLineSearchType).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLineCaseSensitive).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLineWholeWord).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLineMultiline).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLineDotAsNewline).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLineBooleanOperators).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLineReportMode).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLineFileInformation).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLineTrimWhitespace).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLineUniqueValues).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLineUniqueScope).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLineSeparateLines).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLineListItemSeparator).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLineReport).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLineTextReport).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLineCSVReport).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLineExit);
+
+            return sb.ToString();
         }
     }
 }

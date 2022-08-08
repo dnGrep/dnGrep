@@ -646,6 +646,144 @@ Cree un archivo de resultados en formato CSV una vez completada la búsqueda.
 Salga de dnGrep una vez completadas las operaciones de la línea de comandos.</value>
     <comment>Help dialog text when running dnGrep from the command-line: {0} is the installed dnGrep version number; {1} is the installed dnGrep build date</comment>
   </data>
+  <data name="Help_CmdLineArguments" xml:space="preserve">
+    <value>Argumentos:</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineBooleanOperators" xml:space="preserve">
+    <value>/bo [True/False]
+-bo [True/False]
+-booleanOperators [True/False]
+Establece el indicador de búsqueda de operadores booleanos: True o False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineCaseSensitive" xml:space="preserve">
+    <value>/cs [True/False]
+-cs [True/False]
+-caseSensitive [True/False]
+Establece un indicador de búsqueda que distingue entre mayúsculas y minúsculas: True o False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineCSVReport" xml:space="preserve">
+    <value>/csv [ruta del archivo]
+-csv [ruta del archivo]
+Cree un archivo de resultados en formato CSV una vez completada la búsqueda.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineDefaultArguments" xml:space="preserve">
+    <value>Cualquier argumento no especificado será predeterminado a la última configuración de usuario guardada.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineDotAsNewline" xml:space="preserve">
+    <value>/dn [True/False]
+-dn [True/False]
+-dotAsNewline [True/False]
+Establece el punto como indicador de búsqueda de nueva línea: True o False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExample1" xml:space="preserve">
+    <value>dnGrep [argumentos]
+Utilizando cualquier combinación de argumentos de la siguiente lista
+Ejemplo:
+dnGrep /f "C:\Archivos de programa\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExample2" xml:space="preserve">
+    <value>dnGrep [ruta del archivo] [buscar]
+Uno o dos argumentos sin indicadores: el primer argumento es la carpeta a buscar, el segundo la expresión regular a buscar.
+Ejemplo:
+dnGrep "C:\Archivos de programa\dnGrep" t\w*t</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExit" xml:space="preserve">
+    <value>/x
+-x
+-exit
+Salga de dnGrep una vez completadas las operaciones de la línea de comandos.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineFolder" xml:space="preserve">
+    <value>/f [ruta de acceso]
+-f [ruta de acceso]
+-folder [ruta de acceso]
+Establece la ruta de la carpeta para buscar. Puede ser una lista de rutas de carpeta separadas por coma o punto y coma</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineHeader" xml:space="preserve">
+    <value>dnGrep: Busque en archivos de texto, documentos de Word y Excel, PDF y archivos utilizando texto, expresión regular, XPath y consultas fonéticas</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineMultiline" xml:space="preserve">
+    <value>/ml [True/False]
+-ml [True/False]
+-multiline [True/False]
+Establece el indicador de búsqueda multilínea: True o False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePathToIgnore" xml:space="preserve">
+    <value>/pi [patrón]
+-pi [patrón]
+-pathToIgnore [patrón]
+Establece el patrón de nombre de archivo o directorio para excluir archivos o carpetas en la ruta de búsqueda. Puede ser una lista de patrones separados por coma o punto y coma</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePathToMatch" xml:space="preserve">
+    <value>/pm [patrón]
+-pm [patrón]
+-pathToMatch [patrón]
+Establece el patrón de nombre de archivo para que coincida con los archivos de la ruta de búsqueda. Puede ser una lista de patrones separados por coma o punto y coma</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePatternType" xml:space="preserve">
+    <value>/pt [tipo]
+-pt [tipo]
+-patternType [tipo]
+Establece el tipo de patrón de coincidencia e ignorar: debe ser uno de: "Asterisk" "(comodín)," "Regex" "(expresión regular), o" "Everything" "(si la herramienta de búsqueda Everything es instalado).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineReport" xml:space="preserve">
+    <value>/rpt [ruta del archivo]
+-rpt [ruta del archivo]
+-report [ruta del archivo]
+Cree un archivo de resultados en formato de informe una vez completada la búsqueda.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineSearchFor" xml:space="preserve">
+    <value>/s [buscar]
+-s [buscar]
+-searchFor [buscar]
+Establece el patrón o el texto que se va a buscar dentro del conjunto de archivos. Cuando se establece este argumento, la búsqueda se ejecutará automáticamente.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineSearchType" xml:space="preserve">
+    <value>/st [tipo]
+-st [tipo]
+-searchType [tipo]
+Establece el tipo de búsqueda: debe ser uno de: "PlainText" (texto sin formato), "Regex" (expresión regular), "XPath", o "Soundex" (fonético).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineTextReport" xml:space="preserve">
+    <value>/txt [ruta del archivo]
+-txt [ruta del archivo]
+-text [ruta del archivo]
+Cree un archivo de resultados en formato de texto después de completar la búsqueda.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUsage" xml:space="preserve">
+    <value>Uso:</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineVersion" xml:space="preserve">
+    <value>Versión {0} basada en {1}</value>
+    <comment>Help dialog text when running dnGrep from the command-line: 0 is the installed dnGrep version number; 1 is the installed dnGrep build date</comment>
+  </data>
+  <data name="Help_CmdLineWholeWord" xml:space="preserve">
+    <value>/ww [True/False]
+-ww [True/False]
+-wholeWord [True/False]
+Establece el indicador de búsqueda de palabras completas: True o False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
   <data name="Help_DnGrepHelp" xml:space="preserve">
     <value>Ayuda dnGrep</value>
     <comment>Help dialog window title</comment>

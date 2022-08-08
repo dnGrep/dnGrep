@@ -549,6 +549,144 @@ Arguments:
     צא מ- dnGrep לאחר השלמת פעולות שורת הפקודה.</value>
     <comment>Help dialog text when running dnGrep from the command-line: {0} is the installed dnGrep version number; {1} is the installed dnGrep build date</comment>
   </data>
+  <data name="Help_CmdLineArguments" xml:space="preserve">
+    <value>Arguments:</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineBooleanOperators" xml:space="preserve">
+    <value>/bo [True/False]
+-bo [True/False]
+-booleanOperators [True/False]
+    קובע את הגדרת החיפוש של האופרטורים הבולאניים - נכון או לא נכון.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineCaseSensitive" xml:space="preserve">
+    <value>/cs [True/False]
+-cs [True/False]
+-caseSensitive [True/False]
+    Sets case sensitive search flag - True or False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineCSVReport" xml:space="preserve">
+    <value>/csv [filePath]
+-csv [filePath]
+    צור קובץ תוצאות בפורמט CSV לאחר סיום החיפוש.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineDefaultArguments" xml:space="preserve">
+    <value>Any arguments not specified will default to the last saved user settings.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineDotAsNewline" xml:space="preserve">
+    <value>/dn [True/False]
+-dn [True/False]
+-dotAsNewline [True/False]
+    מגדיר את "נקודה" כהגדרת חיפוש של "שורה חדשה" - נכון או לא נכון.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExample1" xml:space="preserve">
+    <value>dnGrep [arguments]
+שימוש בכל שילוב של ארגומנטים מהרשימה שלהלן.
+דוגמה:
+dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExample2" xml:space="preserve">
+    <value>dnGrep [folderPath] [searchFor]
+One or two arguments without flags: the first argument is the folder to search, the second the regular expression to search for.
+דוגמה:
+dnGrep "C:\Program Files\dnGrep" t\w*t</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExit" xml:space="preserve">
+    <value>/x
+-x
+-exit
+    צא מ- dnGrep לאחר השלמת פעולות שורת הפקודה.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineFolder" xml:space="preserve">
+    <value>/f [folderPath]
+-f [folderPath]
+-folder [folderPath]
+    Sets the folder path to search.  May be a comma or semi-colon separated list of folder paths.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineHeader" xml:space="preserve">
+    <value>dnGrep:  חיפוש בקבצי טקסט, Word ומסמכי Excel, PDFs, וארכיונים שמכילים טקסט, regular expression, XPath, ושאילתות פונטיות.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineMultiline" xml:space="preserve">
+    <value>/ml [True/False]
+-ml [True/False]
+-multiline [True/False]
+    Sets the multiline search flag - True or False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePathToIgnore" xml:space="preserve">
+    <value>/pi [pattern]
+-pi [pattern]
+-pathToIgnore [pattern]
+    Sets the file or directory name pattern to exclude files or folders in the search path. May be a comma or semi-colon separated list of patterns.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePathToMatch" xml:space="preserve">
+    <value>/pm [pattern]
+-pm [pattern]
+-pathToMatch [pattern]
+    Sets the file name pattern to match files in the search path. May be a comma or semi-colon separated list of patterns.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePatternType" xml:space="preserve">
+    <value>/pt [type]
+-pt [type]
+-patternType [type]
+    Sets the type of match and ignore pattern - must be one of: Asterisk, Regex, or Everything (if the Everything search tool is installed).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineReport" xml:space="preserve">
+    <value>/rpt [filePath]
+-rpt [filePath]
+-report [filePath]
+    צור קובץ תוצאות בפורמט דוח לאחר סיום החיפוש.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineSearchFor" xml:space="preserve">
+    <value>/s [searchFor]
+-s [searchFor]
+-searchFor [searchFor]
+    Sets the pattern or text to search for within the set of files.  When this argument is set, the search will be run automatically.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineSearchType" xml:space="preserve">
+    <value>/st [type]
+-st [type]
+-searchType [type]
+    Sets the type of search - must be one of: PlainText, Regex, XPath, or Soundex.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineTextReport" xml:space="preserve">
+    <value>/txt [filePath]
+-txt [filePath]
+-text [filePath]
+    צור קובץ תוצאות בפורמט טקסט לאחר סיום החיפוש.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUsage" xml:space="preserve">
+    <value>שימוש:</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineVersion" xml:space="preserve">
+    <value>גרסה {0} תאריך בנייה {1}</value>
+    <comment>Help dialog text when running dnGrep from the command-line: 0 is the installed dnGrep version number; 1 is the installed dnGrep build date</comment>
+  </data>
+  <data name="Help_CmdLineWholeWord" xml:space="preserve">
+    <value>/ww [True/False]
+-ww [True/False]
+-wholeWord [True/False]
+    Sets the whole word search flag - True or False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
   <data name="Help_DnGrepHelp" xml:space="preserve">
     <value>עזרה dnGrep</value>
     <comment>Help dialog window title</comment>
