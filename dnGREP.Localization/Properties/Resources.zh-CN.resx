@@ -2574,4 +2574,76 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>在预览中显示纯文本</value>
     <comment>Options dialog, plug-ins checkbox label</comment>
   </data>
+  <data name="ReportOptionsWindow_CaptureGroupsOnly" xml:space="preserve">
+    <value>仅捕获组</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_FilterForUniqueValues" xml:space="preserve">
+    <value>唯一值过滤器</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_FullLines" xml:space="preserve">
+    <value>整行</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Global" xml:space="preserve">
+    <value>全局</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="Main_MoreMenu_Report_Options" xml:space="preserve">
+    <value>报告选项…</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="ReportOptionsWindow_CSV" xml:space="preserve">
+    <value>CSV</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
+    <value>取消</value>
+    <comment>Report options dialog, close button</comment>
+  </data>
+  <data name="ReportOptionsWindow_IncludeFileAndLineInformation" xml:space="preserve">
+    <value>包括文件和行信息</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_SeparatorForMultipleMatchesOrGroupsOnALine" xml:space="preserve">
+    <value>一行上多个匹配项或组的分隔符</value>
+    <comment>Report options dialog, text box label</comment>
+  </data>
+  <data name="ReportOptionsWindow_PerFile" xml:space="preserve">
+    <value>每个文件</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_PressF1ForHelp" xml:space="preserve">
+    <value>按 F1 获取帮助</value>
+    <comment>Report options dialog, help label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Preview" xml:space="preserve">
+    <value>预览：</value>
+    <comment>Report options dialog, label</comment>
+  </data>
+  <data name="ReportOptionsWindow_ReportOptions" xml:space="preserve">
+    <value>报告选项</value>
+    <comment>Report options dialog, window title</comment>
+  </data>
+  <data name="ReportOptionsWindow_Save" xml:space="preserve">
+    <value>保存</value>
+    <comment>Report options dialog, button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_MatchesOnly" xml:space="preserve">
+    <value>仅匹配</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_ShowEachMatchOrGroupOnSeparateLine" xml:space="preserve">
+    <value>在单独的行上显示每个匹配项或组</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Text" xml:space="preserve">
+    <value>文本</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_TrimWhitespace" xml:space="preserve">
+    <value>去掉空白</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
 </root>
