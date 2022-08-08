@@ -2574,4 +2574,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>(като текст)</value>
     <comment>Preview window, file label when binary file is shown as text</comment>
   </data>
+  <data name="Help_CmdLineFileInformation" xml:space="preserve">
+    <value>/fi [True/False]
+-fi [True/False]
+-fileInformation [True/False]
+    Задава стойност на флага „информация за файла в отчета“  – True (истина) или False (неистина).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
 </root>
