@@ -2575,4 +2575,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Показывать обычный текст в окне предварительного просмотра</value>
     <comment>Options dialog, plug-ins checkbox label</comment>
   </data>
+  <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+    <comment>Report options dialog, close button</comment>
+  </data>
+  <data name="ReportOptionsWindow_Save" xml:space="preserve">
+    <value>Применить</value>
+    <comment>Report options dialog, button label</comment>
+  </data>
 </root>
