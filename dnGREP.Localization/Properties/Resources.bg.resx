@@ -2606,7 +2606,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="ReportOptionsWindow_FullLines" xml:space="preserve">
-    <value>Цели редове</value>
+    <value>Целите редове</value>
     <comment>Report options dialog, radio button label</comment>
   </data>
   <data name="ReportOptionsWindow_Global" xml:space="preserve">
@@ -2614,7 +2614,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Report options dialog, radio button label</comment>
   </data>
   <data name="ReportOptionsWindow_IncludeFileAndLineInformation" xml:space="preserve">
-    <value>Включително информация за файла и реда</value>
+    <value>Включва информация за файла и реда</value>
     <comment>Report options dialog, checkbox label</comment>
   </data>
   <data name="ReportOptionsWindow_MatchesOnly" xml:space="preserve">
@@ -2626,7 +2626,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Report options dialog, radio button label</comment>
   </data>
   <data name="ReportOptionsWindow_Preview" xml:space="preserve">
-    <value>Преглед:</value>
+    <value>Преглед като:</value>
     <comment>Report options dialog, label</comment>
   </data>
   <data name="ReportOptionsWindow_ReportOptions" xml:space="preserve">
@@ -2638,7 +2638,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Report options dialog, button label</comment>
   </data>
   <data name="ReportOptionsWindow_SeparatorForMultipleMatchesOrGroupsOnALine" xml:space="preserve">
-    <value>Разделител при повече съвпадения или групи на ред</value>
+    <value>Разделител при повече съвпадения или групи на един ред</value>
     <comment>Report options dialog, text box label</comment>
   </data>
   <data name="ReportOptionsWindow_Text" xml:space="preserve">
