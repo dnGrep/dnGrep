@@ -545,7 +545,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/pt [вид]
 -pt [вид]
 -patternType [вид]
-    Задава вида на модела за съвпадение и пренебрегване - трябва да е едно от: „Asterisk“ (заместващи символи), „Regex“ (регулярен израз), или „Everything“ (ако инструментът за търсене Everything е наличен).</value>
+    Задава вид на модела за съвпадение и пренебрегване - трябва да е едно от: „Asterisk“ (заместващи символи), „Regex“ (регулярен израз), или „Everything“ (ако инструментът за търсене Everything е наличен).</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineReport" xml:space="preserve">
@@ -559,7 +559,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/s [търсене]
 -s [търсене]
 -searchFor [търсене]
-    Задава модела или текста, който да бъде търсен. Когато този аргумент е зададен, търсенето ще започне автоматично.</value>
+    Задава модел или текст, който да бъде търсен. Когато този аргумент е зададен, търсенето ще започне автоматично.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineSearchType" xml:space="preserve">
@@ -2602,7 +2602,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Report options dialog, checkbox label</comment>
   </data>
   <data name="Main_MoreMenu_Report_Options" xml:space="preserve">
-    <value>Настройки на отчети</value>
+    <value>Настройки на отчети…</value>
     <comment>Main window, More button menu item label (accel)</comment>
   </data>
   <data name="ReportOptionsWindow_FullLines" xml:space="preserve">
@@ -2652,5 +2652,47 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="ReportOptionsWindow_CSV" xml:space="preserve">
     <value>CSV</value>
     <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="Help_CmdLineSeparateLines" xml:space="preserve">
+    <value>/sl [True/False]
+-sl [True/False]
+-separateLines [True/False]
+    Задава дали съвпадението или групата да бъдат на отделен ред в отчета – True (истина) или False (неистина).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineTrimWhitespace" xml:space="preserve">
+    <value>/trim [True/False]
+-trim [True/False]
+-trimWhitespace [True/False]
+    Задава дали да бъдат премахнати висящите интервали в отчета – True (истина) или False (неистина).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUniqueScope" xml:space="preserve">
+    <value>/scope [scope]
+-scope [scope]
+-uniqueScope [scope]
+    Задава обхвата на уникалните стойности на регулярни изрази в отчета – трябва да е едно от: „Global“ или „PerFile“.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineListItemSeparator" xml:space="preserve">
+    <value>/sep [знак или низ за разделител]
+-sep [знак или низ за разделител]
+-listItemSeparator [знак или низ за разделител]
+    Задава знак или низ, който да бъде използван за разделител между елементите на един ред в отчетите.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineReportMode" xml:space="preserve">
+    <value>/rm [вид]
+-rm [вид]
+-reportMode [вид]
+    Задава вид на отчета за регулярни изрази – трябва да е едно от: „FullLine“, „Matches“ или „Groups“.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUniqueValues" xml:space="preserve">
+    <value>/unique [True/False]
+-unique [True/False]
+-uniqueValues [True/False]
+    Задава дали съвпадението или групата да бъдат изведени в отчета – True (истина) или False (неистина).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
 </root>
