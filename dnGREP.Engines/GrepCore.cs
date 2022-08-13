@@ -315,18 +315,20 @@ namespace dnGREP.Common
 
         public int Replace(IEnumerable<ReplaceDef> files, SearchType searchType, string searchPattern, string replacePattern, GrepSearchOption searchOptions, int codePage)
         {
-            string tempFolder = Utils.GetTempFolder();
+            string undoFolder = Utils.GetUndoFolder();
 
-            if (files == null || !files.Any() || !Directory.Exists(tempFolder))
+            if (files == null || !files.Any() || !Directory.Exists(undoFolder))
                 return 0;
 
             GrepEngineBase.ResetGuidxCache();
 
             replacePattern = Utils.ReplaceSpecialCharacters(replacePattern);
 
+            bool restoreLastModifiedDate = GrepSettings.Instance.Get<bool>(GrepSettings.Key.RestoreLastModifiedDate);
+
             int processedFiles = 0;
             Utils.CancelSearch = false;
-            string tempFileName = null;
+            string undoFileName = null;
 
             try
             {
@@ -336,26 +338,26 @@ namespace dnGREP.Common
 
                     // the value in the files dictionary is the temp file name assigned by
                     // the caller for any possible Undo operation
-                    tempFileName = Path.Combine(tempFolder, item.BackupName);
+                    undoFileName = Path.Combine(undoFolder, item.BackupName);
                     IGrepEngine engine = GrepEngineFactory.GetReplaceEngine(item.OrginalFile, SearchParams, FileFilter);
 
                     try
                     {
                         processedFiles++;
                         // Copy file					
-                        Utils.CopyFile(item.OrginalFile, tempFileName, true);
+                        Utils.CopyFile(item.OrginalFile, undoFileName, true);
                         Utils.DeleteFile(item.OrginalFile);
 
                         Encoding encoding = Encoding.Default;
                         if (codePage > -1)
                             encoding = Encoding.GetEncoding(codePage);
-                        else if (!Utils.IsBinary(tempFileName))
-                            encoding = Utils.GetFileEncoding(tempFileName);
+                        else if (!Utils.IsBinary(undoFileName))
+                            encoding = Utils.GetFileEncoding(undoFileName);
 
                         // The UTF-8 encoding returned from Encoding.GetEncoding("utf-8") includes the BOM - see Encoding.GetPreamble()
                         // If this file does not have the BOM, then change to an encoder without the BOM so the BOM is not added in 
                         // the replace operation
-                        if (encoding is UTF8Encoding && !Utils.HasUtf8ByteOrderMark(tempFileName))
+                        if (encoding is UTF8Encoding && !Utils.HasUtf8ByteOrderMark(undoFileName))
                         {
                             encoding = new UTF8Encoding(false);
                         }
@@ -365,16 +367,30 @@ namespace dnGREP.Common
                             break;
                         }
 
-                        if (!engine.Replace(tempFileName, item.OrginalFile, searchPattern, replacePattern, searchType, searchOptions, encoding, item.ReplaceItems))
+                        if (!engine.Replace(undoFileName, item.OrginalFile, searchPattern, replacePattern, searchType, searchOptions, encoding, item.ReplaceItems))
                         {
                             throw new ApplicationException("Replace failed for file: " + item.OrginalFile);
                         }
+                        
 
                         if (!Utils.CancelSearch)
                             ProcessedFile(this, new ProgressStatus(false, processedFiles, processedFiles, null, item.OrginalFile));
 
 
-                        File.SetAttributes(item.OrginalFile, File.GetAttributes(tempFileName));
+                        File.SetAttributes(item.OrginalFile, File.GetAttributes(undoFileName));
+                        
+                        if (restoreLastModifiedDate)
+                        {
+                            try
+                            {
+                                FileInfo info = new FileInfo(item.OrginalFile);
+                                info.LastWriteTime = item.LastWriteTime;
+                            }
+                            catch (System.IO.IOException ex)
+                            {
+                                throw new ApplicationException("Failed to reset last write time for file: " + item.OrginalFile, ex);
+                            }
+                        }
 
                         GrepEngineFactory.ReturnToPool(item.OrginalFile, engine);
 
@@ -382,7 +398,7 @@ namespace dnGREP.Common
                         {
                             // Replace the file
                             Utils.DeleteFile(item.OrginalFile);
-                            Utils.CopyFile(tempFileName, item.OrginalFile, true);
+                            Utils.CopyFile(undoFileName, item.OrginalFile, true);
                             break;
                         }
                     }
@@ -392,10 +408,10 @@ namespace dnGREP.Common
                         try
                         {
                             // Replace the file
-                            if (File.Exists(tempFileName) && File.Exists(item.OrginalFile))
+                            if (File.Exists(undoFileName) && File.Exists(item.OrginalFile))
                             {
                                 Utils.DeleteFile(item.OrginalFile);
-                                Utils.CopyFile(tempFileName, item.OrginalFile, true);
+                                Utils.CopyFile(undoFileName, item.OrginalFile, true);
                             }
                         }
                         catch
@@ -416,8 +432,8 @@ namespace dnGREP.Common
 
         public bool Undo(IEnumerable<ReplaceDef> undoMap)
         {
-            string tempFolder = Utils.GetTempFolder();
-            if (!Directory.Exists(tempFolder))
+            string undoFolder = Utils.GetUndoFolder();
+            if (!Directory.Exists(undoFolder) || Directory.IsEmpty(undoFolder))
             {
                 logger.Error("Failed to undo replacement as temporary directory was removed.");
                 return false;
@@ -426,7 +442,7 @@ namespace dnGREP.Common
             {
                 foreach (var item in undoMap)
                 {
-                    string sourceFile = Path.Combine(tempFolder, item.BackupName);
+                    string sourceFile = Path.Combine(undoFolder, item.BackupName);
                     if (File.Exists(sourceFile))
                         Utils.CopyFile(sourceFile, item.OrginalFile, true);
                 }

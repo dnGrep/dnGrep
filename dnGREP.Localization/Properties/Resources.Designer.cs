@@ -4677,6 +4677,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Keep previous file modified date.
+        /// </summary>
+        public static string Replace_KeepPreviousFileModifiedDate {
+            get {
+                return ResourceManager.GetString("Replace_KeepPreviousFileModifiedDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mark all matches in this file for replacement [Ctrl+A].
         /// </summary>
         public static string Replace_MarkAllMatchesInThisFileForReplacement {
@@ -4961,6 +4970,15 @@ namespace dnGREP.Localization.Properties {
         public static string Replace_UndoMarkReplaceOnThisMatch {
             get {
                 return ResourceManager.GetString("Replace_UndoMarkReplaceOnThisMatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When checked, the &apos;Date modified&apos; will not be changed on replace.
+        /// </summary>
+        public static string Replace_WhenCheckedTheDateModifiedWillNotBeChangedOnReplace {
+            get {
+                return ResourceManager.GetString("Replace_WhenCheckedTheDateModifiedWillNotBeChangedOnReplace", resourceCulture);
             }
         }
         
