@@ -362,4 +362,8 @@
     <value>e le</value>
     <comment>Main window, filter by size label</comment>
   </data>
+  <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
+    <value>Annulla</value>
+    <comment>Report options dialog, close button</comment>
+  </data>
 </root>
