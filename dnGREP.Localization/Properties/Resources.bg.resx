@@ -2695,4 +2695,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     Задава дали съвпадението или групата да бъдат изведени в отчета – True (истина) или False (неистина).</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
+  <data name="Replace_WhenCheckedTheDateModifiedWillNotBeChangedOnReplace" xml:space="preserve">
+    <value>Ако е отметнато, датата на промяна на файла не се сменя при заместване</value>
+    <comment>Replace window, Keep modified date checkbox tooltip</comment>
+  </data>
+  <data name="Replace_KeepPreviousFileModifiedDate" xml:space="preserve">
+    <value>Запазване на датата на промяна на файла</value>
+    <comment>Replace window, Keep modified date checkbox label</comment>
+  </data>
 </root>
