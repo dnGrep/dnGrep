@@ -511,6 +511,11 @@ namespace dnGREP.WPF.UserControls
             ShowFileProperties();
         }
 
+        private void btnMakeWritable_Click(object sender, RoutedEventArgs e)
+        {
+            MakeFilesWritable();
+        }
+
         private void btnExclude_Click(object sender, RoutedEventArgs e)
         {
             ExcludeLines();
@@ -714,6 +719,42 @@ namespace dnGREP.WPF.UserControls
             var lines = GetSelectedGrepLineText();
             if (!string.IsNullOrWhiteSpace(lines))
                 NativeMethods.SetClipboardText(lines);
+        }
+
+        private void MakeFilesWritable()
+        {
+            List<FormattedGrepResult> files = new List<FormattedGrepResult>();
+            foreach (var item in inputData.SelectedItems)
+            {
+                if (item is FormattedGrepLine lineNode)
+                {
+                    var grepResult = lineNode.Parent;
+                    if (!files.Contains(grepResult))
+                    {
+                        files.Add(grepResult);
+                    }
+                }
+                if (item is FormattedGrepResult fileNode)
+                {
+                    if (!files.Contains(fileNode))
+                    {
+                        files.Add(fileNode);
+                    }
+                }
+            }
+
+            foreach (var item in files)
+            {
+                if (File.Exists(item.GrepResult.FileNameReal))
+                {
+                    var info = new FileInfo(item.GrepResult.FileNameReal);
+                    if (info.IsReadOnly)
+                    {
+                        info.IsReadOnly = false;
+                        item.SetLabel();
+                    }
+                }
+            }
         }
 
         private void ExcludeLines()

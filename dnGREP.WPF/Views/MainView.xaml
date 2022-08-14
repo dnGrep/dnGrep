@@ -840,9 +840,16 @@
                                 TabIndex="83" />
                         <Button Margin="3" Padding="8,3"
                                 Content="{l:Loc Key='Main_ReplaceButton'}"
+                                ToolTipService.ShowOnDisabled="True"
                                 Command="{Binding ReplaceCommand}"
                                 TabIndex="84" 
-                                Visibility="{Binding ReplaceVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                                Visibility="{Binding ReplaceVisible, Converter={StaticResource BoolToVisibilityConverter}}">
+                            <Button.ToolTip>
+                                <ToolTip Visibility="{Binding ReplaceButtonToolTipVisible, Converter={StaticResource BoolToHiddenVisibilityConverter}}">
+                                    <TextBlock Text="{Binding ReplaceButtonToolTip}"/>
+                                </ToolTip>
+                            </Button.ToolTip>
+                        </Button>
                         <my:SplitButton Margin="3" Padding="8,3"
                                 Content="{l:Loc Key='Main_SortButton'}"
                                 Command="{Binding SortCommand}"

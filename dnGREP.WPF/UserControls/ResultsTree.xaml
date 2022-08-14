@@ -153,10 +153,11 @@
                           Visibility="{Binding CustomEditorConfigured, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 <MenuItem Header="{l:Loc Key='Main_Results_OpenContainingFolder'}" Click="btnOpenContainingFolder_Click" IsEnabled="{Binding HasSelection}" />
                 <MenuItem Header="{l:Loc Key='Main_Results_ShowFileProperties'}" Click="btnShowFileProperties_Click" IsEnabled="{Binding HasSelection}" />
+                <MenuItem Header="{l:Loc Key='Main_Results_RenameFile'}" Click="btnRenameFile_Click" IsEnabled="{Binding HasSingleSelection}" />
+                <MenuItem Header="{l:Loc Key='Main_Results_MakeWritable'}" Click="btnMakeWritable_Click" IsEnabled="{Binding HasReadOnlySelection}" />
+                <Separator />
                 <MenuItem Header="{l:Loc Key='Main_Results_CompareFiles'}" Command="{Binding CompareFilesCommand}"
                           Visibility="{Binding CompareApplicationConfigured, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                <Separator />
-                <MenuItem Header="{l:Loc Key='Main_Results_RenameFile'}" Click="btnRenameFile_Click" IsEnabled="{Binding HasSingleSelection}" />
                 <MenuItem Header="{l:Loc Key='Main_Results_CopyFileNames'}" Click="btnCopyFileNames_Click" IsEnabled="{Binding HasSelection}" />
                 <MenuItem Header="{l:Loc Key='Main_Results_CopyFullFilePaths'}" Click="btnCopyFullFilePath_Click" IsEnabled="{Binding HasSelection}" />
                 <MenuItem Header="{l:Loc Key='Main_Results_CopyLinesOfText'}" Click="btnCopyGrepLine_Click" IsEnabled="{Binding HasGrepLineSelection}" />
@@ -168,6 +169,7 @@
                 <MenuItem Header="{l:Loc Key='Main_Results_PreviousFile'}" Click="btnPreviousFile_Click" InputGestureText="Shift+F4"/>
                 <MenuItem Header="{l:Loc Key='Main_Results_ExpandAll'}" Click="btnExpandAll_Click" InputGestureText="F6" />
                 <MenuItem Header="{l:Loc Key='Main_Results_CollapseAll'}" Click="btnCollapseAll_Click" InputGestureText="Shift+F6"/>
+                <Separator />
                 <MenuItem Header="{l:Loc Key='Main_Results_ResetZoom'}" Click="btnResetZoom_Click" />
             </ContextMenu>
         </TreeView.ContextMenu>

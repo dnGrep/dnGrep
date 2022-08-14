@@ -1769,10 +1769,24 @@ namespace dnGREP.Common
                 return true;
             }
 
+            if (result.IsReadOnlyFileType)
+            {
+                return true;
+            }
+
             if (File.Exists(result.FileNameReal))
             {
-                if (File.GetAttributes(result.FileNameReal).HasFlag(FileAttributes.ReadOnly) || result.ReadOnly)
-                    return true;
+                return File.GetAttributes(result.FileNameReal).HasFlag(FileAttributes.ReadOnly);
+            }
+
+            return false;
+        }
+
+        public static bool HasReadOnlyAttributeSet(GrepSearchResult result)
+        {
+            if (File.Exists(result.FileNameReal))
+            {
+                return File.GetAttributes(result.FileNameReal).HasFlag(FileAttributes.ReadOnly);
             }
 
             return false;

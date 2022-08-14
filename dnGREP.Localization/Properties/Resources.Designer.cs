@@ -2103,6 +2103,42 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No matches to replace.
+        /// </summary>
+        public static string Main_ReplaceTooltip_NoMatchesToReplace {
+            get {
+                return ResourceManager.GetString("Main_ReplaceTooltip_NoMatchesToReplace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No writable files in results.
+        /// </summary>
+        public static string Main_ReplaceTooltip_NoWritableFilesInResults {
+            get {
+                return ResourceManager.GetString("Main_ReplaceTooltip_NoWritableFilesInResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace using Boolean operators with text search only.
+        /// </summary>
+        public static string Main_ReplaceTooltip_ReplaceUsingBooleanOperators {
+            get {
+                return ResourceManager.GetString("Main_ReplaceTooltip_ReplaceUsingBooleanOperators", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search parameters have changed.
+        /// </summary>
+        public static string Main_ReplaceTooltip_SearchParametersHaveChanged {
+            get {
+                return ResourceManager.GetString("Main_ReplaceTooltip_SearchParametersHaveChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Re_place with:.
         /// </summary>
         public static string Main_ReplaceWith {
@@ -2297,6 +2333,15 @@ namespace dnGREP.Localization.Properties {
         public static string Main_Results_ExpandAll {
             get {
                 return ResourceManager.GetString("Main_Results_ExpandAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Make writable.
+        /// </summary>
+        public static string Main_Results_MakeWritable {
+            get {
+                return ResourceManager.GetString("Main_Results_MakeWritable", resourceCulture);
             }
         }
         

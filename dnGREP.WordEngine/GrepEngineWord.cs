@@ -157,7 +157,7 @@ namespace dnGREP.Engines.Word
                         {
                             result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
                         }
-                        result.ReadOnly = true;
+                        result.IsReadOnlyFileType = true;
                         if (PreviewPlainText)
                         {
                             result.FileInfo.TempFile = WriteTempFile(docText, file);

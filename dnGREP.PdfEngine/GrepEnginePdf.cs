@@ -81,7 +81,7 @@ namespace dnGREP.Engines.Pdf
 
                     foreach (GrepSearchResult result in results)
                     {
-                        result.ReadOnly = true;
+                        result.IsReadOnlyFileType = true;
                         result.FileNameDisplayed = file;
                         if (PreviewPlainText)
                         {
