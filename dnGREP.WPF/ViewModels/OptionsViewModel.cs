@@ -1671,6 +1671,7 @@ namespace dnGREP.WPF
         internal void SetUnchanged()
         {
             origIsEnabled = isEnabled;
+            origPreviewTextEnabled = previewTextEnabled;
             origAddExtensions = addExtensions;
             origRemExtensions = remExtensions;
         }
