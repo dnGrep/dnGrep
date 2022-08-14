@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using dnGREP.Common;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Drawing;
 using DocumentFormat.OpenXml.Packaging;
@@ -26,6 +27,11 @@ namespace dnGREP.Engines.OpenXml
 
                 for (int idx = 0; idx < numberOfSlides; idx++)
                 {
+                    if (Utils.CancelSearch)
+                    {
+                        break;
+                    }
+
                     string text = GetSlideText(ppt, idx);
 
                     yield return new Tuple<int, string>(idx + 1, text);
@@ -70,6 +76,11 @@ namespace dnGREP.Engines.OpenXml
             var paragraphs = slidePart.Slide.Descendants<Paragraph>();
             foreach (Paragraph paragraph in paragraphs)
             {
+                if (Utils.CancelSearch)
+                {
+                    break;
+                }
+
                 var elements = paragraph.Descendants();
                 foreach (OpenXmlElement element in elements)
                 {
@@ -92,6 +103,11 @@ namespace dnGREP.Engines.OpenXml
                 var texts = slidePart.NotesSlidePart.NotesSlide.Descendants<Text>();
                 foreach (Text text in texts)
                 {
+                    if (Utils.CancelSearch)
+                    {
+                        break;
+                    }
+
                     if (text.Parent is Field field && field.Type.HasValue && field.Type.Value == "slidenum")
                     {
                         continue;
@@ -102,6 +118,10 @@ namespace dnGREP.Engines.OpenXml
                 }
             }
 
+            if (Utils.CancelSearch)
+            {
+                sb.Clear();
+            }
 
             return sb.ToString();
         }
