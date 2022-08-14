@@ -1966,4 +1966,12 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <value>Type</value>
     <comment>Options dialog, Personalization group</comment>
   </data>
+  <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
+    <value>Abbrechen</value>
+    <comment>Report options dialog, close button</comment>
+  </data>
+  <data name="ReportOptionsWindow_Save" xml:space="preserve">
+    <value>Sichern</value>
+    <comment>Report options dialog, button label</comment>
+  </data>
 </root>
