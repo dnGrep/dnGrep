@@ -60,9 +60,19 @@
                 </TextBlock>
             </StackPanel>
 
-            <TextBlock Grid.Row="1" Grid.Column="1"
-                   Text="{Binding Version, FallbackValue='Version'}"
-                   Style="{StaticResource ThemedTextBlock}" />
+            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                <TextBlock Grid.Row="1" Grid.Column="1"
+                       Text="{Binding Version, FallbackValue='Version'}"
+                       Style="{StaticResource ThemedTextBlock}" />
+                <Border Margin="16,0,0,0" Padding="0" Height="20" Width="20" 
+                        Background="#B0ffffff" CornerRadius="2">
+                    <Button Command="{Binding CopyVersionCommand}"
+                            Background="Transparent" BorderBrush="Transparent">
+                        <Image Source="/dnGREP;component/Images/copy.png" Stretch="Uniform"/>
+                    </Button>
+                </Border>
+                    
+            </StackPanel>
             <TextBlock Grid.Row="2" Grid.Column="1"
                    Text="{Binding BuildDate, FallbackValue='Build date'}"
                    Style="{StaticResource ThemedTextBlock}" />

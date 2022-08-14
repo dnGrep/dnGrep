@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Globalization;
 using System.Reflection;
+using System.Windows.Input;
 using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
 using Resources = dnGREP.Localization.Properties.Resources;
@@ -18,6 +19,10 @@ namespace dnGREP.WPF
             ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
             DialogFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.DialogFontSize);
         }
+
+        public ICommand CopyVersionCommand => new RelayCommand(
+            p => NativeMethods.SetClipboardText(Version));
+
 
         private string applicationFontFamily;
         public string ApplicationFontFamily

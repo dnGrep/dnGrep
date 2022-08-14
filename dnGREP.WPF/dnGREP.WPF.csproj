@@ -294,6 +294,7 @@
     <Resource Include="Images\checks5.png" />
     <Resource Include="Images\checks6.png" />
     <Resource Include="Images\checks7.png" />
+    <Resource Include="Images\copy.png" />
     <Content Include="Themes\Sunset.xaml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
