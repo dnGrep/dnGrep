@@ -2703,4 +2703,24 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Запазване на датата на промяна на файла</value>
     <comment>Replace window, Keep modified date checkbox label</comment>
   </data>
+  <data name="Main_ReplaceTooltip_NoMatchesToReplace" xml:space="preserve">
+    <value>Няма съвпадения, които да бъдат заменени</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_ReplaceUsingBooleanOperators" xml:space="preserve">
+    <value>Заменяне чрез булеви оператори само с текстово търсене</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_SearchParametersHaveChanged" xml:space="preserve">
+    <value>Параметрите на търсенето са променени</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_Results_MakeWritable" xml:space="preserve">
+    <value>Получаване на права за писане</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_NoWritableFilesInResults" xml:space="preserve">
+    <value>В резултатите няма файлове, които имат права за писане</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
 </root>
