@@ -760,6 +760,7 @@ namespace dnGREP.WPF.UserControls
         private void ExcludeLines()
         {
             List<FormattedGrepResult> files = new List<FormattedGrepResult>();
+            int indexOfFirst = -1;
             foreach (var item in inputData.SelectedItems)
             {
                 if (item is FormattedGrepLine lineNode)
@@ -777,10 +778,31 @@ namespace dnGREP.WPF.UserControls
                         files.Add(fileNode);
                     }
                 }
+
+                if (files.Count == 1)
+                {
+                    indexOfFirst = inputData.IndexOf(files.First());
+                }
             }
 
+            inputData.DeselectAllItems();
+
             foreach (var item in files)
+            {
                 inputData.Remove(item);
+            }
+
+            if (indexOfFirst > -1 && inputData.Count > 0)
+            {
+                // the first item was removed, select the new item in that position
+                int idx = indexOfFirst;
+                if (idx >= inputData.Count) idx = inputData.Count - 1;
+
+                var nextResult = inputData[idx];
+                var tvi = GetTreeViewItem(treeView, nextResult, null, SearchDirection.Down, 1);
+                tvi.IsSelected = false;
+                tvi.IsSelected = true;
+            }
         }
 
         private void treeView_MouseDown(object sender, MouseButtonEventArgs e)
