@@ -125,7 +125,7 @@ namespace dnGREP.WPF.UserControls
             {
                 bool isFunctionKeyDown = Keyboard.IsKeyDown(Key.F1) || Keyboard.IsKeyDown(Key.F2) || Keyboard.IsKeyDown(Key.F3) ||
                     Keyboard.IsKeyDown(Key.F4) || Keyboard.IsKeyDown(Key.F5) || Keyboard.IsKeyDown(Key.F6) ||
-                    Keyboard.IsKeyDown(Key.F7) || Keyboard.IsKeyDown(Key.F7) || Keyboard.IsKeyDown(Key.F9) ||
+                    Keyboard.IsKeyDown(Key.F7) || Keyboard.IsKeyDown(Key.F8) || Keyboard.IsKeyDown(Key.F9) ||
                     Keyboard.IsKeyDown(Key.F10) || Keyboard.IsKeyDown(Key.F11) || Keyboard.IsKeyDown(Key.F12);
 
                 if (treeView.MultiSelectRootLevelOnly)

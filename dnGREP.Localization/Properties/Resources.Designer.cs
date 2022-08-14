@@ -1797,6 +1797,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Maximize results (F7).
+        /// </summary>
+        public static string Main_MaximizeResults {
+            get {
+                return ResourceManager.GetString("Main_MaximizeResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _About.
         /// </summary>
         public static string Main_Menu_About {
@@ -2180,6 +2189,15 @@ namespace dnGREP.Localization.Properties {
         public static string Main_ResetOptions {
             get {
                 return ResourceManager.GetString("Main_ResetOptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restore results (F7).
+        /// </summary>
+        public static string Main_RestoreResults {
+            get {
+                return ResourceManager.GetString("Main_RestoreResults", resourceCulture);
             }
         }
         
@@ -4043,6 +4061,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_MatchTimeout {
             get {
                 return ResourceManager.GetString("Options_MatchTimeout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximize results panel on search.
+        /// </summary>
+        public static string Options_MaximizeResultsPanelOnSearch {
+            get {
+                return ResourceManager.GetString("Options_MaximizeResultsPanelOnSearch", resourceCulture);
             }
         }
         

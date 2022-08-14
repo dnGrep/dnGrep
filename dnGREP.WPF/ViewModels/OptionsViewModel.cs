@@ -147,6 +147,7 @@ namespace dnGREP.WPF
                     PanelSelection.MainPanel : PanelSelection.OptionsExpander) ||
                 ReplaceDialogLayout != (Settings.Get<bool>(GrepSettings.Key.ShowFullReplaceDialog) ?
                     ReplaceDialogConfiguration.FullDialog : ReplaceDialogConfiguration.FilesOnly) ||
+                MaximizeResultsTreeOnSearch != Settings.Get<bool>(GrepSettings.Key.MaximizeResultsTreeOnSearch) ||
                 FollowWindowsTheme != Settings.Get<bool>(GrepSettings.Key.FollowWindowsTheme) ||
                 CurrentTheme != Settings.Get<string>(GrepSettings.Key.CurrentTheme) ||
                 CurrentCulture != Settings.Get<string>(GrepSettings.Key.CurrentCulture) ||
@@ -714,6 +715,22 @@ namespace dnGREP.WPF
             }
         }
 
+        private bool maximizeResultsTreeOnSearch;
+        public bool MaximizeResultsTreeOnSearch
+        {
+            get { return maximizeResultsTreeOnSearch; }
+            set
+            {
+                if (maximizeResultsTreeOnSearch == value)
+                {
+                    return;
+                }
+
+                maximizeResultsTreeOnSearch = value;
+                OnPropertyChanged(nameof(MaximizeResultsTreeOnSearch));
+            }
+        }
+
         public enum ReplaceDialogConfiguration { FullDialog = 0, FilesOnly }
 
         private ReplaceDialogConfiguration replaceDialogLayout;
@@ -1116,6 +1133,7 @@ namespace dnGREP.WPF
                 PanelSelection.MainPanel : PanelSelection.OptionsExpander;
             ReplaceDialogLayout = Settings.Get<bool>(GrepSettings.Key.ShowFullReplaceDialog) ?
                 ReplaceDialogConfiguration.FullDialog : ReplaceDialogConfiguration.FilesOnly;
+            MaximizeResultsTreeOnSearch = Settings.Get<bool>(GrepSettings.Key.MaximizeResultsTreeOnSearch);
 
             UseDefaultFont = Settings.Get<bool>(GrepSettings.Key.UseDefaultFont);
             ApplicationFontFamily = EditApplicationFontFamily =
@@ -1256,6 +1274,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.MaxPathBookmarks, MaxPathBookmarks);
             Settings.Set(GrepSettings.Key.MaxExtensionBookmarks, MaxExtensionBookmarks);
             Settings.Set(GrepSettings.Key.OptionsOnMainPanel, OptionsLocation == PanelSelection.MainPanel);
+            Settings.Set(GrepSettings.Key.MaximizeResultsTreeOnSearch, MaximizeResultsTreeOnSearch);
             Settings.Set(GrepSettings.Key.ShowFullReplaceDialog, ReplaceDialogLayout == ReplaceDialogConfiguration.FullDialog);
             Settings.Set(GrepSettings.Key.FollowWindowsTheme, FollowWindowsTheme);
             Settings.Set(GrepSettings.Key.CurrentTheme, CurrentTheme);

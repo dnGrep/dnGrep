@@ -56,6 +56,7 @@
         <KeyBinding Key="e" Modifiers="Alt"
                     Command="{Binding ToggleFileOptionsCommand}" />
         <KeyBinding Gesture="Ctrl+F5" Command="{Binding ReloadThemeCommand}" />
+        <KeyBinding Gesture="F7" Command="{Binding ToggleResultsMaximizeCommand}" />
     </my:ThemedWindow.InputBindings>
 
     <DockPanel ManipulationBoundaryFeedback="ManipulationBoundaryFeedbackHandler"
@@ -248,7 +249,8 @@
             </WrapPanel>
 
             <DockPanel Margin="4,0" LastChildFill="True">
-                <GroupBox DockPanel.Dock="Top" Header="{l:Loc Key='Main_SearchInGroup'}">
+                <GroupBox DockPanel.Dock="Top" Header="{l:Loc Key='Main_SearchInGroup'}"
+                          Visibility="{Binding IsResultTreeMaximized, Converter={StaticResource InverseBoolToVisibilityConverter}}">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition />
@@ -666,7 +668,8 @@
                                   Visibility="{Binding IsEverythingSearchMode, Converter={StaticResource InverseBoolToVisibilityConverter}}" />
                     </Grid>
                 </GroupBox>
-                <GroupBox Header="{l:Loc Key='Main_SearchGroup'}" DockPanel.Dock="Top">
+                <GroupBox Header="{l:Loc Key='Main_SearchGroup'}" DockPanel.Dock="Top"
+                          Visibility="{Binding IsResultTreeMaximized, Converter={StaticResource InverseBoolToVisibilityConverter}}">
                     <DockPanel Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                         <Grid Margin="0,0,0,5" DockPanel.Dock="Top">
                             <Grid.ColumnDefinitions>
@@ -819,9 +822,15 @@
                 </GroupBox>
                 <Grid DockPanel.Dock="Top">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <WrapPanel Grid.Column="0" HorizontalAlignment="Right" Orientation="Horizontal">
+                    <CheckBox Grid.Column="0" Margin="3,0,10,0" 
+                              Background="{DynamicResource Control.Static.Background}"
+                              ToolTip="{Binding MaximizeResultsTreeButtonTooltip}"
+                              Template="{DynamicResource ExpanderButtonTemplate}"
+                              IsChecked="{Binding IsResultTreeMaximized}"/>
+                    <WrapPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal">
                         <CheckBox Margin="3,0" Content="{l:Loc Key='Main_SearchInResults'}"
                                   IsChecked="{Binding SearchInResultsContent}"
                                   Visibility="{Binding CompositeSearchInResultsVisible, Converter={StaticResource BoolToVisibilityConverter}}"

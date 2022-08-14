@@ -465,6 +465,40 @@ namespace dnGREP.WPF
             }
         }
 
+
+        private bool isResultTreeMaximized = false;
+        public bool IsResultTreeMaximized
+        {
+            get { return isResultTreeMaximized; }
+            set
+            {
+                if (isResultTreeMaximized == value)
+                {
+                    return;
+                }
+
+                isResultTreeMaximized = value;
+                OnPropertyChanged(nameof(IsResultTreeMaximized));
+                OnPropertyChanged(nameof(MaximizeResultsTreeButtonTooltip));
+            }
+        }
+
+
+        public string MaximizeResultsTreeButtonTooltip
+        {
+            get
+            {
+                if (IsResultTreeMaximized)
+                {
+                    return Resources.Main_RestoreResults;
+                }
+                else
+                {
+                    return Resources.Main_MaximizeResults;
+                }
+            }
+        }
+
         private bool isResultOptionsExpanded;
         public bool IsResultOptionsExpanded
         {
@@ -674,6 +708,9 @@ namespace dnGREP.WPF
         /// </summary>
         public ICommand ReloadThemeCommand => new RelayCommand(
             param => AppTheme.Instance.ReloadCurrentTheme());
+
+        public ICommand ToggleResultsMaximizeCommand => new RelayCommand(
+            p => IsResultTreeMaximized = !IsResultTreeMaximized);
 
         #endregion
 
@@ -1258,6 +1295,11 @@ namespace dnGREP.WPF
                     latestStatusMessage = TranslationSource.Format(Resources.Main_Status_Searched0FilesFound1MatchingFiles,
                         progress.ProcessedFiles, progress.SuccessfulFiles);
                 }
+
+                if (SearchResults.Count > 0 && GrepSettings.Instance.Get<bool>(GrepSettings.Key.MaximizeResultsTreeOnSearch))
+                {
+                    IsResultTreeMaximized = true;
+                }
             }
         }
 
@@ -1302,12 +1344,17 @@ namespace dnGREP.WPF
                     {
                         StatusMessage = Resources.Main_Status_SearchCanceled;
                     }
-                    if (SearchResults.Count > 0)
-                        FilesFound = true;
+
+                    FilesFound = SearchResults.Count > 0;
                     CurrentGrepOperation = GrepOperation.None;
                     base.OnPropertyChanged(nameof(CurrentGrepOperation));
                     CanSearch = true;
                     UpdateReplaceButtonTooltip(false);
+
+                    if (FilesFound && GrepSettings.Instance.Get<bool>(GrepSettings.Key.MaximizeResultsTreeOnSearch))
+                    {
+                        IsResultTreeMaximized = true;
+                    }
 
                     if (Application.Current is App app)
                     {
@@ -1451,7 +1498,6 @@ namespace dnGREP.WPF
                 }
 
                 SaveSettings();
-                SearchParametersChanged = false;
 
                 if (TypeOfFileSearch == FileSearchType.Regex)
                 {
@@ -1481,12 +1527,15 @@ namespace dnGREP.WPF
                     foreach (FormattedGrepResult n in SearchResults) foundFiles.Add(n.GrepResult.FileNameReal);
                     workerParams.AddSearchFiles(foundFiles);
                 }
+
+                UpdateBookmarks();
+                SearchParametersChanged = false;
+
                 SearchResults.Clear();
                 UpdateReplaceButtonTooltip(true);
                 processedFiles = 0;
                 idleTimer.Start();
                 workerSearchReplace.RunWorkerAsync(workerParams);
-                UpdateBookmarks();
                 // toggle value to move focus to the results tree, and enable keyboard actions on the tree
                 SearchResults.IsResultsTreeFocused = false;
                 SearchResults.IsResultsTreeFocused = true;
