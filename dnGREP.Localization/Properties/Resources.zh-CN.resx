@@ -2695,4 +2695,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     设置标志确定是否在正则表达式报告输出中输出唯一匹配或组值 - True 或 False。</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
+  <data name="Replace_WhenCheckedTheDateModifiedWillNotBeChangedOnReplace" xml:space="preserve">
+    <value>选中后，替换时不会更改“修改日期”</value>
+    <comment>Replace window, Keep modified date checkbox tooltip</comment>
+  </data>
+  <data name="Replace_KeepPreviousFileModifiedDate" xml:space="preserve">
+    <value>保留以前的文件修改日期</value>
+    <comment>Replace window, Keep modified date checkbox label</comment>
+  </data>
 </root>
