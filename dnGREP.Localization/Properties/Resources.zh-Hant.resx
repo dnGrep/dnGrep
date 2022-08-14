@@ -2452,4 +2452,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>搜尋類型</value>
     <comment>Options dialog, Personalization group</comment>
   </data>
+  <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
+    <value>取消</value>
+    <comment>Report options dialog, close button</comment>
+  </data>
+  <data name="ReportOptionsWindow_Save" xml:space="preserve">
+    <value>儲存</value>
+    <comment>Report options dialog, button label</comment>
+  </data>
 </root>
