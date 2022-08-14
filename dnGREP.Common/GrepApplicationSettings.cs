@@ -268,6 +268,8 @@ namespace dnGREP.Common
             public const string ListItemSeparator = "ListItemSeparator";
             [DefaultValue(false)]
             public const string RestoreLastModifiedDate = "RestoreLastModifiedDate";
+            [DefaultValue(false)]
+            public const string MaximizeResultsTreeOnSearch = "MaximizeResultsTreeOnSearch";
         }
 
         private static GrepSettings instance;

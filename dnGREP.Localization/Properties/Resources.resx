@@ -928,6 +928,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Max depth</value>
     <comment>Main window, filter path depth text box label (accel)</comment>
   </data>
+  <data name="Main_MaximizeResults" xml:space="preserve">
+    <value>Maximize results (F7)</value>
+    <comment>Main window, Maximize results button tooltip</comment>
+  </data>
   <data name="Main_Menu_About" xml:space="preserve">
     <value>_About</value>
     <comment>Main window, main menu label (accel)</comment>
@@ -1099,6 +1103,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_ResetOptions" xml:space="preserve">
     <value>Reset filters</value>
     <comment>Main window, search options, reset button label (accel)</comment>
+  </data>
+  <data name="Main_RestoreResults" xml:space="preserve">
+    <value>Restore results (F7)</value>
+    <comment>Main window, Maximize results button tooltip</comment>
   </data>
   <data name="Main_ResultList_AdditionalMatches" xml:space="preserve">
     <value>additional matches:</value>
@@ -1927,6 +1935,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_MatchTimeout" xml:space="preserve">
     <value>Match timeout</value>
     <comment>Options dialog, regular expression options text input label</comment>
+  </data>
+  <data name="Options_MaximizeResultsPanelOnSearch" xml:space="preserve">
+    <value>Maximize results panel on search</value>
+    <comment>Options dialog, layout option checkbox label (accel)</comment>
   </data>
   <data name="Options_OnMainPanel" xml:space="preserve">
     <value>on the main panel</value>

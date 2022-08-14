@@ -493,6 +493,8 @@
 
                 <GroupBox Header="{l:Loc Key='Options_ResultsOptions'}">
                     <StackPanel Margin="0,3,0,0">
+                        <CheckBox Margin="3" Content="{l:Loc Key='Options_MaximizeResultsPanelOnSearch'}"
+                                  IsChecked="{Binding Path=MaximizeResultsTreeOnSearch}" />
                         <CheckBox Name="cbShowPath" Margin="3" Content="{l:Loc Key='Options_ShowFilePathInResultsPanel'}"
                                   IsChecked="{Binding Path=ShowFilePathInResults}" />
                         <StackPanel Orientation="Horizontal">
