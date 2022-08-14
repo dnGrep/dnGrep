@@ -34,7 +34,7 @@ namespace dnGREP.Common
             int pos = fileInfo.FullName.IndexOf(ArchiveDirectory.ArchiveSeparator);
             if (pos > -1)
             {
-                ReadOnly = true;
+                IsReadOnlyFileType = true;
 
                 FileNameReal = fileInfo.FullName.Substring(0, pos);
                 InnerFileName = fileInfo.FullName.Substring(pos + ArchiveDirectory.ArchiveSeparator.Length);
@@ -58,7 +58,7 @@ namespace dnGREP.Common
             int pos = file.IndexOf(ArchiveDirectory.ArchiveSeparator);
             if (pos > -1)
             {
-                ReadOnly = true;
+                IsReadOnlyFileType = true;
 
                 FileNameReal = file.Substring(0, pos);
                 InnerFileName = file.Substring(pos + ArchiveDirectory.ArchiveSeparator.Length);
@@ -66,6 +66,10 @@ namespace dnGREP.Common
             else
             {
                 FileInfo = new FileData(file);
+                if (Utils.IsBinary(file))
+                {
+                    IsReadOnlyFileType = true;
+                }
             }
         }
 
@@ -143,7 +147,7 @@ namespace dnGREP.Common
         /// </summary>
         public string AdditionalInformation { get; set; }
 
-        public bool ReadOnly { get; set; } = false;
+        public bool IsReadOnlyFileType { get; set; } = false;
 
         private List<GrepLine> searchResults;
 

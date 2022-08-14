@@ -1064,6 +1064,22 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>_Replace</value>
     <comment>Main window replace button label (accel)</comment>
   </data>
+  <data name="Main_ReplaceTooltip_NoMatchesToReplace" xml:space="preserve">
+    <value>No matches to replace</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_NoWritableFilesInResults" xml:space="preserve">
+    <value>No writable files in results</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_ReplaceUsingBooleanOperators" xml:space="preserve">
+    <value>Replace using Boolean operators with text search only</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_SearchParametersHaveChanged" xml:space="preserve">
+    <value>Search parameters have changed</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
   <data name="Main_ReplaceWith" xml:space="preserve">
     <value>Re_place with:</value>
     <comment>Main window, replace text input box label (accel)</comment>
@@ -1151,6 +1167,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Main_Results_ExpandAll" xml:space="preserve">
     <value>Expand all</value>
     <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_MakeWritable" xml:space="preserve">
+    <value>Make writable</value>
+    <comment>Main windows, results list, context menu item label</comment>
   </data>
   <data name="Main_Results_NextFile" xml:space="preserve">
     <value>Next file</value>

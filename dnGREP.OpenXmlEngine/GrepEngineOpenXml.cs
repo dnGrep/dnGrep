@@ -101,7 +101,7 @@ namespace dnGREP.Engines.OpenXml
                         {
                             result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
                         }
-                        result.ReadOnly = true;
+                        result.IsReadOnlyFileType = true;
                         if (PreviewPlainText)
                         {
                             result.FileInfo.TempFile = WriteTempFile(kvPair.Value, file, "XLS");
@@ -130,7 +130,7 @@ namespace dnGREP.Engines.OpenXml
                     {
                         result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
                     }
-                    result.ReadOnly = true;
+                    result.IsReadOnlyFileType = true;
                     if (PreviewPlainText)
                     {
                         result.FileInfo.TempFile = WriteTempFile(text, file, "DOC");
@@ -164,7 +164,7 @@ namespace dnGREP.Engines.OpenXml
                         {
                             result.SearchResults = Utils.GetLinesEx(reader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
                         }
-                        result.ReadOnly = true;
+                        result.IsReadOnlyFileType = true;
                         if (PreviewPlainText)
                         {
                             result.FileInfo.TempFile = WriteTempFile(slide.Item2, file, "PPT");

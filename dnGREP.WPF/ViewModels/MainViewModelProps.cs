@@ -21,6 +21,9 @@ namespace dnGREP.WPF
                 case nameof(IsEverythingSearchMode):
                     OnPropertyChanged(nameof(CompositeBookmarksVisible));
                     break;
+                case nameof(SearchParametersChanged):
+                    UpdateReplaceButtonTooltip(false);
+                    break;
             }
 
         }

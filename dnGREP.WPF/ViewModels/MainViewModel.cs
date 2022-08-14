@@ -114,6 +114,7 @@ namespace dnGREP.WPF
 
             StatusMessage = string.Empty;
             SearchResults.Clear();
+            UpdateReplaceButtonTooltip(true);
         }
 
         void SearchResults_OpenFileRequest(object sender, GrepResultEventArgs e)
@@ -488,6 +489,39 @@ namespace dnGREP.WPF
                     return Resources.Main_HideResultOptions;
                 else
                     return Resources.Main_ShowResultOptions;
+            }
+        }
+
+        private string replaceButtonToolTip = string.Empty;
+        public string ReplaceButtonToolTip
+        {
+            get { return replaceButtonToolTip; }
+            set
+            {
+                if (replaceButtonToolTip == value)
+                {
+                    return;
+                }
+
+                replaceButtonToolTip = value;
+                OnPropertyChanged(nameof(ReplaceButtonToolTip));
+            }
+        }
+
+
+        private bool replaceButtonToolTipVisible = false;
+        public bool ReplaceButtonToolTipVisible
+        {
+            get { return replaceButtonToolTipVisible; }
+            set
+            {
+                if (replaceButtonToolTipVisible == value)
+                {
+                    return;
+                }
+
+                replaceButtonToolTipVisible = value;
+                OnPropertyChanged(nameof(ReplaceButtonToolTipVisible));
             }
         }
 
@@ -1273,6 +1307,7 @@ namespace dnGREP.WPF
                     CurrentGrepOperation = GrepOperation.None;
                     base.OnPropertyChanged(nameof(CurrentGrepOperation));
                     CanSearch = true;
+                    UpdateReplaceButtonTooltip(false);
 
                     if (Application.Current is App app)
                     {
@@ -1306,6 +1341,7 @@ namespace dnGREP.WPF
                     base.OnPropertyChanged(nameof(CurrentGrepOperation));
                     CanSearch = true;
                     SearchResults.Clear();
+                    UpdateReplaceButtonTooltip(false);
                 }
 
                 string outdatedEngines = dnGREP.Engines.GrepEngineFactory.GetListOfFailedEngines();
@@ -1446,6 +1482,7 @@ namespace dnGREP.WPF
                     workerParams.AddSearchFiles(foundFiles);
                 }
                 SearchResults.Clear();
+                UpdateReplaceButtonTooltip(true);
                 processedFiles = 0;
                 idleTimer.Start();
                 workerSearchReplace.RunWorkerAsync(workerParams);
@@ -1562,7 +1599,7 @@ namespace dnGREP.WPF
                     foreach (GrepSearchResult gsr in replaceList)
                     {
                         string filePath = gsr.FileNameReal;
-                        if (!gsr.ReadOnly && !undoList.Any(r => r.OrginalFile == filePath) && gsr.Matches.Any(m => m.ReplaceMatch))
+                        if (!gsr.IsReadOnlyFileType && !undoList.Any(r => r.OrginalFile == filePath) && gsr.Matches.Any(m => m.ReplaceMatch))
                         {
                             undoList.Add(new ReplaceDef(filePath, gsr.Matches));
                         }
@@ -2182,15 +2219,49 @@ namespace dnGREP.WPF
         {
             get
             {
-                return FilesFound && CurrentGrepOperation == GrepOperation.None &&
+                var writableFiles = SearchResults.GetWritableList();
+                var hasWritableFiles = writableFiles.Any() &&
+                    writableFiles.SelectMany(m => m.Matches).Any();
+
+                bool enabled = FilesFound && CurrentGrepOperation == GrepOperation.None &&
                         !IsSaveInProgress && !string.IsNullOrEmpty(SearchFor) &&
-                        SearchResults.GetWritableList().Any() &&
-                        SearchResults.GetWritableList().SelectMany(m => m.Matches).Any() &&
+                        hasWritableFiles &&
                         // can only replace using the same parameters as was used for the search
                         !SearchParametersChanged &&
                         // if using boolean operators, only allow replace for plain text searches (not implemented for regex)
                         (BooleanOperators ? TypeOfSearch == SearchType.PlainText : true);
+
+                return enabled;
             }
+        }
+
+        private void UpdateReplaceButtonTooltip(bool clear)
+        {
+            ReplaceButtonToolTip = string.Empty;
+            if (!clear && !CanReplace && FilesFound)
+            {
+                var writableFiles = SearchResults.GetWritableList();
+                var hasWritableFiles = writableFiles.Any();
+                var hasMatches = writableFiles.SelectMany(m => m.Matches).Any();
+
+                if (!hasWritableFiles)
+                {
+                    ReplaceButtonToolTip = Resources.Main_ReplaceTooltip_NoWritableFilesInResults;
+                }
+                else if (string.IsNullOrEmpty(SearchFor) || !hasMatches)
+                {
+                    ReplaceButtonToolTip = Resources.Main_ReplaceTooltip_NoMatchesToReplace;
+                }
+                else if (SearchParametersChanged)
+                {
+                    ReplaceButtonToolTip = Resources.Main_ReplaceTooltip_SearchParametersHaveChanged;
+                }
+                else if (BooleanOperators && TypeOfSearch != SearchType.PlainText)
+                {
+                    ReplaceButtonToolTip = Resources.Main_ReplaceTooltip_ReplaceUsingBooleanOperators;
+                }
+            }
+            ReplaceButtonToolTipVisible = !string.IsNullOrEmpty(ReplaceButtonToolTip);
         }
 
         public bool CanSortResults
