@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text;
+using dnGREP.Common;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
@@ -30,12 +31,22 @@ namespace dnGREP.Engines.OpenXml
                 ExtractText(body, docStyles, wlm, sb);
             }
 
+            if (Utils.CancelSearch)
+            {
+                sb.Clear();
+            }
+
             return sb.ToString();
         }
 
         private static bool isInTableRow;
         private static void ExtractText(OpenXmlElement elem, IEnumerable<Style> docStyles, WordListManager wlm, StringBuilder sb)
         {
+            if (Utils.CancelSearch)
+            {
+                return;
+            }
+
             if (elem is Paragraph)
             {
                 var para = elem as Paragraph;

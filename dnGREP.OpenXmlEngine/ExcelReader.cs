@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using dnGREP.Common;
 using ExcelDataReader;
 using ExcelNumberFormat;
 
@@ -24,6 +25,11 @@ namespace dnGREP.Engines.OpenXml
                     StringBuilder sb = new StringBuilder();
                     while (reader.Read())
                     {
+                        if (Utils.CancelSearch)
+                        {
+                            break;
+                        }
+
                         for (int col = 0; col < reader.FieldCount; col++)
                         {
                             sb.Append(GetFormattedValue(reader, col, CultureInfo.CurrentCulture)).Append('\t');
@@ -32,10 +38,20 @@ namespace dnGREP.Engines.OpenXml
                         sb.Append(Environment.NewLine);
                     }
 
+                    if (Utils.CancelSearch)
+                    {
+                        break;
+                    }
+
                     results.Add(new KeyValuePair<string, string>(reader.Name, sb.ToString()));
 
                 } while (reader.NextResult());
 
+            }
+
+            if (Utils.CancelSearch)
+            {
+                results.Clear();
             }
 
             return results;
