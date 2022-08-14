@@ -545,7 +545,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/pt [вид]
 -pt [вид]
 -patternType [вид]
-    Задава вида на модела за съвпадение и пренебрегване - трябва да е едно от: „Asterisk“ (заместващи символи), „Regex“ (регулярен израз), или „Everything“ (ако инструментът за търсене Everything е наличен).</value>
+    Задава вид на модела за съвпадение и пренебрегване - трябва да е едно от: „Asterisk“ (заместващи символи), „Regex“ (регулярен израз), или „Everything“ (ако инструментът за търсене Everything е наличен).</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineReport" xml:space="preserve">
@@ -559,7 +559,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/s [търсене]
 -s [търсене]
 -searchFor [търсене]
-    Задава модела или текста, който да бъде търсен. Когато този аргумент е зададен, търсенето ще започне автоматично.</value>
+    Задава модел или текст, който да бъде търсен. Когато този аргумент е зададен, търсенето ще започне автоматично.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineSearchType" xml:space="preserve">
@@ -2580,5 +2580,147 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
 -fileInformation [True/False]
     Задава стойност на флага „информация за файла в отчета“  – True (истина) или False (неистина).</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="ReportOptionsWindow_CaptureGroupsOnly" xml:space="preserve">
+    <value>Само групите за улавяне</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
+    <value>Отказ</value>
+    <comment>Report options dialog, close button</comment>
+  </data>
+  <data name="ReportOptionsWindow_PressF1ForHelp" xml:space="preserve">
+    <value>Натиснете F1 за помощ</value>
+    <comment>Report options dialog, help label</comment>
+  </data>
+  <data name="ReportOptionsWindow_ShowEachMatchOrGroupOnSeparateLine" xml:space="preserve">
+    <value>Всяко съвпадение или група на отделен ред</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_FilterForUniqueValues" xml:space="preserve">
+    <value>Само уникалните стойсности</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="Main_MoreMenu_Report_Options" xml:space="preserve">
+    <value>Настройки на отчети…</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="ReportOptionsWindow_FullLines" xml:space="preserve">
+    <value>Целите редове</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Global" xml:space="preserve">
+    <value>Общо</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_IncludeFileAndLineInformation" xml:space="preserve">
+    <value>Включва информация за файла и реда</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_MatchesOnly" xml:space="preserve">
+    <value>Само съвпаденията</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_PerFile" xml:space="preserve">
+    <value>За всеки файл</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Preview" xml:space="preserve">
+    <value>Преглед като:</value>
+    <comment>Report options dialog, label</comment>
+  </data>
+  <data name="ReportOptionsWindow_ReportOptions" xml:space="preserve">
+    <value>Настройки на отчети</value>
+    <comment>Report options dialog, window title</comment>
+  </data>
+  <data name="ReportOptionsWindow_Save" xml:space="preserve">
+    <value>Запазване</value>
+    <comment>Report options dialog, button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_SeparatorForMultipleMatchesOrGroupsOnALine" xml:space="preserve">
+    <value>Разделител при повече съвпадения или групи на един ред</value>
+    <comment>Report options dialog, text box label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Text" xml:space="preserve">
+    <value>Текст</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_TrimWhitespace" xml:space="preserve">
+    <value>Премахване на висящи интервали</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_CSV" xml:space="preserve">
+    <value>CSV</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="Help_CmdLineSeparateLines" xml:space="preserve">
+    <value>/sl [True/False]
+-sl [True/False]
+-separateLines [True/False]
+    Задава дали съвпадението или групата да бъдат на отделен ред в отчета – True (истина) или False (неистина).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineTrimWhitespace" xml:space="preserve">
+    <value>/trim [True/False]
+-trim [True/False]
+-trimWhitespace [True/False]
+    Задава дали да бъдат премахнати висящите интервали в отчета – True (истина) или False (неистина).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUniqueScope" xml:space="preserve">
+    <value>/scope [scope]
+-scope [scope]
+-uniqueScope [scope]
+    Задава обхвата на уникалните стойности на регулярни изрази в отчета – трябва да е едно от: „Global“ или „PerFile“.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineListItemSeparator" xml:space="preserve">
+    <value>/sep [знак или низ за разделител]
+-sep [знак или низ за разделител]
+-listItemSeparator [знак или низ за разделител]
+    Задава знак или низ, който да бъде използван за разделител между елементите на един ред в отчетите.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineReportMode" xml:space="preserve">
+    <value>/rm [вид]
+-rm [вид]
+-reportMode [вид]
+    Задава вид на отчета за регулярни изрази – трябва да е едно от: „FullLine“, „Matches“ или „Groups“.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUniqueValues" xml:space="preserve">
+    <value>/unique [True/False]
+-unique [True/False]
+-uniqueValues [True/False]
+    Задава дали съвпадението или групата да бъдат изведени в отчета – True (истина) или False (неистина).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Replace_WhenCheckedTheDateModifiedWillNotBeChangedOnReplace" xml:space="preserve">
+    <value>Ако е отметнато, датата на промяна на файла не се сменя при заместване</value>
+    <comment>Replace window, Keep modified date checkbox tooltip</comment>
+  </data>
+  <data name="Replace_KeepPreviousFileModifiedDate" xml:space="preserve">
+    <value>Запазване на датата на промяна на файла</value>
+    <comment>Replace window, Keep modified date checkbox label</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_NoMatchesToReplace" xml:space="preserve">
+    <value>Няма съвпадения, които да бъдат заменени</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_ReplaceUsingBooleanOperators" xml:space="preserve">
+    <value>Заменяне чрез булеви оператори само с текстово търсене</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_SearchParametersHaveChanged" xml:space="preserve">
+    <value>Параметрите на търсенето са променени</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_Results_MakeWritable" xml:space="preserve">
+    <value>Получаване на права за писане</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_NoWritableFilesInResults" xml:space="preserve">
+    <value>В резултатите няма файлове, които имат права за писане</value>
+    <comment>Main window replace button tooltip</comment>
   </data>
 </root>
