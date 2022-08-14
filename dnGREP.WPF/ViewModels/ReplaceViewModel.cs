@@ -9,6 +9,7 @@ using System.Windows.Input;
 using dnGREP.Common;
 using dnGREP.Localization;
 using dnGREP.Localization.Properties;
+using dnGREP.WPF.Properties;
 using ICSharpCode.AvalonEdit.Highlighting;
 
 namespace dnGREP.WPF
@@ -36,6 +37,8 @@ namespace dnGREP.WPF
             ResultsFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ResultsFontFamily);
 
             IsFullDialog = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ShowFullReplaceDialog);
+
+            RestoreLastModifiedDate = GrepSettings.Instance.Get<bool>(GrepSettings.Key.RestoreLastModifiedDate);
         }
 
         public void SelectNextFile()
@@ -495,6 +498,23 @@ namespace dnGREP.WPF
 
                 individualReplaceEnabled = value;
                 base.OnPropertyChanged(nameof(IndividualReplaceEnabled));
+            }
+        }
+
+        private bool restoreLastModifiedDate = false;
+        public bool RestoreLastModifiedDate
+        {
+            get { return restoreLastModifiedDate; }
+            set
+            {
+                if (restoreLastModifiedDate == value)
+                {
+                    return;
+                }
+
+                restoreLastModifiedDate = value;
+                GrepSettings.Instance.Set(GrepSettings.Key.RestoreLastModifiedDate, restoreLastModifiedDate);
+                OnPropertyChanged(nameof(RestoreLastModifiedDate));
             }
         }
 

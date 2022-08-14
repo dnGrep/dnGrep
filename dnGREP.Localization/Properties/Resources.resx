@@ -2208,6 +2208,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Files</value>
     <comment>Replace window, Files group header label</comment>
   </data>
+  <data name="Replace_KeepPreviousFileModifiedDate" xml:space="preserve">
+    <value>Keep previous file modified date</value>
+    <comment>Replace window, Keep modified date checkbox label</comment>
+  </data>
   <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
     <value>Mark all matches in this file for replacement [Ctrl+A]</value>
     <comment>Replace window, Replace in file button tooltip</comment>
@@ -2335,6 +2339,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
     <value>Undo mark replace on this match [Ctrl+U]</value>
     <comment>Replace window, Undo button tooltip</comment>
+  </data>
+  <data name="Replace_WhenCheckedTheDateModifiedWillNotBeChangedOnReplace" xml:space="preserve">
+    <value>When checked, the 'Date modified' will not be changed on replace</value>
+    <comment>Replace window, Keep modified date checkbox tooltip</comment>
   </data>
   <data name="Replace_WrapText" xml:space="preserve">
     <value>Wrap text</value>

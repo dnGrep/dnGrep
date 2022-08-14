@@ -266,6 +266,8 @@ namespace dnGREP.Common
             public const string OutputOnSeparateLines = "OutputOnSeparateLines";
             [DefaultValue(",")]
             public const string ListItemSeparator = "ListItemSeparator";
+            [DefaultValue(false)]
+            public const string RestoreLastModifiedDate = "RestoreLastModifiedDate";
         }
 
         private static GrepSettings instance;

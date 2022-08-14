@@ -59,6 +59,7 @@ namespace dnGREP.WPF
                 {
                     MainWindow = new MainForm();
                     Utils.DeleteTempFolder();
+                    Utils.DeleteUndoFolder();
                 }
 
                 MainWindow.Show();
@@ -90,6 +91,7 @@ namespace dnGREP.WPF
             try
             {
                 Utils.DeleteTempFolder();
+                Utils.DeleteUndoFolder();
             }
             catch (Exception ex)
             {

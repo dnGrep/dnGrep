@@ -32,13 +32,15 @@ namespace dnGREP.Common
             "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890".ToCharArray();
 
         private static readonly string tempFolderName;
+        private static readonly string undoFolderName;
 
         private static readonly object regexLock = new object();
         private static readonly Dictionary<string, Regex> regexCache = new Dictionary<string, Regex>();
 
         static Utils()
         {
-            tempFolderName = "dnGrep-" + GetUniqueKey(12);
+            tempFolderName = "dnGrep-temp-" + GetUniqueKey(12);
+            undoFolderName = "dnGrep-undo-" + GetUniqueKey(12);
         }
 
         /// <summary>
@@ -1498,6 +1500,38 @@ namespace dnGREP.Common
             catch (Exception ex)
             {
                 logger.Error(ex, "Failed to delete temp folder");
+            }
+        }
+
+        /// <summary>
+        /// Returns path to a folder used by dnGREP for undo files (including trailing slash). If folder does not exist
+        /// it gets created.
+        /// </summary>
+        /// <returns></returns>
+        public static string GetUndoFolder()
+        {
+            string undoPath = Path.Combine(Path.GetTempPath(), undoFolderName);
+            if (!Directory.Exists(undoPath))
+            {
+                Directory.CreateDirectory(undoPath);
+            }
+            return undoPath + Path.DirectorySeparatorChar;
+        }
+
+        /// <summary>
+        /// Deletes undo folder
+        /// </summary>
+        public static void DeleteUndoFolder()
+        {
+            string undoPath = Path.Combine(Path.GetTempPath(), undoFolderName);
+            try
+            {
+                if (Directory.Exists(undoPath))
+                    DeleteFolder(undoPath);
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Failed to delete undo folder");
             }
         }
 

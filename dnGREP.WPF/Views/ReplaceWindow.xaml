@@ -153,17 +153,29 @@
                 </GroupBox>
             </Grid>
 
-
+            <!--"Restore last modified date after replace"-->
             <DockPanel DockPanel.Dock="Bottom"
-                        Margin="3" HorizontalAlignment="Right" LastChildFill="False">
-                <Button x:Name="btnCancel" DockPanel.Dock="Right" Content="{l:Loc Key='Replace_Cancel'}"
-                        TabIndex="20" IsCancel="True" Click="CancelButton_Click"
-                        ToolTip="{l:Loc Key='Replace_CancelAllReplacements'}"
-                        Style="{StaticResource ReplaceButton}"/>
-                <Button DockPanel.Dock="Right" Content="{l:Loc Key='Replace_OK'}" TabIndex="21"
-                        Click="OKButton_Click" 
-                        ToolTip="{l:Loc Key='Replace_ReplaceMatchesMarkedForReplacement'}"
-                        Style="{StaticResource ReplaceButton}"/>
+                       Margin="3" LastChildFill="False">
+                
+                <StackPanel DockPanel.Dock="Left" Orientation="Horizontal">
+                    <CheckBox Margin="3" 
+                              Content="{l:Loc Key='Replace_KeepPreviousFileModifiedDate'}"
+                              ToolTip="{l:Loc Key='Replace_WhenCheckedTheDateModifiedWillNotBeChangedOnReplace'}"
+                              IsChecked="{Binding Path=RestoreLastModifiedDate}" />
+                </StackPanel>
+                
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal">
+                    <Button Content="{l:Loc Key='Replace_OK'}" TabIndex="21"
+                            Click="OKButton_Click" 
+                            ToolTip="{l:Loc Key='Replace_ReplaceMatchesMarkedForReplacement'}"
+                            Style="{StaticResource ReplaceButton}"/>
+                    
+                    <Button x:Name="btnCancel" Content="{l:Loc Key='Replace_Cancel'}"
+                            TabIndex="20" IsCancel="True" Click="CancelButton_Click"
+                            ToolTip="{l:Loc Key='Replace_CancelAllReplacements'}"
+                            Style="{StaticResource ReplaceButton}"/>
+                </StackPanel>
+                    
             </DockPanel>
 
             <GroupBox DockPanel.Dock="Bottom"

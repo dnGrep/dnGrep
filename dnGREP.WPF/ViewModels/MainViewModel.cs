@@ -1557,6 +1557,7 @@ namespace dnGREP.WPF
                 if (result.HasValue && result.Value)
                 {
                     CanUndo = false;
+                    Utils.DeleteUndoFolder();
                     undoList.Clear();
                     foreach (GrepSearchResult gsr in replaceList)
                     {
@@ -1608,7 +1609,7 @@ namespace dnGREP.WPF
                             Resources.MessageBox_DnGrep + " " + Resources.MessageBox_Undo,
                             MessageBoxButton.OK, MessageBoxImage.Information,
                             MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
-                        Utils.DeleteTempFolder();
+                        Utils.DeleteUndoFolder();
                         undoList.Clear();
                     }
                     else
