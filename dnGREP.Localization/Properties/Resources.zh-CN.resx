@@ -2703,4 +2703,24 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>保留以前的文件修改日期</value>
     <comment>Replace window, Keep modified date checkbox label</comment>
   </data>
+  <data name="Main_ReplaceTooltip_ReplaceUsingBooleanOperators" xml:space="preserve">
+    <value>仅将布尔运算符替换用于文本搜索</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_Results_MakeWritable" xml:space="preserve">
+    <value>使可写入</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_NoMatchesToReplace" xml:space="preserve">
+    <value>没有可替换的匹配项</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_NoWritableFilesInResults" xml:space="preserve">
+    <value>结果中没有可写文件</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_SearchParametersHaveChanged" xml:space="preserve">
+    <value>搜索参数已更改</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
 </root>
