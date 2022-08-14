@@ -2302,4 +2302,12 @@
     <value>Search type</value>
     <comment>Options dialog, Personalization group</comment>
   </data>
+  <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
+    <value>Avbryt</value>
+    <comment>Report options dialog, close button</comment>
+  </data>
+  <data name="ReportOptionsWindow_Save" xml:space="preserve">
+    <value>Lagre</value>
+    <comment>Report options dialog, button label</comment>
+  </data>
 </root>
