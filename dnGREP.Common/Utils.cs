@@ -1058,9 +1058,16 @@ namespace dnGREP.Common
             {
                 FileData fileData = new FileData(fileInfo);
 
-                if (filter.IncludeArchive && IsArchive(fileInfo.FullName))
+                if (IsArchive(fileInfo.FullName))
                 {
-                    yield return fileInfo.FullName;
+                    if (filter.IncludeArchive)
+                    {
+                        yield return fileInfo.FullName;
+                    }
+                    else
+                    {
+                        continue;
+                    }
                 }
                 else if (IncludeFile(fileInfo.FullName, filter, fileData, true, new List<string>(),
                     includeRegexPatterns, excludeRegexPatterns, includeShebangPatterns))
