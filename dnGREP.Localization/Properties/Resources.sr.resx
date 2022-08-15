@@ -2304,4 +2304,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Минимизирајте</value>
     <comment>Window title bar button tooltip</comment>
   </data>
+  <data name="ReportOptionsWindow_Save" xml:space="preserve">
+    <value>Сачувати</value>
+    <comment>Report options dialog, button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
+    <value>Поништити</value>
+    <comment>Report options dialog, close button</comment>
+  </data>
 </root>
