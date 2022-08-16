@@ -2312,4 +2312,261 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Поништити</value>
     <comment>Report options dialog, close button</comment>
   </data>
+  <data name="Main_Status_SearchCompletedIn0_1MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
+    <value>Претрага завршена за {0} – нађено {1} у {2} датотеке од {3} претражене.</value>
+    <comment>Main window, status bar message: {0} is the duration of the search; {1}  is the total number of matches found; {2} is the number of files with matches found; {3} is the total number of files searched; </comment>
+  </data>
+  <data name="MessageBox_CheckEditorPath" xml:space="preserve">
+    <value>Проверити путању едитора у "Опције…".</value>
+    <comment>Message box text for: Open file failed</comment>
+  </data>
+  <data name="MessageBox_ClearingThisBookmarkWillAlsoClearThatBookmark" xml:space="preserve">
+    <value>Брисањем овог обележивача такође се брише и тај обележивач.</value>
+    <comment>Message box text for: Main window, bookmark button</comment>
+  </data>
+  <data name="MessageBox_ClearingThisBookmarkWillAlsoRemoveThoseBookmarks" xml:space="preserve">
+    <value>Брисањем овог обележивача такође се уклањају ови обележивачи.</value>
+    <comment>Message box text for: Main window, bookmark button</comment>
+  </data>
+  <data name="MessageBox_CouldNotLoadResourcesFile0" xml:space="preserve">
+    <value>Не могу да учитам датотеку '{0}': </value>
+    <comment>Message box text for: Load language resource: {0} is the name of the file that failed to load</comment>
+  </data>
+  <data name="MessageBox_CouldNotLoadTheme" xml:space="preserve">
+    <value>Не могу да учитам тему '{0}'. Проверите дневник грешака за детаље: </value>
+    <comment>Message box text for: Load theme resource: {0} is the name of the file that failed to load</comment>
+  </data>
+  <data name="MessageBox_CountFilesHaveBeenSuccessfullyCopied" xml:space="preserve">
+    <value>{0} датотеке су копиране.</value>
+    <comment>Message box text for: Copy file: {0} is the number of files</comment>
+  </data>
+  <data name="MessageBox_CountFilesHaveBeenSuccessfullyDeleted" xml:space="preserve">
+    <value>{0} датотеке су избрисане.</value>
+    <comment>Message box text for: Delete files: {0} is the number of files</comment>
+  </data>
+  <data name="MessageBox_CountFilesHaveBeenSuccessfullyMoved" xml:space="preserve">
+    <value>{0} датотеке су премештене.</value>
+    <comment>Message box text for: Move files: {0} is the number of files</comment>
+  </data>
+  <data name="MessageBox_CustomEditorFileOpenError" xml:space="preserve">
+    <value>Није могуће отворити датотеку помоћу прилагођеног уређивача.</value>
+    <comment>Message box text for: Open file with custom editor</comment>
+  </data>
+  <data name="MessageBox_DefaultEngineWasUsedInstead" xml:space="preserve">
+    <value>Уместо тога је коришћен подразумевани мотор.</value>
+    <comment>Message box text for: Plug-in failed to load error</comment>
+  </data>
+  <data name="MessageBox_DnGrepIsUpToDate" xml:space="preserve">
+    <value>dnGrep је ажуран.</value>
+    <comment>Message box text for: Check for updates response</comment>
+  </data>
+  <data name="MessageBox_Error" xml:space="preserve">
+    <value>Грешка: </value>
+    <comment>Message box text for: general error message</comment>
+  </data>
+  <data name="MessageBox_ErrorOpeningFile" xml:space="preserve">
+    <value>Није могуће отворити датотеку. Проверите дневник грешака: </value>
+    <comment>Message box text for: Open file error</comment>
+  </data>
+  <data name="MessageBox_ErrorSettingClipboardTextTheClipboardIsLockedBy" xml:space="preserve">
+    <value>Није могуће поставити текст клипборду. Клипборд је закључан од</value>
+    <comment>Message box text for: Copy to clipboard error</comment>
+  </data>
+  <data name="MessageBox_FailedToExtractFileFromArchive" xml:space="preserve">
+    <value>Није могуће издвојити датотеку из архиве. Проверите дневник грешака: </value>
+    <comment>Message box text for: Preview window archive error</comment>
+  </data>
+  <data name="MessageBox_FilesHaveBeenSuccessfullyReverted" xml:space="preserve">
+    <value>Датотеке су враћене.</value>
+    <comment>Message box text for: Main window undo replace success</comment>
+  </data>
+  <data name="MessageBox_IncorrectPattern" xml:space="preserve">
+    <value>Нетачан образац: </value>
+    <comment>Message box text for: Incorrect regular expression</comment>
+  </data>
+  <data name="MessageBox_LoadResources" xml:space="preserve">
+    <value>Учитавање ресурса</value>
+    <comment>Message box title for: Load resources</comment>
+  </data>
+  <data name="MessageBox_NewVersionOfDnGREP0IsAvailableForDownload" xml:space="preserve">
+    <value>Новија верзија dnGrep-а ({0}) је доступна.</value>
+    <comment>Message box text for: New dnGrep version: {0} is the new version number</comment>
+  </data>
+  <data name="MessageBox_PleaseSelectAnotherDirectoryAndTryAgain" xml:space="preserve">
+    <value>Изаберите другу фасциклу и покушајте поново.</value>
+    <comment>Message box text for: Copy files and Move files (destination overlaps source)</comment>
+  </data>
+  <data name="MessageBox_PluginErrors" xml:space="preserve">
+    <value>Грешка плагина</value>
+    <comment>Message box title for: Plug-in errors</comment>
+  </data>
+  <data name="MessageBox_ResourcesFile0IsNotAResxFile" xml:space="preserve">
+    <value>Ресурс '{0}', није resx датотека.</value>
+    <comment>Message box text for: Load language resource file error: {0} is the name of the file that failed to load</comment>
+  </data>
+  <data name="MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister" xml:space="preserve">
+    <value>Покрените dnGrep као Администратор да би променили опције покретања.</value>
+    <comment>Message box text for: Options dialog, changing Windows integration options</comment>
+  </data>
+  <data name="MessageBox_SearchFailedError" xml:space="preserve">
+    <value>Није могуће завршити претрагу. Проверите дневник грешака: </value>
+    <comment>Message box text for: Search failed</comment>
+  </data>
+  <data name="MessageBox_SearchPathInTheFieldIsNotValid" xml:space="preserve">
+    <value>Путања за претрагу у поље '{0}' није добро, претрага је отказана.</value>
+    <comment>Message box text for: Main window search path invalid: {0} is the name of search path field (Folder or Everything search)</comment>
+  </data>
+  <data name="MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory" xml:space="preserve">
+    <value>Пажња, неке од датотеке се налазе у изабраној датотеци.</value>
+    <comment>Message box text for: Copy files and Move files (destination overlaps source)</comment>
+  </data>
+  <data name="MessageBox_SomeOfTheFilesCannotBeModifiedIfYouContinueTheseFilesWillBeSkipped" xml:space="preserve">
+    <value>Неке датотеке се не могу мењати. Ако наставите, ове датотеке ће бити прескочене.</value>
+    <comment>Message box text for: Main window replace warning</comment>
+  </data>
+  <data name="MessageBox_TheFile0AlreadyExistsIn1OverwriteExisting" xml:space="preserve">
+    <value>Даттоека '{0}' већ постоји у {1}. Преписати постојећу?</value>
+    <comment>Message box text for: Copy or Move files: {0} is a file name; {1} is the name of a folder</comment>
+  </data>
+  <data name="MessageBox_TheFollowingPluginsFailedToLoad" xml:space="preserve">
+    <value>Не може да се учита плагин:</value>
+    <comment>Message box text for: plug-in load errors</comment>
+  </data>
+  <data name="ReportSummary_UsingEverythingIndexSearch" xml:space="preserve">
+    <value>Употреба претраге Everything-а</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="Main_MoreMenu_Report_Options" xml:space="preserve">
+    <value>Опције рапорта…</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="MessageBox_DeleteFiles" xml:space="preserve">
+    <value>брисање датотеке</value>
+    <comment>Message box title for: Delete files</comment>
+  </data>
+  <data name="MessageBox_MoveFiles" xml:space="preserve">
+    <value>Преместити датотеке</value>
+    <comment>Message box title for: Move files</comment>
+  </data>
+  <data name="MessageBox_NewVersion" xml:space="preserve">
+    <value>Новија верзија</value>
+    <comment>Message box title for: New dnGrep version</comment>
+  </data>
+  <data name="MessageBox_Replace" xml:space="preserve">
+    <value>Преписати</value>
+    <comment>Message box text for: Replace message</comment>
+  </data>
+  <data name="MessageBox_RenameFailed" xml:space="preserve">
+    <value>Није могуће преименовати датотеку: </value>
+    <comment>Message box text for: Rename file</comment>
+  </data>
+  <data name="MessageBox_ReplaceFailedError" xml:space="preserve">
+    <value>Није могуће заменити текст у датотекама. Проверите дневник грешака: </value>
+    <comment>Message box text for: Replace failed</comment>
+  </data>
+  <data name="Help_CmdLineFileInformation" xml:space="preserve">
+    <value>/fi [Тачно/Нетачно]
+-fi [Тачно/Нетачно]
+-fileInformation [Тачно/Нетачно]
+    Поставља заставицу за укључивање информације и линији о датотеци у излаз извештаја – Тачно или Нетачно.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineListItemSeparator" xml:space="preserve">
+    <value>/sep [знак за раздвајање или текст]
+-sep [знак за раздвајање или текст]
+-listItemSeparator [знак за раздвајање или текст]
+    Поставља знак или текст да одвоји ставке листе на линији у излазу извештаја.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineReportMode" xml:space="preserve">
+    <value>/rm [мод]
+-rm [мод]
+-reportMode [мод]
+    Поставља режим излаза извештаја за извештаје регуларних израза- треба бити једно од: "ЦелаЛинија", "Одговара", или "Групе".</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="MessageBox_SomethingBrokeDownInDnGrep" xml:space="preserve">
+    <value>Нешто се покварило у dnGrep. Проверите дневник грешака: </value>
+    <comment>Message box text for: Unknown error</comment>
+  </data>
+  <data name="ReportOptionsWindow_FullLines" xml:space="preserve">
+    <value>Цела линија</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Global" xml:space="preserve">
+    <value>Глобално</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Text" xml:space="preserve">
+    <value>Текст</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="TTB2_InsertsTheTextMatchedIntoTheReplacementText" xml:space="preserve">
+    <value>$1, $2, $3, etc… умеће текст који се подудара између заграда у заменски текст</value>
+    <comment>Main window and Test window tooltip</comment>
+  </data>
+  <data name="ReportOptionsWindow_MatchesOnly" xml:space="preserve">
+    <value>Само налажење</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_NoMatchesToReplace" xml:space="preserve">
+    <value>Ништа да се промени</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_NoWritableFilesInResults" xml:space="preserve">
+    <value>Нема датотека за писање у резултатима</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="MessageBox_RenameFile" xml:space="preserve">
+    <value>Преименовање датотеке</value>
+    <comment>Message box title for: Rename file</comment>
+  </data>
+  <data name="MessageBox_SearchOrReplaceFailed" xml:space="preserve">
+    <value>Није могуће завршити претрагу или замену. Проверите дневник грешака: </value>
+    <comment>Message box text for: Search or Replace failed</comment>
+  </data>
+  <data name="MessageBox_TheFilePattern0IsNotAValidRegularExpression12" xml:space="preserve">
+    <value>Образац датотеке '{0}' није валидан регуларни израз:{1}{2}</value>
+    <comment>Message box text for: Main window regular expression file pattern error: {0} is the invalid regular expression; {1} is a newline; {2} is the reason the expression is invalid</comment>
+  </data>
+  <data name="ReportOptionsWindow_PerFile" xml:space="preserve">
+    <value>По датотеци</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Preview" xml:space="preserve">
+    <value>Преглед:</value>
+    <comment>Report options dialog, label</comment>
+  </data>
+  <data name="ReportOptionsWindow_TrimWhitespace" xml:space="preserve">
+    <value>Исеците размак</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_CaptureGroupsOnly" xml:space="preserve">
+    <value>Хватати само групе</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_PressF1ForHelp" xml:space="preserve">
+    <value>F1 за помоћ</value>
+    <comment>Report options dialog, help label</comment>
+  </data>
+  <data name="ReportOptionsWindow_ReportOptions" xml:space="preserve">
+    <value>Опције извештаја</value>
+    <comment>Report options dialog, window title</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_SearchParametersHaveChanged" xml:space="preserve">
+    <value>Параметри претраге су промењени</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Replace_KeepPreviousFileModifiedDate" xml:space="preserve">
+    <value>Задржите датум измене претходне датотеке</value>
+    <comment>Replace window, Keep modified date checkbox label</comment>
+  </data>
+  <data name="Replace_WhenCheckedTheDateModifiedWillNotBeChangedOnReplace" xml:space="preserve">
+    <value>Када је означено, 'Датум измене' неће бити промењен приликом замене</value>
+    <comment>Replace window, Keep modified date checkbox tooltip</comment>
+  </data>
+  <data name="Main_Results_MakeWritable" xml:space="preserve">
+    <value>Учините уписљивим</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
 </root>
