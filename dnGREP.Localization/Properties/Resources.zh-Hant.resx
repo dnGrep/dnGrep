@@ -2628,4 +2628,53 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>為一行中多個符合項或組的分隔字元</value>
     <comment>Report options dialog, text box label</comment>
   </data>
+  <data name="Help_CmdLineUniqueValues" xml:space="preserve">
+    <value>/unique [True/False]
+-unique [True/False]
+-uniqueValues [True/False]
+    設定正則運算式輸出報告中輸出唯一符合值或組旗標 - True 或 False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineListItemSeparator" xml:space="preserve">
+    <value>/sep [separator character or text]
+-sep [separator character or text]
+-listItemSeparator [separator character or text]
+   設定字元或字串以分隔輸出報表中一行上的列表項目旗標.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineFileInformation" xml:space="preserve">
+    <value>/fi [True/False]
+-fi [True/False]
+-fileInformation [True/False]
+    設定輸出報告中包含檔案和行訊息旗標 - True 或 False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineReportMode" xml:space="preserve">
+    <value>/rm [mode]
+-rm [mode]
+-reportMode [mode]
+    設定正則運算式報告輸出模式 - 必須是以下之一: "FullLine", "Matches", 或 "Groups".</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineSeparateLines" xml:space="preserve">
+    <value>/sl [True/False]
+-sl [True/False]
+-separateLines [True/False]
+    設定正則運算式輸出報告中單行輸出每個符合項或組旗標 - True 或 False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineTrimWhitespace" xml:space="preserve">
+    <value>/trim [True/False]
+-trim [True/False]
+-trimWhitespace [True/False]
+    設定輸出報告去掉空白旗標 - True 或 False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUniqueScope" xml:space="preserve">
+    <value>/scope [scope]
+-scope [scope]
+-uniqueScope [scope]
+   設定正則運算式輸出報告中唯一值範圍旗標 - 必須是以下之一: "Global" 或 "PerFile".</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
 </root>
