@@ -2460,4 +2460,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>儲存</value>
     <comment>Report options dialog, button label</comment>
   </data>
+  <data name="ReportOptionsWindow_CSV" xml:space="preserve">
+    <value>CSV</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
 </root>
