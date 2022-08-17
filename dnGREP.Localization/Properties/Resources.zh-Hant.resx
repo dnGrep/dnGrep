@@ -617,11 +617,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, search option Boolean Operators tooltip</comment>
   </data>
   <data name="Main_ContextAfter" xml:space="preserve">
-    <value>行</value>
+    <value>行之後</value>
     <comment>Main window, result options context lines label</comment>
   </data>
   <data name="Main_ContextBeforeAnd" xml:space="preserve">
-    <value>行 和後</value>
+    <value>行之前 和</value>
     <comment>Main window, results options context lines label</comment>
   </data>
   <data name="Main_ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
@@ -629,7 +629,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, result options context lines tooltip</comment>
   </data>
   <data name="Main_ContextShowLines" xml:space="preserve">
-    <value>顯示上下文行數 前</value>
+    <value>顯示上下文行數</value>
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_Created" xml:space="preserve">
@@ -1753,7 +1753,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, plug-in options text input label</comment>
   </data>
   <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
-    <value>按 F1 獲取選項相關説明</value>
+    <value>按 F1 獲得選項相關説明</value>
     <comment>Options dialog, help label</comment>
   </data>
   <data name="Options_PreviewToolForTranslators" xml:space="preserve">
@@ -2441,11 +2441,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main windows, results list, context menu item label</comment>
   </data>
   <data name="BookmarkDetails_SkipRemoteCloudStorageFiles" xml:space="preserve">
-    <value>跳過遠程雲端儲存檔案</value>
+    <value>跳過遠程雲端檔案</value>
     <comment>Bookmark details dialog, checkbox label (accel)</comment>
   </data>
   <data name="Main_SkipRemoteCloudStorageFiles" xml:space="preserve">
-    <value>跳過遠程雲端儲存檔案</value>
+    <value>跳過遠程雲端檔案</value>
     <comment>Main window, search option label</comment>
   </data>
   <data name="Options_Personalize_SearchType" xml:space="preserve">
@@ -2465,7 +2465,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Report options dialog, radio button label</comment>
   </data>
   <data name="ReportOptionsWindow_PressF1ForHelp" xml:space="preserve">
-    <value>按 F1 獲取相關說明</value>
+    <value>按 F1 獲得相關說明</value>
     <comment>Report options dialog, help label</comment>
   </data>
   <data name="ReportOptionsWindow_Preview" xml:space="preserve">
@@ -2497,7 +2497,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Preview window, option label</comment>
   </data>
   <data name="Main_Status_SearchCompletedIn0_1MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
-    <value>搜尋於 {0} 内完成 – 找到 {1} 個符合項,於 {2} 個檔案中,共搜尋 {3} 個檔案.</value>
+    <value>搜尋於 {0} 内完成 – 找到 {1} 個符合項, 於 {2} 個檔案中, 共搜尋 {3} 個檔案.</value>
     <comment>Main window, status bar message: {0} is the duration of the search; {1}  is the total number of matches found; {2} is the number of files with matches found; {3} is the total number of files searched; </comment>
   </data>
   <data name="ReportOptionsWindow_CaptureGroupsOnly" xml:space="preserve">
