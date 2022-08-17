@@ -2584,4 +2584,48 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>以純文字預覽</value>
     <comment>Options dialog, plug-ins checkbox label</comment>
   </data>
+  <data name="Main_Menu_Personalize" xml:space="preserve">
+    <value>個人化</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Options_PersonalizeControlVisibility_Tooltip" xml:space="preserve">
+    <value>個人化選項啟用時顯示或隱藏控制項</value>
+    <comment>Options dialog, control tooltip</comment>
+  </data>
+  <data name="Options_PersonalizeControlVisibility" xml:space="preserve">
+    <value>個人化可見控制項</value>
+    <comment>Options dialog, control label</comment>
+  </data>
+  <data name="Main_MaximizeResults" xml:space="preserve">
+    <value>最大化結果 (F7)</value>
+    <comment>Main window, Maximize results button tooltip</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_NoWritableFilesInResults" xml:space="preserve">
+    <value>結果中無可寫入檔案</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_ReplaceUsingBooleanOperators" xml:space="preserve">
+    <value>僅將布林取代於文字搜尋字搜尋</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_RestoreResults" xml:space="preserve">
+    <value>回復結果 (F7)</value>
+    <comment>Main window, Maximize results button tooltip</comment>
+  </data>
+  <data name="Options_MaximizeResultsPanelOnSearch" xml:space="preserve">
+    <value>最大化搜索結果面板</value>
+    <comment>Options dialog, layout option checkbox label (accel)</comment>
+  </data>
+  <data name="ReportOptionsWindow_FilterForUniqueValues" xml:space="preserve">
+    <value>過濾唯一值</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_IncludeFileAndLineInformation" xml:space="preserve">
+    <value>包括檔案和行訊息</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_SeparatorForMultipleMatchesOrGroupsOnALine" xml:space="preserve">
+    <value>為一行中多個符合項或組的分隔字元</value>
+    <comment>Report options dialog, text box label</comment>
+  </data>
 </root>
