@@ -617,11 +617,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, search option Boolean Operators tooltip</comment>
   </data>
   <data name="Main_ContextAfter" xml:space="preserve">
-    <value>行</value>
+    <value>行之後</value>
     <comment>Main window, result options context lines label</comment>
   </data>
   <data name="Main_ContextBeforeAnd" xml:space="preserve">
-    <value>行 和後</value>
+    <value>行之前 和</value>
     <comment>Main window, results options context lines label</comment>
   </data>
   <data name="Main_ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
@@ -629,7 +629,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, result options context lines tooltip</comment>
   </data>
   <data name="Main_ContextShowLines" xml:space="preserve">
-    <value>顯示上下文行數 前</value>
+    <value>顯示上下文行數</value>
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_Created" xml:space="preserve">
@@ -1753,7 +1753,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, plug-in options text input label</comment>
   </data>
   <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
-    <value>按 F1 獲取選項相關説明</value>
+    <value>按 F1 獲得選項相關説明</value>
     <comment>Options dialog, help label</comment>
   </data>
   <data name="Options_PreviewToolForTranslators" xml:space="preserve">
@@ -2441,11 +2441,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main windows, results list, context menu item label</comment>
   </data>
   <data name="BookmarkDetails_SkipRemoteCloudStorageFiles" xml:space="preserve">
-    <value>跳過遠程雲端儲存檔案</value>
+    <value>跳過遠程雲端檔案</value>
     <comment>Bookmark details dialog, checkbox label (accel)</comment>
   </data>
   <data name="Main_SkipRemoteCloudStorageFiles" xml:space="preserve">
-    <value>跳過遠程雲端儲存檔案</value>
+    <value>跳過遠程雲端檔案</value>
     <comment>Main window, search option label</comment>
   </data>
   <data name="Options_Personalize_SearchType" xml:space="preserve">
@@ -2459,5 +2459,222 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="ReportOptionsWindow_Save" xml:space="preserve">
     <value>儲存</value>
     <comment>Report options dialog, button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_CSV" xml:space="preserve">
+    <value>CSV</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_PressF1ForHelp" xml:space="preserve">
+    <value>按 F1 獲得相關說明</value>
+    <comment>Report options dialog, help label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Preview" xml:space="preserve">
+    <value>預覽:</value>
+    <comment>Report options dialog, label</comment>
+  </data>
+  <data name="TTB0_InsertsTabNewline" xml:space="preserve">
+    <value>\\t 插入 tab, \\r 插入 return, \\n 插入 newline</value>
+    <comment>Main window and Test window tooltip</comment>
+  </data>
+  <data name="Main_MoreMenu_Report_Options" xml:space="preserve">
+    <value>報告選項…</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="ReportOptionsWindow_ShowEachMatchOrGroupOnSeparateLine" xml:space="preserve">
+    <value>以單獨行顯示每個符合項或組</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="Main_Menu_Settings" xml:space="preserve">
+    <value>設定</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Options_Personalize_Features" xml:space="preserve">
+    <value>功能</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Preview_Syntax" xml:space="preserve">
+    <value>語法</value>
+    <comment>Preview window, option label</comment>
+  </data>
+  <data name="Main_Status_SearchCompletedIn0_1MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
+    <value>搜尋於 {0} 内完成 – 找到 {1} 個符合項, 於 {2} 個檔案中, 共搜尋 {3} 個檔案.</value>
+    <comment>Main window, status bar message: {0} is the duration of the search; {1}  is the total number of matches found; {2} is the number of files with matches found; {3} is the total number of files searched; </comment>
+  </data>
+  <data name="ReportOptionsWindow_CaptureGroupsOnly" xml:space="preserve">
+    <value>僅擷取組</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="Options_Personalize_SearchOptions" xml:space="preserve">
+    <value>搜尋選項</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_SpecialOptions" xml:space="preserve">
+    <value>特別選項</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Preview_Title_AsText" xml:space="preserve">
+    <value>(以文字顯示)</value>
+    <comment>Preview window, file label when binary file is shown as text</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_NoMatchesToReplace" xml:space="preserve">
+    <value>沒有可取代的符合項</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_SearchParametersHaveChanged" xml:space="preserve">
+    <value>搜尋參數已更改</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_Results_MakeWritable" xml:space="preserve">
+    <value>使可寫入</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Global" xml:space="preserve">
+    <value>全局</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="Options_Personalize_FileFilter" xml:space="preserve">
+    <value>檔案過濾器</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_PreviewWindow" xml:space="preserve">
+    <value>預覽視窗</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_ResultOptions" xml:space="preserve">
+    <value>結果選項</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_ResultsTree" xml:space="preserve">
+    <value>結果樹狀圖</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Replace_KeepPreviousFileModifiedDate" xml:space="preserve">
+    <value>保留先前檔案修改日期</value>
+    <comment>Replace window, Keep modified date checkbox label</comment>
+  </data>
+  <data name="Replace_WhenCheckedTheDateModifiedWillNotBeChangedOnReplace" xml:space="preserve">
+    <value>若勾選,取代時不會變更'修改日期'</value>
+    <comment>Replace window, Keep modified date checkbox tooltip</comment>
+  </data>
+  <data name="ReportOptionsWindow_FullLines" xml:space="preserve">
+    <value>整行</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_MatchesOnly" xml:space="preserve">
+    <value>僅符合項</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_PerFile" xml:space="preserve">
+    <value>每個檔案</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_ReportOptions" xml:space="preserve">
+    <value>報告選項</value>
+    <comment>Report options dialog, window title</comment>
+  </data>
+  <data name="ReportOptionsWindow_Text" xml:space="preserve">
+    <value>文字</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_TrimWhitespace" xml:space="preserve">
+    <value>去掉空白</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="Options_PluginShowPlainTextInPreview" xml:space="preserve">
+    <value>以純文字預覽</value>
+    <comment>Options dialog, plug-ins checkbox label</comment>
+  </data>
+  <data name="Main_Menu_Personalize" xml:space="preserve">
+    <value>個人化</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Options_PersonalizeControlVisibility_Tooltip" xml:space="preserve">
+    <value>個人化選項啟用時顯示或隱藏控制項</value>
+    <comment>Options dialog, control tooltip</comment>
+  </data>
+  <data name="Options_PersonalizeControlVisibility" xml:space="preserve">
+    <value>個人化可見控制項</value>
+    <comment>Options dialog, control label</comment>
+  </data>
+  <data name="Main_MaximizeResults" xml:space="preserve">
+    <value>最大化結果 (F7)</value>
+    <comment>Main window, Maximize results button tooltip</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_NoWritableFilesInResults" xml:space="preserve">
+    <value>結果中無可寫入檔案</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_ReplaceUsingBooleanOperators" xml:space="preserve">
+    <value>僅將布林取代於文字搜尋字搜尋</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_RestoreResults" xml:space="preserve">
+    <value>回復結果 (F7)</value>
+    <comment>Main window, Maximize results button tooltip</comment>
+  </data>
+  <data name="Options_MaximizeResultsPanelOnSearch" xml:space="preserve">
+    <value>最大化搜索結果面板</value>
+    <comment>Options dialog, layout option checkbox label (accel)</comment>
+  </data>
+  <data name="ReportOptionsWindow_FilterForUniqueValues" xml:space="preserve">
+    <value>過濾唯一值</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_IncludeFileAndLineInformation" xml:space="preserve">
+    <value>包括檔案和行訊息</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_SeparatorForMultipleMatchesOrGroupsOnALine" xml:space="preserve">
+    <value>為一行中多個符合項或組的分隔字元</value>
+    <comment>Report options dialog, text box label</comment>
+  </data>
+  <data name="Help_CmdLineUniqueValues" xml:space="preserve">
+    <value>/unique [True/False]
+-unique [True/False]
+-uniqueValues [True/False]
+    設定正則運算式輸出報告中輸出唯一符合值或組旗標 - True 或 False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineListItemSeparator" xml:space="preserve">
+    <value>/sep [separator character or text]
+-sep [separator character or text]
+-listItemSeparator [separator character or text]
+   設定字元或字串以分隔輸出報表中一行上的列表項目旗標.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineFileInformation" xml:space="preserve">
+    <value>/fi [True/False]
+-fi [True/False]
+-fileInformation [True/False]
+    設定輸出報告中包含檔案和行訊息旗標 - True 或 False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineReportMode" xml:space="preserve">
+    <value>/rm [mode]
+-rm [mode]
+-reportMode [mode]
+    設定正則運算式報告輸出模式 - 必須是以下之一: "FullLine", "Matches", 或 "Groups".</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineSeparateLines" xml:space="preserve">
+    <value>/sl [True/False]
+-sl [True/False]
+-separateLines [True/False]
+    設定正則運算式輸出報告中單行輸出每個符合項或組旗標 - True 或 False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineTrimWhitespace" xml:space="preserve">
+    <value>/trim [True/False]
+-trim [True/False]
+-trimWhitespace [True/False]
+    設定輸出報告去掉空白旗標 - True 或 False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUniqueScope" xml:space="preserve">
+    <value>/scope [scope]
+-scope [scope]
+-uniqueScope [scope]
+   設定正則運算式輸出報告中唯一值範圍旗標 - 必須是以下之一: "Global" 或 "PerFile".</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
 </root>
