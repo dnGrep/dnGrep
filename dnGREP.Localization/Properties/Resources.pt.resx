@@ -235,7 +235,7 @@
     <comment>Main window, search options encoding combo box label (accel) </comment>
   </data>
   <data name="Main_EverythingIndexService" xml:space="preserve">
-    <value>Rótulo para a opção do padrão do tipo de ficheiro. "Everything" é uma aplicação (consulte https://www.voidtools.com/) Este controlo é visível apenas se a aplicação estiver instalada no computador do utilizador.</value>
+    <value>Rótulo para a opção do padrão do tipo de ficheiro. "Everything" é uma aplicação (consulte https://www.voidtools.com/) Este controlo é visível apenas se a aplicação estiver instalada no computador do utilizador</value>
     <comment>Main window, pattern type option Everything tooltip</comment>
   </data>
   <data name="Main_FilterSummary_NoHidden" xml:space="preserve">
@@ -295,7 +295,7 @@
     <comment>Main window, Regular expression pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_SearchInArchives" xml:space="preserve">
-    <value>Procurar em fi_cheiros</value>
+    <value>Pro_curar em arquivos</value>
     <comment>Main window, checkbox label (accel)</comment>
   </data>
   <data name="Main_SearchType_Hex" xml:space="preserve">
@@ -311,7 +311,7 @@
     <comment>Main window, Phonetic search type tooltip</comment>
   </data>
   <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
-    <value>Pesquisa de texto simples</value>
+    <value>Pesquisar texto simples</value>
     <comment>Main window, Text search type tooltip</comment>
   </data>
   <data name="Main_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
@@ -455,7 +455,7 @@
     <comment>Bookmark details dialog, regular expression pattern type option tooltip</comment>
   </data>
   <data name="BookmarkDetails_EverythingIndexService" xml:space="preserve">
-    <value>Rótulo para a opção do padrão do tipo de ficheiro. "Everything" é uma aplicação (consulte https://www.voidtools.com/) Este controlo é visível apenas se a aplicação estiver instalada no computador do utilizador.</value>
+    <value>Rótulo para a opção do padrão do tipo de ficheiro. "Everything" é uma aplicação (consulte https://www.voidtools.com/) Este controlo é visível apenas se a aplicação estiver instalada no computador do utilizador</value>
     <comment>Bookmark details dialog, Everything pattern type option tooltip</comment>
   </data>
   <data name="BookmarkDetails_IncludeBinaryFiles" xml:space="preserve">
@@ -903,7 +903,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/unique [Verdadeiro/Falso]
 -unique [Verdadeiro/Falso]
 -uniqueValues [Verdadeiro/Falso]
-    Definir a flag para gerar valores de correspondência ou de grupo exclusivos no relatório de de expressão regular – Verdadeiro ou Falso.</value>
+    Definir a flag para gerar valores de correspondência ou de grupo exclusivos no relatório de expressão regular – Verdadeiro ou Falso.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineWholeWord" xml:space="preserve">
@@ -1622,7 +1622,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, results options context lines label</comment>
   </data>
   <data name="Main_EverythingSearch" xml:space="preserve">
-    <value>Rótulo para o campo de pesquisa quando a opção padrão do tipo de ficheiro "Everything" estiver selecionada. "Everything" é o nome de uma aplicação (consulte https://www.voidtools.com/) Este controlo é visível apenas se a aplicação estiver instalada no computador do utilizador.</value>
+    <value>Rótulo do campo de pesquisa quando a opção padrão tipo de Ficheiro “Everything” estiver selecionada. “Everything” é o nome de uma aplicação (consulte https://www.voidtools.com/) Este controlo é visível apenas se a aplicação estiver instalada no computador do utilizador.</value>
     <comment>Main window, folder input caption when Everything search is enabled (accel)</comment>
   </data>
   <data name="Main_ExcelSheetName" xml:space="preserve">
@@ -2590,7 +2590,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Report search options summary label</comment>
   </data>
   <data name="ReportSummary_UsingEverythingIndexSearch" xml:space="preserve">
-    <value>Cadeia de texto incorporada no relatório dnGrep quando a opção do Tipo de padrão de ficheiro Everything está selecionada. "Everything" é o nome de uma aplicação (consulte https://www.voidtools.com/) Este controlo é visível apenas se a aplicação estiver instalada no computador do utilizador.</value>
+    <value>Cadeia de texto incorporada no relatório dnGrep quando a opção do Tipo de padrão de ficheiro Everything está selecionada. "Everything" é o nome de uma aplicação (consulte https://www.voidtools.com/) Este controlo é visível apenas se a aplicação estiver instalada no computador do utilizador</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="Test_SearchGroup" xml:space="preserve">
