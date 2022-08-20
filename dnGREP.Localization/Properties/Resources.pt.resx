@@ -719,7 +719,7 @@
     <comment>Bookmark details dialog, Byte search type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_PatternType_Everything" xml:space="preserve">
-    <value>Rótulo para uma opção do padrão do tipo de ficheiro. "Everything" é o nome de uma aplicação (consulte https://www.voidtools.com/) Este controlo é visível apenas se a aplicação estiver instalada no computador do utilizador.</value>
+    <value>Everything</value>
     <comment>Bookmark details dialog, Everything pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
@@ -1390,7 +1390,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, filter files by date, past time label</comment>
   </data>
   <data name="Main_PatternType_Everything" xml:space="preserve">
-    <value>Rótulo para uma opção do padrão do tipo de ficheiro. "Everything" é o nome de uma aplicação (consulte https://www.voidtools.com/) Este controlo é visível apenas se a aplicação estiver instalada no computador do utilizador.</value>
+    <value>Everything</value>
     <comment>Main window, Everything pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_RemoveFolderFromBookmarkAssociation" xml:space="preserve">
