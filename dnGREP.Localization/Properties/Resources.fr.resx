@@ -62,4 +62,16 @@
     <value>À propos de dnGrep</value>
     <comment>About dialog window title</comment>
   </data>
+  <data name="About_Acknowledgments" xml:space="preserve">
+    <value>Remerciements</value>
+    <comment>About dialog text</comment>
+  </data>
+  <data name="About_Version" xml:space="preserve">
+    <value>Version</value>
+    <comment>About dialog label</comment>
+  </data>
+  <data name="BookmarkDetails_Content_Group" xml:space="preserve">
+    <value>Contenu</value>
+    <comment>Bookmark details dialog, search group header label (accel)</comment>
+  </data>
 </root>
