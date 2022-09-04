@@ -114,6 +114,29 @@ namespace dnGREP.WPF
             }
         }
 
+        public void SetFileOrFolderPath(string path)
+        {
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                FileOrFolderPath = string.Empty;
+            }
+            else
+            {
+                var split = Utils.SplitPath(path, true);
+                if (split.Length > 0)
+                {
+                    if (TypeOfFileSearch == FileSearchType.Everything)
+                    {
+                        FileOrFolderPath = Utils.QuoteIfIncludesSpaces(split[0]);
+                    }
+                    else
+                    {
+                        FileOrFolderPath = path;
+                    }
+                }
+            }
+        }
+
         private string fileOrFolderPath;
         public string FileOrFolderPath
         {
@@ -1335,6 +1358,7 @@ namespace dnGREP.WPF
                 case nameof(TypeOfFileSearch):
                     if (TypeOfFileSearch == FileSearchType.Everything)
                     {
+                        SetFileOrFolderPath(FileOrFolderPath);
                         FilePattern = string.Empty;
                         FilePatternIgnore = string.Empty;
                         UseGitignore = false;
@@ -1790,7 +1814,7 @@ namespace dnGREP.WPF
             TypeOfSearch = Settings.Get<SearchType>(GrepSettings.Key.TypeOfSearch);
             TypeOfFileSearch = Settings.Get<FileSearchType>(GrepSettings.Key.TypeOfFileSearch);
             // FileOrFolderPath depends on TypeOfFileSearch, so must be after
-            FileOrFolderPath = Settings.Get<string>(GrepSettings.Key.SearchFolder);
+            SetFileOrFolderPath(Settings.Get<string>(GrepSettings.Key.SearchFolder));
             CodePage = Settings.Get<int>(GrepSettings.Key.CodePage);
             FilePattern = Settings.Get<string>(GrepSettings.Key.FilePattern);
             FilePatternIgnore = Settings.Get<string>(GrepSettings.Key.FilePatternIgnore);

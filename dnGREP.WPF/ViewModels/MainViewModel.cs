@@ -730,7 +730,8 @@ namespace dnGREP.WPF
 
         public void OnFileDrop(bool append, string[] filePaths)
         {
-            string paths = append ? FileOrFolderPath : string.Empty;
+            bool everythingSearch = TypeOfFileSearch == FileSearchType.Everything;
+            string paths = append && !everythingSearch ? FileOrFolderPath : string.Empty;
 
             foreach (string path in filePaths)
             {
@@ -740,7 +741,7 @@ namespace dnGREP.WPF
                 paths += Utils.QuoteIfNeeded(path);
             }
 
-            FileOrFolderPath = paths;
+            SetFileOrFolderPath(paths);
         }
 
         public override void UpdateState(string name)
@@ -1482,7 +1483,7 @@ namespace dnGREP.WPF
                     newPath += " " + filePattern;
                 }
 
-                FileOrFolderPath = newPath;
+                SetFileOrFolderPath(newPath);
             }
         }
 
@@ -1798,7 +1799,7 @@ namespace dnGREP.WPF
                 {
                     string s = searchPath;
                     FastPathBookmarks.RemoveAt(idx);
-                    FileOrFolderPath = s;
+                    SetFileOrFolderPath(s);
                 }
             }
             while (FastPathBookmarks.Count > maxPathCount)
@@ -2559,7 +2560,7 @@ namespace dnGREP.WPF
 
                     if (TypeOfFileSearch == FileSearchType.Everything)
                     {
-                        FileOrFolderPath = bmk.FilePattern;
+                        SetFileOrFolderPath(bmk.FilePattern);
                     }
                     else
                     {
@@ -2607,7 +2608,7 @@ namespace dnGREP.WPF
 
                     if (TypeOfFileSearch == FileSearchType.Everything)
                     {
-                        FileOrFolderPath = bmk.FileNames;
+                        SetFileOrFolderPath(bmk.FileNames);
                     }
                     else
                     {
