@@ -58,7 +58,7 @@ namespace dnGREP.WPF
 
             if (ViewModel.IsFullDialog)
             {
-                cbWrapText.IsChecked = GrepSettings.Instance.Get<bool?>(GrepSettings.Key.ReplaceWindowWrap);
+                cbWrapText.IsChecked = GrepSettings.Instance.Get<bool>(GrepSettings.Key.ReplaceWindowWrap);
                 zoomSlider.Value = GrepSettings.Instance.Get<int>(GrepSettings.Key.ReplaceWindowFontSize);
 
                 textEditor.ShowLineNumbers = false; // using custom line numbers
@@ -107,7 +107,7 @@ namespace dnGREP.WPF
         {
             if (ViewModel.IsFullDialog)
             {
-                GrepSettings.Instance.Set(GrepSettings.Key.ReplaceWindowWrap, cbWrapText.IsChecked);
+                GrepSettings.Instance.Set(GrepSettings.Key.ReplaceWindowWrap, cbWrapText.IsChecked ?? false);
                 GrepSettings.Instance.Set(GrepSettings.Key.ReplaceWindowFontSize, (int)zoomSlider.Value);
 
                 LayoutProperties.ReplaceBounds = new Rect(

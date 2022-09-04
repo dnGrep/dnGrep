@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -1411,6 +1412,34 @@ namespace Tests
             Assert.Equal("", text.TrimEndOfLine());
         }
 
+        [Fact]
+        public void TestRoundTripDateTimeToString()
+        {
+            var input = new DateTime[]
+            {
+                new DateTime(2022, 9, 1, 13, 40, 16, DateTimeKind.Local),
+                new DateTime(2022, 9, 1, 6, 40, 16, DateTimeKind.Utc),
+            };
+
+            foreach (var srcDateTime in input)
+            {
+                string dateStr = srcDateTime.ToIso8601Date();
+                DateTime? date = dateStr.FromIso8601Date();
+                Assert.NotNull(date);
+                Assert.Equal(srcDateTime.Date, date);
+
+                string dateTimeStr = srcDateTime.ToIso8601DateTime();
+                DateTime? dateTime = dateTimeStr.FromIso8601DateTime();
+                Assert.NotNull(dateTime);
+                Assert.Equal(srcDateTime, dateTime);
+
+                string dateTimeZoneStr = srcDateTime.ToIso8601DateTimeWithZone();
+                DateTime? dateTimeZone = dateTimeZoneStr.FromIso8601DateTimeWithZone();
+                Assert.NotNull(dateTimeZone);
+                Assert.Equal(srcDateTime, dateTimeZone);
+            }
+        }
+
         [Theory]
         [InlineData("\\TestCase2", "*.txt", 2)]
         [InlineData("\\TestCase2", "*.txt;*.xls", 3)]
@@ -1507,9 +1536,9 @@ namespace Tests
             FileSearchType? expTypeOfFileSearch, bool? expCaseSensitive, bool? expWholeWord,
             bool? expMultiline, bool? expDotAsNewLine, bool? expBooleanOperators, bool expExecuteSearch,
             string expReportPath, string expTextPath, string expCsvPath, ReportMode? reportMode,
-            bool? includeFileInformation, bool? trimWhitespace, bool? filterUniqueValues, 
+            bool? includeFileInformation, bool? trimWhitespace, bool? filterUniqueValues,
             UniqueScope? uniqueScope, bool? outputOnSeparateLines, string listItemSeparator,
-            bool expExit) 
+            bool expExit)
         {
             const string program = @"""C:\\Program Files\\dnGREP\\dnGREP.exe""";
             var args = new CommandLineArgs(program + commandLine);

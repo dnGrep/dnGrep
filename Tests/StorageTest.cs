@@ -29,8 +29,8 @@ namespace Tests
         {
             GrepSettings storage = GrepSettings.Instance;
             storage.Clear();
-            Assert.Empty(storage);
-            storage["test"] = "hello";
+            Assert.True(storage.Count == 0);
+            storage.Set("test", "hello");
             storage.Save(destinationFolder + "\\test.xml");
             Assert.True(File.Exists(destinationFolder + "\\test.xml"));
             Assert.True(new FileInfo(destinationFolder + "\\test.xml").Length > 10);
@@ -41,13 +41,13 @@ namespace Tests
         {
             GrepSettings storage = GrepSettings.Instance;
             storage.Clear();
-            Assert.Empty(storage);
-            storage["test"] = "hello";
+            Assert.True(storage.Count == 0);
+            storage.Set("test", "hello");
             storage.Save(destinationFolder + "\\test.xml");
             storage.Clear();
-            Assert.Empty(storage);
+            Assert.True(storage.Count == 0);
             storage.Load(destinationFolder + "\\test.xml");
-            Assert.True(storage["test"] == "hello");
+            Assert.True(storage.Get<string>("test") == "hello");
         }
 
         [Fact]
@@ -55,12 +55,12 @@ namespace Tests
         {
             GrepSettings storage = GrepSettings.Instance;
             storage.Clear();
-            Assert.Empty(storage);
+            Assert.True(storage.Count == 0);
             storage.Set("size", 10);
             storage.Set("isTrue", true);
             storage.Save(destinationFolder + "\\test.xml");
             storage.Clear();
-            Assert.Empty(storage);
+            Assert.True(storage.Count == 0);
             storage.Load(destinationFolder + "\\test.xml");
             Assert.Equal(10, storage.Get<int>("size"));
             Assert.True(storage.Get<bool>("isTrue"));

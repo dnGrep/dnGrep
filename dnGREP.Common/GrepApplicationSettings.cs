@@ -9,6 +9,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using System.Windows;
 using System.Xml;
+using System.Xml.Linq;
 using System.Xml.Serialization;
 using NLog;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
@@ -22,7 +23,7 @@ namespace dnGREP.Common
     /// <summary>
     /// Singleton class used to maintain and persist application settings
     /// </summary>
-    public class GrepSettings : SerializableDictionary
+    public class GrepSettings
     {
         public static class Key
         {
@@ -293,6 +294,10 @@ namespace dnGREP.Common
             }
         }
 
+        private readonly Dictionary<string, string> settings = new Dictionary<string, string>();
+
+        public int Version { get; private set; } = 1;
+
         /// <summary>
         /// Loads settings from default location - baseFolder\\dnGREP.Settings.dat
         /// </summary>
@@ -301,11 +306,64 @@ namespace dnGREP.Common
             Load(Path.Combine(Utils.GetDataFolderPath(), storageFileName));
         }
 
+        public void Clear()
+        {
+            settings.Clear();
+        }
+
+        public int Count => settings.Count;
+
+        public bool ContainsKey(string key)
+        {
+            return settings.ContainsKey(key);
+        }
+
         /// <summary>
         /// Load settings from location specified
         /// </summary>
         /// <param name="path">Path to settings file</param>
         public void Load(string path)
+        {
+            // check file version
+            Version = GetFileVersion(path);
+            if (Version == 1)
+            {
+                LoadV1(path);
+            }
+            else if (Version == 2)
+            {
+                LoadV2(path);
+            }
+
+            InitializeFonts();
+        }
+
+        private int GetFileVersion(string path)
+        {
+            if (File.Exists(path))
+            {
+                using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                {
+                    if (stream != null)
+                    {
+                        XDocument doc = XDocument.Load(stream, LoadOptions.PreserveWhitespace);
+                        if (doc != null)
+                        {
+                            var attr = doc.Root.Attribute("version");
+                            if (attr != null && !string.IsNullOrEmpty(attr.Value) &&
+                                int.TryParse(attr.Value, out int version))
+                            {
+                                return version;
+                            }
+                        }
+                    }
+                }
+                return 1;
+            }
+            return 2;
+        }
+
+        private void LoadV1(string path)
         {
             try
             {
@@ -316,13 +374,62 @@ namespace dnGREP.Common
                         if (stream == null)
                             return;
                         XmlSerializer serializer = new XmlSerializer(typeof(SerializableDictionary));
-                        this.Clear();
+                        settings.Clear();
                         SerializableDictionary appData = (SerializableDictionary)serializer.Deserialize(stream);
                         foreach (KeyValuePair<string, string> pair in appData)
-                            this[pair.Key] = pair.Value;
+                            settings[pair.Key] = pair.Value;
+                    }
+
+                    ConvertSettingsToV2();
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Failed to load settings: " + ex.Message);
+            }
+        }
+
+        private void LoadV2(string path)
+        {
+            try
+            {
+                if (File.Exists(path))
+                {
+                    using (FileStream stream = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    {
+                        if (stream != null)
+                        {
+                            XDocument doc = XDocument.Load(stream, LoadOptions.PreserveWhitespace);
+                            if (doc != null && doc.Root.Name.LocalName.Equals("dictionary"))
+                            {
+                                settings.Clear();
+
+                                XNamespace xsi = "http://www.w3.org/2001/XMLSchema-instance";
+
+                                foreach (XElement elem in doc.Root.Descendants("item"))
+                                {
+                                    if (elem.Attribute("key") is XAttribute key &&
+                                        !string.IsNullOrEmpty(key.Value))
+                                    {
+                                        var nil = elem.Attribute(xsi + "nil");
+                                        if (nil != null && nil.Value == "true")
+                                        {
+                                            settings[key.Value] = "xsi:nil";
+                                        }
+                                        else if (elem.HasElements)
+                                        {
+                                            settings[key.Value] = elem.Element("stringArray").ToString();
+                                        }
+                                        else
+                                        {
+                                            settings[key.Value] = elem.Value;
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
-                InitializeFonts();
             }
             catch (Exception ex)
             {
@@ -332,7 +439,7 @@ namespace dnGREP.Common
 
         private void InitializeFonts()
         {
-            if (!TryGetValue(Key.ApplicationFontFamily, out string value) ||
+            if (!settings.TryGetValue(Key.ApplicationFontFamily, out string value) ||
                 string.IsNullOrWhiteSpace(value))
             {
                 Set(Key.ApplicationFontFamily, SystemFonts.MessageFontFamily.Source);
@@ -353,7 +460,7 @@ namespace dnGREP.Common
                 Set(Key.DialogFontSize, SystemFonts.MessageFontSize);
             }
 
-            if (!TryGetValue(Key.ResultsFontFamily, out string value2) ||
+            if (!settings.TryGetValue(Key.ResultsFontFamily, out string value2) ||
                 string.IsNullOrWhiteSpace(value2))
             {
                 Set(Key.ResultsFontFamily, DefaultMonospaceFontFamily);
@@ -408,17 +515,7 @@ namespace dnGREP.Common
                     if (!Directory.Exists(Path.GetDirectoryName(path)))
                         Directory.CreateDirectory(Path.GetDirectoryName(path));
 
-                    // Create temp file in case save crashes
-                    using (FileStream stream = File.OpenWrite(path + "~"))
-                    using (XmlWriter xmlStream = XmlWriter.Create(stream, new XmlWriterSettings { Indent = true }))
-                    {
-                        if (xmlStream == null)
-                            return;
-                        XmlSerializer serializer = new XmlSerializer(typeof(SerializableDictionary));
-                        serializer.Serialize(xmlStream, this);
-                    }
-                    File.Copy(path + "~", path, true);
-                    Utils.DeleteFile(path + "~");
+                    SaveV2(path);
                 }
                 catch (Exception ex)
                 {
@@ -432,10 +529,127 @@ namespace dnGREP.Common
             }
         }
 
-        public new string this[string key]
+        //private void SaveV1(string path)
+        //{
+        //    // Create temp file in case save crashes
+        //    using (FileStream stream = File.OpenWrite(path + "~"))
+        //    using (XmlWriter xmlStream = XmlWriter.Create(stream, new XmlWriterSettings { Indent = true }))
+        //    {
+        //        if (xmlStream == null)
+        //            return;
+        //        XmlSerializer serializer = new XmlSerializer(typeof(SerializableDictionary));
+        //        serializer.Serialize(xmlStream, this);
+        //    }
+        //    File.Copy(path + "~", path, true);
+        //    Utils.DeleteFile(path + "~");
+        //}
+
+        private void SaveV2(string path)
         {
-            get { return ContainsKey(key) ? base[key] : null; }
-            set { base[key] = value; }
+            // Create temp file in case save crashes
+            using (FileStream stream = File.OpenWrite(path + "~"))
+            using (XmlWriter xmlStream = XmlWriter.Create(stream, new XmlWriterSettings { Indent = true }))
+            {
+                if (xmlStream == null)
+                    return;
+
+                XNamespace xml = "http://www.w3.org/XML/1998/namespace";
+                XNamespace xsi = "http://www.w3.org/2001/XMLSchema-instance";
+
+                XDocument doc = new XDocument();
+                doc.Add(new XElement("dictionary"));
+                doc.Root.SetAttributeValue("version", "2");
+                doc.Root.SetAttributeValue(XNamespace.Xmlns + "xml", xml);
+                doc.Root.SetAttributeValue(XNamespace.Xmlns + "xsi", xsi);
+                foreach (string key in settings.Keys)
+                {
+                    XElement elem;
+                    if (!settings.TryGetValue(key, out string value) ||
+                        value == "xsi:nil")
+                    {
+                        elem = new XElement("item");
+                        elem.SetAttributeValue("key", key);
+                        elem.SetAttributeValue(xsi + "nil", "true");
+                    }
+                    else if (value.StartsWith("<stringArray"))
+                    {
+                        elem = new XElement("item", XElement.Parse(value));
+                        elem.SetAttributeValue("key", key);
+                    }
+                    else
+                    {
+                        elem = new XElement("item", value);
+                        elem.SetAttributeValue("key", key);
+                        if (!string.IsNullOrEmpty(value) && string.IsNullOrWhiteSpace(value))
+                        {
+                            elem.SetAttributeValue(xml + "space", "preserve");
+                        }
+                    }
+                    doc.Root.Add(elem);
+                }
+
+                doc.Save(xmlStream);
+            }
+            File.Copy(path + "~", path, true);
+            Utils.DeleteFile(path + "~");
+        }
+
+        private string Serialize(List<string> list)
+        {
+            if (list.Count > 0)
+            {
+                XNamespace xml = "http://www.w3.org/XML/1998/namespace";
+                XNamespace xsi = "http://www.w3.org/2001/XMLSchema-instance";
+
+                XElement root = new XElement("stringArray");
+                foreach (string value in list)
+                {
+                    if (value == null)
+                    {
+                        var nil = new XElement("string");
+                        nil.SetAttributeValue(xsi + "nil", "true");
+                        root.Add(nil);
+                    }
+                    else
+                    {
+                        var elem = new XElement("string", value);
+                        if (!string.IsNullOrEmpty(value) && string.IsNullOrWhiteSpace(value))
+                        {
+                            elem.SetAttributeValue(xml + "space", "preserve");
+                        }
+                        root.Add(elem);
+                    }
+                }
+
+                return root.ToString();
+            }
+            return string.Empty;
+        }
+
+        private List<string> Deserialize(string xmlContent)
+        {
+            List<string> list = new List<string>();
+
+            if (!string.IsNullOrEmpty(xmlContent))
+            {
+                XNamespace xsi = "http://www.w3.org/2001/XMLSchema-instance";
+                XElement root = XElement.Parse(xmlContent, LoadOptions.PreserveWhitespace);
+                if (root != null)
+                {
+                    foreach (var elem in root.Descendants("string"))
+                    {
+                        var nil = elem.Attribute(xsi + "nil");
+                        if (nil != null && nil.Value.Equals("true"))
+                        {
+                            list.Add(null);
+                        }
+
+                        list.Add(elem.Value);
+                    }
+                }
+            }
+
+            return list;
         }
 
         /// <summary>
@@ -446,61 +660,81 @@ namespace dnGREP.Common
         /// <returns></returns>
         public T Get<T>(string key)
         {
-            string value = this[key];
-
-            if (value == null)
+            if (!settings.ContainsKey(key))
+            {
                 return GetDefaultValue<T>(key);
+            }
 
             try
             {
+                if (!settings.TryGetValue(key, out string value) || value == "xsi:nil")
+                {
+                    return default;
+                }
+
                 if (typeof(T) == typeof(string))
                 {
                     return (T)Convert.ChangeType(value.Replace("&#010;", "\n").Replace("&#013;", "\r"), typeof(string));
                 }
-                else if (typeof(T).IsEnum)
+
+                if (typeof(T).IsEnum)
                 {
                     return (T)Enum.Parse(typeof(T), value);
                 }
-                else if (typeof(T) == typeof(Rect))
+
+                if (typeof(T) == typeof(Rect))
                 {
                     return (T)Convert.ChangeType(Rect.Parse(value), typeof(Rect));
                 }
-                else if (!typeof(T).IsPrimitive)
+
+                if (typeof(T) == typeof(List<string>))
                 {
-                    using (MemoryStream stream = new MemoryStream(Convert.FromBase64String(value)))
+                    List<string> list;
+                    if (!string.IsNullOrEmpty(value) && value.StartsWith("<stringArray"))
                     {
-                        IFormatter formatter = new BinaryFormatter();
-                        return (T)formatter.Deserialize(stream);
+                        list = Deserialize(value);
+                    }
+                    else
+                    {
+                        list = new List<string>();
+                    }
+                    return (T)Convert.ChangeType(list, typeof(List<string>));
+                }
+
+                if (typeof(T) == typeof(DateTime) || typeof(T) == typeof(DateTime?))
+                {
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        DateTime? dt = value.FromIso8601DateTime();
+                        if (dt.HasValue)
+                        {
+                            return (T)Convert.ChangeType(dt.Value, typeof(DateTime));
+                        }
+                        else
+                        {
+                            return GetDefaultValue<T>(key);
+                        }
                     }
                 }
-                else
+
+                if (typeof(T) == typeof(bool) || typeof(T) == typeof(bool?))
                 {
-                    return (T)Convert.ChangeType(value, typeof(T));
+                    if (bool.TryParse(value, out bool result))
+                    {
+                        return (T)Convert.ChangeType(result, typeof(bool));
+                    }
+                    else if (typeof(T) == typeof(bool?))
+                    {
+                        return GetDefaultValue<T>(key);
+                    }
                 }
+
+                return (T)Convert.ChangeType(value, typeof(T));
             }
             catch
             {
                 return GetDefaultValue<T>(key);
             }
-        }
-
-        /// <summary>
-        /// Special handling for nullable value
-        /// </summary>
-        public void SetNullableDateTime(string key, DateTime? value)
-        {
-            Set<DateTime>(key, value ?? DateTime.MinValue);
-        }
-
-        /// <summary>
-        /// Special handling for nullable value
-        /// </summary>
-        public DateTime? GetNullableDateTime(string key)
-        {
-            DateTime dt = Get<DateTime>(key);
-            if (dt == DateTime.MinValue)
-                return null;
-            return dt;
         }
 
         /// <summary>
@@ -510,12 +744,7 @@ namespace dnGREP.Common
         /// <returns></returns>
         public bool IsSet(string key)
         {
-            string value = this[key];
-
-            if (string.IsNullOrWhiteSpace(value))
-                return false;
-            else
-                return true;
+            return settings.TryGetValue(key, out string value) && !string.IsNullOrWhiteSpace(value);
         }
 
         /// <summary>
@@ -527,40 +756,107 @@ namespace dnGREP.Common
         public void Set<T>(string key, T value)
         {
             if (value == null)
-                return;
-
-            if (typeof(T) == typeof(string))
             {
-                this[key] = value.ToString().Replace("\n", "&#010;").Replace("\r", "&#013;");
+                settings[key] = "xsi:nil";
+            }
+            else if (typeof(T) == typeof(string))
+            {
+                settings[key] = value.ToString().Replace("\n", "&#010;").Replace("\r", "&#013;");
             }
             else if (typeof(T).IsEnum)
             {
-                this[key] = value.ToString();
+                settings[key] = value.ToString();
             }
             else if (typeof(T) == typeof(Rect))
             {
                 Rect rect = (Rect)Convert.ChangeType(value, typeof(Rect));
                 // need invariant culture for Rect.Parse to work
-                this[key] = rect.ToString(CultureInfo.InvariantCulture);
+                settings[key] = rect.ToString(CultureInfo.InvariantCulture);
             }
-            else if (!typeof(T).IsPrimitive)
+            else if (typeof(T) == typeof(DateTime))
             {
-                using (MemoryStream stream = new MemoryStream())
+                DateTime dt = (DateTime)Convert.ChangeType(value, typeof(DateTime));
+                settings[key] = dt.ToIso8601DateTime();
+            }
+            else if (IsNullable(typeof(T)))
+            {
+                if (value is DateTime dt)
                 {
-                    IFormatter formatter = new BinaryFormatter();
-                    formatter.Serialize(stream, value);
-                    stream.Position = 0;
-                    this[key] = Convert.ToBase64String(stream.ToArray());
+                    settings[key] = dt.ToIso8601DateTime();
                 }
+                else
+                {
+                    settings[key] = value.ToString();
+                }
+            }
+            else if (value is List<string> list)
+            {
+                settings[key] = Serialize(list);
             }
             else
             {
-                this[key] = value.ToString();
+                settings[key] = value.ToString();
             }
         }
 
+        private void ConvertSettingsToV2()
+        {
+            var binaryValueKeys = new[]
+            {
+                Key.FastSearchBookmarks,
+                Key.FastReplaceBookmarks,
+                Key.FastFileMatchBookmarks,
+                Key.FastFileNotMatchBookmarks,
+                Key.FastPathBookmarks,
+            };
+
+            foreach (string key in binaryValueKeys)
+            {
+                Set(key, FromBinary<List<string>>(key));
+            }
+
+            foreach (string key in new[] { Key.LastCheckedVersion })
+            {
+                Set(key, FromBinary<DateTime>(key));
+            }
+
+            foreach (string key in new[] { Key.StartDate, Key.EndDate })
+            {
+                Set(key, FromBinary<DateTime?>(key));
+            }
+
+            foreach (string key in new[] { Key.PreviewWindowWrap, Key.ReplaceWindowWrap })
+            {
+                Set(key, FromBinary<bool?>(key));
+            }
+
+            Version = 2;
+        }
+
+        private T FromBinary<T>(string key)
+        {
+            if (settings.TryGetValue(key, out string value) && !string.IsNullOrEmpty(value))
+            {
+                using (MemoryStream stream = new MemoryStream(Convert.FromBase64String(value)))
+                {
+                    IFormatter formatter = new BinaryFormatter();
+                    T result = (T)formatter.Deserialize(stream);
+
+                    if (typeof(T) == typeof(DateTime?) && result is DateTime dt && dt == DateTime.MinValue)
+                    {
+                        return default;
+                    }
+                    return result;
+                }
+            }
+            return default;
+        }
+
+        private bool IsNullable(Type type) => Nullable.GetUnderlyingType(type) != null;
+
         private List<FieldInfo> constantKeys;
-        private T GetDefaultValue<T>(string key)
+
+        private void InitializeConstantKeys()
         {
             if (constantKeys == null)
             {
@@ -574,12 +870,19 @@ namespace dnGREP.Common
                     }
                 }
             }
-            FieldInfo info = constantKeys.Find(fi => fi.Name == key);
-            if (info == null)
-                return default;
+        }
 
-            if (info.GetCustomAttributes(typeof(DefaultValueAttribute), false) is DefaultValueAttribute[] attr && attr.Length == 1)
+        private T GetDefaultValue<T>(string key)
+        {
+            InitializeConstantKeys();
+            FieldInfo info = constantKeys.Find(fi => fi.Name == key);
+
+            if (info != null &&
+                info.GetCustomAttributes(typeof(DefaultValueAttribute), false) is DefaultValueAttribute[] attr &&
+                attr.Length == 1)
+            {
                 return (T)attr[0].Value;
+            }
 
             return default;
         }
