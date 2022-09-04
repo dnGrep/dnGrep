@@ -1705,7 +1705,7 @@ namespace dnGREP.WPF
                         FastSearchBookmarks.Add(bookmark);
                 }
             }
-            Settings[GrepSettings.Key.SearchFor] = _searchFor;
+            Settings.Set(GrepSettings.Key.SearchFor, _searchFor);
 
             string _replaceWith = Settings.Get<string>(GrepSettings.Key.ReplaceWith);
             List<string> frb = Settings.Get<List<string>>(GrepSettings.Key.FastReplaceBookmarks);
@@ -1723,7 +1723,7 @@ namespace dnGREP.WPF
                         FastReplaceBookmarks.Add(bookmark);
                 }
             }
-            Settings[GrepSettings.Key.ReplaceWith] = _replaceWith;
+            Settings.Set(GrepSettings.Key.ReplaceWith, _replaceWith);
 
             string _filePattern = Settings.Get<string>(GrepSettings.Key.FilePattern);
             List<string> ffmb = Settings.Get<List<string>>(GrepSettings.Key.FastFileMatchBookmarks);
@@ -1741,7 +1741,7 @@ namespace dnGREP.WPF
                         FastFileMatchBookmarks.Add(bookmark);
                 }
             }
-            Settings[GrepSettings.Key.FilePattern] = _filePattern;
+            Settings.Set(GrepSettings.Key.FilePattern, _filePattern);
 
             string _filePatternIgnore = Settings.Get<string>(GrepSettings.Key.FilePatternIgnore);
             List<string> ffnmb = Settings.Get<List<string>>(GrepSettings.Key.FastFileNotMatchBookmarks);
@@ -1759,7 +1759,7 @@ namespace dnGREP.WPF
                         FastFileNotMatchBookmarks.Add(bookmark);
                 }
             }
-            Settings[GrepSettings.Key.FilePatternIgnore] = _filePatternIgnore;
+            Settings.Set(GrepSettings.Key.FilePatternIgnore, _filePatternIgnore);
 
             List<string> pb = Settings.Get<List<string>>(GrepSettings.Key.FastPathBookmarks);
             if (pb != null)
@@ -1811,8 +1811,8 @@ namespace dnGREP.WPF
             OptionsOnMainPanel = Settings.Get<bool>(GrepSettings.Key.OptionsOnMainPanel);
             UseFileDateFilter = Settings.Get<FileDateFilter>(GrepSettings.Key.UseFileDateFilter);
             TypeOfTimeRangeFilter = Settings.Get<FileTimeRange>(GrepSettings.Key.TypeOfTimeRangeFilter);
-            StartDate = Settings.GetNullableDateTime(GrepSettings.Key.StartDate);
-            EndDate = Settings.GetNullableDateTime(GrepSettings.Key.EndDate);
+            StartDate = Settings.Get<DateTime?>(GrepSettings.Key.StartDate);
+            EndDate = Settings.Get<DateTime?>(GrepSettings.Key.EndDate);
             HoursFrom = Settings.Get<int>(GrepSettings.Key.HoursFrom);
             HoursTo = Settings.Get<int>(GrepSettings.Key.HoursTo);
         }
@@ -1851,8 +1851,8 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.PreviewFileContent, PreviewFileContent);
             Settings.Set(GrepSettings.Key.UseFileDateFilter, UseFileDateFilter);
             Settings.Set(GrepSettings.Key.TypeOfTimeRangeFilter, TypeOfTimeRangeFilter);
-            Settings.SetNullableDateTime(GrepSettings.Key.StartDate, StartDate);
-            Settings.SetNullableDateTime(GrepSettings.Key.EndDate, EndDate);
+            Settings.Set(GrepSettings.Key.StartDate, StartDate);
+            Settings.Set(GrepSettings.Key.EndDate, EndDate);
             Settings.Set(GrepSettings.Key.HoursFrom, HoursFrom);
             Settings.Set(GrepSettings.Key.HoursTo, HoursTo);
 

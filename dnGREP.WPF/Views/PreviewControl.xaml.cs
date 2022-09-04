@@ -31,7 +31,7 @@ namespace dnGREP.WPF
 
             ViewModel.ShowPreview += ViewModel_ShowPreview;
             ViewModel.PropertyChanged += ViewModel_PropertyChanged;
-            cbWrapText.IsChecked = GrepSettings.Instance.Get<bool?>(GrepSettings.Key.PreviewWindowWrap);
+            cbWrapText.IsChecked = GrepSettings.Instance.Get<bool>(GrepSettings.Key.PreviewWindowWrap);
             zoomSlider.Value = GrepSettings.Instance.Get<int>(GrepSettings.Key.PreviewWindowFont);
             zoomSlider.ValueChanged += ZoomSlider_ValueChanged;
             textEditor.TextArea.TextView.SizeChanged += TextView_SizeChanged;
@@ -201,7 +201,7 @@ namespace dnGREP.WPF
 
         internal void SaveSettings()
         {
-            GrepSettings.Instance.Set<bool?>(GrepSettings.Key.PreviewWindowWrap, cbWrapText.IsChecked);
+            GrepSettings.Instance.Set<bool>(GrepSettings.Key.PreviewWindowWrap, cbWrapText.IsChecked ?? false);
             GrepSettings.Instance.Set<int>(GrepSettings.Key.PreviewWindowFont, (int)zoomSlider.Value);
         }
 

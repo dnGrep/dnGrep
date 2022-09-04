@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using dnGREP.Localization.Properties;
@@ -90,17 +91,44 @@ namespace dnGREP.Common
 
         public static string ToIso8601Date(this DateTime input)
         {
-            return input.ToString("yyyyMMdd");
+            return input.ToString("yyyy-MM-dd");
         }
 
         public static string ToIso8601DateTime(this DateTime input)
         {
-            return input.ToString("yyyyMMddTHHmmss");
+            return input.ToString("yyyy-MM-ddTHH:mm:ss");
         }
 
         public static string ToIso8601DateTimeWithZone(this DateTime input)
         {
-            return input.ToString("yyyyMMddTHHmmss.fffzzz");
+            return input.ToString("yyyy-MM-ddTHH:mm:ss.fffzzz");
+        }
+
+        public static DateTime? FromIso8601Date(this string input)
+        {
+            if (DateTime.TryParseExact(input, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out DateTime dt))
+            {
+                return dt;
+            }
+            return null;
+        }
+
+        public static DateTime? FromIso8601DateTime(this string input)
+        {
+            if (DateTime.TryParseExact(input, "yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal, out DateTime dt))
+            {
+                return dt;
+            }
+            return null;
+        }
+
+        public static DateTime? FromIso8601DateTimeWithZone(this string input)
+        {
+            if (DateTime.TryParseExact(input, "yyyy-MM-ddTHH:mm:ss.fffzzz", CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out DateTime dt))
+            {
+                return dt;
+            }
+            return null;
         }
 
         public static string ToLocalizedString(this SearchType typeOfSearch)
