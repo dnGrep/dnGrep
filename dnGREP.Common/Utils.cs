@@ -595,6 +595,42 @@ namespace dnGREP.Common
         }
 
         /// <summary>
+        /// Assumes the path argument is a single path, and adds leading/tailing quotes 
+        /// if the path contains a space
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static string QuoteIfIncludesSpaces(string path)
+        {
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                return string.Empty;
+            }
+
+            if (path.StartsWith("\"") && path.EndsWith("\""))
+            {
+                return path;
+            }
+
+            if (path.Contains(" "))
+            {
+                if (!path.StartsWith("\""))
+                {
+                    path = "\"" + path;
+                }
+
+                if (!path.EndsWith("\""))
+                {
+                    path += "\"";
+                }
+
+                return path; 
+            }
+
+            return path;
+        }
+
+        /// <summary>
         /// Test if a string (single or multi path delimited string) has a valid, common base folder
         /// </summary>
         /// <param name="path"></param>
