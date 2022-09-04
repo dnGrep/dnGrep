@@ -355,12 +355,19 @@ namespace dnGREP.Common
         /// <returns>True is file is binary otherwise false</returns>
         public static bool IsBinary(string srcFile)
         {
-            if (File.Exists(srcFile))
+            try
             {
-                using (FileStream readStream = File.Open(srcFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                if (File.Exists(srcFile))
                 {
-                    return IsBinary(readStream);
+                    using (FileStream readStream = File.Open(srcFile, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    {
+                        return IsBinary(readStream);
+                    }
                 }
+            }
+            catch
+            {
+                // ignore - file cannot be opened
             }
             return false;
         }
@@ -1757,7 +1764,7 @@ namespace dnGREP.Common
         }
 
         /// <summary>
-        /// Returns read only files
+        /// Returns read-only from the results
         /// </summary>
         /// <param name="results"></param>
         /// <returns></returns>
@@ -1775,15 +1782,19 @@ namespace dnGREP.Common
                     {
                         files.Add(result.FileNameReal);
                     }
-                    else if (IsFileLocked(result.FileNameReal))
-                    {
-                        files.Add(result.FileNameReal);
-                    }
                 }
             }
             return files;
         }
 
+        /// <summary>
+        /// Checks if another process has a lock on the file
+        /// </summary>
+        /// <remarks>
+        /// This test can be very slow, do not use for UI updates or on a long list of files
+        /// </remarks>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public static bool IsFileLocked(string filePath)
         {
             if (!string.IsNullOrEmpty(filePath) && File.Exists(filePath))

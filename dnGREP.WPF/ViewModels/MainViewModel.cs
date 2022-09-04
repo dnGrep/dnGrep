@@ -1626,7 +1626,8 @@ namespace dnGREP.WPF
                     }
                 }
 
-                List<GrepSearchResult> replaceList = SearchResults.GetWritableList();
+                List<GrepSearchResult> replaceList = SearchResults.GetWritableList()
+                    .Where(sr => sr.Matches.Any()).ToList(); // filter out files with errors shown in results tree
                 foreach (var file in roFiles)
                 {
                     var item = replaceList.FirstOrDefault(r => r.FileNameReal == file);

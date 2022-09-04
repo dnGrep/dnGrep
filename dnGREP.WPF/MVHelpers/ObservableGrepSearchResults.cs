@@ -184,8 +184,7 @@ namespace dnGREP.WPF
             List<GrepSearchResult> writableFiles = new List<GrepSearchResult>();
             foreach (var item in this)
             {
-                if (!Utils.IsReadOnly(item.GrepResult) &&
-                    !Utils.IsFileLocked(item.GrepResult.FileNameReal))
+                if (!Utils.IsReadOnly(item.GrepResult))
                 {
                     writableFiles.Add(item.GrepResult);
                 }
