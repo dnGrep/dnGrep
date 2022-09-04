@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
@@ -57,6 +58,7 @@ namespace dnGREP.WPF
             SearchResults.PreviewFileRequest += SearchResults_PreviewFileRequest;
             SearchResults.OpenFileLineRequest += SearchResults_OpenFileLineRequest;
             SearchResults.OpenFileRequest += SearchResults_OpenFileRequest;
+            SearchResults.CollectionChanged += SearchResults_CollectionChanged;
 
             CheckVersion();
             ControlsInit();
@@ -137,6 +139,16 @@ namespace dnGREP.WPF
         {
             if (!e.FormattedGrepLine.GrepLine.IsHexFile)
                 PreviewFile(e.FormattedGrepLine);
+        }
+
+        private void SearchResults_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (SearchResults.Count == 0 && PreviewFileContent)
+            {
+                // clear the preview
+                PreviewModel.FilePath = string.Empty;
+                PreviewTitle = string.Empty;
+            }
         }
 
         #region Private Variables and Properties
