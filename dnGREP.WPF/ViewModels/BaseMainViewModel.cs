@@ -122,17 +122,26 @@ namespace dnGREP.WPF
             }
             else
             {
-                var split = Utils.SplitPath(path, true);
-                if (split.Length > 0)
+                if (TypeOfFileSearch == FileSearchType.Everything)
                 {
-                    if (TypeOfFileSearch == FileSearchType.Everything)
+                    if (path.Contains(",") || path.Contains(";"))
                     {
-                        FileOrFolderPath = Utils.QuoteIfIncludesSpaces(split[0]);
+                        try
+                        {
+                            string[] parts = Utils.SplitPath(path, true);
+                            if (parts.Length > 1)
+                            {
+                                path = parts[0];
+                            }
+                        }
+                        catch { }
                     }
-                    else
-                    {
-                        FileOrFolderPath = path;
-                    }
+
+                    FileOrFolderPath = Utils.QuoteIfIncludesSpaces(path);
+                }
+                else
+                {
+                    FileOrFolderPath = path;
                 }
             }
         }
@@ -492,6 +501,12 @@ namespace dnGREP.WPF
             {
                 if (value == typeOfFileSearch)
                     return;
+
+                if (typeOfFileSearch == FileSearchType.Everything)
+                {
+                    // changing from Everything, clean the search path
+                    FileOrFolderPath = Utils.CleanPath(FileOrFolderPath);
+                }
 
                 typeOfFileSearch = value;
                 PathSearchText.TypeOfFileSearch = value;
