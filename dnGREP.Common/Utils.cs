@@ -607,25 +607,49 @@ namespace dnGREP.Common
                 return string.Empty;
             }
 
-            if (path.StartsWith("\"") && path.EndsWith("\""))
+            // check if it is already quoted
+            if (path.StartsWith("\"") || path.EndsWith("\""))
             {
                 return path;
             }
 
             if (path.Contains(" "))
             {
-                if (!path.StartsWith("\""))
-                {
-                    path = "\"" + path;
-                }
-
-                if (!path.EndsWith("\""))
-                {
-                    path += "\"";
-                }
-
-                return path; 
+                return "\"" + path + "\"";
             }
+
+            return path;
+        }
+
+        /// <summary>
+        /// Attempts to remove Everything query parameters from a path
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        public static string CleanPath(string path)
+        {
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                return string.Empty;
+            }
+
+            try
+            {
+                string cleaned = path.Trim('\"').Trim();
+                while (cleaned.Length > 0)
+                {
+                    if (Directory.Exists(cleaned) || File.Exists(cleaned))
+                    {
+                        return cleaned;
+                    }
+                    cleaned = cleaned.Remove(cleaned.Length - 1).Trim();
+                    if (cleaned.StartsWith("\"") && cleaned.EndsWith("\""))
+                    {
+                        cleaned = cleaned.Trim('\"').Trim();
+                    }
+                }
+            }
+            catch { }
 
             return path;
         }
