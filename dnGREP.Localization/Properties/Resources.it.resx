@@ -379,7 +379,7 @@
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="BookmarkDetails_FileSource_Group_Tooltip" xml:space="preserve">
-    <value>Includi proprietà sorgente file nei segnalibri</value>
+    <value>Includi proprietà file sorgente file nei segnalibri</value>
     <comment>Bookmark details dialog, file type group header tooltip</comment>
   </data>
   <data name="BookmarkDetails_FileSource_Group" xml:space="preserve">
@@ -825,5 +825,128 @@
   <data name="Main_OpenFolder" xml:space="preserve">
     <value>…</value>
     <comment>Main window, open folder button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
+    <value>Ricerca byte: leggi file come binario e cerca per i byte come cifre esadecimali: 68 65 78 20</value>
+    <comment>Bookmark details dialog, Byte search type tooltip</comment>
+  </data>
+  <data name="Bookmarks_Summary_MaxFolderDepth" xml:space="preserve">
+    <value>Massima profondità cartelle: {0}</value>
+    <comment>Bookmarks dialog, Other Properties summary: {0} is a number</comment>
+  </data>
+  <data name="Bookmarks_Summary_NoBinary" xml:space="preserve">
+    <value>No binari</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Help_CmdLineExample1" xml:space="preserve">
+    <value>dnGrep [argomenti]
+Usa qualsiasi combinazione di argomenti dalla lista sottostante.
+Esempio:
+dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Bookmarks_Summary_NoSubfolders" xml:space="preserve">
+    <value>No sottocartelle</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
+    <value>Cerca negli archivi</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Bookmarks_Summary_WholeWord" xml:space="preserve">
+    <value>Intera parola</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Bookmarks_Summary_NoHidden" xml:space="preserve">
+    <value>No nascosti</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Help_CmdLineFileInformation" xml:space="preserve">
+    <value>/fi [True/False]
+-fi [True/False]
+-fileInformation [True/False]
+    Setta flag per includere informazioni su file e linea nel rapporto creato – True or False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Bookmarks_Summary_NoSymlinks" xml:space="preserve">
+    <value>No collegamenti simbolici</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Help_CmdLineFolder" xml:space="preserve">
+    <value>/f [folderPath]
+-f [folderPath]
+-folder [folderPath]
+    Setta il percorso della cartella da cercare. Può essere una lista di percorsi cartelle separate da virgole o punti e virgola.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineMultiline" xml:space="preserve">
+    <value>/ml [True/False]
+-ml [True/False]
+-multiline [True/False]
+    Setta il flag di ricerca su più linee – True or False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineBooleanOperators" xml:space="preserve">
+    <value>/bo [True/False]
+-bo [True/False]
+-booleanOperators [True/False]
+    Setta i flag di ricerca operatori booleani – True or False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineCaseSensitive" xml:space="preserve">
+    <value>/cs [True/False]
+-cs [True/False]
+-caseSensitive [True/False]
+    Setta flag di ricerca case-sensitive – True or False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineCSVReport" xml:space="preserve">
+    <value>/csv [filePath]
+-csv [filePath]
+    Crea file di risultati in formato CSV al termina della ricerca.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineDefaultArguments" xml:space="preserve">
+    <value>Ogni argomento non specificato prenderà come default l'ultimo valore impostato dall'utente.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineDotAsNewline" xml:space="preserve">
+    <value>/dn [True/False]
+-dn [True/False]
+-dotAsNewline [True/False]
+    Setta il punto come flag di ricerca nuova linea – True or False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExit" xml:space="preserve">
+    <value>/x
+-x
+-exit
+    Termina dnGrep dopo che l'operazione di linea di comando è stata completata.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExample2" xml:space="preserve">
+    <value>dnGrep [folderPath] [searchFor]
+Uno o due argomenti senza flag: il primo argomento è la cartella in cui cercare, il secondo l'espressione regolare da cercare.
+Esempio:
+dnGrep "C:\Program Files\dnGrep" t\w*t</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineHeader" xml:space="preserve">
+    <value>dnGrep:  Cerca in file di testo, Word ed Excel, PDF e archivi utilizzando testo, espressioni regolari, XPath o pattern fonetici.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineListItemSeparator" xml:space="preserve">
+    <value>/sep [separatore carattere o testo]
+-sep [separatore carattere o testo]
+-listItemSeparator [separatore carattere o testo]
+    Setta il carattere o la stringa per separare gli oggetti su una linea del rapporto creato.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePathToIgnore" xml:space="preserve">
+    <value>/pi [pattern]
+-pi [pattern]
+-pathToIgnore [pattern]
+    Setta il pattern per il nome file o cartella per escludere file o cartelle nel percorso di ricerca. Può essere una lista di pattern separati da virgole o punti e virgola.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
 </root>
