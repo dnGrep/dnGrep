@@ -195,7 +195,7 @@
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_CaseSensitive" xml:space="preserve">
-    <value>C_ase sensitive</value>
+    <value>M_aiuscolo/Minuscolo</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_DnGREP_Title" xml:space="preserve">
@@ -219,7 +219,7 @@
     <comment>Message box title</comment>
   </data>
   <data name="Rename_OK" xml:space="preserve">
-    <value>Conferma</value>
+    <value>OK</value>
     <comment>Rename file dialog button label</comment>
   </data>
   <data name="Replace_Cancel" xml:space="preserve">
@@ -227,7 +227,7 @@
     <comment>Replace window, Cancel button text</comment>
   </data>
   <data name="Replace_OK" xml:space="preserve">
-    <value>Conferma</value>
+    <value>OK</value>
     <comment>Replace window, OK button text</comment>
   </data>
   <data name="ReportSummary_BooleanOperators" xml:space="preserve">
@@ -247,7 +247,7 @@
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_DotAsNewline" xml:space="preserve">
-    <value>_Dot come nuova linea</value>
+    <value>_Punto come nuova linea</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Help_OneOrMoreArgumentsAreInvalid" xml:space="preserve">
@@ -948,5 +948,165 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
 -pathToIgnore [pattern]
     Setta il pattern per il nome file o cartella per escludere file o cartelle nel percorso di ricerca. Può essere una lista di pattern separati da virgole o punti e virgola.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Main_UseGitignore" xml:space="preserve">
+    <value>Usa .gitignore</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_WholeWord" xml:space="preserve">
+    <value>_Intera parola</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Options_Close" xml:space="preserve">
+    <value>_Chiudi</value>
+    <comment>Options dialog, close button text (accel)</comment>
+  </data>
+  <data name="Options_Personalize_SearchType" xml:space="preserve">
+    <value>Tipo di Ricerca</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_PhoneticSearch" xml:space="preserve">
+    <value>Ricerca fonetica</value>
+    <comment>Options dialog, phonetic group header label</comment>
+  </data>
+  <data name="Replace_SearchFor" xml:space="preserve">
+    <value>Cerca per:</value>
+    <comment>Replace window, search pattern label</comment>
+  </data>
+  <data name="Test_SearchType_XPath" xml:space="preserve">
+    <value>_XPath</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Test_SearchType_Hex" xml:space="preserve">
+    <value>Byte</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Main_UseGitignoreToFilterFiles" xml:space="preserve">
+    <value>Usa .gitignore per filtrare i file</value>
+    <comment>Main window, search option checkbox tooltip</comment>
+  </data>
+  <data name="Replace_ReplaceWith" xml:space="preserve">
+    <value>Sostituisci con:</value>
+    <comment>Replace window, replace text input box label</comment>
+  </data>
+  <data name="ReportSummary_Multiline" xml:space="preserve">
+    <value>Multilinea</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_NoBinary" xml:space="preserve">
+    <value>No binari</value>
+    <comment>Main window options summary</comment>
+  </data>
+  <data name="Test_ReplaceWith" xml:space="preserve">
+    <value>Sostituisci con:</value>
+    <comment>Test window, search input label</comment>
+  </data>
+  <data name="Test_WholeWord" xml:space="preserve">
+    <value>_Intera parola</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_Regex" xml:space="preserve">
+    <value>Espressione _regolare</value>
+    <comment>Main window, Regular expression search type radio button label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_RegularExpressionSearch" xml:space="preserve">
+    <value>Ricerca espressione regolare</value>
+    <comment>Main window, Regular expression search type tooltip</comment>
+  </data>
+  <data name="Main_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>Salta file in cloud remoti</value>
+    <comment>Main window, search option label</comment>
+  </data>
+  <data name="Replace_Undo" xml:space="preserve">
+    <value>_Annulla</value>
+    <comment>Replace window, Undo button label (accel)</comment>
+  </data>
+  <data name="ReportSummary_NoSubfolders" xml:space="preserve">
+    <value>No sottocartelle</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_NoSymlinks" xml:space="preserve">
+    <value>No collegamenti simbolici</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_SearchFor" xml:space="preserve">
+    <value>Cerca per:</value>
+    <comment>Report search options summary label</comment>
+  </data>
+  <data name="ReportSummary_WholeWord" xml:space="preserve">
+    <value>Intera parola</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_CaseSensitive" xml:space="preserve">
+    <value>Case sensitive</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_MaxFolderDepth" xml:space="preserve">
+    <value>Massima profondità cartelle: {0}</value>
+    <comment>Report search options summary: {0} is the user input folder depth</comment>
+  </data>
+  <data name="Test_Multiline" xml:space="preserve">
+    <value>_Multilinea</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Test_SearchFor" xml:space="preserve">
+    <value>Cerca per:</value>
+    <comment>Test window, search input label</comment>
+  </data>
+  <data name="Test_SearchType_Phonetic" xml:space="preserve">
+    <value>Fonetica</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Test_SearchType_Regex" xml:space="preserve">
+    <value>Espressione _regolare</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Test_SearchType_Text" xml:space="preserve">
+    <value>_Testo</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Main_Results_CopyFileNames" xml:space="preserve">
+    <value>Copia nomi dei file</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
+    <value>Ricerca byte: leggi file come binario e cerca per i byte come cifre esadecimali: 68 65 78 20</value>
+    <comment>Main window, Byte search type tooltip</comment>
+  </data>
+  <data name="Main_SearchType_Text" xml:space="preserve">
+    <value>_Testo</value>
+    <comment>Main window, Text search type radio button label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
+    <value>Ricerca XPath (solo per documenti XML)</value>
+    <comment>Main window, XPath search type tooltip</comment>
+  </data>
+  <data name="Replace_ReplaceButton" xml:space="preserve">
+    <value>_Sostituisci</value>
+    <comment>Replace window, Replace button label (accel)</comment>
+  </data>
+  <data name="Main_SearchInArchives" xml:space="preserve">
+    <value>Cerca negli ar_chivi</value>
+    <comment>Main window, checkbox label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_Hex" xml:space="preserve">
+    <value>Byte</value>
+    <comment>Main window, Byte search type radio button label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_Phonetic" xml:space="preserve">
+    <value>Fonetica</value>
+    <comment>Main window, Phonetic search type radio button label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
+    <value>Ricerca fonetica</value>
+    <comment>Main window, Phonetic search type tooltip</comment>
+  </data>
+  <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
+    <value>Ricerca testo semplice</value>
+    <comment>Main window, Text search type tooltip</comment>
+  </data>
+  <data name="Main_SearchType_XPath" xml:space="preserve">
+    <value>_XPath</value>
+    <comment>Main window, XPath search type radio button label (accel)</comment>
   </data>
 </root>
