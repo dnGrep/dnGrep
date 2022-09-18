@@ -25,6 +25,29 @@ namespace dnGREP.Common.UI
             }
         }
 
+        public static T GetVisualChild<T>(this DependencyObject depObj) where T : Visual
+        {
+            if (depObj != null)
+            {
+                for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                {
+                    DependencyObject child = VisualTreeHelper.GetChild(depObj, i);
+
+                    if (child != null && child is T typedChild)
+                    {
+                        return typedChild;
+                    }
+
+                    T childOfChild = child.GetVisualChild<T>();
+                    if (childOfChild != null)
+                    {
+                        return childOfChild;
+                    }
+                }
+            }
+            return null;
+        }
+
         public static T GetChildOfType<T>(this DependencyObject depObj) where T : DependencyObject
         {
             if (depObj == null) return null;

@@ -272,6 +272,11 @@
                             Text="{l:Loc Key='BookmarkDetails_AssociatedFolders'}" />
 
                 <TextBlock DockPanel.Dock="Top" Style="{StaticResource labelStyle}" 
+                            Text="Bookmark Name:"/>
+                <TextBox DockPanel.Dock="Top"
+                            Text="{Binding BookmarkName}" />
+
+                <TextBlock DockPanel.Dock="Top" Style="{StaticResource labelStyle}" 
                             Text="{l:Loc Key='BookmarkDetails_Description'}"/>
                 <TextBox DockPanel.Dock="Top" MinHeight="32"
                             Text="{Binding Description}"

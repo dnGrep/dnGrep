@@ -146,7 +146,7 @@
                               Command="{Binding OptionsCommand}"/>
                     </MenuItem>
                     <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Menu_Bookmarks'}"
-                              Command="{Binding BookmarkOpenCommand}"
+                              Command="{Binding OpenBookmarksWindowCommand}"
                               TabIndex="2"
                               Visibility="{Binding BookmarksVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                     <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Menu_About'}" TabIndex="3">

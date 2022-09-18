@@ -698,10 +698,10 @@ namespace dnGREP.WPF
             param => BookmarkAddRemove(true));
 
         /// <summary>
-        /// Returns a command that opens file browse dialog.
+        /// Returns a command that opens the bookmarks window
         /// </summary>
-        public ICommand BookmarkOpenCommand => new RelayCommand(
-            param => BookmarkOpen());
+        public ICommand OpenBookmarksWindowCommand => new RelayCommand(
+            param => OpenBookmarksWindow());
 
         /// <summary>
         /// Returns a command that resets the search options.
@@ -1900,13 +1900,15 @@ namespace dnGREP.WPF
 
         public Bookmark CurrentBookmarkSettings()
         {
-            return new Bookmark(SearchFor, ReplaceWith,
-                // when in Everything mode, save the Everything search in the bookmark's FileNames property
-                TypeOfFileSearch == FileSearchType.Everything ? FileOrFolderPath : FilePattern)
+            return new Bookmark()
             {
                 IgnoreFilePattern = FilePatternIgnore,
                 TypeOfFileSearch = TypeOfFileSearch,
+                // when in Everything mode, save the Everything search in the bookmark's FileNames property
+                FileNames = TypeOfFileSearch == FileSearchType.Everything ? FileOrFolderPath : FilePattern,
                 TypeOfSearch = TypeOfSearch,
+                SearchPattern = SearchFor,
+                ReplacePattern = ReplaceWith,
                 CaseSensitive = CaseSensitive,
                 WholeWord = WholeWord,
                 Multiline = Multiline,
@@ -1938,8 +1940,9 @@ namespace dnGREP.WPF
                     Bookmark bmk = BookmarkLibrary.Instance.Find(current);
                     if (bmk == null)
                     {
-                        bmk = current;
+                        current.Ordinal = BookmarkLibrary.Instance.Bookmarks.Count;
                         BookmarkLibrary.Instance.Bookmarks.Add(current);
+                        bmk = current;
                         IsBookmarked = true;
                     }
                     BookmarkLibrary.Instance.AddFolderReference(bmk, FileOrFolderPath);
@@ -1960,7 +1963,11 @@ namespace dnGREP.WPF
                 if (IsBookmarked)
                 {
                     if (!BookmarkLibrary.Instance.Bookmarks.Contains(current))
+                    {
+                        current.Ordinal = BookmarkLibrary.Instance.Bookmarks.Count;
                         BookmarkLibrary.Instance.Bookmarks.Add(current);
+                        BookmarkLibrary.Instance.Bookmarks.Sort((x, y) => x.Ordinal.CompareTo(y.Ordinal));
+                    }
                     IsBookmarked = true;
                 }
                 else
@@ -1996,6 +2003,7 @@ namespace dnGREP.WPF
                         }
 
                         BookmarkLibrary.Instance.Bookmarks.Remove(bmk);
+                        BookmarkLibrary.Instance.UpdateOrdinals();
 
                         IsBookmarked = false;
                         IsFolderBookmarked = false;
@@ -2005,13 +2013,14 @@ namespace dnGREP.WPF
             BookmarkLibrary.Save();
         }
 
-        private void BookmarkOpen()
+        private void OpenBookmarksWindow()
         {
             try
             {
                 bookmarkWindow = new BookmarksWindow(bk =>
                     {
-                        if (CurrentBookmarkSettings() == bk)
+                        var current = BookmarkLibrary.Instance.Find(CurrentBookmarkSettings());
+                        if (current != null && current.Id == bk.Id)
                         {
                             IsBookmarked = false;
                             IsFolderBookmarked = false;

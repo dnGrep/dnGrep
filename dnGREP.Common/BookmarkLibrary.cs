@@ -18,6 +18,10 @@ namespace dnGREP.Common
 
         private static BookmarkEntity bookmarks;
 
+        public static readonly int LatestVersion = 5;
+
+        public static bool IsDeserializing { get; private set; } = false;
+
         public static BookmarkEntity Instance
         {
             get
@@ -39,6 +43,7 @@ namespace dnGREP.Common
         {
             try
             {
+                IsDeserializing = true;
                 BookmarkEntity bookmarkLib;
                 XmlSerializer serializer = new XmlSerializer(typeof(BookmarkEntity));
                 if (!File.Exists(BookmarksFile))
@@ -50,6 +55,7 @@ namespace dnGREP.Common
                     using (TextReader reader = new StreamReader(BookmarksFile))
                     {
                         bookmarkLib = (BookmarkEntity)serializer.Deserialize(reader);
+                        bookmarkLib.Initialize();
                         bookmarks = bookmarkLib;
                     }
                 }
@@ -57,6 +63,10 @@ namespace dnGREP.Common
             catch
             {
                 bookmarks = new BookmarkEntity();
+            }
+            finally
+            {
+                IsDeserializing = false;
             }
         }
 
@@ -80,7 +90,27 @@ namespace dnGREP.Common
     [Serializable]
     public class BookmarkEntity
     {
-        public List<Bookmark> Bookmarks { get; set; } = new List<Bookmark>();
+        public List<Bookmark> Bookmarks { get; private set; } = new List<Bookmark>();
+
+        internal void Initialize()
+        {
+            if (BookmarkLibrary.IsDeserializing)
+            {
+                foreach (var bk in Bookmarks)
+                {
+                    if (string.IsNullOrEmpty(bk.Id))
+                    {
+                        bk.Id = Guid.NewGuid().ToString();
+                    }
+                }
+                UpdateOrdinals();
+            }
+        }
+
+        public Bookmark Get(string id)
+        {
+            return Bookmarks.FirstOrDefault(b => b.Id == id);
+        }
 
         public Bookmark Find(Bookmark bookmark)
         {
@@ -125,22 +155,60 @@ namespace dnGREP.Common
             bookmark.FolderReferences.Add(folder);
         }
 
+        public void UpdateOrdinals()
+        {
+            int idx = 0;
+            foreach (Bookmark bookmark in Bookmarks)
+            {
+                bookmark.Ordinal = idx++;
+            }
+        }
+
+        public void Sort()
+        {
+            Bookmarks.Sort((x, y) => x.Ordinal.CompareTo(y.Ordinal));
+        }
+
         public BookmarkEntity() { }
     }
 
     [Serializable]
     public class Bookmark
     {
-        public Bookmark() { }
-        public Bookmark(string searchFor, string replaceWith, string filePattern)
+        private string _id = string.Empty;
+
+        public Bookmark() 
         {
-            Version = 4;
-            SearchPattern = searchFor;
-            ReplacePattern = replaceWith;
-            FileNames = filePattern;
+            if (!BookmarkLibrary.IsDeserializing)
+            {
+                _id = Guid.NewGuid().ToString();
+            }
         }
 
-        public int Version { get; set; } = 1;
+        public Bookmark(string id)
+        {
+            _id = id;
+        }
+
+        [XmlIgnore]
+        public int Ordinal { get; set; }
+
+        public string Id 
+        { 
+            get {  return _id; }
+            // Setter is public only for XmlSerialization
+            set
+            {
+                if (!BookmarkLibrary.IsDeserializing)
+                    throw new InvalidOperationException("Setter is public only for XmlSerialization");
+
+                _id = value;
+            }
+        }
+
+        public int Version { get; set; } = BookmarkLibrary.LatestVersion;
+
+        public string BookmarkName { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
 
         public SearchType TypeOfSearch { get; set; } = SearchType.PlainText;
@@ -239,6 +307,9 @@ namespace dnGREP.Common
             if (otherBookmark is null)
                 return false;
 
+            // equality is used to determine if two different bookmarks are the same
+            // so Id, BookmarkName, Description and Ordinal are not part of equality
+
             return TypeOfFileSearch == otherBookmark.TypeOfFileSearch &&
                 FileNames == otherBookmark.FileNames &&
                 IgnoreFilePattern == otherBookmark.IgnoreFilePattern &&
@@ -310,7 +381,7 @@ namespace dnGREP.Common
 
         public override string ToString()
         {
-            return $"{SearchPattern} to {ReplacePattern} on {FileNames} :: {Description}";
+            return $"{Ordinal} {BookmarkName} {SearchPattern} to {ReplacePattern} on {FileNames} :: {Description}";
         }
     }
 }
