@@ -241,6 +241,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bookmark Name:.
+        /// </summary>
+        public static string BookmarkDetails_BookmarkName {
+            get {
+                return ResourceManager.GetString("BookmarkDetails_BookmarkName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Boolean operators.
         /// </summary>
         public static string BookmarkDetails_BooleanOperators {
@@ -682,6 +691,24 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alt+Down Arrow.
+        /// </summary>
+        public static string Bookmarks_AltDownArrow {
+            get {
+                return ResourceManager.GetString("Bookmarks_AltDownArrow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Alt+Up Arrow.
+        /// </summary>
+        public static string Bookmarks_AltUpArrow {
+            get {
+                return ResourceManager.GetString("Bookmarks_AltUpArrow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Close.
         /// </summary>
         public static string Bookmarks_Close {
@@ -745,6 +772,51 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Move down.
+        /// </summary>
+        public static string Bookmarks_MoveDown {
+            get {
+                return ResourceManager.GetString("Bookmarks_MoveDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move to bottom.
+        /// </summary>
+        public static string Bookmarks_MoveToBottom {
+            get {
+                return ResourceManager.GetString("Bookmarks_MoveToBottom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move to top.
+        /// </summary>
+        public static string Bookmarks_MoveToTop {
+            get {
+                return ResourceManager.GetString("Bookmarks_MoveToTop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move up.
+        /// </summary>
+        public static string Bookmarks_MoveUp {
+            get {
+                return ResourceManager.GetString("Bookmarks_MoveUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string Bookmarks_NameHeader {
+            get {
+                return ResourceManager.GetString("Bookmarks_NameHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Other properties.
         /// </summary>
         public static string Bookmarks_OtherPropertiesHeader {
@@ -777,6 +849,24 @@ namespace dnGREP.Localization.Properties {
         public static string Bookmarks_SectionsHeader {
             get {
                 return ResourceManager.GetString("Bookmarks_SectionsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shift+Alt+Down Arrow.
+        /// </summary>
+        public static string Bookmarks_ShiftAltDownArrow {
+            get {
+                return ResourceManager.GetString("Bookmarks_ShiftAltDownArrow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shift+Alt+Up Arrow.
+        /// </summary>
+        public static string Bookmarks_ShiftAltUpArrow {
+            get {
+                return ResourceManager.GetString("Bookmarks_ShiftAltUpArrow", resourceCulture);
             }
         }
         
