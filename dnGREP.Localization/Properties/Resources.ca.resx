@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
@@ -58,4 +58,384 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Bookmarks_SectionsHeader" xml:space="preserve">
+    <value>Seccions</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_Summary_MaxFolderDepth" xml:space="preserve">
+    <value>Màxima profunditat de carpetes: {0}</value>
+    <comment>Bookmarks dialog, Other Properties summary: {0} is a number</comment>
+  </data>
+  <data name="Bookmarks_Summary_NoBinary" xml:space="preserve">
+    <value>No binari</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Bookmarks_Summary_NoHidden" xml:space="preserve">
+    <value>No ocult</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
+    <value>Cerca a fitxers</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Bookmarks_TypeHeader" xml:space="preserve">
+    <value>Tipus</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_Use" xml:space="preserve">
+    <value>_Utilitza</value>
+    <comment>Bookmarks dialog, button text (accel)</comment>
+  </data>
+  <data name="Main_FilterSummary_NoHidden" xml:space="preserve">
+    <value>No ocult</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Main_IncludeHiddenFolders" xml:space="preserve">
+    <value>Inclou carpetes ocultes</value>
+    <comment>Main window, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="ReportSummary_NoHiddenFiles" xml:space="preserve">
+    <value>No fitxers ocults</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="BookmarkDetails_PatternType_Regex" xml:space="preserve">
+    <value>Expressió _regular</value>
+    <comment>Bookmark details dialog, Regular expression pattern type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_CaseSensitive" xml:space="preserve">
+    <value>Distingeix _majúscules i minúscules</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_DotAsNewline" xml:space="preserve">
+    <value>Punt com a _nova línia</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="About_DnGREP" xml:space="preserve">
+    <value>dnGrep</value>
+    <comment>About dialog text</comment>
+  </data>
+  <data name="About_OK" xml:space="preserve">
+    <value>D'acord</value>
+    <comment>About dialog button label</comment>
+  </data>
+  <data name="BookmarkDetails_PatternType_AsteriskPattern" xml:space="preserve">
+    <value>Comodí</value>
+    <comment>Bookmark details dialog, Wildcard pattern type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
+    <value>Substituir per:</value>
+    <comment>Bookmark details dialog, replace text input box label</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
+    <value>Byte</value>
+    <comment>Bookmark details dialog, Byte search type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
+    <value>Expressió _regular</value>
+    <comment>Bookmark details dialog, search type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>Ometre fitxers de l'emmagatzematge al nuvol</value>
+    <comment>Bookmark details dialog, checkbox label (accel)</comment>
+  </data>
+  <data name="Bookmarks_Delete" xml:space="preserve">
+    <value>Es_borrar</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_Summary_NoSymlinks" xml:space="preserve">
+    <value>No enllaços simbòlics</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="About_AboutDnGREP" xml:space="preserve">
+    <value>En quant a dnGrep</value>
+    <comment>About dialog window title</comment>
+  </data>
+  <data name="About_Acknowledgments" xml:space="preserve">
+    <value>Agraïments</value>
+    <comment>About dialog text</comment>
+  </data>
+  <data name="About_JsonFrameworkForNET" xml:space="preserve">
+    <value>JSON framework per a .NET</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryFor7Zip" xml:space="preserve">
+    <value>Llibreria .NET per a 7-Zip</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_BuiltOn" xml:space="preserve">
+    <value>Compilat el</value>
+    <comment>About dialog label</comment>
+  </data>
+  <data name="About_ConvertsPDFFilesToPlainText" xml:space="preserve">
+    <value>Converteix fitxers PDF a text pla</value>
+    <comment>About dnGrep acknowledgments</comment>
+  </data>
+  <data name="About_DnGrepOnGitHub" xml:space="preserve">
+    <value>dnGrep a GitHub</value>
+    <comment>About dialog text</comment>
+  </data>
+  <data name="About_FileSystemIndexingLocateFilesInstantly" xml:space="preserve">
+    <value>Indexació del sistema d'arxius, localitza els fitxers a l'instant</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_LibraryForReadingArchiveFiles" xml:space="preserve">
+    <value>Llibreria per a llegir fitxers</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_LoggingFrameworkForNET" xml:space="preserve">
+    <value>Registre del framework de .NET</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
+    <value>Llibreria .NET per llegir fitxers de Microsoft Excel</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryToParseECMA376Numbers" xml:space="preserve">
+    <value>Llibreria .NET per analitza nombres ECMA-376</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
+    <value>Llibreria .NET per a la detecció del joc de caràcters</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
+    <value>Llibreria .NET per a camins de longitud estesa</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryToWorkWithWordAndExcelDocuments" xml:space="preserve">
+    <value>Llibreria .NET per a treballar amb documents de Word i Excel</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_Version" xml:space="preserve">
+    <value>Versió</value>
+    <comment>About dialog label</comment>
+  </data>
+  <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
+    <value>Component d'editor de text WPF de .NET</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="BookmarkDetails_AssociatedFolders" xml:space="preserve">
+    <value>Carpetes associades:</value>
+    <comment>Bookmark details dialog, text input box label</comment>
+  </data>
+  <data name="BookmarkDetails_BooleanOperators" xml:space="preserve">
+    <value>Operadors booleans</value>
+    <comment>Bookmark details dialog, search options checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Description" xml:space="preserve">
+    <value>Descripció:</value>
+    <comment>Bookmark details dialog, text input box label</comment>
+  </data>
+  <data name="BookmarkDetails_Filters_Group_Tooltip" xml:space="preserve">
+    <value>Inclou propietats de filtre de fitxer al marcador</value>
+    <comment>Bookmark details dialog, filters group header tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_Cancel" xml:space="preserve">
+    <value>Cancel·la</value>
+    <comment>Bookmark details dialog, cancel button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Content_Group" xml:space="preserve">
+    <value>Contingut</value>
+    <comment>Bookmark details dialog, search group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Content_Group_Tooltip" xml:space="preserve">
+    <value>Inclou propietats del contingut de la cera als marcadors</value>
+    <comment>Bookmark details dialog, search group header tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_FilePatternType" xml:space="preserve">
+    <value>Tipus de patró de fitxers</value>
+    <comment>Bookmark details dialog, file pattern group header label</comment>
+  </data>
+  <data name="BookmarkDetails_IncludeBinaryFiles" xml:space="preserve">
+    <value>Inclou fitxers binaris</value>
+    <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_FollowSymbolicLinks" xml:space="preserve">
+    <value>Segueix enllaços simbòlics</value>
+    <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Encoding" xml:space="preserve">
+    <value>Codificació:</value>
+    <comment>Bookmark details dialog, search options encoding combo box label (accel) </comment>
+  </data>
+  <data name="BookmarkDetails_EverythingIndexService" xml:space="preserve">
+    <value>Servei d'indexació de tot</value>
+    <comment>Bookmark details dialog, Everything pattern type option tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_FileSource_Group_Tooltip" xml:space="preserve">
+    <value>Inclou propietats de la font del fitxer al marcador</value>
+    <comment>Bookmark details dialog, file type group header tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_FileSource_Group" xml:space="preserve">
+    <value>Font de fitxers</value>
+    <comment>Bookmark details dialog, file type group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Filters_Group" xml:space="preserve">
+    <value>Filtres de fitxer</value>
+    <comment>Bookmark details dialog, filters group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_ForExampleAsteriskPattern" xml:space="preserve">
+    <value>Per exemple: *.txt;*.xml</value>
+    <comment>Bookmark details dialog, Wildcard pattern type option tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_ForExampleRegularExpession" xml:space="preserve">
+    <value>Per exemple: fitxer[0-9]{1,2}\\.txt</value>
+    <comment>Bookmark details dialog, regular expression pattern type option tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_IncludeHiddenFolders" xml:space="preserve">
+    <value>Inclou carpetes amagades</value>
+    <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_OK" xml:space="preserve">
+    <value>D'acord</value>
+    <comment>Bookmark details dialog, button label</comment>
+  </data>
+  <data name="BookmarkDetails_IncludeSubfolders" xml:space="preserve">
+    <value>Inclou subcarpetes</value>
+    <comment>Bookmark details dialog, filter path depth checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_MaxDepth" xml:space="preserve">
+    <value>Màxima profunditat</value>
+    <comment>Bookmark details dialog, filter path depth text box label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_PatternsToExclude" xml:space="preserve">
+    <value>Patrons a excloure:</value>
+    <comment>Bookmark details dialog, Patterns to exclude label</comment>
+  </data>
+  <data name="BookmarkDetails_PatternsToMatch" xml:space="preserve">
+    <value>Patrons de coincidència:</value>
+    <comment>Bookmark details dialog, Patterns to match label</comment>
+  </data>
+  <data name="BookmarkDetails_Title" xml:space="preserve">
+    <value>Detalls del marcador</value>
+    <comment>Bookmark details dialog, window title</comment>
+  </data>
+  <data name="BookmarkDetails_TypeHeader" xml:space="preserve">
+    <value>Tipus de cerca</value>
+    <comment>Bookmark details dialog, search type group header label</comment>
+  </data>
+  <data name="BookmarkDetails_PatternType_Everything" xml:space="preserve">
+    <value>Tot</value>
+    <comment>Bookmark details dialog, Everything pattern type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_SearchInArchives" xml:space="preserve">
+    <value>Cerca als ar_xius</value>
+    <comment>Bookmark details dialog, checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Multiline" xml:space="preserve">
+    <value>Multi_línia</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
+    <value>Fonètica</value>
+    <comment>Bookmark details dialog, Phonetic search type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_SearchFor" xml:space="preserve">
+    <value>Cerca:</value>
+    <comment>Bookmark details dialog, search pattern text input box label</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
+    <value>Cerca fonètica</value>
+    <comment>Bookmark details dialog, Phonetic search type tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
+    <value>Cerca text pla</value>
+    <comment>Bookmark details dialog, Text search type tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
+    <value>Cerca XPath (només per a documents XML)</value>
+    <comment>Bookmark details dialog, search type XPath tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
+    <value>Cerca de byte: llegeix fitxer com a binari i cerca els bytes com dígits hexadecimals: 68 65 78 20</value>
+    <comment>Bookmark details dialog, Byte search type tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_ThisBookmarkAlreadyExists" xml:space="preserve">
+    <value>Aquest marcador ja existeix</value>
+    <comment>Bookmark details dialog, error text</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_RegularExpressionSearch" xml:space="preserve">
+    <value>Cerca expressió regular</value>
+    <comment>Bookmark details dialog, search type regular expression tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_Text" xml:space="preserve">
+    <value>_Text</value>
+    <comment>Bookmark details dialog, search type radio button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_Add" xml:space="preserve">
+    <value>_Afegir</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_OtherPropertiesHeader" xml:space="preserve">
+    <value>Altres propietats</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_XPath" xml:space="preserve">
+    <value>_XPath</value>
+    <comment>Bookmark details dialog, search type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_UseGitignore" xml:space="preserve">
+    <value>Utilitza .gitignore</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_UseGitignoreToFilterFiles" xml:space="preserve">
+    <value>Utilitza .gitignore per filtrar fitxers</value>
+    <comment>Bookmark details dialog, search option checkbox tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_WholeWord" xml:space="preserve">
+    <value>_Paraula sencera</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Bookmarks_DescriptionHeader" xml:space="preserve">
+    <value>Descripció</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_Close" xml:space="preserve">
+    <value>_Tancar</value>
+    <comment>Bookmarks dialog, button text (accel)</comment>
+  </data>
+  <data name="Bookmarks_Duplicate" xml:space="preserve">
+    <value>Du_plicat</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_Edit" xml:space="preserve">
+    <value>_Editar</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_FilePatternHeader" xml:space="preserve">
+    <value>Patró de fitxers</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_Summary_WholeWord" xml:space="preserve">
+    <value>Paraula sencera</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Bookmarks_Title" xml:space="preserve">
+    <value>Marcadors</value>
+    <comment>Bookmarks dialog title</comment>
+  </data>
+  <data name="Bookmarks_Filter" xml:space="preserve">
+    <value>Filtre:</value>
+    <comment>Bookmarks dialog, filter input box label</comment>
+  </data>
+  <data name="Bookmarks_SearchForHeader" xml:space="preserve">
+    <value>Cerca per</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_Summary_Multiline" xml:space="preserve">
+    <value>Multilínia</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Bookmarks_Summary_NoSubfolders" xml:space="preserve">
+    <value>No subcarpetes</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Bookmarks_ReplaceWithHeader" xml:space="preserve">
+    <value>Substituir per</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_Summary_CaseSensitive" xml:space="preserve">
+    <value>Distingeix majúscules i minúscules</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
 </root>
