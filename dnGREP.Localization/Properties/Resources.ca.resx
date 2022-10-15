@@ -438,4 +438,60 @@
     <value>Distingeix majúscules i minúscules</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
+  <data name="Help_CmdLineCaseSensitive" xml:space="preserve">
+    <value>/cs [True/False]
+-cs [True/False]
+-caseSensitive [True/False]
+    Estableix l'indicador de cerca entre majúscules i minúscules – Cert o Fals.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineBooleanOperators" xml:space="preserve">
+    <value>/bo [True/False]
+-bo [True/False]
+-booleanOperators [True/False]
+    Estableix l'indicador de cerca dels operadors booleans – Cert o Fals.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineDefaultArguments" xml:space="preserve">
+    <value>Qualsevol argument no especificar serà predeterminat a la darrera configuració desada.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineDotAsNewline" xml:space="preserve">
+    <value>/dn [True/False]
+-dn [True/False]
+-dotAsNewline [True/False]
+    Estableix el punt com a indicador de cerca de nova línia. Cert o Fals.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineArguments" xml:space="preserve">
+    <value>Arguments:</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineCSVReport" xml:space="preserve">
+    <value>/csv [filePath]
+-csv [filePath]
+    Crea fitxer de resultats en format CSV al finalitzar la cerca.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExample2" xml:space="preserve">
+    <value>dnGrep [Ruta de la carpeta] [CercaDe]
+Un o dos arguments sense indicadors: el primer argument es la carpeta a cercar, el segon l'expressió regular a cercar.
+Exemple:
+dnGrep "C:\Program Files\dnGrep" t\w*t</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExample1" xml:space="preserve">
+    <value>dnGrep [arguments]
+Utilitzant qualsevol combinació d'arguments de la següent llista.
+Exemple:
+dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExit" xml:space="preserve">
+    <value>/x
+-x
+-exit
+    Surt de dnGrep després que les operacions de la línia de comandes hagin finalitzat.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
 </root>
