@@ -494,4 +494,64 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     Surt de dnGrep després que les operacions de la línia de comandes hagin finalitzat.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
+  <data name="Help_CmdLineMultiline" xml:space="preserve">
+    <value>/ml [True/False]
+-ml [True/False]
+-multiline [True/False]
+    Estableix l'indicador de cera multi-línia – True or False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineFolder" xml:space="preserve">
+    <value>/f [folderPath]
+-f [folderPath]
+-folder [folderPath]
+    Estableix el camí a la carpeta de cerca. Pot ser una llista de camins de carpeta separats per coma o punt i coma.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineFileInformation" xml:space="preserve">
+    <value>/fi [True/False]
+-fi [True/False]
+-fileInformation [True/False]
+    Estableix els indicadors per a incloure informació de fitxers i línies en l'informe de sortida.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePathToIgnore" xml:space="preserve">
+    <value>/pi [patró]
+-pi [patró]
+-pathToIgnore [patró]
+    Estableix el patró de nom d'arxiu o carpeta per a excloure fitxers o carpetes en el camí de cerca. Pot ser una llista de patrons separats per coma o punt i coma.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePathToMatch" xml:space="preserve">
+    <value>/pm [patró]
+-pm [patró]
+-pathToMatch [patró]
+    Estableix el patró de nom de fitxer per a la coincidència amb els arxius del camí de cerca. Pot ser una llista de patrons separats per coma o punt i coma.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePatternType" xml:space="preserve">
+    <value>/pt [tipus]
+-pt [tipus]
+-patternType [tipus]
+    Estableix el tipus de patró per a la coincidència i ignorar – pot ser un de: "Asterisk" (amb comodíns), "Regex" (expressió regular), or "Everything" (si està instal·lada l'eina de cerca Everything).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineReport" xml:space="preserve">
+    <value>/rpt [filePath]
+-rpt [filePath]
+-report [filePath]
+    Crea arxiu de resultats en format d'informe quan es finalitza la cerca.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineHeader" xml:space="preserve">
+    <value>dnGrep:  Cerca en fitxers de text, documents de Word i Excel, PDF, y arxius utilitzant text, expressions regulars, XPath, i consultes fonètiques.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineListItemSeparator" xml:space="preserve">
+    <value>/sep [caràcter separador o text]
+-sep [caràcter separador o text]
+-listItemSeparator [caràcter separador o text]
+    Estableix el caràcter o la cadena per a separar elements en una línia de l'informe de sortida.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
 </root>
