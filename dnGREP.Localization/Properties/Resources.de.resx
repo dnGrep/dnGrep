@@ -394,7 +394,7 @@
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineDefaultArguments" xml:space="preserve">
-    <value>Wenn keine Argumente angegeben werden, werden die zuletzt gespeicherten Benutzereinstellungen verwendet.</value>
+    <value>Sind keine Argumente angegeben, werden die zuletzt gespeicherten Benutzereinstellungen verwendet.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineDotAsNewline" xml:space="preserve">
@@ -1923,7 +1923,7 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionContainsAnUnknownToken" xml:space="preserve">
-    <value>Boolean expression contains an unknown token</value>
+    <value>Boolescher Ausdruck enthält ein unbekanntes Token</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionHasAnUnknownError" xml:space="preserve">
@@ -1951,7 +1951,7 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <comment>Main window, Boolean expression status</comment>
   </data>
   <data name="Main_Menu_About_CheckForUpdates" xml:space="preserve">
-    <value>_Check for updates</value>
+    <value>_prüfe auf Update</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="MessageBox_DnGrepIsUpToDate" xml:space="preserve">
