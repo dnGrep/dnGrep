@@ -9,7 +9,7 @@ namespace Tests
         public void TestBookmarks()
         {
             BookmarkLibrary.Instance.Bookmarks.Clear();
-            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark("test1", "test2", "test3") { Description = "test4" });
+            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark() { SearchPattern = "test1", ReplacePattern = "test2", FileNames = "test3", Description = "test4" });
             BookmarkLibrary.Save();
             BookmarkLibrary.Load();
             Assert.Single(BookmarkLibrary.Instance.Bookmarks);
@@ -19,25 +19,50 @@ namespace Tests
         [Fact]
         public void TestBookmarkEquality()
         {
-            Bookmark b1 = new Bookmark("test1", "test2", "test3");
-            Bookmark b2 = new Bookmark("test1", "test2", "test3") { Description = "test4" };
-            Bookmark b3 = new Bookmark("testA", "testB", "testC");
-            Bookmark b4 = new Bookmark("testA", "testB", "testC") 
+            Bookmark b1 = new Bookmark()
             {
+                SearchPattern = "test1",
+                ReplacePattern = "test2",
+                FileNames = "test3"
+            };
+            Bookmark b2 = new Bookmark()
+            {
+                SearchPattern = "test1",
+                ReplacePattern = "test2",
+                FileNames = "test3",
+                Description = "test4"
+            };
+            Bookmark b3 = new Bookmark()
+            {
+                SearchPattern = "testA",
+                ReplacePattern = "testB",
+                FileNames = "testC"
+            };
+            Bookmark b4 = new Bookmark()
+            {
+                SearchPattern = "testA",
+                ReplacePattern = "testB",
+                FileNames = "testC",
                 IgnoreFilePattern = "*.txt",
                 WholeWord = true,
                 Multiline = false,
                 IncludeArchive = true,
             };
-            Bookmark b5 = new Bookmark("testA", "testB", "testC") 
+            Bookmark b5 = new Bookmark()
             {
+                SearchPattern = "testA",
+                ReplacePattern = "testB",
+                FileNames = "testC",
                 IgnoreFilePattern = "*.txt",
                 WholeWord = true,
                 Multiline = false,
                 IncludeArchive = true,
             };
-            Bookmark b6 = new Bookmark("testA", "testB", "testC") 
+            Bookmark b6 = new Bookmark()
             {
+                SearchPattern = "testA",
+                ReplacePattern = "testB",
+                FileNames = "testC",
                 IgnoreFilePattern = "*.txt",
             };
 
@@ -58,11 +83,27 @@ namespace Tests
         public void TestBookmarkFind()
         {
             BookmarkLibrary.Instance.Bookmarks.Clear();
-            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark("test1", "test2", "test3") { Description = "test4" });
-            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark("testA", "testB", "testC"));
+            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark()
+            {
+                SearchPattern = "test1",
+                ReplacePattern = "test2",
+                FileNames = "test3",
+                Description = "test4"
+            });
+            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark()
+            {
+                SearchPattern = "testA",
+                ReplacePattern = "testB",
+                FileNames = "testC"
+            });
             Assert.Equal(2, BookmarkLibrary.Instance.Bookmarks.Count);
 
-            var bmk = BookmarkLibrary.Instance.Find(new Bookmark("test1", "test2", "test3"));
+            var bmk = BookmarkLibrary.Instance.Find(new Bookmark()
+            {
+                SearchPattern = "test1",
+                ReplacePattern = "test2",
+                FileNames = "test3"
+            });
             Assert.NotNull(bmk);
         }
 
@@ -70,11 +111,27 @@ namespace Tests
         public void TestBookmarkAddFolderReference()
         {
             BookmarkLibrary.Instance.Bookmarks.Clear();
-            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark("test1", "test2", "test3") { Description = "test4" });
-            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark("testA", "testB", "testC"));
+            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark()
+            {
+                SearchPattern = "test1",
+                ReplacePattern = "test2",
+                FileNames = "test3",
+                Description = "test4"
+            });
+            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark()
+            {
+                SearchPattern = "testA",
+                ReplacePattern = "testB",
+                FileNames = "testC"
+            });
             Assert.Equal(2, BookmarkLibrary.Instance.Bookmarks.Count);
 
-            var bmk = BookmarkLibrary.Instance.Find(new Bookmark("test1", "test2", "test3"));
+            var bmk = BookmarkLibrary.Instance.Find(new Bookmark()
+            {
+                SearchPattern = "testA",
+                ReplacePattern = "testB",
+                FileNames = "testC"
+            });
             Assert.NotNull(bmk);
 
             BookmarkLibrary.Instance.AddFolderReference(bmk, @"c:\test\path");
@@ -85,11 +142,27 @@ namespace Tests
         public void TestBookmarkAddMultipleFolderReference()
         {
             BookmarkLibrary.Instance.Bookmarks.Clear();
-            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark("test1", "test2", "test3") { Description = "test4" });
-            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark("testA", "testB", "testC"));
+            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark()
+            {
+                SearchPattern = "test1",
+                ReplacePattern = "test2",
+                FileNames = "test3",
+                Description = "test4"
+            });
+            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark()
+            {
+                SearchPattern = "testA",
+                ReplacePattern = "testB",
+                FileNames = "testC"
+            });
             Assert.Equal(2, BookmarkLibrary.Instance.Bookmarks.Count);
 
-            var bmk = BookmarkLibrary.Instance.Find(new Bookmark("test1", "test2", "test3"));
+            var bmk = BookmarkLibrary.Instance.Find(new Bookmark()
+            {
+                SearchPattern = "test1",
+                ReplacePattern = "test2",
+                FileNames = "test3"
+            });
             Assert.NotNull(bmk);
 
             BookmarkLibrary.Instance.AddFolderReference(bmk, @"c:\test\path");
@@ -101,17 +174,38 @@ namespace Tests
         public void TestBookmarkChangeFolderReference()
         {
             BookmarkLibrary.Instance.Bookmarks.Clear();
-            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark("test1", "test2", "test3") { Description = "test4" });
-            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark("testA", "testB", "testC"));
+            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark()
+            {
+                SearchPattern = "test1",
+                ReplacePattern = "test2",
+                FileNames = "test3",
+                Description = "test4"
+            });
+            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark()
+            {
+                SearchPattern = "testA",
+                ReplacePattern = "testB",
+                FileNames = "testC"
+            });
             Assert.Equal(2, BookmarkLibrary.Instance.Bookmarks.Count);
 
-            var bmk = BookmarkLibrary.Instance.Find(new Bookmark("test1", "test2", "test3"));
+            var bmk = BookmarkLibrary.Instance.Find(new Bookmark()
+            {
+                SearchPattern = "test1",
+                ReplacePattern = "test2",
+                FileNames = "test3"
+            });
             Assert.NotNull(bmk);
 
             BookmarkLibrary.Instance.AddFolderReference(bmk, @"c:\test\path");
             Assert.Single(bmk.FolderReferences);
 
-            var bmk2 = BookmarkLibrary.Instance.Find(new Bookmark("testA", "testB", "testC"));
+            var bmk2 = BookmarkLibrary.Instance.Find(new Bookmark()
+            {
+                SearchPattern = "testA",
+                ReplacePattern = "testB",
+                FileNames = "testC"
+            });
             Assert.NotNull(bmk2);
 
             BookmarkLibrary.Instance.AddFolderReference(bmk2, @"c:\test\path");
@@ -123,30 +217,39 @@ namespace Tests
         public void TestFindBookmarkWithSection()
         {
             BookmarkLibrary.Instance.Bookmarks.Clear();
-            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark("", "", "*.cs") 
-                { 
-                    Description = "Search for cs",
-                    TypeOfFileSearch = FileSearchType.Asterisk,
-                    ApplyFilePropertyFilters = false,
-                    ApplyContentSearchFilters = false,
-                });
-            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark("", "", "*.xml")
-                {
-                    Description = "Search for xml",
-                    TypeOfFileSearch = FileSearchType.Asterisk,
-                    ApplyFilePropertyFilters = false,
-                    ApplyContentSearchFilters = false,
-                });
+            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark()
+            {
+                SearchPattern = "",
+                ReplacePattern = "",
+                FileNames = "*.cs",
+                Description = "Search for cs",
+                TypeOfFileSearch = FileSearchType.Asterisk,
+                ApplyFilePropertyFilters = false,
+                ApplyContentSearchFilters = false,
+            });
+            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark()
+            {
+                SearchPattern = "",
+                ReplacePattern = "",
+                FileNames = "*.xml",
+                Description = "Search for xml",
+                TypeOfFileSearch = FileSearchType.Asterisk,
+                ApplyFilePropertyFilters = false,
+                ApplyContentSearchFilters = false,
+            });
             Assert.Equal(2, BookmarkLibrary.Instance.Bookmarks.Count);
 
-            var currentBookmarkSettings = new Bookmark(@"\w+\s\w+", "", "*.cs")
-                { 
-                    TypeOfFileSearch = FileSearchType.Asterisk,
-                    TypeOfSearch = SearchType.Regex,
-                    Multiline = true,
-                    ApplyFilePropertyFilters = true,
-                    ApplyContentSearchFilters = true,
-                };
+            var currentBookmarkSettings = new Bookmark()
+            {
+                SearchPattern = @"\w+\s\w+",
+                ReplacePattern = "",
+                FileNames = "*.cs",
+                TypeOfFileSearch = FileSearchType.Asterisk,
+                TypeOfSearch = SearchType.Regex,
+                Multiline = true,
+                ApplyFilePropertyFilters = true,
+                ApplyContentSearchFilters = true,
+            };
 
             Bookmark bk = BookmarkLibrary.Instance.Find(currentBookmarkSettings);
 
@@ -160,23 +263,35 @@ namespace Tests
             // this test verifies that 'Find' will not return a bookmark
             // that matches on some enabled sections, but not all enabled sections
             BookmarkLibrary.Instance.Bookmarks.Clear();
-            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark("", "", "*.cs") 
-                { 
-                    Description = "Search for cs",
-                    TypeOfFileSearch = FileSearchType.Asterisk,
-                    ApplyFilePropertyFilters = false,
-                    ApplyContentSearchFilters = false,
-                });
-            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark("", "", "*.xml")
-                {
-                    Description = "Search for xml",
-                    TypeOfFileSearch = FileSearchType.Asterisk,
-                    ApplyFilePropertyFilters = true,
-                    ApplyContentSearchFilters = true,
-                });
+            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark()
+            {
+                SearchPattern = "",
+                ReplacePattern = "",
+                FileNames = "*.cs",
+                Description = "Search for cs",
+                TypeOfFileSearch = FileSearchType.Asterisk,
+                ApplyFilePropertyFilters = false,
+                ApplyContentSearchFilters = false,
+            });
+            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark()
+            {
+                SearchPattern = "",
+                ReplacePattern = "",
+                FileNames = "*.xml",
+                Description = "Search for xml",
+                TypeOfFileSearch = FileSearchType.Asterisk,
+                ApplyFilePropertyFilters = true,
+                ApplyContentSearchFilters = true,
+            });
             Assert.Equal(2, BookmarkLibrary.Instance.Bookmarks.Count);
 
-            var currentBookmarkSettings = new Bookmark(@"\w+\s\w+", "", "*.json");
+            var currentBookmarkSettings = new Bookmark()
+            {
+                SearchPattern = @"\w+\s\w+",
+                ReplacePattern = "",
+                FileNames = "*.json",
+            };
+
 
             Bookmark bk = BookmarkLibrary.Instance.Find(currentBookmarkSettings);
 

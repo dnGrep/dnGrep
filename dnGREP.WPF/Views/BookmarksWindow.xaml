@@ -30,6 +30,13 @@
         </Style>
     </Window.Resources>
 
+    <Window.InputBindings>
+        <KeyBinding Key="Up" Modifiers="Shift+Alt" Command="{Binding MoveToTopCommand}"/>
+        <KeyBinding Key="Up" Modifiers="Alt" Command="{Binding MoveUpCommand}"/>
+        <KeyBinding Key="Down" Modifiers="Alt" Command="{Binding MoveDownCommand}"/>
+        <KeyBinding Key="Down" Modifiers="Shift+Alt" Command="{Binding MoveToBottomCommand}"/>
+    </Window.InputBindings>
+
     <Grid Margin="8">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -42,7 +49,8 @@
             <TextBox Margin="3" Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" />
         </DockPanel>
 
-        <DataGrid Grid.Row="1" Margin="3"
+        <DataGrid x:Name="dataGrid"
+                  Grid.Row="1" Margin="3"
                   ItemsSource="{Binding Bookmarks}"
                   SelectedValue="{Binding SelectedBookmark}"
                   AutoGenerateColumns="False" SelectionMode="Single" SelectionUnit="FullRow"
@@ -65,6 +73,10 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+                <DataGridTextColumn MinWidth="120" Header="{l:Loc Key='Bookmarks_NameHeader'}" IsReadOnly="True"
+                                    Binding="{Binding BookmarkName}" />
+                <!--<DataGridTextColumn MinWidth="40" Header="Order" IsReadOnly="True"
+                                    Binding="{Binding Ordinal}" />-->
                 <DataGridTextColumn MinWidth="80" Header="{l:Loc Key='Bookmarks_TypeHeader'}" IsReadOnly="True"
                                     SortMemberPath="TypeOfSearch">
                     <DataGridTextColumn.Binding>
@@ -92,6 +104,14 @@
                     <EventSetter Event="PreviewMouseDoubleClick" Handler="DataGridRow_PreviewMouseDoubleClick" />
                 </Style>
             </DataGrid.RowStyle>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="{l:Loc Key='Bookmarks_MoveToTop'}" Command="{Binding MoveToTopCommand}" InputGestureText="{l:Loc Key='Bookmarks_ShiftAltUpArrow'}"/>
+                    <MenuItem Header="{l:Loc Key='Bookmarks_MoveUp'}" Command="{Binding MoveUpCommand}" InputGestureText="{l:Loc Key='Bookmarks_AltUpArrow'}"/>
+                    <MenuItem Header="{l:Loc Key='Bookmarks_MoveDown'}" Command="{Binding MoveDownCommand}" InputGestureText="{l:Loc Key='Bookmarks_AltDownArrow'}"/>
+                    <MenuItem Header="{l:Loc Key='Bookmarks_MoveToBottom'}" Command="{Binding MoveToBottomCommand}" InputGestureText="{l:Loc Key='Bookmarks_ShiftAltDownArrow'}"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
         </DataGrid>
 
         <DockPanel Grid.Row="2" LastChildFill="False" Grid.IsSharedSizeScope="True">
