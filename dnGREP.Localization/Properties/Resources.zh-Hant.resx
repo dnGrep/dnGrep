@@ -625,7 +625,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, results options context lines label</comment>
   </data>
   <data name="Main_ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
-    <value>上下文設定將於下次搜尋時生效</value>
+    <value>上下文行數設定將於下次搜尋時生效</value>
     <comment>Main window, result options context lines tooltip</comment>
   </data>
   <data name="Main_ContextShowLines" xml:space="preserve">
@@ -1769,7 +1769,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, theme reload button label (accel)</comment>
   </data>
   <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
-    <value>重新載入當前主題檔案 [Ctrl+F5]</value>
+    <value>重新載入當前主題檔案</value>
     <comment>Options dialog, theme reload button tooltip</comment>
   </data>
   <data name="Options_ReplaceDialogLayout" xml:space="preserve">

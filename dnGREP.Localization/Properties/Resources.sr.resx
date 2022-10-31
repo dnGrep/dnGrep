@@ -2569,4 +2569,104 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Учините уписљивим</value>
     <comment>Main windows, results list, context menu item label</comment>
   </data>
+  <data name="Main_MaximizeResults" xml:space="preserve">
+    <value>Оптимизовати резултате (F7)</value>
+    <comment>Main window, Maximize results button tooltip</comment>
+  </data>
+  <data name="Help_CmdLineSeparateLines" xml:space="preserve">
+    <value>/sl [Тачно/Нетачно]
+-sl [Тачно/Нетачно]
+-separateLines [Тачно/Нетачно]
+    Поставља заставицу за излаз сваког подударања или групе на засебном реду у излазу извештаја регуларног израза – Тачно или Нетачно.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUniqueValues" xml:space="preserve">
+    <value>/unique [Тачно/Нетачно]
+-unique [Тачно/Нетачно]
+-uniqueValues [Тачно/Нетачно]
+    Поставља заставицу за излаз јединственог подударања или групних вредности у излазу извештаја регуларног израза – Тачно или Нетачно.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_ReplaceUsingBooleanOperators" xml:space="preserve">
+    <value>Заменити користећи Булове операторе само са претрагом текста</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Options_MaximizeResultsPanelOnSearch" xml:space="preserve">
+    <value>Повећајте таблу резултата у претрази</value>
+    <comment>Options dialog, layout option checkbox label (accel)</comment>
+  </data>
+  <data name="ReportOptionsWindow_CSV" xml:space="preserve">
+    <value>CSV</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_SeparatorForMultipleMatchesOrGroupsOnALine" xml:space="preserve">
+    <value>Раздвајач за више налажења или група на линији</value>
+    <comment>Report options dialog, text box label</comment>
+  </data>
+  <data name="MessageBox_RunDnGrepAsAdministrator" xml:space="preserve">
+    <value>Покренути dnGrep као администратор да промените приказ dnGrep у „Windows Explorer“ менију десног клика</value>
+    <comment>Message box text for: Options dialog, changing Windows integration options</comment>
+  </data>
+  <data name="ReportOptionsWindow_ShowEachMatchOrGroupOnSeparateLine" xml:space="preserve">
+    <value>Прикажи свако налажење или групу на посебној линији</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="Main_SortMenu_PathAndFileNameBreadthFirst" xml:space="preserve">
+    <value>Путања и име датотеке, прво ширина</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Main_SortMenu_PathAndFileNameDepthFirst" xml:space="preserve">
+    <value>Путања и име датотеке, прво дужина</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Main_UseCaptureGroupsFromPathsToMatch" xml:space="preserve">
+    <value>Користите групе за снимање из „Упаривање узорака“ у обрасцу „Тражи“</value>
+    <comment>Main window, search option capture group tooltip</comment>
+  </data>
+  <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
+    <value>Низ бајтова није важећи!</value>
+    <comment>Main window, hexadecimal expression status</comment>
+  </data>
+  <data name="Main_Validation_HexStringIsOK" xml:space="preserve">
+    <value>Низ бајтова је ОК</value>
+    <comment>Main window, hexadecimal expression status</comment>
+  </data>
+  <data name="MessageBox_UndoWillRevertModifiedFiles" xml:space="preserve">
+    <value>Опозив ће вратити измењене датотеке у почетно стање. Све промене направљене у датотекама након замене биће преписане. Настави?</value>
+    <comment>Message box text for: Main window Undo</comment>
+  </data>
+  <data name="Replace_UndoMarkReplaceOnThisMatch" xml:space="preserve">
+    <value>Поништити ознаку замене на овом нелажењу [Ctrl+U]</value>
+    <comment>Replace window, Undo button tooltip</comment>
+  </data>
+  <data name="TTB0_InsertsTabNewline" xml:space="preserve">
+    <value>\\t убацује таболатор, \\r убације „return“, \\n убацује нови ред</value>
+    <comment>Main window and Test window tooltip</comment>
+  </data>
+  <data name="Help_CmdLineTrimWhitespace" xml:space="preserve">
+    <value>/trim [Тачно/Нетачно]
+-trim [Тачно/Нетачно]
+-trimWhitespace [Тачно/Нетачно]
+    Поставља заставицу за смањење размака у излазу извештаја – Тачно или Нетачно.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUniqueScope" xml:space="preserve">
+    <value>/scope [обич]
+-scope [обим]
+-uniqueScope [обим]
+    Поставља заставицу за постављање опсега јединствених вредности у излазу извештаја регуларног израза – мора бити једна од: "Global" или "PerFile".</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Main_RestoreResults" xml:space="preserve">
+    <value>Вратити резултате (F7)</value>
+    <comment>Main window, Maximize results button tooltip</comment>
+  </data>
+  <data name="ReportOptionsWindow_FilterForUniqueValues" xml:space="preserve">
+    <value>Филтер за јединствене вредности</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_IncludeFileAndLineInformation" xml:space="preserve">
+    <value>Укључите информације о датотеци и линији</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
 </root>
