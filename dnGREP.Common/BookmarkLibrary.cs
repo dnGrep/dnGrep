@@ -258,6 +258,7 @@ namespace dnGREP.Common
         public bool ShouldSerializeFolderReferences() { return Version > 1; }
         public bool ShouldSerializeApplyFileSourceFilters() { return Version > 2; }
         public bool ShouldSerializeApplyFilePropertyFilters() { return Version > 2; }
+        public bool ShouldSerializeApplyContentSearchFilters() { return Version > 2; }
         public bool ShouldSerializeApplySearchFilters() { return Version > 2; }
         public bool ShouldSerializeSkipRemoteCloudStorageFiles() { return Version > 3; }
 
