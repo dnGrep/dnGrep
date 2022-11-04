@@ -16,6 +16,8 @@ namespace dnGREP.Common
                 Matches = matches;
         }
 
+        public int PageNumber { get; set; } = -1;
+
         public int LineNumber { get; set; }
 
         public string LineText { get; }

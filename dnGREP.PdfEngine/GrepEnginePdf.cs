@@ -80,7 +80,7 @@ namespace dnGREP.Engines.Pdf
                     {
                         foreach (var result in results)
                         {
-                            result.SearchResults = Utils.GetLinesEx(streamReader, result.Matches, initParams.LinesBefore, initParams.LinesAfter);
+                            result.SearchResults = Utils.GetLinesEx(streamReader, result.Matches, initParams.LinesBefore, initParams.LinesAfter, true);
                         }
                     }
 

@@ -681,9 +681,17 @@ namespace dnGREP.WPF
             int lineSize = GrepSettings.Instance.Get<int>(GrepSettings.Key.HexResultByteLength);
 
             LineNumberAlignment = TranslationSource.Instance.CurrentCulture.TextInfo.IsRightToLeft ? TextAlignment.Left : TextAlignment.Right;
-            FormattedLineNumber = line.LineNumber == -1 ? string.Empty :
-                line.IsHexFile ? string.Format("{0:X8}", (line.LineNumber - 1) * lineSize) :
-                line.LineNumber.ToString();
+
+            if (line.PageNumber > -1)
+            {
+                FormattedLineNumber = line.PageNumber.ToString();
+            }
+            else
+            {
+                FormattedLineNumber = line.LineNumber == -1 ? string.Empty :
+                    line.IsHexFile ? string.Format("{0:X8}", (line.LineNumber - 1) * lineSize) :
+                    line.LineNumber.ToString();
+            }
 
             //string fullText = lineSummary;
             if (line.IsContext)
