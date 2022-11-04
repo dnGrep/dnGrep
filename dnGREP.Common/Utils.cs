@@ -595,8 +595,8 @@ namespace dnGREP.Common
         }
 
         /// <summary>
-        /// Assumes the path argument is a single path, and adds leading/tailing quotes 
-        /// if the path contains a space
+        /// Assumes the path argument is a valid single path 
+        /// and adds leading/tailing quotes if the path contains a space
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
@@ -615,7 +615,7 @@ namespace dnGREP.Common
 
             if (path.Contains(" "))
             {
-                return "\"" + path + "\"";
+                return Quote(path);
             }
 
             return path;
@@ -633,23 +633,50 @@ namespace dnGREP.Common
                 return string.Empty;
             }
 
-            try
+            string trimmedPath = path.Trim('\"').Trim();
+            if (Directory.Exists(trimmedPath) || File.Exists(trimmedPath))
             {
-                string cleaned = path.Trim('\"').Trim();
-                while (cleaned.Length > 0)
+                return path;
+            }
+
+            var parts = path.Split('|');
+            string newPath = string.Empty;
+
+            foreach (string part in parts)
+            {
+                try
                 {
-                    if (Directory.Exists(cleaned) || File.Exists(cleaned))
+                    string cleaned = part.Trim();
+                    while (cleaned.Length > 2)
                     {
-                        return cleaned;
-                    }
-                    cleaned = cleaned.Remove(cleaned.Length - 1).Trim();
-                    if (cleaned.StartsWith("\"") && cleaned.EndsWith("\""))
-                    {
-                        cleaned = cleaned.Trim('\"').Trim();
+                        cleaned = EverythingSearch.RemovePrefixes(cleaned);
+
+                        if (cleaned.StartsWith("\"") || cleaned.EndsWith("\"") ||
+                            cleaned.StartsWith("(") || cleaned.EndsWith(")"))
+                        {
+                            cleaned = cleaned.Trim('\"', '(', ')', ' ').Trim();
+                        }
+
+                        if (Directory.Exists(cleaned) || File.Exists(cleaned))
+                        {
+                            if (newPath.Length > 0)
+                            {
+                                newPath += ";";
+                            }
+                            newPath += Utils.QuoteIfNeeded(cleaned);
+                            break;
+                        }
+
+                        cleaned = cleaned.Remove(cleaned.Length - 1).Trim();
                     }
                 }
+                catch { }
             }
-            catch { }
+
+            if (!string.IsNullOrEmpty(newPath))
+            {
+                return newPath;
+            }
 
             return path;
         }
@@ -770,7 +797,7 @@ namespace dnGREP.Common
         }
 
         /// <summary>
-        /// Splits path into subpaths if ; or , are found in path.
+        /// Splits path into subpaths if [,;|] are found in path.
         /// If folder name contains ; or , returns as one path
         /// </summary>
         /// <param name="path">Path to split</param>
@@ -785,7 +812,7 @@ namespace dnGREP.Common
             string[] paths = new string[] { path };
 
             // if path contains separators, parse it
-            if (path.Contains(";") || path.Contains(",") || path.Contains("\""))
+            if (path.Contains(";") || path.Contains(",") || path.Contains("|") || path.Contains("\""))
             {
                 using (TextReader reader = new StringReader(path))
                 {
@@ -794,7 +821,7 @@ namespace dnGREP.Common
                     {
                         parser.HasFieldsEnclosedInQuotes = path.Contains('"');
                         parser.TrimWhiteSpace = false;
-                        parser.SetDelimiters(",", ";");
+                        parser.SetDelimiters(",", ";", "|");
                         paths = parser.ReadFields();
                     }
                 }

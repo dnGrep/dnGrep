@@ -91,34 +91,37 @@ namespace dnGREP.Common.UI
             }
         }
 
+        public bool HasMultiSelectedFiles
+        { 
+            get { return dialog.FileNames != null && dialog.FileNames.Length > 1; }
+        }
+
         /// <summary>
-        /// When multiple files are selected returns them as semi-colon separated string
+        /// When multiple files are selected returns them as separated string with the specified separator
         /// </summary>
-        public string SelectedPaths
+        /// <param name="separator"></param>
+        public string GetSelectedPaths(string separator)
         {
-            get
+            if (dialog.FileNames != null && dialog.FileNames.Length > 1)
             {
-                if (dialog.FileNames != null && dialog.FileNames.Length > 1)
+                StringBuilder sb = new StringBuilder();
+                foreach (string fileName in dialog.FileNames)
                 {
-                    StringBuilder sb = new StringBuilder();
-                    foreach (string fileName in dialog.FileNames)
+                    try
                     {
-                        try
-                        {
-                            if (File.Exists(fileName))
-                                sb.Append(Utils.QuoteIfNeeded(fileName) + ";");
-                        }
-                        catch
-                        {
-                            // Go to next
-                        }
+                        if (File.Exists(fileName))
+                            sb.Append(Utils.QuoteIfNeeded(fileName) + separator);
                     }
-                    return sb.ToString();
+                    catch
+                    {
+                        // Go to next
+                    }
                 }
-                else
-                {
-                    return null;
-                }
+                return sb.ToString();
+            }
+            else
+            {
+                return null;
             }
         }
 
