@@ -730,15 +730,28 @@ namespace dnGREP.WPF
 
         public void OnFileDrop(bool append, string[] filePaths)
         {
+            string paths = append ? FileOrFolderPath : string.Empty;
+
             bool everythingSearch = TypeOfFileSearch == FileSearchType.Everything;
-            string paths = append && !everythingSearch ? FileOrFolderPath : string.Empty;
+            if (append && everythingSearch && FileOrFolderPath.Trim('\"') != PathSearchText.BaseFolder)
+            {
+                // for anything but a simple path, do not append in Everything mode
+                paths = string.Empty;
+            }
+
+            string separator = everythingSearch ? " | " : ";";
 
             foreach (string path in filePaths)
             {
                 if (!string.IsNullOrEmpty(paths))
-                    paths += ";";
+                    paths += separator;
 
-                paths += Utils.QuoteIfNeeded(path);
+                var part = Utils.QuoteIfNeeded(path);
+                if (everythingSearch)
+                {
+                    part = Utils.QuoteIfIncludesSpaces(part);
+                }
+                paths += part;
             }
 
             SetFileOrFolderPath(paths);
@@ -1438,8 +1451,6 @@ namespace dnGREP.WPF
 
         private void Browse()
         {
-            string filePattern = PathSearchText.FilePattern;
-
             fileFolderDialog.Dialog.Multiselect = true;
             fileFolderDialog.SelectedPath = PathSearchText.BaseFolder;
             if (string.IsNullOrWhiteSpace(PathSearchText.BaseFolder))
@@ -1458,29 +1469,14 @@ namespace dnGREP.WPF
             if (fileFolderDialog.ShowDialog() == true)
             {
                 string newPath = string.Empty;
-                if (fileFolderDialog.SelectedPaths != null)
+                if (fileFolderDialog.HasMultiSelectedFiles)
                 {
-                    if (TypeOfFileSearch == FileSearchType.Everything)
-                    {
-                        string[] paths = fileFolderDialog.SelectedPaths.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
-                        newPath = string.Join("|", paths.Select(p => Utils.Quote(p)).ToArray());
-                    }
-                    else
-                    {
-                        newPath = fileFolderDialog.SelectedPaths;
-                    }
+                    newPath = fileFolderDialog.GetSelectedPaths(
+                        TypeOfFileSearch == FileSearchType.Everything ? " | " : ";");
                 }
                 else
                 {
                     newPath = fileFolderDialog.SelectedPath;
-                }
-
-                if (!string.IsNullOrWhiteSpace(filePattern))
-                {
-                    if (newPath.Contains(" ") && !newPath.StartsWith("\""))
-                        newPath = Utils.Quote(newPath);
-
-                    newPath += " " + filePattern;
                 }
 
                 SetFileOrFolderPath(newPath);
@@ -1799,7 +1795,7 @@ namespace dnGREP.WPF
                 {
                     string s = searchPath;
                     FastPathBookmarks.RemoveAt(idx);
-                    SetFileOrFolderPath(s);
+                    FileOrFolderPath = s;
                 }
             }
             while (FastPathBookmarks.Count > maxPathCount)
@@ -2569,7 +2565,7 @@ namespace dnGREP.WPF
 
                     if (TypeOfFileSearch == FileSearchType.Everything)
                     {
-                        SetFileOrFolderPath(bmk.FilePattern);
+                        FileOrFolderPath = bmk.FilePattern;
                     }
                     else
                     {
@@ -2617,7 +2613,7 @@ namespace dnGREP.WPF
 
                     if (TypeOfFileSearch == FileSearchType.Everything)
                     {
-                        SetFileOrFolderPath(bmk.FileNames);
+                        FileOrFolderPath = bmk.FileNames;
                     }
                     else
                     {

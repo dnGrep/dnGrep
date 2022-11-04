@@ -1,6 +1,4 @@
-﻿using dnGREP.Everything;
-
-namespace dnGREP.Common
+﻿namespace dnGREP.Common
 {
     /// <summary>
     /// This class maps the text entered into the 'Search in Folder' box on the main window.
@@ -48,26 +46,16 @@ namespace dnGREP.Common
                 if (baseFolder == null)
                 {
                     if (TypeOfFileSearch == FileSearchType.Everything)
-                        baseFolder = EverythingSearch.GetBaseFolder(FileOrFolderPath);
+                    {
+                        string path = Utils.CleanPath(FileOrFolderPath).Replace('|', ';');
+                        baseFolder = Utils.GetBaseFolder(path);
+                    }
                     else
+                    {
                         baseFolder = Utils.GetBaseFolder(FileOrFolderPath);
+                    }
                 }
                 return baseFolder;
-            }
-        }
-
-        /// <summary>
-        /// Gets the search text part of the string, following the base folder
-        /// </summary>
-        public string FilePattern
-        {
-            get
-            {
-                if (TypeOfFileSearch == FileSearchType.Everything)
-                {
-                    return EverythingSearch.GetFilePattern(FileOrFolderPath);
-                }
-                return string.Empty;
             }
         }
 
@@ -84,7 +72,7 @@ namespace dnGREP.Common
                     if (TypeOfFileSearch == FileSearchType.Everything)
                         isValidPath = !string.IsNullOrWhiteSpace(FileOrFolderPath);
                     else
-                        isValidPath = !string.IsNullOrWhiteSpace(FileOrFolderPath) && 
+                        isValidPath = !string.IsNullOrWhiteSpace(FileOrFolderPath) &&
                             Utils.IsPathValid(fileOrFolderPath);
                 }
                 return isValidPath.Value;

@@ -10,6 +10,11 @@ using System.Xml.XPath;
 using dnGREP.Common;
 using dnGREP.Everything;
 using dnGREP.Localization;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
+using File = Alphaleonis.Win32.Filesystem.File;
+using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 using Resources = dnGREP.Localization.Properties.Resources;
 
 namespace dnGREP.WPF
@@ -124,25 +129,26 @@ namespace dnGREP.WPF
             {
                 if (TypeOfFileSearch == FileSearchType.Everything)
                 {
-                    if (path.Contains(",") || path.Contains(";"))
+                    // Is this a list of paths?  A path may contain a comma or semi-colon
+                    // so check that it isn't a valid directory or file first
+                    string trimmedPath = path.Trim('\"', ' ');
+                    if (!(Directory.Exists(trimmedPath) || File.Exists(trimmedPath)) &&
+                        (path.Contains(",") || path.Contains(";") || path.Contains("|")))
                     {
                         try
                         {
-                            string[] parts = Utils.SplitPath(path, true);
-                            if (parts.Length > 1)
-                            {
-                                path = parts[0];
-                            }
+                            var parts = Utils.SplitPath(path, true).Select(p => Utils.QuoteIfIncludesSpaces(p));
+                            path = string.Join(" | ", parts);
                         }
                         catch { }
                     }
+                    else
+                    {
+                        path = Utils.QuoteIfIncludesSpaces(path);
+                    }
+                }
 
-                    FileOrFolderPath = Utils.QuoteIfIncludesSpaces(path);
-                }
-                else
-                {
-                    FileOrFolderPath = path;
-                }
+                FileOrFolderPath = path;
             }
         }
 
@@ -1829,7 +1835,7 @@ namespace dnGREP.WPF
             TypeOfSearch = Settings.Get<SearchType>(GrepSettings.Key.TypeOfSearch);
             TypeOfFileSearch = Settings.Get<FileSearchType>(GrepSettings.Key.TypeOfFileSearch);
             // FileOrFolderPath depends on TypeOfFileSearch, so must be after
-            SetFileOrFolderPath(Settings.Get<string>(GrepSettings.Key.SearchFolder));
+            FileOrFolderPath = Settings.Get<string>(GrepSettings.Key.SearchFolder);
             CodePage = Settings.Get<int>(GrepSettings.Key.CodePage);
             FilePattern = Settings.Get<string>(GrepSettings.Key.FilePattern);
             FilePatternIgnore = Settings.Get<string>(GrepSettings.Key.FilePatternIgnore);

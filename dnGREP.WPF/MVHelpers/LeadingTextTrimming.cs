@@ -65,7 +65,7 @@ namespace dnGREP.WPF
 
                 if (sz.Width > actualWidth)
                 {
-                    while (sz.Width > actualWidth)
+                    while (sz.Width > actualWidth && text.Length > 0)
                     {
                         text = text.Substring(1);
                         sz = AddPrefix(text).MeasureString(typeFace, textBlock.FontSize, textBlock);
