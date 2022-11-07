@@ -90,4 +90,10 @@ namespace dnGREP.Common
         Global
     }
 
+    public enum PdfNumberType
+    { 
+        LineNumber,
+        PageNumber
+    }
+
 }

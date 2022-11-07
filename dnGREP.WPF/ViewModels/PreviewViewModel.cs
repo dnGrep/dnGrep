@@ -183,6 +183,23 @@ namespace dnGREP.WPF
             }
         }
 
+
+        private bool hasPageNumbers = false;
+        public bool HasPageNumbers
+        {
+            get { return hasPageNumbers; }
+            set
+            {
+                if (hasPageNumbers == value)
+                {
+                    return;
+                }
+
+                hasPageNumbers = value;
+                OnPropertyChanged(nameof(HasPageNumbers));
+            }
+        }
+
         private string applicationFontFamily;
         public string ApplicationFontFamily
         {
@@ -267,6 +284,8 @@ namespace dnGREP.WPF
 
                     // Disable highlighting for large number of matches
                     HighlightDisabled = GrepResult?.Matches?.Count > 5000;
+
+                    HasPageNumbers = GrepResult?.SearchResults?.Any(sr => sr.PageNumber > -1) ?? false;
 
                     // Tell View to show window
                     ShowPreview?.Invoke(this, EventArgs.Empty);

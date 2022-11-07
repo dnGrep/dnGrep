@@ -4110,6 +4110,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Line Numbers.
+        /// </summary>
+        public static string Options_LineNumbers {
+            get {
+                return ResourceManager.GetString("Options_LineNumbers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Load from file….
         /// </summary>
         public static string Options_LoadFromFile {
@@ -4178,6 +4187,24 @@ namespace dnGREP.Localization.Properties {
         public static string Options_OptionsTitle {
             get {
                 return ResourceManager.GetString("Options_OptionsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Page Numbers.
+        /// </summary>
+        public static string Options_PageNumbers {
+            get {
+                return ResourceManager.GetString("Options_PageNumbers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to PDF number style:.
+        /// </summary>
+        public static string Options_PDFNumberStyle {
+            get {
+                return ResourceManager.GetString("Options_PDFNumberStyle", resourceCulture);
             }
         }
         

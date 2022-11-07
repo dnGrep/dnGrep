@@ -679,11 +679,20 @@ namespace dnGREP.WPF
             IsSectionBreak = breakSection;
             WrapText = Parent.WrapText;
             int lineSize = GrepSettings.Instance.Get<int>(GrepSettings.Key.HexResultByteLength);
+            var pdfNumberStyle = GrepSettings.Instance.Get<PdfNumberType>(GrepSettings.Key.PdfNumberStyle);
 
             LineNumberAlignment = TranslationSource.Instance.CurrentCulture.TextInfo.IsRightToLeft ? TextAlignment.Left : TextAlignment.Right;
-            FormattedLineNumber = line.LineNumber == -1 ? string.Empty :
-                line.IsHexFile ? string.Format("{0:X8}", (line.LineNumber - 1) * lineSize) :
-                line.LineNumber.ToString();
+
+            if (pdfNumberStyle == PdfNumberType.PageNumber && line.PageNumber > -1)
+            {
+                FormattedLineNumber = line.PageNumber.ToString();
+            }
+            else
+            {
+                FormattedLineNumber = line.LineNumber == -1 ? string.Empty :
+                    line.IsHexFile ? string.Format("{0:X8}", (line.LineNumber - 1) * lineSize) :
+                    line.LineNumber.ToString();
+            }
 
             //string fullText = lineSummary;
             if (line.IsContext)

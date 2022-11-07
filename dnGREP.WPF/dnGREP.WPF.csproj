@@ -97,6 +97,7 @@
     <Compile Include="MVHelpers\Messenger.cs" />
     <Compile Include="MVHelpers\IntToImageValueConverter.cs" />
     <Compile Include="MVHelpers\PercentValueConverter.cs" />
+    <Compile Include="MVHelpers\PreviewLineNumberMargin.cs" />
     <Compile Include="MVHelpers\ResizeModeConverter.cs" />
     <Compile Include="MVHelpers\ColorInverter.cs" />
     <Compile Include="MVHelpers\ResultSorter.cs" />

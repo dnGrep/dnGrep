@@ -1973,24 +1973,30 @@ namespace dnGREP.Common
         /// <param name="bodyMatches">List of matches with positions relative to entire text body</param>
         /// <param name="beforeLines">Context line (before)</param>
         /// <param name="afterLines">Context line (after</param>
+        /// <param name="isPdfText">True if file is PDF text and to count a page for each \f character</param>
         /// <returns></returns>
-        public static List<GrepLine> GetLinesEx(TextReader body, List<GrepMatch> bodyMatches, int beforeLines, int afterLines)
+        public static List<GrepLine> GetLinesEx(TextReader body, List<GrepMatch> bodyMatches, int beforeLines, int afterLines, bool isPdfText = false)
         {
             if (body == null || bodyMatches == null)
                 return new List<GrepLine>();
 
             List<GrepMatch> bodyMatchesClone = new List<GrepMatch>(bodyMatches);
             Dictionary<int, GrepLine> results = new Dictionary<int, GrepLine>();
+            Dictionary<int, int> lineToPageMap = new Dictionary<int, int>();
             List<GrepLine> contextLines = new List<GrepLine>();
             Dictionary<int, string> lineStrings = new Dictionary<int, string>();
             List<int> lineNumbers = new List<int>();
             List<GrepMatch> matches = new List<GrepMatch>();
+
+            string ZWSP = char.ConvertFromUtf32(0x200B); //zero width space 
 
             // Context line (before)
             Queue<string> beforeQueue = new Queue<string>();
             // Context line (after)
             int currentAfterLine = 0;
             bool startRecordingAfterLines = false;
+            // Current page (using \f)
+            int pageNumber = isPdfText ? 1 : -1;
             // Current line
             int lineNumber = 0;
             // Current index of character
@@ -2007,6 +2013,19 @@ namespace dnGREP.Common
                 {
                     lineNumber++;
                     string line = reader.ReadLine();
+                    if (isPdfText)
+                    {
+                        if (reader.EndOfStream && line.Equals("\f"))
+                        {
+                            break;
+                        }
+
+                        pageNumber += line.Count(c => c.Equals('\f'));
+                        // replace the form feed character with a zero width space; keeps the same character count
+                        line = line.Replace("\f", ZWSP);
+                        lineToPageMap.Add(lineNumber, pageNumber);
+                    }
+
                     bool moreMatches = true;
                     // Building context queue
                     if (beforeLines > 0)
@@ -2019,7 +2038,7 @@ namespace dnGREP.Common
                     if (startRecordingAfterLines && currentAfterLine < afterLines)
                     {
                         currentAfterLine++;
-                        contextLines.Add(new GrepLine(lineNumber, line.TrimEndOfLine(), true, null));
+                        contextLines.Add(new GrepLine(lineNumber, line.TrimEndOfLine(), true, null) { PageNumber = pageNumber });
                     }
                     else if (currentAfterLine == afterLines)
                     {
@@ -2047,7 +2066,8 @@ namespace dnGREP.Common
                                     beforeQueue.Dequeue();
                                 else
                                     contextLines.Add(new GrepLine(startLine - beforeQueue.Count + 1 + (lineNumber - startLine),
-                                        beforeQueue.Dequeue(), true, null));
+                                        beforeQueue.Dequeue(), true, null)
+                                    { PageNumber = pageNumber });
                             }
                         }
 
@@ -2135,7 +2155,18 @@ namespace dnGREP.Common
             // Removing duplicate lines (when more than 1 match is on the same line) and grouping all matches belonging to the same line
             for (int i = 0; i < matches.Count; i++)
             {
-                AddGrepMatch(results, matches[i], lineStrings[matches[i].LineNumber], false);
+                if (isPdfText)
+                {
+                    if (lineToPageMap.ContainsKey(matches[i].LineNumber))
+                    {
+                        pageNumber = lineToPageMap[matches[i].LineNumber];
+                    }
+                    else
+                    {
+                        pageNumber = 0;
+                    }
+                }
+                AddGrepMatch(results, matches[i], lineStrings[matches[i].LineNumber], pageNumber, false);
             }
             for (int i = 0; i < contextLines.Count; i++)
             {
@@ -2291,7 +2322,7 @@ namespace dnGREP.Common
             // Removing duplicate lines (when more than 1 match is on the same line) and grouping all matches belonging to the same line
             for (int i = 0; i < matches.Count; i++)
             {
-                AddGrepMatch(results, matches[i], lineStrings[matches[i].LineNumber], true);
+                AddGrepMatch(results, matches[i], lineStrings[matches[i].LineNumber], -1, true);
             }
             for (int i = 0; i < contextLines.Count; i++)
             {
@@ -2336,10 +2367,10 @@ namespace dnGREP.Common
             return sb.ToString().TrimEnd();
         }
 
-        private static void AddGrepMatch(Dictionary<int, GrepLine> lines, GrepMatch match, string lineText, bool isHexFile)
+        private static void AddGrepMatch(Dictionary<int, GrepLine> lines, GrepMatch match, string lineText, int pageNumber, bool isHexFile)
         {
             if (!lines.ContainsKey(match.LineNumber))
-                lines[match.LineNumber] = new GrepLine(match.LineNumber, lineText.TrimEndOfLine(), false, null) { IsHexFile = isHexFile };
+                lines[match.LineNumber] = new GrepLine(match.LineNumber, lineText.TrimEndOfLine(), false, null) { PageNumber = pageNumber, IsHexFile = isHexFile };
             lines[match.LineNumber].Matches.Add(match);
         }
 

@@ -161,6 +161,7 @@ namespace dnGREP.WPF
                 EditResultsFontSize != Settings.Get<double>(GrepSettings.Key.ResultsFontSize) ||
                 HexResultByteLength != Settings.Get<int>(GrepSettings.Key.HexResultByteLength) ||
                 PdfToTextOptions != Settings.Get<string>(GrepSettings.Key.PdfToTextOptions) ||
+                PdfNumberStyle != Settings.Get<PdfNumberType>(GrepSettings.Key.PdfNumberStyle) ||
                 ArchiveOptions.IsChanged ||
                 IsChanged(Plugins) ||
                 IsChanged(VisibilityOptions)
@@ -778,6 +779,22 @@ namespace dnGREP.WPF
             }
         }
 
+        private PdfNumberType pdfNumberStyle = PdfNumberType.PageNumber;
+        public PdfNumberType PdfNumberStyle
+        {
+            get { return pdfNumberStyle; }
+            set
+            {
+                if (pdfNumberStyle == value)
+                {
+                    return;
+                }
+
+                pdfNumberStyle = value;
+                OnPropertyChanged(nameof(PdfNumberStyle));
+            }
+        }
+
         private PluginOptions archiveOptions;
         public PluginOptions ArchiveOptions
         {
@@ -1160,6 +1177,7 @@ namespace dnGREP.WPF
 
             HexResultByteLength = Settings.Get<int>(GrepSettings.Key.HexResultByteLength);
             PdfToTextOptions = Settings.Get<string>(GrepSettings.Key.PdfToTextOptions);
+            PdfNumberStyle = Settings.Get<PdfNumberType>(GrepSettings.Key.PdfNumberStyle);
 
             {
                 string nameKey = "Archive";
@@ -1289,6 +1307,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.ResultsFontSize, ResultsFontSize);
             Settings.Set(GrepSettings.Key.HexResultByteLength, HexResultByteLength);
             Settings.Set(GrepSettings.Key.PdfToTextOptions, PdfToTextOptions);
+            Settings.Set(GrepSettings.Key.PdfNumberStyle, PdfNumberStyle);
 
             foreach (var visOpt in VisibilityOptions)
             {
