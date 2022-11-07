@@ -258,4 +258,58 @@
     <value>Tõstutundlik</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
+  <data name="Window_Minimize" xml:space="preserve">
+    <value>Minimeeri</value>
+    <comment>Window title bar button tooltip</comment>
+  </data>
+  <data name="Window_Maximize" xml:space="preserve">
+    <value>Maksimeeri</value>
+    <comment>Window title bar button tooltip</comment>
+  </data>
+  <data name="Bookmarks_Add" xml:space="preserve">
+    <value>Lis_a</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_OtherPropertiesHeader" xml:space="preserve">
+    <value>Muud sätted</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_Title" xml:space="preserve">
+    <value>Lemmikud</value>
+    <comment>Bookmarks dialog title</comment>
+  </data>
+  <data name="Bookmarks_TypeHeader" xml:space="preserve">
+    <value>Tüüp</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_Use" xml:space="preserve">
+    <value>Kas_uta</value>
+    <comment>Bookmarks dialog, button text (accel)</comment>
+  </data>
+  <data name="Help_CmdLineArguments" xml:space="preserve">
+    <value>Argumendid:</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="About_BuiltOn" xml:space="preserve">
+    <value>Koostatud</value>
+    <comment>About dialog label</comment>
+  </data>
+  <data name="Help_CmdLineCSVReport" xml:space="preserve">
+    <value>/csv [failitee]
+-csv [failitee]
+    Loo peale otsingu lõpetamist CSV vormingus tulemuste fail.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Window_Close" xml:space="preserve">
+    <value>Sulge</value>
+    <comment>Window title bar close button tooltip</comment>
+  </data>
+  <data name="Window_DockThisPopUpBackIntoTheMainWindow" xml:space="preserve">
+    <value>Doki see hüpik peaakna külge tagasi</value>
+    <comment>Docking window docking button tooltip</comment>
+  </data>
+  <data name="Window_PopThisPanelOutIntoItsOwnWindow" xml:space="preserve">
+    <value>Vii see paneel omaette aknasse</value>
+    <comment>Docking window button tooltip</comment>
+  </data>
 </root>
