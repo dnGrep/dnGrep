@@ -2,11 +2,15 @@
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Shapes;
 using dnGREP.Common;
+using ICSharpCode.AvalonEdit.Editing;
 using ICSharpCode.AvalonEdit.Search;
 using File = Alphaleonis.Win32.Filesystem.File;
 
@@ -18,6 +22,7 @@ namespace dnGREP.WPF
     public partial class PreviewControl : UserControl
     {
         private readonly SearchPanel searchPanel;
+        private readonly PreviewLineNumberMargin lineNumberMargin;
 
         public PreviewControl()
         {
@@ -28,6 +33,16 @@ namespace dnGREP.WPF
             searchPanel = SearchPanel.Install(textEditor);
             searchPanel.SearchResultsChanged += SearchPanel_SearchResultsChanged;
             searchPanel.MarkerBrush = Application.Current.Resources["Match.Highlight.Background"] as Brush;
+
+            textEditor.ShowLineNumbers = false; // using custom line numbers
+
+            lineNumberMargin = new PreviewLineNumberMargin();
+            Line line = (Line)DottedLineMargin.Create();
+            textEditor.TextArea.LeftMargins.Insert(0, lineNumberMargin);
+            textEditor.TextArea.LeftMargins.Insert(1, line);
+            var lineNumbersForeground = new Binding("LineNumbersForeground") { Source = textEditor };
+            line.SetBinding(Line.StrokeProperty, lineNumbersForeground);
+            lineNumberMargin.SetBinding(Control.ForegroundProperty, lineNumbersForeground);
 
             ViewModel.ShowPreview += ViewModel_ShowPreview;
             ViewModel.PropertyChanged += ViewModel_PropertyChanged;
@@ -83,6 +98,7 @@ namespace dnGREP.WPF
                 searchPanel.Close();
             }
 
+            lineNumberMargin.LineToPageMap.Clear();
             textEditor.Clear();
             textEditor.Encoding = ViewModel.Encoding;
             textEditor.SyntaxHighlighting = ViewModel.HighlightingDefinition;
@@ -95,6 +111,8 @@ namespace dnGREP.WPF
 
             if (ViewModel.HighlightsOn && !ViewModel.HighlightDisabled && !ViewModel.IsPdf)
                 textEditor.TextArea.TextView.LineTransformers.Add(new PreviewHighlighter(ViewModel.GrepResult));
+
+            bool showPageNumbers = GrepSettings.Instance.Get<PdfNumberType>(GrepSettings.Key.PdfNumberStyle) == PdfNumberType.PageNumber;
 
             try
             {
@@ -109,8 +127,23 @@ namespace dnGREP.WPF
                         {
                             textEditor.Load(stream);
                         }
+
                         if (!string.IsNullOrEmpty(textEditor.Text))
                         {
+                            if (showPageNumbers && ViewModel.HasPageNumbers)
+                            {
+                                InitializePageNumbers();
+
+                                string ZWSP = char.ConvertFromUtf32(0x200B); //zero width space 
+                                Regex regex = new Regex("\f");
+                                textEditor.BeginChange();
+                                foreach (Match match in regex.Matches(textEditor.Text))
+                                {
+                                    textEditor.Document.Replace(match.Index, match.Length, ZWSP);
+                                }
+                                textEditor.EndChange();
+                            }
+
                             if (reopenSearchPanel)
                             {
                                 searchPanel.Open();
@@ -137,6 +170,36 @@ namespace dnGREP.WPF
                 if (reopenSearchPanel)
                 {
                     searchPanel.SearchResultsChanged += SearchPanel_SearchResultsChanged;
+                }
+            }
+        }
+
+        private void InitializePageNumbers()
+        {
+            using (FileStream stream = File.Open(ViewModel.FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            {
+                using (StreamReader reader = new StreamReader(stream))
+                {
+                    int lineNumber = 0;
+                    int pageNumber = 1;
+                    lineNumberMargin.LineToPageMap.Add(1, 1);
+                    while (!reader.EndOfStream)
+                    {
+                        lineNumber++;
+                        string line = reader.ReadLine();
+                        if (line.Contains('\f'))
+                        {
+                            pageNumber += line.Count(c => c.Equals('\f'));
+                            if (lineNumberMargin.LineToPageMap.ContainsKey(lineNumber))
+                            {
+                                lineNumberMargin.LineToPageMap[lineNumber] = pageNumber;
+                            }
+                            else
+                            {
+                                lineNumberMargin.LineToPageMap.Add(lineNumber, pageNumber);
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -230,9 +293,8 @@ namespace dnGREP.WPF
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            textEditor.Load(ViewModel.FilePath);
             ViewModel.IsLargeOrBinary = false;
-            textEditor.ScrollTo(ViewModel.LineNumber, 0);
+            ViewModel_ShowPreview(this, EventArgs.Empty);
         }
     }
 }
