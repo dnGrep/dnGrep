@@ -1956,6 +1956,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Layout</value>
     <comment>Options dialog, layout group header label</comment>
   </data>
+  <data name="Options_LineNumbers" xml:space="preserve">
+    <value>Line Numbers</value>
+    <comment>Options dialog, PDF numbering option</comment>
+  </data>
   <data name="Options_LoadFromFile" xml:space="preserve">
     <value>Load from file…</value>
     <comment>Options dialog, language load button label (accel)</comment>
@@ -1987,6 +1991,14 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_OptionsTitle" xml:space="preserve">
     <value>Options</value>
     <comment>Options dialog, window title</comment>
+  </data>
+  <data name="Options_PageNumbers" xml:space="preserve">
+    <value>Page Numbers</value>
+    <comment>Options dialog, PDF numbering option</comment>
+  </data>
+  <data name="Options_PDFNumberStyle" xml:space="preserve">
+    <value>PDF number style:</value>
+    <comment>Options dialog, PDF numbering options label</comment>
   </data>
   <data name="Options_PDFToText" xml:space="preserve">
     <value>PDF to text</value>

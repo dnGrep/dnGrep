@@ -679,10 +679,11 @@ namespace dnGREP.WPF
             IsSectionBreak = breakSection;
             WrapText = Parent.WrapText;
             int lineSize = GrepSettings.Instance.Get<int>(GrepSettings.Key.HexResultByteLength);
+            var pdfNumberStyle = GrepSettings.Instance.Get<PdfNumberType>(GrepSettings.Key.PdfNumberStyle);
 
             LineNumberAlignment = TranslationSource.Instance.CurrentCulture.TextInfo.IsRightToLeft ? TextAlignment.Left : TextAlignment.Right;
 
-            if (line.PageNumber > -1)
+            if (pdfNumberStyle == PdfNumberType.PageNumber && line.PageNumber > -1)
             {
                 FormattedLineNumber = line.PageNumber.ToString();
             }
