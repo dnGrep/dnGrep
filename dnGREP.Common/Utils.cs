@@ -2015,10 +2015,15 @@ namespace dnGREP.Common
                     string line = reader.ReadLine();
                     if (isPdfText)
                     {
+                        if (reader.EndOfStream && line.Equals("\f"))
+                        {
+                            break;
+                        }
+
                         pageNumber += line.Count(c => c.Equals('\f'));
-                        lineToPageMap.Add(lineNumber, pageNumber);
                         // replace the form feed character with a zero width space; keeps the same character count
                         line = line.Replace("\f", ZWSP);
+                        lineToPageMap.Add(lineNumber, pageNumber);
                     }
 
                     bool moreMatches = true;
@@ -2152,7 +2157,14 @@ namespace dnGREP.Common
             {
                 if (isPdfText)
                 {
-                    pageNumber = lineToPageMap[matches[i].LineNumber];
+                    if (lineToPageMap.ContainsKey(matches[i].LineNumber))
+                    {
+                        pageNumber = lineToPageMap[matches[i].LineNumber];
+                    }
+                    else
+                    {
+                        pageNumber = 0;
+                    }
                 }
                 AddGrepMatch(results, matches[i], lineStrings[matches[i].LineNumber], pageNumber, false);
             }
@@ -2310,7 +2322,7 @@ namespace dnGREP.Common
             // Removing duplicate lines (when more than 1 match is on the same line) and grouping all matches belonging to the same line
             for (int i = 0; i < matches.Count; i++)
             {
-                AddGrepMatch(results, matches[i], lineStrings[matches[i].LineNumber], 0, true);
+                AddGrepMatch(results, matches[i], lineStrings[matches[i].LineNumber], -1, true);
             }
             for (int i = 0; i < contextLines.Count; i++)
             {
