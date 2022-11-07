@@ -2775,4 +2775,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>搜索时最大化搜索结果面板</value>
     <comment>Options dialog, layout option checkbox label (accel)</comment>
   </data>
+  <data name="Options_LineNumbers" xml:space="preserve">
+    <value>行号</value>
+    <comment>Options dialog, PDF numbering option</comment>
+  </data>
+  <data name="Options_PageNumbers" xml:space="preserve">
+    <value>页码</value>
+    <comment>Options dialog, PDF numbering option</comment>
+  </data>
+  <data name="Options_PDFNumberStyle" xml:space="preserve">
+    <value>PDF 编号样式：</value>
+    <comment>Options dialog, PDF numbering options label</comment>
+  </data>
 </root>
