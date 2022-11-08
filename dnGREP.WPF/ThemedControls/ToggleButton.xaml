@@ -54,6 +54,9 @@
         </Setter>
     </Style>
 
+    <Image x:Key="pinImage" Width="24" Source="{DynamicResource pinBitmap}"/>
+    <Image x:Key="unpinImage" Width="24" Source="{DynamicResource unpinBitmap}"/>
+
     <Style x:Key="ThemedPinButton" TargetType="{x:Type ToggleButton}">
         <Setter Property="FocusVisualStyle" Value="{DynamicResource ButtonFocusVisual}" />
         <Setter Property="Background" Value="{DynamicResource Button.Static.Background}" />
