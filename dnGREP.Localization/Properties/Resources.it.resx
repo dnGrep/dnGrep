@@ -87,11 +87,11 @@
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
-    <value>Libreria .NET per leggere i file di Microsoft Excel</value>
+    <value>Libreria .NET per leggere file di Microsoft Excel</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryToParseECMA376Numbers" xml:space="preserve">
-    <value>Libreria .NET per analizzare i numeri ECMA-376</value>
+    <value>Libreria .NET per analizzare numeri ECMA-376</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
@@ -99,7 +99,7 @@
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="BookmarkDetails_CaseSensitive" xml:space="preserve">
-    <value>C_ase sensitive</value>
+    <value>M_aiuscolo/Minuscolo</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Description" xml:space="preserve">
@@ -107,7 +107,7 @@
     <comment>Bookmark details dialog, text input box label</comment>
   </data>
   <data name="BookmarkDetails_EverythingIndexService" xml:space="preserve">
-    <value>Sevrizion di Indicizzazione di Everything</value>
+    <value>Servizio di Indicizzazione di Everything</value>
     <comment>Bookmark details dialog, Everything pattern type option tooltip</comment>
   </data>
   <data name="About_AboutDnGREP" xml:space="preserve">
@@ -143,7 +143,7 @@
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
-    <value>Libreria .NET per percorsi di lughezza estesa</value>
+    <value>Libreria .NET per percorsi di lunghezza estesa</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_NETLibraryToWorkWithWordAndExcelDocuments" xml:space="preserve">
@@ -167,7 +167,7 @@
     <comment>Bookmark details dialog, search group header label (accel)</comment>
   </data>
   <data name="BookmarkDetails_DotAsNewline" xml:space="preserve">
-    <value>_Dot come nuova linea</value>
+    <value>_Punto come nuova linea</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_Encoding" xml:space="preserve">
@@ -179,11 +179,11 @@
     <comment>Rename file dialog button label</comment>
   </data>
   <data name="BookmarkDetails_OK" xml:space="preserve">
-    <value>Conferma</value>
+    <value>OK</value>
     <comment>Bookmark details dialog, button label</comment>
   </data>
   <data name="Help_OK" xml:space="preserve">
-    <value>Conferma</value>
+    <value>OK</value>
     <comment>Help dialog button label</comment>
   </data>
   <data name="Main_Attributes_Encoding" xml:space="preserve">
@@ -195,7 +195,7 @@
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_CaseSensitive" xml:space="preserve">
-    <value>C_ase sensitive</value>
+    <value>M_aiuscolo/Minuscolo</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_DnGREP_Title" xml:space="preserve">
@@ -203,7 +203,7 @@
     <comment>Main window, title label – near menu bar</comment>
   </data>
   <data name="Main_DotAsNewline" xml:space="preserve">
-    <value>_Dot come nuova linea</value>
+    <value>_Punto come nuova linea</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_Encoding" xml:space="preserve">
@@ -211,7 +211,7 @@
     <comment>Main window, search options encoding combo box label (accel) </comment>
   </data>
   <data name="Main_EverythingIndexService" xml:space="preserve">
-    <value>Sevrizion di Indicizzazione di Everything</value>
+    <value>Servizio di Indicizzazione di Everything</value>
     <comment>Main window, pattern type option Everything tooltip</comment>
   </data>
   <data name="MessageBox_DnGrep" xml:space="preserve">
@@ -219,7 +219,7 @@
     <comment>Message box title</comment>
   </data>
   <data name="Rename_OK" xml:space="preserve">
-    <value>Conferma</value>
+    <value>OK</value>
     <comment>Rename file dialog button label</comment>
   </data>
   <data name="Replace_Cancel" xml:space="preserve">
@@ -227,7 +227,7 @@
     <comment>Replace window, Cancel button text</comment>
   </data>
   <data name="Replace_OK" xml:space="preserve">
-    <value>Conferma</value>
+    <value>OK</value>
     <comment>Replace window, OK button text</comment>
   </data>
   <data name="ReportSummary_BooleanOperators" xml:space="preserve">
@@ -247,7 +247,7 @@
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_DotAsNewline" xml:space="preserve">
-    <value>_Dot come nuova linea</value>
+    <value>_Punto come nuova linea</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Help_OneOrMoreArgumentsAreInvalid" xml:space="preserve">
@@ -311,11 +311,11 @@
     <comment>Main window, open folder tooltip</comment>
   </data>
   <data name="Main_ChangesTheResultsTreeZoom" xml:space="preserve">
-    <value>Cambia lo zoom dei risultati</value>
+    <value>Cambia il livello di zoom dell'albero dei risultati</value>
     <comment>Main window tooltip</comment>
   </data>
   <data name="Main_CombineMultipleSearchPatternsUsingANDOrOR" xml:space="preserve">
-    <value>Combina più pattern usando 'AND' oppure 'OR'</value>
+    <value>Combina più pattern di ricerca usando 'AND' oppure 'OR'</value>
     <comment>Main window, search option Boolean Operators tooltip</comment>
   </data>
   <data name="Main_ContextAfter" xml:space="preserve">
@@ -365,5 +365,748 @@
   <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
     <value>Annulla</value>
     <comment>Report options dialog, close button</comment>
+  </data>
+  <data name="BookmarkDetails_FilePatternType" xml:space="preserve">
+    <value>Tipo di pattern file</value>
+    <comment>Bookmark details dialog, file pattern group header label</comment>
+  </data>
+  <data name="BookmarkDetails_MaxDepth" xml:space="preserve">
+    <value>Massima profondità</value>
+    <comment>Bookmark details dialog, filter path depth text box label (accel)</comment>
+  </data>
+  <data name="Main_Menu_About_Help" xml:space="preserve">
+    <value>_Aiuto</value>
+    <comment>Main window, main menu subitem label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_FileSource_Group_Tooltip" xml:space="preserve">
+    <value>Includi proprietà file sorgente file nei segnalibri</value>
+    <comment>Bookmark details dialog, file type group header tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_FileSource_Group" xml:space="preserve">
+    <value>Sorgente file</value>
+    <comment>Bookmark details dialog, file type group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_FollowSymbolicLinks" xml:space="preserve">
+    <value>Segui i collegamenti simbolici</value>
+    <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_IncludeSubfolders" xml:space="preserve">
+    <value>Includi sottocartelle</value>
+    <comment>Bookmark details dialog, filter path depth checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_ForExampleAsteriskPattern" xml:space="preserve">
+    <value>Esempio: *.txt;*.xml</value>
+    <comment>Bookmark details dialog, Wildcard pattern type option tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_PatternsToExclude" xml:space="preserve">
+    <value>Pattern da escludere:</value>
+    <comment>Bookmark details dialog, Patterns to exclude label</comment>
+  </data>
+  <data name="BookmarkDetails_PatternsToMatch" xml:space="preserve">
+    <value>Pattern da includere:</value>
+    <comment>Bookmark details dialog, Patterns to match label</comment>
+  </data>
+  <data name="BookmarkDetails_Multiline" xml:space="preserve">
+    <value>_Multilinea</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
+    <value>Sostituisci con:</value>
+    <comment>Bookmark details dialog, replace text input box label</comment>
+  </data>
+  <data name="BookmarkDetails_PatternType_Everything" xml:space="preserve">
+    <value>Everything</value>
+    <comment>Bookmark details dialog, Everything pattern type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
+    <value>Fonetica</value>
+    <comment>Bookmark details dialog, Phonetic search type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
+    <value>Ricerca fonetica</value>
+    <comment>Bookmark details dialog, Phonetic search type tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
+    <value>Byte</value>
+    <comment>Bookmark details dialog, Byte search type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_Text" xml:space="preserve">
+    <value>_Testo</value>
+    <comment>Bookmark details dialog, search type radio button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_DescriptionHeader" xml:space="preserve">
+    <value>Descrizione</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_Duplicate" xml:space="preserve">
+    <value>Du_plica</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_WholeWord" xml:space="preserve">
+    <value>_Intera parola</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Bookmarks_Edit" xml:space="preserve">
+    <value>_Modifica</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_Summary_CaseSensitive" xml:space="preserve">
+    <value>Case sensitive</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Bookmarks_Summary_Multiline" xml:space="preserve">
+    <value>Multilinea</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Bookmarks_Title" xml:space="preserve">
+    <value>Preferiti</value>
+    <comment>Bookmarks dialog title</comment>
+  </data>
+  <data name="Bookmarks_TypeHeader" xml:space="preserve">
+    <value>Tipo</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Main_CancelButton" xml:space="preserve">
+    <value>_Annulla</value>
+    <comment>Main window, Cancel button label (accel)</comment>
+  </data>
+  <data name="Main_DatePastHours" xml:space="preserve">
+    <value>ore</value>
+    <comment>Main window, filter files by date time unit label</comment>
+  </data>
+  <data name="Main_Folder" xml:space="preserve">
+    <value>Cartella:</value>
+    <comment>Main window, folder input caption (accel)</comment>
+  </data>
+  <data name="Main_IncludeFilesByNameOrType" xml:space="preserve">
+    <value>Includi file per nome o per tipo</value>
+    <comment>Main window, Patterns to include label tooltip</comment>
+  </data>
+  <data name="Main_Menu_Options" xml:space="preserve">
+    <value>_Opzioni…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_Save_Report" xml:space="preserve">
+    <value>Rapporto</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_RegularExpressionSearch" xml:space="preserve">
+    <value>Ricerca espressione regolare</value>
+    <comment>Bookmark details dialog, search type regular expression tooltip</comment>
+  </data>
+  <data name="Bookmarks_FilePatternHeader" xml:space="preserve">
+    <value>Pattern File</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="BookmarkDetails_ForExampleRegularExpession" xml:space="preserve">
+    <value>Esempio: file[0-9]{1,2}\\.txt</value>
+    <comment>Bookmark details dialog, regular expression pattern type option tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
+    <value>Ricerca XPath (solo per documenti XML)</value>
+    <comment>Bookmark details dialog, search type XPath tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_ThisBookmarkAlreadyExists" xml:space="preserve">
+    <value>Il preferito esiste già</value>
+    <comment>Bookmark details dialog, error text</comment>
+  </data>
+  <data name="BookmarkDetails_IncludeHiddenFolders" xml:space="preserve">
+    <value>Includi cartelle nascosti</value>
+    <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_PatternType_AsteriskPattern" xml:space="preserve">
+    <value>Wildcard</value>
+    <comment>Bookmark details dialog, Wildcard pattern type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
+    <value>Espressione _Regolare</value>
+    <comment>Bookmark details dialog, search type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_XPath" xml:space="preserve">
+    <value>_XPath</value>
+    <comment>Bookmark details dialog, search type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_IncludeBinaryFiles" xml:space="preserve">
+    <value>Includi file binari</value>
+    <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_UseGitignoreToFilterFiles" xml:space="preserve">
+    <value>Usa .gitignore per filtrare i file</value>
+    <comment>Bookmark details dialog, search option checkbox tooltip</comment>
+  </data>
+  <data name="Bookmarks_Add" xml:space="preserve">
+    <value>_Aggiungi</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_PatternType_Regex" xml:space="preserve">
+    <value>Espressione _regulare</value>
+    <comment>Bookmark details dialog, Regular expression pattern type radio button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_SectionsHeader" xml:space="preserve">
+    <value>Sezioni</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Main_FilterSummary_ByCreatedDate" xml:space="preserve">
+    <value>Per data di creazione</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="BookmarkDetails_SearchFor" xml:space="preserve">
+    <value>Cerca per:</value>
+    <comment>Bookmark details dialog, search pattern text input box label</comment>
+  </data>
+  <data name="BookmarkDetails_SearchInArchives" xml:space="preserve">
+    <value>Cerca negli ar_chivi</value>
+    <comment>Bookmark details dialog, checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
+    <value>Ricerca testo semplice</value>
+    <comment>Bookmark details dialog, Text search type tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>Salta file in cloud remoti</value>
+    <comment>Bookmark details dialog, checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Title" xml:space="preserve">
+    <value>Dettagli Preferito</value>
+    <comment>Bookmark details dialog, window title</comment>
+  </data>
+  <data name="BookmarkDetails_TypeHeader" xml:space="preserve">
+    <value>Tipo di Ricerca</value>
+    <comment>Bookmark details dialog, search type group header label</comment>
+  </data>
+  <data name="BookmarkDetails_UseGitignore" xml:space="preserve">
+    <value>Usa .gitignore</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Bookmarks_Filter" xml:space="preserve">
+    <value>Filtro:</value>
+    <comment>Bookmarks dialog, filter input box label</comment>
+  </data>
+  <data name="Bookmarks_OtherPropertiesHeader" xml:space="preserve">
+    <value>Altre proprietà</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_ReplaceWithHeader" xml:space="preserve">
+    <value>Sostituisci con</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_Close" xml:space="preserve">
+    <value>_Chiudi</value>
+    <comment>Bookmarks dialog, button text (accel)</comment>
+  </data>
+  <data name="Bookmarks_Delete" xml:space="preserve">
+    <value>_Elimina</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_SearchForHeader" xml:space="preserve">
+    <value>Cerca per</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Main_FilterSummary_BySize" xml:space="preserve">
+    <value>Per dimensione</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Bookmarks_Use" xml:space="preserve">
+    <value>_Usa</value>
+    <comment>Bookmarks dialog, button text (accel)</comment>
+  </data>
+  <data name="Main_FollowSymbolicLinks" xml:space="preserve">
+    <value>Segui i collegamenti simbolici</value>
+    <comment>Main window, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="Main_HighlightGroups" xml:space="preserve">
+    <value>Evidenzia gruppi</value>
+    <comment>Main window, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_Menu_Bookmarks" xml:space="preserve">
+    <value>_Segnalibri…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_DeleteFiles" xml:space="preserve">
+    <value>Elimina file…</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_PatternType_Asterisk" xml:space="preserve">
+    <value>Wildcard</value>
+    <comment>Main window, Wildcard pattern type radio button label (accel)</comment>
+  </data>
+  <data name="Main_MaxDepth" xml:space="preserve">
+    <value>Massima profondità</value>
+    <comment>Main window, filter path depth text box label (accel)</comment>
+  </data>
+  <data name="Main_Menu_Undo" xml:space="preserve">
+    <value>_Annulla</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_More" xml:space="preserve">
+    <value>_Espandi…</value>
+    <comment>Main window, filters expander label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Filters_Group" xml:space="preserve">
+    <value>Filtri file</value>
+    <comment>Bookmark details dialog, filters group header label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_MoveFiles" xml:space="preserve">
+    <value>Sposta file…</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Filters_Group_Tooltip" xml:space="preserve">
+    <value>Includi le proprietà dei filtri file nei segnalibri</value>
+    <comment>Bookmark details dialog, filters group header tooltip</comment>
+  </data>
+  <data name="Help_CmdLineArguments" xml:space="preserve">
+    <value>Argomenti:</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Main_EncodingAutoDetection" xml:space="preserve">
+    <value>Rilevamento automatico (default)</value>
+    <comment>Main window encoding auto select text</comment>
+  </data>
+  <data name="Main_EverythingSearch" xml:space="preserve">
+    <value>Ricerca con Everything:</value>
+    <comment>Main window, folder input caption when Everything search is enabled (accel)</comment>
+  </data>
+  <data name="Main_ExcelSheetName" xml:space="preserve">
+    <value>Foglio [{0}]</value>
+    <comment>Main window results list for Excel file data: {0} is a string, the name of the worksheet in the Excel document</comment>
+  </data>
+  <data name="Main_ExcludeFilesByTypeAndFoldersByName" xml:space="preserve">
+    <value>Escludi file per tipo e cartelle per nome</value>
+    <comment>Main window, Patterns to exclude label tooltip</comment>
+  </data>
+  <data name="Main_FilterSummary_AllFiles" xml:space="preserve">
+    <value>Tutti i file</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Main_FilterSummary_ByModifiedDate" xml:space="preserve">
+    <value>Per data di modifica</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Main_FilterSummary_MaxFolderDepth" xml:space="preserve">
+    <value>Massima profondità cartelle: {0}</value>
+    <comment>Main window, file filters summary: {0} is a number</comment>
+  </data>
+  <data name="Main_FilterSummary_NoBinary" xml:space="preserve">
+    <value>No file binari</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Main_FilterSummary_NoHidden" xml:space="preserve">
+    <value>No file nascosti</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Main_FilterSummary_NoSubfolders" xml:space="preserve">
+    <value>No sottocartelle</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Main_FilterSummary_NoSymlinks" xml:space="preserve">
+    <value>No collegamenti simbolici</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Main_ForExampleAsteriskPattern" xml:space="preserve">
+    <value>Esempio: *.txt;*.xml</value>
+    <comment>Main window, Wildcard pattern type option tooltip</comment>
+  </data>
+  <data name="Main_ForExampleRegularExpession" xml:space="preserve">
+    <value>Esempio: file[0-9]{1,2}\\.txt</value>
+    <comment>Main window, Regular expression pattern type option tooltip</comment>
+  </data>
+  <data name="Main_FromTheStartOfTheDay" xml:space="preserve">
+    <value>dall'inizio del giorno</value>
+    <comment>Main window, filter file by date, start date tooltip</comment>
+  </data>
+  <data name="Main_HideResultOptions" xml:space="preserve">
+    <value>Nascondi opzioni risultati</value>
+    <comment>Main window, result options expander button tooltip (bottom of window)</comment>
+  </data>
+  <data name="Main_IncludeBinaryFiles" xml:space="preserve">
+    <value>Includi file binari</value>
+    <comment>Main window, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="Main_IncludeHiddenFolders" xml:space="preserve">
+    <value>Includi cartelle nascoste</value>
+    <comment>Main window, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="Main_IncludeSubfolders" xml:space="preserve">
+    <value>Includi sottocartelle</value>
+    <comment>Main window, filter path depth checkbox label (accel)</comment>
+  </data>
+  <data name="Main_Menu_About" xml:space="preserve">
+    <value>_Informazioni</value>
+    <comment>Main window, main menu label (accel)</comment>
+  </data>
+  <data name="Main_Menu_About_AboutDnGrep" xml:space="preserve">
+    <value>_Info su dnGrep…</value>
+    <comment>Main window, main menu subitem label (accel)</comment>
+  </data>
+  <data name="Main_Menu_About_CheckForUpdates" xml:space="preserve">
+    <value>_Controlla aggiornamenti</value>
+    <comment>Main window, main menu subitem label (accel)</comment>
+  </data>
+  <data name="Main_Modified" xml:space="preserve">
+    <value>Modificato</value>
+    <comment>Main window, filter files by date radio button label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_CopyFiles" xml:space="preserve">
+    <value>Copia file…</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_Save_CSVResults" xml:space="preserve">
+    <value>Risultati CSV</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_Save_TextResults" xml:space="preserve">
+    <value>Risultati testo</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_SaveResults" xml:space="preserve">
+    <value>Salva risultati</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_PatternsToExclude" xml:space="preserve">
+    <value>Pattern da escludere:</value>
+    <comment>Main window, Patterns to exclude label (accel)</comment>
+  </data>
+  <data name="Main_PatternsToMatch" xml:space="preserve">
+    <value>Pattern da includere:</value>
+    <comment>Main window, Patterns to match label (accel)</comment>
+  </data>
+  <data name="Main_PatternType_Everything" xml:space="preserve">
+    <value>Everything</value>
+    <comment>Main window, Everything pattern type radio button label (accel)</comment>
+  </data>
+  <data name="Main_PatternType_Regex" xml:space="preserve">
+    <value>Espressione _regolare</value>
+    <comment>Main window, Regular expression pattern type radio button label (accel)</comment>
+  </data>
+  <data name="Main_PowerPointSlideNumber" xml:space="preserve">
+    <value>Slide {0}</value>
+    <comment>Main window, results list label for PowerPoint files: {0} is the slide number in the PowerPoint document</comment>
+  </data>
+  <data name="Main_PreviewFile" xml:space="preserve">
+    <value>Ante_prima file</value>
+    <comment>Main window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_RemoveFolderFromBookmarkAssociation" xml:space="preserve">
+    <value>Rimuovi cartella dall'associazione segnalibro</value>
+    <comment>Main window, folder bookmark button tooltip</comment>
+  </data>
+  <data name="Main_ReportOption_CSVFileFormat" xml:space="preserve">
+    <value>CSV (comma separated)</value>
+    <comment>Main window, save report, report type format label</comment>
+  </data>
+  <data name="Main_ReplaceButton" xml:space="preserve">
+    <value>_Sostituisci</value>
+    <comment>Main window replace button label (accel)</comment>
+  </data>
+  <data name="Main_ReplaceWith" xml:space="preserve">
+    <value>Sos_tituisci con:</value>
+    <comment>Main window, replace text input box label (accel)</comment>
+  </data>
+  <data name="Test_Close" xml:space="preserve">
+    <value>_Chiudi</value>
+    <comment>Test window, Close button text (accel)</comment>
+  </data>
+  <data name="Main_MoreArrowButton" xml:space="preserve">
+    <value>_Altro</value>
+    <comment>Main window, More button label with down arrow (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_CopyFileNames" xml:space="preserve">
+    <value>Copia nomi dei file</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_CopyResults" xml:space="preserve">
+    <value>Copia risultati</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_Multiline" xml:space="preserve">
+    <value>_Multilinea</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_OpenFolder" xml:space="preserve">
+    <value>…</value>
+    <comment>Main window, open folder button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
+    <value>Ricerca byte: leggi file come binario e cerca per i byte come cifre esadecimali: 68 65 78 20</value>
+    <comment>Bookmark details dialog, Byte search type tooltip</comment>
+  </data>
+  <data name="Bookmarks_Summary_MaxFolderDepth" xml:space="preserve">
+    <value>Massima profondità cartelle: {0}</value>
+    <comment>Bookmarks dialog, Other Properties summary: {0} is a number</comment>
+  </data>
+  <data name="Bookmarks_Summary_NoBinary" xml:space="preserve">
+    <value>No binari</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Help_CmdLineExample1" xml:space="preserve">
+    <value>dnGrep [argomenti]
+Usa qualsiasi combinazione di argomenti dalla lista sottostante.
+Esempio:
+dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Bookmarks_Summary_NoSubfolders" xml:space="preserve">
+    <value>No sottocartelle</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
+    <value>Cerca negli archivi</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Bookmarks_Summary_WholeWord" xml:space="preserve">
+    <value>Intera parola</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Bookmarks_Summary_NoHidden" xml:space="preserve">
+    <value>No nascosti</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Help_CmdLineFileInformation" xml:space="preserve">
+    <value>/fi [True/False]
+-fi [True/False]
+-fileInformation [True/False]
+    Setta flag per includere informazioni su file e linea nel rapporto creato – True or False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Bookmarks_Summary_NoSymlinks" xml:space="preserve">
+    <value>No collegamenti simbolici</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Help_CmdLineFolder" xml:space="preserve">
+    <value>/f [folderPath]
+-f [folderPath]
+-folder [folderPath]
+    Setta il percorso della cartella da cercare. Può essere una lista di percorsi cartelle separate da virgole o punti e virgola.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineMultiline" xml:space="preserve">
+    <value>/ml [True/False]
+-ml [True/False]
+-multiline [True/False]
+    Setta il flag di ricerca su più linee – True or False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineBooleanOperators" xml:space="preserve">
+    <value>/bo [True/False]
+-bo [True/False]
+-booleanOperators [True/False]
+    Setta i flag di ricerca operatori booleani – True or False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineCaseSensitive" xml:space="preserve">
+    <value>/cs [True/False]
+-cs [True/False]
+-caseSensitive [True/False]
+    Setta flag di ricerca case-sensitive – True or False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineCSVReport" xml:space="preserve">
+    <value>/csv [filePath]
+-csv [filePath]
+    Crea file di risultati in formato CSV al termina della ricerca.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineDefaultArguments" xml:space="preserve">
+    <value>Ogni argomento non specificato prenderà come default l'ultimo valore impostato dall'utente.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineDotAsNewline" xml:space="preserve">
+    <value>/dn [True/False]
+-dn [True/False]
+-dotAsNewline [True/False]
+    Setta il punto come flag di ricerca nuova linea – True or False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExit" xml:space="preserve">
+    <value>/x
+-x
+-exit
+    Termina dnGrep dopo che l'operazione di linea di comando è stata completata.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExample2" xml:space="preserve">
+    <value>dnGrep [folderPath] [searchFor]
+Uno o due argomenti senza flag: il primo argomento è la cartella in cui cercare, il secondo l'espressione regolare da cercare.
+Esempio:
+dnGrep "C:\Program Files\dnGrep" t\w*t</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineHeader" xml:space="preserve">
+    <value>dnGrep:  Cerca in file di testo, Word ed Excel, PDF e archivi utilizzando testo, espressioni regolari, XPath o pattern fonetici.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineListItemSeparator" xml:space="preserve">
+    <value>/sep [separatore carattere o testo]
+-sep [separatore carattere o testo]
+-listItemSeparator [separatore carattere o testo]
+    Setta il carattere o la stringa per separare gli oggetti su una linea del rapporto creato.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePathToIgnore" xml:space="preserve">
+    <value>/pi [pattern]
+-pi [pattern]
+-pathToIgnore [pattern]
+    Setta il pattern per il nome file o cartella per escludere file o cartelle nel percorso di ricerca. Può essere una lista di pattern separati da virgole o punti e virgola.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Main_UseGitignore" xml:space="preserve">
+    <value>Usa .gitignore</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_WholeWord" xml:space="preserve">
+    <value>_Intera parola</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Options_Close" xml:space="preserve">
+    <value>_Chiudi</value>
+    <comment>Options dialog, close button text (accel)</comment>
+  </data>
+  <data name="Options_Personalize_SearchType" xml:space="preserve">
+    <value>Tipo di Ricerca</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_PhoneticSearch" xml:space="preserve">
+    <value>Ricerca fonetica</value>
+    <comment>Options dialog, phonetic group header label</comment>
+  </data>
+  <data name="Replace_SearchFor" xml:space="preserve">
+    <value>Cerca per:</value>
+    <comment>Replace window, search pattern label</comment>
+  </data>
+  <data name="Test_SearchType_XPath" xml:space="preserve">
+    <value>_XPath</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Test_SearchType_Hex" xml:space="preserve">
+    <value>Byte</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Main_UseGitignoreToFilterFiles" xml:space="preserve">
+    <value>Usa .gitignore per filtrare i file</value>
+    <comment>Main window, search option checkbox tooltip</comment>
+  </data>
+  <data name="Replace_ReplaceWith" xml:space="preserve">
+    <value>Sostituisci con:</value>
+    <comment>Replace window, replace text input box label</comment>
+  </data>
+  <data name="ReportSummary_Multiline" xml:space="preserve">
+    <value>Multilinea</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_NoBinary" xml:space="preserve">
+    <value>No binari</value>
+    <comment>Main window options summary</comment>
+  </data>
+  <data name="Test_ReplaceWith" xml:space="preserve">
+    <value>Sostituisci con:</value>
+    <comment>Test window, search input label</comment>
+  </data>
+  <data name="Test_WholeWord" xml:space="preserve">
+    <value>_Intera parola</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_Regex" xml:space="preserve">
+    <value>Espressione _regolare</value>
+    <comment>Main window, Regular expression search type radio button label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_RegularExpressionSearch" xml:space="preserve">
+    <value>Ricerca espressione regolare</value>
+    <comment>Main window, Regular expression search type tooltip</comment>
+  </data>
+  <data name="Main_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>Salta file in cloud remoti</value>
+    <comment>Main window, search option label</comment>
+  </data>
+  <data name="Replace_Undo" xml:space="preserve">
+    <value>_Annulla</value>
+    <comment>Replace window, Undo button label (accel)</comment>
+  </data>
+  <data name="ReportSummary_NoSubfolders" xml:space="preserve">
+    <value>No sottocartelle</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_NoSymlinks" xml:space="preserve">
+    <value>No collegamenti simbolici</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_SearchFor" xml:space="preserve">
+    <value>Cerca per:</value>
+    <comment>Report search options summary label</comment>
+  </data>
+  <data name="ReportSummary_WholeWord" xml:space="preserve">
+    <value>Intera parola</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_CaseSensitive" xml:space="preserve">
+    <value>Case sensitive</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_MaxFolderDepth" xml:space="preserve">
+    <value>Massima profondità cartelle: {0}</value>
+    <comment>Report search options summary: {0} is the user input folder depth</comment>
+  </data>
+  <data name="Test_Multiline" xml:space="preserve">
+    <value>_Multilinea</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Test_SearchFor" xml:space="preserve">
+    <value>Cerca per:</value>
+    <comment>Test window, search input label</comment>
+  </data>
+  <data name="Test_SearchType_Phonetic" xml:space="preserve">
+    <value>Fonetica</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Test_SearchType_Regex" xml:space="preserve">
+    <value>Espressione _regolare</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Test_SearchType_Text" xml:space="preserve">
+    <value>_Testo</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Main_Results_CopyFileNames" xml:space="preserve">
+    <value>Copia nomi dei file</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
+    <value>Ricerca byte: leggi file come binario e cerca per i byte come cifre esadecimali: 68 65 78 20</value>
+    <comment>Main window, Byte search type tooltip</comment>
+  </data>
+  <data name="Main_SearchType_Text" xml:space="preserve">
+    <value>_Testo</value>
+    <comment>Main window, Text search type radio button label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
+    <value>Ricerca XPath (solo per documenti XML)</value>
+    <comment>Main window, XPath search type tooltip</comment>
+  </data>
+  <data name="Replace_ReplaceButton" xml:space="preserve">
+    <value>_Sostituisci</value>
+    <comment>Replace window, Replace button label (accel)</comment>
+  </data>
+  <data name="Main_SearchInArchives" xml:space="preserve">
+    <value>Cerca negli ar_chivi</value>
+    <comment>Main window, checkbox label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_Hex" xml:space="preserve">
+    <value>Byte</value>
+    <comment>Main window, Byte search type radio button label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_Phonetic" xml:space="preserve">
+    <value>Fonetica</value>
+    <comment>Main window, Phonetic search type radio button label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
+    <value>Ricerca fonetica</value>
+    <comment>Main window, Phonetic search type tooltip</comment>
+  </data>
+  <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
+    <value>Ricerca testo semplice</value>
+    <comment>Main window, Text search type tooltip</comment>
+  </data>
+  <data name="Main_SearchType_XPath" xml:space="preserve">
+    <value>_XPath</value>
+    <comment>Main window, XPath search type radio button label (accel)</comment>
   </data>
 </root>

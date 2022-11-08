@@ -2723,4 +2723,68 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>搜索参数已更改</value>
     <comment>Main window replace button tooltip</comment>
   </data>
+  <data name="Bookmarks_AltUpArrow" xml:space="preserve">
+    <value>Alt+Up Arrow</value>
+    <comment>Bookmarks dialog, bookmark list 'Move up' context menu shortcut text</comment>
+  </data>
+  <data name="Bookmarks_MoveDown" xml:space="preserve">
+    <value>下移</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_MoveToBottom" xml:space="preserve">
+    <value>移到底部</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_MoveToTop" xml:space="preserve">
+    <value>移到顶部</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_MoveUp" xml:space="preserve">
+    <value>上移</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_NameHeader" xml:space="preserve">
+    <value>名称</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
+    <value>Shift+Alt+Up Arrow</value>
+    <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
+  </data>
+  <data name="Main_MaximizeResults" xml:space="preserve">
+    <value>最大化结果（F7）</value>
+    <comment>Main window, Maximize results button tooltip</comment>
+  </data>
+  <data name="Main_RestoreResults" xml:space="preserve">
+    <value>恢复结果（F7）</value>
+    <comment>Main window, Maximize results button tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_BookmarkName" xml:space="preserve">
+    <value>书签名：</value>
+    <comment>Bookmark name label</comment>
+  </data>
+  <data name="Bookmarks_AltDownArrow" xml:space="preserve">
+    <value>Alt+Down Arrow</value>
+    <comment>Bookmarks dialog, bookmark list 'Move down' context menu shortcut text</comment>
+  </data>
+  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
+    <value>Shift+Alt+Down Arrow</value>
+    <comment>Bookmarks dialog, bookmark list 'Move to bottom' context menu shortcut text</comment>
+  </data>
+  <data name="Options_MaximizeResultsPanelOnSearch" xml:space="preserve">
+    <value>搜索时最大化搜索结果面板</value>
+    <comment>Options dialog, layout option checkbox label (accel)</comment>
+  </data>
+  <data name="Options_LineNumbers" xml:space="preserve">
+    <value>行号</value>
+    <comment>Options dialog, PDF numbering option</comment>
+  </data>
+  <data name="Options_PageNumbers" xml:space="preserve">
+    <value>页码</value>
+    <comment>Options dialog, PDF numbering option</comment>
+  </data>
+  <data name="Options_PDFNumberStyle" xml:space="preserve">
+    <value>PDF 编号样式：</value>
+    <comment>Options dialog, PDF numbering options label</comment>
+  </data>
 </root>
