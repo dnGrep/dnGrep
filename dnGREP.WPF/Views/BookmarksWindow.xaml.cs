@@ -30,13 +30,27 @@ namespace dnGREP.WPF
         private void UseButton_Click(object sender, RoutedEventArgs e)
         {
             UseBookmark?.Invoke(this, EventArgs.Empty);
-            Close();
+            if (!ViewModel.IsPinned)
+            {
+                Close();
+            }
+            else
+            {
+                Dispatcher.BeginInvoke(new Action(() => Application.Current.MainWindow.Activate()));
+            }
         }
 
         private void DataGridRow_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             UseBookmark?.Invoke(this, EventArgs.Empty);
-            Close();
+            if (!ViewModel.IsPinned)
+            {
+                Close();
+            }
+            else
+            {
+                Dispatcher.BeginInvoke(new Action(() => Application.Current.MainWindow.Activate()));
+            }
         }
 
         private void ViewModel_SetFocus(object sender, DataEventArgs<int> e)

@@ -23,7 +23,7 @@
     <Window.Resources>
         <my:TypeOfSearchValueConverter x:Key="tosConverter" />
         <my:IntToImageValueConverter x:Key="imageConverter" />
-
+        
         <Style TargetType="Button" BasedOn="{StaticResource ThemedButton}">
             <Setter Property="Padding" Value="20,3" />
             <Setter Property="Margin" Value="3" />
@@ -129,11 +129,16 @@
             </Grid>
             <Grid DockPanel.Dock="Right">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition SharedSizeGroup="A"/>
                     <ColumnDefinition SharedSizeGroup="A"/>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Content="{l:Loc Key='Bookmarks_Close'}" IsCancel="True" IsDefault="True" />
+                <ToggleButton Grid.Column="0" Margin="3,0"
+                              Height="{Binding ElementName=closeButton, Path=ActualHeight}"
+                              Style="{StaticResource ThemedPinButton}"
+                              IsChecked="{Binding IsPinned}" />
                 <Button Grid.Column="1" Content="{l:Loc Key='Bookmarks_Use'}" IsEnabled="{Binding HasSelection}" Click="UseButton_Click" />
+                <Button Grid.Column="2" Content="{l:Loc Key='Bookmarks_Close'}" IsCancel="True" IsDefault="True" x:Name="closeButton" />
             </Grid>
         </DockPanel>
 

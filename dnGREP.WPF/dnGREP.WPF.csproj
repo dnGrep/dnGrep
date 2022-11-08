@@ -296,6 +296,10 @@
     <Resource Include="Images\checks6.png" />
     <Resource Include="Images\checks7.png" />
     <Resource Include="Images\copy.png" />
+    <Resource Include="Images\pin.png" />
+    <Resource Include="Images\unpin.png" />
+    <Resource Include="Images\pinDark.png" />
+    <Resource Include="Images\unpinDark.png" />
     <Content Include="Themes\Sunset.xaml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
