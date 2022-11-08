@@ -1220,6 +1220,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Make writable</value>
     <comment>Main windows, results list, context menu item label</comment>
   </data>
+  <data name="Main_Results_MoveFilesToRecycleBin" xml:space="preserve">
+    <value>Move files to Recycle Bin</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
   <data name="Main_Results_NextFile" xml:space="preserve">
     <value>Next file</value>
     <comment>Main windows, results list, context menu item label</comment>
@@ -2255,6 +2259,14 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Rename_Cancel" xml:space="preserve">
     <value>Cancel</value>
     <comment>Rename file dialog button label</comment>
+  </data>
+  <data name="Rename_FileNameAlreadyExistsInThisDirectory" xml:space="preserve">
+    <value>File name already exists in this directory</value>
+    <comment>Rename file dialog error message</comment>
+  </data>
+  <data name="Rename_FileNameContainsInvalidCharacters" xml:space="preserve">
+    <value>File name contains invalid characters</value>
+    <comment>Rename file dialog error message</comment>
   </data>
   <data name="Rename_NewName" xml:space="preserve">
     <value>New name:</value>

@@ -11,7 +11,7 @@
                  FontSize="{Binding DialogFontSize}"
                  Icon="/dnGREP;component/nGREP.ico"
                  ResizeMode="NoResize"
-                 Width="{Binding DialogWidth, FallbackValue=300}"
+                 Width="{Binding DialogWidth, Mode=TwoWay, FallbackValue=300}"
                  MinHeight="100"
                  SizeToContent="Height"
                  WindowStyle="SingleBorderWindow"
@@ -36,8 +36,7 @@
 
         <DockPanel Grid.Row="0" LastChildFill="True">
             <TextBlock DockPanel.Dock="Left" Text="{l:Loc Key='Rename_NewName'}" />
-            <TextBox x:Name="txtName" TextChanged="Name_TextChanged" 
-                     Margin="3,10"/>
+            <TextBox x:Name="txtName" Margin="3,10"/>
         </DockPanel>
 
         <TextBlock Grid.Row="1" x:Name="txtError" />
