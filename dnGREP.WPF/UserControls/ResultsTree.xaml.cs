@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
+using Microsoft.VisualBasic.FileIO;
 
 namespace dnGREP.WPF.UserControls
 {
@@ -488,6 +489,60 @@ namespace dnGREP.WPF.UserControls
                         }
                     }
                 }
+            }
+        }
+
+        private void btnRecycleFiles_Click(object sender, RoutedEventArgs e)
+        {
+            // get the unique set of files from the selections
+            List<FormattedGrepResult> files = new List<FormattedGrepResult>();
+            int indexOfFirst = -1;
+            foreach (var item in inputData.SelectedItems)
+            {
+                if (item is FormattedGrepResult fileNode)
+                {
+                    string name = fileNode.GrepResult.FileNameReal;
+                    if (!files.Any(gr => gr.GrepResult.FileNameReal.Equals(name)) && File.Exists(name))
+                    {
+                        files.Add(fileNode);
+                    }
+                }
+                if (item is FormattedGrepLine lineNode)
+                {
+                    string name = lineNode.Parent.GrepResult.FileNameReal;
+                    if (!files.Any(gr => gr.GrepResult.FileNameReal.Equals(name)) && File.Exists(name))
+                    {
+                        files.Add(lineNode.Parent);
+                    }
+                }
+
+                if (files.Count == 1)
+                {
+                    indexOfFirst = inputData.IndexOf(files.First());
+                }
+            }
+
+            inputData.DeselectAllItems();
+            foreach (var gr in files)
+            {
+                FileSystem.DeleteFile(gr.GrepResult.FileNameReal,
+                    UIOption.OnlyErrorDialogs,
+                    RecycleOption.SendToRecycleBin);
+
+
+                inputData.Remove(gr);
+            }
+
+            if (indexOfFirst > -1 && inputData.Count > 0)
+            {
+                // the first item was removed, select the new item in that position
+                int idx = indexOfFirst;
+                if (idx >= inputData.Count) idx = inputData.Count - 1;
+
+                var nextResult = inputData[idx];
+                var tvi = GetTreeViewItem(treeView, nextResult, null, SearchDirection.Down, 1);
+                tvi.IsSelected = false;
+                tvi.IsSelected = true;
             }
         }
 

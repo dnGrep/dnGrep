@@ -2454,6 +2454,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Move files to Recycle Bin.
+        /// </summary>
+        public static string Main_Results_MoveFilesToRecycleBin {
+            get {
+                return ResourceManager.GetString("Main_Results_MoveFilesToRecycleBin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Next file.
         /// </summary>
         public static string Main_Results_NextFile {
@@ -4781,6 +4790,24 @@ namespace dnGREP.Localization.Properties {
         public static string Rename_Cancel {
             get {
                 return ResourceManager.GetString("Rename_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File name already exists in this directory.
+        /// </summary>
+        public static string Rename_FileNameAlreadyExistsInThisDirectory {
+            get {
+                return ResourceManager.GetString("Rename_FileNameAlreadyExistsInThisDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File name contains invalid characters.
+        /// </summary>
+        public static string Rename_FileNameContainsInvalidCharacters {
+            get {
+                return ResourceManager.GetString("Rename_FileNameContainsInvalidCharacters", resourceCulture);
             }
         }
         

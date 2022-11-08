@@ -154,6 +154,7 @@
                 <MenuItem Header="{l:Loc Key='Main_Results_OpenContainingFolder'}" Click="btnOpenContainingFolder_Click" IsEnabled="{Binding HasSelection}" />
                 <MenuItem Header="{l:Loc Key='Main_Results_ShowFileProperties'}" Click="btnShowFileProperties_Click" IsEnabled="{Binding HasSelection}" />
                 <MenuItem Header="{l:Loc Key='Main_Results_RenameFile'}" Click="btnRenameFile_Click" IsEnabled="{Binding HasSingleSelection}" />
+                <MenuItem Header="{l:Loc Key='Main_Results_MoveFilesToRecycleBin'}" Click="btnRecycleFiles_Click" IsEnabled="{Binding HasSelection}" />
                 <MenuItem Header="{l:Loc Key='Main_Results_MakeWritable'}" Click="btnMakeWritable_Click" IsEnabled="{Binding HasReadOnlySelection}" />
                 <Separator />
                 <MenuItem Header="{l:Loc Key='Main_Results_CompareFiles'}" Command="{Binding CompareFilesCommand}"

@@ -18,6 +18,13 @@ namespace dnGREP.WPF
             btnOK.IsEnabled = false;
 
             DataContext = new RenameViewModel();
+
+            Loaded += (s, e) => 
+            {
+                btnOK.IsEnabled = false;
+                txtName.Text = Path.GetFileName(SourcePath);
+                txtName.TextChanged += Name_TextChanged;
+            };
         }
 
         public string DestinationPath { get; private set; }
@@ -34,14 +41,14 @@ namespace dnGREP.WPF
             {
                 if (txtName.Text.Where(c => Path.GetInvalidFileNameChars().Contains(c)).Any())
                 {
-                    txtError.Text = "File name contains invalid characters";
+                    txtError.Text = dnGREP.Localization.Properties.Resources.Rename_FileNameContainsInvalidCharacters;
                     return;
                 }
 
                 string destPath = Path.Combine(Path.GetDirectoryName(SourcePath), txtName.Text);
                 if (File.Exists(destPath))
                 {
-                    txtError.Text = "File name already exists in this directory";
+                    txtError.Text = dnGREP.Localization.Properties.Resources.Rename_FileNameAlreadyExistsInThisDirectory;
                     return;
                 }
 
@@ -67,7 +74,7 @@ namespace dnGREP.WPF
             {
                 ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
                 DialogFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.DialogFontSize);
-                DialogWidth = DialogFontSize * 25.0;
+                DialogWidth = DialogFontSize * 30.0;
             }
 
             private string applicationFontFamily;
