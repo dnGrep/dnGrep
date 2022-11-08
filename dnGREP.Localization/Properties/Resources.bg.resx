@@ -2775,4 +2775,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Shift+Alt+стрелка нагоре</value>
     <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
   </data>
+  <data name="Options_PDFNumberStyle" xml:space="preserve">
+    <value>Номериране на PDF:</value>
+    <comment>Options dialog, PDF numbering options label</comment>
+  </data>
+  <data name="Options_LineNumbers" xml:space="preserve">
+    <value>Номерирани редове</value>
+    <comment>Options dialog, PDF numbering option</comment>
+  </data>
+  <data name="Options_PageNumbers" xml:space="preserve">
+    <value>Номерирани страници</value>
+    <comment>Options dialog, PDF numbering option</comment>
+  </data>
 </root>
