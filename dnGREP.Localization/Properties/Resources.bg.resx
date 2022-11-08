@@ -2787,4 +2787,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Номерирани страници</value>
     <comment>Options dialog, PDF numbering option</comment>
   </data>
+  <data name="Main_Results_MoveFilesToRecycleBin" xml:space="preserve">
+    <value>Преместване на файлове в кошчето</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Rename_FileNameContainsInvalidCharacters" xml:space="preserve">
+    <value>Името на файла съдържа непозволени знаци</value>
+    <comment>Rename file dialog error message</comment>
+  </data>
+  <data name="Rename_FileNameAlreadyExistsInThisDirectory" xml:space="preserve">
+    <value>Файл със същото име съществува в папката</value>
+    <comment>Rename file dialog error message</comment>
+  </data>
 </root>
