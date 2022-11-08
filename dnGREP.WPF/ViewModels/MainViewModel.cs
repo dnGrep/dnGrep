@@ -119,6 +119,15 @@ namespace dnGREP.WPF
             UpdateReplaceButtonTooltip(true);
         }
 
+        internal void Closing()
+        {
+            if (bookmarkWindow != null)
+            {
+                bookmarkWindow.UseBookmark -= BookmarkForm_UseBookmark;
+                bookmarkWindow.Close();
+            }
+        }
+
         void SearchResults_OpenFileRequest(object sender, GrepResultEventArgs e)
         {
             OpenFile(e.FormattedGrepResult, e.UseCustomEditor);
@@ -2007,32 +2016,41 @@ namespace dnGREP.WPF
                 }
             }
             BookmarkLibrary.Save();
+
+            if (bookmarkWindow != null)
+            {
+                bookmarkWindow.ViewModel.SynchToLibrary();
+            }
         }
 
         private void OpenBookmarksWindow()
         {
-            try
+            if (bookmarkWindow == null)
             {
                 bookmarkWindow = new BookmarksWindow(bk =>
+                {
+                    var current = BookmarkLibrary.Instance.Find(CurrentBookmarkSettings());
+                    if (current != null && current.Id == bk.Id)
                     {
-                        var current = BookmarkLibrary.Instance.Find(CurrentBookmarkSettings());
-                        if (current != null && current.Id == bk.Id)
-                        {
-                            IsBookmarked = false;
-                            IsFolderBookmarked = false;
-                        }
-                    });
+                        IsBookmarked = false;
+                        IsFolderBookmarked = false;
+                    }
+                });
                 bookmarkWindow.UseBookmark += BookmarkForm_UseBookmark;
+            }
 
+            if (bookmarkWindow.IsVisible)
+            {
+                bookmarkWindow.Activate();
+                bookmarkWindow.Focus();
+            }
+            else
+            {
                 var wnd = Application.Current.MainWindow;
                 Point pt = Mouse.GetPosition(wnd);
                 pt.Offset(-bookmarkWindow.Width + 100, 20);
                 bookmarkWindow.SetWindowPosition(pt, wnd);
-                bookmarkWindow.ShowDialog();
-            }
-            finally
-            {
-                bookmarkWindow.UseBookmark -= BookmarkForm_UseBookmark;
+                bookmarkWindow.Show();
             }
         }
 

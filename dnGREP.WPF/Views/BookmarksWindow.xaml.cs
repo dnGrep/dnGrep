@@ -30,13 +30,48 @@ namespace dnGREP.WPF
         private void UseButton_Click(object sender, RoutedEventArgs e)
         {
             UseBookmark?.Invoke(this, EventArgs.Empty);
-            Close();
+            if (!ViewModel.IsPinned)
+            {
+                Hide();
+            }
+            else
+            {
+                Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    Application.Current.MainWindow.Activate();
+                    Application.Current.MainWindow.Focus();
+                }));
+            }
         }
 
         private void DataGridRow_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             UseBookmark?.Invoke(this, EventArgs.Empty);
-            Close();
+            if (!ViewModel.IsPinned)
+            {
+                Hide();
+            }
+            else
+            {
+                Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    Application.Current.MainWindow.Activate();
+                    Application.Current.MainWindow.Focus();
+                }));
+            }
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Hide();
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                Hide();
+            }
         }
 
         private void ViewModel_SetFocus(object sender, DataEventArgs<int> e)

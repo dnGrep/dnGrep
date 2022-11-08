@@ -27,15 +27,22 @@ namespace dnGREP.WPF
             ownerWnd = owner;
             ClearStar = clearStar;
 
-            _bookmarks = BookmarkLibrary.Instance.Bookmarks
-                .OrderBy(bk => bk.Ordinal)
-                .Select(bk => new BookmarkViewModel(bk))
-                .ToList();
-            Bookmarks = CollectionViewSource.GetDefaultView(_bookmarks);
-            Bookmarks.Filter = BookmarkFilter;
+            _bookmarks = new List<BookmarkViewModel>();
+            SynchToLibrary();
 
             ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
             DialogFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.DialogFontSize);
+            IsPinned = GrepSettings.Instance.Get<bool>(GrepSettings.Key.PinBookmarkWindow);
+        }
+
+        public void SynchToLibrary()
+        {
+            _bookmarks.Clear();
+            _bookmarks.AddRange(BookmarkLibrary.Instance.Bookmarks
+                .OrderBy(bk => bk.Ordinal)
+                .Select(bk => new BookmarkViewModel(bk)));
+            Bookmarks = CollectionViewSource.GetDefaultView(_bookmarks);
+            Bookmarks.Filter = BookmarkFilter;
         }
 
         public void Sort()
@@ -45,6 +52,8 @@ namespace dnGREP.WPF
 
         internal void BookmarksWindow_Closing(object sender, CancelEventArgs e)
         {
+            GrepSettings.Instance.Set(GrepSettings.Key.PinBookmarkWindow, IsPinned);
+
             if (_isDirty)
             {
                 foreach (BookmarkViewModel bk in _bookmarks)
@@ -81,6 +90,23 @@ namespace dnGREP.WPF
 
                 dialogfontSize = value;
                 base.OnPropertyChanged(nameof(DialogFontSize));
+            }
+        }
+
+
+        private bool isPinned = false;
+        public bool IsPinned
+        {
+            get { return isPinned; }
+            set
+            {
+                if (isPinned == value)
+                {
+                    return;
+                }
+
+                isPinned = value;
+                OnPropertyChanged(nameof(IsPinned));
             }
         }
 

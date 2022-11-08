@@ -127,6 +127,10 @@
     <SolidColorBrush x:Key="Button.Disabled.Background" po:Freeze="true" Color="#FF606060" />
     <SolidColorBrush x:Key="Button.Disabled.Border" po:Freeze="true" Color="#FF808080" />
     <SolidColorBrush x:Key="Button.Disabled.Foreground" po:Freeze="true" Color="#FFB8B8B8" />
+    
+    <!-- Toggle Button -->
+    <BitmapImage x:Key="pinBitmap" UriSource="/dnGrep;component/Images/pinDark.png" />
+    <BitmapImage x:Key="unpinBitmap" UriSource="/dnGrep;component/Images/unpinDark.png" />
 
     <!--  Text Box  -->
     <SolidColorBrush x:Key="Control.Foreground" po:Freeze="true" Color="#FFFFFFFF" />

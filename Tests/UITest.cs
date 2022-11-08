@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Effects;
+using System.Windows.Media.Imaging;
 using Xunit;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
@@ -48,6 +49,8 @@ namespace Tests
                     Assert.True(value2 is DropShadowEffect);
                 else if (value1 is bool)
                     Assert.True(value2 is bool);
+                else if (value1 is BitmapImage)
+                    Assert.True(value2 is BitmapImage);
             }
         }
 

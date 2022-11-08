@@ -273,6 +273,8 @@ namespace dnGREP.Common
             public const string MaximizeResultsTreeOnSearch = "MaximizeResultsTreeOnSearch";
             [DefaultValue(PdfNumberType.PageNumber)]
             public const string PdfNumberStyle = "PdfNumberStyle";
+            [DefaultValue(false)]
+            public const string PinBookmarkWindow = "PinBookmarkWindow";
         }
 
         private static GrepSettings instance;
