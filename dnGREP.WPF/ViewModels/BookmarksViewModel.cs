@@ -27,16 +27,22 @@ namespace dnGREP.WPF
             ownerWnd = owner;
             ClearStar = clearStar;
 
-            _bookmarks = BookmarkLibrary.Instance.Bookmarks
-                .OrderBy(bk => bk.Ordinal)
-                .Select(bk => new BookmarkViewModel(bk))
-                .ToList();
-            Bookmarks = CollectionViewSource.GetDefaultView(_bookmarks);
-            Bookmarks.Filter = BookmarkFilter;
+            _bookmarks = new List<BookmarkViewModel>();
+            SynchToLibrary();
 
             ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
             DialogFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.DialogFontSize);
             IsPinned = GrepSettings.Instance.Get<bool>(GrepSettings.Key.PinBookmarkWindow);
+        }
+
+        public void SynchToLibrary()
+        {
+            _bookmarks.Clear();
+            _bookmarks.AddRange(BookmarkLibrary.Instance.Bookmarks
+                .OrderBy(bk => bk.Ordinal)
+                .Select(bk => new BookmarkViewModel(bk)));
+            Bookmarks = CollectionViewSource.GetDefaultView(_bookmarks);
+            Bookmarks.Filter = BookmarkFilter;
         }
 
         public void Sort()

@@ -2016,6 +2016,11 @@ namespace dnGREP.WPF
                 }
             }
             BookmarkLibrary.Save();
+
+            if (bookmarkWindow != null)
+            {
+                bookmarkWindow.ViewModel.SynchToLibrary();
+            }
         }
 
         private void OpenBookmarksWindow()
@@ -2034,18 +2039,18 @@ namespace dnGREP.WPF
                 bookmarkWindow.UseBookmark += BookmarkForm_UseBookmark;
             }
 
-            if (!bookmarkWindow.IsVisible)
+            if (bookmarkWindow.IsVisible)
+            {
+                bookmarkWindow.Activate();
+                bookmarkWindow.Focus();
+            }
+            else
             {
                 var wnd = Application.Current.MainWindow;
                 Point pt = Mouse.GetPosition(wnd);
                 pt.Offset(-bookmarkWindow.Width + 100, 20);
                 bookmarkWindow.SetWindowPosition(pt, wnd);
                 bookmarkWindow.Show();
-            }
-            else
-            {
-                bookmarkWindow.Activate();
-                bookmarkWindow.Focus();
             }
         }
 
