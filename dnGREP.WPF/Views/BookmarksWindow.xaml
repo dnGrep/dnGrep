@@ -17,6 +17,7 @@
                  CaptionBackground="{DynamicResource Caption.Dialog.Background}"
                  ResizeMode="CanResize"
                  ShowInTaskbar="True"
+                 KeyDown="Window_KeyDown"
                  Icon="/dnGREP;component/nGREP.ico"
                  mc:Ignorable="d">
 
@@ -138,7 +139,7 @@
                               Style="{StaticResource ThemedPinButton}"
                               IsChecked="{Binding IsPinned}" />
                 <Button Grid.Column="1" Content="{l:Loc Key='Bookmarks_Use'}" IsEnabled="{Binding HasSelection}" Click="UseButton_Click" />
-                <Button Grid.Column="2" Content="{l:Loc Key='Bookmarks_Close'}" IsCancel="True" IsDefault="True" x:Name="closeButton" />
+                <Button Grid.Column="2" Content="{l:Loc Key='Bookmarks_Close'}" IsDefault="True" x:Name="closeButton" Click="CloseButton_Click"/>
             </Grid>
         </DockPanel>
 

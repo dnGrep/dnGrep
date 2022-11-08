@@ -32,11 +32,15 @@ namespace dnGREP.WPF
             UseBookmark?.Invoke(this, EventArgs.Empty);
             if (!ViewModel.IsPinned)
             {
-                Close();
+                Hide();
             }
             else
             {
-                Dispatcher.BeginInvoke(new Action(() => Application.Current.MainWindow.Activate()));
+                Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    Application.Current.MainWindow.Activate();
+                    Application.Current.MainWindow.Focus();
+                }));
             }
         }
 
@@ -45,11 +49,28 @@ namespace dnGREP.WPF
             UseBookmark?.Invoke(this, EventArgs.Empty);
             if (!ViewModel.IsPinned)
             {
-                Close();
+                Hide();
             }
             else
             {
-                Dispatcher.BeginInvoke(new Action(() => Application.Current.MainWindow.Activate()));
+                Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    Application.Current.MainWindow.Activate();
+                    Application.Current.MainWindow.Focus();
+                }));
+            }
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            Hide();
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                Hide();
             }
         }
 

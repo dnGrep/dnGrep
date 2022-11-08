@@ -253,6 +253,7 @@ namespace dnGREP.WPF
 
             previewControl.SaveSettings();
             viewModel.SaveSettings();
+            viewModel.Closing();
         }
 
         private void ViewModel_PreviewShow(object sender, EventArgs e)
