@@ -312,4 +312,43 @@
     <value>Vii see paneel omaette aknasse</value>
     <comment>Docking window button tooltip</comment>
   </data>
+  <data name="Help_CmdLineExit" xml:space="preserve">
+    <value>/x
+-x
+-exit
+    Väljub dnGrepist peale käsureaoperatsioonide lõpetamist.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineFolder" xml:space="preserve">
+    <value>/f [kaustatee]
+-f [kaustatee]
+-folder [kaustatee]
+    Seab otsingule kaustatee.  Võib olla komaga või semikooloniga eraldatud kaustateede list.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineHeader" xml:space="preserve">
+    <value>dnGrep:  Otsi lihtteksti failidest, Wordi ja Exceli dokumentidest, PDF ja arhiivfailidest kasutades teksti, regulaaravaldisi, XPath'i ja foneetilisi päringuid.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineDotAsNewline" xml:space="preserve">
+    <value>/dn [Tõene/Väär]
+-dn [Tõene/Väär]
+-dotAsNewline [Tõene/Väär]
+    Seab punkti kui uue rea otsimise lipuks - tõene või väär.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineFileInformation" xml:space="preserve">
+    <value>/fi [Tõene/Väär]
+-fi [Tõene/Väär]
+-fileInformation [Tõene/Väär]
+    Seab lipu faili- ja rea informatsiooni kaasamiks raporti väljundis – tõene või väär.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineListItemSeparator" xml:space="preserve">
+    <value>/sep [eraldusmärk või -tekst]
+-sep [eraldusmärk või -tekst]
+-listItemSeparator [eraldusmärk või -tekst]
+    Seab märgi või sõne, mis eraldab listi elemente raporti väljundis.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
 </root>
