@@ -2787,4 +2787,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>PDF 编号样式：</value>
     <comment>Options dialog, PDF numbering options label</comment>
   </data>
+  <data name="Main_Results_MoveFilesToRecycleBin" xml:space="preserve">
+    <value>将文件移动到回收站</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Rename_FileNameAlreadyExistsInThisDirectory" xml:space="preserve">
+    <value>此目录中已存在相同文件名</value>
+    <comment>Rename file dialog error message</comment>
+  </data>
+  <data name="Rename_FileNameContainsInvalidCharacters" xml:space="preserve">
+    <value>文件名包含无效字符</value>
+    <comment>Rename file dialog error message</comment>
+  </data>
 </root>
