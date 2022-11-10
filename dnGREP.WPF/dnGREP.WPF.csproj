@@ -108,9 +108,11 @@
     <Compile Include="MVHelpers\TypeOfSearchValueConverter.cs" />
     <Compile Include="MVHelpers\ValidationColorConverter.cs" />
     <Compile Include="Properties\LayoutProperties.cs" />
+    <Compile Include="ScriptManager.cs" />
     <Compile Include="ThemedHighlightingManager.cs" />
     <Compile Include="ViewModels\MainViewModelProps.cs" />
     <Compile Include="ViewModels\CultureAwareViewModel.cs" />
+    <Compile Include="ViewModels\MenuItemViewModel.cs" />
     <Compile Include="ViewModels\ReportOptionsViewModel.cs" />
     <Compile Include="Views\ReportOptionsWindow.xaml.cs">
       <DependentUpon>ReportOptionsWindow.xaml</DependentUpon>

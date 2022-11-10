@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
@@ -63,6 +64,7 @@ namespace dnGREP.WPF
             CheckVersion();
             ControlsInit();
             PopulateEncodings();
+            PopulateScripts();
 
             highlightBackground = Application.Current.Resources["Match.Highlight.Background"] as Brush;
             highlightForeground = Application.Current.Resources["Match.Highlight.Foreground"] as Brush;
@@ -211,6 +213,8 @@ namespace dnGREP.WPF
                 base.OnPropertyChanged(nameof(MainFormFontSize));
             }
         }
+
+        public ObservableCollection<MenuItemViewModel> ScriptMenuItems { get; } = new ObservableCollection<MenuItemViewModel>();
 
         private bool isBookmarked;
         public bool IsBookmarked
@@ -2542,6 +2546,29 @@ namespace dnGREP.WPF
 
             DiginesisHelpProvider.HelpNamespace = @"https://github.com/dnGrep/dnGrep/wiki/";
             DiginesisHelpProvider.ShowHelp = true;
+        }
+
+        private void PopulateScripts()
+        {
+            ScriptMenuItems.Add(new MenuItemViewModel("New Script…", new RelayCommand(p => NewScript())));
+            ScriptMenuItems.Add(new MenuItemViewModel("Edit Script…", new RelayCommand(p => EditScript())));
+            ScriptMenuItems.Add(new MenuItemViewModel(null, null));
+            foreach (var name in ScriptManager.Instance.Scripts)
+            {
+                ScriptMenuItems.Add(new MenuItemViewModel(name, new RelayCommand(p => RunScript(name))));
+            }
+        }
+
+        private void NewScript()
+        {
+        }
+
+        private void EditScript()
+        {
+        }
+
+        private void RunScript(string name)
+        {
         }
 
         private void PopulateEncodings()
