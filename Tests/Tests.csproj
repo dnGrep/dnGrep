@@ -91,6 +91,7 @@
     <Compile Include="GrepCoreTest.cs" />
     <Compile Include="IgnoreIfNotAdministratorTheory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScriptTest.cs" />
     <Compile Include="StorageTest.cs" />
     <Compile Include="TestBase.cs" />
     <Compile Include="UITest.cs" />
