@@ -189,20 +189,6 @@ namespace dnGREP.WPF
 
         #region Presentation Properties
 
-        private string applicationFontFamily;
-        public string ApplicationFontFamily
-        {
-            get { return applicationFontFamily; }
-            set
-            {
-                if (applicationFontFamily == value)
-                    return;
-
-                applicationFontFamily = value;
-                base.OnPropertyChanged(nameof(ApplicationFontFamily));
-            }
-        }
-
         private double mainFormfontSize;
         public double MainFormFontSize
         {

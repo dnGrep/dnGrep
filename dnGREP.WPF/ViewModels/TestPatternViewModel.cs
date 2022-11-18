@@ -111,34 +111,6 @@ namespace dnGREP.WPF
             }
         }
 
-        private string applicationFontFamily;
-        public string ApplicationFontFamily
-        {
-            get { return applicationFontFamily; }
-            set
-            {
-                if (applicationFontFamily == value)
-                    return;
-
-                applicationFontFamily = value;
-                base.OnPropertyChanged(nameof(ApplicationFontFamily));
-            }
-        }
-
-        private double dialogfontSize;
-        public double DialogFontSize
-        {
-            get { return dialogfontSize; }
-            set
-            {
-                if (dialogfontSize == value)
-                    return;
-
-                dialogfontSize = value;
-                base.OnPropertyChanged(nameof(DialogFontSize));
-            }
-        }
-
         private static string sampleText;
         public string SampleText
         {

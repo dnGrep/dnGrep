@@ -1302,6 +1302,20 @@ namespace dnGREP.WPF
             }
         }
 
+        private string applicationFontFamily;
+        public string ApplicationFontFamily
+        {
+            get { return applicationFontFamily; }
+            set
+            {
+                if (applicationFontFamily == value)
+                    return;
+
+                applicationFontFamily = value;
+                base.OnPropertyChanged(nameof(ApplicationFontFamily));
+            }
+        }
+
         private string resultsFontFamily;
         public string ResultsFontFamily
         {
