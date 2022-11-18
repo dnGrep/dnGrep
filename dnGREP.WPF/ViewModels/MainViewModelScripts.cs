@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using dnGREP.Common;
+using dnGREP.Localization.Properties;
 
 namespace dnGREP.WPF
 {
@@ -16,6 +18,24 @@ namespace dnGREP.WPF
         public static readonly IDictionary<string, IScriptCommand> ReportCommandMap = new Dictionary<string, IScriptCommand>();
 
         private bool cancelingScript = false;
+        private bool showEmptyMessageWindow = false;
+        private string currentScriptFile;
+        private string currentScriptLine;
+
+        private void AddScriptMessage(string message)
+        {
+            if (ScriptMessages.Count == 0 && !string.IsNullOrEmpty(currentScriptFile))
+            {
+                ScriptMessages.Add(currentScriptFile);
+            }
+            if (!string.IsNullOrEmpty(currentScriptLine) && !ScriptMessages.Contains(currentScriptLine))
+            {
+                ScriptMessages.Add(string.Empty);
+                ScriptMessages.Add(currentScriptLine);
+            }
+            ScriptMessages.Add(message);
+        }
+        public ObservableCollection<string> ScriptMessages { get; } = new ObservableCollection<string>();
 
         public void InitializeScriptTargets()
         {
@@ -105,16 +125,13 @@ namespace dnGREP.WPF
         public IScriptCommand MaximizeResultsCommand => new ScriptCommand<bool>(
             param => IsResultTreeMaximized = param);
 
-        public IScriptCommand DeleteFilesScriptCommand => new ScriptCommand<bool>(
-            param => DeleteFiles(param));
-
         private void PopulateScripts()
         {
             InitializeScriptTargets();
 
-            ScriptMenuItems.Add(new MenuItemViewModel("New Script…", new RelayCommand(p => NewScript(), q => !IsScriptRunning)));
-            ScriptMenuItems.Add(new MenuItemViewModel("Edit Script…", new RelayCommand(p => EditScript(), q => !IsScriptRunning)));
-            ScriptMenuItems.Add(new MenuItemViewModel("Cancel Script", new RelayCommand(p => CancelScript(), q => IsScriptRunning)));
+            ScriptMenuItems.Add(new MenuItemViewModel(Resources.Main_Menu_NewScript, new RelayCommand(p => NewScript(), q => !IsScriptRunning)));
+            ScriptMenuItems.Add(new MenuItemViewModel(Resources.Main_Menu_EditScript, new RelayCommand(p => EditScript(), q => !IsScriptRunning)));
+            ScriptMenuItems.Add(new MenuItemViewModel(Resources.Main_Menu_CancelScript, new RelayCommand(p => CancelScript(), q => IsScriptRunning)));
             ScriptMenuItems.Add(new MenuItemViewModel(null, null));
             foreach (var name in ScriptManager.Instance.Scripts)
             {
@@ -152,6 +169,11 @@ namespace dnGREP.WPF
         {
             cancelingScript = true;
             Cancel();
+
+            if (!ScriptMessages.Contains(Resources.Scripts_ScriptCanceled))
+            {
+                AddScriptMessage(Resources.Scripts_ScriptCanceled);
+            }
         }
 
         private Queue<ScriptStatement> currentScript = null;
@@ -160,10 +182,13 @@ namespace dnGREP.WPF
         {
             if (currentScript == null)
             {
+                ScriptMessages.Clear();
                 currentScript = ScriptManager.Instance.ParseScript(name);
-                CommandManager.InvalidateRequerySuggested();
+                currentScriptFile = name;
                 cancelingScript = false;
+                showEmptyMessageWindow = false;
                 IsScriptRunning = true;
+                CommandManager.InvalidateRequerySuggested();
                 ContinueScript();
             }
         }
@@ -179,6 +204,7 @@ namespace dnGREP.WPF
                 }
 
                 var stmt = currentScript.Dequeue();
+                currentScriptLine = $"{Resources.Scripts_AtLine} {stmt.LineNumber}: {stmt.Command} {stmt.Target} {stmt.Value}";
                 switch (stmt.Command)
                 {
                     case "set":
@@ -225,7 +251,7 @@ namespace dnGREP.WPF
                         break;
 
                     case "undo":
-                        UndoCommand.Execute(null);
+                        UndoCommand.Execute(false);
                         break;
 
                     case "copyfiles":
@@ -237,7 +263,7 @@ namespace dnGREP.WPF
                         break;
 
                     case "deletefiles":
-                        DeleteFilesScriptCommand.Execute("false");
+                        DeleteFilesCommand.Execute(null);
                         break;
 
                     case "copyfilenames":
@@ -258,11 +284,29 @@ namespace dnGREP.WPF
 
                     case "search":
                         SearchCommand.Execute(null);
-                        return;
+                        if (cancelingScript || Utils.CancelSearch)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            return;
+                        }
 
                     case "replace":
                         ReplaceCommand.Execute(null);
-                        return;
+                        if (cancelingScript || Utils.CancelSearch)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            return;
+                        }
+
+                    case "messages":
+                        showEmptyMessageWindow = true;
+                        break;
 
                     case "exit":
                         Application.Current.MainWindow.Close();
@@ -274,6 +318,22 @@ namespace dnGREP.WPF
             {
                 currentScript = null;
                 IsScriptRunning = false;
+
+                if (ScriptMessages.Count > 0 || showEmptyMessageWindow)
+                {
+                    if (!cancelingScript)
+                    {
+                        if (ScriptMessages.Count == 0 && !string.IsNullOrEmpty(currentScriptFile))
+                        {
+                            ScriptMessages.Add(currentScriptFile);
+                        }
+                        ScriptMessages.Add(string.Empty);
+                        ScriptMessages.Add(Resources.Scripts_ScriptComplete);
+                    }
+
+                    MessagesWindow dlg = new MessagesWindow(this);
+                    dlg.ShowDialog();
+                }
             }
 
             CommandManager.InvalidateRequerySuggested();

@@ -1941,6 +1941,33 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel script.
+        /// </summary>
+        public static string Main_Menu_CancelScript {
+            get {
+                return ResourceManager.GetString("Main_Menu_CancelScript", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit script….
+        /// </summary>
+        public static string Main_Menu_EditScript {
+            get {
+                return ResourceManager.GetString("Main_Menu_EditScript", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New script….
+        /// </summary>
+        public static string Main_Menu_NewScript {
+            get {
+                return ResourceManager.GetString("Main_Menu_NewScript", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Options….
         /// </summary>
         public static string Main_Menu_Options {
@@ -1955,6 +1982,15 @@ namespace dnGREP.Localization.Properties {
         public static string Main_Menu_Personalize {
             get {
                 return ResourceManager.GetString("Main_Menu_Personalize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scripts.
+        /// </summary>
+        public static string Main_Menu_Scripts {
+            get {
+                return ResourceManager.GetString("Main_Menu_Scripts", resourceCulture);
             }
         }
         
@@ -5654,6 +5690,51 @@ namespace dnGREP.Localization.Properties {
         public static string ReportSummary_WholeWord {
             get {
                 return ResourceManager.GetString("ReportSummary_WholeWord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to At line.
+        /// </summary>
+        public static string Scripts_AtLine {
+            get {
+                return ResourceManager.GetString("Scripts_AtLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string Scripts_OK {
+            get {
+                return ResourceManager.GetString("Scripts_OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to script canceled.
+        /// </summary>
+        public static string Scripts_ScriptCanceled {
+            get {
+                return ResourceManager.GetString("Scripts_ScriptCanceled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to script complete.
+        /// </summary>
+        public static string Scripts_ScriptComplete {
+            get {
+                return ResourceManager.GetString("Scripts_ScriptComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Script Messages.
+        /// </summary>
+        public static string Scripts_ScriptMessages {
+            get {
+                return ResourceManager.GetString("Scripts_ScriptMessages", resourceCulture);
             }
         }
         

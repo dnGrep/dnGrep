@@ -12,8 +12,8 @@ namespace dnGREP.WPF
             }
 
             LineNumber = line;
-            Command = command;
-            Target = target;
+            Command = command.ToLowerInvariant();
+            Target = target?.ToLowerInvariant();
             Value = value;
         }
 

@@ -1,0 +1,39 @@
+﻿<my:ThemedWindow x:Class="dnGREP.WPF.MessagesWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:my="clr-namespace:dnGREP.WPF"
+                 xmlns:l="clr-namespace:dnGREP.Localization;assembly=dnGREP.Localization"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 mc:Ignorable="d"
+                 Title="{l:Loc Key='Scripts_ScriptMessages'}" 
+                 FlowDirection="{Binding CultureFlowDirection}"
+                 FontFamily="{Binding ApplicationFontFamily}"
+                 FontSize="{Binding DialogFontSize}"
+                 Height="500"
+                 MinWidth="500"
+                 Icon="/dnGREP;component/nGREP.ico"
+                 ResizeMode="NoResize"
+                 SizeToContent="Width"
+                 WindowStartupLocation="CenterOwner"
+                 Background="{DynamicResource Dialog.Background}"
+                 CaptionBackground="{DynamicResource Caption.Dialog.Background}" >
+    <DockPanel Margin="8" LastChildFill="True">
+
+        <Button DockPanel.Dock="Bottom" Margin="0,10,0,0" Padding="30,6" MinWidth="90"
+                HorizontalAlignment="Right" Content="{l:Loc Key='Scripts_OK'}"
+                IsDefault="True" IsCancel="True" />
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <ItemsControl ItemsSource="{Binding ScriptMessages}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding}" Style="{StaticResource ThemedTextBlock}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </DockPanel>
+</my:ThemedWindow>

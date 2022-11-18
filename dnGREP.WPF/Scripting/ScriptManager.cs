@@ -28,6 +28,7 @@ namespace dnGREP.WPF
             {"maximizeresults",   "bool"},
             {"search",            null},
             {"replace",           null},
+            {"messages",          null},
             {"exit",              null},
         };
 

@@ -1330,6 +1330,20 @@ namespace dnGREP.WPF
             }
         }
 
+        private double dialogfontSize;
+        public double DialogFontSize
+        {
+            get { return dialogfontSize; }
+            set
+            {
+                if (dialogfontSize == value)
+                    return;
+
+                dialogfontSize = value;
+                base.OnPropertyChanged(nameof(DialogFontSize));
+            }
+        }
+
         public bool IsOperationInProgress
         {
             get { return CurrentGrepOperation != GrepOperation.None; }
