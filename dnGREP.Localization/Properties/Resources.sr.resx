@@ -2709,4 +2709,36 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Shift+Alt+Стрелица на доле</value>
     <comment>Bookmarks dialog, bookmark list 'Move to bottom' context menu shortcut text</comment>
   </data>
+  <data name="Options_LineNumbers" xml:space="preserve">
+    <value>Бројеви линија</value>
+    <comment>Options dialog, PDF numbering option</comment>
+  </data>
+  <data name="Main_Results_MoveFilesToRecycleBin" xml:space="preserve">
+    <value>Преместите датотеке у корпу за отпатке</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Options_PageNumbers" xml:space="preserve">
+    <value>Бројеви странице</value>
+    <comment>Options dialog, PDF numbering option</comment>
+  </data>
+  <data name="Options_PDFNumberStyle" xml:space="preserve">
+    <value>Стил бројева PDF-а:</value>
+    <comment>Options dialog, PDF numbering options label</comment>
+  </data>
+  <data name="Rename_FileNameAlreadyExistsInThisDirectory" xml:space="preserve">
+    <value>Име датотеке већ постоји у овој фасцикли</value>
+    <comment>Rename file dialog error message</comment>
+  </data>
+  <data name="Rename_FileNameContainsInvalidCharacters" xml:space="preserve">
+    <value>Име датотеке садржи неважеће знакове</value>
+    <comment>Rename file dialog error message</comment>
+  </data>
+  <data name="Options_CustomEditorHelp" xml:space="preserve">
+    <value>Употребите '{0}' за локацију датотеке, '{1}' за број линије, '{2}' за образац претраге, '{3}' за први подударни текст на линији, и '{4}' за број колоне првој налажења на линији.</value>
+    <comment>Options dialog, custom editor help text: the placeholders are non-localized expressions used as arguments when starting the custom editor</comment>
+  </data>
+  <data name="Options_TheMatchTimeoutLimits" xml:space="preserve">
+    <value>Временско ограничење подударања ограничава колико дуго механизам регуларних израза покушава да реши регуларни израз пре него што истекне. Спречава обраду израза и улазних низова који захтевају прекомерно враћање уназад.</value>
+    <comment>Options dialog, regular expression options help text</comment>
+  </data>
 </root>
