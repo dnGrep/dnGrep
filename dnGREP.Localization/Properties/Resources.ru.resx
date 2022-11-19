@@ -461,31 +461,31 @@
     <value>/bo [True/False]
 -bo [True/False]
 -booleanOperators [True/False]
-    Устанавливает флаг поиска булевых операторов - True (Истина) или False (Ложь).</value>
+    Задает поисковый флаг для булевых операторов - True (Истина) или False (Ложь).</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineCaseSensitive" xml:space="preserve">
     <value>/cs [True/False]
 -cs [True/False]
 -caseSensitive [True/False]
-    Устанавливает флаг поиска с учетом регистра - True (Истина) или False (Ложь).</value>
+    Задает флаг для поиска с учетом регистра - True (Истина) или False (Ложь).</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineCSVReport" xml:space="preserve">
-    <value>/csv [filePath]
--csv [filePath]
+    <value>/csv [Путь_к_файлу]
+-csv [Путь_к_файлу]
     Создает файл результатов в формате CSV после завершения поиска.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineDefaultArguments" xml:space="preserve">
-    <value>Любые не указанные аргументы будут по умолчанию соответствовать последним сохраненным пользовательским настройкам.</value>
+    <value>Для любых не указанных аргументов, по умолчанию будут использоваться последние сохраненные пользовательские настройки.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineDotAsNewline" xml:space="preserve">
     <value>/dn [True/False]
 -dn [True/False]
 -dotAsNewline [True/False]
-    Устанавливает точку в качестве флага поиска новой строки - True (Истина) или False (Ложь).</value>
+    Задает поисковый флаг для точки в роли новой строки - True (Истина) или False (Ложь).</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineExample1" xml:space="preserve">
@@ -524,34 +524,34 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/ml [True/False]
 -ml [True/False]
 -multiline [True/False]
-    Устанавливает флаг многострочного поиска - True (Истина) или False (Ложь).</value>
+    Задает флаг для многострочного поиска - True (Истина) или False (Ложь).</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLinePathToIgnore" xml:space="preserve">
     <value>/pi [шаблон]
 -pi [шаблон]
 -pathToIgnore [шаблон]
-    Задает шаблон имени файла или каталога для исключения файлов / папок из пути поиска. Может быть списком шаблонов, разделенных запятой или точкой с запятой.</value>
+    Задает шаблон имени файла или каталога для исключения совпадений из поиска. Может быть списком шаблонов, разделенных запятой или точкой с запятой.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLinePathToMatch" xml:space="preserve">
     <value>/pm [шаблон]
 -pm [шаблон]
 -pathToMatch [шаблон]
-    Задает шаблон имени файла, соответствующий файлам в пути поиска. Может быть списком шаблонов, разделенных запятой или точкой с запятой.</value>
+    Задает шаблон имени файла для поиска совпадений. Может быть списком шаблонов, разделенных запятой или точкой с запятой.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLinePatternType" xml:space="preserve">
     <value>/pt [тип]
 -pt [тип]
 -patternType [тип]
-    Задает тип шаблона совпадения и игнорирования - должен быть один из: Asterisk (подстановочный символ), Регулярное выражение или Everything (если установлен инструмент поиска Everything).</value>
+    Задает тип шаблона совпадения и игнорирования - должен быть одним из: "Asterisk" (подстановочный символ), "Regex" (регулярное выражение) или "Everything" (если установлен инструмент поиска Everything).</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineReport" xml:space="preserve">
-    <value>/rpt [filePath]
--rpt [filePath]
--report [filePath]
+    <value>/rpt [Путь_к_файлу]
+-rpt [Путь_к_файлу]
+-report [Путь_к_файлу]
     Создает файл результатов в формате отчета после завершения поиска.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
@@ -559,20 +559,20 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/s [Что_искать]
 -s [Что_искать]
 -searchFor [Что_искать]
-    Задает шаблон или текст для поиска в множестве файлов. Если этот аргумент задан, поиск будет запущен автоматически.</value>
+    Задает шаблон или текст для поиска во множестве файлов. Если этот аргумент задан, поиск будет запущен автоматически.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineSearchType" xml:space="preserve">
     <value>/st [тип]
 -st [тип]
 -searchType [тип]
-    Задает тип поиска - должен быть один из: Обычный текст, регулярное выражение, XPath или Soundex.</value>
+    Задает тип поиска - должен быть одним из: "PlainText" (обычный текст), "Regex" (регулярное выражение), "XPath" или "Soundex" (фонетический).</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineTextReport" xml:space="preserve">
-    <value>/txt [filePath]
--txt [filePath]
--text [filePath]
+    <value>/txt [Путь_к_файлу]
+-txt [Путь_к_файлу]
+-text [Путь_к_файлу]
     Создает файл результатов в текстовом формате после завершения поиска.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
@@ -588,7 +588,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/ww [True/False]
 -ww [True/False]
 -wholeWord [True/False]
-    Устанавливает флаг поиска по всему слову - True (Истина) или False (Ложь).</value>
+    Задает флаг для поиска слова целиком - True (Истина) или False (Ложь).</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_DnGrepHelp" xml:space="preserve">
@@ -2582,5 +2582,222 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="ReportOptionsWindow_Save" xml:space="preserve">
     <value>Применить</value>
     <comment>Report options dialog, button label</comment>
+  </data>
+  <data name="Main_Results_MoveFilesToRecycleBin" xml:space="preserve">
+    <value>Переместить файлы в корзину</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Options_LineNumbers" xml:space="preserve">
+    <value>Номера строк</value>
+    <comment>Options dialog, PDF numbering option</comment>
+  </data>
+  <data name="Options_PageNumbers" xml:space="preserve">
+    <value>Номера страниц</value>
+    <comment>Options dialog, PDF numbering option</comment>
+  </data>
+  <data name="Options_PDFNumberStyle" xml:space="preserve">
+    <value>Стиль номера для PDF:</value>
+    <comment>Options dialog, PDF numbering options label</comment>
+  </data>
+  <data name="Replace_KeepPreviousFileModifiedDate" xml:space="preserve">
+    <value>Оставить прежнюю дату изменения файла</value>
+    <comment>Replace window, Keep modified date checkbox label</comment>
+  </data>
+  <data name="Rename_FileNameAlreadyExistsInThisDirectory" xml:space="preserve">
+    <value>Имя файла уже существует в этом каталоге</value>
+    <comment>Rename file dialog error message</comment>
+  </data>
+  <data name="Rename_FileNameContainsInvalidCharacters" xml:space="preserve">
+    <value>Имя файла содержит недопустимые символы</value>
+    <comment>Rename file dialog error message</comment>
+  </data>
+  <data name="Main_MoreMenu_Report_Options" xml:space="preserve">
+    <value>Параметры отчета…</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="ReportOptionsWindow_CaptureGroupsOnly" xml:space="preserve">
+    <value>Только группы захвата</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_CSV" xml:space="preserve">
+    <value>CSV</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_FullLines" xml:space="preserve">
+    <value>Целые строки</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_PerFile" xml:space="preserve">
+    <value>Для каждого файла</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_PressF1ForHelp" xml:space="preserve">
+    <value>Нажмите F1 для получения справки</value>
+    <comment>Report options dialog, help label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Preview" xml:space="preserve">
+    <value>Предварительный просмотр:</value>
+    <comment>Report options dialog, label</comment>
+  </data>
+  <data name="ReportOptionsWindow_ShowEachMatchOrGroupOnSeparateLine" xml:space="preserve">
+    <value>Показывать каждое совпадение или группу в отдельной строке</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_FilterForUniqueValues" xml:space="preserve">
+    <value>Фильтр для уникальных значений</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Global" xml:space="preserve">
+    <value>Глобальный</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_IncludeFileAndLineInformation" xml:space="preserve">
+    <value>Включить информацию о файле и строке</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_SeparatorForMultipleMatchesOrGroupsOnALine" xml:space="preserve">
+    <value>Разделитель для нескольких совпадений или групп в строке</value>
+    <comment>Report options dialog, text box label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Text" xml:space="preserve">
+    <value>Текст</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="BookmarkDetails_BookmarkName" xml:space="preserve">
+    <value>Имя закладки:</value>
+    <comment>Bookmark name label</comment>
+  </data>
+  <data name="Bookmarks_MoveToBottom" xml:space="preserve">
+    <value>Переместить в конец</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_MoveToTop" xml:space="preserve">
+    <value>Переместить в начало</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_MoveUp" xml:space="preserve">
+    <value>Переместить выше</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_NameHeader" xml:space="preserve">
+    <value>Имя</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_MoveDown" xml:space="preserve">
+    <value>Переместить ниже</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_AltDownArrow" xml:space="preserve">
+    <value>Alt+Стрелка вниз</value>
+    <comment>Bookmarks dialog, bookmark list 'Move down' context menu shortcut text</comment>
+  </data>
+  <data name="Bookmarks_AltUpArrow" xml:space="preserve">
+    <value>Alt+Стрелка вверх</value>
+    <comment>Bookmarks dialog, bookmark list 'Move up' context menu shortcut text</comment>
+  </data>
+  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
+    <value>Shift+Alt+Стрелка вниз</value>
+    <comment>Bookmarks dialog, bookmark list 'Move to bottom' context menu shortcut text</comment>
+  </data>
+  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
+    <value>Shift+Alt+Стрелка вверх</value>
+    <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
+  </data>
+  <data name="Help_CmdLineFileInformation" xml:space="preserve">
+    <value>/fi [True/False]
+-fi [True/False]
+-fileInformation [True/False]
+    Задает флаг для включения информации о файле и строке в выходные данные отчета – True (Истина) или False (Ложь).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineReportMode" xml:space="preserve">
+    <value>/rm [режим]
+-rm [режим]
+-reportMode [режим]
+    Задает режим вывода отчета для отчетов с регулярными выражениями - должен быть одним из: "FullLine" (Полная строка), "Matches" (Совпадения) или "Groups" (Группы).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineTrimWhitespace" xml:space="preserve">
+    <value>/trim [True/False]
+-trim [True/False]
+-trimWhitespace [True/False]
+    Задает флаг для срезки пробелов в выходных данных отчета – True (Истина) или False (Ложь).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUniqueScope" xml:space="preserve">
+    <value>/scope [область]
+-scope [область]
+-uniqueScope [область]
+    Задает флаг для установки области уникальных значений в выводе отчета по регулярному выражению – должно быть одним из: "Global" (глобальный) или "PerFile" (для каждого файла).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUniqueValues" xml:space="preserve">
+    <value>/unique [True/False]
+-unique [True/False]
+-uniqueValues [True/False]
+    Устанавливает флаг для вывода уникальных значений совпадения или группы в выводе отчета по регулярному выражению – True (Истина) или False (Ложь).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_NoWritableFilesInResults" xml:space="preserve">
+    <value>В результатах нет файлов, доступных для записи</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_SearchParametersHaveChanged" xml:space="preserve">
+    <value>Параметры поиска изменились</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_MaximizeResults" xml:space="preserve">
+    <value>Развернуть панель результатов (F7)</value>
+    <comment>Main window, Maximize results button tooltip</comment>
+  </data>
+  <data name="Main_Results_MakeWritable" xml:space="preserve">
+    <value>Сделать доступным для записи</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="ReportOptionsWindow_MatchesOnly" xml:space="preserve">
+    <value>Только совпадения</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_ReportOptions" xml:space="preserve">
+    <value>Параметры отчета</value>
+    <comment>Report options dialog, window title</comment>
+  </data>
+  <data name="ReportOptionsWindow_TrimWhitespace" xml:space="preserve">
+    <value>Срезать пробельные символы</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="Replace_WhenCheckedTheDateModifiedWillNotBeChangedOnReplace" xml:space="preserve">
+    <value>Если флажок установлен, "Дата изменения" не будет изменена при замене</value>
+    <comment>Replace window, Keep modified date checkbox tooltip</comment>
+  </data>
+  <data name="Help_CmdLineListItemSeparator" xml:space="preserve">
+    <value>/sep [символ-разделитель или текст]
+-sep [символ-разделитель или текст]
+-listItemSeparator [символ-разделитель или текст]
+    Задает символ или строку для разделения элементов списка в строке выходных данных отчета.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_NoMatchesToReplace" xml:space="preserve">
+    <value>Нет совпадений для замены</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_RestoreResults" xml:space="preserve">
+    <value>Восстановить панель результатов (F7)</value>
+    <comment>Main window, Maximize results button tooltip</comment>
+  </data>
+  <data name="Options_MaximizeResultsPanelOnSearch" xml:space="preserve">
+    <value>Разворачивать панель результатов при поиске</value>
+    <comment>Options dialog, layout option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_ReplaceUsingBooleanOperators" xml:space="preserve">
+    <value>Замена с использованием булевых операторов только при текстовом поиске</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Help_CmdLineSeparateLines" xml:space="preserve">
+    <value>/sl [True/False]
+-sl [True/False]
+-separateLines [True/False]
+    Задает флаг для вывода каждого совпадения или группы в отдельной строке в выводе отчета по регулярному выражению – True (Истина) или False (Ложь).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
 </root>
