@@ -9,6 +9,9 @@ namespace dnGREP.WPF
 {
     public class ScriptManager
     {
+        public static ICollection<string> CommandNames => commands.Keys;
+        public static ICollection<string> TargetCommandNames => targetCommands;
+
         private static readonly IDictionary<string, string> commands = new Dictionary<string, string>
         {
             {"set",               "set"},

@@ -163,6 +163,9 @@ namespace dnGREP.WPF
 
         private void EditScript()
         {
+            ScriptEditorWindow wnd = new ScriptEditorWindow();
+            wnd.ScriptFile = @"C:\Repos\dnGrep\dnGREP.WPF\bin\Debug\Scripts\Dummy script 1.script";
+            wnd.Show();
         }
 
         private void CancelScript()

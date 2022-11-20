@@ -109,6 +109,7 @@
     <Compile Include="MVHelpers\ValidationColorConverter.cs" />
     <Compile Include="Properties\LayoutProperties.cs" />
     <Compile Include="Scripting\ScriptCommand.cs" />
+    <Compile Include="Scripting\ScriptingCompletionData.cs" />
     <Compile Include="Scripting\ScriptManager.cs" />
     <Compile Include="Scripting\ScriptStatement.cs" />
     <Compile Include="ThemedHighlightingManager.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="ViewModels\MainViewModelScripts.cs" />
     <Compile Include="ViewModels\MenuItemViewModel.cs" />
     <Compile Include="ViewModels\ReportOptionsViewModel.cs" />
+    <Compile Include="ViewModels\ScriptViewModel.cs" />
     <Compile Include="Views\MessagesWindow.xaml.cs">
       <DependentUpon>MessagesWindow.xaml</DependentUpon>
     </Compile>
@@ -371,6 +373,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\ScriptEditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\TestPatternView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -404,6 +410,9 @@
     <Compile Include="ViewModels\TestPatternViewModel.cs" />
     <Compile Include="Views\ReplaceWindow.xaml.cs">
       <DependentUpon>ReplaceWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ScriptEditorWindow.xaml.cs">
+      <DependentUpon>ScriptEditorWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TestPatternView.xaml.cs">
       <DependentUpon>TestPatternView.xaml</DependentUpon>
