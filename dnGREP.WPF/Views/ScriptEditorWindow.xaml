@@ -7,7 +7,7 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  mc:Ignorable="d"
-                 Title="Script Editor" 
+                 Title="{l:Loc Key='Script_Editor_Title'}" 
                  FlowDirection="{Binding CultureFlowDirection}"
                  FontFamily="{Binding ApplicationFontFamily}"
                  FontSize="{Binding MainFormFontSize}"
@@ -43,23 +43,23 @@
                     <Setter Property="FontSize" Value="{Binding MainFormFontSize}"/>
                 </Style>
             </Menu.Resources>
-            <MenuItem Header="File">
-                <MenuItem Header="New…" Command="{Binding NewCommand}" InputGestureText="Ctrl+N"/>
+            <MenuItem Header="{l:Loc Key='Script_Editor_File'}">
+                <MenuItem Header="{l:Loc Key='Script_Editor_New'}" Command="{Binding NewCommand}" InputGestureText="Ctrl+N"/>
                 <Separator/>
-                <MenuItem Header="Save" Command="{Binding SaveCommand}" InputGestureText="Ctrl+S"/>
-                <MenuItem Header="Save as…" Command="{Binding SaveAsCommand}" InputGestureText="Ctrl+Shift+S"/>
+                <MenuItem Header="{l:Loc Key='Script_Editor_Save'}" Command="{Binding SaveCommand}" InputGestureText="Ctrl+S"/>
+                <MenuItem Header="{l:Loc Key='Script_Editor_SaveAs'}" Command="{Binding SaveAsCommand}" InputGestureText="Ctrl+Shift+S"/>
                 <Separator/>
-                <MenuItem Header="Close" Command="{Binding CloseCommand}" InputGestureText="Ctrl+W"/>
+                <MenuItem Header="{l:Loc Key='Script_Editor_Close'}" Command="{Binding CloseCommand}" InputGestureText="Ctrl+W"/>
             </MenuItem>
-            <MenuItem Header="Edit">
-                <MenuItem Header="Undo" Command="{Binding UndoCommand}" InputGestureText="Ctrl+Z"/>
-                <MenuItem Header="Redo" Command="{Binding RedoCommand}" InputGestureText="Ctrl+Y"/>
+            <MenuItem Header="{l:Loc Key='Script_Editor_Edit'}">
+                <MenuItem Header="{l:Loc Key='Script_Editor_Undo'}" Command="{Binding UndoCommand}" InputGestureText="Ctrl+Z"/>
+                <MenuItem Header="{l:Loc Key='Script_Editor_Redo'}" Command="{Binding RedoCommand}" InputGestureText="Ctrl+Y"/>
                 <Separator/>
-                <MenuItem Header="Cut" Command="{Binding CutCommand}" InputGestureText="Ctrl+X"/>
-                <MenuItem Header="Copy" Command="{Binding CopyCommand}" InputGestureText="Ctrl+C"/>
-                <MenuItem Header="Paste" Command="{Binding PasteCommand}" InputGestureText="Ctrl+V"/>
-                <MenuItem Header="Delete" Command="{Binding DeleteCommand}" InputGestureText="Del"/>
-                <MenuItem Header="Delete line" Command="{Binding DeleteLineCommand}" InputGestureText="Ctrl+D"/>
+                <MenuItem Header="{l:Loc Key='Script_Editor_Cut'}" Command="{Binding CutCommand}" InputGestureText="Ctrl+X"/>
+                <MenuItem Header="{l:Loc Key='Script_Editor_Copy'}" Command="{Binding CopyCommand}" InputGestureText="Ctrl+C"/>
+                <MenuItem Header="{l:Loc Key='Script_Editor_Paste'}" Command="{Binding PasteCommand}" InputGestureText="Ctrl+V"/>
+                <MenuItem Header="{l:Loc Key='Script_Editor_Delete'}" Command="{Binding DeleteCommand}" InputGestureText="Del"/>
+                <MenuItem Header="{l:Loc Key='Script_Editor_DeleteLine'}" Command="{Binding DeleteLineCommand}" InputGestureText="Ctrl+D"/>
             </MenuItem>
         </Menu>
 

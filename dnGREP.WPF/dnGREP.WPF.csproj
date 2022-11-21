@@ -109,9 +109,12 @@
     <Compile Include="MVHelpers\ValidationColorConverter.cs" />
     <Compile Include="Properties\LayoutProperties.cs" />
     <Compile Include="Scripting\ScriptCommand.cs" />
+    <Compile Include="Scripting\ScriptCommandDefinition.cs" />
     <Compile Include="Scripting\ScriptingCompletionData.cs" />
     <Compile Include="Scripting\ScriptManager.cs" />
     <Compile Include="Scripting\ScriptStatement.cs" />
+    <Compile Include="Scripting\ScriptTargetDefinition.cs" />
+    <Compile Include="Scripting\ScriptValueDefinition.cs" />
     <Compile Include="ThemedHighlightingManager.cs" />
     <Compile Include="ViewModels\MainViewModelProps.cs" />
     <Compile Include="ViewModels\CultureAwareViewModel.cs" />
@@ -173,6 +176,10 @@
     </Compile>
     <Compile Include="MVHelpers\PreviewHighlighter.cs" />
     <Compile Include="AppTheme.cs" />
+    <Page Include="ThemedControls\CompletionList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="ThemedControls\SearchPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -450,6 +457,7 @@
     <EmbeddedResource Include="Resources\Lisp-Mode.xshd" />
     <EmbeddedResource Include="Resources\Json.xshd" />
     <EmbeddedResource Include="Resources\Yaml.xshd" />
+    <EmbeddedResource Include="Scripting\ScriptCommands.json" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="nGREP.ico" />

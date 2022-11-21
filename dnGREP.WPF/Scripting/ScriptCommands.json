@@ -1,0 +1,738 @@
+[
+  {
+    "Command": "set",
+    "Priority": 0,
+    "DescriptionKey": null,
+    "ValueHintKey": null,
+    "Type": null,
+    "AllowNullValue": false,
+    "Targets": [
+      {
+        "Target": "folder",
+        "Priority": 0,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "string",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "pathtomatch",
+        "Priority": 1,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "string",
+        "AllowNullValue": true,
+        "Values": []
+      },
+      {
+        "Target": "pathtoignore",
+        "Priority": 2,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "string",
+        "AllowNullValue": true,
+        "Values": []
+      },
+      {
+        "Target": "searchinarchives",
+        "Priority": 3,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "bool",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "patterntype",
+        "Priority": 4,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "FileSearchType",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "searchparallel",
+        "Priority": 5,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "bool",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "usegitignore",
+        "Priority": 6,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "bool",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "skipremotecloudstoragefiles",
+        "Priority": 7,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "bool",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "encoding",
+        "Priority": 8,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "int",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "filterbyfilesize",
+        "Priority": 9,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "FileSizeFilter",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "sizefrom",
+        "Priority": 10,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "int",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "sizeto",
+        "Priority": 11,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "int",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "includesubfolder",
+        "Priority": 12,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "bool",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "maxsubfolderdepth",
+        "Priority": 13,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "int",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "includehidden",
+        "Priority": 14,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "bool",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "includebinary",
+        "Priority": 15,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "bool",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "followsymlinks",
+        "Priority": 16,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "bool",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "filedatefilter",
+        "Priority": 17,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "FileDateFilter",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "filetimerange",
+        "Priority": 18,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "FileTimeRange",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "startdate",
+        "Priority": 19,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "DateTime",
+        "AllowNullValue": true,
+        "Values": []
+      },
+      {
+        "Target": "enddate",
+        "Priority": 20,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "DateTime",
+        "AllowNullValue": true,
+        "Values": []
+      },
+      {
+        "Target": "hoursfrom",
+        "Priority": 21,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "int",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "hoursto",
+        "Priority": 22,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "int",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "searchtype",
+        "Priority": 23,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "SearchType",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "searchfor",
+        "Priority": 24,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "string",
+        "AllowNullValue": true,
+        "Values": []
+      },
+      {
+        "Target": "replacewith",
+        "Priority": 25,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "string",
+        "AllowNullValue": true,
+        "Values": []
+      },
+      {
+        "Target": "casesensitive",
+        "Priority": 26,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "bool",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "wholeword",
+        "Priority": 27,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "bool",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "multiline",
+        "Priority": 28,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "bool",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "dotasnewline",
+        "Priority": 29,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "bool",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "booleanoperators",
+        "Priority": 30,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "bool",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "capturegroupsearch",
+        "Priority": 31,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "bool",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "searchinresults",
+        "Priority": 32,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "bool",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "previewfile",
+        "Priority": 33,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "bool",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "stopafterfirstmatch",
+        "Priority": 34,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "bool",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "highlightmatches",
+        "Priority": 35,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "bool",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "highlightgroups",
+        "Priority": 36,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "bool",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "showcontextlines",
+        "Priority": 37,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "bool",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "contextlinesbefore",
+        "Priority": 38,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "int",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "contextlinesafter",
+        "Priority": 39,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "int",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "wraptext",
+        "Priority": 40,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "bool",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "resultszoom",
+        "Priority": 41,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "double",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "sorttype",
+        "Priority": 42,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "SortType",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "sortdirection",
+        "Priority": 43,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "ListSortDirection",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "reportmode",
+        "Priority": 44,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "ReportMode",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "fileinformation",
+        "Priority": 45,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "bool",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "trimwhitespace",
+        "Priority": 46,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "bool",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "uniquevalues",
+        "Priority": 47,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "bool",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "uniquescope",
+        "Priority": 48,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "UniqueScope",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "separatelines",
+        "Priority": 49,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "bool",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "listitemseparator",
+        "Priority": 50,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "string",
+        "AllowNullValue": true,
+        "Values": []
+      }
+    ],
+    "Values": []
+  },
+  {
+    "Command": "search",
+    "Priority": 1,
+    "DescriptionKey": null,
+    "ValueHintKey": null,
+    "Type": null,
+    "AllowNullValue": false,
+    "Targets": [],
+    "Values": []
+  },
+  {
+    "Command": "replace",
+    "Priority": 2,
+    "DescriptionKey": null,
+    "ValueHintKey": null,
+    "Type": null,
+    "AllowNullValue": false,
+    "Targets": [],
+    "Values": []
+  },
+  {
+    "Command": "sort",
+    "Priority": 3,
+    "DescriptionKey": null,
+    "ValueHintKey": null,
+    "Type": null,
+    "AllowNullValue": false,
+    "Targets": [],
+    "Values": []
+  },
+  {
+    "Command": "copyfilenames",
+    "Priority": 4,
+    "DescriptionKey": null,
+    "ValueHintKey": null,
+    "Type": null,
+    "AllowNullValue": false,
+    "Targets": [],
+    "Values": []
+  },
+  {
+    "Command": "copyresults",
+    "Priority": 6,
+    "DescriptionKey": null,
+    "ValueHintKey": null,
+    "Type": null,
+    "AllowNullValue": false,
+    "Targets": [],
+    "Values": []
+  },
+  {
+    "Command": "report",
+    "Priority": 7,
+    "DescriptionKey": null,
+    "ValueHintKey": null,
+    "Type": null,
+    "AllowNullValue": false,
+    "Targets": [
+      {
+        "Target": "full",
+        "Priority": 0,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "string",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "text",
+        "Priority": 0,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "string",
+        "AllowNullValue": false,
+        "Values": []
+      },
+      {
+        "Target": "csv",
+        "Priority": 0,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "string",
+        "AllowNullValue": false,
+        "Values": []
+      }
+    ],
+    "Values": []
+  },
+  {
+    "Command": "copyfiles",
+    "Priority": 8,
+    "DescriptionKey": null,
+    "ValueHintKey": null,
+    "Type": "string",
+    "AllowNullValue": false,
+    "Targets": [],
+    "Values": []
+  },
+  {
+    "Command": "movefiles",
+    "Priority": 9,
+    "DescriptionKey": null,
+    "ValueHintKey": null,
+    "Type": "string",
+    "AllowNullValue": false,
+    "Targets": [],
+    "Values": []
+  },
+  {
+    "Command": "deletefiles",
+    "Priority": 10,
+    "DescriptionKey": null,
+    "ValueHintKey": null,
+    "Type": null,
+    "AllowNullValue": false,
+    "Targets": [],
+    "Values": []
+  },
+  {
+    "Command": "undo",
+    "Priority": 11,
+    "DescriptionKey": null,
+    "ValueHintKey": null,
+    "Type": null,
+    "AllowNullValue": false,
+    "Targets": [],
+    "Values": []
+  },
+  {
+    "Command": "resetfilters",
+    "Priority": 12,
+    "DescriptionKey": null,
+    "ValueHintKey": null,
+    "Type": null,
+    "AllowNullValue": false,
+    "Targets": [],
+    "Values": []
+  },
+  {
+    "Command": "use",
+    "Priority": 13,
+    "DescriptionKey": null,
+    "ValueHintKey": null,
+    "Type": null,
+    "AllowNullValue": false,
+    "Targets": [
+      {
+        "Target": "bookmark",
+        "Priority": 0,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "string",
+        "AllowNullValue": false,
+        "Values": []
+      }
+    ],
+    "Values": []
+  },
+  {
+    "Command": "add",
+    "Priority": 14,
+    "DescriptionKey": null,
+    "ValueHintKey": null,
+    "Type": null,
+    "AllowNullValue": false,
+    "Targets": [
+      {
+        "Target": "bookmark",
+        "Priority": 0,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "string",
+        "AllowNullValue": true,
+        "Values": []
+      },
+      {
+        "Target": "folderbookmark",
+        "Priority": 0,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "string",
+        "AllowNullValue": true,
+        "Values": []
+      }
+    ],
+    "Values": []
+  },
+  {
+    "Command": "remove",
+    "Priority": 15,
+    "DescriptionKey": null,
+    "ValueHintKey": null,
+    "Type": null,
+    "AllowNullValue": false,
+    "Targets": [
+      {
+        "Target": "bookmark",
+        "Priority": 0,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "string",
+        "AllowNullValue": true,
+        "Values": []
+      },
+      {
+        "Target": "folderbookmark",
+        "Priority": 0,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "string",
+        "AllowNullValue": true,
+        "Values": []
+      }
+    ],
+    "Values": []
+  },
+  {
+    "Command": "expandfilefilters",
+    "Priority": 16,
+    "DescriptionKey": null,
+    "ValueHintKey": null,
+    "Type": "bool",
+    "AllowNullValue": false,
+    "Targets": [],
+    "Values": []
+  },
+  {
+    "Command": "maximizeresults",
+    "Priority": 17,
+    "DescriptionKey": null,
+    "ValueHintKey": null,
+    "Type": "bool",
+    "AllowNullValue": false,
+    "Targets": [],
+    "Values": []
+  },
+  {
+    "Command": "expandresultoptions",
+    "Priority": 18,
+    "DescriptionKey": null,
+    "ValueHintKey": null,
+    "Type": "bool",
+    "AllowNullValue": false,
+    "Targets": [],
+    "Values": []
+  },
+  {
+    "Command": "messages",
+    "Priority": 19,
+    "DescriptionKey": null,
+    "ValueHintKey": null,
+    "Type": null,
+    "AllowNullValue": false,
+    "Targets": [],
+    "Values": []
+  },
+  {
+    "Command": "exit",
+    "Priority": 20,
+    "DescriptionKey": null,
+    "ValueHintKey": null,
+    "Type": null,
+    "AllowNullValue": false,
+    "Targets": [],
+    "Values": []
+  }
+]

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Xml.Linq;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
@@ -82,7 +83,6 @@ namespace dnGREP.WPF
             var caret = textEditor.TextArea.Caret;
             string lineText = GetLineText(caret);
             int wordIndex = GetWordIndex(lineText, caret);
-            //string word = GetWordAtCaret(lineText, caret);
             var stmt = ScriptManager.Instance.ParseLine(lineText, caret.Line);
 
             if (stmt != null && wordIndex == 0)
@@ -90,43 +90,75 @@ namespace dnGREP.WPF
                 wordIndex++;
             }
 
-            completionWindow = new CompletionWindow(textEditor.TextArea);
-            // provide AvalonEdit with the data:
-            IList<ICompletionData> data = completionWindow.CompletionList.CompletionData;
+            List<ScriptingCompletionData> scriptingData = null;
+            string valueHint = null;
+
             if (wordIndex == 0)
             {
-                AddRange(ScriptingCompletionData.commands, data);
+                scriptingData = ScriptManager.CommandCompletionData;
             }
-            else if (wordIndex == 1)
+            else if (stmt != null && wordIndex == 1)
             {
-                if (stmt.Command == "set")
+                var cmd = ScriptManager.ScriptCommands.FirstOrDefault(c => c.Command == stmt.Command);
+                if (cmd != null)
                 {
-                    AddRange(ScriptingCompletionData.setTargets, data);
-                }
-                else if (stmt.Command == "use")
-                {
-                    AddRange(ScriptingCompletionData.useTargets, data);
-                }
-                else if (stmt.Command == "add")
-                {
-                    AddRange(ScriptingCompletionData.addTargets, data);
-                }
-                else if (stmt.Command == "remove")
-                {
-                    AddRange(ScriptingCompletionData.removeTargets, data);
-                }
-                else if (stmt.Command == "report")
-                {
-                    AddRange(ScriptingCompletionData.reportTargets, data);
+                    if (cmd.CompletionData.Count > 0)
+                    {
+                        scriptingData = cmd.CompletionData;
+                    }
+                    else if (!string.IsNullOrEmpty(cmd.ValueHintKey))
+                    {
+                        valueHint = cmd.ValueHint;
+                    }
                 }
             }
-            if (data.Count > 0)
+            else if (stmt != null && !string.IsNullOrEmpty(stmt.Target))
             {
-                completionWindow.Show();
-                completionWindow.Closed += delegate
+                var cmd = ScriptManager.ScriptCommands.FirstOrDefault(c => c.Command == stmt.Command);
+                if (cmd != null)
+                {
+                    var target = cmd.Targets.FirstOrDefault(t => t.Target == stmt.Target);
+                    if (target != null)
+                    {
+                        if (target.CompletionData.Count > 0)
+                        {
+                            scriptingData = target.CompletionData;
+                        }
+                        else if (!string.IsNullOrEmpty(target.ValueHintKey))
+                        {
+                            valueHint = target.ValueHint;
+                        }
+                    }
+                }
+            }
+
+            if (scriptingData != null && scriptingData.Count > 0)
+            {
+                completionWindow = new CompletionWindow(textEditor.TextArea)
+                {
+                    FontSize = viewModel.ResultsFontSize,
+                    Width = double.NaN,
+                    SizeToContent = System.Windows.SizeToContent.WidthAndHeight
+                };
+                AddRange(scriptingData, completionWindow.CompletionList.CompletionData);
+                completionWindow.Closed += (s, e) =>
                 {
                     completionWindow = null;
                 };
+                completionWindow.Show();
+            }
+            else if (!string.IsNullOrEmpty(valueHint))
+            {
+                var insightWindow = new InsightWindow(textEditor.TextArea)
+                {
+                    Content = valueHint,
+                    //Background = System.Windows.Media.Brushes.Linen
+                };
+                insightWindow.Closed += (s, e) =>
+                {
+                    completionWindow = null;
+                };
+                insightWindow.Show();
             }
         }
 

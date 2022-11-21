@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Documents;
 using System.Windows.Media;
+using dnGREP.Localization;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
@@ -12,24 +11,52 @@ namespace dnGREP.WPF
 {
     public class ScriptingCompletionData : ICompletionData
     {
-        public ScriptingCompletionData(string text)
+        public ScriptingCompletionData(ScriptCommandDefinition def)
         {
-            Text = text;
+            Text = def.Command;
+            Priority = def.Priority;
+            DescriptionKey = def.DescriptionKey;
         }
 
-        public ImageSource Image { get; set; }
+        public ScriptingCompletionData(ScriptTargetDefinition def)
+        {
+            Text = def.Target;
+            Priority = def.Priority;
+            DescriptionKey = def.DescriptionKey;
+        }
 
-        public string Text { get; set; } = string.Empty;
+        public ScriptingCompletionData(ScriptValueDefinition def)
+        {
+            Text = def.Value;
+            Priority = def.Priority;
+            DescriptionKey = def.DescriptionKey;
+        }
 
-        // Use this property if you want to show a fancy UIElement in the drop down list.
+        public ImageSource Image => null;
+
+        public string Text { get; private set; } = string.Empty;
+
         public object Content
         {
             get { return Text; }
         }
 
+        public string DescriptionKey { get; private set; } = null;
+
         // displays as a tool tip
-        public object Description { get; set; } = null;
-        public double Priority { get; set; } = 0;
+        public object Description
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(DescriptionKey))
+                {
+                    return TranslationSource.Instance[DescriptionKey];
+                }
+                return null;
+            }
+        }
+
+        public double Priority { get; private set; } = 0;
 
         public void Complete(TextArea textArea, ISegment completionSegment, EventArgs insertionRequestEventArgs)
         {
@@ -50,46 +77,6 @@ namespace dnGREP.WPF
             }
 
             textArea.Document.Replace(completionSegment, completionText);
-        }
-
-        internal static IList<ScriptingCompletionData> commands = new List<ScriptingCompletionData>();
-        internal static IList<ScriptingCompletionData> setTargets = new List<ScriptingCompletionData>();
-        internal static IList<ScriptingCompletionData> useTargets = new List<ScriptingCompletionData>();
-        internal static IList<ScriptingCompletionData> addTargets = new List<ScriptingCompletionData>();
-        internal static IList<ScriptingCompletionData> removeTargets = new List<ScriptingCompletionData>();
-        internal static IList<ScriptingCompletionData> reportTargets = new List<ScriptingCompletionData>();
-
-        static ScriptingCompletionData()
-        {
-            foreach (string cmd in ScriptManager.CommandNames.OrderBy(s => s))
-            {
-                commands.Add(new ScriptingCompletionData(cmd));
-            }
-
-            foreach (string target in MainViewModel.SetCommandMap.Keys.OrderBy(s => s))
-            {
-                setTargets.Add(new ScriptingCompletionData(target));
-            }
-
-            foreach (string target in MainViewModel.UseCommandMap.Keys.OrderBy(s => s))
-            {
-                useTargets.Add(new ScriptingCompletionData(target));
-            }
-
-            foreach (string target in MainViewModel.AddCommandMap.Keys.OrderBy(s => s))
-            {
-                addTargets.Add(new ScriptingCompletionData(target));
-            }
-
-            foreach (string target in MainViewModel.RemoveCommandMap.Keys.OrderBy(s => s))
-            {
-                removeTargets.Add(new ScriptingCompletionData(target));
-            }
-
-            foreach (string target in MainViewModel.ReportCommandMap.Keys.OrderBy(s => s))
-            {
-                reportTargets.Add(new ScriptingCompletionData(target));
-            }
         }
     }
 }

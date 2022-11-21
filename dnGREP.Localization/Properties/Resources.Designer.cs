@@ -5694,6 +5694,132 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to _Close.
+        /// </summary>
+        public static string Script_Editor_Close {
+            get {
+                return ResourceManager.GetString("Script_Editor_Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Copy.
+        /// </summary>
+        public static string Script_Editor_Copy {
+            get {
+                return ResourceManager.GetString("Script_Editor_Copy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cu_t.
+        /// </summary>
+        public static string Script_Editor_Cut {
+            get {
+                return ResourceManager.GetString("Script_Editor_Cut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Delete.
+        /// </summary>
+        public static string Script_Editor_Delete {
+            get {
+                return ResourceManager.GetString("Script_Editor_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete _line.
+        /// </summary>
+        public static string Script_Editor_DeleteLine {
+            get {
+                return ResourceManager.GetString("Script_Editor_DeleteLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Edit.
+        /// </summary>
+        public static string Script_Editor_Edit {
+            get {
+                return ResourceManager.GetString("Script_Editor_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _File.
+        /// </summary>
+        public static string Script_Editor_File {
+            get {
+                return ResourceManager.GetString("Script_Editor_File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _New….
+        /// </summary>
+        public static string Script_Editor_New {
+            get {
+                return ResourceManager.GetString("Script_Editor_New", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Paste.
+        /// </summary>
+        public static string Script_Editor_Paste {
+            get {
+                return ResourceManager.GetString("Script_Editor_Paste", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Redo.
+        /// </summary>
+        public static string Script_Editor_Redo {
+            get {
+                return ResourceManager.GetString("Script_Editor_Redo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Save.
+        /// </summary>
+        public static string Script_Editor_Save {
+            get {
+                return ResourceManager.GetString("Script_Editor_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save _as….
+        /// </summary>
+        public static string Script_Editor_SaveAs {
+            get {
+                return ResourceManager.GetString("Script_Editor_SaveAs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Script Editor.
+        /// </summary>
+        public static string Script_Editor_Title {
+            get {
+                return ResourceManager.GetString("Script_Editor_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Undo.
+        /// </summary>
+        public static string Script_Editor_Undo {
+            get {
+                return ResourceManager.GetString("Script_Editor_Undo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to At line.
         /// </summary>
         public static string Scripts_AtLine {

@@ -2,47 +2,45 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 using dnGREP.Common;
+using Newtonsoft.Json;
 
 namespace dnGREP.WPF
 {
     public class ScriptManager
     {
-        public static ICollection<string> CommandNames => commands.Keys;
-        public static ICollection<string> TargetCommandNames => targetCommands;
+        private static List<ScriptCommandDefinition> scriptCommands;
+        private static List<ScriptingCompletionData> commandCompletionData;
 
-        private static readonly IDictionary<string, string> commands = new Dictionary<string, string>
+        public static List<ScriptCommandDefinition> ScriptCommands
         {
-            {"set",               "set"},
-            {"use",               "use"},
-            {"add",               "add"},
-            {"remove",            "remove"},
-            {"report",            "report"},
-            {"reset",             null},
-            {"sort",              null},
-            {"undo",              null},
-            {"copyfiles",         "string"},
-            {"movefiles",         "string"},
-            {"deletefiles",       null},
-            {"copyfilenames",     null},
-            {"copyresults",       null},
-            {"showfileoptions",   "bool"},
-            {"maximizeresults",   "bool"},
-            {"search",            null},
-            {"replace",           null},
-            {"messages",          null},
-            {"exit",              null},
-        };
+            get
+            {
+                if (scriptCommands == null)
+                {
+                    LoadScriptCommands();
+                }
+                return scriptCommands;
+            }
+        }
 
-        private static readonly List<string> targetCommands = new List<string>
+        public static List<ScriptingCompletionData> CommandCompletionData
         {
-            "set",
-            "add",
-            "remove",
-            "use",
-            "report"
-        };
+            get
+            {
+                if (commandCompletionData == null)
+                {
+                    LoadScriptCommands();
+                }
+                return commandCompletionData;
+            }
+        }
+
+        public static IEnumerable<string> TargetCommandNames => ScriptCommands.Where(sc => sc.IsTargetCommand)
+                        .Select(sc => sc.Command);
 
         public static ScriptManager Instance { get; } = new ScriptManager();
 
@@ -64,6 +62,30 @@ namespace dnGREP.WPF
                 if (!_scripts.ContainsKey(name))
                 {
                     _scripts.Add(name, fileName);
+                }
+            }
+        }
+
+        private static void LoadScriptCommands()
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+            var resourceName = "dnGREP.WPF.Scripting.ScriptCommands.json";
+
+            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
+            using (StreamReader reader = new StreamReader(stream))
+            {
+                string json = reader.ReadToEnd();
+
+                scriptCommands = JsonConvert.DeserializeObject<List<ScriptCommandDefinition>>(
+                    json, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
+
+                commandCompletionData = new List<ScriptingCompletionData>();
+
+                foreach (var cmd in ScriptCommands)
+                {
+                    cmd.Initialize();
+
+                    commandCompletionData.Add(new ScriptingCompletionData(cmd));
                 }
             }
         }
@@ -107,7 +129,7 @@ namespace dnGREP.WPF
 
                 if (parts.Length > 1)
                 {
-                    bool isTargetRequired = !string.IsNullOrEmpty(command) && targetCommands.Contains(command);
+                    bool isTargetRequired = !string.IsNullOrEmpty(command) && TargetCommandNames.Contains(command);
                     if (isTargetRequired)
                     {
                         target = parts[1].Trim();
@@ -171,36 +193,64 @@ namespace dnGREP.WPF
         public static Tuple<int, ScriptValidationError> Validate(ScriptStatement statement)
         {
             ScriptValidationError error = ScriptValidationError.None;
+            var commandDef = ScriptCommands.FirstOrDefault(c => c.Command == statement.Command);
 
-            if (!commands.Keys.Contains(statement.Command))
+            if (commandDef == null)
             {
                 error |= ScriptValidationError.InvalidCommand;
             }
+            else if (commandDef.IsTargetCommand)
+            {
+                if (string.IsNullOrEmpty(statement.Target))
+                {
+                    error |= ScriptValidationError.RequiredTargetValueMissing;
+                }
+                else
+                {
+                    var targetDef = commandDef.Targets.FirstOrDefault(c => c.Target == statement.Target);
+                    if (targetDef != null)
+                    {
+                        TypeConverter converter = TypeDescriptor.GetConverter(targetDef.ValueType);
+                        if (converter == null)
+                        {
+                            error |= ScriptValidationError.CannotConvertValueFromString;
+                        }
+                        else if (!converter.CanConvertFrom(typeof(string)))
+                        {
+                            error |= ScriptValidationError.CannotConvertValueFromString;
+                        }
+                        else
+                        {
+                            if (!targetDef.AllowNullValue && statement.Value == null)
+                            {
+                                error |= ScriptValidationError.NullValueNotAllowed;
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    object obj = converter.ConvertFromString(statement.Value);
+                                    if (obj == null)
+                                    {
+                                        error |= ScriptValidationError.ConvertValueFromStringFailed;
+                                    }
+                                }
+                                catch
+                                {
+                                    error |= ScriptValidationError.ConvertValueFromStringFailed;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        error |= ScriptValidationError.InvalidTargetName;
+                    }
+                }
+            }
             else
             {
-                string argType = commands[statement.Command];
-                IDictionary<string, IScriptCommand> commandMap = null;
-
-                switch (argType)
-                {
-                    case "set":
-                        commandMap = MainViewModel.SetCommandMap;
-                        break;
-                    case "use":
-                        commandMap = MainViewModel.UseCommandMap;
-                        break;
-                    case "add":
-                        commandMap = MainViewModel.AddCommandMap;
-                        break;
-                    case "remove":
-                        commandMap = MainViewModel.RemoveCommandMap;
-                        break;
-                    case "report":
-                        commandMap = MainViewModel.ReportCommandMap;
-                        break;
-                }
-
-                switch (argType)
+                switch (commandDef.Type)
                 {
                     case null:
                         if (!string.IsNullOrEmpty(statement.Value))
@@ -221,54 +271,21 @@ namespace dnGREP.WPF
                         {
                             error |= ScriptValidationError.RequiredBooleanValueMissing;
                         }
-                        break;
-
-                    case "set":
-                    case "use":
-                    case "add":
-                    case "remove":
-                    case "report":
-                        if (string.IsNullOrEmpty(statement.Target))
-                        {
-                            error |= ScriptValidationError.RequiredTargetValueMissing;
-                        }
-                        else if (commandMap.TryGetValue(statement.Target, out IScriptCommand command))
-                        {
-                            TypeConverter converter = TypeDescriptor.GetConverter(command.ValueType);
-                            if (converter == null)
-                            {
-                                error |= ScriptValidationError.CannotConvertValueFromString;
-                            }
-                            else if (!converter.CanConvertFrom(typeof(string)))
-                            {
-                                error |= ScriptValidationError.CannotConvertValueFromString;
-                            }
-                            else
-                            {
-                                if (!command.AllowNullValue && statement.Value == null)
-                                {
-                                    error |= ScriptValidationError.NullValueNotAllowed;
-                                }
-                                else
-                                {
-                                    try
-                                    {
-                                        object obj = converter.ConvertFromString(statement.Value);
-                                        if (obj == null)
-                                        {
-                                            error |= ScriptValidationError.ConvertValueFromStringFailed;
-                                        }
-                                    }
-                                    catch
-                                    {
-                                        error |= ScriptValidationError.ConvertValueFromStringFailed;
-                                    }
-                                }
-                            }
-                        }
                         else
                         {
-                            error |= ScriptValidationError.InvalidTargetName;
+                            TypeConverter converter = TypeDescriptor.GetConverter(commandDef.ValueType);
+                            try
+                            {
+                                object obj = converter.ConvertFromString(statement.Value);
+                                if (obj == null)
+                                {
+                                    error |= ScriptValidationError.ConvertValueFromStringFailed;
+                                }
+                            }
+                            catch
+                            {
+                                error |= ScriptValidationError.ConvertValueFromStringFailed;
+                            }
                         }
                         break;
                 }

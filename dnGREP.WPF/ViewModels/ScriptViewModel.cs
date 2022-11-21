@@ -9,7 +9,7 @@ namespace dnGREP.WPF
 {
     public class ScriptViewModel : CultureAwareViewModel
     {
-        private TextEditor textEditor;
+        private readonly TextEditor textEditor;
 
         public event EventHandler RequestClose;
 

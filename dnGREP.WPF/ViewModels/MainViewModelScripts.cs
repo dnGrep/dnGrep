@@ -11,11 +11,11 @@ namespace dnGREP.WPF
 {
     public partial class MainViewModel
     {
-        public static readonly IDictionary<string, IScriptCommand> SetCommandMap = new Dictionary<string, IScriptCommand>();
-        public static readonly IDictionary<string, IScriptCommand> UseCommandMap = new Dictionary<string, IScriptCommand>();
-        public static readonly IDictionary<string, IScriptCommand> AddCommandMap = new Dictionary<string, IScriptCommand>();
-        public static readonly IDictionary<string, IScriptCommand> RemoveCommandMap = new Dictionary<string, IScriptCommand>();
-        public static readonly IDictionary<string, IScriptCommand> ReportCommandMap = new Dictionary<string, IScriptCommand>();
+        private static readonly IDictionary<string, IScriptCommand> SetCommandMap = new Dictionary<string, IScriptCommand>();
+        private static readonly IDictionary<string, IScriptCommand> UseCommandMap = new Dictionary<string, IScriptCommand>();
+        private static readonly IDictionary<string, IScriptCommand> AddCommandMap = new Dictionary<string, IScriptCommand>();
+        private static readonly IDictionary<string, IScriptCommand> RemoveCommandMap = new Dictionary<string, IScriptCommand>();
+        private static readonly IDictionary<string, IScriptCommand> ReportCommandMap = new Dictionary<string, IScriptCommand>();
 
         private bool cancelingScript = false;
         private bool showEmptyMessageWindow = false;
@@ -52,7 +52,7 @@ namespace dnGREP.WPF
                 SetCommandMap.Add("skipremotecloudstoragefiles", new ScriptCommand<bool>(p => SkipRemoteCloudStorageFiles = p));
                 SetCommandMap.Add("encoding", new ScriptCommand<int>(p => CodePage = p));
 
-                SetCommandMap.Add("filesizefilter", new ScriptCommand<FileSizeFilter>(p => UseFileSizeFilter = p));
+                SetCommandMap.Add("filterbyfilesize", new ScriptCommand<FileSizeFilter>(p => UseFileSizeFilter = p));
                 SetCommandMap.Add("sizefrom", new ScriptCommand<int>(p => SizeFrom = p));
                 SetCommandMap.Add("sizeto", new ScriptCommand<int>(p => SizeTo = p));
                 SetCommandMap.Add("includesubfolder", new ScriptCommand<bool>(p => IncludeSubfolder = p));
@@ -63,8 +63,8 @@ namespace dnGREP.WPF
 
                 SetCommandMap.Add("filedatefilter", new ScriptCommand<FileDateFilter>(p => UseFileDateFilter = p));
                 SetCommandMap.Add("filetimerange", new ScriptCommand<FileTimeRange>(p => TypeOfTimeRangeFilter = p));
-                SetCommandMap.Add("startdate", new ScriptCommand<DateTime>(p => StartDate = p));
-                SetCommandMap.Add("enddate", new ScriptCommand<DateTime>(p => EndDate = p));
+                SetCommandMap.Add("startdate", new ScriptCommand<DateTime>(p => StartDate = p) { AllowNullValue = true });
+                SetCommandMap.Add("enddate", new ScriptCommand<DateTime>(p => EndDate = p) { AllowNullValue = true });
                 SetCommandMap.Add("hoursfrom", new ScriptCommand<int>(p => HoursFrom = p));
                 SetCommandMap.Add("hoursto", new ScriptCommand<int>(p => HoursTo = p));
 
@@ -119,11 +119,14 @@ namespace dnGREP.WPF
             }
         }
 
-        public IScriptCommand ShowFileOptionsCommand => new ScriptCommand<bool>(
+        public IScriptCommand ExpandFileFiltersCommand => new ScriptCommand<bool>(
             param => IsFiltersExpanded = param);
 
         public IScriptCommand MaximizeResultsCommand => new ScriptCommand<bool>(
             param => IsResultTreeMaximized = param);
+
+        public IScriptCommand ExpandResultOptionsCommand => new ScriptCommand<bool>(
+            param => IsResultOptionsExpanded = param);
 
         private void PopulateScripts()
         {
@@ -245,7 +248,7 @@ namespace dnGREP.WPF
                         }
                         break;
 
-                    case "reset":
+                    case "resetfilters":
                         ResetOptionsCommand.Execute(null);
                         break;
 
@@ -277,12 +280,16 @@ namespace dnGREP.WPF
                         CopyMatchingLinesCommand.Execute(null);
                         break;
 
-                    case "showfileoptions":
-                        ShowFileOptionsCommand.Execute(stmt.Value);
+                    case "expandfilefilters":
+                        ExpandFileFiltersCommand.Execute(stmt.Value);
                         break;
 
                     case "maximizeresults":
                         MaximizeResultsCommand.Execute(stmt.Value);
+                        break;
+
+                    case "expandresultoptions":
+                        ExpandResultOptionsCommand.Execute(stmt.Value);
                         break;
 
                     case "search":

@@ -992,6 +992,18 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>_Bookmarks…</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
+  <data name="Main_Menu_CancelScript" xml:space="preserve">
+    <value>Cancel script</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_EditScript" xml:space="preserve">
+    <value>Edit script…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_NewScript" xml:space="preserve">
+    <value>New script…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
   <data name="Main_Menu_Options" xml:space="preserve">
     <value>_Options…</value>
     <comment>Main window, main menu item label (accel)</comment>
@@ -2648,17 +2660,61 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Whole word</value>
     <comment>Report search options summary</comment>
   </data>
-  <data name="Main_Menu_CancelScript" xml:space="preserve">
-    <value>Cancel script</value>
-    <comment>Main window, main menu item label (accel)</comment>
+  <data name="Script_Editor_Close" xml:space="preserve">
+    <value>_Close</value>
+    <comment>Script editor menu item (accel)</comment>
   </data>
-  <data name="Main_Menu_EditScript" xml:space="preserve">
-    <value>Edit script…</value>
-    <comment>Main window, main menu item label (accel)</comment>
+  <data name="Script_Editor_Copy" xml:space="preserve">
+    <value>_Copy</value>
+    <comment>Script editor menu item (accel)</comment>
   </data>
-  <data name="Main_Menu_NewScript" xml:space="preserve">
-    <value>New script…</value>
-    <comment>Main window, main menu item label (accel)</comment>
+  <data name="Script_Editor_Cut" xml:space="preserve">
+    <value>Cu_t</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Delete" xml:space="preserve">
+    <value>_Delete</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_DeleteLine" xml:space="preserve">
+    <value>Delete _line</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Edit" xml:space="preserve">
+    <value>_Edit</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_File" xml:space="preserve">
+    <value>_File</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_New" xml:space="preserve">
+    <value>_New…</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Paste" xml:space="preserve">
+    <value>_Paste</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Redo" xml:space="preserve">
+    <value>_Redo</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Save" xml:space="preserve">
+    <value>_Save</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_SaveAs" xml:space="preserve">
+    <value>Save _as…</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Title" xml:space="preserve">
+    <value>Script Editor</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Undo" xml:space="preserve">
+    <value>_Undo</value>
+    <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Scripts_AtLine" xml:space="preserve">
     <value>At line</value>
