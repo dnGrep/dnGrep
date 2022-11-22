@@ -1,8 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Xml.Linq;
+using dnGREP.Localization.Properties;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
@@ -17,6 +20,7 @@ namespace dnGREP.WPF
     public partial class ScriptEditorWindow : ThemedWindow
     {
         private readonly ScriptViewModel viewModel;
+        public event EventHandler NewScriptFileSaved;
 
         public ScriptEditorWindow()
         {
@@ -26,15 +30,29 @@ namespace dnGREP.WPF
             DataContext = viewModel;
 
             viewModel.RequestClose += (s, e) => Close();
+            viewModel.NewScriptFileSaved += (s, e) => NewScriptFileSaved?.Invoke(this, e);
 
             SearchPanel.Install(textEditor);
-
-            textEditor.ShowLineNumbers = true;
 
             textEditor.TextArea.TextEntering += TextArea_TextEntering;
             textEditor.TextArea.TextEntered += TextArea_TextEntered;
             textEditor.TextArea.KeyDown += TextArea_KeyDown;
             textEditor.TextArea.KeyUp += TextArea_KeyUp;
+
+            Closing += ScriptEditorWindow_Closing;
+        }
+
+        private void ScriptEditorWindow_Closing(object sender, CancelEventArgs e)
+        {
+            if (!viewModel.ConfirmSave())
+            {
+                e.Cancel = true;
+            }
+        }
+
+        public void OpenScriptFile(string filePath)
+        {
+            viewModel.OpenScriptFile(filePath);
         }
 
         CompletionWindow completionWindow;
@@ -45,7 +63,6 @@ namespace dnGREP.WPF
                 Suggest();
                 e.Handled = true;
             }
-
         }
 
         private void TextArea_KeyUp(object sender, KeyEventArgs e)
@@ -210,12 +227,6 @@ namespace dnGREP.WPF
                 }
             }
             // do not set e.Handled=true - we still want to insert the character that was typed
-        }
-
-        public string ScriptFile
-        {
-            get => viewModel.ScriptFile;
-            set => viewModel.ScriptFile = value;
         }
     }
 }

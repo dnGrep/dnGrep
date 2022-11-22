@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
 using dnGREP.Localization.Properties;
+using Microsoft.Win32;
 
 namespace dnGREP.WPF
 {
@@ -136,13 +139,78 @@ namespace dnGREP.WPF
             ScriptMenuItems.Add(new MenuItemViewModel(Resources.Main_Menu_EditScript, new RelayCommand(p => EditScript(), q => !IsScriptRunning)));
             ScriptMenuItems.Add(new MenuItemViewModel(Resources.Main_Menu_CancelScript, new RelayCommand(p => CancelScript(), q => IsScriptRunning)));
             ScriptMenuItems.Add(new MenuItemViewModel(null, null));
-            foreach (var name in ScriptManager.Instance.Scripts)
-            {
-                ScriptMenuItems.Add(new MenuItemViewModel(name,
-                    new RelayCommand(p => RunScript(name), q => !IsScriptRunning)));
-            }
+            AddScriptFilesToMenu();
         }
 
+        private void AddScriptFilesToMenu()
+        {
+            while (ScriptMenuItems.Count > 4)
+            {
+                ScriptMenuItems.RemoveAt(ScriptMenuItems.Count - 1);
+            }
+
+            foreach (var key in ScriptManager.Instance.Scripts)
+            {
+                string[] parts = key.Split(new char[] { Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries);
+                if (parts.Length > 0)
+                {
+                    string header = parts[parts.Length - 1];
+
+                    ObservableCollection<MenuItemViewModel> menuItems = ScriptMenuItems;
+
+                    for (int i = 0; i < parts.Length - 1; i++)
+                    {
+                        string dir = parts[i];
+                        var parent = menuItems.Where(m => m.Header == dir).FirstOrDefault();
+                        if (parent == null)
+                        {
+                            parent = new MenuItemViewModel(dir, null);
+                            menuItems.Add(parent);
+                        }
+
+                        menuItems = parent.Children;
+                    }
+
+                    menuItems.Add(new MenuItemViewModel(header,
+                        new RelayCommand(p => RunScript(key), q => !IsScriptRunning)));
+                }
+            }
+
+            SortMenuRecursive(ScriptMenuItems, 4);
+        }
+
+        void SortMenuRecursive(Collection<MenuItemViewModel> coll, int start)
+        {
+            // sorts directories on top, files on bottom, both in sort order
+            for (int i = start; i < coll.Count - 1; i++)
+            {
+                for (int j = i + 1; j < coll.Count; j++)
+                {
+                    if (coll[i].Command != null && coll[j].Command == null)
+                    {
+                        var temp = coll[j];
+                        coll[j] = coll[i];
+                        coll[i] = temp;
+                    }
+
+                    if ((coll[i].Command == null && coll[j].Command == null) ||
+                        (coll[i].Command != null && coll[j].Command != null))
+                    {
+                        if (string.Compare(coll[i].Header, coll[j].Header) > 0)
+                        {
+                            var temp = coll[j];
+                            coll[j] = coll[i];
+                            coll[i] = temp;
+                        }
+                    }
+                }
+            }
+
+            foreach (MenuItemViewModel item in coll)
+            {
+                SortMenuRecursive(item.Children, 0);
+            }
+        }
 
         private bool isScriptRunning = false;
         public bool IsScriptRunning
@@ -162,13 +230,34 @@ namespace dnGREP.WPF
 
         private void NewScript()
         {
+            ScriptEditorWindow wnd = new ScriptEditorWindow();
+            wnd.NewScriptFileSaved += ScriptEditor_NewScriptFileSaved;
+            wnd.Show();
         }
 
         private void EditScript()
         {
-            ScriptEditorWindow wnd = new ScriptEditorWindow();
-            wnd.ScriptFile = @"C:\Repos\dnGrep\dnGREP.WPF\bin\Debug\Scripts\Dummy script 1.script";
-            wnd.Show();
+            OpenFileDialog dlg = new OpenFileDialog
+            {
+                Filter = "Script files|*.script",
+                DefaultExt = "script",
+                CheckFileExists = true,
+            };
+
+            var result = dlg.ShowDialog();
+            if (result.HasValue && result.Value)
+            {
+                ScriptEditorWindow wnd = new ScriptEditorWindow();
+                wnd.NewScriptFileSaved += ScriptEditor_NewScriptFileSaved;
+                wnd.OpenScriptFile(dlg.FileName);
+                wnd.Show();
+            }
+        }
+
+        private void ScriptEditor_NewScriptFileSaved(object sender, EventArgs e)
+        {
+            ScriptManager.Instance.LoadScripts();
+            AddScriptFilesToMenu();
         }
 
         private void CancelScript()

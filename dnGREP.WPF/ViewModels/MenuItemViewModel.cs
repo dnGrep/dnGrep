@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using dnGREP.Common;
 
@@ -22,7 +22,7 @@ namespace dnGREP.WPF
             MainFormFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.MainFormFontSize);
         }
 
-        public IList<MenuItemViewModel> Children { get; } = new List<MenuItemViewModel>();
+        public ObservableCollection<MenuItemViewModel> Children { get; } = new ObservableCollection<MenuItemViewModel>();
 
 
         private bool isSeparator = false;
@@ -74,8 +74,8 @@ namespace dnGREP.WPF
         }
 
         private RelayCommand command;
-        public ICommand Command 
-        { 
+        public ICommand Command
+        {
             get { return command; }
         }
 

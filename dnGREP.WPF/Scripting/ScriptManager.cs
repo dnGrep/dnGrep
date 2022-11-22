@@ -7,6 +7,11 @@ using System.Reflection;
 using System.Text;
 using dnGREP.Common;
 using Newtonsoft.Json;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
+using File = Alphaleonis.Win32.Filesystem.File;
+using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.WPF
 {
@@ -53,12 +58,18 @@ namespace dnGREP.WPF
 
         public ICollection<string> Scripts { get { return _scripts.Keys; } }
 
-        private void LoadScripts()
+        internal void LoadScripts()
         {
-            string dataFolder = Utils.GetDataFolderPath();
+            _scripts.Clear();
+            string dataFolder = Path.Combine(Utils.GetDataFolderPath(), "Scripts");
             foreach (string fileName in Directory.GetFiles(dataFolder, "*.script", SearchOption.AllDirectories))
             {
                 string name = Path.GetFileNameWithoutExtension(fileName);
+                string fileFolder = Path.GetDirectoryName(fileName);
+                if (dataFolder != fileFolder)
+                {
+                    name = Path.GetRelativePath(dataFolder, fileFolder) + Path.DirectorySeparator + name;
+                }
                 if (!_scripts.ContainsKey(name))
                 {
                     _scripts.Add(name, fileName);

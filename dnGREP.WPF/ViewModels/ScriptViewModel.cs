@@ -1,17 +1,20 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
+using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
 using ICSharpCode.AvalonEdit;
+using Microsoft.Win32;
 
 namespace dnGREP.WPF
 {
     public class ScriptViewModel : CultureAwareViewModel
     {
         private readonly TextEditor textEditor;
+        private string originalScript = string.Empty;
 
         public event EventHandler RequestClose;
+        public event EventHandler NewScriptFileSaved;
 
         public ScriptViewModel(TextEditor textEditor)
         {
@@ -23,16 +26,9 @@ namespace dnGREP.WPF
             ResultsFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.ResultsFontSize);
             DialogFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.DialogFontSize);
 
-            PropertyChanged += ScriptViewModel_PropertyChanged;
+            textEditor.Document.TextChanged += Document_TextChanged;
         }
 
-        private void ScriptViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(ScriptFile))
-            {
-                textEditor.Load(ScriptFile);
-            }
-        }
 
         private string applicationFontFamily;
         public string ApplicationFontFamily
@@ -105,6 +101,23 @@ namespace dnGREP.WPF
         }
 
 
+        private string windowTitle = Localization.Properties.Resources.Script_Editor_Title;
+        public string WindowTitle
+        {
+            get { return windowTitle; }
+            set
+            {
+                if (windowTitle == value)
+                {
+                    return;
+                }
+
+                windowTitle = value;
+                OnPropertyChanged(nameof(WindowTitle));
+            }
+        }
+
+
         private string scriptFile = string.Empty;
         public string ScriptFile
         {
@@ -122,21 +135,22 @@ namespace dnGREP.WPF
         }
 
 
-        private string scriptText = string.Empty;
-        public string ScriptText
+        private bool isModified = false;
+        public bool IsModified
         {
-            get { return scriptText; }
+            get { return isModified; }
             set
             {
-                if (scriptText == value)
+                if (isModified == value)
                 {
                     return;
                 }
 
-                scriptText = value;
-                OnPropertyChanged(nameof(ScriptText));
+                isModified = value;
+                OnPropertyChanged(nameof(IsModified));
             }
         }
+
 
         public ICommand NewCommand => new RelayCommand(
             p => NewScript(),
@@ -192,16 +206,85 @@ namespace dnGREP.WPF
                     && Clipboard.ContainsText();
 
 
+        private void Document_TextChanged(object sender, EventArgs e)
+        {
+            IsModified = string.CompareOrdinal(originalScript, textEditor.Text) != 0;
+            UpdateWindowTitle();
+        }
+
+        private void UpdateWindowTitle()
+        {
+            string title = (IsModified ? "*" : string.Empty) +
+                (string.IsNullOrEmpty(ScriptFile) ? "New script" : Path.GetFileName(ScriptFile)) +
+                " - " + Localization.Properties.Resources.Script_Editor_Title;
+
+            WindowTitle = title;
+        }
+
+        public void OpenScriptFile(string filePath)
+        {
+            textEditor.Document.TextChanged -= Document_TextChanged;
+
+            ScriptFile = filePath;
+            textEditor.Load(filePath);
+            IsModified = false;
+            originalScript = textEditor.Text;
+            UpdateWindowTitle();
+
+            textEditor.Document.TextChanged += Document_TextChanged;
+        }
+
         private void NewScript()
         {
+            if (ConfirmSave())
+            {
+                textEditor.Document.TextChanged -= Document_TextChanged;
+
+                ScriptFile = string.Empty;
+                textEditor.Document = new ICSharpCode.AvalonEdit.Document.TextDocument();
+                IsModified = false;
+                originalScript = string.Empty;
+                UpdateWindowTitle();
+
+                textEditor.Document.TextChanged += Document_TextChanged;
+            }
         }
 
         private void Save()
         {
+            if (IsModified)
+            {
+                if (string.IsNullOrEmpty(ScriptFile))
+                {
+                    SaveAs();
+                }
+
+                textEditor.Document.TextChanged -= Document_TextChanged;
+
+                textEditor.Save(ScriptFile);
+                IsModified = false;
+                originalScript = textEditor.Text;
+                UpdateWindowTitle();
+
+                textEditor.Document.TextChanged += Document_TextChanged;
+            }
         }
 
         private void SaveAs()
         {
+            SaveFileDialog dlg = new SaveFileDialog
+            {
+                Filter = "Script files" + "|*.script",
+                DefaultExt = "script"
+            };
+            var result = dlg.ShowDialog();
+            if (result.HasValue && result.Value)
+            {
+                ScriptFile = dlg.FileName;
+                Save();
+
+                NewScriptFileSaved?.Invoke(this, EventArgs.Empty);
+            }
         }
 
         private void Close()
@@ -212,11 +295,14 @@ namespace dnGREP.WPF
             }
         }
 
-        private bool ConfirmSave()
+        internal bool ConfirmSave()
         {
-            if (textEditor.IsModified)
+            if (IsModified)
             {
-                var result = MessageBox.Show("Untitled has unsaved changes. Save changes?",
+                string name = string.IsNullOrEmpty(ScriptFile) ? "New script" :
+                    "'" + Path.GetFileName(ScriptFile) + "'";
+
+                var result = MessageBox.Show(string.Format("{0} has unsaved changes. Save now?", name),
                     "dnGrep", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.Yes);
                 if (result == MessageBoxResult.Yes)
                 {
@@ -232,22 +318,5 @@ namespace dnGREP.WPF
             }
             return true;
         }
-
-        //private void Cut()
-        //{
-        //}
-
-        //private void Copy()
-        //{
-        //}
-
-        //private void Paste()
-        //{
-        //}
-
-        //private void Delete()
-        //{
-        //}
-
     }
 }
