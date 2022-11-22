@@ -133,6 +133,7 @@ namespace dnGREP.WPF
 
         private void PopulateScripts()
         {
+            ScriptManager.Instance.LoadScripts();
             InitializeScriptTargets();
 
             ScriptMenuItems.Add(new MenuItemViewModel(Resources.Main_Menu_NewScript, new RelayCommand(p => NewScript(), q => !IsScriptRunning)));
@@ -239,7 +240,7 @@ namespace dnGREP.WPF
         {
             OpenFileDialog dlg = new OpenFileDialog
             {
-                Filter = "Script files|*" + ScriptManager.ScriptExt,
+                Filter = Resources.Scripts_ScriptFiles + "|*" + ScriptManager.ScriptExt,
                 DefaultExt = ScriptManager.ScriptExt.TrimStart('.'),
                 CheckFileExists = true,
             };

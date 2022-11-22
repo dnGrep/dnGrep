@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
+using dnGREP.Localization.Properties;
 using ICSharpCode.AvalonEdit;
 using Microsoft.Win32;
 
@@ -101,7 +103,7 @@ namespace dnGREP.WPF
         }
 
 
-        private string windowTitle = Localization.Properties.Resources.Script_Editor_Title;
+        private string windowTitle = Resources.Script_Editor_Title;
         public string WindowTitle
         {
             get { return windowTitle; }
@@ -151,6 +153,24 @@ namespace dnGREP.WPF
             }
         }
 
+        public ObservableCollection<ValidationErrorViewModel> ValidationData { get; } = new ObservableCollection<ValidationErrorViewModel>();
+
+
+        private bool hasValidationErrors = false;
+        public bool HasValidationErrors
+        {
+            get { return hasValidationErrors; }
+            set
+            {
+                if (hasValidationErrors == value)
+                {
+                    return;
+                }
+
+                hasValidationErrors = value;
+                OnPropertyChanged(nameof(HasValidationErrors));
+            }
+        }
 
         public ICommand NewCommand => new RelayCommand(
             p => NewScript(),
@@ -162,6 +182,10 @@ namespace dnGREP.WPF
 
         public ICommand SaveAsCommand => new RelayCommand(
             p => SaveAs(),
+            q => true);
+
+        public ICommand ValidateCommand => new RelayCommand(
+            p => ValidateScript(false),
             q => true);
 
         public ICommand CloseCommand => new RelayCommand(
@@ -215,8 +239,8 @@ namespace dnGREP.WPF
         private void UpdateWindowTitle()
         {
             string title = (IsModified ? "*" : string.Empty) +
-                (string.IsNullOrEmpty(ScriptFile) ? "New script" : Path.GetFileName(ScriptFile)) +
-                " - " + Localization.Properties.Resources.Script_Editor_Title;
+                (string.IsNullOrEmpty(ScriptFile) ? Resources.Scripts_NewScript :
+                Path.GetFileName(ScriptFile)) + " - " + Resources.Script_Editor_Title;
 
             WindowTitle = title;
         }
@@ -254,6 +278,11 @@ namespace dnGREP.WPF
         {
             if (IsModified)
             {
+                if (!ValidateScript(true))
+                {
+                    return;
+                }
+
                 if (string.IsNullOrEmpty(ScriptFile))
                 {
                     SaveAs();
@@ -272,9 +301,14 @@ namespace dnGREP.WPF
 
         private void SaveAs()
         {
+            if (!ValidateScript(true))
+            {
+                return;
+            }
+
             SaveFileDialog dlg = new SaveFileDialog
             {
-                Filter = "Script files|*" + ScriptManager.ScriptExt,
+                Filter = Resources.Scripts_ScriptFiles + "|*" + ScriptManager.ScriptExt,
                 DefaultExt = ScriptManager.ScriptExt.TrimStart('.'),
             };
             var result = dlg.ShowDialog();
@@ -299,11 +333,12 @@ namespace dnGREP.WPF
         {
             if (IsModified)
             {
-                string name = string.IsNullOrEmpty(ScriptFile) ? "New script" :
+                string name = string.IsNullOrEmpty(ScriptFile) ? Resources.Scripts_NewScript :
                     "'" + Path.GetFileName(ScriptFile) + "'";
 
-                var result = MessageBox.Show(string.Format("{0} has unsaved changes. Save now?", name),
-                    "dnGrep", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.Yes);
+                var result = MessageBox.Show(string.Format(Resources.MessageBox_Scripts_HasUnsavedChangesSaveNow, name),
+                    Resources.MessageBox_DnGrep, MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.Yes);
+
                 if (result == MessageBoxResult.Yes)
                 {
                     Save();
@@ -317,6 +352,82 @@ namespace dnGREP.WPF
                 return false;
             }
             return true;
+        }
+
+        private bool ValidateScript(bool doingSave)
+        {
+            ValidationData.Clear();
+            HasValidationErrors = false;
+
+            string[] script = textEditor.Text.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+            var queue = ScriptManager.Instance.ParseScript(script, false);
+            var results = ScriptManager.Instance.Validate(queue);
+
+            foreach (var error in results)
+            {
+                ValidationData.Add(new ValidationErrorViewModel(
+                    error.Item1.ToString(),
+                    ScriptManager.Instance.ToErrorString(error.Item2)));
+            }
+            HasValidationErrors = ValidationData.Count > 0;
+
+            if (doingSave && results.Count > 0)
+            {
+                string name = string.IsNullOrEmpty(ScriptFile) ? Resources.Scripts_NewScript :
+                    "'" + Path.GetFileName(ScriptFile) + "'";
+
+                var result = MessageBox.Show(string.Format(Resources.MessageBox_Scripts_HasValidationErrorsSaveAnyway, name),
+                    Resources.MessageBox_DnGrep, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.Yes);
+
+                if (result == MessageBoxResult.No)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+    }
+
+    public class ValidationErrorViewModel : CultureAwareViewModel
+    {
+        public ValidationErrorViewModel(string line, string message)
+        {
+            Line = line;
+            Message = message;
+        }
+
+        private string line = string.Empty;
+        public string Line
+        {
+            get { return line; }
+            set
+            {
+                if (line == value)
+                {
+                    return;
+                }
+
+                line = value;
+                OnPropertyChanged(nameof(Line));
+            }
+        }
+
+
+        private string message = string.Empty;
+        public string Message
+        {
+            get { return message; }
+            set
+            {
+                if (message == value)
+                {
+                    return;
+                }
+
+                message = value;
+                OnPropertyChanged(nameof(Message));
+            }
         }
     }
 }

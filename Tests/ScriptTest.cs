@@ -129,7 +129,7 @@ namespace Tests
         public void TestValidateValidCommand(string line)
         {
             ScriptStatement statement = ScriptManager.Instance.ParseLine(line, 1);
-            var error = ScriptManager.Validate(statement);
+            var error = ScriptManager.Instance.Validate(statement);
             Assert.Null(error);
         }
 
@@ -151,7 +151,7 @@ namespace Tests
         public void TestValidateInvalidCommand(string line, ScriptValidationError expected)
         {
             ScriptStatement statement = ScriptManager.Instance.ParseLine(line, 1);
-            var error = ScriptManager.Validate(statement);
+            var error = ScriptManager.Instance.Validate(statement);
             Assert.NotNull(error);
             Assert.Equal(expected, error.Item2);
         }

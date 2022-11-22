@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using dnGREP.Common;
+using dnGREP.Localization.Properties;
 using Newtonsoft.Json;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
@@ -17,6 +19,7 @@ namespace dnGREP.WPF
 {
     public class ScriptManager
     {
+        public static readonly string ScriptFolder = "Scripts";
         public static readonly string ScriptExt = ".script";
         private static List<ScriptCommandDefinition> scriptCommands;
         private static List<ScriptingCompletionData> commandCompletionData;
@@ -52,7 +55,6 @@ namespace dnGREP.WPF
 
         private ScriptManager()
         {
-            LoadScripts();
         }
 
         private readonly IDictionary<string, string> _scripts = new Dictionary<string, string>();
@@ -62,7 +64,7 @@ namespace dnGREP.WPF
         internal void LoadScripts()
         {
             _scripts.Clear();
-            string dataFolder = Path.Combine(Utils.GetDataFolderPath(), "Scripts");
+            string dataFolder = Path.Combine(Utils.GetDataFolderPath(), ScriptFolder);
             foreach (string fileName in Directory.GetFiles(dataFolder, "*" + ScriptExt, SearchOption.AllDirectories))
             {
                 string name = Path.GetFileNameWithoutExtension(fileName);
@@ -102,41 +104,48 @@ namespace dnGREP.WPF
             }
         }
 
-        public Queue<ScriptStatement> ParseScript(string scriptKey)
+        public Queue<ScriptStatement> ParseScript(string scriptKey, bool recursive = true)
+        {
+            if (_scripts.TryGetValue(scriptKey, out string fileName) && File.Exists(fileName))
+            {
+                return ParseScript(File.ReadAllLines(fileName, Encoding.UTF8), recursive);
+            }
+
+            return new Queue<ScriptStatement>();
+        }
+
+        public Queue<ScriptStatement> ParseScript(IEnumerable<string> scriptText, bool recursive)
         {
             Queue<ScriptStatement> statements = new Queue<ScriptStatement>();
-            if (_scripts.TryGetValue(scriptKey, out string fileName) &&
-                File.Exists(fileName))
+
+            int lineNum = 0;
+            foreach (string line in scriptText)
             {
-                int lineNum = 0;
-                foreach (string line in File.ReadAllLines(fileName, Encoding.UTF8))
+                lineNum++;
+
+                ScriptStatement statement = ParseLine(line, lineNum);
+
+                if (statement != null)
                 {
-                    lineNum++;
-
-                    ScriptStatement statement = ParseLine(line, lineNum);
-
-                    if (statement != null)
+                    // special case to include another script:
+                    if (recursive && statement.Command == "include" && statement.Target == "script")
                     {
-                        // special case to include another script:
-                        if (statement.Command == "include" && statement.Target == "script")
+                        string key = statement.Value;
+                        if (!ScriptKeys.Contains(key) &&
+                            key.EndsWith(ScriptExt, StringComparison.OrdinalIgnoreCase))
                         {
-                            string key = statement.Value;
-                            if (!ScriptKeys.Contains(key) &&
-                                key.EndsWith(ScriptExt, StringComparison.OrdinalIgnoreCase))
-                            {
-                                key = key.Remove(key.Length - ScriptExt.Length);
-                            }
+                            key = key.Remove(key.Length - ScriptExt.Length);
+                        }
 
-                            var inner = ParseScript(key);
-                            while (inner.Count > 0)
-                            {
-                                statements.Enqueue(inner.Dequeue());
-                            }
-                        }
-                        else
+                        var inner = ParseScript(key, recursive);
+                        while (inner.Count > 0)
                         {
-                            statements.Enqueue(statement);
+                            statements.Enqueue(inner.Dequeue());
                         }
+                    }
+                    else
+                    {
+                        statements.Enqueue(statement);
                     }
                 }
             }
@@ -206,7 +215,7 @@ namespace dnGREP.WPF
             return result;
         }
 
-        public static List<Tuple<int, ScriptValidationError>> Validate(Queue<ScriptStatement> statements)
+        public List<Tuple<int, ScriptValidationError>> Validate(Queue<ScriptStatement> statements)
         {
             List<Tuple<int, ScriptValidationError>> errors = new List<Tuple<int, ScriptValidationError>>();
 
@@ -221,7 +230,7 @@ namespace dnGREP.WPF
             return errors;
         }
 
-        public static Tuple<int, ScriptValidationError> Validate(ScriptStatement statement)
+        public Tuple<int, ScriptValidationError> Validate(ScriptStatement statement)
         {
             ScriptValidationError error = ScriptValidationError.None;
             var commandDef = ScriptCommands.FirstOrDefault(c => c.Command == statement.Command);
@@ -270,6 +279,21 @@ namespace dnGREP.WPF
                                 {
                                     error |= ScriptValidationError.ConvertValueFromStringFailed;
                                 }
+                            }
+                        }
+
+                        if (statement.Command == "include" && statement.Target == "script")
+                        {
+                            string key = statement.Value;
+                            if (!ScriptKeys.Contains(key) &&
+                                key.EndsWith(ScriptExt, StringComparison.OrdinalIgnoreCase))
+                            {
+                                key = key.Remove(key.Length - ScriptExt.Length);
+                            }
+
+                            if (!ScriptKeys.Contains(key))
+                            {
+                                error |= ScriptValidationError.IncludeScriptKeyNotFound;
                             }
                         }
                     }
@@ -331,6 +355,55 @@ namespace dnGREP.WPF
                 return null;
             }
         }
+
+        public string ToErrorString(ScriptValidationError value)
+        {
+            string separator = CultureInfo.CurrentCulture.TextInfo.ListSeparator + " ";
+
+            string text = string.Empty;
+            if (value.HasFlag(ScriptValidationError.InvalidCommand))
+            {
+                text += Resources.Script_Validation_TheCommandIsInvalid + separator;
+            }
+            if (value.HasFlag(ScriptValidationError.RequiredTargetValueMissing))
+            {
+                text += Resources.Script_Validation_ThisCommandRequiresATargetParameter + separator;
+            }
+            if (value.HasFlag(ScriptValidationError.InvalidTargetName))
+            {
+                text += Resources.Script_Validation_TheTargetNameIsInvalid + separator;
+            }
+            if (value.HasFlag(ScriptValidationError.UnneededValueFound))
+            {
+                text += Resources.Script_Validation_ThisCommandDoesNotNeedAValueParameter + separator;
+            }
+            if (value.HasFlag(ScriptValidationError.RequiredStringValueMissing))
+            {
+                text += Resources.Script_Validation_ThisCommandRequiresAStringValue + separator;
+            }
+            if (value.HasFlag(ScriptValidationError.RequiredBooleanValueMissing))
+            {
+                text += Resources.Script_Validation_ThisCommandRequiresABooleanValue + separator;
+            }
+            if (value.HasFlag(ScriptValidationError.CannotConvertValueFromString))
+            {
+                text += Resources.Script_Validation_TheValueCannotBeConvertedFromTheString + separator;
+            }
+            if (value.HasFlag(ScriptValidationError.NullValueNotAllowed))
+            {
+                text += Resources.Script_Validation_ThisCommandDoesNotAllowANullValue + separator;
+            }
+            if (value.HasFlag(ScriptValidationError.ConvertValueFromStringFailed))
+            {
+                text += Resources.Script_Validation_TheValueCouldNotBeConvertedToTheCorrectType + separator;
+            }
+            if (value.HasFlag(ScriptValidationError.IncludeScriptKeyNotFound))
+            {
+                text += Resources.Script_Validation_TheScriptKeyWasNotFound + separator;
+            }
+
+            return text.TrimEnd(separator.ToCharArray());
+        }
     }
 
 
@@ -347,5 +420,6 @@ namespace dnGREP.WPF
         CannotConvertValueFromString = 64,
         NullValueNotAllowed = 128,
         ConvertValueFromStringFailed = 256,
+        IncludeScriptKeyNotFound = 512,
     }
 }

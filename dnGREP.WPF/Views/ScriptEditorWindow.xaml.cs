@@ -4,8 +4,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Xml.Linq;
-using dnGREP.Localization.Properties;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;

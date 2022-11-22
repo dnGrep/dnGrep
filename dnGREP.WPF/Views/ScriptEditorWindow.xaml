@@ -11,7 +11,7 @@
                  FlowDirection="{Binding CultureFlowDirection}"
                  FontFamily="{Binding ApplicationFontFamily}"
                  FontSize="{Binding MainFormFontSize}"
-                 Height="500"
+                 Height="740"
                  Width="700"
                  Icon="/dnGREP;component/nGREP.ico"
                  ResizeMode="CanResize"
@@ -20,11 +20,16 @@
                  Background="{DynamicResource Dialog.Background}"
                  CaptionBackground="{DynamicResource Caption.Dialog.Background}" >
 
+    <Window.Resources>
+        <my:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed" />
+    </Window.Resources>
+
     <Window.InputBindings>
         <KeyBinding Key="N" Modifiers="Ctrl" Command="{Binding NewCommand}"/>
         <KeyBinding Key="S" Modifiers="Ctrl" Command="{Binding SaveCommand}"/>
         <KeyBinding Key="S" Modifiers="Ctrl+Shift" Command="{Binding SaveAsCommand}"/>
         <KeyBinding Key="W" Modifiers="Ctrl" Command="{Binding CloseCommand}"/>
+        <KeyBinding Key="L" Modifiers="Ctrl" Command="{Binding ValidateCommand}"/>
         <KeyBinding Key="Z" Modifiers="Ctrl" Command="{Binding UndoCommand}"/>
         <KeyBinding Key="Y" Modifiers="Ctrl" Command="{Binding RedoCommand}"/>
         <KeyBinding Key="X" Modifiers="Ctrl" Command="{Binding CutCommand}"/>
@@ -52,6 +57,8 @@
                 <MenuItem Header="{l:Loc Key='Script_Editor_Close'}" Command="{Binding CloseCommand}" InputGestureText="Ctrl+W"/>
             </MenuItem>
             <MenuItem Header="{l:Loc Key='Script_Editor_Edit'}">
+                <MenuItem Header="{l:Loc Key='Script_Editor_Validate'}" Command="{Binding ValidateCommand}" InputGestureText="Ctrl+L"/>
+                <Separator/>
                 <MenuItem Header="{l:Loc Key='Script_Editor_Undo'}" Command="{Binding UndoCommand}" InputGestureText="Ctrl+Z"/>
                 <MenuItem Header="{l:Loc Key='Script_Editor_Redo'}" Command="{Binding RedoCommand}" InputGestureText="Ctrl+Y"/>
                 <Separator/>
@@ -62,6 +69,39 @@
                 <MenuItem Header="{l:Loc Key='Script_Editor_DeleteLine'}" Command="{Binding DeleteLineCommand}" InputGestureText="Ctrl+D"/>
             </MenuItem>
         </Menu>
+
+        <GroupBox DockPanel.Dock="Bottom" Header="Validation" Margin="4"
+                  Grid.IsSharedSizeScope="True"
+                  Visibility="{Binding HasValidationErrors, Converter={StaticResource BoolToVisibilityConverter}}">
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="A"/>
+                        <ColumnDefinition Width="*" SharedSizeGroup="B"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="Line" Margin="3,0,12,0"/>
+                    <TextBlock Grid.Column="1" Text="Message" Margin="3,0"/>
+                </Grid>
+                <ScrollViewer Height="72" HorizontalAlignment="Stretch"
+                              VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding ValidationData}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="A"/>
+                                        <ColumnDefinition Width="*" SharedSizeGroup="B"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="{Binding Line}" HorizontalAlignment="Right" Margin="3,0,12,0"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding Message}" Margin="3,0"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </StackPanel>
+        </GroupBox>
 
         <Border Margin="4"
                 BorderBrush="{DynamicResource GroupBox.Border}"

@@ -3543,6 +3543,24 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} has unsaved changes. Save now?.
+        /// </summary>
+        public static string MessageBox_Scripts_HasUnsavedChangesSaveNow {
+            get {
+                return ResourceManager.GetString("MessageBox_Scripts_HasUnsavedChangesSaveNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} has validation errors. Save anyway?.
+        /// </summary>
+        public static string MessageBox_Scripts_HasValidationErrorsSaveAnyway {
+            get {
+                return ResourceManager.GetString("MessageBox_Scripts_HasValidationErrorsSaveAnyway", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Could not complete the search. Check the error log for details: .
         /// </summary>
         public static string MessageBox_SearchFailedError {
@@ -5820,11 +5838,119 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Va_lidate.
+        /// </summary>
+        public static string Script_Editor_Validate {
+            get {
+                return ResourceManager.GetString("Script_Editor_Validate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The command is invalid.
+        /// </summary>
+        public static string Script_Validation_TheCommandIsInvalid {
+            get {
+                return ResourceManager.GetString("Script_Validation_TheCommandIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The script key was not found.
+        /// </summary>
+        public static string Script_Validation_TheScriptKeyWasNotFound {
+            get {
+                return ResourceManager.GetString("Script_Validation_TheScriptKeyWasNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The target name is invalid.
+        /// </summary>
+        public static string Script_Validation_TheTargetNameIsInvalid {
+            get {
+                return ResourceManager.GetString("Script_Validation_TheTargetNameIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value cannot be converted from the string.
+        /// </summary>
+        public static string Script_Validation_TheValueCannotBeConvertedFromTheString {
+            get {
+                return ResourceManager.GetString("Script_Validation_TheValueCannotBeConvertedFromTheString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value could not be converted to the correct type.
+        /// </summary>
+        public static string Script_Validation_TheValueCouldNotBeConvertedToTheCorrectType {
+            get {
+                return ResourceManager.GetString("Script_Validation_TheValueCouldNotBeConvertedToTheCorrectType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This command does not allow a null value.
+        /// </summary>
+        public static string Script_Validation_ThisCommandDoesNotAllowANullValue {
+            get {
+                return ResourceManager.GetString("Script_Validation_ThisCommandDoesNotAllowANullValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This command does not need a value parameter.
+        /// </summary>
+        public static string Script_Validation_ThisCommandDoesNotNeedAValueParameter {
+            get {
+                return ResourceManager.GetString("Script_Validation_ThisCommandDoesNotNeedAValueParameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This command requires a Boolean value.
+        /// </summary>
+        public static string Script_Validation_ThisCommandRequiresABooleanValue {
+            get {
+                return ResourceManager.GetString("Script_Validation_ThisCommandRequiresABooleanValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This command requires a string value.
+        /// </summary>
+        public static string Script_Validation_ThisCommandRequiresAStringValue {
+            get {
+                return ResourceManager.GetString("Script_Validation_ThisCommandRequiresAStringValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This command requires a target parameter.
+        /// </summary>
+        public static string Script_Validation_ThisCommandRequiresATargetParameter {
+            get {
+                return ResourceManager.GetString("Script_Validation_ThisCommandRequiresATargetParameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to At line.
         /// </summary>
         public static string Scripts_AtLine {
             get {
                 return ResourceManager.GetString("Scripts_AtLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New script.
+        /// </summary>
+        public static string Scripts_NewScript {
+            get {
+                return ResourceManager.GetString("Scripts_NewScript", resourceCulture);
             }
         }
         
@@ -5852,6 +5978,15 @@ namespace dnGREP.Localization.Properties {
         public static string Scripts_ScriptComplete {
             get {
                 return ResourceManager.GetString("Scripts_ScriptComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Script files.
+        /// </summary>
+        public static string Scripts_ScriptFiles {
+            get {
+                return ResourceManager.GetString("Scripts_ScriptFiles", resourceCulture);
             }
         }
         
