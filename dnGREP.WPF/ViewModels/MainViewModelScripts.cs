@@ -149,7 +149,7 @@ namespace dnGREP.WPF
                 ScriptMenuItems.RemoveAt(ScriptMenuItems.Count - 1);
             }
 
-            foreach (var key in ScriptManager.Instance.Scripts)
+            foreach (var key in ScriptManager.Instance.ScriptKeys)
             {
                 string[] parts = key.Split(new char[] { Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries);
                 if (parts.Length > 0)
@@ -239,8 +239,8 @@ namespace dnGREP.WPF
         {
             OpenFileDialog dlg = new OpenFileDialog
             {
-                Filter = "Script files|*.script",
-                DefaultExt = "script",
+                Filter = "Script files|*" + ScriptManager.ScriptExt,
+                DefaultExt = ScriptManager.ScriptExt.TrimStart('.'),
                 CheckFileExists = true,
             };
 

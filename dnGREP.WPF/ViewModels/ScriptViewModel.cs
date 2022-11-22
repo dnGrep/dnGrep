@@ -274,8 +274,8 @@ namespace dnGREP.WPF
         {
             SaveFileDialog dlg = new SaveFileDialog
             {
-                Filter = "Script files" + "|*.script",
-                DefaultExt = "script"
+                Filter = "Script files|*" + ScriptManager.ScriptExt,
+                DefaultExt = ScriptManager.ScriptExt.TrimStart('.'),
             };
             var result = dlg.ShowDialog();
             if (result.HasValue && result.Value)

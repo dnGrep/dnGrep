@@ -686,6 +686,26 @@
     "Values": []
   },
   {
+    "Command": "include",
+    "Priority": 13,
+    "DescriptionKey": null,
+    "ValueHintKey": null,
+    "Type": null,
+    "AllowNullValue": false,
+    "Targets": [
+      {
+        "Target": "script",
+        "Priority": 0,
+        "DescriptionKey": null,
+        "ValueHintKey": null,
+        "Type": "string",
+        "AllowNullValue": false,
+        "Values": []
+      }
+    ],
+    "Values": []
+  },
+  {
     "Command": "expandfilefilters",
     "Priority": 16,
     "DescriptionKey": null,

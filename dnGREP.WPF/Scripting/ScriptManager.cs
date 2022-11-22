@@ -17,6 +17,7 @@ namespace dnGREP.WPF
 {
     public class ScriptManager
     {
+        public static readonly string ScriptExt = ".script";
         private static List<ScriptCommandDefinition> scriptCommands;
         private static List<ScriptingCompletionData> commandCompletionData;
 
@@ -56,13 +57,13 @@ namespace dnGREP.WPF
 
         private readonly IDictionary<string, string> _scripts = new Dictionary<string, string>();
 
-        public ICollection<string> Scripts { get { return _scripts.Keys; } }
+        public ICollection<string> ScriptKeys { get { return _scripts.Keys; } }
 
         internal void LoadScripts()
         {
             _scripts.Clear();
             string dataFolder = Path.Combine(Utils.GetDataFolderPath(), "Scripts");
-            foreach (string fileName in Directory.GetFiles(dataFolder, "*.script", SearchOption.AllDirectories))
+            foreach (string fileName in Directory.GetFiles(dataFolder, "*" + ScriptExt, SearchOption.AllDirectories))
             {
                 string name = Path.GetFileNameWithoutExtension(fileName);
                 string fileFolder = Path.GetDirectoryName(fileName);
@@ -101,10 +102,10 @@ namespace dnGREP.WPF
             }
         }
 
-        public Queue<ScriptStatement> ParseScript(string scriptName)
+        public Queue<ScriptStatement> ParseScript(string scriptKey)
         {
             Queue<ScriptStatement> statements = new Queue<ScriptStatement>();
-            if (_scripts.TryGetValue(scriptName, out string fileName) &&
+            if (_scripts.TryGetValue(scriptKey, out string fileName) &&
                 File.Exists(fileName))
             {
                 int lineNum = 0;
@@ -116,7 +117,26 @@ namespace dnGREP.WPF
 
                     if (statement != null)
                     {
-                        statements.Enqueue(statement);
+                        // special case to include another script:
+                        if (statement.Command == "include" && statement.Target == "script")
+                        {
+                            string key = statement.Value;
+                            if (!ScriptKeys.Contains(key) &&
+                                key.EndsWith(ScriptExt, StringComparison.OrdinalIgnoreCase))
+                            {
+                                key = key.Remove(key.Length - ScriptExt.Length);
+                            }
+
+                            var inner = ParseScript(key);
+                            while (inner.Count > 0)
+                            {
+                                statements.Enqueue(inner.Dequeue());
+                            }
+                        }
+                        else
+                        {
+                            statements.Enqueue(statement);
+                        }
                     }
                 }
             }
