@@ -4,11 +4,9 @@ using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using dnGREP.Common;
 using dnGREP.Localization.Properties;
-using Newtonsoft.Json;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
 using File = Alphaleonis.Win32.Filesystem.File;
@@ -20,7 +18,7 @@ namespace dnGREP.WPF
     public class ScriptManager
     {
         public static readonly string ScriptFolder = "Scripts";
-        public static readonly string ScriptExt = ".script";
+        public static readonly string ScriptExt = ".gsc";
         private static List<ScriptCommandDefinition> scriptCommands;
         private static List<ScriptingCompletionData> commandCompletionData;
 
@@ -82,26 +80,7 @@ namespace dnGREP.WPF
 
         private static void LoadScriptCommands()
         {
-            var assembly = Assembly.GetExecutingAssembly();
-            var resourceName = "dnGREP.WPF.Scripting.ScriptCommands.json";
-
-            using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-            using (StreamReader reader = new StreamReader(stream))
-            {
-                string json = reader.ReadToEnd();
-
-                scriptCommands = JsonConvert.DeserializeObject<List<ScriptCommandDefinition>>(
-                    json, new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.Auto });
-
-                commandCompletionData = new List<ScriptingCompletionData>();
-
-                foreach (var cmd in ScriptCommands)
-                {
-                    cmd.Initialize();
-
-                    commandCompletionData.Add(new ScriptingCompletionData(cmd));
-                }
-            }
+            ScriptCommandInitializer.LoadScriptCommands(ref scriptCommands, ref commandCompletionData);
         }
 
         public Queue<ScriptStatement> ParseScript(string scriptKey, bool recursive = true)
@@ -305,7 +284,7 @@ namespace dnGREP.WPF
             }
             else
             {
-                switch (commandDef.Type)
+                switch (commandDef.ValueType?.Name)
                 {
                     case null:
                         if (!string.IsNullOrEmpty(statement.Value))
@@ -314,14 +293,14 @@ namespace dnGREP.WPF
                         }
                         break;
 
-                    case "string":
+                    case "String":
                         if (string.IsNullOrEmpty(statement.Value))
                         {
                             error |= ScriptValidationError.RequiredStringValueMissing;
                         }
                         break;
 
-                    case "bool":
+                    case "Boolean":
                         if (string.IsNullOrEmpty(statement.Value))
                         {
                             error |= ScriptValidationError.RequiredBooleanValueMissing;

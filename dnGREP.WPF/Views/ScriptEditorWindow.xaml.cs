@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Documents;
 using System.Windows.Input;
+using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
@@ -32,6 +33,8 @@ namespace dnGREP.WPF
 
             SearchPanel.Install(textEditor);
 
+            var definition = ThemedHighlightingManager.Instance.GetDefinitionByExtension(ScriptManager.ScriptExt);
+            textEditor.SyntaxHighlighting = definition;
             textEditor.TextArea.TextEntering += TextArea_TextEntering;
             textEditor.TextArea.TextEntered += TextArea_TextEntered;
             textEditor.TextArea.KeyDown += TextArea_KeyDown;
@@ -74,9 +77,10 @@ namespace dnGREP.WPF
 
         private void TextArea_TextEntered(object sender, TextCompositionEventArgs e)
         {
-            if (e.Text == " " || e.Text == "\n")
+            var caret = textEditor.TextArea.Caret;
+
+            if (e.Text == " " || caret.VisualColumn < 2)
             {
-                var caret = textEditor.TextArea.Caret;
                 string lineText = GetLineText(caret);
 
                 if (lineText.StartsWith("//"))
@@ -121,7 +125,7 @@ namespace dnGREP.WPF
                     {
                         scriptingData = cmd.CompletionData;
                     }
-                    else if (!string.IsNullOrEmpty(cmd.ValueHintKey))
+                    else if (!string.IsNullOrEmpty(cmd.ValueHint))
                     {
                         valueHint = cmd.ValueHint;
                     }
@@ -139,7 +143,7 @@ namespace dnGREP.WPF
                         {
                             scriptingData = target.CompletionData;
                         }
-                        else if (!string.IsNullOrEmpty(target.ValueHintKey))
+                        else if (!string.IsNullOrEmpty(target.ValueHint))
                         {
                             valueHint = target.ValueHint;
                         }

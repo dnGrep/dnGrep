@@ -6,7 +6,7 @@
 
         public int Priority { get; set; } = int.MaxValue;
 
-        public string DescriptionKey { get; set; } = null;
+        public string Description { get; set; } = null;
 
         public override string ToString()
         {

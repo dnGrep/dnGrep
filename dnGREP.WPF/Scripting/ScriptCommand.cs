@@ -6,10 +6,6 @@ namespace dnGREP.WPF
     public interface IScriptCommand
     {
         void Execute(string value);
-
-        Type ValueType { get; }
-
-        bool AllowNullValue { get; }
     }
 
 
@@ -27,13 +23,6 @@ namespace dnGREP.WPF
             TParameter parameter = GetValue<TParameter>(value);
             execute(parameter);
         }
-
-        public Type ValueType
-        {
-            get { return typeof(TParameter); }
-        }
-
-        public bool AllowNullValue { get; set; } = false;
 
         private static T GetValue<T>(string value)
         {

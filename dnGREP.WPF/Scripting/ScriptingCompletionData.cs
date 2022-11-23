@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Documents;
 using System.Windows.Media;
-using dnGREP.Localization;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
@@ -15,21 +14,21 @@ namespace dnGREP.WPF
         {
             Text = def.Command;
             Priority = def.Priority;
-            DescriptionKey = def.DescriptionKey;
+            Description = def.Description;
         }
 
         public ScriptingCompletionData(ScriptTargetDefinition def)
         {
             Text = def.Target;
             Priority = def.Priority;
-            DescriptionKey = def.DescriptionKey;
+            Description = def.Description;
         }
 
         public ScriptingCompletionData(ScriptValueDefinition def)
         {
             Text = def.Value;
             Priority = def.Priority;
-            DescriptionKey = def.DescriptionKey;
+            Description = def.Description;
         }
 
         public ImageSource Image => null;
@@ -41,20 +40,8 @@ namespace dnGREP.WPF
             get { return Text; }
         }
 
-        public string DescriptionKey { get; private set; } = null;
-
         // displays as a tool tip
-        public object Description
-        {
-            get
-            {
-                if (!string.IsNullOrEmpty(DescriptionKey))
-                {
-                    return TranslationSource.Instance[DescriptionKey];
-                }
-                return null;
-            }
-        }
+        public object Description { get; private set; }
 
         public double Priority { get; private set; } = 0;
 

@@ -110,6 +110,7 @@
     <Compile Include="Properties\LayoutProperties.cs" />
     <Compile Include="Scripting\ScriptCommand.cs" />
     <Compile Include="Scripting\ScriptCommandDefinition.cs" />
+    <Compile Include="Scripting\ScriptCommandInitializer.cs" />
     <Compile Include="Scripting\ScriptingCompletionData.cs" />
     <Compile Include="Scripting\ScriptManager.cs" />
     <Compile Include="Scripting\ScriptStatement.cs" />
@@ -457,7 +458,7 @@
     <EmbeddedResource Include="Resources\Lisp-Mode.xshd" />
     <EmbeddedResource Include="Resources\Json.xshd" />
     <EmbeddedResource Include="Resources\Yaml.xshd" />
-    <EmbeddedResource Include="Scripting\ScriptCommands.json" />
+    <EmbeddedResource Include="Resources\Script-Mode.xshd" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="nGREP.ico" />

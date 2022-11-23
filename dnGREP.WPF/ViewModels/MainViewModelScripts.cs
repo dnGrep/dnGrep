@@ -15,9 +15,7 @@ namespace dnGREP.WPF
     public partial class MainViewModel
     {
         private static readonly IDictionary<string, IScriptCommand> SetCommandMap = new Dictionary<string, IScriptCommand>();
-        private static readonly IDictionary<string, IScriptCommand> UseCommandMap = new Dictionary<string, IScriptCommand>();
-        private static readonly IDictionary<string, IScriptCommand> AddCommandMap = new Dictionary<string, IScriptCommand>();
-        private static readonly IDictionary<string, IScriptCommand> RemoveCommandMap = new Dictionary<string, IScriptCommand>();
+        private static readonly IDictionary<string, IScriptCommand> BookmarkCommandMap = new Dictionary<string, IScriptCommand>();
         private static readonly IDictionary<string, IScriptCommand> ReportCommandMap = new Dictionary<string, IScriptCommand>();
 
         private bool cancelingScript = false;
@@ -45,8 +43,8 @@ namespace dnGREP.WPF
             if (SetCommandMap.Count == 0)
             {
                 SetCommandMap.Add("folder", new ScriptCommand<string>(p => FileOrFolderPath = Utils.QuoteIfNeeded(p)));
-                SetCommandMap.Add("pathtomatch", new ScriptCommand<string>(p => FilePattern = p) { AllowNullValue = true });
-                SetCommandMap.Add("pathtoignore", new ScriptCommand<string>(p => FilePatternIgnore = p) { AllowNullValue = true });
+                SetCommandMap.Add("pathtomatch", new ScriptCommand<string>(p => FilePattern = p));
+                SetCommandMap.Add("pathtoignore", new ScriptCommand<string>(p => FilePatternIgnore = p));
                 SetCommandMap.Add("searchinarchives", new ScriptCommand<bool>(p => IncludeArchive = p));
 
                 SetCommandMap.Add("patterntype", new ScriptCommand<FileSearchType>(p => TypeOfFileSearch = p));
@@ -66,14 +64,14 @@ namespace dnGREP.WPF
 
                 SetCommandMap.Add("filedatefilter", new ScriptCommand<FileDateFilter>(p => UseFileDateFilter = p));
                 SetCommandMap.Add("filetimerange", new ScriptCommand<FileTimeRange>(p => TypeOfTimeRangeFilter = p));
-                SetCommandMap.Add("startdate", new ScriptCommand<DateTime>(p => StartDate = p) { AllowNullValue = true });
-                SetCommandMap.Add("enddate", new ScriptCommand<DateTime>(p => EndDate = p) { AllowNullValue = true });
+                SetCommandMap.Add("startdate", new ScriptCommand<DateTime>(p => StartDate = p));
+                SetCommandMap.Add("enddate", new ScriptCommand<DateTime>(p => EndDate = p));
                 SetCommandMap.Add("hoursfrom", new ScriptCommand<int>(p => HoursFrom = p));
                 SetCommandMap.Add("hoursto", new ScriptCommand<int>(p => HoursTo = p));
 
                 SetCommandMap.Add("searchtype", new ScriptCommand<SearchType>(p => TypeOfSearch = p));
-                SetCommandMap.Add("searchfor", new ScriptCommand<string>(p => SearchFor = p) { AllowNullValue = true });
-                SetCommandMap.Add("replacewith", new ScriptCommand<string>(p => ReplaceWith = p) { AllowNullValue = true });
+                SetCommandMap.Add("searchfor", new ScriptCommand<string>(p => SearchFor = p));
+                SetCommandMap.Add("replacewith", new ScriptCommand<string>(p => ReplaceWith = p));
 
                 SetCommandMap.Add("casesensitive", new ScriptCommand<bool>(p => CaseSensitive = p));
                 SetCommandMap.Add("wholeword", new ScriptCommand<bool>(p => WholeWord = p));
@@ -103,15 +101,13 @@ namespace dnGREP.WPF
                 SetCommandMap.Add("uniquevalues", new ScriptCommand<bool>(p => GrepSettings.Instance.Set(GrepSettings.Key.FilterUniqueValues, p)));
                 SetCommandMap.Add("uniquescope", new ScriptCommand<UniqueScope>(p => GrepSettings.Instance.Set(GrepSettings.Key.UniqueScope, p)));
                 SetCommandMap.Add("separatelines", new ScriptCommand<bool>(p => GrepSettings.Instance.Set(GrepSettings.Key.OutputOnSeparateLines, p)));
-                SetCommandMap.Add("listitemseparator", new ScriptCommand<string>(p => GrepSettings.Instance.Set(GrepSettings.Key.ListItemSeparator, p)) { AllowNullValue = true });
+                SetCommandMap.Add("listitemseparator", new ScriptCommand<string>(p => GrepSettings.Instance.Set(GrepSettings.Key.ListItemSeparator, p)));
 
-                UseCommandMap.Add("bookmark", new ScriptCommand<string>(p => UseBookmark(p)));
-
-                AddCommandMap.Add("bookmark", new ScriptCommand<string>(p => AddBookmark(p, false)) { AllowNullValue = true });
-                AddCommandMap.Add("folderbookmark", new ScriptCommand<string>(p => AddBookmark(p, true)) { AllowNullValue = true });
-
-                RemoveCommandMap.Add("bookmark", new ScriptCommand<string>(p => RemoveBookmark(p, false)) { AllowNullValue = true });
-                RemoveCommandMap.Add("folderbookmark", new ScriptCommand<string>(p => RemoveBookmark(p, true)) { AllowNullValue = true });
+                BookmarkCommandMap.Add("use", new ScriptCommand<string>(p => UseBookmark(p)));
+                BookmarkCommandMap.Add("add", new ScriptCommand<string>(p => AddBookmark(p, false)));
+                BookmarkCommandMap.Add("addfolder", new ScriptCommand<string>(p => AddBookmark(p, true)));
+                BookmarkCommandMap.Add("remove", new ScriptCommand<string>(p => RemoveBookmark(p, false)));
+                BookmarkCommandMap.Add("removefolder", new ScriptCommand<string>(p => RemoveBookmark(p, true)));
 
                 ReportCommandMap.Add("full", new ScriptCommand<string>(p =>
                     ReportWriter.SaveResultsReport(SearchResults.GetList(), BooleanOperators, SearchFor, GetSearchOptions(), p)));
@@ -236,6 +232,8 @@ namespace dnGREP.WPF
             wnd.Show();
         }
 
+        private bool firstFileOpen = true;
+
         private void EditScript()
         {
             OpenFileDialog dlg = new OpenFileDialog
@@ -244,6 +242,12 @@ namespace dnGREP.WPF
                 DefaultExt = ScriptManager.ScriptExt.TrimStart('.'),
                 CheckFileExists = true,
             };
+
+            if (firstFileOpen)
+            {
+                firstFileOpen = false;
+                dlg.InitialDirectory = Path.Combine(Utils.GetDataFolderPath(), ScriptManager.ScriptFolder);
+            }
 
             var result = dlg.ShowDialog();
             if (result.HasValue && result.Value)
@@ -310,24 +314,10 @@ namespace dnGREP.WPF
                         }
                         break;
 
-                    case "use":
-                        if (UseCommandMap.TryGetValue(stmt.Target, out IScriptCommand use))
+                    case "bookmark":
+                        if (BookmarkCommandMap.TryGetValue(stmt.Target, out IScriptCommand use))
                         {
                             use.Execute(stmt.Value);
-                        }
-                        break;
-
-                    case "add":
-                        if (AddCommandMap.TryGetValue(stmt.Target, out IScriptCommand add))
-                        {
-                            add.Execute(stmt.Value);
-                        }
-                        break;
-
-                    case "remove":
-                        if (RemoveCommandMap.TryGetValue(stmt.Target, out IScriptCommand remove))
-                        {
-                            remove.Execute(stmt.Value);
                         }
                         break;
 
