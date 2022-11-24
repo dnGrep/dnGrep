@@ -980,6 +980,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>_About dnGrep…</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
+  <data name="Main_Menu_About_AppData" xml:space="preserve">
+    <value>Application data and _logs</value>
+    <comment>Main window, main menu subitem label (accel)</comment>
+  </data>
   <data name="Main_Menu_About_CheckForUpdates" xml:space="preserve">
     <value>_Check for updates</value>
     <comment>Main window, main menu subitem label (accel)</comment>
@@ -2780,6 +2784,15 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="ScriptHint_bookmark_addfolder" xml:space="preserve">
     <value>Add a new bookmark associated with the current search folder</value>
   </data>
+  <data name="ScriptHint_bookmark_remove" xml:space="preserve">
+    <value>Remove a bookmark</value>
+  </data>
+  <data name="ScriptHint_bookmark_remove_value" xml:space="preserve">
+    <value>The name of the bookmark to remove, or empty for the current bookmark</value>
+  </data>
+  <data name="ScriptHint_bookmark_removefolder" xml:space="preserve">
+    <value>Remove a folder bookmark</value>
+  </data>
   <data name="ScriptHint_bookmark_use" xml:space="preserve">
     <value>Apply bookmark settings</value>
   </data>
@@ -2830,15 +2843,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="ScriptHint_movefiles_value" xml:space="preserve">
     <value>The destination folder path</value>
-  </data>
-  <data name="ScriptHint_bookmark_remove" xml:space="preserve">
-    <value>Remove a bookmark</value>
-  </data>
-  <data name="ScriptHint_bookmark_remove_value" xml:space="preserve">
-    <value>The name of the bookmark to remove, or empty for the current bookmark</value>
-  </data>
-  <data name="ScriptHint_bookmark_removefolder" xml:space="preserve">
-    <value>Remove a folder bookmark</value>
   </data>
   <data name="ScriptHint_replace" xml:space="preserve">
     <value>Replace matches in files</value>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -725,6 +726,10 @@ namespace dnGREP.WPF
 
         public ICommand ToggleResultsMaximizeCommand => new RelayCommand(
             p => IsResultTreeMaximized = !IsResultTreeMaximized);
+
+        public ICommand OpenAppDataCommand => new RelayCommand(
+            p => OpenAppDataFolder(),
+            q => true);
 
         #endregion
 
@@ -3116,6 +3121,24 @@ namespace dnGREP.WPF
             }
             Settings.Set(GrepSettings.Key.FastPathBookmarks, fpb);
         }
+
+        private void OpenAppDataFolder()
+        {
+            string dataFolder = Utils.GetDataFolderPath();
+            if (!dataFolder.EndsWith(Path.DirectorySeparator))
+            {
+                dataFolder += Path.DirectorySeparator;
+            }
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            { 
+                FileName = "explorer.exe",
+                Arguments = "/open, \"" + dataFolder + "\"",
+                UseShellExecute = false,
+            };
+
+            Process.Start(startInfo);
+        }
+
 
         private void PreviewFile(string filePath, GrepSearchResult result, int line)
         {

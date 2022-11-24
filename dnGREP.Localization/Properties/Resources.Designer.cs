@@ -1914,6 +1914,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Application data and _logs.
+        /// </summary>
+        public static string Main_Menu_About_AppData {
+            get {
+                return ResourceManager.GetString("Main_Menu_About_AppData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Check for updates.
         /// </summary>
         public static string Main_Menu_About_CheckForUpdates {

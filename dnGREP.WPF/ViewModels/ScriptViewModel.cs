@@ -299,6 +299,7 @@ namespace dnGREP.WPF
             }
         }
 
+        private bool firstFileSave = true;
         private void SaveAs()
         {
             if (!ValidateScript(true))
@@ -311,6 +312,13 @@ namespace dnGREP.WPF
                 Filter = Resources.Scripts_ScriptFiles + "|*" + ScriptManager.ScriptExt,
                 DefaultExt = ScriptManager.ScriptExt.TrimStart('.'),
             };
+
+            if (firstFileSave)
+            {
+                firstFileSave = false;
+                dlg.InitialDirectory = Path.Combine(Utils.GetDataFolderPath(), ScriptManager.ScriptFolder);
+            }
+
             var result = dlg.ShowDialog();
             if (result.HasValue && result.Value)
             {
