@@ -31,7 +31,7 @@ namespace dnGREP.WPF
 
             foreach (string name in AppTheme.Instance.ThemeNames)
                 ThemeNames.Add(name);
-            
+
             CultureNames = TranslationSource.Instance.AppCultures
                 .OrderBy(kv => kv.Value, StringComparer.CurrentCulture).ToArray();
 
@@ -148,6 +148,8 @@ namespace dnGREP.WPF
                     PanelSelection.MainPanel : PanelSelection.OptionsExpander) ||
                 ReplaceDialogLayout != (Settings.Get<bool>(GrepSettings.Key.ShowFullReplaceDialog) ?
                     ReplaceDialogConfiguration.FullDialog : ReplaceDialogConfiguration.FilesOnly) ||
+                DeleteOption != (Settings.Get<bool>(GrepSettings.Key.DeleteToRecycleBin) ?
+                    DeleteFilesDestination.Recycle : DeleteFilesDestination.Permanent) ||
                 MaximizeResultsTreeOnSearch != Settings.Get<bool>(GrepSettings.Key.MaximizeResultsTreeOnSearch) ||
                 FollowWindowsTheme != Settings.Get<bool>(GrepSettings.Key.FollowWindowsTheme) ||
                 CurrentTheme != Settings.Get<string>(GrepSettings.Key.CurrentTheme) ||
@@ -749,6 +751,25 @@ namespace dnGREP.WPF
             }
         }
 
+        public enum DeleteFilesDestination { Recycle, Permanent }
+
+
+        private DeleteFilesDestination deleteOption = DeleteFilesDestination.Recycle;
+        public DeleteFilesDestination DeleteOption
+        {
+            get { return deleteOption; }
+            set
+            {
+                if (deleteOption == value)
+                {
+                    return;
+                }
+
+                deleteOption = value;
+                OnPropertyChanged(nameof(DeleteOption));
+            }
+        }
+
         public List<int> HexLengthOptions { get; }
 
         private int hexResultByteLength = 16;
@@ -1151,6 +1172,8 @@ namespace dnGREP.WPF
                 PanelSelection.MainPanel : PanelSelection.OptionsExpander;
             ReplaceDialogLayout = Settings.Get<bool>(GrepSettings.Key.ShowFullReplaceDialog) ?
                 ReplaceDialogConfiguration.FullDialog : ReplaceDialogConfiguration.FilesOnly;
+            DeleteOption = Settings.Get<bool>(GrepSettings.Key.DeleteToRecycleBin) ?
+                DeleteFilesDestination.Recycle : DeleteFilesDestination.Permanent;
             MaximizeResultsTreeOnSearch = Settings.Get<bool>(GrepSettings.Key.MaximizeResultsTreeOnSearch);
 
             UseDefaultFont = Settings.Get<bool>(GrepSettings.Key.UseDefaultFont);
@@ -1295,6 +1318,7 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.OptionsOnMainPanel, OptionsLocation == PanelSelection.MainPanel);
             Settings.Set(GrepSettings.Key.MaximizeResultsTreeOnSearch, MaximizeResultsTreeOnSearch);
             Settings.Set(GrepSettings.Key.ShowFullReplaceDialog, ReplaceDialogLayout == ReplaceDialogConfiguration.FullDialog);
+            Settings.Set(GrepSettings.Key.DeleteToRecycleBin, DeleteOption == DeleteFilesDestination.Recycle);
             Settings.Set(GrepSettings.Key.FollowWindowsTheme, FollowWindowsTheme);
             Settings.Set(GrepSettings.Key.CurrentTheme, CurrentTheme);
             Settings.Set(GrepSettings.Key.CurrentCulture, CurrentCulture);
@@ -1600,7 +1624,7 @@ namespace dnGREP.WPF
 
     public class PluginOptions : CultureAwareViewModel
     {
-        public PluginOptions(string name, bool enabled, bool previewTextEnabled, 
+        public PluginOptions(string name, bool enabled, bool previewTextEnabled,
             string defExt, string addExt, string remExt)
         {
             Name = name;
@@ -1611,9 +1635,9 @@ namespace dnGREP.WPF
             RemExtensions = origRemExtensions = remExt;
         }
 
-        public bool IsChanged => isEnabled != origIsEnabled || 
+        public bool IsChanged => isEnabled != origIsEnabled ||
             previewTextEnabled != origPreviewTextEnabled ||
-            addExtensions != origAddExtensions || 
+            addExtensions != origAddExtensions ||
             remExtensions != origRemExtensions;
 
         private string name;

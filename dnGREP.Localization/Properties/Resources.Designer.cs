@@ -6855,6 +6855,33 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Copy files failed: .
+        /// </summary>
+        public static string Scripts_CopyFilesFailed {
+            get {
+                return ResourceManager.GetString("Scripts_CopyFilesFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete files failed: .
+        /// </summary>
+        public static string Scripts_DeleteFilesFailed {
+            get {
+                return ResourceManager.GetString("Scripts_DeleteFilesFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move files failed: .
+        /// </summary>
+        public static string Scripts_MoveFilesFailed {
+            get {
+                return ResourceManager.GetString("Scripts_MoveFilesFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New script.
         /// </summary>
         public static string Scripts_NewScript {

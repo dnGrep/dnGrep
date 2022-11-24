@@ -556,6 +556,18 @@
                     </StackPanel>
                 </GroupBox>
 
+                <GroupBox Header="Delete files">
+                    <StackPanel>
+                        <StackPanel Margin="0,6,0,0">
+                            <TextBlock Text="When deleting files" />
+                            <RadioButton Margin="18,3" Content="Send to recycle bin" GroupName="deleteFiles"
+                                         IsChecked="{Binding DeleteOption, Converter={StaticResource ebc}, ConverterParameter=Recycle}" />
+                            <RadioButton Margin="18,3" Content="Delete permanently" GroupName="deleteFiles"
+                                         IsChecked="{Binding DeleteOption, Converter={StaticResource ebc}, ConverterParameter=Permanent}" />
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+
                 <GroupBox Header="{l:Loc Key='Options_HistoryLists'}">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">

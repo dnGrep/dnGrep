@@ -2423,12 +2423,12 @@ namespace dnGREP.WPF
                         int count = 0;
                         if (hasSingleBaseFolder && !string.IsNullOrWhiteSpace(baseFolder))
                         {
-                            count = Utils.CopyFiles(fileList, baseFolder, destinationFolder, IsScriptRunning ? OverwriteFile.Yes : OverwriteFile.Prompt);
+                            count = Utils.CopyFiles(fileList, baseFolder, destinationFolder, IsScriptRunning ? OverwriteFile.No : OverwriteFile.Prompt);
                         }
                         else
                         {
                             // without a common base path, copy all files to a single directory 
-                            count = Utils.CopyFiles(fileList, destinationFolder, IsScriptRunning ? OverwriteFile.Yes : OverwriteFile.Prompt);
+                            count = Utils.CopyFiles(fileList, destinationFolder, IsScriptRunning ? OverwriteFile.No : OverwriteFile.Prompt);
                         }
 
                         if (IsScriptRunning)
@@ -2452,7 +2452,8 @@ namespace dnGREP.WPF
 
                         if (IsScriptRunning)
                         {
-                            AddScriptMessage(Resources.MessageBox_ThereWasAnErrorCopyingFiles + App.LogDir);
+                            AddScriptMessage(Resources.Scripts_CopyFilesFailed + ex.Message);
+                            CancelScript();
                         }
                         else
                         {
@@ -2513,12 +2514,12 @@ namespace dnGREP.WPF
                         int count = 0;
                         if (hasSingleBaseFolder && !string.IsNullOrWhiteSpace(baseFolder))
                         {
-                            count = Utils.MoveFiles(fileList, baseFolder, destinationFolder, IsScriptRunning ? OverwriteFile.Yes : OverwriteFile.Prompt);
+                            count = Utils.MoveFiles(fileList, baseFolder, destinationFolder, IsScriptRunning ? OverwriteFile.No : OverwriteFile.Prompt);
                         }
                         else
                         {
                             // without a common base path, move all files to a single directory 
-                            count = Utils.MoveFiles(fileList, destinationFolder, IsScriptRunning ? OverwriteFile.Yes : OverwriteFile.Prompt);
+                            count = Utils.MoveFiles(fileList, destinationFolder, IsScriptRunning ? OverwriteFile.No : OverwriteFile.Prompt);
                         }
 
                         if (IsScriptRunning)
@@ -2541,7 +2542,8 @@ namespace dnGREP.WPF
                         logger.Error(ex, "Error moving files");
                         if (IsScriptRunning)
                         {
-                            AddScriptMessage(Resources.MessageBox_ThereWasAnErrorMovingFiles + App.LogDir);
+                            AddScriptMessage(Resources.Scripts_MoveFilesFailed + ex.Message);
+                            CancelScript();
                         }
                         else
                         {
@@ -2576,7 +2578,15 @@ namespace dnGREP.WPF
                         }
                     }
 
-                    int count = Utils.DeleteFiles(SearchResults.GetList());
+                    int count;
+                    if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.DeleteToRecycleBin))
+                    {
+                        count = Utils.SendToRecycleBin(SearchResults.GetList());
+                    }
+                    else
+                    {
+                        count = Utils.DeleteFiles(SearchResults.GetList());
+                    }
 
                     if (IsScriptRunning)
                     {
@@ -2596,7 +2606,8 @@ namespace dnGREP.WPF
                     logger.Error(ex, "Error deleting files");
                     if (IsScriptRunning)
                     {
-                        AddScriptMessage(Resources.MessageBox_ThereWasAnErrorDeletingFiles + App.LogDir);
+                        AddScriptMessage(Resources.Scripts_DeleteFilesFailed + ex.Message);
+                        CancelScript();
                     }
                     else
                     {

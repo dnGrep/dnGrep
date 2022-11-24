@@ -3076,6 +3076,18 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>At line</value>
     <comment>Script message statement prefix</comment>
   </data>
+  <data name="Scripts_CopyFilesFailed" xml:space="preserve">
+    <value>Copy files failed: </value>
+    <comment>Script message for copy error</comment>
+  </data>
+  <data name="Scripts_DeleteFilesFailed" xml:space="preserve">
+    <value>Delete files failed: </value>
+    <comment>Script message for delete error</comment>
+  </data>
+  <data name="Scripts_MoveFilesFailed" xml:space="preserve">
+    <value>Move files failed: </value>
+    <comment>Script message for move error</comment>
+  </data>
   <data name="Scripts_NewScript" xml:space="preserve">
     <value>New script</value>
     <comment>Scripts: name for unnamed script file</comment>
