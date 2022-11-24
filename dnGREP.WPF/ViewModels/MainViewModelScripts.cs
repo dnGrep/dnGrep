@@ -127,6 +127,9 @@ namespace dnGREP.WPF
         public IScriptCommand ExpandResultOptionsCommand => new ScriptCommand<bool>(
             param => IsResultOptionsExpanded = param);
 
+        public IScriptCommand RunScriptCommand => new ScriptCommand<string>(
+            param => RunScript(param));
+
         private void PopulateScripts()
         {
             ScriptManager.Instance.LoadScripts();
@@ -280,10 +283,22 @@ namespace dnGREP.WPF
 
         private void RunScript(string name)
         {
+            if (string.IsNullOrEmpty(name))
+            {
+                return;
+            }
+
+            string key = name;
+            if (!ScriptManager.Instance.ScriptKeys.Contains(key) &&
+                key.EndsWith(ScriptManager.ScriptExt, StringComparison.OrdinalIgnoreCase))
+            {
+                key = key.Remove(key.Length - ScriptManager.ScriptExt.Length);
+            }
+
             if (currentScript == null)
             {
                 ScriptMessages.Clear();
-                currentScript = ScriptManager.Instance.ParseScript(name);
+                currentScript = ScriptManager.Instance.ParseScript(key);
                 currentScriptFile = name;
                 cancelingScript = false;
                 showEmptyMessageWindow = false;

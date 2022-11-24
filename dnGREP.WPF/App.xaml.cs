@@ -63,7 +63,15 @@ namespace dnGREP.WPF
                 }
 
                 MainWindow.Show();
-                if (AppArgs.ExecuteSearch && MainWindow.DataContext != null)
+
+                if (!string.IsNullOrEmpty(AppArgs.Script) && MainWindow.DataContext != null)
+                {
+                    if (MainWindow is MainForm mainView)
+                    {
+                        mainView.ViewModel.RunScriptCommand.Execute(AppArgs.Script);
+                    }
+                }
+                else if (AppArgs.ExecuteSearch && MainWindow.DataContext != null)
                 {
                     if (MainWindow is MainForm mainView)
                     {

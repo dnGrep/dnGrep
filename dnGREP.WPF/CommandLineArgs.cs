@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using System.Security.AccessControl;
 using System.Text;
 using System.Text.RegularExpressions;
 using dnGREP.Common;
@@ -86,6 +87,22 @@ namespace dnGREP.WPF
                         {
                             case "/warmup":
                                 WarmUp = true;
+                                break;
+
+                            case "/sc":
+                            case "-sc":
+                            case "-script":
+                                if (!string.IsNullOrWhiteSpace(value))
+                                {
+                                    Script = value;
+                                    idx++;
+                                }
+                                else
+                                {
+                                    InvalidArgument = true;
+                                    ShowHelp = true;
+                                }
+
                                 break;
 
                             case "/f":
@@ -451,6 +468,7 @@ namespace dnGREP.WPF
         public bool? DotAsNewline { get; private set; }
         public bool? BooleanOperators { get; private set; }
         public bool ExecuteSearch { get; private set; }
+        public string Script { get; private set; }
         public string ReportPath { get; private set; }
         public string TextPath { get; private set; }
         public string CsvPath { get; private set; }
