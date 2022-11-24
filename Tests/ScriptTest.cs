@@ -99,11 +99,13 @@ namespace Tests
         [InlineData("set listitemseparator ,")]
         [InlineData("set listitemseparator \", \"")]
 
-        [InlineData("add bookmark name")]
-        [InlineData("remove bookmark")]
-        [InlineData("add folderbookmark name")]
-        [InlineData("remove folderbookmark")]
-        [InlineData("use bookmark test bookmark")]
+        [InlineData("bookmark add test bookmark")]
+        [InlineData("bookmark use test bookmark")]
+        [InlineData("bookmark remove test bookmark")]
+        [InlineData("bookmark remove")]
+        [InlineData("bookmark addfolder test bookmark")]
+        [InlineData("bookmark removefolder")]
+        [InlineData("bookmark removefolder name")]
 
         [InlineData("report full c:\\test\\report.txt")]
         [InlineData("report text c:\\test\\report.txt")]
@@ -157,7 +159,7 @@ namespace Tests
         }
 
         [Theory]
-        [InlineData("use bookmark test bookmark", "test bookmark")]
+        [InlineData("bookmark use test bookmark", "test bookmark")]
         [InlineData("set folder c:\\test\\directory", "c:\\test\\directory")]
         [InlineData("set searchfor", null)]
         [InlineData("set searchfor ", null)]
