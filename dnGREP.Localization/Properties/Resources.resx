@@ -2774,303 +2774,403 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="ScriptHint_bookmark" xml:space="preserve">
     <value>Bookmark</value>
+    <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_bookmark_add" xml:space="preserve">
     <value>Add a new bookmark</value>
+    <comment>Script editor command/target tooltip </comment>
   </data>
   <data name="ScriptHint_bookmark_add_value" xml:space="preserve">
     <value>The name for the new bookmark, or empty</value>
+    <comment>Script editor command/target tooltip </comment>
   </data>
   <data name="ScriptHint_bookmark_addfolder" xml:space="preserve">
     <value>Add a new bookmark associated with the current search folder</value>
+    <comment>Script editor command/target tooltip </comment>
   </data>
   <data name="ScriptHint_bookmark_remove" xml:space="preserve">
     <value>Remove a bookmark</value>
+    <comment>Script editor command/target tooltip </comment>
   </data>
   <data name="ScriptHint_bookmark_remove_value" xml:space="preserve">
     <value>The name of the bookmark to remove, or empty for the current bookmark</value>
+    <comment>Script editor command/target tooltip </comment>
   </data>
   <data name="ScriptHint_bookmark_removefolder" xml:space="preserve">
     <value>Remove a folder bookmark</value>
+    <comment>Script editor command/target tooltip </comment>
   </data>
   <data name="ScriptHint_bookmark_use" xml:space="preserve">
     <value>Apply bookmark settings</value>
+    <comment>Script editor command/target tooltip </comment>
   </data>
   <data name="ScriptHint_bookmark_use_value" xml:space="preserve">
     <value>The name of a bookmark</value>
+    <comment>Script editor command/target tooltip </comment>
   </data>
   <data name="ScriptHint_copyfilenames" xml:space="preserve">
     <value>Copy file names in results to the clipboard</value>
+    <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_copyfiles" xml:space="preserve">
     <value>Copy result files to a new location</value>
+    <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_copyfiles_value" xml:space="preserve">
     <value>The destination folder path</value>
+    <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_copyresults" xml:space="preserve">
     <value>Copy result text to the clipboard</value>
+    <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_deletefiles" xml:space="preserve">
     <value>Delete the result files permanently</value>
+    <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_exit" xml:space="preserve">
     <value>Close all the windows and exit dnGrep</value>
+    <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_expandfilefilters" xml:space="preserve">
     <value>Expand or hide the file filters section</value>
+    <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_expandresultoptions" xml:space="preserve">
     <value>Expand or hide the results options section</value>
+    <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_include" xml:space="preserve">
     <value>Import data</value>
+    <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_include_script" xml:space="preserve">
     <value>Include the commands from another script in the current script</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_include_script_value" xml:space="preserve">
     <value>The key/file name of the script</value>
+    <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_maximizeresults" xml:space="preserve">
     <value>Maximize or restore the search results tree</value>
+    <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_messages" xml:space="preserve">
     <value>Always show the script message window when the script finishes</value>
+    <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_movefiles" xml:space="preserve">
     <value>Move result files to a new location</value>
+    <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_movefiles_value" xml:space="preserve">
     <value>The destination folder path</value>
+    <comment>Script editor command/value tooltip</comment>
   </data>
   <data name="ScriptHint_replace" xml:space="preserve">
     <value>Replace matches in files</value>
+    <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_report" xml:space="preserve">
     <value>Write a report</value>
+    <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_report_arg_value" xml:space="preserve">
     <value>The path and file name for the report</value>
+    <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_report_csv" xml:space="preserve">
     <value>The result report as a csv file</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_report_full" xml:space="preserve">
     <value>The full report</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_report_text" xml:space="preserve">
     <value>The result text-only report</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_report_text_value" xml:space="preserve">
     <value>The path and file name for the report</value>
+    <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_resetfilters" xml:space="preserve">
     <value>Reset file filters to their default values</value>
+    <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_search" xml:space="preserve">
     <value>Begin searching</value>
+    <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_set" xml:space="preserve">
     <value>Set a value on a target property</value>
+    <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_set_booleanoperators" xml:space="preserve">
     <value>Boolean operators</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_capturegroupsearch" xml:space="preserve">
     <value>Capture group search</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_casesensitive" xml:space="preserve">
     <value>Case sensitive</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_contextlinesafter" xml:space="preserve">
     <value>Context lines after (number)</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_contextlinesbefore" xml:space="preserve">
     <value>Context lines before (number)</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_dotasnewline" xml:space="preserve">
     <value>Dot as newline</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_encoding" xml:space="preserve">
     <value>Encoding, as a code page number</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_encoding_value" xml:space="preserve">
     <value>Set the code page number or -1 for Auto detection</value>
+    <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_set_enddate" xml:space="preserve">
     <value>Date time 'To' filter</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_filedatefilter" xml:space="preserve">
     <value>Date filter selection</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_fileinformation" xml:space="preserve">
     <value>Include file information in report</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_filetimerange" xml:space="preserve">
     <value>Time range filter selection</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_filterbyfilesize" xml:space="preserve">
     <value>Enable file size filtering</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_folder" xml:space="preserve">
     <value>Search location: folder or file path</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_folder_value" xml:space="preserve">
     <value>The folder, file path, or comma separated list of folders or files</value>
+    <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_set_followsymlinks" xml:space="preserve">
     <value>Follow symbolic links</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_highlightgroups" xml:space="preserve">
     <value>Highlight groups</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_highlightmatches" xml:space="preserve">
     <value>Hightlight matches</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_hoursfrom" xml:space="preserve">
     <value>Date time 'Past' hours filter</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_hoursfrom_value" xml:space="preserve">
     <value>Past hours filter lower limit (number)</value>
+    <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_set_hoursto" xml:space="preserve">
     <value>Date time 'Past' hours filter</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_hoursto_value" xml:space="preserve">
     <value>Past hours filter upper limit (number)</value>
+    <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_set_includebinary" xml:space="preserve">
     <value>Include binary files</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_includehidden" xml:space="preserve">
     <value>Include hidden folders</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_includesubfolder" xml:space="preserve">
     <value>Include subfolders</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_listitemseparator" xml:space="preserve">
     <value>Report separator between items on same line</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_listitemseparator_value" xml:space="preserve">
     <value>Character or characters such as comma or comma space</value>
+    <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_set_maxsubfolderdepth" xml:space="preserve">
     <value>Max subfolder depth</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_maxsubfolderdepth_value" xml:space="preserve">
     <value>Folder depth limit (number)</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_multiline" xml:space="preserve">
     <value>Multiline</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_paterntype" xml:space="preserve">
     <value>The type of file filter pattern</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_pathtoignore" xml:space="preserve">
     <value>Patterns to exclude filter</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_pathtoignore_value" xml:space="preserve">
     <value>A file filter pattern, such as test\\*, or list of filters</value>
+    <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_set_pathtomatch" xml:space="preserve">
     <value>Patterns to match filter</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_pathtomatch_value" xml:space="preserve">
     <value>A file filter pattern, such as *.txt, or list of filters</value>
+    <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_set_previewfile" xml:space="preserve">
     <value>Preview file</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_replacewith" xml:space="preserve">
     <value>Replace with</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_replacewith_value" xml:space="preserve">
     <value>Replacement text or empty string</value>
+    <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_set_reportmode" xml:space="preserve">
     <value>Report output setting</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_resultszoom" xml:space="preserve">
     <value>Zoom level for results tree (number)</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_searchfor" xml:space="preserve">
     <value>Search for</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_searchfor_value" xml:space="preserve">
     <value>Search pattern or empty string</value>
+    <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_set_searchinarchives" xml:space="preserve">
     <value>Search in archives</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_searchinresults" xml:space="preserve">
     <value>Search in results</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_searchparallel" xml:space="preserve">
     <value>Search parallel</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_searchtype" xml:space="preserve">
     <value>The type of search pattern</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_separatelines" xml:space="preserve">
     <value>Report output on separate lines</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_showcontextlines" xml:space="preserve">
     <value>Show context lines</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_sizefrom" xml:space="preserve">
     <value>Size from</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_sizefrom_value" xml:space="preserve">
     <value>Size filter lower limit (number)</value>
+    <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_set_sizeto" xml:space="preserve">
     <value>Size to</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_sizeto_value" xml:space="preserve">
     <value>Size filter upper limit (number)</value>
+    <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_set_skipremotecloudstoragefiles" xml:space="preserve">
     <value>Skip remote cloud storage files</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_sortdirection" xml:space="preserve">
     <value>Sort direction</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_sorttype" xml:space="preserve">
     <value>Sort type setting</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_startdate" xml:space="preserve">
     <value>Date time 'From' filter</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_startdate_value" xml:space="preserve">
     <value>Use ISO 8601 or local date time format</value>
+    <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_set_stopafterfirstmatch" xml:space="preserve">
     <value>Stop after first match</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_trimwhitespace" xml:space="preserve">
     <value>Trim whitespace in report</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_uniquescope" xml:space="preserve">
     <value>Report unique values scope: by file or all files</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_uniquevalues" xml:space="preserve">
     <value>Filter report by unique values</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_usegitignore" xml:space="preserve">
     <value>Use .gitignore</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_wholeword" xml:space="preserve">
     <value>Whole word</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_wraptext" xml:space="preserve">
     <value>Wrap text</value>
+    <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_sort" xml:space="preserve">
     <value>Sort results</value>
+    <comment>Script editor command tooltip</comment>
   </data>
   <data name="ScriptHint_undo" xml:space="preserve">
     <value>Undo the last replace operation</value>
+    <comment>Script editor command tooltip</comment>
   </data>
   <data name="Scripts_AtLine" xml:space="preserve">
     <value>At line</value>
