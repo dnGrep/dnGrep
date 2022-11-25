@@ -21,6 +21,7 @@ namespace dnGREP.WPF
         private static readonly IDictionary<string, IScriptCommand> BookmarkCommandMap = new Dictionary<string, IScriptCommand>();
         private static readonly IDictionary<string, IScriptCommand> ReportCommandMap = new Dictionary<string, IScriptCommand>();
 
+        private readonly List<ScriptEditorWindow> scriptEditorWindows = new List<ScriptEditorWindow>();
         private bool cancelingScript = false;
         private bool showEmptyMessageWindow = false;
         private string currentScriptFile;
@@ -235,6 +236,8 @@ namespace dnGREP.WPF
         {
             ScriptEditorWindow wnd = new ScriptEditorWindow();
             wnd.NewScriptFileSaved += ScriptEditor_NewScriptFileSaved;
+            scriptEditorWindows.Add(wnd);
+            wnd.Closed += (s, e) => { scriptEditorWindows.Remove(wnd); };
             wnd.Show();
         }
 
@@ -260,6 +263,8 @@ namespace dnGREP.WPF
             {
                 ScriptEditorWindow wnd = new ScriptEditorWindow();
                 wnd.NewScriptFileSaved += ScriptEditor_NewScriptFileSaved;
+                scriptEditorWindows.Add(wnd);
+                wnd.Closed += (s, e) => { scriptEditorWindows.Remove(wnd); };
                 wnd.OpenScriptFile(dlg.FileName);
                 wnd.Show();
             }

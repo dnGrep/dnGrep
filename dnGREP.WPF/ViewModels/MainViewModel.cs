@@ -132,6 +132,12 @@ namespace dnGREP.WPF
                 bookmarkWindow.UseBookmark -= BookmarkForm_UseBookmark;
                 bookmarkWindow.Close();
             }
+
+            while (scriptEditorWindows.Count > 0)
+            {
+                var wnd = scriptEditorWindows[scriptEditorWindows.Count - 1];
+                wnd.Close();
+            }
         }
 
         void SearchResults_OpenFileRequest(object sender, GrepResultEventArgs e)
