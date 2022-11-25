@@ -194,6 +194,9 @@ namespace dnGREP.WPF
             p => Close(),
             q => true);
 
+        public ICommand HelpCommand => new RelayCommand(
+            p => System.Diagnostics.Process.Start(@"https://github.com/dnGrep/dnGrep/wiki/Scripting%20Commands"));
+
         public ICommand UndoCommand => new RelayCommand(
             p => textEditor.Undo(),
             q => textEditor.CanUndo);

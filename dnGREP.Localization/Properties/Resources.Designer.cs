@@ -5784,6 +5784,33 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to _Help.
+        /// </summary>
+        public static string Script_Editor_Help {
+            get {
+                return ResourceManager.GetString("Script_Editor_Help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move selected lines down.
+        /// </summary>
+        public static string Script_Editor_MoveDown {
+            get {
+                return ResourceManager.GetString("Script_Editor_MoveDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move selected lines up.
+        /// </summary>
+        public static string Script_Editor_MoveUp {
+            get {
+                return ResourceManager.GetString("Script_Editor_MoveUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _New….
         /// </summary>
         public static string Script_Editor_New {
@@ -5825,6 +5852,24 @@ namespace dnGREP.Localization.Properties {
         public static string Script_Editor_SaveAs {
             get {
                 return ResourceManager.GetString("Script_Editor_SaveAs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Scripting commands.
+        /// </summary>
+        public static string Script_Editor_ScriptingCommands {
+            get {
+                return ResourceManager.GetString("Script_Editor_ScriptingCommands", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Suggest.
+        /// </summary>
+        public static string Script_Editor_Suggest {
+            get {
+                return ResourceManager.GetString("Script_Editor_Suggest", resourceCulture);
             }
         }
         

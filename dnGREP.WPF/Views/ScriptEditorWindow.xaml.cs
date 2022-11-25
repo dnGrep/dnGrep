@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows.Documents;
 using System.Windows.Input;
 using ICSharpCode.AvalonEdit.CodeCompletion;
-using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
-using ICSharpCode.AvalonEdit.Rendering;
 using ICSharpCode.AvalonEdit.Search;
 
 namespace dnGREP.WPF
@@ -41,6 +38,9 @@ namespace dnGREP.WPF
             textEditor.TextArea.KeyUp += TextArea_KeyUp;
 
             Closing += ScriptEditorWindow_Closing;
+
+            DiginesisHelpProvider.HelpNamespace = "https://github.com/dnGrep/dnGrep/wiki/";
+            DiginesisHelpProvider.ShowHelp = true;
         }
 
         private void ScriptEditorWindow_Closing(object sender, CancelEventArgs e)
@@ -198,23 +198,6 @@ namespace dnGREP.WPF
         private int GetWordIndex(string lineText, Caret caret)
         {
             return lineText.Substring(0, caret.VisualColumn).TrimStart().Count(c => c == ' ');
-        }
-
-        private string GetWordAtCaret(string lineText, Caret caret)
-        {
-            VisualLine visualLine = textEditor.TextArea.TextView.GetVisualLine(caret.Line);
-            int offsetStart = visualLine.GetNextCaretPosition(caret.VisualColumn, LogicalDirection.Backward, CaretPositioningMode.WordBorder, true);
-            int offsetEnd = visualLine.GetNextCaretPosition(caret.VisualColumn, LogicalDirection.Forward, CaretPositioningMode.WordBorder, true);
-
-            if (offsetEnd == -1 || offsetStart == -1)
-                return string.Empty;
-
-            var currentChar = lineText.Substring(caret.VisualColumn, 1);
-
-            if (string.IsNullOrWhiteSpace(currentChar))
-                return string.Empty;
-
-            return lineText.Substring(offsetStart, offsetEnd - offsetStart);
         }
 
         private void TextArea_TextEntering(object sender, TextCompositionEventArgs e)

@@ -18,7 +18,10 @@
                  WindowStartupLocation="CenterOwner"
                  FocusManager.FocusedElement="{Binding ElementName=textEditor}"
                  Background="{DynamicResource Dialog.Background}"
-                 CaptionBackground="{DynamicResource Caption.Dialog.Background}" >
+                 CaptionBackground="{DynamicResource Caption.Dialog.Background}" 
+                 my:DiginesisHelpProvider.HelpKeyword="Scripting Commands"
+                 my:DiginesisHelpProvider.HelpNavigator="Topic"
+                 my:DiginesisHelpProvider.ShowHelp="True" >
 
     <Window.Resources>
         <my:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed" />
@@ -74,6 +77,9 @@
                 <MenuItem Header="{l:Loc Key='Script_Editor_MoveDown'}" Command="{Binding MoveLinesDownCommand}" InputGestureText="Alt+Down Arrow"/>
                 <Separator/>
                 <MenuItem Header="{l:Loc Key='Script_Editor_Suggest'}" Command="{Binding SuggestCommand}" InputGestureText="Ctrl+Space"/>
+            </MenuItem>
+            <MenuItem Header="{l:Loc Key='Script_Editor_Help'}">
+                <MenuItem Header="{l:Loc Key='Script_Editor_ScriptingCommands'}" Command="{Binding HelpCommand}" InputGestureText="F1"/>
             </MenuItem>
         </Menu>
 
