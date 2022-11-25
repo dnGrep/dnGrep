@@ -125,7 +125,7 @@ namespace dnGREP.WPF
             UpdateReplaceButtonTooltip(true);
         }
 
-        internal void Closing()
+        internal bool Closing()
         {
             if (bookmarkWindow != null)
             {
@@ -136,8 +136,14 @@ namespace dnGREP.WPF
             while (scriptEditorWindows.Count > 0)
             {
                 var wnd = scriptEditorWindows[scriptEditorWindows.Count - 1];
+                if (!wnd.ConfirmSave())
+                {
+                    return false;
+                }
                 wnd.Close();
             }
+
+            return true;
         }
 
         void SearchResults_OpenFileRequest(object sender, GrepResultEventArgs e)

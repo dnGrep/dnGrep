@@ -43,6 +43,19 @@ namespace dnGREP.WPF
             DiginesisHelpProvider.ShowHelp = true;
         }
 
+        public bool ConfirmSave()
+        {
+            bool okClose = viewModel.ConfirmSave();
+            if (!okClose)
+            {
+                Topmost = true;
+                Focus();
+                Topmost = false;
+            }
+
+            return okClose;
+        }
+
         private void ScriptEditorWindow_Closing(object sender, CancelEventArgs e)
         {
             if (!viewModel.ConfirmSave())
