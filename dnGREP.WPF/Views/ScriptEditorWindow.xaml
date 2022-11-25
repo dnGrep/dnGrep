@@ -37,6 +37,8 @@
         <KeyBinding Key="V" Modifiers="Ctrl" Command="{Binding PasteCommand}"/>
         <KeyBinding Key="Delete" Modifiers="" Command="{Binding DeleteCommand}"/>
         <KeyBinding Key="D" Modifiers="Ctrl" Command="{Binding DeleteLineCommand}"/>
+        <KeyBinding Key="Up" Modifiers="Alt" Command="{Binding MoveLinesUpCommand}"/>
+        <KeyBinding Key="Down" Modifiers="Alt" Command="{Binding MoveLinesDownCommand}"/>
     </Window.InputBindings>
 
     <DockPanel Margin="8" LastChildFill="True">
@@ -67,6 +69,11 @@
                 <MenuItem Header="{l:Loc Key='Script_Editor_Paste'}" Command="{Binding PasteCommand}" InputGestureText="Ctrl+V"/>
                 <MenuItem Header="{l:Loc Key='Script_Editor_Delete'}" Command="{Binding DeleteCommand}" InputGestureText="Del"/>
                 <MenuItem Header="{l:Loc Key='Script_Editor_DeleteLine'}" Command="{Binding DeleteLineCommand}" InputGestureText="Ctrl+D"/>
+                <Separator/>
+                <MenuItem Header="{l:Loc Key='Script_Editor_MoveUp'}" Command="{Binding MoveLinesUpCommand}" InputGestureText="Alt+Up Arrow"/>
+                <MenuItem Header="{l:Loc Key='Script_Editor_MoveDown'}" Command="{Binding MoveLinesDownCommand}" InputGestureText="Alt+Down Arrow"/>
+                <Separator/>
+                <MenuItem Header="{l:Loc Key='Script_Editor_Suggest'}" Command="{Binding SuggestCommand}" InputGestureText="Ctrl+Space"/>
             </MenuItem>
         </Menu>
 

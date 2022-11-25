@@ -2700,6 +2700,14 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>_File</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
+  <data name="Script_Editor_MoveDown" xml:space="preserve">
+    <value>Move selected lines down</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_MoveUp" xml:space="preserve">
+    <value>Move selected lines up</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
   <data name="Script_Editor_New" xml:space="preserve">
     <value>_New…</value>
     <comment>Script editor menu item (accel)</comment>
@@ -2718,6 +2726,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Script_Editor_SaveAs" xml:space="preserve">
     <value>Save _as…</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Suggest" xml:space="preserve">
+    <value>Suggest</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Editor_Title" xml:space="preserve">

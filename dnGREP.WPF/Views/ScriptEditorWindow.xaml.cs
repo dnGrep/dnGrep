@@ -4,7 +4,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Documents;
 using System.Windows.Input;
-using ICSharpCode.AvalonEdit;
 using ICSharpCode.AvalonEdit.CodeCompletion;
 using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Editing;
@@ -29,6 +28,7 @@ namespace dnGREP.WPF
             DataContext = viewModel;
 
             viewModel.RequestClose += (s, e) => Close();
+            viewModel.RequestSuggest += (s, e) => Suggest();
             viewModel.NewScriptFileSaved += (s, e) => NewScriptFileSaved?.Invoke(this, e);
 
             SearchPanel.Install(textEditor);
