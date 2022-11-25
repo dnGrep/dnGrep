@@ -2753,7 +2753,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Validation_TheCommandIsInvalid" xml:space="preserve">
-    <value>The command is invalid</value>
+    <value>The command is not valid</value>
     <comment>Script validation error message</comment>
   </data>
   <data name="Script_Validation_TheScriptKeyWasNotFound" xml:space="preserve">
@@ -2761,7 +2761,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script validation error message</comment>
   </data>
   <data name="Script_Validation_TheTargetNameIsInvalid" xml:space="preserve">
-    <value>The target name is invalid</value>
+    <value>The target name is not valid</value>
     <comment>Script validation error message</comment>
   </data>
   <data name="Script_Validation_TheValueCannotBeConvertedFromTheString" xml:space="preserve">
@@ -2919,6 +2919,26 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="ScriptHint_resetfilters" xml:space="preserve">
     <value>Reset file filters to their default values</value>
     <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_run" xml:space="preserve">
+    <value>Run an external command</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_run_cmd" xml:space="preserve">
+    <value>Run a command script</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_run_cmd_value" xml:space="preserve">
+    <value>The full path and file name of a cmd or batch file</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_run_powershell" xml:space="preserve">
+    <value>Run a PowerShell script</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_run_powershell_value" xml:space="preserve">
+    <value>The full path and file name of the .ps1 script file</value>
+    <comment>Script editor command/target/value tooltip</comment>
   </data>
   <data name="ScriptHint_search" xml:space="preserve">
     <value>Begin searching</value>
@@ -3204,6 +3224,14 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Delete files failed: </value>
     <comment>Script message for delete error</comment>
   </data>
+  <data name="Scripts_FileNotFound" xml:space="preserve">
+    <value>The {0} file '{1}' was not found</value>
+    <comment>Script message for file not found: {0} is the target name and {1} is the file name</comment>
+  </data>
+  <data name="Scripts_InvalidFileExtension" xml:space="preserve">
+    <value>The {0} file extension must be {1}</value>
+    <comment>Script message for invalid file extension{0} is the target name and {1} is the file extension</comment>
+  </data>
   <data name="Scripts_MoveFilesFailed" xml:space="preserve">
     <value>Move files failed: </value>
     <comment>Script message for move error</comment>
@@ -3216,13 +3244,21 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>OK</value>
     <comment>Script Messages dialog button text</comment>
   </data>
+  <data name="Scripts_RunCommandError" xml:space="preserve">
+    <value>The run command exited with error: </value>
+    <comment>Script message for run command error</comment>
+  </data>
+  <data name="Scripts_RunCommandInvalid" xml:space="preserve">
+    <value>The run command is not valid</value>
+    <comment>Script message for invalid run command</comment>
+  </data>
   <data name="Scripts_ScriptCanceled" xml:space="preserve">
     <value>script canceled</value>
-    <comment>Script message</comment>
+    <comment>Script message for script canceled</comment>
   </data>
   <data name="Scripts_ScriptComplete" xml:space="preserve">
     <value>script complete</value>
-    <comment>Script message</comment>
+    <comment>Script message for script completed</comment>
   </data>
   <data name="Scripts_ScriptFiles" xml:space="preserve">
     <value>Script files</value>

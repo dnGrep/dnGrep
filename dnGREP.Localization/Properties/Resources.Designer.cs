@@ -5901,7 +5901,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The command is invalid.
+        ///   Looks up a localized string similar to The command is not valid.
         /// </summary>
         public static string Script_Validation_TheCommandIsInvalid {
             get {
@@ -5919,7 +5919,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The target name is invalid.
+        ///   Looks up a localized string similar to The target name is not valid.
         /// </summary>
         public static string Script_Validation_TheTargetNameIsInvalid {
             get {
@@ -6275,6 +6275,51 @@ namespace dnGREP.Localization.Properties {
         public static string ScriptHint_resetfilters {
             get {
                 return ResourceManager.GetString("ScriptHint_resetfilters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Run an external command.
+        /// </summary>
+        public static string ScriptHint_run {
+            get {
+                return ResourceManager.GetString("ScriptHint_run", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Run a command script.
+        /// </summary>
+        public static string ScriptHint_run_cmd {
+            get {
+                return ResourceManager.GetString("ScriptHint_run_cmd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The full path and file name of a cmd or batch file.
+        /// </summary>
+        public static string ScriptHint_run_cmd_value {
+            get {
+                return ResourceManager.GetString("ScriptHint_run_cmd_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Run a PowerShell script.
+        /// </summary>
+        public static string ScriptHint_run_powershell {
+            get {
+                return ResourceManager.GetString("ScriptHint_run_powershell", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The full path and file name of the .ps1 script file.
+        /// </summary>
+        public static string ScriptHint_run_powershell_value {
+            get {
+                return ResourceManager.GetString("ScriptHint_run_powershell_value", resourceCulture);
             }
         }
         
@@ -6918,6 +6963,24 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The {0} file &apos;{1}&apos; was not found.
+        /// </summary>
+        public static string Scripts_FileNotFound {
+            get {
+                return ResourceManager.GetString("Scripts_FileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The {0} file extension must be {1}.
+        /// </summary>
+        public static string Scripts_InvalidFileExtension {
+            get {
+                return ResourceManager.GetString("Scripts_InvalidFileExtension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Move files failed: .
         /// </summary>
         public static string Scripts_MoveFilesFailed {
@@ -6941,6 +7004,24 @@ namespace dnGREP.Localization.Properties {
         public static string Scripts_OK {
             get {
                 return ResourceManager.GetString("Scripts_OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The run command exited with error: .
+        /// </summary>
+        public static string Scripts_RunCommandError {
+            get {
+                return ResourceManager.GetString("Scripts_RunCommandError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The run command is not valid.
+        /// </summary>
+        public static string Scripts_RunCommandInvalid {
+            get {
+                return ResourceManager.GetString("Scripts_RunCommandInvalid", resourceCulture);
             }
         }
         

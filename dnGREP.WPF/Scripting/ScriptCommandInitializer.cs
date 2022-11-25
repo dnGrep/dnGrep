@@ -525,6 +525,33 @@ namespace dnGREP.WPF
                 ValueHint = Resources.ScriptHint_report_arg_value
             });
 
+
+            cmd = new ScriptCommandDefinition()
+            {
+                Command = "run",
+                Priority = cmdPriority--,
+                Description = Resources.ScriptHint_run
+            };
+            scriptCommands.Add(cmd);
+
+            cmd.Targets.Add(new ScriptTargetDefinition()
+            {
+                Target = "powershell",
+                Priority = targPriority--,
+                ValueType = typeof(string),
+                Description = Resources.ScriptHint_run_powershell,
+                ValueHint = Resources.ScriptHint_run_powershell_value
+            });
+
+            cmd.Targets.Add(new ScriptTargetDefinition()
+            {
+                Target = "cmd",
+                Priority = targPriority--,
+                ValueType = typeof(string),
+                Description = Resources.ScriptHint_run_cmd,
+                ValueHint = Resources.ScriptHint_run_cmd_value
+            });
+
             
             scriptCommands.Add(new ScriptCommandDefinition()
             {

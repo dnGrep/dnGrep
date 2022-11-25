@@ -111,6 +111,9 @@ namespace Tests
         [InlineData("report text c:\\test\\report.txt")]
         [InlineData("report csv c:\\test\\report.csv")]
 
+        [InlineData("run powershell c:\\test\\script.ps1")]
+        [InlineData("run cmd c:\\test\\script.bat")]
+
         [InlineData("resetfilters")]
         [InlineData("sort")]
         [InlineData("undo")]
@@ -150,6 +153,7 @@ namespace Tests
         [InlineData("maximizeresults yes", ScriptValidationError.ConvertValueFromStringFailed)]
         [InlineData("set filedatefilter yes", ScriptValidationError.ConvertValueFromStringFailed)]
         [InlineData("report folder c:\\test\\report.csv", ScriptValidationError.InvalidTargetName)]
+        [InlineData("run Notepad.exe c:\\test\\script.gsc", ScriptValidationError.InvalidTargetName)]
         public void TestValidateInvalidCommand(string line, ScriptValidationError expected)
         {
             ScriptStatement statement = ScriptManager.Instance.ParseLine(line, 1);

@@ -43,6 +43,7 @@
       <Word>search</Word>
       <Word>replace</Word>
       <Word>messages</Word>
+      <Word>run</Word>
       <Word>exit</Word>
     </Keywords>
     <Keywords foreground="#FFA83939">
@@ -106,6 +107,8 @@
       <Word>text</Word>
       <Word>csv</Word>
       <Word>script</Word>
+      <Word>powershell</Word>
+      <Word>cmd</Word>
     </Keywords>
     <Keywords foreground="#FF016183">
       <Word>False</Word>

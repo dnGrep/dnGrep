@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -9,6 +11,7 @@ using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
 using dnGREP.Localization.Properties;
 using Microsoft.Win32;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace dnGREP.WPF
 {
@@ -413,8 +416,12 @@ namespace dnGREP.WPF
                         showEmptyMessageWindow = true;
                         break;
 
+                    case "run":
+                        RunCommand(stmt.Target, stmt.Value);
+                        break;
+
                     case "exit":
-                        Application.Current.MainWindow.Close();
+                        System.Windows.Application.Current.MainWindow.Close();
                         return;
                 }
             }
@@ -442,6 +449,87 @@ namespace dnGREP.WPF
             }
 
             CommandManager.InvalidateRequerySuggested();
+        }
+
+        private void RunCommand(string target, string value)
+        {
+            if (string.IsNullOrEmpty(target) || string.IsNullOrEmpty(value))
+            {
+                ScriptMessages.Add(Resources.Scripts_RunCommandInvalid);
+                CancelScript();
+                return;
+            }
+
+            if (!File.Exists(value))
+            {
+                ScriptMessages.Add(string.Format(Resources.Scripts_FileNotFound, target, value));
+                CancelScript();
+                return;
+            }
+
+            if (target == "powershell")
+            {
+                string ext = ".ps1";
+                if (Path.GetExtension(value).Equals(ext, StringComparison.OrdinalIgnoreCase))
+                {
+                    try
+                    {
+                        var startInfo = new ProcessStartInfo()
+                        {
+                            FileName = "powershell.exe",
+                            Arguments = $"-NoProfile -ExecutionPolicy unrestricted -file \"{value}\"",
+                            UseShellExecute = false,
+                        };
+                        var proc = Process.Start(startInfo);
+                        proc.WaitForExit(60 * 1000);
+                    }
+                    catch (Exception ex)
+                    {
+                        ScriptMessages.Add(Resources.Scripts_RunCommandError + ex.Message);
+                        CancelScript();
+                    }
+                }
+                else
+                {
+                    ScriptMessages.Add(string.Format(Resources.Scripts_InvalidFileExtension, target, ext));
+                    CancelScript();
+                }
+            }
+            else if (target == "cmd")
+            {
+                string ext1 = ".cmd";
+                string ext2 = ".bat";
+                if (Path.GetExtension(value).Equals(ext1, StringComparison.OrdinalIgnoreCase) ||
+                    Path.GetExtension(value).Equals(ext2, StringComparison.OrdinalIgnoreCase))
+                {
+                    try
+                    {
+                        var startInfo = new ProcessStartInfo()
+                        {
+                            FileName = $"\"{value}\"",
+                            UseShellExecute = true,
+                        };
+                        var proc = Process.Start(startInfo);
+                        proc.WaitForExit(60 * 1000);
+                    }
+                    catch (Exception ex)
+                    {
+                        ScriptMessages.Add(Resources.Scripts_RunCommandError + ex.Message);
+                        CancelScript();
+                    }
+                }
+                else
+                {
+                    ScriptMessages.Add(string.Format(Resources.Scripts_InvalidFileExtension, target,
+                        string.Join(CultureInfo.CurrentCulture.TextInfo.ListSeparator, ext1, ext2)));
+                    CancelScript();
+                }
+            }
+            else
+            {
+                ScriptMessages.Add(Resources.Scripts_RunCommandInvalid);
+                CancelScript();
+            }
         }
     }
 }
