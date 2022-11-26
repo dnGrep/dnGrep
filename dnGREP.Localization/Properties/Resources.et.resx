@@ -1,0 +1,958 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About_AboutDnGREP" xml:space="preserve">
+    <value>dnGrep'i teave</value>
+    <comment>About dialog window title</comment>
+  </data>
+  <data name="About_Acknowledgments" xml:space="preserve">
+    <value>Teadaanded</value>
+    <comment>About dialog text</comment>
+  </data>
+  <data name="About_ConvertsPDFFilesToPlainText" xml:space="preserve">
+    <value>Teisendab PDF failid lihttekstiks</value>
+    <comment>About dnGrep acknowledgments</comment>
+  </data>
+  <data name="About_DnGREP" xml:space="preserve">
+    <value>dnGrep</value>
+    <comment>About dialog text</comment>
+  </data>
+  <data name="About_DnGrepOnGitHub" xml:space="preserve">
+    <value>dnGrep GitHubis</value>
+    <comment>About dialog text</comment>
+  </data>
+  <data name="About_Version" xml:space="preserve">
+    <value>Versioon</value>
+    <comment>About dialog label</comment>
+  </data>
+  <data name="About_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>About dialog button label</comment>
+  </data>
+  <data name="BookmarkDetails_Content_Group" xml:space="preserve">
+    <value>Sisu</value>
+    <comment>Bookmark details dialog, search group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Cancel" xml:space="preserve">
+    <value>Tühista</value>
+    <comment>Bookmark details dialog, cancel button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_BooleanOperators" xml:space="preserve">
+    <value>Tõeväärtus operaatorid</value>
+    <comment>Bookmark details dialog, search options checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_BookmarkName" xml:space="preserve">
+    <value>Järjehoidja nimi:</value>
+    <comment>Bookmark name label</comment>
+  </data>
+  <data name="BookmarkDetails_Description" xml:space="preserve">
+    <value>Kirjeldus:</value>
+    <comment>Bookmark details dialog, text input box label</comment>
+  </data>
+  <data name="BookmarkDetails_FileSource_Group" xml:space="preserve">
+    <value>Faili allikas</value>
+    <comment>Bookmark details dialog, file type group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_IncludeSubfolders" xml:space="preserve">
+    <value>Kaasa alamkaustad</value>
+    <comment>Bookmark details dialog, filter path depth checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_IncludeBinaryFiles" xml:space="preserve">
+    <value>Kaasa binaarfailid</value>
+    <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Multiline" xml:space="preserve">
+    <value>_Mitmerealine</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Bookmark details dialog, button label</comment>
+  </data>
+  <data name="BookmarkDetails_Filters_Group" xml:space="preserve">
+    <value>Faili filtrid</value>
+    <comment>Bookmark details dialog, filters group header label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_PatternType_Everything" xml:space="preserve">
+    <value>Everything</value>
+    <comment>Bookmark details dialog, Everything pattern type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_XPath" xml:space="preserve">
+    <value>_XPath</value>
+    <comment>Bookmark details dialog, search type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
+    <value>bait</value>
+    <comment>Bookmark details dialog, Byte search type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_IncludeHiddenFolders" xml:space="preserve">
+    <value>Kaasa peidetud kaustad</value>
+    <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_ForExampleRegularExpession" xml:space="preserve">
+    <value>näiteks: fail[0-9]{1,2}\\.txt</value>
+    <comment>Bookmark details dialog, regular expression pattern type option tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_Phonetic" xml:space="preserve">
+    <value>Foneetiline</value>
+    <comment>Bookmark details dialog, Phonetic search type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_PhoneticSearch" xml:space="preserve">
+    <value>Foneetiline otsing</value>
+    <comment>Bookmark details dialog, Phonetic search type tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_PlainTextSearch" xml:space="preserve">
+    <value>Lihttekst otsing</value>
+    <comment>Bookmark details dialog, Text search type tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_Text" xml:space="preserve">
+    <value>_Tekst</value>
+    <comment>Bookmark details dialog, search type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Title" xml:space="preserve">
+    <value>Lemmiku üksikasjad</value>
+    <comment>Bookmark details dialog, window title</comment>
+  </data>
+  <data name="Bookmarks_AltDownArrow" xml:space="preserve">
+    <value>Alt+nool alla</value>
+    <comment>Bookmarks dialog, bookmark list 'Move down' context menu shortcut text</comment>
+  </data>
+  <data name="Bookmarks_DescriptionHeader" xml:space="preserve">
+    <value>Kirjeldus</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_NameHeader" xml:space="preserve">
+    <value>Nimi</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_Edit" xml:space="preserve">
+    <value>R_edigeeri</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_FilePatternHeader" xml:space="preserve">
+    <value>Faili muster</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_Filter" xml:space="preserve">
+    <value>Filter:</value>
+    <comment>Bookmarks dialog, filter input box label</comment>
+  </data>
+  <data name="Bookmarks_ReplaceWithHeader" xml:space="preserve">
+    <value>Asenda millega</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Main_SortMenu_PathAndFileNameDepthFirst" xml:space="preserve">
+    <value>Failitee ja -nimi, sügavus esmalt</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="MessageBox_RenameFile" xml:space="preserve">
+    <value>Nimeta fail ümber</value>
+    <comment>Message box title for: Rename file</comment>
+  </data>
+  <data name="BookmarkDetails_ForExampleAsteriskPattern" xml:space="preserve">
+    <value>Näiteks: *.txt;*.xml</value>
+    <comment>Bookmark details dialog, Wildcard pattern type option tooltip</comment>
+  </data>
+  <data name="Main_IncludeFilesByNameOrType" xml:space="preserve">
+    <value>Kaasa failid nime või tüübi alusel</value>
+    <comment>Main window, Patterns to include label tooltip</comment>
+  </data>
+  <data name="Main_SortMenu_FileTypeAndName" xml:space="preserve">
+    <value>Faili tüüp ja nimi</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Main_Results_CopyFileNames" xml:space="preserve">
+    <value>Kopeeri failinimed</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_RenameFile" xml:space="preserve">
+    <value>Nimeta fail ümber</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="BookmarkDetails_MaxDepth" xml:space="preserve">
+    <value>Max sügavus</value>
+    <comment>Bookmark details dialog, filter path depth text box label (accel)</comment>
+  </data>
+  <data name="Main_SortMenu_FileNameOnly" xml:space="preserve">
+    <value>Ainult failinimi</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Bookmarks_AltUpArrow" xml:space="preserve">
+    <value>Alt+nool üles</value>
+    <comment>Bookmarks dialog, bookmark list 'Move up' context menu shortcut text</comment>
+  </data>
+  <data name="Main_MoreMenu_CopyFileNames" xml:space="preserve">
+    <value>Kopeeri failinimed</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Bookmarks_SearchForHeader" xml:space="preserve">
+    <value>Otsi mida</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_SectionsHeader" xml:space="preserve">
+    <value>Sektsioonid</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_Summary_MaxFolderDepth" xml:space="preserve">
+    <value>Max kausta sügavus: {0}</value>
+    <comment>Bookmarks dialog, Other Properties summary: {0} is a number</comment>
+  </data>
+  <data name="Bookmarks_Summary_CaseSensitive" xml:space="preserve">
+    <value>Tõstutundlik</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Window_Minimize" xml:space="preserve">
+    <value>Minimeeri</value>
+    <comment>Window title bar button tooltip</comment>
+  </data>
+  <data name="Window_Maximize" xml:space="preserve">
+    <value>Maksimeeri</value>
+    <comment>Window title bar button tooltip</comment>
+  </data>
+  <data name="Bookmarks_Add" xml:space="preserve">
+    <value>Lis_a</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_OtherPropertiesHeader" xml:space="preserve">
+    <value>Muud sätted</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_Title" xml:space="preserve">
+    <value>Lemmikud</value>
+    <comment>Bookmarks dialog title</comment>
+  </data>
+  <data name="Bookmarks_TypeHeader" xml:space="preserve">
+    <value>Tüüp</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_Use" xml:space="preserve">
+    <value>Kas_uta</value>
+    <comment>Bookmarks dialog, button text (accel)</comment>
+  </data>
+  <data name="Help_CmdLineArguments" xml:space="preserve">
+    <value>Argumendid:</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="About_BuiltOn" xml:space="preserve">
+    <value>Koostatud</value>
+    <comment>About dialog label</comment>
+  </data>
+  <data name="Help_CmdLineCSVReport" xml:space="preserve">
+    <value>/csv [failitee]
+-csv [failitee]
+    Loo peale otsingu lõpetamist CSV vormingus tulemuste fail.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Window_Close" xml:space="preserve">
+    <value>Sulge</value>
+    <comment>Window title bar close button tooltip</comment>
+  </data>
+  <data name="Window_DockThisPopUpBackIntoTheMainWindow" xml:space="preserve">
+    <value>Doki see hüpik peaakna külge tagasi</value>
+    <comment>Docking window docking button tooltip</comment>
+  </data>
+  <data name="Window_PopThisPanelOutIntoItsOwnWindow" xml:space="preserve">
+    <value>Vii see paneel omaette aknasse</value>
+    <comment>Docking window button tooltip</comment>
+  </data>
+  <data name="Help_CmdLineExit" xml:space="preserve">
+    <value>/x
+-x
+-exit
+    Väljub dnGrepist peale käsureaoperatsioonide lõpetamist.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineFolder" xml:space="preserve">
+    <value>/f [kaustatee]
+-f [kaustatee]
+-folder [kaustatee]
+    Seab otsingule kaustatee.  Võib olla komaga või semikooloniga eraldatud kaustateede list.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineHeader" xml:space="preserve">
+    <value>dnGrep:  Otsi lihtteksti failidest, Wordi ja Exceli dokumentidest, PDF ja arhiivfailidest kasutades teksti, regulaaravaldisi, XPath'i ja foneetilisi päringuid.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineDotAsNewline" xml:space="preserve">
+    <value>/dn [Tõene/Väär]
+-dn [Tõene/Väär]
+-dotAsNewline [Tõene/Väär]
+    Seab punkti kui uue rea otsimise lipuks - tõene või väär.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineFileInformation" xml:space="preserve">
+    <value>/fi [Tõene/Väär]
+-fi [Tõene/Väär]
+-fileInformation [Tõene/Väär]
+    Seab lipu faili- ja rea informatsiooni kaasamiks raporti väljundis – tõene või väär.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineListItemSeparator" xml:space="preserve">
+    <value>/sep [eraldusmärk või -tekst]
+-sep [eraldusmärk või -tekst]
+-listItemSeparator [eraldusmärk või -tekst]
+    Seab märgi või sõne, mis eraldab listi elemente raporti väljundis.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Main_Results_MoveFilesToRecycleBin" xml:space="preserve">
+    <value>Liiguta failid prügikasti</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_Open" xml:space="preserve">
+    <value>Ava</value>
+    <comment>Main window, results list context menu item label</comment>
+  </data>
+  <data name="Main_Results_OpenContainingFolder" xml:space="preserve">
+    <value>Ava faili sisaldav kaust</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_OpenWithCustomEditor" xml:space="preserve">
+    <value>Ava kohandatud redaktoriga</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_PreviousFile" xml:space="preserve">
+    <value>Eelmine fail</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_PreviousMatch" xml:space="preserve">
+    <value>Eelmine vaste</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_ResetZoom" xml:space="preserve">
+    <value>Lähtesta zuum</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_ShowFileProperties" xml:space="preserve">
+    <value>Kuva faili omadused</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_SavingResultsToFile" xml:space="preserve">
+    <value>Salvesta tulemused faili…</value>
+    <comment>Main window, status message</comment>
+  </data>
+  <data name="Main_SearchButton" xml:space="preserve">
+    <value>Otsi</value>
+    <comment>Main window, search button label (accel)</comment>
+  </data>
+  <data name="Main_SearchFor" xml:space="preserve">
+    <value>Otsi järgnevat:</value>
+    <comment>Main window, search pattern text input box label (accel)</comment>
+  </data>
+  <data name="Main_SearchGroup" xml:space="preserve">
+    <value>Otsi</value>
+    <comment>Main window, search group heading</comment>
+  </data>
+  <data name="Main_SearchInArchives" xml:space="preserve">
+    <value>Otsi arhiividest</value>
+    <comment>Main window, checkbox label (accel)</comment>
+  </data>
+  <data name="Main_SearchParallel" xml:space="preserve">
+    <value>Otsi paralleelselt</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_Hex" xml:space="preserve">
+    <value>Bait</value>
+    <comment>Main window, Byte search type radio button label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_Phonetic" xml:space="preserve">
+    <value>Foneetiline</value>
+    <comment>Main window, Phonetic search type radio button label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_Regex" xml:space="preserve">
+    <value>_Regulaaravaldis</value>
+    <comment>Main window, Regular expression search type radio button label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_RegularExpressionSearch" xml:space="preserve">
+    <value>Regulaaravaldis otsing</value>
+    <comment>Main window, Regular expression search type tooltip</comment>
+  </data>
+  <data name="Main_SearchType_Text" xml:space="preserve">
+    <value>_Tekst</value>
+    <comment>Main window, Text search type radio button label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_XPath" xml:space="preserve">
+    <value>_XPath</value>
+    <comment>Main window, XPath search type radio button label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
+    <value>XPath otsing (ainult XML dokumendid)</value>
+    <comment>Main window, XPath search type tooltip</comment>
+  </data>
+  <data name="Main_SelectADate" xml:space="preserve">
+    <value>Vali kuupäev</value>
+    <comment>Main window, filter files by date, date picker watermark</comment>
+  </data>
+  <data name="Main_ShowResultOptions" xml:space="preserve">
+    <value>Kuva tulemuste valikud</value>
+    <comment>Main window, result options expander button tooltip (bottom of window)</comment>
+  </data>
+  <data name="Main_SizeIs" xml:space="preserve">
+    <value>Maht on</value>
+    <comment>Main window, filter size radio button label (accel)</comment>
+  </data>
+  <data name="Main_SizeKB" xml:space="preserve">
+    <value>KB</value>
+    <comment>Main window, filter by size label</comment>
+  </data>
+  <data name="Main_SizeTo" xml:space="preserve">
+    <value>kuni</value>
+    <comment>Main window, filter by size label</comment>
+  </data>
+  <data name="Main_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>Jäta pilve talletatud failid kõrvale</value>
+    <comment>Main window, search option label</comment>
+  </data>
+  <data name="Main_SortButton" xml:space="preserve">
+    <value>Sorteeri</value>
+    <comment>Main window, sort button label (accel)</comment>
+  </data>
+  <data name="Main_SortMenu_Ascending" xml:space="preserve">
+    <value>Kasvav</value>
+    <comment>Main window sort button options menu label (accel)</comment>
+  </data>
+  <data name="Main_SortMenu_Descending" xml:space="preserve">
+    <value>Kahanev</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Main_SortMenu_FileSize" xml:space="preserve">
+    <value>Faili suurus</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Main_SortMenu_LastWriteTime" xml:space="preserve">
+    <value>Viimane kirjutusaeg</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Main_SortMenu_MatchCount" xml:space="preserve">
+    <value>Vastete loendus</value>
+    <comment>Main window sort options menu label (accel)</comment>
+  </data>
+  <data name="Main_Status_Excluded0MissingFiles" xml:space="preserve">
+    <value>Kõrvale jäetud {0} puuduvat faili.</value>
+    <comment>Main window, status bar message appended on search complete when in Everything mode</comment>
+  </data>
+  <data name="Main_Status_ReplaceCanceled" xml:space="preserve">
+    <value>Asendamine tühistatud</value>
+    <comment>Main window, status bar message</comment>
+  </data>
+  <data name="Main_Status_ReplaceComplete0FilesReplaced" xml:space="preserve">
+    <value>Asendamine lõpetatud - tekst asendatud {0} failis.</value>
+    <comment>Main window, status bar message: {0} is the number of files modified by the replace operation</comment>
+  </data>
+  <data name="Main_Status_ReplaceFailed" xml:space="preserve">
+    <value>Asendamine ebaõnnestus</value>
+    <comment>Main window, status bar message</comment>
+  </data>
+  <data name="Main_Status_Replacing" xml:space="preserve">
+    <value>Asendan…</value>
+    <comment>Main window, status bar message</comment>
+  </data>
+  <data name="Main_Status_SearchCanceled" xml:space="preserve">
+    <value>Otsing katkestatud</value>
+    <comment>Main window, status bar message</comment>
+  </data>
+  <data name="MessageBox_DeleteFiles" xml:space="preserve">
+    <value>Kustuta failid</value>
+    <comment>Message box title for: Delete files</comment>
+  </data>
+  <data name="MessageBox_DnGrep" xml:space="preserve">
+    <value>dnGrep</value>
+    <comment>Message box title</comment>
+  </data>
+  <data name="MessageBox_DnGrepIsUpToDate" xml:space="preserve">
+    <value>dnGrep on ajakohane.</value>
+    <comment>Message box text for: Check for updates response</comment>
+  </data>
+  <data name="MessageBox_DoYouWantToContinue" xml:space="preserve">
+    <value>Edasi?</value>
+    <comment>Message box text for: Main window, bookmark button</comment>
+  </data>
+  <data name="MessageBox_Error" xml:space="preserve">
+    <value>Viga: </value>
+    <comment>Message box text for: general error message</comment>
+  </data>
+  <data name="MessageBox_ErrorOpeningFile" xml:space="preserve">
+    <value>Faili ei saa avada. Täpsemaks infoks vaata vigade logi: </value>
+    <comment>Message box text for: Open file error</comment>
+  </data>
+  <data name="Main_Modified" xml:space="preserve">
+    <value>Muudetud</value>
+    <comment>Main window, filter files by date radio button label (accel)</comment>
+  </data>
+  <data name="Main_Menu_Bookmarks" xml:space="preserve">
+    <value>Lemmikud…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_Personalize" xml:space="preserve">
+    <value>Isikusta</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_Settings" xml:space="preserve">
+    <value>Seadistused</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_Undo" xml:space="preserve">
+    <value>Võta tagasi</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_PatternType_Regex" xml:space="preserve">
+    <value>_Regulaaravaldis</value>
+    <comment>Main window, Regular expression pattern type radio button label (accel)</comment>
+  </data>
+  <data name="Main_Status_SearchCanceledOrFailed" xml:space="preserve">
+    <value>Otsing tühistatud või ebaõnnestus</value>
+    <comment>Main window, status bar message</comment>
+  </data>
+  <data name="About_NETLibraryFor7Zip" xml:space="preserve">
+    <value>.NET teek 7-Zip'ile</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_JsonFrameworkForNET" xml:space="preserve">
+    <value>.NET JSON raamistik</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_LibraryForReadingArchiveFiles" xml:space="preserve">
+    <value>Arhiivfailide lugemise teek</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_LoggingFrameworkForNET" xml:space="preserve">
+    <value>.NET logimise raamistik</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryForCharacterSetDetection" xml:space="preserve">
+    <value>.NET teek märgistiku tuvastamiseks</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryForExtendedLengthPaths" xml:space="preserve">
+    <value>.NET teek laiendatud failiteede jaoks</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryForReadingMicrosoftExcelFiles" xml:space="preserve">
+    <value>.NET teek Microsoft Excel failide lugemiseks</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryToParseECMA376Numbers" xml:space="preserve">
+    <value>.NET teek ECMA-376 arvude parsimiseks</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETLibraryToWorkWithWordAndExcelDocuments" xml:space="preserve">
+    <value>.NET teek Wordi ja Exceli failidega töötamiseks</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="About_NETWPFTextEditorComponent" xml:space="preserve">
+    <value>.NET WPF tekstiredaktori komponent</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="BookmarkDetails_AssociatedFolders" xml:space="preserve">
+    <value>Seotud kaustad:</value>
+    <comment>Bookmark details dialog, text input box label</comment>
+  </data>
+  <data name="BookmarkDetails_DotAsNewline" xml:space="preserve">
+    <value>Punkt kui uus ri_da</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_Encoding" xml:space="preserve">
+    <value>Kodeering:</value>
+    <comment>Bookmark details dialog, search options encoding combo box label (accel) </comment>
+  </data>
+  <data name="BookmarkDetails_FilePatternType" xml:space="preserve">
+    <value>Failimustri liik</value>
+    <comment>Bookmark details dialog, file pattern group header label</comment>
+  </data>
+  <data name="BookmarkDetails_Content_Group_Tooltip" xml:space="preserve">
+    <value>Lisa sisuotsingu sätted lemmiku külge</value>
+    <comment>Bookmark details dialog, search group header tooltip</comment>
+  </data>
+  <data name="About_FileSystemIndexingLocateFilesInstantly" xml:space="preserve">
+    <value>Failisüsteemi indekseerimine, failide kohene leidmine</value>
+    <comment>About dialog acknowledgments</comment>
+  </data>
+  <data name="BookmarkDetails_FileSource_Group_Tooltip" xml:space="preserve">
+    <value>Lisa faili allika sätted lemmiku külge</value>
+    <comment>Bookmark details dialog, file type group header tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_Filters_Group_Tooltip" xml:space="preserve">
+    <value>Lisa failifiltri sätted lemmiku külge</value>
+    <comment>Bookmark details dialog, filters group header tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_FollowSymbolicLinks" xml:space="preserve">
+    <value>Järgne sümboolsele lingile</value>
+    <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_PatternType_Regex" xml:space="preserve">
+    <value>_Regulaaravaldis</value>
+    <comment>Bookmark details dialog, Regular expression pattern type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_ReplaceWith" xml:space="preserve">
+    <value>Asenda järgnevaga:</value>
+    <comment>Bookmark details dialog, replace text input box label</comment>
+  </data>
+  <data name="BookmarkDetails_SearchFor" xml:space="preserve">
+    <value>Otsi:</value>
+    <comment>Bookmark details dialog, search pattern text input box label</comment>
+  </data>
+  <data name="BookmarkDetails_SearchInArchives" xml:space="preserve">
+    <value>Otsi arhiivfailidest</value>
+    <comment>Bookmark details dialog, checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
+    <value>_Regulaaravaldis</value>
+    <comment>Bookmark details dialog, search type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_RegularExpressionSearch" xml:space="preserve">
+    <value>Regulaaravaldise alusel otsing</value>
+    <comment>Bookmark details dialog, search type regular expression tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
+    <value>Baidiotsing: loe faili kahendiksüsteemis ja otsi baite kui kuueteistkümnendsüsteemi arve: 68 65 78 20</value>
+    <comment>Bookmark details dialog, Byte search type tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_ThisBookmarkAlreadyExists" xml:space="preserve">
+    <value>See lemmik on juba olemas</value>
+    <comment>Bookmark details dialog, error text</comment>
+  </data>
+  <data name="BookmarkDetails_TypeHeader" xml:space="preserve">
+    <value>Otsingu tüüp</value>
+    <comment>Bookmark details dialog, search type group header label</comment>
+  </data>
+  <data name="BookmarkDetails_UseGitignore" xml:space="preserve">
+    <value>Kasuta .gitignore'i</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_UseGitignoreToFilterFiles" xml:space="preserve">
+    <value>Kasuta .gitignore'i failide filtreerimiseks</value>
+    <comment>Bookmark details dialog, search option checkbox tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_WholeWord" xml:space="preserve">
+    <value>Kogu sõna</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Bookmarks_Close" xml:space="preserve">
+    <value>Sulge</value>
+    <comment>Bookmarks dialog, button text (accel)</comment>
+  </data>
+  <data name="Bookmarks_Delete" xml:space="preserve">
+    <value>Kustuta</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_Duplicate" xml:space="preserve">
+    <value>Loo koopia</value>
+    <comment>Bookmarks dialog, button label (accel)</comment>
+  </data>
+  <data name="Bookmarks_MoveToBottom" xml:space="preserve">
+    <value>Liiguta kõige alla</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_MoveToTop" xml:space="preserve">
+    <value>Liiguta kõige üles</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_MoveUp" xml:space="preserve">
+    <value>Liiguta ülespoole</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_MoveDown" xml:space="preserve">
+    <value>Liiguta allapoole</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
+    <value>Tõstuklahv+Alt+nool alla</value>
+    <comment>Bookmarks dialog, bookmark list 'Move to bottom' context menu shortcut text</comment>
+  </data>
+  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
+    <value>Tõstuklahv+Alt+nool üles</value>
+    <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
+  </data>
+  <data name="Bookmarks_Summary_Multiline" xml:space="preserve">
+    <value>Mitmerealine</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Bookmarks_Summary_NoBinary" xml:space="preserve">
+    <value>Ei ole binaarne</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Bookmarks_Summary_NoHidden" xml:space="preserve">
+    <value>Ei ole peidetud</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Bookmarks_Summary_NoSubfolders" xml:space="preserve">
+    <value>Ilma alamkaustadeta</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Bookmarks_Summary_NoSymlinks" xml:space="preserve">
+    <value>Ilma sümboolsete linkideta</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
+    <value>Otsi arhiividest</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Bookmarks_Summary_WholeWord" xml:space="preserve">
+    <value>Kogu sõna</value>
+    <comment>Bookmarks dialog, Other Properties summary</comment>
+  </data>
+  <data name="Main_Menu_About_Help" xml:space="preserve">
+    <value>Abi</value>
+    <comment>Main window, main menu subitem label (accel)</comment>
+  </data>
+  <data name="Main_Menu_Options" xml:space="preserve">
+    <value>Valikud…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_More" xml:space="preserve">
+    <value>Rohk_em…</value>
+    <comment>Main window, filters expander label (accel)</comment>
+  </data>
+  <data name="Main_MoreArrowButton" xml:space="preserve">
+    <value>Rohke_m</value>
+    <comment>Main window, More button label with down arrow (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_CopyFiles" xml:space="preserve">
+    <value>Kopeeri failid…</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_CopyResults" xml:space="preserve">
+    <value>Kopeeri tulemused</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_DeleteFiles" xml:space="preserve">
+    <value>Kustuta failid…</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_MoveFiles" xml:space="preserve">
+    <value>Liiguta failid…</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_Report_Options" xml:space="preserve">
+    <value>Raporti valikud…</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_Save_CSVResults" xml:space="preserve">
+    <value>CSV failina</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_Save_Report" xml:space="preserve">
+    <value>Raport</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_Save_TextResults" xml:space="preserve">
+    <value>Lihttekstina</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_MoreMenu_SaveResults" xml:space="preserve">
+    <value>Salvesta tulemused</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_Multiline" xml:space="preserve">
+    <value>_Mitmerealine</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_OpenFolder" xml:space="preserve">
+    <value>…</value>
+    <comment>Main window, open folder button label (accel)</comment>
+  </data>
+  <data name="Main_PastDateTo" xml:space="preserve">
+    <value>kuni</value>
+    <comment>Main window, filter files by date, past time label</comment>
+  </data>
+  <data name="Main_PatternsToExclude" xml:space="preserve">
+    <value>Välistavad mustrid:</value>
+    <comment>Main window, Patterns to exclude label (accel)</comment>
+  </data>
+  <data name="Main_PatternsToMatch" xml:space="preserve">
+    <value>Sobivad mustrid:</value>
+    <comment>Main window, Patterns to match label (accel)</comment>
+  </data>
+  <data name="Main_PatternType_Asterisk" xml:space="preserve">
+    <value>Metamärk</value>
+    <comment>Main window, Wildcard pattern type radio button label (accel)</comment>
+  </data>
+  <data name="Main_PatternType_Everything" xml:space="preserve">
+    <value>Everything</value>
+    <comment>Main window, Everything pattern type radio button label (accel)</comment>
+  </data>
+  <data name="Main_PowerPointSlideNumber" xml:space="preserve">
+    <value>Slaid {0}</value>
+    <comment>Main window, results list label for PowerPoint files: {0} is the slide number in the PowerPoint document</comment>
+  </data>
+  <data name="Main_PreviewFile" xml:space="preserve">
+    <value>Eel_vaatefail</value>
+    <comment>Main window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_ReplaceButton" xml:space="preserve">
+    <value>Asenda</value>
+    <comment>Main window replace button label (accel)</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_NoMatchesToReplace" xml:space="preserve">
+    <value>Asendatavad vasted puuduvad</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_NoWritableFilesInResults" xml:space="preserve">
+    <value>Tulemustes puuduvad kirjutatavad failid</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_ReplaceWith" xml:space="preserve">
+    <value>Asenda järgnevaga:</value>
+    <comment>Main window, replace text input box label (accel)</comment>
+  </data>
+  <data name="Main_ReportOption_CSVFileFormat" xml:space="preserve">
+    <value>CSV (komaga eraldatud väärtused)</value>
+    <comment>Main window, save report, report type format label</comment>
+  </data>
+  <data name="Main_ReportOption_ReportFileFormat" xml:space="preserve">
+    <value>Raporti formaat</value>
+    <comment>Main window, save report, report type format label</comment>
+  </data>
+  <data name="Main_ReportOption_ResultsFileFormat" xml:space="preserve">
+    <value>Lihttekstifail</value>
+    <comment>Main window, save report, report type format label</comment>
+  </data>
+  <data name="Main_ResetOptions" xml:space="preserve">
+    <value>Lähtesta filtrid</value>
+    <comment>Main window, search options, reset button label (accel)</comment>
+  </data>
+  <data name="Main_RestoreResults" xml:space="preserve">
+    <value>Taasta tulemused (F7)</value>
+    <comment>Main window, Maximize results button tooltip</comment>
+  </data>
+  <data name="Main_ResultList_AdditionalMatches" xml:space="preserve">
+    <value>täiendavad vasted:</value>
+    <comment>Main window, search results text</comment>
+  </data>
+  <data name="Main_ResultList_AtEndOfLine" xml:space="preserve">
+    <value>(rea lõpus)</value>
+    <comment>Main window, search results text</comment>
+  </data>
+  <data name="Main_ResultList_AtPosition" xml:space="preserve">
+    <value>positsioonil {0}</value>
+    <comment>Main window, search results text: {0} is number, the offset from the start of the line</comment>
+  </data>
+  <data name="Main_ResultList_CountAdditionalCharacters" xml:space="preserve">
+    <value>…(+{0:n0} sümbolit)</value>
+    <comment>Main window, search results text</comment>
+  </data>
+  <data name="Main_ResultList_CountMatches" xml:space="preserve">
+    <value>{0} ({1} vastet)</value>
+    <comment>Main window, search results text: {0} is the partial path and file name; {1} is the number of matches in the file</comment>
+  </data>
+  <data name="Main_ResultList_CountMatchesOnLines" xml:space="preserve">
+    <value>{0} ({1} vastet {2}-l real)</value>
+    <comment>Main window, search results text: {0} is the partial path and file name; {1} is the number of matches in the file; {2} is the number of lines with matches</comment>
+  </data>
+  <data name="Main_ResultList_MatchToolTip1" xml:space="preserve">
+    <value>Vaste {0}{1}{2}</value>
+    <comment>Main window results, capture group tooltip: {0} is the match index; {1} is a new line; {2} is text of in the group</comment>
+  </data>
+  <data name="Main_ResultList_MatchToolTip2" xml:space="preserve">
+    <value>Vaste {0}{1}Grupp {2}: {3}</value>
+    <comment>Main window results, capture group tooltip: {0} is the match index; {1} is a new line; {2} is the named group name; {3} is the text in the group</comment>
+  </data>
+  <data name="Main_ResultList_PlusCountMoreMatches" xml:space="preserve">
+    <value>, veel +{0} vastet</value>
+    <comment>Main window, search results text: {0} is the number of additional matches found on the line</comment>
+  </data>
+  <data name="Main_ResultList_ReadOnly" xml:space="preserve">
+    <value>[kirjutuskaitstud]</value>
+    <comment>Main window, search results text</comment>
+  </data>
+  <data name="Main_Results_CompareFiles" xml:space="preserve">
+    <value>Võrdle faile</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_CopyFullFilePaths" xml:space="preserve">
+    <value>Kopeeri kogu failitee</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_ExcludeFromResults" xml:space="preserve">
+    <value>Eemalda tulemuste hulgast</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_ExpandAll" xml:space="preserve">
+    <value>Laienda kõik</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_MakeWritable" xml:space="preserve">
+    <value>Muuda kirjutatavaks</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_NextFile" xml:space="preserve">
+    <value>Järgmine fail</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_NextMatch" xml:space="preserve">
+    <value>Järgmine vaste</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="Main_SearchType_PhoneticSearch" xml:space="preserve">
+    <value>Foneetiline otsing</value>
+    <comment>Main window, Phonetic search type tooltip</comment>
+  </data>
+  <data name="Main_SearchType_PlainTextSearch" xml:space="preserve">
+    <value>Lihttekst otsing</value>
+    <comment>Main window, Text search type tooltip</comment>
+  </data>
+  <data name="MessageBox_ErrorSettingClipboardTextTheClipboardIsLockedBy" xml:space="preserve">
+    <value>Ei õnnestunud teksti lõikepuhvrisse paigutada. Lõikepuhvri on lukustanud</value>
+    <comment>Message box text for: Copy to clipboard error</comment>
+  </data>
+  <data name="MessageBox_FailedToExtractFileFromArchive" xml:space="preserve">
+    <value>Arhiivist failide eraldamine pole võimalik. Täpsemaks infoks vaata vigade logi: </value>
+    <comment>Message box text for: Preview window archive error</comment>
+  </data>
+</root>

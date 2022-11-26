@@ -394,7 +394,7 @@
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineDefaultArguments" xml:space="preserve">
-    <value>Wenn keine Argumente angegeben werden, werden die zuletzt gespeicherten Benutzereinstellungen verwendet.</value>
+    <value>Sind keine Argumente angegeben, werden die zuletzt gespeicherten Benutzereinstellungen verwendet.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineDotAsNewline" xml:space="preserve">
@@ -1923,7 +1923,7 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionContainsAnUnknownToken" xml:space="preserve">
-    <value>Boolean expression contains an unknown token</value>
+    <value>Boolescher Ausdruck enthält ein unbekanntes Token</value>
     <comment>Main window, Boolean expression detail error message</comment>
   </data>
   <data name="Main_Validation_BooleanExpressionHasAnUnknownError" xml:space="preserve">
@@ -1951,7 +1951,7 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <comment>Main window, Boolean expression status</comment>
   </data>
   <data name="Main_Menu_About_CheckForUpdates" xml:space="preserve">
-    <value>_Check for updates</value>
+    <value>_prüfe auf Update</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="MessageBox_DnGrepIsUpToDate" xml:space="preserve">
@@ -1963,7 +1963,7 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <comment>Main windows, results list, context menu item label</comment>
   </data>
   <data name="Options_Personalize_SearchType" xml:space="preserve">
-    <value>Type</value>
+    <value>Suchtyp</value>
     <comment>Options dialog, Personalization group</comment>
   </data>
   <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
@@ -1971,7 +1971,276 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <comment>Report options dialog, close button</comment>
   </data>
   <data name="ReportOptionsWindow_Save" xml:space="preserve">
-    <value>Sichern</value>
+    <value>Speichern</value>
     <comment>Report options dialog, button label</comment>
+  </data>
+  <data name="Main_Menu_Personalize" xml:space="preserve">
+    <value>Personalisieren</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_Settings" xml:space="preserve">
+    <value>Einstellungen</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Options_Personalize_Features" xml:space="preserve">
+    <value>Funktionen</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_SpecialOptions" xml:space="preserve">
+    <value>Besondere Optionen</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Help_CmdLineFileInformation" xml:space="preserve">
+    <value>/fi [True/False]
+-fi [True/False]
+-fileInformation [True/False]
+    Legt fest, ob Datei- und Zeileninformationen in die Berichtsausgabe aufgenommen werden sollen - "True" oder "False".</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineTrimWhitespace" xml:space="preserve">
+    <value>/trim [True/False]
+-trim [True/False]
+-trimWhitespace [True/False]
+    Legt fest, dass Leerzeichen in der Berichtsausgabe abgeschnitten werden - "True" oder "False".</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_NoWritableFilesInResults" xml:space="preserve">
+    <value>Keine beschreibbaren Dateien in den Ergebnissen</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_RestoreResults" xml:space="preserve">
+    <value>Ergebnisse wiederherstellen (F7)</value>
+    <comment>Main window, Maximize results button tooltip</comment>
+  </data>
+  <data name="Help_CmdLineListItemSeparator" xml:space="preserve">
+    <value>/sep [Trennzeichen oder Text]
+-sep [Trennzeichen oder Text]
+-listItemSeparator [Trennzeichen oder Text]
+    Legt das Zeichen oder die Zeichenkette fest, das/die Listenelemente in einer Zeile der Berichtsausgabe trennt.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Main_MaximizeResults" xml:space="preserve">
+    <value>Ergebnisse maximieren (F7)</value>
+    <comment>Main window, Maximize results button tooltip</comment>
+  </data>
+  <data name="Help_CmdLineReportMode" xml:space="preserve">
+    <value>/rm [mode]
+-rm [mode]
+-reportMode [mode]
+    Legt den Ausgabemodus für Berichte über reguläre Ausdrücke fest - muss einer der folgenden sein: "FullLine", "Matches" oder "Groups".</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_NoMatchesToReplace" xml:space="preserve">
+    <value>Keine zu ersetzenden Übereinstimmungen</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Help_CmdLineSeparateLines" xml:space="preserve">
+    <value>/sl [True/False]
+-sl [True/False]
+-separateLines [True/False]
+    Legt fest, dass jede Übereinstimmung oder Gruppe in einer separaten Zeile in der Ausgabe des Berichts über reguläre Ausdrücke ausgegeben wird - True oder False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUniqueValues" xml:space="preserve">
+    <value>/einzigartig [True/False]
+-unique [True/False]
+-uniqueValues [True/False]
+    Legt das Kennzeichen für die Ausgabe eindeutiger Übereinstimmungs- oder Gruppenwerte in der Ausgabe des Berichts über reguläre Ausdrücke fest - "True" oder "False".</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_ReplaceUsingBooleanOperators" xml:space="preserve">
+    <value>Ersetzen mit booleschen Operatoren mit reiner Textsuche</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Options_PersonalizeControlVisibility_Tooltip" xml:space="preserve">
+    <value>Ein- oder Ausblenden von Steuerelementen, wenn "Personalisieren" aktiviert ist</value>
+    <comment>Options dialog, control tooltip</comment>
+  </data>
+  <data name="Main_Status_SearchCompletedIn0_1MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
+    <value>Suche in {0} abgeschlossen - {1} Übereinstimmungen in {2} gefunden Dateien von {3} durchsuchten.</value>
+    <comment>Main window, status bar message: {0} is the duration of the search; {1}  is the total number of matches found; {2} is the number of files with matches found; {3} is the total number of files searched; </comment>
+  </data>
+  <data name="Options_Personalize_PreviewWindow" xml:space="preserve">
+    <value>Vorschau-Fenster</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_ResultOptions" xml:space="preserve">
+    <value>Ergebnis-Optionen</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_MaximizeResultsPanelOnSearch" xml:space="preserve">
+    <value>Ergebnispanel bei der Suche maximieren</value>
+    <comment>Options dialog, layout option checkbox label (accel)</comment>
+  </data>
+  <data name="Options_Personalize_FileFilter" xml:space="preserve">
+    <value>Datei-Filter</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_ResultsTree" xml:space="preserve">
+    <value>Ergebnisbaum</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_SearchOptions" xml:space="preserve">
+    <value>Suchoptionen</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_PersonalizeControlVisibility" xml:space="preserve">
+    <value>Personalisieren Sie die Sichtbarkeit der Steuerung</value>
+    <comment>Options dialog, control label</comment>
+  </data>
+  <data name="Replace_KeepPreviousFileModifiedDate" xml:space="preserve">
+    <value>Änderungsdatum der vorherigen Datei beibehalten</value>
+    <comment>Replace window, Keep modified date checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_FilterForUniqueValues" xml:space="preserve">
+    <value>Filter für eindeutige Werte</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_PerFile" xml:space="preserve">
+    <value>Pro Datei</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_IncludeFileAndLineInformation" xml:space="preserve">
+    <value>Datei- und Zeileninformationen einbeziehen</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_PressF1ForHelp" xml:space="preserve">
+    <value>Drücken Sie F1 für Hilfe</value>
+    <comment>Report options dialog, help label</comment>
+  </data>
+  <data name="ReportOptionsWindow_ReportOptions" xml:space="preserve">
+    <value>Berichtsoptionen</value>
+    <comment>Report options dialog, window title</comment>
+  </data>
+  <data name="ReportOptionsWindow_SeparatorForMultipleMatchesOrGroupsOnALine" xml:space="preserve">
+    <value>Trennzeichen für mehrere Übereinstimmungen oder Gruppen in einer Zeile</value>
+    <comment>Report options dialog, text box label</comment>
+  </data>
+  <data name="ReportOptionsWindow_TrimWhitespace" xml:space="preserve">
+    <value>Kürzen von Leerzeichen</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_ShowEachMatchOrGroupOnSeparateLine" xml:space="preserve">
+    <value>Jede Übereinstimmung oder Gruppe in einer eigenen Zeile anzeigen</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Text" xml:space="preserve">
+    <value>Text</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="BookmarkDetails_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>Cloud-Speicherdateien überspringen</value>
+    <comment>Bookmark details dialog, checkbox label (accel)</comment>
+  </data>
+  <data name="TTB0_InsertsTabNewline" xml:space="preserve">
+    <value>\\\t fügt Tabulator ein, \\\r fügt Return ein, \\\n fügt Zeilenumbruch ein</value>
+    <comment>Main window and Test window tooltip</comment>
+  </data>
+  <data name="Help_CmdLineUniqueScope" xml:space="preserve">
+    <value>/scope [scope]
+-scope [scope]
+-uniqueScope [scope]
+    Setzt das Flag, um den Bereich der eindeutigen Werte in der Ausgabe des Berichts mit regulären Ausdrücken festzulegen - muss einer der folgenden Werte sein: "Global" oder "PerFile".</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Main_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>Überspringen entfernter Cloud-Speicherdateien</value>
+    <comment>Main window, search option label</comment>
+  </data>
+  <data name="Options_PluginShowPlainTextInPreview" xml:space="preserve">
+    <value>Klartext in der Vorschau anzeigen</value>
+    <comment>Options dialog, plug-ins checkbox label</comment>
+  </data>
+  <data name="Preview_Syntax" xml:space="preserve">
+    <value>Syntax</value>
+    <comment>Preview window, option label</comment>
+  </data>
+  <data name="Preview_Title_AsText" xml:space="preserve">
+    <value>(als Text)</value>
+    <comment>Preview window, file label when binary file is shown as text</comment>
+  </data>
+  <data name="ReportOptionsWindow_CaptureGroupsOnly" xml:space="preserve">
+    <value>Nur Gruppen erfassen</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_CSV" xml:space="preserve">
+    <value>CSV</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Global" xml:space="preserve">
+    <value>Global</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="Replace_WhenCheckedTheDateModifiedWillNotBeChangedOnReplace" xml:space="preserve">
+    <value>Wenn diese Option aktiviert ist, wird das "Änderungsdatum" beim Ersetzen nicht geändert</value>
+    <comment>Replace window, Keep modified date checkbox tooltip</comment>
+  </data>
+  <data name="ReportOptionsWindow_FullLines" xml:space="preserve">
+    <value>Vollständige Zeilen</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_MatchesOnly" xml:space="preserve">
+    <value>Nur Übereinstimmungen</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="Main_MoreMenu_Report_Options" xml:space="preserve">
+    <value>Berichtsoptionen…</value>
+    <comment>Main window, More button menu item label (accel)</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_SearchParametersHaveChanged" xml:space="preserve">
+    <value>Die Suchparameter haben sich geändert</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_Results_MakeWritable" xml:space="preserve">
+    <value>Beschreibbar machen</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Results_NextFile" xml:space="preserve">
+    <value>Nächste Datei</value>
+    <comment>Main windows, results list, context menu item label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Preview" xml:space="preserve">
+    <value>Vorschau:</value>
+    <comment>Report options dialog, label</comment>
+  </data>
+  <data name="Bookmarks_AltDownArrow" xml:space="preserve">
+    <value>Alt+Pfeil nach unten</value>
+    <comment>Bookmarks dialog, bookmark list 'Move down' context menu shortcut text</comment>
+  </data>
+  <data name="Bookmarks_MoveDown" xml:space="preserve">
+    <value>Nach unten verschieben</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_MoveToBottom" xml:space="preserve">
+    <value>Nach unten verschieben</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_MoveToTop" xml:space="preserve">
+    <value>Nach oben verschieben</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="BookmarkDetails_BookmarkName" xml:space="preserve">
+    <value>Lesezeichen Name:</value>
+    <comment>Bookmark name label</comment>
+  </data>
+  <data name="Bookmarks_AltUpArrow" xml:space="preserve">
+    <value>Alt+Pfeil nach oben</value>
+    <comment>Bookmarks dialog, bookmark list 'Move up' context menu shortcut text</comment>
+  </data>
+  <data name="Bookmarks_MoveUp" xml:space="preserve">
+    <value>Nach oben</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_NameHeader" xml:space="preserve">
+    <value>Name</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
+    <value>Umschalt+Alt+Pfeil nach unten</value>
+    <comment>Bookmarks dialog, bookmark list 'Move to bottom' context menu shortcut text</comment>
+  </data>
+  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
+    <value>Umschalt+Alt+Pfeil nach oben</value>
+    <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
   </data>
 </root>
