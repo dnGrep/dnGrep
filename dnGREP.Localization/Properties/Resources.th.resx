@@ -114,4 +114,8 @@
     <value>ตกลง</value>
     <comment>Replace window, OK button text</comment>
   </data>
+  <data name="Scripts_OK" xml:space="preserve">
+    <value>ตกลง</value>
+    <comment>Script Messages dialog button text</comment>
+  </data>
 </root>
