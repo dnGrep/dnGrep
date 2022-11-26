@@ -16,6 +16,7 @@ namespace dnGREP.WPF
     {
         private readonly ScriptViewModel viewModel;
         public event EventHandler NewScriptFileSaved;
+        public event EventHandler RequestRun;
 
         public ScriptEditorWindow()
         {
@@ -24,6 +25,7 @@ namespace dnGREP.WPF
             viewModel = new ScriptViewModel(textEditor);
             DataContext = viewModel;
 
+            viewModel.RequestRun += (s, e) => RequestRun?.Invoke(this, e);
             viewModel.RequestClose += (s, e) => Close();
             viewModel.RequestSuggest += (s, e) => Suggest();
             viewModel.NewScriptFileSaved += (s, e) => NewScriptFileSaved?.Invoke(this, e);
@@ -61,6 +63,24 @@ namespace dnGREP.WPF
             if (!viewModel.ConfirmSave())
             {
                 e.Cancel = true;
+            }
+        }
+
+        public string ScriptFile => viewModel.ScriptFile;
+
+        public IEnumerable<string> ScriptText
+        {
+            get
+            {
+                if (textEditor != null)
+                {
+                    string text = textEditor.Text;
+                    if (!string.IsNullOrEmpty(text))
+                    {
+                        return text.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+                    }
+                }
+                return Enumerable.Empty<string>();
             }
         }
 

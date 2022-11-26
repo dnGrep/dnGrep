@@ -5,13 +5,11 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
-using System.Windows;
 using System.Windows.Input;
 using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
 using dnGREP.Localization.Properties;
 using Microsoft.Win32;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace dnGREP.WPF
 {
@@ -236,6 +234,7 @@ namespace dnGREP.WPF
         {
             ScriptEditorWindow wnd = new ScriptEditorWindow();
             wnd.NewScriptFileSaved += ScriptEditor_NewScriptFileSaved;
+            wnd.RequestRun += ScriptEditor_RequestRun;
             scriptEditorWindows.Add(wnd);
             wnd.Closed += (s, e) => { scriptEditorWindows.Remove(wnd); };
             wnd.Show();
@@ -268,6 +267,7 @@ namespace dnGREP.WPF
             {
                 ScriptEditorWindow wnd = new ScriptEditorWindow();
                 wnd.NewScriptFileSaved += ScriptEditor_NewScriptFileSaved;
+                wnd.RequestRun += ScriptEditor_RequestRun;
                 scriptEditorWindows.Add(wnd);
                 wnd.Closed += (s, e) => { scriptEditorWindows.Remove(wnd); };
                 wnd.OpenScriptFile(dlg.FileName);
@@ -294,6 +294,19 @@ namespace dnGREP.WPF
 
         private Queue<ScriptStatement> currentScript = null;
 
+        private void ScriptEditor_RequestRun(object sender, EventArgs e)
+        {
+            if (sender is ScriptEditorWindow wnd && currentScript == null)
+            {
+                var script = wnd.ScriptText;
+                if (script.Any())
+                {
+                    var sc = ScriptManager.Instance.ParseScript(script, true);
+                    BeginScript(sc, wnd.ScriptFile);
+                }
+            }
+        }
+
         private void RunScript(string name)
         {
             if (string.IsNullOrEmpty(name))
@@ -310,8 +323,17 @@ namespace dnGREP.WPF
 
             if (currentScript == null)
             {
+                var sc = ScriptManager.Instance.ParseScript(key);
+                BeginScript(sc, key);
+            }
+        }
+
+        private void BeginScript(Queue<ScriptStatement> newScript, string name)
+        {
+            if (currentScript == null)
+            {
                 ScriptMessages.Clear();
-                currentScript = ScriptManager.Instance.ParseScript(key);
+                currentScript = newScript;
                 currentScriptFile = name;
                 cancelingScript = false;
                 showEmptyMessageWindow = false;
