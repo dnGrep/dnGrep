@@ -5919,6 +5919,33 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Validation.
+        /// </summary>
+        public static string Script_Validation_Header {
+            get {
+                return ResourceManager.GetString("Script_Validation_Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Line.
+        /// </summary>
+        public static string Script_Validation_Header_Line {
+            get {
+                return ResourceManager.GetString("Script_Validation_Header_Line", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Message.
+        /// </summary>
+        public static string Script_Validation_Header_Message {
+            get {
+                return ResourceManager.GetString("Script_Validation_Header_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The command is not valid.
         /// </summary>
         public static string Script_Validation_TheCommandIsInvalid {

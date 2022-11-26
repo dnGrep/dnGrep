@@ -2760,6 +2760,18 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Va_lidate</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
+  <data name="Script_Validation_Header_Line" xml:space="preserve">
+    <value>Line</value>
+    <comment>Script validation list header</comment>
+  </data>
+  <data name="Script_Validation_Header_Message" xml:space="preserve">
+    <value>Message</value>
+    <comment>Script validation list header</comment>
+  </data>
+  <data name="Script_Validation_Header" xml:space="preserve">
+    <value>Validation</value>
+    <comment>Script validation list header</comment>
+  </data>
   <data name="Script_Validation_TheCommandIsInvalid" xml:space="preserve">
     <value>The command is not valid</value>
     <comment>Script validation error message</comment>
