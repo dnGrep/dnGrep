@@ -3423,4 +3423,24 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>脚本文件</value>
     <comment>Scripts: Open and Save file dialog label for script files</comment>
   </data>
+  <data name="Script_Editor_RunScript" xml:space="preserve">
+    <value>运行脚本（_R)</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Tools" xml:space="preserve">
+    <value>工具（_T)</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Validation_Header_Line" xml:space="preserve">
+    <value>行</value>
+    <comment>Script validation list header</comment>
+  </data>
+  <data name="Script_Validation_Header_Message" xml:space="preserve">
+    <value>消息</value>
+    <comment>Script validation list header</comment>
+  </data>
+  <data name="Script_Validation_Header" xml:space="preserve">
+    <value>验证</value>
+    <comment>Script validation list header</comment>
+  </data>
 </root>
