@@ -86,7 +86,7 @@
             </MenuItem>
         </Menu>
 
-        <GroupBox DockPanel.Dock="Bottom" Header="Validation" Margin="4"
+        <GroupBox DockPanel.Dock="Bottom" Header="{l:Loc Key='Script_Validation_Header'}" Margin="4"
                   Grid.IsSharedSizeScope="True"
                   Visibility="{Binding HasValidationErrors, Converter={StaticResource BoolToVisibilityConverter}}">
             <StackPanel>
@@ -95,8 +95,8 @@
                         <ColumnDefinition Width="Auto" SharedSizeGroup="A"/>
                         <ColumnDefinition Width="*" SharedSizeGroup="B"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Text="Line" Margin="3,0,12,0"/>
-                    <TextBlock Grid.Column="1" Text="Message" Margin="3,0"/>
+                    <TextBlock Grid.Column="0" Text="{l:Loc Key='Script_Validation_Header_Line'}" Margin="3,0,12,0"/>
+                    <TextBlock Grid.Column="1" Text="{l:Loc Key='Script_Validation_Header_Message'}" Margin="3,0"/>
                 </Grid>
                 <ScrollViewer Height="72" HorizontalAlignment="Stretch"
                               VerticalScrollBarVisibility="Auto"
