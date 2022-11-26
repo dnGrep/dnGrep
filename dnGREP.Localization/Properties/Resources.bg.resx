@@ -370,7 +370,7 @@
     <comment>Bookmarks dialog, button text (accel)</comment>
   </data>
   <data name="Bookmarks_Delete" xml:space="preserve">
-    <value>_Изтриване</value>
+    <value>_Премахване</value>
     <comment>Bookmarks dialog, button label (accel)</comment>
   </data>
   <data name="Bookmarks_DescriptionHeader" xml:space="preserve">
@@ -2808,7 +2808,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Editor_Delete" xml:space="preserve">
-    <value>_Изтриване</value>
+    <value>_Премахване</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Editor_Edit" xml:space="preserve">
@@ -2902,5 +2902,85 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Scripts_OK" xml:space="preserve">
     <value>Добре</value>
     <comment>Script Messages dialog button text</comment>
+  </data>
+  <data name="Main_Menu_CancelScript" xml:space="preserve">
+    <value>Спиране на скрипт</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_EditScript" xml:space="preserve">
+    <value>Променяне на скрипт…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Script_Editor_Copy" xml:space="preserve">
+    <value>_Копиране</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Cut" xml:space="preserve">
+    <value>Из_рявзане</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_DeleteLine" xml:space="preserve">
+    <value>Премахване на _ред</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_File" xml:space="preserve">
+    <value>_Файл</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_MoveDown" xml:space="preserve">
+    <value>Преместване на избраните редове надолу</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_New" xml:space="preserve">
+    <value>_Нов…</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Paste" xml:space="preserve">
+    <value>По_ставяне</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Redo" xml:space="preserve">
+    <value>По_вторение</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Main_Menu_About_AppData" xml:space="preserve">
+    <value>Данни на &amp;приложението и дневник</value>
+    <comment>Main window, main menu subitem label (accel)</comment>
+  </data>
+  <data name="MessageBox_Scripts_HasUnsavedChangesSaveNow" xml:space="preserve">
+    <value>В скрипта „{0}“ има промени. Да бъдат ли запазени?</value>
+    <comment>Message box text for: Scripts unsaved changes; {0} is a script file name</comment>
+  </data>
+  <data name="Main_Menu_NewScript" xml:space="preserve">
+    <value>Нов скрипт…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="MessageBox_Scripts_HasValidationErrorsSaveAnyway" xml:space="preserve">
+    <value>Скриптът „{0}“ не преминава валидация. Да бъде ли запазен въпреки това?</value>
+    <comment>Message box text for: Script validation errors; {0} is a script file name</comment>
+  </data>
+  <data name="Main_Menu_Scripts" xml:space="preserve">
+    <value>Скриптове</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Script_Editor_MoveUp" xml:space="preserve">
+    <value>Преместване на избраните редове нагоре</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_RunScript" xml:space="preserve">
+    <value>_Изпълняване на скрипт</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Save" xml:space="preserve">
+    <value>_Запазване</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_SaveAs" xml:space="preserve">
+    <value>Запазване _като…</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_ScriptingCommands" xml:space="preserve">
+    <value>_Команди за скриптове</value>
+    <comment>Script editor menu item (accel)</comment>
   </data>
 </root>
