@@ -2800,7 +2800,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Rename file dialog error message</comment>
   </data>
   <data name="ScriptHint_set_replacewith" xml:space="preserve">
-    <value>Replace with</value>
+    <value>替换为</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_searchinarchives" xml:space="preserve">
@@ -2808,7 +2808,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_skipremotecloudstoragefiles" xml:space="preserve">
-    <value>跳过换成云存储文件</value>
+    <value>跳过远程云存储文件</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Script_Editor_Close" xml:space="preserve">
@@ -2832,15 +2832,15 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="ScriptHint_set_booleanoperators" xml:space="preserve">
-    <value>布尔操作</value>
+    <value>布尔操作符</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_capturegroupsearch" xml:space="preserve">
-    <value>捕获搜索群组</value>
+    <value>捕获组搜索</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_casesensitive" xml:space="preserve">
-    <value>大小写敏感</value>
+    <value>区分大小写</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_dotasnewline" xml:space="preserve">
@@ -2852,7 +2852,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_highlightgroups" xml:space="preserve">
-    <value>Highlight groups</value>
+    <value>高亮组</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_includebinary" xml:space="preserve">
@@ -2872,19 +2872,19 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_searchfor" xml:space="preserve">
-    <value>查找</value>
+    <value>搜索什么</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_searchinresults" xml:space="preserve">
-    <value>在搜索结果中搜索</value>
+    <value>在结果中搜索</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_showcontextlines" xml:space="preserve">
-    <value>显示上下文行数</value>
+    <value>显示上下文行</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_stopafterfirstmatch" xml:space="preserve">
-    <value>Stop after first match</value>
+    <value>在第一个匹配后停止</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_usegitignore" xml:space="preserve">
@@ -2892,15 +2892,535 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_wholeword" xml:space="preserve">
-    <value>全字匹配</value>
+    <value>全词匹配</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_wraptext" xml:space="preserve">
-    <value>自动换行</value>
+    <value>文本换行</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Scripts_OK" xml:space="preserve">
     <value>确定</value>
     <comment>Script Messages dialog button text</comment>
+  </data>
+  <data name="Main_Menu_NewScript" xml:space="preserve">
+    <value>新建脚本…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_Scripts" xml:space="preserve">
+    <value>脚本</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="MessageBox_Scripts_HasValidationErrorsSaveAnyway" xml:space="preserve">
+    <value>{0} 有验证错误。仍要保存吗？</value>
+    <comment>Message box text for: Script validation errors; {0} is a script file name</comment>
+  </data>
+  <data name="Script_Editor_Copy" xml:space="preserve">
+    <value>复制(_C)</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Cut" xml:space="preserve">
+    <value>剪切(_T)</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_DeleteLine" xml:space="preserve">
+    <value>删除行(_L)</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_File" xml:space="preserve">
+    <value>文件(_F)</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_New" xml:space="preserve">
+    <value>新建(_N)…</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Paste" xml:space="preserve">
+    <value>粘贴(_P)</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Redo" xml:space="preserve">
+    <value>重做(_R)</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Save" xml:space="preserve">
+    <value>保存(_S)</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_SaveAs" xml:space="preserve">
+    <value>另存为(_A)…</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_ScriptingCommands" xml:space="preserve">
+    <value>脚本命令(_S)</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Suggest" xml:space="preserve">
+    <value>建议</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Title" xml:space="preserve">
+    <value>脚本编辑器</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Validation_TheCommandIsInvalid" xml:space="preserve">
+    <value>命令无效</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_TheScriptKeyWasNotFound" xml:space="preserve">
+    <value>没找到脚本键</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_TheTargetNameIsInvalid" xml:space="preserve">
+    <value>目标名称无效</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_TheValueCannotBeConvertedFromTheString" xml:space="preserve">
+    <value>该值不能从字符串转换而来</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandDoesNotAllowANullValue" xml:space="preserve">
+    <value>该命令不允许空值</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandDoesNotNeedAValueParameter" xml:space="preserve">
+    <value>此命令不需要值参数</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresABooleanValue" xml:space="preserve">
+    <value>该命令需要一个布尔值</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresAStringValue" xml:space="preserve">
+    <value>该命令需要一个字符串值</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresATargetParameter" xml:space="preserve">
+    <value>该命令需要一个目标参数</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_bookmark" xml:space="preserve">
+    <value>加书签</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_bookmark_add" xml:space="preserve">
+    <value>添加一个新书签</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_bookmark_add_value" xml:space="preserve">
+    <value>新书签的名称，可留空</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_bookmark_addfolder" xml:space="preserve">
+    <value>添加与当前搜索文件夹关联的新书签</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_bookmark_remove_value" xml:space="preserve">
+    <value>要删除的书签的名称，或当前书签的名称为空</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_bookmark_removefolder" xml:space="preserve">
+    <value>删除文件夹书签</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_bookmark_use" xml:space="preserve">
+    <value>应用书签设置</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_copyfilenames" xml:space="preserve">
+    <value>将结果中的文件名复制到剪贴板</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_copyfiles" xml:space="preserve">
+    <value>将结果文件复制到新位置</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_copyfiles_value" xml:space="preserve">
+    <value>目标文件夹路径</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_copyresults" xml:space="preserve">
+    <value>将结果文本复制到剪贴板</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_deletefiles" xml:space="preserve">
+    <value>永久删除结果文件</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_expandfilefilters" xml:space="preserve">
+    <value>展开或隐藏文件筛选器部分</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_expandresultoptions" xml:space="preserve">
+    <value>展开或隐藏结果选项部分</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_include" xml:space="preserve">
+    <value>导入数据</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_include_script_value" xml:space="preserve">
+    <value>脚本的键/文件名</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_maximizeresults" xml:space="preserve">
+    <value>最大化或恢复搜索结果树</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_messages" xml:space="preserve">
+    <value>总是在脚本完成时显示脚本消息窗口</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_replace" xml:space="preserve">
+    <value>替换文件中的匹配项</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_report" xml:space="preserve">
+    <value>写报告</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_arg_value" xml:space="preserve">
+    <value>报告的路径和文件名</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_full" xml:space="preserve">
+    <value>完整报告</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_text_value" xml:space="preserve">
+    <value>报告的路径和文件名</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_run" xml:space="preserve">
+    <value>运行外部命令</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_run_cmd" xml:space="preserve">
+    <value>运行命令脚本</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_run_powershell" xml:space="preserve">
+    <value>运行 PowerShell 脚本</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_run_powershell_value" xml:space="preserve">
+    <value>.ps1 脚本文件的完整路径和文件名</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_search" xml:space="preserve">
+    <value>开始搜索</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_set" xml:space="preserve">
+    <value>在目标属性上设置一个值</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_contextlinesafter" xml:space="preserve">
+    <value>(number) 行后面的上下文行</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_contextlinesbefore" xml:space="preserve">
+    <value>(number) 行之前的上下文行</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_encoding" xml:space="preserve">
+    <value>编码，作为代码页码</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_filedatefilter" xml:space="preserve">
+    <value>日期筛选器选择</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_fileinformation" xml:space="preserve">
+    <value>在报告中包含文件信息</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_enddate" xml:space="preserve">
+    <value>日期时间 'To' 筛选器</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_folder" xml:space="preserve">
+    <value>搜索位置：文件夹或文件路径</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_highlightmatches" xml:space="preserve">
+    <value>高亮匹配</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_hoursfrom" xml:space="preserve">
+    <value>日期时间“Past”小时筛选器</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_hoursto" xml:space="preserve">
+    <value>日期时间“Past”小时筛选器</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_hoursto_value" xml:space="preserve">
+    <value>Past 小时筛选器上限（数字）</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_listitemseparator" xml:space="preserve">
+    <value>报告同一行上项目之间的分隔符</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_listitemseparator_value" xml:space="preserve">
+    <value>单个或多个字符，例如英文逗号或英文逗号空格</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_maxsubfolderdepth_value" xml:space="preserve">
+    <value>文件夹深度限制（几层）</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_paterntype" xml:space="preserve">
+    <value>文件筛选器模式的类型</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_pathtoignore" xml:space="preserve">
+    <value>排除筛选器的模式</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_pathtoignore_value" xml:space="preserve">
+    <value>文件筛选模式，如 test\\*，或筛选器列表</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_pathtomatch" xml:space="preserve">
+    <value>匹配筛选器的模式</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_previewfile" xml:space="preserve">
+    <value>预览文件</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_replacewith_value" xml:space="preserve">
+    <value>替换文本或空字符串</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_reportmode" xml:space="preserve">
+    <value>报告的输出设置</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_searchfor_value" xml:space="preserve">
+    <value>搜索模式或空字符串</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_searchparallel" xml:space="preserve">
+    <value>并行搜索</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_searchtype" xml:space="preserve">
+    <value>搜索模式的类型</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_separatelines" xml:space="preserve">
+    <value>在单独的行上报告输出</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_sortdirection" xml:space="preserve">
+    <value>排序方向</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_sizefrom_value" xml:space="preserve">
+    <value>尺寸筛选器下限（数字）</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_sizeto" xml:space="preserve">
+    <value>最大尺寸</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_sizeto_value" xml:space="preserve">
+    <value>尺寸筛选器上限（数字）</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_sorttype" xml:space="preserve">
+    <value>排序类型设置</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_startdate" xml:space="preserve">
+    <value>日期时间“From”筛选器</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_startdate_value" xml:space="preserve">
+    <value>使用 ISO 8601 标准或本地日期时间格式</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_trimwhitespace" xml:space="preserve">
+    <value>去除报告中的空白</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_uniquescope" xml:space="preserve">
+    <value>报告唯一值范围：按文件或所有文件</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_uniquevalues" xml:space="preserve">
+    <value>按唯一值筛选报告</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_sort" xml:space="preserve">
+    <value>结果分类</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="Scripts_ScriptComplete" xml:space="preserve">
+    <value>脚本完成</value>
+    <comment>Script message for script completed</comment>
+  </data>
+  <data name="Scripts_ScriptMessages" xml:space="preserve">
+    <value>脚本消息</value>
+    <comment>Script Messages dialog title</comment>
+  </data>
+  <data name="Main_Menu_About_AppData" xml:space="preserve">
+    <value>程序数据和日志(_L)</value>
+    <comment>Main window, main menu subitem label (accel)</comment>
+  </data>
+  <data name="Main_Menu_EditScript" xml:space="preserve">
+    <value>编辑脚本…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_CancelScript" xml:space="preserve">
+    <value>取消脚本</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="MessageBox_Scripts_HasUnsavedChangesSaveNow" xml:space="preserve">
+    <value>{0} 有未保存的更改。 马上保存吗？</value>
+    <comment>Message box text for: Scripts unsaved changes; {0} is a script file name</comment>
+  </data>
+  <data name="ScriptHint_set_encoding_value" xml:space="preserve">
+    <value>设置代码页码，-1 表示自动检测</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_filterbyfilesize" xml:space="preserve">
+    <value>启用文件大小筛选</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Script_Editor_MoveDown" xml:space="preserve">
+    <value>向下移动选中的行</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_MoveUp" xml:space="preserve">
+    <value>向上移动选中的行</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Validate" xml:space="preserve">
+    <value>验证(_L)</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Validation_TheValueCouldNotBeConvertedToTheCorrectType" xml:space="preserve">
+    <value>无法将值转换为正确的类型</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_bookmark_remove" xml:space="preserve">
+    <value>删除书签</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_movefiles_value" xml:space="preserve">
+    <value>目标文件夹路径</value>
+    <comment>Script editor command/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_csv" xml:space="preserve">
+    <value>csv 文件格式的报告</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_bookmark_use_value" xml:space="preserve">
+    <value>书签的名称</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_exit" xml:space="preserve">
+    <value>关闭所有窗口并退出 dnGrep</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_text" xml:space="preserve">
+    <value>纯文本报告</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_include_script" xml:space="preserve">
+    <value>在当前脚本中包含来自另一个脚本的命令</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_movefiles" xml:space="preserve">
+    <value>将结果文件移动到一个新的位置</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_resetfilters" xml:space="preserve">
+    <value>将文件过滤器重置为默认值</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_run_cmd_value" xml:space="preserve">
+    <value>cmd 或批处理文件的完整路径和文件名</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_filetimerange" xml:space="preserve">
+    <value>时间范围筛选器选择</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_folder_value" xml:space="preserve">
+    <value>文件夹、文件路径或以英文逗号分隔的文件夹或文件列表</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_hoursfrom_value" xml:space="preserve">
+    <value>Past 小时筛选器下限（数字）</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_maxsubfolderdepth" xml:space="preserve">
+    <value>最大子文件夹深度</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_sizefrom" xml:space="preserve">
+    <value>最小尺寸</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Scripts_AtLine" xml:space="preserve">
+    <value>At line</value>
+    <comment>Script message statement prefix</comment>
+  </data>
+  <data name="ScriptHint_set_pathtomatch_value" xml:space="preserve">
+    <value>文件筛选器模式，如 *.txt，或筛选器列表</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_resultszoom" xml:space="preserve">
+    <value>结果树的缩放级别（数字）</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_undo" xml:space="preserve">
+    <value>撤消上次替换操作</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="Scripts_FileNotFound" xml:space="preserve">
+    <value>没找到 {0} 文件 '{1}'</value>
+    <comment>Script message for file not found: {0} is the target name and {1} is the file name</comment>
+  </data>
+  <data name="Scripts_RunCommandInvalid" xml:space="preserve">
+    <value>运行命令无效</value>
+    <comment>Script message for invalid run command</comment>
+  </data>
+  <data name="Scripts_DeleteFilesFailed" xml:space="preserve">
+    <value>删除文件失败： </value>
+    <comment>Script message for delete error</comment>
+  </data>
+  <data name="Scripts_CopyFilesFailed" xml:space="preserve">
+    <value>复制文件失败： </value>
+    <comment>Script message for copy error</comment>
+  </data>
+  <data name="Scripts_InvalidFileExtension" xml:space="preserve">
+    <value>{0} 文件扩展名必须是 {1}</value>
+    <comment>Script message for invalid file extension{0} is the target name and {1} is the file extension</comment>
+  </data>
+  <data name="Scripts_MoveFilesFailed" xml:space="preserve">
+    <value>移动文件失败： </value>
+    <comment>Script message for move error</comment>
+  </data>
+  <data name="Scripts_NewScript" xml:space="preserve">
+    <value>新脚本</value>
+    <comment>Scripts: name for unnamed script file</comment>
+  </data>
+  <data name="Scripts_ScriptCanceled" xml:space="preserve">
+    <value>取消了脚本</value>
+    <comment>Script message for script canceled</comment>
+  </data>
+  <data name="Scripts_RunCommandError" xml:space="preserve">
+    <value>运行命令退出，错误为： </value>
+    <comment>Script message for run command error</comment>
+  </data>
+  <data name="Scripts_ScriptFiles" xml:space="preserve">
+    <value>脚本文件</value>
+    <comment>Scripts: Open and Save file dialog label for script files</comment>
   </data>
 </root>
