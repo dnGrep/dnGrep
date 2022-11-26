@@ -2800,4 +2800,108 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     Задает флаг для вывода каждого совпадения или группы в отдельной строке в выводе отчета по регулярному выражению – True (Истина) или False (Ложь).</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
+  <data name="Script_Editor_Close" xml:space="preserve">
+    <value>_Закрыть</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Delete" xml:space="preserve">
+    <value>_Удалить</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Edit" xml:space="preserve">
+    <value>_Редактировать</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Help" xml:space="preserve">
+    <value>_Помощь</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Undo" xml:space="preserve">
+    <value>_Отмена</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="ScriptHint_set_booleanoperators" xml:space="preserve">
+    <value>Булевы операторы</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_capturegroupsearch" xml:space="preserve">
+    <value>Поиск группы захвата</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_casesensitive" xml:space="preserve">
+    <value>Чувствительность к регистру</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_dotasnewline" xml:space="preserve">
+    <value>Точка в роли новой строки</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_highlightgroups" xml:space="preserve">
+    <value>Подсвечивать группы</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_followsymlinks" xml:space="preserve">
+    <value>Переходить по символическим ссылкам</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_includebinary" xml:space="preserve">
+    <value>Включать бинарные файлы</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_includehidden" xml:space="preserve">
+    <value>Включать скрытые папки</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_includesubfolder" xml:space="preserve">
+    <value>Включать подпапки</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_multiline" xml:space="preserve">
+    <value>Многострочность</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_replacewith" xml:space="preserve">
+    <value>Заменять на</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_searchfor" xml:space="preserve">
+    <value>Искать</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_searchinarchives" xml:space="preserve">
+    <value>Поиск в архивах</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_searchinresults" xml:space="preserve">
+    <value>Поиск в результатах</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_showcontextlines" xml:space="preserve">
+    <value>Отображать контекстные строчки:</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_skipremotecloudstoragefiles" xml:space="preserve">
+    <value>Пропускать файлы удаленного облачного хранилища</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_stopafterfirstmatch" xml:space="preserve">
+    <value>Прерывание после первого совпадения</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_usegitignore" xml:space="preserve">
+    <value>Использовать .gitignore</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_wholeword" xml:space="preserve">
+    <value>Слово целиком</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_wraptext" xml:space="preserve">
+    <value>Перенос текста</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Scripts_OK" xml:space="preserve">
+    <value>ОК</value>
+    <comment>Script Messages dialog button text</comment>
+  </data>
 </root>

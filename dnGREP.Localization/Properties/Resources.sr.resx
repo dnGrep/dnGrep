@@ -2741,4 +2741,108 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Временско ограничење подударања ограничава колико дуго механизам регуларних израза покушава да реши регуларни израз пре него што истекне. Спречава обраду израза и улазних низова који захтевају прекомерно враћање уназад.</value>
     <comment>Options dialog, regular expression options help text</comment>
   </data>
+  <data name="Script_Editor_Close" xml:space="preserve">
+    <value>Затворити</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Delete" xml:space="preserve">
+    <value>Обриши</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Edit" xml:space="preserve">
+    <value>Уреди</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Help" xml:space="preserve">
+    <value>Помоћ</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Undo" xml:space="preserve">
+    <value>Опозвати</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="ScriptHint_set_booleanoperators" xml:space="preserve">
+    <value>Булови оператори</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_capturegroupsearch" xml:space="preserve">
+    <value>Ухвати групну претрагу</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_casesensitive" xml:space="preserve">
+    <value>Осетљиво на слова</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_dotasnewline" xml:space="preserve">
+    <value>Тачка као нова линија</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_followsymlinks" xml:space="preserve">
+    <value>Прати симболичне везе</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_highlightgroups" xml:space="preserve">
+    <value>Истакнути групе</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_includebinary" xml:space="preserve">
+    <value>Убацити бинарне датотеке</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_includehidden" xml:space="preserve">
+    <value>Убацити сакривене фасцикле</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_includesubfolder" xml:space="preserve">
+    <value>Убацити подфасцикле</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_multiline" xml:space="preserve">
+    <value>Вишелинијско</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_replacewith" xml:space="preserve">
+    <value>Промени са</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_searchfor" xml:space="preserve">
+    <value>Тражи за</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_searchinarchives" xml:space="preserve">
+    <value>Тражи у архиве</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_searchinresults" xml:space="preserve">
+    <value>Тражити у резултате</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_showcontextlines" xml:space="preserve">
+    <value>Прикажи контекстне линије</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_skipremotecloudstoragefiles" xml:space="preserve">
+    <value>Прескочити датотеке из облака</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_stopafterfirstmatch" xml:space="preserve">
+    <value>Заустави после првог налажења</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_usegitignore" xml:space="preserve">
+    <value>Употреби .gitignore</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_wholeword" xml:space="preserve">
+    <value>Цела реч</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_wraptext" xml:space="preserve">
+    <value>Преломити текст</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Scripts_OK" xml:space="preserve">
+    <value>У реду</value>
+    <comment>Script Messages dialog button text</comment>
+  </data>
 </root>
