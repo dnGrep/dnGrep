@@ -1302,6 +1302,20 @@ namespace dnGREP.WPF
             }
         }
 
+        private string applicationFontFamily;
+        public string ApplicationFontFamily
+        {
+            get { return applicationFontFamily; }
+            set
+            {
+                if (applicationFontFamily == value)
+                    return;
+
+                applicationFontFamily = value;
+                base.OnPropertyChanged(nameof(ApplicationFontFamily));
+            }
+        }
+
         private string resultsFontFamily;
         public string ResultsFontFamily
         {
@@ -1327,6 +1341,20 @@ namespace dnGREP.WPF
 
                 resultsfontSize = value;
                 base.OnPropertyChanged(nameof(ResultsFontSize));
+            }
+        }
+
+        private double dialogfontSize;
+        public double DialogFontSize
+        {
+            get { return dialogfontSize; }
+            set
+            {
+                if (dialogfontSize == value)
+                    return;
+
+                dialogfontSize = value;
+                base.OnPropertyChanged(nameof(DialogFontSize));
             }
         }
 

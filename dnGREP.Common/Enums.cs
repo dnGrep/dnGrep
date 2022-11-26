@@ -47,14 +47,16 @@ namespace dnGREP.Common
 
     public enum FileDateFilter
     {
-        None,
+        None = 0,
+        All = 0,
         Modified,
         Created
     }
 
     public enum FileTimeRange
     {
-        None,
+        None = 0,
+        All = 0,
         Dates,
         Hours
     }

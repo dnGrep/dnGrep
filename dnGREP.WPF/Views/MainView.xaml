@@ -49,6 +49,10 @@
             <Setter Property="FontFamily" Value="{Binding ApplicationFontFamily}"/>
             <Setter Property="FontSize" Value="{Binding MainFormFontSize}"/>
         </Style>
+
+        <HierarchicalDataTemplate DataType="{x:Type my:MenuItemViewModel}" 
+                                  ItemsSource="{Binding Path=Children, UpdateSourceTrigger=PropertyChanged}"/>
+
     </my:ThemedWindow.Resources>
 
     <my:ThemedWindow.InputBindings>
@@ -142,16 +146,37 @@
                               Visibility="{Binding ReplaceVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                     <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Menu_Settings'}" TabIndex="1">
                         <MenuItem Header="{l:Loc Key='Main_Menu_Personalize'}" IsCheckable="True" IsChecked="{Binding PersonalizationOn}"/>
-                        <MenuItem Header="{l:Loc Key='Main_Menu_Options'}"
-                              Command="{Binding OptionsCommand}"/>
+                        <MenuItem Header="{l:Loc Key='Main_Menu_Options'}" Command="{Binding OptionsCommand}"/>
                     </MenuItem>
+                    <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Menu_Scripts'}" TabIndex="2"
+                              ItemsSource="{Binding Path=ScriptMenuItems, UpdateSourceTrigger=PropertyChanged}" >
+                        <MenuItem.ItemContainerStyle>
+                            <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource ThemedMenuItem}">
+                                <Setter Property="Header" Value="{Binding Header}"/>
+                                <Setter Property="Command" Value="{Binding Command}"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsSeparator}" Value="True">
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type MenuItem}">
+                                                    <Separator Style="{StaticResource ThemedMenuSeparator}" />
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </MenuItem.ItemContainerStyle>
+                    </MenuItem>
+
                     <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Menu_Bookmarks'}"
                               Command="{Binding OpenBookmarksWindowCommand}"
-                              TabIndex="2"
+                              TabIndex="3"
                               Visibility="{Binding BookmarksVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                    <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Menu_About'}" TabIndex="3">
+                    <MenuItem Margin="0,0,3,0" Header="{l:Loc Key='Main_Menu_About'}" TabIndex="4">
                         <MenuItem Command="{Binding HelpCommand}" Header="{l:Loc Key='Main_Menu_About_Help'}" />
                         <MenuItem Command="{Binding CheckForUpdatesCommand}" Header="{l:Loc Key='Main_Menu_About_CheckForUpdates'}"/>
+                        <MenuItem Command="{Binding OpenAppDataCommand}" Header="{l:Loc Key='Main_Menu_About_AppData'}"/>
                         <MenuItem Command="{Binding AboutCommand}" Header="{l:Loc Key='Main_Menu_About_AboutDnGrep'}" />
                     </MenuItem>
                 </Menu>

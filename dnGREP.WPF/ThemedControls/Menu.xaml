@@ -198,19 +198,21 @@
         </Setter>
     </Style>
 
+    <Style x:Key="ThemedMenuSeparator" TargetType="Separator">
+        <Setter Property="Height" Value="1" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Separator">
+                    <Border Margin="28,0,0,0" BorderBrush="{DynamicResource Menu.Separator.Border}" BorderThickness="1" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!--  Source: http://www.codeproject.com/Articles/442856/Visual-Studio-2012-Metro-Styles-for-WPF  -->
     <Style x:Key="ThemedMenu" TargetType="{x:Type Menu}">
         <Style.Resources>
-            <Style x:Key="{x:Static MenuItem.SeparatorStyleKey}" TargetType="Separator">
-                <Setter Property="Height" Value="1" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="Separator">
-                            <Border Margin="28,0,0,0" BorderBrush="{DynamicResource Menu.Separator.Border}" BorderThickness="1" />
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
+            <Style x:Key="{x:Static MenuItem.SeparatorStyleKey}" TargetType="Separator" BasedOn="{StaticResource ThemedMenuSeparator}"/>
             <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource ThemedMenuItem}" />
         </Style.Resources>
         <Setter Property="Background" Value="{DynamicResource Menu.Normal.Background}" />
@@ -219,16 +221,7 @@
 
     <Style x:Key="ThemedContextMenu" TargetType="{x:Type ContextMenu}">
         <Style.Resources>
-            <Style x:Key="{x:Static MenuItem.SeparatorStyleKey}" TargetType="Separator">
-                <Setter Property="Height" Value="1" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="Separator">
-                            <Border Margin="28,0,0,0" BorderBrush="{DynamicResource Menu.Separator.Border}" BorderThickness="1" />
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-            </Style>
+            <Style x:Key="{x:Static MenuItem.SeparatorStyleKey}" TargetType="Separator" BasedOn="{StaticResource ThemedMenuSeparator}"/>
             <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource ThemedMenuItem}" />
         </Style.Resources>
         <Setter Property="Background" Value="{DynamicResource Menu.Normal.Background}" />

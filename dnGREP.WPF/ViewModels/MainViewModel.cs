@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -39,54 +41,58 @@ namespace dnGREP.WPF
         public MainViewModel()
             : base()
         {
-            double maxPreviewWidth = Application.Current.MainWindow.Width - DockPanelSplitter.Panel1MinSize;
-            double maxPreviewHeight = Application.Current.MainWindow.Height - DockPanelSplitter.Panel1MinSize;
-
-            _previewWindowBounds = LayoutProperties.PreviewBounds;
-            _previewWindowState = LayoutProperties.PreviewWindowState;
-            _isPreviewDocked = LayoutProperties.PreviewDocked;
-            _previewDockedWidth = Math.Min(LayoutProperties.PreviewDockedWidth, maxPreviewWidth);
-            if (Enum.TryParse(LayoutProperties.PreviewDockSide, out Dock side))
+            if (Application.Current != null)
             {
-                _previewDockSide = side;
-            }
-            _previewDockedHeight = Math.Min(LayoutProperties.PreviewDockedHeight, maxPreviewHeight);
-            _isPreviewHidden = LayoutProperties.PreviewHidden;
-            _previewAutoPosition = Settings.Get<bool>(GrepSettings.Key.PreviewAutoPosition);
+                double maxPreviewWidth = Application.Current.MainWindow.Width - DockPanelSplitter.Panel1MinSize;
+                double maxPreviewHeight = Application.Current.MainWindow.Height - DockPanelSplitter.Panel1MinSize;
 
-            SearchResults.PreviewFileLineRequest += SearchResults_PreviewFileLineRequest;
-            SearchResults.PreviewFileRequest += SearchResults_PreviewFileRequest;
-            SearchResults.OpenFileLineRequest += SearchResults_OpenFileLineRequest;
-            SearchResults.OpenFileRequest += SearchResults_OpenFileRequest;
-            SearchResults.CollectionChanged += SearchResults_CollectionChanged;
+                _previewWindowBounds = LayoutProperties.PreviewBounds;
+                _previewWindowState = LayoutProperties.PreviewWindowState;
+                _isPreviewDocked = LayoutProperties.PreviewDocked;
+                _previewDockedWidth = Math.Min(LayoutProperties.PreviewDockedWidth, maxPreviewWidth);
+                if (Enum.TryParse(LayoutProperties.PreviewDockSide, out Dock side))
+                {
+                    _previewDockSide = side;
+                }
+                _previewDockedHeight = Math.Min(LayoutProperties.PreviewDockedHeight, maxPreviewHeight);
+                _isPreviewHidden = LayoutProperties.PreviewHidden;
+                _previewAutoPosition = Settings.Get<bool>(GrepSettings.Key.PreviewAutoPosition);
 
-            CheckVersion();
-            ControlsInit();
-            PopulateEncodings();
+                SearchResults.PreviewFileLineRequest += SearchResults_PreviewFileLineRequest;
+                SearchResults.PreviewFileRequest += SearchResults_PreviewFileRequest;
+                SearchResults.OpenFileLineRequest += SearchResults_OpenFileLineRequest;
+                SearchResults.OpenFileRequest += SearchResults_OpenFileRequest;
+                SearchResults.CollectionChanged += SearchResults_CollectionChanged;
 
-            highlightBackground = Application.Current.Resources["Match.Highlight.Background"] as Brush;
-            highlightForeground = Application.Current.Resources["Match.Highlight.Foreground"] as Brush;
-            ToggleHighlights();
+                CheckVersion();
+                ControlsInit();
+                PopulateEncodings();
+                PopulateScripts();
 
-            AppTheme.Instance.CurrentThemeChanging += (s, e) =>
-            {
-                Application.Current.Resources.Remove("Match.Highlight.Background");
-                Application.Current.Resources.Remove("Match.Highlight.Foreground");
-            };
-
-            AppTheme.Instance.CurrentThemeChanged += (s, e) =>
-            {
                 highlightBackground = Application.Current.Resources["Match.Highlight.Background"] as Brush;
                 highlightForeground = Application.Current.Resources["Match.Highlight.Foreground"] as Brush;
                 ToggleHighlights();
-            };
 
-            TranslationSource.Instance.CurrentCultureChanged += CurrentCultureChanged;
+                AppTheme.Instance.CurrentThemeChanging += (s, e) =>
+                {
+                    Application.Current.Resources.Remove("Match.Highlight.Background");
+                    Application.Current.Resources.Remove("Match.Highlight.Foreground");
+                };
 
-            PropertyChanged += OnMainViewModel_PropertyChanged;
+                AppTheme.Instance.CurrentThemeChanged += (s, e) =>
+                {
+                    highlightBackground = Application.Current.Resources["Match.Highlight.Background"] as Brush;
+                    highlightForeground = Application.Current.Resources["Match.Highlight.Foreground"] as Brush;
+                    ToggleHighlights();
+                };
 
-            idleTimer.Interval = TimeSpan.FromMilliseconds(250);
-            idleTimer.Tick += IdleTimer_Tick;
+                TranslationSource.Instance.CurrentCultureChanged += CurrentCultureChanged;
+
+                PropertyChanged += OnMainViewModel_PropertyChanged;
+
+                idleTimer.Interval = TimeSpan.FromMilliseconds(250);
+                idleTimer.Tick += IdleTimer_Tick;
+            }
         }
 
         private void CurrentCultureChanged(object sender, EventArgs e)
@@ -119,13 +125,25 @@ namespace dnGREP.WPF
             UpdateReplaceButtonTooltip(true);
         }
 
-        internal void Closing()
+        internal bool Closing()
         {
             if (bookmarkWindow != null)
             {
                 bookmarkWindow.UseBookmark -= BookmarkForm_UseBookmark;
                 bookmarkWindow.Close();
             }
+
+            while (scriptEditorWindows.Count > 0)
+            {
+                var wnd = scriptEditorWindows[scriptEditorWindows.Count - 1];
+                if (!wnd.ConfirmSave())
+                {
+                    return false;
+                }
+                wnd.Close();
+            }
+
+            return true;
         }
 
         void SearchResults_OpenFileRequest(object sender, GrepResultEventArgs e)
@@ -184,20 +202,6 @@ namespace dnGREP.WPF
 
         #region Presentation Properties
 
-        private string applicationFontFamily;
-        public string ApplicationFontFamily
-        {
-            get { return applicationFontFamily; }
-            set
-            {
-                if (applicationFontFamily == value)
-                    return;
-
-                applicationFontFamily = value;
-                base.OnPropertyChanged(nameof(ApplicationFontFamily));
-            }
-        }
-
         private double mainFormfontSize;
         public double MainFormFontSize
         {
@@ -211,6 +215,8 @@ namespace dnGREP.WPF
                 base.OnPropertyChanged(nameof(MainFormFontSize));
             }
         }
+
+        public ObservableCollection<MenuItemViewModel> ScriptMenuItems { get; } = new ObservableCollection<MenuItemViewModel>();
 
         private bool isBookmarked;
         public bool IsBookmarked
@@ -643,13 +649,13 @@ namespace dnGREP.WPF
         /// Returns a command that copies files
         /// </summary>
         public ICommand CopyFilesCommand => new RelayCommand(
-            param => CopyFiles());
+            param => CopyFiles(param));
 
         /// <summary>
         /// Returns a command that moves files
         /// </summary>
         public ICommand MoveFilesCommand => new RelayCommand(
-            param => MoveFiles());
+            param => MoveFiles(param));
 
         /// <summary>
         /// Returns a command that deletes files
@@ -732,6 +738,10 @@ namespace dnGREP.WPF
 
         public ICommand ToggleResultsMaximizeCommand => new RelayCommand(
             p => IsResultTreeMaximized = !IsResultTreeMaximized);
+
+        public ICommand OpenAppDataCommand => new RelayCommand(
+            p => OpenAppDataFolder(),
+            q => true);
 
         #endregion
 
@@ -845,6 +855,7 @@ namespace dnGREP.WPF
             MainFormFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.MainFormFontSize);
             ResultsFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ResultsFontFamily);
             ResultsFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.ResultsFontSize);
+            DialogFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.DialogFontSize);
 
             PersonalizationOn = GrepSettings.Instance.Get<bool>(GrepSettings.Key.PersonalizationOn);
             UpdatePersonalization();
@@ -1049,9 +1060,9 @@ namespace dnGREP.WPF
 
         private void DoSearchReplace(object sender, DoWorkEventArgs e)
         {
-            try
+            if (e.Argument is SearchReplaceCriteria param && !workerSearchReplace.CancellationPending)
             {
-                if (e.Argument is SearchReplaceCriteria param && !workerSearchReplace.CancellationPending)
+                try
                 {
                     timer = DateTime.Now;
 
@@ -1137,10 +1148,18 @@ namespace dnGREP.WPF
                             }
                             catch (ArgumentException regException)
                             {
-                                MessageBox.Show(Resources.MessageBox_IncorrectPattern + regException.Message,
-                                    Resources.MessageBox_DnGrep,
-                                    MessageBoxButton.OK, MessageBoxImage.Warning,
-                                    MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                                if (IsScriptRunning)
+                                {
+                                    logger.Error(Resources.MessageBox_IncorrectPattern + regException.Message);
+                                    AddScriptMessage(Resources.MessageBox_IncorrectPattern + regException.Message);
+                                }
+                                else
+                                {
+                                    MessageBox.Show(Resources.MessageBox_IncorrectPattern + regException.Message,
+                                        Resources.MessageBox_DnGrep,
+                                        MessageBoxButton.OK, MessageBoxImage.Warning,
+                                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                                }
                                 e.Result = null;
                                 return;
                             }
@@ -1229,31 +1248,44 @@ namespace dnGREP.WPF
                         grep.ProcessedFile -= GrepCore_ProcessedFile;
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                logger.Error(ex, "Failed in search/replace");
-                bool isSearch = true;
-                if (e.Argument is MainViewModel param)
+                catch (Exception ex)
                 {
-                    if (param.CurrentGrepOperation == GrepOperation.Search || param.CurrentGrepOperation == GrepOperation.SearchInResults)
+                    logger.Error(ex, "Failed in search/replace");
+                    bool isSearch = true;
+
+                    if (param.Operation == GrepOperation.Search || param.Operation == GrepOperation.SearchInResults)
                         isSearch = true;
                     else
                         isSearch = false;
-                }
-                if (isSearch)
-                {
-                    MessageBox.Show(Resources.MessageBox_SearchFailedError + App.LogDir,
-                        Resources.MessageBox_DnGrep,
-                        MessageBoxButton.OK, MessageBoxImage.Error,
-                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
-                }
-                else
-                {
-                    MessageBox.Show(Resources.MessageBox_ReplaceFailedError + App.LogDir,
-                        Resources.MessageBox_DnGrep,
-                        MessageBoxButton.OK, MessageBoxImage.Error,
-                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+
+                    if (isSearch)
+                    {
+                        if (IsScriptRunning)
+                        {
+                            AddScriptMessage(Resources.MessageBox_SearchFailedError + App.LogDir);
+                        }
+                        else
+                        {
+                            MessageBox.Show(Resources.MessageBox_SearchFailedError + App.LogDir,
+                                Resources.MessageBox_DnGrep,
+                                MessageBoxButton.OK, MessageBoxImage.Error,
+                                MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                        }
+                    }
+                    else
+                    {
+                        if (IsScriptRunning)
+                        {
+                            AddScriptMessage(Resources.MessageBox_ReplaceFailedError + App.LogDir);
+                        }
+                        else
+                        {
+                            MessageBox.Show(Resources.MessageBox_ReplaceFailedError + App.LogDir,
+                                Resources.MessageBox_DnGrep,
+                                MessageBoxButton.OK, MessageBoxImage.Error,
+                                MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                        }
+                    }
                 }
             }
         }
@@ -1281,10 +1313,17 @@ namespace dnGREP.WPF
             catch (Exception ex)
             {
                 logger.Error(ex, "Failure in search progress changed");
-                MessageBox.Show(Resources.MessageBox_SearchOrReplaceFailed + App.LogDir,
-                    Resources.MessageBox_DnGrep,
-                    MessageBoxButton.OK, MessageBoxImage.Error,
-                    MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                if (IsScriptRunning)
+                {
+                    AddScriptMessage(Resources.MessageBox_SearchOrReplaceFailed + App.LogDir);
+                }
+                else
+                {
+                    MessageBox.Show(Resources.MessageBox_SearchOrReplaceFailed + App.LogDir,
+                        Resources.MessageBox_DnGrep,
+                        MessageBoxButton.OK, MessageBoxImage.Error,
+                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                }
             }
         }
 
@@ -1344,7 +1383,7 @@ namespace dnGREP.WPF
                 StatusMessage = latestStatusMessage;
         }
 
-        private void SearchComplete(object sender, RunWorkerCompletedEventArgs e)
+        private void SearchReplaceComplete(object sender, RunWorkerCompletedEventArgs e)
         {
             latestStatusMessage = string.Empty;
             idleTimer.Stop();
@@ -1403,10 +1442,18 @@ namespace dnGREP.WPF
                         if (e.Result == null || ((int)e.Result) == -1)
                         {
                             StatusMessage = Resources.Main_Status_ReplaceFailed;
-                            MessageBox.Show(Resources.MessageBox_ReplaceFailedError + App.LogDir,
-                                Resources.MessageBox_DnGrep,
-                                MessageBoxButton.OK, MessageBoxImage.Error,
-                                MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+
+                            if (IsScriptRunning)
+                            {
+                                AddScriptMessage(Resources.MessageBox_ReplaceFailedError + App.LogDir);
+                            }
+                            else
+                            {
+                                MessageBox.Show(Resources.MessageBox_ReplaceFailedError + App.LogDir,
+                                    Resources.MessageBox_DnGrep,
+                                    MessageBoxButton.OK, MessageBoxImage.Error,
+                                    MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                            }
                         }
                         else
                         {
@@ -1429,27 +1476,56 @@ namespace dnGREP.WPF
                 string outdatedEngines = dnGREP.Engines.GrepEngineFactory.GetListOfFailedEngines();
                 if (!string.IsNullOrEmpty(outdatedEngines))
                 {
-                    MessageBox.Show(Resources.MessageBox_TheFollowingPluginsFailedToLoad +
-                        Environment.NewLine + Environment.NewLine +
-                        outdatedEngines + Environment.NewLine + Environment.NewLine +
-                        Resources.MessageBox_DefaultEngineWasUsedInstead,
-                        Resources.MessageBox_DnGrep + " " + Resources.MessageBox_PluginErrors,
-                        MessageBoxButton.OK, MessageBoxImage.Warning,
-                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                    if (IsScriptRunning)
+                    {
+                        logger.Error(Resources.MessageBox_TheFollowingPluginsFailedToLoad +
+                            Environment.NewLine + Environment.NewLine +
+                            outdatedEngines + Environment.NewLine + Environment.NewLine +
+                            Resources.MessageBox_DefaultEngineWasUsedInstead);
+                        AddScriptMessage(Resources.MessageBox_TheFollowingPluginsFailedToLoad +
+                            Environment.NewLine + Environment.NewLine +
+                            outdatedEngines + Environment.NewLine + Environment.NewLine +
+                            Resources.MessageBox_DefaultEngineWasUsedInstead);
+                    }
+                    else
+                    {
+                        MessageBox.Show(Resources.MessageBox_TheFollowingPluginsFailedToLoad +
+                            Environment.NewLine + Environment.NewLine +
+                            outdatedEngines + Environment.NewLine + Environment.NewLine +
+                            Resources.MessageBox_DefaultEngineWasUsedInstead,
+                            Resources.MessageBox_DnGrep + " " + Resources.MessageBox_PluginErrors,
+                            MessageBoxButton.OK, MessageBoxImage.Warning,
+                            MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                    }
                 }
             }
             catch (Exception ex)
             {
                 logger.Error(ex, "Failure in search complete update");
-                MessageBox.Show(Resources.MessageBox_SearchOrReplaceFailed + App.LogDir,
-                    Resources.MessageBox_DnGrep,
-                    MessageBoxButton.OK, MessageBoxImage.Error,
-                    MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                if (IsScriptRunning)
+                {
+                    AddScriptMessage(Resources.MessageBox_SearchOrReplaceFailed + App.LogDir);
+                }
+                else
+                {
+                    MessageBox.Show(Resources.MessageBox_SearchOrReplaceFailed + App.LogDir,
+                        Resources.MessageBox_DnGrep,
+                        MessageBoxButton.OK, MessageBoxImage.Error,
+                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                }
             }
             finally
             {
+                if (Utils.CancelSearch && IsScriptRunning)
+                {
+                    CancelScript();
+                }
+
                 Utils.CancelSearch = false;
                 currentSearchFiles.Clear();
+
+                // try to move on to next script statement
+                ContinueScript();
             }
         }
 
@@ -1499,19 +1575,39 @@ namespace dnGREP.WPF
                 // first, check for valid path
                 if (!PathSearchText.IsValidPath)
                 {
-                    MessageBox.Show(TranslationSource.Format(Resources.MessageBox_SearchPathInTheFieldIsNotValid, SearchTextBoxLabel),
-                        Resources.MessageBox_DnGrep,
-                        MessageBoxButton.OK, MessageBoxImage.Warning,
-                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                    if (IsScriptRunning)
+                    {
+                        logger.Error(TranslationSource.Format(Resources.MessageBox_SearchPathInTheFieldIsNotValid, SearchTextBoxLabel));
+                        AddScriptMessage(TranslationSource.Format(Resources.MessageBox_SearchPathInTheFieldIsNotValid, SearchTextBoxLabel));
+
+                        CancelScript();
+                    }
+                    else
+                    {
+                        MessageBox.Show(TranslationSource.Format(Resources.MessageBox_SearchPathInTheFieldIsNotValid, SearchTextBoxLabel),
+                            Resources.MessageBox_DnGrep,
+                            MessageBoxButton.OK, MessageBoxImage.Warning,
+                            MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                    }
                     return;
                 }
 
                 if (!IsValidPattern)
                 {
-                    MessageBox.Show(ValidationMessage + Environment.NewLine + ValidationToolTip,
-                        Resources.MessageBox_DnGrep,
-                        MessageBoxButton.OK, MessageBoxImage.Warning,
-                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                    if (IsScriptRunning)
+                    {
+                        logger.Error(ValidationMessage + Environment.NewLine + ValidationToolTip);
+                        AddScriptMessage(ValidationMessage + Environment.NewLine + ValidationToolTip);
+
+                        CancelScript();
+                    }
+                    else
+                    {
+                        MessageBox.Show(ValidationMessage + Environment.NewLine + ValidationToolTip,
+                            Resources.MessageBox_DnGrep,
+                            MessageBoxButton.OK, MessageBoxImage.Warning,
+                            MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                    }
                     return;
                 }
 
@@ -1520,7 +1616,13 @@ namespace dnGREP.WPF
                 if (TypeOfFileSearch == FileSearchType.Regex)
                 {
                     if (!ValidateFilePatterns())
+                    {
+                        if (IsScriptRunning)
+                        {
+                            CancelScript();
+                        }
                         return;
+                    }
                 }
 
                 // set base folder for results display
@@ -1558,6 +1660,12 @@ namespace dnGREP.WPF
                 SearchResults.IsResultsTreeFocused = false;
                 SearchResults.IsResultsTreeFocused = true;
             }
+            else if (IsScriptRunning)
+            {
+                // in a bad state, do not continue
+                CancelScript();
+                AddScriptMessage("Search busy, script run stopped.");
+            }
         }
 
         private bool ValidateFilePatterns()
@@ -1569,10 +1677,18 @@ namespace dnGREP.WPF
                     string msg = GetValidateRegexMsg(pattern);
                     if (!string.IsNullOrWhiteSpace(msg))
                     {
-                        MessageBox.Show(TranslationSource.Format(Resources.MessageBox_TheFilePattern0IsNotAValidRegularExpression12, pattern, Environment.NewLine, msg),
-                            Resources.MessageBox_DnGrep,
-                            MessageBoxButton.OK, MessageBoxImage.Error,
-                            MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                        if (IsScriptRunning)
+                        {
+                            logger.Error(TranslationSource.Format(Resources.MessageBox_TheFilePattern0IsNotAValidRegularExpression12, pattern, Environment.NewLine, msg));
+                            AddScriptMessage(TranslationSource.Format(Resources.MessageBox_TheFilePattern0IsNotAValidRegularExpression12, pattern, Environment.NewLine, msg));
+                        }
+                        else
+                        {
+                            MessageBox.Show(TranslationSource.Format(Resources.MessageBox_TheFilePattern0IsNotAValidRegularExpression12, pattern, Environment.NewLine, msg),
+                                Resources.MessageBox_DnGrep,
+                                MessageBoxButton.OK, MessageBoxImage.Error,
+                                MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                        }
                         return false;
                     }
                 }
@@ -1585,10 +1701,18 @@ namespace dnGREP.WPF
                     string msg = GetValidateRegexMsg(pattern);
                     if (!string.IsNullOrWhiteSpace(msg))
                     {
-                        MessageBox.Show(TranslationSource.Format(Resources.MessageBox_TheFilePattern0IsNotAValidRegularExpression12, pattern, Environment.NewLine, msg),
-                            Resources.MessageBox_DnGrep,
-                            MessageBoxButton.OK, MessageBoxImage.Error,
-                            MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                        if (IsScriptRunning)
+                        {
+                            logger.Error(TranslationSource.Format(Resources.MessageBox_TheFilePattern0IsNotAValidRegularExpression12, pattern, Environment.NewLine, msg));
+                            AddScriptMessage(TranslationSource.Format(Resources.MessageBox_TheFilePattern0IsNotAValidRegularExpression12, pattern, Environment.NewLine, msg));
+                        }
+                        else
+                        {
+                            MessageBox.Show(TranslationSource.Format(Resources.MessageBox_TheFilePattern0IsNotAValidRegularExpression12, pattern, Environment.NewLine, msg),
+                                Resources.MessageBox_DnGrep,
+                                MessageBoxButton.OK, MessageBoxImage.Error,
+                                MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                        }
                         return false;
                     }
                 }
@@ -1616,17 +1740,20 @@ namespace dnGREP.WPF
             {
                 if (string.IsNullOrEmpty(ReplaceWith))
                 {
-                    if (MessageBox.Show(Resources.MessageBox_AreYouSureYouWantToReplaceSearchPatternWithEmptyString,
-                        Resources.MessageBox_DnGrep + " " + Resources.MessageBox_Replace,
-                        MessageBoxButton.YesNo, MessageBoxImage.Question,
-                        MessageBoxResult.Yes, TranslationSource.Instance.FlowDirection) != MessageBoxResult.Yes)
+                    if (!IsScriptRunning)
                     {
-                        return;
+                        if (MessageBox.Show(Resources.MessageBox_AreYouSureYouWantToReplaceSearchPatternWithEmptyString,
+                            Resources.MessageBox_DnGrep + " " + Resources.MessageBox_Replace,
+                            MessageBoxButton.YesNo, MessageBoxImage.Question,
+                            MessageBoxResult.Yes, TranslationSource.Instance.FlowDirection) != MessageBoxResult.Yes)
+                        {
+                            return;
+                        }
                     }
                 }
 
                 List<string> roFiles = Utils.GetReadOnlyFiles(SearchResults.GetList());
-                if (roFiles.Count > 0)
+                if (!IsScriptRunning && roFiles.Count > 0)
                 {
                     StringBuilder sb = new StringBuilder(Resources.MessageBox_SomeOfTheFilesCannotBeModifiedIfYouContinueTheseFilesWillBeSkipped);
                     sb.Append(Environment.NewLine)
@@ -1653,13 +1780,33 @@ namespace dnGREP.WPF
                         replaceList.Remove(item);
                 }
 
-                ReplaceWindow dlg = new ReplaceWindow();
-                dlg.ViewModel.SearchFor = SearchFor;
-                dlg.ViewModel.ReplaceWith = ReplaceWith;
-                dlg.ViewModel.SearchResults = replaceList;
-                var result = dlg.ShowDialog();
+                bool doReplace = false;
+                if (IsScriptRunning)
+                {
+                    // mark all matches for replace
+                    foreach (GrepSearchResult gsr in replaceList)
+                    {
+                        foreach (var match in gsr.Matches)
+                        {
+                            match.ReplaceMatch = true;
+                        }
+                    }
+                    doReplace = true;
+                }
+                else
+                {
+                    ReplaceWindow dlg = new ReplaceWindow();
+                    dlg.ViewModel.SearchFor = SearchFor;
+                    dlg.ViewModel.ReplaceWith = ReplaceWith;
+                    dlg.ViewModel.SearchResults = replaceList;
+                    var result = dlg.ShowDialog();
+                    if (result.HasValue && result.Value)
+                    {
+                        doReplace = true;
+                    }
+                }
 
-                if (result.HasValue && result.Value)
+                if (doReplace)
                 {
                     CanUndo = false;
                     Utils.DeleteUndoFolder();
@@ -1691,7 +1838,18 @@ namespace dnGREP.WPF
                         workerSearchReplace.RunWorkerAsync(workerParams);
                         UpdateBookmarks();
                     }
+                    else if (IsScriptRunning)
+                    {
+                        AddScriptMessage("Search list is empty, nothing to replace.");
+                        Dispatcher.CurrentDispatcher.Invoke(() => ContinueScript());
+                    }
                 }
+            }
+            else if (IsScriptRunning)
+            {
+                // in a bad state, do not continue
+                CancelScript();
+                AddScriptMessage("Replace busy, script run stopped.");
             }
         }
 
@@ -1699,32 +1857,53 @@ namespace dnGREP.WPF
         {
             if (CanUndo)
             {
-                MessageBoxResult response = MessageBox.Show(
-                    Resources.MessageBox_UndoWillRevertModifiedFiles,
-                    Resources.MessageBox_DnGrep + " " + Resources.MessageBox_Undo,
-                    MessageBoxButton.YesNo, MessageBoxImage.Warning,
-                    MessageBoxResult.No, TranslationSource.Instance.FlowDirection);
+                MessageBoxResult response = MessageBoxResult.Yes;
+
+                if (!IsScriptRunning)
+                {
+                    response = MessageBox.Show(
+                        Resources.MessageBox_UndoWillRevertModifiedFiles,
+                        Resources.MessageBox_DnGrep + " " + Resources.MessageBox_Undo,
+                        MessageBoxButton.YesNo, MessageBoxImage.Warning,
+                        MessageBoxResult.No, TranslationSource.Instance.FlowDirection);
+                }
+
                 if (response == MessageBoxResult.Yes)
                 {
                     GrepCore core = new GrepCore();
                     bool result = core.Undo(undoList);
                     if (result)
                     {
-                        MessageBox.Show(Resources.MessageBox_FilesHaveBeenSuccessfullyReverted,
-                            Resources.MessageBox_DnGrep + " " + Resources.MessageBox_Undo,
-                            MessageBoxButton.OK, MessageBoxImage.Information,
-                            MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                        if (IsScriptRunning)
+                        {
+                            logger.Info(Resources.MessageBox_FilesHaveBeenSuccessfullyReverted);
+                            AddScriptMessage(Resources.MessageBox_FilesHaveBeenSuccessfullyReverted);
+                        }
+                        else
+                        {
+                            MessageBox.Show(Resources.MessageBox_FilesHaveBeenSuccessfullyReverted,
+                                Resources.MessageBox_DnGrep + " " + Resources.MessageBox_Undo,
+                                MessageBoxButton.OK, MessageBoxImage.Information,
+                                MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                        }
                         Utils.DeleteUndoFolder();
                         undoList.Clear();
                     }
                     else
                     {
-                        MessageBox.Show(Resources.MessageBox_ThereWasAnErrorRevertingFiles + App.LogDir,
-                            Resources.MessageBox_DnGrep + " " + Resources.MessageBox_Undo,
-                            MessageBoxButton.OK, MessageBoxImage.Error,
-                            MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                        if (IsScriptRunning)
+                        {
+                            AddScriptMessage(Resources.MessageBox_ThereWasAnErrorRevertingFiles + App.LogDir);
+                        }
+                        else
+                        {
+                            MessageBox.Show(Resources.MessageBox_ThereWasAnErrorRevertingFiles + App.LogDir,
+                                Resources.MessageBox_DnGrep + " " + Resources.MessageBox_Undo,
+                                MessageBoxButton.OK, MessageBoxImage.Error,
+                                MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                        }
+                        CanUndo = false;
                     }
-                    CanUndo = false;
                 }
             }
         }
@@ -2023,6 +2202,162 @@ namespace dnGREP.WPF
             }
         }
 
+        private void AddBookmark(string bookmarkName, bool assocateWithFolder)
+        {
+            bool modified = false;
+
+            // if the named bookmark exists, replace it
+            if (!string.IsNullOrEmpty(bookmarkName))
+            {
+                var bmk = BookmarkLibrary.Instance.Bookmarks
+                    .FirstOrDefault(b => bookmarkName.Equals(b.BookmarkName, StringComparison.OrdinalIgnoreCase));
+
+                if (bmk != null)
+                {
+                    BookmarkLibrary.Instance.Bookmarks.Remove(bmk);
+                    BookmarkLibrary.Instance.UpdateOrdinals();
+                    modified = true;
+                }
+            }
+
+            Bookmark current = CurrentBookmarkSettings();
+            if (!string.IsNullOrEmpty(bookmarkName))
+            {
+                current.BookmarkName = bookmarkName;
+            }
+            current.Ordinal = BookmarkLibrary.Instance.Bookmarks.Count;
+            BookmarkLibrary.Instance.Bookmarks.Add(current);
+            BookmarkLibrary.Instance.Bookmarks.Sort((x, y) => x.Ordinal.CompareTo(y.Ordinal));
+            IsBookmarked = true;
+            modified = true;
+
+            if (assocateWithFolder && !string.IsNullOrWhiteSpace(FileOrFolderPath))
+            {
+                BookmarkLibrary.Instance.AddFolderReference(current, FileOrFolderPath);
+                IsFolderBookmarked = true;
+            }
+
+            if (modified)
+            {
+                BookmarkLibrary.Save();
+
+                if (bookmarkWindow != null)
+                {
+                    bookmarkWindow.ViewModel.SynchToLibrary();
+                }
+            }
+        }
+
+        private void RemoveBookmark(string bookmarkName, bool disassocateWithFolder)
+        {
+            bool modified = false;
+
+            if (!string.IsNullOrEmpty(bookmarkName))
+            {
+                var bmk = BookmarkLibrary.Instance.Bookmarks
+                    .FirstOrDefault(b => bookmarkName.Equals(b.BookmarkName, StringComparison.OrdinalIgnoreCase));
+
+                if (bmk != null)
+                {
+                    if (disassocateWithFolder)
+                    {
+                        if (bmk.FolderReferences.Contains(FileOrFolderPath))
+                        {
+                            bmk.FolderReferences.Remove(FileOrFolderPath);
+                            modified = true;
+                        }
+                    }
+                    else
+                    {
+                        BookmarkLibrary.Instance.Bookmarks.Remove(bmk);
+                        BookmarkLibrary.Instance.UpdateOrdinals();
+                        modified = true;
+                    }
+                }
+            }
+            else // no name supplied, use current settings
+            {
+                Bookmark current = CurrentBookmarkSettings();
+                Bookmark bmk = BookmarkLibrary.Instance.Find(current);
+                if (bmk != null)
+                {
+                    if (disassocateWithFolder && IsFolderBookmarked && bmk.FolderReferences.Contains(FileOrFolderPath))
+                    {
+                        bmk.FolderReferences.Remove(FileOrFolderPath);
+                        modified = true;
+                    }
+                    else if (IsBookmarked)
+                    {
+                        BookmarkLibrary.Instance.Bookmarks.Remove(bmk);
+                        BookmarkLibrary.Instance.UpdateOrdinals();
+                        modified = true;
+                    }
+                }
+            }
+
+            if (modified)
+            {
+                UpdateState(nameof(SearchFor)); // to update the bookmark indicator check boxes
+
+                BookmarkLibrary.Save();
+
+                if (bookmarkWindow != null)
+                {
+                    bookmarkWindow.ViewModel.SynchToLibrary();
+                }
+            }
+        }
+
+        private void UseBookmark(string bookmarkName)
+        {
+            var bmk = BookmarkLibrary.Instance.Bookmarks
+                .FirstOrDefault(b => bookmarkName.Equals(b.BookmarkName, StringComparison.OrdinalIgnoreCase));
+            if (bmk != null)
+            {
+                if (bmk.ApplyFileSourceFilters)
+                {
+                    // set type of search first to handle Everything mode
+                    TypeOfFileSearch = bmk.TypeOfFileSearch;
+
+                    if (TypeOfFileSearch == FileSearchType.Everything)
+                    {
+                        FileOrFolderPath = bmk.FileNames;
+                    }
+                    else
+                    {
+                        FilePattern = bmk.FileNames;
+                    }
+                    FilePatternIgnore = bmk.IgnoreFilePattern;
+                    IncludeArchive = bmk.IncludeArchive;
+                    UseGitignore = bmk.UseGitignore;
+                    SkipRemoteCloudStorageFiles = bmk.SkipRemoteCloudStorageFiles;
+                    CodePage = bmk.CodePage;
+                }
+
+                if (bmk.ApplyFilePropertyFilters)
+                {
+                    IncludeSubfolder = bmk.IncludeSubfolders;
+                    MaxSubfolderDepth = bmk.MaxSubfolderDepth;
+                    IncludeHidden = bmk.IncludeHiddenFiles;
+                    IncludeBinary = bmk.IncludeBinaryFiles;
+                    FollowSymlinks = bmk.FollowSymlinks;
+                }
+
+                if (bmk.ApplyContentSearchFilters)
+                {
+                    TypeOfSearch = bmk.TypeOfSearch;
+                    SearchFor = bmk.SearchPattern;
+                    ReplaceWith = bmk.ReplacePattern;
+
+                    CaseSensitive = bmk.CaseSensitive;
+                    WholeWord = bmk.WholeWord;
+                    Multiline = bmk.Multiline;
+                    Singleline = bmk.Singleline;
+                    BooleanOperators = bmk.BooleanOperators;
+                }
+            }
+        }
+
         private void OpenBookmarksWindow()
         {
             if (bookmarkWindow == null)
@@ -2054,102 +2389,181 @@ namespace dnGREP.WPF
             }
         }
 
-        private void CopyFiles()
+        private void CopyFiles(object argument)
         {
             if (FilesFound)
             {
-                if (fileFolderDialog.ShowDialog() == true)
+                string selectedPath = null;
+                if (argument is string path && !string.IsNullOrEmpty(path))
+                {
+                    selectedPath = path;
+                }
+                else if (fileFolderDialog.ShowDialog() == true)
+                {
+                    selectedPath = fileFolderDialog.SelectedPath;
+                }
+
+                if (!string.IsNullOrEmpty(selectedPath))
                 {
                     try
                     {
                         var fileList = SearchResults.GetList();
-                        string destinationFolder = Utils.GetBaseFolder(fileFolderDialog.SelectedPath);
+                        string destinationFolder = Utils.GetBaseFolder(selectedPath);
                         bool hasSingleBaseFolder = Utils.HasSingleBaseFolder(PathSearchText.FileOrFolderPath);
                         string baseFolder = PathSearchText.BaseFolder;
 
                         if (!Utils.CanCopyFiles(fileList, destinationFolder))
                         {
-                            MessageBox.Show(Resources.MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory + Environment.NewLine +
-                                Resources.MessageBox_PleaseSelectAnotherDirectoryAndTryAgain,
-                                Resources.MessageBox_DnGrep + " " + Resources.MessageBox_CopyFiles,
-                                MessageBoxButton.OK, MessageBoxImage.Warning,
-                                MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                            if (IsScriptRunning)
+                            {
+                                logger.Error(Resources.MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory +
+                                    Resources.MessageBox_PleaseSelectAnotherDirectoryAndTryAgain);
+                                AddScriptMessage(Resources.MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory +
+                                    Resources.MessageBox_PleaseSelectAnotherDirectoryAndTryAgain);
+                            }
+                            else
+                            {
+                                MessageBox.Show(Resources.MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory + Environment.NewLine +
+                                    Resources.MessageBox_PleaseSelectAnotherDirectoryAndTryAgain,
+                                    Resources.MessageBox_DnGrep + " " + Resources.MessageBox_CopyFiles,
+                                    MessageBoxButton.OK, MessageBoxImage.Warning,
+                                    MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                            }
                             return;
                         }
 
                         int count = 0;
                         if (hasSingleBaseFolder && !string.IsNullOrWhiteSpace(baseFolder))
                         {
-                            count = Utils.CopyFiles(fileList, baseFolder, destinationFolder, OverwriteFile.Prompt);
+                            count = Utils.CopyFiles(fileList, baseFolder, destinationFolder, IsScriptRunning ? OverwriteFile.No : OverwriteFile.Prompt);
                         }
                         else
                         {
                             // without a common base path, copy all files to a single directory 
-                            count = Utils.CopyFiles(fileList, destinationFolder, OverwriteFile.Prompt);
+                            count = Utils.CopyFiles(fileList, destinationFolder, IsScriptRunning ? OverwriteFile.No : OverwriteFile.Prompt);
                         }
-                        MessageBox.Show(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyCopied, count),
-                            Resources.MessageBox_DnGrep + " " + Resources.MessageBox_CopyFiles,
-                            MessageBoxButton.OK, MessageBoxImage.Information,
-                            MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+
+                        if (IsScriptRunning)
+                        {
+                            logger.Info(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyCopied, count) +
+                                " " + selectedPath);
+                            AddScriptMessage(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyCopied, count) +
+                                " " + selectedPath);
+                        }
+                        else
+                        {
+                            MessageBox.Show(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyCopied, count),
+                                Resources.MessageBox_DnGrep + " " + Resources.MessageBox_CopyFiles,
+                                MessageBoxButton.OK, MessageBoxImage.Information,
+                                MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                        }
                     }
                     catch (Exception ex)
                     {
                         logger.Error(ex, "Error copying files");
-                        MessageBox.Show(Resources.MessageBox_ThereWasAnErrorCopyingFiles + App.LogDir,
-                            Resources.MessageBox_DnGrep,
-                            MessageBoxButton.OK, MessageBoxImage.Error,
-                            MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+
+                        if (IsScriptRunning)
+                        {
+                            AddScriptMessage(Resources.Scripts_CopyFilesFailed + ex.Message);
+                            CancelScript();
+                        }
+                        else
+                        {
+                            MessageBox.Show(Resources.MessageBox_ThereWasAnErrorCopyingFiles + App.LogDir,
+                                Resources.MessageBox_DnGrep,
+                                MessageBoxButton.OK, MessageBoxImage.Error,
+                                MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                        }
                     }
                     CanUndo = false;
                 }
             }
         }
 
-        private void MoveFiles()
+        private void MoveFiles(object argument)
         {
             if (FilesFound)
             {
-                if (fileFolderDialog.ShowDialog() == true)
+                string selectedPath = null;
+                if (argument is string path && !string.IsNullOrEmpty(path))
+                {
+                    selectedPath = path;
+                }
+                else if (fileFolderDialog.ShowDialog() == true)
+                {
+                    selectedPath = fileFolderDialog.SelectedPath;
+                }
+
+                if (!string.IsNullOrEmpty(selectedPath))
                 {
                     try
                     {
                         var fileList = SearchResults.GetList();
-                        string destinationFolder = Utils.GetBaseFolder(fileFolderDialog.SelectedPath);
+                        string destinationFolder = Utils.GetBaseFolder(selectedPath);
                         bool hasSingleBaseFolder = Utils.HasSingleBaseFolder(PathSearchText.FileOrFolderPath);
                         string baseFolder = PathSearchText.BaseFolder;
 
                         if (!Utils.CanCopyFiles(fileList, destinationFolder))
                         {
-                            MessageBox.Show(Resources.MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory + Environment.NewLine +
-                                Resources.MessageBox_PleaseSelectAnotherDirectoryAndTryAgain,
-                                Resources.MessageBox_DnGrep + " " + Resources.MessageBox_MoveFiles,
-                                MessageBoxButton.OK, MessageBoxImage.Warning,
-                                MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                            if (IsScriptRunning)
+                            {
+                                logger.Error(Resources.MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory +
+                                    Resources.MessageBox_PleaseSelectAnotherDirectoryAndTryAgain);
+                                AddScriptMessage(Resources.MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory +
+                                    Resources.MessageBox_PleaseSelectAnotherDirectoryAndTryAgain);
+                            }
+                            else
+                            {
+                                MessageBox.Show(Resources.MessageBox_SomeOfTheFilesAreLocatedInTheSelectedDirectory + Environment.NewLine +
+                                    Resources.MessageBox_PleaseSelectAnotherDirectoryAndTryAgain,
+                                    Resources.MessageBox_DnGrep + " " + Resources.MessageBox_MoveFiles,
+                                    MessageBoxButton.OK, MessageBoxImage.Warning,
+                                    MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                            }
                             return;
                         }
 
                         int count = 0;
                         if (hasSingleBaseFolder && !string.IsNullOrWhiteSpace(baseFolder))
                         {
-                            count = Utils.MoveFiles(fileList, baseFolder, destinationFolder, OverwriteFile.Prompt);
+                            count = Utils.MoveFiles(fileList, baseFolder, destinationFolder, IsScriptRunning ? OverwriteFile.No : OverwriteFile.Prompt);
                         }
                         else
                         {
                             // without a common base path, move all files to a single directory 
-                            count = Utils.MoveFiles(fileList, destinationFolder, OverwriteFile.Prompt);
+                            count = Utils.MoveFiles(fileList, destinationFolder, IsScriptRunning ? OverwriteFile.No : OverwriteFile.Prompt);
                         }
-                        MessageBox.Show(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyMoved, count),
-                            Resources.MessageBox_DnGrep + " " + Resources.MessageBox_MoveFiles,
-                            MessageBoxButton.OK, MessageBoxImage.Information,
-                            MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+
+                        if (IsScriptRunning)
+                        {
+                            logger.Info(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyMoved, count) +
+                                " " + selectedPath);
+                            AddScriptMessage(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyMoved, count) +
+                                " " + selectedPath);
+                        }
+                        else
+                        {
+                            MessageBox.Show(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyMoved, count),
+                                Resources.MessageBox_DnGrep + " " + Resources.MessageBox_MoveFiles,
+                                MessageBoxButton.OK, MessageBoxImage.Information,
+                                MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                        }
                     }
                     catch (Exception ex)
                     {
                         logger.Error(ex, "Error moving files");
-                        MessageBox.Show(Resources.MessageBox_ThereWasAnErrorMovingFiles + App.LogDir,
-                            Resources.MessageBox_DnGrep,
-                            MessageBoxButton.OK, MessageBoxImage.Error,
-                            MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                        if (IsScriptRunning)
+                        {
+                            AddScriptMessage(Resources.Scripts_MoveFilesFailed + ex.Message);
+                            CancelScript();
+                        }
+                        else
+                        {
+                            MessageBox.Show(Resources.MessageBox_ThereWasAnErrorMovingFiles + App.LogDir,
+                                Resources.MessageBox_DnGrep,
+                                MessageBoxButton.OK, MessageBoxImage.Error,
+                                MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                        }
                     }
                     CanUndo = false;
                     SearchResults.Clear();
@@ -2164,28 +2578,56 @@ namespace dnGREP.WPF
             {
                 try
                 {
-                    if (MessageBox.Show(Resources.MessageBox_YouAreAboutToDeleteFilesFoundDuringSearch + Environment.NewLine +
-                        Resources.MessageBox_AreYouSureYouWantToContinue,
-                        Resources.MessageBox_DnGrep + " " + Resources.MessageBox_DeleteFiles,
-                        MessageBoxButton.YesNo, MessageBoxImage.Warning,
-                        MessageBoxResult.No, TranslationSource.Instance.FlowDirection) != MessageBoxResult.Yes)
+                    if (!IsScriptRunning)
                     {
-                        return;
+                        if (MessageBox.Show(Resources.MessageBox_YouAreAboutToDeleteFilesFoundDuringSearch + Environment.NewLine +
+                                Resources.MessageBox_AreYouSureYouWantToContinue,
+                                Resources.MessageBox_DnGrep + " " + Resources.MessageBox_DeleteFiles,
+                                MessageBoxButton.YesNo, MessageBoxImage.Warning,
+                                MessageBoxResult.No, TranslationSource.Instance.FlowDirection) != MessageBoxResult.Yes)
+                        {
+                            return;
+                        }
                     }
 
-                    int count = Utils.DeleteFiles(SearchResults.GetList());
-                    MessageBox.Show(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyDeleted, count),
-                        Resources.MessageBox_DnGrep + " " + Resources.MessageBox_DeleteFiles,
-                        MessageBoxButton.OK, MessageBoxImage.Information,
-                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                    int count;
+                    if (GrepSettings.Instance.Get<bool>(GrepSettings.Key.DeleteToRecycleBin))
+                    {
+                        count = Utils.SendToRecycleBin(SearchResults.GetList());
+                    }
+                    else
+                    {
+                        count = Utils.DeleteFiles(SearchResults.GetList());
+                    }
+
+                    if (IsScriptRunning)
+                    {
+                        logger.Info(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyDeleted, count));
+                        AddScriptMessage(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyDeleted, count));
+                    }
+                    else
+                    {
+                        MessageBox.Show(TranslationSource.Format(Resources.MessageBox_CountFilesHaveBeenSuccessfullyDeleted, count),
+                            Resources.MessageBox_DnGrep + " " + Resources.MessageBox_DeleteFiles,
+                            MessageBoxButton.OK, MessageBoxImage.Information,
+                            MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                    }
                 }
                 catch (Exception ex)
                 {
                     logger.Error(ex, "Error deleting files");
-                    MessageBox.Show(Resources.MessageBox_ThereWasAnErrorDeletingFiles + App.LogDir,
-                        Resources.MessageBox_DnGrep,
-                        MessageBoxButton.OK, MessageBoxImage.Error,
-                        MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                    if (IsScriptRunning)
+                    {
+                        AddScriptMessage(Resources.Scripts_DeleteFilesFailed + ex.Message);
+                        CancelScript();
+                    }
+                    else
+                    {
+                        MessageBox.Show(Resources.MessageBox_ThereWasAnErrorDeletingFiles + App.LogDir,
+                            Resources.MessageBox_DnGrep,
+                            MessageBoxButton.OK, MessageBoxImage.Error,
+                            MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                    }
                 }
                 CanUndo = false;
                 SearchResults.Clear();
@@ -2537,7 +2979,7 @@ namespace dnGREP.WPF
             this.workerSearchReplace.WorkerReportsProgress = true;
             this.workerSearchReplace.WorkerSupportsCancellation = true;
             this.workerSearchReplace.DoWork += DoSearchReplace;
-            this.workerSearchReplace.RunWorkerCompleted += SearchComplete;
+            this.workerSearchReplace.RunWorkerCompleted += SearchReplaceComplete;
             this.workerSearchReplace.ProgressChanged += SearchProgressChanged;
 
             DiginesisHelpProvider.HelpNamespace = @"https://github.com/dnGrep/dnGrep/wiki/";
@@ -2703,6 +3145,24 @@ namespace dnGREP.WPF
             Settings.Set(GrepSettings.Key.FastPathBookmarks, fpb);
         }
 
+        private void OpenAppDataFolder()
+        {
+            string dataFolder = Utils.GetDataFolderPath();
+            if (!dataFolder.EndsWith(Path.DirectorySeparator))
+            {
+                dataFolder += Path.DirectorySeparator;
+            }
+            ProcessStartInfo startInfo = new ProcessStartInfo
+            { 
+                FileName = "explorer.exe",
+                Arguments = "/open, \"" + dataFolder + "\"",
+                UseShellExecute = false,
+            };
+
+            Process.Start(startInfo);
+        }
+
+
         private void PreviewFile(string filePath, GrepSearchResult result, int line)
         {
             if (PreviewFileContent)
@@ -2715,10 +3175,17 @@ namespace dnGREP.WPF
 
                     if (string.IsNullOrWhiteSpace(tempFile))
                     {
-                        MessageBox.Show(Resources.MessageBox_FailedToExtractFileFromArchive + App.LogDir,
-                            Resources.MessageBox_DnGrep,
-                            MessageBoxButton.OK, MessageBoxImage.Error,
-                            MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                        if (IsScriptRunning)
+                        {
+                            AddScriptMessage(Resources.MessageBox_FailedToExtractFileFromArchive + App.LogDir);
+                        }
+                        else
+                        {
+                            MessageBox.Show(Resources.MessageBox_FailedToExtractFileFromArchive + App.LogDir,
+                                Resources.MessageBox_DnGrep,
+                                MessageBoxButton.OK, MessageBoxImage.Error,
+                                MessageBoxResult.OK, TranslationSource.Instance.FlowDirection);
+                        }
                         return;
                     }
                     else

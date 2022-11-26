@@ -1,0 +1,146 @@
+﻿<SyntaxDefinition name="Script" extensions=".grs" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+  <Color name="Comment" foreground="#FF39A839" exampleText="// comment" />
+  <Color name="String" foreground="#FF296FA9" />
+  <RuleSet>
+
+    <Span color="Comment">
+      <Begin>//</Begin>
+    </Span>
+
+    <Span color="String">
+      <Begin>"</Begin>
+      <End>"</End>
+      <RuleSet>
+        <!-- span for escape sequences -->
+        <Span begin="\\" end="."/>
+      </RuleSet>
+    </Span>
+
+    <Span color="String">
+      <Begin>'</Begin>
+      <End>'</End>
+      <RuleSet>
+        <Span begin="\\" end="." />
+      </RuleSet>
+    </Span>
+
+    <Keywords foreground="#FF296FA9">
+      <Word>set</Word>
+      <Word>bookmark</Word>
+      <Word>report</Word>
+      <Word>include</Word>
+      <Word>resetfilters</Word>
+      <Word>sort</Word>
+      <Word>undo</Word>
+      <Word>copyfiles</Word>
+      <Word>movefiles</Word>
+      <Word>deletefiles</Word>
+      <Word>copyfilenames</Word>
+      <Word>copyresults</Word>
+      <Word>expandfilefilters</Word>
+      <Word>maximizeresults</Word>
+      <Word>expandresultoptions</Word>
+      <Word>search</Word>
+      <Word>replace</Word>
+      <Word>messages</Word>
+      <Word>run</Word>
+      <Word>exit</Word>
+    </Keywords>
+    <Keywords foreground="#FFA83939">
+      <Word>folder</Word>
+      <Word>pathtomatch</Word>
+      <Word>pathtoignore</Word>
+      <Word>searchinarchives</Word>
+      <Word>patterntype</Word>
+      <Word>searchparallel</Word>
+      <Word>usegitignore</Word>
+      <Word>skipremotecloudstoragefiles</Word>
+      <Word>encoding</Word>
+      <Word>filterbyfilesize</Word>
+      <Word>sizefrom</Word>
+      <Word>sizeto</Word>
+      <Word>includesubfolder</Word>
+      <Word>maxsubfolderdepth</Word>
+      <Word>includehidden</Word>
+      <Word>includebinary</Word>
+      <Word>followsymlinks</Word>
+      <Word>filedatefilter</Word>
+      <Word>filetimerange</Word>
+      <Word>startdate</Word>
+      <Word>enddate</Word>
+      <Word>hoursfrom</Word>
+      <Word>hoursto</Word>
+      <Word>searchtype</Word>
+      <Word>searchfor</Word>
+      <Word>replacewith</Word>
+      <Word>casesensitive</Word>
+      <Word>wholeword</Word>
+      <Word>multiline</Word>
+      <Word>dotasnewline</Word>
+      <Word>booleanoperators</Word>
+      <Word>capturegroupsearch</Word>
+      <Word>searchinresults</Word>
+      <Word>previewfile</Word>
+      <Word>stopafterfirstmatch</Word>
+      <Word>highlightmatches</Word>
+      <Word>highlightgroups</Word>
+      <Word>showcontextlines</Word>
+      <Word>contextlinesbefore</Word>
+      <Word>contextlinesafter</Word>
+      <Word>wraptext</Word>
+      <Word>resultszoom</Word>
+      <Word>sorttype</Word>
+      <Word>sortdirection</Word>
+      <Word>reportmode</Word>
+      <Word>fileinformation</Word>
+      <Word>trimwhitespace</Word>
+      <Word>uniquevalues</Word>
+      <Word>uniquescope</Word>
+      <Word>separatelines</Word>
+      <Word>listitemseparator</Word>
+      <Word>use</Word>
+      <Word>add</Word>
+      <Word>addfolder</Word>
+      <Word>remove</Word>
+      <Word>removefolder</Word>
+      <Word>full</Word>
+      <Word>text</Word>
+      <Word>csv</Word>
+      <Word>script</Word>
+      <Word>powershell</Word>
+      <Word>cmd</Word>
+    </Keywords>
+    <Keywords foreground="#FF016183">
+      <Word>False</Word>
+      <Word>True</Word>
+      <Word>No</Word>
+      <Word>Yes</Word>
+      <Word>Regex</Word>
+      <Word>Asterisk</Word>
+      <Word>Everything</Word>
+      <Word>All</Word>
+      <Word>Created</Word>
+      <Word>Modified</Word>
+      <Word>Dates</Word>
+      <Word>Hours</Word>
+      <Word>PlainText</Word>
+      <Word>XPath</Word>
+      <Word>Soundex</Word>
+      <Word>Hex</Word>
+      <Word>FileNameOnly</Word>
+      <Word>FileTypeAndName</Word>
+      <Word>FileNameDepthFirst</Word>
+      <Word>FileNameBreadthFirst</Word>
+      <Word>Size</Word>
+      <Word>Date</Word>
+      <Word>MatchCount</Word>
+      <Word>Ascending</Word>
+      <Word>Descending</Word>
+      <Word>FullLine</Word>
+      <Word>Groups</Word>
+      <Word>Matches</Word>
+      <Word>PerFile</Word>
+      <Word>Global</Word>
+    </Keywords>
+  </RuleSet>
+</SyntaxDefinition>

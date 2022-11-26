@@ -17,6 +17,7 @@
                 <ResourceDictionary Source="pack://application:,,,/ThemedControls/Button.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ThemedControls/CheckBox.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ThemedControls/ComboBox.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/ThemedControls/CompletionList.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ThemedControls/CustomTemplates.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ThemedControls/DataGrid.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/ThemedControls/DatePicker.xaml" />

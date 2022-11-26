@@ -126,6 +126,7 @@ namespace dnGREP.WPF
                 RegisterHighlighting("Lisp", new[] { ".lisp", ".lsp", ".cl", ".mnl", ".dcl" }, "Lisp-Mode.xshd", invertColors);
                 RegisterHighlighting("Json", new[] { ".json" }, "Json.xshd", invertColors);
                 RegisterHighlighting("Yaml", new[] { ".yml", ".yaml" }, "Yaml.xshd", invertColors);
+                RegisterHighlighting("Script", new[] { ".gsc" }, "Script-Mode.xshd", invertColors);
 
                 invertColors = true;
                 mode = Mode.Inverted;

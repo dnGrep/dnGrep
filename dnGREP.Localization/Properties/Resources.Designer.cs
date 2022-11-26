@@ -1914,6 +1914,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Application data and _logs.
+        /// </summary>
+        public static string Main_Menu_About_AppData {
+            get {
+                return ResourceManager.GetString("Main_Menu_About_AppData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Check for updates.
         /// </summary>
         public static string Main_Menu_About_CheckForUpdates {
@@ -1941,6 +1950,33 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel script.
+        /// </summary>
+        public static string Main_Menu_CancelScript {
+            get {
+                return ResourceManager.GetString("Main_Menu_CancelScript", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit script….
+        /// </summary>
+        public static string Main_Menu_EditScript {
+            get {
+                return ResourceManager.GetString("Main_Menu_EditScript", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New script….
+        /// </summary>
+        public static string Main_Menu_NewScript {
+            get {
+                return ResourceManager.GetString("Main_Menu_NewScript", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Options….
         /// </summary>
         public static string Main_Menu_Options {
@@ -1955,6 +1991,15 @@ namespace dnGREP.Localization.Properties {
         public static string Main_Menu_Personalize {
             get {
                 return ResourceManager.GetString("Main_Menu_Personalize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scripts.
+        /// </summary>
+        public static string Main_Menu_Scripts {
+            get {
+                return ResourceManager.GetString("Main_Menu_Scripts", resourceCulture);
             }
         }
         
@@ -3503,6 +3548,24 @@ namespace dnGREP.Localization.Properties {
         public static string MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister {
             get {
                 return ResourceManager.GetString("MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} has unsaved changes. Save now?.
+        /// </summary>
+        public static string MessageBox_Scripts_HasUnsavedChangesSaveNow {
+            get {
+                return ResourceManager.GetString("MessageBox_Scripts_HasUnsavedChangesSaveNow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} has validation errors. Save anyway?.
+        /// </summary>
+        public static string MessageBox_Scripts_HasValidationErrorsSaveAnyway {
+            get {
+                return ResourceManager.GetString("MessageBox_Scripts_HasValidationErrorsSaveAnyway", resourceCulture);
             }
         }
         
@@ -5654,6 +5717,1347 @@ namespace dnGREP.Localization.Properties {
         public static string ReportSummary_WholeWord {
             get {
                 return ResourceManager.GetString("ReportSummary_WholeWord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Close.
+        /// </summary>
+        public static string Script_Editor_Close {
+            get {
+                return ResourceManager.GetString("Script_Editor_Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Copy.
+        /// </summary>
+        public static string Script_Editor_Copy {
+            get {
+                return ResourceManager.GetString("Script_Editor_Copy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cu_t.
+        /// </summary>
+        public static string Script_Editor_Cut {
+            get {
+                return ResourceManager.GetString("Script_Editor_Cut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Delete.
+        /// </summary>
+        public static string Script_Editor_Delete {
+            get {
+                return ResourceManager.GetString("Script_Editor_Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete _line.
+        /// </summary>
+        public static string Script_Editor_DeleteLine {
+            get {
+                return ResourceManager.GetString("Script_Editor_DeleteLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Edit.
+        /// </summary>
+        public static string Script_Editor_Edit {
+            get {
+                return ResourceManager.GetString("Script_Editor_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _File.
+        /// </summary>
+        public static string Script_Editor_File {
+            get {
+                return ResourceManager.GetString("Script_Editor_File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Help.
+        /// </summary>
+        public static string Script_Editor_Help {
+            get {
+                return ResourceManager.GetString("Script_Editor_Help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move selected lines down.
+        /// </summary>
+        public static string Script_Editor_MoveDown {
+            get {
+                return ResourceManager.GetString("Script_Editor_MoveDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move selected lines up.
+        /// </summary>
+        public static string Script_Editor_MoveUp {
+            get {
+                return ResourceManager.GetString("Script_Editor_MoveUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _New….
+        /// </summary>
+        public static string Script_Editor_New {
+            get {
+                return ResourceManager.GetString("Script_Editor_New", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Paste.
+        /// </summary>
+        public static string Script_Editor_Paste {
+            get {
+                return ResourceManager.GetString("Script_Editor_Paste", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Redo.
+        /// </summary>
+        public static string Script_Editor_Redo {
+            get {
+                return ResourceManager.GetString("Script_Editor_Redo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Save.
+        /// </summary>
+        public static string Script_Editor_Save {
+            get {
+                return ResourceManager.GetString("Script_Editor_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save _as….
+        /// </summary>
+        public static string Script_Editor_SaveAs {
+            get {
+                return ResourceManager.GetString("Script_Editor_SaveAs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Scripting commands.
+        /// </summary>
+        public static string Script_Editor_ScriptingCommands {
+            get {
+                return ResourceManager.GetString("Script_Editor_ScriptingCommands", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Suggest.
+        /// </summary>
+        public static string Script_Editor_Suggest {
+            get {
+                return ResourceManager.GetString("Script_Editor_Suggest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Script Editor.
+        /// </summary>
+        public static string Script_Editor_Title {
+            get {
+                return ResourceManager.GetString("Script_Editor_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Undo.
+        /// </summary>
+        public static string Script_Editor_Undo {
+            get {
+                return ResourceManager.GetString("Script_Editor_Undo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Va_lidate.
+        /// </summary>
+        public static string Script_Editor_Validate {
+            get {
+                return ResourceManager.GetString("Script_Editor_Validate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The command is not valid.
+        /// </summary>
+        public static string Script_Validation_TheCommandIsInvalid {
+            get {
+                return ResourceManager.GetString("Script_Validation_TheCommandIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The script key was not found.
+        /// </summary>
+        public static string Script_Validation_TheScriptKeyWasNotFound {
+            get {
+                return ResourceManager.GetString("Script_Validation_TheScriptKeyWasNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The target name is not valid.
+        /// </summary>
+        public static string Script_Validation_TheTargetNameIsInvalid {
+            get {
+                return ResourceManager.GetString("Script_Validation_TheTargetNameIsInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value cannot be converted from the string.
+        /// </summary>
+        public static string Script_Validation_TheValueCannotBeConvertedFromTheString {
+            get {
+                return ResourceManager.GetString("Script_Validation_TheValueCannotBeConvertedFromTheString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The value could not be converted to the correct type.
+        /// </summary>
+        public static string Script_Validation_TheValueCouldNotBeConvertedToTheCorrectType {
+            get {
+                return ResourceManager.GetString("Script_Validation_TheValueCouldNotBeConvertedToTheCorrectType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This command does not allow a null value.
+        /// </summary>
+        public static string Script_Validation_ThisCommandDoesNotAllowANullValue {
+            get {
+                return ResourceManager.GetString("Script_Validation_ThisCommandDoesNotAllowANullValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This command does not need a value parameter.
+        /// </summary>
+        public static string Script_Validation_ThisCommandDoesNotNeedAValueParameter {
+            get {
+                return ResourceManager.GetString("Script_Validation_ThisCommandDoesNotNeedAValueParameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This command requires a Boolean value.
+        /// </summary>
+        public static string Script_Validation_ThisCommandRequiresABooleanValue {
+            get {
+                return ResourceManager.GetString("Script_Validation_ThisCommandRequiresABooleanValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This command requires a string value.
+        /// </summary>
+        public static string Script_Validation_ThisCommandRequiresAStringValue {
+            get {
+                return ResourceManager.GetString("Script_Validation_ThisCommandRequiresAStringValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This command requires a target parameter.
+        /// </summary>
+        public static string Script_Validation_ThisCommandRequiresATargetParameter {
+            get {
+                return ResourceManager.GetString("Script_Validation_ThisCommandRequiresATargetParameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bookmark.
+        /// </summary>
+        public static string ScriptHint_bookmark {
+            get {
+                return ResourceManager.GetString("ScriptHint_bookmark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add a new bookmark.
+        /// </summary>
+        public static string ScriptHint_bookmark_add {
+            get {
+                return ResourceManager.GetString("ScriptHint_bookmark_add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name for the new bookmark, or empty.
+        /// </summary>
+        public static string ScriptHint_bookmark_add_value {
+            get {
+                return ResourceManager.GetString("ScriptHint_bookmark_add_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add a new bookmark associated with the current search folder.
+        /// </summary>
+        public static string ScriptHint_bookmark_addfolder {
+            get {
+                return ResourceManager.GetString("ScriptHint_bookmark_addfolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove a bookmark.
+        /// </summary>
+        public static string ScriptHint_bookmark_remove {
+            get {
+                return ResourceManager.GetString("ScriptHint_bookmark_remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name of the bookmark to remove, or empty for the current bookmark.
+        /// </summary>
+        public static string ScriptHint_bookmark_remove_value {
+            get {
+                return ResourceManager.GetString("ScriptHint_bookmark_remove_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove a folder bookmark.
+        /// </summary>
+        public static string ScriptHint_bookmark_removefolder {
+            get {
+                return ResourceManager.GetString("ScriptHint_bookmark_removefolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Apply bookmark settings.
+        /// </summary>
+        public static string ScriptHint_bookmark_use {
+            get {
+                return ResourceManager.GetString("ScriptHint_bookmark_use", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name of a bookmark.
+        /// </summary>
+        public static string ScriptHint_bookmark_use_value {
+            get {
+                return ResourceManager.GetString("ScriptHint_bookmark_use_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy file names in results to the clipboard.
+        /// </summary>
+        public static string ScriptHint_copyfilenames {
+            get {
+                return ResourceManager.GetString("ScriptHint_copyfilenames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy result files to a new location.
+        /// </summary>
+        public static string ScriptHint_copyfiles {
+            get {
+                return ResourceManager.GetString("ScriptHint_copyfiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The destination folder path.
+        /// </summary>
+        public static string ScriptHint_copyfiles_value {
+            get {
+                return ResourceManager.GetString("ScriptHint_copyfiles_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy result text to the clipboard.
+        /// </summary>
+        public static string ScriptHint_copyresults {
+            get {
+                return ResourceManager.GetString("ScriptHint_copyresults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete the result files permanently.
+        /// </summary>
+        public static string ScriptHint_deletefiles {
+            get {
+                return ResourceManager.GetString("ScriptHint_deletefiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close all the windows and exit dnGrep.
+        /// </summary>
+        public static string ScriptHint_exit {
+            get {
+                return ResourceManager.GetString("ScriptHint_exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expand or hide the file filters section.
+        /// </summary>
+        public static string ScriptHint_expandfilefilters {
+            get {
+                return ResourceManager.GetString("ScriptHint_expandfilefilters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expand or hide the results options section.
+        /// </summary>
+        public static string ScriptHint_expandresultoptions {
+            get {
+                return ResourceManager.GetString("ScriptHint_expandresultoptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import data.
+        /// </summary>
+        public static string ScriptHint_include {
+            get {
+                return ResourceManager.GetString("ScriptHint_include", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include the commands from another script in the current script.
+        /// </summary>
+        public static string ScriptHint_include_script {
+            get {
+                return ResourceManager.GetString("ScriptHint_include_script", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The key/file name of the script.
+        /// </summary>
+        public static string ScriptHint_include_script_value {
+            get {
+                return ResourceManager.GetString("ScriptHint_include_script_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maximize or restore the search results tree.
+        /// </summary>
+        public static string ScriptHint_maximizeresults {
+            get {
+                return ResourceManager.GetString("ScriptHint_maximizeresults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Always show the script message window when the script finishes.
+        /// </summary>
+        public static string ScriptHint_messages {
+            get {
+                return ResourceManager.GetString("ScriptHint_messages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move result files to a new location.
+        /// </summary>
+        public static string ScriptHint_movefiles {
+            get {
+                return ResourceManager.GetString("ScriptHint_movefiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The destination folder path.
+        /// </summary>
+        public static string ScriptHint_movefiles_value {
+            get {
+                return ResourceManager.GetString("ScriptHint_movefiles_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace matches in files.
+        /// </summary>
+        public static string ScriptHint_replace {
+            get {
+                return ResourceManager.GetString("ScriptHint_replace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write a report.
+        /// </summary>
+        public static string ScriptHint_report {
+            get {
+                return ResourceManager.GetString("ScriptHint_report", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The path and file name for the report.
+        /// </summary>
+        public static string ScriptHint_report_arg_value {
+            get {
+                return ResourceManager.GetString("ScriptHint_report_arg_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The result report as a csv file.
+        /// </summary>
+        public static string ScriptHint_report_csv {
+            get {
+                return ResourceManager.GetString("ScriptHint_report_csv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The full report.
+        /// </summary>
+        public static string ScriptHint_report_full {
+            get {
+                return ResourceManager.GetString("ScriptHint_report_full", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The result text-only report.
+        /// </summary>
+        public static string ScriptHint_report_text {
+            get {
+                return ResourceManager.GetString("ScriptHint_report_text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The path and file name for the report.
+        /// </summary>
+        public static string ScriptHint_report_text_value {
+            get {
+                return ResourceManager.GetString("ScriptHint_report_text_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reset file filters to their default values.
+        /// </summary>
+        public static string ScriptHint_resetfilters {
+            get {
+                return ResourceManager.GetString("ScriptHint_resetfilters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Run an external command.
+        /// </summary>
+        public static string ScriptHint_run {
+            get {
+                return ResourceManager.GetString("ScriptHint_run", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Run a command script.
+        /// </summary>
+        public static string ScriptHint_run_cmd {
+            get {
+                return ResourceManager.GetString("ScriptHint_run_cmd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The full path and file name of a cmd or batch file.
+        /// </summary>
+        public static string ScriptHint_run_cmd_value {
+            get {
+                return ResourceManager.GetString("ScriptHint_run_cmd_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Run a PowerShell script.
+        /// </summary>
+        public static string ScriptHint_run_powershell {
+            get {
+                return ResourceManager.GetString("ScriptHint_run_powershell", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The full path and file name of the .ps1 script file.
+        /// </summary>
+        public static string ScriptHint_run_powershell_value {
+            get {
+                return ResourceManager.GetString("ScriptHint_run_powershell_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Begin searching.
+        /// </summary>
+        public static string ScriptHint_search {
+            get {
+                return ResourceManager.GetString("ScriptHint_search", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set a value on a target property.
+        /// </summary>
+        public static string ScriptHint_set {
+            get {
+                return ResourceManager.GetString("ScriptHint_set", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Boolean operators.
+        /// </summary>
+        public static string ScriptHint_set_booleanoperators {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_booleanoperators", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Capture group search.
+        /// </summary>
+        public static string ScriptHint_set_capturegroupsearch {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_capturegroupsearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Case sensitive.
+        /// </summary>
+        public static string ScriptHint_set_casesensitive {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_casesensitive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Context lines after (number).
+        /// </summary>
+        public static string ScriptHint_set_contextlinesafter {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_contextlinesafter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Context lines before (number).
+        /// </summary>
+        public static string ScriptHint_set_contextlinesbefore {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_contextlinesbefore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dot as newline.
+        /// </summary>
+        public static string ScriptHint_set_dotasnewline {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_dotasnewline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Encoding, as a code page number.
+        /// </summary>
+        public static string ScriptHint_set_encoding {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_encoding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Set the code page number or -1 for Auto detection.
+        /// </summary>
+        public static string ScriptHint_set_encoding_value {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_encoding_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date time &apos;To&apos; filter.
+        /// </summary>
+        public static string ScriptHint_set_enddate {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_enddate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date filter selection.
+        /// </summary>
+        public static string ScriptHint_set_filedatefilter {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_filedatefilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include file information in report.
+        /// </summary>
+        public static string ScriptHint_set_fileinformation {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_fileinformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time range filter selection.
+        /// </summary>
+        public static string ScriptHint_set_filetimerange {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_filetimerange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enable file size filtering.
+        /// </summary>
+        public static string ScriptHint_set_filterbyfilesize {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_filterbyfilesize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search location: folder or file path.
+        /// </summary>
+        public static string ScriptHint_set_folder {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_folder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The folder, file path, or comma separated list of folders or files.
+        /// </summary>
+        public static string ScriptHint_set_folder_value {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_folder_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Follow symbolic links.
+        /// </summary>
+        public static string ScriptHint_set_followsymlinks {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_followsymlinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Highlight groups.
+        /// </summary>
+        public static string ScriptHint_set_highlightgroups {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_highlightgroups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hightlight matches.
+        /// </summary>
+        public static string ScriptHint_set_highlightmatches {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_highlightmatches", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date time &apos;Past&apos; hours filter.
+        /// </summary>
+        public static string ScriptHint_set_hoursfrom {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_hoursfrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Past hours filter lower limit (number).
+        /// </summary>
+        public static string ScriptHint_set_hoursfrom_value {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_hoursfrom_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date time &apos;Past&apos; hours filter.
+        /// </summary>
+        public static string ScriptHint_set_hoursto {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_hoursto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Past hours filter upper limit (number).
+        /// </summary>
+        public static string ScriptHint_set_hoursto_value {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_hoursto_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include binary files.
+        /// </summary>
+        public static string ScriptHint_set_includebinary {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_includebinary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include hidden folders.
+        /// </summary>
+        public static string ScriptHint_set_includehidden {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_includehidden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include subfolders.
+        /// </summary>
+        public static string ScriptHint_set_includesubfolder {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_includesubfolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Report separator between items on same line.
+        /// </summary>
+        public static string ScriptHint_set_listitemseparator {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_listitemseparator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Character or characters such as comma or comma space.
+        /// </summary>
+        public static string ScriptHint_set_listitemseparator_value {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_listitemseparator_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max subfolder depth.
+        /// </summary>
+        public static string ScriptHint_set_maxsubfolderdepth {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_maxsubfolderdepth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Folder depth limit (number).
+        /// </summary>
+        public static string ScriptHint_set_maxsubfolderdepth_value {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_maxsubfolderdepth_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Multiline.
+        /// </summary>
+        public static string ScriptHint_set_multiline {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_multiline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The type of file filter pattern.
+        /// </summary>
+        public static string ScriptHint_set_paterntype {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_paterntype", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Patterns to exclude filter.
+        /// </summary>
+        public static string ScriptHint_set_pathtoignore {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_pathtoignore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A file filter pattern, such as test\\*, or list of filters.
+        /// </summary>
+        public static string ScriptHint_set_pathtoignore_value {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_pathtoignore_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Patterns to match filter.
+        /// </summary>
+        public static string ScriptHint_set_pathtomatch {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_pathtomatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A file filter pattern, such as *.txt, or list of filters.
+        /// </summary>
+        public static string ScriptHint_set_pathtomatch_value {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_pathtomatch_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preview file.
+        /// </summary>
+        public static string ScriptHint_set_previewfile {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_previewfile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace with.
+        /// </summary>
+        public static string ScriptHint_set_replacewith {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_replacewith", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replacement text or empty string.
+        /// </summary>
+        public static string ScriptHint_set_replacewith_value {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_replacewith_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Report output setting.
+        /// </summary>
+        public static string ScriptHint_set_reportmode {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_reportmode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom level for results tree (number).
+        /// </summary>
+        public static string ScriptHint_set_resultszoom {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_resultszoom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search for.
+        /// </summary>
+        public static string ScriptHint_set_searchfor {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_searchfor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search pattern or empty string.
+        /// </summary>
+        public static string ScriptHint_set_searchfor_value {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_searchfor_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search in archives.
+        /// </summary>
+        public static string ScriptHint_set_searchinarchives {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_searchinarchives", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search in results.
+        /// </summary>
+        public static string ScriptHint_set_searchinresults {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_searchinresults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search parallel.
+        /// </summary>
+        public static string ScriptHint_set_searchparallel {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_searchparallel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The type of search pattern.
+        /// </summary>
+        public static string ScriptHint_set_searchtype {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_searchtype", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Report output on separate lines.
+        /// </summary>
+        public static string ScriptHint_set_separatelines {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_separatelines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show context lines.
+        /// </summary>
+        public static string ScriptHint_set_showcontextlines {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_showcontextlines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Size from.
+        /// </summary>
+        public static string ScriptHint_set_sizefrom {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_sizefrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Size filter lower limit (number).
+        /// </summary>
+        public static string ScriptHint_set_sizefrom_value {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_sizefrom_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Size to.
+        /// </summary>
+        public static string ScriptHint_set_sizeto {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_sizeto", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Size filter upper limit (number).
+        /// </summary>
+        public static string ScriptHint_set_sizeto_value {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_sizeto_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Skip remote cloud storage files.
+        /// </summary>
+        public static string ScriptHint_set_skipremotecloudstoragefiles {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_skipremotecloudstoragefiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort direction.
+        /// </summary>
+        public static string ScriptHint_set_sortdirection {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_sortdirection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort type setting.
+        /// </summary>
+        public static string ScriptHint_set_sorttype {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_sorttype", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date time &apos;From&apos; filter.
+        /// </summary>
+        public static string ScriptHint_set_startdate {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_startdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use ISO 8601 or local date time format.
+        /// </summary>
+        public static string ScriptHint_set_startdate_value {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_startdate_value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop after first match.
+        /// </summary>
+        public static string ScriptHint_set_stopafterfirstmatch {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_stopafterfirstmatch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trim whitespace in report.
+        /// </summary>
+        public static string ScriptHint_set_trimwhitespace {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_trimwhitespace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Report unique values scope: by file or all files.
+        /// </summary>
+        public static string ScriptHint_set_uniquescope {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_uniquescope", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Filter report by unique values.
+        /// </summary>
+        public static string ScriptHint_set_uniquevalues {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_uniquevalues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use .gitignore.
+        /// </summary>
+        public static string ScriptHint_set_usegitignore {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_usegitignore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Whole word.
+        /// </summary>
+        public static string ScriptHint_set_wholeword {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_wholeword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrap text.
+        /// </summary>
+        public static string ScriptHint_set_wraptext {
+            get {
+                return ResourceManager.GetString("ScriptHint_set_wraptext", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sort results.
+        /// </summary>
+        public static string ScriptHint_sort {
+            get {
+                return ResourceManager.GetString("ScriptHint_sort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Undo the last replace operation.
+        /// </summary>
+        public static string ScriptHint_undo {
+            get {
+                return ResourceManager.GetString("ScriptHint_undo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to At line.
+        /// </summary>
+        public static string Scripts_AtLine {
+            get {
+                return ResourceManager.GetString("Scripts_AtLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Copy files failed: .
+        /// </summary>
+        public static string Scripts_CopyFilesFailed {
+            get {
+                return ResourceManager.GetString("Scripts_CopyFilesFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete files failed: .
+        /// </summary>
+        public static string Scripts_DeleteFilesFailed {
+            get {
+                return ResourceManager.GetString("Scripts_DeleteFilesFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The {0} file &apos;{1}&apos; was not found.
+        /// </summary>
+        public static string Scripts_FileNotFound {
+            get {
+                return ResourceManager.GetString("Scripts_FileNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The {0} file extension must be {1}.
+        /// </summary>
+        public static string Scripts_InvalidFileExtension {
+            get {
+                return ResourceManager.GetString("Scripts_InvalidFileExtension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Move files failed: .
+        /// </summary>
+        public static string Scripts_MoveFilesFailed {
+            get {
+                return ResourceManager.GetString("Scripts_MoveFilesFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New script.
+        /// </summary>
+        public static string Scripts_NewScript {
+            get {
+                return ResourceManager.GetString("Scripts_NewScript", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string Scripts_OK {
+            get {
+                return ResourceManager.GetString("Scripts_OK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The run command exited with error: .
+        /// </summary>
+        public static string Scripts_RunCommandError {
+            get {
+                return ResourceManager.GetString("Scripts_RunCommandError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The run command is not valid.
+        /// </summary>
+        public static string Scripts_RunCommandInvalid {
+            get {
+                return ResourceManager.GetString("Scripts_RunCommandInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to script canceled.
+        /// </summary>
+        public static string Scripts_ScriptCanceled {
+            get {
+                return ResourceManager.GetString("Scripts_ScriptCanceled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to script complete.
+        /// </summary>
+        public static string Scripts_ScriptComplete {
+            get {
+                return ResourceManager.GetString("Scripts_ScriptComplete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Script files.
+        /// </summary>
+        public static string Scripts_ScriptFiles {
+            get {
+                return ResourceManager.GetString("Scripts_ScriptFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Script Messages.
+        /// </summary>
+        public static string Scripts_ScriptMessages {
+            get {
+                return ResourceManager.GetString("Scripts_ScriptMessages", resourceCulture);
             }
         }
         

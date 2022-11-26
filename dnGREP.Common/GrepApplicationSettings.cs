@@ -181,6 +181,8 @@ namespace dnGREP.Common
             [DefaultValue(true)]
             public const string ShowFullReplaceDialog = "ShowFullReplaceDialog";
             [DefaultValue(true)]
+            public const string DeleteToRecycleBin = "DeleteToRecycleBin";
+            [DefaultValue(true)]
             public const string SkipRemoteCloudStorageFiles = "SkipRemoteCloudStorageFiles";
 
             [DefaultValue(false)]

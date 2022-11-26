@@ -267,6 +267,29 @@ namespace dnGREP.Common
         }
 
         /// <summary>
+        /// Deletes files to the recycle bin based on search results. 
+        /// </summary>
+        /// <param name="source"></param>
+        public static int SendToRecycleBin(List<GrepSearchResult> source)
+        {
+            HashSet<string> files = new HashSet<string>();
+            int count = 0;
+            foreach (GrepSearchResult result in source)
+            {
+                if (!files.Contains(result.FileNameReal))
+                {
+                    files.Add(result.FileNameReal);
+
+                    Microsoft.VisualBasic.FileIO.FileSystem.DeleteFile(result.FileNameReal,
+                        Microsoft.VisualBasic.FileIO.UIOption.OnlyErrorDialogs,
+                        Microsoft.VisualBasic.FileIO.RecycleOption.SendToRecycleBin);
+                    count++;
+                }
+            }
+            return count;
+        }
+
+        /// <summary>
         /// Copies file. If folder does not exist, creates it.
         /// </summary>
         /// <param name="sourcePath"></param>

@@ -1,0 +1,131 @@
+﻿<my:ThemedWindow x:Class="dnGREP.WPF.ScriptEditorWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:my="clr-namespace:dnGREP.WPF"
+                 xmlns:l="clr-namespace:dnGREP.Localization;assembly=dnGREP.Localization"
+                 xmlns:ae="http://icsharpcode.net/sharpdevelop/avalonedit"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 mc:Ignorable="d"
+                 Title="{Binding WindowTitle}" 
+                 FlowDirection="{Binding CultureFlowDirection}"
+                 FontFamily="{Binding ApplicationFontFamily}"
+                 FontSize="{Binding MainFormFontSize}"
+                 Height="740"
+                 Width="700"
+                 Icon="/dnGREP;component/nGREP.ico"
+                 ResizeMode="CanResize"
+                 WindowStartupLocation="CenterOwner"
+                 FocusManager.FocusedElement="{Binding ElementName=textEditor}"
+                 Background="{DynamicResource Dialog.Background}"
+                 CaptionBackground="{DynamicResource Caption.Dialog.Background}" 
+                 my:DiginesisHelpProvider.HelpKeyword="Scripting Commands"
+                 my:DiginesisHelpProvider.HelpNavigator="Topic"
+                 my:DiginesisHelpProvider.ShowHelp="True" >
+
+    <Window.Resources>
+        <my:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" TrueValue="Visible" FalseValue="Collapsed" />
+    </Window.Resources>
+
+    <Window.InputBindings>
+        <KeyBinding Key="N" Modifiers="Ctrl" Command="{Binding NewCommand}"/>
+        <KeyBinding Key="S" Modifiers="Ctrl" Command="{Binding SaveCommand}"/>
+        <KeyBinding Key="S" Modifiers="Ctrl+Shift" Command="{Binding SaveAsCommand}"/>
+        <KeyBinding Key="W" Modifiers="Ctrl" Command="{Binding CloseCommand}"/>
+        <KeyBinding Key="L" Modifiers="Ctrl" Command="{Binding ValidateCommand}"/>
+        <KeyBinding Key="Z" Modifiers="Ctrl" Command="{Binding UndoCommand}"/>
+        <KeyBinding Key="Y" Modifiers="Ctrl" Command="{Binding RedoCommand}"/>
+        <KeyBinding Key="X" Modifiers="Ctrl" Command="{Binding CutCommand}"/>
+        <KeyBinding Key="C" Modifiers="Ctrl" Command="{Binding CopyCommand}"/>
+        <KeyBinding Key="V" Modifiers="Ctrl" Command="{Binding PasteCommand}"/>
+        <KeyBinding Key="Delete" Modifiers="" Command="{Binding DeleteCommand}"/>
+        <KeyBinding Key="D" Modifiers="Ctrl" Command="{Binding DeleteLineCommand}"/>
+        <KeyBinding Key="Up" Modifiers="Alt" Command="{Binding MoveLinesUpCommand}"/>
+        <KeyBinding Key="Down" Modifiers="Alt" Command="{Binding MoveLinesDownCommand}"/>
+    </Window.InputBindings>
+
+    <DockPanel Margin="8" LastChildFill="True">
+
+        <Menu DockPanel.Dock="Top">
+            <Menu.Resources>
+                <Style BasedOn="{StaticResource ThemedMenuItem}" TargetType="{x:Type MenuItem}">
+                    <Setter Property="FontFamily" Value="{Binding ApplicationFontFamily}"/>
+                    <Setter Property="FontSize" Value="{Binding MainFormFontSize}"/>
+                </Style>
+            </Menu.Resources>
+            <MenuItem Header="{l:Loc Key='Script_Editor_File'}">
+                <MenuItem Header="{l:Loc Key='Script_Editor_New'}" Command="{Binding NewCommand}" InputGestureText="Ctrl+N"/>
+                <Separator/>
+                <MenuItem Header="{l:Loc Key='Script_Editor_Save'}" Command="{Binding SaveCommand}" InputGestureText="Ctrl+S"/>
+                <MenuItem Header="{l:Loc Key='Script_Editor_SaveAs'}" Command="{Binding SaveAsCommand}" InputGestureText="Ctrl+Shift+S"/>
+                <Separator/>
+                <MenuItem Header="{l:Loc Key='Script_Editor_Close'}" Command="{Binding CloseCommand}" InputGestureText="Ctrl+W"/>
+            </MenuItem>
+            <MenuItem Header="{l:Loc Key='Script_Editor_Edit'}">
+                <MenuItem Header="{l:Loc Key='Script_Editor_Validate'}" Command="{Binding ValidateCommand}" InputGestureText="Ctrl+L"/>
+                <Separator/>
+                <MenuItem Header="{l:Loc Key='Script_Editor_Undo'}" Command="{Binding UndoCommand}" InputGestureText="Ctrl+Z"/>
+                <MenuItem Header="{l:Loc Key='Script_Editor_Redo'}" Command="{Binding RedoCommand}" InputGestureText="Ctrl+Y"/>
+                <Separator/>
+                <MenuItem Header="{l:Loc Key='Script_Editor_Cut'}" Command="{Binding CutCommand}" InputGestureText="Ctrl+X"/>
+                <MenuItem Header="{l:Loc Key='Script_Editor_Copy'}" Command="{Binding CopyCommand}" InputGestureText="Ctrl+C"/>
+                <MenuItem Header="{l:Loc Key='Script_Editor_Paste'}" Command="{Binding PasteCommand}" InputGestureText="Ctrl+V"/>
+                <MenuItem Header="{l:Loc Key='Script_Editor_Delete'}" Command="{Binding DeleteCommand}" InputGestureText="Del"/>
+                <MenuItem Header="{l:Loc Key='Script_Editor_DeleteLine'}" Command="{Binding DeleteLineCommand}" InputGestureText="Ctrl+D"/>
+                <Separator/>
+                <MenuItem Header="{l:Loc Key='Script_Editor_MoveUp'}" Command="{Binding MoveLinesUpCommand}" InputGestureText="Alt+Up Arrow"/>
+                <MenuItem Header="{l:Loc Key='Script_Editor_MoveDown'}" Command="{Binding MoveLinesDownCommand}" InputGestureText="Alt+Down Arrow"/>
+                <Separator/>
+                <MenuItem Header="{l:Loc Key='Script_Editor_Suggest'}" Command="{Binding SuggestCommand}" InputGestureText="Ctrl+Space"/>
+            </MenuItem>
+            <MenuItem Header="{l:Loc Key='Script_Editor_Help'}">
+                <MenuItem Header="{l:Loc Key='Script_Editor_ScriptingCommands'}" Command="{Binding HelpCommand}" InputGestureText="F1"/>
+            </MenuItem>
+        </Menu>
+
+        <GroupBox DockPanel.Dock="Bottom" Header="Validation" Margin="4"
+                  Grid.IsSharedSizeScope="True"
+                  Visibility="{Binding HasValidationErrors, Converter={StaticResource BoolToVisibilityConverter}}">
+            <StackPanel>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" SharedSizeGroup="A"/>
+                        <ColumnDefinition Width="*" SharedSizeGroup="B"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="Line" Margin="3,0,12,0"/>
+                    <TextBlock Grid.Column="1" Text="Message" Margin="3,0"/>
+                </Grid>
+                <ScrollViewer Height="72" HorizontalAlignment="Stretch"
+                              VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding ValidationData}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" SharedSizeGroup="A"/>
+                                        <ColumnDefinition Width="*" SharedSizeGroup="B"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Grid.Column="0" Text="{Binding Line}" HorizontalAlignment="Right" Margin="3,0,12,0"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding Message}" Margin="3,0"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </StackPanel>
+        </GroupBox>
+
+        <Border Margin="4"
+                BorderBrush="{DynamicResource GroupBox.Border}"
+                BorderThickness="1" CornerRadius="4">
+            <ae:TextEditor Name="textEditor" Margin="3"
+                           FontFamily="{Binding ResultsFontFamily}"
+                           FontSize="{Binding ResultsFontSize}"
+                           Foreground="{DynamicResource AvalonEdit.Foreground}"
+                           Background="{DynamicResource AvalonEdit.Background}"
+                           ShowLineNumbers="True"/>
+        </Border>
+
+    </DockPanel>
+</my:ThemedWindow>
