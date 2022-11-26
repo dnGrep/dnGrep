@@ -131,7 +131,7 @@
     <comment>Bookmark details dialog, filters group header label (accel)</comment>
   </data>
   <data name="BookmarkDetails_PatternType_Everything" xml:space="preserve">
-    <value>Everything</value>
+    <value>Kõik</value>
     <comment>Bookmark details dialog, Everything pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_XPath" xml:space="preserve">
@@ -824,7 +824,7 @@
     <comment>Main window, Wildcard pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_PatternType_Everything" xml:space="preserve">
-    <value>Everything</value>
+    <value>Kõik</value>
     <comment>Main window, Everything pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_PowerPointSlideNumber" xml:space="preserve">
@@ -954,5 +954,353 @@
   <data name="MessageBox_FailedToExtractFileFromArchive" xml:space="preserve">
     <value>Arhiivist failide eraldamine pole võimalik. Täpsemaks infoks vaata vigade logi: </value>
     <comment>Message box text for: Preview window archive error</comment>
+  </data>
+  <data name="Replace_ReplaceWith" xml:space="preserve">
+    <value>Asenda järgnevaga:</value>
+    <comment>Replace window, replace text input box label</comment>
+  </data>
+  <data name="ReportSummary_NoBinary" xml:space="preserve">
+    <value>Ei ole binaarne</value>
+    <comment>Main window options summary</comment>
+  </data>
+  <data name="Test_DotAsNewline" xml:space="preserve">
+    <value>Punkt kui uus ri_da</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="MessageBox_AreYouSureYouWantToContinue" xml:space="preserve">
+    <value>Edasi?</value>
+    <comment>Message box text for: Delete files</comment>
+  </data>
+  <data name="Replace_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Replace window, OK button text</comment>
+  </data>
+  <data name="Main_UseGitignore" xml:space="preserve">
+    <value>Kasuta .gitignore'i</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_UseGitignoreToFilterFiles" xml:space="preserve">
+    <value>Kasuta .gitignore'i failide filtreerimiseks</value>
+    <comment>Main window, search option checkbox tooltip</comment>
+  </data>
+  <data name="Main_WholeWord" xml:space="preserve">
+    <value>Kogu sõna</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="MessageBox_WouldYouLikeToContinue" xml:space="preserve">
+    <value>Edasi?</value>
+    <comment>Message box text for: Replace window warning</comment>
+  </data>
+  <data name="Options_Close" xml:space="preserve">
+    <value>Sulge</value>
+    <comment>Options dialog, close button text (accel)</comment>
+  </data>
+  <data name="Options_Personalize_SearchType" xml:space="preserve">
+    <value>Otsingu tüüp</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_PhoneticSearch" xml:space="preserve">
+    <value>Foneetiline otsing</value>
+    <comment>Options dialog, phonetic group header label</comment>
+  </data>
+  <data name="Rename_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Rename file dialog button label</comment>
+  </data>
+  <data name="Rename_Title" xml:space="preserve">
+    <value>Nimeta fail ümber</value>
+    <comment>Rename file dialog title</comment>
+  </data>
+  <data name="Replace_Cancel" xml:space="preserve">
+    <value>Tühista</value>
+    <comment>Replace window, Cancel button text</comment>
+  </data>
+  <data name="Replace_PreviousFile" xml:space="preserve">
+    <value>Eelmine fail</value>
+    <comment>Replace window, Previous file button label (accel)</comment>
+  </data>
+  <data name="Replace_ReadOnly" xml:space="preserve">
+    <value>[kirjutuskaitstud]</value>
+    <comment>Replace window, conditional file name suffix</comment>
+  </data>
+  <data name="Replace_ReplaceButton" xml:space="preserve">
+    <value>Asenda</value>
+    <comment>Replace window, Replace button label (accel)</comment>
+  </data>
+  <data name="ReportOptionsWindow_Cancel" xml:space="preserve">
+    <value>Tühista</value>
+    <comment>Report options dialog, close button</comment>
+  </data>
+  <data name="ReportSummary_BooleanOperators" xml:space="preserve">
+    <value>Tõeväärtus operaatorid</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_CaseSensitive" xml:space="preserve">
+    <value>Tõstutundlik</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_Encoding" xml:space="preserve">
+    <value>Kodeering:</value>
+    <comment>Report search options summary label</comment>
+  </data>
+  <data name="ReportSummary_MaxFolderDepth" xml:space="preserve">
+    <value>Max kausta sügavus: {0}</value>
+    <comment>Report search options summary: {0} is the user input folder depth</comment>
+  </data>
+  <data name="ReportSummary_Multiline" xml:space="preserve">
+    <value>Mitmerealine</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="Script_Editor_Close" xml:space="preserve">
+    <value>Sulge</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Delete" xml:space="preserve">
+    <value>Kustuta</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Edit" xml:space="preserve">
+    <value>R_edigeeri</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Help" xml:space="preserve">
+    <value>Abi</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Undo" xml:space="preserve">
+    <value>Võta tagasi</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="ScriptHint_set_booleanoperators" xml:space="preserve">
+    <value>Tõeväärtus operaatorid</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_casesensitive" xml:space="preserve">
+    <value>Tõstutundlik</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_followsymlinks" xml:space="preserve">
+    <value>Järgne sümboolsele lingile</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_includebinary" xml:space="preserve">
+    <value>Kaasa binaarfailid</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_includehidden" xml:space="preserve">
+    <value>Kaasa peidetud kaustad</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_includesubfolder" xml:space="preserve">
+    <value>Kaasa alamkaustad</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_multiline" xml:space="preserve">
+    <value>Mitmerealine</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_replacewith" xml:space="preserve">
+    <value>Asenda millega</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_searchfor" xml:space="preserve">
+    <value>Otsi mida</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_searchinarchives" xml:space="preserve">
+    <value>Otsi arhiividest</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_skipremotecloudstoragefiles" xml:space="preserve">
+    <value>Jäta pilve talletatud failid kõrvale</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_usegitignore" xml:space="preserve">
+    <value>Kasuta .gitignore'i</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_wholeword" xml:space="preserve">
+    <value>Kogu sõna</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Scripts_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Script Messages dialog button text</comment>
+  </data>
+  <data name="Test_ReplaceWith" xml:space="preserve">
+    <value>Asenda järgnevaga:</value>
+    <comment>Test window, search input label</comment>
+  </data>
+  <data name="Test_SearchFor" xml:space="preserve">
+    <value>Otsi:</value>
+    <comment>Test window, search input label</comment>
+  </data>
+  <data name="Test_SearchGroup" xml:space="preserve">
+    <value>Otsi</value>
+    <comment>Test window, search group box heading</comment>
+  </data>
+  <data name="Help_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Help dialog button label</comment>
+  </data>
+  <data name="Main_Attributes_Encoding" xml:space="preserve">
+    <value>Kodeering:</value>
+    <comment>Main window, results list, file attributes tooltip label</comment>
+  </data>
+  <data name="Main_BooleanOperators" xml:space="preserve">
+    <value>Tõeväärtus operaatorid</value>
+    <comment>Main window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_DateTo" xml:space="preserve">
+    <value>kuni</value>
+    <comment>Main window, filter files by date label</comment>
+  </data>
+  <data name="Main_DnGREP_Title" xml:space="preserve">
+    <value>dnGrep</value>
+    <comment>Main window, title label – near menu bar</comment>
+  </data>
+  <data name="Main_FilterSummary_MaxFolderDepth" xml:space="preserve">
+    <value>Max kausta sügavus: {0}</value>
+    <comment>Main window, file filters summary: {0} is a number</comment>
+  </data>
+  <data name="Main_FilterSummary_NoBinary" xml:space="preserve">
+    <value>Ei ole binaarne</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Main_FilterSummary_NoHidden" xml:space="preserve">
+    <value>Ei ole peidetud</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Main_FilterSummary_NoSubfolders" xml:space="preserve">
+    <value>Ilma alamkaustadeta</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Main_FilterSummary_NoSymlinks" xml:space="preserve">
+    <value>Ilma sümboolsete linkideta</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Main_FollowSymbolicLinks" xml:space="preserve">
+    <value>Järgne sümboolsele lingile</value>
+    <comment>Main window, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="Main_ForExampleAsteriskPattern" xml:space="preserve">
+    <value>Näiteks: *.txt;*.xml</value>
+    <comment>Main window, Wildcard pattern type option tooltip</comment>
+  </data>
+  <data name="Main_ForExampleRegularExpession" xml:space="preserve">
+    <value>näiteks: fail[0-9]{1,2}\\.txt</value>
+    <comment>Main window, Regular expression pattern type option tooltip</comment>
+  </data>
+  <data name="Main_IncludeBinaryFiles" xml:space="preserve">
+    <value>Kaasa binaarfailid</value>
+    <comment>Main window, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="Main_IncludeHiddenFolders" xml:space="preserve">
+    <value>Kaasa peidetud kaustad</value>
+    <comment>Main window, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="Main_IncludeSubfolders" xml:space="preserve">
+    <value>Kaasa alamkaustad</value>
+    <comment>Main window, filter path depth checkbox label (accel)</comment>
+  </data>
+  <data name="Main_MaxDepth" xml:space="preserve">
+    <value>Max sügavus</value>
+    <comment>Main window, filter path depth text box label (accel)</comment>
+  </data>
+  <data name="Main_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
+    <value>Baidiotsing: loe faili kahendiksüsteemis ja otsi baite kui kuueteistkümnendsüsteemi arve: 68 65 78 20</value>
+    <comment>Main window, Byte search type tooltip</comment>
+  </data>
+  <data name="Rename_Cancel" xml:space="preserve">
+    <value>Tühista</value>
+    <comment>Rename file dialog button label</comment>
+  </data>
+  <data name="ReportSummary_NoSubfolders" xml:space="preserve">
+    <value>Ilma alamkaustadeta</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_WholeWord" xml:space="preserve">
+    <value>Kogu sõna</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="Test_BooleanOperators" xml:space="preserve">
+    <value>Tõeväärtus operaatorid</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Test_Close" xml:space="preserve">
+    <value>Sulge</value>
+    <comment>Test window, Close button text (accel)</comment>
+  </data>
+  <data name="Test_Multiline" xml:space="preserve">
+    <value>_Mitmerealine</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_PatternsToExclude" xml:space="preserve">
+    <value>Välistavad mustrid:</value>
+    <comment>Bookmark details dialog, Patterns to exclude label</comment>
+  </data>
+  <data name="BookmarkDetails_PatternsToMatch" xml:space="preserve">
+    <value>Sobivad mustrid:</value>
+    <comment>Bookmark details dialog, Patterns to match label</comment>
+  </data>
+  <data name="BookmarkDetails_PatternType_AsteriskPattern" xml:space="preserve">
+    <value>Metamärk</value>
+    <comment>Bookmark details dialog, Wildcard pattern type radio button label (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
+    <value>XPath otsing (ainult XML dokumendid)</value>
+    <comment>Bookmark details dialog, search type XPath tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_SkipRemoteCloudStorageFiles" xml:space="preserve">
+    <value>Jäta pilve talletatud failid kõrvale</value>
+    <comment>Bookmark details dialog, checkbox label (accel)</comment>
+  </data>
+  <data name="Main_DotAsNewline" xml:space="preserve">
+    <value>Punkt kui uus ri_da</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_Encoding" xml:space="preserve">
+    <value>Kodeering:</value>
+    <comment>Main window, search options encoding combo box label (accel) </comment>
+  </data>
+  <data name="Replace_SearchFor" xml:space="preserve">
+    <value>Otsi:</value>
+    <comment>Replace window, search pattern label</comment>
+  </data>
+  <data name="Replace_Undo" xml:space="preserve">
+    <value>Võta tagasi</value>
+    <comment>Replace window, Undo button label (accel)</comment>
+  </data>
+  <data name="ReportSummary_NoSymlinks" xml:space="preserve">
+    <value>Ilma sümboolsete linkideta</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_SearchFor" xml:space="preserve">
+    <value>Otsi:</value>
+    <comment>Report search options summary label</comment>
+  </data>
+  <data name="Test_SearchType_Hex" xml:space="preserve">
+    <value>Bait</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Test_SearchType_Phonetic" xml:space="preserve">
+    <value>Foneetiline</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Test_SearchType_Regex" xml:space="preserve">
+    <value>_Regulaaravaldis</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Test_SearchType_Text" xml:space="preserve">
+    <value>_Tekst</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Test_SearchType_XPath" xml:space="preserve">
+    <value>_XPath</value>
+    <comment>Test window, search type radio button label (accel)</comment>
+  </data>
+  <data name="Test_WholeWord" xml:space="preserve">
+    <value>Kogu sõna</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
   </data>
 </root>
