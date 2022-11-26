@@ -459,7 +459,12 @@ namespace dnGREP.WPF
             if (firstFileSave)
             {
                 firstFileSave = false;
-                dlg.InitialDirectory = Path.Combine(Utils.GetDataFolderPath(), ScriptManager.ScriptFolder);
+                string dataFolder = Path.Combine(Utils.GetDataFolderPath(), ScriptManager.ScriptFolder);
+                if (!Directory.Exists(dataFolder))
+                {
+                    Directory.CreateDirectory(dataFolder);
+                }
+                dlg.InitialDirectory = dataFolder;
             }
 
             var result = dlg.ShowDialog();

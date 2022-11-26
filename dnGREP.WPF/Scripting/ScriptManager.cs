@@ -63,6 +63,11 @@ namespace dnGREP.WPF
         {
             _scripts.Clear();
             string dataFolder = Path.Combine(Utils.GetDataFolderPath(), ScriptFolder);
+            if (!Directory.Exists(dataFolder))
+            {
+                Directory.CreateDirectory(dataFolder);
+            }
+
             foreach (string fileName in Directory.GetFiles(dataFolder, "*" + ScriptExt, SearchOption.AllDirectories))
             {
                 string name = Path.GetFileNameWithoutExtension(fileName);
