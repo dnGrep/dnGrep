@@ -6,7 +6,6 @@ using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
 using dnGREP.Localization.Properties;
 using ICSharpCode.AvalonEdit;
-using ICSharpCode.AvalonEdit.Document;
 using Microsoft.Win32;
 
 namespace dnGREP.WPF
@@ -16,6 +15,7 @@ namespace dnGREP.WPF
         private readonly TextEditor textEditor;
         private string originalScript = string.Empty;
 
+        public event EventHandler RequestRun;
         public event EventHandler RequestClose;
         public event EventHandler RequestSuggest;
         public event EventHandler NewScriptFileSaved;
@@ -246,6 +246,10 @@ namespace dnGREP.WPF
             p => MoveSelectedLinesDown(),
             q => CanMoveLineDown);
 
+        public ICommand RunCommand => new RelayCommand(
+            p => RunScript(),
+            q => true);
+
         private bool CanMoveLineUp
         {
             get
@@ -415,6 +419,12 @@ namespace dnGREP.WPF
 
                 textEditor.Document.TextChanged += Document_TextChanged;
             }
+        }
+
+        private void RunScript()
+        {
+            ValidateScript(false);
+            RequestRun?.Invoke(this, EventArgs.Empty);
         }
 
         private void Save()

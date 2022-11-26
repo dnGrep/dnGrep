@@ -33,6 +33,7 @@
         <KeyBinding Key="S" Modifiers="Ctrl+Shift" Command="{Binding SaveAsCommand}"/>
         <KeyBinding Key="W" Modifiers="Ctrl" Command="{Binding CloseCommand}"/>
         <KeyBinding Key="L" Modifiers="Ctrl" Command="{Binding ValidateCommand}"/>
+        <KeyBinding Key="R" Modifiers="Ctrl" Command="{Binding RunCommand}"/>
         <KeyBinding Key="Z" Modifiers="Ctrl" Command="{Binding UndoCommand}"/>
         <KeyBinding Key="Y" Modifiers="Ctrl" Command="{Binding RedoCommand}"/>
         <KeyBinding Key="X" Modifiers="Ctrl" Command="{Binding CutCommand}"/>
@@ -62,8 +63,6 @@
                 <MenuItem Header="{l:Loc Key='Script_Editor_Close'}" Command="{Binding CloseCommand}" InputGestureText="Ctrl+W"/>
             </MenuItem>
             <MenuItem Header="{l:Loc Key='Script_Editor_Edit'}">
-                <MenuItem Header="{l:Loc Key='Script_Editor_Validate'}" Command="{Binding ValidateCommand}" InputGestureText="Ctrl+L"/>
-                <Separator/>
                 <MenuItem Header="{l:Loc Key='Script_Editor_Undo'}" Command="{Binding UndoCommand}" InputGestureText="Ctrl+Z"/>
                 <MenuItem Header="{l:Loc Key='Script_Editor_Redo'}" Command="{Binding RedoCommand}" InputGestureText="Ctrl+Y"/>
                 <Separator/>
@@ -77,6 +76,10 @@
                 <MenuItem Header="{l:Loc Key='Script_Editor_MoveDown'}" Command="{Binding MoveLinesDownCommand}" InputGestureText="Alt+Down Arrow"/>
                 <Separator/>
                 <MenuItem Header="{l:Loc Key='Script_Editor_Suggest'}" Command="{Binding SuggestCommand}" InputGestureText="Ctrl+Space"/>
+            </MenuItem>
+            <MenuItem Header="{l:Loc Key='Script_Editor_Tools'}">
+                <MenuItem Header="{l:Loc Key='Script_Editor_Validate'}" Command="{Binding ValidateCommand}" InputGestureText="Ctrl+L"/>
+                <MenuItem Header="{l:Loc Key='Script_Editor_RunScript'}" Command="{Binding RunCommand}" InputGestureText="Ctrl+R"/>
             </MenuItem>
             <MenuItem Header="{l:Loc Key='Script_Editor_Help'}">
                 <MenuItem Header="{l:Loc Key='Script_Editor_ScriptingCommands'}" Command="{Binding HelpCommand}" InputGestureText="F1"/>

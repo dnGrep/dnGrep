@@ -5838,6 +5838,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to _Run script.
+        /// </summary>
+        public static string Script_Editor_RunScript {
+            get {
+                return ResourceManager.GetString("Script_Editor_RunScript", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to _Save.
         /// </summary>
         public static string Script_Editor_Save {
@@ -5879,6 +5888,15 @@ namespace dnGREP.Localization.Properties {
         public static string Script_Editor_Title {
             get {
                 return ResourceManager.GetString("Script_Editor_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to _Tools.
+        /// </summary>
+        public static string Script_Editor_Tools {
+            get {
+                return ResourceManager.GetString("Script_Editor_Tools", resourceCulture);
             }
         }
         

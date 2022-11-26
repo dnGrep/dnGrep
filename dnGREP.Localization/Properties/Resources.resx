@@ -2724,6 +2724,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>_Redo</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
+  <data name="Script_Editor_RunScript" xml:space="preserve">
+    <value>_Run script</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
   <data name="Script_Editor_Save" xml:space="preserve">
     <value>_Save</value>
     <comment>Script editor menu item (accel)</comment>
@@ -2742,6 +2746,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   </data>
   <data name="Script_Editor_Title" xml:space="preserve">
     <value>Script Editor</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Tools" xml:space="preserve">
+    <value>_Tools</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="Script_Editor_Undo" xml:space="preserve">
