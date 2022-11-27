@@ -28,15 +28,22 @@ namespace dnGREP.Localization
             new Dictionary<string, string>
             {
                 { "bg", "Български" },
+                { "ca", "català" },
                 { "de", "Deutsch" },
                 { "en", "English" },
                 { "es", "español" },
+                { "et", "eesti" },
                 { "fr", "français" },
                 { "he", "עברית" },
+                { "it", "italiano" },
+                //{ "ja", "日本語" },
+                //{ "ko", "한국어" },
                 { "nb-NO", "norsk (bokmål)" },
                 { "pt", "Português" },
                 { "ru", "pусский" },
                 { "sr", "српски" },
+                //{ "th", "ไทย" },
+                //{ "tr", "Türkçe" },
                 { "zh-CN", "简体中文" },
                 { "zh-Hant", "中文" },
             };
