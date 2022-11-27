@@ -2310,4 +2310,104 @@
     <value>Lagre</value>
     <comment>Report options dialog, button label</comment>
   </data>
+  <data name="Script_Editor_Close" xml:space="preserve">
+    <value>_Lukk</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Delete" xml:space="preserve">
+    <value>_Slett</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Edit" xml:space="preserve">
+    <value>_Rediger</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Help" xml:space="preserve">
+    <value>_Hjelp</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Undo" xml:space="preserve">
+    <value>_Angre</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="ScriptHint_set_booleanoperators" xml:space="preserve">
+    <value>Boolske operatorer</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_capturegroupsearch" xml:space="preserve">
+    <value>Capture group search</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_casesensitive" xml:space="preserve">
+    <value>Forskjell på små og store bokstaver</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_dotasnewline" xml:space="preserve">
+    <value>Dot as newline</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_followsymlinks" xml:space="preserve">
+    <value>Følg symbolske lenker</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_highlightgroups" xml:space="preserve">
+    <value>Highlight groups</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_includebinary" xml:space="preserve">
+    <value>Inkluder kjørbare filer</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_includehidden" xml:space="preserve">
+    <value>Inkluder skjulte mapper</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_includesubfolder" xml:space="preserve">
+    <value>Inkluder undermapper</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_multiline" xml:space="preserve">
+    <value>Flerlinje</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_replacewith" xml:space="preserve">
+    <value>Replace with</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_searchfor" xml:space="preserve">
+    <value>Search for</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_searchinarchives" xml:space="preserve">
+    <value>Søk i arkiver</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_searchinresults" xml:space="preserve">
+    <value>Search in results</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_showcontextlines" xml:space="preserve">
+    <value>Vis linjer tilknyttet bindeleddsinfo</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_stopafterfirstmatch" xml:space="preserve">
+    <value>Stop after first match</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_usegitignore" xml:space="preserve">
+    <value>Bruk .gitignore</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_wholeword" xml:space="preserve">
+    <value>Hele ordet</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_wraptext" xml:space="preserve">
+    <value>Wrap text</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Scripts_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Script Messages dialog button text</comment>
+  </data>
 </root>

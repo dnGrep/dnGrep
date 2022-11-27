@@ -2243,4 +2243,108 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
     <value>Umschalt+Alt+Pfeil nach oben</value>
     <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
   </data>
+  <data name="Script_Editor_Close" xml:space="preserve">
+    <value>_Schliessen</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Delete" xml:space="preserve">
+    <value>_Löschen</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Edit" xml:space="preserve">
+    <value>_Editieren</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Help" xml:space="preserve">
+    <value>_Hilfe</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Undo" xml:space="preserve">
+    <value>_Rückgängig</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="ScriptHint_set_booleanoperators" xml:space="preserve">
+    <value>Boolische Operatoren</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_capturegroupsearch" xml:space="preserve">
+    <value>Gruppensuche erfassen</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_casesensitive" xml:space="preserve">
+    <value>Groß-/Kleinschreibung</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_dotasnewline" xml:space="preserve">
+    <value>Punkt als neue Zeile</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_followsymlinks" xml:space="preserve">
+    <value>Folge Symbolischen Links</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_highlightgroups" xml:space="preserve">
+    <value>Gruppen hervorheben</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_includebinary" xml:space="preserve">
+    <value>Binärdateien einschliessen</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_includehidden" xml:space="preserve">
+    <value>versteckte Verzeichnisse einschliessen</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_includesubfolder" xml:space="preserve">
+    <value>Unterverzeichnisse einschliessen</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_multiline" xml:space="preserve">
+    <value>Mehrzeilig</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_replacewith" xml:space="preserve">
+    <value>Ersetze mit</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_searchfor" xml:space="preserve">
+    <value>Suche nach</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_searchinarchives" xml:space="preserve">
+    <value>Suche in Archiven</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_searchinresults" xml:space="preserve">
+    <value>Suche in Ergebnissen</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_showcontextlines" xml:space="preserve">
+    <value>Kontextzeilen einblenden</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_skipremotecloudstoragefiles" xml:space="preserve">
+    <value>Überspringen entfernter Cloud-Speicherdateien</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_stopafterfirstmatch" xml:space="preserve">
+    <value>Halt nach erster Fundstelle</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_usegitignore" xml:space="preserve">
+    <value>benutze .gitignore</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_wholeword" xml:space="preserve">
+    <value>Ganzes Wort</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_wraptext" xml:space="preserve">
+    <value>Text mit Zeilenumbrüchen</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Scripts_OK" xml:space="preserve">
+    <value>OK</value>
+    <comment>Script Messages dialog button text</comment>
+  </data>
 </root>
