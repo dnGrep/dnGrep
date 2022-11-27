@@ -1197,6 +1197,18 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to /sc [scriptKey]
+        ///-sc [scriptKey]
+        ///-script [scriptKey]
+        ///    Runs the script identified by the script key..
+        /// </summary>
+        public static string Help_CmdLineScript {
+            get {
+                return ResourceManager.GetString("Help_CmdLineScript", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to /s [searchFor]
         ///-s [searchFor]
         ///-searchFor [searchFor]

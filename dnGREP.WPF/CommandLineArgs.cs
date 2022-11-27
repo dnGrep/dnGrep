@@ -589,6 +589,7 @@ namespace dnGREP.WPF
             sb.AppendLine(Resources.Help_CmdLineExample2).AppendLine();
             sb.AppendLine(Resources.Help_CmdLineDefaultArguments).AppendLine();
             sb.AppendLine(Resources.Help_CmdLineArguments).AppendLine();
+            sb.AppendLine(Resources.Help_CmdLineScript).AppendLine();
             sb.AppendLine(Resources.Help_CmdLineFolder).AppendLine();
             sb.AppendLine(Resources.Help_CmdLinePathToMatch).AppendLine();
             sb.AppendLine(Resources.Help_CmdLinePathToIgnore).AppendLine();

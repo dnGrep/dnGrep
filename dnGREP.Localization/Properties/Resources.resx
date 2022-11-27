@@ -648,6 +648,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     Sets the report output mode for regular expression reports - must be one of: "FullLine", "Matches", or "Groups".</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
+  <data name="Help_CmdLineScript" xml:space="preserve">
+    <value>/sc [scriptKey]
+-sc [scriptKey]
+-script [scriptKey]
+    Runs the script identified by the script key.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
   <data name="Help_CmdLineSearchFor" xml:space="preserve">
     <value>/s [searchFor]
 -s [searchFor]
@@ -2760,16 +2767,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Va_lidate</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
+  <data name="Script_Validation_Header" xml:space="preserve">
+    <value>Validation</value>
+    <comment>Script validation list header</comment>
+  </data>
   <data name="Script_Validation_Header_Line" xml:space="preserve">
     <value>Line</value>
     <comment>Script validation list header</comment>
   </data>
   <data name="Script_Validation_Header_Message" xml:space="preserve">
     <value>Message</value>
-    <comment>Script validation list header</comment>
-  </data>
-  <data name="Script_Validation_Header" xml:space="preserve">
-    <value>Validation</value>
     <comment>Script validation list header</comment>
   </data>
   <data name="Script_Validation_TheCommandIsInvalid" xml:space="preserve">
