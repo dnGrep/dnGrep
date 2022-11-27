@@ -366,4 +366,112 @@
     <value>Eşleşecek desenler:</value>
     <comment>Bookmark details dialog, Patterns to match label</comment>
   </data>
+  <data name="Main_Multiline" xml:space="preserve">
+    <value>çok satırlı</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="ReportSummary_BooleanOperators" xml:space="preserve">
+    <value>Boolean operatörleri</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_Encoding" xml:space="preserve">
+    <value>Kodlama:</value>
+    <comment>Report search options summary label</comment>
+  </data>
+  <data name="ScriptHint_set_booleanoperators" xml:space="preserve">
+    <value>Boolean operatörleri</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_followsymlinks" xml:space="preserve">
+    <value>Sembolik bağlantıları takip et</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_includebinary" xml:space="preserve">
+    <value>İkili dosyaları (binary) dahil et</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_includehidden" xml:space="preserve">
+    <value>Gizli klasörleri dahil et</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_includesubfolder" xml:space="preserve">
+    <value>Alt klasörleri dahil et</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_replacewith" xml:space="preserve">
+    <value>şununla değiştir</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Scripts_OK" xml:space="preserve">
+    <value>Tamam</value>
+    <comment>Script Messages dialog button text</comment>
+  </data>
+  <data name="Test_CaseSensitive" xml:space="preserve">
+    <value>Harfe duyarlı</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Test_Multiline" xml:space="preserve">
+    <value>çok satırlı</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_Attributes_Encoding" xml:space="preserve">
+    <value>Kodlama:</value>
+    <comment>Main window, results list, file attributes tooltip label</comment>
+  </data>
+  <data name="Main_BooleanOperators" xml:space="preserve">
+    <value>Boolean operatörleri</value>
+    <comment>Main window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_CaseSensitive" xml:space="preserve">
+    <value>Harfe duyarlı</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_Encoding" xml:space="preserve">
+    <value>Kodlama:</value>
+    <comment>Main window, search options encoding combo box label (accel) </comment>
+  </data>
+  <data name="Main_EverythingIndexService" xml:space="preserve">
+    <value>Bir dosya deseni türü seçeneği için etiket. "Her şey" bir uygulamanın adıdır (bkz. https://www.voidtools.com /) Bu denetim, yalnızca uygulama kullanıcının bilgisayarında yüklüyse görülebilir.</value>
+    <comment>Main window, pattern type option Everything tooltip</comment>
+  </data>
+  <data name="Main_IncludeHiddenFolders" xml:space="preserve">
+    <value>Gizli klasörleri dahil et</value>
+    <comment>Main window, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="Main_IncludeSubfolders" xml:space="preserve">
+    <value>Alt klasörleri dahil et</value>
+    <comment>Main window, filter path depth checkbox label (accel)</comment>
+  </data>
+  <data name="Main_MaxDepth" xml:space="preserve">
+    <value>Maksimum derinlik</value>
+    <comment>Main window, filter path depth text box label (accel)</comment>
+  </data>
+  <data name="Main_PatternsToMatch" xml:space="preserve">
+    <value>Eşleşecek desenler:</value>
+    <comment>Main window, Patterns to match label (accel)</comment>
+  </data>
+  <data name="Main_FollowSymbolicLinks" xml:space="preserve">
+    <value>Sembolik bağlantıları takip et</value>
+    <comment>Main window, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="Main_ForExampleAsteriskPattern" xml:space="preserve">
+    <value>Mesela: *.txt;*.xml</value>
+    <comment>Main window, Wildcard pattern type option tooltip</comment>
+  </data>
+  <data name="Test_BooleanOperators" xml:space="preserve">
+    <value>Boolean operatörleri</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_ForExampleRegularExpession" xml:space="preserve">
+    <value>Örneğin: dosya [0-9]{1,2}\\.txt</value>
+    <comment>Main window, Regular expression pattern type option tooltip</comment>
+  </data>
+  <data name="Main_IncludeBinaryFiles" xml:space="preserve">
+    <value>İkili dosyaları (binary) dahil et</value>
+    <comment>Main window, filter files checkbox label (accel)</comment>
+  </data>
+  <data name="Main_PatternsToExclude" xml:space="preserve">
+    <value>Hariç tutulacak desenler:</value>
+    <comment>Main window, Patterns to exclude label (accel)</comment>
+  </data>
 </root>

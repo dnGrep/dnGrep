@@ -2432,4 +2432,24 @@ Establece el indicador de búsqueda de palabras completas: True o False.</value>
     <value>dnGrep is up to date.</value>
     <comment>Message box text for: Check for updates response</comment>
   </data>
+  <data name="Script_Editor_Close" xml:space="preserve">
+    <value>_Close</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Edit" xml:space="preserve">
+    <value>_Edit</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Undo" xml:space="preserve">
+    <value>_Deshacer</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Scripts_OK" xml:space="preserve">
+    <value>BIEN</value>
+    <comment>Script Messages dialog button text</comment>
+  </data>
+  <data name="Script_Editor_Delete" xml:space="preserve">
+    <value>_Delete</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
 </root>
