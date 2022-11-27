@@ -3443,4 +3443,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>验证</value>
     <comment>Script validation list header</comment>
   </data>
+  <data name="Help_CmdLineScript" xml:space="preserve">
+    <value>/sc [scriptKey]
+-sc [scriptKey]
+-script [scriptKey]
+    运行脚本键识别的脚本。</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
 </root>
