@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using Alphaleonis.Win32.Filesystem;
 using dnGREP.Common;
+using dnGREP.Common.UI;
 using Microsoft.VisualBasic.FileIO;
 
 namespace dnGREP.WPF.UserControls
@@ -91,6 +92,11 @@ namespace dnGREP.WPF.UserControls
         private void btnOpenContainingFolder_Click(object sender, RoutedEventArgs e)
         {
             OpenFolders();
+        }
+
+        private void btnOpenExplorerMenu_Click(object sender, RoutedEventArgs e)
+        {
+            OpenExplorerMenu();
         }
 
         private void treeKeyDown(object sender, KeyEventArgs e)
@@ -687,6 +693,38 @@ namespace dnGREP.WPF.UserControls
 
             foreach (var fileName in files)
                 Utils.OpenContainingFolder(fileName);
+        }
+
+        private void OpenExplorerMenu()
+        {
+            // get the unique set of files from the selections
+            List<string> files = new List<string>();
+            foreach (var item in inputData.SelectedItems)
+            {
+                if (item is FormattedGrepResult fileNode)
+                {
+                    string name = fileNode.GrepResult.FileNameReal;
+                    if (!files.Contains(name) && File.Exists(name))
+                    {
+                        files.Add(name);
+                    }
+                }
+                if (item is FormattedGrepLine lineNode)
+                {
+                    string name = lineNode.Parent.GrepResult.FileNameReal;
+                    if (!files.Contains(name) && File.Exists(name))
+                    {
+                        files.Add(name);
+                    }
+                }
+            }
+
+            if (files.Count > 0)
+            {
+                ShellContextMenu menu = new ShellContextMenu();
+                menu.ShowContextMenu(files.Select(f => new System.IO.FileInfo(f)).ToArray(),
+                    PointToScreen(Mouse.GetPosition(this)));
+            }
         }
 
         private void ShowFileProperties()

@@ -1287,6 +1287,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Reset zoom</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
+  <data name="Main_Results_ShowExplorerMenu" xml:space="preserve">
+    <value>Show Explorer Menu</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
   <data name="Main_Results_ShowFileProperties" xml:space="preserve">
     <value>Show file properties</value>
     <comment>Main window, results list, context menu item label</comment>

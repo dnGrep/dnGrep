@@ -2601,6 +2601,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Show Explorer Menu.
+        /// </summary>
+        public static string Main_Results_ShowExplorerMenu {
+            get {
+                return ResourceManager.GetString("Main_Results_ShowExplorerMenu", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show file properties.
         /// </summary>
         public static string Main_Results_ShowFileProperties {
