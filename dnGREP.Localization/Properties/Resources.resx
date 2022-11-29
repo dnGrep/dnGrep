@@ -1919,6 +1919,14 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Use keywords '{0}' for file location, '{1}' for the line number, '{2}' for the search pattern, '{3}' for the first matched text on the line, and '{4}' for the column number of the first match on the line.</value>
     <comment>Options dialog, custom editor help text: the placeholders are non-localized expressions used as arguments when starting the custom editor</comment>
   </data>
+  <data name="Options_DeleteFiles" xml:space="preserve">
+    <value>Delete files</value>
+    <comment>Options dialog, delete files group header label</comment>
+  </data>
+  <data name="Options_DeletePermanently" xml:space="preserve">
+    <value>Delete permanently</value>
+    <comment>Options dialog, delete option label (accel)</comment>
+  </data>
   <data name="Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
     <value>Detect file encoding when listing files using the file name pattern</value>
     <comment>Options dialog, results options checkbox label (accel)</comment>
@@ -2183,6 +2191,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Selected theme</value>
     <comment>Options dialog, theme selector label</comment>
   </data>
+  <data name="Options_SendToRecycleBin" xml:space="preserve">
+    <value>Send to recycle bin</value>
+    <comment>Options dialog, delete option label (accel)</comment>
+  </data>
   <data name="Options_ShowDnGrepInExplorerRightClickMenu" xml:space="preserve">
     <value>Show dnGrep in the right-click menu of Windows Explorer</value>
     <comment>Options dialog, startup options, checkbox label (accel)</comment>
@@ -2238,6 +2250,10 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_WantADifferentLanguage" xml:space="preserve">
     <value>Do you want a different language?</value>
     <comment>Options dialog, language request label</comment>
+  </data>
+  <data name="Options_WhenDeletingFiles" xml:space="preserve">
+    <value>When deleting files</value>
+    <comment>Options dialog, delete option label</comment>
   </data>
   <data name="Preview_ChangesTextEditorZoom" xml:space="preserve">
     <value>Changes text editor zoom</value>
