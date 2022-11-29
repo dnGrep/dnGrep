@@ -4023,6 +4023,24 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete files.
+        /// </summary>
+        public static string Options_DeleteFiles {
+            get {
+                return ResourceManager.GetString("Options_DeleteFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete permanently.
+        /// </summary>
+        public static string Options_DeletePermanently {
+            get {
+                return ResourceManager.GetString("Options_DeletePermanently", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Detect file encoding when listing files using the file name pattern.
         /// </summary>
         public static string Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly {
@@ -4617,6 +4635,15 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Send to recycle bin.
+        /// </summary>
+        public static string Options_SendToRecycleBin {
+            get {
+                return ResourceManager.GetString("Options_SendToRecycleBin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Show dnGrep in the right-click menu of Windows Explorer.
         /// </summary>
         public static string Options_ShowDnGrepInExplorerRightClickMenu {
@@ -4739,6 +4766,15 @@ namespace dnGREP.Localization.Properties {
         public static string Options_WantADifferentLanguage {
             get {
                 return ResourceManager.GetString("Options_WantADifferentLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When deleting files.
+        /// </summary>
+        public static string Options_WhenDeletingFiles {
+            get {
+                return ResourceManager.GetString("Options_WhenDeletingFiles", resourceCulture);
             }
         }
         
