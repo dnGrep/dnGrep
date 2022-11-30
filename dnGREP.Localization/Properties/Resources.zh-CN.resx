@@ -150,7 +150,7 @@
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_LibraryForReadingArchiveFiles" xml:space="preserve">
-    <value>用于读取存档文件的库</value>
+    <value>用于读取压缩文件的库</value>
     <comment>About dialog acknowledgments</comment>
   </data>
   <data name="About_LoggingFrameworkForNET" xml:space="preserve">
@@ -294,7 +294,7 @@
     <comment>Bookmark details dialog, search pattern text input box label</comment>
   </data>
   <data name="BookmarkDetails_SearchInArchives" xml:space="preserve">
-    <value>在归档中搜索(_C)</value>
+    <value>在压缩文件中搜索(_C)</value>
     <comment>Bookmark details dialog, checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Hex" xml:space="preserve">
@@ -434,7 +434,7 @@
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_SearchInArchives" xml:space="preserve">
-    <value>在归档中搜索</value>
+    <value>在压缩文件中搜索</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_WholeWord" xml:space="preserve">
@@ -1104,7 +1104,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, search group heading</comment>
   </data>
   <data name="Main_SearchInArchives" xml:space="preserve">
-    <value>在归档中搜索(_C)</value>
+    <value>在压缩文件中搜索(_C)</value>
     <comment>Main window, checkbox label (accel)</comment>
   </data>
   <data name="Main_SearchInGroup" xml:space="preserve">
@@ -1403,7 +1403,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Message box text for: Copy to clipboard error</comment>
   </data>
   <data name="MessageBox_FailedToExtractFileFromArchive" xml:space="preserve">
-    <value>从归档中解压文件时发生错入. 日志查看详情: </value>
+    <value>从压缩文件中解压文件时发生错入. 日志查看详情: </value>
     <comment>Message box text for: Preview window archive error</comment>
   </data>
   <data name="MessageBox_FilesHaveBeenSuccessfullyReverted" xml:space="preserve">
@@ -1599,7 +1599,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, archive options label</comment>
   </data>
   <data name="Options_ArchiveOptions" xml:space="preserve">
-    <value>归档选项</value>
+    <value>压缩文件</value>
     <comment>Options dialog, archive options group header label</comment>
   </data>
   <data name="Options_ArchiveRemove" xml:space="preserve">
@@ -2804,7 +2804,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_searchinarchives" xml:space="preserve">
-    <value>在归档中搜索</value>
+    <value>在压缩文件中搜索</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_skipremotecloudstoragefiles" xml:space="preserve">
@@ -3449,5 +3449,25 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
 -script [scriptKey]
     运行脚本键识别的脚本。</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Main_Results_ShowExplorerMenu" xml:space="preserve">
+    <value>显示资源管理器菜单</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Options_DeletePermanently" xml:space="preserve">
+    <value>永久删除</value>
+    <comment>Options dialog, delete option label (accel)</comment>
+  </data>
+  <data name="Options_WhenDeletingFiles" xml:space="preserve">
+    <value>删除文件时</value>
+    <comment>Options dialog, delete option label</comment>
+  </data>
+  <data name="Options_DeleteFiles" xml:space="preserve">
+    <value>删除文件</value>
+    <comment>Options dialog, delete files group header label</comment>
+  </data>
+  <data name="Options_SendToRecycleBin" xml:space="preserve">
+    <value>发送到回收站</value>
+    <comment>Options dialog, delete option label (accel)</comment>
   </data>
 </root>
