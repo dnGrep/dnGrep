@@ -1,10 +1,10 @@
-version: 3.0.{build}.0
+version: 3.1.{build}.0
 branches:
   only:
   - master
   - DraftPrereleaseToGitHub
 skip_tags: true
-image: Visual Studio 2019
+image: Visual Studio 2022
 configuration:
 - Debug
 - Release
