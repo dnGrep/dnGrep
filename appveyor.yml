@@ -24,7 +24,15 @@ build:
   parallel: true
   verbosity: normal
 after_build:
-  - cmd %APPVEYOR_BUILD_FOLDER%\prepareZip.cmd
+  - cmd >-
+    if exist "%APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\dnGREP.Engines.MsWord.plugin" del "%APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\dnGREP.Engines.MsWord.plugin"
+    if exist "%APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\dnGREP.Engines.OpenXml.plugin" del "%APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\dnGREP.Engines.OpenXml.plugin"
+    if exist "%APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\dnGREP.Engines.Pdf.plugin" del "%APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\dnGREP.Engines.Pdf.plugin"
+    if exist "%APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\pdftotext.exe" del "%APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\pdftotext.exe"
+    if exist "%APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\pdf-readme" del "%APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\pdf-readme"
+    if exist "%APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\word-readme" del "%APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\word-readme"
+    if exist "%APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\ICSharpCode.AvalonEdit.xml" del "%APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\ICSharpCode.AvalonEdit.xml"
+
   - 7z a %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip %APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\* -xr!*.pdb
 artifacts:
 - path: Release\x86\*.msi
