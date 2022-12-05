@@ -24,7 +24,7 @@ build:
   parallel: true
   verbosity: normal
 after_build:
-  - 7z a %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip %APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\* -xr!*.pdb -xr-!*.plugin -xr-pdftotext.exe -xr-!*_readme
+  - 7z a %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip %APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\* -xr!*.pdb
 artifacts:
 - path: Release\x86\*.msi
   name: 32-bit MSI
