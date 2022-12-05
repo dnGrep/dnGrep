@@ -24,16 +24,11 @@ build:
   parallel: true
   verbosity: normal
 after_build:
-  - cmd >-
-    if exist "%APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\dnGREP.Engines.MsWord.plugin" del "%APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\dnGREP.Engines.MsWord.plugin"
-    if exist "%APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\dnGREP.Engines.OpenXml.plugin" del "%APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\dnGREP.Engines.OpenXml.plugin"
-    if exist "%APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\dnGREP.Engines.Pdf.plugin" del "%APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\dnGREP.Engines.Pdf.plugin"
-    if exist "%APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\pdftotext.exe" del "%APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\pdftotext.exe"
-    if exist "%APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\pdf-readme" del "%APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\pdf-readme"
-    if exist "%APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\word-readme" del "%APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\word-readme"
-    if exist "%APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\ICSharpCode.AvalonEdit.xml" del "%APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\ICSharpCode.AvalonEdit.xml"
-
   - 7z a %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip %APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\* -xr!*.pdb
+  - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip -r- dnGREP.Engines.MsWord.plugin
+  - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip -r- dnGREP.Engines.OpenXml.plugin
+  - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip -r- dnGREP.Engines.Pdf.plugin
+  - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip -r- pdftotext.exe
 artifacts:
 - path: Release\x86\*.msi
   name: 32-bit MSI
