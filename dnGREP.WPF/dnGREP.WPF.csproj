@@ -518,9 +518,7 @@
   </Target>
   -->
   <PropertyGroup>
-    <PostBuildEvent>if exist "$(OutDir)\dnGREP.Engines.MsWord.plugin" del "$(OutDir)\dnGREP.Engines.MsWord.plugin"
-if exist "$(OutDir)\dnGREP.Engines.OpenXml.plugin" del "$(OutDir)\dnGREP.Engines.OpenXml.plugin"
-if exist "$(OutDir)\dnGREP.Engines.Pdf.plugin" del "$(OutDir)\dnGREP.Engines.Pdf.plugin"
-if exist "$(OutDir)\pdftotext.exe" del "$(OutDir)\pdftotext.exe"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>
