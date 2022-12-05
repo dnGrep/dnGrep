@@ -34,7 +34,7 @@ artifacts:
   name: 32-bit MSI
 - path: Release\x64\*.msi
   name: 64-bit MSI
-- path: Release\'*.zip'
+- path: Release\*.zip
   name: Portable ZIP
 deploy:
 - provider: Webhook
