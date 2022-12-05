@@ -29,6 +29,9 @@ after_build:
   - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip -r- dnGREP.Engines.OpenXml.plugin
   - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip -r- dnGREP.Engines.Pdf.plugin
   - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip -r- pdftotext.exe
+  - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip -r- pdf-readme
+  - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip -r- word-readme
+  - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip -r- ICSharpCode.AvalonEdit.xml
 artifacts:
 - path: Release\x86\*.msi
   name: 32-bit MSI
