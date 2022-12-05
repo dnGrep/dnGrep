@@ -24,17 +24,17 @@ build:
   parallel: true
   verbosity: normal
 after_build:
-  - 7z a %APPVEYOR_BUILD_FOLDER%\dnGrep.zip -r %APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\Release\*.exe
-  - 7z a %APPVEYOR_BUILD_FOLDER%\dnGrep.zip -r %APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\Release\*.dll
-  - 7z a %APPVEYOR_BUILD_FOLDER%\dnGrep.zip -r %APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\Release\*.plugin
-  - 7z a %APPVEYOR_BUILD_FOLDER%\dnGrep.zip -r %APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\Release\*.config
-  - 7z a %APPVEYOR_BUILD_FOLDER%\dnGrep.zip -r %APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\Release\Themes\*.xml
+  - 7z a %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\dnGrep_%PLATFORM%.zip %APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\*.exe
+  - 7z a %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\dnGrep_%PLATFORM%.zip %APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\*.config
+  - 7z a %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\dnGrep_%PLATFORM%.zip -r %APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\*.dll
+  - 7z a %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\dnGrep_%PLATFORM%.zip %APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\Plugins\*.*
+  - 7z a %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\dnGrep_%PLATFORM%.zip %APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\Themes\*.xml
 artifacts:
 - path: Release\x86\*.msi
   name: 32-bit MSI
 - path: Release\x64\*.msi
   name: 64-bit MSI
-- path: '*.zip'
+- path: Release\'*.zip'
   name: Portable ZIP
 deploy:
 - provider: Webhook
