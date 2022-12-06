@@ -24,23 +24,21 @@ build:
   parallel: true
   verbosity: normal
 after_build:
-  - 7z a %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip %APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\* -xr!*.pdb
-  - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip -r- dnGREP.Engines.MsWord.plugin
-  - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip -r- dnGREP.Engines.OpenXml.plugin
-  - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip -r- dnGREP.Engines.Pdf.plugin
-  - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip -r- pdftotext.exe
-  - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip -r- pdf-readme
-  - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip -r- word-readme
-  - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.%PlATFORM%.zip -r- ICSharpCode.AvalonEdit.xml
+  - 7z a %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.zip %APPVEYOR_BUILD_FOLDER%\dnGREP.WPF\bin\%CONFIGURATION%\* -xr!*.pdb
+  - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.zip -r- dnGREP.Engines.MsWord.plugin
+  - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.zip -r- dnGREP.Engines.OpenXml.plugin
+  - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.zip -r- dnGREP.Engines.Pdf.plugin
+  - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.zip -r- pdftotext.exe
+  - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.zip -r- pdf-readme
+  - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.zip -r- word-readme
+  - 7z d %APPVEYOR_BUILD_FOLDER%\%CONFIGURATION%\%PlATFORM%\dnGrep.%APPVEYOR_BUILD_VERSION%.zip -r- ICSharpCode.AvalonEdit.xml
 artifacts:
 - path: Release\x86\*.msi
   name: 32-bit MSI
 - path: Release\x64\*.msi
   name: 64-bit MSI
-- path: Release\x86\*.zip
-  name: 32-bit ZIP
 - path: Release\x64\*.zip
-  name: 64-bit ZIP
+  name: Portable ZIP
 deploy:
 - provider: Webhook
   url: https://app.signpath.io/API/v1/736ab30b-dc3e-41ee-800d-c5674d702ed8/Integrations/AppVeyor?ProjectSlug=dnGrep&SigningPolicySlug=release-signing
