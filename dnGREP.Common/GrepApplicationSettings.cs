@@ -28,6 +28,7 @@ namespace dnGREP.Common
         public static class Key
         {
             public const string SearchFolder = "SearchFolder";
+            [DefaultValue("")]
             public const string SearchFor = "SearchFor";
             public const string ReplaceWith = "ReplaceWith";
             [DefaultValue(true)]
