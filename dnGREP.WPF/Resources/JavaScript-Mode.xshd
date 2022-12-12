@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!-- syntaxdefinition for JavaScript 2.0 by Svante Lidman -->
 <!-- converted to AvalonEdit format by Siegfried Pammer in 2010 -->
-<SyntaxDefinition name="JavaScript" extensions=".js" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+<SyntaxDefinition name="JavaScript" extensions=".js;.cjs;.mjs;.ls;.sjs;.eg" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
 
   <Color name="JavaScriptLiterals"        foreground="#FFB27700" />
   <Color name="Digits"                    foreground="#FF202020" />

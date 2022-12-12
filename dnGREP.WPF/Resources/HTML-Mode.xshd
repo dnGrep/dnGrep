@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!-- syntaxdefinition for HTML 2000 by Mike Krueger -->
 <!-- converted to AvalonEdit format by Siegfried Pammer in 2010 -->
-<SyntaxDefinition name="HTML" extensions=".htm;.html" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+<SyntaxDefinition name="HTML" extensions=".htm;.html;.cshtml;.vbhtml" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
   <Color name="Comment" foreground="#FF39A839" fontStyle="italic" />
   <Color name="Digits" foreground="#FF202020" />
   <Color name="ScriptTag" foreground="#FF800080" />

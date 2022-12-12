@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!-- syntaxdefinition for PHP 2001 by Chad Smith & Mike Krueger -->
 <!-- converted to AvalonEdit format by Siegfried Pammer in 2010 -->
-<SyntaxDefinition name ="PHP" extensions = ".php" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+<SyntaxDefinition name ="PHP" extensions = ".php;.php3;.php4;.php5" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
 
   <Color name="Digits" foreground="#FF202020" exampleText="3.1415" />
   <Color name="Punctuation" foreground="#FF202020" exampleText="a(b + c)" />

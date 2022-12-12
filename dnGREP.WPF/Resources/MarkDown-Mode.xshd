@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0"?>
-<SyntaxDefinition name="MarkDown" extensions=".md" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+<SyntaxDefinition name="MarkDown" extensions=".md;.markdown;.mdown;.mkdn;.mkd;.mdwn;.mdtxt;.mdtext;.rmd" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
   <Color name="Heading" foreground="#FF610FA8" exampleText="# Title #" />
   <Color name="Emphasis" fontStyle="italic" exampleText="*this* is important!" />
   <Color name="StrongEmphasis" fontWeight="bold" exampleText="**this** is more important!" />

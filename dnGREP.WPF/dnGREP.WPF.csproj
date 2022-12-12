@@ -450,13 +450,13 @@
     <EmbeddedResource Include="Resources\PHP-Mode.xshd" />
     <EmbeddedResource Include="Resources\PowerShell.xshd" />
     <EmbeddedResource Include="Resources\Python-Mode.xshd" />
+    <EmbeddedResource Include="Resources\SQL.xshd" />
     <EmbeddedResource Include="Resources\Tex-Mode.xshd" />
     <EmbeddedResource Include="Resources\TSQL-Mode.xshd" />
     <EmbeddedResource Include="Resources\TypeScript.xshd" />
     <EmbeddedResource Include="Resources\VB-Mode.xshd" />
     <EmbeddedResource Include="Resources\XML-Mode.xshd" />
     <EmbeddedResource Include="Resources\XmlDoc.xshd" />
-    <EmbeddedResource Include="Resources\Sql-Mode.xshd" />
     <EmbeddedResource Include="Resources\Lisp-Mode.xshd" />
     <EmbeddedResource Include="Resources\Json.xshd" />
     <EmbeddedResource Include="Resources\Yaml.xshd" />

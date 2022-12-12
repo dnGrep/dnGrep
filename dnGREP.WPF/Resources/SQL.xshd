@@ -10,7 +10,7 @@ hello@exr.be
 https://github.com/ei
 -->
 
-<SyntaxDefinition name="SQL" extensions=".sql">
+<SyntaxDefinition name="SQL" extensions=".sql;.pks;.pkb;.pck">
 
     <Environment> 
         <Default color="Black" bgcolor="#FFFFFF"/>
