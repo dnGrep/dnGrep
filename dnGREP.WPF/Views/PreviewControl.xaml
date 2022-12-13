@@ -68,6 +68,7 @@
                           Visibility="{Binding WrapTextPreviewWndVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
                 <Button Margin="3" Padding="8,3" MinWidth="80"
                         Click="SyntaxButton_Click"
+                        ToolTip="{l:Loc Key='Preview_Syntax'}"
                         Visibility="{Binding SyntaxPreviewWndVisible, Converter={StaticResource BoolToVisibilityConverter}}">
                     <Button.Content>
                         <TextBlock >
