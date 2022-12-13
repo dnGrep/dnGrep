@@ -296,5 +296,12 @@ namespace dnGREP.WPF
             ViewModel.IsLargeOrBinary = false;
             ViewModel_ShowPreview(this, EventArgs.Empty);
         }
+
+        private void SyntaxButton_Click(object sender, RoutedEventArgs e)
+        {
+            syntaxContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+            syntaxContextMenu.PlacementTarget = (UIElement)sender;
+            syntaxContextMenu.IsOpen = true;
+        }
     }
 }

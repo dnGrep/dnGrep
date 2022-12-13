@@ -246,6 +246,13 @@ namespace dnGREP.WPF
             }
         }
 
+        private void SyntaxButton_Click(object sender, RoutedEventArgs e)
+        {
+            syntaxContextMenu.Placement = System.Windows.Controls.Primitives.PlacementMode.Bottom;
+            syntaxContextMenu.PlacementTarget = (UIElement)sender;
+            syntaxContextMenu.IsOpen = true;
+        }
+
         private void ViewModel_CloseTrue(object sender, EventArgs e)
         {
             DialogResult = true;

@@ -64,6 +64,14 @@
             <Setter Property="Margin" Value="3" />
         </Style>
 
+        <Style TargetType="{x:Type ContextMenu}" BasedOn="{StaticResource ThemedContextMenu}">
+            <Setter Property="FontFamily" Value="{Binding ApplicationFontFamily}"/>
+            <Setter Property="FontSize" Value="{Binding ReplaceFormFontSize}"/>
+        </Style>
+
+        <HierarchicalDataTemplate DataType="{x:Type my:MenuItemViewModel}" 
+                                  ItemsSource="{Binding Path=Children, UpdateSourceTrigger=PropertyChanged}"/>
+
     </Window.Resources>
 
     <Border Padding="4">
@@ -225,10 +233,29 @@
                         Maximum="30" TabIndex="7" Value="14" />
                 <CheckBox Name="cbWrapText" Margin="12,0,3,0" VerticalAlignment="Center"
                           IsChecked="True" Content="{l:Loc Key='Replace_WrapText'}" TabIndex="8" />
-                <ComboBox Name="cbHighlighter" Margin="12,0,3,0"
-                          ItemsSource="{Binding Path=Highlighters}"
-                          SelectedValue="{Binding Path=CurrentSyntax}"
-                          TabIndex="9" />
+                <Button Margin="12,3" Padding="8,0" MinWidth="80"
+                        Click="SyntaxButton_Click"
+                        TabIndex="9" >
+                    <Button.Content>
+                        <TextBlock >
+                            <Run Text="{Binding CurrentSyntax, FallbackValue=None}"/>
+                            <Run Text=" ⏷"/>
+                        </TextBlock>
+                    </Button.Content>
+                    <Button.ContextMenu>
+                        <ContextMenu x:Name="syntaxContextMenu"
+                                     ItemsSource="{Binding Path=SyntaxItems, UpdateSourceTrigger=PropertyChanged}">
+                            <ContextMenu.ItemContainerStyle>
+                                <Style TargetType="{x:Type MenuItem}" BasedOn="{StaticResource ThemedMenuItem}">
+                                    <Setter Property="Header" Value="{Binding Header}"/>
+                                    <Setter Property="Command" Value="{Binding Command}"/>
+                                    <Setter Property="IsChecked" Value="{Binding IsChecked}"/>
+                                    <Setter Property="IsCheckable" Value="{Binding IsCheckable}"/>
+                                </Style>
+                            </ContextMenu.ItemContainerStyle>
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
             </StackPanel>
 
             <Border DockPanel.Dock="Top"
