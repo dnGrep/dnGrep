@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!-- syntaxdefinition for C/C++ 2001 by Andrea Paatz and Mike Krueger -->
 <!-- converted to AvalonEdit format by Siegfried Pammer in 2010 -->
-<SyntaxDefinition name="C++" extensions=".c;.h;.cc;.cpp;.hpp;.rc" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+<SyntaxDefinition name="C++" extensions=".c;.h;.cc;.cpp;.hpp" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
   <Color name="Digits" foreground="#FF202020" />
   <Color name="Comment" foreground="#FF39A839" />
   <Color name="Punctuation" foreground="#FF202020" />

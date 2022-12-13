@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -9,7 +10,6 @@ using System.Windows.Input;
 using dnGREP.Common;
 using dnGREP.Localization;
 using dnGREP.Localization.Properties;
-using dnGREP.WPF.Properties;
 using ICSharpCode.AvalonEdit.Highlighting;
 
 namespace dnGREP.WPF
@@ -28,9 +28,27 @@ namespace dnGREP.WPF
 
         public ReplaceViewModel()
         {
-            Highlighters = ThemedHighlightingManager.Instance.HighlightingNames.ToList();
-            Highlighters.Sort();
-            Highlighters.Insert(0, Resources.Replace_SyntaxNone);
+            var items = ThemedHighlightingManager.Instance.HighlightingNames;
+            var grouping = items.OrderBy(s => s)
+                .GroupBy(s => s[0])
+                .Select(g => new { g.Key, Items = g.ToArray() });
+
+            string noneItem = Resources.Replace_SyntaxNone;
+            SyntaxItems.Add(new MenuItemViewModel(noneItem, true,
+                new RelayCommand(p => CurrentSyntax = noneItem)));
+
+            foreach (var group in grouping)
+            {
+                var parent = new MenuItemViewModel(group.Key.ToString(), null);
+                SyntaxItems.Add(parent);
+
+                foreach (var child in group.Items)
+                {
+                    parent.Children.Add(new MenuItemViewModel(child, true,
+                        new RelayCommand(p => CurrentSyntax = child)));
+                }
+            }
+
             CurrentSyntax = Resources.Replace_SyntaxNone;
             ApplicationFontFamily = GrepSettings.Instance.Get<string>(GrepSettings.Key.ApplicationFontFamily);
             ReplaceFormFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.ReplaceFormFontSize);
@@ -288,7 +306,24 @@ namespace dnGREP.WPF
             }
         }
 
-        public List<string> Highlighters { get; private set; }
+        private void SelectCurrentSyntax(string syntaxName)
+        {
+            // creates a radio group for all the syntax context menu items
+            foreach (var item in SyntaxItems)
+            {
+                if (item.IsCheckable)
+                {
+                    item.IsChecked = item.Header.Equals(syntaxName);
+                }
+
+                foreach (var child in item.Children)
+                {
+                    child.IsChecked = child.Header.Equals(syntaxName);
+                }
+            }
+        }
+
+        public ObservableCollection<MenuItemViewModel> SyntaxItems { get; } = new ObservableCollection<MenuItemViewModel>();
 
         public Encoding Encoding { get; private set; }
 
@@ -455,6 +490,7 @@ namespace dnGREP.WPF
                     return;
 
                 currentSyntax = value;
+                SelectCurrentSyntax(currentSyntax);
                 base.OnPropertyChanged(nameof(CurrentSyntax));
             }
         }

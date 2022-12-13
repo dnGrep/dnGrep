@@ -1,25 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Xml;
+using dnGREP.Common;
 using ICSharpCode.AvalonEdit.Highlighting;
 using ICSharpCode.AvalonEdit.Highlighting.Xshd;
+using NLog;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace dnGREP.WPF
 {
     public class ThemedHighlightingManager : IHighlightingDefinitionReferenceResolver
     {
         public static ThemedHighlightingManager Instance { get; } = new ThemedHighlightingManager();
-
-        private enum Mode { Normal, Inverted, Runtime }
-        private Mode mode;
+        private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
         private readonly object lockObj = new object();
-        private readonly Dictionary<string, IHighlightingDefinition> normalHighlightingsByName = new Dictionary<string, IHighlightingDefinition>();
-        private readonly Dictionary<string, IHighlightingDefinition> normalHighlightingsByExtension = new Dictionary<string, IHighlightingDefinition>(StringComparer.OrdinalIgnoreCase);
-        private readonly Dictionary<string, IHighlightingDefinition> invertedHighlightingsByName = new Dictionary<string, IHighlightingDefinition>();
-        private readonly Dictionary<string, IHighlightingDefinition> invertedHighlightingsByExtension = new Dictionary<string, IHighlightingDefinition>(StringComparer.OrdinalIgnoreCase);
+        private readonly List<SyntaxDefinition> syntaxDefinitions = new List<SyntaxDefinition>();
+        private readonly Dictionary<string, string> extensionToNameMap = new Dictionary<string, string>();
+        private readonly HashSet<string> loadQueue = new HashSet<string>();
+
+        private readonly Dictionary<string, Lazy<IHighlightingDefinition>> normalHighlightingsByName = new Dictionary<string, Lazy<IHighlightingDefinition>>();
+        private readonly Dictionary<string, Lazy<IHighlightingDefinition>> invertedHighlightingsByName = new Dictionary<string, Lazy<IHighlightingDefinition>>();
 
         private ThemedHighlightingManager()
         {
@@ -34,7 +39,9 @@ namespace dnGREP.WPF
             {
                 lock (lockObj)
                 {
-                    return normalHighlightingsByName.Values.Select(r => r.Name);
+                    return syntaxDefinitions
+                        .Where(r => !string.IsNullOrEmpty(r.Name) && r.Extensions.Any())
+                        .Select(r => r.Name);
                 }
             }
         }
@@ -47,19 +54,30 @@ namespace dnGREP.WPF
         {
             lock (lockObj)
             {
-                bool invertColors = mode == Mode.Normal ? false : mode == Mode.Inverted ? true :
-                    (bool)Application.Current.Resources["AvalonEdit.SyntaxColor.Invert"];
+                IHighlightingDefinition highlighting = null;
+
+                if (loadQueue.Contains(name))
+                {
+                    throw new InvalidOperationException("Tried to create a highlighting definition recursively. Make sure the are no cyclic references between the highlighting definitions.");
+                }
+
+                loadQueue.Add(name);
+
+                bool invertColors = (bool)Application.Current.Resources["AvalonEdit.SyntaxColor.Invert"];
                 if (invertColors)
                 {
-                    if (invertedHighlightingsByName.TryGetValue(name, out IHighlightingDefinition definition))
-                        return definition;
+                    if (invertedHighlightingsByName.TryGetValue(name, out Lazy<IHighlightingDefinition> definition))
+                        highlighting = definition.Value;
                 }
                 else
                 {
-                    if (normalHighlightingsByName.TryGetValue(name, out IHighlightingDefinition definition))
-                        return definition;
+                    if (normalHighlightingsByName.TryGetValue(name, out Lazy<IHighlightingDefinition> definition))
+                        highlighting = definition.Value;
                 }
-                return null;
+
+                loadQueue.Remove(name);
+
+                return highlighting;
             }
         }
 
@@ -72,76 +90,166 @@ namespace dnGREP.WPF
             lock (lockObj)
             {
                 string key = extension.ToLowerInvariant();
-                bool invertColors = mode == Mode.Normal ? false : mode == Mode.Inverted ? true :
-                    (bool)Application.Current.Resources["AvalonEdit.SyntaxColor.Invert"];
-                if (invertColors)
+                if (extensionToNameMap.TryGetValue(key, out string name))
                 {
-                    if (invertedHighlightingsByExtension.TryGetValue(key, out IHighlightingDefinition definition))
-                        return definition;
+                    return GetDefinition(name);
                 }
-                else
-                {
-                    if (normalHighlightingsByExtension.TryGetValue(key, out IHighlightingDefinition definition))
-                        return definition;
-                }
-                return null;
             }
+            return null;
         }
 
         public void Initialize()
         {
-            bool invertColors = false;
-            mode = Mode.Normal;
-            for (int idx = 0; idx < 2; idx++)
-            {
-                RegisterHighlighting("XmlDoc", null, "XmlDoc.xshd", invertColors);
-                RegisterHighlighting("C#", new[] { ".cs" }, "CSharp-Mode.xshd", invertColors);
-
-                RegisterHighlighting("JavaScript", (".js;.cjs;.mjs;.iced;.liticed;.coffee;.litcoffee;" +
-                                             ".ts;.tsx;.ls;.es;.es6;.sjs;.eg").Split(';'),
-                                             "JavaScript-Mode.xshd", invertColors);
-                RegisterHighlighting("HTML", new[] { ".htm", ".html", ".cshtml", ".vbhtml" }, "HTML-Mode.xshd", invertColors);
-                RegisterHighlighting("ASP/XHTML", new[] { ".asp", ".aspx", ".asax", ".asmx", ".ascx", ".master" }, "ASPX.xshd", invertColors);
-                RegisterHighlighting("Boo", new[] { ".boo" }, "Boo.xshd", invertColors);
-                RegisterHighlighting("Coco", new[] { ".atg" }, "Coco-Mode.xshd", invertColors);
-                RegisterHighlighting("CSS", new[] { ".css" }, "CSS-Mode.xshd", invertColors);
-                RegisterHighlighting("C++", new[] { ".c", ".h", ".cc", ".cpp", ".hpp" }, "CPP-Mode.xshd", invertColors);
-                RegisterHighlighting("Java", new[] { ".java", ".scala" }, "Java-Mode.xshd", invertColors);
-                RegisterHighlighting("Patch", new[] { ".patch", ".diff" }, "Patch-Mode.xshd", invertColors);
-                RegisterHighlighting("PowerShell", new[] { ".ps1", ".psm1", ".psd1" }, "PowerShell.xshd", invertColors);
-                RegisterHighlighting("PHP", new[] { ".php", ".php3", ".php4", ".php5", ".phtml" }, "PHP-Mode.xshd", invertColors);
-                RegisterHighlighting("Python", new[] { ".py", ".pyw" }, "Python-Mode.xshd", invertColors);
-                RegisterHighlighting("SQL", new[] { ".sql", ".pks", ".pkb" }, "Sql-Mode.xshd", invertColors);
-                RegisterHighlighting("TeX", new[] { ".tex" }, "Tex-Mode.xshd", invertColors);
-                RegisterHighlighting("TSQL", new[] { ".sql" }, "TSQL-Mode.xshd", invertColors);
-                RegisterHighlighting("VBNET", new[] { ".vb" }, "VB-Mode.xshd", invertColors);
-                RegisterHighlighting("XML", (".xml;.xsl;.xslt;.xsd;.manifest;.config;.addin;" +
-                                         ".xshd;.wxs;.wxi;.wxl;.proj;.csproj;.vbproj;.ilproj;" +
-                                         ".booproj;.build;.xfrm;.targets;.xaml;.xpt;" +
-                                         ".xft;.map;.wsdl;.disco;.ps1xml;.nuspec").Split(';'),
-                                         "XML-Mode.xshd", invertColors);
-                RegisterHighlighting("MarkDown", new[] { ".md", ".markdown", ".mdown", ".mkdn", ".mkd",
-                                        ".mdwn", ".mdtxt", ".mdtext", ".rmd"}, 
-                                        "MarkDown-Mode.xshd", invertColors);
-                RegisterHighlighting("Lisp", new[] { ".lisp", ".lsp", ".cl", ".mnl", ".dcl" }, "Lisp-Mode.xshd", invertColors);
-                RegisterHighlighting("Json", new[] { ".json" }, "Json.xshd", invertColors);
-                RegisterHighlighting("Yaml", new[] { ".yml", ".yaml" }, "Yaml.xshd", invertColors);
-                RegisterHighlighting("Script", new[] { ".gsc" }, "Script-Mode.xshd", invertColors);
-
-                invertColors = true;
-                mode = Mode.Inverted;
-            }
-            mode = Mode.Runtime;
+            InitializeUserSyntaxDefinitions();
+            InitializeSyntaxDefinitions();
         }
 
-        private IHighlightingDefinition LoadHighlightingDefinition(string resourceName)
+        private void InitializeSyntaxDefinitions()
         {
-            string fullName = string.Empty;
+            var type = typeof(ThemedHighlightingManager);
+            foreach (string name in type.Assembly.GetManifestResourceNames()
+                .Where(n => n.EndsWith(".xshd")))
+            {
+                using (var stream = type.Assembly.GetManifestResourceStream(name))
+                using (var reader = new XmlTextReader(stream))
+                {
+                    var xshd = HighlightingLoader.LoadXshd(reader);
+                    if (!string.IsNullOrEmpty(xshd.Name))
+                    {
+                        var extensions = xshd.Extensions
+                            .Select(s => s.TrimStart('*').ToLowerInvariant()).ToArray();
+                        var syntax = new SyntaxDefinition(xshd.Name, name, extensions);
+                        syntaxDefinitions.Add(syntax);
+
+                        RegisterHighlighting(syntax);
+
+                        foreach (var extension in extensions)
+                        {
+                            if (!extensionToNameMap.ContainsKey(extension))
+                            {
+                                extensionToNameMap.Add(extension, xshd.Name);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void InitializeUserSyntaxDefinitions()
+        {
+            string dataFolder = Utils.GetDataFolderPath();
+            if (!Directory.Exists(dataFolder))
+            {
+                return;
+            }
+
+            foreach (string fileName in Directory.GetFiles(dataFolder, "*.xshd", SearchOption.AllDirectories))
+            {
+                try
+                {
+                    using (TextReader textReader = new StreamReader(fileName))
+                    using (XmlReader reader = XmlReader.Create(textReader))
+                    {
+                        XshdSyntaxDefinition xshd = HighlightingLoader.LoadXshd(reader);
+                        if (string.IsNullOrEmpty(xshd.Name))
+                        {
+                            logger.Error($"Failed to load user syntax file '{fileName}': SyntaxDefinition name is missing.");
+                        }
+                        else
+                        {
+                            var existing = syntaxDefinitions.FirstOrDefault(s => s.Name == xshd.Name);
+                            if (existing != null)
+                            {
+                                syntaxDefinitions.Remove(existing);
+                            }
+                            var extensions = xshd.Extensions
+                                .Select(s => s.TrimStart('*').ToLowerInvariant()).ToArray();
+                            var syntax = new SyntaxDefinition(xshd.Name, fileName, extensions);
+                            syntaxDefinitions.Add(syntax);
+
+                            RegisterHighlighting(syntax);
+
+                            foreach (var extension in extensions)
+                            {
+                                if (!extensionToNameMap.ContainsKey(extension))
+                                {
+                                    extensionToNameMap.Add(extension, xshd.Name);
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    logger.Error(ex, $"Failed to load user syntax file '{fileName}': {ex.Message}");
+                }
+            }
+        }
+
+        private void RegisterHighlighting(SyntaxDefinition syntax)
+        {
+            if (syntax == null)
+                return;
+
+            lock (lockObj)
+            {
+                if (!normalHighlightingsByName.ContainsKey(syntax.Name))
+                {
+                    normalHighlightingsByName.Add(syntax.Name,
+                        new Lazy<IHighlightingDefinition>(() => LoadHighlightingDefinition(syntax, false)));
+                }
+
+                if (!invertedHighlightingsByName.ContainsKey(syntax.Name))
+                {
+                    invertedHighlightingsByName.Add(syntax.Name,
+                        new Lazy<IHighlightingDefinition>(() => LoadHighlightingDefinition(syntax, true)));
+                }
+            }
+        }
+
+        private IHighlightingDefinition LoadHighlightingDefinition(SyntaxDefinition syntax, bool invertColors)
+        {
+            IHighlightingDefinition highlighting;
+            if (syntax.IsEmbededResource)
+            {
+                highlighting = LoadResourceHighlightingDefinition(syntax.FileName);
+            }
+            else
+            {
+                highlighting = LoadFileHighlightingDefinition(syntax.FileName);
+            }
+
+            if (highlighting != null && invertColors)
+            {
+                ColorInverter.TranslateThemeColors(highlighting);
+            }
+
+            return highlighting;
+        }
+
+        private IHighlightingDefinition LoadFileHighlightingDefinition(string fileName)
+        {
+            try
+            {
+                using (TextReader textReader = new StreamReader(fileName))
+                using (XmlReader reader = XmlReader.Create(textReader))
+                {
+                    return HighlightingLoader.Load(reader, this);
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, $"Failed to load user syntax file [{fileName}]: {ex.Message}");
+            }
+            return null;
+        }
+
+        private IHighlightingDefinition LoadResourceHighlightingDefinition(string resourceName)
+        {
             try
             {
                 var type = typeof(ThemedHighlightingManager);
-                fullName = type.Namespace + @".Resources." + resourceName;
-                using (var stream = type.Assembly.GetManifestResourceStream(fullName))
+                using (var stream = type.Assembly.GetManifestResourceStream(resourceName))
                 using (var reader = new XmlTextReader(stream))
                 {
                     return HighlightingLoader.Load(reader, this);
@@ -149,61 +257,26 @@ namespace dnGREP.WPF
             }
             catch (Exception ex)
             {
-                string msg = ex.Message;
+                logger.Error(ex, $"Failed to load syntax file [{resourceName}]: {ex.Message}");
             }
             return null;
         }
+    }
 
-        private void RegisterHighlighting(string name, string[] extensions, string resourceName, bool invertColors)
+    public class SyntaxDefinition
+    {
+        public SyntaxDefinition(string name, string fileName, string[] extensions)
         {
-            if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentNullException("name");
-            if (string.IsNullOrWhiteSpace(resourceName))
-                throw new ArgumentNullException("resourceName");
-
-            IHighlightingDefinition highlighting = LoadHighlightingDefinition(resourceName);
-
-            if (highlighting == null)
-                return;
-
-            if (invertColors)
-            {
-                ColorInverter.TranslateThemeColors(highlighting);
-            }
-
-            lock (lockObj)
-            {
-                if (invertColors)
-                {
-                    if (name != null)
-                    {
-                        invertedHighlightingsByName[name] = highlighting;
-                    }
-                    if (extensions != null)
-                    {
-                        foreach (string ext in extensions)
-                        {
-                            invertedHighlightingsByExtension[ext] = highlighting;
-                        }
-                    }
-                }
-                else
-                {
-                    if (name != null)
-                    {
-                        normalHighlightingsByName[name] = highlighting;
-                    }
-                    if (extensions != null)
-                    {
-                        foreach (string ext in extensions)
-                        {
-                            normalHighlightingsByExtension[ext] = highlighting;
-                        }
-                    }
-                }
-            }
+            Name = name;
+            FileName = fileName;
+            IsEmbededResource = !Path.IsPathRooted(fileName);
+            Extensions = extensions ?? new string[0];
         }
 
-
+        public string Name { get; private set; }
+        public string FileName { get; private set; }
+        public bool IsEmbededResource { get; private set; }
+        public string[] Extensions { get; private set; }
     }
+
 }

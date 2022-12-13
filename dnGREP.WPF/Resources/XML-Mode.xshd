@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<SyntaxDefinition name="XML" extensions=".aml;.xml;.xsl;.xslt;.xsd;.manifest;.config;.addin;.xshd;.wxs;.wxi;.wxl;.proj;.csproj;.drproj;.vbproj;.ilproj;.booproj;.build;.xfrm;.targets;.xaml;.xpt;.xft;.map;.wsdl;.disco;.ps1xml;.nuspec;.resx;.StyleCop" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+<SyntaxDefinition name="XML" extensions=".aml;.xml;.xsl;.xslt;.xsd;.manifest;.config;.addin;.xshd;.wxs;.wxi;.wxl;.proj;.csproj;.drproj;.vbproj;.ilproj;.booproj;.build;.xfrm;.targets;.xaml;.xpt;.xft;.map;.wsdl;.disco;.ps1xml;.nuspec;.resx;.syn;.lang;.user;.StyleCop" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
   <Color name="Comment"        foreground="#FF39A839" exampleText="&lt;!-- comment --&gt;" />
   <Color name="CData"          foreground="#FFC45D18" exampleText="&lt;![CDATA[data]]&gt;" />
   <Color name="DocType"        foreground="#FF003E70" exampleText="&lt;!DOCTYPE rootElement&gt;" />

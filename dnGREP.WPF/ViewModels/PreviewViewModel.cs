@@ -32,8 +32,7 @@ namespace dnGREP.WPF
 
             TranslationSource.Instance.CurrentCultureChanged += (s, e) =>
             {
-                bool resetCurrentSyntax = CurrentSyntax == Highlighters[0];
-                Highlighters[0] = Resources.Preview_SyntaxNone;
+                bool resetCurrentSyntax = CurrentSyntax == SyntaxItems[0].Header;
                 if (resetCurrentSyntax)
                 {
                     CurrentSyntax = Resources.Preview_SyntaxNone;
@@ -43,16 +42,45 @@ namespace dnGREP.WPF
 
         private void InitializeHighlighters()
         {
-            var items = ThemedHighlightingManager.Instance.HighlightingNames.ToList();
-            items.Sort();
-            items.Insert(0, Resources.Preview_SyntaxNone);
-            Highlighters.Clear();
-            foreach (var item in items)
+            var items = ThemedHighlightingManager.Instance.HighlightingNames;
+            var grouping = items.OrderBy(s => s)
+                .GroupBy(s => s[0])
+                .Select(g => new { g.Key, Items = g.ToArray() });
+
+            string noneItem = Resources.Preview_SyntaxNone;
+            SyntaxItems.Add(new MenuItemViewModel(noneItem, true,
+                new RelayCommand(p => CurrentSyntax = noneItem)));
+
+            foreach (var group in grouping)
             {
-                Highlighters.Add(item);
+                var parent = new MenuItemViewModel(group.Key.ToString(), null);
+                SyntaxItems.Add(parent);
+
+                foreach (var child in group.Items)
+                {
+                    parent.Children.Add(new MenuItemViewModel(child, true,
+                        new RelayCommand(p => CurrentSyntax = child)));
+                }
             }
 
             CurrentSyntax = Resources.Preview_SyntaxNone;
+        }
+
+        private void SelectCurrentSyntax(string syntaxName)
+        {
+            // creates a radio group for all the syntax context menu items
+            foreach (var item in SyntaxItems)
+            {
+                if (item.IsCheckable)
+                {
+                    item.IsChecked = item.Header.Equals(syntaxName);
+                }
+
+                foreach (var child in item.Children)
+                {
+                    child.IsChecked = child.Header.Equals(syntaxName);
+                }
+            }
         }
 
         public event EventHandler ShowPreview;
@@ -95,11 +123,12 @@ namespace dnGREP.WPF
                     return;
 
                 currentSyntax = value;
+                SelectCurrentSyntax(currentSyntax);
                 base.OnPropertyChanged(nameof(CurrentSyntax));
             }
         }
 
-        public ObservableCollection<string> Highlighters { get; } = new ObservableCollection<string>();
+        public ObservableCollection<MenuItemViewModel> SyntaxItems { get; } = new ObservableCollection<MenuItemViewModel>();
 
         public ObservableCollection<Marker> Markers { get; } = new ObservableCollection<Marker>();
 

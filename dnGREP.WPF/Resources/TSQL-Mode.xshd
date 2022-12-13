@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<SyntaxDefinition name="TSQL" extensions=".sql" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+<SyntaxDefinition name="TSQL" extensions="" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
   <Color name="Comment" foreground="Green" exampleText="-- comment" />
   <Color name="Char" foreground="Red" exampleText="name = 'abc'"/>
   <Color name="Keywords" fontWeight="bold" foreground="#FF296FA9" exampleText="SELECT FROM"/>

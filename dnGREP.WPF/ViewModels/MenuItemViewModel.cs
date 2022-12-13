@@ -22,6 +22,12 @@ namespace dnGREP.WPF
             MainFormFontSize = GrepSettings.Instance.Get<double>(GrepSettings.Key.MainFormFontSize);
         }
 
+        public MenuItemViewModel(string header, bool isCheckable, RelayCommand relayCommand)
+            : this(header, relayCommand)
+        {
+            IsCheckable = isCheckable;
+        }
+
         public ObservableCollection<MenuItemViewModel> Children { get; } = new ObservableCollection<MenuItemViewModel>();
 
 
@@ -54,6 +60,38 @@ namespace dnGREP.WPF
 
                 header = value;
                 OnPropertyChanged(nameof(Header));
+            }
+        }
+
+        private bool isChecked = false;
+        public bool IsChecked
+        {
+            get { return isChecked; }
+            set
+            {
+                if (isChecked == value)
+                {
+                    return;
+                }
+
+                isChecked = value;
+                OnPropertyChanged(nameof(IsChecked));
+            }
+        }
+
+        private bool isCheckable = false;
+        public bool IsCheckable
+        {
+            get { return isCheckable; }
+            set
+            {
+                if (isCheckable == value)
+                {
+                    return;
+                }
+
+                isCheckable = value;
+                OnPropertyChanged(nameof(IsCheckable));
             }
         }
 

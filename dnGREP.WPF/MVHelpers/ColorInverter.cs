@@ -1,8 +1,8 @@
-﻿using ICSharpCode.AvalonEdit.Highlighting;
-using System;
+﻿using System;
 using System.IO;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using ICSharpCode.AvalonEdit.Highlighting;
 
 namespace dnGREP.WPF
 {
@@ -19,13 +19,13 @@ namespace dnGREP.WPF
                     {
                         string hex = item.Foreground.ToString();
                         Color c = (Color)ColorConverter.ConvertFromString(hex);
-                        item.Foreground = new SimpleHighlightingBrush(Invert(c));
+                        item.Foreground = new SimpleHighlightingBrush(ShiftAndInvert(c));
                     }
                     else if (item.Background != null)
                     {
                         string hex = item.Background.ToString();
                         Color c = (Color)ColorConverter.ConvertFromString(hex);
-                        item.Background = new SimpleHighlightingBrush(Invert(c));
+                        item.Background = new SimpleHighlightingBrush(ShiftAndInvert(c));
                     }
                 }
             }
@@ -37,13 +37,13 @@ namespace dnGREP.WPF
                     {
                         string hex = item.Color.Foreground.ToString();
                         Color c = (Color)ColorConverter.ConvertFromString(hex);
-                        item.Color.Foreground = new SimpleHighlightingBrush(Invert(c));
+                        item.Color.Foreground = new SimpleHighlightingBrush(ShiftAndInvert(c));
                     }
                     else if (item.Color.Background != null)
                     {
                         string hex = item.Color.Background.ToString();
                         Color c = (Color)ColorConverter.ConvertFromString(hex);
-                        item.Color.Background = new SimpleHighlightingBrush(Invert(c));
+                        item.Color.Background = new SimpleHighlightingBrush(ShiftAndInvert(c));
                     }
                 }
             }
@@ -55,13 +55,13 @@ namespace dnGREP.WPF
                     {
                         string hex = item.SpanColor.Foreground.ToString();
                         Color c = (Color)ColorConverter.ConvertFromString(hex);
-                        item.SpanColor.Foreground = new SimpleHighlightingBrush(Invert(c));
+                        item.SpanColor.Foreground = new SimpleHighlightingBrush(ShiftAndInvert(c));
                     }
                     else if (item.SpanColor.Background != null)
                     {
                         string hex = item.SpanColor.Background.ToString();
                         Color c = (Color)ColorConverter.ConvertFromString(hex);
-                        item.SpanColor.Background = new SimpleHighlightingBrush(Invert(c));
+                        item.SpanColor.Background = new SimpleHighlightingBrush(ShiftAndInvert(c));
                     }
                 }
                 if (item.StartColor != null && !item.StartColor.IsFrozen && string.IsNullOrWhiteSpace(item.StartColor.Name))
@@ -70,13 +70,13 @@ namespace dnGREP.WPF
                     {
                         string hex = item.StartColor.Foreground.ToString();
                         Color c = (Color)ColorConverter.ConvertFromString(hex);
-                        item.StartColor.Foreground = new SimpleHighlightingBrush(Invert(c));
+                        item.StartColor.Foreground = new SimpleHighlightingBrush(ShiftAndInvert(c));
                     }
                     else if (item.StartColor.Background != null)
                     {
                         string hex = item.StartColor.Background.ToString();
                         Color c = (Color)ColorConverter.ConvertFromString(hex);
-                        item.StartColor.Background = new SimpleHighlightingBrush(Invert(c));
+                        item.StartColor.Background = new SimpleHighlightingBrush(ShiftAndInvert(c));
                     }
                 }
                 if (item.EndColor != null && !item.EndColor.IsFrozen && string.IsNullOrWhiteSpace(item.EndColor.Name))
@@ -85,26 +85,53 @@ namespace dnGREP.WPF
                     {
                         string hex = item.EndColor.Foreground.ToString();
                         Color c = (Color)ColorConverter.ConvertFromString(hex);
-                        item.EndColor.Foreground = new SimpleHighlightingBrush(Invert(c));
+                        item.EndColor.Foreground = new SimpleHighlightingBrush(ShiftAndInvert(c));
                     }
                     else if (item.EndColor.Background != null)
                     {
                         string hex = item.EndColor.Background.ToString();
                         Color c = (Color)ColorConverter.ConvertFromString(hex);
-                        item.EndColor.Background = new SimpleHighlightingBrush(Invert(c));
+                        item.EndColor.Background = new SimpleHighlightingBrush(ShiftAndInvert(c));
                     }
                 }
             }
         }
 
-        private static HighlightingBrush Invert(HighlightingBrush brush)
+        public static Color ShiftAndInvert(Color color)
         {
-            if (brush != null)
+            return Invert(ShiftFromBlue(color));
+        }
+
+        /// <summary>
+        /// Shifts colors away from blue toward cyan or magenta
+        /// </summary>
+        /// <remarks>
+        /// Blue on a dark background has a very low contrast. To make it more
+        /// legible, shift blues toward cyan or magenta.
+        /// </remarks>
+        /// <param name="color"></param>
+        /// <returns></returns>
+        public static Color ShiftFromBlue(Color color)
+        {
+            var hsv = ConvertToHSV(color);
+            double hue = hsv.Item1;
+            const double maxHue = 360;
+            const double low = 180 / maxHue;
+            const double mid = 240 / maxHue;
+            const double hi = 300 / maxHue;
+            const double factor = 2;
+
+            if (hue > low && hue <= mid)
             {
-                Color c = (Color)ColorConverter.ConvertFromString(brush.ToString());
-                return new SimpleHighlightingBrush(Invert(c));
+                hue = low + (hue - low) / factor;
+                return ConvertToColor(hue, hsv.Item2, hsv.Item3);
             }
-            return null;
+            else if (hue > mid && hue < hi)
+            {
+                hue = hi - (hi - hue) / factor;
+                return ConvertToColor(hue, hsv.Item2, hsv.Item3);
+            }
+            return color;
         }
 
         //public static Color Invert(Color c)
@@ -122,15 +149,20 @@ namespace dnGREP.WPF
         //    return result;
         //}
 
-        public static Color Invert(Color c)
+        /// <summary>
+        /// Inverts a text color for a white background so it is legible on a black background
+        /// </summary>
+        /// <param name="color"></param>
+        /// <returns></returns>
+        public static Color Invert(Color color)
         {
-            byte shift = (byte)(byte.MaxValue - Math.Min(c.R, Math.Min(c.G, c.B)) - Math.Max(c.R, Math.Max(c.G, c.B)));
+            byte shift = (byte)(byte.MaxValue - Math.Min(color.R, Math.Min(color.G, color.B)) - Math.Max(color.R, Math.Max(color.G, color.B)));
             Color result = new Color
             {
-                A = c.A,
-                R = (byte)(shift + c.R),
-                G = (byte)(shift + c.G),
-                B = (byte)(shift + c.B),
+                A = color.A,
+                R = (byte)(shift + color.R),
+                G = (byte)(shift + color.G),
+                B = (byte)(shift + color.B),
             };
             return result;
         }
@@ -186,6 +218,99 @@ namespace dnGREP.WPF
             }
 
             return bitmapImage;
+        }
+
+        public static Color ConvertToColor(double h, double s, double v)
+        {
+            double r, g, b;
+
+            r = v;   // default to gray
+            g = v;
+            b = v;
+
+            int hi = (int)(h * 6.0);
+            double f = (h * 6.0) - hi;
+            double p = v * (1 - s);
+            double q = v * (1 - f * s);
+            double t = v * (1 - (1 - f) * s);
+
+            switch (hi)
+            {
+                case 0:
+                    r = v;
+                    g = t;
+                    b = p;
+                    break;
+
+                case 1:
+                    r = q;
+                    g = v;
+                    b = p;
+                    break;
+
+                case 2:
+                    r = p;
+                    g = v;
+                    b = t;
+                    break;
+
+                case 3:
+                    r = p;
+                    g = q;
+                    b = v;
+                    break;
+
+                case 4:
+                    r = t;
+                    g = p;
+                    b = v;
+                    break;
+
+                case 5:
+                    r = v;
+                    g = p;
+                    b = q;
+                    break;
+            }
+
+            Color rgb = Color.FromArgb(255,
+                System.Convert.ToByte(r * 255.0f),
+                System.Convert.ToByte(g * 255.0f),
+                System.Convert.ToByte(b * 255.0f));
+
+            return rgb;
+        }
+
+        public static Tuple<double, double, double> ConvertToHSV(Color c)
+        {
+            double r = c.R / 255.0;
+            double g = c.G / 255.0;
+            double b = c.B / 255.0;
+
+            double max = Math.Max(r, Math.Max(g, b));
+            double min = Math.Min(r, Math.Min(g, b));
+            double delta = max - min;
+
+            double hue, sat, val;
+            if (max == min)
+                hue = 0.0;
+            else if (max == r)
+                hue = ((60 * ((g - b) / delta)) + 360) % 360;
+            else if (max == g)
+                hue = (60 * ((b - r) / delta)) + 120;
+            else
+                hue = (60 * ((r - g) / delta)) + 240;
+
+            hue /= 360;
+
+            if (max == 0.0)
+                sat = 0.0;
+            else
+                sat = delta / max;
+
+            val = max;
+
+            return new Tuple<double, double, double>(hue, sat, val);
         }
     }
 }

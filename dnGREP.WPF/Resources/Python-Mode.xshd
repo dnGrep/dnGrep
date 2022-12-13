@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<SyntaxDefinition name="Python" extensions=".py" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+<SyntaxDefinition name="Python" extensions=".py;.pyw" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
   <Color name="Digits"                      foreground="#FF202020"/>
   <Color name="DocComment"                  foreground="#FF39A839" />
   <Color name="LineComment"                 foreground="#FF39A839" />
