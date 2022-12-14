@@ -45,7 +45,7 @@ namespace dnGREP.Localization
                 //{ "th", "ไทย" },
                 //{ "tr", "Türkçe" },
                 { "zh-CN", "简体中文" },
-                { "zh-Hant", "中文" },
+                { "zh-Hant", "繁體中文" },
             };
 
         public void SetCulture(string ietfLanguageTag)
