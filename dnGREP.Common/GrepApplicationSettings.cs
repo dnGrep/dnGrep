@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -892,6 +893,80 @@ namespace dnGREP.Common
             }
 
             return default;
+        }
+
+        public IList<string> GetExtensionList(string nameKey, IList<string> defaultExtensions)
+        {
+            nameKey = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(nameKey);
+            string addKey = "Add" + nameKey + "Extensions";
+            string remKey = "Rem" + nameKey + "Extensions";
+            string listKey = nameKey + "Extensions";
+
+            List<string> list;
+
+            if (ContainsKey(listKey))
+            {
+                string csv = Get<string>(listKey).Trim();
+                string[] split = csv.Split(new char[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                var items = split.Select(s => s.TrimStart('.').Trim());
+
+                list = new List<string>(items);
+            }
+            else
+            {
+                list = new List<string>(defaultExtensions);
+
+                if (ContainsKey(addKey))
+                {
+                    var addCsv = Get<string>(addKey).Trim();
+                    if (!string.IsNullOrEmpty(addCsv))
+                    {
+                        var parts = addCsv.Split(new char[] { ',', ';', ' ' },
+                            StringSplitOptions.RemoveEmptyEntries)
+                            .Select(s => s.Trim(' ', '.').ToLower());
+                        list.AddRange(parts);
+                    }
+                }
+
+                if (ContainsKey(remKey))
+                {
+                    var remCsv = Get<string>(remKey).Trim();
+                    var parts = remCsv.Split(new char[] { ',', ';', ' ' },
+                          StringSplitOptions.RemoveEmptyEntries)
+                          .Select(s => s.Trim(' ', '.').ToLower());
+                    foreach (var ext in parts)
+                    {
+                        if (list.Contains(ext))
+                        {
+                            list.Remove(ext);
+                        }
+                    }
+                }
+            }
+
+            return list;
+        }
+
+        public void SetExtensions(string nameKey, string extensions)
+        {
+            nameKey = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(nameKey);
+            string addKey = "Add" + nameKey + "Extensions";
+            string remKey = "Rem" + nameKey + "Extensions";
+            string listKey = nameKey + "Extensions";
+
+            Set(listKey, CleanExtensions(extensions));
+            settings.Remove(addKey);
+            settings.Remove(remKey);
+        }
+
+        private string CleanExtensions(string extensions)
+        {
+            if (string.IsNullOrWhiteSpace(extensions))
+                return string.Empty;
+
+            string[] split = extensions.Split(new char[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var cleaned = split.Select(s => s.TrimStart('.').Trim());
+            return string.Join(",", cleaned);
         }
     }
 
