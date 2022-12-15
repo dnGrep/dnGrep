@@ -1586,10 +1586,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>应用程序字体</value>
     <comment>Options dialog, fonts group header label</comment>
   </data>
-  <data name="Options_ArchiveDefault" xml:space="preserve">
-    <value>默认</value>
-    <comment>Options dialog, archive options text input label</comment>
-  </data>
   <data name="Options_ArchiveExtensions" xml:space="preserve">
     <value>扩展:</value>
     <comment>Options dialog, archive options label</comment>
@@ -1761,10 +1757,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_PhoneticSearch" xml:space="preserve">
     <value>注音搜索</value>
     <comment>Options dialog, phonetic group header label</comment>
-  </data>
-  <data name="Options_PluginDefault" xml:space="preserve">
-    <value>默认</value>
-    <comment>Options dialog, plugin options text input label</comment>
   </data>
   <data name="Options_PluginEnabled" xml:space="preserve">
     <value>已启用</value>
@@ -3453,5 +3445,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_SendToRecycleBin" xml:space="preserve">
     <value>发送到回收站</value>
     <comment>Options dialog, delete option label (accel)</comment>
+  </data>
+  <data name="Options_ArchiveReset" xml:space="preserve">
+    <value>重置</value>
+    <comment>Options dialog, Archive extensions button label (accel)</comment>
+  </data>
+  <data name="Options_PluginReset" xml:space="preserve">
+    <value>重置</value>
+    <comment>Options dialog, plug-ins extensions button label (accel)</comment>
   </data>
 </root>
