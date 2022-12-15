@@ -706,13 +706,12 @@
                                 Command="{Binding ResetExtensions}"
                                 Padding="12,1" Margin="20,0" 
                                 HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                                      Margin="0,3,12,3" Height="60" Width="520"
-                                      HorizontalAlignment="Left"
-                                      VerticalScrollBarVisibility="Auto"
-                                      HorizontalScrollBarVisibility="Disabled">
-                            <TextBox Text="{Binding MappedExtensions}" TextWrapping="Wrap"/>
-                        </ScrollViewer>
+                        <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                 Margin="0,3,12,3" Height="60" Width="540"
+                                 HorizontalAlignment="Left"
+                                 Text="{Binding MappedExtensions}" TextWrapping="Wrap"
+                                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
                     </Grid>
                 </GroupBox>
 
