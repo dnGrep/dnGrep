@@ -1254,9 +1254,6 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
   <data name="Options_ApplicationFonts" xml:space="preserve">
     <value>Schriftarten</value>
   </data>
-  <data name="Options_ArchiveDefault" xml:space="preserve">
-    <value>Voreinstellung:</value>
-  </data>
   <data name="Options_ArchiveExtensions" xml:space="preserve">
     <value>Erweiterungen:</value>
   </data>
@@ -1385,9 +1382,6 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
   </data>
   <data name="Options_PhoneticSearch" xml:space="preserve">
     <value>Phonetische Suche</value>
-  </data>
-  <data name="Options_PluginDefault" xml:space="preserve">
-    <value>Voreinstellung:</value>
   </data>
   <data name="Options_PluginEnabled" xml:space="preserve">
     <value>Aktiviert</value>
@@ -2334,5 +2328,13 @@ dnGrep "C:\Programmdateien\dnGrep" t\w*t</value>
   <data name="Scripts_OK" xml:space="preserve">
     <value>OK</value>
     <comment>Script Messages dialog button text</comment>
+  </data>
+  <data name="Options_ArchiveReset" xml:space="preserve">
+    <value>Zurücksetzen</value>
+    <comment>Options dialog, Archive extensions button label (accel)</comment>
+  </data>
+  <data name="Options_PluginReset" xml:space="preserve">
+    <value>Zurücksetzen</value>
+    <comment>Options dialog, plug-ins extensions button label (accel)</comment>
   </data>
 </root>
