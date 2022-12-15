@@ -116,31 +116,39 @@ namespace dnGREP.Common
         {
             if (!Bookmarks.Any()) return null;
 
-            var item = Bookmarks.FirstOrDefault(bk => bk.Equals(bookmark)) ??
+            Bookmark item = null;
 
-                Bookmarks.FirstOrDefault(bk => bk.ApplyFileSourceFilters && bk.FileSourceEquals(bookmark) && 
-                    bk.ApplyFilePropertyFilters && bk.FilePropertiesEquals(bookmark) &&
-                    !bk.ApplyContentSearchFilters) ??
+            item = Bookmarks.FirstOrDefault(bk => bk.Equals(bookmark));
+            if (item != null) return item;
 
-                Bookmarks.FirstOrDefault(bk => bk.ApplyFileSourceFilters && bk.FileSourceEquals(bookmark) && 
-                    bk.ApplyContentSearchFilters && bk.ContentSearchEquals(bookmark) &&
-                    !bk.ApplyFilePropertyFilters) ??
+            item = Bookmarks.FirstOrDefault(bk => bk.ApplyFileSourceFilters && bk.FileSourceEquals(bookmark) &&
+                bk.ApplyFilePropertyFilters && bk.FilePropertiesEquals(bookmark) &&
+                !bk.ApplyContentSearchFilters);
+            if (item != null) return item;
 
-                Bookmarks.FirstOrDefault(bk => bk.ApplyFilePropertyFilters && bk.FilePropertiesEquals(bookmark) &&
-                    bk.ApplyContentSearchFilters && bk.ContentSearchEquals(bookmark) &&
-                    !bk.ApplyFileSourceFilters) ??
+            item = Bookmarks.FirstOrDefault(bk => bk.ApplyFileSourceFilters && bk.FileSourceEquals(bookmark) &&
+                bk.ApplyContentSearchFilters && bk.ContentSearchEquals(bookmark) &&
+                !bk.ApplyFilePropertyFilters);
+            if (item != null) return item;
 
-                Bookmarks.FirstOrDefault(bk => bk.ApplyFileSourceFilters && bk.FileSourceEquals(bookmark) &&
-                    !bk.ApplyFilePropertyFilters &&
-                    !bk.ApplyContentSearchFilters) ??
+            item = Bookmarks.FirstOrDefault(bk => bk.ApplyFilePropertyFilters && bk.FilePropertiesEquals(bookmark) &&
+                bk.ApplyContentSearchFilters && bk.ContentSearchEquals(bookmark) &&
+                !bk.ApplyFileSourceFilters);
+            if (item != null) return item;
 
-                Bookmarks.FirstOrDefault(bk => bk.ApplyFilePropertyFilters && bk.FilePropertiesEquals(bookmark) &&
-                    !bk.ApplyFileSourceFilters &&
-                    !bk.ApplyContentSearchFilters) ??
+            item = Bookmarks.FirstOrDefault(bk => bk.ApplyFileSourceFilters && bk.FileSourceEquals(bookmark) &&
+                !bk.ApplyFilePropertyFilters &&
+                !bk.ApplyContentSearchFilters);
+            if (item != null) return item;
 
-                Bookmarks.FirstOrDefault(bk => bk.ApplyContentSearchFilters && bk.ContentSearchEquals(bookmark) &&
-                    !bk.ApplyFileSourceFilters &&
-                    !bk.ApplyFilePropertyFilters);
+            item = Bookmarks.FirstOrDefault(bk => bk.ApplyFilePropertyFilters && bk.FilePropertiesEquals(bookmark) &&
+                !bk.ApplyFileSourceFilters &&
+                !bk.ApplyContentSearchFilters);
+            if (item != null) return item;
+
+            item = Bookmarks.FirstOrDefault(bk => bk.ApplyContentSearchFilters && bk.ContentSearchEquals(bookmark) &&
+                !bk.ApplyFileSourceFilters &&
+                !bk.ApplyFilePropertyFilters);
 
             return item;
         }
@@ -177,7 +185,7 @@ namespace dnGREP.Common
     {
         private string _id = string.Empty;
 
-        public Bookmark() 
+        public Bookmark()
         {
             if (!BookmarkLibrary.IsDeserializing)
             {
@@ -193,9 +201,9 @@ namespace dnGREP.Common
         [XmlIgnore]
         public int Ordinal { get; set; }
 
-        public string Id 
-        { 
-            get {  return _id; }
+        public string Id
+        {
+            get { return _id; }
             // Setter is public only for XmlSerialization
             set
             {
