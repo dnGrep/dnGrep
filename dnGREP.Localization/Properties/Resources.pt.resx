@@ -925,10 +925,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Tipografia da aplicação</value>
     <comment>Options dialog, Application fonts group header label</comment>
   </data>
-  <data name="Options_ArchiveDefault" xml:space="preserve">
-    <value>Predefinição</value>
-    <comment>Options dialog, archive options text input label</comment>
-  </data>
   <data name="Options_ArchiveExtensions" xml:space="preserve">
     <value>Extensões:</value>
     <comment>Options dialog, archive options label</comment>
@@ -1028,10 +1024,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_PluginOptions" xml:space="preserve">
     <value>Plug-ins</value>
     <comment>Options dialog, Plug-ins group header label</comment>
-  </data>
-  <data name="Options_PluginRemove" xml:space="preserve">
-    <value>Remover</value>
-    <comment>Options dialog, plug-in options text input label</comment>
   </data>
   <data name="Options_PreviewToolForTranslators" xml:space="preserve">
     <value>Ferramenta de pré-visualização para tradutores</value>
@@ -2764,5 +2756,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Scripts_OK" xml:space="preserve">
     <value>OK</value>
     <comment>Script Messages dialog button text</comment>
+  </data>
+  <data name="Options_PluginReset" xml:space="preserve">
+    <value>Repor</value>
+    <comment>Options dialog, plug-ins extensions button label (accel)</comment>
+  </data>
+  <data name="Options_ArchiveReset" xml:space="preserve">
+    <value>Repor</value>
+    <comment>Options dialog, Archive extensions button label (accel)</comment>
   </data>
 </root>
