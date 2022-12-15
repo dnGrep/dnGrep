@@ -1590,10 +1590,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>גופני יישומים</value>
     <comment>Options dialog, Application fonts group header label</comment>
   </data>
-  <data name="Options_ArchiveAdd" xml:space="preserve">
-    <value>הוסף:</value>
-    <comment>Options dialog, archive options text input label</comment>
-  </data>
   <data name="Options_ArchiveDefault" xml:space="preserve">
     <value>ברירת מחדל:</value>
     <comment>Options dialog, archive options text input label</comment>
@@ -1605,10 +1601,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_ArchiveOptions" xml:space="preserve">
     <value>אפשרויות ארכיון</value>
     <comment>Options dialog, Archive files group header label</comment>
-  </data>
-  <data name="Options_ArchiveRemove" xml:space="preserve">
-    <value>הסר:</value>
-    <comment>Options dialog, archive options text input label</comment>
   </data>
   <data name="Options_BrowseFileLocation" xml:space="preserve">
     <value>...</value>
@@ -1786,10 +1778,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>חיפוש פונטי</value>
     <comment>Options dialog, phonetic group header label</comment>
   </data>
-  <data name="Options_PluginAdd" xml:space="preserve">
-    <value>הוסף:</value>
-    <comment>Options dialog, plug-in options text input label</comment>
-  </data>
   <data name="Options_PluginDefault" xml:space="preserve">
     <value>ברירת מחדל:</value>
     <comment>Options dialog, plug-in options text input label</comment>
@@ -1805,10 +1793,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_PluginOptions" xml:space="preserve">
     <value>אפשרויות תוסף</value>
     <comment>Options dialog, Plug-ins group header label</comment>
-  </data>
-  <data name="Options_PluginRemove" xml:space="preserve">
-    <value>הסר:</value>
-    <comment>Options dialog, plug-in options text input label</comment>
   </data>
   <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
     <value>הקש F1 לקבלת עזרה באפשרויות</value>

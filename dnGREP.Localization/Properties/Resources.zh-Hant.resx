@@ -1532,10 +1532,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>應用程式字體</value>
     <comment>Options dialog, Application fonts group header label</comment>
   </data>
-  <data name="Options_ArchiveAdd" xml:space="preserve">
-    <value>增加</value>
-    <comment>Options dialog, archive options text input label</comment>
-  </data>
   <data name="Options_ArchiveDefault" xml:space="preserve">
     <value>預設</value>
     <comment>Options dialog, archive options text input label</comment>
@@ -1547,10 +1543,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_ArchiveOptions" xml:space="preserve">
     <value>壓縮檔檔案</value>
     <comment>Options dialog, Archive files group header label</comment>
-  </data>
-  <data name="Options_ArchiveRemove" xml:space="preserve">
-    <value>移除</value>
-    <comment>Options dialog, archive options text input label</comment>
   </data>
   <data name="Options_BrowseFileLocation" xml:space="preserve">
     <value>…</value>
@@ -1728,10 +1720,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>拼音搜尋</value>
     <comment>Options dialog, phonetic group header label</comment>
   </data>
-  <data name="Options_PluginAdd" xml:space="preserve">
-    <value>增加</value>
-    <comment>Options dialog, plug-in options text input label</comment>
-  </data>
   <data name="Options_PluginDefault" xml:space="preserve">
     <value>預設</value>
     <comment>Options dialog, plug-in options text input label</comment>
@@ -1747,10 +1735,6 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_PluginOptions" xml:space="preserve">
     <value>插件</value>
     <comment>Options dialog, Plug-ins group header label</comment>
-  </data>
-  <data name="Options_PluginRemove" xml:space="preserve">
-    <value>移除</value>
-    <comment>Options dialog, plug-in options text input label</comment>
   </data>
   <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
     <value>按 [F1] 獲得選項相關説明</value>
