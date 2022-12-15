@@ -111,6 +111,9 @@ namespace dnGREP.WPF
         private const string Pattern = "%pattern";
         private const string Match = "%match";
         private const string Column = "%column";
+        private const string ArchiveNameKey = "Archive";
+        private const string Enabledkey = "Enabled";
+        private const string PreviewTextKey = "PreviewText";
         private GrepSettings Settings
         {
             get { return GrepSettings.Instance; }
@@ -1072,14 +1075,17 @@ namespace dnGREP.WPF
             param => LoadResxFile());
 
         public ICommand ResetPdfToTextOptionCommand => new RelayCommand(
-            param => PdfToTextOptions = "-layout -enc UTF-8 -bom");
+            p => PdfToTextOptions = defaultPdfToText,
+            q => !PdfToTextOptions.Equals(defaultPdfToText));
+
+        private const string defaultPdfToText = "-layout -enc UTF-8 -bom";
 
         #endregion
 
         #region Public Methods
 
         /// <summary>
-        /// Saves the customer to the repository.  This method is invoked by the SaveCommand.
+        /// Saves the settings to file.  This method is invoked by the SaveCommand.
         /// </summary>
         public void Save()
         {
@@ -1203,30 +1209,21 @@ namespace dnGREP.WPF
             PdfNumberStyle = Settings.Get<PdfNumberType>(GrepSettings.Key.PdfNumberStyle);
 
             {
-                string nameKey = "Archive";
-                string addKey = "Add" + nameKey + "Extensions";
-                string remKey = "Rem" + nameKey + "Extensions";
+                string extensionList = string.Join(", ", Settings.GetExtensionList(ArchiveNameKey, 
+                    ArchiveDirectory.DefaultExtensions));
 
-                string addCsv = string.Empty;
-                if (GrepSettings.Instance.ContainsKey(addKey))
-                    addCsv = GrepSettings.Instance.Get<string>(addKey).Trim();
-
-                string remCsv = string.Empty;
-                if (GrepSettings.Instance.ContainsKey(remKey))
-                    remCsv = GrepSettings.Instance.Get<string>(remKey).Trim();
-
-                ArchiveOptions = new PluginOptions("Archive", true, false,
-                    string.Join(", ", ArchiveDirectory.DefaultExtensions), addCsv, remCsv);
+                ArchiveOptions = new PluginOptions(ArchiveNameKey, true, false, 
+                    extensionList, string.Join(", ", ArchiveDirectory.DefaultExtensions));
             }
 
             Plugins.Clear();
             foreach (var plugin in GrepEngineFactory.AllPlugins.OrderBy(p => p.Name))
             {
                 string nameKey = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(plugin.Name);
-                string enabledkey = nameKey + "Enabled";
-                string previewTextKey = nameKey + "PreviewText";
-                string addKey = "Add" + nameKey + "Extensions";
-                string remKey = "Rem" + nameKey + "Extensions";
+                string enabledkey = nameKey + Enabledkey;
+                string previewTextKey = nameKey + PreviewTextKey;
+                string extensionList = string.Join(", ", Settings.GetExtensionList(nameKey,
+                    plugin.DefaultExtensions));
 
                 bool isEnabled = true;
                 if (GrepSettings.Instance.ContainsKey(enabledkey))
@@ -1236,16 +1233,10 @@ namespace dnGREP.WPF
                 if (GrepSettings.Instance.ContainsKey(previewTextKey))
                     previewTextEnabled = GrepSettings.Instance.Get<bool>(previewTextKey);
 
-                string addCsv = string.Empty;
-                if (GrepSettings.Instance.ContainsKey(addKey))
-                    addCsv = GrepSettings.Instance.Get<string>(addKey).Trim();
-
-                string remCsv = string.Empty;
-                if (GrepSettings.Instance.ContainsKey(remKey))
-                    remCsv = GrepSettings.Instance.Get<string>(remKey).Trim();
-
                 var pluginOptions = new PluginOptions(
-                    plugin.Name, isEnabled, previewTextEnabled, string.Join(", ", plugin.DefaultExtensions), addCsv, remCsv);
+                    plugin.Name, isEnabled, previewTextEnabled, 
+                    extensionList, string.Join(", ", plugin.DefaultExtensions));
+
                 Plugins.Add(pluginOptions);
             }
         }
@@ -1341,15 +1332,9 @@ namespace dnGREP.WPF
                 }
             }
 
-
             if (ArchiveOptions.IsChanged)
             {
-                string nameKey = "Archive";
-                string addKey = "Add" + nameKey + "Extensions";
-                string remKey = "Rem" + nameKey + "Extensions";
-
-                Settings.Set(addKey, CleanExtensions(ArchiveOptions.AddExtensions));
-                Settings.Set(remKey, CleanExtensions(ArchiveOptions.RemExtensions));
+                Settings.SetExtensions(ArchiveNameKey, ArchiveOptions.MappedExtensions);
 
                 ArchiveOptions.SetUnchanged();
                 ArchiveDirectory.Reinitialize();
@@ -1359,15 +1344,12 @@ namespace dnGREP.WPF
             foreach (var plugin in Plugins)
             {
                 string nameKey = CultureInfo.InvariantCulture.TextInfo.ToTitleCase(plugin.Name);
-                string enabledkey = nameKey + "Enabled";
-                string previewTextKey = nameKey + "PreviewText";
-                string addKey = "Add" + nameKey + "Extensions";
-                string remKey = "Rem" + nameKey + "Extensions";
+                string enabledkey = nameKey + Enabledkey;
+                string previewTextKey = nameKey + PreviewTextKey;
 
                 Settings.Set(enabledkey, plugin.IsEnabled);
                 Settings.Set(previewTextKey, plugin.PreviewTextEnabled);
-                Settings.Set(addKey, CleanExtensions(plugin.AddExtensions));
-                Settings.Set(remKey, CleanExtensions(plugin.RemExtensions));
+                Settings.SetExtensions(nameKey, plugin.MappedExtensions);
 
                 plugin.SetUnchanged();
             }
@@ -1376,16 +1358,6 @@ namespace dnGREP.WPF
 
             if (pluginsChanged)
                 GrepEngineFactory.ReloadPlugins();
-        }
-
-        private string CleanExtensions(string extensions)
-        {
-            if (string.IsNullOrWhiteSpace(extensions))
-                return string.Empty;
-
-            string[] split = extensions.Split(new char[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            var cleaned = split.Select(s => s.TrimStart('.').Trim());
-            return string.Join(", ", cleaned);
         }
 
         private bool IsShellRegistered(string location)
@@ -1625,20 +1597,18 @@ namespace dnGREP.WPF
     public class PluginOptions : CultureAwareViewModel
     {
         public PluginOptions(string name, bool enabled, bool previewTextEnabled,
-            string defExt, string addExt, string remExt)
+            string extensions, string defaultExtensions)
         {
             Name = name;
             IsEnabled = origIsEnabled = enabled;
             PreviewTextEnabled = origPreviewTextEnabled = previewTextEnabled;
-            DefaultExtensions = defExt;
-            AddExtensions = origAddExtensions = addExt;
-            RemExtensions = origRemExtensions = remExt;
+            MappedExtensions = origMappedExtensions = extensions;
+            DefaultExtensions = defaultExtensions ?? string.Empty;
         }
 
         public bool IsChanged => isEnabled != origIsEnabled ||
             previewTextEnabled != origPreviewTextEnabled ||
-            addExtensions != origAddExtensions ||
-            remExtensions != origRemExtensions;
+            mappedExtensions != origMappedExtensions;
 
         private string name;
         public string Name
@@ -1687,56 +1657,33 @@ namespace dnGREP.WPF
             }
         }
 
-        private string origAddExtensions = string.Empty;
-        private string addExtensions = string.Empty;
-        public string AddExtensions
+        private string origMappedExtensions = string.Empty;
+        private string mappedExtensions = string.Empty;
+        public string MappedExtensions
         {
-            get { return addExtensions; }
+            get { return mappedExtensions; }
             set
             {
-                if (value == addExtensions)
+                if (value == mappedExtensions)
                     return;
 
-                addExtensions = value;
-                base.OnPropertyChanged(nameof(AddExtensions));
+                mappedExtensions = value;
+                base.OnPropertyChanged(nameof(MappedExtensions));
             }
         }
 
-        private string origRemExtensions = string.Empty;
-        private string remExtensions = string.Empty;
-        public string RemExtensions
-        {
-            get { return remExtensions; }
-            set
-            {
-                if (value == remExtensions)
-                    return;
+        public string DefaultExtensions { get; private set; }
 
-                remExtensions = value;
-                base.OnPropertyChanged(nameof(RemExtensions));
-            }
-        }
+        public ICommand ResetExtensions => new RelayCommand(
+            p => MappedExtensions = DefaultExtensions,
+            q => !MappedExtensions.Equals(DefaultExtensions));
 
-        private string defaultExtensions = string.Empty;
-        public string DefaultExtensions
-        {
-            get { return defaultExtensions; }
-            set
-            {
-                if (value == defaultExtensions)
-                    return;
-
-                defaultExtensions = value;
-                base.OnPropertyChanged(nameof(DefaultExtensions));
-            }
-        }
 
         internal void SetUnchanged()
         {
             origIsEnabled = isEnabled;
             origPreviewTextEnabled = previewTextEnabled;
-            origAddExtensions = addExtensions;
-            origRemExtensions = remExtensions;
+            origMappedExtensions = mappedExtensions;
         }
     }
 

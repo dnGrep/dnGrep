@@ -3861,24 +3861,6 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add.
-        /// </summary>
-        public static string Options_ArchiveAdd {
-            get {
-                return ResourceManager.GetString("Options_ArchiveAdd", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Default.
-        /// </summary>
-        public static string Options_ArchiveDefault {
-            get {
-                return ResourceManager.GetString("Options_ArchiveDefault", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Extensions:.
         /// </summary>
         public static string Options_ArchiveExtensions {
@@ -3897,11 +3879,11 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove.
+        ///   Looks up a localized string similar to Reset.
         /// </summary>
-        public static string Options_ArchiveRemove {
+        public static string Options_ArchiveReset {
             get {
-                return ResourceManager.GetString("Options_ArchiveRemove", resourceCulture);
+                return ResourceManager.GetString("Options_ArchiveReset", resourceCulture);
             }
         }
         
@@ -4446,24 +4428,6 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add.
-        /// </summary>
-        public static string Options_PluginAdd {
-            get {
-                return ResourceManager.GetString("Options_PluginAdd", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Default.
-        /// </summary>
-        public static string Options_PluginDefault {
-            get {
-                return ResourceManager.GetString("Options_PluginDefault", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Enabled.
         /// </summary>
         public static string Options_PluginEnabled {
@@ -4491,11 +4455,11 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Remove.
+        ///   Looks up a localized string similar to Reset.
         /// </summary>
-        public static string Options_PluginRemove {
+        public static string Options_PluginReset {
             get {
-                return ResourceManager.GetString("Options_PluginRemove", resourceCulture);
+                return ResourceManager.GetString("Options_PluginReset", resourceCulture);
             }
         }
         

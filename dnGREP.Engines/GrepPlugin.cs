@@ -139,7 +139,7 @@ namespace dnGREP.Engines
 
                     GetEnabledFromSettings(Name);
                     GetPreviewPlainTextFromSettings(Name);
-                    GetExtensionsFromSettings(Name, defaultExtensions);
+                    GetExtensionsFromSettings(Name, defaultExtensions ?? new List<string>());
 
                     result = pluginType != null;
                 }
@@ -175,46 +175,13 @@ namespace dnGREP.Engines
 
         private void GetExtensionsFromSettings(string name, IList<string> defaultExtensions)
         {
+            var list = GrepSettings.Instance.GetExtensionList(name, defaultExtensions);
+
             DefaultExtensions.Clear();
             Extensions.Clear();
-            if (defaultExtensions != null)
-            {
-                DefaultExtensions.AddRange(defaultExtensions);
-                Extensions.AddRange(defaultExtensions);
-            }
 
-            if (!string.IsNullOrEmpty(name))
-            {
-                string addKey = "Add" + CultureInfo.InvariantCulture.TextInfo.ToTitleCase(name) + "Extensions";
-                string remKey = "Rem" + CultureInfo.InvariantCulture.TextInfo.ToTitleCase(name) + "Extensions";
-
-                if (GrepSettings.Instance.ContainsKey(addKey))
-                {
-                    string csv = GrepSettings.Instance.Get<string>(addKey).Trim();
-                    if (!string.IsNullOrWhiteSpace(csv))
-                    {
-                        foreach (string extension in csv.Split(','))
-                        {
-                            var ext = extension.Trim().ToLower();
-                            Extensions.Add(ext);
-                        }
-                    }
-                }
-
-                if (GrepSettings.Instance.ContainsKey(remKey))
-                {
-                    string csv = GrepSettings.Instance.Get<string>(remKey).Trim();
-                    if (!string.IsNullOrWhiteSpace(csv))
-                    {
-                        foreach (string extension in csv.Split(','))
-                        {
-                            var ext = extension.Trim().ToLower();
-                            if (Extensions.Contains(ext))
-                                Extensions.Remove(ext);
-                        }
-                    }
-                }
-            }
+            DefaultExtensions.AddRange(defaultExtensions);
+            Extensions.AddRange(list);
         }
 
         private Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)

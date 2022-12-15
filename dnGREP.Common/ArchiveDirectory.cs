@@ -41,41 +41,10 @@ namespace dnGREP.Common
 
         private static void GetExtensionsFromSettings(string name)
         {
+            var list = GrepSettings.Instance.GetExtensionList(name, DefaultExtensions);
+
             Extensions.Clear();
-            Extensions.AddRange(DefaultExtensions);
-
-            if (!string.IsNullOrEmpty(name))
-            {
-                string addKey = "Add" + CultureInfo.InvariantCulture.TextInfo.ToTitleCase(name) + "Extensions";
-                string remKey = "Rem" + CultureInfo.InvariantCulture.TextInfo.ToTitleCase(name) + "Extensions";
-
-                if (GrepSettings.Instance.ContainsKey(addKey))
-                {
-                    string csv = GrepSettings.Instance.Get<string>(addKey).Trim();
-                    if (!string.IsNullOrWhiteSpace(csv))
-                    {
-                        foreach (string extension in csv.Split(','))
-                        {
-                            var ext = extension.Trim().ToLower(CultureInfo.CurrentCulture);
-                            Extensions.Add(ext);
-                        }
-                    }
-                }
-
-                if (GrepSettings.Instance.ContainsKey(remKey))
-                {
-                    string csv = GrepSettings.Instance.Get<string>(remKey).Trim();
-                    if (!string.IsNullOrWhiteSpace(csv))
-                    {
-                        foreach (string extension in csv.Split(','))
-                        {
-                            var ext = extension.Trim().ToLower(CultureInfo.CurrentCulture);
-                            if (Extensions.Contains(ext))
-                                Extensions.Remove(ext);
-                        }
-                    }
-                }
-            }
+            Extensions.AddRange(list);
 
             Patterns.Clear();
             Patterns.AddRange(Extensions.Select(s => "*." + s));
