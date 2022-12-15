@@ -8,12 +8,12 @@ namespace Tests
         [Fact]
         public void TestBookmarks()
         {
-            BookmarkLibrary.Instance.Bookmarks.Clear();
-            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark() { SearchPattern = "test1", ReplacePattern = "test2", FileNames = "test3", Description = "test4" });
+            var bookmarkEntity = new BookmarkEntity();
+            bookmarkEntity.Bookmarks.Add(new Bookmark() { SearchPattern = "test1", ReplacePattern = "test2", FileNames = "test3", Description = "test4" });
             BookmarkLibrary.Save();
             BookmarkLibrary.Load();
-            Assert.Single(BookmarkLibrary.Instance.Bookmarks);
-            Assert.Equal("test4", BookmarkLibrary.Instance.Bookmarks[0].Description);
+            Assert.Single(bookmarkEntity.Bookmarks);
+            Assert.Equal("test4", bookmarkEntity.Bookmarks[0].Description);
         }
 
         [Fact]
@@ -82,23 +82,23 @@ namespace Tests
         [Fact]
         public void TestBookmarkFind()
         {
-            BookmarkLibrary.Instance.Bookmarks.Clear();
-            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark()
+            var bookmarkEntity = new BookmarkEntity();
+            bookmarkEntity.Bookmarks.Add(new Bookmark()
             {
                 SearchPattern = "test1",
                 ReplacePattern = "test2",
                 FileNames = "test3",
                 Description = "test4"
             });
-            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark()
+            bookmarkEntity.Bookmarks.Add(new Bookmark()
             {
                 SearchPattern = "testA",
                 ReplacePattern = "testB",
                 FileNames = "testC"
             });
-            Assert.Equal(2, BookmarkLibrary.Instance.Bookmarks.Count);
+            Assert.Equal(2, bookmarkEntity.Bookmarks.Count);
 
-            var bmk = BookmarkLibrary.Instance.Find(new Bookmark()
+            var bmk = bookmarkEntity.Find(new Bookmark()
             {
                 SearchPattern = "test1",
                 ReplacePattern = "test2",
@@ -110,23 +110,23 @@ namespace Tests
         [Fact]
         public void TestBookmarkAddFolderReference()
         {
-            BookmarkLibrary.Instance.Bookmarks.Clear();
-            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark()
+            var bookmarkEntity = new BookmarkEntity();
+            bookmarkEntity.Bookmarks.Add(new Bookmark()
             {
                 SearchPattern = "test1",
                 ReplacePattern = "test2",
                 FileNames = "test3",
                 Description = "test4"
             });
-            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark()
+            bookmarkEntity.Bookmarks.Add(new Bookmark()
             {
                 SearchPattern = "testA",
                 ReplacePattern = "testB",
                 FileNames = "testC"
             });
-            Assert.Equal(2, BookmarkLibrary.Instance.Bookmarks.Count);
+            Assert.Equal(2, bookmarkEntity.Bookmarks.Count);
 
-            var bmk = BookmarkLibrary.Instance.Find(new Bookmark()
+            var bmk = bookmarkEntity.Find(new Bookmark()
             {
                 SearchPattern = "testA",
                 ReplacePattern = "testB",
@@ -134,30 +134,30 @@ namespace Tests
             });
             Assert.NotNull(bmk);
 
-            BookmarkLibrary.Instance.AddFolderReference(bmk, @"c:\test\path");
+            bookmarkEntity.AddFolderReference(bmk, @"c:\test\path");
             Assert.Single(bmk.FolderReferences);
         }
 
         [Fact]
         public void TestBookmarkAddMultipleFolderReference()
         {
-            BookmarkLibrary.Instance.Bookmarks.Clear();
-            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark()
+            var bookmarkEntity = new BookmarkEntity();
+            bookmarkEntity.Bookmarks.Add(new Bookmark()
             {
                 SearchPattern = "test1",
                 ReplacePattern = "test2",
                 FileNames = "test3",
                 Description = "test4"
             });
-            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark()
+            bookmarkEntity.Bookmarks.Add(new Bookmark()
             {
                 SearchPattern = "testA",
                 ReplacePattern = "testB",
                 FileNames = "testC"
             });
-            Assert.Equal(2, BookmarkLibrary.Instance.Bookmarks.Count);
+            Assert.Equal(2, bookmarkEntity.Bookmarks.Count);
 
-            var bmk = BookmarkLibrary.Instance.Find(new Bookmark()
+            var bmk = bookmarkEntity.Find(new Bookmark()
             {
                 SearchPattern = "test1",
                 ReplacePattern = "test2",
@@ -165,31 +165,31 @@ namespace Tests
             });
             Assert.NotNull(bmk);
 
-            BookmarkLibrary.Instance.AddFolderReference(bmk, @"c:\test\path");
-            BookmarkLibrary.Instance.AddFolderReference(bmk, @"c:\other\path");
+            bookmarkEntity.AddFolderReference(bmk, @"c:\test\path");
+            bookmarkEntity.AddFolderReference(bmk, @"c:\other\path");
             Assert.Equal(2, bmk.FolderReferences.Count);
         }
 
         [Fact]
         public void TestBookmarkChangeFolderReference()
         {
-            BookmarkLibrary.Instance.Bookmarks.Clear();
-            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark()
+            var bookmarkEntity = new BookmarkEntity();
+            bookmarkEntity.Bookmarks.Add(new Bookmark()
             {
                 SearchPattern = "test1",
                 ReplacePattern = "test2",
                 FileNames = "test3",
                 Description = "test4"
             });
-            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark()
+            bookmarkEntity.Bookmarks.Add(new Bookmark()
             {
                 SearchPattern = "testA",
                 ReplacePattern = "testB",
                 FileNames = "testC"
             });
-            Assert.Equal(2, BookmarkLibrary.Instance.Bookmarks.Count);
+            Assert.Equal(2, bookmarkEntity.Bookmarks.Count);
 
-            var bmk = BookmarkLibrary.Instance.Find(new Bookmark()
+            var bmk = bookmarkEntity.Find(new Bookmark()
             {
                 SearchPattern = "test1",
                 ReplacePattern = "test2",
@@ -197,10 +197,10 @@ namespace Tests
             });
             Assert.NotNull(bmk);
 
-            BookmarkLibrary.Instance.AddFolderReference(bmk, @"c:\test\path");
+            bookmarkEntity.AddFolderReference(bmk, @"c:\test\path");
             Assert.Single(bmk.FolderReferences);
 
-            var bmk2 = BookmarkLibrary.Instance.Find(new Bookmark()
+            var bmk2 = bookmarkEntity.Find(new Bookmark()
             {
                 SearchPattern = "testA",
                 ReplacePattern = "testB",
@@ -208,7 +208,7 @@ namespace Tests
             });
             Assert.NotNull(bmk2);
 
-            BookmarkLibrary.Instance.AddFolderReference(bmk2, @"c:\test\path");
+            bookmarkEntity.AddFolderReference(bmk2, @"c:\test\path");
             Assert.Single(bmk2.FolderReferences);
             Assert.Empty(bmk.FolderReferences);
         }
@@ -216,8 +216,8 @@ namespace Tests
         [Fact]
         public void TestFindBookmarkWithSection()
         {
-            BookmarkLibrary.Instance.Bookmarks.Clear();
-            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark()
+            var bookmarkEntity = new BookmarkEntity();
+            bookmarkEntity.Bookmarks.Add(new Bookmark()
             {
                 SearchPattern = "",
                 ReplacePattern = "",
@@ -227,7 +227,7 @@ namespace Tests
                 ApplyFilePropertyFilters = false,
                 ApplyContentSearchFilters = false,
             });
-            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark()
+            bookmarkEntity.Bookmarks.Add(new Bookmark()
             {
                 SearchPattern = "",
                 ReplacePattern = "",
@@ -237,7 +237,7 @@ namespace Tests
                 ApplyFilePropertyFilters = false,
                 ApplyContentSearchFilters = false,
             });
-            Assert.Equal(2, BookmarkLibrary.Instance.Bookmarks.Count);
+            Assert.Equal(2, bookmarkEntity.Bookmarks.Count);
 
             var currentBookmarkSettings = new Bookmark()
             {
@@ -251,7 +251,7 @@ namespace Tests
                 ApplyContentSearchFilters = true,
             };
 
-            Bookmark bk = BookmarkLibrary.Instance.Find(currentBookmarkSettings);
+            Bookmark bk = bookmarkEntity.Find(currentBookmarkSettings);
 
             Assert.NotNull(bk);
             Assert.Equal("Search for cs", bk.Description);
@@ -262,8 +262,8 @@ namespace Tests
         {
             // this test verifies that 'Find' will not return a bookmark
             // that matches on some enabled sections, but not all enabled sections
-            BookmarkLibrary.Instance.Bookmarks.Clear();
-            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark()
+            var bookmarkEntity = new BookmarkEntity();
+            bookmarkEntity.Bookmarks.Add(new Bookmark()
             {
                 SearchPattern = "",
                 ReplacePattern = "",
@@ -273,7 +273,7 @@ namespace Tests
                 ApplyFilePropertyFilters = false,
                 ApplyContentSearchFilters = false,
             });
-            BookmarkLibrary.Instance.Bookmarks.Add(new Bookmark()
+            bookmarkEntity.Bookmarks.Add(new Bookmark()
             {
                 SearchPattern = "",
                 ReplacePattern = "",
@@ -283,7 +283,7 @@ namespace Tests
                 ApplyFilePropertyFilters = true,
                 ApplyContentSearchFilters = true,
             });
-            Assert.Equal(2, BookmarkLibrary.Instance.Bookmarks.Count);
+            Assert.Equal(2, bookmarkEntity.Bookmarks.Count);
 
             var currentBookmarkSettings = new Bookmark()
             {
@@ -293,7 +293,7 @@ namespace Tests
             };
 
 
-            Bookmark bk = BookmarkLibrary.Instance.Find(currentBookmarkSettings);
+            Bookmark bk = bookmarkEntity.Find(currentBookmarkSettings);
 
             Assert.Null(bk);
         }
