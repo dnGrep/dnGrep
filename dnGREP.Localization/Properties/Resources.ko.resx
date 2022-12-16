@@ -2462,4 +2462,123 @@
     <value>Reset</value>
     <comment>Options dialog, plug-ins extensions button label (accel)</comment>
   </data>
+  <data name="Help_CmdLineSearchType" xml:space="preserve">
+    <value>/st [유형]
+-st [유형]
+-searchType [유형]
+	검색 유형을 지정합니다. "PlainText" (텍스트), "Regex" (정규식), "XPath", "Soundex" (영어 음역) 중 하나여야 합니다.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineScript" xml:space="preserve">
+    <value>/sc [스크립트 키]
+-sc [스크립트 키]
+-script [스크립트 키]
+    스크립트 키로 정의한 스크립트를 실행합니다.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineDefaultArguments" xml:space="preserve">
+    <value>인자를 정의하지 않아 마지막 사용자 설정을 저장한 시점으로 지정합니다.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePathToMatch" xml:space="preserve">
+    <value>/pm [pattern]
+-pm [pattern]
+-pathToMatch [pattern]</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExample1" xml:space="preserve">
+    <value>dnGrep [인자]
+아래 인자목록을 조합하여 인자를 사용합니다
+예시:
+dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExample2" xml:space="preserve">
+    <value>dnGrep [폴더경로] [검색어]
+플래그 없이 하나 및 둘의 인자를 지정하여 첫번째 인자는 검색할 폴더, 두번째 인자는 검색할 검색어 표현식을 지정합니다.
+예시:
+dnGrep "C:\Program Files\dnGrep" t\w*t</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExit" xml:space="preserve">
+    <value>/x
+-x
+-exit
+	명령어 완료 시 dnGrep 프로그램을 종료합니다.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineFileInformation" xml:space="preserve">
+    <value>/fi [True/False]
+-fi [True/False]
+-fileInformation [True/False]
+	보고서 출력 시 파일과 해당 줄의 정보를 포함하는 여부를 설정합니다 – True 및 False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineListItemSeparator" xml:space="preserve">
+    <value>/sep [구분할 문자 및 텍스트]
+-sep [구분할 문자 및 텍스트]
+-listItemSeparator [구분할 문자 및 텍스트]
+	보고서 출력 시 찾은 파일 줄을 구분할 문자 및 텍스트를 지정합니다.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineMultiline" xml:space="preserve">
+    <value>/ml [True/False]
+-ml [True/False]
+-multiline [True/False]
+	여러줄 검색 플래그 지정 – True 및 False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePathToIgnore" xml:space="preserve">
+    <value>/pi [pattern]
+-pi [pattern]
+-pathToIgnore [pattern]
+	검색 경로에서 제외할 파일 및 디렉토리명 패턴을 지정합니다. 쉼표(,) 및 세미콜론(;) 문자로 구분할 수 있습니다.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineReport" xml:space="preserve">
+    <value>/rpt [파일경로]
+-rpt [파일경로]
+-report [파일경로]
+	검색 완료 후 보고서 파일을 만들 경로를 지정합니다.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePatternType" xml:space="preserve">
+    <value>/pt [유형]
+-pt [유형]
+-patternType [유형]
+	포함하거나 제외할 유형을 지정합니다. "Asterisk"(와일드카드), "Regex"(정규식), "Everything"(Everything 검색 프로그램 설치 시) 중 하나여야 합니다.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineReportMode" xml:space="preserve">
+    <value>/rm [모드]
+-rm [모드]
+-reportMode [모드]
+	보고서 출력 시 정규식에 맞는 출력 결과 모드를 지정합니다. "FullLine"(모든 줄), "Matches"(정규식 맞춤), or "Groups"(그룹 맞춤) 중 하나여야 합니다.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineSearchFor" xml:space="preserve">
+    <value>/s [검색어]
+-s [검색어]
+-searchFor [검색어]
+	검색어를 텍스트 및 패턴으로 지정합니다. 이 인자를 지정하면 바로 검색이 시작됩니다.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineDotAsNewline" xml:space="preserve">
+    <value>/dn [True/False]
+-dn [True/False]
+-dotAsNewline [True/False]
+	온점을 행 포함 취급하는 검색 플래그 설정 – True 및 False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineFolder" xml:space="preserve">
+    <value>/f [폴더경로]
+-f [폴더경로]
+-folder [폴더경로]
+	검색할 폴더 경로를 지정합니다. 쉼표(,)나 세미콜론(;) 문자로 여러 폴더를 구분할 수 있습니다.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineHeader" xml:space="preserve">
+    <value>dnGrep:	텍스트, 워드, 엑셀, PDF 문서 및 압축 파일을 정규식, XPath 및 음역(영어) 또는 일반 검색어를 통해 검색합니다.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
 </root>
