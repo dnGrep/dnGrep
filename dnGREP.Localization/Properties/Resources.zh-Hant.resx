@@ -2765,4 +2765,156 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>重置</value>
     <comment>Options dialog, plug-ins extensions button label (accel)</comment>
   </data>
+  <data name="Bookmarks_AltDownArrow" xml:space="preserve">
+    <value>Alt+↓</value>
+    <comment>Bookmarks dialog, bookmark list 'Move down' context menu shortcut text</comment>
+  </data>
+  <data name="Bookmarks_MoveToBottom" xml:space="preserve">
+    <value>移到底部</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Main_Menu_About_AppData" xml:space="preserve">
+    <value>程式資料和日誌</value>
+    <comment>Main window, main menu subitem label (accel)</comment>
+  </data>
+  <data name="Options_LineNumbers" xml:space="preserve">
+    <value>行號</value>
+    <comment>Options dialog, PDF numbering option</comment>
+  </data>
+  <data name="Script_Editor_Copy" xml:space="preserve">
+    <value>複製</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Suggest" xml:space="preserve">
+    <value>建議</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Main_Menu_CancelScript" xml:space="preserve">
+    <value>取消腳本</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_EditScript" xml:space="preserve">
+    <value>編輯腳本…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_NewScript" xml:space="preserve">
+    <value>新建腳本…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_Scripts" xml:space="preserve">
+    <value>腳本</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Script_Editor_File" xml:space="preserve">
+    <value>檔案</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_New" xml:space="preserve">
+    <value>新增…</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Paste" xml:space="preserve">
+    <value>貼上</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Redo" xml:space="preserve">
+    <value>重做</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Save" xml:space="preserve">
+    <value>儲存</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_RunScript" xml:space="preserve">
+    <value>執行腳本</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_SaveAs" xml:space="preserve">
+    <value>另存新檔…</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Main_Results_MoveFilesToRecycleBin" xml:space="preserve">
+    <value>將檔案移至資源回收筒</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Rename_FileNameAlreadyExistsInThisDirectory" xml:space="preserve">
+    <value>此目錄已存在相同的檔案名稱</value>
+    <comment>Rename file dialog error message</comment>
+  </data>
+  <data name="Rename_FileNameContainsInvalidCharacters" xml:space="preserve">
+    <value>檔案名稱包含無效字元</value>
+    <comment>Rename file dialog error message</comment>
+  </data>
+  <data name="Script_Editor_Cut" xml:space="preserve">
+    <value>剪下</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_DeleteLine" xml:space="preserve">
+    <value>刪除行</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Tools" xml:space="preserve">
+    <value>工具</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Options_DeleteFiles" xml:space="preserve">
+    <value>刪除檔案</value>
+    <comment>Options dialog, delete files group header label</comment>
+  </data>
+  <data name="Options_DeletePermanently" xml:space="preserve">
+    <value>永久刪除</value>
+    <comment>Options dialog, delete option label (accel)</comment>
+  </data>
+  <data name="Options_PageNumbers" xml:space="preserve">
+    <value>頁碼</value>
+    <comment>Options dialog, PDF numbering option</comment>
+  </data>
+  <data name="Options_SendToRecycleBin" xml:space="preserve">
+    <value>傳送到資源回收筒</value>
+    <comment>Options dialog, delete option label (accel)</comment>
+  </data>
+  <data name="Options_WhenDeletingFiles" xml:space="preserve">
+    <value>刪除檔案時</value>
+    <comment>Options dialog, delete option label</comment>
+  </data>
+  <data name="Script_Editor_ScriptingCommands" xml:space="preserve">
+    <value>腳本命令</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Title" xml:space="preserve">
+    <value>腳本編輯器</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="BookmarkDetails_BookmarkName" xml:space="preserve">
+    <value>書籤名稱：</value>
+    <comment>Bookmark name label</comment>
+  </data>
+  <data name="Bookmarks_AltUpArrow" xml:space="preserve">
+    <value>Alt+↑</value>
+    <comment>Bookmarks dialog, bookmark list 'Move up' context menu shortcut text</comment>
+  </data>
+  <data name="Bookmarks_MoveDown" xml:space="preserve">
+    <value>下移</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_MoveToTop" xml:space="preserve">
+    <value>移到頂部</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_MoveUp" xml:space="preserve">
+    <value>上移</value>
+    <comment>Bookmarks dialog, bookmark list context menu text</comment>
+  </data>
+  <data name="Bookmarks_NameHeader" xml:space="preserve">
+    <value>名稱</value>
+    <comment>Bookmarks dialog, grid header</comment>
+  </data>
+  <data name="Bookmarks_ShiftAltDownArrow" xml:space="preserve">
+    <value>Shift+Alt+↓</value>
+    <comment>Bookmarks dialog, bookmark list 'Move to bottom' context menu shortcut text</comment>
+  </data>
+  <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
+    <value>Shift+Alt+↑</value>
+    <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
+  </data>
 </root>
