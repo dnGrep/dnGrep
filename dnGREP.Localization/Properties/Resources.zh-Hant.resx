@@ -183,7 +183,7 @@
     <comment>Bookmark details dialog, regular expression pattern type option tooltip</comment>
   </data>
   <data name="BookmarkDetails_IncludeBinaryFiles" xml:space="preserve">
-    <value>包含二進位檔案</value>
+    <value>包含二進制檔案</value>
     <comment>Bookmark details dialog, filter files checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_IncludeHiddenFolders" xml:space="preserve">
@@ -255,7 +255,7 @@
     <comment>Bookmark details dialog, Text search type tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
-    <value>以二進位方式讀取檔案並使用16進制來搜尋位元組, 如: 68 65 78 20</value>
+    <value>以二進制方式讀取檔案並使用16進制來搜尋位元組, 如: 68 65 78 20</value>
     <comment>Bookmark details dialog, Byte search type tooltip</comment>
   </data>
   <data name="BookmarkDetails_SearchType_Regex" xml:space="preserve">
@@ -359,7 +359,7 @@
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_NoBinary" xml:space="preserve">
-    <value>不含二進位</value>
+    <value>非二進制</value>
     <comment>Bookmarks dialog, Other Properties summary</comment>
   </data>
   <data name="Bookmarks_Summary_NoHidden" xml:space="preserve">
@@ -447,7 +447,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/x
 -x
 -exit
-    離開 dnGrep.</value>
+    退出 dnGrep.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineFolder" xml:space="preserve">
@@ -717,7 +717,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, file filters summary: {0} is a number</comment>
   </data>
   <data name="Main_FilterSummary_NoBinary" xml:space="preserve">
-    <value>不含二進位</value>
+    <value>非二進制</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_NoHidden" xml:space="preserve">
@@ -757,19 +757,19 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, result options expander button tooltip (bottom of window)</comment>
   </data>
   <data name="Main_HighlightGroups" xml:space="preserve">
-    <value>醒目顏色標出群組</value>
+    <value>醒目標出群組</value>
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_HighlightMatches" xml:space="preserve">
-    <value>醒目顏色標出符合項</value>
+    <value>醒目標出符合項</value>
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_HighlightRegularExpressionGroups" xml:space="preserve">
-    <value>醒目顏色標出正則運算式群組, 更改將於下次搜尋時生效.</value>
+    <value>醒目標出正則運算式群組, 更改將於下次搜尋時生效.</value>
     <comment>Main window, result options highlight groups tooltip</comment>
   </data>
   <data name="Main_IncludeBinaryFiles" xml:space="preserve">
-    <value>包含二進位檔案</value>
+    <value>包含二進制檔案</value>
     <comment>Main window, filter files checkbox label (accel)</comment>
   </data>
   <data name="Main_IncludeFilesByNameOrType" xml:space="preserve">
@@ -1081,7 +1081,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, Text search type tooltip</comment>
   </data>
   <data name="Main_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
-    <value>以二進位方式讀取檔案並使用16進制來搜尋位元組, 如: 68 65 78 20</value>
+    <value>以二進制方式讀取檔案並使用16進制來搜尋位元組, 如: 68 65 78 20</value>
     <comment>Main window, Byte search type tooltip</comment>
   </data>
   <data name="Main_SearchType_Regex" xml:space="preserve">
@@ -1229,7 +1229,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_UseGitignoreToFilterFiles" xml:space="preserve">
-    <value>使用 .gitignore 來過濾檔案</value>
+    <value>使用 .gitignore 過濾檔案</value>
     <comment>Main window, search option checkbox tooltip</comment>
   </data>
   <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
@@ -1449,7 +1449,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Message box text for: plug-in load errors</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorAddingDnGrepToExplorerRightClickMenu" xml:space="preserve">
-    <value>將 dnGrep 增加到右鍵功能表時發生錯誤. 日誌查看詳情: </value>
+    <value>將 dnGrep 增加到檔案總管右鍵功能表時發生錯誤. 日誌查看詳情: </value>
     <comment>Message box text for: set Explorer context menu error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorCopyingFiles" xml:space="preserve">
@@ -1473,7 +1473,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Message box text for: set startup option error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorRemovingDnGrepFromTheExplorerRightClickMenu" xml:space="preserve">
-    <value>無法將 dnGrep 從右鍵功能表中移除. 日誌查看詳情: </value>
+    <value>無法將 dnGrep 從檔案總管右鍵功能表中移除. 日誌查看詳情: </value>
     <comment>Message box text for: unset Explorer context menu error</comment>
   </data>
   <data name="MessageBox_ThereWasAnErrorRevertingFiles" xml:space="preserve">
@@ -1589,7 +1589,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, custom editor group header label</comment>
   </data>
   <data name="Options_CustomEditorHelp" xml:space="preserve">
-    <value>關鍵字: '{0}' 表示為檔案路徑, '{1}' 表示為行號, '{2}' 表示為搜尋樣式, '{3}' 表示為檔案中首個符合文字, '{4}' 表示為首個符合文字的所在列.</value>
+    <value>關鍵字: '{0}' 為檔案路徑, '{1}' 為行號, '{2}' 為搜尋樣式, '{3}' 為首個符合文字的所在行, '{4}' 為檔案中首個符合文字.</value>
     <comment>Options dialog, custom editor help text: the placeholders are non-localized expressions used as arguments when starting the custom editor</comment>
   </data>
   <data name="Options_DetectFileEncodingWhenSearchingForFileNamePatternOnly" xml:space="preserve">
@@ -1653,7 +1653,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, layout option radio button label (accel)</comment>
   </data>
   <data name="Options_ItemsShownInFileFilterHistoryLists" xml:space="preserve">
-    <value>個檔案篩選歷程</value>
+    <value>個檔案過濾歷程</value>
     <comment>Options dialog, history list text input label</comment>
   </data>
   <data name="Options_ItemsShownInPathHistoryList" xml:space="preserve">
@@ -1773,7 +1773,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, theme selector label</comment>
   </data>
   <data name="Options_ShowDnGrepInExplorerRightClickMenu" xml:space="preserve">
-    <value>將 dnGrep 增加於右鍵功能表中</value>
+    <value>將 dnGrep 增加於檔案總管右鍵功能表中</value>
     <comment>Options dialog, startup options, checkbox label (accel)</comment>
   </data>
   <data name="Options_ShowFileInfoToolTips" xml:space="preserve">
@@ -1861,7 +1861,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Preview window, syntax coloring option for no syntax coloring</comment>
   </data>
   <data name="Preview_ThisFileIsEitherBinaryOrTooLargeToPreview" xml:space="preserve">
-    <value>無法預覽, 二進位檔案或檔案過大.</value>
+    <value>無法預覽, 二進制檔案或檔案過大.</value>
     <comment>Preview window, warning message</comment>
   </data>
   <data name="Preview_UseRegularExpressions" xml:space="preserve">
@@ -1905,7 +1905,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, Zoom slider tooltip</comment>
   </data>
   <data name="Replace_ErrorThisIsABinaryFile" xml:space="preserve">
-    <value>錯誤: 這是二進位檔案</value>
+    <value>錯誤: 這是二進制檔案</value>
     <comment>Replace window, File text when attempt to replace in binary file</comment>
   </data>
   <data name="Replace_FileNumberOfCountName" xml:space="preserve">
@@ -2065,7 +2065,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Report extract lines from file error</comment>
   </data>
   <data name="Report_Found0MatchesOn1LinesIn2Files" xml:space="preserve">
-    <value>找到 {0} 個符合項, {1} 行, {2} 個檔案</value>
+    <value>找到 {0} 個符合項, {1} 行, 於 {2} 個檔案中</value>
     <comment>Report content text: {0} is the number of matches; {1] is the number of lines with matches; {2} is the number of files with matches</comment>
   </data>
   <data name="Report_FoundMatchesFor" xml:space="preserve">
@@ -2117,11 +2117,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_NoBinary" xml:space="preserve">
-    <value>不含二進位</value>
+    <value>非二進制</value>
     <comment>Main window options summary</comment>
   </data>
   <data name="ReportSummary_NoBinaryFiles" xml:space="preserve">
-    <value>不含二進位檔案</value>
+    <value>非二進制檔案</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_NoHiddenFiles" xml:space="preserve">
@@ -2201,7 +2201,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_HighlightGroups" xml:space="preserve">
-    <value>醒目顏色標出群組</value>
+    <value>醒目標出群組</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_Multiline" xml:space="preserve">
@@ -2553,7 +2553,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Report options dialog, radio button label</comment>
   </data>
   <data name="ReportOptionsWindow_TrimWhitespace" xml:space="preserve">
-    <value>去掉空白</value>
+    <value>去除空白</value>
     <comment>Report options dialog, checkbox label</comment>
   </data>
   <data name="Options_PluginShowPlainTextInPreview" xml:space="preserve">
@@ -2643,7 +2643,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>/trim [True/False]
 -trim [True/False]
 -trimWhitespace [True/False]
-    設定輸出報告去掉空白旗標 - True 或 False.</value>
+    設定輸出報告去除空白旗標 - True 或 False.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineUniqueScope" xml:space="preserve">
@@ -2694,11 +2694,11 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_highlightgroups" xml:space="preserve">
-    <value>醒目顏色標出群組</value>
+    <value>醒目標出群組</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_includebinary" xml:space="preserve">
-    <value>包含二進位檔案</value>
+    <value>包含二進制檔案</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_includehidden" xml:space="preserve">
@@ -2886,7 +2886,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="BookmarkDetails_BookmarkName" xml:space="preserve">
-    <value>書籤名稱：</value>
+    <value>書籤名稱:</value>
     <comment>Bookmark name label</comment>
   </data>
   <data name="Bookmarks_AltUpArrow" xml:space="preserve">
@@ -2916,5 +2916,448 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Bookmarks_ShiftAltUpArrow" xml:space="preserve">
     <value>Shift+Alt+↑</value>
     <comment>Bookmarks dialog, bookmark list 'Move to top' context menu shortcut text</comment>
+  </data>
+  <data name="ScriptHint_bookmark_removefolder" xml:space="preserve">
+    <value>移除資料夾書籤</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_report_arg_value" xml:space="preserve">
+    <value>報告路徑和檔案名稱</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="MessageBox_Scripts_HasUnsavedChangesSaveNow" xml:space="preserve">
+    <value>{0} 有未儲存的變更. 馬上儲存?</value>
+    <comment>Message box text for: Scripts unsaved changes; {0} is a script file name</comment>
+  </data>
+  <data name="Scripts_ScriptMessages" xml:space="preserve">
+    <value>腳本訊息</value>
+    <comment>Script Messages dialog title</comment>
+  </data>
+  <data name="Scripts_RunCommandInvalid" xml:space="preserve">
+    <value>執行命令無效</value>
+    <comment>Script message for invalid run command</comment>
+  </data>
+  <data name="ScriptHint_set_startdate_value" xml:space="preserve">
+    <value>使用 ISO 8601 標準或當地日期時間格式</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_uniquescope" xml:space="preserve">
+    <value>報告唯一值範圍: 依檔案或所有檔案</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_uniquevalues" xml:space="preserve">
+    <value>依唯一值過濾報告</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_trimwhitespace" xml:space="preserve">
+    <value>去除報告中的空白</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_sizeto" xml:space="preserve">
+    <value>最大為</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_sizefrom" xml:space="preserve">
+    <value>最小從</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_pathtoignore" xml:space="preserve">
+    <value>排除過濾器樣式</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Script_Editor_MoveDown" xml:space="preserve">
+    <value>下移至選定的行</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_MoveUp" xml:space="preserve">
+    <value>上移至選定的行</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresABooleanValue" xml:space="preserve">
+    <value>此命令需要一個布林值</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresAStringValue" xml:space="preserve">
+    <value>此命令需要一個字串值</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_TheValueCouldNotBeConvertedToTheCorrectType" xml:space="preserve">
+    <value>此值無法轉換為正確的類型</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandDoesNotAllowANullValue" xml:space="preserve">
+    <value>此命令不允許空值</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_bookmark_use_value" xml:space="preserve">
+    <value>書籤名稱</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_replace" xml:space="preserve">
+    <value>取代檔案中的符合項</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_search" xml:space="preserve">
+    <value>開始搜尋</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_run_powershell_value" xml:space="preserve">
+    <value>.ps1 腳本檔案的完整路徑和檔案名稱</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_run_cmd_value" xml:space="preserve">
+    <value>cmd 或批次檔的完整路徑和檔案名稱</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_run_powershell" xml:space="preserve">
+    <value>執行 PowerShell 腳本</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_folder" xml:space="preserve">
+    <value>搜尋位置: 資料夾或檔案路徑</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_pathtomatch" xml:space="preserve">
+    <value>符合過濾器樣式</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Scripts_ScriptFiles" xml:space="preserve">
+    <value>腳本檔案</value>
+    <comment>Scripts: Open and Save file dialog label for script files</comment>
+  </data>
+  <data name="Scripts_ScriptComplete" xml:space="preserve">
+    <value>腳本完成</value>
+    <comment>Script message for script completed</comment>
+  </data>
+  <data name="Script_Validation_TheCommandIsInvalid" xml:space="preserve">
+    <value>此命令無效</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Editor_Validate" xml:space="preserve">
+    <value>驗證</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="ScriptHint_bookmark" xml:space="preserve">
+    <value>加書籤</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_include" xml:space="preserve">
+    <value>匯入資料</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_report" xml:space="preserve">
+    <value>撰寫報告</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_full" xml:space="preserve">
+    <value>完整報告</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_text" xml:space="preserve">
+    <value>純文字報告</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_text_value" xml:space="preserve">
+    <value>報告路徑和檔案名稱</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_resetfilters" xml:space="preserve">
+    <value>重置檔案過濾器為預設值</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_csv" xml:space="preserve">
+    <value>csv 檔案格式報告</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_run" xml:space="preserve">
+    <value>執行外部命令</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_filedatefilter" xml:space="preserve">
+    <value>日期過濾器選擇</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Scripts_MoveFilesFailed" xml:space="preserve">
+    <value>移動檔案失敗: </value>
+    <comment>Script message for move error</comment>
+  </data>
+  <data name="ScriptHint_set_maxsubfolderdepth" xml:space="preserve">
+    <value>最大子資料夾深度</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_listitemseparator_value" xml:space="preserve">
+    <value>單一或多個字元, 例如逗號 (,) 或逗號空格 ( , )</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_listitemseparator" xml:space="preserve">
+    <value>報告同行項目間分隔字元</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_movefiles_value" xml:space="preserve">
+    <value>目標資料夾路徑</value>
+    <comment>Script editor command/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_hoursto_value" xml:space="preserve">
+    <value>過去時數過濾器上限 (數字)</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_hoursfrom_value" xml:space="preserve">
+    <value>過去時數過濾器下限 (數字)</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_hoursfrom" xml:space="preserve">
+    <value>日期時間 '過去' 時數過濾器</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_filterbyfilesize" xml:space="preserve">
+    <value>啟用過濾檔案大小</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_filetimerange" xml:space="preserve">
+    <value>時間範圍過濾器選擇</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_highlightmatches" xml:space="preserve">
+    <value>醒目標出符合項</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_folder_value" xml:space="preserve">
+    <value>資料夾, 檔案路徑或以逗號分隔的資料夾/檔案列表</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_enddate" xml:space="preserve">
+    <value>日期時間 'To' 過濾器</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_fileinformation" xml:space="preserve">
+    <value>報告中包含檔案訊息</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_encoding_value" xml:space="preserve">
+    <value>設定程式碼頁碼, -1 為自動檢測</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_encoding" xml:space="preserve">
+    <value>編碼, 作為程式碼頁碼</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_contextlinesbefore" xml:space="preserve">
+    <value>(?) 行前的上下文</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_contextlinesafter" xml:space="preserve">
+    <value>(?) 行後的上下文</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_messages" xml:space="preserve">
+    <value>當腳本完成時, 總是顯示腳本訊息視窗</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_movefiles" xml:space="preserve">
+    <value>將結果檔案移動到新位置</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_resultszoom" xml:space="preserve">
+    <value>結果樹狀圖縮放等級 (數字)</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Script_Validation_Header_Line" xml:space="preserve">
+    <value>行</value>
+    <comment>Script validation list header</comment>
+  </data>
+  <data name="Script_Validation_Header_Message" xml:space="preserve">
+    <value>訊息</value>
+    <comment>Script validation list header</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresATargetParameter" xml:space="preserve">
+    <value>此命令需要一個目標參數</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_bookmark_remove" xml:space="preserve">
+    <value>移除書籤</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_copyfiles_value" xml:space="preserve">
+    <value>目標資料夾路徑</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_deletefiles" xml:space="preserve">
+    <value>永久刪除結果檔案</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_exit" xml:space="preserve">
+    <value>關閉所有視窗並退出 dnGrep</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_hoursto" xml:space="preserve">
+    <value>日期時間 '過去' 時數過濾器</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_previewfile" xml:space="preserve">
+    <value>預覽檔案</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_pathtomatch_value" xml:space="preserve">
+    <value>檔案過濾器樣式, 如 *.txt, 或過濾器列表</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="Help_CmdLineScript" xml:space="preserve">
+    <value>/sc [scriptKey]
+-sc [scriptKey]
+-script [scriptKey]
+    執行腳本鍵識別的腳本.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Script_Validation_TheScriptKeyWasNotFound" xml:space="preserve">
+    <value>未找到腳本鍵</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandDoesNotNeedAValueParameter" xml:space="preserve">
+    <value>此命令不需要值參數</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Main_Results_ShowExplorerMenu" xml:space="preserve">
+    <value>顯示檔案總管右鍵功能表</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="MessageBox_Scripts_HasValidationErrorsSaveAnyway" xml:space="preserve">
+    <value>{0} 有驗證錯誤, 仍要儲存?</value>
+    <comment>Message box text for: Script validation errors; {0} is a script file name</comment>
+  </data>
+  <data name="Script_Validation_TheTargetNameIsInvalid" xml:space="preserve">
+    <value>目標名稱無效</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Options_PDFNumberStyle" xml:space="preserve">
+    <value>PDF 編號類型:</value>
+    <comment>Options dialog, PDF numbering options label</comment>
+  </data>
+  <data name="Script_Validation_Header" xml:space="preserve">
+    <value>驗證</value>
+    <comment>Script validation list header</comment>
+  </data>
+  <data name="Script_Validation_TheValueCannotBeConvertedFromTheString" xml:space="preserve">
+    <value>該值不能由字串轉換而來</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_bookmark_add" xml:space="preserve">
+    <value>新增書籤</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_bookmark_add_value" xml:space="preserve">
+    <value>新書籤名稱, 可空白</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_bookmark_addfolder" xml:space="preserve">
+    <value>增加與目前搜尋資料夾關言的新書籤</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_set_reportmode" xml:space="preserve">
+    <value>報告輸出設定</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_replacewith_value" xml:space="preserve">
+    <value>取代文字或空字串</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_pathtoignore_value" xml:space="preserve">
+    <value>檔案過濾器樣式, 如 test\\*, 或過濾器列表</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_paterntype" xml:space="preserve">
+    <value>檔案過濾器樣式類型</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_maxsubfolderdepth_value" xml:space="preserve">
+    <value>資料夾深度限制 (數字)</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_maximizeresults" xml:space="preserve">
+    <value>最大化或回復搜尋結果樹狀圖</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_set" xml:space="preserve">
+    <value>在目標屬性上設定一個值</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_run_cmd" xml:space="preserve">
+    <value>執行命令腳本</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_searchtype" xml:space="preserve">
+    <value>搜尋樣式類型</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_searchparallel" xml:space="preserve">
+    <value>並行搜尋</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_searchfor_value" xml:space="preserve">
+    <value>搜尋樣式或空字串</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_separatelines" xml:space="preserve">
+    <value>單行報告輸出</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Scripts_ScriptCanceled" xml:space="preserve">
+    <value>腳本已取消</value>
+    <comment>Script message for script canceled</comment>
+  </data>
+  <data name="Scripts_NewScript" xml:space="preserve">
+    <value>新腳本</value>
+    <comment>Scripts: name for unnamed script file</comment>
+  </data>
+  <data name="Scripts_InvalidFileExtension" xml:space="preserve">
+    <value>{0} 檔案副檔名必須為 {1}</value>
+    <comment>Script message for invalid file extension{0} is the target name and {1} is the file extension</comment>
+  </data>
+  <data name="Scripts_FileNotFound" xml:space="preserve">
+    <value>未找到 {0} 檔案 '{1}'</value>
+    <comment>Script message for file not found: {0} is the target name and {1} is the file name</comment>
+  </data>
+  <data name="Scripts_DeleteFilesFailed" xml:space="preserve">
+    <value>刪除檔案失敗: </value>
+    <comment>Script message for delete error</comment>
+  </data>
+  <data name="Scripts_CopyFilesFailed" xml:space="preserve">
+    <value>複製檔案失敗: </value>
+    <comment>Script message for copy error</comment>
+  </data>
+  <data name="Scripts_AtLine" xml:space="preserve">
+    <value>於行</value>
+    <comment>Script message statement prefix</comment>
+  </data>
+  <data name="ScriptHint_sort" xml:space="preserve">
+    <value>排序結果</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_sorttype" xml:space="preserve">
+    <value>排序類型設定</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_sortdirection" xml:space="preserve">
+    <value>排序方向</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_startdate" xml:space="preserve">
+    <value>日期時間 'From' 過濾器</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_undo" xml:space="preserve">
+    <value>撤銷上次取代操作</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_sizefrom_value" xml:space="preserve">
+    <value>大小過濾器下限 (數字)</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_sizeto_value" xml:space="preserve">
+    <value>大小過濾器上限 (數字)</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="Scripts_RunCommandError" xml:space="preserve">
+    <value>執行命令已退出, 錯誤: </value>
+    <comment>Script message for run command error</comment>
   </data>
 </root>
