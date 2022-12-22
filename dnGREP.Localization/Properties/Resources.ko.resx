@@ -135,19 +135,19 @@
     <comment>Bookmarks dialog, button text (accel)</comment>
   </data>
   <data name="Help_DnGrepHelp" xml:space="preserve">
-    <value>dnGrep Help</value>
+    <value>dnGrep 도움말</value>
     <comment>Help dialog window title</comment>
   </data>
   <data name="Main_AllDates" xml:space="preserve">
-    <value>All dates</value>
+    <value>모든 날짜</value>
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_AssociateBookmarkWithFolder" xml:space="preserve">
-    <value>Associate bookmark with folder</value>
+    <value>폴더를 북마크에 연계합니다.</value>
     <comment>Main window, folder bookmark button tooltip</comment>
   </data>
   <data name="Main_Attributes_DateModified" xml:space="preserve">
-    <value>Date modified:</value>
+    <value>수정한 날짜:</value>
     <comment>Main window, results list, file attributes tooltip label</comment>
   </data>
   <data name="Main_Attributes_Encoding" xml:space="preserve">
@@ -155,43 +155,43 @@
     <comment>Main window, results list, file attributes tooltip label</comment>
   </data>
   <data name="Main_Attributes_Size" xml:space="preserve">
-    <value>Size:</value>
+    <value>크기:</value>
     <comment>Main window, results list, file attributes tooltip label</comment>
   </data>
   <data name="Main_Attributes_File" xml:space="preserve">
-    <value>File:</value>
+    <value>파일:</value>
     <comment>Main window, results list, file attributes tooltip label</comment>
   </data>
   <data name="Main_CancelButton" xml:space="preserve">
-    <value>_Cancel</value>
+    <value>취소(_C)</value>
     <comment>Main window, Cancel button label (accel)</comment>
   </data>
   <data name="Main_ClearBookmark" xml:space="preserve">
-    <value>Clear bookmark</value>
+    <value>북마크 비우기</value>
     <comment>Main window, bookmark button tooltip</comment>
   </data>
   <data name="Main_ContextAfter" xml:space="preserve">
-    <value>after</value>
+    <value>이후</value>
     <comment>Main window, result options context lines label</comment>
   </data>
   <data name="Main_Created" xml:space="preserve">
-    <value>Created</value>
+    <value>생성</value>
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_DateFrom" xml:space="preserve">
-    <value>From</value>
+    <value>시작</value>
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_DatePast" xml:space="preserve">
-    <value>Past</value>
+    <value>과거</value>
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_DatePastHours" xml:space="preserve">
-    <value>hours</value>
+    <value>시간</value>
     <comment>Main window, filter files by date time unit label</comment>
   </data>
   <data name="Main_DateTo" xml:space="preserve">
-    <value>to</value>
+    <value>에서</value>
     <comment>Main window, filter files by date label</comment>
   </data>
   <data name="Main_DnGREP_Title" xml:space="preserve">
@@ -199,7 +199,7 @@
     <comment>Main window, title label – near menu bar</comment>
   </data>
   <data name="Main_DockBottom" xml:space="preserve">
-    <value>Dock bottom</value>
+    <value>도킹 버튼</value>
     <comment>Main window docking context menu item label (accel)</comment>
   </data>
   <data name="Main_Encoding" xml:space="preserve">
@@ -207,11 +207,11 @@
     <comment>Main window, search options encoding combo box label (accel) </comment>
   </data>
   <data name="Main_FilterSummary_AllFiles" xml:space="preserve">
-    <value>All files</value>
+    <value>모든 파일</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_ByCreatedDate" xml:space="preserve">
-    <value>By created date</value>
+    <value>생성일로</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_NoSubfolders" xml:space="preserve">
@@ -563,11 +563,11 @@
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Main_ChangesTheResultsTreeZoom" xml:space="preserve">
-    <value>Changes the zoom level of the results tree</value>
+    <value>결과 트리의 확대 비율을 바꿉니다</value>
     <comment>Main window tooltip</comment>
   </data>
   <data name="Main_CombineMultipleSearchPatternsUsingANDOrOR" xml:space="preserve">
-    <value>Combine multiple search patterns using 'AND' or 'OR'</value>
+    <value>'AND' 및 'OR' 단어를 사용하여 여러 검색어를 합칩니다</value>
     <comment>Main window, search option Boolean Operators tooltip</comment>
   </data>
   <data name="Main_Menu_About_AboutDnGrep" xml:space="preserve">
@@ -1019,35 +1019,35 @@
     <comment>Help dialog button label</comment>
   </data>
   <data name="Help_OneOrMoreArgumentsAreInvalid" xml:space="preserve">
-    <value>One or more arguments are not valid.</value>
+    <value>하나 이상의 인자가 올바르지 않습니다.</value>
     <comment>Help dialog header text</comment>
   </data>
   <data name="Main_AddSearchPatternToBookmarks" xml:space="preserve">
-    <value>Add search pattern to bookmarks</value>
+    <value>검색 패턴을 북마크로 추가합니다</value>
     <comment>Main window, bookmark button tooltip</comment>
   </data>
   <data name="Main_AllSizes" xml:space="preserve">
-    <value>All sizes</value>
+    <value>모든 크기</value>
     <comment>Main window, size filter radio button label (accel)</comment>
   </data>
   <data name="Main_Attributes_Type" xml:space="preserve">
-    <value>Type:</value>
+    <value>유형:</value>
     <comment>Main window, results list, file attributes tooltip label</comment>
   </data>
   <data name="Main_AutoPosition" xml:space="preserve">
-    <value>Auto position</value>
+    <value>위치 자동 조정</value>
     <comment>Main window, docking context menu item label (accel)</comment>
   </data>
   <data name="Main_BooleanOperators" xml:space="preserve">
-    <value>Boolean 연산자</value>
+    <value>부울 연산자</value>
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_BrowseForFolderOrFiles" xml:space="preserve">
-    <value>Browse for folder or files</value>
+    <value>폴더 및 파일 찾기</value>
     <comment>Main window, open folder tooltip</comment>
   </data>
   <data name="Main_CaptureGroupSearch" xml:space="preserve">
-    <value>Capture group search</value>
+    <value>그룹 캡쳐 검색</value>
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_CaseSensitive" xml:space="preserve">
@@ -1055,19 +1055,19 @@
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_ContextBeforeAnd" xml:space="preserve">
-    <value>before and</value>
+    <value>이전과</value>
     <comment>Main window, results options context lines label</comment>
   </data>
   <data name="Main_ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
-    <value>Context line changes will be applied in next search</value>
+    <value>다음 검색에 해당 줄 변경점이 적용됩니다</value>
     <comment>Main window, result options context lines tooltip</comment>
   </data>
   <data name="Main_ContextShowLines" xml:space="preserve">
-    <value>Show context lines</value>
+    <value>기준이 되는 줄 표시</value>
     <comment>Main window, results options checkbox label (accel)</comment>
   </data>
   <data name="Main_DockRight" xml:space="preserve">
-    <value>Dock right</value>
+    <value>오른쪽에 도킹</value>
     <comment>Main window docking context menu label (accel)</comment>
   </data>
   <data name="Main_DotAsNewline" xml:space="preserve">
@@ -1075,11 +1075,11 @@
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_Empty" xml:space="preserve">
-    <value>Empty</value>
+    <value>비어 있음</value>
     <comment>Main window title prefix when search for is empty</comment>
   </data>
   <data name="Main_EncodingAutoDetection" xml:space="preserve">
-    <value>Auto detection (default)</value>
+    <value>자동 감지 (기본)</value>
     <comment>Main window encoding auto select text</comment>
   </data>
   <data name="Main_EverythingIndexService" xml:space="preserve">
@@ -1087,23 +1087,23 @@
     <comment>Main window, pattern type option Everything tooltip</comment>
   </data>
   <data name="Main_EverythingSearch" xml:space="preserve">
-    <value>Everything search:</value>
+    <value>Everything 검색:</value>
     <comment>Main window, folder input caption when Everything search is enabled (accel)</comment>
   </data>
   <data name="Main_ExcelSheetName" xml:space="preserve">
-    <value>Sheet [{0}]</value>
+    <value>시트 [{0}]</value>
     <comment>Main window results list for Excel file data: {0} is a string, the name of the worksheet in the Excel document</comment>
   </data>
   <data name="Main_ExcludeFilesByTypeAndFoldersByName" xml:space="preserve">
-    <value>Exclude files by type and folders by name</value>
+    <value>파일의 형식 및 폴더를 이름으로 제외시킵니다</value>
     <comment>Main window, Patterns to exclude label tooltip</comment>
   </data>
   <data name="Main_FilterSummary_ByModifiedDate" xml:space="preserve">
-    <value>By modified date</value>
+    <value>수정일로</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_BySize" xml:space="preserve">
-    <value>By size</value>
+    <value>크기로</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_MaxFolderDepth" xml:space="preserve">
@@ -2580,5 +2580,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Help_CmdLineHeader" xml:space="preserve">
     <value>dnGrep:	텍스트, 워드, 엑셀, PDF 문서 및 압축 파일을 정규식, XPath 및 음역(영어) 또는 일반 검색어를 통해 검색합니다.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUsage" xml:space="preserve">
+    <value>사용법:</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineVersion" xml:space="preserve">
+    <value>{1} 에서 빌드한 버전 {0}</value>
+    <comment>Help dialog text when running dnGrep from the command-line: {0} is the installed dnGrep version number; {1} is the installed dnGrep build date</comment>
   </data>
 </root>
