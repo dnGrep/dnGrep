@@ -131,7 +131,7 @@
     <comment>Bookmark details dialog, filters group header label (accel)</comment>
   </data>
   <data name="BookmarkDetails_PatternType_Everything" xml:space="preserve">
-    <value>Kõik</value>
+    <value>Everything</value>
     <comment>Bookmark details dialog, Everything pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_XPath" xml:space="preserve">
@@ -536,7 +536,7 @@
     <comment>Main window, filter files by date radio button label (accel)</comment>
   </data>
   <data name="Main_Menu_Bookmarks" xml:space="preserve">
-    <value>Lemmikud…</value>
+    <value>Järjehoidjad…</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Menu_Personalize" xml:space="preserve">
@@ -672,7 +672,7 @@
     <comment>Bookmark details dialog, search type group header label</comment>
   </data>
   <data name="BookmarkDetails_UseGitignore" xml:space="preserve">
-    <value>Kasuta .gitignore'i</value>
+    <value>Juhindu .gitignore failist</value>
     <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_UseGitignoreToFilterFiles" xml:space="preserve">
@@ -832,7 +832,7 @@
     <comment>Main window, results list label for PowerPoint files: {0} is the slide number in the PowerPoint document</comment>
   </data>
   <data name="Main_PreviewFile" xml:space="preserve">
-    <value>Eel_vaatefail</value>
+    <value>Faili eel_vaade</value>
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_ReplaceButton" xml:space="preserve">
@@ -1160,7 +1160,7 @@
     <comment>Main window, title label – near menu bar</comment>
   </data>
   <data name="Main_FilterSummary_MaxFolderDepth" xml:space="preserve">
-    <value>Max kausta sügavus: {0}</value>
+    <value>Maks. kausta sügavus: {0}</value>
     <comment>Main window, file filters summary: {0} is a number</comment>
   </data>
   <data name="Main_FilterSummary_NoBinary" xml:space="preserve">
@@ -1196,15 +1196,15 @@
     <comment>Main window, filter files checkbox label (accel)</comment>
   </data>
   <data name="Main_IncludeHiddenFolders" xml:space="preserve">
-    <value>Kaasa peidetud kaustad</value>
+    <value>Peidetud kaustadest otsimine</value>
     <comment>Main window, filter files checkbox label (accel)</comment>
   </data>
   <data name="Main_IncludeSubfolders" xml:space="preserve">
-    <value>Kaasa alamkaustad</value>
+    <value>Alamkaustadest otsimine</value>
     <comment>Main window, filter path depth checkbox label (accel)</comment>
   </data>
   <data name="Main_MaxDepth" xml:space="preserve">
-    <value>Max sügavus</value>
+    <value>Maks. sügavus</value>
     <comment>Main window, filter path depth text box label (accel)</comment>
   </data>
   <data name="Main_SearchType_ReadFileAsBinaryAndSearchForBytes" xml:space="preserve">
@@ -1236,7 +1236,7 @@
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="BookmarkDetails_PatternsToExclude" xml:space="preserve">
-    <value>Välistavad mustrid:</value>
+    <value>Välistatud mustrid:</value>
     <comment>Bookmark details dialog, Patterns to exclude label</comment>
   </data>
   <data name="BookmarkDetails_PatternsToMatch" xml:space="preserve">
@@ -1302,5 +1302,755 @@
   <data name="Test_WholeWord" xml:space="preserve">
     <value>Kogu sõna</value>
     <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Options_Personalize_ResultOptions" xml:space="preserve">
+    <value>Tulemuste valikud</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_PluginOptions" xml:space="preserve">
+    <value>Pluginad</value>
+    <comment>Options dialog, Plug-ins group header label</comment>
+  </data>
+  <data name="Options_ShowResultLinesInContext" xml:space="preserve">
+    <value>Kuva tulemustes kontekstiridu</value>
+    <comment>Options dialog, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Replace_ReplaceInFile" xml:space="preserve">
+    <value>Asenda failis</value>
+    <comment>Replace window, Replace in file button label (accel)</comment>
+  </data>
+  <data name="Replace_ReplaceKey1_Text" xml:space="preserve">
+    <value>tekst</value>
+    <comment>Replace window, first color and highlight key label</comment>
+  </data>
+  <data name="Main_Zoom" xml:space="preserve">
+    <value>Zuum:</value>
+    <comment>Main window, results options zoom slider label</comment>
+  </data>
+  <data name="Options_Reload" xml:space="preserve">
+    <value>Lae uuesti</value>
+    <comment>Options dialog, theme reload button label (accel)</comment>
+  </data>
+  <data name="Replace_Previous" xml:space="preserve">
+    <value>Eelmine</value>
+    <comment>Replace window, Previous button label (accel)</comment>
+  </data>
+  <data name="ScriptHint_set_previewfile" xml:space="preserve">
+    <value>Faili eelvaade</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Help_CmdLineVersion" xml:space="preserve">
+    <value>Versioon {0} koostatud ajal {1}</value>
+    <comment>Help dialog text when running dnGrep from the command-line: {0} is the installed dnGrep version number; {1} is the installed dnGrep build date</comment>
+  </data>
+  <data name="Main_Attributes_File" xml:space="preserve">
+    <value>Fail:</value>
+    <comment>Main window, results list, file attributes tooltip label</comment>
+  </data>
+  <data name="Main_Attributes_Type" xml:space="preserve">
+    <value>Tüüp:</value>
+    <comment>Main window, results list, file attributes tooltip label</comment>
+  </data>
+  <data name="Main_BrowseForFolderOrFiles" xml:space="preserve">
+    <value>Vali kaust või failid</value>
+    <comment>Main window, open folder tooltip</comment>
+  </data>
+  <data name="Main_CancelButton" xml:space="preserve">
+    <value>Tühista</value>
+    <comment>Main window, Cancel button label (accel)</comment>
+  </data>
+  <data name="Main_ChangesTheResultsTreeZoom" xml:space="preserve">
+    <value>Muudab tulemustepuu zuumiastet</value>
+    <comment>Main window tooltip</comment>
+  </data>
+  <data name="Main_ClearBookmark" xml:space="preserve">
+    <value>Puhasta järjehoidja</value>
+    <comment>Main window, bookmark button tooltip</comment>
+  </data>
+  <data name="Main_ContextBeforeAnd" xml:space="preserve">
+    <value>rida enne ja</value>
+    <comment>Main window, results options context lines label</comment>
+  </data>
+  <data name="Main_ContextAfter" xml:space="preserve">
+    <value>rida pärast</value>
+    <comment>Main window, result options context lines label</comment>
+  </data>
+  <data name="Main_ContextShowLines" xml:space="preserve">
+    <value>Kuva kontekstiridasid</value>
+    <comment>Main window, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_ContextChangesWillBeAppliedInNextSearch" xml:space="preserve">
+    <value>Kontekstiridade muudatused jõustuvad järgmisest otsingust</value>
+    <comment>Main window, result options context lines tooltip</comment>
+  </data>
+  <data name="Main_Created" xml:space="preserve">
+    <value>Loodud</value>
+    <comment>Main window, filter files by date radio button label (accel)</comment>
+  </data>
+  <data name="Main_DatePastHours" xml:space="preserve">
+    <value>tundi</value>
+    <comment>Main window, filter files by date time unit label</comment>
+  </data>
+  <data name="Main_Folder" xml:space="preserve">
+    <value>Kaust:</value>
+    <comment>Main window, folder input caption (accel)</comment>
+  </data>
+  <data name="Main_FromTheStartOfTheDay" xml:space="preserve">
+    <value>alguskuupäevast</value>
+    <comment>Main window, filter file by date, start date tooltip</comment>
+  </data>
+  <data name="Main_HideResultOptions" xml:space="preserve">
+    <value>Peida tulemuste valikud</value>
+    <comment>Main window, result options expander button tooltip (bottom of window)</comment>
+  </data>
+  <data name="Main_HighlightGroups" xml:space="preserve">
+    <value>Gruppide esiletõstmine</value>
+    <comment>Main window, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_HighlightMatches" xml:space="preserve">
+    <value>Vastete esiletõstmine</value>
+    <comment>Main window, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_HighlightRegularExpressionGroups" xml:space="preserve">
+    <value>Toob regulaaravaldise grupid esile. Muudatused jõustuvad järgmisest otsingust.</value>
+    <comment>Main window, result options highlight groups tooltip</comment>
+  </data>
+  <data name="Main_MaximizeResults" xml:space="preserve">
+    <value>Maksimeeri tulemused (F7)</value>
+    <comment>Main window, Maximize results button tooltip</comment>
+  </data>
+  <data name="Main_Menu_About_AboutDnGrep" xml:space="preserve">
+    <value>dnGrep teave…</value>
+    <comment>Main window, main menu subitem label (accel)</comment>
+  </data>
+  <data name="Main_Menu_About_AppData" xml:space="preserve">
+    <value>Rakenduse andmed ja logifailid</value>
+    <comment>Main window, main menu subitem label (accel)</comment>
+  </data>
+  <data name="Main_Menu_About_CheckForUpdates" xml:space="preserve">
+    <value>Kontrolli uuendusi</value>
+    <comment>Main window, main menu subitem label (accel)</comment>
+  </data>
+  <data name="Main_Menu_EditScript" xml:space="preserve">
+    <value>Redigeeri skripti…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_NewScript" xml:space="preserve">
+    <value>Uus skript…</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Menu_Scripts" xml:space="preserve">
+    <value>Skriptid</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Options_PdfToTextReset" xml:space="preserve">
+    <value>Lähtesta</value>
+    <comment>Options dialog, PDF arguments button label (accel)</comment>
+  </data>
+  <data name="Options_Personalize_Features" xml:space="preserve">
+    <value>Funktsioonid</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_PressF1ForHelpOnOptions" xml:space="preserve">
+    <value>Vajuta F1 valikute abiinfo kuvamiseks</value>
+    <comment>Options dialog, help label</comment>
+  </data>
+  <data name="Options_SampleText" xml:space="preserve">
+    <value>Näidistekst</value>
+    <comment>Options dialog, font family and size sample text </comment>
+  </data>
+  <data name="Options_Save" xml:space="preserve">
+    <value>Salvesta</value>
+    <comment>Options dialog, save button label (accel)</comment>
+  </data>
+  <data name="Options_ShowResultsTreeExpanded" xml:space="preserve">
+    <value>Kuva tulemuste puu laiendatult</value>
+    <comment>Options dialog, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Options_ShowVerboseMatchCount" xml:space="preserve">
+    <value>Kuva täiendavaid detaile leitud vastete kohta</value>
+    <comment>Options dialog, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Options_ShowSearchOptions" xml:space="preserve">
+    <value>Kuva otsingu valikud</value>
+    <comment>Options dialog, layout options label</comment>
+  </data>
+  <data name="Options_StartupOptions" xml:space="preserve">
+    <value>Startup</value>
+    <comment>Options dialog, startup group header label</comment>
+  </data>
+  <data name="Options_Theme" xml:space="preserve">
+    <value>Teema</value>
+    <comment>Options dialog, theme group header label</comment>
+  </data>
+  <data name="Options_TimeoutSeconds" xml:space="preserve">
+    <value>sekundit</value>
+    <comment>Options dialog, regular expression options timeout input label</comment>
+  </data>
+  <data name="Options_ToChangeThisSettingRunDnGREPAsAdministrator" xml:space="preserve">
+    <value>Selle sätte muutmiseks käivita dnGrep administraatori õigustes.</value>
+    <comment>Options dialog, Explorer right-click tooltip</comment>
+  </data>
+  <data name="Preview_FindNext" xml:space="preserve">
+    <value>Leia järgmine (F3)</value>
+    <comment>Preview window, search tool window tooltip</comment>
+  </data>
+  <data name="Preview_Syntax" xml:space="preserve">
+    <value>Süntaks</value>
+    <comment>Preview window, option label</comment>
+  </data>
+  <data name="Preview_SyntaxNone" xml:space="preserve">
+    <value>Ükski</value>
+    <comment>Preview window, syntax coloring option for no syntax coloring</comment>
+  </data>
+  <data name="Preview_ThisFileIsEitherBinaryOrTooLargeToPreview" xml:space="preserve">
+    <value>Fail on binaarne või kuvamiseks liiga suure mahuga.</value>
+    <comment>Preview window, warning message</comment>
+  </data>
+  <data name="Replace_ErrorThisIsABinaryFile" xml:space="preserve">
+    <value>Viga: see on binaarfail</value>
+    <comment>Replace window, File text when attempt to replace in binary file</comment>
+  </data>
+  <data name="Replace_KeepPreviousFileModifiedDate" xml:space="preserve">
+    <value>Säilita eelnev faili muutmise kuupäev</value>
+    <comment>Replace window, Keep modified date checkbox label</comment>
+  </data>
+  <data name="Replace_MarkAllMatchesInThisFileForReplacement" xml:space="preserve">
+    <value>Märgi kõik vasted selles failis asendamiseks [Ctrl+A]</value>
+    <comment>Replace window, Replace in file button tooltip</comment>
+  </data>
+  <data name="Replace_MoveToThePreviousMatchInThisFile" xml:space="preserve">
+    <value>Liigu selles failis eelmisele vastele [Ctrl+paremale]</value>
+    <comment>Replace window, Previous button tooltip</comment>
+  </data>
+  <data name="Replace_Next" xml:space="preserve">
+    <value>Järgmine</value>
+    <comment>Replace window, Next button label (accel)</comment>
+  </data>
+  <data name="Main_SearchFilesInMultipleThreads" xml:space="preserve">
+    <value>Otsi faile mitmes lõimes paralleelselt</value>
+    <comment>Main window, search option parallel tooltip</comment>
+  </data>
+  <data name="Main_SearchInGroup" xml:space="preserve">
+    <value>Otsi asukohast</value>
+    <comment>Main window Search In group heading</comment>
+  </data>
+  <data name="Main_SearchInResults" xml:space="preserve">
+    <value>Otsi asukohast tulemused</value>
+    <comment>Main window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_Status_Searching" xml:space="preserve">
+    <value>Otsin…</value>
+    <comment>Main window, status bar message</comment>
+  </data>
+  <data name="Options_ResultsOptions" xml:space="preserve">
+    <value>Otsingutulemused</value>
+    <comment>Options dialog, Search results group header label</comment>
+  </data>
+  <data name="Preview_UseRegularExpressions" xml:space="preserve">
+    <value>Kasuta regulaaravaldist</value>
+    <comment>Preview window, search tool window tooltip</comment>
+  </data>
+  <data name="Preview_WrapText" xml:space="preserve">
+    <value>Murra ridu</value>
+    <comment>Preview window, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Preview_Zoom" xml:space="preserve">
+    <value>Zuum:</value>
+    <comment>Preview window, results options zoom slider label</comment>
+  </data>
+  <data name="Main_WrapText" xml:space="preserve">
+    <value>Murra ridu</value>
+    <comment>Main window, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Rename_FileNameContainsInvalidCharacters" xml:space="preserve">
+    <value>Failinimi sisaldab vigaseid sümboleid</value>
+    <comment>Rename file dialog error message</comment>
+  </data>
+  <data name="Rename_NewName" xml:space="preserve">
+    <value>Uus nimi:</value>
+    <comment>Rename file dialog input label</comment>
+  </data>
+  <data name="Replace_ChangesTextEditorZoom" xml:space="preserve">
+    <value>Muudab tekstiredaktori zuumi</value>
+    <comment>Replace window, Zoom slider tooltip</comment>
+  </data>
+  <data name="Replace_Matches" xml:space="preserve">
+    <value>Vasted</value>
+    <comment>Replace window, Matches group header label</comment>
+  </data>
+  <data name="Replace_MoveToTheNextMatchInThisFile" xml:space="preserve">
+    <value>Liigu selles failis järgmisele vastele [Ctrl+vasakule]</value>
+    <comment>Replace window, Next button tooltip</comment>
+  </data>
+  <data name="Replace_NextFile" xml:space="preserve">
+    <value>Järgmine _fail</value>
+    <comment>Replace window, Next file button label (accel)</comment>
+  </data>
+  <data name="Help_CmdLinePatternType" xml:space="preserve">
+    <value>/pt [tüüp]
+-pt [tüüp]
+-patternType [tüüp]
+    Seab vastetüübi ja ignoreerimismustri - peab olema üks "Asterisk" (metamärk), "Regex" (regulaaravaldis) või "Everything" (kui Evertything otsingu tööriist on installeeritud).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Options_Personalize_PreviewWindow" xml:space="preserve">
+    <value>Eelvaateaken</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Help_CmdLineDefaultArguments" xml:space="preserve">
+    <value>Iga täpsustamata argument lähtestatakse viimati salvestatud kasutajasättele.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExample2" xml:space="preserve">
+    <value>dnGrep [kaustaTee] [otsiMida]
+Üks või kaks argumenti ilma lippudeta: esimene argument on kaust, millest otsida ning teine regulaaravaldis, mida otsida.
+näide:
+dnGrep "C:\Program Files\dnGrep" t\w*t</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineExample1" xml:space="preserve">
+    <value>dnGrep [argumendid]
+Kasutades ükskõik millist kombinatsiooni alljärgnevatest argimentidest.
+näide:
+dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineReportMode" xml:space="preserve">
+    <value>/rm [reziim]
+-rm [reziim
+-reportMode [reziim]
+    Seab raporti väljundreziimi regulaaravaldiste raportile - peab olema üks järgnevaist: "FullLine", "Matches", või "Groups".</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineSearchFor" xml:space="preserve">
+    <value>/s [otsiMida]
+-s [otsiMida]
+-searchFor [otsiMida]
+    Seab mustri või teksti, mida failide hulgast otsida. Kui see argument on seatud, toimub otsimine automaatselt.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineSearchType" xml:space="preserve">
+    <value>/st [tüüp]
+-st [tüüp]
+-searchType [tüüp]
+    Seab otsingutüübi - peab olema üks järgnevaist: "PlainText", "Regex" (regulaaravaldis), "XPath" või "Soundex" (foneetiline).</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineTrimWhitespace" xml:space="preserve">
+    <value>/trim [True/False]
+-trim [True/False]
+-trimWhitespace [True/False]
+    Seab lipu tühikute  trimmimiseks raporti väljundis - True või False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUsage" xml:space="preserve">
+    <value>Kasutus:</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_OneOrMoreArgumentsAreInvalid" xml:space="preserve">
+    <value>Üks või enam argumenti ei ole korrektne.</value>
+    <comment>Help dialog header text</comment>
+  </data>
+  <data name="Help_CmdLineUniqueValues" xml:space="preserve">
+    <value>/unique [True/False]
+-unique [True/False]
+-uniqueValues [True/False]
+    Seab lipu ainult unikaalsete vastete või grupiväärtuste väljastamiseks regulaarvavaldiste raporti väljundis - True või False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Main_AddSearchPatternToBookmarks" xml:space="preserve">
+    <value>Lisa otsingumuster järjehoidjatesse</value>
+    <comment>Main window, bookmark button tooltip</comment>
+  </data>
+  <data name="Main_AllDates" xml:space="preserve">
+    <value>Kõik kuupäevad</value>
+    <comment>Main window, filter files by date radio button label (accel)</comment>
+  </data>
+  <data name="Help_CmdLineWholeWord" xml:space="preserve">
+    <value>/ww [True/False]
+-ww [True/False]
+-wholeWord [True/False]
+    Seab kogusõnaotsingu lipu - True või False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_DnGrepHelp" xml:space="preserve">
+    <value>dnGrep abi</value>
+    <comment>Help dialog window title</comment>
+  </data>
+  <data name="Main_AllSizes" xml:space="preserve">
+    <value>Kõik mahud</value>
+    <comment>Main window, size filter radio button label (accel)</comment>
+  </data>
+  <data name="Main_Attributes_DateModified" xml:space="preserve">
+    <value>Muutmiskuupäev:</value>
+    <comment>Main window, results list, file attributes tooltip label</comment>
+  </data>
+  <data name="Main_AssociateBookmarkWithFolder" xml:space="preserve">
+    <value>Seosta järjehoidja kaustaga</value>
+    <comment>Main window, folder bookmark button tooltip</comment>
+  </data>
+  <data name="Main_Attributes_Size" xml:space="preserve">
+    <value>Maht:</value>
+    <comment>Main window, results list, file attributes tooltip label</comment>
+  </data>
+  <data name="Main_CaptureGroupSearch" xml:space="preserve">
+    <value>Grupihõive otsing</value>
+    <comment>Main window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_CaseSensitive" xml:space="preserve">
+    <value>Tõstutundlik</value>
+    <comment>Main window, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Main_CombineMultipleSearchPatternsUsingANDOrOR" xml:space="preserve">
+    <value>Kombineeri mitu otsingumustrit kasutades 'AND' või 'OR' operaatoreid</value>
+    <comment>Main window, search option Boolean Operators tooltip</comment>
+  </data>
+  <data name="Main_DateFrom" xml:space="preserve">
+    <value>Alates</value>
+    <comment>Main window, filter files by date radio button label (accel)</comment>
+  </data>
+  <data name="Main_DatePast" xml:space="preserve">
+    <value>Möödunud</value>
+    <comment>Main window, filter files by date radio button label (accel)</comment>
+  </data>
+  <data name="Main_Menu_About" xml:space="preserve">
+    <value>Teave</value>
+    <comment>Main window, main menu label (accel)</comment>
+  </data>
+  <data name="Main_Menu_CancelScript" xml:space="preserve">
+    <value>Katkesta skript</value>
+    <comment>Main window, main menu item label (accel)</comment>
+  </data>
+  <data name="Main_Results_ShowExplorerMenu" xml:space="preserve">
+    <value>Kuva Exploreri menüü</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_Status_SearchingForGitignore" xml:space="preserve">
+    <value>Otsin .gitignore faili</value>
+    <comment>Main window, status bar message</comment>
+  </data>
+  <data name="Options_PersonalizeControlVisibility_Tooltip" xml:space="preserve">
+    <value>Kuva või peida kontrollelemendid kui Personaliseerimine on lubatud</value>
+    <comment>Options dialog, control tooltip</comment>
+  </data>
+  <data name="Options_BrowseFileLocation" xml:space="preserve">
+    <value>…</value>
+    <comment>Options dialog, browse for file button label</comment>
+  </data>
+  <data name="Options_PluginExtensions" xml:space="preserve">
+    <value>Laiendused:</value>
+    <comment>Options dialog, plug-in options label</comment>
+  </data>
+  <data name="Options_ReplaceFontSize" xml:space="preserve">
+    <value>Asenda akna fondisuurus</value>
+    <comment>Options dialog, font size input label</comment>
+  </data>
+  <data name="Options_ResultsFontUsuallyAFixedWidthFont" xml:space="preserve">
+    <value>Font kasutusel otsingu tulemustes, tavaliselt fikseeritud laiusega font</value>
+    <comment>Options dialog, replace font selector tooltip</comment>
+  </data>
+  <data name="Options_UseDefault" xml:space="preserve">
+    <value>Kasuta vaikimisi fonti</value>
+    <comment>Options dialog, fonts default checkbox label (accel)</comment>
+  </data>
+  <data name="Preview_HighlightsDisabledTooManyMatchesFound" xml:space="preserve">
+    <value>Esiletõstmisi ei kuvata kuna leiti liiga palju vasteid.</value>
+    <comment>Preview window, warning text</comment>
+  </data>
+  <data name="Preview_MatchWholeWords" xml:space="preserve">
+    <value>Sobita terved sõnad</value>
+    <comment>Preview window, search tool window tooltip</comment>
+  </data>
+  <data name="Rename_FileNameAlreadyExistsInThisDirectory" xml:space="preserve">
+    <value>Failinimi on selles kaustas juba kasutusel</value>
+    <comment>Rename file dialog error message</comment>
+  </data>
+  <data name="Replace_CancelAllReplacements" xml:space="preserve">
+    <value>Tühista kõik asendamised</value>
+    <comment>Replace window, Cancel button tooltip</comment>
+  </data>
+  <data name="Replace_FileNumberOfCountName" xml:space="preserve">
+    <value>File {0} kokku {1}-st failist: {2} ({3} vastet {4}-l real)</value>
+    <comment>Replace window, file name progress line: {0} is the index of the current file; {1} is the total number of files; {2} is the name of the current file; {3} is the number of matches found in the current file; {4} is the number of lines in the current file with matches</comment>
+  </data>
+  <data name="Replace_NumberOfMatchesMarkedForReplacement" xml:space="preserve">
+    <value>{0} vastet {1} vastest märgistatud asendamiseks</value>
+    <comment>Replace window, file name progress line: {0} is number of matches marked for replacement; {1} is the number of matches found in the current file</comment>
+  </data>
+  <data name="Replace_ReplaceInAllFiles" xml:space="preserve">
+    <value>Asenda kõigis failides</value>
+    <comment>Replace window, Replace in all files button label (accel)</comment>
+  </data>
+  <data name="Replace_Files" xml:space="preserve">
+    <value>Failid</value>
+    <comment>Replace window, Files group header label</comment>
+  </data>
+  <data name="Replace_MarkMatchForReplacement" xml:space="preserve">
+    <value>Märgi vaste asendamiseks [Ctrl+R]</value>
+    <comment>Replace window, Replace button tooltip</comment>
+  </data>
+  <data name="Replace_ReplaceKey4_SkipMatch" xml:space="preserve">
+    <value>Jäta vaste vahele</value>
+    <comment>Replace window, fourth color and highlight key label</comment>
+  </data>
+  <data name="Options_PluginReset" xml:space="preserve">
+    <value>Lähtesta</value>
+    <comment>Options dialog, plug-ins extensions button label (accel)</comment>
+  </data>
+  <data name="Options_PluginShowPlainTextInPreview" xml:space="preserve">
+    <value>Kuva eelvaateaknas lihttekst</value>
+    <comment>Options dialog, plug-ins checkbox label</comment>
+  </data>
+  <data name="Options_PreviewToolForTranslators" xml:space="preserve">
+    <value>Eelvaatetöörist tõlkijatele</value>
+    <comment>Options dialog, load language button tooltip</comment>
+  </data>
+  <data name="Options_Personalize_FileFilter" xml:space="preserve">
+    <value>Faili filter</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_ResultsTree" xml:space="preserve">
+    <value>Tulemuste puu</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_Personalize_SearchOptions" xml:space="preserve">
+    <value>Otsingu valikud</value>
+    <comment>Options dialog, Personalization group</comment>
+  </data>
+  <data name="Options_PluginEnabled" xml:space="preserve">
+    <value>Lubatud</value>
+    <comment>Options dialog, plug-ins checkbox label</comment>
+  </data>
+  <data name="Options_RegexOptions" xml:space="preserve">
+    <value>Regulaaravaldised</value>
+    <comment>Options dialog, regular expressions group heading label</comment>
+  </data>
+  <data name="Options_ReloadTheCurrentThemeFile" xml:space="preserve">
+    <value>Taaslae käesolev teemafail [Ctrl+F5]</value>
+    <comment>Options dialog, theme reload button tooltip</comment>
+  </data>
+  <data name="Options_ReplaceDialogLayout" xml:space="preserve">
+    <value>Asenda akna paigutus</value>
+    <comment>Options dialog, Replace window layout options label</comment>
+  </data>
+  <data name="Options_ResultsFontFamily" xml:space="preserve">
+    <value>Tulemuste fondi perekond</value>
+    <comment>Options dialog, results font selector label</comment>
+  </data>
+  <data name="Options_ResultsFontSize" xml:space="preserve">
+    <value>Tulemuste fondi suurus</value>
+    <comment>Options dialog, results font size label</comment>
+  </data>
+  <data name="Options_SelectedTheme" xml:space="preserve">
+    <value>Valitud teema</value>
+    <comment>Options dialog, theme selector label</comment>
+  </data>
+  <data name="Preview_ChangesTextEditorZoom" xml:space="preserve">
+    <value>Muudab tekstiredaktori zuumi</value>
+    <comment>Preview window, zoom slider tooltip</comment>
+  </data>
+  <data name="Preview_FindPrevious" xml:space="preserve">
+    <value>Leia eelmine (Tõstuklahv+F3)</value>
+    <comment>Preview window, search tool window tooltip</comment>
+  </data>
+  <data name="Preview_PreviewAnyway" xml:space="preserve">
+    <value>Eelvaatle ikkagi</value>
+    <comment>Preview window, warning label</comment>
+  </data>
+  <data name="Preview_Title_AsText" xml:space="preserve">
+    <value>(tekstina)</value>
+    <comment>Preview window, file label when binary file is shown as text</comment>
+  </data>
+  <data name="Options_SendToRecycleBin" xml:space="preserve">
+    <value>Saada prügikasti</value>
+    <comment>Options dialog, delete option label (accel)</comment>
+  </data>
+  <data name="Options_ShowDnGrepInExplorerRightClickMenu" xml:space="preserve">
+    <value>Kuva dnGrep Windows Exploreri parema kliki kontekstmenüüs</value>
+    <comment>Options dialog, startup options, checkbox label (accel)</comment>
+  </data>
+  <data name="Options_ShowFileInfoToolTips" xml:space="preserve">
+    <value>Kuva faili info kontspikreid</value>
+    <comment>Options dialog, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Options_ShowFilePathInResultsPanel" xml:space="preserve">
+    <value>Kuva failitee tulemuste paneelil</value>
+    <comment>Options dialog, results options checkbox label (accel)</comment>
+  </data>
+  <data name="Options_WantADifferentLanguage" xml:space="preserve">
+    <value>Kas soovid teist keelt?</value>
+    <comment>Options dialog, language request label</comment>
+  </data>
+  <data name="Options_WhenDeletingFiles" xml:space="preserve">
+    <value>Failide kustutamisel</value>
+    <comment>Options dialog, delete option label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Preview" xml:space="preserve">
+    <value>Eelvaade:</value>
+    <comment>Report options dialog, label</comment>
+  </data>
+  <data name="Replace_ReplaceKey2_SelectedMatch" xml:space="preserve">
+    <value>Valitud vaste</value>
+    <comment>Replace window, second color and highlight key label</comment>
+  </data>
+  <data name="Replace_ReplaceMatchesMarkedForReplacement" xml:space="preserve">
+    <value>Asenda asendamiseks märgitud vasted</value>
+    <comment>Replace window, OK button tooltip</comment>
+  </data>
+  <data name="Replace_ReplaceKey3_ReplaceMatch" xml:space="preserve">
+    <value>Asenda vaste</value>
+    <comment>Replace window, third color and highlight key label</comment>
+  </data>
+  <data name="BookmarkDetails_EverythingIndexService" xml:space="preserve">
+    <value>Everything intekseerimisteenus</value>
+    <comment>Bookmark details dialog, Everything pattern type option tooltip</comment>
+  </data>
+  <data name="BookmarkDetails_CaseSensitive" xml:space="preserve">
+    <value>Tõstutundlik</value>
+    <comment>Bookmark details dialog, search option checkbox label (accel)</comment>
+  </data>
+  <data name="Help_CmdLineSeparateLines" xml:space="preserve">
+    <value>/sl [True/False]
+-sl [True/False]
+-separateLines [True/False]
+    Seab lipu väljastamaks iga vastet või gruppi regulaaravaldise raporti väljundis uuel real - True või False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineTextReport" xml:space="preserve">
+    <value>/txt [failiTee]
+-txt [failiTee]
+-text [failiTee]
+    Loo peale otsingu lõpetamist tekstivormingus tulemustefail.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineCaseSensitive" xml:space="preserve">
+    <value>/cs [True/False]
+-cs [True/False]
+-caseSensitive [True/False]
+    Seab tõstutundliku otsingu lipu - True või False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineMultiline" xml:space="preserve">
+    <value>/ml [True/False]
+-ml [True/False]
+-multiline [True/False]
+    Seab mitmerealise otsingu lipu – True või False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePathToIgnore" xml:space="preserve">
+    <value>/pi [pattern]
+-pi [pattern]
+-pathToIgnore [pattern]
+    Seab faili- või kaustanime mustri otsingukaustas failide või alamkaustade ignoreerimiseks. Võib olla koma või semikooloniga eraldatud nimekiri mustritest.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLinePathToMatch" xml:space="preserve">
+    <value>/pm [pattern]
+-pm [pattern]
+-pathToMatch [pattern]
+    Seab failinime mustri otsingukaustas vastavatele failidele. Võib olla koma või semikooloniga eraldatud nimekiri mustritest.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineReport" xml:space="preserve">
+    <value>/rpt [failiTee]
+-rpt [failiTee]
+-report [failiTee]
+    Loo peale otsingu lõpetamist raportiformaadis vastufail.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineBooleanOperators" xml:space="preserve">
+    <value>/bo [True/False]
+-bo [True/False]
+-booleanOperators [True/False]
+    Seab tõeväärtusoperaatorite otsingu lipu -  True või False.</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Help_CmdLineUniqueScope" xml:space="preserve">
+    <value>/scope [skoop]
+-scope [skoop]
+-uniqueScope [skoop]
+    Seab lipu unikaalsete väärtuste skoobi  regulaaravaldiste raporti väljundis - peab olema üks järgnevaist: "Global" või "PerFile".</value>
+    <comment>Help dialog text when running dnGrep from the command-line</comment>
+  </data>
+  <data name="Main_DockBottom" xml:space="preserve">
+    <value>Doki alla</value>
+    <comment>Main window docking context menu item label (accel)</comment>
+  </data>
+  <data name="Main_DockRight" xml:space="preserve">
+    <value>Doki paremale</value>
+    <comment>Main window docking context menu label (accel)</comment>
+  </data>
+  <data name="Main_Empty" xml:space="preserve">
+    <value>Tühi</value>
+    <comment>Main window title prefix when search for is empty</comment>
+  </data>
+  <data name="Main_EncodingAutoDetection" xml:space="preserve">
+    <value>automaatne tuvastus (vaikimisi)</value>
+    <comment>Main window encoding auto select text</comment>
+  </data>
+  <data name="Main_EverythingIndexService" xml:space="preserve">
+    <value>Everything indekseerimisteenus</value>
+    <comment>Main window, pattern type option Everything tooltip</comment>
+  </data>
+  <data name="Main_EverythingSearch" xml:space="preserve">
+    <value>Everything otsing:</value>
+    <comment>Main window, folder input caption when Everything search is enabled (accel)</comment>
+  </data>
+  <data name="Main_ExcelSheetName" xml:space="preserve">
+    <value>Tööleht [{0}]</value>
+    <comment>Main window results list for Excel file data: {0} is a string, the name of the worksheet in the Excel document</comment>
+  </data>
+  <data name="Main_ExcludeFilesByTypeAndFoldersByName" xml:space="preserve">
+    <value>Välista faile tüübi ja kaustu nime alusel</value>
+    <comment>Main window, Patterns to exclude label tooltip</comment>
+  </data>
+  <data name="Main_FilterSummary_AllFiles" xml:space="preserve">
+    <value>Kõik failid</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Main_FilterSummary_ByCreatedDate" xml:space="preserve">
+    <value>Loomiskuupäeva järgi</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Main_FilterSummary_ByModifiedDate" xml:space="preserve">
+    <value>Muutmiskuupäeva järgi</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Main_FilterSummary_BySize" xml:space="preserve">
+    <value>Failimahu järgi</value>
+    <comment>Main window, file filters summary</comment>
+  </data>
+  <data name="Main_RemoveFolderFromBookmarkAssociation" xml:space="preserve">
+    <value>Eemalda kausta ja järjehoidja seos</value>
+    <comment>Main window, folder bookmark button tooltip</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_ReplaceUsingBooleanOperators" xml:space="preserve">
+    <value>Asenda kasutades tõeoperaatoreid, ainult koos tekstiotsinguga</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_ReplaceTooltip_SearchParametersHaveChanged" xml:space="preserve">
+    <value>Otsingu parameetrid on muutunud</value>
+    <comment>Main window replace button tooltip</comment>
+  </data>
+  <data name="Main_Results_CopyLinesOfText" xml:space="preserve">
+    <value>Kopeeri rida teksti</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Main_StopAfterFirstMatch" xml:space="preserve">
+    <value>Peatu peale esimest vastet</value>
+    <comment>Main window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Main_TestExpression" xml:space="preserve">
+    <value>Testi avaldist</value>
+    <comment>Main window, test search expression button label (accel)</comment>
+  </data>
+  <data name="Main_ThroughTheEndOfTheDay" xml:space="preserve">
+    <value>lõpukuupäeva lõpuni</value>
+    <comment>Main window, filter file by date, end date tooltip</comment>
+  </data>
+  <data name="MessageBox_NewVersion" xml:space="preserve">
+    <value>Uus versioon</value>
+    <comment>Message box title for: New dnGrep version</comment>
   </data>
 </root>
