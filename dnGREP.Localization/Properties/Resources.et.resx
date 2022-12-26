@@ -199,7 +199,7 @@
     <comment>Bookmarks dialog, grid header</comment>
   </data>
   <data name="Main_SortMenu_PathAndFileNameDepthFirst" xml:space="preserve">
-    <value>Failitee ja -nimi, sügavus esmalt</value>
+    <value>Failitee ja -nimi, esmalt sügavus</value>
     <comment>Main window sort options menu label (accel)</comment>
   </data>
   <data name="MessageBox_RenameFile" xml:space="preserve">
@@ -331,10 +331,10 @@
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineDotAsNewline" xml:space="preserve">
-    <value>/dn [Tõene/Väär]
--dn [Tõene/Väär]
--dotAsNewline [Tõene/Väär]
-    Seab punkti kui uue rea otsimise lipuks - tõene või väär.</value>
+    <value>/dn [True/False]
+-dn [True/False]
+-dotAsNewline [True/False]
+    Seab punkti kui uue rea otsimise lipuks - True või False.</value>
     <comment>Help dialog text when running dnGrep from the command-line</comment>
   </data>
   <data name="Help_CmdLineFileInformation" xml:space="preserve">
@@ -824,7 +824,7 @@
     <comment>Main window, Wildcard pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_PatternType_Everything" xml:space="preserve">
-    <value>Kõik</value>
+    <value>Everything</value>
     <comment>Main window, Everything pattern type radio button label (accel)</comment>
   </data>
   <data name="Main_PowerPointSlideNumber" xml:space="preserve">
@@ -960,19 +960,19 @@
     <comment>Replace window, replace text input box label</comment>
   </data>
   <data name="ReportSummary_NoBinary" xml:space="preserve">
-    <value>Ei ole binaarne</value>
+    <value>Mittebinaarsed</value>
     <comment>Main window options summary</comment>
   </data>
   <data name="Test_DotAsNewline" xml:space="preserve">
-    <value>Punkt kui uus ri_da</value>
+    <value>Punkt kui reavahetus</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="MessageBox_AreYouSureYouWantToContinue" xml:space="preserve">
-    <value>Edasi?</value>
+    <value>Jätkan?</value>
     <comment>Message box text for: Delete files</comment>
   </data>
   <data name="Replace_OK" xml:space="preserve">
-    <value>OK</value>
+    <value>Olgu</value>
     <comment>Replace window, OK button text</comment>
   </data>
   <data name="Main_UseGitignore" xml:space="preserve">
@@ -988,7 +988,7 @@
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="MessageBox_WouldYouLikeToContinue" xml:space="preserve">
-    <value>Edasi?</value>
+    <value>Jätkan?</value>
     <comment>Message box text for: Replace window warning</comment>
   </data>
   <data name="Options_Close" xml:space="preserve">
@@ -1004,11 +1004,11 @@
     <comment>Options dialog, phonetic group header label</comment>
   </data>
   <data name="Rename_OK" xml:space="preserve">
-    <value>OK</value>
+    <value>Olgu</value>
     <comment>Rename file dialog button label</comment>
   </data>
   <data name="Rename_Title" xml:space="preserve">
-    <value>Nimeta fail ümber</value>
+    <value>Failide ümbernimetamine</value>
     <comment>Rename file dialog title</comment>
   </data>
   <data name="Replace_Cancel" xml:space="preserve">
@@ -1032,7 +1032,7 @@
     <comment>Report options dialog, close button</comment>
   </data>
   <data name="ReportSummary_BooleanOperators" xml:space="preserve">
-    <value>Tõeväärtus operaatorid</value>
+    <value>Tõeväärtuse operaatorid</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_CaseSensitive" xml:space="preserve">
@@ -1044,7 +1044,7 @@
     <comment>Report search options summary label</comment>
   </data>
   <data name="ReportSummary_MaxFolderDepth" xml:space="preserve">
-    <value>Max kausta sügavus: {0}</value>
+    <value>Maks. kausta sügavus: {0}</value>
     <comment>Report search options summary: {0} is the user input folder depth</comment>
   </data>
   <data name="ReportSummary_Multiline" xml:space="preserve">
@@ -1072,7 +1072,7 @@
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="ScriptHint_set_booleanoperators" xml:space="preserve">
-    <value>Tõeväärtus operaatorid</value>
+    <value>Tõeväärtuse operaatorid</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_casesensitive" xml:space="preserve">
@@ -1084,7 +1084,7 @@
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_includebinary" xml:space="preserve">
-    <value>Kaasa binaarfailid</value>
+    <value>Kaasaarvatud binaarfailid</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_includehidden" xml:space="preserve">
@@ -1112,7 +1112,7 @@
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_skipremotecloudstoragefiles" xml:space="preserve">
-    <value>Jäta pilve talletatud failid kõrvale</value>
+    <value>Jäta pilve talletatud failid vahele</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_usegitignore" xml:space="preserve">
@@ -1124,7 +1124,7 @@
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="Scripts_OK" xml:space="preserve">
-    <value>OK</value>
+    <value>Olgu</value>
     <comment>Script Messages dialog button text</comment>
   </data>
   <data name="Test_ReplaceWith" xml:space="preserve">
@@ -1140,7 +1140,7 @@
     <comment>Test window, search group box heading</comment>
   </data>
   <data name="Help_OK" xml:space="preserve">
-    <value>OK</value>
+    <value>Olgu</value>
     <comment>Help dialog button label</comment>
   </data>
   <data name="Main_Attributes_Encoding" xml:space="preserve">
@@ -1148,7 +1148,7 @@
     <comment>Main window, results list, file attributes tooltip label</comment>
   </data>
   <data name="Main_BooleanOperators" xml:space="preserve">
-    <value>Tõeväärtus operaatorid</value>
+    <value>Tõeväärtuse operaatorid</value>
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_DateTo" xml:space="preserve">
@@ -1164,19 +1164,19 @@
     <comment>Main window, file filters summary: {0} is a number</comment>
   </data>
   <data name="Main_FilterSummary_NoBinary" xml:space="preserve">
-    <value>Ei ole binaarne</value>
+    <value>Mitte-binaarsed</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_NoHidden" xml:space="preserve">
-    <value>Ei ole peidetud</value>
+    <value>Mittepeidetud</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_NoSubfolders" xml:space="preserve">
-    <value>Ilma alamkaustadeta</value>
+    <value>Alamkaustadeta</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FilterSummary_NoSymlinks" xml:space="preserve">
-    <value>Ilma sümboolsete linkideta</value>
+    <value>Sümboolsete linkideta</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_FollowSymbolicLinks" xml:space="preserve">
@@ -1184,7 +1184,7 @@
     <comment>Main window, filter files checkbox label (accel)</comment>
   </data>
   <data name="Main_ForExampleAsteriskPattern" xml:space="preserve">
-    <value>Näiteks: *.txt;*.xml</value>
+    <value>näiteks: *.txt;*.xml</value>
     <comment>Main window, Wildcard pattern type option tooltip</comment>
   </data>
   <data name="Main_ForExampleRegularExpession" xml:space="preserve">
@@ -1192,7 +1192,7 @@
     <comment>Main window, Regular expression pattern type option tooltip</comment>
   </data>
   <data name="Main_IncludeBinaryFiles" xml:space="preserve">
-    <value>Kaasa binaarfailid</value>
+    <value>Kaasaarvatud binaarfailid</value>
     <comment>Main window, filter files checkbox label (accel)</comment>
   </data>
   <data name="Main_IncludeHiddenFolders" xml:space="preserve">
@@ -1216,7 +1216,7 @@
     <comment>Rename file dialog button label</comment>
   </data>
   <data name="ReportSummary_NoSubfolders" xml:space="preserve">
-    <value>Ilma alamkaustadeta</value>
+    <value>Alamkaustadeta</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_WholeWord" xml:space="preserve">
@@ -1224,7 +1224,7 @@
     <comment>Report search options summary</comment>
   </data>
   <data name="Test_BooleanOperators" xml:space="preserve">
-    <value>Tõeväärtus operaatorid</value>
+    <value>Tõeväärtuse operaatorid</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_Close" xml:space="preserve">
@@ -1240,7 +1240,7 @@
     <comment>Bookmark details dialog, Patterns to exclude label</comment>
   </data>
   <data name="BookmarkDetails_PatternsToMatch" xml:space="preserve">
-    <value>Sobivad mustrid:</value>
+    <value>Vaste andvad mustrid:</value>
     <comment>Bookmark details dialog, Patterns to match label</comment>
   </data>
   <data name="BookmarkDetails_PatternType_AsteriskPattern" xml:space="preserve">
@@ -1248,11 +1248,11 @@
     <comment>Bookmark details dialog, Wildcard pattern type radio button label (accel)</comment>
   </data>
   <data name="BookmarkDetails_SearchType_XPathSearchXMLDocumentsOnly" xml:space="preserve">
-    <value>XPath otsing (ainult XML dokumendid)</value>
+    <value>XPath otsing (ainult XML dokumentidel)</value>
     <comment>Bookmark details dialog, search type XPath tooltip</comment>
   </data>
   <data name="BookmarkDetails_SkipRemoteCloudStorageFiles" xml:space="preserve">
-    <value>Jäta pilve talletatud failid kõrvale</value>
+    <value>Jäta pilve talletatud failid vahele</value>
     <comment>Bookmark details dialog, checkbox label (accel)</comment>
   </data>
   <data name="Main_DotAsNewline" xml:space="preserve">
@@ -1272,7 +1272,7 @@
     <comment>Replace window, Undo button label (accel)</comment>
   </data>
   <data name="ReportSummary_NoSymlinks" xml:space="preserve">
-    <value>Ilma sümboolsete linkideta</value>
+    <value>Sümboolsete linkideta</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_SearchFor" xml:space="preserve">
@@ -1280,7 +1280,7 @@
     <comment>Report search options summary label</comment>
   </data>
   <data name="Test_SearchType_Hex" xml:space="preserve">
-    <value>Bait</value>
+    <value>bait</value>
     <comment>Test window, search type radio button label (accel)</comment>
   </data>
   <data name="Test_SearchType_Phonetic" xml:space="preserve">
@@ -1364,7 +1364,7 @@
     <comment>Main window tooltip</comment>
   </data>
   <data name="Main_ClearBookmark" xml:space="preserve">
-    <value>Puhasta järjehoidja</value>
+    <value>Eemalda järjehoidja</value>
     <comment>Main window, bookmark button tooltip</comment>
   </data>
   <data name="Main_ContextBeforeAnd" xml:space="preserve">
@@ -1476,7 +1476,7 @@
     <comment>Options dialog, layout options label</comment>
   </data>
   <data name="Options_StartupOptions" xml:space="preserve">
-    <value>Startup</value>
+    <value>Käivitus</value>
     <comment>Options dialog, startup group header label</comment>
   </data>
   <data name="Options_Theme" xml:space="preserve">
@@ -1536,7 +1536,7 @@
     <comment>Main window Search In group heading</comment>
   </data>
   <data name="Main_SearchInResults" xml:space="preserve">
-    <value>Otsi asukohast tulemused</value>
+    <value>Otsi tulemuste hulgast</value>
     <comment>Main window, search options checkbox label (accel)</comment>
   </data>
   <data name="Main_Status_Searching" xml:space="preserve">
@@ -2034,7 +2034,7 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <comment>Main window replace button tooltip</comment>
   </data>
   <data name="Main_Results_CopyLinesOfText" xml:space="preserve">
-    <value>Kopeeri rida teksti</value>
+    <value>Kopeeri tekstiread</value>
     <comment>Main window, results list, context menu item label</comment>
   </data>
   <data name="Main_StopAfterFirstMatch" xml:space="preserve">
@@ -2052,5 +2052,549 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
   <data name="MessageBox_NewVersion" xml:space="preserve">
     <value>Uus versioon</value>
     <comment>Message box title for: New dnGrep version</comment>
+  </data>
+  <data name="ReportOptionsWindow_CaptureGroupsOnly" xml:space="preserve">
+    <value>Ainult püütud grupid</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_SeparatorForMultipleMatchesOrGroupsOnALine" xml:space="preserve">
+    <value>eraldaja mitme vaste ja grupi jaoks ühel real</value>
+    <comment>Report options dialog, text box label</comment>
+  </data>
+  <data name="ReportSummary_DotAsNewline" xml:space="preserve">
+    <value>Punkt kui reavahetus</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_FilePattern" xml:space="preserve">
+    <value>Kaasatav failimuster:</value>
+    <comment>Report search options summary label</comment>
+  </data>
+  <data name="ReportSummary_NoBinaryFiles" xml:space="preserve">
+    <value>Mittebinaarsed failid</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="Main_WindowTitle" xml:space="preserve">
+    <value>{0} kaustas "{1}" – dnGrep</value>
+    <comment>Main window title: {0} is the current search pattern; {1} is the current search folder</comment>
+  </data>
+  <data name="ReportOptionsWindow_CSV" xml:space="preserve">
+    <value>CSV</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="Report_FoundNoMatchesFor" xml:space="preserve">
+    <value>Ei leidnud vasteid mustrile </value>
+    <comment>Report content text</comment>
+  </data>
+  <data name="Report_Has0MatchesOn1Lines" xml:space="preserve">
+    <value>on {0} vastet {1} real:</value>
+    <comment>Report content text: {0} is the number of matches in a file; {1} is the number of lines in a file with matches</comment>
+  </data>
+  <data name="ReportOptionsWindow_FullLines" xml:space="preserve">
+    <value>Täisread</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportSummary_NoArchives" xml:space="preserve">
+    <value>Arhiivideta</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="ReportSummary_UsingRegexFilePattern" xml:space="preserve">
+    <value>Kasutan regulaaravaldise failimustrit</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="Script_Editor_Copy" xml:space="preserve">
+    <value>Kopeeri</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Cut" xml:space="preserve">
+    <value>Lõika</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_DeleteLine" xml:space="preserve">
+    <value>Kustuta rida</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_File" xml:space="preserve">
+    <value>_Fail</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_MoveDown" xml:space="preserve">
+    <value>Liiguta valitud read alla</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_MoveUp" xml:space="preserve">
+    <value>Liiguta valitud read üles</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_New" xml:space="preserve">
+    <value>Uus…</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Paste" xml:space="preserve">
+    <value>Kleebi</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Redo" xml:space="preserve">
+    <value>Tee uuesti</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="ScriptHint_run_powershell_value" xml:space="preserve">
+    <value>.ps1 skriptifaili täielik failitee ja -nimi</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_search" xml:space="preserve">
+    <value>Alusta otsingut</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="Script_Editor_Tools" xml:space="preserve">
+    <value>_Tööriistad</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="ScriptHint_run" xml:space="preserve">
+    <value>Käivita väline käsk</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_run_cmd" xml:space="preserve">
+    <value>Käivita käskude skript</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_run_powershell" xml:space="preserve">
+    <value>Käivita PowerShell skript</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresATargetParameter" xml:space="preserve">
+    <value>See käsklus nõuab sihtmärgi parameetrit</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_bookmark" xml:space="preserve">
+    <value>Järjehoidja</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_bookmark_add" xml:space="preserve">
+    <value>Lisa uus järjehoidja</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_deletefiles" xml:space="preserve">
+    <value>Kustuta tulemuse failid püsivalt</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_exit" xml:space="preserve">
+    <value>Sulge kõik aknad ja välju dnGrepist</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_expandresultoptions" xml:space="preserve">
+    <value>Laienda või peida tulemuste valikute sektsioon</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_include" xml:space="preserve">
+    <value>Impordi andmed</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_copyresults" xml:space="preserve">
+    <value>Kopeeri tulemuse tekst arvuti lõikepuhvrisse</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_maximizeresults" xml:space="preserve">
+    <value>Maksimeeri või taasta otsingutulemuste puu</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_messages" xml:space="preserve">
+    <value>Näita alati skripti töö lõpetamisel teadete akent</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_movefiles" xml:space="preserve">
+    <value>Liiguta tulemusfailid uude asukohta</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_replace" xml:space="preserve">
+    <value>Asenda failides vasted</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_arg_value" xml:space="preserve">
+    <value>Failitee ja-nimi raportile</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_report" xml:space="preserve">
+    <value>Kirjuta raport</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_full" xml:space="preserve">
+    <value>Täisraport</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_csv" xml:space="preserve">
+    <value>Vastuste raport kui CSV fail</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_text" xml:space="preserve">
+    <value>tulemuste 'ainult tekst' raport</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Main_AutoPosition" xml:space="preserve">
+    <value>Automaatne positsioneerimine</value>
+    <comment>Main window, docking context menu item label (accel)</comment>
+  </data>
+  <data name="Main_Status_Searched0FilesFound1MatchingFilesProcessing2" xml:space="preserve">
+    <value>Otsitud {0} faili hulgast, leitud {1} vastavat faili – töötlen faili {2}</value>
+    <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found; {2} is the current file name being searched</comment>
+  </data>
+  <data name="Main_Validation_HexStringIsOK" xml:space="preserve">
+    <value>Baidisõne on OK</value>
+    <comment>Main window, hexadecimal expression status</comment>
+  </data>
+  <data name="Main_Validation_HexStringIsNotValid" xml:space="preserve">
+    <value>Baidisõne on vigane!</value>
+    <comment>Main window, hexadecimal expression status</comment>
+  </data>
+  <data name="Main_Validation_RegexIsNotValid" xml:space="preserve">
+    <value>Regulaaravaldis pole korrektne!</value>
+    <comment>Main window, regular expression status</comment>
+  </data>
+  <data name="MessageBox_AreYouSureYouWantToReplaceSearchPatternWithEmptyString" xml:space="preserve">
+    <value>Asenda otsingu muster tühja sõnega?</value>
+    <comment>Message box text for: Replace text</comment>
+  </data>
+  <data name="MessageBox_CheckEditorPath" xml:space="preserve">
+    <value>Kontrolli redigeerimisprogrammi failiteed 'Seadistused' alt.</value>
+    <comment>Message box text for: Open file failed</comment>
+  </data>
+  <data name="MessageBox_CopyFiles" xml:space="preserve">
+    <value>Failide kopeerimine</value>
+    <comment>Message box title for: Copy files</comment>
+  </data>
+  <data name="MessageBox_CouldNotLoadTheme" xml:space="preserve">
+    <value>Teema'{0}' laadimine ei õnnestu. Vaata logifailist detaile: </value>
+    <comment>Message box text for: Load theme resource: {0} is the name of the file that failed to load</comment>
+  </data>
+  <data name="MessageBox_CountFilesHaveBeenSuccessfullyCopied" xml:space="preserve">
+    <value>{0} faili on kopeeritud.</value>
+    <comment>Message box text for: Copy file: {0} is the number of files</comment>
+  </data>
+  <data name="MessageBox_CountFilesHaveBeenSuccessfullyDeleted" xml:space="preserve">
+    <value>{0} faili on kustutatud.</value>
+    <comment>Message box text for: Delete files: {0} is the number of files</comment>
+  </data>
+  <data name="MessageBox_RunDnGrepAsAdministrator" xml:space="preserve">
+    <value>Käivita dnGrep administraatori õigustes, et muuta Windows Exploreri parema-kliki menüüs dnGrepi kuvamist</value>
+    <comment>Message box text for: Options dialog, changing Windows integration options</comment>
+  </data>
+  <data name="MessageBox_SearchOrReplaceFailed" xml:space="preserve">
+    <value>Ei suutnud lõpetada otsingut või asendust. Vaata vealogist täpsemaid detaile: </value>
+    <comment>Message box text for: Search or Replace failed</comment>
+  </data>
+  <data name="MessageBox_SearchFailedError" xml:space="preserve">
+    <value>Ei suutnud otsingut lõpetada. Vaata vealogist detaile: </value>
+    <comment>Message box text for: Search failed</comment>
+  </data>
+  <data name="ReportOptionsWindow_TrimWhitespace" xml:space="preserve">
+    <value>Trimmi tühikud</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="Script_Validation_TheCommandIsInvalid" xml:space="preserve">
+    <value>Käsk ei ole korrektne</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresABooleanValue" xml:space="preserve">
+    <value>See käsklus nõuab tõeväärtus argumenti</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_bookmark_add_value" xml:space="preserve">
+    <value>Uue järjehoidja nimi või tühi</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_bookmark_remove_value" xml:space="preserve">
+    <value>Eemaldatava järjehoidja nimi või tühi käesoleva järjehoidja eemaldamiseks</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="MessageBox_DefaultEngineWasUsedInstead" xml:space="preserve">
+    <value>Selle asemel kasutati vaikimisi mootorit.</value>
+    <comment>Message box text for: Plug-in failed to load error</comment>
+  </data>
+  <data name="MessageBox_NewVersionOfDnGREP0IsAvailableForDownload" xml:space="preserve">
+    <value>Uus dnGrepi versioon ({0}) on allalaadimiseks saadaval.</value>
+    <comment>Message box text for: New dnGrep version: {0} is the new version number</comment>
+  </data>
+  <data name="MessageBox_CountFilesHaveBeenSuccessfullyMoved" xml:space="preserve">
+    <value>{0} faili on liigutatud.</value>
+    <comment>Message box text for: Move files: {0} is the number of files</comment>
+  </data>
+  <data name="MessageBox_CustomEditorFileOpenError" xml:space="preserve">
+    <value>Faili avamine kohandatud redaktoriga ei õnnestu.</value>
+    <comment>Message box text for: Open file with custom editor</comment>
+  </data>
+  <data name="ReportSummary_Type0DateFrom1To2" xml:space="preserve">
+    <value>{0} alates {1} kuni {2}</value>
+    <comment>Report search options summary: {0} is the date type (modified or created); {1} and {2} are the user input dates</comment>
+  </data>
+  <data name="ReportOptionsWindow_ReportOptions" xml:space="preserve">
+    <value>Raporti valikud</value>
+    <comment>Report options dialog, window title</comment>
+  </data>
+  <data name="ReportOptionsWindow_Save" xml:space="preserve">
+    <value>Salvesta</value>
+    <comment>Report options dialog, button label</comment>
+  </data>
+  <data name="ReportSummary_UsingTypeOfSeach" xml:space="preserve">
+    <value>Kasuta {0} otsingut</value>
+    <comment>Report search options summary type of search: {0} is the type of search</comment>
+  </data>
+  <data name="Main_Status_Searched0FilesFound1MatchingFiles" xml:space="preserve">
+    <value>Otsitud {0} faili hulgast, leitud {1} vastega faili.</value>
+    <comment>Main window, status bar message: {0} is the number of file searched; {1} is the number of files with matches found</comment>
+  </data>
+  <data name="Main_Validation_RegexIsOK" xml:space="preserve">
+    <value>Regulaaravaldis on korrektne</value>
+    <comment>Main window, regular expression status</comment>
+  </data>
+  <data name="Main_Validation_XPathIsNotValid" xml:space="preserve">
+    <value>XPath pole korrektne!</value>
+    <comment>Main window, XPath status</comment>
+  </data>
+  <data name="MessageBox_ClearingThisBookmarkWillAlsoRemoveThoseBookmarks" xml:space="preserve">
+    <value>Selle järjehoidja puhastamine eemaldab ka need järjehoidjad.</value>
+    <comment>Message box text for: Main window, bookmark button</comment>
+  </data>
+  <data name="MessageBox_RenameFailed" xml:space="preserve">
+    <value>Ei õnnestu ümber nimetada faili: </value>
+    <comment>Message box text for: Rename file</comment>
+  </data>
+  <data name="MessageBox_ResourcesFile0IsNotAResxFile" xml:space="preserve">
+    <value>Ressursifail '{0}' ei ole resx fail.</value>
+    <comment>Message box text for: Load language resource file error: {0} is the name of the file that failed to load</comment>
+  </data>
+  <data name="MessageBox_RunDnGrepAsAdministratorToChangeStartupRegister" xml:space="preserve">
+    <value>Käivita dnGrep administraatori õigustes programmi käivitusparameetrite muutmiseks.</value>
+    <comment>Message box text for: Options dialog, changing Windows integration options</comment>
+  </data>
+  <data name="MessageBox_Scripts_HasUnsavedChangesSaveNow" xml:space="preserve">
+    <value>Failis {0} on salvestamata muudatusi. Salvesta nüüd?</value>
+    <comment>Message box text for: Scripts unsaved changes; {0} is a script file name</comment>
+  </data>
+  <data name="MessageBox_Scripts_HasValidationErrorsSaveAnyway" xml:space="preserve">
+    <value>Faili {0} on valideerimise vigu. Salvesta ikkagi?</value>
+    <comment>Message box text for: Script validation errors; {0} is a script file name</comment>
+  </data>
+  <data name="ReportOptionsWindow_IncludeFileAndLineInformation" xml:space="preserve">
+    <value>Lisa faili- ja reainfo</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_MatchesOnly" xml:space="preserve">
+    <value>Ainult vasted</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_PerFile" xml:space="preserve">
+    <value>faili kohta</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Global" xml:space="preserve">
+    <value>globaalselt</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportOptionsWindow_PressF1ForHelp" xml:space="preserve">
+    <value>Raporti abiinfoks vajuta F1</value>
+    <comment>Report options dialog, help label</comment>
+  </data>
+  <data name="ReportOptionsWindow_ShowEachMatchOrGroupOnSeparateLine" xml:space="preserve">
+    <value>Näita iga vastet või gruppi eraldi real</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportOptionsWindow_Text" xml:space="preserve">
+    <value>tekst</value>
+    <comment>Report options dialog, radio button label</comment>
+  </data>
+  <data name="ReportSummary_ExcludePattern" xml:space="preserve">
+    <value>Välistav failimuster:</value>
+    <comment>Report search options summary label</comment>
+  </data>
+  <data name="ReportSummary_Type0DateInPast1To2Hours" xml:space="preserve">
+    <value>{0} möödunud {1} kuni {2} tundi</value>
+    <comment>Report search options summary: {0} is the date type (modified or created); {1} and {2} are the user input dates</comment>
+  </data>
+  <data name="ReportSummary_UsingEverythingIndexSearch" xml:space="preserve">
+    <value>Kasuta Everything indekseeritud otsingut</value>
+    <comment>Report search options summary</comment>
+  </data>
+  <data name="Script_Editor_RunScript" xml:space="preserve">
+    <value>Käivita skript</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Save" xml:space="preserve">
+    <value>_Salvesta</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_SaveAs" xml:space="preserve">
+    <value>S_alvesta nimega…</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_ScriptingCommands" xml:space="preserve">
+    <value>_Skriptimise käsud</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Suggest" xml:space="preserve">
+    <value>Soovita</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Title" xml:space="preserve">
+    <value>Skripti redaktor</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Validate" xml:space="preserve">
+    <value>Va_lideeri</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Validation_Header" xml:space="preserve">
+    <value>Valideerimine</value>
+    <comment>Script validation list header</comment>
+  </data>
+  <data name="Script_Validation_Header_Line" xml:space="preserve">
+    <value>Rida</value>
+    <comment>Script validation list header</comment>
+  </data>
+  <data name="Script_Validation_Header_Message" xml:space="preserve">
+    <value>Sõnum</value>
+    <comment>Script validation list header</comment>
+  </data>
+  <data name="Script_Validation_TheScriptKeyWasNotFound" xml:space="preserve">
+    <value>Skripti võtit ei leitud</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_TheTargetNameIsInvalid" xml:space="preserve">
+    <value>Nimi ei ole korrektne</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_TheValueCouldNotBeConvertedToTheCorrectType" xml:space="preserve">
+    <value>Väärtust ei saa korrektsesse tüüpi teisendadada</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_TheValueCannotBeConvertedFromTheString" xml:space="preserve">
+    <value>Väärtust ei saa sõnest teisendada</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandDoesNotAllowANullValue" xml:space="preserve">
+    <value>See käsklus ei võimalda nullväärtust</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandDoesNotNeedAValueParameter" xml:space="preserve">
+    <value>See käsklus ei vaja väärtuse parameetrit</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="Script_Validation_ThisCommandRequiresAStringValue" xml:space="preserve">
+    <value>See käsklus nõuab sõne väärtust</value>
+    <comment>Script validation error message</comment>
+  </data>
+  <data name="ScriptHint_bookmark_remove" xml:space="preserve">
+    <value>Eemalda järjehoidja</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_bookmark_removefolder" xml:space="preserve">
+    <value>Eemalda kausta järjehoidja</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_bookmark_use_value" xml:space="preserve">
+    <value>Järjehoidja nimi</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_copyfilenames" xml:space="preserve">
+    <value>Kopeeri failinimed tulemustes arvuti lõikepuhvrisse</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_copyfiles" xml:space="preserve">
+    <value>Kopeeri tulemuste failid uude asukohta</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_copyfiles_value" xml:space="preserve">
+    <value>Sihtkausta tee</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_movefiles_value" xml:space="preserve">
+    <value>Sihtkausta tee</value>
+    <comment>Script editor command/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_report_text_value" xml:space="preserve">
+    <value>Raporti failitee ja -nimi</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="Main_Status_SearchCompletedIn0_1MatchesFoundIn2FilesOf3Searched" xml:space="preserve">
+    <value>Otsing lõpetatud {0} jooksul – {1} vastet leitud {2} failist {3} otsitud faili hulgast.</value>
+    <comment>Main window, status bar message: {0} is the duration of the search; {1}  is the total number of matches found; {2} is the number of files with matches found; {3} is the total number of files searched; </comment>
+  </data>
+  <data name="MessageBox_PleaseSelectAnotherDirectoryAndTryAgain" xml:space="preserve">
+    <value>Palun vali teine kaust ja proovi uuesti.</value>
+    <comment>Message box text for: Copy files and Move files (destination overlaps source)</comment>
+  </data>
+  <data name="MessageBox_PluginErrors" xml:space="preserve">
+    <value>Plugina vead</value>
+    <comment>Message box title for: Plug-in errors</comment>
+  </data>
+  <data name="MessageBox_ReplaceFailedError" xml:space="preserve">
+    <value>Failides ei õnnestu teksti asendada. Vaata vealogist täpsemaid detaile: </value>
+    <comment>Message box text for: Replace failed</comment>
+  </data>
+  <data name="ScriptHint_bookmark_addfolder" xml:space="preserve">
+    <value>Lisa uus käesoleva otsingukaustaga seotud järjehoidja</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_expandfilefilters" xml:space="preserve">
+    <value>Laienda või peida failifiltrite sektsioon</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_include_script_value" xml:space="preserve">
+    <value>Skripti võti / failinimi</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="ScriptHint_bookmark_use" xml:space="preserve">
+    <value>Rakenda järjehoidja sätted</value>
+    <comment>Script editor command/target tooltip </comment>
+  </data>
+  <data name="ScriptHint_include_script" xml:space="preserve">
+    <value>Kaasa käsud teisest skriptist käesolevasse skripti</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_resetfilters" xml:space="preserve">
+    <value>Lähtesta failifiltrid nende vaikimisi väärtustele</value>
+    <comment>Script editor command tooltip</comment>
+  </data>
+  <data name="ScriptHint_run_cmd_value" xml:space="preserve">
+    <value>cmd või batch faili täielik failitee ja -nimi</value>
+    <comment>Script editor command/target/value tooltip</comment>
+  </data>
+  <data name="Main_Validation_XPathIsOK" xml:space="preserve">
+    <value>XPath on korrektne</value>
+    <comment>Main window, XPath status</comment>
+  </data>
+  <data name="MessageBox_FilesHaveBeenSuccessfullyReverted" xml:space="preserve">
+    <value>Failide muudatused on tagasi pööratud.</value>
+    <comment>Message box text for: Main window undo replace success</comment>
+  </data>
+  <data name="MessageBox_IncorrectPattern" xml:space="preserve">
+    <value>Vale muster: </value>
+    <comment>Message box text for: Incorrect regular expression</comment>
+  </data>
+  <data name="MessageBox_LoadResources" xml:space="preserve">
+    <value>Ressursside laadimine</value>
+    <comment>Message box title for: Load resources</comment>
+  </data>
+  <data name="MessageBox_MoveFiles" xml:space="preserve">
+    <value>Failide liigutamine</value>
+    <comment>Message box title for: Move files</comment>
+  </data>
+  <data name="MessageBox_Replace" xml:space="preserve">
+    <value>Asenda</value>
+    <comment>Message box text for: Replace message</comment>
+  </data>
+  <data name="ReportOptionsWindow_FilterForUniqueValues" xml:space="preserve">
+    <value>Filter 'unikaalsed väärtused'</value>
+    <comment>Report options dialog, checkbox label</comment>
+  </data>
+  <data name="ReportSummary_SearchIn" xml:space="preserve">
+    <value>Otsi asukohast:</value>
+    <comment>Report search options summary label</comment>
+  </data>
+  <data name="ReportSummary_SizeFrom0To1KB" xml:space="preserve">
+    <value>Maht alates {0} kuni {1} KB</value>
+    <comment>Report search options summary: {0} and {1} are the user input size range</comment>
+  </data>
+  <data name="ReportSummary_StopAfterFirstMatch" xml:space="preserve">
+    <value>Peatu peale esimest vastet</value>
+    <comment>Report search options summary</comment>
   </data>
 </root>
