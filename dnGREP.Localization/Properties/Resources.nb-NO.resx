@@ -59,7 +59,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About_AboutDnGREP" xml:space="preserve">
-    <value>About dnGrep</value>
+    <value>Om dnGrep</value>
     <comment>About dialog window title</comment>
   </data>
   <data name="About_BuiltOn" xml:space="preserve">
@@ -703,7 +703,7 @@
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="Main_Menu_Bookmarks" xml:space="preserve">
-    <value>_Bookmarks…</value>
+    <value>_Bokmerker…</value>
     <comment>Main window, main menu item label (accel)</comment>
   </data>
   <data name="Main_Menu_Options" xml:space="preserve">
@@ -1023,7 +1023,7 @@
     <comment>Main window sort options options menu label (accel)</comment>
   </data>
   <data name="Main_Status_Excluded0MissingFiles" xml:space="preserve">
-    <value>{0} manglende filer utelatt</value>
+    <value>{0} manglende filer utelatt.</value>
     <comment>Main window, status bar message appended on search complete when in Everything mode</comment>
   </data>
   <data name="Main_Status_ReplaceCanceled" xml:space="preserve">
@@ -1107,7 +1107,7 @@
     <comment>Main window, regular expression status</comment>
   </data>
   <data name="Main_Validation_XPathIsNotValid" xml:space="preserve">
-    <value>Ugyldig XPath.</value>
+    <value>Ugyldig XPath!</value>
     <comment>Main window, XPath status</comment>
   </data>
   <data name="Main_Validation_XPathIsOK" xml:space="preserve">
@@ -1379,7 +1379,7 @@
     <comment>Message box text for: New dnGrep version</comment>
   </data>
   <data name="MessageBox_YouAreAboutToDeleteFilesFoundDuringSearch" xml:space="preserve">
-    <value>Attention, you are about to delete files found during search.</value>
+    <value>Vær oppmerksom, du er i ferd med å slette filer som er funnet i søk.</value>
     <comment>Message box text for: Delete files warning</comment>
   </data>
   <data name="Options_AllowSearchingForFileNamePatternOnly" xml:space="preserve">
@@ -2263,7 +2263,7 @@
     <comment>Main window, Boolean expression status</comment>
   </data>
   <data name="Main_Menu_About_CheckForUpdates" xml:space="preserve">
-    <value>_Check for updates</value>
+    <value>_Se etter oppdateringer</value>
     <comment>Main window, main menu subitem label (accel)</comment>
   </data>
   <data name="MessageBox_DnGrepIsUpToDate" xml:space="preserve">
@@ -2393,5 +2393,13 @@
   <data name="Options_PluginReset" xml:space="preserve">
     <value>Tilbakestill</value>
     <comment>Options dialog, plug-ins extensions button label (accel)</comment>
+  </data>
+  <data name="Main_Menu_About_AppData" xml:space="preserve">
+    <value>Programdata og _logger</value>
+    <comment>Main window, main menu subitem label (accel)</comment>
+  </data>
+  <data name="Main_Menu_Settings" xml:space="preserve">
+    <value>Innstillinger</value>
+    <comment>Main window, main menu item label (accel)</comment>
   </data>
 </root>
