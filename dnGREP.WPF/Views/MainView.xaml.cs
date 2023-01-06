@@ -98,7 +98,7 @@ namespace dnGREP.WPF
             Loaded += Window_Loaded;
             Closing += MainForm_Closing;
 
-            KeyDown += MainForm_KeyDown;
+            PreviewKeyDown += MainForm_PreviewKeyDown;
         }
 
         public MainViewModel ViewModel => viewModel;
@@ -154,6 +154,13 @@ namespace dnGREP.WPF
 
             SetActivePreviewDockSite();
             DockSite.InitFloatingWindows();
+
+            previewControl.PreviewKeyDown += (s, a) =>
+            {
+                // called when the preview control is un-docked in a Floating Window
+                MainForm_PreviewKeyDown(s, a);
+                previewControl.SetFocus();
+            };
         }
 
         private void SetWatermark(DatePicker dp)
@@ -261,13 +268,13 @@ namespace dnGREP.WPF
 
         private void ViewModel_PreviewShow(object sender, EventArgs e)
         {
-            foreach (Window wind in DockSite.GetAllFloatWindows(this))
+            foreach (Window wnd in DockSite.GetAllFloatWindows(this))
             {
-                if (wind.WindowState == WindowState.Minimized)
-                    wind.WindowState = WindowState.Normal;
-                wind.Show();
-                wind.Activate();
-                wind.Focus(); // needs focus so the Esc key will close (hide) the preview
+                if (wnd.WindowState == WindowState.Minimized)
+                    wnd.WindowState = WindowState.Normal;
+
+                if (!wnd.IsVisible)
+                    wnd.Show();
             }
         }
 
@@ -389,7 +396,7 @@ namespace dnGREP.WPF
             viewModel.MaxFileFiltersSummaryWidth = Math.Max(0, maxWidth);
         }
 
-        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        private void MainForm_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.F3 && Keyboard.Modifiers == ModifierKeys.None)
             {
@@ -397,10 +404,22 @@ namespace dnGREP.WPF
                 resultsTree.Next();
                 e.Handled = true;
             }
+            else if (e.Key == Key.F3 && Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
+            {
+                resultsTree.SetFocus();
+                resultsTree.NextFile();
+                e.Handled = true;
+            }
             else if (e.Key == Key.F4 && Keyboard.Modifiers == ModifierKeys.None)
             {
                 resultsTree.SetFocus();
                 resultsTree.Previous();
+                e.Handled = true;
+            }
+            else if (e.Key == Key.F4 && Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
+            {
+                resultsTree.SetFocus();
+                resultsTree.PreviousFile();
                 e.Handled = true;
             }
         }
