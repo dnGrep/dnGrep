@@ -874,25 +874,13 @@
     <value>Police de l'application</value>
     <comment>Options dialog, Application fonts group header label</comment>
   </data>
-  <data name="Options_ArchiveAdd" xml:space="preserve">
-    <value>Ajouter</value>
-    <comment>Options dialog, archive options text input label</comment>
-  </data>
   <data name="Options_ArchiveOptions" xml:space="preserve">
     <value>Fichiers archives</value>
     <comment>Options dialog, Archive files group header label</comment>
   </data>
-  <data name="Options_ArchiveDefault" xml:space="preserve">
-    <value>Défaut</value>
-    <comment>Options dialog, archive options text input label</comment>
-  </data>
   <data name="Options_ArchiveExtensions" xml:space="preserve">
     <value>Extensions :</value>
     <comment>Options dialog, archive options label</comment>
-  </data>
-  <data name="Options_ArchiveRemove" xml:space="preserve">
-    <value>Supprimer</value>
-    <comment>Options dialog, archive options text input label</comment>
   </data>
   <data name="Options_BrowseFileLocation" xml:space="preserve">
     <value>…</value>
@@ -1081,10 +1069,6 @@
   <data name="Options_PersonalizeControlVisibility" xml:space="preserve">
     <value>Personnaliser la visibilité des commandes</value>
     <comment>Options dialog, control label</comment>
-  </data>
-  <data name="Options_PluginRemove" xml:space="preserve">
-    <value>Effacer</value>
-    <comment>Options dialog, plug-in options text input label</comment>
   </data>
   <data name="Options_Reload" xml:space="preserve">
     <value>Recharger</value>
@@ -1565,14 +1549,6 @@
   <data name="Options_EditorCommand" xml:space="preserve">
     <value>Commande</value>
     <comment>Options dialog, custom editor command input box label</comment>
-  </data>
-  <data name="Options_PluginAdd" xml:space="preserve">
-    <value>Ajouter</value>
-    <comment>Options dialog, plug-in options text input label</comment>
-  </data>
-  <data name="Options_PluginDefault" xml:space="preserve">
-    <value>Défaut</value>
-    <comment>Options dialog, plug-in options text input label</comment>
   </data>
   <data name="Options_WantADifferentLanguage" xml:space="preserve">
     <value>Voulez-vous une autre langue ?</value>
@@ -2780,5 +2756,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Scripts_OK" xml:space="preserve">
     <value>OK</value>
     <comment>Script Messages dialog button text</comment>
+  </data>
+  <data name="Options_PluginReset" xml:space="preserve">
+    <value>Réinitialiser</value>
+    <comment>Options dialog, plug-ins extensions button label (accel)</comment>
+  </data>
+  <data name="Options_ArchiveReset" xml:space="preserve">
+    <value>Réinitialiser</value>
+    <comment>Options dialog, Archive extensions button label (accel)</comment>
   </data>
 </root>
