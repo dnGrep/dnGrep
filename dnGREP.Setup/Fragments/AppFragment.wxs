@@ -136,6 +136,11 @@
           <File Id="filB4C7A5A6EE9348258AA427A5C478A4E5" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\it\dnGREP.Localization.resources.dll" />
         </Component>
       </Directory>
+      <Directory Id="dir81107CFE26CB427B97564A01AB5F3C04" Name="ko">
+        <Component Id="cmp815A7822FDA7432DBDA15118BD15B268" Guid="{0407BAD4-273A-4D34-84BF-4B4D912A7174}">
+          <File Id="fil65E20FCCC3234B6AB9DC98621F391C9D" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\ko\dnGREP.Localization.resources.dll" />
+        </Component>
+      </Directory>
       <Directory Id="dir29A125086A5142CD82967C90D4B30F84" Name="nb-NO">
         <Component Id="cmp95D9BA8868AD4AABB595EFEE7C9A571C" Guid="{CDCE4971-655F-42EB-938D-8752607B9651}">
           <File Id="filD67EB47A35A94821A13404D45FD785DF" KeyPath="yes" Source="$(var.dnGREP.WPF.TargetDir)\nb-NO\dnGREP.Localization.resources.dll" />
@@ -201,6 +206,7 @@
       <ComponentRef Id="cmp07E78D4355184BD597B4E22D98A656C7" />
       <ComponentRef Id="cmp6E066DAA55234C4DB9125224795D9984" />
       <ComponentRef Id="cmp5FA1DA548251420EB4A61036F1783260" />
+      <ComponentRef Id="cmp815A7822FDA7432DBDA15118BD15B268" />
       <ComponentRef Id="cmp95D9BA8868AD4AABB595EFEE7C9A571C" />
       <ComponentRef Id="cmpC6739B2DA71444638D0B8EC7C82FBED7" />
       <ComponentRef Id="cmp2B23830370BC47F1B72CDB2222A8F99C" />

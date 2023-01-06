@@ -37,7 +37,7 @@ namespace dnGREP.Localization
                 { "he", "עברית" },
                 { "it", "italiano" },
                 //{ "ja", "日本語" },
-                //{ "ko", "한국어" },
+                { "ko", "한국어" },
                 { "nb-NO", "norsk (bokmål)" },
                 { "pt", "Português" },
                 { "ru", "pусский" },
