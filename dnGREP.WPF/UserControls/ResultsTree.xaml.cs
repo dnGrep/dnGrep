@@ -261,7 +261,7 @@ namespace dnGREP.WPF.UserControls
             Application.Current.Dispatcher.BeginInvoke(new Action(() =>
             {
                 treeView.Focus();
-            }), System.Windows.Threading.DispatcherPriority.Render);
+            }), System.Windows.Threading.DispatcherPriority.Normal);
         }
 
         internal async void Next()

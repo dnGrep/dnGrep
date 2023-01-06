@@ -77,6 +77,7 @@ namespace dnGREP.WPF
                 if (!string.IsNullOrEmpty(textEditor.Text))
                 {
                     textEditor.ScrollTo(ViewModel.LineNumber, 0);
+                    textEditor.TextArea.Caret.Line = ViewModel.LineNumber;
                 }
             }
             else if (e.PropertyName == nameof(ViewModel.CurrentSyntax))
@@ -260,6 +261,14 @@ namespace dnGREP.WPF
                 }
                 ViewModel.EndUpdateMarkers();
             }
+        }
+
+        internal void SetFocus()
+        {
+            Application.Current.Dispatcher.BeginInvoke(new Action(() =>
+            {
+                textEditor.Focus();
+            }), System.Windows.Threading.DispatcherPriority.Normal);
         }
 
         internal void SaveSettings()
