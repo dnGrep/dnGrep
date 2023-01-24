@@ -159,7 +159,10 @@ namespace dnGREP.WPF
             {
                 // called when the preview control is un-docked in a Floating Window
                 MainForm_PreviewKeyDown(s, a);
-                previewControl.SetFocus();
+                if (a.Handled)
+                {
+                    previewControl.SetFocus();
+                }
             };
         }
 
