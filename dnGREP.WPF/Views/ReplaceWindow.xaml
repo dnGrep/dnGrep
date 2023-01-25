@@ -209,11 +209,14 @@
                                 Style="{StaticResource ReplaceButton}"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Margin="24,1,3,1" Padding="2" VerticalAlignment="Center"
-                                   Text="{l:Loc Key='Replace_ReplaceKey1_Text'}" TextDecorations="Underline"
-                                   Background="{DynamicResource Match.Skip.Background}"
-                                   Foreground="{DynamicResource Match.Skip.Foreground}"
-                                   FontFamily="{Binding ResultsFontFamily}" />
+                        <Border Margin="24,1,3,1" Background="{DynamicResource Match.Skip.Background}" 
+                                BorderThickness="1" CornerRadius="2" BorderBrush="{DynamicResource Match.Skip.Foreground}">
+                            <TextBlock Margin="1,0" VerticalAlignment="Center"
+                                       Text="{l:Loc Key='Replace_ReplaceKey1_Text'}"
+                                       Background="{DynamicResource Match.Skip.Background}"
+                                       Foreground="{DynamicResource Match.Skip.Foreground}"
+                                       FontFamily="{Binding ResultsFontFamily}" />
+                        </Border>
                         <TextBlock Text="{l:Loc Key='Replace_ReplaceKey2_SelectedMatch'}" />
                         <Rectangle Width="40" Height="18" Margin="24,0,3,0"
                                    Fill="{DynamicResource Match.Replace.Background}" />

@@ -153,16 +153,17 @@ namespace dnGREP.WPF
 
             lineNumberMargin.LineNumbers.Clear();
             textEditor.Clear();
-            for (int i = textEditor.TextArea.TextView.LineTransformers.Count - 1; i >= 0; i--)
+            for (int i = textEditor.TextArea.TextView.BackgroundRenderers.Count - 1; i >= 0; i--)
             {
-                if (textEditor.TextArea.TextView.LineTransformers[i] is ReplaceViewHighlighter)
-                    textEditor.TextArea.TextView.LineTransformers.RemoveAt(i);
+                if (textEditor.TextArea.TextView.BackgroundRenderers[i] is ReplaceViewHighlighter)
+                    textEditor.TextArea.TextView.BackgroundRenderers.RemoveAt(i);
             }
 
             if (ViewModel.IndividualReplaceEnabled)
             {
                 highlighter = new ReplaceViewHighlighter(ViewModel.SelectedSearchResult);
-                textEditor.TextArea.TextView.LineTransformers.Add(highlighter);
+                highlighter.LineNumbers.AddRange(ViewModel.LineNumbers);
+                textEditor.TextArea.TextView.BackgroundRenderers.Add(highlighter);
                 textEditor.Encoding = ViewModel.Encoding;
                 textEditor.SyntaxHighlighting = ViewModel.HighlightingDefinition;
                 textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["AvalonEdit.Link"] as Brush;
@@ -185,10 +186,10 @@ namespace dnGREP.WPF
             {
                 textEditor.Text = "Error opening the file: " + ex.Message;
                 // remove the highlighter
-                for (int i = textEditor.TextArea.TextView.LineTransformers.Count - 1; i >= 0; i--)
+                for (int i = textEditor.TextArea.TextView.BackgroundRenderers.Count - 1; i >= 0; i--)
                 {
-                    if (textEditor.TextArea.TextView.LineTransformers[i] is ReplaceViewHighlighter)
-                        textEditor.TextArea.TextView.LineTransformers.RemoveAt(i);
+                    if (textEditor.TextArea.TextView.BackgroundRenderers[i] is ReplaceViewHighlighter)
+                        textEditor.TextArea.TextView.BackgroundRenderers.RemoveAt(i);
                 }
             }
 

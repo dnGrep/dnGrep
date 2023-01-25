@@ -1,84 +1,110 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using dnGREP.Common;
-using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Rendering;
 
 namespace dnGREP.WPF
 {
     /// <summary>
     /// The ReplaceViewHighlighter is used to color the background of match occurrences to
-    /// show which are selected for replacement; also underlines the currently selected match
+    /// show which are selected for replacement; also outlines the currently selected match
     /// </summary>
-    public class ReplaceViewHighlighter : DocumentColorizingTransformer
+    public class ReplaceViewHighlighter : IBackgroundRenderer
     {
-        private GrepSearchResult result;
+        private readonly GrepSearchResult grepSearchResult;
 
         public ReplaceViewHighlighter(GrepSearchResult result)
         {
-            this.result = result;
+            grepSearchResult = result;
+
+            outlinePen = new Pen(penBrush, 1);
+            outlinePen.Freeze();
         }
 
         public GrepMatch SelectedGrepMatch { get; set; }
 
-        protected override void ColorizeLine(DocumentLine line)
+        /// <summary>
+        /// The ordered list of line numbers from the original source file
+        /// </summary>
+        public List<int> LineNumbers { get; } = new List<int>();
+
+        private readonly Brush skipBackground = Application.Current.Resources["Match.Skip.Background"] as Brush;
+        private readonly Brush replBackground = Application.Current.Resources["Match.Replace.Background"] as Brush;
+        private readonly Brush penBrush = Application.Current.Resources["Match.Skip.Foreground"] as Brush;
+        private readonly Pen outlinePen;
+
+        /// <summary>Gets the layer on which this background renderer should draw.</summary>
+        public KnownLayer Layer => KnownLayer.Selection; // draw behind selection
+
+        public void Draw(TextView textView, DrawingContext drawingContext)
         {
-            if (result.Matches == null || result.Matches.Count == 0)
+            if (textView == null)
+                throw new ArgumentNullException("textView");
+            if (drawingContext == null)
+                throw new ArgumentNullException("drawingContext");
+
+            if (grepSearchResult == null || !textView.VisualLinesValid)
                 return;
 
-            int lineStartOffset = line.Offset;
-            int lineNumber = line.LineNumber;
+            var visualLines = textView.VisualLines;
+            if (visualLines.Count == 0)
+                return;
 
-            var lineResult = result.SearchResults.FirstOrDefault(sr => sr.ClippedFileLineNumber == lineNumber && sr.IsContext == false);
-            if (lineResult != null)
+            foreach (VisualLine visLine in textView.VisualLines)
             {
-                Brush skipBackground = Application.Current.Resources["Match.Skip.Background"] as Brush;
-                Brush skipForeground = Application.Current.Resources["Match.Skip.Foreground"] as Brush;
-                Brush replBackground = Application.Current.Resources["Match.Replace.Background"] as Brush;
-                Brush replForeground = Application.Current.Resources["Match.Replace.Foreground"] as Brush;
-
-                foreach (var grepMatch in lineResult.Matches)
+                int lineNumber = visLine.FirstDocumentLine.LineNumber;
+                int lineIndex = lineNumber - 1;
+                if (lineIndex >= 0 && lineIndex < LineNumbers.Count)
                 {
-                    try
+                    lineNumber = LineNumbers[lineIndex];
+                }
+
+                var lineResult = grepSearchResult.SearchResults.Find(sr => sr.LineNumber == lineNumber && sr.IsContext == false);
+                if (lineResult != null)
+                {
+                    foreach (var grepMatch in lineResult.Matches)
                     {
                         // get the global file match corresponding to this line match
                         // only the file match has a valid ReplaceMatch flag
-                        GrepMatch fileMatch = result.Matches.FirstOrDefault(m => m.FileMatchId == grepMatch.FileMatchId);
-                        Brush foreground = fileMatch == null ? Brushes.Black : fileMatch.ReplaceMatch ? replForeground : skipForeground;
-                        Brush background = fileMatch == null ? Brushes.LightGray : fileMatch.ReplaceMatch ? replBackground : skipBackground;
+                        GrepMatch fileMatch = grepSearchResult.Matches.FirstOrDefault(m => m.FileMatchId == grepMatch.FileMatchId);
+
+                        Brush markerBrush = fileMatch == null ? Brushes.LightGray : fileMatch.ReplaceMatch ? replBackground : skipBackground;
+                        Pen markerPen = null;
+                        double markerCornerRadius = 2;
+                        double markerPenThickness = markerPen != null ? markerPen.Thickness : 0;
 
                         bool isSelected = grepMatch.FileMatchId.Equals(SelectedGrepMatch.FileMatchId);
+                        if (isSelected)
+                        {
+                            markerPen = outlinePen;
+                            markerPenThickness = outlinePen.Thickness;
+                        }
 
-                        base.ChangeLinePart(
-                            lineStartOffset + grepMatch.StartLocation, // startOffset
-                            // match may include the non-printing newline chars at the end of the line, don't overflow the length
-                            Math.Min(line.EndOffset, lineStartOffset + grepMatch.StartLocation + grepMatch.Length), // endOffset
-                            (VisualLineElement element) =>
+                        int startOffset = grepMatch.StartLocation;
+                        // match may include the non-printing newline chars at the end of the line, don't overflow the length
+                        int endOffset = Math.Min(visLine.VisualLength, grepMatch.StartLocation + grepMatch.Length);
+
+                        var rects = BackgroundGeometryBuilder.GetRectsFromVisualSegment(textView, visLine, startOffset, endOffset);
+                        if (rects.Any())
+                        {
+                            BackgroundGeometryBuilder geoBuilder = new BackgroundGeometryBuilder();
+                            geoBuilder.AlignToWholePixels = true;
+                            geoBuilder.BorderThickness = markerPenThickness;
+                            geoBuilder.CornerRadius = markerCornerRadius;
+                            foreach (var rect in rects)
                             {
-                                // This lambda gets called once for every VisualLineElement
-                                // between the specified offsets.
-                                element.TextRunProperties.SetBackgroundBrush(background);
-                                element.TextRunProperties.SetForegroundBrush(foreground);
-
-                                if (isSelected)
-                                {
-                                    TextDecorationCollection coll = new TextDecorationCollection
-                                    {
-                                        new TextDecoration(
-                                            TextDecorationLocation.Underline,
-                                            new Pen(foreground, 2), 0,
-                                            TextDecorationUnit.Pixel,
-                                            TextDecorationUnit.Pixel)
-                                    };
-                                    element.TextRunProperties.SetTextDecorations(coll);
-                                }
-                            });
-                    }
-                    catch
-                    {
-                        // Do nothing
+                                rect.Inflate(0, -1);
+                                geoBuilder.AddRectangle(textView, rect);
+                            }
+                            Geometry geometry = geoBuilder.CreateGeometry();
+                            if (geometry != null)
+                            {
+                                drawingContext.DrawGeometry(markerBrush, markerPen, geometry);
+                            }
+                        }
                     }
                 }
             }
