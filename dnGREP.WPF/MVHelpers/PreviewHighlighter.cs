@@ -11,11 +11,9 @@ namespace dnGREP.WPF
     public class PreviewHighlighter : IBackgroundRenderer
     {
         private readonly GrepSearchResult grepSearchResult;
-        private readonly int[] lineNumbers;
-        public PreviewHighlighter(GrepSearchResult result, int[] lineNumbers = null)
+        public PreviewHighlighter(GrepSearchResult result)
         {
             this.grepSearchResult = result;
-            this.lineNumbers = lineNumbers;
 
             MarkerBrush = Application.Current.Resources["Match.Highlight.Background"] as Brush;
             MarkerPen = null;
@@ -51,8 +49,6 @@ namespace dnGREP.WPF
             {
                 DocumentLine line = visLine.FirstDocumentLine;
                 int lineNumber = line.LineNumber;
-                if (lineNumbers != null && lineNumbers.Length > line.LineNumber - 1)
-                    lineNumber = lineNumbers[line.LineNumber - 1];
 
                 var lineResult = grepSearchResult.SearchResults.Find(sr => sr.LineNumber == lineNumber && sr.IsContext == false);
                 if (lineResult != null)
