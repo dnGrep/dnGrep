@@ -13,18 +13,16 @@ namespace dnGREP.WPF
         private readonly GrepSearchResult grepSearchResult;
         public PreviewHighlighter(GrepSearchResult result)
         {
-            this.grepSearchResult = result;
-
-            MarkerBrush = Application.Current.Resources["Match.Highlight.Background"] as Brush;
-            MarkerPen = null;
-            MarkerCornerRadius = 3.0;
+            grepSearchResult = result;
         }
+
+        private readonly Brush markerBrush = Application.Current.Resources["Match.Highlight.Background"] as Brush;
+        private readonly Pen markerPen = null;
+        private readonly double markerCornerRadius = 3;
+        private readonly double markerPenThickness = 0;
 
         /// <summary>Gets the layer on which this background renderer should draw.</summary>
         public KnownLayer Layer => KnownLayer.Selection; // draw behind selection
-        public Brush MarkerBrush { get; set; }
-        public Pen MarkerPen { get; set; }
-        public double MarkerCornerRadius { get; set; }
 
         public void Draw(TextView textView, DrawingContext drawingContext)
         {
@@ -40,43 +38,64 @@ namespace dnGREP.WPF
             if (visualLines.Count == 0)
                 return;
 
-            Brush markerBrush = MarkerBrush;
-            Pen markerPen = MarkerPen;
-            double markerCornerRadius = MarkerCornerRadius;
-            double markerPenThickness = markerPen != null ? markerPen.Thickness : 0;
-
             foreach (VisualLine visLine in textView.VisualLines)
             {
-                DocumentLine line = visLine.FirstDocumentLine;
-                int lineNumber = line.LineNumber;
+                var currentDocumentLine = visLine.FirstDocumentLine;
+                int firstLineStart = currentDocumentLine.Offset;
+                int currentDocumentLineStartOffset = currentDocumentLine.Offset;
+                int currentDocumentLineEndOffset = currentDocumentLineStartOffset + currentDocumentLine.Length;
+                int currentDocumentLineTotalEndOffset = currentDocumentLineStartOffset + currentDocumentLine.TotalLength;
 
-                var lineResult = grepSearchResult.SearchResults.Find(sr => sr.LineNumber == lineNumber && sr.IsContext == false);
-                if (lineResult != null)
+                HighlightLine(textView, drawingContext, visLine, currentDocumentLine);
+
+                if (visLine.FirstDocumentLine != visLine.LastDocumentLine)
                 {
-                    for (int i = 0; i < lineResult.Matches.Count; i++)
+                    foreach (VisualLineElement e in visLine.Elements.ToArray())
                     {
-                        var grepMatch = lineResult.Matches[i];
-
-                        int startOffset = grepMatch.StartLocation;
-                        // match may include the non-printing newline chars at the end of the line, don't overflow the length
-                        int endOffset = Math.Min(visLine.VisualLength, grepMatch.StartLocation + grepMatch.Length);
-
-                        var rects = BackgroundGeometryBuilder.GetRectsFromVisualSegment(textView, visLine, startOffset, endOffset);
-                        if (rects.Any())
+                        int elementOffset = firstLineStart + e.RelativeTextOffset;
+                        if (elementOffset >= currentDocumentLineTotalEndOffset)
                         {
-                            BackgroundGeometryBuilder geoBuilder = new BackgroundGeometryBuilder();
-                            geoBuilder.AlignToWholePixels = true;
-                            geoBuilder.BorderThickness = markerPenThickness;
-                            geoBuilder.CornerRadius = markerCornerRadius;
-                            foreach (var rect in rects)
-                            {
-                                geoBuilder.AddRectangle(textView, rect);
-                            }
-                            Geometry geometry = geoBuilder.CreateGeometry();
-                            if (geometry != null)
-                            {
-                                drawingContext.DrawGeometry(markerBrush, markerPen, geometry);
-                            }
+                            currentDocumentLine = textView.Document.GetLineByOffset(elementOffset);
+                            currentDocumentLineStartOffset = currentDocumentLine.Offset;
+                            currentDocumentLineEndOffset = currentDocumentLineStartOffset + currentDocumentLine.Length;
+                            currentDocumentLineTotalEndOffset = currentDocumentLineStartOffset + currentDocumentLine.TotalLength;
+                            HighlightLine(textView, drawingContext, visLine, currentDocumentLine);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void HighlightLine(TextView textView, DrawingContext drawingContext, VisualLine visLine, DocumentLine line)
+        {
+            int lineNumber = line.LineNumber;
+
+            var lineResult = grepSearchResult.SearchResults.Find(sr => sr.LineNumber == lineNumber && sr.IsContext == false);
+            if (lineResult != null)
+            {
+                for (int i = 0; i < lineResult.Matches.Count; i++)
+                {
+                    var grepMatch = lineResult.Matches[i];
+
+                    int startOffset = grepMatch.StartLocation;
+                    // match may include the non-printing newline chars at the end of the line, don't overflow the length
+                    int endOffset = Math.Min(visLine.VisualLength, grepMatch.StartLocation + grepMatch.Length);
+
+                    var rects = BackgroundGeometryBuilder.GetRectsFromVisualSegment(textView, visLine, startOffset, endOffset);
+                    if (rects.Any())
+                    {
+                        BackgroundGeometryBuilder geoBuilder = new BackgroundGeometryBuilder();
+                        geoBuilder.AlignToWholePixels = true;
+                        geoBuilder.BorderThickness = markerPenThickness;
+                        geoBuilder.CornerRadius = markerCornerRadius;
+                        foreach (var rect in rects)
+                        {
+                            geoBuilder.AddRectangle(textView, rect);
+                        }
+                        Geometry geometry = geoBuilder.CreateGeometry();
+                        if (geometry != null)
+                        {
+                            drawingContext.DrawGeometry(markerBrush, markerPen, geometry);
                         }
                     }
                 }

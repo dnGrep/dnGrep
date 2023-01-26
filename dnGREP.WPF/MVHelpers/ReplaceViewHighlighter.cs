@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using dnGREP.Common;
+using ICSharpCode.AvalonEdit.Document;
 using ICSharpCode.AvalonEdit.Rendering;
 
 namespace dnGREP.WPF
@@ -55,55 +56,76 @@ namespace dnGREP.WPF
 
             foreach (VisualLine visLine in textView.VisualLines)
             {
-                int lineNumber = visLine.FirstDocumentLine.LineNumber;
-                int lineIndex = lineNumber - 1;
-                if (lineIndex >= 0 && lineIndex < LineNumbers.Count)
-                {
-                    lineNumber = LineNumbers[lineIndex];
-                }
+                var currentDocumentLine = visLine.FirstDocumentLine;
+                int firstLineStart = currentDocumentLine.Offset;
+                int currentDocumentLineStartOffset = currentDocumentLine.Offset;
+                int currentDocumentLineEndOffset = currentDocumentLineStartOffset + currentDocumentLine.Length;
+                int currentDocumentLineTotalEndOffset = currentDocumentLineStartOffset + currentDocumentLine.TotalLength;
 
-                var lineResult = grepSearchResult.SearchResults.Find(sr => sr.LineNumber == lineNumber && sr.IsContext == false);
-                if (lineResult != null)
+                HighlightLine(textView, drawingContext, visLine, currentDocumentLine);
+
+                if (visLine.FirstDocumentLine != visLine.LastDocumentLine)
                 {
-                    foreach (var grepMatch in lineResult.Matches)
+                    foreach (VisualLineElement e in visLine.Elements.ToArray())
                     {
-                        // get the global file match corresponding to this line match
-                        // only the file match has a valid ReplaceMatch flag
-                        GrepMatch fileMatch = grepSearchResult.Matches.FirstOrDefault(m => m.FileMatchId == grepMatch.FileMatchId);
-
-                        Brush markerBrush = fileMatch == null ? Brushes.LightGray : fileMatch.ReplaceMatch ? replBackground : skipBackground;
-                        Pen markerPen = null;
-                        double markerCornerRadius = 2;
-                        double markerPenThickness = markerPen != null ? markerPen.Thickness : 0;
-
-                        bool isSelected = grepMatch.FileMatchId.Equals(SelectedGrepMatch.FileMatchId);
-                        if (isSelected)
+                        int elementOffset = firstLineStart + e.RelativeTextOffset;
+                        if (elementOffset >= currentDocumentLineTotalEndOffset)
                         {
-                            markerPen = outlinePen;
-                            markerPenThickness = outlinePen.Thickness;
+                            currentDocumentLine = textView.Document.GetLineByOffset(elementOffset);
+                            currentDocumentLineStartOffset = currentDocumentLine.Offset;
+                            currentDocumentLineEndOffset = currentDocumentLineStartOffset + currentDocumentLine.Length;
+                            currentDocumentLineTotalEndOffset = currentDocumentLineStartOffset + currentDocumentLine.TotalLength;
+                            HighlightLine(textView, drawingContext, visLine, currentDocumentLine);
                         }
+                    }
+                }
+            }
+        }
 
-                        int startOffset = grepMatch.StartLocation;
-                        // match may include the non-printing newline chars at the end of the line, don't overflow the length
-                        int endOffset = Math.Min(visLine.VisualLength, grepMatch.StartLocation + grepMatch.Length);
+        private void HighlightLine(TextView textView, DrawingContext drawingContext, VisualLine visLine, DocumentLine line)
+        {
+            int lineNumber = line.LineNumber;
+            int lineIndex = lineNumber - 1;
+            if (lineIndex >= 0 && lineIndex < LineNumbers.Count)
+            {
+                lineNumber = LineNumbers[lineIndex];
+            }
 
-                        var rects = BackgroundGeometryBuilder.GetRectsFromVisualSegment(textView, visLine, startOffset, endOffset);
-                        if (rects.Any())
+            var lineResult = grepSearchResult.SearchResults.Find(sr => sr.LineNumber == lineNumber && sr.IsContext == false);
+            if (lineResult != null)
+            {
+                foreach (var grepMatch in lineResult.Matches)
+                {
+                    // get the global file match corresponding to this line match
+                    // only the file match has a valid ReplaceMatch flag
+                    GrepMatch fileMatch = grepSearchResult.Matches.FirstOrDefault(m => m.FileMatchId == grepMatch.FileMatchId);
+                    bool isSelected = grepMatch.FileMatchId.Equals(SelectedGrepMatch.FileMatchId);
+
+                    Brush markerBrush = fileMatch == null ? Brushes.LightGray : fileMatch.ReplaceMatch ? replBackground : skipBackground;
+                    double markerCornerRadius = 2;
+                    Pen markerPen = isSelected ? outlinePen : null;
+                    double markerPenThickness = markerPen != null ? markerPen.Thickness : 0;
+
+                    int startOffset = grepMatch.StartLocation;
+                    // match may include the non-printing newline chars at the end of the line, don't overflow the length
+                    int endOffset = Math.Min(visLine.VisualLength, grepMatch.StartLocation + grepMatch.Length);
+
+                    var rects = BackgroundGeometryBuilder.GetRectsFromVisualSegment(textView, visLine, startOffset, endOffset);
+                    if (rects.Any())
+                    {
+                        BackgroundGeometryBuilder geoBuilder = new BackgroundGeometryBuilder();
+                        geoBuilder.AlignToWholePixels = true;
+                        geoBuilder.BorderThickness = markerPenThickness;
+                        geoBuilder.CornerRadius = markerCornerRadius;
+                        foreach (var rect in rects)
                         {
-                            BackgroundGeometryBuilder geoBuilder = new BackgroundGeometryBuilder();
-                            geoBuilder.AlignToWholePixels = true;
-                            geoBuilder.BorderThickness = markerPenThickness;
-                            geoBuilder.CornerRadius = markerCornerRadius;
-                            foreach (var rect in rects)
-                            {
-                                rect.Inflate(0, -1);
-                                geoBuilder.AddRectangle(textView, rect);
-                            }
-                            Geometry geometry = geoBuilder.CreateGeometry();
-                            if (geometry != null)
-                            {
-                                drawingContext.DrawGeometry(markerBrush, markerPen, geometry);
-                            }
+                            rect.Inflate(0, -1);
+                            geoBuilder.AddRectangle(textView, rect);
+                        }
+                        Geometry geometry = geoBuilder.CreateGeometry();
+                        if (geometry != null)
+                        {
+                            drawingContext.DrawGeometry(markerBrush, markerPen, geometry);
                         }
                     }
                 }
