@@ -50,6 +50,7 @@ namespace dnGREP.WPF
             zoomSlider.Value = GrepSettings.Instance.Get<int>(GrepSettings.Key.PreviewWindowFont);
             zoomSlider.ValueChanged += ZoomSlider_ValueChanged;
             textEditor.TextArea.TextView.SizeChanged += TextView_SizeChanged;
+            textEditor.TextArea.TextView.Options.HighlightCurrentLine = true;
 
             AppTheme.Instance.CurrentThemeChanged += (s, e) =>
             {
@@ -63,14 +64,16 @@ namespace dnGREP.WPF
         {
             if (e.PropertyName == nameof(ViewModel.HighlightsOn))
             {
-                for (int i = textEditor.TextArea.TextView.LineTransformers.Count - 1; i >= 0; i--)
+                for (int i = textEditor.TextArea.TextView.BackgroundRenderers.Count - 1; i >= 0; i--)
                 {
-                    if (textEditor.TextArea.TextView.LineTransformers[i] is PreviewHighlighter)
-                        textEditor.TextArea.TextView.LineTransformers.RemoveAt(i);
+                    if (textEditor.TextArea.TextView.BackgroundRenderers[i] is PreviewHighlighter)
+                        textEditor.TextArea.TextView.BackgroundRenderers.RemoveAt(i);
                 }
 
                 if (ViewModel.HighlightsOn && !ViewModel.HighlightDisabled && !ViewModel.IsPdf)
-                    textEditor.TextArea.TextView.LineTransformers.Add(new PreviewHighlighter(ViewModel.GrepResult));
+                {
+                    textEditor.TextArea.TextView.BackgroundRenderers.Add(new PreviewHighlighter(ViewModel.GrepResult));
+                }
             }
             else if (e.PropertyName == nameof(ViewModel.LineNumber))
             {
@@ -104,14 +107,16 @@ namespace dnGREP.WPF
             textEditor.Encoding = ViewModel.Encoding;
             textEditor.SyntaxHighlighting = ViewModel.HighlightingDefinition;
             textEditor.TextArea.TextView.LinkTextForegroundBrush = Application.Current.Resources["AvalonEdit.Link"] as Brush;
-            for (int i = textEditor.TextArea.TextView.LineTransformers.Count - 1; i >= 0; i--)
+            for (int i = textEditor.TextArea.TextView.BackgroundRenderers.Count - 1; i >= 0; i--)
             {
-                if (textEditor.TextArea.TextView.LineTransformers[i] is PreviewHighlighter)
-                    textEditor.TextArea.TextView.LineTransformers.RemoveAt(i);
+                if (textEditor.TextArea.TextView.BackgroundRenderers[i] is PreviewHighlighter)
+                    textEditor.TextArea.TextView.BackgroundRenderers.RemoveAt(i);
             }
 
             if (ViewModel.HighlightsOn && !ViewModel.HighlightDisabled && !ViewModel.IsPdf)
-                textEditor.TextArea.TextView.LineTransformers.Add(new PreviewHighlighter(ViewModel.GrepResult));
+            {
+                textEditor.TextArea.TextView.BackgroundRenderers.Add(new PreviewHighlighter(ViewModel.GrepResult));
+            }
 
             bool showPageNumbers = GrepSettings.Instance.Get<PdfNumberType>(GrepSettings.Key.PdfNumberStyle) == PdfNumberType.PageNumber;
 
@@ -153,6 +158,7 @@ namespace dnGREP.WPF
                             UpdatePositionMarkers();
 
                             textEditor.ScrollTo(ViewModel.LineNumber, 0);
+                            textEditor.TextArea.Caret.Line = ViewModel.LineNumber;
                         }
                     }
                     else

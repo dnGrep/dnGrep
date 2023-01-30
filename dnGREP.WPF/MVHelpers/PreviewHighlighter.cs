@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Media;
 using dnGREP.Common;
@@ -7,55 +8,95 @@ using ICSharpCode.AvalonEdit.Rendering;
 
 namespace dnGREP.WPF
 {
-    public class PreviewHighlighter : DocumentColorizingTransformer
+    public class PreviewHighlighter : IBackgroundRenderer
     {
-        private GrepSearchResult result;
-        private int[] lineNumbers;
-        public PreviewHighlighter(GrepSearchResult result, int[] lineNumbers = null)
+        private readonly GrepSearchResult grepSearchResult;
+        public PreviewHighlighter(GrepSearchResult result)
         {
-            this.result = result;
-            this.lineNumbers = lineNumbers;
+            grepSearchResult = result;
         }
 
-        protected override void ColorizeLine(DocumentLine line)
+        private readonly Brush markerBrush = Application.Current.Resources["Match.Highlight.Background"] as Brush;
+        private readonly Pen markerPen = null;
+        private readonly double markerCornerRadius = 3;
+        private readonly double markerPenThickness = 0;
+
+        /// <summary>Gets the layer on which this background renderer should draw.</summary>
+        public KnownLayer Layer => KnownLayer.Selection; // draw behind selection
+
+        public void Draw(TextView textView, DrawingContext drawingContext)
         {
-            int lineStartOffset = line.Offset;
-            string text = CurrentContext.Document.GetText(line);
-            if (result == null || result.Matches == null || result.Matches.Count == 0)
+            if (textView == null)
+                throw new ArgumentNullException("textView");
+            if (drawingContext == null)
+                throw new ArgumentNullException("drawingContext");
+
+            if (grepSearchResult == null || !textView.VisualLinesValid)
                 return;
 
+            var visualLines = textView.VisualLines;
+            if (visualLines.Count == 0)
+                return;
+
+            foreach (VisualLine visLine in textView.VisualLines)
+            {
+                var currentDocumentLine = visLine.FirstDocumentLine;
+                int firstLineStart = currentDocumentLine.Offset;
+                int currentDocumentLineStartOffset = currentDocumentLine.Offset;
+                int currentDocumentLineEndOffset = currentDocumentLineStartOffset + currentDocumentLine.Length;
+                int currentDocumentLineTotalEndOffset = currentDocumentLineStartOffset + currentDocumentLine.TotalLength;
+
+                HighlightLine(textView, drawingContext, visLine, currentDocumentLine);
+
+                if (visLine.FirstDocumentLine != visLine.LastDocumentLine)
+                {
+                    foreach (VisualLineElement e in visLine.Elements.ToArray())
+                    {
+                        int elementOffset = firstLineStart + e.RelativeTextOffset;
+                        if (elementOffset >= currentDocumentLineTotalEndOffset)
+                        {
+                            currentDocumentLine = textView.Document.GetLineByOffset(elementOffset);
+                            currentDocumentLineStartOffset = currentDocumentLine.Offset;
+                            currentDocumentLineEndOffset = currentDocumentLineStartOffset + currentDocumentLine.Length;
+                            currentDocumentLineTotalEndOffset = currentDocumentLineStartOffset + currentDocumentLine.TotalLength;
+                            HighlightLine(textView, drawingContext, visLine, currentDocumentLine);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void HighlightLine(TextView textView, DrawingContext drawingContext, VisualLine visLine, DocumentLine line)
+        {
             int lineNumber = line.LineNumber;
-            if (lineNumbers != null && lineNumbers.Length > line.LineNumber - 1)
-                lineNumber = lineNumbers[line.LineNumber - 1];
 
-            var lineResult = result.SearchResults.Find(sr => sr.LineNumber == lineNumber && sr.IsContext == false);
-
+            var lineResult = grepSearchResult.SearchResults.Find(sr => sr.LineNumber == lineNumber && sr.IsContext == false);
             if (lineResult != null)
             {
-                Brush background = Application.Current.Resources["Match.Highlight.Background"] as Brush;
-                Brush foreground = Application.Current.Resources["Match.Highlight.Foreground"] as Brush;
-
                 for (int i = 0; i < lineResult.Matches.Count; i++)
                 {
-                    try
-                    {
-                        var grepMatch = lineResult.Matches[i];
+                    var grepMatch = lineResult.Matches[i];
 
-                        base.ChangeLinePart(
-                            lineStartOffset + grepMatch.StartLocation, // startOffset
-                            // match may include the non-printing newline chars at the end of the line, don't overflow the length
-                            Math.Min(line.EndOffset, lineStartOffset + grepMatch.StartLocation + grepMatch.Length), // endOffset
-                            (VisualLineElement element) =>
-                            {
-                                // This lambda gets called once for every VisualLineElement
-                                // between the specified offsets.
-                                element.TextRunProperties.SetBackgroundBrush(background);
-                                element.TextRunProperties.SetForegroundBrush(foreground);
-                            });
-                    }
-                    catch
+                    int startOffset = grepMatch.StartLocation;
+                    // match may include the non-printing newline chars at the end of the line, don't overflow the length
+                    int endOffset = Math.Min(visLine.VisualLength, grepMatch.StartLocation + grepMatch.Length);
+
+                    var rects = BackgroundGeometryBuilder.GetRectsFromVisualSegment(textView, visLine, startOffset, endOffset);
+                    if (rects.Any())
                     {
-                        // Do nothing
+                        BackgroundGeometryBuilder geoBuilder = new BackgroundGeometryBuilder();
+                        geoBuilder.AlignToWholePixels = true;
+                        geoBuilder.BorderThickness = markerPenThickness;
+                        geoBuilder.CornerRadius = markerCornerRadius;
+                        foreach (var rect in rects)
+                        {
+                            geoBuilder.AddRectangle(textView, rect);
+                        }
+                        Geometry geometry = geoBuilder.CreateGeometry();
+                        if (geometry != null)
+                        {
+                            drawingContext.DrawGeometry(markerBrush, markerPen, geometry);
+                        }
                     }
                 }
             }
