@@ -2370,7 +2370,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Rename file dialog title</comment>
   </data>
   <data name="Options_TheMatchTimeoutLimits" xml:space="preserve">
-    <value>O tempo limite de correspondência determina por quanto tempo o mecanismo de expressão regular tenta resolver uma expressão antes de atingir prazo. Impede o processamento de expressões e strings de entrada que exigem excessivo retroacesso.</value>
+    <value>O tempo limite de correspondência determina por quanto tempo o mecanismo de expressão regular tenta resolver uma expressão antes de atingir prazo. Impede o processamento de expressões e cadeias de entrada que exigem excessivo retrocesso.</value>
     <comment>Options dialog, regular expression options help text</comment>
   </data>
   <data name="Options_ToChangeThisSettingRunDnGREPAsAdministrator" xml:space="preserve">
@@ -2498,7 +2498,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Replace window, warning message box text</comment>
   </data>
   <data name="Report_CSVRecordHeaderText" xml:space="preserve">
-    <value>Nome do Ficheiro,Número da Linha,String</value>
+    <value>Nome do Ficheiro,Número da Linha,Cadeia</value>
     <comment>Report, CSV report - these are the column headers in the generated CSV file</comment>
   </data>
   <data name="Report_FileNotFoundHasItBeenDeletedOrMoved" xml:space="preserve">
