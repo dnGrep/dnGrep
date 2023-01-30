@@ -41,6 +41,7 @@
         <my:BoolToVisibilityConverter x:Key="BoolToHiddenVisibilityConverter" TrueValue="Visible" FalseValue="Hidden" />
         <my:GridLengthConverter x:Key="GridLengthConverter" />
         <my:IntOrEmptyValueConverter x:Key="IntConverter"/>
+        <my:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
         <my:TitleFontSizeConverter x:Key="TitleSizeConverter"/>
         <my:TextBoxWidthConverter x:Key="TextBoxWidthConverter"/>
         <my:ValidationColorConverter x:Key="validationColor" />
@@ -185,27 +186,53 @@
             <StatusBar DockPanel.Dock="Bottom"
                        FontFamily="{Binding ApplicationFontFamily}"
                        FontSize="{Binding MainFormFontSize}">
-                <StatusBarItem>
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox Margin="3,0,10,0" Background="{DynamicResource Control.Static.Background}"
-                                  ToolTip="{Binding ResultOptionsButtonTooltip}"
-                                  Template="{DynamicResource ExpanderButtonTemplate}"
-                                  IsChecked="{Binding IsResultOptionsExpanded}"
-                                  Visibility="{Binding ResultsTreeOptionsExpanderVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
-                        <ProgressBar Width="150" Height="18" Margin="3,0"
-                                     IsIndeterminate="{Binding IsOperationInProgress}" />
-                        <TextBlock Margin="3,0"
-                                   Text="{Binding StatusMessage}"
-                                   Style="{StaticResource LabelTextBlockStyle}" />
-                    </StackPanel>
-                </StatusBarItem>
-                <StatusBarItem HorizontalAlignment="Right">
+                <StatusBarItem DockPanel.Dock="Right">
                     <StackPanel Orientation="Horizontal" Visibility="{Binding IsSaveInProgress, Converter={StaticResource BoolToVisibilityConverter}}">
                         <ProgressBar Width="150" Height="18" Margin="3,0"
                                      IsIndeterminate="true" />
                         <TextBlock Margin="3,0,12,0" Text="{l:Loc Key='Main_SavingResultsToFile'}"
                                    Style="{StaticResource LabelTextBlockStyle}" />
                     </StackPanel>
+                </StatusBarItem>
+                <StatusBarItem DockPanel.Dock="Right">
+                    <TextBlock x:Name="status4" 
+                               Text="{Binding StatusMessage4}" 
+                               ToolTip="{Binding StatusMessage4Tooltip}"
+                               Style="{StaticResource LabelTextBlockStyle}"/>
+                </StatusBarItem>
+                <Separator DockPanel.Dock="Right"  
+                           Visibility="{Binding ElementName=status4, Path=Text, Converter={StaticResource StringToVisibilityConverter}}"/>
+                <StatusBarItem DockPanel.Dock="Right">
+                    <TextBlock x:Name="status3" 
+                               Text="{Binding StatusMessage3}" 
+                               ToolTip="{Binding StatusMessage3Tooltip}"
+                               Style="{StaticResource LabelTextBlockStyle}"/>
+                </StatusBarItem>
+                <Separator DockPanel.Dock="Right"
+                           Visibility="{Binding ElementName=status3, Path=Text, Converter={StaticResource StringToVisibilityConverter}}"/>
+                <StatusBarItem DockPanel.Dock="Right">
+                    <TextBlock x:Name="status2" 
+                               Margin="3,0"
+                               Text="{Binding StatusMessage2}"
+                               ToolTip="{Binding StatusMessage2Tooltip}"
+                               Style="{StaticResource LabelTextBlockStyle}"/>
+                </StatusBarItem>
+                <StatusBarItem DockPanel.Dock="Left">
+                    <CheckBox Margin="3,0" Background="{DynamicResource Control.Static.Background}"
+                              ToolTip="{Binding ResultOptionsButtonTooltip}"
+                              Template="{DynamicResource ExpanderButtonTemplate}"
+                              IsChecked="{Binding IsResultOptionsExpanded}"
+                              Visibility="{Binding ResultsTreeOptionsExpanderVisible, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                </StatusBarItem>
+                <StatusBarItem DockPanel.Dock="Left">
+                    <ProgressBar Width="120" Height="18" Margin="3,0"
+                                 IsIndeterminate="True"
+                                 Visibility="{Binding IsOperationInProgress, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                </StatusBarItem>
+                <StatusBarItem DockPanel.Dock="Left">
+                    <TextBlock Margin="3,0"
+                               Text="{Binding StatusMessage}"
+                               Style="{StaticResource LabelTextBlockStyle}" />
                 </StatusBarItem>
             </StatusBar>
 

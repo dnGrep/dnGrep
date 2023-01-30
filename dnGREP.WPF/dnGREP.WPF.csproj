@@ -102,6 +102,7 @@
     <Compile Include="MVHelpers\ColorInverter.cs" />
     <Compile Include="MVHelpers\ResultSorter.cs" />
     <Compile Include="MVHelpers\StringNotNullOrEmptyConverter.cs" />
+    <Compile Include="MVHelpers\StringToVisibilityConverter.cs" />
     <Compile Include="MVHelpers\ValueRangeRule.cs" />
     <Compile Include="MVHelpers\TextBoxWidthConverter.cs" />
     <Compile Include="MVHelpers\TitleFontSizeConverter.cs" />

@@ -423,25 +423,31 @@ namespace dnGREP.WPF
         public event EventHandler<GrepResultEventArgs> OpenFileRequest;
         public event EventHandler<GrepLineEventArgs> PreviewFileLineRequest;
         public event EventHandler<GrepResultEventArgs> PreviewFileRequest;
+        public event EventHandler<GrepLineSelectEventArgs> GrepLineSelected;
 
         public void OpenFile(FormattedGrepLine line, bool useCustomEditor)
         {
-            OpenFileLineRequest(this, new GrepLineEventArgs { FormattedGrepLine = line, UseCustomEditor = useCustomEditor });
+            OpenFileLineRequest?.Invoke(this, new GrepLineEventArgs { FormattedGrepLine = line, UseCustomEditor = useCustomEditor });
         }
 
         public void OpenFile(FormattedGrepResult line, bool useCustomEditor)
         {
-            OpenFileRequest(this, new GrepResultEventArgs { FormattedGrepResult = line, UseCustomEditor = useCustomEditor });
+            OpenFileRequest?.Invoke(this, new GrepResultEventArgs { FormattedGrepResult = line, UseCustomEditor = useCustomEditor });
         }
 
         public void PreviewFile(FormattedGrepLine line, System.Drawing.RectangleF windowSize)
         {
-            PreviewFileLineRequest(this, new GrepLineEventArgs { FormattedGrepLine = line, ParentWindowSize = windowSize });
+            PreviewFileLineRequest?.Invoke(this, new GrepLineEventArgs { FormattedGrepLine = line, ParentWindowSize = windowSize });
         }
 
         public void PreviewFile(FormattedGrepResult line, System.Drawing.RectangleF windowSize)
         {
-            PreviewFileRequest(this, new GrepResultEventArgs { FormattedGrepResult = line, ParentWindowSize = windowSize });
+            PreviewFileRequest?.Invoke(this, new GrepResultEventArgs { FormattedGrepResult = line, ParentWindowSize = windowSize });
+        }
+
+        internal void OnGrepLineSelectionChanged(FormattedGrepLine formattedGrepLine, int lineMatchCount, int matchOrdinal, int fileMatchCount)
+        {
+            GrepLineSelected?.Invoke(this, new GrepLineSelectEventArgs(formattedGrepLine, lineMatchCount, matchOrdinal, fileMatchCount));
         }
     }
 

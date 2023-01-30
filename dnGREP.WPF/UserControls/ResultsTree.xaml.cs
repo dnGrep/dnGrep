@@ -30,10 +30,10 @@ namespace dnGREP.WPF.UserControls
             InitializeComponent();
             DataContextChanged += ResultsTree_DataContextChanged;
 
-            treeView.PreviewMouseWheel += treeView_PreviewMouseWheel;
-            treeView.PreviewTouchDown += treeView_PreviewTouchDown;
-            treeView.PreviewTouchMove += treeView_PreviewTouchMove;
-            treeView.PreviewTouchUp += treeView_PreviewTouchUp;
+            treeView.PreviewMouseWheel += TreeView_PreviewMouseWheel;
+            treeView.PreviewTouchDown += TreeView_PreviewTouchDown;
+            treeView.PreviewTouchMove += TreeView_PreviewTouchMove;
+            treeView.PreviewTouchUp += TreeView_PreviewTouchUp;
         }
 
         void ResultsTree_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -57,7 +57,7 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
-        private void treeView_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
+        private void TreeView_RequestBringIntoView(object sender, RequestBringIntoViewEventArgs e)
         {
             // keep tree view from scrolling horizontally when an item is (mouse) selected
             var treeViewItem = (TreeViewItem)sender;
@@ -79,27 +79,27 @@ namespace dnGREP.WPF.UserControls
 
         #region Tree right click events
 
-        private void btnOpenFile_Click(object sender, RoutedEventArgs e)
+        private void BtnOpenFile_Click(object sender, RoutedEventArgs e)
         {
             OpenFiles(false);
         }
 
-        private void btnOpenFileCustomEditor_Click(object sender, RoutedEventArgs e)
+        private void BtnOpenFileCustomEditor_Click(object sender, RoutedEventArgs e)
         {
             OpenFiles(true);
         }
 
-        private void btnOpenContainingFolder_Click(object sender, RoutedEventArgs e)
+        private void BtnOpenContainingFolder_Click(object sender, RoutedEventArgs e)
         {
             OpenFolders();
         }
 
-        private void btnOpenExplorerMenu_Click(object sender, RoutedEventArgs e)
+        private void BtnOpenExplorerMenu_Click(object sender, RoutedEventArgs e)
         {
             OpenExplorerMenu();
         }
 
-        private void treeKeyDown(object sender, KeyEventArgs e)
+        private void TreeKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.C && Keyboard.Modifiers.HasFlag(ModifierKeys.Control))
             {
@@ -154,12 +154,12 @@ namespace dnGREP.WPF.UserControls
             }
             else if (e.Key == Key.F6 && Keyboard.Modifiers == ModifierKeys.None)
             {
-                btnExpandAll_Click(this, e);
+                BtnExpandAll_Click(this, e);
                 e.Handled = true;
             }
             else if (e.Key == Key.F6 && Keyboard.Modifiers.HasFlag(ModifierKeys.Shift))
             {
-                btnCollapseAll_Click(this, e);
+                BtnCollapseAll_Click(this, e);
                 e.Handled = true;
             }
         }
@@ -436,7 +436,7 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
-        private void btnRenameFile_Click(object sender, RoutedEventArgs e)
+        private void BtnRenameFile_Click(object sender, RoutedEventArgs e)
         {
             FormattedGrepResult searchResult = null;
             var node = inputData.SelectedNodes.FirstOrDefault();
@@ -498,7 +498,7 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
-        private void btnRecycleFiles_Click(object sender, RoutedEventArgs e)
+        private void BtnRecycleFiles_Click(object sender, RoutedEventArgs e)
         {
             // get the unique set of files from the selections
             List<FormattedGrepResult> files = new List<FormattedGrepResult>();
@@ -552,57 +552,57 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
-        private void btnCopyFileNames_Click(object sender, RoutedEventArgs e)
+        private void BtnCopyFileNames_Click(object sender, RoutedEventArgs e)
         {
             CopyFileNames(false);
         }
 
-        private void btnCopyFullFilePath_Click(object sender, RoutedEventArgs e)
+        private void BtnCopyFullFilePath_Click(object sender, RoutedEventArgs e)
         {
             CopyFileNames(true);
         }
 
-        private void btnCopyGrepLine_Click(object sender, RoutedEventArgs e)
+        private void BtnCopyGrepLine_Click(object sender, RoutedEventArgs e)
         {
             CopyGrepLines();
         }
 
-        private void btnShowFileProperties_Click(object sender, RoutedEventArgs e)
+        private void BtnShowFileProperties_Click(object sender, RoutedEventArgs e)
         {
             ShowFileProperties();
         }
 
-        private void btnMakeWritable_Click(object sender, RoutedEventArgs e)
+        private void BtnMakeWritable_Click(object sender, RoutedEventArgs e)
         {
             MakeFilesWritable();
         }
 
-        private void btnExclude_Click(object sender, RoutedEventArgs e)
+        private void BtnExclude_Click(object sender, RoutedEventArgs e)
         {
             ExcludeLines();
         }
 
-        private void btnNextMatch_Click(object sender, RoutedEventArgs e)
+        private void BtnNextMatch_Click(object sender, RoutedEventArgs e)
         {
             Next();
         }
 
-        private void btnNextFile_Click(object sender, RoutedEventArgs e)
+        private void BtnNextFile_Click(object sender, RoutedEventArgs e)
         {
             NextFile();
         }
 
-        private void btnPreviousMatch_Click(object sender, RoutedEventArgs e)
+        private void BtnPreviousMatch_Click(object sender, RoutedEventArgs e)
         {
             Previous();
         }
 
-        private void btnPreviousFile_Click(object sender, RoutedEventArgs e)
+        private void BtnPreviousFile_Click(object sender, RoutedEventArgs e)
         {
             PreviousFile();
         }
 
-        private async void btnExpandAll_Click(object sender, RoutedEventArgs e)
+        private async void BtnExpandAll_Click(object sender, RoutedEventArgs e)
         {
             foreach (FormattedGrepResult result in treeView.Items)
             {
@@ -610,7 +610,7 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
-        private void btnCollapseAll_Click(object sender, RoutedEventArgs e)
+        private void BtnCollapseAll_Click(object sender, RoutedEventArgs e)
         {
             foreach (FormattedGrepResult result in treeView.Items)
             {
@@ -898,7 +898,7 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
-        private void treeView_MouseDown(object sender, MouseButtonEventArgs e)
+        private void TreeView_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (sender is TreeViewItem item)
             {
@@ -907,7 +907,7 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
-        private void treeView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void TreeView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (treeView.SelectedItem is FormattedGrepLine && (e.OriginalSource is TextBlock || e.OriginalSource is Run))
             {
@@ -921,12 +921,36 @@ namespace dnGREP.WPF.UserControls
 
             var rect = new System.Drawing.RectangleF { Height = (float)parentWindow.ActualHeight, Width = (float)parentWindow.ActualWidth, X = (float)parentWindow.Left, Y = (float)parentWindow.Top };
 
+            bool lineSelectionRaised = false;
             if (inputData.SelectedNodes is IList items && items.Count > 0)
             {
-                if (items[0] is FormattedGrepLine)
-                    inputData.PreviewFile(items[0] as FormattedGrepLine, rect);
-                else if (items[0] is FormattedGrepResult)
-                    inputData.PreviewFile(items[0] as FormattedGrepResult, rect);
+                if (items[0] is FormattedGrepLine formattedGrepLine)
+                {
+                    if (items.Count == 1)
+                    {
+                        var lineNumber = formattedGrepLine.GrepLine.LineNumber;
+                        var lineMatches = formattedGrepLine.GrepLine.Matches;
+                        var fileMatches = formattedGrepLine.Parent.GrepResult.Matches;
+                        if (lineMatches.Count > 0)
+                        {
+                            var id = lineMatches[0].FileMatchId;
+                            var matchOrdinal = 1 + fileMatches.IndexOf(m => m.FileMatchId == id);
+                            inputData.OnGrepLineSelectionChanged(formattedGrepLine, lineMatches.Count, matchOrdinal, fileMatches.Count);
+                            lineSelectionRaised = true;
+                        }
+                    }
+
+                    inputData.PreviewFile(formattedGrepLine, rect);
+                }
+                else if (items[0] is FormattedGrepResult formattedGrepResult)
+                {
+                    inputData.PreviewFile(formattedGrepResult, rect);
+                }
+            }
+
+            if (!lineSelectionRaised)
+            {
+                inputData.OnGrepLineSelectionChanged(null, 0, -1, 0);
             }
         }
 
@@ -934,9 +958,9 @@ namespace dnGREP.WPF.UserControls
 
         #region Zoom
 
-        private Dictionary<int, Point> touchIds = new Dictionary<int, Point>();
+        private readonly Dictionary<int, Point> touchIds = new Dictionary<int, Point>();
 
-        private void treeView_PreviewTouchDown(object sender, TouchEventArgs e)
+        private void TreeView_PreviewTouchDown(object sender, TouchEventArgs e)
         {
             if (sender is IInputElement ctrl && !touchIds.ContainsKey(e.TouchDevice.Id))
             {
@@ -945,13 +969,13 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
-        private void treeView_PreviewTouchUp(object sender, TouchEventArgs e)
+        private void TreeView_PreviewTouchUp(object sender, TouchEventArgs e)
         {
             if (touchIds.ContainsKey(e.TouchDevice.Id))
                 touchIds.Remove(e.TouchDevice.Id);
         }
 
-        private void treeView_PreviewTouchMove(object sender, TouchEventArgs e)
+        private void TreeView_PreviewTouchMove(object sender, TouchEventArgs e)
         {
             IInputElement ctrl = sender as IInputElement;
 
@@ -1011,7 +1035,7 @@ namespace dnGREP.WPF.UserControls
             }
         }
 
-        private void treeView_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        private void TreeView_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
         {
             bool handle = (Keyboard.Modifiers & ModifierKeys.Control) > 0 &&
                 inputData != null && inputData.Count > 0;
@@ -1032,7 +1056,7 @@ namespace dnGREP.WPF.UserControls
             e.Handled = true;
         }
 
-        private void btnResetZoom_Click(object sender, RoutedEventArgs e)
+        private void BtnResetZoom_Click(object sender, RoutedEventArgs e)
         {
             if (inputData != null)
             {
@@ -1047,23 +1071,23 @@ namespace dnGREP.WPF.UserControls
         private static bool _isMouseDown = false;
         private static System.Windows.Point _dragStartPoint;
 
-        private void treeView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void TreeView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             // Make this the new drag source
             _draggedElt = e.Source as UIElement;
-            _dragStartPoint = e.GetPosition(getTopContainer());
+            _dragStartPoint = e.GetPosition(GetTopContainer());
             _isMouseDown = true;
         }
 
-        private void treeView_PreviewMouseMove(object sender, MouseEventArgs e)
+        private void TreeView_PreviewMouseMove(object sender, MouseEventArgs e)
         {
-            if (_isMouseDown && isDragGesture(e.GetPosition(getTopContainer())))
+            if (_isMouseDown && IsDragGesture(e.GetPosition(GetTopContainer())))
             {
-                treeDragStarted(sender as UIElement);
+                TreeDragStarted(sender as UIElement);
             }
         }
 
-        private void treeDragStarted(UIElement uiElt)
+        private void TreeDragStarted(UIElement uiElt)
         {
             _isMouseDown = false;
             Mouse.Capture(uiElt);
@@ -1095,7 +1119,7 @@ namespace dnGREP.WPF.UserControls
             _draggedElt = null;
         }
 
-        private bool isDragGesture(Point point)
+        private bool IsDragGesture(Point point)
         {
             bool hGesture = Math.Abs(point.X - _dragStartPoint.X) > SystemParameters.MinimumHorizontalDragDistance;
             bool vGesture = Math.Abs(point.Y - _dragStartPoint.Y) > SystemParameters.MinimumVerticalDragDistance;
@@ -1103,7 +1127,7 @@ namespace dnGREP.WPF.UserControls
             return (hGesture | vGesture);
         }
 
-        private UIElement getTopContainer()
+        private UIElement GetTopContainer()
         {
             return Application.Current.MainWindow.Content as UIElement;
         }
@@ -1253,7 +1277,7 @@ namespace dnGREP.WPF.UserControls
                 }
 
                 // Expand the current container
-                if (container is TreeViewItem && !((TreeViewItem)container).IsExpanded)
+                if (container is TreeViewItem item1 && !item1.IsExpanded)
                 {
                     container.SetValue(TreeViewItem.IsExpandedProperty, true);
                 }
@@ -1316,12 +1340,10 @@ namespace dnGREP.WPF.UserControls
                         subContainer =
                             (TreeViewItem)container.ItemContainerGenerator.
                             ContainerFromIndex(idx);
-                        if (subContainer != null)
-                        {
-                            // Bring the item into view to maintain the
-                            // same behavior as with a virtualizing panel.
-                            subContainer.BringIntoView();
-                        }
+                        
+                        // Bring the item into view to maintain the
+                        // same behavior as with a virtualizing panel.
+                        subContainer?.BringIntoView();
                     }
 
                     if (subContainer != null)

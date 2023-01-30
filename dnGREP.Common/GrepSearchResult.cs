@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using DirectoryInfo = Alphaleonis.Win32.Filesystem.DirectoryInfo;
@@ -14,11 +15,14 @@ namespace dnGREP.Common
     {
         public GrepSearchResult()
         {
+            Id = Guid.NewGuid().ToString();
+
             IsSuccess = true;
         }
 
         public GrepSearchResult(FileData fileInfo, Encoding encoding)
         {
+            Id = Guid.NewGuid().ToString();
             FileInfo = fileInfo;
 
             FileNameDisplayed = fileInfo.FullName;
@@ -48,6 +52,8 @@ namespace dnGREP.Common
 
         public GrepSearchResult(string file, string pattern, List<GrepMatch> matches, Encoding encoding, bool success)
         {
+            Id = Guid.NewGuid().ToString();
+          
             FileNameDisplayed = file;
             if (matches != null)
                 Matches = matches;
@@ -75,6 +81,8 @@ namespace dnGREP.Common
 
         public GrepSearchResult(string file, string pattern, string errorMessage, bool success)
         {
+            Id = Guid.NewGuid().ToString();
+         
             FileNameDisplayed = file;
             Matches = new List<GrepMatch>();
             searchResults = new List<GrepLine> { new GrepLine(-1, errorMessage, false, null) };
@@ -82,6 +90,8 @@ namespace dnGREP.Common
             IsSuccess = success;
             FileInfo = new FileData(file);
         }
+
+        public string Id { get; }
 
         public Encoding Encoding { get; }
 
@@ -222,5 +232,15 @@ namespace dnGREP.Common
         public List<GrepMatch> Matches { get; } = new List<GrepMatch>();
 
         public bool IsSuccess { get; }
+
+        public override bool Equals(object obj)
+        {
+            return obj is GrepSearchResult gsr && gsr.Id == Id;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
     }
 }

@@ -3042,6 +3042,33 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Match count on line.
+        /// </summary>
+        public static string Main_StatusTooltip_MatchCountOnLine {
+            get {
+                return ResourceManager.GetString("Main_StatusTooltip_MatchCountOnLine", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Match number/match count in file.
+        /// </summary>
+        public static string Main_StatusTooltip_MatchNumberMatchCountInFile {
+            get {
+                return ResourceManager.GetString("Main_StatusTooltip_MatchNumberMatchCountInFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Match number/match count overall.
+        /// </summary>
+        public static string Main_StatusTooltip_MatchNumberMatchCountOverall {
+            get {
+                return ResourceManager.GetString("Main_StatusTooltip_MatchNumberMatchCountOverall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stop after first match.
         /// </summary>
         public static string Main_StopAfterFirstMatch {

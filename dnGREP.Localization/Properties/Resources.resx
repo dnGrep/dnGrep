@@ -1483,6 +1483,18 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>Searching for .gitignore</value>
     <comment>Main window, status bar message</comment>
   </data>
+  <data name="Main_StatusTooltip_MatchCountOnLine" xml:space="preserve">
+    <value>Match count on line</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
+  <data name="Main_StatusTooltip_MatchNumberMatchCountInFile" xml:space="preserve">
+    <value>Match number/match count in file</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
+  <data name="Main_StatusTooltip_MatchNumberMatchCountOverall" xml:space="preserve">
+    <value>Match number/match count overall</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
   <data name="Main_StopAfterFirstMatch" xml:space="preserve">
     <value>Stop after first match</value>
     <comment>Main window, search options checkbox label (accel)</comment>

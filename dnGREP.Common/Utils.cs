@@ -2569,6 +2569,9 @@ namespace dnGREP.Common
         /// <returns></returns>
         public static bool IsValidBeginText(string beginText)
         {
+            if (beginText == null) 
+                return false;
+
             if (beginText.Equals(string.Empty) ||
                beginText.EndsWith(" ") ||
                beginText.EndsWith("<") ||
@@ -2606,6 +2609,9 @@ namespace dnGREP.Common
 
         public static string ReplaceSpecialCharacters(string input)
         {
+            if (string.IsNullOrEmpty(input)) 
+                return string.Empty;
+
             string result = input.Replace(@"\\a", "\a")
                                  .Replace(@"\\b", "\b")
                                  .Replace(@"\\f", "\f")
@@ -2624,6 +2630,9 @@ namespace dnGREP.Common
         /// <returns></returns>
         public static bool IsValidEndText(string endText)
         {
+            if (endText == null)
+                return false;
+
             if (endText.Equals(string.Empty) ||
                endText.StartsWith(" ") ||
                endText.StartsWith("<") ||
