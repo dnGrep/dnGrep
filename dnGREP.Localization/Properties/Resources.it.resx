@@ -1193,4 +1193,8 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>OK</value>
     <comment>Script Messages dialog button text</comment>
   </data>
+  <data name="Options_BrowseFileLocation" xml:space="preserve">
+    <value>…</value>
+    <comment>Options dialog, browse for file button label</comment>
+  </data>
 </root>
