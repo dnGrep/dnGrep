@@ -921,12 +921,36 @@ namespace dnGREP.WPF.UserControls
 
             var rect = new System.Drawing.RectangleF { Height = (float)parentWindow.ActualHeight, Width = (float)parentWindow.ActualWidth, X = (float)parentWindow.Left, Y = (float)parentWindow.Top };
 
+            bool lineSelectionRaised = false;
             if (inputData.SelectedNodes is IList items && items.Count > 0)
             {
-                if (items[0] is FormattedGrepLine)
-                    inputData.PreviewFile(items[0] as FormattedGrepLine, rect);
-                else if (items[0] is FormattedGrepResult)
-                    inputData.PreviewFile(items[0] as FormattedGrepResult, rect);
+                if (items[0] is FormattedGrepLine formattedGrepLine)
+                {
+                    if (items.Count == 1)
+                    {
+                        var lineNumber = formattedGrepLine.GrepLine.LineNumber;
+                        var lineMatches = formattedGrepLine.GrepLine.Matches;
+                        var fileMatches = formattedGrepLine.Parent.GrepResult.Matches;
+                        if (lineMatches.Count > 0)
+                        {
+                            var id = lineMatches[0].FileMatchId;
+                            var matchOrdinal = 1 + fileMatches.IndexOf(m => m.FileMatchId == id);
+                            inputData.OnGrepLineSelectionChanged(formattedGrepLine, lineMatches.Count, matchOrdinal, fileMatches.Count);
+                            lineSelectionRaised = true;
+                        }
+                    }
+
+                    inputData.PreviewFile(formattedGrepLine, rect);
+                }
+                else if (items[0] is FormattedGrepResult formattedGrepResult)
+                {
+                    inputData.PreviewFile(formattedGrepResult, rect);
+                }
+            }
+
+            if (!lineSelectionRaised)
+            {
+                inputData.OnGrepLineSelectionChanged(null, 0, -1, 0);
             }
         }
 

@@ -1246,20 +1246,6 @@ namespace dnGREP.WPF
             }
         }
 
-        private string statusMessage;
-        public string StatusMessage
-        {
-            get { return statusMessage; }
-            set
-            {
-                if (value == statusMessage)
-                    return;
-
-                statusMessage = value;
-                base.OnPropertyChanged(nameof(StatusMessage));
-            }
-        }
-
         private bool isSaveInProgress;
         public bool IsSaveInProgress
         {
