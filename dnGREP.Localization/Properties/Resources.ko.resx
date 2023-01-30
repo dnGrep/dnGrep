@@ -263,7 +263,7 @@
     <comment>Main window, search option checkbox label (accel)</comment>
   </data>
   <data name="Main_PastDateTo" xml:space="preserve">
-    <value>to</value>
+    <value>에서</value>
     <comment>Main window, filter files by date, past time label</comment>
   </data>
   <data name="Main_ReplaceButton" xml:space="preserve">
@@ -343,7 +343,7 @@
     <comment>Main window, filter by size label</comment>
   </data>
   <data name="Main_SizeTo" xml:space="preserve">
-    <value>to</value>
+    <value>에서</value>
     <comment>Main window, filter by size label</comment>
   </data>
   <data name="Main_SortButton" xml:space="preserve">
@@ -431,7 +431,7 @@
     <comment>Message box text for: Delete files warning</comment>
   </data>
   <data name="Options_ContextBeforeAnd" xml:space="preserve">
-    <value>before and</value>
+    <value>이전과</value>
     <comment>Options dialog, results options context label</comment>
   </data>
   <data name="Options_Layout" xml:space="preserve">
@@ -1655,7 +1655,7 @@
     <comment>Options dialog, New versions group header label</comment>
   </data>
   <data name="Options_ContextAfter" xml:space="preserve">
-    <value>after</value>
+    <value>이후</value>
     <comment>Options dialog, results options context label</comment>
   </data>
   <data name="Options_CustomEditor" xml:space="preserve">
@@ -2019,7 +2019,7 @@
     <comment>Report content text: {0} is the number of matches in a file; {1} is the number of lines in a file with matches</comment>
   </data>
   <data name="ReportSummary_BooleanOperators" xml:space="preserve">
-    <value>Boolean 연산자</value>
+    <value>부울 연산자</value>
     <comment>Report search options summary</comment>
   </data>
   <data name="ReportSummary_CaseSensitive" xml:space="preserve">
@@ -2103,7 +2103,7 @@
     <comment>Report search options summary</comment>
   </data>
   <data name="Test_BooleanOperators" xml:space="preserve">
-    <value>Boolean 연산자</value>
+    <value>부울 연산자</value>
     <comment>Test window, search options checkbox label (accel)</comment>
   </data>
   <data name="Test_CaseSensitive" xml:space="preserve">
@@ -2303,11 +2303,11 @@
     <comment>Script editor menu item (accel)</comment>
   </data>
   <data name="ScriptHint_set_booleanoperators" xml:space="preserve">
-    <value>Boolean 연산자</value>
+    <value>부울 연산자</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_capturegroupsearch" xml:space="preserve">
-    <value>Capture group search</value>
+    <value>그룹 캡쳐 검색</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_dotasnewline" xml:space="preserve">
@@ -2355,7 +2355,7 @@
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_showcontextlines" xml:space="preserve">
-    <value>Show context lines</value>
+    <value>기준이 되는 줄 표시</value>
     <comment>Script editor command/target tooltip</comment>
   </data>
   <data name="ScriptHint_set_stopafterfirstmatch" xml:space="preserve">
@@ -2588,5 +2588,13 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Help_CmdLineVersion" xml:space="preserve">
     <value>{1} 에서 빌드한 버전 {0}</value>
     <comment>Help dialog text when running dnGrep from the command-line: {0} is the installed dnGrep version number; {1} is the installed dnGrep build date</comment>
+  </data>
+  <data name="Options_BrowseFileLocation" xml:space="preserve">
+    <value>…</value>
+    <comment>Options dialog, browse for file button label</comment>
+  </data>
+  <data name="Main_OpenFolder" xml:space="preserve">
+    <value>…</value>
+    <comment>Main window, open folder button label (accel)</comment>
   </data>
 </root>
