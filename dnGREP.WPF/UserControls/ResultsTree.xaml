@@ -30,8 +30,8 @@
                                   SelectedItems="{Binding SelectedNodes}"
                                   MultiSelectRootLevelOnly="False" 
                                   VirtualizingStackPanel.IsVirtualizing="True"
-                                  MouseDoubleClick="treeView_MouseDoubleClick" 
-                                  PreviewKeyDown="treeKeyDown"
+                                  MouseDoubleClick="TreeView_MouseDoubleClick" 
+                                  PreviewKeyDown="TreeKeyDown"
                                   Grid.IsSharedSizeScope="True"
                                   ScrollViewer.HorizontalScrollBarVisibility="{Binding Path=WrapText, Converter={StaticResource BoolToScollBarVisibilityConverter}}">
         <TreeView.ItemsPanel>
