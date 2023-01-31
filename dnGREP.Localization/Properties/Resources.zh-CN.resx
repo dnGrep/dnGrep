@@ -3454,4 +3454,16 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>重置</value>
     <comment>Options dialog, plug-ins extensions button label (accel)</comment>
   </data>
+  <data name="Main_StatusTooltip_MatchCountOnLine" xml:space="preserve">
+    <value>匹配行上的计数</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
+  <data name="Main_StatusTooltip_MatchNumberMatchCountOverall" xml:space="preserve">
+    <value>匹配总共的数字/匹配计数</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
+  <data name="Main_StatusTooltip_MatchNumberMatchCountInFile" xml:space="preserve">
+    <value>匹配文件中的数字/匹配计数</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
 </root>
