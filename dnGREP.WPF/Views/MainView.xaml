@@ -315,9 +315,10 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="{Binding PatternColumnWidth, Converter={StaticResource GridLengthConverter}}" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Row="0" Grid.Column="0" Margin="3,8"
-                                   Text="{Binding SearchTextBoxLabel, FallbackValue='Folder:'}"
-                                   Style="{StaticResource LabelTextBlockStyle}" />
+                        <Label Grid.Row="0" Grid.Column="0" Margin="3,8"
+                               Content="{Binding SearchTextBoxLabel, FallbackValue='Folder:'}"
+                               Style="{StaticResource ThemedLabel}" 
+                               Target="{Binding ElementName=SearchText}"/>
                         <ComboBox x:Name="SearchText" Grid.Row="0" Grid.Column="1"
                                   Margin="3,4" Padding="3" TabIndex="10"
                                   Text="{Binding FileOrFolderPath}"
@@ -508,8 +509,8 @@
                                                         </Binding>
                                                     </TextBox.Text>
                                                 </TextBox>
-                                                <TextBlock Margin="3,0,3,3" Text="{l:Loc Key='Main_SizeTo'}"
-                                                           Style="{StaticResource LabelTextBlockStyle}" />
+                                                <Label Margin="3,0,3,3" Content="{l:Loc Key='Main_SizeTo'}"
+                                                       Style="{StaticResource ThemedLabel}" />
                                                 <TextBox Name="tbFileSizeTo"
                                                          Margin="3,0,3,3"
                                                          IsEnabled="{Binding Path=IsSizeFilterSet}"
@@ -530,8 +531,8 @@
                                                         </Binding>
                                                     </TextBox.Text>
                                                 </TextBox>
-                                                <TextBlock Margin="3,0,3,3" Text="{l:Loc Key='Main_SizeKB'}"
-                                                           Style="{StaticResource LabelTextBlockStyle}" />
+                                                <Label Margin="3,0,3,3" Content="{l:Loc Key='Main_SizeKB'}"
+                                                       Style="{StaticResource ThemedLabel}" />
                                             </StackPanel>
                                             <CheckBox Name="cbIncludeSubfolders" Margin="3,0,3,3"
                                                       IsChecked="{Binding Path=IncludeSubfolder}"
@@ -615,10 +616,10 @@
                                                             DisplayDateStart="{Binding MinStartDate}"
                                                             SelectedDate="{Binding StartDate}"
                                                             IsEnabled="{Binding IsDatesRangeSet}" />
-                                                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="3,0,6,6"
+                                                    <Label Grid.Row="1" Grid.Column="0" Margin="3,0,6,6"
                                                            HorizontalAlignment="Right"
-                                                           Text="{l:Loc Key='Main_DateTo'}"
-                                                           Style="{StaticResource LabelTextBlockStyle}" />
+                                                           Content="{l:Loc Key='Main_DateTo'}"
+                                                           Style="{StaticResource ThemedLabel}" />
                                                 <DatePicker x:Name="dpTo" Grid.Row="1" Grid.Column="1"
                                                             Margin="3,0,3,2" TabIndex="35"
                                                             ToolTip="{l:Loc Key='Main_ThroughTheEndOfTheDay'}"
@@ -649,8 +650,8 @@
                                                     </TextBox.Width>
                                                 </TextBox>
 
-                                                <TextBlock Margin="3,0,3,3" Text="{l:Loc Key='Main_PastDateTo'}"
-                                                           Style="{StaticResource LabelTextBlockStyle}" />
+                                                <Label Margin="3,0,3,3" Content="{l:Loc Key='Main_PastDateTo'}"
+                                                       Style="{StaticResource ThemedLabel}" />
                                                 <TextBox Margin="3,0,3,3"
                                                          HorizontalAlignment="Center"
                                                          IsEnabled="{Binding IsHoursRangeSet}"
@@ -671,8 +672,8 @@
                                                         </Binding>
                                                     </TextBox.Text>
                                                 </TextBox>
-                                                <TextBlock Margin="3,0,3,3" Text="{l:Loc Key='Main_DatePastHours'}"
-                                                           Style="{StaticResource LabelTextBlockStyle}" />
+                                                <Label Margin="3,0,3,3" Content="{l:Loc Key='Main_DatePastHours'}"
+                                                       Style="{StaticResource ThemedLabel}" />
                                             </StackPanel>
                                         </StackPanel>
                                     </WrapPanel>
