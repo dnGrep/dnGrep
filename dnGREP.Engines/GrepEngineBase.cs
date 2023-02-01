@@ -132,10 +132,8 @@ namespace dnGREP.Engines
         {
             if (isWholeWord)
             {
-                if (!searchPattern.Trim().StartsWith("\\b"))
-                    searchPattern = "\\b" + searchPattern.Trim();
-                if (!searchPattern.Trim().EndsWith("\\b"))
-                    searchPattern = searchPattern.Trim() + "\\b";
+                // Issue #813
+                searchPattern = $@"(?<=\W|\b|^)({searchPattern})(?=\W|\b|$)";
             }
 
             // Issue #210 .net regex will only match the $ end of line token with a \n, not \r\n or \r

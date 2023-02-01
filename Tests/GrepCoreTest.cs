@@ -593,6 +593,74 @@ namespace Tests
             Assert.Single(results[0].SearchResults);
         }
 
+        [Theory]
+        [InlineData(@"b\w+k", "book shop", 1, 1, 4)]
+        [InlineData(@"b\w+k", "bank shop", 1, 1, 4)]
+        [InlineData(@"b\w+k", " book shop", 1, 1, 4)]
+        [InlineData(@"b\w+k", "the book shop", 1, 1, 4)]
+        [InlineData(@"b\w+k", "cook book", 1, 1, 4)]
+        [InlineData(@"b\w+k", "cook b00k", 1, 1, 4)]
+        [InlineData(@"b\w+k", "\tbook shop", 1, 1, 4)]
+        [InlineData(@"b\w+k", "\tbook\tshop", 1, 1, 4)]
+        [InlineData(@"b\w+k", " bookmark shop", 1, 1, 8)]
+        [InlineData(@"b\w+k", " cookbook shop", 0, 0, 0)]
+        [InlineData(@"b\w+k", "cookbook shop", 0, 0, 0)]
+        [InlineData(@"b\w+k", "1cookbook shop", 0, 0, 0)]
+        [InlineData(@"book", "abc1book shop", 0, 0, 0)]
+        [InlineData(@"book", "abc#book shop", 1, 1, 4)]
+        [InlineData(@"book shop", "the book shop store", 1, 1, 9)]
+        [InlineData(@"b.*\ss.*p", "the book shop store", 1, 1, 9)]
+        [InlineData(@"\bb\w+k", "book shop", 1, 1, 4)]
+        [InlineData(@"\bb\w+k\ss\w+\b", "the book shop", 1, 1, 9)]
+        [InlineData(@"b\w+k", "\r\nbook shop", 1, 1, 4)]
+        [InlineData(@"b\w+k", "book\r\nshop", 1, 1, 4)]
+        [InlineData(@"b\w+k", "\r\nbook\r\nshop", 1, 1, 4)]
+        [InlineData(@"book ", "book shop", 1, 1, 5)]
+        [InlineData(@"book ", "the book shop", 1, 1, 5)]
+        [InlineData(@" book", "book shop", 0, 0, 0)]
+        [InlineData(@" book", "the book shop", 1, 1, 5)]
+        [InlineData(@" book ", "the book shop", 1, 1, 6)]
+        [InlineData(@"shop\p{P}", "the book shop, the book shop. the book shop? the book shop", 1, 3, 5)]
+        [InlineData(@"shop\p{P}", "the book shop.", 1, 1, 5)]
+        [InlineData(@"shop\p{P}", "the book shop.a", 1, 1, 5)]
+        [InlineData(@"shop\p{P}", "the book \"shop\"", 1, 1, 5)]
+        [InlineData(@"shop\p{P}", "the book \"shop\"a", 1, 1, 5)]
+        [InlineData(@"%temp%", "write to the %temp% directory", 1, 1, 6)]
+        [InlineData(@"i\w+e", " include ", 1, 1, 7)]
+        [InlineData(@"i\w+e", " included", 0, 0, 0)]
+        [InlineData(@"#include", "#include", 1, 1, 8)]
+        [InlineData(@"#include", "abc#include", 1, 1, 8)]// I think this should fail, but does not
+        [InlineData(@"#include", "#include#", 1, 1, 8)]
+        [InlineData(@"#include", "#include \"header.h\"", 1, 1, 8)]
+        [InlineData(@"#include", "\\\\s*#include\\\\s*", 1, 1, 8)]
+        [InlineData(@"#include", "pragma message(\"#include \" __FILE__)", 1, 1, 8)]
+        [InlineData(@"#\w+", "#include", 1, 1, 8)]
+        [InlineData(@"#\w+", "#include#", 1, 1, 8)]
+        [InlineData(@"#\w+", "#include \"header.h\"", 1, 1, 8)]
+        [InlineData(@"#\w+", "\\\\s*#include\\\\s*", 1, 1, 8)]
+        [InlineData(@"#\w+", "pragma message(\"#include \" __FILE__)", 1, 1, 8)]
+        [InlineData(@"#\w+e", "#include's", 1, 1, 8)]
+        [InlineData(@"#\w+e", "#includes", 0, 0, 0)]
+        [InlineData(@"red|green|blue", "DarkRed Red GreenYellow LightGreen Green SpringGreen RoyalBlue", 1, 2, 3)]
+        public void TestRegexWholeWord(string pattern, string text, int expectedResultCount, int expectedMatchCount, int expectedMatchLength)
+        {
+            // Issue #813
+            GrepEnginePlainText engine = new GrepEnginePlainText();
+            var encoding = new UTF8Encoding();
+            using (Stream inputStream = new MemoryStream(encoding.GetBytes(text)))
+            {
+                var results = engine.Search(inputStream, "test.txt", pattern, SearchType.Regex, GrepSearchOption.WholeWord, encoding);
+           
+                Assert.Equal(expectedResultCount, results.Count);
+
+                if (expectedResultCount > 0)
+                {
+                    Assert.Equal(expectedMatchCount, results[0].Matches.Count);
+                    Assert.Equal(expectedMatchLength, results[0].Matches[0].Length);
+                }
+            }
+        }
+
         [Fact]
         public void TestReplaceSpecialChars()
         {
