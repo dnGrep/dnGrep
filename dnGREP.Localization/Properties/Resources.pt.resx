@@ -1606,7 +1606,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, results options context lines label</comment>
   </data>
   <data name="Main_EverythingSearch" xml:space="preserve">
-    <value>Rótulo do campo de pesquisa se o padrão Ficheiro “Everything” estiver selecionado. “Everything” é uma aplicação (consulte https://www.voidtools.com/) Visível apenas se a aplicação estiver instalada no computador do utilizador.</value>
+    <value>Everything procurar:</value>
     <comment>Main window, folder input caption when Everything search is enabled (accel)</comment>
   </data>
   <data name="Main_ExcelSheetName" xml:space="preserve">
