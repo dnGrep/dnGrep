@@ -2597,4 +2597,56 @@ dnGrep /f "C:\Program Files\dnGrep" /pm *.txt;*.xml /s t\w*t /st Regex</value>
     <value>Peatu peale esimest vastet</value>
     <comment>Report search options summary</comment>
   </data>
+  <data name="Options_ContextBeforeAnd" xml:space="preserve">
+    <value>rida enne ja</value>
+    <comment>Options dialog, results options context label</comment>
+  </data>
+  <data name="Test_CaseSensitive" xml:space="preserve">
+    <value>Tõstutundlik</value>
+    <comment>Test window, search options checkbox label (accel)</comment>
+  </data>
+  <data name="Options_ArchiveReset" xml:space="preserve">
+    <value>Lähtesta</value>
+    <comment>Options dialog, Archive extensions button label (accel)</comment>
+  </data>
+  <data name="Replace_WrapText" xml:space="preserve">
+    <value>Murra ridu</value>
+    <comment>Replace window, results options checkbox label (accel)</comment>
+  </data>
+  <data name="ScriptHint_set_showcontextlines" xml:space="preserve">
+    <value>Kuva kontekstiridasid</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_wraptext" xml:space="preserve">
+    <value>Murra ridu</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_capturegroupsearch" xml:space="preserve">
+    <value>Grupihõive otsing</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Options_ArchiveExtensions" xml:space="preserve">
+    <value>Laiendused:</value>
+    <comment>Options dialog, archive options label</comment>
+  </data>
+  <data name="Options_ContextAfter" xml:space="preserve">
+    <value>rida pärast</value>
+    <comment>Options dialog, results options context label</comment>
+  </data>
+  <data name="Replace_Zoom" xml:space="preserve">
+    <value>Zuum:</value>
+    <comment>Replace window, results options zoom slider label</comment>
+  </data>
+  <data name="ScriptHint_set_dotasnewline" xml:space="preserve">
+    <value>Punkt kui reavahetus</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="ScriptHint_set_stopafterfirstmatch" xml:space="preserve">
+    <value>Peatu peale esimest vastet</value>
+    <comment>Script editor command/target tooltip</comment>
+  </data>
+  <data name="Replace_SyntaxNone" xml:space="preserve">
+    <value>Ükski</value>
+    <comment>Replace window, syntax coloring option for no syntax coloring</comment>
+  </data>
 </root>
