@@ -1665,7 +1665,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Everything search:.
+        ///   Looks up a localized string similar to Ever_ything search:.
         /// </summary>
         public static string Main_EverythingSearch {
             get {
@@ -1773,7 +1773,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Folder:.
+        ///   Looks up a localized string similar to F_older:.
         /// </summary>
         public static string Main_Folder {
             get {
