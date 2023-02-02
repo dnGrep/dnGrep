@@ -792,7 +792,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_Folder" xml:space="preserve">
-    <value>Папка:</value>
+    <value>Па_пка:</value>
     <comment>Main window, folder input caption (accel)</comment>
   </data>
   <data name="Main_FollowSymbolicLinks" xml:space="preserve">
@@ -2966,5 +2966,53 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
   <data name="Options_PluginReset" xml:space="preserve">
     <value>Нулиране</value>
     <comment>Options dialog, plug-ins extensions button label (accel)</comment>
+  </data>
+  <data name="Script_Editor_Suggest" xml:space="preserve">
+    <value>Подсказване</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Title" xml:space="preserve">
+    <value>Редактор на скриптове</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Script_Editor_Tools" xml:space="preserve">
+    <value>_Инструменти</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Main_StatusTooltip_MatchCountOnLine" xml:space="preserve">
+    <value>Брой съвпадения на реда</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
+  <data name="Main_StatusTooltip_MatchNumberMatchCountInFile" xml:space="preserve">
+    <value>Номер на съвпадението/брой на съвпаденията във файла</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
+  <data name="Main_StatusTooltip_MatchNumberMatchCountOverall" xml:space="preserve">
+    <value>Номер на съвпадението/общ брой съвпадения</value>
+    <comment>Main window, status bar tooltip</comment>
+  </data>
+  <data name="Options_DeletePermanently" xml:space="preserve">
+    <value>се премахват директно</value>
+    <comment>Options dialog, delete option label (accel)</comment>
+  </data>
+  <data name="Options_DeleteFiles" xml:space="preserve">
+    <value>Премахване на файлове</value>
+    <comment>Options dialog, delete files group header label</comment>
+  </data>
+  <data name="Script_Editor_Validate" xml:space="preserve">
+    <value>Про_веряване</value>
+    <comment>Script editor menu item (accel)</comment>
+  </data>
+  <data name="Main_Results_ShowExplorerMenu" xml:space="preserve">
+    <value>Показване на менюто на Explorer</value>
+    <comment>Main window, results list, context menu item label</comment>
+  </data>
+  <data name="Options_WhenDeletingFiles" xml:space="preserve">
+    <value>При премахване на файлове</value>
+    <comment>Options dialog, delete option label</comment>
+  </data>
+  <data name="Options_SendToRecycleBin" xml:space="preserve">
+    <value>се изпращат в кошчето за отпадъци</value>
+    <comment>Options dialog, delete option label (accel)</comment>
   </data>
 </root>
