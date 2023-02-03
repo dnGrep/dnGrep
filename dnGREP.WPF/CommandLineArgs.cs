@@ -7,6 +7,7 @@ using System.Security.AccessControl;
 using System.Text;
 using System.Text.RegularExpressions;
 using dnGREP.Common;
+using dnGREP.Common.UI;
 using dnGREP.Localization;
 using Resources = dnGREP.Localization.Properties.Resources;
 
@@ -110,7 +111,7 @@ namespace dnGREP.WPF
                             case "-folder":
                                 if (!string.IsNullOrWhiteSpace(value))
                                 {
-                                    SearchPath = Utils.QuoteIfNeeded(value);
+                                    SearchPath = UiUtils.QuoteIfNeeded(value);
                                     idx++;
                                 }
                                 else

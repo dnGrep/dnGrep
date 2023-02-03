@@ -934,10 +934,10 @@ namespace dnGREP.WPF
                 if (!string.IsNullOrEmpty(paths))
                     paths += separator;
 
-                var part = Utils.QuoteIfNeeded(path);
+                var part = UiUtils.QuoteIfNeeded(path);
                 if (everythingSearch)
                 {
-                    part = Utils.QuoteIfIncludesSpaces(part);
+                    part = UiUtils.QuoteIfIncludesSpaces(part);
                 }
                 paths += part;
             }
@@ -1844,7 +1844,7 @@ namespace dnGREP.WPF
         {
             if (!string.IsNullOrWhiteSpace(FilePattern))
             {
-                foreach (string pattern in Utils.SplitPattern(FilePattern))
+                foreach (string pattern in UiUtils.SplitPattern(FilePattern))
                 {
                     string msg = GetValidateRegexMsg(pattern);
                     if (!string.IsNullOrWhiteSpace(msg))
@@ -1868,7 +1868,7 @@ namespace dnGREP.WPF
 
             if (!string.IsNullOrWhiteSpace(FilePatternIgnore))
             {
-                foreach (string pattern in Utils.SplitPattern(FilePatternIgnore))
+                foreach (string pattern in UiUtils.SplitPattern(FilePatternIgnore))
                 {
                     string msg = GetValidateRegexMsg(pattern);
                     if (!string.IsNullOrWhiteSpace(msg))
@@ -2581,8 +2581,8 @@ namespace dnGREP.WPF
                     try
                     {
                         var fileList = SearchResults.GetList();
-                        string destinationFolder = Utils.GetBaseFolder(selectedPath);
-                        bool hasSingleBaseFolder = Utils.HasSingleBaseFolder(PathSearchText.FileOrFolderPath);
+                        string destinationFolder = UiUtils.GetBaseFolder(selectedPath);
+                        bool hasSingleBaseFolder = UiUtils.HasSingleBaseFolder(PathSearchText.FileOrFolderPath);
                         string baseFolder = PathSearchText.BaseFolder;
 
                         if (!Utils.CanCopyFiles(fileList, destinationFolder))
@@ -2672,8 +2672,8 @@ namespace dnGREP.WPF
                     try
                     {
                         var fileList = SearchResults.GetList();
-                        string destinationFolder = Utils.GetBaseFolder(selectedPath);
-                        bool hasSingleBaseFolder = Utils.HasSingleBaseFolder(PathSearchText.FileOrFolderPath);
+                        string destinationFolder = UiUtils.GetBaseFolder(selectedPath);
+                        bool hasSingleBaseFolder = UiUtils.HasSingleBaseFolder(PathSearchText.FileOrFolderPath);
                         string baseFolder = PathSearchText.BaseFolder;
 
                         if (!Utils.CanCopyFiles(fileList, destinationFolder))

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using dnGREP.Common;
+using dnGREP.Common.UI;
 using dnGREP.WPF;
 using Xunit;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
@@ -211,11 +212,11 @@ namespace Tests
             string path = string.Format(relativePath, sourceFolder);
 
             if (expected == null)
-                Assert.Null(Utils.GetBaseFolder(path));
+                Assert.Null(UiUtils.GetBaseFolder(path));
             else
             {
                 string result = string.Format(expected, sourceFolder);
-                Assert.Equal(result, Utils.GetBaseFolder(path));
+                Assert.Equal(result, UiUtils.GetBaseFolder(path));
             }
         }
 
@@ -231,7 +232,7 @@ namespace Tests
             string path = string.Format(relativePath, sourceFolder);
             string result = string.Format(expected, sourceFolder);
 
-            Assert.Equal(result, Utils.GetBaseFolder(path));
+            Assert.Equal(result, UiUtils.GetBaseFolder(path));
         }
 
         [Theory]
@@ -249,7 +250,7 @@ namespace Tests
         public void TestHasSingleBaseFolder(string relativePath, bool expected)
         {
             string path = string.Format(relativePath, sourceFolder);
-            Assert.Equal(expected, Utils.HasSingleBaseFolder(path));
+            Assert.Equal(expected, UiUtils.HasSingleBaseFolder(path));
         }
 
         [Theory]
@@ -1324,7 +1325,7 @@ namespace Tests
             if (source != null && source.Contains("{0}"))
                 source = string.Format(source, sourceFolder);
 
-            string[] result = Utils.SplitPath(source, false);
+            string[] result = UiUtils.SplitPath(source, false);
             Assert.NotNull(result);
             Assert.Equal(expected, result.Length);
         }
@@ -1342,7 +1343,7 @@ namespace Tests
         {
             path = string.Format(path, sourceFolder);
 
-            string[] result = Utils.SplitPath(path, false);
+            string[] result = UiUtils.SplitPath(path, false);
             Assert.NotNull(result);
             Assert.Equal(expected, result.Length);
         }
@@ -1351,7 +1352,7 @@ namespace Tests
         [Fact]
         public void TestGetPathsContent()
         {
-            string[] result = Utils.SplitPath(sourceFolder + "\\TestCase7\\Test;Folder\\;" + sourceFolder + "\\TestXXXX;" + sourceFolder + "\\TestCase7\\Test;Fo;lder\\;" + sourceFolder + "\\TestCase7\\Test,Folder\\;", false);
+            string[] result = UiUtils.SplitPath(sourceFolder + "\\TestCase7\\Test;Folder\\;" + sourceFolder + "\\TestXXXX;" + sourceFolder + "\\TestCase7\\Test;Fo;lder\\;" + sourceFolder + "\\TestCase7\\Test,Folder\\;", false);
             Assert.Equal(sourceFolder + "\\TestCase7\\Test;Folder\\", result[0]);
             Assert.Equal(sourceFolder + "\\TestXXXX", result[1]);
             Assert.Equal(sourceFolder + "\\TestCase7\\Test;Fo;lder\\", result[2]);
@@ -1378,7 +1379,7 @@ namespace Tests
         {
             string input = string.Format(path, sourceFolder);
             string expected = string.Format(result, sourceFolder);
-            string cleaned = string.Join(";", Utils.SplitPath(input, true));
+            string cleaned = string.Join(";", UiUtils.SplitPath(input, true));
             Assert.Equal(expected, cleaned);
         }
 
@@ -1394,7 +1395,7 @@ namespace Tests
         [InlineData(".git\\*;*.resx;;;*.aip;;bin\\*;packages\\*;", 5)]
         public void TestSplitPattern(string pattern, int expected)
         {
-            Assert.Equal(expected, Utils.SplitPattern(pattern).Length);
+            Assert.Equal(expected, UiUtils.SplitPattern(pattern).Length);
         }
 
         [Fact]

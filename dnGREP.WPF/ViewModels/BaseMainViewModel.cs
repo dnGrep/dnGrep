@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Xml;
 using System.Xml.XPath;
 using dnGREP.Common;
+using dnGREP.Common.UI;
 using dnGREP.Everything;
 using dnGREP.Localization;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
@@ -137,14 +138,14 @@ namespace dnGREP.WPF
                     {
                         try
                         {
-                            var parts = Utils.SplitPath(path, true).Select(p => Utils.QuoteIfIncludesSpaces(p));
+                            var parts = UiUtils.SplitPath(path, true).Select(p => UiUtils.QuoteIfIncludesSpaces(p));
                             path = string.Join(" | ", parts);
                         }
                         catch { }
                     }
                     else
                     {
-                        path = Utils.QuoteIfIncludesSpaces(path);
+                        path = UiUtils.QuoteIfIncludesSpaces(path);
                     }
                 }
 
@@ -511,7 +512,7 @@ namespace dnGREP.WPF
                 if (typeOfFileSearch == FileSearchType.Everything)
                 {
                     // changing from Everything, clean the search path
-                    FileOrFolderPath = Utils.CleanPath(FileOrFolderPath);
+                    FileOrFolderPath = UiUtils.CleanPath(FileOrFolderPath);
                 }
 
                 typeOfFileSearch = value;
