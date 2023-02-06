@@ -744,7 +744,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, pattern type option Everything tooltip</comment>
   </data>
   <data name="Main_EverythingSearch" xml:space="preserve">
-    <value>Everything 搜索:</value>
+    <value>Everything 搜索(_Y):</value>
     <comment>Main window, folder input caption when Everything search is enabled (accel)</comment>
   </data>
   <data name="Main_ExcelSheetName" xml:space="preserve">
@@ -792,7 +792,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Main window, file filters summary</comment>
   </data>
   <data name="Main_Folder" xml:space="preserve">
-    <value>文件夹:</value>
+    <value>文件夹(_O):</value>
     <comment>Main window, folder input caption (accel)</comment>
   </data>
   <data name="Main_FollowSymbolicLinks" xml:space="preserve">
