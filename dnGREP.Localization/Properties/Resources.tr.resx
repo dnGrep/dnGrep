@@ -458,4 +458,12 @@
     <value>Sıfırla</value>
     <comment>Options dialog, plug-ins extensions button label (accel)</comment>
   </data>
+  <data name="MessageBox_Cancel" xml:space="preserve">
+    <value>İptal</value>
+    <comment>Message box button text</comment>
+  </data>
+  <data name="MessageBox_OK" xml:space="preserve">
+    <value>Tamam</value>
+    <comment>Message box button text</comment>
+  </data>
 </root>
