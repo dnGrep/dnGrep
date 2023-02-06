@@ -3015,4 +3015,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>се изпращат в кошчето за отпадъци</value>
     <comment>Options dialog, delete option label (accel)</comment>
   </data>
+  <data name="MessageBox_OK" xml:space="preserve">
+    <value>Добре</value>
+    <comment>Message box button text</comment>
+  </data>
+  <data name="MessageBox_Cancel" xml:space="preserve">
+    <value>Отказ</value>
+    <comment>Message box button text</comment>
+  </data>
 </root>
