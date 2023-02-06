@@ -2594,4 +2594,12 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <value>איפוס</value>
     <comment>Options dialog, plug-ins extensions button label (accel)</comment>
   </data>
+  <data name="Options_MoveFiles" xml:space="preserve">
+    <value>העבר קבצים</value>
+    <comment>Options dialog, move files group header label</comment>
+  </data>
+  <data name="Options_CopyFiles" xml:space="preserve">
+    <value>העתקת קבצים</value>
+    <comment>Options dialog, move files group header label</comment>
+  </data>
 </root>
