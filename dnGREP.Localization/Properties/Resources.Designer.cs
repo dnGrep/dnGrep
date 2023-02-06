@@ -4086,7 +4086,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Copy Files.
+        ///   Looks up a localized string similar to Copy files.
         /// </summary>
         public static string Options_CopyFiles {
             get {
@@ -4374,7 +4374,7 @@ namespace dnGREP.Localization.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Move Files.
+        ///   Looks up a localized string similar to Move files.
         /// </summary>
         public static string Options_MoveFiles {
             get {

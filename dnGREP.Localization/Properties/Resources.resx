@@ -1948,7 +1948,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, results options context label</comment>
   </data>
   <data name="Options_CopyFiles" xml:space="preserve">
-    <value>Copy Files</value>
+    <value>Copy files</value>
     <comment>Options dialog, move files group header label</comment>
   </data>
   <data name="Options_CustomEditor" xml:space="preserve">
@@ -2076,7 +2076,7 @@ dnGrep "C:\Program Files\dnGrep" t\w*t</value>
     <comment>Options dialog, layout option checkbox label (accel)</comment>
   </data>
   <data name="Options_MoveFiles" xml:space="preserve">
-    <value>Move Files</value>
+    <value>Move files</value>
     <comment>Options dialog, move files group header label</comment>
   </data>
   <data name="Options_No" xml:space="preserve">
